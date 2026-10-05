@@ -1,5 +1,8 @@
 # HED-FLORAL-03 — Magnolia–Peony Satin — Final Design — 30 mL — v2
 
+**Status:** QUARANTINED — historical analysis only; do not mix or release.
+**Artifact review (2026-10-05):** The stored analysis no longer matches the current inventory, scientific inputs or implementation. Formula quantities and prior analysis are retained; no fresh calculation, sensory validation or safety/release approval is claimed. See the [review receipt](../docs/verification/FORMULA_ARTIFACT_REVIEW_20261005.json).
+
 **Date:** 2026-09-02  
 **Immediate parent:** `formulas/HED-FLORAL-03_Magnolia_Peony_Satin_30mL_20pct_EdP_v1.md`  
 **Claim mode:** unclaimed  

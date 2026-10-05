@@ -1,0 +1,120 @@
+{
+  "schema_version": "sol61-formula-collection-verification-v1",
+  "date": "2026-10-03",
+  "status": "FOCUSED_ARTIFACT_CHECKS_PASS",
+  "method": "Independent Python Decimal reconstruction and SHA-256/ZIP checks; not an empirical evaluation",
+  "checks": [
+    {
+      "id": "THREE_LEAD_TARGET_SUMS",
+      "status": "PASS",
+      "expected": "100.000000% and 6.000000 g product each",
+      "lead_rows": [
+        27,
+        36,
+        22
+      ]
+    },
+    {
+      "id": "FIFTEEN_CANDIDATE_TARGETS",
+      "status": "PASS",
+      "expected": "Five specified designs per remake, each exactly 100%; three literal-fit paths withheld"
+    },
+    {
+      "id": "ROW_STOCK_RECONSTRUCTION",
+      "status": "PASS",
+      "expected": "product_mass / required_w_w_fraction; added carrier = stock minus product"
+    },
+    {
+      "id": "LEAD_MEASURABLE_STOCK_FLOOR",
+      "status": "PASS",
+      "expected": "Every displayed 6 g benchmark lead stock charge >= 0.010 g"
+    },
+    {
+      "id": "FINAL_MASS_AND_SMALL_SAMPLE",
+      "status": "PASS",
+      "stock_totals_g": [
+        "12.057000",
+        "9.542400",
+        "7.068000"
+      ],
+      "ethanol_to_30g": [
+        "17.943000",
+        "20.457600",
+        "22.932000"
+      ],
+      "small_master_aliquot_g": [
+        "2.009500",
+        "1.590400",
+        "1.178000"
+      ]
+    },
+    {
+      "id": "LAVENDER_BLOCK",
+      "status": "PASS",
+      "expected": "23.8:10.2 equals 70:30 by product mass"
+    },
+    {
+      "id": "SOLID_AMBROX",
+      "status": "PASS",
+      "white_mg": "120",
+      "lavender_mg": "300",
+      "crystal_uL": null
+    },
+    {
+      "id": "AMBRETTOLIDE_ALTERNATIVE",
+      "status": "PASS",
+      "default_neat_g": "0.120",
+      "alternate_10_percent_ww_stock_g": "1.200",
+      "extra_DPG_g": "1.080",
+      "alternate_total_stock_g": "10.6224",
+      "alternate_ethanol_to_30g": "19.3776"
+    },
+    {
+      "id": "SOURCE_HASHES",
+      "status": "PASS",
+      "files": 21,
+      "scope": "Twelve original Sol61 source files, six new source artifacts and three older parents; original opening hashes preserved"
+    },
+    {
+      "id": "INVENTORY_HASH",
+      "status": "PASS",
+      "sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb"
+    },
+    {
+      "id": "MODEL_AUTHORITY_GROUPING",
+      "status": "PASS",
+      "campaigns": 7,
+      "new_remakes": 3,
+      "reference_parents_not_sol61": 3
+    },
+    {
+      "id": "JSON_WHITESPACE_CONFLICT_MARKERS",
+      "status": "PASS",
+      "scope": "New formula files, collection README/manifest; independent focused check includes untracked additions"
+    },
+    {
+      "id": "GIT_DIFF_CHECK",
+      "status": "PASS_WITH_SCOPE_NOTE",
+      "details": "Repository-wide exit code 0, with permission warnings on pre-existing verification artifacts. Scoped command exit 0; new untracked files checked independently."
+    }
+  ],
+  "not_performed": [
+    "Physical compounding",
+    "Blinded sensory evaluation",
+    "Headspace/instrumental measurements",
+    "Complete IFRA/allergen/safety assessment",
+    "Stability and packaging compatibility",
+    "Legacy pre-mix or headspace gate",
+    "Full program verifier",
+    "Optimizer training or empirical promotion"
+  ],
+  "conditional_stock_dependencies": "Exact required stock labels/bases and actual homogeneity must match recipes; calculation is not proof that a prepared stock physically exists.",
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "archive_acceptance": "ZIP creation must verify every source/auxiliary entry byte-for-byte against current files before handoff; archive is not a release."
+}
+

@@ -1,0 +1,247 @@
+{
+  "schema_version": "request-interpretation-gold-v1",
+  "reviewed_on": "2026-09-28",
+  "scope": "Deterministic personal perfume change requests; no action authority",
+  "cases": [
+    {
+      "case_id": "current-bottle-goal-constraints-time",
+      "input": {
+        "original_request": "Make lavender clearer in the current bottle at 30 minutes; preserve dry amber and avoid sweetness.",
+        "known_materials": ["lavender", "Ambrox"],
+        "known_references": []
+      },
+      "expected": {
+        "status": "REQUEST_INTERPRETATION_READY",
+        "execution_strategy": "EVOLVING_BOTTLE",
+        "appeal_mode": "IDENTITY_FIRST",
+        "direction": "INCREASE",
+        "materials": ["lavender"],
+        "quantities": [],
+        "must_preserve": ["dry amber"],
+        "must_avoid": ["sweetness"],
+        "window_labels": ["THIRTY_MINUTES"],
+        "named_references": []
+      }
+    },
+    {
+      "case_id": "new-formula-decrease-drydown",
+      "input": {
+        "original_request": "Create a fresh formula with less sweetness in the drydown.",
+        "known_materials": [],
+        "known_references": []
+      },
+      "expected": {
+        "status": "REQUEST_INTERPRETATION_READY",
+        "execution_strategy": "NEW_FORMULA",
+        "appeal_mode": "IDENTITY_FIRST",
+        "direction": "DECREASE",
+        "materials": [],
+        "quantities": [],
+        "must_preserve": [],
+        "must_avoid": [],
+        "window_labels": ["DRYDOWN"],
+        "named_references": []
+      }
+    },
+    {
+      "case_id": "global-reference-opt-in",
+      "input": {
+        "original_request": "Use global crowd-pleasing mode and compare with YSL Libre.",
+        "known_materials": [],
+        "known_references": ["YSL Libre"]
+      },
+      "expected": {
+        "status": "REQUEST_INTERPRETATION_READY",
+        "execution_strategy": "NEW_FORMULA",
+        "appeal_mode": "GLOBAL_CROWD_PLEASING",
+        "direction": "UNSPECIFIED",
+        "materials": [],
+        "quantities": [],
+        "must_preserve": [],
+        "must_avoid": [],
+        "window_labels": [],
+        "named_references": ["YSL Libre"]
+      }
+    },
+    {
+      "case_id": "liquid-quantity-after-material",
+      "input": {
+        "original_request": "Add Hedione 15 UL to this bottle.",
+        "known_materials": ["Hedione"],
+        "known_references": []
+      },
+      "expected": {
+        "status": "REQUEST_INTERPRETATION_READY",
+        "execution_strategy": "EVOLVING_BOTTLE",
+        "appeal_mode": "IDENTITY_FIRST",
+        "direction": "INCREASE",
+        "materials": ["Hedione"],
+        "quantities": [{"amount_decimal": "15", "unit": "uL", "material": "Hedione"}],
+        "must_preserve": [],
+        "must_avoid": [],
+        "window_labels": [],
+        "named_references": []
+      }
+    },
+    {
+      "case_id": "solid-quantity-before-material",
+      "input": {
+        "original_request": "Add 300 mg Ambrox Super Crystals to the existing bottle.",
+        "known_materials": ["Ambrox Super Crystals"],
+        "known_references": []
+      },
+      "expected": {
+        "status": "REQUEST_INTERPRETATION_READY",
+        "execution_strategy": "EVOLVING_BOTTLE",
+        "appeal_mode": "IDENTITY_FIRST",
+        "direction": "INCREASE",
+        "materials": ["Ambrox Super Crystals"],
+        "quantities": [{"amount_decimal": "300", "unit": "mg", "material": "Ambrox Super Crystals"}],
+        "must_preserve": [],
+        "must_avoid": [],
+        "window_labels": [],
+        "named_references": []
+      }
+    },
+    {
+      "case_id": "millilitre-normalization",
+      "input": {
+        "original_request": "Use Hedione 0.2 ML in a new formula.",
+        "known_materials": ["Hedione"],
+        "known_references": []
+      },
+      "expected": {
+        "status": "REQUEST_INTERPRETATION_READY",
+        "execution_strategy": "NEW_FORMULA",
+        "appeal_mode": "IDENTITY_FIRST",
+        "direction": "UNSPECIFIED",
+        "materials": ["Hedione"],
+        "quantities": [{"amount_decimal": "0.2", "unit": "mL", "material": "Hedione"}],
+        "must_preserve": [],
+        "must_avoid": [],
+        "window_labels": [],
+        "named_references": []
+      }
+    },
+    {
+      "case_id": "negated-increase",
+      "input": {
+        "original_request": "Do not increase Ambrox.",
+        "known_materials": ["Ambrox"],
+        "known_references": []
+      },
+      "expected": {
+        "status": "REQUEST_INTERPRETATION_READY",
+        "execution_strategy": "NEW_FORMULA",
+        "appeal_mode": "IDENTITY_FIRST",
+        "direction": "PRESERVE_OR_DECREASE",
+        "materials": ["Ambrox"],
+        "quantities": [],
+        "must_preserve": [],
+        "must_avoid": [],
+        "window_labels": [],
+        "named_references": []
+      }
+    },
+    {
+      "case_id": "negated-decrease",
+      "input": {
+        "original_request": "Do not reduce lavender.",
+        "known_materials": ["lavender"],
+        "known_references": []
+      },
+      "expected": {
+        "status": "REQUEST_INTERPRETATION_READY",
+        "execution_strategy": "NEW_FORMULA",
+        "appeal_mode": "IDENTITY_FIRST",
+        "direction": "PRESERVE_OR_INCREASE",
+        "materials": ["lavender"],
+        "quantities": [],
+        "must_preserve": [],
+        "must_avoid": [],
+        "window_labels": [],
+        "named_references": []
+      }
+    },
+    {
+      "case_id": "two-hour-window",
+      "input": {
+        "original_request": "At 2 hours make lavender brighter.",
+        "known_materials": ["lavender"],
+        "known_references": []
+      },
+      "expected": {
+        "status": "REQUEST_INTERPRETATION_READY",
+        "execution_strategy": "NEW_FORMULA",
+        "appeal_mode": "IDENTITY_FIRST",
+        "direction": "INCREASE",
+        "materials": ["lavender"],
+        "quantities": [],
+        "must_preserve": [],
+        "must_avoid": [],
+        "window_labels": ["TWO_HOURS"],
+        "named_references": []
+      }
+    },
+    {
+      "case_id": "preserve-avoid-conflict",
+      "input": {
+        "original_request": "Preserve lavender and avoid lavender.",
+        "known_materials": ["lavender"],
+        "known_references": []
+      },
+      "expected": {
+        "status": "WITHHELD_REQUEST_AMBIGUOUS",
+        "execution_strategy": "NEW_FORMULA",
+        "appeal_mode": "IDENTITY_FIRST",
+        "direction": "UNSPECIFIED",
+        "materials": ["lavender"],
+        "quantities": [],
+        "must_preserve": ["lavender"],
+        "must_avoid": ["lavender"],
+        "window_labels": [],
+        "named_references": []
+      }
+    },
+    {
+      "case_id": "conflicting-execution-strategy",
+      "input": {
+        "original_request": "Modify this current bottle and make a new bottle.",
+        "known_materials": [],
+        "known_references": []
+      },
+      "expected": {
+        "status": "WITHHELD_REQUEST_AMBIGUOUS",
+        "execution_strategy": "EVOLVING_BOTTLE",
+        "appeal_mode": "IDENTITY_FIRST",
+        "direction": "UNSPECIFIED",
+        "materials": [],
+        "quantities": [],
+        "must_preserve": [],
+        "must_avoid": [],
+        "window_labels": [],
+        "named_references": []
+      }
+    },
+    {
+      "case_id": "unbound-quantity",
+      "input": {
+        "original_request": "Add 12 uL to the current bottle.",
+        "known_materials": ["Hedione"],
+        "known_references": []
+      },
+      "expected": {
+        "status": "WITHHELD_REQUEST_AMBIGUOUS",
+        "execution_strategy": "EVOLVING_BOTTLE",
+        "appeal_mode": "IDENTITY_FIRST",
+        "direction": "INCREASE",
+        "materials": [],
+        "quantities": [{"amount_decimal": "12", "unit": "uL", "material": null}],
+        "must_preserve": [],
+        "must_avoid": [],
+        "window_labels": [],
+        "named_references": []
+      }
+    }
+  ]
+}

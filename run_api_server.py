@@ -9,8 +9,6 @@ import subprocess
 import sys
 from pathlib import Path
 
-import uvicorn
-
 
 def main() -> None:
     parser = argparse.ArgumentParser()
@@ -19,9 +17,34 @@ def main() -> None:
         action="store_true",
         help="Run only the API process (the durable worker is enabled by default).",
     )
+    parser.add_argument(
+        "--reload",
+        action="store_true",
+        help=(
+            "Enable Uvicorn source auto-reload for interactive development. "
+            "The normal desktop launcher stays single-process so stopping it "
+            "cannot leave an orphaned listener behind."
+        ),
+    )
     args = parser.parse_args()
     repository_root = Path(__file__).resolve().parent
     backend_dir = repository_root / "backend"
+    # Pin this checkout ahead of any inherited PYTHONPATH entries.  Uvicorn's
+    # reload child must import the same backend that serves the static assets;
+    # otherwise another checkout's ``app`` package can remain in memory.
+    runtime_paths = (str(backend_dir), str(repository_root))
+    for runtime_path in reversed(runtime_paths):
+        if runtime_path in sys.path:
+            sys.path.remove(runtime_path)
+        sys.path.insert(0, runtime_path)
+    os.environ["PYTHONPATH"] = os.pathsep.join(
+        [*runtime_paths, os.environ.get("PYTHONPATH", "")]
+    ).rstrip(os.pathsep)
+
+    # Import Uvicorn only after pinning this checkout.  This also keeps any
+    # import-time discovery performed by Uvicorn on the same application path.
+    import uvicorn
+
     worker: subprocess.Popen | None = None
     if not args.no_engine_worker:
         environment = dict(os.environ)
@@ -46,7 +69,7 @@ def main() -> None:
             "app.main:app",
             host="0.0.0.0",
             port=8000,
-            reload=True,
+            reload=args.reload,
             log_level="info",
             app_dir=str(backend_dir),
         )

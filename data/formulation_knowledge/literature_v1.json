@@ -1,0 +1,1547 @@
+{
+  "schema_version": "formulation-literature-knowledge-v1",
+  "version": "2026-10-05.1",
+  "review_date": "2026-10-05",
+  "authority_scope": "ADVISORY_DESIGN_KNOWLEDGE_ONLY",
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "sources": [
+    {
+      "source_id": "irone_isomers",
+      "title": "Brenna, Fuganti and Serra (2003): irone stereoisomers",
+      "url": "https://comptes-rendus.academie-sciences.fr/chimie/articles/en/10.1016/S1631-0748(03)00087-0/",
+      "doi": "10.1016/S1631-0748(03)00087-0",
+      "local_path": null,
+      "evidence_class": "PRIMARY_RESEARCH",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "beta_ionone_or5a1",
+      "title": "Jaeger et al. (2013): beta-ionone sensitivity",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23910657/",
+      "doi": "10.1016/j.cub.2013.07.030",
+      "local_path": null,
+      "evidence_class": "PRIMARY_RESEARCH",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "violet_emissions",
+      "title": "Keene et al. (2024): temporal Viola odorata emissions",
+      "url": "https://journals.ashs.org/downloadpdf/view/journals/hortsci/59/7/article-p974.pdf",
+      "doi": "10.21273/HORTSCI17847-24",
+      "local_path": null,
+      "evidence_class": "PRIMARY_RESEARCH",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "iff_gamma",
+      "title": "IFF: Meth Ionone Gamma Coeur",
+      "url": "https://www.iff.com/scent/ingredients-compendium/meth-ionone-gamma-coeur/",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "iff_alpha_extra",
+      "title": "IFF: Meth Ionone Alpha Extra",
+      "url": "https://www.iff.com/scent/ingredients-compendium/meth-ionone-alpha-extra/",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "iff_orivone",
+      "title": "IFF: Orivone",
+      "url": "https://www.iff.com/scent/ingredients-compendium/orivone/",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "givaudan_dihydro",
+      "title": "Givaudan: Dihydro Ionone Beta",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/dihydro-ionone-beta",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "biolandes_orris",
+      "title": "Biolandes: orris butter irone assay product sheet",
+      "url": "https://www.biolandes.com/wp-content/uploads/fiche-technique-E2515.pdf",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "helvetolide",
+      "title": "dsm-firmenich: Helvetolide",
+      "url": "https://studio.dsm-firmenich.com/product/helvetolider-pe-947650",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "wakayama_original",
+      "title": "Wakayama et al. (2019): measured perfumery intensity curves",
+      "url": "https://pubs.acs.org/doi/abs/10.1021/acs.iecr.9b01225",
+      "doi": "10.1021/acs.iecr.9b01225",
+      "local_path": null,
+      "evidence_class": "PRIMARY_RESEARCH",
+      "review_state": "PRIOR_LOCAL_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "wakayama_correction",
+      "title": "Wakayama et al. (2020): threshold equation correction",
+      "url": "https://pubs.acs.org/doi/10.1021/acs.iecr.0c05822",
+      "doi": "10.1021/acs.iecr.0c05822",
+      "local_path": null,
+      "evidence_class": "PRIMARY_RESEARCH",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "mixture_intensity",
+      "title": "Pellegrino et al. (2025): concentration and mixture intensity",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12363845/",
+      "doi": "10.1101/2025.08.08.668954",
+      "local_path": null,
+      "evidence_class": "PREPRINT",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "mixture_character",
+      "title": "Pellegrino et al. (2026): Odors Smell Like Their Components",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13371102/",
+      "doi": "10.64898/2026.07.03.736426",
+      "local_path": null,
+      "evidence_class": "PREPRINT",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Source is CC-BY-NC 4.0; no commercial data/model-use permission is inferred."
+    },
+    {
+      "source_id": "apple_aroma",
+      "title": "Fuhrmann and Grosch (2002): apple cultivar aroma",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/12108219/",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "PRIMARY_RESEARCH",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "pear_aroma",
+      "title": "Bartlett pear and pear brandy aroma-active compounds (2016)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27935705/",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "PRIMARY_RESEARCH",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "bierling",
+      "title": "Bierling et al. (2025): 74 monomolecular odors",
+      "url": "https://www.nature.com/articles/s41597-025-04644-2",
+      "doi": "10.1038/s41597-025-04644-2",
+      "local_path": null,
+      "evidence_class": "PRIMARY_RESEARCH",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "almeida_skin",
+      "title": "Almeida et al. (2019): fragrance evaporation and permeation",
+      "url": "https://pubs.acs.org/doi/10.1021/acs.iecr.9b01004",
+      "doi": "10.1021/acs.iecr.9b01004",
+      "local_path": null,
+      "evidence_class": "PRIMARY_RESEARCH",
+      "review_state": "PRIOR_LOCAL_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "almeida_radial",
+      "title": "Almeida et al. (2021): radial diffusion model",
+      "url": "https://aiche.onlinelibrary.wiley.com/doi/10.1002/aic.17351",
+      "doi": "10.1002/aic.17351",
+      "local_path": null,
+      "evidence_class": "PRIMARY_RESEARCH",
+      "review_state": "PRIOR_LOCAL_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "competitive_binding",
+      "title": "Singh et al. (2019): measured receptor competitive binding",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6511041/",
+      "doi": "10.1073/pnas.1813230116",
+      "local_path": null,
+      "evidence_class": "PRIMARY_RESEARCH",
+      "review_state": "PRIOR_LOCAL_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "olfactory_white",
+      "title": "Weiss et al. (2012): olfactory white",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3523876/",
+      "doi": "10.1073/pnas.1208110109",
+      "local_path": null,
+      "evidence_class": "PRIMARY_RESEARCH",
+      "review_state": "PRIOR_LOCAL_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "conservative_optimization",
+      "title": "Trabucco et al. (2021): Conservative Objective Models",
+      "url": "https://proceedings.mlr.press/v139/trabucco21a.html",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "PRIMARY_RESEARCH",
+      "review_state": "PRIOR_LOCAL_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "iso_profile",
+      "title": "ISO 13299: sensory profile scope",
+      "url": "https://www.iso.org/standard/58042.html",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "OFFICIAL_STANDARD_SCOPE",
+      "review_state": "PRIOR_LOCAL_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "iso_hedonic",
+      "title": "ISO 11136: consumer hedonic testing scope",
+      "url": "https://www.iso.org/obp/ui/#iso:std:iso:11136:ed-1:v1:en",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "OFFICIAL_STANDARD_SCOPE",
+      "review_state": "PRIOR_LOCAL_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "chimie_review",
+      "title": "CHIMIE Femme PW2: layered orchard architecture and sourcing review",
+      "url": null,
+      "doi": null,
+      "local_path": "docs/research/chimie_femme_pw2_20261002/README.md",
+      "local_sha256": "75fd9874654d9c286fa83f282351a53ad37cbeeca6348b3e8fdeb7ea049392aa",
+      "evidence_class": "LOCAL_RESEARCH_REVIEW",
+      "review_state": "CURRENT_LOCAL_READ",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "hedonic_review",
+      "title": "Hedonic evidence across perfume families",
+      "url": null,
+      "doi": null,
+      "local_path": "docs/research/HEDONIC_EVIDENCE_ACROSS_PERFUME_FAMILIES_20260909.md",
+      "local_sha256": "610f903a663c5626e5e2f70dd491fc5f70693a7397873ab4260b7dfc53feec6f",
+      "evidence_class": "LOCAL_RESEARCH_REVIEW",
+      "review_state": "CURRENT_LOCAL_READ",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "measured_review",
+      "title": "Measured-data optimizer reopening, including negative results",
+      "url": null,
+      "doi": null,
+      "local_path": "docs/research/OPTIMIZER_MEASURED_DATA_REOPENING_20260909.md",
+      "local_sha256": "cbff940f043284ba2eb395e4c9b78ab956f48efb1d714dca45ae83ce43b50f55",
+      "evidence_class": "LOCAL_RESEARCH_REVIEW",
+      "review_state": "CURRENT_LOCAL_READ",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "integration_review",
+      "title": "Perfume-Chem scientific data integration map",
+      "url": null,
+      "doi": null,
+      "local_path": "docs/research/PERFUME_CHEM_SCIENTIFIC_DATA_INTEGRATION_MAP_2026-08-09.md",
+      "local_sha256": "1cb12b8843d6b28cb46356fe175ec54991b7df4ab6e21269ac04bee469992daf",
+      "evidence_class": "LOCAL_RESEARCH_REVIEW",
+      "review_state": "CURRENT_LOCAL_READ",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "aimi_receipt",
+      "title": "User-confirmed PW Alpha Isomethyl Ionone identity; no Gamma Coeur equivalence",
+      "url": null,
+      "doi": null,
+      "local_path": "data/governance/inventory_user_confirmation_20260930_aimi_identity.json",
+      "local_sha256": "1bc5cd5ae5482343a98cecf90b58070b47cb58f26946246d157ab20d81b7bc5f",
+      "evidence_class": "LOCAL_IDENTITY_RECEIPT",
+      "review_state": "CURRENT_LOCAL_READ",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "market_governance",
+      "title": "Commercial reference registry: market selection versus liking",
+      "url": null,
+      "doi": null,
+      "local_path": "data/governance/commercial_reference_registry_v1.json",
+      "local_sha256": "1d83c920487b69f55c7ca0b439f43beeaac048f5edc6b6d6bfcce00c441510f3",
+      "evidence_class": "LOCAL_RESEARCH_REVIEW",
+      "review_state": "CURRENT_LOCAL_READ",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "viana",
+      "title": "VIANA (2026): synthetic response-curve construction",
+      "url": "https://arxiv.org/html/2604.01365v1",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "PREPRINT",
+      "review_state": "PRIOR_LOCAL_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    },
+    {
+      "source_id": "fair",
+      "title": "Wilkinson et al. (2016): FAIR data principles",
+      "url": "https://www.nature.com/articles/sdata201618",
+      "doi": "10.1038/sdata.2016.18",
+      "local_path": null,
+      "evidence_class": "PRIMARY_RESEARCH",
+      "review_state": "PRIOR_LOCAL_REVIEW",
+      "review_date": "2026-10-05",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; publication access is not model/data-use permission."
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "irone_identity",
+      "statement": "Irone stereoisomers can have different odor properties. Exact isomer and commercial grade must be retained rather than collapsed into one universal iris material.",
+      "source_ids": [
+        "irone_isomers"
+      ],
+      "tags": [
+        "iris",
+        "orris",
+        "irone",
+        "identity"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "iris_extract_identity",
+      "statement": "Orris extract, irone assay, commercial iris base and a prepared irone dilution are distinct products. A percentage in an extract assay does not establish the solvent fraction of a stock.",
+      "source_ids": [
+        "irone_isomers",
+        "biolandes_orris"
+      ],
+      "tags": [
+        "iris",
+        "orris",
+        "butter",
+        "waxy",
+        "identity",
+        "dilution"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "beta_ionone_variability",
+      "statement": "OR5A1 variation affects beta-ionone perception. This supports listener variability, not an OR5AN1 ceiling, a universal maximum dose or invented receptor-orthogonal pairing.",
+      "source_ids": [
+        "beta_ionone_or5a1"
+      ],
+      "tags": [
+        "iris",
+        "violet",
+        "ionone",
+        "receptor",
+        "saturation"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "violet_temporal",
+      "statement": "Viola odorata emissions depend on cultivar and flower development and vary with time. A botanical headspace profile is not a perfume recipe.",
+      "source_ids": [
+        "violet_emissions"
+      ],
+      "tags": [
+        "violet",
+        "petals",
+        "flower",
+        "temporal"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "violet_leaf_distinction",
+      "statement": "Violet flower reconstruction and violet-leaf texture are separate formulation roles. Requesting petals does not authorize a green-leaf replacement.",
+      "source_ids": [
+        "violet_emissions"
+      ],
+      "tags": [
+        "violet",
+        "leaf",
+        "petals"
+      ],
+      "kind": "FORMULATION_HYPOTHESIS",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "gamma_grade",
+      "statement": "IFF describes Gamma Coeur with woody, tobacco, orris/violet and powder facets. That supplier grade is not established by another methyl-ionone product sharing a CAS.",
+      "source_ids": [
+        "iff_gamma",
+        "aimi_receipt"
+      ],
+      "tags": [
+        "iris",
+        "violet",
+        "woody",
+        "tobacco",
+        "grade"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "alpha_extra_grade",
+      "statement": "IFF's Alpha Extra description includes waxy/orris/wood/violet facets. This is grade-specific description, not a characterization of every alpha-isomethyl-ionone stock.",
+      "source_ids": [
+        "iff_alpha_extra"
+      ],
+      "tags": [
+        "iris",
+        "waxy",
+        "grade"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "orivone_root_texture",
+      "statement": "IFF describes Orivone as earthy and camphoraceous with an orris character. Treat it as a root-texture candidate, not a universal buttery-orris substitute or bulk floral support.",
+      "source_ids": [
+        "iff_orivone"
+      ],
+      "tags": [
+        "iris",
+        "rooty",
+        "mineral",
+        "orris",
+        "orivone"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "dihydro_beta_bridge",
+      "statement": "Givaudan's Dihydro Ionone Beta description supports a woody/orris/fruity bridge hypothesis. It remains distinct from beta-ionone and methyl-ionone grades.",
+      "source_ids": [
+        "givaudan_dihydro"
+      ],
+      "tags": [
+        "iris",
+        "woody",
+        "fruit",
+        "violet"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "iris_role_layers",
+      "statement": "Separate an iris recognizer, optional root or wax texture, transparent heart support and base continuation. Several iris-related materials need distinct roles and an omission comparison, not automatic family duplication.",
+      "source_ids": [
+        "irone_isomers",
+        "iff_orivone",
+        "iff_gamma"
+      ],
+      "tags": [
+        "iris",
+        "orris",
+        "layered"
+      ],
+      "kind": "FORMULATION_HYPOTHESIS",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "iris_root_profile",
+      "statement": "A rooty/mineral iris request calls for iris-led root texture. It does not implicitly request vetiver or patchouli as its dominant recognizer.",
+      "source_ids": [
+        "iff_orivone",
+        "irone_isomers"
+      ],
+      "tags": [
+        "iris",
+        "rooty",
+        "mineral"
+      ],
+      "kind": "FORMULATION_HYPOTHESIS",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "iris_cosmetic_profile",
+      "statement": "Cosmetic/lipstick iris is a textural architecture hypothesis, distinct from cool rooty iris. Test powder support separately from extra sweetness, vanilla and fruit.",
+      "source_ids": [
+        "iff_gamma",
+        "iff_alpha_extra"
+      ],
+      "tags": [
+        "iris",
+        "lipstick",
+        "cosmetic",
+        "powder"
+      ],
+      "kind": "FORMULATION_HYPOTHESIS",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "iris_transparent_profile",
+      "statement": "For transparent iris, keep its recognizer while testing airy support against a control. Increasing a support material is not evidence that iris became clearer or more diffusive.",
+      "source_ids": [
+        "irone_isomers",
+        "measured_review"
+      ],
+      "tags": [
+        "iris",
+        "transparent",
+        "neroli",
+        "projection"
+      ],
+      "kind": "FORMULATION_HYPOTHESIS",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "orchard_layers",
+      "statement": "Separate fruit peel, juice, flesh and ripeness from floral support and musk continuity. Richness is a target-linked layered hypothesis, not an ingredient-count or strength score.",
+      "source_ids": [
+        "chimie_review",
+        "apple_aroma",
+        "pear_aroma"
+      ],
+      "tags": [
+        "pear",
+        "apple",
+        "fruit",
+        "flesh",
+        "juice",
+        "richness"
+      ],
+      "kind": "FORMULATION_HYPOTHESIS",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "apple_context",
+      "statement": "Apple cultivar, tissue and preparation change the aroma-active profile. Apple realism cannot be represented by one universal ester or by copying food concentration into an EDP.",
+      "source_ids": [
+        "apple_aroma"
+      ],
+      "tags": [
+        "apple",
+        "peel",
+        "skin",
+        "fruit"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "pear_identity",
+      "statement": "Pear and processed pear products need different aroma interpretations. Genuine pear-ester identity cannot be inferred from an apple/pear marketing description.",
+      "source_ids": [
+        "pear_aroma",
+        "chimie_review"
+      ],
+      "tags": [
+        "pear",
+        "fruit",
+        "ester",
+        "flesh"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "helvetolide_bridge",
+      "statement": "The manufacturer describes Helvetolide with a pear-related facet. It can motivate a fruit-to-musk comparison, but does not prove fruit duration or liking in a finished perfume.",
+      "source_ids": [
+        "helvetolide"
+      ],
+      "tags": [
+        "pear",
+        "fruit",
+        "musk",
+        "helvetolide",
+        "persistence"
+      ],
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "floral_restraint",
+      "statement": "A fruit-led brief can use floral materials as links rather than recognizers. Osmanthus/apricot, rose or jasmine texture must be tested against fruit identity and the explicit avoid list.",
+      "source_ids": [
+        "chimie_review"
+      ],
+      "tags": [
+        "pear",
+        "apple",
+        "osmanthus",
+        "jasmine",
+        "rose",
+        "white floral"
+      ],
+      "kind": "FORMULATION_HYPOTHESIS",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "natural_lot_uncertainty",
+      "statement": "Natural mixtures retain product and lot uncertainty. Unknown constituents must not be renormalized away or replaced by a molecular curve solely through chemical-family similarity.",
+      "source_ids": [
+        "integration_review"
+      ],
+      "tags": [
+        "natural",
+        "lavender",
+        "osmanthus",
+        "rose",
+        "jasmine",
+        "composition"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "gas_curve_boundary",
+      "statement": "Wakayama's response curves concern human intensity from gas concentration. Stock volume, liquid percentage and OAV are not interchangeable inputs.",
+      "source_ids": [
+        "wakayama_original",
+        "measured_review"
+      ],
+      "tags": [
+        "intensity",
+        "gas",
+        "oav",
+        "dose"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "corrected_threshold",
+      "statement": "The 2020 correction concerns the threshold derived at the paper's 1.4 response criterion. Its ng/L result must be converted explicitly for a forward curve using microgram/L air.",
+      "source_ids": [
+        "wakayama_correction"
+      ],
+      "tags": [
+        "intensity",
+        "threshold",
+        "units",
+        "wakayama"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "mixture_challengers",
+      "statement": "Strongest-component, partial-addition and primacy are separate mixture-intensity challengers. Transfer of a rule across datasets requires testing; no fixed correction is universal.",
+      "source_ids": [
+        "mixture_intensity",
+        "measured_review"
+      ],
+      "tags": [
+        "intensity",
+        "mixture",
+        "primacy"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "character_baseline",
+      "statement": "The 2026 preprint supports testing a simple component-profile character baseline in its small-mixture experimental domain. It does not establish complete-perfume drydown or liking prediction.",
+      "source_ids": [
+        "mixture_character"
+      ],
+      "tags": [
+        "character",
+        "mixture",
+        "floral",
+        "descriptor"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "sensory_endpoint_separation",
+      "statement": "Character, intensity, pleasantness and personal liking are independent endpoints. Missing labels do not become neutral scores, and pleasant ingredient descriptions are not whole-perfume preference data.",
+      "source_ids": [
+        "bierling",
+        "hedonic_review"
+      ],
+      "tags": [
+        "pleasantness",
+        "liking",
+        "hedonic",
+        "quality",
+        "beauty"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "individual_preference",
+      "statement": "Monomolecular population ratings can inform variability within their study domain. They do not establish one person's preference for a finished multi-material perfume.",
+      "source_ids": [
+        "bierling",
+        "hedonic_review"
+      ],
+      "tags": [
+        "liking",
+        "musk",
+        "violet",
+        "personal",
+        "population"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "finite_release",
+      "statement": "Liquid equilibrium alone does not determine delivered fragrance concentration. Finite deposition, changing composition, transfer and substrate effects require scenario-specific parameters.",
+      "source_ids": [
+        "almeida_skin",
+        "almeida_radial"
+      ],
+      "tags": [
+        "projection",
+        "performance",
+        "longevity",
+        "release",
+        "diffusion"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "alcohol_flash",
+      "statement": "An opening alcohol flash, spray geometry and perceived projection are different questions. Compare matched application and timepoints; adding heavy base materials is not a verified solution.",
+      "source_ids": [
+        "almeida_skin",
+        "almeida_radial"
+      ],
+      "tags": [
+        "alcohol",
+        "flash",
+        "projection",
+        "performance"
+      ],
+      "kind": "FORMULATION_HYPOTHESIS",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "receptor_boundary",
+      "statement": "Measured receptor competitive binding supports its particular odorant/receptor systems, not a palette-wide human receptor map manufactured from chemical-family labels.",
+      "source_ids": [
+        "competitive_binding"
+      ],
+      "tags": [
+        "receptor",
+        "competition",
+        "family",
+        "compatibility"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "count_not_richness",
+      "statement": "Olfactory-white experiments used specific stimulus-space and intensity conditions. Stock-row count does not establish olfactory white, richness or perfume quality.",
+      "source_ids": [
+        "olfactory_white"
+      ],
+      "tags": [
+        "richness",
+        "depth",
+        "layering",
+        "count"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "optimizer_support",
+      "statement": "Offline optimization must control extrapolation and compare selected outcomes against matched random and simple-local baselines. A large model score is not proof of sensory improvement.",
+      "source_ids": [
+        "conservative_optimization",
+        "measured_review"
+      ],
+      "tags": [
+        "optimizer",
+        "optimization",
+        "selection"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "protocol_profile",
+      "statement": "Sensory profiling is a different task from preference or threshold testing. Protocol metadata and scope can be recorded without reproducing standards text.",
+      "source_ids": [
+        "iso_profile",
+        "iso_hedonic"
+      ],
+      "tags": [
+        "testing",
+        "sensory",
+        "profile",
+        "liking"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "market_not_liking",
+      "statement": "Market evidence and official note architecture can select comparison references. They do not reveal proprietary proportions, actual sensory similarity or consumer liking labels.",
+      "source_ids": [
+        "market_governance"
+      ],
+      "tags": [
+        "mass market",
+        "reference",
+        "commercial",
+        "clone",
+        "reconstruction"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "source_not_capability",
+      "statement": "A paper, archive or package being present locally does not admit an executable scientific calibration. Source, transcription, model artifact and capability require distinct hashes and permissions.",
+      "source_ids": [
+        "integration_review",
+        "fair"
+      ],
+      "tags": [
+        "provenance",
+        "license",
+        "source",
+        "capability"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "synthetic_not_human",
+      "statement": "VIANA's synthetic response-curve points are not new independent human observations. A challenger needs molecule-disjoint human-dose evaluation before empirical promotion.",
+      "source_ids": [
+        "viana"
+      ],
+      "tags": [
+        "intensity",
+        "viana",
+        "validation",
+        "synthetic"
+      ],
+      "kind": "SOURCE_BOUNDED_FACT",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "musk_nonredundancy",
+      "statement": "Choose musk roles to support the locked identity; multiple musks require a distinct function and controlled alternative or omission. Musk quantity is not a luxury or persistence metric.",
+      "source_ids": [
+        "helvetolide",
+        "hedonic_review"
+      ],
+      "tags": [
+        "musk",
+        "drydown",
+        "richness"
+      ],
+      "kind": "FORMULATION_HYPOTHESIS",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "amber_not_performance",
+      "statement": "Amberwood or Ambrox additions alter the design and may obscure protected recognizers. Projection or longevity improvement remains a hypothesis until applicable measurement or smelling evidence.",
+      "source_ids": [
+        "almeida_skin",
+        "measured_review"
+      ],
+      "tags": [
+        "amber",
+        "ambrox",
+        "lavender",
+        "projection",
+        "performance"
+      ],
+      "kind": "FORMULATION_HYPOTHESIS",
+      "scope_limit": "Design clue only; no dose, measured mixture response, safety or release authorization.",
+      "numeric_calibration": false
+    }
+  ],
+  "profiles": [
+    {
+      "profile_id": "iris_root",
+      "label": "Rooty / mineral iris",
+      "anchors": [
+        "iris",
+        "orris"
+      ],
+      "qualifiers": [
+        "rooty",
+        "roots",
+        "root",
+        "mineral",
+        "earthy"
+      ],
+      "claim_ids": [
+        "iris_root_profile",
+        "orivone_root_texture",
+        "iris_role_layers"
+      ],
+      "role_slots": [
+        "iris recognizer",
+        "root texture"
+      ],
+      "clue": "Keep iris primary; compare a root-texture addition against the unmodified control, not an automatic vetiver replacement.",
+      "architecture_status": "FORMULATION_HYPOTHESIS_NOT_SENSORY_CALIBRATION"
+    },
+    {
+      "profile_id": "iris_butter",
+      "label": "Buttery / waxy orris",
+      "anchors": [
+        "iris",
+        "orris"
+      ],
+      "qualifiers": [
+        "buttery",
+        "butter",
+        "waxy",
+        "wax"
+      ],
+      "claim_ids": [
+        "iris_extract_identity",
+        "alpha_extra_grade",
+        "iris_role_layers"
+      ],
+      "role_slots": [
+        "iris recognizer",
+        "waxy texture"
+      ],
+      "clue": "An irone assay, natural orris butter and a prepared dilution are not the same material.",
+      "architecture_status": "FORMULATION_HYPOTHESIS_NOT_SENSORY_CALIBRATION"
+    },
+    {
+      "profile_id": "iris_cosmetic",
+      "label": "Lipstick / cosmetic iris",
+      "anchors": [
+        "iris",
+        "orris",
+        "lipstick"
+      ],
+      "qualifiers": [
+        "lipstick",
+        "cosmetic",
+        "makeup"
+      ],
+      "claim_ids": [
+        "iris_cosmetic_profile",
+        "gamma_grade"
+      ],
+      "role_slots": [
+        "iris recognizer",
+        "cosmetic texture"
+      ],
+      "clue": "Compare cosmetic texture without automatically adding vanilla or extra sweetness.",
+      "architecture_status": "FORMULATION_HYPOTHESIS_NOT_SENSORY_CALIBRATION"
+    },
+    {
+      "profile_id": "iris_transparent",
+      "label": "Transparent / luminous iris",
+      "anchors": [
+        "iris",
+        "orris"
+      ],
+      "qualifiers": [
+        "transparent",
+        "airy",
+        "luminous",
+        "neroli",
+        "sheer"
+      ],
+      "claim_ids": [
+        "iris_transparent_profile",
+        "irone_identity"
+      ],
+      "role_slots": [
+        "iris recognizer",
+        "transparent bridge"
+      ],
+      "clue": "Airy support must preserve the iris recognizer; clarity is a smelling hypothesis, not a diffusion score.",
+      "architecture_status": "FORMULATION_HYPOTHESIS_NOT_SENSORY_CALIBRATION"
+    },
+    {
+      "profile_id": "iris_woody",
+      "label": "Woody / tobacco / suede iris",
+      "anchors": [
+        "iris",
+        "orris"
+      ],
+      "qualifiers": [
+        "woody",
+        "wood",
+        "tobacco",
+        "suede",
+        "leather"
+      ],
+      "claim_ids": [
+        "gamma_grade",
+        "dihydro_beta_bridge",
+        "iris_role_layers"
+      ],
+      "role_slots": [
+        "iris recognizer",
+        "woody bridge"
+      ],
+      "clue": "Woody iris grades may connect to suede or tobacco, but those accents must not replace iris.",
+      "architecture_status": "FORMULATION_HYPOTHESIS_NOT_SENSORY_CALIBRATION"
+    },
+    {
+      "profile_id": "violet_petals",
+      "label": "Violet petals",
+      "anchors": [
+        "violet"
+      ],
+      "qualifiers": [
+        "petals",
+        "petal",
+        "flower",
+        "flowers",
+        "fresh"
+      ],
+      "claim_ids": [
+        "violet_temporal",
+        "violet_leaf_distinction",
+        "beta_ionone_variability"
+      ],
+      "role_slots": [
+        "violet petal recognizer"
+      ],
+      "clue": "Violet petals and violet leaf are different targets; individual ionone sensitivity can change their perception.",
+      "architecture_status": "FORMULATION_HYPOTHESIS_NOT_SENSORY_CALIBRATION"
+    },
+    {
+      "profile_id": "violet_powder",
+      "label": "Powdery / candied violet",
+      "anchors": [
+        "violet"
+      ],
+      "qualifiers": [
+        "powder",
+        "powdery",
+        "candied",
+        "candy",
+        "sweet"
+      ],
+      "claim_ids": [
+        "gamma_grade",
+        "violet_leaf_distinction",
+        "individual_preference"
+      ],
+      "role_slots": [
+        "violet petal recognizer",
+        "powder texture"
+      ],
+      "clue": "Test powder and sweetness separately rather than assuming every violet request should be candied.",
+      "architecture_status": "FORMULATION_HYPOTHESIS_NOT_SENSORY_CALIBRATION"
+    },
+    {
+      "profile_id": "violet_leaf",
+      "label": "Green violet leaf",
+      "anchors": [
+        "violet leaf",
+        "violet leaves"
+      ],
+      "qualifiers": [],
+      "claim_ids": [
+        "violet_leaf_distinction"
+      ],
+      "role_slots": [
+        "green leaf texture"
+      ],
+      "clue": "Green violet leaf is not a substitute for violet petals or an automatic iris-powder requirement.",
+      "architecture_status": "FORMULATION_HYPOTHESIS_NOT_SENSORY_CALIBRATION"
+    },
+    {
+      "profile_id": "orchard_layered",
+      "label": "Dimensional pear / apple fruit",
+      "anchors": [
+        "pear",
+        "apple"
+      ],
+      "qualifiers": [],
+      "claim_ids": [
+        "orchard_layers",
+        "apple_context",
+        "pear_identity",
+        "floral_restraint"
+      ],
+      "role_slots": [
+        "fruit peel",
+        "fruit juice",
+        "fruit flesh",
+        "fruit continuity"
+      ],
+      "clue": "Make the fruit itself more dimensional; test peel, flesh and continuity without adding an unrelated bouquet.",
+      "architecture_status": "FORMULATION_HYPOTHESIS_NOT_SENSORY_CALIBRATION"
+    },
+    {
+      "profile_id": "fruit_musk",
+      "label": "Fruit-to-musk continuation",
+      "anchors": [
+        "pear",
+        "fruit"
+      ],
+      "qualifiers": [
+        "musk",
+        "persistence",
+        "persistent",
+        "drydown"
+      ],
+      "claim_ids": [
+        "helvetolide_bridge",
+        "musk_nonredundancy"
+      ],
+      "role_slots": [
+        "fruit continuation",
+        "musk bridge"
+      ],
+      "clue": "A pear-related musk facet is a continuity hypothesis, not proof that the fruit lasts on skin.",
+      "architecture_status": "FORMULATION_HYPOTHESIS_NOT_SENSORY_CALIBRATION"
+    },
+    {
+      "profile_id": "release_performance",
+      "label": "Projection / temporal performance",
+      "anchors": [
+        "projection",
+        "performance",
+        "longevity",
+        "diffusion",
+        "alcohol"
+      ],
+      "qualifiers": [],
+      "claim_ids": [
+        "finite_release",
+        "alcohol_flash",
+        "amber_not_performance"
+      ],
+      "role_slots": [
+        "matched application comparison"
+      ],
+      "clue": "Match the application first; source dose, delivered concentration and perceived projection are different.",
+      "architecture_status": "FORMULATION_HYPOTHESIS_NOT_SENSORY_CALIBRATION"
+    }
+  ],
+  "materials": [
+    {
+      "material_id": "alpha_isomethyl_ionone",
+      "exact_aliases": [
+        "Alpha Isomethyl Ionone",
+        "Alpha-Isomethyl Ionone",
+        "AIMI"
+      ],
+      "vocabulary": [
+        "iris",
+        "violet",
+        "recognizer",
+        "iris_recognizer"
+      ],
+      "role_slots": [
+        "iris recognizer"
+      ],
+      "claim_ids": [
+        "gamma_grade"
+      ],
+      "scope_limit": "PW identity receipt only; no Gamma Coeur supplier-grade substitution."
+    },
+    {
+      "material_id": "methyl_ionone_gamma_coeur",
+      "exact_aliases": [
+        "Methyl Ionone Gamma Coeur",
+        "Meth Ionone Gamma Coeur"
+      ],
+      "vocabulary": [
+        "iris",
+        "orris",
+        "violet",
+        "powder",
+        "woody",
+        "tobacco",
+        "iris_recognizer",
+        "woody_bridge"
+      ],
+      "role_slots": [
+        "iris recognizer",
+        "woody bridge"
+      ],
+      "claim_ids": [
+        "gamma_grade"
+      ],
+      "scope_limit": "IFF supplier description; no availability or stock concentration inferred."
+    },
+    {
+      "material_id": "methyl_ionone_alpha_extra",
+      "exact_aliases": [
+        "Methyl Ionone Alpha Extra",
+        "Meth Ionone Alpha Extra"
+      ],
+      "vocabulary": [
+        "iris",
+        "orris",
+        "waxy",
+        "wood",
+        "violet",
+        "iris_recognizer",
+        "waxy_texture"
+      ],
+      "role_slots": [
+        "iris recognizer",
+        "waxy texture"
+      ],
+      "claim_ids": [
+        "alpha_extra_grade"
+      ],
+      "scope_limit": "Exact grade only."
+    },
+    {
+      "material_id": "orivone",
+      "exact_aliases": [
+        "Orivone"
+      ],
+      "vocabulary": [
+        "orris",
+        "earthy",
+        "rooty",
+        "camphoraceous",
+        "root_texture"
+      ],
+      "role_slots": [
+        "root texture"
+      ],
+      "claim_ids": [
+        "orivone_root_texture"
+      ],
+      "scope_limit": "Root accent hypothesis, not buttery-iris equivalence."
+    },
+    {
+      "material_id": "alpha_irone",
+      "exact_aliases": [
+        "Alpha Irone",
+        "Irone Alpha"
+      ],
+      "vocabulary": [
+        "iris",
+        "orris",
+        "irone",
+        "iris_recognizer"
+      ],
+      "role_slots": [
+        "iris recognizer"
+      ],
+      "claim_ids": [
+        "irone_identity"
+      ],
+      "scope_limit": "Isomer ratio and supplier grade still matter."
+    },
+    {
+      "material_id": "alpha_ionone",
+      "exact_aliases": [
+        "Alpha Ionone",
+        "Ionone Alpha"
+      ],
+      "vocabulary": [
+        "ionone",
+        "violet",
+        "violet_petal_recognizer"
+      ],
+      "role_slots": [
+        "violet petal recognizer"
+      ],
+      "claim_ids": [
+        "irone_identity",
+        "violet_leaf_distinction"
+      ],
+      "scope_limit": "Chemical label only; no commercial grade or measured perceptual calibration inferred."
+    },
+    {
+      "material_id": "beta_ionone",
+      "exact_aliases": [
+        "Beta Ionone",
+        "Ionone Beta"
+      ],
+      "vocabulary": [
+        "ionone",
+        "violet",
+        "violet_petal_recognizer"
+      ],
+      "role_slots": [
+        "violet petal recognizer"
+      ],
+      "claim_ids": [
+        "beta_ionone_variability"
+      ],
+      "scope_limit": "Sensitivity varies; no saturation ceiling imposed."
+    },
+    {
+      "material_id": "dihydro_ionone_beta",
+      "exact_aliases": [
+        "Dihydro Beta Ionone",
+        "Dihydro Ionone Beta"
+      ],
+      "vocabulary": [
+        "orris",
+        "woody",
+        "fruity",
+        "woody_bridge"
+      ],
+      "role_slots": [
+        "woody bridge"
+      ],
+      "claim_ids": [
+        "dihydro_beta_bridge"
+      ],
+      "scope_limit": "Exact identity/grade description, not an alias of beta-ionone."
+    },
+    {
+      "material_id": "violet_leaf_absolute",
+      "exact_aliases": [
+        "Violet Leaf Absolute"
+      ],
+      "vocabulary": [
+        "green",
+        "leaf",
+        "violet",
+        "green_leaf_texture"
+      ],
+      "role_slots": [
+        "green leaf texture"
+      ],
+      "claim_ids": [
+        "violet_leaf_distinction"
+      ],
+      "scope_limit": "Natural product; lot composition not inferred."
+    },
+    {
+      "material_id": "orris_butter",
+      "exact_aliases": [
+        "Orris Butter"
+      ],
+      "vocabulary": [
+        "iris",
+        "orris",
+        "waxy",
+        "iris_recognizer",
+        "waxy_texture"
+      ],
+      "role_slots": [
+        "iris recognizer",
+        "waxy texture"
+      ],
+      "claim_ids": [
+        "iris_extract_identity"
+      ],
+      "scope_limit": "Generic product type; source assay does not bind this stock's assay or carrier."
+    },
+    {
+      "material_id": "helvetolide",
+      "exact_aliases": [
+        "Helvetolide"
+      ],
+      "vocabulary": [
+        "musk",
+        "pear",
+        "fruit",
+        "fruit_continuation",
+        "musk_bridge"
+      ],
+      "role_slots": [
+        "fruit continuation",
+        "musk bridge"
+      ],
+      "claim_ids": [
+        "helvetolide_bridge"
+      ],
+      "scope_limit": "Supplier description only, not a persistence or liking calibration."
+    }
+  ],
+  "quarantined_claims": [
+    {
+      "claim_id": "ionone_receptor_ceiling",
+      "reason": "Unsupported OR5AN1 assignment, dose ceiling and receptor-orthogonal pairing; OR5A1 beta-ionone evidence does not establish these."
+    },
+    {
+      "claim_id": "chemical_family_incompatibility",
+      "reason": "Chemical-family difference alone does not prove odor clash, insolubility or reaction; require endpoint-specific evidence."
+    },
+    {
+      "claim_id": "raw_oav_beauty",
+      "reason": "OAV, ingredient count and generic valence cannot supply intensity, liking, richness or beauty labels."
+    },
+    {
+      "claim_id": "historical_dose_universal",
+      "reason": "Historical stock doses, fixed support percentages and unnamed strip life are not transferable formula constraints."
+    }
+  ],
+  "numeric_calibrations_admitted": [],
+  "prior_research_scope": "All indexed local records are searchable references, not automatically adjudicated scientific claims."
+}

@@ -1,5 +1,8 @@
 # Gin Vetiver - Cypress Air - 30 mL v3
 
+**Status:** QUARANTINED — historical analysis only; do not mix or release.
+**Artifact review (2026-10-05):** The stored analysis no longer matches the current inventory, scientific inputs or implementation. Formula quantities and prior analysis are retained; no fresh calculation, sensory validation or safety/release approval is claimed. See the [review receipt](../docs/verification/FORMULA_ARTIFACT_REVIEW_20261005.json).
+
 Date: 2026-09-08. Mode: CREATIVE_FORMULATION. Family: dry citrus-aromatic woody / gin-vetiver.
 
 **Status:** FULL-SIZE DEVELOPMENT COMPOSITION — one complete numerical design, not a smelled result or skin-use/commercial release. No physical bottle is recorded. This version develops the perfume at the existing 30 mL nominal scale, with no mandatory 10 mL prerequisite.

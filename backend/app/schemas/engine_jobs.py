@@ -8,6 +8,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 EngineJobType = Literal[
+    "FORMULA_DESIGN",
     "FORMULA_ANALYSIS",
     "RELEASE_SIMULATION",
     "RELEASE_GATE",
@@ -17,6 +18,7 @@ EngineJobType = Literal[
     "SHORTLIST_EVALUATION",
     "MODEL_BENCHMARK",
     "PREFERENCE_ANALYSIS",
+    "REFERENCE_PANEL_EVALUATION",
     "BATCH_GATE",
 ]
 

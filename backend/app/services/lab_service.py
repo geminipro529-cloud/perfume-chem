@@ -37,6 +37,7 @@ from app.models.lab import (
     LabStockSolution,
 )
 from app.repositories.lab import BottleLedgerState, LabRepository
+from app.services.commercial_references import LabCommercialReferenceServiceMixin
 from app.services.engine_jobs import LabEngineJobServiceMixin
 from app.services.external_validation import LabExternalValidationServiceMixin
 from app.services.instrumental_observations import (
@@ -191,6 +192,7 @@ _LAB_WRITE_LOCK = asyncio.Lock()
 
 
 class LabService(
+    LabCommercialReferenceServiceMixin,
     LabEngineJobServiceMixin,
     LabInstrumentalObservationServiceMixin,
     LabExternalValidationServiceMixin,
@@ -415,6 +417,9 @@ class LabService(
         volume_reference_temperature_c: Decimal | int | float | str | None = None,
         volume_reference_conditions: dict | None = None,
         actor: str = "system",
+        goal_analysis_sha256: str | None = None,
+        hypothesis_id: str | None = None,
+        hypothesis_variant: str | None = None,
     ) -> LabBottleEvent:
         async with self._transaction():
             return await self._add_stock_to_bottle_in_transaction(
@@ -432,6 +437,9 @@ class LabService(
                 volume_reference_temperature_c=volume_reference_temperature_c,
                 volume_reference_conditions=volume_reference_conditions,
                 actor=actor,
+                goal_analysis_sha256=goal_analysis_sha256,
+                hypothesis_id=hypothesis_id,
+                hypothesis_variant=hypothesis_variant,
             )
 
     async def _add_stock_to_bottle_in_transaction(
@@ -454,6 +462,9 @@ class LabService(
         build_plan_line_id: str | None = None,
         reservation_event_id: str | None = None,
         event_type: str = "ADD_MATERIAL",
+        goal_analysis_sha256: str | None = None,
+        hypothesis_id: str | None = None,
+        hypothesis_variant: str | None = None,
     ) -> LabBottleEvent:
         """Apply one stock addition inside the caller's canonical transaction."""
 
@@ -545,6 +556,32 @@ class LabService(
         planned_lifecycle = (
             build_plan_line_id is not None and reservation_event_id is not None
         )
+        personal_context_values = (
+            goal_analysis_sha256,
+            hypothesis_id,
+            hypothesis_variant,
+        )
+        if any(value is not None for value in personal_context_values) and not all(
+            value is not None for value in personal_context_values
+        ):
+            raise ValueError(
+                "goal analysis hash, hypothesis ID, and hypothesis variant must be supplied together"
+            )
+        personal_research_context: dict[str, str] | None = None
+        if goal_analysis_sha256 is not None:
+            variant = str(hypothesis_variant).strip()
+            if variant not in {"low_variant", "high_variant"}:
+                raise ValueError(f"unsupported hypothesis variant: {variant}")
+            personal_research_context = {
+                "goal_analysis_sha256": _require_sha256(
+                    goal_analysis_sha256,
+                    "goal_analysis_sha256",
+                ),
+                "hypothesis_id": str(hypothesis_id).strip(),
+                "hypothesis_variant": variant,
+            }
+            if not personal_research_context["hypothesis_id"]:
+                raise ValueError("hypothesis_id must not be empty")
         token = _command_token("add-stock", command_id)
         legacy_request_payload = {
             "stock_solution_id": stock_solution_id,
@@ -600,6 +637,11 @@ class LabService(
             ),
             "formula_execution_authority": False,
             "build_plan_fulfillment_authority": planned_lifecycle,
+            **(
+                {"personal_research_context": personal_research_context}
+                if personal_research_context is not None
+                else {}
+            ),
         }
         existing = await self.repository.event_for_command(bottle_id, token)
         if existing is not None:
@@ -716,6 +758,9 @@ class LabService(
         volume_reference_temperature_c: Decimal | int | float | str | None = None,
         volume_reference_conditions: dict | None = None,
         actor: str = "system",
+        goal_analysis_sha256: str | None = None,
+        hypothesis_id: str | None = None,
+        hypothesis_variant: str | None = None,
     ) -> LabBottleEvent:
         """Append a solvent addition without classifying it as odorant mass."""
 
@@ -736,6 +781,9 @@ class LabService(
                 volume_reference_conditions=volume_reference_conditions,
                 actor=actor,
                 event_type="ADD_SOLVENT",
+                goal_analysis_sha256=goal_analysis_sha256,
+                hypothesis_id=hypothesis_id,
+                hypothesis_variant=hypothesis_variant,
             )
 
     async def finalize_stock_preparation(
@@ -1377,6 +1425,240 @@ class LabService(
             actor=actor,
             payload={},
         )
+
+    async def record_bottle_action_evaluation(
+        self,
+        *,
+        proposal_id: str,
+        bottle_id: str,
+        expected_sequence: int,
+        command_id: str,
+        actor: str,
+        evaluated_at: datetime,
+        waited_seconds: float,
+        reaction: str,
+        decision: str,
+        schema_version: str = "evolving-bottle-evaluation-v1",
+    ) -> LabBottleEvent:
+        """Append one concise personal reaction to a committed bottle delta.
+
+        The event is bookkeeping evidence only.  It is linked to the exact
+        proposal, commit, and addition event, but it does not turn a sequential
+        same-bottle observation into controlled causal or population evidence.
+        """
+
+        proposal_id = proposal_id.strip()
+        bottle_id = bottle_id.strip()
+        command_id = command_id.strip()
+        actor = actor.strip()
+        reaction = reaction.strip()
+        decision = decision.strip().upper()
+        schema_version = schema_version.strip()
+        if not all(
+            (proposal_id, bottle_id, command_id, actor, reaction, schema_version)
+        ):
+            raise ValueError("evaluation identifiers, actor, reaction, and schema must not be empty")
+        if decision not in {"CONTINUE", "HOLD", "DILUTE", "STOP", "CANNOT_DETERMINE"}:
+            raise ValueError(f"unsupported evolving-bottle evaluation decision: {decision}")
+        if evaluated_at.tzinfo is None or evaluated_at.utcoffset() is None:
+            raise ValueError("evaluated_at must be timezone-aware")
+        waited_seconds = float(waited_seconds)
+        if not isfinite(waited_seconds) or waited_seconds < 0:
+            raise ValueError("waited_seconds must be finite and nonnegative")
+        if expected_sequence < 0:
+            raise ValueError("expected_sequence must be nonnegative")
+
+        token = _command_token("evaluate", command_id)
+        async with self._transaction():
+            proposal = await self.repository.get_bottle_action_proposal(proposal_id)
+            if proposal is None:
+                raise KeyError(f"Unknown bottle action proposal: {proposal_id}")
+            if proposal.bottle_id != bottle_id:
+                raise ValueError("evaluation bottle does not match the action proposal")
+            commit = await self.repository.bottle_action_commit(proposal_id)
+            if commit is None:
+                raise ValueError("evaluation requires a committed bottle action")
+            payload = {
+                "schema": "lab-bottle-action-evaluation-v1",
+                "schema_version": schema_version,
+                "proposal_id": proposal.id,
+                "action_commit_id": commit.id,
+                "addition_bottle_event_id": commit.bottle_event_id,
+                "actor": actor,
+                "evaluated_at": evaluated_at.isoformat(),
+                "waited_seconds": waited_seconds,
+                "reaction": reaction,
+                "decision": decision,
+                "evidence_scope": "SEQUENTIAL_PERSONAL_OBSERVATION",
+                "controlled_causal_evidence": False,
+                "population_generalization_authorized": False,
+                "release_authority": False,
+                "safety_authority": False,
+                "compounding_authority": False,
+                "evidence_admission_authorized": False,
+                "expected_sequence": expected_sequence,
+            }
+            existing = await self.repository.event_for_command(bottle_id, token)
+            if existing is not None:
+                if existing.payload_json != payload:
+                    raise IdempotencyConflictError(
+                        "evaluation command identifier was already used for a different reaction"
+                    )
+                return existing
+            current_sequence = await self.repository.latest_sequence(bottle_id)
+            if current_sequence != expected_sequence:
+                raise StaleBottleStreamError(
+                    f"expected sequence {expected_sequence}, current sequence is {current_sequence}"
+                )
+            return await self.repository.add(
+                LabBottleEvent(
+                    bottle_id=bottle_id,
+                    stream_sequence=current_sequence + 1,
+                    expected_sequence=expected_sequence,
+                    command_id=token,
+                    transaction_id=str(uuid4()),
+                    event_type="EVALUATE",
+                    payload_json=payload,
+                )
+            )
+
+    async def record_quick_bottle_evaluation(
+        self,
+        *,
+        bottle_id: str,
+        addition_event_ids: Sequence[str],
+        goal_analysis_sha256: str,
+        hypothesis_id: str,
+        hypothesis_variant: str,
+        expected_sequence: int,
+        command_id: str,
+        actor: str,
+        evaluated_at: datetime,
+        waited_seconds: float,
+        reaction: str,
+        decision: str,
+        schema_version: str = "quick-bottle-evaluation-v1",
+    ) -> LabBottleEvent:
+        """Append a lightweight observation for an exact personal bottle delta.
+
+        This path intentionally does not promote a freeform personal addition
+        into planned formula execution.  It only binds the reaction to the
+        immutable addition events and the goal-analysis receipt that produced
+        the proposal.
+        """
+
+        bottle_id = bottle_id.strip()
+        command_id = command_id.strip()
+        actor = actor.strip()
+        reaction = reaction.strip()
+        hypothesis_id = hypothesis_id.strip()
+        hypothesis_variant = hypothesis_variant.strip()
+        schema_version = schema_version.strip()
+        decision = decision.strip().upper()
+        analysis_hash = _require_sha256(
+            goal_analysis_sha256,
+            "goal_analysis_sha256",
+        )
+        event_ids = tuple(str(value).strip() for value in addition_event_ids)
+        if not all(
+            (
+                bottle_id,
+                command_id,
+                actor,
+                reaction,
+                hypothesis_id,
+                schema_version,
+            )
+        ):
+            raise ValueError("quick-evaluation identifiers and reaction must not be empty")
+        if not event_ids or any(not value for value in event_ids):
+            raise ValueError("at least one non-empty addition event ID is required")
+        if len(event_ids) != len(set(event_ids)):
+            raise ValueError("addition event IDs must be unique")
+        if hypothesis_variant not in {"low_variant", "high_variant"}:
+            raise ValueError(f"unsupported hypothesis variant: {hypothesis_variant}")
+        if decision not in {
+            "CONTINUE",
+            "HOLD",
+            "DILUTE",
+            "STOP",
+            "CANNOT_DETERMINE",
+        }:
+            raise ValueError(f"unsupported quick-evaluation decision: {decision}")
+        if evaluated_at.tzinfo is None or evaluated_at.utcoffset() is None:
+            raise ValueError("evaluated_at must be timezone-aware")
+        waited_seconds = float(waited_seconds)
+        if not isfinite(waited_seconds) or waited_seconds < 0:
+            raise ValueError("waited_seconds must be finite and nonnegative")
+        if expected_sequence < 0:
+            raise ValueError("expected_sequence must be nonnegative")
+
+        token = _command_token("evaluate-personal-delta", command_id)
+        payload = {
+            "schema": "lab-quick-bottle-evaluation-v1",
+            "schema_version": schema_version,
+            "addition_event_ids": list(event_ids),
+            "goal_analysis_sha256": analysis_hash,
+            "hypothesis_id": hypothesis_id,
+            "hypothesis_variant": hypothesis_variant,
+            "actor": actor,
+            "evaluated_at": evaluated_at.isoformat(),
+            "waited_seconds": waited_seconds,
+            "reaction": reaction,
+            "decision": decision,
+            "evidence_scope": "SEQUENTIAL_PERSONAL_OBSERVATION",
+            "controlled_causal_evidence": False,
+            "population_generalization_authorized": False,
+            "release_authority": False,
+            "safety_authority": False,
+            "compounding_authority": False,
+            "evidence_admission_authorized": False,
+            "expected_sequence": expected_sequence,
+        }
+        async with self._transaction():
+            existing = await self.repository.event_for_command(bottle_id, token)
+            if existing is not None:
+                if existing.payload_json != payload:
+                    raise IdempotencyConflictError(
+                        "quick-evaluation command identifier was reused for a different reaction"
+                    )
+                return existing
+            if await self.repository.get_bottle(bottle_id) is None:
+                raise KeyError(f"Unknown bottle: {bottle_id}")
+            for event_id in event_ids:
+                addition = await self.repository.get_event(event_id)
+                if addition is None:
+                    raise KeyError(f"Unknown bottle addition event: {event_id}")
+                if addition.bottle_id != bottle_id or addition.event_type != "ADD_MATERIAL":
+                    raise ValueError(
+                        "quick evaluation may reference only material additions from the selected bottle"
+                    )
+                context = addition.payload_json.get("personal_research_context")
+                expected_context = {
+                    "goal_analysis_sha256": analysis_hash,
+                    "hypothesis_id": hypothesis_id,
+                    "hypothesis_variant": hypothesis_variant,
+                }
+                if context != expected_context:
+                    raise ValueError(
+                        "addition event does not match the selected goal-analysis hypothesis"
+                    )
+            current_sequence = await self.repository.latest_sequence(bottle_id)
+            if current_sequence != expected_sequence:
+                raise StaleBottleStreamError(
+                    f"expected sequence {expected_sequence}, current sequence is {current_sequence}"
+                )
+            return await self.repository.add(
+                LabBottleEvent(
+                    bottle_id=bottle_id,
+                    stream_sequence=current_sequence + 1,
+                    expected_sequence=expected_sequence,
+                    command_id=token,
+                    transaction_id=str(uuid4()),
+                    event_type="EVALUATE_PERSONAL_DELTA",
+                    payload_json=payload,
+                )
+            )
 
     async def transfer_between_bottles(
         self,

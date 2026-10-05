@@ -17,8 +17,12 @@ import argparse
 import json
 import sys
 from datetime import datetime, timezone
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
+from urllib.error import HTTPError, URLError
+from urllib.parse import urlparse
+from urllib.request import Request, urlopen
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -826,71 +830,345 @@ def _cmd_validate(args: argparse.Namespace) -> dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
-# Stub subcommands: LIVE_BATCH, BATCH_RESCUE, SENSORY_EXPERIMENT,
+# Remaining stub subcommands: SENSORY_EXPERIMENT,
 # ANALYTICAL_INTERPRETATION, COMPLIANCE_BUILD, RELEASE_REVIEW,
 # INVENTORY_MAPPING
 # ---------------------------------------------------------------------------
 
 
-def handle_live_batch(args: argparse.Namespace) -> dict[str, Any]:
-    """Propose a physical bottle addition (stub)."""
-    # Validate required args (argparse enforces --batch-id, --material, --amount-ul)
-    print(
-        "NOT_IMPLEMENTED: Mode LIVE_BATCH requires the bottle/console module.",
-        file=sys.stderr,
+_BATCH_UNITS = {"uL", "mL", "mg", "g"}
+_BATCH_OPERATIONS = {
+    "REPLAY",
+    "PROPOSE",
+    "CONFIRM",
+    "MEASURE",
+    "COMMIT",
+    "EVALUATE",
+}
+
+
+def _decimal_text(value: object, field: str, *, positive: bool = True) -> str:
+    try:
+        number = Decimal(str(value).strip())
+    except (InvalidOperation, AttributeError) as exc:
+        raise ValueError(f"{field} must be a decimal number") from exc
+    if not number.is_finite() or (number <= 0 if positive else number < 0):
+        qualifier = "greater than zero" if positive else "nonnegative"
+        raise ValueError(f"{field} must be finite and {qualifier}")
+    rendered = format(number.normalize(), "f")
+    return "0" if rendered in {"-0", ""} else rendered
+
+
+def _canonical_batch_unit(value: str) -> str:
+    unit = {"ul": "uL", "µl": "uL", "ml": "mL", "mg": "mg", "g": "g"}.get(
+        str(value).strip().casefold()
     )
-    print(
-        "To complete: implement physical bottle state management with "
-        "Propose->Confirm->Measure->Commit lifecycle, pre-action gate "
-        "validation, and event-sourced ledger.",
-        file=sys.stderr,
+    if unit not in _BATCH_UNITS:
+        raise ValueError(f"unsupported batch quantity unit: {value}")
+    return unit
+
+
+def _mass_for_batch_quantity(
+    amount_decimal: str,
+    unit: str,
+    density_g_ml_decimal: str | None,
+) -> tuple[str, dict[str, Any]]:
+    amount = Decimal(amount_decimal)
+    density: Decimal | None = None
+    if unit in {"uL", "mL"}:
+        if density_g_ml_decimal is None:
+            raise ValueError(
+                "stock density in g/mL is required only because the canonical bottle ledger "
+                "must convert this liquid transfer to mass"
+            )
+        density_text = _decimal_text(density_g_ml_decimal, "stock_density_g_ml")
+        density = Decimal(density_text)
+        volume_ml = amount / Decimal("1000") if unit == "uL" else amount
+        mass = volume_ml * density
+        basis = {
+            "conversion": "LIQUID_VOLUME_TIMES_EXPLICIT_DENSITY",
+            "density_g_ml_decimal": density_text,
+        }
+    elif unit == "mg":
+        mass = amount / Decimal("1000")
+        basis = {"conversion": "MASS_UNIT_CONVERSION_ONLY"}
+    else:
+        mass = amount
+        basis = {"conversion": "NO_CONVERSION"}
+    return _decimal_text(mass, "planned_mass_g"), basis
+
+
+def _local_api_base(value: str) -> str:
+    parsed = urlparse(str(value).strip())
+    if parsed.scheme != "http" or parsed.hostname not in {"127.0.0.1", "localhost"}:
+        raise ValueError("batch lifecycle API must be an explicit loopback HTTP URL")
+    if parsed.query or parsed.fragment or parsed.username or parsed.password:
+        raise ValueError("batch lifecycle API URL must not contain credentials, query, or fragment")
+    return str(value).rstrip("/")
+
+
+def _request_json(
+    *,
+    api_base_url: str,
+    method: str,
+    path: str,
+    payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    body = None if payload is None else json.dumps(payload).encode("utf-8")
+    request = Request(
+        f"{_local_api_base(api_base_url)}/{path.lstrip('/')}",
+        data=body,
+        method=method,
+        headers={"Content-Type": "application/json", "Accept": "application/json"},
     )
-    print(file=sys.stderr)
-    print("Proposed action format:", file=sys.stderr)
-    print(
-        f"  batch_id={args.batch_id}  material={args.material}  amount_ul={args.amount_ul}",
-        file=sys.stderr,
+    try:
+        with urlopen(request, timeout=20) as response:  # noqa: S310 - loopback is validated
+            content = response.read().decode("utf-8")
+    except HTTPError as exc:
+        content = exc.read().decode("utf-8", errors="replace")
+        try:
+            detail = json.loads(content)
+        except json.JSONDecodeError:
+            detail = {"error": {"code": "HTTP_ERROR", "message": content[:500]}}
+        return {"status": "BLOCKED", "http_status": exc.code, **detail}
+    except URLError as exc:
+        return {
+            "status": "BLOCKED",
+            "error": {
+                "code": "LOCAL_LIFECYCLE_API_UNAVAILABLE",
+                "message": str(exc.reason),
+            },
+        }
+    try:
+        result = json.loads(content)
+    except json.JSONDecodeError as exc:
+        raise ValueError("local lifecycle API returned non-JSON content") from exc
+    if not isinstance(result, dict):
+        raise ValueError("local lifecycle API returned a non-object response")
+    return result
+
+
+def _requested_batch_quantity(args: argparse.Namespace, *, actual: bool = False) -> dict[str, Any]:
+    amount_value = getattr(args, "actual_amount", None) if actual else getattr(args, "amount", None)
+    unit_value = getattr(args, "actual_unit", None) if actual else getattr(args, "unit", None)
+    if amount_value is None and not actual and getattr(args, "amount_ul", None) is not None:
+        amount_value = args.amount_ul
+        unit_value = "uL"
+    if actual and amount_value is None:
+        amount_value = getattr(args, "amount", None)
+        unit_value = unit_value or getattr(args, "unit", None)
+    if amount_value is None or unit_value is None:
+        raise ValueError("this lifecycle operation requires --amount and --unit")
+    amount_text = _decimal_text(amount_value, "amount")
+    unit = _canonical_batch_unit(unit_value)
+    mass_g, conversion = _mass_for_batch_quantity(
+        amount_text,
+        unit,
+        getattr(args, "stock_density_g_ml", None),
     )
-    print("  lifecycle: PROPOSE -> CONFIRM -> MEASURE -> COMMIT", file=sys.stderr)
-    print("  pre-action gates: mode_protection, chassis_integrity", file=sys.stderr)
     return {
-        "status": "NOT_IMPLEMENTED",
-        "mode": "LIVE_BATCH",
-        "batch_id": args.batch_id,
-        "material": args.material,
-        "amount_ul": args.amount_ul,
+        "amount_decimal": amount_text,
+        "unit": unit,
+        "mass_g_decimal": mass_g,
+        "conversion": conversion,
     }
+
+
+def _batch_lifecycle(args: argparse.Namespace, *, rescue: bool) -> dict[str, Any]:
+    operation = str(args.operation).strip().upper()
+    if operation not in _BATCH_OPERATIONS:
+        raise ValueError(f"unsupported batch lifecycle operation: {operation}")
+    mode = "BATCH_RESCUE" if rescue else "LIVE_BATCH"
+    api_base = _local_api_base(args.api_base_url)
+    bottle_id = str(args.batch_id).strip()
+    if not bottle_id:
+        raise ValueError("batch_id must not be blank")
+    if operation == "REPLAY":
+        response = _request_json(
+            api_base_url=api_base,
+            method="GET",
+            path=f"bottles/{bottle_id}/replay",
+        )
+        return {
+            "status": "BLOCKED" if response.get("status") == "BLOCKED" else "BOTTLE_REPLAY",
+            "mode": mode,
+            "server": response,
+        }
+
+    proposal_id = str(getattr(args, "proposal_id", "") or "").strip()
+    now = datetime.now(timezone.utc).isoformat()
+    actor = str(args.actor).strip()
+    reason = str(getattr(args, "reason", "") or "Personal evolving-bottle delta").strip()
+    if operation == "PROPOSE":
+        try:
+            quantity = _requested_batch_quantity(args)
+        except ValueError as exc:
+            if "greater than zero" in str(exc) and rescue:
+                return {
+                    "status": "ADDITIVE_REPAIR_NOT_FEASIBLE",
+                    "mode": mode,
+                    "formula_action": "NO_CHANGE",
+                    "reason": "An evolving bottle cannot execute a negative or zero removal delta.",
+                }
+            raise
+        material = str(getattr(args, "material", "") or "").strip()
+        if not material:
+            raise ValueError("PROPOSE requires --material")
+        reservation_id = str(getattr(args, "reservation_id", "") or "").strip()
+        idempotency_key = str(getattr(args, "idempotency_key", "") or "").strip()
+        if not reservation_id or not idempotency_key or args.expected_sequence is None:
+            raise ValueError(
+                "PROPOSE requires --reservation-id, --expected-sequence, and --idempotency-key"
+            )
+        density_note = quantity["conversion"].get("density_g_ml_decimal")
+        rationale = (
+            f"{reason}; material_label={material}; requested_quantity="
+            f"{quantity['amount_decimal']} {quantity['unit']}"
+            + (f"; density_g_ml={density_note}" if density_note else "")
+        )
+        response = _request_json(
+            api_base_url=api_base,
+            method="POST",
+            path="actions",
+            payload={
+                "schema_version": "evolving-bottle-action-v1",
+                "reservation_id": reservation_id,
+                "bottle_id": bottle_id,
+                "action_type": "ADD_STOCK",
+                "planned_mass_g": float(Decimal(quantity["mass_g_decimal"])),
+                "expected_sequence": args.expected_sequence,
+                "idempotency_key": idempotency_key,
+                "actor": actor,
+                "rationale": rationale,
+            },
+        )
+        return {
+            "status": "PROPOSAL_RECORDED" if response.get("status") != "BLOCKED" else "BLOCKED",
+            "mode": mode,
+            "delta_card": {
+                "add": f"{quantity['amount_decimal']} {quantity['unit']} of {material}",
+                "purpose": reason,
+                "state": "PROPOSAL_ONLY",
+                "requested_quantity": quantity,
+                "negative_delta_allowed": False,
+            },
+            "server": response,
+        }
+    if not proposal_id:
+        raise ValueError(f"{operation} requires --proposal-id")
+    if operation == "EVALUATE":
+        command_id = str(getattr(args, "idempotency_key", "") or "").strip()
+        reaction = str(getattr(args, "reaction", "") or "").strip()
+        if not command_id or args.expected_sequence is None:
+            raise ValueError(
+                "EVALUATE requires --idempotency-key and --expected-sequence"
+            )
+        if not reaction or args.waited_seconds is None:
+            raise ValueError("EVALUATE requires --reaction and --waited-seconds")
+        waited_seconds = float(
+            Decimal(_decimal_text(args.waited_seconds, "waited_seconds", positive=False))
+        )
+        response = _request_json(
+            api_base_url=api_base,
+            method="POST",
+            path=f"actions/{proposal_id}/evaluations",
+            payload={
+                "schema_version": "evolving-bottle-evaluation-v1",
+                "bottle_id": bottle_id,
+                "expected_sequence": args.expected_sequence,
+                "command_id": command_id,
+                "actor": actor,
+                "evaluated_at": args.occurred_at or now,
+                "waited_seconds": waited_seconds,
+                "reaction": reaction,
+                "decision": args.evaluation_decision,
+            },
+        )
+        return {
+            "status": (
+                "BLOCKED"
+                if response.get("status") == "BLOCKED"
+                else "EVALUATION_RECORDED"
+            ),
+            "mode": mode,
+            "evidence_scope": "SEQUENTIAL_PERSONAL_OBSERVATION",
+            "server": response,
+        }
+    if operation == "CONFIRM":
+        decision = str(args.decision).strip().upper()
+        response = _request_json(
+            api_base_url=api_base,
+            method="POST",
+            path=f"actions/{proposal_id}/confirmations",
+            payload={
+                "decision": decision,
+                "confirmer_pseudonym": args.confirmer,
+                "confirmed_at": args.occurred_at or now,
+                "rationale": reason,
+            },
+        )
+        return {
+            "status": (
+                "BLOCKED" if response.get("status") == "BLOCKED" else "CONFIRMATION_RECORDED"
+            ),
+            "mode": mode,
+            "server": response,
+        }
+    if operation == "MEASURE":
+        quantity = _requested_batch_quantity(args, actual=True)
+        response = _request_json(
+            api_base_url=api_base,
+            method="POST",
+            path=f"actions/{proposal_id}/measurements",
+            payload={
+                "quantity_kind": "mass",
+                "value": float(Decimal(quantity["mass_g_decimal"])),
+                "unit": "g",
+                "standard_uncertainty": (
+                    None
+                    if args.standard_uncertainty_g is None
+                    else float(Decimal(_decimal_text(args.standard_uncertainty_g, "standard_uncertainty_g", positive=False)))
+                ),
+                "method": args.measurement_method,
+                "measured_at": args.occurred_at or now,
+                "actor": actor,
+            },
+        )
+        return {
+            "status": "BLOCKED" if response.get("status") == "BLOCKED" else "MEASUREMENT_RECORDED",
+            "mode": mode,
+            "actual_quantity": quantity,
+            "server": response,
+        }
+    response = _request_json(
+        api_base_url=api_base,
+        method="POST",
+        path=f"actions/{proposal_id}/commit",
+        payload={"actor": actor, "rationale": reason},
+    )
+    return {
+        "status": "BLOCKED" if response.get("status") == "BLOCKED" else "COMMIT_RECORDED",
+        "mode": mode,
+        "server": response,
+    }
+
+
+def handle_live_batch(args: argparse.Namespace) -> dict[str, Any]:
+    """Use the server-owned, replay-safe evolving-bottle lifecycle."""
+
+    try:
+        return _batch_lifecycle(args, rescue=False)
+    except ValueError as exc:
+        return {"status": "ERROR", "mode": "LIVE_BATCH", "detail": str(exc)}
 
 
 def handle_batch_rescue(args: argparse.Namespace) -> dict[str, Any]:
-    """Plan a corrective addition to an already-mixed bottle (stub)."""
-    print(
-        "NOT_IMPLEMENTED: Mode BATCH_RESCUE requires bottle state inspection "
-        "and corrective action planning.",
-        file=sys.stderr,
-    )
-    print(
-        "To complete: implement batch state replay, identify drift from "
-        "target, propose corrective dose, pre-action gate, and confirmed "
-        "addition.",
-        file=sys.stderr,
-    )
-    print(file=sys.stderr)
-    print("Proposed corrective action:", file=sys.stderr)
-    print(
-        f"  batch_id={args.batch_id}  material={args.material}  "
-        f"amount_ul={args.amount_ul}  reason={args.reason}",
-        file=sys.stderr,
-    )
-    print("  lifecycle: REPLAY -> DETECT_DRIFT -> PROPOSE -> GATE -> COMMIT", file=sys.stderr)
-    return {
-        "status": "NOT_IMPLEMENTED",
-        "mode": "BATCH_RESCUE",
-        "batch_id": args.batch_id,
-        "material": args.material,
-        "amount_ul": args.amount_ul,
-        "reason": args.reason,
-    }
+    """Use the same positive-only lifecycle for a corrective bottle delta."""
+
+    try:
+        return _batch_lifecycle(args, rescue=True)
+    except ValueError as exc:
+        return {"status": "ERROR", "mode": "BATCH_RESCUE", "detail": str(exc)}
 
 
 def handle_sensory_experiment(args: argparse.Namespace) -> dict[str, Any]:
@@ -1117,21 +1395,92 @@ def main(argv: list[str] | None = None) -> int:
     validate_parser = subparsers.add_parser("validate", help="Validate a chassis partition")
     validate_parser.add_argument("--chassis", required=True, help="Path to chassis JSON file")
 
+    def add_batch_lifecycle_arguments(
+        command_parser: argparse.ArgumentParser,
+        *,
+        rescue: bool,
+    ) -> None:
+        command_parser.add_argument("--batch-id", required=True, help="Bottle/batch identifier")
+        command_parser.add_argument(
+            "--operation",
+            choices=sorted(_BATCH_OPERATIONS),
+            default="PROPOSE",
+            help="One explicit lifecycle step; no step automatically commits the next",
+        )
+        command_parser.add_argument("--material", help="Human-readable material label")
+        command_parser.add_argument("--amount", help="Requested positive addition as a decimal")
+        command_parser.add_argument("--unit", choices=sorted(_BATCH_UNITS), help="uL, mL, mg, or g")
+        command_parser.add_argument(
+            "--amount-ul",
+            help="Backward-compatible alias for --amount <value> --unit uL",
+        )
+        command_parser.add_argument(
+            "--stock-density-g-ml",
+            help="Required only when converting a liquid uL/mL transfer for the mass ledger",
+        )
+        command_parser.add_argument("--reservation-id", help="Active server-owned reservation")
+        command_parser.add_argument("--expected-sequence", type=int, help="Current bottle stream sequence")
+        command_parser.add_argument("--idempotency-key", help="Replay-safe proposal identity")
+        command_parser.add_argument("--proposal-id", help="Proposal used by confirm/measure/commit")
+        command_parser.add_argument(
+            "--decision",
+            choices=("CONFIRMED", "REJECTED"),
+            default="CONFIRMED",
+        )
+        command_parser.add_argument("--confirmer", default="personal-research-user")
+        command_parser.add_argument("--actual-amount", help="Actual transferred amount for MEASURE")
+        command_parser.add_argument(
+            "--actual-unit",
+            choices=sorted(_BATCH_UNITS),
+            help="Actual transfer unit; defaults to --unit",
+        )
+        command_parser.add_argument(
+            "--standard-uncertainty-g",
+            help="Optional gravimetric standard uncertainty in g",
+        )
+        command_parser.add_argument(
+            "--measurement-method",
+            default="user-confirmed-transfer-with-explicit-unit-conversion-v1",
+        )
+        command_parser.add_argument("--occurred-at", help="Aware ISO timestamp; defaults to now")
+        command_parser.add_argument(
+            "--waited-seconds",
+            help="Elapsed time before an EVALUATE reaction",
+        )
+        command_parser.add_argument(
+            "--reaction",
+            help="One short personal sensory reaction for EVALUATE",
+        )
+        command_parser.add_argument(
+            "--evaluation-decision",
+            choices=("CONTINUE", "HOLD", "DILUTE", "STOP", "CANNOT_DETERMINE"),
+            default="HOLD",
+        )
+        command_parser.add_argument("--actor", default="personal-research-user")
+        command_parser.add_argument(
+            "--api-base-url",
+            default="http://127.0.0.1:8000/api/v1/lab/v2",
+            help="Loopback Perfume-Chem API only",
+        )
+        command_parser.add_argument(
+            "--reason",
+            required=rescue,
+            default=None,
+            help="Short purpose for the additive delta",
+        )
+
     # live-batch
-    batch_parser = subparsers.add_parser("live-batch", help="Propose bottle addition (stub)")
-    batch_parser.add_argument("--batch-id", required=True, help="Batch identifier")
-    batch_parser.add_argument("--material", required=True, help="Material name")
-    batch_parser.add_argument("--amount-ul", type=float, required=True, help="Amount in µL")
+    batch_parser = subparsers.add_parser(
+        "live-batch", help="Run one replay-safe evolving-bottle lifecycle step"
+    )
+    add_batch_lifecycle_arguments(batch_parser, rescue=False)
     batch_parser.set_defaults(func=handle_live_batch)
 
     # batch-rescue
-    rescue_parser = subparsers.add_parser("batch-rescue", help="Plan corrective addition (stub)")
-    rescue_parser.add_argument("--batch-id", required=True, help="Batch identifier")
-    rescue_parser.add_argument("--material", required=True, help="Material name")
-    rescue_parser.add_argument(
-        "--amount-ul", type=float, required=True, help="Corrective amount in µL"
+    rescue_parser = subparsers.add_parser(
+        "batch-rescue", help="Run one positive-only corrective bottle lifecycle step"
     )
-    rescue_parser.add_argument("--reason", required=True, help="Reason for corrective action")
+    add_batch_lifecycle_arguments(rescue_parser, rescue=True)
     rescue_parser.set_defaults(func=handle_batch_rescue)
 
     # sensory-experiment
@@ -1235,7 +1584,7 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"  All {result.get('row_count', 0)} rows valid")
         return 0 if is_pass else 1
 
-    # Stub subcommands: print JSON if requested and return
+    # Lifecycle and compatibility subcommands: print JSON if requested and return.
     if args.subcommand in (
         "live-batch",
         "batch-rescue",

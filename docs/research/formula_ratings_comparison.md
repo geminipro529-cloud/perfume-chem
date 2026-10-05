@@ -1,5 +1,10 @@
 # Formula Ratings Comparison Table
 
+> **Authority status: HISTORICAL / PROVISIONAL — NOT SELECTABLE.** The legacy
+> stars, mass-appeal fields, and composite ratings below were not calibrated to
+> an applicable blinded human endpoint. They must not be used for candidate
+> ranking, optimizer loss, tie-breaking, or claims of pleasantness or quality.
+
 **Generated:** March 28, 2026  
 **System:** Dual rating (10-star + 0-100 scores)  
 

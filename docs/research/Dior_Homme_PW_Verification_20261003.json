@@ -1,0 +1,5287 @@
+{
+  "schema_version": "dior-homme-pw-verification-v1",
+  "verified_date": "2026-10-03",
+  "status": "PASS_DESIGN_ARITHMETIC_AND_PROVENANCE_ONLY",
+  "checks_passed": 1301,
+  "checks_failed": 0,
+  "checks": [
+    {
+      "check": "three separate target editions",
+      "pass": true
+    },
+    {
+      "check": "no inventory or earlier formula mutation declared",
+      "pass": true
+    },
+    {
+      "check": "no runtime mutation or physical commit",
+      "pass": true
+    },
+    {
+      "check": "no authentic formula claimed",
+      "pass": true
+    },
+    {
+      "check": "DHI unique supplier identities",
+      "pass": true
+    },
+    {
+      "check": "DHI declared row count",
+      "pass": true
+    },
+    {
+      "check": "DHI exact 100 parts",
+      "pass": true
+    },
+    {
+      "check": "DHI exact six gram product target",
+      "pass": true
+    },
+    {
+      "check": "DHI/Iso finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Iso product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Iso product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Iso stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Iso ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Iso no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Iso correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Iso practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Iso rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Iso exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Iso supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Iso molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIMI finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIMI product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIMI product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIMI stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIMI ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIMI no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIMI correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIMI practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIMI rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIMI exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIMI supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIMI molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Hed finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Hed product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Hed product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Hed stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Hed ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Hed no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Hed correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Hed practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Hed rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Hed exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Hed supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Hed molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Helv finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Helv product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Helv product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Helv stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Helv ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Helv no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Helv correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Helv practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Helv rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Helv exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Helv supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Helv molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrett finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrett product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrett product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrett stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrett ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrett no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrett correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrett practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrett rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrett exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrett supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrett molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/EB finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/EB product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/EB product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/EB stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/EB ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/EB no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/EB correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/EB practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/EB rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/EB exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/EB supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/EB molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/VetAc finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/VetAc product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/VetAc product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/VetAc stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/VetAc ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/VetAc no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/VetAc correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/VetAc practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/VetAc rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/VetAc exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/VetAc supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/VetAc molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Sand finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Sand product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Sand product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Sand stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Sand ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Sand no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Sand correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Sand practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Sand rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Sand exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Sand supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Sand molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Berg finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Berg product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Berg product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Berg stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Berg ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Berg no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Berg correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Berg practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Berg rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Berg exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Berg supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Berg molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/EthLin finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/EthLin product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/EthLin product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/EthLin stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/EthLin ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/EthLin no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/EthLin correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/EthLin practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/EthLin rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/EthLin exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/EthLin supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/EthLin molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/LinAc finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/LinAc product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/LinAc product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/LinAc stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/LinAc ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/LinAc no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/LinAc correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/LinAc practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/LinAc rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/LinAc exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/LinAc supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/LinAc molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lav finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lav product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lav product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lav stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lav ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lav no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lav correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lav practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lav rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lav exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lav supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lav molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lin finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lin product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lin product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lin stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lin ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lin no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lin correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lin practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lin rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lin exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lin supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lin molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cedar finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cedar product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cedar product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cedar stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cedar ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cedar no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cedar correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cedar practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cedar rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cedar exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cedar supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cedar molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/DihIon finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/DihIon product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/DihIon product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/DihIon stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/DihIon ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/DihIon no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/DihIon correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/DihIon practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/DihIon rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/DihIon exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/DihIon supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/DihIon molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIon finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIon product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIon product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIon stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIon ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIon no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIon correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIon practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIon rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIon exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIon supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIon molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Orris finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Orris product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Orris product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Orris stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Orris ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Orris no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Orris correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Orris practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Orris rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Orris exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Orris supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Orris molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Irone finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Irone product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Irone product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Irone stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Irone ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Irone no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Irone correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Irone practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Irone rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Irone exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Irone supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Irone molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Irone stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHI/Coum finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Coum product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Coum product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Coum stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Coum ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Coum no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Coum correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Coum practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Coum rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Coum exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Coum supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Coum molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Van finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Van product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Van product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Van stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Van ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Van no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Van correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Van practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Van rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Van exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Van supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Van molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lab finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lab product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lab product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lab stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lab ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lab no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lab correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lab practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lab rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lab exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lab supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lab molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lab stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHI/Benz finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Benz product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Benz product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Benz stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Benz ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Benz no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Benz correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Benz practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Benz rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Benz exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Benz supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Benz molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Benz stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHI/Patch finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Patch product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Patch product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Patch stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Patch ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Patch no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Patch correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Patch practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Patch rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Patch exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Patch supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Patch molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Vet finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Vet product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Vet product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Vet stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Vet ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Vet no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Vet correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Vet practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Vet rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Vet exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Vet supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Vet molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrox finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrox product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrox product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrox stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrox ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrox no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrox correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrox practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrox rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrox exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrox supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrox molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cash finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cash product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cash product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cash stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cash ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cash no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cash correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cash practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cash rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cash exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cash supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cash molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Carrot finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Carrot product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Carrot product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Carrot stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Carrot ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Carrot no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Carrot correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Carrot practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Carrot rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Carrot exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Carrot supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Carrot molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Carrot stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrette finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrette product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrette product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrette stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrette ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrette no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrette correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrette practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrette rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrette exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrette supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrette molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrette stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHI/DamA finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHI/DamA product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHI/DamA product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHI/DamA stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI/DamA ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHI/DamA no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHI/DamA correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHI/DamA practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHI/DamA rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHI/DamA exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHI/DamA supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHI/DamA molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHI/DamA stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHI stock master total",
+      "pass": true
+    },
+    {
+      "check": "DHI known DPG total",
+      "pass": true
+    },
+    {
+      "check": "DHI rounded master total",
+      "pass": true
+    },
+    {
+      "check": "DHI rounded product total",
+      "pass": true
+    },
+    {
+      "check": "DHI thirty-g conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI five-g conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI five-g product concentration",
+      "pass": true
+    },
+    {
+      "check": "DHI rounded thirty-g conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI rounded load tolerance",
+      "pass": true
+    },
+    {
+      "check": "DHI rounded trial conservation",
+      "pass": true
+    },
+    {
+      "check": "DHI rounded trial actual calculation",
+      "pass": true
+    },
+    {
+      "check": "DHI rounded trial loading tolerance",
+      "pass": true
+    },
+    {
+      "check": "DHI forty gram scaling conserves loading",
+      "pass": true
+    },
+    {
+      "check": "DHI authority ceiling",
+      "pass": true
+    },
+    {
+      "check": "DHI no sensory or safety promotion",
+      "pass": true
+    },
+    {
+      "check": "DHI Ambrox solid preserved",
+      "pass": true
+    },
+    {
+      "check": "DHI nine-percent product mass roundtrip",
+      "pass": true
+    },
+    {
+      "check": "DHI alpha-irone owned mass roundtrip",
+      "pass": true
+    },
+    {
+      "check": "DHI alternate master total",
+      "pass": true
+    },
+    {
+      "check": "DHI/Iso markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIMI markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Hed markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Helv markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrett markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/EB markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/VetAc markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Sand markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Berg markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/EthLin markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/LinAc markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lav markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lin markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cedar markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/DihIon markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/AIon markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Orris markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Irone markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Coum markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Van markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Lab markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Benz markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Patch markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Vet markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrox markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Cash markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Carrot markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/Ambrette markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI/DamA markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHI theoretical versus bench separated",
+      "pass": true
+    },
+    {
+      "check": "DHI grams versus volume separated",
+      "pass": true
+    },
+    {
+      "check": "DHI no phantom chemical input",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 unique supplier identities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 declared row count",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 exact 100 parts",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 exact six gram product target",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Iso finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Iso product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Iso product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Iso stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Iso ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Iso no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Iso correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Iso practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Iso rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Iso exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Iso supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Iso molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIMI finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIMI product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIMI product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIMI stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIMI ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIMI no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIMI correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIMI practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIMI rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIMI exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIMI supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIMI molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hed finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hed product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hed product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hed stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hed ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hed no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hed correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hed practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hed rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hed exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hed supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hed molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrett finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrett product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrett product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrett stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrett ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrett no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrett correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrett practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrett rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrett exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrett supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrett molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EB finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EB product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EB product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EB stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EB ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EB no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EB correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EB practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EB rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EB exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EB supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EB molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/VetAc finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/VetAc product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/VetAc product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/VetAc stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/VetAc ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/VetAc no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/VetAc correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/VetAc practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/VetAc rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/VetAc exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/VetAc supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/VetAc molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Patch finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Patch product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Patch product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Patch stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Patch ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Patch no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Patch correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Patch practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Patch rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Patch exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Patch supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Patch molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Vet finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Vet product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Vet product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Vet stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Vet ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Vet no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Vet correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Vet practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Vet rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Vet exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Vet supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Vet molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Sand finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Sand product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Sand product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Sand stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Sand ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Sand no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Sand correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Sand practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Sand rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Sand exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Sand supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Sand molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Berg finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Berg product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Berg product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Berg stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Berg ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Berg no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Berg correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Berg practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Berg rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Berg exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Berg supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Berg molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EthLin finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EthLin product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EthLin product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EthLin stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EthLin ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EthLin no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EthLin correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EthLin practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EthLin rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EthLin exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EthLin supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EthLin molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/LinAc finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/LinAc product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/LinAc product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/LinAc stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/LinAc ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/LinAc no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/LinAc correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/LinAc practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/LinAc rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/LinAc exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/LinAc supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/LinAc molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lav finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lav product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lav product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lav stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lav ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lav no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lav correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lav practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lav rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lav exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lav supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lav molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lin finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lin product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lin product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lin stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lin ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lin no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lin correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lin practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lin rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lin exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lin supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lin molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cedar finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cedar product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cedar product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cedar stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cedar ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cedar no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cedar correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cedar practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cedar rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cedar exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cedar supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cedar molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DihIon finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DihIon product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DihIon product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DihIon stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DihIon ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DihIon no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DihIon correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DihIon practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DihIon rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DihIon exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DihIon supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DihIon molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIon finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIon product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIon product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIon stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIon ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIon no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIon correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIon practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIon rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIon exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIon supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIon molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Orris finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Orris product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Orris product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Orris stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Orris ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Orris no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Orris correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Orris practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Orris rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Orris exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Orris supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Orris molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Irone finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Irone product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Irone product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Irone stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Irone ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Irone no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Irone correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Irone practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Irone rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Irone exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Irone supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Irone molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Irone stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Coum finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Coum product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Coum product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Coum stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Coum ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Coum no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Coum correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Coum practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Coum rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Coum exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Coum supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Coum molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Van finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Van product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Van product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Van stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Van ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Van no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Van correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Van practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Van rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Van exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Van supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Van molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lab finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lab product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lab product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lab stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lab ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lab no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lab correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lab practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lab rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lab exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lab supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lab molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lab stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Benz finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Benz product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Benz product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Benz stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Benz ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Benz no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Benz correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Benz practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Benz rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Benz exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Benz supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Benz molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Benz stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrox finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrox product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrox product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrox stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrox ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrox no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrox correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrox practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrox rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrox exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrox supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrox molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cash finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cash product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cash product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cash stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cash ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cash no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cash correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cash practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cash rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cash exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cash supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cash molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Carrot finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Carrot product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Carrot product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Carrot stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Carrot ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Carrot no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Carrot correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Carrot practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Carrot rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Carrot exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Carrot supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Carrot molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Carrot stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hay finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hay product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hay product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hay stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hay ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hay no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hay correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hay practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hay rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hay exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hay supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hay molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hay stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DamA finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DamA product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DamA product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DamA stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DamA ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DamA no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DamA correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DamA practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DamA rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DamA exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DamA supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DamA molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DamA stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 stock master total",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 known DPG total",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 rounded master total",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 rounded product total",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 thirty-g conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 five-g conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 five-g product concentration",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 rounded thirty-g conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 rounded load tolerance",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 rounded trial conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 rounded trial actual calculation",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 rounded trial loading tolerance",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 forty gram scaling conserves loading",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 authority ceiling",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 no sensory or safety promotion",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 Ambrox solid preserved",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 nine-percent product mass roundtrip",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 alpha-irone owned mass roundtrip",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 alternate master total",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Iso markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIMI markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hed markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrett markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EB markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/VetAc markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Patch markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Vet markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Sand markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Berg markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/EthLin markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/LinAc markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lav markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lin markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cedar markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DihIon markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/AIon markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Orris markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Irone markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Coum markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Van markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Lab markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Benz markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Ambrox markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Cash markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Carrot markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/Hay markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025/DamA markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 theoretical versus bench separated",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 grams versus volume separated",
+      "pass": true
+    },
+    {
+      "check": "DHP2025 no phantom chemical input",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 unique supplier identities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 declared row count",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 exact 100 parts",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 exact six gram product target",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Iso finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Iso product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Iso product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Iso stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Iso ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Iso no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Iso correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Iso practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Iso rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Iso exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Iso supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Iso molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIMI finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIMI product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIMI product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIMI stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIMI ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIMI no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIMI correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIMI practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIMI rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIMI exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIMI supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIMI molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Hed finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Hed product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Hed product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Hed stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Hed ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Hed no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Hed correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Hed practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Hed rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Hed exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Hed supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Hed molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrett finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrett product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrett product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrett stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrett ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrett no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrett correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrett practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrett rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrett exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrett supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrett molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Exalt finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Exalt product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Exalt product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Exalt stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Exalt ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Exalt no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Exalt correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Exalt practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Exalt rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Exalt exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Exalt supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Exalt molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/VetAc finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/VetAc product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/VetAc product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/VetAc stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/VetAc ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/VetAc no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/VetAc correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/VetAc practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/VetAc rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/VetAc exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/VetAc supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/VetAc molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Patch finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Patch product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Patch product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Patch stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Patch ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Patch no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Patch correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Patch practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Patch rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Patch exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Patch supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Patch molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Vet finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Vet product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Vet product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Vet stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Vet ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Vet no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Vet correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Vet practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Vet rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Vet exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Vet supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Vet molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Sand finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Sand product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Sand product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Sand stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Sand ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Sand no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Sand correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Sand practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Sand rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Sand exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Sand supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Sand molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Eban finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Eban product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Eban product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Eban stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Eban ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Eban no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Eban correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Eban practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Eban rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Eban exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Eban supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Eban molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/SAlbum finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/SAlbum product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/SAlbum product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/SAlbum stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/SAlbum ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/SAlbum no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/SAlbum correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/SAlbum practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/SAlbum rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/SAlbum exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/SAlbum supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/SAlbum molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Berg finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Berg product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Berg product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Berg stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Berg ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Berg no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Berg correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Berg practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Berg rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Berg exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Berg supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Berg molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/EthLin finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/EthLin product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/EthLin product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/EthLin stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/EthLin ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/EthLin no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/EthLin correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/EthLin practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/EthLin rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/EthLin exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/EthLin supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/EthLin molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/LinAc finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/LinAc product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/LinAc product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/LinAc stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/LinAc ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/LinAc no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/LinAc correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/LinAc practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/LinAc rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/LinAc exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/LinAc supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/LinAc molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lav finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lav product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lav product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lav stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lav ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lav no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lav correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lav practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lav rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lav exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lav supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lav molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cedar finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cedar product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cedar product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cedar stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cedar ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cedar no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cedar correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cedar practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cedar rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cedar exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cedar supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cedar molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DihIon finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DihIon product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DihIon product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DihIon stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DihIon ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DihIon no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DihIon correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DihIon practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DihIon rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DihIon exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DihIon supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DihIon molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIon finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIon product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIon product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIon stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIon ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIon no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIon correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIon practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIon rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIon exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIon supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIon molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Orris finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Orris product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Orris product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Orris stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Orris ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Orris no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Orris correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Orris practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Orris rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Orris exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Orris supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Orris molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Irone finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Irone product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Irone product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Irone stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Irone ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Irone no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Irone correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Irone practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Irone rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Irone exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Irone supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Irone molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Irone stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Coum finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Coum product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Coum product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Coum stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Coum ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Coum no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Coum correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Coum practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Coum rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Coum exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Coum supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Coum molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Van finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Van product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Van product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Van stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Van ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Van no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Van correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Van practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Van rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Van exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Van supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Van molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lab finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lab product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lab product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lab stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lab ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lab no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lab correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lab practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lab rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lab exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lab supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lab molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lab stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Benz finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Benz product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Benz product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Benz stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Benz ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Benz no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Benz correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Benz practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Benz rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Benz exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Benz supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Benz molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Benz stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrox finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrox product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrox product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrox stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrox ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrox no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrox correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrox practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrox rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrox exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrox supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrox molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cash finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cash product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cash product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cash stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cash ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cash no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cash correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cash practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cash rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cash exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cash supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cash molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Carrot finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Carrot product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Carrot product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Carrot stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Carrot ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Carrot no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Carrot correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Carrot practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Carrot rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Carrot exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Carrot supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Carrot molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Carrot stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Rose finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Rose product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Rose product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Rose stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Rose ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Rose no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Rose correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Rose practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Rose rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Rose exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Rose supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Rose molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Rose stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DamA finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DamA product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DamA product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DamA stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DamA ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DamA no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DamA correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DamA practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DamA rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DamA exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DamA supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DamA molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DamA stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Suederal finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Suederal product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Suederal product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Suederal stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Suederal ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Suederal no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Suederal correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Suederal practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Suederal rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Suederal exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Suederal supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Suederal molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Saf finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Saf product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Saf product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Saf stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Saf ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Saf no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Saf correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Saf practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Saf rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Saf exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Saf supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Saf molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Saf stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/IBQ finite positive quantities",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/IBQ product fraction valid",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/IBQ product target mass",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/IBQ stock/product conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/IBQ ppm dimensional relation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/IBQ no inferred volume",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/IBQ correct 1mg half-up rounding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/IBQ practical minimum transfer",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/IBQ rounded product follows fraction",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/IBQ exact SKU URL",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/IBQ supplier description not original formula",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/IBQ molecular mass not invented",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/IBQ stock basis and carrier",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 stock master total",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 known DPG total",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 rounded master total",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 rounded product total",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 thirty-g conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 five-g conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 five-g product concentration",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 rounded thirty-g conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 rounded load tolerance",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 rounded trial conservation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 rounded trial actual calculation",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 rounded trial loading tolerance",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 forty gram scaling conserves loading",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 authority ceiling",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 no sensory or safety promotion",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 Ambrox solid preserved",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 nine-percent product mass roundtrip",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 alpha-irone owned mass roundtrip",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 alternate master total",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Iso markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIMI markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Hed markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrett markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Exalt markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/VetAc markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Patch markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Vet markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Sand markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Eban markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/SAlbum markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Berg markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/EthLin markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/LinAc markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lav markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cedar markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DihIon markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/AIon markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Orris markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Irone markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Coum markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Van markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Lab markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Benz markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Ambrox markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Cash markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Carrot markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Rose markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/DamA markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Suederal markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/Saf markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014/IBQ markdown numeric row binding",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 theoretical versus bench separated",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 grams versus volume separated",
+      "pass": true
+    },
+    {
+      "check": "DHP2014 no phantom chemical input",
+      "pass": true
+    },
+    {
+      "check": "37 selected perfume supplier products",
+      "pass": true
+    },
+    {
+      "check": "38 live product and carrier listings recorded",
+      "pass": true
+    },
+    {
+      "check": "six candidate families",
+      "pass": true
+    },
+    {
+      "check": "no historical score transplantation",
+      "pass": true
+    },
+    {
+      "check": "Irone preparation conserves product fraction",
+      "pass": true
+    },
+    {
+      "check": "Irone preparation not falsely reported prepared",
+      "pass": true
+    },
+    {
+      "check": "Lab preparation conserves product fraction",
+      "pass": true
+    },
+    {
+      "check": "Lab preparation not falsely reported prepared",
+      "pass": true
+    },
+    {
+      "check": "Benz preparation conserves product fraction",
+      "pass": true
+    },
+    {
+      "check": "Benz preparation not falsely reported prepared",
+      "pass": true
+    },
+    {
+      "check": "Carrot preparation conserves product fraction",
+      "pass": true
+    },
+    {
+      "check": "Carrot preparation not falsely reported prepared",
+      "pass": true
+    },
+    {
+      "check": "Ambrette preparation conserves product fraction",
+      "pass": true
+    },
+    {
+      "check": "Ambrette preparation not falsely reported prepared",
+      "pass": true
+    },
+    {
+      "check": "DamA preparation conserves product fraction",
+      "pass": true
+    },
+    {
+      "check": "DamA preparation not falsely reported prepared",
+      "pass": true
+    },
+    {
+      "check": "Hay preparation conserves product fraction",
+      "pass": true
+    },
+    {
+      "check": "Hay preparation not falsely reported prepared",
+      "pass": true
+    },
+    {
+      "check": "Rose preparation conserves product fraction",
+      "pass": true
+    },
+    {
+      "check": "Rose preparation not falsely reported prepared",
+      "pass": true
+    },
+    {
+      "check": "Saf preparation conserves product fraction",
+      "pass": true
+    },
+    {
+      "check": "Saf preparation not falsely reported prepared",
+      "pass": true
+    },
+    {
+      "check": "IBQ preparation conserves product fraction",
+      "pass": true
+    },
+    {
+      "check": "IBQ preparation not falsely reported prepared",
+      "pass": true
+    },
+    {
+      "check": "DHI pair alternative preserves 14 percent musk",
+      "pass": true
+    },
+    {
+      "check": "DHI pair alternative preserves 14 percent musk",
+      "pass": true
+    },
+    {
+      "check": "DHI pair alternative preserves 14 percent musk",
+      "pass": true
+    },
+    {
+      "check": "protected AGENTS.md",
+      "pass": true
+    },
+    {
+      "check": "protected .github/copilot-instructions.md",
+      "pass": true
+    },
+    {
+      "check": "protected inventory.txt",
+      "pass": true
+    },
+    {
+      "check": "protected output/research/perfumersworld_catalog_20260930/catalog_rows_v1.json",
+      "pass": true
+    },
+    {
+      "check": "protected docs/research/DHI2011_ORRIS_LED_REVISION_BRIEF_2026-09-05.md",
+      "pass": true
+    },
+    {
+      "check": "protected formulas/DHI-11_Velours_d_Iris_05443A_30mL_20pct_V3_Smooth.md",
+      "pass": true
+    },
+    {
+      "check": "protected formulas/Iris_Sable_Profond_DHP2025_Niche_30mL_EdP.md",
+      "pass": true
+    },
+    {
+      "check": "protected formulas/Cuir_Obscur_Profond_DHP2014_Niche_30mL_EdP.md",
+      "pass": true
+    },
+    {
+      "check": "protected formulas/Cuir_Obscur_GCMS_DHP_30mL_Extrait.md",
+      "pass": true
+    },
+    {
+      "check": "original webpage hashes not fabricated",
+      "pass": true
+    },
+    {
+      "check": "Dior_Homme_PW_Designs_R1_20261003.json newline and whitespace",
+      "pass": true
+    },
+    {
+      "check": "Dior_Homme_Intense_PW_R1_20261003.md newline and whitespace",
+      "pass": true
+    },
+    {
+      "check": "Dior_Homme_Parfum_2025_PW_R1_20261003.md newline and whitespace",
+      "pass": true
+    },
+    {
+      "check": "Dior_Homme_Parfum_2014_PW_R1_20261003.md newline and whitespace",
+      "pass": true
+    },
+    {
+      "check": "Dior_Homme_PW_Research_20261003.md newline and whitespace",
+      "pass": true
+    }
+  ],
+  "design_summaries": {
+    "DHI": {
+      "row_count": 29,
+      "target_percent": "100.000",
+      "product_g": "6",
+      "stock_master_g": "6.861600",
+      "known_DPG_g": "0.861600",
+      "rounded_master_g": "6.862000",
+      "rounded_product_g": "6.000400",
+      "minimum_rounded_transfer_g": "0.018000"
+    },
+    "DHP2025": {
+      "row_count": 28,
+      "target_percent": "100.000",
+      "product_g": "6",
+      "stock_master_g": "6.974400",
+      "known_DPG_g": "0.974400",
+      "rounded_master_g": "6.974000",
+      "rounded_product_g": "5.999600",
+      "minimum_rounded_transfer_g": "0.030000"
+    },
+    "DHP2014": {
+      "row_count": 32,
+      "target_percent": "100.000",
+      "product_g": "6",
+      "stock_master_g": "7.304400",
+      "known_DPG_g": "1.304400",
+      "rounded_master_g": "7.304000",
+      "rounded_product_g": "5.999600",
+      "minimum_rounded_transfer_g": "0.018000"
+    }
+  },
+  "artifact_sha256": {
+    "formulas/Dior_Homme_PW_Designs_R1_20261003.json": "b0184b5f67c5996025f96d60b0159e0992d68a74363b8658a6abd1c2b01079de",
+    "formulas/Dior_Homme_Intense_PW_R1_20261003.md": "4f3684f6914511c3b8491e5be8e17f6048fdd36adffa2a947a827d25b0acc537",
+    "formulas/Dior_Homme_Parfum_2025_PW_R1_20261003.md": "19e2c6f11381afe48f16f8826f872ce1d898da2d3c94ff3614a4dfaff2726933",
+    "formulas/Dior_Homme_Parfum_2014_PW_R1_20261003.md": "2b2aa87887019dd0c5829d3a1d9a121ed20d3af9f9823c9529b0cea04a6be117",
+    "docs/research/Dior_Homme_PW_Research_20261003.md": "861b22d9674dafda3e4b7e6c8f004da727fda9a0618d3d732617eb93e5117ab2"
+  },
+  "protected_sha256": {
+    "AGENTS.md": "a97d05907b9eddba1212b42c9765b8b4903b6ba731d185cdd3ba8bbd35e57870",
+    ".github/copilot-instructions.md": "ac8de3a4db8096f82cf5c26843b00912528281873f94c2f87052b46d9dd19814",
+    "inventory.txt": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "output/research/perfumersworld_catalog_20260930/catalog_rows_v1.json": "277ddd8e3a0080fb6af6fa7218bb16c51fdf2e1e28cebaf67c2f5ac404d77bb4",
+    "docs/research/DHI2011_ORRIS_LED_REVISION_BRIEF_2026-09-05.md": "2c87bb6ff365766cac9c4e58768dd63104e5db9e6d093d6f0eec87bd60ec5521",
+    "formulas/DHI-11_Velours_d_Iris_05443A_30mL_20pct_V3_Smooth.md": "efc43afe196d87db0412ee6867a90e47ab409b5c641f912cb88b904dfaf89614",
+    "formulas/Iris_Sable_Profond_DHP2025_Niche_30mL_EdP.md": "b9579b463779725cff852f508237534df39e314ce01719c0d6c6ebcd64f96122",
+    "formulas/Cuir_Obscur_Profond_DHP2014_Niche_30mL_EdP.md": "3d60b08767ce46e8c3b1b94b097fed6504de086fb96dd0a76d1ec7835a8be105",
+    "formulas/Cuir_Obscur_GCMS_DHP_30mL_Extrait.md": "c90cf856bd34060f8de664b4ba841eef983880f775ad1fbfd4d47c0e83625f38"
+  },
+  "source_registry_paraphrase_sha256": "fcc85b1f7c3525604e29066617a883023399ad753138700c936d72078b657800",
+  "not_performed": [
+    "physical compounding",
+    "supplier batch assays",
+    "sensory comparison",
+    "stability testing",
+    "complete Category 4/safety assessment",
+    "whole-formula release/headspace/OAV prediction",
+    "full repository test suite",
+    "scientific model training or promotion"
+  ],
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "targeted_git_diff_check": {
+    "exit_code": 0,
+    "stdout": "",
+    "scope": "The five added research/design files only; untracked-file whitespace separately inspected by fresh verifier",
+    "full_worktree_diff_check_run": false
+  },
+  "verification_method": "One fresh local artifact-focused Decimal/provenance assertion run; checks are not independent sensory trials or a full repository test suite."
+}

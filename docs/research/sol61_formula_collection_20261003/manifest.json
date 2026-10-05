@@ -1,0 +1,588 @@
+{
+  "schema_version": "sol61-formula-collection-v1",
+  "date": "2026-10-03",
+  "scope": "Current Perfume-Chem workspace and accessible native local session; not a census of unavailable ChatGPT chats",
+  "name": "Seven GPT-6.1 Sol perfume campaigns, including three new remakes",
+  "authorship_note": "Four earlier campaigns verified against source-creation calls and model contexts. Three remakes created in this turn with native GPT-6.1 Sol reviews and root acceptance. GPT-5.6 parents are references only.",
+  "physical_mix_note": "Authored/formulated does not mean physically compounded. No confirmed physical mix is inferred.",
+  "inventory_sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+  "original_files_preserved": true,
+  "parent_formulas_preserved": true,
+  "inventory_modified": false,
+  "runtime_modified": false,
+  "campaigns": [
+    {
+      "id": "PRADA_LHOMME_INTENSE",
+      "name": "Prada L'Homme Intense research build",
+      "role": "ORIGINAL_SOL61",
+      "main": "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.md",
+      "formula_rows": 31,
+      "variants": "31-row lead; exact stock-volume/solid mass card, not a proprietary reconstruction",
+      "physical_status": "NOT_CONFIRMED_MIXED"
+    },
+    {
+      "id": "CHIMIE_FEMME_PW2",
+      "name": "CHIMIE Femme PW2",
+      "role": "ORIGINAL_SOL61",
+      "main": "docs/research/chimie_femme_pw2_20261002/FORMULAS_AND_CART.md",
+      "formula_rows": 37,
+      "variants": "Six specified target architectures: Rich Orchard PW, Commercial Clear, Luxury Polished, Control, Ideal/source-gap, Musk Alternative",
+      "physical_status": "NOT_CONFIRMED_MIXED"
+    },
+    {
+      "id": "AVENTUS_MERIDIAN",
+      "name": "Aventus Meridian Rich Ambrox",
+      "role": "ORIGINAL_SOL61",
+      "main": "formulas/Aventus_Meridian_Rich_Ambrox_Research_v1_20261002.md",
+      "formula_rows": 38,
+      "variants": "38-row lead plus alternative/control designs; literal analytical fit withheld",
+      "physical_status": "NOT_CONFIRMED_MIXED"
+    },
+    {
+      "id": "FLEUR_DE_PEAU",
+      "name": "Fleur de Peau research interpretation",
+      "role": "ORIGINAL_SOL61",
+      "main": "formulas/Fleur_de_Peau_EDP_Research_Interpretation_v1_20261002.md",
+      "formula_rows": 31,
+      "variants": "31-row lead and five specified candidate designs; literal analytical fit withheld",
+      "physical_status": "NOT_CONFIRMED_MIXED"
+    },
+    {
+      "id": "Ember_Vow_Pink_Pepper_Amber_Gourmand_Sol61_v3_20261003",
+      "name": "Ember Vow — Pink Pepper Amber Gourmand",
+      "role": "NEW_SOL61_REMAKE",
+      "main": "formulas/Ember_Vow_Pink_Pepper_Amber_Gourmand_Sol61_v3_20261003.md",
+      "formula_rows": 27,
+      "variants": "Five specified design targets, one literal-fit path withheld",
+      "physical_status": "NOT_CONFIRMED_MIXED"
+    },
+    {
+      "id": "White_Rebellion_Unisex_White_Floral_Sol61_v2_20261003",
+      "name": "White Rebellion — Unisex White Floral",
+      "role": "NEW_SOL61_REMAKE",
+      "main": "formulas/White_Rebellion_Unisex_White_Floral_Sol61_v2_20261003.md",
+      "formula_rows": 36,
+      "variants": "Five specified design targets, one literal-fit path withheld",
+      "physical_status": "NOT_CONFIRMED_MIXED"
+    },
+    {
+      "id": "Lavande_Ambre_Profond_Parallel_A_Sol61_v2_20261003",
+      "name": "Lavande Ambre Profond — Parallel A",
+      "role": "NEW_SOL61_REMAKE",
+      "main": "formulas/Lavande_Ambre_Profond_Parallel_A_Sol61_v2_20261003.md",
+      "formula_rows": 22,
+      "variants": "Five specified design targets, one literal-fit path withheld",
+      "physical_status": "NOT_CONFIRMED_MIXED"
+    }
+  ],
+  "source_files": [
+    {
+      "source_path": "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.md",
+      "archive_entry": "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.md",
+      "sha256": "015ba01f76004b8e8c2392f9e2be67aeffeb3170a231d6e6be9a79a0031bb211",
+      "size_bytes": 9123,
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "ORIGINAL_SOL61_CAMPAIGN"
+    },
+    {
+      "source_path": "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.json",
+      "archive_entry": "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.json",
+      "sha256": "39c537afeb7d78cd706492af8ac6928138a73b704620998b2829cdf41029bef8",
+      "size_bytes": 39627,
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "ORIGINAL_SOL61_CAMPAIGN"
+    },
+    {
+      "source_path": "docs/research/Prada_LHomme_Intense_Research_Build_20261002.md",
+      "archive_entry": "docs/research/Prada_LHomme_Intense_Research_Build_20261002.md",
+      "sha256": "4b923029cfedf8dacbd1516514b56bf12cf82e01806a74afbcaa64d1748d23fd",
+      "size_bytes": 13647,
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "ORIGINAL_SOL61_CAMPAIGN"
+    },
+    {
+      "source_path": "docs/research/chimie_femme_pw2_20261002/README.md",
+      "archive_entry": "docs/research/chimie_femme_pw2_20261002/README.md",
+      "sha256": "75fd9874654d9c286fa83f282351a53ad37cbeeca6348b3e8fdeb7ea049392aa",
+      "size_bytes": 32829,
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "ORIGINAL_SOL61_CAMPAIGN"
+    },
+    {
+      "source_path": "docs/research/chimie_femme_pw2_20261002/FORMULAS_AND_CART.md",
+      "archive_entry": "docs/research/chimie_femme_pw2_20261002/FORMULAS_AND_CART.md",
+      "sha256": "9408a51a69b6d9173f67d3ef65fcfb31421b683b662e59be872c8c01da831511",
+      "size_bytes": 25487,
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "ORIGINAL_SOL61_CAMPAIGN"
+    },
+    {
+      "source_path": "docs/research/chimie_femme_pw2_20261002/campaign.json",
+      "archive_entry": "docs/research/chimie_femme_pw2_20261002/campaign.json",
+      "sha256": "7c70e6b297a9ea04b77f0b8ddcf21cb87b2604cf4e09b50fd54e026bbe6f60fc",
+      "size_bytes": 125762,
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "ORIGINAL_SOL61_CAMPAIGN"
+    },
+    {
+      "source_path": "docs/research/chimie_femme_pw2_20261002/alternatives.json",
+      "archive_entry": "docs/research/chimie_femme_pw2_20261002/alternatives.json",
+      "sha256": "b385a4a526edd9b92e82b6bb37480e26a83a430b3d2a158e576e848c7dd02122",
+      "size_bytes": 15661,
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "ORIGINAL_SOL61_CAMPAIGN"
+    },
+    {
+      "source_path": "docs/research/chimie_femme_pw2_20261002/validation.json",
+      "archive_entry": "docs/research/chimie_femme_pw2_20261002/validation.json",
+      "sha256": "cd4008e46b7f7e6104575561990c8804c45644d3990f2c84de6a796b4aa23be1",
+      "size_bytes": 19753,
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "ORIGINAL_SOL61_CAMPAIGN"
+    },
+    {
+      "source_path": "formulas/Aventus_Meridian_Rich_Ambrox_Research_v1_20261002.md",
+      "archive_entry": "formulas/Aventus_Meridian_Rich_Ambrox_Research_v1_20261002.md",
+      "sha256": "de712361d0b5e38479538798c2d4a1ee3241a19a92227f0b8e5a4d4c270d25e4",
+      "size_bytes": 29606,
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "ORIGINAL_SOL61_CAMPAIGN"
+    },
+    {
+      "source_path": "formulas/Aventus_Meridian_Rich_Ambrox_Research_v1_20261002.json",
+      "archive_entry": "formulas/Aventus_Meridian_Rich_Ambrox_Research_v1_20261002.json",
+      "sha256": "04fcfe6a0d71c8866be9bc6a755b225c157269ab72cfe844f17e6c4e7c05b4e7",
+      "size_bytes": 38581,
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "ORIGINAL_SOL61_CAMPAIGN"
+    },
+    {
+      "source_path": "formulas/Fleur_de_Peau_EDP_Research_Interpretation_v1_20261002.md",
+      "archive_entry": "formulas/Fleur_de_Peau_EDP_Research_Interpretation_v1_20261002.md",
+      "sha256": "06dbbc809c045599a0cf1f7f02949076de1b3c22715c23f800b17f1c8f065b63",
+      "size_bytes": 25357,
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "ORIGINAL_SOL61_CAMPAIGN"
+    },
+    {
+      "source_path": "formulas/Fleur_de_Peau_EDP_Research_Interpretation_v1_20261002.json",
+      "archive_entry": "formulas/Fleur_de_Peau_EDP_Research_Interpretation_v1_20261002.json",
+      "sha256": "3a266d761219c8b50a1488bcfdeebe67a8a38086f3ec0c1fbc17773639d9d148",
+      "size_bytes": 40078,
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "ORIGINAL_SOL61_CAMPAIGN"
+    },
+    {
+      "source_path": "formulas/Ember_Vow_Pink_Pepper_Amber_Gourmand_Sol61_v3_20261003.json",
+      "archive_entry": "formulas/Ember_Vow_Pink_Pepper_Amber_Gourmand_Sol61_v3_20261003.json",
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "NEW_SOL61_REMAKE",
+      "sha256": "6ad3e68169aca741f653d49f43810f8fc230facce06b451120fbc0960f70da0f",
+      "size_bytes": 94983
+    },
+    {
+      "source_path": "formulas/Ember_Vow_Pink_Pepper_Amber_Gourmand_Sol61_v3_20261003.md",
+      "archive_entry": "formulas/Ember_Vow_Pink_Pepper_Amber_Gourmand_Sol61_v3_20261003.md",
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "NEW_SOL61_REMAKE",
+      "sha256": "8f85968445b5ac461ef9885ad45cc613ea0860db93c92457b535e43c50932403",
+      "size_bytes": 21825
+    },
+    {
+      "source_path": "formulas/White_Rebellion_Unisex_White_Floral_Sol61_v2_20261003.json",
+      "archive_entry": "formulas/White_Rebellion_Unisex_White_Floral_Sol61_v2_20261003.json",
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "NEW_SOL61_REMAKE",
+      "sha256": "8c8be64e556944ffb4cfdc8a62b9e0da8f4b4e34d3cb7aff75268189569ece6d",
+      "size_bytes": 123735
+    },
+    {
+      "source_path": "formulas/White_Rebellion_Unisex_White_Floral_Sol61_v2_20261003.md",
+      "archive_entry": "formulas/White_Rebellion_Unisex_White_Floral_Sol61_v2_20261003.md",
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "NEW_SOL61_REMAKE",
+      "sha256": "050ceee5727935f7894fb0d00c9a632c1cdcbb467f81471b2b8e80fda2e33e9e",
+      "size_bytes": 23553
+    },
+    {
+      "source_path": "formulas/Lavande_Ambre_Profond_Parallel_A_Sol61_v2_20261003.json",
+      "archive_entry": "formulas/Lavande_Ambre_Profond_Parallel_A_Sol61_v2_20261003.json",
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "NEW_SOL61_REMAKE",
+      "sha256": "23648acc5b15936442d8d7ff70881844b2bd4cb73cb89099d560690f91812902",
+      "size_bytes": 81694
+    },
+    {
+      "source_path": "formulas/Lavande_Ambre_Profond_Parallel_A_Sol61_v2_20261003.md",
+      "archive_entry": "formulas/Lavande_Ambre_Profond_Parallel_A_Sol61_v2_20261003.md",
+      "author_model": "gpt-6.1-sol",
+      "collection_role": "NEW_SOL61_REMAKE",
+      "sha256": "e404dece1f0b4e462115ced97b630bed49db95d2fcbcf39892e4d4632e61ebbb",
+      "size_bytes": 20368
+    },
+    {
+      "source_path": "formulas/Ember_Vow_Pink_Pepper_Amber_Gourmand_30mL_EDP_v2.md",
+      "archive_entry": "formulas/Ember_Vow_Pink_Pepper_Amber_Gourmand_30mL_EDP_v2.md",
+      "sha256": "17d1ecdb14caddf7d34e847eec9c6eef6d39614d39aafdf1abb91aaa08b297a9",
+      "author_model": "gpt-5.6-sol",
+      "collection_role": "REFERENCE_PARENT_NOT_SOL61_AUTHORSHIP",
+      "size_bytes": 10412
+    },
+    {
+      "source_path": "formulas/White_Rebellion_Unisex_White_Floral_30mL_Commercial_Pilot_v1.md",
+      "archive_entry": "formulas/White_Rebellion_Unisex_White_Floral_30mL_Commercial_Pilot_v1.md",
+      "sha256": "1eb7a913ddc2eb7029b5a97dc1d2055e05151391cd9d4d997231b9afa13c0b21",
+      "author_model": "gpt-5.6-sol",
+      "collection_role": "REFERENCE_PARENT_NOT_SOL61_AUTHORSHIP",
+      "size_bytes": 8536
+    },
+    {
+      "source_path": "formulas/Lavande_Ambre_Profond_Parallel_A_30mL_EDP.md",
+      "archive_entry": "formulas/Lavande_Ambre_Profond_Parallel_A_30mL_EDP.md",
+      "sha256": "88696bbcfe3dd840f9aa6b320a569c43b579c820585d3d8b5d82cdc757e47103",
+      "author_model": "gpt-5.6-sol",
+      "collection_role": "REFERENCE_PARENT_NOT_SOL61_AUTHORSHIP",
+      "size_bytes": 15988
+    }
+  ],
+  "sanitized_provenance": {
+    "native_session_id": "01a0c324-0a57-77b0-bf57-dd6661f5b661",
+    "original_creation_events": [
+      {
+        "line": 61875,
+        "timestamp": "2026-10-02T00:12:18.731Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.json",
+          "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.md"
+        ],
+        "literal_patch_headers": [],
+        "dynamic_patch": true
+      },
+      {
+        "line": 61897,
+        "timestamp": "2026-10-02T00:13:54.905Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.json",
+          "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.md"
+        ],
+        "literal_patch_headers": [
+          {
+            "mode": "Update",
+            "path": "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.md"
+          },
+          {
+            "mode": "Update",
+            "path": "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.json"
+          }
+        ],
+        "dynamic_patch": false
+      },
+      {
+        "line": 61905,
+        "timestamp": "2026-10-02T00:14:29.373Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.md"
+        ],
+        "literal_patch_headers": [
+          {
+            "mode": "Update",
+            "path": "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.md"
+          }
+        ],
+        "dynamic_patch": false
+      },
+      {
+        "line": 61918,
+        "timestamp": "2026-10-02T00:15:06.951Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.md"
+        ],
+        "literal_patch_headers": [
+          {
+            "mode": "Update",
+            "path": "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.md"
+          }
+        ],
+        "dynamic_patch": false
+      },
+      {
+        "line": 61999,
+        "timestamp": "2026-10-02T00:20:43.405Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.json",
+          "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.md"
+        ],
+        "literal_patch_headers": [],
+        "dynamic_patch": true
+      },
+      {
+        "line": 62562,
+        "timestamp": "2026-10-02T09:20:48.216Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "docs/research/chimie_femme_pw2_20261002/campaign.json"
+        ],
+        "literal_patch_headers": [],
+        "dynamic_patch": true
+      },
+      {
+        "line": 62573,
+        "timestamp": "2026-10-02T09:24:34.026Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "docs/research/chimie_femme_pw2_20261002/FORMULAS_AND_CART.md"
+        ],
+        "literal_patch_headers": [
+          {
+            "mode": "Add",
+            "path": "docs/research/chimie_femme_pw2_20261002/FORMULAS_AND_CART.md"
+          }
+        ],
+        "dynamic_patch": false
+      },
+      {
+        "line": 62586,
+        "timestamp": "2026-10-02T09:27:43.862Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "docs/research/chimie_femme_pw2_20261002/alternatives.json"
+        ],
+        "literal_patch_headers": [
+          {
+            "mode": "Add",
+            "path": "docs/research/chimie_femme_pw2_20261002/alternatives.json"
+          }
+        ],
+        "dynamic_patch": false
+      },
+      {
+        "line": 62596,
+        "timestamp": "2026-10-02T09:33:00.409Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "docs/research/chimie_femme_pw2_20261002/README.md"
+        ],
+        "literal_patch_headers": [
+          {
+            "mode": "Add",
+            "path": "docs/research/chimie_femme_pw2_20261002/README.md"
+          }
+        ],
+        "dynamic_patch": false
+      },
+      {
+        "line": 62614,
+        "timestamp": "2026-10-02T09:36:33.896Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "docs/research/chimie_femme_pw2_20261002/campaign.json",
+          "docs/research/chimie_femme_pw2_20261002/validation.json"
+        ],
+        "literal_patch_headers": [
+          {
+            "mode": "Update",
+            "path": "docs/research/chimie_femme_pw2_20261002/campaign.json"
+          },
+          {
+            "mode": "Add",
+            "path": "docs/research/chimie_femme_pw2_20261002/validation.json"
+          }
+        ],
+        "dynamic_patch": false
+      },
+      {
+        "line": 62657,
+        "timestamp": "2026-10-02T09:42:13.607Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "docs/research/chimie_femme_pw2_20261002/FORMULAS_AND_CART.md",
+          "docs/research/chimie_femme_pw2_20261002/README.md"
+        ],
+        "literal_patch_headers": [
+          {
+            "mode": "Update",
+            "path": "docs/research/chimie_femme_pw2_20261002/FORMULAS_AND_CART.md"
+          },
+          {
+            "mode": "Update",
+            "path": "docs/research/chimie_femme_pw2_20261002/README.md"
+          }
+        ],
+        "dynamic_patch": false
+      },
+      {
+        "line": 62663,
+        "timestamp": "2026-10-02T09:42:45.025Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "docs/research/chimie_femme_pw2_20261002/validation.json"
+        ],
+        "literal_patch_headers": [
+          {
+            "mode": "Update",
+            "path": "docs/research/chimie_femme_pw2_20261002/validation.json"
+          }
+        ],
+        "dynamic_patch": false
+      },
+      {
+        "line": 63514,
+        "timestamp": "2026-10-02T14:39:14.599Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "formulas/Aventus_Meridian_Rich_Ambrox_Research_v1_20261002.json"
+        ],
+        "literal_patch_headers": [
+          {
+            "mode": "Add",
+            "path": "formulas/Aventus_Meridian_Rich_Ambrox_Research_v1_20261002.json"
+          }
+        ],
+        "dynamic_patch": false
+      },
+      {
+        "line": 63527,
+        "timestamp": "2026-10-02T14:44:34.789Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "formulas/Aventus_Luxe_30mL_EdP.md",
+          "formulas/Aventus_Meridian_Rich_Ambrox_Research_v1_20261002.json",
+          "formulas/Aventus_Meridian_Rich_Ambrox_Research_v1_20261002.md"
+        ],
+        "literal_patch_headers": [
+          {
+            "mode": "Add",
+            "path": "formulas/Aventus_Meridian_Rich_Ambrox_Research_v1_20261002.md"
+          }
+        ],
+        "dynamic_patch": false
+      },
+      {
+        "line": 63547,
+        "timestamp": "2026-10-02T14:47:40.550Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "formulas/Aventus_Meridian_Rich_Ambrox_Research_v1_20261002.json",
+          "formulas/Aventus_Meridian_Rich_Ambrox_Research_v1_20261002.md"
+        ],
+        "literal_patch_headers": [
+          {
+            "mode": "Update",
+            "path": "formulas/Aventus_Meridian_Rich_Ambrox_Research_v1_20261002.json"
+          },
+          {
+            "mode": "Update",
+            "path": "formulas/Aventus_Meridian_Rich_Ambrox_Research_v1_20261002.md"
+          }
+        ],
+        "dynamic_patch": false
+      },
+      {
+        "line": 63746,
+        "timestamp": "2026-10-02T15:37:33.822Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "formulas/Fleur_de_Peau_EDP_Research_Interpretation_v1_20261002.json"
+        ],
+        "literal_patch_headers": [],
+        "dynamic_patch": true
+      },
+      {
+        "line": 63762,
+        "timestamp": "2026-10-02T15:42:19.828Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "formulas/Fleur_de_Peau_EDP_Research_Interpretation_v1_20261002.md"
+        ],
+        "literal_patch_headers": [
+          {
+            "mode": "Add",
+            "path": "formulas/Fleur_de_Peau_EDP_Research_Interpretation_v1_20261002.md"
+          }
+        ],
+        "dynamic_patch": false
+      },
+      {
+        "line": 63780,
+        "timestamp": "2026-10-02T15:44:51.305Z",
+        "model": "gpt-6.1-sol",
+        "referenced_paths": [
+          "formulas/Fleur_de_Peau_EDP_Research_Interpretation_v1_20261002.json",
+          "formulas/Fleur_de_Peau_EDP_Research_Interpretation_v1_20261002.md"
+        ],
+        "literal_patch_headers": [
+          {
+            "mode": "Update",
+            "path": "formulas/Fleur_de_Peau_EDP_Research_Interpretation_v1_20261002.json"
+          },
+          {
+            "mode": "Update",
+            "path": "formulas/Fleur_de_Peau_EDP_Research_Interpretation_v1_20261002.md"
+          }
+        ],
+        "dynamic_patch": false
+      }
+    ],
+    "current_native_model_context": {
+      "line": 63979,
+      "timestamp": "2026-10-03T07:03:09.347Z",
+      "model": "gpt-6.1-sol"
+    },
+    "remake_native_review_agents": [
+      {
+        "task_name": "ember_vow_sol61_review",
+        "model": "gpt-6.1-sol",
+        "status": "completed",
+        "scope": "read-only brief/inventory/formula review",
+        "parent_local_verification": "Decimal arithmetic and current parent/inventory hashes checked"
+      },
+      {
+        "task_name": "white_rebellion_sol61_review",
+        "model": "gpt-6.1-sol",
+        "status": "completed",
+        "scope": "read-only brief/inventory/formula review",
+        "parent_local_verification": "Decimal arithmetic and current parent/inventory hashes checked"
+      },
+      {
+        "task_name": "lavender_parallel_sol61_review",
+        "model": "gpt-6.1-sol",
+        "status": "completed",
+        "scope": "read-only brief/inventory/formula review",
+        "parent_local_verification": "Decimal arithmetic and current parent/inventory hashes checked"
+      }
+    ],
+    "raw_chat_history_included": false,
+    "prompts_or_credentials_included": false
+  },
+  "verification": {
+    "decimal_target_arithmetic": "PASS",
+    "specified_remake_candidate_targets": 15,
+    "lead_stock_reconstruction": "PASS",
+    "parent_and_inventory_hash_preservation": "PASS",
+    "sensory": "NOT_PERFORMED",
+    "safety": "NOT_PERFORMED",
+    "pipeline_release_gate": "NOT_RUN_NOT_PASSED",
+    "full_repository_suite": "NOT_RUN_NOT_REQUIRED_FOR_COLLECTION"
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false,
+    "purchase_authority": false,
+    "physical_action_performed": false
+  },
+  "archive_relative_path": "docs/research/sol61_formula_collection_20261003/Sol61_Formula_Collection_20261003.zip",
+  "auxiliary_archive_files": [
+    "docs/research/sol61_formula_collection_20261003/README.md",
+    "docs/research/sol61_formula_collection_20261003/manifest.json",
+    "docs/research/sol61_formula_collection_20261003/verification.json"
+  ],
+  "historic_artifact_warning": "Earlier Sol61 files are frozen originals; unresolved stock assumptions in them are not retrospectively repaired or authorized by collection."
+}
+

@@ -1936,8 +1936,13 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Alpha Isomethyl Ionone
   aliases:
+  - AIMI
+  - Alpha Methyl Ionone
+  - Alpha-Isomethyl Ionone
   - Alpha Isomethyl Ionone (Methyl Ionone Pure)
-  - Givaudan AIMI
+  - Givaudan AIMI  # historical user label for the same single bottle
+  - Methyl Ionone Pure
+  - PerfumersWorld Alpha Isomethyl Ionone
   cas: 127-51-5
   smiles: CC1=CCCC(C1/C=C(/C)\C(=O)C)(C)C
   inchikey: JRJBVWJSTHECJK-LUAWRHEFSA-N
@@ -1959,28 +1964,36 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: Methyl Ionone Pure
+  user_stock_dilution: neat / as supplied
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 3IW00300
     perfumersworld_price_usd_per_g: 0.23
     perfumersworld_form: neat
-    perfumersworld_snapshot_date: '2026-04-11'
-    other: {}
+    perfumersworld_snapshot_date: '2026-09-30'
+    other:
+      product_name: Alpha Isomethyl Ionone
+      cas: 127-51-5
+      ec: 204-846-3
+      document_url: https://www.perfumersworld.com/document-list.php?ifra=defaultOpen3&pro_id=3IW00300
   families:
   - iris / violet
   character: Violet-sweet orris powdery floral with woody-amber diffusion.
-  notes: PubChem-backed single-molecule identity under CAS 127-51-5; supplier guidance
-    suggests 0.11 to 11.9% in perfume compounds.
+  notes: PerfumersWorld product 3IW00300 is Alpha Isomethyl Ionone (CAS 127-51-5),
+    commonly abbreviated AIMI or called Alpha Methyl Ionone. User confirmed one
+    owned neat/as-supplied bottle on 2026-09-30. This identity is distinct from
+    the depleted Methyl Ionone Gamma Coeur stock. Supplier identity does not by
+    itself establish the exact assay or density of the user's physical lot.
   provenance:
     cas: pubchem:ISO-alpha-METHYL-IONONE
     smiles: pubchem:ISO-alpha-METHYL-IONONE
     inchikey: pubchem:ISO-alpha-METHYL-IONONE
     mw_g_mol: pubchem:ISO-alpha-METHYL-IONONE
     logp: pubchem:ISO-alpha-METHYL-IONONE
-    user_in_inventory: inventory.txt
+    supplier.perfumersworld_document: https://www.perfumersworld.com/document-list.php?ifra=defaultOpen3&pro_id=3IW00300
+    user_in_inventory: inventory.txt + direct user confirmation 2026-09-30
     user_stock_dilution: inventory.txt
-    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    supplier.perfumersworld_catalog_snapshot: knowledge/perfumersworld_stock.md
 - canonical_name: Alpha Pinene
   aliases: []
   cas: null

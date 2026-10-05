@@ -20,13 +20,19 @@ from dataclasses import asdict, dataclass
 from decimal import Decimal, InvalidOperation
 from typing import Any, Iterable, Mapping, Sequence
 
+from engine.formulation_intelligence.literature_knowledge import retrieve_formulation_knowledge
 from engine.intervention_context import normalize_intervention_mode
 from engine.intervention_profiles import (
     normalize_observation_signal,
     suggest_interventions,
 )
 
+from .commercial_references import build_commercial_reference_panel
 from .contracts import FALSE_ACTION_AUTHORITY, stable_payload_hash
+from .request_interpretation import (
+    RequestInterpretationInputV1,
+    interpret_request,
+)
 
 _VALID_UNITS = {
     "uL",
@@ -315,7 +321,19 @@ class GoalAnalysisRequestV1:
     mode: str = "pre_mix"
     available_materials: tuple[str, ...] = ()
     endpoint_results: tuple[Mapping[str, Any], ...] = ()
-    max_hypotheses: int = 5
+    max_hypotheses: int = 3
+    original_request: str | None = None
+    desired_changes: tuple[str, ...] = ()
+    execution_strategy: str | None = None
+    appeal_mode: str | None = None
+    comparison_evidence: str = "DOCUMENT_ONLY"
+    reference_panel_id: str | None = None
+    target_population: str | None = None
+    requested_evaluation_windows: tuple[str, ...] = ()
+    application_context: str | None = None
+    active_bottle_id: str | None = None
+    known_references: tuple[str, ...] = ()
+    market_evidence_as_of_date: str = "2026-09-28"
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "formula_id", _text(self.formula_id, "formula_id"))
@@ -336,19 +354,83 @@ class GoalAnalysisRequestV1:
         object.__setattr__(self, "must_preserve", _dedupe_text(self.must_preserve))
         object.__setattr__(self, "must_avoid", _dedupe_text(self.must_avoid))
         object.__setattr__(self, "available_materials", _dedupe_text(self.available_materials))
+        object.__setattr__(self, "desired_changes", _dedupe_text(self.desired_changes))
+        object.__setattr__(
+            self,
+            "requested_evaluation_windows",
+            _dedupe_text(self.requested_evaluation_windows),
+        )
+        object.__setattr__(self, "known_references", _dedupe_text(self.known_references))
         object.__setattr__(self, "endpoint_results", tuple(self.endpoint_results))
+        raw_mode = str(self.mode).strip().lower().replace("-", "_").replace(" ", "_")
+        if raw_mode not in {
+            "pre_mix",
+            "between_mix",
+            "post_mix",
+            "postmix",
+            "post",
+            "between",
+            "between_batches",
+            "between_mixes",
+        }:
+            raise ValueError(f"unsupported intervention mode: {self.mode}")
         object.__setattr__(self, "mode", normalize_intervention_mode(self.mode))
         if self.family is not None:
             object.__setattr__(self, "family", _text(self.family, "family"))
         if self.profile is not None:
             object.__setattr__(self, "profile", _text(self.profile, "profile"))
-        if isinstance(self.max_hypotheses, bool) or not 1 <= int(self.max_hypotheses) <= 12:
-            raise ValueError("max_hypotheses must be from one to twelve")
+        for field in (
+            "original_request",
+            "reference_panel_id",
+            "target_population",
+            "application_context",
+            "active_bottle_id",
+        ):
+            value = getattr(self, field)
+            if value is not None:
+                object.__setattr__(self, field, _text(value, field))
+        # Constructing the deterministic request object is the strict enum
+        # validation boundary.  Unknown modes must not silently become
+        # pre_mix or any other workflow.
+        validated_interpretation = interpret_request(RequestInterpretationInputV1(
+            original_request=self.original_request or "; ".join(goals),
+            known_materials=tuple(row.material for row in rows),
+            known_references=self.known_references,
+            desired_changes=self.desired_changes or goals,
+            must_preserve=self.must_preserve,
+            must_avoid=self.must_avoid,
+            evaluation_windows=self.requested_evaluation_windows,
+            execution_strategy=self.execution_strategy,
+            appeal_mode=self.appeal_mode,
+            comparison_evidence=self.comparison_evidence,
+            reference_panel_id=self.reference_panel_id,
+            target_population=self.target_population,
+            application_context=self.application_context,
+            active_bottle_id=self.active_bottle_id,
+        ))
+        object.__setattr__(
+            self,
+            "execution_strategy",
+            validated_interpretation["execution_strategy"],
+        )
+        object.__setattr__(self, "appeal_mode", validated_interpretation["appeal_mode"])
+        object.__setattr__(
+            self,
+            "comparison_evidence",
+            validated_interpretation["comparison_evidence"],
+        )
+        object.__setattr__(
+            self,
+            "market_evidence_as_of_date",
+            _text(self.market_evidence_as_of_date, "market_evidence_as_of_date"),
+        )
+        if isinstance(self.max_hypotheses, bool) or not 1 <= int(self.max_hypotheses) <= 3:
+            raise ValueError("max_hypotheses must be from one to three")
         object.__setattr__(self, "max_hypotheses", int(self.max_hypotheses))
 
     def canonical_payload(self) -> dict[str, Any]:
         return {
-            "schema_version": "goal-analysis-request-v1",
+            "schema_version": "goal-analysis-request-v2",
             "formula_id": self.formula_id,
             "formula_name": self.formula_name,
             "rows": [row.as_dict() for row in self.rows],
@@ -362,6 +444,18 @@ class GoalAnalysisRequestV1:
             "available_materials": list(self.available_materials),
             "endpoint_results": [dict(row) for row in self.endpoint_results],
             "max_hypotheses": self.max_hypotheses,
+            "original_request": self.original_request,
+            "desired_changes": list(self.desired_changes),
+            "execution_strategy": self.execution_strategy,
+            "appeal_mode": self.appeal_mode,
+            "comparison_evidence": self.comparison_evidence,
+            "reference_panel_id": self.reference_panel_id,
+            "target_population": self.target_population,
+            "requested_evaluation_windows": list(self.requested_evaluation_windows),
+            "application_context": self.application_context,
+            "active_bottle_id": self.active_bottle_id,
+            "known_references": list(self.known_references),
+            "market_evidence_as_of_date": self.market_evidence_as_of_date,
         }
 
 
@@ -538,6 +632,74 @@ def _addition_trial(dose_style: str) -> dict[str, Any]:
     }
 
 
+def _evolving_existing_addition_trial(
+    rows: Sequence[GoalFormulaRowV1],
+    *,
+    dose_style: str,
+    formula_totals_by_unit: Mapping[str, Decimal],
+) -> dict[str, Any]:
+    """Describe positive-only additions to the same physical bottle."""
+
+    low, high = _RELATIVE_WINDOWS.get(dose_style, _RELATIVE_WINDOWS["bridge"])
+    units = {row.unit for row in rows}
+
+    def variant(change_percent: Decimal) -> dict[str, Any]:
+        row_targets = []
+        additions_by_unit: dict[str, Decimal] = {}
+        for row in rows:
+            delta = Decimal(row.amount_decimal) * change_percent / Decimal("100")
+            additions_by_unit[row.unit] = additions_by_unit.get(row.unit, Decimal("0")) + delta
+            row_targets.append(
+                {
+                    "row_id": row.row_id,
+                    "material": row.material,
+                    "current_amount_decimal": row.amount_decimal,
+                    "delta_amount_decimal": _render_decimal(delta),
+                    "resulting_amount_decimal": _render_decimal(Decimal(row.amount_decimal) + delta),
+                    "unit": row.unit,
+                    "operation": "ADDITIVE_ONLY",
+                }
+            )
+        return {
+            "relative_block_addition_percent": _render_decimal(change_percent),
+            "row_targets": row_targets,
+            "addition_totals_by_unit": {
+                unit: _render_decimal(value) for unit, value in sorted(additions_by_unit.items())
+            },
+            "resulting_formula_totals_by_unit": {
+                unit: _render_decimal(total + additions_by_unit.get(unit, Decimal("0")))
+                for unit, total in sorted(formula_totals_by_unit.items())
+            },
+        }
+
+    return {
+        "control": "CURRENT_COMMITTED_BOTTLE_STATE",
+        "low_variant": variant(low),
+        "high_variant": variant(high),
+        "units": sorted(units),
+        "internal_ratio_policy": "PRESERVE_CURRENT_BLOCK_RATIO",
+        "constant_total_policy": "NOT_APPLICABLE_EVOLVING_BOTTLE_TOTAL_INCREASES",
+        "comparison_rule": "ADD_ONE_BLOCK_ONLY",
+        "negative_delta_allowed": False,
+        "removal_assumed": False,
+        "amount_authority": "UNROUNDED_PROPOSAL_TARGETS_NOT_MIXER_COMMANDS",
+    }
+
+
+def _evolving_new_material_trial(dose_style: str) -> dict[str, Any]:
+    trial = _addition_trial(dose_style)
+    trial.update(
+        {
+            "control": "CURRENT_COMMITTED_BOTTLE_STATE",
+            "constant_total_policy": "NOT_APPLICABLE_EVOLVING_BOTTLE_TOTAL_INCREASES",
+            "negative_delta_allowed": False,
+            "removal_assumed": False,
+            "comparison_rule": "ADD_ONE_CANDIDATE_ONLY",
+        }
+    )
+    return trial
+
+
 def _applicable_endpoint_clues(
     endpoint_results: Sequence[Mapping[str, Any]],
 ) -> tuple[list[dict[str, Any]], int]:
@@ -601,11 +763,94 @@ def _violates_avoid(material: str, rationale: str, avoid: Sequence[str]) -> bool
     return any(str(item).casefold() in haystack for item in avoid if str(item).strip())
 
 
+def _commercial_concept_tags(request: GoalAnalysisRequestV1) -> tuple[str, ...]:
+    """Derive literal concept tokens without inventing a commercial family."""
+
+    source = " ".join(
+        (
+            request.formula_name,
+            request.family or "",
+            *request.goals,
+            *(row.material for row in request.rows),
+        )
+    ).casefold()
+    return _dedupe_text(
+        token
+        for token in re.findall(r"[a-z][a-z0-9-]{2,}", source)
+        if token not in {"make", "more", "less", "while", "with", "without"}
+    )
+
+
 def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
     """Return concise clues and an unordered controlled-comparison shortlist."""
 
+    interpretation = interpret_request(
+        RequestInterpretationInputV1(
+            original_request=request.original_request or "; ".join(request.goals),
+            known_materials=tuple(row.material for row in request.rows),
+            known_references=request.known_references,
+            desired_changes=request.desired_changes or request.goals,
+            must_preserve=request.must_preserve,
+            must_avoid=request.must_avoid,
+            evaluation_windows=request.requested_evaluation_windows,
+            execution_strategy=request.execution_strategy,
+            appeal_mode=request.appeal_mode,
+            comparison_evidence=request.comparison_evidence,
+            reference_panel_id=request.reference_panel_id,
+            target_population=request.target_population,
+            application_context=request.application_context,
+            active_bottle_id=request.active_bottle_id,
+        )
+    )
+    request_payload = request.canonical_payload()
+    knowledge = retrieve_formulation_knowledge(
+        " ".join((request.formula_name or "", request.original_request or "", *request.goals)),
+        avoid=tuple(interpretation["must_avoid"]),
+        material_names=tuple(row.material for row in request.rows if Decimal(row.amount_decimal) > 0),
+    )
+    request_payload["knowledge_context"] = knowledge
+    if interpretation["confirmation_required"]:
+        report = {
+            "schema_version": "goal-directed-formula-analysis-v2",
+            "request_sha256": stable_payload_hash(request_payload),
+            "formula_id": request.formula_id,
+            "formula_name": request.formula_name,
+            "request_interpretation": interpretation,
+            "formulation_knowledge": knowledge,
+            "status": "WITHHELD_REQUEST_AMBIGUOUS",
+            "validation_state": "WITHHOLD_UNKNOWN",
+            "applicability_state": "UNAVAILABLE",
+            "clues": [],
+            "modification_hypotheses": [],
+            "selection": {
+                "status": "WITHHELD_REQUEST_AMBIGUOUS",
+                "ranked_candidates": [],
+                "pareto_candidates": [],
+                "unordered_candidates": [],
+                "formula_action": "NO_CHANGE",
+                "reason_codes": list(interpretation["ambiguities"]),
+            },
+            "minimum_next_evidence": "Confirm or correct the short interpretation card.",
+            "prohibited_objectives_used": [],
+            "beauty_score": None,
+            "pleasantness": None,
+            "personal_liking": None,
+            "formula_modified": False,
+            "physical_experiment_authorized": False,
+            **FALSE_ACTION_AUTHORITY,
+        }
+        return {**report, "analysis_sha256": stable_payload_hash(report)}
+
     clues, endpoint_count = _applicable_endpoint_clues(request.endpoint_results)
-    evaluation_windows = _evaluation_windows(request.goals)
+    effective_preserve = tuple(interpretation["must_preserve"])
+    effective_avoid = tuple(interpretation["must_avoid"])
+    evaluation_windows = list(interpretation["evaluation_windows"])
+    if request.original_request is None and not request.requested_evaluation_windows:
+        # Preserve the v1 source label for callers that supplied the legacy
+        # structured goals contract rather than a free-text request.
+        evaluation_windows = _evaluation_windows(request.goals)
+    elif not evaluation_windows:
+        evaluation_windows = _evaluation_windows(request.goals)
     totals_by_unit: dict[str, Decimal] = {}
     for row in request.rows:
         totals_by_unit[row.unit] = totals_by_unit.get(row.unit, Decimal("0")) + Decimal(
@@ -613,6 +858,20 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
         )
     hypotheses: list[dict[str, Any]] = []
     hypothesis_keys: set[tuple[str, str, tuple[str, ...]]] = set()
+    evolving_bottle = interpretation["execution_strategy"] == "EVOLVING_BOTTLE"
+    effective_max_hypotheses = min(request.max_hypotheses, 3)
+    additive_repair_blocked = False
+    commercial_panel: dict[str, Any] | None = None
+    commercial_panel_withheld_reason: str | None = None
+    if interpretation["appeal_mode"] == "GLOBAL_CROWD_PLEASING":
+        try:
+            commercial_panel = build_commercial_reference_panel(
+                _commercial_concept_tags(request),
+                as_of_date=request.market_evidence_as_of_date,
+                panel_id=request.reference_panel_id,
+            )
+        except (KeyError, ValueError) as error:
+            commercial_panel_withheld_reason = str(error)
 
     for index, observation in enumerate(request.observations, start=1):
         clues.append(
@@ -631,10 +890,32 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
         held_rows = group["held_rows"]
         material_label = " + ".join(row.material for row in rows)
         direction = group["direction"]
+        if evolving_bottle and direction == "DECREASE":
+            additive_repair_blocked = True
+            clues.append(
+                {
+                    "clue_id": f"additive-limit-{group['matched_term']}",
+                    "evidence_class": "PHYSICAL_OPERATION_CONSTRAINT",
+                    "endpoint": "EVOLVING_BOTTLE_FEASIBILITY",
+                    "statement": (
+                        f"The current bottle cannot remove the existing {material_label} dose. "
+                        "Only a counterbalancing addition, compatible dilution, or explicitly "
+                        "chosen new formula can test this direction."
+                    ),
+                    "row_ids": [row.row_id for row in rows],
+                    "action_authority": False,
+                }
+            )
+            continue
+        trial_direction = "INCREASE" if evolving_bottle else direction
         action = (
-            "TEST_EXISTING_BLOCK_LEVEL"
-            if direction == "BIDIRECTIONAL"
-            else f"{direction}_EXISTING_BLOCK"
+            "INCREASE_EXISTING_BLOCK"
+            if evolving_bottle
+            else (
+                "TEST_EXISTING_BLOCK_LEVEL"
+                if direction == "BIDIRECTIONAL"
+                else f"{direction}_EXISTING_BLOCK"
+            )
         )
         key = (action, group["matched_term"], tuple(row.row_id for row in rows))
         if key in hypothesis_keys:
@@ -688,6 +969,11 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
                 "held_constant_row_ids": [row.row_id for row in held_rows],
                 "evidence_class": "EXPLICIT_GOAL_PLUS_FORMULA_FACT",
                 "rationale": (
+                    "The named block is present. In the evolving bottle, only a small "
+                    "ratio-preserving positive addition is physically available; compare it "
+                    "with the current committed state before adding more."
+                    if evolving_bottle
+                    else
                     "The named block is present, but perceptual clarity does not establish "
                     "whether more or less material will help. A small ratio-preserving "
                     "two-sided dose ladder is the shortest controlled test."
@@ -696,13 +982,27 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
                     "ladder is the shortest controlled test of the requested direction."
                 ),
                 "expected_direction": (
-                    "EMPIRICALLY_DETERMINE" if direction == "BIDIRECTIONAL" else direction
+                    "INCREASE"
+                    if evolving_bottle
+                    else ("EMPIRICALLY_DETERMINE" if direction == "BIDIRECTIONAL" else direction)
                 ),
-                "trial": _relative_trial(rows, direction=direction, dose_style="bridge"),
+                "trial": (
+                    _evolving_existing_addition_trial(
+                        rows,
+                        dose_style="bridge",
+                        formula_totals_by_unit=totals_by_unit,
+                    )
+                    if evolving_bottle
+                    else _relative_trial(
+                        rows,
+                        direction=trial_direction,
+                        dose_style="bridge",
+                    )
+                ),
                 "success_criteria": {
                     "desired": list(request.goals),
-                    "must_preserve": list(request.must_preserve),
-                    "must_avoid": list(request.must_avoid),
+                    "must_preserve": list(effective_preserve),
+                    "must_avoid": list(effective_avoid),
                     "evaluation_windows": evaluation_windows,
                 },
                 "uncertainty": (
@@ -723,17 +1023,17 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
         profile=request.profile,
         mode=request.mode,
         available_materials=request.available_materials or None,
-        limit=max(request.max_hypotheses * 2, 5),
+        limit=max(effective_max_hypotheses * 2, 5),
     )
     for recommendation in rule_recommendations:
         for material in recommendation.materials:
-            if len(hypotheses) >= request.max_hypotheses:
+            if len(hypotheses) >= effective_max_hypotheses:
                 break
             if request.available_materials and not _material_is_available(
                 material, request.available_materials
             ):
                 continue
-            if _violates_avoid(material, recommendation.rationale, request.must_avoid):
+            if _violates_avoid(material, recommendation.rationale, effective_avoid):
                 continue
             existing_rows = _material_in_formula(material, request.rows)
             action = "INCREASE_EXISTING_MATERIAL" if existing_rows else "ADD_CANDIDATE_MATERIAL"
@@ -775,18 +1075,26 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
                     "rationale": recommendation.rationale,
                     "expected_direction": recommendation.signal,
                     "trial": (
-                        _relative_trial(
+                        _evolving_existing_addition_trial(
+                            existing_rows,
+                            dose_style=recommendation.dose_style,
+                            formula_totals_by_unit=totals_by_unit,
+                        )
+                        if existing_rows and evolving_bottle
+                        else _relative_trial(
                             existing_rows,
                             direction="INCREASE",
                             dose_style=recommendation.dose_style,
                         )
                         if existing_rows
+                        else _evolving_new_material_trial(recommendation.dose_style)
+                        if evolving_bottle
                         else _addition_trial(recommendation.dose_style)
                     ),
                     "success_criteria": {
                         "desired": list(request.goals),
-                        "must_preserve": list(request.must_preserve),
-                        "must_avoid": list(request.must_avoid),
+                        "must_preserve": list(effective_preserve),
+                        "must_avoid": list(effective_avoid),
                         "evaluation_windows": evaluation_windows,
                     },
                     "profile": recommendation.profile,
@@ -800,10 +1108,10 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
                     "compounding_action_authority": False,
                 }
             )
-        if len(hypotheses) >= request.max_hypotheses:
+        if len(hypotheses) >= effective_max_hypotheses:
             break
 
-    hypotheses = hypotheses[: request.max_hypotheses]
+    hypotheses = hypotheses[:effective_max_hypotheses]
     for hypothesis in hypotheses:
         clues.append(
             {
@@ -832,28 +1140,65 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
             }
         )
 
-    status = "GOAL_DIRECTED_HYPOTHESES_READY" if hypotheses else "GOAL_NOT_MAPPED"
+    status = (
+        "GOAL_DIRECTED_HYPOTHESES_READY"
+        if hypotheses
+        else "ADDITIVE_REPAIR_NOT_FEASIBLE"
+        if additive_repair_blocked
+        else "GOAL_NOT_MAPPED"
+    )
     validation = "ADVISORY_FINDINGS" if hypotheses else "WITHHOLD_UNKNOWN"
-    applicability = "PARTIAL" if hypotheses else "UNAVAILABLE"
+    applicability = "PARTIAL" if hypotheses or additive_repair_blocked else "UNAVAILABLE"
     formula_action = "PROPOSE_CONTROLLED_VARIANTS" if hypotheses else "NO_CHANGE"
     selection_status = (
-        "UNORDERED_CONTROLLED_HYPOTHESES" if hypotheses else "WITHHELD_GOAL_NOT_MAPPED"
+        (
+            "UNORDERED_HYPOTHESES"
+            if evolving_bottle
+            or interpretation["appeal_mode"] == "GLOBAL_CROWD_PLEASING"
+            else "UNORDERED_CONTROLLED_HYPOTHESES"
+        )
+        if hypotheses
+        else "ADDITIVE_REPAIR_NOT_FEASIBLE"
+        if additive_repair_blocked
+        else "WITHHELD_GOAL_NOT_MAPPED"
     )
-    request_payload = request.canonical_payload()
     has_bidirectional_trial = any(
         hypothesis.get("expected_direction") == "EMPIRICALLY_DETERMINE"
         for hypothesis in hypotheses
     )
+    # Applicable endpoints and direct observations retain precedence. Reviewed
+    # knowledge adds bounded comparison clues, never automatic dose changes.
+    for claim in knowledge["claims"][:4]:
+        clues.append({
+            "clue_id": f"literature-{claim['claim_id']}",
+            "evidence_class": claim["kind"],
+            "endpoint": "FORMULATION_KNOWLEDGE_ONLY",
+            "statement": claim["statement"],
+            "source_ids": claim["source_ids"],
+            "pack_sha256": knowledge["pack_sha256"],
+            "action_authority": False,
+        })
     report = {
-        "schema_version": "goal-directed-formula-analysis-v1",
+        "schema_version": "goal-directed-formula-analysis-v2",
         "request_sha256": stable_payload_hash(request_payload),
         "formula_id": request.formula_id,
         "formula_name": request.formula_name,
         "goals": list(request.goals),
         "observations": list(request.observations),
-        "must_preserve": list(request.must_preserve),
-        "must_avoid": list(request.must_avoid),
+        "must_preserve": list(effective_preserve),
+        "must_avoid": list(effective_avoid),
         "evaluation_windows": evaluation_windows,
+        "request_interpretation": interpretation,
+        "formulation_knowledge": knowledge,
+        "commercial_reference_panel": commercial_panel,
+        "commercial_reference_panel_state": (
+            "MARKET_SELECTED_REFERENCE_PANEL"
+            if commercial_panel is not None
+            else "WITHHELD_NO_APPLICABLE_CURRENT_PANEL"
+            if interpretation["appeal_mode"] == "GLOBAL_CROWD_PLEASING"
+            else "NOT_REQUESTED"
+        ),
+        "commercial_reference_panel_withheld_reason": commercial_panel_withheld_reason,
         "status": status,
         "validation_state": validation,
         "applicability_state": applicability,
@@ -879,7 +1224,18 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
             ],
             "formula_action": formula_action,
             "reason_codes": (
-                ["MEASURED_OUTCOME_NOT_SUPPLIED"] if endpoint_count == 0 else []
+                (["MEASURED_OUTCOME_NOT_SUPPLIED"] if endpoint_count == 0 else [])
+                + (["ADDITIVE_REPAIR_NOT_FEASIBLE"] if additive_repair_blocked else [])
+                + (
+                    ["DOCUMENTARY_MARKET_REFERENCES_ARE_NOT_LIKING_LABELS"]
+                    if commercial_panel is not None
+                    else []
+                )
+                + (
+                    ["NO_APPLICABLE_CURRENT_COMMERCIAL_REFERENCE_PANEL"]
+                    if commercial_panel_withheld_reason is not None
+                    else []
+                )
             ),
         },
         "minimum_next_evidence": (
@@ -898,6 +1254,54 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
         "beauty_score": None,
         "pleasantness": None,
         "personal_liking": None,
+        "population_liking_state": "POPULATION_LIKING_NOT_ESTABLISHED",
+        "proprietary_composition_state": (
+            "PROPRIETARY_COMPOSITION_UNKNOWN" if commercial_panel is not None else None
+        ),
+        "additive_repair_state": (
+            "ADDITIVE_REPAIR_NOT_FEASIBLE" if additive_repair_blocked else "NOT_BLOCKED"
+        ),
+        "additive_repair_alternatives": (
+            [
+                {
+                    "priority": 1,
+                    "kind": "COUNTERBALANCING_ADDITIVE_HYPOTHESIS",
+                    "state": "REQUIRES_SEPARATE_POSITIVE_ONLY_HYPOTHESIS",
+                },
+                {
+                    "priority": 2,
+                    "kind": "DILUTION",
+                    "state": "OFFER_ONLY_IF_COMPATIBLE_WITH_THE_GOAL",
+                },
+                {
+                    "priority": 3,
+                    "kind": "NEW_FORMULA",
+                    "state": "USER_MUST_EXPLICITLY_CHOOSE",
+                },
+            ]
+            if additive_repair_blocked
+            else []
+        ),
+        "default_user_view": {
+            "what_the_system_understood": interpretation["normalized_goal"],
+            "strongest_clue": clues[0]["statement"] if clues else None,
+            "proposed_delta": (
+                {
+                    "hypothesis_id": hypotheses[0]["hypothesis_id"],
+                    "material_or_block": hypotheses[0]["material_or_block"],
+                    "trial": hypotheses[0]["trial"],
+                    "state": "PROPOSAL_ONLY",
+                }
+                if hypotheses
+                else None
+            ),
+            "what_to_smell_for": list(request.goals),
+            "uncertainty_or_stop_condition": (
+                "A same-bottle request cannot remove material; stop or choose a counterbalance, dilution, or new formula."
+                if additive_repair_blocked
+                else "No sensory winner is established until the proposed delta is smelled."
+            ),
+        },
         "formula_modified": False,
         "physical_experiment_authorized": False,
         "evidence_admission_authorized": False,

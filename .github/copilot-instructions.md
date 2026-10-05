@@ -10,17 +10,20 @@ You are a perfume chemist assistant working with a hobbyist perfumer's inventory
 
 Read `inventory.txt` in full before writing any formula. Materials have specific dilutions (10%, 1%, 20%, 30%, 50%, 80%) that affect dosing — you must account for these. Inventory changes between sessions — what was available last week may be depleted today.
 
-### 1b. ALL Calculations Must Use ppm, ODT, and OAV
-**This is RULE 1. No exceptions. It applies to formulation, dosing, gating, scoring, and all pipeline modules.**
+### 1b. Keep Physical Accounting and Perceptual Endpoints Separate
 
-- **Concentrations** are in **ppm** (parts per million w/w in concentrate). Every material dose must be convertible to ppm.
-- **Odor Detection Thresholds** are in **ODT** — ppm for ethanol solution, ppb for air. Every threshold check must reference ODT.
-- **Odor Activity Value** is **OAV = concentration_ppm / ODT_ppm**. Every perceptibility claim must be backed by OAV.
-- Materials with OAV < 1 are below threshold and should not be counted as perceptible.
-- Materials with OAV 1–5 are perceptible but weak.
-- Materials with OAV 5–50 are clearly perceptible.
-- Materials with OAV > 50 are dominant and may need reduction.
-- Use `engine/perception/oav.py` for OAV computation. Use `engine/odor_thresholds.py` for ODT lookups.
+Use exact stock basis and measured mass, or provenance-bound density when converting
+volume to mass. Liquid stock dose is not delivered gas concentration. OAV is a
+compatible-phase detection diagnostic only, not intensity, contribution, liking or
+an optimizer objective. Missing ODT blocks an OAV number, not an independently
+supported endpoint or a clearly labeled formulation hypothesis. Do not use OAV
+bands to claim dominance or turn unknown values into zero or 50/100.
+
+Reviewed literature guidance lives in `data/formulation_knowledge/literature_v1.json`.
+The prior-research census is reference-only. Neither creates stock truth, calibration
+or safety authority. Preserve exact grade identity and distinguish violet leaf from
+petals and rooty iris from a vetiver request. Historical material descriptions and
+dose suggestions below remain hypotheses unless supported for the exact use.
 
 ### 2. Use Perfumer Vocabulary, Not Fragrance-Fan Language
 Think in **chemical effects**, not vibes:
@@ -83,7 +86,7 @@ Every material in a formula must have a **specific functional reason**. Ask: "Wh
 - **ACA (Amyl Cinnamic Aldehyde)** — jasmine-muguet diffusant, waxy-floral volume builder; IFRA-restricted skin sensitizer (use ≤ 0.1% in EDP); adds body to white floral hearts; synergizes with Hedione
 - **Ambrettolide (10% in DPG)** — macrocyclic musky-fruity-wine-like; most animal-adjacent macrocyclic without being animalic; warmer and more naturalistic than Habanolide; use 0.5–2% of dilution for "quiet skin warmth"; extreme persistence
 - **Ethyl Safranate** — saffron effect in 1 material
-- **Orivone** — warm orris, buttery iris base
+- **Orivone** — IFF describes earthy, camphoraceous orris; a root-texture candidate, not a universal buttery-iris substitute
 - **I-IRIS FTEC / Orris FTEC** — pre-built iris accords, use as foundations not standalone
 - **Styrax FTEC** — balsamic-leather smoke, pairs with guaiacol
 
@@ -95,7 +98,12 @@ In formula descriptions, state what each material DOES in the composition:
 - "DBCA at 100 µL for gardenia-rose character in the white floral core"
 
 ### 6. Dosing Intelligence
-All amounts in **µL** (microlitres) or **mL** (millilitres). Density ≈ 1.0 g/mL assumed.
+Liquid transfers use **µL** or **mL**; solids and mass-based targets use **mg** or **g**.
+Never infer 1.0 g/mL density, add mass to volume, or multiply a w/w fraction by
+volume and call it exact active volume. Volumetric active estimates require an
+explicitly compatible basis; exact mass conversions require stock density or weighing.
+The historical ranges below are design hypotheses, not blanket limits, verified
+current-stock declarations or sensory calibrations.
 - **1% dilutions** (aldehydes, Scentenal, Calone): 30–100 µL of dilution = trace active
 - **10% dilutions** (Alpha Irone, Cashmeran, IBQ, Cardamom FTEC, etc.): multiply volume by 0.1 for active dose
 - **20% dilutions** (Coumarin, Cashmeran, Maple Lactone): moderate concentration
@@ -108,7 +116,7 @@ All amounts in **µL** (microlitres) or **mL** (millilitres). Density ≈ 1.0 g/
 
 ### 7. Formula Structure
 Follow the established format in `luxury_formulas_2026-03-26.md`:
-- **ALL amounts in µL or mL** — never grams. Use µL for concentrate materials, mL for ethanol and totals.
+- Use µL for practical liquid transfers, mg/g for solids and weighed preparation. Keep separate totals. Do not invent a crystal volume or a density conversion.
 - Table with: #, Ingredient, Dilution, Amount (µL), Amount (mL)
 - Separate sections for Top / Heart / Base using bold header rows
 - 10.00 mL batch size standard (≈ 10.00g at density 1.0)

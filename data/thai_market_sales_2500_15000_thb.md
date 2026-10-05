@@ -1,5 +1,11 @@
 # THAI MARKET SALES INTELLIGENCE — 2,500–15,000 THB / 100 mL TIER
 
+> **Authority status: HISTORICAL / PROVISIONAL — NOT SELECTABLE.** This May 2026
+> market note is preserved for provenance only. It is not audited current global
+> market evidence, a liking dataset, a sensory profile, or an optimizer target.
+> Runtime global-reference selection uses the versioned commercial-reference
+> registry under `data/governance/`.
+
 **Date:** 2026-05-02
 **Source:** Thai department-store dispenser counts (Central, Siam Paragon, EmQuartier, ICONSIAM, King Power, Eveandboy upper tier), Circana/NPD Asia-Pac 2024, and observed SKU density per family.
 **Methodology:** Cross-referencing actual Thai counter presence with global prestige sales ranks and adjusting for Thai cultural and climate weighting.

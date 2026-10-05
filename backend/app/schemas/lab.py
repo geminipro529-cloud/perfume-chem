@@ -80,6 +80,12 @@ class BottleAdditionCreate(LabRequest):
     volume_reference_conditions: dict[str, Any] | None = None
     actor: str = Field(default="system", min_length=1)
     role: Literal["material", "solvent"] = "material"
+    goal_analysis_sha256: str | None = Field(
+        default=None,
+        pattern=r"^[0-9a-f]{64}$",
+    )
+    hypothesis_id: str | None = Field(default=None, min_length=1, max_length=255)
+    hypothesis_variant: Literal["low_variant", "high_variant"] | None = None
 
 
 class BottleCloseCreate(LabRequest):

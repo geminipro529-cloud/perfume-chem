@@ -15,16 +15,24 @@ from sqlalchemy import event
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.api.deps import get_db
-from app.main import app
-from app.models.base import Base
-
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PYTEST_TEMP_ROOT = REPO_ROOT / "output" / "pytest-temp-backend"
 PYTEST_TEMP_ROOT.mkdir(parents=True, exist_ok=True)
 os.environ["TEMP"] = str(PYTEST_TEMP_ROOT)
 os.environ["TMP"] = str(PYTEST_TEMP_ROOT)
+os.environ.setdefault(
+    "PERFUME_INVENTORY_COMPLETION_PATH",
+    str(PYTEST_TEMP_ROOT / "perfume_chem_pytest_inventory_completions.jsonl"),
+)
+os.environ.setdefault(
+    "PERFUME_PERSONAL_INVENTORY_ADDITION_PATH",
+    str(PYTEST_TEMP_ROOT / "perfume_chem_pytest_inventory_additions.jsonl"),
+)
 tempfile.tempdir = str(PYTEST_TEMP_ROOT)
+
+from app.api.deps import get_db  # noqa: E402 - test environment must precede app import
+from app.main import app  # noqa: E402 - test environment must precede app import
+from app.models.base import Base  # noqa: E402 - test environment must precede app import
 
 # Test database URL
 TEST_DATABASE_URL = "sqlite+aiosqlite:///./test_perfume_chem.db"
@@ -37,9 +45,23 @@ def managed_test_scratch(tmp_path_factory):
     global _SESSION_SCRATCH
     session_temp = tmp_path_factory.getbasetemp()
     _SESSION_SCRATCH = session_temp
-    previous = {key: os.environ.get(key) for key in ("TEMP", "TMP")}
+    previous = {
+        key: os.environ.get(key)
+        for key in (
+            "TEMP",
+            "TMP",
+            "PERFUME_INVENTORY_COMPLETION_PATH",
+            "PERFUME_PERSONAL_INVENTORY_ADDITION_PATH",
+        )
+    }
     previous_tempdir = tempfile.tempdir
     os.environ["TEMP"] = os.environ["TMP"] = str(session_temp)
+    os.environ["PERFUME_INVENTORY_COMPLETION_PATH"] = str(
+        session_temp / "inventory_completions.jsonl"
+    )
+    os.environ["PERFUME_PERSONAL_INVENTORY_ADDITION_PATH"] = str(
+        session_temp / "inventory_additions.jsonl"
+    )
     tempfile.tempdir = str(session_temp)
     try:
         yield

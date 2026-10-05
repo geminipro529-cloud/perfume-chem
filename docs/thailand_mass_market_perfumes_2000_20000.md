@@ -1,5 +1,10 @@
 # Thailand Mass Market Perfumes — 2,000 to 20,000+ THB
 
+> **Authority status: HISTORICAL / PROVISIONAL — NOT SELECTABLE.** This regional
+> price/listing snapshot is retained as a historical record. It cannot establish
+> current global sales leadership, sensory similarity, consumer liking, formula
+> composition, or an optimization objective.
+
 **Source:** Lazada Thailand live listings, Watsons.co.th, Eveandboy (verified 2026-05-24)
 **Note:** Prices are marketplace retail (grey market + authorized). Authentic retail at Central/Sephora/King Power is typically 10-30% higher.
 

@@ -676,6 +676,75 @@ def test_bound_analysis_detects_content_tampering(tmp_path):
     assert "analysis_content_hash" in result["integrity_issues"]
 
 
+@pytest.mark.parametrize(
+    ("parent_present", "use_legacy_hash", "expected"),
+    [
+        (False, True, "CURRENT"),
+        (False, False, "TAMPERED"),
+        (True, True, "TAMPERED"),
+        (True, False, "CURRENT"),
+    ],
+)
+def test_input_hash_uses_the_recorded_parent_schema(
+    tmp_path, parent_present, use_legacy_hash, expected
+):
+    path = tmp_path / "schema-bound.md"
+    _write_formula(path)
+    manifest = {
+        "schema": "perfume_pipeline_run_evidence_v1",
+        "binding_schema": "formula-artifact-binding-v1",
+        "renderer_version": "formula-release-gate-v1",
+        "generated_at_utc": "2026-08-03T02:32:34+00:00",
+        "repository_commit": "90d5895194ae66bf3c8b477624c8c9a7db852a20",
+        **_run_input_hashes(
+            parse_formula_markdown(path), ReleaseGateConfig(audit_enabled=False)
+        ),
+        "analysis_sha256": stable_text_hash("diagnostic analysis"),
+    }
+    fields = (
+        "formula_definitions",
+        "semantic_config",
+        "config_sha256",
+        "inventory_sha256",
+        "scientific_inputs_sha256",
+        "pipeline_source_sha256",
+    )
+    input_fields = {key: manifest[key] for key in fields}
+    if not use_legacy_hash:
+        input_fields["g15_parent_formula_definitions"] = manifest[
+            "g15_parent_formula_definitions"
+        ]
+    manifest["analysis_input_sha256"] = stable_json_hash(input_fields)
+    if not parent_present:
+        manifest.pop("g15_parent_formula_definitions")
+    definitions = manifest["formula_definitions"]
+    manifest["canonical_records"] = [
+        {
+            "record_id": "formula:1:bound-formula",
+            "record_version": 1,
+            "canonical_content_sha256": definitions[0]["sha256"],
+        }
+    ]
+    manifest["artifact_sha256"] = stable_json_hash(manifest)
+    source = path.read_text(encoding="utf-8")
+    path.write_text(
+        source
+        + "\n<!-- PIPELINE_ANALYSIS_START -->\n## Pipeline Analysis\n\n"
+        + "<!-- pipeline-analysis-manifest: "
+        + json.dumps(manifest, sort_keys=True)
+        + " -->\n\n```text\ndiagnostic analysis\n```\n"
+        + "<!-- PIPELINE_ANALYSIS_END -->\n",
+        encoding="utf-8",
+    )
+
+    result = validate_pipeline_analysis_artifact(path)
+
+    assert result["status"] == expected
+    assert ("analysis_input_hash" in result["integrity_issues"]) == (
+        expected == "TAMPERED"
+    )
+
+
 def test_bound_analysis_becomes_stale_when_an_input_snapshot_changes(tmp_path):
     path = tmp_path / "inventory-stale.md"
     _write_formula(path)

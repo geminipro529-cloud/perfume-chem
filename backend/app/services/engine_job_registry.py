@@ -130,9 +130,35 @@ class FormulaGoalAnalysisPayloadV2(FormulaAnalysisPayload):
     family: str | None = Field(default=None, max_length=255)
     profile: str | None = Field(default=None, max_length=255)
     mode: Literal["pre_mix", "between_mix", "post_mix"] = "pre_mix"
-    max_hypotheses: int = Field(default=5, ge=1, le=12)
+    max_hypotheses: int = Field(default=3, ge=1, le=3)
+    original_request: str | None = Field(default=None, max_length=4000)
+    desired_changes: list[str] = Field(default_factory=list, max_length=12)
+    execution_strategy: Literal["NEW_FORMULA", "EVOLVING_BOTTLE"] | None = None
+    appeal_mode: Literal["IDENTITY_FIRST", "GLOBAL_CROWD_PLEASING"] | None = None
+    comparison_evidence: Literal[
+        "DOCUMENT_ONLY",
+        "QUICK_BLIND",
+        "CONTROLLED_PERSONAL",
+        "TARGET_POPULATION",
+    ] = "DOCUMENT_ONLY"
+    reference_panel_id: str | None = Field(default=None, max_length=255)
+    target_population: str | None = Field(default=None, max_length=500)
+    evaluation_windows: list[str] = Field(default_factory=list, max_length=12)
+    application_context: str | None = Field(default=None, max_length=500)
+    active_bottle_id: str | None = Field(default=None, max_length=255)
+    market_evidence_as_of_date: str = Field(
+        default="2026-09-28",
+        pattern=r"^\d{4}-\d{2}-\d{2}$",
+    )
 
-    @field_validator("goals", "observations", "must_preserve", "must_avoid")
+    @field_validator(
+        "goals",
+        "observations",
+        "must_preserve",
+        "must_avoid",
+        "desired_changes",
+        "evaluation_windows",
+    )
     @classmethod
     def normalize_text_list(cls, values: list[str]) -> list[str]:
         normalized: list[str] = []
@@ -148,7 +174,15 @@ class FormulaGoalAnalysisPayloadV2(FormulaAnalysisPayload):
             normalized.append(text)
         return normalized
 
-    @field_validator("family", "profile")
+    @field_validator(
+        "family",
+        "profile",
+        "original_request",
+        "reference_panel_id",
+        "target_population",
+        "application_context",
+        "active_bottle_id",
+    )
     @classmethod
     def normalize_optional_text(cls, value: str | None) -> str | None:
         if value is None:
@@ -157,6 +191,109 @@ class FormulaGoalAnalysisPayloadV2(FormulaAnalysisPayload):
         if not text:
             raise ValueError("optional text must be omitted rather than blank")
         return text
+
+
+class FormulaDesignPayloadV2(_StrictV2Payload):
+    """Closed data-only contract for durable Formula Studio composition."""
+
+    message: str = Field(min_length=1, max_length=4000)
+    formula_name: str | None = Field(default=None, max_length=255)
+    liquid_concentrate_ul_decimal: str = "6000"
+    max_materials: int = Field(default=30, ge=6, le=60)
+    must_preserve: list[str] = Field(default_factory=list, max_length=24)
+    must_avoid: list[str] = Field(default_factory=list, max_length=24)
+    previous_stock_ids: list[str] = Field(default_factory=list, max_length=60)
+    conversation_context: list[str] = Field(default_factory=list, max_length=8)
+    execution_strategy: Literal["NEW_FORMULA", "EVOLVING_BOTTLE"] | None = None
+    appeal_mode: Literal["IDENTITY_FIRST", "GLOBAL_CROWD_PLEASING"] | None = None
+    comparison_evidence: Literal[
+        "DOCUMENT_ONLY",
+        "QUICK_BLIND",
+        "CONTROLLED_PERSONAL",
+        "TARGET_POPULATION",
+    ] = "DOCUMENT_ONLY"
+    active_bottle_id: str | None = Field(default=None, max_length=255)
+    design_mode: Literal["FAST_SKETCH", "DEEP_COMPOSE"] = "DEEP_COMPOSE"
+    variant_count: int = Field(default=3, ge=1, le=3)
+
+    @field_validator("liquid_concentrate_ul_decimal")
+    @classmethod
+    def normalize_liquid_total(cls, value: str) -> str:
+        return _decimal_text(value, positive=True)
+
+    @field_validator(
+        "message",
+        "formula_name",
+        "active_bottle_id",
+        mode="before",
+    )
+    @classmethod
+    def normalize_formula_text(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        text = value.strip()
+        if not text:
+            raise ValueError("text must be omitted rather than blank")
+        return text
+
+    @field_validator(
+        "must_preserve",
+        "must_avoid",
+        "previous_stock_ids",
+        "conversation_context",
+    )
+    @classmethod
+    def normalize_formula_lists(cls, values: list[str]) -> list[str]:
+        result: list[str] = []
+        seen: set[str] = set()
+        for value in values:
+            text = value.strip()
+            if not text:
+                raise ValueError("list values must not be blank")
+            key = " ".join(text.casefold().split())
+            if key in seen:
+                continue
+            seen.add(key)
+            result.append(text)
+        return result
+
+
+class ReferencePanelEvaluationPayloadV2(_StrictV2Payload):
+    target_snapshot_id: str = Field(min_length=1, max_length=255)
+    target_snapshot_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    request_interpretation_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    reference_panel_id: str = Field(min_length=1, max_length=255)
+    reference_panel_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    comparison_evidence: Literal[
+        "DOCUMENT_ONLY",
+        "QUICK_BLIND",
+        "CONTROLLED_PERSONAL",
+        "TARGET_POPULATION",
+    ]
+    observation_record_ids: list[str] = Field(default_factory=list, max_length=10000)
+    seed: int
+    as_of_date: str = Field(pattern=r"^\d{4}-\d{2}-\d{2}$")
+
+    @field_validator(
+        "target_snapshot_id",
+        "reference_panel_id",
+    )
+    @classmethod
+    def strip_reference_text(cls, value: str) -> str:
+        text = value.strip()
+        if not text:
+            raise ValueError("must not be blank")
+        return text
+
+    @field_validator("observation_record_ids")
+    @classmethod
+    def unique_observation_ids(cls, values: list[str]) -> list[str]:
+        normalized = [value.strip() for value in values]
+        if any(not value for value in normalized):
+            raise ValueError("observation record IDs must not be blank")
+        if len(normalized) != len(set(normalized)):
+            raise ValueError("observation record IDs must be unique")
+        return normalized
 
 
 class ReleaseGatePayload(FormulaAnalysisPayload):
@@ -528,6 +665,25 @@ class EngineJobSpec:
 
 
 ENGINE_JOB_REGISTRY: dict[str, EngineJobSpec] = {
+    "FORMULA_DESIGN": EngineJobSpec(
+        FormulaDesignPayloadV2,
+        "READ_ONLY_BATCH",
+        300,
+        (
+            "engine/research/formula_design.py",
+            "engine/research/composition_planner.py",
+            "engine/research/request_interpretation.py",
+            "engine/formulation_intelligence/semantic_brief_adapter.py",
+            "engine/formulation_intelligence/material_capability_index.py",
+            "engine/formulation_intelligence/formula_solver.py",
+            "engine/formulation_intelligence/formula_critic.py",
+            "engine/formulation_intelligence/formula_design_runtime.py",
+            "engine/formulation_intelligence/literature_knowledge.py",
+            "engine/inventory_parser.py",
+            "engine/ingredient_intelligence.py",
+        ),
+        FormulaDesignPayloadV2,
+    ),
     "FORMULA_ANALYSIS": EngineJobSpec(
         FormulaAnalysisPayload,
         "READ_ONLY_DIAGNOSTIC",
@@ -537,6 +693,7 @@ ENGINE_JOB_REGISTRY: dict[str, EngineJobSpec] = {
             "engine/pipeline/formula_state.py",
             "backend/app/services/validation_pipeline.py",
             "engine/research/goal_analysis.py",
+            "engine/formulation_intelligence/literature_knowledge.py",
             "engine/intervention_profiles.py",
             "engine/inventory_parser.py",
         ),
@@ -624,6 +781,18 @@ ENGINE_JOB_REGISTRY: dict[str, EngineJobSpec] = {
         ),
         PreferenceAnalysisPayloadV2,
     ),
+    "REFERENCE_PANEL_EVALUATION": EngineJobSpec(
+        ReferencePanelEvaluationPayloadV2,
+        "READ_ONLY_DIAGNOSTIC",
+        90,
+        (
+            "engine/research/commercial_references.py",
+            "engine/research/request_interpretation.py",
+            "engine/research/protocols.py",
+            "data/governance/commercial_reference_registry_v1.json",
+        ),
+        ReferencePanelEvaluationPayloadV2,
+    ),
     "BATCH_GATE": EngineJobSpec(
         BatchGatePayload,
         "READ_ONLY_BATCH",
@@ -659,6 +828,8 @@ def validate_engine_payload(
         "CANDIDATE_EVALUATION",
         "MODEL_BENCHMARK",
         "PREFERENCE_ANALYSIS",
+        "REFERENCE_PANEL_EVALUATION",
+        "FORMULA_DESIGN",
     }:
         raise ValueError("ENGINE_JOB_TYPE_REQUIRES_V2_SCHEMA")
     validated = model.model_validate(payload)

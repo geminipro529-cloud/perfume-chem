@@ -93,8 +93,19 @@ _IRIS_IDENTITIES: tuple[MaterialIdentity, ...] = (
         chemistry_name="alpha-isomethyl ionone",
         identity_key="alpha isomethyl ionone",
         cas=("127-51-5",),
-        aliases=("aimi", "methyl ionone pure", "alpha-isomethyl ionone"),
-        note="Powdery iris body; the user's AIMI and Methyl Ionone Pure labels resolve here.",
+        aliases=(
+            "aimi",
+            "alpha methyl ionone",
+            "methyl ionone pure",
+            "alpha-isomethyl ionone",
+            "givaudan aimi",
+            "perfumersworld alpha isomethyl ionone",
+        ),
+        note=(
+            "Powdery iris body; AIMI / Alpha Methyl Ionone and the user's "
+            "historical Givaudan AIMI label resolve to PerfumersWorld Alpha "
+            "Isomethyl Ionone (3IW00300). Gamma Coeur remains distinct."
+        ),
     ),
     MaterialIdentity(
         label="Ultralia",

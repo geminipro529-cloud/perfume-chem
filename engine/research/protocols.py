@@ -259,9 +259,157 @@ def build_personal_sensory_protocol(
     )
 
 
+def build_reference_anchored_protocol(
+    candidate_formula_sha256: Mapping[str, str],
+    *,
+    target_candidate_id: str,
+    protocol_id: str,
+    mode: str,
+    session_ids: Sequence[str],
+    seed: int,
+    requested_descriptors: Sequence[str] = (),
+    preserve_constraints: Sequence[str] = (),
+    avoid_constraints: Sequence[str] = (),
+) -> tuple[dict[str, Any], BlindingManifestV1]:
+    """Build target-versus-reference schedules without reference-reference work.
+
+    ``QUICK_REFERENCE`` is one exploratory personal session at five minutes
+    and two hours.  ``CONTROLLED_REFERENCE`` uses at least three sessions,
+    three repeats per target-reference pair, balanced AB/BA order, and the
+    fixed personal-comparison timepoints.  Neither mode authorizes a physical
+    test or a population claim.
+    """
+
+    protocol_id = _text(protocol_id, "protocol_id")
+    target_candidate_id = _text(target_candidate_id, "target_candidate_id")
+    if mode not in {"QUICK_REFERENCE", "CONTROLLED_REFERENCE"}:
+        raise ValueError(f"unsupported reference protocol mode: {mode}")
+    if isinstance(seed, bool) or not isinstance(seed, int):
+        raise ValueError("seed must be an integer")
+    candidates = sorted(candidate_formula_sha256)
+    if target_candidate_id not in candidate_formula_sha256:
+        raise ValueError("target_candidate_id must be one of the supplied candidates")
+    if not 2 <= len(candidates) <= 5:
+        raise ValueError("reference protocols require one target and one to four references")
+    for candidate_id, digest in candidate_formula_sha256.items():
+        _text(candidate_id, "candidate_id")
+        _sha(digest, f"formula hash for {candidate_id}")
+    sessions = tuple(_text(value, "session_id") for value in session_ids)
+    if len(set(sessions)) != len(sessions):
+        raise ValueError("session IDs must be unique")
+    if mode == "QUICK_REFERENCE":
+        if len(sessions) != 1:
+            raise ValueError("QUICK_REFERENCE requires exactly one session")
+        timepoints = (300, 7200)
+        repeats_per_pair = 1
+    else:
+        if len(sessions) < 3:
+            raise ValueError("CONTROLLED_REFERENCE requires at least three sessions")
+        timepoints = DEFAULT_PERSONAL_TIMEPOINTS_SECONDS
+        repeats_per_pair = 3
+
+    references = [candidate for candidate in candidates if candidate != target_candidate_id]
+    pairs = [(target_candidate_id, reference) for reference in references]
+    rng = random.Random(seed)
+    session_codes: dict[str, dict[str, str]] = {}
+    schedules: list[dict[str, Any]] = []
+    pair_counts = {pair: 0 for pair in pairs}
+    order_counts = {pair: {"TARGET_FIRST": 0, "REFERENCE_FIRST": 0} for pair in pairs}
+    for session_index, session_id in enumerate(sessions):
+        codes = _codes(len(candidates), rng)
+        candidate_to_code = dict(zip(candidates, codes, strict=True))
+        session_codes[session_id] = {
+            code: candidate for candidate, code in candidate_to_code.items()
+        }
+        ordered_pairs = list(pairs)
+        rng.shuffle(ordered_pairs)
+        for target_id, reference_id in ordered_pairs:
+            pair = (target_id, reference_id)
+            if pair_counts[pair] >= repeats_per_pair:
+                continue
+            repeat_number = pair_counts[pair] + 1
+            # Alternate each pair by its repeat number.  With three repeats,
+            # each order differs by exactly one presentation regardless of
+            # session numbering.
+            target_first = (repeat_number + seed) % 2 == 0
+            presentation_ids = (
+                [target_id, reference_id]
+                if target_first
+                else [reference_id, target_id]
+            )
+            order_key = "TARGET_FIRST" if target_first else "REFERENCE_FIRST"
+            pair_counts[pair] = repeat_number
+            order_counts[pair][order_key] += 1
+            schedules.append(
+                {
+                    "session_id": session_id,
+                    "pair_id": sha256("|".join(pair).encode("utf-8")).hexdigest()[:16],
+                    "target_candidate_id_withheld": True,
+                    "reference_candidate_id_withheld": True,
+                    "repeat_number": repeat_number,
+                    "blind_codes_in_presentation_order": [
+                        candidate_to_code[value] for value in presentation_ids
+                    ],
+                    "timepoints_seconds": list(timepoints),
+                    "allow_tie": True,
+                    "allow_cannot_determine": True,
+                    "short_reason_required": mode == "QUICK_REFERENCE",
+                }
+            )
+
+    incomplete = [pair for pair, count in pair_counts.items() if count < repeats_per_pair]
+    order_balance = {
+        "|".join(pair): counts for pair, counts in sorted(order_counts.items())
+    }
+    order_balanced = all(
+        abs(counts["TARGET_FIRST"] - counts["REFERENCE_FIRST"]) <= 1
+        for counts in order_counts.values()
+    )
+    endpoints = {
+        "requested_descriptors": [str(value).strip() for value in requested_descriptors if str(value).strip()],
+        "preserve_constraints": [str(value).strip() for value in preserve_constraints if str(value).strip()],
+        "avoid_constraints": [str(value).strip() for value in avoid_constraints if str(value).strip()],
+        "fixed": ["INTENSITY", "FAMILIARITY", "OVERALL_LIKING"],
+    }
+    plan = {
+        "schema_version": "reference-anchored-sensory-protocol-v1",
+        "protocol_id": protocol_id,
+        "mode": mode,
+        "result_scope": (
+            "QUICK_PERSONAL_OBSERVATION"
+            if mode == "QUICK_REFERENCE"
+            else "CONTROLLED_PERSONAL_REFERENCE_EVIDENCE"
+        ),
+        "target_candidate_id": target_candidate_id,
+        "reference_candidate_ids": references,
+        "session_count": len(sessions),
+        "timepoints_seconds": list(timepoints),
+        "repeats_per_target_reference_pair": repeats_per_pair,
+        "schedule": schedules,
+        "reference_reference_comparisons_required": False,
+        "pair_coverage_complete": not incomplete,
+        "incomplete_pair_ids": ["|".join(pair) for pair in incomplete],
+        "presentation_order_counts": order_balance,
+        "presentation_order_balanced": order_balanced,
+        "evaluation_endpoints": endpoints,
+        "substrate_pooling_allowed": False,
+        "retained_pre_delta_sample_required": False,
+        "population_generalization_authorized": False,
+        "physical_execution_authorized": False,
+        "formula_action": "NO_CHANGE",
+        **FALSE_ACTION_AUTHORITY,
+    }
+    plan["protocol_sha256"] = stable_payload_hash(plan)
+    return plan, BlindingManifestV1(
+        protocol_id=protocol_id,
+        session_codes=session_codes,
+    )
+
+
 __all__ = [
     "BlindingManifestV1",
     "DEFAULT_PERSONAL_TIMEPOINTS_SECONDS",
     "InstrumentalObservationContractV1",
     "build_personal_sensory_protocol",
+    "build_reference_anchored_protocol",
 ]

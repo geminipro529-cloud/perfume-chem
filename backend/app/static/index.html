@@ -10,33 +10,210 @@
 <body>
   <div class="paper-grid" aria-hidden="true"></div>
   <header class="masthead">
-    <a class="wordmark" href="#dashboard" aria-label="Perfume Chem Laboratory home">
+    <a class="wordmark" href="#improve" aria-label="Perfume Chem Laboratory home">
       <span class="wordmark-mark">PC</span>
       <span><strong>Perfume Chem</strong><small>Laboratory ledger</small></span>
     </a>
-    <div class="system-state"><span class="state-dot"></span> Local laboratory beta</div>
+    <div class="system-state"><span class="state-dot"></span> Local personal workbench</div>
   </header>
 
   <div class="app-shell">
     <nav class="rail" aria-label="Laboratory views">
-      <button class="nav-item is-active" data-view="dashboard"><span>01</span> Dashboard</button>
-      <button class="nav-item" data-view="materials"><span>02</span> Materials</button>
-      <button class="nav-item" data-view="formulas"><span>03</span> Formulas</button>
-      <button class="nav-item" data-view="bottles"><span>04</span> Bottles</button>
-      <button class="nav-item" data-view="experiments"><span>05</span> Experiments</button>
-      <button class="nav-item" data-view="perfumery"><span>06</span> Perfumer</button>
-      <button class="nav-item" data-view="assistant"><span>07</span> Assistant</button>
-      <button class="nav-item" data-view="science"><span>08</span> Science</button>
+      <button class="nav-item is-active" data-view="improve"><span>01</span> Improve</button>
+      <button class="nav-item" data-view="dashboard"><span>02</span> Dashboard</button>
+      <button class="nav-item" data-view="materials"><span>03</span> Materials</button>
+      <button class="nav-item" data-view="formulas"><span>04</span> Create</button>
+      <button class="nav-item" data-view="bottles"><span>05</span> Bottles</button>
+      <button class="nav-item" data-view="experiments"><span>06</span> Experiments</button>
+      <button class="nav-item" data-view="perfumery"><span>07</span> Perfumer</button>
+      <button class="nav-item" data-view="assistant"><span>08</span> Assistant</button>
+      <button class="nav-item" data-view="science"><span>09</span> Science</button>
       <div class="rail-note">
-        <strong>Evidence first.</strong>
-        Unknown is a result, not an error.
+        <strong>Make perfume, not paperwork.</strong>
+        Start with one sensory goal. Details stay available when they matter.
       </div>
     </nav>
 
     <main>
       <div id="status" class="status-line" role="status" aria-live="polite">Ready for a local record.</div>
 
-      <section class="view is-visible" data-panel="dashboard" aria-labelledby="dashboard-title">
+      <section class="view is-visible" data-panel="improve" aria-labelledby="improve-title">
+        <div class="view-heading improve-heading">
+          <div>
+            <p class="eyebrow">Personal perfume workbench</p>
+            <h1 id="improve-title" tabindex="-1">Make the next change count.</h1>
+            <p class="lede">Choose a scent, describe the change in one sentence, and get a small testable clue. Analysis never changes the bottle by itself.</p>
+          </div>
+          <span class="easy-badge">No photos or receipts required</span>
+        </div>
+
+        <div class="workflow-strip" aria-label="Improvement workflow">
+          <span class="workflow-step is-current" data-workflow-step="1"><b>1</b> Ask</span>
+          <span class="workflow-step" data-workflow-step="2"><b>2</b> Understand</span>
+          <span class="workflow-step" data-workflow-step="3"><b>3</b> Choose</span>
+          <span class="workflow-step" data-workflow-step="4"><b>4</b> Add</span>
+          <span class="workflow-step" data-workflow-step="5"><b>5</b> Smell</span>
+        </div>
+
+        <form id="improve-form" class="panel improve-request-card">
+          <div class="request-card-heading">
+            <div><p class="panel-index">Your brief</p><h2>What should be better?</h2></div>
+            <p>One clear direction is enough.</p>
+          </div>
+
+          <fieldset class="mode-picker">
+            <legend>Where are you working?</legend>
+            <label class="mode-choice">
+              <input type="radio" name="execution_strategy" value="EVOLVING_BOTTLE" checked>
+              <span><strong>Current bottle</strong><small>Add a small delta to the bottle you already have.</small></span>
+            </label>
+            <label class="mode-choice">
+              <input type="radio" name="execution_strategy" value="NEW_FORMULA">
+              <span><strong>Formula design</strong><small>Explore a change without touching a physical bottle.</small></span>
+            </label>
+          </fieldset>
+
+          <div id="improve-bottle-source">
+            <label>Current bottle<select name="bottle_id" data-bottle-select></select></label>
+          </div>
+          <div id="improve-formula-source" hidden>
+            <div class="field-pair formula-source-picker">
+              <label>Formula source
+                <select name="formula_source_kind">
+                  <option value="PROJECT_FILE">Project formula file</option>
+                  <option value="LEDGER_FORMULA">Saved formula ledger</option>
+                </select>
+              </label>
+              <label id="improve-project-formula-field" class="formula-source-field">Project formula
+                <input name="project_formula_path" list="project-formula-options" placeholder="Start typing a formula name" autocomplete="off">
+                <datalist id="project-formula-options"></datalist>
+              </label>
+              <label id="improve-ledger-formula-field" class="formula-source-field" hidden>Saved formula
+                <select name="formula_id" data-formula-select></select>
+              </label>
+            </div>
+            <p id="formula-source-state" class="source-empty-state" hidden></p>
+          </div>
+
+          <label class="goal-field">Describe the change
+            <textarea name="goal" required maxlength="4000" placeholder="For example: Make the lavender clearer at 30 minutes, keep the dry amber, and do not add sweetness."></textarea>
+          </label>
+
+          <div class="field-pair compact-fields">
+            <label>Style of answer
+              <select name="appeal_mode">
+                <option value="IDENTITY_FIRST">Protect this perfume's identity</option>
+                <option value="GLOBAL_CROWD_PLEASING">Also compare with global references</option>
+              </select>
+            </label>
+            <label>When should it improve?
+              <input name="evaluation_windows" value="30 minutes, 2 hours" maxlength="255">
+            </label>
+          </div>
+
+          <details class="optional-details">
+            <summary>Optional context</summary>
+            <div class="optional-grid">
+              <label>Preserve <span>comma separated</span><input name="must_preserve" placeholder="dry amber, current sweetness"></label>
+              <label>Avoid <span>comma separated</span><input name="must_avoid" placeholder="harshness, extra vanilla"></label>
+              <label>What you notice now <span>comma separated</span><input name="observations" placeholder="lavender disappears early, drydown is good"></label>
+              <label>How you will smell it<input name="application_context" value="blotter" maxlength="500"></label>
+            </div>
+            <label>Comparison evidence
+              <select name="comparison_evidence">
+                <option value="DOCUMENT_ONLY">Architecture clues only</option>
+                <option value="QUICK_BLIND">Quick personal blind comparison</option>
+                <option value="CONTROLLED_PERSONAL">Repeated personal comparison</option>
+              </select>
+            </label>
+          </details>
+
+          <div class="request-actions">
+            <button id="improve-submit" type="submit">Analyze this scent</button>
+            <p id="improve-source-note" class="field-help">The current committed bottle state will be replayed before analysis.</p>
+          </div>
+        </form>
+
+        <article id="improve-running" class="panel progress-card" hidden aria-live="polite">
+          <span class="progress-spinner" aria-hidden="true"></span>
+          <div><p class="panel-index">Working locally</p><h2>Looking for the strongest useful clue…</h2><p id="improve-running-detail">The request is in the durable job queue.</p></div>
+          <button id="cancel-improve-job" class="quiet-button" type="button">Cancel</button>
+        </article>
+
+        <article id="interpretation-card" class="panel interpretation-card" hidden>
+          <div class="card-title-row"><div><p class="panel-index">Interpretation</p><h2>Here is what I understood</h2></div><span id="interpretation-state" class="state-chip"></span></div>
+          <dl id="interpretation-summary" class="plain-summary"></dl>
+          <p id="interpretation-ambiguity" class="inline-warning" hidden></p>
+          <button id="edit-improve-request" class="quiet-button" type="button">Correct the brief</button>
+        </article>
+
+        <section id="improve-results" hidden aria-live="polite">
+          <article class="panel clue-card">
+            <p class="panel-index">Strongest clue</p>
+            <h2 id="strongest-clue">No clue yet.</h2>
+            <p id="clue-boundary" class="boundary-note"></p>
+          </article>
+
+          <div class="results-heading"><div><p class="panel-index">Small experiments</p><h2>Choose one direction</h2></div><span id="selection-state" class="state-chip"></span></div>
+          <div id="hypothesis-list" class="hypothesis-grid"></div>
+
+          <article id="delta-card" class="panel delta-card" hidden>
+            <div class="card-title-row"><div><p class="panel-index">Proposal only</p><h2 id="delta-title">Your next small delta</h2></div><span class="state-chip proposal">Not added</span></div>
+            <div class="variant-switch" role="group" aria-label="Delta size">
+              <button class="variant-button is-active" type="button" data-variant="low_variant">Start small</button>
+              <button class="variant-button" type="button" data-variant="high_variant">Larger comparison</button>
+            </div>
+            <div id="delta-lines" class="delta-lines"></div>
+            <dl id="delta-purpose" class="plain-summary"></dl>
+            <button id="prepare-delta" type="button">Prepare this change</button>
+          </article>
+
+          <article id="record-delta-card" class="panel record-delta-card" hidden>
+            <div class="card-title-row"><div><p class="panel-index">Physical checkpoint</p><h2>Record what you actually add</h2></div><span class="state-chip caution">Human action</span></div>
+            <p class="friendly-boundary">Nothing happens until you add the material yourself and confirm the measured amount here. This is a personal evolving-bottle record, not an approved production build.</p>
+            <div id="delta-line-editor" class="delta-line-editor"></div>
+            <label class="confirm-line"><input id="physical-addition-confirmed" type="checkbox"> <span>I have physically added these measured amounts to the selected bottle.</span></label>
+            <div class="record-actions">
+              <button id="record-delta" type="button" disabled>Record once</button>
+              <button id="abandon-delta" class="quiet-button" type="button">Leave bottle unchanged</button>
+            </div>
+            <p id="record-delta-status" class="field-help">The ledger uses stable command identities so retrying the same record cannot double-add it.</p>
+          </article>
+
+          <form id="quick-reaction-form" class="panel reaction-card" hidden>
+            <div class="card-title-row"><div><p class="panel-index">Quick reaction</p><h2>What happened?</h2></div><span class="state-chip personal">Personal evidence</span></div>
+            <div class="field-pair">
+              <label>Smelled after
+                <select name="waited_seconds">
+                  <option value="300">5 minutes</option>
+                  <option value="1800" selected>30 minutes</option>
+                  <option value="7200">2 hours</option>
+                  <option value="14400">4 hours</option>
+                </select>
+              </label>
+              <label>Next decision
+                <select name="decision">
+                  <option value="CONTINUE">Better — continue carefully</option>
+                  <option value="HOLD">Hold and smell again</option>
+                  <option value="DILUTE">Too strong — consider dilution</option>
+                  <option value="STOP">Worse — stop here</option>
+                  <option value="CANNOT_DETERMINE">Cannot determine</option>
+                </select>
+              </label>
+            </div>
+            <label>Your reaction<textarea name="reaction" required maxlength="2000" placeholder="Lavender is clearer, but the opening is slightly sharper."></textarea></label>
+            <button type="submit">Save reaction</button>
+            <p id="reaction-status" class="field-help">This records a sequential personal observation. It does not become a population or causal claim.</p>
+          </form>
+
+          <details class="panel analysis-details">
+            <summary>See scientific and provenance details</summary>
+            <pre id="improve-analysis-details" class="output-block" tabindex="0"></pre>
+          </details>
+        </section>
+      </section>
+
+      <section class="view" data-panel="dashboard" aria-labelledby="dashboard-title">
         <div class="view-heading">
           <div><p class="eyebrow">Live workspace</p><h1 id="dashboard-title">Bench overview</h1></div>
           <button class="quiet-button" id="refresh-all" type="button">Refresh ledger</button>
@@ -75,30 +252,245 @@
       </section>
 
       <section class="view" data-panel="materials" aria-labelledby="materials-title">
-        <div class="view-heading"><div><p class="eyebrow">Inventory authority</p><h1 id="materials-title">Materials & stocks</h1></div></div>
-        <div class="split-grid">
-          <form id="material-form" class="panel form-panel">
-            <p class="panel-index">M1</p><h2>Register material</h2>
-            <label>Canonical name<input name="canonical_name" required maxlength="255" autocomplete="off"></label>
-            <button type="submit">Create material</button>
-          </form>
-          <form id="stock-form" class="panel form-panel">
-            <p class="panel-index">M2</p><h2>Prepare stock</h2>
-            <label>Material<select name="material_id" data-material-select required></select></label>
-            <div class="field-pair">
-              <label>Active fraction<input name="active_fraction" type="number" value="0.1" min="0.000001" max="1" step="0.000001" required></label>
-              <label>Initial mass, g<input name="initial_mass_g" type="number" value="10" min="0" step="0.001" required></label>
+        <div class="view-heading"><div><p class="eyebrow">Your existing inventory</p><h1 id="materials-title">Current materials</h1><p class="lede">This is read directly from the project inventory. You do not need to enter it again.</p></div><span class="easy-badge">Details editable</span></div>
+        <article class="panel inventory-authority-card">
+          <div class="card-title-row">
+            <div><p class="panel-index">Live source</p><h2 id="project-inventory-count">Loading current inventory…</h2></div>
+            <span id="project-inventory-ready" class="state-chip"></span>
+          </div>
+          <p id="project-inventory-source" class="friendly-boundary">Reading inventory.txt, pinned stock facts, and your personal completion receipts.</p>
+          <div class="inventory-toolbar">
+            <label class="inventory-search">Find a material<input id="project-inventory-search" type="search" placeholder="Lavender, Ambrox, bergamot…" autocomplete="off"></label>
+            <div class="inventory-toolbar-actions">
+              <label class="check-line"><input id="project-inventory-incomplete-only" type="checkbox"> Show only details to finish</label>
+              <button id="inventory-add-open" class="quiet-button" type="button">Add a missing owned material</button>
             </div>
-            <label>Fraction basis<select name="fraction_basis"><option value="mass_fraction">Mass fraction</option><option value="volume_fraction">Volume fraction</option><option value="amount_fraction">Amount fraction</option></select></label>
-            <label>Density, g/mL <span>(optional)</span><input name="density_g_ml" type="number" min="0.000001" step="0.000001"></label>
-            <button type="submit">Create stock</button>
+          </div>
+          <div id="project-inventory-list" class="inventory-grid" aria-live="polite"></div>
+        </article>
+        <article id="inventory-addition-panel" class="panel inventory-completion-panel" hidden>
+          <div class="card-title-row">
+            <div><p class="panel-index">Add an owned material</p><h2>Put a missing bottle into Formula Studio</h2></div>
+            <button id="inventory-add-close" class="quiet-button" type="button">Close</button>
+          </div>
+          <p class="friendly-boundary">Use this only for material you physically own. It becomes available for personal formula design immediately; exact physical-build binding remains separate.</p>
+          <form id="inventory-addition-form" class="form-panel inventory-completion-form">
+            <div class="field-pair">
+              <label>Material or product name<input name="identity_name" required maxlength="255" placeholder="Hindinol" autocomplete="off"></label>
+              <label>Inventory category
+                <select name="category" required>
+                  <option value="citrus / top">Citrus / top</option>
+                  <option value="green / fresh / marine">Green / fresh / marine</option>
+                  <option value="floral materials">Floral materials</option>
+                  <option value="iris / violet">Iris / violet</option>
+                  <option value="woods / amber / structure" selected>Woods / amber / structure</option>
+                  <option value="musks">Musks</option>
+                  <option value="sweet / gourmand / balsamic">Sweet / gourmand / balsamic</option>
+                  <option value="leather / smoky / phenolic">Leather / smoky / phenolic</option>
+                  <option value="spice / aromatic">Spice / aromatic</option>
+                  <option value="accord bases / other">Accord bases / other</option>
+                  <option value="solvents / carriers">Solvents / carriers</option>
+                </select>
+              </label>
+            </div>
+            <div class="field-pair">
+              <label>Stock concentration, %<input name="fraction_percent_decimal" value="100" inputmode="decimal" required></label>
+              <label>Concentration basis
+                <select name="fraction_basis" required>
+                  <option value="neat" selected>Neat / 100%</option>
+                  <option value="mass_fraction">w/w — mass fraction</option>
+                  <option value="volume_fraction">v/v — volume fraction</option>
+                  <option value="mass_per_volume">w/v — mass per volume</option>
+                </select>
+              </label>
+            </div>
+            <div class="field-pair">
+              <label>Carrier <span>(blank for neat)</span><input name="carrier" placeholder="DPG, DEP, ethanol…"></label>
+              <label>Physical form
+                <select name="physical_form" required>
+                  <option value="as_supplied" selected>As supplied / liquid</option>
+                  <option value="solution">Prepared solution</option>
+                  <option value="oil">Oil</option>
+                  <option value="resin">Resin or resinoid</option>
+                  <option value="paste">Paste</option>
+                  <option value="crystals">Crystals</option>
+                  <option value="powder">Powder</option>
+                  <option value="solid">Other solid</option>
+                </select>
+              </label>
+            </div>
+            <div class="field-pair">
+              <label>Supplier <span>(optional)</span><input name="supplier_name" maxlength="255" placeholder="PerfumersWorld"></label>
+              <label>Supplier SKU <span>(optional)</span><input name="supplier_sku" maxlength="120" placeholder="4WX24656"></label>
+            </div>
+            <div class="field-pair">
+              <label>Homogeneity
+                <select name="homogeneity" required>
+                  <option value="NOT_APPLICABLE" selected>Not applicable — neat material</option>
+                  <option value="HOMOGENEOUS">Homogeneous</option>
+                  <option value="FULLY_DISSOLVED">Fully dissolved</option>
+                  <option value="UNKNOWN">I do not know yet</option>
+                  <option value="NOT_HOMOGENEOUS">Not homogeneous</option>
+                </select>
+              </label>
+              <label>Optional note<input name="user_note" maxlength="1000" placeholder="Anything useful to remember"></label>
+            </div>
+            <label class="check-line"><input name="possession_confirmed" type="checkbox" required> I physically own this material.</label>
+            <p class="field-help">No photograph, receipt, bottle lot, quantity, density, or safety paperwork is required for personal design.</p>
+            <div class="request-actions">
+              <button type="submit">Add to my inventory</button>
+              <button id="inventory-add-cancel" class="quiet-button" type="button">Cancel</button>
+            </div>
           </form>
-        </div>
-        <div class="panel"><h2>Material register</h2><div id="material-list" class="record-list"></div></div>
+        </article>
+        <article id="inventory-completion-panel" class="panel inventory-completion-panel" hidden>
+          <div class="card-title-row">
+            <div><p class="panel-index">Complete one stock</p><h2 id="inventory-completion-name">Material</h2></div>
+            <button id="inventory-completion-close" class="quiet-button" type="button">Close</button>
+          </div>
+          <p id="inventory-completion-help" class="friendly-boundary"></p>
+          <form id="inventory-completion-form" class="form-panel inventory-completion-form">
+            <input name="stock_id" type="hidden">
+            <input name="expected_effective_inventory_sha256" type="hidden">
+            <div class="field-pair">
+              <label>Stock concentration, %<input name="fraction_percent_decimal" inputmode="decimal" required></label>
+              <label>How that percentage is defined
+                <select name="fraction_basis" required>
+                  <option value="unspecified">I do not know yet</option>
+                  <option value="neat">Neat / 100%</option>
+                  <option value="mass_fraction">w/w — mass fraction</option>
+                  <option value="volume_fraction">v/v — volume fraction</option>
+                  <option value="mass_per_volume">w/v — mass per volume</option>
+                </select>
+              </label>
+            </div>
+            <div class="field-pair">
+              <label>Carrier <span>(blank for neat)</span><input name="carrier" placeholder="DPG, DEP, ethanol…"></label>
+              <label>Physical form
+                <select name="physical_form" required>
+                  <option value="">Choose the form</option>
+                  <option value="as_supplied">Liquid / as supplied</option>
+                  <option value="solution">Prepared solution</option>
+                  <option value="oil">Oil</option>
+                  <option value="resin">Resin or resinoid</option>
+                  <option value="paste">Paste</option>
+                  <option value="crystals">Crystals</option>
+                  <option value="powder">Powder</option>
+                  <option value="solid">Other solid</option>
+                </select>
+              </label>
+            </div>
+            <div class="field-pair">
+              <label>What supports these details
+                <select name="source_kind" required>
+                  <option value="USER_LABEL_OR_RECIPE">My label or preparation recipe</option>
+                  <option value="SUPPLIER_LABEL">Supplier label</option>
+                  <option value="USER_MEASUREMENT">I measured the final stock</option>
+                  <option value="PERSONAL_CONFIRMATION">My direct confirmation</option>
+                </select>
+              </label>
+              <label>Homogeneity
+                <select name="homogeneity" required>
+                  <option value="NOT_APPLICABLE">Not applicable — neat material</option>
+                  <option value="HOMOGENEOUS">Homogeneous</option>
+                  <option value="FULLY_DISSOLVED">Fully dissolved</option>
+                  <option value="UNKNOWN">I do not know yet</option>
+                  <option value="NOT_HOMOGENEOUS">Not homogeneous</option>
+                </select>
+              </label>
+            </div>
+            <label class="check-line"><input name="possession_confirmed" type="checkbox" required> I physically own this stock and these details describe the bottle I use.</label>
+            <label class="check-line"><input name="final_fraction_known" type="checkbox"> This is the final usable concentration, not merely a tincture starting recipe.</label>
+            <label>Optional note<input name="user_note" maxlength="1000" placeholder="Anything useful to remember"></label>
+            <p class="field-help">No photo, invoice, supplier lot, or density is required for personal formula design. Saving this does not authorize physical compounding or make a safety claim.</p>
+            <div class="request-actions">
+              <button type="submit">Save these details</button>
+              <button id="inventory-completion-cancel" class="quiet-button" type="button">Cancel</button>
+            </div>
+          </form>
+        </article>
+        <details class="panel optional-ledger-tools">
+          <summary>Optional laboratory ledger tools</summary>
+          <p class="friendly-boundary">Use these only when you deliberately want a separate transactional laboratory record. They are not required for formulation chat.</p>
+          <div class="split-grid">
+            <form id="material-form" class="form-panel">
+              <p class="panel-index">M1</p><h2>Register lab material</h2>
+              <label>Canonical name<input name="canonical_name" required maxlength="255" autocomplete="off"></label>
+              <button type="submit">Create laboratory record</button>
+            </form>
+            <form id="stock-form" class="form-panel">
+              <p class="panel-index">M2</p><h2>Prepare lab stock</h2>
+              <label>Material<select name="material_id" data-material-select required></select></label>
+              <div class="field-pair">
+                <label>Active fraction<input name="active_fraction" type="number" value="0.1" min="0.000001" max="1" step="0.000001" required></label>
+                <label>Initial mass, g<input name="initial_mass_g" type="number" value="10" min="0" step="0.001" required></label>
+              </div>
+              <label>Fraction basis<select name="fraction_basis"><option value="mass_fraction">Mass fraction</option><option value="volume_fraction">Volume fraction</option><option value="amount_fraction">Amount fraction</option></select></label>
+              <label>Density, g/mL <span>(optional)</span><input name="density_g_ml" type="number" min="0.000001" step="0.000001"></label>
+              <button type="submit">Create laboratory stock</button>
+            </form>
+          </div>
+          <div><h2>Laboratory material register</h2><div id="material-list" class="record-list"></div></div>
+        </details>
       </section>
 
       <section class="view" data-panel="formulas" aria-labelledby="formulas-title">
-        <div class="view-heading"><div><p class="eyebrow">Immutable intent</p><h1 id="formulas-title">Formula desk</h1></div></div>
+        <div class="view-heading"><div><p class="eyebrow">Invent with what you own</p><h1 id="formulas-title">Formula studio</h1><p class="lede">Describe a perfume idea normally. The studio turns hard constraints into a perfume structure, fills only justified roles from your inventory, and stops before filler.</p></div><span class="easy-badge">No paperwork required</span></div>
+
+        <section class="formula-chat-layout" aria-labelledby="formula-chat-title">
+          <article class="panel formula-chat-panel">
+            <div class="card-title-row"><div><p class="panel-index">Formulation conversation</p><h2 id="formula-chat-title">What do you want to make?</h2></div><span class="state-chip personal">Design mode</span></div>
+            <div id="formula-chat-log" class="formula-chat-log" aria-live="polite">
+              <div class="chat-bubble assistant-bubble"><strong>Perfumer</strong><p>Give me a name or an idea—“a cold mineral lavender with a dry amber trail” is enough. I will honor exact materials, exclusions, units, and stock forms, then stop when the necessary perfume roles are covered.</p></div>
+            </div>
+            <form id="formula-chat-form" class="formula-chat-form">
+              <div class="field-pair compact-fields">
+                <label>Formula name <span>(optional)</span><input name="formula_name" maxlength="255" placeholder="I can make a working name"></label>
+                <label>Liquid concentrate<input name="liquid_concentrate_ul_decimal" value="6000" inputmode="decimal" aria-describedby="formula-volume-help"></label>
+              </div>
+              <p id="formula-volume-help" class="field-help">Default: 6,000 µL liquid concentrate for a 30 mL EDP. Any selected crystal remains a separate mg line.</p>
+              <label class="goal-field">Your idea or next change<textarea name="message" required maxlength="4000" placeholder="Create a bright grapefruit and lavender perfume with a mineral dry amber base. Keep it dry and avoid vanilla."></textarea></label>
+              <details class="optional-details">
+                <summary>Optional creative boundaries</summary>
+                <div class="optional-grid">
+                  <label>Must preserve <span>comma separated</span><input name="must_preserve" placeholder="lavender identity, dry finish"></label>
+                  <label>Must avoid <span>comma separated</span><input name="must_avoid" placeholder="vanilla, laundry musk"></label>
+                  <label>Formula size ceiling<select name="max_materials"><option value="6">Focused — up to 6</option><option value="12">Layered — up to 12</option><option value="20">Expanded — up to 20</option><option value="30" selected>Detailed — up to 30</option><option value="45">Broad palette — up to 45</option><option value="60">Maximum — up to 60</option></select></label>
+                  <label>Design pass<select name="design_mode"><option value="FAST_SKETCH" selected>Fast sketch — one formula</option><option value="DEEP_COMPOSE">Deep compose — three diverse formulas</option></select></label>
+                </div>
+              </details>
+              <div class="request-actions">
+                <button id="formula-chat-submit" type="submit">Create my formula</button>
+                <button id="formula-chat-reset" class="quiet-button" type="button">Start another idea</button>
+              </div>
+            </form>
+          </article>
+
+          <article id="formula-chat-result" class="panel formula-result-card" hidden>
+            <div class="card-title-row"><div><p class="panel-index">Composition plan</p><h2 id="formula-result-name">Formula draft</h2></div><span id="formula-result-state" class="state-chip proposal">Proposal only</span></div>
+            <p id="formula-result-summary" class="friendly-boundary"></p>
+            <div id="formula-variant-picker" class="formula-variant-picker" hidden aria-label="Design alternatives"></div>
+            <div class="formula-table-wrap">
+              <table class="formula-design-table">
+                <thead><tr><th>Material</th><th>Stock</th><th>Role</th><th>Dose</th><th>Why</th></tr></thead>
+                <tbody id="formula-result-rows"></tbody>
+              </table>
+            </div>
+            <dl id="formula-result-totals" class="plain-summary"></dl>
+            <details class="analysis-details">
+              <summary>Why these roles were chosen and what remains unknown</summary>
+              <div id="formula-result-detail" class="formula-result-detail"></div>
+            </details>
+            <div class="request-actions">
+              <button id="formula-download" type="button">Download draft</button>
+              <p class="field-help">Downloading saves a design artifact only. It does not change inventory, save a lab version, or authorize compounding.</p>
+            </div>
+          </article>
+        </section>
+
+        <details class="panel optional-ledger-tools formula-ledger-tools">
+          <summary>Optional immutable formula ledger</summary>
+          <p class="friendly-boundary">The conversation above is the normal creative path. Open these tools only when you want to commit a separate formal ledger version.</p>
         <div class="three-grid">
           <form id="formula-form" class="panel form-panel">
             <p class="panel-index">F1</p><h2>Start formula</h2>
@@ -135,6 +527,7 @@
         </div>
         <div class="panel"><h2>Formula register</h2><div id="formula-list" class="record-list"></div></div>
         <pre id="analysis-output" class="output-block" tabindex="0">No analysis run yet.</pre>
+        </details>
       </section>
 
       <section class="view" data-panel="bottles" aria-labelledby="bottles-title">

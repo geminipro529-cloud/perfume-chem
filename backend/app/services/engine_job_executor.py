@@ -10,7 +10,7 @@ from __future__ import annotations
 import json
 from decimal import Decimal
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from engine.calibration.hashing import (
     stable_json_hash,
@@ -19,7 +19,9 @@ from engine.calibration.hashing import (
     stable_portable_file_hash as stable_file_hash,
 )
 from engine.preference import PairwisePreference
+from engine.research.commercial_references import evaluate_reference_panel
 from engine.research.contracts import FALSE_ACTION_AUTHORITY, ReleaseScenarioV1
+from engine.research.formula_design import design_inventory_formula
 from engine.research.goal_analysis import (
     GoalAnalysisRequestV1,
     GoalFormulaRowV1,
@@ -443,7 +445,24 @@ def _formula_goal_analysis_v2(
                     include_unavailable=False,
                 )
             ),
-            max_hypotheses=int(payload.get("max_hypotheses", 5)),
+            max_hypotheses=int(payload.get("max_hypotheses", 3)),
+            original_request=payload.get("original_request"),
+            desired_changes=tuple(payload.get("desired_changes", [])),
+            execution_strategy=payload.get("execution_strategy"),
+            appeal_mode=payload.get("appeal_mode"),
+            comparison_evidence=str(
+                payload.get("comparison_evidence", "DOCUMENT_ONLY")
+            ),
+            reference_panel_id=payload.get("reference_panel_id"),
+            target_population=payload.get("target_population"),
+            requested_evaluation_windows=tuple(
+                payload.get("evaluation_windows", [])
+            ),
+            application_context=payload.get("application_context"),
+            active_bottle_id=payload.get("active_bottle_id"),
+            market_evidence_as_of_date=str(
+                payload.get("market_evidence_as_of_date", "2026-09-28")
+            ),
         )
     )
     hypotheses = list(analysis["modification_hypotheses"])
@@ -475,6 +494,114 @@ def _formula_goal_analysis_v2(
         findings=findings,
         missing_requirements=(
             [] if hypotheses else ["ONE_CONCRETE_SENSORY_DIRECTION"]
+        ),
+        result=result,
+    ), validation
+
+
+def _formula_design_v2(
+    payload: dict[str, Any],
+) -> tuple[str, dict[str, Any], str]:
+    """Run the same verified compiler used by Formula Studio."""
+
+    report = design_inventory_formula(
+        idea=str(payload["message"]),
+        formula_name=payload.get("formula_name"),
+        liquid_concentrate_ul_decimal=str(
+            payload.get("liquid_concentrate_ul_decimal", "6000")
+        ),
+        max_materials=int(payload.get("max_materials", 30)),
+        must_preserve=tuple(payload.get("must_preserve", [])),
+        must_avoid=tuple(payload.get("must_avoid", [])),
+        previous_stock_ids=tuple(payload.get("previous_stock_ids", [])),
+        conversation_context=tuple(payload.get("conversation_context", [])),
+        execution_strategy=payload.get("execution_strategy"),
+        appeal_mode=payload.get("appeal_mode"),
+        comparison_evidence=str(
+            payload.get("comparison_evidence", "DOCUMENT_ONLY")
+        ),
+        active_bottle_id=payload.get("active_bottle_id"),
+        design_mode=cast(Any, str(payload.get("design_mode", "DEEP_COMPOSE"))),
+        variant_count=int(payload.get("variant_count", 3)),
+    )
+    has_formula = report.get("optimized_formula") is not None
+    has_holds = bool(report.get("critic", {}).get("issues", []))
+    if has_formula:
+        terminal = "SUCCEEDED"
+        validation = "ADVISORY_FINDINGS" if has_holds else "ADVISORY_COMPLETE"
+        applicability = "PARTIAL" if has_holds else "APPLICABLE"
+    else:
+        terminal = "WITHHELD"
+        validation = "WITHHOLD_UNKNOWN"
+        applicability = "UNAVAILABLE"
+    findings = [
+        {"code": str(code)}
+        for code in report.get("critic", {}).get("issues", [])
+    ]
+    variants = report.get("design_variants", [])
+    selection = {
+        "status": (
+            "UNORDERED_DESIGN_HYPOTHESES"
+            if has_formula
+            else "WITHHELD_NO_FEASIBLE_DESIGN"
+        ),
+        "ranked_candidates": [],
+        "pareto_candidates": [],
+        "unordered_candidates": [
+            str(row.get("variant_id")) for row in variants
+        ],
+        "formula_action": "PROPOSAL_ONLY" if has_formula else "NO_CHANGE",
+        "reason_codes": [row["code"] for row in findings],
+    }
+    return terminal, _v2_envelope(
+        validation_state=validation,
+        applicability_state=applicability,
+        findings=findings,
+        missing_requirements=(
+            []
+            if has_formula
+            else list(report.get("reason_codes", ["FEASIBLE_DESIGN_REQUIRED"]))
+        ),
+        result={"formula_design": report, "selection": selection},
+    ), validation
+
+
+def _reference_panel_evaluation_v2(
+    payload: dict[str, Any],
+) -> tuple[str, dict[str, Any], str]:
+    report = evaluate_reference_panel(
+        target_snapshot_id=str(payload["target_snapshot_id"]),
+        target_snapshot_sha256=str(payload["target_snapshot_sha256"]),
+        request_interpretation_sha256=str(
+            payload["request_interpretation_sha256"]
+        ),
+        reference_panel_id=str(payload["reference_panel_id"]),
+        reference_panel_sha256=str(payload["reference_panel_sha256"]),
+        comparison_evidence=str(payload["comparison_evidence"]),
+        observation_record_ids=tuple(payload.get("observation_record_ids", [])),
+        seed=int(payload["seed"]),
+        as_of_date=str(payload["as_of_date"]),
+    )
+    validation = str(report["validation_state"])
+    terminal = (
+        "SUCCEEDED"
+        if validation in {"ADVISORY_COMPLETE", "ADVISORY_FINDINGS"}
+        else "WITHHELD"
+    )
+    findings = [{"code": value} for value in report.get("findings", [])]
+    selection = dict(report["selection"])
+    result = {
+        **report,
+        "selection": selection,
+    }
+    return terminal, _v2_envelope(
+        validation_state=validation,
+        applicability_state=str(report["applicability"]["state"]),
+        findings=findings,
+        missing_requirements=(
+            []
+            if not findings
+            else ["SERVER_ADJUDICATED_REFERENCE_OBSERVATIONS"]
         ),
         result=result,
     ), validation
@@ -2533,6 +2660,8 @@ def _batch_gate_v2(payload: dict[str, Any]) -> tuple[str, dict[str, Any], str]:
 def _execute_v2_engine_job(
     job_type: str, payload: dict[str, Any]
 ) -> tuple[str, dict[str, Any], str]:
+    if job_type == "FORMULA_DESIGN":
+        return _formula_design_v2(payload)
     if job_type == "RELEASE_SIMULATION":
         return _release_simulation_v2(payload)
     if job_type == "CANDIDATE_EVALUATION":
@@ -2543,6 +2672,8 @@ def _execute_v2_engine_job(
         return _optimizer_search_v2(payload)
     if job_type == "PREFERENCE_ANALYSIS":
         return _preference_analysis_v2(payload)
+    if job_type == "REFERENCE_PANEL_EVALUATION":
+        return _reference_panel_evaluation_v2(payload)
     if job_type == "BATCH_GATE":
         return _batch_gate_v2(payload)
     if job_type == "FORMULA_ANALYSIS":

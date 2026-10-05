@@ -29,6 +29,9 @@ from app.repositories.lab_analytical import (
 )
 from app.repositories.lab_backfill import LabBackfillRepositoryMixin
 from app.repositories.lab_claims import LabClaimAuthorityRepositoryMixin
+from app.repositories.lab_commercial_references import (
+    LabCommercialReferenceRepositoryMixin,
+)
 from app.repositories.lab_execution import LabExecutionRepositoryMixin
 from app.repositories.lab_external_studies import LabExternalStudyRepositoryMixin
 from app.repositories.lab_external_validation import (
@@ -62,6 +65,7 @@ class BottleLedgerState:
 
 
 class LabRepository(
+    LabCommercialReferenceRepositoryMixin,
     LabInstrumentalObservationRepositoryMixin,
     LabExternalValidationRepositoryMixin,
     LabExternalStudyRepositoryMixin,

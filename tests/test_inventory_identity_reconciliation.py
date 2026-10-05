@@ -7,6 +7,7 @@ import pytest
 
 from engine.data_spine.loader import load_registry
 from engine.inventory_parser import (
+    AIMI_IDENTITY_USER_INVENTORY_AUTHORITY,
     BASE_USER_INVENTORY_OVERLAY_PATH,
     BASE_USER_INVENTORY_TEXT_SHA256,
     BASE_USER_INVENTORY_TEXT_SIZE_BYTES,
@@ -140,6 +141,9 @@ def test_v5_current_inventory_master_is_the_pinned_physical_authority() -> None:
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260910",
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260903",
+        "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260915",
+        "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924",
+        AIMI_IDENTITY_USER_INVENTORY_AUTHORITY,
     }
 
 
@@ -282,7 +286,7 @@ def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> 
         "osmanthus absolute": (0.10, "unspecified", "dpg"),
         "rose de mai absolute": (0.10, "unspecified", "dpg"),
         "clearwood": (1.0, "neat", ""),
-        "givaudan aimi": (1.0, "neat", ""),
+        "alpha isomethyl ionone": (1.0, "neat", ""),
         "red mandarin eo": (1.0, "neat", ""),
         "rose essential oil (rosa damascena, india)": (1.0, "neat", ""),
         "benzyl salicylate": (1.0, "neat", ""),
@@ -291,7 +295,11 @@ def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> 
         stock = stocks[identity]
         assert stock.dilution == pytest.approx(fraction)
         assert (stock.fraction_basis, stock.carrier) == (basis, carrier)
-        assert stock.authority == CURRENT_USER_INVENTORY_AUTHORITY
+        assert stock.authority == (
+            AIMI_IDENTITY_USER_INVENTORY_AUTHORITY
+            if identity == "alpha isomethyl ionone"
+            else CURRENT_USER_INVENTORY_AUTHORITY
+        )
 
     assert not any(
         record.identity_name == "Alpha Irone" and record.dilution == pytest.approx(0.30)

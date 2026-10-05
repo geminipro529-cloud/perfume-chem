@@ -4,7 +4,12 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
-from pathlib import Path
+from decimal import Decimal, InvalidOperation
+from hashlib import sha256
+from pathlib import Path, PurePosixPath
+from typing import Any
+
+from app.core.config import PROJECT_ROOT
 
 
 @dataclass
@@ -206,3 +211,398 @@ class FormulaImportParser:
             return value
         except ValueError:
             return None
+
+
+@dataclass(frozen=True, slots=True)
+class ParsedAnalysisRow:
+    """One read-only formula row for the goal-analysis workbench."""
+
+    row_id: str
+    material: str
+    amount_decimal: str
+    amount_unit: str
+    concentration_fraction_decimal: str | None
+    concentration_basis: str
+    basket: str | None
+    role: str | None
+    operation: str
+
+    def as_engine_dict(self) -> dict[str, Any]:
+        return {
+            "row_id": self.row_id,
+            "material": self.material,
+            "amount_decimal": self.amount_decimal,
+            "amount_unit": self.amount_unit,
+            "concentration_fraction_decimal": self.concentration_fraction_decimal,
+            "concentration_basis": self.concentration_basis,
+            "basket": self.basket,
+            "role": self.role,
+            "operation": self.operation,
+        }
+
+
+@dataclass(slots=True)
+class AnalysisImportResult:
+    formula_name: str
+    rows: list[ParsedAnalysisRow]
+    warnings: list[str] = field(default_factory=list)
+    errors: list[str] = field(default_factory=list)
+
+
+class FormulaAnalysisImportParser:
+    """Parse common Markdown formula tables without inventing physical facts.
+
+    Unlike the historical import parser above, this read-only parser preserves
+    both volume and mass rows.  It is intentionally not an inventory importer:
+    ambiguous stock bases stay ``UNKNOWN`` and designs remain non-executable.
+    """
+
+    _AMOUNT_HEADER_TOKENS = ("amount", "dose", "volume", "mass", "quantity")
+    _VALID_UNITS = {"uL", "mL", "mg", "g"}
+
+    @staticmethod
+    def _cells(line: str) -> list[str]:
+        return [cell.strip() for cell in line.strip().strip("|").split("|")]
+
+    @staticmethod
+    def _plain(value: str) -> str:
+        text = value.strip().replace("**", "").replace("`", "")
+        return re.sub(r"<[^>]+>", " ", text).strip()
+
+    @classmethod
+    def _normalized(cls, value: str) -> str:
+        return re.sub(
+            r"\s+",
+            " ",
+            cls._plain(value).replace("µ", "u").replace("μ", "u").casefold(),
+        ).strip()
+
+    @staticmethod
+    def _is_separator(line: str) -> bool:
+        return bool(re.fullmatch(r"\s*\|?[\s:|-]+\|?\s*", line))
+
+    @classmethod
+    def _header_unit(cls, value: str) -> str | None:
+        text = cls._normalized(value)
+        if re.search(r"(?:\(|\b)ul(?:\)|\b)", text):
+            return "uL"
+        if re.search(r"(?:\(|\b)ml(?:\)|\b)", text):
+            return "mL"
+        if re.search(r"(?:\(|\b)mg(?:\)|\b)", text):
+            return "mg"
+        if re.search(r"(?:\(|\b)g(?:\)|\b)", text):
+            return "g"
+        return None
+
+    @staticmethod
+    def _decimal_text(value: Decimal) -> str:
+        rendered = format(value, "f")
+        return rendered.rstrip("0").rstrip(".") if "." in rendered else rendered
+
+    @classmethod
+    def _parse_amount(
+        cls,
+        value: str,
+        header_unit: str | None,
+    ) -> tuple[str, str] | None:
+        text = cls._plain(value).replace("µ", "u").replace("μ", "u")
+        match = re.search(r"[-+]?(?:\d[\d,\s]*(?:\.\d+)?|\.\d+)", text)
+        if not match:
+            return None
+        try:
+            amount = Decimal(match.group(0).replace(",", "").replace(" ", ""))
+        except InvalidOperation:
+            return None
+        if not amount.is_finite() or amount <= 0:
+            return None
+        remainder = text[match.end() :].strip().casefold()
+        inline_unit: str | None = None
+        if re.match(r"^u\s*l\b|^ul\b", remainder):
+            inline_unit = "uL"
+        elif re.match(r"^ml\b", remainder):
+            inline_unit = "mL"
+        elif re.match(r"^mg\b", remainder):
+            inline_unit = "mg"
+        elif re.match(r"^g\b", remainder):
+            inline_unit = "g"
+        unit = inline_unit or header_unit
+        if unit not in cls._VALID_UNITS:
+            return None
+        return cls._decimal_text(amount), unit
+
+    @classmethod
+    def _parse_concentration(cls, value: str | None) -> tuple[str | None, str]:
+        if value is None:
+            return None, "UNKNOWN"
+        text = cls._normalized(value)
+        percent = re.search(r"(\d+(?:\.\d+)?)\s*%", text)
+        if percent:
+            amount = Decimal(percent.group(1)) / Decimal(100)
+            if amount <= 0 or amount > 1:
+                return None, "UNKNOWN"
+            if "w/w" in text or "w-w" in text:
+                basis = "W_W"
+            elif "v/v" in text or "v-v" in text:
+                basis = "V_V"
+            else:
+                basis = "UNKNOWN"
+            return cls._decimal_text(amount), basis
+        if any(token in text for token in ("neat", "undiluted", "as supplied")):
+            return "1", "NEAT"
+        return None, "UNKNOWN"
+
+    @classmethod
+    def parse_text(
+        cls,
+        text: str,
+        *,
+        default_name: str,
+        source_sha256: str,
+    ) -> AnalysisImportResult:
+        lines = text.splitlines()
+        formula_name = default_name
+        warnings: list[str] = []
+        errors: list[str] = []
+        rows: list[ParsedAnalysisRow] = []
+        current_role: str | None = None
+        header: list[str] | None = None
+        header_line = 0
+
+        for source_line, line in enumerate(lines, start=1):
+            heading = re.match(r"^\s*#\s+(.+?)\s*$", line)
+            if heading and formula_name == default_name:
+                formula_name = cls._plain(heading.group(1))[:255]
+            section = re.match(r"^\s*##+\s+(.+?)\s*$", line)
+            if section:
+                section_name = cls._normalized(section.group(1))
+                current_role = next(
+                    (role for role in ("top", "heart", "base") if role in section_name),
+                    None,
+                )
+                header = None
+                continue
+            if not line.strip().startswith("|"):
+                if line.strip():
+                    header = None
+                continue
+            if cls._is_separator(line):
+                continue
+
+            cells = cls._cells(line)
+            normalized_cells = [cls._normalized(cell) for cell in cells]
+            material_candidates = [
+                index
+                for index, cell in enumerate(normalized_cells)
+                if re.search(r"\b(?:ingredient|material)\b", cell)
+                and "role" not in cell
+            ]
+            amount_candidates = [
+                index
+                for index, cell in enumerate(normalized_cells)
+                if any(token in cell for token in cls._AMOUNT_HEADER_TOKENS)
+            ]
+            if material_candidates and amount_candidates:
+                header = cells
+                header_line = source_line
+                continue
+            if header is None:
+                continue
+
+            normalized_header = [cls._normalized(cell) for cell in header]
+            material_index = next(
+                (
+                    index
+                    for index, cell in enumerate(normalized_header)
+                    if re.search(r"\b(?:ingredient|material)\b", cell)
+                    and "role" not in cell
+                ),
+                None,
+            )
+            if material_index is None or material_index >= len(cells):
+                continue
+            material = cls._plain(cells[material_index])
+            if not material or "total" in cls._normalized(material):
+                continue
+
+            indexed_amounts: list[tuple[int, str | None]] = []
+            for index, cell in enumerate(normalized_header):
+                if any(token in cell for token in cls._AMOUNT_HEADER_TOKENS):
+                    indexed_amounts.append((index, cls._header_unit(header[index])))
+            # Prefer the explicit uL representation when a table repeats the
+            # same transfer in both uL and mL columns.
+            indexed_amounts.sort(
+                key=lambda item: ({"uL": 0, "mg": 1, "g": 2, "mL": 3, None: 4}[item[1]], item[0])
+            )
+            parsed_amount: tuple[str, str] | None = None
+            for amount_index, header_unit in indexed_amounts:
+                if amount_index < len(cells):
+                    parsed_amount = cls._parse_amount(cells[amount_index], header_unit)
+                if parsed_amount is not None:
+                    break
+            if parsed_amount is None:
+                warnings.append(
+                    f"Skipped line {source_line}: no positive amount with an explicit supported unit for {material}."
+                )
+                continue
+
+            dilution_index = next(
+                (
+                    index
+                    for index, cell in enumerate(normalized_header)
+                    if "dilution" in cell
+                    or "stock strength" in cell
+                    or "owned stock" in cell
+                    or cell == "form"
+                ),
+                None,
+            )
+            dilution_text = (
+                cells[dilution_index]
+                if dilution_index is not None and dilution_index < len(cells)
+                else None
+            )
+            fraction, basis = cls._parse_concentration(dilution_text)
+            basket_index = next(
+                (index for index, cell in enumerate(normalized_header) if cell == "basket"),
+                None,
+            )
+            basket = (
+                cls._plain(cells[basket_index])[:40]
+                if basket_index is not None and basket_index < len(cells)
+                else None
+            )
+            role_index = next(
+                (
+                    index
+                    for index, cell in enumerate(normalized_header)
+                    if "role" in cell or cell in {"note", "purpose"}
+                ),
+                None,
+            )
+            role = (
+                cls._plain(cells[role_index])[:500]
+                if role_index is not None and role_index < len(cells)
+                else current_role
+            )
+            amount_decimal, amount_unit = parsed_amount
+            rows.append(
+                ParsedAnalysisRow(
+                    row_id=f"project-{source_sha256[:12]}-{source_line}-{len(rows) + 1}",
+                    material=material[:255],
+                    amount_decimal=amount_decimal,
+                    amount_unit=amount_unit,
+                    concentration_fraction_decimal=fraction,
+                    concentration_basis=basis,
+                    basket=basket or None,
+                    role=role or None,
+                    operation=(
+                        "MASS_ADD" if amount_unit in {"mg", "g"} else "DIRECT_ADD"
+                    ),
+                )
+            )
+
+        if not rows:
+            errors.append("No formula rows with explicit material, amount, and unit were found.")
+        if len(rows) > 500:
+            errors.append("The formula contains more than the 500-row analysis limit.")
+            rows = []
+        if header_line and not formula_name:
+            formula_name = default_name
+        return AnalysisImportResult(
+            formula_name=formula_name or default_name,
+            rows=rows,
+            warnings=warnings,
+            errors=errors,
+        )
+
+
+class FormulaAnalysisLibrary:
+    """Read-only access to Markdown formulas already stored in this project."""
+
+    MAX_SOURCE_BYTES = 2_000_000
+
+    def __init__(self, root: Path | None = None) -> None:
+        self.root = (root or (PROJECT_ROOT / "formulas")).resolve()
+
+    def list_sources(self) -> list[dict[str, Any]]:
+        if not self.root.is_dir():
+            return []
+        sources: list[dict[str, Any]] = []
+        for path in self.root.rglob("*.md"):
+            resolved = path.resolve()
+            if not resolved.is_file() or not resolved.is_relative_to(self.root):
+                continue
+            relative = resolved.relative_to(self.root).as_posix()
+            label = str(PurePosixPath(relative).with_suffix(""))
+            sources.append(
+                {
+                    "source_path": relative,
+                    "display_name": label.replace("_", " ").replace("/", " › "),
+                    "size_bytes": resolved.stat().st_size,
+                    "design_only": True,
+                }
+            )
+        return sorted(sources, key=lambda item: str(item["display_name"]).casefold())
+
+    def load_source(self, source_path: str) -> dict[str, Any]:
+        raw = str(source_path).strip()
+        if not raw or len(raw) > 500 or "\\" in raw:
+            raise ValueError("Choose a valid project formula path.")
+        relative = PurePosixPath(raw)
+        if relative.is_absolute() or ".." in relative.parts or relative.suffix.casefold() != ".md":
+            raise ValueError("Only relative Markdown files inside the project formula library are allowed.")
+        resolved = self.root.joinpath(*relative.parts).resolve()
+        if not resolved.is_relative_to(self.root) or not resolved.is_file():
+            raise ValueError("The selected project formula was not found.")
+        source_bytes = resolved.read_bytes()
+        if len(source_bytes) > self.MAX_SOURCE_BYTES:
+            raise ValueError("The selected project formula exceeds the read-only analysis size limit.")
+        try:
+            text = source_bytes.decode("utf-8")
+        except UnicodeDecodeError as error:
+            raise ValueError("The selected project formula is not UTF-8 text.") from error
+        source_hash = sha256(source_bytes).hexdigest()
+        result = FormulaAnalysisImportParser.parse_text(
+            text,
+            default_name=relative.stem,
+            source_sha256=source_hash,
+        )
+        if result.errors:
+            raise ValueError(" ".join(result.errors))
+
+        liquid_total_ul = Decimal(0)
+        mass_total_mg = Decimal(0)
+        for row in result.rows:
+            amount = Decimal(row.amount_decimal)
+            if row.amount_unit == "uL":
+                liquid_total_ul += amount
+            elif row.amount_unit == "mL":
+                liquid_total_ul += amount * Decimal(1000)
+            elif row.amount_unit == "mg":
+                mass_total_mg += amount
+            elif row.amount_unit == "g":
+                mass_total_mg += amount * Decimal(1000)
+
+        return {
+            "schema_version": "workbench-formula-source-v1",
+            "source_path": relative.as_posix(),
+            "source_sha256": source_hash,
+            "formula_name": result.formula_name,
+            "rows": [row.as_engine_dict() for row in result.rows],
+            "warnings": result.warnings,
+            "separate_totals": {
+                "liquid_total_ul": self._render_total(liquid_total_ul),
+                "mass_total_mg": self._render_total(mass_total_mg),
+            },
+            "design_only": True,
+            "inventory_modified": False,
+            "release_authority": False,
+            "safety_authority": False,
+            "compounding_authority": False,
+            "evidence_admission_authorized": False,
+        }
+
+    @staticmethod
+    def _render_total(value: Decimal) -> str:
+        rendered = format(value, "f")
+        return rendered.rstrip("0").rstrip(".") if "." in rendered else rendered

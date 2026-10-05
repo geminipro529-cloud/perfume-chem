@@ -15,3 +15,13 @@
 /output/optimizer_research_20260909/wakayama_2019/README.md text eol=lf
 /output/optimizer_research_20260909/wakayama_2019/wakayama-intensity.txt text eol=lf
 /output/optimizer_research_20260909/wakayama_2019/ie9b01225_si_001.pdf binary
+# The reviewed knowledge census records original source-byte hashes. Preserve
+# those research bytes rather than applying platform-dependent CRLF conversion.
+/data/formulation_knowledge/*.json -text
+/data/source_manifests/** -text
+# Archival research retains original formatting, including Markdown hard breaks
+# and final blank lines; scientific source hashes, not formatting, govern it.
+/docs/research/** -text whitespace=-blank-at-eol,-blank-at-eof
+/knowledge/** -text whitespace=-blank-at-eol,-blank-at-eof
+/future_modules/literature_references.py -text
+/docs/verification/FORMULA_ARTIFACT_REVIEW_20261005.json text eol=lf

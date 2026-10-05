@@ -1,5 +1,8 @@
 # ORR-01 Sweet Orris Rootwood — Opus V + DHP 2025 · FULL STACK · 30 mL
 
+**Status:** QUARANTINED — historical analysis only; do not mix or release.
+**Artifact review (2026-10-05):** The stored analysis no longer matches the current inventory, scientific inputs or implementation. Formula quantities and prior analysis are retained; no fresh calculation, sensory validation or safety/release approval is claimed. See the [review receipt](../docs/verification/FORMULA_ARTIFACT_REVIEW_20261005.json).
+
 **Date:** 2026-08-24
 **Claim mode:** unclaimed
 **Reference contract:** none

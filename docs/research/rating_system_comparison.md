@@ -1,5 +1,10 @@
 # Dual Rating System Comparison — Stars vs Scores
 
+> **Authority status: HISTORICAL / PROVISIONAL — NOT SELECTABLE.** This document
+> describes legacy heuristic scoring. Its stars, valence-like consumer-appeal
+> labels, and aggregate scores are not human-calibrated hedonic evidence and are
+> excluded from all authoritative selection paths.
+
 **Implemented:** March 28, 2026  
 **Purpose:** Comprehensive formula evaluation using complementary methodologies
 

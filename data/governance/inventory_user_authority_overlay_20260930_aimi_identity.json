@@ -1,0 +1,104 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v18",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-30",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260924_r5_remaining_stock_forms_v3.json",
+    "normalized_text_sha256": "0bccf890ee05487b20daca94d02c65103c2a22ed4c6435ba8cb311cd041575fb"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 28082,
+    "inventory_text_sha256": "6b11f3aa198b9483f9f7f9567e362f987a8447b47915853ea22fada66ff3cbe3",
+    "confirmed_receipt": "data/governance/inventory_user_confirmation_20260930_aimi_identity.json",
+    "confirmed_receipt_sha256": "1bc5cd5ae5482343a98cecf90b58070b47cb58f26946246d157ab20d81b7bc5f"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "bind_only_source_declared_stock_facts": true,
+    "supplier_product_identity_does_not_assert_user_lot_assay": true,
+    "supplier_product_identity_does_not_assert_density": true,
+    "historical_givaudan_aimi_label_is_alias_only": true,
+    "one_physical_bottle_only": true,
+    "methyl_ionone_gamma_coeur_remains_distinct": true,
+    "depleted_stock_not_substitutable": true,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [
+    "INV-USER-20260904-003"
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20260930-AIMI-001",
+      "canonical_name": "Alpha Isomethyl Ionone",
+      "aliases": [
+        "AIMI",
+        "Alpha Methyl Ionone",
+        "Alpha-Isomethyl Ionone",
+        "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+        "Givaudan AIMI",
+        "Methyl Ionone Pure",
+        "PerfumersWorld Alpha Isomethyl Ionone"
+      ],
+      "state": "OWNED",
+      "category": "iris_violet",
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Alpha Isomethyl Ionone",
+        "sku": "3IW00300",
+        "cas": "127-51-5",
+        "ec": "204-846-3",
+        "evidence_scope": "SUPPLIER_PRODUCT_IDENTITY_ONLY"
+      },
+      "stock": {
+        "physical_form": "as_supplied_oily_liquid",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "PRIOR_NEAT_STOCK_AUTHORITY_CARRIED_FORWARD_AFTER_EXACT_IDENTITY_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "OWNED_NEAT_AS_SUPPLIED_STOCK_RECONFIRMED_20260930"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 21,
+          "fraction": 1.0
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 21,
+          "disposition": "OWNED",
+          "status": "HAVE - PERFUMERSWORLD ALPHA ISOMETHYL IONONE / AIMI, NEAT AS SUPPLIED",
+          "actual_stock_text": "Alpha Isomethyl Ionone (AIMI), PerfumersWorld SKU 3IW00300, neat/as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-30",
+      "source_kind": "DIRECT_USER_OWNERSHIP_PLUS_OFFICIAL_SUPPLIER_IDENTITY_RESOLUTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_product_identity_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_carried_forward": true,
+        "fraction_basis_carried_forward": true,
+        "raw_stock_volume_transfer_ready": true,
+        "one_physical_bottle_asserted": true,
+        "exact_user_lot_assay_asserted": false,
+        "density_asserted": false,
+        "gamma_coeur_equivalence_asserted": false,
+        "formula_rebase_authorized": false,
+        "physical_compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "The historical Givaudan AIMI label and the current AIMI/Alpha Methyl Ionone wording identify one owned PerfumersWorld Alpha Isomethyl Ionone product. Methyl Ionone Gamma Coeur remains a separate depleted stock."
+    }
+  ]
+}

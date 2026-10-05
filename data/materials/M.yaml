@@ -1676,49 +1676,6 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-- canonical_name: Methyl Ionone Pure
-  aliases:
-  - alpha-isomethyl ionone
-  - methyl ionone gamma
-  - methyl ionone
-  cas:
-  smiles:
-  inchikey:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 192.3, corrected to 206.33)
-  mw_g_mol: 206.33
-  density_25c_g_ml:
-  logp: 3.2
-  functional_groups: []
-  chirality:
-  # VERIFIED: AIMI VP ~0.4 Pa (methyl ionone class); 0.01 was erroneous sync, reverted 2026-05-31
-  vp_25c_pa: 0.4
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
-  antoine:
-  dhvap_kj_mol:
-  kaw_eff: 0.003
-  hsp:
-  odt_air_ppb:
-  odt_eth_ppm:
-  stevens_n:
-  or_targets: []
-  trp_targets:
-  hedonic_valence: 0.72
-  ifra_max_pct_edp:
-  user_stock_dilution:
-  user_in_inventory: false
-  supplier:
-  families: []
-  character:
-  notes:
-  provenance:
-    mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
-    kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
-    odt_eth_ppm: engine.odor_thresholds
-    stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
-    hedonic_valence: engine.hedonic_model
 - canonical_name: Methyl Isoeugenol
   aliases: []
   cas:

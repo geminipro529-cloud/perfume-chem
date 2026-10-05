@@ -1,0 +1,88 @@
+{
+  "schema_version": "perfume-formulation-verification-v1",
+  "campaign": "Amouage Opus V / Woods Symphony PW research interpretation R1",
+  "verified_at_utc": "2026-10-03T15:04:27.433249+00:00",
+  "status": "PASS",
+  "verification_scope": "Fresh Decimal arithmetic, exact product/stock table alignment, proposed preparation conservation, trial accounting, balanced candidate deltas, source-file preservation, local-link and whitespace checks. Not an empirical perfume-model or sensory test.",
+  "check_count": 493,
+  "check_counts_by_group": {
+    "roster": 5,
+    "row_accounting": 180,
+    "row_evidence": 108,
+    "master": 4,
+    "preparations": 72,
+    "dilution": 10,
+    "trials": 23,
+    "candidates": 13,
+    "costs": 5,
+    "authority": 12,
+    "protected_inputs": 13,
+    "artifact_alignment": 44,
+    "substitution_arithmetic": 4
+  },
+  "failures": [],
+  "artifact_hashes": {
+    "formulas/Amouage_Opus_V_PW_R1_20261003.json": "1147c515c399c38d92017b27ed8f6df1071f40d7d1e9a9e3a8c8deb7822f458a",
+    "formulas/Amouage_Opus_V_PW_R1_20261003.md": "de122942f36f2ef276828f08589ec75ef037abc0f420535414f13bce4dce12e5",
+    "docs/research/Amouage_Opus_V_PW_Research_20261003.md": "14f26987d65913f44a7e9287738bbcb9292811ec464d4720abd1b1303250feee"
+  },
+  "protected_input_hashes_verified": {
+    "AGENTS.md": "a97d05907b9eddba1212b42c9765b8b4903b6ba731d185cdd3ba8bbd35e57870",
+    ".github/copilot-instructions.md": "ac8de3a4db8096f82cf5c26843b00912528281873f94c2f87052b46d9dd19814",
+    "inventory.txt": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "formulas/Opus_V_Woods_Symphony_30mL_EdP.md": "8069abbdd665d25570b171d720aabf2e7e03eaf462eee6e1fb6107819d738018",
+    "formulas/Opus_V_Woods_Symphony_30mL_EDP_CHEMCLASS_INVENTORY_FORMULA.md": "695d78d83a1bfe587eb3cddea500148f9e65e444286319a9d69b7275016d7860",
+    "formulas/ORR-01_FINAL_FULL_RUM_30mL_21.8PCT.md": "7c8e520137e82d66b10c352a8a421ea52ba60261f260e199d58463d2a649cf2e",
+    "formulas/Dior_Homme_Intense_PW_R1_20261003.md": "4f3684f6914511c3b8491e5be8e17f6048fdd36adffa2a947a827d25b0acc537",
+    "formulas/Dior_Homme_Parfum_2025_PW_R1_20261003.md": "19e2c6f11381afe48f16f8826f872ce1d898da2d3c94ff3614a4dfaff2726933",
+    "formulas/Dior_Homme_Parfum_2014_PW_R1_20261003.md": "2b2aa87887019dd0c5829d3a1d9a121ed20d3af9f9823c9529b0cea04a6be117",
+    "formulas/Dior_Homme_PW_Designs_R1_20261003.json": "b0184b5f67c5996025f96d60b0159e0992d68a74363b8658a6abd1c2b01079de",
+    "docs/research/Dior_Homme_PW_Research_20261003.md": "861b22d9674dafda3e4b7e6c8f004da727fda9a0618d3d732617eb93e5117ab2",
+    "docs/research/Dior_Homme_PW_Verification_20261003.json": "1d6fc3b05be64893c667dd6445aa731dee00d8431ff1221bd67bb8dc83421d32",
+    "output/research/perfumersworld_catalog_20260930/catalog_rows_v1.json": "277ddd8e3a0080fb6af6fa7218bb16c51fdf2e1e28cebaf67c2f5ac404d77bb4"
+  },
+  "totals": {
+    "named_product_rows": 36,
+    "target_parts": "100.00",
+    "target_product_mass_g": "10.000000",
+    "working_master_mass_g": "13.455000",
+    "external_TEC_g": "3.185000",
+    "stock_carried_perfumer_alcohol_g": "0.270000",
+    "crystal_Ambrox_mg": "150.000",
+    "minimum_master_transfer_g": "0.020000",
+    "proposed_working_stock_preparations": 14,
+    "small_trial_conditions": 5
+  },
+  "price_records": {
+    "fresh_20261003": 27,
+    "older_snapshot": 9,
+    "source_product_10g_usd": "15.88083000",
+    "six_gap_products_example_usd": "63.75",
+    "fees_shipping_tax_alcohol_excluded": true
+  },
+  "not_performed": [
+    "Full project verifier",
+    "Model training",
+    "Gas release/OAV pipeline",
+    "Physical mixing",
+    "Solubility/stability tests",
+    "Sensory or similarity validation",
+    "Whole-formula safety/regulatory clearance",
+    "Purchase",
+    "Inventory or bottle-state mutation"
+  ],
+  "authority": {
+    "scientific_claim_scope": "DOCUMENTARY_ARCHITECTURE_AND_ACCOUNTING_ONLY",
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "actions": {
+    "inventory_modified": false,
+    "existing_formula_modified": false,
+    "bottle_events_committed": false,
+    "purchase_executed": false,
+    "physically_compounded": false
+  }
+}

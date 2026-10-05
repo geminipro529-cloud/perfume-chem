@@ -1,5 +1,8 @@
 # Jasmine Sambac Vivante — Natural Petal / Warm Skin — 30 mL V4
 
+**Status:** QUARANTINED — historical analysis only; do not mix or release.
+**Artifact review (2026-10-05):** The stored analysis no longer matches the current inventory, scientific inputs or implementation. Formula quantities and prior analysis are retained; no fresh calculation, sensory validation or safety/release approval is claimed. See the [review receipt](../docs/verification/FORMULA_ARTIFACT_REVIEW_20261005.json).
+
 Date: 2026-09-10.
 
 **Status: PRE-MIX COMPUTATIONAL DESIGN COMPLETE / REALISM AND HEDONIC OUTCOME NOT YET SMELLED / NOT SKIN-RELEASED.**

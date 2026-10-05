@@ -1,0 +1,2849 @@
+{
+  "schema_version": "chimie-femme-procurement-development-v1",
+  "campaign": "CHIMIE FEMME PW2",
+  "created_date": "2026-10-02",
+  "mode": "CREATIVE_TARGET_FIRST_NEW_FORMULA",
+  "claim": "A procurement-independent layered pear/apple development hypothesis and practical test plan, not a tested mass-market winner",
+  "parent_target": null,
+  "accepted_sensory_target_exists": false,
+  "inventory_constraint": "EXCLUDED_BY_USER_OVERRIDE",
+  "inventory_binding_applied": false,
+  "inventory_pre_override_read": true,
+  "formula_action": "PROPOSE_NEW_DEVELOPMENT_TARGET",
+  "formula_status": "DESIGN_ONLY_NOT_SAFETY_CLEARED_NOT_SMELLED",
+  "formula_modified": false,
+  "existing_formula_modified": false,
+  "inventory_modified": false,
+  "bottle_stream_modified": false,
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false,
+    "purchase_authorized": false,
+    "empirical_best_claim": false
+  },
+  "brief": {
+    "dominant_identity": [
+      "pear",
+      "apple"
+    ],
+    "pear_is_primary": true,
+    "style": "Accessible mainstream feminine fruity floral, warm-climate intended",
+    "protected": [
+      "Uncued orchard-fruit recognition",
+      "Juice/flesh/peel dimensionality",
+      "Restrained floral support",
+      "Seamless top/heart progression",
+      "Subordinate pale musk/wood foundation"
+    ],
+    "negative_space": [
+      "Fruit soup or tropical dominance",
+      "Candy/gourmand sweetness",
+      "Shampoo/body-spray character",
+      "Dominant rose/jasmine/ylang",
+      "Heavy amberwoods/huge Ambrox/Cashmeran",
+      "Coconut/peach creaminess",
+      "Vegetal greenness",
+      "Richness by ingredient count alone"
+    ],
+    "references_are_not_clones": true,
+    "desired_time_windows": [
+      "opening",
+      "30–60 minutes",
+      "4 hours",
+      "next-day blotter"
+    ],
+    "reference_version_uncertainty": "Only official architecture checked; no authenticated bottle, reformulation, analytical or sensory comparison is available"
+  },
+  "baseline": {
+    "git_head": "9e501074e0046717c447d5e1404c85e653274769",
+    "dirty_worktree_preserved": true,
+    "local_source_hashes": {
+      "AGENTS.md": "a97d05907b9eddba1212b42c9765b8b4903b6ba731d185cdd3ba8bbd35e57870",
+      ".github/copilot-instructions.md": "ac8de3a4db8096f82cf5c26843b00912528281873f94c2f87052b46d9dd19814",
+      "output/research/perfumersworld_catalog_20260930/catalog_rows_v1.json": "277ddd8e3a0080fb6af6fa7218bb16c51fdf2e1e28cebaf67c2f5ac404d77bb4",
+      "output/research/perfumersworld_catalog_20260930/perfumersworld_fast_track_20260930.html": "8bbb6af03549049d12df411fbd745d05925a464b7070d42977fd47535cb1db69"
+    }
+  },
+  "catalog_review": {
+    "cached_date": "2026-09-30",
+    "cached_sku_count": 1329,
+    "live_selected_page_check_date": "2026-10-02",
+    "all_cached_rows_screened": true,
+    "individual_page_census": false,
+    "fresh_remote_bytes_sha256_available": false
+  },
+  "formula_basis": {
+    "parts_total": "1000",
+    "basis": "UNDILUTED_PERFUMERY_PRODUCT_EQUIVALENT_MASS",
+    "working_stocks_excluded_from_target": true,
+    "molecular_purity_assumed": false,
+    "natural_unknown_remainder_preserved": true,
+    "arithmetic_exactness": "Exact nominal Decimal target accounting; delivered purity and weigh error are not inferred"
+  },
+  "materials": [
+    {
+      "id": "4GF00226",
+      "source_product_name": "cis-3 Hexenyl Acetate",
+      "perfumersworld_sku": "4GF00226",
+      "cas_supplier": "3681-71-8",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "A",
+      "chemical_scaffold": "Unsaturated aliphatic ester",
+      "functional_role": "Crisp unripe skin flash",
+      "supplier_odor_summary": "Green fruity ester",
+      "proposed_probe_range_percent_undiluted_product": "0.05–0.20",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/early heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4GF00226",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.80",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.010",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "4GG01946",
+      "source_product_name": "cis-3 Hexenyl Hexanoate",
+      "perfumersworld_sku": "4GG01946",
+      "cas_supplier": "31501-11-8",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "A",
+      "chemical_scaffold": "Unsaturated aliphatic ester",
+      "functional_role": "Green pear skin and peel/flesh junction",
+      "supplier_odor_summary": "Pear-associated green ester",
+      "proposed_probe_range_percent_undiluted_product": "0.20–0.80",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/early heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "TARGET_DEFINING_FUNCTION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4GG01946",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "1.40",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_1_ESSENTIAL_FUNCTION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.100",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "4GA02582",
+      "source_product_name": "Hexenal trans-2",
+      "perfumersworld_sku": "4GA02582",
+      "cas_supplier": "6728-26-3",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "A",
+      "chemical_scaffold": "Unsaturated aliphatic aldehyde",
+      "functional_role": "Fresh cut-apple bite, not a leafy note",
+      "supplier_odor_summary": "Strong green aldehyde",
+      "proposed_probe_range_percent_undiluted_product": "0.005–0.025",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/early heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4GA02582",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.43",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.010",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "4GL00225",
+      "source_product_name": "cis-3 Hexenol",
+      "perfumersworld_sku": "4GL00225",
+      "cas_supplier": "928-96-1",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "A",
+      "chemical_scaffold": "Unsaturated aliphatic alcohol",
+      "functional_role": "Very small leaf-to-peel realism accent",
+      "supplier_odor_summary": "Cut-leaf alcohol",
+      "proposed_probe_range_percent_undiluted_product": "0–0.03",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/early heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4GL00225",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.48",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.010",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "4GI24147",
+      "source_product_name": "Liffarome",
+      "perfumersworld_sku": "4GI24147",
+      "cas_supplier": "67633-96-9",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "A",
+      "chemical_scaffold": "Unsaturated aliphatic carbonate",
+      "functional_role": "Smooth green pear-associated transition",
+      "supplier_odor_summary": "Green fruity carbonate",
+      "proposed_probe_range_percent_undiluted_product": "0–0.10",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/early heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4GI24147",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.95",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.010",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "4FG01284",
+      "source_product_name": "Hexyl Acetate",
+      "perfumersworld_sku": "4FG01284",
+      "cas_supplier": "142-92-7",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "B",
+      "chemical_scaffold": "Aliphatic ester",
+      "functional_role": "Recognizable orchard juice and fresh flesh",
+      "supplier_odor_summary": "Apple/pear fruity ester",
+      "proposed_probe_range_percent_undiluted_product": "6–15",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/early heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "TARGET_DEFINING_FUNCTION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4FG01284",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.12",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_1_ESSENTIAL_FUNCTION",
+      "purchase_g": "10",
+      "new_working_stock_fraction_ww": "1.000",
+      "new_working_stock_carrier": null,
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "4FD04118",
+      "source_product_name": "Ethyl 2-Methylbutyrate",
+      "perfumersworld_sku": "4FD04118",
+      "cas_supplier": "7452-79-1",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "B",
+      "chemical_scaffold": "Branched aliphatic ester",
+      "functional_role": "Juicy apple peel sparkle",
+      "supplier_odor_summary": "High-impact fruity ester",
+      "proposed_probe_range_percent_undiluted_product": "0.05–0.25",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/early heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "TARGET_DEFINING_FUNCTION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4FD04118",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.36",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_1_ESSENTIAL_FUNCTION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.010",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "3FD05860",
+      "source_product_name": "Butyl Butyrate",
+      "perfumersworld_sku": "3FD05860",
+      "cas_supplier": "109-21-7",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "B",
+      "chemical_scaffold": "Aliphatic ester",
+      "functional_role": "Round out juice behind the sharper esters",
+      "supplier_odor_summary": "Juicy fruit ester; tropical risk",
+      "proposed_probe_range_percent_undiluted_product": "0–0.30",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/early heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3FD05860",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.11",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.100",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "4FG15438",
+      "source_product_name": "Manzanate",
+      "perfumersworld_sku": "4FG15438",
+      "cas_supplier": "39255-32-8",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "B",
+      "chemical_scaffold": "Branched aliphatic ester",
+      "functional_role": "Ripe apple/cider edge without tropical dominance",
+      "supplier_odor_summary": "Ripe apple with pineapple facets",
+      "proposed_probe_range_percent_undiluted_product": "0.10–0.50",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/early heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "TARGET_DEFINING_FUNCTION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4FG15438",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.28",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_1_ESSENTIAL_FUNCTION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.100",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "4GD00228",
+      "source_product_name": "cis-3 Hexenyl Butyrate",
+      "perfumersworld_sku": "4GD00228",
+      "cas_supplier": "16491-36-4",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "C",
+      "chemical_scaffold": "Unsaturated aliphatic ester",
+      "functional_role": "Softer green-fruit ripeness between peel and flesh",
+      "supplier_odor_summary": "Mild green fruity ester",
+      "proposed_probe_range_percent_undiluted_product": "0.20–1.0",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "TARGET_DEFINING_FUNCTION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4GD00228",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.90",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_1_ESSENTIAL_FUNCTION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.100",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "4DD01639",
+      "source_product_name": "Gamma Decalactone",
+      "perfumersworld_sku": "4DD01639",
+      "cas_supplier": "706-14-9",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "C",
+      "chemical_scaffold": "Gamma lactone",
+      "functional_role": "A touch of rounded flesh, not peach cream",
+      "supplier_odor_summary": "Peach/lactonic cyclic ester",
+      "proposed_probe_range_percent_undiluted_product": "0–0.08",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4DD01639",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.12",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.010",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "3FD06779",
+      "source_product_name": "Apritone",
+      "perfumersworld_sku": "3FD06779",
+      "cas_supplier": "68133-79-9",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "C",
+      "chemical_scaffold": "Trade specialty, supplier CAS retained",
+      "functional_role": "Microscopic apricot-skin bridge into osmanthus",
+      "supplier_odor_summary": "Apricot/peach specialty",
+      "proposed_probe_range_percent_undiluted_product": "0–0.12",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3FD06779",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.78",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.010",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "3FG00463",
+      "source_product_name": "Verdox",
+      "perfumersworld_sku": "3FG00463",
+      "cas_supplier": "88-41-5",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "D",
+      "chemical_scaffold": "Substituted cyclohexyl acetate",
+      "functional_role": "Carry apple-associated body behind volatile juice",
+      "supplier_odor_summary": "Green apple/woody ester",
+      "proposed_probe_range_percent_undiluted_product": "0.60–1.80",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3FG00463",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.18",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "2",
+      "new_working_stock_fraction_ww": "0.100",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "3FG00145",
+      "source_product_name": "Diethyl Malonate",
+      "perfumersworld_sku": "3FG00145",
+      "cas_supplier": "105-53-3",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "D",
+      "chemical_scaffold": "Aliphatic diester",
+      "functional_role": "Soft green apple/pear body with gentle wine nuance",
+      "supplier_odor_summary": "Soft fruit diester",
+      "proposed_probe_range_percent_undiluted_product": "0.5–2.0",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3FG00145",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.09",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "2",
+      "new_working_stock_fraction_ww": "0.100",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "4LD02865",
+      "source_product_name": "Dimethyl Benzyl Carbinyl Butyrate",
+      "perfumersworld_sku": "4LD02865",
+      "cas_supplier": "10094-34-5",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "D",
+      "chemical_scaffold": "Aromatic carbinyl ester",
+      "functional_role": "Subordinate ripe-fruit rounding; plum intrusion must be tested",
+      "supplier_odor_summary": "Soft plum/floral ester",
+      "proposed_probe_range_percent_undiluted_product": "0–1.0",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4LD02865",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.14",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.100",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "4GN00417",
+      "source_product_name": "Styralyl Acetate",
+      "perfumersworld_sku": "4GN00417",
+      "cas_supplier": "93-92-5",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "D",
+      "chemical_scaffold": "Aralkyl acetate",
+      "functional_role": "Tart fruit-to-floral seam, kept below gardenia character",
+      "supplier_odor_summary": "Tart green fruit/floral ester",
+      "proposed_probe_range_percent_undiluted_product": "0–0.20",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4GN00417",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.21",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.100",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "7CL24020",
+      "source_product_name": "Bergamot FCF oil Sicilian",
+      "perfumersworld_sku": "7CL24020",
+      "cas_supplier": "68648-33-9",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "E",
+      "chemical_scaffold": "Natural mixture; constituent composition unavailable",
+      "functional_role": "Dry sparkling lift that joins ELA without sugar",
+      "supplier_odor_summary": "FCF citrus oil; natural mixture",
+      "proposed_probe_range_percent_undiluted_product": "1–3.5",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/early heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=7CL24020",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.22",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "2",
+      "new_working_stock_fraction_ww": "1.000",
+      "new_working_stock_carrier": null,
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Whole natural product retained; unknown composition not removed or renormalized"
+    },
+    {
+      "id": "7CA24030",
+      "source_product_name": "Grapefruit FCF oil Sicilian",
+      "perfumersworld_sku": "7CA24030",
+      "cas_supplier": "68917-32-8",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "E",
+      "chemical_scaffold": "Natural mixture; constituent composition unavailable",
+      "functional_role": "Bittersweet peel contrast to juicy fruit",
+      "supplier_odor_summary": "FCF grapefruit oil; natural mixture",
+      "proposed_probe_range_percent_undiluted_product": "0.3–1.0",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/early heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=7CA24030",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.18",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.100",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Whole natural product retained; unknown composition not removed or renormalized"
+    },
+    {
+      "id": "3LC19147",
+      "source_product_name": "Ethyl Linalyl Acetate",
+      "perfumersworld_sku": "3LC19147",
+      "cas_supplier": "61931-80-4",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "F",
+      "chemical_scaffold": "Terpene ester",
+      "functional_role": "Pear-associated fresh floral continuum and top/heart seam",
+      "supplier_odor_summary": "Soft fresh pear/citrus ester",
+      "proposed_probe_range_percent_undiluted_product": "14–20",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "TARGET_DEFINING_FUNCTION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3LC19147",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.28",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_1_ESSENTIAL_FUNCTION",
+      "purchase_g": "10",
+      "new_working_stock_fraction_ww": "1.000",
+      "new_working_stock_carrier": null,
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "3LR00160",
+      "source_product_name": "Phenyl Ethyl Dimethyl Carbinyl Acetate",
+      "perfumersworld_sku": "3LR00160",
+      "cas_supplier": "103-07-1",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "F",
+      "chemical_scaffold": "Aromatic carbinyl acetate",
+      "functional_role": "Pear-associated leafy/floral heart bridge, not overt rose",
+      "supplier_odor_summary": "Leafy pear/floral ester",
+      "proposed_probe_range_percent_undiluted_product": "0.5–1.5",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "TARGET_DEFINING_FUNCTION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3LR00160",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.70",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_1_ESSENTIAL_FUNCTION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.100",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "3RB00375",
+      "source_product_name": "Phenyl Ethyl Isobutyrate",
+      "perfumersworld_sku": "3RB00375",
+      "cas_supplier": "103-48-0",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "F",
+      "chemical_scaffold": "Aralkyl ester",
+      "functional_role": "Soft ripe pear/wine/floral rounding",
+      "supplier_odor_summary": "Pear-associated honey/floral ester",
+      "proposed_probe_range_percent_undiluted_product": "0.2–0.8",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3RB00375",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.22",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.100",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "3JJ00218",
+      "source_product_name": "Hedione",
+      "perfumersworld_sku": "3JJ00218",
+      "cas_supplier": "24851-98-7",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "F",
+      "chemical_scaffold": "Cyclopentanone ester/isomer product",
+      "functional_role": "Transparent diffusion scaffold, not a jasmine accord",
+      "supplier_odor_summary": "Low-character jasmine-associated ester",
+      "proposed_probe_range_percent_undiluted_product": "18–28",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3JJ00218",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.15",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "25",
+      "new_working_stock_fraction_ww": "1.000",
+      "new_working_stock_carrier": null,
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Same CAS does not merge cis grades or product rows"
+    },
+    {
+      "id": "4JJ10013",
+      "source_product_name": "Hedione High Cis",
+      "perfumersworld_sku": "4JJ10013",
+      "cas_supplier": "24851-98-7",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "F",
+      "chemical_scaffold": "Cis-enriched cyclopentanone ester product",
+      "functional_role": "More directional floral diffusion than standard grade",
+      "supplier_odor_summary": "Cis-enriched Hedione grade; distinct product",
+      "proposed_probe_range_percent_undiluted_product": "3–6",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4JJ10013",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "1.00",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "5",
+      "new_working_stock_fraction_ww": "1.000",
+      "new_working_stock_carrier": null,
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Same CAS does not merge cis grades or product rows"
+    },
+    {
+      "id": "3ML00192",
+      "source_product_name": "Florol",
+      "perfumersworld_sku": "3ML00192",
+      "cas_supplier": "63500-71-0",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "F",
+      "chemical_scaffold": "Cyclic ether alcohol",
+      "functional_role": "Transparent flower-petal volume, no bouquet",
+      "supplier_odor_summary": "Soft muguet alcohol",
+      "proposed_probe_range_percent_undiluted_product": "1–2.5",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3ML00192",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.10",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "2",
+      "new_working_stock_fraction_ww": "1.000",
+      "new_working_stock_carrier": null,
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "3MA22553",
+      "source_product_name": "Nympheal",
+      "perfumersworld_sku": "3MA22553",
+      "cas_supplier": "1637294-12-2",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "F",
+      "chemical_scaffold": "Substituted aromatic aldehyde",
+      "functional_role": "Small watery/linden seam, not white-floral density",
+      "supplier_odor_summary": "Powerful modern muguet aldehyde",
+      "proposed_probe_range_percent_undiluted_product": "0–0.20",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3MA22553",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.61",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.010",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "8ND00346",
+      "source_product_name": "Osmanthus Absolute",
+      "perfumersworld_sku": "8ND00346",
+      "cas_supplier": "68917-05-5",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "G",
+      "chemical_scaffold": "Natural absolute; constituent composition unavailable",
+      "functional_role": "Natural apricot-wax/petal detail joining fruit flesh and heart",
+      "supplier_odor_summary": "Fruity leather/floral absolute; mixture",
+      "proposed_probe_range_percent_undiluted_product": "0.10–0.35",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=8ND00346",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "18.14",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.100",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Whole natural product retained; unknown composition not removed or renormalized"
+    },
+    {
+      "id": "8RM00395",
+      "source_product_name": "Rose de Mai Absolute",
+      "perfumersworld_sku": "8RM00395",
+      "cas_supplier": "8007-01-0",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "G",
+      "chemical_scaffold": "Natural absolute; constituent composition unavailable",
+      "functional_role": "Trace natural petal irregularity, not rose identity",
+      "supplier_odor_summary": "Rose de Mai absolute; mixture",
+      "proposed_probe_range_percent_undiluted_product": "0–0.06",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=8RM00395",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "13.50",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.010",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Whole natural product retained; unknown composition not removed or renormalized"
+    },
+    {
+      "id": "3IF00238",
+      "source_product_name": "Beta Ionone",
+      "perfumersworld_sku": "3IF00238",
+      "cas_supplier": "79-77-6",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "G",
+      "chemical_scaffold": "Norisoprenoid ketone",
+      "functional_role": "Small waxy fruit/floral/wood seam around osmanthus",
+      "supplier_odor_summary": "Ionone; violet/fruit/wood risk",
+      "proposed_probe_range_percent_undiluted_product": "0–0.12",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3IF00238",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.29",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.010",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "9IF07120",
+      "source_product_name": "Damascenone",
+      "perfumersworld_sku": "9IF07120",
+      "cas_supplier": "23696-85-7",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "G",
+      "chemical_scaffold": "Norisoprenoid rose ketone",
+      "functional_role": "Trace ripe-fruit lift and complexity; omission must earn it",
+      "supplier_odor_summary": "Powerful rose ketone",
+      "proposed_probe_range_percent_undiluted_product": "0–0.008",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "opening/heart",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=9IF07120",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "2.72",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.001",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "3XD17215",
+      "source_product_name": "Helvetolide",
+      "perfumersworld_sku": "3XD17215",
+      "cas_supplier": "141773-73-1",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "H",
+      "chemical_scaffold": "Alicyclic ester musk",
+      "functional_role": "Pear-associated musk/fruit continuity hypothesis",
+      "supplier_odor_summary": "Alicyclic pear/ambrette musk",
+      "proposed_probe_range_percent_undiluted_product": "7–10",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "heart/drydown",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "TARGET_DEFINING_FUNCTION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3XD17215",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "1.90",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_1_ESSENTIAL_FUNCTION",
+      "purchase_g": "10",
+      "new_working_stock_fraction_ww": "1.000",
+      "new_working_stock_carrier": null,
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "3XA09821",
+      "source_product_name": "Habanolide",
+      "perfumersworld_sku": "3XA09821",
+      "cas_supplier": "111879-80-2",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "H",
+      "chemical_scaffold": "Unsaturated macrocyclic lactone musk",
+      "functional_role": "Diffusive clean air around fruit; metallic risk controlled",
+      "supplier_odor_summary": "Macrocyclic musk",
+      "proposed_probe_range_percent_undiluted_product": "1.5–4",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "heart/drydown",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3XA09821",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.45",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "5",
+      "new_working_stock_fraction_ww": "1.000",
+      "new_working_stock_carrier": null,
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "4XU00034",
+      "source_product_name": "Ambrettolide",
+      "perfumersworld_sku": "4XU00034",
+      "cas_supplier": "28645-51-4",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "H",
+      "chemical_scaffold": "Unsaturated macrocyclic lactone musk",
+      "functional_role": "Warm naturalistic soft skin texture without vanilla",
+      "supplier_odor_summary": "Macrocyclic lactone musk",
+      "proposed_probe_range_percent_undiluted_product": "1.5–5",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "heart/drydown",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4XU00034",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "2.50",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "2",
+      "new_working_stock_fraction_ww": "1.000",
+      "new_working_stock_carrier": null,
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "3XU22379",
+      "source_product_name": "Romandolide",
+      "perfumersworld_sku": "3XU22379",
+      "cas_supplier": "236391-76-7",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "H",
+      "chemical_scaffold": "Alicyclic ester musk",
+      "functional_role": "Soft clean musk volume replacing some sharper radiance",
+      "supplier_odor_summary": "Alicyclic white musk",
+      "proposed_probe_range_percent_undiluted_product": "4.5–9",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "heart/drydown",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3XU22379",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.30",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "5",
+      "new_working_stock_fraction_ww": "1.000",
+      "new_working_stock_carrier": null,
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "3WY00244",
+      "source_product_name": "Iso E Super",
+      "perfumersworld_sku": "3WY00244",
+      "cas_supplier": "54464-57-2",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "I",
+      "chemical_scaffold": "Bicyclic woody ketone/isomer product",
+      "functional_role": "Small transparent wood scaffold rather than dry amber dominance",
+      "supplier_odor_summary": "Trade-grade woody ketone/isomer mixture",
+      "proposed_probe_range_percent_undiluted_product": "5.5–9.5",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "heart/drydown",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3WY00244",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.14",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "5",
+      "new_working_stock_fraction_ww": "1.000",
+      "new_working_stock_carrier": null,
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "4WX00405",
+      "source_product_name": "Sandalore",
+      "perfumersworld_sku": "4WX00405",
+      "cas_supplier": "65113-99-7",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "I",
+      "chemical_scaffold": "Cyclopentenyl alcohol",
+      "functional_role": "Pale sandalwood cushion subordinate to fruit",
+      "supplier_odor_summary": "Sandalwood alcohol",
+      "proposed_probe_range_percent_undiluted_product": "2–3.5",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "heart/drydown",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4WX00405",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.22",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "2",
+      "new_working_stock_fraction_ww": "1.000",
+      "new_working_stock_carrier": null,
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "4WX07563",
+      "source_product_name": "Ebanol",
+      "perfumersworld_sku": "4WX07563",
+      "cas_supplier": "67801-20-1",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "I",
+      "chemical_scaffold": "Cyclopentenyl alcohol/isomer product",
+      "functional_role": "Small concentrated sandalwood finish; sweetness risk",
+      "supplier_odor_summary": "Sandalwood alcohol/isomer product",
+      "proposed_probe_range_percent_undiluted_product": "0–0.4",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "heart/drydown",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4WX07563",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.76",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.100",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Exact SKU/product retained; role similarity does not merge identity"
+    },
+    {
+      "id": "7WB13670",
+      "source_product_name": "Patchouli Light Essential Oil",
+      "perfumersworld_sku": "7WB13670",
+      "cas_supplier": "8014-09-3",
+      "cas_adjudication": "SUPPLIER_DECLARED_NOT_INDEPENDENTLY_ADJUDICATED",
+      "module": "I",
+      "chemical_scaffold": "Natural oil; constituent composition unavailable",
+      "functional_role": "Trace natural woody contour, not a chypre",
+      "supplier_odor_summary": "Light patchouli oil; natural mixture",
+      "proposed_probe_range_percent_undiluted_product": "0.08–0.20",
+      "probe_range_status": "HEURISTIC_EXPERIMENT_RANGE_NOT_IFRA_LIMIT_OR_CONFIDENCE_INTERVAL",
+      "time_window_hypothesis": "heart/drydown",
+      "interaction_edges": "Proposed perceptual adjacency only; no measured synergy or receptor affinity is asserted",
+      "protected_status": "MOBILE_SUPPORT_TEST_BY_OMISSION",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=7WB13670",
+      "source_check_date": "2026-10-02",
+      "raw_remote_source_sha256": null,
+      "supply_form": "Undiluted-name listing, not the separate 10%/50% stock SKU",
+      "supplied_concentration": "No separate stock fraction stated on public product page; molecular assay not inferred",
+      "supplied_carrier": "Not separately stated on public product page; confirm any added carrier before using a diluted product as undiluted",
+      "availability": "PUBLIC_PAGE_IN_STOCK_NOT_RESERVED",
+      "price_usd_per_g": "0.35",
+      "minimum_catalog_quantity_g": "1",
+      "procurement_tier": "TIER_2_HIGH_VALUE_OR_FOUNDATION",
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.010",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol as final dilution; homogeneity must be checked",
+      "stock_is_prepared": false,
+      "active_purity_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Whole natural product retained; unknown composition not removed or renormalized"
+    },
+    {
+      "id": "PEAR_ESTER_EZ",
+      "source_product_name": "Ethyl (E,Z)-2,4-decadienoate / Pear Ester",
+      "perfumersworld_sku": null,
+      "cas_supplier": "3025-30-7",
+      "module": "C",
+      "chemical_scaffold": "Conjugated unsaturated aliphatic ester, (2E,4Z) identity required",
+      "functional_role": "Literal Bartlett/Williams pear character and waxy juicy flesh; exact persistence unmeasured",
+      "supplier_odor_summary": "Characteristic green/waxy pear, possible melon/tropical side facets",
+      "source_url": "https://bedoukian.com/wp-content/uploads/FL-433-spec-sheet.pdf",
+      "source_check_date": "2026-10-02",
+      "availability": "NOT_FOUND_IN_CHECKED_PUBLIC_PW_CATALOG_REQUEST_QUOTE_OR_EXTERNAL_SOURCE",
+      "price_usd_per_g": null,
+      "purchase_g": "1",
+      "new_working_stock_fraction_ww": "0.010",
+      "new_working_stock_carrier": "Same perfumery-grade ethanol",
+      "stock_is_prepared": false,
+      "procurement_tier": "TIER_1_CONDITIONAL_SOURCING_GAP",
+      "proposed_probe_range_percent_undiluted_product": "0.01, 0.05, 0.15",
+      "probe_range_status": "Heuristic perfume trials; supplier food ppm are not reused as perfume doses",
+      "equivalent_substitute_claim": false,
+      "independent_product_identity": true,
+      "anti_compression_reason": "Not equivalent to Fructone B, Manzanate, Helvetolide, or a decadienal"
+    }
+  ],
+  "modules": {
+    "A": "CRISP APPLE/PEAR SKIN",
+    "B": "JUICY FRUIT",
+    "C": "RIPE PEAR FLESH",
+    "D": "APPLE BODY",
+    "E": "CITRUS / FRUIT LIFT",
+    "F": "FRUIT-TO-FLORAL BRIDGE",
+    "G": "RESTRAINED NATURAL FLORAL TEXTURE",
+    "H": "FRUIT-PERSISTENCE / MUSK BRIDGE",
+    "I": "PALE WOODY-MUSKY BASE"
+  },
+  "candidates": [
+    {
+      "id": "RICH_ORCHARD_PW",
+      "total_parts": "1000",
+      "rows": [
+        {
+          "material_id": "4GF00226",
+          "parts": "1.2"
+        },
+        {
+          "material_id": "4GG01946",
+          "parts": "6"
+        },
+        {
+          "material_id": "4GA02582",
+          "parts": "0.15"
+        },
+        {
+          "material_id": "4GL00225",
+          "parts": "0.2"
+        },
+        {
+          "material_id": "4GI24147",
+          "parts": "0.6"
+        },
+        {
+          "material_id": "4FG01284",
+          "parts": "95"
+        },
+        {
+          "material_id": "4FD04118",
+          "parts": "1.5"
+        },
+        {
+          "material_id": "3FD05860",
+          "parts": "2.5"
+        },
+        {
+          "material_id": "4FG15438",
+          "parts": "3.5"
+        },
+        {
+          "material_id": "4GD00228",
+          "parts": "8"
+        },
+        {
+          "material_id": "4DD01639",
+          "parts": "0.4"
+        },
+        {
+          "material_id": "3FD06779",
+          "parts": "0.8"
+        },
+        {
+          "material_id": "3FG00463",
+          "parts": "18"
+        },
+        {
+          "material_id": "3FG00145",
+          "parts": "18"
+        },
+        {
+          "material_id": "4LD02865",
+          "parts": "10"
+        },
+        {
+          "material_id": "4GN00417",
+          "parts": "1.5"
+        },
+        {
+          "material_id": "7CL24020",
+          "parts": "30"
+        },
+        {
+          "material_id": "7CA24030",
+          "parts": "8"
+        },
+        {
+          "material_id": "3LC19147",
+          "parts": "165"
+        },
+        {
+          "material_id": "3LR00160",
+          "parts": "12"
+        },
+        {
+          "material_id": "3RB00375",
+          "parts": "8"
+        },
+        {
+          "material_id": "3JJ00218",
+          "parts": "230"
+        },
+        {
+          "material_id": "4JJ10013",
+          "parts": "50"
+        },
+        {
+          "material_id": "3ML00192",
+          "parts": "25"
+        },
+        {
+          "material_id": "3MA22553",
+          "parts": "1.5"
+        },
+        {
+          "material_id": "8ND00346",
+          "parts": "2.5"
+        },
+        {
+          "material_id": "8RM00395",
+          "parts": "0.4"
+        },
+        {
+          "material_id": "3IF00238",
+          "parts": "0.7"
+        },
+        {
+          "material_id": "9IF07120",
+          "parts": "0.05"
+        },
+        {
+          "material_id": "3XD17215",
+          "parts": "90"
+        },
+        {
+          "material_id": "3XA09821",
+          "parts": "40"
+        },
+        {
+          "material_id": "4XU00034",
+          "parts": "20"
+        },
+        {
+          "material_id": "3XU22379",
+          "parts": "70"
+        },
+        {
+          "material_id": "3WY00244",
+          "parts": "55"
+        },
+        {
+          "material_id": "4WX00405",
+          "parts": "20"
+        },
+        {
+          "material_id": "4WX07563",
+          "parts": "3"
+        },
+        {
+          "material_id": "7WB13670",
+          "parts": "1.5"
+        }
+      ],
+      "selection_state": "PW_ONLY_DEVELOPMENT_LEAD_NOT_EQUIVALENT_TO_IDEAL",
+      "sensory_gate_state": "NOT_TESTED",
+      "safety_gate_state": "NOT_CLEARED",
+      "hash_scheme": "SHA256 of UTF-8 compact JSON rows with sort_keys=true, excluding self hash; recorded in validation.json"
+    },
+    {
+      "id": "COMMERCIAL_CLEAR_PW",
+      "total_parts": "1000",
+      "rows": [
+        {
+          "material_id": "4GF00226",
+          "parts": "1.5"
+        },
+        {
+          "material_id": "4GG01946",
+          "parts": "4"
+        },
+        {
+          "material_id": "4GA02582",
+          "parts": "0.1"
+        },
+        {
+          "material_id": "4FG01284",
+          "parts": "150"
+        },
+        {
+          "material_id": "4FD04118",
+          "parts": "2"
+        },
+        {
+          "material_id": "3FD05860",
+          "parts": "2"
+        },
+        {
+          "material_id": "4FG15438",
+          "parts": "5"
+        },
+        {
+          "material_id": "4GD00228",
+          "parts": "3"
+        },
+        {
+          "material_id": "4DD01639",
+          "parts": "0.2"
+        },
+        {
+          "material_id": "3FG00463",
+          "parts": "12"
+        },
+        {
+          "material_id": "3FG00145",
+          "parts": "8"
+        },
+        {
+          "material_id": "7CL24020",
+          "parts": "30"
+        },
+        {
+          "material_id": "7CA24030",
+          "parts": "10"
+        },
+        {
+          "material_id": "3LC19147",
+          "parts": "180"
+        },
+        {
+          "material_id": "3LR00160",
+          "parts": "6"
+        },
+        {
+          "material_id": "3RB00375",
+          "parts": "3"
+        },
+        {
+          "material_id": "3JJ00218",
+          "parts": "235.4"
+        },
+        {
+          "material_id": "4JJ10013",
+          "parts": "60"
+        },
+        {
+          "material_id": "3ML00192",
+          "parts": "18"
+        },
+        {
+          "material_id": "3MA22553",
+          "parts": "1"
+        },
+        {
+          "material_id": "8ND00346",
+          "parts": "1"
+        },
+        {
+          "material_id": "3XD17215",
+          "parts": "90"
+        },
+        {
+          "material_id": "3XA09821",
+          "parts": "35"
+        },
+        {
+          "material_id": "4XU00034",
+          "parts": "15"
+        },
+        {
+          "material_id": "3XU22379",
+          "parts": "45"
+        },
+        {
+          "material_id": "3WY00244",
+          "parts": "60"
+        },
+        {
+          "material_id": "4WX00405",
+          "parts": "22"
+        },
+        {
+          "material_id": "7WB13670",
+          "parts": "0.8"
+        }
+      ],
+      "selection_state": "UNRANKED_DESIGN_CHALLENGER",
+      "sensory_gate_state": "NOT_TESTED",
+      "safety_gate_state": "NOT_CLEARED",
+      "hash_scheme": "SHA256 of UTF-8 compact JSON rows with sort_keys=true, excluding self hash; recorded in validation.json"
+    },
+    {
+      "id": "LUXURY_POLISHED_PW",
+      "total_parts": "1000",
+      "rows": [
+        {
+          "material_id": "4GF00226",
+          "parts": "0.55"
+        },
+        {
+          "material_id": "4GG01946",
+          "parts": "3"
+        },
+        {
+          "material_id": "4GI24147",
+          "parts": "0.4"
+        },
+        {
+          "material_id": "4FG01284",
+          "parts": "65"
+        },
+        {
+          "material_id": "4FD04118",
+          "parts": "0.6"
+        },
+        {
+          "material_id": "4FG15438",
+          "parts": "1.5"
+        },
+        {
+          "material_id": "4GD00228",
+          "parts": "4"
+        },
+        {
+          "material_id": "4DD01639",
+          "parts": "0.3"
+        },
+        {
+          "material_id": "3FG00463",
+          "parts": "7"
+        },
+        {
+          "material_id": "4LD02865",
+          "parts": "8"
+        },
+        {
+          "material_id": "7CL24020",
+          "parts": "18"
+        },
+        {
+          "material_id": "7CA24030",
+          "parts": "4"
+        },
+        {
+          "material_id": "3LC19147",
+          "parts": "180"
+        },
+        {
+          "material_id": "3LR00160",
+          "parts": "15"
+        },
+        {
+          "material_id": "3RB00375",
+          "parts": "6"
+        },
+        {
+          "material_id": "3JJ00218",
+          "parts": "270.5"
+        },
+        {
+          "material_id": "4JJ10013",
+          "parts": "40"
+        },
+        {
+          "material_id": "3ML00192",
+          "parts": "14"
+        },
+        {
+          "material_id": "3MA22553",
+          "parts": "0.8"
+        },
+        {
+          "material_id": "8ND00346",
+          "parts": "3.5"
+        },
+        {
+          "material_id": "8RM00395",
+          "parts": "0.6"
+        },
+        {
+          "material_id": "3IF00238",
+          "parts": "1.2"
+        },
+        {
+          "material_id": "9IF07120",
+          "parts": "0.05"
+        },
+        {
+          "material_id": "3XD17215",
+          "parts": "100"
+        },
+        {
+          "material_id": "3XA09821",
+          "parts": "15"
+        },
+        {
+          "material_id": "4XU00034",
+          "parts": "50"
+        },
+        {
+          "material_id": "3XU22379",
+          "parts": "90"
+        },
+        {
+          "material_id": "3WY00244",
+          "parts": "60"
+        },
+        {
+          "material_id": "4WX00405",
+          "parts": "35"
+        },
+        {
+          "material_id": "4WX07563",
+          "parts": "4"
+        },
+        {
+          "material_id": "7WB13670",
+          "parts": "2"
+        }
+      ],
+      "selection_state": "UNRANKED_DESIGN_CHALLENGER",
+      "sensory_gate_state": "NOT_TESTED",
+      "safety_gate_state": "NOT_CLEARED",
+      "hash_scheme": "SHA256 of UTF-8 compact JSON rows with sort_keys=true, excluding self hash; recorded in validation.json"
+    },
+    {
+      "id": "CONTROL_PW",
+      "total_parts": "1000",
+      "rows": [
+        {
+          "material_id": "4FG01284",
+          "parts": "130"
+        },
+        {
+          "material_id": "4FG15438",
+          "parts": "4"
+        },
+        {
+          "material_id": "4FD04118",
+          "parts": "1"
+        },
+        {
+          "material_id": "4GF00226",
+          "parts": "1"
+        },
+        {
+          "material_id": "3FG00463",
+          "parts": "12"
+        },
+        {
+          "material_id": "3LC19147",
+          "parts": "185"
+        },
+        {
+          "material_id": "7CL24020",
+          "parts": "30"
+        },
+        {
+          "material_id": "3JJ00218",
+          "parts": "270"
+        },
+        {
+          "material_id": "3ML00192",
+          "parts": "20"
+        },
+        {
+          "material_id": "3XD17215",
+          "parts": "90"
+        },
+        {
+          "material_id": "3XU22379",
+          "parts": "130"
+        },
+        {
+          "material_id": "3WY00244",
+          "parts": "95"
+        },
+        {
+          "material_id": "4WX00405",
+          "parts": "32"
+        }
+      ],
+      "selection_state": "UNRANKED_DESIGN_CHALLENGER",
+      "sensory_gate_state": "NOT_TESTED",
+      "safety_gate_state": "NOT_CLEARED",
+      "hash_scheme": "SHA256 of UTF-8 compact JSON rows with sort_keys=true, excluding self hash; recorded in validation.json"
+    },
+    {
+      "id": "RICH_ORCHARD_IDEAL",
+      "total_parts": "1000",
+      "rows": [
+        {
+          "material_id": "4GF00226",
+          "parts": "1.2"
+        },
+        {
+          "material_id": "4GG01946",
+          "parts": "6"
+        },
+        {
+          "material_id": "4GA02582",
+          "parts": "0.15"
+        },
+        {
+          "material_id": "4GL00225",
+          "parts": "0.2"
+        },
+        {
+          "material_id": "4GI24147",
+          "parts": "0.6"
+        },
+        {
+          "material_id": "4FG01284",
+          "parts": "95"
+        },
+        {
+          "material_id": "4FD04118",
+          "parts": "1.5"
+        },
+        {
+          "material_id": "3FD05860",
+          "parts": "2.5"
+        },
+        {
+          "material_id": "4FG15438",
+          "parts": "3.5"
+        },
+        {
+          "material_id": "4GD00228",
+          "parts": "8"
+        },
+        {
+          "material_id": "4DD01639",
+          "parts": "0.4"
+        },
+        {
+          "material_id": "3FD06779",
+          "parts": "0.8"
+        },
+        {
+          "material_id": "3FG00463",
+          "parts": "18"
+        },
+        {
+          "material_id": "3FG00145",
+          "parts": "18"
+        },
+        {
+          "material_id": "4LD02865",
+          "parts": "10"
+        },
+        {
+          "material_id": "4GN00417",
+          "parts": "1.5"
+        },
+        {
+          "material_id": "7CL24020",
+          "parts": "30"
+        },
+        {
+          "material_id": "7CA24030",
+          "parts": "8"
+        },
+        {
+          "material_id": "3LC19147",
+          "parts": "164.5"
+        },
+        {
+          "material_id": "3LR00160",
+          "parts": "12"
+        },
+        {
+          "material_id": "3RB00375",
+          "parts": "8"
+        },
+        {
+          "material_id": "3JJ00218",
+          "parts": "230"
+        },
+        {
+          "material_id": "4JJ10013",
+          "parts": "50"
+        },
+        {
+          "material_id": "3ML00192",
+          "parts": "25"
+        },
+        {
+          "material_id": "3MA22553",
+          "parts": "1.5"
+        },
+        {
+          "material_id": "8ND00346",
+          "parts": "2.5"
+        },
+        {
+          "material_id": "8RM00395",
+          "parts": "0.4"
+        },
+        {
+          "material_id": "3IF00238",
+          "parts": "0.7"
+        },
+        {
+          "material_id": "9IF07120",
+          "parts": "0.05"
+        },
+        {
+          "material_id": "3XD17215",
+          "parts": "90"
+        },
+        {
+          "material_id": "3XA09821",
+          "parts": "40"
+        },
+        {
+          "material_id": "4XU00034",
+          "parts": "20"
+        },
+        {
+          "material_id": "3XU22379",
+          "parts": "70"
+        },
+        {
+          "material_id": "3WY00244",
+          "parts": "55"
+        },
+        {
+          "material_id": "4WX00405",
+          "parts": "20"
+        },
+        {
+          "material_id": "4WX07563",
+          "parts": "3"
+        },
+        {
+          "material_id": "7WB13670",
+          "parts": "1.5"
+        },
+        {
+          "material_id": "PEAR_ESTER_EZ",
+          "parts": "0.5"
+        }
+      ],
+      "selection_state": "IDEAL_DESIGN_LEAD_REQUIRES_PEAR_ESTER_SOURCE",
+      "sensory_gate_state": "NOT_TESTED",
+      "safety_gate_state": "NOT_CLEARED",
+      "hash_scheme": "SHA256 of UTF-8 compact JSON rows with sort_keys=true, excluding self hash; recorded in validation.json"
+    },
+    {
+      "id": "RICH_ORCHARD_MUSK_ALTERNATIVE",
+      "total_parts": "1000",
+      "rows": [
+        {
+          "material_id": "4GF00226",
+          "parts": "1.2"
+        },
+        {
+          "material_id": "4GG01946",
+          "parts": "6"
+        },
+        {
+          "material_id": "4GA02582",
+          "parts": "0.15"
+        },
+        {
+          "material_id": "4GL00225",
+          "parts": "0.2"
+        },
+        {
+          "material_id": "4GI24147",
+          "parts": "0.6"
+        },
+        {
+          "material_id": "4FG01284",
+          "parts": "95"
+        },
+        {
+          "material_id": "4FD04118",
+          "parts": "1.5"
+        },
+        {
+          "material_id": "3FD05860",
+          "parts": "2.5"
+        },
+        {
+          "material_id": "4FG15438",
+          "parts": "3.5"
+        },
+        {
+          "material_id": "4GD00228",
+          "parts": "8"
+        },
+        {
+          "material_id": "4DD01639",
+          "parts": "0.4"
+        },
+        {
+          "material_id": "3FD06779",
+          "parts": "0.8"
+        },
+        {
+          "material_id": "3FG00463",
+          "parts": "18"
+        },
+        {
+          "material_id": "3FG00145",
+          "parts": "18"
+        },
+        {
+          "material_id": "4LD02865",
+          "parts": "10"
+        },
+        {
+          "material_id": "4GN00417",
+          "parts": "1.5"
+        },
+        {
+          "material_id": "7CL24020",
+          "parts": "30"
+        },
+        {
+          "material_id": "7CA24030",
+          "parts": "8"
+        },
+        {
+          "material_id": "3LC19147",
+          "parts": "165"
+        },
+        {
+          "material_id": "3LR00160",
+          "parts": "12"
+        },
+        {
+          "material_id": "3RB00375",
+          "parts": "8"
+        },
+        {
+          "material_id": "3JJ00218",
+          "parts": "230"
+        },
+        {
+          "material_id": "4JJ10013",
+          "parts": "50"
+        },
+        {
+          "material_id": "3ML00192",
+          "parts": "25"
+        },
+        {
+          "material_id": "3MA22553",
+          "parts": "1.5"
+        },
+        {
+          "material_id": "8ND00346",
+          "parts": "2.5"
+        },
+        {
+          "material_id": "8RM00395",
+          "parts": "0.4"
+        },
+        {
+          "material_id": "3IF00238",
+          "parts": "0.7"
+        },
+        {
+          "material_id": "9IF07120",
+          "parts": "0.05"
+        },
+        {
+          "material_id": "3XD17215",
+          "parts": "90"
+        },
+        {
+          "material_id": "3XA09821",
+          "parts": "20"
+        },
+        {
+          "material_id": "4XU00034",
+          "parts": "40"
+        },
+        {
+          "material_id": "3XU22379",
+          "parts": "70"
+        },
+        {
+          "material_id": "3WY00244",
+          "parts": "55"
+        },
+        {
+          "material_id": "4WX00405",
+          "parts": "20"
+        },
+        {
+          "material_id": "4WX07563",
+          "parts": "3"
+        },
+        {
+          "material_id": "7WB13670",
+          "parts": "1.5"
+        }
+      ],
+      "selection_state": "UNRANKED_DESIGN_CHALLENGER",
+      "sensory_gate_state": "NOT_TESTED",
+      "safety_gate_state": "NOT_CLEARED",
+      "hash_scheme": "SHA256 of UTF-8 compact JSON rows with sort_keys=true, excluding self hash; recorded in validation.json"
+    }
+  ],
+  "purchase_plan": {
+    "basis": "FROM_SCRATCH_NO_OWNED_STOCK_FILTER",
+    "currency": "USD",
+    "price_date": "2026-10-02",
+    "minimum_g": "1",
+    "cart": [
+      {
+        "id": "4GF00226",
+        "quantity_g": "1",
+        "unit_usd": "0.80",
+        "product_usd": "0.80",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.70",
+        "lead_30ml_undiluted_equivalent_g": "0.006000",
+        "max_complete_lead_bottles_no_loss": "166",
+        "planning_bottles_with_15percent_reserve": "141",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "4GG01946",
+        "quantity_g": "1",
+        "unit_usd": "1.40",
+        "product_usd": "1.40",
+        "bottling_usd": "0.90",
+        "line_total_usd": "2.30",
+        "lead_30ml_undiluted_equivalent_g": "0.030000",
+        "max_complete_lead_bottles_no_loss": "33",
+        "planning_bottles_with_15percent_reserve": "28",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "4GA02582",
+        "quantity_g": "1",
+        "unit_usd": "0.43",
+        "product_usd": "0.43",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.33",
+        "lead_30ml_undiluted_equivalent_g": "0.000750",
+        "max_complete_lead_bottles_no_loss": "1333",
+        "planning_bottles_with_15percent_reserve": "1133",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "4GL00225",
+        "quantity_g": "1",
+        "unit_usd": "0.48",
+        "product_usd": "0.48",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.38",
+        "lead_30ml_undiluted_equivalent_g": "0.001000",
+        "max_complete_lead_bottles_no_loss": "1000",
+        "planning_bottles_with_15percent_reserve": "850",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "4GI24147",
+        "quantity_g": "1",
+        "unit_usd": "0.95",
+        "product_usd": "0.95",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.85",
+        "lead_30ml_undiluted_equivalent_g": "0.003000",
+        "max_complete_lead_bottles_no_loss": "333",
+        "planning_bottles_with_15percent_reserve": "283",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "4FG01284",
+        "quantity_g": "10",
+        "unit_usd": "0.12",
+        "product_usd": "1.20",
+        "bottling_usd": "0.90",
+        "line_total_usd": "2.10",
+        "lead_30ml_undiluted_equivalent_g": "0.475000",
+        "max_complete_lead_bottles_no_loss": "21",
+        "planning_bottles_with_15percent_reserve": "17",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "4FD04118",
+        "quantity_g": "1",
+        "unit_usd": "0.36",
+        "product_usd": "0.36",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.26",
+        "lead_30ml_undiluted_equivalent_g": "0.007500",
+        "max_complete_lead_bottles_no_loss": "133",
+        "planning_bottles_with_15percent_reserve": "113",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "3FD05860",
+        "quantity_g": "1",
+        "unit_usd": "0.11",
+        "product_usd": "0.11",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.01",
+        "lead_30ml_undiluted_equivalent_g": "0.012500",
+        "max_complete_lead_bottles_no_loss": "80",
+        "planning_bottles_with_15percent_reserve": "68",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "4FG15438",
+        "quantity_g": "1",
+        "unit_usd": "0.28",
+        "product_usd": "0.28",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.18",
+        "lead_30ml_undiluted_equivalent_g": "0.017500",
+        "max_complete_lead_bottles_no_loss": "57",
+        "planning_bottles_with_15percent_reserve": "48",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "4GD00228",
+        "quantity_g": "1",
+        "unit_usd": "0.90",
+        "product_usd": "0.90",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.80",
+        "lead_30ml_undiluted_equivalent_g": "0.040000",
+        "max_complete_lead_bottles_no_loss": "25",
+        "planning_bottles_with_15percent_reserve": "21",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "4DD01639",
+        "quantity_g": "1",
+        "unit_usd": "0.12",
+        "product_usd": "0.12",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.02",
+        "lead_30ml_undiluted_equivalent_g": "0.002000",
+        "max_complete_lead_bottles_no_loss": "500",
+        "planning_bottles_with_15percent_reserve": "425",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "3FD06779",
+        "quantity_g": "1",
+        "unit_usd": "0.78",
+        "product_usd": "0.78",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.68",
+        "lead_30ml_undiluted_equivalent_g": "0.004000",
+        "max_complete_lead_bottles_no_loss": "250",
+        "planning_bottles_with_15percent_reserve": "212",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "3FG00463",
+        "quantity_g": "2",
+        "unit_usd": "0.18",
+        "product_usd": "0.36",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.26",
+        "lead_30ml_undiluted_equivalent_g": "0.090000",
+        "max_complete_lead_bottles_no_loss": "22",
+        "planning_bottles_with_15percent_reserve": "18",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "3FG00145",
+        "quantity_g": "2",
+        "unit_usd": "0.09",
+        "product_usd": "0.18",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.08",
+        "lead_30ml_undiluted_equivalent_g": "0.090000",
+        "max_complete_lead_bottles_no_loss": "22",
+        "planning_bottles_with_15percent_reserve": "18",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "4LD02865",
+        "quantity_g": "1",
+        "unit_usd": "0.14",
+        "product_usd": "0.14",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.04",
+        "lead_30ml_undiluted_equivalent_g": "0.050000",
+        "max_complete_lead_bottles_no_loss": "20",
+        "planning_bottles_with_15percent_reserve": "17",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "4GN00417",
+        "quantity_g": "1",
+        "unit_usd": "0.21",
+        "product_usd": "0.21",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.11",
+        "lead_30ml_undiluted_equivalent_g": "0.007500",
+        "max_complete_lead_bottles_no_loss": "133",
+        "planning_bottles_with_15percent_reserve": "113",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "7CL24020",
+        "quantity_g": "2",
+        "unit_usd": "0.22",
+        "product_usd": "0.44",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.34",
+        "lead_30ml_undiluted_equivalent_g": "0.150000",
+        "max_complete_lead_bottles_no_loss": "13",
+        "planning_bottles_with_15percent_reserve": "11",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "7CA24030",
+        "quantity_g": "1",
+        "unit_usd": "0.18",
+        "product_usd": "0.18",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.08",
+        "lead_30ml_undiluted_equivalent_g": "0.040000",
+        "max_complete_lead_bottles_no_loss": "25",
+        "planning_bottles_with_15percent_reserve": "21",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "3LC19147",
+        "quantity_g": "10",
+        "unit_usd": "0.28",
+        "product_usd": "2.80",
+        "bottling_usd": "0.90",
+        "line_total_usd": "3.70",
+        "lead_30ml_undiluted_equivalent_g": "0.825000",
+        "max_complete_lead_bottles_no_loss": "12",
+        "planning_bottles_with_15percent_reserve": "10",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "3LR00160",
+        "quantity_g": "1",
+        "unit_usd": "0.70",
+        "product_usd": "0.70",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.60",
+        "lead_30ml_undiluted_equivalent_g": "0.060000",
+        "max_complete_lead_bottles_no_loss": "16",
+        "planning_bottles_with_15percent_reserve": "14",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "3RB00375",
+        "quantity_g": "1",
+        "unit_usd": "0.22",
+        "product_usd": "0.22",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.12",
+        "lead_30ml_undiluted_equivalent_g": "0.040000",
+        "max_complete_lead_bottles_no_loss": "25",
+        "planning_bottles_with_15percent_reserve": "21",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "3JJ00218",
+        "quantity_g": "25",
+        "unit_usd": "0.15",
+        "product_usd": "3.75",
+        "bottling_usd": "0.90",
+        "line_total_usd": "4.65",
+        "lead_30ml_undiluted_equivalent_g": "1.150000",
+        "max_complete_lead_bottles_no_loss": "21",
+        "planning_bottles_with_15percent_reserve": "18",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "4JJ10013",
+        "quantity_g": "5",
+        "unit_usd": "1.00",
+        "product_usd": "5.00",
+        "bottling_usd": "0.90",
+        "line_total_usd": "5.90",
+        "lead_30ml_undiluted_equivalent_g": "0.250000",
+        "max_complete_lead_bottles_no_loss": "20",
+        "planning_bottles_with_15percent_reserve": "17",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "3ML00192",
+        "quantity_g": "2",
+        "unit_usd": "0.10",
+        "product_usd": "0.20",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.10",
+        "lead_30ml_undiluted_equivalent_g": "0.125000",
+        "max_complete_lead_bottles_no_loss": "16",
+        "planning_bottles_with_15percent_reserve": "13",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "3MA22553",
+        "quantity_g": "1",
+        "unit_usd": "0.61",
+        "product_usd": "0.61",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.51",
+        "lead_30ml_undiluted_equivalent_g": "0.007500",
+        "max_complete_lead_bottles_no_loss": "133",
+        "planning_bottles_with_15percent_reserve": "113",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "8ND00346",
+        "quantity_g": "1",
+        "unit_usd": "18.14",
+        "product_usd": "18.14",
+        "bottling_usd": "0.90",
+        "line_total_usd": "19.04",
+        "lead_30ml_undiluted_equivalent_g": "0.012500",
+        "max_complete_lead_bottles_no_loss": "80",
+        "planning_bottles_with_15percent_reserve": "68",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "8RM00395",
+        "quantity_g": "1",
+        "unit_usd": "13.50",
+        "product_usd": "13.50",
+        "bottling_usd": "0.90",
+        "line_total_usd": "14.40",
+        "lead_30ml_undiluted_equivalent_g": "0.002000",
+        "max_complete_lead_bottles_no_loss": "500",
+        "planning_bottles_with_15percent_reserve": "425",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "3IF00238",
+        "quantity_g": "1",
+        "unit_usd": "0.29",
+        "product_usd": "0.29",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.19",
+        "lead_30ml_undiluted_equivalent_g": "0.003500",
+        "max_complete_lead_bottles_no_loss": "285",
+        "planning_bottles_with_15percent_reserve": "242",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "9IF07120",
+        "quantity_g": "1",
+        "unit_usd": "2.72",
+        "product_usd": "2.72",
+        "bottling_usd": "0.90",
+        "line_total_usd": "3.62",
+        "lead_30ml_undiluted_equivalent_g": "0.000250",
+        "max_complete_lead_bottles_no_loss": "4000",
+        "planning_bottles_with_15percent_reserve": "3400",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "3XD17215",
+        "quantity_g": "10",
+        "unit_usd": "1.90",
+        "product_usd": "19.00",
+        "bottling_usd": "0.90",
+        "line_total_usd": "19.90",
+        "lead_30ml_undiluted_equivalent_g": "0.450000",
+        "max_complete_lead_bottles_no_loss": "22",
+        "planning_bottles_with_15percent_reserve": "18",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "3XA09821",
+        "quantity_g": "5",
+        "unit_usd": "0.45",
+        "product_usd": "2.25",
+        "bottling_usd": "0.90",
+        "line_total_usd": "3.15",
+        "lead_30ml_undiluted_equivalent_g": "0.200000",
+        "max_complete_lead_bottles_no_loss": "25",
+        "planning_bottles_with_15percent_reserve": "21",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "4XU00034",
+        "quantity_g": "2",
+        "unit_usd": "2.50",
+        "product_usd": "5.00",
+        "bottling_usd": "0.90",
+        "line_total_usd": "5.90",
+        "lead_30ml_undiluted_equivalent_g": "0.100000",
+        "max_complete_lead_bottles_no_loss": "20",
+        "planning_bottles_with_15percent_reserve": "17",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "3XU22379",
+        "quantity_g": "5",
+        "unit_usd": "0.30",
+        "product_usd": "1.50",
+        "bottling_usd": "0.90",
+        "line_total_usd": "2.40",
+        "lead_30ml_undiluted_equivalent_g": "0.350000",
+        "max_complete_lead_bottles_no_loss": "14",
+        "planning_bottles_with_15percent_reserve": "12",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "3WY00244",
+        "quantity_g": "5",
+        "unit_usd": "0.14",
+        "product_usd": "0.70",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.60",
+        "lead_30ml_undiluted_equivalent_g": "0.275000",
+        "max_complete_lead_bottles_no_loss": "18",
+        "planning_bottles_with_15percent_reserve": "15",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "4WX00405",
+        "quantity_g": "2",
+        "unit_usd": "0.22",
+        "product_usd": "0.44",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.34",
+        "lead_30ml_undiluted_equivalent_g": "0.100000",
+        "max_complete_lead_bottles_no_loss": "20",
+        "planning_bottles_with_15percent_reserve": "17",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "4WX07563",
+        "quantity_g": "1",
+        "unit_usd": "0.76",
+        "product_usd": "0.76",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.66",
+        "lead_30ml_undiluted_equivalent_g": "0.015000",
+        "max_complete_lead_bottles_no_loss": "66",
+        "planning_bottles_with_15percent_reserve": "56",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      },
+      {
+        "id": "7WB13670",
+        "quantity_g": "1",
+        "unit_usd": "0.35",
+        "product_usd": "0.35",
+        "bottling_usd": "0.90",
+        "line_total_usd": "1.25",
+        "lead_30ml_undiluted_equivalent_g": "0.007500",
+        "max_complete_lead_bottles_no_loss": "133",
+        "planning_bottles_with_15percent_reserve": "113",
+        "yield_scope": "Component-limited only, excludes actual prototype spending and carrier costs; 15% reserve is a planning assumption"
+      }
+    ],
+    "products_usd": "87.25",
+    "bottling_usd": "33.30",
+    "subtotal_usd": "120.55",
+    "shipping_planning_usd": "30.00",
+    "total_before_tax_usd": "150.55",
+    "thb_conversion": {
+      "usd_thb": "34.00",
+      "status": "ILLUSTRATIVE_BUDGET_ASSUMPTION_NOT_LIVE_FX",
+      "products_thb": "2966.50",
+      "bottling_thb": "1132.20",
+      "shipping_thb": "1020.00",
+      "total_thb": "5118.70"
+    },
+    "excludes": [
+      "True Pear Ester, no verified PW SKU/price",
+      "Perfumery alcohol",
+      "Extra working-stock vials, final bottles, balance/pipettes",
+      "Tax/customs/local-courier quote"
+    ],
+    "full_cart_component_limited_lead_bottles": "12",
+    "lead_bottles_with_15percent_material_reserve": "10",
+    "realistic_mixed_trial_and_30ml_program": "Approximately 8–10 lead-size bottles after small trials; planning only, actual preparation/waste may differ",
+    "unit_aromatic_material_cost_for_5g_usd": "2.5802075",
+    "cart_mutated": false,
+    "purchased": false
+  },
+  "bench": {
+    "new_stock_basis": "w/w",
+    "carrier": "Same perfumery-grade ethanol throughout; any substitute carrier requires a new matrix/stock record",
+    "prototype_master_material_equivalent_g": "2.000",
+    "minimum_nominal_transfer_g": "0.020",
+    "balance_guidance": "1 mg readability or better; readability is not accuracy, record actual masses",
+    "lead_working_master_g_for_2g_equivalent": "5.690",
+    "lead_master_carrier_g": "3.690",
+    "lead_master_material_equivalent_fraction_ww": "1/2.845",
+    "lead_test_g_master_for_2g_at_18percent_ww": "1.0242",
+    "lead_test_additional_ethanol_g": "0.9758",
+    "thirty_ml": {
+      "version": "RICH_ORCHARD_PW",
+      "undiluted_material_equivalent_g": "5.000",
+      "working_stock_charge_g": "14.225",
+      "included_stock_carrier_g": "9.225",
+      "ethanol_addition": "q.s. measured final 30.00 mL at stable temperature; no fixed ethanol mL is inferred",
+      "declared_loading": "16.6666667% w/v undiluted perfumery product equivalents",
+      "declared_ww": null,
+      "declared_vv": null,
+      "finished_mass_required_to_report_ww": true,
+      "prototype_18ww_equivalence_claim": false
+    },
+    "stock_recipes": {
+      "ten_percent": "0.200 g undiluted material + 1.800 g same ethanol = 2.000 g stock",
+      "one_percent": "0.200 g homogeneous 10% w/w stock + 1.800 g ethanol = 2.000 g 1% stock",
+      "point_one_percent": "0.200 g homogeneous 1% w/w stock + 1.800 g ethanol = 2.000 g 0.1% stock",
+      "tiny_power_material_intermediate": "Where desired, make 0.200 g of 10% intermediate from 0.020 g material + 0.180 g ethanol, then serially dilute; do not count drops"
+    },
+    "homogeneity_state": "NOT_PREPARED_NOT_VERIFIED"
+  },
+  "protocol": {
+    "state": "PROPOSED_ONLY",
+    "physical_actions_performed": false,
+    "first_panel": [
+      "CONTROL_PW",
+      "RICH_ORCHARD_PW",
+      "COMMERCIAL_CLEAR_PW",
+      "RICH_ORCHARD_MUSK_ALTERNATIVE"
+    ],
+    "reserve_panel": [
+      "LUXURY_POLISHED_PW",
+      "RICH_ORCHARD_IDEAL"
+    ],
+    "substrate": "Same blotter type; no skin test is authorized here",
+    "finished_trial_mass_g": "2.000",
+    "undiluted_equivalent_mass_fraction_ww": "0.180",
+    "timepoints_minutes": [
+      "5",
+      "45",
+      "240",
+      "1440"
+    ],
+    "application": "Use the same predeclared measured blotter deposit; do not infer spray equality",
+    "blinding": "Random three-digit codes; keep key separate until impressions recorded. Self-preparation may reduce blinding.",
+    "questions": [
+      "Uncued identity: pear, apple, tropical, floral, other, not perceived, cannot determine",
+      "Which do you like? Allow tie and cannot determine",
+      "At comparable perceived intensity, is the fruit more dimensional or merely stronger/sweeter?",
+      "Does the fruit remain recognizable at 45 minutes and 4 hours?",
+      "Shampoo, leafy, peach/coconut, overt floral, musk, or dry-wood drift?"
+    ],
+    "repeat": "Screen once; repeat the best informative comparison on a different day before scaling. No population claim.",
+    "stop_conditions": [
+      "Clouding, precipitation, leakage, or suspected stock error",
+      "Unclear pear/apple identity or domination by another fruit/floral/base",
+      "Any adverse response; no further exposure",
+      "No benefit over simple control: remove layers, do not increase ingredient count"
+    ],
+    "posterior_update": "Create a new dated target/candidate version after observations; do not overwrite this proposal"
+  },
+  "historical_integer_search": {
+    "state": "NOT_APPLICABLE_NOT_REPRODUCED",
+    "reason": "No exact historical input/search bundle supplied, no measured CHIMIE sensory objective; no 35/35 or 97.76 score borrowed"
+  },
+  "endpoint_status": {
+    "individual_intensity": "UNAVAILABLE_NO_APPLICABLE_DELIVERED_GAS_TRAJECTORY",
+    "mixture_intensity": "NOT_ESTABLISHED",
+    "fruit_persistence": "DESIGN_HYPOTHESIS_NOT_MEASURED",
+    "sensory_similarity": "NOT_ESTABLISHED",
+    "personal_liking": "NOT_TESTED",
+    "population_mass_appeal": "NOT_TESTED",
+    "stability": "NOT_TESTED",
+    "safety_clearance": "NOT_GRANTED"
+  },
+  "posterior": {
+    "state": "NO_OBSERVATIONS_YET",
+    "update_policy": "Create a successor with immediate parent hash and measured observations; preserve this target and outcomes"
+  },
+  "sources": [
+    {
+      "id": "R1",
+      "title": "Pera Granita marketed architecture",
+      "url": "https://www.guerlain.com/us/en-us/p/aqua-allegoria-pera-granita---eau-de-toilette-P014403.html",
+      "scope": "Official product architecture only; formula unknown",
+      "checked_date": "2026-10-02",
+      "raw_remote_sha256": null,
+      "promotion_status": "BACKGROUND_RESEARCH_NOT_EXECUTABLE_CAPABILITY",
+      "correction_retraction_status": "No relevant notice encountered on checked source surfaces; not a complete Crossmark/retraction census"
+    },
+    {
+      "id": "R2",
+      "title": "English Pear & Freesia marketed architecture",
+      "url": "https://www.jomalone.com/product/25946/12553/colognes/english-pear-freesia-cologne",
+      "scope": "Official product architecture only; formula unknown",
+      "checked_date": "2026-10-02",
+      "raw_remote_sha256": null,
+      "promotion_status": "BACKGROUND_RESEARCH_NOT_EXECUTABLE_CAPABILITY",
+      "correction_retraction_status": "No relevant notice encountered on checked source surfaces; not a complete Crossmark/retraction census"
+    },
+    {
+      "id": "S1",
+      "title": "Bartlett pear aroma-active compounds",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27935705/",
+      "scope": "Fruit/brandy matrix, supports candidate identity/facets, not EDP dose or liking",
+      "checked_date": "2026-10-02",
+      "raw_remote_sha256": null,
+      "promotion_status": "BACKGROUND_RESEARCH_NOT_EXECUTABLE_CAPABILITY",
+      "correction_retraction_status": "No relevant notice encountered on checked source surfaces; not a complete Crossmark/retraction census"
+    },
+    {
+      "id": "S2",
+      "title": "Elstar and Cox Orange character-impact odorants",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/12108219/",
+      "scope": "Apple matrices, cultivar-dependent profiles, not perfume recipe",
+      "checked_date": "2026-10-02",
+      "raw_remote_sha256": null,
+      "promotion_status": "BACKGROUND_RESEARCH_NOT_EXECUTABLE_CAPABILITY",
+      "correction_retraction_status": "No relevant notice encountered on checked source surfaces; not a complete Crossmark/retraction census"
+    },
+    {
+      "id": "S3",
+      "title": "2025 apple sensomics study",
+      "url": "https://pubs.acs.org/doi/abs/10.1021/acs.jafc.4c12028",
+      "scope": "Published primary indexed abstract; recombination/omission evidence in apple, not EDP validation",
+      "checked_date": "2026-10-02",
+      "raw_remote_sha256": null,
+      "promotion_status": "BACKGROUND_RESEARCH_NOT_EXECUTABLE_CAPABILITY",
+      "correction_retraction_status": "No relevant notice encountered on checked source surfaces; not a complete Crossmark/retraction census"
+    },
+    {
+      "id": "S4",
+      "title": "Osmanthus release/matrix study",
+      "url": "https://www.frontiersin.org/journals/chemistry/articles/10.3389/fchem.2024.1381835/full",
+      "scope": "1,2-propanediol/ethanol studied, not DPG or this EDP; qualitative matrix warning only",
+      "checked_date": "2026-10-02",
+      "raw_remote_sha256": null,
+      "promotion_status": "BACKGROUND_RESEARCH_NOT_EXECUTABLE_CAPABILITY",
+      "correction_retraction_status": "No relevant notice encountered on checked source surfaces; not a complete Crossmark/retraction census"
+    },
+    {
+      "id": "S5",
+      "title": "Helvetolide manufacturer marketing sheet",
+      "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/HELVETOLIDE_947650.pdf",
+      "scope": "Product character and manufacturer fine-fragrance guidance, not consumer/safety proof",
+      "checked_date": "2026-10-02",
+      "raw_remote_sha256": null,
+      "promotion_status": "BACKGROUND_RESEARCH_NOT_EXECUTABLE_CAPABILITY",
+      "correction_retraction_status": "No relevant notice encountered on checked source surfaces; not a complete Crossmark/retraction census"
+    },
+    {
+      "id": "S6",
+      "title": "Pear Ester manufacturer specification",
+      "url": "https://bedoukian.com/wp-content/uploads/FL-433-spec-sheet.pdf",
+      "scope": "Exact (E,Z) identity and characteristic pear; food ppm not transferred to perfume",
+      "checked_date": "2026-10-02",
+      "raw_remote_sha256": null,
+      "promotion_status": "BACKGROUND_RESEARCH_NOT_EXECUTABLE_CAPABILITY",
+      "correction_retraction_status": "No relevant notice encountered on checked source surfaces; not a complete Crossmark/retraction census"
+    },
+    {
+      "id": "S7",
+      "title": "IFRA 52nd consultation timing",
+      "url": "https://ifrafragrance.org/latest-updates/ifra-news/ifra-publishes-end-of-consultation-letter-for-the-52nd-amendment-to-the-ifra-standards",
+      "scope": "Final notification expected January 2027 in latest checked notice; not yet effective",
+      "checked_date": "2026-10-02",
+      "raw_remote_sha256": null,
+      "promotion_status": "BACKGROUND_RESEARCH_NOT_EXECUTABLE_CAPABILITY",
+      "correction_retraction_status": "No relevant notice encountered on checked source surfaces; not a complete Crossmark/retraction census"
+    },
+    {
+      "id": "S8",
+      "title": "IFRA Rose Ketones standard",
+      "url": "https://ifrafragrance.org/standards/IFRA_STD_077.pdf",
+      "scope": "Combined finished-product restriction, not a complete formula certificate",
+      "checked_date": "2026-10-02",
+      "raw_remote_sha256": null,
+      "promotion_status": "BACKGROUND_RESEARCH_NOT_EXECUTABLE_CAPABILITY",
+      "correction_retraction_status": "No relevant notice encountered on checked source surfaces; not a complete Crossmark/retraction census"
+    },
+    {
+      "id": "S9",
+      "title": "PW current shipping notice",
+      "url": "https://www.perfumersworld.com/shipping-information.php",
+      "scope": "June 8 2026 notice: $30 under $150, checkout exceptions apply",
+      "checked_date": "2026-10-02",
+      "raw_remote_sha256": null,
+      "promotion_status": "BACKGROUND_RESEARCH_NOT_EXECUTABLE_CAPABILITY",
+      "correction_retraction_status": "No relevant notice encountered on checked source surfaces; not a complete Crossmark/retraction census"
+    },
+    {
+      "id": "S10",
+      "title": "PW bottling/minimum",
+      "url": "https://www.perfumersworld.com/cart.php",
+      "scope": "Public price interface only; no access to user's authenticated cart",
+      "checked_date": "2026-10-02",
+      "raw_remote_sha256": null,
+      "promotion_status": "BACKGROUND_RESEARCH_NOT_EXECUTABLE_CAPABILITY",
+      "correction_retraction_status": "No relevant notice encountered on checked source surfaces; not a complete Crossmark/retraction census"
+    },
+    {
+      "id": "S11",
+      "title": "PW bottling/packing guidance",
+      "url": "https://perfumersworld.com/free-stuff.php",
+      "scope": "$0.90 per item, small gram purchases",
+      "checked_date": "2026-10-02",
+      "raw_remote_sha256": null,
+      "promotion_status": "BACKGROUND_RESEARCH_NOT_EXECUTABLE_CAPABILITY",
+      "correction_retraction_status": "No relevant notice encountered on checked source surfaces; not a complete Crossmark/retraction census"
+    },
+    {
+      "id": "S12",
+      "title": "PW full catalog",
+      "url": "https://www.perfumersworld.com/perfume-supplies.php",
+      "scope": "Full local 2026-09-30 catalog plus fresh selected pages; not an individually browsed 1329-page census",
+      "checked_date": "2026-10-02",
+      "raw_remote_sha256": null,
+      "promotion_status": "BACKGROUND_RESEARCH_NOT_EXECUTABLE_CAPABILITY",
+      "correction_retraction_status": "No relevant notice encountered on checked source surfaces; not a complete Crossmark/retraction census"
+    }
+  ]
+}

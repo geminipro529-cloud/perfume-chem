@@ -19,6 +19,24 @@
 > **⚠️ RULE 6: Keep personal scent research easy and evidence-proportionate.**
 > A formula plus a plain-language sensory goal is sufficient to generate non-authoritative clues and small controlled-comparison hypotheses. Observations and preserve/avoid criteria are optional but useful. Do not demand photographs, receipts, lots, density, instrumental measurements, safety paperwork, or a fully bound physical build unless the specific requested conversion, claim, experiment, or compounding action actually requires them. Default user output is concise; detailed diagnostics are opt-in.
 
+## Reviewed formulation knowledge
+
+`data/formulation_knowledge/literature_v1.json` contains source-bounded facts,
+manufacturer descriptions and explicitly uncalibrated architecture hypotheses.
+`prior_research_corpus_v1.json` indexes prior local research by exact bytes;
+indexing is not full-text review, empirical capability admission or action authority.
+Formula Studio and goal analysis retrieve these locally with no runtime web calls.
+Exact material grades, iris root/butter/cosmetic/transparent/woody profiles, violet
+petals, violet powder and violet leaf remain distinct. Explicit user constraints
+take precedence. Literature guidance cannot fabricate doses, receptor maps,
+physical properties, intensity, pleasantness or liking measurements.
+
+Older session learnings and numeric tables below are historical diagnostics,
+not universal scientific or formulation policy. Where they contradict Rules 1,
+4 or the reviewed knowledge boundary, those rules take precedence. In particular,
+OAV bands do not establish intensity, natural decomposition does not establish
+an accuracy multiplier, and chemical-family difference does not prove a clash.
+
 ## `$sol-ultra-delegate` authority boundary
 
 - `$sol-ultra-delegate` is an explicit, project-scoped command for bounded, non-sensitive, read-only packets.
@@ -761,10 +779,10 @@ Every systemic failure from this session. Read before formulating. Learn or repe
 - Learning: Materials with VP below 0.1 Pa hit IFRA limits before meaningful headspace OAV. Use higher-VP analogs.
 
 ### F6. IONONE RECEPTOR SATURATION
-- Symptom: Alpha Irone dose increases give diminishing perceptual returns.
-- Root cause: OR5AN1 has finite binding sites. Stevens exponent n=0.3-0.4 compounds the effect.
-- Fix: Cap at 200 uL of 30%. Diversify with receptor-orthogonal materials (Heliotropal, Orivone, Osmanthus).
-- Learning: Ionone receptor ceiling is real. Mono-dosing is wasteful.
+- Historical observation: Alpha Irone increases reportedly gave diminishing returns in one formulation; this is not a universal dose-response finding.
+- Withdrawn explanation: OR5AN1 assignment, a fixed 200 uL ceiling and receptor-orthogonal pairings were not established by evidence.
+- Reviewed boundary: Jaeger et al. (2013), DOI 10.1016/j.cub.2013.07.030, supports OR5A1-related beta-ionone sensitivity differences, not those claims.
+- Design response: Compare recognizer, root texture and support roles under the locked brief, with matched controls. Do not infer receptor affinities from chemical-family labels.
 
 ### F7. SUBAGENT MODEL FORMAT FAILURE
 - Symptom: All task() calls fail with model format errors.
@@ -789,7 +807,7 @@ Every systemic failure from this session. Read before formulating. Learn or repe
 
 ### F11. NATURAL LUXURY KITCHEN-SINK FAILURE — L'HOMME RESERVE (2026-07-07)
 - Symptom: 28-material L'Homme Reserve smelled "muddy/chaotic" — unrecognizable as L'Homme EDT. User wasted 225µL Alpha Irone 30% (expensive iris butter).
-- Root cause: Mixed EOs/aromachemicals from incompatible chemical families and flower species. Blue Chamomile (azulene/matricine) clashed with Rose (citronellol/geraniol/phenylethyl alcohol). Osmanthus (lactone/β-ionone) clashed with Clove (eugenol/phenylpropanoid). Geranium (citronellol/geraniol/menthone) clashed with Violet Leaf (nonadienal/undecatriene). These are chemically incompatible — they don't belong in the same bottle.
+- Historical hypothesis: particular natural additions reportedly made the target muddy. Their constituent-family differences do not establish physical incompatibility, a reaction, or an inevitable sensory clash.
 - Fix: Cut 7 materials. v3 = 21 materials: kept only chemically compatible families (Ginger zingiberene + Bergamot limonene/linalool + Rose citronellol/geraniol + Clove eugenol + Iris irones + Violet Leaf + woody-amber synthetics).
-- Learning: **Do NOT mix EOs from chemically incompatible families.** If the structural forms of aromachemicals isolated from one flower species don't match or belong to the same chemical family as another flower species, do NOT combine them. Chemical family compatibility matters more than "natural luxury" intent. The "kitchen sink" approach fails because it ignores chemical taxonomy.
-- AGENT RULE: Before combining any two complex naturals (EOs/absolutes), verify they share at least one chemical family (e.g., both contain phenylpropanoids, or both are terpenoid-dominant, or both are benzenoid). If they're chemically unrelated at the constituent level, they will clash — cut one. Always recommend 10mL test batch before full formula.
+- Reviewed learning: separate solubility, chemical stability, sensory masking and target drift. Each needs its own evidence; chemical taxonomy alone decides none of them.
+- Design response: retain the control and compare a small omission/addition or block alternative. Natural complexity must earn a target-linked function rather than being included as an automatic luxury upgrade.

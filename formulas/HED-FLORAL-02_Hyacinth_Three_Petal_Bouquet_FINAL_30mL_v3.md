@@ -1,5 +1,8 @@
 # HED-FLORAL-02 — Hyacinth Three-Petal Bouquet — Final Design — 30 mL — v3
 
+**Status:** QUARANTINED — historical analysis only; do not mix or release.
+**Artifact review (2026-10-05):** The stored analysis no longer matches the current inventory, scientific inputs or implementation. Formula quantities and prior analysis are retained; no fresh calculation, sensory validation or safety/release approval is claimed. See the [review receipt](../docs/verification/FORMULA_ARTIFACT_REVIEW_20261005.json).
+
 **Immediate parent:** `HED-FLORAL-02_Hyacinth_Three_Petal_Bouquet_FINAL_30mL_v2.md`  
 **Revision authority:** user-confirmed no Galbanum stock, 2026-09-02  
 **Claim mode:** unclaimed  

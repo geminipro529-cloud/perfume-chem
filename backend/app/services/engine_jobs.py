@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import secrets
 from contextlib import AbstractAsyncContextManager
 from dataclasses import dataclass
@@ -20,6 +21,7 @@ from engine.calibration.hashing import (
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.models.lab import LabObservation
 from app.models.lab_engine_jobs import (
     ENGINE_TERMINAL_STATES,
     LabEngineJob,
@@ -45,6 +47,7 @@ _CAPABILITY_PATHS = (
     "data/governance/wakayama_identity_adjudication_summary_20260927.json",
     "data/governance/ifra_policy_status_20260927.json",
     "data/governance/full_potential_cp10_legacy_surface_transitions_20260927.json",
+    "data/governance/commercial_reference_registry_v1.json",
     "data/governance/lavande_ambre_profond_r5_design_comparator_20260923.json",
     "data/governance/lavande_ambre_profond_r5_cp3_readiness_protocol_20260924.json",
     "data/governance/lavande_ambre_profond_r5_cp3_readiness_protocol_20260926_v5.json",
@@ -71,11 +74,13 @@ _CAPABILITY_PATHS = (
     "engine/research/accounting.py",
     "engine/research/capabilities.py",
     "engine/research/comparison.py",
+    "engine/research/commercial_references.py",
     "engine/research/contracts.py",
     "engine/research/perception.py",
     "engine/research/preference.py",
     "engine/research/protocols.py",
     "engine/research/release.py",
+    "engine/research/request_interpretation.py",
     "engine/research/safety_policy.py",
     "engine/research/selection.py",
     "engine/research/snapshots.py",
@@ -99,6 +104,8 @@ _CAPABILITY_PATHS = (
 _REFERENCE_PATHS = (
     "backend/data/reference/chemicals_potency.json",
     "data/compounds.json",
+    "data/formulation_knowledge/literature_v1.json",
+    "data/formulation_knowledge/prior_research_corpus_v1.json",
 )
 _AUTHORITY_CONTEXT = {
     "schema": "engine-job-authority-context-v1",
@@ -207,6 +214,38 @@ def _bundle_fingerprint(relative_paths: tuple[str, ...]) -> str:
     return cast(str, stable_json_hash(manifest))
 
 
+def _research_reference_paths(job_type: str) -> tuple[str, ...]:
+    """Bind current research bytes, not just a frozen manifest's old hashes.
+
+    These server-owned paths are read-only references, never execution targets.
+    Reject traversal and unregistered roots before fingerprinting anything.
+    """
+    if job_type not in {"FORMULA_DESIGN", "FORMULA_ANALYSIS"}:
+        return _REFERENCE_PATHS
+    corpus_path = REPOSITORY_ROOT / "data/formulation_knowledge/prior_research_corpus_v1.json"
+    pack_path = REPOSITORY_ROOT / "data/formulation_knowledge/literature_v1.json"
+    try:
+        corpus = json.loads(corpus_path.read_text(encoding="utf-8"))
+        pack = json.loads(pack_path.read_text(encoding="utf-8"))
+        paths = [row["path"] for row in corpus["records"]]
+        paths.extend(source["local_path"] for source in pack["sources"] if source.get("local_path"))
+        if not paths:
+            raise ValueError("empty research manifest")
+        root = REPOSITORY_ROOT.resolve()
+        for label in paths:
+            if not isinstance(label, str) or ":" in label or ".." in Path(label).parts:
+                raise ValueError("invalid research path")
+            resolved = (root / label).resolve()
+            if not resolved.is_relative_to(root):
+                raise ValueError("research path escapes repository")
+            normalized = resolved.relative_to(root).as_posix()
+            if not normalized.startswith(("knowledge/", "docs/research/", "data/source_manifests/", "data/governance/")) and normalized != "future_modules/literature_references.py":
+                raise ValueError("unregistered research path")
+    except (OSError, ValueError, TypeError, KeyError) as error:
+        raise EngineJobError("INVALID_RESEARCH_REFERENCE_MANIFEST", "Local research reference manifest is unavailable or invalid.") from error
+    return tuple(dict.fromkeys((*_REFERENCE_PATHS, *paths)))
+
+
 def build_engine_job_identity(
     *,
     job_type: str,
@@ -214,6 +253,7 @@ def build_engine_job_identity(
     requester: str,
     idempotency_key: str,
     request_schema_version: str = "lab-engine-job-request-v1",
+    server_bound_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Validate a closed command and derive every server-owned fingerprint."""
 
@@ -241,7 +281,7 @@ def build_engine_job_identity(
     spec = ENGINE_JOB_REGISTRY[job_type]
     implementation_manifest = _file_manifest(implementation_paths(job_type))
     implementation_sha256 = stable_json_hash(implementation_manifest)
-    reference_sha256 = _bundle_fingerprint(_REFERENCE_PATHS)
+    reference_sha256 = _bundle_fingerprint(_research_reference_paths(job_type))
     inventory_path = REPOSITORY_ROOT / "inventory.txt"
     inventory_sha256 = (
         stable_file_hash(inventory_path)
@@ -255,12 +295,18 @@ def build_engine_job_identity(
         if request_schema_version == "lab-engine-job-request-v2"
         else ENGINE_JOB_CONTRACT_VERSION
     )
+    bound_context = dict(server_bound_context or {})
+    bound_context_sha256 = (
+        stable_json_hash(bound_context) if bound_context else None
+    )
     source_request = {
         "schema_version": request_schema_version,
         "job_type": job_type,
         "payload": normalized,
         "requester": requester_scope,
     }
+    if bound_context:
+        source_request["server_bound_context"] = bound_context
     source_request_sha256 = stable_json_hash(source_request)
     normalized_sha256 = stable_json_hash(normalized)
     command = {
@@ -269,24 +315,27 @@ def build_engine_job_identity(
         "requester_scope": requester_scope,
         "normalized_payload": normalized,
     }
+    if bound_context_sha256 is not None:
+        command["server_bound_context_sha256"] = bound_context_sha256
     command_sha256 = stable_json_hash(command)
-    fingerprint = stable_json_hash(
-        {
-            "schema": (
-                "engine-job-fingerprint-v2"
-                if contract_version == ENGINE_JOB_CONTRACT_VERSION_V2
-                else "engine-job-fingerprint-v1"
-            ),
-            "command_sha256": command_sha256,
-            "formula_and_row_order_sha256": normalized_sha256,
-            "implementation_fingerprint_sha256": implementation_sha256,
-            "reference_bundle_sha256": reference_sha256,
-            "inventory_fingerprint_sha256": inventory_sha256,
-            "capability_fingerprint_sha256": capability_sha256,
-            "authority_context_sha256": authority_sha256,
-            "contract_version": contract_version,
-        }
-    )
+    fingerprint_payload = {
+        "schema": (
+            "engine-job-fingerprint-v2"
+            if contract_version == ENGINE_JOB_CONTRACT_VERSION_V2
+            else "engine-job-fingerprint-v1"
+        ),
+        "command_sha256": command_sha256,
+        "formula_and_row_order_sha256": normalized_sha256,
+        "implementation_fingerprint_sha256": implementation_sha256,
+        "reference_bundle_sha256": reference_sha256,
+        "inventory_fingerprint_sha256": inventory_sha256,
+        "capability_fingerprint_sha256": capability_sha256,
+        "authority_context_sha256": authority_sha256,
+        "contract_version": contract_version,
+    }
+    if bound_context_sha256 is not None:
+        fingerprint_payload["server_bound_context_sha256"] = bound_context_sha256
+    fingerprint = stable_json_hash(fingerprint_payload)
     return {
         "source_request": source_request,
         "normalized_payload": normalized,
@@ -298,6 +347,7 @@ def build_engine_job_identity(
         "inventory_fingerprint_sha256": inventory_sha256,
         "capability_fingerprint_sha256": capability_sha256,
         "authority_context_sha256": authority_sha256,
+        "server_bound_context_sha256": bound_context_sha256,
         "requester_scope": requester_scope,
         "idempotency_key_sha256": _hash_secret(key),
         "command_sha256": command_sha256,
@@ -414,6 +464,53 @@ class LabEngineJobServiceMixin:
             request_schema_version=request_schema_version,
         )
         async with self._transaction():
+            observation_ids = tuple(
+                identity["normalized_payload"].get("observation_record_ids", [])
+                if job_type == "REFERENCE_PANEL_EVALUATION"
+                else ()
+            )
+            if observation_ids:
+                rows = (
+                    await self.session.execute(
+                        select(LabObservation).where(
+                            LabObservation.id.in_(observation_ids)
+                        )
+                    )
+                ).scalars()
+                by_id = {row.id: row for row in rows}
+                missing = [record_id for record_id in observation_ids if record_id not in by_id]
+                if missing:
+                    raise EngineJobError(
+                        "OBSERVATION_RECORD_NOT_FOUND",
+                        "Unknown observation record IDs: " + ", ".join(missing),
+                    )
+                observation_bindings = []
+                for record_id in observation_ids:
+                    row = by_id[record_id]
+                    record_payload = {
+                        "id": row.id,
+                        "application_id": row.application_id,
+                        "elapsed_seconds": row.elapsed_seconds,
+                        "observations": dict(row.observations_json),
+                        "created_at": row.created_at.isoformat(),
+                    }
+                    observation_bindings.append(
+                        {
+                            "record_id": record_id,
+                            "record_sha256": stable_json_hash(record_payload),
+                        }
+                    )
+                identity = build_engine_job_identity(
+                    job_type=job_type,
+                    payload=payload,
+                    requester=requester,
+                    idempotency_key=idempotency_key,
+                    request_schema_version=request_schema_version,
+                    server_bound_context={
+                        "schema_version": "reference-observation-bindings-v1",
+                        "observation_records": observation_bindings,
+                    },
+                )
             idempotent = await self.session.scalar(
                 select(LabEngineJob).where(
                     LabEngineJob.requester_scope

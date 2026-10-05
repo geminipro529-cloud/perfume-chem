@@ -1,5 +1,8 @@
 # DHI-11 — Velours d'Iris V3 Smooth — 05443/A Architecture Study — 30 mL / 20%
 
+**Status:** QUARANTINED — historical analysis only; do not mix or release.
+**Artifact review (2026-10-05):** The stored analysis no longer matches the current inventory, scientific inputs or implementation. Formula quantities and prior analysis are retained; no fresh calculation, sensory validation or safety/release approval is claimed. See the [review receipt](../docs/verification/FORMULA_ARTIFACT_REVIEW_20261005.json).
+
 **Case:** `DHI-11-VELOURS-D-IRIS-05443A-V3-SMOOTH`  
 **Architecture model:** `engine.perception.dhi_2011_architecture:dhi-2011-05443a-v1`  
 **Deep Plane program:** `engine.perception.dhi_2011_deep_plane:build_default_dhi_2011_deep_plane_program`  

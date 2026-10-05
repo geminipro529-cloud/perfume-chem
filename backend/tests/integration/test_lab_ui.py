@@ -12,6 +12,7 @@ async def test_offline_lab_app_and_assets_are_served_without_external_dependenci
     assert javascript.status_code == 200
     assert "Perfume Chem Laboratory" in page.text
     for view in (
+        "improve",
         "dashboard",
         "materials",
         "formulas",
@@ -38,6 +39,345 @@ async def test_offline_lab_app_and_assets_are_served_without_external_dependenci
     assert 'request("/intervention-trials/plan"' in javascript.text
     assert "Safety remains unverified" in page.text
     assert "addEventListener" in javascript.text
+
+
+@pytest.mark.asyncio
+async def test_guided_improvement_ui_is_default_local_and_authority_safe(client):
+    page = await client.get("/app")
+    css = await client.get("/static/lab.css")
+    javascript = await client.get("/static/lab.js")
+
+    assert page.status_code == 200
+    assert 'class="nav-item is-active" data-view="improve"' in page.text
+    assert 'class="view is-visible" data-panel="improve"' in page.text
+    assert 'id="improve-form"' in page.text
+    assert 'value="EVOLVING_BOTTLE" checked' in page.text
+    assert 'value="GLOBAL_CROWD_PLEASING"' in page.text
+    assert "No photos or receipts required" in page.text
+    assert "One clear direction is enough" in page.text
+    assert "Analysis never changes the bottle by itself" in page.text
+    assert 'id="physical-addition-confirmed"' in page.text
+    assert 'id="quick-reaction-form"' in page.text
+    assert "Personal evidence" in page.text
+    assert 'name="formula_source_kind"' in page.text
+    assert 'id="project-formula-options"' in page.text
+
+    assert 'job_type: "FORMULA_ANALYSIS"' in javascript.text
+    assert 'schema_version: "lab-engine-job-request-v2"' in javascript.text
+    assert 'request("/v2/engine-jobs"' in javascript.text
+    assert 'goal_analysis_sha256: state.improve.analysis.analysis_sha256' in javascript.text
+    assert 'hypothesis_variant: state.improve.selectedVariant' in javascript.text
+    assert "/quick-evaluations" in javascript.text
+    assert 'request("/v2/workbench/formula-library")' in javascript.text
+    assert "/v2/workbench/formula-source?source_path=" in javascript.text
+    assert 'navigate(location.hash.slice(1) || "improve")' in javascript.text
+    assert "window.setTimeout(resolve, 1000)" in javascript.text
+    assert "http://" not in javascript.text
+    assert "https://" not in javascript.text
+    assert "Research behind this design · optional details" in javascript.text
+    assert "sourceURL = parsed.href" in javascript.text
+    assert 'parsed.protocol === "https:"' in javascript.text
+    assert 'link.rel = "noopener noreferrer"' in javascript.text
+    assert "paragraph.textContent = label" in javascript.text
+
+    assert ".workflow-strip" in css.text
+    assert ".hypothesis-grid" in css.text
+    assert ".delta-line-editor" in css.text
+    assert ".physical-line" in css.text
+    assert "[hidden] { display: none !important; }" in css.text
+
+
+@pytest.mark.asyncio
+async def test_current_project_inventory_is_primary_and_not_reentered(client):
+    before_materials = await client.get("/api/v1/lab/materials")
+    before_stocks = await client.get("/api/v1/lab/stocks")
+    response = await client.get("/api/v1/lab/v2/workbench/current-inventory")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["schema_version"] == "workbench-current-inventory-v3"
+    assert payload["authority"] == "PERSONAL_DESIGN_INVENTORY_PROJECTION_READ_ONLY"
+    assert payload["counts"]["stocks"] == len(payload["stocks"])
+    assert payload["counts"]["stocks"] > 100
+    assert payload["counts"]["execution_ready"] > 100
+    assert payload["counts"]["design_ready"] >= payload["counts"]["execution_ready"]
+    assert payload["counts"]["details_incomplete"] > 0
+    assert len(payload["snapshot_sha256"]) == 64
+    assert len(payload["canonical_effective_inventory_sha256"]) == 64
+    assert len(payload["effective_inventory_sha256"]) == 64
+    assert payload["inventory_modified"] is False
+    assert payload["compounding_authority"] is False
+    assert any(stock["identity_name"] == "Ambrox Super" for stock in payload["stocks"])
+    assert any(
+        stock["normalized_identity"] == "ambrox super crystals"
+        for stock in payload["stocks"]
+    )
+    assert any(
+        stock["normalized_identity"] == "sandalwood base x3"
+        and stock["source_class"] == "LIVE_INVENTORY_TEXT"
+        for stock in payload["stocks"]
+    )
+    assert payload["counts"]["live_inventory_text"] >= 60
+
+    after_materials = await client.get("/api/v1/lab/materials")
+    after_stocks = await client.get("/api/v1/lab/stocks")
+    assert after_materials.json() == before_materials.json()
+    assert after_stocks.json() == before_stocks.json()
+
+
+@pytest.mark.asyncio
+async def test_formula_conversation_creates_and_refines_read_only_design(client):
+    before = await client.get("/api/v1/lab/dashboard")
+    response = await client.post(
+        "/api/v1/lab/v2/workbench/formula-chat",
+        json={
+            "schema_version": "inventory-grounded-formula-chat-request-v1",
+            "message": "A clear mineral lavender over dry amber, not sweet",
+            "formula_name": "Stone Lavender",
+            "liquid_concentrate_ul_decimal": "6000",
+            "max_materials": 8,
+            "must_preserve": ["lavender identity"],
+            "must_avoid": ["vanilla"],
+            "previous_stock_ids": [],
+            "conversation_context": [],
+        },
+    )
+
+    assert response.status_code == 200
+    result = response.json()
+    assert result["status"] in {
+        "INVENTORY_GROUNDED_DESIGN_READY",
+        "INVENTORY_GROUNDED_DESIGN_READY_WITH_HOLDS",
+    }
+    assert result["optimized_formula"]["separate_totals"]["liquid_total_ul"] == "6000"
+    assert len(result["optimized_formula"]["rows"]) == 8
+    assert any("Lavender" in row["material"] for row in result["optimized_formula"]["rows"])
+    assert result["formula_action"] == "PROPOSAL_ONLY"
+    assert result["inventory_modified"] is False
+    assert result["physical_compounding_performed"] is False
+    assert result["compounding_authority"] is False
+    assert result["optimization"]["objective"] == (
+        "REQUEST_CONSTRAINT_AND_NONREDUNDANT_ROLE_FULFILMENT"
+    )
+    assert result["critic"]["filler_rows_added"] == 0
+
+    after = await client.get("/api/v1/lab/dashboard")
+    assert after.json()["counts"] == before.json()["counts"]
+
+
+@pytest.mark.asyncio
+async def test_inventory_details_can_be_completed_without_physical_authority(client):
+    inventory_response = await client.get(
+        "/api/v1/lab/v2/workbench/current-inventory"
+    )
+    inventory = inventory_response.json()
+    stock = next(
+        item
+        for item in inventory["stocks"]
+        if item["identity_name"] == "Cedrat FCF Sicilian"
+    )
+    response = await client.post(
+        "/api/v1/lab/v2/workbench/current-inventory/complete",
+        json={
+            "schema_version": "personal-inventory-completion-request-v1",
+            "stock_id": stock["stock_id"],
+            "expected_effective_inventory_sha256": inventory[
+                "canonical_effective_inventory_sha256"
+            ],
+            "idempotency_key": "ui-complete-cedrat",
+            "fraction_percent_decimal": "100",
+            "fraction_basis": "neat",
+            "carrier": "",
+            "physical_form": "as_supplied",
+            "possession_confirmed": True,
+            "homogeneity": "NOT_APPLICABLE",
+            "final_fraction_known": True,
+            "source_kind": "PERSONAL_CONFIRMATION",
+            "user_note": "Current bottle confirmed for personal design.",
+        },
+    )
+
+    assert response.status_code == 200
+    result = response.json()
+    assert result["status"] == "PERSONAL_DESIGN_DETAILS_COMPLETE"
+    assert result["design_ready"] is True
+    assert result["inventory_quantity_modified"] is False
+    assert result["compounding_authority"] is False
+    updated = next(
+        item
+        for item in result["inventory"]["stocks"]
+        if item["stock_id"] == stock["stock_id"]
+    )
+    assert updated["design_ready"] is True
+    assert updated["execution_ready"] is False
+    assert updated["missing_fields"] == []
+
+    replay = await client.post(
+        "/api/v1/lab/v2/workbench/current-inventory/complete",
+        json={
+            "schema_version": "personal-inventory-completion-request-v1",
+            "stock_id": stock["stock_id"],
+            "expected_effective_inventory_sha256": inventory[
+                "canonical_effective_inventory_sha256"
+            ],
+            "idempotency_key": "ui-complete-cedrat",
+            "fraction_percent_decimal": "100",
+            "fraction_basis": "neat",
+            "carrier": "",
+            "physical_form": "as_supplied",
+            "possession_confirmed": True,
+            "homogeneity": "NOT_APPLICABLE",
+            "final_fraction_known": True,
+            "source_kind": "PERSONAL_CONFIRMATION",
+            "user_note": "Current bottle confirmed for personal design.",
+        },
+    )
+    assert replay.status_code == 200
+    assert replay.json()["receipt"]["event_sha256"] == result["receipt"]["event_sha256"]
+
+
+@pytest.mark.asyncio
+async def test_formula_studio_ui_exposes_inventory_and_conversation(client):
+    page = await client.get("/app")
+    css = await client.get("/static/lab.css")
+    javascript = await client.get("/static/lab.js")
+
+    assert 'id="project-inventory-list"' in page.text
+    assert 'id="project-inventory-search"' in page.text
+    assert 'id="project-inventory-incomplete-only"' in page.text
+    assert 'id="inventory-completion-form"' in page.text
+    assert 'id="inventory-addition-form"' in page.text
+    assert 'id="inventory-add-open"' in page.text
+    assert "No photo, invoice, supplier lot, or density is required" in page.text
+    assert "You do not need to enter it again" in page.text
+    assert 'id="formula-chat-form"' in page.text
+    assert 'id="formula-chat-log"' in page.text
+    assert 'id="formula-chat-result"' in page.text
+    assert "Create my formula" in page.text
+    assert '<option value="60">Maximum — up to 60</option>' in page.text
+    assert "Any selected crystal remains a separate mg line" in page.text
+    assert 'request("/v2/workbench/current-inventory")' in javascript.text
+    assert 'request("/v2/workbench/current-inventory/complete"' in javascript.text
+    assert 'request("/v2/workbench/current-inventory/add"' in javascript.text
+    assert 'request("/v2/workbench/formula-chat"' in javascript.text
+    assert "previous_stock_ids" in javascript.text
+    assert "conversation_context" in javascript.text
+    assert ".formula-chat-layout" in css.text
+    assert ".inventory-grid" in css.text
+    assert ".formula-design-table" in css.text
+
+
+@pytest.mark.asyncio
+async def test_missing_owned_material_can_be_added_for_personal_design(client):
+    inventory_response = await client.get(
+        "/api/v1/lab/v2/workbench/current-inventory"
+    )
+    inventory = inventory_response.json()
+    response = await client.post(
+        "/api/v1/lab/v2/workbench/current-inventory/add",
+        json={
+            "schema_version": "personal-inventory-addition-request-v1",
+            "expected_design_inventory_sha256": inventory[
+                "effective_inventory_sha256"
+            ],
+            "idempotency_key": "backend-add-hindinol",
+            "identity_name": "Hindinol",
+            "category": "woods / amber / structure",
+            "fraction_percent_decimal": "100",
+            "fraction_basis": "neat",
+            "carrier": "",
+            "physical_form": "as_supplied",
+            "possession_confirmed": True,
+            "homogeneity": "NOT_APPLICABLE",
+            "source_kind": "PERSONAL_CONFIRMATION",
+            "supplier_name": "PerfumersWorld",
+            "supplier_sku": "4WX24656",
+            "user_note": "Direct user confirmation.",
+        },
+    )
+
+    assert response.status_code == 200
+    result = response.json()
+    assert result["status"] == "PERSONAL_INVENTORY_MATERIAL_ADDED"
+    assert result["compounding_authority"] is False
+    hindinol = next(
+        stock
+        for stock in result["inventory"]["stocks"]
+        if stock["identity_name"] == "Hindinol"
+    )
+    assert hindinol["source_class"] == "PERSONAL_ADDITION"
+    assert hindinol["design_ready"] is True
+    assert hindinol["execution_ready"] is False
+
+    formula_response = await client.post(
+        "/api/v1/lab/v2/workbench/formula-chat",
+        json={
+            "schema_version": "inventory-grounded-formula-chat-request-v2",
+            "message": (
+                "Create a dry sandalwood perfume that must use Hindinol and "
+                "Sandalwood Base X3 as separate owned materials."
+            ),
+            "formula_name": "Inventory Alias Check",
+            "liquid_concentrate_ul_decimal": "6000",
+            "max_materials": 8,
+            "must_preserve": ["Hindinol", "Sandalwood Base X3"],
+            "must_avoid": [],
+            "previous_stock_ids": [],
+            "conversation_context": [],
+        },
+    )
+    assert formula_response.status_code == 200
+    selected = {
+        row["identity_name"]
+        for row in formula_response.json()["optimized_formula"]["rows"]
+    }
+    assert {"Hindinol", "Sandalwood Base 3X"} <= selected
+
+
+@pytest.mark.asyncio
+async def test_project_formula_library_is_read_only_and_preserves_mixed_units(client):
+    library_response = await client.get("/api/v1/lab/v2/workbench/formula-library")
+
+    assert library_response.status_code == 200
+    library = library_response.json()
+    assert library["inventory_modified"] is False
+    assert library["compounding_authority"] is False
+    source_path = "Lavande_Ambre_Profond_Parallel_A_30mL_EDP.md"
+    assert source_path in {source["source_path"] for source in library["sources"]}
+
+    source_response = await client.get(
+        "/api/v1/lab/v2/workbench/formula-source",
+        params={"source_path": source_path},
+    )
+
+    assert source_response.status_code == 200
+    source = source_response.json()
+    assert source["formula_name"].startswith("Lavande Ambre Profond")
+    assert len(source["rows"]) == 24
+    assert source["separate_totals"] == {
+        "liquid_total_ul": "5600",
+        "mass_total_mg": "300",
+    }
+    ambrox = next(row for row in source["rows"] if row["material"] == "Ambrox Super Crystals")
+    assert ambrox["amount_decimal"] == "300"
+    assert ambrox["amount_unit"] == "mg"
+    assert ambrox["operation"] == "MASS_ADD"
+    assert source["design_only"] is True
+    assert source["inventory_modified"] is False
+    assert source["release_authority"] is False
+    assert source["safety_authority"] is False
+    assert source["compounding_authority"] is False
+
+
+@pytest.mark.asyncio
+async def test_project_formula_library_rejects_path_escape(client):
+    response = await client.get(
+        "/api/v1/lab/v2/workbench/formula-source",
+        params={"source_path": "../inventory.txt"},
+    )
+
+    assert response.status_code == 400
+    assert response.json()["error"]["code"] == "INVALID_LAB_COMMAND"
 
 
 @pytest.mark.asyncio

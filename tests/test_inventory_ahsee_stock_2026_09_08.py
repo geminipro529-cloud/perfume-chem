@@ -12,7 +12,6 @@ import pytest
 import engine.inventory_parser as inventory
 from engine.pipeline.preflight import resolve_inventory_stock_contract
 
-
 EXPECTED = [
     ("Phenyl Ethyl Dimethyl Carbinol", 1.0, "neat", ""),
     ("Neroli EO", 0.1, "volume_fraction", "ethanol"),
@@ -206,17 +205,19 @@ def test_previous_overlays_remain_unchanged_and_historically_loadable():
         assert inventory.load_current_user_inventory_overlay(path)["records"]
 
 
-def test_calone_keeps_known_dpg_and_only_confirmed_givaudan_aimi_stock_remains():
+def test_calone_keeps_known_dpg_and_current_aimi_identity_supersedes_old_label():
     assert _check("Calone", 0.01, "volume_fraction", "dpg").status == "PASS"
     assert _check("Calone", 0.01, "volume_fraction", "ethanol").status == "FAIL"
-    check = _check("Givaudan AIMI", 1.0, "neat", "")
+    check = _check("Alpha Isomethyl Ionone", 1.0, "neat", "")
     assert check.status == "PASS"
-    assert check.data["resolved_stock_specs"]["Givaudan AIMI"]["stock_id"] == "inventory:user-20260904:a45ff6250b56cec5bbad"
+    assert check.data["resolved_stock_specs"]["Alpha Isomethyl Ionone"][
+        "stock_id"
+    ] == "inventory:user-20260930:0f2e7662198d3a10bd1a"
     assert not any(r["canonical_name"] in {"Givaudan AIMI", "Methyl Ionone Pure", "Alpha Isomethyl Ionone"}
                    for r in _raw_head()["records"])
     current_labels = {r.identity_name for r in inventory.parse_inventory(unique=False)}
-    assert "Givaudan AIMI" in current_labels
-    assert "Alpha Isomethyl Ionone (Methyl Ionone Pure)" not in current_labels
+    assert "Alpha Isomethyl Ionone" in current_labels
+    assert "Givaudan AIMI" not in current_labels
     receipt_path = inventory.PROJECT_ROOT / _raw_head()["source"]["confirmed_receipt"]
     receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
     assert receipt["identity_confirmation"]["answer"] == "i only have gividuan AIMI now"

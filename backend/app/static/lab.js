@@ -1,7 +1,35 @@
 "use strict";
 
 const API = "/api/v1/lab";
-const state = { materials: [], stocks: [], formulas: [], bottles: [], experiments: [] };
+const state = {
+  materials: [],
+  stocks: [],
+  projectInventory: { stocks: [], counts: {} },
+  formulas: [],
+  formulaLibrary: [],
+  bottles: [],
+  experiments: [],
+  formulaChat: {
+    messages: [],
+    result: null,
+    variantIndex: 0,
+  },
+  improve: {
+    jobId: null,
+    pollCancelled: false,
+    sourceKind: null,
+    sourceId: null,
+    sourceRows: [],
+    sourceMetadata: null,
+    analysis: null,
+    selectedHypothesis: null,
+    selectedVariant: "low_variant",
+    preparedLines: [],
+    additionEvents: [],
+    evaluationCommandId: null,
+    evaluationRequestBody: null,
+  },
+};
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
@@ -17,7 +45,14 @@ async function request(path, options = {}) {
     ...options,
   });
   const payload = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(payload.detail || `Request failed (${response.status})`);
+  if (!response.ok) {
+    const detail = Array.isArray(payload.detail)
+      ? payload.detail.map((item) => item.msg || JSON.stringify(item)).join("; ")
+      : payload.detail;
+    const error = new Error(payload?.error?.message || detail || `Request failed (${response.status})`);
+    error.status = response.status;
+    throw error;
+  }
   return payload;
 }
 
@@ -47,26 +82,75 @@ function recordList(target, rows, titleKey, detail) {
 }
 
 function updateSelectors() {
+  const preferredFormula = state.improve.sourceKind === "formula" ? state.improve.sourceId : null;
+  const preferredBottle = state.improve.sourceKind === "bottle" ? state.improve.sourceId : null;
   $$('[data-material-select]').forEach((node) => { node.innerHTML = optionRows(state.materials, "canonical_name"); });
   $$('[data-stock-select]').forEach((node) => { node.innerHTML = stockOptionRows(); });
   $$('[data-formula-select]').forEach((node) => { node.innerHTML = optionRows(state.formulas, "name"); });
   $$('[data-bottle-select]').forEach((node) => { node.innerHTML = optionRows(state.bottles, "label"); });
   $$('[data-experiment-select]').forEach((node) => { node.innerHTML = optionRows(state.experiments, "name"); });
+  $("#project-formula-options").innerHTML = state.formulaLibrary.map((source) => (
+    `<option value="${escapeHtml(source.source_path)}">${escapeHtml(source.display_name)}</option>`
+  )).join("");
+  if (preferredFormula) $$('[data-formula-select]').forEach((node) => { if ([...node.options].some((option) => option.value === preferredFormula)) node.value = preferredFormula; });
+  if (preferredBottle) $$('[data-bottle-select]').forEach((node) => { if ([...node.options].some((option) => option.value === preferredBottle)) node.value = preferredBottle; });
+}
+
+function renderProjectInventory(filter = "") {
+  const inventory = state.projectInventory || { stocks: [], counts: {} };
+  const query = String(filter || "").trim().toLowerCase();
+  const incompleteOnly = Boolean($("#project-inventory-incomplete-only")?.checked);
+  const rows = (inventory.stocks || []).filter((stock) => {
+    if (incompleteOnly && stock.design_ready) return false;
+    if (!query) return true;
+    return [stock.material, stock.identity_name, stock.normalized_identity, stock.stock_label, stock.category, stock.carrier]
+      .some((value) => String(value || "").toLowerCase().includes(query));
+  });
+  const counts = inventory.counts || {};
+  $("#project-inventory-count").textContent = `${counts.stocks || 0} current stock entries`;
+  $("#project-inventory-ready").textContent = `${counts.design_ready || counts.execution_ready || 0} ready for design · ${counts.live_inventory_text || 0} recovered from the live list · ${counts.personal_additions || 0} personal additions`;
+  $("#project-inventory-source").textContent = `${inventory.display_source || "Current project inventory"}. Effective version ${String(inventory.effective_inventory_sha256 || inventory.snapshot_sha256 || "unknown").slice(0, 12)}…`;
+  $("#project-inventory-list").innerHTML = rows.length
+    ? rows.map((stock) => {
+      const carrier = stock.carrier ? ` in ${stock.carrier}` : "";
+      const form = stock.physical_form ? ` · ${stock.physical_form}` : "";
+      const stateLabel = stock.design_ready
+        ? (stock.execution_ready ? "Ready for design" : "Ready for personal design · physical records separate")
+        : "Owned · details incomplete";
+      const missing = (stock.missing_fields || []).map((field) => humanize(field)).join(", ");
+      const completion = !stock.design_ready && stock.completion_available
+        ? `<button class="inventory-complete-button quiet-button" type="button" data-complete-stock="${escapeHtml(stock.stock_id)}">Complete details</button>`
+        : "";
+      const sourceLabel = stock.source_class === "LIVE_INVENTORY_TEXT"
+        ? "Recovered from inventory.txt"
+        : (stock.source_class === "PERSONAL_ADDITION" ? "Your direct addition" : "Governed stock record");
+      return `<article class="inventory-item">
+        <div><strong>${escapeHtml(stock.identity_name)}</strong><span>${escapeHtml(stock.category || "uncategorized")}</span></div>
+        <p>${escapeHtml(stock.fraction_percent_decimal)}% ${escapeHtml(stock.fraction_basis)}${escapeHtml(carrier)}${escapeHtml(form)}</p>
+        <small class="${stock.design_ready ? "inventory-ready" : "inventory-hold"}">${escapeHtml(stateLabel)}</small>
+        <small class="inventory-source">${escapeHtml(sourceLabel)}</small>
+        ${missing ? `<small class="inventory-missing">Needed: ${escapeHtml(missing)}</small>` : ""}
+        ${completion}
+      </article>`;
+    }).join("")
+    : '<p class="empty">No current inventory entries match that search.</p>';
 }
 
 async function refresh() {
-  const [dashboard, materials, stocks, formulas, bottles, experiments] = await Promise.all([
-    request("/dashboard"), request("/materials"), request("/stocks"), request("/formulas"), request("/bottles"), request("/experiments"),
+  const [dashboard, materials, stocks, formulas, bottles, experiments, formulaLibrary, projectInventory] = await Promise.all([
+    request("/dashboard"), request("/materials"), request("/stocks"), request("/formulas"), request("/bottles"), request("/experiments"), request("/v2/workbench/formula-library"), request("/v2/workbench/current-inventory"),
   ]);
-  Object.assign(state, { materials, stocks, formulas, bottles, experiments });
+  Object.assign(state, { materials, stocks, formulas, bottles, experiments, formulaLibrary: formulaLibrary.sources || [], projectInventory });
   $("#dashboard-counts").innerHTML = Object.entries(dashboard.counts).map(([label, value]) => `<article class="metric"><strong>${value}</strong><span>${escapeHtml(label)}</span></article>`).join("");
   $("#dashboard-warnings").innerHTML = dashboard.warnings.map((warning) => `<li>${escapeHtml(warning)}</li>`).join("");
   recordList("#material-list", materials, "canonical_name", (row) => row.cas_number || "No CAS recorded");
   recordList("#formula-list", formulas, "name", () => "Immutable versions are appended separately");
   recordList("#bottle-list", bottles, "label", (row) => row.status);
   recordList("#experiment-list", experiments, "name", (row) => row.status);
+  renderProjectInventory($("#project-inventory-search").value);
   updateSelectors();
-  notify("Ledger refreshed.");
+  syncImproveSourceMode();
+  notify("Inventory and ledger refreshed.");
 }
 
 function navigate(view) {
@@ -91,6 +175,689 @@ function bindForm(selector, handler) {
 
 $$('.nav-item').forEach((button) => button.addEventListener("click", () => navigate(button.dataset.view)));
 $("#refresh-all").addEventListener("click", () => refresh().catch((error) => notify(error.message, true)));
+
+// Guided personal improvement workflow ------------------------------------
+function splitList(value) {
+  return String(value || "").split(",").map((item) => item.trim()).filter(Boolean);
+}
+
+function humanize(value) {
+  return String(value || "").toLowerCase().replaceAll("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function localIsoDate() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function formatDecimal(value, maximum = 6) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return String(value ?? "unknown");
+  return new Intl.NumberFormat(undefined, { maximumFractionDigits: maximum }).format(number);
+}
+
+function setWorkflowStep(current) {
+  $$('[data-workflow-step]').forEach((node) => {
+    const step = Number(node.dataset.workflowStep);
+    node.classList.toggle("is-current", step === current);
+    node.classList.toggle("is-complete", step < current || (current === 6 && step <= 5));
+  });
+}
+
+function setImproveBusy(busy) {
+  $("#improve-submit").disabled = busy;
+  $("#improve-running").hidden = !busy;
+}
+
+function selectedExecutionStrategy() {
+  return $('[name="execution_strategy"]:checked', $("#improve-form"))?.value || "EVOLVING_BOTTLE";
+}
+
+function syncImproveSourceMode() {
+  const form = $("#improve-form");
+  if (!form) return;
+  let strategy = selectedExecutionStrategy();
+  if (strategy === "EVOLVING_BOTTLE" && !state.bottles.length && (state.formulas.length || state.formulaLibrary.length)) {
+    $('[name="execution_strategy"][value="NEW_FORMULA"]', form).checked = true;
+    strategy = "NEW_FORMULA";
+  }
+  const bottleMode = strategy === "EVOLVING_BOTTLE";
+  $("#improve-bottle-source").hidden = !bottleMode;
+  $("#improve-formula-source").hidden = bottleMode;
+  $('[name="bottle_id"]', form).required = bottleMode;
+  if (!bottleMode) syncImproveFormulaSource();
+  else {
+    $('[name="formula_id"]', form).required = false;
+    $('[name="project_formula_path"]', form).required = false;
+  }
+  $("#improve-source-note").textContent = bottleMode
+    ? (state.bottles.length
+      ? "The current committed bottle state will be replayed before analysis. Suggestions can only add material."
+      : "No current bottle is recorded yet. Use Formula design now, or create a bottle in the Bottles view.")
+    : "This is a read-only design comparison. No inventory or physical bottle will change.";
+}
+
+function syncImproveFormulaSource() {
+  const form = $("#improve-form");
+  if (!form || selectedExecutionStrategy() === "EVOLVING_BOTTLE") return;
+  const selector = $('[name="formula_source_kind"]', form);
+  if (selector.value === "LEDGER_FORMULA" && !state.formulas.length) selector.value = "PROJECT_FILE";
+  const projectMode = selector.value === "PROJECT_FILE";
+  $("#improve-project-formula-field").hidden = !projectMode;
+  $("#improve-ledger-formula-field").hidden = projectMode;
+  $('[name="project_formula_path"]', form).required = projectMode;
+  $('[name="formula_id"]', form).required = !projectMode;
+  const sourceState = $("#formula-source-state");
+  sourceState.hidden = false;
+  sourceState.textContent = projectMode
+    ? (state.formulaLibrary.length
+      ? `${state.formulaLibrary.length} read-only project formulas are available. Start typing to search; selecting one does not import or alter it.`
+      : "No project formula files are available. Create or save a formula before analysis.")
+    : (state.formulas.length
+      ? "The latest immutable version in the formula ledger will be analyzed."
+      : "There are no saved formula-ledger records yet. Use a project formula file instead.");
+}
+
+function engineConcentrationBasis(stock) {
+  if (Number(stock.active_fraction) === 1) return "NEAT";
+  if (stock.fraction_basis === "mass_fraction") return "W_W";
+  if (stock.fraction_basis === "volume_fraction") return "V_V";
+  return "UNKNOWN";
+}
+
+function stockAndMaterial(stockId) {
+  const stock = state.stocks.find((item) => item.id === stockId);
+  if (!stock) throw new Error(`The formula references a stock that is not in the current ledger: ${stockId}`);
+  const material = state.materials.find((item) => item.id === stock.material_id);
+  if (!material) throw new Error(`The stock references an unknown material: ${stock.material_id}`);
+  return { stock, material };
+}
+
+async function analysisSourceFromBottle(bottleId) {
+  const bottle = state.bottles.find((item) => item.id === bottleId);
+  if (!bottle) throw new Error("Choose a current bottle first.");
+  const replay = await request(`/v2/bottles/${encodeURIComponent(bottleId)}/replay`);
+  if (replay.is_closed) throw new Error("This bottle is closed. Choose an active bottle or analyze a formula instead.");
+  const rows = Object.entries(replay.stock_masses_g || {}).filter(([, amount]) => Number(amount) > 0).map(([stockId, amount]) => {
+    const { stock, material } = stockAndMaterial(stockId);
+    return {
+      row_id: stockId,
+      material: material.canonical_name,
+      amount_decimal: String(amount),
+      amount_unit: "g",
+      stock_id: stockId,
+      concentration_fraction_decimal: String(stock.active_fraction),
+      concentration_basis: engineConcentrationBasis(stock),
+      operation: "DIRECT_ADD",
+    };
+  });
+  if (!rows.length) throw new Error("This bottle has no recorded stock additions to analyze yet.");
+  state.improve.sourceMetadata = {
+    source_kind: "current_bottle",
+    formula_name: bottle.label,
+    row_count: rows.length,
+    stream_sequence: replay.stream_sequence,
+  };
+  return {
+    sourceKind: "bottle",
+    sourceId: bottleId,
+    formula_id: bottleId,
+    formula_name: bottle.label,
+    rows,
+    mode: "between_mix",
+    execution_strategy: "EVOLVING_BOTTLE",
+    active_bottle_id: bottleId,
+  };
+}
+
+async function analysisSourceFromFormula(formulaId) {
+  const formula = state.formulas.find((item) => item.id === formulaId);
+  if (!formula) throw new Error("Choose a formula first.");
+  const versions = await request(`/formulas/${encodeURIComponent(formulaId)}/versions`);
+  if (!versions.length) throw new Error("This formula has no recorded composition yet.");
+  const version = [...versions].sort((left, right) => Number(left.version_number) - Number(right.version_number)).at(-1);
+  if (!version.components?.length) throw new Error("The latest formula version has no stock rows to analyze.");
+  const rows = version.components.map((component) => {
+    const { stock, material } = stockAndMaterial(component.stock_solution_id);
+    const useVolume = component.requested_volume_ul !== null && component.requested_volume_ul !== undefined;
+    return {
+      row_id: component.id,
+      material: material.canonical_name,
+      amount_decimal: String(useVolume ? component.requested_volume_ul : component.requested_mass_g),
+      amount_unit: useVolume ? "uL" : "g",
+      stock_id: stock.id,
+      concentration_fraction_decimal: String(stock.active_fraction),
+      concentration_basis: engineConcentrationBasis(stock),
+      role: component.role || undefined,
+      operation: useVolume ? "DIRECT_ADD" : "MASS_ADD",
+    };
+  });
+  state.improve.sourceMetadata = {
+    source_kind: "formula_ledger",
+    formula_name: formula.name,
+    version_number: version.version_number,
+    row_count: rows.length,
+  };
+  return {
+    sourceKind: "formula",
+    sourceId: formulaId,
+    formula_id: version.id,
+    formula_name: `${formula.name} · version ${version.version_number}`,
+    rows,
+    mode: "pre_mix",
+    execution_strategy: "NEW_FORMULA",
+    active_bottle_id: undefined,
+  };
+}
+
+async function analysisSourceFromProjectFormula(sourcePath) {
+  const selected = state.formulaLibrary.find((item) => item.source_path === sourcePath);
+  if (!selected) throw new Error("Choose a project formula from the search list first.");
+  const source = await request(`/v2/workbench/formula-source?source_path=${encodeURIComponent(sourcePath)}`);
+  if (!source.rows?.length) throw new Error("The selected project formula did not contain analyzable material rows.");
+  state.improve.sourceMetadata = {
+    schema_version: source.schema_version,
+    source_path: source.source_path,
+    source_sha256: source.source_sha256,
+    formula_name: source.formula_name,
+    row_count: source.rows.length,
+    separate_totals: source.separate_totals,
+    warnings: source.warnings,
+    design_only: source.design_only,
+  };
+  return {
+    sourceKind: "project_formula",
+    sourceId: source.source_path,
+    formula_id: `project-${source.source_sha256}`,
+    formula_name: source.formula_name,
+    rows: source.rows,
+    mode: "pre_mix",
+    execution_strategy: "NEW_FORMULA",
+    active_bottle_id: undefined,
+  };
+}
+
+async function buildGoalAnalysisPayload(data) {
+  const strategy = data.execution_strategy;
+  state.improve.sourceMetadata = null;
+  let source;
+  if (strategy === "EVOLVING_BOTTLE") source = await analysisSourceFromBottle(data.bottle_id);
+  else if (data.formula_source_kind === "PROJECT_FILE") source = await analysisSourceFromProjectFormula(data.project_formula_path);
+  else source = await analysisSourceFromFormula(data.formula_id);
+  state.improve.sourceKind = source.sourceKind;
+  state.improve.sourceId = source.sourceId;
+  state.improve.sourceRows = source.rows;
+  const payload = {
+    formula_id: source.formula_id,
+    formula_name: source.formula_name,
+    workflow_mode: "PERSONAL_RESEARCH",
+    rows: source.rows,
+    goals: [data.goal.trim()],
+    observations: splitList(data.observations),
+    must_preserve: splitList(data.must_preserve),
+    must_avoid: splitList(data.must_avoid),
+    mode: source.mode,
+    max_hypotheses: 3,
+    original_request: data.goal.trim(),
+    desired_changes: [data.goal.trim()],
+    execution_strategy: source.execution_strategy,
+    appeal_mode: data.appeal_mode,
+    comparison_evidence: data.comparison_evidence,
+    evaluation_windows: splitList(data.evaluation_windows),
+    application_context: data.application_context.trim() || undefined,
+    active_bottle_id: source.active_bottle_id,
+    market_evidence_as_of_date: localIsoDate(),
+  };
+  return Object.fromEntries(Object.entries(payload).filter(([, value]) => value !== undefined));
+}
+
+function resetImproveResult() {
+  state.improve.analysis = null;
+  state.improve.selectedHypothesis = null;
+  state.improve.selectedVariant = "low_variant";
+  state.improve.preparedLines = [];
+  state.improve.additionEvents = [];
+  state.improve.evaluationCommandId = null;
+  state.improve.evaluationRequestBody = null;
+  $("#interpretation-card").hidden = true;
+  $("#improve-results").hidden = true;
+  $("#delta-card").hidden = true;
+  $("#record-delta-card").hidden = true;
+  $("#quick-reaction-form").hidden = true;
+  $("#physical-addition-confirmed").checked = false;
+  setWorkflowStep(1);
+}
+
+async function pollEngineJob(jobId) {
+  const terminalStates = new Set(["SUCCEEDED", "WITHHELD", "FAILED", "CANCELLED"]);
+  for (let attempt = 0; attempt < 180; attempt += 1) {
+    if (state.improve.pollCancelled) throw new Error("Analysis cancelled.");
+    const snapshot = await request(`/v2/engine-jobs/${encodeURIComponent(jobId)}`);
+    $("#improve-running-detail").textContent = `Job state: ${humanize(snapshot.state)}.`;
+    if (terminalStates.has(snapshot.state)) return snapshot;
+    await new Promise((resolve) => window.setTimeout(resolve, 1000));
+  }
+  throw new Error("The analysis is still running. Its durable job can be checked again without resubmitting the request.");
+}
+
+function addSummaryRow(list, label, value) {
+  const row = document.createElement("div");
+  const term = document.createElement("dt");
+  const detail = document.createElement("dd");
+  term.textContent = label;
+  detail.textContent = value || "Not specified";
+  row.append(term, detail);
+  list.append(row);
+}
+
+function formatEvaluationWindows(windows) {
+  if (!windows?.length) return "Use the requested smelling window";
+  return windows.map((item) => typeof item === "string" ? item : humanize(item.label)).join(", ");
+}
+
+function renderInterpretation(analysis) {
+  const interpretation = analysis.request_interpretation;
+  const card = $("#interpretation-card");
+  card.hidden = false;
+  $("#interpretation-state").textContent = humanize(interpretation.status);
+  const summary = $("#interpretation-summary");
+  summary.replaceChildren();
+  addSummaryRow(summary, "Goal", interpretation.normalized_goal);
+  if (state.improve.sourceMetadata?.formula_name) addSummaryRow(summary, "Source", state.improve.sourceMetadata.formula_name);
+  const totals = state.improve.sourceMetadata?.separate_totals;
+  if (totals) {
+    const parts = [];
+    if (Number(totals.liquid_total_ul) > 0) parts.push(`${formatDecimal(totals.liquid_total_ul)} µL liquid rows`);
+    if (Number(totals.mass_total_mg) > 0) parts.push(`${formatDecimal(totals.mass_total_mg)} mg mass rows`);
+    if (parts.length) addSummaryRow(summary, "Composition", `${parts.join(" + ")} (kept separate)`);
+  }
+  addSummaryRow(summary, "Preserve", interpretation.must_preserve.join(", ") || "Nothing specified");
+  addSummaryRow(summary, "Avoid", interpretation.must_avoid.join(", ") || "Nothing specified");
+  addSummaryRow(summary, "Workflow", interpretation.execution_strategy === "EVOLVING_BOTTLE" ? "Add to the current bottle" : "Design a new formula version");
+  addSummaryRow(summary, "Approach", interpretation.appeal_mode === "GLOBAL_CROWD_PLEASING" ? "Identity plus global reference architecture" : "Protect this perfume's identity");
+  addSummaryRow(summary, "Smell at", formatEvaluationWindows(interpretation.evaluation_windows));
+  const ambiguity = $("#interpretation-ambiguity");
+  ambiguity.hidden = !interpretation.confirmation_required;
+  ambiguity.textContent = interpretation.confirmation_required
+    ? `Please correct the brief before continuing: ${interpretation.ambiguities.join("; ")}`
+    : "";
+  return !interpretation.confirmation_required;
+}
+
+function renderHypotheses(analysis) {
+  const list = $("#hypothesis-list");
+  list.replaceChildren();
+  for (const [index, hypothesis] of analysis.modification_hypotheses.entries()) {
+    const card = document.createElement("article");
+    card.className = "hypothesis-card";
+    card.dataset.hypothesisId = hypothesis.hypothesis_id;
+    const number = document.createElement("p");
+    number.className = "panel-index";
+    number.textContent = `Option ${index + 1}`;
+    const title = document.createElement("h3");
+    title.textContent = hypothesis.material_or_block;
+    const rationale = document.createElement("p");
+    rationale.textContent = hypothesis.rationale;
+    const meta = document.createElement("p");
+    meta.className = "hypothesis-meta";
+    meta.textContent = `${humanize(hypothesis.action)} · ${humanize(hypothesis.evidence_class)}`;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = "Choose this direction";
+    button.addEventListener("click", () => selectHypothesis(hypothesis));
+    card.append(number, title, rationale, meta, button);
+    list.append(card);
+  }
+  if (!analysis.modification_hypotheses.length) {
+    const empty = document.createElement("p");
+    empty.className = "empty";
+    empty.textContent = "No safe concrete hypothesis was generated. Refine the brief or leave the scent unchanged.";
+    list.append(empty);
+  }
+}
+
+function renderGoalAnalysis(analysis, envelope) {
+  state.improve.analysis = analysis;
+  const ready = renderInterpretation(analysis);
+  $("#improve-analysis-details").textContent = JSON.stringify({ source: state.improve.sourceMetadata, validation: envelope.validation, applicability: envelope.applicability, analysis }, null, 2);
+  if (!ready) {
+    $("#improve-results").hidden = true;
+    setWorkflowStep(2);
+    return;
+  }
+  $("#improve-results").hidden = false;
+  $("#strongest-clue").textContent = analysis.default_user_view.strongest_clue || "The evidence does not support a specific change yet.";
+  const sourceWarnings = state.improve.sourceMetadata?.warnings || [];
+  $("#clue-boundary").textContent = [
+    analysis.default_user_view.uncertainty_or_stop_condition,
+    sourceWarnings.length ? `${sourceWarnings.length} source row warning(s) remain visible in the details.` : "",
+  ].filter(Boolean).join(" ");
+  $("#selection-state").textContent = humanize(analysis.selection.status);
+  renderHypotheses(analysis);
+  setWorkflowStep(3);
+}
+
+function variantTargets(hypothesis, variantName) {
+  const variant = hypothesis?.trial?.[variantName];
+  return variant && typeof variant === "object" && Array.isArray(variant.row_targets) ? variant.row_targets : [];
+}
+
+function renderDeltaVariant() {
+  const hypothesis = state.improve.selectedHypothesis;
+  if (!hypothesis) return;
+  const targets = variantTargets(hypothesis, state.improve.selectedVariant);
+  $$('.variant-button').forEach((button) => button.classList.toggle("is-active", button.dataset.variant === state.improve.selectedVariant));
+  $("#delta-title").textContent = hypothesis.material_or_block;
+  const lineList = $("#delta-lines");
+  lineList.replaceChildren();
+  if (targets.length) {
+    for (const target of targets) {
+      const line = document.createElement("div");
+      line.className = "delta-line";
+      const material = document.createElement("strong");
+      material.textContent = target.material;
+      const amount = document.createElement("span");
+      amount.textContent = `+ ${formatDecimal(target.delta_amount_decimal)} ${target.unit}`;
+      line.append(material, amount);
+      lineList.append(line);
+    }
+  } else {
+    const unavailable = document.createElement("p");
+    unavailable.className = "empty";
+    unavailable.textContent = "This clue identifies a material direction, but not an exact physical dose. It remains a design hypothesis.";
+    lineList.append(unavailable);
+  }
+  const summary = $("#delta-purpose");
+  summary.replaceChildren();
+  addSummaryRow(summary, "Purpose", hypothesis.goal);
+  addSummaryRow(summary, "Expected", humanize(hypothesis.expected_direction));
+  addSummaryRow(summary, "Preserves", hypothesis.success_criteria.must_preserve.join(", ") || "No extra preserve constraint");
+  addSummaryRow(summary, "Smell again", formatEvaluationWindows(hypothesis.success_criteria.evaluation_windows));
+  addSummaryRow(summary, "Main risk", hypothesis.uncertainty);
+  const executable = state.improve.sourceKind === "bottle" && targets.length > 0 && targets.every((target) => Number(target.delta_amount_decimal) > 0);
+  $("#prepare-delta").disabled = !executable;
+  $("#prepare-delta").textContent = executable ? "Prepare this change" : "Design comparison only";
+}
+
+function selectHypothesis(hypothesis) {
+  state.improve.selectedHypothesis = hypothesis;
+  state.improve.selectedVariant = "low_variant";
+  $$('[data-hypothesis-id]').forEach((card) => card.classList.toggle("is-selected", card.dataset.hypothesisId === hypothesis.hypothesis_id));
+  $("#delta-card").hidden = false;
+  $("#record-delta-card").hidden = true;
+  $("#quick-reaction-form").hidden = true;
+  renderDeltaVariant();
+  $("#delta-card").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function sourceRowForTarget(target) {
+  return state.improve.sourceRows.find((row) => row.row_id === target.row_id)
+    || state.improve.sourceRows.find((row) => row.material.toLocaleLowerCase() === String(target.material).toLocaleLowerCase());
+}
+
+function suggestedPhysicalAmounts(target, stock) {
+  const amount = Number(target.delta_amount_decimal);
+  if (target.unit === "g") return { massG: amount, volumeUl: null };
+  if (target.unit === "mg") return { massG: amount / 1000, volumeUl: null };
+  const volumeUl = target.unit === "mL" ? amount * 1000 : amount;
+  const density = Number(stock.density_g_ml);
+  return { massG: Number.isFinite(density) && density > 0 ? volumeUl * density / 1000 : null, volumeUl };
+}
+
+function renderPhysicalLines() {
+  const editor = $("#delta-line-editor");
+  editor.replaceChildren();
+  for (const [index, line] of state.improve.preparedLines.entries()) {
+    const row = document.createElement("div");
+    row.className = "physical-line";
+    const title = document.createElement("div");
+    title.className = "physical-line-title";
+    const name = document.createElement("strong");
+    name.textContent = line.material;
+    const proposed = document.createElement("span");
+    proposed.textContent = `Proposed: +${formatDecimal(line.proposedAmount)} ${line.unit}`;
+    title.append(name, proposed);
+    const massLabel = document.createElement("label");
+    massLabel.textContent = line.suggestedVolumeUl === null ? "Actual mass, g" : "Mass equivalent, g";
+    const massInput = document.createElement("input");
+    massInput.type = "number";
+    massInput.min = "0.000001";
+    massInput.step = "any";
+    massInput.dataset.lineIndex = String(index);
+    massInput.dataset.quantity = "mass";
+    massInput.placeholder = line.suggestedMassG === null ? "Weigh the transfer" : "Actual mass";
+    if (line.suggestedMassG !== null) massInput.value = String(Number(line.suggestedMassG.toPrecision(10)));
+    massLabel.append(massInput);
+    const volumeLabel = document.createElement("label");
+    volumeLabel.textContent = "Actual volume, µL";
+    const volumeInput = document.createElement("input");
+    volumeInput.type = "number";
+    volumeInput.min = "0.000001";
+    volumeInput.step = "any";
+    volumeInput.dataset.lineIndex = String(index);
+    volumeInput.dataset.quantity = "volume";
+    if (line.suggestedVolumeUl !== null) volumeInput.value = String(Number(line.suggestedVolumeUl.toPrecision(10)));
+    else {
+      volumeInput.placeholder = "Not needed";
+      volumeInput.disabled = true;
+    }
+    volumeLabel.append(volumeInput);
+    row.append(title, massLabel, volumeLabel);
+    if (line.stock.fraction_basis !== "mass_fraction") {
+      const warning = document.createElement("p");
+      warning.className = "inline-warning";
+      warning.textContent = "This stock is not mass-basis bound in the ledger, so the personal mass-governed record must remain on hold.";
+      row.append(warning);
+    }
+    editor.append(row);
+  }
+  validatePhysicalRecord();
+}
+
+function validatePhysicalRecord() {
+  const confirmed = $("#physical-addition-confirmed").checked;
+  const linesValid = state.improve.preparedLines.length > 0 && state.improve.preparedLines.every((line, index) => {
+    const input = $(`[data-line-index="${index}"][data-quantity="mass"]`, $("#delta-line-editor"));
+    return line.stock.fraction_basis === "mass_fraction" && Number(input?.value) > 0;
+  });
+  $("#record-delta").disabled = !(confirmed && linesValid);
+}
+
+function preparePhysicalDelta() {
+  const hypothesis = state.improve.selectedHypothesis;
+  const targets = variantTargets(hypothesis, state.improve.selectedVariant);
+  if (state.improve.sourceKind !== "bottle" || !targets.length) throw new Error("This hypothesis is not an executable positive-only bottle delta.");
+  state.improve.preparedLines = targets.map((target) => {
+    const sourceRow = sourceRowForTarget(target);
+    if (!sourceRow?.stock_id) throw new Error(`No exact stock is bound to ${target.material}.`);
+    const { stock } = stockAndMaterial(sourceRow.stock_id);
+    const suggested = suggestedPhysicalAmounts(target, stock);
+    return {
+      material: target.material,
+      stock,
+      proposedAmount: Number(target.delta_amount_decimal),
+      unit: target.unit,
+      suggestedMassG: suggested.massG,
+      suggestedVolumeUl: suggested.volumeUl,
+      commandId: crypto.randomUUID(),
+      expectedSequence: null,
+      requestBody: null,
+      event: null,
+    };
+  });
+  $("#physical-addition-confirmed").checked = false;
+  renderPhysicalLines();
+  $("#record-delta-card").hidden = false;
+  setWorkflowStep(4);
+  $("#record-delta-card").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+async function recordPreparedDelta() {
+  validatePhysicalRecord();
+  if ($("#record-delta").disabled) throw new Error("Confirm the physical addition and enter every measured mass first.");
+  const button = $("#record-delta");
+  button.disabled = true;
+  $("#record-delta-status").textContent = "Recording the measured additions…";
+  const bottleId = state.improve.sourceId;
+  try {
+    for (const [index, line] of state.improve.preparedLines.entries()) {
+      if (line.event) continue;
+      if (!line.requestBody) {
+        const replay = await request(`/v2/bottles/${encodeURIComponent(bottleId)}/replay`);
+        line.expectedSequence = replay.stream_sequence;
+        const massInput = $(`[data-line-index="${index}"][data-quantity="mass"]`, $("#delta-line-editor"));
+        const volumeInput = $(`[data-line-index="${index}"][data-quantity="volume"]`, $("#delta-line-editor"));
+        const measuredVolume = volumeInput && !volumeInput.disabled && Number(volumeInput.value) > 0 ? volumeInput.value : null;
+        line.requestBody = {
+          stock_solution_id: line.stock.id,
+          mass_g: massInput.value,
+          expected_sequence: line.expectedSequence,
+          command_id: line.commandId,
+          actor: "personal-workbench",
+          role: "material",
+          goal_analysis_sha256: state.improve.analysis.analysis_sha256,
+          hypothesis_id: state.improve.selectedHypothesis.hypothesis_id,
+          hypothesis_variant: state.improve.selectedVariant,
+          ...(measuredVolume ? { measured_volume_ul: measuredVolume, volume_measurement_method: "user_recorded_transfer" } : {}),
+        };
+      }
+      line.event = await request(`/bottles/${encodeURIComponent(bottleId)}/additions`, { method: "POST", body: JSON.stringify(line.requestBody) });
+      $("#record-delta-status").textContent = `Recorded ${index + 1} of ${state.improve.preparedLines.length} additions.`;
+    }
+    state.improve.additionEvents = state.improve.preparedLines.map((line) => line.event);
+    state.improve.evaluationCommandId = crypto.randomUUID();
+    state.improve.evaluationRequestBody = null;
+    $$("#delta-line-editor input").forEach((input) => { input.disabled = true; });
+    $("#physical-addition-confirmed").disabled = true;
+    $("#record-delta-status").textContent = "Recorded once in the personal bottle ledger. This remains a non-production, non-release record.";
+    $("#quick-reaction-form").hidden = false;
+    setWorkflowStep(5);
+    await refresh();
+    notify("Personal bottle delta recorded exactly once.");
+    $("#quick-reaction-form").scrollIntoView({ behavior: "smooth", block: "start" });
+  } catch (error) {
+    $("#record-delta-status").textContent = `Recording stopped: ${error.message}. Completed lines will not be repeated on retry.`;
+    button.disabled = false;
+    throw error;
+  }
+}
+
+async function recordQuickReaction(data) {
+  if (!state.improve.additionEvents.length) throw new Error("Record the physical delta before saving a reaction.");
+  const bottleId = state.improve.sourceId;
+  if (!state.improve.evaluationRequestBody) {
+    const replay = await request(`/v2/bottles/${encodeURIComponent(bottleId)}/replay`);
+    state.improve.evaluationRequestBody = {
+      schema_version: "quick-bottle-evaluation-v1",
+      addition_event_ids: state.improve.additionEvents.map((event) => event.id),
+      goal_analysis_sha256: state.improve.analysis.analysis_sha256,
+      hypothesis_id: state.improve.selectedHypothesis.hypothesis_id,
+      hypothesis_variant: state.improve.selectedVariant,
+      expected_sequence: replay.stream_sequence,
+      command_id: state.improve.evaluationCommandId,
+      actor: "personal-workbench",
+      evaluated_at: new Date().toISOString(),
+      waited_seconds: Number(data.waited_seconds),
+      reaction: data.reaction.trim(),
+      decision: data.decision,
+    };
+  }
+  const body = state.improve.evaluationRequestBody;
+  const saved = await request(`/v2/bottles/${encodeURIComponent(bottleId)}/quick-evaluations`, { method: "POST", body: JSON.stringify(body) });
+  $("#reaction-status").textContent = `Saved as ${humanize(saved.evidence_scope)}. No population claim was created.`;
+  $('#quick-reaction-form button[type="submit"]').disabled = true;
+  setWorkflowStep(6);
+  notify("Personal sensory reaction saved.");
+}
+
+$$('[name="execution_strategy"]').forEach((input) => input.addEventListener("change", syncImproveSourceMode));
+$('[name="formula_source_kind"]').addEventListener("change", syncImproveFormulaSource);
+
+$("#improve-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  resetImproveResult();
+  setImproveBusy(true);
+  state.improve.pollCancelled = false;
+  try {
+    const data = formData(event.currentTarget);
+    const payload = await buildGoalAnalysisPayload(data);
+    setWorkflowStep(2);
+    const submitted = await request("/v2/engine-jobs", {
+      method: "POST",
+      body: JSON.stringify({
+        schema_version: "lab-engine-job-request-v2",
+        job_type: "FORMULA_ANALYSIS",
+        requester: "personal-workbench-ui",
+        idempotency_key: crypto.randomUUID(),
+        payload,
+      }),
+    });
+    state.improve.jobId = submitted.id;
+    const completed = await pollEngineJob(submitted.id);
+    if (!completed.result?.result) throw new Error(completed.events?.at(-1)?.reason || `Analysis ended as ${completed.state}.`);
+    const envelope = completed.result.result;
+    const analysis = envelope.result?.goal_analysis;
+    if (!analysis) throw new Error("The completed job did not contain a goal analysis result.");
+    renderGoalAnalysis(analysis, envelope);
+    notify(analysis.request_interpretation.confirmation_required ? "Please correct the interpretation." : "Goal-directed clues are ready.");
+  } catch (error) {
+    notify(error.message, true);
+    if (!state.improve.pollCancelled) setWorkflowStep(1);
+  } finally {
+    setImproveBusy(false);
+  }
+});
+
+$("#cancel-improve-job").addEventListener("click", async () => {
+  state.improve.pollCancelled = true;
+  if (state.improve.jobId) {
+    try {
+      await request(`/v2/engine-jobs/${encodeURIComponent(state.improve.jobId)}/cancel`, {
+        method: "POST",
+        body: JSON.stringify({ requester: "personal-workbench-ui", reason: "Cancelled from the guided workbench." }),
+      });
+    } catch (error) { notify(error.message, true); }
+  }
+  setImproveBusy(false);
+  setWorkflowStep(1);
+});
+
+$("#edit-improve-request").addEventListener("click", () => {
+  $('#improve-form [name="goal"]').focus();
+  $("#improve-form").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+$$('.variant-button').forEach((button) => button.addEventListener("click", () => {
+  state.improve.selectedVariant = button.dataset.variant;
+  $("#record-delta-card").hidden = true;
+  $("#quick-reaction-form").hidden = true;
+  renderDeltaVariant();
+}));
+
+$("#prepare-delta").addEventListener("click", () => {
+  try { preparePhysicalDelta(); }
+  catch (error) { notify(error.message, true); }
+});
+$("#physical-addition-confirmed").addEventListener("change", validatePhysicalRecord);
+$("#delta-line-editor").addEventListener("input", validatePhysicalRecord);
+$("#record-delta").addEventListener("click", () => recordPreparedDelta().catch((error) => notify(error.message, true)));
+$("#abandon-delta").addEventListener("click", () => {
+  $("#record-delta-card").hidden = true;
+  state.improve.preparedLines = [];
+  setWorkflowStep(3);
+  notify("Bottle left unchanged.");
+});
+$("#quick-reaction-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  try { await recordQuickReaction(formData(event.currentTarget)); }
+  catch (error) {
+    if (error.status >= 400 && error.status < 500) state.improve.evaluationRequestBody = null;
+    notify(error.message, true);
+  }
+});
 
 $("#backup-form").addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -125,6 +892,455 @@ $("#export-workspace").addEventListener("click", async () => {
     $("#backup-output").textContent = `Exported ${Object.keys(result.tables).length} ordered tables.`;
     notify("Workspace export prepared.");
   } catch (error) { notify(error.message, true); }
+});
+
+$("#project-inventory-search").addEventListener("input", (event) => {
+  renderProjectInventory(event.currentTarget.value);
+});
+
+$("#project-inventory-incomplete-only").addEventListener("change", () => {
+  renderProjectInventory($("#project-inventory-search").value);
+});
+
+function closeInventoryCompletion() {
+  $("#inventory-completion-panel").hidden = true;
+  $("#inventory-completion-form").reset();
+}
+
+function openInventoryCompletion(stock) {
+  const panel = $("#inventory-completion-panel");
+  const form = $("#inventory-completion-form");
+  form.reset();
+  $("#inventory-completion-name").textContent = stock.identity_name || stock.material;
+  const missing = (stock.missing_fields || []).map((field) => humanize(field)).join(", ");
+  $("#inventory-completion-help").textContent = missing
+    ? `Still needed for personal formulation: ${missing}. Confirm only what you actually know.`
+    : "Review and confirm the details that describe your current bottle.";
+  $('[name="stock_id"]', form).value = stock.stock_id;
+  $('[name="expected_effective_inventory_sha256"]', form).value = state.projectInventory.canonical_effective_inventory_sha256;
+  $('[name="fraction_percent_decimal"]', form).value = stock.fraction_percent_decimal || "";
+  const supportedBasis = ["neat", "mass_fraction", "volume_fraction", "mass_per_volume"];
+  $('[name="fraction_basis"]', form).value = supportedBasis.includes(stock.fraction_basis)
+    ? stock.fraction_basis
+    : "unspecified";
+  $('[name="carrier"]', form).value = stock.carrier || "";
+  const supportedForms = ["as_supplied", "solution", "oil", "resin", "paste", "crystals", "powder", "solid"];
+  const normalizedForm = stock.physical_form === "as_supplied_product" ? "as_supplied" : stock.physical_form;
+  $('[name="physical_form"]', form).value = supportedForms.includes(normalizedForm) ? normalizedForm : "";
+  $('[name="homogeneity"]', form).value = stock.homogeneity
+    || (Number(stock.fraction_percent_decimal) === 100 ? "NOT_APPLICABLE" : "UNKNOWN");
+  $('[name="final_fraction_known"]', form).checked = !String(stock.fraction_basis || "").includes("starting_charge");
+  panel.hidden = false;
+  panel.scrollIntoView({ behavior: "smooth", block: "start" });
+  $('[name="fraction_percent_decimal"]', form).focus();
+}
+
+$("#project-inventory-list").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-complete-stock]");
+  if (!button) return;
+  const stock = (state.projectInventory.stocks || []).find(
+    (item) => item.stock_id === button.dataset.completeStock,
+  );
+  if (stock) openInventoryCompletion(stock);
+});
+
+$("#inventory-completion-close").addEventListener("click", closeInventoryCompletion);
+$("#inventory-completion-cancel").addEventListener("click", closeInventoryCompletion);
+
+$("#inventory-completion-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const data = formData(form);
+  const idempotencyKey = globalThis.crypto?.randomUUID?.()
+    || `inventory-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  const submit = form.querySelector('button[type="submit"]');
+  submit.disabled = true;
+  submit.textContent = "Saving…";
+  try {
+    const result = await request("/v2/workbench/current-inventory/complete", {
+      method: "POST",
+      body: JSON.stringify({
+        schema_version: "personal-inventory-completion-request-v1",
+        stock_id: data.stock_id,
+        expected_effective_inventory_sha256: data.expected_effective_inventory_sha256,
+        idempotency_key: idempotencyKey,
+        fraction_percent_decimal: data.fraction_percent_decimal || null,
+        fraction_basis: data.fraction_basis || null,
+        carrier: data.carrier || "",
+        physical_form: data.physical_form || null,
+        possession_confirmed: Boolean(form.elements.possession_confirmed.checked),
+        homogeneity: data.homogeneity,
+        final_fraction_known: Boolean(form.elements.final_fraction_known.checked),
+        source_kind: data.source_kind,
+        user_note: data.user_note || "",
+      }),
+    });
+    state.projectInventory = result.inventory;
+    renderProjectInventory($("#project-inventory-search").value);
+    if (result.design_ready) {
+      closeInventoryCompletion();
+      notify("Inventory details saved. This stock is now available for personal formula design.");
+    } else {
+      const missing = (result.missing_fields || []).map((field) => humanize(field)).join(", ");
+      $("#inventory-completion-help").textContent = `Saved, but this still needs: ${missing}.`;
+      $('[name="expected_effective_inventory_sha256"]', form).value = result.inventory.canonical_effective_inventory_sha256;
+      notify("Details saved, but the stock is still incomplete.", true);
+    }
+  } catch (error) {
+    notify(error.message, true);
+  } finally {
+    submit.disabled = false;
+    submit.textContent = "Save these details";
+  }
+});
+
+function closeInventoryAddition() {
+  $("#inventory-addition-panel").hidden = true;
+  $("#inventory-addition-form").reset();
+}
+
+$("#inventory-add-open").addEventListener("click", () => {
+  closeInventoryCompletion();
+  $("#inventory-addition-panel").hidden = false;
+  $("#inventory-addition-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+  $('#inventory-addition-form [name="identity_name"]').focus();
+});
+$("#inventory-add-close").addEventListener("click", closeInventoryAddition);
+$("#inventory-add-cancel").addEventListener("click", closeInventoryAddition);
+
+$("#inventory-addition-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const data = formData(form);
+  const idempotencyKey = globalThis.crypto?.randomUUID?.()
+    || `inventory-add-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  const submit = form.querySelector('button[type="submit"]');
+  submit.disabled = true;
+  submit.textContent = "Adding…";
+  try {
+    const result = await request("/v2/workbench/current-inventory/add", {
+      method: "POST",
+      body: JSON.stringify({
+        schema_version: "personal-inventory-addition-request-v1",
+        expected_design_inventory_sha256: state.projectInventory.effective_inventory_sha256,
+        idempotency_key: idempotencyKey,
+        identity_name: data.identity_name,
+        category: data.category,
+        fraction_percent_decimal: data.fraction_percent_decimal,
+        fraction_basis: data.fraction_basis,
+        carrier: data.carrier || "",
+        physical_form: data.physical_form,
+        possession_confirmed: Boolean(form.elements.possession_confirmed.checked),
+        homogeneity: data.homogeneity,
+        source_kind: "PERSONAL_CONFIRMATION",
+        supplier_name: data.supplier_name || "",
+        supplier_sku: data.supplier_sku || "",
+        user_note: data.user_note || "",
+      }),
+    });
+    state.projectInventory = result.inventory;
+    $("#project-inventory-search").value = data.identity_name;
+    renderProjectInventory(data.identity_name);
+    closeInventoryAddition();
+    notify(`${data.identity_name} is now available for personal formula design.`);
+  } catch (error) {
+    notify(error.message, true);
+  } finally {
+    submit.disabled = false;
+    submit.textContent = "Add to my inventory";
+  }
+});
+
+// Inventory-grounded formulation conversation ----------------------------
+function appendFormulaChatBubble(kind, text) {
+  const bubble = document.createElement("div");
+  bubble.className = `chat-bubble ${kind === "user" ? "user-bubble" : "assistant-bubble"}`;
+  const label = document.createElement("strong");
+  label.textContent = kind === "user" ? "You" : "Perfumer";
+  const message = document.createElement("p");
+  message.textContent = text;
+  bubble.append(label, message);
+  $("#formula-chat-log").append(bubble);
+  bubble.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function addFormulaResultSummary(list, label, value) {
+  const wrapper = document.createElement("div");
+  const term = document.createElement("dt");
+  const detail = document.createElement("dd");
+  term.textContent = label;
+  detail.textContent = value;
+  wrapper.append(term, detail);
+  list.append(wrapper);
+}
+
+function selectedFormulaVariant(result, variantIndex = state.formulaChat.variantIndex || 0) {
+  const variants = result?.design_variants || [];
+  const variant = variants[variantIndex] || variants[0] || null;
+  return {
+    variant,
+    formula: variant?.formula || result?.optimized_formula || null,
+    critic: variant?.critic || result?.critic || null,
+  };
+}
+
+function renderFormulaDesign(result, variantIndex = 0) {
+  state.formulaChat.result = result;
+  state.formulaChat.variantIndex = variantIndex;
+  const card = $("#formula-chat-result");
+  card.hidden = false;
+  $("#formula-result-name").textContent = result.formula_name || "Formula draft";
+  const selected = selectedFormulaVariant(result, variantIndex);
+  const hasFormula = Boolean(selected.formula);
+  $("#formula-result-state").textContent = hasFormula
+    ? (result.status?.endsWith("WITH_HOLDS") ? "Proposal · check hold" : "Proposal only")
+    : "Needs clarification";
+  $("#formula-result-summary").textContent = result.assistant_message || "No formula was generated.";
+  const picker = $("#formula-variant-picker");
+  const variants = result.design_variants || [];
+  picker.hidden = variants.length <= 1;
+  picker.replaceChildren();
+  variants.forEach((variant, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = index === variantIndex ? "is-active" : "";
+    button.textContent = variant.label || `Alternative ${index + 1}`;
+    button.addEventListener("click", () => renderFormulaDesign(result, index));
+    picker.append(button);
+  });
+  const rows = selected.formula?.rows || [];
+  $("#formula-result-rows").innerHTML = rows.length
+    ? rows.map((row) => {
+      const fraction = `${formatDecimal(Number(row.stock_fraction_decimal) * 100, 4)}%`;
+      const carrier = row.carrier ? ` in ${row.carrier}` : "";
+      const proxy = row.profile_source === "HEURISTIC_CATEGORY_PROXY" ? '<small class="proxy-label">category proxy</small>' : "";
+      const stockLabel = row.stock_label || `${fraction} ${row.fraction_basis}${carrier}`;
+      return `<tr>
+        <td><strong>${escapeHtml(row.material)}</strong>${proxy}</td>
+        <td>${escapeHtml(stockLabel)}<small>${escapeHtml(fraction)} ${escapeHtml(row.fraction_basis)}${escapeHtml(carrier)}</small></td>
+        <td>${escapeHtml(row.slot_label)}<small>${escapeHtml(row.note)} · ${escapeHtml(row.role)}</small></td>
+        <td class="formula-dose">${escapeHtml(row.amount_decimal)} ${escapeHtml(row.amount_unit)}</td>
+        <td>${escapeHtml(row.rationale)}</td>
+      </tr>`;
+    }).join("")
+    : '<tr><td colspan="5">Clarify the brief before a formula can be created.</td></tr>';
+
+  const totals = $("#formula-result-totals");
+  totals.replaceChildren();
+  if (selected.formula) {
+    addFormulaResultSummary(totals, "Liquid stock total", `${selected.formula.separate_totals.liquid_total_ul} µL`);
+    addFormulaResultSummary(totals, "Solid total", `${selected.formula.separate_totals.mass_total_mg} mg`);
+    addFormulaResultSummary(totals, "Structure", String(result.concept_family || "concept").replaceAll("_", " "));
+    addFormulaResultSummary(totals, "Planning method", String(result.composition_plan?.method || result.optimization?.status || "not run").replaceAll("_", " ").toLowerCase());
+    addFormulaResultSummary(totals, "Rows used", `${result.selected_material_count || rows.length} of at most ${result.requested_material_limit || rows.length}`);
+  }
+
+  const detail = $("#formula-result-detail");
+  detail.replaceChildren();
+  const repairLabels = (result.composition_plan?.request_specific_repairs || [])
+    .map((value) => String(value).replaceAll("_", " ").toLowerCase());
+  const temporalSequence = result.temporal_hypothesis?.sequence || [];
+  const referenceProducts = (result.commercial_reference_context?.named_products || [])
+    .map((product) => typeof product === "string" ? product : product.display_name)
+    .filter(Boolean);
+  const referenceCriteria = result.commercial_reference_context?.design_criteria || [];
+  const usesStrengthCompensation = rows.some(
+    (row) => row.allocation_basis === "STOCK_STRENGTH_COMPENSATED_HEURISTIC_NOT_ACTIVE_MASS",
+  );
+  const reasoningPasses = (result.design_reasoning || [])
+    .map((entry) => String(entry.pass || "").replaceAll("_", " ").toLowerCase())
+    .filter(Boolean);
+  const paragraphs = [
+    selected.critic?.strongest_clue
+      ? `Strongest composition clue: ${selected.critic.strongest_clue}`
+      : "No composition clue was generated because the request needs clarification.",
+    result.composition_plan
+      ? `The planner filled ${result.composition_plan.roles_filled?.length || 0} nonredundant roles and stopped under the material ceiling. Ingredient count was not an objective.`
+      : "No structural plan ran because a hard request constraint was unresolved.",
+    selected.critic?.issues?.length
+      ? `Practical hold: ${String(selected.critic.issues[0]).replaceAll("_", " ").toLowerCase()}. Expand details only if you need to resolve it before compounding.`
+      : selected.critic?.limitations?.length
+        ? `Evidence limit: ${String(selected.critic.limitations[0]).replaceAll("_", " ").toLowerCase()}. The formula is still usable as a bench hypothesis.`
+        : "Practical hold: none detected in the design inputs. This is still not sensory or safety validation.",
+    "Unknown until smelled: pleasantness, personal liking, mixture interactions, and whether this is actually better than an unchanged control.",
+    "No inventory, formula file, bottle, or laboratory record was changed.",
+  ];
+  if (repairLabels.length) {
+    paragraphs.splice(2, 0, `Request-specific adaptation: ${repairLabels.join("; ")}.`);
+  }
+  if (temporalSequence.length) {
+    const timing = temporalSequence.map((entry) => {
+      const windowLabel = String(entry.window || "requested window").replaceAll("_", " ").toLowerCase();
+      const roles = (entry.intended_roles || []).map((role) => role.role).filter(Boolean).join(", ");
+      return `${windowLabel}: ${roles || "role hypothesis"}`;
+    }).join("; ");
+    paragraphs.splice(-2, 0, `Timing map (hypothesis only): ${timing}. Smell or measure the pilot at those windows before accepting it.`);
+  }
+  if (referenceProducts.length) {
+    paragraphs.splice(-2, 0, `Commercial references: ${referenceProducts.join("; ")}. Their marketed facets were used only as documentary contrasts; no proprietary formula, sensory similarity, or liking was inferred.`);
+  } else if (referenceCriteria.length) {
+    paragraphs.splice(-2, 0, `Prestige comparison criteria: ${referenceCriteria.join(", ")}. No unrelated bestseller was borrowed, and these request-derived criteria are not a liking label.`);
+  } else if (result.request_interpretation?.appeal_mode === "GLOBAL_CROWD_PLEASING") {
+    paragraphs.splice(-2, 0, "Commercial comparison was requested, but no applicable named reference panel was available; market alignment and population liking remain withheld.");
+  }
+  if (usesStrengthCompensation) {
+    paragraphs.splice(-2, 0, "Dose reconciliation used a bounded stock-strength compensation heuristic so diluted stocks were not treated like neat materials. It is not an active-mass or sensory-equivalence claim; exact active mass remains withheld wherever basis or density is incomplete.");
+  }
+  if (reasoningPasses.length) {
+    paragraphs.splice(-2, 0, `Design audit trail: ${reasoningPasses.join(" → ")}.`);
+  }
+  paragraphs.forEach((text) => {
+    const paragraph = document.createElement("p");
+    paragraph.textContent = text;
+    detail.append(paragraph);
+  });
+  const knowledge = result.formulation_knowledge;
+  if (knowledge) {
+    const evidence = document.createElement("details");
+    evidence.className = "formulation-knowledge";
+    const heading = document.createElement("summary");
+    heading.textContent = "Research behind this design · optional details";
+    evidence.append(heading);
+    const scope = document.createElement("p");
+    scope.textContent = knowledge.strongest_clue || "Local literature knowledge is unavailable for this request.";
+    evidence.append(scope);
+    const limit = document.createElement("p");
+    limit.textContent = "Source-supported descriptions and formulation hypotheses are separate. These references do not supply measured doses, liking scores or safety approval.";
+    evidence.append(limit);
+    (knowledge.sources || []).forEach((source) => {
+      const paragraph = document.createElement("p");
+      const label = `${source.title} · ${String(source.evidence_class).replaceAll("_", " ").toLowerCase()}`;
+      let sourceURL = null;
+      if (typeof source.url === "string") {
+        try {
+          const parsed = new URL(source.url);
+          if (parsed.protocol === "https:" && !parsed.username && !parsed.password) {
+            sourceURL = parsed.href;
+          }
+        } catch {
+          // An unavailable/malformed reference remains plain text.
+        }
+      }
+      if (sourceURL) {
+        const link = document.createElement("a");
+        link.textContent = label;
+        link.href = sourceURL;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        paragraph.append(link);
+      } else {
+        paragraph.textContent = label;
+      }
+      evidence.append(paragraph);
+    });
+    (knowledge.prior_references || []).forEach((reference) => {
+      const paragraph = document.createElement("p");
+      paragraph.textContent = `${reference.title} · prior local reference only · ${reference.state}`;
+      evidence.append(paragraph);
+    });
+    detail.append(evidence);
+  }
+  card.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function resetFormulaChat() {
+  state.formulaChat = { messages: [], result: null, variantIndex: 0 };
+  const form = $("#formula-chat-form");
+  form.reset();
+  $('[name="liquid_concentrate_ul_decimal"]', form).value = "6000";
+  $('[name="max_materials"]', form).value = "30";
+  $('[name="design_mode"]', form).value = "FAST_SKETCH";
+  $("#formula-chat-log").innerHTML = '<div class="chat-bubble assistant-bubble"><strong>Perfumer</strong><p>Tell me the name or feeling of the perfume you want to make. I will use your inventory, honor hard constraints first, and stop before filler.</p></div>';
+  $("#formula-chat-result").hidden = true;
+  $("#formula-chat-submit").textContent = "Create my formula";
+  notify("Ready for a new perfume idea.");
+}
+
+$("#formula-chat-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const data = formData(form);
+  const message = String(data.message || "").trim();
+  const previous = state.formulaChat.result;
+  const priorMessages = state.formulaChat.messages.slice(-8);
+  const previousRows = selectedFormulaVariant(previous).formula?.rows || [];
+  appendFormulaChatBubble("user", message);
+  state.formulaChat.messages.push(message);
+  const submit = $("#formula-chat-submit");
+  submit.disabled = true;
+  submit.textContent = previous ? "Refining…" : "Creating…";
+  try {
+    const designMode = String(data.design_mode || "FAST_SKETCH");
+    const payload = {
+      message,
+      formula_name: data.formula_name || previous?.formula_name || null,
+      liquid_concentrate_ul_decimal: String(data.liquid_concentrate_ul_decimal || "6000"),
+      max_materials: Number(data.max_materials || 30),
+      must_preserve: splitList(data.must_preserve),
+      must_avoid: splitList(data.must_avoid),
+      previous_stock_ids: previousRows.map((row) => row.stock_id),
+      conversation_context: priorMessages,
+      design_mode: designMode,
+      variant_count: designMode === "DEEP_COMPOSE" ? 3 : 1,
+    };
+    let result;
+    if (designMode === "DEEP_COMPOSE") {
+      submit.textContent = "Composing alternatives…";
+      const submitted = await request("/v2/engine-jobs", {
+        method: "POST",
+        body: JSON.stringify({
+          schema_version: "lab-engine-job-request-v2",
+          job_type: "FORMULA_DESIGN",
+          requester: "formula-studio-ui",
+          idempotency_key: crypto.randomUUID(),
+          payload,
+        }),
+      });
+      const terminalStates = new Set(["SUCCEEDED", "WITHHELD", "FAILED", "CANCELLED"]);
+      let completed = submitted;
+      for (let attempt = 0; attempt < 500 && !terminalStates.has(completed.state); attempt += 1) {
+        await new Promise((resolve) => window.setTimeout(resolve, 600));
+        completed = await request(`/v2/engine-jobs/${encodeURIComponent(submitted.id)}`);
+      }
+      if (!terminalStates.has(completed.state)) throw new Error("Deep Compose is still running; its durable job remains available without resubmitting.");
+      result = completed.result?.result?.result?.formula_design;
+      if (!result) throw new Error(completed.events?.at(-1)?.reason || `Deep Compose ended as ${completed.state}.`);
+    } else {
+      result = await request("/v2/workbench/formula-chat", {
+        method: "POST",
+        body: JSON.stringify({
+          schema_version: "inventory-grounded-formula-chat-request-v2",
+          ...payload,
+        }),
+      });
+    }
+    appendFormulaChatBubble("assistant", result.assistant_message || "The brief needs clarification before I can create the formula.");
+    renderFormulaDesign(result);
+    if (result.formula_name) $('[name="formula_name"]', form).value = result.formula_name;
+    $('[name="message"]', form).value = "";
+    submit.textContent = result.optimized_formula ? "Refine this formula" : "Try clarified brief";
+    notify(result.optimized_formula ? "Inventory-grounded composition plan created." : "Clarification required before formulation.");
+  } catch (error) {
+    appendFormulaChatBubble("assistant", `I could not create that draft: ${error.message}`);
+    submit.textContent = previous ? "Refine this formula" : "Create my formula";
+    notify(error.message, true);
+  } finally {
+    submit.disabled = false;
+  }
+});
+
+$("#formula-chat-reset").addEventListener("click", resetFormulaChat);
+
+$("#formula-download").addEventListener("click", () => {
+  const result = state.formulaChat.result;
+  if (!result) return;
+  const blob = new Blob([JSON.stringify(result, null, 2)], { type: "application/json" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `${String(result.formula_name || "formula-draft").replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() || "formula-draft"}.json`;
+  link.click();
+  URL.revokeObjectURL(link.href);
+  notify("Read-only formula draft downloaded.");
 });
 
 bindForm("#material-form", (data) => request("/materials", { method: "POST", body: JSON.stringify(data) }));
@@ -419,5 +1635,10 @@ $("#science-refresh").addEventListener("click", () => {
   loadScienceAuthority().catch((error) => notify(error.message, true));
 });
 
-navigate(location.hash.slice(1) || "dashboard");
+window.addEventListener("hashchange", () => {
+  const requested = location.hash.slice(1) || "improve";
+  if ($(`[data-panel="${requested}"]`)) navigate(requested);
+});
+
+navigate(location.hash.slice(1) || "improve");
 refresh().catch((error) => notify(error.message, true));

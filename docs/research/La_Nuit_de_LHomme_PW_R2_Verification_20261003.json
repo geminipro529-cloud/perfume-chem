@@ -1,0 +1,437 @@
+{
+  "schema_version": "pw-reconstruction-artifact-verification-v1",
+  "date": "2026-10-03",
+  "status": "PASS_DESIGN_ARITHMETIC_AND_PROVENANCE_ONLY",
+  "checks_passed": 98,
+  "checks": [
+    {
+      "check": "33 unique product rows",
+      "status": "PASS"
+    },
+    {
+      "check": "target percentages sum exactly to 100",
+      "status": "PASS"
+    },
+    {
+      "check": "catalog byte hash preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "every selected exact PW SKU resolves",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L01",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L02",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L03",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L04",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L05",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L06",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L07",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L08",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L09",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L10",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L11",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L12",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L13",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L14",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L15",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L16",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L17",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L18",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L19",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L20",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L21",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L22",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L23",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L24",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L25",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L26",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L27",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L28",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L29",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L30",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L31",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L32",
+      "status": "PASS"
+    },
+    {
+      "check": "product/stock/carrier conservation L33",
+      "status": "PASS"
+    },
+    {
+      "check": "5.945 g master contains exactly 5 g product and 0.945 g carrier",
+      "status": "PASS"
+    },
+    {
+      "check": "master bench amounts all 1 mg grid and at least 30 mg",
+      "status": "PASS"
+    },
+    {
+      "check": "150 mg Ambrox crystals remain mass only",
+      "status": "PASS"
+    },
+    {
+      "check": "five_g_finished_test exact target and complete alcohol accounting",
+      "status": "PASS"
+    },
+    {
+      "check": "thirty_g_finished exact target and complete alcohol accounting",
+      "status": "PASS"
+    },
+    {
+      "check": "30 mL endpoint does not assume gram-volume equality",
+      "status": "PASS"
+    },
+    {
+      "check": "confirmed existing-stock carrier additions preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "PW_R2_LEAD closed total and nonnegative design",
+      "status": "PASS"
+    },
+    {
+      "check": "PW_R2_CARDAMOM_CLEAR closed total and nonnegative design",
+      "status": "PASS"
+    },
+    {
+      "check": "PW_R2_MINIMAL_CONTROL closed total and nonnegative design",
+      "status": "PASS"
+    },
+    {
+      "check": "PW_R2_MUSK_ALTERNATIVE closed total and nonnegative design",
+      "status": "PASS"
+    },
+    {
+      "check": "PW_R2_SOFT_WOOD closed total and nonnegative design",
+      "status": "PASS"
+    },
+    {
+      "check": "21 row minimalist comparator is genuinely distinct",
+      "status": "PASS"
+    },
+    {
+      "check": "literal fit is withheld, no fake original formula",
+      "status": "PASS"
+    },
+    {
+      "check": "no automatic safety or physical authority",
+      "status": "PASS"
+    },
+    {
+      "check": "selection is not a fake measured winner",
+      "status": "PASS"
+    },
+    {
+      "check": "8 optional purchase records no invented checkout total",
+      "status": "PASS"
+    },
+    {
+      "check": "protected source unchanged inventory.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "protected source unchanged AGENTS.md",
+      "status": "PASS"
+    },
+    {
+      "check": "protected source unchanged .github\\copilot-instructions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "protected source unchanged docs\\fragrance_families_reference.md",
+      "status": "PASS"
+    },
+    {
+      "check": "protected source unchanged formulas\\La_Nuit_de_LHomme_Realistic_Reconstruction_30mL_EDT.md",
+      "status": "PASS"
+    },
+    {
+      "check": "protected source unchanged formulas\\La_Nuit_de_LHomme_Luxe_30mL_EDT.md",
+      "status": "PASS"
+    },
+    {
+      "check": "protected source unchanged formulas\\La_Nuit_Realistic_Reconstruction_30mL_EDT.md",
+      "status": "PASS"
+    },
+    {
+      "check": "protected source unchanged docs\\research\\YSL_LHomme_La_Nuit_Reverse_Engineering_Research_2026-07-27.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L01",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L02",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L03",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L04",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L05",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L06",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L07",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L08",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L09",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L10",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L11",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L12",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L13",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L14",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L15",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L16",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L17",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L18",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L19",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L20",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L21",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L22",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L23",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L24",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L25",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L26",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L27",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L28",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L29",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L30",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L31",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L32",
+      "status": "PASS"
+    },
+    {
+      "check": "Markdown agrees with canonical design L33",
+      "status": "PASS"
+    },
+    {
+      "check": "focused whitespace formulas/La_Nuit_de_LHomme_PW_R2_20261003.json",
+      "status": "PASS"
+    },
+    {
+      "check": "focused whitespace formulas/La_Nuit_de_LHomme_PW_R2_20261003.md",
+      "status": "PASS"
+    },
+    {
+      "check": "focused whitespace docs/research/La_Nuit_de_LHomme_PW_R2_Research_20261003.md",
+      "status": "PASS"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "formulas/La_Nuit_de_LHomme_PW_R2_20261003.json",
+      "sha256": "967d995cd12ef1e6f3d82206e9be12498cac387adefe25fe7c2e617dc2ce0971",
+      "size_bytes": 80490
+    },
+    {
+      "path": "formulas/La_Nuit_de_LHomme_PW_R2_20261003.md",
+      "sha256": "1dc41a92971e1afe2a6bb1b5ab655b3d567e1a09e0a44683e76559d5ddb56197",
+      "size_bytes": 28748
+    },
+    {
+      "path": "docs/research/La_Nuit_de_LHomme_PW_R2_Research_20261003.md",
+      "sha256": "8cc0e8d202c46bd42fbf3f76ab2bee549567a2afc9155486cd506a22bccefe62",
+      "size_bytes": 20475
+    }
+  ],
+  "not_performed": [
+    "physical compounding",
+    "sensory reference similarity",
+    "stability or skin safety testing",
+    "legacy OAV or measured-intensity inference",
+    "model training",
+    "full project verifier"
+  ],
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false,
+    "commercial_release_ready": false
+  },
+  "git_diff_check": {
+    "focused_exit_code": 0,
+    "scope": "Three new design/research paths; untracked contents also checked explicitly by 98-check verifier",
+    "full_dirty_worktree": "NOT_CLEANLY_VERIFIED_PERMISSION_WARNINGS_ON_UNRELATED_HISTORICAL_TEST_ARTIFACTS"
+  }
+}

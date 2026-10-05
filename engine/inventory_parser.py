@@ -94,10 +94,15 @@ R5_STOCK_CLARIFICATIONS_V2_USER_INVENTORY_OVERLAY_PATH = (
     / "data/governance/"
     "inventory_user_authority_overlay_20260924_r5_stock_clarifications_v2.json"
 )
-CURRENT_USER_INVENTORY_OVERLAY_PATH = (
+R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_PATH = (
     PROJECT_ROOT
     / "data/governance/"
     "inventory_user_authority_overlay_20260924_r5_remaining_stock_forms_v3.json"
+)
+CURRENT_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT
+    / "data/governance/"
+    "inventory_user_authority_overlay_20260930_aimi_identity.json"
 )
 CURRENT_INVENTORY_WORKBOOK_SHA256 = (
     "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331"
@@ -146,7 +151,8 @@ EVERNYL_10WW_DPG_USER_INVENTORY_OVERLAY_SHA256 = "f4cbe12919b2917fa0b5d968e0933a
 METHYL_PAMPLEMOUSSE_10WW_ETHANOL_USER_INVENTORY_OVERLAY_SHA256 = "d0ee1d77b015152c4ffc76a351a693067bf61475eb71a9bf60aecf3fcb9842a2"
 R5_STOCK_CLARIFICATIONS_USER_INVENTORY_OVERLAY_SHA256 = "3f4ef634e2bd299a8463559364a03a7805b1198e14396567dce3e7f8caaf4df5"
 R5_STOCK_CLARIFICATIONS_V2_USER_INVENTORY_OVERLAY_SHA256 = "9a10cd2f99af1c960a77bd0a7270c25daa24657b790707ecb76c365898b747df"
-CURRENT_USER_INVENTORY_OVERLAY_SHA256 = "0bccf890ee05487b20daca94d02c65103c2a22ed4c6435ba8cb311cd041575fb"
+R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_SHA256 = "0bccf890ee05487b20daca94d02c65103c2a22ed4c6435ba8cb311cd041575fb"
+CURRENT_USER_INVENTORY_OVERLAY_SHA256 = "582acaf38382b95252dcc67f01b21a2b56b96ae418c31bda1cef3d355f419ad8"
 ROMANDOLIDE_DEPLETION_CONFIRMATION_SHA256 = "5b94ac7cf95a0ee0bb4fc0754a97bda4b0be5aae910c13c7fc4557317f823ade"
 FLORHYDRAL_ADDITION_CONFIRMATION_SHA256 = "ff481e5e993f749ce6a5ee0dd8a9606b698c03a17caeac86d1c3adf85065389d"
 ROMANDOLIDE_RESTOCK_CONFIRMATION_SHA256 = "42409d0d5420dd66eee3ae845fa2fc6ba701a2f72b9d53f44cda1a1beaabe53b"
@@ -158,6 +164,7 @@ METHYL_PAMPLEMOUSSE_10WW_ETHANOL_CONFIRMATION_SHA256 = "3ab135684a91fdf740c07f77
 R5_STOCK_CLARIFICATIONS_CONFIRMATION_SHA256 = "cd993a027e2c164028dda77a048b3abc5cd1f36cbf8fb7f6712367f9a2bcc273"
 R5_STOCK_CLARIFICATIONS_V2_CONFIRMATION_SHA256 = "5179974ec3c64a4c48be310b530b9670b08fa07099f663f5c480f446b0290992"
 R5_REMAINING_STOCK_FORMS_V3_CONFIRMATION_SHA256 = "0b76c0480f43ae355c74abd9803850218efcc14773046102f15eab43c63f6178"
+AIMI_IDENTITY_CONFIRMATION_SHA256 = "1bc5cd5ae5482343a98cecf90b58070b47cb58f26946246d157ab20d81b7bc5f"
 AROMA_MORE_LAVENDER_4042_PRODUCT_RESOLUTION_SHA256 = "3a725f2337e992015878924a8a87ab1af2f846e711c615da1b70b04f4a95e435"
 SUPPLIER_PRODUCT_RESOLUTION_SHA256 = "4d47136d7a5acd06fec963f5e1ced6601b227efde5de86b5f83d36af52d8d5d7"
 STOCK_CLARIFICATION_RECORDS_SHA256 = "4489cddd2bcc020578c181fdd980f10ab82eafebde051a5e9854e272a181b453"
@@ -167,12 +174,14 @@ METHYL_PAMPLEMOUSSE_10WW_ETHANOL_RECORDS_SHA256 = "45bdde5eafd5e2a3302ecfe6ffd7e
 R5_STOCK_CLARIFICATIONS_RECORDS_SHA256 = "8328c91d0a1afc27a022ac8d0a8977ec0b4df361763e13bcac01c776eae1ea30"
 R5_STOCK_CLARIFICATIONS_V2_RECORDS_SHA256 = "e7cb019f898652dd1a4ecca76fd4d74b8ba921db2128062144ef266c93080da6"
 R5_REMAINING_STOCK_FORMS_V3_RECORDS_SHA256 = "fc2c9e9a355bb407a8d2b9d25c1c0e8b548043d1f158d3cb143b40c292470280"
+AIMI_IDENTITY_RECORDS_SHA256 = "bd0eea909130035a6d02f62774ba5b47f1265e46452d9dcf9be2d40802e28962"
 AHSEE_STOCK_CONFIRMATION_SHA256 = "08f165d17c3128256a4d98b3eed0762aceb5df8fb4dc728608b96355cc37afec"
 CURRENT_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260908"
 FLORHYDRAL_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260910"
 PINK_PEPPER_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260903"
 STOCK_FORMS_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260915"
 R5_STOCK_CLARIFICATIONS_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924"
+AIMI_IDENTITY_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260930"
 
 _HEADING_RE = re.compile(r"^---\s+(.+?)\s+---$")
 _BULLET_RE = re.compile(r"^[-•]\s+(.+?)\s*$")
@@ -219,6 +228,14 @@ class InventoryMaterial:
     nominal_property_model_ready: bool = False
     nominal_property_model_limit: str = ""
     requirement_state: str = ""
+    # Personal formulation eligibility is intentionally separate from physical
+    # execution authority. ``None`` inherits ``execution_ready`` for historical
+    # records that predate the lightweight completion workflow.
+    design_ready: bool | None = None
+    design_hold_reason: str = ""
+    completion_event_sha256: str = ""
+    completion_source_ref: str = ""
+    homogeneity: str = ""
 
 
 @dataclass(frozen=True)
@@ -247,6 +264,8 @@ class CurrentInventoryMaterialization:
     source_workbook_sha256: str
     snapshot_sha256: str
     overlay_sha256: str = ""
+    completion_sha256: str = ""
+    effective_inventory_sha256: str = ""
 
 
 @dataclass(frozen=True)
@@ -4088,6 +4107,190 @@ def _load_20260924_r5_remaining_stock_forms_v3_successor(
             "inventory_user_authority_overlay_20260924_"
             "r5_remaining_stock_forms_v3.json"
         ),
+        "sha256": R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    for record in records:
+        origins[str(record["record_id"])] = dict(origin)
+    return {
+        **dict(successor),
+        "parent": dict(previous["parent"]),
+        "base_policy": dict(previous["base_policy"]),
+        "policy": {**dict(previous["policy"]), **expected_policy},
+        "delta_records": records,
+        "records": [*inherited, *records],
+        "record_origins": origins,
+        "retired_records": [
+            *previous.get("retired_records", []),
+            *(previous_by_id[record_id] for record_id in expected_superseded),
+        ],
+    }
+
+
+def _load_20260930_aimi_identity_successor(
+    successor: Mapping[str, Any],
+    *,
+    require_live_inventory_binding: bool = True,
+) -> dict[str, Any]:
+    """Resolve the owned AIMI bottle to the exact PerfumersWorld identity."""
+
+    expected_policy = {
+        "predecessor_overlay_immutable": True,
+        "preserve_inherited_stock_ids": True,
+        "formula_rebase_authorized": False,
+        "general_substitution_authorized": False,
+        "unknown_metadata_fails_closed": True,
+        "bind_only_source_declared_stock_facts": True,
+        "supplier_product_identity_does_not_assert_user_lot_assay": True,
+        "supplier_product_identity_does_not_assert_density": True,
+        "historical_givaudan_aimi_label_is_alias_only": True,
+        "one_physical_bottle_only": True,
+        "methyl_ionone_gamma_coeur_remains_distinct": True,
+        "depleted_stock_not_substitutable": True,
+        "safety_or_release_asserted": False,
+    }
+    expected_predecessor = {
+        "path": (
+            "data/governance/"
+            "inventory_user_authority_overlay_20260924_"
+            "r5_remaining_stock_forms_v3.json"
+        ),
+        "normalized_text_sha256": (
+            R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_SHA256
+        ),
+    }
+    expected_superseded = ["INV-USER-20260904-003"]
+    if (
+        successor.get("schema_version")
+        != "perfume_chem_user_inventory_authority_successor_overlay_v18"
+        or successor.get("effective_date") != "2026-09-30"
+        or successor.get("authority")
+        != "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY"
+        or successor.get("predecessor") != expected_predecessor
+        or successor.get("policy") != expected_policy
+        or successor.get("superseded_record_ids") != expected_superseded
+    ):
+        raise InventoryAuthorityError("AIMI identity successor metadata drift")
+
+    expected_inventory_size = 28082
+    expected_inventory_sha = (
+        "6b11f3aa198b9483f9f7f9567e362f987a8447b47915853ea22fada66ff3cbe3"
+    )
+    confirmation_path = (
+        PROJECT_ROOT
+        / "data/governance/"
+        "inventory_user_confirmation_20260930_aimi_identity.json"
+    )
+    source = successor.get("source", {})
+    if (
+        not isinstance(source, Mapping)
+        or source.get("inventory_text_path") != "inventory.txt"
+        or source.get("inventory_text_size_bytes") != expected_inventory_size
+        or source.get("inventory_text_sha256") != expected_inventory_sha
+        or source.get("confirmed_receipt")
+        != confirmation_path.relative_to(PROJECT_ROOT).as_posix()
+        or source.get("confirmed_receipt_sha256")
+        != AIMI_IDENTITY_CONFIRMATION_SHA256
+    ):
+        raise InventoryAuthorityError("AIMI identity successor source drift")
+    if require_live_inventory_binding and (
+        len(_normalized_text_bytes(INVENTORY_PATH)) != expected_inventory_size
+        or _normalized_text_sha256(INVENTORY_PATH) != expected_inventory_sha
+    ):
+        raise InventoryAuthorityError(
+            "AIMI identity successor is not bound to live inventory text"
+        )
+    if (
+        not confirmation_path.is_file()
+        or _file_sha256(confirmation_path) != AIMI_IDENTITY_CONFIRMATION_SHA256
+    ):
+        raise InventoryAuthorityError("AIMI identity confirmation receipt drift")
+    try:
+        confirmation = json.loads(confirmation_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise InventoryAuthorityError(
+            "AIMI identity confirmation is unreadable"
+        ) from exc
+    identity = confirmation.get("identity_confirmation", {})
+    limits = confirmation.get("authority_limits", {})
+    normalization = confirmation.get("normalization_rules", {})
+    if (
+        confirmation.get("schema_version")
+        != "perfume_chem_direct_aimi_identity_confirmation_v1"
+        or confirmation.get("effective_date") != "2026-09-30"
+        or confirmation.get("source_kind")
+        != "DIRECT_USER_MESSAGE_PLUS_OFFICIAL_SUPPLIER_IDENTITY"
+        or identity.get("canonical_product_name") != "Alpha Isomethyl Ionone"
+        or identity.get("supplier") != "PerfumersWorld"
+        or identity.get("supplier_sku") != "3IW00300"
+        or identity.get("cas") != "127-51-5"
+        or identity.get("owned") is not True
+        or identity.get("physical_bottle_count_asserted") != 1
+        or normalization.get("methyl_ionone_gamma_coeur_remains_distinct")
+        is not True
+        or limits.get("inventory_identity_update_authorized") is not True
+        or limits.get("ownership_update_authorized") is not True
+        or limits.get("exact_user_lot_assay_asserted") is not False
+        or limits.get("density_asserted") is not False
+        or limits.get("physical_compounding_authorized") is not False
+        or limits.get("safety_or_release_asserted") is not False
+    ):
+        raise InventoryAuthorityError("AIMI identity evidence scope drift")
+
+    records = successor.get("records", [])
+    if not isinstance(records, list) or len(records) != 1:
+        raise InventoryAuthorityError("AIMI identity record count drift")
+    records_sha = hashlib.sha256(
+        json.dumps(
+            records,
+            sort_keys=True,
+            separators=(",", ":"),
+            ensure_ascii=False,
+        ).encode("utf-8")
+    ).hexdigest()
+    if records_sha != AIMI_IDENTITY_RECORDS_SHA256:
+        raise InventoryAuthorityError("AIMI identity exact records drift")
+
+    predecessor_path = R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_PATH
+    if (
+        _normalized_text_sha256(predecessor_path)
+        != R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_SHA256
+    ):
+        raise InventoryAuthorityError("AIMI identity predecessor drift")
+    try:
+        predecessor_payload = json.loads(
+            predecessor_path.read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError) as exc:
+        raise InventoryAuthorityError("AIMI identity predecessor is unreadable") from exc
+    previous = _load_20260924_r5_remaining_stock_forms_v3_successor(
+        predecessor_payload,
+        require_live_inventory_binding=False,
+    )
+    previous_by_id = {
+        str(previous_record["record_id"]): previous_record
+        for previous_record in previous["records"]
+    }
+    missing_superseded = set(expected_superseded).difference(previous_by_id)
+    if missing_superseded:
+        raise InventoryAuthorityError(
+            "AIMI identity superseded records are missing: "
+            + ", ".join(sorted(missing_superseded))
+        )
+    inherited = [
+        previous_record
+        for previous_record in previous["records"]
+        if previous_record["record_id"] not in expected_superseded
+    ]
+    origins = {
+        key: dict(value)
+        for key, value in previous["record_origins"].items()
+        if key not in expected_superseded
+    }
+    origin = {
+        "path": (
+            "data/governance/"
+            "inventory_user_authority_overlay_20260930_aimi_identity.json"
+        ),
         "sha256": CURRENT_USER_INVENTORY_OVERLAY_SHA256,
     }
     for record in records:
@@ -4148,6 +4351,9 @@ def load_current_user_inventory_overlay(
         R5_STOCK_CLARIFICATIONS_V2_USER_INVENTORY_OVERLAY_PATH.resolve(): (
             R5_STOCK_CLARIFICATIONS_V2_USER_INVENTORY_OVERLAY_SHA256
         ),
+        R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_PATH.resolve(): (
+            R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_SHA256
+        ),
         CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve(): CURRENT_USER_INVENTORY_OVERLAY_SHA256,
     }
     expected_overlay_sha = pinned_overlays.get(overlay_path.resolve(), CURRENT_USER_INVENTORY_OVERLAY_SHA256)
@@ -4163,6 +4369,17 @@ def load_current_user_inventory_overlay(
             f"current user inventory overlay is unreadable: {exc}"
         ) from exc
 
+    if (
+        payload.get("schema_version")
+        == "perfume_chem_user_inventory_authority_successor_overlay_v18"
+    ):
+        return _load_20260930_aimi_identity_successor(
+            payload,
+            require_live_inventory_binding=(
+                overlay_path.resolve()
+                == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
+            ),
+        )
     if (
         payload.get("schema_version")
         == "perfume_chem_user_inventory_authority_successor_overlay_v17"
@@ -4761,7 +4978,9 @@ def _apply_current_user_inventory_overlay(
                 identity_name=_v5_identity_name(canonical_name),
                 stock_id=f"inventory:user-{authority_date}:{stock_digest}",
                 authority=(
-                    R5_STOCK_CLARIFICATIONS_USER_INVENTORY_AUTHORITY
+                    AIMI_IDENTITY_USER_INVENTORY_AUTHORITY
+                    if authority_date == "20260930"
+                    else R5_STOCK_CLARIFICATIONS_USER_INVENTORY_AUTHORITY
                     if authority_date == "20260924"
                     else
                     STOCK_FORMS_USER_INVENTORY_AUTHORITY
@@ -4812,6 +5031,7 @@ def _materialize_current_inventory_uncached(
     require_pinned_snapshot: bool = True,
     apply_user_overlay: bool = True,
     require_pinned_overlay: bool = True,
+    apply_user_completions: bool = True,
 ) -> CurrentInventoryMaterialization:
     """Materialize immutable V5 stocks plus the pinned user successor overlay."""
 
@@ -4928,12 +5148,25 @@ def _materialize_current_inventory_uncached(
         source_workbook_sha256=str(payload["source"]["sha256"]),
         snapshot_sha256=_file_sha256(snapshot_path),
     )
-    if not apply_user_overlay:
-        return materialized
-    overlay = load_current_user_inventory_overlay(
-        require_pinned_overlay=require_pinned_overlay,
-    )
-    return _apply_current_user_inventory_overlay(materialized, overlay)
+    if apply_user_overlay:
+        overlay = load_current_user_inventory_overlay(
+            require_pinned_overlay=require_pinned_overlay,
+        )
+        materialized = _apply_current_user_inventory_overlay(materialized, overlay)
+    if apply_user_completions:
+        from engine.inventory_completions import apply_inventory_completion_events
+
+        materialized = apply_inventory_completion_events(materialized)
+    elif not materialized.effective_inventory_sha256:
+        materialized = replace(
+            materialized,
+            effective_inventory_sha256=hashlib.sha256(
+                f"{materialized.snapshot_sha256}|{materialized.overlay_sha256}|".encode(
+                    "utf-8"
+                )
+            ).hexdigest(),
+        )
+    return materialized
 
 
 _USER_OVERLAY_CHAIN_PATHS = (
@@ -4954,6 +5187,7 @@ _USER_OVERLAY_CHAIN_PATHS = (
     METHYL_PAMPLEMOUSSE_10WW_ETHANOL_USER_INVENTORY_OVERLAY_PATH,
     R5_STOCK_CLARIFICATIONS_USER_INVENTORY_OVERLAY_PATH,
     R5_STOCK_CLARIFICATIONS_V2_USER_INVENTORY_OVERLAY_PATH,
+    R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_PATH,
     CURRENT_USER_INVENTORY_OVERLAY_PATH,
 )
 
@@ -4962,10 +5196,15 @@ def _inventory_materialization_fingerprint(
     snapshot_path: Path,
     *,
     apply_user_overlay: bool,
+    apply_user_completions: bool,
 ) -> tuple[tuple[str, int, int], ...]:
     paths = [snapshot_path]
     if apply_user_overlay:
         paths.extend((*_USER_OVERLAY_CHAIN_PATHS, INVENTORY_PATH))
+    if apply_user_completions:
+        from engine.inventory_completions import completion_log_path
+
+        paths.append(completion_log_path())
     records: list[tuple[str, int, int]] = []
     for source in paths:
         resolved = source.resolve()
@@ -4987,6 +5226,7 @@ def _cached_current_inventory_materialization(
     require_pinned_snapshot: bool,
     apply_user_overlay: bool,
     require_pinned_overlay: bool,
+    apply_user_completions: bool,
 ) -> CurrentInventoryMaterialization:
     del source_fingerprint
     return _materialize_current_inventory_uncached(
@@ -4994,6 +5234,7 @@ def _cached_current_inventory_materialization(
         require_pinned_snapshot=require_pinned_snapshot,
         apply_user_overlay=apply_user_overlay,
         require_pinned_overlay=require_pinned_overlay,
+        apply_user_completions=apply_user_completions,
     )
 
 
@@ -5003,6 +5244,7 @@ def materialize_current_inventory(
     require_pinned_snapshot: bool = True,
     apply_user_overlay: bool = True,
     require_pinned_overlay: bool = True,
+    apply_user_completions: bool = True,
 ) -> CurrentInventoryMaterialization:
     """Materialize source-bound stock truth with drift-sensitive local reuse."""
 
@@ -5012,10 +5254,12 @@ def materialize_current_inventory(
         _inventory_materialization_fingerprint(
             snapshot_path,
             apply_user_overlay=apply_user_overlay,
+            apply_user_completions=apply_user_completions,
         ),
         require_pinned_snapshot,
         apply_user_overlay,
         require_pinned_overlay,
+        apply_user_completions,
     )
 
 

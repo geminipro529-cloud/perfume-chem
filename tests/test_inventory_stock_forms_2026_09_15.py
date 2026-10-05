@@ -179,24 +179,24 @@ def test_unaffected_parallel_stocks_remain_available() -> None:
     assert evernyl_neat.execution_ready is True
 
 
-def test_current_successor_is_pinned_to_receipt_inventory_and_v16_predecessor() -> None:
+def test_current_successor_is_pinned_to_aimi_receipt_inventory_and_v17_predecessor() -> None:
     overlay_path = inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH
     overlay_normalized = overlay_path.read_bytes().replace(b"\r\n", b"\n")
     assert hashlib.sha256(overlay_normalized).hexdigest() == (
         inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256
     )
-    predecessor = inventory.R5_STOCK_CLARIFICATIONS_V2_USER_INVENTORY_OVERLAY_PATH
+    predecessor = inventory.R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_PATH
     predecessor_normalized = predecessor.read_bytes().replace(b"\r\n", b"\n")
     assert hashlib.sha256(predecessor_normalized).hexdigest() == (
-        inventory.R5_STOCK_CLARIFICATIONS_V2_USER_INVENTORY_OVERLAY_SHA256
+        inventory.R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_SHA256
     )
     receipt = (
         inventory.PROJECT_ROOT
         / "data/governance/"
-        "inventory_user_confirmation_20260924_r5_remaining_stock_forms_v3.json"
+        "inventory_user_confirmation_20260930_aimi_identity.json"
     )
     assert hashlib.sha256(receipt.read_bytes()).hexdigest() == (
-        inventory.R5_REMAINING_STOCK_FORMS_V3_CONFIRMATION_SHA256
+        inventory.AIMI_IDENTITY_CONFIRMATION_SHA256
     )
     payload = json.loads(overlay_path.read_text(encoding="utf-8"))
     inventory_normalized = inventory.INVENTORY_PATH.read_bytes().replace(
@@ -210,12 +210,9 @@ def test_current_successor_is_pinned_to_receipt_inventory_and_v16_predecessor() 
     ).hexdigest()
 
     loaded = inventory.load_current_user_inventory_overlay()
-    assert loaded["schema_version"].endswith("_v17")
-    assert len(loaded["delta_records"]) == 12
-    assert loaded["superseded_record_ids"] == [
-        "INV-USER-20260828-004",
-        "INV-USER-20260908-AHSEE-007",
-    ]
+    assert loaded["schema_version"].endswith("_v18")
+    assert len(loaded["delta_records"]) == 1
+    assert loaded["superseded_record_ids"] == ["INV-USER-20260904-003"]
 
 
 def test_stock_form_predecessor_remains_loadable_and_pinned() -> None:
@@ -244,7 +241,7 @@ def test_current_successor_rejects_record_mutation() -> None:
     candidate["records"][0]["stock"]["carrier"] = "ethanol"
 
     with pytest.raises(inventory.InventoryAuthorityError, match="exact records drift"):
-        inventory._load_20260924_r5_remaining_stock_forms_v3_successor(
+        inventory._load_20260930_aimi_identity_successor(
             candidate,
             require_live_inventory_binding=False,
         )

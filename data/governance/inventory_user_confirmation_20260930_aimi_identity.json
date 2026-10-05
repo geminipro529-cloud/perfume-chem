@@ -1,0 +1,49 @@
+{
+  "schema_version": "perfume_chem_direct_aimi_identity_confirmation_v1",
+  "effective_date": "2026-09-30",
+  "source_kind": "DIRECT_USER_MESSAGE_PLUS_OFFICIAL_SUPPLIER_IDENTITY",
+  "user_statement": "Resolve AIMI as alpha methyl ionone on PerfumersWorld and yes I own it",
+  "identity_confirmation": {
+    "canonical_product_name": "Alpha Isomethyl Ionone",
+    "common_names": [
+      "AIMI",
+      "Alpha Methyl Ionone",
+      "Alpha-Isomethyl Ionone"
+    ],
+    "historical_user_label": "Givaudan AIMI",
+    "supplier": "PerfumersWorld",
+    "supplier_sku": "3IW00300",
+    "cas": "127-51-5",
+    "ec": "204-846-3",
+    "owned": true,
+    "physical_bottle_count_asserted": 1,
+    "stock_form_carried_forward": "neat / as supplied",
+    "distinct_depleted_stock": "Methyl Ionone Gamma Coeur"
+  },
+  "official_supplier_evidence": {
+    "product_documents_url": "https://www.perfumersworld.com/document-list.php?ifra=defaultOpen3&pro_id=3IW00300",
+    "ifra_view_url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=3IW00300",
+    "accessed_date": "2026-09-30",
+    "scope": "SUPPLIER_PRODUCT_IDENTITY_ONLY"
+  },
+  "normalization_rules": {
+    "aimi_resolves_to_alpha_isomethyl_ionone": true,
+    "alpha_methyl_ionone_resolves_to_alpha_isomethyl_ionone": true,
+    "historical_givaudan_aimi_label_resolves_to_same_single_bottle": true,
+    "methyl_ionone_gamma_coeur_remains_distinct": true,
+    "supplier_identity_does_not_assert_exact_user_lot_assay_or_density": true
+  },
+  "authority_limits": {
+    "inventory_identity_update_authorized": true,
+    "ownership_update_authorized": true,
+    "one_physical_bottle_asserted": true,
+    "stock_form_carried_forward_from_prior_authority": true,
+    "exact_user_lot_assay_asserted": false,
+    "density_asserted": false,
+    "new_purchase_authorized": false,
+    "formula_rebase_authorized": false,
+    "physical_compounding_authorized": false,
+    "safety_or_release_asserted": false,
+    "sensory_equivalence_to_gamma_coeur_asserted": false
+  }
+}

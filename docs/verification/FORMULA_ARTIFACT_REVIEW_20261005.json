@@ -1,0 +1,2123 @@
+{
+  "schema_version": "formula-artifact-history-review-v1",
+  "review_date": "2026-10-05",
+  "scope": "HISTORICAL_ANALYSIS_QUARANTINE_AND_SCHEMA_COMPATIBILITY",
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "original_repository_inputs": {
+    "inventory_sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "scientific_inputs_sha256": "abc7ae6f7796d08ce3d5e9ac11995b9ff5fe5eb83093f8c06ba096dca9bdfe6e",
+    "pipeline_source_sha256": "d3452bddfba20f56d6d2690c8ec4da8ebdf3c6afc3720ed46d189a810381ebe1"
+  },
+  "current_repository_inputs": {
+    "inventory_sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "scientific_inputs_sha256": "abc7ae6f7796d08ce3d5e9ac11995b9ff5fe5eb83093f8c06ba096dca9bdfe6e",
+    "pipeline_source_sha256": "d3452bddfba20f56d6d2690c8ec4da8ebdf3c6afc3720ed46d189a810381ebe1"
+  },
+  "results_recomputed": false,
+  "inventory_modified": false,
+  "formula_doses_modified": false,
+  "legacy_input_hash_review": {
+    "path": "formulas/Prada_LHomme_Architecture_Control_30mL_EdT.md",
+    "original_reported_issue": "analysis_input_hash",
+    "resolution": "PRE_G15_SIX_FIELD_PREIMAGE_VERIFIED_AGAINST_RECORDED_IMPLEMENTATION",
+    "implementation_commit": "90d5895194ae66bf3c8b477624c8c9a7db852a20",
+    "original_analysis_input_sha256": "9c75aa2a7f2da0dcc6fa87d79dd1b2c59c990a08a98e77d2a82a1244fa45253c",
+    "manifest_modified": false,
+    "remaining_binding_state": "STALE"
+  },
+  "rows": [
+    {
+      "path": "formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v2_Neat_Neroli.md",
+      "first_line": "# AHS-2004 Reference-First — From-Zero 30 mL EDT Study v2 — Neat Neroli",
+      "original_bytes_sha256": "581e6771ef56947a522cab8435311d767cc23583c421e6273508d28c6c172d46",
+      "analysis_text_sha256": "d4b5c0e573213100cb083c0f9926696b507a68541d27d08002592f7449b4b39f",
+      "formula_definitions_sha256": [
+        "7d543ea18fe603b730a9639f82d3dfb2303f2950f87853a045ccbb1aba6efa32"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "481979c6dfc3d2e3d755266fb2b5c5256e6ed56a52e163e0758e307cb78d0576",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "15469806da23745f78e50164c88cb122b4603e5cf1cfacd93f2c3cc806d34baa",
+      "formula_without_review_metadata_sha256": [
+        "24a55d353461f0d85958d2b0de4f802a8fb7d795f15645c4eb9931f09ef442ff"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "481979c6dfc3d2e3d755266fb2b5c5256e6ed56a52e163e0758e307cb78d0576",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/AHS_EDT_Relational_Study_30mL_v3.md",
+      "first_line": "# Allure Homme Sport EDT — Relational Study v3 — 30 mL",
+      "original_bytes_sha256": "7116a02890b48ec08932d4c76d84f6b4feb0588605da8bc039afce8e1fbf53c8",
+      "analysis_text_sha256": "34a54e9ac8d095f7f7c33d9db93e3e8dc36ff4f25456af6831b6dc193f92e005",
+      "formula_definitions_sha256": [
+        "ce34bc5345e9a3648ab8f0672b084db184966d9194b64f70734e5fb2eccc7f67"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "9d13ae660677795349a2079d04cf3388ceb690d76372c2e2ae17fff4a7bbac7b",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "e53c65ffcce3e2bd67e202e5480a163120dd1dd8a3af97f3de3a86c272293e63",
+      "formula_without_review_metadata_sha256": [
+        "b4017d5642cba84dc204bce245679a3b87b3d2bc447b6a4390f100db14c64ff9"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "9d13ae660677795349a2079d04cf3388ceb690d76372c2e2ae17fff4a7bbac7b",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/AHS_UserBottle_Mayol60_AddOnly_20260907.md",
+      "first_line": "# AHS user bottle — Mayol-only addition study",
+      "original_bytes_sha256": "29f8fd18daf8b37e223f9a50cd83093eac8f29dd44a313cf9b8bd76082f1a2c2",
+      "analysis_text_sha256": "6f2365921ea04d1bedc07256b757fd124316ffd2e203eadc29113905054cf4aa",
+      "formula_definitions_sha256": [
+        "c68727f5909724d0d6c4fc5873b93fd7ea8aa7a810dfd09ee656a4d1d2733144"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "e3182219bb4af69e0108c0ae359300c1f1c6189fb356c215ddf41b51f6f4e0cc",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "5d9bea7f5a7790128dc530de33dc6ece03ff13528c7bd888f7ea71c9ea1a90f4",
+      "formula_without_review_metadata_sha256": [
+        "b498ae5650f6e3ff6cda0975082f5cf730815568293ae247558a0b5418a2b0d2"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "e3182219bb4af69e0108c0ae359300c1f1c6189fb356c215ddf41b51f6f4e0cc",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/AHS_UserBottle_MuguetFullHeart_20260907.md",
+      "first_line": "# AHS full muguet heart — L360 H120 P60 add-only bench candidate",
+      "original_bytes_sha256": "c8aa77fcf9b45a10ba672ce5f9a454e92a476ad00c5654207f0c4673b224353a",
+      "analysis_text_sha256": "db4cb0411488926e22389eda1d931ca8145196bb79bfb4fcc30198ef76f91871",
+      "formula_definitions_sha256": [
+        "ff0b4d8cfee173532e6bd86afec5bcf6d5edeae8f5e3b2d5e1163af951876880"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "b1b50c097e14da500a125c0272f37bdcf6c63f20ca160d89e6304b0d4fed108b",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "b2d00f2fe5469fb84c94d58e1084aad97e98268127525dbe2fec71faa7c40d0e",
+      "formula_without_review_metadata_sha256": [
+        "03620747459d2344f32325e3026896c75f03fbaf2301569d3aab9a0088f5825f"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "b1b50c097e14da500a125c0272f37bdcf6c63f20ca160d89e6304b0d4fed108b",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/AHS_UserBottle_MuguetLayered_F240_N60_20260907.md",
+      "first_line": "# AHS user bottle — layered muguet F240 N60 addition study",
+      "original_bytes_sha256": "f069b9c2f860f45cec3087ccdf4cb5559e41e351c1da3c047f55e5bd28704cbc",
+      "analysis_text_sha256": "da57a0f1ea341b789f57f3a573c1450158c3ec2ffce689a39f2e92132f04c43a",
+      "formula_definitions_sha256": [
+        "3e918aa10674cbb8b4347aa7e014b378771b3f0f062935364d99f813e40313f4"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "ea2db5e34737bd8672f8c1cf27d7ad6e96184ec03aca41a5df9ee067e583edb5",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "2af1c3a73f8e74e102fbbba371d5e201be7b055c90997f28d7b01856271b623c",
+      "formula_without_review_metadata_sha256": [
+        "1323f2c2648f0870e0ce37a4fa709827c75c57506fb2a1ab890343e52d0dd723"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "ea2db5e34737bd8672f8c1cf27d7ad6e96184ec03aca41a5df9ee067e583edb5",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/Aventus_Architecture_First_Current_Inventory_30mL_EDP.md",
+      "first_line": "# Aventus Architecture First — Layered Whole-Batch Current-Inventory Build",
+      "original_bytes_sha256": "51edf2218a0da184c8d4369ef272cbb0af7252f49a59924f6fff994d356f45cf",
+      "analysis_text_sha256": "7680ee935c5a1e5f5d3ea22b792502201f24269b563716cb1fcb9f762c3cbe78",
+      "formula_definitions_sha256": [
+        "da42a57315f76079d714cc3f98b7707a5aeea3a76a0ee59ca07b553a2789080e"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "0c6181b6984b154dd8ceda5639589fe1036c1096eaaa8e730c309d4eff1491b0",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "a90bd3afff4db98b0bf5043be76112b808332185df5232a66565e0b6d10497c6",
+      "formula_without_review_metadata_sha256": [
+        "be97f08872a9510edaa0eca1dc131a5cacc1f3fb5c28de74af65ba4536857bb7"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "0c6181b6984b154dd8ceda5639589fe1036c1096eaaa8e730c309d4eff1491b0",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/Aventus_Architecture_First_Current_Inventory_30mL_EDP_V3_Astra.md",
+      "first_line": "# Aventus Architecture First — Astra V3, Layered Whole-Batch Candidate",
+      "original_bytes_sha256": "921b3da81c407c8faf9ec52d96ff488492bddb00b6a902b34a4c66574f2583db",
+      "analysis_text_sha256": "59bf1329773888a3ca054d7d2b155715c76c400c8d3a25a33044334eb1b74d5a",
+      "formula_definitions_sha256": [
+        "06586ab518f5bcb05241165788062854c6166e4473e355dd34b9e05cb0200aee"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "939aa286ec2846d90e8ed5bab7a6844578300aacd43a313ba10d524f53abd713",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "bea98bd905d859d225f122ea05548cfeb53e723857694442ab3808d9b1b5c459",
+      "formula_without_review_metadata_sha256": [
+        "a6416e394941f99b986ee4f4a22a7bd8ed9e6bc69222aa708d3d1d17fafe051f"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "939aa286ec2846d90e8ed5bab7a6844578300aacd43a313ba10d524f53abd713",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/Aventus_Luxe_30mL_EdP.md",
+      "first_line": "# Aventus Luxe — From Zero, 30 mL EdP (20%)",
+      "original_bytes_sha256": "6333de78fb6fcc660bb4ea235ae527df7426002ff2f9af9efd64b4e1d518fcf3",
+      "analysis_text_sha256": "ae7b773257236204bc7b2f8145aab8ddc5dca014a638955bda412c8e862198d6",
+      "formula_definitions_sha256": [
+        "1ff84068df00103f024baefcb5a9e6eca437771881aad02a7e8a29c1ac038003"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "f0ce098ed485ea837865f96c7c0ea06c5bf706a190c8c5f5cc4af1b369c264c8",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "e6b2cb868d529cdb9f74a1360bc05b6226e4db70d5d8cac1383f5d30e4711589",
+      "formula_without_review_metadata_sha256": [
+        "1ff84068df00103f024baefcb5a9e6eca437771881aad02a7e8a29c1ac038003"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "f0ce098ed485ea837865f96c7c0ea06c5bf706a190c8c5f5cc4af1b369c264c8",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/collections/Designer_Prestige_Eighteen_3K_to_15K_THB_2026-05-02.md",
+      "first_line": "# DESIGNER PRESTIGE EIGHTEEN — 3,000–15,000 THB Thai Department-Store Mass",
+      "original_bytes_sha256": "5400167aa48a1b384a89ad29f9e538989caf3c4d7c7428a75942bbcc7fc60e76",
+      "analysis_text_sha256": "8e42a7ca408223ba2c45106e3a030f01211bf2d3a12d06038ba6c11df0efe32d",
+      "formula_definitions_sha256": [
+        "bede62655b94bffb8def7a71b97b8132ed72b92fd015be5fbaf182fc62da8d76",
+        "66ae58549d4cfc7f1142043c15c642b00417b80fbec8e3c04d72095935f9cfd6",
+        "129f02e4ea7bc174bf1494b9d8b82ae755454e060a1a89f0090f443855bc2a18",
+        "3a261bde4ae0189a74077d05a8c1b900da3bef14f463345533731c862f873c3e",
+        "1680d802a842170f8100118733f3dc1e41d4ee3cc55c5d12048e3ccaff085026",
+        "197fd9dff82ce3a2829429dde8a8406b3f6d4163f29ffcab668bca507b33a29d",
+        "7aaf88dc68ef0183f770549a64fa88ad3b6bd0339d7a908226fd8b5e4967fb50",
+        "5a15f66f09b2a022f35b5ed525f877dc5be7cefef80b3d1fd60838902d08b696",
+        "1d3c60ec310c55acbcc477428fb949713eabf9c888ca0152689fe0b30d0d0c23",
+        "eb0b8a7580a4d1b897d27beb961f7182c3232514f3826e0350ba8e6a9edfb75b",
+        "24dc265fdce9e2562cd2a1a0ccc32dad322de711e830fab1384b46a1b292ee6d",
+        "5e10968c17b3d84bcf755797e77d3d14d674f71965377eadd011fe0816ac01f3",
+        "2e13f796fafb3e358e954d7ce89e9f2825570ee054909cfeaeb45fe3a0ded350",
+        "935377484cfffd054122546cdf2dc5dac4f36b72e2deb983d8d0f4119a967970",
+        "ed4663f012bcd4e64e9a2d7983bdfb2e725929cb814365b4b48b5472579df138",
+        "3d2f780a16e1742b1e21bbcb2ed0aaedbc07aadeef57258e54171ff6891ca557",
+        "2c91be2412fd890db0a5550b82830230235084aba46874db1e15d7c78c33f8d8",
+        "6ef3120132f373ff802e8e74c3609b52054c6e32d14b08c5ef2a66cefae845c1"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "d06fc2fbd777a68772916ddf9b0eb0e2ee65e25f1d8fbff97a18965c7b3851c0",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "59f6e1efd0e17743094d142ee9d08eb0894fb06ea2b8cc164eef7c5533cb0691",
+      "formula_without_review_metadata_sha256": [
+        "bede62655b94bffb8def7a71b97b8132ed72b92fd015be5fbaf182fc62da8d76",
+        "66ae58549d4cfc7f1142043c15c642b00417b80fbec8e3c04d72095935f9cfd6",
+        "129f02e4ea7bc174bf1494b9d8b82ae755454e060a1a89f0090f443855bc2a18",
+        "3a261bde4ae0189a74077d05a8c1b900da3bef14f463345533731c862f873c3e",
+        "1680d802a842170f8100118733f3dc1e41d4ee3cc55c5d12048e3ccaff085026",
+        "197fd9dff82ce3a2829429dde8a8406b3f6d4163f29ffcab668bca507b33a29d",
+        "7aaf88dc68ef0183f770549a64fa88ad3b6bd0339d7a908226fd8b5e4967fb50",
+        "5a15f66f09b2a022f35b5ed525f877dc5be7cefef80b3d1fd60838902d08b696",
+        "1d3c60ec310c55acbcc477428fb949713eabf9c888ca0152689fe0b30d0d0c23",
+        "eb0b8a7580a4d1b897d27beb961f7182c3232514f3826e0350ba8e6a9edfb75b",
+        "24dc265fdce9e2562cd2a1a0ccc32dad322de711e830fab1384b46a1b292ee6d",
+        "5e10968c17b3d84bcf755797e77d3d14d674f71965377eadd011fe0816ac01f3",
+        "2e13f796fafb3e358e954d7ce89e9f2825570ee054909cfeaeb45fe3a0ded350",
+        "935377484cfffd054122546cdf2dc5dac4f36b72e2deb983d8d0f4119a967970",
+        "ed4663f012bcd4e64e9a2d7983bdfb2e725929cb814365b4b48b5472579df138",
+        "3d2f780a16e1742b1e21bbcb2ed0aaedbc07aadeef57258e54171ff6891ca557",
+        "2c91be2412fd890db0a5550b82830230235084aba46874db1e15d7c78c33f8d8",
+        "6ef3120132f373ff802e8e74c3609b52054c6e32d14b08c5ef2a66cefae845c1"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "d06fc2fbd777a68772916ddf9b0eb0e2ee65e25f1d8fbff97a18965c7b3851c0",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/DHI-11_Velours_d_Iris_05443A_30mL_20pct.md",
+      "first_line": "# DHI-11 — Velours d'Iris — 05443/A Architecture Study — 30 mL / 20%",
+      "original_bytes_sha256": "cdb21133824679814dd581f8109e4e429601b5a0cfc747c34f0f1ba73f1768bf",
+      "analysis_text_sha256": "1d12a16853f4dfb52be90e1ec80da27ae50dd84b59b15d88988c8abb1c454ad9",
+      "formula_definitions_sha256": [
+        "1a2224bbcb1812ebb6e7b800a28923a72487d370e410bdd53f63d5374965d070"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "6823476e9ba970b231e281f45f5f9a7bf175c989ef40689a39193eff849821f1",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "ff9f2b7b24207b5e7b610f51bf238b574ae1349fc5c87afd68dbb326fe66cb3f",
+      "formula_without_review_metadata_sha256": [
+        "7e41df38b643e2d755693545c9616dedb25ab61bf3508031538faad64b2bb7b7"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "6823476e9ba970b231e281f45f5f9a7bf175c989ef40689a39193eff849821f1",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/DHI-11_Velours_d_Iris_05443A_30mL_20pct_V3_Smooth.md",
+      "first_line": "# DHI-11 — Velours d'Iris V3 Smooth — 05443/A Architecture Study — 30 mL / 20%",
+      "original_bytes_sha256": "efc43afe196d87db0412ee6867a90e47ab409b5c641f912cb88b904dfaf89614",
+      "analysis_text_sha256": "02f1bfbe0a467a0b58b27eb3371fc4f2201debb4e6b5bcbb1f43644bac0252d8",
+      "formula_definitions_sha256": [
+        "80cca2b690eda8b765daac8ca72a8060d02f5ede61a20f7cdd80a7b30f3d931b"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "594a40b5d200f66041c906fd33213b81300b3aadf0e323c292bb8040244b3b6a",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "825c5d0cb5b813e9cc32313f7c0676d5ced27cf6ba548fcf6f31af464edab4c7",
+      "formula_without_review_metadata_sha256": [
+        "50b2227d20739058d636cfb1723f984e851626fed79281044e560ff19126f66e"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "594a40b5d200f66041c906fd33213b81300b3aadf0e323c292bb8040244b3b6a",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/DPP_01_Mandarin_Ember_Sandalwood_30mL_EDP.md",
+      "first_line": "# DPP-01-R1 Mandarin Ember Sandalwood — 30 mL EDP",
+      "original_bytes_sha256": "83a7c732a82f3d1adf1d4c4dce046833bebe1bd5e106fa02090b918002ac9329",
+      "analysis_text_sha256": "dc05e606d2807f6bdc26a23715b82ab0fc15dbbe425051a1464846bed6f17d78",
+      "formula_definitions_sha256": [
+        "2e66e6b87c3ee31772ff1b3cdb6a0035962c11dce2052fbe91a38eff2a6ba6e5"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "5f1fba47927b23c8fefac7525ac37c1855ce439f4c32e378c951ab25417bce8d",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "bafef87bf46a0531a240d28775224840b16a01d6fd337fde48e6e819822e57d9",
+      "formula_without_review_metadata_sha256": [
+        "72a4cbd73b7c5c60084250408bd73a0fec22eb6b5da57f447f714aecbc2c94a5"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "5f1fba47927b23c8fefac7525ac37c1855ce439f4c32e378c951ab25417bce8d",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/DPP_01_Mandarin_Ember_Sandalwood_30mL_EDP_R2.md",
+      "first_line": "# DPP-01-R2 Mandarin Ember Sandalwood — Basket Form — 30 mL EDP",
+      "original_bytes_sha256": "62d17d0708f1e4242d6145558afbc424560f386b522a5ad6090016956672fcdc",
+      "analysis_text_sha256": "063ec42379ec96dd2ace8e344667ec5aea853d01aa96907c9b07e203d44d05b9",
+      "formula_definitions_sha256": [
+        "c8d7ec5571cc6cca83f9ef689c89341173ed239b39a7c3ef428c8b9bc5512ba8"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "355694555ab26fd4462ce4c399522d6293039a1e55b31ad7a839e13646cee2ae",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "2c15ec22c36d9861d1a8307035bed9e5adbf7636c808e62efb4088f1cc8bdb3a",
+      "formula_without_review_metadata_sha256": [
+        "42cd396bad0af53a914f93f3efc452b9d14817d7f6c60980a9f848802c01b860"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "355694555ab26fd4462ce4c399522d6293039a1e55b31ad7a839e13646cee2ae",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/DPP_02_Tuberose_Sandal_Cream_30mL_EDP.md",
+      "first_line": "# DPP-02-R1 Tuberose Sandal Cream — 30 mL EDP",
+      "original_bytes_sha256": "ab9d4370d223bdaecef93215a1dac3b5d44a6098acbf735d9312338889b266af",
+      "analysis_text_sha256": "d3e0db1516b671ecbfb455a6d574f114ae12e3dd120cff987affee35e54f0fe4",
+      "formula_definitions_sha256": [
+        "7c1a51fe9ac21c5a60da805cefc889ed60ece3216010e56745bd531afdfabfeb"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "148b7b484b8fe01cd79bf7cb7e943e0108be7707688d2c3f6a2c38c2fa7f9a04",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "84c876453c526f27c60a643df95a90cd3cff028b56c3fcb1caf7c6cf514605a6",
+      "formula_without_review_metadata_sha256": [
+        "b23011bc88f4b58178c8c67cf146bad7f7c677cd5ee1cf69a37af5e7b105c47f"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "148b7b484b8fe01cd79bf7cb7e943e0108be7707688d2c3f6a2c38c2fa7f9a04",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/DPP_02_Tuberose_Sandal_Cream_30mL_EDP_R2.md",
+      "first_line": "# DPP-02-R2 Tuberose Sandal Cream — Basket Form — 30 mL EDP",
+      "original_bytes_sha256": "f4688177a66dd7f0af6281b66adccd89ca1282f9c1cef25222552d14bb9abd95",
+      "analysis_text_sha256": "a7691704676ee2197d00ab493ae6316a4562c11c48a9c5ab6133e9b5bca9fd81",
+      "formula_definitions_sha256": [
+        "276f204d0651aff4781019f6964c1764afbad4cc19cabfab1cb60386e3bdf3b7"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "2e9940ea80bea24079d849a3844554efe184797faeec733265323cadd76f37b4",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "637535e93bc20ac199d9d6139644a6c9424a370365c81593cc727e26895cf68a",
+      "formula_without_review_metadata_sha256": [
+        "ecdf0d20630c40e6dc5284e0732ebee77750f0bb59dd2ab29da70662c3063870"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "2e9940ea80bea24079d849a3844554efe184797faeec733265323cadd76f37b4",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/DPP_03_Tobacco_Resin_Amber_Reserve_30mL_EDP.md",
+      "first_line": "# DPP-03-R1 Tobacco Resin Amber Reserve — 30 mL EDP",
+      "original_bytes_sha256": "44210aafc287772bc015fa1c31876fe7e653f4b03e7d9beb952e11cd7a92e5f8",
+      "analysis_text_sha256": "31e96dfe6a8cc2ef02a39f83f1a713006c5042c9cea67b25394ad8641a564857",
+      "formula_definitions_sha256": [
+        "e9595e756c5940198debb62c0af994a8dafca7e6d4a04e9adad25c7b385c6593"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "7677f1552f51db599992cdbd1cc1b52923b20bcb7b69be42987b1477b92affb3",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "d2e098655caff0b10d7982ea5d6ab4abc94cdf843dae142e4bde937efe99346a",
+      "formula_without_review_metadata_sha256": [
+        "cef0bbf8586975395c9344cac60474adba407de9ef5ef3f8dcc0df9cc6077571"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "7677f1552f51db599992cdbd1cc1b52923b20bcb7b69be42987b1477b92affb3",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/DPP_03_Tobacco_Resin_Amber_Reserve_30mL_EDP_R2.md",
+      "first_line": "# DPP-03-R2 Tobacco Resin Amber Reserve — Basket Form — 30 mL EDP",
+      "original_bytes_sha256": "16da484babd6f6ba3411c72c71a2d7c497414536df86c9dce46b8d232cf9bf3a",
+      "analysis_text_sha256": "8dbcb1171b44228181a5cb933fe52dde4f8c65f352653f4246809942267bebba",
+      "formula_definitions_sha256": [
+        "c639c94e222f163cc36562980db82444a01c0151cba3918d87475d107f7b88ca"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "50f89b388a2f566dba429571c9552bba9bcf54538edf577a0795bee7901bc130",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "3bbb0c09db1578cdd9c2dd54960d52fd58cedf8b9b7bfb02ce5d88d1313ca077",
+      "formula_without_review_metadata_sha256": [
+        "8b4a73c88129bda9b3d4da03701910984698a53c0fc1fe0b4e5eea6d130bba03"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "50f89b388a2f566dba429571c9552bba9bcf54538edf577a0795bee7901bc130",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/Gin_Vetiver_Cypress_Air_30mL_v2.md",
+      "first_line": "# Gin Vetiver - Cypress Air - 30 mL v2",
+      "original_bytes_sha256": "55ce5e82f06712e5e1731c15edc28461ce39f5f860bbb7c957576c96b5f478c4",
+      "analysis_text_sha256": "d6ec1da26e5b24224f4272b376e01f86dc5a56007e94fb09378b23859f0dfb14",
+      "formula_definitions_sha256": [
+        "4177ad7dc9f3688e69b3b84bb480ea4ded5de801c84d43e4792983bf682f09bf"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "4a8c42668cab6ecffb73d7fe50ca0cefb52791883a127d3d45ac37d73139c4dd",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "f4d81f2d22a6626237fdfa13209f1de5aaadcd1e70bd5eef2936e3589554e0fb",
+      "formula_without_review_metadata_sha256": [
+        "5b4310d0dd3ff92bd4e761edb8beb21c09bf26083018d576d39110570f7bf40a"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "4a8c42668cab6ecffb73d7fe50ca0cefb52791883a127d3d45ac37d73139c4dd",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/Gin_Vetiver_Cypress_Air_30mL_v3.md",
+      "first_line": "# Gin Vetiver - Cypress Air - 30 mL v3",
+      "original_bytes_sha256": "7b1de004305545f476b93821f989daa2be7ac12696f45e385b75e24bd3f8ae09",
+      "analysis_text_sha256": "17f4619664912d0cad6fe54782207d2a8e14fdfd467a61d6d2a383f45a554edc",
+      "formula_definitions_sha256": [
+        "541d906f16cca8d40b615a31cf92b7849eb721ff3fac4d952644882512101d9e"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "eab1705a55e1205faaeeabdabc2ef294645478cd0bce285c04e1f902d812a289",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "6d2916b0c803515321387cb5382a9d8dd6e6a5aa609200517cde697bfe82e034",
+      "formula_without_review_metadata_sha256": [
+        "81ee58511c0e2f5b7172c9e5db9f06dff1aba90151e4bd95607680080f7ce9a1"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "eab1705a55e1205faaeeabdabc2ef294645478cd0bce285c04e1f902d812a289",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.md",
+      "first_line": "# Gin Vetiver - Cypress Air - 30 mL v4 EDP",
+      "original_bytes_sha256": "ae0069443bd56d56f18c4dcc511d42aeb825602abf4e1536853c7e132933df53",
+      "analysis_text_sha256": "030d7549b37a3e32e9116575e51f91f47783f9e6c8bba3081c48432f6694b879",
+      "formula_definitions_sha256": [
+        "0e174f8eb89ad5260430f88ca2d3b9302f32c7c62f2dfb78a14433c8e7021ebb"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "1856ef36f60a5536d4cca6385d2e33a605f90670589a379ed33bef4d96c97d78",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "09484993d5a8a4a7074bf3051ea49af976da726c2acc24bf7e2a18f279ab2cc0",
+      "formula_without_review_metadata_sha256": [
+        "fd0e77c121e3c42d01963c9e7950da7239aaa334645380fda074979e44f11264"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "1856ef36f60a5536d4cca6385d2e33a605f90670589a379ed33bef4d96c97d78",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/Gin_Vetiver_Cypress_Air_30mL_v5_Final_EDP.md",
+      "first_line": "# Gin Vetiver - Cypress Air - 30 mL v5 Final EDP",
+      "original_bytes_sha256": "d0a978f43470e9a236c88ff714ea6a95a1b6c85b0a00a02296ab2d36ce4f2788",
+      "analysis_text_sha256": "06cf8e032bb755fbdab776e3c7cd01060b6605c96f874853a88413d9afa9433c",
+      "formula_definitions_sha256": [
+        "4c829f6724c61c8176c5c41b260d7439b11c8a55e979d1a4e7dd9440c64b8fbb"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "b4ea35e2150b29bef14c0f5a0c639d37c714d3312c0a261ac7390bd7884a8087",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "b0a314a1bc63ea4aec077cd59d2c839c9a807e6d00d948a77df2c58fd282808e",
+      "formula_without_review_metadata_sha256": [
+        "c9c4db8f3a108da1967b6eadcb8a4cf533b8d10423b392ff2c7ad88be36988de"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "b4ea35e2150b29bef14c0f5a0c639d37c714d3312c0a261ac7390bd7884a8087",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/Gin_Vetiver_Cypress_Air_Haitian_Grapefruit100_AddOnly_20260910.md",
+      "first_line": "# Gin Vetiver - Cypress Air - Haitian bottle - Grapefruit 100 add-only candidate",
+      "original_bytes_sha256": "fa1c8577b9faca44eb178f138efdec03c2ca40cd38703550ac9a645de1f9e7bd",
+      "analysis_text_sha256": "2f3cb17ba9010cf809b6efb4cc6dd1c6f2dbbdbf7fbbfbae9e19670cd64a88e4",
+      "formula_definitions_sha256": [
+        "495ead8c346fa3cf03d74d69f70ad6c9aac4ab37698a411a4876c35a858a8eff"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "87ebf88d535d43034eb5a3b3f3effe7ee6a3f65dc65ee4ad6a553ea9b49eee36",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "58d8a17639e335cc611e0b157627e9df3b3bff99daad23a55f15da9f7ac27940",
+      "formula_without_review_metadata_sha256": [
+        "5acb7c3e1b2b7dab668482d0668a8c3014f5734ad44b3c88add0c70979d3fcd8"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "87ebf88d535d43034eb5a3b3f3effe7ee6a3f65dc65ee4ad6a553ea9b49eee36",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/HED-FLORAL-01_Rose_de_Mai_Unadorned_30mL_20pct_EdP_v1.md",
+      "first_line": "# HED-FLORAL-01 — Rose de Mai Unadorned — 30 mL / 20% EdP — v1",
+      "original_bytes_sha256": "fcc04fd16c81a491041fce46570e4e41e5b5619e1af3b73a42541dad34550d47",
+      "analysis_text_sha256": "d565dc878ffb4f37998a9f82a0617759d125736fe0b9e6bf67c94fe85f07efb1",
+      "formula_definitions_sha256": [
+        "eb38296d92ddb8860434210ea2dba03ce13b5057271bee07891a45657c174894"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "9bbca19da362a13837c4bc2574b66ab678e411972981abccb7fd91fb32e49dcd",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "576ff03fd10fe4f9aea124e47c83a87debb77789a128a3f1baa367a5b3fbb826",
+      "formula_without_review_metadata_sha256": [
+        "9e3865931347d6cf855ca0363da78ec02fa7576a8497374de5af51d92bec0529"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "9bbca19da362a13837c4bc2574b66ab678e411972981abccb7fd91fb32e49dcd",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/HED-FLORAL-01_Rose_de_Mai_Unadorned_30mL_3mLstock_FINAL_v3.md",
+      "first_line": "# HED-FLORAL-01 — Rose de Mai Unadorned — 3 mL Stock Final — 30 mL — v3",
+      "original_bytes_sha256": "5ba516ab73ce075b386b95faaaf58332369f3d9f9d0a32c6134b25dc4bb19177",
+      "analysis_text_sha256": "74d10fb4f985def725e8e2eb5150ec13f5bd180020c81ad75bf61568e6d2b407",
+      "formula_definitions_sha256": [
+        "98c7d70d9843996bde4525d55eb9463bd426530a64e5dd4f639e71afa49aad65"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "8c2376a0f2dbc9f296bca298bbde7adfd63fe54ccf8e77cdaac34805ee7bf19b",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "80f43deee8f9a6b47124e9794d147ecd9742809dedd3d807a74ec9aa304fc1fb",
+      "formula_without_review_metadata_sha256": [
+        "3e1a448e4273c0c5883d779b0b1acee989b54a1ba828bac0c79447adc8d8c283"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "8c2376a0f2dbc9f296bca298bbde7adfd63fe54ccf8e77cdaac34805ee7bf19b",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/HED-FLORAL-01_Rose_de_Mai_Unadorned_DeepPlane_30mL_v5.md",
+      "first_line": "# HED-FLORAL-01 — Rose de Mai Unadorned — Deep-Plane Perfume — 30 mL — v5",
+      "original_bytes_sha256": "cbd91d34dafb27b4cc23e69ffaf41c580e9718ade30a42e1ca5b1f0f2e13d00b",
+      "analysis_text_sha256": "0a4afd03f9b26831ab2a9961fc89467ba42d1f607096550ebdc1e8c5e40e1d7d",
+      "formula_definitions_sha256": [
+        "ddb6fe38bd42feb7c16084444300cfa0b97990fc15c33b1f77c5ba953e4f96bb"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "28e2a57aaca2cab4e5e9496ec31f2b48c25c8efce3132a1d74a4f98f15f121d1",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "78e866fd304081f2ed9051fca65d2755dec2d8c5a195f24ab100075d49b197ed",
+      "formula_without_review_metadata_sha256": [
+        "ea2c4bbdb9f0710cab8ed36e367c1fce1575894c499e08327b4eb0cbb16901bd"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "28e2a57aaca2cab4e5e9496ec31f2b48c25c8efce3132a1d74a4f98f15f121d1",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/HED-FLORAL-01_Rose_de_Mai_Unadorned_DeepPlane_FINAL_30mL_v4.md",
+      "first_line": "# HED-FLORAL-01 — Rose de Mai Unadorned — Deep-Plane Fingerprint-Preserved Final — 30 mL — v4",
+      "original_bytes_sha256": "12b17b2305c25333a91c458d87f6c7dc0b0d473eda6ac1525e8f96b2f0bfa558",
+      "analysis_text_sha256": "4856b2ddc57c2974d1bd509e2974d51b9f150b30cbf649ff808e8e24234839cb",
+      "formula_definitions_sha256": [
+        "db0e403110a7332078a03c72bbbcfaae6201bee6c8d7aabe54e31a56fe488c3f"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "ed8420bdc8da5542e53da5a309ace8c08d1a6abb08d378714061070f08b708a6",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "f7df1b3f549965fefe290c247a63b3fc1e9e067aa6435003cb87f176ab2bb24b",
+      "formula_without_review_metadata_sha256": [
+        "596e86bf80f587d8835ebe92a135a8426de19d8acf4f1d4787030dc02a1dd256"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "ed8420bdc8da5542e53da5a309ace8c08d1a6abb08d378714061070f08b708a6",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/HED-FLORAL-01_Rose_de_Mai_Unadorned_FINAL_30mL_20pct_EdP_v2.md",
+      "first_line": "# HED-FLORAL-01 — Rose de Mai Unadorned — FINAL — 30 mL / nominal 20% stock concentrate — v2",
+      "original_bytes_sha256": "fda71c9f4a67c57d75ea0842f8cdb6b5c818f9287c68211575dc200b7f7cf874",
+      "analysis_text_sha256": "aa962245eb591a7262753924f54656031614ddb56302c4033311cd843d660271",
+      "formula_definitions_sha256": [
+        "8d3f60571c6630dbd243489f452f0331ff9fd6acc69381b55cce91549e34c6b5"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "11b5a49010b44162be8eb050790e741a2a51530fdcbd9351f557a9fb49481884",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "6cfce36bdc1c48a764eecd395b00e9c33d3479180cdc2379c189bd44d4da6dcc",
+      "formula_without_review_metadata_sha256": [
+        "24812743829a25c9d22030fd74fb4ea86b2414a9ed4b626037131c7b38eab6e5"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "11b5a49010b44162be8eb050790e741a2a51530fdcbd9351f557a9fb49481884",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/HED-FLORAL-02_Hyacinth_Three_Petal_Bouquet_30mL_20pct_EdP_v1.md",
+      "first_line": "# HED-FLORAL-02 — Hyacinth Three-Petal Bouquet — 30 mL / 20% EdP — v1",
+      "original_bytes_sha256": "60bf726552a17397eba739627bad403ff53da252b06a71b66378621e03b0a165",
+      "analysis_text_sha256": "e48f6241073f0d0bc1839f7a819482b5c081dbba6f195b7fe8d2f444e536b1d3",
+      "formula_definitions_sha256": [
+        "e8fb72428f7ee8c57427c4ad06aa4d868f3b3cf9280969de4ccffb259891bda5"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "3653b2603b275af713c1255957f409736005b7a0c757c3049fd01ed043eb9cef",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "6e75c8a42c9da1e7fef450f8465fa522d87eadc8711713a164fcc6c1a78fe2b4",
+      "formula_without_review_metadata_sha256": [
+        "020d451fab485027b25ebe6e7563abb48f262a9da6f2794171ea63129dbbcdc0"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "3653b2603b275af713c1255957f409736005b7a0c757c3049fd01ed043eb9cef",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/HED-FLORAL-02_Hyacinth_Three_Petal_Bouquet_FINAL_30mL_v2.md",
+      "first_line": "# HED-FLORAL-02 — Hyacinth Three-Petal Bouquet — Final Design — 30 mL — v2",
+      "original_bytes_sha256": "7898e167e704bd1f8ecd1182e3a567f302c2dfc800e300f6ffb8a86abec9a683",
+      "analysis_text_sha256": "d3fc3e6797900f6909af8610e92906630807ec6453df74d242e72c25ad2cf693",
+      "formula_definitions_sha256": [
+        "f7c303cdd70d166ee96a4d245413e73d808267def39c46abfbf2f5ad9c38e1dc"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "3abf543318819b387880b77d940d19ab8dc40c3cfcef9c594ec529c17f211cce",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "97c451d4401a7fd9adc80d166071db47c20e0258b42c34b87ba6086dd6c2483f",
+      "formula_without_review_metadata_sha256": [
+        "fd1a62733d78238fdaa4c8b29a69b3df843fb478dc8916f7903336112f4dbf4a"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "3abf543318819b387880b77d940d19ab8dc40c3cfcef9c594ec529c17f211cce",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/HED-FLORAL-02_Hyacinth_Three_Petal_Bouquet_FINAL_30mL_v3.md",
+      "first_line": "# HED-FLORAL-02 — Hyacinth Three-Petal Bouquet — Final Design — 30 mL — v3",
+      "original_bytes_sha256": "c6ca75a5cd442e0c42e65d5aad33ddad975c472a233cd69db9f608b9d2cc5d7e",
+      "analysis_text_sha256": "2ba3864742ee4b5c28c595264b8714f861a76f7064e2b1219046c614236e16ba",
+      "formula_definitions_sha256": [
+        "8ff275760ef18d0f249acd4dd284a9572e86993160d3c3050409604aef5d8802"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "a17c650b82b22e93ca9a1c5248cccc7f0090bb853bbfc41b4547b91481c5947f",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "55b0054f4f03b99d726f1ee3fc05ee4b0b81a0959e0fe819cb3ef1a9bcbe578e",
+      "formula_without_review_metadata_sha256": [
+        "9a67596f647dd2dd5a28be1fc630f51a8f3b62f26457dc3a8b09ffe4d7848795"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "a17c650b82b22e93ca9a1c5248cccc7f0090bb853bbfc41b4547b91481c5947f",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/HED-FLORAL-03_Magnolia_Peony_Satin_30mL_20pct_EdP_v1.md",
+      "first_line": "# HED-FLORAL-03 — Magnolia-Peony Satin — 30 mL / 20% EdP — v1",
+      "original_bytes_sha256": "09e3f2b6afcf0cc5152fda926e508d32f2bda96fc3a8bf50c63dd969e9087330",
+      "analysis_text_sha256": "57088fb0be8057276c28fc9e2a8394c849fc2adf273025750e9761566335921a",
+      "formula_definitions_sha256": [
+        "3b5683a1de33226b66ab0506831349ea2d42fe679c2929128c1de316af8de376"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "77e1722f7dffaee2a6fbc9022e8c48df2f8c9110ad5dc3cf48600d017eeb3272",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "ed74de5e76ee84c7eec8eaecda8971a7cea11541172c0426fd2d98b499e551f3",
+      "formula_without_review_metadata_sha256": [
+        "1a171494eebaa17c464242df6d88beefd20293ed51fe26160561d2e2122cdf34"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "77e1722f7dffaee2a6fbc9022e8c48df2f8c9110ad5dc3cf48600d017eeb3272",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/HED-FLORAL-03_Magnolia_Peony_Satin_FINAL_30mL_v2.md",
+      "first_line": "# HED-FLORAL-03 — Magnolia–Peony Satin — Final Design — 30 mL — v2",
+      "original_bytes_sha256": "4395be9e45602609e97937254dc31f975d1187374e5361a640653a3a2d89e685",
+      "analysis_text_sha256": "d0b7ce8c85dd3150951ce6b392b1bcc4743ad720c1152c0abcd15ab67127ef08",
+      "formula_definitions_sha256": [
+        "e6dbdd91557e1b325ee58d1d77f2b5c6bceefc11edf03b3bf74016f2d2969f98"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "fb1600102842b90129e59d597a48572c176b8e03fabb85f68acc5680cf70da59",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "b8973801e057de3380bf00866336aa95d7ff0e55b9998efd526ef972f8ea9021",
+      "formula_without_review_metadata_sha256": [
+        "33cd82a29bcd452a0b648e1ff709f06bfbfe69e737f2b6cab590f5ec6fccca5c"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "fb1600102842b90129e59d597a48572c176b8e03fabb85f68acc5680cf70da59",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/Immortelle_Ambre_Fossile_V2_30mL_24pct_Parfum.md",
+      "first_line": "# Immortelle Ambre Fossile V2 — 30 mL / 24% Parfum",
+      "original_bytes_sha256": "f7a4ebb4378073caf45fe4506cbedd609423b1b85986819e8f0a533423099fcb",
+      "analysis_text_sha256": "cdbf3559b9fd314e6f61966fda144edfef48291cdc538a9da4ec6a874744ab81",
+      "formula_definitions_sha256": [
+        "bec2a16e90899e2593710d26de6b0a91f0a88a6894aeb87ccac1371a1116e52f"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "7ca46fed091ff5f51539bc937bf0afe4247f72b9282880280db2d138392f48f5",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "48120ced837794f8bd9b11e8fc26b3187bccd53b9052f964ba9780d2c9e574d4",
+      "formula_without_review_metadata_sha256": [
+        "2fa3414d9c78f8dccb5c54c0c0ff2c8bc53c59ab6043c2870a8fc3bc276283bb"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "7ca46fed091ff5f51539bc937bf0afe4247f72b9282880280db2d138392f48f5",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/Jasmine_Sambac_Clair_30mL_V3_Optimized.md",
+      "first_line": "# Sambac Clair — Green Petal / Soft Woods — 30 mL V3 Optimized",
+      "original_bytes_sha256": "3512fdfca0d0aa1414c5e4dbd89544ba88398160ae444a6685d974f83fa4ca6a",
+      "analysis_text_sha256": "4082df35ce8ed348913b474d544597a68772723786eb36103e397f30e36d0709",
+      "formula_definitions_sha256": [
+        "6625ab7ed3432b5b977b0bdbef8cad05e4edba6fbb28bc1f6e00ed5feea052f8"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "03d5b1018324aa6860c322a0f47a59c1bb7da06911970434a22b5c370a8b88f3",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "cca9e596e1d4bc9d225ca787a0b7f9140f8f587ad60fe2711f292ef1176ecaf7",
+      "formula_without_review_metadata_sha256": [
+        "ef54cd8d703f392fb176ccfdbf21d4fd8868252262df7a51f9dc92d1835264f0"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "03d5b1018324aa6860c322a0f47a59c1bb7da06911970434a22b5c370a8b88f3",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/Jasmine_Sambac_Vivante_30mL_V4_Realistic_Hedonic.md",
+      "first_line": "# Jasmine Sambac Vivante — Natural Petal / Warm Skin — 30 mL V4",
+      "original_bytes_sha256": "7f0ab5e2b3907646cd09365e0c7d416444261a34dcb6e0149ecd4faad4184c08",
+      "analysis_text_sha256": "d85f7edecc1a4422b426fe938ef3575606f53b2cc720e63ed906300a473a909f",
+      "formula_definitions_sha256": [
+        "3273c3199154202f284193bb6dc19d662f44d8e2e06a2b49548271528866aa18"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "96703acc257b76e37259a7f1d011ad80deb6e4095703e1e799f7821c3d363ed6",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "d72d347d3bd42640625d449868e5ecde67ada54d45a090c3657ae7820e003b4f",
+      "formula_without_review_metadata_sha256": [
+        "aa1b8899cc5f6b791f209fb36bcfb6a319298a95ef08f4b8cd3b9b1c8f29a568"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "canonical_record_binding",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "96703acc257b76e37259a7f1d011ad80deb6e4095703e1e799f7821c3d363ed6",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/ORR-01_FINAL_FULL_RUM_30mL_21.8PCT.md",
+      "first_line": "# ORR-01 Sweet Orris Rootwood — Opus V + DHP 2025 · FULL STACK · 30 mL",
+      "original_bytes_sha256": "7c8e520137e82d66b10c352a8a421ea52ba60261f260e199d58463d2a649cf2e",
+      "analysis_text_sha256": "28f87593cdfea23ac45a2690afd2b26d8694690187a11397ced5fac9a9eeefe2",
+      "formula_definitions_sha256": [
+        "6c41c8dee062caf3a1adeb118ca5b79e8d8ef85ac7dfe71586c05af17e31d5ba"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "700612829b610b03c2e64e2f63dc149f8e336cf7f23b21669e818a8524fdbb0c",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "e06b746b8ceed335c3e27d31d61a43cdcc5dc4f414de193ff226de2a00383f89",
+      "formula_without_review_metadata_sha256": [
+        "d36686fea2556f1f0effc63cbbc15d973d7de099ac66ce2e2b1b918f18332b11"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "700612829b610b03c2e64e2f63dc149f8e336cf7f23b21669e818a8524fdbb0c",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/Pink_Pepper_Lavender_Masculine_30mL_EDP.md",
+      "first_line": "# Pink Pepper Lavender — Masculine Aromatic-Fougère",
+      "original_bytes_sha256": "8882ada5744242de6a0ed87253298a4f59feecaeba3e254fdb3148c4fd0e1dff",
+      "analysis_text_sha256": "221679665cbaf4a4d67776a1fa7f15966c1aea62f11b8a72820cb9b63499fa8b",
+      "formula_definitions_sha256": [
+        "b8c22dcd8c282b464d5f944e7dce6a58c354ce55084549d17209b0cba880df89"
+      ],
+      "validation_before": {
+        "status": "STALE",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "1beeaf6af6cddf6187f21063c0e9af1171d6b8bc745fd347329cf6d873c26073",
+        "release_authority": null,
+        "quarantine_explicit": false
+      },
+      "reviewed_portable_text_sha256": "d1b3c9af833f1aa99fab6eb1fb0895a0b72371aae6bedfb7db6104b77974fc8c",
+      "formula_without_review_metadata_sha256": [
+        "3311aa9c986118884ed2fc410c61f58c829beefb37259959b60ad429974bf26a"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "formula_definition",
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "1beeaf6af6cddf6187f21063c0e9af1171d6b8bc745fd347329cf6d873c26073",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    },
+    {
+      "path": "formulas/Prada_LHomme_Architecture_Control_30mL_EdT.md",
+      "first_line": "# Prada L'Homme Architecture Control — 30 mL EDT-Style Study",
+      "original_bytes_sha256": "10c0ad9651c84938abc436e626eab1e35ff1bc06b3e7c8bf708b80fcd89037c6",
+      "analysis_text_sha256": "75223fb8e095d5ed518f01619bd030d6cd1d0ccea771e479476879e378758c2c",
+      "formula_definitions_sha256": [
+        "b514e715409a4498bb3a320ba9c58fee895fa42fce7c09776d590027d7fadc1f"
+      ],
+      "validation_before": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "4390b955cf0a6cdfeb67f7658273e89c862c414b1b8844044e4eecd2bf20a685",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "reviewed_portable_text_sha256": "151de70b2983a7902a67daf8ddd43e0692bfea4ee5f8c92e553c3174827e1d00",
+      "formula_without_review_metadata_sha256": [
+        "b514e715409a4498bb3a320ba9c58fee895fa42fce7c09776d590027d7fadc1f"
+      ],
+      "validation_after": {
+        "status": "QUARANTINED",
+        "artifact_binding_status": "STALE",
+        "issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "integrity_issues": [],
+        "stale_issues": [
+          "inventory",
+          "scientific_inputs",
+          "pipeline_source"
+        ],
+        "artifact_sha256": "4390b955cf0a6cdfeb67f7658273e89c862c414b1b8844044e4eecd2bf20a685",
+        "release_authority": false,
+        "quarantine_explicit": true
+      },
+      "formula_doses_and_original_prose_unchanged": true,
+      "analysis_unchanged": true
+    }
+  ]
+}

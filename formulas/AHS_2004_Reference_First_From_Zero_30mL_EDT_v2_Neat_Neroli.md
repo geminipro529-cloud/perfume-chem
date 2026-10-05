@@ -1,5 +1,8 @@
 # AHS-2004 Reference-First — From-Zero 30 mL EDT Study v2 — Neat Neroli
 
+**Status:** QUARANTINED — historical analysis only; do not mix or release.
+**Artifact review (2026-10-05):** The stored analysis no longer matches the current inventory, scientific inputs or implementation. Formula quantities and prior analysis are retained; no fresh calculation, sensory validation or safety/release approval is claimed. See the [review receipt](../docs/verification/FORMULA_ARTIFACT_REVIEW_20261005.json).
+
 **Target:** Chanel Allure Homme Sport Eau de Toilette, original EDT product identity (current official ref. 123630; not Eau Extreme, Cologne, Edition Blanche, an iris flanker, or a Versace hybrid)  
 **Creator/launch evidence:** Jacques Polge, 2004, per Chanel's house history  
 **Formula origin:** independent from-zero reconstruction; v2 changes only the Neroli stock presentation and its separate DPG transfer  

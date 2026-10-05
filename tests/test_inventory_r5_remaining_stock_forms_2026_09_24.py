@@ -15,23 +15,21 @@ def _stocks(identity_name: str):
     ]
 
 
-def test_v17_overlay_is_pinned_to_current_receipt_and_inventory() -> None:
-    path = inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH
+def test_v17_overlay_remains_pinned_to_its_historical_receipt_and_inventory() -> None:
+    path = inventory.R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_PATH
     normalized = path.read_bytes().replace(b"\r\n", b"\n")
     assert hashlib.sha256(normalized).hexdigest() == (
-        inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256
+        inventory.R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_SHA256
     )
     payload = json.loads(path.read_text(encoding="utf-8"))
-    inventory_normalized = inventory.INVENTORY_PATH.read_bytes().replace(
-        b"\r\n", b"\n"
-    )
     assert payload["schema_version"].endswith("_v17")
-    assert payload["source"]["inventory_text_size_bytes"] == len(
-        inventory_normalized
+    assert payload["source"]["inventory_text_size_bytes"] == 28251
+    assert payload["source"]["inventory_text_sha256"] == (
+        "1b4324da5a35cebe8c59959e58276d84ac8f2f0e0e6f3239fdef0a4250d8df71"
     )
-    assert payload["source"]["inventory_text_sha256"] == hashlib.sha256(
-        inventory_normalized
-    ).hexdigest()
+    loaded = inventory.load_current_user_inventory_overlay(path)
+    assert loaded["schema_version"].endswith("_v17")
+    assert len(loaded["delta_records"]) == 12
 
     receipt = (
         inventory.PROJECT_ROOT
@@ -104,10 +102,11 @@ def test_gamma_coeur_is_depleted_without_family_substitution() -> None:
     assert record["state"] == "NOT_OWNED"
     assert record["stock"] is None
     assert all(
-        stock.identity_name != "Givaudan AIMI"
+        stock.identity_name != "Alpha Isomethyl Ionone"
         for stock in inventory.materialize_current_inventory().stocks
         if stock.identity_name == "Methyl Ionone Gamma Coeur"
     )
+    assert len(_stocks("Alpha Isomethyl Ionone")) == 1
 
 
 @pytest.mark.parametrize(
@@ -134,7 +133,9 @@ def test_neat_parent_does_not_create_required_r5_working_stock(
 
 def test_v17_loader_rejects_record_mutation() -> None:
     payload = json.loads(
-        inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8")
+        inventory.R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_PATH.read_text(
+            encoding="utf-8"
+        )
     )
     candidate = copy.deepcopy(payload)
     candidate["records"][0]["stock"]["fraction_basis"] = "volume_fraction"

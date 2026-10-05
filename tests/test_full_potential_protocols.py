@@ -7,9 +7,9 @@ from dataclasses import replace
 import pytest
 
 from engine.research.protocols import (
-    BlindingManifestV1,
     InstrumentalObservationContractV1,
     build_personal_sensory_protocol,
+    build_reference_anchored_protocol,
 )
 
 
@@ -99,3 +99,47 @@ def test_instrumental_contract_binds_raw_and_processed_bytes_without_admission()
     assert record["observation_admitted"] is False
     assert record["release_authority"] is False
     assert record["safety_authority"] is False
+
+
+def test_quick_reference_protocol_is_target_anchored_and_lightweight() -> None:
+    plan, blinding = build_reference_anchored_protocol(
+        {"target": "1" * 64, "libre": "2" * 64, "carbon": "3" * 64},
+        target_candidate_id="target",
+        protocol_id="quick-reference-v1",
+        mode="QUICK_REFERENCE",
+        session_ids=("s1",),
+        seed=17,
+        requested_descriptors=("clear lavender",),
+    )
+    assert plan["timepoints_seconds"] == [300, 7200]
+    assert len(plan["schedule"]) == 2
+    assert plan["reference_reference_comparisons_required"] is False
+    assert plan["result_scope"] == "QUICK_PERSONAL_OBSERVATION"
+    assert all(row["short_reason_required"] for row in plan["schedule"])
+    public = blinding.public_manifest()
+    assert public["mapping_withheld_until_session_close"] is True
+    assert set(public["sessions"]["s1"]).isdisjoint({"target", "libre", "carbon"})
+
+
+def test_controlled_reference_protocol_balances_order_and_keeps_endpoints_separate() -> None:
+    plan, _blinding = build_reference_anchored_protocol(
+        {"target": "1" * 64, "reference": "2" * 64},
+        target_candidate_id="target",
+        protocol_id="controlled-reference-v1",
+        mode="CONTROLLED_REFERENCE",
+        session_ids=("s1", "s2", "s3"),
+        seed=22,
+        requested_descriptors=("lavender clarity",),
+        preserve_constraints=("dry amber",),
+        avoid_constraints=("added sweetness",),
+    )
+    assert plan["timepoints_seconds"] == [300, 1800, 7200, 14400]
+    assert len(plan["schedule"]) == 3
+    assert plan["presentation_order_balanced"] is True
+    assert plan["evaluation_endpoints"] == {
+        "requested_descriptors": ["lavender clarity"],
+        "preserve_constraints": ["dry amber"],
+        "avoid_constraints": ["added sweetness"],
+        "fixed": ["INTENSITY", "FAMILIARITY", "OVERALL_LIKING"],
+    }
+    assert plan["population_generalization_authorized"] is False

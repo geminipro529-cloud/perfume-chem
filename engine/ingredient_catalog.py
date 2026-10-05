@@ -43,7 +43,15 @@ _TOKEN_REPLACEMENTS = {
 
 _ALIASES: dict[str, list[str]] = {
     "alpha irone": ["alpha irone", "alpha-irone", "alpha irone 10", "alpha irone 10%", "alpha irone 3%"],
-    "alpha isomethyl ionone": ["alpha isomethyl ionone", "alpha-isomethyl ionone", "aimi", "methyl ionone pure"],
+    "alpha isomethyl ionone": [
+        "alpha isomethyl ionone",
+        "alpha-isomethyl ionone",
+        "alpha methyl ionone",
+        "aimi",
+        "givaudan aimi",
+        "methyl ionone pure",
+        "perfumersworld alpha isomethyl ionone",
+    ],
     "alpha ionone": ["alpha ionone", "alpha-ionone", "ionone alpha"],
     "allyl ionone": ["allyl ionone", "allyl ionone ketone v", "allyl ionone cetone v", "ketone v", "cetone v"],
     "ambrox super": ["ambrox super", "ambroxide"],

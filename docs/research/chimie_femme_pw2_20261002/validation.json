@@ -1,0 +1,690 @@
+{
+  "schema_version": "chimie-femme-pw2-validation-v1",
+  "date": "2026-10-02",
+  "scope": "Nominal formula/stock/carrier/cart/hash invariants only, no sensory or safety validation",
+  "status": "PASS",
+  "check_count": 153,
+  "checks": [
+    {
+      "check": "38 unique product identities including one explicit PW sourcing gap",
+      "status": "PASS"
+    },
+    {
+      "check": "37 first-cart SKUs and no inferred Pear Ester SKU",
+      "status": "PASS"
+    },
+    {
+      "check": "Supplier CAS does not compress Hedione and HC grade rows",
+      "status": "PASS"
+    },
+    {
+      "check": "No inventory restriction or physical mutation",
+      "status": "PASS"
+    },
+    {
+      "check": "Every action authority remains false",
+      "status": "PASS"
+    },
+    {
+      "check": "Catalog snapshot hashes still match local bytes",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_PW: unique ordered target rows",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_PW: positive finite Decimal string parts",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_PW: exact 1000-part mass total",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_PW: all exact products in roster",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_PW: explicit w/w fraction, no missing defaults",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_PW: minimum weighed transfer 20 mg or larger",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_PW: exact recovery of 2 g undiluted-product equivalents",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_PW: nonnegative finishing solvent",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_PW: 2 g at 18% w/w, carrier counted exactly once",
+      "status": "PASS"
+    },
+    {
+      "check": "COMMERCIAL_CLEAR_PW: unique ordered target rows",
+      "status": "PASS"
+    },
+    {
+      "check": "COMMERCIAL_CLEAR_PW: positive finite Decimal string parts",
+      "status": "PASS"
+    },
+    {
+      "check": "COMMERCIAL_CLEAR_PW: exact 1000-part mass total",
+      "status": "PASS"
+    },
+    {
+      "check": "COMMERCIAL_CLEAR_PW: all exact products in roster",
+      "status": "PASS"
+    },
+    {
+      "check": "COMMERCIAL_CLEAR_PW: explicit w/w fraction, no missing defaults",
+      "status": "PASS"
+    },
+    {
+      "check": "COMMERCIAL_CLEAR_PW: minimum weighed transfer 20 mg or larger",
+      "status": "PASS"
+    },
+    {
+      "check": "COMMERCIAL_CLEAR_PW: exact recovery of 2 g undiluted-product equivalents",
+      "status": "PASS"
+    },
+    {
+      "check": "COMMERCIAL_CLEAR_PW: nonnegative finishing solvent",
+      "status": "PASS"
+    },
+    {
+      "check": "COMMERCIAL_CLEAR_PW: 2 g at 18% w/w, carrier counted exactly once",
+      "status": "PASS"
+    },
+    {
+      "check": "LUXURY_POLISHED_PW: unique ordered target rows",
+      "status": "PASS"
+    },
+    {
+      "check": "LUXURY_POLISHED_PW: positive finite Decimal string parts",
+      "status": "PASS"
+    },
+    {
+      "check": "LUXURY_POLISHED_PW: exact 1000-part mass total",
+      "status": "PASS"
+    },
+    {
+      "check": "LUXURY_POLISHED_PW: all exact products in roster",
+      "status": "PASS"
+    },
+    {
+      "check": "LUXURY_POLISHED_PW: explicit w/w fraction, no missing defaults",
+      "status": "PASS"
+    },
+    {
+      "check": "LUXURY_POLISHED_PW: minimum weighed transfer 20 mg or larger",
+      "status": "PASS"
+    },
+    {
+      "check": "LUXURY_POLISHED_PW: exact recovery of 2 g undiluted-product equivalents",
+      "status": "PASS"
+    },
+    {
+      "check": "LUXURY_POLISHED_PW: nonnegative finishing solvent",
+      "status": "PASS"
+    },
+    {
+      "check": "LUXURY_POLISHED_PW: 2 g at 18% w/w, carrier counted exactly once",
+      "status": "PASS"
+    },
+    {
+      "check": "CONTROL_PW: unique ordered target rows",
+      "status": "PASS"
+    },
+    {
+      "check": "CONTROL_PW: positive finite Decimal string parts",
+      "status": "PASS"
+    },
+    {
+      "check": "CONTROL_PW: exact 1000-part mass total",
+      "status": "PASS"
+    },
+    {
+      "check": "CONTROL_PW: all exact products in roster",
+      "status": "PASS"
+    },
+    {
+      "check": "CONTROL_PW: explicit w/w fraction, no missing defaults",
+      "status": "PASS"
+    },
+    {
+      "check": "CONTROL_PW: minimum weighed transfer 20 mg or larger",
+      "status": "PASS"
+    },
+    {
+      "check": "CONTROL_PW: exact recovery of 2 g undiluted-product equivalents",
+      "status": "PASS"
+    },
+    {
+      "check": "CONTROL_PW: nonnegative finishing solvent",
+      "status": "PASS"
+    },
+    {
+      "check": "CONTROL_PW: 2 g at 18% w/w, carrier counted exactly once",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_IDEAL: unique ordered target rows",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_IDEAL: positive finite Decimal string parts",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_IDEAL: exact 1000-part mass total",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_IDEAL: all exact products in roster",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_IDEAL: explicit w/w fraction, no missing defaults",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_IDEAL: minimum weighed transfer 20 mg or larger",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_IDEAL: exact recovery of 2 g undiluted-product equivalents",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_IDEAL: nonnegative finishing solvent",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_IDEAL: 2 g at 18% w/w, carrier counted exactly once",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_MUSK_ALTERNATIVE: unique ordered target rows",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_MUSK_ALTERNATIVE: positive finite Decimal string parts",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_MUSK_ALTERNATIVE: exact 1000-part mass total",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_MUSK_ALTERNATIVE: all exact products in roster",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_MUSK_ALTERNATIVE: explicit w/w fraction, no missing defaults",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_MUSK_ALTERNATIVE: minimum weighed transfer 20 mg or larger",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_MUSK_ALTERNATIVE: exact recovery of 2 g undiluted-product equivalents",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_MUSK_ALTERNATIVE: nonnegative finishing solvent",
+      "status": "PASS"
+    },
+    {
+      "check": "RICH_ORCHARD_MUSK_ALTERNATIVE: 2 g at 18% w/w, carrier counted exactly once",
+      "status": "PASS"
+    },
+    {
+      "check": "PW lead is 37 rows",
+      "status": "PASS"
+    },
+    {
+      "check": "Ideal adds exact 0.05% true Pear Ester and offsets ELA, no hidden changes",
+      "status": "PASS"
+    },
+    {
+      "check": "Musk paired challenger changes exactly two rows",
+      "status": "PASS"
+    },
+    {
+      "check": "No heavy amber/gourmand/crystal-volume shortcut in lead",
+      "status": "PASS"
+    },
+    {
+      "check": "Lead master charge exactly 5.690 g for 2.000 g target",
+      "status": "PASS"
+    },
+    {
+      "check": "30 mL plan charge is 14.225 g with 9.225 g explicit carrier",
+      "status": "PASS"
+    },
+    {
+      "check": "No fictitious final w/w, v/v or fixed alcohol volume",
+      "status": "PASS"
+    },
+    {
+      "check": "10%, 1%, 0.1% serial recipes conserve material mass",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4GF00226: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4GF00226: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4GG01946: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4GG01946: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4GA02582: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4GA02582: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4GL00225: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4GL00225: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4GI24147: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4GI24147: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4FG01284: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4FG01284: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4FD04118: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4FD04118: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3FD05860: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3FD05860: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4FG15438: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4FG15438: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4GD00228: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4GD00228: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4DD01639: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4DD01639: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3FD06779: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3FD06779: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3FG00463: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3FG00463: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3FG00145: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3FG00145: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4LD02865: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4LD02865: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4GN00417: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4GN00417: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 7CL24020: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 7CL24020: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 7CA24030: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 7CA24030: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3LC19147: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3LC19147: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3LR00160: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3LR00160: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3RB00375: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3RB00375: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3JJ00218: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3JJ00218: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4JJ10013: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4JJ10013: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3ML00192: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3ML00192: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3MA22553: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3MA22553: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 8ND00346: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 8ND00346: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 8RM00395: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 8RM00395: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3IF00238: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3IF00238: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 9IF07120: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 9IF07120: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3XD17215: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3XD17215: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3XA09821: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3XA09821: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4XU00034: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4XU00034: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3XU22379: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3XU22379: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3WY00244: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 3WY00244: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4WX00405: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4WX00405: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4WX07563: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 4WX07563: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 7WB13670: exact quantity, product, fee and line total",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart 7WB13670: component yield and target amount",
+      "status": "PASS"
+    },
+    {
+      "check": "Cart totals 87.25 + 33.30 + 30 = 150.55 USD",
+      "status": "PASS"
+    },
+    {
+      "check": "Illustrative FX math, not asserted live rate",
+      "status": "PASS"
+    },
+    {
+      "check": "Full-cart capacity 12 theoretical and 10 with declared 15% reserve",
+      "status": "PASS"
+    },
+    {
+      "check": "Aromatic cost per 5 g charge 2.5802075 USD",
+      "status": "PASS"
+    },
+    {
+      "check": "19 additional explicit candidate decisions, no automatic extra cart",
+      "status": "PASS"
+    },
+    {
+      "check": "Optional Fructone B identity is not ordinary Fructone",
+      "status": "PASS"
+    },
+    {
+      "check": "Sensory, physical and population claims remain unmeasured",
+      "status": "PASS"
+    },
+    {
+      "check": "campaign.json: UTF8, final newline, no trailing whitespace",
+      "status": "PASS"
+    },
+    {
+      "check": "FORMULAS_AND_CART.md: UTF8, final newline, no trailing whitespace",
+      "status": "PASS"
+    },
+    {
+      "check": "alternatives.json: UTF8, final newline, no trailing whitespace",
+      "status": "PASS"
+    },
+    {
+      "check": "README.md: UTF8, final newline, no trailing whitespace",
+      "status": "PASS"
+    }
+  ],
+  "candidate_calculations": {
+    "RICH_ORCHARD_PW": {
+      "target_total_parts": "1000",
+      "master_g_containing_2g_product": "5.69",
+      "stock_carrier_g": "3.69",
+      "minimum_transfer_g": "0.03",
+      "master_charge_g_for_2g_18ww": "1.02420",
+      "extra_ethanol_g": "0.97580",
+      "target_rows_sha256": "ac30c120367ee4a496bd1cf4669a8aff33e0a1198a002b0c4f156766dc77ced4"
+    },
+    "COMMERCIAL_CLEAR_PW": {
+      "target_total_parts": "1000",
+      "master_g_containing_2g_product": "4.0808",
+      "stock_carrier_g": "2.0808",
+      "minimum_transfer_g": "0.02",
+      "master_charge_g_for_2g_18ww": "0.734544",
+      "extra_ethanol_g": "1.265456",
+      "target_rows_sha256": "e1fe431e5cbba743f7a1710702b4a1816d9e0a51b33839df67d1f73c38d65d97"
+    },
+    "LUXURY_POLISHED_PW": {
+      "target_total_parts": "1000",
+      "master_g_containing_2g_product": "4.385",
+      "stock_carrier_g": "2.385",
+      "minimum_transfer_g": "0.028",
+      "master_charge_g_for_2g_18ww": "0.789300",
+      "extra_ethanol_g": "1.210700",
+      "target_rows_sha256": "5fe7442965d083b1e07d7a81e7ff6044193026de1a25e62e8aef1297f00428f2"
+    },
+    "CONTROL_PW": {
+      "target_total_parts": "1000",
+      "master_g_containing_2g_product": "2.684",
+      "stock_carrier_g": "0.684",
+      "minimum_transfer_g": "0.04",
+      "master_charge_g_for_2g_18ww": "0.48312",
+      "extra_ethanol_g": "1.51688",
+      "target_rows_sha256": "d0ce27cd9f4ccaeb7cefe14cbef661c970ea9858fefb33ce1890356e6809ce1e"
+    },
+    "RICH_ORCHARD_IDEAL": {
+      "target_total_parts": "1000",
+      "master_g_containing_2g_product": "5.789",
+      "stock_carrier_g": "3.789",
+      "minimum_transfer_g": "0.03",
+      "master_charge_g_for_2g_18ww": "1.042020",
+      "extra_ethanol_g": "0.957980",
+      "target_rows_sha256": "d937ec23cc1a3b4bbb0476eef34e40b55063ac8655d5d2333fdd96b2087d7ac6"
+    },
+    "RICH_ORCHARD_MUSK_ALTERNATIVE": {
+      "target_total_parts": "1000",
+      "master_g_containing_2g_product": "5.69",
+      "stock_carrier_g": "3.69",
+      "minimum_transfer_g": "0.03",
+      "master_charge_g_for_2g_18ww": "1.02420",
+      "extra_ethanol_g": "0.97580",
+      "target_rows_sha256": "d8ac758ac6c63650caac6970476b50be59df0cea6b3362baf3c9ada3a96ea9c5"
+    }
+  },
+  "artifact_sha256": {
+    "campaign.json": "7c70e6b297a9ea04b77f0b8ddcf21cb87b2604cf4e09b50fd54e026bbe6f60fc",
+    "FORMULAS_AND_CART.md": "9408a51a69b6d9173f67d3ef65fcfb31421b683b662e59be872c8c01da831511",
+    "alternatives.json": "b385a4a526edd9b92e82b6bb37480e26a83a430b3d2a158e576e848c7dd02122",
+    "README.md": "75fd9874654d9c286fa83f282351a53ad37cbeeca6348b3e8fdeb7ea049392aa"
+  },
+  "full_suite_ran": false,
+  "pipeline_ran": false,
+  "inventory_modified": false,
+  "compounded": false,
+  "purchased": false,
+  "sensory_validated": false,
+  "release_authority": false
+}

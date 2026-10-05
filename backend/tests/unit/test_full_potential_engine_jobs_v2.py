@@ -3,6 +3,7 @@ from __future__ import annotations
 from copy import deepcopy
 
 import pytest
+from engine.research.commercial_references import build_commercial_reference_panel
 
 from app.services.engine_job_executor import execute_registered_engine_job
 from app.services.engine_job_registry import ENGINE_JOB_CONTRACT_VERSION_V2
@@ -145,6 +146,81 @@ def _goal_analysis_payload() -> dict:
         "mode": "between_mix",
         "max_hypotheses": 3,
     }
+
+
+def _formula_design_payload() -> dict:
+    return {
+        "message": (
+            "A cold metallic pear perfume with violet powder, transparent air, "
+            "and dry cedar; no vanilla."
+        ),
+        "formula_name": "Chrome Orchard",
+        "liquid_concentrate_ul_decimal": "6000",
+        "max_materials": 30,
+        "must_preserve": ["cold mineral identity"],
+        "must_avoid": ["vanilla"],
+        "previous_stock_ids": [],
+        "conversation_context": [],
+        "execution_strategy": "NEW_FORMULA",
+        "appeal_mode": "IDENTITY_FIRST",
+        "comparison_evidence": "DOCUMENT_ONLY",
+        "active_bottle_id": None,
+        "design_mode": "DEEP_COMPOSE",
+        "variant_count": 3,
+    }
+
+
+def test_v2_formula_design_is_durable_closed_and_advisory() -> None:
+    identity = build_engine_job_identity(
+        job_type="FORMULA_DESIGN",
+        payload=_formula_design_payload(),
+        requester="formula-studio-test",
+        idempotency_key="formula-design-1",
+        request_schema_version="lab-engine-job-request-v2",
+    )
+
+    terminal, result, validation, diagnostics = execute_registered_engine_job(
+        "FORMULA_DESIGN",
+        identity["normalized_payload"],
+        contract_version=identity["contract_version"],
+    )
+
+    assert terminal == "SUCCEEDED"
+    assert validation in {"ADVISORY_COMPLETE", "ADVISORY_FINDINGS"}
+    design = result["result"]["formula_design"]
+    assert design["composition_plan"]["method"] == (
+        "SEMANTIC_TARGET_PLUS_GLOBAL_CONSTRAINT_SOLVER_V1"
+    )
+    assert len(design["design_variants"]) == 3
+    assert result["selection"]["ranked_candidates"] == []
+    assert result["selection"]["formula_action"] == "PROPOSAL_ONLY"
+    assert result["release_authority"] is False
+    assert result["safety_authority"] is False
+    assert result["compounding_authority"] is False
+    assert diagnostics == {"executor": "closed-registry-v2"}
+
+
+def test_formula_design_requires_v2_and_rejects_caller_execution_fields() -> None:
+    with pytest.raises(EngineJobError) as legacy_error:
+        build_engine_job_identity(
+            job_type="FORMULA_DESIGN",
+            payload=_formula_design_payload(),
+            requester="formula-studio-test",
+            idempotency_key="formula-design-legacy",
+        )
+    assert legacy_error.value.code == "INVALID_ENGINE_JOB_PAYLOAD"
+
+    invalid = deepcopy(_formula_design_payload())
+    invalid["python_module"] = "arbitrary.module"
+    with pytest.raises(EngineJobError) as invalid_error:
+        build_engine_job_identity(
+            job_type="FORMULA_DESIGN",
+            payload=invalid,
+            requester="formula-studio-test",
+            idempotency_key="formula-design-invalid",
+            request_schema_version="lab-engine-job-request-v2",
+        )
+    assert invalid_error.value.code == "INVALID_ENGINE_JOB_PAYLOAD"
 
 
 def test_v2_release_simulation_is_closed_fingerprinted_and_executable() -> None:
@@ -412,3 +488,82 @@ def test_v2_batch_gate_rejects_caller_corpus_hash_mismatch_before_execution() ->
         )
     assert error.value.code == "INVALID_ENGINE_JOB_PAYLOAD"
     assert "FROZEN_CORPUS_HASH_MISMATCH" in str(error.value)
+
+
+def test_reference_panel_job_is_fingerprinted_and_documentary_only() -> None:
+    panel = build_commercial_reference_panel(
+        ("lavender", "amber"), as_of_date="2026-09-28"
+    )
+    payload = {
+        "target_snapshot_id": "r6",
+        "target_snapshot_sha256": "1" * 64,
+        "request_interpretation_sha256": "2" * 64,
+        "reference_panel_id": panel["panel"]["panel_id"],
+        "reference_panel_sha256": panel["panel_sha256"],
+        "comparison_evidence": "DOCUMENT_ONLY",
+        "observation_record_ids": [],
+        "seed": 17,
+        "as_of_date": "2026-09-28",
+    }
+    identity = build_engine_job_identity(
+        job_type="REFERENCE_PANEL_EVALUATION",
+        payload=payload,
+        requester="personal-reference-test",
+        idempotency_key="reference-panel-1",
+        request_schema_version="lab-engine-job-request-v2",
+    )
+    terminal, result, validation, diagnostics = execute_registered_engine_job(
+        "REFERENCE_PANEL_EVALUATION",
+        identity["normalized_payload"],
+        contract_version=identity["contract_version"],
+    )
+    assert terminal == "SUCCEEDED"
+    assert validation == "ADVISORY_COMPLETE"
+    assert result["selection"]["status"] == "DOCUMENTARY_ARCHITECTURE_CLUES_ONLY"
+    assert result["result"]["personal_liking"]["state"] == "NOT_ESTABLISHED"
+    assert result["authority"]["compounding_authority"] is False
+    assert diagnostics == {"executor": "closed-registry-v2"}
+
+    changed_payload = deepcopy(payload)
+    changed_payload["seed"] = 29
+    changed = build_engine_job_identity(
+        job_type="REFERENCE_PANEL_EVALUATION",
+        payload=changed_payload,
+        requester="personal-reference-test",
+        idempotency_key="reference-panel-2",
+        request_schema_version="lab-engine-job-request-v2",
+    )
+    assert identity["job_fingerprint_sha256"] != changed["job_fingerprint_sha256"]
+
+    first_bound = build_engine_job_identity(
+        job_type="REFERENCE_PANEL_EVALUATION",
+        payload=payload,
+        requester="personal-reference-test",
+        idempotency_key="reference-panel-bound-1",
+        request_schema_version="lab-engine-job-request-v2",
+        server_bound_context={
+            "schema_version": "reference-observation-bindings-v1",
+            "observation_records": [
+                {"record_id": "obs-1", "record_sha256": "3" * 64}
+            ],
+        },
+    )
+    second_bound = build_engine_job_identity(
+        job_type="REFERENCE_PANEL_EVALUATION",
+        payload=payload,
+        requester="personal-reference-test",
+        idempotency_key="reference-panel-bound-2",
+        request_schema_version="lab-engine-job-request-v2",
+        server_bound_context={
+            "schema_version": "reference-observation-bindings-v1",
+            "observation_records": [
+                {"record_id": "obs-1", "record_sha256": "4" * 64}
+            ],
+        },
+    )
+    assert first_bound["job_fingerprint_sha256"] != (
+        second_bound["job_fingerprint_sha256"]
+    )
+    assert first_bound["source_request"]["server_bound_context"][
+        "observation_records"
+    ][0]["record_sha256"] == "3" * 64

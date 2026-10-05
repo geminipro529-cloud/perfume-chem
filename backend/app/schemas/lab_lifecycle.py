@@ -31,6 +31,121 @@ class LifecycleRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
 
+class FormulaDesignChatCreate(LifecycleRequest):
+    """One stateless turn in the read-only formulation conversation."""
+
+    schema_version: Literal[
+        "inventory-grounded-formula-chat-request-v1",
+        "inventory-grounded-formula-chat-request-v2",
+    ] = "inventory-grounded-formula-chat-request-v2"
+    message: NonBlank = Field(max_length=4000)
+    formula_name: NonBlank | None = Field(default=None, max_length=255)
+    liquid_concentrate_ul_decimal: str = Field(
+        default="6000",
+        pattern=r"^[0-9]+(?:\.[0-9]+)?$",
+        max_length=32,
+    )
+    max_materials: int = Field(default=30, ge=6, le=60)
+    design_mode: Literal["FAST_SKETCH", "DEEP_COMPOSE"] = "FAST_SKETCH"
+    variant_count: int | None = Field(default=None, ge=1, le=3)
+    must_preserve: tuple[NonBlank, ...] = Field(default=(), max_length=24)
+    must_avoid: tuple[NonBlank, ...] = Field(default=(), max_length=24)
+    previous_stock_ids: tuple[NonBlank, ...] = Field(default=(), max_length=60)
+    conversation_context: tuple[NonBlank, ...] = Field(default=(), max_length=8)
+    execution_strategy: Literal["NEW_FORMULA", "EVOLVING_BOTTLE"] | None = None
+    appeal_mode: Literal["IDENTITY_FIRST", "GLOBAL_CROWD_PLEASING"] | None = None
+    comparison_evidence: Literal[
+        "DOCUMENT_ONLY",
+        "QUICK_BLIND",
+        "CONTROLLED_PERSONAL",
+        "TARGET_POPULATION",
+    ] = "DOCUMENT_ONLY"
+    active_bottle_id: NonBlank | None = Field(default=None, max_length=255)
+
+
+class InventoryCompletionCreate(LifecycleRequest):
+    """User-confirmed stock facts for personal, non-compounding formulation eligibility."""
+
+    schema_version: Literal["personal-inventory-completion-request-v1"] = (
+        "personal-inventory-completion-request-v1"
+    )
+    stock_id: NonBlank = Field(max_length=255)
+    expected_effective_inventory_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    idempotency_key: NonBlank = Field(max_length=255)
+    fraction_percent_decimal: str | None = Field(
+        default=None,
+        pattern=r"^[0-9]+(?:\.[0-9]+)?$",
+        max_length=32,
+    )
+    fraction_basis: Literal[
+        "neat",
+        "mass_fraction",
+        "volume_fraction",
+        "mass_per_volume",
+        "unspecified",
+    ] | None = None
+    carrier: str | None = Field(default=None, max_length=255)
+    physical_form: str | None = Field(default=None, max_length=120)
+    possession_confirmed: bool
+    homogeneity: Literal[
+        "NOT_APPLICABLE",
+        "HOMOGENEOUS",
+        "FULLY_DISSOLVED",
+        "UNKNOWN",
+        "NOT_HOMOGENEOUS",
+    ]
+    final_fraction_known: bool = False
+    source_kind: Literal[
+        "USER_LABEL_OR_RECIPE",
+        "USER_MEASUREMENT",
+        "SUPPLIER_LABEL",
+        "PERSONAL_CONFIRMATION",
+    ]
+    user_note: str = Field(default="", max_length=1000)
+
+
+class PersonalInventoryAdditionCreate(LifecycleRequest):
+    """One user-confirmed owned stock missing from the current inventory view."""
+
+    schema_version: Literal["personal-inventory-addition-request-v1"] = (
+        "personal-inventory-addition-request-v1"
+    )
+    expected_design_inventory_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    idempotency_key: NonBlank = Field(max_length=255)
+    identity_name: NonBlank = Field(max_length=255)
+    category: NonBlank = Field(max_length=255)
+    fraction_percent_decimal: str = Field(
+        default="100",
+        pattern=r"^[0-9]+(?:\.[0-9]+)?$",
+        max_length=32,
+    )
+    fraction_basis: Literal[
+        "neat",
+        "mass_fraction",
+        "volume_fraction",
+        "mass_per_volume",
+    ] = "neat"
+    carrier: str = Field(default="", max_length=255)
+    physical_form: NonBlank = Field(default="as_supplied", max_length=120)
+    possession_confirmed: bool
+    homogeneity: Literal[
+        "NOT_APPLICABLE",
+        "HOMOGENEOUS",
+        "FULLY_DISSOLVED",
+        "UNKNOWN",
+        "NOT_HOMOGENEOUS",
+    ] = "NOT_APPLICABLE"
+    source_kind: Literal[
+        "USER_LABEL_OR_RECIPE",
+        "USER_MEASUREMENT",
+        "SUPPLIER_LABEL",
+        "PERSONAL_CONFIRMATION",
+    ] = "PERSONAL_CONFIRMATION"
+    supplier_name: str = Field(default="", max_length=255)
+    supplier_sku: str = Field(default="", max_length=120)
+    user_note: str = Field(default="", max_length=1000)
+
+
 class BottleActionProposalCreate(LifecycleRequest):
     schema_version: NonBlank
     reservation_id: NonBlank
@@ -63,6 +178,39 @@ class BottleActionMeasurementCreate(LifecycleRequest):
 class BottleActionCommitCreate(LifecycleRequest):
     actor: NonBlank
     rationale: NonBlank
+
+
+class BottleActionEvaluationCreate(LifecycleRequest):
+    schema_version: Literal["evolving-bottle-evaluation-v1"] = (
+        "evolving-bottle-evaluation-v1"
+    )
+    bottle_id: NonBlank
+    expected_sequence: int = Field(ge=0)
+    command_id: NonBlank
+    actor: NonBlank
+    evaluated_at: AwareDatetime
+    waited_seconds: FiniteNonnegative
+    reaction: NonBlank
+    decision: Literal["CONTINUE", "HOLD", "DILUTE", "STOP", "CANNOT_DETERMINE"]
+
+
+class QuickBottleEvaluationCreate(LifecycleRequest):
+    """Lightweight personal observation linked to exact freeform additions."""
+
+    schema_version: Literal["quick-bottle-evaluation-v1"] = (
+        "quick-bottle-evaluation-v1"
+    )
+    addition_event_ids: tuple[NonBlank, ...] = Field(min_length=1, max_length=24)
+    goal_analysis_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    hypothesis_id: NonBlank
+    hypothesis_variant: Literal["low_variant", "high_variant"]
+    expected_sequence: int = Field(ge=0)
+    command_id: NonBlank
+    actor: NonBlank
+    evaluated_at: AwareDatetime
+    waited_seconds: FiniteNonnegative
+    reaction: NonBlank
+    decision: Literal["CONTINUE", "HOLD", "DILUTE", "STOP", "CANNOT_DETERMINE"]
 
 
 class AnalyticalResultCreate(LifecycleRequest):
@@ -240,6 +388,51 @@ class BottleActionCommitResponse(LifecycleResponse):
     after_state: dict
     state_diff: dict
     content_sha256: str
+    created_at: datetime
+
+
+class BottleActionEvaluationResponse(LifecycleResponse):
+    id: str
+    bottle_id: str
+    stream_sequence: int
+    event_type: Literal["EVALUATE"]
+    proposal_id: str
+    action_commit_id: str
+    addition_bottle_event_id: str
+    evaluated_at: datetime
+    waited_seconds: FiniteNonnegative
+    reaction: str
+    decision: str
+    evidence_scope: Literal["SEQUENTIAL_PERSONAL_OBSERVATION"]
+    controlled_causal_evidence: Literal[False]
+    population_generalization_authorized: Literal[False]
+    release_authority: Literal[False]
+    safety_authority: Literal[False]
+    compounding_authority: Literal[False]
+    evidence_admission_authorized: Literal[False]
+    created_at: datetime
+
+
+class QuickBottleEvaluationResponse(LifecycleResponse):
+    id: str
+    bottle_id: str
+    stream_sequence: int
+    event_type: Literal["EVALUATE_PERSONAL_DELTA"]
+    addition_event_ids: list[str]
+    goal_analysis_sha256: str
+    hypothesis_id: str
+    hypothesis_variant: str
+    evaluated_at: datetime
+    waited_seconds: FiniteNonnegative
+    reaction: str
+    decision: str
+    evidence_scope: Literal["SEQUENTIAL_PERSONAL_OBSERVATION"]
+    controlled_causal_evidence: Literal[False]
+    population_generalization_authorized: Literal[False]
+    release_authority: Literal[False]
+    safety_authority: Literal[False]
+    compounding_authority: Literal[False]
+    evidence_admission_authorized: Literal[False]
     created_at: datetime
 
 

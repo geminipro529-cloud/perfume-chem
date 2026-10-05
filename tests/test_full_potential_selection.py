@@ -59,7 +59,18 @@ def test_insufficient_unique_pool_holds_instead_of_reusing_candidates() -> None:
 
 @pytest.mark.parametrize(
     "feature",
-    ["raw oav", "log-oav", "hand assigned valence", "ingredient count", "release score"],
+    [
+        "raw oav",
+        "log-oav",
+        "hand assigned valence",
+        "generic valence",
+        "ingredient count",
+        "note popularity",
+        "sales rank",
+        "brand popularity",
+        "semantic distance",
+        "release score",
+    ],
 )
 def test_prohibited_beauty_proxies_are_rejected_at_schema_boundary(feature: str) -> None:
     with pytest.raises(ValueError, match="prohibited"):

@@ -1,5 +1,8 @@
 # DPP-03-R2 Tobacco Resin Amber Reserve — Basket Form — 30 mL EDP
 
+**Status:** QUARANTINED — historical analysis only; do not mix or release.
+**Artifact review (2026-10-05):** The stored analysis no longer matches the current inventory, scientific inputs or implementation. Formula quantities and prior analysis are retained; no fresh calculation, sensory validation or safety/release approval is claimed. See the [review receipt](../docs/verification/FORMULA_ARTIFACT_REVIEW_20261005.json).
+
 **Date:** 2026-09-02  
 **Claim mode:** unclaimed  
 **Immediate parent:** `formulas/DPP_03_Tobacco_Resin_Amber_Reserve_30mL_EDP.md`  

@@ -518,7 +518,6 @@ def validate_pipeline_analysis_artifact(
             key: manifest.get(key)
             for key in (
                 "formula_definitions",
-                "g15_parent_formula_definitions",
                 "semantic_config",
                 "config_sha256",
                 "inventory_sha256",
@@ -526,6 +525,14 @@ def validate_pipeline_analysis_artifact(
                 "pipeline_source_sha256",
             )
         }
+        # Pre-G15 v1 artifacts used these six fields. Adding an absent parent
+        # field as None changes their preimage and falsely reports tampering.
+        # New artifacts always bind the parent field (including an empty list);
+        # removing it or corrupting either hash still fails integrity checks.
+        if "g15_parent_formula_definitions" in manifest:
+            input_fields["g15_parent_formula_definitions"] = manifest[
+                "g15_parent_formula_definitions"
+            ]
         if manifest.get("analysis_input_sha256") != stable_json_hash(
             input_fields
         ):

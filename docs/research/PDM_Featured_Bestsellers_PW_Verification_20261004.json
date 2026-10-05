@@ -1,0 +1,116 @@
+{
+  "schema_version": "perfume-formulation-verification-v1",
+  "campaign": "PDM first five US featured bestsellers / PW R1",
+  "verified_at_utc": "2026-10-04T00:02:40.188294+00:00",
+  "status": "PASS",
+  "verification_scope": "Fresh Decimal target, stock/carrier, rounded bench, finished dilution, candidate and preparation arithmetic; identity/catalog and markdown alignment; protected-input hashes, retained opening dirty statuses, local links and whitespace. Not a physics, sensory, safety, commercial-sales or original-formula validation.",
+  "check_count": 3951,
+  "check_counts_by_group": {
+    "selection": 3,
+    "identity": 504,
+    "target": 5,
+    "row": 1630,
+    "graph": 326,
+    "table": 336,
+    "inventory": 341,
+    "pricing": 336,
+    "master": 40,
+    "modules": 39,
+    "dilution": 90,
+    "candidates": 155,
+    "authority": 41,
+    "contract": 20,
+    "roster": 2,
+    "preparation": 9,
+    "preservation": 11,
+    "artifacts": 24,
+    "links": 38,
+    "git": 1
+  },
+  "failures": [],
+  "formula_statistics": [
+    {
+      "id": "layton",
+      "row_count": 35,
+      "target_total_percent": "100",
+      "bench_source_product_g": "9.999900",
+      "working_master_g": "23.281",
+      "minimum_transfer_g": "0.020",
+      "trial_source_loading_percent": "19.99894100"
+    },
+    {
+      "id": "althair",
+      "row_count": 30,
+      "target_total_percent": "100",
+      "bench_source_product_g": "9.999700",
+      "working_master_g": "26.581",
+      "minimum_transfer_g": "0.030",
+      "trial_source_loading_percent": "19.99864800"
+    },
+    {
+      "id": "delina",
+      "row_count": 32,
+      "target_total_percent": "100",
+      "bench_source_product_g": "9.999800",
+      "working_master_g": "17.680",
+      "minimum_transfer_g": "0.020",
+      "trial_source_loading_percent": "19.99960000"
+    },
+    {
+      "id": "delina_exclusif",
+      "row_count": 37,
+      "target_total_percent": "100",
+      "bench_source_product_g": "10.000200",
+      "working_master_g": "21.843",
+      "minimum_transfer_g": "0.025",
+      "trial_source_loading_percent": "19.99765300"
+    },
+    {
+      "id": "valaya",
+      "row_count": 29,
+      "target_total_percent": "100",
+      "bench_source_product_g": "10.000500",
+      "working_master_g": "15.869",
+      "minimum_transfer_g": "0.020",
+      "trial_source_loading_percent": "20.00226000"
+    }
+  ],
+  "artifact_sha256": {
+    "formulas/PDM_Featured_Bestsellers_PW_R1_20261004.json": "8ec97ae934808a9c9628d72733df8e5969e0285a3728e62e64ac819cec04cc03",
+    "formulas/PDM_Layton_PW_R1_20261004.md": "79d74f23a5d659568e60cf3a7daf8cc09c16a22bd3399a5e60f51b5bd6d47ca0",
+    "formulas/PDM_Althair_PW_R1_20261004.md": "d36becbb5d0224784dd48f493de71234c3b1321f7392c1349a8315477382455d",
+    "formulas/PDM_Delina_PW_R1_20261004.md": "277b2f19daa5a97901eaef16ea95457029695aa0b980696027760c82660e18e7",
+    "formulas/PDM_Delina_Exclusif_PW_R1_20261004.md": "f49ef3de2c6c71f65d95db4cb8e90073b1ea5ee084ef75ef0abb5f6ce7f5520a",
+    "formulas/PDM_Valaya_PW_R1_20261004.md": "cccdad9d773cf372b37bec34d86424b2c093684cd05821568b940efe9c4d4a52",
+    "docs/research/PDM_Featured_Bestsellers_PW_Research_20261004.md": "5e803f80078dfd041816ee512ac0023352bf5e890656ebc486bffb5811672c76",
+    "formulas/PDM_Featured_Bestsellers_PW_R1_20261004.md": "a133fe5f50c286bcf061ea5d1c0de449be4da4c40258bf1a3672675f00db1cd7"
+  },
+  "protected_input_hashes_verified": {
+    "AGENTS.md": "a97d05907b9eddba1212b42c9765b8b4903b6ba731d185cdd3ba8bbd35e57870",
+    ".github/copilot-instructions.md": "ac8de3a4db8096f82cf5c26843b00912528281873f94c2f87052b46d9dd19814",
+    "inventory.txt": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "output\\research\\perfumersworld_catalog_20260930\\catalog_rows_v1.json": "277ddd8e3a0080fb6af6fa7218bb16c51fdf2e1e28cebaf67c2f5ac404d77bb4",
+    "formulas/collections/Vol_dAmbre_30mL_Layton_v4.md": "e60285704713e7538e9409887566150c604338031cc3f8b89e65ce981a4b1cc2",
+    "formulas/Amouage_Opus_V_PW_R1_20261003.json": "1147c515c399c38d92017b27ed8f6df1071f40d7d1e9a9e3a8c8deb7822f458a",
+    "formulas/Amouage_Opus_V_PW_R1_20261003.md": "de122942f36f2ef276828f08589ec75ef037abc0f420535414f13bce4dce12e5",
+    "docs/research/Amouage_Opus_V_PW_Research_20261003.md": "14f26987d65913f44a7e9287738bbcb9292811ec464d4720abd1b1303250feee",
+    "docs/research/Amouage_Opus_V_PW_Verification_20261003.json": "3888f290fa205d624dee3e24bdabc32d2d49eb29ee2cad01ca544f4a6053c39b"
+  },
+  "git_diff_check_exit_code": 0,
+  "opening_dirty_status_entries": 153,
+  "preserved_opening_status_entries": 153,
+  "new_scoped_artifact_entries": 9,
+  "baseline_status_format": "git status --porcelain=v1 (untracked directories grouped, matching opening snapshot)",
+  "verification_diagnostic": "First run recipe checks passed but preservation comparisons used --untracked-files=all, expanding eight pre-existing directories. Recheck with opening status format confirms all 153 opening entries are retained and only scoped artifacts are added. No protected source bytes changed.",
+  "external_llm_calls": 0,
+  "physical_mixing_performed": false,
+  "sensory_tests_performed": false,
+  "existing_inventory_changed": false,
+  "full_project_verifier_run": false,
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

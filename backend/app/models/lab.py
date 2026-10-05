@@ -553,6 +553,10 @@ from app.models.lab_claims import (  # noqa: E402,F401
     LabClaimAuthoritySupportLink,
     LabClaimAuthorityVersion,
 )
+from app.models.lab_commercial_references import (  # noqa: E402,F401
+    COMMERCIAL_REFERENCE_TABLE_NAMES,
+    LabCommercialReferenceSample,
+)
 from app.models.lab_cp2_physical import (  # noqa: E402,F401
     CP2_PHYSICAL_TABLE_NAMES,
     PHYSICAL_LINEAGE_TABLE_NAMES,

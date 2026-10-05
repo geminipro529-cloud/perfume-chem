@@ -3,8 +3,26 @@
 from __future__ import annotations
 
 from collections.abc import Awaitable, Callable
-from typing import Any
+from decimal import Decimal
+from typing import Any, TypeAlias, cast
 
+from engine.inventory_completions import (
+    InventoryCompletionConflictError,
+    InventoryCompletionError,
+    effective_design_ready,
+    inventory_completion_requirements,
+    record_inventory_completion,
+)
+from engine.personal_inventory import (
+    DESIGN_ONLY_AUTHORITY,
+    LIVE_TEXT_AUTHORITY,
+    PersonalInventoryConflictError,
+    PersonalInventoryError,
+    materialize_personal_inventory,
+    personal_inventory_identity_key,
+    record_personal_inventory_addition,
+)
+from engine.research.formula_design import design_inventory_formula
 from fastapi import APIRouter, Body, Depends, status
 from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -17,6 +35,8 @@ from app.schemas.lab_lifecycle import (
     BottleActionCommitResponse,
     BottleActionConfirmationCreate,
     BottleActionConfirmationResponse,
+    BottleActionEvaluationCreate,
+    BottleActionEvaluationResponse,
     BottleActionMeasurementCreate,
     BottleActionMeasurementResponse,
     BottleActionProposalCreate,
@@ -24,11 +44,17 @@ from app.schemas.lab_lifecycle import (
     BottleReplayResponse,
     ClaimAuthorityReviewCreate,
     ClaimAuthorityReviewResponse,
+    FormulaDesignChatCreate,
+    InventoryCompletionCreate,
+    PersonalInventoryAdditionCreate,
+    QuickBottleEvaluationCreate,
+    QuickBottleEvaluationResponse,
     RegulatoryAssessmentCreate,
     RegulatoryAssessmentResponse,
     SensoryResultCreate,
     SensoryResultResponse,
 )
+from app.services.formula_import import FormulaAnalysisLibrary
 from app.services.lab_claims import (
     ClaimAuthorityConflictError,
     ClaimAuthorityError,
@@ -52,7 +78,7 @@ from app.services.lab_science import (
 from app.services.lab_service import LabService
 
 router = APIRouter()
-ResponsePayload = dict[str, Any] | JSONResponse
+ResponsePayload: TypeAlias = dict[str, Any] | JSONResponse
 
 
 def _error_response(error: Exception) -> JSONResponse:
@@ -102,6 +128,277 @@ async def _run(
         KeyError,
         ValueError,
     ) as error:
+        return _error_response(error)
+
+
+@router.get("/workbench/formula-library")
+async def list_workbench_formula_library() -> dict[str, Any]:
+    """List project formula files without importing or mutating them."""
+
+    return {
+        "schema_version": "workbench-formula-library-v1",
+        "sources": FormulaAnalysisLibrary().list_sources(),
+        "inventory_modified": False,
+        "compounding_authority": False,
+    }
+
+
+@router.get("/workbench/formula-source", response_model=None)
+async def read_workbench_formula_source(source_path: str) -> ResponsePayload:
+    """Parse one selected formula as a read-only design-analysis source."""
+
+    try:
+        return FormulaAnalysisLibrary().load_source(source_path)
+    except ValueError as error:
+        return _error_response(error)
+
+
+def _inventory_decimal(value: float) -> str:
+    rendered = format(value, ".12f").rstrip("0").rstrip(".")
+    return rendered or "0"
+
+
+def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
+    stocks = []
+    for stock in materialized.stocks:
+        design_ready = effective_design_ready(stock)
+        missing_fields = list(inventory_completion_requirements(stock))
+        stocks.append(
+            {
+                "stock_id": stock.stock_id,
+                "material": stock.name,
+                "identity_name": stock.identity_name or stock.name,
+                "normalized_identity": personal_inventory_identity_key(stock),
+                "stock_label": stock.raw_name or stock.name,
+                "fraction_decimal": _inventory_decimal(stock.dilution),
+                "fraction_percent_decimal": _inventory_decimal(stock.dilution * 100),
+                "fraction_basis": stock.fraction_basis,
+                "carrier": stock.carrier or None,
+                "physical_form": stock.physical_form or None,
+                "homogeneity": stock.homogeneity or None,
+                "category": stock.category,
+                "status": stock.status,
+                "design_ready": design_ready,
+                "design_hold_reason": stock.design_hold_reason or None,
+                "missing_fields": missing_fields,
+                "completion_available": (
+                    stock.status.casefold() == "owned"
+                    and stock.stock_id in materialized.canonical_stock_ids
+                ),
+                "completion_event_sha256": stock.completion_event_sha256 or None,
+                "completion_source_ref": stock.completion_source_ref or None,
+                "execution_ready": stock.execution_ready,
+                "execution_hold_reason": stock.execution_hold_reason or None,
+                "authority": stock.authority,
+                "source_class": (
+                    "PERSONAL_ADDITION"
+                    if stock.authority == DESIGN_ONLY_AUTHORITY
+                    else (
+                        "LIVE_INVENTORY_TEXT"
+                        if stock.authority == LIVE_TEXT_AUTHORITY
+                        else "GOVERNED_STOCK"
+                    )
+                ),
+                "source_rows": list(stock.source_rows),
+                "source_ref": stock.source_ref,
+            }
+        )
+    return {
+        "schema_version": "workbench-current-inventory-v3",
+        "authority": "PERSONAL_DESIGN_INVENTORY_PROJECTION_READ_ONLY",
+        "completion_authority": "DIRECT_USER_CONFIRMATION_FOR_PERSONAL_DESIGN_ONLY",
+        "display_source": (
+            "governed stocks, every owned inventory.txt row, personal completion "
+            "receipts, and append-only personal additions"
+        ),
+        "snapshot_sha256": materialized.snapshot_sha256,
+        "overlay_sha256": materialized.overlay_sha256,
+        "completion_sha256": materialized.completion_sha256 or None,
+        "inventory_text_sha256": materialized.inventory_text_sha256,
+        "addition_log_sha256": materialized.addition_log_sha256 or None,
+        "canonical_effective_inventory_sha256": (
+            materialized.canonical_effective_inventory_sha256
+        ),
+        "effective_inventory_sha256": materialized.effective_inventory_sha256,
+        "source_workbook_sha256": materialized.source_workbook_sha256,
+        "counts": {
+            "stocks": len(stocks),
+            "unique_identities": len(
+                {stock["identity_name"].casefold() for stock in stocks}
+            ),
+            "design_ready": sum(stock["design_ready"] for stock in stocks),
+            "details_incomplete": sum(not stock["design_ready"] for stock in stocks),
+            "execution_ready": sum(stock["execution_ready"] for stock in stocks),
+            "governed_stocks": sum(
+                stock["source_class"] == "GOVERNED_STOCK" for stock in stocks
+            ),
+            "live_inventory_text": sum(
+                stock["source_class"] == "LIVE_INVENTORY_TEXT" for stock in stocks
+            ),
+            "personal_additions": sum(
+                stock["source_class"] == "PERSONAL_ADDITION" for stock in stocks
+            ),
+            "requirements": len(materialized.requirements),
+        },
+        "stocks": stocks,
+        "inventory_modified": False,
+        "compounding_authority": False,
+    }
+
+
+@router.get("/workbench/current-inventory")
+async def read_workbench_current_inventory() -> dict[str, Any]:
+    """Expose the complete personal-design inventory without copying it to the DB."""
+
+    return _workbench_inventory_payload(materialize_personal_inventory())
+
+
+@router.post("/workbench/current-inventory/complete", response_model=None)
+async def complete_workbench_inventory(
+    request: InventoryCompletionCreate,
+) -> ResponsePayload:
+    """Persist explicit stock facts without granting physical action authority."""
+
+    try:
+        fraction_decimal = (
+            format(Decimal(request.fraction_percent_decimal) / Decimal("100"), "f")
+            if request.fraction_percent_decimal is not None
+            else None
+        )
+        receipt, materialized = record_inventory_completion(
+            stock_id=request.stock_id,
+            expected_effective_inventory_sha256=(
+                request.expected_effective_inventory_sha256
+            ),
+            idempotency_key=request.idempotency_key,
+            fraction_decimal=fraction_decimal,
+            fraction_basis=request.fraction_basis,
+            carrier=request.carrier,
+            physical_form=request.physical_form,
+            possession_confirmed=request.possession_confirmed,
+            homogeneity=request.homogeneity,
+            final_fraction_known=request.final_fraction_known,
+            source_kind=request.source_kind,
+            user_note=request.user_note,
+        )
+        updated = next(
+            stock for stock in materialized.stocks if stock.stock_id == request.stock_id
+        )
+        return {
+            "schema_version": "personal-inventory-completion-result-v1",
+            "status": (
+                "PERSONAL_DESIGN_DETAILS_COMPLETE"
+                if effective_design_ready(updated)
+                else "INVENTORY_DETAILS_STILL_INCOMPLETE"
+            ),
+            "receipt": receipt,
+            "updated_stock_id": updated.stock_id,
+            "design_ready": effective_design_ready(updated),
+            "missing_fields": list(inventory_completion_requirements(updated)),
+            "inventory": _workbench_inventory_payload(
+                materialize_personal_inventory(canonical=materialized)
+            ),
+            "inventory_details_modified": True,
+            "inventory_quantity_modified": False,
+            "release_authority": False,
+            "safety_authority": False,
+            "compounding_authority": False,
+            "evidence_admission_authorized": False,
+        }
+    except InventoryCompletionConflictError as error:
+        return JSONResponse(
+            status_code=status.HTTP_409_CONFLICT,
+            content={"error": {"code": error.code, "message": str(error)}},
+        )
+    except InventoryCompletionError as error:
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"error": {"code": error.code, "message": str(error)}},
+        )
+
+
+@router.post("/workbench/current-inventory/add", response_model=None)
+async def add_workbench_inventory_material(
+    request: PersonalInventoryAdditionCreate,
+) -> ResponsePayload:
+    """Record a missing owned stock for personal design without action authority."""
+
+    try:
+        receipt, projection = record_personal_inventory_addition(
+            expected_design_inventory_sha256=request.expected_design_inventory_sha256,
+            idempotency_key=request.idempotency_key,
+            identity_name=request.identity_name,
+            category=request.category,
+            fraction_decimal=format(
+                Decimal(request.fraction_percent_decimal) / Decimal("100"), "f"
+            ),
+            fraction_basis=request.fraction_basis,
+            carrier=request.carrier,
+            physical_form=request.physical_form,
+            possession_confirmed=request.possession_confirmed,
+            homogeneity=request.homogeneity,
+            source_kind=request.source_kind,
+            supplier_name=request.supplier_name,
+            supplier_sku=request.supplier_sku,
+            user_note=request.user_note,
+        )
+        added_stock = next(
+            stock
+            for stock in projection.stocks
+            if stock.completion_event_sha256 == receipt["event_sha256"]
+        )
+        return {
+            "schema_version": "personal-inventory-addition-result-v1",
+            "status": "PERSONAL_INVENTORY_MATERIAL_ADDED",
+            "receipt": receipt,
+            "added_stock_id": added_stock.stock_id,
+            "inventory": _workbench_inventory_payload(projection),
+            "inventory_details_modified": True,
+            "inventory_quantity_modified": False,
+            "release_authority": False,
+            "safety_authority": False,
+            "compounding_authority": False,
+            "evidence_admission_authorized": False,
+        }
+    except PersonalInventoryConflictError as error:
+        return JSONResponse(
+            status_code=status.HTTP_409_CONFLICT,
+            content={"error": {"code": error.code, "message": str(error)}},
+        )
+    except PersonalInventoryError as error:
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"error": {"code": error.code, "message": str(error)}},
+        )
+
+
+@router.post("/workbench/formula-chat", response_model=None)
+async def formulate_from_conversation(
+    request: FormulaDesignChatCreate,
+) -> ResponsePayload:
+    """Create a read-only inventory-grounded draft from one conversational turn."""
+
+    try:
+        return cast(
+            dict[str, Any],
+            design_inventory_formula(
+                idea=request.message,
+                formula_name=request.formula_name,
+                liquid_concentrate_ul_decimal=request.liquid_concentrate_ul_decimal,
+                max_materials=request.max_materials,
+                must_preserve=request.must_preserve,
+                must_avoid=request.must_avoid,
+                previous_stock_ids=request.previous_stock_ids,
+                conversation_context=request.conversation_context,
+                execution_strategy=request.execution_strategy,
+                appeal_mode=request.appeal_mode,
+                comparison_evidence=request.comparison_evidence,
+                active_bottle_id=request.active_bottle_id,
+                design_mode=request.design_mode,
+                variant_count=request.variant_count,
+            ),
+        )
+    except ValueError as error:
         return _error_response(error)
 
 
@@ -167,6 +464,65 @@ def _commit_record(record: Any) -> dict[str, Any]:
         "after_state": dict(record.after_state_json),
         "state_diff": dict(record.state_diff_json),
         "content_sha256": record.content_sha256,
+        "created_at": record.created_at,
+    }
+
+
+def _evaluation_record(record: Any) -> dict[str, Any]:
+    payload = dict(record.payload_json)
+    return {
+        "id": record.id,
+        "bottle_id": record.bottle_id,
+        "stream_sequence": record.stream_sequence,
+        "event_type": record.event_type,
+        "proposal_id": payload["proposal_id"],
+        "action_commit_id": payload["action_commit_id"],
+        "addition_bottle_event_id": payload["addition_bottle_event_id"],
+        "evaluated_at": payload["evaluated_at"],
+        "waited_seconds": payload["waited_seconds"],
+        "reaction": payload["reaction"],
+        "decision": payload["decision"],
+        "evidence_scope": payload["evidence_scope"],
+        "controlled_causal_evidence": payload["controlled_causal_evidence"],
+        "population_generalization_authorized": payload[
+            "population_generalization_authorized"
+        ],
+        "release_authority": payload["release_authority"],
+        "safety_authority": payload["safety_authority"],
+        "compounding_authority": payload["compounding_authority"],
+        "evidence_admission_authorized": payload[
+            "evidence_admission_authorized"
+        ],
+        "created_at": record.created_at,
+    }
+
+
+def _quick_evaluation_record(record: Any) -> dict[str, Any]:
+    payload = dict(record.payload_json)
+    return {
+        "id": record.id,
+        "bottle_id": record.bottle_id,
+        "stream_sequence": record.stream_sequence,
+        "event_type": record.event_type,
+        "addition_event_ids": list(payload["addition_event_ids"]),
+        "goal_analysis_sha256": payload["goal_analysis_sha256"],
+        "hypothesis_id": payload["hypothesis_id"],
+        "hypothesis_variant": payload["hypothesis_variant"],
+        "evaluated_at": payload["evaluated_at"],
+        "waited_seconds": payload["waited_seconds"],
+        "reaction": payload["reaction"],
+        "decision": payload["decision"],
+        "evidence_scope": payload["evidence_scope"],
+        "controlled_causal_evidence": payload["controlled_causal_evidence"],
+        "population_generalization_authorized": payload[
+            "population_generalization_authorized"
+        ],
+        "release_authority": payload["release_authority"],
+        "safety_authority": payload["safety_authority"],
+        "compounding_authority": payload["compounding_authority"],
+        "evidence_admission_authorized": payload[
+            "evidence_admission_authorized"
+        ],
         "created_at": record.created_at,
     }
 
@@ -381,6 +737,46 @@ async def commit_action(
             **request.model_dump(),
         ),
         _commit_record,
+    )
+
+
+@router.post(
+    "/actions/{proposal_id}/evaluations",
+    status_code=status.HTTP_201_CREATED,
+    response_model=BottleActionEvaluationResponse,
+)
+async def evaluate_action(
+    proposal_id: str,
+    request: BottleActionEvaluationCreate,
+    session: AsyncSession = Depends(get_db),
+) -> ResponsePayload:
+    service = LabService(session)
+    return await _run(
+        lambda: service.record_bottle_action_evaluation(
+            proposal_id=proposal_id,
+            **request.model_dump(),
+        ),
+        _evaluation_record,
+    )
+
+
+@router.post(
+    "/bottles/{bottle_id}/quick-evaluations",
+    status_code=status.HTTP_201_CREATED,
+    response_model=QuickBottleEvaluationResponse,
+)
+async def record_quick_bottle_evaluation(
+    bottle_id: str,
+    request: QuickBottleEvaluationCreate,
+    session: AsyncSession = Depends(get_db),
+) -> ResponsePayload:
+    service = LabService(session)
+    return await _run(
+        lambda: service.record_quick_bottle_evaluation(
+            bottle_id=bottle_id,
+            **request.model_dump(),
+        ),
+        _quick_evaluation_record,
     )
 
 

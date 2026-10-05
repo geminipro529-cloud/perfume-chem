@@ -4,6 +4,7 @@ from fastapi import APIRouter
 
 from app.api.v1.endpoints import (
     ai,
+    commercial_references,
     engine_jobs,
     enhancements,
     external_validation,
@@ -21,6 +22,12 @@ from app.api.v1.endpoints import (
 )
 
 api_router = APIRouter()
+
+api_router.include_router(
+    commercial_references.router,
+    prefix="/lab/v2",
+    tags=["laboratory-commercial-references"],
+)
 
 api_router.include_router(
     engine_jobs.router,
