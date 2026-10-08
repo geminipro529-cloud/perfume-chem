@@ -165,6 +165,10 @@ async function refresh() {
 
 function navigate(view) {
   $$(".nav-item").forEach((item) => item.classList.toggle("is-active", item.dataset.view === view));
+  $$(".nav-item").forEach((item) => {
+    if (item.dataset.view === view) item.setAttribute("aria-current", "page");
+    else item.removeAttribute("aria-current");
+  });
   $$(".view").forEach((panel) => panel.classList.toggle("is-visible", panel.dataset.panel === view));
   history.replaceState(null, "", `#${view}`);
   const heading = $(`[data-panel="${view}"] h1`);
@@ -2082,6 +2086,35 @@ window.addEventListener("hashchange", () => {
   const requested = location.hash.slice(1) || "improve";
   if ($(`[data-panel="${requested}"]`)) navigate(requested);
 });
+
+const THEME_KEY = "perfumechem.theme";
+const THEME_COLORS = { light: "#FFFDF8", dark: "#12171B" };
+function applyTheme(choice) {
+  const root = document.documentElement;
+  if (choice === "light" || choice === "dark") root.dataset.theme = choice;
+  else delete root.dataset.theme;
+  const resolved = choice === "light" || choice === "dark"
+    ? choice
+    : (window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  $('meta[name="theme-color"]')?.setAttribute("content", THEME_COLORS[resolved]);
+}
+(() => {
+  let choice = "system";
+  try { choice = localStorage.getItem(THEME_KEY) || "system"; } catch { choice = "system"; }
+  if (!["system", "light", "dark"].includes(choice)) choice = "system";
+  const picker = $("#theme-select");
+  if (picker) {
+    picker.value = choice;
+    picker.addEventListener("change", () => {
+      try { localStorage.setItem(THEME_KEY, picker.value); } catch { /* storage unavailable */ }
+      applyTheme(picker.value);
+    });
+  }
+  applyTheme(choice);
+  window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+    if (!document.documentElement.dataset.theme) applyTheme("system");
+  });
+})();
 
 navigate(location.hash.slice(1) || "improve");
 refresh().catch((error) => notify(error.message, true));

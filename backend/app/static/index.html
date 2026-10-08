@@ -3,38 +3,49 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#153d5b">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FFFDF8">
   <title>Perfume Chem Laboratory</title>
   <link rel="stylesheet" href="/static/lab.css">
+  <link rel="stylesheet" href="/static/theme.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <div class="paper-grid" aria-hidden="true"></div>
   <header class="masthead">
     <a class="wordmark" href="#improve" aria-label="Perfume Chem Laboratory home">
       <span class="wordmark-mark">PC</span>
-      <span><strong>Perfume Chem</strong><small>Laboratory ledger</small></span>
+      <span><strong>Perfume Chem</strong><small>Lab on this PC</small></span>
     </a>
-    <div class="system-state"><span class="state-dot"></span> Local personal workbench</div>
+    <div class="system-state">
+      <span class="saved-state"><span class="state-dot"></span> Saved on this PC</span>
+      <label class="theme-picker">Theme
+        <select id="theme-select">
+          <option value="system">Follow system</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
   </header>
 
   <div class="app-shell">
     <nav class="rail" aria-label="Laboratory views">
-      <button class="nav-item is-active" data-view="improve"><span>01</span> Improve</button>
-      <button class="nav-item" data-view="dashboard"><span>02</span> Dashboard</button>
-      <button class="nav-item" data-view="materials"><span>03</span> Materials</button>
-      <button class="nav-item" data-view="formulas"><span>04</span> Create</button>
-      <button class="nav-item" data-view="bottles"><span>05</span> Bottles</button>
-      <button class="nav-item" data-view="experiments"><span>06</span> Experiments</button>
-      <button class="nav-item" data-view="perfumery"><span>07</span> Perfumer</button>
-      <button class="nav-item" data-view="assistant"><span>08</span> Assistant</button>
-      <button class="nav-item" data-view="science"><span>09</span> Science</button>
-      <div class="rail-note">
-        <strong>Make perfume, not paperwork.</strong>
-        Start with one sensory goal. Details stay available when they matter.
-      </div>
+      <p class="nav-group">Bench</p>
+      <button class="nav-item is-active" data-view="improve">Improve a scent</button>
+      <button class="nav-item" data-view="formulas">Create a formula</button>
+      <button class="nav-item" data-view="materials">Stock</button>
+      <button class="nav-item" data-view="bottles">Bottles</button>
+      <p class="nav-group">Records</p>
+      <button class="nav-item" data-view="experiments">Experiments</button>
+      <button class="nav-item" data-view="dashboard">Overview and backup</button>
+      <p class="nav-group">Reference</p>
+      <button class="nav-item" data-view="perfumery">Perfumer notes</button>
+      <button class="nav-item" data-view="assistant">Assistant</button>
+      <button class="nav-item" data-view="science">Science sources</button>
     </nav>
 
-    <main>
+    <main id="main-content">
       <div id="status" class="status-line" role="status" aria-live="polite">Ready for a local record.</div>
 
       <section class="view is-visible" data-panel="improve" aria-labelledby="improve-title">
