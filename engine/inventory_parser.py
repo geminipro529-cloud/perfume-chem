@@ -337,6 +337,15 @@ def _normalize_carrier(value: str) -> str:
     return value
 
 
+# Build cards and formula files write the neat declaration with its supply
+# form ("neat / as supplied", "NEAT / undiluted supplied product"). Only these
+# whole-cell spellings count; a cell carrying more text stays undeclared.
+_NEAT_AS_SUPPLIED_RE = re.compile(
+    r"(?:neat|pure|undiluted)\s*(?:/|,|\(|-|\u2013|\u2014)\s*"
+    r"(?:as supplied|undiluted(?: supplied product)?)\s*\)?"
+)
+
+
 def parse_stock_specification(
     raw: str,
     *,
@@ -351,7 +360,9 @@ def parse_stock_specification(
 
     text = str(raw or "").strip().replace("**", "").replace("`", "")
     low = text.lower()
-    explicit_neat = low in {"neat", "pure", "undiluted"}
+    explicit_neat = low in {"neat", "pure", "undiluted"} or bool(
+        _NEAT_AS_SUPPLIED_RE.fullmatch(low)
+    )
     match = re.search(r"~?\s*(\d+(?:[.,]\d+)?)\s*%", text)
     fraction_match = re.search(
         r"\bexactly\s+(\d+)\s*/\s*(\d+)\b",

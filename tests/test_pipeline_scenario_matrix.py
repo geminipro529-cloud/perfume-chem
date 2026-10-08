@@ -234,7 +234,6 @@ def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() 
         "Opoponax Resinoid",
         "Peru Balsam Resinoid",
         "Pine EO",
-        "Spike Lavender EO",
         "Tagetes EO",
     }
     assert set(

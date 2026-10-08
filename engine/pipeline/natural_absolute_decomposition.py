@@ -836,6 +836,22 @@ _PEPPERMINT_LK_LITERATURE_CONSTITUENTS = [
     ("isomenthone", 0.050, 154.25, 10.0, 5.0, 2.0),
     ("limonene", 0.007, 136.24, 200.0, 20.0, 3.0),
 ]
+# ISO 4719:2012, Table 1 (chromatographic profile of essential oil of spike
+# lavender, Lavandula latifolia Medikus, Spanish type). Fractions are the
+# midpoints of the standard's min-max ranges; linalyl acetate is "n.d." to 1.6%,
+# so its midpoint is 0.8%. They describe a conforming commercial oil, not the
+# owned bottle. Inputs reuse this module's existing runtime tuples (the same
+# linalool and camphor rows the lavender EO profile uses). trans-alpha-Bisabolene
+# (0.4-2.5%) has no runtime headspace input and stays unresolved, not odorless.
+# Nothing is renormalized.
+_SPIKE_LAVENDER_ISO_4719_MIDPOINT_CONSTITUENTS = [
+    ("linalool", 0.420, 154.25, 21.3, 1.5, 2.0),
+    ("1,8-cineole", 0.275, 154.25, 200.0, 50.0, 2.0),
+    ("camphor", 0.120, 152.23, 25.0, 20.0, 2.0),
+    ("limonene", 0.0175, 136.24, 200.0, 20.0, 3.0),
+    ("alpha terpineol", 0.011, 154.25, 2.0, 10.0, 1.5),
+    ("linalyl acetate", 0.008, 196.29, 17.5, 2.7, 2.0),
+]
 
 
 # ── Master Registry ───────────────────────────────────────────────────
@@ -935,6 +951,9 @@ _ABSOLUTE_CONSTITUENTS = {
     # Literature-only proxy identities (not supplier-batch identities).
     "cupressus sempervirens leaf oil literature profile": _CYPRESS_LEAF_LITERATURE_CONSTITUENTS,
     "mentha piperita lk literature profile": _PEPPERMINT_LK_LITERATURE_CONSTITUENTS,
+    "lavandula latifolia spanish type iso 4719 midpoint profile": (
+        _SPIKE_LAVENDER_ISO_4719_MIDPOINT_CONSTITUENTS
+    ),
     "tonka bean solvent extract literature profile": _TONKA_SOLVENT_EXTRACT_PROXY_CONSTITUENTS,
     # Specialty bases
     "cassis base 345b": _CASSIS_BASE_345B_CONSTITUENTS,
@@ -966,6 +985,12 @@ _PROFILE_ALIASES = {
     "cypress eo": "cupressus sempervirens leaf oil literature profile",
     "cypress essential oil": "cupressus sempervirens leaf oil literature profile",
     "peppermint essential oil": "mentha piperita lk literature profile",
+    "spike lavender eo": "lavandula latifolia spanish type iso 4719 midpoint profile",
+    "spike lavender": "lavandula latifolia spanish type iso 4719 midpoint profile",
+    # Aroma&More SKU Lav420811P: sold as French Lavandula angustifolia oil.
+    # It reuses the generic L. angustifolia profile as a labelled proxy.
+    "lavender 40/42, aroma&more": "lavender eo",
+    "lavender 40/42": "lavender eo",
     "olibanum": "olibanum resinoid",
     "turkish storax tincture": (
         "liquidambar orientalis resin ethanol tincture generic profile"
@@ -999,7 +1024,19 @@ _PROFILE_ALIASES = {
     ),
 }
 
+_LAVENDER_40_42_PROXY_LIMITATIONS = (
+    "Aroma&More SKU Lav420811P (https://aromaandmore.com/en/essential-oil-100-pure-/67-11388-lavender-4042-essential-oil-france.html) "
+    "is sold as French steam-distilled Lavandula angustifolia flower oil standardized toward a 40/42 "
+    "linalool and linalyl acetate target.",
+    "The supplier states the current product does not fully meet that target and that lavandin or another "
+    "lavender can be added at production; any such admixture is not represented here.",
+    "The reused generic L. angustifolia literature profile is not an analysis of that product or lot; "
+    "no supplier GC, certificate of analysis, or density was located.",
+)
+
 _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
+    "lavender 40/42, aroma&more": _LAVENDER_40_42_PROXY_LIMITATIONS,
+    "lavender 40/42": _LAVENDER_40_42_PROXY_LIMITATIONS,
     "grapefruit fcf oil sicilian": (
         "PerfumersWorld identifies SKU 7CA24030 as Sicilian furocoumarin-free grapefruit oil; "
         "the reused legacy grapefruit FCF composition is not an analysis of that supplier product or lot.",
@@ -1103,6 +1140,9 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "pink pepper eo": (
         "https://doi.org/10.1080/0972060X.2004.10643396",
     ),
+    "lavandula latifolia spanish type iso 4719 midpoint profile": (
+        "https://www.iso.org/standard/55964.html",
+    ),
 }
 
 
@@ -1116,6 +1156,51 @@ _LEGACY_CONSTITUENT_INPUT_AUTHORITY = {
     "owned_oil_activity_measured": False,
 }
 _PARTIAL_PROFILE_EVIDENCE = {
+    "lavandula latifolia spanish type iso 4719 midpoint profile": {
+        "analytical_method": "STANDARD_CHROMATOGRAPHIC_PROFILE_RANGES",
+        "composition_basis": "SPECIFICATION_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.iso.org/standard/55964.html",
+                "document": "ISO 4719:2012 Essential oil of spike lavender (Lavandula latifolia Medikus), Spanish type",
+                "table": "Table 1, Chromatographic profile",
+                "published_botanical_name": "Lavandula latifolia Medikus",
+                "published_type": "Spanish type",
+                "standard_range_pct": {
+                    "limonene": (0.5, 3.0),
+                    "1,8-cineole": (16.0, 39.0),
+                    "camphor": (8.0, 16.0),
+                    "linalool": (34.0, 50.0),
+                    "linalyl acetate": (0.0, 1.6),
+                    "alpha terpineol": (0.2, 2.0),
+                    "trans-alpha-bisabolene": (0.4, 2.5),
+                },
+                "fraction_rule": "MIDPOINT_OF_STANDARD_MIN_MAX_RANGE",
+                "linalyl_acetate_lower_bound": "NOT_DETECTABLE_TAKEN_AS_ZERO",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_supplier_and_origin_recorded": False,
+                "owned_bottle_sku_verified": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ('linalool', '1,8-cineole', 'camphor', 'limonene', 'alpha terpineol', 'linalyl acetate')},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "trans-alpha-bisabolene",
+                "reported_fraction": 0.0145,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "ISO 4719 describes a conforming Spanish-type commercial oil; it is not an analysis of the owned bottle, whose supplier and origin are not recorded.",
+            "Range midpoints are nominal model inputs; a conforming oil can sit anywhere in each range (linalool 34-50%, 1,8-cineole 16-39%, camphor 8-16%).",
+            "Only 85.15% of nominal composition is modeled; trans-alpha-bisabolene and unlisted constituents remain uncomputed, not odorless.",
+            "Spike lavender oils of other origins, and lavandin, are not covered by this profile.",
+        ),
+    },
     "cupressus sempervirens leaf oil literature profile": {
         "input_authority": {
             "composition": {

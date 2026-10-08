@@ -1172,16 +1172,16 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Geranyl Acetate
   aliases: []
-  cas: null
+  cas: '105-87-3'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 196.29
   density_25c_g_ml: null
-  logp: null
+  logp: 4.3
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 6.17
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1203,9 +1203,13 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'Air ODT not set: no compatible published air threshold was verified (2026-10-08). FMA lists 0.03 mm Hg at 20 C, consistent with the 25 C EPI value.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS 105-87-3, Food Chem. Toxicol. 192 (2024) 114971, doi:10.1016/j.fct.2024.114971'
+    mw_g_mol: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS 105-87-3, Food Chem. Toxicol. 192 (2024) 114971, doi:10.1016/j.fct.2024.114971'
+    logp: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS 105-87-3, Food Chem. Toxicol. 192 (2024) 114971, doi:10.1016/j.fct.2024.114971; log Kow 4.3 at 35 C (RIFM 1999b partition coefficient study)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS 105-87-3, Food Chem. Toxicol. 192 (2024) 114971, doi:10.1016/j.fct.2024.114971; 0.0463 mm Hg at 25 C, EPI Suite v4.11 estimate, converted at 133.322 Pa/mm Hg'
 - canonical_name: Geranyl Butyrate
   aliases: []
   cas: null

@@ -385,7 +385,7 @@ def test_odt_source_sections_have_no_duplicate_textual_keys():
 def test_uncovered_naturals_and_opaque_preblends_never_use_monomolecular_oav():
     state = build_formula_state(
         {
-            "Spike Lavender EO": 100.0,
+            "Anise EO": 100.0,
             "Jasmine FO": 100.0,
             "Lavender EO": 100.0,
         },
@@ -393,7 +393,7 @@ def test_uncovered_naturals_and_opaque_preblends_never_use_monomolecular_oav():
     )
     rows = {row.name: row for row in state.materials}
 
-    for name in ("Spike Lavender EO", "Jasmine FO"):
+    for name in ("Anise EO", "Jasmine FO"):
         assert rows[name].oav is None
         assert rows[name].intensity is None
         assert rows[name].sources["oav_model"] == (

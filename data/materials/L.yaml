@@ -2316,16 +2316,16 @@
     user_in_inventory: inventory.txt
 - canonical_name: Linalool Oxide
   aliases: []
-  cas: null
+  cas: '1365-19-1'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 170.25
   density_25c_g_ml: null
-  logp: null
+  logp: 1.7
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.29
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2347,9 +2347,13 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'Air ODT not set: no compatible published air threshold was verified (2026-10-08). FMA lists 0.01 mm Hg at 20 C, higher than the 25 C EPI estimate; the measured boiling point (196.3 C) also suggests EPI underestimates VP.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277'
+    mw_g_mol: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277'
+    logp: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277; mean of log Kow 1.6 and 1.8 at 35 C (RIFM 2000b partition coefficient study)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277; 0.00969 mm Hg at 25 C, EPI Suite v4.11 estimate, converted at 133.322 Pa/mm Hg'
 - canonical_name: Linalool Synthetic
   aliases: []
   cas: null
