@@ -78,7 +78,8 @@ async def test_guided_improvement_ui_is_default_local_and_authority_safe(client)
     assert 'request("/v2/workbench/formula-library")' in javascript.text
     assert "/v2/workbench/formula-source?source_path=" in javascript.text
     assert 'navigate(location.hash.slice(1) || "improve")' in javascript.text
-    assert "window.setTimeout(resolve, 1000)" in javascript.text
+    assert "waitForEngineJob(jobId, { area, intervalMs = 1000" in javascript.text
+    assert 'request("/v2/engine-workers/status"' in javascript.text
     assert "http://" not in javascript.text
     assert "https://" not in javascript.text
     assert "Research behind this design · optional details" in javascript.text
@@ -714,3 +715,40 @@ async def test_science_authority_view_preserves_labels_modes_and_unknowns(client
     assert "/api/v1/lab/science/report.md?view=" in javascript.text
     assert "confidence percentage" not in page.text.casefold()
     assert "confidence percentage" not in javascript.text.casefold()
+
+
+@pytest.mark.asyncio
+async def test_engine_job_wait_uses_current_server_states_and_failure_words(client):
+    javascript = await client.get("/static/lab.js")
+
+    assert "FAILED_CLOSED_WORKER_STOPPED" in javascript.text
+    assert "the server restarted or shut down, so it has no result" in javascript.text
+    # The same request coalesces onto the stopped job, so the page must not
+    # promise that asking again re-runs it.
+    assert "run it again" not in javascript.text.casefold()
+    assert "EXPIRED" not in javascript.text
+
+
+@pytest.mark.asyncio
+async def test_omission_loader_translates_design_fraction_bases_and_shows_percentages(client):
+    javascript = await client.get("/static/lab.js")
+
+    assert javascript.status_code == 200
+    assert 'mass_fraction: "w/w"' in javascript.text
+    assert 'volume_fraction: "v/v"' in javascript.text
+    assert 'mass_per_volume: "w/v"' in javascript.text
+    assert 'OMISSION_BASIS[value] || "unknown"' in javascript.text
+    assert "loaded.fraction_basis = omissionBasis(loaded.fraction_basis)" in javascript.text
+    assert "omissionStrength(row)" in javascript.text
+    assert "${row.stock_fraction_decimal} ${row.fraction_basis}" not in javascript.text
+
+
+@pytest.mark.asyncio
+async def test_comparison_planning_is_worded_as_a_suggestion_and_uses_safe_request_ids(client):
+    page = await client.get("/app")
+    javascript = await client.get("/static/lab.js")
+    assert "cannot remove anything from your existing bottle" in page.text
+    assert "needs separate samples" not in page.text
+    submit = javascript.text.split('$("#omission-plan-form").addEventListener("submit"', 1)[1]
+    submit = submit.split('$("#sample-form")', 1)[0]
+    assert 'newRequestId("comparison")' in submit and "crypto.randomUUID()" not in submit

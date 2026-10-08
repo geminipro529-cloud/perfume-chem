@@ -2,6 +2,8 @@
 
 **Status:** QUARANTINED — historical analysis only; do not mix or release.
 **Artifact review (2026-10-05):** The stored analysis no longer matches the current inventory, scientific inputs or implementation. Formula quantities and prior analysis are retained; no fresh calculation, sensory validation or safety/release approval is claimed. See the [review receipt](../docs/verification/FORMULA_ARTIFACT_REVIEW_20261005.json).
+**Owner revision (2026-10-08, after that review):** Verdox 280 → 340 µL and Benzyl Acetate 220 → 160 µL, so the fruit basket keeps 550 µL and the concentrate stays 6,000 µL. Kenny chose this after Verdox's corrected MW (198.30) and density (0.938 g/mL) dropped its modelled OAV to 0.83; at 340 µL it models at 1.01, and Benzyl Acetate stays far above threshold (about 71). The quarantine, the Ambrettolide row (written for the retired 10% w/w DPG stock) and the stored analysis below are unchanged, so that analysis still shows the 280/220 build.
+**Current-stock successor:** `formulas/DHI-11_Velours_d_Iris_05443A_30mL_20pct_V3_1_Current_Stock.md` rebuilds this card on the stocks owned on 2026-10-08 (neat Ambrettolide, Haitian vetiver, BONTAUX lavender).
 
 **Case:** `DHI-11-VELOURS-D-IRIS-05443A-V3-SMOOTH`  
 **Architecture model:** `engine.perception.dhi_2011_architecture:dhi-2011-05443a-v1`  
@@ -237,8 +239,8 @@ descending raw Amount (µL); the sequence resets only at a new basket.
 
 | # | Material | Dilution | Amount (µL) | Active µL | Raw ppm | Active ppm | Current-build function |
 |---:|---|---|---:|---:|---:|---:|---|
-| 28 | Verdox | neat | 280 | 280.000 | 46666.6667 | 46666.6667 | green pear flesh and woody continuity |
-| 29 | Benzyl Acetate | neat | 220 | 220.000 | 36666.6667 | 36666.6667 | floral-fruit skin at the pear-to-orris boundary |
+| 28 | Verdox | neat | 340 | 340.000 | 56666.6667 | 56666.6667 | green pear flesh and woody continuity |
+| 29 | Benzyl Acetate | neat | 160 | 160.000 | 26666.6667 | 26666.6667 | floral-fruit skin at the pear-to-orris boundary |
 | 30 | Ethyl 2-Methylbutyrate | 0.1% in DPG | 50 | 0.050 nominal | 8333.3333 | 8.3333 nominal | volatile juicy pear-liqueur flash |
 
 **BASKET 16 — ALDEHYDES**
@@ -286,7 +288,7 @@ dose high to low raw µL inside it:
 12. **Edible smells:** Tonkarome (20% w/w in TEC) 310; Isobutavan 140.
 13. **Edible spices:** none.
 14. **My favorite smells:** none.
-15. **Fruits:** Verdox 280; Benzyl Acetate 220; Ethyl 2-Methylbutyrate (0.1%) 50.
+15. **Fruits:** Verdox 340; Benzyl Acetate 160; Ethyl 2-Methylbutyrate (0.1%) 50.
 16. **Aldehydes:** none.
 17. **Green smelling things:** none.
 
@@ -334,8 +336,8 @@ dose high to low raw µL inside it:
 | 25 | 11 | Carrot Seed EO | neat | 10 µL | 5,000 µL |
 | 26 | 12 | Tonkarome (20% w/w in TEC) | 20% w/w in TEC | 310 µL | 5,310 µL |
 | 27 | 12 | Isobutavan | neat | 140 µL | 5,450 µL |
-| 28 | 15 | Verdox | neat | 280 µL | 5,730 µL |
-| 29 | 15 | Benzyl Acetate | neat | 220 µL | 5,950 µL |
+| 28 | 15 | Verdox | neat | 340 µL | 5,790 µL |
+| 29 | 15 | Benzyl Acetate | neat | 160 µL | 5,950 µL |
 | 30 | 15 | Ethyl 2-Methylbutyrate (0.1%) | 0.1% in DPG | 50 µL | 6,000 µL |
 
 #### Seventeen-basket checkpoints

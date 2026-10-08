@@ -342,18 +342,16 @@
 - canonical_name: Macrolide
   aliases:
   - macrolide
-  cas:
+  cas: '106-02-5'
   smiles:
   inchikey:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 240.4, corrected to 254.41)
-  mw_g_mol: 254.41
+  mw_g_mol: 240.38
   density_25c_g_ml:
   logp: 5.0
   functional_groups: []
   chirality:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.0001)
-  vp_25c_pa: 0.0001
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.027
+  vp_source: RIFM_cited_literature  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -366,7 +364,7 @@
   hedonic_valence: 0.65
   ifra_max_pct_edp:
   user_stock_dilution: 10%
-  user_in_inventory: true
+  user_in_inventory: false
   supplier:
     perfumersworld_sku: 2XX14556
     perfumersworld_price_usd_per_g: 1.12
@@ -376,12 +374,15 @@
   families:
   - musks
   character:
-  notes:
+  notes: 'Same molecule as Exaltolide (pentadecanolide, CAS 106-02-5), kept as a separate trade-name entry; physics copied from the Exaltolide entry. Previous MW 254.41 was a C16 lactone weight. Not in stock: inventory.txt marks Macrolide (10%) DEPLETED 2026-07-19. VP: the Vuilleumier 1995 figure (0.0002 torr = 0.027 Pa) has no temperature stated in the source dossier. ChemicalBook gives 0.085 Pa at 25 C, about 3x higher; the two sources disagree and the lower RIFM-cited value is used. Previous gate value 0.0001 Pa had no cited source.'
   provenance:
+    cas: 'PerfumersWorld SKU 2XX14556 (CAS 106-02-5, MW 240.39) and The Good Scents Company (lists "Macrolide Supra" as a synonym of omega-pentadecalactone, CAS 106-02-5), as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
+    mw_g_mol: 'Pentadecanolide C15H28O2, 240.38 g/mol, as stated in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08) (PerfumersWorld lists 240.39)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, CAS 106-02-5, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-02-5.pdf; "0.027 (0.0002 torr, Vuilleumier 1995)" as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08); 0.0002 torr x 133.322 Pa/torr = 0.0267 Pa. Measurement temperature not given in the dossier; filed under 25 C as the dossier does'
+    user_in_inventory: 'inventory.txt: "Macrolide (10%)  # DEPLETED 2026-07-19"'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    mw_g_mol: engine.skin_interaction
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
@@ -389,10 +390,10 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Magnolan
   aliases: []
-  cas:
+  cas: '27606-09-3'
   smiles:
   inchikey:
-  mw_g_mol:
+  mw_g_mol: 204.27
   density_25c_g_ml:
   logp:
   functional_groups: []
@@ -422,9 +423,11 @@
     other: {}
   families: []
   character:
-  notes:
+  notes: 'logP, VP and density left null (2026-10-08). logP: RIFM fragrance ingredient safety assessment, Magnolan, CAS 27606-09-3, Food Chem. Toxicol. 130 Suppl 1 (2019) 110568, doi:10.1016/j.fct.2019.110568 quotes "2.67 (EPI Suite), 2.43 and 2.90 for isomer 1 and 2, respectively, at 22.8 C (RIFM, 2014d)"; Magnolan is an isomer mixture with two measured values and unknown isomer ratio, so no single value was chosen. VP: only TGSC rw1007991 0.003 mmHg at 25 C (est) = 0.40 Pa. Density 1.086-1.090 g/mL at 20 C (Ventos, https://www.ventos.com/index.php/en/producto/5104), 20 C, not used. No air ODT found. Source: material-data-firecrawl/BATCH1_FEMME_20261008.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'PerfumersWorld SDS 3MN13569 (local snapshot, batch MAG13569/26280); RIFM fragrance ingredient safety assessment, Magnolan, CAS 27606-09-3, Food Chem. Toxicol. 130 Suppl 1 (2019) 110568, doi:10.1016/j.fct.2019.110568 (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
+    mw_g_mol: 'PerfumersWorld SDS 3MN13569 (local snapshot, batch MAG13569/26280); MW 204.27, C13H16O2 (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
 - canonical_name: Magnolia EO
   aliases:
   - magnolia eo
@@ -686,12 +689,12 @@
 - canonical_name: Maltol
   aliases:
   - maltol
-  cas:
+  cas: '118-71-8'
   smiles:
   inchikey:
-  mw_g_mol:
-  density_25c_g_ml:
-  logp:
+  mw_g_mol: 126.11
+  density_25c_g_ml: 1.046
+  logp: 0.09
   functional_groups: []
   chirality:
   vp_25c_pa:
@@ -726,12 +729,16 @@
         price_usd_per_g: 0.1
   families: []
   character:
-  notes:
+  notes: 'ChemicalBook log P 2.3 at 25 C disagrees with the measured 0.09 and is not used. VP not set: EPI Modified Grain estimate 0.00571 Pa at 25 C vs ChemicalBook 0.15 Pa at 24 C (26x apart, neither measured at 25 C). No air ODT found (Leffingwell 35000 ppb has no stated medium). Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1002341.html: "maltol, 118-71-8" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    mw_g_mol: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1002341 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "MOL WT : 126.11"'
+    logp: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1002341 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "Log Kow (Exper. database match) = 0.09" (Ref: Sangster 1993), measured'
+    density_25c_g_ml: 'ChemicalBook property page CASEN_118-71-8 (supplier/Sigma compilation, method not stated; via material-data-firecrawl/allgaps/S1_aldehydes.md): "1.046 g/mL at 25 °C" (method not stated; maltol is a solid, so bulk vs true density is ambiguous)'
 - canonical_name: Mandarin Essential Oil
   aliases: []
   cas:
@@ -955,10 +962,10 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Manzanate
   aliases: []
-  cas:
+  cas: '39255-32-8'
   smiles:
   inchikey:
-  mw_g_mol:
+  mw_g_mol: 144.21
   density_25c_g_ml:
   logp:
   functional_groups: []
@@ -988,17 +995,19 @@
     other: {}
   families: []
   character:
-  notes:
+  notes: 'logP, VP and density left null (2026-10-08). logP and VP exist only as TGSC estimates, not RIFM-quoted: "logP (o/w): 2.667 (est)"; "Vapor Pressure: 2.906000 mmHg @ 25.00 C. (est)" = 387 Pa at 133.322 Pa/mmHg (https://www.perflavory.com/docs/doc1006801.html). Parchem "Specific gravity 0.861-0.865" has no stated temperature. Identity: ethyl 2-methylpentanoate (Givaudan). Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://scentspiracy.com/fragrance-ingredients/p/manzanate and https://www.parchem.com/chemical-supplier-distributor/ethyl-2-methylpentanoate-manzanate-022982; "CAS No.: 39255-32-8" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    mw_g_mol: 'https://www.parchem.com/chemical-supplier-distributor/ethyl-2-methylpentanoate-manzanate-022982; "Molecular weight 144.21" (C8H16O2) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
 - canonical_name: Maple Lactone
   aliases:
   - maple lactone
-  cas:
+  cas: null
   smiles:
   inchikey:
   mw_g_mol: 128.1
-  density_25c_g_ml:
+  density_25c_g_ml: 1.136
   logp: 0.5
   functional_groups: []
   chirality:
@@ -1046,6 +1055,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'Removed 2026-10-08: the TGSC sweep matched ''Maple Lactone'' to maple furanone (698-10-2, C7H10O3, MW 142.15), but ''maple lactone'' is also the usual name for methyl cyclopentenolone (80-71-7, C6H8O2, MW 112.13), and the YAML MW 128.1 fits neither. Identity needs the supplier sheet.'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.13400 to 1.14400 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1008621.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Mate Absolute
   aliases: []
   cas:
@@ -1210,11 +1221,11 @@
 - canonical_name: Melonal
   aliases:
   - melonal
-  cas:
+  cas: '106-72-9'
   smiles:
   inchikey:
   mw_g_mol: 140.22
-  density_25c_g_ml:
+  density_25c_g_ml: 0.842
   logp:
   functional_groups: []
   chirality:
@@ -1255,6 +1266,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 106-72-9 (https://www.thegoodscentscompany.com/data/rw1019891.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.83900 to 0.85000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1019891.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Menthol Crystals
   aliases: []
   cas:
@@ -1410,16 +1423,17 @@
 - canonical_name: Methyl Anthranilate
   aliases:
   - methyl anthranilate
-  cas:
+  cas: '134-20-3'
   smiles:
   inchikey:
   mw_g_mol: 151.16
-  density_25c_g_ml:
+  density_25c_g_ml: 1.162
   logp: 1.9
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.03
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.03 (unsourced; about 100x low per the chemprops cross-check); replaced with the cited value
+  vp_25c_pa: 3.61
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1448,19 +1462,22 @@
   character:
   notes:
   provenance:
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 8635 (https://pubchem.ncbi.nlm.nih.gov/compound/8635#section=Vapor-Pressure): "2.71X10-2 mm Hg at 25 °C /Extrapolated/", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 3.61 Pa. Extrapolated from measured data.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 134-20-3 (https://www.thegoodscentscompany.com/data/rw1008211.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.16100 to 1.16900 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1008211.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Methyl Benzoate
   aliases: []
-  cas:
+  cas: '93-58-3'
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 136.15)
   mw_g_mol: 136.15
-  density_25c_g_ml:
+  density_25c_g_ml: 1.082
   logp:
   functional_groups: []
   chirality:
@@ -1497,6 +1514,8 @@
   provenance:
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 93-58-3 (https://www.thegoodscentscompany.com/data/rw1015012.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.08200 to 1.08900 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1015012.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Methyl Chavicol
   aliases: []
   cas:
@@ -1580,10 +1599,10 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Methyl Diantilis
   aliases: []
-  cas:
+  cas: '5595-79-9'
   smiles:
   inchikey:
-  mw_g_mol:
+  mw_g_mol: 182.22
   density_25c_g_ml:
   logp:
   functional_groups: []
@@ -1613,9 +1632,11 @@
     other: {}
   families: []
   character:
-  notes:
+  notes: 'logP and VP left null (2026-10-08). CAS: TGSC gives "5595-79-9"; the 5595-79-6 in an earlier task brief fails the CAS check digit, so it is treated as a typo, not a second source. logP and VP exist only as TGSC estimates, not RIFM-quoted: "logP (o/w): 1.571 (est)"; "Vapor Pressure: 0.003000 mmHg @ 25.00 C. (est)" = 0.400 Pa at 133.322 Pa/mmHg. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://thegoodscentscompany.com/data/rw1009761.html; "CAS Number: 5595-79-9", synonyms "dianthus ethone", "methyl diantilis (Givaudan)"; check digit valid (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
+    mw_g_mol: 'https://thegoodscentscompany.com/data/rw1009761.html; "Molecular Weight: 182.21918000", calculated from C10H14O3 (2-ethoxy-4-(methoxymethyl)phenol) (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
 - canonical_name: Methyl Eugenol
   aliases: []
   cas:
@@ -1808,8 +1829,9 @@
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.05)
-  vp_25c_pa: 0.05
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.05 (unsourced; about 100x low per the chemprops cross-check); replaced with the cited value
+  vp_25c_pa: 5.47
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1834,6 +1856,7 @@
   character:
   notes:
   provenance:
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 8163, 2-undecanone (https://pubchem.ncbi.nlm.nih.gov/compound/8163#section=Vapor-Pressure): "4.1X10-2 mm Hg", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 5.47 Pa. The record does not state the temperature.'
     mw_g_mol: engine.skin_interaction
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
@@ -1975,12 +1998,12 @@
 - canonical_name: Methyl Salicylate
   aliases:
   - methyl salicylate
-  cas:
+  cas: '119-36-8'
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 152.15)
   mw_g_mol: 152.15
-  density_25c_g_ml:
+  density_25c_g_ml: 1.179
   logp:
   functional_groups: []
   chirality:
@@ -2020,6 +2043,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 119-36-8 (https://www.thegoodscentscompany.com/data/rw1008471.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.18000 to 1.18500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1008471.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: MILK F-TEC
   aliases: []
   cas:
@@ -2096,11 +2121,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Mimosa Absolute
   aliases: []
-  cas:
+  cas: '8031-03-6'
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 1.101
   logp:
   functional_groups: []
   chirality:
@@ -2134,6 +2159,8 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 8031-03-6 (https://www.thegoodscentscompany.com/data/ab1661001.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.98900 to 1.22000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/ab1661001.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Mimosa F-TEC
   aliases:
   - MIMOSA F-TEC
@@ -2470,7 +2497,7 @@
 - canonical_name: Musk Ketone
   aliases:
   - musk ketone
-  cas: 94201-19-1
+  cas: '81-14-1'
   smiles:
   inchikey:
   mw_g_mol: 294.3
@@ -2478,8 +2505,8 @@
   logp: 3.8
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.000039997
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.00069
+  vp_source: supplier  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 3.0e-05
@@ -2509,10 +2536,11 @@
   families:
   - musks
   character:
-  notes:
+  notes: 'Previous gate VP 0.000039997 Pa (PubChem CID 6669 / Peck and Hornbuckle 2004, 3.00e-7 mmHg at 25 C) is about 17x lower than the supplier sheet value now used; the two sources disagree. Air ODT in engine/odor_thresholds.py (2.0 ppb) has no source for the material itself.'
   provenance:
+    cas: '81-14-1 per IFRA Standard 189 and PerfumersWorld 1XU00308 (musk dossier ENGINE_CORRECTIONS_20261008.md). 94201-19-1 is Methyl Laitone''s CAS (Givaudan) and was wrong here.'
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: PubChem CID 6669 / Peck and Hornbuckle 2004, 3.00e-7 mmHg at 25 C
+    vp_25c_pa: 'Hekserij Musk ketone data sheet 1Doc-23045 (2025-12), https://www.hekserij.nl/wp-content/uploads/2026/01/1Doc-23045-Musk-ketone-2025-12.pdf: "0.00069" Pa at 25 C, as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -2875,7 +2903,7 @@
 - canonical_name: Methyl Laitone
   aliases: [methyl laitone]
   mw_g_mol: 168.23
-  cas: null
+  cas: '94201-19-1'
   vp_25c_pa: null
   logp: null
   odt_air_ppb: null
@@ -2884,8 +2912,9 @@
   user_in_inventory: true
   families: [lactonic, floral]
   character: Creamy lactonic fruity modifier; white-flower body and sandalwood milkiness.
-  notes: The exact PerfumersWorld product is SKU 5VD10871, Methyl Laitone 10% DPG, active CAS 94201-19-1. The user's separate current stock is user-confirmed 20% v/v in ethanol.
+  notes: 'The exact PerfumersWorld product is SKU 5VD10871, Methyl Laitone 10% DPG, active CAS 94201-19-1. The user''s separate current stock is user-confirmed 20% v/v in ethanol. logP, VP and density left null (2026-10-08). logP only TGSC "1.882 (est)"; Givaudan gives none. VP conflict: Givaudan "0.0240 hPa / 0.0060 hPa" (temperature and isomer not captured) vs TGSC "0.024000 mmHg @ 20.00 C." = 3.20 Pa (possible unit slip). Specific gravity 1.025 at 20 C (scent.vn), 20 C, not used. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md.'
   provenance:
     mw_g_mol: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-laitone-10dpg
     supplier_product_comparison: https://www.perfumersworld.com/view.php?pro_id=5VD10871
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
+    cas: 'https://www.givaudan.com/print/1314651 (Givaudan, producer); "94201-19-1, 91069-37-3/25265-71-8" (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'

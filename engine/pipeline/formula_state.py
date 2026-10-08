@@ -1407,7 +1407,7 @@ def _build_formula_state_cached(
             "dhvap": dhvap_source,
             "gamma": gamma_source,
             "odt": odt_source,
-            "ifra": "literature:ifra_safety"
+            "ifra": "ifra_cat4_table:51"
             if ifra_limit is not None
             else "missing_or_unrestricted",
             "oav_model": _oav_model_source(composite_result, requires_composite),

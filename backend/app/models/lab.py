@@ -572,6 +572,7 @@ from app.models.lab_engine_jobs import (  # noqa: E402,F401
     LabEngineJob,
     LabEngineJobEvent,
     LabEngineJobResult,
+    LabEngineWorker,
 )
 from app.models.lab_execution import (  # noqa: E402,F401
     EXECUTION_TABLE_NAMES,

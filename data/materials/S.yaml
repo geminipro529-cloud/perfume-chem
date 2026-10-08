@@ -312,11 +312,11 @@
 - canonical_name: Safranal
   aliases:
   - safranal
-  cas: null
+  cas: '116-26-7'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
+  mw_g_mol: 150.22
+  density_25c_g_ml: 0.971
   logp: null
   functional_groups: []
   chirality: null
@@ -343,12 +343,15 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'log Kow not set: two estimates disagree (EPI KOWWIN v1.67 3.22, TGSC EPI page ep1016371; TGSC 2.825 est). VP not set: two estimates disagree, no measured or RIFM value (EPI 21.2 Pa mean Antoine & Grain; TGSC 0.134 mm Hg at 25 C est = 17.9 Pa). No air ODT found. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1016371.html (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    mw_g_mol: 'TGSC https://www.thegoodscentscompany.com/data/rw1016371.html: "Molecular Weight: | 150.22078000" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1016371.html: specific gravity "0.96800 to 0.98000 @ 25.00 °C."; midpoint 0.974 x 0.99705 g/mL (water at 25 C) = 0.971 (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
 - canonical_name: Sage Dalmation Essential Oil
   aliases: []
   cas: null
@@ -1217,11 +1220,11 @@
 - canonical_name: Sandalore
   aliases:
   - sandalore
-  cas: null
+  cas: '65113-99-7'
   smiles: null
   inchikey: null
   mw_g_mol: 210.4
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.896
   logp: 3.9
   functional_groups: []
   chirality: null
@@ -1259,6 +1262,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 65113-99-7 (https://www.thegoodscentscompany.com/data/rw1026291.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.89500 to 0.90300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1026291.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Sandalwood Base
   aliases: []
   cas: null
@@ -1935,7 +1940,7 @@
 - canonical_name: Skatole
   aliases:
   - skatole
-  cas: null
+  cas: '83-34-1'
   smiles: null
   inchikey: null
   mw_g_mol: 131.17
@@ -1943,8 +1948,9 @@
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.01
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.01 (unsourced; about 100x low per the chemprops cross-check); replaced with the cited value
+  vp_25c_pa: 0.733
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1973,12 +1979,14 @@
   character: null
   notes: Current 1% stock carrier is DPG. Fraction basis remains unspecified, so quantitative execution is held.
   provenance:
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 6736 (https://pubchem.ncbi.nlm.nih.gov/compound/6736#section=Vapor-Pressure): "0.0055 mm Hg", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 0.733 Pa. The record does not state the temperature.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 83-34-1 (https://www.thegoodscentscompany.com/data/rw1006331.html)'
 - canonical_name: Soap Clear Translucent Glycerine - Unscentedsoapcler
   aliases:
   - Soap Clear Translucent Glycerine - unscentedSOAPCLER
@@ -3318,7 +3326,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 164.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.024
   logp: 2.0
   vp_25c_pa: 7.0
   vp_source: "est/literature"
@@ -3328,6 +3336,8 @@
   user_in_inventory: true
   character: 'green-sweet gardenia-floral ester'
   notes: "material intake batch 2026-08-07"
+  provenance:
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.02000 to 1.03500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1011092.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: 'Sandalwood Base 3X'
   aliases: ['sandalwood base x3', 'sandalwood base']
   cas: None

@@ -114,15 +114,13 @@
   cas:
   smiles:
   inchikey:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 256.3, corrected to 254.41)
-  mw_g_mol: 254.41
+  mw_g_mol: 256.34
   density_25c_g_ml:
   logp: 3.6
   functional_groups: []
   chirality:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.0001)
-  vp_25c_pa: 0.0001
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.028
+  vp_source: RIFM_data  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -147,12 +145,13 @@
   families:
   - musks
   character:
-  notes:
+  notes: 'Previous gate VP 0.0001 Pa had no cited source (about 280x below the RIFM figure). Previous MW 254.41 does not match C14H24O4. Air ODT in engine/odor_thresholds.py (3.0 ppb) is a macrocyclic-lactone surrogate, not a Zenolide measurement. CAS not filled: the TGSC match (ethylene dodecanoate, 54982-83-1) is flagged check, not high confidence.'
   provenance:
+    mw_g_mol: 'Formula C14H24O4 = 256.34 g/mol, as stated in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment for Zenolide (per dossier; URL not given there): "0.028" Pa at 25 C, RIFM 1999 data quoted in the assessment, as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    mw_g_mol: engine.skin_interaction
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt

@@ -3,7 +3,8 @@
 **RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
 
 This module provides a quick check of a formula against IFRA Cat 4 (Fine Fragrance)
-limits stored locally in engine/ifra_safety.py.
+limits from the sourced IFRA 51st Amendment table
+(data/regulatory/ifra_cat4_51.json, read through engine.ifra_standards).
 
 Unlike the full safety_ifra_allergen gate in the pipeline, this is a lightweight
 standalone checker suitable for quick pre-formulation safety validation.
@@ -57,7 +58,7 @@ def check_formula_ifra(
           - summary: human-readable summary string
     """
     try:
-        from engine.ifra_safety import IFRA_CAT4_LIMITS
+        from engine.ifra_standards import load_ifra_table
     except ImportError:
         return {
             "violations": [],
@@ -65,6 +66,7 @@ def check_formula_ifra(
             "ok_materials": [],
             "summary": "IFRA data unavailable (graceful degradation)",
         }
+    table = load_ifra_table()
 
     violations = []
     warnings = []
@@ -80,17 +82,23 @@ def check_formula_ifra(
         # For a 30mL EdP at 20%: concentrate = 6mL, ethanol = 24mL
         pct_in_finished = (active_ul / total_volume_ul) * concentrate_pct * 100
 
-        # Look up limit
-        limit = IFRA_CAT4_LIMITS.get(name)
-        if limit is None:
-            # Try normalized name lookup
-            limit = _fuzzy_lookup(name, IFRA_CAT4_LIMITS)
+        # Look up limit: name and aliases in the sourced table. Prohibited
+        # materials have a 0.0 limit; any other status has no numeric limit.
+        record = table.lookup(name)
+        if record is not None and record.status == "prohibited":
+            limit: Optional[float] = 0.0
+        elif record is not None and record.status == "restricted":
+            limit = record.cat4_limit_pct
+        else:
+            limit = None
         if limit is None:
             warnings.append(name)
             continue
 
         if pct_in_finished > limit:
-            exceedance_pct = (pct_in_finished / limit - 1) * 100
+            exceedance_pct = (
+                (pct_in_finished / limit - 1) * 100 if limit > 0 else float("inf")
+            )
             violations.append(
                 {
                     "material": name,
@@ -105,7 +113,9 @@ def check_formula_ifra(
                     "material": name,
                     "actual_pct": round(pct_in_finished, 4),
                     "limit_pct": limit,
-                    "headroom_pct": round((1 - pct_in_finished / limit) * 100, 1),
+                    "headroom_pct": (
+                        round((1 - pct_in_finished / limit) * 100, 1) if limit > 0 else 0.0
+                    ),
                 }
             )
 
@@ -137,22 +147,6 @@ def check_formula_ifra(
         "ok_materials": ok_materials,
         "summary": "\n".join(summary_lines),
     }
-
-
-def _fuzzy_lookup(name: str, limits: dict[str, float]) -> Optional[float]:
-    """Fuzzy lookup for materials with non-canonical names."""
-    name_lower = name.lower()
-    # Try matching by partial string (e.g., "Rosemary EO" matches "Rosemary EO (...)")
-    for key, val in limits.items():
-        key_lower = key.lower()
-        # Check if either name contains the other
-        if name_lower in key_lower or key_lower in name_lower:
-            return val
-        # Check parenthetical stripping: "Hedione" matches "Hedione (something)"
-        base_key = key_lower.split("(")[0].strip()
-        if name_lower == base_key:
-            return val
-    return None
 
 
 # ══════════════════════════════════════════════════════════════════════

@@ -13,13 +13,14 @@ from engine.pipeline.preflight import _dilution_consistency_check
 
 
 def _head() -> dict:
-    return json.loads(inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
+    return json.loads(inventory.TOBACCO_DBCA_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
 
 
-def test_v20_is_current_and_pinned_to_v19_and_live_inventory() -> None:
-    path = inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH
+def test_v20_is_pinned_to_v19_and_live_inventory() -> None:
+    # v20 was current until the 2026-10-08 Ambrettolide-neat successor (v21).
+    path = inventory.TOBACCO_DBCA_USER_INVENTORY_OVERLAY_PATH
     assert path.name == "inventory_user_authority_overlay_20261008_tobacco_dbca.json"
-    assert hashlib.sha256(path.read_bytes()).hexdigest() == inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == inventory.TOBACCO_DBCA_USER_INVENTORY_OVERLAY_SHA256
     head = _head()
     assert head["predecessor"]["normalized_text_sha256"] == inventory.PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256
     raw = inventory.INVENTORY_PATH.read_bytes().replace(b"\r\n", b"\n")

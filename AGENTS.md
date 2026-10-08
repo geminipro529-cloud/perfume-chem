@@ -1,12 +1,12 @@
 # AGENTS.md — Perfume Chemistry
 
-> **⚠️ RULE 0: Read [`inventory.txt`](/inventory.txt) before constructing ANY fragrance.**  
-> Materials, dilutions, and stock levels change. Never assume availability. Never rely on memory. Verify every material against the live inventory before dosing. This applies to all agents, all sessions, all formulas — no exceptions.
+> **⚠️ RULE 0: Check stock before constructing ANY fragrance.**  
+> Materials, dilutions, and stock levels change. Never assume availability. Never rely on memory. `inventory.txt` is Kenny's hand-kept list; the release gate checks stock against the V5 workbook snapshot (`data/governance/inventory_v5_current_stock_snapshot.json`) plus the dated overlays `data/governance/inventory_user_authority_overlay_*.json`. There is no command that prints that list; call `parse_current_inventory()` from `engine/inventory_parser.py` to see it. Check every material against both before dosing, and report any disagreement rather than guessing. This applies to all agents, all sessions, all formulas — no exceptions.
 
 > **⚠️ RULE 1: Keep stock dose, delivered concentration, ODT, OAV, intensity, character, and liking separate.**
 > Use exact stock and active-mass accounting for formula arithmetic. OAV is permitted only as a detection-related diagnostic when the numerator and threshold have compatible identity, phase, units, matrix, and protocol. Liquid ppm, formula percentage, and stock dose are not gas concentration. OAV is never perceived contribution, intensity, pleasantness, beauty, or an optimizer objective. A missing compatible ODT blocks the numerical OAV claim, not an independently supported endpoint.
 
-> **⚠️ RULE 2: NEVER create new pipeline scripts.**  
+> **⚠️ RULE 2: Don't add new pipeline entry scripts without Kenny's OK.** Extend `scripts/formula_release_gate.py` or the `engine/` modules instead. Scripts already in `scripts/` (including `scripts/reconstruct.py`) are allowed. Throwaway helpers go in `archive/` or `output/` (gitignored), prefixed `_`.
 
 > **⚠️ RULE 3: Optimize for the name, not just the numbers.**  
 > When optimizing, enhancing, or modifying a formula, the target is the **name / concept / original brief** of the perfume — not numerical scores. A formula named "Iris Cathedral" must be optimized toward iris-incense character, even if the optimizer suggests boosting radiance with Hedione and citrus. The name is the north star. Numerical gates (OAV, pyramid, IFRA compliance) are floors to meet — not ceilings to chase. This rule applies to all agents, all sessions, all formulas. When uncertain, re-read the formula name and ask: "Does this still smell like its name?"  
@@ -200,9 +200,9 @@ For backend checks, preserve this order: `ruff check app` ->
 ### Before running
 
 1. **Read `docs/fragrance_families_reference.md`** to confirm the family exists and is buildable from inventory.
-2. **Confirm every material is in stock** — check `inventory.txt` for DEPLETED markers.
+2. **Confirm every material is in stock** — check `inventory.txt` for DEPLETED markers and the gate's stock source (see RULE 0); report any disagreement.
 3. **Confirm every material has physics data** — check `engine/odor_thresholds.py` ODT_DATA, `data/materials/<LETTER>.yaml` for MW/logP/VP/ODT, and `engine/ingredient_intelligence.py` _PROFILES for note/role/texture.
-4. **Check for duplicate ODT entries** — `grepp "material_name" engine/odor_thresholds.py` and count occurrences. The last entry wins.
+4. **Check for duplicate ODT entries** — `rg "material_name" engine/odor_thresholds.py` and count occurrences. The last entry wins.
 
 ### Running
 
@@ -339,7 +339,7 @@ python scripts/format_pipeline_analysis.py --input output.json
 
 ## Key conventions
 
-- **Always read `inventory.txt` before formulating.** The `.github/copilot-instructions.md` contains extensive rules for perfume formulation, material selection, and dosing. Agents creating formulas **must** read it.
+- **Always check stock before formulating (RULE 0): read `inventory.txt` and the gate's stock source.** The `.github/copilot-instructions.md` contains extensive rules for perfume formulation, material selection, and dosing. Agents creating formulas **must** read it.
 - **Two test directories**: `tests/` (engine-level tests, runs from root) and `backend/tests/` (API tests, runs via Poetry). Each has its own `conftest.py` with different `sys.path` and fixture setups.
 - **Test env vars**: `OPENAI_API_KEY=test-key`, `SECRET_KEY=test-secret-key-for-ci`, and `PERFUME_PIPELINE_AUDIT_PATH` (auto-set by root `conftest.py` to a tempfile).
 - **`inventory.txt` format**: `--- CATEGORY ---` headers, `- Material Name (dilution%)` bullets. Parsed by `engine/inventory_parser.py` which deduplicates by keeping the highest-dilution entry.
@@ -351,9 +351,9 @@ python scripts/format_pipeline_analysis.py --input output.json
 
 ## When formulating perfumes
 
-The `.github/copilot-instructions.md` file has mandatory rules: no material defaults (evaluate every option), use perfumer vocabulary, justify every material choice, and always read `inventory.txt` first. A single precisely chosen musk is valid; multiple musks require distinct target-linked roles plus pairwise nonredundancy and controlled omission/alternative comparisons. Tonalide, Macrolide, and Musk Ketone are omitted by default and are exception-only under the complete design-call and inventory-separation contract.
+The `.github/copilot-instructions.md` file has mandatory rules: no material defaults (evaluate every option), use perfumer vocabulary, justify every material choice, and always check stock first (see RULE 0: `inventory.txt` and the gate's stock source). A single precisely chosen musk is valid; multiple musks require distinct target-linked roles plus pairwise nonredundancy and controlled omission/alternative comparisons. Tonalide, Macrolide, and Musk Ketone are omitted by default and are exception-only under the complete design-call and inventory-separation contract.
 
-> **⚠️ RULE 3: When optimizing longevity, scan ALL categories for low-VP materials — don't just reach for "base" or "musk" materials.**
+> **⚠️ RULE 7: When optimizing longevity, scan ALL categories for low-VP materials — don't just reach for "base" or "musk" materials.**
 > Materials in Citrus, Floral, and Accord Bases/Other categories can have surprisingly low vapor pressure (Paradisamide VP=0.002 Pa, Lemonile VP=0.2 Pa, Pamzest VP=30 Pa). Run `engine.formula_recommendations.find_hidden_fixatives()` to surface materials whose VP qualifies them as fixatives but whose note/role places them in top/heart categories. This prevents the blind spot of treating "citrus" and "fixative" as mutually exclusive.
 
 ---
@@ -473,16 +473,13 @@ Added profiles to `ingredient_intelligence.py` for: Diethyl Phthalate, Dipropyle
 
 ## Agentic Workflow (for DeepSeek)
 
-When tasks involve multiple domains (e.g., research + code + test), break them into sub-tasks using `sequential_thinking` first, then use `context7` or `grep` for research before writing code. This compensates for DeepSeek's tendency to shortcut complex reasoning chains.
+When tasks involve multiple domains (e.g., research + code + test), break them into sub-tasks using `sequential_thinking` first, then use `rg` and the built-in search tools for research before writing code. This compensates for DeepSeek's tendency to shortcut complex reasoning chains.
 
 ## Tool usage rules
 
-When searching docs or libraries, use `context7` tools.
-When checking GitHub for code patterns, use `grep` tool.
-When the task requires step-by-step decomposition, use `sequential_thinking`.
-When fetching live web content, use `fetch` tool.
-When understanding project structure or tracing module dependencies, use `repo_map` tool.
-When searching for chemical compound data (MW, logP, VP, ODT, CAS), use `pubchem` tool.
+MCP servers configured in `opencode.json`: `github`, `playwright`, `sequential_thinking`, `pubchem`, `memory`, `perfume_kb`, `cheapluna`. Use only these.
+Use `github` for GitHub code patterns, `sequential_thinking` for step-by-step decomposition, and `pubchem` for compound data (MW, logP, VP, ODT, CAS).
+For docs, code search and project structure, use the built-in tools and `rg`.
 
 ## Agents for synergy/pairing discovery
 
@@ -663,7 +660,7 @@ Bottle state is reconstructed from immutable events. Never delete — CORRECT_EN
 
 ### MCP Toggle Script
 
-`scripts/toggle-mcp.ps1` manages which MCP servers are loaded. Each active MCP consumes context tokens — disable unused ones to maximize token budget.
+**Windows/PowerShell only; it cannot run under Claude Code on Linux.** `scripts/toggle-mcp.ps1` manages which MCP servers are loaded. Each active MCP consumes context tokens — disable unused ones to maximize token budget.
 
 ```powershell
 # View current MCP status
@@ -751,6 +748,7 @@ Every systemic failure from this session. Read before formulating. Learn or repe
 - Root cause: VP below 0.05 Pa + low dose = headspace vacuum. VP wall is absolute.
 - Fix: Cut them or reclassify as structural. Jasmine, Indole, Cade cut. Cade replaced with IBQ (VP 1 Pa).
 - Learning: VP below 0.05 Pa = skin-only. Do not label as character/signature.
+- **Withdrawn (2026-10-08):** this entry relied on vapour pressures about 100x too low (guaiacol is about 13.7 Pa and indole about 1.63 Pa at 25 °C); the corrected values come with the material data PR. Don't use its VP cut-offs as rules.
 
 ### F4. PIPELINE PARSER BUG - SECTION HEADERS AS MATERIALS
 - Symptom: Accord headers parsed as material entries, inflating concentrate total.
@@ -763,6 +761,7 @@ Every systemic failure from this session. Read before formulating. Learn or repe
 - Root cause: Chasing headspace OAV without checking IFRA. VP 0.053 Pa will never project strongly regardless of dose.
 - Fix: Revert to 60 uL (0.1%). Use IBQ and Birch Tar for headspace smoke.
 - Learning: Materials with VP below 0.1 Pa hit IFRA limits before meaningful headspace OAV. Use higher-VP analogs.
+- **Withdrawn (2026-10-08):** this entry relied on vapour pressures about 100x too low (guaiacol is about 13.7 Pa and indole about 1.63 Pa at 25 °C); the corrected values come with the material data PR. Don't use its VP cut-offs as rules.
 
 ### F6. IONONE RECEPTOR SATURATION
 - Historical observation: Alpha Irone increases reportedly gave diminishing returns in one formulation; this is not a universal dose-response finding.

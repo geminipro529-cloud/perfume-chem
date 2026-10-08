@@ -24,55 +24,84 @@ standalone raw-material hypotheses or back-calculate natural-material doses.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Optional
 
+from engine.ifra_standards import load_ifra_table
+
 # ═══════════════════════════════════════════════════════════════════════════════
-# EU Allergen Notification Thresholds & Regulatory Windows
+# IFRA Category 4 ceilings for the EU-labelled allergens
 #
-# WARNING: This dict is named IFRA_CAT4_LIMITS but for most materials it contains
-# EU Cosmetics Regulation 1223/2009 Annex III notification thresholds,
-# NOT IFRA 51st Amendment quantitative use limits.
+# The numbers come from the sourced IFRA 51st Amendment Category 4 table
+# (data/regulatory/ifra_cat4_51.json, read through engine.ifra_standards); no
+# limit is typed into this module. Each entry maps an allergen to
+# (max % finished product, max % concentrate at 25% concentration):
+#   restricted                 -> (limit, limit x 4)
+#   no_standard, specification -> (100.0, 100.0): no quantitative IFRA ceiling
+#   prohibited                 -> (0.0, 0.0)
+# An allergen whose table record is missing or has any other status gets no
+# entry, and compute_ifra_windows reports it as unchecked instead of inventing
+# a ceiling. EU notification thresholds are a separate datum (below).
 #
-# For authoritative IFRA Cat4 quantitative limits, see engine/ifra_safety.py.
-#
-# Values with 100.0% (e.g., geraniol, citronellol) = require label declaration
-# above 0.001% but have NO quantitative use restriction under QRA2.
-#
-# This module is used by reconstruction_pipeline.py, NOT by the main pipeline gates
-# (gates.py imports IFRA_CAT4_LIMITS from engine/ifra_safety instead).
+# This module is used by reconstruction_pipeline.py, not by the main pipeline
+# gates.
 # ═══════════════════════════════════════════════════════════════════════════════
 
-IFRA_CAT4_LIMITS: dict[str, tuple[float, float]] = {
-    # Allergen name → (max % finished product, max % concentrate at 25% conc)
-    "benzyl salicylate":        (5.60, 22.40),
-    "linalool":                 (100.0, 100.0),   # No restriction (QRA2)
-    "citronellol":              (100.0, 100.0),   # No restriction (QRA2)
-    "eugenol":                  (0.50, 2.00),
-    "benzyl benzoate":          (100.0, 100.0),   # No restriction
-    "farnesol":                 (1.25, 5.00),
-    "hydroxycitronellal":       (1.00, 4.00),
-    "geraniol":                 (100.0, 100.0),   # No restriction (QRA2)
-    "limonene":                 (100.0, 100.0),   # No restriction (QRA2)
-    "benzyl alcohol":           (100.0, 100.0),   # No restriction
-    "alpha-isomethyl ionone":   (100.0, 100.0),   # No restriction
-    "coumarin":                 (0.80, 3.20),
-    "isoeugenol":               (0.02, 0.08),
-    "cinnamal":                 (0.05, 0.20),
-    "cinnamyl alcohol":         (0.80, 3.20),
-    "hexyl cinnamal":           (100.0, 100.0),   # No restriction
-    "amyl cinnamal":            (100.0, 100.0),   # No restriction
-    "citral":                   (0.60, 2.40),
-    "methyl 2-octynoate":       (0.006, 0.024),
-    "oak moss":                 (0.10, 0.40),
-    "tree moss":                (0.10, 0.40),
-    "butylphenyl methylpropional": (100.0, 100.0),  # Experimental local use: do not hard-ban in bench-only analysis
-    "hydroxyisohexyl 3-cyclohexene carboxaldehyde": (0.0, 0.0),  # Banned (Lyral)
-    "anise alcohol":            (100.0, 100.0),
-    "benzyl cinnamate":         (100.0, 100.0),
-    "evernia furfuracea":       (0.10, 0.40),     # Tree moss extract
-    "evernia prunastri":        (0.10, 0.40),     # Oakmoss extract
-}
+# EU-labelled allergen names (INCI-style) whose IFRA Category 4 ceiling is
+# looked up in the sourced table. Also the default allergen universe of
+# compute_ifra_windows.
+EU_ALLERGEN_KEYS: tuple[str, ...] = (
+    "benzyl salicylate",
+    "linalool",
+    "citronellol",
+    "eugenol",
+    "benzyl benzoate",
+    "farnesol",
+    "hydroxycitronellal",
+    "geraniol",
+    "limonene",
+    "benzyl alcohol",
+    "alpha-isomethyl ionone",
+    "coumarin",
+    "isoeugenol",
+    "cinnamal",
+    "cinnamyl alcohol",
+    "hexyl cinnamal",
+    "amyl cinnamal",
+    "citral",
+    "methyl 2-octynoate",
+    "oak moss",
+    "tree moss",
+    "butylphenyl methylpropional",
+    "hydroxyisohexyl 3-cyclohexene carboxaldehyde",
+    "anise alcohol",
+    "benzyl cinnamate",
+    "evernia furfuracea",
+    "evernia prunastri",
+)
+
+_CONCENTRATE_FACTOR = 4.0  # 100% / 25% concentration
+_NO_QUANTITATIVE_CEILING = frozenset({"no_standard", "specification"})
+
+
+def _limits_from_table(keys: tuple[str, ...]) -> dict[str, tuple[float, float]]:
+    table = load_ifra_table()
+    limits: dict[str, tuple[float, float]] = {}
+    for key in keys:
+        material = table.lookup(key)
+        if material is None:
+            continue
+        if material.status == "restricted" and material.cat4_limit_pct is not None:
+            limit = material.cat4_limit_pct
+            limits[key] = (limit, limit * _CONCENTRATE_FACTOR)
+        elif material.status in _NO_QUANTITATIVE_CEILING:
+            limits[key] = (100.0, 100.0)
+        elif material.status == "prohibited":
+            limits[key] = (0.0, 0.0)
+    return limits
+
+
+IFRA_CAT4_LIMITS: dict[str, tuple[float, float]] = _limits_from_table(EU_ALLERGEN_KEYS)
 
 # EU notification threshold for leave-on products (% of finished product)
 NOTIFICATION_THRESHOLD_LEAVE_ON = 0.001  # 10 ppm
@@ -163,6 +192,9 @@ class IFRAAnalysisResult:
     score: float                      # 0-100: how much IFRA evidence constrains the formula
     absence_authority: bool
     limitations: tuple[str, ...]
+    # Declared allergens with no usable record in the sourced IFRA table: no
+    # ceiling was checked for them.
+    unchecked_allergens: list[str] = field(default_factory=list)
 
 
 def compute_ifra_windows(
@@ -199,7 +231,7 @@ def compute_ifra_windows(
         )
     )
     universe_source = (
-        list(IFRA_CAT4_LIMITS.keys())
+        list(EU_ALLERGEN_KEYS)
         if all_26_allergens is None
         else all_26_allergens
     )
@@ -222,6 +254,7 @@ def compute_ifra_windows(
     windows: list[ConcentrationWindow] = []
     absent: list[str] = []
     restricted: list[str] = []
+    unchecked: list[str] = []
 
     declared_lower = set(declared_ordered)
 
@@ -236,7 +269,7 @@ def compute_ifra_windows(
 
         if is_declared:
             # Declared constituent: threshold lower bound only. A quantitative
-            # ceiling is diagnostic here only when this legacy table records one.
+            # ceiling is diagnostic here only when the sourced table gives one.
             ifra_restricted = limit_record is not None and max_conc < 100.0
             window = ConcentrationWindow(
                 material=allergen,
@@ -255,9 +288,10 @@ def compute_ifra_windows(
             elif limit_record is not None:
                 window.confidence = 0.15  # Wide window = low constraint
             else:
-                # No quantitative limit authority exists in this diagnostic
-                # table for this explicitly requested allergen.
+                # The sourced IFRA table has no usable record for this
+                # allergen: report it unchecked, with no ceiling claimed.
                 window.confidence = 0.0
+                unchecked.append(allergen)
             windows.append(window)
         elif label_regime_complete and allergen in allergen_universe:
             # NOT declared → must be below notification threshold
@@ -289,6 +323,7 @@ def compute_ifra_windows(
             "Absent-label upper bounds are withheld unless the applicable label "
             "regime and complete allergen universe are explicitly verified.",
         ),
+        unchecked_allergens=unchecked,
     )
 
 
@@ -301,6 +336,7 @@ def format_ifra_report(result: IFRAAnalysisResult) -> str:
         f"Absent-allergen authority: {'VERIFIED' if result.absence_authority else 'WITHHELD'}",
         f"Absent allergens below threshold: {len(result.absent_allergens)}",
         f"IFRA-restricted materials: {len(result.restricted_materials)}",
+        f"Unchecked (no IFRA table record): {len(result.unchecked_allergens)}",
         f"Constraint Score: {result.score:.1f}/100",
         "",
         "── Concentration Windows (declared allergens) ──",
@@ -308,7 +344,11 @@ def format_ifra_report(result: IFRAAnalysisResult) -> str:
         "─" * 70,
     ]
 
+    unchecked = set(result.unchecked_allergens)
     for w in sorted(result.windows, key=lambda x: x.max_pct):
+        if w.allergen_name in unchecked:
+            lines.append(f"{w.allergen_name:<30} {w.min_pct:>6.3f}  UNCHECKED: no IFRA table record")
+            continue
         lines.append(
             f"{w.allergen_name:<30} {w.min_pct:>6.3f} {w.max_pct:>6.1f} "
             f"{w.window_width:>6.1f} {'YES' if w.ifra_restricted else 'no':>10} {w.confidence:>5.2f}"

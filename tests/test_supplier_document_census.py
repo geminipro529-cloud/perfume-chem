@@ -31,11 +31,14 @@ def test_census_preserves_every_current_inventory_row_and_fails_closed_on_matche
     assert all(row.inventory_source_line > 0 for row in rows)
 
     match_counts = Counter(row.perfumersworld_match_state for row in rows)
+    # 2026-10-08: "Ambrox Super Crystals" became a YAML alias of Ambrox Super
+    # (the neat crystals are the material in the 25% solution), so that row now
+    # resolves to Ambrox Super's existing registry SKU: 207 -> 208, 108 -> 107.
     assert match_counts == {
-        "REGISTRY_SKU": 207,
+        "REGISTRY_SKU": 208,
         "EXACT_NAME_SKU": 6,
         "AMBIGUOUS_EXACT_NAME": 12,
-        "NO_EXACT_PW_MATCH": 108,
+        "NO_EXACT_PW_MATCH": 107,
     }
 
     castoreum = next(row for row in rows if row.canonical_name == "Castoreum Synthetic")

@@ -313,3 +313,22 @@ async def test_lab_api_exposes_analysis_interventions_and_stable_assistant(clien
     assert first.status_code == 200
     assert first.json() == second.json()
     assert len(first.json()["payload_sha256"]) == 64
+
+
+@pytest.mark.asyncio
+async def test_duplicate_material_name_returns_409_and_session_recovers(client):
+    first = await client.post(
+        "/api/v1/lab/materials", json={"canonical_name": "Duplicate Probe Iris"}
+    )
+    assert first.status_code == 201
+
+    duplicate = await client.post(
+        "/api/v1/lab/materials", json={"canonical_name": "Duplicate Probe Iris"}
+    )
+    assert duplicate.status_code == 409
+    assert "Duplicate Probe Iris" in duplicate.json()["detail"]
+
+    other = await client.post(
+        "/api/v1/lab/materials", json={"canonical_name": "Duplicate Probe Vetiver"}
+    )
+    assert other.status_code == 201

@@ -116,7 +116,7 @@
   inchikey: null
   mw_g_mol: 258.4
   density_25c_g_ml: null
-  logp: 4.8
+  logp: 5.9
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.0727
@@ -151,7 +151,7 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'AICIS assessment, log Kow "5.9" measured, as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08); previous repo value 4.8 (engine.skin_interaction, PubChem computed)'
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -511,11 +511,11 @@
 - canonical_name: Gamma Decalactone
   aliases:
   - gamma decalactone
-  cas: null
+  cas: '706-14-9'
   smiles: null
   inchikey: null
   mw_g_mol: 170.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.95
   logp: 3.0
   functional_groups: []
   chirality: null
@@ -561,6 +561,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 706-14-9 (https://www.thegoodscentscompany.com/data/rw1012281.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.95000 to 0.95500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1012281.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Gamma Dodecalactone
   aliases: []
   cas: null
@@ -600,16 +602,16 @@
 - canonical_name: Gamma Nonalactone
   aliases:
   - gamma nonalactone
-  cas: null
+  cas: '104-61-0'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 156.22
+  density_25c_g_ml: 0.959
+  logp: 2.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.57
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -626,24 +628,29 @@
   supplier: null
   families: []
   character: null
-  notes: Current 10% stock carrier is ethanol. Fraction basis remains unspecified, so quantitative execution is held. A separate neat text entry is not bound as current physical authority.
+  notes: 'Current 10% stock carrier is ethanol. Fraction basis remains unspecified, so quantitative execution is held. A separate neat text entry is not bound as current physical authority. VP is an estimate; other values: TGSC/perflavory 0.009 mm Hg at 25 C (est) = 1.20 Pa; at 20 C (not used) EPI v4.0 0.0073 mm Hg = 0.97 Pa and FMA 0.02 mm Hg = 2.67 Pa. Other log Kow estimates: EPI 2.08, perflavory 1.942, XLogP3-AA 2.2. FMA density 0.958-0.966 (temperature not stated). No air ODT found. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
+    cas: 'perflavory (TGSC mirror) https://www.perflavory.com/docs/doc1000532.html: "104-61-0" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    mw_g_mol: 'RIFM fragrance ingredient safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "5. Molecular Weight: 156.22" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    logp: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "2.5 at 25 °C (RIFM, 1995), 2.08 (EPI Suite)"; RIFM 1995 study value used (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    vp_25c_pa: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "0.0118 mm Hg @ 25 °C (EPI Suite)", EPI Suite estimate; 0.0118 mm Hg x 133.322 Pa/mm Hg = 1.57 Pa (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    density_25c_g_ml: 'perflavory https://www.perflavory.com/docs/doc1000532.html: specific gravity "0.95800 to 0.96500 @ 25.00 °C."; midpoint 0.9615 x 0.99705 g/mL (water at 25 C) = 0.959 (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
 - canonical_name: Gamma Octalactone
   aliases: []
-  cas: null
+  cas: '104-50-7'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 142.2
+  density_25c_g_ml: 0.972
+  logp: 1.8
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 8.45
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -671,17 +678,22 @@
         price_usd_per_g: 0.08
   families: []
   character: null
-  notes: null
+  notes: 'VP is an estimate; TGSC lists 0.041 mm Hg at 25 C (est) = 5.47 Pa, which equals the EPI v4.0 20 C figure, so it is probably mislabelled; FMA 0.07 mm Hg at 20 C = 9.33 Pa (not used). Other log Kow estimates: EPI 1.59, TGSC 1.432. FMA specific gravity 0.975 (temperature not stated). No air ODT found. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1006541.html: "104-50-7" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    mw_g_mol: 'TGSC https://www.thegoodscentscompany.com/data/rw1006541.html: "142.19798000" (RIFM https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-50-7.pdf: "5. Molecular Weight: 142.19") (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    logp: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-50-7.pdf: "Log Pow = 1.8 (RIFM, 2010b), 1.59 (EPI Suite)"; RIFM 2010b study value used (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    vp_25c_pa: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-50-7.pdf: "0.0634 mm Hg @ 25 °C (EPI Suite)", EPI Suite estimate; 0.0634 mm Hg x 133.322 Pa/mm Hg = 8.45 Pa (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1006541.html: specific gravity "0.97000 to 0.98000 @ 25.00 °C."; midpoint 0.975 x 0.99705 g/mL (water at 25 C) = 0.972 (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
 - canonical_name: Gamma Undecalactone
   aliases:
   - gamma undecalactone
-  cas: null
+  cas: '104-67-6'
   smiles: null
   inchikey: null
   mw_g_mol: 184.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.941
   logp: 3.3
   functional_groups: []
   chirality: null
@@ -713,6 +725,8 @@
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    cas: 'TGSC: CAS Number: 104-67-6 (https://www.thegoodscentscompany.com/data/rw1000822.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.94100 to 0.94700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1000822.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Gardenia F-TEC
   aliases:
   - GARDENIA F-TEC
@@ -902,7 +916,7 @@
 - canonical_name: Geosmin
   aliases:
   - geosmin
-  cas: null
+  cas: '19700-21-1'
   smiles: null
   inchikey: null
   mw_g_mol: 182.3
@@ -946,14 +960,15 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 19700-21-1 (https://www.thegoodscentscompany.com/data/rw1454691.html)'
 - canonical_name: Geraniol
   aliases:
   - geraniol
-  cas: null
+  cas: '106-24-1'
   smiles: null
   inchikey: null
   mw_g_mol: 154.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.875
   logp: null
   functional_groups: []
   chirality: null
@@ -991,6 +1006,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 106-24-1 (https://www.thegoodscentscompany.com/data/rw1006992.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.87000 to 0.88500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1006992.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Geranium Bourbon Essential Oil
   aliases: []
   cas: null
@@ -1176,21 +1193,21 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Geranyl Acetate
   aliases: []
-  cas: null
+  cas: '105-87-3'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 196.29
   density_25c_g_ml: null
-  logp: null
+  logp: 4.3
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 6.17
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 7.11  # Elsharif & Buettner (2018) Flavour Science doi:10.3217/978-3-85125-593-5-54: 57.1 ng/L air, GC-O
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1207,9 +1224,13 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'Air ODT not set: no compatible published air threshold was verified (2026-10-08). FMA lists 0.03 mm Hg at 20 C, consistent with the 25 C EPI value.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS 105-87-3, Food Chem. Toxicol. 192 (2024) 114971, doi:10.1016/j.fct.2024.114971'
+    mw_g_mol: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS 105-87-3, Food Chem. Toxicol. 192 (2024) 114971, doi:10.1016/j.fct.2024.114971'
+    logp: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS 105-87-3, Food Chem. Toxicol. 192 (2024) 114971, doi:10.1016/j.fct.2024.114971; log Kow 4.3 at 35 C (RIFM 1999b partition coefficient study)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS 105-87-3, Food Chem. Toxicol. 192 (2024) 114971, doi:10.1016/j.fct.2024.114971; 0.0463 mm Hg at 25 C, EPI Suite v4.11 estimate, converted at 133.322 Pa/mm Hg'
 - canonical_name: Geranyl Butyrate
   aliases: []
   cas: null
@@ -1500,10 +1521,10 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Glycolierral
   aliases: []
-  cas: null
+  cas: '68901-32-6'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 236.35
   density_25c_g_ml: null
   logp: null
   functional_groups: []
@@ -1533,9 +1554,11 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'Second CAS for the isomer mixture: 94087-23-7. logP and VP left null (2026-10-08), no measured value: logP 4.007 (TGSC est) vs "Log Pow: 3.8" (scentspiracy, method not stated); VP "0.001000 mmHg @ 25.00 C. (est)" = 0.133 Pa (TGSC) vs "0.0024 hPa at 25C" = 0.24 Pa (scentspiracy, method not stated). Producer is Givaudan per TGSC. Density not found. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://thegoodscentscompany.com/data/rw1492991.html; "CAS Number: 68901-32-6"; the isomer mixture also carries "94087-23-7 (isomeric mixture)" (https://www.scentspiracy.com/fragrance-ingredients/p/glycolierral) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    mw_g_mol: 'https://thegoodscentscompany.com/data/rw1492991.html; "Molecular Weight: 236.35468000", calculated from C15H24O2 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
 - canonical_name: Gourmande F-TEC
   aliases:
   - GOURMANDE F-TEC
@@ -2293,16 +2316,17 @@
 - canonical_name: Guaiacol
   aliases:
   - guaiacol
-  cas: null
+  cas: '90-05-1'
   smiles: null
   inchikey: null
   mw_g_mol: 124.1
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.123
   logp: 1.3
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.053
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.053 (unsourced; about 100x low per the science review); replaced with the cited value
+  vp_25c_pa: 13.7
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.004
@@ -2340,7 +2364,7 @@
   notes: null
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 460 (https://pubchem.ncbi.nlm.nih.gov/compound/460#section=Vapor-Pressure): "0.103 mm Hg 25 °C", citing Verschueren K, Handbook of Environmental Data of Organic Chemicals, 2nd ed. (1983) p. 435; x 133.322 = 13.7 Pa.'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -2353,6 +2377,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 90-05-1 (https://www.thegoodscentscompany.com/data/rw1032271.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.12300 to 1.13000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1032271.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Guaiyl Acetate
   aliases: []
   cas: null

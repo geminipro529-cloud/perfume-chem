@@ -106,9 +106,14 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
         "inventory_after_sha256"
     ]
     assert audit["material_count"] == 290
-    assert audit["oav_available_count"] == 221
-    assert audit["oav_unknown_count"] == 69
-    assert audit["oav_coverage_pct"] == 76.207
+    # 2026-10-08 data PR: cited air ODTs made Aldehyde C-8 Octanal, Aldehyde
+    # C-9 Nonanal and Butyl Butyrate OAV-available (226 -> 229). The spelling
+    # alias "Ambrox Super Crystals" -> Ambrox Super made it resolve (229 -> 230).
+    # The ISO 8896 caraway profile (partial input coverage) took Caraway Seed
+    # Oil out of naturals_missing_composite_evidence (230 -> 231).
+    assert audit["oav_available_count"] == 231
+    assert audit["oav_unknown_count"] == 59
+    assert audit["oav_coverage_pct"] == 79.655
     assert audit["status"] == "FAIL_CLOSED_GAPS"
     assert {"Fructone B", "Helvetolide", "Manzanate", "Ambrocenide"} <= set(
         categories["other_oav_unknowns"]

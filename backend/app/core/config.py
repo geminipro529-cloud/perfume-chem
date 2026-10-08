@@ -32,6 +32,11 @@ class Settings(BaseSettings):
     # Durable engine worker (database leases; no Redis dependency)
     ENGINE_JOB_WORKER_CONCURRENCY: int = 4
     ENGINE_JOB_WORKER_POLL_SECONDS: float = 0.5
+    # A worker claims each job for this long and renews the claim while it runs,
+    # so a dead worker's job is failed closed within about one lease.
+    ENGINE_JOB_LEASE_SECONDS: int = 120
+    ENGINE_JOB_LEASE_RENEW_SECONDS: float = 30.0
+    ENGINE_WORKER_HEARTBEAT_SECONDS: float = 15.0
 
     # Redis Cache
     REDIS_URL: Optional[str] = None
@@ -156,6 +161,20 @@ class Settings(BaseSettings):
     def validate_engine_worker_poll_seconds(cls, value: float) -> float:
         if not 0.05 <= value <= 60:
             raise ValueError("ENGINE_JOB_WORKER_POLL_SECONDS must be 0.05 to 60")
+        return value
+
+    @field_validator("ENGINE_JOB_LEASE_SECONDS")
+    @classmethod
+    def validate_engine_job_lease_seconds(cls, value: int) -> int:
+        if not 5 <= value <= 3600:
+            raise ValueError("ENGINE_JOB_LEASE_SECONDS must be from 5 to 3600")
+        return value
+
+    @field_validator("ENGINE_JOB_LEASE_RENEW_SECONDS", "ENGINE_WORKER_HEARTBEAT_SECONDS")
+    @classmethod
+    def validate_engine_worker_intervals(cls, value: float) -> float:
+        if not 0.05 <= value <= 3600:
+            raise ValueError("engine worker intervals must be 0.05 to 3600 seconds")
         return value
 
     class Config:

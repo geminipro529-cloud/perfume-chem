@@ -207,13 +207,14 @@ def test_derive_safety_authority_fractional():
     # Use materials that are likely in the IFRA database
     target = _make_target(
         [
-            {"identity": "Limonene"},
-            {"identity": "Linalool"},
+            {"identity": "Coumarin"},
+            {"identity": "Hydroxycitronellal"},
             {"identity": "FictionalMaterialXYZ"},
         ]
     )
     score = derive_safety_authority(target)
-    # Limonene and Linalool should have IFRA limits; the fictional one won't
+    # Coumarin and Hydroxycitronellal have IFRA Cat4 limits; the fictional one won't.
+    # (Limonene and Linalool are specification-only standards with no numeric limit.)
     assert score == 2.0 / 3.0
 
 

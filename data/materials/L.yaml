@@ -294,7 +294,7 @@
   aliases:
   - labdanum
   - cistus resinoid
-  cas: '8016-36-2'
+  cas: null
   smiles:
   inchikey:
   mw_g_mol: 300.0
@@ -338,6 +338,7 @@
   character: Dark, resinous, amber-leather, slightly animalic; Cistus ladanifer hexane extract; provides warm amber depth and tenacity.
   notes: 'Crude resinoid vs Labdanum Absolute — similar chemistry but less refined; retains more terpenic/higher-boiling fractions. Key odorants include labdanolic acid, ambrinol, sclareol derivatives.'
   provenance:
+    cas: 'Removed 2026-10-08: 8016-36-2 is olibanum''s CAS (the Olibanum Resinoid entry cites it from PerfumersWorld 2QK21856). Labdanum''s own CAS was not checked against a source page, so the field stays empty.'
     mw_g_mol: manual:2026-06-10 matched to Labdanum Absolute/Labdanum profiles
     density_25c_g_ml: manual:2026-06-10 resinoid typical density
     logp: manual:2026-06-10 matched to Labdanum profiles
@@ -654,11 +655,11 @@
 - canonical_name: Lavender EO
   aliases:
   - lavender eo
-  cas: null
+  cas: '8000-28-0'
   smiles: null
   inchikey: null
   mw_g_mol: 170.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.879
   logp: 2.2
   functional_groups: []
   chirality: null
@@ -700,6 +701,8 @@
     trp.TRPV1: engine.trigeminal
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    cas: 'TGSC: CAS Number: 8000-28-0 (https://www.thegoodscentscompany.com/data/es1007471.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.87500 to 0.88800 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/es1007471.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Lavender EO High Altitude
   aliases:
   - lavender eo high altitude
@@ -1384,7 +1387,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Lemonile
   aliases: []
-  cas: null
+  cas: '61792-11-8'
   smiles: null
   inchikey: null
   mw_g_mol: 163.26
@@ -1420,6 +1423,7 @@
   provenance:
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 61792-11-8 (https://www.thegoodscentscompany.com/data/rw1042831.html)'
 - canonical_name: Lesser Galangal Essential Oil
   aliases: []
   cas: null
@@ -1464,8 +1468,8 @@
   cas: 67633-96-9
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
+  mw_g_mol: 158.2
+  density_25c_g_ml: 0.966
   logp: null
   functional_groups: []
   chirality: null
@@ -1499,12 +1503,14 @@
       flash_point_c_supplier_value: 76.67
   families: [green, fruity, violet, muguet]
   character: Intense transparent green leafy-fruity material with iris, violet, pear, and muguet facets.
-  notes: PerfumersWorld SKU 4GI24147 identifies the active material. The user's separate current stock is 10% w/w in DEP; exact active mass from a volume dose requires the stock-solution density.
+  notes: 'PerfumersWorld SKU 4GI24147 identifies the active material. The user''s separate current stock is 10% w/w in DEP; exact active mass from a volume dose requires the stock-solution density. logP and VP left null (2026-10-08), conflict with no measured value: logP 2.5 (IFF, https://www.iff.com/scent/ingredients-compendium/liffarome/) vs 2.263 (TGSC, not marked est, https://thegoodscentscompany.com/data/rw1028731.html); VP "0.253168 mm Hg @ 23 C" = 33.75 Pa (IFF, 23 C) vs "0.721000 mmHg @ 25.00 C. (est)" = 96.1 Pa (TGSC). Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md.'
   provenance:
     cas: https://www.perfumersworld.com/view.php?pro_id=4GI24147
     character: https://www.perfumersworld.com/view.php?pro_id=4GI24147
     supplier.perfumersworld: https://www.perfumersworld.com/view.php?pro_id=4GI24147
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
+    mw_g_mol: 'https://www.iff.com/scent/ingredients-compendium/liffarome/ (IFF, producer); "158.2" (C8H14O3); TGSC 158.19718 (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
+    density_25c_g_ml: 'https://thegoodscentscompany.com/data/rw1028731.html; supplier range "Specific Gravity: 0.96600 to 0.97100 @ 25.00 C."; midpoint 0.9685 x 0.99705 (water at 25 C) = 0.9656 g/mL (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
 - canonical_name: LIGHT AND AIRY F-TEC
   aliases: []
   cas: null
@@ -1806,11 +1812,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Lilial
   aliases: []
-  cas: null
+  cas: '80-54-6'
   smiles: null
   inchikey: null
   mw_g_mol: 204.31
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.942
   logp: null
   functional_groups: []
   chirality: null
@@ -1840,6 +1846,8 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 80-54-6 (https://www.thegoodscentscompany.com/data/rw1008612.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.94200 to 0.94700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1008612.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Lilial Substitute IFRA
   aliases: []
   cas: null
@@ -2272,11 +2280,11 @@
 - canonical_name: Linalool
   aliases:
   - linalool
-  cas: null
+  cas: '78-70-6'
   smiles: null
   inchikey: null
   mw_g_mol: 154.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.86
   logp: 2.7
   functional_groups: []
   chirality: null
@@ -2318,18 +2326,20 @@
     trp.TRPV1: engine.trigeminal
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    cas: 'TGSC: CAS Number: 78-70-6 (https://www.thegoodscentscompany.com/data/rw1007872.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.85800 to 0.86700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1007872.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Linalool Oxide
   aliases: []
-  cas: null
+  cas: '1365-19-1'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 170.25
   density_25c_g_ml: null
-  logp: null
+  logp: 1.7
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.29
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2351,9 +2361,13 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'Air ODT not set: no compatible published air threshold was verified (2026-10-08). FMA lists 0.01 mm Hg at 20 C, higher than the 25 C EPI estimate; the measured boiling point (196.3 C) also suggests EPI underestimates VP.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277'
+    mw_g_mol: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277'
+    logp: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277; mean of log Kow 1.6 and 1.8 at 35 C (RIFM 2000b partition coefficient study)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277; 0.00969 mm Hg at 25 C, EPI Suite v4.11 estimate, converted at 133.322 Pa/mm Hg'
 - canonical_name: Linalool Synthetic
   aliases: []
   cas: null
@@ -2393,11 +2407,11 @@
 - canonical_name: Linalyl Acetate
   aliases:
   - linalyl acetate
-  cas: null
+  cas: '115-95-7'
   smiles: null
   inchikey: null
   mw_g_mol: 196.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.905
   logp: 3.2
   functional_groups: []
   chirality: null
@@ -2445,6 +2459,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 115-95-7 (https://www.thegoodscentscompany.com/data/rw1007892.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.90300 to 0.91200 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1007892.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Linalyl Propionate
   aliases: []
   cas: null
