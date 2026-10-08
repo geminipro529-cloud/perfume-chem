@@ -310,9 +310,9 @@
   logp:
   functional_groups: []
   chirality:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 5.0)
-  vp_25c_pa: 5.0
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 5.0 (unsourced profile sync; about 200x low); replaced with RIFM's quoted EPI Suite estimate
+  vp_25c_pa: 1070.0
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -343,6 +343,7 @@
   character:
   notes:
   provenance:
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, ethyl 2-methylbutyrate, CAS 7452-79-1 (Api et al., Food Chem. Toxicol. 2018, doi:10.1016/j.fct.2018.11.033): "8.03 mm Hg @ 25 C (US EPA, 2012a)"; appendix "Vapor Pressure (Pa @ 25 C, EPI Suite) 1.07E+003". Estimate, not measured. ChemicalBook lists 11.73 hPa at 20 C (method not stated); Verevkin et al. 1992 (Thermochim. Acta 197:27) measured vapour pressures at 288-308 K but were not read.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds

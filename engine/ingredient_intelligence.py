@@ -4845,6 +4845,8 @@ _VERIFIED_VP = {
     "Methyl Anthranilate": 3.61,
     "Methyl Nonyl Ketone": 5.47,
     "Skatole": 0.733,
+    # 2026-10-08: was 5.0 (about 200x low); RIFM-quoted EPI Suite estimate.
+    "Ethyl 2-Methylbutyrate": 1070.0,
 }
 
 _VERIFIED_VP_SOURCE = {
@@ -4899,6 +4901,10 @@ _VERIFIED_VP_SOURCE = {
     ),
     "Skatole": (
         "HSDB via PubChem CID 6736: 0.0055 mm Hg, temperature not stated (Perry's 1984) = 0.733 Pa"
+    ),
+    "Ethyl 2-Methylbutyrate": (
+        "RIFM safety assessment CAS 7452-79-1 (Api et al. 2018, doi:10.1016/j.fct.2018.11.033): "
+        "EPI Suite 8.03 mm Hg at 25 C = 1.07E+003 Pa; estimate, not measured"
     ),
 }
 
