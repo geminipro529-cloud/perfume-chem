@@ -118,6 +118,48 @@ def current_repository_evidence_hashes() -> dict[str, str]:
     }
 
 
+_BATCH_VOLUME_RE = re.compile(r"(?<![\w.])(\d+(?:\.\d+)?)\s*-?\s*ml\b", re.IGNORECASE)
+_DEFAULT_BATCH_VOLUME_ML = 30.0
+
+
+def _search_volume_ml(text: str) -> tuple[float, str] | None:
+    for match in _BATCH_VOLUME_RE.finditer(text or ""):
+        value = float(match.group(1))
+        if 1.0 <= value <= 1000.0:
+            return value, match.group(0)
+    return None
+
+
+def resolve_batch_volume(
+    cli_value: float | None,
+    formula_title: str,
+    formula_path: str | Path,
+) -> tuple[float, str, str | None]:
+    """Return (volume_ml, source, matched_text) for one formula's bottle size."""
+    if cli_value is not None:
+        return float(cli_value), "cli", None
+    found = _search_volume_ml(formula_title or "")
+    if found:
+        return found[0], "formula_title", found[1]
+    stem = Path(str(formula_path)).stem.replace("_", " ")
+    found = _search_volume_ml(stem)
+    if found:
+        return found[0], "formula_filename", found[1]
+    return _DEFAULT_BATCH_VOLUME_ML, "default", None
+
+
+def _config_for_formula(
+    config: ReleaseGateConfig,
+    cli_value: float | None,
+    formula: dict,
+    formula_path: str | Path,
+) -> ReleaseGateConfig:
+    volume, source, _ = resolve_batch_volume(
+        cli_value, str(formula.get("name", "")), formula_path
+    )
+    return dataclasses.replace(config, batch_volume_ml=volume, batch_volume_source=source)
+
+
 def _build_config(args: argparse.Namespace) -> ReleaseGateConfig:
     ifra_headroom = args.ifra_headroom
     commercial_mode = args.commercial_ready or args.commercial_trial
@@ -125,7 +167,12 @@ def _build_config(args: argparse.Namespace) -> ReleaseGateConfig:
         ifra_headroom = 0.8 if commercial_mode else 1.0
     return ReleaseGateConfig(
         expected_concentrate_ul=args.expected_concentrate_ul,
-        batch_volume_ml=args.batch_volume_ml,
+        batch_volume_ml=(
+            _DEFAULT_BATCH_VOLUME_ML
+            if args.batch_volume_ml is None
+            else args.batch_volume_ml
+        ),
+        batch_volume_source="default" if args.batch_volume_ml is None else "cli",
         temperature_K=args.temperature_k,
         brief=args.brief,
         family_archetype=args.family_archetype,
@@ -180,6 +227,7 @@ def _run_input_hashes(
     parent_formulas: list[dict] | None = None,
     authorized_active_dose_changes: dict[str, str] | None = None,
     repository_evidence_hashes: dict[str, str] | None = None,
+    formula_configs: list[ReleaseGateConfig] | None = None,
 ) -> dict:
     requested_config = config_summary(config)
     requested_config.pop("audit_source", None)
@@ -187,6 +235,13 @@ def _run_input_hashes(
         "requested": requested_config,
         "formula_family_archetypes": [
             str(formula.get("family_archetype", "") or "") for formula in formulas
+        ],
+        "formula_batch_volumes": [
+            {
+                "batch_volume_ml": cfg.batch_volume_ml,
+                "batch_volume_source": cfg.batch_volume_source,
+            }
+            for cfg in (formula_configs or [])
         ],
         "g15_authorized_active_dose_changes": dict(
             authorized_active_dose_changes or {}
@@ -618,7 +673,15 @@ def main(
     parser = argparse.ArgumentParser(description="Run unified pipeline: OAV + scoring + gates.")
     parser.add_argument("--formula-file", required=True)
     parser.add_argument("--expected-concentrate-ul", type=float, default=DEFAULT_CONCENTRATE_UL)
-    parser.add_argument("--batch-volume-ml", type=float, default=30.0)
+    parser.add_argument(
+        "--batch-volume-ml",
+        type=float,
+        default=None,
+        help=(
+            "finished bottle size in mL; default: read from the formula's title "
+            "or file name, else 30"
+        ),
+    )
     parser.add_argument("--temperature-k", type=float, default=305.0)
     parser.add_argument("--min-confidence", type=float, default=25.0)
     commercial = parser.add_mutually_exclusive_group()
@@ -751,9 +814,14 @@ def main(
     config = _build_config(args)
     if any(detect_reference_claim(formula).quantitative_requested for formula in formulas):
         config = dataclasses.replace(config, quantitative_claim=True)
+    formula_configs = [
+        _config_for_formula(config, args.batch_volume_ml, formula, formula_path)
+        for formula in formulas
+    ]
     run_hashes = _run_input_hashes(
         formulas,
         config,
+        formula_configs=formula_configs,
         parent_formulas=parent_formulas,
         authorized_active_dose_changes=authorized_active_dose_changes,
         repository_evidence_hashes=repository_evidence_hashes,
@@ -765,6 +833,7 @@ def main(
     for formula_index, formula in enumerate(formulas):
         ings = formula["ingredients_ul"]
         dils = formula["dilutions"]
+        formula_config = formula_configs[formula_index]
         parent_formula = None
         if parent_formulas:
             parent_formula = (
@@ -778,7 +847,7 @@ def main(
         stage_started_ns = perf_counter_ns()
         gate_result = gate_formula(
             formula,
-            config,
+            formula_config,
             parent_formula=parent_formula,
             authorized_active_dose_changes=authorized_active_dose_changes,
         )
@@ -792,7 +861,7 @@ def main(
             ingredients_ul=ings,
             dilutions=dils,
             stock_specs=formula.get("stock_specs", {}) or {},
-            batch_volume_ml=args.batch_volume_ml,
+            batch_volume_ml=formula_config.batch_volume_ml,
             temperature_K=args.temperature_k,
             family_archetype=str(
                 gate_result.config_summary.get("family_archetype", "")
@@ -960,7 +1029,7 @@ def main(
         report["interventions"] = build_intervention_contract(
             formula,
             report,
-            batch_volume_ml=args.batch_volume_ml,
+            batch_volume_ml=formula_config.batch_volume_ml,
             # A release/regate run diagnoses gates and deterministic repairs.
             # The optimizer-like recommendation search is deliberately a
             # separate, opt-in workflow; running it here caused long formula

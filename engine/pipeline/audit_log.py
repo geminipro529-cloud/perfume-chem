@@ -65,6 +65,7 @@ def config_summary(config) -> dict:
         "expected_concentrate_ul",
         "min_neat_trace_ul",
         "batch_volume_ml",
+        "batch_volume_source",
         "temperature_K",
         "brief",
         "family_archetype",

@@ -734,14 +734,6 @@ def build_perfumer(formula):
                 lines.append(
                     f"  NOTE: Hedione HC ODT={odt * 1000:.1f}ppb (alias collision: pure hedione ODT=0.05ppb, OAV would be 400x higher)"
                 )
-    for m in mats:
-        if "evernyl" in m["name"].lower():
-            batch_ul = formula.get("formula_state", {}).get("batch_volume_ml", 30) * 1000
-            pct = m.get("active_ul", 0) / max(batch_ul, 1) * 100
-            if pct > 0.09:
-                lines.append(
-                    f"  IFRA: Evernyl at {pct:.2f}% of finished product — check Cat4 limit (0.1%)"
-                )
     # General IFRA check for all restricted materials
     for m in mats:
         limit_pct = m.get("ifra_limit_pct")
