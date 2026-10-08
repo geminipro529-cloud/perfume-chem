@@ -17,6 +17,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column
 
+from app.models.base import Base
 from app.models.lab import LabRecord, UTCDateTime
 
 ENGINE_JOB_TYPES = (
@@ -249,6 +250,27 @@ class LabEngineJobResult(LabRecord):
     )
     evidence_admission_authorized: Mapped[bool] = mapped_column(
         Boolean, default=False, server_default=text("0"), nullable=False
+    )
+
+
+class LabEngineWorker(Base):
+    """Mutable liveness row for one running engine worker process.
+
+    Unlike the append-only job tables, a worker updates ``last_seen_at`` while it
+    runs and deletes its own row on a clean exit.  A crashed worker's row simply
+    ages out of :func:`get_live_engine_workers`.
+    """
+
+    __tablename__ = "lab_engine_workers"
+
+    id: Mapped[str] = mapped_column(String(255), primary_key=True)
+    pid: Mapped[int] = mapped_column(Integer, nullable=False)
+    host: Mapped[str] = mapped_column(String(255), nullable=False)
+    started_at: Mapped[datetime] = mapped_column(
+        UTCDateTime(timezone=True), nullable=False
+    )
+    last_seen_at: Mapped[datetime] = mapped_column(
+        UTCDateTime(timezone=True), nullable=False, index=True
     )
 
 

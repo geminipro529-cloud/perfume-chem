@@ -700,6 +700,81 @@ class LabEngineJobServiceMixin:
             )
         return running_event
 
+    async def renew_engine_job_lease(
+        self,
+        *,
+        job_id: str,
+        owner: str,
+        token: str,
+        lease_seconds: int,
+    ) -> datetime:
+        """Extend a live RUNNING lease by appending a renewal event.
+
+        The check and the append share one serialized write transaction, as do
+        completion and expiry handling, so a renewal can never resurrect a job
+        that was completed, cancelled or failed closed in the meantime.  The new
+        expiry never passes the job's own hard deadline plus the 60 s grace that
+        ``claim_next_engine_job`` already applies.
+        """
+
+        if not 5 <= lease_seconds <= 3600:
+            raise EngineJobError(
+                "INVALID_ENGINE_JOB_LEASE",
+                "lease_seconds must be from 5 to 3600.",
+            )
+        expired = False
+        renewed: datetime | None = None
+        async with self._transaction():
+            job = await self.get_engine_job(job_id)
+            latest = await self._latest_engine_job_event(job_id)
+            if latest is None or latest.state != "RUNNING":
+                raise EngineJobConflictError(
+                    "ENGINE_JOB_NOT_RUNNING",
+                    "Only a RUNNING job's lease may be renewed.",
+                )
+            self._verify_lease(latest, owner, token)
+            now = _utcnow()
+            if latest.lease_expires_at and latest.lease_expires_at <= now:
+                await self._fail_worker_lost(job_id, latest)
+                expired = True
+            else:
+                leased_at = await self.session.scalar(
+                    select(LabEngineJobEvent.created_at)
+                    .where(
+                        LabEngineJobEvent.job_id == job_id,
+                        LabEngineJobEvent.state == "LEASED",
+                        LabEngineJobEvent.lease_epoch == latest.lease_epoch,
+                    )
+                    .order_by(LabEngineJobEvent.sequence.desc())
+                    .limit(1)
+                )
+                expiry = now + timedelta(seconds=lease_seconds)
+                if leased_at is not None:
+                    deadline = leased_at + timedelta(
+                        seconds=job.timeout_seconds + 60
+                    )
+                    expiry = min(expiry, deadline)
+                await self._append_engine_job_event(
+                    job_id=job_id,
+                    state="RUNNING",
+                    reason="WORKER_LEASE_RENEWED",
+                    lease_owner=latest.lease_owner,
+                    lease_epoch=latest.lease_epoch,
+                    lease_token_sha256=latest.lease_token_sha256,
+                    lease_expires_at=expiry,
+                    attempt=latest.attempt,
+                )
+                renewed = expiry
+        if expired:
+            raise EngineJobConflictError(
+                "FAILED_CLOSED_WORKER_LOST", "The worker lease expired."
+            )
+        if renewed is None:  # Defensive: every non-expired path sets it.
+            raise EngineJobConflictError(
+                "ENGINE_JOB_LEASE_NOT_RENEWED", "The lease was not renewed."
+            )
+        return renewed
+
     @staticmethod
     def _verify_lease(
         event: LabEngineJobEvent, owner: str, token: str

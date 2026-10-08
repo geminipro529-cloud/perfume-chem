@@ -15,6 +15,7 @@ from app.api.v1.router import api_router
 from app.core.config import get_settings
 from app.core.logging import get_logger, setup_logging
 from app.core.tracing import setup_tracing
+from app.services import engine_worker_process
 
 settings = get_settings()
 logger = get_logger(__name__)
@@ -52,10 +53,21 @@ async def lifespan(app: FastAPI):
         logger.exception("Database migration failed; application startup aborted.")
         raise
 
-    yield
-
-    # Shutdown
-    logger.info("Shutting down application")
+    # Engine jobs run only in a separate worker process.  Start one here so every
+    # launch path (plain uvicorn included) gets one; deployments that run their
+    # own worker set PERFUME_ENGINE_WORKER_AUTOSTART=0.
+    worker = (
+        engine_worker_process.start_engine_worker_process()
+        if engine_worker_process.engine_worker_autostart_enabled()
+        else None
+    )
+    try:
+        yield
+    finally:
+        # Shutdown
+        logger.info("Shutting down application")
+        if worker is not None:
+            engine_worker_process.stop_engine_worker_process(worker)
 
 
 # Create FastAPI app

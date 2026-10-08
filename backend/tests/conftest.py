@@ -29,6 +29,8 @@ os.environ.setdefault(
     str(PYTEST_TEMP_ROOT / "perfume_chem_pytest_inventory_additions.jsonl"),
 )
 tempfile.tempdir = str(PYTEST_TEMP_ROOT)
+# The app lifespan starts an engine worker subprocess by default; tests never do.
+os.environ["PERFUME_ENGINE_WORKER_AUTOSTART"] = "0"
 
 from app.api.deps import get_db  # noqa: E402 - test environment must precede app import
 from app.main import app  # noqa: E402 - test environment must precede app import
