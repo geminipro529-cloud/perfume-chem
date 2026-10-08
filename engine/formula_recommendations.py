@@ -292,7 +292,10 @@ def load_inventory() -> list[dict]:
     return [
         {
             "name": record.name,
+            "identity_name": record.identity_name or record.name,
             "dilution": record.dilution,
+            "fraction_basis": record.fraction_basis,
+            "carrier": record.carrier,
             "category": record.category,
             "catalog": find_ingredient(record.name),
         }
@@ -1088,14 +1091,20 @@ def _stock_volume_basis_ul(fv: FormulaVector, intervention: InterventionContext)
     return sum(fv.ingredients.values()) * 100.0
 
 
+def _stock_identity(item: dict) -> str:
+    return item.get("identity_name") or item["name"]
+
+
 def _owned_stocks(inv_item: dict, inventory: list[dict]) -> list[dict]:
     """Every owned stock of ``inv_item``'s material, strongest first.
 
-    Stocks are grouped by inventory name, the key ``parse_inventory(unique=True)``
-    used to collapse them.
+    Stocks are grouped by the inventory parser's identity name, which drops
+    stock-preparation text ("10% v/v in ethanol", "(10% in DPG)") but keeps
+    identity-bearing variants such as "(volume grade)", so different grades
+    never pool.
     """
-    key = inv_item["name"].lower()
-    stocks = [item for item in inventory if item["name"].lower() == key] or [inv_item]
+    key = _stock_identity(inv_item).casefold()
+    stocks = [item for item in inventory if _stock_identity(item).casefold() == key] or [inv_item]
     return sorted(stocks, key=lambda item: item["dilution"], reverse=True)
 
 
@@ -1131,11 +1140,42 @@ def _choose_stock(
     return stock, raw_pct
 
 
-def _format_stock_strength(dilution: float) -> str:
-    """'neat' for an undiluted stock, else the stock strength such as '0.1%'."""
+_BASIS_TEXT = {"mass_fraction": "w/w", "volume_fraction": "v/v", "mass_per_volume": "w/v"}
+_CARRIER_TEXT = {"dpg": "DPG", "dep": "DEP", "tec": "TEC", "ipm": "IPM"}
+
+
+def _stock_label(identity_name: str, dilution: float, basis: str = "", carrier: str = "") -> str:
+    """Name a stock the way Kenny's bench cards do: real name, strength, basis, solvent.
+
+    'Helional 10% v/v in ethanol', 'Osmanthus Absolute 10% in DPG',
+    'Osmanthus Absolute (volume grade), neat'. Basis and solvent appear only when
+    the inventory records them.
+    """
     if dilution >= 1.0:
-        return "neat"
-    return f"{dilution * 100:g}%"
+        return f"{identity_name}, neat"
+    label = f"{identity_name} {dilution * 100:g}%"
+    if basis in _BASIS_TEXT:
+        label += f" {_BASIS_TEXT[basis]}"
+    if carrier:
+        label += f" in {_CARRIER_TEXT.get(carrier, carrier)}"
+    return label
+
+
+def _owned_stock_label(stock: dict) -> str:
+    return _stock_label(
+        _stock_identity(stock),
+        stock["dilution"],
+        stock.get("fraction_basis", ""),
+        stock.get("carrier", ""),
+    )
+
+
+def _existing_row_stock_label(inv_item: dict, inventory: list[dict], dilution: float) -> str:
+    """Label for a formula row's own stock; basis and solvent only from a matching owned stock."""
+    for stock in _owned_stocks(inv_item, inventory):
+        if abs(stock["dilution"] - dilution) <= 1e-12:
+            return _owned_stock_label(stock)
+    return _stock_label(_stock_identity(inv_item), dilution)
 
 
 def _round_dose_pct(dose_pct: float) -> float:
@@ -1157,6 +1197,7 @@ def _annotate_warnings(
     mod_ingredients: dict[str, float],
     mod_dilutions: dict[str, float],
     total_volume_ul: float = 10000.0,
+    material_name: str | None = None,
 ) -> None:
     """Annotate a recommendation with psychophysics and dose-response warnings.
 
@@ -1165,7 +1206,8 @@ def _annotate_warnings(
     2. Character shift risk — the new dose may push material into a different character zone
     3. Cross-adaptation — recommended material may suppress perception of existing materials
     """
-    mat_name = rec.material.split(" (")[0].strip()  # strip dilution suffix
+    # The label names a stock ("Beta Ionone, neat"); the caller passes the material.
+    mat_name = material_name or rec.material.split(" (")[0].strip()
 
     # 1. Anosmia risk
     anosmia = GENETIC_ANOSMIA.get(mat_name)
@@ -1365,8 +1407,10 @@ def generate_recommendations(
 
             if existing:
                 mod_ings[existing] = mod_ings.get(existing, 0) + add_pct
-                stock_dilution = fv.dilutions.get(
-                    existing, _owned_stocks(inv_item, inventory)[0]["dilution"]
+                # A row without a recorded dilution is scored as neat
+                # (FormulaVector.effective_pct), so it is shown as neat.
+                stock_label = _existing_row_stock_label(
+                    inv_item, inventory, fv.dilutions.get(existing, 1.0)
                 )
             else:
                 stock_item, add_pct = _choose_stock(
@@ -1375,9 +1419,9 @@ def generate_recommendations(
                     add_pct,
                     _stock_volume_basis_ul(fv, intervention),
                 )
-                stock_dilution = stock_item["dilution"]
+                stock_label = _owned_stock_label(stock_item)
                 mod_ings[inv_item["name"]] = add_pct
-                mod_dils[inv_item["name"]] = stock_dilution
+                mod_dils[inv_item["name"]] = stock_item["dilution"]
 
             # Renormalize to 100%
             total = sum(mod_ings.values())
@@ -1424,7 +1468,7 @@ def generate_recommendations(
 
             seen_materials.add(candidate_key)
 
-            mat_display = f"{inv_item['name']} ({_format_stock_strength(stock_dilution)})"
+            mat_display = stock_label
 
             candidates.append(
                 Recommendation(
@@ -1470,6 +1514,7 @@ def generate_recommendations(
                 mod_ings,
                 mod_dils,
                 total_volume_ul=sum(fv.ingredients.values()) * 100,
+                material_name=inv_item["name"],
             )
 
     # Sort by identity preservation first, then technical gain.
