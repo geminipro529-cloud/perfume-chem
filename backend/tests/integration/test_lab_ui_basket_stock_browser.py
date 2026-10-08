@@ -18,9 +18,9 @@ BASKETS = [{"number": number, "name": name} for number, name in BASKET_NAMES.ite
 
 
 def _stock(name, identity, *, percent="100", basis="neat", carrier=None,
-           basket=None, status="none", suggestions=(), with_basket=True):
+           basket=None, status="none", suggestions=(), with_basket=True, basket_key=None, stock_id=None):
     row = {
-        "stock_id": f"stock-{name.lower().replace(' ', '-')}-{percent}",
+        "stock_id": stock_id or f"stock-{name.lower().replace(' ', '-')}-{percent}",
         "identity_name": name,
         "material": name,
         "normalized_identity": identity,
@@ -32,6 +32,8 @@ def _stock(name, identity, *, percent="100", basis="neat", carrier=None,
         "design_hold_reason": None,
         "completion_available": False,
     }
+    if basket_key:
+        row["basket_key"] = basket_key
     if with_basket:
         row.update(basket=basket, basket_status=status, basket_suggestions=list(suggestions))
     return row
@@ -50,8 +52,8 @@ def _stocks(with_basket=True):
     ]
 
 
-def _open(lab, *, with_basket=True):
-    body = {"stocks": _stocks(with_basket), "counts": {}, "display_source": "Test inventory"}
+def _open(lab, *, with_basket=True, stocks=None, **extra):
+    body = {"stocks": stocks if stocks is not None else _stocks(with_basket), "counts": {}, "display_source": "Test inventory", **extra}
     if with_basket:
         body["baskets"] = BASKETS
     lab.respond("GET", INVENTORY_PATH, json=body)
@@ -206,3 +208,73 @@ def test_an_inventory_without_basket_fields_shows_no_basket_column(lab):
     assert lab.page.locator('#project-inventory-sort option[value="basket"]').get_attribute("hidden") is not None
     assert len(_names(lab)) == 6
     _clean(lab)
+
+
+def _ambrox_pair():
+    return [
+        _stock("Ambrox Super 25% w/w in DPG", "ambrox super", percent="25", basis="mass_fraction", carrier="DPG",
+               basket=8, status="confirmed", basket_key="ambrox super", stock_id="s-amb-sol"),
+        _stock("Ambrox Super crystals", "ambrox super crystals", basket=8, status="confirmed",
+               basket_key="ambrox super", stock_id="s-amb-cry"),
+        _stock("Cedar", "cedarwood", basket=3, status="confirmed", basket_key="cedarwood"),
+    ]
+
+
+def _ambrox_rows(lab):
+    return lab.page.locator("#project-inventory-list tbody tr", has=lab.page.locator("strong", has_text="Ambrox Super"))
+
+
+def test_crystals_follow_their_solution_when_one_is_changed(lab):
+    _open(lab, stocks=_ambrox_pair())
+    bodies = _capture_post(lab)
+    rows = _ambrox_rows(lab)
+    assert rows.count() == 2
+    rows.nth(0).locator("select").select_option("5")
+    lab.wait_for_status("Basket set: Ambrox Super 25% w/w in DPG → 5 Florals")
+
+    assert len(bodies) == 1
+    for index in range(2):
+        assert _basket_text(rows.nth(index)) == "5 · Florals"
+        assert rows.nth(index).locator("select").input_value() == "5"
+    assert _basket_text(_rows(lab, "Cedar")) == "3 · Woods"
+    _clean(lab)
+
+
+def test_a_save_in_flight_disables_the_whole_shared_basket(lab):
+    _open(lab, stocks=_ambrox_pair())
+    held = []
+    lab.on("POST", BASKET_PATH, lambda route, request: held.append(route))
+    _ambrox_rows(lab).nth(1).locator("select").select_option("5")
+    lab.page.wait_for_function("document.querySelectorAll('.stock-basket-select:disabled').length === 2")
+    assert lab.page.locator(".stock-basket-select:disabled").count() == 2
+    held[0].fulfill(status=200, content_type="application/json",
+                    body=json.dumps({"normalized_identity": "ambrox super crystals", "basket": 5, "basket_status": "confirmed"}))
+    lab.wait_for_status("Basket set: Ambrox Super crystals → 5 Florals")
+    assert lab.page.locator(".stock-basket-select:disabled").count() == 0
+    _clean(lab)
+
+
+DAMAGED = "Your basket log could not be read, so baskets come from past cards only."
+
+
+def test_a_damaged_basket_log_is_shown_once_and_a_409_keeps_the_old_value(lab):
+    _open(lab, basket_log_error=DAMAGED)
+    warning = lab.page.locator("#project-inventory-list [role=status]")
+    assert warning.count() == 1
+    assert warning.inner_text() == DAMAGED
+    assert lab.page.locator("#project-inventory-list tbody tr").count() == 6  # does not block the list
+    assert warning.evaluate("node => node.nextElementSibling.querySelector('table') !== null")
+
+    _capture_post(lab, status=409, reply={"error": {"code": "BASKET_LOG_CORRUPT", "message": DAMAGED}})
+    _rows(lab, "Cedar").locator("select").select_option("5")
+    lab.wait_for_status(f"Basket not saved for Cedar: {DAMAGED}")
+    row = _rows(lab, "Cedar")
+    assert _basket_text(row) == "3 · Woods"
+    assert row.locator("select").input_value() == "3"
+    assert row.locator(".stock-basket-error").inner_text() == f"Basket not saved: {DAMAGED}"
+    assert lab.page.locator("#project-inventory-list [role=status]").count() == 1
+    _clean(lab)
+
+
+def test_an_intact_basket_log_shows_no_warning(stock):
+    assert stock.page.locator("#project-inventory-list [role=status]").count() == 0

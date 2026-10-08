@@ -289,5 +289,5 @@ function benchSheetHtml({ formulaName, variantLabel, dateText, totals, rows, cri
 }
 
 if (typeof module === "object" && module.exports) {
-  module.exports = { addDecimalText, benchUnitKey, benchPercentText, benchBasisText, benchNeedsPreparedDilution, benchSheetLines, benchSheetHold, benchLeaveOutNote, benchSheetHtml, benchEscape, benchSmallPour, compareDecimalText, benchBasketLookup, benchBasketOrder, BENCH_SMALL_POUR_TEXT };
+  module.exports = { addDecimalText, benchUnitKey, benchPercentText, benchBasisText, benchNeedsPreparedDilution, benchSheetLines, benchSheetHold, benchLeaveOutNote, benchSheetHtml, benchEscape, benchSmallPour, compareDecimalText, benchBasketLookup, benchRowBasket, benchBasketOrder, BENCH_SMALL_POUR_TEXT };
 }

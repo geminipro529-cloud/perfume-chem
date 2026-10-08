@@ -1091,3 +1091,27 @@ async def test_comparison_planning_is_worded_as_a_suggestion_and_uses_safe_reque
     submit = javascript.text.split('$("#omission-plan-form").addEventListener("submit"', 1)[1]
     submit = submit.split('$("#sample-form")', 1)[0]
     assert 'newRequestId("comparison")' in submit and "crypto.randomUUID()" not in submit
+
+
+def test_bench_row_basket_trusts_the_stock_id_over_the_name():
+    # Solution and crystals share the material name "Ambrox Super" but sit in different baskets.
+    # The row is named like the crystals (a name that matches one stock on its own) yet carries
+    # the solution's stock_id: the stock_id decides, so it lands in the solution's basket.
+    inventory = {
+        "baskets": [{"number": 3, "name": "Woods"}, {"number": 8, "name": "Ambers"}],
+        "stocks": [
+            {"stock_id": "s-sol", "material": "Ambrox Super", "identity_name": "Ambrox Super 25% w/w in DPG",
+             "normalized_identity": "ambrox super", "basket": 3, "basket_status": "confirmed"},
+            {"stock_id": "s-cry", "material": "Ambrox Super", "identity_name": "Ambrox Super crystals",
+             "normalized_identity": "ambrox super crystals", "basket": 8, "basket_status": "confirmed"},
+        ],
+    }
+    row = _row("Ambrox Super crystals", "40", stock_id="s-sol")
+    result = _run_bench_sheet(
+        "(b) => { const lookup = b.benchBasketLookup(INV);"
+        " return { byId: b.benchRowBasket(ROW, lookup), byName: b.benchRowBasket({ ...ROW, stock_id: undefined }, lookup) }; }"
+        .replace("INV", json.dumps(inventory)).replace("ROW", json.dumps(row))
+    )
+
+    assert result["byId"]["basket"] == 3
+    assert result["byName"]["basket"] == 8  # without the stock_id the name still finds the crystals

@@ -101,6 +101,8 @@ async function request(path, options = {}) {
     }
     const error = new Error(message);
     error.status = response.status;
+    error.code = payload?.error?.code || "";
+    error.serverText = serverText || "";
     error.items = items;
     error.fields = items.map((item) => item.field).filter(Boolean);
     throw error;
@@ -232,6 +234,11 @@ function stockBasketNumber(stock) {
   return Number.isInteger(stock.basket) ? stock.basket : null;
 }
 
+// Solution and crystals forms of one material share a basket key; older payloads fall back to the identity.
+function stockBasketKey(stock) {
+  return stock.basket_key || stock.normalized_identity;
+}
+
 function stockBasketStatus(stock) {
   return ["confirmed", "from_past_cards", "conflicting"].includes(stock.basket_status) ? stock.basket_status : "none";
 }
@@ -264,7 +271,7 @@ function stockBasketCell(stock) {
   cell.appendChild(label);
   if (BASKET_CHECK_STATUSES.has(status)) cell.appendChild(stockEl("span", "stock-chip stock-chip-needs stock-basket-check", "check it"));
   const controls = stockEl("div", "stock-basket-controls");
-  const busy = stockView.basketBusy.has(stock.normalized_identity);
+  const busy = stockView.basketBusy.has(stockBasketKey(stock));
   const select = stockEl("select", "stock-basket-select");
   select.setAttribute("aria-label", `Basket for ${stock.identity_name}, ${stockStrengthLabel(stock)}`);
   select.dataset.basketFor = stock.stock_id;
@@ -298,11 +305,12 @@ function stockMatchesBasketFilter(stock) {
 async function setStockBasket(stockId, basket) {
   const stocks = state.projectInventory.stocks || [];
   const stock = stocks.find((item) => item.stock_id === stockId);
-  if (!stock || stockView.basketBusy.has(stock.normalized_identity)) return;
+  if (!stock || stockView.basketBusy.has(stockBasketKey(stock))) return;
   const identity = stock.normalized_identity;
+  const key = stockBasketKey(stock);
   const name = stock.identity_name;
   delete stockView.basketErrors[stockId];
-  stockView.basketBusy.add(identity);
+  stockView.basketBusy.add(key);
   renderProjectInventory($("#project-inventory-search").value);
   try {
     const result = await request("/v2/workbench/current-inventory/basket", {
@@ -310,17 +318,20 @@ async function setStockBasket(stockId, basket) {
       body: JSON.stringify({ normalized_identity: identity, basket }),
     });
     const saved = Number.isInteger(result?.basket) ? result.basket : null;
-    // Every strength of one material sits in the same basket, so every row of it changes.
-    stocks.filter((item) => item.normalized_identity === identity).forEach((item) => {
+    // Every strength and form of one material sits in the same basket, so every row of it changes.
+    stocks.filter((item) => stockBasketKey(item) === key).forEach((item) => {
       Object.assign(item, { basket: saved, basket_status: result?.basket_status || "confirmed", basket_suggestions: [] });
       delete stockView.basketErrors[item.stock_id];
     });
+    // A design already on screen regroups under the new basket without a refresh.
+    if (state.formulaChat.result) renderFormulaRows(selectedFormulaVariant(state.formulaChat.result).formula?.rows || []);
     notify(saved === null ? `Basket cleared: ${name}` : `Basket set: ${name} → ${basketOptionText(saved)}`);
   } catch (error) {
-    stockView.basketErrors[stockId] = `Basket not saved: ${error.message}`;
-    notify(`Basket not saved for ${name}: ${error.message}`, true);
+    const reason = error.code === "BASKET_LOG_CORRUPT" && error.serverText ? error.serverText : error.message;
+    stockView.basketErrors[stockId] = `Basket not saved: ${reason}`;
+    notify(`Basket not saved for ${name}: ${reason}`, true);
   } finally {
-    stockView.basketBusy.delete(identity);
+    stockView.basketBusy.delete(key);
     renderProjectInventory($("#project-inventory-search").value, stockId);
   }
 }
@@ -394,8 +405,15 @@ function renderProjectInventory(filter = "", focusStockId = "") {
   $("#project-inventory-source").textContent = `${inventory.display_source || "Current project inventory"}. Effective version ${String(inventory.effective_inventory_sha256 || inventory.snapshot_sha256 || "unknown").slice(0, 12)}…`;
   $("#project-inventory-live").textContent = `Showing ${rows.length} of ${stocks.length}`;
   const list = $("#project-inventory-list");
+  // A damaged basket log is said once, above the table, and never blocks the stock list.
+  const logWarning = [];
+  if (typeof inventory.basket_log_error === "string" && inventory.basket_log_error) {
+    const warning = stockEl("p", "stock-basket-warning", inventory.basket_log_error);
+    warning.setAttribute("role", "status");
+    logWarning.push(warning);
+  }
   if (!rows.length) {
-    list.replaceChildren(stockEl("p", "empty", "No stock matches that search and filter."));
+    list.replaceChildren(...logWarning, stockEl("p", "empty", "No stock matches that search and filter."));
     return;
   }
   const table = stockEl("table", "stock-table");
@@ -438,7 +456,7 @@ function renderProjectInventory(filter = "", focusStockId = "") {
   wrap.tabIndex = 0;
   wrap.setAttribute("aria-label", "Stock list");
   wrap.appendChild(table);
-  list.replaceChildren(wrap);
+  list.replaceChildren(...logWarning, wrap);
   // A basket change redraws the table; keep the keyboard where it was.
   if (focusStockId) [...list.querySelectorAll("[data-basket-for]")].find((node) => node.dataset.basketFor === focusStockId)?.focus();
 }

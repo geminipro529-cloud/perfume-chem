@@ -77,3 +77,29 @@ def test_create_table_keeps_design_order_without_basket_data(lab):
     materials = lab.page.locator("#formula-result-rows td strong").all_inner_texts()
     assert materials == [row["material"] for row in ROWS]
     assert lab.page_errors == []
+
+
+def test_create_table_regroups_after_a_basket_is_changed_on_the_stock_view(lab):
+    stocks = [
+        {**stock, "identity_name": stock["material"], "normalized_identity": stock["material"].lower(),
+         "fraction_percent_decimal": "10", "fraction_basis": "mass_fraction", "carrier": "DPG",
+         "design_ready": True, "missing_fields": [], "completion_available": False, "basket_suggestions": []}
+        for stock in STOCKS
+    ]
+    _create(lab, {"stocks": stocks, "counts": {}, "baskets": _baskets()})
+    assert lab.page.locator("#formula-result-rows tr.formula-basket-row", has_text="No basket yet").count() == 1
+
+    lab.respond("POST", "/v2/workbench/current-inventory/basket",
+                json={"normalized_identity": "calone", "basket": 3, "basket_status": "confirmed"})
+    lab.open("#materials")
+    lab.page.locator("#project-inventory-list tbody tr", has=lab.page.locator("strong", has_text="Calone")).locator("select").select_option("3")
+    lab.wait_for_status("Basket set: Calone → 3 Woods")
+    lab.open("#formulas")
+
+    heading = lab.page.locator(
+        '#formula-result-rows tr:has(strong:text-is("Calone")) >> xpath=preceding-sibling::tr[contains(@class,"formula-basket-row")][1]/th'
+    )
+    assert heading.inner_text().startswith("Basket 3 · Woods")
+    assert lab.page.locator("#formula-result-rows tr.formula-basket-row", has_text="No basket yet").count() == 0
+    assert lab.page_errors == []
+    assert lab.unexpected == []

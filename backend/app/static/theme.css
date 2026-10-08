@@ -349,6 +349,7 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
 }
 .stock-basket-controls .stock-basket-confirm { width: auto; min-height: 36px; margin: 0; padding: 0 12px; border-width: 1px; }
 .stock-basket-error { color: var(--fail-fg); }
+.stock-basket-warning { margin: 0 0 10px; padding: 8px 12px; border: 1px solid var(--line, currentColor); border-radius: 8px; color: var(--ink); }
 .stock-action .inventory-complete-button { width: auto; min-height: 40px; margin: 0; padding: 0 12px; border-width: 1px; border-color: var(--field-border); }
 /* The table replaces the old card grid inside the same list container. */
 #project-inventory-list:has(> .stock-table-wrap) { display: block; padding-right: 0; }
