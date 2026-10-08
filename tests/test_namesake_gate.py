@@ -274,3 +274,10 @@ def test_no_followed_by_a_number_does_not_negate():
 
     assert result.data["words"] == ["rose", "aldehyde"]
     assert result.data["not_required"] == []
+
+
+def test_green_is_an_odour_word_like_vert():
+    result = _namesake("Green Osmanthus", {**_PLAIN_BASE, "Osmanthus Absolute": 150.0})
+
+    assert result.status == "WARN"
+    assert result.data["missing"] == ["green"]

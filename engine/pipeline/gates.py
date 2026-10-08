@@ -1793,7 +1793,7 @@ _NAMESAKE_NOT_ODOURS = frozenset({
     "blanc", "blanche", "white", "black", "warm", "warmth", "dry", "sweet", "sweetness",
     "crisp", "airy", "moderne", "modern", "intense", "heavy", "rich", "pure", "natural",
     "classic", "elegant", "absolute", "accord", "base", "oil", "essential", "extract",
-    "note", "type", "blue", "red", "pink", "gold", "golden", "green", "transparent",
+    "note", "type", "blue", "red", "pink", "gold", "golden", "transparent",
     "transparency", "radiance", "radiant", "sheer", "bitter", "tart", "ripe", "fixative",
     "salicylate", "sourness", "cool", "cold", "hot", "wet", "dense", "strong", "fine",
     "smooth", "riche", "true", "full", "whole", "complete", "volume", "skin", "heart",
