@@ -140,3 +140,11 @@ def test_display_shows_strength_and_small_doses(monkeypatch):
     assert neat.material == "Beta Ionone (neat)"
     dilute, _ = _recommend(monkeypatch, [_stock("Beta Ionone", 0.001)], 2.0)
     assert dilute.material == "Beta Ionone (0.1%)"
+
+
+def test_dilute_stock_that_would_flood_the_formula_is_not_chosen():
+    # Neat gives 5 µL; the 0.1% stock would need 5,000 µL, half the concentrate.
+    stocks = [_stock("Beta Ionone", 1.0), _stock("Beta Ionone", 0.001)]
+    chosen, raw_pct = fr._choose_stock(stocks[0], stocks, 0.05, 10000.0)
+    assert chosen["dilution"] == 1.0
+    assert raw_pct == pytest.approx(0.05)

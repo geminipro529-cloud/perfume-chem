@@ -1070,6 +1070,9 @@ def _material_in_inventory(name: str, inventory: list[dict]) -> dict | None:
 
 # Kenny's bench rule: a pipetted stock volume should be at least 20 µL.
 _MIN_PIPETTE_UL = 20.0
+# A dilute stock must not flood the formula: its raw volume stays within this
+# share of the batch (post-mix) or concentrate (design).
+_MAX_RAW_SHARE = 0.10
 
 
 def _stock_volume_basis_ul(fv: FormulaVector, intervention: InterventionContext) -> float:
@@ -1106,18 +1109,26 @@ def _choose_stock(
 
     ``strongest_raw_pct`` is the candidate dose expressed in the strongest owned
     stock; its active dose is kept. Returns the strongest stock whose raw volume
-    is at least ``_MIN_PIPETTE_UL`` (else the most dilute) and its raw % dose.
+    is at least ``_MIN_PIPETTE_UL`` and at most ``_MAX_RAW_SHARE`` of the batch.
+    If none fits, the stock with the largest raw volume within that cap (else
+    the strongest stock), with its raw % dose.
     """
     stocks = _owned_stocks(inv_item, inventory)
     positive = [item for item in stocks if item["dilution"] > 0]
     if len(positive) < 2:
         return stocks[0], strongest_raw_pct
     active_pct = strongest_raw_pct * positive[0]["dilution"]
+    cap_ul = _MAX_RAW_SHARE * volume_basis_ul
+    options = []
     for index, stock in enumerate(positive):
         raw_pct = strongest_raw_pct if index == 0 else active_pct / stock["dilution"]
-        if raw_pct / 100.0 * volume_basis_ul >= _MIN_PIPETTE_UL:
+        options.append((stock, raw_pct, raw_pct / 100.0 * volume_basis_ul))
+    for stock, raw_pct, volume_ul in options:
+        if _MIN_PIPETTE_UL <= volume_ul <= cap_ul:
             return stock, raw_pct
-    return positive[-1], active_pct / positive[-1]["dilution"]
+    within_cap = [option for option in options if option[2] <= cap_ul]
+    stock, raw_pct, _ = max(within_cap, key=lambda option: option[2]) if within_cap else options[0]
+    return stock, raw_pct
 
 
 def _format_stock_strength(dilution: float) -> str:
