@@ -30,14 +30,18 @@ poetry run uvicorn app.main:app --reload
 Open `http://localhost:8000/app`. The interface is dependency-free and does not
 load fonts, scripts, or styles from a CDN.
 
-For an existing file-backed SQLite database, the migration helper:
+For an existing file-backed SQLite database, the migration helper first checks
+whether a migration is pending. Only when one is, it:
 
 1. runs `PRAGMA integrity_check` on the source;
 2. creates a consistent SQLite backup and SHA-256 manifest;
 3. records the pre-upgrade schema fingerprint; and
 4. runs the frozen Alembic migration only after the snapshot succeeds.
 
-An empty or not-yet-created database does not need a pre-upgrade snapshot.
+A database already at the current schema, and an empty or not-yet-created
+database, get no pre-upgrade snapshot. Snapshots go in `pre-upgrade-snapshots/`
+beside the database. On each start the helper deletes old ones, keeping the 5
+newest and any younger than 30 days.
 
 ## Canonical Records
 

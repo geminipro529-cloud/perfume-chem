@@ -48,7 +48,7 @@ async def lifespan(app: FastAPI):
                 snapshot.schema_fingerprint_sha256,
             )
         else:
-            logger.info("Database migration applied without a file snapshot.")
+            logger.info("Database schema checked; no pre-upgrade snapshot was needed.")
     except Exception:
         logger.exception("Database migration failed; application startup aborted.")
         raise
