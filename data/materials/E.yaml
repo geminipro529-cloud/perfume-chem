@@ -1233,9 +1233,9 @@
   logp: 2.2
   functional_groups: []
   chirality:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 2.5, corrected to 0.01)
-  vp_25c_pa: 0.01
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.01 (unsourced; about 100x low per the science review); replaced with the cited value
+  vp_25c_pa: 2.95
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.003
@@ -1266,7 +1266,7 @@
   notes:
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 3314 (https://pubchem.ncbi.nlm.nih.gov/compound/3314#section=Vapor-Pressure): "0.0221 mm Hg at 25 °C", citing Van Roon A et al., Chemosphere 61:599-609 (2005); x 133.322 = 2.95 Pa.'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

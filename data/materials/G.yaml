@@ -2324,8 +2324,9 @@
   logp: 1.3
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.053
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.053 (unsourced; about 100x low per the science review); replaced with the cited value
+  vp_25c_pa: 13.7
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.004
@@ -2363,7 +2364,7 @@
   notes: null
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 460 (https://pubchem.ncbi.nlm.nih.gov/compound/460#section=Vapor-Pressure): "0.103 mm Hg 25 °C", citing Verschueren K, Handbook of Environmental Data of Organic Chemicals, 2nd ed. (1983) p. 435; x 133.322 = 13.7 Pa.'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

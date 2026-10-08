@@ -4815,6 +4815,15 @@ _VERIFIED_VP = {
     "Ambrofix": 0.066,
     "Hedione": 0.09466,
     "Hedione HC": 0.09466,
+    # 2026-10-08: seven values about 100x low (the 2026-05-30 profile sync);
+    # cited values replace them, and the YAML spine carries the same numbers.
+    "Phenethyl Alcohol": 11.57,
+    "Benzyl Acetate": 23.6,
+    "cis-3-Hexenol": 140.0,
+    "Eugenol": 2.95,
+    "Indole": 1.63,
+    "Cinnamaldehyde": 3.85,
+    "Guaiacol": 13.7,
 }
 
 _VERIFIED_VP_SOURCE = {
@@ -4834,6 +4843,24 @@ _VERIFIED_VP_SOURCE = {
     "Hedione": "EP 3141239 B1: 0.000710 Torr at 25 C = 0.09466 Pa",
     "Hedione HC": ("Hedione pure-component proxy; cis-isomer-specific VP unresolved"),
     "Melonal": "OECD 104 value reported in EU SDS: 239 Pa at 25 C",
+    "Phenethyl Alcohol": (
+        "HSDB via PubChem CID 6054: 8.68e-2 mm Hg at 25 C from experimentally derived "
+        "coefficients (Daubert & Danner 1989) = 11.57 Pa"
+    ),
+    "Benzyl Acetate": (
+        "HSDB via PubChem CID 8785: 0.177 mm Hg at 25 C from experimentally derived "
+        "coefficients (Daubert & Danner 1989) = 23.6 Pa; ICSC lists 190 Pa at 25 C"
+    ),
+    "cis-3-Hexenol": (
+        "Stejfa et al. 2015 Fluid Phase Equilib. doi:10.1016/j.fluid.2015.05.026 via Chemeo: "
+        "0.14 kPa at 298.15 K, measured = 140 Pa"
+    ),
+    "Eugenol": "HSDB via PubChem CID 3314: 0.0221 mm Hg at 25 C (Van Roon et al. 2005) = 2.95 Pa",
+    "Indole": "HSDB via PubChem CID 798: 0.0122 mm Hg at 25 C (Yaws 1994) = 1.63 Pa",
+    "Cinnamaldehyde": (
+        "HSDB via PubChem CID 637511: 2.89e-2 mm Hg at 25 C (Perry's Handbook 1984) = 3.85 Pa"
+    ),
+    "Guaiacol": "HSDB via PubChem CID 460: 0.103 mm Hg at 25 C (Verschueren 1983) = 13.7 Pa",
 }
 
 for _key, _val in _VERIFIED_VP.items():

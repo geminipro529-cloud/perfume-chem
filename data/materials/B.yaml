@@ -748,8 +748,9 @@
   logp: 2.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.22
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.22 (unsourced; about 100x low per the science review); replaced with the cited value
+  vp_25c_pa: 23.6
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -774,6 +775,7 @@
   character: null
   notes: null
   provenance:
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 8785 (https://pubchem.ncbi.nlm.nih.gov/compound/8785#section=Vapor-Pressure): "0.177 mm Hg at 25 °C /from experimentally-derived coefficients/", citing Daubert & Danner (1989); x 133.322 = 23.6 Pa. Conflict kept on record: ICSC lists "Vapor pressure, Pa at 25 °C: 190" (8x higher, no primary citation).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds

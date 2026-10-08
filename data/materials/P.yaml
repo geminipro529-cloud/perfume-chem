@@ -1304,8 +1304,9 @@
   functional_groups:
   - aromatic alcohol
   chirality: null
-  vp_25c_pa: 0.116
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.116 (unsourced; about 100x low per the science review); replaced with the cited value
+  vp_25c_pa: 11.57
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.002
@@ -1335,7 +1336,7 @@
     cas: user TGSC paste 2026-05-09
     mw_g_mol: user TGSC paste 2026-05-09
     density_25c_g_ml: user TGSC paste 2026-05-09
-    vp_25c_pa: user TGSC paste 2026-05-09 (0.0868 mmHg @ 25 C converted to 11.57 Pa)
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 6054 (https://pubchem.ncbi.nlm.nih.gov/compound/6054#section=Vapor-Pressure): "8.68X10-2 mm Hg @ 25 °C /from experimentally derived coefficients/", citing Daubert & Danner (1989) Physical and Thermodynamic Properties of Pure Chemicals; x 133.322 Pa/mm Hg = 11.57 Pa. ICSC gives 8 Pa at 20 °C.'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
