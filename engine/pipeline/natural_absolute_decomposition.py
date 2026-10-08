@@ -873,6 +873,24 @@ _ELEMI_PW_7QC00902_ALLERGEN_DECLARATION_CONSTITUENTS = [
     ("camphor", 0.000334, 152.23, 25.0, 20.0, 2.0),
 ]
 
+# ISO 3215:1998, Table 1 (normative chromatographic profile of oil of nutmeg,
+# Indonesian type, Myristica fragrans Houtt.). Fractions are the midpoints of
+# the standard's min-max ranges. They describe a conforming commercial oil, not
+# the owned bottle: Aroma&More sells Indonesian seed oil it calls East Indian
+# type but publishes no composition and claims no ISO conformity. Inputs reuse
+# this module's existing runtime tuples. Safrole (1.0-2.5%) and myristicin
+# (5-12%) have no runtime headspace inputs and stay unresolved, not odorless.
+# Nothing is renormalized.
+_NUTMEG_INDONESIAN_ISO_3215_MIDPOINT_CONSTITUENTS = [
+    ("alpha pinene", 0.215, 136.24, 400.0, 20.0, 3.0),
+    ("sabinene", 0.215, 136.24, 300.0, 30.0, 3.0),
+    ("beta pinene", 0.155, 136.24, 250.0, 30.0, 3.0),
+    ("limonene", 0.045, 136.23, 200.0, 20.0, 3.0),
+    ("gamma terpinene", 0.040, 136.24, 90.0, 50.0, 3.0),
+    ("terpinen-4-ol", 0.040, 154.25, 10.0, 50.0, 1.5),
+    ("delta-3-carene", 0.0125, 136.23, 200.0, 50.0, 3.0),
+]
+
 # ── Master Registry ───────────────────────────────────────────────────
 
 _ABSOLUTE_CONSTITUENTS = {
@@ -976,6 +994,9 @@ _ABSOLUTE_CONSTITUENTS = {
     "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile": (
         _ELEMI_PW_7QC00902_ALLERGEN_DECLARATION_CONSTITUENTS
     ),
+    "myristica fragrans indonesian type iso 3215 midpoint profile": (
+        _NUTMEG_INDONESIAN_ISO_3215_MIDPOINT_CONSTITUENTS
+    ),
     "tonka bean solvent extract literature profile": _TONKA_SOLVENT_EXTRACT_PROXY_CONSTITUENTS,
     # Specialty bases
     "cassis base 345b": _CASSIS_BASE_345B_CONSTITUENTS,
@@ -1011,6 +1032,10 @@ _PROFILE_ALIASES = {
     "spike lavender": "lavandula latifolia spanish type iso 4719 midpoint profile",
     "elemi eo": "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile",
     "elemi essential oil": "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile",
+    # Aroma&More "Nutmeg Essential oil, Indonesia" (ref NutId0612B): seed oil,
+    # East Indian type per the supplier. Mace (aril) oil is not mapped.
+    "nutmeg eo": "myristica fragrans indonesian type iso 3215 midpoint profile",
+    "nutmeg essential oil": "myristica fragrans indonesian type iso 3215 midpoint profile",
     # Aroma&More SKU Lav420811P: sold as French Lavandula angustifolia oil.
     # It reuses the generic L. angustifolia profile as a labelled proxy.
     "lavender 40/42, aroma&more": "lavender eo",
@@ -1171,6 +1196,10 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://www.perfumersworld.com/document-list.php?pro_id=7QC00902",
         "https://www.perfumersworld.com/view.php?pro_id=7QC00902",
     ),
+    "myristica fragrans indonesian type iso 3215 midpoint profile": (
+        "https://www.iso.org/standard/8418.html",
+        "https://cdn.standards.iteh.ai/samples/8418/25f1579e1e374221b2ca9c0dfd38a3af/ISO-3215-1998.pdf",
+    ),
 }
 
 
@@ -1316,6 +1345,66 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "Range midpoints are nominal model inputs; a conforming oil can sit anywhere in each range (linalool 34-50%, 1,8-cineole 16-39%, camphor 8-16%).",
             "Only 85.15% of nominal composition is modeled; trans-alpha-bisabolene and unlisted constituents remain uncomputed, not odorless.",
             "Spike lavender oils of other origins, and lavandin, are not covered by this profile.",
+        ),
+    },
+    "myristica fragrans indonesian type iso 3215 midpoint profile": {
+        "analytical_method": "STANDARD_CHROMATOGRAPHIC_PROFILE_RANGES",
+        "composition_basis": "SPECIFICATION_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.iso.org/standard/8418.html",
+                "document": "ISO 3215:1998 Oil of nutmeg, Indonesian type (Myristica fragrans Houtt.)",
+                "table": "Table 1, Chromatographic profile (normative)",
+                "published_botanical_name": "Myristica fragrans Houtt.",
+                "published_type": "Indonesian type",
+                "standard_range_pct": {
+                    "alpha pinene": (15.0, 28.0),
+                    "beta pinene": (13.0, 18.0),
+                    "sabinene": (14.0, 29.0),
+                    "delta-3-carene": (0.5, 2.0),
+                    "limonene": (2.0, 7.0),
+                    "gamma terpinene": (2.0, 6.0),
+                    "terpinen-4-ol": (2.0, 6.0),
+                    "safrole": (1.0, 2.5),
+                    "myristicin": (5.0, 12.0),
+                },
+                "fraction_rule": "MIDPOINT_OF_STANDARD_MIN_MAX_RANGE",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_supplier_page": "https://aromaandmore.com/en/essential-oil-100-pure-/86-nutmeg-essential-oil-indonesia.html",
+                "owned_supplier_reference": "NutId0612B",
+                "owned_supplier_type_statement": "Indonesia normally produces the East Indian type of Nutmeg.",
+                "owned_supplier_iso_conformity_claimed": False,
+                "owned_supplier_and_origin_recorded": True,
+                "owned_bottle_sku_verified": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("alpha pinene", "sabinene", "beta pinene", "limonene",
+                            "gamma terpinene", "terpinen-4-ol", "delta-3-carene")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "myristicin",
+                "reported_fraction": 0.085,
+                "reported_fraction_range": (0.05, 0.12),
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "safrole",
+                "reported_fraction": 0.0175,
+                "reported_fraction_range": (0.01, 0.025),
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "ISO 3215 describes a conforming Indonesian-type commercial oil; it is not an analysis of the owned bottle. Aroma&More lists Indonesian steam-distilled seed oil of East Indian type but publishes no composition or CoA and claims no ISO conformity.",
+            "Range midpoints are nominal model inputs; a conforming oil can sit anywhere in each range (sabinene 14-29%, alpha-pinene 15-28%, myristicin 5-12%). The range minima sum to 54.5% and the maxima to 110.5%.",
+            "Only 72.25% of nominal composition is modeled; myristicin, safrole and unlisted constituents remain uncomputed, not odorless.",
+            "Safrole is restricted by IFRA Standard 179 (safrole, isosafrole and dihydrosafrole together at most 0.01% of the finished product); this composition scenario does not feed the IFRA screen.",
+            "Mace (aril) oil and West Indian nutmeg oil are not covered by this profile.",
         ),
     },
     "cupressus sempervirens leaf oil literature profile": {
