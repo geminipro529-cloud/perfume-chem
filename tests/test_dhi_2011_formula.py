@@ -45,8 +45,8 @@ EXPECTED_INGREDIENTS = {
     "Carrot Seed EO": 10.0,
     "Tonkarome": 310.0,
     "Isobutavan": 140.0,
-    "Verdox": 280.0,
-    "Benzyl Acetate": 220.0,
+    "Verdox": 340.0,  # Kenny 2026-10-08: 280 -> 340 after the Verdox MW/density fix (OAV 0.83 -> 1.01)
+    "Benzyl Acetate": 160.0,  # 220 -> 160 keeps the fruit basket at 550 uL
     "Ethyl 2-Methylbutyrate": 50.0,
 }
 
@@ -107,9 +107,11 @@ def test_historical_build_cannot_execute_against_superseded_current_stocks(formu
     issues = {item["material"]: item["reason"] for item in result.data["issues"]}
     assert issues["Vetiver EO (India)"] == "not_in_inventory"
     assert issues["Lavender EO High Altitude"] == "inventory_gap"
-    assert issues["Mimosa Absolute"] == "inventory_stock_non_executable"
+    # 2026-10-08 (v22 overlay): Kenny kept the Mimosa 10% w/w in DPG as it is, so it
+    # resolves now; the 0.1% E2MB row also resolves to his recorded 0.1% w/w stock.
+    assert "Mimosa Absolute" not in issues
     assert set(issues) <= {
-        "Vetiver EO (India)", "Lavender EO High Altitude", "Mimosa Absolute", "Ambrettolide"
+        "Vetiver EO (India)", "Lavender EO High Altitude", "Ambrettolide"
     }
     if "Ambrettolide" in issues:
         assert issues["Ambrettolide"] == "stock_fraction_mismatch"
@@ -245,7 +247,7 @@ def test_formula_bound_pour_protocol_and_transfer_card_close_exactly():
     assert "1. **Always used:** Hedione 140; Iso E Super 140" in rendered
     assert "Ambrettolide (10% w/w in DPG) 1600" in rendered
     assert "11. **Iris and orris:** Alpha Isomethyl Ionone 420" in rendered
-    assert "15. **Fruits:** Verdox 280; Benzyl Acetate 220; Ethyl 2-Methylbutyrate (0.1%) 50" in rendered
+    assert "15. **Fruits:** Verdox 340; Benzyl Acetate 160; Ethyl 2-Methylbutyrate (0.1%) 50" in rendered
     card = rendered.split("#### Exact transfer card", 1)[1].split("#### Seventeen-basket checkpoints", 1)[0]
     transfers = []
     running = []

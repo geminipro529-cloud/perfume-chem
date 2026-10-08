@@ -1,4 +1,12 @@
+import json
+import shutil
+import subprocess
+from pathlib import Path
+
 import pytest
+
+LAB_DRAFTS_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "lab-drafts.js"
+BENCH_SHEET_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "bench-sheet.js"
 
 
 @pytest.mark.asyncio
@@ -420,6 +428,328 @@ async def test_formula_studio_ui_exposes_inventory_and_conversation(client):
     assert ".formula-chat-layout" in css.text
     assert ".inventory-grid" in css.text
     assert ".formula-design-table" in css.text
+
+
+@pytest.mark.asyncio
+async def test_create_and_improve_drafts_are_kept_in_browser_storage(client):
+    page = await client.get("/app")
+    css = await client.get("/static/lab.css")
+    javascript = await client.get("/static/lab.js")
+    drafts = await client.get("/static/lab-drafts.js")
+
+    assert drafts.status_code == 200
+    assert page.text.index('src="/static/lab-drafts.js"') < page.text.index('src="/static/lab.js"')
+    assert '"perfume-lab.draft.create.v1"' in drafts.text
+    assert '"perfume-lab.draft.improve.v1"' in drafts.text
+    assert "const DRAFT_VERSION = 1;" in drafts.text
+    assert "const DRAFT_MAX_CHARS = 1000000;" in drafts.text
+    assert "`Restored your draft from ${formatDraftTime(iso)}. ${text}`" in javascript.text
+    assert "made from your inventory at that time" in javascript.text
+    assert "restoreStoredDrafts();\nrefresh()" in javascript.text
+    assert 'window.addEventListener("pagehide"' in javascript.text
+    # Every storage access is guarded so blocked or full storage cannot break the page.
+    lines = drafts.text.splitlines()
+    for call in ("storage.getItem(", "storage.setItem(", "storage.removeItem("):
+        positions = [index for index, line in enumerate(lines) if call in line]
+        assert positions
+        assert all(lines[position - 1].strip() == "try {" for position in positions)
+    assert "localStorage" not in drafts.text
+    lab_lines = javascript.text.splitlines()
+    positions = [index for index, line in enumerate(lab_lines) if "window.localStorage" in line]
+    assert len(positions) == 1
+    assert lab_lines[positions[0] - 1].strip() == "try {"
+    # Only what the page draws is stored, not server source paths.
+    assert "stock_source_ref" not in javascript.text + drafts.text
+    assert 'id="formula-draft-unsaved"' in page.text
+    assert 'id="improve-draft-unsaved"' in page.text
+    assert 'id="formula-draft-restored"' in page.text
+    assert 'id="improve-draft-restored"' in page.text
+    assert 'data-discard-draft="create">Discard</button>' in page.text
+    assert 'data-discard-draft="improve">Discard</button>' in page.text
+    assert ".draft-restored" in css.text
+
+
+_DRAFT_HARNESS = """
+const assert = require("assert");
+const D = require(process.argv[1]);
+function fakeStorage({ failGet = false, failSet = false } = {}) {
+  const items = new Map();
+  return {
+    items,
+    getItem(key) { if (failGet) throw new Error("blocked"); return items.has(key) ? items.get(key) : null; },
+    setItem(key, value) { if (failSet) throw new Error("QuotaExceededError"); items.set(key, String(value)); },
+    removeItem(key) { if (failGet) throw new Error("blocked"); items.delete(key); },
+  };
+}
+const KEY = D.DRAFT_KEYS.create;
+const body = (text) => ({ fields: { message: text } });
+"""
+
+
+def _run_draft_case(script):
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("node is not installed, so the browser draft rules cannot be run")
+    completed = subprocess.run(
+        [node, "-e", _DRAFT_HARNESS + script, str(LAB_DRAFTS_JS)],
+        capture_output=True,
+        text=True,
+        timeout=60,
+    )
+    assert completed.returncode == 0, completed.stderr
+    return completed.stdout
+
+
+def test_unusable_stored_drafts_are_removed_and_ignored():
+    _run_draft_case(r"""
+    const now = new Date().toISOString();
+    const cases = {
+      corrupt: "{not json",
+      older_version: JSON.stringify({ version: 0, saved_at: now, fields: { message: "old" } }),
+      bad_saved_at: JSON.stringify({ version: 1, saved_at: "yesterday-ish", fields: {} }),
+      bad_designed_at: JSON.stringify({ version: 1, saved_at: now, designed_at: "not a date", fields: {} }),
+      oversize: JSON.stringify({ version: 1, saved_at: now, fields: { message: "x".repeat(D.DRAFT_MAX_CHARS) } }),
+    };
+    for (const [name, raw] of Object.entries(cases)) {
+      const storage = fakeStorage();
+      storage.items.set(KEY, raw);
+      const read = D.readDraft(storage, "create");
+      assert.strictEqual(read.draft, null, name);
+      assert.strictEqual(read.outcome, "removed", name);
+      assert.ok(!storage.items.has(KEY), name);
+    }
+    const blocked = D.readDraft(fakeStorage({ failGet: true }), "create");
+    assert.deepStrictEqual(blocked, { draft: null, outcome: "unavailable" });
+    assert.strictEqual(D.readDraft(null, "create").outcome, "unavailable");
+    const good = fakeStorage();
+    const saved = D.writeDraft(good, "create", body("kept"), { writer: "a" });
+    assert.strictEqual(saved.outcome, "saved");
+    const restored = D.readDraft(good, "create");
+    assert.strictEqual(restored.draft.fields.message, "kept");
+    assert.strictEqual(D.draftStamp(restored.draft), saved.stamp);
+    """)
+
+
+def test_a_failed_or_oversize_save_removes_the_older_draft():
+    _run_draft_case(r"""
+    const storage = fakeStorage();
+    const first = D.writeDraft(storage, "create", body("older brief"), { writer: "a" });
+    assert.strictEqual(first.outcome, "saved");
+    storage.setItem = () => { throw new Error("QuotaExceededError"); };
+    const failed = D.writeDraft(storage, "create", body("newer brief"), { writer: "a", lastSeen: first.stamp });
+    assert.deepStrictEqual(failed, { outcome: "failed", stamp: null });
+    assert.ok(!storage.items.has(KEY), "the older draft must not come back");
+
+    const big = fakeStorage();
+    const kept = D.writeDraft(big, "create", body("older brief"), { writer: "a" });
+    const tooLarge = D.writeDraft(big, "create", body("x".repeat(D.DRAFT_MAX_CHARS)), { writer: "a", lastSeen: kept.stamp });
+    assert.deepStrictEqual(tooLarge, { outcome: "too_large", stamp: null });
+    assert.ok(!big.items.has(KEY));
+
+    const blocked = D.writeDraft(fakeStorage({ failGet: true }), "create", body("x"), { writer: "a" });
+    assert.strictEqual(blocked.outcome, "failed");
+    """)
+
+
+def test_a_stale_tab_cannot_undo_a_discard_or_overwrite_a_newer_draft():
+    _run_draft_case(r"""
+    const storage = fakeStorage();
+    const original = D.writeDraft(storage, "create", body("design"), { writer: "a" });
+    // Tabs A and B both restore the same draft.
+    const seenByA = D.draftStamp(D.readDraft(storage, "create").draft);
+    const seenByB = D.draftStamp(D.readDraft(storage, "create").draft);
+    assert.strictEqual(seenByA, original.stamp);
+    // A discards; B then types.
+    D.removeDraft(storage, "create");
+    const fromB = D.writeDraft(storage, "create", body("design plus one"), { writer: "b", lastSeen: seenByB });
+    assert.strictEqual(fromB.outcome, "stale");
+    assert.ok(!storage.items.has(KEY), "Discard must not be undone");
+    // A, having discarded, may start again.
+    const fresh = D.writeDraft(storage, "create", body("new idea"), { writer: "a", lastSeen: null });
+    assert.strictEqual(fresh.outcome, "saved");
+
+    // Reverse: B opened before any design; A then creates one; B types.
+    const second = fakeStorage();
+    const newer = D.writeDraft(second, "create", body("newer design"), { writer: "a", lastSeen: null });
+    const old = D.writeDraft(second, "create", body("old text"), { writer: "b", lastSeen: null });
+    assert.strictEqual(old.outcome, "stale");
+    assert.strictEqual(JSON.parse(second.items.get(KEY)).fields.message, "newer design");
+    const cleared = D.writeDraft(second, "create", null, { writer: "b", lastSeen: null });
+    assert.strictEqual(cleared.outcome, "stale");
+    assert.ok(second.items.has(KEY));
+    // The writer that saw the newest draft keeps saving over it.
+    const next = D.writeDraft(second, "create", body("newer design, edited"), { writer: "a", lastSeen: newer.stamp });
+    assert.strictEqual(next.outcome, "saved");
+    """)
+
+
+def test_stored_copy_has_no_hashes_or_source_paths_and_keeps_bench_fields():
+    out = _run_draft_case(r"""
+    const row = {
+      material: "Linalool", stock_id: "stock-1", stock_source_ref: "inventory.txt:12", source_ref: "data/x.json",
+      amount_decimal: "120", amount_unit: "uL", operation: "PREPARE_DILUTION_FIRST", execution_ready: false,
+      stock_authority: "PERSONAL_INVENTORY",
+    };
+    const result = {
+      formula_name: "Cold Lavender", request_sha256: "a".repeat(64), design_sha256: "b".repeat(64),
+      inventory: { source_path: "/home/user/inventory.txt" },
+      critic: { state: "PASS", issues: ["hold"], limitations: [], strongest_clue: "clue", source_ref: "x" },
+      optimized_formula: { rows: [row], separate_totals: { liquid_total_ul: "120" } },
+      design_variants: [{ label: "A", formula: { rows: [row] }, critic: { state: "PASS", issues: [] } }],
+    };
+    const copy = D.draftDisplayCopy(result);
+    process.stdout.write(JSON.stringify(copy));
+    """)
+    copy = json.loads(out)
+    text = json.dumps(copy)
+    for forbidden in ("request_sha256", "design_sha256", "stock_source_ref", "source_ref", "source_path", "stock_authority"):
+        assert forbidden not in text
+    row = copy["optimized_formula"]["rows"][0]
+    assert row["operation"] == "PREPARE_DILUTION_FIRST"
+    assert row["execution_ready"] is False
+    assert row["stock_id"] == "stock-1"
+    assert copy["design_variants"][0]["formula"]["rows"][0]["operation"] == "PREPARE_DILUTION_FIRST"
+    assert copy["critic"] == {"state": "PASS", "issues": ["hold"], "limitations": [], "strongest_clue": "clue"}
+
+
+def test_restored_download_is_labelled_as_a_trimmed_browser_copy():
+    out = _run_draft_case(r"""
+    process.stdout.write(JSON.stringify([
+      D.draftDownload({ formula_name: "Cold Lavender!" }, false),
+      D.draftDownload({ formula_name: "Cold Lavender!" }, true),
+    ]));
+    """)
+    fresh, restored = json.loads(out)
+    assert fresh == {"filename": "cold-lavender.json", "message": "Read-only formula draft downloaded."}
+    assert restored["filename"] == "cold-lavender-restored-browser-copy.json"
+    assert "trimmed browser copy of a restored draft" in restored["message"]
+    assert "not the full server result" in restored["message"]
+
+
+@pytest.mark.asyncio
+async def test_formula_result_fits_prints_and_offers_a_bench_sheet(client):
+    page = await client.get("/app")
+    css = await client.get("/static/lab.css")
+    javascript = await client.get("/static/lab.js")
+
+    header = page.text.split('class="formula-design-table"', 1)[1].split("</thead>", 1)[0]
+    headings = [cell.split("</th>", 1)[0] for cell in header.split("<th>")[1:]]
+    assert headings[1] == "Dose"
+    assert headings[0].startswith("Material")
+    assert "min-width: 790px" not in css.text
+    assert '<td class="formula-dose">' in javascript.text.split("formula-why", 1)[1].split("</tr>", 1)[0]
+
+    print_css = css.text.split("@media print {", 1)[1]
+    assert ".formula-table-wrap { overflow: visible; }" in print_css
+    assert ".formula-design-table { min-width: 0; }" in print_css
+    hidden_in_print = print_css.split("{ display: none !important; }", 1)[0].rsplit("}", 1)[1]
+    for hidden in (".masthead", ".rail", "#status", ".formula-variant-picker"):
+        assert hidden in hidden_in_print
+    # Forms, summaries and action buttons are hidden only in the Create view, so
+    # other views (an omission plan inside its form) still print; the Create
+    # disclaimer paragraph stays in the print.
+    for scoped in ('[data-panel="formulas"] form', '[data-panel="formulas"] .request-actions button', '[data-panel="formulas"] details > summary'):
+        assert scoped in hidden_in_print
+    for selector in (part.strip() for part in hidden_in_print.split(",")):
+        if any(token in selector.split() for token in ("form", ".request-actions", "summary")):
+            assert selector.startswith('[data-panel="formulas"] '), selector
+    assert "body.printing-bench-sheet .bench-sheet { display: block;" in print_css
+
+    actions = page.text.split('id="formula-download"', 1)[1].split("</div>", 1)[0]
+    assert '<button id="formula-print-bench" type="button">Print bench sheet</button>' in actions
+    assert 'id="bench-sheet"' in page.text
+    assert page.text.index('src="/static/bench-sheet.js"') < page.text.index('src="/static/lab.js"')
+    assert 'id="formula-result-variant"' in page.text
+    assert "window.print()" in javascript.text
+    assert "benchSheetHtml(" in javascript.text
+    assert "formula-dose-hold" in javascript.text
+    assert "benchBasisText(row.fraction_basis)" in javascript.text
+    bench = await client.get("/static/bench-sheet.js")
+    assert bench.status_code == 200
+    assert "Order as designed" in bench.text
+    assert "bench-tick" in bench.text
+
+
+def _run_bench_sheet(script):
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("node is not installed; the bench-sheet logic test needs it")
+    program = f"const bench = require({json.dumps(str(BENCH_SHEET_JS))});\nprocess.stdout.write(JSON.stringify(({script})(bench)));"
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=60, check=True)
+    return json.loads(completed.stdout)
+
+
+def _row(material, amount, unit="uL", **extra):
+    return {
+        "material": material, "stock_label": f"{material} stock", "stock_fraction_decimal": "0.005",
+        "fraction_basis": "w/w", "carrier": "DPG", "amount_decimal": amount, "amount_unit": unit,
+        "operation": "MASS_ADD" if unit == "mg" else "DIRECT_ADD", "execution_ready": True, **extra,
+    }
+
+
+def test_bench_sheet_writes_the_basis_as_w_w_or_v_v():
+    rows = [
+        _row("Ambrox Super", "840", stock_fraction_decimal="0.25", fraction_basis="mass_fraction"),
+        _row("Bergamot", "100", stock_fraction_decimal="0.1", fraction_basis="volume_fraction", carrier="ethanol"),
+        _row("Lavender EO", "1061", stock_fraction_decimal="1", fraction_basis="neat", carrier=None),
+    ]
+    strengths = _run_bench_sheet(
+        "(b) => b.benchSheetLines(ROWS).lines.map((line) => line.strength)".replace("ROWS", json.dumps(rows))
+    )
+
+    assert strengths == ["25% w/w in DPG", "10% v/v in ethanol", "100% neat"]
+
+
+def test_bench_sheet_logic_keeps_exact_per_unit_totals_and_flags_prepared_dilutions():
+    rows = [
+        _row("Iso E Super", "20.0"),
+        _row("Ambrox crystals", "0.1", "mg"),
+        _row("Hedione", "30", "\u00b5L"),
+        _row("Cetalox", "0.2", "mg"),
+        _row("Ethyl <b>Maltol</b>", "4", operation="PREPARED_DILUTION_REQUIRED", execution_ready=False),
+        _row("Calone", "a few", "\u03bcL"),
+        _row("Vetiver", "15"),
+    ]
+    critic = {"issues": ["ONE_OR_MORE_ROWS_REQUIRE_STOCK_OR_DILUTION_BINDING"]}
+    result = _run_bench_sheet(
+        "(b) => ({ sum: b.addDecimalText('0.1', '0.2'), lines: b.benchSheetLines(ROWS),"
+        " hold: b.benchSheetHold(ROWS, CRITIC), clear: b.benchSheetHold([ROWS[0]], { issues: [] }),"
+        " html: b.benchSheetHtml({ formulaName: 'Test <Iris>', variantLabel: 'B', dateText: 'today', totals: {}, rows: ROWS, critic: CRITIC }) })"
+        .replace("ROWS", json.dumps(rows)).replace("CRITIC", json.dumps(critic))
+    )
+
+    assert result["sum"] == "0.3"
+    lines = result["lines"]["lines"]
+    assert [line["runningTotal"] for line in lines] == [
+        "20 \u00b5L", "0.1 mg", "50 \u00b5L", "0.3 mg", None, "check by hand", "check by hand",
+    ]
+    assert [line["strength"] for line in lines][0] == "0.5% w/w in DPG"
+    assert [line["amount"] for line in lines][:3] == ["20.0", "0.1", "30"]
+
+    flagged = lines[4]
+    assert flagged["pipettable"] is False
+    assert flagged["mark"] == "Prepare a dilution first: 4 uL of this stock is under 10 uL, too small to pipette as written."
+    assert result["lines"]["leftOut"] == 1
+    assert [line["pipettable"] for line in lines] == [True, True, True, True, False, True, True]
+
+    assert result["hold"] == {
+        "onHold": True,
+        "stateText": "Proposal \u00b7 check hold",
+        "issues": ["one or more rows require stock or dilution binding"],
+    }
+    assert result["clear"]["stateText"] == "Proposal only"
+
+    html = result["html"]
+    body_rows = html.split("<tbody>", 1)[1].split("</tr>")[:-1]
+    assert len(body_rows) == len(rows)
+    assert "bench-tick" not in body_rows[4]
+    assert "not in total" in body_rows[4]
+    assert all("bench-tick" in row for index, row in enumerate(body_rows) if index != 4)
+    assert "Running totals leave out 1 row that needs a prepared dilution first." in html
+    assert "Proposal \u00b7 check hold" in html
+    assert "Ethyl &lt;b&gt;Maltol&lt;/b&gt;" in html
+    assert "<b>Maltol" not in html
+    assert "Test &lt;Iris&gt; \u00b7 B" in html
 
 
 @pytest.mark.asyncio

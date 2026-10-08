@@ -198,12 +198,12 @@
 - canonical_name: Undecavertol
   aliases:
   - undecavertol
-  cas:
+  cas: '81782-77-6'
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 170.29)
   mw_g_mol: 170.29
-  density_25c_g_ml:
+  density_25c_g_ml: 0.842
   logp:
   functional_groups: []
   chirality:
@@ -240,6 +240,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 81782-77-6 (https://www.thegoodscentscompany.com/data/rw1003762.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.84200 to 0.84700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1003762.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Unisex Concentrateu
   aliases:
   - Unisex ConcentrateU

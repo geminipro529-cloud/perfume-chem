@@ -721,11 +721,11 @@
   aliases:
   - Jessemal
   - Jasmonyl
-  cas: null
+  cas: '38285-49-3'
   smiles: null
   inchikey: null
   mw_g_mol: 214.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.966
   logp: 2.8
   functional_groups: []
   chirality: null
@@ -742,6 +742,9 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  provenance:
+    cas: 'TGSC: CAS Number: 38285-49-3 (https://www.thegoodscentscompany.com/data/rw1028961.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.96500 to 0.97300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1028961.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: juniper berry eo
   aliases:
   - Juniper Berry EO

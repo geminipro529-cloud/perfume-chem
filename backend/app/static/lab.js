@@ -14,6 +14,8 @@ const state = {
     messages: [],
     result: null,
     variantIndex: 0,
+    turns: [],
+    designedAt: null,
   },
   improve: {
     jobId: null,
@@ -1442,6 +1444,7 @@ function appendFormulaChatBubble(kind, text) {
   message.textContent = text;
   bubble.append(label, message);
   $("#formula-chat-log").append(bubble);
+  state.formulaChat.turns.push({ kind: kind === "user" ? "user" : "assistant", text });
   bubble.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
@@ -1481,13 +1484,19 @@ function renderFormulaDesign(result, variantIndex = 0) {
   const picker = $("#formula-variant-picker");
   const variants = result.design_variants || [];
   picker.hidden = variants.length <= 1;
+  $("#formula-result-variant").textContent = variants.length > 1
+    ? `Alternative shown: ${variants[variantIndex]?.label || `Alternative ${variantIndex + 1}`}`
+    : "";
   picker.replaceChildren();
   variants.forEach((variant, index) => {
     const button = document.createElement("button");
     button.type = "button";
     button.className = index === variantIndex ? "is-active" : "";
     button.textContent = variant.label || `Alternative ${index + 1}`;
-    button.addEventListener("click", () => renderFormulaDesign(result, index));
+    button.addEventListener("click", () => {
+      renderFormulaDesign(result, index);
+      scheduleDraftSave("create");
+    });
     picker.append(button);
   });
   const rows = selected.formula?.rows || [];
@@ -1496,16 +1505,16 @@ function renderFormulaDesign(result, variantIndex = 0) {
       const fraction = `${formatDecimal(Number(row.stock_fraction_decimal) * 100, 4)}%`;
       const carrier = row.carrier ? ` in ${row.carrier}` : "";
       const proxy = row.profile_source === "HEURISTIC_CATEGORY_PROXY" ? '<small class="proxy-label">category proxy</small>' : "";
-      const stockLabel = row.stock_label || `${fraction} ${row.fraction_basis}${carrier}`;
+      const basis = benchBasisText(row.fraction_basis);
+      const stockLabel = row.stock_label || `${fraction} ${basis}${carrier}`;
       return `<tr>
-        <td><strong>${escapeHtml(row.material)}</strong>${proxy}</td>
-        <td>${escapeHtml(stockLabel)}<small>${escapeHtml(fraction)} ${escapeHtml(row.fraction_basis)}${escapeHtml(carrier)}</small></td>
+        <td><strong>${escapeHtml(row.material)}</strong>${proxy}<small class="formula-why">${escapeHtml(row.rationale)}</small></td>
+        <td class="formula-dose">${escapeHtml(row.amount_decimal)} ${escapeHtml(row.amount_unit)}${benchNeedsPreparedDilution(row) ? '<small class="formula-dose-hold">prepare dilution first</small>' : ""}</td>
+        <td>${escapeHtml(stockLabel)}<small>${escapeHtml(fraction)} ${escapeHtml(basis)}${escapeHtml(carrier)}</small></td>
         <td>${escapeHtml(row.slot_label)}<small>${escapeHtml(row.note)} · ${escapeHtml(row.role)}</small></td>
-        <td class="formula-dose">${escapeHtml(row.amount_decimal)} ${escapeHtml(row.amount_unit)}</td>
-        <td>${escapeHtml(row.rationale)}</td>
       </tr>`;
     }).join("")
-    : '<tr><td colspan="5">Clarify the brief before a formula can be created.</td></tr>';
+    : '<tr><td colspan="4">Clarify the brief before a formula can be created.</td></tr>';
 
   const totals = $("#formula-result-totals");
   totals.replaceChildren();
@@ -1695,8 +1704,9 @@ function renderFormulaDesign(result, variantIndex = 0) {
   card.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-function resetFormulaChat() {
-  state.formulaChat = { messages: [], result: null, variantIndex: 0 };
+function resetFormulaChat(announce = true) {
+  state.formulaChat = { messages: [], result: null, variantIndex: 0, turns: [], designedAt: null, restored: false };
+  discardStoredDraft("create");
   const form = $("#formula-chat-form");
   form.reset();
   $('[name="liquid_concentrate_ul_decimal"]', form).value = "6000";
@@ -1705,7 +1715,7 @@ function resetFormulaChat() {
   $("#formula-chat-log").innerHTML = '<div class="chat-bubble assistant-bubble"><strong>Perfumer</strong><p>Tell me the name or feeling of the perfume you want to make. I will use your inventory, honor hard constraints first, and stop before filler.</p></div>';
   $("#formula-chat-result").hidden = true;
   $("#formula-chat-submit").textContent = "Create my formula";
-  notify("Ready for a new perfume idea.");
+  if (announce) notify("Ready for a new perfume idea.");
 }
 
 $("#formula-chat-form").addEventListener("submit", async (event) => {
@@ -1773,6 +1783,8 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
     }
     appendFormulaChatBubble("assistant", result.assistant_message || "The brief needs clarification before I can create the formula.");
     renderFormulaDesign(result);
+    state.formulaChat.restored = false;
+    hideDraftRestoredLine("create");
     if (result.formula_name) $('[name="formula_name"]', form).value = result.formula_name;
     $('[name="message"]', form).value = "";
     submit.textContent = result.optimized_formula ? "Refine this formula" : "Try clarified brief";
@@ -1783,21 +1795,231 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
     notify(error.message, true);
   } finally {
     submit.disabled = false;
+    if (state.formulaChat.result !== previous) state.formulaChat.designedAt = new Date().toISOString();
+    saveDraftNow("create");
   }
 });
 
-$("#formula-chat-reset").addEventListener("click", resetFormulaChat);
+$("#formula-chat-reset").addEventListener("click", () => resetFormulaChat());
 
 $("#formula-download").addEventListener("click", () => {
   const result = state.formulaChat.result;
   if (!result) return;
+  const { filename, message } = Drafts.draftDownload(result, state.formulaChat.restored);
   const blob = new Blob([JSON.stringify(result, null, 2)], { type: "application/json" });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
-  link.download = `${String(result.formula_name || "formula-draft").replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() || "formula-draft"}.json`;
+  link.download = filename;
   link.click();
   URL.revokeObjectURL(link.href);
-  notify("Read-only formula draft downloaded.");
+  notify(message);
+});
+
+// Browser-saved drafts ---------------------------------------------------
+// Storage rules live in lab-drafts.js (window.LabDrafts); this part draws the page.
+// A tab saves only over the draft it last saw (its writer id and saved_at), so a
+// stale tab can neither undo a Discard made elsewhere nor overwrite a newer draft.
+const Drafts = window.LabDrafts;
+const CREATE_DRAFT_FIELDS = ["formula_name", "liquid_concentrate_ul_decimal", "message", "must_preserve", "must_avoid", "max_materials", "design_mode"];
+const CREATE_DRAFT_TYPED_FIELDS = ["formula_name", "message", "must_preserve", "must_avoid"];
+const DRAFT_WRITER = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+const DRAFT_UNSAVED_TEXT = {
+  failed: "This draft couldn't be kept in this browser (storage is blocked or full), so it won't come back after a reload.",
+  too_large: "This draft is too large to keep in this browser, so it won't come back after a reload.",
+  stale: "Changes in this tab aren't being kept: the saved draft was changed or discarded in another tab. Reload to continue from the saved draft.",
+};
+const draftSaveTimers = {};
+const draftLastSeen = { create: null, improve: null };
+
+function draftStorage() {
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
+}
+
+function createDraftBody() {
+  const form = $("#formula-chat-form");
+  const fields = {};
+  CREATE_DRAFT_FIELDS.forEach((name) => { fields[name] = String($(`[name="${name}"]`, form)?.value ?? ""); });
+  const chat = state.formulaChat;
+  const typed = CREATE_DRAFT_TYPED_FIELDS.some((name) => fields[name].trim());
+  if (!chat.result && !chat.turns.length && !typed) return null;
+  return {
+    fields,
+    turns: chat.turns,
+    messages: chat.messages,
+    variant_index: chat.variantIndex,
+    designed_at: chat.result ? chat.designedAt : null,
+    result: chat.result ? Drafts.draftDisplayCopy(chat.result) : null,
+  };
+}
+
+function improveDraftBody() {
+  const goal = $('#improve-form [name="goal"]').value;
+  return goal.trim() ? { fields: { goal } } : null;
+}
+
+function showDraftSaveOutcome(view, outcome) {
+  const note = $(view === "create" ? "#formula-draft-unsaved" : "#improve-draft-unsaved");
+  note.textContent = DRAFT_UNSAVED_TEXT[outcome] || "";
+  note.hidden = !DRAFT_UNSAVED_TEXT[outcome];
+}
+
+function saveDraftNow(view) {
+  window.clearTimeout(draftSaveTimers[view]);
+  delete draftSaveTimers[view];
+  const options = { writer: DRAFT_WRITER, lastSeen: draftLastSeen[view] };
+  let saved;
+  try {
+    saved = Drafts.writeDraft(draftStorage(), view, view === "create" ? createDraftBody() : improveDraftBody(), options);
+  } catch {
+    // The page state could not be copied; drop the older draft so it cannot come back.
+    saved = Drafts.writeDraft(draftStorage(), view, null, options);
+    if (saved.outcome === "cleared") saved.outcome = "failed";
+  }
+  draftLastSeen[view] = saved.stamp;
+  showDraftSaveOutcome(view, saved.outcome);
+}
+
+function scheduleDraftSave(view) {
+  window.clearTimeout(draftSaveTimers[view]);
+  draftSaveTimers[view] = window.setTimeout(() => saveDraftNow(view), 400);
+}
+
+function discardStoredDraft(view) {
+  window.clearTimeout(draftSaveTimers[view]);
+  delete draftSaveTimers[view];
+  Drafts.removeDraft(draftStorage(), view);
+  draftLastSeen[view] = null;
+  hideDraftRestoredLine(view);
+  showDraftSaveOutcome(view, null);
+}
+
+function draftRestoredLine(view) {
+  return $(view === "create" ? "#formula-draft-restored" : "#improve-draft-restored");
+}
+
+function hideDraftRestoredLine(view) {
+  const line = draftRestoredLine(view);
+  if (line) line.hidden = true;
+}
+
+function formatDraftTime(iso) {
+  const saved = new Date(iso);
+  const time = saved.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  if (saved.toDateString() === new Date().toDateString()) return time;
+  return `${saved.toLocaleDateString([], { day: "numeric", month: "short" })}, ${time}`;
+}
+
+function showDraftRestoredLine(view, iso, text) {
+  const line = draftRestoredLine(view);
+  $("[data-draft-restored-text]", line).textContent = `Restored your draft from ${formatDraftTime(iso)}. ${text}`;
+  line.hidden = false;
+}
+
+function restoreCreateDraft() {
+  const { draft } = Drafts.readDraft(draftStorage(), "create");
+  if (!draft) return;
+  draftLastSeen.create = Drafts.draftStamp(draft);
+  try {
+    const form = $("#formula-chat-form");
+    const fields = draft.fields && typeof draft.fields === "object" ? draft.fields : {};
+    CREATE_DRAFT_FIELDS.forEach((name) => {
+      const node = $(`[name="${name}"]`, form);
+      const value = fields[name];
+      if (!node || typeof value !== "string") return;
+      if (node.tagName === "SELECT" && ![...node.options].some((option) => option.value === value)) return;
+      node.value = value;
+    });
+    state.formulaChat.messages = Array.isArray(draft.messages) ? draft.messages.filter((message) => typeof message === "string") : [];
+    (Array.isArray(draft.turns) ? draft.turns : []).forEach((turn) => {
+      if (turn && typeof turn.text === "string") appendFormulaChatBubble(turn.kind === "user" ? "user" : "assistant", turn.text);
+    });
+    const result = draft.result && typeof draft.result === "object" ? draft.result : null;
+    const line = draftRestoredLine("create");
+    if (result) {
+      const variantCount = Array.isArray(result.design_variants) ? result.design_variants.length : 0;
+      const variantIndex = Number.isInteger(draft.variant_index) && draft.variant_index >= 0 && draft.variant_index < Math.max(variantCount, 1)
+        ? draft.variant_index
+        : 0;
+      state.formulaChat.designedAt = draft.designed_at || null;
+      renderFormulaDesign(result, variantIndex);
+      state.formulaChat.restored = true;
+      $("#formula-chat-submit").textContent = result.optimized_formula ? "Refine this formula" : "Try clarified brief";
+      $("#formula-result-summary").before(line);
+      showDraftRestoredLine("create", state.formulaChat.designedAt || draft.saved_at,
+        "This is a copy saved in this browser, made from your inventory at that time; refining plans again from current stock.");
+    } else {
+      form.before(line);
+      showDraftRestoredLine("create", draft.saved_at, "Your typed brief was saved in this browser.");
+    }
+  } catch (error) {
+    console.info(`A saved create draft could not be shown and was removed: ${error.message}`);
+    resetFormulaChat(false);
+  }
+}
+
+function restoreImproveDraft() {
+  const { draft } = Drafts.readDraft(draftStorage(), "improve");
+  const goal = draft?.fields?.goal;
+  if (typeof goal !== "string" || !goal.trim()) {
+    if (draft) Drafts.removeDraft(draftStorage(), "improve");
+    return;
+  }
+  draftLastSeen.improve = Drafts.draftStamp(draft);
+  $('#improve-form [name="goal"]').value = goal;
+  showDraftRestoredLine("improve", draft.saved_at, "Your typed change was saved in this browser. Choose the formula or bottle again before you run it.");
+}
+
+function restoreStoredDrafts() {
+  restoreCreateDraft();
+  restoreImproveDraft();
+}
+
+$("#formula-chat-form").addEventListener("input", () => scheduleDraftSave("create"));
+$("#formula-chat-form").addEventListener("change", () => scheduleDraftSave("create"));
+$('#improve-form [name="goal"]').addEventListener("input", () => scheduleDraftSave("improve"));
+$$("[data-discard-draft]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const view = button.dataset.discardDraft;
+    if (view === "create") resetFormulaChat();
+    else $('#improve-form [name="goal"]').value = "";
+    discardStoredDraft(view);
+    notify("Saved draft discarded.");
+  });
+});
+window.addEventListener("pagehide", () => {
+  Object.keys(draftSaveTimers).forEach((view) => saveDraftNow(view));
+});
+
+// The sheet's arithmetic and markup live in bench-sheet.js (pure, node-tested).
+function buildBenchSheet(result, variantIndex) {
+  const selected = selectedFormulaVariant(result, variantIndex);
+  const rows = selected.formula?.rows || [];
+  const variants = result.design_variants || [];
+  $("#bench-sheet").innerHTML = benchSheetHtml({
+    formulaName: result.formula_name,
+    variantLabel: variants.length > 1 ? (variants[variantIndex]?.label || `Alternative ${variantIndex + 1}`) : "",
+    dateText: new Date().toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }),
+    totals: selected.formula?.separate_totals || {},
+    rows,
+    critic: selected.critic,
+  });
+  return rows.length;
+}
+
+$("#formula-print-bench").addEventListener("click", () => {
+  const result = state.formulaChat.result;
+  if (!result) return;
+  if (!buildBenchSheet(result, state.formulaChat.variantIndex || 0)) {
+    notify("There is no formula to print yet. Clarify the brief first.", true);
+    return;
+  }
+  document.body.classList.add("printing-bench-sheet");
+  window.addEventListener("afterprint", () => document.body.classList.remove("printing-bench-sheet"), { once: true });
+  window.print();
 });
 
 bindForm("#material-form", (data) => request("/materials", { method: "POST", body: JSON.stringify(data) }));
@@ -2341,4 +2563,5 @@ function applyTheme(choice) {
 })();
 
 navigate(location.hash.slice(1) || "improve");
+restoreStoredDrafts();
 refresh().catch((error) => notify(error.message, true));

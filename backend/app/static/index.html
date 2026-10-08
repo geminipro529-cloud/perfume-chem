@@ -109,6 +109,8 @@
           <label class="goal-field">Describe the change
             <textarea name="goal" required maxlength="4000" placeholder="For example: Make the lavender clearer at 30 minutes, keep the dry amber, and do not add sweetness."></textarea>
           </label>
+          <p id="improve-draft-restored" class="draft-restored" hidden><span data-draft-restored-text></span> <button type="button" class="quiet-button" data-discard-draft="improve">Discard</button></p>
+          <p id="improve-draft-unsaved" class="draft-unsaved" role="status" hidden></p>
 
           <div class="field-pair compact-fields">
             <label>Style of answer
@@ -486,17 +488,20 @@
                 <button id="formula-chat-submit" type="submit">Create my formula</button>
                 <button id="formula-chat-reset" class="quiet-button" type="button">Start another idea</button>
               </div>
+              <p id="formula-draft-unsaved" class="draft-unsaved" role="status" hidden></p>
               <div id="formula-chat-job-status" class="engine-job-status" aria-live="polite" hidden></div>
             </form>
           </article>
 
           <article id="formula-chat-result" class="panel formula-result-card" hidden>
             <div class="card-title-row"><div><p class="panel-index">Composition plan</p><h2 id="formula-result-name">Formula draft</h2></div><span id="formula-result-state" class="state-chip proposal">Proposal only</span></div>
+            <p id="formula-draft-restored" class="draft-restored" hidden><span data-draft-restored-text></span> <button type="button" class="quiet-button" data-discard-draft="create">Discard</button></p>
             <p id="formula-result-summary" class="friendly-boundary"></p>
             <div id="formula-variant-picker" class="formula-variant-picker" hidden aria-label="Design alternatives"></div>
+            <p id="formula-result-variant" class="formula-result-variant"></p>
             <div class="formula-table-wrap">
               <table class="formula-design-table">
-                <thead><tr><th>Material</th><th>Stock</th><th>Role</th><th>Dose</th><th>Why</th></tr></thead>
+                <thead><tr><th>Material <span>and why</span></th><th>Dose</th><th>Stock</th><th>Role</th></tr></thead>
                 <tbody id="formula-result-rows"></tbody>
               </table>
             </div>
@@ -507,6 +512,7 @@
             </details>
             <div class="request-actions">
               <button id="formula-download" type="button">Download draft</button>
+              <button id="formula-print-bench" type="button">Print bench sheet</button>
               <p class="field-help">Downloading saves a design artifact only. It does not change inventory, save a lab version, or authorize compounding.</p>
             </div>
           </article>
@@ -797,6 +803,9 @@
       </section>
     </main>
   </div>
+  <section id="bench-sheet" class="bench-sheet" aria-label="Printable bench sheet"></section>
+  <script src="/static/bench-sheet.js" defer></script>
+  <script src="/static/lab-drafts.js" defer></script>
   <script src="/static/lab.js" defer></script>
 </body>
 </html>

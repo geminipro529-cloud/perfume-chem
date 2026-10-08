@@ -209,6 +209,21 @@ _ALIASES: dict[str, str] = {
     "turkish storax liquidambar orientalis resin ethanol tincture": "turkish storax",
     "vietnamese benzoin styrax tonkinensis resin ethanol tincture": "benzoin styrax tonkinensis tincture",
     "caraway seed oil": "caraway seed eo",
+
+    # current-inventory spelling variants -> existing ODT keys (same material;
+    # stock strength/grade words only, or a typo). YAML aliases carry the
+    # data-spine side of each mapping.
+    "aldehyde c10 neat": "aldehyde c10",
+    "aldehyde c12 mna neat": "aldehyde c12 mna",
+    "dimethyl benzyl carbonyl acetate": "dbca",
+    "ethyl maltol 1% +": "ethyl maltol",
+    "ethyl maltol 1% + 10%": "ethyl maltol",
+    "phenethyl acetate": "phenyl ethyl acetate",
+    "phenylacetaldehyde dimethyl acetal (padma)": "padma",
+    "ambrox super crystals": "ambrox super",
+    "citral natural": "citral",
+    # owner's Exaltolide bottle is Pentalide (same molecule, CAS 106-02-5)
+    "pentalide": "exaltolide",
 }
 
 
