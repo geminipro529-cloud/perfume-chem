@@ -732,8 +732,8 @@
   logp: 4.88
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 4.25
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -757,12 +757,13 @@
     other: {}
   families: []
   character:
-  notes: 'VP and density left null (2026-10-08). RIFM 2024 quotes "Vapor Pressure: 0.0319 mm Hg (EPI Suite v4.11)" = 4.25 Pa at 133.322 Pa/mmHg, with no temperature stated in the quote; Givaudan 0.0487 hPa = 4.87 Pa (20 C per Perfumer''s Apprentice); TGSC rw1022781 0.026 mmHg at 25 C (est) = 3.47 Pa. The values agree within 1.4x. Givaudan log Pow "4,7" (garbled scrape); TGSC logP 4.416 (est). Density 0.898-0.901 g/mL at 20 C (Ventos), 20 C, not used. No air ODT found. Source: material-data-firecrawl/BATCH1_FEMME_20261008.md.'
+  notes: 'Density left null (2026-10-08). VP is the RIFM-quoted EPI Suite estimate, "Vapor Pressure: 0.0319 mm Hg (EPI Suite v4.11)" = 4.25 Pa at 133.322 Pa/mmHg; the quote states no temperature, but EPI Suite reports vapour pressure at 25 C. Other values: Givaudan 0.0487 hPa = 4.87 Pa (20 C per Perfumer''s Apprentice); TGSC rw1022781 0.026 mmHg at 25 C (est) = 3.47 Pa. The values agree within 1.4x. Givaudan log Pow "4,7" (garbled scrape); TGSC logP 4.416 (est). Density 0.898-0.901 g/mL at 20 C (Ventos), 20 C, not used. No air ODT found. Source: material-data-firecrawl/BATCH1_FEMME_20261008.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'RIFM fragrance ingredient safety assessment, ethyl linalyl acetate, CAS 61931-80-4, Food Chem. Toxicol. 192 Suppl 1 (2024) 114873, doi:10.1016/j.fct.2024.114873; PerfumersWorld SDS 3LC19147 (local snapshot, batch ETH19147/26280) (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
     mw_g_mol: 'RIFM fragrance ingredient safety assessment, ethyl linalyl acetate, CAS 61931-80-4, Food Chem. Toxicol. 192 Suppl 1 (2024) 114873, doi:10.1016/j.fct.2024.114873; "Molecular Weight: 210.31 g/mol" (PerfumersWorld SDS gives 210.32) (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
     logp: 'RIFM fragrance ingredient safety assessment, ethyl linalyl acetate, CAS 61931-80-4, Food Chem. Toxicol. 192 Suppl 1 (2024) 114873, doi:10.1016/j.fct.2024.114873; "Log K OW : 4.88 (EPI Suite v4.11)", estimate, not measured (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, ethyl linalyl acetate, CAS 61931-80-4, Food Chem. Toxicol. 192 Suppl 1 (2024) 114873, doi:10.1016/j.fct.2024.114873; "Vapor Pressure: 0.0319 mm Hg (EPI Suite v4.11)", EPI Suite estimate (reported at 25 C), converted at 133.322 Pa/mm Hg; not measured (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
 - canonical_name: Ethyl Maltol
   aliases:
   - "Ethyl Maltol 1%"

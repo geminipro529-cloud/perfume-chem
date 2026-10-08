@@ -1584,7 +1584,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Methyl Diantilis
   aliases: []
-  cas:
+  cas: '5595-79-9'
   smiles:
   inchikey:
   mw_g_mol: 182.22
@@ -1617,9 +1617,10 @@
     other: {}
   families: []
   character:
-  notes: 'CAS, logP and VP left null (2026-10-08). CAS conflict: TGSC "5595-79-9" (https://thegoodscentscompany.com/data/rw1009761.html) vs 5595-79-6 in the task brief; unresolved. Note: only 5595-79-9 passes the CAS check digit (computed, not sourced). logP and VP exist only as TGSC estimates, not RIFM-quoted: "logP (o/w): 1.571 (est)"; "Vapor Pressure: 0.003000 mmHg @ 25.00 C. (est)" = 0.400 Pa at 133.322 Pa/mmHg. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md.'
+  notes: 'logP and VP left null (2026-10-08). CAS: TGSC gives "5595-79-9"; the 5595-79-6 in an earlier task brief fails the CAS check digit, so it is treated as a typo, not a second source. logP and VP exist only as TGSC estimates, not RIFM-quoted: "logP (o/w): 1.571 (est)"; "Vapor Pressure: 0.003000 mmHg @ 25.00 C. (est)" = 0.400 Pa at 133.322 Pa/mmHg. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://thegoodscentscompany.com/data/rw1009761.html; "CAS Number: 5595-79-9", synonyms "dianthus ethone", "methyl diantilis (Givaudan)"; check digit valid (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1009761.html; "Molecular Weight: 182.21918000", calculated from C10H14O3 (2-ethoxy-4-(methoxymethyl)phenol) (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
 - canonical_name: Methyl Eugenol
   aliases: []
