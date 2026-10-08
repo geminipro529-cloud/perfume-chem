@@ -595,3 +595,14 @@ async def test_science_authority_view_preserves_labels_modes_and_unknowns(client
     assert "/api/v1/lab/science/report.md?view=" in javascript.text
     assert "confidence percentage" not in page.text.casefold()
     assert "confidence percentage" not in javascript.text.casefold()
+
+
+@pytest.mark.asyncio
+async def test_comparison_planning_is_worded_as_a_suggestion_and_uses_safe_request_ids(client):
+    page = await client.get("/app")
+    javascript = await client.get("/static/lab.js")
+    assert "cannot remove anything from your existing bottle" in page.text
+    assert "needs separate samples" not in page.text
+    submit = javascript.text.split('$("#omission-plan-form").addEventListener("submit"', 1)[1]
+    submit = submit.split('$("#sample-form")', 1)[0]
+    assert 'newRequestId("comparison")' in submit and "crypto.randomUUID()" not in submit

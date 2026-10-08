@@ -2662,8 +2662,11 @@ def _omission_comparison_plan_v2(payload: dict[str, Any]) -> tuple[str, dict[str
         plan_controlled_omission,
         verify_controlled_omission,
     )
+    from engine.research.one_change import triangle_test_sheet
     from engine.research.protocols import build_reference_anchored_protocol
 
+    if payload.get("change") is not None:
+        return _one_change_plan_v2(payload)
     inputs = {k: payload[k] for k in ("control_rows", "omit_stock_ids", "protected_stock_ids", "carrier_blanks")}
     omission = plan_controlled_omission(**inputs)
     ready = omission["state"] == "CONTROLLED_OMISSION_DESIGN_READY"
@@ -2686,7 +2689,8 @@ def _omission_comparison_plan_v2(payload: dict[str, Any]) -> tuple[str, dict[str
             hashes, target_candidate_id="control", protocol_id=protocol_id, mode=payload["mode"],
             session_ids=sessions, seed=payload["seed"], requested_descriptors=[payload["goal"]],
         )
-        result.update(protocol=protocol, candidate_formula_sha256=hashes)
+        result.update(protocol=protocol, candidate_formula_sha256=hashes,
+                      triangle_test=triangle_test_sheet(payload.get("triangle_tries") or 6))
     result["handoff_sha256"] = stable_json_hash(result)
     validation = "ADVISORY_FINDINGS" if ready else (
         "INVALID_INPUT" if omission["state"] == "INVALID_INPUT" else "WITHHOLD_UNKNOWN"
@@ -2696,6 +2700,40 @@ def _omission_comparison_plan_v2(payload: dict[str, Any]) -> tuple[str, dict[str
         result=result, missing_requirements=omission["reason_codes"],
         findings=[{"code": "NO_PHYSICAL_OR_SENSORY_EXECUTION"}],
     ), validation
+
+
+def _one_change_plan_v2(payload: dict[str, Any]) -> tuple[str, dict[str, Any], str]:
+    """Control versus exactly one ADDITION or DOSE_STEP; planning only, never a bottle action."""
+    from engine.research.one_change import plan_one_change, triangle_test_sheet
+    from engine.research.protocols import build_reference_anchored_protocol
+
+    inputs = {k: payload[k] for k in ("control_rows", "change", "carrier_blanks")}
+    plan = plan_one_change(**inputs)
+    if plan != plan_one_change(**inputs):
+        raise ValueError("ONE_CHANGE_REPLAY_MISMATCH")
+    hashes = {"control": plan["control_sha256"], "variant": stable_json_hash(plan["candidate_rows"])}
+    protocol_id = "one-change-" + plan["plan_sha256"][:20]
+    sessions = [protocol_id + f"-session-{i + 1}" for i in range(1 if payload["mode"] == "QUICK_REFERENCE" else 3)]
+    protocol, _private_mapping = build_reference_anchored_protocol(
+        hashes, target_candidate_id="control", protocol_id=protocol_id, mode=payload["mode"],
+        session_ids=sessions, seed=payload["seed"], requested_descriptors=[payload["goal"]],
+    )
+    result: dict[str, Any] = {
+        "schema_version": "one-change-comparison-handoff-v1", "goal": payload["goal"],
+        "change_kind": plan["change_kind"], "direction": plan["direction"],
+        "one_change_plan": plan, "how_to_try": plan["how_to_try"],
+        "triangle_test": triangle_test_sheet(payload.get("triangle_tries") or 6),
+        "protocol": protocol, "candidate_formula_sha256": hashes, "formula_action": "PROPOSAL_ONLY",
+        "sensory_validation": "NOT_TESTED", "physical_execution_authorized": False,
+        "blinding_state": "PLANNING_ONLY_NOT_AN_EXECUTABLE_BLIND_SESSION",
+        "private_code_mapping_persisted": False,
+        "observations_created": False, "inventory_modified": False, "bottle_modified": False,
+    }
+    result["handoff_sha256"] = stable_json_hash(result)
+    return "SUCCEEDED", _v2_envelope(
+        validation_state="ADVISORY_FINDINGS", applicability_state="PARTIAL", result=result,
+        missing_requirements=[], findings=[{"code": "NO_PHYSICAL_OR_SENSORY_EXECUTION"}],
+    ), "ADVISORY_FINDINGS"
 
 
 def _execute_v2_engine_job(
