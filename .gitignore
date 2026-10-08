@@ -24,6 +24,10 @@ venv/
 
 # Databases & workbooks (binary / regenerable)
 *.db
+# Lab database snapshot and backup folders, wherever the database lives.
+# Manifests committed before this rule stay tracked.
+pre-upgrade-snapshots/
+lab-backups/
 *.xlsx
 *.csv
 
