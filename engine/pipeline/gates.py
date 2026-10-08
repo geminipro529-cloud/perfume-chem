@@ -1702,104 +1702,273 @@ def _gate_novelty_vs_reference(formula: Mapping, config: ReleaseGateConfig) -> G
 # name word.  The repo's other trace constants (MIN_NEAT_TRACE_UL,
 # oav_guard.TRACE_NEAT_EQUIV_UL) are pipetting floors, not composition shares.
 NAMESAKE_TRACE_SHARE_PCT = 0.1
-# Suffixes and grade/origin qualifiers in natural-material profile names.  The
-# remaining words of e.g. "Vetiver EO" or "Tuberose Absolute (India)" name the
-# material's own odour; these qualifiers do not.
+# Spelling variants and standard equivalents.  Each group is one odour: a name
+# term is carried by a material whose own-odour text has any member.
+_NAMESAKE_SYNONYMS: tuple[frozenset[str], ...] = tuple(frozenset(group) for group in (
+    {"jasmine", "jasmin"},
+    {"iris", "orris"},
+    {"cedar", "cedarwood"},
+    {"sandal", "sandalwood", "santal"},
+    {"oud", "agarwood", "aoud"},
+    {"cassis", "blackcurrant", "black currant"},
+    {"incense", "olibanum", "frankincense"},
+    {"lychee", "litchi"},
+    {"muguet", "lily of the valley"},
+    {"orange blossom", "orange flower", "neroli"},
+    {"tonka", "tonka bean"},
+    {"ylang", "ylang ylang"},
+    {"oakmoss", "oak moss"},
+    {"vanilla", "vanille"},
+    {"lime", "citron vert"},
+    {"floral", "flower", "blossom"},
+    {"aromatic", "herbal", "herbaceous"},
+))
+# Multi-word odours, matched before single words, and the other terms each one
+# also carries.  "violet leaf" is not "violet" and "orange blossom" is not
+# "orange" (AGENTS.md: violet petals, violet powder and violet leaf stay distinct).
+_NAMESAKE_PHRASES: dict[tuple[str, ...], tuple[str, ...]] = {
+    ("lily", "of", "the", "valley"): (),
+    ("orange", "blossom"): (), ("orange", "flower"): (),
+    ("violet", "leaf"): ("leaf",), ("fig", "leaf"): ("fig", "leaf"),
+    ("tomato", "leaf"): ("leaf",), ("tonka", "bean"): ("tonka",),
+    ("black", "pepper"): ("pepper",), ("pink", "pepper"): ("pepper",),
+    ("black", "currant"): (), ("ylang", "ylang"): (), ("orris", "root"): ("orris",),
+    ("oak", "moss"): ("moss",), ("tree", "moss"): ("treemoss", "moss"),
+    ("sandal", "wood"): ("sandalwood",), ("cedar", "wood"): ("cedarwood",),
+    ("agar", "wood"): ("agarwood",), ("citron", "vert"): (),
+}
+_NAMESAKE_NEGATORS = frozenset({"no", "without", "sans", "minus", "zero", "non"})
+# Modifiers and prose words that appear in odour descriptions but name no odour
+# of their own, plus formula-format words.  "Citrus Fresh" checks only citrus.
+_NAMESAKE_NOT_ODOURS = frozenset({
+    "fresh", "freshness", "clean", "soft", "dark", "deep", "light", "bright", "noir",
+    "blanc", "blanche", "white", "black", "warm", "warmth", "dry", "sweet", "sweetness",
+    "crisp", "airy", "moderne", "modern", "intense", "heavy", "rich", "pure", "natural",
+    "classic", "elegant", "absolute", "accord", "base", "oil", "essential", "extract",
+    "note", "type", "blue", "red", "pink", "gold", "golden", "green", "transparent",
+    "transparency", "radiance", "radiant", "sheer", "bitter", "tart", "ripe", "fixative",
+    "salicylate", "sourness", "cool", "cold", "hot", "wet", "dense", "strong", "fine",
+    "smooth", "riche", "true", "full", "whole", "complete", "volume", "skin", "heart",
+    "top", "masculine", "feminine", "style", "structural", "reconstruction", "material",
+    "commercial", "analysis", "from", "for", "the", "and", "with", "iii", "grasse",
+    "air", "crystal", "transparence", "corrected", "benzyl",
+    # Genre names: an accord structure, not one odour a single material carries.
+    "cologne", "chypre", "fougere",
+})
 _NAMESAKE_NATURAL_SUFFIX_RE = re.compile(
     r"\b(?:eo|oil|absolute|abs|resinoid|concrete|butter|tincture|co2)\b", re.I
 )
-_NAMESAKE_QUALIFIERS = frozenset({
-    "abs", "absolute", "bean", "blood", "blue", "bontaux", "butter", "china", "co2",
-    "comoros", "complete", "concrete", "essential", "extract", "fcf", "flower", "french",
-    "grade", "grasse", "himalayan", "iii", "india", "leaf", "level", "mai",
-    "oil", "paraguay", "peel", "peru", "pink", "rectified", "red", "resinoid", "sas", "seed",
-    "sicilian", "styrax", "sumatra", "tec", "terpeneless", "tincture",
-    "tonkinensis", "virginia", "volume",
-})
 
 
-def _namesake_words(text: str) -> list[str]:
-    return re.findall(r"[a-z]+", str(text or "").casefold())
+def _namesake_tokens(text: str) -> list[str]:
+    """Lowercase, accent-folded words with simple plurals made singular."""
+    import unicodedata
+
+    folded = "".join(
+        ch for ch in unicodedata.normalize("NFKD", str(text or "").casefold())
+        if not unicodedata.combining(ch)
+    )
+    tokens = []
+    for word in re.findall(r"[a-z]+", folded):
+        if word == "leaves":
+            word = "leaf"
+        elif word.endswith("ies") and len(word) > 4:
+            word = word[:-3] + "y"
+        elif word.endswith(("ches", "shes", "sses", "xes")):
+            word = word[:-2]
+        elif word.endswith("s") and len(word) > 3 and not word.endswith(("ss", "us", "is")):
+            word = word[:-1]
+        tokens.append(word)
+    return tokens
 
 
-@functools.lru_cache(maxsize=1)
-def _namesake_vocabulary() -> tuple[frozenset[str], tuple[frozenset[str], ...]]:
-    """Odour words the repo already keeps, plus its synonym groups.
-
-    Descriptors: ingredient_intelligence character dimensions and or_family
-    bins, and the closed v5 own-odour requirement and avoid groups used by
-    Deep Compose.  Material nouns: the odour-bearing words of natural-material
-    profile names (Vetiver EO -> vetiver).  Anything else in a formula name
-    (CHIMIE, L'Homme, Intense, v1, 30mL, EdP) is not an odour word.
-    """
-    from engine.formulation_intelligence import architecture_rules_v5 as rules_v5
-    from engine.ingredient_intelligence import _PROFILES
-
-    words: set[str] = set()
-    for name, data in _PROFILES.items():
-        character = data.get("character")
-        if isinstance(character, dict):
-            words.update(_namesake_words(" ".join(character)))
-        words.update(_namesake_words(data.get("or_family") or data.get("odor_family") or ""))
-        if _NAMESAKE_NATURAL_SUFFIX_RE.search(name):
-            bare = re.sub(r"\([^)]*\)", " ", name)
-            words.update(
-                w for w in _namesake_words(bare) if len(w) >= 3 and w not in _NAMESAKE_QUALIFIERS
-            )
-    for groups in rules_v5.REQUIREMENTS.values():
-        for group in groups:
-            words.update(group)
-    synonym_groups = tuple(rules_v5._AVOID_GROUPS)
-    for group in synonym_groups:
-        words.update(group)
-    # Not odours (fixative, salicylate), or bare modifiers the profile
-    # annotations rarely spell out, so they would warn on formulas that have them.
-    words -= {
-        "fixative", "salicylate", "radiance", "warmth", "freshness", "sourness",
-        "airy", "bitter", "crisp", "dry", "ripe", "sheer", "tart", "warm",
-    }
-    return frozenset(words), synonym_groups
+def _namesake_terms(text: str) -> list[str]:
+    """Odour terms in reading order: known phrases first, then single words."""
+    tokens = _namesake_tokens(text)
+    terms: list[str] = []
+    i = 0
+    while i < len(tokens):
+        for size in (4, 2):
+            phrase = tuple(tokens[i:i + size])
+            if len(phrase) == size and phrase in _NAMESAKE_PHRASES:
+                terms.append(" ".join(phrase))
+                terms.extend(_NAMESAKE_PHRASES[phrase])
+                i += size
+                break
+        else:
+            terms.append(tokens[i])
+            i += 1
+    return terms
 
 
-def _namesake_forms(word: str, synonym_groups: tuple[frozenset[str], ...]) -> frozenset[str]:
-    forms = {word, f"{word}y", f"{word}ous", f"{word}ic"}
-    if word.endswith("y"):
-        forms.add(word[:-1])
-    for group in synonym_groups:
+def _namesake_forms(term: str) -> frozenset[str]:
+    """A term, its simple derivations (smoky -> smoke, freshness -> fresh) and synonyms."""
+    forms = {term}
+    if " " not in term:
+        for suffix in ("ness", "ous", "oid", "ic", "y"):
+            stem = term[: -len(suffix)]
+            if term.endswith(suffix) and len(stem) >= 3:
+                forms |= {stem, stem + "e"}
+                if stem[-1] == stem[-2]:
+                    forms.add(stem[:-1])
+    for group in _NAMESAKE_SYNONYMS:
         if forms & group:
             forms |= group
     return frozenset(forms)
 
 
-def _namesake_material_terms(name: str) -> tuple[frozenset[str], frozenset[str], str]:
-    """(identity words, own-odour words, odour prose) for one material.
+def _namesake_identity_names(material) -> tuple[str, ...]:
+    """The row's canonical material names, with dilution and carrier labels removed."""
+    names = []
+    for value in (material.name, material.canonical_name, material.profile_name,
+                  material.registry_name):
+        bare = re.sub(r"\([^)]*\)", " ", str(value or ""))
+        bare = re.sub(r"\s*\d+(?:\.\d+)?\s*%.*$", "", bare).strip()
+        if bare and bare.casefold() not in {n.casefold() for n in names}:
+            names.append(bare)
+    return tuple(names)
 
-    Own odour comes from the profile's own annotations only: positive character
-    dimensions, or_family and the positive clauses of its odour description.
-    Synergy partners, application roles and negated clauses are excluded.
+
+@functools.lru_cache(maxsize=4096)
+def _namesake_own_text(identity_names: tuple[str, ...]) -> tuple[str, str]:
+    """(identity text, own-odour descriptor text) for one material.
+
+    Descriptors come only from what describes the material's own smell: the
+    profile's positive character dimensions, or_family and positive odour
+    description, the ODT-table descriptor and the data/materials character
+    blurb.  Synergy partners, applications, origin and negated clauses are not used.
     """
+    from engine.data_spine.loader import load_registry
     from engine.formulation_intelligence.architecture_rules_v5 import positive_description
     from engine.ingredient_intelligence import get_profile
     from engine.odor_thresholds import ODT_DATA
 
-    profile = get_profile(name)
-    identity = set(_namesake_words(re.sub(r"\([^)]*\)", " ", name)))
-    own: set[str] = set()
-    if profile is not None:
-        identity.update(_namesake_words(re.sub(r"\([^)]*\)", " ", profile.name)))
-        own.update(
-            w for key, value in profile.character.items() if float(value or 0) > 0
-            for w in _namesake_words(key)
-        )
-        own.update(_namesake_words(profile.or_family or ""))
-        own.update(_namesake_words(positive_description(profile.odor_description)))
-    # ODT "char" prose only nominates near misses for the WARN text; it is a
-    # threshold-table gloss, not the profile's own-odour annotation.
-    odt_entry = ODT_DATA.get(name.casefold()) or (
-        ODT_DATA.get(profile.name.casefold()) if profile is not None else None
+    registry = load_registry()
+    names = list(identity_names)
+    texts: list[str] = []
+    for name in identity_names:
+        profile = get_profile(name)
+        if profile is None:
+            continue
+        names.append(profile.name)
+        texts.extend(key for key, value in profile.character.items() if float(value or 0) > 0)
+        texts.append(profile.or_family or "")
+        texts.append(positive_description(profile.odor_description or ""))
+        break
+    for name in dict.fromkeys(n.casefold() for n in names):
+        entry = ODT_DATA.get(name)
+        if isinstance(entry, dict) and entry.get("char"):
+            texts.append(positive_description(str(entry["char"])))
+        spine = registry.get(name)
+        if spine is not None and spine.character:
+            texts.append(positive_description(str(spine.character)))
+    identity = " ; ".join(re.sub(r"\([^)]*\)", " ", n) for n in dict.fromkeys(names))
+    return identity, " ; ".join(t for t in texts if t and t.strip())
+
+
+@functools.lru_cache(maxsize=1)
+def _namesake_vocabulary() -> frozenset[str]:
+    """Every odour form the repo's material data knows.
+
+    Own-odour descriptors of every profile, ODT-table entry and data/materials
+    record; the odour nouns of natural-material names (Vetiver EO -> vetiver);
+    and the synonym and phrase tables.  Name words outside this set (CHIMIE,
+    L'Homme, Intense, v1, 30mL) are not checked.
+    """
+    from engine.data_spine.loader import load_registry
+    from engine.formulation_intelligence.architecture_rules_v5 import positive_description
+    from engine.ingredient_intelligence import _PROFILES
+    from engine.odor_thresholds import ODT_DATA
+
+    texts: list[str] = []
+    names: list[str] = list(_PROFILES) + list(ODT_DATA)
+    for data in _PROFILES.values():
+        character = data.get("character")
+        if isinstance(character, dict):
+            texts.extend(key for key, value in character.items() if float(value or 0) > 0)
+        texts.append(str(data.get("or_family") or data.get("odor_family") or ""))
+        texts.append(positive_description(str(data.get("odor_description") or "")))
+    for entry in ODT_DATA.values():
+        if isinstance(entry, dict) and entry.get("char"):
+            texts.append(positive_description(str(entry["char"])))
+    for spine in load_registry().all():
+        names.append(spine.canonical_name)
+        if spine.character:
+            texts.append(positive_description(str(spine.character)))
+    texts.extend(name for name in names if _NAMESAKE_NATURAL_SUFFIX_RE.search(name))
+    texts.extend(" ".join(phrase) for phrase in _NAMESAKE_PHRASES)
+    texts.extend(term for group in _NAMESAKE_SYNONYMS for term in group)
+    vocabulary: set[str] = set()
+    for text in texts:
+        for term in _namesake_terms(re.sub(r"\([^)]*\)", " ", text)):
+            if len(term) >= 3:
+                vocabulary |= _namesake_forms(term)
+    return frozenset(vocabulary)
+
+
+@functools.lru_cache(maxsize=1)
+def _namesake_natural_nouns() -> frozenset[str]:
+    """Odour nouns of natural-material names: Rosemary EO -> rosemary."""
+    from engine.data_spine.loader import load_registry
+    from engine.ingredient_intelligence import _PROFILES
+
+    names = list(_PROFILES) + [spine.canonical_name for spine in load_registry().all()]
+    return frozenset(
+        term for name in names if _NAMESAKE_NATURAL_SUFFIX_RE.search(name)
+        for term in _namesake_terms(re.sub(r"\([^)]*\)", " ", name))
+        if len(term) >= 3 and term not in _NAMESAKE_NOT_ODOURS
     )
-    prose = str((odt_entry or {}).get("char", "")) if isinstance(odt_entry, dict) else ""
-    return frozenset(identity), frozenset(own), prose
+
+
+def _namesake_name_terms(name: str) -> tuple[list[str], list[str], list[str]]:
+    """(required odour terms, negated odour terms, unknown words) of a formula name.
+
+    Words after no/without/sans/minus up to the next separator, or before
+    "-free", are not required.
+    """
+    vocabulary = _namesake_vocabulary()
+    required: list[str] = []
+    negated: list[str] = []
+    unknown: list[str] = []
+    text = re.sub(r"([A-Za-z]+)[\s-]+free\b", r"| no \1 |", name, flags=re.I)
+    for segment in re.split(r"[—–,;:·|/()\[\]+&]|\s-\s", text):
+        negating = False
+        for term in _namesake_terms(segment):
+            if term in _NAMESAKE_NEGATORS:
+                negating = True
+                continue
+            if term in _NAMESAKE_NOT_ODOURS or len(term) < 3:
+                continue
+            if term not in vocabulary:
+                if term not in unknown:
+                    unknown.append(term)
+                continue
+            target = negated if negating else required
+            if term not in target:
+                target.append(term)
+    required = [term for term in required if term not in negated]
+    return required, negated, unknown
+
+
+def _namesake_carries(term: str, identity_terms: set[str], own_forms: set[str],
+                      vocabulary: frozenset[str]) -> bool:
+    forms = _namesake_forms(term)
+    if forms & own_forms:
+        return True
+    # Trade names that clearly embed the word: Vanillin -> vanilla,
+    # Tonkarome -> tonka, Suederal -> suede, Sandalore -> sandal(wood).
+    # A token that is another odour (rosemary) or a compound with one
+    # (rose+wood, lemon+grass) does not count.
+    stems = {f for f in forms if " " not in f and len(f) >= 4}
+    stems |= {f[:-1] for f in stems if len(f) >= 6}
+    nouns = _namesake_natural_nouns()
+    return any(
+        token.startswith(stem) and (token in forms or (
+            token not in nouns
+            and not (len(token) - len(stem) >= 3 and token[len(stem):] in vocabulary)
+        ))
+        for token in identity_terms for stem in stems
+    )
 
 
 def _gate_namesake(formula: Mapping, state: FormulaState) -> GateResult:
@@ -1807,58 +1976,63 @@ def _gate_namesake(formula: Mapping, state: FormulaState) -> GateResult:
     name = str(formula.get("name", "") or "").strip()
     if not name:
         return GateResult(gate="namesake", status="SKIP", detail="no formula name")
-    vocabulary, synonym_groups = _namesake_vocabulary()
-    words: list[str] = []
-    for word in _namesake_words(name):
-        if word in vocabulary and word not in words:
-            words.append(word)
+    words, negated, unknown = _namesake_name_terms(name)
     if not words:
         return GateResult(
             gate="namesake",
             status="SKIP",
             detail=f"no odour words in the name '{name}'",
-            data={"name": name, "words": []},
+            data={"name": name, "words": [], "not_required": negated, "not_checked": unknown},
         )
 
+    vocabulary = _namesake_vocabulary()
     total = float(state.odorant_active_ul or state.total_active_ul or 0.0)
     rows = []
     for material in state.materials:
         share = 100.0 * float(material.active_ul) / total if total > 0 else 0.0
-        identity, own, prose = _namesake_material_terms(material.name)
-        rows.append((material.name, share, identity, own, prose))
+        identity, own = _namesake_own_text(_namesake_identity_names(material))
+        identity_terms = set(_namesake_terms(identity))
+        own_forms: set[str] = set()
+        for term in identity_terms | set(_namesake_terms(own)):
+            own_forms |= _namesake_forms(term)
+        rows.append((material.name, share, identity_terms, own_forms, not own))
 
     carried_by: dict[str, list[str]] = {}
     closest: dict[str, list[str]] = {}
     for word in words:
-        forms = _namesake_forms(word, synonym_groups)
-        stem_re = re.compile(rf"^{re.escape(word)}(?:yl|ol|one|al|oid)?$")
         carriers, near = [], []
-        for mat_name, share, identity, own, prose in rows:
-            is_identity = any(stem_re.match(token) for token in identity)
-            if is_identity or own & forms:
+        for mat_name, share, identity_terms, own_forms, _opaque in rows:
+            if _namesake_carries(word, identity_terms, own_forms, vocabulary):
                 if share >= NAMESAKE_TRACE_SHARE_PCT:
                     carriers.append(mat_name)
-                    continue
-                near.append((share, f"{mat_name} {share:.2f}% (trace)"))
-            elif any(t[:5] == word[:5] for t in identity if len(word) >= 5) or (
-                forms & set(_namesake_words(prose))
-            ):
+                else:
+                    near.append((share, f"{mat_name} {share:.2f}% (trace)"))
+            elif len(word) >= 5 and any(t[:5] == word[:5] for t in identity_terms):
                 near.append((share, f"{mat_name} {share:.2f}%"))
         carried_by[word] = carriers
         closest[word] = [label for _, label in sorted(near, key=lambda item: -item[0])[:3]]
 
-    missing = [word for word in words if not carried_by[word]]
+    opaque = [
+        mat_name for mat_name, share, _i, _o, is_opaque in rows
+        if is_opaque and share >= NAMESAKE_TRACE_SHARE_PCT
+    ]
+    unmet = [word for word in words if not carried_by[word]]
+    unverified = unmet if opaque else []
+    missing = [word for word in unmet if word not in unverified]
     data = {
         "name": name,
         "words": words,
         "carried_by": carried_by,
         "missing": missing,
-        "closest": {word: closest[word] for word in missing},
+        "unverified": {word: opaque for word in unverified},
+        "not_required": negated,
+        "not_checked": unknown,
+        "closest": {word: closest[word] for word in unmet},
         "trace_share_pct": NAMESAKE_TRACE_SHARE_PCT,
         "share_basis": "percent of fragrance-active uL (odorant_active_ul)",
     }
     trace_note = f"trace = below {NAMESAKE_TRACE_SHARE_PCT}% of fragrance-active uL"
-    if not missing:
+    if not unmet:
         return _result(
             "namesake",
             "PASS",
@@ -1871,7 +2045,16 @@ def _gate_namesake(formula: Mapping, state: FormulaState) -> GateResult:
         if closest[word]:
             clause += f" (closest: {', '.join(closest[word])})"
         clauses.append(clause)
-    return _result("namesake", "WARN", "; ".join(clauses) + f" [{trace_note}]", data)
+    if unverified:
+        names = ", ".join(opaque[:2]) + (" and others" if len(opaque) > 2 else "")
+        verb = "has" if len(opaque) == 1 else "have"
+        clauses.append(
+            f"{names} {verb} no odour data, so {', '.join(unverified)} couldn't be checked"
+        )
+    detail = "; ".join(clauses) + f" [{trace_note}]"
+    if not missing:
+        return GateResult(gate="namesake", status="SKIP", detail=detail, data=data)
+    return _result("namesake", "WARN", detail, data)
 
 
 def _gate_perfume_knowledge(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
