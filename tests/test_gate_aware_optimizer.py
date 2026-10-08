@@ -235,3 +235,88 @@ def test_changed_final_formula_is_gated_once_against_exact_parent(monkeypatch):
     assert gate_calls[1][1] == gate_calls[0][0]
     assert gate_calls[1][0] != gate_calls[0][0]
     assert authority_reports == [result.gate_report]
+
+
+def _safety(result):
+    return {gate.gate: gate for gate in result.gate_report.gates}["safety_ifra_allergen"]
+
+
+def test_gate_aware_optimizer_repairs_failing_ifra_group_total():
+    # Each rose ketone passes its own 0.043 % limit; together they exceed the
+    # IFRA_STD_077 group limit, so only a group repair can clear the FAIL.
+    raw_pct = {
+        "Hedione": 25.0,
+        "Iso E Super": 25.0,
+        "Zenolide": 12.0,
+        "Linalool": 8.0,
+        "Geraniol": 5.0,
+        "Phenyl Ethyl Alcohol": 8.0,
+        "Vetiver EO": 4.0,
+        "Bergamot FCF": 10.0,
+        "Alpha Damascone": 1.5,
+        "Damascone Beta": 1.5,
+    }
+    dilutions = {"Alpha Damascone": 0.1, "Damascone Beta": 0.1}
+    pool = {"Iso E Super": 2.0, "Hedione": 1.0}
+
+    start = optimize_until_release_ready(
+        "Rose Ketone Group Test", raw_pct, stock_dilutions=dilutions,
+        config=_config(), repair_pool=pool, max_passes=0,
+    )
+    start_safety = _safety(start)
+    assert start_safety.status == "FAIL"
+    assert [v["material"] for v in start_safety.data["headroom_violations"]] == [
+        "rose_ketones_total"
+    ]
+    assert all(
+        row["verdict"] != "fail"
+        for row in start_safety.data["rows"]
+        if row["ifra_name"] in {"Alpha Damascone", "Beta Damascone"}
+    )
+
+    result = optimize_until_release_ready(
+        "Rose Ketone Group Test", raw_pct, stock_dilutions=dilutions,
+        config=_config(), repair_pool=pool,
+    )
+    safety = _safety(result)
+    caps = [
+        action for action in result.repair_actions
+        if action.action == "cap_ifra_finished_product_limit"
+    ]
+
+    assert safety.status != "FAIL"
+    assert {action.material for action in caps} == {"Alpha Damascone", "Damascone Beta"}
+    assert all("rose_ketones_total" in action.detail for action in caps)
+    group = {g["group"]: g for g in safety.data["groups"]}["rose_ketones_total"]
+    assert group["actual_pct"] <= group["limit_pct"]
+
+
+def test_gate_aware_optimizer_single_cap_clears_row_in_one_pass():
+    # The displaced oakmoss volume goes to Bacdanol, which is lighter than the oakmoss
+    # stock, so the finished mass falls after the cap; a cap aimed exactly at the limit
+    # lands a hair over it.
+    raw_pct = {
+        "Hedione": 25.0,
+        "Iso E Super": 25.0,
+        "Bacdanol": 20.0,
+        "Zenolide": 12.0,
+        "Linalool": 8.0,
+        "Vetiver EO": 6.0,
+        "Oakmoss Absolute": 4.0,
+    }
+    config = _config()
+    result = optimize_until_release_ready(
+        "One Pass Oakmoss Test", raw_pct,
+        stock_dilutions={"Oakmoss Absolute": 0.2},
+        config=config, repair_pool={"Bacdanol": 1.0}, max_passes=1,
+    )
+    # With one pass, the final report is the gate result that follows the first cap.
+    caps = [
+        action for action in result.repair_actions
+        if action.action == "cap_ifra_finished_product_limit"
+    ]
+    assert [(a.pass_index, a.material) for a in caps] == [(1, "Oakmoss Absolute")]
+    safety = _safety(result)
+    row = {r["material"]: r for r in safety.data["rows"]}["Oakmoss Absolute"]
+    assert row["actual_pct"] <= row["limit_pct"] * config.effective_ifra_headroom()
+    assert safety.status != "FAIL"

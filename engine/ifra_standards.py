@@ -160,6 +160,8 @@ class IFRACheck:
     ratio: float | None
     verdict: str
     message: str
+    # The matched table material's canonical name, which group "members" are keyed by.
+    ifra_name: str | None = None
 
 
 @dataclass(frozen=True)
@@ -542,6 +544,7 @@ def _check_row(
         ratio=ratio,
         verdict=verdict,
         message=message,
+        ifra_name=material.name,
     )
 
 

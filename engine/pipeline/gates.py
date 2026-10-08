@@ -1455,6 +1455,7 @@ def _ifra_row_dict(check: IFRACheck, headroom: float) -> dict:
     return {
         "material": check.material,
         "matched_name": check.matched_name,
+        "ifra_name": check.ifra_name,
         "ifra_status": check.status,
         "standard": check.standard,
         # Unrounded: the optimizer scales its cap by actual/limit, and a rounded value
