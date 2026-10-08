@@ -98,6 +98,7 @@
           <label class="goal-field">Describe the change
             <textarea name="goal" required maxlength="4000" placeholder="For example: Make the lavender clearer at 30 minutes, keep the dry amber, and do not add sweetness."></textarea>
           </label>
+          <p id="improve-draft-restored" class="draft-restored" hidden><span data-draft-restored-text></span> <button type="button" class="quiet-button" data-discard-draft="improve">Discard</button></p>
 
           <div class="field-pair compact-fields">
             <label>Style of answer
@@ -468,6 +469,7 @@
 
           <article id="formula-chat-result" class="panel formula-result-card" hidden>
             <div class="card-title-row"><div><p class="panel-index">Composition plan</p><h2 id="formula-result-name">Formula draft</h2></div><span id="formula-result-state" class="state-chip proposal">Proposal only</span></div>
+            <p id="formula-draft-restored" class="draft-restored" hidden><span data-draft-restored-text></span> <button type="button" class="quiet-button" data-discard-draft="create">Discard</button></p>
             <p id="formula-result-summary" class="friendly-boundary"></p>
             <div id="formula-variant-picker" class="formula-variant-picker" hidden aria-label="Design alternatives"></div>
             <div class="formula-table-wrap">

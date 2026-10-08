@@ -422,6 +422,35 @@ async def test_formula_studio_ui_exposes_inventory_and_conversation(client):
 
 
 @pytest.mark.asyncio
+async def test_create_and_improve_drafts_are_kept_in_browser_storage(client):
+    page = await client.get("/app")
+    css = await client.get("/static/lab.css")
+    javascript = await client.get("/static/lab.js")
+
+    assert '"perfume-lab.draft.create.v1"' in javascript.text
+    assert '"perfume-lab.draft.improve.v1"' in javascript.text
+    assert "const DRAFT_VERSION = 1;" in javascript.text
+    assert "const DRAFT_MAX_CHARS = 1000000;" in javascript.text
+    assert "`Restored your draft from ${formatDraftTime(iso)}. ${text}`" in javascript.text
+    assert "made from your inventory at that time" in javascript.text
+    assert "restoreStoredDrafts();\nrefresh()" in javascript.text
+    assert 'window.addEventListener("pagehide"' in javascript.text
+    # Every storage access is guarded so blocked or full storage cannot break the page.
+    lines = javascript.text.splitlines()
+    for call in ("localStorage.getItem(", "localStorage.setItem(", "localStorage.removeItem("):
+        positions = [index for index, line in enumerate(lines) if call in line]
+        assert len(positions) == 1
+        assert lines[positions[0] - 1].strip() == "try {"
+    # Only what the page draws is stored, not server source paths.
+    assert "stock_source_ref" not in javascript.text
+    assert 'id="formula-draft-restored"' in page.text
+    assert 'id="improve-draft-restored"' in page.text
+    assert 'data-discard-draft="create">Discard</button>' in page.text
+    assert 'data-discard-draft="improve">Discard</button>' in page.text
+    assert ".draft-restored" in css.text
+
+
+@pytest.mark.asyncio
 async def test_missing_owned_material_can_be_added_for_personal_design(client):
     inventory_response = await client.get(
         "/api/v1/lab/v2/workbench/current-inventory"
