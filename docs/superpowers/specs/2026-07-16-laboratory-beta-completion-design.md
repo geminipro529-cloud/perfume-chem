@@ -2,7 +2,7 @@
 
 **Date:** 2026-07-16
 **Status:** Self-approved under the user's delegated approval
-**Source:** `Perfume-Chem Completion Roadmap.txt`, `PERFUME_CHEM_PLAN.txt`, and `PERFUME_CHEM_IMPLEMENTATION.txt`
+**Source:** `docs/legacy-root/Perfume-Chem Completion Roadmap.txt`, `docs/legacy-root/PERFUME_CHEM_PLAN.txt`, and `docs/legacy-root/PERFUME_CHEM_IMPLEMENTATION.txt`
 
 ## Objective
 
