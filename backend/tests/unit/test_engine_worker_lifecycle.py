@@ -59,17 +59,32 @@ def test_autostart_env_parsing(value, expected) -> None:
     assert engine_worker_process.engine_worker_autostart_enabled(environ) is expected
 
 
+class _FakeStdin:
+    def __init__(self, calls: list[tuple]) -> None:
+        self.calls = calls
+
+    def close(self) -> None:
+        self.calls.append(("close_stdin",))
+
+
 class _FakeWorker:
     instances: list[_FakeWorker] = []
+    launch_errors: list[int] = []  # 1-based launch attempts that raise
 
     def __init__(self, args, **kwargs) -> None:
+        _FakeWorker.attempts += 1
+        if _FakeWorker.attempts in _FakeWorker.launch_errors:
+            raise OSError("fixture: could not start the worker")
         self.args = args
         self.kwargs = kwargs
         self.pid = 4242
         self.calls: list[tuple] = []
-        self.exit_on_terminate = True
+        self.stdin = _FakeStdin(self.calls)
+        self.ignores_stop = False
         self.returncode = None
         _FakeWorker.instances.append(self)
+
+    attempts = 0
 
     def poll(self):
         return self.returncode
@@ -79,7 +94,7 @@ class _FakeWorker:
 
     def wait(self, timeout):
         self.calls.append(("wait", timeout))
-        if not self.exit_on_terminate and len(self.calls) == 2:
+        if self.ignores_stop and ("kill",) not in self.calls:
             raise subprocess.TimeoutExpired(self.args, timeout)
         return 0
 
@@ -90,6 +105,8 @@ class _FakeWorker:
 @pytest.fixture
 def fake_popen(monkeypatch):
     _FakeWorker.instances = []
+    _FakeWorker.launch_errors = []
+    _FakeWorker.attempts = 0
     monkeypatch.setattr(engine_worker_process.subprocess, "Popen", _FakeWorker)
     monkeypatch.setattr(db_bootstrap, "upgrade_database", lambda _config: None)
     return _FakeWorker
@@ -109,8 +126,11 @@ async def test_lifespan_starts_one_worker_and_stops_it(monkeypatch, fake_popen) 
             str(engine_worker_process.REPOSITORY_ROOT),
             "/inherited",
         ]
+        assert worker.kwargs["env"]["PERFUME_ENGINE_WORKER_PARENT_PIPE"] == "1"
+        assert worker.kwargs["stdin"] == subprocess.PIPE
         assert worker.calls == []
-    assert worker.calls == [("terminate",), ("wait", 10)]
+    # Closing the pipe asks the worker to stop; no signal is needed.
+    assert worker.calls == [("close_stdin",), ("wait", 10)]
 
 
 @pytest.mark.asyncio
@@ -119,10 +139,12 @@ async def test_lifespan_kills_a_worker_that_ignores_terminate(
 ) -> None:
     monkeypatch.setenv("PERFUME_ENGINE_WORKER_AUTOSTART", "true")
     async with main_module.lifespan(FastAPI()):
-        fake_popen.instances[0].exit_on_terminate = False
+        fake_popen.instances[0].ignores_stop = True
     assert fake_popen.instances[0].calls == [
-        ("terminate",),
+        ("close_stdin",),
         ("wait", 10),
+        ("terminate",),
+        ("wait", 5),
         ("kill",),
         ("wait", 5),
     ]
@@ -159,7 +181,28 @@ async def test_lifespan_replaces_a_worker_that_died(
         await asyncio.sleep(0.05)
         assert len(fake_popen.instances) == 2
     assert first.calls == []
-    assert second.calls == [("terminate",), ("wait", 10)]
+    assert second.calls == [("close_stdin",), ("wait", 10)]
+
+
+@pytest.mark.asyncio
+async def test_supervisor_retries_a_launch_that_raised(
+    monkeypatch, fake_popen, fast_supervision
+) -> None:
+    monkeypatch.setenv("PERFUME_ENGINE_WORKER_AUTOSTART", "1")
+    fake_popen.launch_errors = [1, 3]  # at API start, then on a restart
+    async with main_module.lifespan(FastAPI()):
+
+        async def launched(count: int):
+            async def check() -> bool:
+                return len(fake_popen.instances) == count
+
+            return check
+
+        await _wait_until(await launched(1))
+        fake_popen.instances[0].returncode = -9
+        await _wait_until(await launched(2))
+        assert fake_popen.attempts == 4
+    assert fake_popen.instances[1].calls == [("close_stdin",), ("wait", 10)]
 
 
 @pytest.mark.asyncio

@@ -9,12 +9,15 @@ import os
 import secrets
 import signal
 import socket
+import sys
+import threading
 import time
+from collections.abc import Callable
 from contextlib import suppress
 from datetime import datetime, timezone
 from multiprocessing.connection import Connection
 from multiprocessing.process import BaseProcess
-from typing import Any, cast
+from typing import Any, NoReturn, cast
 
 from sqlalchemy import inspect
 from sqlalchemy.engine import Connection as SyncConnection
@@ -34,6 +37,25 @@ from app.services.lab_service import LabService
 
 logger = logging.getLogger(__name__)
 
+# Set by the API when it starts this worker with a pipe on stdin: EOF on that
+# pipe means the API exited (however it died) or asked the worker to stop.
+PARENT_PIPE_ENV = "PERFUME_ENGINE_WORKER_PARENT_PIPE"
+
+WORKER_STOPPED_CODE = "FAILED_CLOSED_WORKER_STOPPED"
+WORKER_STOPPED_MESSAGE = (
+    "The analysis stopped because the server restarted or shut down. Run it again."
+)
+_MAX_CONSECUTIVE_FAILED_ITERATIONS = 5
+
+# Job child processes of this worker, so a stop can terminate them.
+_children_lock = threading.Lock()
+_running_children: set[BaseProcess] = set()
+_stopping = threading.Event()
+
+
+class EngineJobWorkerStoppedError(RuntimeError):
+    """The worker is stopping, so the job's child process was terminated."""
+
 
 class EngineJobChildTimeoutError(TimeoutError):
     """The isolated job process exceeded its server-owned hard deadline."""
@@ -51,6 +73,10 @@ def _child_execute(
 ) -> None:
     """Execute one closed-registry command in a disposable child process."""
 
+    # Ctrl+C reaches the whole console process group; the worker decides when
+    # a child stops, so the job is failed as stopped rather than as an error.
+    with suppress(ValueError, OSError):
+        signal.signal(signal.SIGINT, signal.SIG_IGN)
     try:
         result = execute_registered_engine_job(
             job_type,
@@ -92,7 +118,11 @@ def _execute_isolated(
         daemon=False,
     )
     try:
-        process.start()
+        with _children_lock:
+            if _stopping.is_set():
+                raise EngineJobWorkerStoppedError(WORKER_STOPPED_CODE)
+            process.start()
+            _running_children.add(process)
         sending.close()
         if not receiving.poll(float(timeout_seconds)):
             _terminate_child(process)
@@ -100,6 +130,8 @@ def _execute_isolated(
         try:
             outcome, value = receiving.recv()
         except EOFError as error:
+            if _stopping.is_set():
+                raise EngineJobWorkerStoppedError(WORKER_STOPPED_CODE) from error
             raise EngineJobChildFailureError("ENGINE_JOB_CHILD_NO_RECEIPT") from error
         process.join(timeout=5)
         if process.is_alive():
@@ -111,7 +143,55 @@ def _execute_isolated(
     finally:
         receiving.close()
         sending.close()
-        _terminate_child(process)
+        if process.pid is not None:
+            _terminate_child(process)
+        with _children_lock:
+            _running_children.discard(process)
+
+
+def _terminate_running_children(*, wait: bool) -> None:
+    """Refuse new job children and terminate the running ones.
+
+    Each job's own thread then joins its child and fails the job as stopped.
+    With ``wait`` (the process is about to ``os._exit``) join them here too.
+    """
+
+    with _children_lock:
+        _stopping.set()
+        children = list(_running_children)
+    for child in children:
+        with suppress(Exception):
+            child.terminate()
+    if not wait:
+        return
+    for child in children:
+        with suppress(Exception):
+            child.join(timeout=5)
+            if child.is_alive():
+                child.kill()
+                child.join(timeout=5)
+
+
+def _exit_process(code: int) -> NoReturn:
+    os._exit(code)
+
+
+def _watch_parent_pipe(fd: int, on_eof: Callable[[], object]) -> threading.Thread:
+    """Call ``on_eof`` from a daemon thread once ``fd`` reaches end of file."""
+
+    def read_until_eof() -> None:
+        try:
+            while os.read(fd, 4096):
+                pass
+        except OSError:
+            pass
+        on_eof()
+
+    thread = threading.Thread(
+        target=read_until_eof, name="engine-worker-parent-pipe", daemon=True
+    )
+    thread.start()
+    return thread
 
 
 _REQUIRED_TABLE_NAMES = frozenset({*CP2_ENGINE_JOB_TABLE_NAMES, "lab_engine_workers"})
@@ -212,6 +292,18 @@ async def _execute_lease(
             lease.job.timeout_seconds,
             lease.job.contract_version,
         )
+    except EngineJobWorkerStoppedError:
+        return (
+            "FAILED",
+            {
+                "status": "FAILED",
+                "code": WORKER_STOPPED_CODE,
+                "message": WORKER_STOPPED_MESSAGE,
+                "formula_action": "NO_CHANGE",
+            },
+            WORKER_STOPPED_CODE,
+            {},
+        )
     except EngineJobChildTimeoutError:
         return (
             "FAILED",
@@ -286,21 +378,25 @@ async def _run_lease(owner: str) -> bool:
 
 
 async def _record_liveness(worker_id: str, started_at: datetime) -> None:
-    try:
-        async with get_session() as session:
-            await record_engine_worker_seen(
-                session,
-                worker_id=worker_id,
-                pid=os.getpid(),
-                host=socket.gethostname(),
-                started_at=started_at,
-            )
-    except Exception:
-        logger.exception("Could not record engine worker liveness; will retry")
+    async with get_session() as session:
+        await record_engine_worker_seen(
+            session,
+            worker_id=worker_id,
+            pid=os.getpid(),
+            host=socket.gethostname(),
+            started_at=started_at,
+        )
 
 
 async def run_worker(stop: asyncio.Event | None = None) -> None:
-    """Poll for jobs until SIGINT/SIGTERM (or ``stop``, for callers that own it)."""
+    """Poll for jobs until stopped, then fail the running jobs as stopped.
+
+    Without ``stop`` this owns the process: SIGINT/SIGTERM stop it, and so
+    does EOF on stdin when ``PERFUME_ENGINE_WORKER_PARENT_PIPE=1`` (the API
+    started it).  A maintenance error is logged and retried; after five
+    failing iterations in a row the process exits with status 1 so its
+    supervisor replaces it.
+    """
 
     settings = get_settings()
     concurrency = settings.ENGINE_JOB_WORKER_CONCURRENCY
@@ -308,12 +404,18 @@ async def run_worker(stop: asyncio.Event | None = None) -> None:
     heartbeat_seconds = settings.ENGINE_WORKER_HEARTBEAT_SECONDS
     owner_prefix = f"{socket.gethostname()}:{os.getpid()}"
     worker_id = f"{owner_prefix}:{secrets.token_hex(4)}"
+    _stopping.clear()
     if stop is None:
         stop = asyncio.Event()
         loop = asyncio.get_running_loop()
         for signum in (signal.SIGINT, signal.SIGTERM):
             with suppress(NotImplementedError):
                 loop.add_signal_handler(signum, stop.set)
+        if os.environ.get(PARENT_PIPE_ENV) == "1":
+            event = stop
+            _watch_parent_pipe(
+                sys.stdin.fileno(), lambda: loop.call_soon_threadsafe(event.set)
+            )
 
     if not await wait_for_engine_job_tables(
         stop,
@@ -322,50 +424,70 @@ async def run_worker(stop: asyncio.Event | None = None) -> None:
     ):
         return
     started_at = datetime.now(timezone.utc)
-    await _record_liveness(worker_id, started_at)
+    try:
+        await _record_liveness(worker_id, started_at)
+    except Exception:
+        logger.exception("Could not record engine worker liveness; will retry")
     last_seen = time.monotonic()
 
     active: set[asyncio.Task[bool]] = set()
+    stop_requested = asyncio.ensure_future(stop.wait())
+    failed_iterations = 0
     logger.info("Engine worker %s started with concurrency=%s", worker_id, concurrency)
     try:
         while not stop.is_set():
-            if time.monotonic() - last_seen >= heartbeat_seconds:
-                await _record_liveness(worker_id, started_at)
-                last_seen = time.monotonic()
-            async with get_session() as session:
-                await LabService(session).fail_expired_engine_jobs()
+            failed = False
+            try:
+                if time.monotonic() - last_seen >= heartbeat_seconds:
+                    await _record_liveness(worker_id, started_at)
+                    last_seen = time.monotonic()
+                async with get_session() as session:
+                    await LabService(session).fail_expired_engine_jobs()
+            except Exception:
+                logger.exception("Engine worker maintenance failed; continuing")
+                failed = True
             while len(active) < concurrency and not stop.is_set():
                 slot = len(active) + 1
                 task = asyncio.create_task(_run_lease(f"{owner_prefix}:{slot}"))
                 active.add(task)
                 await asyncio.sleep(0)
-                if task.done() and not task.result():
+                if task.done() and task.exception() is None and not task.result():
                     active.remove(task)
                     break
-            if active:
-                done, pending = await asyncio.wait(
-                    active,
-                    timeout=poll_seconds,
-                    return_when=asyncio.FIRST_COMPLETED,
+            done, _pending = await asyncio.wait(
+                {*active, stop_requested},
+                timeout=poll_seconds,
+                return_when=asyncio.FIRST_COMPLETED,
+            )
+            for task in done - {stop_requested}:
+                active.discard(cast(asyncio.Task[bool], task))
+                error = task.exception()
+                if error is not None:
+                    logger.error(
+                        "Engine job claim or completion failed; continuing",
+                        exc_info=error,
+                    )
+                    failed = True
+            failed_iterations = failed_iterations + 1 if failed else 0
+            if failed_iterations >= _MAX_CONSECUTIVE_FAILED_ITERATIONS:
+                logger.error(
+                    "Engine worker %s failed %s iterations in a row; exiting",
+                    worker_id,
+                    failed_iterations,
                 )
-                active = set(pending)
-                for task in done:
-                    with suppress(Exception):
-                        task.result()
-            else:
-                try:
-                    await asyncio.wait_for(stop.wait(), timeout=poll_seconds)
-                except TimeoutError:
-                    pass
+                _terminate_running_children(wait=True)
+                _exit_process(1)
 
         if active:
+            # Stop: terminate the job children; each job fails as stopped.
+            _terminate_running_children(wait=False)
             await asyncio.gather(*active, return_exceptions=True)
     finally:
+        stop_requested.cancel()
         with suppress(Exception):
             async with get_session() as session:
                 await remove_engine_worker(session, worker_id=worker_id)
         logger.info("Engine worker %s stopped", worker_id)
-
 
 
 def main() -> None:
@@ -377,4 +499,4 @@ if __name__ == "__main__":
     main()
 
 
-__all__ = ["main", "run_worker"]
+__all__ = ["PARENT_PIPE_ENV", "WORKER_STOPPED_CODE", "main", "run_worker"]
