@@ -402,6 +402,32 @@ class FormulaAnalysisImportParser:
             return f'the table under "{heading}" (line {line})'
         return f"the table at line {line}"
 
+    @staticmethod
+    def _amount_differences(
+        table_rows: list[ParsedAnalysisRow],
+        keys: list[str],
+        first_kept: dict[str, ParsedAnalysisRow],
+        first_seen: dict[str, int],
+        limit: int = 3,
+    ) -> str:
+        """Name the restated amounts that disagree with the rows already read."""
+
+        def comparable(row: ParsedAnalysisRow) -> tuple[Decimal, str]:
+            amount = Decimal(row.amount_decimal)
+            if row.amount_unit == "mL":
+                return amount * 1000, "uL"
+            return amount, row.amount_unit
+
+        found = [
+            f"{row.material} {row.amount_decimal} {row.amount_unit} here, "
+            f"{first_kept[key].amount_decimal} {first_kept[key].amount_unit} at line {first_seen[key]}"
+            for row, key in zip(table_rows, keys, strict=True)
+            if comparable(row) != comparable(first_kept[key])
+        ]
+        if len(found) > limit:
+            return "; ".join(found[:limit]) + f"; and {len(found) - limit} more"
+        return "; ".join(found)
+
     @classmethod
     def _without_restated_tables(
         cls,
@@ -424,6 +450,7 @@ class FormulaAnalysisImportParser:
         """
         kept: list[ParsedAnalysisRow] = []
         first_seen: dict[str, int] = {}
+        first_kept: dict[str, ParsedAnalysisRow] = {}
         kept_additions: list[int] = []
         for table_line in dict.fromkeys(row_tables):
             table_rows = [
@@ -434,9 +461,16 @@ class FormulaAnalysisImportParser:
             repeated = [key for key in dict.fromkeys(keys) if key in first_seen]
             if kept and table_line not in addition_tables:
                 if repeated and len(repeated) == len(set(keys)):
+                    differences = cls._amount_differences(table_rows, keys, first_kept, first_seen)
+                    note = (
+                        f" Its amounts differ from the rows already read ({differences}); "
+                        "check which is right."
+                        if differences
+                        else ""
+                    )
                     warnings.append(
                         f"Skipped {label}: every material in it was already read above, "
-                        "so it restates the formula rather than adding to it."
+                        f"so it restates the formula rather than adding to it.{note}"
                     )
                     continue
                 if repeated:
@@ -471,8 +505,9 @@ class FormulaAnalysisImportParser:
             kept.extend(table_rows)
             if table_line in addition_tables:
                 kept_additions.append(table_line)
-            for key in keys:
+            for key, row in zip(keys, table_rows, strict=True):
                 first_seen.setdefault(key, table_line)
+                first_kept.setdefault(key, row)
         if kept_additions:
             lines = ", ".join(str(line) for line in kept_additions)
             warnings.append(

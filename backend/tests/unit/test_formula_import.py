@@ -301,6 +301,18 @@ def test_summary_table_with_dilution_note_in_name_is_skipped_with_warning():
     assert any('under "The musk chord"' in warning for warning in result.warnings)
 
 
+def test_skipped_summary_names_amounts_that_differ_from_the_build():
+    summary = (
+        "| Material | Dose |\n|---|---|\n"
+        "| Hedione | 0.120 mL |\n| Ambrettolide | 900 µL |"
+    )
+    result, rows = _analysis_rows(f"{_BUILD}\n## Summary\n\n{summary}")
+    assert [row[:2] for row in rows] == [("Hedione", "120"), ("Ambrettolide", "100")]
+    warning = next(w for w in result.warnings if 'under "Summary"' in w)
+    assert "Ambrettolide 900 uL here, 100 uL at line 3" in warning
+    assert "Hedione" not in warning
+
+
 def test_partially_overlapping_table_refuses_the_import():
     later = "| Material | Dose |\n|---|---|\n| Hedione | 80 µL |\n| Linalool | 40 µL |"
     result, _ = _analysis_rows(f"{_BUILD}\n## Summary\n\n{later}")
