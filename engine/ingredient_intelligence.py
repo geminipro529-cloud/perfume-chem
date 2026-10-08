@@ -3620,6 +3620,8 @@ _ALIASES = {
     "Phenylacetaldehyde Dimethyl Acetal": "padma",
     "Ambrox Super Crystals": "Ambrox Super",
     "Citral Natural": "Citral",
+    # Owner's Exaltolide bottle is Pentalide (Kenny 2026-10-08), CAS 106-02-5.
+    "Pentalide": "Exaltolide",
 }
 
 

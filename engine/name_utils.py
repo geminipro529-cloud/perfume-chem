@@ -222,6 +222,8 @@ _ALIASES: dict[str, str] = {
     "phenylacetaldehyde dimethyl acetal (padma)": "padma",
     "ambrox super crystals": "ambrox super",
     "citral natural": "citral",
+    # owner's Exaltolide bottle is Pentalide (same molecule, CAS 106-02-5)
+    "pentalide": "exaltolide",
 }
 
 
