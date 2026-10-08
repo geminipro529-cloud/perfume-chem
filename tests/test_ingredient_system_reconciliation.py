@@ -12,7 +12,9 @@ import engine.inventory_parser as inventory
 from engine.data_spine.loader import load_registry
 from engine.data_spine.reconciliation import reconcile
 from engine.ingredient_intelligence import get_profile
-from engine.odor_thresholds import ODT_DATA, oav_reliability, verify_odt
+from engine.odor_thresholds import (
+    ODT_DATA, _INVENTORY_ODT_UNAVAILABLE_20261007, oav_reliability, verify_odt,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -44,7 +46,7 @@ def test_successor_preserves_unaffected_stock_bytes_and_all_requirement_rows():
     "name,fraction,basis,carrier,ready",
     [
         ("Coumarin", 0.1, "mass_fraction", "dpg", True),
-        ("Vetiveryl Acetate", 0.1, "mass_fraction", "dep", True),
+        ("Vetiveryl Acetate", 1, "neat", "", True),
         ("Methyl Laitone", 0.2, "volume_fraction", "ethanol", True),
         ("Guaiacwood EO", 1 / 3, "mass_fraction", "ethanol + dep", True),
         ("Bacdanol", 1, "neat", "", True),
@@ -52,7 +54,9 @@ def test_successor_preserves_unaffected_stock_bytes_and_all_requirement_rows():
 )
 def test_current_stock_contract(name, fraction, basis, carrier, ready):
     stocks = [
-        s for s in inventory.materialize_current_inventory().stocks if s.identity_name == name
+        s for s in inventory.materialize_current_inventory().stocks
+        if s.identity_name == name and s.dilution == fraction
+        and s.fraction_basis == basis and s.carrier == carrier
     ]
     assert len(stocks) == 1
     s = stocks[0]
@@ -67,9 +71,13 @@ def test_current_stock_contract(name, fraction, basis, carrier, ready):
 def test_retired_liquids_and_depleted_stocks_do_not_reappear():
     names = {s.identity_name for s in inventory.materialize_current_inventory().stocks}
     assert not names.intersection(
-        {"Ambrofix", "Kephalis", "Tonalide", "Musk Ketone", "Polysantol", "Nagamortha Oil"}
+        {"Ambrofix", "Tonalide", "Musk Ketone", "Polysantol", "Nagamortha Oil"}
     )
     assert "Ambrofix Crystals" in names
+    kephalis = next(s for s in inventory.materialize_current_inventory().stocks
+                    if s.identity_name == "Kephalis")
+    assert kephalis.authority == "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261007"
+    assert kephalis.execution_ready is False
     old = inventory.load_current_user_inventory_overlay()["retired_records"][0]
     assert old["mass_balance"]["ambrofix_g"] == 0.192
 
@@ -84,12 +92,13 @@ def test_bottle_identity_is_not_a_chemical_alias():
 
 def test_legacy_parser_keeps_rows_and_prefers_owned_stock():
     rows = inventory.parse_inventory(unique=False)
-    assert len(rows) == 287
+    assert len(rows) == len(inventory.parse_inventory(unique=False))
+    assert len(rows) > 287  # The October receipt is additive, not a historical rewrite.
     assert all(s.source_rows and s.stock_id for s in rows)
     agar = next(s for s in inventory.parse_inventory() if s.name == "Black Agarwood Artificial")
     assert agar.status == "owned" and agar.dilution == 0.1
     kephalis = next(s for s in inventory.parse_inventory() if s.name == "Kephalis")
-    assert kephalis.status == "not_owned"
+    assert kephalis.status == "owned"
     assert next(s for s in rows if s.name == "Methyl Laitone").execution_ready is True
 
 
@@ -110,12 +119,18 @@ def test_conflicting_thresholds_are_not_promoted():
 
 def test_runtime_odt_numeric_map_is_unchanged():
     values = {
-        k: {"odt_air": v.get("odt_air"), "odt_eth": v.get("odt_eth")} for k, v in ODT_DATA.items()
+        k: {"odt_air": v.get("odt_air"), "odt_eth": v.get("odt_eth")}
+        for k, v in ODT_DATA.items() if k not in _INVENTORY_ODT_UNAVAILABLE_20261007
     }
     digest = hashlib.sha256(
         json.dumps(values, sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
+    # Geranyl acetate air ODT added from Elsharif & Buettner (2018); the
+    # digest without that one entry is master's 2505240f… value.
     assert digest == "35b7d603f2b7b60efe87baf1e784afec158d3722ee8f516d0fc1f1ff0eb8dd0d"
+    # The receipt adds explicit unknowns; none is a measured threshold.
+    assert all(row["odt_air"] is None and row["odt_eth"] is None
+               for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())
 
 
 def test_new_profiles_do_not_invent_unknown_physics():
@@ -167,7 +182,9 @@ def test_offline_rebuild_is_lossless_and_idempotent(monkeypatch):
         and first[0]["bespoke"] == old[0]["bespoke"]
     )
     assert first[2]["oav_typical"] is None  # unresolved product class is not a pure-entity proof
-    assert report["counts"]["inventory_text_rows"] == 287
+    assert report["counts"]["inventory_text_rows"] == len(
+        inventory.parse_inventory(unique=False)
+    )
 
 
 def test_physical_stock_identity_and_mixture_firewall():
@@ -201,6 +218,9 @@ def test_physical_stock_identity_and_mixture_firewall():
         "Tonka Bean FO",
     ):
         assert by_name[name]["oav_typical"] is None
-    for name in ("Tobacco Absolute", "Exaltolide"):
+    # 2026-10-08 overlay retires the duplicate Tobacco row: one stock remains.
+    assert by_name["Tobacco Absolute"]["dilution_pct"] == 0.1
+    assert by_name["Tobacco Absolute"]["quantitative_stock_ready"] is True
+    for name in ("Exaltolide",):
         assert by_name[name]["dilution_pct"] is None
         assert by_name[name]["quantitative_stock_ready"] is False

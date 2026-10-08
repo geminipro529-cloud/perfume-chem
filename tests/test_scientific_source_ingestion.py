@@ -624,14 +624,19 @@ def test_governed_source_rights_census_preserves_source_specific_scopes() -> Non
         for path in sorted(manifest_root.glob("*.json"))
     }
 
-    assert set(manifests) == {
+    historical_names = {
         "dream_olfaction_fb47cb343cdf.json",
         "keller_vosshall_2016_fulltext_7e7f309706f5.json",
         "keller_vosshall_2016_study_data_efcb1b075584.json",
         "pubchem_geraniol_cas_629488ac5296.json",
         "pubchem_geraniol_properties_d21151198ff5.json",
     }
-    rights = [manifest["rights"] for manifest in manifests.values()]
+    assert historical_names <= set(manifests)
+    assert set(manifests) - historical_names == {
+        "optimizer_sensory_research_20260909.json",
+        "perfumersworld_inventory_documents_20260830.json",
+    }
+    rights = [manifests[name]["rights"] for name in historical_names]
     assert sum(item["reuse_status"] == "PERMITTED" for item in rights) == 3
     assert sum(item["reuse_status"] == "RESTRICTED" for item in rights) == 2
     assert all(isinstance(item["redistribution_allowed"], bool) for item in rights)
@@ -1523,3 +1528,26 @@ def test_cli_dry_run_writes_nothing(tmp_path: Path, capsys: pytest.CaptureFixtur
     payload = json.loads(capsys.readouterr().out)
     assert payload["accepted"] is True
     assert payload["written"] == {}
+
+
+def test_cli_rejection_is_structured_and_writes_nothing(tmp_path, capsys):
+    manifest, source_root = _fixture(tmp_path)
+    manifest["artifacts"][0]["sha256"] = "0" * 64
+    manifest_path = tmp_path / "rejected-manifest.json"
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    output_dir = tmp_path / "rejected-output"
+    code = importer_main([
+        "--manifest", str(manifest_path), "--source-root", str(source_root),
+        "--output-dir", str(output_dir), "--json",
+    ])
+    assert code == 2
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["accepted"] is False
+    assert payload["rejections"]
+    assert all(set(item) == {"code", "detail", "field"} for item in payload["rejections"])
+    assert payload["written"] == {}
+    assert not output_dir.exists()
+    assert all(payload[field] is False for field in (
+        "release_authority", "safety_authority", "compounding_authority",
+        "evidence_admission_authorized",
+    ))

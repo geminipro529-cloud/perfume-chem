@@ -3882,6 +3882,210 @@ ODT_VERIFICATION.setdefault("tuberose eo (volume level grade)", {}).update(
 )
 # ─────────────────────────────────────────────────────────────────────
 # MATERIAL_INTAKE_REMEDIATION_2026_08_07 — refresh normalized index + verification after batch block
+
+# Received inventory 2026-10-07. A purchase receipt supplies no odor thresholds.
+_INVENTORY_ODT_UNAVAILABLE_20261007 = {'ambrette seed absolute': {'odt_air': None,
+                            'odt_eth': None,
+                            'vfy': 'UNAVAILABLE',
+                            'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                            'note': 'Inventory receipt establishes product and stock ownership '
+                                    'only; no compatible measured threshold is supplied.'},
+ 'helvetolide': {'odt_air': None,
+                 'odt_eth': None,
+                 'vfy': 'UNAVAILABLE',
+                 'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                 'note': 'Inventory receipt establishes product and stock ownership only; no '
+                         'compatible measured threshold is supplied.'},
+ 'gamma octalactone': {'odt_air': None,
+                       'odt_eth': None,
+                       'vfy': 'UNAVAILABLE',
+                       'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                       'note': 'Inventory receipt establishes product and stock ownership only; no '
+                               'compatible measured threshold is supplied.'},
+ 'aldehyde c-12 lauric dodecanal': {'odt_air': None,
+                                    'odt_eth': None,
+                                    'vfy': 'UNAVAILABLE',
+                                    'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                                    'note': 'Inventory receipt establishes product and stock '
+                                            'ownership only; no compatible measured threshold is '
+                                            'supplied.'},
+ 'aldehyde c-8 octanal': {'odt_air': None,
+                          'odt_eth': None,
+                          'vfy': 'UNAVAILABLE',
+                          'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                          'note': 'Inventory receipt establishes product and stock ownership only; '
+                                  'no compatible measured threshold is supplied.'},
+ 'aldehyde c-9 nonanal': {'odt_air': None,
+                          'odt_eth': None,
+                          'vfy': 'UNAVAILABLE',
+                          'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                          'note': 'Inventory receipt establishes product and stock ownership only; '
+                                  'no compatible measured threshold is supplied.'},
+ 'acetoin': {'odt_air': None,
+             'odt_eth': None,
+             'vfy': 'UNAVAILABLE',
+             'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+             'note': 'Inventory receipt establishes product and stock ownership only; no '
+                     'compatible measured threshold is supplied.'},
+ 'buccoxime': {'odt_air': None,
+               'odt_eth': None,
+               'vfy': 'UNAVAILABLE',
+               'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+               'note': 'Inventory receipt establishes product and stock ownership only; no '
+                       'compatible measured threshold is supplied.'},
+ 'frangipani absolute': {'odt_air': None,
+                         'odt_eth': None,
+                         'vfy': 'UNAVAILABLE',
+                         'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                         'note': 'Inventory receipt establishes product and stock ownership only; '
+                                 'no compatible measured threshold is supplied.'},
+ 'manzanate': {'odt_air': None,
+               'odt_eth': None,
+               'vfy': 'UNAVAILABLE',
+               'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+               'note': 'Inventory receipt establishes product and stock ownership only; no '
+                       'compatible measured threshold is supplied.'},
+ 'mate absolute': {'odt_air': None,
+                   'odt_eth': None,
+                   'vfy': 'UNAVAILABLE',
+                   'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                   'note': 'Inventory receipt establishes product and stock ownership only; no '
+                           'compatible measured threshold is supplied.'},
+ 'orris concrete orris butter': {'odt_air': None,
+                                 'odt_eth': None,
+                                 'vfy': 'UNAVAILABLE',
+                                 'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                                 'note': 'Inventory receipt establishes product and stock '
+                                         'ownership only; no compatible measured threshold is '
+                                         'supplied.'},
+ 'rose otto bulgarian': {'odt_air': None,
+                         'odt_eth': None,
+                         'vfy': 'UNAVAILABLE',
+                         'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                         'note': 'Inventory receipt establishes product and stock ownership only; '
+                                 'no compatible measured threshold is supplied.'},
+ 'cis-3 hexenyl acetate': {'odt_air': None,
+                           'odt_eth': None,
+                           'vfy': 'UNAVAILABLE',
+                           'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                           'note': 'Inventory receipt establishes product and stock ownership '
+                                   'only; no compatible measured threshold is supplied.'},
+ 'cis-3 hexenyl hexanoate': {'odt_air': None,
+                             'odt_eth': None,
+                             'vfy': 'UNAVAILABLE',
+                             'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                             'note': 'Inventory receipt establishes product and stock ownership '
+                                     'only; no compatible measured threshold is supplied.'},
+ 'glycolierral': {'odt_air': None,
+                  'odt_eth': None,
+                  'vfy': 'UNAVAILABLE',
+                  'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                  'note': 'Inventory receipt establishes product and stock ownership only; no '
+                          'compatible measured threshold is supplied.'},
+ 'magnolan': {'odt_air': None,
+              'odt_eth': None,
+              'vfy': 'UNAVAILABLE',
+              'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+              'note': 'Inventory receipt establishes product and stock ownership only; no '
+                      'compatible measured threshold is supplied.'},
+ 'veloutone': {'odt_air': None,
+               'odt_eth': None,
+               'vfy': 'UNAVAILABLE',
+               'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+               'note': 'Inventory receipt establishes product and stock ownership only; no '
+                       'compatible measured threshold is supplied.'},
+ 'methyl diantilis': {'odt_air': None,
+                      'odt_eth': None,
+                      'vfy': 'UNAVAILABLE',
+                      'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                      'note': 'Inventory receipt establishes product and stock ownership only; no '
+                              'compatible measured threshold is supplied.'},
+ 'cedryl acetate': {'odt_air': None,
+                    'odt_eth': None,
+                    'vfy': 'UNAVAILABLE',
+                    'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                    'note': 'Inventory receipt establishes product and stock ownership only; no '
+                            'compatible measured threshold is supplied.'},
+ 'rhubofix': {'odt_air': None,
+              'odt_eth': None,
+              'vfy': 'UNAVAILABLE',
+              'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+              'note': 'Inventory receipt establishes product and stock ownership only; no '
+                      'compatible measured threshold is supplied.'},
+ 'phenyl acetaldehyde': {'odt_air': None,
+                         'odt_eth': None,
+                         'vfy': 'UNAVAILABLE',
+                         'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                         'note': 'Inventory receipt establishes product and stock ownership only; '
+                                 'no compatible measured threshold is supplied.'},
+ 'lemon terpeneless oil sicilian': {'odt_air': None,
+                                    'odt_eth': None,
+                                    'vfy': 'UNAVAILABLE',
+                                    'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                                    'note': 'Inventory receipt establishes product and stock '
+                                            'ownership only; no compatible measured threshold is '
+                                            'supplied.'},
+ 'ethyl linalyl acetate': {'odt_air': None,
+                           'odt_eth': None,
+                           'vfy': 'UNAVAILABLE',
+                           'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                           'note': 'Inventory receipt establishes product and stock ownership '
+                                   'only; no compatible measured threshold is supplied.'},
+ 'diethyl malonate': {'odt_air': None,
+                      'odt_eth': None,
+                      'vfy': 'UNAVAILABLE',
+                      'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                      'note': 'Inventory receipt establishes product and stock ownership only; no '
+                              'compatible measured threshold is supplied.'},
+ 'butyl butyrate': {'odt_air': None,
+                    'odt_eth': None,
+                    'vfy': 'UNAVAILABLE',
+                    'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                    'note': 'Inventory receipt establishes product and stock ownership only; no '
+                            'compatible measured threshold is supplied.'},
+ 'berry hexanoate (berryflor)': {'odt_air': None,
+                                 'odt_eth': None,
+                                 'vfy': 'UNAVAILABLE',
+                                 'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                                 'note': 'Inventory receipt establishes product and stock '
+                                         'ownership only; no compatible measured threshold is '
+                                         'supplied.'},
+ 'fructone b': {'odt_air': None,
+                'odt_eth': None,
+                'vfy': 'UNAVAILABLE',
+                'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                'note': 'Inventory receipt establishes product and stock ownership only; no '
+                        'compatible measured threshold is supplied.'},
+ 'vanilla absolute': {'odt_air': None,
+                      'odt_eth': None,
+                      'vfy': 'UNAVAILABLE',
+                      'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                      'note': 'Inventory receipt establishes product and stock ownership only; no '
+                              'compatible measured threshold is supplied.'},
+ 'black tea base': {'odt_air': None,
+                    'odt_eth': None,
+                    'vfy': 'UNAVAILABLE',
+                    'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                    'note': 'Inventory receipt establishes product and stock ownership only; no '
+                            'compatible measured threshold is supplied.'},
+ 'lavandin absolute': {'odt_air': None,
+                       'odt_eth': None,
+                       'vfy': 'UNAVAILABLE',
+                       'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+                       'note': 'Inventory receipt establishes product and stock ownership only; no '
+                               'compatible measured threshold is supplied.'},
+ 'saffranal': {'odt_air': None,
+               'odt_eth': None,
+               'vfy': 'UNAVAILABLE',
+               'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
+               'note': 'Inventory receipt establishes product and stock ownership only; no '
+                       'compatible measured threshold is supplied.'}}
+ODT_DATA.update(_INVENTORY_ODT_UNAVAILABLE_20261007)
+ODT_VERIFICATION.update(
+    {name: {"vfy": "UNAVAILABLE", "sources": entry["sources"], "note": entry["note"]}
+     for name, entry in _INVENTORY_ODT_UNAVAILABLE_20261007.items()}
+)
+
 # (auditor CRITICAL C1: without this, batch ODT_DATA entries are unreachable via runtime lookup)
 MATERIAL_INTAKE_REMEDIATION_2026_08_07 = True
 _refresh_normalized_odt_index()

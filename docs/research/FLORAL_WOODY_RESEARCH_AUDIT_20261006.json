@@ -1,0 +1,497 @@
+{
+  "schema_version": "floral-woody-research-audit-v1",
+  "date": "2026-10-06",
+  "status": "FOCUSED_SOFTWARE_CHECKS_PASS_ADVISORY_RESEARCH_ONLY",
+  "checkout": {
+    "path": "D:/chatbots/perfume-chem",
+    "branch": "master",
+    "head": "1ed79650313c23b1a2fe1c36c2e90a606c64833b",
+    "preexisting_dirty_worktree": true,
+    "unrelated_work_preserved": true,
+    "commit_created": false,
+    "pushed": false
+  },
+  "scope": {
+    "user_request": "Increase coverage for all florals, and for CHIMIE LHOMME like perfumes",
+    "formula_action": "NO_CHANGE",
+    "inventory_action": "NO_CHANGE",
+    "formulation_doses_added": false,
+    "external_model_delegation": false,
+    "full_project_complete": false,
+    "full_botanical_coverage": false,
+    "full_research_program_complete": false,
+    "empirical_capabilities_admitted": 0
+  },
+  "coverage": {
+    "initial_package_dossiers": 49,
+    "planned_scope_entries": 275,
+    "initial_core_scope_entries": 120,
+    "initial_gap_scope_entries": 155,
+    "additional_partial_subtype_cards": 66,
+    "cards_added_this_pass": 40,
+    "floral_cards_added_this_pass": 28,
+    "adjacent_style_cards_added_this_pass": 12,
+    "packages_deepened": 25,
+    "floral_packages_deepened": 13,
+    "initial_floral_gap_entries": 34,
+    "initial_floral_gaps_with_partial_extension": 33,
+    "initial_floral_gaps_without_extension": 1,
+    "initial_gap_entries_without_extension": 89,
+    "fully_reviewed_subtypes_promoted": 0,
+    "empirically_validated_subtypes": 0,
+    "sources": 154,
+    "claims": 147,
+    "profiles": 43,
+    "exact_material_cards": 25,
+    "reviewed_advisory_sources": 89,
+    "legacy_advisory_sources": 64,
+    "held_sources": 1,
+    "sources_added_this_pass": 21,
+    "primary_papers_added_this_pass": 8,
+    "manufacturer_or_official_brand_sources_added_this_pass": 13
+  },
+  "new_subtype_ids": [
+    "ROSE_LEMONY",
+    "ROSE_JAMMY",
+    "ROSE_HONEY",
+    "ROSE_METALLIC",
+    "ROSE_DARK_PATCH",
+    "JAS_LEATHER",
+    "ORANGE_HONEY",
+    "TUBEROSE_INDOLIC",
+    "TUBEROSE_TRANSPARENT",
+    "GARDENIA_CREAM",
+    "YLANG_FRACTIONS",
+    "TROP_TIARE",
+    "TROP_FRANGIPANI",
+    "MUGUET_CYCLAMEN",
+    "MUGUET_WATERY_MUSK",
+    "PEONY_DEWY",
+    "PEONY_ROSE",
+    "FREESIA_PEPPER",
+    "MAGNOLIA_CREAM",
+    "NARCISSUS_ABS",
+    "LILY_SALICYLATE",
+    "LILY_GREEN",
+    "POLLEN_HONEY",
+    "VIOLET_POWDER",
+    "IRIS_VIOLET_LEAF",
+    "BOUQUET_CLASSICAL",
+    "BOUQUET_ALDEHYDIC",
+    "BOUQUET_SOFT",
+    "PINEAPPLE_WOODY",
+    "LAV_APPLE",
+    "LAV_PINEAPPLE",
+    "LAV_SPICED_WOOD",
+    "FOUGERE_FLORAL",
+    "FOUGERE_LEATHER",
+    "CHYPRE_FLORAL",
+    "CHYPRE_GREEN",
+    "CHYPRE_LEATHER",
+    "PATCH_CLEAN",
+    "WOOD_MINERAL",
+    "AMBERGRIS_MUSK"
+  ],
+  "source_review_summary": {
+    "primary_papers": 8,
+    "manufacturer_or_official_brand_sources": 13,
+    "scope": "PRIMARY_ABSTRACT_OR_SELECTED_PRIMARY_SECTIONS",
+    "rights": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+    "hash_binding": "CANONICAL_LOCAL_SOURCE_RECORD_NOT_PUBLISHER_PAGE_BYTES",
+    "exhaustive_correction_retraction_audit_completed": false,
+    "numeric_calibration_allowed": false,
+    "empirical_data_rights": "NOT_ADMITTED",
+    "new_source_records": [
+      {
+        "source_id": "rose_cultivars_floral_v2",
+        "source_record_sha256": "f15319f0bc5398597ef07bfca67b312b9fc5f12011ac5cc3b46e967440d60cdd",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "PRIMARY_ABSTRACT",
+        "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+      },
+      {
+        "source_id": "ylang_fractions_floral_v2",
+        "source_record_sha256": "58199171e12e17146e872f0570168dd24b03ab86ccf71fe2d5e9e2d90b86d745",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "SELECTED_PRIMARY_SECTIONS",
+        "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+      },
+      {
+        "source_id": "freesia_cultivars_floral_v2",
+        "source_record_sha256": "371eca9d54b8f4d22288f2941619e06a94a38cc32482980920793762bfd24e60",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "PRIMARY_ABSTRACT",
+        "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+      },
+      {
+        "source_id": "peony_cultivars_floral_v2",
+        "source_record_sha256": "30192d35b65230ddbfaaa72dac6f124bb1ef2e141bc6f7ba3285c8f4bdbfdc00",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "PRIMARY_ABSTRACT",
+        "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+      },
+      {
+        "source_id": "lily_cultivars_floral_v2",
+        "source_record_sha256": "fadedea3fa3276c2ed92477b27c18cc3705c391aeee02cff65f005d409de3772",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "PRIMARY_ABSTRACT",
+        "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+      },
+      {
+        "source_id": "pacific_flowers_floral_v2",
+        "source_record_sha256": "8ccc582387d6c5ebedc5f12703505a7ffbb6f66adee3d1cd554840485d2ce186",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "PRIMARY_ABSTRACT",
+        "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+      },
+      {
+        "source_id": "tuberose_development_floral_v2",
+        "source_record_sha256": "3ea524d7206bd189a7513c66b3789b90691df671ca84e50c6a9c7eb90821d0ab",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "SELECTED_PRIMARY_SECTIONS",
+        "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+      },
+      {
+        "source_id": "pineapple_recombination_floral_v2",
+        "source_record_sha256": "0345863796d6b35609affe51f0ee180e283c5026d2f740ce2232270f1e2528c0",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "PRIMARY_ABSTRACT",
+        "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+      },
+      {
+        "source_id": "iff_narcisse_floral_v2",
+        "source_record_sha256": "44cc0514c1af42bee2b0a22f9b42b6a4ccee937bcdeebb3f7e45ace4db49bcd6",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "SELECTED_PRIMARY_SECTIONS",
+        "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+      },
+      {
+        "source_id": "givaudan_cyclamen_floral_v2",
+        "source_record_sha256": "cda4a42d13f9553db3bee51d66f4639c3a0e185002045d1d893e3553d4c67203",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "SELECTED_PRIMARY_SECTIONS",
+        "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+      },
+      {
+        "source_id": "givaudan_peonile_floral_v2",
+        "source_record_sha256": "00299441846cbacd4ffbc3e897da84a98c5be647ec1c041afa6f0049068499a3",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "SELECTED_PRIMARY_SECTIONS",
+        "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+      },
+      {
+        "source_id": "dsm_clearwood_floral_v2",
+        "source_record_sha256": "76172565652010f2913043bcfcf020140f4ddef93986b6be8bb2e958712c4037",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "SELECTED_PRIMARY_SECTIONS",
+        "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+      },
+      {
+        "source_id": "iff_cedar_atlas_floral_v2",
+        "source_record_sha256": "f298a3a96d5df7a4f25750e2dd2a273dceaa84b74157a786d42af85fd658a187",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "SELECTED_PRIMARY_SECTIONS",
+        "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+      },
+      {
+        "source_id": "givaudan_orcinyl_floral_v2",
+        "source_record_sha256": "e66c9db48e18a250fd2b92069d045ce409b97bbb0873c82cf69248e3b96cbfcd",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "SELECTED_PRIMARY_SECTIONS",
+        "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+      },
+      {
+        "source_id": "dsm_salicynile_floral_v2",
+        "source_record_sha256": "e25c1d054459ff63e3360df3234f285bf3f4bf72912b5d2f894bfc4db836b39b",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "SELECTED_PRIMARY_SECTIONS",
+        "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+      },
+      {
+        "source_id": "givaudan_chypre_floral_v2",
+        "source_record_sha256": "e693e6839867a77621338c6bc4d38d9c88c669c5be3637dcbe0c8779ccd5ef13",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "SELECTED_PRIMARY_SECTIONS",
+        "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+      },
+      {
+        "source_id": "symrise_roseoxide_floral_v2",
+        "source_record_sha256": "f1bfd60cd4a55e829d6b845d6dbb19c619d21b4974d567bd89f63314ad4886fb",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "SELECTED_PRIMARY_SECTIONS",
+        "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+      },
+      {
+        "source_id": "iff_hexenylsal_floral_v2",
+        "source_record_sha256": "d0c5860ca66a015a7d936e8a61f7bd5382973868d12c0a1b0e3cf6f1a7b60cc3",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "SELECTED_PRIMARY_SECTIONS",
+        "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+      },
+      {
+        "source_id": "chanel_n5_floral_v2",
+        "source_record_sha256": "95a7ce0421e62415218062186e7b6d2ce75067408508b0b3cafc40b68bff7222",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "SELECTED_PRIMARY_SECTIONS",
+        "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+      },
+      {
+        "source_id": "creed_aventus_current_floral_v2",
+        "source_record_sha256": "e69e63c45dfa1dbac69cd18202c0c864f32c169cf243b702455987ba73558b63",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "SELECTED_PRIMARY_SECTIONS",
+        "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+      },
+      {
+        "source_id": "creed_aventus_collection_floral_v2",
+        "source_record_sha256": "fa21e364c65d4a7c0e3f9f1fe18fe70433d3006ebc9f75587c3ebd3853aa5f90",
+        "review_state": "REVIEWED_ADVISORY",
+        "review_scope": "SELECTED_PRIMARY_SECTIONS",
+        "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+      }
+    ]
+  },
+  "campaign_identity_holds": [
+    {
+      "campaign_id": "CHIMIE_LHOMME",
+      "names": [
+        "CHIMIE LHOMME",
+        "CHIMIE L'HOMME",
+        "CHIMIE L HOMME"
+      ],
+      "state": "HOLD_EXACT_BRIEF_OR_FORMULA_REQUIRED",
+      "reason": "The exact accepted CHIMIE L'HOMME brief/formula was not recovered from accessible local sources. Adjacent Aventus and other L'Homme files are not substitutes.",
+      "question": "Please provide the accepted CHIMIE L'HOMME brief or latest formula so related architectures can be matched accurately.",
+      "inferred_package_ids": [],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    }
+  ],
+  "preservation": {
+    "baseline": {
+      "protected": [
+        {
+          "path": "inventory.txt",
+          "sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb"
+        },
+        {
+          "path": "data/formulation_knowledge/construction_library_v1.json",
+          "sha256": "cba922283537998fa1dcc57dccd896b070cc7f1545c6209040d3d76b1f3652c7"
+        },
+        {
+          "path": "data/formulation_knowledge/research_coverage_plan_v1.json",
+          "sha256": "4b1225736af6b4ef6a564c8f2df40a846aa3cbab15f0584cd952088a8021a4ac"
+        },
+        {
+          "path": "data/formulation_knowledge/subtype_research_v1.json",
+          "sha256": "2bbc6d9116fac0bcc033b3547c860a4f4033c517b76e11b016d8464b55a1f8f0"
+        },
+        {
+          "path": "data/governance/inventory_compounding_holds.json",
+          "sha256": "4e3d5e98c8328fe92e7b5722e5f5e41ababb934067ccdce142cf32bfc0dc823a"
+        }
+      ],
+      "formula_file_count": 573,
+      "formula_manifest_sha256": "3a9bfd2c17c74b7ea365537fdaaeef52a905eef93b0ecb1dedf058d5ec99ab8b"
+    },
+    "final": {
+      "protected": [
+        {
+          "path": "inventory.txt",
+          "sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb"
+        },
+        {
+          "path": "data/formulation_knowledge/construction_library_v1.json",
+          "sha256": "cba922283537998fa1dcc57dccd896b070cc7f1545c6209040d3d76b1f3652c7"
+        },
+        {
+          "path": "data/formulation_knowledge/research_coverage_plan_v1.json",
+          "sha256": "4b1225736af6b4ef6a564c8f2df40a846aa3cbab15f0584cd952088a8021a4ac"
+        },
+        {
+          "path": "data/formulation_knowledge/subtype_research_v1.json",
+          "sha256": "2bbc6d9116fac0bcc033b3547c860a4f4033c517b76e11b016d8464b55a1f8f0"
+        },
+        {
+          "path": "data/governance/inventory_compounding_holds.json",
+          "sha256": "4e3d5e98c8328fe92e7b5722e5f5e41ababb934067ccdce142cf32bfc0dc823a"
+        }
+      ],
+      "formula_file_count": 573,
+      "formula_manifest_sha256": "3a9bfd2c17c74b7ea365537fdaaeef52a905eef93b0ecb1dedf058d5ec99ab8b"
+    },
+    "matches": true,
+    "formula_manifest_method": "rg --files formulas; Sort-Object; ordered path/sha256 objects; PowerShell ConvertTo-Json -Compress; SHA256 of UTF8 bytes",
+    "scope": "Starting-to-ending equality for all 573 discoverable formula files and the five listed protected artifacts; not a blanket clean-worktree claim."
+  },
+  "verification": {
+    "engine": {
+      "status": "PASS",
+      "passed": 361,
+      "seconds": 73.12,
+      "command": ".venv/Scripts/python.exe -m pytest tests/test_floral_woody_research.py tests/test_subtype_research.py tests/test_construction_library.py tests/test_formulation_literature_knowledge.py tests/test_source_review_governance.py tests/test_lavender_literature_knowledge.py tests/test_family_foundation_expansion.py tests/test_foundation_literature_knowledge.py tests/test_orchard_reference_panel.py tests/test_formula_design_chat.py tests/test_goal_directed_analysis.py -q -p no:cacheprovider"
+    },
+    "backend": {
+      "status": "PASS",
+      "passed": 16,
+      "deselected": 11,
+      "seconds": 15.84,
+      "working_directory": "backend",
+      "test_environment": {
+        "OPENAI_API_KEY": "test-key",
+        "SECRET_KEY": "test-secret-key-for-ci"
+      },
+      "command": "../.venv/Scripts/poetry.exe run pytest tests/unit/test_source_review_job_fingerprints.py tests/unit/test_formulation_knowledge_jobs.py tests/integration/test_lab_ui.py -k \"formulation or source_review or formula_chat_exposes or offline_lab_app\" -q -p no:cacheprovider --basetemp=D:/chatbots/perfume-chem/output/pytest-floral-v2-20261006-a"
+    },
+    "static": [
+      {
+        "status": "PASS",
+        "command": ".venv/Scripts/python.exe -m ruff check engine/formulation_intelligence/subtype_research.py tests/test_floral_woody_research.py tests/test_subtype_research.py tests/test_source_review_governance.py"
+      },
+      {
+        "status": "PASS",
+        "command": ".venv/Scripts/python.exe -m mypy engine/formulation_intelligence/subtype_research.py --ignore-missing-imports --follow-imports=silent"
+      },
+      {
+        "status": "PASS",
+        "working_directory": "backend",
+        "command": "../.venv/Scripts/poetry.exe run ruff check app/services/engine_jobs.py tests/unit/test_source_review_job_fingerprints.py tests/integration/test_lab_ui.py"
+      },
+      {
+        "status": "PASS",
+        "working_directory": "backend",
+        "command": "../.venv/Scripts/poetry.exe run mypy app/services/engine_jobs.py --ignore-missing-imports --follow-imports=silent"
+      },
+      {
+        "status": "PASS",
+        "command": "node --check backend/app/static/lab.js"
+      }
+    ],
+    "initial_focused_result": {
+      "passed": 84,
+      "failed": 2,
+      "causes": [
+        "Legacy test fixed the total card count at 26.",
+        "Legacy test selected records[0] instead of the intended legacy source ID."
+      ],
+      "resolution": "Assert immutable v1 prefix and 66-card successor; target irone_isomers by exact ID for the review-escalation test. Production gates unchanged.",
+      "subsequent_focused_passed": 154,
+      "overlap_with_final_engine_count": true
+    },
+    "hygiene": {
+      "changed_path_git_diff_check": "PASS",
+      "added_file_whitespace": "PASS",
+      "whole_worktree_git_diff_check": "INCOMPLETE_PERMISSION_DENIED_PREEXISTING_C10_ARTIFACTS",
+      "historical_markdown_hard_breaks_preserved": true
+    },
+    "not_run": [
+      "full project verifier",
+      "Docker smoke",
+      "live browser interaction",
+      "live service restart",
+      "model training",
+      "sensory evaluation",
+      "physical compounding",
+      "safety or release approval"
+    ]
+  },
+  "retrieval_benchmark": {
+    "benchmark": "offline_knowledge_retrieval_only",
+    "clock": "perf_counter",
+    "python": "3.14.6",
+    "unique_prompts": 40,
+    "warm_repeats": 5,
+    "warm_calls": 200,
+    "cold_retrieval_ms": 102.38,
+    "warm_p50_ms": 16.435,
+    "warm_p95_ms": 18.571,
+    "warm_max_ms": 21.267,
+    "correct_card_retrievals": 200,
+    "runtime_network_allowed": false,
+    "whole_formula_latency_claim": false,
+    "counts": {
+      "sources": 154,
+      "claims": 147,
+      "profiles": 43,
+      "materials": 25
+    },
+    "subtype_cards": 66,
+    "packages_deepened": 25
+  },
+  "bound_current_files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "cbcfa59606a6ca1bf424547e13524cdd0b15359d484f8e70b438e9d8340c73d3"
+    },
+    {
+      "path": "engine/formulation_intelligence/subtype_research.py",
+      "sha256": "1f9079837a6a1d71da0bb7d20871458f068046c17aca1e19afe6e440be43168d"
+    },
+    {
+      "path": "data/formulation_knowledge/literature_v1.json",
+      "sha256": "1613fd8d527c596c53fecf3b7c628aace8bf7c865434d6da45ecd14d4ef8ae56"
+    },
+    {
+      "path": "data/formulation_knowledge/source_reviews_v1.json",
+      "sha256": "e724528120745dd41020389c9d9b8a07ef932100fc878d328a41bb1b481ab6f1"
+    },
+    {
+      "path": "data/formulation_knowledge/subtype_research_v2.json",
+      "sha256": "6a7da23c4dbc7f205390cc2502f2b4d451025741eb3aa2cc1b60d89eb9e4d6c2"
+    },
+    {
+      "path": "backend/app/services/engine_jobs.py",
+      "sha256": "8cb3524851cc5999439961be763845faadd84a8e5562167fadab8e4691770498"
+    },
+    {
+      "path": "backend/app/static/lab.js",
+      "sha256": "58f51e3e1303283f60bf6f441b71d9d569c36cfab69f28d3e6e01e2cad5a20ce"
+    },
+    {
+      "path": "tests/test_floral_woody_research.py",
+      "sha256": "eae598dea31fce52128be144cc8ec8b83a22c1b82f2e0b082d2661b5cc02dd04"
+    },
+    {
+      "path": "tests/test_subtype_research.py",
+      "sha256": "9759e23ec0feb15a0e4dadbcedf37dfef87e7440d9be3fd0b83e85bbee2b5e1c"
+    },
+    {
+      "path": "tests/test_source_review_governance.py",
+      "sha256": "d01d3fb478c3e939fcd53f09316526bc1be92de1d483332541a956bd449b5cca"
+    },
+    {
+      "path": "backend/tests/unit/test_source_review_job_fingerprints.py",
+      "sha256": "4b763bec331e917f8be3d066d5e9e58a3478ef40f26bb089ca6bc596f1789dda"
+    },
+    {
+      "path": "backend/tests/integration/test_lab_ui.py",
+      "sha256": "5be78b90c8989675a51e2b87995241906870bd498d2e12302a7c64bc8d3a18a1"
+    },
+    {
+      "path": "docs/research/FLORAL_WOODY_RESEARCH_EXPANSION_20261006.md",
+      "sha256": "4944f3cc8eb5341005d3eb7ed17bb365e76ecafc77d2b12ab0ff9cf4a37b3661"
+    },
+    {
+      "path": "data/formulation_knowledge/research_coverage_progress_v4.json",
+      "sha256": "c42172676120faa09f87d40617ff58608d7ead22134f0151dc87fe47d11cf432"
+    }
+  ],
+  "limitations": [
+    "CHIMIE L'HOMME cannot be assigned a recovered family or formula; adjacent research is not campaign evidence.",
+    "Cananga is the remaining initial floral gap without a dedicated subtype card.",
+    "Selected abstracts/sections do not establish complete subtype coverage; primary corrections/retractions remain not independently rechecked.",
+    "Marketing architecture does not establish proprietary composition, popularity, liking or performance.",
+    "An untested hypothesis is not an empirical capability or a measurable formula.",
+    "No full-formula runtime improvement or whole-worktree/merge-readiness result is claimed."
+  ],
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

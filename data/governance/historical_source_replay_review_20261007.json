@@ -1,0 +1,122 @@
+{
+  "schema_version": "historical-source-replay-review-v1",
+  "review_date": "2026-10-07",
+  "decision": "HOLD_HISTORICAL_REPLAY_INCOMPLETE",
+  "parent_records": [
+    {
+      "path": "data/governance/perfume_chem_task_update_g15_provenance_receipt_20260819.json",
+      "sha256": "8479abc4cc7b32cea199a2903200a0c26e3ab9d71b048906da0e1cf9410cc6d6"
+    },
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V13_20260816.json",
+      "sha256": "5f994a8598639b79b87a16d16e53c53ca041b316704f18e330693dd3f08a35f7"
+    },
+    {
+      "path": "data/governance/inventory_v5_experiment_readiness_closure_queue_20260812.json",
+      "sha256": "ff228b72a155e14902416b1de8d92e75f7302123c80f292abfc85adbd997ee2a"
+    }
+  ],
+  "missing_sources": [
+    {
+      "parent_path": "data/governance/perfume_chem_task_update_g15_provenance_receipt_20260819.json",
+      "path": "engine/fuckups/pre_mix_guard.py",
+      "original_sha256": "cd27134d0e350b63e1115d204061c01aa4b7d3ebc3c2e58eeb32cef252e1c967",
+      "original_size_bytes": 18052,
+      "current_sha256": "bbf4be5d2e18babbeaad03e909b99de0969fb31199036451a8f620741649c391",
+      "current_size_bytes": 17201,
+      "state": "HOLD_ORIGINAL_SOURCE_BYTES_UNAVAILABLE"
+    },
+    {
+      "parent_path": "data/governance/perfume_chem_task_update_g15_provenance_receipt_20260819.json",
+      "path": "engine/pipeline/gates.py",
+      "original_sha256": "c33699ea011f6b1bb12fec7e7d1156593196dbfad74366fe7976ee921b00ae02",
+      "original_size_bytes": 230486,
+      "current_sha256": "f1d42977ce4ef31e47e65d669d7640ba74af7a087d378422ce80491130ccbca3",
+      "current_size_bytes": 237485,
+      "state": "HOLD_ORIGINAL_SOURCE_BYTES_UNAVAILABLE"
+    },
+    {
+      "parent_path": "data/governance/perfume_chem_task_update_g15_provenance_receipt_20260819.json",
+      "path": "engine/pipeline/audit_log.py",
+      "original_sha256": "2109b80790c0d5b0ece79ba239744a0be02a794d70b4c5015c5d5f864b5563f1",
+      "original_size_bytes": 14374,
+      "current_sha256": "c90e4ead9a33dfb96cbb9f02f920a02987474c7309007e60669402f5f41041ec",
+      "current_size_bytes": 14136,
+      "state": "HOLD_ORIGINAL_SOURCE_BYTES_UNAVAILABLE"
+    },
+    {
+      "parent_path": "data/governance/perfume_chem_task_update_g15_provenance_receipt_20260819.json",
+      "path": "engine/optimizer/gate_aware.py",
+      "original_sha256": "6b6c125c587e1e7f6c116dab8abfaab68893b87293fd51679bba00bdd0b16258",
+      "original_size_bytes": 33651,
+      "current_sha256": "a258a4265a34802654f1cc913665650f9b9cd34c830fe178168fb6f5b33a77a3",
+      "current_size_bytes": 112232,
+      "state": "HOLD_ORIGINAL_SOURCE_BYTES_UNAVAILABLE"
+    },
+    {
+      "parent_path": "data/governance/perfume_chem_task_update_g15_provenance_receipt_20260819.json",
+      "path": "scripts/formula_release_gate.py",
+      "original_sha256": "a461c9e0822c119c16aaa7768853a16df395f957fb8b00d9fd7f977d9973c299",
+      "original_size_bytes": 40045,
+      "current_sha256": "16de859a07e10d192aad7dfe19014aefe23975eb6345bfe185fbee15de817041",
+      "current_size_bytes": 55426,
+      "state": "HOLD_ORIGINAL_SOURCE_BYTES_UNAVAILABLE"
+    },
+    {
+      "parent_path": "data/governance/perfume_chem_task_update_g15_provenance_receipt_20260819.json",
+      "path": "tests/test_pre_mix_guard.py",
+      "original_sha256": "23f573f2aba0eb75e77f245471f7cdf1404ea207af806d5775f23f921d53534b",
+      "original_size_bytes": 10298,
+      "current_sha256": "87b2e2f891c73c5675eeccbde45ad09f0fddd75095a50affe6e16a688b3f990c",
+      "current_size_bytes": 7237,
+      "state": "HOLD_ORIGINAL_SOURCE_BYTES_UNAVAILABLE"
+    },
+    {
+      "parent_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V13_20260816.json",
+      "path": "backend/app/schemas/lab.py",
+      "original_sha256": "915cf711d0a62a9bc26f305b0d4cd6d4b9f20e1704fb2d948eda28fd040c19b4",
+      "original_size_bytes": 9454,
+      "current_sha256": "7217aa1344b8b2b07d0c6653c47fc5532cde291881cb08c466ece1fc9f2fbed4",
+      "current_size_bytes": 9803,
+      "state": "HOLD_ORIGINAL_SOURCE_BYTES_UNAVAILABLE"
+    },
+    {
+      "parent_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V13_20260816.json",
+      "path": "backend/app/services/lab_service.py",
+      "original_sha256": "0a15591c4d0ecb42ca681506ffccc16d6e11904d20c637d8988ac9d5ffc4a78d",
+      "original_size_bytes": 89347,
+      "current_sha256": "f428121591ec20d9a01d94e4c744e665a59732dbc313a3d150da403d9c8c8048",
+      "current_size_bytes": 95738,
+      "state": "HOLD_ORIGINAL_SOURCE_BYTES_UNAVAILABLE"
+    },
+    {
+      "parent_path": "data/governance/inventory_v5_experiment_readiness_closure_queue_20260812.json",
+      "path": "docs/research/PERFUME_CHEM_CHATGPT_PROJECT_RECONCILIATION_2026-08-10.md",
+      "original_sha256": "b79fceec56999fbe515970af0353941e9410ebd76756597bf52aa3f10fbb30d7",
+      "original_size_bytes": 168762,
+      "current_sha256": "74ddd21c34cd25ed0663062e045a418e10b68f1b072d4d35aeaee860c42bb278",
+      "current_size_bytes": 219403,
+      "state": "HOLD_ORIGINAL_SOURCE_BYTES_UNAVAILABLE"
+    }
+  ],
+  "recovery_scope": {
+    "git_history": "Up to 100 path-scoped revisions, matched only against unchanged original hashes.",
+    "archive_roots": [
+      "incoming_review",
+      "output/quarantine"
+    ],
+    "checked_zip_archives": 176,
+    "matching_filename_members": 6,
+    "original_hash_matches": [],
+    "additional_document_check": "Path-scoped Git revisions and original-size LF/CRLF prefix reconstruction did not reproduce the pinned reconciliation report."
+  },
+  "historical_receipts_modified": false,
+  "current_runtime_accepted_by_this_review": false,
+  "authority": {
+    "scientific_promotion": false,
+    "evidence_admission": false,
+    "compounding": false,
+    "safety": false,
+    "release": false
+  }
+}

@@ -18,7 +18,7 @@ SUMMARY = (
     Path(__file__).resolve().parents[1]
     / "data"
     / "governance"
-    / "wakayama_identity_adjudication_summary_20260927.json"
+    / "wakayama_identity_adjudication_summary_20261007.json"
 )
 
 

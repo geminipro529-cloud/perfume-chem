@@ -1,0 +1,115 @@
+{
+  "schema_version": "fragrance-research-coverage-progress-v11",
+  "as_of_date": "2026-10-07",
+  "status": "V4_DESCRIPTOR_ELIGIBILITY_PREREQUISITE_VERIFIED_NOT_ACTIVATED",
+  "full_research_program_complete": false,
+  "completion_boundary": "Focused own-descriptor eligibility repair and closed predicates; not activation or full-corpus acceptance of the next architecture wave.",
+  "predecessor": {
+    "path": "data/formulation_knowledge/research_coverage_progress_v10.json",
+    "sha256": "f9af7ab9aeedf22e5a8bf56bd2acc96c31b03b54547dabefcecb0b7c685801a4",
+    "preserved": true
+  },
+  "totals": {
+    "construction_dossiers": 49,
+    "partial_subtype_cards": 179,
+    "floral_packages": 13,
+    "floral_packages_with_at_least_one_mapping": 13,
+    "sources": 233,
+    "claims": 226,
+    "profiles": 43,
+    "exact_material_cards": 25,
+    "architecture_mappings": 44,
+    "architecture_options": 88,
+    "subtype_cards_without_executable_mapping": 135,
+    "empirical_capabilities_added": 0,
+    "numeric_calibrations_admitted": 0,
+    "source_records_added_this_wave": 0
+  },
+  "active_adapter": {
+    "path": "data/formulation_knowledge/architecture_adapters_v3.json",
+    "sha256": "70ec8bd60abefa7d5e09556fece34067caecacba539e6db1fcdea5d7d2f0111c",
+    "schema_version": "source-bound-architecture-adapters-v3",
+    "changed": false,
+    "v4_activated": false,
+    "fresh_full_corpus_acceptance_after_prerequisite": false
+  },
+  "implementation": {
+    "path": "engine/formulation_intelligence/material_capability_index.py",
+    "before_sha256": "67c9c4611687929e8c10f701292e8e9966e8d77a7b2a021caa08c87f349a0bf5",
+    "after_sha256": "c5a5496205addf22a1f1a9cbc7a6dced370e5edaaf5e9456877679f587c52edb",
+    "new_closed_predicates": ["rose", "jasmine", "bitter_resin_green", "watery_leaf", "citrus_leaf_floral"],
+    "new_predicates_wired_to_active_architectures": false,
+    "placeholder_descriptions_excluded_from_descriptor_vocabulary": true,
+    "independent_reviewed_vocabulary_preserved": true,
+    "explicit_anchors_and_trace_limits_preserved": true,
+    "numeric_allocation_templates_changed": false
+  },
+  "verification": {
+    "red_before_implementation": {
+      "failed": 20,
+      "passed": 51,
+      "seconds": 8.90,
+      "scope": "New 71-case descriptor suite; includes deliberately unimplemented predicates, not 20 separate prior bugs."
+    },
+    "final_focused_run": {
+      "passed": 151,
+      "failed": 0,
+      "seconds": 190.68,
+      "scope": "Descriptor, fruit, v3, receipt-binding and five exact Formula Studio regression nodes.",
+      "new_test_path": "tests/test_architecture_descriptor_eligibility.py",
+      "new_test_sha256": "af88da7f868c957474462da872ecbcec63dc66156fd081c80067efc2d5f4cdbf"
+    },
+    "scoped_ruff": "PASS",
+    "scoped_mypy": "PASS_ONE_MODULE_EXPLICIT_PACKAGE_BASES_IMPORTS_SKIPPED",
+    "git_diff_check": "PASS",
+    "full_verifier_run": false,
+    "merge_or_release_readiness_claimed": false
+  },
+  "annotation_census": {
+    "scope": "DESCRIPTOR_ELIGIBILITY_ONLY_NOT_FULL_SOLVER_OR_SENSORY_VALIDATION",
+    "runtime_stock_candidates": 357,
+    "effective_inventory_sha256": "e8094e07505fbfbb7121d94693069e624531c4726d853e27b7a24f6c5d0fb280",
+    "unique_identity_matches": {
+      "rose": 15,
+      "jasmine": 3,
+      "bitter_resin_green": 0,
+      "watery_leaf": 1,
+      "citrus_leaf_floral": 0
+    },
+    "matches_are_admitted_comparison_options": false,
+    "content_quality_hold": "Fructone B description mixes odor and application-like prose; token matching is not own-jasmine adjudication. Review exact supplier descriptions before new mappings use these matches."
+  },
+  "review_artifacts": [
+    {
+      "path": "docs/research/ARCHITECTURE_V4_ELIGIBILITY_PLAN_20261007.md",
+      "sha256": "3d136458ee8068ccbea098fa3fe0b7881e5beb6d0214cfda937949ece6032b84"
+    },
+    {
+      "path": "docs/research/ARCHITECTURE_V4_ELIGIBILITY_REVIEW_20261007.md",
+      "sha256": "3fea48c1a26513039b00fca465961af75ccdcf6b7e2f811c510a339fdba98b35"
+    }
+  ],
+  "next_checkpoint": [
+    "Adjudicate own odor versus suggested uses for new facet candidates without changing stock truth.",
+    "Add an immutable v4 successor with exact option eligibility, source binding, predecessor pins and durable fingerprint coverage.",
+    "Freeze expanded diagnostic configuration and separate planning expectations from returned-option availability.",
+    "Run current-source paired and reverse comparisons before activating v4; preserve honest unavailable outcomes."
+  ],
+  "preserved_boundaries": {
+    "inventory_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "inventory_modified": false,
+    "formula_modified": false,
+    "orris_liquid_compounding_hold_cleared": false,
+    "chimie_lhomme_exact_campaign_available": false,
+    "deepseek_or_external_llm_route_used": false,
+    "native_read_only_reviewers": 2,
+    "network_used": false,
+    "sensory_validation_performed": false
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

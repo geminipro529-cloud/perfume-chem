@@ -27,6 +27,7 @@ from engine.inventory_parser import (
     CurrentInventoryMaterialization,
     InventoryMaterial,
     InventoryRequirement,
+    apply_user_compounding_holds,
     materialize_current_inventory,
     parse_inventory,
 )
@@ -429,6 +430,8 @@ def materialize_personal_inventory(
             continue
         projected.append(addition)
 
+    held_stocks, hold_sha = apply_user_compounding_holds(tuple(projected))
+    projected = list(held_stocks)
     projected.sort(
         key=lambda stock: (
             stock.category.casefold(),
@@ -443,6 +446,7 @@ def materialize_personal_inventory(
         "canonical_effective_inventory_sha256": governed.effective_inventory_sha256,
         "inventory_text_sha256": inventory_text_sha,
         "addition_log_sha256": addition_sha,
+        "compounding_holds_sha256": hold_sha,
         "stock_rows": [
             {
                 "stock_id": stock.stock_id,

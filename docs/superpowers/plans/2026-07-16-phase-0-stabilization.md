@@ -1,7 +1,7 @@
 # Phase 0 Research Preview Stabilization Plan
 
 **Design:** `docs/superpowers/specs/2026-07-16-phase-0-stabilization-design.md`
-**Roadmap:** `Perfume-Chem Completion Roadmap.txt`
+**Roadmap:** `docs/legacy-root/Perfume-Chem Completion Roadmap.txt`
 
 ## Task 1: Lock The Contract With Failing Tests
 

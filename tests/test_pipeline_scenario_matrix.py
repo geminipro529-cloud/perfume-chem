@@ -35,17 +35,20 @@ PRADA_CASES = (
         ROOT / "formulas" / "Prada_LHomme_Architecture_Control_30mL_EdT.md",
         {
             ("Bourgeonal", "stock_fraction_mismatch"),
-            ("Aldehyde C11", "not_in_inventory"),
-            ("Ethylene Brassylate", "not_in_inventory"),
+            ("Neroli EO", "stock_carrier_mismatch"),
+            ("Aldehyde C11", "inventory_stock_metadata_incomplete"),
+            ("Ambrofix", "inventory_gap"),
         },
     ),
     (
         ROOT / "formulas" / "Prada_LHomme_Luxury_Orris_30mL_EdT.md",
         {
-            ("Orris Liquid", "stock_fraction_mismatch"),
+            ("Orris Liquid", "inventory_stock_non_executable"),
+            ("Alpha Irone", "inventory_gap"),
             ("Bourgeonal", "stock_fraction_mismatch"),
-            ("Aldehyde C11", "not_in_inventory"),
-            ("Ethylene Brassylate", "not_in_inventory"),
+            ("Neroli EO", "stock_carrier_mismatch"),
+            ("Aldehyde C11", "inventory_stock_metadata_incomplete"),
+            ("Ambrofix", "inventory_gap"),
         },
     ),
 )
@@ -83,6 +86,12 @@ def test_prada_controls_preserve_architecture_but_fail_closed_on_current_stock(
         (str(issue["material"]), str(issue["reason"]))
         for issue in stock_contract.data["issues"]
     } == expected_stock_issues
+    if "Orris Liquid" in formula["ingredients_ul"]:
+        issue = next(
+            row for row in stock_contract.data["issues"]
+            if row["material"] == "Orris Liquid"
+        )
+        assert "USER_COMPOUNDING_HOLD" in issue["execution_holds"]
     assert _natural_composite_coverage_check(state).status == "PASS"
     assert evaluate_reference_contract(formula, state)["status"] == "PASS"
     assert all(material.oav is not None for material in state.materials)
@@ -223,24 +232,24 @@ def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() 
         assert metadata["unresolved_odor_contribution"] == "UNKNOWN_NOT_ZERO"
         assert _natural_composite_coverage_check(state).status == "WARN"
 
-    assert set(audit["categories"]["naturals_missing_composite_evidence"]) == {
+    # This is an evidence-gap contract, not a frozen census of live inventory.
+    # New purchases can add unresolved naturals without making this test fail.
+    unresolved = set(audit["categories"]["naturals_missing_composite_evidence"])
+    assert {
         "Anise EO",
         "Basil EO",
         "Cade Oil Rectified",
         "Champaca Flower EO",
-        "Grapefruit FCF oil Sicilian",
         "Himalayan Cedarwood EO",
         "Magnolia EO",
         "Opoponax Resinoid",
         "Peru Balsam Resinoid",
         "Pine EO",
         "Tagetes EO",
-    }
-    assert set(
-        audit["categories"]["opaque_preblends_without_disclosed_composition"]
-    ) == {
-        "Leather FO",
-    }
+    }.issubset(unresolved)
+    opaque = set(audit["categories"]["opaque_preblends_without_disclosed_composition"])
+    assert "Leather FO" in opaque
+    assert unresolved.isdisjoint(opaque)
     assert audit["status"] == "FAIL_CLOSED_GAPS"
     assert audit["release_authority"] is False
 

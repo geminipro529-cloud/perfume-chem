@@ -331,13 +331,13 @@ AVENTUS_ARCHITECTURE = AventusArchitectureModule(
         InventoryRoleMapping(
             target_function="pink_pepper_bridge",
             stock_materials=("Pink Pepper EO (Schinus molle; neat / as supplied)",),
-            status="OWNED_IN_LEGACY_INVENTORY_TEXT_COMPOSITE_PROFILE_OVERLAY_SYNC_HOLD",
+            status="OWNED_CURRENT_INVENTORY_EXECUTION_READY_RAW_VOLUME_ONLY",
             equivalence=False,
             note=(
                 "User-confirmed neat Schinus molle EO is the authoritative physical stock and is "
                 "now recorded in inventory.txt with a literature-partial natural-mixture composite. "
-                "The pinned current-inventory overlay is not synchronized, so execution remains on "
-                "authority HOLD. Keep the older Pink Pepper EO / CO2 requirement as a separate GAP; "
+                "The pinned current-inventory overlay binds raw-stock volume transfer only. Keep the "
+                "older Pink Pepper EO / CO2 requirement as a separate GAP; "
                 "Black Pepper EO is not equivalent."
             ),
         ),

@@ -26,11 +26,19 @@ from typing import Any, Callable, TypeVar
 
 try:
     from opentelemetry import trace
-    from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
     from opentelemetry.sdk.resources import Resource
     from opentelemetry.sdk.trace import TracerProvider
     from opentelemetry.sdk.trace.export import BatchSpanProcessor
     from opentelemetry.trace import StatusCode
+
+    def _create_otlp_exporter(*args: Any, **kwargs: Any) -> Any:
+        # Optional exporter/protobuf dependencies must not affect ordinary
+        # engine imports. Import failures still surface on explicit opt-in.
+        from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+
+        return OTLPSpanExporter(*args, **kwargs)
+
+    OTLPSpanExporter = _create_otlp_exporter
 except ImportError:  # pragma: no cover - exercised in environments without optional OTEL runtime.
     class _NoopSpan:
         def set_attribute(self, *args, **kwargs):  # pragma: no cover - fallback path
@@ -90,11 +98,13 @@ except ImportError:  # pragma: no cover - exercised in environments without opti
     _NOOP_TRACE = _NoopTraceModule()
     trace = _NOOP_TRACE  # type: ignore[assignment]
     OTLPSpanExporter = _NoopExporter  # type: ignore[assignment]
-    Resource = _NoopResource  # type: ignore[assignment]
-    TracerProvider = _NoopTracerProvider  # type: ignore[assignment]
-    BatchSpanProcessor = _NoopBatchSpanProcessor  # type: ignore[assignment]
+    # Runtime compatibility aliases intentionally replace the optional SDK
+    # classes only when that SDK cannot be imported.
+    Resource = _NoopResource  # type: ignore[assignment,misc]
+    TracerProvider = _NoopTracerProvider  # type: ignore[assignment,misc]
+    BatchSpanProcessor = _NoopBatchSpanProcessor  # type: ignore[assignment,misc]
     _NOOP_TRACER = _NoopTracer()
-    StatusCode = _NoopStatusCode  # type: ignore[assignment]
+    StatusCode = _NoopStatusCode  # type: ignore[assignment,misc]
 
 # ── Configuration ──────────────────────────────────────────────────
 OTLP_ENDPOINT = "http://localhost:4318/v1/traces"

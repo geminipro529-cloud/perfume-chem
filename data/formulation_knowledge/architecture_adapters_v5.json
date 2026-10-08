@@ -1,0 +1,5130 @@
+{
+  "schema_version": "source-bound-architecture-adapters-v5",
+  "version": "2026-10-07.5",
+  "scope": "LOCAL_HEURISTIC_ROLE_MAPPING_NOT_EMPIRICAL_FORMULA",
+  "allocation_policy": "ISOLATED_ARCHITECTURE_OPERATIONS_V5",
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "adapters": [
+    {
+      "adapter_id": "orchard_lychee_cultivars",
+      "subtype_id": "ORCHARD_LYCHEE_CULTIVARS",
+      "subtype_card_sha256": "f66021dfe5fc903a8d85b8797a93ce4e5a776c0bbf195c95c2349fe23f0181dd",
+      "source_bindings": [
+        {
+          "source_id": "lychee_sweetheart_depth",
+          "source_record_sha256": "a9cb91cbb92f5d06d9348605b647f5b813172999e9dedb422ae47e8cabb948ac"
+        },
+        {
+          "source_id": "lychee_cultivars_depth",
+          "source_record_sha256": "3eca8db200298b3846b733d3c4d9e411c0478985d3106581ebc09cbec2dd1ef1"
+        }
+      ],
+      "title": "Lychee fruit continuity",
+      "options": [
+        {
+          "option_id": "floral_bridge",
+          "label": "Floral-fruit bridge",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "lychee",
+            "fruity",
+            "floral",
+            "linalool",
+            "petal"
+          ],
+          "conflict_terms": [
+            "floral",
+            "rose",
+            "rosy"
+          ],
+          "comparison_question": "Does a floral-fruit link improve lychee recognition without becoming a rose perfume?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "green_juice",
+          "label": "Green-juice contrast",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "lychee",
+            "juicy",
+            "green",
+            "fresh",
+            "watery"
+          ],
+          "conflict_terms": [
+            "green",
+            "leafy",
+            "watery"
+          ],
+          "comparison_question": "Does a green/watery edge add juicy realism without vegetable or sulfur character?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "green_fig_leaf",
+      "subtype_id": "GREEN_FIG_LEAF",
+      "subtype_card_sha256": "08d594d8c6b37ac419ce43c779524ae626a56bb4abf712a1da4513533e398002",
+      "source_bindings": [
+        {
+          "source_id": "fig_organs_depth",
+          "source_record_sha256": "2daa8d7c44b4b2cc82a8a08029a5a12d7b29c59332d5fdc22f0227391e81d477"
+        }
+      ],
+      "title": "Fig leaf rather than fruit or latex",
+      "options": [
+        {
+          "option_id": "leaf_contour",
+          "label": "Leaf-green contour",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "fig leaf",
+            "leaf",
+            "green",
+            "stem"
+          ],
+          "conflict_terms": [
+            "green",
+            "leaf",
+            "leafy"
+          ],
+          "comparison_question": "Does a distinct leaf socket improve the requested leaf image without claiming latex reconstruction?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "airy_leaf",
+          "label": "Transparent leaf bridge",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "fig leaf",
+            "green floral",
+            "transparent",
+            "fresh"
+          ],
+          "conflict_terms": [
+            "floral",
+            "watery"
+          ],
+          "comparison_question": "Does a transparent bridge retain leaf character with less heavy cream texture?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "orchard_fig_fruit",
+      "subtype_id": "ORCHARD_FIG_FRUIT",
+      "subtype_card_sha256": "e2806482c2f106499ec061eb5c0527d4cef6c49ecddadd31dfdf0ac87d575d71",
+      "source_bindings": [
+        {
+          "source_id": "fig_organs_depth",
+          "source_record_sha256": "2daa8d7c44b4b2cc82a8a08029a5a12d7b29c59332d5fdc22f0227391e81d477"
+        },
+        {
+          "source_id": "fig_aroma_active_depth",
+          "source_record_sha256": "96670c66f468d4254f753550c576716930ab34cf52d38ddc5fa22e7dc95ff109"
+        }
+      ],
+      "title": "Fresh fig flesh and peel",
+      "options": [
+        {
+          "option_id": "fruit_flesh",
+          "label": "Fruit-flesh socket",
+          "template_id": "fruit",
+          "query_terms": [
+            "fig fruit",
+            "ripe",
+            "fruit",
+            "flesh"
+          ],
+          "conflict_terms": [
+            "fruit",
+            "fruity",
+            "ripe"
+          ],
+          "comparison_question": "Does fruit flesh remain recognizable rather than becoming a generic coconut fig?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "peel_bridge",
+          "label": "Peel-to-flesh bridge",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "fig fruit",
+            "peel",
+            "green fruity",
+            "fresh"
+          ],
+          "conflict_terms": [
+            "green",
+            "peel",
+            "leafy"
+          ],
+          "comparison_question": "Does a separate peel edge add contrast without substituting fig leaf for fruit?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "freesia_pepper",
+      "subtype_id": "FREESIA_PEPPER",
+      "subtype_card_sha256": "78a2a007c6ee8eac542506f1518916429e92d1fef47482449d72bb3177e05bfd",
+      "source_bindings": [
+        {
+          "source_id": "freesia_cultivars_floral_v2",
+          "source_record_sha256": "371eca9d54b8f4d22288f2941619e06a94a38cc32482980920793762bfd24e60"
+        },
+        {
+          "source_id": "jomalone_english_pear_freesia_cologne",
+          "source_record_sha256": "db3c4cfae691e547f6794acb8e46fd864e28dac28beb0f625510ab22cb7c90e9"
+        }
+      ],
+      "title": "Freesia with a separately tested pepper edge",
+      "options": [
+        {
+          "option_id": "petal_clarity",
+          "label": "Transparent freesia frame",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "freesia",
+            "petal",
+            "floral",
+            "linalool"
+          ],
+          "conflict_terms": [
+            "floral",
+            "freesia"
+          ],
+          "comparison_question": "Does a more distinct petal frame improve the requested freesia image?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "green_air",
+          "label": "Fresh floral transition",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "freesia",
+            "transparent",
+            "fresh floral",
+            "green"
+          ],
+          "conflict_terms": [
+            "floral",
+            "green",
+            "watery"
+          ],
+          "comparison_question": "Does fresh floral continuity preserve freesia beside the requested pepper nuance?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "jas_tea_green",
+      "subtype_id": "JAS_TEA_GREEN",
+      "subtype_card_sha256": "4f8746dbfeaa6ae5724c5c05bda440f6cb706ac377f4550603de078686f90f0d",
+      "source_bindings": [
+        {
+          "source_id": "jasmine_species_subtypes",
+          "source_record_sha256": "b48a3bec89b7a5f6243f441cc4102b460e9d8417a47d29741b7d0d3ba7c1addb"
+        },
+        {
+          "source_id": "tea_green_cultivar_subtypes",
+          "source_record_sha256": "20ab2f8b8efcb2f0edc02d8272d8f289d9fe39ced1b949111fc370d20404371f"
+        },
+        {
+          "source_id": "iff_jasmine_completion",
+          "source_record_sha256": "5d4db39c433fd72932f6d12c64f4cf966a638d1fb1103951abf162437573a1ab"
+        }
+      ],
+      "title": "Jasmine and tea kept as distinct functions",
+      "options": [
+        {
+          "option_id": "flower_link",
+          "label": "Airy jasmine connection",
+          "template_id": "white_floral",
+          "query_terms": [
+            "jasmine",
+            "petal",
+            "transparent",
+            "floral"
+          ],
+          "conflict_terms": [
+            "jasmine",
+            "white floral",
+            "floral"
+          ],
+          "comparison_question": "Does an airy flower connection improve jasmine recognition without making indole the tea proxy?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "tea_texture",
+          "label": "Tea-green texture",
+          "template_id": "tea",
+          "query_terms": [
+            "tea",
+            "green",
+            "leaf",
+            "tannin"
+          ],
+          "conflict_terms": [
+            "tea",
+            "green",
+            "leafy"
+          ],
+          "comparison_question": "Does tea-green texture remain legible alongside the flower without grassy sharpness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "gardenia_cream",
+      "subtype_id": "GARDENIA_CREAM",
+      "subtype_card_sha256": "fc577b7943535bb6183b6560709b193478b55e3314d2d6c7cbe704789d70200f",
+      "source_bindings": [
+        {
+          "source_id": "gardenia_extract_completion",
+          "source_record_sha256": "dc066a12a6dea9a009afad7388fdeaa350be94a2a4481d7770ef1d4738757f83"
+        },
+        {
+          "source_id": "givaudan_methyl_laitone_completion",
+          "source_record_sha256": "699e8662b0414c36dc2c54bc7a501c4c09115bdf8eb4b2a96814b95fd4498a96"
+        },
+        {
+          "source_id": "iff_hexenylsal_floral_v2",
+          "source_record_sha256": "d0c5860ca66a015a7d936e8a61f7bd5382973868d12c0a1b0e3cf6f1a7b60cc3"
+        }
+      ],
+      "title": "Gardenia petal and cream separated",
+      "options": [
+        {
+          "option_id": "petal_anchor",
+          "label": "Green gardenia petal support",
+          "template_id": "white_floral",
+          "query_terms": [
+            "gardenia",
+            "floral",
+            "petal",
+            "green"
+          ],
+          "conflict_terms": [
+            "floral",
+            "gardenia",
+            "green"
+          ],
+          "comparison_question": "Does the petal support retain gardenia rather than merely adding cream?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "green_contour",
+          "label": "Fresh petal contour",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "gardenia",
+            "green floral",
+            "fresh",
+            "transparent"
+          ],
+          "conflict_terms": [
+            "green",
+            "watery",
+            "floral"
+          ],
+          "comparison_question": "Does a fresh contour prevent a creamy gardenia brief becoming a generic lactonic accord?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "lav_orange",
+      "subtype_id": "LAV_ORANGE",
+      "subtype_card_sha256": "5c96c1543a7b05ec304fb9fbfb2d20db102b7e1d2a8528ae60078984df42e2bf",
+      "source_bindings": [
+        {
+          "source_id": "ysl_libre_edp",
+          "source_record_sha256": "74904035a43d0b59ce3452248f9900d88f686a966a61725e10f698fae67799df"
+        },
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        },
+        {
+          "source_id": "iff_orange_flower_completion",
+          "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758"
+        }
+      ],
+      "title": "Lavender and orange-flower bridge",
+      "options": [
+        {
+          "option_id": "fresh_flower",
+          "label": "Fresh orange-flower bridge",
+          "template_id": "white_floral",
+          "query_terms": [
+            "neroli",
+            "orange blossom",
+            "fresh floral"
+          ],
+          "conflict_terms": [
+            "neroli",
+            "orange blossom",
+            "floral"
+          ],
+          "comparison_question": "Does a fresher flower bridge preserve both lavender and orange-blossom recognition?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "aromatic_link",
+          "label": "Aromatic continuity",
+          "template_id": "aromatic_lavender",
+          "query_terms": [
+            "lavender",
+            "aromatic",
+            "herbal",
+            "floral"
+          ],
+          "conflict_terms": [
+            "lavender",
+            "herbal",
+            "aromatic"
+          ],
+          "comparison_question": "Does an aromatic continuity socket keep lavender from being covered by the flower?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "lav_incense",
+      "subtype_id": "LAV_INCENSE",
+      "subtype_card_sha256": "99c8a3692390fd74859b9324b756fdb5a42aff12c8281dc00be5a6996ba573cf",
+      "source_bindings": [
+        {
+          "source_id": "serge_encens_lavande_edp",
+          "source_record_sha256": "73f6362dcb457f6e47d1702f40eb4854871ebaa36820b19524c3329a2ed72596"
+        },
+        {
+          "source_id": "iff_olibanum_oil_completion",
+          "source_record_sha256": "7d1ab60ba12f335541b07a22210d8f76dccf245523be3f799a61af70d2e75e79"
+        },
+        {
+          "source_id": "iff_olibanum_resinoid_completion",
+          "source_record_sha256": "799c648cebdbd035cdf20a67b2eadb12ba0d5a3769c2e3087267855f54beefb4"
+        }
+      ],
+      "title": "Lavender and incense without assumed smoke",
+      "options": [
+        {
+          "option_id": "incense_link",
+          "label": "Incense-resin connection",
+          "template_id": "incense_resin",
+          "query_terms": [
+            "incense",
+            "olibanum",
+            "frankincense",
+            "resin"
+          ],
+          "conflict_terms": [
+            "incense",
+            "resin",
+            "smoke",
+            "smoky"
+          ],
+          "comparison_question": "Does an incense connection bridge lavender into the base without reading as smoke?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "aromatic_air",
+          "label": "Aromatic-resin transition",
+          "template_id": "aromatic_lavender",
+          "query_terms": [
+            "lavender",
+            "aromatic",
+            "fresh",
+            "resin"
+          ],
+          "conflict_terms": [
+            "lavender",
+            "herbal",
+            "aromatic"
+          ],
+          "comparison_question": "Does an aromatic transition retain lavender beside the existing incense anchor?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "lav_vanillic",
+      "subtype_id": "LAV_VANILLIC",
+      "subtype_card_sha256": "fe52145174e9db4affb92952f8bd8db15022e27061907c5e318bcc91b6dc11a6",
+      "source_bindings": [
+        {
+          "source_id": "caron_pour_un_homme_edt",
+          "source_record_sha256": "49952bdf6650bd32afb547a940425e60370e9ae4d192971e37c81daa96cefbc7"
+        },
+        {
+          "source_id": "iff_benzoin_siam_foundation",
+          "source_record_sha256": "08615faaba10718c2da06185239a30cb05b32aaab84a5b0a999dde0bc2c9ab04"
+        }
+      ],
+      "title": "Lavender and vanillic warmth",
+      "options": [
+        {
+          "option_id": "rounded_link",
+          "label": "Rounded vanillic bridge",
+          "template_id": "vanilla_balsam",
+          "query_terms": [
+            "vanillic",
+            "balsamic",
+            "benzoin",
+            "warm"
+          ],
+          "conflict_terms": [
+            "vanilla",
+            "vanillic",
+            "sweet",
+            "sweetness",
+            "gourmand",
+            "balsamic"
+          ],
+          "comparison_question": "Does rounded warmth soften the transition without turning lavender into a gourmand?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "aromatic_relief",
+          "label": "Aromatic relief",
+          "template_id": "aromatic_lavender",
+          "query_terms": [
+            "lavender",
+            "aromatic",
+            "fresh",
+            "herbal"
+          ],
+          "conflict_terms": [
+            "lavender",
+            "herbal",
+            "aromatic"
+          ],
+          "comparison_question": "Does aromatic relief keep the lavender legible against the requested vanillic support?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "rose_jammy",
+      "subtype_id": "ROSE_JAMMY",
+      "subtype_card_sha256": "f5cf2ef84c78d2ab8994ba882d91547927975f1e89bb840c2e2f916a9177220b",
+      "source_bindings": [
+        {
+          "source_id": "rose_cultivars_floral_v2",
+          "source_record_sha256": "f15319f0bc5398597ef07bfca67b312b9fc5f12011ac5cc3b46e967440d60cdd"
+        },
+        {
+          "source_id": "raspberry_recombination_subtypes",
+          "source_record_sha256": "3c25fa3885840a77a117e5c78cf3a8f9815ece6b67f9d2fe989688e2e60393b3"
+        },
+        {
+          "source_id": "iff_osmanthus_completion",
+          "source_record_sha256": "0f178c02e7a9d4b9d0b64cdc89038b2ce598625a34ff7ab3414544df1743a516"
+        }
+      ],
+      "title": "Rose petal versus fruit-facet bridge",
+      "options": [
+        {
+          "option_id": "fruit_link",
+          "label": "Fruit-petal bridge",
+          "template_id": "fruit",
+          "query_terms": [
+            "fruity",
+            "berry",
+            "rose",
+            "fruit"
+          ],
+          "conflict_terms": [
+            "fruit",
+            "fruity",
+            "berry",
+            "sweet"
+          ],
+          "comparison_question": "Does a fruit facet create the requested jammy impression without sweetness alone?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "petal_frame",
+          "label": "Petal clarity",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "rose",
+            "petal",
+            "floral",
+            "transparent"
+          ],
+          "conflict_terms": [
+            "rose",
+            "rosy",
+            "floral"
+          ],
+          "comparison_question": "Does petal clarity keep the fruit bridge from displacing rose?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "orange_neroli",
+      "subtype_id": "ORANGE_NEROLI",
+      "subtype_card_sha256": "a40efbfa97074a7ff79209f1dfc14197db0d3bc496cf5ed88556ddad0b82f341",
+      "source_bindings": [
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        },
+        {
+          "source_id": "iff_orange_flower_completion",
+          "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758"
+        }
+      ],
+      "title": "Fresh distilled neroli",
+      "options": [
+        {
+          "option_id": "green_blossom",
+          "label": "Fresh green blossom edge",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "neroli",
+            "fresh floral",
+            "green",
+            "blossom"
+          ],
+          "conflict_terms": [
+            "green",
+            "leafy",
+            "bitter"
+          ],
+          "comparison_question": "Does green articulation retain the control's blossom clarity without harshness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "warm_flower",
+          "label": "Warmer flower body",
+          "template_id": "white_floral",
+          "query_terms": [
+            "orange flower",
+            "blossom",
+            "honeyed",
+            "warm floral"
+          ],
+          "conflict_terms": [
+            "honey",
+            "honeyed",
+            "sweet",
+            "warm",
+            "white floral"
+          ],
+          "comparison_question": "Does warmer support obscure the fresh blossom recognizer?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "orange_petitgrain",
+      "subtype_id": "ORANGE_PETITGRAIN",
+      "subtype_card_sha256": "9d0d5988e2c2fca3a3e569386f9f932843f341049db91b409927baf29098d2d4",
+      "source_bindings": [
+        {
+          "source_id": "iff_petitgrain_subtypes",
+          "source_record_sha256": "532922d8655855b3e8d619bf7a768719ba19acd1af8482c9603be2f113c66bdd"
+        },
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        }
+      ],
+      "title": "Petitgrain flower-to-leaf bridge",
+      "options": [
+        {
+          "option_id": "leaf_bridge",
+          "label": "Bitter-green leaf bridge",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "petitgrain",
+            "bitter green",
+            "leaf",
+            "twig",
+            "stem"
+          ],
+          "conflict_terms": [
+            "bitter",
+            "green",
+            "leaf",
+            "leafy"
+          ],
+          "comparison_question": "Does a leaf bridge connect the unchanged flower to the opening without twig dominance?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "citrus_link",
+          "label": "Citrus-to-flower link",
+          "template_id": "citrus_peel",
+          "query_terms": [
+            "petitgrain",
+            "citrus",
+            "orange floral",
+            "fresh"
+          ],
+          "conflict_terms": [
+            "citrus",
+            "orange",
+            "peel"
+          ],
+          "comparison_question": "Does citrus articulation preserve the leaf/flower distinction better than bitter-green support?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "muguet_soft",
+      "subtype_id": "MUGUET_SOFT",
+      "subtype_card_sha256": "cc5bb8f195b88352bd7239da821841a4d465ae8af757d16af87b0a5908164e20",
+      "source_bindings": [
+        {
+          "source_id": "dsm_florol_subtypes",
+          "source_record_sha256": "8a11ad4223cedb450e2668c189ee6cf96e829bfed72f35d90ee97f1faeb6aeb0"
+        },
+        {
+          "source_id": "givaudan_florhydral_completion",
+          "source_record_sha256": "aa00a1a2c661d81e28add1283fba41a7ed15612c43c455c5b56c37cf11b112f2"
+        }
+      ],
+      "title": "Soft muguet versus watery cyclamen",
+      "options": [
+        {
+          "option_id": "soft_petal",
+          "label": "Soft petal continuation",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "muguet",
+            "soft floral",
+            "petal",
+            "bell flower"
+          ],
+          "conflict_terms": [
+            "muguet",
+            "floral",
+            "soft"
+          ],
+          "comparison_question": "Does soft petal support preserve the control's muguet identity?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "watery_lift",
+          "label": "Green-watery floral lift",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "muguet",
+            "fresh floral",
+            "watery",
+            "green"
+          ],
+          "conflict_terms": [
+            "watery",
+            "green",
+            "freshness"
+          ],
+          "comparison_question": "Does watery lift clarify muguet or replace it with generic freshness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "tuberose_indolic",
+      "subtype_id": "TUBEROSE_INDOLIC",
+      "subtype_card_sha256": "7262ecaa6e049d8a1af5c8fe31f34bf297416834fb69c0f55bce254a9d6b53c5",
+      "source_bindings": [
+        {
+          "source_id": "tuberose_development_floral_v2",
+          "source_record_sha256": "3ea524d7206bd189a7513c66b3789b90691df671ca84e50c6a9c7eb90821d0ab"
+        },
+        {
+          "source_id": "iff_tuberose_completion",
+          "source_record_sha256": "e3e7e26ae4d1966712c6627970e940d1877511d776ff42e93de0bca4cea5b7e2"
+        }
+      ],
+      "title": "Indolic tuberose",
+      "options": [
+        {
+          "option_id": "warm_edge",
+          "label": "Independent indolic warmth",
+          "template_id": "animalic_fur",
+          "query_terms": [
+            "tuberose",
+            "indolic",
+            "animalic",
+            "flower warmth"
+          ],
+          "conflict_terms": [
+            "indole",
+            "indolic",
+            "animalic"
+          ],
+          "comparison_question": "Does the optional warm edge support the fixed tuberose rather than merely add heaviness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "solar_body",
+          "label": "Floral and solar body",
+          "template_id": "white_floral",
+          "query_terms": [
+            "tuberose",
+            "white floral",
+            "creamy",
+            "solar"
+          ],
+          "conflict_terms": [
+            "cream",
+            "creamy",
+            "solar",
+            "coconut"
+          ],
+          "comparison_question": "Does floral body preserve tuberose without coconut cream takeover?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "tuberose_transparent",
+      "subtype_id": "TUBEROSE_TRANSPARENT",
+      "subtype_card_sha256": "e2eee085c5aa1f01ff257bce129bb2cb82509ce7f75cd8fb10d9e30a00af4862",
+      "source_bindings": [
+        {
+          "source_id": "iff_tuberose_completion",
+          "source_record_sha256": "e3e7e26ae4d1966712c6627970e940d1877511d776ff42e93de0bca4cea5b7e2"
+        },
+        {
+          "source_id": "dsm_hedione_foundation",
+          "source_record_sha256": "e16f04e784546916f2f084b4e9dbb9a23e5654fb30d282cd2237f93b13f5d187"
+        },
+        {
+          "source_id": "tuberose_development_floral_v2",
+          "source_record_sha256": "3ea524d7206bd189a7513c66b3789b90691df671ca84e50c6a9c7eb90821d0ab"
+        }
+      ],
+      "title": "Transparent tuberose",
+      "options": [
+        {
+          "option_id": "airy_continuity",
+          "label": "Transparent floral continuity",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "tuberose",
+            "transparent floral",
+            "airy",
+            "sheer"
+          ],
+          "conflict_terms": [
+            "airy",
+            "watery",
+            "transparent floral"
+          ],
+          "comparison_question": "Does airy support open the control without hollowing its tuberose heart?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "green_petals",
+          "label": "Green petal articulation",
+          "template_id": "white_floral",
+          "query_terms": [
+            "tuberose",
+            "green floral",
+            "petal",
+            "flower"
+          ],
+          "conflict_terms": [
+            "green",
+            "white floral",
+            "floral"
+          ],
+          "comparison_question": "Does green petal support retain tuberose more clearly than generic floral air?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "trop_champaca",
+      "subtype_id": "TROP_CHAMPACA",
+      "subtype_card_sha256": "47a163d6d4547afb1f418af8539ce3c9a54635276d11b4c7b1832d79531e7d35",
+      "source_bindings": [
+        {
+          "source_id": "champaca_flowers_finish",
+          "source_record_sha256": "577589ae09c7b0bc9f8649a2a0039c6fc3bb7a3147dd59880e6fd825d3f1a07c"
+        }
+      ],
+      "title": "Champaca — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "flower_link",
+          "label": "Floral-terpenic continuity",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "champaca",
+            "floral",
+            "petal",
+            "terpenic"
+          ],
+          "conflict_terms": [
+            "floral",
+            "terpenic"
+          ],
+          "comparison_question": "Does floral continuity preserve the intended champaca rather than a generic bouquet?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "fruit_bridge",
+          "label": "Restrained fruit-floral bridge",
+          "template_id": "fruit",
+          "query_terms": [
+            "champaca",
+            "fruity",
+            "ester",
+            "fruit floral"
+          ],
+          "conflict_terms": [
+            "fruit",
+            "fruity",
+            "sweet"
+          ],
+          "comparison_question": "Does fruit-associated support add a useful contrast without fruit taking over?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "lily_green",
+      "subtype_id": "LILY_GREEN",
+      "subtype_card_sha256": "0a380f8e51c5f07041613d3692dbdd7f5c375fc2ba808d5413202e4be1ba0b1e",
+      "source_bindings": [
+        {
+          "source_id": "lily_cultivars_floral_v2",
+          "source_record_sha256": "fadedea3fa3276c2ed92477b27c18cc3705c391aeee02cff65f005d409de3772"
+        },
+        {
+          "source_id": "iff_hexenylsal_floral_v2",
+          "source_record_sha256": "d0c5860ca66a015a7d936e8a61f7bd5382973868d12c0a1b0e3cf6f1a7b60cc3"
+        },
+        {
+          "source_id": "givaudan_florhydral_completion",
+          "source_record_sha256": "aa00a1a2c661d81e28add1283fba41a7ed15612c43c455c5b56c37cf11b112f2"
+        }
+      ],
+      "title": "Green Lilium rather than generic muguet",
+      "options": [
+        {
+          "option_id": "stem_edge",
+          "label": "Stem-green edge",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "lilium",
+            "stem green",
+            "green floral",
+            "fresh cut"
+          ],
+          "conflict_terms": [
+            "green",
+            "leaf",
+            "leafy",
+            "stem"
+          ],
+          "comparison_question": "Does stem-green articulation help the chosen Lilium target without vegetal drift?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "watery_link",
+          "label": "Watery flower continuity",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "lilium",
+            "fresh floral",
+            "watery",
+            "petal"
+          ],
+          "conflict_terms": [
+            "watery",
+            "dewy",
+            "floral"
+          ],
+          "comparison_question": "Does watery support preserve the chosen Lilium, rather than substitute muguet?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "pollen_spartium_broom",
+      "subtype_id": "POLLEN_SPARTIUM_BROOM",
+      "subtype_card_sha256": "568afc36db98cb7dfd4d8f4c60ad765c6c80f1ef0dc697b8e0e65c170e41d738",
+      "source_bindings": [
+        {
+          "source_id": "broom_iff_depth",
+          "source_record_sha256": "dd2f9f97742a282a814e8db38411738fa40827e7df49437ca02d4916f41d3fa7"
+        }
+      ],
+      "title": "Spanish broom absolute: honey, dried-fruit and hay facets",
+      "options": [
+        {
+          "option_id": "hay_texture",
+          "label": "Hay and malt-associated texture",
+          "template_id": "tobacco_hay",
+          "query_terms": [
+            "broom",
+            "hay",
+            "dry floral",
+            "straw",
+            "malt"
+          ],
+          "conflict_terms": [
+            "hay",
+            "malt",
+            "tobacco",
+            "smoky"
+          ],
+          "comparison_question": "Does hay-associated texture distinguish the honey-floral control without cereal or smoke drift?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "fruit_contour",
+          "label": "Dried-fruit contour",
+          "template_id": "fruit",
+          "query_terms": [
+            "broom",
+            "dried fruit",
+            "honey floral",
+            "fruit"
+          ],
+          "conflict_terms": [
+            "fruit",
+            "fruity",
+            "sweet"
+          ],
+          "comparison_question": "Does dried-fruit support retain the flower rather than make a gourmand?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "violet_powder",
+      "subtype_id": "VIOLET_POWDER",
+      "subtype_card_sha256": "0fbba580eddababff7e98c55d59ae1e45a082a64850efb5112a5a809f7b3dfe0",
+      "source_bindings": [
+        {
+          "source_id": "iff_alpha_extra",
+          "source_record_sha256": "0f6f26d10363535bac56e6d0455cdc6d279d32aadd909c1e85987ddface404a1"
+        },
+        {
+          "source_id": "iff_gamma",
+          "source_record_sha256": "0158eb039645955eae7c6bed9c0d3b1cbd8fc27a2923613d64ffba0e42b6504e"
+        },
+        {
+          "source_id": "violet_emissions",
+          "source_record_sha256": "8fcf5996069e7f4f875b28dcf5149105b8a84f8c5f402e8656f3bffbd573db9f"
+        }
+      ],
+      "title": "Violet powder distinct from orris root",
+      "options": [
+        {
+          "option_id": "petal_powder",
+          "label": "Petal-powder continuation",
+          "template_id": "powder",
+          "query_terms": [
+            "violet petal",
+            "powder",
+            "floral",
+            "cosmetic"
+          ],
+          "conflict_terms": [
+            "powder",
+            "powdery",
+            "cosmetic",
+            "lipstick"
+          ],
+          "comparison_question": "Does powder support preserve the fixed violet petals without lipstick takeover?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "woody_link",
+          "label": "Woody violet continuation",
+          "template_id": "dry_wood",
+          "query_terms": [
+            "violet",
+            "woody",
+            "orris",
+            "powder"
+          ],
+          "conflict_terms": [
+            "wood",
+            "woody",
+            "orris",
+            "rooty"
+          ],
+          "comparison_question": "Does a woody continuation clarify or displace violet petals?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "iris_violet_leaf",
+      "subtype_id": "IRIS_VIOLET_LEAF",
+      "subtype_card_sha256": "9cc538eb7d8372bf1b4d528dffd2e1e9729c2b1f777e1e18fd26f28720e4505c",
+      "source_bindings": [
+        {
+          "source_id": "iff_violet_leaf_subtypes",
+          "source_record_sha256": "ca2e27425aaac65c5faa010ce20ff801ee9376696cb74c833d59b50a48e46e2d"
+        },
+        {
+          "source_id": "iff_orivone",
+          "source_record_sha256": "0649ad214cf4f691ca15ddb37e7cbd2e0588781508fe602d90d01dfe78edb771"
+        },
+        {
+          "source_id": "biolandes_orris",
+          "source_record_sha256": "8da16c2ba96e4841c391004e557c1957be73f85feff3dce9fadcf63da52b7c17"
+        }
+      ],
+      "title": "Violet-leaf contrast in an iris structure",
+      "options": [
+        {
+          "option_id": "green_contrast",
+          "label": "Leaf-green contrast",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "violet leaf",
+            "leafy",
+            "green",
+            "stem"
+          ],
+          "conflict_terms": [
+            "leaf",
+            "leafy",
+            "green"
+          ],
+          "comparison_question": "Does a leaf edge clarify the fixed iris rather than replace root/powder with cucumber?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "watery_link",
+          "label": "Watery leaf continuity",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "violet leaf",
+            "watery",
+            "green floral",
+            "transparent"
+          ],
+          "conflict_terms": [
+            "watery",
+            "cucumber",
+            "green"
+          ],
+          "comparison_question": "Does watery support connect the leaf to the exact iris control?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "bouquet_aldehydic",
+      "subtype_id": "BOUQUET_ALDEHYDIC",
+      "subtype_card_sha256": "e485f08f60fcf559265dac25bf541b4f03dc508a1e7702069ab2422bbe1fb18a",
+      "source_bindings": [
+        {
+          "source_id": "chanel_n5_floral_v2",
+          "source_record_sha256": "95a7ce0421e62415218062186e7b6d2ce75067408508b0b3cafc40b68bff7222"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "dsm_hedione_foundation",
+          "source_record_sha256": "e16f04e784546916f2f084b4e9dbb9a23e5654fb30d282cd2237f93b13f5d187"
+        }
+      ],
+      "title": "Aldehydic floral architecture",
+      "options": [
+        {
+          "option_id": "surface_definition",
+          "label": "Aldehydic surface definition",
+          "template_id": "aldehydic",
+          "query_terms": [
+            "floral bouquet",
+            "aldehydic",
+            "sparkling",
+            "petal"
+          ],
+          "conflict_terms": [
+            "aldehyde",
+            "aldehydic",
+            "soapy",
+            "waxy"
+          ],
+          "comparison_question": "Does the optional surface effect define petals without wax or soap masking?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "citrus_surface",
+          "label": "Citrus surface lift",
+          "template_id": "citrus_peel",
+          "query_terms": [
+            "floral bouquet",
+            "citrus",
+            "fresh",
+            "peel"
+          ],
+          "conflict_terms": [
+            "citrus",
+            "peel",
+            "orange"
+          ],
+          "comparison_question": "Does citrus lift preserve the same protected floral heart better than an aldehydic surface?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "bouquet_soft",
+      "subtype_id": "BOUQUET_SOFT",
+      "subtype_card_sha256": "90f8909355fa75131c3899f3b88eeddeb5991c5a63450ddcd09a54702b9363ec",
+      "source_bindings": [
+        {
+          "source_id": "dsm_florol_subtypes",
+          "source_record_sha256": "8a11ad4223cedb450e2668c189ee6cf96e829bfed72f35d90ee97f1faeb6aeb0"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        },
+        {
+          "source_id": "dsm_hedione_foundation",
+          "source_record_sha256": "e16f04e784546916f2f084b4e9dbb9a23e5654fb30d282cd2237f93b13f5d187"
+        }
+      ],
+      "title": "Soft floral without loss of recognizer",
+      "options": [
+        {
+          "option_id": "petal_texture",
+          "label": "Soft-petal texture",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "soft floral",
+            "petal",
+            "gentle",
+            "floral"
+          ],
+          "conflict_terms": [
+            "floral",
+            "soft"
+          ],
+          "comparison_question": "Does petal support soften the unchanged flower without loss of recognition?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "musk_link",
+          "label": "Restrained musk link",
+          "template_id": "skin_musk",
+          "query_terms": [
+            "musk",
+            "soft",
+            "floral bridge",
+            "skin"
+          ],
+          "conflict_terms": [
+            "musk",
+            "skin",
+            "powder"
+          ],
+          "comparison_question": "Does a separate musk bridge smooth the control or flatten its flower?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "rose_lemony",
+      "subtype_id": "ROSE_LEMONY",
+      "subtype_card_sha256": "6e1a75220345afb365da19bda282ff5cee4a93672f27dcd29832fa9765f7a49d",
+      "source_bindings": [
+        {
+          "source_id": "rose_cultivars_floral_v2",
+          "source_record_sha256": "f15319f0bc5398597ef07bfca67b312b9fc5f12011ac5cc3b46e967440d60cdd"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_bergamot_fcr_foundation",
+          "source_record_sha256": "5e67e66cbc59f2005a966eecf6940e9fc30688ff7d095325726cfed09fb905d3"
+        }
+      ],
+      "title": "Lemony rose",
+      "options": [
+        {
+          "option_id": "citrus_edge",
+          "label": "Citrus edge around fixed rose",
+          "template_id": "citrus_peel",
+          "query_terms": [
+            "citrus",
+            "bergamot",
+            "peel",
+            "fresh"
+          ],
+          "conflict_terms": [
+            "citrus"
+          ],
+          "comparison_question": "Does a fresh peel edge clarify the fixed rose without turning it into rose cologne?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "petal_continuity",
+          "label": "Fresh rose-petal continuity",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "rose",
+            "petal",
+            "fresh",
+            "floral"
+          ],
+          "conflict_terms": [
+            "floral"
+          ],
+          "comparison_question": "Does petal support retain the lemony rose identity with less citrus emphasis?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "rose_honey",
+      "subtype_id": "ROSE_HONEY",
+      "subtype_card_sha256": "007e972db82e1b9ccf186178b0cae4aa84e958c954435e6de7be56db662aec78",
+      "source_bindings": [
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_mimosa_completion",
+          "source_record_sha256": "8af78d74a785c25017a8505daa065b53ded0130da22ab1200da2edf0d5bf8d62"
+        },
+        {
+          "source_id": "iff_cassie_completion",
+          "source_record_sha256": "1b97627df586b3001bb417527d0135116226f5a0d9aad3b6e370294dcd7c882f"
+        }
+      ],
+      "title": "Honeyed rose",
+      "options": [
+        {
+          "option_id": "pollen_texture",
+          "label": "Dry pollen-associated rose texture",
+          "template_id": "powder",
+          "query_terms": [
+            "pollen",
+            "mimosa",
+            "powdery",
+            "honey"
+          ],
+          "conflict_terms": [
+            "powder",
+            "pollen",
+            "mimosa"
+          ],
+          "comparison_question": "Does pollen-associated texture enrich the fixed rose without simply increasing sweetness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "green_relief",
+          "label": "Green relief within honeyed rose",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "green",
+            "floral",
+            "leaf",
+            "rose"
+          ],
+          "conflict_terms": [
+            "green",
+            "leaf"
+          ],
+          "comparison_question": "Does a restrained green edge keep honeyed rose clear rather than waxy or sugary?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "rose_metallic",
+      "subtype_id": "ROSE_METALLIC",
+      "subtype_card_sha256": "94c9122bc9faa8b03af6b58372af9069c17b05811dca6b484540fd73c6ad8108",
+      "source_bindings": [
+        {
+          "source_id": "symrise_roseoxide_floral_v2",
+          "source_record_sha256": "f1bfd60cd4a55e829d6b845d6dbb19c619d21b4974d567bd89f63314ad4886fb"
+        },
+        {
+          "source_id": "iff_carnation_completion",
+          "source_record_sha256": "ab51da30ff2edc2fb6cdfd3f219e26e39f0cc8cd0ca75a6a6f745e26e71a3892"
+        },
+        {
+          "source_id": "rose_cultivars_floral_v2",
+          "source_record_sha256": "f15319f0bc5398597ef07bfca67b312b9fc5f12011ac5cc3b46e967440d60cdd"
+        }
+      ],
+      "title": "Metallic or spicy rose",
+      "options": [
+        {
+          "option_id": "cool_green",
+          "label": "Cool green-rose interpretation",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "rose",
+            "rose oxide",
+            "green",
+            "geranium"
+          ],
+          "conflict_terms": [
+            "green",
+            "geranium"
+          ],
+          "comparison_question": "Does the green edge support the requested cool rose interpretation without geranium takeover? Metallic character is unmeasured.",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "spice_edge",
+          "label": "Independent spice edge in rose",
+          "template_id": "spice",
+          "query_terms": [
+            "spicy",
+            "clove",
+            "carnation",
+            "rose"
+          ],
+          "conflict_terms": [
+            "spice",
+            "spicy",
+            "clove"
+          ],
+          "comparison_question": "Does a restrained spice accent clarify the rose without turning it into carnation?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "rose_dark_patch",
+      "subtype_id": "ROSE_DARK_PATCH",
+      "subtype_card_sha256": "0de496af9fe14c52c0833c64e413ffac96a903248aca9e0fe95bd03b851c782c",
+      "source_bindings": [
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_patchouli_completion",
+          "source_record_sha256": "c535745de882a0e9c5836f5aa002e6f7d2fb40b36d33e7de0dc852110b8ebc61"
+        },
+        {
+          "source_id": "dsm_clearwood_floral_v2",
+          "source_record_sha256": "76172565652010f2913043bcfcf020140f4ddef93986b6be8bb2e958712c4037"
+        }
+      ],
+      "title": "Rose with dark patchouli contrast",
+      "options": [
+        {
+          "option_id": "earthy_support",
+          "label": "Earthy patchouli contrast to rose",
+          "template_id": "patchouli_earth",
+          "query_terms": [
+            "patchouli",
+            "earthy",
+            "mossy"
+          ],
+          "conflict_terms": [
+            "patchouli",
+            "earthy",
+            "moss"
+          ],
+          "comparison_question": "Does earthy support provide contrast while preserving rose petals?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "clean_wood_support",
+          "label": "Distinct clean woody support for rose",
+          "template_id": "dry_wood",
+          "query_terms": [
+            "clearwood",
+            "woody",
+            "soft",
+            "patchouli"
+          ],
+          "conflict_terms": [
+            "wood",
+            "woody",
+            "patchouli"
+          ],
+          "comparison_question": "Does a separately identified woody support leave the rose clearer? This is not an equal-dose patchouli substitution.",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "jas_grandiflorum",
+      "subtype_id": "JAS_GRANDIFLORUM",
+      "subtype_card_sha256": "ec4870313dd9c2cca3e56173356181a9403ee1ee87c65d9167d4895539460c7b",
+      "source_bindings": [
+        {
+          "source_id": "iff_jasmine_grand_subtypes",
+          "source_record_sha256": "1345f5739e57f064df0f82fed060381c7791d6c7d5ea3efba5f331ac1ff7ddbb"
+        },
+        {
+          "source_id": "jasmine_species_subtypes",
+          "source_record_sha256": "b48a3bec89b7a5f6243f441cc4102b460e9d8417a47d29741b7d0d3ba7c1addb"
+        }
+      ],
+      "title": "Grandiflorum jasmine texture",
+      "options": [
+        {
+          "option_id": "floral_volume",
+          "label": "Fruity-floral jasmine volume",
+          "template_id": "white_floral",
+          "query_terms": [
+            "jasmine",
+            "floral",
+            "fruity",
+            "hedione"
+          ],
+          "conflict_terms": [
+            "floral",
+            "jasmine"
+          ],
+          "comparison_question": "Does floral support retain the chosen grandiflorum character without substituting sambac or a fruit accord?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "green_hay",
+          "label": "Green-hay frame around grandiflorum",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "green",
+            "hay",
+            "jasmine",
+            "leaf"
+          ],
+          "conflict_terms": [
+            "green",
+            "hay",
+            "leaf"
+          ],
+          "comparison_question": "Does a restrained green-hay edge increase living-flower texture without becoming vegetal?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "jas_leather",
+      "subtype_id": "JAS_LEATHER",
+      "subtype_card_sha256": "aeae921b2970a71ff89d3c40447c1fde049eff9d17b11d17dcb9f98fed39b423",
+      "source_bindings": [
+        {
+          "source_id": "iff_jasmine_grand_subtypes",
+          "source_record_sha256": "1345f5739e57f064df0f82fed060381c7791d6c7d5ea3efba5f331ac1ff7ddbb"
+        },
+        {
+          "source_id": "givaudan_safraleine_foundation",
+          "source_record_sha256": "eacc33459c2ea9caf104f237aa6d824d4bc98a90a1cf051d312a426665ad6642"
+        },
+        {
+          "source_id": "iff_osmanthus_completion",
+          "source_record_sha256": "0f178c02e7a9d4b9d0b64cdc89038b2ce598625a34ff7ab3414544df1743a516"
+        }
+      ],
+      "title": "Leathery jasmine",
+      "options": [
+        {
+          "option_id": "suede_edge",
+          "label": "Suede detail around fixed jasmine",
+          "template_id": "leather_suede",
+          "query_terms": [
+            "suede",
+            "leather",
+            "safraleine",
+            "spicy"
+          ],
+          "conflict_terms": [
+            "leather",
+            "suede",
+            "spice"
+          ],
+          "comparison_question": "Does a suede edge support jasmine without making leather the protagonist?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "fruit_tea_bridge",
+          "label": "Fruit-tea bridge within jasmine",
+          "template_id": "tea",
+          "query_terms": [
+            "osmanthus",
+            "tea",
+            "fruity",
+            "floral"
+          ],
+          "conflict_terms": [
+            "tea",
+            "osmanthus",
+            "apricot"
+          ],
+          "comparison_question": "Does a fruit-tea bridge soften the transition without turning jasmine into apricot or osmanthus?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "orange_honey",
+      "subtype_id": "ORANGE_HONEY",
+      "subtype_card_sha256": "792ec8b84708d4f31ba64923da1cc053ed22e8d2fb0f692fcb3f0878a10e65df",
+      "source_bindings": [
+        {
+          "source_id": "iff_orange_flower_completion",
+          "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758"
+        },
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        },
+        {
+          "source_id": "iff_jasmine_completion",
+          "source_record_sha256": "5d4db39c433fd72932f6d12c64f4cf966a638d1fb1103951abf162437573a1ab"
+        }
+      ],
+      "title": "Honeyed orange blossom",
+      "options": [
+        {
+          "option_id": "honey_flower",
+          "label": "Honey-flower orange-blossom body",
+          "template_id": "white_floral",
+          "query_terms": [
+            "orange blossom",
+            "orange flower",
+            "honey",
+            "floral"
+          ],
+          "conflict_terms": [
+            "honey",
+            "white floral"
+          ],
+          "comparison_question": "Does warmer floral body preserve orange blossom rather than syrup or jasmine?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "indolic_warmth",
+          "label": "Independent indolic orange-flower warmth",
+          "template_id": "animalic_fur",
+          "query_terms": [
+            "indole",
+            "indolic",
+            "orange blossom"
+          ],
+          "conflict_terms": [
+            "indole",
+            "indolic",
+            "animalic"
+          ],
+          "comparison_question": "Does restrained indolic warmth support orange flower without an animalic or jasmine takeover?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "muguet_cyclamen",
+      "subtype_id": "MUGUET_CYCLAMEN",
+      "subtype_card_sha256": "21405a7e772887d0007f034c1c7604dc462c562fb285d7441b50696011fa1922",
+      "source_bindings": [
+        {
+          "source_id": "givaudan_cyclamen_floral_v2",
+          "source_record_sha256": "cda4a42d13f9553db3bee51d66f4639c3a0e185002045d1d893e3553d4c67203"
+        },
+        {
+          "source_id": "givaudan_florhydral_completion",
+          "source_record_sha256": "aa00a1a2c661d81e28add1283fba41a7ed15612c43c455c5b56c37cf11b112f2"
+        }
+      ],
+      "title": "Green watery cyclamen interpretation",
+      "options": [
+        {
+          "option_id": "green_edge",
+          "label": "Green-floral cyclamen edge",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "green",
+            "floral",
+            "cyclamen"
+          ],
+          "conflict_terms": [
+            "green"
+          ],
+          "comparison_question": "Does the green edge distinguish cyclamen without creating marine melon?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "watery_petals",
+          "label": "Soft watery cyclamen petals",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "cyclamen",
+            "muguet",
+            "watery",
+            "floral"
+          ],
+          "conflict_terms": [
+            "muguet",
+            "watery"
+          ],
+          "comparison_question": "Does soft petal body retain the cyclamen interpretation without laundry character?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "muguet_watery_musk",
+      "subtype_id": "MUGUET_WATERY_MUSK",
+      "subtype_card_sha256": "089fb6b209318d509cd274b5c0fbbc725fb6e54e363fec3e5d0d28566c7cd555",
+      "source_bindings": [
+        {
+          "source_id": "dsm_florol_subtypes",
+          "source_record_sha256": "8a11ad4223cedb450e2668c189ee6cf96e829bfed72f35d90ee97f1faeb6aeb0"
+        },
+        {
+          "source_id": "givaudan_florhydral_completion",
+          "source_record_sha256": "aa00a1a2c661d81e28add1283fba41a7ed15612c43c455c5b56c37cf11b112f2"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        }
+      ],
+      "title": "Watery muguet with a restrained musk bridge",
+      "options": [
+        {
+          "option_id": "petal_continuity",
+          "label": "Watery-muguet petal continuity",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "muguet",
+            "florol",
+            "dewy",
+            "floral"
+          ],
+          "conflict_terms": [
+            "muguet",
+            "dewy"
+          ],
+          "comparison_question": "Does petal continuity preserve the flower with its existing musk background?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "musk_cushion",
+          "label": "Separate musk-background hypothesis",
+          "template_id": "skin_musk",
+          "query_terms": [
+            "musk",
+            "powdery",
+            "soft",
+            "exaltolide"
+          ],
+          "conflict_terms": [
+            "musk",
+            "powdery"
+          ],
+          "comparison_question": "Does a separate soft-musk change smooth the transition or flatten the flower? No persistence is predicted.",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "peony_dewy",
+      "subtype_id": "PEONY_DEWY",
+      "subtype_card_sha256": "5f189d59abd6198449708196408e3cec024dc9adfba0066b1f886055207fe42e",
+      "source_bindings": [
+        {
+          "source_id": "peony_cultivars_floral_v2",
+          "source_record_sha256": "30192d35b65230ddbfaaa72dac6f124bb1ef2e141bc6f7ba3285c8f4bdbfdc00"
+        },
+        {
+          "source_id": "givaudan_peonile_floral_v2",
+          "source_record_sha256": "00299441846cbacd4ffbc3e897da84a98c5be647ec1c041afa6f0049068499a3"
+        },
+        {
+          "source_id": "givaudan_florhydral_completion",
+          "source_record_sha256": "aa00a1a2c661d81e28add1283fba41a7ed15612c43c455c5b56c37cf11b112f2"
+        }
+      ],
+      "title": "Dewy peony without a generic rose overwrite",
+      "options": [
+        {
+          "option_id": "dewy_lift",
+          "label": "Dewy edge for the chosen peony",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "dewy",
+            "floral",
+            "watery",
+            "florhydral"
+          ],
+          "conflict_terms": [
+            "watery",
+            "muguet"
+          ],
+          "comparison_question": "Does watery lift support the chosen peony reference without marine melon?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "rose_petals",
+          "label": "Optional rose-associated peony body",
+          "template_id": "rose",
+          "query_terms": [
+            "peonile",
+            "rose",
+            "geranium",
+            "petal"
+          ],
+          "conflict_terms": [
+            "rose",
+            "rosy",
+            "geranium"
+          ],
+          "comparison_question": "Does a rose-associated body fit this peony reference? It is not mandatory for other peony cultivars.",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "peony_rose",
+      "subtype_id": "PEONY_ROSE",
+      "subtype_card_sha256": "ed1e05aa63c2ebed2f988730b90fe0297d984d6cbf9e226576957a9c5d6ef810",
+      "source_bindings": [
+        {
+          "source_id": "peony_cultivars_floral_v2",
+          "source_record_sha256": "30192d35b65230ddbfaaa72dac6f124bb1ef2e141bc6f7ba3285c8f4bdbfdc00"
+        },
+        {
+          "source_id": "givaudan_peonile_floral_v2",
+          "source_record_sha256": "00299441846cbacd4ffbc3e897da84a98c5be647ec1c041afa6f0049068499a3"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        }
+      ],
+      "title": "Rose-adjacent peony",
+      "options": [
+        {
+          "option_id": "light_rose",
+          "label": "Lighter rose-associated peony petals",
+          "template_id": "rose",
+          "query_terms": [
+            "peonile",
+            "rose",
+            "petal",
+            "fresh"
+          ],
+          "conflict_terms": [
+            "rose",
+            "rosy"
+          ],
+          "comparison_question": "Does a light rose-associated petal body support the selected peony instead of replacing it?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "floral_air",
+          "label": "Transparent framing for rosy peony",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "floral",
+            "petal",
+            "transparent",
+            "linalool"
+          ],
+          "conflict_terms": [
+            "floral"
+          ],
+          "comparison_question": "Does transparent framing retain the chosen peony reference with less rose emphasis?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "lily_salicylate",
+      "subtype_id": "LILY_SALICYLATE",
+      "subtype_card_sha256": "0294444e4c811b4459f5e2fe75f6ffa6ff14a865d5e3918c4c516561c578506c",
+      "source_bindings": [
+        {
+          "source_id": "lily_cultivars_floral_v2",
+          "source_record_sha256": "fadedea3fa3276c2ed92477b27c18cc3705c391aeee02cff65f005d409de3772"
+        },
+        {
+          "source_id": "iff_hexenylsal_floral_v2",
+          "source_record_sha256": "d0c5860ca66a015a7d936e8a61f7bd5382973868d12c0a1b0e3cf6f1a7b60cc3"
+        },
+        {
+          "source_id": "dsm_salicynile_floral_v2",
+          "source_record_sha256": "e25c1d054459ff63e3360df3234f285bf3f4bf72912b5d2f894bfc4db836b39b"
+        }
+      ],
+      "title": "Salicylate-associated lily construction",
+      "options": [
+        {
+          "option_id": "green_body",
+          "label": "Green salicylate-associated lily body",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "green",
+            "floral",
+            "cis 3 hexenyl salicylate"
+          ],
+          "conflict_terms": [
+            "green",
+            "salicylate"
+          ],
+          "comparison_question": "Does green body support the chosen Lilium without wintergreen or lily-of-the-valley confusion?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "solar_body",
+          "label": "Separate solar-floral lily body",
+          "template_id": "white_floral",
+          "query_terms": [
+            "solar",
+            "floral",
+            "salicynile",
+            "lily"
+          ],
+          "conflict_terms": [
+            "solar",
+            "white floral"
+          ],
+          "comparison_question": "Does solar body support the chosen Lilium without banana-sunscreen drift? Salicynile remains a nitrile.",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "pollen_honey",
+      "subtype_id": "POLLEN_HONEY",
+      "subtype_card_sha256": "85c614387b99cef4379c2e68dcfdc5d8e78021d5ec5f74d4280918001c97728c",
+      "source_bindings": [
+        {
+          "source_id": "iff_mimosa_completion",
+          "source_record_sha256": "8af78d74a785c25017a8505daa065b53ded0130da22ab1200da2edf0d5bf8d62"
+        },
+        {
+          "source_id": "iff_cassie_completion",
+          "source_record_sha256": "1b97627df586b3001bb417527d0135116226f5a0d9aad3b6e370294dcd7c882f"
+        },
+        {
+          "source_id": "iff_carnation_completion",
+          "source_record_sha256": "ab51da30ff2edc2fb6cdfd3f219e26e39f0cc8cd0ca75a6a6f745e26e71a3892"
+        }
+      ],
+      "title": "Pollen-honey texture without a gourmand rewrite",
+      "options": [
+        {
+          "option_id": "dry_pollen",
+          "label": "Dry pollen texture within honeyed flowers",
+          "template_id": "powder",
+          "query_terms": [
+            "pollen",
+            "powdery",
+            "mimosa",
+            "cassie"
+          ],
+          "conflict_terms": [
+            "powder",
+            "pollen"
+          ],
+          "comparison_question": "Does dry pollen texture add detail without extra sugary sweetness? Exact mimosa and cassie products remain separate.",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "spicy_detail",
+          "label": "Independent spicy honey-flower detail",
+          "template_id": "spice",
+          "query_terms": [
+            "spicy",
+            "carnation",
+            "honey",
+            "floral"
+          ],
+          "conflict_terms": [
+            "spice",
+            "spicy",
+            "clove"
+          ],
+          "comparison_question": "Does restrained spicy detail clarify honeyed flowers without clove dominance?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "light_honeysuckle",
+      "subtype_id": "LIGHT_HONEYSUCKLE",
+      "subtype_card_sha256": "8b837c15125a11465c380b7a4c00ce7d856833a7db82e9155ad138e9b8e4b96b",
+      "source_bindings": [
+        {
+          "source_id": "honeysuckle_anthesis_finish",
+          "source_record_sha256": "a1eb5daf705d62548a7d71cb0b14968ece7cec78692926b88533b33594d4f540"
+        }
+      ],
+      "title": "Honeysuckle — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "airy_flower",
+          "label": "Airy honeysuckle floral frame",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "floral",
+            "petal",
+            "linalool",
+            "fresh"
+          ],
+          "conflict_terms": [
+            "floral"
+          ],
+          "comparison_question": "Does the floral frame retain the airy honeysuckle concept? Flower emission timing is not a perfume drydown curve.",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "living_green",
+          "label": "Living-flower green contrast",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "green",
+            "leaf",
+            "floral",
+            "fresh"
+          ],
+          "conflict_terms": [
+            "green",
+            "leaf"
+          ],
+          "comparison_question": "Does restrained green contrast improve the honeysuckle hypothesis without vegetal dominance?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "lav_cologne",
+      "subtype_id": "LAV_COLOGNE",
+      "subtype_card_sha256": "5251964478e30b7f806e99eb07b4d976bd1728101b8b6946eb91f1464637b415",
+      "source_bindings": [
+        {
+          "source_id": "caron_le_matin_edt",
+          "source_record_sha256": "41f735c53d0100da59cc0b3251ae5e209222060095ec65004338b74a88df100a"
+        },
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        },
+        {
+          "source_id": "iff_petitgrain_subtypes",
+          "source_record_sha256": "532922d8655855b3e8d619bf7a768719ba19acd1af8482c9603be2f113c66bdd"
+        }
+      ],
+      "title": "Lavender cologne",
+      "options": [
+        {
+          "option_id": "flower_bridge",
+          "label": "Citrus-flower bridge around lavender",
+          "template_id": "white_floral",
+          "query_terms": [
+            "neroli",
+            "orange blossom",
+            "fresh",
+            "green floral"
+          ],
+          "conflict_terms": [
+            "neroli",
+            "orange blossom",
+            "white floral"
+          ],
+          "comparison_question": "Does a flower-derived bridge clarify lavender cologne without replacing lavender?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "leaf_bridge",
+          "label": "Leaf-twig bridge around lavender",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "petitgrain",
+            "leaf",
+            "bitter green",
+            "orange floral"
+          ],
+          "conflict_terms": [
+            "petitgrain",
+            "green",
+            "leaf"
+          ],
+          "comparison_question": "Does a separate leaf-twig bridge retain lavender and citrus clarity without cleaning-product drift?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "lav_barbershop",
+      "subtype_id": "LAV_BARBERSHOP",
+      "subtype_card_sha256": "2f5441c8edf931bbbc5b4aeb834625dd2bc246dc0be504cc2510049d82d07b99",
+      "source_bindings": [
+        {
+          "source_id": "tom_ford_beau_de_jour_edp",
+          "source_record_sha256": "486a5f057aeb84f16d2fe833dabe12a62b8b868bcb34c58b16fc63f431d1b4fd"
+        },
+        {
+          "source_id": "chanel_platinum_egoiste_edt",
+          "source_record_sha256": "34ba17f0d4d8e9ae3af491ef9ad47bc432a10d9b61cb321249ae2afd46d438f8"
+        },
+        {
+          "source_id": "iff_clary_completion",
+          "source_record_sha256": "26165151439da615ad9e0a8907bda0f6231f4852f01afcbc8291163669ad8bdc"
+        }
+      ],
+      "title": "Green barbershop lavender",
+      "options": [
+        {
+          "option_id": "herbal_bridge",
+          "label": "Herbal connection in lavender barbershop",
+          "template_id": "aromatic_herbs",
+          "query_terms": [
+            "clary sage",
+            "herbal",
+            "aromatic",
+            "hay"
+          ],
+          "conflict_terms": [
+            "sage",
+            "herbal",
+            "hay"
+          ],
+          "comparison_question": "Does the herbal bridge retain lavender while avoiding camphor dominance?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "moss_support",
+          "label": "Dry mossy support for lavender",
+          "template_id": "moss_chypre",
+          "query_terms": [
+            "moss",
+            "mossy",
+            "dry",
+            "patchouli"
+          ],
+          "conflict_terms": [
+            "moss",
+            "patchouli"
+          ],
+          "comparison_question": "Does dry mossy support preserve the barbershop contrast without a heavy or sweet base?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "lav_soft_musk",
+      "subtype_id": "LAV_SOFT_MUSK",
+      "subtype_card_sha256": "e54512babea1cf7321e0c989c441a93aaac07d60784911c8e37d336c648db722",
+      "source_bindings": [
+        {
+          "source_id": "chanel_jersey_edp",
+          "source_record_sha256": "f67f9f7083979431b255226c7402d15bb62ba501415868eee7277da40b082114"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        },
+        {
+          "source_id": "helvetolide",
+          "source_record_sha256": "d7b21c8dadb05bae5a8b6f0c4470ac0a8eb35c511b24c8eba2c030ac3132cbbc"
+        }
+      ],
+      "title": "Soft musky lavender",
+      "options": [
+        {
+          "option_id": "soft_cushion",
+          "label": "Powdery-woody musk cushion",
+          "template_id": "skin_musk",
+          "query_terms": [
+            "musk",
+            "powdery",
+            "woody",
+            "exaltolide"
+          ],
+          "conflict_terms": [
+            "musk",
+            "powdery"
+          ],
+          "comparison_question": "Does a soft musk cushion retain lavender's aromatic bite without laundry dominance?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "fruit_musk",
+          "label": "Alternative fruit-associated musk bridge",
+          "template_id": "skin_musk",
+          "query_terms": [
+            "musk",
+            "fruity",
+            "pear",
+            "helvetolide"
+          ],
+          "conflict_terms": [
+            "musk",
+            "fruit",
+            "pear"
+          ],
+          "comparison_question": "Does a fruit-associated musk bridge connect lavender without requiring a pear accord or a second musk?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "lav_spiced_wood",
+      "subtype_id": "LAV_SPICED_WOOD",
+      "subtype_card_sha256": "7b3f1d13077a0f2d56ec2119a3d1382f5fa0f8b4ad5c88f9219277b8991d8ed4",
+      "source_bindings": [
+        {
+          "source_id": "dior_sauvage_elixir",
+          "source_record_sha256": "8e51c564e3b6dcdc7800acf8f544f5f080b1b2d918752d3f442b08ae2a3a8b33"
+        },
+        {
+          "source_id": "iff_cardamom_completion",
+          "source_record_sha256": "3de0a45a2ddbfa5e0468f133eabf0697662978d13c73b0e0f716284dfaf5e6da"
+        },
+        {
+          "source_id": "iff_iso_e_super_completion",
+          "source_record_sha256": "54c3b1da3231dd68cbc5f900c7d313f6d38d3be99b1180b29159005fd4b41082"
+        },
+        {
+          "source_id": "dsm_ambrox_super_description",
+          "source_record_sha256": "8ff89903fab195039347f9ec55b8f9859cb60227274055fd95293e73fc8ce8b0"
+        }
+      ],
+      "title": "Lavender over spiced dry woods",
+      "options": [
+        {
+          "option_id": "spice_transition",
+          "label": "Spice definition around lavender",
+          "template_id": "spice",
+          "query_terms": [
+            "cardamom",
+            "fresh",
+            "green",
+            "spice"
+          ],
+          "conflict_terms": [
+            "cardamom",
+            "spice"
+          ],
+          "comparison_question": "Does a distinct spice transition retain lavender instead of becoming culinary?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "wood_continuation",
+          "label": "Smooth woody continuation",
+          "template_id": "dry_wood",
+          "query_terms": [
+            "woody",
+            "velvety",
+            "smooth",
+            "iso e super"
+          ],
+          "conflict_terms": [
+            "wood",
+            "woody"
+          ],
+          "comparison_question": "Does smooth woody continuation retain lavender beyond the spice? No Ambrox dose or performance gain is inferred.",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "fougere_floral",
+      "subtype_id": "FOUGERE_FLORAL",
+      "subtype_card_sha256": "0fedb457cab4bb67f79b655e1fa12a7d126e777be91632e4477dd34d959218a5",
+      "source_bindings": [
+        {
+          "source_id": "houbigant_fougere_royale_extrait",
+          "source_record_sha256": "2632d6a93a88f0aeda3f45e59c55c980d1338fd8826792fc176619955e2eb484"
+        },
+        {
+          "source_id": "givaudan_peonile_floral_v2",
+          "source_record_sha256": "00299441846cbacd4ffbc3e897da84a98c5be647ec1c041afa6f0049068499a3"
+        },
+        {
+          "source_id": "dsm_hedione_foundation",
+          "source_record_sha256": "e16f04e784546916f2f084b4e9dbb9a23e5654fb30d282cd2237f93b13f5d187"
+        }
+      ],
+      "title": "Floral-heart fougere",
+      "options": [
+        {
+          "option_id": "rosy_bridge",
+          "label": "Rosy-geranium bridge in fougere",
+          "template_id": "rose",
+          "query_terms": [
+            "geranium",
+            "rose",
+            "fresh",
+            "peonile"
+          ],
+          "conflict_terms": [
+            "rose",
+            "geranium"
+          ],
+          "comparison_question": "Does the petal bridge preserve the aromatic fougere core instead of a bouquet takeover?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "transparent_bridge",
+          "label": "Transparent floral fougere bridge",
+          "template_id": "white_floral",
+          "query_terms": [
+            "jasmine",
+            "transparent",
+            "citrus",
+            "hedione"
+          ],
+          "conflict_terms": [
+            "jasmine",
+            "white floral"
+          ],
+          "comparison_question": "Does a transparent floral bridge connect the aromatic core without sweet tonka dominance?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "fougere_tonka",
+      "subtype_id": "FOUGERE_TONKA",
+      "subtype_card_sha256": "eee4025faa4826494c41007c7ecee8c277c6d919023c28ea5b9bbdc3a8a32064",
+      "source_bindings": [
+        {
+          "source_id": "iff_tonka_foundation",
+          "source_record_sha256": "febdf7489a348ac6118b36d1e9058dbabd476c229a749b1ce24da1e71ab7a8aa"
+        },
+        {
+          "source_id": "houbigant_fougere_royale_extrait",
+          "source_record_sha256": "2632d6a93a88f0aeda3f45e59c55c980d1338fd8826792fc176619955e2eb484"
+        }
+      ],
+      "title": "Tonka sweet — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "hay_connection",
+          "label": "Hay-led tonka connection",
+          "template_id": "tobacco_hay",
+          "query_terms": [
+            "tonka",
+            "hay",
+            "coumarin",
+            "tobacco"
+          ],
+          "conflict_terms": [
+            "hay",
+            "tobacco",
+            "tonka"
+          ],
+          "comparison_question": "Does the hay side of tonka preserve dry aromatic fougere contrast?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "soft_sweet",
+          "label": "Separate restrained sweet-tonka connection",
+          "template_id": "vanilla_balsam",
+          "query_terms": [
+            "tonka",
+            "vanilla",
+            "almond",
+            "soft sweet"
+          ],
+          "conflict_terms": [
+            "sweet",
+            "vanilla",
+            "tonka"
+          ],
+          "comparison_question": "Does restrained sweet support improve the hypothesis without syrup or gourmand takeover? No coumarin floor is imposed.",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "sandal_dry",
+      "subtype_id": "SANDAL_DRY",
+      "subtype_card_sha256": "8291c747b2dd7ae7d159c43c196c13f456ea44aca03a3b79d4ec7f1057fcc405",
+      "source_bindings": [
+        {
+          "source_id": "iff_sandal_nc_completion",
+          "source_record_sha256": "302ee14133143606413ef2e2e2a6fa34c1424765fe8833fd66618e4b417fb5b3"
+        },
+        {
+          "source_id": "givaudan_sandalore_foundation",
+          "source_record_sha256": "b7747f2a72202ca6a6118acd146c0ff8c089c4c34dfc423c4c56741115a2069c"
+        },
+        {
+          "source_id": "iff_iso_e_super_completion",
+          "source_record_sha256": "54c3b1da3231dd68cbc5f900c7d313f6d38d3be99b1180b29159005fd4b41082"
+        }
+      ],
+      "title": "Dry transparent — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "sandal_continuity",
+          "label": "Sandal character continuity",
+          "template_id": "creamy_wood",
+          "query_terms": [
+            "sandalwood",
+            "creamy",
+            "clean woody",
+            "sandalore"
+          ],
+          "conflict_terms": [
+            "creamy",
+            "sandalwood"
+          ],
+          "comparison_question": "Does sandal continuity keep the dry target recognizable rather than generic wood?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "transparent_frame",
+          "label": "Smooth woody frame for sandalwood",
+          "template_id": "dry_wood",
+          "query_terms": [
+            "wood",
+            "smooth",
+            "velvety",
+            "iso e super"
+          ],
+          "conflict_terms": [
+            "wood",
+            "woody"
+          ],
+          "comparison_question": "Does a separate woody frame preserve sandal character without pencil wood or harsh amber?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "patch_clean",
+      "subtype_id": "PATCH_CLEAN",
+      "subtype_card_sha256": "08fce87a79862d2e953a96ba71e4062752d8662e93caee27d4871f025ff6e949",
+      "source_bindings": [
+        {
+          "source_id": "dsm_clearwood_floral_v2",
+          "source_record_sha256": "76172565652010f2913043bcfcf020140f4ddef93986b6be8bb2e958712c4037"
+        },
+        {
+          "source_id": "iff_patchouli_completion",
+          "source_record_sha256": "c535745de882a0e9c5836f5aa002e6f7d2fb40b36d33e7de0dc852110b8ebc61"
+        },
+        {
+          "source_id": "givaudan_chypre_floral_v2",
+          "source_record_sha256": "e693e6839867a77621338c6bc4d38d9c88c669c5be3637dcbe0c8779ccd5ef13"
+        }
+      ],
+      "title": "Cleaner patchouli-associated support: fraction versus biotech",
+      "options": [
+        {
+          "option_id": "earthy_foundation",
+          "label": "Retained earthy patchouli foundation",
+          "template_id": "patchouli_earth",
+          "query_terms": [
+            "patchouli",
+            "earthy",
+            "mossy",
+            "minty"
+          ],
+          "conflict_terms": [
+            "earthy",
+            "mossy",
+            "patchouli"
+          ],
+          "comparison_question": "Does the earthy foundation preserve the requested patchouli character without masking the heart?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "clean_support",
+          "label": "Explicitly distinct clean woody support",
+          "template_id": "dry_wood",
+          "query_terms": [
+            "clearwood",
+            "soft",
+            "woody",
+            "patchouli"
+          ],
+          "conflict_terms": [
+            "wood",
+            "woody",
+            "patchouli"
+          ],
+          "comparison_question": "Does separately labelled clean woody support fit the target? Clearwood is not a natural fraction or an automatic patchouli swap.",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "chypre_floral_axes",
+      "subtype_id": "CHYPRE_FLORAL",
+      "subtype_card_sha256": "1ad023e36b0b1ebc5e3620e0c6b750916d25cfd29506f523f7f8bf166865057b",
+      "source_bindings": [
+        {
+          "source_id": "givaudan_chypre_floral_v2",
+          "source_record_sha256": "e693e6839867a77621338c6bc4d38d9c88c669c5be3637dcbe0c8779ccd5ef13"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_jasmine_grand_subtypes",
+          "source_record_sha256": "1345f5739e57f064df0f82fed060381c7791d6c7d5ea3efba5f331ac1ff7ddbb"
+        },
+        {
+          "source_id": "dsm_clearwood_floral_v2",
+          "source_record_sha256": "76172565652010f2913043bcfcf020140f4ddef93986b6be8bb2e958712c4037"
+        }
+      ],
+      "title": "Floral chypre: distinct rose and jasmine-associated connectors",
+      "options": [
+        {
+          "option_id": "rose_petals",
+          "label": "Rose-associated petal bridge",
+          "template_id": "rose",
+          "query_terms": [
+            "rose",
+            "rosy",
+            "petal"
+          ],
+          "conflict_terms": [
+            "rose",
+            "rosy"
+          ],
+          "comparison_question": "Does a rose-associated connector retain the dry chypre contrast without becoming a rose perfume?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "rose"
+        },
+        {
+          "option_id": "jasmine_bridge",
+          "label": "Jasmine-associated transparent bridge",
+          "template_id": "white_floral",
+          "query_terms": [
+            "jasmine",
+            "floral",
+            "transparent"
+          ],
+          "conflict_terms": [
+            "jasmine",
+            "white floral"
+          ],
+          "comparison_question": "Does a jasmine-associated connector join opening and dry base without creating a dominant white-floral heart?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "jasmine"
+        }
+      ]
+    },
+    {
+      "adapter_id": "chypre_green_axes",
+      "subtype_id": "CHYPRE_GREEN",
+      "subtype_card_sha256": "0f8825044a4eff3014869888fbd751c1fe21de1237c5dbbf1087c8ea9b067e6b",
+      "source_bindings": [
+        {
+          "source_id": "givaudan_chypre_floral_v2",
+          "source_record_sha256": "e693e6839867a77621338c6bc4d38d9c88c669c5be3637dcbe0c8779ccd5ef13"
+        },
+        {
+          "source_id": "galbanum_character_subtypes",
+          "source_record_sha256": "aa5ed7c9f4aaa41658e72354258fec50154f0a74555f1b0ee100400401fbbc81"
+        },
+        {
+          "source_id": "iff_violet_leaf_subtypes",
+          "source_record_sha256": "ca2e27425aaac65c5faa010ce20ff801ee9376696cb74c833d59b50a48e46e2d"
+        }
+      ],
+      "title": "Green chypre: bitter resin versus watery leaf",
+      "options": [
+        {
+          "option_id": "bitter_resin",
+          "label": "Bitter resin-green contour",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "bitter",
+            "resin",
+            "green"
+          ],
+          "conflict_terms": [
+            "bitter",
+            "resin",
+            "galbanum"
+          ],
+          "comparison_question": "Does a bitter resin-green contour preserve dry contrast without excessive vegetal bitterness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "bitter_resin_green"
+        },
+        {
+          "option_id": "watery_leaf",
+          "label": "Watery-leaf contour",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "watery",
+            "leaf",
+            "green"
+          ],
+          "conflict_terms": [
+            "watery",
+            "leaf",
+            "aquatic",
+            "cucumber"
+          ],
+          "comparison_question": "Does a watery-leaf contour retain dry chypre contrast without cucumber dominance?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "watery_leaf"
+        }
+      ]
+    },
+    {
+      "adapter_id": "cologne_wood_leaf_bridge",
+      "subtype_id": "COLOGNE_WOOD",
+      "subtype_card_sha256": "316cc884fbc17028b0559b54709eb76edbec312533cad930dfb8a842cd2e496a",
+      "source_bindings": [
+        {
+          "source_id": "iff_bergamot_fcr_foundation",
+          "source_record_sha256": "5e67e66cbc59f2005a966eecf6940e9fc30688ff7d095325726cfed09fb905d3"
+        },
+        {
+          "source_id": "iff_petitgrain_subtypes",
+          "source_record_sha256": "532922d8655855b3e8d619bf7a768719ba19acd1af8482c9603be2f113c66bdd"
+        },
+        {
+          "source_id": "iff_iso_e_super_completion",
+          "source_record_sha256": "54c3b1da3231dd68cbc5f900c7d313f6d38d3be99b1180b29159005fd4b41082"
+        }
+      ],
+      "title": "Citrus-wood: one leaf/floral connector versus unchanged control",
+      "options": [
+        {
+          "option_id": "leaf_bridge",
+          "label": "Citrus-leaf-floral bridge",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "citrus",
+            "leaf",
+            "floral"
+          ],
+          "conflict_terms": [
+            "leaf",
+            "floral",
+            "petitgrain"
+          ],
+          "comparison_question": "Does a leaf/floral bridge preserve the citrus-to-wood transition relative to the unchanged control?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "citrus_leaf_floral"
+        }
+      ]
+    },
+    {
+      "adapter_id": "musk_powder_v5",
+      "subtype_id": "MUSK_POWDER",
+      "subtype_card_sha256": "439dbce0ba041585ac45dd2b6227115a8c2a62ad7215ce2937f0bb80c64879c2",
+      "source_bindings": [
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        },
+        {
+          "source_id": "iff_gamma",
+          "source_record_sha256": "0158eb039645955eae7c6bed9c0d3b1cbd8fc27a2923613d64ffba0e42b6504e"
+        }
+      ],
+      "title": "Powdery — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "ionone_powder",
+          "label": "ionone powder comparison",
+          "template_id": "powder",
+          "query_terms": [
+            "powder",
+            "orris",
+            "violet"
+          ],
+          "conflict_terms": [
+            "powder",
+            "orris",
+            "violet"
+          ],
+          "comparison_question": "Does powder improve texture without turning the whole scent violet/iris?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_gamma_powder",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "fougere_leather_v5",
+      "subtype_id": "FOUGERE_LEATHER",
+      "subtype_card_sha256": "3714664f9538303958e0792b5f9a3112f7179403313e1bac776b3c415805f64a",
+      "source_bindings": [
+        {
+          "source_id": "tom_ford_beau_de_jour_edp",
+          "source_record_sha256": "486a5f057aeb84f16d2fe833dabe12a62b8b868bcb34c58b16fc63f431d1b4fd"
+        },
+        {
+          "source_id": "givaudan_safraleine_foundation",
+          "source_record_sha256": "eacc33459c2ea9caf104f237aa6d824d4bc98a90a1cf051d312a426665ad6642"
+        },
+        {
+          "source_id": "iff_labdanum_foundation",
+          "source_record_sha256": "716abc14e0963cfd856cda98a765c6ae04d4cb019e481572fd6f64e79181fd14"
+        }
+      ],
+      "title": "Leathery fougere without added smoke by default",
+      "options": [
+        {
+          "option_id": "leather_edge",
+          "label": "leather edge comparison",
+          "template_id": "v5_leather",
+          "query_terms": [
+            "leather",
+            "spicy"
+          ],
+          "conflict_terms": [
+            "leather",
+            "spicy"
+          ],
+          "comparison_question": "Which leather edge adds depth without reducing aromatic clarity?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_leather_spice",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "resin_edge",
+          "label": "resin edge comparison",
+          "template_id": "v5_resin",
+          "query_terms": [
+            "resin",
+            "leathery",
+            "amber"
+          ],
+          "conflict_terms": [
+            "resin",
+            "leathery",
+            "amber"
+          ],
+          "comparison_question": "Which leather edge adds depth without reducing aromatic clarity?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_resin_leather",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "wood_mineral_v5",
+      "subtype_id": "WOOD_MINERAL",
+      "subtype_card_sha256": "cdd598d5b722057a1aab2672d8c7744e7ec3b1db0c20becb39642011a2619280",
+      "source_bindings": [
+        {
+          "source_id": "dsm_ambrox_super_description",
+          "source_record_sha256": "8ff89903fab195039347f9ec55b8f9859cb60227274055fd95293e73fc8ce8b0"
+        },
+        {
+          "source_id": "iff_iso_e_super_completion",
+          "source_record_sha256": "54c3b1da3231dd68cbc5f900c7d313f6d38d3be99b1180b29159005fd4b41082"
+        },
+        {
+          "source_id": "iff_amber_xtreme_foundation",
+          "source_record_sha256": "56837c912031875a6b3eb2efa09da894352733677bd1e3a400910ef70ab514fd"
+        }
+      ],
+      "title": "Mineral woody-amber support without a performance shortcut",
+      "options": [
+        {
+          "option_id": "smooth_wood",
+          "label": "smooth wood comparison",
+          "template_id": "dry_wood",
+          "query_terms": [
+            "wood",
+            "dry"
+          ],
+          "conflict_terms": [
+            "wood",
+            "dry"
+          ],
+          "comparison_question": "Which support route retains character and perceived space without harshness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_dry_wood",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "cedar_guaiac_v5",
+      "subtype_id": "CEDAR_GUAIAC",
+      "subtype_card_sha256": "6618c9fd54be9f5ec3f8a931d2c639de6d9c65726b805c894bb8a6ca3742d4ec",
+      "source_bindings": [
+        {
+          "source_id": "guaiac_finish",
+          "source_record_sha256": "7ad24331e37b2f7d34b290c7810c1e7ec0348ff9ac26de875c611afe89191aec"
+        }
+      ],
+      "title": "Guaiac smoke — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "smoky_wood",
+          "label": "smoky wood comparison",
+          "template_id": "v5_smoke",
+          "query_terms": [
+            "wood",
+            "smoke"
+          ],
+          "conflict_terms": [
+            "wood",
+            "smoke"
+          ],
+          "comparison_question": "Does guaiac join wood to smoke without burnt rubber?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_smoky_wood",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "vetiver_smoky_v5",
+      "subtype_id": "VETIVER_SMOKY",
+      "subtype_card_sha256": "4acae1b366933fb2406a61c884e3dc6055a7c808684ebca3bce07892b63be182",
+      "source_bindings": [
+        {
+          "source_id": "iff_vetiver_completion",
+          "source_record_sha256": "9c2643f7504a529e9aa00750f0c6e17f7970b8837969d953cdab371d2baca152"
+        },
+        {
+          "source_id": "guaiac_finish",
+          "source_record_sha256": "7ad24331e37b2f7d34b290c7810c1e7ec0348ff9ac26de875c611afe89191aec"
+        }
+      ],
+      "title": "Smoky dry — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "smoky_wood",
+          "label": "smoky wood comparison",
+          "template_id": "v5_smoke",
+          "query_terms": [
+            "wood",
+            "smoke"
+          ],
+          "conflict_terms": [
+            "wood",
+            "smoke"
+          ],
+          "comparison_question": "Does smoke add depth while preserving root character?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_smoky_wood",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "oud_rose_amber_v5",
+      "subtype_id": "OUD_ROSE_AMBER",
+      "subtype_card_sha256": "85590b43b10604a287cf8a490249b2781cb80072d9523db7ab6f6169de922bee",
+      "source_bindings": [
+        {
+          "source_id": "agarwood_reco_finish",
+          "source_record_sha256": "bee8b9bd9ef5bd29f7bd83d612e0cb11ade86a8f6e4b88ee4105c36957e1a3b1"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_labdanum_foundation",
+          "source_record_sha256": "716abc14e0963cfd856cda98a765c6ae04d4cb019e481572fd6f64e79181fd14"
+        },
+        {
+          "source_id": "iff_benzoin_siam_foundation",
+          "source_record_sha256": "08615faaba10718c2da06185239a30cb05b32aaab84a5b0a999dde0bc2c9ab04"
+        }
+      ],
+      "title": "Rose amber — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "resin_leather",
+          "label": "resin leather comparison",
+          "template_id": "v5_resin",
+          "query_terms": [
+            "resin",
+            "leathery"
+          ],
+          "conflict_terms": [
+            "resin",
+            "leathery"
+          ],
+          "comparison_question": "Does the bridge connect rather than swallow the pair?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_resin_leather",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "vanillic_balsam",
+          "label": "vanillic balsam comparison",
+          "template_id": "v5_resin",
+          "query_terms": [
+            "vanillic",
+            "balsamic"
+          ],
+          "conflict_terms": [
+            "vanillic",
+            "balsamic"
+          ],
+          "comparison_question": "Does the bridge connect rather than swallow the pair?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_vanillic_balsam",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "resin_styrax_v5",
+      "subtype_id": "RESIN_STYRAX",
+      "subtype_card_sha256": "9213497c84444223f3024e72d88024279ab8c71b014b75527623b342fbb82398",
+      "source_bindings": [
+        {
+          "source_id": "styrax_finish",
+          "source_record_sha256": "be32a7e0dd04760339c4d5239444666543220adb0f51e82191cd1ec378f0b8f1"
+        },
+        {
+          "source_id": "iff_benzoin_siam_foundation",
+          "source_record_sha256": "08615faaba10718c2da06185239a30cb05b32aaab84a5b0a999dde0bc2c9ab04"
+        }
+      ],
+      "title": "Styrax — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "leathery_resin",
+          "label": "leathery resin comparison",
+          "template_id": "v5_resin",
+          "query_terms": [
+            "leathery",
+            "resin"
+          ],
+          "conflict_terms": [
+            "leathery",
+            "resin"
+          ],
+          "comparison_question": "Does styrax supply useful leather rather than extra sweetness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_resin_leather",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "resin_animalic_v5",
+      "subtype_id": "RESIN_ANIMALIC",
+      "subtype_card_sha256": "528fc060e25a679c896bc2dcbfc19be16fbb4c3a651cbf24abcac4933daf2d1e",
+      "source_bindings": [
+        {
+          "source_id": "styrax_finish",
+          "source_record_sha256": "be32a7e0dd04760339c4d5239444666543220adb0f51e82191cd1ec378f0b8f1"
+        },
+        {
+          "source_id": "iff_labdanum_foundation",
+          "source_record_sha256": "716abc14e0963cfd856cda98a765c6ae04d4cb019e481572fd6f64e79181fd14"
+        }
+      ],
+      "title": "Animalic resinous — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "leathery_resin",
+          "label": "leathery resin comparison",
+          "template_id": "v5_resin",
+          "query_terms": [
+            "leathery",
+            "resin"
+          ],
+          "conflict_terms": [
+            "leathery",
+            "resin"
+          ],
+          "comparison_question": "Does it enrich resin texture while keeping warmth clear?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_resin_leather",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "leather_smoky_v5",
+      "subtype_id": "LEATHER_SMOKY",
+      "subtype_card_sha256": "57452d95ae7c565bec4e2fbb0915432cc15282246f76b190bfd9cf01bdcc4c24",
+      "source_bindings": [
+        {
+          "source_id": "guaiac_finish",
+          "source_record_sha256": "7ad24331e37b2f7d34b290c7810c1e7ec0348ff9ac26de875c611afe89191aec"
+        },
+        {
+          "source_id": "styrax_finish",
+          "source_record_sha256": "be32a7e0dd04760339c4d5239444666543220adb0f51e82191cd1ec378f0b8f1"
+        },
+        {
+          "source_id": "iff_labdanum_foundation",
+          "source_record_sha256": "716abc14e0963cfd856cda98a765c6ae04d4cb019e481572fd6f64e79181fd14"
+        }
+      ],
+      "title": "Smoky tar — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "smoky_wood",
+          "label": "smoky wood comparison",
+          "template_id": "v5_smoke",
+          "query_terms": [
+            "smoky",
+            "wood"
+          ],
+          "conflict_terms": [
+            "smoky",
+            "wood"
+          ],
+          "comparison_question": "Does smoke add leather texture without becoming burnt rubber?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_smoky_wood",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "leather_green_v5",
+      "subtype_id": "LEATHER_GREEN",
+      "subtype_card_sha256": "18ee78f9e6d0d911cc155282b3e57b49477964ff5992d85c63bbb3f963f98a90",
+      "source_bindings": [
+        {
+          "source_id": "galbanum_character_subtypes",
+          "source_record_sha256": "aa5ed7c9f4aaa41658e72354258fec50154f0a74555f1b0ee100400401fbbc81"
+        },
+        {
+          "source_id": "givaudan_safraleine_foundation",
+          "source_record_sha256": "eacc33459c2ea9caf104f237aa6d824d4bc98a90a1cf051d312a426665ad6642"
+        }
+      ],
+      "title": "Bitter green — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "green_resin",
+          "label": "green resin comparison",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "green",
+            "resin"
+          ],
+          "conflict_terms": [
+            "green",
+            "resin"
+          ],
+          "comparison_question": "Does the contrast create the requested dry-bitter impression?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_green_resin",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "leather_floral_v5",
+      "subtype_id": "LEATHER_FLORAL",
+      "subtype_card_sha256": "0ab09a1d4a3775a7f439d8c65390d6f85da2c4c0da83ae80889af3becde113c5",
+      "source_bindings": [
+        {
+          "source_id": "iff_osmanthus_completion",
+          "source_record_sha256": "0f178c02e7a9d4b9d0b64cdc89038b2ce598625a34ff7ab3414544df1743a516"
+        },
+        {
+          "source_id": "iff_jasmine_completion",
+          "source_record_sha256": "5d4db39c433fd72932f6d12c64f4cf966a638d1fb1103951abf162437573a1ab"
+        },
+        {
+          "source_id": "givaudan_safraleine_foundation",
+          "source_record_sha256": "eacc33459c2ea9caf104f237aa6d824d4bc98a90a1cf051d312a426665ad6642"
+        }
+      ],
+      "title": "Floral leather — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "floral_leather_bridge",
+          "label": "floral leather bridge comparison",
+          "template_id": "v5_flower",
+          "query_terms": [
+            "floral",
+            "leathery"
+          ],
+          "conflict_terms": [
+            "floral",
+            "leathery"
+          ],
+          "comparison_question": "Which joins the two without losing flower clarity?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_floral_leather",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "incense_elemi_v5",
+      "subtype_id": "INCENSE_ELEMI",
+      "subtype_card_sha256": "7bc21814a54f88ec45db7a7b7099d5d8d0a1303f7d87b5aa5f412f10ead5ce5d",
+      "source_bindings": [
+        {
+          "source_id": "elemi_finish",
+          "source_record_sha256": "e5dbba2b03ed1e363cf0030daf19d484672b152cfe1322bb9a1c6c6dd52f9eb6"
+        },
+        {
+          "source_id": "iff_olibanum_oil_completion",
+          "source_record_sha256": "7d1ab60ba12f335541b07a22210d8f76dccf245523be3f799a61af70d2e75e79"
+        },
+        {
+          "source_id": "iff_olibanum_resinoid_completion",
+          "source_record_sha256": "799c648cebdbd035cdf20a67b2eadb12ba0d5a3769c2e3087267855f54beefb4"
+        }
+      ],
+      "title": "Elemi — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "citrus_pepper_resin",
+          "label": "citrus pepper resin comparison",
+          "template_id": "v5_terpenic",
+          "query_terms": [
+            "citrus",
+            "pepper",
+            "resin"
+          ],
+          "conflict_terms": [
+            "citrus",
+            "pepper",
+            "resin"
+          ],
+          "comparison_question": "Does it connect bright opening to resinous heart?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_citrus_pepper_resin",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "incense_church_v5",
+      "subtype_id": "INCENSE_CHURCH",
+      "subtype_card_sha256": "28bfddb5118fad95913bbdc45039db4326c27d974b59c2d12c1ee8913263f313",
+      "source_bindings": [
+        {
+          "source_id": "iff_olibanum_oil_completion",
+          "source_record_sha256": "7d1ab60ba12f335541b07a22210d8f76dccf245523be3f799a61af70d2e75e79"
+        },
+        {
+          "source_id": "iff_olibanum_resinoid_completion",
+          "source_record_sha256": "799c648cebdbd035cdf20a67b2eadb12ba0d5a3769c2e3087267855f54beefb4"
+        },
+        {
+          "source_id": "guaiac_finish",
+          "source_record_sha256": "7ad24331e37b2f7d34b290c7810c1e7ec0348ff9ac26de875c611afe89191aec"
+        }
+      ],
+      "title": "Church smoke — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "smoky_wood",
+          "label": "smoky wood comparison",
+          "template_id": "v5_smoke",
+          "query_terms": [
+            "smoky",
+            "wood"
+          ],
+          "conflict_terms": [
+            "smoky",
+            "wood"
+          ],
+          "comparison_question": "Does smoke clarify the scene without obscuring resin?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_smoky_wood",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "tobacco_dry_v5",
+      "subtype_id": "TOBACCO_DRY",
+      "subtype_card_sha256": "dbc1fcd7a0bf54071bffd8854f6536a42f00e51d6752e1ab4f84acfd224a16f6",
+      "source_bindings": [
+        {
+          "source_id": "tobacco_finish",
+          "source_record_sha256": "8d41e65caf1a02e88471ba018ba91de7c2f4f579364394411509cebd71c815ee"
+        },
+        {
+          "source_id": "iff_tonka_foundation",
+          "source_record_sha256": "febdf7489a348ac6118b36d1e9058dbabd476c229a749b1ce24da1e71ab7a8aa"
+        },
+        {
+          "source_id": "iff_jonquille_completion",
+          "source_record_sha256": "cd60ee025249bcde56ab3235716b42e1d291df95abdf5489170a38b30eca10ce"
+        }
+      ],
+      "title": "Dry leaf — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "hay_support",
+          "label": "hay support comparison",
+          "template_id": "v5_hay",
+          "query_terms": [
+            "hay",
+            "tobacco",
+            "almond"
+          ],
+          "conflict_terms": [
+            "hay",
+            "tobacco",
+            "almond"
+          ],
+          "comparison_question": "Does the bridge clarify leaf rather than turn it floral or sweet?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_hay",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "floral_hay",
+          "label": "floral hay comparison",
+          "template_id": "v5_flower",
+          "query_terms": [
+            "floral",
+            "hay"
+          ],
+          "conflict_terms": [
+            "floral",
+            "hay"
+          ],
+          "comparison_question": "Does the bridge clarify leaf rather than turn it floral or sweet?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_floral_hay",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "tobacco_pipe_v5",
+      "subtype_id": "TOBACCO_PIPE",
+      "subtype_card_sha256": "67316d6816aeb2a5227b9a716b4a1933043e0854768880bf66ca098ee62ccd93",
+      "source_bindings": [
+        {
+          "source_id": "tobacco_finish",
+          "source_record_sha256": "8d41e65caf1a02e88471ba018ba91de7c2f4f579364394411509cebd71c815ee"
+        },
+        {
+          "source_id": "iff_tonka_foundation",
+          "source_record_sha256": "febdf7489a348ac6118b36d1e9058dbabd476c229a749b1ce24da1e71ab7a8aa"
+        },
+        {
+          "source_id": "iff_benzoin_siam_foundation",
+          "source_record_sha256": "08615faaba10718c2da06185239a30cb05b32aaab84a5b0a999dde0bc2c9ab04"
+        }
+      ],
+      "title": "Sweet pipe — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "hay_support",
+          "label": "hay support comparison",
+          "template_id": "v5_hay",
+          "query_terms": [
+            "hay",
+            "almond"
+          ],
+          "conflict_terms": [
+            "hay",
+            "almond"
+          ],
+          "comparison_question": "Which keeps tobacco visible under sweetness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_hay",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "balsamic_support",
+          "label": "balsamic support comparison",
+          "template_id": "v5_resin",
+          "query_terms": [
+            "vanillic",
+            "balsamic"
+          ],
+          "conflict_terms": [
+            "vanillic",
+            "balsamic"
+          ],
+          "comparison_question": "Which keeps tobacco visible under sweetness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_vanillic_balsam",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "tobacco_smoky_v5",
+      "subtype_id": "TOBACCO_SMOKY",
+      "subtype_card_sha256": "205535c1d764a88a02007a95202503b76d42639d4b746771ceb6fe235d7d6e5b",
+      "source_bindings": [
+        {
+          "source_id": "tobacco_finish",
+          "source_record_sha256": "8d41e65caf1a02e88471ba018ba91de7c2f4f579364394411509cebd71c815ee"
+        },
+        {
+          "source_id": "guaiac_finish",
+          "source_record_sha256": "7ad24331e37b2f7d34b290c7810c1e7ec0348ff9ac26de875c611afe89191aec"
+        }
+      ],
+      "title": "Smoky tobacco — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "smoky_wood",
+          "label": "smoky wood comparison",
+          "template_id": "v5_smoke",
+          "query_terms": [
+            "smoky",
+            "wood"
+          ],
+          "conflict_terms": [
+            "smoky",
+            "wood"
+          ],
+          "comparison_question": "Does smoke remain a modifier rather than the whole scent?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_smoky_wood",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "soft_coumarin_v5",
+      "subtype_id": "SOFT_COUMARIN",
+      "subtype_card_sha256": "d587ad1c2065beccddedb02d606c96054853c4f67a0c84374eb43509db0f2296",
+      "source_bindings": [
+        {
+          "source_id": "iff_tonka_foundation",
+          "source_record_sha256": "febdf7489a348ac6118b36d1e9058dbabd476c229a749b1ce24da1e71ab7a8aa"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        }
+      ],
+      "title": "Coumarinic — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "hay_support",
+          "label": "hay support comparison",
+          "template_id": "v5_hay",
+          "query_terms": [
+            "hay",
+            "almond",
+            "coumarinic"
+          ],
+          "conflict_terms": [
+            "hay",
+            "almond",
+            "coumarinic"
+          ],
+          "comparison_question": "Does it add warm hay texture without sweet powder dominating?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_hay",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "soft_vanilla_v5",
+      "subtype_id": "SOFT_VANILLA",
+      "subtype_card_sha256": "460fee9eebea1dd4a424c9257f5664780d251d73dfda4a4747fa7c47c7ae24a5",
+      "source_bindings": [
+        {
+          "source_id": "iff_benzoin_siam_foundation",
+          "source_record_sha256": "08615faaba10718c2da06185239a30cb05b32aaab84a5b0a999dde0bc2c9ab04"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        },
+        {
+          "source_id": "chanel_jersey_edp",
+          "source_record_sha256": "f67f9f7083979431b255226c7402d15bb62ba501415868eee7277da40b082114"
+        }
+      ],
+      "title": "Soft vanillic — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "balsamic_support",
+          "label": "balsamic support comparison",
+          "template_id": "v5_resin",
+          "query_terms": [
+            "vanillic",
+            "balsamic"
+          ],
+          "conflict_terms": [
+            "vanillic",
+            "balsamic"
+          ],
+          "comparison_question": "Does warmth remain soft rather than confectionery?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_vanillic_balsam",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "floral_amber_white_v5",
+      "subtype_id": "FLORAL_AMBER_WHITE",
+      "subtype_card_sha256": "bc1f8ede34c9f747ce665ed6b7ce0360e123c4e0f13431af7c844d6de3f8a490",
+      "source_bindings": [
+        {
+          "source_id": "iff_jasmine_completion",
+          "source_record_sha256": "5d4db39c433fd72932f6d12c64f4cf966a638d1fb1103951abf162437573a1ab"
+        },
+        {
+          "source_id": "iff_orange_flower_completion",
+          "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758"
+        },
+        {
+          "source_id": "iff_labdanum_foundation",
+          "source_record_sha256": "716abc14e0963cfd856cda98a765c6ae04d4cb019e481572fd6f64e79181fd14"
+        }
+      ],
+      "title": "White floral amber — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "resin_support",
+          "label": "resin support comparison",
+          "template_id": "v5_resin",
+          "query_terms": [
+            "resin",
+            "balsamic"
+          ],
+          "conflict_terms": [
+            "resin",
+            "balsamic"
+          ],
+          "comparison_question": "Does the bridge support the flower without obscuring it?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_resin",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "floral_amber_balsam_v5",
+      "subtype_id": "FLORAL_AMBER_BALSAM",
+      "subtype_card_sha256": "6f595917578b335a708dcf2e5bf1f55fc63248abf01f2e43d189a403c73efb18",
+      "source_bindings": [
+        {
+          "source_id": "iff_benzoin_siam_foundation",
+          "source_record_sha256": "08615faaba10718c2da06185239a30cb05b32aaab84a5b0a999dde0bc2c9ab04"
+        },
+        {
+          "source_id": "iff_labdanum_foundation",
+          "source_record_sha256": "716abc14e0963cfd856cda98a765c6ae04d4cb019e481572fd6f64e79181fd14"
+        }
+      ],
+      "title": "Balsamic amber — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "vanillic_balsam",
+          "label": "vanillic balsam comparison",
+          "template_id": "v5_resin",
+          "query_terms": [
+            "vanillic",
+            "balsamic"
+          ],
+          "conflict_terms": [
+            "vanillic",
+            "balsamic"
+          ],
+          "comparison_question": "Which preserves the flower and desired dry/sweet balance?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_vanillic_balsam",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "leathery_resin",
+          "label": "leathery resin comparison",
+          "template_id": "v5_resin",
+          "query_terms": [
+            "leathery",
+            "resin"
+          ],
+          "conflict_terms": [
+            "leathery",
+            "resin"
+          ],
+          "comparison_question": "Which preserves the flower and desired dry/sweet balance?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_resin_leather",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "wood_sandal_cedar_v5",
+      "subtype_id": "WOOD_SANDAL_CEDAR",
+      "subtype_card_sha256": "de913449f7af388cd63a5a47ff62700b056fa33df25baab60be29a0d42daf961",
+      "source_bindings": [
+        {
+          "source_id": "iff_sandal_nc_completion",
+          "source_record_sha256": "302ee14133143606413ef2e2e2a6fa34c1424765fe8833fd66618e4b417fb5b3"
+        },
+        {
+          "source_id": "iff_cedar_atlas_floral_v2",
+          "source_record_sha256": "f298a3a96d5df7a4f25750e2dd2a273dceaa84b74157a786d42af85fd658a187"
+        },
+        {
+          "source_id": "iff_iso_e_super_completion",
+          "source_record_sha256": "54c3b1da3231dd68cbc5f900c7d313f6d38d3be99b1180b29159005fd4b41082"
+        }
+      ],
+      "title": "Sandal cedar associated — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "creamy_wood",
+          "label": "creamy wood comparison",
+          "template_id": "creamy_wood",
+          "query_terms": [
+            "creamy",
+            "wood"
+          ],
+          "conflict_terms": [
+            "creamy",
+            "wood"
+          ],
+          "comparison_question": "Which fits the brief without burying its protected recognizer?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_creamy_wood",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "warm_wood",
+          "label": "warm wood comparison",
+          "template_id": "dry_wood",
+          "query_terms": [
+            "warm",
+            "wood",
+            "resin"
+          ],
+          "conflict_terms": [
+            "warm",
+            "wood",
+            "resin"
+          ],
+          "comparison_question": "Which fits the brief without burying its protected recognizer?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_warm_wood",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "cit_cedrat_v5",
+      "subtype_id": "CIT_CEDRAT",
+      "subtype_card_sha256": "b0cc67158d1c4a12ea1053b1555a96f29f2581292fa3dcd66f5b45356d3b9b1d",
+      "source_bindings": [
+        {
+          "source_id": "cedrat_finish",
+          "source_record_sha256": "993d6b477497b7004e15a7f8b39d67a6f631b873efd4efaec08aab51b697468e"
+        },
+        {
+          "source_id": "iff_petitgrain_subtypes",
+          "source_record_sha256": "532922d8655855b3e8d619bf7a768719ba19acd1af8482c9603be2f113c66bdd"
+        }
+      ],
+      "title": "Citron cedrat — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "green_flower_bridge",
+          "label": "green flower bridge comparison",
+          "template_id": "v5_terpenic",
+          "query_terms": [
+            "bitter",
+            "green",
+            "floral",
+            "citrus"
+          ],
+          "conflict_terms": [
+            "bitter",
+            "green",
+            "floral",
+            "citrus"
+          ],
+          "comparison_question": "Does it extend fresh peel identity without becoming bitter leaf?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_bitter_green_floral",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "cologne_neroli_v5",
+      "subtype_id": "COLOGNE_NEROLI",
+      "subtype_card_sha256": "a9fa81874896e7b45d9d98eba8232f53e5c6db1d3487acae7d9dbc33fa04601c",
+      "source_bindings": [
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        },
+        {
+          "source_id": "iff_petitgrain_subtypes",
+          "source_record_sha256": "532922d8655855b3e8d619bf7a768719ba19acd1af8482c9603be2f113c66bdd"
+        },
+        {
+          "source_id": "iff_orange_flower_completion",
+          "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758"
+        }
+      ],
+      "title": "Neroli petitgrain — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "green_flower_bridge",
+          "label": "green flower bridge comparison",
+          "template_id": "v5_terpenic",
+          "query_terms": [
+            "bitter",
+            "green",
+            "floral",
+            "citrus"
+          ],
+          "conflict_terms": [
+            "bitter",
+            "green",
+            "floral",
+            "citrus"
+          ],
+          "comparison_question": "Does the leaf connection improve continuity without bitter-green dominance?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_bitter_green_floral",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "green_conifer_v5",
+      "subtype_id": "GREEN_CONIFER",
+      "subtype_card_sha256": "205e31b3dd0234d23bdf838ed691c65778797c3c74a59245b8fadbb3d1259664",
+      "source_bindings": [
+        {
+          "source_id": "fir_needle_finish",
+          "source_record_sha256": "9dafed9ea541f9e7aa0d3217fa73f269bab218786a9cad150f850a9443f87008"
+        },
+        {
+          "source_id": "cedar_virginia_finish",
+          "source_record_sha256": "67aa75c217dbd6eb53987da26af61785a88751a7f4d762559e2fdeeee1ab4245"
+        }
+      ],
+      "title": "Conifer green — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "dry_wood",
+          "label": "dry wood comparison",
+          "template_id": "dry_wood",
+          "query_terms": [
+            "dry",
+            "wood"
+          ],
+          "conflict_terms": [
+            "dry",
+            "wood"
+          ],
+          "comparison_question": "Does the base support the tree impression without dry pencil takeover?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_dry_wood",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "aqua_melon_v5",
+      "subtype_id": "AQUA_MELON",
+      "subtype_card_sha256": "41e96627e51b57656cc3aa3b7dc671659ed5d6659d1dc2c203c377f9f772b1eb",
+      "source_bindings": [
+        {
+          "source_id": "pcw_melolal_finish",
+          "source_record_sha256": "d11c9cd5e3380e972a43f97ca607096ffd6638e6f1a9e59d917030dd5c73779a"
+        },
+        {
+          "source_id": "dsm_calone_completion",
+          "source_record_sha256": "6507a59013c5c0815cedc98646422dc78adc724263118e3104bdae9b9ccd0b85"
+        },
+        {
+          "source_id": "givaudan_florhydral_completion",
+          "source_record_sha256": "aa00a1a2c661d81e28add1283fba41a7ed15612c43c455c5b56c37cf11b112f2"
+        }
+      ],
+      "title": "Melon watery — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "marine",
+          "label": "marine comparison",
+          "template_id": "rain_water",
+          "query_terms": [
+            "marine",
+            "ozonic"
+          ],
+          "conflict_terms": [
+            "marine",
+            "ozonic"
+          ],
+          "comparison_question": "Which route adds water-like space while retaining melon?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_marine",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "wet_floral",
+          "label": "wet floral comparison",
+          "template_id": "v5_flower",
+          "query_terms": [
+            "green",
+            "muguet",
+            "hyacinth"
+          ],
+          "conflict_terms": [
+            "green",
+            "muguet",
+            "hyacinth"
+          ],
+          "comparison_question": "Which route adds water-like space while retaining melon?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_wet_floral",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "aqua_airy_mineral_v5",
+      "subtype_id": "AQUA_AIRY_MINERAL",
+      "subtype_card_sha256": "a377794a91a927df2a5fb9c959623d66d5db3836ea52da4af3468d99db1e85f3",
+      "source_bindings": [
+        {
+          "source_id": "iff_iso_e_super_completion",
+          "source_record_sha256": "54c3b1da3231dd68cbc5f900c7d313f6d38d3be99b1180b29159005fd4b41082"
+        },
+        {
+          "source_id": "dsm_ambrox_super_description",
+          "source_record_sha256": "8ff89903fab195039347f9ec55b8f9859cb60227274055fd95293e73fc8ce8b0"
+        },
+        {
+          "source_id": "iff_olibanum_resinoid_completion",
+          "source_record_sha256": "799c648cebdbd035cdf20a67b2eadb12ba0d5a3769c2e3087267855f54beefb4"
+        }
+      ],
+      "title": "Airy mineral — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "mineral_resin",
+          "label": "mineral resin comparison",
+          "template_id": "v5_resin",
+          "query_terms": [
+            "mineral",
+            "resin"
+          ],
+          "conflict_terms": [
+            "mineral",
+            "resin"
+          ],
+          "comparison_question": "Does it add mineral character without incense or heavy amber?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_mineral_resin",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "aqua_solar_v5",
+      "subtype_id": "AQUA_SOLAR",
+      "subtype_card_sha256": "ac94ae9c227aa1ca7aa61ea8e6e4d97c4cebb4947d8863ff9051852388094dcf",
+      "source_bindings": [
+        {
+          "source_id": "mfk_solar_finish",
+          "source_record_sha256": "6f2b83dc82037edff9d830b3ee5e3f38d88b9de68772ab852810e3a4793faf95"
+        },
+        {
+          "source_id": "iff_hexenylsal_floral_v2",
+          "source_record_sha256": "d0c5860ca66a015a7d936e8a61f7bd5382973868d12c0a1b0e3cf6f1a7b60cc3"
+        },
+        {
+          "source_id": "dsm_salicynile_floral_v2",
+          "source_record_sha256": "e25c1d054459ff63e3360df3234f285bf3f4bf72912b5d2f894bfc4db836b39b"
+        }
+      ],
+      "title": "Solar salicylate — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "solar_floral",
+          "label": "solar floral comparison",
+          "template_id": "v5_flower",
+          "query_terms": [
+            "solar",
+            "floral"
+          ],
+          "conflict_terms": [
+            "solar",
+            "floral"
+          ],
+          "comparison_question": "Which suggests warm sunlit flowers without lotion heaviness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_solar_floral",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "green_floral",
+          "label": "green floral comparison",
+          "template_id": "v5_flower",
+          "query_terms": [
+            "green",
+            "floral"
+          ],
+          "conflict_terms": [
+            "green",
+            "floral"
+          ],
+          "comparison_question": "Which suggests warm sunlit flowers without lotion heaviness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_green_floral",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "ab_waxy_v5",
+      "subtype_id": "AB_WAXY",
+      "subtype_card_sha256": "6b16fe4f6d11f725a3468c291f4bfecde41a942f5c914319d2caa613b408bbfb",
+      "source_bindings": [
+        {
+          "source_id": "dodecanal_finish",
+          "source_record_sha256": "dd50481bb3951d561a7135d3e75578fc8f9172d5a27808fb6e2ee0d057e85f77"
+        },
+        {
+          "source_id": "decanal_finish",
+          "source_record_sha256": "5421b347cf02c5f0a097d4125fd486a852c796e62585ca0ee2a03cc03b9cf7e2"
+        }
+      ],
+      "title": "Waxy aldehydic — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "waxy_aldehyde",
+          "label": "waxy aldehyde comparison",
+          "template_id": "aldehydic",
+          "query_terms": [
+            "waxy",
+            "aldehydic"
+          ],
+          "conflict_terms": [
+            "waxy",
+            "aldehydic"
+          ],
+          "comparison_question": "Does waxy texture add polish without soapiness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_dodecanal",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "ab_citrus_v5",
+      "subtype_id": "AB_CITRUS",
+      "subtype_card_sha256": "2111493333524b78bb21ceb92611b4e4a0438dd0ace76fcaf89d15016b4e21f0",
+      "source_bindings": [
+        {
+          "source_id": "decanal_finish",
+          "source_record_sha256": "5421b347cf02c5f0a097d4125fd486a852c796e62585ca0ee2a03cc03b9cf7e2"
+        },
+        {
+          "source_id": "dodecanal_finish",
+          "source_record_sha256": "dd50481bb3951d561a7135d3e75578fc8f9172d5a27808fb6e2ee0d057e85f77"
+        }
+      ],
+      "title": "Citrus aldehydic — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "citrus_aldehyde",
+          "label": "citrus aldehyde comparison",
+          "template_id": "aldehydic",
+          "query_terms": [
+            "citrus",
+            "aldehydic"
+          ],
+          "conflict_terms": [
+            "citrus",
+            "aldehydic"
+          ],
+          "comparison_question": "Does it join peel to petals without becoming cleaning product?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_decanal",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "hy_incense_floral_v5",
+      "subtype_id": "HY_INCENSE_FLORAL",
+      "subtype_card_sha256": "cdc599902afa0427c7a63f1eb352e5aed5f335af8dc1359bf854d61d0a8fca53",
+      "source_bindings": [
+        {
+          "source_id": "iff_olibanum_oil_completion",
+          "source_record_sha256": "7d1ab60ba12f335541b07a22210d8f76dccf245523be3f799a61af70d2e75e79"
+        },
+        {
+          "source_id": "iff_olibanum_resinoid_completion",
+          "source_record_sha256": "799c648cebdbd035cdf20a67b2eadb12ba0d5a3769c2e3087267855f54beefb4"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_jasmine_completion",
+          "source_record_sha256": "5d4db39c433fd72932f6d12c64f4cf966a638d1fb1103951abf162437573a1ab"
+        }
+      ],
+      "title": "Incense floral — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "bright_resin",
+          "label": "bright resin comparison",
+          "template_id": "v5_terpenic",
+          "query_terms": [
+            "citrus",
+            "pepper",
+            "resin"
+          ],
+          "conflict_terms": [
+            "citrus",
+            "pepper",
+            "resin"
+          ],
+          "comparison_question": "Which keeps the flower readable across the transition?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_citrus_pepper_resin",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "mineral_resin",
+          "label": "mineral resin comparison",
+          "template_id": "v5_resin",
+          "query_terms": [
+            "mineral",
+            "resin"
+          ],
+          "conflict_terms": [
+            "mineral",
+            "resin"
+          ],
+          "comparison_question": "Which keeps the flower readable across the transition?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_mineral_resin",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "hy_rose_mineral_v5",
+      "subtype_id": "HY_ROSE_MINERAL",
+      "subtype_card_sha256": "22538f8f5bda1a2292088ed14aa44fa68240ba518b828e69b0e59cc7f7856422",
+      "source_bindings": [
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_olibanum_resinoid_completion",
+          "source_record_sha256": "799c648cebdbd035cdf20a67b2eadb12ba0d5a3769c2e3087267855f54beefb4"
+        },
+        {
+          "source_id": "symrise_roseoxide_floral_v2",
+          "source_record_sha256": "f1bfd60cd4a55e829d6b845d6dbb19c619d21b4974d567bd89f63314ad4886fb"
+        }
+      ],
+      "title": "Rose mineral — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "mineral_resin",
+          "label": "mineral resin comparison",
+          "template_id": "v5_resin",
+          "query_terms": [
+            "mineral",
+            "resin"
+          ],
+          "conflict_terms": [
+            "mineral",
+            "resin"
+          ],
+          "comparison_question": "Which meets the brief without making the rose incense-like or sharp?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_mineral_resin",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "magnolia_cream_v5",
+      "subtype_id": "MAGNOLIA_CREAM",
+      "subtype_card_sha256": "236871a1fbfb7638c2d0d872bbd13aba4783c4a1d8734e4b7562d3299dcd9b8f",
+      "source_bindings": [
+        {
+          "source_id": "iff_magnolia_completion",
+          "source_record_sha256": "d12ff496073a9da65b7e03ab8614b7eba33c62da7a0b6f185bf5c25976364bcc"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        },
+        {
+          "source_id": "givaudan_methyl_laitone_completion",
+          "source_record_sha256": "699e8662b0414c36dc2c54bc7a501c4c09115bdf8eb4b2a96814b95fd4498a96"
+        }
+      ],
+      "title": "Creamy magnolia with a retained fresh edge",
+      "options": [
+        {
+          "option_id": "musk_texture",
+          "label": "musk texture comparison",
+          "template_id": "skin_musk",
+          "query_terms": [
+            "musky",
+            "powdery"
+          ],
+          "conflict_terms": [
+            "musky",
+            "powdery"
+          ],
+          "comparison_question": "Which texture smooths the magnolia without removing its fresh detail?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_exaltolide",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "lactonic_texture",
+          "label": "lactonic texture comparison",
+          "template_id": "v5_cream",
+          "query_terms": [
+            "creamy",
+            "milky",
+            "lactonic"
+          ],
+          "conflict_terms": [
+            "creamy",
+            "milky",
+            "lactonic"
+          ],
+          "comparison_question": "Which texture smooths the magnolia without removing its fresh detail?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_cream",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "light_sweet_pea_v5",
+      "subtype_id": "LIGHT_SWEET_PEA",
+      "subtype_card_sha256": "1c1c19476603b27d4a20aa7ddb529a81ed981e013d566ee107276c8755545aa4",
+      "source_bindings": [
+        {
+          "source_id": "sweet_pea_methods_finish",
+          "source_record_sha256": "9820438987699ede52ae12d18955475aeaa2ea67b7603b019d778bc7a999079c"
+        }
+      ],
+      "title": "Sweet pea — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "terpenic_flower",
+          "label": "terpenic flower comparison",
+          "template_id": "v5_terpenic",
+          "query_terms": [
+            "terpenic",
+            "floral"
+          ],
+          "conflict_terms": [
+            "terpenic",
+            "floral"
+          ],
+          "comparison_question": "Does texture make the flower more distinct rather than louder?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_terpenic_floral",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "trop_alba_v5",
+      "subtype_id": "TROP_ALBA",
+      "subtype_card_sha256": "9c96646c78b951eccbab9d4359d1951c03dd6c72d2f197bdd441436588322829",
+      "source_bindings": [
+        {
+          "source_id": "alba_drying_finish",
+          "source_record_sha256": "588596185179c93ae686597b391564fb235c43a7fce34aefea713d3a5ad36a82"
+        }
+      ],
+      "title": "White michelia alba — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "aromatic_flower",
+          "label": "aromatic flower comparison",
+          "template_id": "v5_flower",
+          "query_terms": [
+            "aromatic",
+            "floral"
+          ],
+          "conflict_terms": [
+            "aromatic",
+            "floral"
+          ],
+          "comparison_question": "Does the accent clarify this botanical target rather than generic creamy magnolia?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_aromatic_floral",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "lav_coffee_milk_v5",
+      "subtype_id": "LAV_COFFEE_MILK",
+      "subtype_card_sha256": "6fb3543edf1858b00a6605fe792577a579a3fe95173eecb1b47f2f7858775199",
+      "source_bindings": [
+        {
+          "source_id": "coffee_roasting_finish",
+          "source_record_sha256": "95cc74b982ef885c435abc063f8e46d4f803afd4006d49d5946c9ecd1f46ffb7"
+        },
+        {
+          "source_id": "margiela_coffee_break_edt",
+          "source_record_sha256": "31a19787327488fc944152c8a24804337c6d7f06bd6512f2ff8938665bda05f8"
+        },
+        {
+          "source_id": "givaudan_methyl_laitone_completion",
+          "source_record_sha256": "699e8662b0414c36dc2c54bc7a501c4c09115bdf8eb4b2a96814b95fd4498a96"
+        }
+      ],
+      "title": "Coffee milk — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "milk_texture",
+          "label": "milk texture comparison",
+          "template_id": "v5_cream",
+          "query_terms": [
+            "milky",
+            "creamy",
+            "lactonic"
+          ],
+          "conflict_terms": [
+            "milky",
+            "creamy",
+            "lactonic"
+          ],
+          "comparison_question": "Does milk smooth the transition while retaining both coffee and lavender?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_cream",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "green_hyacinth_white_v5",
+      "subtype_id": "GREEN_HYACINTH_WHITE",
+      "subtype_card_sha256": "2f6d1dbe0e2be770f0cfad0e90c9e1394d45cc87382e64427e6728a4b749e4e1",
+      "source_bindings": [
+        {
+          "source_id": "hyacinth_headspace_depth",
+          "source_record_sha256": "2500829ce2a0c39fce6e2fb50ea130a2e0307371ac976a5f0cce3a7f3121c381"
+        }
+      ],
+      "title": "White hyacinth: headspace, not a generic green-floral base",
+      "options": [
+        {
+          "option_id": "earthy_green",
+          "label": "earthy green comparison",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "earthy",
+            "green"
+          ],
+          "conflict_terms": [
+            "earthy",
+            "green"
+          ],
+          "comparison_question": "Does that edge improve the intended hyacinth identity rather than mushroom or vegetable character?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_earthy_green",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "aquatic_nelumbo_v5",
+      "subtype_id": "AQUATIC_NELUMBO",
+      "subtype_card_sha256": "dc74ec3f6ad57cab22b4f4306f8306232fe94241e6cd290c2f65d174e86b9f41",
+      "source_bindings": [
+        {
+          "source_id": "lotus_antique_depth",
+          "source_record_sha256": "ce41c31c5fd8574cc7ea1b5c5263dee57e7e75a6b0e5070d8cd9ac28494df90a"
+        }
+      ],
+      "title": "Sacred lotus: petal and floral-center distinction",
+      "options": [
+        {
+          "option_id": "aromatic_flower",
+          "label": "aromatic flower comparison",
+          "template_id": "v5_flower",
+          "query_terms": [
+            "aromatic",
+            "floral"
+          ],
+          "conflict_terms": [
+            "aromatic",
+            "floral"
+          ],
+          "comparison_question": "Does the center add recognizability or overpower delicacy?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_aromatic_floral",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "aquatic_nymphaea_prolifera_v5",
+      "subtype_id": "AQUATIC_NYMPHAEA_PROLIFERA",
+      "subtype_card_sha256": "f41d5058411a49b719215bea7bff90ae503fc63f4c75516da02675d8e5cc80dc",
+      "source_bindings": [
+        {
+          "source_id": "nymphaea_prolifera_depth",
+          "source_record_sha256": "9f93f6669b3dfc5bd210a9482c7b83ee459016acafa961e651e6da0a48845cc9"
+        }
+      ],
+      "title": "Nymphaea prolifera: a named water-lily target",
+      "options": [
+        {
+          "option_id": "sweet_aromatic",
+          "label": "sweet aromatic comparison",
+          "template_id": "v5_flower",
+          "query_terms": [
+            "sweet",
+            "aromatic",
+            "spicy"
+          ],
+          "conflict_terms": [
+            "sweet",
+            "aromatic",
+            "spicy"
+          ],
+          "comparison_question": "Does the center improve the selected flower concept or make it phenolic and heavy?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_sweet_aromatic",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "orchid_cymbidium_sunny_v5",
+      "subtype_id": "ORCHID_CYMBIDIUM_SUNNY",
+      "subtype_card_sha256": "030c90b73e47f4a26cdae2d1c437c9012e83ee1e5af4a800ee6f796d5b83ddb8",
+      "source_bindings": [
+        {
+          "source_id": "cymbidium_sunny_depth",
+          "source_record_sha256": "f9f007fe57b1728571f3cdd219e62751012c743a50a91217470b84fbb2a6fbbf"
+        }
+      ],
+      "title": "Cymbidium Sunny Bell: outer and inner flower distinction",
+      "options": [
+        {
+          "option_id": "green_aromatic",
+          "label": "green aromatic comparison",
+          "template_id": "v5_terpenic",
+          "query_terms": [
+            "green",
+            "aromatic"
+          ],
+          "conflict_terms": [
+            "green",
+            "aromatic"
+          ],
+          "comparison_question": "Does the center add distinction or only sharpness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_green_aromatic",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "orchard_heart_v5",
+      "subtype_id": "ORCHARD_HEART",
+      "subtype_card_sha256": "ce53986e110d2fcb0faaf91c53a85d61ec2f6ee47501561aebb93d835865cbb1",
+      "source_bindings": [
+        {
+          "source_id": "iff_osmanthus_completion",
+          "source_record_sha256": "0f178c02e7a9d4b9d0b64cdc89038b2ce598625a34ff7ab3414544df1743a516"
+        },
+        {
+          "source_id": "guerlain_pera_granita_edt",
+          "source_record_sha256": "85e81ba1a18540e2b0f242f3342f286f663c361e030f98ba20f2b9eea53c242f"
+        },
+        {
+          "source_id": "jomalone_english_pear_freesia_cologne",
+          "source_record_sha256": "db3c4cfae691e547f6794acb8e46fd864e28dac28beb0f625510ab22cb7c90e9"
+        }
+      ],
+      "title": "Orchard fruit into a restrained floral heart",
+      "options": [
+        {
+          "option_id": "transparent_flower",
+          "label": "transparent flower comparison",
+          "template_id": "v5_flower",
+          "query_terms": [
+            "transparent",
+            "floral"
+          ],
+          "conflict_terms": [
+            "transparent",
+            "floral"
+          ],
+          "comparison_question": "Does the added bridge extend fruit identity or merely make the heart more floral?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_transparent_floral",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "apricot_flower",
+          "label": "apricot flower comparison",
+          "template_id": "v5_flower",
+          "query_terms": [
+            "apricot",
+            "floral"
+          ],
+          "conflict_terms": [
+            "apricot",
+            "floral"
+          ],
+          "comparison_question": "Does the added bridge extend fruit identity or merely make the heart more floral?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_apricot_floral",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "pineapple_woody_v5",
+      "subtype_id": "PINEAPPLE_WOODY",
+      "subtype_card_sha256": "8128b70430af0d019ae3531f61486a5d7c6675542aa3b9b738e0de32b48401c4",
+      "source_bindings": [
+        {
+          "source_id": "pineapple_recombination_floral_v2",
+          "source_record_sha256": "0345863796d6b35609affe51f0ee180e283c5026d2f740ce2232270f1e2528c0"
+        },
+        {
+          "source_id": "creed_aventus_current_floral_v2",
+          "source_record_sha256": "e69e63c45dfa1dbac69cd18202c0c864f32c169cf243b702455987ba73558b63"
+        },
+        {
+          "source_id": "creed_aventus_collection_floral_v2",
+          "source_record_sha256": "fa21e364c65d4a7c0e3f9f1fe18fe70433d3006ebc9f75587c3ebd3853aa5f90"
+        },
+        {
+          "source_id": "givaudan_paradisamide_completion",
+          "source_record_sha256": "8682aabf681b39585972782d0a8a5b66b01fb80c155c474e4dcdc44c8ca3032a"
+        }
+      ],
+      "title": "Pineapple-to-dry-wood architecture",
+      "options": [
+        {
+          "option_id": "crisp_fruit",
+          "label": "crisp fruit comparison",
+          "template_id": "fruit",
+          "query_terms": [
+            "pineapple",
+            "fresh",
+            "green"
+          ],
+          "conflict_terms": [
+            "pineapple",
+            "fresh",
+            "green"
+          ],
+          "comparison_question": "Which fruit branch stays recognizable through the heart without becoming sweeter or heavier?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_crisp_pineapple",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "sweet_fruit_body",
+          "label": "sweet fruit body comparison",
+          "template_id": "fruit",
+          "query_terms": [
+            "fruity",
+            "sweet"
+          ],
+          "conflict_terms": [
+            "fruity",
+            "sweet"
+          ],
+          "comparison_question": "Which fruit branch stays recognizable through the heart without becoming sweeter or heavier?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_sweet_fruit",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "lav_apple_v5",
+      "subtype_id": "LAV_APPLE",
+      "subtype_card_sha256": "fefcb3a6d4df9f17cbca759c807758a725a98710240246f234f6733105d63cc9",
+      "source_bindings": [
+        {
+          "source_id": "pdm_layton_edp",
+          "source_record_sha256": "8add2076a2876635313f0136d0fc6239fb56c019779089b9f1e434804a279a31"
+        },
+        {
+          "source_id": "apple_aroma",
+          "source_record_sha256": "f210af34dd21a4d3834fe60013957c27cf8ce954c73a62e3f7cb9930c9f2ffdc"
+        },
+        {
+          "source_id": "givaudan_manzanate_subtypes",
+          "source_record_sha256": "0d10c24774688e4d120a89644b88732beb8955c55fa3e24951d667e8c62378bb"
+        }
+      ],
+      "title": "Apple-aromatic lavender bridge",
+      "options": [
+        {
+          "option_id": "crisp_apple",
+          "label": "crisp apple comparison",
+          "template_id": "fruit",
+          "query_terms": [
+            "apple",
+            "fresh",
+            "green"
+          ],
+          "conflict_terms": [
+            "apple",
+            "fresh",
+            "green"
+          ],
+          "comparison_question": "Does the apple branch improve aromatic continuity without a shampoo-like effect?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_crisp_apple",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "ripe_apple",
+          "label": "ripe apple comparison",
+          "template_id": "fruit",
+          "query_terms": [
+            "apple",
+            "ripe",
+            "cider"
+          ],
+          "conflict_terms": [
+            "apple",
+            "ripe",
+            "cider"
+          ],
+          "comparison_question": "Does the apple branch improve aromatic continuity without a shampoo-like effect?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_ripe_apple",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "berry_rhubarb_v5",
+      "subtype_id": "BERRY_RHUBARB",
+      "subtype_card_sha256": "4162fe1474facf539e38b62c427a059469a44fb793db98df628d50651f8a5652",
+      "source_bindings": [
+        {
+          "source_id": "symrise_perfumers_finish",
+          "source_record_sha256": "6246b899120265533bdc6131638b1c2865c7cf569bae35c7b0654a6ee81a4aef"
+        },
+        {
+          "source_id": "pdm_delina_edp",
+          "source_record_sha256": "fa4704e6b84efa5e9651618efb2e6a72120977c58db6e665a13fedebf2c8269d"
+        }
+      ],
+      "title": "Rhubarb — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "rhubarb_contour",
+          "label": "rhubarb contour comparison",
+          "template_id": "fruit",
+          "query_terms": [
+            "rhubarb",
+            "green",
+            "tart"
+          ],
+          "conflict_terms": [
+            "rhubarb",
+            "green",
+            "tart"
+          ],
+          "comparison_question": "Does tartness remain recognizably stem-fruity rather than grapefruit or rose?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_rhubarb",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "berry_grape_v5",
+      "subtype_id": "BERRY_GRAPE",
+      "subtype_card_sha256": "08aa7bddb483d08eaac31fbacb0585e95ef239a22864cac53130a8ab7e7efee8",
+      "source_bindings": [
+        {
+          "source_id": "symrise_perfumers_finish",
+          "source_record_sha256": "6246b899120265533bdc6131638b1c2865c7cf569bae35c7b0654a6ee81a4aef"
+        }
+      ],
+      "title": "Grape — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "grape_flower",
+          "label": "grape flower comparison",
+          "template_id": "v5_flower",
+          "query_terms": [
+            "grape",
+            "floral"
+          ],
+          "conflict_terms": [
+            "grape",
+            "floral"
+          ],
+          "comparison_question": "Does the bridge extend grape recognition without creating candy or jasmine?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_grape_floral",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "berry_floral_bridge_v5",
+      "subtype_id": "BERRY_FLORAL_BRIDGE",
+      "subtype_card_sha256": "60efda87ab2f27b508409fdf2985815167229a2a790ecc60c471300946790116",
+      "source_bindings": [
+        {
+          "source_id": "raspberry_recombination_subtypes",
+          "source_record_sha256": "3c25fa3885840a77a117e5c78cf3a8f9815ece6b67f9d2fe989688e2e60393b3"
+        },
+        {
+          "source_id": "dsm_hedione_foundation",
+          "source_record_sha256": "e16f04e784546916f2f084b4e9dbb9a23e5654fb30d282cd2237f93b13f5d187"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        }
+      ],
+      "title": "Berry floral — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "transparent_flower",
+          "label": "transparent flower comparison",
+          "template_id": "v5_flower",
+          "query_terms": [
+            "transparent",
+            "floral"
+          ],
+          "conflict_terms": [
+            "transparent",
+            "floral"
+          ],
+          "comparison_question": "Which support preserves the chosen berry best through the early heart?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_transparent_floral",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "rose_petals",
+          "label": "rose petals comparison",
+          "template_id": "v5_flower",
+          "query_terms": [
+            "rose",
+            "rosy"
+          ],
+          "conflict_terms": [
+            "rose",
+            "rosy"
+          ],
+          "comparison_question": "Which support preserves the chosen berry best through the early heart?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_rose",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "trop_passionfruit_v5",
+      "subtype_id": "TROP_PASSIONFRUIT",
+      "subtype_card_sha256": "d4b60fd316e7ffd4079219045b6918e4faf2c5376ec4a4a1811106b61740810f",
+      "source_bindings": [
+        {
+          "source_id": "passionfruit_products_finish",
+          "source_record_sha256": "ea377bed4a04bc78c9abeb62e8ae3102a970782647f9e690c7886cd7fa2ae746"
+        },
+        {
+          "source_id": "givaudan_paradisamide_completion",
+          "source_record_sha256": "8682aabf681b39585972782d0a8a5b66b01fb80c155c474e4dcdc44c8ca3032a"
+        }
+      ],
+      "title": "Passionfruit — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "tropical_body",
+          "label": "tropical body comparison",
+          "template_id": "fruit",
+          "query_terms": [
+            "fruity",
+            "tropical"
+          ],
+          "conflict_terms": [
+            "fruity",
+            "tropical"
+          ],
+          "comparison_question": "Does added body retain fresh passion-fruit character instead of processed nectar?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_tropical_fruit",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "trop_melon_v5",
+      "subtype_id": "TROP_MELON",
+      "subtype_card_sha256": "919613c192ad7be711114a144cf756390d30f5c5ca5a10e2a3a7d527c1f7287e",
+      "source_bindings": [
+        {
+          "source_id": "symrise_perfumers_finish",
+          "source_record_sha256": "6246b899120265533bdc6131638b1c2865c7cf569bae35c7b0654a6ee81a4aef"
+        },
+        {
+          "source_id": "dsm_calone_completion",
+          "source_record_sha256": "6507a59013c5c0815cedc98646422dc78adc724263118e3104bdae9b9ccd0b85"
+        }
+      ],
+      "title": "Melon — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "rind_green",
+          "label": "rind green comparison",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "green",
+            "watery"
+          ],
+          "conflict_terms": [
+            "green",
+            "watery"
+          ],
+          "comparison_question": "Can rind definition improve melon realism without an ocean accord?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_wet_green",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "marine",
+          "label": "marine comparison",
+          "template_id": "rain_water",
+          "query_terms": [
+            "marine",
+            "ozonic"
+          ],
+          "conflict_terms": [
+            "marine",
+            "ozonic"
+          ],
+          "comparison_question": "Can rind definition improve melon realism without an ocean accord?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_marine",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "trop_banana_v5",
+      "subtype_id": "TROP_BANANA",
+      "subtype_card_sha256": "b2b1c004d4c8fc158ca3fd2b8cf4249af6a1b3486100b96955fdf02822118854",
+      "source_bindings": [
+        {
+          "source_id": "symrise_flavor_finish",
+          "source_record_sha256": "3de6e1bb884df1e47f9710bca59759844eba6d665e1acbe1ae9b0812516a44e6"
+        }
+      ],
+      "title": "Banana — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "cream_texture",
+          "label": "cream texture comparison",
+          "template_id": "v5_cream",
+          "query_terms": [
+            "creamy",
+            "milky"
+          ],
+          "conflict_terms": [
+            "creamy",
+            "milky"
+          ],
+          "comparison_question": "Does flesh texture reduce candy-solvent character without coconut cream?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_cream",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "stone_peach_skin_v5",
+      "subtype_id": "STONE_PEACH_SKIN",
+      "subtype_card_sha256": "9ee302060e6abbd1f1fe5f87d94a801451f632ce9d587083a02d963b69e22e32",
+      "source_bindings": [
+        {
+          "source_id": "symrise_perfumers_finish",
+          "source_record_sha256": "6246b899120265533bdc6131638b1c2865c7cf569bae35c7b0654a6ee81a4aef"
+        },
+        {
+          "source_id": "guerlain_mitsouko_edp_foundation",
+          "source_record_sha256": "fa3920923505af9501114034e39c1fbd95d73e1c444fe69ce8264ab35c1de4df"
+        }
+      ],
+      "title": "Peach skin — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "dry_frame",
+          "label": "dry frame comparison",
+          "template_id": "dry_wood",
+          "query_terms": [
+            "dry",
+            "wood"
+          ],
+          "conflict_terms": [
+            "dry",
+            "wood"
+          ],
+          "comparison_question": "Is peach skin more legible without increasing creaminess?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_dry_wood",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "van_caramel_toast_v5",
+      "subtype_id": "VAN_CARAMEL_TOAST",
+      "subtype_card_sha256": "f02e5d8921a4e24e65102e9c58697d0afe0e93d773bfd13c6c8cd17fbcbd027d",
+      "source_bindings": [
+        {
+          "source_id": "symrise_flavor_finish",
+          "source_record_sha256": "3de6e1bb884df1e47f9710bca59759844eba6d665e1acbe1ae9b0812516a44e6"
+        },
+        {
+          "source_id": "dsm_sharing_innovation_2026",
+          "source_record_sha256": "5f185c27b3ac31c0d702367325d4e1928f67b508ea01880b40ea17c1a86980d9"
+        }
+      ],
+      "title": "Caramel toasted — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "toast",
+          "label": "toast comparison",
+          "template_id": "v5_toast",
+          "query_terms": [
+            "toasted",
+            "roasted"
+          ],
+          "conflict_terms": [
+            "toasted",
+            "roasted"
+          ],
+          "comparison_question": "Does toast add depth without burnt bitterness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_toast",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "van_floral_gourmand_v5",
+      "subtype_id": "VAN_FLORAL_GOURMAND",
+      "subtype_card_sha256": "a6f9ea463ae9a031734e29cb1e5fb28f3dcee2af569fe1ce205cc9496129b4a8",
+      "source_bindings": [
+        {
+          "source_id": "guerlain_mon_guerlain_edp",
+          "source_record_sha256": "206b2a39cbce6a58df46ba85546488f447d312c48d862cf14de12528d7fa6c5c"
+        },
+        {
+          "source_id": "ysl_libre_edp",
+          "source_record_sha256": "74904035a43d0b59ce3452248f9900d88f686a966a61725e10f698fae67799df"
+        },
+        {
+          "source_id": "iff_orange_flower_completion",
+          "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758"
+        }
+      ],
+      "title": "Sweet floral gourmand — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "balsamic_link",
+          "label": "balsamic link comparison",
+          "template_id": "v5_resin",
+          "query_terms": [
+            "balsamic",
+            "resin"
+          ],
+          "conflict_terms": [
+            "balsamic",
+            "resin"
+          ],
+          "comparison_question": "Does it smooth the transition without masking the flower?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_resin",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "roast_coffee_v5",
+      "subtype_id": "ROAST_COFFEE",
+      "subtype_card_sha256": "45d3ff78fda8477c53556885bacd0684c843101bba61771685652f893d429254",
+      "source_bindings": [
+        {
+          "source_id": "coffee_roasting_finish",
+          "source_record_sha256": "95cc74b982ef885c435abc063f8e46d4f803afd4006d49d5946c9ecd1f46ffb7"
+        },
+        {
+          "source_id": "margiela_coffee_break_edt",
+          "source_record_sha256": "31a19787327488fc944152c8a24804337c6d7f06bd6512f2ff8938665bda05f8"
+        }
+      ],
+      "title": "Brewed coffee — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "roast",
+          "label": "roast comparison",
+          "template_id": "v5_toast",
+          "query_terms": [
+            "roasted",
+            "toasted"
+          ],
+          "conflict_terms": [
+            "roasted",
+            "toasted"
+          ],
+          "comparison_question": "Does roast clarify coffee or merely add burnt material?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_toast",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "roast_cacao_v5",
+      "subtype_id": "ROAST_CACAO",
+      "subtype_card_sha256": "c35f80ac796f472ebc168030596c587f1b330739e27391d9b0e8053afbdd47f8",
+      "source_bindings": [
+        {
+          "source_id": "chocolate_recombination_finish",
+          "source_record_sha256": "d7fa89d66a669bc05c9f81dd753335ad65666d8cdac7614d7beb4b5ea3035a4c"
+        }
+      ],
+      "title": "Cacao chocolate — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "cream_texture",
+          "label": "cream texture comparison",
+          "template_id": "v5_cream",
+          "query_terms": [
+            "creamy",
+            "milky"
+          ],
+          "conflict_terms": [
+            "creamy",
+            "milky"
+          ],
+          "comparison_question": "Which facet supplies recognizable chocolate body?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_cream",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        },
+        {
+          "option_id": "floral_texture",
+          "label": "floral texture comparison",
+          "template_id": "v5_flower",
+          "query_terms": [
+            "floral"
+          ],
+          "conflict_terms": [
+            "floral"
+          ],
+          "comparison_question": "Which facet supplies recognizable chocolate body?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_floral",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "dairy_maple_v5",
+      "subtype_id": "DAIRY_MAPLE",
+      "subtype_card_sha256": "2f38713886f95501745ae3461aa7e8d3bfd9b939d7a2a4c1c9cb1f158ceeed41",
+      "source_bindings": [
+        {
+          "source_id": "maple_model_finish",
+          "source_record_sha256": "dd315a3f4af29ffa4667f765b39b1c6d2c5e7cb8f237c0d1f2295be2382be0ac"
+        }
+      ],
+      "title": "Maple — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "maple_accent",
+          "label": "maple accent comparison",
+          "template_id": "v5_toast",
+          "query_terms": [
+            "maple"
+          ],
+          "conflict_terms": [
+            "maple"
+          ],
+          "comparison_question": "Does the accent distinguish maple without smoke dominance?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_maple",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "tea_smoked_v5",
+      "subtype_id": "TEA_SMOKED",
+      "subtype_card_sha256": "133ff2bad0ccb8937b9e14113c6fb4c651a429555f7a9628059b464b11a9a729",
+      "source_bindings": [
+        {
+          "source_id": "smoked_tea_finish",
+          "source_record_sha256": "f03a98a7a288d19778625f20c0b9cbae22536f1d5d514e84860f2d9f7766ba7f"
+        },
+        {
+          "source_id": "tea_black_omission_subtypes",
+          "source_record_sha256": "69847627a14afa01698ed45a00f63ec0586151db78c3332d4945c3d9eb02b23d"
+        }
+      ],
+      "title": "Smoky tea — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "smoke",
+          "label": "smoke comparison",
+          "template_id": "v5_smoke",
+          "query_terms": [
+            "smoky",
+            "smoke"
+          ],
+          "conflict_terms": [
+            "smoky",
+            "smoke"
+          ],
+          "comparison_question": "Can smoke remain attached to tea through the heart?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_smoke",
+          "operation": "ADD_ROLE",
+          "target_role_id": null
+        }
+      ]
+    },
+    {
+      "adapter_id": "hy_tea_musk_v5",
+      "subtype_id": "HY_TEA_MUSK",
+      "subtype_card_sha256": "033a8303e0e0e6e37c59e835cc9105718c7c3db8a12312b12acbb5fd998221d1",
+      "source_bindings": [
+        {
+          "source_id": "tea_green_cultivar_subtypes",
+          "source_record_sha256": "20ab2f8b8efcb2f0edc02d8272d8f289d9fe39ced1b949111fc370d20404371f"
+        },
+        {
+          "source_id": "tea_black_omission_subtypes",
+          "source_record_sha256": "69847627a14afa01698ed45a00f63ec0586151db78c3332d4945c3d9eb02b23d"
+        },
+        {
+          "source_id": "tea_oolong_omission_subtypes",
+          "source_record_sha256": "7db970b938427be44aa95c53038233e603b19936d43f6325b9721faf6b02c2fe"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        },
+        {
+          "source_id": "helvetolide",
+          "source_record_sha256": "d7b21c8dadb05bae5a8b6f0c4470ac0a8eb35c511b24c8eba2c030ac3132cbbc"
+        }
+      ],
+      "title": "Tea musk — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "powder_musk",
+          "label": "powder musk comparison",
+          "template_id": "skin_musk",
+          "query_terms": [
+            "musk",
+            "powdery"
+          ],
+          "conflict_terms": [
+            "musk",
+            "powdery"
+          ],
+          "comparison_question": "Does musk retain tea character later without fruit or powder replacing it?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_exaltolide",
+          "operation": "REFINE_ROLE",
+          "target_role_id": "facet_skin_musk"
+        },
+        {
+          "option_id": "pear_musk",
+          "label": "pear musk comparison",
+          "template_id": "skin_musk",
+          "query_terms": [
+            "musk",
+            "pear"
+          ],
+          "conflict_terms": [
+            "musk",
+            "pear"
+          ],
+          "comparison_question": "Does musk retain tea character later without fruit or powder replacing it?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_helvetolide",
+          "operation": "REFINE_ROLE",
+          "target_role_id": "facet_skin_musk"
+        }
+      ]
+    },
+    {
+      "adapter_id": "lav_iris_v5",
+      "subtype_id": "LAV_IRIS",
+      "subtype_card_sha256": "6f7e2801c995d8de24ec2373de29e6d74588eb990e0cc13cf675e7610d06c9b2",
+      "source_bindings": [
+        {
+          "source_id": "caron_le_soir_edp",
+          "source_record_sha256": "0873146aae873dfc57420252453aaec000e85087e0aed27cacf2abbd2984d9d7"
+        },
+        {
+          "source_id": "jpg_le_male_le_parfum",
+          "source_record_sha256": "79702d680778b9e74480829e7139ba9a186fe1dfd5d38a81638ab8c744e92a7a"
+        },
+        {
+          "source_id": "iff_gamma",
+          "source_record_sha256": "0158eb039645955eae7c6bed9c0d3b1cbd8fc27a2923613d64ffba0e42b6504e"
+        }
+      ],
+      "title": "Lavender with iris texture",
+      "options": [
+        {
+          "option_id": "woody_iris_grade",
+          "label": "woody iris grade comparison",
+          "template_id": "iris_woody",
+          "query_terms": [
+            "iris",
+            "violet",
+            "powder"
+          ],
+          "conflict_terms": [
+            "iris",
+            "violet",
+            "powder"
+          ],
+          "comparison_question": "Does iris texture deepen the transition without turning the perfume into lipstick or violet powder?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_gamma_powder",
+          "operation": "REFINE_ROLE",
+          "target_role_id": "facet_iris_woody"
+        },
+        {
+          "option_id": "cosmetic_iris_grade",
+          "label": "cosmetic iris grade comparison",
+          "template_id": "iris_cosmetic",
+          "query_terms": [
+            "iris",
+            "violet",
+            "powder"
+          ],
+          "conflict_terms": [
+            "iris",
+            "violet",
+            "powder"
+          ],
+          "comparison_question": "Does iris texture deepen the transition without turning the perfume into lipstick or violet powder?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS",
+          "descriptor_requirement": "v5_gamma_powder",
+          "operation": "REFINE_ROLE",
+          "target_role_id": "facet_iris_cosmetic"
+        }
+      ]
+    }
+  ],
+  "predecessor_sha256": "44776decd27ba01d88dbdbc30b37393b1700c9b9403634be1162044ef01638a3"
+}

@@ -44,7 +44,7 @@ EXPECTED_ROWS = {
 }
 
 
-def _formula(material: str, fraction: float, carrier: str = "") -> dict[str, object]:
+def _formula(material: str, fraction: float, carrier: str = "", basis: str = "unspecified") -> dict[str, object]:
     return {
         "name": "Alias crosswalk probe",
         "ingredients_ul": {material: 10.0},
@@ -52,7 +52,7 @@ def _formula(material: str, fraction: float, carrier: str = "") -> dict[str, obj
         "stock_specs": {
             material: {
                 "fraction": fraction,
-                "fraction_basis": "unspecified",
+                "fraction_basis": basis,
                 "carrier": carrier,
                 "declared": True,
             }
@@ -133,7 +133,6 @@ def test_crosswalk_semantic_drift_aborts(
         ("Grapefruit FCF EO", 1.0, "", "IDCL-012", 123, "inventory:v5:"),
         ("Himalayan Cedarwood EO", 1.0, "", "IDCL-013", 63, "inventory:v5:"),
         ("Lemon FCF EO", 1.0, "", "IDCL-014", 158, "inventory:v5:"),
-        ("Opoponax 50%", 0.50, "dep", "IDCL-015", 189, "inventory:user-20260828:"),
         ("Rose Essential Oil", 1.0, "", "IDCL-017", 214, "inventory:user-20260828:"),
     ],
 )
@@ -154,6 +153,19 @@ def test_execution_ready_aliases_bind_only_to_exact_native_stock(
     assert matched[0]["identity_crosswalk_contract_id"] == contract_id
     assert matched[0]["source_rows"] == [source_row]
     assert matched[0]["stock_id"].startswith(stock_prefix)
+
+
+def test_old_opoponax_alias_does_not_infer_a_new_prepared_stock() -> None:
+    old = _dilution_consistency_check(_formula("Opoponax 50%", 0.5, "dep", "mass_fraction"))
+    assert old.status == "FAIL"
+    assert old.data["issues"][0]["identity_crosswalk_contract_id"] == "IDCL-015"
+    assert old.data["issues"][0]["reason"] == "not_in_inventory"
+    current = _dilution_consistency_check(
+        _formula("Opoponax Resinoid", 0.5, "dep", "mass_fraction")
+    )
+    assert current.status == "FAIL"
+    assert current.data["issues"][0]["reason"] == "inventory_stock_non_executable"
+    assert "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING" in current.data["issues"][0]["execution_holds"]
 
 
 def test_neat_2_acetyl_pyrazine_binds_while_one_percent_remains_held() -> None:

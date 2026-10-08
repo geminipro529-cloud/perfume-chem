@@ -1,0 +1,1226 @@
+{
+  "schema_version": "perfume-personal-formulation-design-v1",
+  "design_id": "PRADA-LHOMME-INTENSE-RESEARCH-BUILD-V1-20261002",
+  "name": "Prada L'Homme Intense — inventory interpretation v1",
+  "created_date": "2026-10-02",
+  "status": "PERSONAL_RESEARCH_DESIGN",
+  "target_reference": {
+    "brand": "Prada",
+    "product": "L'Homme Prada Intense",
+    "concentration": "Eau de Parfum",
+    "product_code": "2A1252_2HC1_F0Z99_P_ML100",
+    "proprietary_formula_known": false,
+    "evidence_ids": [
+      "P1",
+      "P2"
+    ]
+  },
+  "lineage": {
+    "kind": "ROOT_DESIGN",
+    "immediate_parent_formula": null,
+    "replaces_historical_stock_records": false,
+    "reason": "New from-scratch interpretation; not an active-dose rebase of an earlier formula or an addition to an existing bottle."
+  },
+  "quantity_contract": {
+    "liquid_total_uL_decimal": "6000",
+    "solid_total_mg_decimal": "140",
+    "final_measured_volume_mL_decimal": "30.0",
+    "nominal_liquid_stock_charge_percent": "20",
+    "pure_aromatic_w_w_percent": null,
+    "combined_mass_volume_total": null,
+    "ethanol_instruction": "96% perfumery ethanol q.s. to measured 30.0 mL after dissolution; do not prescribe an exact 24.0 mL addition."
+  },
+  "inventory_context": {
+    "inventory_text_sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "personal_design_projection_sha256": "3ed783092c94aed53b3987583b8131b4b348995bddb82afab13716f47cad0687",
+    "scope": "CURRENT_PERSONAL_INVENTORY_DESIGN_VIEW",
+    "changes_inventory": false,
+    "creates_reservations": false,
+    "creates_mixer_commands": false
+  },
+  "rows": [
+    {
+      "row": 1,
+      "basket": 1,
+      "material": "Iso E Super",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "850",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "transparent woody envelope",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Iso E Super",
+        "stock_id": "inventory:v5:66c8443970c7354dd89a",
+        "stock_name": "Iso E Super",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          140
+        ],
+        "source_ref": "Current Inventory Master!A140:N140",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 2,
+      "basket": 1,
+      "material": "Hedione",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "650",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "airy floral bridge without a prominent jasmine note",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Hedione",
+        "stock_id": "inventory:v5:0f9d7e0971aad1594be4",
+        "stock_name": "Hedione",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          129
+        ],
+        "source_ref": "Current Inventory Master!A129:N129",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 3,
+      "basket": 1,
+      "material": "Patchouli EO",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "180",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "earthy patchouli signature",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Patchouli EO",
+        "stock_id": "inventory:user-20260830:c84084216d3a15ca7271",
+        "stock_name": "Patchouli EO",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+        "source_rows": [
+          198
+        ],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260830-003",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 4,
+      "basket": 1,
+      "material": "Benzyl Salicylate",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "140",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "cosmetic floral cushion",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Benzyl Salicylate",
+        "stock_id": "inventory:user-20260901:7543f1c84f4d44beef70",
+        "stock_name": "Benzyl Salicylate",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+        "source_rows": [
+          41
+        ],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260901-003",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 5,
+      "basket": 1,
+      "material": "Hexyl Salicylate",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "100",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "green-floral smoothing",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Hexyl Salicylate",
+        "stock_id": "inventory:v5:d5eea53855ea318ab957",
+        "stock_name": "Hexyl Salicylate",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          133
+        ],
+        "source_ref": "Current Inventory Master!A133:N133",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 6,
+      "basket": 3,
+      "material": "Sandalore",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "300",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "soft sandalwood body",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "M6"
+      ],
+      "stock_reference": {
+        "material": "Sandalore",
+        "stock_id": "inventory:v5:6cb04089c27e0a91ee15",
+        "stock_name": "Sandalore",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          219
+        ],
+        "source_ref": "Current Inventory Master!A219:N219",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 7,
+      "basket": 3,
+      "material": "Clearwood",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "100",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "clean patchouli-amber extension",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "M5"
+      ],
+      "stock_reference": {
+        "material": "Clearwood",
+        "stock_id": "inventory:user-20260828:87cddb712623b1182eaa",
+        "stock_name": "Clearwood",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+        "source_rows": [
+          76
+        ],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260828-009",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 8,
+      "basket": 3,
+      "material": "Cedarwood oil Virginia",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "80",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "dry cedar spine",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Cedarwood oil Virginia",
+        "stock_id": "inventory:v5:61deb2ebba56d82eb870",
+        "stock_name": "Cedarwood Virginia",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          64
+        ],
+        "source_ref": "Current Inventory Master!A64:N64",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 9,
+      "basket": 3,
+      "material": "Ebanol",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "70",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "persistent sandalwood accent",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Ebanol",
+        "stock_id": "inventory:v5:9a6c54f0b9b8183e51d9",
+        "stock_name": "Ebanol",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          99
+        ],
+        "source_ref": "Current Inventory Master!A99:N99",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 10,
+      "basket": 4,
+      "material": "Suederal",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "40",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "quiet suede texture, not a leather-dominant accord",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "M7"
+      ],
+      "stock_reference": {
+        "material": "Suederal",
+        "stock_id": "inventory:text-design-only:8af5326a6e90bd8fd1a6",
+        "stock_name": "Suederal",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "LEGACY_INVENTORY_TEXT_DESIGN_ONLY",
+        "source_rows": [
+          201
+        ],
+        "source_ref": "inventory.txt:201",
+        "design_ready": true,
+        "execution_ready": false,
+        "execution_hold_reason": "NOT_BOUND_TO_CURRENT_INVENTORY_SNAPSHOT"
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 11,
+      "basket": 4,
+      "material": "Cashmeran",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "30",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "warm tactile woody accent",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Cashmeran",
+        "stock_id": "inventory:text-design-only:e4382564c18a833e77aa",
+        "stock_name": "Cashmeran",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "LEGACY_INVENTORY_TEXT_DESIGN_ONLY",
+        "source_rows": [
+          190
+        ],
+        "source_ref": "inventory.txt:190",
+        "design_ready": true,
+        "execution_ready": false,
+        "execution_hold_reason": "NOT_BOUND_TO_CURRENT_INVENTORY_SNAPSHOT"
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 12,
+      "basket": 6,
+      "material": "Ethylene Brassylate",
+      "required_stock": "as supplied",
+      "dose_decimal": "500",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "single-musk powder cushion",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Ethylene Brassylate",
+        "stock_id": "inventory:user-20260828:a630859c1c0f0553ddde",
+        "stock_name": "Ethylene Brassylate",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+        "source_rows": [],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260828-001",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 13,
+      "basket": 7,
+      "material": "Linalyl Acetate",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "150",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "fresh aromatic opening-to-heart link",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Linalyl Acetate",
+        "stock_id": "inventory:v5:f63a1c7f33cb38c4cb9a",
+        "stock_name": "Linalyl Acetate",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          163
+        ],
+        "source_ref": "Current Inventory Master!A163:N163",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 14,
+      "basket": 7,
+      "material": "Hydroxycitronellal",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "100",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "soft clean muguet contour",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Hydroxycitronellal",
+        "stock_id": "inventory:v5:ba63a0db28471774d240",
+        "stock_name": "Hydroxycitronellal",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          135
+        ],
+        "source_ref": "Current Inventory Master!A135:N135",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 15,
+      "basket": 7,
+      "material": "Ethyl Linalool",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "80",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "smooth floral-air continuity",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Ethyl Linalool",
+        "stock_id": "inventory:user-20260924:48eed88c6570dc078ed9",
+        "stock_name": "Ethyl Linalool",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924",
+        "source_rows": [],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260924_r5_remaining_stock_forms_v3.json#INV-USER-20260924-R5-012",
+        "design_ready": true,
+        "execution_ready": false,
+        "execution_hold_reason": "BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING"
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 16,
+      "basket": 7,
+      "material": "Linalool",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "70",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "small fresh floral lift",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Linalool",
+        "stock_id": "inventory:v5:56bb8be9477cf345183e",
+        "stock_name": "Linalool",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          162
+        ],
+        "source_ref": "Current Inventory Master!A162:N162",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 17,
+      "basket": 9,
+      "material": "Neroli EO",
+      "required_stock": "10% v/v in ethanol",
+      "dose_decimal": "80",
+      "unit": "uL",
+      "fraction_basis": "v/v",
+      "carrier": "ethanol",
+      "nominal_fraction_decimal": "0.1",
+      "role": "restrained neroli-soap accent",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Neroli EO",
+        "stock_id": "inventory:user-20260908:cdffbb4e058f3d2af434",
+        "stock_name": "Neroli EO",
+        "basis": "volume_fraction",
+        "carrier": "ethanol",
+        "physical_form": "",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260908",
+        "source_rows": [],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260908_ahsee.json#INV-USER-20260908-AHSEE-002",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 18,
+      "basket": 11,
+      "material": "Alpha Isomethyl Ionone",
+      "required_stock": "AIMI; PerfumersWorld 3IW00300; neat / as supplied",
+      "dose_decimal": "700",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "powdery violet-iris body",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "M1",
+        "L1"
+      ],
+      "stock_reference": {
+        "material": "Alpha Isomethyl Ionone",
+        "stock_id": "inventory:user-20260930:0f2e7662198d3a10bd1a",
+        "stock_name": "Alpha Isomethyl Ionone",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied_oily_liquid",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260930",
+        "source_rows": [
+          21
+        ],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260930_aimi_identity.json#INV-USER-20260930-AIMI-001",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 19,
+      "basket": 11,
+      "material": "Dihydro Beta Ionone",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "200",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "woody iris-to-amber bridge",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "M2",
+        "L1"
+      ],
+      "stock_reference": {
+        "material": "Dihydro Beta Ionone",
+        "stock_id": "inventory:v5:8166668b8f4744aa3e81",
+        "stock_name": "Dihydro Beta Ionone",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          92,
+          93
+        ],
+        "source_ref": "Current Inventory Master!A92:N92",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 20,
+      "basket": 11,
+      "material": "Alpha Ionone",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "100",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "violet-floral contour distinct from AIMI",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "L1"
+      ],
+      "stock_reference": {
+        "material": "Alpha Ionone",
+        "stock_id": "inventory:v5:948e98d704540c4db323",
+        "stock_name": "Alpha Ionone",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          18
+        ],
+        "source_ref": "Current Inventory Master!A18:N18",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 21,
+      "basket": 11,
+      "material": "Orivone",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "20",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "small dry earthy orris accent",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "M3",
+        "M4"
+      ],
+      "stock_reference": {
+        "material": "Orivone",
+        "stock_id": "inventory:v5:fcd20111111c9f97c404",
+        "stock_name": "Orivone",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          194
+        ],
+        "source_ref": "Current Inventory Master!A194:N194",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 22,
+      "basket": 12,
+      "material": "Tonka Bean Absolute",
+      "required_stock": "10% w/w in DPG",
+      "dose_decimal": "500",
+      "unit": "uL",
+      "fraction_basis": "w/w",
+      "carrier": "DPG",
+      "nominal_fraction_decimal": "0.1",
+      "role": "natural roasted-tonka complexity",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Tonka Bean Absolute",
+        "stock_id": "inventory:user-20260924:bff88c520fc6e6587020",
+        "stock_name": "Tonka Bean Absolute",
+        "basis": "mass_fraction",
+        "carrier": "dpg",
+        "physical_form": "solution",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924",
+        "source_rows": [
+          232
+        ],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260924_r5_remaining_stock_forms_v3.json#INV-USER-20260924-R5-019",
+        "design_ready": true,
+        "execution_ready": false,
+        "execution_hold_reason": "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING"
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 23,
+      "basket": 12,
+      "material": "Coumarin",
+      "required_stock": "10% w/w in DPG",
+      "dose_decimal": "480",
+      "unit": "uL",
+      "fraction_basis": "w/w",
+      "carrier": "DPG",
+      "nominal_fraction_decimal": "0.1",
+      "role": "controlled coumarinic backbone",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Coumarin",
+        "stock_id": "inventory:user-20260907:f398c094444c12a7e0cf",
+        "stock_name": "Coumarin",
+        "basis": "mass_fraction",
+        "carrier": "dpg",
+        "physical_form": "",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+        "source_rows": [
+          85
+        ],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260907.json#INV-USER-20260907-001",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 24,
+      "basket": 12,
+      "material": "Labdanum Resinoid",
+      "required_stock": "10% w/w in DPG",
+      "dose_decimal": "180",
+      "unit": "uL",
+      "fraction_basis": "w/w",
+      "carrier": "DPG",
+      "nominal_fraction_decimal": "0.1",
+      "role": "restrained amber warmth",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Labdanum Resinoid",
+        "stock_id": "inventory:user-20260924:a3e72be4ac201abcdeee",
+        "stock_name": "Labdanum Resinoid",
+        "basis": "mass_fraction",
+        "carrier": "dpg",
+        "physical_form": "solution",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924",
+        "source_rows": [
+          155
+        ],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260924_r5_remaining_stock_forms_v3.json#INV-USER-20260924-R5-008",
+        "design_ready": true,
+        "execution_ready": false,
+        "execution_hold_reason": "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING"
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 25,
+      "basket": 12,
+      "material": "Siam Benzoin",
+      "required_stock": "50% w/w in DPG",
+      "dose_decimal": "100",
+      "unit": "uL",
+      "fraction_basis": "w/w",
+      "carrier": "DPG",
+      "nominal_fraction_decimal": "0.5",
+      "role": "balsamic roundness",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Siam Benzoin",
+        "stock_id": "inventory:user-20260915:f835f8448a93bcb22c59",
+        "stock_name": "Siam Benzoin",
+        "basis": "mass_fraction",
+        "carrier": "dpg",
+        "physical_form": "",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260915",
+        "source_rows": [
+          222
+        ],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json#INV-USER-20260915-STOCK-009",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 26,
+      "basket": 12,
+      "material": "Vanillin",
+      "required_stock": "10% v/v nominal in ethanol",
+      "dose_decimal": "80",
+      "unit": "uL",
+      "fraction_basis": "v/v",
+      "carrier": "ethanol",
+      "nominal_fraction_decimal": "0.1",
+      "role": "light vanilla rounding; nominal convention, not an assay",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Vanillin",
+        "stock_id": "inventory:user-20260908:5d2a45323f258f29740d",
+        "stock_name": "Vanillin",
+        "basis": "volume_fraction",
+        "carrier": "ethanol",
+        "physical_form": "",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260908",
+        "source_rows": [
+          239
+        ],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260908_ahsee.json#INV-USER-20260908-AHSEE-008",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 27,
+      "basket": 13,
+      "material": "Cardamom EO",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "20",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "small cool-spice opening accent",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Cardamom EO",
+        "stock_id": "inventory:v5:03d094cea44bdba448a8",
+        "stock_name": "Cardamom EO",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          56
+        ],
+        "source_ref": "Current Inventory Master!A56:N56",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 28,
+      "basket": 13,
+      "material": "Safraleine",
+      "required_stock": "10% w/w in DPG",
+      "dose_decimal": "20",
+      "unit": "uL",
+      "fraction_basis": "w/w",
+      "carrier": "DPG",
+      "nominal_fraction_decimal": "0.1",
+      "role": "trace spicy-suede detail",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Safraleine",
+        "stock_id": "inventory:v5:662bd1447a7d8e1afee6",
+        "stock_name": "Safraleine 10%",
+        "basis": "mass_fraction",
+        "carrier": "dpg",
+        "physical_form": "",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          218
+        ],
+        "source_ref": "Current Inventory Master!A218:N218",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 29,
+      "basket": 15,
+      "material": "Bergamot FCF oil Sicilian",
+      "required_stock": "neat / as supplied",
+      "dose_decimal": "80",
+      "unit": "uL",
+      "fraction_basis": "unspecified",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "brief clean citrus lift",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Bergamot FCF oil Sicilian",
+        "stock_id": "inventory:v5:e21b17adeb4b1fe1f12d",
+        "stock_name": "Bergamot FCF Oil Sicilian",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          42
+        ],
+        "source_ref": "Current Inventory Master!A42:N42",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 30,
+      "basket": 4,
+      "material": "Ambrox Super Crystals",
+      "required_stock": "neat / as supplied; crystalline solid",
+      "dose_decimal": "120",
+      "unit": "mg",
+      "fraction_basis": "as-supplied solid",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "mineral amber persistence",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Ambrox Super Crystals",
+        "stock_id": "inventory:user-20260924:36e0e28366f34673a242",
+        "stock_name": "Ambrox Super",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "crystals",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924",
+        "source_rows": [],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260924_r5_stock_clarifications.json#INV-USER-20260924-R5-001",
+        "design_ready": null,
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    },
+    {
+      "row": 31,
+      "basket": 12,
+      "material": "Heliotropal (Piperonal)",
+      "required_stock": "neat / as supplied; crystalline solid",
+      "dose_decimal": "20",
+      "unit": "mg",
+      "fraction_basis": "as-supplied solid",
+      "carrier": "",
+      "nominal_fraction_decimal": "1",
+      "role": "small almond-powder finish",
+      "source_scope": "FORMULATION_HYPOTHESIS",
+      "evidence_ids": [
+        "P1",
+        "P2"
+      ],
+      "stock_reference": {
+        "material": "Heliotropal (Piperonal)",
+        "stock_id": "inventory:text-design-only:4a7cbe7dcb18d6557c36",
+        "stock_name": "Heliotropin",
+        "basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "authority": "LEGACY_INVENTORY_TEXT_DESIGN_ONLY",
+        "source_rows": [
+          85
+        ],
+        "source_ref": "inventory.txt:85",
+        "design_ready": true,
+        "execution_ready": false,
+        "execution_hold_reason": "NOT_BOUND_TO_CURRENT_INVENTORY_SNAPSHOT"
+      },
+      "exact_active_mass_g": null,
+      "active_volume_uL": null
+    }
+  ],
+  "ordering": {
+    "policy": "BASKET_THEN_DESCENDING_LIQUID_VOLUME",
+    "mass_operations": "Separate solvent precharge; never sorted or summed as liquid volumes."
+  },
+  "evidence": [
+    {
+      "id": "P1",
+      "class": "OFFICIAL_PRODUCT_ARCHITECTURE",
+      "url": "https://www.prada.com/ww/en/p/lhomme-prada-intense-edp-100-ml/2A1252_2HC1_F0Z99_P_ML100",
+      "supports": "Iris, amber, patchouli, tonka architecture; product notes also identify sandalwood and roasted tonka. No quantitative composition.",
+      "checked_date": "2026-10-02",
+      "admitted_runtime_capability": false
+    },
+    {
+      "id": "P2",
+      "class": "OFFICIAL_PRODUCT_ARCHITECTURE",
+      "url": "https://www.prada.com/ww/en/pradasphere/fragrances/la-femme-et-l-homme-prada/la-femme-et-l-homme-prada-intense.html",
+      "supports": "Iris refinement crossed with amber and patchouli; tonka supplies an airy warm dimension. No formula rows.",
+      "checked_date": "2026-10-02",
+      "admitted_runtime_capability": false
+    },
+    {
+      "id": "M1",
+      "class": "SUPPLIER_MATERIAL_FUNCTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3IW00300",
+      "supports": "Owned AIMI SKU 3IW00300, CAS 127-51-5; powdery floral-violet/woody iris material. Not evidence of presence in Prada.",
+      "checked_date": "2026-10-02",
+      "admitted_runtime_capability": false
+    },
+    {
+      "id": "M2",
+      "class": "MANUFACTURER_MATERIAL_FUNCTION",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/dihydro-ionone-beta",
+      "supports": "Dihydro beta ionone is woody, floral and orris-like, with amber/fruity facets. Published vapor pressure differs from local legacy value and needs contextual adjudication.",
+      "checked_date": "2026-10-02",
+      "admitted_runtime_capability": false
+    },
+    {
+      "id": "M3",
+      "class": "SUPPLIER_MATERIAL_FUNCTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3IA00343",
+      "supports": "Orivone supplies dry woody-earthy orris character. Dose is deliberately small.",
+      "checked_date": "2026-10-02",
+      "admitted_runtime_capability": false
+    },
+    {
+      "id": "M4",
+      "class": "SUPPLIER_DOCUMENTATION_NOT_COMPLETE_SAFETY_REVIEW",
+      "url": "https://www.perfumersworld.com/document-list.php?pro_id=3IA00343",
+      "supports": "Supplier lists a 0.15% w/w fine-fragrance limit. Volume percentages do not establish mass-based compliance.",
+      "checked_date": "2026-10-02",
+      "admitted_runtime_capability": false
+    },
+    {
+      "id": "M5",
+      "class": "MANUFACTURER_MATERIAL_FUNCTION",
+      "url": "https://www.firmenich.com/product/200092526",
+      "supports": "Clearwood offers clean patchouli and creamy amber effects. Not Clearwood Prisma.",
+      "checked_date": "2026-10-02",
+      "admitted_runtime_capability": false
+    },
+    {
+      "id": "M6",
+      "class": "SUPPLIER_MATERIAL_FUNCTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4WX00405",
+      "supports": "Sandalore supplies sandalwood-floral body.",
+      "checked_date": "2026-10-02",
+      "admitted_runtime_capability": false
+    },
+    {
+      "id": "M7",
+      "class": "SUPPLIER_PRODUCT_FUNCTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3UP14351",
+      "supports": "Suederal is a proprietary mixture for sweet woody leather texture, not a defined single molecule.",
+      "checked_date": "2026-10-02",
+      "admitted_runtime_capability": false
+    },
+    {
+      "id": "L1",
+      "class": "PEER_REVIEWED_ODOR_IDENTITY_RESEARCH",
+      "url": "https://doi.org/10.1016/j.tetasy.2007.04.022",
+      "supports": "Abate et al. 2007, The enantiomers of Iralia: preparation and odour evaluation. Methyl-ionone stereochemical identity matters; no Prada-specific analytical evidence.",
+      "checked_date": "2026-10-02",
+      "admitted_runtime_capability": false
+    },
+    {
+      "id": "L2",
+      "class": "PEER_REVIEWED_GAS_INTENSITY_RESEARCH",
+      "url": "https://doi.org/10.1021/acs.iecr.9b01225",
+      "supports": "Wakayama et al. 2019 human gas-concentration/intensity database. Stock volume and liquid OAV are not directly measured gas-intensity inputs.",
+      "checked_date": "2026-10-02",
+      "admitted_runtime_capability": false
+    }
+  ],
+  "assessment": {
+    "arithmetic": "PASS_EXACT_DECIMAL_AND_MARKDOWN_ROW_EQUIVALENCE",
+    "stock_selection": "31 exact identity/fraction/carrier selections matched in personal design projection",
+    "sensory_similarity": "NOT_TESTED",
+    "physical_execution": "NOT_PERFORMED",
+    "safety_compliance": "NOT_ESTABLISHED",
+    "complete_gas_intensity": "NOT_ESTABLISHED",
+    "commercial_release": "NOT_AUTHORIZED"
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

@@ -23,6 +23,42 @@ from app.services.engine_jobs import (
 from app.services.lab_service import LabService
 
 
+@pytest.fixture
+def historical_shortlist_inventory(monkeypatch: pytest.MonkeyPatch) -> Path:
+    """Exercise frozen protocols with their actual inputs, never fake hashes."""
+    path = (
+        Path(__file__).resolve().parents[1]
+        / "fixtures/lavande_r5_shortlist_20260926/inventory.txt"
+    )
+    assert len(path.read_bytes().replace(b"\r\n", b"\n")) == 28251
+    assert stable_file_hash(path) == (
+        "1b4324da5a35cebe8c59959e58276d84"
+        "ac8f2f0e0e6f3239fdef0a4250d8df71"
+    )
+    monkeypatch.setattr(engine_job_executor_module, "_INVENTORY_TEXT", path)
+    return path
+
+
+def test_shortlist_executor_rejects_real_inventory_drift(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, historical_shortlist_inventory: Path
+) -> None:
+    changed = tmp_path / "changed-inventory.txt"
+    changed.write_bytes(historical_shortlist_inventory.read_bytes() + b"\nchanged test stock\n")
+    monkeypatch.setattr(engine_job_executor_module, "_INVENTORY_TEXT", changed)
+    manifest = Path(__file__).resolve().parents[3] / "data/governance/lavande_ambre_profond_r5_design_comparator_20260923.json"
+    payload = validate_engine_payload("SHORTLIST_EVALUATION", {
+        "endpoint_id": "measured_intensity_comparison",
+        "candidates": [{"candidate_id": "controlled-drift", "lavender_share_decimal": "0.7", "ambrox_share_decimal": "0.3"}],
+        "constant_total_basis": "UNRESOLVED",
+        "comparator_manifest_sha256": stable_file_hash(manifest),
+    })
+    terminal, result, validation, _diagnostics = execute_registered_engine_job("SHORTLIST_EVALUATION", payload)
+    assert terminal == "WITHHELD"
+    assert validation == "HOLD_CP3_READINESS_PROTOCOL_DRIFT"
+    assert result.get("ranked_candidates", []) == []
+    assert result["release_authority"] is result["compounding_authority"] is False
+
+
 def _formula_payload(*, amount: str = "100", reverse: bool = False) -> dict:
     rows = [
         {
@@ -87,6 +123,30 @@ def test_registry_is_closed_and_row_order_participates_in_fingerprint() -> None:
     assert normal["timeout_seconds"] == 90
 
 
+@pytest.mark.parametrize("version", [3, 4])
+def test_subtype_content_is_in_durable_job_reference_identity(monkeypatch, version) -> None:
+    relative = f"data/formulation_knowledge/subtype_research_v{version}.json"
+    assert relative in engine_jobs_module._research_reference_paths("FORMULA_ANALYSIS")
+    assert relative in engine_jobs_module._research_reference_paths("FORMULA_DESIGN")
+    before = build_engine_job_identity(
+        job_type="FORMULA_ANALYSIS", payload=_formula_payload(),
+        requester="fixture-requester", idempotency_key="subtype-fingerprint",
+    )
+    original_hash = engine_jobs_module.stable_file_hash
+    exact_path = (engine_jobs_module.REPOSITORY_ROOT / relative).resolve()
+
+    def changed_reference(path):
+        return "e" * 64 if path.resolve() == exact_path else original_hash(path)
+
+    monkeypatch.setattr(engine_jobs_module, "stable_file_hash", changed_reference)
+    after = build_engine_job_identity(
+        job_type="FORMULA_ANALYSIS", payload=_formula_payload(),
+        requester="fixture-requester", idempotency_key="subtype-fingerprint",
+    )
+    assert before["normalized_payload_sha256"] == after["normalized_payload_sha256"]
+    assert before["job_fingerprint_sha256"] != after["job_fingerprint_sha256"]
+
+
 def test_release_gate_executor_runs_real_gate_and_mass_rows_fail_closed() -> None:
     release_payload = {
         **_formula_payload(),
@@ -132,7 +192,9 @@ def test_release_gate_executor_runs_real_gate_and_mass_rows_fail_closed() -> Non
     assert result["unsupported_mass_row_ids"] == ["ambrox-solid"]
 
 
-def test_shortlist_executor_binds_the_exact_r5_manifest() -> None:
+def test_shortlist_executor_binds_the_exact_r5_manifest(
+    historical_shortlist_inventory: Path,
+) -> None:
     manifest_path = (
         Path(__file__).resolve().parents[3]
         / "data"
@@ -588,7 +650,7 @@ def test_shortlist_executor_fails_closed_when_cp5_input_freeze_is_missing(
 
 
 def test_shortlist_executor_rejects_invalid_drifted_or_escalated_cp5_protocols(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, historical_shortlist_inventory: Path
 ) -> None:
     root = Path(__file__).resolve().parents[3]
     manifest_path = (
@@ -707,7 +769,7 @@ def test_shortlist_executor_fails_closed_when_cp6_intake_is_missing(
 
 
 def test_shortlist_executor_rejects_invalid_drifted_or_escalated_cp6_protocols(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, historical_shortlist_inventory: Path
 ) -> None:
     root = Path(__file__).resolve().parents[3]
     manifest_path = (
@@ -788,7 +850,7 @@ def test_shortlist_executor_rejects_invalid_drifted_or_escalated_cp6_protocols(
 
 
 def test_shortlist_executor_fails_closed_when_cp7_intake_is_missing(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, historical_shortlist_inventory: Path
 ) -> None:
     root = Path(__file__).resolve().parents[3]
     manifest_path = (
@@ -829,7 +891,7 @@ def test_shortlist_executor_fails_closed_when_cp7_intake_is_missing(
 
 
 def test_shortlist_executor_rejects_invalid_drifted_or_escalated_cp7_protocols(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, historical_shortlist_inventory: Path
 ) -> None:
     root = Path(__file__).resolve().parents[3]
     manifest_path = (
@@ -908,7 +970,7 @@ def test_shortlist_executor_rejects_invalid_drifted_or_escalated_cp7_protocols(
 
 
 def test_shortlist_executor_fails_closed_when_cp8_intake_is_missing(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, historical_shortlist_inventory: Path
 ) -> None:
     root = Path(__file__).resolve().parents[3]
     manifest_path = (
@@ -949,7 +1011,7 @@ def test_shortlist_executor_fails_closed_when_cp8_intake_is_missing(
 
 
 def test_shortlist_executor_rejects_invalid_drifted_or_escalated_cp8_protocols(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, historical_shortlist_inventory: Path
 ) -> None:
     root = Path(__file__).resolve().parents[3]
     manifest_path = (

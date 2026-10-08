@@ -1,0 +1,32 @@
+{
+  "schema_version": "architecture-comparison-corpus-v1",
+  "frozen_before_execution": true,
+  "scope": "DIAGNOSTIC_CONTRACT_CORPUS_NOT_HELD_OUT_SENSORY_DATA",
+  "configuration": {
+    "max_materials": 12,
+    "liquid_concentrate_ul": "6000",
+    "design_mode": "DEEP_COMPOSE",
+    "control_variants": 1,
+    "comparison_variants": 3,
+    "network_allowed": false,
+    "reverse_replay_required": true,
+    "ranking_allowed": false
+  },
+  "cases": [
+    {"case_id": "lychee", "brief": "A juicy lychee fruit perfume", "expected_subtype": "ORCHARD_LYCHEE_CULTIVARS", "must_preserve": [], "must_avoid": [], "expected_hold": null},
+    {"case_id": "fig_leaf", "brief": "A fig leaf perfume", "expected_subtype": "GREEN_FIG_LEAF", "must_preserve": [], "must_avoid": [], "expected_hold": null},
+    {"case_id": "fig_fruit", "brief": "A fig fruit perfume", "expected_subtype": "ORCHARD_FIG_FRUIT", "must_preserve": [], "must_avoid": [], "expected_hold": null},
+    {"case_id": "freesia", "brief": "A peppery freesia perfume", "expected_subtype": "FREESIA_PEPPER", "must_preserve": [], "must_avoid": [], "expected_hold": null},
+    {"case_id": "jasmine_tea", "brief": "A jasmine green tea perfume", "expected_subtype": "JAS_TEA_GREEN", "must_preserve": [], "must_avoid": [], "expected_hold": null},
+    {"case_id": "gardenia", "brief": "A creamy gardenia perfume", "expected_subtype": "GARDENIA_CREAM", "must_preserve": [], "must_avoid": [], "expected_hold": null},
+    {"case_id": "lavender_blossom", "brief": "Lavender orange blossom perfume", "expected_subtype": "LAV_ORANGE", "must_preserve": [], "must_avoid": [], "expected_hold": null},
+    {"case_id": "lavender_incense", "brief": "Lavender incense without Ambroxan", "expected_subtype": "LAV_INCENSE", "must_preserve": ["lavender"], "must_avoid": ["Ambroxan"], "expected_hold": null},
+    {"case_id": "lavender_vanilla", "brief": "A lavender vanilla perfume", "expected_subtype": "LAV_VANILLIC", "must_preserve": ["lavender"], "must_avoid": [], "expected_hold": null},
+    {"case_id": "jammy_rose", "brief": "A jammy rose perfume", "expected_subtype": "ROSE_JAMMY", "must_preserve": ["rose"], "must_avoid": [], "expected_hold": null},
+    {"case_id": "negated_incense", "brief": "Lavender, without incense", "expected_subtype": null, "must_preserve": [], "must_avoid": ["incense"], "expected_hold": null},
+    {"case_id": "violet_leaf", "brief": "Watery violet leaf", "expected_subtype": null, "must_preserve": [], "must_avoid": [], "expected_hold": null},
+    {"case_id": "violet_petals", "brief": "Violet petals", "expected_subtype": null, "must_preserve": [], "must_avoid": [], "expected_hold": null},
+    {"case_id": "campaign_hold", "brief": "CHIMIE LHOMME, lavender incense", "expected_subtype": null, "must_preserve": [], "must_avoid": [], "expected_hold": "WITHHELD_CAMPAIGN_IDENTITY"},
+    {"case_id": "exact_stock_and_solid", "brief": "A lychee perfume with exactly 15 uL of Hedione and crystal Ambrox", "expected_subtype": "ORCHARD_LYCHEE_CULTIVARS", "must_preserve": [], "must_avoid": [], "expected_hold": null}
+  ]
+}

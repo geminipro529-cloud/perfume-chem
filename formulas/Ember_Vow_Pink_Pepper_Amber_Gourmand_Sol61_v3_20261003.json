@@ -1,0 +1,2409 @@
+{
+  "schema_version": "sol61-fragrance-remake-design-v1",
+  "design_id": "Ember_Vow_Pink_Pepper_Amber_Gourmand_Sol61_v3_20261003",
+  "name": "Ember Vow — Pink Pepper Amber Gourmand",
+  "version": "Sol61 v3",
+  "date": "2026-10-03",
+  "author_model": "gpt-6.1-sol",
+  "status": "DESIGN_COMPLETE_CONDITIONAL_BENCH_BUILD_UNTESTED",
+  "operating_mode": "INDEPENDENT_CREATIVE_REMAKE_NEW_FORMULA",
+  "claim": "A literature-bounded, exact product-mass design and conditional stock realization; no sensory, clone, liking, safety or release superiority.",
+  "lineage": {
+    "immediate_parent_path": "formulas/Ember_Vow_Pink_Pepper_Amber_Gourmand_30mL_EDP_v2.md",
+    "immediate_parent_sha256": "17d1ecdb14caddf7d34e847eec9c6eef6d39614d39aafdf1abb91aaa08b297a9",
+    "parent_model": "gpt-5.6-sol",
+    "parent_preserved": true,
+    "revision_type": "INTENTIONAL_COMPOSITION_RETARGET",
+    "stock_rebase_equivalence_claim": false,
+    "R5_R6_modified": false
+  },
+  "model_provenance": {
+    "native_session_id": "01a0c324-0a57-77b0-bf57-dd6661f5b661",
+    "root_model": "gpt-6.1-sol",
+    "native_review_agent": "ember_vow_sol61_review",
+    "review_model": "gpt-6.1-sol",
+    "external_llm_used": false
+  },
+  "source_snapshots": {
+    "inventory_path": "inventory.txt",
+    "inventory_sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "agents_path": "AGENTS.md",
+    "agents_sha256": "a97d05907b9eddba1212b42c9765b8b4903b6ba731d185cdd3ba8bbd35e57870",
+    "current_physical_bottle_state": "NOT_BOUND_NOT_AN_EXISTING_BOTTLE_ACTION",
+    "analytical_observations": "NOT_AVAILABLE_FOR_THIS_REMAKE",
+    "sensory_observations": "NOT_AVAILABLE_FOR_THIS_REMAKE",
+    "safety_snapshot": "NO_COMPLETE_FORMULA_SAFETY_REVIEW"
+  },
+  "locked_brief": {
+    "text": "Accessible pink-pepper aromatic gourmand: clear pepper and lavender over a roasted-nut/toffee illusion, vanilla, soft suede and warm transparent woods. An original competitor in the Stronger With You Intensely territory, not a clone.",
+    "protected_anchors": [
+      "pink pepper",
+      "lavender / clary",
+      "roast-vanilla-tonka impression",
+      "soft suede / transparent amberwood"
+    ],
+    "negative_space": [
+      "popcorn/pandan or savory snack",
+      "cotton-candy caramel",
+      "powder-first iris",
+      "hay-heavy coumarin",
+      "huge amberwood or extra musk stack"
+    ],
+    "temporal_goal": "Opening identity -> coherent heart -> subordinate supportive drydown; not a measured trajectory",
+    "reference_use": "DOCUMENTARY_ARCHITECTURE_ONLY",
+    "actual_reference_bottle_uncertainty": "NO_AUTHENTICATED_BOTTLE_OR_ANALYTICAL_SAMPLE_BOUND"
+  },
+  "target_basis": {
+    "unit": "percent_w_w_undiluted_perfumery_product_equivalent",
+    "total_percent": "100.000000",
+    "target_product_mass_g": "6.000000",
+    "pure_molecular_odorant_fraction": null,
+    "unknown_natural_remainder": "RETAINED_WITHIN_WHOLE_PRODUCT_NOT_RENORMALIZED",
+    "commercial_base_composition": "UNKNOWN"
+  },
+  "rows": [
+    {
+      "material": "Hedione",
+      "target_percent_product_mass": "19.5",
+      "chemical_or_product_class": "jasmonate ester",
+      "module": "Air / chassis",
+      "function": "Transparent volume around the gourmand-aromatic core",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Hedione",
+      "target_product_mass_g_for_6g": "1.170000",
+      "working_stock_mass_g_for_6g": "1.170000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 1,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Iso E Super",
+      "target_percent_product_mass": "20",
+      "chemical_or_product_class": "commercial tetramethyl acetyloctahydronaphthalene grade",
+      "module": "Pale woods",
+      "function": "Transparent woody frame rather than a heavy amber block",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Iso E Super",
+      "target_product_mass_g_for_6g": "1.200000",
+      "working_stock_mass_g_for_6g": "1.200000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 2,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Romandolide",
+      "target_percent_product_mass": "14",
+      "chemical_or_product_class": "alicyclic ester musk",
+      "module": "Musk bridge",
+      "function": "Single soft woody-fruity musk supporting lavender and vanilla",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Romandolide",
+      "target_product_mass_g_for_6g": "0.840000",
+      "working_stock_mass_g_for_6g": "0.840000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 3,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Benzyl Benzoate",
+      "target_percent_product_mass": "2",
+      "chemical_or_product_class": "aromatic ester",
+      "module": "Base / chassis",
+      "function": "Solvent and restrained balsamic support; not scored as a character note",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Benzyl Benzoate",
+      "target_product_mass_g_for_6g": "0.120000",
+      "working_stock_mass_g_for_6g": "0.120000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 4,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Pink Pepper EO (Schinus molle)",
+      "target_percent_product_mass": "3.5",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Pepper opening",
+      "function": "Protected rosy-spicy pink-pepper recognizer",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_USER_CONFIRMED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Pink Pepper EO (Schinus molle; neat / as supplied)",
+      "target_product_mass_g_for_6g": "0.210000",
+      "working_stock_mass_g_for_6g": "0.210000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 5,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Linalyl Acetate",
+      "target_percent_product_mass": "4",
+      "chemical_or_product_class": "terpene ester",
+      "module": "Aromatic bridge",
+      "function": "Connect citrus-pepper to lavender",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Linalyl Acetate",
+      "target_product_mass_g_for_6g": "0.240000",
+      "working_stock_mass_g_for_6g": "0.240000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 6,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Red Mandarin EO",
+      "target_percent_product_mass": "4",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Citrus opening",
+      "function": "Rounded citrus supporting the warm gourmand direction",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Red Mandarin EO",
+      "target_product_mass_g_for_6g": "0.240000",
+      "working_stock_mass_g_for_6g": "0.240000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 7,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Juniper Berry EO",
+      "target_percent_product_mass": "1",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Aromatic lift",
+      "function": "Dry coniferous space around pepper and lavender",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Juniper Berry EO",
+      "target_product_mass_g_for_6g": "0.060000",
+      "working_stock_mass_g_for_6g": "0.060000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 8,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Cardamom EO",
+      "target_percent_product_mass": "0.65",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Aromatic lift",
+      "function": "Cool green spice counterpoint",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Cardamom EO",
+      "target_product_mass_g_for_6g": "0.039000",
+      "working_stock_mass_g_for_6g": "0.039000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 9,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Lavender EO (BONTAUX SAS)",
+      "target_percent_product_mass": "7",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Lavender recognizer",
+      "function": "Protected aromatic-floral heart",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Lavender EO (BONTAUX SAS)",
+      "target_product_mass_g_for_6g": "0.420000",
+      "working_stock_mass_g_for_6g": "0.420000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 10,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Alpha Irone",
+      "target_percent_product_mass": "0.18",
+      "chemical_or_product_class": "irone ketone grade",
+      "module": "Powder bridge",
+      "function": "Low violet-orris contour linking lavender to suede",
+      "required_working_fraction_w_w": "0.1",
+      "required_carrier": "DEP",
+      "stock_dependency": "OWNED_EXACT_WW_STOCK",
+      "source_product_phase": "liquid",
+      "inventory_label": "Alpha Irone (10% w/w in DEP)",
+      "target_product_mass_g_for_6g": "0.010800",
+      "working_stock_mass_g_for_6g": "0.108000",
+      "added_working_carrier_mass_g_for_6g": "0.097200",
+      "required_stock_basis": "w/w",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 11,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Clary Sage EO",
+      "target_percent_product_mass": "1",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Aromatic heart",
+      "function": "Tea-herbal dryness to oppose caramel",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Clary Sage EO",
+      "target_product_mass_g_for_6g": "0.060000",
+      "working_stock_mass_g_for_6g": "0.060000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 12,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Geranium EO",
+      "target_percent_product_mass": "0.3",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Aromatic bridge",
+      "function": "Small rosy-green continuation of pink pepper",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_USER_CONFIRMED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Geranium EO (Pelargonium graveolens flower oil)",
+      "target_product_mass_g_for_6g": "0.018000",
+      "working_stock_mass_g_for_6g": "0.018000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 13,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Vanillin",
+      "target_percent_product_mass": "4",
+      "chemical_or_product_class": "phenolic aromatic aldehyde",
+      "module": "Vanilla / gourmand",
+      "function": "Main vanilla body, tested against a drier alternative",
+      "required_working_fraction_w_w": "0.1",
+      "required_carrier": "perfumery ethanol",
+      "stock_dependency": "REQUIRES_KNOWN_WW_STOCK_OR_NEAT_PW_PRODUCT",
+      "source_product_phase": "solid",
+      "inventory_label": "Vanillin (10% v/v nominal in ethanol)",
+      "target_product_mass_g_for_6g": "0.240000",
+      "working_stock_mass_g_for_6g": "2.400000",
+      "added_working_carrier_mass_g_for_6g": "2.160000",
+      "required_stock_basis": "w/w",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 14,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Tonkarome",
+      "target_percent_product_mass": "3",
+      "chemical_or_product_class": "opaque proprietary tonka product",
+      "module": "Gourmand body",
+      "function": "Malt-tonka body; not treated as pure coumarin",
+      "required_working_fraction_w_w": "0.2",
+      "required_carrier": "TEC",
+      "stock_dependency": "OWNED_EXACT_WW_STOCK",
+      "source_product_phase": "commercial_product",
+      "inventory_label": "Tonkarome (20% w/w in TEC)",
+      "target_product_mass_g_for_6g": "0.180000",
+      "working_stock_mass_g_for_6g": "0.900000",
+      "added_working_carrier_mass_g_for_6g": "0.720000",
+      "required_stock_basis": "w/w",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 15,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Coumarin",
+      "target_percent_product_mass": "2",
+      "chemical_or_product_class": "benzopyrone lactone",
+      "module": "Fougere / roast bridge",
+      "function": "Hay-tonka backbone; sweetness risk must be smelled",
+      "required_working_fraction_w_w": "0.1",
+      "required_carrier": "DPG",
+      "stock_dependency": "OWNED_EXACT_WW_STOCK",
+      "source_product_phase": "solid",
+      "inventory_label": "Coumarin (10% w/w in DPG)",
+      "target_product_mass_g_for_6g": "0.120000",
+      "working_stock_mass_g_for_6g": "1.200000",
+      "added_working_carrier_mass_g_for_6g": "1.080000",
+      "required_stock_basis": "w/w",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 16,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Siam Benzoin",
+      "target_percent_product_mass": "3",
+      "chemical_or_product_class": "natural resinoid product",
+      "module": "Balsamic contour",
+      "function": "Vanillic resin texture at controlled loading",
+      "required_working_fraction_w_w": "0.5",
+      "required_carrier": "DPG",
+      "stock_dependency": "OWNED_EXACT_WW_STOCK",
+      "source_product_phase": "viscous_product",
+      "inventory_label": "Siam Benzoin (50% w/w in DPG)",
+      "target_product_mass_g_for_6g": "0.180000",
+      "working_stock_mass_g_for_6g": "0.360000",
+      "added_working_carrier_mass_g_for_6g": "0.180000",
+      "required_stock_basis": "w/w",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 17,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Ethyl Maltol",
+      "target_percent_product_mass": "0.1",
+      "chemical_or_product_class": "pyranone",
+      "module": "Caramel trace",
+      "function": "Small browned-sugar cue, not a candy theme",
+      "required_working_fraction_w_w": "0.01",
+      "required_carrier": "perfumery ethanol",
+      "stock_dependency": "REQUIRES_KNOWN_WW_STOCK_OR_NEAT_PW_PRODUCT",
+      "source_product_phase": "solid",
+      "inventory_label": "Ethyl Maltol 1% v/v in ethanol",
+      "target_product_mass_g_for_6g": "0.006000",
+      "working_stock_mass_g_for_6g": "0.600000",
+      "added_working_carrier_mass_g_for_6g": "0.594000",
+      "required_stock_basis": "w/w",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 18,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "2-Acetyl Pyrazine",
+      "target_percent_product_mass": "0.015",
+      "chemical_or_product_class": "pyrazine ketone",
+      "module": "Roast trace",
+      "function": "Roasted-nut suggestion; strongest omission-test priority",
+      "required_working_fraction_w_w": "0.001",
+      "required_carrier": "DPG",
+      "stock_dependency": "REQUIRES_KNOWN_WW_STOCK_OR_NEAT_PW_PRODUCT",
+      "source_product_phase": "solid",
+      "inventory_label": "2-Acetyl Pyrazine (1% in DPG)",
+      "target_product_mass_g_for_6g": "0.000900",
+      "working_stock_mass_g_for_6g": "0.900000",
+      "added_working_carrier_mass_g_for_6g": "0.899100",
+      "required_stock_basis": "w/w",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 19,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Isobutavan",
+      "target_percent_product_mass": "0.65",
+      "chemical_or_product_class": "vanillic aromatic product",
+      "module": "Vanilla texture",
+      "function": "Buttery-vanilla contour without extra ethyl vanillin",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Isobutavan",
+      "target_product_mass_g_for_6g": "0.039000",
+      "working_stock_mass_g_for_6g": "0.039000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 20,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Heliotropal (Piperonal)",
+      "target_percent_product_mass": "0.4",
+      "chemical_or_product_class": "methylenedioxy aromatic aldehyde",
+      "module": "Nut / powder bridge",
+      "function": "Almond-powder seam; weighed solid, never liquid uL",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_NEAT_SOLID",
+      "source_product_phase": "solid",
+      "inventory_label": "Heliotropal (Piperonal)",
+      "target_product_mass_g_for_6g": "0.024000",
+      "working_stock_mass_g_for_6g": "0.024000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 21,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Amberwood F",
+      "target_percent_product_mass": "3.5",
+      "chemical_or_product_class": "opaque commercial woody-amber product",
+      "module": "Amber scaffold",
+      "function": "Limited warm amberwood support; grade-specific composition unknown",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Amberwood F",
+      "target_product_mass_g_for_6g": "0.210000",
+      "working_stock_mass_g_for_6g": "0.210000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 22,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Azarbre",
+      "target_percent_product_mass": "2.5",
+      "chemical_or_product_class": "commercial woody-amber product",
+      "module": "Amber scaffold",
+      "function": "Rounded cedar-amber facet",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Azarbre",
+      "target_product_mass_g_for_6g": "0.150000",
+      "working_stock_mass_g_for_6g": "0.150000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 23,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Bacdanol",
+      "target_percent_product_mass": "2.5",
+      "chemical_or_product_class": "sandalwood alcohol grade",
+      "module": "Creamy woods",
+      "function": "Creamy wood joins vanilla without a large lactone block",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Bacdanol",
+      "target_product_mass_g_for_6g": "0.150000",
+      "working_stock_mass_g_for_6g": "0.150000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 24,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Cashmeran",
+      "target_percent_product_mass": "0.7",
+      "chemical_or_product_class": "polycyclic ketone grade",
+      "module": "Textile contour",
+      "function": "Low spicy-textile warmth",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_NEAT_STOCK",
+      "source_product_phase": "liquid",
+      "inventory_label": "Cashmeran (neat)",
+      "target_product_mass_g_for_6g": "0.042000",
+      "working_stock_mass_g_for_6g": "0.042000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 25,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Patchouli EO",
+      "target_percent_product_mass": "0.45",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Dry ballast",
+      "function": "Restrained earthy contrast to vanilla",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Patchouli EO",
+      "target_product_mass_g_for_6g": "0.027000",
+      "working_stock_mass_g_for_6g": "0.027000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 26,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Suederal",
+      "target_percent_product_mass": "0.055",
+      "chemical_or_product_class": "opaque proprietary suede product",
+      "module": "Suede trace",
+      "function": "Soft suede contour rather than smoke or leather dominance",
+      "required_working_fraction_w_w": "0.01",
+      "required_carrier": "perfumery ethanol",
+      "stock_dependency": "PREPARE_FROM_OWNED_NEAT",
+      "source_product_phase": "commercial_product",
+      "inventory_label": "Suederal (neat)",
+      "target_product_mass_g_for_6g": "0.003300",
+      "working_stock_mass_g_for_6g": "0.330000",
+      "added_working_carrier_mass_g_for_6g": "0.326700",
+      "required_stock_basis": "w/w",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 27,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    }
+  ],
+  "chemical_family_function_graph": {
+    "row_edge_status": "HEURISTIC_DESIGN_CONNECTION_NOT_RECEPTOR_MAP",
+    "edges": [
+      {
+        "material": "Hedione",
+        "family": "jasmonate ester",
+        "module": "Air / chassis",
+        "function": "Transparent volume around the gourmand-aromatic core",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Iso E Super",
+        "family": "commercial tetramethyl acetyloctahydronaphthalene grade",
+        "module": "Pale woods",
+        "function": "Transparent woody frame rather than a heavy amber block",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Romandolide",
+        "family": "alicyclic ester musk",
+        "module": "Musk bridge",
+        "function": "Single soft woody-fruity musk supporting lavender and vanilla",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Benzyl Benzoate",
+        "family": "aromatic ester",
+        "module": "Base / chassis",
+        "function": "Solvent and restrained balsamic support; not scored as a character note",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Pink Pepper EO (Schinus molle)",
+        "family": "natural essential-oil product",
+        "module": "Pepper opening",
+        "function": "Protected rosy-spicy pink-pepper recognizer",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Linalyl Acetate",
+        "family": "terpene ester",
+        "module": "Aromatic bridge",
+        "function": "Connect citrus-pepper to lavender",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Red Mandarin EO",
+        "family": "natural essential-oil product",
+        "module": "Citrus opening",
+        "function": "Rounded citrus supporting the warm gourmand direction",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Juniper Berry EO",
+        "family": "natural essential-oil product",
+        "module": "Aromatic lift",
+        "function": "Dry coniferous space around pepper and lavender",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Cardamom EO",
+        "family": "natural essential-oil product",
+        "module": "Aromatic lift",
+        "function": "Cool green spice counterpoint",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Lavender EO (BONTAUX SAS)",
+        "family": "natural essential-oil product",
+        "module": "Lavender recognizer",
+        "function": "Protected aromatic-floral heart",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Alpha Irone",
+        "family": "irone ketone grade",
+        "module": "Powder bridge",
+        "function": "Low violet-orris contour linking lavender to suede",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Clary Sage EO",
+        "family": "natural essential-oil product",
+        "module": "Aromatic heart",
+        "function": "Tea-herbal dryness to oppose caramel",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Geranium EO",
+        "family": "natural essential-oil product",
+        "module": "Aromatic bridge",
+        "function": "Small rosy-green continuation of pink pepper",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Vanillin",
+        "family": "phenolic aromatic aldehyde",
+        "module": "Vanilla / gourmand",
+        "function": "Main vanilla body, tested against a drier alternative",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Tonkarome",
+        "family": "opaque proprietary tonka product",
+        "module": "Gourmand body",
+        "function": "Malt-tonka body; not treated as pure coumarin",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Coumarin",
+        "family": "benzopyrone lactone",
+        "module": "Fougere / roast bridge",
+        "function": "Hay-tonka backbone; sweetness risk must be smelled",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Siam Benzoin",
+        "family": "natural resinoid product",
+        "module": "Balsamic contour",
+        "function": "Vanillic resin texture at controlled loading",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Ethyl Maltol",
+        "family": "pyranone",
+        "module": "Caramel trace",
+        "function": "Small browned-sugar cue, not a candy theme",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "2-Acetyl Pyrazine",
+        "family": "pyrazine ketone",
+        "module": "Roast trace",
+        "function": "Roasted-nut suggestion; strongest omission-test priority",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Isobutavan",
+        "family": "vanillic aromatic product",
+        "module": "Vanilla texture",
+        "function": "Buttery-vanilla contour without extra ethyl vanillin",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Heliotropal (Piperonal)",
+        "family": "methylenedioxy aromatic aldehyde",
+        "module": "Nut / powder bridge",
+        "function": "Almond-powder seam; weighed solid, never liquid uL",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Amberwood F",
+        "family": "opaque commercial woody-amber product",
+        "module": "Amber scaffold",
+        "function": "Limited warm amberwood support; grade-specific composition unknown",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Azarbre",
+        "family": "commercial woody-amber product",
+        "module": "Amber scaffold",
+        "function": "Rounded cedar-amber facet",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Bacdanol",
+        "family": "sandalwood alcohol grade",
+        "module": "Creamy woods",
+        "function": "Creamy wood joins vanilla without a large lactone block",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Cashmeran",
+        "family": "polycyclic ketone grade",
+        "module": "Textile contour",
+        "function": "Low spicy-textile warmth",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Patchouli EO",
+        "family": "natural essential-oil product",
+        "module": "Dry ballast",
+        "function": "Restrained earthy contrast to vanilla",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Suederal",
+        "family": "opaque proprietary suede product",
+        "module": "Suede trace",
+        "function": "Soft suede contour rather than smoke or leather dominance",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      }
+    ],
+    "whole_products_not_merged": true
+  },
+  "chassis": {
+    "protected_anchors": [
+      "pink pepper",
+      "lavender / clary",
+      "roast-vanilla-tonka impression",
+      "soft suede / transparent amberwood"
+    ],
+    "mobile_sockets": "Trace modifiers, texture support and competing musk/amber alternatives only within this brief",
+    "core_plus_module_reproduction": "NOT_PROVEN_WITHOUT_SENSORY_OR_ANALYTICAL_DATA",
+    "omission_plan": "Compare LEAD with ROAST_OMISSION first. If the roast becomes corn chips/pandan, omit/reduce pyrazine before buying more nut materials. If syrupy/powdery, compare DRIER_CONSERVATIVE. Preserve pepper/lavender clarity before increasing woody power."
+  },
+  "decision_changes": [
+    "Replace the old mixed stock-volume target with 100% undiluted-product mass. Piperonal is now 24 mg solid per 6 g target, never a neat uL row.",
+    "Give pepper and lavender explicit compositional priority; mandarin, juniper and cardamom bridge them instead of adding a second opening theme.",
+    "Make vanilla/Tonkarome/coumarin/benzoin the body of the roast illusion, with pyrazine and ethyl maltol only as small modifiers.",
+    "Keep Alpha Irone as a deliberately narrow powder bridge. The old reason that AIMI identity was unresolved is obsolete: the owned PW AIMI is now resolved, but is not chosen for this target.",
+    "Keep Romandolide as the one selected musk. Do not add Ambrox merely because a warmer gourmand is being redesigned."
+  ],
+  "candidates": [
+    {
+      "id": "LEAD",
+      "family": "interaction-aware",
+      "patches": {},
+      "hypothesis": "Full pepper/aromatic/roast/suede network; development lead, not a sensory winner.",
+      "resolved_target_percent": {
+        "Hedione": "19.5",
+        "Iso E Super": "20",
+        "Romandolide": "14",
+        "Benzyl Benzoate": "2",
+        "Pink Pepper EO (Schinus molle)": "3.5",
+        "Linalyl Acetate": "4",
+        "Red Mandarin EO": "4",
+        "Juniper Berry EO": "1",
+        "Cardamom EO": "0.65",
+        "Lavender EO (BONTAUX SAS)": "7",
+        "Alpha Irone": "0.18",
+        "Clary Sage EO": "1",
+        "Geranium EO": "0.3",
+        "Vanillin": "4",
+        "Tonkarome": "3",
+        "Coumarin": "2",
+        "Siam Benzoin": "3",
+        "Ethyl Maltol": "0.1",
+        "2-Acetyl Pyrazine": "0.015",
+        "Isobutavan": "0.65",
+        "Heliotropal (Piperonal)": "0.4",
+        "Amberwood F": "3.5",
+        "Azarbre": "2.5",
+        "Bacdanol": "2.5",
+        "Cashmeran": "0.7",
+        "Patchouli EO": "0.45",
+        "Suederal": "0.055"
+      },
+      "target_sum_percent": "100.000000",
+      "build_rows_for_6g": [
+        {
+          "material": "Hedione",
+          "target_percent_product_mass": "19.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "1.170000",
+          "working_stock_mass_g_for_6g": "1.170000"
+        },
+        {
+          "material": "Iso E Super",
+          "target_percent_product_mass": "20",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "1.200000",
+          "working_stock_mass_g_for_6g": "1.200000"
+        },
+        {
+          "material": "Romandolide",
+          "target_percent_product_mass": "14",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.840000",
+          "working_stock_mass_g_for_6g": "0.840000"
+        },
+        {
+          "material": "Benzyl Benzoate",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Pink Pepper EO (Schinus molle)",
+          "target_percent_product_mass": "3.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.210000",
+          "working_stock_mass_g_for_6g": "0.210000"
+        },
+        {
+          "material": "Linalyl Acetate",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "Red Mandarin EO",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "Juniper Berry EO",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Cardamom EO",
+          "target_percent_product_mass": "0.65",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.039000",
+          "working_stock_mass_g_for_6g": "0.039000"
+        },
+        {
+          "material": "Lavender EO (BONTAUX SAS)",
+          "target_percent_product_mass": "7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.420000",
+          "working_stock_mass_g_for_6g": "0.420000"
+        },
+        {
+          "material": "Alpha Irone",
+          "target_percent_product_mass": "0.18",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DEP",
+          "target_product_mass_g_for_6g": "0.010800",
+          "working_stock_mass_g_for_6g": "0.108000"
+        },
+        {
+          "material": "Clary Sage EO",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Geranium EO",
+          "target_percent_product_mass": "0.3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.018000",
+          "working_stock_mass_g_for_6g": "0.018000"
+        },
+        {
+          "material": "Vanillin",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "2.400000"
+        },
+        {
+          "material": "Tonkarome",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "0.2",
+          "required_carrier": "TEC",
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.900000"
+        },
+        {
+          "material": "Coumarin",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "1.200000"
+        },
+        {
+          "material": "Siam Benzoin",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "0.5",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.360000"
+        },
+        {
+          "material": "Ethyl Maltol",
+          "target_percent_product_mass": "0.1",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.006000",
+          "working_stock_mass_g_for_6g": "0.600000"
+        },
+        {
+          "material": "2-Acetyl Pyrazine",
+          "target_percent_product_mass": "0.015",
+          "required_working_fraction_w_w": "0.001",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.000900",
+          "working_stock_mass_g_for_6g": "0.900000"
+        },
+        {
+          "material": "Isobutavan",
+          "target_percent_product_mass": "0.65",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.039000",
+          "working_stock_mass_g_for_6g": "0.039000"
+        },
+        {
+          "material": "Heliotropal (Piperonal)",
+          "target_percent_product_mass": "0.4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.024000",
+          "working_stock_mass_g_for_6g": "0.024000"
+        },
+        {
+          "material": "Amberwood F",
+          "target_percent_product_mass": "3.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.210000",
+          "working_stock_mass_g_for_6g": "0.210000"
+        },
+        {
+          "material": "Azarbre",
+          "target_percent_product_mass": "2.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.150000",
+          "working_stock_mass_g_for_6g": "0.150000"
+        },
+        {
+          "material": "Bacdanol",
+          "target_percent_product_mass": "2.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.150000",
+          "working_stock_mass_g_for_6g": "0.150000"
+        },
+        {
+          "material": "Cashmeran",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Patchouli EO",
+          "target_percent_product_mass": "0.45",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.027000",
+          "working_stock_mass_g_for_6g": "0.027000"
+        },
+        {
+          "material": "Suederal",
+          "target_percent_product_mass": "0.055",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.003300",
+          "working_stock_mass_g_for_6g": "0.330000"
+        }
+      ],
+      "working_stock_total_g": "12.057000",
+      "additional_ethanol_to_30g": "17.943000",
+      "state": "UNTESTED_DESIGN_HYPOTHESIS",
+      "single_row_weighing_floor_check": "LEAD_ONLY_VERIFIED_USE_WORKING_DILUTION_OR_COMMON_MASTER_FOR_SMALLER_ALTERNATIVES"
+    },
+    {
+      "id": "DRIER_CONSERVATIVE",
+      "family": "conservative identity-preserving",
+      "patches": {
+        "Vanillin": "3",
+        "Tonkarome": "2.5",
+        "Coumarin": "1.2",
+        "Hedione": "21.8"
+      },
+      "hypothesis": "Less sweet/powdery; test whether warmth survives.",
+      "resolved_target_percent": {
+        "Hedione": "21.8",
+        "Iso E Super": "20",
+        "Romandolide": "14",
+        "Benzyl Benzoate": "2",
+        "Pink Pepper EO (Schinus molle)": "3.5",
+        "Linalyl Acetate": "4",
+        "Red Mandarin EO": "4",
+        "Juniper Berry EO": "1",
+        "Cardamom EO": "0.65",
+        "Lavender EO (BONTAUX SAS)": "7",
+        "Alpha Irone": "0.18",
+        "Clary Sage EO": "1",
+        "Geranium EO": "0.3",
+        "Vanillin": "3",
+        "Tonkarome": "2.5",
+        "Coumarin": "1.2",
+        "Siam Benzoin": "3",
+        "Ethyl Maltol": "0.1",
+        "2-Acetyl Pyrazine": "0.015",
+        "Isobutavan": "0.65",
+        "Heliotropal (Piperonal)": "0.4",
+        "Amberwood F": "3.5",
+        "Azarbre": "2.5",
+        "Bacdanol": "2.5",
+        "Cashmeran": "0.7",
+        "Patchouli EO": "0.45",
+        "Suederal": "0.055"
+      },
+      "target_sum_percent": "100.000000",
+      "build_rows_for_6g": [
+        {
+          "material": "Hedione",
+          "target_percent_product_mass": "21.8",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "1.308000",
+          "working_stock_mass_g_for_6g": "1.308000"
+        },
+        {
+          "material": "Iso E Super",
+          "target_percent_product_mass": "20",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "1.200000",
+          "working_stock_mass_g_for_6g": "1.200000"
+        },
+        {
+          "material": "Romandolide",
+          "target_percent_product_mass": "14",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.840000",
+          "working_stock_mass_g_for_6g": "0.840000"
+        },
+        {
+          "material": "Benzyl Benzoate",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Pink Pepper EO (Schinus molle)",
+          "target_percent_product_mass": "3.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.210000",
+          "working_stock_mass_g_for_6g": "0.210000"
+        },
+        {
+          "material": "Linalyl Acetate",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "Red Mandarin EO",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "Juniper Berry EO",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Cardamom EO",
+          "target_percent_product_mass": "0.65",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.039000",
+          "working_stock_mass_g_for_6g": "0.039000"
+        },
+        {
+          "material": "Lavender EO (BONTAUX SAS)",
+          "target_percent_product_mass": "7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.420000",
+          "working_stock_mass_g_for_6g": "0.420000"
+        },
+        {
+          "material": "Alpha Irone",
+          "target_percent_product_mass": "0.18",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DEP",
+          "target_product_mass_g_for_6g": "0.010800",
+          "working_stock_mass_g_for_6g": "0.108000"
+        },
+        {
+          "material": "Clary Sage EO",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Geranium EO",
+          "target_percent_product_mass": "0.3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.018000",
+          "working_stock_mass_g_for_6g": "0.018000"
+        },
+        {
+          "material": "Vanillin",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "1.800000"
+        },
+        {
+          "material": "Tonkarome",
+          "target_percent_product_mass": "2.5",
+          "required_working_fraction_w_w": "0.2",
+          "required_carrier": "TEC",
+          "target_product_mass_g_for_6g": "0.150000",
+          "working_stock_mass_g_for_6g": "0.750000"
+        },
+        {
+          "material": "Coumarin",
+          "target_percent_product_mass": "1.2",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.072000",
+          "working_stock_mass_g_for_6g": "0.720000"
+        },
+        {
+          "material": "Siam Benzoin",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "0.5",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.360000"
+        },
+        {
+          "material": "Ethyl Maltol",
+          "target_percent_product_mass": "0.1",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.006000",
+          "working_stock_mass_g_for_6g": "0.600000"
+        },
+        {
+          "material": "2-Acetyl Pyrazine",
+          "target_percent_product_mass": "0.015",
+          "required_working_fraction_w_w": "0.001",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.000900",
+          "working_stock_mass_g_for_6g": "0.900000"
+        },
+        {
+          "material": "Isobutavan",
+          "target_percent_product_mass": "0.65",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.039000",
+          "working_stock_mass_g_for_6g": "0.039000"
+        },
+        {
+          "material": "Heliotropal (Piperonal)",
+          "target_percent_product_mass": "0.4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.024000",
+          "working_stock_mass_g_for_6g": "0.024000"
+        },
+        {
+          "material": "Amberwood F",
+          "target_percent_product_mass": "3.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.210000",
+          "working_stock_mass_g_for_6g": "0.210000"
+        },
+        {
+          "material": "Azarbre",
+          "target_percent_product_mass": "2.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.150000",
+          "working_stock_mass_g_for_6g": "0.150000"
+        },
+        {
+          "material": "Bacdanol",
+          "target_percent_product_mass": "2.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.150000",
+          "working_stock_mass_g_for_6g": "0.150000"
+        },
+        {
+          "material": "Cashmeran",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Patchouli EO",
+          "target_percent_product_mass": "0.45",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.027000",
+          "working_stock_mass_g_for_6g": "0.027000"
+        },
+        {
+          "material": "Suederal",
+          "target_percent_product_mass": "0.055",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.003300",
+          "working_stock_mass_g_for_6g": "0.330000"
+        }
+      ],
+      "working_stock_total_g": "10.965000",
+      "additional_ethanol_to_30g": "19.035000",
+      "state": "UNTESTED_DESIGN_HYPOTHESIS",
+      "single_row_weighing_floor_check": "LEAD_ONLY_VERIFIED_USE_WORKING_DILUTION_OR_COMMON_MASTER_FOR_SMALLER_ALTERNATIVES"
+    },
+    {
+      "id": "ROAST_OMISSION",
+      "family": "robustness-focused",
+      "patches": {
+        "2-Acetyl Pyrazine": "0",
+        "Hedione": "19.515"
+      },
+      "hypothesis": "Does pyrazine earn its role rather than add savory drift?",
+      "resolved_target_percent": {
+        "Hedione": "19.515",
+        "Iso E Super": "20",
+        "Romandolide": "14",
+        "Benzyl Benzoate": "2",
+        "Pink Pepper EO (Schinus molle)": "3.5",
+        "Linalyl Acetate": "4",
+        "Red Mandarin EO": "4",
+        "Juniper Berry EO": "1",
+        "Cardamom EO": "0.65",
+        "Lavender EO (BONTAUX SAS)": "7",
+        "Alpha Irone": "0.18",
+        "Clary Sage EO": "1",
+        "Geranium EO": "0.3",
+        "Vanillin": "4",
+        "Tonkarome": "3",
+        "Coumarin": "2",
+        "Siam Benzoin": "3",
+        "Ethyl Maltol": "0.1",
+        "Isobutavan": "0.65",
+        "Heliotropal (Piperonal)": "0.4",
+        "Amberwood F": "3.5",
+        "Azarbre": "2.5",
+        "Bacdanol": "2.5",
+        "Cashmeran": "0.7",
+        "Patchouli EO": "0.45",
+        "Suederal": "0.055"
+      },
+      "target_sum_percent": "100.000000",
+      "build_rows_for_6g": [
+        {
+          "material": "Hedione",
+          "target_percent_product_mass": "19.515",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "1.170900",
+          "working_stock_mass_g_for_6g": "1.170900"
+        },
+        {
+          "material": "Iso E Super",
+          "target_percent_product_mass": "20",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "1.200000",
+          "working_stock_mass_g_for_6g": "1.200000"
+        },
+        {
+          "material": "Romandolide",
+          "target_percent_product_mass": "14",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.840000",
+          "working_stock_mass_g_for_6g": "0.840000"
+        },
+        {
+          "material": "Benzyl Benzoate",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Pink Pepper EO (Schinus molle)",
+          "target_percent_product_mass": "3.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.210000",
+          "working_stock_mass_g_for_6g": "0.210000"
+        },
+        {
+          "material": "Linalyl Acetate",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "Red Mandarin EO",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "Juniper Berry EO",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Cardamom EO",
+          "target_percent_product_mass": "0.65",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.039000",
+          "working_stock_mass_g_for_6g": "0.039000"
+        },
+        {
+          "material": "Lavender EO (BONTAUX SAS)",
+          "target_percent_product_mass": "7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.420000",
+          "working_stock_mass_g_for_6g": "0.420000"
+        },
+        {
+          "material": "Alpha Irone",
+          "target_percent_product_mass": "0.18",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DEP",
+          "target_product_mass_g_for_6g": "0.010800",
+          "working_stock_mass_g_for_6g": "0.108000"
+        },
+        {
+          "material": "Clary Sage EO",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Geranium EO",
+          "target_percent_product_mass": "0.3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.018000",
+          "working_stock_mass_g_for_6g": "0.018000"
+        },
+        {
+          "material": "Vanillin",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "2.400000"
+        },
+        {
+          "material": "Tonkarome",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "0.2",
+          "required_carrier": "TEC",
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.900000"
+        },
+        {
+          "material": "Coumarin",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "1.200000"
+        },
+        {
+          "material": "Siam Benzoin",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "0.5",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.360000"
+        },
+        {
+          "material": "Ethyl Maltol",
+          "target_percent_product_mass": "0.1",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.006000",
+          "working_stock_mass_g_for_6g": "0.600000"
+        },
+        {
+          "material": "Isobutavan",
+          "target_percent_product_mass": "0.65",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.039000",
+          "working_stock_mass_g_for_6g": "0.039000"
+        },
+        {
+          "material": "Heliotropal (Piperonal)",
+          "target_percent_product_mass": "0.4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.024000",
+          "working_stock_mass_g_for_6g": "0.024000"
+        },
+        {
+          "material": "Amberwood F",
+          "target_percent_product_mass": "3.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.210000",
+          "working_stock_mass_g_for_6g": "0.210000"
+        },
+        {
+          "material": "Azarbre",
+          "target_percent_product_mass": "2.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.150000",
+          "working_stock_mass_g_for_6g": "0.150000"
+        },
+        {
+          "material": "Bacdanol",
+          "target_percent_product_mass": "2.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.150000",
+          "working_stock_mass_g_for_6g": "0.150000"
+        },
+        {
+          "material": "Cashmeran",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Patchouli EO",
+          "target_percent_product_mass": "0.45",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.027000",
+          "working_stock_mass_g_for_6g": "0.027000"
+        },
+        {
+          "material": "Suederal",
+          "target_percent_product_mass": "0.055",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.003300",
+          "working_stock_mass_g_for_6g": "0.330000"
+        }
+      ],
+      "working_stock_total_g": "11.157900",
+      "additional_ethanol_to_30g": "18.842100",
+      "state": "UNTESTED_DESIGN_HYPOTHESIS",
+      "single_row_weighing_floor_check": "LEAD_ONLY_VERIFIED_USE_WORKING_DILUTION_OR_COMMON_MASTER_FOR_SMALLER_ALTERNATIVES"
+    },
+    {
+      "id": "EXPLORATORY_SPICED_SUEDE",
+      "family": "exploratory",
+      "patches": {
+        "Cardamom EO": "1",
+        "Suederal": "0.15",
+        "Vanillin": "3.5",
+        "Hedione": "19.555"
+      },
+      "hypothesis": "More spice/suede tension; may reduce immediate gourmand ease.",
+      "resolved_target_percent": {
+        "Hedione": "19.555",
+        "Iso E Super": "20",
+        "Romandolide": "14",
+        "Benzyl Benzoate": "2",
+        "Pink Pepper EO (Schinus molle)": "3.5",
+        "Linalyl Acetate": "4",
+        "Red Mandarin EO": "4",
+        "Juniper Berry EO": "1",
+        "Cardamom EO": "1",
+        "Lavender EO (BONTAUX SAS)": "7",
+        "Alpha Irone": "0.18",
+        "Clary Sage EO": "1",
+        "Geranium EO": "0.3",
+        "Vanillin": "3.5",
+        "Tonkarome": "3",
+        "Coumarin": "2",
+        "Siam Benzoin": "3",
+        "Ethyl Maltol": "0.1",
+        "2-Acetyl Pyrazine": "0.015",
+        "Isobutavan": "0.65",
+        "Heliotropal (Piperonal)": "0.4",
+        "Amberwood F": "3.5",
+        "Azarbre": "2.5",
+        "Bacdanol": "2.5",
+        "Cashmeran": "0.7",
+        "Patchouli EO": "0.45",
+        "Suederal": "0.15"
+      },
+      "target_sum_percent": "100.000000",
+      "build_rows_for_6g": [
+        {
+          "material": "Hedione",
+          "target_percent_product_mass": "19.555",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "1.173300",
+          "working_stock_mass_g_for_6g": "1.173300"
+        },
+        {
+          "material": "Iso E Super",
+          "target_percent_product_mass": "20",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "1.200000",
+          "working_stock_mass_g_for_6g": "1.200000"
+        },
+        {
+          "material": "Romandolide",
+          "target_percent_product_mass": "14",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.840000",
+          "working_stock_mass_g_for_6g": "0.840000"
+        },
+        {
+          "material": "Benzyl Benzoate",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Pink Pepper EO (Schinus molle)",
+          "target_percent_product_mass": "3.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.210000",
+          "working_stock_mass_g_for_6g": "0.210000"
+        },
+        {
+          "material": "Linalyl Acetate",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "Red Mandarin EO",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "Juniper Berry EO",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Cardamom EO",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Lavender EO (BONTAUX SAS)",
+          "target_percent_product_mass": "7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.420000",
+          "working_stock_mass_g_for_6g": "0.420000"
+        },
+        {
+          "material": "Alpha Irone",
+          "target_percent_product_mass": "0.18",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DEP",
+          "target_product_mass_g_for_6g": "0.010800",
+          "working_stock_mass_g_for_6g": "0.108000"
+        },
+        {
+          "material": "Clary Sage EO",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Geranium EO",
+          "target_percent_product_mass": "0.3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.018000",
+          "working_stock_mass_g_for_6g": "0.018000"
+        },
+        {
+          "material": "Vanillin",
+          "target_percent_product_mass": "3.5",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.210000",
+          "working_stock_mass_g_for_6g": "2.100000"
+        },
+        {
+          "material": "Tonkarome",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "0.2",
+          "required_carrier": "TEC",
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.900000"
+        },
+        {
+          "material": "Coumarin",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "1.200000"
+        },
+        {
+          "material": "Siam Benzoin",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "0.5",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.360000"
+        },
+        {
+          "material": "Ethyl Maltol",
+          "target_percent_product_mass": "0.1",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.006000",
+          "working_stock_mass_g_for_6g": "0.600000"
+        },
+        {
+          "material": "2-Acetyl Pyrazine",
+          "target_percent_product_mass": "0.015",
+          "required_working_fraction_w_w": "0.001",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.000900",
+          "working_stock_mass_g_for_6g": "0.900000"
+        },
+        {
+          "material": "Isobutavan",
+          "target_percent_product_mass": "0.65",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.039000",
+          "working_stock_mass_g_for_6g": "0.039000"
+        },
+        {
+          "material": "Heliotropal (Piperonal)",
+          "target_percent_product_mass": "0.4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.024000",
+          "working_stock_mass_g_for_6g": "0.024000"
+        },
+        {
+          "material": "Amberwood F",
+          "target_percent_product_mass": "3.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.210000",
+          "working_stock_mass_g_for_6g": "0.210000"
+        },
+        {
+          "material": "Azarbre",
+          "target_percent_product_mass": "2.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.150000",
+          "working_stock_mass_g_for_6g": "0.150000"
+        },
+        {
+          "material": "Bacdanol",
+          "target_percent_product_mass": "2.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.150000",
+          "working_stock_mass_g_for_6g": "0.150000"
+        },
+        {
+          "material": "Cashmeran",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Patchouli EO",
+          "target_percent_product_mass": "0.45",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.027000",
+          "working_stock_mass_g_for_6g": "0.027000"
+        },
+        {
+          "material": "Suederal",
+          "target_percent_product_mass": "0.15",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.009000",
+          "working_stock_mass_g_for_6g": "0.900000"
+        }
+      ],
+      "working_stock_total_g": "12.351300",
+      "additional_ethanol_to_30g": "17.648700",
+      "state": "UNTESTED_DESIGN_HYPOTHESIS",
+      "single_row_weighing_floor_check": "LEAD_ONLY_VERIFIED_USE_WORKING_DILUTION_OR_COMMON_MASTER_FOR_SMALLER_ALTERNATIVES"
+    },
+    {
+      "id": "MINIMALIST_CONTROL",
+      "family": "minimalist",
+      "complete_target_percent": {
+        "Hedione": "29.985",
+        "Iso E Super": "23",
+        "Romandolide": "16",
+        "Pink Pepper EO (Schinus molle)": "3.5",
+        "Linalyl Acetate": "4",
+        "Red Mandarin EO": "4",
+        "Lavender EO (BONTAUX SAS)": "7",
+        "Clary Sage EO": "1",
+        "Vanillin": "4",
+        "Coumarin": "2",
+        "Siam Benzoin": "2",
+        "2-Acetyl Pyrazine": "0.015",
+        "Cashmeran": "1",
+        "Bacdanol": "2.5"
+      },
+      "hypothesis": "Independent simpler chassis; complexity must earn a perceived benefit.",
+      "resolved_target_percent": {
+        "Hedione": "29.985",
+        "Iso E Super": "23",
+        "Romandolide": "16",
+        "Pink Pepper EO (Schinus molle)": "3.5",
+        "Linalyl Acetate": "4",
+        "Red Mandarin EO": "4",
+        "Lavender EO (BONTAUX SAS)": "7",
+        "Clary Sage EO": "1",
+        "Vanillin": "4",
+        "Coumarin": "2",
+        "Siam Benzoin": "2",
+        "2-Acetyl Pyrazine": "0.015",
+        "Cashmeran": "1",
+        "Bacdanol": "2.5"
+      },
+      "target_sum_percent": "100.000000",
+      "build_rows_for_6g": [
+        {
+          "material": "Hedione",
+          "target_percent_product_mass": "29.985",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "1.799100",
+          "working_stock_mass_g_for_6g": "1.799100"
+        },
+        {
+          "material": "Iso E Super",
+          "target_percent_product_mass": "23",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "1.380000",
+          "working_stock_mass_g_for_6g": "1.380000"
+        },
+        {
+          "material": "Romandolide",
+          "target_percent_product_mass": "16",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.960000",
+          "working_stock_mass_g_for_6g": "0.960000"
+        },
+        {
+          "material": "Pink Pepper EO (Schinus molle)",
+          "target_percent_product_mass": "3.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.210000",
+          "working_stock_mass_g_for_6g": "0.210000"
+        },
+        {
+          "material": "Linalyl Acetate",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "Red Mandarin EO",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "Lavender EO (BONTAUX SAS)",
+          "target_percent_product_mass": "7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.420000",
+          "working_stock_mass_g_for_6g": "0.420000"
+        },
+        {
+          "material": "Clary Sage EO",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Vanillin",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "2.400000"
+        },
+        {
+          "material": "Coumarin",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "1.200000"
+        },
+        {
+          "material": "Siam Benzoin",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "0.5",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "2-Acetyl Pyrazine",
+          "target_percent_product_mass": "0.015",
+          "required_working_fraction_w_w": "0.001",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.000900",
+          "working_stock_mass_g_for_6g": "0.900000"
+        },
+        {
+          "material": "Cashmeran",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Bacdanol",
+          "target_percent_product_mass": "2.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.150000",
+          "working_stock_mass_g_for_6g": "0.150000"
+        }
+      ],
+      "working_stock_total_g": "10.259100",
+      "additional_ethanol_to_30g": "19.740900",
+      "state": "UNTESTED_DESIGN_HYPOTHESIS",
+      "single_row_weighing_floor_check": "LEAD_ONLY_VERIFIED_USE_WORKING_DILUTION_OR_COMMON_MASTER_FOR_SMALLER_ALTERNATIVES"
+    },
+    {
+      "id": "LITERAL_REFERENCE_FIT",
+      "family": "literal evidence fit",
+      "status": "WITHHELD_NO_AUTHENTICATED_QUANTITATIVE_TARGET",
+      "hypothesis": "No authenticated quantitative reference, original prompt recovery or sensory calibration is available; official notes cannot supply a literal formula."
+    }
+  ],
+  "hard_gates": {
+    "target_arithmetic": "PASS_100_PERCENT",
+    "negative_target_dose": "PASS_NONE",
+    "duplicate_target_rows": "PASS_NONE",
+    "lead_measurable_stock_mass": "PASS_AT_LEAST_0.010_G_PER_ROW_FOR_6G_TARGET",
+    "stock_basis_binding": "HOLD_SELECTED_STOCK_BASES_OR_IDENTITY",
+    "active_parent_equivalence": "NOT_CLAIMED_INTENTIONAL_RETARGET",
+    "pre_mix_guard": "NOT_RUN_NO_SUPPORTED_PARENT_ACTIVE_MASS_AND_DELIVERED_GAS_CHAIN",
+    "perceptual_identity": "UNTESTED",
+    "safety_category_4": "NOT_ASSESSED",
+    "physical_action_permission": "NOT_GRANTED_BY_DESIGN"
+  },
+  "pareto": {
+    "numeric_beauty_score": null,
+    "ranked_sensory_winner": null,
+    "development_lead": "LEAD",
+    "axes": [
+      "brief identity",
+      "texture",
+      "aromatic/floral restraint",
+      "sweetness/off-note risk",
+      "measurement feasibility",
+      "uncertainty",
+      "handling burden"
+    ],
+    "selection_reason": "Qualitative design coverage and practical stock accounting, not demonstrated sensory superiority"
+  },
+  "accounting": {
+    "working_stock_total_g": "12.057000",
+    "added_working_carrier_mass_g": "6.057000",
+    "added_carrier_breakdown_g": {
+      "DEP": "0.097200",
+      "perfumery ethanol": "3.080700",
+      "TEC": "0.720000",
+      "DPG": "2.159100"
+    },
+    "concentration_definition": "20% by undiluted perfumery-product-equivalent mass, not 20% identified odorant or stock volume",
+    "finished_options": [
+      {
+        "basis": "20% w/w product-equivalent",
+        "finished_mass_g": "30.000000",
+        "product_equivalent_g": "6.000000",
+        "additional_perfumery_ethanol_g": "17.943000",
+        "finished_volume_mL": null
+      },
+      {
+        "basis": "20 g product-equivalent per 100 mL (w/v)",
+        "finished_volume_mL": "30.00",
+        "product_equivalent_g": "6.000000",
+        "ethanol": "q.s. measured final 30.00 mL after dissolution and equilibration",
+        "finished_mass_g": null,
+        "exact_20_percent_w_w_claim": false
+      }
+    ],
+    "crystal_uL": null,
+    "grams_equal_mL": false,
+    "ethanol_96_percent_as_supplied": "Count as solvent product mass; strength basis not silently converted to absolute-ethanol mass"
+  },
+  "small_sample": {
+    "finished_mass_g": "5.000000",
+    "product_equivalent_g": "1.000000",
+    "fraction_of_homogeneous_master": "1/6",
+    "master_aliquot_g_before_extra_dissolution_alcohol": "2.009500",
+    "additional_ethanol_g": "2.990500",
+    "extra_alcohol_rule": "If a grams of dissolution ethanol enters the master, aliquot (stock_total+a)/6 and add 5-(stock_total+a)/6 grams ethanol; never count a twice.",
+    "homogeneity_required": true,
+    "per_row_one_sixth_weighing_not_recommended": true,
+    "aliquot_scale_floor_g": "0.010"
+  },
+  "stock_notes": "The recorded Vanillin 10% v/v nominal, Ethyl Maltol 1% v/v and pyrazine 1% DPG of unstated basis are NOT the exact w/w stocks required below. Use a verified mass-fraction stock or prepare it from the neat product; do not assume those stocks were already prepared. The current Tonkarome 20% w/w TEC, coumarin 10% w/w DPG, Siam benzoin 50% w/w DPG and Alpha Irone 10% w/w DEP can be weighed as shown.",
+  "stock_preparations": [
+    "Vanillin 10% w/w ethanol: 0.50 g neat Vanillin + 4.50 g perfumery ethanol. Neat PW 1VW00456 is a sourcing option, not an owned-stock assertion.",
+    "Ethyl Maltol 1% w/w ethanol: 0.10 g neat product + 9.90 g ethanol. PW 1VF00175 is a sourcing option; the old v/v stock is not an equivalent.",
+    "2-Acetyl Pyrazine 0.1% w/w DPG: make or verify a 1% w/w intermediate, then mix 1.00 g intermediate + 9.00 g DPG. A 1% intermediate can be made with 0.10 g neat PW 1EN13109 + 9.90 g DPG. Do not serially dilute the old stock until its basis is known.",
+    "Suederal 1% w/w ethanol: 0.10 g owned neat Suederal + 9.90 g ethanol. Piperonal is weighed directly at 24 mg in this batch."
+  ],
+  "mixing_order": [
+    "Weigh the wood/musk/solvent scaffold, then Hedione and the known balsamic/coumarin stocks.",
+    "Add Alpha Irone and vanilla stock. Dissolve the separate 24 mg Piperonal charge using part of the final alcohol allowance and keep that alcohol in the mass ledger.",
+    "Add Isobutavan and the three trace working stocks; then lavender, clary sage, geranium and linalyl acetate.",
+    "Add mandarin, pepper, juniper and cardamom last. Close, mix and inspect after equilibration."
+  ],
+  "bottle_action_plan": {
+    "state": "PROPOSAL_ONLY",
+    "strategy": "NEW_FORMULA_NOT_ADDITIVE_DELTA",
+    "sequence": [
+      "PROPOSE",
+      "HUMAN_CONFIRM",
+      "MEASURE",
+      "COMMIT"
+    ],
+    "stop_conditions": [
+      "wrong or ambiguous stock basis",
+      "undissolved solid/separation",
+      "target stock cannot be weighed reliably",
+      "unexpected savory/medicinal/dirty off-note"
+    ],
+    "existing_bottle_commit_performed": false
+  },
+  "sensory_plan": {
+    "small_first": true,
+    "substrate": "blotter",
+    "codes": "Randomized three-digit codes where feasible",
+    "timepoints": [
+      "5 minutes",
+      "30-60 minutes",
+      "4 hours",
+      "next-day blotter"
+    ],
+    "repeat_relevant_comparison": "At least three sessions before a strong personal-preference claim",
+    "carrier_matching_required_for_causal_omission_claim": true,
+    "record": [
+      "brief recognizers",
+      "forbidden drift",
+      "texture",
+      "transition",
+      "intensity separate from liking",
+      "tie/cannot determine"
+    ],
+    "instructions": "Compare LEAD with ROAST_OMISSION first. If the roast becomes corn chips/pandan, omit/reduce pyrazine before buying more nut materials. If syrupy/powdery, compare DRIER_CONSERVATIVE. Preserve pepper/lavender clarity before increasing woody power.",
+    "skin_application_authorized": false
+  },
+  "sensomics": {
+    "GC_MS_or_GC_O": "NOT_AVAILABLE",
+    "recombination": "METHOD_AVAILABLE_NOT_EXECUTED",
+    "OAV": "WITHHELD_NO_COMPATIBLE_DELIVERED_GAS_CHAIN",
+    "importance_or_deletion_from_OAV": false
+  },
+  "posterior": {
+    "state": "NO_NEW_PHYSICAL_OBSERVATIONS",
+    "history_rewritten": false,
+    "next_version_rule": "Record formula/sample hash, observation, accepted change and why; preserve tested versions."
+  },
+  "historical_search": {
+    "status": "NOT_REPRODUCED",
+    "reason": "No bound historical integer-uL search inputs/code for this exact target. No 35/35 or 97.76/100 result claimed."
+  },
+  "safety": {
+    "category": "IFRA Category 4 assessment required for intended alcoholic fine fragrance",
+    "supplier_documents": "Exact grade/base/natural composition and current limits required for commercial assessment",
+    "natural_allergens": "Not completely quantified",
+    "proprietary_base_components": "Unknown",
+    "stability": "Not tested",
+    "commercially_cleared": false
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false,
+    "purchase_authority": false,
+    "physical_action_performed": false
+  },
+  "sources": [
+    {
+      "id": "E1",
+      "title": "Armani official Stronger With You Intensely architecture",
+      "url": "https://www.giorgioarmanibeauty-usa.com/fragrances/emporio-armani-stronger-with-you-intensely/3614272225701.html",
+      "scope": "Official notes only, not quantitative composition or likeness.",
+      "checked_date": "2026-10-03",
+      "authority": "DOCUMENTARY_OR_METHOD_SCOPE_ONLY",
+      "numerical_formula_transferred": false
+    },
+    {
+      "id": "E2",
+      "title": "PW 2-Acetyl Pyrazine, 1EN13109",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=1EN13109",
+      "scope": "Supplier roast/popcorn character. It is not 2-acetyl-1-pyrroline; no authentic chestnut claim.",
+      "checked_date": "2026-10-03",
+      "authority": "DOCUMENTARY_OR_METHOD_SCOPE_ONLY",
+      "numerical_formula_transferred": false
+    },
+    {
+      "id": "E3",
+      "title": "Chetschik et al. 2010, peanut aroma quantitation/recombination, DOI 10.1021/jf1026636",
+      "url": "https://pages.uoregon.edu/chendon/coffee_literature/old_literature/2010%20J.%20Agric.%20Food%20Chem.%2C%20Peanut%20aroma.pdf",
+      "scope": "Supports reconstitution/omission methods; peanut/oil dosages and thresholds are not transferred to perfume.",
+      "checked_date": "2026-10-03",
+      "authority": "DOCUMENTARY_OR_METHOD_SCOPE_ONLY",
+      "numerical_formula_transferred": false
+    },
+    {
+      "id": "E4",
+      "title": "PW Vanillin, 1VW00456",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=1VW00456",
+      "scope": "Neat product sourcing option.",
+      "checked_date": "2026-10-03",
+      "authority": "DOCUMENTARY_OR_METHOD_SCOPE_ONLY",
+      "numerical_formula_transferred": false
+    },
+    {
+      "id": "E5",
+      "title": "PW Ethyl Maltol, 1VF00175",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=1VF00175",
+      "scope": "Neat product sourcing option, not a liking label.",
+      "checked_date": "2026-10-03",
+      "authority": "DOCUMENTARY_OR_METHOD_SCOPE_ONLY",
+      "numerical_formula_transferred": false
+    }
+  ]
+}
+

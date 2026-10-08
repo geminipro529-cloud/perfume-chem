@@ -33,6 +33,7 @@ from engine.ingredient_intelligence import MaterialProfile, get_profile
 from engine.inventory_completions import effective_design_ready
 from engine.inventory_parser import (
     InventoryMaterial,
+    is_user_compounding_held,
     parse_inventory,
 )
 from engine.name_utils import normalize_name
@@ -45,11 +46,13 @@ from engine.research.commercial_references import (
     DEFAULT_REGISTRY_PATH,
     build_commercial_reference_panel,
     load_commercial_reference_registry,
+    resolve_documentary_references,
 )
 from engine.research.contracts import FALSE_ACTION_AUTHORITY, stable_payload_hash
 from engine.research.request_interpretation import (
     RequestInterpretationInputV1,
     interpret_request,
+    positive_reference_text,
 )
 
 _ROOT = Path(__file__).resolve().parents[2]
@@ -678,7 +681,7 @@ def _load_candidates(explicit_materials: Sequence[str]) -> tuple[list[Candidate]
     cache_key = (inventory.effective_inventory_sha256, inventory_text_sha)
     cached = _CANDIDATE_BASE_CACHE.get(cache_key)
     if cached is not None:
-        base_candidates, known = cached
+        base_candidates, cached_known = cached
         return (
             [
                 replace(
@@ -691,12 +694,16 @@ def _load_candidates(explicit_materials: Sequence[str]) -> tuple[list[Candidate]
                 for candidate in base_candidates
             ],
             inventory,
-            known,
+            cached_known,
         )
 
     candidates: list[Candidate] = []
     for stock in inventory.stocks:
-        if stock.status.casefold() != "owned" or stock.dilution <= 0:
+        if (
+            stock.status.casefold() != "owned"
+            or stock.dilution <= 0
+            or is_user_compounding_held(stock)
+        ):
             continue
         identity_key = _key(stock.identity_name or stock.name)
         functional_carrier = identity_key in _DESIGN_FUNCTIONAL_CARRIERS
@@ -1240,10 +1247,10 @@ def _matched_anchor_roles(
                     matches.append((preference_index, role_index, role))
                     break
         matched = min(matches, default=None, key=lambda item: (item[0], item[1]))
-        role = matched[2] if matched is not None else None
-        if role is not None:
-            used_role_ids.add(role.role_id)
-        matched_roles.append(role)
+        matched_role = matched[2] if matched is not None else None
+        if matched_role is not None:
+            used_role_ids.add(matched_role.role_id)
+        matched_roles.append(matched_role)
     return matched_roles
 
 
@@ -1567,6 +1574,7 @@ def _formula_rows(
     fixed_liquid: dict[int, int] = {}
     solid_amounts: dict[int, int] = {}
     holds: list[str] = []
+    amount: Decimal | int
     for index, choice in enumerate(choices):
         explicit = _quantity_for_candidate(choice.candidate, quantities)
         if choice.candidate.solid:
@@ -1613,7 +1621,7 @@ def _formula_rows(
 
     rows: list[dict[str, Any]] = []
     liquid_sum = 0
-    mass_sum = 0
+    mass_sum = Decimal(0)
     total_role_share = sum(choice.role.share for choice in choices) or 1.0
     for index, choice in enumerate(choices):
         candidate = choice.candidate
@@ -1952,17 +1960,18 @@ def _reference_context(
     rows: Sequence[dict[str, Any]],
 ) -> dict[str, Any] | None:
     registry = _cached_reference_registry(_reference_registry_sha256())
-    normalized = _key(
-        text.replace("eau de parfum", "edp").replace("eau de toilette", "edt")
-    )
+    resolved = resolve_documentary_references(text, as_of_date=date.today().isoformat(), registry=registry)
+    if resolved["unresolved"]:
+        return {
+            "status": "WITHHELD_NAMED_REFERENCE_APPLICABILITY",
+            "named_products": [],
+            "unresolved_references": resolved["unresolved"],
+            "formula_inference_used": False,
+            "registry_sha256": registry.registry_sha256,
+            **FALSE_ACTION_AUTHORITY,
+        }
     named = []
-    for product in registry.products.values():
-        product_name = _key(product.product_name)
-        branded_name = _key(f"{product.brand} {product.product_name}")
-        if not product_name or (
-            product_name not in normalized and branded_name not in normalized
-        ):
-            continue
+    for product in resolved["products"]:
         target_role_probe = _key(
             " ".join(role.label for role in (concept.roles if concept else ()))
         )
@@ -2016,7 +2025,7 @@ def _reference_context(
     tags = [
         token
         for token in _key(
-            f"{concept.concept_id if concept else ''} {text}"
+            f"{concept.concept_id if concept else ''} {positive_reference_text(text)}"
         ).split()
         if len(token) >= 4
     ]
@@ -2061,7 +2070,6 @@ def _reference_context(
         registry.products[str(member["product_id"])]
         for member in (
             *panel["panel"]["active_members"],
-            *panel["panel"]["reserve_members"],
         )
         if str(member["product_id"]) in registry.products
     ]

@@ -9,6 +9,7 @@ const state = {
   formulaLibrary: [],
   bottles: [],
   experiments: [],
+  omissionRows: [],
   formulaChat: {
     messages: [],
     result: null,
@@ -1077,10 +1078,11 @@ function addFormulaResultSummary(list, label, value) {
 function selectedFormulaVariant(result, variantIndex = state.formulaChat.variantIndex || 0) {
   const variants = result?.design_variants || [];
   const variant = variants[variantIndex] || variants[0] || null;
+  const critic = variant?.critic || result?.critic || null;
   return {
     variant,
-    formula: variant?.formula || result?.optimized_formula || null,
-    critic: variant?.critic || result?.critic || null,
+    formula: critic?.state === "WITHHELD" ? null : (variant ? variant.formula : result?.optimized_formula) || null,
+    critic,
   };
 }
 
@@ -1093,7 +1095,7 @@ function renderFormulaDesign(result, variantIndex = 0) {
   const selected = selectedFormulaVariant(result, variantIndex);
   const hasFormula = Boolean(selected.formula);
   $("#formula-result-state").textContent = hasFormula
-    ? (result.status?.endsWith("WITH_HOLDS") ? "Proposal · check hold" : "Proposal only")
+    ? (selected.critic?.issues?.length ? "Proposal · check hold" : "Proposal only")
     : "Needs clarification";
   $("#formula-result-summary").textContent = result.assistant_message || "No formula was generated.";
   const picker = $("#formula-variant-picker");
@@ -1132,18 +1134,19 @@ function renderFormulaDesign(result, variantIndex = 0) {
     addFormulaResultSummary(totals, "Solid total", `${selected.formula.separate_totals.mass_total_mg} mg`);
     addFormulaResultSummary(totals, "Structure", String(result.concept_family || "concept").replaceAll("_", " "));
     addFormulaResultSummary(totals, "Planning method", String(result.composition_plan?.method || result.optimization?.status || "not run").replaceAll("_", " ").toLowerCase());
-    addFormulaResultSummary(totals, "Rows used", `${result.selected_material_count || rows.length} of at most ${result.requested_material_limit || rows.length}`);
+    addFormulaResultSummary(totals, "Rows used", `${rows.length} of at most ${result.requested_material_limit || rows.length}`);
   }
 
   const detail = $("#formula-result-detail");
   detail.replaceChildren();
   const repairLabels = (result.composition_plan?.request_specific_repairs || [])
     .map((value) => String(value).replaceAll("_", " ").toLowerCase());
-  const temporalSequence = result.temporal_hypothesis?.sequence || [];
-  const referenceProducts = (result.commercial_reference_context?.named_products || [])
+  const temporalSequence = (selected.variant?.temporal_hypothesis || result.temporal_hypothesis)?.sequence || [];
+  const referenceContext = selected.variant?.commercial_reference_context || result.commercial_reference_context;
+  const referenceProducts = (referenceContext?.named_products || [])
     .map((product) => typeof product === "string" ? product : product.display_name)
     .filter(Boolean);
-  const referenceCriteria = result.commercial_reference_context?.design_criteria || [];
+  const referenceCriteria = referenceContext?.design_criteria || [];
   const usesStrengthCompensation = rows.some(
     (row) => row.allocation_basis === "STOCK_STRENGTH_COMPENSATED_HEURISTIC_NOT_ACTIVE_MASS",
   );
@@ -1155,7 +1158,7 @@ function renderFormulaDesign(result, variantIndex = 0) {
       ? `Strongest composition clue: ${selected.critic.strongest_clue}`
       : "No composition clue was generated because the request needs clarification.",
     result.composition_plan
-      ? `The planner filled ${result.composition_plan.roles_filled?.length || 0} nonredundant roles and stopped under the material ceiling. Ingredient count was not an objective.`
+      ? `The planner filled ${selected.variant?.role_plan?.length ?? result.composition_plan.roles_filled?.length ?? 0} nonredundant roles and stopped under the material ceiling. Ingredient count was not an objective.`
       : "No structural plan ran because a hard request constraint was unresolved.",
     selected.critic?.issues?.length
       ? `Practical hold: ${String(selected.critic.issues[0]).replaceAll("_", " ").toLowerCase()}. Expand details only if you need to resolve it before compounding.`
@@ -1165,6 +1168,10 @@ function renderFormulaDesign(result, variantIndex = 0) {
     "Unknown until smelled: pleasantness, personal liking, mixture interactions, and whether this is actually better than an unchanged control.",
     "No inventory, formula file, bottle, or laboratory record was changed.",
   ];
+  if (selected.variant?.architecture?.comparison_question) {
+    paragraphs.splice(1, 0,
+      `Architecture comparison: ${selected.variant.architecture.comparison_question} This is an untested role-plan hypothesis, not a measured improvement.`);
+  }
   if (repairLabels.length) {
     paragraphs.splice(2, 0, `Request-specific adaptation: ${repairLabels.join("; ")}.`);
   }
@@ -1207,6 +1214,71 @@ function renderFormulaDesign(result, variantIndex = 0) {
     const limit = document.createElement("p");
     limit.textContent = "Source-supported descriptions and formulation hypotheses are separate. These references do not supply measured doses, liking scores or safety approval.";
     evidence.append(limit);
+    const coverage = result.architecture_planning?.implementation_coverage;
+    if (coverage) {
+      const coverageDetails = document.createElement("details");
+      const coverageHeading = document.createElement("summary");
+      coverageHeading.textContent = "Coverage and remaining prerequisites";
+      coverageDetails.append(coverageHeading);
+      (coverage.items || []).forEach((item) => {
+        const line = document.createElement("p");
+        line.textContent = `${item.subtype_id}: ${String(item.implementation_state).replaceAll("_", " ").toLowerCase()}. ${item.required_next}`;
+        coverageDetails.append(line);
+      });
+      if (coverage.state === "WITHHOLD_UNKNOWN") {
+        const unavailable = document.createElement("p");
+        unavailable.textContent = "The reviewed coverage record is unavailable; no completeness claim is made.";
+        coverageDetails.append(unavailable);
+      }
+      evidence.append(coverageDetails);
+    }
+    (knowledge.construction_context?.dossiers || []).forEach((dossier) => {
+      const section = document.createElement("section");
+      const title = document.createElement("h4");
+      title.textContent = `${dossier.title} · untested construction options`;
+      section.append(title);
+      const recognizer = document.createElement("p");
+      recognizer.textContent = (dossier.recognizers || []).join(" ");
+      section.append(recognizer);
+      (dossier.architectures || []).forEach((architecture, index) => {
+        const option = document.createElement("p");
+        option.textContent = `${index === 0 ? "Control" : "Alternative"}: ${architecture.intent}`;
+        section.append(option);
+      });
+      const comparison = document.createElement("p");
+      comparison.textContent = `Question to resolve: ${dossier.comparison?.question || "No supported comparison question."} Avoid: ${(dossier.negative_space || []).join(" ")}`;
+      section.append(comparison);
+      evidence.append(section);
+    });
+    (knowledge.subtype_context?.campaign_identity_holds || []).forEach((hold) => {
+      const note = document.createElement("p");
+      note.textContent = `Reference identity unresolved: ${hold.reason} ${hold.question}`;
+      evidence.append(note);
+    });
+    (knowledge.subtype_context?.cards || []).forEach((card) => {
+      const section = document.createElement("section");
+      const title = document.createElement("h4");
+      title.textContent = `${card.title} · subtype research hypothesis`;
+      section.append(title);
+      const fact = document.createElement("p");
+      fact.textContent = `Evidence: ${card.evidence_summary}`;
+      section.append(fact);
+      const hypothesis = document.createElement("p");
+      hypothesis.textContent = `Design hypothesis: ${card.construction_hypothesis}`;
+      section.append(hypothesis);
+      const comparison = document.createElement("p");
+      comparison.textContent = `Question to resolve: ${card.comparison?.question} Avoid: ${(card.negative_space || []).join("; ")}`;
+      section.append(comparison);
+      const boundary = document.createElement("p");
+      boundary.textContent = `Limits: ${(card.identity_limits || []).join(" ")}`;
+      section.append(boundary);
+      (card.review_addenda || []).forEach((addendum) => {
+        const update = document.createElement("p");
+        update.textContent = `Deeper source review: ${addendum.evidence_summary} Limits: ${(addendum.identity_limits || []).join(" ")}`;
+        section.append(update);
+      });
+      evidence.append(section);
+    });
     (knowledge.sources || []).forEach((source) => {
       const paragraph = document.createElement("p");
       const label = `${source.title} · ${String(source.evidence_class).replaceAll("_", " ").toLowerCase()}`;
@@ -1415,6 +1487,82 @@ $("#version-form").addEventListener("submit", async (event) => {
 bindForm("#bottle-form", (data) => request("/bottles", { method: "POST", body: JSON.stringify({ label: data.label, initial_mass_g: Number(data.initial_mass_g) }) }));
 bindForm("#addition-form", (data) => request(`/bottles/${data.bottle_id}/additions`, { method: "POST", body: JSON.stringify({ stock_solution_id: data.stock_solution_id, mass_g: Number(data.mass_g), expected_sequence: Number(data.expected_sequence), command_id: crypto.randomUUID() }) }));
 bindForm("#experiment-form", (data) => request("/experiments", { method: "POST", body: JSON.stringify({ name: data.name, protocol: { observation_times_seconds: data.times.split(",").map((item) => Number(item.trim())) } }) }));
+
+function loadOmissionRows(rows) {
+  if (!Array.isArray(rows) || rows.length < 2 || rows.length > 60) throw new Error("Load two to sixty exact control rows.");
+  const fields = ["stock_id", "identity_name", "amount_decimal", "amount_unit", "stock_fraction_decimal", "fraction_basis", "carrier"];
+  state.omissionRows = rows.map((row) => Object.fromEntries(fields.map((field) => [field, row[field] ?? null])));
+  const choices = $("#omission-stock-choices");
+  choices.replaceChildren();
+  state.omissionRows.forEach((row) => {
+    const block = document.createElement("div");
+    const title = document.createElement("p");
+    title.textContent = `${row.identity_name}: ${row.amount_decimal} ${row.amount_unit} · ${row.stock_fraction_decimal} ${row.fraction_basis}`;
+    block.append(title);
+    [["omit", "Omit in the comparison"], ["protect", "Keep this stock fixed"]].forEach(([kind, label]) => {
+      const line = document.createElement("label");
+      line.className = "check-line";
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox"; checkbox.dataset.omissionKind = kind; checkbox.value = row.stock_id;
+      line.append(checkbox, document.createTextNode(label)); block.append(line);
+    });
+    choices.append(block);
+  });
+  $("#omission-input-help").textContent = rows.every((r) => r.amount_unit === "mg" && r.fraction_basis === "w/w")
+    ? "Choose a mobile ingredient to omit; protect recognizers you want kept. Stock identity is supplied evidence, not independently verified."
+    : "These rows lack a common mg / w/w basis. The quantitative plan will hold; you can still record a simple personal observation below. No density is guessed.";
+}
+
+$("#omission-load-design").addEventListener("click", () => {
+  try {
+    const result = state.formulaChat.result;
+    const rows = result?.design_variants?.[state.formulaChat.variantIndex]?.formula?.rows || result?.optimized_formula?.rows;
+    if (!rows) throw new Error("Create or select a Formula Studio design first.");
+    loadOmissionRows(rows);
+  } catch (error) { notify(error.message, true); }
+});
+$("#omission-load-rows").addEventListener("click", () => {
+  try { loadOmissionRows(JSON.parse($('[name="control_rows_json"]', $("#omission-plan-form")).value)); }
+  catch (error) { notify(error.message, true); }
+});
+$("#omission-plan-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const button = $('button[type="submit"]', form);
+  button.disabled = true;
+  try {
+    const data = formData(form);
+    const selected = (kind) => $$(`[data-omission-kind="${kind}"]:checked`, form).map((node) => node.value);
+    if (!state.omissionRows.length || !selected("omit").length) throw new Error("Load a control and choose the material to omit.");
+    const blanks = data.blank_carrier && data.blank_stock_id
+      ? { [data.blank_carrier]: { stock_id: data.blank_stock_id, carrier: data.blank_carrier } } : {};
+    const submitted = await request("/v2/engine-jobs", { method: "POST", body: JSON.stringify({
+      schema_version: "lab-engine-job-request-v2", job_type: "OMISSION_COMPARISON_PLAN",
+      requester: "omission-planning-ui", idempotency_key: crypto.randomUUID(),
+      payload: { schema_version: "omission-comparison-plan-request-v1", control_rows: state.omissionRows,
+        omit_stock_ids: selected("omit"), protected_stock_ids: selected("protect"), carrier_blanks: blanks,
+        goal: data.goal, mode: data.mode, seed: 17 },
+    }) });
+    let completed = submitted;
+    const terminal = new Set(["SUCCEEDED", "WITHHELD", "FAILED", "CANCELLED"]);
+    for (let i = 0; i < 120 && !terminal.has(completed.state); i += 1) {
+      await new Promise((resolve) => window.setTimeout(resolve, 500));
+      completed = await request(`/v2/engine-jobs/${encodeURIComponent(submitted.id)}`);
+    }
+    const handoff = completed.result?.result?.result;
+    if (!handoff?.omission_plan) throw new Error(`Planning job ${submitted.id}: ${completed.state}. It remains available without resubmitting.`);
+    const output = $("#omission-plan-output"); output.replaceChildren();
+    const summary = document.createElement("p");
+    summary.textContent = handoff.omission_plan.state === "CONTROLLED_OMISSION_DESIGN_READY"
+      ? `Comparison proposed: ${data.goal}. Retained doses unchanged. Nothing was compounded, reserved, or evaluated. This is not yet an executable blind session.`
+      : `Quantitative comparison withheld: ${(handoff.omission_plan.reason_codes || []).join(", ")}. You may still use the ordinary observation form.`;
+    const details = document.createElement("details"); const heading = document.createElement("summary");
+    heading.textContent = "Exact planning receipt"; const receipt = document.createElement("pre");
+    receipt.textContent = JSON.stringify(handoff, null, 2); details.append(heading, receipt); output.append(summary, details);
+    notify("Comparison planning finished. No bottle or inventory changes.");
+  } catch (error) { notify(error.message, true); }
+  finally { button.disabled = false; }
+});
 
 $("#sample-form").addEventListener("submit", async (event) => {
   event.preventDefault();

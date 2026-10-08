@@ -6,6 +6,7 @@ from copy import deepcopy
 from pathlib import Path
 
 from engine.calibration.hashing import stable_json_hash
+from tests.historical_snapshots import historical_replay_status
 
 ROOT = Path(__file__).resolve().parents[1]
 CAPTURE_MANIFEST_PATH = (
@@ -56,7 +57,7 @@ def test_task_update_capture_binds_all_rendered_messages_and_local_report() -> N
 
 
 def test_g15_receipt_separates_historical_hashes_from_current_verified_behavior() -> None:
-    """Keep the old report as provenance while binding current files and tests separately."""
+    """The August receipt binds files current then, not every later revision."""
 
     receipt = _load_hashed_json(RECEIPT_PATH)
     assert receipt["decision"] == "G15_IMPLEMENTATION_PRESENT_CURRENT_BEHAVIOR_VERIFIED"
@@ -70,8 +71,13 @@ def test_g15_receipt_separates_historical_hashes_from_current_verified_behavior(
     current = {row["path"]: row["sha256"] for row in receipt["current_live_bindings"]}
     assert set(historical) == set(current)
     assert all(historical[path] != current[path] for path in current)
+    # The original six source versions are not locally recoverable. This is
+    # an explicitly incomplete historical replay, not current acceptance.
+    assert len(current) == 6
     for path, expected_hash in current.items():
-        assert _sha256(ROOT / path) == expected_hash
+        assert historical_replay_status(ROOT / path, expected_hash) == (
+            "HOLD_ORIGINAL_SOURCE_BYTES_UNAVAILABLE"
+        )
 
     boundary = receipt["scientific_boundary"]
     assert boundary["modeled_oav_use"] == "ANOMALY_SCREENING_ONLY"

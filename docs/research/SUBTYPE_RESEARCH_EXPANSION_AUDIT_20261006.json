@@ -1,0 +1,295 @@
+{
+  "schema_version": "formulation-subtype-expansion-audit-v1",
+  "as_of_date": "2026-10-06",
+  "status": "IMPLEMENTED_AND_FOCUSED_VERIFIED",
+  "full_research_program_complete": false,
+  "repository": {
+    "root": "D:/chatbots/perfume-chem",
+    "head": "1ed79650313c23b1a2fe1c36c2e90a606c64833b",
+    "dirty_worktree_preserved": true,
+    "commit_created": false,
+    "push_performed": false
+  },
+  "counts": {
+    "initial_package_dossiers": 49,
+    "planned_scope_entries": 275,
+    "initial_core_scope_entries": 120,
+    "initial_gap_scope_entries": 155,
+    "additional_partial_subtype_cards": 26,
+    "packages_deepened": 9,
+    "initial_gap_entries_without_extension": 129,
+    "fully_reviewed_subtypes_promoted": 0,
+    "empirically_validated_subtypes": 0,
+    "sources": 133,
+    "claims": 126,
+    "profiles": 43,
+    "exact_material_cards": 25,
+    "reviewed_advisory_sources": 68,
+    "legacy_advisory_sources": 64,
+    "held_sources": 1
+  },
+  "new_sources": [
+    {
+      "source_id": "grapefruit_reconstitution_subtypes",
+      "source_record_sha256": "d98a49a533b7943c1e1137cdb1a8d791782918586007aa82abfcdc5e749e0409",
+      "review_scope": "PRIMARY_ABSTRACT",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+    },
+    {
+      "source_id": "yuzu_character_subtypes",
+      "source_record_sha256": "4fb71b8d1f1d736427720c5bd4e63ee6db387fb6cb259a3893a038d809a31838",
+      "review_scope": "PRIMARY_ABSTRACT",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+    },
+    {
+      "source_id": "galbanum_character_subtypes",
+      "source_record_sha256": "aa5ed7c9f4aaa41658e72354258fec50154f0a74555f1b0ee100400401fbbc81",
+      "review_scope": "PRIMARY_ABSTRACT",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+    },
+    {
+      "source_id": "raspberry_recombination_subtypes",
+      "source_record_sha256": "3c25fa3885840a77a117e5c78cf3a8f9815ece6b67f9d2fe989688e2e60393b3",
+      "review_scope": "PRIMARY_ABSTRACT",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+    },
+    {
+      "source_id": "jasmine_species_subtypes",
+      "source_record_sha256": "b48a3bec89b7a5f6243f441cc4102b460e9d8417a47d29741b7d0d3ba7c1addb",
+      "review_scope": "PRIMARY_ABSTRACT",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+    },
+    {
+      "source_id": "tea_green_cultivar_subtypes",
+      "source_record_sha256": "20ab2f8b8efcb2f0edc02d8272d8f289d9fe39ced1b949111fc370d20404371f",
+      "review_scope": "PRIMARY_ABSTRACT",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+    },
+    {
+      "source_id": "tea_black_omission_subtypes",
+      "source_record_sha256": "69847627a14afa01698ed45a00f63ec0586151db78c3332d4945c3d9eb02b23d",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+    },
+    {
+      "source_id": "tea_oolong_omission_subtypes",
+      "source_record_sha256": "7db970b938427be44aa95c53038233e603b19936d43f6325b9721faf6b02c2fe",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_INDEPENDENTLY_RECHECKED"
+    },
+    {
+      "source_id": "iff_neroli_subtypes",
+      "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+    },
+    {
+      "source_id": "iff_petitgrain_subtypes",
+      "source_record_sha256": "532922d8655855b3e8d619bf7a768719ba19acd1af8482c9603be2f113c66bdd",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+    },
+    {
+      "source_id": "iff_mandarin_green_subtypes",
+      "source_record_sha256": "57237f2641b1416816b94162f93938187682059cf62962316584b6cee83fb10e",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+    },
+    {
+      "source_id": "iff_violet_leaf_subtypes",
+      "source_record_sha256": "ca2e27425aaac65c5faa010ce20ff801ee9376696cb74c833d59b50a48e46e2d",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+    },
+    {
+      "source_id": "iff_blackcurrant_subtypes",
+      "source_record_sha256": "49f7cae5a4aa681ae8b55df7ea36906a5f393c7fb08e5cae5650b55f8086e34b",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+    },
+    {
+      "source_id": "iff_jasmine_grand_subtypes",
+      "source_record_sha256": "1345f5739e57f064df0f82fed060381c7791d6c7d5ea3efba5f331ac1ff7ddbb",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+    },
+    {
+      "source_id": "dsm_florol_subtypes",
+      "source_record_sha256": "8a11ad4223cedb450e2668c189ee6cf96e829bfed72f35d90ee97f1faeb6aeb0",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+    },
+    {
+      "source_id": "givaudan_manzanate_subtypes",
+      "source_record_sha256": "0d10c24774688e4d120a89644b88732beb8955c55fa3e24951d667e8c62378bb",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+    },
+    {
+      "source_id": "iff_fructone_subtypes",
+      "source_record_sha256": "5f1da274bf85ec50746f306cc17b7fdeea3f7752ce5518da83ff003ad2d5d462",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+    },
+    {
+      "source_id": "iff_lime_conflict_subtypes",
+      "source_record_sha256": "de4f5de6e61e9a79b83b97c707a3cd1a1741460ea3598c097328543341450fe1",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "HOLD",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION"
+    }
+  ],
+  "source_boundaries": {
+    "new_primary_studies": 8,
+    "new_manufacturer_pages": 10,
+    "new_usable_advisory_summaries": 17,
+    "new_held_sources": 1,
+    "reused_existing_source_records": 31,
+    "full_text_reviews": 0,
+    "selected_primary_section_reviews": 2,
+    "primary_abstract_reviews": 6,
+    "exhaustive_retraction_census": false,
+    "empirical_data_admitted": false,
+    "source_hash_scope": "CANONICAL_LOCAL_METADATA_NOT_PUBLISHER_PAGE_BYTES"
+  },
+  "verification": {
+    "engine": {
+      "distinct_final_passes": 293,
+      "first_run": {
+        "passed": 292,
+        "failed": 1,
+        "duration_seconds": 128.73
+      },
+      "failure": "test_every_source_has_an_exact_advisory_review_binding assumed every retained source allowed",
+      "resolution": "Production HOLD preserved; test now requires exact known lime HOLD and source-record hashes; no production gate weakened",
+      "changed_test_file_rerun": {
+        "passed": 23,
+        "duration_seconds": 1.7
+      },
+      "files": [
+        "tests/test_subtype_research.py",
+        "tests/test_construction_library.py",
+        "tests/test_formulation_literature_knowledge.py",
+        "tests/test_source_review_governance.py",
+        "tests/test_lavender_literature_knowledge.py",
+        "tests/test_family_foundation_expansion.py",
+        "tests/test_foundation_literature_knowledge.py",
+        "tests/test_orchard_reference_panel.py",
+        "tests/test_formula_design_chat.py",
+        "tests/test_goal_directed_analysis.py"
+      ],
+      "new_subtype_tests": 63
+    },
+    "backend": {
+      "distinct_passes": 16,
+      "selected_run": {
+        "passed": 15,
+        "deselected": 9,
+        "duration_seconds": 16.72
+      },
+      "selected_paths": [
+        "tests/unit/test_source_review_job_fingerprints.py",
+        "tests/unit/test_formulation_knowledge_jobs.py",
+        "tests/integration/test_lab_ui.py"
+      ],
+      "selection": "source_review or formulation_knowledge or formula_chat_exposes or formula_conversation or serves",
+      "additional_node": "tests/integration/test_lab_ui.py::test_offline_lab_app_and_assets_are_served_without_external_dependencies",
+      "additional_node_passes": 1,
+      "additional_node_seconds": 2.19
+    },
+    "ruff": "PASS: changed engine modules/tests and backend services/tests",
+    "mypy": "PASS: subtype_research.py; backend engine_jobs.py and engine_job_registry.py; follow-imports=silent",
+    "javascript_syntax": "PASS: node --check backend/app/static/lab.js",
+    "scoped_git_diff_check": "PASS",
+    "new_file_trailing_whitespace": "NONE",
+    "prior_corpus_census": {
+      "indexed_records": 128,
+      "drifted_paths": []
+    },
+    "offline_retrieval": {
+      "prompts": 26,
+      "measured_calls": 260,
+      "p50_ms": 23.2396500014,
+      "p95_ms": 33.7918000005,
+      "max_ms": 41.3726000006,
+      "serial_parallel_equal": true,
+      "scope": "Knowledge retrieval only, not whole formula performance",
+      "result_digest": "2e7f5e9562ff8aac2957c97776b7275bde88645a4c5994af7596a732bdf45d90"
+    },
+    "not_run": [
+      "full project verifier",
+      "Docker",
+      "live UI restart",
+      "model training",
+      "sensory trials",
+      "physical compounding"
+    ],
+    "migration_needed": false
+  },
+  "current_hashes": {
+    "AGENTS.md": "94333952e7d5f7c8f236cc53fcf406d9d5cfb755de37b0f4edca02a381024125",
+    "data/formulation_knowledge/literature_v1.json": "36afe4f2ef532f3ae9513cfd8ba10b7402e486f994c29a951dbbb88e5e53e30f",
+    "data/formulation_knowledge/source_reviews_v1.json": "1389537670df3f3d7eb7a9d605ab47fd8fd590f41392ebaa9ab24c7fc3cb868e",
+    "data/formulation_knowledge/subtype_research_v1.json": "2bbc6d9116fac0bcc033b3547c860a4f4033c517b76e11b016d8464b55a1f8f0",
+    "data/formulation_knowledge/research_coverage_progress_v3.json": "4bf25e84a27a7694109c82dbf62720562be7bec6d4fdc3d909ca58913db104f1",
+    "engine/formulation_intelligence/subtype_research.py": "20c6c5df771ed629fc228bdca2832f20a41c7872668f7cb96c233178899749e4",
+    "engine/formulation_intelligence/literature_knowledge.py": "4dc01b6a73f9a6766dbd0caf5927a95e85bb980f2e0b7d06d80526eaed7d8526",
+    "engine/formulation_intelligence/formula_design_runtime.py": "71bd4d5527df6c405f66a9ffd39493884b4fcf3c609f737a79570bf0d9dfabd2",
+    "engine/research/goal_analysis.py": "8c1e6835cc32324f86c6c9d505e675dd39d254adb55d8deb19573feb7d179773",
+    "backend/app/services/engine_jobs.py": "73377f790e8f4ce43235703e26921cb7ed9abd86a343753b8aae3c3563d8f07a",
+    "backend/app/services/engine_job_registry.py": "4d36c43a1fa8188a13774dd02d2d3b777c780f9f1209fdddd51cf771dbd21e09",
+    "backend/app/static/lab.js": "f87b6d7c0c4038b77f0fe69ed000f00bc3fb89095913364afce001c32912f25a",
+    "tests/test_subtype_research.py": "1d57a7f2a23c2a649c98884b91082eff01bd73cf4c510fb39140b5d66866fa19",
+    "tests/test_source_review_governance.py": "637814a2eea9496e87cf55f3f346804619eea2d1117d738904544cfdbe83b50c",
+    "backend/tests/unit/test_source_review_job_fingerprints.py": "fbf8b84b3a006f8eb59bf3014bb186fd6a88898610da6b0baa28688b3c47b057",
+    "backend/tests/integration/test_lab_ui.py": "7cbdc8cf161e7363e45a77ffe440b82bdd8e424085e6396c5316d820ad4e2258",
+    "docs/research/SUBTYPE_RESEARCH_EXPANSION_20261006.md": "3e09ada63b91d08ab13ab24c1a0b356514c3a58784147cb8d6815c35d111ae42",
+    "inventory.txt": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "data/formulation_knowledge/construction_library_v1.json": "cba922283537998fa1dcc57dccd896b070cc7f1545c6209040d3d76b1f3652c7",
+    "data/formulation_knowledge/research_coverage_plan_v1.json": "4b1225736af6b4ef6a564c8f2df40a846aa3cbab15f0584cd952088a8021a4ac",
+    "data/formulation_knowledge/research_coverage_progress_v1.json": "9753eaf2ba058be4b4bb7d710e9dbbf5a0a241a35591c8a0fca02613dabdca02",
+    "data/formulation_knowledge/research_coverage_progress_v2.json": "9ab58225b63436977eb01892acfc13f8f588add418bf0f72cccb373286ad06f4",
+    "data/formulation_knowledge/prior_research_corpus_v1.json": "d614d475e88b049a21747737842fe35e8ff40292c83c403b73ba69e1c554841a",
+    "data/governance/commercial_reference_registry_v1.json": "1d83c920487b69f55c7ca0b439f43beeaac048f5edc6b6d6bfcce00c441510f3",
+    "data/governance/commercial_reference_registry_v2.json": "d6452bfe6c743551a496fc88b5737aa33f163458fc3f72973c626058dd88de5e",
+    "data/governance/commercial_reference_registry_v3.json": "759a0593c7e5e5a52182cd6b8de98827a742f5c9140a0c05f97efd326217bf6b",
+    "data/governance/inventory_compounding_holds.json": "4e3d5e98c8328fe92e7b5722e5f5e41ababb934067ccdce142cf32bfc0dc823a",
+    "backend/tests/conftest.py": "5c386992902fd100743e1214cb6f3320e4a5a92dcc2bbd0162598bd428f6898b"
+  },
+  "unchanged_from_prior_checkpoint": {
+    "inventory.txt": true,
+    "data/formulation_knowledge/construction_library_v1.json": true,
+    "data/formulation_knowledge/research_coverage_plan_v1.json": true,
+    "data/formulation_knowledge/research_coverage_progress_v1.json": true,
+    "data/formulation_knowledge/research_coverage_progress_v2.json": true,
+    "data/formulation_knowledge/prior_research_corpus_v1.json": true,
+    "data/governance/commercial_reference_registry_v1.json": true,
+    "data/governance/commercial_reference_registry_v2.json": true,
+    "data/governance/commercial_reference_registry_v3.json": true,
+    "data/governance/inventory_compounding_holds.json": true,
+    "backend/tests/conftest.py": true
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

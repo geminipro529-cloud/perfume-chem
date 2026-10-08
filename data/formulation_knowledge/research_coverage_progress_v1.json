@@ -1,0 +1,663 @@
+{
+  "schema_version": "fragrance-research-coverage-progress-v1",
+  "as_of_date": "2026-10-06",
+  "status": "BOUNDED_ADVISORY_TRANCHE_VERIFIED_NOT_FULL_PLAN_COMPLETE",
+  "frozen_plan": {
+    "path": "data/formulation_knowledge/research_coverage_plan_v1.json",
+    "sha256": "4b1225736af6b4ef6a564c8f2df40a846aa3cbab15f0584cd952088a8021a4ac",
+    "package_count": 49
+  },
+  "current_dependencies": [
+    {
+      "path": "data/formulation_knowledge/research_coverage_plan_v1.json",
+      "sha256": "4b1225736af6b4ef6a564c8f2df40a846aa3cbab15f0584cd952088a8021a4ac"
+    },
+    {
+      "path": "data/formulation_knowledge/literature_v1.json",
+      "sha256": "040fdb7cee5cc8c4d034dd0cdb595f53d284e5166d2046e7c5c4666a7da2c9da"
+    },
+    {
+      "path": "data/formulation_knowledge/source_reviews_v1.json",
+      "sha256": "0c05360e299fd2ac835d92c0b3ac415b4228f6984ad185c2239c876888f688c3"
+    },
+    {
+      "path": "data/governance/commercial_reference_registry_v1.json",
+      "sha256": "1d83c920487b69f55c7ca0b439f43beeaac048f5edc6b6d6bfcce00c441510f3"
+    },
+    {
+      "path": "data/governance/commercial_reference_registry_v2.json",
+      "sha256": "d6452bfe6c743551a496fc88b5737aa33f163458fc3f72973c626058dd88de5e"
+    },
+    {
+      "path": "data/governance/commercial_reference_registry_v3.json",
+      "sha256": "759a0593c7e5e5a52182cd6b8de98827a742f5c9140a0c05f97efd326217bf6b"
+    }
+  ],
+  "inventory_unchanged": {
+    "path": "inventory.txt",
+    "sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb"
+  },
+  "totals": {
+    "sources": 84,
+    "claims": 78,
+    "profiles": 43,
+    "exact_material_cards": 25,
+    "reviewed_advisory_sources": 20,
+    "legacy_advisory_sources": 64,
+    "new_selected_section_source_summaries": 15,
+    "new_claims": 13,
+    "new_profiles": 10,
+    "new_material_cards": 6,
+    "packages_with_new_introductory_coverage": 11,
+    "fully_reviewed_packages": 0,
+    "numeric_calibrations_admitted": 0
+  },
+  "packages": [
+    {
+      "package_id": "AR_LAVENDER",
+      "title": "Lavender material registers and structures",
+      "prior_review_state": "REVIEWED_ADVISORY_PARTIAL",
+      "current_review_state": "REVIEWED_ADVISORY_PARTIAL",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "AR_FOUGERE",
+      "title": "Fougere chassis",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "AR_HERBS",
+      "title": "Other aromatic/herbal structures",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FL_ROSE",
+      "title": "Rose structures",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FL_JASMINE",
+      "title": "Jasmine structures",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "INTRODUCTORY_REVIEWED_ADVISORY_PARTIAL",
+      "new_profile_ids": [
+        "transparent_floral_foundation"
+      ],
+      "reviewed_scope": "Hedione transparent support, not a complete jasmine reconstruction or Hedione HC equivalence.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FL_ORANGE",
+      "title": "Orange-flower structures",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FL_TUBEROSE",
+      "title": "Tuberose structures",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FL_GARDENIA",
+      "title": "Gardenia structures",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FL_TROPICAL",
+      "title": "Ylang and tropical floral structures",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FL_MUGUET",
+      "title": "Muguet/cyclamen/watery flowers",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FL_LIGHT",
+      "title": "Peony, freesia and magnolia",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "INTRODUCTORY_REVIEWED_ADVISORY_PARTIAL",
+      "new_profile_ids": [
+        "orchard_reference_foundation"
+      ],
+      "reviewed_scope": "Official pear/freesia reference architecture, not a measured freesia or light-floral capability.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FL_GREEN",
+      "title": "Hyacinth, narcissus and jonquil",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FL_SPICY",
+      "title": "Carnation and lily",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FL_POLLEN",
+      "title": "Pollen/powder/honey flowers",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FL_IRIS",
+      "title": "Iris, orris and violet",
+      "prior_review_state": "REVIEWED_ADVISORY_PARTIAL",
+      "current_review_state": "REVIEWED_ADVISORY_PARTIAL",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FL_BOUQUET",
+      "title": "Bouquets and floral aldehydic structures",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "AM_RESIN",
+      "title": "Resinous amber",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "INTRODUCTORY_REVIEWED_ADVISORY_PARTIAL",
+      "new_profile_ids": [
+        "resin_amber_foundation"
+      ],
+      "reviewed_scope": "Benzoin Siam and labdanum extraction/role distinctions only; not all amber subtypes.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "AM_SOFT",
+      "title": "Soft/powdery amber",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "AM_FLORAL",
+      "title": "Floral/spicy amber",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "AM_AMBERGRIS",
+      "title": "Ambergris and ambroxide",
+      "prior_review_state": "REVIEWED_ADVISORY_PARTIAL",
+      "current_review_state": "REVIEWED_ADVISORY_PARTIAL",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "AM_WOODS",
+      "title": "High-impact amberwoods",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "MU_MUSK",
+      "title": "Musk identities and architectures",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "INTRODUCTORY_REVIEWED_ADVISORY_PARTIAL",
+      "new_profile_ids": [
+        "musk_roundness_foundation"
+      ],
+      "reviewed_scope": "Exaltolide and exact IFF Ambrettolide descriptive roles supplement prior musk cards; no blend synergy or owned-grade equivalence.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "CI_PRODUCTS",
+      "title": "Citrus species and product processing",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "INTRODUCTORY_REVIEWED_ADVISORY_PARTIAL",
+      "new_profile_ids": [
+        "bergamot_grade_foundation"
+      ],
+      "reviewed_scope": "One exact manufacturer FCR bergamot grade; not a universal FCF/phototoxicity certificate.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "CI_CHASSIS",
+      "title": "Citrus construction styles",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "GR_GREEN",
+      "title": "Green leafy structures",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "INTRODUCTORY_REVIEWED_ADVISORY_PARTIAL",
+      "new_profile_ids": [
+        "green_leaf_foundation"
+      ],
+      "reviewed_scope": "Stemone leafy support only; green intensity/dose is not measured.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "WA_AQUATIC",
+      "title": "Aquatic/ozonic/mineral/solar structures",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FR_ORCHARD",
+      "title": "Orchard-fruit structures",
+      "prior_review_state": "REVIEWED_ADVISORY_PARTIAL",
+      "current_review_state": "INTRODUCTORY_REVIEWED_ADVISORY_PARTIAL",
+      "new_profile_ids": [
+        "orchard_reference_foundation"
+      ],
+      "reviewed_scope": "Exact-edition orchard references and selection safeguards; no numerical fruit formula or consumer superiority.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FR_BERRY",
+      "title": "Berry/rhubarb/grape structures",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FR_TROPICAL",
+      "title": "Tropical/melon fruit structures",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "FR_STONE",
+      "title": "Stone/dried fruit structures",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "CH_CHYPRE",
+      "title": "Chypre structures",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "INTRODUCTORY_REVIEWED_ADVISORY_PARTIAL",
+      "new_profile_ids": [
+        "chypre_foundation"
+      ],
+      "reviewed_scope": "Exact Mitsouko EDP marketed relationships, not the proprietary or historical formula.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "WO_CEDAR",
+      "title": "Cedar/conifer/dry woods",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "WO_SANDAL",
+      "title": "Sandalwood structures",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "INTRODUCTORY_REVIEWED_ADVISORY_PARTIAL",
+      "new_profile_ids": [
+        "sandalwood_foundation"
+      ],
+      "reviewed_scope": "Sandalore support role, not all natural species or equal-dose sandalwood replacements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "WO_VETIVER",
+      "title": "Vetiver structures",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "WO_PATCH",
+      "title": "Patchouli structures",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "WO_OUD",
+      "title": "Oud structures",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "LE_LEATHER",
+      "title": "Leather and suede",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "INTRODUCTORY_REVIEWED_ADVISORY_PARTIAL",
+      "new_profile_ids": [
+        "leather_foundation"
+      ],
+      "reviewed_scope": "Safraleine leather/spice support, not every suede/smoke/tar construction.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "RE_INCENSE",
+      "title": "Incense and resin structures",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "TO_HAY",
+      "title": "Tobacco, hay and beeswax",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "GO_VANILLA",
+      "title": "Vanilla/tonka/sugar gourmand",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "INTRODUCTORY_REVIEWED_ADVISORY_PARTIAL",
+      "new_profile_ids": [
+        "gourmand_foundation"
+      ],
+      "reviewed_scope": "Tonka absolute material/extraction distinction, not every gourmand or a sweetness calibration.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "GO_ROAST",
+      "title": "Roasted coffee/cacao/nuts",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "GO_DAIRY",
+      "title": "Dairy/honey/gourmand textures",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "BO_BOOZY",
+      "title": "Boozy and fermentation structures",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "SP_SPICE",
+      "title": "Dry/warm/fresh spice structures",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "TE_TEA",
+      "title": "Tea, mate and aromatic infusions",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "AN_SKIN",
+      "title": "Animalic and skin structures",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "AB_ABSTRACT",
+      "title": "Aldehydic/powder/abstract effects",
+      "prior_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "current_review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "CU_TRADITIONS",
+      "title": "Regional/traditional perfume constructions",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    },
+    {
+      "package_id": "HY_HYBRIDS",
+      "title": "Custom and hybrid structures",
+      "prior_review_state": "REVIEW_REQUIRED",
+      "current_review_state": "REVIEW_REQUIRED",
+      "new_profile_ids": [],
+      "reviewed_scope": "No new complete review in this tranche; retain prior state and requirements.",
+      "full_package_review_complete": false,
+      "numeric_capability_admitted": false,
+      "remaining_requirement": "Complete exact identity, primary chemistry/sensory, product/grade, applicability, correction/retraction and rights review for the frozen package scope before any stronger use."
+    }
+  ],
+  "numerical_applicability": {
+    "dataset": "Wakayama source-row adjudication",
+    "source_rows": 314,
+    "positive_curves": 313,
+    "chemical_adjudication_states": {
+      "CAS_NAME_CONFLICT": 1,
+      "EXACT_IDENTITY_BOUND": 11,
+      "NOT_APPLICABLE": 1,
+      "NO_LOCAL_IDENTITY": 299,
+      "PRODUCT_OR_GRADE_AMBIGUOUS": 2
+    },
+    "exact_stock_bindings": 0,
+    "observed_range_bindings": 0,
+    "state": "HOLD_EXACT_STOCK_RANGE_MATRIX_BINDING",
+    "empirical_capability_admission_by_this_tranche": false
+  },
+  "next_priority_packages": [
+    "FL_ROSE",
+    "FL_ORANGE",
+    "FL_TUBEROSE",
+    "FL_GARDENIA",
+    "FL_MUGUET",
+    "WO_CEDAR",
+    "WO_VETIVER",
+    "WO_PATCH",
+    "WO_OUD",
+    "WA_AQUATIC",
+    "FR_BERRY",
+    "FR_TROPICAL",
+    "FR_STONE",
+    "GO_ROAST",
+    "GO_DAIRY",
+    "RE_INCENSE",
+    "SP_SPICE",
+    "TE_TEA",
+    "CU_TRADITIONS",
+    "HY_HYBRIDS"
+  ],
+  "runtime_boundary": "Only reviewed advisory cards and documentary reference selection are active. This progress index grants no quantitative model, formulation, inventory or physical authority.",
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

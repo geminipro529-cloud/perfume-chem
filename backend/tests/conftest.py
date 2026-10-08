@@ -34,8 +34,6 @@ from app.api.deps import get_db  # noqa: E402 - test environment must precede ap
 from app.main import app  # noqa: E402 - test environment must precede app import
 from app.models.base import Base  # noqa: E402 - test environment must precede app import
 
-# Test database URL
-TEST_DATABASE_URL = "sqlite+aiosqlite:///./test_perfume_chem.db"
 _SESSION_SCRATCH = None
 
 
@@ -103,9 +101,12 @@ def event_loop():
 
 
 @pytest_asyncio.fixture
-async def test_engine():
-    """Create test database engine"""
-    engine = create_async_engine(TEST_DATABASE_URL, echo=False)
+async def test_engine(tmp_path):
+    """Own a distinct database per test, including concurrent pytest processes."""
+    database_path = tmp_path / "perfume_chem_test.db"
+    engine = create_async_engine(
+        f"sqlite+aiosqlite:///{database_path.as_posix()}", echo=False
+    )
 
     @event.listens_for(engine.sync_engine, "connect")
     def _enable_sqlite_foreign_keys(dbapi_connection, _connection_record):

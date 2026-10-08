@@ -1,0 +1,187 @@
+{
+  "schema_version": "orchard-family-tranche-implementation-audit-v1",
+  "as_of_date": "2026-10-06",
+  "status": "FOCUSED_SOFTWARE_AND_ADVISORY_CONTRACTS_VERIFIED",
+  "repository": {
+    "branch": "master",
+    "head": "1ed79650313c23b1a2fe1c36c2e90a606c64833b",
+    "dirty_worktree_preserved": true,
+    "root_python": "3.14.6"
+  },
+  "scope": "Bounded continuation of foundation review, orchard reference panel, frozen historical fixture repair and next family introductions. Not full coverage-plan, empirical, deployment or release completion.",
+  "current_hashes": {
+    "inventory.txt": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "data/formulation_knowledge/research_coverage_plan_v1.json": "4b1225736af6b4ef6a564c8f2df40a846aa3cbab15f0584cd952088a8021a4ac",
+    "data/formulation_knowledge/literature_v1.json": "040fdb7cee5cc8c4d034dd0cdb595f53d284e5166d2046e7c5c4666a7da2c9da",
+    "data/formulation_knowledge/source_reviews_v1.json": "0c05360e299fd2ac835d92c0b3ac415b4228f6984ad185c2239c876888f688c3",
+    "data/formulation_knowledge/prior_research_corpus_v1.json": "d614d475e88b049a21747737842fe35e8ff40292c83c403b73ba69e1c554841a",
+    "data/governance/commercial_reference_registry_v1.json": "1d83c920487b69f55c7ca0b439f43beeaac048f5edc6b6d6bfcce00c441510f3",
+    "data/governance/commercial_reference_registry_v2.json": "d6452bfe6c743551a496fc88b5737aa33f163458fc3f72973c626058dd88de5e",
+    "data/governance/commercial_reference_registry_v3.json": "759a0593c7e5e5a52182cd6b8de98827a742f5c9140a0c05f97efd326217bf6b",
+    "data/governance/inventory_compounding_holds.json": "4e3d5e98c8328fe92e7b5722e5f5e41ababb934067ccdce142cf32bfc0dc823a",
+    "engine/formulation_intelligence/source_review.py": "edc0031a89df17070e28e81502b52d4ae17de25e5f65f6b3ce397f58b92c5f6d",
+    "engine/formulation_intelligence/literature_knowledge.py": "0266615cecc067c99b4ac9237c946cf4f57855085724aceef925615e4478a1dd",
+    "engine/research/commercial_references.py": "c4d640d9cebdb4b128fa994245b2cff915e8cf58a2a98b4c6ac348dd749c122b",
+    "engine/research/request_interpretation.py": "13348a012755834aaaf25c6f177497ccb79057175b0edecfa8bd9eae091261f9",
+    "engine/research/composition_planner.py": "1d44dbd5f6bdd0ae3607a568a2923b747c90545396b4f2e6e1f9fa005fbb3855",
+    "engine/research/goal_analysis.py": "69b5f170c1a6aa47c2e3ee8252f1bab74fdd6498515ed5abbee9b6f846ef2d41",
+    "backend/app/services/engine_jobs.py": "93459aed60d3c978683b83bfd0ea0af1b4aa31df0f8356bc00710092b6d83e71",
+    "backend/app/services/engine_job_registry.py": "da657d18e048a124ecce76b61756972c96706693a32755ca7828f8f4008e0298",
+    "backend/tests/unit/test_cp2_engine_jobs.py": "670917f59860a3646674a7fffbc9b349ef36ae73eed871f17911fa458a021142",
+    "backend/tests/unit/test_source_review_job_fingerprints.py": "6bbddb51afe111924415deb103ecd93aebe6405c99111b73d59935f3a79ae04a",
+    "backend/tests/fixtures/lavande_r5_shortlist_20260926/inventory.txt": "1b4324da5a35cebe8c59959e58276d84ac8f2f0e0e6f3239fdef0a4250d8df71",
+    "backend/tests/fixtures/lavande_r5_shortlist_20260926/README.md": "b0c26717f7c1088fd20040eb81e840ebff362c66cb85f4e51e693eedf08b1faf",
+    "tests/test_orchard_reference_panel.py": "eb5b5c002865f4ebea5787f17370a0c0ce0bda23828aad2d9e461553ea2ba729",
+    "tests/test_family_foundation_expansion.py": "e4c67783629290d1457d771d7c26be8affdb414ba0aa0df6c8e4eb9a6354aeaa",
+    "docs/research/ORCHARD_PANEL_AND_FAMILY_TRANCHE_20261006.md": "42b9d3b1c5f6eae9d4071fdcb5dfc5d2fbb5bf68563433ac79cafc5a0192dc8a",
+    "data/formulation_knowledge/research_coverage_progress_v1.json": "9753eaf2ba058be4b4bb7d710e9dbbf5a0a241a35591c8a0fca02613dabdca02"
+  },
+  "source_boundary": {
+    "pack_version": "2026-10-06.2",
+    "counts": {
+      "sources": 84,
+      "claims": 78,
+      "profiles": 43,
+      "materials": 25
+    },
+    "review_counts": {
+      "REVIEWED_ADVISORY": 20,
+      "LEGACY_ADVISORY": 64
+    },
+    "new_source_summaries": 15,
+    "new_claims": 13,
+    "new_profiles": 10,
+    "new_material_cards": 6,
+    "prior_69_source_record_bindings_preserved": true,
+    "publisher_page_bytes_archived": false,
+    "source_record_hash_scope": "CANONICAL_LOCAL_METADATA_AND_ORIGINAL_SUMMARY",
+    "new_numeric_calibrations": 0,
+    "new_empirical_data_or_model_rights_admissions": 0
+  },
+  "panel": {
+    "new_panel_id": "global-orchard-floral-2026-v1",
+    "registry": "commercial-reference-registry-v3",
+    "prior_panels_preserved": true,
+    "active_products": [
+      "ysl-libre-edp",
+      "prada-paradoxe-edp",
+      "guerlain-pera-granita-edt",
+      "jomalone-english-pear-freesia-cologne"
+    ],
+    "reserve_products": [
+      "pdm-delina-edp"
+    ],
+    "global_market_anchors": 2,
+    "structural_neighbours": 2,
+    "market_evidence_variant_rank_claim": false,
+    "population_liking": "POPULATION_LIKING_NOT_ESTABLISHED",
+    "comparison": "DOCUMENTARY_ARCHITECTURE_CLUES_ONLY"
+  },
+  "historical_fixture": {
+    "source_commit": "9e501074e0046717c447d5e1404c85e653274769",
+    "source_blob": "9fc3d906ec35662f55c804494736e35c9c5cca17",
+    "lf_bytes": 28251,
+    "sha256": "1b4324da5a35cebe8c59959e58276d84ac8f2f0e0e6f3239fdef0a4250d8df71",
+    "scope": "EXPLICIT_OPT_IN_HISTORICAL_TEST_FIXTURE_NOT_CURRENT_INVENTORY",
+    "production_hash_function_stubbed": false,
+    "production_drift_gate_weakened": false,
+    "real_byte_drift_regression_passed": true
+  },
+  "numerical_applicability": {
+    "source_rows": 314,
+    "positive_curves": 313,
+    "exact_chemical_bindings": 11,
+    "exact_stock_bindings": 0,
+    "observed_range_bindings": 0,
+    "state": "HOLD_EXACT_STOCK_RANGE_MATRIX_BINDING",
+    "corrected_threshold_ng_L_to_ug_L_forward_1_4_round_trip": "PASS",
+    "adjudication_report_sha256": "81949e21bbc938dec7341111e703c2bbf524a2f62d5ccfc3fbc9129d20b97930"
+  },
+  "verification_runs": [
+    {
+      "scope": "Focused engine/formulation regression before final metadata and bounded cleanup",
+      "passed": 262,
+      "seconds": 73.48
+    },
+    {
+      "scope": "Final knowledge/panel/parser/source-review regression",
+      "passed": 113,
+      "seconds": 2.25
+    },
+    {
+      "scope": "Focused backend durable jobs/source fingerprint/unit/API regression",
+      "passed": 40,
+      "seconds": 45.08
+    },
+    {
+      "scope": "Final backend fingerprint and durable API smoke",
+      "passed": 8,
+      "seconds": 14.77
+    },
+    {
+      "scope": "Historical frozen shortlist tests prior to new drift regression",
+      "passed": 11
+    }
+  ],
+  "verification_counts_overlap": true,
+  "static_checks": [
+    {
+      "scope": "Changed engine sources and new root tests Ruff",
+      "state": "PASS"
+    },
+    {
+      "scope": "Six affected engine source files targeted mypy",
+      "state": "PASS"
+    },
+    {
+      "scope": "Changed backend services/tests Ruff",
+      "state": "PASS"
+    },
+    {
+      "scope": "Two affected backend services mypy with normal import following",
+      "state": "PASS"
+    }
+  ],
+  "verification_attempt_notes": [
+    "An exploratory backend mypy run with --follow-imports=skip produced no-any-return at engine_job_registry.py:862. The normal project-configured run without skipped imports passed both files; no code change or ignore was added to conceal it."
+  ],
+  "diff_check": {
+    "scope": "Changed tracked paths only",
+    "state": "PASS",
+    "whole_worktree_clean_claim": false
+  },
+  "benchmark": {
+    "calls": 36,
+    "p95_ms": 24.689599998964695,
+    "max_ms": 67.99300000056974,
+    "runtime_network_forbidden": true,
+    "progress_dependencies_match": true,
+    "scope": "Local knowledge retrieval plus reference selection and DOCUMENT_ONLY comparison; not full formula/batch/deployment performance",
+    "iterations": 36
+  },
+  "delegation": {
+    "root_owns_edits_and_acceptance": true,
+    "read_only_native_codex_review_lanes": 3,
+    "external_inference_packets_sent": 0,
+    "deepseek_unavailable_route_bypassed": false,
+    "provider_fallback_used": false
+  },
+  "not_performed": [
+    "Full project verifier",
+    "Complete 49-package primary-source review",
+    "Full 368-formula performance benchmark",
+    "New model training or empirical capability promotion",
+    "Formula or inventory modification by this tranche",
+    "Purchase or physical compounding",
+    "Sensory, safety, regulatory or commercial-release validation",
+    "Git commit or push"
+  ],
+  "formula_action": "NO_CHANGE",
+  "inventory_modified_by_this_tranche": false,
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

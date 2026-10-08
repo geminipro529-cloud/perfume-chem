@@ -1,0 +1,444 @@
+{
+  "schema_version": "fragrance-research-coverage-progress-v6",
+  "as_of_date": "2026-10-07",
+  "status": "BOTANICAL_DEPTH_ADVISORY_WAVE_COMPLETE",
+  "full_research_program_complete": false,
+  "completion_boundary": "Nineteen added exact-scope advisory cards and 21 source/review records are integrated and verified. This completes a bounded research wave, not the continuing program, empirical capabilities, formula optimization or release readiness.",
+  "workspace": {
+    "branch": "master",
+    "head": "1ed79650313c23b1a2fe1c36c2e90a606c64833b",
+    "dirty_worktree_preserved": true,
+    "git_commit_or_push_performed": false
+  },
+  "predecessor": {
+    "path": "data/formulation_knowledge/research_coverage_progress_v5.json",
+    "sha256": "d2f48e63684b99690b4a57aafbc76802b499cea73a10977f48ea473003470672",
+    "preserved": true
+  },
+  "frozen_parent": {
+    "path": "data/formulation_knowledge/construction_library_v1.json",
+    "sha256": "cba922283537998fa1dcc57dccd896b070cc7f1545c6209040d3d76b1f3652c7",
+    "preserved": true
+  },
+  "extension": {
+    "path": "data/formulation_knowledge/subtype_research_v4.json",
+    "sha256": "14eef313a501262a63c839577d3b9cf48124441c1dbc1a03a2fcda1f17225c83",
+    "ancestor_manifests": [
+      {
+        "path": "data/formulation_knowledge/subtype_research_v1.json",
+        "sha256": "2bbc6d9116fac0bcc033b3547c860a4f4033c517b76e11b016d8464b55a1f8f0",
+        "preserved": true
+      },
+      {
+        "path": "data/formulation_knowledge/subtype_research_v2.json",
+        "sha256": "6a7da23c4dbc7f205390cc2502f2b4d451025741eb3aa2cc1b60d89eb9e4d6c2",
+        "preserved": true
+      },
+      {
+        "path": "data/formulation_knowledge/subtype_research_v3.json",
+        "sha256": "e70ddbfcb56b026003dc91785441e2da58c9292584112d2ae3afa66f86499f22",
+        "preserved": true
+      }
+    ]
+  },
+  "totals": {
+    "initial_package_dossiers": 49,
+    "planned_scope_entries": 275,
+    "initial_core_scope_entries": 120,
+    "initial_gap_scope_entries": 155,
+    "declared_additional_botanical_scopes": 24,
+    "total_tracked_scope_entries": 299,
+    "partial_subtype_cards": 179,
+    "cards_added_this_wave": 19,
+    "initial_gap_entries_without_extension": 0,
+    "packages_deepened": 49,
+    "floral_packages_deepened": 13,
+    "fully_reviewed_subtypes_promoted": 0,
+    "empirically_validated_subtypes": 0,
+    "deeper_review_addenda": 8,
+    "sources": 233,
+    "claims": 226,
+    "profiles": 43,
+    "exact_material_cards": 25,
+    "reviewed_advisory_sources": 168,
+    "legacy_advisory_sources": 64,
+    "held_sources": 1,
+    "source_records_added": 21,
+    "primary_research_records_added": 13,
+    "manufacturer_records_added": 8,
+    "research_records_that_are_companion_corrections": 1,
+    "new_reviews_primary_abstract": 6,
+    "new_reviews_selected_primary_sections": 15,
+    "numeric_calibrations_admitted": 0
+  },
+  "coverage_interpretation": "All 155 frozen gaps retain partial source-bound extension cards. Added botanical scopes are explicit and do not rewrite the original taxonomy. Counts measure recorded advisory coverage, not independent experiments or complete scientific knowledge.",
+  "new_cards": [
+    {
+      "subtype_id": "GREEN_HYACINTH_WHITE",
+      "package_id": "FL_GREEN",
+      "planned_subtype": "white hyacinth headspace",
+      "source_ids": [
+        "hyacinth_headspace_depth"
+      ]
+    },
+    {
+      "subtype_id": "POLLEN_TILIA_STAGES",
+      "package_id": "FL_POLLEN",
+      "planned_subtype": "tilia species and flower stages",
+      "source_ids": [
+        "tilia_stages_depth",
+        "tilia_correction_depth"
+      ]
+    },
+    {
+      "subtype_id": "GREEN_BORONIA_ABSOLUTE",
+      "package_id": "FL_GREEN",
+      "planned_subtype": "boronia megastigma absolute",
+      "source_ids": [
+        "boronia_eot_depth"
+      ]
+    },
+    {
+      "subtype_id": "POLLEN_SPARTIUM_BROOM",
+      "package_id": "FL_POLLEN",
+      "planned_subtype": "spartium junceum broom absolute",
+      "source_ids": [
+        "broom_iff_depth"
+      ]
+    },
+    {
+      "subtype_id": "AQUATIC_NELUMBO",
+      "package_id": "FL_LIGHT",
+      "planned_subtype": "nelumbo nucifera organs",
+      "source_ids": [
+        "lotus_antique_depth"
+      ]
+    },
+    {
+      "subtype_id": "AQUATIC_NYMPHAEA_PROLIFERA",
+      "package_id": "FL_LIGHT",
+      "planned_subtype": "nymphaea prolifera benzenoids",
+      "source_ids": [
+        "nymphaea_prolifera_depth"
+      ]
+    },
+    {
+      "subtype_id": "AQUATIC_NYMPHAEA_STETSON",
+      "package_id": "FL_LIGHT",
+      "planned_subtype": "nymphaea paul stetson stamen",
+      "source_ids": [
+        "nymphaea_stetson_depth"
+      ]
+    },
+    {
+      "subtype_id": "ORCHID_PHALAENOPSIS",
+      "package_id": "FL_LIGHT",
+      "planned_subtype": "phalaenopsis violacea bellina context",
+      "source_ids": [
+        "phalaenopsis_light_depth"
+      ]
+    },
+    {
+      "subtype_id": "ORCHID_CYMBIDIUM_SUNNY",
+      "package_id": "FL_LIGHT",
+      "planned_subtype": "cymbidium sunny bell organ contrast",
+      "source_ids": [
+        "cymbidium_sunny_depth"
+      ]
+    },
+    {
+      "subtype_id": "ORCHARD_LYCHEE_CULTIVARS",
+      "package_id": "FR_ORCHARD",
+      "planned_subtype": "litchi cultivar sensory distinction",
+      "source_ids": [
+        "lychee_sweetheart_depth",
+        "lychee_cultivars_depth"
+      ]
+    },
+    {
+      "subtype_id": "ORCHARD_FIG_FRUIT",
+      "package_id": "FR_ORCHARD",
+      "planned_subtype": "ficus carica fresh fruit",
+      "source_ids": [
+        "fig_organs_depth",
+        "fig_aroma_active_depth"
+      ]
+    },
+    {
+      "subtype_id": "GREEN_FIG_LEAF",
+      "package_id": "FL_GREEN",
+      "planned_subtype": "ficus carica leaf organ",
+      "source_ids": [
+        "fig_organs_depth"
+      ]
+    },
+    {
+      "subtype_id": "ORCHARD_QUINCE_CYDONIA",
+      "package_id": "FR_ORCHARD",
+      "planned_subtype": "cydonia oblonga fresh processed",
+      "source_ids": [
+        "quince_free_bound_depth"
+      ]
+    },
+    {
+      "subtype_id": "CHYPRE_OAKMOSS_PRODUCT",
+      "package_id": "CH_CHYPRE",
+      "planned_subtype": "evernia prunastri exact absolute",
+      "source_ids": [
+        "oakmoss_biolandes_depth"
+      ]
+    },
+    {
+      "subtype_id": "CHYPRE_TREEMOSS_PRODUCT",
+      "package_id": "CH_CHYPRE",
+      "planned_subtype": "pseudevernia furfuracea exact absolute",
+      "source_ids": [
+        "treemoss_biolandes_depth"
+      ]
+    },
+    {
+      "subtype_id": "RESIN_BENZOIN_SIAM",
+      "package_id": "AM_RESIN",
+      "planned_subtype": "styrax tonkinensis siam extract",
+      "source_ids": [
+        "iff_benzoin_siam_foundation"
+      ]
+    },
+    {
+      "subtype_id": "RESIN_BENZOIN_SUMATRA",
+      "package_id": "AM_RESIN",
+      "planned_subtype": "styrax benzoin sumatra extract",
+      "source_ids": [
+        "benzoin_sumatra_depth"
+      ]
+    },
+    {
+      "subtype_id": "RESIN_PERU_MD",
+      "package_id": "AM_RESIN",
+      "planned_subtype": "myroxylon pereirae molecular distillate",
+      "source_ids": [
+        "peru_md_depth"
+      ]
+    },
+    {
+      "subtype_id": "RESIN_TOLU_RECONSTRUCTIONS",
+      "package_id": "AM_RESIN",
+      "planned_subtype": "tolu named reconstructions",
+      "source_ids": [
+        "tolu_firmenich_reco_depth",
+        "tolu_robertet_reco_depth"
+      ]
+    }
+  ],
+  "source_review_boundary": {
+    "new_source_ids": [
+      "hyacinth_headspace_depth",
+      "tilia_stages_depth",
+      "tilia_correction_depth",
+      "boronia_eot_depth",
+      "broom_iff_depth",
+      "lotus_antique_depth",
+      "nymphaea_prolifera_depth",
+      "nymphaea_stetson_depth",
+      "phalaenopsis_light_depth",
+      "cymbidium_sunny_depth",
+      "lychee_sweetheart_depth",
+      "lychee_cultivars_depth",
+      "fig_organs_depth",
+      "fig_aroma_active_depth",
+      "quince_free_bound_depth",
+      "oakmoss_biolandes_depth",
+      "treemoss_biolandes_depth",
+      "benzoin_sumatra_depth",
+      "peru_md_depth",
+      "tolu_firmenich_reco_depth",
+      "tolu_robertet_reco_depth"
+    ],
+    "specifically_reviewed_correction_ids": [
+      "tilia_stages_depth",
+      "tilia_correction_depth"
+    ],
+    "source_record_hash_meaning": "Canonical local metadata and original summary, not the publisher webpage bytes.",
+    "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+    "empirical_data_rights": "NOT_ADMITTED",
+    "full_text_review_claimed": false,
+    "exhaustive_publication_integrity_search_claimed": false,
+    "held_source_ids": [
+      "iff_lime_conflict_subtypes"
+    ]
+  },
+  "campaign_identity_holds": [
+    {
+      "campaign_id": "CHIMIE_LHOMME",
+      "names": [
+        "CHIMIE LHOMME",
+        "CHIMIE L'HOMME",
+        "CHIMIE L HOMME"
+      ],
+      "state": "HOLD_EXACT_BRIEF_OR_FORMULA_REQUIRED",
+      "reason": "The exact accepted CHIMIE L'HOMME brief/formula was not recovered from accessible local sources. Adjacent Aventus and other L'Homme files are not substitutes.",
+      "question": "Please provide the accepted CHIMIE L'HOMME brief or latest formula so related architectures can be matched accurately.",
+      "inferred_package_ids": [],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/research/BOTANICAL_DEPTH_REVIEW_20261007.md",
+      "sha256": "4610f503f52887741b660f39f6d843c66ef1a710413625aa8c81ceedf8c44af2"
+    },
+    {
+      "path": "docs/research/BOTANICAL_DEPTH_PLAN_20261007.md",
+      "sha256": "a97f3ab42a9ab92cddfacd3fbaae394b13da0e09e302db6639c2f9da25b27ab6"
+    },
+    {
+      "path": "docs/research/botanical_depth_retrieval_20261007.json",
+      "sha256": "4b2813a00b5375d400ca306cd535ee56d9239accbbc0de0f63f145acf2bcb113"
+    },
+    {
+      "path": "docs/research/subtype_comparison_20261007.json",
+      "sha256": "3534834fc72f7d2f2cf4c4169241f6cc46281c9ec47a8909e8ca8f05392f3b41"
+    }
+  ],
+  "accepted_source_hashes": {
+    "data/formulation_knowledge/literature_v1.json": "94659e7167cd23dbc7df6e7b4ee527ef3f792ab2940c653beacaa671ea55db39",
+    "data/formulation_knowledge/source_reviews_v1.json": "50627e5999064128792f67be198e395af5376ec7b8b08e8e7ac8c82d5fe19453",
+    "AGENTS.md": "2953f9cf39deac07ddd1fb46bd5a245b0175d0b042c075b9c7066e5ffe39b85c",
+    "engine/formulation_intelligence/subtype_research.py": "e4ccca0843773fad47f4aabeb46a74d37b9b281b3d9ceb03fc68d1f0eab39427",
+    "backend/app/services/engine_jobs.py": "ec17f0d93eb046d905c7d0e04ce3688ad4c5e52991324c5652bd0e382cfbb783",
+    "tests/test_botanical_depth.py": "fc42d241d3a60e5e85b0019e4cb508f61830314a2f88ff96ea7f926c8d194a5b",
+    "tests/test_research_closure.py": "09775292c7175ab9e1dbc605fecc64004312951876cf4903d62033a21c3c9743",
+    "tests/test_subtype_research.py": "d84fce14392f435a47759024b2a487d4a86ed22a12f935bc3f7897c14db6a4a4",
+    "backend/tests/integration/test_lab_ui.py": "3bbc730ce7799b662209b3dc7c8f05375cc110331be4801338c97b4b15f16c43",
+    "backend/tests/unit/test_cp2_engine_jobs.py": "b3bd1f41e8c288eb65388aac16fb1c9d2a4d84d9ecfa656a79ba1f446a18c9ba"
+  },
+  "retrieval_diagnostic": {
+    "path": "docs/research/botanical_depth_retrieval_20261007.json",
+    "sha256": "4b2813a00b5375d400ca306cd535ee56d9239accbbc0de0f63f145acf2bcb113",
+    "scope": "PAIRED_CURRENT_CODE_MANIFEST_ABLATION_RETRIEVAL_ONLY",
+    "status": "PASS",
+    "cases": 19,
+    "repeats_per_arm": 4,
+    "measured_calls": 152,
+    "warmup_calls": 2,
+    "expected_new_card_present": 19,
+    "advice_changes": 19,
+    "warm_p95_ms": {
+      "V3": 23.606,
+      "V4": 23.283
+    },
+    "repeat_order_stable": true,
+    "source_closure": true,
+    "network_used": false,
+    "changed_paths": [],
+    "formula_generation_executed": false,
+    "sensory_improvement": "NOT_TESTED",
+    "end_to_end_formula_performance_claimed": false
+  },
+  "verification": {
+    "baseline_engine_tests": {
+      "passed": 86,
+      "failed": 0
+    },
+    "focused_engine_tests": {
+      "passed": 495,
+      "failed": 0,
+      "seconds": 90.93
+    },
+    "focused_backend_tests": {
+      "passed": 19,
+      "failed": 0,
+      "deselected": 29,
+      "seconds": 52.45
+    },
+    "targeted_ruff": "PASS",
+    "engine_mypy_changed_module": "PASS",
+    "backend_mypy_changed_module": "PASS",
+    "focused_compile": "PASS",
+    "backend_check_order": [
+      "ruff",
+      "mypy",
+      "pytest"
+    ],
+    "engine_interpreter": ".venv/Scripts/python.exe",
+    "backend_interpreter": "Poetry project environment, Python 3.11",
+    "quick_project_verification": {
+      "path": "output/botanical_depth_20261007/project_verification_quick.json",
+      "sha256": "86dd285e8b3de757b8aa0249b276d58f43377d0228ceb284c2f0aa221d925ee9",
+      "passed_checks": 10,
+      "failed": [],
+      "skipped": [],
+      "scope": "partial",
+      "completion_gate": "NOT_EVALUATED",
+      "golden_output_changes": "unchanged"
+    },
+    "scoped_git_diff_check": "PASS",
+    "full_verifier": "NOT_RUN_NO_MERGE_OR_RELEASE_CLAIM",
+    "notes": [
+      "Historical pytest scratch access warnings remain outside changed surfaces; no cleanup or reset was performed.",
+      "The backend used a unique verified scratch directory and explicit isolated test environment.",
+      "Retrieval diagnostic compares manifests under current code, not historical code revisions.",
+      "No existing source record or prior subtype object was rewritten to increase apparent confidence."
+    ]
+  },
+  "preserved": {
+    "protected_file_hashes": {
+      "inventory.txt": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+      "data/governance/inventory_compounding_holds.json": "4e3d5e98c8328fe92e7b5722e5f5e41ababb934067ccdce142cf32bfc0dc823a",
+      "data/formulation_knowledge/construction_library_v1.json": "cba922283537998fa1dcc57dccd896b070cc7f1545c6209040d3d76b1f3652c7",
+      "data/formulation_knowledge/research_coverage_plan_v1.json": "4b1225736af6b4ef6a564c8f2df40a846aa3cbab15f0584cd952088a8021a4ac",
+      "data/formulation_knowledge/subtype_research_v1.json": "2bbc6d9116fac0bcc033b3547c860a4f4033c517b76e11b016d8464b55a1f8f0",
+      "data/formulation_knowledge/subtype_research_v2.json": "6a7da23c4dbc7f205390cc2502f2b4d451025741eb3aa2cc1b60d89eb9e4d6c2",
+      "data/formulation_knowledge/subtype_research_v3.json": "e70ddbfcb56b026003dc91785441e2da58c9292584112d2ae3afa66f86499f22",
+      "data/formulation_knowledge/research_coverage_progress_v5.json": "d2f48e63684b99690b4a57aafbc76802b499cea73a10977f48ea473003470672"
+    },
+    "protected_file_changes": [],
+    "formula_count": 578,
+    "formula_census_method": "Recursive filesystem regular-file census, including ignored formula files.",
+    "formula_aggregate_sha256": "e9f590674107af1de0bf0d0fdd2147471f69cbc36e85da42c9547a3df31ccfb7",
+    "formula_aggregate_method": "SHA256 of UTF-8 ordinal-sorted forward-slash relative-path + single space + lowercase file SHA256 lines, each terminated by LF.",
+    "formula_byte_changes": [],
+    "formula_modified": false,
+    "inventory_modified": false,
+    "orris_liquid_user_hold_preserved": true,
+    "prior_wave_count_difference": "Prior 573-file count used rg discovery, not this 578-file recursive census; no formula additions are inferred."
+  },
+  "unresolved_boundaries": [
+    {
+      "scope": "Advice-to-composition integration",
+      "state": "NOT_IMPLEMENTED_BY_THIS_ADVISORY_EXPANSION",
+      "needed": "A separately verified recognizer/constraint-to-candidate architecture bridge. Source prose is not a dosing calibration."
+    },
+    {
+      "scope": "CHIMIE L'HOMME identity",
+      "state": "HOLD_EXACT_BRIEF_OR_FORMULA_REQUIRED",
+      "needed": "Exact accepted campaign brief or formula; adjacent Aventus and unrelated L'Homme formulas do not establish identity."
+    },
+    {
+      "scope": "Full methods, source rights and publication integrity",
+      "state": "NO_EMPIRICAL_ADMISSION",
+      "needed": "Review exact methods, rights, corrections/retractions and leakage-safe observations before quantitative promotion."
+    },
+    {
+      "scope": "Natural Tolu and fig latex",
+      "state": "PARTIAL_EVIDENCE",
+      "needed": "Sources for those exact materials and methods, not extrapolation from reconstructions or leaf/fruit analyses."
+    },
+    {
+      "scope": "Sensory and market outcomes",
+      "state": "NOT_TESTED",
+      "needed": "Separately authorized proportional comparisons; not required for browsing research clues."
+    }
+  ],
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

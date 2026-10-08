@@ -41,17 +41,42 @@ def test_range_extension_excludes_existing_unavailable_stock_by_default(range_re
     }
 
     assert names.isdisjoint(explicitly_unavailable)
-    assert {"Habanolide", "Romandolide"}.issubset(names)
     assert range_report.ranking_authority == "MODELLED_RANGE_GAP_NOT_PURCHASE_ORDER"
-    assert range_report.inventory_size == 210
+    available = parse_inventory(
+        unique=True, include_solvents=False, include_unavailable=False,
+    )
+    assert range_report.inventory_size == len({row.identity_name or row.name for row in available})
 
 
-def test_replenishment_is_an_explicit_separate_mode():
-    report = analyze_expansion(top_n=200, include_replenishment=True)
+def test_replenishment_is_an_explicit_separate_mode(tmp_path):
+    inventory = tmp_path / "inventory.txt"
+    inventory.write_text(
+        "--- MUSK ---\n- Tonalide (10%) # DEPLETED\n"
+        "--- FLORAL ---\n- Hedione\n",
+        encoding="utf-8",
+    )
+    default = analyze_expansion(str(inventory), top_n=200)
+    assert "Tonalide" not in {candidate.name for candidate in default.candidates}
+    report = analyze_expansion(str(inventory), top_n=200, include_replenishment=True)
     by_name = {candidate.name: candidate for candidate in report.candidates}
     assert by_name["Tonalide"].purchase_mode == "replenishment"
     assert by_name["Habanolide"].purchase_mode == "range_extension"
-    assert "Myristic Acid" not in by_name
+    assert "Hedione" not in by_name
+
+
+def test_freshly_owned_candidates_are_not_recommended_for_purchase(tmp_path):
+    inventory = tmp_path / "inventory.txt"
+    inventory.write_text(
+        "--- MUSK ---\n- Habanolide\n- Romandolide\n",
+        encoding="utf-8",
+    )
+    for include_replenishment in (False, True):
+        report = analyze_expansion(
+            str(inventory), top_n=200, include_replenishment=include_replenishment,
+        )
+        assert {"Habanolide", "Romandolide"}.isdisjoint(
+            candidate.name for candidate in report.candidates
+        )
 
 
 def test_missing_cross_adaptation_annotation_does_not_imply_novel_receptors():
