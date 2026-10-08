@@ -994,11 +994,11 @@
 - canonical_name: Maple Lactone
   aliases:
   - maple lactone
-  cas:
+  cas: '698-10-2'
   smiles:
   inchikey:
   mw_g_mol: 128.1
-  density_25c_g_ml:
+  density_25c_g_ml: 1.136
   logp: 0.5
   functional_groups: []
   chirality:
@@ -1046,6 +1046,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 698-10-2 (https://www.thegoodscentscompany.com/data/rw1008621.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.13400 to 1.14400 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1008621.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Mate Absolute
   aliases: []
   cas:
@@ -1210,11 +1212,11 @@
 - canonical_name: Melonal
   aliases:
   - melonal
-  cas:
+  cas: '106-72-9'
   smiles:
   inchikey:
   mw_g_mol: 140.22
-  density_25c_g_ml:
+  density_25c_g_ml: 0.842
   logp:
   functional_groups: []
   chirality:
@@ -1255,6 +1257,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 106-72-9 (https://www.thegoodscentscompany.com/data/rw1019891.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.83900 to 0.85000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1019891.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Menthol Crystals
   aliases: []
   cas:
@@ -1410,11 +1414,11 @@
 - canonical_name: Methyl Anthranilate
   aliases:
   - methyl anthranilate
-  cas:
+  cas: '134-20-3'
   smiles:
   inchikey:
   mw_g_mol: 151.16
-  density_25c_g_ml:
+  density_25c_g_ml: 1.162
   logp: 1.9
   functional_groups: []
   chirality:
@@ -1453,14 +1457,16 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 134-20-3 (https://www.thegoodscentscompany.com/data/rw1008211.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.16100 to 1.16900 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1008211.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Methyl Benzoate
   aliases: []
-  cas:
+  cas: '93-58-3'
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 136.15)
   mw_g_mol: 136.15
-  density_25c_g_ml:
+  density_25c_g_ml: 1.082
   logp:
   functional_groups: []
   chirality:
@@ -1497,6 +1503,8 @@
   provenance:
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 93-58-3 (https://www.thegoodscentscompany.com/data/rw1015012.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.08200 to 1.08900 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1015012.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Methyl Chavicol
   aliases: []
   cas:
@@ -1975,12 +1983,12 @@
 - canonical_name: Methyl Salicylate
   aliases:
   - methyl salicylate
-  cas:
+  cas: '119-36-8'
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 152.15)
   mw_g_mol: 152.15
-  density_25c_g_ml:
+  density_25c_g_ml: 1.179
   logp:
   functional_groups: []
   chirality:
@@ -2020,6 +2028,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 119-36-8 (https://www.thegoodscentscompany.com/data/rw1008471.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.18000 to 1.18500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1008471.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: MILK F-TEC
   aliases: []
   cas:
@@ -2096,11 +2106,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Mimosa Absolute
   aliases: []
-  cas:
+  cas: '8031-03-6'
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 1.101
   logp:
   functional_groups: []
   chirality:
@@ -2134,6 +2144,8 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 8031-03-6 (https://www.thegoodscentscompany.com/data/ab1661001.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.98900 to 1.22000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/ab1661001.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Mimosa F-TEC
   aliases:
   - MIMOSA F-TEC

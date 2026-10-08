@@ -305,7 +305,7 @@
 - canonical_name: Indole
   aliases:
   - indole
-  cas:
+  cas: '120-72-9'
   smiles:
   inchikey:
   mw_g_mol: 117.2
@@ -363,6 +363,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 120-72-9 (https://www.thegoodscentscompany.com/data/rw1006511.html)'
 - canonical_name: Indolene
   aliases: []
   cas:
@@ -685,11 +686,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Isobutavan
   aliases: []
-  cas:
+  cas: '20665-85-4'
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 1.133
   logp:
   functional_groups: []
   chirality:
@@ -719,6 +720,8 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 20665-85-4 (https://www.thegoodscentscompany.com/data/rw1024071.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.13200 to 1.14000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1024071.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Isobutyl Quinoline
   aliases:
   - ibq
@@ -885,12 +888,12 @@
 - canonical_name: Isoeugenol
   aliases:
   - isoeugenol
-  cas:
+  cas: '97-54-1'
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 164.2)
   mw_g_mol: 164.2
-  density_25c_g_ml:
+  density_25c_g_ml: 1.08
   logp:
   functional_groups: []
   chirality:
@@ -926,6 +929,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 97-54-1 (https://www.thegoodscentscompany.com/data/rw1006911.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.07900 to 1.08700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1006911.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Isolongifolanone
   aliases: []
   cas:
@@ -1035,11 +1040,11 @@
     user_stock_dilution: inventory.txt
 - canonical_name: Isopropyl Myristate (IPM)
   aliases: []
-  cas:
+  cas: '110-27-0'
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 0.847
   logp:
   functional_groups: []
   chirality:
@@ -1069,6 +1074,8 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 110-27-0 (https://www.thegoodscentscompany.com/data/rw1019332.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.84000 to 0.86000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1019332.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Isopropyl Palmitate (IPP)
   aliases: []
   cas:

@@ -429,7 +429,7 @@
   smiles: C\C(C)=C\CCC(C)=CCO
   inchikey: GLZPCOQZEFWAFX-YFHOEESVSA-N
   mw_g_mol: 154.25
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.876
   logp: 2.9
   functional_groups:
   - alcohol
@@ -469,15 +469,16 @@
     logp: engine.skin_interaction
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.87500 to 0.88300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1008952.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Neroli EO
   aliases:
   - neroli eo
   - neroli eo (neat)
-  cas: null
+  cas: '8016-38-4'
   smiles: null
   inchikey: null
   mw_g_mol: 170.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.867
   logp: 2.5
   functional_groups: []
   chirality: null
@@ -511,6 +512,8 @@
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    cas: 'TGSC: CAS Number: 8016-38-4 (https://www.thegoodscentscompany.com/data/es1618991.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.86000 to 0.87900 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/es1618991.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Neroli Essential Oil
   aliases: []
   cas: null
@@ -1423,7 +1426,7 @@
 - canonical_name: Nympheal
   aliases:
   - nympheal
-  cas: null
+  cas: '1637294-12-2'
   smiles: null
   inchikey: null
   mw_g_mol: 204.3
@@ -1467,6 +1470,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 1637294-12-2 (https://www.thegoodscentscompany.com/data/rw1804751.html)'
 - canonical_name: nagarmortha oil
   aliases:
   - Nagarmortha Oil

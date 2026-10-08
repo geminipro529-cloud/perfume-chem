@@ -312,11 +312,11 @@
   aliases:
   - "p-Cresyl Methyl Ether (PCME)"
   - para-Cresyl Methyl Ether
-  cas: null
+  cas: '104-93-8'
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.997
   logp: null
   functional_groups: []
   chirality: null
@@ -350,6 +350,8 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 104-93-8 (https://www.thegoodscentscompany.com/data/rw1003932.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.99600 to 1.00400 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1003932.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Para-Cresyl Phenyl Acetate
   aliases:
   - para-Cresyl Phenyl Acetate
@@ -678,11 +680,11 @@
 - canonical_name: Patchouli EO
   aliases:
   - patchouli eo
-  cas: null
+  cas: '8014-09-3'
   smiles: null
   inchikey: null
   mw_g_mol: 222.4
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.96
   logp: 4.1
   functional_groups: []
   chirality: null
@@ -716,6 +718,8 @@
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    cas: 'TGSC: CAS Number: 8014-09-3 (https://www.thegoodscentscompany.com/data/es1031631.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.95000 to 0.97500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/es1031631.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Patchouli Essential Oil
   aliases: []
   cas: null
@@ -940,7 +944,7 @@
 - canonical_name: Peonile
   aliases:
   - peonile
-  cas: null
+  cas: '10461-98-0'
   smiles: null
   inchikey: null
   mw_g_mol: 197.27
@@ -979,6 +983,7 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 10461-98-0 (https://www.thegoodscentscompany.com/data/rw1131081.html)'
 - canonical_name: Peppermint Essential Oil
   aliases: []
   cas: null

@@ -334,11 +334,11 @@
 - canonical_name: Terpinyl Acetate
   aliases:
   - terpinyl acetate
-  cas:
+  cas: '80-26-2'
   smiles:
   inchikey:
   mw_g_mol: 196.3
-  density_25c_g_ml:
+  density_25c_g_ml: 0.955
   logp:
   functional_groups: []
   chirality:
@@ -386,6 +386,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 80-26-2 (https://www.thegoodscentscompany.com/data/rw1011272.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.95400 to 0.96200 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1011272.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Tetrahydro Geraniol
   aliases: []
   cas:
@@ -2688,12 +2690,12 @@
 - canonical_name: Timberol
   aliases:
   - timberol
-  cas:
+  cas: '70788-30-6'
   smiles:
   inchikey:
   # Vigon SDS rev. 2018-04-12: C15H30O, MW 226.4 g/mol.
   mw_g_mol: 226.4
-  density_25c_g_ml:
+  density_25c_g_ml: 0.912
   logp: 3.8
   functional_groups: []
   chirality:
@@ -2733,6 +2735,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 70788-30-6 (https://www.thegoodscentscompany.com/data/rw1020712.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.89000 to 0.94000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1020712.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Tobacco Absolute
   aliases: []
   cas:
@@ -3165,7 +3169,7 @@
     stevens_n: engine.odor_thresholds
 - canonical_name: Tonka Bean Absolute
   aliases: []
-  cas:
+  cas: '8046-22-8'
   smiles:
   inchikey:
   mw_g_mol:
@@ -3203,6 +3207,7 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 8046-22-8 (https://www.thegoodscentscompany.com/data/ab1004711.html)'
 - canonical_name: Tonka Bean FO
   aliases: []
   cas:
@@ -3429,11 +3434,11 @@
     user_stock_dilution: inventory.txt
 - canonical_name: Triethyl Citrate (TEC)
   aliases: []
-  cas:
+  cas: '77-93-0'
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 1.134
   logp:
   functional_groups: []
   chirality:
@@ -3463,15 +3468,17 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 77-93-0 (https://www.thegoodscentscompany.com/data/rw1012772.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.13500 to 1.13900 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1012772.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Triplal
   aliases:
   - triplal
-  cas:
+  cas: '68039-49-6'
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 152.23)
   mw_g_mol: 152.23
-  density_25c_g_ml:
+  density_25c_g_ml: 0.933
   logp:
   functional_groups: []
   chirality:
@@ -3511,6 +3518,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 68039-49-6 (https://www.thegoodscentscompany.com/data/rw1007631.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.93200 to 0.94000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1007631.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: TRUE LILY F-TEC
   aliases: []
   cas:

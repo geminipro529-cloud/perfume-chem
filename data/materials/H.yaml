@@ -240,11 +240,11 @@
 - canonical_name: Hedione
   aliases:
   - hedione
-  cas: null
+  cas: '24851-98-7'
   smiles: null
   inchikey: null
   mw_g_mol: 226.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.999
   logp: 2.7
   functional_groups: []
   chirality: null
@@ -292,6 +292,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 24851-98-7 (https://www.thegoodscentscompany.com/data/rw1015272.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.99700 to 1.00600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1015272.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Hedione HC
   aliases:
   - hedione hc
@@ -376,11 +378,11 @@
   aliases:
   - "Helional 10% v/v"
   - helional
-  cas: null
+  cas: '1205-17-0'
   smiles: null
   inchikey: null
   mw_g_mol: 192.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.161
   logp: 2.2
   functional_groups: []
   chirality: null
@@ -418,6 +420,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 1205-17-0 (https://www.thegoodscentscompany.com/data/rw1007731.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.16100 to 1.16700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1007731.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Heliotropal
   aliases:
   - heliotropin
@@ -811,11 +815,11 @@
   aliases:
   - "Hexyl Acetate 1%"
   - hexyl acetate
-  cas: null
+  cas: '142-92-7'
   smiles: null
   inchikey: null
   mw_g_mol: 144.21
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.869
   logp: null
   functional_groups: []
   chirality: null
@@ -851,6 +855,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 142-92-7 (https://www.thegoodscentscompany.com/data/rw1003201.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.86800 to 0.87600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1003201.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Hexyl Cinnamic Aldehyde (HCA)
   aliases: []
   cas: null
@@ -890,7 +896,7 @@
 - canonical_name: Hexyl Salicylate
   aliases:
   - hexyl salicylate
-  cas: null
+  cas: '6259-76-3'
   smiles: null
   inchikey: null
   mw_g_mol: 222.3
@@ -934,6 +940,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 6259-76-3 (https://www.thegoodscentscompany.com/data/rw1002751.html)'
 - canonical_name: Himalayan Cedarwood EO
   aliases:
   - himalayan cedarwood eo
@@ -1314,7 +1321,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 172.27
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.916
   logp: 1.8
   functional_groups: []
   chirality: null
@@ -1354,6 +1361,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt (depleted 2026-06-15)
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.91700 to 0.92100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1000972.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Hydroxycitronellol
   aliases:
   - hydroxycitronellol

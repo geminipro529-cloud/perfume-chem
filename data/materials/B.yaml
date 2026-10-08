@@ -740,11 +740,11 @@
 - canonical_name: Benzyl Acetate
   aliases:
   - benzyl acetate
-  cas: null
+  cas: '140-11-4'
   smiles: null
   inchikey: null
   mw_g_mol: 150.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.051
   logp: 2.0
   functional_groups: []
   chirality: null
@@ -782,14 +782,16 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 140-11-4 (https://www.thegoodscentscompany.com/data/rw1001612.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.04900 to 1.05900 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1001612.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Benzyl Alcohol
   aliases:
   - benzyl alcohol
-  cas: null
+  cas: '100-51-6'
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.04
   logp: null
   functional_groups: []
   chirality: null
@@ -816,6 +818,8 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
+    cas: 'TGSC: CAS Number: 100-51-6 (https://www.thegoodscentscompany.com/data/rw1001651.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.04100 to 1.04600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1001651.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Benzyl Alcohol (BA)
   aliases: []
   cas: null
@@ -855,11 +859,11 @@
 - canonical_name: Benzyl Benzoate
   aliases:
   - benzyl benzoate
-  cas: null
+  cas: '120-51-4'
   smiles: null
   inchikey: null
   mw_g_mol: 212.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.114
   logp: 4.0
   functional_groups: []
   chirality: null
@@ -892,6 +896,8 @@
     vp_25c_pa: PubChem CID 2345 / Daubert and Danner 1989, 0.000224 mmHg at 25 C
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    cas: 'TGSC: CAS Number: 120-51-4 (https://www.thegoodscentscompany.com/data/rw1001672.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.11300 to 1.12100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1001672.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Benzyl Benzoate (BB)
   aliases: []
   cas: null
@@ -1120,11 +1126,11 @@
 - canonical_name: Benzyl Salicylate
   aliases:
   - benzyl salicylate
-  cas: null
+  cas: '118-58-1'
   smiles: null
   inchikey: null
   mw_g_mol: 228.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.174
   logp: 3.2
   functional_groups: []
   chirality: null
@@ -1172,6 +1178,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 118-58-1 (https://www.thegoodscentscompany.com/data/rw1001792.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.17300 to 1.18100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1001792.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Bergamot Essential Oil
   aliases: []
   cas: null
@@ -1469,11 +1477,11 @@
 - canonical_name: Beta Damascone
   aliases:
   - beta damascone
-  cas: null
+  cas: '23726-91-2'
   smiles: null
   inchikey: null
   mw_g_mol: 190.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.929
   logp: null
   functional_groups: []
   chirality: null
@@ -1510,6 +1518,8 @@
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 23726-91-2 (https://www.thegoodscentscompany.com/data/rw1000881.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.92800 to 0.93600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1000881.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Beta Homocyclocitral
   aliases: []
   cas: null
@@ -1549,11 +1559,11 @@
 - canonical_name: Beta Ionone
   aliases:
   - beta ionone
-  cas: null
+  cas: '14901-07-6'
   smiles: null
   inchikey: null
   mw_g_mol: 192.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.94
   logp: 3.0
   functional_groups: []
   chirality: null
@@ -1593,6 +1603,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 14901-07-6 (https://www.thegoodscentscompany.com/data/rw1006632.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.93900 to 0.94700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1006632.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Beta Pinene
   aliases:
   - Beta-Pinene
@@ -2555,11 +2567,11 @@
 - canonical_name: Bourgeonal
   aliases:
   - bourgeonal
-  cas: null
+  cas: '18127-01-0'
   smiles: null
   inchikey: null
   mw_g_mol: 190.28
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.955
   logp: 2.8
   functional_groups: []
   chirality: null
@@ -2603,6 +2615,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 18127-01-0 (https://www.thegoodscentscompany.com/data/rw1023831.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.95500 to 0.96100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1023831.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: BROOM F-TEC
   aliases: []
   cas: null
