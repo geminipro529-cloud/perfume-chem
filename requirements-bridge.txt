@@ -1,0 +1,3 @@
+# Optional local MCP transport for engine.bridge.server.
+# Core canary, receipt, repository-read, and packet-intake modules use only the stdlib.
+mcp[cli]>=2.0.0,<3.0.0

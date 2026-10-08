@@ -1,0 +1,158 @@
+{
+  "base_branch": "master",
+  "base_commit": "852e5c70da5efd440b349cb54ce67ab0191a8b37",
+  "base_tree": "01edf01b5c7498922d9b9d85611daf072082ff07",
+  "branch_candidate": "chatgpt/perfume-chem-mcp-bridge-v1",
+  "build_runtime": {
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+    "python": "3.13.5"
+  },
+  "files": [
+    {
+      "bytes": 2809,
+      "path": ".github/workflows/ci.yml",
+      "sha256": "3337c0f24574a7c3baf26079ad08d036ac8032ffa7c86c5d97e2ba95b5d97b4e"
+    },
+    {
+      "bytes": 830,
+      "path": "chat_bridge/complex_perfumery/README.md",
+      "sha256": "0590dd7a1cf8b5029ec2a4d8bf13f24a172be702b2bcba1abd18eededeaafd11"
+    },
+    {
+      "bytes": 77,
+      "path": "chat_bridge/complex_perfumery/inbox/.gitignore",
+      "sha256": "be81617ad67ae2aed2e33000de187f938268b2b55ca0786457b99ccf5c4c640c"
+    },
+    {
+      "bytes": 5297,
+      "path": "docs/perfume_chem_bridge.md",
+      "sha256": "a01f6bd93cc66d7ecc71c694d8483f7d1c9ed8609766c4d3db1a75236560696b"
+    },
+    {
+      "bytes": 7757,
+      "path": "docs/superpowers/plans/2026-09-03-perfume-chem-mcp-bridge.md",
+      "sha256": "9786e070bfe4e88f926a2d94eff7bbe92d5b74241fe8a8952469c962e74afb26"
+    },
+    {
+      "bytes": 7082,
+      "path": "docs/superpowers/specs/2026-09-03-perfume-chem-mcp-bridge-design.md",
+      "sha256": "8b1086154046488619e51103c4fc9b9373983993499e0bc22988c88fceaae145"
+    },
+    {
+      "bytes": 325,
+      "path": "engine/bridge/__init__.py",
+      "sha256": "087a6890438faa51e9dc350d7b3cd26d555766844dd36aae70d83ec4f8e57351"
+    },
+    {
+      "bytes": 3939,
+      "path": "engine/bridge/__main__.py",
+      "sha256": "ee39800517e704b2a4a57a3277a98026efed9a6147eacc0f18ac1113e5ec4f01"
+    },
+    {
+      "bytes": 19199,
+      "path": "engine/bridge/canary.py",
+      "sha256": "34f9664ba5fa71fcc08164315d92fa073aae61dff66880ac21cca57a713cda12"
+    },
+    {
+      "bytes": 4618,
+      "path": "engine/bridge/config.py",
+      "sha256": "36f958bf48e134405973e7cd2dd09409fc5d26580c4ab50f776bbdf53a5c71f2"
+    },
+    {
+      "bytes": 176,
+      "path": "engine/bridge/errors.py",
+      "sha256": "209c4195a067399ca4e758aa2636f9868e29af561930dc9103652faf3ac5a003"
+    },
+    {
+      "bytes": 7458,
+      "path": "engine/bridge/packet_intake.py",
+      "sha256": "948c4714010561e31aa3c8d7826b1ed2ee8b4e53a25b650be48864933351d4ab"
+    },
+    {
+      "bytes": 1326,
+      "path": "engine/bridge/receipts.py",
+      "sha256": "e4dc4a83a7b93a772a04843444a89e49cc6fdb9312ee299ac94b5fe9fe7d6091"
+    },
+    {
+      "bytes": 6165,
+      "path": "engine/bridge/repository.py",
+      "sha256": "58652f8f7f07ad7a67660c77d14946436094539f07bb7f64ef1a30f8d2429922"
+    },
+    {
+      "bytes": 4040,
+      "path": "engine/bridge/server.py",
+      "sha256": "b52de51b26a52ab8cea0315553bb71798f17a5c9a43336bcf1e0f45bc42cef66"
+    },
+    {
+      "bytes": 168,
+      "path": "requirements-bridge.txt",
+      "sha256": "4dc7e10469f4880ecf1dfb60d7273a919dce22aff661cf5688a164daf3c2037e"
+    },
+    {
+      "bytes": 17217,
+      "path": "tests/test_perfume_chem_bridge.py",
+      "sha256": "a572e557b8e7d12ce18cb8cb87d30e4d83806db26ee52339dc8dc0a0706edaeb"
+    }
+  ],
+  "generated_at_utc": "2026-09-02T20:11:11.219541Z",
+  "inventory_authority": {
+    "bytes": 199635,
+    "canonical_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+    "mounted_copy_verified": true,
+    "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331"
+  },
+  "production_bridge_state": "BRIDGE_BLOCKED",
+  "protocol_authority": {
+    "exact_bytes_available_in_build_environment": false,
+    "publication_guard": "BLOCK_UNTIL_CONFIGURED_HASH_AND_IDENTITY_MARKER_PASS",
+    "repository_path": "chat_bridge/complex_perfumery/PROTOCOL.md",
+    "required": "Chat Bridge Protocol v2.1"
+  },
+  "release_state": "REVIEW_CANDIDATE",
+  "schema": "perfume-chem-bridge-build-receipt-v1",
+  "security": {
+    "arbitrary_shell_tool": false,
+    "canonical_mutation_authorized": false,
+    "formula_mutation_authorized": false,
+    "optional_write_tool_default_exposed": false,
+    "packet_overwrite_authorized": false,
+    "packet_writes_default_enabled": false,
+    "read_only_mcp_tools_default": 4,
+    "secret_values_embedded": false
+  },
+  "target_repository": "geminipro529-cloud/perfume-chem",
+  "verification": {
+    "ci_yaml_parse": "PASS",
+    "disposable_end_to_end": {
+      "canonical_promotion_claimed": false,
+      "full": "PASS",
+      "metadata": "READY_FOR_VERIFICATION",
+      "overwrite_retry": "BLOCKED",
+      "packet_stage": "STAGED_INCOMING_REVIEW_ONLY",
+      "search_fetch": "PASS",
+      "signed_receipt": true
+    },
+    "focused_pytest": {
+      "status": "PASS",
+      "tests": 29
+    },
+    "forbidden_execution_pattern_scan": "PASS",
+    "github_actions": "NOT_RUN_BEFORE_PULL_REQUEST",
+    "mcp_runtime_import": {
+      "adapter_basis": "official MCP Python SDK v2 API documentation",
+      "reason": "mcp v2 is not installed and network installation is unavailable in this build container",
+      "status": "NOT_RUN"
+    },
+    "python_311_ast_parse": "PASS",
+    "python_compileall": "PASS",
+    "real_windows_repository_canary": {
+      "inventory_v5_verification": "PASS",
+      "reason": [
+        "D:\\chatbots\\perfume-chem is not mounted in this environment",
+        "exact Chat Bridge Protocol v2.1 SHA-256 is not configured"
+      ],
+      "status": "BRIDGE_BLOCKED"
+    },
+    "repository_conftest_compatibility": "PASS"
+  }
+}
