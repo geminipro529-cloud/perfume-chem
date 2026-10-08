@@ -9,7 +9,7 @@ def _stock_check(*issues: dict) -> dict:
         "check_name": "inventory_stock_contract",
         "status": "FAIL",
         "detail": f"{len(issues)} material stock contract failure(s)",
-        "data": {"issues": list(issues)},
+        "data": {"issues": list(issues), "resolved_stock_specs": {}},
     }
 
 
@@ -32,11 +32,11 @@ def _natural_check(*materials: str) -> dict:
     }
 
 
-def _receipt_check(*abstained: str, mismatches: bool = False) -> dict:
+def _receipt_check(*abstained: str, mismatches: bool = False, blockers=("stock_id_not_bound",)) -> dict:
     data = {
         "status": "ABSTAINED",
         "lines": [
-            {"material_name": name, "status": "ABSTAINED", "blockers": ["stock_id_not_bound"]}
+            {"material_name": name, "status": "ABSTAINED", "blockers": list(blockers)}
             for name in abstained
         ]
         + [{"material_name": "Bound Material", "status": "BOUND", "blockers": []}],
@@ -180,6 +180,96 @@ def test_rollup_fails_on_any_real_or_unknown_failure():
 
     # A FAIL preflight with no failing check named still fails closed.
     assert _gate_pipeline_preflight({"status": "FAIL", "checks": []}).status == "FAIL"
+
+
+def _held_at(material: str, hold: str, *, formula: float, stock: float | None, matches: bool) -> dict:
+    return {
+        **_metadata_incomplete(material, matches=matches, holds=[hold]),
+        "formula_dilution": formula,
+        "held_stock_strengths": [{"execution_hold": hold, "fraction": stock}],
+    }
+
+
+def test_tincture_above_its_starting_charge_fails_and_at_or_below_holds():
+    hold = "FINAL_DISSOLVED_FRACTION_UNMEASURED"
+    assert _stock_gate(_held_at("Storax", hold, formula=0.4, stock=0.2, matches=False)).status == "FAIL"
+    assert _stock_gate(_held_at("Storax", hold, formula=0.2, stock=0.2, matches=True)).status == "HOLD"
+    assert _stock_gate(_held_at("Storax", hold, formula=0.1, stock=0.2, matches=False)).status == "HOLD"
+    # No recorded charge: only the measurement is missing.
+    assert _stock_gate(_held_at("Storax", hold, formula=0.4, stock=None, matches=False)).status == "HOLD"
+    # The fields the comparison needs are missing: fail closed.
+    assert _stock_gate(_metadata_incomplete("Storax", matches=False, holds=[hold])).status == "FAIL"
+    no_fraction = _held_at("Storax", hold, formula=0.1, stock=0.2, matches=False)
+    no_fraction["held_stock_strengths"] = [{"execution_hold": hold}]
+    assert _stock_gate(no_fraction).status == "FAIL"
+
+
+def test_live_storax_tincture_above_its_charge_fails_and_at_its_charge_holds():
+    # Turkish Storax Tincture is held with a 20% starting charge.
+    def gate(fraction: float):
+        check = resolve_inventory_stock_contract(
+            {"ingredients_ul": {"Turkish Storax Tincture": 100.0}, "dilutions": {"Turkish Storax Tincture": fraction}}
+        )
+        return _gate_preflight_contract({"checks": [check.as_dict()]}, "inventory_stock_contract")
+
+    assert gate(0.4).status == "FAIL"
+    held = gate(0.2)
+    assert held.status == "HOLD"
+    assert "measure the final dissolved fraction" in held.detail
+
+
+def test_approximate_stock_used_at_another_strength_fails_and_at_its_nominal_strength_holds():
+    hold = "APPROXIMATE_STOCK_FRACTION"
+    assert _stock_gate(_held_at("Approx", hold, formula=0.01, stock=0.1, matches=False)).status == "FAIL"
+    held = _stock_gate(_held_at("Approx", hold, formula=0.1, stock=0.1, matches=True))
+    assert held.status == "HOLD"
+    assert "record the exact stock strength" in held.detail
+
+
+def test_receipt_line_with_a_non_stock_blocker_fails_the_rollup():
+    for blockers in (
+        ["inventory_stock_metadata_incomplete", "stock_fraction_not_bound"],
+        ["inventory_stock_metadata_incomplete", "some_new_blocker"],
+        # A stock reason that is not this material's own issue.
+        ["not_in_inventory"],
+        [],
+    ):
+        gate = _gate_pipeline_preflight(
+            _preflight(_stock_check(_metadata_incomplete("Geraniol")), _receipt_check("Geraniol", blockers=blockers))
+        )
+        assert gate.status == "FAIL", blockers
+        assert "formula_dose_receipt" in gate.data["failing_checks"]
+
+    # A binding blocker is a stock consequence only when the contract resolved
+    # no stock for that material.
+    stock = _stock_check(_metadata_incomplete("Geraniol"))
+    stock["data"]["resolved_stock_specs"] = {"Geraniol": {"stock_id": "x"}}
+    gate = _gate_pipeline_preflight(
+        _preflight(stock, _receipt_check("Geraniol", blockers=["stock_authority_not_bound"]))
+    )
+    assert gate.status == "FAIL"
+
+    # Without the resolved-stock field the receipt cannot be traced: fail closed.
+    stock = _stock_check(_metadata_incomplete("Geraniol"))
+    stock["data"].pop("resolved_stock_specs")
+    assert _gate_pipeline_preflight(_preflight(stock, _receipt_check("Geraniol"))).status == "FAIL"
+
+    # The stock issue's own reason plus binding blockers still follow the stock contract.
+    gate = _gate_pipeline_preflight(
+        _preflight(
+            _stock_check(_metadata_incomplete("Geraniol")),
+            _receipt_check("Geraniol", blockers=["inventory_stock_metadata_incomplete", "stock_authority_not_bound"]),
+        )
+    )
+    assert gate.status == "HOLD"
+
+
+def test_abstained_receipt_without_unbound_lines_fails_the_rollup():
+    receipt = _receipt_check()
+    assert [line["status"] for line in receipt["data"]["lines"]] == ["BOUND"]
+    gate = _gate_pipeline_preflight(_preflight(_stock_check(_metadata_incomplete("Geraniol")), receipt))
+    assert gate.status == "FAIL"
+    assert gate.data["failing_checks"] == ["formula_dose_receipt"]
 
 
 def test_rollup_passes_non_fail_status_through():

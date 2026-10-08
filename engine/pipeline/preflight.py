@@ -801,6 +801,20 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
                     # An owned-but-held stock at another strength is a wrong
                     # strength, not only missing data; the gate needs to know.
                     "fraction_matches_formula": bool(physical_fraction_matches),
+                    "formula_dilution": round(formula_dil, 6),
+                    # Each held stock's recorded fraction (None when none is
+                    # recorded); for a tincture this is its starting charge.
+                    "held_stock_strengths": [
+                        {
+                            "execution_hold": record.execution_hold_reason,
+                            "fraction": (
+                                round(record.dilution, 6) if record.dilution > 0 else None
+                            ),
+                            "fraction_basis": record.fraction_basis,
+                        }
+                        for record in physical_owned
+                        if record.execution_hold_reason
+                    ],
                 }
             )
             continue

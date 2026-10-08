@@ -451,19 +451,74 @@ _STOCK_DATA_HOLDS: dict[str, str] = {
     "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED": "confirm the concentration basis and homogeneity",
     "HOMOGENEITY_NOT_RECONFIRMED": "reconfirm homogeneity",
 }
-# Holds under which the recorded strength itself is unknown, so a strength that
-# differs from the formula is not yet evidence of a wrong strength.
+# Holds under which the stock has no recorded strength at all, so a formula
+# strength cannot yet be compared with it.  Every other data hold sits on a
+# stock with a recorded strength (an approximate "~10%", a supplier-label
+# neat intake, a tincture percentage of unstated basis) that preflight compares
+# with the formula like any exact stock.
 _STOCK_STRENGTH_UNKNOWN_HOLDS = frozenset(
     {
-        "STOCK_INTAKE_IDENTITY_ONLY",
         "STOCK_FRACTION_UNSPECIFIED",
         "RESTOCKED_BOTTLE_STRENGTH_AND_CARRIER_NOT_STATED",
-        "APPROXIMATE_STOCK_FRACTION",
-        "FINAL_DISSOLVED_FRACTION_UNMEASURED",
-        "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN",
-        "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED",
     }
 )
+# Tincture holds where only the starting charge is recorded: the dissolved
+# fraction can be at most that charge, so a formula strength above it is a
+# wrong strength, while one at or below it (or no recorded charge) waits on
+# the measurement.
+_STOCK_STRENGTH_CHARGE_BOUND_HOLDS = frozenset(
+    {
+        "FINAL_DISSOLVED_FRACTION_UNMEASURED",
+        "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN",
+    }
+)
+# The tolerance preflight uses when it compares a formula and stock fraction.
+_STOCK_FRACTION_TOLERANCE = 0.005
+
+
+def _split_holds(raw_holds: object) -> list[str]:
+    return [hold for raw in list(raw_holds or []) for hold in str(raw).split("|") if hold]
+
+
+def _held_strength_compatible(issue: Mapping[str, object], holds: list[str]) -> bool:
+    """True when no held stock is known to differ in strength from the formula.
+
+    Used only when no held stock matches the formula's fraction.  Missing
+    fields fail closed.
+    """
+    if not holds:
+        return False
+    if all(hold in _STOCK_STRENGTH_UNKNOWN_HOLDS for hold in holds):
+        return True
+    if any(
+        hold not in _STOCK_STRENGTH_UNKNOWN_HOLDS | _STOCK_STRENGTH_CHARGE_BOUND_HOLDS
+        for hold in holds
+    ):
+        return False
+    formula_dilution = issue.get("formula_dilution")
+    held_stocks = issue.get("held_stock_strengths")
+    if not isinstance(formula_dilution, (int, float)) or isinstance(formula_dilution, bool):
+        return False
+    if not isinstance(held_stocks, list) or not held_stocks:
+        return False
+    for stock in held_stocks:
+        if not isinstance(stock, Mapping) or "fraction" not in stock:
+            return False
+        stock_holds = _split_holds([stock.get("execution_hold", "")])
+        if not stock_holds:
+            return False
+        if all(hold in _STOCK_STRENGTH_UNKNOWN_HOLDS for hold in stock_holds):
+            continue
+        if any(hold not in _STOCK_STRENGTH_CHARGE_BOUND_HOLDS for hold in stock_holds):
+            return False
+        charge = stock["fraction"]
+        if charge is None:
+            continue
+        if not isinstance(charge, (int, float)) or isinstance(charge, bool):
+            return False
+        if float(formula_dilution) > float(charge) + _STOCK_FRACTION_TOLERANCE:
+            return False
+    return True
 
 
 def _stock_issue_data_request(issue: Mapping[str, object]) -> str | None:
@@ -476,18 +531,13 @@ def _stock_issue_data_request(issue: Mapping[str, object]) -> str | None:
     reason = str(issue.get("reason", ""))
     if reason not in {"inventory_stock_metadata_incomplete", "inventory_stock_non_executable"}:
         return None
-    holds = [
-        hold
-        for raw in list(issue.get("execution_holds", []) or [])
-        for hold in str(raw).split("|")
-        if hold
-    ]
+    holds = _split_holds(issue.get("execution_holds", []))
     if reason == "inventory_stock_non_executable" and not holds:
         return None
     if any(hold not in _STOCK_DATA_HOLDS for hold in holds):
         return None
-    if issue.get("fraction_matches_formula") is not True and not (
-        holds and all(hold in _STOCK_STRENGTH_UNKNOWN_HOLDS for hold in holds)
+    if issue.get("fraction_matches_formula") is not True and not _held_strength_compatible(
+        issue, holds
     ):
         return None
     if not holds:
@@ -570,26 +620,86 @@ def _classify_preflight_check(check: Mapping[str, object]) -> tuple[str, str, di
     return classifier(check)
 
 
+# Reasons the inventory stock contract emits on its issues (preflight
+# ``_dilution_consistency_check``); the dose receipt copies them as blockers.
+_STOCK_CONTRACT_ISSUE_REASONS = frozenset(
+    {
+        "stock_fraction_not_declared",
+        "stock_fraction_invalid",
+        "stock_fraction_out_of_range",
+        "conflicting_stock_rows",
+        "stock_id_not_in_current_inventory",
+        "not_in_inventory",
+        "preparation_required",
+        "inventory_gap",
+        "inventory_stock_non_executable",
+        "inventory_stock_metadata_incomplete",
+        "inventory_stock_unavailable",
+        "stock_fraction_mismatch",
+        "stock_fraction_basis_mismatch",
+        "stock_carrier_mismatch",
+        "ambiguous_live_stock",
+    }
+)
+# Receipt blockers that follow from the stock contract resolving no stock for
+# a material: they count as stock-issue reasons only for such a material.
+_UNRESOLVED_STOCK_BINDING_BLOCKERS = frozenset(
+    {
+        "stock_declaration_not_bound",
+        "stock_id_not_bound",
+        "stock_authority_not_bound",
+        "inventory_authority_not_bound",
+        "inventory_source_lineage_not_bound",
+    }
+)
+
+
 def _dose_receipt_follows_stock_contract(
     receipt_check: Mapping[str, object],
     stock_check: Mapping[str, object] | None,
 ) -> bool:
-    """True when the dose receipt abstains only because of stock-contract issues."""
+    """True when the dose receipt abstains only because of stock-contract issues.
+
+    Every unbound line must belong to a material with a stock issue, and every
+    blocker on it must be that material's own stock-issue reason, or a binding
+    blocker that follows from the contract resolving no stock for it.  At
+    least one unbound line must exist; missing fields fail closed.
+    """
     if stock_check is None or str(stock_check.get("status")) != "FAIL":
         return False
     receipt = dict(receipt_check.get("data", {}) or {})
     if receipt.get("status") != "ABSTAINED" or "state_mismatches" in receipt:
         return False
     stock_data = dict(stock_check.get("data", {}) or {})
-    issue_materials = {
-        str(issue.get("material", "")).casefold()
-        for issue in list(stock_data.get("issues", []) or [])
-    }
-    return all(
-        str(line.get("material_name", "")).casefold() in issue_materials
+    resolved_specs = stock_data.get("resolved_stock_specs")
+    if not isinstance(resolved_specs, Mapping):
+        return False
+    resolved_materials = {str(name).casefold() for name in resolved_specs}
+    issue_reasons: dict[str, set[str]] = {}
+    for issue in list(stock_data.get("issues", []) or []):
+        issue_reasons.setdefault(str(issue.get("material", "")).casefold(), set()).add(
+            str(issue.get("reason", ""))
+        )
+    unbound = [
+        dict(line)
         for line in list(receipt.get("lines", []) or [])
-        if line.get("status") != "BOUND"
-    )
+        if dict(line).get("status") != "BOUND"
+    ]
+    if not unbound:
+        return False
+    for line in unbound:
+        material = str(line.get("material_name", "")).casefold()
+        reasons = issue_reasons.get(material, set()) & _STOCK_CONTRACT_ISSUE_REASONS
+        blockers = [str(blocker) for blocker in list(line.get("blockers", []) or [])]
+        if not reasons or not blockers:
+            return False
+        for blocker in blockers:
+            if blocker in reasons:
+                continue
+            if blocker in _UNRESOLVED_STOCK_BINDING_BLOCKERS and material not in resolved_materials:
+                continue
+            return False
+    return True
 
 
 def _gate_pipeline_preflight(preflight: Mapping[str, object]) -> GateResult:
