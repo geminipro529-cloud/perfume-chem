@@ -295,6 +295,11 @@ def _result(gate: str, status: str, detail: str = "", data: dict | None = None) 
     return GateResult(gate=gate, status=status, detail=detail, data=data or {})
 
 
+def _skipped(gate: str, detail: str = "", data: dict | None = None) -> GateResult:
+    """A check that did not run. SKIP never votes in the verdict (see _status_from_gates)."""
+    return GateResult(gate=gate, status="SKIP", detail=detail, data=data or {})
+
+
 HARD_BLOCKING_GATES = frozenset(
     {
         "pipeline_preflight",
@@ -348,7 +353,7 @@ ADVISORY_FAILURE_GATES = frozenset({
     "family_hedonic", "iconic_formulas", "niche_construction",
     "jellinek_psychology", "edwards_wheel_coherence", "oav_intelligence",
     "olfactory_fatigue", "master_perfumer", "master_perfumer_gate",
-    "mass_market_tier_check",
+    "mass_market_tier_check", "hedione_share", "musk_count",
 })
 
 
@@ -1361,7 +1366,7 @@ def _gate_oav_scaling(formula: Mapping, config: ReleaseGateConfig) -> GateResult
         float(target) for target in config.batch_scaling_targets_ml if float(target) > 0
     )
     if not targets:
-        return _result("oav_scaling_guard", "PASS", "not requested")
+        return _skipped("oav_scaling_guard", "not requested")
 
     ingredients = {str(k): float(v or 0.0) for k, v in formula["ingredients_ul"].items()}
     dilutions = {str(k): float(v or 1.0) for k, v in formula.get("dilutions", {}).items()}
@@ -1651,7 +1656,7 @@ def _gate_perfumer_logic(formula: Mapping, config: ReleaseGateConfig) -> GateRes
 def _gate_family_drift_detector(formula: Mapping, config: ReleaseGateConfig) -> GateResult:
     archetype = infer_archetype(config.brief, config.family_archetype)
     if not archetype:
-        return _result("family_drift_detector", "PASS", "not requested")
+        return _skipped("family_drift_detector", "not requested")
     spec = get_archetype(archetype)
     if spec is None:
         return _result("family_drift_detector", "WARN", f"unknown family archetype: {archetype}")
@@ -1681,7 +1686,7 @@ def _gate_family_drift_detector(formula: Mapping, config: ReleaseGateConfig) -> 
 
 def _gate_novelty_vs_reference(formula: Mapping, config: ReleaseGateConfig) -> GateResult:
     if not config.family_archetype:
-        return _result("novelty_vs_reference", "PASS", "not requested")
+        return _skipped("novelty_vs_reference", "not requested")
     assessment = novelty_assessment(formula, config.family_archetype)
     return _result(
         "novelty_vs_reference",
@@ -2214,7 +2219,7 @@ def _gate_oav_intelligence(
     config: ReleaseGateConfig,
 ) -> GateResult:
     if not str(config.family_archetype or "").strip():
-        return _result("oav_intelligence", "PASS", "not requested")
+        return _skipped("oav_intelligence", "not requested")
     intelligence = analyze_oav_intelligence(state, simulation, config.family_archetype)
     status = intelligence.intelligence_status
     spec = get_archetype(config.family_archetype)
@@ -4510,6 +4515,114 @@ def _gate_carles_material_count(state: FormulaState, config: ReleaseGateConfig) 
     return _result("carles_material_count", "PASS", f"{n} materials — within Carles 15-40 range")
 
 
+_HEDIONE_NAMES = frozenset({"hedione", "hedione hc"})
+# AGENTS.md F2: "Max 12% for chypre. Max 15% for floral."
+_HEDIONE_CAP_CHYPRE_PCT = 12.0
+_HEDIONE_CAP_DEFAULT_PCT = 15.0
+
+
+def _gate_hedione_share(
+    formula: Mapping, state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Warn when Hedione dominates the concentrate (AGENTS.md F2). Advisory only."""
+    from engine.name_utils import normalize_name
+
+    hedione_ul = sum(
+        m.active_ul
+        for m in state.materials
+        if normalize_name(m.canonical_name or m.name) in _HEDIONE_NAMES
+    )
+    if hedione_ul <= 0.0:
+        return _skipped("hedione_share", "no Hedione in formula")
+    total_ul = state.odorant_active_ul if state.odorant_active_ul > 0.0 else state.total_active_ul
+    share = 100.0 * hedione_ul / total_ul if total_ul > 0.0 else 0.0
+    archetype = str(infer_archetype(config.brief, config.family_archetype) or "")
+    name = str(formula.get("name", "") or "")
+    if "chypre" in archetype.lower():
+        cap, why = _HEDIONE_CAP_CHYPRE_PCT, f"chypre family ({archetype})"
+    elif "chypre" in name.lower():
+        cap, why = _HEDIONE_CAP_CHYPRE_PCT, "chypre named in the formula name"
+    else:
+        cap, why = _HEDIONE_CAP_DEFAULT_PCT, "not a chypre, so the floral/default cap applies"
+    basis = "% of fragrance-active uL"
+    data = {
+        "hedione_active_ul": round(hedione_ul, 4),
+        "total_active_ul": round(total_ul, 4),
+        "share_pct": round(share, 2),
+        "cap_pct": cap,
+        "cap_reason": why,
+        "basis": basis,
+        "source": "AGENTS.md F2 (Hedione crowding)",
+    }
+    if share > cap:
+        return _result(
+            "hedione_share",
+            "WARN",
+            f"Hedione is {share:.1f}{basis}, above the {cap:.0f}% cap ({why}). "
+            "Above about 15% Hedione becomes the perfume and buries the named character; "
+            "check the dose before mixing.",
+            data,
+        )
+    return _result(
+        "hedione_share",
+        "PASS",
+        f"Hedione is {share:.1f}{basis}, within the {cap:.0f}% cap ({why}).",
+        data,
+    )
+
+
+# AGENTS.md: omitted by default; exception-only under the design-call contract.
+_EXCEPTION_ONLY_MUSKS = frozenset({"tonalide", "macrolide", "musk ketone"})
+# One lead plus one support musk.
+_MUSK_COUNT_LIMIT = 2
+
+
+def _gate_musk_count(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """Warn on more than a lead plus a support musk, or an exception-only musk. Advisory only.
+
+    Musks are the materials whose ingredient profile odor family is "musk"
+    (ingredient_intelligence _PROFILES or_family, carried as MaterialState.family).
+    Formula rows carry no stated-role field, so every musk counts toward the limit.
+    """
+    from engine.name_utils import normalize_name
+
+    musks = [
+        m.name
+        for m in state.materials
+        if m.active_ul > 0.0 and str(m.family or "").lower() == "musk"
+    ]
+    exception_only = [
+        m.name
+        for m in state.materials
+        if m.active_ul > 0.0
+        and normalize_name(m.canonical_name or m.name) in _EXCEPTION_ONLY_MUSKS
+    ]
+    if not musks and not exception_only:
+        return _skipped("musk_count", "no musks in formula")
+    data = {
+        "musks": musks,
+        "exception_only_musks": exception_only,
+        "limit": _MUSK_COUNT_LIMIT,
+        "classification_source": "ingredient_intelligence profile odor family == 'musk'",
+    }
+    problems = []
+    if len(musks) > _MUSK_COUNT_LIMIT:
+        problems.append(
+            f"{len(musks)} musks ({', '.join(musks)}); more than one lead plus one support musk. "
+            "Each extra musk needs a distinct stated role and an omission comparison"
+        )
+    if exception_only:
+        problems.append(
+            f"{', '.join(exception_only)} is omitted by default and exception-only "
+            "(needs the full design-call and inventory-separation case)"
+        )
+    if problems:
+        return _result("musk_count", "WARN", "; ".join(problems), data)
+    return _result(
+        "musk_count", "PASS", f"{len(musks)} musk(s): {', '.join(musks)}", data
+    )
+
+
 def _gate_roudnitska_hedione_pct(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     """Roudnitska: Hedione should be 10-25% of concentrate."""
     from engine.name_utils import normalize_name
@@ -6471,6 +6584,8 @@ def gate_formula(
         ),
         _safe_gate(lambda: _gate_novelty_vs_reference(formula, config), "novelty_vs_reference"),
         _safe_gate(lambda: _gate_perfume_knowledge(state, config), "perfume_knowledge"),
+        _safe_gate(lambda: _gate_hedione_share(formula, state, config), "hedione_share"),
+        _safe_gate(lambda: _gate_musk_count(state, config), "musk_count"),
         _safe_gate(lambda: _gate_carles_pyramid(state, config), "carles_pyramid"),
         _safe_gate(lambda: _gate_carles_material_count(state, config), "carles_material_count"),
         _safe_gate(lambda: _gate_carles_accord_ratio(state, config), "carles_accord_ratio"),
