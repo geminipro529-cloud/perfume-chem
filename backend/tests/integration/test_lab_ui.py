@@ -1,4 +1,11 @@
+import json
+import shutil
+import subprocess
+from pathlib import Path
+
 import pytest
+
+BENCH_SHEET_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "bench-sheet.js"
 
 
 @pytest.mark.asyncio
@@ -420,6 +427,118 @@ async def test_formula_studio_ui_exposes_inventory_and_conversation(client):
     assert ".formula-chat-layout" in css.text
     assert ".inventory-grid" in css.text
     assert ".formula-design-table" in css.text
+
+
+@pytest.mark.asyncio
+async def test_formula_result_fits_prints_and_offers_a_bench_sheet(client):
+    page = await client.get("/app")
+    css = await client.get("/static/lab.css")
+    javascript = await client.get("/static/lab.js")
+
+    header = page.text.split('class="formula-design-table"', 1)[1].split("</thead>", 1)[0]
+    headings = [cell.split("</th>", 1)[0] for cell in header.split("<th>")[1:]]
+    assert headings[1] == "Dose"
+    assert headings[0].startswith("Material")
+    assert "min-width: 790px" not in css.text
+    assert '<td class="formula-dose">' in javascript.text.split("formula-why", 1)[1].split("</tr>", 1)[0]
+
+    print_css = css.text.split("@media print {", 1)[1]
+    assert ".formula-table-wrap { overflow: visible; }" in print_css
+    assert ".formula-design-table { min-width: 0; }" in print_css
+    hidden_in_print = print_css.split("{ display: none !important; }", 1)[0].rsplit("}", 1)[1]
+    for hidden in (".masthead", ".rail", "#status", ".formula-variant-picker"):
+        assert hidden in hidden_in_print
+    # Forms, summaries and action buttons are hidden only in the Create view, so
+    # other views (an omission plan inside its form) still print; the Create
+    # disclaimer paragraph stays in the print.
+    for scoped in ('[data-panel="formulas"] form', '[data-panel="formulas"] .request-actions button', '[data-panel="formulas"] details > summary'):
+        assert scoped in hidden_in_print
+    for selector in (part.strip() for part in hidden_in_print.split(",")):
+        if any(token in selector.split() for token in ("form", ".request-actions", "summary")):
+            assert selector.startswith('[data-panel="formulas"] '), selector
+    assert "body.printing-bench-sheet .bench-sheet { display: block;" in print_css
+
+    actions = page.text.split('id="formula-download"', 1)[1].split("</div>", 1)[0]
+    assert '<button id="formula-print-bench" type="button">Print bench sheet</button>' in actions
+    assert 'id="bench-sheet"' in page.text
+    assert page.text.index('src="/static/bench-sheet.js"') < page.text.index('src="/static/lab.js"')
+    assert 'id="formula-result-variant"' in page.text
+    assert "window.print()" in javascript.text
+    assert "benchSheetHtml(" in javascript.text
+    assert "formula-dose-hold" in javascript.text
+    bench = await client.get("/static/bench-sheet.js")
+    assert bench.status_code == 200
+    assert "Order as designed" in bench.text
+    assert "bench-tick" in bench.text
+
+
+def _run_bench_sheet(script):
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("node is not installed; the bench-sheet logic test needs it")
+    program = f"const bench = require({json.dumps(str(BENCH_SHEET_JS))});\nprocess.stdout.write(JSON.stringify(({script})(bench)));"
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=60, check=True)
+    return json.loads(completed.stdout)
+
+
+def _row(material, amount, unit="uL", **extra):
+    return {
+        "material": material, "stock_label": f"{material} stock", "stock_fraction_decimal": "0.005",
+        "fraction_basis": "w/w", "carrier": "DPG", "amount_decimal": amount, "amount_unit": unit,
+        "operation": "MASS_ADD" if unit == "mg" else "DIRECT_ADD", "execution_ready": True, **extra,
+    }
+
+
+def test_bench_sheet_logic_keeps_exact_per_unit_totals_and_flags_prepared_dilutions():
+    rows = [
+        _row("Iso E Super", "20.0"),
+        _row("Ambrox crystals", "0.1", "mg"),
+        _row("Hedione", "30", "\u00b5L"),
+        _row("Cetalox", "0.2", "mg"),
+        _row("Ethyl <b>Maltol</b>", "4", operation="PREPARED_DILUTION_REQUIRED", execution_ready=False),
+        _row("Calone", "a few", "\u03bcL"),
+        _row("Vetiver", "15"),
+    ]
+    critic = {"issues": ["ONE_OR_MORE_ROWS_REQUIRE_STOCK_OR_DILUTION_BINDING"]}
+    result = _run_bench_sheet(
+        "(b) => ({ sum: b.addDecimalText('0.1', '0.2'), lines: b.benchSheetLines(ROWS),"
+        " hold: b.benchSheetHold(ROWS, CRITIC), clear: b.benchSheetHold([ROWS[0]], { issues: [] }),"
+        " html: b.benchSheetHtml({ formulaName: 'Test <Iris>', variantLabel: 'B', dateText: 'today', totals: {}, rows: ROWS, critic: CRITIC }) })"
+        .replace("ROWS", json.dumps(rows)).replace("CRITIC", json.dumps(critic))
+    )
+
+    assert result["sum"] == "0.3"
+    lines = result["lines"]["lines"]
+    assert [line["runningTotal"] for line in lines] == [
+        "20 \u00b5L", "0.1 mg", "50 \u00b5L", "0.3 mg", None, "check by hand", "check by hand",
+    ]
+    assert [line["strength"] for line in lines][0] == "0.5% w/w in DPG"
+    assert [line["amount"] for line in lines][:3] == ["20.0", "0.1", "30"]
+
+    flagged = lines[4]
+    assert flagged["pipettable"] is False
+    assert flagged["mark"] == "Prepare a dilution first: 4 uL of this stock is under 10 uL, too small to pipette as written."
+    assert result["lines"]["leftOut"] == 1
+    assert [line["pipettable"] for line in lines] == [True, True, True, True, False, True, True]
+
+    assert result["hold"] == {
+        "onHold": True,
+        "stateText": "Proposal \u00b7 check hold",
+        "issues": ["one or more rows require stock or dilution binding"],
+    }
+    assert result["clear"]["stateText"] == "Proposal only"
+
+    html = result["html"]
+    body_rows = html.split("<tbody>", 1)[1].split("</tr>")[:-1]
+    assert len(body_rows) == len(rows)
+    assert "bench-tick" not in body_rows[4]
+    assert "not in total" in body_rows[4]
+    assert all("bench-tick" in row for index, row in enumerate(body_rows) if index != 4)
+    assert "Running totals leave out 1 row that needs a prepared dilution first." in html
+    assert "Proposal \u00b7 check hold" in html
+    assert "Ethyl &lt;b&gt;Maltol&lt;/b&gt;" in html
+    assert "<b>Maltol" not in html
+    assert "Test &lt;Iris&gt; \u00b7 B" in html
 
 
 @pytest.mark.asyncio

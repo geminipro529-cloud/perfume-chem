@@ -1253,6 +1253,9 @@ function renderFormulaDesign(result, variantIndex = 0) {
   const picker = $("#formula-variant-picker");
   const variants = result.design_variants || [];
   picker.hidden = variants.length <= 1;
+  $("#formula-result-variant").textContent = variants.length > 1
+    ? `Alternative shown: ${variants[variantIndex]?.label || `Alternative ${variantIndex + 1}`}`
+    : "";
   picker.replaceChildren();
   variants.forEach((variant, index) => {
     const button = document.createElement("button");
@@ -1270,14 +1273,13 @@ function renderFormulaDesign(result, variantIndex = 0) {
       const proxy = row.profile_source === "HEURISTIC_CATEGORY_PROXY" ? '<small class="proxy-label">category proxy</small>' : "";
       const stockLabel = row.stock_label || `${fraction} ${row.fraction_basis}${carrier}`;
       return `<tr>
-        <td><strong>${escapeHtml(row.material)}</strong>${proxy}</td>
+        <td><strong>${escapeHtml(row.material)}</strong>${proxy}<small class="formula-why">${escapeHtml(row.rationale)}</small></td>
+        <td class="formula-dose">${escapeHtml(row.amount_decimal)} ${escapeHtml(row.amount_unit)}${benchNeedsPreparedDilution(row) ? '<small class="formula-dose-hold">prepare dilution first</small>' : ""}</td>
         <td>${escapeHtml(stockLabel)}<small>${escapeHtml(fraction)} ${escapeHtml(row.fraction_basis)}${escapeHtml(carrier)}</small></td>
         <td>${escapeHtml(row.slot_label)}<small>${escapeHtml(row.note)} · ${escapeHtml(row.role)}</small></td>
-        <td class="formula-dose">${escapeHtml(row.amount_decimal)} ${escapeHtml(row.amount_unit)}</td>
-        <td>${escapeHtml(row.rationale)}</td>
       </tr>`;
     }).join("")
-    : '<tr><td colspan="5">Clarify the brief before a formula can be created.</td></tr>';
+    : '<tr><td colspan="4">Clarify the brief before a formula can be created.</td></tr>';
 
   const totals = $("#formula-result-totals");
   totals.replaceChildren();
@@ -1570,6 +1572,34 @@ $("#formula-download").addEventListener("click", () => {
   link.click();
   URL.revokeObjectURL(link.href);
   notify("Read-only formula draft downloaded.");
+});
+
+// The sheet's arithmetic and markup live in bench-sheet.js (pure, node-tested).
+function buildBenchSheet(result, variantIndex) {
+  const selected = selectedFormulaVariant(result, variantIndex);
+  const rows = selected.formula?.rows || [];
+  const variants = result.design_variants || [];
+  $("#bench-sheet").innerHTML = benchSheetHtml({
+    formulaName: result.formula_name,
+    variantLabel: variants.length > 1 ? (variants[variantIndex]?.label || `Alternative ${variantIndex + 1}`) : "",
+    dateText: new Date().toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }),
+    totals: selected.formula?.separate_totals || {},
+    rows,
+    critic: selected.critic,
+  });
+  return rows.length;
+}
+
+$("#formula-print-bench").addEventListener("click", () => {
+  const result = state.formulaChat.result;
+  if (!result) return;
+  if (!buildBenchSheet(result, state.formulaChat.variantIndex || 0)) {
+    notify("There is no formula to print yet. Clarify the brief first.", true);
+    return;
+  }
+  document.body.classList.add("printing-bench-sheet");
+  window.addEventListener("afterprint", () => document.body.classList.remove("printing-bench-sheet"), { once: true });
+  window.print();
 });
 
 bindForm("#material-form", (data) => request("/materials", { method: "POST", body: JSON.stringify(data) }));
