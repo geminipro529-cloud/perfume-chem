@@ -478,7 +478,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 170.0
-  density_25c_g_ml: 0.867
+  density_25c_g_ml: null
   logp: 2.5
   functional_groups: []
   chirality: null
@@ -513,7 +513,6 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     cas: 'TGSC: CAS Number: 8016-38-4 (https://www.thegoodscentscompany.com/data/es1618991.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.86000 to 0.87900 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/es1618991.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Neroli Essential Oil
   aliases: []
   cas: null
