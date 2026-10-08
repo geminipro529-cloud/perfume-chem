@@ -193,14 +193,26 @@ def resolve_category4_screening(
     if selected.policy_id != dataset["policy_id"]:
         raise SafetyPolicyError("no runtime screening dataset for selected policy")
 
-    from engine.ifra_safety import IFRA_CAT4_LIMITS  # noqa: PLC0415
+    from engine.ifra_standards import load_ifra_table  # noqa: PLC0415
 
+    # Sourced Cat 4 table: its canonical names and aliases resolve exactly
+    # (case/whitespace-insensitive, no substring matching). Restricted
+    # materials carry their limit and prohibited ones 0.0; every other status
+    # has no numeric limit and falls through to the manifest records below.
+    ifra_table = load_ifra_table()
     table: dict[str, tuple[str, float]] = {}
-    for canonical, value in IFRA_CAT4_LIMITS.items():
-        key = _identity_key(canonical)
-        if key in table and table[key][0] != canonical:
-            raise SafetyPolicyError("normalized IFRA screening identity collision")
-        table[key] = (canonical, float(value))
+    for record in ifra_table.materials.values():
+        if record.status == "restricted" and record.cat4_limit_pct is not None:
+            value = float(record.cat4_limit_pct)
+        elif record.status == "prohibited":
+            value = 0.0
+        else:
+            continue
+        for name in (record.name, *record.aliases):
+            key = _identity_key(name)
+            if key in table and table[key][0] != record.name:
+                raise SafetyPolicyError("normalized IFRA screening identity collision")
+            table[key] = (record.name, value)
     aliases = {
         _identity_key(alias): _identity_key(target)
         for alias, target in dataset.get("admitted_aliases", {}).items()

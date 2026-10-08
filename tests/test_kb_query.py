@@ -227,10 +227,14 @@ class TestCheckCrossFamily:
 class TestGetIfraLimit:
     """Tests for ``kb_rules_api.get_ifra_limit``."""
 
-    def test_linalool_limit(self) -> None:
-        """Linalool should have a known IFRA limit of 15.0."""
-        limit = rules.get_ifra_limit("Linalool")
-        assert limit == 15.0
+    def test_coumarin_limit(self) -> None:
+        """Coumarin is restricted to 1.5% in Category 4 (IFRA 51st Amendment)."""
+        limit = rules.get_ifra_limit("Coumarin")
+        assert limit == 1.5
+
+    def test_linalool_has_no_numeric_limit(self) -> None:
+        """Linalool is specification-only under the 51st Amendment."""
+        assert rules.get_ifra_limit("Linalool") is None
 
     def test_unknown_returns_none(self) -> None:
         """Unknown material returns None."""

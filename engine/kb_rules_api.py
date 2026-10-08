@@ -185,7 +185,9 @@ def check_cross_family(family_a: str, family_b: str) -> str | None:
 def get_ifra_limit(name: str) -> float | None:
     """Return the IFRA Cat 4 limit percentage for a material.
 
-    Queries the ``ifra_limits`` table. Returns ``None`` if no limit.
+    Queries the ``ifra_limits`` table, which ``kb_migrate`` seeds from the
+    sourced IFRA 51st Amendment table (restricted materials only, by
+    canonical name and alias). Returns ``None`` if no numeric limit.
     """
     conn = _get_conn()
     try:

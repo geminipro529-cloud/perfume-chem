@@ -23,13 +23,16 @@ def test_51st_is_effective_and_52nd_remains_pending() -> None:
 
 
 def test_exact_identity_and_admitted_alias_resolve_only_as_screening() -> None:
-    exact = resolve_category4_screening("  Ambrox   Super ")
+    exact = resolve_category4_screening("  Benzyl   Salicylate ")
     admitted_alias = resolve_category4_screening("alpha isomethyl ionone")
+    no_standard = resolve_category4_screening("Ambrox Super")
 
     assert exact.match_state == "EXPLICIT_APPLICABLE_LIMIT"
-    assert exact.maximum_finished_product_pct == 15.0
+    assert exact.maximum_finished_product_pct == 7.3
     assert admitted_alias.canonical_material == "Alpha Isomethyl Ionone"
-    assert admitted_alias.maximum_finished_product_pct == 7.26
+    assert admitted_alias.maximum_finished_product_pct == 30.0
+    assert no_standard.match_state == "NO_MATCHING_RECORD"
+    assert no_standard.maximum_finished_product_pct is None
     assert exact.as_dict()["regulatory_compliance_determination"] is False
     assert all(
         exact.as_dict()[key] is False

@@ -10,7 +10,8 @@ Priority for material physics fields (highest to lowest):
     2. ingredient_intelligence._PROFILES  (character, note, role, texture)
     3. odor_thresholds.ODT_DATA  (ODT values)
     4. material_properties.json  (gap-fill)
-    5. ifra_safety.IFRA_CAT4_LIMITS  (IFRA limits)
+    5. data/regulatory/ifra_cat4_51.json via engine.ifra_standards  (IFRA limits;
+       overrides the gap-fill for every material the sourced table knows)
 """
 
 from __future__ import annotations
@@ -22,6 +23,7 @@ import sqlite3
 
 import yaml
 
+from engine.ifra_standards import load_ifra_table
 from engine.kb_schema import create_database
 from engine.name_utils import normalize_name
 
@@ -257,20 +259,39 @@ def _merge_material(
         if row.get("ifra_cat4_limit_pct") is None:
             row["ifra_cat4_limit_pct"] = prop.get("ifra_cat4_limit_pct")
 
-    # ── 5. IFRA_CAT4_LIMITS (explicit limit) ──
-    ifra_val = ifra_limits.get(name)
-    if ifra_val is None:
+    # ── 5. Sourced IFRA Cat 4 table (authoritative where it has the material) ──
+    if name in ifra_limits:
+        row["ifra_cat4_limit_pct"] = ifra_limits[name]
+    else:
         for ifra_name, ifra_v in ifra_limits.items():
             if normalize_name(ifra_name) == norm:
-                ifra_val = ifra_v
+                row["ifra_cat4_limit_pct"] = ifra_v
                 break
-    if ifra_val is not None and row.get("ifra_cat4_limit_pct") is None:
-        row["ifra_cat4_limit_pct"] = ifra_val
 
     return row
 
 
 # ── Population functions ─────────────────────────────────────────────
+
+
+def _ifra_material_limits() -> dict[str, float | None]:
+    """Materials-table IFRA column from the sourced Cat 4 table.
+
+    Every name (canonical and alias) the table knows maps to its Category 4
+    limit (% w/w finished product): the limit when restricted, 0.0 when
+    prohibited, ``None`` for any other status (no numeric limit).
+    """
+    limits: dict[str, float | None] = {}
+    for material in load_ifra_table().materials.values():
+        if material.status == "restricted":
+            value = material.cat4_limit_pct
+        elif material.status == "prohibited":
+            value = 0.0
+        else:
+            value = None
+        for alias in (material.name, *material.aliases):
+            limits[alias] = value
+    return limits
 
 
 def _populate_materials(conn: sqlite3.Connection) -> dict[str, int]:
@@ -280,23 +301,15 @@ def _populate_materials(conn: sqlite3.Connection) -> dict[str, int]:
     """
     yaml_entries = _load_yaml_entries()
     profiles: dict = {}
-    ifra_limits: dict = {}
     props = _load_material_properties()
+    ifra_limits = _ifra_material_limits()
 
     # Import engine modules (lazy, inside function)
-    from engine.ifra_safety import IFRA_CAT4_LIMITS  # noqa: PLC0415
     from engine.ingredient_intelligence import _PROFILES  # noqa: PLC0415
     from engine.odor_thresholds import ODT_DATA  # noqa: PLC0415
 
     profiles = _PROFILES
     odt_norm = _build_odt_lookup(ODT_DATA)
-
-    if isinstance(IFRA_CAT4_LIMITS, dict):
-        ifra_limits = IFRA_CAT4_LIMITS
-    elif hasattr(IFRA_CAT4_LIMITS, "__iter__"):
-        for item in IFRA_CAT4_LIMITS:  # type: ignore[reportGeneralTypeIssues]
-            if isinstance(item, dict) and "name" in item and "limit" in item:
-                ifra_limits[item["name"]] = item["limit"]
 
     insert_sql = """
         INSERT OR REPLACE INTO materials (
@@ -822,22 +835,17 @@ def _populate_safety(conn: sqlite3.Connection) -> None:
     from engine.ifra_safety import (  # noqa: PLC0415
         BANNED_MATERIALS,
         EU_FRAGRANCE_ALLERGENS,
-        IFRA_CAT4_LIMITS,
         SENSITIZATION_DATA,
     )
 
-    # IFRA limits
+    table = load_ifra_table()
+
+    # IFRA limits: restricted materials of the sourced Cat 4 table, one row per
+    # canonical name and alias as written. The ifra_limits schema has no status
+    # column, so specification and no-standard materials get no row.
     ifra_sql = "INSERT OR IGNORE INTO ifra_limits (material_name, cat4_limit_pct) VALUES (?,?)"
-    if isinstance(IFRA_CAT4_LIMITS, dict):
-        for name, limit in IFRA_CAT4_LIMITS.items():
-            conn.execute(ifra_sql, (name, float(limit)))
-    elif hasattr(IFRA_CAT4_LIMITS, "__iter__"):
-        for item in IFRA_CAT4_LIMITS:  # type: ignore[reportGeneralTypeIssues]
-            if isinstance(item, dict) and "name" in item:
-                conn.execute(
-                    ifra_sql,
-                    (item["name"], item.get("limit", item.get("cat4_limit_pct"))),
-                )
+    for name, limit in table.cat4_limits().items():
+        conn.execute(ifra_sql, (name, float(limit)))
 
     # EU allergens (dict[str, dict])
     eu_sql = """
@@ -875,8 +883,14 @@ def _populate_safety(conn: sqlite3.Connection) -> None:
                 ),
             )
 
-    # Banned materials
+    # Banned materials: IFRA prohibitions from the sourced table first (with
+    # their standard as the reason), then the legacy banned list.
     ban_sql = "INSERT OR IGNORE INTO banned_materials (material_name, reason) VALUES (?,?)"
+    for material in table.materials.values():
+        if material.status == "prohibited":
+            reason = f"IFRA 51st Amendment prohibition (standard {material.standard})"
+            for name in (material.name, *material.aliases):
+                conn.execute(ban_sql, (name, reason))
     if isinstance(BANNED_MATERIALS, dict):
         for name, reason in BANNED_MATERIALS.items():
             conn.execute(ban_sql, (name, str(reason)))
