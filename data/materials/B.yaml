@@ -2872,8 +2872,9 @@
   functional_groups:
   - phenol
   chirality: null
-  vp_25c_pa: 0.001
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.001 (unsourced; about 100x low per the chemprops cross-check); replaced with the cited value
+  vp_25c_pa: 0.688
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2897,6 +2898,7 @@
   character: null
   notes: null
   provenance:
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 31404 (https://pubchem.ncbi.nlm.nih.gov/compound/31404#section=Vapor-Pressure): "5.16X10-3 mm Hg at 25 °C", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 0.688 Pa. Conflict kept on record: ICSC lists 1.3 Pa at 20 °C.'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: beta ionone (1% in tec)
   aliases:

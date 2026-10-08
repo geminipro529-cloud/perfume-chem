@@ -375,8 +375,8 @@
   cas: '88-41-5'
   smiles:
   inchikey:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 170.25)
-  mw_g_mol: 170.25
+  # 2026-10-08: was 170.25; corrected from the molecular formula
+  mw_g_mol: 198.30
   density_25c_g_ml: 0.938
   logp:
   functional_groups: []
@@ -408,6 +408,7 @@
   character:
   notes:
   provenance:
+    mw_g_mol: 'Molecular formula C12H22O2 for 2-tert-butylcyclohexyl acetate, CAS 88-41-5 (the CAS already cited from TGSC rw1002461); MW from IUPAC standard atomic weights = 198.30. The old 170.25 matched no formula for this CAS.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds

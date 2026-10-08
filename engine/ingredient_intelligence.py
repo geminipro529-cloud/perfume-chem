@@ -190,7 +190,7 @@ _PROFILES: dict[str, dict] = {
         "note": "top",
         "role": "modifier",
         "texture": "lift",
-        "mw": 182.30,
+        "mw": 168.28,  # 2026-10-08: was 182.30; from the molecular formula
         "vp": 0.08,
         "clogp": 3.5,
         "synergies": ["Linalool", "Hedione", "Dihydromyrcenol", "Bergamot FCF"],
@@ -383,7 +383,7 @@ _PROFILES: dict[str, dict] = {
         "note": "top",
         "role": "modifier",
         "texture": "lift",
-        "mw": 170.25,
+        "mw": 198.30,  # 2026-10-08: was 170.25; from the molecular formula
         "vp": 0.3,
         "clogp": 3.2,
         "synergies": ["cis-3-Hexenol", "Hedione"],
@@ -1280,7 +1280,7 @@ _PROFILES: dict[str, dict] = {
         "note": "base",
         "role": "modifier",
         "texture": "veil",
-        "mw": 234.38,
+        "mw": 236.40,  # 2026-10-08: was 234.38; from the molecular formula
         "vp": 0.35,
         "clogp": 5.0,
         "synergies": ["Iso E Super", "Clearwood"],
@@ -4838,6 +4838,13 @@ _VERIFIED_VP = {
     "Indole": 1.63,
     "Cinnamaldehyde": 3.85,
     "Guaiacol": 13.7,
+    # 2026-10-08: six more about 100x low (chemprops cross-check), cited from HSDB.
+    "Isoeugenol": 1.8,
+    "BHT": 0.688,
+    "Anisaldehyde": 4.39,
+    "Methyl Anthranilate": 3.61,
+    "Methyl Nonyl Ketone": 5.47,
+    "Skatole": 0.733,
 }
 
 _VERIFIED_VP_SOURCE = {
@@ -4875,6 +4882,24 @@ _VERIFIED_VP_SOURCE = {
         "HSDB via PubChem CID 637511: 2.89e-2 mm Hg at 25 C (Perry's Handbook 1984) = 3.85 Pa"
     ),
     "Guaiacol": "HSDB via PubChem CID 460: 0.103 mm Hg at 25 C (Verschueren 1983) = 13.7 Pa",
+    "Isoeugenol": (
+        "HSDB via PubChem CID 853433: 0.0135 mm Hg at 25 C, extrapolated from NIST WebBook data = 1.80 Pa; NTP 1992 gives 0.02 mmHg at 77 F"
+    ),
+    "BHT": (
+        "HSDB via PubChem CID 31404: 5.16e-3 mm Hg at 25 C (Perry's 1984) = 0.688 Pa; ICSC lists 1.3 Pa at 20 C"
+    ),
+    "Anisaldehyde": (
+        "HSDB via PubChem CID 31244: 3.29e-2 mm Hg at 25 C, extrapolated (Ohe 1989) = 4.39 Pa"
+    ),
+    "Methyl Anthranilate": (
+        "HSDB via PubChem CID 8635: 2.71e-2 mm Hg at 25 C, extrapolated (Perry's 1984) = 3.61 Pa"
+    ),
+    "Methyl Nonyl Ketone": (
+        "HSDB via PubChem CID 8163 (2-undecanone): 4.1e-2 mm Hg, temperature not stated (Perry's 1984) = 5.47 Pa"
+    ),
+    "Skatole": (
+        "HSDB via PubChem CID 6736: 0.0055 mm Hg, temperature not stated (Perry's 1984) = 0.733 Pa"
+    ),
 }
 
 for _key, _val in _VERIFIED_VP.items():

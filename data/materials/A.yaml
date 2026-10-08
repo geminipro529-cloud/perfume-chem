@@ -1968,7 +1968,7 @@
 - canonical_name: Alpha Irone 10% In Myristic Acid(solid)
   aliases:
   - Alpha Irone 10% in Myristic Acid(solid)
-  cas: 127-51-5
+  cas: '79-69-6'
   smiles: CC1=CCCC(C1/C=C(/C)\C(=O)C)(C)C
   inchikey: JRJBVWJSTHECJK-LUAWRHEFSA-N
   mw_g_mol: 206.32
@@ -2001,6 +2001,7 @@
   character: null
   notes: null
   provenance:
+    cas: 'Same active as the Alpha Irone entry (79-69-6, pubchem:alpha-Irone). 127-51-5 is alpha-isomethyl ionone and was wrong here.'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Alpha Isomethyl Ionone
   aliases:
@@ -3528,8 +3529,9 @@
   logp: 1.8
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.05
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.05 (unsourced; about 100x low per the chemprops cross-check); replaced with the cited value
+  vp_25c_pa: 4.39
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0002
@@ -3555,7 +3557,7 @@
   notes: null
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 31244 (https://pubchem.ncbi.nlm.nih.gov/compound/31244#section=Vapor-Pressure): "3.29X10-2 mm Hg at 25 °C (extrapolated)", citing Ohe S, Vapor-Liquid Equilibrium Data (Kodansha/Elsevier 1989) p. 742; x 133.322 = 4.39 Pa. Extrapolated from measured data.'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

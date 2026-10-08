@@ -1721,7 +1721,8 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 234.38
+  # 2026-10-08: was 234.38; corrected from the molecular formula
+  mw_g_mol: 236.40
   density_25c_g_ml: null
   logp: null
   functional_groups: []
@@ -1752,6 +1753,7 @@
   character: null
   notes: null
   provenance:
+    mw_g_mol: 'Molecular formula C16H28O for cedryl methyl ether (IFF Cedramber; TGSC rw1020571 lists cedryl methyl ether under CAS 67874-81-1); MW from IUPAC standard atomic weights = 236.40. The old 234.38 corresponds to C16H26O. CAS left empty because the TGSC name match was flagged for checking.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds

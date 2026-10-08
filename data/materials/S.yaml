@@ -1948,8 +1948,9 @@
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.01
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.01 (unsourced; about 100x low per the chemprops cross-check); replaced with the cited value
+  vp_25c_pa: 0.733
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1978,6 +1979,7 @@
   character: null
   notes: Current 1% stock carrier is DPG. Fraction basis remains unspecified, so quantitative execution is held.
   provenance:
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 6736 (https://pubchem.ncbi.nlm.nih.gov/compound/6736#section=Vapor-Pressure): "0.0055 mm Hg", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 0.733 Pa. The record does not state the temperature.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds

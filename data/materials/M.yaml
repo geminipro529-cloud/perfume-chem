@@ -1003,7 +1003,7 @@
 - canonical_name: Maple Lactone
   aliases:
   - maple lactone
-  cas: '698-10-2'
+  cas: null
   smiles:
   inchikey:
   mw_g_mol: 128.1
@@ -1055,7 +1055,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    cas: 'TGSC: CAS Number: 698-10-2 (https://www.thegoodscentscompany.com/data/rw1008621.html)'
+    cas: 'Removed 2026-10-08: the TGSC sweep matched ''Maple Lactone'' to maple furanone (698-10-2, C7H10O3, MW 142.15), but ''maple lactone'' is also the usual name for methyl cyclopentenolone (80-71-7, C6H8O2, MW 112.13), and the YAML MW 128.1 fits neither. Identity needs the supplier sheet.'
     density_25c_g_ml: 'TGSC: Specific Gravity: 1.13400 to 1.14400 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1008621.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Mate Absolute
   aliases: []
@@ -1431,8 +1431,9 @@
   logp: 1.9
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.03
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.03 (unsourced; about 100x low per the chemprops cross-check); replaced with the cited value
+  vp_25c_pa: 3.61
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1461,6 +1462,7 @@
   character:
   notes:
   provenance:
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 8635 (https://pubchem.ncbi.nlm.nih.gov/compound/8635#section=Vapor-Pressure): "2.71X10-2 mm Hg at 25 °C /Extrapolated/", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 3.61 Pa. Extrapolated from measured data.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -1827,8 +1829,9 @@
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.05)
-  vp_25c_pa: 0.05
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.05 (unsourced; about 100x low per the chemprops cross-check); replaced with the cited value
+  vp_25c_pa: 5.47
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1853,6 +1856,7 @@
   character:
   notes:
   provenance:
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 8163, 2-undecanone (https://pubchem.ncbi.nlm.nih.gov/compound/8163#section=Vapor-Pressure): "4.1X10-2 mm Hg", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 5.47 Pa. The record does not state the temperature.'
     mw_g_mol: engine.skin_interaction
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
@@ -2493,7 +2497,7 @@
 - canonical_name: Musk Ketone
   aliases:
   - musk ketone
-  cas: 94201-19-1
+  cas: '81-14-1'
   smiles:
   inchikey:
   mw_g_mol: 294.3
@@ -2534,6 +2538,7 @@
   character:
   notes: 'Previous gate VP 0.000039997 Pa (PubChem CID 6669 / Peck and Hornbuckle 2004, 3.00e-7 mmHg at 25 C) is about 17x lower than the supplier sheet value now used; the two sources disagree. Air ODT in engine/odor_thresholds.py (2.0 ppb) has no source for the material itself.'
   provenance:
+    cas: '81-14-1 per IFRA Standard 189 and PerfumersWorld 1XU00308 (musk dossier ENGINE_CORRECTIONS_20261008.md). 94201-19-1 is Methyl Laitone''s CAS (Givaudan) and was wrong here.'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: 'Hekserij Musk ketone data sheet 1Doc-23045 (2025-12), https://www.hekserij.nl/wp-content/uploads/2026/01/1Doc-23045-Musk-ketone-2025-12.pdf: "0.00069" Pa at 25 C, as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
     kaw_eff: engine.diffusion_model

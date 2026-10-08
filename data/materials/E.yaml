@@ -688,8 +688,8 @@
   cas: '10339-55-6'
   smiles:
   inchikey:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 182.3)
-  mw_g_mol: 182.3
+  # 2026-10-08: was 182.3; corrected from the molecular formula
+  mw_g_mol: 168.28
   density_25c_g_ml: 0.858
   logp:
   functional_groups: []
@@ -721,6 +721,7 @@
   character:
   notes:
   provenance:
+    mw_g_mol: 'Molecular formula C11H20O for 3,7-dimethylnona-1,6-dien-3-ol, CAS 10339-55-6 (the CAS already cited from TGSC rw1015171); MW from IUPAC standard atomic weights = 168.28. The old 182.3 matched no formula for this CAS.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds

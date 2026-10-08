@@ -294,7 +294,7 @@
   aliases:
   - labdanum
   - cistus resinoid
-  cas: '8016-36-2'
+  cas: null
   smiles:
   inchikey:
   mw_g_mol: 300.0
@@ -338,6 +338,7 @@
   character: Dark, resinous, amber-leather, slightly animalic; Cistus ladanifer hexane extract; provides warm amber depth and tenacity.
   notes: 'Crude resinoid vs Labdanum Absolute — similar chemistry but less refined; retains more terpenic/higher-boiling fractions. Key odorants include labdanolic acid, ambrinol, sclareol derivatives.'
   provenance:
+    cas: 'Removed 2026-10-08: 8016-36-2 is olibanum''s CAS (the Olibanum Resinoid entry cites it from PerfumersWorld 2QK21856). Labdanum''s own CAS was not checked against a source page, so the field stays empty.'
     mw_g_mol: manual:2026-06-10 matched to Labdanum Absolute/Labdanum profiles
     density_25c_g_ml: manual:2026-06-10 resinoid typical density
     logp: manual:2026-06-10 matched to Labdanum profiles
