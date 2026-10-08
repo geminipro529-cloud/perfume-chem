@@ -14,6 +14,7 @@ from math import isfinite
 from uuid import uuid4
 
 from sqlalchemy import text
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.lab import (
@@ -164,6 +165,10 @@ class LabTransactionError(ValueError):
     """Base error for rejected laboratory commands."""
 
 
+class LabConflictError(LabTransactionError):
+    """Raised when a write violates a uniqueness constraint (duplicate record)."""
+
+
 class StaleBottleStreamError(LabTransactionError):
     """Raised when a command was prepared from an older bottle state."""
 
@@ -189,6 +194,16 @@ class ConcurrentWriteError(LabTransactionError):
 
 
 _LAB_WRITE_LOCK = asyncio.Lock()
+_DUPLICATE_MESSAGE = "A record with the same unique value already exists."
+_CONSTRAINT_MESSAGE = "The change conflicts with existing records."
+
+
+def _conflict_message(exc: IntegrityError) -> str:
+    """Say "already exists" only for unique-key violations, not other constraints."""
+    detail = str(getattr(exc, "orig", None) or exc).lower()
+    if "unique" in detail or "duplicate key" in detail:
+        return _DUPLICATE_MESSAGE
+    return _CONSTRAINT_MESSAGE
 
 
 class LabService(
@@ -231,13 +246,19 @@ class LabService(
                     await self.session.begin()
             try:
                 yield
-            except BaseException:
+            except BaseException as exc:
                 if owns_transaction:
                     await self.session.rollback()
+                if isinstance(exc, IntegrityError):
+                    raise LabConflictError(_conflict_message(exc)) from exc
                 raise
             else:
                 if owns_transaction:
-                    await self.session.commit()
+                    try:
+                        await self.session.commit()
+                    except IntegrityError as exc:
+                        await self.session.rollback()
+                        raise LabConflictError(_conflict_message(exc)) from exc
         finally:
             _LAB_WRITE_LOCK.release()
 
@@ -245,8 +266,13 @@ class LabService(
         name = canonical_name.strip()
         if not name:
             raise ValueError("canonical_name must not be empty")
-        async with self._transaction():
-            return await self.repository.add(LabMaterial(canonical_name=name))
+        try:
+            async with self._transaction():
+                return await self.repository.add(LabMaterial(canonical_name=name))
+        except LabConflictError as exc:
+            if str(exc) != _DUPLICATE_MESSAGE:
+                raise
+            raise LabConflictError(f"A material named '{name}' already exists.") from exc
 
     async def create_material_alias(
         self,

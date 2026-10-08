@@ -189,7 +189,9 @@ def test_successor_rejects_live_inventory_byte_drift(tmp_path, monkeypatch):
     path.write_bytes(inventory.INVENTORY_PATH.read_bytes() + b" ")
     monkeypatch.setattr(inventory, "INVENTORY_PATH", path)
     with pytest.raises(inventory.InventoryAuthorityError, match="live inventory"):
-        inventory.load_current_user_inventory_overlay()
+        inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
+    assert inventory.load_current_user_inventory_overlay()["records"]
+    assert inventory.live_inventory_text_binding()["bound"] is False
 
 
 def test_successor_rejects_confirmation_receipt_byte_drift(tmp_path, monkeypatch):

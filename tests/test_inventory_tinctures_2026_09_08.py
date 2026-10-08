@@ -58,7 +58,9 @@ def test_latest_successor_rejects_live_text_drift(tmp_path, monkeypatch):
     changed.write_text(inventory.INVENTORY_PATH.read_text(encoding="utf-8") + "\n# drift\n", encoding="utf-8")
     monkeypatch.setattr(inventory, "INVENTORY_PATH", changed)
     with pytest.raises(inventory.InventoryAuthorityError, match="bound to live inventory"):
-        inventory.load_current_user_inventory_overlay()
+        inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
+    assert inventory.load_current_user_inventory_overlay()["records"]
+    assert inventory.live_inventory_text_binding()["bound"] is False
 
 
 def test_tincture_cannot_be_promoted_to_quantitative_readiness():

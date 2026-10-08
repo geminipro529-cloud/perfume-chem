@@ -149,7 +149,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Raspberry Ketone
   aliases: []
-  cas: null
+  cas: '5471-51-2'
   smiles: null
   inchikey: null
   mw_g_mol: 164.2
@@ -193,6 +193,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 5471-51-2 (https://www.thegoodscentscompany.com/data/rw1020771.html)'
 - canonical_name: Red Mandarin EO
   aliases:
   - red mandarin eo
@@ -389,12 +390,12 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Rhubofix
   aliases: []
-  cas: null
+  cas: '41816-03-9'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 204.31
   density_25c_g_ml: null
-  logp: null
+  logp: 3.1
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -422,9 +423,12 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'VP and density left null (2026-10-08). VP: dsm-firmenich "0.00735 Pa at 20C" (https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880) and Hekserij "Vapor pressure: 0.007 Pa" with no stated temperature (https://eng.hekserij.nl/shop/fragrance-raw-material/search-by-type/aroma-chemicals/rhubofix-fir); no 25 C value. Hekserij "Density: 1.03" has no stated temperature. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880 (dsm-firmenich, producer); "CAS# 0041816-03-9" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    mw_g_mol: 'https://www.scentspiracy.com/fragrance-ingredients/p/rhubofix (secondary site); "204.31 g/mol" (C14H20O) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    logp: 'https://eng.hekserij.nl/shop/fragrance-raw-material/search-by-type/aroma-chemicals/rhubofix-fir (Hekserij, supplier); "Log P: 3.1", method not stated (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
 - canonical_name: Rice Bran Oil - Fixed Oil
   aliases: []
   cas: null
@@ -513,7 +517,7 @@
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.1
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 5.0e-05
@@ -538,10 +542,10 @@
   families:
   - musks
   character: null
-  notes: Current restocked bottle user-confirmed neat/as supplied 2026-09-15; the previously depleted bottle remains historical.
+  notes: 'Current restocked bottle user-confirmed neat/as supplied 2026-09-15; the previously depleted bottle remains historical. VP: 0.1 Pa at 25 C is an EPI Suite estimate, not a measurement. The measured value is 0.053 +/- 0.008 Pa at 20 C (gas saturation, RIFM 2000); it is at 20 C, so it is not placed in the 25 C field. The producer figure 0.00074 Pa is the EPI estimate (0.000741 mm Hg) printed as Pa.'
   provenance:
-    mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    mw_g_mol: 'engine.diffusion_model; matches the sourced 270.36-270.37 (RIFM, TGSC) quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, CAS 236391-76-7, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/236391-76-7.pdf: EPI Suite estimate "0.000741 mm Hg" x 133.322 Pa/mm Hg = 0.0988 Pa, kept as 0.1 Pa. Same assessment, measured: "0.053 +/- 0.008" Pa at 20 C by gas saturation (RIFM 2000), recorded in notes only. As quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -1083,11 +1087,11 @@
 - canonical_name: Rose Oxide
   aliases:
   - rose oxide
-  cas: null
+  cas: '16409-43-1'
   smiles: null
   inchikey: null
   mw_g_mol: 154.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.866
   logp: 2.9
   functional_groups: []
   chirality: null
@@ -1130,6 +1134,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 16409-43-1 (https://www.thegoodscentscompany.com/data/rw1035651.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.86500 to 0.87300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1035651.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: ROSE PETAL F-TEC
   aliases: []
   cas: null

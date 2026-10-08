@@ -109,11 +109,11 @@
 - canonical_name: Farnesol
   aliases:
   - farnesol
-  cas:
+  cas: '4602-84-0'
   smiles:
   inchikey:
   mw_g_mol: 222.4
-  density_25c_g_ml:
+  density_25c_g_ml: 0.884
   logp:
   functional_groups: []
   chirality:
@@ -151,6 +151,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 4602-84-0 (https://www.thegoodscentscompany.com/data/rw1005092.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.88400 to 0.88900 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1005092.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Female Concentratef
   aliases:
   - Female ConcentrateF
@@ -602,7 +604,7 @@
 - canonical_name: Florol
   aliases:
   - florol
-  cas:
+  cas: '63500-71-0'
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 170.3, corrected to 154.25)
@@ -650,6 +652,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 63500-71-0 (https://www.thegoodscentscompany.com/data/rw1045182.html)'
 - canonical_name: Flower Bouquet F-TEC
   aliases:
   - FLOWER BOUQUET F-TEC
@@ -1455,12 +1458,12 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fructone B
   aliases: []
-  cas:
+  cas: '6413-10-1'
   smiles:
   inchikey:
-  mw_g_mol:
-  density_25c_g_ml:
-  logp:
+  mw_g_mol: 174.20
+  density_25c_g_ml: 1.081
+  logp: 1.0
   functional_groups: []
   chirality:
   vp_25c_pa:
@@ -1488,9 +1491,13 @@
     other: {}
   families: []
   character:
-  notes:
+  notes: 'VP left null (2026-10-08): IFF "Vapor pressure: 0.047713 mm Hg @ 23 C" = 6.36 Pa at 23 C, method not stated (https://www.iff.com/?p=7704); TGSC "0.219000 mmHg @ 25.00 C. (est)" = 29.2 Pa (https://thegoodscentscompany.com/data/rw1033271.html); 4.6-fold conflict, neither measured at 25 C. Identity: ethyl 2-(2-methyl-1,3-dioxolan-2-yl)acetate; the "Fructone B" grade label is not confirmed as distinct from IFF Fructone. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://thegoodscentscompany.com/data/rw1033271.html and https://www.iff.com/?p=7704; "CAS Number: 6413-10-1" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    mw_g_mol: 'https://thegoodscentscompany.com/data/rw1033271.html; "Molecular Weight:174.19638000", calculated from C8H14O4 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    logp: 'https://www.iff.com/?p=7704 (IFF, producer); "Log P: 1.0", method not stated. TGSC gives 0.982 (not marked est) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    density_25c_g_ml: 'https://thegoodscentscompany.com/data/rw1033271.html; supplier range "Specific Gravity:1.07910 to 1.08910 @ 25.00 C."; midpoint 1.0841 x 0.99705 (water at 25 C) = 1.0809 g/mL (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
 - canonical_name: Fruity Ionone F-TEC
   aliases:
   - FRUITY IONONE F-TEC

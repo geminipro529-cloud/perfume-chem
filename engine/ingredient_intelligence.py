@@ -190,7 +190,7 @@ _PROFILES: dict[str, dict] = {
         "note": "top",
         "role": "modifier",
         "texture": "lift",
-        "mw": 182.30,
+        "mw": 168.28,  # 2026-10-08: was 182.30; from the molecular formula
         "vp": 0.08,
         "clogp": 3.5,
         "synergies": ["Linalool", "Hedione", "Dihydromyrcenol", "Bergamot FCF"],
@@ -383,7 +383,7 @@ _PROFILES: dict[str, dict] = {
         "note": "top",
         "role": "modifier",
         "texture": "lift",
-        "mw": 170.25,
+        "mw": 198.30,  # 2026-10-08: was 170.25; from the molecular formula
         "vp": 0.3,
         "clogp": 3.2,
         "synergies": ["cis-3-Hexenol", "Hedione"],
@@ -1280,7 +1280,7 @@ _PROFILES: dict[str, dict] = {
         "note": "base",
         "role": "modifier",
         "texture": "veil",
-        "mw": 234.38,
+        "mw": 236.40,  # 2026-10-08: was 234.38; from the molecular formula
         "vp": 0.35,
         "clogp": 5.0,
         "synergies": ["Iso E Super", "Clearwood"],
@@ -1619,8 +1619,8 @@ _PROFILES: dict[str, dict] = {
         "role": "fixative",
         "texture": "cocoon",
         "mw": 258.40,
-        "vp": 0.0001,
-        "clogp": 4.8,  # VERIFIED: PubChem CID=70490, 2026-05-30
+        "vp": 0.0727,  # synced to data/materials/G.yaml
+        "clogp": 5.9,  # AICIS measured log Kow; synced to data/materials/G.yaml
         "synergies": ["Habanolide", "Ambrettolide", "Iso E Super"],
     },
     "Tonalide": {
@@ -1629,7 +1629,7 @@ _PROFILES: dict[str, dict] = {
         "role": "fixative",
         "texture": "cocoon",
         "mw": 258.40,
-        "vp": 0.0001,
+        "vp": 0.07,  # Hekserij sheet, temperature not stated; synced to data/materials/T.yaml
         "clogp": 5.7,
         "synergies": ["Galaxolide"],
     },
@@ -1655,8 +1655,8 @@ _PROFILES: dict[str, dict] = {
         "role": "fixative",
         "texture": "veil",
         "mw": 238.37,
-        "vp": 0.0002,
-        "clogp": 5.5,
+        "vp": 0.076,  # RIFM 2004 measured; synced to data/materials/H.yaml
+        "clogp": 5.45,  # producer value; synced to data/materials/H.yaml
         "synergies": ["Galaxolide", "Ambrettolide", "Iso E Super"],
     },
     "Zenolide": {
@@ -1664,8 +1664,8 @@ _PROFILES: dict[str, dict] = {
         "note": "base",
         "role": "modifier",
         "texture": "veil",
-        "mw": 254.41,
-        "vp": 0.0001,
+        "mw": 256.34,  # C14H24O4
+        "vp": 0.028,  # RIFM 1999 data; synced to data/materials/Z.yaml
         "clogp": 6.0,
         "synergies": ["Galaxolide", "Habanolide"],
     },
@@ -1675,7 +1675,7 @@ _PROFILES: dict[str, dict] = {
         "role": "fixative",
         "texture": "cocoon",
         "mw": 240.38,
-        "vp": 0.0001,
+        "vp": 0.027,  # 0.0002 torr, Vuilleumier 1995 (RIFM-cited); synced to data/materials/E.yaml
         "clogp": 5.3,
         "synergies": ["Galaxolide", "Ambrettolide"],
     },
@@ -1684,8 +1684,8 @@ _PROFILES: dict[str, dict] = {
         "note": "base",
         "role": "modifier",
         "texture": "skin-effect",
-        "mw": 254.41,
-        "vp": 0.0001,
+        "mw": 240.38,  # same molecule as Exaltolide (pentadecanolide)
+        "vp": 0.027,  # copied from Exaltolide; synced to data/materials/M.yaml
         "clogp": 6.5,
         "synergies": ["Ambrettolide", "Galaxolide"],
     },
@@ -1695,9 +1695,9 @@ _PROFILES: dict[str, dict] = {
         "role": "fixative",
         "texture": "halo",
         "mw": 294.30,
-        "vp": 0.000039997,
-        "vp_source": ("PubChem CID 6669 / Peck & Hornbuckle 2004: 3.00e-7 mmHg at 25 C"),
-        "vp_flag": "PEER_REPORTED_25C",
+        "vp": 0.00069,
+        "vp_source": ("Hekserij Musk ketone data sheet 1Doc-23045 (2025-12): 0.00069 Pa at 25 C"),
+        "vp_flag": "SUPPLIER_REPORTED_25C",
         "clogp": 3.7,
         "synergies": ["Galaxolide", "Vanillin"],
     },
@@ -3608,6 +3608,20 @@ _ALIASES = {
     "Piperonal": "Heliotropal",
     "Cedamber": "Cedramber",
     "Jasmine Sambac": "Jasmine Sambac Absolute",
+    # Current-inventory spelling variants of the same material (stock
+    # strength/grade word or typo); mirrored in name_utils._ALIASES and YAML.
+    "Aldehyde C10 neat": "Aldehyde C10",
+    "Aldehyde C12 MNA neat": "Aldehyde C12 MNA",
+    "Dimethyl Benzyl Carbonyl Acetate": "DBCA",
+    "Ethyl Maltol 1% +": "Ethyl Maltol",
+    "Ethyl Maltol 1% + 10%": "Ethyl Maltol",
+    "Phenethyl Acetate": "Phenyl Ethyl Acetate",
+    "Phenylacetaldehyde Dimethyl Acetal (PADMA)": "padma",
+    "Phenylacetaldehyde Dimethyl Acetal": "padma",
+    "Ambrox Super Crystals": "Ambrox Super",
+    "Citral Natural": "Citral",
+    # Owner's Exaltolide bottle is Pentalide (Kenny 2026-10-08), CAS 106-02-5.
+    "Pentalide": "Exaltolide",
 }
 
 
@@ -4811,10 +4825,28 @@ _VERIFIED_VP = {
     "Geraniol": 2.67,
     "Nerol": 2.0,
     "Coumarin": 0.133,
-    "Habanolide": 0.000053,
+    "Habanolide": 0.076,
     "Ambrofix": 0.066,
     "Hedione": 0.09466,
     "Hedione HC": 0.09466,
+    # 2026-10-08: seven values about 100x low (the 2026-05-30 profile sync);
+    # cited values replace them, and the YAML spine carries the same numbers.
+    "Phenethyl Alcohol": 11.57,
+    "Benzyl Acetate": 23.6,
+    "cis-3-Hexenol": 140.0,
+    "Eugenol": 2.95,
+    "Indole": 1.63,
+    "Cinnamaldehyde": 3.85,
+    "Guaiacol": 13.7,
+    # 2026-10-08: six more about 100x low (chemprops cross-check), cited from HSDB.
+    "Isoeugenol": 1.8,
+    "BHT": 0.688,
+    "Anisaldehyde": 4.39,
+    "Methyl Anthranilate": 3.61,
+    "Methyl Nonyl Ketone": 5.47,
+    "Skatole": 0.733,
+    # 2026-10-08: was 5.0 (about 200x low); RIFM-quoted EPI Suite estimate.
+    "Ethyl 2-Methylbutyrate": 1070.0,
 }
 
 _VERIFIED_VP_SOURCE = {
@@ -4828,12 +4860,52 @@ _VERIFIED_VP_SOURCE = {
     "Citronellol": "ECHA registration dossier: 2.26 Pa at 25 C",
     "Dynascone": ("Vigon Dynascone SDS rev. 2020-06-08: 0.01 mmHg at 25 C = 1.33322 Pa"),
     "Habanolide": (
-        "dsm-firmenich official product data: 0.00003 Pa at 20 C; "
-        "0.000053 Pa is a temperature-adjusted 25 C estimate"
+        "RIFM safety assessment CAS 34902-57-3: 0.076 Pa at 25 C, measured (RIFM 2004); "
+        "the dsm-firmenich 0.00003 Pa at 20 C figure looks like an EPI estimate printed as Pa"
     ),
     "Hedione": "EP 3141239 B1: 0.000710 Torr at 25 C = 0.09466 Pa",
     "Hedione HC": ("Hedione pure-component proxy; cis-isomer-specific VP unresolved"),
     "Melonal": "OECD 104 value reported in EU SDS: 239 Pa at 25 C",
+    "Phenethyl Alcohol": (
+        "HSDB via PubChem CID 6054: 8.68e-2 mm Hg at 25 C from experimentally derived "
+        "coefficients (Daubert & Danner 1989) = 11.57 Pa"
+    ),
+    "Benzyl Acetate": (
+        "HSDB via PubChem CID 8785: 0.177 mm Hg at 25 C from experimentally derived "
+        "coefficients (Daubert & Danner 1989) = 23.6 Pa; ICSC lists 190 Pa at 25 C"
+    ),
+    "cis-3-Hexenol": (
+        "Stejfa et al. 2015 Fluid Phase Equilib. doi:10.1016/j.fluid.2015.05.026 via Chemeo: "
+        "0.14 kPa at 298.15 K, measured = 140 Pa"
+    ),
+    "Eugenol": "HSDB via PubChem CID 3314: 0.0221 mm Hg at 25 C (Van Roon et al. 2005) = 2.95 Pa",
+    "Indole": "HSDB via PubChem CID 798: 0.0122 mm Hg at 25 C (Yaws 1994) = 1.63 Pa",
+    "Cinnamaldehyde": (
+        "HSDB via PubChem CID 637511: 2.89e-2 mm Hg at 25 C (Perry's Handbook 1984) = 3.85 Pa"
+    ),
+    "Guaiacol": "HSDB via PubChem CID 460: 0.103 mm Hg at 25 C (Verschueren 1983) = 13.7 Pa",
+    "Isoeugenol": (
+        "HSDB via PubChem CID 853433: 0.0135 mm Hg at 25 C, extrapolated from NIST WebBook data = 1.80 Pa; NTP 1992 gives 0.02 mmHg at 77 F"
+    ),
+    "BHT": (
+        "HSDB via PubChem CID 31404: 5.16e-3 mm Hg at 25 C (Perry's 1984) = 0.688 Pa; ICSC lists 1.3 Pa at 20 C"
+    ),
+    "Anisaldehyde": (
+        "HSDB via PubChem CID 31244: 3.29e-2 mm Hg at 25 C, extrapolated (Ohe 1989) = 4.39 Pa"
+    ),
+    "Methyl Anthranilate": (
+        "HSDB via PubChem CID 8635: 2.71e-2 mm Hg at 25 C, extrapolated (Perry's 1984) = 3.61 Pa"
+    ),
+    "Methyl Nonyl Ketone": (
+        "HSDB via PubChem CID 8163 (2-undecanone): 4.1e-2 mm Hg, temperature not stated (Perry's 1984) = 5.47 Pa"
+    ),
+    "Skatole": (
+        "HSDB via PubChem CID 6736: 0.0055 mm Hg, temperature not stated (Perry's 1984) = 0.733 Pa"
+    ),
+    "Ethyl 2-Methylbutyrate": (
+        "RIFM safety assessment CAS 7452-79-1 (Api et al. 2018, doi:10.1016/j.fct.2018.11.033): "
+        "EPI Suite 8.03 mm Hg at 25 C = 1.07E+003 Pa; estimate, not measured"
+    ),
 }
 
 for _key, _val in _VERIFIED_VP.items():
@@ -4843,7 +4915,7 @@ for _key, _val in _VERIFIED_VP.items():
             _key, "VERIFIED external cross-check 2026-05-12"
         )
         _PROFILES[_key]["vp_flag"] = (
-            "ESTIMATED_FROM_OFFICIAL_20C" if _key == "Habanolide" else "VERIFIED_EXTERNAL"
+            "MEASURED_RIFM_25C" if _key == "Habanolide" else "VERIFIED_EXTERNAL"
         )
     else:
         # Attempt to find by normalized name

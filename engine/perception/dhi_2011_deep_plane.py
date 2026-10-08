@@ -838,8 +838,8 @@ def _compound_rows() -> tuple[DHI2011CompoundRowV1, ...]:
         _compound_row(25, 11, "Carrot Seed EO", "Carrot Seed EO", "neat", 10, 1.0, ("layer:orris-body", "layer:cedar-vetiver-counterform"), ("fn:orris-root", "fn:wood-softening"), "sub-threshold botanical-asymmetry hypothesis linking irone to vetiver", natural),
         _compound_row(26, 12, "Tonkarome", "Tonkarome (20% w/w in TEC)", "20% w/w in TEC", 310, 0.20, ("layer:amber-vanillic-shadow",), ("fn:coumarinic-shadow", "fn:warm-shadow"), "restrained hay-tonka warmth under iris", diluted_w_w),
         _compound_row(27, 12, "Isobutavan", "Isobutavan", "neat", 140, 1.0, ("layer:amber-vanillic-shadow", "layer:musky-skin-echo"), ("fn:vanillic-shadow", "fn:skin-closure"), "narrow buttery-vanillic seam from tonka into musk velvet", direct),
-        _compound_row(28, 15, "Verdox", "Verdox", "neat", 280, 1.0, ("layer:ambrette-pear-talc-membrane", "layer:cedar-vetiver-counterform"), ("fn:pear-glint", "fn:wood-softening"), "green pear body with woody continuity", direct),
-        _compound_row(29, 15, "Benzyl Acetate", "Benzyl Acetate", "neat", 220, 1.0, ("layer:ambrette-pear-talc-membrane", "layer:orris-body"), ("fn:pear-glint", "fn:iris-mobility"), "soft floral-fruit skin at the pear-to-orris boundary", direct),
+        _compound_row(28, 15, "Verdox", "Verdox", "neat", 340, 1.0, ("layer:ambrette-pear-talc-membrane", "layer:cedar-vetiver-counterform"), ("fn:pear-glint", "fn:wood-softening"), "green pear body with woody continuity", direct),
+        _compound_row(29, 15, "Benzyl Acetate", "Benzyl Acetate", "neat", 160, 1.0, ("layer:ambrette-pear-talc-membrane", "layer:orris-body"), ("fn:pear-glint", "fn:iris-mobility"), "soft floral-fruit skin at the pear-to-orris boundary", direct),
         _compound_row(30, 15, "Ethyl 2-Methylbutyrate", "Ethyl 2-Methylbutyrate (0.1%)", "0.1% in DPG", 50, 0.001, ("layer:lavender-veil", "layer:ambrette-pear-talc-membrane"), ("fn:pear-glint",), "volatile juicy pear-liqueur flash", diluted),
     )
 

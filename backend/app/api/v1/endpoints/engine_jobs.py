@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from typing import Any
 
 from fastapi import APIRouter, Depends, status
@@ -13,15 +14,20 @@ from app.schemas.engine_jobs import (
     EngineJobCancelRequest,
     EngineJobRequest,
     EngineJobResponse,
+    EngineWorkerResponse,
+    EngineWorkerStatusResponse,
 )
 from app.services.engine_jobs import (
     EngineJobConflictError,
     EngineJobError,
     EngineJobNotFoundError,
 )
+from app.services.engine_worker_liveness import get_live_engine_workers
 from app.services.lab_service import LabService
 
 router = APIRouter()
+
+ENGINE_WORKER_MAX_AGE_SECONDS = 45
 
 
 def _error_response(error: EngineJobError) -> JSONResponse:
@@ -95,6 +101,26 @@ async def cancel_engine_job(
         return await service.engine_job_snapshot(job_id)
     except EngineJobError as error:
         return _error_response(error)
+
+
+@router.get(
+    "/engine-workers/status",
+    response_model=EngineWorkerStatusResponse,
+)
+async def get_engine_worker_status(
+    session: AsyncSession = Depends(get_db),
+) -> EngineWorkerStatusResponse:
+    """Report engine workers whose heartbeat is recent enough to run jobs."""
+
+    workers = await get_live_engine_workers(
+        session, max_age_seconds=ENGINE_WORKER_MAX_AGE_SECONDS
+    )
+    return EngineWorkerStatusResponse(
+        live=len(workers),
+        workers=[EngineWorkerResponse.model_validate(worker) for worker in workers],
+        max_age_seconds=ENGINE_WORKER_MAX_AGE_SECONDS,
+        checked_at=datetime.now(timezone.utc),
+    )
 
 
 __all__ = ["router"]

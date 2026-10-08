@@ -23,12 +23,12 @@ Use when:
 ### Pattern 1: Pyramid T:0% H:100% B:0%
 **Root cause**: `engine/pipeline/gates.py` ~line 720 — note_map built with mixed-case keys, `.lower()` lookup returns "heart" default.
 **Fix**: Check `gates.py` for `.lower()` call on note_map keys. This is a known code bug, not a formula issue.
-**Verify**: Run `grepp "note_map" engine/pipeline/gates.py` and confirm `.lower()` usage.
+**Verify**: Run `rg "note_map" engine/pipeline/gates.py` and confirm `.lower()` usage.
 
 ### Pattern 2: Material has OAV > 100M
 **Root cause**: Duplicate ODT_DATA entries in `engine/odor_thresholds.py` — later wrong value overwrites correct one. Common with Hedione, Benzoin, and recently edited materials.
 **Fix**: Run `/duplicate-odt-scanner` to find conflicts. Check which entry "wins" (last in file).
-**Verify**: `grepp "material_name" engine/odor_thresholds.py` — if count > 1, there's a duplicate.
+**Verify**: `rg "material_name" engine/odor_thresholds.py` — if count > 1, there's a duplicate.
 
 ### Pattern 3: `--brief` has no effect on gate results
 **Root cause**: `perfume_knowledge` gate reads `family_archetype` raw; brief parameter never resolved to archetype.
@@ -48,7 +48,7 @@ Use when:
 ### Pattern 6: ODT_VERIFICATION entry exists but ODT_DATA missing
 **Root cause**: Material has verification metadata but no numeric ODT values. `_lookup_odt()` only reads ODT_DATA.
 **Fix**: Copy numeric ODT values from verification dict to ODT_DATA, or add to ODT_DATA directly.
-**Verify**: `grepp "material_name" engine/odor_thresholds.py` — check both dicts.
+**Verify**: `rg "material_name" engine/odor_thresholds.py` — check both dicts.
 
 ### Pattern 7: Concentrate volume mismatch (gate expects different µL)
 **Root cause**: `--expected-concentrate-ul` doesn't match formula's actual active µL.

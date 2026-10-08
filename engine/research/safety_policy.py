@@ -9,10 +9,10 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from hashlib import sha256
 from pathlib import Path
 from typing import Any, Literal
 
+from engine.calibration.hashing import portable_file_hash_matches
 from engine.research.contracts import FALSE_ACTION_AUTHORITY
 
 _ROOT = Path(__file__).resolve().parents[2]
@@ -79,14 +79,6 @@ class ScreeningResultV1:
         }
 
 
-def _file_sha256(path: Path) -> str:
-    digest = sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
 def _identity_key(value: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise SafetyPolicyError("material identity must be non-empty text")
@@ -124,7 +116,10 @@ def load_policy_manifest(path: Path = _DEFAULT_MANIFEST) -> dict[str, Any]:
     dataset = payload.get("runtime_dataset", {})
     source_path = _ROOT / str(dataset.get("source_path", ""))
     expected_hash = dataset.get("source_sha256")
-    if not source_path.is_file() or _file_sha256(source_path) != expected_hash:
+    # The same text checked out with LF or CRLF line endings is the same source.
+    if not source_path.is_file() or not portable_file_hash_matches(
+        source_path, str(expected_hash)
+    ):
         raise SafetyPolicyError("IFRA screening source does not match its bound hash")
     if dataset.get("policy_id") != effective_id:
         raise SafetyPolicyError("runtime IFRA subset must bind the effective policy")
@@ -193,14 +188,26 @@ def resolve_category4_screening(
     if selected.policy_id != dataset["policy_id"]:
         raise SafetyPolicyError("no runtime screening dataset for selected policy")
 
-    from engine.ifra_safety import IFRA_CAT4_LIMITS  # noqa: PLC0415
+    from engine.ifra_standards import load_ifra_table  # noqa: PLC0415
 
+    # Sourced Cat 4 table: its canonical names and aliases resolve exactly
+    # (case/whitespace-insensitive, no substring matching). Restricted
+    # materials carry their limit and prohibited ones 0.0; every other status
+    # has no numeric limit and falls through to the manifest records below.
+    ifra_table = load_ifra_table()
     table: dict[str, tuple[str, float]] = {}
-    for canonical, value in IFRA_CAT4_LIMITS.items():
-        key = _identity_key(canonical)
-        if key in table and table[key][0] != canonical:
-            raise SafetyPolicyError("normalized IFRA screening identity collision")
-        table[key] = (canonical, float(value))
+    for record in ifra_table.materials.values():
+        if record.status == "restricted" and record.cat4_limit_pct is not None:
+            value = float(record.cat4_limit_pct)
+        elif record.status == "prohibited":
+            value = 0.0
+        else:
+            continue
+        for name in (record.name, *record.aliases):
+            key = _identity_key(name)
+            if key in table and table[key][0] != record.name:
+                raise SafetyPolicyError("normalized IFRA screening identity collision")
+            table[key] = (record.name, value)
     aliases = {
         _identity_key(alias): _identity_key(target)
         for alias, target in dataset.get("admitted_aliases", {}).items()

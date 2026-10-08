@@ -67,8 +67,8 @@ EXPECTED_ROWS = (
     (25, 11, "Carrot Seed EO", 10.0, 10.0),
     (26, 12, "Tonkarome", 310.0, 62.0),
     (27, 12, "Isobutavan", 140.0, 140.0),
-    (28, 15, "Verdox", 280.0, 280.0),
-    (29, 15, "Benzyl Acetate", 220.0, 220.0),
+    (28, 15, "Verdox", 340.0, 340.0),
+    (29, 15, "Benzyl Acetate", 160.0, 160.0),
     (30, 15, "Ethyl 2-Methylbutyrate", 50.0, 0.05),
 )
 

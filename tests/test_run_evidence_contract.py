@@ -881,7 +881,7 @@ def test_closing_repository_hash_drift_rolls_formula_back(tmp_path, monkeypatch)
     assert path.read_text(encoding="utf-8") == original
 
 
-def test_release_cli_persists_a_verified_artifact_by_default(tmp_path, capsys):
+def test_release_cli_persists_a_verified_artifact_when_asked(tmp_path, capsys):
     path = tmp_path / "cli.md"
     path.write_text(
         """# CLI Formula
@@ -903,6 +903,7 @@ def test_release_cli_persists_a_verified_artifact_by_default(tmp_path, capsys):
             "generic",
             "--no-audit",
             "--json",
+            "--append-analysis",
         ]
     )
     captured = capsys.readouterr()
@@ -926,3 +927,38 @@ def test_release_cli_persists_a_verified_artifact_by_default(tmp_path, capsys):
     assert runtime["stage_ms"]["artifact_persist_validate"] >= 0
     assert runtime["included_in_run_evidence_contract"] is False
     assert runtime["included_in_analysis_artifact"] is False
+
+
+def test_release_cli_leaves_the_formula_file_unchanged_by_default(tmp_path, capsys):
+    path = tmp_path / "cli.md"
+    path.write_text(
+        """# CLI Formula
+
+| Material | Dilution | uL |
+|---|---|---:|
+| Hedione | neat | 100 |
+""",
+        encoding="utf-8",
+    )
+    original = path.read_bytes()
+
+    rc = formula_release_main(
+        [
+            "--formula-file",
+            str(path),
+            "--expected-concentrate-ul",
+            "100",
+            "--brief",
+            "generic",
+            "--no-audit",
+            "--json",
+        ]
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert rc in {0, 1}
+    assert payload["formulas"]
+    assert path.read_bytes() == original
+    assert "artifact_persist_validate" not in payload["runtime_observability"]["stage_ms"] or (
+        payload["runtime_observability"]["stage_ms"]["artifact_persist_validate"] == 0
+    )

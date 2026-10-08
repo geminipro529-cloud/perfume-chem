@@ -125,7 +125,19 @@ def test_runtime_odt_numeric_map_is_unchanged():
     digest = hashlib.sha256(
         json.dumps(values, sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
-    assert digest == "2505240fe7beeb73f9448cdfa47fdd75e14651190d4244b8f065ac9f79908bb5"
+    # Geranyl acetate air ODT added from Elsharif & Buettner (2018); the
+    # digest without that one entry is master's 2505240f… value.
+    # 2026-10-08: cited air ODTs for octanal/nonanal (Cometto-Muniz & Abraham
+    # 2010: aldehyde c8 5.7 -> 0.17, aldehyde c9 8.5 -> 0.53, plus keys octanal,
+    # nonanal, aldehyde c-8 octanal, aldehyde c-9 nonanal) and butyl butyrate
+    # (Nagata 2003, 4.8 ppb); reverting those seven gives 35b7d603….
+    # Musk fix 2026-10-08: Macrolide odt_air 2.0 -> 3.2 (Exaltolide's value, same
+    # molecule) and Helvetolide 0.146 (Armanino 2020) added; with only the musk
+    # change on top of 35b7d603… the digest is 7bca0ddc…, with only the aldehyde
+    # and ester change it is d4bcca51….
+    # Geraniol air ODT 0.04 -> 2.22 ppb (Elsharif & Buettner 2018, 14 ng/L);
+    # reverting only that value gives 667ba337….
+    assert digest == "37f940a31019c628a86cd2af3bc4074cb95111c942fff2792c9e613c38bfdf72"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

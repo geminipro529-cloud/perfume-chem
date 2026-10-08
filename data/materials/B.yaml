@@ -740,16 +740,17 @@
 - canonical_name: Benzyl Acetate
   aliases:
   - benzyl acetate
-  cas: null
+  cas: '140-11-4'
   smiles: null
   inchikey: null
   mw_g_mol: 150.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.051
   logp: 2.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.22
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.22 (unsourced; about 100x low per the science review); replaced with the cited value
+  vp_25c_pa: 23.6
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -774,6 +775,7 @@
   character: null
   notes: null
   provenance:
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 8785 (https://pubchem.ncbi.nlm.nih.gov/compound/8785#section=Vapor-Pressure): "0.177 mm Hg at 25 °C /from experimentally-derived coefficients/", citing Daubert & Danner (1989); x 133.322 = 23.6 Pa. Conflict kept on record: ICSC lists "Vapor pressure, Pa at 25 °C: 190" (8x higher, no primary citation).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -782,14 +784,16 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 140-11-4 (https://www.thegoodscentscompany.com/data/rw1001612.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.04900 to 1.05900 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1001612.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Benzyl Alcohol
   aliases:
   - benzyl alcohol
-  cas: null
+  cas: '100-51-6'
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.04
   logp: null
   functional_groups: []
   chirality: null
@@ -816,6 +820,8 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
+    cas: 'TGSC: CAS Number: 100-51-6 (https://www.thegoodscentscompany.com/data/rw1001651.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.04100 to 1.04600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1001651.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Benzyl Alcohol (BA)
   aliases: []
   cas: null
@@ -855,11 +861,11 @@
 - canonical_name: Benzyl Benzoate
   aliases:
   - benzyl benzoate
-  cas: null
+  cas: '120-51-4'
   smiles: null
   inchikey: null
   mw_g_mol: 212.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.114
   logp: 4.0
   functional_groups: []
   chirality: null
@@ -892,6 +898,8 @@
     vp_25c_pa: PubChem CID 2345 / Daubert and Danner 1989, 0.000224 mmHg at 25 C
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    cas: 'TGSC: CAS Number: 120-51-4 (https://www.thegoodscentscompany.com/data/rw1001672.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.11300 to 1.12100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1001672.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Benzyl Benzoate (BB)
   aliases: []
   cas: null
@@ -1120,11 +1128,11 @@
 - canonical_name: Benzyl Salicylate
   aliases:
   - benzyl salicylate
-  cas: null
+  cas: '118-58-1'
   smiles: null
   inchikey: null
   mw_g_mol: 228.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.174
   logp: 3.2
   functional_groups: []
   chirality: null
@@ -1172,6 +1180,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 118-58-1 (https://www.thegoodscentscompany.com/data/rw1001792.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.17300 to 1.18100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1001792.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Bergamot Essential Oil
   aliases: []
   cas: null
@@ -1394,12 +1404,12 @@
 - canonical_name: Berry Hexanoate (berryflor)
   aliases:
   - Berry Hexanoate (BerryFlor)
-  cas: null
+  cas: '104986-28-9'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 202.25
+  density_25c_g_ml: 1.004
+  logp: 2.0
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -1427,9 +1437,13 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'VP left null (2026-10-08): only a TGSC estimate exists, not RIFM-quoted: "Vapor Pressure: 0.020000 mmHg @ 25.00 C. (est)" = 2.67 Pa at 133.322 Pa/mmHg (https://www.thegoodscentscompany.com/data/rw1061362.html). Identity: ethyl 6-acetoxyhexanoate; producer is Givaudan per TGSC and Fraterworks. TGSC: "Odor threshold: not reported". Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "CAS Number: 104986-28-9" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    mw_g_mol: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "Molecular Weight: 202.25026000", calculated from C10H18O4 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    logp: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "logP (o/w): 2.000", database value not marked (est), basis not stated (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    density_25c_g_ml: 'https://www.thegoodscentscompany.com/data/rw1061362.html; supplier range "Specific Gravity: 1.00500 to 1.00900 @ 25.00 C."; midpoint 1.007 x 0.99705 (water at 25 C) = 1.0040 g/mL (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
 - canonical_name: Beta Caryophyllene
   aliases: []
   cas: null
@@ -1469,11 +1483,11 @@
 - canonical_name: Beta Damascone
   aliases:
   - beta damascone
-  cas: null
+  cas: '23726-91-2'
   smiles: null
   inchikey: null
   mw_g_mol: 190.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.929
   logp: null
   functional_groups: []
   chirality: null
@@ -1510,6 +1524,8 @@
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 23726-91-2 (https://www.thegoodscentscompany.com/data/rw1000881.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.92800 to 0.93600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1000881.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Beta Homocyclocitral
   aliases: []
   cas: null
@@ -1549,11 +1565,11 @@
 - canonical_name: Beta Ionone
   aliases:
   - beta ionone
-  cas: null
+  cas: '14901-07-6'
   smiles: null
   inchikey: null
   mw_g_mol: 192.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.94
   logp: 3.0
   functional_groups: []
   chirality: null
@@ -1593,6 +1609,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 14901-07-6 (https://www.thegoodscentscompany.com/data/rw1006632.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.93900 to 0.94700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1006632.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Beta Pinene
   aliases:
   - Beta-Pinene
@@ -2555,11 +2573,11 @@
 - canonical_name: Bourgeonal
   aliases:
   - bourgeonal
-  cas: null
+  cas: '18127-01-0'
   smiles: null
   inchikey: null
   mw_g_mol: 190.28
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.955
   logp: 2.8
   functional_groups: []
   chirality: null
@@ -2603,6 +2621,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 18127-01-0 (https://www.thegoodscentscompany.com/data/rw1023831.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.95500 to 0.96100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1023831.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: BROOM F-TEC
   aliases: []
   cas: null
@@ -2679,10 +2699,10 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Buccoxime
   aliases: []
-  cas: null
+  cas: '75147-23-8'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 167.25
   density_25c_g_ml: null
   logp: null
   functional_groups: []
@@ -2716,26 +2736,28 @@
         price_usd_per_g: 0.32
   families: []
   character: null
-  notes: null
+  notes: 'logP, VP and density left null (2026-10-08). logP conflict, no measured value: 1.930 (TGSC est, https://thegoodscentscompany.com/data/rw1004001.html) vs "LogP 2.94 at 25C" (ChemicalBook, method not stated, https://chemicalbook.com/CASEN_75147-23-8.htm). VP conflict: TGSC "0.006000 mmHg @ 25.00 C. (est)" = 0.800 Pa vs ChemicalBook "vapor pressure 0.095 Pa at 20C" (method not stated), 8-fold. Density only "1.13+/-0.1 g/cm3 (Predicted)" (ChemicalBook), an estimate. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://thegoodscentscompany.com/data/rw1004001.html; "CAS Number: 75147-23-8" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    mw_g_mol: 'https://thegoodscentscompany.com/data/rw1004001.html; "Molecular Weight:167.25169000", calculated from C10H17NO (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
 - canonical_name: Butyl Butyrate
   aliases: []
-  cas: null
+  cas: '109-21-7'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 144.21
+  density_25c_g_ml: 0.866
+  logp: 2.83
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 241.3
+  vp_source: TGSC_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 4.8
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -2754,9 +2776,15 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'VP: RIFM EPI Suite estimate 1.76 mm Hg at 25 C = 234.7 Pa agrees within 3%; at 20 C (not used) EPI v4.0 1.24 mm Hg = 165.3 Pa, FMA 0.8 mm Hg = 106.7 Pa. Other log Kow estimates: perflavory 2.823, XLogP3-AA 2.20. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'perflavory (TGSC mirror) https://www.perflavory.com/docs/doc1014091.html: "109-21-7" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    mw_g_mol: 'RIFM fragrance ingredient safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/109-21-7_0.pdf: "Molecular Weight: 144.21" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    logp: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/109-21-7_0.pdf: "Log KOW: 2.83 (EPI Suite)", EPI Suite estimate, no measured value found (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    vp_25c_pa: 'perflavory https://www.perflavory.com/docs/doc1014091.html: "1.810000 mmHg @ 25.00 °C." (database value, not marked est, method not stated); 1.81 mm Hg x 133.322 Pa/mm Hg = 241.3 Pa (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    density_25c_g_ml: 'perflavory https://www.perflavory.com/docs/doc1014091.html: specific gravity "0.86700 to 0.87100 @ 25.00 °C."; midpoint 0.869 x 0.99705 g/mL (water at 25 C) = 0.866 (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    odt_air_ppb: 'Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review, Japan Ministry of the Environment, pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 (ppm, v/v): "n-Butyl n-butyrate 0.0048" ppm v/v = 4.8 ppb (measured, triangle odor bag)'
 - canonical_name: Butyl Isovalerate
   aliases: []
   cas: null
@@ -2844,8 +2872,9 @@
   functional_groups:
   - phenol
   chirality: null
-  vp_25c_pa: 0.001
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.001 (unsourced; about 100x low per the chemprops cross-check); replaced with the cited value
+  vp_25c_pa: 0.688
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2869,6 +2898,7 @@
   character: null
   notes: null
   provenance:
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 31404 (https://pubchem.ncbi.nlm.nih.gov/compound/31404#section=Vapor-Pressure): "5.16X10-3 mm Hg at 25 °C", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 0.688 Pa. Conflict kept on record: ICSC lists 1.3 Pa at 20 °C.'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: beta ionone (1% in tec)
   aliases:
