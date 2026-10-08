@@ -43,7 +43,7 @@ PARENT_PIPE_ENV = "PERFUME_ENGINE_WORKER_PARENT_PIPE"
 
 WORKER_STOPPED_CODE = "FAILED_CLOSED_WORKER_STOPPED"
 WORKER_STOPPED_MESSAGE = (
-    "The analysis stopped because the server restarted or shut down. Run it again."
+    "The analysis stopped because the server restarted or shut down, so it has no result."
 )
 _MAX_CONSECUTIVE_FAILED_ITERATIONS = 5
 

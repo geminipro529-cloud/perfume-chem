@@ -603,5 +603,8 @@ async def test_engine_job_wait_uses_current_server_states_and_failure_words(clie
     javascript = await client.get("/static/lab.js")
 
     assert "FAILED_CLOSED_WORKER_STOPPED" in javascript.text
-    assert "the server restarted or shut down; run it again" in javascript.text
+    assert "the server restarted or shut down, so it has no result" in javascript.text
+    # The same request coalesces onto the stopped job, so the page must not
+    # promise that asking again re-runs it.
+    assert "run it again" not in javascript.text.casefold()
     assert "EXPIRED" not in javascript.text

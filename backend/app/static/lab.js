@@ -448,7 +448,7 @@ const ENGINE_JOB_RUN_GRACE_MS = 90 * 1000;
 const ENGINE_WORKER_CHECK_MS = 15 * 1000;
 const ENGINE_POLL_REQUEST_TIMEOUT_MS = 20 * 1000;
 const ENGINE_JOB_FAILURE_WORDS = {
-  FAILED_CLOSED_WORKER_STOPPED: "The analysis stopped because the server restarted or shut down; run it again.",
+  FAILED_CLOSED_WORKER_STOPPED: "The analysis stopped because the server restarted or shut down, so it has no result. Asking again with the same formula and goals shows this result again; change either one to start a new analysis.",
   FAILED_CLOSED_WORKER_LOST: "The analysis worker stopped while it was running this job, so the job was closed without a result.",
   ENGINE_JOB_TIMEOUT: "The job ran past its time limit and was stopped without a result.",
   ENGINE_JOB_EXECUTION_FAILED: "The analysis hit an internal error and stopped without a result.",
