@@ -313,6 +313,12 @@ copy them yourself before you re-clone or move to a new PC:
   `data/user/` is used.
 - `data/pipeline_audit/events.jsonl`, the release gate's audit log.
 
+Lab backups also keep a copy of the three `data/user/` files (in a
+`<backup name>.records/` folder beside each backup), and
+`python run_api_server.py --restore <backup name>` puts them back. The file the
+Export button saves carries them too: importing it on a new PC writes them into
+`data/user/`, and an import never overwrites different records already there.
+
 Never run `git clean -x` or `git clean -X` in the checkout: either one deletes
 all of these.
 
