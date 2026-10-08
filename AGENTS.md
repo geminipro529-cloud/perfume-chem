@@ -303,136 +303,6 @@ python scripts/formula_release_gate.py \
 python scripts/format_pipeline_analysis.py --input output.json
 ```
 
-## Key conventions
-
-- **Always read `inventory.txt` before formulating.** The `.github/copilot-instructions.md` contains extensive rules for perfume formulation, material selection, and dosing. Agents creating formulas **must** read it.
-- **Two test directories**: `tests/` (engine-level tests, runs from root) and `backend/tests/` (API tests, runs via Poetry). Each has its own `conftest.py` with different `sys.path` and fixture setups.
-- **Test env vars**: `OPENAI_API_KEY=test-key`, `SECRET_KEY=test-secret-key-for-ci`, and `PERFUME_PIPELINE_AUDIT_PATH` (auto-set by root `conftest.py` to a tempfile).
-- **`inventory.txt` format**: `--- CATEGORY ---` headers, `- Material Name (dilution%)` bullets. Parsed by `engine/inventory_parser.py` which deduplicates by keeping the highest-dilution entry.
-- **`archive/` and `output/` are gitignored** — scratch scripts (prefix `_`) and generated outputs go there.
-- **Pipeline logic** lives in `engine/pipeline/` (gates, formula_state, simulator, oav_intelligence, etc.). The entry point is `scripts/formula_release_gate.py`. The old `pipelines/` directory has been removed — all orchestration now imports `engine/` modules directly.
-- **`.vscode/`, `.claude/`, `*.db`, `*.xlsx`, `*.csv`, `*.png` are gitignored.**
-- **`engine/` dependencies** (`sentence-transformers`, `faiss-cpu`, `torch`, etc.) are in root `requirements.txt`, not in the Poetry project.
-
-## When formulating perfumes
-
-The `.github/copilot-instructions.md` file has mandatory rules: no material defaults (evaluate every option), use perfumer vocabulary, justify every material choice, and always read `inventory.txt` first. A single precisely chosen musk is valid; multiple musks require distinct target-linked roles plus pairwise nonredundancy and controlled omission/alternative comparisons. Tonalide, Macrolide, and Musk Ketone are omitted by default and are exception-only under the complete design-call and inventory-separation contract.
-
-> **⚠️ RULE 3: When optimizing longevity, scan ALL categories for low-VP materials — don't just reach for "base" or "musk" materials.**
-> Materials in Citrus, Floral, and Accord Bases/Other categories can have surprisingly low vapor pressure (Paradisamide VP=0.002 Pa, Lemonile VP=0.2 Pa, Pamzest VP=30 Pa). Run `engine.formula_recommendations.find_hidden_fixatives()` to surface materials whose VP qualifies them as fixatives but whose note/role places them in top/heart categories. This prevents the blind spot of treating "citrus" and "fixative" as mutually exclusive.
-
----
-
-## Running Formulas Through the Pipeline
-
-### Before running
-
-1. **Read `docs/fragrance_families_reference.md`** to confirm the family exists and is buildable from inventory.
-2. **Confirm every material is in stock** — check `inventory.txt` for DEPLETED markers.
-3. **Confirm every material has physics data** — check `engine/odor_thresholds.py` ODT_DATA, `data/materials/<LETTER>.yaml` for MW/logP/VP/ODT, and `engine/ingredient_intelligence.py` _PROFILES for note/role/texture.
-4. **Check for duplicate ODT entries** — `grepp "material_name" engine/odor_thresholds.py` and count occurrences. The last entry wins.
-
-### Running
-
-```bash
-python scripts/formula_release_gate.py \
-    --formula-file formulas/My_Formula_30mL_EDP.md \
-    --expected-concentrate-ul 6000 \
-    --brief <family> \
-    --json
-```
-
-Supported `--brief` values: `generic`, `aromatic_fougere`, `layton_dna`, `vetiver_woody`. Pass `--family-archetype <key>` directly if the brief isn't in the defaults table.
-
-### After running — read MORE than just gate status
-
-The JSON output is ~6000 lines. Gates are only ~20%. Agents MUST extract these sections:
-
-| Section | JSON path | What it tells you |
-|---------|-----------|-------------------|
-| **Headspace OAV** | `formulas[0].formula_state.materials[]` | Per-material OAV, VP, gamma, mole fraction, active µL |
-| **Temporal evolution** | `formulas[0].time_series[]` | 5-window OAV (0s→5min→30min→2hr→4hr) |
-| **Note distribution** | `formulas[0].formula_state.note_distribution` | OAV-weighted T/H/B split (more accurate than pyramid gate) |
-| **Pyramid evaluation** | Gate `perfume_knowledge` → `data.pyramid` | VP-tier pyramid vs family targets |
-| **OAV intelligence** | Gate `oav_intelligence` → `data` | Balance reports, performance projection, material cliff findings |
-| **IFRA details** | Gate `safety_ifra_allergen` → `data` | Violations, edge dosing, allergen declarations |
-| **Config** | `config_summary` | Confirm brief, archetype, temperature, concentration bracket |
-| **Dermal exposure** | Gate `safety_ifra_allergen` → `data.dermal_exposure[]` | Per-material skin penetration estimates |
-
-### Required: always present the OAV headspace table
-
-After every pipeline run, format the per-material OAV table from
-`formulas[0].formula_state.materials[]` in this exact column order:
-
-```
-| Material | Dil | Raw µL | Act µL | MW | MF% | VP Pa | γ | Vapor ppm | ODT ppm | OAV | Note |
-```
-
-Include `note_distribution` (T/H/B split) and `time_series` temporal
-windows (opening → top → heart → late_heart → drydown). Present this
-**before** discussing gate outcomes — raw headspace physics is more
-diagnostic than pass/fail.
-
-Flag any material with OAV < 1 (below perceptible threshold) if its
-functional role requires perceptibility (e.g. projection musk,
-character note, radiance amplifier). Materials with OAV < 1 whose role
-is purely structural (fixative, inert base) are acceptable.
-
-### Required: perfumer analysis format
-
-After presenting the OAV headspace table and temporal evolution, produce a
-complete perfumer analysis section covering these topics **in order**:
-
-1. **Character** — What is the fragrance family? What classical reference perfumes does it evoke? Describe the dominant structural architecture (e.g. "top-to-base with thin heart").
-
-2. **Opening (0-5min)** — Describe what the first blast smells like. Reference OAV ratios: which materials dominate, what is their perceptibility (massive >1000, very strong 100-1000, strong 50-100, moderate 10-50, perceptible 5-10, at threshold 1-5, sub-threshold <1). Quote total vapor ppm.
-
-3. **Heart (30min-2hr)** — How does the composition evolve as top notes burn off? Describe which materials emerge and what they contribute. Note the H/T/B distribution shift.
-
-4. **Drydown (2hr-4hr+)** — What persists at 4h? Quote base % dominance at drydown. Describe the final character (mossy, woody, sweet, etc.). Flag any materials that functionally underperform.
-
-5. **Sillage & Diffusion** — Identify primary OAV carriers. Quote opening vs drydown projection materials.
-
-6. **Longevity** — Quote % raw evaporation over 4h, base persistence %, expected skin life.
-
-7. **Balance** — Pyramid vs target, OAV range min-to-max, sigma-log contrast score, heart density assessment.
-
-8. **Flags** — Sub-threshold materials by functional role, IFRA edges, data quality issues.
-
-
-### Using the analysis script
-
-The repo provides `scripts/format_pipeline_analysis.py` which reads a
-pipeline JSON output and prints the full formatted analysis. Run:
-
-```bash
-python scripts/format_pipeline_analysis.py --input <pipeline_output.json>
-```
-
-This is the **required** format. Every pipeline run output must be run
-through this script and the result presented in **two places**:
-
-1. **In the chat** — paste the full analysis output into the conversation so the user can review it immediately.
-2. **Appended to the formula file** — add the analysis to the formula markdown file (under a `## Pipeline Analysis` section) for permanent record.
-
-Agents must NOT skip the chat presentation step. The analysis must be shown
-verbatim in the chat before discussing decisions or next steps. Do not
-summarize or paraphrase the analysis output — present it directly.
-
-### Integrated CLI usage
-
-The pipeline CLI supports a `--print-analysis` flag that runs both the
-release gates and the analysis script:
-
-```bash
-python scripts/formula_release_gate.py \
-    --formula-file formulas/My_Formula_30mL_EDP.md \
-    --expected-concentrate-ul 6000 \
-    --brief vetiver_woody \
-    --json 2>/dev/null | python -c "import sys,json; d=json.load(sys.stdin); open('output.json','w').write(json.dumps(d,indent=2))"
-python scripts/format_pipeline_analysis.py --input output.json
-```
-
 ### Common pipeline bugs
 
 | Symptom | Root cause | Fix location |
@@ -466,6 +336,25 @@ python scripts/format_pipeline_analysis.py --input output.json
 7. **`engine/knowledge/pyramid_targets.py`** — if new family, add pyramid ratios and OAV targets
 
 **Verify:** run `python scripts/formula_release_gate.py --brief <key> --json` and check `family_drift_detector` PASSes.
+
+## Key conventions
+
+- **Always read `inventory.txt` before formulating.** The `.github/copilot-instructions.md` contains extensive rules for perfume formulation, material selection, and dosing. Agents creating formulas **must** read it.
+- **Two test directories**: `tests/` (engine-level tests, runs from root) and `backend/tests/` (API tests, runs via Poetry). Each has its own `conftest.py` with different `sys.path` and fixture setups.
+- **Test env vars**: `OPENAI_API_KEY=test-key`, `SECRET_KEY=test-secret-key-for-ci`, and `PERFUME_PIPELINE_AUDIT_PATH` (auto-set by root `conftest.py` to a tempfile).
+- **`inventory.txt` format**: `--- CATEGORY ---` headers, `- Material Name (dilution%)` bullets. Parsed by `engine/inventory_parser.py` which deduplicates by keeping the highest-dilution entry.
+- **`archive/` and `output/` are gitignored** — scratch scripts (prefix `_`) and generated outputs go there.
+- **The repo root holds only config and entry points.** Root-level `_*`, `*.json`, `*.jsonl` and `*.txt` files are gitignored (except the named config files and `inventory.txt`/`requirements.txt`); older root reference docs live in `docs/legacy-root/`.
+- **Pipeline logic** lives in `engine/pipeline/` (gates, formula_state, simulator, oav_intelligence, etc.). The entry point is `scripts/formula_release_gate.py`. The old `pipelines/` directory has been removed — all orchestration now imports `engine/` modules directly.
+- **`.vscode/`, `.claude/`, `*.db`, `*.xlsx`, `*.csv`, `*.png` are gitignored.**
+- **`engine/` dependencies** (`sentence-transformers`, `faiss-cpu`, `torch`, etc.) are in root `requirements.txt`, not in the Poetry project.
+
+## When formulating perfumes
+
+The `.github/copilot-instructions.md` file has mandatory rules: no material defaults (evaluate every option), use perfumer vocabulary, justify every material choice, and always read `inventory.txt` first. A single precisely chosen musk is valid; multiple musks require distinct target-linked roles plus pairwise nonredundancy and controlled omission/alternative comparisons. Tonalide, Macrolide, and Musk Ketone are omitted by default and are exception-only under the complete design-call and inventory-separation contract.
+
+> **⚠️ RULE 3: When optimizing longevity, scan ALL categories for low-VP materials — don't just reach for "base" or "musk" materials.**
+> Materials in Citrus, Floral, and Accord Bases/Other categories can have surprisingly low vapor pressure (Paradisamide VP=0.002 Pa, Lemonile VP=0.2 Pa, Pamzest VP=30 Pa). Run `engine.formula_recommendations.find_hidden_fixatives()` to surface materials whose VP qualifies them as fixatives but whose note/role places them in top/heart categories. This prevents the blind spot of treating "citrus" and "fixative" as mutually exclusive.
 
 ---
 

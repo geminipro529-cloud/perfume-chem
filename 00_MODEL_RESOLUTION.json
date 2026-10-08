@@ -1,8 +1,0 @@
-﻿{
-    "generated_at_utc":  "2026-08-04T22:48:20.1946167Z",
-    "provider_model_id":  "deepseek/deepseek-v4-flash",
-    "resolved_at":  "2026-08-04T22:48:20.1956184Z",
-    "provider_metadata":  "models-list probe not executed; session runs on deepseek/deepseek-v4-flash (see opencode.json enabled_providers + provider.deepseek). Full /models result to be captured in Phase 0.5 when websearch/models capability is probed.",
-    "snapshot_claim":  false,
-    "notes":  "refresh this file in Phase 0.5 with exact models response if the provider exposes it"
-}
