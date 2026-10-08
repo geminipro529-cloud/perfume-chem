@@ -182,13 +182,27 @@ _BERGAMOT_FCF_CONSTITUENTS = [
     ("geranial", 0.005, 152.23, 3.00, 0.50, 1.5),
 ]
 
-_GRAPEFRUIT_FCF_CONSTITUENTS = [
-    ("limonene", 0.65, 136.24, 200.0, 20.0, 3.0),
-    ("myrcene", 0.02, 136.24, 400.0, 10.0, 3.0),
-    ("alpha pinene", 0.01, 136.24, 400.0, 20.0, 3.0),
+# ISO 3053:2004, Table 1 (normative chromatographic profile of oil of
+# grapefruit, Citrus x paradisi Macfad., obtained by expression). Fractions are
+# the midpoints of the standard's min-max ranges. They describe a conforming
+# commercial expressed oil, not the owned bottle, and not a furocoumarin-free
+# (FCF) oil: ISO 3053 covers whole expressed oil. Inputs reuse this module's
+# existing runtime tuples (the nootkatone, octanal, myrcene and limonene rows
+# are the ones the earlier unsourced grapefruit composite used). n-Nonanal
+# (0.04-0.1%) and n-decanal (0.1-0.6%) have no runtime headspace input and stay
+# unresolved, not odorless. Nothing is renormalized. This replaces an unsourced
+# composite (limonene 0.65, linalool 0.01) that sat below the standard's 92%
+# limonene minimum and listed linalool, which the standard does not profile.
+_GRAPEFRUIT_ISO_3053_MIDPOINT_CONSTITUENTS = [
+    ("limonene", 0.940, 136.24, 200.0, 20.0, 3.0),
+    ("myrcene", 0.020, 136.24, 400.0, 10.0, 3.0),
     ("octanal", 0.005, 128.21, 300.0, 0.50, 2.5),
-    ("nootkatone", 0.003, 218.33, 0.05, 0.01, 1.5),
-    ("linalool", 0.01, 154.25, 21.30, 1.50, 2.0),
+    ("nootkatone", 0.00405, 218.33, 0.05, 0.01, 1.5),
+    ("alpha pinene", 0.004, 136.24, 400.0, 20.0, 3.0),
+    ("sabinene", 0.0035, 136.24, 300.0, 30.0, 3.0),
+    ("beta caryophyllene", 0.0035, 204.35, 1.00, 10.0, 1.2),
+    ("beta pinene", 0.00125, 136.24, 250.0, 30.0, 3.0),
+    ("neral", 0.0003, 152.23, 3.0, 0.5, 1.5),
 ]
 
 _CEDRAT_FCF_CONSTITUENTS = [
@@ -914,7 +928,9 @@ _ABSOLUTE_CONSTITUENTS = {
     # Citrus EOs
     "bergamot fcf": _BERGAMOT_FCF_CONSTITUENTS,
     "bergamot essential oil": _BERGAMOT_EO_CONSTITUENTS,
-    "grapefruit fcf": _GRAPEFRUIT_FCF_CONSTITUENTS,
+    "citrus paradisi expressed oil iso 3053 midpoint profile": (
+        _GRAPEFRUIT_ISO_3053_MIDPOINT_CONSTITUENTS
+    ),
     "cedrat fcf sicilian": _CEDRAT_FCF_CONSTITUENTS,
     "cedrat fcf oil sicilian": _CEDRAT_FCF_CONSTITUENTS,
     "petitgrain eo paraguay": _PETITGRAIN_EO_CONSTITUENTS,
@@ -1010,7 +1026,9 @@ _PROFILE_ALIASES = {
     # Volatile headspace proxies with the same botanical material or a stated
     # close extraction/grade variant. Metadata marks every proxy explicitly.
     "bergamot fcf sicilian": "bergamot fcf",
-    "grapefruit fcf oil sicilian": "grapefruit fcf",
+    # Expressed-oil ISO profile used as a labelled proxy for FCF grapefruit oil.
+    "grapefruit fcf": "citrus paradisi expressed oil iso 3053 midpoint profile",
+    "grapefruit fcf oil sicilian": "citrus paradisi expressed oil iso 3053 midpoint profile",
     # The canonical registry identity still uses a non-lot literature profile.
     # Preserve that authority label after name normalization resolves seed EO.
     "coriander essential oil": "coriander essential oil",
@@ -1088,7 +1106,10 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
     "lavender 40/42": _LAVENDER_40_42_PROXY_LIMITATIONS,
     "grapefruit fcf oil sicilian": (
         "PerfumersWorld identifies SKU 7CA24030 as Sicilian furocoumarin-free grapefruit oil; "
-        "the reused legacy grapefruit FCF composition is not an analysis of that supplier product or lot.",
+        "the reused composition is the ISO 3053:2004 expressed-oil range midpoint profile, "
+        "not an analysis of that supplier product or lot.",
+        "The PerfumersWorld SDS CAS 68917-32-8 is the grapefruit-terpenes CAS (whole expressed oil is "
+        "8016-20-4); it is not used as identity evidence.",
         "This headspace proxy supplies no furocoumarin assay or skin-safety clearance.",
     ),
     "coriander seed eo": (
@@ -1200,6 +1221,10 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://www.iso.org/standard/8418.html",
         "https://cdn.standards.iteh.ai/samples/8418/25f1579e1e374221b2ca9c0dfd38a3af/ISO-3215-1998.pdf",
     ),
+    "citrus paradisi expressed oil iso 3053 midpoint profile": (
+        "https://www.iso.org/standard/32040.html",
+        "https://cdn.standards.iteh.ai/samples/32040/5decda805f4f4d28af4cdb41a472155b/ISO-3053-2004.pdf",
+    ),
 }
 
 
@@ -1213,6 +1238,64 @@ _LEGACY_CONSTITUENT_INPUT_AUTHORITY = {
     "owned_oil_activity_measured": False,
 }
 _PARTIAL_PROFILE_EVIDENCE = {
+    "citrus paradisi expressed oil iso 3053 midpoint profile": {
+        "analytical_method": "STANDARD_CHROMATOGRAPHIC_PROFILE_RANGES",
+        "composition_basis": "SPECIFICATION_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://cdn.standards.iteh.ai/samples/32040/5decda805f4f4d28af4cdb41a472155b/ISO-3053-2004.pdf",
+                "document": "ISO 3053:2004 Oil of grapefruit (Citrus x paradisi Macfad.), obtained by expression",
+                "table": "Table 1, Chromatographic profile (normative)",
+                "published_type": "Expressed whole oil (not furocoumarin-free)",
+                "standard_range_pct": {
+                    "alpha pinene": (0.2, 0.6),
+                    "sabinene": (0.1, 0.6),
+                    "beta pinene": (0.05, 0.2),
+                    "myrcene": (1.5, 2.5),
+                    "limonene": (92.0, 96.0),
+                    "octanal": (0.2, 0.8),
+                    "nonanal": (0.04, 0.1),
+                    "decanal": (0.1, 0.6),
+                    "neral": (0.02, 0.04),
+                    "beta caryophyllene": (0.2, 0.5),
+                    "nootkatone": (0.01, 0.8),
+                },
+                "fraction_rule": "MIDPOINT_OF_STANDARD_MIN_MAX_RANGE",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_supplier_reference": "PerfumersWorld 7CA24030",
+                "owned_supplier_sds_cas": "68917-32-8 (grapefruit oil terpenes; not used as identity evidence)",
+                "owned_supplier_iso_conformity_claimed": False,
+                "owned_supplier_and_origin_recorded": True,
+                "owned_bottle_sku_verified": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("limonene", "myrcene", "octanal", "nootkatone", "alpha pinene",
+                            "sabinene", "beta caryophyllene", "beta pinene", "neral")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "decanal",
+                "reported_fraction": 0.0035,
+                "reported_fraction_range": (0.001, 0.006),
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "nonanal",
+                "reported_fraction": 0.0007,
+                "reported_fraction_range": (0.0004, 0.001),
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "ISO 3053 describes a conforming expressed commercial grapefruit oil; it is not an analysis of the owned bottle and does not describe the furocoumarin-free process.",
+            "Range midpoints are nominal model inputs; a conforming oil can sit anywhere in each range (limonene 92-96%, nootkatone 0.01-0.8%). The range minima sum to 94.42% and the maxima to 102.74%.",
+            "Only 98.16% of nominal composition is modeled; n-decanal, n-nonanal and unlisted constituents remain uncomputed, not odorless.",
+        ),
+    },
     "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile": {
         "analytical_method": "SUPPLIER_ALLERGEN_DECLARATION",
         "composition_basis": "SUPPLIER_DECLARED_CONCENTRATION_NOMINAL_MODEL_PROXY",
