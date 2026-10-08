@@ -595,3 +595,17 @@ async def test_science_authority_view_preserves_labels_modes_and_unknowns(client
     assert "/api/v1/lab/science/report.md?view=" in javascript.text
     assert "confidence percentage" not in page.text.casefold()
     assert "confidence percentage" not in javascript.text.casefold()
+
+
+@pytest.mark.asyncio
+async def test_omission_loader_translates_design_fraction_bases_and_shows_percentages(client):
+    javascript = await client.get("/static/lab.js")
+
+    assert javascript.status_code == 200
+    assert 'mass_fraction: "w/w"' in javascript.text
+    assert 'volume_fraction: "v/v"' in javascript.text
+    assert 'mass_per_volume: "w/v"' in javascript.text
+    assert 'OMISSION_BASIS[value] || "unknown"' in javascript.text
+    assert "loaded.fraction_basis = omissionBasis(loaded.fraction_basis)" in javascript.text
+    assert "omissionStrength(row)" in javascript.text
+    assert "${row.stock_fraction_decimal} ${row.fraction_basis}" not in javascript.text
