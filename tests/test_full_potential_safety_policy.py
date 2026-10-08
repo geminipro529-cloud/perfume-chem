@@ -64,3 +64,23 @@ def test_manifest_cannot_activate_pending_policy(tmp_path) -> None:
     target.write_text(json.dumps(payload), encoding="utf-8")
     with pytest.raises(SafetyPolicyError, match="exactly one"):
         effective_policy(target)
+
+
+def test_source_binding_ignores_line_endings_but_not_content(tmp_path) -> None:
+    from engine.research.safety_policy import _DEFAULT_MANIFEST, _ROOT  # noqa: PLC0415
+
+    payload = json.loads(_DEFAULT_MANIFEST.read_text(encoding="utf-8"))
+    source = _ROOT / payload["runtime_dataset"]["source_path"]
+    text = source.read_bytes().replace(b"\r\n", b"\n")
+    copy = tmp_path / "ifra_safety.py"
+    payload["runtime_dataset"]["source_path"] = str(copy)
+    target = tmp_path / "policy.json"
+    target.write_text(json.dumps(payload), encoding="utf-8")
+
+    for checkout in (text, text.replace(b"\n", b"\r\n")):
+        copy.write_bytes(checkout)
+        assert effective_policy(target).policy_id == "IFRA_51ST_AMENDMENT"
+
+    copy.write_bytes(text + b"# edited\n")
+    with pytest.raises(SafetyPolicyError, match="bound hash"):
+        effective_policy(target)

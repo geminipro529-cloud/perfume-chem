@@ -9,10 +9,10 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from hashlib import sha256
 from pathlib import Path
 from typing import Any, Literal
 
+from engine.calibration.hashing import portable_file_hash_matches
 from engine.research.contracts import FALSE_ACTION_AUTHORITY
 
 _ROOT = Path(__file__).resolve().parents[2]
@@ -79,14 +79,6 @@ class ScreeningResultV1:
         }
 
 
-def _file_sha256(path: Path) -> str:
-    digest = sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
 def _identity_key(value: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise SafetyPolicyError("material identity must be non-empty text")
@@ -124,7 +116,10 @@ def load_policy_manifest(path: Path = _DEFAULT_MANIFEST) -> dict[str, Any]:
     dataset = payload.get("runtime_dataset", {})
     source_path = _ROOT / str(dataset.get("source_path", ""))
     expected_hash = dataset.get("source_sha256")
-    if not source_path.is_file() or _file_sha256(source_path) != expected_hash:
+    # The same text checked out with LF or CRLF line endings is the same source.
+    if not source_path.is_file() or not portable_file_hash_matches(
+        source_path, str(expected_hash)
+    ):
         raise SafetyPolicyError("IFRA screening source does not match its bound hash")
     if dataset.get("policy_id") != effective_id:
         raise SafetyPolicyError("runtime IFRA subset must bind the effective policy")
