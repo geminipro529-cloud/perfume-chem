@@ -853,6 +853,25 @@ _SPIKE_LAVENDER_ISO_4719_MIDPOINT_CONSTITUENTS = [
     ("linalyl acetate", 0.008, 196.29, 17.5, 2.7, 2.0),
 ]
 
+# PerfumersWorld allergen declaration for Elemi Essential Oil, SKU 7QC00902
+# (document list for that SKU; values identical in the 2026-10-07 snapshot and
+# the 2026-10-08 page). These are supplier-declared concentrations for the
+# product the owner buys, not an analysis of the owned bottle. The declaration
+# covers allergens only: elemol, elemicin, alpha-phellandrene, sabinene and
+# p-cymene, which published Canarium oils report as major constituents, are not
+# quantified for this product and stay unresolved. Carvone and alpha-terpinene
+# are declared but have no runtime headspace input. Inputs reuse this module's
+# existing runtime tuples. Nothing is renormalized.
+_ELEMI_PW_7QC00902_ALLERGEN_DECLARATION_CONSTITUENTS = [
+    ("limonene", 0.450869, 136.23, 200.0, 20.0, 3.0),
+    ("alpha terpineol", 0.030843, 154.25, 2.0, 10.0, 1.5),
+    ("terpinolene", 0.005133, 136.23, 150.0, 30.0, 3.0),
+    ("alpha pinene", 0.003888, 136.24, 400.0, 20.0, 3.0),
+    ("methyl eugenol", 0.003068, 178.23, 2.0, 0.5, 1.5),
+    ("gamma terpinene", 0.000507, 136.24, 90.0, 50.0, 3.0),
+    ("geranial", 0.000359, 152.23, 3.0, 0.5, 1.5),
+    ("camphor", 0.000334, 152.23, 25.0, 20.0, 2.0),
+]
 
 # ── Master Registry ───────────────────────────────────────────────────
 
@@ -954,6 +973,9 @@ _ABSOLUTE_CONSTITUENTS = {
     "lavandula latifolia spanish type iso 4719 midpoint profile": (
         _SPIKE_LAVENDER_ISO_4719_MIDPOINT_CONSTITUENTS
     ),
+    "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile": (
+        _ELEMI_PW_7QC00902_ALLERGEN_DECLARATION_CONSTITUENTS
+    ),
     "tonka bean solvent extract literature profile": _TONKA_SOLVENT_EXTRACT_PROXY_CONSTITUENTS,
     # Specialty bases
     "cassis base 345b": _CASSIS_BASE_345B_CONSTITUENTS,
@@ -987,6 +1009,8 @@ _PROFILE_ALIASES = {
     "peppermint essential oil": "mentha piperita lk literature profile",
     "spike lavender eo": "lavandula latifolia spanish type iso 4719 midpoint profile",
     "spike lavender": "lavandula latifolia spanish type iso 4719 midpoint profile",
+    "elemi eo": "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile",
+    "elemi essential oil": "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile",
     # Aroma&More SKU Lav420811P: sold as French Lavandula angustifolia oil.
     # It reuses the generic L. angustifolia profile as a labelled proxy.
     "lavender 40/42, aroma&more": "lavender eo",
@@ -1143,6 +1167,10 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "lavandula latifolia spanish type iso 4719 midpoint profile": (
         "https://www.iso.org/standard/55964.html",
     ),
+    "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile": (
+        "https://www.perfumersworld.com/document-list.php?pro_id=7QC00902",
+        "https://www.perfumersworld.com/view.php?pro_id=7QC00902",
+    ),
 }
 
 
@@ -1156,6 +1184,95 @@ _LEGACY_CONSTITUENT_INPUT_AUTHORITY = {
     "owned_oil_activity_measured": False,
 }
 _PARTIAL_PROFILE_EVIDENCE = {
+    "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile": {
+        "analytical_method": "SUPPLIER_ALLERGEN_DECLARATION",
+        "composition_basis": "SUPPLIER_DECLARED_CONCENTRATION_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.perfumersworld.com/document-list.php?pro_id=7QC00902",
+                "document": "PerfumersWorld Allergen Declaration, Elemi Essential Oil, SKU 7QC00902",
+                "declared_pct": {
+                    "limonene (5989-27-5)": 45.0869,
+                    "terpineol (98-55-5, alpha-terpineol)": 3.0843,
+                    "terpinolene (586-62-9)": 0.5133,
+                    "pinene (80-56-8, alpha-pinene)": 0.3888,
+                    "methyl eugenol (93-15-2)": 0.3068,
+                    "carvone (99-49-0)": 0.1230,
+                    "alpha-terpinene (99-86-5)": 0.0545,
+                    "gamma-terpinene (99-85-4)": 0.0507,
+                    "geranial (141-27-5)": 0.0359,
+                    "camphor (464-49-3)": 0.0334,
+                },
+                "sds_section_3_range_pct": {
+                    "d-limonene": (40.0, 50.0),
+                    "alpha terpineol": (1.0, 10.0),
+                    "beta-pinene": (1.0, 10.0),
+                    "para-cymene": (1.0, 10.0),
+                    "alpha pinene": (0.1, 1.0),
+                    "methyl eugenol": (0.1, 1.0),
+                    "l-carvone": (0.1, 1.0),
+                },
+                "supplier_species_label": "Canarium indicum (PerfumersWorld synonyms and CoA; also listed as Manila Elemi)",
+                "owner_inventory_species_label": "Canarium luzonicum",
+                "fraction_rule": "DECLARED_CONCENTRATION_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_supplier_and_origin_recorded": True,
+                "owned_bottle_sku_verified": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("limonene", "alpha terpineol", "terpinolene", "alpha pinene",
+                            "methyl eugenol", "gamma terpinene", "geranial", "camphor")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "carvone",
+                "reported_fraction": 0.001230,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-terpinene",
+                "reported_fraction": 0.000545,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "beta-pinene",
+                "reported_fraction_range": (0.01, 0.10),
+                "missing_input": "SDS_HAZARD_BAND_ONLY_NOT_A_COMPOSITION_VALUE",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "para-cymene",
+                "reported_fraction_range": (0.01, 0.10),
+                "missing_input": "SDS_HAZARD_BAND_ONLY_NOT_A_COMPOSITION_VALUE",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "elemol",
+                "missing_input": "NOT_QUANTIFIED_FOR_THIS_PRODUCT_AND_NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "elemicin",
+                "missing_input": "NOT_QUANTIFIED_FOR_THIS_PRODUCT_AND_NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-phellandrene",
+                "missing_input": "NOT_QUANTIFIED_FOR_THIS_PRODUCT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "An allergen declaration lists regulated allergens only; it is not a full composition and its analytical basis is not stated.",
+            "Only 49.5% of the oil is modeled. Published Canarium oils report elemol, elemicin and alpha-phellandrene as major constituents (for example Galovičová et al. 2020, Potravinarstvo 14:1088-1096, doi:10.5219/1490: d-limonene 36.4, elemol 16.7, alpha-phellandrene 12.2, elemicin 9.59 TIC area %); these remain uncomputed, not odorless.",
+            "PerfumersWorld labels the oil Canarium indicum while the owner's inventory says Canarium luzonicum; species identity is unresolved.",
+            "The supplier SDS lists hexyl salicylate at 0.1-1%, which is not a known elemi constituent; supplier documents may follow a template.",
+        ),
+    },
     "lavandula latifolia spanish type iso 4719 midpoint profile": {
         "analytical_method": "STANDARD_CHROMATOGRAPHIC_PROFILE_RANGES",
         "composition_basis": "SPECIFICATION_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
