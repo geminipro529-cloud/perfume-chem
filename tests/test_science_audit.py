@@ -107,10 +107,11 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     ]
     assert audit["material_count"] == 290
     # 2026-10-08 data PR: cited air ODTs made Aldehyde C-8 Octanal, Aldehyde
-    # C-9 Nonanal and Butyl Butyrate OAV-available (226 -> 229).
-    assert audit["oav_available_count"] == 229
-    assert audit["oav_unknown_count"] == 61
-    assert audit["oav_coverage_pct"] == 78.966
+    # C-9 Nonanal and Butyl Butyrate OAV-available (226 -> 229). The spelling
+    # alias "Ambrox Super Crystals" -> Ambrox Super made it resolve (229 -> 230).
+    assert audit["oav_available_count"] == 230
+    assert audit["oav_unknown_count"] == 60  # 61 -> 60: "Ambrox Super Crystals" alias
+    assert audit["oav_coverage_pct"] == 79.31  # 78.966 -> 79.31: same alias
     assert audit["status"] == "FAIL_CLOSED_GAPS"
     assert {"Fructone B", "Helvetolide", "Manzanate", "Ambrocenide"} <= set(
         categories["other_oav_unknowns"]

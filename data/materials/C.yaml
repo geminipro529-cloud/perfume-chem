@@ -3480,6 +3480,7 @@
 - canonical_name: Citral
   aliases:
   - citral
+  - Citral Natural
   cas: '5392-40-5'
   smiles: null
   inchikey: null
@@ -3516,7 +3517,7 @@
   families:
   - citrus / top
   character: null
-  notes: null
+  notes: 'Alias "Citral Natural" (inventory stock) resolves here as the same chemical entity (geranial/neral, CAS 5392-40-5). The natural grade''s minor constituents are not modelled; values describe citral only.'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

@@ -1434,6 +1434,7 @@
   aliases:
   - "PADMA"
   - Phenyl Acetaldehyde Dimethyl Acetal (PADMA)
+  - Phenylacetaldehyde Dimethyl Acetal (PADMA)
   cas: null
   smiles: null
   inchikey: null
@@ -3338,7 +3339,8 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: phenyl ethyl acetate
-  aliases: []
+  aliases:
+  - Phenethyl Acetate
   cas: null
   smiles: null
   inchikey: null
