@@ -859,9 +859,21 @@ def _get_logp(name: str, mat: dict | None = None) -> float | None:
 @lru_cache(maxsize=4096)
 def _lookup_material(name: str) -> dict | None:
     """Find a material in the knowledge graph by name match."""
+    mat = _lookup_material_exact(name)
+    if mat is not None:
+        return mat
+    db = get_materials_db()
+    for key in _material_lookup_candidates(name):
+        for k, v in db.items():
+            if _fuzzy_name_match(key, k):
+                return v
+    return None
+
+
+@lru_cache(maxsize=4096)
+def _material_lookup_candidates(name: str) -> tuple[str, ...]:
     from ..material_identity import resolve_material_identity
 
-    db = get_materials_db()
     candidates: list[str] = []
     seen: set[str] = set()
 
@@ -884,6 +896,14 @@ def _lookup_material(name: str) -> dict | None:
                 if key not in seen:
                     candidates.append(key)
                     seen.add(key)
+    return tuple(candidates)
+
+
+@lru_cache(maxsize=4096)
+def _lookup_material_exact(name: str) -> dict | None:
+    """Knowledge-graph record reached by exact key or explicit alias only."""
+    db = get_materials_db()
+    candidates = _material_lookup_candidates(name)
 
     for key in candidates:
         if key in db:
@@ -894,11 +914,6 @@ def _lookup_material(name: str) -> dict | None:
             expanded = key[:-3] + " essential oil"
             if expanded in db:
                 return db[expanded]
-
-    for key in candidates:
-        for k, v in db.items():
-            if _fuzzy_name_match(key, k):
-                return v
     return None
 
 
@@ -1037,10 +1052,11 @@ def material_match_keys(name: str) -> set[str]:
         if alias:
             keys.update(_material_alias_keys(alias))
 
-    mat = _lookup_material(name)
+    # Exact/alias lookup only: a substring-found record names another material.
+    mat = _lookup_material_exact(name)
     if mat is not None:
         for candidate in (mat.get("name"), mat.get("alt_name")):
-            if candidate:
+            if candidate and not _is_non_identity_alt_name(candidate):
                 keys.update(_material_alias_keys(candidate))
 
     from ..ingredient_intelligence import get_profile
@@ -1049,7 +1065,86 @@ def material_match_keys(name: str) -> set[str]:
     if profile is not None:
         keys.update(_material_alias_keys(profile.name))
 
+    # A stock written with its strength ("Hedione 10% w/w in DPG") is that material.
+    base = _stock_base_name(name)
+    if base:
+        keys.update(material_match_keys(base))
+
     return frozenset(key for key in keys if key)
+
+
+# Knowledge-graph alt_name sometimes records a stock strength ("10%") or a
+# carrier ("DPG") instead of another name. Used as identity keys, they made
+# every 10% stock match every other (Exaltolide == Hexyl Acetate 1% in DPG).
+_CARRIER_NAMES = frozenset({
+    "dep", "diethyl phthalate", "dpg", "dipropylene glycol", "ethanol",
+    "ethyl alcohol", "alcohol", "etoh", "ipm", "isopropyl myristate",
+    "tec", "triethyl citrate", "fragrance oil",
+})
+_STRENGTH_RE = re.compile(
+    r"^\s*\d+(?:\.\d+)?\s*%\s*(?:(?:w/w|v/v|w/v)\b)?\s*(?:in\s+)?(?P<carrier>.*?)\s*$"
+)
+_STOCK_SUFFIX_RE = re.compile(r"[\s,]+\d+(?:\.\d+)?\s*%.*$")
+
+
+def _is_non_identity_alt_name(value: str) -> bool:
+    """True when an alt_name is only a strength and/or a carrier, not a name."""
+    low = re.sub(r"\s+", " ", value.strip().lower())
+    if low in _CARRIER_NAMES:
+        return True
+    match = _STRENGTH_RE.match(low)
+    return bool(match) and (not match["carrier"] or match["carrier"] in _CARRIER_NAMES)
+
+
+def _stock_base_name(name: str) -> str | None:
+    """Strip a trailing strength/carrier suffix: 'Hedione 10% w/w in DPG' -> 'hedione'."""
+    low = re.sub(r"\s+", " ", name.strip().lower())
+    base = _STOCK_SUFFIX_RE.sub("", low).strip()
+    return base if base and base != low else None
+
+
+# Different materials that share name fragments, aliases or data alt_names.
+# Identity matching must never treat them as one stock (AGENTS.md material
+# identity model, plus look-alikes the substring matcher used to collapse).
+# This list wins over every key, alias and alt_name.
+_NON_INTERCHANGEABLE_PAIRS: frozenset[frozenset[str]] = frozenset(
+    frozenset(pair)
+    for pair in (
+        ("habanolide", "galaxolide"),
+        ("muscenone delta", "exaltolide"),
+        ("alpha isomethyl ionone", "methyl ionone gamma coeur"),
+        ("bacdanol", "sandalore"),
+        ("haitian vetiver", "indian vetiver"),
+        ("lavender", "lavandin"),
+        ("isoeugenol", "eugenol"),
+        ("hedione", "hedione hc"),
+        ("iso e super", "iso e super plus"),
+        ("beta ionone", "dihydro beta ionone"),
+        ("vertofix", "vertofix coeur"),
+        ("heliotropal", "heliotropin"),
+        ("ultralia", "alpha isomethyl ionone"),
+        ("benzoin resinoid", "siam benzoin"),
+    )
+)
+_DENY_TERMS = frozenset(term for pair in _NON_INTERCHANGEABLE_PAIRS for term in pair)
+
+
+@lru_cache(maxsize=4096)
+def _deny_term(name: str) -> str | None:
+    """The most specific deny-list identity a name refers to, if any.
+
+    The name's own spellings win over data aliases, so 'Heliotropin' stays
+    heliotropin even though a profile alias maps it to Heliotropal.
+    """
+    own = set(_material_alias_keys(name))
+    base = _stock_base_name(name)
+    if base:
+        own.update(_material_alias_keys(base))
+    for pool in (own, material_match_keys(name)):
+        hits = _DENY_TERMS.intersection(pool)
+        if hits:
+            return max(hits, key=lambda term: (len(term), term))
+    return None
 
 
 @lru_cache(maxsize=4096)
@@ -1073,20 +1168,19 @@ def material_identity_key(name: str) -> str:
 
 @lru_cache(maxsize=8192)
 def materials_match(a: str, b: str) -> bool:
-    """True when two names refer to the same concrete material identity."""
+    """True when two names refer to the same concrete material identity.
+
+    Names match only through equal normalized keys or explicit aliases, never a
+    bare substring, and never across a non-interchangeable pair.
+    """
     if not a or not b:
         return False
 
-    keys_a = material_match_keys(a)
-    keys_b = material_match_keys(b)
-    if keys_a & keys_b:
-        return True
+    term_a, term_b = _deny_term(a), _deny_term(b)
+    if term_a and term_b and frozenset((term_a, term_b)) in _NON_INTERCHANGEABLE_PAIRS:
+        return False
 
-    for key_a in keys_a or {a.lower().strip()}:
-        for key_b in keys_b or {b.lower().strip()}:
-            if _fuzzy_name_match(key_a, key_b):
-                return True
-    return False
+    return bool(material_match_keys(a) & material_match_keys(b))
 
 
 def _rule_signature(rule: dict) -> tuple[str, str, str, str]:

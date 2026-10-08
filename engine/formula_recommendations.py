@@ -1048,7 +1048,7 @@ def identify_weak_axes(scores: dict, n: int = 4) -> list[tuple[str, float]]:
 
 
 def _material_in_formula(name: str, fv: FormulaVector) -> str | None:
-    """Check if a material (by substring) is already in the formula.
+    """Check if a material (same identity) is already in the formula.
     Returns the matching ingredient name or None."""
     for ing in fv.ingredient_list():
         if materials_match(name, ing):
@@ -1057,7 +1057,7 @@ def _material_in_formula(name: str, fv: FormulaVector) -> str | None:
 
 
 def _material_in_inventory(name: str, inventory: list[dict]) -> dict | None:
-    """Find a material in inventory by substring match."""
+    """Find a material in inventory by identity match (see materials_match)."""
     for item in inventory:
         if materials_match(name, item["name"]):
             return item
