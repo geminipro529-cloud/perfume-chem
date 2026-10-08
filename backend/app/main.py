@@ -5,6 +5,8 @@ from collections import deque
 from contextlib import asynccontextmanager
 from pathlib import Path
 
+from engine.inventory_completions import completion_log_path
+from engine.personal_inventory import addition_log_path
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
@@ -41,6 +43,7 @@ async def lifespan(app: FastAPI):
     # stopped-server restore command refuses to run while it is held.
     app_lock = _hold_database_lock()
     try:
+        _carry_over_personal_records()
         try:
             alembic_cfg = db_bootstrap.build_alembic_config(
                 Path(__file__).resolve().parent.parent / "alembic.ini",
@@ -79,6 +82,25 @@ async def lifespan(app: FastAPI):
     finally:
         if app_lock is not None:
             app_lock.release()
+
+
+def _carry_over_personal_records() -> None:
+    """Resolve the personal stock record paths once at start.
+
+    Older versions kept these records in output/.  Resolving the default paths
+    copies any record found only there into data/user/, so it is in place
+    before anything reads it.
+    """
+
+    try:
+        addition_log_path()
+        completion_log_path()
+    except Exception as error:
+        logger.exception("Personal stock records could not be copied; startup aborted.")
+        raise RuntimeError(
+            f"Your stock records could not be copied into data/user/ ({error}). "
+            "Fix the problem, then start the app again."
+        ) from error
 
 
 def _hold_database_lock() -> app_lock_module.AppLock | None:

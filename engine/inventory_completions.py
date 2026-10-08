@@ -21,9 +21,20 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
 
+from engine.user_records import (
+    BASKET_LOG_NAME,
+    COMPLETION_LOG_NAME,
+    LEGACY_RECORDS_DIR,
+    USER_RECORDS_DIR,
+    copy_legacy_record,
+)
+
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 COMPLETION_PATH_ENV = "PERFUME_INVENTORY_COMPLETION_PATH"
-DEFAULT_COMPLETION_PATH = PROJECT_ROOT / "output" / "user_inventory_completion_events.jsonl"
+DEFAULT_COMPLETION_PATH = USER_RECORDS_DIR / COMPLETION_LOG_NAME
+# Older versions kept the log (and the basket log beside it) in output/; they
+# are copied once, never moved.
+LEGACY_COMPLETION_PATH = LEGACY_RECORDS_DIR / COMPLETION_LOG_NAME
 
 SCHEMA_VERSION = "perfume-chem-personal-inventory-completion-event-v1"
 ALLOWED_BASES = {
@@ -72,7 +83,15 @@ def completion_log_path(path: Path | None = None) -> Path:
     if path is not None:
         return path.resolve()
     override = os.environ.get(COMPLETION_PATH_ENV)
-    return Path(override).resolve() if override else DEFAULT_COMPLETION_PATH.resolve()
+    if override:
+        return Path(override).resolve()
+    default = DEFAULT_COMPLETION_PATH.resolve()
+    copy_legacy_record(LEGACY_COMPLETION_PATH, default)
+    copy_legacy_record(
+        LEGACY_COMPLETION_PATH.with_name(BASKET_LOG_NAME),
+        default.with_name(BASKET_LOG_NAME),
+    )
+    return default
 
 
 def _canonical_json(payload: Mapping[str, Any]) -> str:
