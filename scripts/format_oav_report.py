@@ -98,12 +98,17 @@ if unknown:
         blockers = ", ".join(m.get("physics_blockers", []) or []) or "UNSPECIFIED"
         print(f"  {m['name'][:30]:30s} OAV=UNKNOWN  blockers={blockers}")
 
-# ── Gates FAIL/WARN ──
+# ── Gates FAIL/HOLD/WARN ──
 fail = [g for g in f["gates"] if g["status"] == "FAIL"]
+hold = [g for g in f["gates"] if g["status"] == "HOLD"]
 warn = [g for g in f["gates"] if g["status"] == "WARN"]
 if fail:
     print(f"\n{BOLD}{'GATES — FAIL':─^50}{RESET}")
     for g in fail:
+        print(f"  {g['gate']:35s} {g.get('detail', '')[:80]}")
+if hold:
+    print(f"\n{BOLD}{'GATES — HOLD (data missing)':─^50}{RESET}")
+    for g in hold:
         print(f"  {g['gate']:35s} {g.get('detail', '')[:80]}")
 if warn:
     print(f"\n{BOLD}{'GATES — WARN':─^50}{RESET}")

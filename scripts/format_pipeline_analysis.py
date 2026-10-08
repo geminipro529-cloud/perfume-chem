@@ -162,12 +162,18 @@ def build_gate_summary(formula):
     gates = formula.get("gates", [])
     passed = [g for g in gates if g["status"] == "PASS"]
     warned = [g for g in gates if g["status"] == "WARN"]
+    held = [g for g in gates if g["status"] == "HOLD"]
     failed = [g for g in gates if g["status"] == "FAIL"]
     lines = ["## Gate Summary", ""]
-    lines.append(f"**{len(passed)} PASS** / **{len(warned)} WARN** / **{len(failed)} FAIL**")
+    lines.append(
+        f"**{len(passed)} PASS** / **{len(warned)} WARN** / "
+        f"**{len(held)} HOLD** / **{len(failed)} FAIL**"
+    )
     lines.append("")
     for g in failed:
         lines.append(f"  FAIL {g['gate']}: {str(g.get('detail', ''))}")
+    for g in held:
+        lines.append(f"  HOLD {g['gate']}: {str(g.get('detail', ''))}")
     for g in warned:
         lines.append(f"  WARN {g['gate']}: {str(g.get('detail', ''))}")
     lines.append("")
@@ -727,14 +733,6 @@ def build_perfumer(formula):
             if odt >= 0.01:
                 lines.append(
                     f"  NOTE: Hedione HC ODT={odt * 1000:.1f}ppb (alias collision: pure hedione ODT=0.05ppb, OAV would be 400x higher)"
-                )
-    for m in mats:
-        if "evernyl" in m["name"].lower():
-            batch_ul = formula.get("formula_state", {}).get("batch_volume_ml", 30) * 1000
-            pct = m.get("active_ul", 0) / max(batch_ul, 1) * 100
-            if pct > 0.09:
-                lines.append(
-                    f"  IFRA: Evernyl at {pct:.2f}% of finished product — check Cat4 limit (0.1%)"
                 )
     # General IFRA check for all restricted materials
     for m in mats:

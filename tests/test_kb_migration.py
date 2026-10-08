@@ -171,9 +171,12 @@ def test_archetype_repair_pool_exist(conn: sqlite3.Connection) -> None:
 
 
 def test_ifra_limits_count(conn: sqlite3.Connection) -> None:
-    """SELECT COUNT(*) FROM ifra_limits == 97."""
+    """ifra_limits holds one row per restricted name of the sourced IFRA table."""
+    from engine.ifra_standards import load_ifra_table
+
+    expected = load_ifra_table().cat4_limits()
     count = conn.execute("SELECT COUNT(*) FROM ifra_limits").fetchone()[0]
-    assert count == 97, f"Expected 97 IFRA limits, got {count}"
+    assert count == len(expected), f"Expected {len(expected)} IFRA limits, got {count}"
 
 
 # ── Pairing rules ─────────────────────────────────────────────────────

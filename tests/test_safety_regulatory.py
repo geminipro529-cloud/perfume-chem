@@ -3,17 +3,17 @@ compliant build generation, snapshot comparison, and IFRA limit lookups."""
 
 from __future__ import annotations
 
+import pytest
+
 from engine.ifra_safety import get_ifra_limit
 from engine.safety.regulatory import (
     REDUCED_RISK_PRODUCT_TYPES,
-    ComplianceResult,
     RegulatorySnapshot,
     check_compliance,
     compare_snapshots,
     generate_compliant_build,
     make_snapshot,
 )
-
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
 
@@ -23,8 +23,8 @@ _COUMARIN_WITHIN = {
     "finished_product_volume_ml": 30000,
 }
 
-# Coumarin limit = 2.78% of finished product.
-# 3000 µL active in 30 mL finished = 10% → exceeds 2.78%.
+# Coumarin limit = 1.5% of finished product (IFRA_STD_023, sourced table).
+# 3000 µL active in 30 mL finished = 10% → exceeds 1.5%.
 _COUMARIN_EXCEED = {
     "name": "Coumarin",
     "active_ul": 3000,
@@ -43,11 +43,11 @@ _ZERO_VOLUME = {
     "finished_product_volume_ml": 0,
 }
 
-# A different material that exceeds its limit (Eugenol limit = 0.5%).
-# 300 µL active in 30 mL finished = 1% → exceeds 0.5%.
+# A different material that exceeds its limit (Eugenol limit = 2.5%, IFRA_STD_035).
+# 900 µL active in 30 mL finished = 3% → exceeds 2.5%.
 _EUGENOL_EXCEED = {
     "name": "Eugenol",
-    "active_ul": 300,
+    "active_ul": 900,
     "finished_product_volume_ml": 30,
 }
 
@@ -161,7 +161,7 @@ class TestCheckCompliance:
         r = results[0]
         assert r.material == "Coumarin"
         assert r.exceeds is False
-        assert r.max_allowed_pct == 2.78
+        assert r.max_allowed_pct == 1.5
         assert r.current_dose_pct < r.max_allowed_pct
         assert "within limit" in r.detail
 
@@ -177,7 +177,7 @@ class TestCheckCompliance:
         r = results[0]
         assert r.material == "Coumarin"
         assert r.exceeds is True
-        assert r.max_allowed_pct == 2.78
+        assert r.max_allowed_pct == 1.5
         assert r.current_dose_pct > r.max_allowed_pct
         assert "exceeds limit" in r.detail
 
@@ -193,8 +193,9 @@ class TestCheckCompliance:
         r = results[0]
         assert r.material == "Fictionalium"
         assert r.exceeds is False
-        assert r.max_allowed_pct == 0.0
-        assert "No IFRA Cat4 limit found" in r.detail
+        assert r.max_allowed_pct is None
+        assert r.ifra_status == "unknown"
+        assert "not in the IFRA 51st Amendment Category 4 table" in r.detail
 
     def test_zero_volume_returns_no_exceed(self) -> None:
         snap = _snapshot()
@@ -252,6 +253,53 @@ class TestCheckCompliance:
         assert "detail" in d
 
 
+    def test_coumarin_reports_sourced_limit_and_standard(self) -> None:
+        results = check_compliance(
+            formula_materials=[_COUMARIN_EXCEED],
+            jurisdiction="EU",
+            product_category="Cat4",
+            snapshot=_snapshot(),
+        )
+        r = results[0]
+        assert r.max_allowed_pct == 1.5
+        assert r.ifra_status == "restricted"
+        assert r.ifra_standard == "IFRA_STD_023"
+        assert "IFRA_STD_023" in r.detail
+        assert r.as_dict()["ifra_standard"] == "IFRA_STD_023"
+
+    def test_hedione_is_reported_as_having_no_standard(self) -> None:
+        # Hedione has no IFRA standard: no number, no fallback, never exceeds.
+        results = check_compliance(
+            formula_materials=[
+                {"name": "Hedione", "active_ul": 15000, "finished_product_volume_ml": 30}
+            ],
+            jurisdiction="EU",
+            product_category="Cat4",
+            snapshot=_snapshot(),
+        )
+        r = results[0]
+        assert r.ifra_status == "no_standard"
+        assert r.ifra_standard is None
+        assert r.max_allowed_pct is None
+        assert r.exceeds is False
+        assert "has no IFRA standard" in r.detail
+
+    def test_prohibited_material_exceeds_when_present(self) -> None:
+        results = check_compliance(
+            formula_materials=[
+                {"name": "Lilial", "active_ul": 1, "finished_product_volume_ml": 30}
+            ],
+            jurisdiction="EU",
+            product_category="Cat4",
+            snapshot=_snapshot(),
+        )
+        r = results[0]
+        assert r.ifra_status == "prohibited"
+        assert r.max_allowed_pct == 0.0
+        assert r.exceeds is True
+        assert "prohibited" in r.detail
+
+
 # ── generate_compliant_build ───────────────────────────────────────────────────
 
 
@@ -272,10 +320,10 @@ class TestGenerateCompliantBuild:
         )
         assert len(adjusted) == 1
         capped = adjusted[0]
-        # Coumarin limit = 2.78% of 30 mL = 0.834 mL = 834 µL
-        # Original was 3000 µL → should be capped to 834 µL
+        # Coumarin limit = 1.5% of 30 mL = 0.45 mL = 450 µL
+        # Original was 3000 µL → should be capped to 450 µL
         assert capped["active_ul"] < 3000
-        assert capped["active_ul"] == 834.0
+        assert capped["active_ul"] == pytest.approx(450.0)
         assert "_capped_from_ul" in capped
 
     def test_material_within_limit_unchanged(self) -> None:
@@ -313,7 +361,7 @@ class TestGenerateCompliantBuild:
 
     def test_capped_material_has_annotation_keys(self) -> None:
         """A truly exceeding material: Coumarin at 3000 µL in 30 mL finished product.
-        3000 µL / 1000 = 3 mL active in 30 mL = 10% → exceeds 2.78% limit."""
+        3000 µL / 1000 = 3 mL active in 30 mL = 10% → exceeds 1.5% limit."""
         mat_exceed_small_fp = {
             "name": "Coumarin",
             "active_ul": 3000,
@@ -372,7 +420,7 @@ class TestGenerateCompliantBuild:
         assert adjusted[0]["active_ul"] == 30
         assert "_capped_from_ul" not in adjusted[0]
         # Second: exceeded, capped
-        assert adjusted[1]["active_ul"] < 300
+        assert adjusted[1]["active_ul"] < 900
         assert "_capped_from_ul" in adjusted[1]
         # Third: unknown, passed through
         assert adjusted[2]["active_ul"] == 500
@@ -459,9 +507,10 @@ class TestGetIfraLimit:
     """get_ifra_limit: IFRA Cat4 limit lookups."""
 
     def test_known_material_returns_value(self) -> None:
+        # IFRA_STD_023 (Coumarin), 51st Amendment, Category 4: 1.5 %.
         limit = get_ifra_limit("Coumarin")
         assert limit is not None
-        assert limit == 2.78
+        assert limit == 1.5
 
     def test_unknown_material_returns_none(self) -> None:
         limit = get_ifra_limit("Fictionalium")
@@ -469,16 +518,20 @@ class TestGetIfraLimit:
 
     def test_case_insensitive(self) -> None:
         limit = get_ifra_limit("coumarin")
-        assert limit == 2.78
+        assert limit == 1.5
 
     def test_known_material_different_rule_set(self) -> None:
         limit = get_ifra_limit("Coumarin", rule_set="IFRA_50th_2022")
         assert limit == 1.6
 
     def test_rule_set_without_material_falls_back(self) -> None:
-        # "Hedione" is not in IFRA_50th_2022 but is in IFRA_CAT4_LIMITS
-        limit = get_ifra_limit("Hedione", rule_set="IFRA_50th_2022")
-        assert limit == 40.0
+        # Oakmoss is not in IFRA_50th_2022, so the current sourced table answers (0.1 %).
+        assert get_ifra_limit("Oakmoss Absolute", rule_set="IFRA_50th_2022") == 0.1
+
+    def test_material_without_a_standard_has_no_limit(self) -> None:
+        # Hedione has no IFRA Standard; the old hand-typed 40 % fallback is gone.
+        assert get_ifra_limit("Hedione") is None
+        assert get_ifra_limit("Hedione", rule_set="IFRA_50th_2022") is None
 
 
 # ── REDUCED_RISK_PRODUCT_TYPES ─────────────────────────────────────────────────

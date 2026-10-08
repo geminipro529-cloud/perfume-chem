@@ -23,13 +23,16 @@ def test_51st_is_effective_and_52nd_remains_pending() -> None:
 
 
 def test_exact_identity_and_admitted_alias_resolve_only_as_screening() -> None:
-    exact = resolve_category4_screening("  Ambrox   Super ")
+    exact = resolve_category4_screening("  Benzyl   Salicylate ")
     admitted_alias = resolve_category4_screening("alpha isomethyl ionone")
+    no_standard = resolve_category4_screening("Ambrox Super")
 
     assert exact.match_state == "EXPLICIT_APPLICABLE_LIMIT"
-    assert exact.maximum_finished_product_pct == 15.0
+    assert exact.maximum_finished_product_pct == 7.3
     assert admitted_alias.canonical_material == "Alpha Isomethyl Ionone"
-    assert admitted_alias.maximum_finished_product_pct == 7.26
+    assert admitted_alias.maximum_finished_product_pct == 30.0
+    assert no_standard.match_state == "NO_MATCHING_RECORD"
+    assert no_standard.maximum_finished_product_pct is None
     assert exact.as_dict()["regulatory_compliance_determination"] is False
     assert all(
         exact.as_dict()[key] is False
@@ -60,4 +63,24 @@ def test_manifest_cannot_activate_pending_policy(tmp_path) -> None:
     target = tmp_path / "bad-policy.json"
     target.write_text(json.dumps(payload), encoding="utf-8")
     with pytest.raises(SafetyPolicyError, match="exactly one"):
+        effective_policy(target)
+
+
+def test_source_binding_ignores_line_endings_but_not_content(tmp_path) -> None:
+    from engine.research.safety_policy import _DEFAULT_MANIFEST, _ROOT  # noqa: PLC0415
+
+    payload = json.loads(_DEFAULT_MANIFEST.read_text(encoding="utf-8"))
+    source = _ROOT / payload["runtime_dataset"]["source_path"]
+    text = source.read_bytes().replace(b"\r\n", b"\n")
+    copy = tmp_path / "ifra_safety.py"
+    payload["runtime_dataset"]["source_path"] = str(copy)
+    target = tmp_path / "policy.json"
+    target.write_text(json.dumps(payload), encoding="utf-8")
+
+    for checkout in (text, text.replace(b"\n", b"\r\n")):
+        copy.write_bytes(checkout)
+        assert effective_policy(target).policy_id == "IFRA_51ST_AMENDMENT"
+
+    copy.write_bytes(text + b"# edited\n")
+    with pytest.raises(SafetyPolicyError, match="bound hash"):
         effective_policy(target)

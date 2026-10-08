@@ -556,13 +556,52 @@
       <section class="view" data-panel="experiments" aria-labelledby="experiments-title">
         <div class="view-heading"><div><p class="eyebrow">Measured learning</p><h1 id="experiments-title">Experiment loop</h1></div></div>
         <details class="panel optional-details">
-          <summary>Optional: compare a control with one ingredient omitted</summary>
-          <p class="friendly-boundary">Planning only. This needs two separate samples; it cannot remove anything from your existing bottle. Retained doses stay fixed and the omitted stock is replaced by an equal mass of its declared carrier. A simple personal note does not need this tool.</p>
+          <summary>Optional: compare a control with one change — omit, add, or step a dose</summary>
+          <p class="friendly-boundary">Planning only, and only a suggestion: the program cannot remove anything from your existing bottle or change its records. If a plan suggests splitting a vial off your bottle, doing that is your choice. Exactly one row changes and every other row keeps its amount; an omitted stock or a step down is balanced by an equal amount of its declared carrier in a fresh vial. A simple personal note does not need this tool.</p>
           <form id="omission-plan-form" class="form-panel">
             <label>What should the comparison answer?<input name="goal" required maxlength="500" placeholder="Does this material add useful floral texture?"></label>
             <button id="omission-load-design" class="quiet-button" type="button">Use the selected Formula Studio design</button>
             <p id="omission-input-help" class="field-help">Exact mg and w/w inputs are required only for this quantitative comparison. Volumes are never silently converted to masses.</p>
             <div id="omission-stock-choices" class="record-list"></div>
+            <fieldset class="component-fieldset">
+              <legend>What changes?</legend>
+              <label class="check-line"><input type="radio" name="change_kind" value="OMISSION" checked>Omit one material</label>
+              <label class="check-line"><input type="radio" name="change_kind" value="ADDITION">Add one new material</label>
+              <label class="check-line"><input type="radio" name="change_kind" value="DOSE_STEP">Step one dose up or down</label>
+            </fieldset>
+            <fieldset id="change-addition-fields" class="component-fieldset" hidden disabled>
+              <legend>Material to add</legend>
+              <div class="field-pair">
+                <label>Stock identifier<input name="add_stock_id" placeholder="Your stock identifier, for example cashmeran"></label>
+                <label>Material name<input name="add_identity_name" placeholder="Cashmeran"></label>
+              </div>
+              <div class="field-pair">
+                <label>Amount<input name="add_amount_decimal" inputmode="decimal" placeholder="200"></label>
+                <label>Unit<select name="add_amount_unit"><option value="uL">µL</option><option value="mg">mg</option></select></label>
+              </div>
+              <div class="field-pair">
+                <label>Stock fraction, 0–1<input name="add_stock_fraction_decimal" inputmode="decimal" placeholder="0.1 for a 10% stock"></label>
+                <label>Fraction basis<select name="add_fraction_basis"><option value="w/w">w/w</option><option value="v/v">v/v</option><option value="w/v">w/v</option><option value="neat">neat</option><option value="unknown">unknown</option></select></label>
+              </div>
+              <label>Carrier<input name="add_carrier" placeholder="Exact carrier, for example DPG; leave empty for neat"></label>
+            </fieldset>
+            <fieldset id="change-dose-fields" class="component-fieldset" hidden disabled>
+              <legend>Dose step</legend>
+              <label>Control row<select name="dose_stock_id"><option value="">Load a control first</option></select></label>
+              <div class="field-pair">
+                <label>Direction<select name="dose_direction"><option value="UP">Up</option><option value="DOWN">Down</option></select></label>
+                <label>Step, in that row's unit<input name="dose_step_decimal" inputmode="decimal" placeholder="200"></label>
+              </div>
+              <p class="field-help">A step down is tried in fresh vials and needs the carrier blank below.</p>
+            </fieldset>
+            <fieldset id="change-shared-fields" class="component-fieldset" hidden disabled>
+              <legend>Bottle and blind test</legend>
+              <div class="field-pair">
+                <label>Bottle volume, µL (optional)<input name="bottle_volume_ul_decimal" inputmode="decimal" placeholder="30000"></label>
+                <label>Triangle tries<input name="triangle_tries" type="number" min="3" max="30" step="1" value="6"></label>
+              </div>
+              <p class="field-help">With a bottle volume and a µL step of at least 100 µL, a step up gets a split-vial recipe; otherwise a blotter preview.</p>
+            </fieldset>
             <div class="field-pair">
               <label>Replacement carrier<input name="blank_carrier" placeholder="Exact carrier, for example DPG"></label>
               <label>Carrier blank stock identifier<input name="blank_stock_id" placeholder="Your identified blank stock"></label>

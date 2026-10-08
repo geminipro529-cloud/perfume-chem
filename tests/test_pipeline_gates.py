@@ -116,7 +116,7 @@ def test_concentration_basis_gate_reads_bound_stock_fraction_basis():
     assert check.status == "PASS"
 
 
-def test_concentration_basis_gate_fails_closed_on_unspecified_basis():
+def test_concentration_basis_gate_holds_on_unspecified_basis():
     state = build_formula_state(
         {"Hedione": 100.0},
         {"Hedione": 1.0},
@@ -132,7 +132,7 @@ def test_concentration_basis_gate_fails_closed_on_unspecified_basis():
 
     check = _gate_concentration_basis(state, ReleaseGateConfig())
 
-    assert check.status == "FAIL"
+    assert check.status == "HOLD"
     assert "Hedione" in check.detail
 
 
@@ -416,7 +416,7 @@ def test_phase_compatibility_warns_when_hsp_coverage_is_thin():
     assert gates["phase_compatibility"].status == "WARN"
 
 
-def test_physical_mass_gates_fail_unknown_instead_of_using_proxy_active_mass():
+def test_physical_mass_gates_hold_unknown_instead_of_using_proxy_active_mass():
     state = build_formula_state(
         {"D-Limonene": 75.0, "Hedione": 25.0},
         {"D-Limonene": 0.25, "Hedione": 0.25},
@@ -436,7 +436,7 @@ def test_physical_mass_gates_fail_unknown_instead_of_using_proxy_active_mass():
     phase = gates_module._gate_phase_compatibility(state)
 
     for result in (chemistry, phase):
-        assert result.status == "FAIL"
+        assert result.status == "HOLD"
         assert result.data["assessment"] == "UNKNOWN"
         assert result.data["active_mass_basis"] == "authoritative_active_g"
         assert result.data["proxy_active_g_ignored"] is True
