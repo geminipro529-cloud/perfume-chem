@@ -1492,16 +1492,29 @@ bindForm("#bottle-form", (data) => request("/bottles", { method: "POST", body: J
 bindForm("#addition-form", (data) => request(`/bottles/${data.bottle_id}/additions`, { method: "POST", body: JSON.stringify({ stock_solution_id: data.stock_solution_id, mass_g: Number(data.mass_g), expected_sequence: Number(data.expected_sequence), command_id: crypto.randomUUID() }) }));
 bindForm("#experiment-form", (data) => request("/experiments", { method: "POST", body: JSON.stringify({ name: data.name, protocol: { observation_times_seconds: data.times.split(",").map((item) => Number(item.trim())) } }) }));
 
+const OMISSION_BASIS = { mass_fraction: "w/w", volume_fraction: "v/v", mass_per_volume: "w/v", "w/w": "w/w", "v/v": "v/v", "w/v": "w/v", neat: "neat" };
+function omissionBasis(value) { return OMISSION_BASIS[value] || "unknown"; }
+function omissionStrength(row) {
+  if (row.fraction_basis === "neat") return "neat";
+  const fraction = Number(row.stock_fraction_decimal);
+  if (row.stock_fraction_decimal == null || row.stock_fraction_decimal === "" || !Number.isFinite(fraction)) return `strength unknown (${row.fraction_basis})`;
+  return `${Number((fraction * 100).toPrecision(6))}% ${row.fraction_basis}`;
+}
+
 function loadOmissionRows(rows) {
   if (!Array.isArray(rows) || rows.length < 2 || rows.length > 60) throw new Error("Load two to sixty exact control rows.");
   const fields = ["stock_id", "identity_name", "amount_decimal", "amount_unit", "stock_fraction_decimal", "fraction_basis", "carrier"];
-  state.omissionRows = rows.map((row) => Object.fromEntries(fields.map((field) => [field, row[field] ?? null])));
+  state.omissionRows = rows.map((row) => {
+    const loaded = Object.fromEntries(fields.map((field) => [field, row[field] ?? null]));
+    loaded.fraction_basis = omissionBasis(loaded.fraction_basis);
+    return loaded;
+  });
   const choices = $("#omission-stock-choices");
   choices.replaceChildren();
   state.omissionRows.forEach((row) => {
     const block = document.createElement("div");
     const title = document.createElement("p");
-    title.textContent = `${row.identity_name}: ${row.amount_decimal} ${row.amount_unit} · ${row.stock_fraction_decimal} ${row.fraction_basis}`;
+    title.textContent = `${row.identity_name}: ${row.amount_decimal} ${row.amount_unit} · ${omissionStrength(row)}`;
     block.append(title);
     [["omit", "Omit in the comparison"], ["protect", "Keep this stock fixed"]].forEach(([kind, label]) => {
       const line = document.createElement("label");
