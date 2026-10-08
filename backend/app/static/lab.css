@@ -261,6 +261,9 @@ button[type="submit"]:hover { background: var(--blue-bright); transform: transla
 .delta-line span { font: 700 15px/1 "Cascadia Mono", monospace; }
 .record-delta-card { border-left: 5px solid var(--amber); }
 .friendly-boundary { max-width: 900px; color: var(--muted); line-height: 1.6; }
+.draft-restored { margin: 8px 0; padding: 8px 12px; color: var(--muted); background: rgba(21,61,91,.04); border-left: 4px solid var(--amber); font-size: 13px; line-height: 1.5; }
+.draft-restored .quiet-button { min-height: 0; padding: 2px 10px; margin-left: 6px; font-size: 12px; }
+.draft-unsaved { margin: 8px 0; padding: 8px 12px; color: var(--ink); border-left: 4px solid var(--red); background: rgba(163,59,47,.05); font-size: 13px; line-height: 1.5; }
 .delta-line-editor { display: grid; gap: 10px; margin: 18px 0; }
 .physical-line { display: grid; grid-template-columns: minmax(180px, 1.4fr) minmax(130px, .6fr) minmax(130px, .6fr); gap: 12px; align-items: end; padding: 14px; background: rgba(21,61,91,.035); border: 1px solid var(--line); }
 .physical-line-title strong, .physical-line-title span { display: block; }
