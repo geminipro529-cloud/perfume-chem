@@ -115,7 +115,7 @@ def test_runtime_odt_numeric_map_is_unchanged():
     digest = hashlib.sha256(
         json.dumps(values, sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
-    assert digest == "2505240fe7beeb73f9448cdfa47fdd75e14651190d4244b8f065ac9f79908bb5"
+    assert digest == "35b7d603f2b7b60efe87baf1e784afec158d3722ee8f516d0fc1f1ff0eb8dd0d"
 
 
 def test_new_profiles_do_not_invent_unknown_physics():

@@ -90,9 +90,9 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # inventory snapshot.  Unknown identities remain fail-closed even when a
     # numeric placeholder happens to be available elsewhere in the data spine.
     assert audit["material_count"] == 253
-    assert audit["oav_available_count"] == 221
-    assert audit["oav_unknown_count"] == 32
-    assert audit["oav_coverage_pct"] == 87.352
+    assert audit["oav_available_count"] == 222
+    assert audit["oav_unknown_count"] == 31
+    assert audit["oav_coverage_pct"] == 87.747
     assert "Leather FO" in categories[
         "opaque_preblends_without_disclosed_composition"
     ]

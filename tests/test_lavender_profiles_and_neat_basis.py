@@ -107,6 +107,19 @@ def test_registry_physics_for_geranyl_acetate_and_linalool_oxide(name, mw, vp_25
     assert row.sources["vp"] == "registry:data_spine.vp_25c"
     assert row.vp_pure_pa / row.vp_temperature_factor == pytest.approx(vp_25c_pa, rel=1e-3)
     assert row.logp is not None
-    # No verified air threshold was found, so OAV must stay unavailable.
+
+
+def test_linalool_oxide_has_no_air_threshold_so_oav_stays_unavailable():
+    state = build_formula_state({"Linalool Oxide": 100.0, "Hedione": 900.0})
+    row = next(row for row in state.materials if row.name == "Linalool Oxide")
     assert row.odt_air_ppm is None
     assert row.oav is None
+
+
+def test_geranyl_acetate_uses_the_published_gc_o_air_threshold():
+    state = build_formula_state({"Geranyl Acetate": 100.0, "Hedione": 900.0})
+    row = next(row for row in state.materials if row.name == "Geranyl Acetate")
+    # Elsharif & Buettner (2018): 57.1 ng/L air = 7.11 ppb at 25 °C.
+    assert row.odt_air_ppm == pytest.approx(0.00711)
+    assert row.sources["odt"] == "literature:peer_reviewed.odt_air"
+    assert row.oav is not None

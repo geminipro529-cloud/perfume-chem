@@ -1402,6 +1402,7 @@ _PARTIAL_PROFILE_EVIDENCE = {
         "limitations": (
             "ISO 3215 describes a conforming Indonesian-type commercial oil; it is not an analysis of the owned bottle. Aroma&More lists Indonesian steam-distilled seed oil of East Indian type but publishes no composition or CoA and claims no ISO conformity.",
             "Range midpoints are nominal model inputs; a conforming oil can sit anywhere in each range (sabinene 14-29%, alpha-pinene 15-28%, myristicin 5-12%). The range minima sum to 54.5% and the maxima to 110.5%.",
+            "Single lots can fall outside the standard: a water-distilled Bogor seed oil (Muchtaridi et al. 2010, Int. J. Mol. Sci. 11:4771, doi:10.3390/ijms11114771) reported alpha-pinene 10.23%, terpinen-4-ol 13.92%, safrole 4.28% and myristicin 13.57%.",
             "Only 72.25% of nominal composition is modeled; myristicin, safrole and unlisted constituents remain uncomputed, not odorless.",
             "Safrole is restricted by IFRA Standard 179 (safrole, isosafrole and dihydrosafrole together at most 0.01% of the finished product); this composition scenario does not feed the IFRA screen.",
             "Mace (aril) oil and West Indian nutmeg oil are not covered by this profile.",
