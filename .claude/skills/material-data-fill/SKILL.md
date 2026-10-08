@@ -39,9 +39,17 @@ naturals.
    Query with `zcat | python3` filtering by SKU, never a recursive find. Map
    inventory lines through `inventory_crosswalk.json`. Allergen tables are supplier
    typical composition, not a lot assay.
-3. RIFM safety assessments (measured log Kow, VP).
-4. Threshold papers (Buettner group, Czerny et al. 2008) and ISO standards.
-5. The web: on Kenny's PC use the self-hosted crawler
+3. Offline on Kenny's PC: `python D:\agent-cache\tools\chemprops.py <name|CAS|smiles:...>`
+   gives MW and formula (RDKit, exact from the structure), a Crippen logP
+   (a CALCULATED estimate: record it as `logp_source: rdkit-crippen-estimate`, never
+   as measured) and VP at 25 C only from thermo correlations fitted to measured data
+   (NIST WebBook Antoine, Landolt, Poling, Perry, VDI). It refuses thermo's
+   estimation methods, which were 10-1000x off on fragrance materials. A VP flagged
+   `extrapolated` comes from a fit outside 25 C: record it with that flag or prefer a
+   measured 25 C value from step 4.
+4. RIFM safety assessments (measured log Kow, VP).
+5. Threshold papers (Buettner group, Czerny et al. 2008) and ISO standards.
+6. The web: on Kenny's PC use the self-hosted crawler
    `python D:\agent-cache\webcrawl\webcrawl.py scrape|crawl|map|search` (cloud
    sessions run it through the desktop-commander device shell; see its README).
    Otherwise use the Firecrawl connector tools (the Firecrawl CLI and direct HTTP
@@ -51,7 +59,8 @@ Batches of about 10 materials can run in parallel, each writing its own file, me
 once into the ledger.
 
 ## 5. Record
-Quote values exactly with their source URL. Never estimate, average or renormalize;
+Quote values exactly with their source URL. Never estimate, average or renormalize
+(the one exception: a labelled RDKit Crippen logP when no measured log Kow exists);
 when sources disagree, list both. An odor threshold must state phase (air or
 ethanol), units and method; a value on an incompatible basis is not an ODT
 (Rule 1). Natural compositions keep the unknown remainder (Rule 4). Many air
@@ -73,3 +82,4 @@ affected formula with the `perfume-gate-run` skill to show the gap closed.
 - 2026-10-08: first draft, aligned with the gap-ledger workflow proposed in the
   material data gaps thread (names first, one ledger, priority, cheap sources first).
 - 2026-10-08: added the self-hosted webcrawl tool as a web source.
+- 2026-10-08: added the offline chemprops tool (RDKit + thermo, measured-only VP).
