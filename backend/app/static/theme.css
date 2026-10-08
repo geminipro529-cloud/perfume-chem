@@ -104,7 +104,7 @@ code, pre, kbd { font-family: var(--font-mono); }
   letter-spacing: 0; text-transform: none;
 }
 .lede { color: var(--muted); font-size: 16px; line-height: 1.5; }
-.status-line { font-size: 13px; letter-spacing: 0; }
+.status-line { font-size: 13px; letter-spacing: 0; white-space: pre-line; }
 
 .skip-link {
   position: absolute; left: 12px; top: -64px; z-index: 50; padding: 10px 16px;
@@ -382,6 +382,16 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
 .proxy-label {
   color: var(--hold-fg) !important; background: var(--hold-bg); border-radius: 6px; padding: 2px 6px;
   font-size: 12px !important; letter-spacing: 0; text-transform: none;
+}
+
+/* Draft notices and the bench sheet's hold label. lab.css hard-codes light
+   tints and #7d5b22 for these; token-only overrides flip with the theme. */
+.draft-restored { color: var(--muted); background: var(--info-bg); border-left-color: var(--amber); }
+.draft-unsaved { color: var(--ink); background: var(--fail-bg); border-left-color: var(--red); }
+.formula-design-table .formula-dose small.formula-dose-hold { color: var(--hold-fg); }
+/* The bench sheet prints black on white whatever the screen theme is. */
+@media print {
+  body.printing-bench-sheet, body.printing-bench-sheet .bench-sheet { color: #000; background: #fff; }
 }
 
 /* Errors other views emit ------------------------------------------------- */

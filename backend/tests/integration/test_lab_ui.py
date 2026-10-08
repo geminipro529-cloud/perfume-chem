@@ -918,7 +918,7 @@ async def test_science_authority_view_preserves_labels_modes_and_unknowns(client
         assert f'data-evidence-class="{label}"' in page.text
         assert f"evidence-{label.lower().replace('_', '-')}" in css.text
 
-    assert 'request(`/science/authority?view=${view}`)' in javascript.text
+    assert 'request(`/science/authority?view=${view}`, { timeoutMs: 0 })' in javascript.text
     assert 'scienceSections.replaceChildren(fragment)' in javascript.text
     assert "textContent" in javascript.text
     assert "strict_reason_codes" in javascript.text

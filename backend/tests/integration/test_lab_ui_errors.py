@@ -27,7 +27,14 @@ def test_request_translates_failures_into_plain_words():
     js = _js()
     assert "AbortController" in js
     assert "Can't reach the app on this PC. Is it still running?" in js
-    assert "The app didn't answer within 2 minutes." in js
+    # The message is built from the limit actually used, not a literal.
+    assert "The app didn't answer within ${wait}." in js
+    assert "limitMs / 60000" in js
+    assert "It may still finish, so check before you try again." in js
+    assert "didn't answer within 2 minutes" not in js
+    # timeoutMs: 0 means no limit: no timer is created.
+    assert "limitMs > 0 ? setTimeout" in js
+    assert js.count("timeoutMs: 0 }") + js.count("timeoutMs: 0,") == 5
     assert "That already exists." in js
     assert "The server returned ${response.status}." in js
     assert "error.fields" in js

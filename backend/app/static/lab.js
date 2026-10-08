@@ -58,10 +58,10 @@ const REQUEST_TIMEOUT_MS = 120000;
 
 async function request(path, options = {}) {
   const { timeoutMs, ...fetchOptions } = options;
-  // Engine-job polling passes its own timeoutMs; every other call gets the 30 s default.
-  const limitMs = timeoutMs || REQUEST_TIMEOUT_MS;
+  // timeoutMs: 0 means no limit (slow synchronous server work); undefined gets the default.
+  const limitMs = timeoutMs === undefined ? REQUEST_TIMEOUT_MS : timeoutMs;
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), limitMs);
+  const timer = limitMs > 0 ? setTimeout(() => controller.abort(), limitMs) : null;
   let response;
   let payload;
   try {
@@ -73,11 +73,15 @@ async function request(path, options = {}) {
     payload = await response.json().catch(() => ({}));
   } catch (error) {
     if (controller.signal.aborted) {
-      throw new Error(timeoutMs ? `The server did not answer within ${Math.round(timeoutMs / 1000)} s.` : "The app didn't answer within 2 minutes.");
+      const wait = limitMs % 60000 === 0
+        ? `${limitMs / 60000} minute${limitMs === 60000 ? "" : "s"}`
+        : `${Math.round(limitMs / 1000)} seconds`;
+      const method = String(fetchOptions.method || "GET").toUpperCase();
+      throw new Error(`The app didn't answer within ${wait}.${method === "GET" ? "" : " It may still finish, so check before you try again."}`);
     }
     throw new Error("Can't reach the app on this PC. Is it still running?");
   } finally {
-    clearTimeout(timer);
+    if (timer) clearTimeout(timer);
   }
   if (!response.ok) {
     const serverText = typeof payload?.detail === "string" ? payload.detail : payload?.error?.message;
@@ -1239,7 +1243,7 @@ $("#backup-form").addEventListener("submit", async (event) => {
   event.preventDefault();
   const data = formData(event.currentTarget);
   try {
-    const result = await request("/backups", { method: "POST", body: JSON.stringify(data) });
+    const result = await request("/backups", { method: "POST", body: JSON.stringify(data), timeoutMs: 0 });
     $("#backup-output").textContent = JSON.stringify(result, null, 2);
     $("#stage-restore-form [name=snapshot_path]").value = result.snapshot_path;
     notify("Verified backup created.");
@@ -1258,7 +1262,7 @@ $("#stage-restore-form").addEventListener("submit", async (event) => {
 
 $("#export-workspace").addEventListener("click", async () => {
   try {
-    const result = await request("/export");
+    const result = await request("/export", { timeoutMs: 0 });
     const blob = new Blob([JSON.stringify(result, null, 2)], { type: "application/json" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
@@ -1789,6 +1793,7 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
           schema_version: "inventory-grounded-formula-chat-request-v2",
           ...payload,
         }),
+        timeoutMs: 0,
       });
     }
     appendFormulaChatBubble("assistant", result.assistant_message || "The brief needs clarification before I can create the formula.");
@@ -2344,7 +2349,7 @@ $("#analysis-form").addEventListener("submit", async (event) => {
   event.preventDefault();
   const data = formData(event.currentTarget);
   try {
-    const result = await request("/analysis", { method: "POST", body: JSON.stringify({ name: data.name, total_volume_ml: 10, concentration_percent: 20, ingredients: [{ name: data.material, percentage: 100, stock_active_fraction: 1, stock_fraction_basis: "volume_fraction" }] }) });
+    const result = await request("/analysis", { method: "POST", body: JSON.stringify({ name: data.name, total_volume_ml: 10, concentration_percent: 20, ingredients: [{ name: data.material, percentage: 100, stock_active_fraction: 1, stock_fraction_basis: "volume_fraction" }] }), timeoutMs: 0 });
     $("#analysis-output").textContent = JSON.stringify(result, null, 2); notify("Evidence analysis complete.");
   } catch (error) { notify(error.message, true); }
 });
@@ -2524,7 +2529,7 @@ function renderScienceAuthority(report) {
 
 async function loadScienceAuthority() {
   const view = $("#science-view-mode").value;
-  const report = await request(`/science/authority?view=${view}`);
+  const report = await request(`/science/authority?view=${view}`, { timeoutMs: 0 });
   $("#science-json-download").href = `/api/v1/lab/science/authority?view=${view}`;
   $("#science-markdown-download").href = `/api/v1/lab/science/report.md?view=${view}`;
   renderScienceAuthority(report);
