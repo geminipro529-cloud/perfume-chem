@@ -569,3 +569,107 @@ def _check_group(
 
 def _fmt(value: float) -> str:
     return f"{value:.4g}"
+
+
+# --------------------------------------------------------------------------- finished product mass
+
+ETHANOL_DENSITY_G_ML = 0.789
+# Densities at about 20-25 °C of the carriers stocks are diluted in.
+CARRIER_DENSITY_G_ML: Mapping[str, float] = {
+    "ethanol": 0.789,
+    "dipropylene glycol": 1.023,
+    "dpg": 1.023,
+    "diethyl phthalate": 1.12,
+    "dep": 1.12,
+    "triethyl citrate": 1.137,
+    "tec": 1.137,
+    "isopropyl myristate": 0.853,
+    "ipm": 0.853,
+    "benzyl benzoate": 1.118,
+    "water": 0.997,
+}
+DEFAULT_DENSITY_G_ML = 1.0
+
+
+@dataclass(frozen=True)
+class FinishedProductRow:
+    """One formula row: ``stock_ul`` of a stock holding ``active_fraction`` of the material."""
+
+    name: str
+    stock_ul: float
+    active_fraction: float = 1.0
+    active_g: float | None = None
+    active_density_g_ml: float | None = None
+    carrier: str | None = None
+
+
+@dataclass(frozen=True)
+class FinishedProductEstimate:
+    pct_w_w: Mapping[str, float]
+    finished_mass_g: float
+    concentrate_ml: float
+    ethanol_ml: float
+    batch_volume_ml: float
+    overfilled: bool
+    assumptions: tuple[str, ...]
+
+
+def estimate_finished_product_pct_w_w(
+    rows: Iterable[FinishedProductRow], batch_volume_ml: float
+) -> FinishedProductEstimate:
+    """Estimate each row's active material as % w/w of the finished bottle.
+
+    The bottle is the stocks plus ethanol topped up to ``batch_volume_ml``. The finished mass
+    is every row's active mass, plus its carrier's mass, plus the ethanol. A row's active mass
+    is ``active_g`` when known, otherwise its active volume times its density. The carrier
+    share of a diluted stock is taken as a volume fraction. Missing densities fall back to
+    1.0 g/mL and are listed in ``assumptions``. When the stocks alone exceed the bottle,
+    ``overfilled`` is set and no ethanol is added.
+    """
+    if batch_volume_ml <= 0:
+        raise ValueError(f"batch_volume_ml must be positive, got {batch_volume_ml}")
+    assumptions: list[str] = []
+    active_mass: dict[str, float] = {}
+    carrier_mass_g = 0.0
+    concentrate_ml = 0.0
+    for row in rows:
+        stock_ml = max(float(row.stock_ul), 0.0) / 1000.0
+        fraction = min(max(float(row.active_fraction), 0.0), 1.0)
+        concentrate_ml += stock_ml
+        if row.active_g is not None:
+            mass = float(row.active_g)
+        else:
+            density = row.active_density_g_ml
+            if density is None:
+                density = DEFAULT_DENSITY_G_ML
+                assumptions.append(f"{row.name}: density unknown, {DEFAULT_DENSITY_G_ML} g/mL used")
+            mass = stock_ml * fraction * density
+        active_mass[row.name] = active_mass.get(row.name, 0.0) + mass
+        carrier_ml = stock_ml * (1.0 - fraction)
+        if carrier_ml > 0:
+            carrier = (row.carrier or "").strip()
+            carrier_density = CARRIER_DENSITY_G_ML.get(carrier.casefold())
+            if carrier_density is None:
+                carrier_density = DEFAULT_DENSITY_G_ML
+                assumptions.append(
+                    f"{row.name}: carrier {carrier or 'not recorded'} has no density here, "
+                    f"{DEFAULT_DENSITY_G_ML} g/mL used"
+                )
+            carrier_mass_g += carrier_ml * carrier_density
+    ethanol_ml = batch_volume_ml - concentrate_ml
+    overfilled = ethanol_ml < 0
+    ethanol_ml = max(ethanol_ml, 0.0)
+    finished_mass_g = sum(active_mass.values()) + carrier_mass_g + ethanol_ml * ETHANOL_DENSITY_G_ML
+    pct = {
+        name: (100.0 * mass / finished_mass_g if finished_mass_g > 0 else 0.0)
+        for name, mass in active_mass.items()
+    }
+    return FinishedProductEstimate(
+        pct_w_w=pct,
+        finished_mass_g=finished_mass_g,
+        concentrate_ml=concentrate_ml,
+        ethanol_ml=ethanol_ml,
+        batch_volume_ml=float(batch_volume_ml),
+        overfilled=overfilled,
+        assumptions=tuple(assumptions),
+    )
