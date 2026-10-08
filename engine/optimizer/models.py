@@ -1085,7 +1085,7 @@ _CARRIER_NAMES = frozenset({
 _STRENGTH_RE = re.compile(
     r"^\s*\d+(?:\.\d+)?\s*%\s*(?:(?:w/w|v/v|w/v)\b)?\s*(?:in\s+)?(?P<carrier>.*?)\s*$"
 )
-_STOCK_SUFFIX_RE = re.compile(r"[\s,]+\d+(?:\.\d+)?\s*%.*$")
+_STOCK_SUFFIX_RE = re.compile(r"[\s,]+[~≈]?\s*\d+(?:\.\d+)?\s*%.*$")
 
 
 def _is_non_identity_alt_name(value: str) -> bool:
@@ -1128,9 +1128,11 @@ _MATERIAL_CONCEPTS: tuple[tuple[str, Callable[[set[str], str], bool]], ...] = (
         and "methyl" not in c),
     ("vertofix coeur", lambda t, c: "vertofix" in c and ("coeur" in t or "couer" in t)),
     ("vertofix", lambda t, c: "vertofix" in c),
-    ("heliotropin", lambda t, c: "heliotropin" in c or "piperonal" in c),
+    # Heliotropal first: "Heliotropal (Piperonal)" is the Heliotropal stock line.
     ("heliotropal", lambda t, c: "heliotropal" in c),
+    ("heliotropin", lambda t, c: "heliotropin" in c or "piperonal" in c),
     ("isoeugenol", lambda t, c: "isoeugenol" in c),
+    ("methyl eugenol", lambda t, c: "methyleugenol" in c),
     ("eugenol", lambda t, c: "eugenol" in c),
     ("habanolide", lambda t, c: "habanolide" in c),
     ("galaxolide", lambda t, c: "galaxolide" in c),
@@ -1151,7 +1153,24 @@ _MATERIAL_CONCEPTS: tuple[tuple[str, Callable[[set[str], str], bool]], ...] = (
         or ("c11" in t and "lenic" in t)),
     ("aldehyde c11 undecylic", lambda t, c: "undecylic" in c or "undecanal" in c),
     ("aldehyde c11", lambda t, c: "c11" in t and "aldehyde" in t),
+    # "Aldehyde C-14" is the trade name of gamma-undecalactone.
+    ("gamma undecalactone", lambda t, c: ("undecalactone" in c and "delta" not in t)
+        or ("c14" in t and "aldehyde" in t)),
+    # "Aldehyde C-18" is the trade name of gamma-nonalactone.
+    ("gamma nonalactone", lambda t, c: ("nonalactone" in c and "delta" not in t)
+        or ("c18" in t and "aldehyde" in t)),
+    ("linalool oxide", lambda t, c: "linalooloxide" in c),
 )
+
+# Umbrella names that, stated without a subtype, mean any one of their
+# subtypes ("Aldehyde C-11" alone is undecylenic in trade usage). An umbrella
+# matches each subtype; two different subtypes never match each other.
+_UMBRELLA_OF = {
+    "siam benzoin": "benzoin",
+    "sumatra benzoin": "benzoin",
+    "aldehyde c11 undecylenic": "aldehyde c11",
+    "aldehyde c11 undecylic": "aldehyde c11",
+}
 
 # Origins stated in a name. Two names stating incompatible origins are
 # different materials; a name stating none may still match one that does.
@@ -1179,7 +1198,7 @@ _ORIGIN_WORDS = {
     "mexico": "mexico", "mexican": "mexico",
     "tahiti": "tahiti", "tahitian": "tahiti",
     "australia": "australia", "australian": "australia",
-    "virginia": "virginia", "texas": "texas", "atlas": "atlas",
+    "virginia": "virginia", "va": "virginia", "texas": "texas", "atlas": "atlas",
     "himalaya": "himalaya", "himalayan": "himalaya",
 }
 # A region is compatible with the country that contains it.
@@ -1208,14 +1227,58 @@ _FACET_WORDS = (
 )
 
 
+_GREEK_WORDS = str.maketrans({"α": " alpha ", "β": " beta ", "γ": " gamma ", "δ": " delta "})
+_GREEK_LETTERS = {"a": "alpha", "b": "beta", "g": "gamma", "d": "delta"}
+# Physical form and handling words say how a stock is held, not what it is.
+_STOCK_WORDS = frozenset({"crystals", "crystal", "crystalline", "solid", "neat", "as", "supplied"})
+# Spelling variants of one word.
+_WORD_SPELLINGS = {"couer": "coeur", "sal": "salicylate"}
+_STRENGTH_PAREN_RE = re.compile(r"\([^()]*\d\s*%[^()]*\)")
+
+
 def _name_tokens(name: str) -> list[str]:
     """Words of a name's own spelling, without a trailing strength/carrier."""
     low = unicodedata.normalize("NFKD", name.lower())
     low = "".join(ch for ch in low if not unicodedata.combining(ch))
-    low = low.translate(str.maketrans({"α": "a", "β": "b", "γ": "g", "δ": "d"}))
+    low = low.translate(_GREEK_WORDS)
     low = re.sub(r"\s+", " ", low.strip())
     low = _STOCK_SUFFIX_RE.sub("", low).strip() or low
+    low = re.sub(r"\bc[\s-](\d+)\b", r"c\1", low)  # "Aldehyde C-11" -> c11
     return re.findall(r"[a-z0-9]+", low)
+
+
+@lru_cache(maxsize=4096)
+def _material_core(name: str) -> str:
+    """What a name means once stock, origin and method words are set aside.
+
+    The concept when the name has one, else its own words without origin,
+    extraction-method, physical-form, strength or supplier text ("Cinnamon
+    Bark EO - Telvada" -> "bark cinnamon"), sorted so word order does not count.
+    Shared by materials_match and material_identity_key.
+    """
+    concept = _material_concept(name)
+    if concept is not None:
+        return concept
+    return " ".join(sorted(_product_words(name) - _FACET_WORDS))
+
+
+@lru_cache(maxsize=4096)
+def _product_words(name: str) -> frozenset[str]:
+    """A name's own words without strength, physical-form or supplier text."""
+    low = name.split(" - ", 1)[0]
+    low = _STRENGTH_PAREN_RE.sub(" ", low.lower())
+    return frozenset(
+        _GREEK_LETTERS.get(token, _WORD_SPELLINGS.get(token, token))
+        for token in _name_tokens(low)
+        if token not in _STOCK_WORDS
+    )
+
+
+def _cores_match(a: str, b: str) -> bool:
+    core_a, core_b = _material_core(a), _material_core(b)
+    if not core_a or not core_b:
+        return False
+    return core_a == core_b or _UMBRELLA_OF.get(core_a) == core_b or _UMBRELLA_OF.get(core_b) == core_a
 
 
 def _concept_of_text(name: str) -> str | None:
@@ -1269,7 +1332,13 @@ def _origins_conflict(a: frozenset[str], b: frozenset[str]) -> bool:
 def _facets_conflict(a: str, b: str) -> bool:
     """True when two names state different materials, origins or methods."""
     concept_a, concept_b = _material_concept(a), _material_concept(b)
-    if concept_a and concept_b and concept_a != concept_b:
+    if (
+        concept_a
+        and concept_b
+        and concept_a != concept_b
+        and _UMBRELLA_OF.get(concept_a) != concept_b
+        and _UMBRELLA_OF.get(concept_b) != concept_a
+    ):
         return True
     origins_a, method_a = _stated_facets(a)
     origins_b, method_b = _stated_facets(b)
@@ -1278,12 +1347,21 @@ def _facets_conflict(a: str, b: str) -> bool:
     return bool(method_a and method_b and method_a != method_b)
 
 
+def product_match_rank(a: str, b: str) -> int:
+    """How closely two matching names name one product: 0 same spelling,
+    1 same words once strength and form are set aside, 2 same core (origin and
+    method wording aside too), 3 alias or umbrella only."""
+    if _name_tokens(a) == _name_tokens(b):
+        return 0
+    if _product_words(a) == _product_words(b):
+        return 1
+    return 2 if _material_core(a) == _material_core(b) else 3
+
+
 def _faceted_identity_key(name: str) -> str:
     """'vetiver (haiti; essential oil)' for 'Vetiver EO (Haiti)' and 'Haitian Vetiver EO'."""
     origins, method = _stated_facets(name)
-    concept = _material_concept(name)
-    core = concept or " ".join(t for t in _name_tokens(name) if t not in _FACET_WORDS)
-    core = core or " ".join(_name_tokens(name)) or name.lower().strip()
+    core = _material_core(name) or " ".join(_name_tokens(name)) or name.lower().strip()
     facets = [*sorted(origins), *([method] if method else [])]
     return f"{core} ({'; '.join(facets)})" if facets else core
 
@@ -1303,8 +1381,12 @@ def material_identity_key(name: str) -> str:
         key = identity.identity_key
     else:
         resolved = resolve_material_name(name)
-        if resolved:
+        # resolve_material_name may reach a record by substring
+        # ("Methyl Eugenol" -> Eugenol); keep it only for the same material.
+        if resolved and materials_match(name, resolved):
             key = resolved.lower().strip()
+        elif resolved:
+            return _faceted_identity_key(name)
         else:
             keys = material_match_keys(name)
             key = (
@@ -1329,15 +1411,16 @@ def material_identity_key(name: str) -> str:
 def materials_match(a: str, b: str) -> bool:
     """True when two names refer to the same concrete material identity.
 
-    Names match only through equal normalized keys or explicit aliases, never a
-    bare substring, and never when they mean different non-interchangeable
-    materials or state different origins or extraction methods.
+    Names match through equal normalized keys, explicit aliases or an equal
+    core (see _material_core; an umbrella core matches each of its subtypes),
+    never a bare substring, and never when they mean different
+    non-interchangeable materials or state different origins or methods.
     """
     if not a or not b:
         return False
     if _facets_conflict(a, b):
         return False
-    return bool(material_match_keys(a) & material_match_keys(b))
+    return bool(material_match_keys(a) & material_match_keys(b)) or _cores_match(a, b)
 
 
 def _rule_signature(rule: dict) -> tuple[str, str, str, str]:
