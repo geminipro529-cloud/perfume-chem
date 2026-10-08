@@ -611,6 +611,20 @@ async def test_engine_job_wait_uses_current_server_states_and_failure_words(clie
 
 
 @pytest.mark.asyncio
+async def test_omission_loader_translates_design_fraction_bases_and_shows_percentages(client):
+    javascript = await client.get("/static/lab.js")
+
+    assert javascript.status_code == 200
+    assert 'mass_fraction: "w/w"' in javascript.text
+    assert 'volume_fraction: "v/v"' in javascript.text
+    assert 'mass_per_volume: "w/v"' in javascript.text
+    assert 'OMISSION_BASIS[value] || "unknown"' in javascript.text
+    assert "loaded.fraction_basis = omissionBasis(loaded.fraction_basis)" in javascript.text
+    assert "omissionStrength(row)" in javascript.text
+    assert "${row.stock_fraction_decimal} ${row.fraction_basis}" not in javascript.text
+
+
+@pytest.mark.asyncio
 async def test_comparison_planning_is_worded_as_a_suggestion_and_uses_safe_request_ids(client):
     page = await client.get("/app")
     javascript = await client.get("/static/lab.js")
