@@ -135,7 +135,9 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # molecule) and Helvetolide 0.146 (Armanino 2020) added; with only the musk
     # change on top of 35b7d603… the digest is 7bca0ddc…, with only the aldehyde
     # and ester change it is d4bcca51….
-    assert digest == "667ba337275fab8703291a2ea7cd49414e8c1d21f9241f6992ebfa7b7916378e"
+    # Geraniol air ODT 0.04 -> 2.22 ppb (Elsharif & Buettner 2018, 14 ng/L);
+    # reverting only that value gives 667ba337….
+    assert digest == "37f940a31019c628a86cd2af3bc4074cb95111c942fff2792c9e613c38bfdf72"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

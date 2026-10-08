@@ -170,12 +170,13 @@ ODT_DATA: dict[str, dict] = {
         "odt_eth": 5.0,
         "char": "rose-geranium, green-minty, natural",
     },
-    # Verified: Elsharif & Buettner (2016) J Agric Food Chem 64:4830 — 14 ng/L (2.22 ppb)
-    # Verified: Elsharif & Buettner (2016) J Agric Food Chem 64:4830 — 14 ng/L (2.22 ppb)
+    # Verified: Elsharif & Buettner (2018, online 2016) J. Agric. Food Chem. 66:2324-2333, doi:10.1021/acs.jafc.6b04534 — air odor threshold 14 ng/L = 2.22 ppb at 25 °C (MW 154.25).
+    # 2026-10-08: odt_air was 0.04 ppb, about 55x below the cited 14 ng/L; corrected.
+    # odt_eth 0.3 is unchanged and has no separate source.
     "geraniol": {
         "vfy": "PEER_SINGLE",
-        "sources": ["Elsharif & Buettner (2016) J. Agric. Food Chem. 64:4830"],
-        "odt_air": 0.04,
+        "sources": ["Elsharif & Buettner (2018, online 2016) J. Agric. Food Chem. 66:2324-2333, doi:10.1021/acs.jafc.6b04534 — air odor threshold 14 ng/L = 2.22 ppb at 25 °C (MW 154.25)"],
+        "odt_air": 2.22,
         "odt_eth": 0.3,
         "char": "rose, geranium, sweet",
     },
@@ -1512,7 +1513,7 @@ ODT_VERIFICATION: dict[str, dict] = {
     },
     "geraniol": {
         "vfy": "PEER_SINGLE",
-        "sources": ["Elsharif & Buettner (2016) J. Agric. Food Chem. 64:4830 — 14 ng/L (2.22 ppb)"],
+        "sources": ["Elsharif & Buettner (2018, online 2016) J. Agric. Food Chem. 66:2324-2333, doi:10.1021/acs.jafc.6b04534 — air odor threshold 14 ng/L = 2.22 ppb at 25 °C (MW 154.25)"],
     },
     "geranyl acetate": {
         "vfy": "PEER_SINGLE",
@@ -3551,7 +3552,7 @@ _VERIFIED_ODT = {
     "dihydrojasmone": 0.75,
     "ethylene brassylate": 0.97,
     "galaxolide": 0.31,
-    "geraniol": 0.04,
+    "geraniol": 2.22,  # Elsharif & Buettner 2018 (doi:10.1021/acs.jafc.6b04534), 14 ng/L; was 0.04
     "hedione": 0.05,
     "helional": 0.1,
     "iso e super": 0.05,
