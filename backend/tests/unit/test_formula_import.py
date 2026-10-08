@@ -378,3 +378,74 @@ def test_project_formula_library_parse_coverage():
             assert not row.amount_header.casefold().startswith("act "), source["source_path"]
     print(f"formula library: {parsed} of {len(sources)} files parsed")
     assert parsed >= LIBRARY_PARSE_FLOOR
+
+
+# --- FormulaAnalysisImportParser: ambiguous amounts and strength cells ------
+
+
+def _table(amount_header: str, dilution_header: str, rows: list[tuple[str, str, str]]) -> str:
+    lines = [f"| Material | {dilution_header} | {amount_header} |", "|---|---|---|"]
+    lines += [f"| {m} | {d} | {a} |" for m, d, a in rows]
+    return "\n".join(lines)
+
+
+@pytest.mark.parametrize("cell", ["50 → 60", "50->60", "50 / 60"])
+def test_amount_with_two_numbers_is_refused_with_warning(cell):
+    result, rows = _analysis_rows(
+        _table("Raw µL", "Dilution", [("Hedione", "neat", cell), ("Iso E Super", "neat", "45")])
+    )
+    assert [r[0] for r in rows] == ["Iso E Super"]
+    assert any("Hedione" in w and cell in w for w in result.warnings)
+
+
+def test_amount_note_in_parentheses_and_plain_amounts_are_unchanged():
+    _, rows = _analysis_rows(
+        _table(
+            "Raw µL",
+            "Dilution",
+            [("A", "neat", "60 (was 50)"), ("B", "neat", "0.5 mL"), ("C", "neat", "20 mg"), ("D", "neat", "1,500 µL")],
+        )
+    )
+    assert [(r[0], r[1], r[2]) for r in rows] == [
+        ("A", "60", "uL"),
+        ("B", "0.5", "mL"),
+        ("C", "20", "mg"),
+        ("D", "1500", "uL"),
+    ]
+
+
+def _strength(cell: str, header: str = "Dilution"):
+    result, rows = _analysis_rows(_table("Raw µL", header, [("Rose Oxide", cell, "10")]))
+    row = result.rows[0]
+    return row.concentration_fraction_decimal, row.concentration_basis, result.warnings
+
+
+@pytest.mark.parametrize("cell", ["1:10 in DPG", "1/10 w/w in DPG", "1:10 w/w in DPG"])
+def test_ratio_strength_matches_equivalent_percent(cell):
+    equivalent = "10% w/w in DPG" if "w/w" in cell else "10% in DPG"
+    assert _strength(cell)[:2] == _strength(equivalent)[:2]
+    assert _strength(cell)[0] == "0.1"
+    assert _strength(cell)[2] == []
+
+
+@pytest.mark.parametrize("cell", ["neat (w/w)", "as supplied", "Neat, as received", "AS SUPPLIED (lot 4)"])
+def test_neat_prefix_reads_as_neat(cell):
+    assert _strength(cell) == ("1", "NEAT", [])
+
+
+def test_bare_number_strength_uses_header_to_decide():
+    assert _strength("0.20", "Dilution")[0] == "0.2"
+    assert _strength("1.0", "Dilution")[:2] == ("1", "NEAT")
+    assert _strength("10", "Dilution %")[0] == "0.1"
+    fraction, basis, warnings = _strength("10", "Dilution")
+    assert (fraction, basis) == (None, "UNKNOWN")
+    assert any("'10'" in w and "Rose Oxide" in w for w in warnings)
+
+
+def test_unreadable_strength_warns_but_keeps_row_and_blank_does_not_warn():
+    fraction, basis, warnings = _strength("banana")
+    assert (fraction, basis) == (None, "UNKNOWN")
+    assert warnings == [
+        "Strength 'banana' for Rose Oxide can't be read; write it like 10% w/w in DPG"
+    ]
+    assert _strength("")[2] == []
