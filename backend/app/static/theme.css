@@ -390,10 +390,6 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
 .draft-unsaved { color: var(--ink); background: var(--fail-bg); border-left-color: var(--red); }
 .formula-design-table .formula-dose small.formula-dose-hold { color: var(--hold-fg); }
 /* The bench sheet prints black on white whatever the screen theme is. */
-@media print {
-  body.printing-bench-sheet, body.printing-bench-sheet .bench-sheet { color: #000; background: #fff; }
-}
-
 /* Errors other views emit ------------------------------------------------- */
 .form-error {
   padding: 12px 14px; color: var(--fail-fg); background: var(--fail-bg);
@@ -423,4 +419,23 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
   .workflow-step { flex: 0 0 auto; min-width: 92px; }
   .inventory-toolbar { flex-direction: column; align-items: stretch; }
   .inventory-search, .inventory-select, .stock-filters { flex: 0 0 auto; width: 100%; }
+}
+
+/* Print: always the light palette, whatever the screen theme -------------
+   Without this, printing in dark mode puts light text on white paper. */
+@media print {
+  :root, :root:not([data-theme="light"]), :root[data-theme="dark"] {
+    color-scheme: light;
+    --ink: #1B2631; --muted: #4E5A63;
+    --paper: #FFFFFF; --paper-high: #FFFFFF; --surface-2: #EFEADC;
+    --blue: #1F4462; --blue-bright: #2B5B82; --on-primary: #FFFDF8;
+    --fill-strong: #1F4462; --on-fill: #FFFDF8; --on-fill-accent: #F2C77A;
+    --amber: #B07A1E; --red: #A3352B; --green: #2E6B57; --hold: #8A5A12;
+    --line: #D9D2C1; --line-soft: #E4DDCC; --field-border: #C9C1AE;
+    --pass-bg: #E4EEE9; --pass-fg: #24584A;
+    --hold-bg: #F5EAD6; --hold-fg: #6E480D;
+    --fail-bg: #F6E1DE; --fail-fg: #6F2219;
+    --info-bg: #E8EDF3; --info-fg: #1F4462;
+  }
+  body.printing-bench-sheet, body.printing-bench-sheet .bench-sheet { color: #000; background: #fff; }
 }
