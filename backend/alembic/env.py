@@ -8,7 +8,9 @@ from app.models.base import Base
 
 config = context.config
 if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
+    # Keep loggers the host process already created (the API runs migrations at
+    # startup); the default would silently disable every one of them.
+    fileConfig(config.config_file_name, disable_existing_loggers=False)
 
 target_metadata = Base.metadata
 

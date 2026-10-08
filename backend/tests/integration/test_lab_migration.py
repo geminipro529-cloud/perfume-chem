@@ -1,3 +1,4 @@
+import logging
 import sqlite3
 from pathlib import Path
 
@@ -177,3 +178,12 @@ def test_migration_freezes_event_effect_inventory_conservation_constraints(tmp_p
         ) in composite_foreign_keys("lab_inventory_movements")
     finally:
         connection.close()
+
+
+def test_migration_keeps_existing_application_loggers_enabled(tmp_path):
+    application_logger = logging.getLogger("app.services.engine_worker_process")
+    assert not application_logger.disabled
+
+    _upgrade(tmp_path / "logging.db")
+
+    assert not application_logger.disabled
