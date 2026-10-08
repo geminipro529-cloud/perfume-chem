@@ -75,11 +75,11 @@
 - canonical_name: Ebanol
   aliases:
   - ebanol
-  cas:
+  cas: '67801-20-1'
   smiles:
   inchikey:
   mw_g_mol: 208.34
-  density_25c_g_ml:
+  density_25c_g_ml: 0.898
   logp: 3.3
   functional_groups: []
   chirality:
@@ -120,6 +120,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 67801-20-1 (https://www.thegoodscentscompany.com/data/rw1061371.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.89800 to 0.90400 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1061371.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Elemi EO
   aliases:
   - elemi eo
@@ -299,12 +301,12 @@
 - canonical_name: Ethyl 2-Methylbutyrate
   aliases:
   - ethyl 2-methylbutyrate
-  cas:
+  cas: '7452-79-1'
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 130.18)
   mw_g_mol: 130.18
-  density_25c_g_ml:
+  density_25c_g_ml: 0.864
   logp:
   functional_groups: []
   chirality:
@@ -346,6 +348,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 7452-79-1 (https://www.thegoodscentscompany.com/data/rw1004871.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.86300 to 0.87000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1004871.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Ethyl Acetate
   aliases: []
   cas:
@@ -681,12 +685,12 @@
 - canonical_name: Ethyl Linalool
   aliases:
   - ethyl linalool
-  cas:
+  cas: '10339-55-6'
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 182.3)
   mw_g_mol: 182.3
-  density_25c_g_ml:
+  density_25c_g_ml: 0.858
   logp:
   functional_groups: []
   chirality:
@@ -722,6 +726,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 10339-55-6 (https://www.thegoodscentscompany.com/data/rw1015171.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.85800 to 0.86300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1015171.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Ethyl Linalyl Acetate
   aliases: []
   cas: '61931-80-4'
@@ -768,7 +774,7 @@
   aliases:
   - "Ethyl Maltol 1%"
   - ethyl maltol
-  cas:
+  cas: '4940-11-8'
   smiles:
   inchikey:
   mw_g_mol: 140.1
@@ -821,6 +827,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 4940-11-8 (https://www.thegoodscentscompany.com/data/rw1004172.html)'
 - canonical_name: Ethyl Phenyl Acetate
   aliases: []
   cas:
@@ -864,7 +871,7 @@
 - canonical_name: Ethyl Safranate
   aliases:
   - ethyl safranate
-  cas:
+  cas: '35044-59-8'
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 166.2, corrected to 168.23)
@@ -922,6 +929,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 35044-59-8 (https://www.thegoodscentscompany.com/data/rw1028771.html)'
 - canonical_name: Ethyl Salicylate
   aliases: []
   cas:
@@ -965,7 +973,7 @@
 - canonical_name: Ethyl Vanillin
   aliases:
   - ethyl vanillin
-  cas:
+  cas: '121-32-4'
   smiles:
   inchikey:
   mw_g_mol: 166.2
@@ -1014,6 +1022,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 121-32-4 (https://www.thegoodscentscompany.com/data/rw1002652.html)'
 - canonical_name: Ethylene Brassylate
   aliases:
   - ethylene brassylate
@@ -1216,11 +1225,11 @@
 - canonical_name: Eugenol
   aliases:
   - eugenol
-  cas:
+  cas: '97-53-0'
   smiles:
   inchikey:
   mw_g_mol: 164.2
-  density_25c_g_ml:
+  density_25c_g_ml: 1.064
   logp: 2.2
   functional_groups: []
   chirality:
@@ -1269,6 +1278,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 97-53-0 (https://www.thegoodscentscompany.com/data/rw1004991.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.06400 to 1.07000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1004991.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Evening Primrose Oil - Fixed Oil
   aliases: []
   cas:

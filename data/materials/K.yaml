@@ -111,7 +111,7 @@
 - canonical_name: Kephalis
   aliases:
   - kephalis
-  cas: null
+  cas: '36306-87-3'
   smiles: null
   inchikey: null
   mw_g_mol: 224.34
@@ -155,6 +155,7 @@
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 36306-87-3 (https://www.thegoodscentscompany.com/data/rw1033131.html)'
 - canonical_name: Key Lime Oil Egypt
   aliases: []
   cas: null

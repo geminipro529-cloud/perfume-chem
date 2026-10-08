@@ -1212,11 +1212,11 @@
 - canonical_name: Aldehyde C10
   aliases:
   - aldehyde c10
-  cas: null
+  cas: '112-31-2'
   smiles: null
   inchikey: null
   mw_g_mol: 156.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.826
   logp: 3.0
   functional_groups: []
   chirality: null
@@ -1259,14 +1259,16 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
+    cas: 'TGSC: CAS Number: 112-31-2 (https://www.thegoodscentscompany.com/data/rw1000171.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.82400 to 0.83200 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1000171.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Aldehyde C11
   aliases:
   - aldehyde c11
-  cas: null
+  cas: '112-44-7'
   smiles: null
   inchikey: null
   mw_g_mol: 170.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.827
   logp: 3.5
   functional_groups: []
   chirality: null
@@ -1309,15 +1311,17 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
+    cas: 'TGSC: CAS Number: 112-44-7 (https://www.thegoodscentscompany.com/data/rw1026811.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.82500 to 0.83300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1026811.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Aldehyde C11 Undecylenic
   aliases:
   - aldehyde c11 undecylenic
   - Aldehyde C11 undecylenic
-  cas: null
+  cas: '112-45-8'
   smiles: null
   inchikey: null
   mw_g_mol: 168.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.842
   logp: 3.3
   functional_groups: []
   chirality: null
@@ -1357,6 +1361,8 @@
     trp.TRPV1: engine.trigeminal
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    cas: 'TGSC: CAS Number: 112-45-8 (https://www.thegoodscentscompany.com/data/rw1000332.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.84000 to 0.84800 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1000332.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Aldehyde C12 Lauric
   aliases:
   - aldehyde c12 lauric
@@ -1398,7 +1404,7 @@
 - canonical_name: Aldehyde C12 MNA
   aliases:
   - aldehyde c12 mna
-  cas: null
+  cas: '110-41-8 (R)'
   smiles: null
   inchikey: null
   mw_g_mol: 184.3
@@ -1445,6 +1451,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
+    cas: 'TGSC: CAS Number: 110-41-8 (R) (https://www.thegoodscentscompany.com/data/rw1559501.html)'
 - canonical_name: Aldehyde C8
   aliases:
   - aldehyde c8
@@ -1595,11 +1602,11 @@
 - canonical_name: Allyl Amyl Glycolate
   aliases:
   - allyl amyl glycolate
-  cas: null
+  cas: '67634-00-8'
   smiles: null
   inchikey: null
   mw_g_mol: 186.25
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.936
   logp: 1.0
   functional_groups: []
   chirality: null
@@ -1653,6 +1660,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 67634-00-8 (https://www.thegoodscentscompany.com/data/rw1001841.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.93500 to 0.94300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1001841.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Allyl Caproate
   aliases: []
   cas: null
@@ -1691,11 +1700,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Allyl Cyclohexyl Propionate
   aliases: []
-  cas: null
+  cas: '2705-87-5'
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.945
   logp: null
   functional_groups: []
   chirality: null
@@ -1729,6 +1738,8 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 2705-87-5 (https://www.thegoodscentscompany.com/data/rw1000322.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.94500 to 0.95000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1000322.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Allyl Ionone
   aliases:
   - allyl ionone
@@ -1794,11 +1805,11 @@
 - canonical_name: Alpha Damascone
   aliases:
   - alpha damascone
-  cas: null
+  cas: '24720-09-0'
   smiles: null
   inchikey: null
   mw_g_mol: 192.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.937
   logp: null
   functional_groups: []
   chirality: null
@@ -1843,14 +1854,16 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 24720-09-0 (https://www.thegoodscentscompany.com/data/rw1006041.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.93700 to 0.94300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1006041.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Alpha Ionone
   aliases:
   - alpha ionone
-  cas: null
+  cas: '127-41-3'
   smiles: null
   inchikey: null
   mw_g_mol: 192.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.927
   logp: 3.0
   functional_groups: []
   chirality: null
@@ -1890,6 +1903,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 127-41-3 (https://www.thegoodscentscompany.com/data/rw1011952.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.92700 to 0.93300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1011952.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Alpha Irone
   aliases:
   - alpha irone
@@ -1998,7 +2013,7 @@
   smiles: CC1=CCCC(C1/C=C(/C)\C(=O)C)(C)C
   inchikey: JRJBVWJSTHECJK-LUAWRHEFSA-N
   mw_g_mol: 206.32
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.927
   logp: 3.3
   functional_groups: []
   chirality: null
@@ -2045,6 +2060,7 @@
     user_in_inventory: inventory.txt + direct user confirmation 2026-09-30
     user_stock_dilution: inventory.txt
     supplier.perfumersworld_catalog_snapshot: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.92500 to 0.93500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1023012.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Alpha Pinene
   aliases: []
   cas: null
@@ -3100,7 +3116,7 @@
 - canonical_name: Ambrox Super
   aliases:
   - ambrox super
-  cas: null
+  cas: '6790-58-5'
   smiles: null
   inchikey: null
   mw_g_mol: 236.4
@@ -3157,6 +3173,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 6790-58-5 (https://www.thegoodscentscompany.com/data/rw1016071.html)'
 - canonical_name: Ambroxan
   aliases: []
   cas: null
@@ -3237,11 +3254,11 @@
     user_stock_dilution: inventory.txt
 - canonical_name: Amyl Cinnamic Aldehyde (ACA)
   aliases: []
-  cas: null
+  cas: '122-40-7'
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.964
   logp: null
   functional_groups: []
   chirality: null
@@ -3271,6 +3288,8 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 122-40-7 (https://www.thegoodscentscompany.com/data/rw1001011.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.96300 to 0.97100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1001011.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Amyl Salicylate
   aliases:
   - amyl salicylate
@@ -3498,11 +3517,11 @@
   aliases:
   - "Anisaldehyde 10%"
   - anisaldehyde
-  cas: null
+  cas: '123-11-5'
   smiles: null
   inchikey: null
   mw_g_mol: 136.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.119
   logp: 1.8
   functional_groups: []
   chirality: null
@@ -3542,6 +3561,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 123-11-5 (https://www.thegoodscentscompany.com/data/rw1001272.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.11900 to 1.12600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1001272.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Anise EO (China)
   aliases:
   - anise eo (china)
@@ -3947,11 +3968,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Apritone
   aliases: []
-  cas: null
+  cas: '68133-79-9'
   smiles: null
   inchikey: null
   mw_g_mol: 220.35
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.911
   logp: null
   functional_groups: []
   chirality: null
@@ -3985,6 +4006,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 68133-79-9 (https://www.thegoodscentscompany.com/data/rw1024151.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.91100 to 0.91600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1024151.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Arabian OUD F-TEC
   aliases:
   - ARABIAN OUD F-TEC
@@ -4358,7 +4381,7 @@
 - canonical_name: Azarbre
   aliases:
   - azarbre
-  cas: null
+  cas: '68845-36-3'
   smiles: null
   inchikey: null
   mw_g_mol: 220.0
@@ -4400,6 +4423,7 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 68845-36-3 (https://www.thegoodscentscompany.com/data/rw1043231.html)'
 - canonical_name: ambrofix crystals (solid)
   aliases:
   - Ambrofix Crystals

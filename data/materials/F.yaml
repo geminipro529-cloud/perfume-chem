@@ -109,11 +109,11 @@
 - canonical_name: Farnesol
   aliases:
   - farnesol
-  cas:
+  cas: '4602-84-0'
   smiles:
   inchikey:
   mw_g_mol: 222.4
-  density_25c_g_ml:
+  density_25c_g_ml: 0.884
   logp:
   functional_groups: []
   chirality:
@@ -151,6 +151,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 4602-84-0 (https://www.thegoodscentscompany.com/data/rw1005092.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.88400 to 0.88900 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1005092.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Female Concentratef
   aliases:
   - Female ConcentrateF
@@ -602,7 +604,7 @@
 - canonical_name: Florol
   aliases:
   - florol
-  cas:
+  cas: '63500-71-0'
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 170.3, corrected to 154.25)
@@ -650,6 +652,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 63500-71-0 (https://www.thegoodscentscompany.com/data/rw1045182.html)'
 - canonical_name: Flower Bouquet F-TEC
   aliases:
   - FLOWER BOUQUET F-TEC

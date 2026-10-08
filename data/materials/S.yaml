@@ -1220,11 +1220,11 @@
 - canonical_name: Sandalore
   aliases:
   - sandalore
-  cas: null
+  cas: '65113-99-7'
   smiles: null
   inchikey: null
   mw_g_mol: 210.4
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.896
   logp: 3.9
   functional_groups: []
   chirality: null
@@ -1262,6 +1262,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 65113-99-7 (https://www.thegoodscentscompany.com/data/rw1026291.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.89500 to 0.90300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1026291.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Sandalwood Base
   aliases: []
   cas: null
@@ -1938,7 +1940,7 @@
 - canonical_name: Skatole
   aliases:
   - skatole
-  cas: null
+  cas: '83-34-1'
   smiles: null
   inchikey: null
   mw_g_mol: 131.17
@@ -1982,6 +1984,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 83-34-1 (https://www.thegoodscentscompany.com/data/rw1006331.html)'
 - canonical_name: Soap Clear Translucent Glycerine - Unscentedsoapcler
   aliases:
   - Soap Clear Translucent Glycerine - unscentedSOAPCLER
@@ -3321,7 +3324,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 164.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.024
   logp: 2.0
   vp_25c_pa: 7.0
   vp_source: "est/literature"
@@ -3331,6 +3334,8 @@
   user_in_inventory: true
   character: 'green-sweet gardenia-floral ester'
   notes: "material intake batch 2026-08-07"
+  provenance:
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.02000 to 1.03500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1011092.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: 'Sandalwood Base 3X'
   aliases: ['sandalwood base x3', 'sandalwood base']
   cas: None

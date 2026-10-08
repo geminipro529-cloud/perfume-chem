@@ -149,7 +149,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Raspberry Ketone
   aliases: []
-  cas: null
+  cas: '5471-51-2'
   smiles: null
   inchikey: null
   mw_g_mol: 164.2
@@ -193,6 +193,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 5471-51-2 (https://www.thegoodscentscompany.com/data/rw1020771.html)'
 - canonical_name: Red Mandarin EO
   aliases:
   - red mandarin eo
@@ -1086,11 +1087,11 @@
 - canonical_name: Rose Oxide
   aliases:
   - rose oxide
-  cas: null
+  cas: '16409-43-1'
   smiles: null
   inchikey: null
   mw_g_mol: 154.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.866
   logp: 2.9
   functional_groups: []
   chirality: null
@@ -1133,6 +1134,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 16409-43-1 (https://www.thegoodscentscompany.com/data/rw1035651.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.86500 to 0.87300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1035651.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: ROSE PETAL F-TEC
   aliases: []
   cas: null

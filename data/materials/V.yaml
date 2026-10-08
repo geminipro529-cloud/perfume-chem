@@ -160,7 +160,7 @@
 - canonical_name: Vanillin
   aliases:
   - vanillin
-  cas:
+  cas: '121-33-5'
   smiles:
   inchikey:
   mw_g_mol: 152.2
@@ -218,6 +218,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 121-33-5 (https://www.thegoodscentscompany.com/data/rw1011712.html)'
 - canonical_name: Veloutone
   aliases: []
   cas: '65443-14-3'
@@ -371,12 +372,12 @@
 - canonical_name: Verdox
   aliases:
   - verdox
-  cas:
+  cas: '88-41-5'
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 170.25)
   mw_g_mol: 170.25
-  density_25c_g_ml:
+  density_25c_g_ml: 0.938
   logp:
   functional_groups: []
   chirality:
@@ -412,6 +413,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 88-41-5 (https://www.thegoodscentscompany.com/data/rw1002461.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.93700 to 0.94500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1002461.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Verdyl Acetate
   aliases: []
   cas:
@@ -524,11 +527,11 @@
   aliases:
   - vertofix coeur
   - Vertofix
-  cas:
+  cas: '32388-55-9'
   smiles:
   inchikey:
   mw_g_mol: 234.4
-  density_25c_g_ml:
+  density_25c_g_ml: 1.002
   logp: 4.0
   functional_groups: []
   chirality:
@@ -563,6 +566,8 @@
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    cas: 'TGSC: CAS Number: 32388-55-9 (https://www.thegoodscentscompany.com/data/rw1026471.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.00000 to 1.01000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1026471.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Vertofix Couer
   aliases: []
   cas:
@@ -658,7 +663,7 @@
   smiles: CC1(C)C2CCC1(C)C(C)(C)C2C(=O)C
   inchikey:
   mw_g_mol: 176.25
-  density_25c_g_ml:
+  density_25c_g_ml: 0.97
   logp: 2.7
   functional_groups: []
   chirality:
@@ -689,6 +694,7 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     user_in_inventory: inventory.txt
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.97050 to 0.97450 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1047261.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Vetiver EO
   aliases:
   - vetiver

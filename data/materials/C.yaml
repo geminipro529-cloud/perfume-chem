@@ -225,7 +225,7 @@
 - canonical_name: Calone
   aliases:
   - calone
-  cas: null
+  cas: '28940-11-6'
   smiles: null
   inchikey: null
   mw_g_mol: 178.18
@@ -285,6 +285,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 28940-11-6 (https://www.thegoodscentscompany.com/data/rw1002352.html)'
 - canonical_name: Camphene
   aliases: []
   cas: null
@@ -1071,11 +1072,11 @@
 - canonical_name: Cashmeran
   aliases:
   - cashmeran
-  cas: null
+  cas: '33704-61-9'
   smiles: null
   inchikey: null
   mw_g_mol: 206.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.955
   logp: 3.3
   functional_groups: []
   chirality: null
@@ -1128,6 +1129,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 33704-61-9 (https://www.thegoodscentscompany.com/data/rw1024092.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.95400 to 0.96200 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1024092.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Cashmere MUSK F-TEC
   aliases:
   - CASHMERE MUSK F-TEC
@@ -2592,11 +2595,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Cinnamaldehyde
   aliases: []
-  cas: null
+  cas: '104-55-2'
   smiles: null
   inchikey: null
   mw_g_mol: 132.16
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.045
   logp: null
   functional_groups: []
   chirality: null
@@ -2630,6 +2633,8 @@
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
     user_in_inventory: inventory.txt
+    cas: 'TGSC: CAS Number: 104-55-2 (https://www.thegoodscentscompany.com/data/rw1002631.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.04600 to 1.05000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1002631.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Cinnamon Bark EO
   aliases:
   - cinnamon bark eo
@@ -3470,11 +3475,11 @@
 - canonical_name: Citral
   aliases:
   - citral
-  cas: null
+  cas: '5392-40-5'
   smiles: null
   inchikey: null
   mw_g_mol: 152.23
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.885
   logp: null
   functional_groups: []
   chirality: null
@@ -3513,6 +3518,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 5392-40-5 (https://www.thegoodscentscompany.com/data/rw1003432.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.88500 to 0.89100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1003432.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Citralva
   aliases: []
   cas: null
@@ -3661,11 +3668,11 @@
   aliases:
   - citronellal
   - CitronellAL
-  cas: null
+  cas: '106-23-0'
   smiles: null
   inchikey: null
   mw_g_mol: 154.25
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.851
   logp: null
   functional_groups: []
   chirality: null
@@ -3704,15 +3711,17 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 106-23-0 (https://www.thegoodscentscompany.com/data/rw1032651.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.85000 to 0.85800 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1032651.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Citronellol
   aliases:
   - citronellol
   - CitronellOL
-  cas: null
+  cas: '106-22-9'
   smiles: null
   inchikey: null
   mw_g_mol: 156.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.852
   logp: null
   functional_groups: []
   chirality: null
@@ -3750,6 +3759,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 106-22-9 (https://www.thegoodscentscompany.com/data/rw1007032.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.85000 to 0.86000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1007032.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Citronellyl Acetate
   aliases: []
   cas: null
@@ -5681,7 +5692,7 @@
 - canonical_name: Coumarin
   aliases:
   - coumarin
-  cas: null
+  cas: '91-64-5'
   smiles: null
   inchikey: null
   mw_g_mol: 146.2
@@ -5740,6 +5751,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 91-64-5 (https://www.thegoodscentscompany.com/data/rw1003832.html)'
 - canonical_name: Coumarin Natural
   aliases:
   - coumarin natural

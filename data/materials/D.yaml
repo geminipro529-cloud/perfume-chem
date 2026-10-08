@@ -173,11 +173,11 @@
 - canonical_name: Damascenone
   aliases:
   - damascenone
-  cas:
+  cas: '23696-85-7'
   smiles:
   inchikey:
   mw_g_mol: 190.3
-  density_25c_g_ml:
+  density_25c_g_ml: 0.946
   logp: 3.2
   functional_groups: []
   chirality:
@@ -218,6 +218,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 23696-85-7 (https://www.thegoodscentscompany.com/data/rw1021911.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.94600 to 0.95200 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1021911.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Damascol
   aliases:
   - damascol
@@ -501,11 +503,11 @@
 - canonical_name: Delta Decalactone
   aliases:
   - delta decalactone
-  cas:
+  cas: '705-86-2'
   smiles:
   inchikey:
   mw_g_mol: 170.3
-  density_25c_g_ml:
+  density_25c_g_ml: 0.964
   logp: 2.5
   functional_groups: []
   chirality:
@@ -550,6 +552,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 705-86-2 (https://www.thegoodscentscompany.com/data/rw1013411.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.95800 to 0.97600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1013411.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Delta Dodecalactone
   aliases:
   - delta dodecalactone
@@ -850,11 +854,11 @@
 - canonical_name: Dihydro Beta Ionone
   aliases:
   - dihydro beta ionone
-  cas:
+  cas: '17283-81-7'
   smiles:
   inchikey:
   mw_g_mol: 194.3
-  density_25c_g_ml:
+  density_25c_g_ml: 0.922
   logp: 2.7
   functional_groups: []
   chirality:
@@ -893,6 +897,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 17283-81-7 (https://www.thegoodscentscompany.com/data/rw1019322.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.92100 to 0.92900 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1019322.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Dihydro Carvyl Acetate
   aliases: []
   cas:
@@ -1154,11 +1160,11 @@
 - canonical_name: Dihydromyrcenol
   aliases:
   - dihydromyrcenol
-  cas:
+  cas: '18479-58-8'
   smiles:
   inchikey:
   mw_g_mol: 156.3
-  density_25c_g_ml:
+  density_25c_g_ml: 0.825
   logp:
   functional_groups: []
   chirality:
@@ -1199,6 +1205,8 @@
     trp.TRPV1: engine.trigeminal
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    cas: 'TGSC: CAS Number: 18479-58-8 (https://www.thegoodscentscompany.com/data/rw1006052.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.82400 to 0.83000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1006052.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Dill Essential Oil
   aliases: []
   cas:
@@ -1534,11 +1542,11 @@
     user_stock_dilution: inventory.txt
 - canonical_name: Dipropylene Glycol (DPG)
   aliases: []
-  cas:
+  cas: '25265-71-8'
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 1.017
   logp:
   functional_groups: []
   chirality:
@@ -1568,6 +1576,8 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 25265-71-8 (https://www.thegoodscentscompany.com/data/rw1018712.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.01900 to 1.02100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1018712.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Dodecyl Nitrile
   aliases: []
   cas:
@@ -1651,7 +1661,7 @@
 - canonical_name: Dynascone
   aliases:
   - dynascone
-  cas:
+  cas: '56973-85-4'
   smiles:
   inchikey:
   mw_g_mol: 192.3
@@ -1704,3 +1714,4 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 56973-85-4 (https://www.thegoodscentscompany.com/data/rw1003151.html)'
