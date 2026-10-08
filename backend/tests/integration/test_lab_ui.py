@@ -666,7 +666,10 @@ async def test_formula_result_fits_prints_and_offers_a_bench_sheet(client):
     assert "benchBasisText(row.fraction_basis)" in javascript.text
     bench = await client.get("/static/bench-sheet.js")
     assert bench.status_code == 200
+    # Design order without basket data; Kenny's basket order when the inventory
+    # payload carries baskets (the node tests below check which one shows).
     assert "Order as designed" in bench.text
+    assert "Basket order 1 to 17, largest pour first in each basket." in bench.text
     assert "bench-tick" in bench.text
 
 
@@ -750,6 +753,131 @@ def test_bench_sheet_logic_keeps_exact_per_unit_totals_and_flags_prepared_diluti
     assert "Ethyl &lt;b&gt;Maltol&lt;/b&gt;" in html
     assert "<b>Maltol" not in html
     assert "Test &lt;Iris&gt; \u00b7 B" in html
+
+
+_BASKET_INVENTORY = {
+    "baskets": [{"number": number, "name": name} for number, name in (
+        (1, "Always used"), (3, "Woods"), (6, "Musks"), (10, "Rose"),
+    )],
+    "stocks": [
+        {"stock_id": "s-hed", "material": "Hedione", "basket": 1, "basket_status": "confirmed"},
+        {"stock_id": "s-iso", "material": "Iso E Super", "basket": 1, "basket_status": "confirmed"},
+        {"stock_id": "s-ced", "material": "Cedarwood Atlas", "basket": 3, "basket_status": "from_past_cards"},
+        {"stock_id": "s-san", "material": "Sandalore", "basket": 3, "basket_status": "confirmed"},
+        {"stock_id": "s-gal", "material": "Galaxolide", "identity_name": "Galaxolide 50", "basket": 6, "basket_status": "confirmed"},
+        {"stock_id": "s-ros", "material": "Rose Oxide", "basket": 10, "basket_status": "confirmed"},
+        {"stock_id": "s-new", "material": "Calone", "basket": None, "basket_status": "none"},
+        {"stock_id": "s-cfl", "material": "Ambroxan", "basket": 1, "basket_status": "conflicting"},
+    ],
+}
+
+
+def _basket_rows():
+    return [
+        _row("Rose Oxide", "30", stock_id="s-ros"),
+        _row("Calone", "15", stock_id="s-new"),
+        _row("Sandalore", "120", stock_id="s-san"),
+        _row("Hedione", "40", stock_id="s-hed"),
+        _row("Ethanol", "500", stock_id="s-eth", operation="PRECHARGE"),
+        _row("Cedarwood Atlas", "120", stock_id="s-ced"),
+        _row("Iso E Super", "250", stock_id="s-iso"),
+        _row("galaxolide 50", "60.0"),
+        _row("Ambroxan", "25", stock_id="s-cfl"),
+        _row("Ambrox crystals", "0.5", "mg", stock_id="s-hed-mg", identity_name="Hedione"),
+        _row("DPG", "80", stock_id="s-dpg"),
+    ]
+
+
+def test_basket_order_follows_kennys_baskets_and_pours_largest_first():
+    rows = _basket_rows()
+    result = _run_bench_sheet(
+        "(b) => { const rows = ROWS; const lookup = b.benchBasketLookup(INV); const order = b.benchBasketOrder(rows, lookup);"
+        " return { order: order.map((e) => [e.row.material, e.row.amount_decimal, e.basket, e.heading, e.check]),"
+        " same: order.length === rows.length && order.every((e) => rows.includes(e.row)), legacy: b.benchBasketLookup({ stocks: INV.stocks }),"
+        " plain: b.benchBasketOrder(rows, null).map((e) => [e.row.material, e.group]) }; }"
+        .replace("ROWS", json.dumps(rows)).replace("INV", json.dumps(_BASKET_INVENTORY))
+    )
+
+    assert result["order"] == [
+        # Carriers and solvents first, largest pour first.
+        ["Ethanol", "500", None, "Carriers and solvents · pre-charge", False],
+        ["DPG", "80", None, "Carriers and solvents · pre-charge", False],
+        # Basket 1: uL high to low, then the mg solid matched by identity name.
+        ["Iso E Super", "250", 1, "Basket 1 · Always used", False],
+        ["Hedione", "40", 1, "Basket 1 · Always used", False],
+        ["Ambrox crystals", "0.5", 1, "Basket 1 · Always used", False],
+        # Basket 3: equal pours tie-break on name; one row from past cards flags the basket.
+        ["Cedarwood Atlas", "120", 3, "Basket 3 · Woods", True],
+        ["Sandalore", "120", 3, "Basket 3 · Woods", True],
+        # Basket 6 reached by a case-insensitive identity-name match.
+        ["galaxolide 50", "60.0", 6, "Basket 6 · Musks", False],
+        ["Rose Oxide", "30", 10, "Basket 10 · Rose", False],
+        # No basket yet (none assigned, or a conflicting assignment) comes last.
+        ["Ambroxan", "25", None, "No basket yet", False],
+        ["Calone", "15", None, "No basket yet", False],
+    ]
+    assert result["same"] is True
+    assert result["legacy"] is None
+    assert result["plain"] == [[row["material"], None] for row in rows]
+
+
+def test_basket_order_never_changes_an_amount_and_keeps_a_postcharge_last():
+    rows = _basket_rows() + [_row("Ethanol make-up", "900", operation="POSTCHARGE")]
+    result = _run_bench_sheet(
+        "(b) => { const rows = ROWS; const before = JSON.stringify(rows); const order = b.benchBasketOrder(rows, b.benchBasketLookup(INV));"
+        " return { unchanged: JSON.stringify(rows) === before, last: order.at(-1).row.material, heading: order.at(-1).heading,"
+        " amounts: order.map((e) => e.row.amount_decimal).sort() }; }"
+        .replace("ROWS", json.dumps(rows)).replace("INV", json.dumps(_BASKET_INVENTORY))
+    )
+
+    assert result["unchanged"] is True
+    assert result["last"] == "Ethanol make-up"
+    assert result["heading"] == "Final make-up"
+    assert result["amounts"] == sorted(row["amount_decimal"] for row in rows)
+
+
+def test_pours_from_10_to_under_20_ul_are_flagged_for_a_one_to_one_dilution():
+    rows = [
+        _row("A", "9.99"), _row("B", "10"), _row("C", "19.999"), _row("D", "20"),
+        _row("E", "15", "mg"), _row("F", "15", "µL"), _row("G", "12", operation="PREPARED_DILUTION_REQUIRED"),
+    ]
+    flags = _run_bench_sheet("(b) => ROWS.map((row) => b.benchSmallPour(row))".replace("ROWS", json.dumps(rows)))
+
+    assert flags == [False, True, True, False, False, True, False]
+
+
+def test_bench_sheet_follows_basket_order_with_headings_and_running_totals():
+    rows = _basket_rows()
+    result = _run_bench_sheet(
+        "(b) => { const lookup = b.benchBasketLookup(INV);"
+        " return { html: b.benchSheetHtml({ formulaName: 'T', dateText: 'd', totals: {}, rows: ROWS, critic: {}, basketLookup: lookup }),"
+        " plain: b.benchSheetHtml({ formulaName: 'T', dateText: 'd', totals: {}, rows: ROWS, critic: {} }) }; }"
+        .replace("ROWS", json.dumps(rows)).replace("INV", json.dumps(_BASKET_INVENTORY))
+    )
+
+    html = result["html"]
+    assert "Basket order 1 to 17, largest pour first in each basket. Baskets marked &#39;check&#39; come from past cards." in html
+    assert "Order as designed" not in html
+    headings = [part.split("</th>", 1)[0] for part in html.split('<th colspan="6" scope="colgroup">')[1:]]
+    assert headings == [
+        "Carriers and solvents · pre-charge", "Basket 1 · Always used", "Basket 3 · Woods · check",
+        "Basket 6 · Musks", "Basket 10 · Rose", "No basket yet",
+    ]
+    material_rows = [row for row in html.split("<tbody>", 1)[1].split("</tr>")[:-1] if "bench-basket-row" not in row]
+    names = [row.split("<strong>", 1)[1].split("</strong>", 1)[0] for row in material_rows]
+    assert names[:4] == ["Ethanol", "DPG", "Iso E Super", "Hedione"]
+    # The running total follows the new pour order: 500, then 500 + 80, then + 250.
+    assert ">580 µL<" in material_rows[1].replace("</td>", "<")
+    assert ">830 µL<" in material_rows[2].replace("</td>", "<")
+    calone = next(row for row in material_rows if "<strong>Calone</strong>" in row)
+    assert "Under 20 µL: dilute 1:1 in ethanol, pipette double" in calone
+    assert 'class="bench-basket-tag">Basket 1<' in material_rows[2]
+
+    plain = result["plain"]
+    assert "Order as designed. Use your own basket order at the balance." in plain
+    assert "bench-basket-row" not in plain
+    plain_names = [row.split("<strong>", 1)[1].split("</strong>", 1)[0] for row in plain.split("<tbody>", 1)[1].split("</tr>")[:-1]]
+    assert plain_names == [row["material"] for row in rows]
 
 
 @pytest.mark.asyncio

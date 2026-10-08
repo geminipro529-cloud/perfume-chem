@@ -397,6 +397,17 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
 .draft-restored { color: var(--muted); background: var(--info-bg); border-left-color: var(--amber); }
 .draft-unsaved { color: var(--ink); background: var(--fail-bg); border-left-color: var(--red); }
 .formula-design-table .formula-dose small.formula-dose-hold { color: var(--hold-fg); }
+/* Basket order in the Create table: one heading row per physical basket, a
+   basket tag on each material, and the under-20 uL pipetting note. */
+.formula-design-table tr.formula-basket-row th {
+  padding: 14px 9px 6px; color: var(--ink); background: var(--surface-2);
+  border-bottom: 1px solid var(--line); font: 700 13px/1.3 var(--font-ui); text-transform: none; letter-spacing: 0;
+}
+.formula-design-table tr.formula-basket-row th small.formula-basket-check { display: inline; margin-left: 6px; color: var(--hold-fg); font-weight: 600; }
+.formula-design-table td small.formula-basket-tag { width: fit-content; margin-top: 2px; color: var(--muted); font-size: 12px; }
+.formula-design-table .formula-dose small.formula-dose-small {
+  white-space: normal; color: var(--hold-fg); font: 600 12px/1.3 var(--font-ui); letter-spacing: 0;
+}
 /* Errors other views emit ------------------------------------------------- */
 .form-error {
   padding: 12px 14px; color: var(--fail-fg); background: var(--fail-bg);
@@ -447,4 +458,10 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
     --info-bg: #E8EDF3; --info-fg: #1F4462;
   }
   body.printing-bench-sheet, body.printing-bench-sheet .bench-sheet { color: #000; background: #fff; }
+  /* Basket headings and pour notes on the bench sheet (lab.css print rules stay as they are). */
+  .bench-sheet-table tr.bench-basket-row th {
+    padding-top: 10px; border-bottom: 1px solid #000; font-size: 11px; letter-spacing: 0; text-transform: none;
+    break-after: avoid; page-break-after: avoid;
+  }
+  .bench-sheet-table small.bench-small-pour { margin-top: 3px; color: #000; font-weight: 700; }
 }

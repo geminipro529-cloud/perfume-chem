@@ -455,6 +455,8 @@ async function refresh() {
   recordList("#bottle-list", bottles, "label", (row) => row.status);
   recordList("#experiment-list", experiments, "name", (row) => row.status);
   renderProjectInventory($("#project-inventory-search").value);
+  // A design shown before the inventory arrived (a restored draft) picks up its basket order.
+  if (state.formulaChat.result) renderFormulaRows(selectedFormulaVariant(state.formulaChat.result).formula?.rows || []);
   updateSelectors();
   syncImproveSourceMode();
   notifyRoutine("Inventory and ledger refreshed.");
@@ -1632,6 +1634,35 @@ function selectedFormulaVariant(result, variantIndex = state.formulaChat.variant
   };
 }
 
+// With basket data in the inventory payload the rows follow Kenny's basket
+// order (benchBasketOrder in bench-sheet.js) under one heading per basket;
+// without it they keep the design order. Doses are never changed.
+function renderFormulaRows(rows) {
+  let group = null;
+  $("#formula-result-rows").innerHTML = rows.length
+    ? benchBasketOrder(rows, benchBasketLookup(state.projectInventory)).map((entry) => {
+      const row = entry.row;
+      let heading = "";
+      if (entry.group && entry.group !== group) {
+        group = entry.group;
+        heading = `<tr class="formula-basket-row"><th colspan="4" scope="colgroup">${escapeHtml(entry.heading)}${entry.check ? ' <small class="formula-basket-check">check it: from past cards</small>' : ""}</th></tr>`;
+      }
+      const fraction = `${formatDecimal(Number(row.stock_fraction_decimal) * 100, 4)}%`;
+      const carrier = row.carrier ? ` in ${row.carrier}` : "";
+      const proxy = row.profile_source === "HEURISTIC_CATEGORY_PROXY" ? '<small class="proxy-label">category proxy</small>' : "";
+      const basketTag = entry.basket !== null ? `<small class="formula-basket-tag">Basket ${escapeHtml(entry.basket)}</small>` : "";
+      const basis = benchBasisText(row.fraction_basis);
+      const stockLabel = row.stock_label || `${fraction} ${basis}${carrier}`;
+      return `${heading}<tr>
+        <td><strong>${escapeHtml(row.material)}</strong>${basketTag}${proxy}<small class="formula-why">${escapeHtml(row.rationale)}</small></td>
+        <td class="formula-dose">${escapeHtml(row.amount_decimal)} ${escapeHtml(row.amount_unit)}${benchNeedsPreparedDilution(row) ? '<small class="formula-dose-hold">prepare dilution first</small>' : ""}${benchSmallPour(row) ? `<small class="formula-dose-small">${escapeHtml(BENCH_SMALL_POUR_TEXT)}</small>` : ""}</td>
+        <td>${escapeHtml(stockLabel)}<small>${escapeHtml(fraction)} ${escapeHtml(basis)}${escapeHtml(carrier)}</small></td>
+        <td>${escapeHtml(row.slot_label)}<small>${escapeHtml(row.note)} · ${escapeHtml(row.role)}</small></td>
+      </tr>`;
+    }).join("")
+    : '<tr><td colspan="4">Clarify the brief before a formula can be created.</td></tr>';
+}
+
 function renderFormulaDesign(result, variantIndex = 0) {
   state.formulaChat.result = result;
   state.formulaChat.variantIndex = variantIndex;
@@ -1663,21 +1694,7 @@ function renderFormulaDesign(result, variantIndex = 0) {
     picker.append(button);
   });
   const rows = selected.formula?.rows || [];
-  $("#formula-result-rows").innerHTML = rows.length
-    ? rows.map((row) => {
-      const fraction = `${formatDecimal(Number(row.stock_fraction_decimal) * 100, 4)}%`;
-      const carrier = row.carrier ? ` in ${row.carrier}` : "";
-      const proxy = row.profile_source === "HEURISTIC_CATEGORY_PROXY" ? '<small class="proxy-label">category proxy</small>' : "";
-      const basis = benchBasisText(row.fraction_basis);
-      const stockLabel = row.stock_label || `${fraction} ${basis}${carrier}`;
-      return `<tr>
-        <td><strong>${escapeHtml(row.material)}</strong>${proxy}<small class="formula-why">${escapeHtml(row.rationale)}</small></td>
-        <td class="formula-dose">${escapeHtml(row.amount_decimal)} ${escapeHtml(row.amount_unit)}${benchNeedsPreparedDilution(row) ? '<small class="formula-dose-hold">prepare dilution first</small>' : ""}</td>
-        <td>${escapeHtml(stockLabel)}<small>${escapeHtml(fraction)} ${escapeHtml(basis)}${escapeHtml(carrier)}</small></td>
-        <td>${escapeHtml(row.slot_label)}<small>${escapeHtml(row.note)} · ${escapeHtml(row.role)}</small></td>
-      </tr>`;
-    }).join("")
-    : '<tr><td colspan="4">Clarify the brief before a formula can be created.</td></tr>';
+  renderFormulaRows(rows);
 
   const totals = $("#formula-result-totals");
   totals.replaceChildren();
@@ -2170,6 +2187,7 @@ function buildBenchSheet(result, variantIndex) {
     totals: selected.formula?.separate_totals || {},
     rows,
     critic: selected.critic,
+    basketLookup: benchBasketLookup(state.projectInventory),
   });
   return rows.length;
 }
