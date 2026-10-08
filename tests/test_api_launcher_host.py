@@ -47,3 +47,37 @@ def test_no_engine_worker_switches_app_autostart_off(monkeypatch):
     calls = _launch(monkeypatch, "--no-engine-worker")
     assert [call[0] for call in calls] == ["api"]
     assert calls[0][3] == "0"
+
+
+def test_default_launch_binds_loopback_without_warning(monkeypatch, capsys):
+    calls = _launch(monkeypatch)
+    assert calls[0][2]["host"] == "127.0.0.1"
+    assert "WARNING" not in capsys.readouterr().err
+
+
+def test_lan_flag_binds_all_interfaces_and_warns(monkeypatch, capsys):
+    calls = _launch(monkeypatch, "--lan")
+    assert calls[0][2]["host"] == "0.0.0.0"
+    err = capsys.readouterr().err
+    assert "WARNING" in err
+    assert "no login" in err
+    assert "delete" in err
+
+
+def test_explicit_non_loopback_host_warns(monkeypatch, capsys):
+    calls = _launch(monkeypatch, "--host", "0.0.0.0")
+    assert calls[0][2]["host"] == "0.0.0.0"
+    assert "no login" in capsys.readouterr().err
+
+
+def test_explicit_host_wins_over_lan(monkeypatch, capsys):
+    calls = _launch(monkeypatch, "--lan", "--host", "127.0.0.1")
+    assert calls[0][2]["host"] == "127.0.0.1"
+    assert "WARNING" not in capsys.readouterr().err
+
+
+def test_localhost_and_ipv6_loopback_do_not_warn(monkeypatch, capsys):
+    for host in ("localhost", "::1"):
+        calls = _launch(monkeypatch, "--host", host)
+        assert calls[0][2]["host"] == host
+        assert "WARNING" not in capsys.readouterr().err

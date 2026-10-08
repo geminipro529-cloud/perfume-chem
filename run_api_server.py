@@ -4,16 +4,43 @@
 from __future__ import annotations
 
 import argparse
+import ipaddress
 import os
 import sys
 from pathlib import Path
+
+LOOPBACK_HOST = "127.0.0.1"
+ALL_INTERFACES_HOST = "0.0.0.0"
+
+
+def _is_loopback(host: str) -> bool:
+    if host.lower() == "localhost":
+        return True
+    try:
+        return ipaddress.ip_address(host.strip("[]")).is_loopback
+    except ValueError:
+        return False
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--host", default="0.0.0.0",
-        help="API bind address; use 127.0.0.1 for a loopback-only desktop session.",
+        "--host",
+        default=None,
+        help=(
+            f"API bind address (default {LOOPBACK_HOST}: only this PC can open "
+            "the app). Overrides --lan. Any non-loopback address lets other "
+            "devices on the network reach the lab data with no login."
+        ),
+    )
+    parser.add_argument(
+        "--lan",
+        action="store_true",
+        help=(
+            f"Bind {ALL_INTERFACES_HOST} so other devices on the network can "
+            "open the app. There is no login: anyone on the network can read, "
+            "change and delete the lab data."
+        ),
     )
     parser.add_argument(
         "--no-engine-worker",
@@ -33,6 +60,22 @@ def main() -> None:
         ),
     )
     args = parser.parse_args()
+    if args.host is not None:
+        host = args.host
+    elif args.lan:
+        host = ALL_INTERFACES_HOST
+    else:
+        host = LOOPBACK_HOST
+    if not _is_loopback(host):
+        print(
+            f"WARNING: the API will listen on {host}:8000, reachable from other "
+            "devices on the network. There is no login: anyone who can reach "
+            "this PC can open, change and delete the lab data (formulas, "
+            "stock and bottle records). Run without --lan/--host to keep it "
+            f"on this PC only ({LOOPBACK_HOST}).",
+            file=sys.stderr,
+            flush=True,
+        )
     repository_root = Path(__file__).resolve().parent
     backend_dir = repository_root / "backend"
     # Pin this checkout ahead of any inherited PYTHONPATH entries.  Uvicorn's
@@ -59,7 +102,7 @@ def main() -> None:
         os.environ["PERFUME_ENGINE_WORKER_AUTOSTART"] = "0"
     uvicorn.run(
         "app.main:app",
-        host=args.host,
+        host=host,
         port=8000,
         reload=args.reload,
         log_level="info",

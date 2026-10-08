@@ -1,5 +1,6 @@
 """Reference data endpoints"""
 
+from pathlib import PurePosixPath, PureWindowsPath
 from typing import List
 
 from fastapi import APIRouter, HTTPException, Query
@@ -142,6 +143,9 @@ async def get_knowledge_file(filepath: str):
     """Get content of a knowledge file"""
     content = DataLoader.load_knowledge_file(filepath)
     if not content:
+        # Echo only a relative request; never an absolute path.
+        if PurePosixPath(filepath).anchor or PureWindowsPath(filepath).anchor:
+            raise HTTPException(status_code=404, detail="Knowledge file not found")
         raise HTTPException(status_code=404, detail=f"Knowledge file '{filepath}' not found")
     return {
         "filename": filepath,

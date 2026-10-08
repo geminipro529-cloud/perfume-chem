@@ -163,8 +163,14 @@ class DataLoader:
     def load_knowledge_file(filename: str) -> Optional[str]:
         """Load a knowledge markdown file by name"""
         try:
-            file_path = KNOWLEDGE_DIR / filename
-            if file_path.exists() and file_path.suffix == ".md":
+            # Resolve both sides (following symlinks) and refuse anything that
+            # lands outside the knowledge folder: ../ segments, absolute paths
+            # and links pointing elsewhere.
+            knowledge_root = KNOWLEDGE_DIR.resolve()
+            file_path = (knowledge_root / filename).resolve()
+            if not file_path.is_relative_to(knowledge_root):
+                return None
+            if file_path.is_file() and file_path.suffix == ".md":
                 with open(file_path, 'r', encoding='utf-8') as f:
                     return f.read()
         except Exception as e:
