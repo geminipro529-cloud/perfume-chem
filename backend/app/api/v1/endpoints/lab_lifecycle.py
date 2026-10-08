@@ -8,6 +8,7 @@ from typing import Any, TypeAlias, cast
 
 from engine.inventory_baskets import (
     BasketError,
+    BasketLogCorruptError,
     basket_list,
     confirmed_baskets,
     load_basket_seed,
@@ -169,7 +170,13 @@ def _inventory_decimal(value: float) -> str:
 
 def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
     stocks = []
-    confirmed = confirmed_baskets()
+    basket_log_error: str | None = None
+    try:
+        confirmed = confirmed_baskets()
+    except BasketLogCorruptError as error:
+        # A damaged log must not break the Lab page: show seed values only.
+        confirmed = {}
+        basket_log_error = str(error)
     seed = load_basket_seed()
     for stock in materialized.stocks:
         design_ready = effective_design_ready(stock)
@@ -218,7 +225,7 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
                 "source_ref": stock.source_ref,
             }
         )
-    return {
+    payload: dict[str, Any] = {
         "schema_version": "workbench-current-inventory-v3",
         "authority": "PERSONAL_DESIGN_INVENTORY_PROJECTION_READ_ONLY",
         "completion_authority": "DIRECT_USER_CONFIRMATION_FOR_PERSONAL_DESIGN_ONLY",
@@ -260,6 +267,9 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
         "inventory_modified": False,
         "compounding_authority": False,
     }
+    if basket_log_error is not None:
+        payload["basket_log_error"] = basket_log_error
+    return payload
 
 
 @router.get("/workbench/current-inventory")
@@ -363,13 +373,18 @@ async def set_workbench_inventory_basket(
             identity_name=stock.identity_name or stock.name,
             basket=request.basket,
         )
+    except BasketLogCorruptError as error:
+        return JSONResponse(
+            status_code=status.HTTP_409_CONFLICT,
+            content={"error": {"code": error.code, "message": str(error)}},
+        )
     except BasketError as error:
         return JSONResponse(
             status_code=422,
             content={"error": {"code": error.code, "message": str(error)}},
         )
     return {
-        "normalized_identity": event["normalized_identity"],
+        "normalized_identity": request.normalized_identity,
         "basket": event["basket"],
         "basket_status": "confirmed",
     }

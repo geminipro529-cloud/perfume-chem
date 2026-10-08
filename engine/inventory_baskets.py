@@ -13,10 +13,21 @@ import hashlib
 import json
 import os
 import threading
-from collections.abc import Mapping
+import time
+from collections.abc import Iterator, Mapping
+from contextlib import contextmanager
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+
+try:  # POSIX
+    import fcntl
+except ImportError:  # Windows, where Kenny runs the app
+    fcntl = None  # type: ignore[assignment]
+try:
+    import msvcrt
+except ImportError:  # POSIX
+    msvcrt = None  # type: ignore[assignment]
 
 from engine.mixer.sequencer import BASKET_LABELS
 from engine.name_utils import normalize_name
@@ -42,6 +53,25 @@ class BasketError(ValueError):
     """Invalid basket choice, seed or event log."""
 
     code = "INVALID_BASKET"
+
+
+class BasketLogCorruptError(BasketError):
+    """The basket log can't be read; the message is plain enough to show Kenny."""
+
+    code = "BASKET_LOG_CORRUPT"
+
+
+def _damaged_line(line_number: int) -> BasketLogCorruptError:
+    return BasketLogCorruptError(
+        f"The basket log has a damaged line (line {line_number}); "
+        "your basket choices can't be read until it is repaired."
+    )
+
+
+def basket_key(normalized_identity: str) -> str:
+    """Canonical key: a material's solution and crystals forms share one basket."""
+
+    return normalized_identity.removesuffix(CRYSTALS_SUFFIX)
 
 
 def basket_event_log_path(path: Path | None = None) -> Path:
@@ -76,7 +106,10 @@ def load_basket_events(path: Path | None = None) -> tuple[dict[str, Any], ...]:
     try:
         content = source.read_text(encoding="utf-8")
     except OSError as error:
-        raise BasketError(f"basket event log is unreadable: {error}") from error
+        raise BasketLogCorruptError(
+            "The basket log can't be read; your basket choices can't be read "
+            "until it is repaired."
+        ) from error
     events: list[dict[str, Any]] = []
     previous_hash = ""
     for line_number, line in enumerate(content.splitlines(), 1):
@@ -85,27 +118,33 @@ def load_basket_events(path: Path | None = None) -> tuple[dict[str, Any], ...]:
         try:
             raw = json.loads(line)
         except json.JSONDecodeError as error:
-            raise BasketError(f"basket event log line {line_number} is not valid JSON") from error
+            raise _damaged_line(line_number) from error
         if not isinstance(raw, dict) or raw.get("schema") != EVENT_SCHEMA:
-            raise BasketError(f"basket event log line {line_number} has the wrong schema")
+            raise _damaged_line(line_number)
         core = {key: value for key, value in raw.items() if key != "event_sha256"}
         if raw.get("previous_hash") != previous_hash or raw.get("event_sha256") != _event_hash(
             core
         ):
-            raise BasketError(f"basket event log line {line_number} breaks the hash chain")
+            raise _damaged_line(line_number)
         if not isinstance(raw.get("normalized_identity"), str) or not (
             raw.get("basket") is None or _valid_basket(raw.get("basket"))
         ):
-            raise BasketError(f"basket event log line {line_number} has an invalid choice")
+            raise _damaged_line(line_number)
         previous_hash = str(raw["event_sha256"])
         events.append(raw)
     return tuple(events)
 
 
 def confirmed_baskets(path: Path | None = None) -> dict[str, int | None]:
-    """Return the last confirmed basket (or explicit None) per normalized identity."""
+    """Return the last confirmed basket (or explicit None) per canonical basket key.
 
-    return {str(event["normalized_identity"]): event["basket"] for event in load_basket_events(path)}
+    Events stored under an older "... crystals" key map to the canonical key.
+    """
+
+    return {
+        basket_key(str(event["normalized_identity"])): event["basket"]
+        for event in load_basket_events(path)
+    }
 
 
 def load_basket_seed(path: Path | None = None) -> dict[str, dict[str, Any]]:
@@ -146,31 +185,66 @@ def stock_basket_fields(
     confirmed: Mapping[str, int | None],
     seed: Mapping[str, Mapping[str, Any]],
 ) -> dict[str, Any]:
-    """Basket fields for one stock; every strength of one identity shares them."""
+    """Basket fields for one stock; every strength and form of one material shares them."""
 
-    if normalized_identity in confirmed:
+    key = basket_key(normalized_identity)
+    if key in confirmed:
         return {
-            "basket": confirmed[normalized_identity],
+            "basket_key": key,
+            "basket": confirmed[key],
             "basket_status": STATUS_CONFIRMED,
             "basket_suggestions": [],
         }
     # Crystals and solutions of one material share the seed's past-card basket.
-    entry = seed.get(normalized_identity) or seed.get(
-        normalized_identity.removesuffix(CRYSTALS_SUFFIX)
-    )
+    entry = seed.get(normalized_identity) or seed.get(key)
     if entry is not None and entry.get("basket") is not None:
         return {
+            "basket_key": key,
             "basket": entry["basket"],
             "basket_status": STATUS_FROM_PAST_CARDS,
             "basket_suggestions": [],
         }
     if entry is not None and entry.get("competing_baskets"):
         return {
+            "basket_key": key,
             "basket": None,
             "basket_status": STATUS_CONFLICTING,
             "basket_suggestions": list(entry["competing_baskets"]),
         }
-    return {"basket": None, "basket_status": STATUS_NONE, "basket_suggestions": []}
+    return {
+        "basket_key": key,
+        "basket": None,
+        "basket_status": STATUS_NONE,
+        "basket_suggestions": [],
+    }
+
+
+@contextmanager
+def _file_lock(log_path: Path) -> Iterator[None]:
+    """Cross-process lock so two servers can't append with one previous_hash."""
+
+    lock_path = log_path.with_name(log_path.name + ".lock")
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    with lock_path.open("a+b") as handle:
+        if fcntl is not None:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+        elif msvcrt is not None:
+            while True:  # LK_LOCK gives up after ~10 s; keep waiting instead
+                try:
+                    handle.seek(0)
+                    msvcrt.locking(handle.fileno(), msvcrt.LK_LOCK, 1)
+                    break
+                except OSError:
+                    time.sleep(0.05)
+        # With neither module available only the in-process lock protects us.
+        try:
+            yield
+        finally:
+            if fcntl is not None:
+                fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+            elif msvcrt is not None:
+                handle.seek(0)
+                msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
 
 
 def record_basket_choice(
@@ -185,11 +259,12 @@ def record_basket_choice(
     if basket is not None and not _valid_basket(basket):
         raise BasketError("basket must be a number from 1 to 17, or null for no basket")
     source = basket_event_log_path(path)
-    with _WRITE_LOCK:
+    with _WRITE_LOCK, _file_lock(source):
         events = load_basket_events(source)
         core: dict[str, Any] = {
             "schema": EVENT_SCHEMA,
-            "normalized_identity": normalized_identity,
+            "normalized_identity": basket_key(normalized_identity),
+            "posted_identity": normalized_identity,
             "identity_name": identity_name,
             "basket": basket,
             "recorded_at": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
@@ -206,6 +281,8 @@ __all__ = [
     "BASKET_EVENT_PATH_ENV",
     "BASKET_SEED_PATH",
     "BasketError",
+    "BasketLogCorruptError",
+    "basket_key",
     "basket_event_log_path",
     "basket_list",
     "confirmed_baskets",
