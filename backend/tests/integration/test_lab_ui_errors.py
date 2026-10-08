@@ -27,7 +27,7 @@ def test_request_translates_failures_into_plain_words():
     js = _js()
     assert "AbortController" in js
     assert "Can't reach the app on this PC. Is it still running?" in js
-    assert "The app didn't answer within 30 seconds." in js
+    assert "The app didn't answer within 2 minutes." in js
     assert "That already exists." in js
     assert "The server returned ${response.status}." in js
     assert "error.fields" in js

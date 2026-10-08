@@ -52,7 +52,7 @@ function fieldWords(name) {
   return text ? text.charAt(0).toUpperCase() + text.slice(1) : "This field";
 }
 
-const REQUEST_TIMEOUT_MS = 30000;
+const REQUEST_TIMEOUT_MS = 120000;
 
 async function request(path, options = {}) {
   const { timeoutMs, ...fetchOptions } = options;
@@ -71,7 +71,7 @@ async function request(path, options = {}) {
     payload = await response.json().catch(() => ({}));
   } catch (error) {
     if (controller.signal.aborted) {
-      throw new Error(timeoutMs ? `The server did not answer within ${Math.round(timeoutMs / 1000)} s.` : "The app didn't answer within 30 seconds.");
+      throw new Error(timeoutMs ? `The server did not answer within ${Math.round(timeoutMs / 1000)} s.` : "The app didn't answer within 2 minutes.");
     }
     throw new Error("Can't reach the app on this PC. Is it still running?");
   } finally {
