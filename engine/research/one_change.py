@@ -1,7 +1,10 @@
 """Read-only single-change comparison plans: control versus one addition or dose step.
 
-One plan changes exactly one row of a fixed control. Every other row keeps its
-amount; total amount differs by the step. Nothing is saved, reserved, added or
+One plan changes exactly one row of a fixed control; every other row keeps its
+amount. A step down is tried in fresh vials, where the lighter variant gets a
+carrier blank equal to the step so both vials hold the same total (the
+omission plan's construction). Split-vial and blotter methods change a mixed
+bottle in place and carry no blank. Nothing is saved, reserved, added or
 committed, and no sensory equivalence, blinding or safety approval is implied.
 """
 
@@ -16,6 +19,7 @@ from math import comb
 from typing import Any, Mapping, Sequence
 
 from engine.research.contracts import FALSE_ACTION_AUTHORITY
+from engine.research.controlled_omission import carrier_blank_row
 
 SPLIT_VIAL_UL = 3000
 MIN_SPLIT_STEP_UL = 100
@@ -119,8 +123,12 @@ def _why_no_split(unit: str, step: Decimal, bottle_ul: Decimal | None) -> str | 
     return None
 
 
-def plan_one_change(*, control_rows: Sequence[Mapping[str, Any]], change: Mapping[str, Any]) -> dict[str, Any]:
-    """Apply exactly one ADDITION or DOSE_STEP to a fixed control (pure, deterministic)."""
+def plan_one_change(*, control_rows: Sequence[Mapping[str, Any]], change: Mapping[str, Any],
+                    carrier_blanks: Mapping[str, Any] | None = None) -> dict[str, Any]:
+    """Apply exactly one ADDITION or DOSE_STEP to a fixed control (pure, deterministic).
+
+    A step down needs ``carrier_blanks`` to name a blank stock for the changed row's exact carrier.
+    """
     rows = [copy.deepcopy(dict(row)) for row in control_rows]
     ids = [row["stock_id"] for row in rows]
     if len(ids) != len(set(ids)):
@@ -145,6 +153,12 @@ def plan_one_change(*, control_rows: Sequence[Mapping[str, Any]], change: Mappin
             raise ValueError("a dose step must be positive and leave some material")
         changed_row = dict(rows[index], amount_decimal=_plain(after))
         candidate = [*rows[:index], changed_row, *rows[index + 1:]]
+        if direction == "DOWN":
+            blank = carrier_blank_row(rows[index], carrier_blanks or {}, ids, amount_decimal=_plain(step),
+                                      amount_unit=rows[index]["amount_unit"], operation="CARRIER_BLANK_BALANCE")
+            if blank is None:
+                raise ValueError("a step down needs a carrier blank for the row's exact carrier")
+            candidate.append(blank)
     else:
         raise ValueError("unsupported change kind")
     unit = changed_row["amount_unit"]
@@ -158,9 +172,22 @@ def plan_one_change(*, control_rows: Sequence[Mapping[str, Any]], change: Mappin
                         "stock": label, "amount_unit": unit, "control_amount_decimal": _plain(before),
                         "variant_amount_decimal": _plain(after), "full_bottle_step_decimal": _plain(step)},
         "comparison_basis": "FIXED_OTHER_ROWS_ONE_ROW_CHANGED",
+        "carrier_blank": None,
         "active_total_preserved": False, "inventory_binding_verified": False, "sensory_validation": "NOT_TESTED",
-        "limitation": "Every other row keeps its amount, so the total differs by the step; this is not safety approval.",
+        "limitation": ("Every other row keeps its amount, so the variant's total is larger by the step; "
+                       "this is not safety approval."),
     }
+    if direction == "DOWN":
+        blank = candidate[-1]
+        total = "mass" if unit == "mg" else "volume"
+        plan.update(
+            comparison_basis=f"EQUAL_TOTAL_{total.upper()}_ONE_ROW_CHANGED_CARRIER_BLANK", carrier_blank=blank,
+            limitation=(f"Every other row keeps its amount and the variant gets {_plain(step)} {unit} of "
+                        f"{blank['carrier']} blank, so both sides have the same total {total}; equal-{total} "
+                        "blanking lowers active fragrance mass, so this is not an equal-active-dose "
+                        "comparison or safety approval."
+                        + ("" if unit == "mg" else " Volumes are not converted to masses.")),
+        )
     bottle = change.get("bottle_volume_ul_decimal")
     bottle_ul = Decimal(bottle) if bottle is not None else None
     how: dict[str, Any] = {"method": None, "split_vial": None, "blotter_preview": None,
@@ -177,6 +204,8 @@ def plan_one_change(*, control_rows: Sequence[Mapping[str, Any]], change: Mappin
             "steps": [
                 "Mix the control rows in one fresh vial and the variant rows in another, using the same amounts for every other row.",
                 f"The only difference is {label}: {_plain(before)} {unit} in the control, {_plain(after)} {unit} in the variant.",
+                (f"Add {_plain(step)} {unit} of your {changed_row['carrier']} blank ({candidate[-1]['stock_id']}) "
+                 "to the variant vial so both vials hold the same total."),
                 "Compare the two on blotters at 0, 15 and 60 minutes.",
             ],
             "times_min": list(BLOTTER_TIMES_MIN),

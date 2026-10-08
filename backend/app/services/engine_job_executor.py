@@ -2707,8 +2707,9 @@ def _one_change_plan_v2(payload: dict[str, Any]) -> tuple[str, dict[str, Any], s
     from engine.research.one_change import plan_one_change, triangle_test_sheet
     from engine.research.protocols import build_reference_anchored_protocol
 
-    plan = plan_one_change(control_rows=payload["control_rows"], change=payload["change"])
-    if plan != plan_one_change(control_rows=payload["control_rows"], change=payload["change"]):
+    inputs = {k: payload[k] for k in ("control_rows", "change", "carrier_blanks")}
+    plan = plan_one_change(**inputs)
+    if plan != plan_one_change(**inputs):
         raise ValueError("ONE_CHANGE_REPLAY_MISMATCH")
     hashes = {"control": plan["control_sha256"], "variant": stable_json_hash(plan["candidate_rows"])}
     protocol_id = "one-change-" + plan["plan_sha256"][:20]

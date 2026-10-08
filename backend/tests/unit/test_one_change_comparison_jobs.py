@@ -1,6 +1,7 @@
 """One change per plan: control versus one addition or dose step, planning only."""
 
 from copy import deepcopy
+from decimal import Decimal
 
 import pytest
 from engine.research.contracts import stable_payload_hash
@@ -27,6 +28,7 @@ def payload(change, **extra):
     return dict(schema_version="omission-comparison-plan-request-v1",
                 control_rows=[row("iso_e_super", "3000", fraction="1", basis="neat", carrier=None),
                               row("ambrox", "400")],
+                carrier_blanks={"DPG": dict(stock_id="dpg_blank", carrier="DPG")},
                 goal="Does the change make the drydown warmer?", change=change, **extra)
 
 
@@ -85,11 +87,46 @@ def test_dose_step_up_changes_only_that_row_and_offers_split():
 def test_dose_step_down_gets_fresh_vials_not_a_split():
     result = result_of(payload(dose("DOWN", step="150")))
     plan = result["one_change_plan"]
-    assert [r["amount_decimal"] for r in plan["candidate_rows"]] == ["3000", "250"]
+    assert [r["amount_decimal"] for r in plan["candidate_rows"]] == ["3000", "250", "150"]
     how = result["how_to_try"]
     assert how["method"] == "FRESH_VIALS" and how["split_vial"] is None and how["blotter_preview"] is None
     assert "Nothing can be taken out" in how["why_no_split"]
     assert any("400 uL in the control, 250 uL in the variant" in s for s in how["fresh_vials"]["steps"])
+
+
+def totals_by_unit(rows):
+    totals = {}
+    for r in rows:
+        totals[r["amount_unit"]] = totals.get(r["amount_unit"], Decimal(0)) + Decimal(r["amount_decimal"])
+    return totals
+
+
+@pytest.mark.parametrize("unit", ["uL", "mg"])
+def test_dose_step_down_fresh_vials_have_equal_totals_via_carrier_blank(unit):
+    data = payload(dose("DOWN", step="150"))
+    for control_row in data["control_rows"]:
+        control_row["amount_unit"] = unit
+    result = result_of(data)
+    plan = result["one_change_plan"]
+    assert totals_by_unit(plan["candidate_rows"]) == totals_by_unit(data["control_rows"])
+    blank = plan["carrier_blank"]
+    assert plan["candidate_rows"][-1] == blank
+    assert (blank["stock_id"], blank["carrier"], blank["amount_decimal"], blank["amount_unit"],
+            blank["stock_fraction_decimal"], blank["replaces_stock_id"]) == (
+        "dpg_blank", "DPG", "150", unit, "0", "ambrox")
+    total = "mass" if unit == "mg" else "volume"
+    assert plan["comparison_basis"] == f"EQUAL_TOTAL_{total.upper()}_ONE_ROW_CHANGED_CARRIER_BLANK"
+    assert f"same total {total}" in plan["limitation"]
+    assert any(f"Add 150 {unit} of your DPG blank (dpg_blank) to the variant vial" in s
+               for s in result["how_to_try"]["fresh_vials"]["steps"])
+
+
+def test_split_and_blotter_plans_carry_no_carrier_blank():
+    for change in (addition(), addition(amount="50"), dose("UP")):
+        plan = result_of(payload(change))["one_change_plan"]
+        assert plan["carrier_blank"] is None
+        assert plan["comparison_basis"] == "FIXED_OTHER_ROWS_ONE_ROW_CHANGED"
+        assert all("operation" not in r for r in plan["candidate_rows"])
 
 
 @pytest.mark.parametrize("change,reason", [
@@ -157,6 +194,10 @@ def test_omission_canonical_payload_unchanged_by_new_optional_fields():
     (lambda d: d.update(change=dict(dose("UP"), stock_id="missing")), "name one of the control rows"),
     (lambda d: d.update(change=dose("UP", step="0")), "greater than zero"),
     (lambda d: d.update(change=dict(kind="OMISSION")), "kind"),
+    (lambda d: d.update(change=dose("DOWN"), carrier_blanks={}), "needs a declared carrier and a blank"),
+    (lambda d: d.update(change=dose("DOWN"), carrier_blanks={"DPG": dict(stock_id="ambrox", carrier="DPG")}),
+     "not one of the control rows"),
+    (lambda d: d.update(change=dict(dose("DOWN"), stock_id="iso_e_super")), "needs a declared carrier"),
 ])
 def test_exactly_one_change_is_required(mutate, message):
     data = payload(addition())
