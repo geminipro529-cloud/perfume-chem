@@ -216,3 +216,61 @@ def test_rosewood_does_not_carry_rose():
     result = _namesake("Rose Noir", {**_PLAIN_BASE, "Rosewood EO": 150.0})
 
     assert "Rosewood EO" not in result.data["carried_by"]["rose"]
+
+
+# Round 3 review fixes.
+def test_french_name_words_are_checked_not_dropped():
+    result = _namesake("Osmanthus Tabac Fumé", {**_PLAIN_BASE, "Osmanthus Absolute": 150.0})
+
+    assert result.status == "WARN"
+    assert result.data["missing"] == ["tabac", "fume"]
+    assert "Every odour word" not in result.detail
+
+
+def test_single_material_without_odour_data_is_named_not_masking():
+    result = _namesake("Pineapple Chypre", {**_PLAIN_BASE, "D-Limonene": 300.0})
+
+    assert result.status == "WARN"
+    assert result.data["missing"] == ["pineapple"]
+    assert result.data["no_odour_data"] == ["D-Limonene"]
+    assert "no odour data for D-Limonene" in result.detail
+
+
+def test_bridge_prose_does_not_carry_oud():
+    result = _namesake(
+        "Rose Oud", {**_PLAIN_BASE, "Phenethyl Alcohol": 150.0, "Nagarmotha Oil": 150.0}
+    )
+
+    assert result.status == "WARN"
+    assert result.data["missing"] == ["oud"]
+
+
+def test_trade_name_prefix_does_not_carry_word():
+    result = _namesake("Citron Noir", {**_PLAIN_BASE, "Citronellol": 150.0})
+
+    assert result.status == "WARN"
+    assert result.data["missing"] == ["citron"]
+
+
+def test_harvest_and_origin_words_are_not_required():
+    result = _namesake(
+        "Rose de Mai", {**_PLAIN_BASE, "Phenethyl Alcohol": 150.0, "Citronellol": 150.0}
+    )
+
+    assert result.data["words"] == ["rose"]
+    assert result.status == "PASS"
+    assert result.data["not_checked"] == {"de mai": "origin"}
+
+
+def test_not_negates_a_name_word():
+    result = _namesake("Iris, not powdery", {**_PLAIN_BASE, "Orivone": 150.0})
+
+    assert result.data["words"] == ["iris"]
+    assert result.data["not_required"] == ["powdery"]
+
+
+def test_no_followed_by_a_number_does_not_negate():
+    result = _namesake("No. 5 Rose Aldehyde", _PLAIN_BASE)
+
+    assert result.data["words"] == ["rose", "aldehyde"]
+    assert result.data["not_required"] == []
