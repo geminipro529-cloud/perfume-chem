@@ -1,0 +1,110 @@
+{
+  "schema_version": "ifra_cat4_table/1",
+  "amendment_in_force": 51,
+  "category": "4",
+  "basis": "percent_w_w_finished_product",
+  "library_url": "https://ifrafragrance.org/standards-library",
+  "verified_on": "2026-10-08",
+  "standards": {
+    "IFRA_STD_062": {
+      "name": "Methyl heptine carbonate",
+      "cas": ["111-12-6"],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.047,
+      "cat4_quote": "Category 4 0.047 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_062.pdf",
+      "notes": [
+        "When used in the same fragrance compound within a specific QRA category, the sum total of Methyl heptine carbonate (MHC, CAS number 111-12-6) and Methyl octine carbonate (MOC, CAS number 111-80-8) contributions must not exceed the maximum permitted level for MHC."
+      ]
+    },
+    "IFRA_STD_064": {
+      "name": "Methyl octine carbonate",
+      "cas": ["111-80-8"],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.01,
+      "cat4_quote": "Category 4 0.010 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_064.pdf",
+      "notes": []
+    },
+    "IFRA_STD_067": {
+      "name": "Oakmoss extracts",
+      "cas": ["90028-68-5", "68917-10-2", "9000-50-4"],
+      "kind": "restriction_specification",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.1,
+      "cat4_quote": "Category 4 0.10 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_067.pdf",
+      "notes": [
+        "Oakmoss extracts must not contain added Treemoss.",
+        "levels of Atranol and Chloroatranol should each be below 100 ppm in Oakmoss extracts."
+      ]
+    },
+    "IFRA_STD_080": {
+      "name": "Treemoss extracts",
+      "cas": ["90028-67-4", "68648-41-9", "68917-40-8"],
+      "kind": "restriction_specification",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.1,
+      "cat4_quote": "Category 4 0.10 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_080.pdf",
+      "notes": []
+    }
+  },
+  "materials": {
+    "Oakmoss Absolute": {
+      "status": "restricted",
+      "standard": "IFRA_STD_067",
+      "aliases": [
+        "Oakmoss", "Oak Moss", "Oakmoss Extract", "Evernia Prunastri", "Evernia Prunastri Extract"
+      ],
+      "note": null
+    },
+    "Treemoss Absolute": {
+      "status": "restricted",
+      "standard": "IFRA_STD_080",
+      "aliases": [
+        "Treemoss", "Tree Moss", "Treemoss Extract", "Evernia Furfuracea",
+        "Evernia Furfuracea Extract"
+      ],
+      "note": null
+    },
+    "Methyl Heptine Carbonate": {
+      "status": "restricted",
+      "standard": "IFRA_STD_062",
+      "aliases": ["MHC", "Methyl 2-Octynoate"],
+      "note": null
+    },
+    "Methyl Octine Carbonate": {
+      "status": "restricted",
+      "standard": "IFRA_STD_064",
+      "aliases": ["MOC", "Methyl 2-Nonynoate"],
+      "note": null
+    },
+    "Hedione": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": ["Hedione HC", "Methyl Dihydrojasmonate"],
+      "note": "No IFRA Standard names methyl dihydrojasmonate (24851-98-7) in the IFRA library index read 2026-10-08."
+    }
+  },
+  "group_rules": [
+    {
+      "id": "oakmoss_treemoss_total",
+      "standard": "IFRA_STD_067",
+      "rule": "sum_le_limit",
+      "limit_pct": 0.1,
+      "members": ["Oakmoss Absolute", "Treemoss Absolute"],
+      "quote": "In the presence of Treemoss extracts, the level of Oakmoss in the respective category has to be reduced accordingly such that the total amount of both extracts does not exceed the maximum permitted level in each category"
+    },
+    {
+      "id": "mhc_moc_total",
+      "standard": "IFRA_STD_062",
+      "rule": "sum_le_limit",
+      "limit_pct": 0.047,
+      "members": ["Methyl Heptine Carbonate", "Methyl Octine Carbonate"],
+      "quote": "When used in the same fragrance compound within a specific QRA category, the sum total of Methyl heptine carbonate (MHC, CAS number 111-12-6) and Methyl octine carbonate (MOC, CAS number 111-80-8) contributions must not exceed the maximum permitted level for MHC."
+    }
+  ]
+}
