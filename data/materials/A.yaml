@@ -271,11 +271,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Acetoin
   aliases: []
-  cas: null
+  cas: '513-86-0'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
+  mw_g_mol: 88.11
+  density_25c_g_ml: 1.013
   logp: null
   functional_groups: []
   chirality: null
@@ -308,9 +308,12 @@
         price_usd_per_g: 0.13
   families: []
   character: null
-  notes: null
+  notes: 'log Kow not set: EPI KOWWIN v1.67 estimate -0.36 vs ChemicalBook 0.1 at 25 C (method not stated). VP not set: EPI estimate 266 Pa at 25 C vs ChemicalBook 86 hPa at 20 C = 8600 Pa, about 30x apart; commercial acetoin is largely the solid dimer, so monomer/dimer state may explain the gap. No air ODT found. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1007331.html: "acetoin, 513-86-0" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    mw_g_mol: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1007331 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "MOL WT : 88.11"'
+    density_25c_g_ml: 'ChemicalBook property page CASEN_513-86-0 (supplier/Sigma compilation, method not stated; via material-data-firecrawl/allgaps/S1_aldehydes.md): "1.013 g/mL at 25 °C(lit.)"'
 - canonical_name: Acetophenone
   aliases: []
   cas: null
@@ -860,16 +863,16 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Aldehyde C-12 Lauric Dodecanal
   aliases: []
-  cas: null
+  cas: '112-54-9'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
+  mw_g_mol: 184.32
+  density_25c_g_ml: 0.831
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 2.04
+  vp_source: EPI_exp_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -897,9 +900,13 @@
         price_usd_per_g: 0.06
   families: []
   character: null
-  notes: null
+  notes: 'log Kow not set: only non-measured values (EPI KOWWIN v1.67 estimate 4.75; ChemicalBook 4.9 at 35 C, method not stated). EPI VP estimate 2.06 Pa (Modified Grain) agrees. No air ODT found (Leffingwell 2 ppb has no stated medium). Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1000371.html: "dodecanal (aldehyde C-12 lauric), 112-54-9" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    mw_g_mol: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000371 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "MOL WT : 184.32"'
+    vp_25c_pa: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000371 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "VP (exp database): 1.53E-02 mm Hg (2.04E+000 Pa) at 25 deg C" (literature value, original reference not shown); 0.0153 mm Hg x 133.322 Pa/mm Hg = 2.04 Pa'
+    density_25c_g_ml: 'ChemicalBook property page CASEN_112-54-9 (supplier/Sigma compilation, method not stated; via material-data-firecrawl/allgaps/S1_aldehydes.md): "density 0.831 g/mL at 25 °C(lit.)"'
 - canonical_name: Aldehyde C-12 MNA
   aliases: []
   cas: null
@@ -1025,16 +1032,16 @@
 - canonical_name: Aldehyde C-18 Gamma Nonalactone
   aliases:
   - "Aldehyde C-18"
-  cas: null
+  cas: '104-61-0'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 156.22
+  density_25c_g_ml: 0.959
+  logp: 2.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.57
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1062,9 +1069,14 @@
         price_usd_per_g: 0.07
   families: []
   character: null
-  notes: null
+  notes: 'VP is an estimate; other values: TGSC/perflavory 0.009 mm Hg at 25 C (est) = 1.20 Pa; at 20 C (not used) EPI v4.0 0.0073 mm Hg = 0.97 Pa and FMA 0.02 mm Hg = 2.67 Pa. Other log Kow estimates: EPI 2.08, perflavory 1.942, XLogP3-AA 2.2. FMA density 0.958-0.966 (temperature not stated). No air ODT found. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'perflavory (TGSC mirror) https://www.perflavory.com/docs/doc1000532.html: "104-61-0" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    mw_g_mol: 'RIFM fragrance ingredient safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "5. Molecular Weight: 156.22" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    logp: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "2.5 at 25 °C (RIFM, 1995), 2.08 (EPI Suite)"; RIFM 1995 study value used (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    vp_25c_pa: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "0.0118 mm Hg @ 25 °C (EPI Suite)", EPI Suite estimate; 0.0118 mm Hg x 133.322 Pa/mm Hg = 1.57 Pa (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    density_25c_g_ml: 'perflavory https://www.perflavory.com/docs/doc1000532.html: specific gravity "0.95800 to 0.96500 @ 25.00 °C."; midpoint 0.9615 x 0.99705 g/mL (water at 25 C) = 0.959 (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
 - canonical_name: Aldehyde C-7 Heptanal
   aliases: []
   cas: null
@@ -1103,21 +1115,21 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Aldehyde C-8 Octanal
   aliases: []
-  cas: null
+  cas: '124-13-0'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 128.22
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 157.3
+  vp_source: EPI_exp_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.17
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1140,26 +1152,30 @@
         price_usd_per_g: 0.07
   families: []
   character: null
-  notes: null
+  notes: 'log Kow not set: only non-measured values that disagree (EPI KOWWIN v1.67 estimate 2.78, TGSC EPI page ep1000251; ChemicalBook 3.5 at 20 C, method not stated). VP: EPI estimate 199 Pa (mean Antoine & Grain); ChemicalBook 2 mm Hg at 20 C = 266.6 Pa (not 25 C). Density not set: only ChemicalBook 0.822 g/mL at 20 C. Air ODT: two measured air values conflict 17x, Cometto-Muniz & Abraham 2010 0.17 ppb (used) vs Nagata 2003 0.010 ppb (triangle odor bag). Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1000251.html: "octanal (aldehyde C-8), 124-13-0" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    mw_g_mol: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000251 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "MOL WT : 128.22"'
+    vp_25c_pa: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000251 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "VP (exp database): 1.18E+00 mm Hg (1.57E+002 Pa) at 25 deg C" (literature value, original reference not shown); 1.18 mm Hg x 133.322 Pa/mm Hg = 157.3 Pa'
+    odt_air_ppb: 'Cometto-Muniz & Abraham (2010) Chem. Senses 35(4):289-299, doi:10.1093/chemse/bjq018, https://pmc.ncbi.nlm.nih.gov/articles/PMC2912639, Table 2: "Octanal | 16 | 0.17", ppb by volume (human, 3-AFC vapour delivery, 16 subjects). Second measured source, conflicting: Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review, Japan Ministry of the Environment, pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 (ppm, v/v): "n-Octylaldehyde 0.000010" ppm v/v = 0.010 ppb'
 - canonical_name: Aldehyde C-9 Nonanal
   aliases: []
-  cas: null
+  cas: '124-19-6'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
+  mw_g_mol: 142.24
+  density_25c_g_ml: 0.827
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 49.3
+  vp_source: EPI_exp_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.53
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1182,9 +1198,14 @@
         price_usd_per_g: 0.07
   families: []
   character: null
-  notes: null
+  notes: 'log Kow not set: only non-measured values (EPI KOWWIN v1.67 estimate 3.27, TGSC EPI page ep1000291; ChemicalBook 3.4 at 35 C, method not stated). VP alternatives: ChemicalBook ~0.26 mm Hg at 25 C = 34.7 Pa (method not stated); EPI estimate 75.2 Pa. Air ODT: two measured air values conflict, Cometto-Muniz & Abraham 2010 0.53 ppb (used) vs Nagata 2003 0.34 ppb. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1000292.html: "nonanal (aldehyde C-9), 124-19-6" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    mw_g_mol: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000291 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "MOL WT : 142.24"'
+    vp_25c_pa: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000291 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "VP (exp database): 3.70E-01 mm Hg (4.93E+001 Pa) at 25 deg C" (literature value, original reference not shown); 0.370 mm Hg x 133.322 Pa/mm Hg = 49.3 Pa'
+    density_25c_g_ml: 'ChemicalBook property page CASEN_124-19-6 (supplier/Sigma compilation, method not stated; via material-data-firecrawl/allgaps/S1_aldehydes.md): "0.827 g/mL at 25 °C(lit.)"'
+    odt_air_ppb: 'Cometto-Muniz & Abraham (2010) Chem. Senses 35(4):289-299, doi:10.1093/chemse/bjq018, https://pmc.ncbi.nlm.nih.gov/articles/PMC2912639, Table 2: "Nonanal | 17 | 0.53", ppb by volume (human, 3-AFC vapour delivery, 17 subjects). Second measured source, conflicting: Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review, Japan Ministry of the Environment, pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 (ppm, v/v): "n-Nonylaldehyde 0.00034" ppm v/v = 0.34 ppb'
 - canonical_name: Aldehyde C10
   aliases:
   - aldehyde c10
@@ -1336,16 +1357,16 @@
 - canonical_name: Aldehyde C12 Lauric
   aliases:
   - aldehyde c12 lauric
-  cas: null
+  cas: '112-54-9'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
+  mw_g_mol: 184.32
+  density_25c_g_ml: 0.831
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 2.04
+  vp_source: EPI_exp_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1362,11 +1383,15 @@
   supplier: null
   families: []
   character: null
-  notes: null
+  notes: 'log Kow not set: only non-measured values (EPI KOWWIN v1.67 estimate 4.75; ChemicalBook 4.9 at 35 C, method not stated). EPI VP estimate 2.06 Pa (Modified Grain) agrees. No air ODT found (Leffingwell 2 ppb has no stated medium). Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1000371.html: "dodecanal (aldehyde C-12 lauric), 112-54-9" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    mw_g_mol: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000371 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "MOL WT : 184.32"'
+    vp_25c_pa: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000371 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "VP (exp database): 1.53E-02 mm Hg (2.04E+000 Pa) at 25 deg C" (literature value, original reference not shown); 0.0153 mm Hg x 133.322 Pa/mm Hg = 2.04 Pa'
+    density_25c_g_ml: 'ChemicalBook property page CASEN_112-54-9 (supplier/Sigma compilation, method not stated; via material-data-firecrawl/allgaps/S1_aldehydes.md): "density 0.831 g/mL at 25 °C(lit.)"'
 - canonical_name: Aldehyde C12 MNA
   aliases:
   - aldehyde c12 mna
@@ -1420,21 +1445,21 @@
 - canonical_name: Aldehyde C8
   aliases:
   - aldehyde c8
-  cas: null
+  cas: '124-13-0'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 128.22
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 157.3
+  vp_source: EPI_exp_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.17
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1446,29 +1471,32 @@
   supplier: null
   families: []
   character: null
-  notes: null
+  notes: 'log Kow not set: only non-measured values that disagree (EPI KOWWIN v1.67 estimate 2.78, TGSC EPI page ep1000251; ChemicalBook 3.5 at 20 C, method not stated). VP: EPI estimate 199 Pa (mean Antoine & Grain); ChemicalBook 2 mm Hg at 20 C = 266.6 Pa (not 25 C). Density not set: only ChemicalBook 0.822 g/mL at 20 C. Air ODT: two measured air values conflict 17x, Cometto-Muniz & Abraham 2010 0.17 ppb (used) vs Nagata 2003 0.010 ppb (triangle odor bag). Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'engine.odor_thresholds; Cometto-Muniz & Abraham (2010) Chem. Senses 35(4):289-299, doi:10.1093/chemse/bjq018, https://pmc.ncbi.nlm.nih.gov/articles/PMC2912639, Table 2: "Octanal | 16 | 0.17", ppb by volume (human, 3-AFC vapour delivery, 16 subjects). Second measured source, conflicting: Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review, Japan Ministry of the Environment, pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 (ppm, v/v): "n-Octylaldehyde 0.000010" ppm v/v = 0.010 ppb'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1000251.html: "octanal (aldehyde C-8), 124-13-0" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    mw_g_mol: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000251 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "MOL WT : 128.22"'
+    vp_25c_pa: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000251 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "VP (exp database): 1.18E+00 mm Hg (1.57E+002 Pa) at 25 deg C" (literature value, original reference not shown); 1.18 mm Hg x 133.322 Pa/mm Hg = 157.3 Pa'
 - canonical_name: Aldehyde C9
   aliases:
   - aldehyde c9
-  cas: null
+  cas: '124-19-6'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
+  mw_g_mol: 142.24
+  density_25c_g_ml: 0.827
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 49.3
+  vp_source: EPI_exp_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.53
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1480,11 +1508,15 @@
   supplier: null
   families: []
   character: null
-  notes: null
+  notes: 'log Kow not set: only non-measured values (EPI KOWWIN v1.67 estimate 3.27, TGSC EPI page ep1000291; ChemicalBook 3.4 at 35 C, method not stated). VP alternatives: ChemicalBook ~0.26 mm Hg at 25 C = 34.7 Pa (method not stated); EPI estimate 75.2 Pa. Air ODT: two measured air values conflict, Cometto-Muniz & Abraham 2010 0.53 ppb (used) vs Nagata 2003 0.34 ppb. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'engine.odor_thresholds; Cometto-Muniz & Abraham (2010) Chem. Senses 35(4):289-299, doi:10.1093/chemse/bjq018, https://pmc.ncbi.nlm.nih.gov/articles/PMC2912639, Table 2: "Nonanal | 17 | 0.53", ppb by volume (human, 3-AFC vapour delivery, 17 subjects). Second measured source, conflicting: Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review, Japan Ministry of the Environment, pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 (ppm, v/v): "n-Nonylaldehyde 0.00034" ppm v/v = 0.34 ppb'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1000292.html: "nonanal (aldehyde C-9), 124-19-6" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    mw_g_mol: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000291 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "MOL WT : 142.24"'
+    vp_25c_pa: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000291 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "VP (exp database): 3.70E-01 mm Hg (4.93E+001 Pa) at 25 deg C" (literature value, original reference not shown); 0.370 mm Hg x 133.322 Pa/mm Hg = 49.3 Pa'
+    density_25c_g_ml: 'ChemicalBook property page CASEN_124-19-6 (supplier/Sigma compilation, method not stated; via material-data-firecrawl/allgaps/S1_aldehydes.md): "0.827 g/mL at 25 °C(lit.)"'
 - canonical_name: Algenone
   aliases: []
   cas: null

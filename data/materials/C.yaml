@@ -3057,11 +3057,11 @@
 - canonical_name: Cis-3 Hexenyl Acetate
   aliases:
   - cis-3 Hexenyl Acetate
-  cas: null
+  cas: '3681-71-8'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
+  mw_g_mol: 142.2
+  density_25c_g_ml: 0.897
   logp: null
   functional_groups: []
   chirality: null
@@ -3094,9 +3094,12 @@
         price_usd_per_g: 0.12
   families: []
   character: null
-  notes: null
+  notes: 'log Kow not set: only XLogP3-AA 1.90 (est), no RIFM/EPI or measured value. VP not found. JECFA density 0.896-0.901 (temperature not stated). No air ODT found. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'perflavory (TGSC mirror) https://www.perflavory.com/docs/doc1001471.html: "3681-71-8" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    mw_g_mol: 'perflavory https://www.perflavory.com/docs/doc1001471.html: "142.19798000" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    density_25c_g_ml: 'perflavory https://www.perflavory.com/docs/doc1001471.html: specific gravity "0.89600 to 0.90400 @ 25.00 °C."; midpoint 0.900 x 0.99705 g/mL (water at 25 C) = 0.897 (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
 - canonical_name: Cis-3 Hexenyl Benzoate
   aliases:
   - cis-3 Hexenyl Benzoate
@@ -3178,11 +3181,11 @@
 - canonical_name: Cis-3 Hexenyl Hexanoate
   aliases:
   - cis-3 Hexenyl Hexanoate
-  cas: null
+  cas: '31501-11-8'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
+  mw_g_mol: 198.31
+  density_25c_g_ml: 0.876
   logp: null
   functional_groups: []
   chirality: null
@@ -3211,18 +3214,21 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'log Kow not set: only TGSC estimates (4.438 est; XLogP3-AA 3.80), no RIFM/EPI or measured value. VP not set: only a TGSC estimate, 0.016 mm Hg at 25 C (est) = 2.13 Pa, no RIFM-quoted EPI value. No air ODT found. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1007981.html: "CAS Number: 31501-11-8" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    mw_g_mol: 'TGSC https://www.thegoodscentscompany.com/data/rw1007981.html: "Molecular Weight:198.30574000" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1007981.html: "Specific Gravity:0.87500 to 0.88300 @ 25.00 °C."; midpoint 0.879 x 0.99705 g/mL (water at 25 C) = 0.876 (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
 - canonical_name: Cis-3 Hexenyl Salicylate
   aliases:
   - cis-3 Hexenyl Salicylate
-  cas: null
+  cas: '65405-77-8'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 220.27
+  density_25c_g_ml: 1.029
+  logp: 4.4
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -3252,9 +3258,13 @@
         price_usd_per_g: 0.1
   families: []
   character: null
-  notes: null
+  notes: 'VP not set: TGSC MSDS 0.00025 mm Hg at 25 C = 0.0333 Pa (method not stated) vs IFF 0.000336 mm Hg at 23 C = 0.0448 Pa (method not stated); the lower-temperature value is higher, so they are inconsistent and neither is measured. Density range is wide (0.995-1.070). No air ODT found. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC MSDS https://www.thegoodscentscompany.com/msds/md102434.html and IFF compendium https://www.iff.com/scent/ingredients-compendium/hexenyl-salicylate-cis-3/ (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    mw_g_mol: 'TGSC MSDS https://www.thegoodscentscompany.com/msds/md102434.html: "220.2681200" (IFF: "Molecular Weight: 220.3") (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    logp: 'IFF compendium https://www.iff.com/scent/ingredients-compendium/hexenyl-salicylate-cis-3/: "Log P: 4.4" (supplier, method not stated; TGSC MSDS "log p: 4.36") (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    density_25c_g_ml: 'TGSC MSDS https://www.thegoodscentscompany.com/msds/md102434.html: specific gravity "0.99500 to 1.07000 @ 25 °C."; midpoint 1.0325 x 0.99705 g/mL (water at 25 C) = 1.029; wide range (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
 - canonical_name: cis-3-Hexenol
   aliases:
   - cis-3-hexenol
@@ -3307,12 +3317,12 @@
 - canonical_name: Cis-3-Hexenyl Salicylate
   aliases:
   - cis-3-hexenyl salicylate
-  cas: null
+  cas: '65405-77-8'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 220.27
+  density_25c_g_ml: 1.029
+  logp: 4.4
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -3333,11 +3343,15 @@
   supplier: null
   families: []
   character: null
-  notes: null
+  notes: 'VP not set: TGSC MSDS 0.00025 mm Hg at 25 C = 0.0333 Pa (method not stated) vs IFF 0.000336 mm Hg at 23 C = 0.0448 Pa (method not stated); the lower-temperature value is higher, so they are inconsistent and neither is measured. Density range is wide (0.995-1.070). No air ODT found. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
+    cas: 'TGSC MSDS https://www.thegoodscentscompany.com/msds/md102434.html and IFF compendium https://www.iff.com/scent/ingredients-compendium/hexenyl-salicylate-cis-3/ (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    mw_g_mol: 'TGSC MSDS https://www.thegoodscentscompany.com/msds/md102434.html: "220.2681200" (IFF: "Molecular Weight: 220.3") (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    logp: 'IFF compendium https://www.iff.com/scent/ingredients-compendium/hexenyl-salicylate-cis-3/: "Log P: 4.4" (supplier, method not stated; TGSC MSDS "log p: 4.36") (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    density_25c_g_ml: 'TGSC MSDS https://www.thegoodscentscompany.com/msds/md102434.html: specific gravity "0.99500 to 1.07000 @ 25 °C."; midpoint 1.0325 x 0.99705 g/mL (water at 25 C) = 1.029; wide range (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
 - canonical_name: Cistus Absolute F0779
   aliases: []
   cas: null

@@ -514,8 +514,80 @@ ODT_DATA: dict[str, dict] = {
     "methyl ionone": {"odt_air": 5.0, "odt_eth": 1.0000, "char": "woody iris, warm"},
     "irotyl": {"odt_air": 1.0, "odt_eth": 0.2, "char": "iris-violet, powdery"},
     # ── Aldehydes (aliphatic) — Arctander ODTs in air ──
-    "aldehyde c8": {"odt_air": 5.7, "odt_eth": 1.1400, "char": "fatty-citrus, waxy"},
-    "aldehyde c9": {"odt_air": 8.5, "odt_eth": 1.7000, "char": "rose-citrus, fatty"},
+    # Octanal / nonanal air ODTs (2026-10-08): the previous unsourced air values
+    # (aldehyde c8 5.7 ppb, aldehyde c9 8.5 ppb; ODT_VERIFICATION recorded no
+    # source) are replaced by Cometto-Muniz & Abraham (2010) Chem. Senses 35:289,
+    # doi:10.1093/chemse/bjq018, Table 2 (human, ppb v/v): octanal 0.17, nonanal 0.53.
+    # Nagata (2003) triangle odor bag conflicts: octanal 0.000010 ppm (0.010 ppb),
+    # nonanal 0.00034 ppm (0.34 ppb). odt_eth is the legacy value, unchanged.
+    "aldehyde c8": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Cometto-Muniz & Abraham (2010) Chem. Senses 35:289, doi:10.1093/chemse/bjq018 — 0.17 ppb v/v",
+            "Nagata (2003) Odor Measurement Review pp. 118-127 — 0.000010 ppm v/v (0.010 ppb), conflicting",
+        ],
+        "odt_air": 0.17,
+        "odt_eth": 1.1400,
+        "char": "fatty-citrus, waxy",
+    },
+    "aldehyde c9": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Cometto-Muniz & Abraham (2010) Chem. Senses 35:289, doi:10.1093/chemse/bjq018 — 0.53 ppb v/v",
+            "Nagata (2003) Odor Measurement Review pp. 118-127 — 0.00034 ppm v/v (0.34 ppb), conflicting",
+        ],
+        "odt_air": 0.53,
+        "odt_eth": 1.7000,
+        "char": "rose-citrus, fatty",
+    },
+    "octanal": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Cometto-Muniz & Abraham (2010) Chem. Senses 35:289, doi:10.1093/chemse/bjq018 — 0.17 ppb v/v",
+            "Nagata (2003) Odor Measurement Review pp. 118-127 — 0.000010 ppm v/v (0.010 ppb), conflicting",
+        ],
+        "odt_air": 0.17,
+        "odt_eth": None,
+        "char": "fatty-citrus, waxy",
+    },
+    "aldehyde c-8 octanal": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Cometto-Muniz & Abraham (2010) Chem. Senses 35:289, doi:10.1093/chemse/bjq018 — 0.17 ppb v/v",
+            "Nagata (2003) Odor Measurement Review pp. 118-127 — 0.000010 ppm v/v (0.010 ppb), conflicting",
+        ],
+        "odt_air": 0.17,
+        "odt_eth": None,
+        "char": "fatty-citrus, waxy",
+    },
+    "nonanal": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Cometto-Muniz & Abraham (2010) Chem. Senses 35:289, doi:10.1093/chemse/bjq018 — 0.53 ppb v/v",
+            "Nagata (2003) Odor Measurement Review pp. 118-127 — 0.00034 ppm v/v (0.34 ppb), conflicting",
+        ],
+        "odt_air": 0.53,
+        "odt_eth": None,
+        "char": "rose-citrus, fatty",
+    },
+    "aldehyde c-9 nonanal": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Cometto-Muniz & Abraham (2010) Chem. Senses 35:289, doi:10.1093/chemse/bjq018 — 0.53 ppb v/v",
+            "Nagata (2003) Odor Measurement Review pp. 118-127 — 0.00034 ppm v/v (0.34 ppb), conflicting",
+        ],
+        "odt_air": 0.53,
+        "odt_eth": None,
+        "char": "rose-citrus, fatty",
+    },
+    # Verified: Nagata (2003) Table 2, triangle odor bag — n-butyl n-butyrate
+    # 0.0048 ppm v/v = 4.8 ppb. No ethanol-solution threshold found.
+    "butyl butyrate": {
+        "vfy": "PEER_SINGLE",
+        "sources": ["Nagata (2003) Odor Measurement Review pp. 118-127 — 0.0048 ppm v/v (4.8 ppb)"],
+        "odt_air": 4.8,
+        "odt_eth": None,
+    },
     "aldehyde c11 undecylenic": {
         "odt_air": 0.8,
         "odt_eth": 0.4,
@@ -1562,14 +1634,58 @@ ODT_VERIFICATION: dict[str, dict] = {
         "note": "Auto-tagged by audit 2026-05-11",
     },
     "aldehyde c8": {
-        "vfy": "UNVERIFIED",
-        "sources": ["No peer-reviewed air-phase ODT found in indexed literature"],
-        "note": "Auto-tagged by audit 2026-05-11",
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Cometto-Muniz & Abraham (2010) Chem. Senses 35(4):289-299, doi:10.1093/chemse/bjq018, Table 2 — octanal 0.17 ppb v/v (human, 3-AFC vapour delivery, 16 subjects)",
+            "Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 — n-octylaldehyde 0.000010 ppm v/v (0.010 ppb)",
+        ],
+        "evidence_conflict": "Two measured air thresholds conflict 17x; the Cometto-Muniz & Abraham value is active, Nagata is retained.",
+    },
+    "aldehyde c-8 octanal": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Cometto-Muniz & Abraham (2010) Chem. Senses 35(4):289-299, doi:10.1093/chemse/bjq018, Table 2 — octanal 0.17 ppb v/v (human, 3-AFC vapour delivery, 16 subjects)",
+            "Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 — n-octylaldehyde 0.000010 ppm v/v (0.010 ppb)",
+        ],
+        "evidence_conflict": "Two measured air thresholds conflict 17x; the Cometto-Muniz & Abraham value is active, Nagata is retained.",
+    },
+    "octanal": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Cometto-Muniz & Abraham (2010) Chem. Senses 35(4):289-299, doi:10.1093/chemse/bjq018, Table 2 — octanal 0.17 ppb v/v (human, 3-AFC vapour delivery, 16 subjects)",
+            "Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 — n-octylaldehyde 0.000010 ppm v/v (0.010 ppb)",
+        ],
+        "evidence_conflict": "Two measured air thresholds conflict 17x; the Cometto-Muniz & Abraham value is active, Nagata is retained.",
     },
     "aldehyde c9": {
-        "vfy": "UNVERIFIED",
-        "sources": ["No peer-reviewed air-phase ODT found in indexed literature"],
-        "note": "Auto-tagged by audit 2026-05-11",
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Cometto-Muniz & Abraham (2010) Chem. Senses 35(4):289-299, doi:10.1093/chemse/bjq018, Table 2 — nonanal 0.53 ppb v/v (human, 3-AFC vapour delivery, 17 subjects)",
+            "Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 — n-nonylaldehyde 0.00034 ppm v/v (0.34 ppb)",
+        ],
+        "evidence_conflict": "Two measured air thresholds conflict 1.6x; the Cometto-Muniz & Abraham value is active, Nagata is retained.",
+    },
+    "aldehyde c-9 nonanal": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Cometto-Muniz & Abraham (2010) Chem. Senses 35(4):289-299, doi:10.1093/chemse/bjq018, Table 2 — nonanal 0.53 ppb v/v (human, 3-AFC vapour delivery, 17 subjects)",
+            "Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 — n-nonylaldehyde 0.00034 ppm v/v (0.34 ppb)",
+        ],
+        "evidence_conflict": "Two measured air thresholds conflict 1.6x; the Cometto-Muniz & Abraham value is active, Nagata is retained.",
+    },
+    "nonanal": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Cometto-Muniz & Abraham (2010) Chem. Senses 35(4):289-299, doi:10.1093/chemse/bjq018, Table 2 — nonanal 0.53 ppb v/v (human, 3-AFC vapour delivery, 17 subjects)",
+            "Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 — n-nonylaldehyde 0.00034 ppm v/v (0.34 ppb)",
+        ],
+        "evidence_conflict": "Two measured air thresholds conflict 1.6x; the Cometto-Muniz & Abraham value is active, Nagata is retained.",
+    },
+    "butyl butyrate": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 — n-butyl n-butyrate 0.0048 ppm v/v (4.8 ppb)"
+        ],
     },
     "allyl amyl glycolate": {
         "vfy": "UNVERIFIED",
@@ -3909,18 +4025,6 @@ _INVENTORY_ODT_UNAVAILABLE_20261007 = {'ambrette seed absolute': {'odt_air': Non
                                     'note': 'Inventory receipt establishes product and stock '
                                             'ownership only; no compatible measured threshold is '
                                             'supplied.'},
- 'aldehyde c-8 octanal': {'odt_air': None,
-                          'odt_eth': None,
-                          'vfy': 'UNAVAILABLE',
-                          'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
-                          'note': 'Inventory receipt establishes product and stock ownership only; '
-                                  'no compatible measured threshold is supplied.'},
- 'aldehyde c-9 nonanal': {'odt_air': None,
-                          'odt_eth': None,
-                          'vfy': 'UNAVAILABLE',
-                          'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
-                          'note': 'Inventory receipt establishes product and stock ownership only; '
-                                  'no compatible measured threshold is supplied.'},
  'acetoin': {'odt_air': None,
              'odt_eth': None,
              'vfy': 'UNAVAILABLE',
@@ -4037,12 +4141,6 @@ _INVENTORY_ODT_UNAVAILABLE_20261007 = {'ambrette seed absolute': {'odt_air': Non
                       'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
                       'note': 'Inventory receipt establishes product and stock ownership only; no '
                               'compatible measured threshold is supplied.'},
- 'butyl butyrate': {'odt_air': None,
-                    'odt_eth': None,
-                    'vfy': 'UNAVAILABLE',
-                    'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
-                    'note': 'Inventory receipt establishes product and stock ownership only; no '
-                            'compatible measured threshold is supplied.'},
  'berry hexanoate (berryflor)': {'odt_air': None,
                                  'odt_eth': None,
                                  'vfy': 'UNAVAILABLE',

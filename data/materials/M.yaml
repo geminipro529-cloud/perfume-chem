@@ -686,12 +686,12 @@
 - canonical_name: Maltol
   aliases:
   - maltol
-  cas:
+  cas: '118-71-8'
   smiles:
   inchikey:
-  mw_g_mol:
-  density_25c_g_ml:
-  logp:
+  mw_g_mol: 126.11
+  density_25c_g_ml: 1.046
+  logp: 0.09
   functional_groups: []
   chirality:
   vp_25c_pa:
@@ -726,12 +726,16 @@
         price_usd_per_g: 0.1
   families: []
   character:
-  notes:
+  notes: 'ChemicalBook log P 2.3 at 25 C disagrees with the measured 0.09 and is not used. VP not set: EPI Modified Grain estimate 0.00571 Pa at 25 C vs ChemicalBook 0.15 Pa at 24 C (26x apart, neither measured at 25 C). No air ODT found (Leffingwell 35000 ppb has no stated medium). Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1002341.html: "maltol, 118-71-8" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    mw_g_mol: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1002341 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "MOL WT : 126.11"'
+    logp: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1002341 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "Log Kow (Exper. database match) = 0.09" (Ref: Sangster 1993), measured'
+    density_25c_g_ml: 'ChemicalBook property page CASEN_118-71-8 (supplier/Sigma compilation, method not stated; via material-data-firecrawl/allgaps/S1_aldehydes.md): "1.046 g/mL at 25 °C" (method not stated; maltol is a solid, so bulk vs true density is ambiguous)'
 - canonical_name: Mandarin Essential Oil
   aliases: []
   cas:

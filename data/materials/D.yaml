@@ -735,16 +735,16 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Diethyl Malonate
   aliases: []
-  cas:
+  cas: '105-53-3'
   smiles:
   inchikey:
-  mw_g_mol:
+  mw_g_mol: 160.17
   density_25c_g_ml:
-  logp:
+  logp: 0.9
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 48.1
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -768,9 +768,13 @@
     other: {}
   families: []
   character:
-  notes:
+  notes: 'VP is an estimate; at 20 C (not used) EPI 0.244 mm Hg = 32.5 Pa vs FMA 0.06 mm Hg = 8.0 Pa, a 4x spread, so the EPI value may be high. Density not set: RIFM gives specific gravity 1.055 with no temperature. No air ODT found. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'RIFM fragrance ingredient safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/105-53-3.pdf (CAS taken from the document identity) (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    mw_g_mol: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/105-53-3.pdf: "Molecular Weight: 160.17" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    logp: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/105-53-3.pdf: "Log KOW: 0.9 (EPI Suite)", EPI Suite estimate, no measured value found (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    vp_25c_pa: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/105-53-3.pdf: "0.361 mm Hg @ 25 °C (EPI Suite)", EPI Suite estimate; 0.361 mm Hg x 133.322 Pa/mm Hg = 48.1 Pa (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
 - canonical_name: Diethyl Phthalate
   aliases:
   - DEP
