@@ -26,14 +26,22 @@ The finished volume is about 28.6 mL, not 30 mL (see the Ambrettolide row below)
 | Vetiver EO (India), 140 µL, basket 2 | Vetiver EO (Haiti), 140 µL, basket 1 | Kenny corrected this bottle's origin to Haiti on 2026-09-10. Basket 1 is where docs/basket_order_preference.md puts Haitian vetiver. |
 | Vetival, basket 5 | Vetival, basket 1 | Same dose; docs/basket_order_preference.md lists Vetival in Always used. |
 | Mimosa Absolute, "10% in DPG" | Mimosa Absolute, 10% w/w in DPG | The inventory records this stock as 10% w/w in DPG. |
+| Ethyl 2-Methylbutyrate, 0.1% in DPG, 50 µL | Ethyl 2-Methylbutyrate, 0.01% w/w in DPG, 50 µL | Kenny's choice (2026-10-08) after E2MB's vapour pressure was corrected from an unsourced 5 Pa to 1,070 Pa (RIFM safety assessment, EPI Suite estimate). At 0.1% it modelled at about 187 times its odour threshold, fourth in the opening; at 0.01% it models at about 19, below Linalyl Acetate, which keeps it the short pear flash V3 designed. This is an intended tenfold cut in E2MB's active dose, not a stock rebase. |
 
 Every other dose is V3 Smooth's, including the 2026-10-08 Verdox 340 µL / Benzyl Acetate 160 µL revision.
 
+**E2MB dose authority:** the tenfold E2MB cut is Kenny's decision (card, 2026-10-08 16:28 UTC). Gate this card against V3 Smooth with `--authorize-active-dose-change "Ethyl 2-Methylbutyrate=Kenny decision card 2026-10-08 16:28 UTC: use 0.01% after the E2MB vapour-pressure fix (5 -> 1,070 Pa)"`; the pre-mix guard then reports it as an authorized dose change (WARN) instead of a stock-rebase FAIL.
+
 ## Open holds before mixing
 
-- **Mimosa Absolute (10% w/w in DPG):** owned, but the inventory holds it for execution because its bottle lot and preparation receipts are missing. Kenny decides whether to use it as it is or drop the row.
-- **Osmanthus Absolute (10% in DPG)** and **Ethyl 2-Methylbutyrate (0.1% in DPG):** the inventory does not say whether these were made by weight or by volume, so the gate's concentration-basis check fails on them.
-- **Densities:** the gate's chemistry-stability and phase checks need a measured density for each w/w stock (Alpha Irone, Mimosa, Tonkarome) and a density for some neat materials; they report UNKNOWN until those exist. This is a data gap, not a formula problem.
+- **Ethyl 2-Methylbutyrate (0.01% w/w in DPG):** a new solution Kenny is making from his neat PerfumersWorld E2MB (received 2026-10-07). It is not in the inventory records until he reports the weights. Make it by weight in three steps, capping each vial straight away because E2MB is very volatile:
+  1. **1% w/w:** 9.900 g DPG, then 0.100 g E2MB.
+  2. **0.1% w/w:** 9.000 g DPG, then 1.000 g of the 1%.
+  3. **0.01% w/w:** 9.000 g DPG, then 1.000 g of the 0.1%.
+  Record the actual weights; the true strength is the E2MB mass over the total mass at each step.
+- **Mimosa Absolute (10% w/w in DPG):** Kenny keeps it (2026-10-08). The inventory still holds it for execution because its bottle lot and preparation receipts are missing; the hold is cleared in the same inventory record as the new E2MB solution.
+- **Osmanthus Absolute (10% in DPG):** the inventory does not say whether it was made by weight or by volume, so the gate's concentration-basis check fails on it.
+- **Densities:** the gate's chemistry-stability and phase checks need a measured density for each w/w stock (Alpha Irone, Mimosa, Tonkarome, E2MB) and a density for some neat materials; they report UNKNOWN until those exist. This is a data gap, not a formula problem.
 
 ## CURRENT-INVENTORY RAW-VOLUME BUILD — parser-visible formula
 
@@ -136,7 +144,7 @@ only at a new basket. No separate carrier is added.
 |---:|---|---|---:|---:|---:|---:|---|
 | 28 | Verdox | neat | 340 | 340.000 | 74561.4035 | 74561.4035 | green pear flesh and woody continuity |
 | 29 | Benzyl Acetate | neat | 160 | 160.000 | 35087.7193 | 35087.7193 | floral-fruit skin at the pear-to-orris boundary |
-| 30 | Ethyl 2-Methylbutyrate | 0.1% in DPG | 50 | 0.050 nominal | 10964.9123 | 10.9649 nominal | volatile juicy pear-liqueur flash |
+| 30 | Ethyl 2-Methylbutyrate | 0.01% w/w in DPG | 50 | 0.005 nominal | 10964.9123 | 1.0965 nominal | volatile juicy pear-liqueur flash |
 
 **BASKET 16 — ALDEHYDES**
 
@@ -147,8 +155,8 @@ only at a new basket. No separate carrier is added.
 *(no materials in this formula)*
 
 **Concentrate total:** **4,560 µL raw stock**.  
-**Nominal mixed-basis screening-active total:** **4,010.05 µL proxy**, or
-**879,396.9298 active-ppm screening proxy** in concentrate. W/w stocks and
+**Nominal mixed-basis screening-active total:** **4,010.005 µL proxy**, or
+**879,387.0614 active-ppm screening proxy** in concentrate. W/w stocks and
 stocks without solution density do not supply literal active volume or exact
 mass ppm.
 
@@ -172,7 +180,7 @@ dose high to low raw µL inside it:
 12. **Edible smells:** Tonkarome (20% w/w in TEC) 310; Isobutavan 140.
 13. **Edible spices:** none.
 14. **My favorite smells:** none.
-15. **Fruits:** Verdox 340; Benzyl Acetate 160; Ethyl 2-Methylbutyrate (0.1%) 50.
+15. **Fruits:** Verdox 340; Benzyl Acetate 160; Ethyl 2-Methylbutyrate (0.01% w/w in DPG) 50.
 16. **Aldehydes:** none.
 17. **Green smelling things:** none.
 
@@ -209,7 +217,7 @@ dose high to low raw µL inside it:
 | 27 | 12 | Isobutavan | neat | 140 µL | 4,010 µL |
 | 28 | 15 | Verdox | neat | 340 µL | 4,350 µL |
 | 29 | 15 | Benzyl Acetate | neat | 160 µL | 4,510 µL |
-| 30 | 15 | Ethyl 2-Methylbutyrate (0.1%) | 0.1% in DPG | 50 µL | 4,560 µL |
+| 30 | 15 | Ethyl 2-Methylbutyrate (0.01% w/w in DPG) | 0.01% w/w in DPG | 50 µL | 4,560 µL |
 
 #### Seventeen-basket checkpoints
 
