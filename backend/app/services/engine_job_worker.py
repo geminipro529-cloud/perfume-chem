@@ -433,6 +433,9 @@ async def run_worker(stop: asyncio.Event | None = None) -> None:
     active: set[asyncio.Task[bool]] = set()
     stop_requested = asyncio.ensure_future(stop.wait())
     failed_iterations = 0
+    # A claim that finds the queue empty holds off the next one for a poll
+    # interval; claiming again at once would poll the database nonstop.
+    next_claim_at = 0.0
     logger.info("Engine worker %s started with concurrency=%s", worker_id, concurrency)
     try:
         while not stop.is_set():
@@ -446,13 +449,18 @@ async def run_worker(stop: asyncio.Event | None = None) -> None:
             except Exception:
                 logger.exception("Engine worker maintenance failed; continuing")
                 failed = True
-            while len(active) < concurrency and not stop.is_set():
+            while (
+                len(active) < concurrency
+                and not stop.is_set()
+                and time.monotonic() >= next_claim_at
+            ):
                 slot = len(active) + 1
                 task = asyncio.create_task(_run_lease(f"{owner_prefix}:{slot}"))
                 active.add(task)
                 await asyncio.sleep(0)
                 if task.done() and task.exception() is None and not task.result():
                     active.remove(task)
+                    next_claim_at = time.monotonic() + poll_seconds
                     break
             done, _pending = await asyncio.wait(
                 {*active, stop_requested},
@@ -468,6 +476,8 @@ async def run_worker(stop: asyncio.Event | None = None) -> None:
                         exc_info=error,
                     )
                     failed = True
+                elif not task.result():
+                    next_claim_at = time.monotonic() + poll_seconds
             failed_iterations = failed_iterations + 1 if failed else 0
             if failed_iterations >= _MAX_CONSECUTIVE_FAILED_ITERATIONS:
                 logger.error(

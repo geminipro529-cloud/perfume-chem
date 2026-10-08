@@ -1,4 +1,4 @@
-"""Engine worker stop paths: parent pipe, graceful stop and loop-error exit."""
+"""Engine worker loop: parent pipe, graceful stop, loop-error exit, idle polling."""
 
 from __future__ import annotations
 
@@ -222,3 +222,35 @@ async def test_five_failing_iterations_in_a_row_exit_non_zero(
     assert codes == [1]
     assert calls == [1, 2, 3, 4, 5]
     assert time.monotonic() - started < 5
+
+
+# ---------------------------------------------------------- idle polling
+
+
+@pytest.mark.asyncio
+async def test_an_idle_worker_claims_once_per_poll_interval(monkeypatch, tmp_path) -> None:
+    settings = get_settings()
+    monkeypatch.setattr(settings, "ENGINE_JOB_WORKER_POLL_SECONDS", 0.2)
+    monkeypatch.setattr(settings, "ENGINE_WORKER_HEARTBEAT_SECONDS", 60.0)
+    monkeypatch.setattr(settings, "ENGINE_JOB_WORKER_CONCURRENCY", 2)
+    engine, _maker = await _ready_database(monkeypatch, tmp_path / "idle.db")
+    claims: list[float] = []
+
+    async def empty_queue(owner: str) -> bool:
+        claims.append(time.monotonic())
+        await asyncio.sleep(0.001)  # a real claim takes several event-loop turns
+        return False
+
+    monkeypatch.setattr(worker_module, "_run_lease", empty_queue)
+    stop = asyncio.Event()
+    run = asyncio.create_task(worker_module.run_worker(stop))
+    try:
+        await asyncio.sleep(1.0)
+    finally:
+        stop.set()
+        await asyncio.wait_for(run, timeout=10)
+        await engine.dispose()
+    assert run.exception() is None
+    # At most 6 claim rounds of 2 claims in 1 s at a 0.2 s poll; a worker that
+    # claims again as soon as the queue comes back empty makes hundreds.
+    assert 0 < len(claims) <= 12, len(claims)
