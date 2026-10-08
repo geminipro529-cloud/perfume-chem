@@ -125,7 +125,9 @@ def test_runtime_odt_numeric_map_is_unchanged():
     digest = hashlib.sha256(
         json.dumps(values, sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
-    assert digest == "2505240fe7beeb73f9448cdfa47fdd75e14651190d4244b8f065ac9f79908bb5"
+    # Geranyl acetate air ODT added from Elsharif & Buettner (2018); the
+    # digest without that one entry is master's 2505240f… value.
+    assert digest == "35b7d603f2b7b60efe87baf1e784afec158d3722ee8f516d0fc1f1ff0eb8dd0d"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())
