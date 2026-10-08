@@ -31,6 +31,26 @@ class RecordCarryOverError(RuntimeError):
     """A record in the old folder could not be copied to the new one."""
 
 
+def record_files() -> dict[str, Path]:
+    """The personal record files in use, keyed by their standard file name.
+
+    Paths follow the same rules as the logs themselves (explicit environment
+    overrides win; the basket log sits beside the completion log), and
+    resolving them carries old records over from ``output/``.  A file may not
+    exist yet.
+    """
+
+    from engine.inventory_completions import completion_log_path
+    from engine.personal_inventory import addition_log_path
+
+    completion = completion_log_path()
+    return {
+        ADDITION_LOG_NAME: addition_log_path(),
+        COMPLETION_LOG_NAME: completion,
+        BASKET_LOG_NAME: completion.with_name(BASKET_LOG_NAME),
+    }
+
+
 def copy_legacy_record(legacy: Path, destination: Path) -> bool:
     """Copy ``legacy`` to ``destination`` when only the legacy file exists.
 

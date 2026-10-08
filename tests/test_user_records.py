@@ -260,3 +260,30 @@ def test_racing_threads_and_processes_publish_one_identical_copy(tmp_path, monke
     assert (new / user_records.COMPLETION_LOG_NAME).read_bytes() == details
     assert (new / user_records.BASKET_LOG_NAME).read_bytes() == basket
     assert (old / user_records.COMPLETION_LOG_NAME).read_bytes() == details
+
+
+def test_record_files_names_the_logs_in_use_and_carries_old_ones_over(tmp_path, monkeypatch):
+    new, old = _point_at(tmp_path, monkeypatch)
+    _write(old / user_records.BASKET_LOG_NAME, b'{"basket": 1}\n')
+
+    files = user_records.record_files()
+
+    assert files == {
+        user_records.ADDITION_LOG_NAME: (new / user_records.ADDITION_LOG_NAME).resolve(),
+        user_records.COMPLETION_LOG_NAME: (new / user_records.COMPLETION_LOG_NAME).resolve(),
+        user_records.BASKET_LOG_NAME: (new / user_records.BASKET_LOG_NAME).resolve(),
+    }
+    assert files[user_records.BASKET_LOG_NAME].read_bytes() == b'{"basket": 1}\n'
+
+
+def test_record_files_follow_the_environment_overrides(tmp_path, monkeypatch):
+    monkeypatch.setenv(personal.ADDITION_PATH_ENV, str(tmp_path / "a" / "adds.jsonl"))
+    monkeypatch.setenv(completions.COMPLETION_PATH_ENV, str(tmp_path / "c" / "done.jsonl"))
+
+    files = user_records.record_files()
+
+    assert files[user_records.ADDITION_LOG_NAME] == (tmp_path / "a" / "adds.jsonl").resolve()
+    assert files[user_records.COMPLETION_LOG_NAME] == (tmp_path / "c" / "done.jsonl").resolve()
+    assert files[user_records.BASKET_LOG_NAME] == (
+        tmp_path / "c" / user_records.BASKET_LOG_NAME
+    ).resolve()
