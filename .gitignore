@@ -157,3 +157,7 @@ incoming_review/*.exe
 
 # Pipeline audit log: appended on every gate run, kept local only.
 /data/pipeline_audit/events.jsonl
+
+# Personal stock records (additions, completions, basket choices). Kept local,
+# outside the output/ scratch folder; app backups and exports hold copies.
+/data/user/

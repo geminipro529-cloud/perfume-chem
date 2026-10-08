@@ -298,6 +298,24 @@ stopped server or explicit maintenance mode. See
 [`docs/laboratory_beta.md`](docs/laboratory_beta.md) for the recovery procedure
 and truth boundaries.
 
+### Your records and moving to a new PC
+
+Your own lab records live inside the checkout but are never committed, so
+copy them yourself before you re-clone or move to a new PC:
+
+- `perfume_chem.db`, the lab database, and `lab-backups/`, its backups (both
+  beside each other, or wherever `DATABASE_URL` points).
+- `data/user/`: the stock you added, stock details you completed and your
+  basket choices (`user_inventory_addition_events.jsonl`,
+  `user_inventory_completion_events.jsonl`, `user_basket_events.jsonl`). Older
+  versions kept these in `output/`. The first start after updating copies them
+  into `data/user/` and leaves the old files where they were; from then on only
+  `data/user/` is used.
+- `data/pipeline_audit/events.jsonl`, the release gate's audit log.
+
+Never run `git clean -x` or `git clean -X` in the checkout: either one deletes
+all of these.
+
 ### Docker
 
 The Compose build context is the repository root so the backend can install the
