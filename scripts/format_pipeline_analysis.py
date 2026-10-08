@@ -162,12 +162,18 @@ def build_gate_summary(formula):
     gates = formula.get("gates", [])
     passed = [g for g in gates if g["status"] == "PASS"]
     warned = [g for g in gates if g["status"] == "WARN"]
+    held = [g for g in gates if g["status"] == "HOLD"]
     failed = [g for g in gates if g["status"] == "FAIL"]
     lines = ["## Gate Summary", ""]
-    lines.append(f"**{len(passed)} PASS** / **{len(warned)} WARN** / **{len(failed)} FAIL**")
+    lines.append(
+        f"**{len(passed)} PASS** / **{len(warned)} WARN** / "
+        f"**{len(held)} HOLD** / **{len(failed)} FAIL**"
+    )
     lines.append("")
     for g in failed:
         lines.append(f"  FAIL {g['gate']}: {str(g.get('detail', ''))}")
+    for g in held:
+        lines.append(f"  HOLD {g['gate']}: {str(g.get('detail', ''))}")
     for g in warned:
         lines.append(f"  WARN {g['gate']}: {str(g.get('detail', ''))}")
     lines.append("")

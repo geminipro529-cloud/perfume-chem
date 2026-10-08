@@ -671,14 +671,22 @@ def main(
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--print-analysis", action="store_true")
     analysis_write = parser.add_mutually_exclusive_group()
-    analysis_write.add_argument("--append-analysis", dest="append_analysis", action="store_true")
+    analysis_write.add_argument(
+        "--append-analysis",
+        dest="append_analysis",
+        action="store_true",
+        help=(
+            "Write the freshly bound analysis artifact into the formula file. "
+            "Off by default: a gate run only reads the formula."
+        ),
+    )
     analysis_write.add_argument(
         "--no-append-analysis",
         dest="append_analysis",
         action="store_false",
-        help="Do not persist the freshly bound analysis artifact (diagnostic/CI only).",
+        help="Do not write the analysis into the formula file (the default; kept for scripts).",
     )
-    parser.set_defaults(append_analysis=True)
+    parser.set_defaults(append_analysis=False)
     args = parser.parse_args(argv)
 
     stage_started_ns = perf_counter_ns()
@@ -969,6 +977,8 @@ def main(
     overall = "PASS"
     if any(r["status"] == "FAIL" for r in reports):
         overall = "FAIL"
+    elif any(r["status"] == "HOLD" for r in reports):
+        overall = "HOLD"
     elif any(r["status"] == "WARN" for r in reports):
         overall = "WARN"
 
@@ -1178,7 +1188,8 @@ def main(
     if args.print_analysis:
         print(cli_transport_text(analysis_text))
 
-    return 1 if overall == "FAIL" else 0
+    # HOLD (missing data) blocks release exactly like FAIL.
+    return 1 if overall in {"FAIL", "HOLD"} else 0
 
 
 _BATCH_WORKER_SCHEMA = "perfume-chem-formula-gate-worker-v1"

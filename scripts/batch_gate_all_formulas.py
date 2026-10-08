@@ -1137,21 +1137,21 @@ def _parse_worker_count(raw: str) -> int:
 
 
 def classify_overall(gate_output: dict) -> str:
-    """PASS | WARN | FAIL | ERROR."""
+    """PASS | WARN | HOLD | FAIL | ERROR."""
     if gate_output.get("_error"):
         return "ERROR"
     overall = gate_output.get("overall", "")
-    if overall in ("PASS", "WARN", "FAIL"):
+    if overall in ("PASS", "WARN", "HOLD", "FAIL"):
         return overall
     return "ERROR"
 
 
 def collect_failed_gates(gate_output: dict) -> list[str]:
-    """Return sorted list of FAIL/WARN gate names from gate output."""
+    """Return sorted list of FAIL/HOLD/WARN gate names from gate output."""
     names: set[str] = set()
     for formula in gate_output.get("formulas", []):
         for gate in formula.get("gates", []):
-            if gate.get("status") in ("FAIL", "WARN"):
+            if gate.get("status") in ("FAIL", "HOLD", "WARN"):
                 names.add(gate.get("gate", "?"))
     return sorted(names)
 
@@ -1289,6 +1289,7 @@ def main(argv: list[str] | None = None) -> int:
         "total_formulas": len(jobs),
         "passed": 0,
         "warned": 0,
+        "held": 0,
         "failed": 0,
         "errors": 0,
         "formulas": [],
@@ -1349,6 +1350,8 @@ def main(argv: list[str] | None = None) -> int:
             summary["passed"] += 1
         elif status == "WARN":
             summary["warned"] += 1
+        elif status == "HOLD":
+            summary["held"] += 1
         elif status == "FAIL":
             summary["failed"] += 1
         else:
@@ -1491,12 +1494,13 @@ def main(argv: list[str] | None = None) -> int:
     print(f"  Total:   {summary['total_formulas']:4d}")
     print(f"  PASS:    {summary['passed']:4d}")
     print(f"  WARN:    {summary['warned']:4d}")
+    print(f"  HOLD:    {summary['held']:4d}")
     print(f"  FAIL:    {summary['failed']:4d}")
     print(f"  ERROR:   {summary['errors']:4d}")
     print(f"  Time:    {total_elapsed:.0f}s  ({summary['rate_f_per_minute']} f/min)")
     if top_gates:
         print()
-        print("  Most frequent FAIL/WARN gates:")
+        print("  Most frequent FAIL/HOLD/WARN gates:")
         for name, cnt in top_gates:
             pct = cnt / max(summary["total_formulas"], 1) * 100
             print(f"    {name:45s} {cnt:3d}  ({pct:5.1f}%)")

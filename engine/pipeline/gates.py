@@ -261,13 +261,22 @@ def _screening_oav_claim_ceiling(data: dict | None) -> dict:
     return bounded
 
 
+# Gate statuses, from best to worst. HOLD means the gate could not decide
+# because data is missing (an undeclared stock basis, no authoritative active
+# mass, no composition for a natural, ...). It blocks release exactly like FAIL,
+# but it says "supply this data" rather than "the formula is wrong", so a real
+# formula error stays visible as the only FAIL.
+GATE_STATUSES = ("PASS", "WARN", "HOLD", "FAIL")
+BLOCKING_STATUSES = frozenset({"HOLD", "FAIL"})
+
+
 def _result(gate: str, status: str, detail: str = "", data: dict | None = None) -> GateResult:
-    if status not in ("PASS", "WARN", "FAIL"):
+    if status not in GATE_STATUSES:
         raise ValueError(f"Invalid gate status '{status}' for gate '{gate}'")
     if _is_screening_oav_diagnostic_gate(gate):
         data = _screening_oav_claim_ceiling(data)
-        if status == "FAIL":
-            data.setdefault("original_status", "FAIL")
+        if status in BLOCKING_STATUSES:
+            data.setdefault("original_status", status)
             data.setdefault("gate_policy", "screening_oav_failures_demoted_to_warn")
             detail = detail or "Screening OAV diagnostic raised a flag"
             detail = f"{detail} [screening diagnostic; not release or recompounding authority]"
@@ -336,19 +345,19 @@ def _apply_guideline_policy(gate: GateResult) -> GateResult:
     """Keep safety/data/math failures blocking; treat perfumery gates as advice."""
     if _is_screening_oav_diagnostic_gate(gate.gate):
         data = _screening_oav_claim_ceiling(gate.data)
-        if gate.status == "FAIL":
-            data.setdefault("original_status", "FAIL")
+        if gate.status in BLOCKING_STATUSES:
+            data.setdefault("original_status", gate.status)
             data.setdefault("gate_policy", "screening_oav_failures_demoted_to_warn")
             detail = gate.detail or "Screening OAV diagnostic raised a flag"
             detail = f"{detail} [screening diagnostic; not release or recompounding authority]"
             return GateResult(gate=gate.gate, status="WARN", detail=detail, data=data)
         return GateResult(gate=gate.gate, status=gate.status, detail=gate.detail, data=data)
 
-    if gate.status != "FAIL" or gate.gate not in ADVISORY_FAILURE_GATES:
+    if gate.status not in BLOCKING_STATUSES or gate.gate not in ADVISORY_FAILURE_GATES:
         return gate
 
     data = dict(gate.data or {})
-    data.setdefault("original_status", "FAIL")
+    data.setdefault("original_status", gate.status)
     data.setdefault("gate_policy", "advisory_failures_demoted_to_warn")
     detail = gate.detail or "Advisory gate failed"
     detail = f"{detail} [advisory guideline; not release-blocking]"
@@ -403,11 +412,294 @@ def _config_summary(config: ReleaseGateConfig) -> dict:
 
 
 def _status_from_gates(gates: list[GateResult]) -> str:
-    if any(g.status == "FAIL" for g in gates):
+    """Worst status wins: FAIL, then HOLD, then WARN, then PASS (SKIP never votes)."""
+    statuses = {g.status for g in gates}
+    if "FAIL" in statuses:
         return "FAIL"
-    if any(g.status == "WARN" for g in gates):
+    if "HOLD" in statuses:
+        return "HOLD"
+    if "WARN" in statuses:
         return "WARN"
     return "PASS"
+
+
+# Preflight checks keep their own PASS/WARN/FAIL statuses; the HOLD mapping is
+# computed here, from each failing check's reasons, so no preflight reader ever
+# sees a status it does not handle. Everything not listed below as a
+# missing-data reason stays FAIL (fail closed).
+#
+# Execution holds on an owned stock that only record missing data about it,
+# with what the user should supply.
+_STOCK_DATA_HOLDS: dict[str, str] = {
+    "STOCK_INTAKE_IDENTITY_ONLY": "record the strength, concentration basis and carrier",
+    "FRACTION_BASIS_UNSPECIFIED": "record the concentration basis (w/w, v/v or w/v)",
+    "CARRIER_UNSPECIFIED": "record the carrier",
+    "FRACTION_BASIS_AND_CARRIER_UNSPECIFIED": "record the concentration basis and carrier",
+    "FRACTION_BASIS_OR_CARRIER_UNSPECIFIED": "record the concentration basis and carrier",
+    "STOCK_FRACTION_UNSPECIFIED": "record the stock strength and carrier",
+    "RESTOCKED_BOTTLE_STRENGTH_AND_CARRIER_NOT_STATED": "record the restocked bottle's strength and carrier",
+    "APPROXIMATE_STOCK_FRACTION": "record the exact stock strength",
+    "BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING": "record the bottle lot and label receipt",
+    "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING": "record the bottle lot and preparation receipt",
+    "LOT_PURCHASE_SOURCE_AND_LABEL_RECEIPT_MISSING": "record the lot, purchase source and label receipt",
+    "PREPARATION_QUANTITIES_DATE_AND_LOTS_MISSING": "record the preparation quantities, date and lots",
+    "FINAL_DISSOLVED_FRACTION_UNMEASURED": "measure the final dissolved fraction",
+    "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN": "measure the final dissolved fraction",
+    "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED": (
+        "record the tincture percentage basis and extracted solids"
+    ),
+    "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED": "confirm the concentration basis and homogeneity",
+    "HOMOGENEITY_NOT_RECONFIRMED": "reconfirm homogeneity",
+}
+# Holds under which the stock has no recorded strength at all, so a formula
+# strength cannot yet be compared with it.  Every other data hold sits on a
+# stock with a recorded strength (an approximate "~10%", a supplier-label
+# neat intake, a tincture percentage of unstated basis) that preflight compares
+# with the formula like any exact stock.
+_STOCK_STRENGTH_UNKNOWN_HOLDS = frozenset(
+    {
+        "STOCK_FRACTION_UNSPECIFIED",
+        "RESTOCKED_BOTTLE_STRENGTH_AND_CARRIER_NOT_STATED",
+    }
+)
+# Tincture holds where only the starting charge is recorded: the dissolved
+# fraction can be at most that charge, so a formula strength above it is a
+# wrong strength, while one at or below it (or no recorded charge) waits on
+# the measurement.
+_STOCK_STRENGTH_CHARGE_BOUND_HOLDS = frozenset(
+    {
+        "FINAL_DISSOLVED_FRACTION_UNMEASURED",
+        "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN",
+    }
+)
+# The tolerance preflight uses when it compares a formula and stock fraction.
+_STOCK_FRACTION_TOLERANCE = 0.005
+
+
+def _split_holds(raw_holds: object) -> list[str]:
+    return [hold for raw in list(raw_holds or []) for hold in str(raw).split("|") if hold]
+
+
+def _held_strength_compatible(issue: Mapping[str, object], holds: list[str]) -> bool:
+    """True when no held stock is known to differ in strength from the formula.
+
+    Used only when no held stock matches the formula's fraction.  Missing
+    fields fail closed.
+    """
+    if not holds:
+        return False
+    if all(hold in _STOCK_STRENGTH_UNKNOWN_HOLDS for hold in holds):
+        return True
+    if any(
+        hold not in _STOCK_STRENGTH_UNKNOWN_HOLDS | _STOCK_STRENGTH_CHARGE_BOUND_HOLDS
+        for hold in holds
+    ):
+        return False
+    formula_dilution = issue.get("formula_dilution")
+    held_stocks = issue.get("held_stock_strengths")
+    if not isinstance(formula_dilution, (int, float)) or isinstance(formula_dilution, bool):
+        return False
+    if not isinstance(held_stocks, list) or not held_stocks:
+        return False
+    for stock in held_stocks:
+        if not isinstance(stock, Mapping) or "fraction" not in stock:
+            return False
+        stock_holds = _split_holds([stock.get("execution_hold", "")])
+        if not stock_holds:
+            return False
+        if all(hold in _STOCK_STRENGTH_UNKNOWN_HOLDS for hold in stock_holds):
+            continue
+        if any(hold not in _STOCK_STRENGTH_CHARGE_BOUND_HOLDS for hold in stock_holds):
+            return False
+        charge = stock["fraction"]
+        if charge is None:
+            continue
+        if not isinstance(charge, (int, float)) or isinstance(charge, bool):
+            return False
+        if float(formula_dilution) > float(charge) + _STOCK_FRACTION_TOLERANCE:
+            return False
+    return True
+
+
+def _stock_issue_data_request(issue: Mapping[str, object]) -> str | None:
+    """Return what to supply when a stock issue is only missing data, else None.
+
+    None means the formula cannot be built as written (not owned, wrong
+    strength, depleted, a gap, a preparation still to make, a user hold, or any
+    reason this mapping does not know): the issue stays FAIL.
+    """
+    reason = str(issue.get("reason", ""))
+    if reason not in {"inventory_stock_metadata_incomplete", "inventory_stock_non_executable"}:
+        return None
+    holds = _split_holds(issue.get("execution_holds", []))
+    if reason == "inventory_stock_non_executable" and not holds:
+        return None
+    if any(hold not in _STOCK_DATA_HOLDS for hold in holds):
+        return None
+    if issue.get("fraction_matches_formula") is not True and not _held_strength_compatible(
+        issue, holds
+    ):
+        return None
+    if not holds:
+        return "record the carrier and concentration basis"
+    return "; ".join(dict.fromkeys(_STOCK_DATA_HOLDS[hold] for hold in holds))
+
+
+def _describe_stock_issue(issue: Mapping[str, object]) -> str:
+    material = str(issue.get("material", "?"))
+    reason = str(issue.get("reason", "inventory_stock_contract_failed"))
+    if reason == "stock_fraction_mismatch":
+        live = ", ".join(
+            f"{float(value):.4g}" for value in list(issue.get("inventory_dilutions", []) or [])
+        )
+        return f"{material} ({reason}: formula {issue.get('formula_dilution')} vs stock {live})"
+    return f"{material} ({reason})"
+
+
+def _classify_inventory_stock_contract(check: Mapping[str, object]) -> tuple[str, str, dict]:
+    data = dict(check.get("data", {}) or {})
+    status = str(check.get("status", "FAIL"))
+    detail = str(check.get("detail", ""))
+    issues = [dict(issue) for issue in list(data.get("issues", []) or [])]
+    if status != "FAIL" or not issues:
+        return status, detail, data
+    fail_issues = []
+    needs_data = []
+    for issue in issues:
+        request = _stock_issue_data_request(issue)
+        if request is None:
+            fail_issues.append(issue)
+        else:
+            needs_data.append({**issue, "data_request": request})
+    data["fail_issues"] = fail_issues
+    data["needs_data"] = needs_data
+    parts = []
+    if fail_issues:
+        parts.append(
+            f"{len(fail_issues)} material(s) cannot be built as written: "
+            + ", ".join(_describe_stock_issue(issue) for issue in fail_issues)
+        )
+    if needs_data:
+        parts.append(
+            "needs data: "
+            + "; ".join(
+                f"{issue.get('material')} ({issue['data_request']} of the {issue.get('material')} stock)"
+                for issue in needs_data
+            )
+        )
+    return ("FAIL" if fail_issues else "HOLD"), ". ".join(parts), data
+
+
+def _classify_natural_composite_coverage(check: Mapping[str, object]) -> tuple[str, str, dict]:
+    data = dict(check.get("data", {}) or {})
+    status = str(check.get("status", "FAIL"))
+    detail = str(check.get("detail", ""))
+    materials = [str(name) for name in list(data.get("materials", []) or [])]
+    if status != "FAIL" or not materials:
+        return status, detail, data
+    data["needs_data"] = materials
+    detail = f"{detail}; needs data: supply a constituent decomposition for {', '.join(materials)}"
+    return "HOLD", detail, data
+
+
+_PREFLIGHT_CLASSIFIERS = {
+    "inventory_stock_contract": _classify_inventory_stock_contract,
+    "natural_composite_coverage": _classify_natural_composite_coverage,
+}
+
+
+def _classify_preflight_check(check: Mapping[str, object]) -> tuple[str, str, dict]:
+    """Map one preflight check to its gate status: HOLD only for missing data."""
+    classifier = _PREFLIGHT_CLASSIFIERS.get(str(check.get("check_name", "")))
+    if classifier is None:
+        return (
+            str(check.get("status", "FAIL")),
+            str(check.get("detail", "")),
+            dict(check.get("data", {}) or {}),
+        )
+    return classifier(check)
+
+
+# Reasons the inventory stock contract emits on its issues (preflight
+# ``_dilution_consistency_check``); the dose receipt copies them as blockers.
+_STOCK_CONTRACT_ISSUE_REASONS = frozenset(
+    {
+        "stock_fraction_not_declared",
+        "stock_fraction_invalid",
+        "stock_fraction_out_of_range",
+        "conflicting_stock_rows",
+        "stock_id_not_in_current_inventory",
+        "not_in_inventory",
+        "preparation_required",
+        "inventory_gap",
+        "inventory_stock_non_executable",
+        "inventory_stock_metadata_incomplete",
+        "inventory_stock_unavailable",
+        "stock_fraction_mismatch",
+        "stock_fraction_basis_mismatch",
+        "stock_carrier_mismatch",
+        "ambiguous_live_stock",
+    }
+)
+# Receipt blockers that follow from the stock contract resolving no stock for
+# a material: they count as stock-issue reasons only for such a material.
+_UNRESOLVED_STOCK_BINDING_BLOCKERS = frozenset(
+    {
+        "stock_declaration_not_bound",
+        "stock_id_not_bound",
+        "stock_authority_not_bound",
+        "inventory_authority_not_bound",
+        "inventory_source_lineage_not_bound",
+    }
+)
+
+
+def _dose_receipt_follows_stock_contract(
+    receipt_check: Mapping[str, object],
+    stock_check: Mapping[str, object] | None,
+) -> bool:
+    """True when the dose receipt abstains only because of stock-contract issues.
+
+    Every unbound line must belong to a material with a stock issue, and every
+    blocker on it must be that material's own stock-issue reason, or a binding
+    blocker that follows from the contract resolving no stock for it.  At
+    least one unbound line must exist; missing fields fail closed.
+    """
+    if stock_check is None or str(stock_check.get("status")) != "FAIL":
+        return False
+    receipt = dict(receipt_check.get("data", {}) or {})
+    if receipt.get("status") != "ABSTAINED" or "state_mismatches" in receipt:
+        return False
+    stock_data = dict(stock_check.get("data", {}) or {})
+    resolved_specs = stock_data.get("resolved_stock_specs")
+    if not isinstance(resolved_specs, Mapping):
+        return False
+    resolved_materials = {str(name).casefold() for name in resolved_specs}
+    issue_reasons: dict[str, set[str]] = {}
+    for issue in list(stock_data.get("issues", []) or []):
+        issue_reasons.setdefault(str(issue.get("material", "")).casefold(), set()).add(
+            str(issue.get("reason", ""))
+        )
+    unbound = [
+        dict(line)
+        for line in list(receipt.get("lines", []) or [])
+        if dict(line).get("status") != "BOUND"
+    ]
+    if not unbound:
+        return False
+    for line in unbound:
+        material = str(line.get("material_name", "")).casefold()
+        reasons = issue_reasons.get(material, set()) & _STOCK_CONTRACT_ISSUE_REASONS
+        blockers = [str(blocker) for blocker in list(line.get("blockers", []) or [])]
+        if not reasons or not blockers:
+            return False
+        for blocker in blockers:
+            if blocker in reasons:
+                continue
+            if blocker in _UNRESOLVED_STOCK_BINDING_BLOCKERS and material not in resolved_materials:
+                continue
+            return False
+    return True
 
 
 def _gate_pipeline_preflight(preflight: Mapping[str, object]) -> GateResult:
@@ -416,12 +708,35 @@ def _gate_pipeline_preflight(preflight: Mapping[str, object]) -> GateResult:
     detail = f"{len(checks)} checks"
     if warnings:
         detail += f"; {len(warnings)} warnings"
-    return _result(
-        "pipeline_preflight",
-        str(preflight.get("status", "WARN")),
-        detail,
-        dict(preflight),
-    )
+    status = str(preflight.get("status", "WARN"))
+    data = dict(preflight)
+    if status == "FAIL":
+        by_name = {str(dict(raw).get("check_name", "")): dict(raw) for raw in checks}
+        stock_check = by_name.get("inventory_stock_contract")
+        stock_status = (
+            _classify_preflight_check(stock_check)[0] if stock_check is not None else "FAIL"
+        )
+        failing: dict[str, list[str]] = {"FAIL": [], "HOLD": []}
+        for name, check in by_name.items():
+            if str(check.get("status")) != "FAIL":
+                continue
+            if name == "formula_dose_receipt" and _dose_receipt_follows_stock_contract(
+                check, stock_check
+            ):
+                check_status = stock_status
+            else:
+                check_status = _classify_preflight_check(check)[0]
+            failing["FAIL" if check_status != "HOLD" else "HOLD"].append(name)
+        if not failing["FAIL"] and not failing["HOLD"]:
+            failing["FAIL"].append("preflight_status")
+        status = "FAIL" if failing["FAIL"] else "HOLD"
+        data["failing_checks"] = failing["FAIL"]
+        data["needs_data_checks"] = failing["HOLD"]
+        if failing["FAIL"]:
+            detail += f"; failing: {', '.join(failing['FAIL'])}"
+        if failing["HOLD"]:
+            detail += f"; needs data: {', '.join(failing['HOLD'])}"
+    return _result("pipeline_preflight", status, detail, data)
 
 
 def _formula_vector_from_state(state: FormulaState) -> FormulaVector:
@@ -435,15 +750,96 @@ def _material_ifra_limit(material) -> float | None:
     return IFRA_CAT4_LIMITS.get(material.name) or IFRA_CAT4_LIMITS.get(material.profile_name or "")
 
 
+_SUBTOTAL_SHIFT_FACTORS = (10, 100, 1000)
+
+
+def _exact_subtotal_findings(rows: Mapping[str, float], total_ul: float, expected_ul: float) -> dict:
+    """Point at the rows most likely behind a subtotal mismatch.
+
+    A misplaced decimal point (8200 typed for 820) or a mL/uL slip moves one row
+    by a factor of 10, 100 or 1000. A row is a suspect when undoing that one
+    factor explains the gap: the corrected total is closer to the expected
+    concentrate than the parsed one, and within 0.5% of the gap (at least
+    0.5 uL) of it. Each row is named once, at its best factor. Rows larger than
+    the whole expected concentrate are listed separately.
+    """
+    gap = total_ul - expected_ul
+    tolerance = max(0.5, 0.005 * abs(gap))
+    best: dict[str, tuple[float, dict]] = {}
+    for name, ul in rows.items():
+        if ul <= 0:
+            continue
+        for factor in _SUBTOTAL_SHIFT_FACTORS:
+            corrected = ul / factor if gap > 0 else ul * factor
+            new_total = total_ul - ul + corrected
+            residual = abs(new_total - expected_ul)
+            if residual > tolerance or residual >= abs(gap):
+                continue
+            if name in best and best[name][0] <= residual:
+                continue
+            best[name] = (
+                residual,
+                {
+                    "material": name,
+                    "ul": round(ul, 3),
+                    "corrected_ul": round(corrected, 3),
+                    "factor": f"/{factor}" if gap > 0 else f"x{factor}",
+                    "total_if_corrected_ul": round(new_total, 3),
+                },
+            )
+    suspects = [suspect for _, suspect in sorted(best.values(), key=lambda item: item[0])]
+    over_expected = [
+        {"material": name, "ul": round(ul, 3)}
+        for name, ul in sorted(rows.items(), key=lambda item: -item[1])
+        if expected_ul > 0 and ul > expected_ul
+    ]
+    largest = [
+        {
+            "material": name,
+            "ul": round(ul, 3),
+            "share_of_parsed": round(ul / total_ul, 4) if total_ul else 0.0,
+        }
+        for name, ul in sorted(rows.items(), key=lambda item: -item[1])[:3]
+    ]
+    return {
+        "parsed_ul": round(total_ul, 3),
+        "expected_ul": round(expected_ul, 3),
+        "difference_ul": round(gap, 3),
+        "decimal_shift_suspects": suspects,
+        "rows_over_expected": over_expected,
+        "largest_rows": largest,
+    }
+
+
 def _gate_exact_subtotal(formula: Mapping, config: ReleaseGateConfig) -> GateResult:
-    total_ul = sum(float(v or 0.0) for v in formula["ingredients_ul"].values())
-    if abs(total_ul - config.expected_concentrate_ul) <= 0.5:
+    rows = {str(name): float(value or 0.0) for name, value in formula["ingredients_ul"].items()}
+    total_ul = sum(rows.values())
+    expected_ul = config.expected_concentrate_ul
+    if abs(total_ul - expected_ul) <= 0.5:
         return _result("exact_subtotal", "PASS", f"{total_ul:.1f} uL")
-    return _result(
-        "exact_subtotal",
-        "FAIL",
-        f"{total_ul:.1f} uL parsed; expected {config.expected_concentrate_ul:.1f} uL",
+    findings = _exact_subtotal_findings(rows, total_ul, expected_ul)
+    gap = findings["difference_ul"]
+    detail = (
+        f"{total_ul:.1f} uL parsed; expected {expected_ul:.1f} uL "
+        f"({abs(gap):.1f} uL {'over' if gap > 0 else 'short'})"
     )
+    suspects = findings["decimal_shift_suspects"]
+    if suspects:
+        named = "; ".join(
+            f"{s['material']} {s['ul']:g} uL (at {s['corrected_ul']:g} uL the total would be "
+            f"{s['total_if_corrected_ul']:g} uL)"
+            for s in suspects[:3]
+        )
+        detail += f". Likely misplaced decimal or unit: {named}"
+    if findings["rows_over_expected"]:
+        named = ", ".join(f"{r['material']} {r['ul']:g} uL" for r in findings["rows_over_expected"][:3])
+        detail += f". Larger than the whole expected concentrate: {named}"
+    if not suspects and not findings["rows_over_expected"] and findings["largest_rows"]:
+        named = ", ".join(
+            f"{r['material']} {r['ul']:g} uL ({r['share_of_parsed']:.0%})" for r in findings["largest_rows"]
+        )
+        detail += f". Largest rows: {named}"
+    return _result("exact_subtotal", "FAIL", detail, findings)
 
 
 def _gate_duplicates(state: FormulaState) -> GateResult:
@@ -582,6 +978,35 @@ def _science_profile_for_material(material) -> tuple[object, str]:
     return get_science_profile(material.name), material.name
 
 
+# Plain-language explanation of each ``active_mass_authority`` code that
+# ``_authoritative_active_mass`` emits when it cannot give an exact mass.
+_MISSING_ACTIVE_MASS_REASONS = {
+    "unavailable:stock_fraction_not_declared": "its stock dilution is not declared",
+    "unavailable:stock_fraction_basis_unspecified": "its dilution basis is not declared",
+    "unavailable:stock_solution_density_for_w_w": "needs the density of its w/w stock solution",
+    "unavailable:material_density": "needs its material density",
+}
+
+
+def _missing_authoritative_active_mass(state: FormulaState) -> list[dict[str, str]]:
+    """List materials without an authoritative active mass, with the reason code."""
+    return sorted(
+        (
+            {"material": material.name, "reason": material.active_mass_authority}
+            for material in state.materials
+            if material.authoritative_active_g is None
+        ),
+        key=lambda row: row["material"],
+    )
+
+
+def _describe_missing_active_mass(missing: list[dict[str, str]]) -> str:
+    return "; ".join(
+        f"{row['material']} ({_MISSING_ACTIVE_MASS_REASONS.get(row['reason'], row['reason'])})"
+        for row in missing
+    )
+
+
 def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     functional_groups = {
         m.name: set(m.functional_groups) for m in state.materials if m.functional_groups
@@ -641,11 +1066,7 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
     active_mass_pct = state.active_mass_percentages()
     mass_dependent_assessment = bool((aldehydes and amines) or flagged_materials)
     if mass_dependent_assessment and active_mass_pct is None:
-        missing = sorted(
-            material.name
-            for material in state.materials
-            if material.authoritative_active_g is None
-        )
+        missing_rows = _missing_authoritative_active_mass(state)
         unknown_scope = []
         if aldehydes and amines:
             unknown_scope.append("Schiff-base risk")
@@ -653,14 +1074,18 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
             unknown_scope.append("oxidation/photolability burden")
         return _result(
             "chemistry_stability",
-            "FAIL",
-            f"{' and '.join(unknown_scope)} assessment UNKNOWN: authoritative active mass is unavailable",
+            "HOLD",
+            f"{' and '.join(unknown_scope)} assessment UNKNOWN: authoritative active mass "
+            f"is unavailable for {_describe_missing_active_mass(missing_rows)}",
             {
                 "assessment": "UNKNOWN",
                 "claim_ceiling": "AUTHORITATIVE_ACTIVE_MASS_REQUIRED",
                 "active_mass_basis": "authoritative_active_g",
                 "proxy_active_g_ignored": True,
-                "missing_authoritative_active_mass_materials": missing,
+                "missing": missing_rows,
+                "missing_authoritative_active_mass_materials": [
+                    row["material"] for row in missing_rows
+                ],
                 "aging_claim": aging_claim.as_mapping(),
                 "candidate_schiff_base_pairs": _schiff_pair_rows(aldehydes),
                 "candidate_oxidation_or_photolability_materials": sorted(flagged_materials),
@@ -753,22 +1178,22 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
 
 
 def _gate_phase_compatibility(state: FormulaState) -> GateResult:
-    missing = sorted(
-        material.name
-        for material in state.materials
-        if material.authoritative_active_g is None
-    )
-    if missing:
+    missing_rows = _missing_authoritative_active_mass(state)
+    if missing_rows:
         return _result(
             "phase_compatibility",
-            "FAIL",
-            "Phase compatibility assessment UNKNOWN: authoritative active mass is unavailable",
+            "HOLD",
+            "Phase compatibility assessment UNKNOWN: authoritative active mass is unavailable "
+            f"for {_describe_missing_active_mass(missing_rows)}",
             {
                 "assessment": "UNKNOWN",
                 "claim_ceiling": "AUTHORITATIVE_ACTIVE_MASS_REQUIRED",
                 "active_mass_basis": "authoritative_active_g",
                 "proxy_active_g_ignored": True,
-                "missing_authoritative_active_mass_materials": missing,
+                "missing": missing_rows,
+                "missing_authoritative_active_mass_materials": [
+                    row["material"] for row in missing_rows
+                ],
             },
         )
 
@@ -2988,12 +3413,8 @@ def _gate_preflight_contract(
         check = dict(raw)
         if check.get("check_name") != check_name:
             continue
-        return _result(
-            check_name,
-            str(check.get("status", "FAIL")),
-            str(check.get("detail", "")),
-            dict(check.get("data", {}) or {}),
-        )
+        status, detail, data = _classify_preflight_check(check)
+        return _result(check_name, status, detail, data)
     return _result(
         check_name,
         "FAIL",
@@ -5173,6 +5594,11 @@ def _commercial_readiness(
 ) -> str:
     if status == "FAIL":
         return "NOT_RELEASE_READY"
+    # HOLD (missing data) blocks release like FAIL, so no ready or trial-ready
+    # state may follow from it; the suffix keeps "data missing" distinct from
+    # "formula wrong".
+    if status == "HOLD" or any(g.status == "HOLD" for g in gates):
+        return "NOT_RELEASE_READY_HOLD"
     if config.is_commercial_trial() and confidence.get("combined_confidence", 0.0) < 50.0:
         return "COMMERCIAL_TRIAL_READY_LOW_CONFIDENCE"
     if confidence.get("combined_confidence", 0.0) < 50.0:
@@ -5486,25 +5912,63 @@ def _gate_authority_vector(state, config):
 
 
 def _gate_concentration_basis(state, config):
-    """FAIL if any material lacks a supported, explicit concentration basis."""
+    """FAIL on an unsupported concentration basis; HOLD on an undeclared one.
+
+    A bare "10%" is missing data (the author has not said w/w or v/v), so it
+    blocks release as HOLD. A declared basis the pipeline cannot use is a
+    formula error and FAILs; when both occur the gate FAILs and the detail
+    still names the undeclared rows.
+    """
     allowed_bases = {"neat", "mass_fraction", "volume_fraction", "mass_per_volume"}
     violations = []
+    missing = []
+    undeclared = []
     for m in state.materials:
         basis = str(
             getattr(m, "stock_fraction_basis", "unspecified") or "unspecified"
         ).strip().lower()
-        if basis not in allowed_bases:
+        if basis == "unspecified":
+            pct = f"{round(float(m.dilution) * 100.0, 6):g}"
+            missing.append(
+                {"material": m.name, "reason": "unavailable:stock_fraction_basis_unspecified"}
+            )
+            undeclared.append(
+                f"{m.name}: concentration basis not declared; declare {pct}% w/w or {pct}% v/v"
+            )
+        elif basis not in allowed_bases:
             violations.append(
-                f"{m.name}: unsupported or unspecified concentration basis {basis!r} "
+                f"{m.name}: unsupported concentration basis {basis!r} "
                 "(use neat, w/w, v/v, or w/v)"
             )
 
+    def _listing(rows: list[str]) -> str:
+        return f"{'; '.join(rows[:5])}{'...' if len(rows) > 5 else ''}"
+
     if violations:
+        detail = (
+            f"{len(violations)} material(s) with invalid concentration basis: "
+            f"{_listing(violations)}"
+        )
+        if undeclared:
+            detail += (
+                f"; {len(undeclared)} material(s) with undeclared concentration basis: "
+                f"{_listing(undeclared)}"
+            )
         return GateResult(
             gate="concentration_basis",
             status="FAIL",
-            detail=f"{len(violations)} material(s) with invalid concentration basis: {'; '.join(violations[:5])}{'...' if len(violations) > 5 else ''}",
-            data={"violations": violations},
+            detail=detail,
+            data={"violations": violations, "undeclared": undeclared, "missing": missing},
+        )
+    if undeclared:
+        return GateResult(
+            gate="concentration_basis",
+            status="HOLD",
+            detail=(
+                f"{len(undeclared)} material(s) with undeclared concentration basis: "
+                f"{_listing(undeclared)}"
+            ),
+            data={"violations": [], "undeclared": undeclared, "missing": missing},
         )
 
     return GateResult(

@@ -270,6 +270,7 @@ def _cmd_scan_formulas(args: argparse.Namespace) -> int:
                     "commercial_readiness": report.commercial_readiness,
                     "audit_event_id": report.audit_event_id,
                     "failed_gates": [gate.gate for gate in report.gates if gate.status == "FAIL"],
+                    "hold_gates": [gate.gate for gate in report.gates if gate.status == "HOLD"],
                     "warn_gates": [gate.gate for gate in report.gates if gate.status == "WARN"],
                 }
             )
@@ -290,6 +291,8 @@ def _cmd_scan_formulas(args: argparse.Namespace) -> int:
             )
             if report["failed_gates"]:
                 print("  FAIL: " + ", ".join(report["failed_gates"]))
+            if report["hold_gates"]:
+                print("  HOLD: " + ", ".join(report["hold_gates"]))
             if report["warn_gates"]:
                 print("  WARN: " + ", ".join(report["warn_gates"]))
     return 0
@@ -354,6 +357,11 @@ def _cmd_verify(args: argparse.Namespace) -> int:
                         gate["gate"]
                         for gate in report.get("gates", [])
                         if gate.get("status") == "FAIL"
+                    ],
+                    "hold_gates": [
+                        gate["gate"]
+                        for gate in report.get("gates", [])
+                        if gate.get("status") == "HOLD"
                     ],
                     "warn_gates": [
                         gate["gate"]
@@ -420,6 +428,8 @@ def _cmd_verify(args: argparse.Namespace) -> int:
             )
             if formula["failed_gates"]:
                 print("    FAIL: " + ", ".join(formula["failed_gates"]))
+            if formula["hold_gates"]:
+                print("    HOLD: " + ", ".join(formula["hold_gates"]))
             if formula["warn_gates"]:
                 print("    WARN: " + ", ".join(formula["warn_gates"][:8]))
     return 0

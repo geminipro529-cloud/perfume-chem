@@ -15,7 +15,7 @@ from engine.ifra_safety import IFRA_CAT4_LIMITS
 from engine.inventory_parser import parse_current_inventory
 from engine.name_utils import normalize_name
 from engine.pipeline.audit_log import append_event, gate_report_event
-from engine.pipeline.gates import GateReport, ReleaseGateConfig, gate_formula
+from engine.pipeline.gates import BLOCKING_STATUSES, GateReport, ReleaseGateConfig, gate_formula
 from engine.pipeline.interventions import build_intervention_contract
 from engine.pipeline.oav_authority import OAVAuthorityRequest, analyze_oav_authority
 from engine.pipeline.release_scoring import compute_unified_release_scores
@@ -1828,7 +1828,7 @@ def _ul_to_pct(raw_ul: Mapping[str, float]) -> dict[str, float]:
 
 
 def _failed_gates(report: GateReport) -> list:
-    return [gate for gate in report.gates if gate.status == "FAIL"]
+    return [gate for gate in report.gates if gate.status in BLOCKING_STATUSES]
 
 
 def _gate(report: GateReport, name: str):
