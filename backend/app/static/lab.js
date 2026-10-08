@@ -142,44 +142,163 @@ function updateSelectors() {
   if (preferredBottle) $$('[data-bottle-select]').forEach((node) => { if ([...node.options].some((option) => option.value === preferredBottle)) node.value = preferredBottle; });
 }
 
+const STOCK_SOLVENT_UPPER = new Set(["dpg", "dep", "ipm", "tec", "bb", "pea"]);
+const STOCK_BASIS_WORDS = { mass_fraction: "w/w", volume_fraction: "v/v", mass_per_volume: "w/v" };
+const STOCK_NEED_SENTENCES = {
+  possession_confirmation: "Confirm you own it",
+  homogeneity_confirmation: "Confirm the solution is fully mixed",
+  fraction_basis: "Say whether the strength is w/w or v/v",
+  physical_form: "Say what form it is in",
+  carrier: "Say which solvent it is in",
+  final_usable_fraction_confirmation: "Confirm the strength you actually use",
+  bottle_lot_and_label_receipt_missing: "Add the bottle lot and label",
+  execution_stock_binding_required: "Link it to a physical bottle",
+};
+const STOCK_HOLD_NOTE = "Kept out of new formulas until you clear it";
+const STOCK_STATUS_LABEL = { ready: "Ready", needs: "Needs details", hold: "On hold" };
+const stockView = { filter: "all", solvent: "", sort: "name" };
+
+function stockSolvents(stock) {
+  return String(stock.carrier || "").toLowerCase().replace(/\bw\/w\b|\bv\/v\b/g, "")
+    .split(/[+,]|\band\b/).map((part) => part.trim()).filter(Boolean);
+}
+
+function stockSolventName(solvent) {
+  return STOCK_SOLVENT_UPPER.has(solvent) ? solvent.toUpperCase() : solvent;
+}
+
+function stockPercent(stock) {
+  const value = Number(stock.fraction_percent_decimal);
+  return Number.isFinite(value) ? String(Math.round(value * 1000) / 1000) : String(stock.fraction_percent_decimal || "");
+}
+
+function stockStatus(stock) {
+  const fields = stock.missing_fields || [];
+  if (stock.design_hold_reason === "USER_COMPOUNDING_HOLD" || fields.includes("USER_COMPOUNDING_HOLD")) return "hold";
+  return stock.design_ready ? "ready" : "needs";
+}
+
+function stockStrengthLabel(stock) {
+  const basis = stock.fraction_basis;
+  const solvents = stockSolvents(stock).map(stockSolventName);
+  if (basis === "neat" || (!solvents.length && Number(stock.fraction_percent_decimal) === 100)) {
+    if (stock.physical_form === "crystals") return "Neat crystals, weighed in mg";
+    return /^solid/.test(stock.physical_form || "") ? "Neat solid" : "Neat";
+  }
+  const where = solvents.length > 1
+    ? ` in ${solvents.slice(0, -1).join(", ")} and ${solvents[solvents.length - 1]}`
+    : (solvents.length ? ` in ${solvents[0]}` : "");
+  const percent = `${stockPercent(stock)}%`;
+  if (STOCK_BASIS_WORDS[basis]) return `${percent} ${STOCK_BASIS_WORDS[basis]}${where}`;
+  if (basis === "mass_fraction_starting_charge") return `${percent} w/w${where}, by starting charge`;
+  return `${percent}${where}, w/w or v/v not stated`;
+}
+
+function stockNote(stock, status) {
+  if (status === "hold") return STOCK_HOLD_NOTE;
+  if (status !== "needs") return "";
+  const sentences = (stock.missing_fields || []).map((field) => (
+    STOCK_NEED_SENTENCES[String(field).toLowerCase()] || humanize(field)
+  ));
+  if (!sentences.length) return "Some details are missing";
+  return sentences.length > 2 ? `${sentences.slice(0, 2).join(". ")}. And ${sentences.length - 2} more` : sentences.join(". ");
+}
+
+function stockEl(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+function syncStockToolbar(stocks) {
+  const select = $("#project-inventory-solvent");
+  const found = [...new Set(stocks.flatMap(stockSolvents))].sort();
+  const signature = found.join("|");
+  if (select.dataset.signature !== signature) {
+    select.dataset.signature = signature;
+    select.replaceChildren(new Option("Any solvent", ""), ...found.map((name) => new Option(stockSolventName(name), name)), new Option("Neat", "neat"));
+    if (![...select.options].some((option) => option.value === stockView.solvent)) stockView.solvent = "";
+  }
+  select.value = stockView.solvent;
+  $("#project-inventory-sort").value = stockView.sort;
+  $$("[data-stock-filter]").forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.dataset.stockFilter === stockView.filter));
+  });
+  $("#project-inventory-incomplete-only").checked = stockView.filter === "needs";
+}
+
 function renderProjectInventory(filter = "") {
   const inventory = state.projectInventory || { stocks: [], counts: {} };
   const query = String(filter || "").trim().toLowerCase();
-  const incompleteOnly = Boolean($("#project-inventory-incomplete-only")?.checked);
-  const rows = (inventory.stocks || []).filter((stock) => {
-    if (incompleteOnly && stock.design_ready) return false;
+  const stocks = inventory.stocks || [];
+  syncStockToolbar(stocks);
+  const entries = stocks.map((stock) => ({ stock, status: stockStatus(stock), label: stockStrengthLabel(stock) }));
+  const rows = entries.filter(({ stock, status, label }) => {
+    if (stockView.filter !== "all" && status !== stockView.filter) return false;
+    if (stockView.solvent) {
+      const solvents = stockSolvents(stock);
+      if (stockView.solvent === "neat" ? solvents.length : !solvents.includes(stockView.solvent)) return false;
+    }
     if (!query) return true;
-    return [stock.material, stock.identity_name, stock.normalized_identity, stock.stock_label, stock.category, stock.carrier]
+    return [stock.material, stock.identity_name, stock.normalized_identity, stock.stock_label, stock.category, stock.carrier, label]
       .some((value) => String(value || "").toLowerCase().includes(query));
   });
+  const order = { needs: 0, hold: 1, ready: 2 };
+  const byName = (a, b) => String(a.stock.identity_name).localeCompare(String(b.stock.identity_name), undefined, { sensitivity: "base" });
+  rows.sort((a, b) => {
+    if (stockView.sort === "needs") return (order[a.status] - order[b.status]) || byName(a, b);
+    if (stockView.sort === "strength") return (Number(b.stock.fraction_percent_decimal) - Number(a.stock.fraction_percent_decimal)) || byName(a, b);
+    return byName(a, b);
+  });
   const counts = inventory.counts || {};
-  $("#project-inventory-count").textContent = `${counts.stocks || 0} current stock entries`;
-  $("#project-inventory-ready").textContent = `${counts.design_ready || counts.execution_ready || 0} ready for design · ${counts.live_inventory_text || 0} recovered from the live list · ${counts.personal_additions || 0} personal additions`;
+  $("#project-inventory-count").textContent = `${counts.stocks || stocks.length} stock bottles`;
+  $("#project-inventory-ready").textContent = `${counts.design_ready || counts.execution_ready || 0} ready to use`;
   $("#project-inventory-source").textContent = `${inventory.display_source || "Current project inventory"}. Effective version ${String(inventory.effective_inventory_sha256 || inventory.snapshot_sha256 || "unknown").slice(0, 12)}…`;
-  $("#project-inventory-list").innerHTML = rows.length
-    ? rows.map((stock) => {
-      const carrier = stock.carrier ? ` in ${stock.carrier}` : "";
-      const form = stock.physical_form ? ` · ${stock.physical_form}` : "";
-      const stateLabel = stock.design_ready
-        ? (stock.execution_ready ? "Ready for design" : "Ready for personal design · physical records separate")
-        : "Owned · details incomplete";
-      const missing = (stock.missing_fields || []).map((field) => humanize(field)).join(", ");
-      const completion = !stock.design_ready && stock.completion_available
-        ? `<button class="inventory-complete-button quiet-button" type="button" data-complete-stock="${escapeHtml(stock.stock_id)}">Complete details</button>`
-        : "";
-      const sourceLabel = stock.source_class === "LIVE_INVENTORY_TEXT"
-        ? "Recovered from inventory.txt"
-        : (stock.source_class === "PERSONAL_ADDITION" ? "Your direct addition" : "Governed stock record");
-      return `<article class="inventory-item">
-        <div><strong>${escapeHtml(stock.identity_name)}</strong><span>${escapeHtml(stock.category || "uncategorized")}</span></div>
-        <p>${escapeHtml(stock.fraction_percent_decimal)}% ${escapeHtml(stock.fraction_basis)}${escapeHtml(carrier)}${escapeHtml(form)}</p>
-        <small class="${stock.design_ready ? "inventory-ready" : "inventory-hold"}">${escapeHtml(stateLabel)}</small>
-        <small class="inventory-source">${escapeHtml(sourceLabel)}</small>
-        ${missing ? `<small class="inventory-missing">Needed: ${escapeHtml(missing)}</small>` : ""}
-        ${completion}
-      </article>`;
-    }).join("")
-    : '<p class="empty">No current inventory entries match that search.</p>';
+  $("#project-inventory-live").textContent = `Showing ${rows.length} of ${stocks.length}`;
+  const list = $("#project-inventory-list");
+  if (!rows.length) {
+    list.replaceChildren(stockEl("p", "empty", "No stock matches that search and filter."));
+    return;
+  }
+  const table = stockEl("table", "stock-table");
+  table.appendChild(stockEl("caption", "sr-only", "Stock list"));
+  const headRow = document.createElement("tr");
+  ["Material", "Stock", "Status", ""].forEach((title) => {
+    const th = stockEl("th", "", title);
+    th.scope = "col";
+    if (!title) th.appendChild(stockEl("span", "sr-only", "Action"));
+    headRow.appendChild(th);
+  });
+  table.appendChild(stockEl("thead")).appendChild(headRow);
+  const body = stockEl("tbody");
+  rows.forEach(({ stock, status, label }) => {
+    const tr = document.createElement("tr");
+    tr.dataset.stockStatus = status;
+    const name = stockEl("td", "stock-name");
+    name.appendChild(stockEl("strong", "", stock.identity_name));
+    if (stock.source_class === "PERSONAL_ADDITION") name.appendChild(stockEl("span", "stock-row-note", "Added by you"));
+    const strength = stockEl("td", "stock-strength", label);
+    const statusCell = stockEl("td", "stock-status");
+    statusCell.appendChild(stockEl("span", `stock-chip stock-chip-${status}`, STOCK_STATUS_LABEL[status]));
+    const note = stockNote(stock, status);
+    if (note) statusCell.appendChild(stockEl("span", "stock-row-note", note));
+    const action = stockEl("td", "stock-action");
+    if (status === "needs" && stock.completion_available) {
+      const button = stockEl("button", "inventory-complete-button quiet-button", "Complete details");
+      button.type = "button";
+      button.dataset.completeStock = stock.stock_id;
+      action.appendChild(button);
+    }
+    tr.append(name, strength, statusCell, action);
+    body.appendChild(tr);
+  });
+  table.appendChild(body);
+  const wrap = stockEl("div", "stock-table-wrap");
+  wrap.tabIndex = 0;
+  wrap.setAttribute("aria-label", "Stock list");
+  wrap.appendChild(table);
+  list.replaceChildren(wrap);
 }
 
 async function refresh() {
@@ -1143,7 +1262,25 @@ $("#project-inventory-search").addEventListener("input", (event) => {
   renderProjectInventory(event.currentTarget.value);
 });
 
-$("#project-inventory-incomplete-only").addEventListener("change", () => {
+$("#project-inventory-incomplete-only").addEventListener("change", (event) => {
+  stockView.filter = event.currentTarget.checked ? "needs" : "all";
+  renderProjectInventory($("#project-inventory-search").value);
+});
+
+$(".stock-filters").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-stock-filter]");
+  if (!button) return;
+  stockView.filter = button.dataset.stockFilter;
+  renderProjectInventory($("#project-inventory-search").value);
+});
+
+$("#project-inventory-solvent").addEventListener("change", (event) => {
+  stockView.solvent = event.currentTarget.value;
+  renderProjectInventory($("#project-inventory-search").value);
+});
+
+$("#project-inventory-sort").addEventListener("change", (event) => {
+  stockView.sort = event.currentTarget.value;
   renderProjectInventory($("#project-inventory-search").value);
 });
 
@@ -1283,6 +1420,7 @@ $("#inventory-addition-form").addEventListener("submit", async (event) => {
     });
     state.projectInventory = result.inventory;
     $("#project-inventory-search").value = data.identity_name;
+    Object.assign(stockView, { filter: "all", solvent: "" });
     renderProjectInventory(data.identity_name);
     closeInventoryAddition();
     notify(`${data.identity_name} is now available for personal formula design.`);

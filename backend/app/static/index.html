@@ -269,15 +269,27 @@
             <div><p class="panel-index">Live source</p><h2 id="project-inventory-count">Loading current inventory…</h2></div>
             <span id="project-inventory-ready" class="state-chip"></span>
           </div>
-          <p id="project-inventory-source" class="friendly-boundary">Reading inventory.txt, pinned stock facts, and your personal completion receipts.</p>
           <div class="inventory-toolbar">
             <label class="inventory-search">Find a material<input id="project-inventory-search" type="search" placeholder="Lavender, Ambrox, bergamot…" autocomplete="off"></label>
+            <label class="inventory-select">Solvent<select id="project-inventory-solvent"><option value="">Any solvent</option><option value="neat">Neat</option></select></label>
+            <label class="inventory-select">Sort<select id="project-inventory-sort"><option value="name">Name A to Z</option><option value="needs">Needs attention first</option><option value="strength">Strength high to low</option></select></label>
+            <div class="stock-filters" role="group" aria-label="Show">
+              <button type="button" class="stock-filter" aria-pressed="true" data-stock-filter="all">All</button>
+              <button type="button" class="stock-filter" aria-pressed="false" data-stock-filter="ready">Ready to use</button>
+              <button type="button" class="stock-filter" aria-pressed="false" data-stock-filter="needs">Needs details</button>
+              <button type="button" class="stock-filter" aria-pressed="false" data-stock-filter="hold">On hold</button>
+            </div>
             <div class="inventory-toolbar-actions">
               <label class="check-line"><input id="project-inventory-incomplete-only" type="checkbox"> Show only details to finish</label>
               <button id="inventory-add-open" class="quiet-button" type="button">Add a missing owned material</button>
             </div>
           </div>
-          <div id="project-inventory-list" class="inventory-grid" aria-live="polite"></div>
+          <p id="project-inventory-live" class="stock-count-line" role="status" aria-live="polite"></p>
+          <details class="stock-source">
+            <summary>Source details</summary>
+            <p id="project-inventory-source" class="friendly-boundary">Reading inventory.txt, pinned stock facts, and your personal completion receipts.</p>
+          </details>
+          <div id="project-inventory-list" class="inventory-grid"></div>
         </article>
         <article id="inventory-addition-panel" class="panel inventory-completion-panel" hidden>
           <div class="card-title-row">
