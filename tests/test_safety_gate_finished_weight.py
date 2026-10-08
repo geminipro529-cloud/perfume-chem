@@ -99,7 +99,7 @@ def test_default_bottle_size_warns_and_is_reported():
 
 def test_row_with_dilution_suffix_matches_its_standard():
     benzyl = TABLE.lookup("Benzyl Benzoate")
-    assert TABLE.lookup("Benzyl Benzoate (10% in DPG)") is None
+    assert TABLE.lookup("Benzyl Benzoate (10% in DPG)") is benzyl
     # 1000 uL of a 10 % stock = 0.1 g active + 0.9 mL carrier (DPG not recorded: 1.0 g/mL)
     # + 29 mL ethanol x 0.789 = 22.881 g; 0.1 / 23.881 = 0.419 % w/w.
     gate = _gate({"Benzyl Benzoate (10% in DPG)": 1000.0}, {"Benzyl Benzoate (10% in DPG)": 0.1})
@@ -131,3 +131,18 @@ def test_exact_finished_product_ppm_is_used_when_available():
     assert row["verdict"] == "warn"
     assert gate.data["concentration_basis"] == "exact_finished_product_w_w"
     assert gate.status == "WARN"
+
+
+def test_strength_suffix_in_the_row_name_does_not_hide_a_restricted_material():
+    coumarin = TABLE.lookup("Coumarin")
+    assert coumarin.cat4_limit_pct == pytest.approx(1.5)
+    # 3000 uL of a 20 % stock = 0.6 g active + 2.4 mL carrier (not recorded: 1.0 g/mL)
+    # + 27 mL ethanol x 0.789 = 21.303 g; 0.6 / 24.303 = 2.469 % w/w, over 1.5 %.
+    gate = _gate({"Coumarin 20% EtOH": 3000.0}, {"Coumarin 20% EtOH": 0.2})
+
+    row = _row(gate, "Coumarin 20% EtOH")
+    assert row["standard"] == coumarin.standard
+    assert row["actual_pct"] == pytest.approx(0.6 / 24.303 * 100, rel=1e-4)
+    assert row["verdict"] == "fail"
+    assert gate.status == "FAIL"
+    assert "Coumarin 20% EtOH" not in gate.data["unchecked"]

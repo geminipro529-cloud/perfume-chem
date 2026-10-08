@@ -45,6 +45,10 @@ GROUP_RULES = frozenset({"sum_le_limit", "sum_of_ratios_le_1"})
 
 _TOLERANCE = 1e-12
 _PERCENT_NUMBER = re.compile(r"(\d+(?:[.,]\d+)?)\s*%")
+# Stock-name suffixes that hide the material name: "(...)", " 20% EtOH", " F3255".
+_TRAILING_PARENTHETICAL = re.compile(r"\s*\([^()]*\)\s*$")
+_TRAILING_STRENGTH = re.compile(r"\s+\d+(?:[.,]\d+)?\s*%.*$")
+_TRAILING_LOT_CODE = re.compile(r"\s+[A-Za-z]{0,4}\d{3,}[A-Za-z0-9-]*\s*$")
 
 
 @dataclass(frozen=True)
@@ -105,13 +109,21 @@ class IFRATable:
         object.__setattr__(self, "_index", index)
 
     def lookup(self, *names: str | None) -> IFRAMaterial | None:
-        """Return the first material matching any name, case/whitespace-insensitive."""
-        for name in names:
-            if name and name.strip():
-                material = self._index.get(_normalise(name))
+        """Return the first material matching any name, case/whitespace-insensitive.
+
+        Every name is tried exactly first; only when none matches is each retried without
+        its stock suffix (see ``stock_base_name``), so an exact name always wins.
+        """
+        return self._match(names)[1]
+
+    def _match(self, names: Sequence[str | None]) -> tuple[str | None, IFRAMaterial | None]:
+        given = [name for name in names if name and name.strip()]
+        for candidates in (given, [stock_base_name(name) for name in given]):
+            for name, candidate in zip(given, candidates):
+                material = self._index.get(_normalise(candidate))
                 if material is not None:
-                    return material
-        return None
+                    return name, material
+        return None, None
 
     def cat4_limits(self) -> dict[str, float]:
         """Restricted materials only, keyed by canonical name and every alias as written."""
@@ -350,6 +362,24 @@ def _normalise(name: str) -> str:
     return " ".join(name.split()).casefold()
 
 
+def stock_base_name(name: str) -> str:
+    """Strip trailing stock suffixes: a parenthetical, a strength ("20% EtOH") or a lot code.
+
+    "Coumarin 20% EtOH", "Coumarin (20%)" and "Coumarin F3255" all give "Coumarin". Suffixes
+    are removed repeatedly until none is left. A name that would be stripped to nothing is
+    returned unchanged.
+    """
+    base = name.strip()
+    while True:
+        stripped = base
+        for pattern in (_TRAILING_PARENTHETICAL, _TRAILING_STRENGTH, _TRAILING_LOT_CODE):
+            stripped = pattern.sub("", stripped).strip()
+        if stripped == base:
+            break
+        base = stripped
+    return base or name
+
+
 def _is_number(value: object) -> bool:
     return isinstance(value, (int, float)) and not isinstance(value, bool)
 
@@ -389,12 +419,7 @@ def evaluate_ifra(
     for row_name, pct in pct_by_material.items():
         extra = alt_names.get(row_name, ())
         candidates = [row_name, *([extra] if isinstance(extra, str) else extra)]
-        matched_name, material = None, None
-        for candidate in candidates:
-            material = table.lookup(candidate)
-            if material is not None:
-                matched_name = candidate
-                break
+        matched_name, material = table._match(candidates)
         pct = float(pct)
         if material is None:
             checks.append(IFRACheck(
@@ -601,6 +626,21 @@ class FinishedProductRow:
     active_g: float | None = None
     active_density_g_ml: float | None = None
     carrier: str | None = None
+    fraction_basis: str = "unspecified"
+    stock_density_g_ml: float | None = None
+
+
+# How a diluted stock's ``active_fraction`` is meant, in formula_state's words and short forms.
+_FRACTION_BASES = {
+    "mass_fraction": "w/w",
+    "w/w": "w/w",
+    "volume_fraction": "v/v",
+    "v/v": "v/v",
+    "neat": "v/v",
+    "mass_per_volume": "w/v",
+    "w/v": "w/v",
+}
+_BASIS_DISAGREEMENT = 0.005
 
 
 @dataclass(frozen=True)
@@ -621,10 +661,13 @@ def estimate_finished_product_pct_w_w(
 
     The bottle is the stocks plus ethanol topped up to ``batch_volume_ml``. The finished mass
     is every row's active mass, plus its carrier's mass, plus the ethanol. A row's active mass
-    is ``active_g`` when known, otherwise its active volume times its density. The carrier
-    share of a diluted stock is taken as a volume fraction. Missing densities fall back to
-    1.0 g/mL and are listed in ``assumptions``. When the stocks alone exceed the bottle,
-    ``overfilled`` is set and no ethanol is added.
+    is ``active_g`` when known (its carrier then taken as the remaining volume fraction).
+    Otherwise a diluted stock is read by its ``fraction_basis``: v/v (active volume times its
+    density), w/w (that share of the stock's mass, the stock density given or by ideal mixing)
+    or w/v (fraction x stock mL in grams). An unspecified basis takes whichever of the v/v and
+    w/w readings gives more active mass, the conservative side of an upper limit. Missing
+    densities fall back to 1.0 g/mL; these and any basis choice are listed in ``assumptions``.
+    When the stocks alone exceed the bottle, ``overfilled`` is set and no ethanol is added.
     """
     if batch_volume_ml <= 0:
         raise ValueError(f"batch_volume_ml must be positive, got {batch_volume_ml}")
@@ -636,26 +679,19 @@ def estimate_finished_product_pct_w_w(
         stock_ml = max(float(row.stock_ul), 0.0) / 1000.0
         fraction = min(max(float(row.active_fraction), 0.0), 1.0)
         concentrate_ml += stock_ml
+        if row.active_g is None and 0.0 < fraction < 1.0:
+            mass, carrier_g = _diluted_stock_masses(row, stock_ml, fraction, assumptions)
+            active_mass[row.name] = active_mass.get(row.name, 0.0) + mass
+            carrier_mass_g += carrier_g
+            continue
         if row.active_g is not None:
             mass = float(row.active_g)
         else:
-            density = row.active_density_g_ml
-            if density is None:
-                density = DEFAULT_DENSITY_G_ML
-                assumptions.append(f"{row.name}: density unknown, {DEFAULT_DENSITY_G_ML} g/mL used")
-            mass = stock_ml * fraction * density
+            mass = stock_ml * fraction * _active_density(row, assumptions)
         active_mass[row.name] = active_mass.get(row.name, 0.0) + mass
         carrier_ml = stock_ml * (1.0 - fraction)
         if carrier_ml > 0:
-            carrier = (row.carrier or "").strip()
-            carrier_density = CARRIER_DENSITY_G_ML.get(carrier.casefold())
-            if carrier_density is None:
-                carrier_density = DEFAULT_DENSITY_G_ML
-                assumptions.append(
-                    f"{row.name}: carrier {carrier or 'not recorded'} has no density here, "
-                    f"{DEFAULT_DENSITY_G_ML} g/mL used"
-                )
-            carrier_mass_g += carrier_ml * carrier_density
+            carrier_mass_g += carrier_ml * _carrier_density(row, assumptions)
     ethanol_ml = batch_volume_ml - concentrate_ml
     overfilled = ethanol_ml < 0
     ethanol_ml = max(ethanol_ml, 0.0)
@@ -673,3 +709,59 @@ def estimate_finished_product_pct_w_w(
         overfilled=overfilled,
         assumptions=tuple(assumptions),
     )
+
+
+def _active_density(row: FinishedProductRow, assumptions: list[str]) -> float:
+    if row.active_density_g_ml is not None:
+        return float(row.active_density_g_ml)
+    assumptions.append(f"{row.name}: density unknown, {DEFAULT_DENSITY_G_ML} g/mL used")
+    return DEFAULT_DENSITY_G_ML
+
+
+def _carrier_density(row: FinishedProductRow, assumptions: list[str]) -> float:
+    carrier = (row.carrier or "").strip()
+    density = CARRIER_DENSITY_G_ML.get(carrier.casefold())
+    if density is not None:
+        return density
+    assumptions.append(
+        f"{row.name}: carrier {carrier or 'not recorded'} has no density here, "
+        f"{DEFAULT_DENSITY_G_ML} g/mL used"
+    )
+    return DEFAULT_DENSITY_G_ML
+
+
+def _diluted_stock_masses(
+    row: FinishedProductRow, stock_ml: float, fraction: float, assumptions: list[str]
+) -> tuple[float, float]:
+    """Active and carrier grams of a diluted stock without a known active mass."""
+    basis = _FRACTION_BASES.get(str(row.fraction_basis).strip().casefold(), "unspecified")
+    if basis == "w/w" and row.stock_density_g_ml is not None:
+        stock_g = stock_ml * float(row.stock_density_g_ml)
+        return fraction * stock_g, (1.0 - fraction) * stock_g
+    active_density = _active_density(row, assumptions)
+    carrier_density = _carrier_density(row, assumptions)
+    if basis == "w/v":
+        active_g = fraction * stock_ml
+        carrier_ml = max(stock_ml - active_g / active_density, 0.0)
+        return active_g, carrier_ml * carrier_density
+    by_volume = (
+        stock_ml * fraction * active_density,
+        stock_ml * (1.0 - fraction) * carrier_density,
+    )
+    stock_density = 1.0 / (fraction / active_density + (1.0 - fraction) / carrier_density)
+    by_weight = (fraction * stock_ml * stock_density, (1.0 - fraction) * stock_ml * stock_density)
+    if basis == "v/v":
+        return by_volume
+    if basis == "w/w":
+        return by_weight
+    chosen, other, reading = (
+        (by_weight, by_volume, "w/w")
+        if by_weight[0] >= by_volume[0]
+        else (by_volume, by_weight, "v/v")
+    )
+    if chosen[0] > 0 and (chosen[0] - other[0]) / chosen[0] > _BASIS_DISAGREEMENT:
+        assumptions.append(
+            f"{row.name}: dilution basis not recorded, read as {reading} "
+            "(the reading with more active material)"
+        )
+    return chosen

@@ -1440,6 +1440,7 @@ def _finished_product_pct_w_w(
                     None if str(m.density_source).startswith("fallback:") else m.density_g_ml
                 ),
                 carrier=m.stock_carrier or None,
+                fraction_basis=m.stock_fraction_basis,
             )
             for m in state.materials
         ],

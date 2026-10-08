@@ -12,6 +12,7 @@ from engine.ifra_standards import (
     IFRATable,
     evaluate_ifra,
     load_ifra_table,
+    stock_base_name,
 )
 
 BASE = {
@@ -337,8 +338,10 @@ def test_group_counts_aliases_and_skips_absent_groups(tmp_path):
 
 
 def test_two_rows_of_one_material_are_totalled_against_its_standard(table):
-    result = evaluate_ifra({"Alpha Absolute": 0.06, "Alpha (10% in DPG)": 0.0}, table=table)
-    assert result.group_checks == ()  # the second row is unchecked, not a second Alpha row
+    # A stock suffix no longer hides the second row: it is a second Alpha row in the total.
+    result = evaluate_ifra({"Alpha Absolute": 0.06, "Alpha (10% in DPG)": 0.06}, table=table)
+    (group,) = result.group_checks
+    assert (group.id, group.verdict) == ("STD_A_total", "fail")
     result = evaluate_ifra({"Alpha Absolute": 0.06, "alpha  extract": 0.06}, table=table)
     assert [c.verdict for c in result.checks] == ["pass", "pass"]
     (group,) = result.group_checks
@@ -437,3 +440,51 @@ def test_real_table_mhc_moc_group_catches_combined_excess():
     assert {c.verdict for c in result.checks} == {"warn"}
     (group,) = result.group_checks
     assert (group.id, group.verdict) == ("mhc_moc_total", "fail")
+
+
+# ------------------------------------------------------------------ stock-name suffixes
+
+
+@pytest.mark.parametrize(
+    ("name", "base"),
+    [
+        ("Coumarin 20% EtOH", "Coumarin"),
+        ("Coumarin (20%)", "Coumarin"),
+        ("Coumarin 10 % in DPG", "Coumarin"),
+        ("Coumarin 1,5%", "Coumarin"),
+        ("Ylang Comoros Complete EO F3255", "Ylang Comoros Complete EO"),
+        ("Coumarin 20% (EtOH) F3255", "Coumarin"),
+        ("Vetiver EO (India)", "Vetiver EO"),
+        ("20%", "20%"),
+        ("Aldehyde C10", "Aldehyde C10"),
+    ],
+)
+def test_stock_base_name_strips_strength_parenthetical_and_lot_code(name, base):
+    assert stock_base_name(name) == base
+
+
+@pytest.mark.parametrize(
+    ("name", "material"),
+    [
+        ("Coumarin 20% EtOH", "Coumarin"),
+        ("Coumarin (20%)", "Coumarin"),
+        ("Oakmoss Absolute 10%", "Oakmoss Absolute"),
+        ("Ylang Comoros Complete EO F3255", "Ylang Ylang EO"),
+        ("Ethanol 96%", "Ethanol"),
+        ("Vetiver EO (India)", "Vetiver EO (India)"),
+    ],
+)
+def test_real_table_lookup_sees_through_stock_suffixes(name, material):
+    assert load_ifra_table().lookup(name).name == material
+
+
+def test_a_bare_strength_matches_nothing():
+    assert load_ifra_table().lookup("20%") is None
+
+
+def test_exact_alt_name_wins_over_the_stripped_row_name():
+    # Stripped, the row would be the generic "Vetiver EO"; its exact alt name is the Indian oil.
+    result = evaluate_ifra({"Vetiver EO 10%": 0.5}, alt_names={"Vetiver EO 10%": "Vetiver EO (India)"})
+    (check,) = result.checks
+    assert check.matched_name == "Vetiver EO (India)"
+    assert load_ifra_table().lookup("Vetiver EO 10%", "Vetiver EO (India)").name == "Vetiver EO (India)"
