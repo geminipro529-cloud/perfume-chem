@@ -4,21 +4,43 @@ import json
 from collections import Counter
 
 import pytest
-
-from engine import inventory_baskets, inventory_completions
+from engine import inventory_baskets, inventory_completions, user_records
 
 INVENTORY = "/api/v1/lab/v2/workbench/current-inventory"
 BASKET = INVENTORY + "/basket"
-REAL_LOG = inventory_baskets.default_basket_event_path()
+REAL_LOG = inventory_completions.DEFAULT_COMPLETION_PATH.with_name(user_records.BASKET_LOG_NAME)
 
 
 def test_basket_log_follows_the_other_stock_records(tmp_path, monkeypatch):
     moved = tmp_path / "backed-up" / "user_inventory_completion_events.jsonl"
     monkeypatch.delenv(inventory_baskets.BASKET_EVENT_PATH_ENV, raising=False)
+    monkeypatch.delenv(inventory_completions.COMPLETION_PATH_ENV, raising=False)
     monkeypatch.setattr(inventory_completions, "DEFAULT_COMPLETION_PATH", moved)
-    assert inventory_baskets.basket_event_log_path() == (
-        tmp_path / "backed-up" / "user_basket_events.jsonl"
-    ).resolve()
+    monkeypatch.setattr(
+        inventory_completions, "LEGACY_COMPLETION_PATH", tmp_path / "old" / moved.name
+    )
+    old_basket_log = tmp_path / "old" / "user_basket_events.jsonl"
+    old_basket_log.parent.mkdir()
+    old_basket_log.write_bytes(b'{"older": "basket choice"}\n')
+    expected = (tmp_path / "backed-up" / "user_basket_events.jsonl").resolve()
+    assert inventory_baskets.basket_event_log_path() == expected
+    # An older basket log in output/ is carried over, and the old file is kept.
+    assert expected.read_bytes() == old_basket_log.read_bytes()
+    # Backups and the export look for the basket log in the same place.
+    assert user_records.record_files()[user_records.BASKET_LOG_NAME] == expected
+
+
+def test_basket_log_sits_beside_an_overridden_completion_log(tmp_path, monkeypatch):
+    completion = tmp_path / "elsewhere" / "completions.jsonl"
+    monkeypatch.delenv(inventory_baskets.BASKET_EVENT_PATH_ENV, raising=False)
+    monkeypatch.setenv(inventory_completions.COMPLETION_PATH_ENV, str(completion))
+    expected = (tmp_path / "elsewhere" / "user_basket_events.jsonl").resolve()
+    assert inventory_baskets.basket_event_log_path() == expected
+    assert user_records.record_files()[user_records.BASKET_LOG_NAME] == expected
+
+
+def test_basket_log_defaults_to_data_user():
+    assert REAL_LOG.parent == user_records.USER_RECORDS_DIR
 
 
 @pytest.fixture
