@@ -127,7 +127,10 @@ def test_runtime_odt_numeric_map_is_unchanged():
     ).hexdigest()
     # Geranyl acetate air ODT added from Elsharif & Buettner (2018); the
     # digest without that one entry is master's 2505240f… value.
-    assert digest == "35b7d603f2b7b60efe87baf1e784afec158d3722ee8f516d0fc1f1ff0eb8dd0d"
+    # Musk fix 2026-10-08: Macrolide odt_air 2.0 -> 3.2 (Exaltolide's value, same
+    # molecule) and Helvetolide 0.146 (Armanino 2020) added; reverting just those two
+    # entries gives the previous 35b7d603… digest.
+    assert digest == "7bca0ddc39b3426afd9701d498fe359e36a5fd2f2cba697d3175baa9961a1a08"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

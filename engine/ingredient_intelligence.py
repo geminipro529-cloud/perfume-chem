@@ -1619,8 +1619,8 @@ _PROFILES: dict[str, dict] = {
         "role": "fixative",
         "texture": "cocoon",
         "mw": 258.40,
-        "vp": 0.0001,
-        "clogp": 4.8,  # VERIFIED: PubChem CID=70490, 2026-05-30
+        "vp": 0.0727,  # synced to data/materials/G.yaml
+        "clogp": 5.9,  # AICIS measured log Kow; synced to data/materials/G.yaml
         "synergies": ["Habanolide", "Ambrettolide", "Iso E Super"],
     },
     "Tonalide": {
@@ -1629,7 +1629,7 @@ _PROFILES: dict[str, dict] = {
         "role": "fixative",
         "texture": "cocoon",
         "mw": 258.40,
-        "vp": 0.0001,
+        "vp": 0.07,  # Hekserij sheet, temperature not stated; synced to data/materials/T.yaml
         "clogp": 5.7,
         "synergies": ["Galaxolide"],
     },
@@ -1655,8 +1655,8 @@ _PROFILES: dict[str, dict] = {
         "role": "fixative",
         "texture": "veil",
         "mw": 238.37,
-        "vp": 0.0002,
-        "clogp": 5.5,
+        "vp": 0.076,  # RIFM 2004 measured; synced to data/materials/H.yaml
+        "clogp": 5.45,  # producer value; synced to data/materials/H.yaml
         "synergies": ["Galaxolide", "Ambrettolide", "Iso E Super"],
     },
     "Zenolide": {
@@ -1664,8 +1664,8 @@ _PROFILES: dict[str, dict] = {
         "note": "base",
         "role": "modifier",
         "texture": "veil",
-        "mw": 254.41,
-        "vp": 0.0001,
+        "mw": 256.34,  # C14H24O4
+        "vp": 0.028,  # RIFM 1999 data; synced to data/materials/Z.yaml
         "clogp": 6.0,
         "synergies": ["Galaxolide", "Habanolide"],
     },
@@ -1675,7 +1675,7 @@ _PROFILES: dict[str, dict] = {
         "role": "fixative",
         "texture": "cocoon",
         "mw": 240.38,
-        "vp": 0.0001,
+        "vp": 0.027,  # 0.0002 torr, Vuilleumier 1995 (RIFM-cited); synced to data/materials/E.yaml
         "clogp": 5.3,
         "synergies": ["Galaxolide", "Ambrettolide"],
     },
@@ -1684,8 +1684,8 @@ _PROFILES: dict[str, dict] = {
         "note": "base",
         "role": "modifier",
         "texture": "skin-effect",
-        "mw": 254.41,
-        "vp": 0.0001,
+        "mw": 240.38,  # same molecule as Exaltolide (pentadecanolide)
+        "vp": 0.027,  # copied from Exaltolide; synced to data/materials/M.yaml
         "clogp": 6.5,
         "synergies": ["Ambrettolide", "Galaxolide"],
     },
@@ -1695,9 +1695,9 @@ _PROFILES: dict[str, dict] = {
         "role": "fixative",
         "texture": "halo",
         "mw": 294.30,
-        "vp": 0.000039997,
-        "vp_source": ("PubChem CID 6669 / Peck & Hornbuckle 2004: 3.00e-7 mmHg at 25 C"),
-        "vp_flag": "PEER_REPORTED_25C",
+        "vp": 0.00069,
+        "vp_source": ("Hekserij Musk ketone data sheet 1Doc-23045 (2025-12): 0.00069 Pa at 25 C"),
+        "vp_flag": "SUPPLIER_REPORTED_25C",
         "clogp": 3.7,
         "synergies": ["Galaxolide", "Vanillin"],
     },
@@ -4811,7 +4811,7 @@ _VERIFIED_VP = {
     "Geraniol": 2.67,
     "Nerol": 2.0,
     "Coumarin": 0.133,
-    "Habanolide": 0.000053,
+    "Habanolide": 0.076,
     "Ambrofix": 0.066,
     "Hedione": 0.09466,
     "Hedione HC": 0.09466,
@@ -4828,8 +4828,8 @@ _VERIFIED_VP_SOURCE = {
     "Citronellol": "ECHA registration dossier: 2.26 Pa at 25 C",
     "Dynascone": ("Vigon Dynascone SDS rev. 2020-06-08: 0.01 mmHg at 25 C = 1.33322 Pa"),
     "Habanolide": (
-        "dsm-firmenich official product data: 0.00003 Pa at 20 C; "
-        "0.000053 Pa is a temperature-adjusted 25 C estimate"
+        "RIFM safety assessment CAS 34902-57-3: 0.076 Pa at 25 C, measured (RIFM 2004); "
+        "the dsm-firmenich 0.00003 Pa at 20 C figure looks like an EPI estimate printed as Pa"
     ),
     "Hedione": "EP 3141239 B1: 0.000710 Torr at 25 C = 0.09466 Pa",
     "Hedione HC": ("Hedione pure-component proxy; cis-isomer-specific VP unresolved"),
@@ -4843,7 +4843,7 @@ for _key, _val in _VERIFIED_VP.items():
             _key, "VERIFIED external cross-check 2026-05-12"
         )
         _PROFILES[_key]["vp_flag"] = (
-            "ESTIMATED_FROM_OFFICIAL_20C" if _key == "Habanolide" else "VERIFIED_EXTERNAL"
+            "MEASURED_RIFM_25C" if _key == "Habanolide" else "VERIFIED_EXTERNAL"
         )
     else:
         # Attempt to find by normalized name

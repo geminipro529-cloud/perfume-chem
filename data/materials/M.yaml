@@ -342,18 +342,16 @@
 - canonical_name: Macrolide
   aliases:
   - macrolide
-  cas:
+  cas: '106-02-5'
   smiles:
   inchikey:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 240.4, corrected to 254.41)
-  mw_g_mol: 254.41
+  mw_g_mol: 240.38
   density_25c_g_ml:
   logp: 5.0
   functional_groups: []
   chirality:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.0001)
-  vp_25c_pa: 0.0001
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.027
+  vp_source: RIFM_cited_literature  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -366,7 +364,7 @@
   hedonic_valence: 0.65
   ifra_max_pct_edp:
   user_stock_dilution: 10%
-  user_in_inventory: true
+  user_in_inventory: false
   supplier:
     perfumersworld_sku: 2XX14556
     perfumersworld_price_usd_per_g: 1.12
@@ -376,12 +374,15 @@
   families:
   - musks
   character:
-  notes:
+  notes: 'Same molecule as Exaltolide (pentadecanolide, CAS 106-02-5), kept as a separate trade-name entry; physics copied from the Exaltolide entry. Previous MW 254.41 was a C16 lactone weight. Not in stock: inventory.txt marks Macrolide (10%) DEPLETED 2026-07-19. VP: the Vuilleumier 1995 figure (0.0002 torr = 0.027 Pa) has no temperature stated in the source dossier. ChemicalBook gives 0.085 Pa at 25 C, about 3x higher; the two sources disagree and the lower RIFM-cited value is used. Previous gate value 0.0001 Pa had no cited source.'
   provenance:
+    cas: 'PerfumersWorld SKU 2XX14556 (CAS 106-02-5, MW 240.39) and The Good Scents Company (lists "Macrolide Supra" as a synonym of omega-pentadecalactone, CAS 106-02-5), as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
+    mw_g_mol: 'Pentadecanolide C15H28O2, 240.38 g/mol, as stated in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08) (PerfumersWorld lists 240.39)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, CAS 106-02-5, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-02-5.pdf; "0.027 (0.0002 torr, Vuilleumier 1995)" as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08); 0.0002 torr x 133.322 Pa/torr = 0.0267 Pa. Measurement temperature not given in the dossier; filed under 25 C as the dossier does'
+    user_in_inventory: 'inventory.txt: "Macrolide (10%)  # DEPLETED 2026-07-19"'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    mw_g_mol: engine.skin_interaction
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
@@ -2478,8 +2479,8 @@
   logp: 3.8
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.000039997
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.00069
+  vp_source: supplier  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 3.0e-05
@@ -2509,10 +2510,10 @@
   families:
   - musks
   character:
-  notes:
+  notes: 'Previous gate VP 0.000039997 Pa (PubChem CID 6669 / Peck and Hornbuckle 2004, 3.00e-7 mmHg at 25 C) is about 17x lower than the supplier sheet value now used; the two sources disagree. Air ODT in engine/odor_thresholds.py (2.0 ppb) has no source for the material itself.'
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: PubChem CID 6669 / Peck and Hornbuckle 2004, 3.00e-7 mmHg at 25 C
+    vp_25c_pa: 'Hekserij Musk ketone data sheet 1Doc-23045 (2025-12), https://www.hekserij.nl/wp-content/uploads/2026/01/1Doc-23045-Musk-ketone-2025-12.pdf: "0.00069" Pa at 25 C, as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
