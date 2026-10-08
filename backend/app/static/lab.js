@@ -169,8 +169,12 @@ function formData(form) { return Object.fromEntries(new FormData(form).entries()
 function bindForm(selector, handler) {
   $(selector).addEventListener("submit", async (event) => {
     event.preventDefault();
-    try { await handler(formData(event.currentTarget)); notify("Record committed."); await refresh(); }
+    const form = event.currentTarget;
+    const buttons = form.querySelectorAll('button[type="submit"], input[type="submit"], button:not([type])');
+    buttons.forEach((button) => { button.disabled = true; });
+    try { await handler(formData(form)); notify("Record committed."); await refresh(); }
     catch (error) { notify(error.message, true); }
+    finally { buttons.forEach((button) => { button.disabled = false; }); }
   });
 }
 
