@@ -9,7 +9,9 @@
 
 from __future__ import annotations
 
+import functools
 import json
+import re
 import traceback
 from collections.abc import Sequence
 from dataclasses import dataclass, field, replace
@@ -30,7 +32,16 @@ from engine.families.registry import (
     novelty_assessment,
 )
 from engine.fuckups.pre_mix_guard import evaluate_pre_mix_guard
-from engine.ifra_safety import IFRA_CAT4_LIMITS, score_ifra_compliance
+from engine.ifra_safety import score_ifra_compliance
+from engine.ifra_standards import (
+    FinishedProductEstimate,
+    FinishedProductRow,
+    IFRACheck,
+    IFRAGroupCheck,
+    estimate_finished_product_pct_w_w,
+    evaluate_ifra,
+    load_ifra_table,
+)
 from engine.knowledge.literature_rules import (
     _LITERATURE_DB_LOADED,
     _cite_fn,
@@ -125,6 +136,7 @@ class ReleaseGateConfig:
     expected_concentrate_ul: float = DEFAULT_CONCENTRATE_UL
     min_neat_trace_ul: float = MIN_NEAT_TRACE_UL
     batch_volume_ml: float = 30.0
+    batch_volume_source: str = "default"
     temperature_K: float = 305.0  # noqa: N815
     brief: str = "auto"
     family_archetype: str = ""
@@ -261,18 +273,32 @@ def _screening_oav_claim_ceiling(data: dict | None) -> dict:
     return bounded
 
 
+# Gate statuses, from best to worst. HOLD means the gate could not decide
+# because data is missing (an undeclared stock basis, no authoritative active
+# mass, no composition for a natural, ...). It blocks release exactly like FAIL,
+# but it says "supply this data" rather than "the formula is wrong", so a real
+# formula error stays visible as the only FAIL.
+GATE_STATUSES = ("PASS", "WARN", "HOLD", "FAIL")
+BLOCKING_STATUSES = frozenset({"HOLD", "FAIL"})
+
+
 def _result(gate: str, status: str, detail: str = "", data: dict | None = None) -> GateResult:
-    if status not in ("PASS", "WARN", "FAIL"):
+    if status not in GATE_STATUSES:
         raise ValueError(f"Invalid gate status '{status}' for gate '{gate}'")
     if _is_screening_oav_diagnostic_gate(gate):
         data = _screening_oav_claim_ceiling(data)
-        if status == "FAIL":
-            data.setdefault("original_status", "FAIL")
+        if status in BLOCKING_STATUSES:
+            data.setdefault("original_status", status)
             data.setdefault("gate_policy", "screening_oav_failures_demoted_to_warn")
             detail = detail or "Screening OAV diagnostic raised a flag"
             detail = f"{detail} [screening diagnostic; not release or recompounding authority]"
             status = "WARN"
     return GateResult(gate=gate, status=status, detail=detail, data=data or {})
+
+
+def _skipped(gate: str, detail: str = "", data: dict | None = None) -> GateResult:
+    """A check that did not run. SKIP never votes in the verdict (see _status_from_gates)."""
+    return GateResult(gate=gate, status="SKIP", detail=detail, data=data or {})
 
 
 HARD_BLOCKING_GATES = frozenset(
@@ -328,7 +354,7 @@ ADVISORY_FAILURE_GATES = frozenset({
     "family_hedonic", "iconic_formulas", "niche_construction",
     "jellinek_psychology", "edwards_wheel_coherence", "oav_intelligence",
     "olfactory_fatigue", "master_perfumer", "master_perfumer_gate",
-    "mass_market_tier_check",
+    "mass_market_tier_check", "hedione_share", "musk_count", "namesake",
 })
 
 
@@ -336,19 +362,19 @@ def _apply_guideline_policy(gate: GateResult) -> GateResult:
     """Keep safety/data/math failures blocking; treat perfumery gates as advice."""
     if _is_screening_oav_diagnostic_gate(gate.gate):
         data = _screening_oav_claim_ceiling(gate.data)
-        if gate.status == "FAIL":
-            data.setdefault("original_status", "FAIL")
+        if gate.status in BLOCKING_STATUSES:
+            data.setdefault("original_status", gate.status)
             data.setdefault("gate_policy", "screening_oav_failures_demoted_to_warn")
             detail = gate.detail or "Screening OAV diagnostic raised a flag"
             detail = f"{detail} [screening diagnostic; not release or recompounding authority]"
             return GateResult(gate=gate.gate, status="WARN", detail=detail, data=data)
         return GateResult(gate=gate.gate, status=gate.status, detail=gate.detail, data=data)
 
-    if gate.status != "FAIL" or gate.gate not in ADVISORY_FAILURE_GATES:
+    if gate.status not in BLOCKING_STATUSES or gate.gate not in ADVISORY_FAILURE_GATES:
         return gate
 
     data = dict(gate.data or {})
-    data.setdefault("original_status", "FAIL")
+    data.setdefault("original_status", gate.status)
     data.setdefault("gate_policy", "advisory_failures_demoted_to_warn")
     detail = gate.detail or "Advisory gate failed"
     detail = f"{detail} [advisory guideline; not release-blocking]"
@@ -381,6 +407,7 @@ def _config_summary(config: ReleaseGateConfig) -> dict:
     return {
         "expected_concentrate_ul": config.expected_concentrate_ul,
         "batch_volume_ml": config.batch_volume_ml,
+        "batch_volume_source": config.batch_volume_source,
         "temperature_K": config.temperature_K,
         "brief": config.brief,
         "family_archetype": config.family_archetype,
@@ -403,11 +430,294 @@ def _config_summary(config: ReleaseGateConfig) -> dict:
 
 
 def _status_from_gates(gates: list[GateResult]) -> str:
-    if any(g.status == "FAIL" for g in gates):
+    """Worst status wins: FAIL, then HOLD, then WARN, then PASS (SKIP never votes)."""
+    statuses = {g.status for g in gates}
+    if "FAIL" in statuses:
         return "FAIL"
-    if any(g.status == "WARN" for g in gates):
+    if "HOLD" in statuses:
+        return "HOLD"
+    if "WARN" in statuses:
         return "WARN"
     return "PASS"
+
+
+# Preflight checks keep their own PASS/WARN/FAIL statuses; the HOLD mapping is
+# computed here, from each failing check's reasons, so no preflight reader ever
+# sees a status it does not handle. Everything not listed below as a
+# missing-data reason stays FAIL (fail closed).
+#
+# Execution holds on an owned stock that only record missing data about it,
+# with what the user should supply.
+_STOCK_DATA_HOLDS: dict[str, str] = {
+    "STOCK_INTAKE_IDENTITY_ONLY": "record the strength, concentration basis and carrier",
+    "FRACTION_BASIS_UNSPECIFIED": "record the concentration basis (w/w, v/v or w/v)",
+    "CARRIER_UNSPECIFIED": "record the carrier",
+    "FRACTION_BASIS_AND_CARRIER_UNSPECIFIED": "record the concentration basis and carrier",
+    "FRACTION_BASIS_OR_CARRIER_UNSPECIFIED": "record the concentration basis and carrier",
+    "STOCK_FRACTION_UNSPECIFIED": "record the stock strength and carrier",
+    "RESTOCKED_BOTTLE_STRENGTH_AND_CARRIER_NOT_STATED": "record the restocked bottle's strength and carrier",
+    "APPROXIMATE_STOCK_FRACTION": "record the exact stock strength",
+    "BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING": "record the bottle lot and label receipt",
+    "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING": "record the bottle lot and preparation receipt",
+    "LOT_PURCHASE_SOURCE_AND_LABEL_RECEIPT_MISSING": "record the lot, purchase source and label receipt",
+    "PREPARATION_QUANTITIES_DATE_AND_LOTS_MISSING": "record the preparation quantities, date and lots",
+    "FINAL_DISSOLVED_FRACTION_UNMEASURED": "measure the final dissolved fraction",
+    "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN": "measure the final dissolved fraction",
+    "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED": (
+        "record the tincture percentage basis and extracted solids"
+    ),
+    "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED": "confirm the concentration basis and homogeneity",
+    "HOMOGENEITY_NOT_RECONFIRMED": "reconfirm homogeneity",
+}
+# Holds under which the stock has no recorded strength at all, so a formula
+# strength cannot yet be compared with it.  Every other data hold sits on a
+# stock with a recorded strength (an approximate "~10%", a supplier-label
+# neat intake, a tincture percentage of unstated basis) that preflight compares
+# with the formula like any exact stock.
+_STOCK_STRENGTH_UNKNOWN_HOLDS = frozenset(
+    {
+        "STOCK_FRACTION_UNSPECIFIED",
+        "RESTOCKED_BOTTLE_STRENGTH_AND_CARRIER_NOT_STATED",
+    }
+)
+# Tincture holds where only the starting charge is recorded: the dissolved
+# fraction can be at most that charge, so a formula strength above it is a
+# wrong strength, while one at or below it (or no recorded charge) waits on
+# the measurement.
+_STOCK_STRENGTH_CHARGE_BOUND_HOLDS = frozenset(
+    {
+        "FINAL_DISSOLVED_FRACTION_UNMEASURED",
+        "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN",
+    }
+)
+# The tolerance preflight uses when it compares a formula and stock fraction.
+_STOCK_FRACTION_TOLERANCE = 0.005
+
+
+def _split_holds(raw_holds: object) -> list[str]:
+    return [hold for raw in list(raw_holds or []) for hold in str(raw).split("|") if hold]
+
+
+def _held_strength_compatible(issue: Mapping[str, object], holds: list[str]) -> bool:
+    """True when no held stock is known to differ in strength from the formula.
+
+    Used only when no held stock matches the formula's fraction.  Missing
+    fields fail closed.
+    """
+    if not holds:
+        return False
+    if all(hold in _STOCK_STRENGTH_UNKNOWN_HOLDS for hold in holds):
+        return True
+    if any(
+        hold not in _STOCK_STRENGTH_UNKNOWN_HOLDS | _STOCK_STRENGTH_CHARGE_BOUND_HOLDS
+        for hold in holds
+    ):
+        return False
+    formula_dilution = issue.get("formula_dilution")
+    held_stocks = issue.get("held_stock_strengths")
+    if not isinstance(formula_dilution, (int, float)) or isinstance(formula_dilution, bool):
+        return False
+    if not isinstance(held_stocks, list) or not held_stocks:
+        return False
+    for stock in held_stocks:
+        if not isinstance(stock, Mapping) or "fraction" not in stock:
+            return False
+        stock_holds = _split_holds([stock.get("execution_hold", "")])
+        if not stock_holds:
+            return False
+        if all(hold in _STOCK_STRENGTH_UNKNOWN_HOLDS for hold in stock_holds):
+            continue
+        if any(hold not in _STOCK_STRENGTH_CHARGE_BOUND_HOLDS for hold in stock_holds):
+            return False
+        charge = stock["fraction"]
+        if charge is None:
+            continue
+        if not isinstance(charge, (int, float)) or isinstance(charge, bool):
+            return False
+        if float(formula_dilution) > float(charge) + _STOCK_FRACTION_TOLERANCE:
+            return False
+    return True
+
+
+def _stock_issue_data_request(issue: Mapping[str, object]) -> str | None:
+    """Return what to supply when a stock issue is only missing data, else None.
+
+    None means the formula cannot be built as written (not owned, wrong
+    strength, depleted, a gap, a preparation still to make, a user hold, or any
+    reason this mapping does not know): the issue stays FAIL.
+    """
+    reason = str(issue.get("reason", ""))
+    if reason not in {"inventory_stock_metadata_incomplete", "inventory_stock_non_executable"}:
+        return None
+    holds = _split_holds(issue.get("execution_holds", []))
+    if reason == "inventory_stock_non_executable" and not holds:
+        return None
+    if any(hold not in _STOCK_DATA_HOLDS for hold in holds):
+        return None
+    if issue.get("fraction_matches_formula") is not True and not _held_strength_compatible(
+        issue, holds
+    ):
+        return None
+    if not holds:
+        return "record the carrier and concentration basis"
+    return "; ".join(dict.fromkeys(_STOCK_DATA_HOLDS[hold] for hold in holds))
+
+
+def _describe_stock_issue(issue: Mapping[str, object]) -> str:
+    material = str(issue.get("material", "?"))
+    reason = str(issue.get("reason", "inventory_stock_contract_failed"))
+    if reason == "stock_fraction_mismatch":
+        live = ", ".join(
+            f"{float(value):.4g}" for value in list(issue.get("inventory_dilutions", []) or [])
+        )
+        return f"{material} ({reason}: formula {issue.get('formula_dilution')} vs stock {live})"
+    return f"{material} ({reason})"
+
+
+def _classify_inventory_stock_contract(check: Mapping[str, object]) -> tuple[str, str, dict]:
+    data = dict(check.get("data", {}) or {})
+    status = str(check.get("status", "FAIL"))
+    detail = str(check.get("detail", ""))
+    issues = [dict(issue) for issue in list(data.get("issues", []) or [])]
+    if status != "FAIL" or not issues:
+        return status, detail, data
+    fail_issues = []
+    needs_data = []
+    for issue in issues:
+        request = _stock_issue_data_request(issue)
+        if request is None:
+            fail_issues.append(issue)
+        else:
+            needs_data.append({**issue, "data_request": request})
+    data["fail_issues"] = fail_issues
+    data["needs_data"] = needs_data
+    parts = []
+    if fail_issues:
+        parts.append(
+            f"{len(fail_issues)} material(s) cannot be built as written: "
+            + ", ".join(_describe_stock_issue(issue) for issue in fail_issues)
+        )
+    if needs_data:
+        parts.append(
+            "needs data: "
+            + "; ".join(
+                f"{issue.get('material')} ({issue['data_request']} of the {issue.get('material')} stock)"
+                for issue in needs_data
+            )
+        )
+    return ("FAIL" if fail_issues else "HOLD"), ". ".join(parts), data
+
+
+def _classify_natural_composite_coverage(check: Mapping[str, object]) -> tuple[str, str, dict]:
+    data = dict(check.get("data", {}) or {})
+    status = str(check.get("status", "FAIL"))
+    detail = str(check.get("detail", ""))
+    materials = [str(name) for name in list(data.get("materials", []) or [])]
+    if status != "FAIL" or not materials:
+        return status, detail, data
+    data["needs_data"] = materials
+    detail = f"{detail}; needs data: supply a constituent decomposition for {', '.join(materials)}"
+    return "HOLD", detail, data
+
+
+_PREFLIGHT_CLASSIFIERS = {
+    "inventory_stock_contract": _classify_inventory_stock_contract,
+    "natural_composite_coverage": _classify_natural_composite_coverage,
+}
+
+
+def _classify_preflight_check(check: Mapping[str, object]) -> tuple[str, str, dict]:
+    """Map one preflight check to its gate status: HOLD only for missing data."""
+    classifier = _PREFLIGHT_CLASSIFIERS.get(str(check.get("check_name", "")))
+    if classifier is None:
+        return (
+            str(check.get("status", "FAIL")),
+            str(check.get("detail", "")),
+            dict(check.get("data", {}) or {}),
+        )
+    return classifier(check)
+
+
+# Reasons the inventory stock contract emits on its issues (preflight
+# ``_dilution_consistency_check``); the dose receipt copies them as blockers.
+_STOCK_CONTRACT_ISSUE_REASONS = frozenset(
+    {
+        "stock_fraction_not_declared",
+        "stock_fraction_invalid",
+        "stock_fraction_out_of_range",
+        "conflicting_stock_rows",
+        "stock_id_not_in_current_inventory",
+        "not_in_inventory",
+        "preparation_required",
+        "inventory_gap",
+        "inventory_stock_non_executable",
+        "inventory_stock_metadata_incomplete",
+        "inventory_stock_unavailable",
+        "stock_fraction_mismatch",
+        "stock_fraction_basis_mismatch",
+        "stock_carrier_mismatch",
+        "ambiguous_live_stock",
+    }
+)
+# Receipt blockers that follow from the stock contract resolving no stock for
+# a material: they count as stock-issue reasons only for such a material.
+_UNRESOLVED_STOCK_BINDING_BLOCKERS = frozenset(
+    {
+        "stock_declaration_not_bound",
+        "stock_id_not_bound",
+        "stock_authority_not_bound",
+        "inventory_authority_not_bound",
+        "inventory_source_lineage_not_bound",
+    }
+)
+
+
+def _dose_receipt_follows_stock_contract(
+    receipt_check: Mapping[str, object],
+    stock_check: Mapping[str, object] | None,
+) -> bool:
+    """True when the dose receipt abstains only because of stock-contract issues.
+
+    Every unbound line must belong to a material with a stock issue, and every
+    blocker on it must be that material's own stock-issue reason, or a binding
+    blocker that follows from the contract resolving no stock for it.  At
+    least one unbound line must exist; missing fields fail closed.
+    """
+    if stock_check is None or str(stock_check.get("status")) != "FAIL":
+        return False
+    receipt = dict(receipt_check.get("data", {}) or {})
+    if receipt.get("status") != "ABSTAINED" or "state_mismatches" in receipt:
+        return False
+    stock_data = dict(stock_check.get("data", {}) or {})
+    resolved_specs = stock_data.get("resolved_stock_specs")
+    if not isinstance(resolved_specs, Mapping):
+        return False
+    resolved_materials = {str(name).casefold() for name in resolved_specs}
+    issue_reasons: dict[str, set[str]] = {}
+    for issue in list(stock_data.get("issues", []) or []):
+        issue_reasons.setdefault(str(issue.get("material", "")).casefold(), set()).add(
+            str(issue.get("reason", ""))
+        )
+    unbound = [
+        dict(line)
+        for line in list(receipt.get("lines", []) or [])
+        if dict(line).get("status") != "BOUND"
+    ]
+    if not unbound:
+        return False
+    for line in unbound:
+        material = str(line.get("material_name", "")).casefold()
+        reasons = issue_reasons.get(material, set()) & _STOCK_CONTRACT_ISSUE_REASONS
+        blockers = [str(blocker) for blocker in list(line.get("blockers", []) or [])]
+        if not reasons or not blockers:
+            return False
+        for blocker in blockers:
+            if blocker in reasons:
+                continue
+            if blocker in _UNRESOLVED_STOCK_BINDING_BLOCKERS and material not in resolved_materials:
+                continue
+            return False
+    return True
 
 
 def _gate_pipeline_preflight(preflight: Mapping[str, object]) -> GateResult:
@@ -416,12 +726,35 @@ def _gate_pipeline_preflight(preflight: Mapping[str, object]) -> GateResult:
     detail = f"{len(checks)} checks"
     if warnings:
         detail += f"; {len(warnings)} warnings"
-    return _result(
-        "pipeline_preflight",
-        str(preflight.get("status", "WARN")),
-        detail,
-        dict(preflight),
-    )
+    status = str(preflight.get("status", "WARN"))
+    data = dict(preflight)
+    if status == "FAIL":
+        by_name = {str(dict(raw).get("check_name", "")): dict(raw) for raw in checks}
+        stock_check = by_name.get("inventory_stock_contract")
+        stock_status = (
+            _classify_preflight_check(stock_check)[0] if stock_check is not None else "FAIL"
+        )
+        failing: dict[str, list[str]] = {"FAIL": [], "HOLD": []}
+        for name, check in by_name.items():
+            if str(check.get("status")) != "FAIL":
+                continue
+            if name == "formula_dose_receipt" and _dose_receipt_follows_stock_contract(
+                check, stock_check
+            ):
+                check_status = stock_status
+            else:
+                check_status = _classify_preflight_check(check)[0]
+            failing["FAIL" if check_status != "HOLD" else "HOLD"].append(name)
+        if not failing["FAIL"] and not failing["HOLD"]:
+            failing["FAIL"].append("preflight_status")
+        status = "FAIL" if failing["FAIL"] else "HOLD"
+        data["failing_checks"] = failing["FAIL"]
+        data["needs_data_checks"] = failing["HOLD"]
+        if failing["FAIL"]:
+            detail += f"; failing: {', '.join(failing['FAIL'])}"
+        if failing["HOLD"]:
+            detail += f"; needs data: {', '.join(failing['HOLD'])}"
+    return _result("pipeline_preflight", status, detail, data)
 
 
 def _formula_vector_from_state(state: FormulaState) -> FormulaVector:
@@ -431,19 +764,96 @@ def _formula_vector_from_state(state: FormulaState) -> FormulaVector:
     )
 
 
-def _material_ifra_limit(material) -> float | None:
-    return IFRA_CAT4_LIMITS.get(material.name) or IFRA_CAT4_LIMITS.get(material.profile_name or "")
+_SUBTOTAL_SHIFT_FACTORS = (10, 100, 1000)
+
+
+def _exact_subtotal_findings(rows: Mapping[str, float], total_ul: float, expected_ul: float) -> dict:
+    """Point at the rows most likely behind a subtotal mismatch.
+
+    A misplaced decimal point (8200 typed for 820) or a mL/uL slip moves one row
+    by a factor of 10, 100 or 1000. A row is a suspect when undoing that one
+    factor explains the gap: the corrected total is closer to the expected
+    concentrate than the parsed one, and within 0.5% of the gap (at least
+    0.5 uL) of it. Each row is named once, at its best factor. Rows larger than
+    the whole expected concentrate are listed separately.
+    """
+    gap = total_ul - expected_ul
+    tolerance = max(0.5, 0.005 * abs(gap))
+    best: dict[str, tuple[float, dict]] = {}
+    for name, ul in rows.items():
+        if ul <= 0:
+            continue
+        for factor in _SUBTOTAL_SHIFT_FACTORS:
+            corrected = ul / factor if gap > 0 else ul * factor
+            new_total = total_ul - ul + corrected
+            residual = abs(new_total - expected_ul)
+            if residual > tolerance or residual >= abs(gap):
+                continue
+            if name in best and best[name][0] <= residual:
+                continue
+            best[name] = (
+                residual,
+                {
+                    "material": name,
+                    "ul": round(ul, 3),
+                    "corrected_ul": round(corrected, 3),
+                    "factor": f"/{factor}" if gap > 0 else f"x{factor}",
+                    "total_if_corrected_ul": round(new_total, 3),
+                },
+            )
+    suspects = [suspect for _, suspect in sorted(best.values(), key=lambda item: item[0])]
+    over_expected = [
+        {"material": name, "ul": round(ul, 3)}
+        for name, ul in sorted(rows.items(), key=lambda item: -item[1])
+        if expected_ul > 0 and ul > expected_ul
+    ]
+    largest = [
+        {
+            "material": name,
+            "ul": round(ul, 3),
+            "share_of_parsed": round(ul / total_ul, 4) if total_ul else 0.0,
+        }
+        for name, ul in sorted(rows.items(), key=lambda item: -item[1])[:3]
+    ]
+    return {
+        "parsed_ul": round(total_ul, 3),
+        "expected_ul": round(expected_ul, 3),
+        "difference_ul": round(gap, 3),
+        "decimal_shift_suspects": suspects,
+        "rows_over_expected": over_expected,
+        "largest_rows": largest,
+    }
 
 
 def _gate_exact_subtotal(formula: Mapping, config: ReleaseGateConfig) -> GateResult:
-    total_ul = sum(float(v or 0.0) for v in formula["ingredients_ul"].values())
-    if abs(total_ul - config.expected_concentrate_ul) <= 0.5:
+    rows = {str(name): float(value or 0.0) for name, value in formula["ingredients_ul"].items()}
+    total_ul = sum(rows.values())
+    expected_ul = config.expected_concentrate_ul
+    if abs(total_ul - expected_ul) <= 0.5:
         return _result("exact_subtotal", "PASS", f"{total_ul:.1f} uL")
-    return _result(
-        "exact_subtotal",
-        "FAIL",
-        f"{total_ul:.1f} uL parsed; expected {config.expected_concentrate_ul:.1f} uL",
+    findings = _exact_subtotal_findings(rows, total_ul, expected_ul)
+    gap = findings["difference_ul"]
+    detail = (
+        f"{total_ul:.1f} uL parsed; expected {expected_ul:.1f} uL "
+        f"({abs(gap):.1f} uL {'over' if gap > 0 else 'short'})"
     )
+    suspects = findings["decimal_shift_suspects"]
+    if suspects:
+        named = "; ".join(
+            f"{s['material']} {s['ul']:g} uL (at {s['corrected_ul']:g} uL the total would be "
+            f"{s['total_if_corrected_ul']:g} uL)"
+            for s in suspects[:3]
+        )
+        detail += f". Likely misplaced decimal or unit: {named}"
+    if findings["rows_over_expected"]:
+        named = ", ".join(f"{r['material']} {r['ul']:g} uL" for r in findings["rows_over_expected"][:3])
+        detail += f". Larger than the whole expected concentrate: {named}"
+    if not suspects and not findings["rows_over_expected"] and findings["largest_rows"]:
+        named = ", ".join(
+            f"{r['material']} {r['ul']:g} uL ({r['share_of_parsed']:.0%})" for r in findings["largest_rows"]
+        )
+        detail += f". Largest rows: {named}"
+    return _result("exact_subtotal", "FAIL", detail, findings)
 
 
 def _gate_duplicates(state: FormulaState) -> GateResult:
@@ -582,6 +992,35 @@ def _science_profile_for_material(material) -> tuple[object, str]:
     return get_science_profile(material.name), material.name
 
 
+# Plain-language explanation of each ``active_mass_authority`` code that
+# ``_authoritative_active_mass`` emits when it cannot give an exact mass.
+_MISSING_ACTIVE_MASS_REASONS = {
+    "unavailable:stock_fraction_not_declared": "its stock dilution is not declared",
+    "unavailable:stock_fraction_basis_unspecified": "its dilution basis is not declared",
+    "unavailable:stock_solution_density_for_w_w": "needs the density of its w/w stock solution",
+    "unavailable:material_density": "needs its material density",
+}
+
+
+def _missing_authoritative_active_mass(state: FormulaState) -> list[dict[str, str]]:
+    """List materials without an authoritative active mass, with the reason code."""
+    return sorted(
+        (
+            {"material": material.name, "reason": material.active_mass_authority}
+            for material in state.materials
+            if material.authoritative_active_g is None
+        ),
+        key=lambda row: row["material"],
+    )
+
+
+def _describe_missing_active_mass(missing: list[dict[str, str]]) -> str:
+    return "; ".join(
+        f"{row['material']} ({_MISSING_ACTIVE_MASS_REASONS.get(row['reason'], row['reason'])})"
+        for row in missing
+    )
+
+
 def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     functional_groups = {
         m.name: set(m.functional_groups) for m in state.materials if m.functional_groups
@@ -641,11 +1080,7 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
     active_mass_pct = state.active_mass_percentages()
     mass_dependent_assessment = bool((aldehydes and amines) or flagged_materials)
     if mass_dependent_assessment and active_mass_pct is None:
-        missing = sorted(
-            material.name
-            for material in state.materials
-            if material.authoritative_active_g is None
-        )
+        missing_rows = _missing_authoritative_active_mass(state)
         unknown_scope = []
         if aldehydes and amines:
             unknown_scope.append("Schiff-base risk")
@@ -653,14 +1088,18 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
             unknown_scope.append("oxidation/photolability burden")
         return _result(
             "chemistry_stability",
-            "FAIL",
-            f"{' and '.join(unknown_scope)} assessment UNKNOWN: authoritative active mass is unavailable",
+            "HOLD",
+            f"{' and '.join(unknown_scope)} assessment UNKNOWN: authoritative active mass "
+            f"is unavailable for {_describe_missing_active_mass(missing_rows)}",
             {
                 "assessment": "UNKNOWN",
                 "claim_ceiling": "AUTHORITATIVE_ACTIVE_MASS_REQUIRED",
                 "active_mass_basis": "authoritative_active_g",
                 "proxy_active_g_ignored": True,
-                "missing_authoritative_active_mass_materials": missing,
+                "missing": missing_rows,
+                "missing_authoritative_active_mass_materials": [
+                    row["material"] for row in missing_rows
+                ],
                 "aging_claim": aging_claim.as_mapping(),
                 "candidate_schiff_base_pairs": _schiff_pair_rows(aldehydes),
                 "candidate_oxidation_or_photolability_materials": sorted(flagged_materials),
@@ -753,22 +1192,22 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
 
 
 def _gate_phase_compatibility(state: FormulaState) -> GateResult:
-    missing = sorted(
-        material.name
-        for material in state.materials
-        if material.authoritative_active_g is None
-    )
-    if missing:
+    missing_rows = _missing_authoritative_active_mass(state)
+    if missing_rows:
         return _result(
             "phase_compatibility",
-            "FAIL",
-            "Phase compatibility assessment UNKNOWN: authoritative active mass is unavailable",
+            "HOLD",
+            "Phase compatibility assessment UNKNOWN: authoritative active mass is unavailable "
+            f"for {_describe_missing_active_mass(missing_rows)}",
             {
                 "assessment": "UNKNOWN",
                 "claim_ceiling": "AUTHORITATIVE_ACTIVE_MASS_REQUIRED",
                 "active_mass_basis": "authoritative_active_g",
                 "proxy_active_g_ignored": True,
-                "missing_authoritative_active_mass_materials": missing,
+                "missing": missing_rows,
+                "missing_authoritative_active_mass_materials": [
+                    row["material"] for row in missing_rows
+                ],
             },
         )
 
@@ -928,7 +1367,7 @@ def _gate_oav_scaling(formula: Mapping, config: ReleaseGateConfig) -> GateResult
         float(target) for target in config.batch_scaling_targets_ml if float(target) > 0
     )
     if not targets:
-        return _result("oav_scaling_guard", "PASS", "not requested")
+        return _skipped("oav_scaling_guard", "not requested")
 
     ingredients = {str(k): float(v or 0.0) for k, v in formula["ingredients_ul"].items()}
     dilutions = {str(k): float(v or 1.0) for k, v in formula.get("dilutions", {}).items()}
@@ -975,59 +1414,173 @@ def _gate_oav_scaling(formula: Mapping, config: ReleaseGateConfig) -> GateResult
     return _result("oav_scaling_guard", "PASS", "all requested targets scale cleanly", data)
 
 
+_TRAILING_PARENTHETICAL = re.compile(r"\s*\([^()]*\)\s*$")
+
+
+def _ifra_alt_names(material) -> list[str]:
+    """Other names to try for a row: canonical, profile, registry and the suffix-free name."""
+    names = [material.canonical_name, material.profile_name, material.registry_name]
+    stripped = _TRAILING_PARENTHETICAL.sub("", material.name).strip()
+    if stripped and stripped != material.name:
+        names.append(stripped)
+    return [n for n in dict.fromkeys(names) if n and n != material.name]
+
+
+def _finished_product_pct_w_w(
+    state: FormulaState, config: ReleaseGateConfig
+) -> tuple[dict[str, float], str, FinishedProductEstimate | None]:
+    """Each row's active material as % w/w of the finished product, and the basis used."""
+    if state.exact_finished_product_ppm_available:
+        pct: dict[str, float] = {}
+        for m in state.materials:
+            pct[m.name] = pct.get(m.name, 0.0) + float(m.active_finished_product_ppm_w_w) / 1e4
+        return pct, "exact_finished_product_w_w", None
+    estimate = estimate_finished_product_pct_w_w(
+        [
+            FinishedProductRow(
+                name=m.name,
+                stock_ul=m.raw_ul,
+                active_fraction=m.dilution,
+                active_g=m.authoritative_active_g,
+                active_density_g_ml=(
+                    None if str(m.density_source).startswith("fallback:") else m.density_g_ml
+                ),
+                carrier=m.stock_carrier or None,
+                fraction_basis=m.stock_fraction_basis,
+            )
+            for m in state.materials
+        ],
+        batch_volume_ml=config.batch_volume_ml,
+    )
+    return dict(estimate.pct_w_w), "finished_product_w_w_estimate", estimate
+
+
+def _ifra_row_dict(check: IFRACheck, headroom: float) -> dict:
+    limit = check.limit_pct
+    effective_limit = limit * headroom if limit is not None else None
+    return {
+        "material": check.material,
+        "matched_name": check.matched_name,
+        "ifra_name": check.ifra_name,
+        "ifra_status": check.status,
+        "standard": check.standard,
+        # Unrounded: the optimizer scales its cap by actual/limit, and a rounded value
+        # can hide a hair over the limit and stall the repair.
+        "actual_pct": check.pct,
+        "limit_pct": limit,
+        "effective_limit_pct": round(effective_limit, 6) if effective_limit is not None else None,
+        "headroom": headroom,
+        "usage_pct": round(check.ratio * 100.0, 1) if check.ratio is not None else None,
+        "effective_usage_pct": (
+            round(check.pct / effective_limit * 100.0, 1) if effective_limit else None
+        ),
+        "verdict": check.verdict,
+        "message": check.message,
+    }
+
+
+def _ifra_group_dict(group: IFRAGroupCheck, headroom: float) -> dict:
+    ratio_rule = group.rule == "sum_of_ratios_le_1"
+    limit = 1.0 if ratio_rule else group.limit_pct
+    effective_limit = limit * headroom if limit is not None else None
+    return {
+        "material": group.id,
+        "group": group.id,
+        "standard": group.standard,
+        "rule": group.rule,
+        "members": dict(group.member_pcts),
+        "actual_pct": group.total,
+        "limit_pct": limit,
+        "effective_limit_pct": round(effective_limit, 6) if effective_limit is not None else None,
+        "headroom": headroom,
+        "usage_pct": round(group.total / limit * 100.0, 1) if limit else None,
+        "effective_usage_pct": (
+            round(group.total / effective_limit * 100.0, 1) if effective_limit else None
+        ),
+        "verdict": group.verdict,
+        "message": group.message,
+    }
+
+
+def _ifra_entry_dict(entry: IFRACheck | IFRAGroupCheck, headroom: float) -> dict:
+    if isinstance(entry, IFRAGroupCheck):
+        return _ifra_group_dict(entry, headroom)
+    return _ifra_row_dict(entry, headroom)
+
+
 def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     ingredients = {m.name: m.raw_ul for m in state.materials}
     dilutions = {m.name: m.dilution for m in state.materials}
+    headroom = config.effective_ifra_headroom()
+    pct_w_w, basis, estimate = _finished_product_pct_w_w(state, config)
+    alt_names = {m.name: _ifra_alt_names(m) for m in state.materials}
+    # Allergen declarations, dermal exposure and sensitizer scoring only, on the same
+    # finished-product % w/w; IFRA verdicts come from the sourced Category 4 table below.
     report = score_ifra_compliance(
         ingredients,
         dilutions,
         total_volume_ml=config.batch_volume_ml,
+        finished_pct_w_w=pct_w_w,
+        alt_names=alt_names,
     )
-    missing_ifra = sorted(
-        m.name
-        for m in state.materials
-        if m.name not in IFRA_CAT4_LIMITS and (m.profile_name or "") not in IFRA_CAT4_LIMITS
+    table = load_ifra_table()
+    evaluation = evaluate_ifra(
+        pct_w_w,
+        table=table,
+        alt_names=alt_names,
+        headroom=headroom,
     )
-    headroom = config.effective_ifra_headroom()
-    headroom_violations = []
-    edge_dosing = []
-    for material in state.materials:
-        limit = _material_ifra_limit(material)
-        if limit is None:
-            continue
-        actual_pct = (material.active_ul / 1000.0) / config.batch_volume_ml * 100.0
-        effective_limit = limit * headroom
-        ratio = actual_pct / limit if limit > 0 else 0.0
-        effective_ratio = actual_pct / effective_limit if effective_limit > 0 else 0.0
-        row = {
-            "material": material.name,
-            "actual_pct": round(actual_pct, 6),
-            "limit_pct": limit,
-            "effective_limit_pct": round(effective_limit, 6),
-            "headroom": headroom,
-            "usage_pct": round(ratio * 100.0, 1),
-            "effective_usage_pct": round(effective_ratio * 100.0, 1),
-        }
-        if actual_pct > effective_limit + 1e-12:
-            headroom_violations.append(row)
-        elif ratio >= 0.7:
-            edge_dosing.append(row)
+    failures = [_ifra_entry_dict(e, headroom) for e in evaluation.failures]
+    warnings = [_ifra_entry_dict(e, headroom) for e in evaluation.warnings]
+    holds = [_ifra_row_dict(c, headroom) for c in evaluation.holds]
+    unchecked = sorted(c.material for c in evaluation.unchecked)
+    banned = [f["material"] for f in failures if f.get("ifra_status") == "prohibited"]
+    headroom_violations = [f for f in failures if f.get("ifra_status") != "prohibited"]
+    # Over the IFRA limit itself; headroom_violations also holds rows over limit x headroom.
+    violations = [
+        f
+        for f in headroom_violations
+        if f["limit_pct"] is not None and f["actual_pct"] > f["limit_pct"]
+    ]
+    edge_dosing = [w for w in warnings if w.get("ifra_status") == "restricted" or "group" in w]
+    natural_warnings = [w for w in warnings if w.get("ifra_status") == "natural_no_own_standard"]
+    overfilled = bool(estimate.overfilled) if estimate is not None else False
+    assumptions = list(estimate.assumptions) if estimate is not None else []
+    batch_default = config.batch_volume_source == "default"
     data = {
         "score": report.score,
-        "violations": report.ifra_violations,
+        "violations": violations,
         "headroom_violations": headroom_violations,
-        "warnings": report.ifra_warnings,
+        "warnings": warnings,
         "diagnostics": report.diagnostics,
         "edge_dosing": edge_dosing,
-        "banned": report.banned_flags,
+        "banned": banned,
         "allergen_declarations": report.allergen_declarations,
         "dermal_exposure": report.dermal_exposure,
         "uptake_weighted_sensitizers": report.uptake_weighted_sensitizers,
-        "missing_ifra_limit": missing_ifra,
+        "missing_ifra_limit": unchecked,
+        "unchecked": unchecked,
+        "holds": holds,
+        "specification_notes": [_ifra_row_dict(c, headroom) for c in evaluation.notes],
+        "rows": [_ifra_row_dict(c, headroom) for c in evaluation.checks],
+        "groups": [_ifra_group_dict(g, headroom) for g in evaluation.group_checks],
         "headroom": config.ifra_headroom,
         "effective_headroom": headroom,
         "commercial_mode": config.commercial_mode,
-        "concentration_basis": "modeled_active_volume_fraction",
+        "concentration_basis": basis,
+        "batch_volume_ml": config.batch_volume_ml,
+        "batch_volume_source": config.batch_volume_source,
+        "ifra_table": {
+            "amendment_in_force": table.amendment_in_force,
+            "category": table.category,
+            "basis": table.basis,
+            "verified_on": table.verified_on,
+        },
+        "assumptions": assumptions,
+        "overfilled": overfilled,
+        "finished_mass_g": (
+            round(estimate.finished_mass_g, 6) if estimate is not None else None
+        ),
         "quantitative_authority": state.quantitative_authority,
         "authorization": (
             "PROVISIONAL_NOT_RELEASE_AUTHORITY"
@@ -1035,41 +1588,53 @@ def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
             else "EXACT_FINISHED_PRODUCT_MASS_CHAIN"
         ),
     }
-    if report.banned_flags or report.ifra_violations or headroom_violations:
-        parts: list[str] = []
-        if report.banned_flags:
-            parts.append("banned: " + ", ".join(report.banned_flags))
-        if report.ifra_violations:
+    basis_note = f"basis {basis}"
+    if assumptions:
+        basis_note += f" ({len(assumptions)} density/carrier assumption(s))"
+    if failures:
+        return _result(
+            "safety_ifra_allergen",
+            "FAIL",
+            "IFRA Category 4 failures: "
+            + "; ".join(f["message"] for f in failures)
+            + f"; {basis_note}",
+            data,
+        )
+    if holds or overfilled:
+        parts = [f"IFRA hold: {h['message']}" for h in holds]
+        if overfilled:
             parts.append(
-                "IFRA violations: "
-                + ", ".join(
-                    f"{v['material']} {v['actual_pct']}% > {v['limit_pct']}%"
-                    for v in report.ifra_violations
-                )
+                f"stocks ({estimate.concentrate_ml:.3g} mL) exceed the "
+                f"{config.batch_volume_ml:g} mL bottle; finished-product % w/w is not defined"
             )
-        if headroom_violations:
-            parts.append(
-                f"IFRA headroom {headroom:.0%} violations: "
-                + ", ".join(
-                    f"{v['material']} {v['actual_pct']}% > {v['effective_limit_pct']}%"
-                    for v in headroom_violations
-                )
-            )
-        if report.diagnostics:
-            parts.append("; ".join(report.diagnostics))
-        return _result("safety_ifra_allergen", "FAIL", "; ".join(parts), data)
-    if missing_ifra or report.ifra_warnings or report.allergen_declarations or edge_dosing:
-        detail = []
-        if missing_ifra:
-            detail.append(f"{len(missing_ifra)} materials lack explicit IFRA Cat4 limits")
-        if report.ifra_warnings or edge_dosing:
-            detail.append(
-                f"{len(report.ifra_warnings or edge_dosing)} materials near IFRA/headroom edge"
-            )
-        if report.allergen_declarations:
-            detail.append(f"{len(report.allergen_declarations)} EU allergen declarations")
-        return _result("safety_ifra_allergen", "WARN", "; ".join(detail), data)
-    return _result("safety_ifra_allergen", "PASS", f"score {report.score:.1f}", data)
+        return _result("safety_ifra_allergen", "HOLD", "; ".join(parts) + f"; {basis_note}", data)
+    detail: list[str] = []
+    if edge_dosing:
+        detail.append(
+            f"{len(edge_dosing)} near the IFRA limit: "
+            + ", ".join(f"{w['material']} {w['usage_pct']}%" for w in edge_dosing)
+        )
+    if natural_warnings:
+        detail.append(
+            f"{len(natural_warnings)} natural(s) without their own IFRA standard "
+            "(constituents not summed)"
+        )
+    if unchecked:
+        detail.append(f"{len(unchecked)} material(s) not in the IFRA Category 4 table")
+    if batch_default:
+        detail.append(
+            f"bottle size not found; default {config.batch_volume_ml:g} mL assumed"
+        )
+    if report.allergen_declarations:
+        detail.append(f"{len(report.allergen_declarations)} EU allergen declarations")
+    if detail:
+        return _result("safety_ifra_allergen", "WARN", "; ".join(detail) + f"; {basis_note}", data)
+    return _result(
+        "safety_ifra_allergen",
+        "PASS",
+        f"IFRA Category 4 within limits; score {report.score:.1f}; {basis_note}",
+        data,
+    )
 
 
 def _gate_perfumer_logic(formula: Mapping, config: ReleaseGateConfig) -> GateResult:
@@ -1092,7 +1657,7 @@ def _gate_perfumer_logic(formula: Mapping, config: ReleaseGateConfig) -> GateRes
 def _gate_family_drift_detector(formula: Mapping, config: ReleaseGateConfig) -> GateResult:
     archetype = infer_archetype(config.brief, config.family_archetype)
     if not archetype:
-        return _result("family_drift_detector", "PASS", "not requested")
+        return _skipped("family_drift_detector", "not requested")
     spec = get_archetype(archetype)
     if spec is None:
         return _result("family_drift_detector", "WARN", f"unknown family archetype: {archetype}")
@@ -1122,7 +1687,7 @@ def _gate_family_drift_detector(formula: Mapping, config: ReleaseGateConfig) -> 
 
 def _gate_novelty_vs_reference(formula: Mapping, config: ReleaseGateConfig) -> GateResult:
     if not config.family_archetype:
-        return _result("novelty_vs_reference", "PASS", "not requested")
+        return _skipped("novelty_vs_reference", "not requested")
     assessment = novelty_assessment(formula, config.family_archetype)
     return _result(
         "novelty_vs_reference",
@@ -1130,6 +1695,420 @@ def _gate_novelty_vs_reference(formula: Mapping, config: ReleaseGateConfig) -> G
         assessment["detail"],
         {"family_archetype": config.family_archetype, **assessment},
     )
+
+
+# RULE 3 (AGENTS.md): "Does this still smell like its name?"  A material below
+# this share of the concentrate's fragrance-active uL is trace and carries no
+# name word.  The repo's other trace constants (MIN_NEAT_TRACE_UL,
+# oav_guard.TRACE_NEAT_EQUIV_UL) are pipetting floors, not composition shares.
+NAMESAKE_TRACE_SHARE_PCT = 0.1
+# Spelling variants and standard equivalents.  Each group is one odour: a name
+# term is carried by a material whose own-odour text has any member.
+_NAMESAKE_SYNONYMS: tuple[frozenset[str], ...] = tuple(frozenset(group) for group in (
+    {"jasmine", "jasmin"},
+    {"iris", "orris"},
+    {"cedar", "cedarwood"},
+    {"sandal", "sandalwood", "santal"},
+    {"oud", "agarwood", "aoud"},
+    {"cassis", "blackcurrant", "black currant"},
+    {"incense", "olibanum", "frankincense"},
+    {"lychee", "litchi"},
+    {"muguet", "lily of the valley"},
+    {"orange blossom", "orange flower", "neroli"},
+    {"tonka", "tonka bean"},
+    {"ylang", "ylang ylang"},
+    {"oakmoss", "oak moss"},
+    {"vanilla", "vanille"},
+    {"lime", "citron vert"},
+    {"floral", "flower", "blossom"},
+    {"aromatic", "herbal", "herbaceous"},
+    # French name words and their English odours (matched accent-folded).
+    {"tabac", "tobacco"}, {"cuir", "leather"}, {"ambre", "amber"},
+    {"encens", "incense"}, {"miel", "honey"}, {"fume", "fumee", "smoke", "smoky"},
+    {"epice", "spice", "spicy"}, {"bois", "boise", "wood", "woody"},
+    {"poudre", "powder", "powdery"}, {"peche", "peach"}, {"agrume", "citrus"},
+    {"fleur", "floral"}, {"coco", "coconut"}, {"vert", "green"},
+    {"violette", "violet"}, {"lavande", "lavender"}, {"cedre", "cedar"},
+    {"figue", "fig"}, {"poire", "pear"}, {"framboise", "raspberry"},
+    {"cerise", "cherry"}, {"amande", "almond"}, {"cannelle", "cinnamon"},
+    {"poivre", "pepper"}, {"cafe", "coffee"}, {"musc", "musk"},
+    {"mousse", "moss"},
+))
+# Multi-word odours, matched before single words, and the other terms each one
+# also carries.  "violet leaf" is not "violet" and "orange blossom" is not
+# "orange" (AGENTS.md: violet petals, violet powder and violet leaf stay distinct).
+_NAMESAKE_PHRASES: dict[tuple[str, ...], tuple[str, ...]] = {
+    ("lily", "of", "the", "valley"): (),
+    ("orange", "blossom"): (), ("orange", "flower"): (),
+    ("violet", "leaf"): ("leaf",), ("fig", "leaf"): ("fig", "leaf"),
+    ("tomato", "leaf"): ("leaf",), ("tonka", "bean"): ("tonka",),
+    ("black", "pepper"): ("pepper",), ("pink", "pepper"): ("pepper",),
+    ("black", "currant"): (), ("ylang", "ylang"): (), ("orris", "root"): ("orris",),
+    ("oak", "moss"): ("moss",), ("tree", "moss"): ("treemoss", "moss"),
+    ("sandal", "wood"): ("sandalwood",), ("cedar", "wood"): ("cedarwood",),
+    ("agar", "wood"): ("agarwood",), ("citron", "vert"): (),
+    # "Rose de Mai" is rose; "de mai" is the harvest, routed to the origin words.
+    ("de", "mai"): (),
+}
+_NAMESAKE_NEGATORS = frozenset({"no", "not", "without", "sans", "minus", "zero", "non"})
+# Trade names known for one odour, which their own descriptor text may not spell
+# out.  Curated, never a prefix rule: Citronellol is not citron, Plumeria not plum.
+_NAMESAKE_TRADE_NAMES: dict[str, tuple[str, ...]] = {
+    "vanillin": ("vanilla",), "tonkarome": ("tonka",), "suederal": ("suede",),
+    "sandalore": ("sandalwood",), "bacdanol": ("sandalwood",), "ambermax": ("amber",),
+    "lemonile": ("lemon",),
+}
+# Origin and harvest words.  AGENTS.md: botanical origin cannot supply odour
+# roles, so this gate does not judge them (Haitian versus Indian vetiver is
+# reported as not checked, never as carried).
+_NAMESAKE_ORIGINS = frozenset({
+    "de mai", "sicilian", "calabrian", "italian", "himalayan", "haitian", "indian",
+    "bulgarian", "turkish", "egyptian", "moroccan", "tunisian", "madagascar", "bourbon",
+    "tahitian", "java", "virginia", "atla", "atlas", "texa", "texas", "mysore", "grasse",
+    "provence", "french", "english",
+})
+# Grade and stock words: not odour words, not checked.
+_NAMESAKE_GRADES = frozenset({
+    "absolute", "oil", "eo", "co2", "resinoid", "concrete", "tincture", "extract",
+    "pure", "light", "heart", "fcf", "natural",
+})
+# Mixture words: a row so named with no descriptor text has unknown make-up.
+_NAMESAKE_MIXTURE_WORDS = frozenset({"premix", "mixture", "blend", "compound"})
+# Role and usage prose in descriptor text: what a material is used for, not what
+# it smells of.  "oud/vetiver bridge" and "for rum accords" carry no odour.
+_NAMESAKE_ROLE_RE = re.compile(
+    r"[^\W\d_][\w'-]*(?:\s*/\s*[^\W\d_][\w'-]*)*\s+"
+    r"(?:bridge|booster|enhancer|modifier|extender|fixative)s?\b",
+    re.I,
+)
+_NAMESAKE_USAGE_RE = re.compile(
+    r"\b(?:for|used\s+in|use\s+in|used\s+with|use\s+with|pairs?\s+(?:well\s+)?with|"
+    r"pairing\s+with|blends?\s+(?:well\s+)?with|partners?|synerg\w*)\b[^.;:!?()\[\]\n|—]*",
+    re.I,
+)
+# Modifiers and prose words that appear in odour descriptions but name no odour
+# of their own, plus formula-format words.  "Citrus Fresh" checks only citrus.
+_NAMESAKE_NOT_ODOURS = frozenset({
+    "fresh", "freshness", "clean", "soft", "dark", "deep", "light", "bright", "noir",
+    "blanc", "blanche", "white", "black", "warm", "warmth", "dry", "sweet", "sweetness",
+    "crisp", "airy", "moderne", "modern", "intense", "heavy", "rich", "pure", "natural",
+    "classic", "elegant", "absolute", "accord", "base", "oil", "essential", "extract",
+    "note", "type", "blue", "red", "pink", "gold", "golden", "transparent",
+    "transparency", "radiance", "radiant", "sheer", "bitter", "tart", "ripe", "fixative",
+    "salicylate", "sourness", "cool", "cold", "hot", "wet", "dense", "strong", "fine",
+    "smooth", "riche", "true", "full", "whole", "complete", "volume", "skin", "heart",
+    "top", "masculine", "feminine", "style", "structural", "reconstruction", "material",
+    "commercial", "analysis", "from", "for", "the", "and", "with", "iii",
+    "air", "crystal", "transparence", "corrected", "benzyl",
+    # Genre names: an accord structure, not one odour a single material carries.
+    "cologne", "chypre", "fougere",
+})
+_NAMESAKE_NATURAL_SUFFIX_RE = re.compile(
+    r"\b(?:eo|oil|absolute|abs|resinoid|concrete|butter|tincture|co2)\b", re.I
+)
+
+
+def _namesake_tokens(text: str) -> list[str]:
+    """Lowercase, accent-folded words with simple plurals made singular."""
+    import unicodedata
+
+    # Thé is tea; accent-folded it would read as the English article.
+    text = re.sub(r"\bthé\b", "tea", str(text or ""), flags=re.I)
+    folded = "".join(
+        ch for ch in unicodedata.normalize("NFKD", text.casefold())
+        if not unicodedata.combining(ch)
+    )
+    tokens = []
+    for word in re.findall(r"[a-z]+", folded):
+        if word == "leaves":
+            word = "leaf"
+        elif word.endswith("ies") and len(word) > 4:
+            word = word[:-3] + "y"
+        elif word.endswith(("ches", "shes", "sses", "xes")):
+            word = word[:-2]
+        elif word.endswith("s") and len(word) > 3 and not word.endswith(
+            ("ns", "rs", "us", "ss", "is", "os")
+        ):
+            # -ns/-rs words are often French or proper (encens, velours, Lutens);
+            # _namesake_forms and the name-term lookup still relate lemons -> lemon.
+            word = word[:-1]
+        tokens.append(word)
+    return tokens
+
+
+def _namesake_terms(text: str) -> list[str]:
+    """Odour terms in reading order: known phrases first, then single words."""
+    tokens = _namesake_tokens(text)
+    terms: list[str] = []
+    i = 0
+    while i < len(tokens):
+        for size in (4, 3, 2):
+            phrase = tuple(tokens[i:i + size])
+            if len(phrase) == size and phrase in _NAMESAKE_PHRASES:
+                terms.append(" ".join(phrase))
+                terms.extend(_NAMESAKE_PHRASES[phrase])
+                i += size
+                break
+        else:
+            terms.append(tokens[i])
+            i += 1
+    return terms
+
+
+def _namesake_forms(term: str) -> frozenset[str]:
+    """A term, its simple derivations (smoky -> smoke, freshness -> fresh) and synonyms."""
+    forms = {term}
+    if " " not in term and term.endswith(("ns", "rs", "os")) and len(term) > 4:
+        forms.add(term[:-1])
+    if " " not in term:
+        for suffix in ("ness", "ous", "oid", "ic", "y"):
+            stem = term[: -len(suffix)]
+            if term.endswith(suffix) and len(stem) >= 3:
+                forms |= {stem, stem + "e"}
+                if stem[-1] == stem[-2]:
+                    forms.add(stem[:-1])
+    for group in _NAMESAKE_SYNONYMS:
+        if forms & group:
+            forms |= group
+    return frozenset(forms)
+
+
+def _namesake_identity_names(material) -> tuple[str, ...]:
+    """The row's canonical material names, with dilution and carrier labels removed."""
+    names = []
+    for value in (material.name, material.canonical_name, material.profile_name,
+                  material.registry_name):
+        bare = re.sub(r"\([^)]*\)", " ", str(value or ""))
+        bare = re.sub(r"\s*\d+(?:\.\d+)?\s*%.*$", "", bare).strip()
+        if bare and bare.casefold() not in {n.casefold() for n in names}:
+            names.append(bare)
+    return tuple(names)
+
+
+def _namesake_strip_usage(text: str) -> str:
+    """Descriptor text without role and usage clauses ("oud/vetiver bridge", "for rum")."""
+    return _NAMESAKE_USAGE_RE.sub(" ", _NAMESAKE_ROLE_RE.sub(" ", text))
+
+
+@functools.lru_cache(maxsize=4096)
+def _namesake_own_text(identity_names: tuple[str, ...]) -> tuple[str, str]:
+    """(identity text, own-odour descriptor text) for one material.
+
+    Descriptors come only from what describes the material's own smell: the
+    profile's positive character dimensions, or_family and positive odour
+    description, the ODT-table descriptor and the data/materials character
+    blurb.  Synergy partners, applications, origin and negated clauses are not used.
+    """
+    from engine.data_spine.loader import load_registry
+    from engine.formulation_intelligence.architecture_rules_v5 import positive_description
+    from engine.ingredient_intelligence import get_profile
+    from engine.odor_thresholds import ODT_DATA
+
+    def own(text: str) -> str:
+        return _namesake_strip_usage(positive_description(text))
+
+    registry = load_registry()
+    names = list(identity_names)
+    texts: list[str] = []
+    for name in identity_names:
+        profile = get_profile(name)
+        if profile is None:
+            continue
+        names.append(profile.name)
+        texts.extend(key for key, value in profile.character.items() if float(value or 0) > 0)
+        texts.append(profile.or_family or "")
+        texts.append(own(profile.odor_description or ""))
+        break
+    for name in dict.fromkeys(n.casefold() for n in names):
+        entry = ODT_DATA.get(name)
+        if isinstance(entry, dict) and entry.get("char"):
+            texts.append(own(str(entry["char"])))
+        spine = registry.get(name)
+        if spine is not None and spine.character:
+            texts.append(own(str(spine.character)))
+    identity = " ; ".join(re.sub(r"\([^)]*\)", " ", n) for n in dict.fromkeys(names))
+    return identity, " ; ".join(t for t in texts if t and t.strip())
+
+
+@functools.lru_cache(maxsize=1)
+def _namesake_vocabulary() -> frozenset[str]:
+    """Every odour form the repo's material data knows.
+
+    Own-odour descriptors of every profile, ODT-table entry and data/materials
+    record; the odour nouns of natural-material names (Vetiver EO -> vetiver);
+    and the synonym and phrase tables.  Name words outside this set (CHIMIE,
+    L'Homme, Intense, v1, 30mL) are not checked.
+    """
+    from engine.data_spine.loader import load_registry
+    from engine.formulation_intelligence.architecture_rules_v5 import positive_description
+    from engine.ingredient_intelligence import _PROFILES
+    from engine.odor_thresholds import ODT_DATA
+
+    texts: list[str] = []
+    names: list[str] = list(_PROFILES) + list(ODT_DATA)
+    for data in _PROFILES.values():
+        character = data.get("character")
+        if isinstance(character, dict):
+            texts.extend(key for key, value in character.items() if float(value or 0) > 0)
+        texts.append(str(data.get("or_family") or data.get("odor_family") or ""))
+        texts.append(positive_description(str(data.get("odor_description") or "")))
+    for entry in ODT_DATA.values():
+        if isinstance(entry, dict) and entry.get("char"):
+            texts.append(positive_description(str(entry["char"])))
+    for spine in load_registry().all():
+        names.append(spine.canonical_name)
+        if spine.character:
+            texts.append(positive_description(str(spine.character)))
+    texts.extend(name for name in names if _NAMESAKE_NATURAL_SUFFIX_RE.search(name))
+    texts.extend(" ".join(phrase) for phrase in _NAMESAKE_PHRASES)
+    texts.extend(term for group in _NAMESAKE_SYNONYMS for term in group)
+    vocabulary: set[str] = set()
+    for text in texts:
+        for term in _namesake_terms(re.sub(r"\([^)]*\)", " ", text)):
+            if len(term) >= 3:
+                vocabulary |= _namesake_forms(term)
+    return frozenset(vocabulary)
+
+
+def _namesake_name_terms(name: str) -> tuple[list[str], list[str], dict[str, str]]:
+    """(required odour terms, negated odour terms, not-checked words) of a formula name.
+
+    Words after no/not/without/sans/minus up to the next separator, or before
+    "-free", are not required; "No. 5" and "No 5" negate nothing.  Not-checked
+    words map to a reason: "origin" (Haitian, de Mai) or "unknown" (a word the
+    repo's material data does not know as an odour).
+    """
+    vocabulary = _namesake_vocabulary()
+    required: list[str] = []
+    negated: list[str] = []
+    not_checked: dict[str, str] = {}
+    text = re.sub(r"\bno\s*\.\s*|\bno\s+(?=\d)", " ", name, flags=re.I)
+    text = re.sub(r"([A-Za-z]+)[\s-]+free\b", r"| no \1 |", text, flags=re.I)
+    for segment in re.split(r"[—–,;:·|/()\[\]+&]|\s-\s", text):
+        negating = False
+        for term in _namesake_terms(segment):
+            if term in _NAMESAKE_NEGATORS:
+                negating = True
+                continue
+            if term in _NAMESAKE_ORIGINS:
+                not_checked.setdefault(term, "origin")
+                continue
+            if term in _NAMESAKE_NOT_ODOURS or term in _NAMESAKE_GRADES or len(term) < 3:
+                continue
+            if term not in vocabulary and term.endswith("s") and term[:-1] in vocabulary:
+                term = term[:-1]
+            if term not in vocabulary:
+                not_checked.setdefault(term, "unknown")
+                continue
+            target = negated if negating else required
+            if term not in target:
+                target.append(term)
+    required = [term for term in required if term not in negated]
+    return required, negated, not_checked
+
+
+def _namesake_carries(term: str, own_forms: set[str]) -> bool:
+    return bool(_namesake_forms(term) & own_forms)
+
+
+def _gate_namesake(formula: Mapping, state: FormulaState) -> GateResult:
+    """WARN when a formula's name promises an odour no material above trace carries."""
+    name = str(formula.get("name", "") or "").strip()
+    if not name:
+        return GateResult(gate="namesake", status="SKIP", detail="no formula name")
+    words, negated, not_checked = _namesake_name_terms(name)
+    if not words:
+        return GateResult(
+            gate="namesake",
+            status="SKIP",
+            detail=f"no odour words in the name '{name}'",
+            data={"name": name, "words": [], "not_required": negated,
+                  "not_checked": not_checked},
+        )
+
+    total = float(state.odorant_active_ul or state.total_active_ul or 0.0)
+    rows = []
+    for material in state.materials:
+        share = 100.0 * float(material.active_ul) / total if total > 0 else 0.0
+        identity, own = _namesake_own_text(_namesake_identity_names(material))
+        identity_terms = set(_namesake_terms(identity))
+        own_forms: set[str] = set()
+        for term in identity_terms | set(_namesake_terms(own)):
+            own_forms |= _namesake_forms(term)
+        for token in identity_terms & set(_NAMESAKE_TRADE_NAMES):
+            for word in _NAMESAKE_TRADE_NAMES[token]:
+                own_forms |= _namesake_forms(word)
+        # Only a mixture of unknown make-up (base, accord, premix) can hide an
+        # odour; a single molecule or oil with no descriptor just carries nothing.
+        mixture = bool(material.is_opaque_preblend) or bool(
+            identity_terms & _NAMESAKE_MIXTURE_WORDS
+        )
+        no_data = "" if own.strip() else ("opaque" if mixture else "no_odour_data")
+        rows.append((material.name, share, identity_terms, own_forms, no_data))
+
+    carried_by: dict[str, list[str]] = {}
+    closest: dict[str, list[str]] = {}
+    for word in words:
+        carriers, near = [], []
+        for mat_name, share, identity_terms, own_forms, _no_data in rows:
+            if _namesake_carries(word, own_forms):
+                if share >= NAMESAKE_TRACE_SHARE_PCT:
+                    carriers.append(mat_name)
+                else:
+                    near.append((share, f"{mat_name} {share:.2f}% (trace)"))
+            elif len(word) >= 5 and any(t[:5] == word[:5] for t in identity_terms):
+                near.append((share, f"{mat_name} {share:.2f}%"))
+        carried_by[word] = carriers
+        closest[word] = [label for _, label in sorted(near, key=lambda item: -item[0])[:3]]
+
+    above_trace = [row for row in rows if row[1] >= NAMESAKE_TRACE_SHARE_PCT]
+    opaque = [row[0] for row in above_trace if row[4] == "opaque"]
+    no_odour_data = [row[0] for row in above_trace if row[4] == "no_odour_data"]
+    unmet = [word for word in words if not carried_by[word]]
+    unverified = unmet if opaque else []
+    missing = [word for word in unmet if word not in unverified]
+    data = {
+        "name": name,
+        "words": words,
+        "carried_by": carried_by,
+        "missing": missing,
+        "unverified": {word: opaque for word in unverified},
+        "no_odour_data": no_odour_data,
+        "not_required": negated,
+        "not_checked": not_checked,
+        "closest": {word: closest[word] for word in unmet},
+        "trace_share_pct": NAMESAKE_TRACE_SHARE_PCT,
+        "share_basis": "percent of fragrance-active uL (odorant_active_ul)",
+    }
+    trace_note = f"trace = below {NAMESAKE_TRACE_SHARE_PCT}% of fragrance-active uL"
+    if not unmet:
+        if not not_checked:
+            detail = f"Every odour word in the name is carried: {', '.join(words)}"
+        else:
+            unchecked = ", ".join(f"{word} ({why})" for word, why in not_checked.items())
+            detail = (f"Checked odour words are carried: {', '.join(words)}; "
+                      f"not checked: {unchecked}")
+        return _result("namesake", "PASS", f"{detail} ({trace_note})", data)
+    clauses = []
+    for word in missing:
+        clause = f"Name says {word}, but no material above trace smells of {word}"
+        if closest[word]:
+            clause += f" (closest: {', '.join(closest[word])})"
+        clauses.append(clause)
+    if unverified:
+        names = ", ".join(opaque[:2]) + (" and others" if len(opaque) > 2 else "")
+        verb = "has" if len(opaque) == 1 else "have"
+        clauses.append(
+            f"{names} {verb} no odour data, so {', '.join(unverified)} couldn't be checked"
+        )
+    if missing and no_odour_data:
+        clauses.append(
+            f"no odour data for {', '.join(no_odour_data)}, so they carry no name word"
+        )
+    detail = "; ".join(clauses) + f" [{trace_note}]"
+    if not missing:
+        return GateResult(gate="namesake", status="SKIP", detail=detail, data=data)
+    return _result("namesake", "WARN", detail, data)
 
 
 def _gate_perfume_knowledge(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
@@ -1655,7 +2634,7 @@ def _gate_oav_intelligence(
     config: ReleaseGateConfig,
 ) -> GateResult:
     if not str(config.family_archetype or "").strip():
-        return _result("oav_intelligence", "PASS", "not requested")
+        return _skipped("oav_intelligence", "not requested")
     intelligence = analyze_oav_intelligence(state, simulation, config.family_archetype)
     status = intelligence.intelligence_status
     spec = get_archetype(config.family_archetype)
@@ -2988,12 +3967,8 @@ def _gate_preflight_contract(
         check = dict(raw)
         if check.get("check_name") != check_name:
             continue
-        return _result(
-            check_name,
-            str(check.get("status", "FAIL")),
-            str(check.get("detail", "")),
-            dict(check.get("data", {}) or {}),
-        )
+        status, detail, data = _classify_preflight_check(check)
+        return _result(check_name, status, detail, data)
     return _result(
         check_name,
         "FAIL",
@@ -3955,6 +4930,139 @@ def _gate_carles_material_count(state: FormulaState, config: ReleaseGateConfig) 
     return _result("carles_material_count", "PASS", f"{n} materials — within Carles 15-40 range")
 
 
+_HEDIONE_NAMES = frozenset({"hedione", "hedione hc"})
+# AGENTS.md F2: "Max 12% for chypre. Max 15% for floral."
+_HEDIONE_CAP_CHYPRE_PCT = 12.0
+_HEDIONE_CAP_DEFAULT_PCT = 15.0
+
+
+def _gate_hedione_share(
+    formula: Mapping, state: FormulaState, config: ReleaseGateConfig
+) -> GateResult:
+    """Warn when Hedione dominates the concentrate (AGENTS.md F2). Advisory only."""
+    import unicodedata
+
+    from engine.name_utils import normalize_name
+
+    def _fold(text: str) -> str:
+        return "".join(
+            c for c in unicodedata.normalize("NFKD", text) if not unicodedata.combining(c)
+        ).casefold()
+
+    hedione_ul = sum(
+        m.active_ul
+        for m in state.materials
+        if normalize_name(m.canonical_name or m.name) in _HEDIONE_NAMES
+    )
+    if hedione_ul <= 0.0:
+        return _skipped("hedione_share", "no Hedione in formula")
+    total_ul = state.odorant_active_ul if state.odorant_active_ul > 0.0 else state.total_active_ul
+    share = 100.0 * hedione_ul / total_ul if total_ul > 0.0 else 0.0
+    archetype = str(infer_archetype(config.brief, config.family_archetype) or "")
+    name = str(formula.get("name", "") or "")
+    if "chypre" in _fold(archetype):
+        cap, why = _HEDIONE_CAP_CHYPRE_PCT, f"chypre family ({archetype})"
+    elif "chypre" in _fold(name):
+        cap, why = _HEDIONE_CAP_CHYPRE_PCT, "chypre named in the formula name"
+    else:
+        cap, why = _HEDIONE_CAP_DEFAULT_PCT, "not a chypre, so the floral/default cap applies"
+    basis = "% of fragrance-active uL"
+    data = {
+        "hedione_active_ul": round(hedione_ul, 4),
+        "total_active_ul": round(total_ul, 4),
+        "share_pct": round(share, 2),
+        "cap_pct": cap,
+        "cap_reason": why,
+        "basis": basis,
+        "source": "AGENTS.md F2 (Hedione crowding)",
+    }
+    if share > cap:
+        return _result(
+            "hedione_share",
+            "WARN",
+            f"Hedione is {share:.1f}{basis}, above the {cap:.0f}% cap ({why}). "
+            "Above about 15% Hedione becomes the perfume and buries the named character; "
+            "check the dose before mixing.",
+            data,
+        )
+    return _result(
+        "hedione_share",
+        "PASS",
+        f"Hedione is {share:.1f}{basis}, within the {cap:.0f}% cap ({why}).",
+        data,
+    )
+
+
+# AGENTS.md: omitted by default; exception-only under the design-call contract.
+_EXCEPTION_ONLY_MUSKS = frozenset({"tonalide", "macrolide", "musk ketone"})
+# One lead plus one support musk.
+_MUSK_COUNT_LIMIT = 2
+# A musk under this share of fragrance-active uL (hedione_share's basis) is trace, not counted.
+_MUSK_TRACE_PCT = 0.1
+
+
+def _gate_musk_count(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """Warn on more than a lead plus a support musk, or an exception-only musk. Advisory only.
+
+    Musks are the materials whose ingredient profile odor family is "musk"
+    (ingredient_intelligence _PROFILES or_family, carried as MaterialState.family).
+    Formula rows carry no stated-role field, so every musk counts toward the limit.
+    """
+    from engine.name_utils import normalize_name
+
+    total_ul = state.odorant_active_ul if state.odorant_active_ul > 0.0 else state.total_active_ul
+    musk_ul: dict[str, float] = {}
+    musk_label: dict[str, str] = {}
+    for m in state.materials:
+        if m.active_ul > 0.0 and str(m.family or "").lower() == "musk":
+            key = normalize_name(m.canonical_name or m.name)
+            musk_ul[key] = musk_ul.get(key, 0.0) + m.active_ul
+            musk_label.setdefault(key, m.name)
+    trace_floor_ul = total_ul * _MUSK_TRACE_PCT / 100.0
+    musks = [musk_label[k] for k, ul in musk_ul.items() if ul >= trace_floor_ul]
+    trace_musks = [musk_label[k] for k, ul in musk_ul.items() if ul < trace_floor_ul]
+    trace_note = (
+        f"{', '.join(trace_musks)} left out as trace (<{_MUSK_TRACE_PCT}% of fragrance-active uL)"
+        if trace_musks
+        else ""
+    )
+    exception_only = [
+        m.name
+        for m in state.materials
+        if m.active_ul > 0.0
+        and normalize_name(m.canonical_name or m.name) in _EXCEPTION_ONLY_MUSKS
+    ]
+    if not musk_ul and not exception_only:
+        return _skipped("musk_count", "no musks in formula")
+    data = {
+        "musks": musks,
+        "exception_only_musks": exception_only,
+        "trace_musks_not_counted": trace_musks,
+        "trace_pct": _MUSK_TRACE_PCT,
+        "limit": _MUSK_COUNT_LIMIT,
+        "classification_source": "ingredient_intelligence profile odor family == 'musk'",
+    }
+    problems = []
+    if len(musks) > _MUSK_COUNT_LIMIT:
+        problems.append(
+            f"{len(musks)} musks ({', '.join(musks)}); more than one lead plus one support musk. "
+            "Each extra musk needs a distinct stated role and an omission comparison"
+        )
+    if exception_only:
+        problems.append(
+            f"{', '.join(exception_only)} is omitted by default and exception-only "
+            "(needs the full design-call and inventory-separation case)"
+        )
+    if problems:
+        if trace_note:
+            problems.append(trace_note)
+        return _result("musk_count", "WARN", "; ".join(problems), data)
+    detail = f"{len(musks)} musk(s): {', '.join(musks)}"
+    if trace_note:
+        detail += f"; {trace_note}"
+    return _result("musk_count", "PASS", detail, data)
+
+
 def _gate_roudnitska_hedione_pct(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     """Roudnitska: Hedione should be 10-25% of concentrate."""
     from engine.name_utils import normalize_name
@@ -4395,6 +5503,18 @@ def _gate_tenacity_projection(state: FormulaState, config: ReleaseGateConfig) ->
     )
 
 
+# Inventory names of oakmoss/treemoss -> the EU-listed INCI allergen (lowercase,
+# matching the normalized names used by the screen below).
+_MOSS_INVENTORY_ALLERGENS: dict[str, str] = {
+    **dict.fromkeys(
+        ("oakmoss absolute", "oakmoss", "oak moss", "oakmoss extract"), "evernia prunastri"
+    ),
+    **dict.fromkeys(
+        ("treemoss absolute", "treemoss", "tree moss", "treemoss extract"), "evernia furfuracea"
+    ),
+}
+
+
 def _gate_eu_allergen_declaration(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     """Check EU allergen labeling requirements (EU 2023/1545 — 82 allergens)."""
     # Core 26 allergens (Reg 1223/2009 Annex III original list + expansions)
@@ -4481,6 +5601,9 @@ def _gate_eu_allergen_declaration(state: FormulaState, config: ReleaseGateConfig
     for m in state.materials:
         n = normalize_name(m.canonical_name or m.name)
         matched_allergens = {n} if n in eu_allergens else set()
+        moss_inci = _MOSS_INVENTORY_ALLERGENS.get(n)
+        if moss_inci:
+            matched_allergens.add(moss_inci)
         matched_allergens.update(
             allergen
             for allergen in eu_allergens
@@ -4495,7 +5618,13 @@ def _gate_eu_allergen_declaration(state: FormulaState, config: ReleaseGateConfig
             row: dict[str, object] = {
                 "material": m.canonical_name or m.name,
                 "allergen": allergen,
-                "identity_match": "exact" if n == allergen else "name_contains",
+                "identity_match": (
+                    "exact"
+                    if n == allergen
+                    else "inventory_alias"
+                    if allergen == moss_inci
+                    else "name_contains"
+                ),
                 "active_finished_product_ppm_w_w": (
                     None if ppm is None else round(float(ppm), 6)
                 ),
@@ -5173,6 +6302,11 @@ def _commercial_readiness(
 ) -> str:
     if status == "FAIL":
         return "NOT_RELEASE_READY"
+    # HOLD (missing data) blocks release like FAIL, so no ready or trial-ready
+    # state may follow from it; the suffix keeps "data missing" distinct from
+    # "formula wrong".
+    if status == "HOLD" or any(g.status == "HOLD" for g in gates):
+        return "NOT_RELEASE_READY_HOLD"
     if config.is_commercial_trial() and confidence.get("combined_confidence", 0.0) < 50.0:
         return "COMMERCIAL_TRIAL_READY_LOW_CONFIDENCE"
     if confidence.get("combined_confidence", 0.0) < 50.0:
@@ -5486,25 +6620,63 @@ def _gate_authority_vector(state, config):
 
 
 def _gate_concentration_basis(state, config):
-    """FAIL if any material lacks a supported, explicit concentration basis."""
+    """FAIL on an unsupported concentration basis; HOLD on an undeclared one.
+
+    A bare "10%" is missing data (the author has not said w/w or v/v), so it
+    blocks release as HOLD. A declared basis the pipeline cannot use is a
+    formula error and FAILs; when both occur the gate FAILs and the detail
+    still names the undeclared rows.
+    """
     allowed_bases = {"neat", "mass_fraction", "volume_fraction", "mass_per_volume"}
     violations = []
+    missing = []
+    undeclared = []
     for m in state.materials:
         basis = str(
             getattr(m, "stock_fraction_basis", "unspecified") or "unspecified"
         ).strip().lower()
-        if basis not in allowed_bases:
+        if basis == "unspecified":
+            pct = f"{round(float(m.dilution) * 100.0, 6):g}"
+            missing.append(
+                {"material": m.name, "reason": "unavailable:stock_fraction_basis_unspecified"}
+            )
+            undeclared.append(
+                f"{m.name}: concentration basis not declared; declare {pct}% w/w or {pct}% v/v"
+            )
+        elif basis not in allowed_bases:
             violations.append(
-                f"{m.name}: unsupported or unspecified concentration basis {basis!r} "
+                f"{m.name}: unsupported concentration basis {basis!r} "
                 "(use neat, w/w, v/v, or w/v)"
             )
 
+    def _listing(rows: list[str]) -> str:
+        return f"{'; '.join(rows[:5])}{'...' if len(rows) > 5 else ''}"
+
     if violations:
+        detail = (
+            f"{len(violations)} material(s) with invalid concentration basis: "
+            f"{_listing(violations)}"
+        )
+        if undeclared:
+            detail += (
+                f"; {len(undeclared)} material(s) with undeclared concentration basis: "
+                f"{_listing(undeclared)}"
+            )
         return GateResult(
             gate="concentration_basis",
             status="FAIL",
-            detail=f"{len(violations)} material(s) with invalid concentration basis: {'; '.join(violations[:5])}{'...' if len(violations) > 5 else ''}",
-            data={"violations": violations},
+            detail=detail,
+            data={"violations": violations, "undeclared": undeclared, "missing": missing},
+        )
+    if undeclared:
+        return GateResult(
+            gate="concentration_basis",
+            status="HOLD",
+            detail=(
+                f"{len(undeclared)} material(s) with undeclared concentration basis: "
+                f"{_listing(undeclared)}"
+            ),
+            data={"violations": [], "undeclared": undeclared, "missing": missing},
         )
 
     return GateResult(
@@ -5851,7 +7023,10 @@ def gate_formula(
             "family_drift_detector",
         ),
         _safe_gate(lambda: _gate_novelty_vs_reference(formula, config), "novelty_vs_reference"),
+        _safe_gate(lambda: _gate_namesake(formula, state), "namesake"),
         _safe_gate(lambda: _gate_perfume_knowledge(state, config), "perfume_knowledge"),
+        _safe_gate(lambda: _gate_hedione_share(formula, state, config), "hedione_share"),
+        _safe_gate(lambda: _gate_musk_count(state, config), "musk_count"),
         _safe_gate(lambda: _gate_carles_pyramid(state, config), "carles_pyramid"),
         _safe_gate(lambda: _gate_carles_material_count(state, config), "carles_material_count"),
         _safe_gate(lambda: _gate_carles_accord_ratio(state, config), "carles_accord_ratio"),

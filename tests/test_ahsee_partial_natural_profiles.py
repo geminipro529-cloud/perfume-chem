@@ -179,12 +179,12 @@ def test_unverified_legacy_method_is_unspecified_and_never_blanket_gc_o():
 
 
 def test_truly_missing_natural_still_fails_closed():
-    state = build_formula_state({"Spike Lavender EO": 100.0, "Hedione": 900.0})
+    state = build_formula_state({"Anise EO": 100.0, "Hedione": 900.0})
     check = _natural_composite_coverage_check(state)
     assert check.status == "FAIL"
-    assert "Spike Lavender EO" in check.data["materials"]
-    lavender = next(row for row in state.materials if row.name == "Spike Lavender EO")
-    assert lavender.oav is None
+    assert "Anise EO" in check.data["materials"]
+    anise = next(row for row in state.materials if row.name == "Anise EO")
+    assert anise.oav is None
 
 
 def test_partial_composites_do_not_bypass_the_odt_authority_verifier():

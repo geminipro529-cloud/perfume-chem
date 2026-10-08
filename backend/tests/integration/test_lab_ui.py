@@ -608,3 +608,14 @@ async def test_engine_job_wait_uses_current_server_states_and_failure_words(clie
     # promise that asking again re-runs it.
     assert "run it again" not in javascript.text.casefold()
     assert "EXPIRED" not in javascript.text
+
+
+@pytest.mark.asyncio
+async def test_comparison_planning_is_worded_as_a_suggestion_and_uses_safe_request_ids(client):
+    page = await client.get("/app")
+    javascript = await client.get("/static/lab.js")
+    assert "cannot remove anything from your existing bottle" in page.text
+    assert "needs separate samples" not in page.text
+    submit = javascript.text.split('$("#omission-plan-form").addEventListener("submit"', 1)[1]
+    submit = submit.split('$("#sample-form")', 1)[0]
+    assert 'newRequestId("comparison")' in submit and "crypto.randomUUID()" not in submit

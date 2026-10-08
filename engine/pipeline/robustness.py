@@ -5,7 +5,12 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Mapping, Sequence
 
-from engine.ifra_safety import BANNED_MATERIALS, IFRA_CAT4_LIMITS
+from engine.ifra_standards import (
+    FinishedProductRow,
+    IFRAEvaluation,
+    estimate_finished_product_pct_w_w,
+    evaluate_ifra,
+)
 from engine.optimizer.perfumer_logic import evaluate_perfumer_logic
 from engine.pipeline.formula_state import FormulaState, build_formula_state
 from engine.pipeline.simulator import (
@@ -248,7 +253,8 @@ def _evaluate_perturbation(
         details.append(
             "IFRA headroom failure: "
             + ", ".join(
-                f"{row['material']} {row['actual_pct']:.4g}% > {row['effective_limit_pct']:.4g}%"
+                f"{row['material']} {row['actual_pct']:.4g}{row['unit']} > "
+                f"{row['effective_limit_pct']:.4g}{row['unit']}"
                 for row in headroom_violations
             )
         )
@@ -360,34 +366,80 @@ def _bound_gate_baseline(
     return gate_state, top_frame
 
 
+def _ifra_evaluation(
+    ingredients_ul: Mapping[str, float],
+    dilutions: Mapping[str, float],
+    config,
+    *,
+    headroom: float,
+) -> IFRAEvaluation:
+    """Judge the rows against the sourced IFRA Category 4 table by weight.
+
+    Each row's active material is taken as % w/w of the finished bottle (stocks
+    plus ethanol to ``config.batch_volume_ml``); unknown densities are 1.0 g/mL.
+    """
+
+    batch_volume_ml = float(getattr(config, "batch_volume_ml", 30.0) or 30.0)
+    rows = [
+        FinishedProductRow(
+            name=str(material),
+            stock_ul=float(amount_ul or 0.0),
+            active_fraction=float(dilutions.get(material, 1.0) or 1.0),
+        )
+        for material, amount_ul in ingredients_ul.items()
+    ]
+    estimate = estimate_finished_product_pct_w_w(rows, batch_volume_ml)
+    return evaluate_ifra(estimate.pct_w_w, headroom=headroom)
+
+
 def _headroom_violations(
     ingredients_ul: Mapping[str, float],
     dilutions: Mapping[str, float],
     config,
 ) -> list[dict]:
+    """Restricted rows and group rules over their limit times the IFRA headroom.
+
+    A failing group (oakmoss + treemoss, say) is one violation under its group
+    id. Prohibited rows carry no limit and are reported by
+    ``_has_ifra_or_banned_failure`` instead.
+    """
+
     if hasattr(config, "effective_ifra_headroom"):
         headroom = float(config.effective_ifra_headroom())
     else:
         headroom = float(getattr(config, "ifra_headroom", 1.0) or 1.0)
-    batch_volume_ml = float(getattr(config, "batch_volume_ml", 30.0) or 30.0)
+    evaluation = _ifra_evaluation(ingredients_ul, dilutions, config, headroom=headroom)
     violations = []
-    for material, amount_ul in ingredients_ul.items():
-        limit = IFRA_CAT4_LIMITS.get(material)
-        if limit is None:
+    for check in evaluation.checks:
+        if check.verdict != "fail" or check.limit_pct is None:
             continue
-        active_ul = float(amount_ul or 0.0) * float(dilutions.get(material, 1.0) or 1.0)
-        actual_pct = (active_ul / 1000.0) / batch_volume_ml * 100.0
-        effective_limit = limit * headroom
-        if actual_pct > effective_limit + 1e-12:
-            violations.append(
-                {
-                    "material": material,
-                    "actual_pct": actual_pct,
-                    "limit_pct": limit,
-                    "effective_limit_pct": effective_limit,
-                    "headroom": headroom,
-                }
-            )
+        violations.append(
+            {
+                "material": check.material,
+                "actual_pct": check.pct,
+                "limit_pct": check.limit_pct,
+                "effective_limit_pct": check.limit_pct * headroom,
+                "headroom": headroom,
+                "standard": check.standard,
+                "unit": "% w/w",
+            }
+        )
+    for group in evaluation.group_checks:
+        if group.verdict != "fail":
+            continue
+        # A sum-of-ratios rule (phototoxic citrus) is limited to a ratio sum of 1.
+        limit = group.limit_pct if group.limit_pct is not None else 1.0
+        violations.append(
+            {
+                "material": group.id,
+                "actual_pct": group.total,
+                "limit_pct": limit,
+                "effective_limit_pct": limit * headroom,
+                "headroom": headroom,
+                "standard": group.standard,
+                "unit": "% w/w" if group.limit_pct is not None else "",
+            }
+        )
     return violations
 
 
@@ -396,30 +448,15 @@ def _has_ifra_or_banned_failure(
     dilutions: Mapping[str, float],
     config,
 ) -> bool:
-    """Evaluate only the two safety fields consumed by this perturbation gate.
+    """True when any row or group fails the sourced IFRA table at its plain limit.
 
-    The former call to ``score_ifra_compliance`` also resolved physicochemical
-    data, estimated skin partitioning, assembled allergen declarations, and
-    scored unrelated diagnostic fields for every row of every perturbation.
-    Robustness used none of those outputs.  This exact narrow check preserves
-    the existing IFRA-limit and banned-name semantics while keeping the full
-    safety report on the ordinary formula gate where it belongs.
+    Prohibited materials fail when present; restricted rows and group rules fail
+    above their Category 4 limit by finished-product weight. Materials outside
+    the table, specification and unverified rows do not fail here.
     """
 
-    batch_volume_ml = float(getattr(config, "batch_volume_ml", 30.0) or 30.0)
-    for material, amount_ul in ingredients_ul.items():
-        if material in BANNED_MATERIALS:
-            return True
-        limit = IFRA_CAT4_LIMITS.get(material)
-        if limit is None:
-            continue
-        active_ul = float(amount_ul or 0.0) * float(
-            dilutions.get(material, 1.0) or 1.0
-        )
-        pct_in_product = (active_ul / 1000.0) / batch_volume_ml * 100.0
-        if pct_in_product > limit:
-            return True
-    return False
+    evaluation = _ifra_evaluation(ingredients_ul, dilutions, config, headroom=1.0)
+    return bool(evaluation.failures)
 
 
 def _top_envelope_and_leader(

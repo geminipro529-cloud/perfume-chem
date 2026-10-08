@@ -15,7 +15,7 @@ from engine.ifra_safety import IFRA_CAT4_LIMITS
 from engine.inventory_parser import parse_current_inventory
 from engine.name_utils import normalize_name
 from engine.pipeline.audit_log import append_event, gate_report_event
-from engine.pipeline.gates import GateReport, ReleaseGateConfig, gate_formula
+from engine.pipeline.gates import BLOCKING_STATUSES, GateReport, ReleaseGateConfig, gate_formula
 from engine.pipeline.interventions import build_intervention_contract
 from engine.pipeline.oav_authority import OAVAuthorityRequest, analyze_oav_authority
 from engine.pipeline.release_scoring import compute_unified_release_scores
@@ -1828,7 +1828,7 @@ def _ul_to_pct(raw_ul: Mapping[str, float]) -> dict[str, float]:
 
 
 def _failed_gates(report: GateReport) -> list:
-    return [gate for gate in report.gates if gate.status == "FAIL"]
+    return [gate for gate in report.gates if gate.status in BLOCKING_STATUSES]
 
 
 def _gate(report: GateReport, name: str):
@@ -1961,21 +1961,75 @@ def _apply_ifra_repairs(
     constraints: dict[str, tuple[float | None, float | None]] = {}
     excess_total = 0.0
     excluded = set()
+    headroom = _effective_ifra_headroom(config)
+    rows = (safety.data.get("rows", []) if safety else []) or []
+
+    # One scale factor per formula row: the smallest any violation asks for. A row over its
+    # limit is listed in both "violations" and "headroom_violations", and a row can also be
+    # a member of a failing group or standard total; capping it once per pass keeps the
+    # ratio caps from compounding.
+    factors: dict[str, tuple[float, str]] = {}
+
+    def _propose(material: str, factor: float, detail: str) -> None:
+        if material not in factors or factor < factors[material][0]:
+            factors[material] = (factor, detail)
 
     for violation in violations:
         material = str(violation.get("material", ""))
-        if material not in raw_ul:
+        limit = violation.get("limit_pct")
+        if limit is None:
             continue
-        limit_pct = float(violation.get("limit_pct"))
+        limit_pct = float(limit)
+        actual_pct = float(violation.get("actual_pct") or 0.0)
+        members = violation.get("members")
+        if isinstance(members, Mapping):
+            # A group or standard total: scale every member row by the same factor so the
+            # sum lands on limit x headroom. For the ratio rule the limit is 1.0 and the
+            # actual is the ratio sum, so this scales each member's ratio alike.
+            if actual_pct <= 0:
+                continue
+            factor = limit_pct * headroom / actual_pct
+            rule = violation.get("rule") or "sum_le_limit"
+            detail = (
+                f"IFRA group {material} ({violation.get('standard')}, {rule}) at "
+                f"{actual_pct:.4g} over its limit {limit_pct:.4g} with {headroom:.0%} "
+                f"headroom; scaled every member row by {factor:.4g}."
+            )
+            for row in rows:
+                row_material = str(row.get("material", ""))
+                if row.get("ifra_name") in members and row_material in raw_ul:
+                    _propose(row_material, factor, detail)
+            continue
+        if material not in raw_ul or raw_ul[material] <= 0:
+            continue
         dilution = float(stock_dilutions.get(material, 1.0))
         current_ul = raw_ul[material]
         max_ul = max_raw_ul_for_ifra(
             limit_pct,
             config.batch_volume_ml,
             dilution,
-            headroom=_effective_ifra_headroom(config),
+            headroom=headroom,
         )
-        target_ul = max(0.0, min(current_ul, max_ul - 1e-6))
+        # The safety report judges % w/w of the finished product, which the volume-based
+        # cap above can understate; scale by the reported excess as well.
+        if actual_pct > 0:
+            max_ul = min(max_ul, current_ul * limit_pct * headroom / actual_pct)
+        _propose(
+            material,
+            max(0.0, max_ul) / current_ul,
+            (
+                f"IFRA Cat4 {limit_pct:.4g}% finished-product limit with "
+                f"{headroom:.0%} headroom; "
+                f"max raw stock {max_ul:.3f} uL at dilution {dilution:.3g}."
+            ),
+        )
+
+    for material, (factor, detail) in factors.items():
+        current_ul = raw_ul[material]
+        # Aim 0.5 % under the target: the freed volume goes to other rows or to ethanol,
+        # which shifts the finished mass, so a cap landing exactly on the limit can end a
+        # hair over it and cost another pass (or stall when the passes run out).
+        target_ul = max(0.0, min(current_ul, current_ul * factor * 0.995 - 1e-6))
         if target_ul >= current_ul:
             continue
 
@@ -1997,11 +2051,7 @@ def _apply_ifra_repairs(
                 before_pct=round(before_pct, 6),
                 after_pct=round(100.0 * target_ul / before_total, 6),
                 effect="SAFER",
-                detail=(
-                    f"IFRA Cat4 {limit_pct:.4g}% finished-product limit with "
-                    f"{_effective_ifra_headroom(config):.0%} headroom; "
-                    f"max raw stock {max_ul:.3f} uL at dilution {dilution:.3g}."
-                ),
+                detail=detail,
             )
         )
 

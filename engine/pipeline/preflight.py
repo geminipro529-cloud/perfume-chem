@@ -23,6 +23,7 @@ from engine.inventory_parser import (
     CURRENT_INVENTORY_AUTHORITY,
     CURRENT_INVENTORY_SNAPSHOT_PATH,
     CURRENT_INVENTORY_WORKBOOK_SHA256,
+    live_inventory_text_binding,
     load_current_inventory_alias_crosswalk,
     parse_current_inventory,
 )
@@ -797,6 +798,23 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
                             if record.execution_hold_reason
                         }
                     ),
+                    # An owned-but-held stock at another strength is a wrong
+                    # strength, not only missing data; the gate needs to know.
+                    "fraction_matches_formula": bool(physical_fraction_matches),
+                    "formula_dilution": round(formula_dil, 6),
+                    # Each held stock's recorded fraction (None when none is
+                    # recorded); for a tincture this is its starting charge.
+                    "held_stock_strengths": [
+                        {
+                            "execution_hold": record.execution_hold_reason,
+                            "fraction": (
+                                round(record.dilution, 6) if record.dilution > 0 else None
+                            ),
+                            "fraction_basis": record.fraction_basis,
+                        }
+                        for record in physical_owned
+                        if record.execution_hold_reason
+                    ],
                 }
             )
             continue
@@ -843,6 +861,7 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
                             if record.execution_hold_reason
                         }
                     ),
+                    "fraction_matches_formula": True,
                 }
             )
             continue
@@ -1442,6 +1461,30 @@ def _state_sanity_check(state: FormulaState) -> PreflightCheck:
     )
 
 
+def _inventory_text_binding_check() -> PreflightCheck:
+    """Advise when inventory.txt has drifted from the current overlay; never FAIL or HOLD."""
+    binding = live_inventory_text_binding()
+    date = binding.get("overlay_effective_date") or "current"
+    if binding["bound"]:
+        return PreflightCheck(
+            "inventory_text_binding",
+            "PASS",
+            f"inventory.txt matches the text the {date} overlay was recorded against.",
+            binding,
+        )
+    return PreflightCheck(
+        "inventory_text_binding",
+        "WARN",
+        (
+            f"inventory.txt has changed since the {date} overlay was recorded "
+            f"({binding['actual_size_bytes']} bytes now, {binding['expected_size_bytes']} expected). "
+            "The gate's stock comes from the V5 workbook and dated overlays, so edits to "
+            "inventory.txt are not in the gate's stock until an overlay records them."
+        ),
+        binding,
+    )
+
+
 def run_release_preflight(
     formula: Mapping[str, Any],
     state: FormulaState,
@@ -1455,6 +1498,7 @@ def run_release_preflight(
     total_penalty = 0.0
     checks.append(_input_normalization_check(formula))
     checks.append(stock_contract or resolve_inventory_stock_contract(formula))
+    checks.append(_inventory_text_binding_check())
     checks.append(_dose_receipt_binding_check(state, dose_receipt))
     checks.append(_schema_check())
     checks.append(_literature_check())

@@ -147,7 +147,9 @@ def test_successor_rejects_live_text_and_outer_overlay_byte_drift(tmp_path, monk
     with monkeypatch.context() as patch:
         patch.setattr(inventory, "INVENTORY_PATH", altered)
         with pytest.raises(inventory.InventoryAuthorityError, match="bound to live inventory"):
-            inventory.load_current_user_inventory_overlay()
+            inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
+        assert inventory.load_current_user_inventory_overlay()["records"]
+        assert inventory.live_inventory_text_binding()["bound"] is False
     altered_head = tmp_path / "overlay.json"
     altered_head.write_bytes(
         inventory.ROMANDOLIDE_USER_INVENTORY_OVERLAY_PATH.read_bytes() + b" "

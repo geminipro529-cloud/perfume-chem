@@ -101,17 +101,17 @@
     {
       "id": "near_ifra_boundary",
       "formula_name": "Golden Regulatory Boundary",
-      "ingredients_ul": {"Evernyl": 10.0, "Hedione": 1990.0},
-      "dilutions": {"Evernyl": 1.0, "Hedione": 1.0},
+      "ingredients_ul": {"Eugenol": 250.0, "Hedione": 1750.0},
+      "dilutions": {"Eugenol": 1.0, "Hedione": 1.0},
       "batch_volume_ml": 10.0,
       "expected_ppm_status": "unavailable",
       "modeled_output_relative_tolerance": 1e-8,
       "expected_regulatory_status": "unverified",
-      "ifra_material": "Evernyl",
-      "ifra_limit_pct": 0.1,
+      "ifra_material": "Eugenol",
+      "ifra_limit_pct": 2.5,
       "expected_material_outputs": {
-        "Evernyl": {"vapor_ppm": 0.01393546054637425, "oav": 46.45153515458084},
-        "Hedione": {"vapor_ppm": 1.9001987824851505, "oav": 38003.97564970301}
+        "Eugenol": {"vapor_ppm": 0.03948932587775666, "oav": 6.581554312959443},
+        "Hedione": {"vapor_ppm": 1.5970722850248937, "oav": 31941.445700497872}
       }
     }
   ],

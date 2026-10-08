@@ -396,9 +396,10 @@ Format the complete OAV and temporal analysis with:
 .venv\Scripts\python.exe scripts\format_pipeline_analysis.py --input output.json
 ```
 
-The release command now appends a hash-bound `## Pipeline Analysis` artifact to
-the formula by default and verifies the write immediately. Use
-`--no-append-analysis` only for diagnostic/CI output that must not persist.
+A release-gate run only reads the formula file. Pass `--append-analysis` to
+append the hash-bound `## Pipeline Analysis` artifact to the formula; the write
+is verified immediately. `--no-append-analysis` is still accepted and is now the
+default.
 Validate all persisted artifacts with:
 
 ```powershell
