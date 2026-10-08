@@ -1975,6 +1975,13 @@ def _apply_ifra_repairs(
             dilution,
             headroom=_effective_ifra_headroom(config),
         )
+        # The safety report judges % w/w of the finished product, which the volume-based
+        # cap above can understate; scale by the reported excess as well.
+        actual_pct = float(violation.get("actual_pct") or 0.0)
+        if actual_pct > 0:
+            max_ul = min(
+                max_ul, current_ul * limit_pct * _effective_ifra_headroom(config) / actual_pct
+            )
         target_ul = max(0.0, min(current_ul, max_ul - 1e-6))
         if target_ul >= current_ul:
             continue

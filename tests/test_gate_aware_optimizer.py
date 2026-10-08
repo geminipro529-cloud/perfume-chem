@@ -13,7 +13,7 @@ def _config(brief="generic"):
     )
 
 
-def test_gate_aware_optimizer_caps_evernyl_below_cat4_limit():
+def test_gate_aware_optimizer_caps_oakmoss_below_cat4_limit():
     raw_pct = {
         "Hedione": 25.0,
         "Iso E Super": 20.0,
@@ -24,28 +24,28 @@ def test_gate_aware_optimizer_caps_evernyl_below_cat4_limit():
         "Coumarin": 3.0,
         "Vetiver EO": 4.0,
         "Patchouli EO": 3.0,
-        "Evernyl": 8.0,
+        "Oakmoss Absolute": 8.0,
     }
 
     result = optimize_until_release_ready(
         "Thai Aromatic Fougere Test",
         raw_pct,
-        stock_dilutions={"Evernyl": 0.2},
+        stock_dilutions={"Oakmoss Absolute": 0.2},
         config=_config("aromatic_fougere"),
         repair_pool={"Iso E Super": 2.0, "Vetiver EO": 1.0, "Patchouli EO": 1.0},
     )
 
-    evernyl_ul = result.raw_concentrate_pct["Evernyl"] / 100.0 * 6000.0
-    evernyl_active_ul = evernyl_ul * 0.2
+    oakmoss_ul = result.raw_concentrate_pct["Oakmoss Absolute"] / 100.0 * 6000.0
+    oakmoss_active_ul = oakmoss_ul * 0.2
     safety_gate = {gate.gate: gate for gate in result.gate_report.gates}["safety_ifra_allergen"]
 
-    assert evernyl_ul <= 150.0
-    assert evernyl_active_ul <= 30.0
+    assert oakmoss_ul <= 150.0
+    assert oakmoss_active_ul <= 30.0
     assert safety_gate.status != "FAIL"
     assert any(
         action.gate == "safety_ifra_allergen"
         and action.action == "cap_ifra_finished_product_limit"
-        and action.material == "Evernyl"
+        and action.material == "Oakmoss Absolute"
         for action in result.repair_actions
     )
 
@@ -223,9 +223,9 @@ def test_changed_final_formula_is_gated_once_against_exact_parent(monkeypatch):
             "Hedione": 25.0, "Iso E Super": 20.0, "Zenolide": 12.0,
             "Bergamot FCF": 10.0, "Linalool": 8.0, "Lavender EO": 7.0,
             "Coumarin": 3.0, "Vetiver EO": 4.0, "Patchouli EO": 3.0,
-            "Evernyl": 8.0,
+            "Oakmoss Absolute": 8.0,
         },
-        stock_dilutions={"Evernyl": 0.2},
+        stock_dilutions={"Oakmoss Absolute": 0.2},
         config=_config("aromatic_fougere"),
         repair_pool={"Iso E Super": 2.0, "Vetiver EO": 1.0},
         max_passes=1,

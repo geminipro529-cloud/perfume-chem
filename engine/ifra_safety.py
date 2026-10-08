@@ -30,137 +30,30 @@ Sources:
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from typing import Any
 
+from engine.ifra_standards import (
+    FinishedProductRow,
+    IFRAEvaluation,
+    estimate_finished_product_pct_w_w,
+    evaluate_ifra,
+    load_ifra_table,
+)
 from engine.material_resolver import resolve_material
 from engine.skin_compartments import skin_partition
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # IFRA Maximum Use Levels — Category 4: Fine Fragrance
-# Values = max % in FINISHED product (not concentrate)
+# Values = max % w/w in FINISHED product (not concentrate)
 # ═══════════════════════════════════════════════════════════════════════════════
 
-IFRA_CAT4_LIMITS: dict[str, float] = {
-    # Aldehydes
-    "Aldehyde C10": 5.0,
-    "Aldehyde C11": 2.5,
-    "Aldehyde C11 Undecylenic": 0.5,
-    "Aldehyde C12 MNA": 2.0,
-    "Hydroxycitronellal": 1.0,
-    "Cyclamen Aldehyde": 0.62,
-    "Cinnamaldehyde": 0.7,
-    "Citral": 0.6,
-    "Anisaldehyde": 2.0,
-    # Alcohols / phenols
-    "Linalool": 15.0,  # unrestricted if peroxide < 20 mmol/L
-    "Geraniol": 3.2,
-    "Citronellol": 2.6,
-    "Phenethyl Alcohol": 5.0,
-    "Eugenol": 0.5,
-    "Isoeugenol": 0.02,
-    "Guaiacol": 0.1,
-    "Methyl Salicylate": 0.6,
-    "cis-3-Hexenol": 0.4,
-    # Esters
-    "Benzyl Acetate": 8.5,
-    "Benzyl Benzoate": 12.5,
-    "Linalyl Acetate": 10.0,
-    "Hexyl Acetate": 5.0,
-    "Allyl Amyl Glycolate": 0.8,
-    "Methyl Anthranilate": 0.1,
-    # Ionones
-    "Alpha Isomethyl Ionone": 7.26,
-    "Alpha Ionone": 1.85,
-    "Beta Ionone": 1.32,
-    # Ketones / lactones
-    "Coumarin": 2.78,
-    "Musk Ketone": 1.4,
-    "Oranger Crystals": 0.2,  # Methyl beta-naphthyl ketone; phototoxicity limit
-    "2-Acetonaphthone": 0.2,
-    "Methyl beta-naphthyl ketone": 0.2,
-    "Maple Lactone": 5.0,
-    "Gamma Decalactone": 5.0,
-    "Gamma Undecalactone": 5.0,
-    "Delta Decalactone": 5.0,
-    "Raspberry Ketone": 5.0,
-    # Musks
-    "Galaxolide": 10.0,
-    "Habanolide": 15.0,
-    "Ethylene Brassylate": 15.0,
-    "Exaltolide": 15.0,
-    # Salicylates
-    "Benzyl Salicylate": 4.5,
-    "Hexyl Salicylate": 6.7,
-    # Woody / amber
-    "Iso E Super": 20.0,
-    "Cashmeran": 10.0,
-    "Ambrox Super": 15.0,
-    "Cedarwood EO": 10.0,
-    "Vetiver EO": 10.0,
-    "Vetiver EO (India)": 10.0,
-    "Patchouli EO": 20.0,
-    # Balsamic
-    "Benzoin Resinoid": 5.0,
-    "Vanillin": 10.0,
-    "Ethyl Vanillin": 10.0,
-    "Labdanum Absolute": 5.0,
-    # Mossy
-    "Evernyl": 0.1,  # very restricted (oakmoss replacement)
-    # Animalic
-    "Indole": 0.5,
-    "Isobutyl Quinoline": 0.5,
-    # Terpenes (if not oxidized)
-    "D-Limonene": 15.0,
-    # Florals
-    "Hedione": 40.0,  # essentially unrestricted
-    "DBCA": 20.0,
-    # Essential oils — limits based on constituent allergens
-    "Bergamot FCF": 10.0,
-    "Bergamot FCF Sicilian": 10.0,
-    "Neroli EO": 10.0,
-    "Red Mandarin EO": 5.0,
-    "Blood Orange Sicilian": 5.0,
-    "Lavender EO": 8.0,
-    "Lavender EO (BONTAUX SAS)": 8.0,
-    "Clary Sage EO": 5.0,
-    "Cardamom EO": 5.0,
-    "Rosemary EO (French Rosmarinus Officinalis leaf oil)": 5.0,
-    "Ylang Comoros Complete EO": 4.0,
-    "Ylang Comoros III EO": 5.0,
-    "Champaca Flower EO": 3.0,
-    "Petitgrain EO": 10.0,
-    "Myrrh EO": 5.0,
-    "Olibanum Resinoid": 5.0,
-    "Carrot Seed EO": 5.0,
-    # IFRA 51st Amendment — new restrictions (2023)
-    "Farnesol": 2.2,  # IFRA 51st — Restriction + Specification
-    "Ylang Ylang EO": 0.8,  # IFRA 51st — Restriction (2020)
-    "Alpha Damascone": 0.02,  # IFRA 51st — Rose ketones family restriction
-    "Grapefruit FCF": 4.0,  # IFRA 51st — Phototoxicity restriction (furocoumarins)
-    "Bergamot EO": 0.4,  # IFRA 51st — Phototoxicity restriction; use FCF for higher concentrations
-    "Citronellyl Acetate": 2.5,  # IFRA 51st — New restriction 2023
-    # Dihydromyrcenol is unrestricted but noted
-    "Dihydromyrcenol": 50.0,
-    # Standard synthetics — very high limits (effectively unrestricted)
-    "Methyl Ionone Pure": 20.0,
-    "Florol": 5.0,
-    "Bourgeonal": 5.0,
-    "Freesia HDI": 10.0,
-    "Lilyreal ND": 5.0,
-    "Nympheal": 5.0,
-    "Helional": 5.0,
-    # Rose ketones / florals
-    "Damascone Beta": 0.02,  # IFRA 51st — Rose ketones family (same class as Alpha Damascone)
-    "Cis Jasmone": 5.0,  # Natural jasmine constituent — no IFRA restriction
-    "Peonile": 5.0,  # Peony ester — no restriction; generous limit
-    # Green / leaf
-    "Leafovert": 5.0,  # Green leaf alcohol — no known restriction
-    # Musks (macrocyclic — unrestricted)
-    "Romandolide": 10.0,  # Macrocyclic musk — no IFRA restriction
-    # Ambers
-    "Ambermax": 5.0,  # Amber material — no known restriction
-}
+# Sourced from data/regulatory/ifra_cat4_51.json via engine.ifra_standards: restricted
+# materials only, keyed by canonical name and every alias as written. Materials with
+# no IFRA standard (e.g. Hedione, Evernyl) are deliberately absent.
+_IFRA_TABLE = load_ifra_table()
+IFRA_CAT4_LIMITS: dict[str, float] = dict(_IFRA_TABLE.cat4_limits())
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -170,7 +63,8 @@ IFRA_CAT4_LIMITS: dict[str, float] = {
 # ═══════════════════════════════════════════════════════════════════════════════
 
 IFRA_VERSION_HISTORY: dict[str, dict[str, float]] = {
-    "IFRA_51st_2025": {},  # Current — same as IFRA_CAT4_LIMITS
+    # Unsourced: the 50th/49th values below are hand-typed, not read from IFRA Standards.
+    "IFRA_51st_2025": {},  # Current — read from the sourced table, see get_ifra_limit
     "IFRA_50th_2022": {
         "Coumarin": 1.6,
         "Lilial": 0.01,
@@ -219,18 +113,22 @@ IFRA_VERSION_HISTORY: dict[str, dict[str, float]] = {
 
 
 def get_ifra_limit(material: str, rule_set: str = "IFRA_51st_2025") -> float | None:
-    """Return the IFRA Cat4 limit for a material under a specific rule set version."""
+    """Return the IFRA Cat4 limit for a material under a specific rule set version.
+
+    The current rule set reads the sourced table: a restricted material's limit, else None
+    (prohibited, specification-only and unlisted materials have no numeric limit). Older
+    rule sets read their hand-typed dicts, then fall back to the current table.
+    """
     from engine.name_utils import normalize_name
 
-    key = normalize_name(material)
-    if rule_set in IFRA_VERSION_HISTORY:
-        versioned = IFRA_VERSION_HISTORY[rule_set]
-        for k, v in versioned.items():
+    if rule_set != "IFRA_51st_2025" and rule_set in IFRA_VERSION_HISTORY:
+        key = normalize_name(material)
+        for k, v in IFRA_VERSION_HISTORY[rule_set].items():
             if normalize_name(k) == key:
                 return v
-    for k, v in IFRA_CAT4_LIMITS.items():
-        if normalize_name(k) == key:
-            return v
+    entry = _IFRA_TABLE.lookup(material)
+    if entry is not None and entry.status == "restricted":
+        return entry.cat4_limit_pct
     return None
 
 
@@ -535,26 +433,15 @@ SENSITIZATION_DATA: dict[str, dict[str, Any]] = {
 # Banned / Restricted Materials
 # ═══════════════════════════════════════════════════════════════════════════════
 
-BANNED_MATERIALS: set[str] = {
-    "Lyral",  # HICC — banned EU August 2021
-    "Lilial",  # Butylphenyl Methylpropional — banned EU 2022, IFRA 49th Amendment
-    "Birch Tar Rectified",  # CAS 8001-88-5 — prohibited IFRA 51st Amendment (Birch wood pyrolysate)
-    "Musk Xylene",  # phased out (environmental persistence)
-    "Musk Ambrette",  # phototoxic, banned 1995
-    "Nitrobenzene",  # toxic
-    "6-Methylcoumarin",  # phototoxic
-}
+# Read from the sourced table (canonical names and aliases).
+BANNED_MATERIALS: set[str] = set(_IFRA_TABLE.prohibited_names())
 
-# Restricted materials (not banned, but jurisdiction-dependent limits)
-RESTRICTED_MATERIALS: set[str] = {
-    "Diethyl Phthalate",
-}
+# No IFRA standard restricts any material here by jurisdiction alone (DEP has none); the
+# name stays for importers.
+RESTRICTED_MATERIALS: set[str] = set()
 
-# IFRA 51st Amendment — materials reclassified as specification-only (not concentration limit)
-IFRA_SPECIFICATION_ONLY: set[str] = {
-    "Linalool",  # Specification standard: oxidation control (peroxide <20 mmol/L), not a hard limit
-    "Musk Ketone",  # Specification standard only under 51st Amendment
-}
+# Materials covered by an IFRA specification standard (grade/purity), not a Cat4 % limit.
+IFRA_SPECIFICATION_ONLY: set[str] = set(_IFRA_TABLE.specification_names())
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -610,20 +497,81 @@ def _resolve_physchem(name: str) -> tuple[float | None, float | None, str, str]:
     )
 
 
+def _severity(ratio: float) -> str:
+    return "critical" if ratio > 3.0 else "moderate" if ratio > 1.5 else "minor"
+
+
+def _collect_ifra_verdicts(
+    evaluation: IFRAEvaluation,
+    violations: list[dict[str, Any]],
+    warnings: list[dict[str, Any]],
+    banned_flags: list[str],
+    diagnostics: list[str],
+) -> None:
+    """Map an IFRA table evaluation onto the report's violation/warning/banned lists."""
+    for check in evaluation.checks:
+        if check.status == "restricted" and check.verdict in ("fail", "warn"):
+            assert check.limit_pct is not None and check.ratio is not None
+            row: dict[str, Any] = {
+                "material": check.material,
+                "actual_pct": round(check.pct, 4),
+                "limit_pct": check.limit_pct,
+            }
+            if check.verdict == "fail":
+                row.update(ratio=round(check.ratio, 2), severity=_severity(check.ratio))
+                violations.append(row)
+            else:
+                row["usage_pct"] = round(check.ratio * 100, 1)
+                warnings.append(row)
+        elif check.status == "prohibited" and check.verdict == "fail":
+            banned_flags.append(check.material)
+        elif check.verdict in ("note", "hold", "warn"):
+            # specification notes, unverified-limit holds, naturals without own standard
+            diagnostics.append(f"ℹ IFRA {check.verdict}: {check.message}")
+    for group in evaluation.group_checks:
+        if group.verdict not in ("fail", "warn"):
+            continue
+        ratio = group.total / group.limit_pct if group.limit_pct else group.total
+        # A sum-of-ratios group (phototoxic citrus) totals limit ratios, allowed up to 1.
+        row = {
+            "material": group.id,
+            "members": dict(group.member_pcts),
+            "rule": group.rule,
+            "actual_pct": round(group.total, 4),
+            "limit_pct": group.limit_pct if group.limit_pct is not None else 1.0,
+        }
+        if group.verdict == "fail":
+            row.update(ratio=round(ratio, 2), severity=_severity(ratio))
+            violations.append(row)
+        else:
+            row["usage_pct"] = round(ratio * 100, 1)
+            warnings.append(row)
+
+
 def score_ifra_compliance(
     ingredients: dict[str, float],
     dilutions: dict[str, float] | None = None,
     total_volume_ml: float = 10.0,
     concentration_pct: float = 20.0,
     leave_on: bool = True,
+    *,
+    finished_pct_w_w: Mapping[str, float] | None = None,
+    alt_names: Mapping[str, Sequence[str] | str] | None = None,
 ) -> IFRASafetyReport:
     """Score a formula for IFRA compliance and allergen safety.
+
+    Every per-material percentage (IFRA, EU allergen thresholds, sensitizers, dermal
+    exposure) is % w/w of the finished product.
 
     Args:
         ingredients: {name: amount_uL} mapping
         dilutions: {name: dilution_factor} (1.0=neat, 0.1=10%, etc.)
         total_volume_ml: total batch volume in mL
         concentration_pct: concentrate % in finished product
+        finished_pct_w_w: {name: % w/w of finished product}; when given it is used as is,
+            otherwise it is estimated from the stocks topped up with ethanol to
+            ``total_volume_ml`` (unknown densities and carriers at 1.0 g/mL).
+        alt_names: extra names per row to match against the IFRA table.
 
     Returns:
         IFRASafetyReport with composite score and diagnostics.
@@ -638,12 +586,21 @@ def score_ifra_compliance(
     dermal_exposure: list[dict[str, Any]] = []
     diagnostics: list[str] = []
 
-    # Calculate each material's % in finished product
-    for name, amount_ul in ingredients.items():
-        dil = dilutions.get(name, 1.0)
-        active_ul = amount_ul * dil
-        active_ml = active_ul / 1000.0
-        pct_in_product = (active_ml / total_volume_ml) * 100.0
+    if finished_pct_w_w is None:
+        estimate = estimate_finished_product_pct_w_w(
+            (
+                FinishedProductRow(name, amount_ul, active_fraction=dilutions.get(name, 1.0))
+                for name, amount_ul in ingredients.items()
+            ),
+            total_volume_ml,
+        )
+        finished_pct_w_w = estimate.pct_w_w
+    pct_by_material = {name: float(finished_pct_w_w.get(name, 0.0)) for name in ingredients}
+    evaluation = evaluate_ifra(pct_by_material, table=_IFRA_TABLE, alt_names=alt_names)
+    _collect_ifra_verdicts(evaluation, violations, warnings, banned_flags, diagnostics)
+
+    for name in ingredients:
+        pct_in_product = pct_by_material[name]
         logp, mw, logp_source, mw_source = _resolve_physchem(name)
         partition = skin_partition(name, logp=logp, mw_g_mol=mw)
         exposure_index = pct_in_product * partition.fraction_into_skin
@@ -660,34 +617,6 @@ def score_ifra_compliance(
             "sebum_factor": round(partition.sebum_factor, 3),
         }
         dermal_exposure.append(dermal_row)
-
-        # Check IFRA limits
-        limit = IFRA_CAT4_LIMITS.get(name)
-        if limit is not None:
-            ratio = pct_in_product / limit
-            if ratio > 1.0:
-                violations.append(
-                    {
-                        "material": name,
-                        "actual_pct": round(pct_in_product, 4),
-                        "limit_pct": limit,
-                        "ratio": round(ratio, 2),
-                        "severity": "critical"
-                        if ratio > 3.0
-                        else "moderate"
-                        if ratio > 1.5
-                        else "minor",
-                    }
-                )
-            elif ratio > 0.7:
-                warnings.append(
-                    {
-                        "material": name,
-                        "actual_pct": round(pct_in_product, 4),
-                        "limit_pct": limit,
-                        "usage_pct": round(ratio * 100, 1),
-                    }
-                )
 
         # Check EU allergen declaration threshold
         name.lower()
@@ -714,10 +643,8 @@ def score_ifra_compliance(
                     }
                 )
 
-        # Check banned materials
-        if name in BANNED_MATERIALS:
-            banned_flags.append(name)
-        elif name in RESTRICTED_MATERIALS:
+        # Legacy jurisdiction-only restrictions (prohibitions come from the IFRA table)
+        if name in RESTRICTED_MATERIALS:
             restricted_flags.append(name)
 
     # ── Compute scores ──
@@ -763,7 +690,7 @@ def score_ifra_compliance(
 
     # Diagnostics
     if not violations and not banned_flags:
-        diagnostics.append("✓ All materials within IFRA Category 4 limits")
+        diagnostics.insert(0, "✓ All materials within IFRA Category 4 limits")
     if allergen_decl:
         diagnostics.append(
             f"ℹ {len(allergen_decl)} EU fragrance allergen(s) require label declaration: "
