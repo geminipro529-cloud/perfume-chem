@@ -339,6 +339,8 @@ button:disabled { cursor: not-allowed !important; opacity: .48; transform: none 
 .proxy-label { width: fit-content; padding: 2px 5px; color: #7d5b22 !important; background: rgba(216,138,33,.13); font-size: 8px !important; letter-spacing: .06em; text-transform: uppercase; }
 .formula-result-detail p { color: var(--muted); line-height: 1.55; }
 .formula-ledger-tools { margin-top: 24px; }
+.formula-design-table .formula-dose small.formula-dose-hold { white-space: normal; color: #7d5b22; font: 700 9px/1.3 "Bahnschrift", sans-serif; letter-spacing: .04em; text-transform: uppercase; }
+.formula-result-variant { display: none; }
 .bench-sheet { display: none; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -396,8 +398,10 @@ button:disabled { cursor: not-allowed !important; opacity: .48; transform: none 
 @media print {
   @page { size: A4; margin: 12mm; }
   body { min-height: 0; overflow: visible; background: white; }
-  .paper-grid, .masthead, .rail, #status, form, .request-actions, details > summary,
-  [data-panel="formulas"] .view-heading, .formula-chat-panel, .formula-ledger-tools { display: none !important; }
+  .paper-grid, .masthead, .rail, #status,
+  [data-panel="formulas"] form, [data-panel="formulas"] .request-actions button, [data-panel="formulas"] details > summary,
+  [data-panel="formulas"] .view-heading, .formula-chat-panel, .formula-ledger-tools, .formula-variant-picker { display: none !important; }
+  .formula-result-variant:not(:empty) { display: block; margin: 0 0 8px; font-weight: 700; }
   .app-shell { display: block; min-height: 0; }
   main { width: auto; padding: 0; }
   .view { animation: none; }
@@ -425,6 +429,8 @@ button:disabled { cursor: not-allowed !important; opacity: .48; transform: none 
   .bench-sheet-table .bench-amount { white-space: nowrap; font: 700 12px/1.3 "Cascadia Mono", monospace; text-align: right; }
   .bench-sheet-table .bench-number { width: 2em; font-weight: 800; }
   .bench-mass-line td { background: #eee; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .bench-sheet-note { margin: 0 0 8px; font-weight: 700; }
+  .bench-sheet-table small.bench-dilution-mark { margin-top: 3px; color: black; font-weight: 700; }
   .bench-tick { display: inline-block; width: 14px; height: 14px; border: 1.5px solid black; }
 }
 
