@@ -29,12 +29,13 @@ try:
 except ImportError:  # POSIX
     msvcrt = None  # type: ignore[assignment]
 
+from engine import inventory_completions
 from engine.mixer.sequencer import BASKET_LABELS
 from engine.name_utils import normalize_name
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 BASKET_EVENT_PATH_ENV = "PERFUME_BASKET_EVENT_PATH"
-DEFAULT_BASKET_EVENT_PATH = PROJECT_ROOT / "output" / "user_basket_events.jsonl"
+BASKET_EVENT_FILENAME = "user_basket_events.jsonl"
 BASKET_SEED_PATH = PROJECT_ROOT / "data" / "baskets" / "past_cards_draft_20261008.json"
 
 EVENT_SCHEMA = "basket-event-v1"
@@ -78,7 +79,12 @@ def basket_event_log_path(path: Path | None = None) -> Path:
     if path is not None:
         return path.resolve()
     override = os.environ.get(BASKET_EVENT_PATH_ENV)
-    return Path(override).resolve() if override else DEFAULT_BASKET_EVENT_PATH.resolve()
+    return Path(override).resolve() if override else default_basket_event_path().resolve()
+
+
+def default_basket_event_path() -> Path:
+    """Beside Kenny's other stock records, so it moves (and is backed up) with them."""
+    return inventory_completions.DEFAULT_COMPLETION_PATH.with_name(BASKET_EVENT_FILENAME)
 
 
 def basket_list() -> list[dict[str, Any]]:
@@ -284,6 +290,7 @@ __all__ = [
     "BasketLogCorruptError",
     "basket_key",
     "basket_event_log_path",
+    "default_basket_event_path",
     "basket_list",
     "confirmed_baskets",
     "load_basket_events",

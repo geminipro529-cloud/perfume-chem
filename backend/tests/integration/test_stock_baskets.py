@@ -2,14 +2,23 @@
 
 import json
 from collections import Counter
-from pathlib import Path
 
 import pytest
 
+from engine import inventory_baskets, inventory_completions
+
 INVENTORY = "/api/v1/lab/v2/workbench/current-inventory"
 BASKET = INVENTORY + "/basket"
-REPO_ROOT = Path(__file__).resolve().parents[3]
-REAL_LOG = REPO_ROOT / "output" / "user_basket_events.jsonl"
+REAL_LOG = inventory_baskets.default_basket_event_path()
+
+
+def test_basket_log_follows_the_other_stock_records(tmp_path, monkeypatch):
+    moved = tmp_path / "backed-up" / "user_inventory_completion_events.jsonl"
+    monkeypatch.delenv(inventory_baskets.BASKET_EVENT_PATH_ENV, raising=False)
+    monkeypatch.setattr(inventory_completions, "DEFAULT_COMPLETION_PATH", moved)
+    assert inventory_baskets.basket_event_log_path() == (
+        tmp_path / "backed-up" / "user_basket_events.jsonl"
+    ).resolve()
 
 
 @pytest.fixture
