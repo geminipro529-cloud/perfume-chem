@@ -180,10 +180,14 @@ function stockStatus(stock) {
   return stock.design_ready ? "ready" : "needs";
 }
 
+function stockIsNeat(stock) {
+  return stock.fraction_basis === "neat" || (!stockSolvents(stock).length && Number(stock.fraction_percent_decimal) === 100);
+}
+
 function stockStrengthLabel(stock) {
   const basis = stock.fraction_basis;
   const solvents = stockSolvents(stock).map(stockSolventName);
-  if (basis === "neat" || (!solvents.length && Number(stock.fraction_percent_decimal) === 100)) {
+  if (stockIsNeat(stock)) {
     if (stock.physical_form === "crystals") return "Neat crystals, weighed in mg";
     return /^solid/.test(stock.physical_form || "") ? "Neat solid" : "Neat";
   }
@@ -197,12 +201,12 @@ function stockStrengthLabel(stock) {
 }
 
 function stockNote(stock, status) {
-  if (status === "hold") return STOCK_HOLD_NOTE;
-  if (status !== "needs") return "";
-  const sentences = (stock.missing_fields || []).map((field) => (
+  if (status === "ready") return "";
+  // The hold marker is a hold, not a missing detail, so it is never listed here.
+  const sentences = (stock.missing_fields || []).filter((field) => field !== "USER_COMPOUNDING_HOLD").map((field) => (
     STOCK_NEED_SENTENCES[String(field).toLowerCase()] || humanize(field)
   ));
-  if (!sentences.length) return "Some details are missing";
+  if (!sentences.length) return status === "hold" ? "" : "Some details are missing";
   return sentences.length > 2 ? `${sentences.slice(0, 2).join(". ")}. And ${sentences.length - 2} more` : sentences.join(". ");
 }
 
@@ -216,10 +220,11 @@ function stockEl(tag, className, text) {
 function syncStockToolbar(stocks) {
   const select = $("#project-inventory-solvent");
   const found = [...new Set(stocks.flatMap(stockSolvents))].sort();
-  const signature = found.join("|");
+  const signature = `${found.join("|")}#${stocks.some((stock) => !stockIsNeat(stock) && !stockSolvents(stock).length)}`;
   if (select.dataset.signature !== signature) {
     select.dataset.signature = signature;
-    select.replaceChildren(new Option("Any solvent", ""), ...found.map((name) => new Option(stockSolventName(name), name)), new Option("Neat", "neat"));
+    const unrecorded = stocks.some((stock) => !stockIsNeat(stock) && !stockSolvents(stock).length);
+    select.replaceChildren(new Option("Any solvent", ""), ...found.map((name) => new Option(stockSolventName(name), name)), new Option("Neat", "neat"), ...(unrecorded ? [new Option("Solvent not recorded", "unrecorded")] : []));
     if (![...select.options].some((option) => option.value === stockView.solvent)) stockView.solvent = "";
   }
   select.value = stockView.solvent;
@@ -227,7 +232,7 @@ function syncStockToolbar(stocks) {
   $$("[data-stock-filter]").forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.stockFilter === stockView.filter));
   });
-  $("#project-inventory-incomplete-only").checked = stockView.filter === "needs";
+  $("#project-inventory-incomplete-only").checked = stockView.filter === "unfinished";
 }
 
 function renderProjectInventory(filter = "") {
@@ -237,10 +242,14 @@ function renderProjectInventory(filter = "") {
   syncStockToolbar(stocks);
   const entries = stocks.map((stock) => ({ stock, status: stockStatus(stock), label: stockStrengthLabel(stock) }));
   const rows = entries.filter(({ stock, status, label }) => {
-    if (stockView.filter !== "all" && status !== stockView.filter) return false;
+    if (stockView.filter === "unfinished" ? status === "ready" : (stockView.filter !== "all" && status !== stockView.filter)) return false;
     if (stockView.solvent) {
       const solvents = stockSolvents(stock);
-      if (stockView.solvent === "neat" ? solvents.length : !solvents.includes(stockView.solvent)) return false;
+      if (stockView.solvent === "neat") {
+        if (!stockIsNeat(stock)) return false;
+      } else if (stockView.solvent === "unrecorded") {
+        if (stockIsNeat(stock) || solvents.length) return false;
+      } else if (!solvents.includes(stockView.solvent)) return false;
     }
     if (!query) return true;
     return [stock.material, stock.identity_name, stock.normalized_identity, stock.stock_label, stock.category, stock.carrier, label]
@@ -284,9 +293,10 @@ function renderProjectInventory(filter = "") {
     const statusCell = stockEl("td", "stock-status");
     statusCell.appendChild(stockEl("span", `stock-chip stock-chip-${status}`, STOCK_STATUS_LABEL[status]));
     const note = stockNote(stock, status);
+    if (status === "hold") statusCell.appendChild(stockEl("span", "stock-row-note", STOCK_HOLD_NOTE));
     if (note) statusCell.appendChild(stockEl("span", "stock-row-note", note));
     const action = stockEl("td", "stock-action");
-    if (status === "needs" && stock.completion_available) {
+    if (status !== "ready" && stock.completion_available) {
       const button = stockEl("button", "inventory-complete-button quiet-button", "Complete details");
       button.type = "button";
       button.dataset.completeStock = stock.stock_id;
@@ -1265,7 +1275,7 @@ $("#project-inventory-search").addEventListener("input", (event) => {
 });
 
 $("#project-inventory-incomplete-only").addEventListener("change", (event) => {
-  stockView.filter = event.currentTarget.checked ? "needs" : "all";
+  stockView.filter = event.currentTarget.checked ? "unfinished" : "all";
   renderProjectInventory($("#project-inventory-search").value);
 });
 
@@ -1296,7 +1306,7 @@ function openInventoryCompletion(stock) {
   const form = $("#inventory-completion-form");
   form.reset();
   $("#inventory-completion-name").textContent = stock.identity_name || stock.material;
-  const missing = (stock.missing_fields || []).map((field) => humanize(field)).join(", ");
+  const missing = (stock.missing_fields || []).filter((field) => field !== "USER_COMPOUNDING_HOLD").map((field) => humanize(field)).join(", ");
   $("#inventory-completion-help").textContent = missing
     ? `Still needed for personal formulation: ${missing}. Confirm only what you actually know.`
     : "Review and confirm the details that describe your current bottle.";
@@ -1364,8 +1374,8 @@ $("#inventory-completion-form").addEventListener("submit", async (event) => {
       closeInventoryCompletion();
       notify("Inventory details saved. This stock is now available for personal formula design.");
     } else {
-      const missing = (result.missing_fields || []).map((field) => humanize(field)).join(", ");
-      $("#inventory-completion-help").textContent = `Saved, but this still needs: ${missing}.`;
+      const missing = (result.missing_fields || []).filter((field) => field !== "USER_COMPOUNDING_HOLD").map((field) => humanize(field)).join(", ");
+      $("#inventory-completion-help").textContent = missing ? `Saved, but this still needs: ${missing}.` : "Saved. This stock stays on hold until you clear the hold.";
       $('[name="expected_effective_inventory_sha256"]', form).value = result.inventory.canonical_effective_inventory_sha256;
       notify("Details saved, but the stock is still incomplete.", true);
     }
