@@ -681,7 +681,8 @@ def test_canonical_chemistry_gate_retains_explicit_hazard_screens() -> None:
     )
     chemistry = {gate.gate: gate for gate in report.gates}["chemistry_stability"]
 
-    assert chemistry.status == "FAIL"
+    # No exact stock specs, so the Schiff-base screen holds for active mass.
+    assert chemistry.status == "HOLD"
     assert "Schiff-base risk" in chemistry.detail
     assert chemistry.data["aging_claim"]["status"] == C9AssessmentStatus.WITHHELD.value
 

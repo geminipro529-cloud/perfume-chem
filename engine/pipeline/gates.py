@@ -669,6 +669,35 @@ def _science_profile_for_material(material) -> tuple[object, str]:
     return get_science_profile(material.name), material.name
 
 
+# Plain-language explanation of each ``active_mass_authority`` code that
+# ``_authoritative_active_mass`` emits when it cannot give an exact mass.
+_MISSING_ACTIVE_MASS_REASONS = {
+    "unavailable:stock_fraction_not_declared": "its stock dilution is not declared",
+    "unavailable:stock_fraction_basis_unspecified": "its dilution basis is not declared",
+    "unavailable:stock_solution_density_for_w_w": "needs the density of its w/w stock solution",
+    "unavailable:material_density": "needs its material density",
+}
+
+
+def _missing_authoritative_active_mass(state: FormulaState) -> list[dict[str, str]]:
+    """List materials without an authoritative active mass, with the reason code."""
+    return sorted(
+        (
+            {"material": material.name, "reason": material.active_mass_authority}
+            for material in state.materials
+            if material.authoritative_active_g is None
+        ),
+        key=lambda row: row["material"],
+    )
+
+
+def _describe_missing_active_mass(missing: list[dict[str, str]]) -> str:
+    return "; ".join(
+        f"{row['material']} ({_MISSING_ACTIVE_MASS_REASONS.get(row['reason'], row['reason'])})"
+        for row in missing
+    )
+
+
 def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     functional_groups = {
         m.name: set(m.functional_groups) for m in state.materials if m.functional_groups
@@ -728,11 +757,7 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
     active_mass_pct = state.active_mass_percentages()
     mass_dependent_assessment = bool((aldehydes and amines) or flagged_materials)
     if mass_dependent_assessment and active_mass_pct is None:
-        missing = sorted(
-            material.name
-            for material in state.materials
-            if material.authoritative_active_g is None
-        )
+        missing_rows = _missing_authoritative_active_mass(state)
         unknown_scope = []
         if aldehydes and amines:
             unknown_scope.append("Schiff-base risk")
@@ -740,14 +765,18 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
             unknown_scope.append("oxidation/photolability burden")
         return _result(
             "chemistry_stability",
-            "FAIL",
-            f"{' and '.join(unknown_scope)} assessment UNKNOWN: authoritative active mass is unavailable",
+            "HOLD",
+            f"{' and '.join(unknown_scope)} assessment UNKNOWN: authoritative active mass "
+            f"is unavailable for {_describe_missing_active_mass(missing_rows)}",
             {
                 "assessment": "UNKNOWN",
                 "claim_ceiling": "AUTHORITATIVE_ACTIVE_MASS_REQUIRED",
                 "active_mass_basis": "authoritative_active_g",
                 "proxy_active_g_ignored": True,
-                "missing_authoritative_active_mass_materials": missing,
+                "missing": missing_rows,
+                "missing_authoritative_active_mass_materials": [
+                    row["material"] for row in missing_rows
+                ],
                 "aging_claim": aging_claim.as_mapping(),
                 "candidate_schiff_base_pairs": _schiff_pair_rows(aldehydes),
                 "candidate_oxidation_or_photolability_materials": sorted(flagged_materials),
@@ -840,22 +869,22 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
 
 
 def _gate_phase_compatibility(state: FormulaState) -> GateResult:
-    missing = sorted(
-        material.name
-        for material in state.materials
-        if material.authoritative_active_g is None
-    )
-    if missing:
+    missing_rows = _missing_authoritative_active_mass(state)
+    if missing_rows:
         return _result(
             "phase_compatibility",
-            "FAIL",
-            "Phase compatibility assessment UNKNOWN: authoritative active mass is unavailable",
+            "HOLD",
+            "Phase compatibility assessment UNKNOWN: authoritative active mass is unavailable "
+            f"for {_describe_missing_active_mass(missing_rows)}",
             {
                 "assessment": "UNKNOWN",
                 "claim_ceiling": "AUTHORITATIVE_ACTIVE_MASS_REQUIRED",
                 "active_mass_basis": "authoritative_active_g",
                 "proxy_active_g_ignored": True,
-                "missing_authoritative_active_mass_materials": missing,
+                "missing": missing_rows,
+                "missing_authoritative_active_mass_materials": [
+                    row["material"] for row in missing_rows
+                ],
             },
         )
 
@@ -5573,25 +5602,63 @@ def _gate_authority_vector(state, config):
 
 
 def _gate_concentration_basis(state, config):
-    """FAIL if any material lacks a supported, explicit concentration basis."""
+    """FAIL on an unsupported concentration basis; HOLD on an undeclared one.
+
+    A bare "10%" is missing data (the author has not said w/w or v/v), so it
+    blocks release as HOLD. A declared basis the pipeline cannot use is a
+    formula error and FAILs; when both occur the gate FAILs and the detail
+    still names the undeclared rows.
+    """
     allowed_bases = {"neat", "mass_fraction", "volume_fraction", "mass_per_volume"}
     violations = []
+    missing = []
+    undeclared = []
     for m in state.materials:
         basis = str(
             getattr(m, "stock_fraction_basis", "unspecified") or "unspecified"
         ).strip().lower()
-        if basis not in allowed_bases:
+        if basis == "unspecified":
+            pct = f"{round(float(m.dilution) * 100.0, 6):g}"
+            missing.append(
+                {"material": m.name, "reason": "unavailable:stock_fraction_basis_unspecified"}
+            )
+            undeclared.append(
+                f"{m.name}: concentration basis not declared; declare {pct}% w/w or {pct}% v/v"
+            )
+        elif basis not in allowed_bases:
             violations.append(
-                f"{m.name}: unsupported or unspecified concentration basis {basis!r} "
+                f"{m.name}: unsupported concentration basis {basis!r} "
                 "(use neat, w/w, v/v, or w/v)"
             )
 
+    def _listing(rows: list[str]) -> str:
+        return f"{'; '.join(rows[:5])}{'...' if len(rows) > 5 else ''}"
+
     if violations:
+        detail = (
+            f"{len(violations)} material(s) with invalid concentration basis: "
+            f"{_listing(violations)}"
+        )
+        if undeclared:
+            detail += (
+                f"; {len(undeclared)} material(s) with undeclared concentration basis: "
+                f"{_listing(undeclared)}"
+            )
         return GateResult(
             gate="concentration_basis",
             status="FAIL",
-            detail=f"{len(violations)} material(s) with invalid concentration basis: {'; '.join(violations[:5])}{'...' if len(violations) > 5 else ''}",
-            data={"violations": violations},
+            detail=detail,
+            data={"violations": violations, "undeclared": undeclared, "missing": missing},
+        )
+    if undeclared:
+        return GateResult(
+            gate="concentration_basis",
+            status="HOLD",
+            detail=(
+                f"{len(undeclared)} material(s) with undeclared concentration basis: "
+                f"{_listing(undeclared)}"
+            ),
+            data={"violations": [], "undeclared": undeclared, "missing": missing},
         )
 
     return GateResult(
