@@ -118,7 +118,8 @@ def test_late_intake_prose_does_not_crash_numeric_character_consumers():
     for profile in get_all_profiles().values():
         assert len(profile.dimension_vector()) == 13
         assert isinstance(profile.character_tags(), list)
-        assert profile.note in {"top", "heart", "base", "carrier"}
+        # Newly received but unreviewed products retain an unknown note tier.
+        assert profile.note in {"top", "heart", "base", "carrier", "unassigned"}
         assert profile.role not in {"top", "heart", "base"}
     profile = get_profile("hay absolute")
     assert profile.odor_description == "coumarinic hay, dry, natural"

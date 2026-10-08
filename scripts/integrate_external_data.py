@@ -19,6 +19,7 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
@@ -33,7 +34,7 @@ def integrate_pyrfume() -> dict:
         arctander_1960, leffingwell, goodscents, ifra_2019,
         dravnieks_1985, flavornet, superscent, keller_2016
     """
-    results = {"source": "pyrfume", "datasets": {}}
+    results: dict[str, Any] = {"source": "pyrfume", "datasets": {}}
     try:
         import pyrfume
 
@@ -86,7 +87,7 @@ def integrate_dream() -> dict:
         - molecular_descriptors_data.txt: 4884 Dragon descriptors per molecule
         - 21 perceptual attributes per molecule × 49 subjects
     """
-    results = {"source": "dream_olfaction", "datasets": {}}
+    results: dict[str, Any] = {"source": "dream_olfaction", "datasets": {}}
 
     dream_dir = ROOT / "data/external/dream_olfaction"
     if not dream_dir.exists():
@@ -136,7 +137,7 @@ def integrate_huggingface_odor() -> dict:
     Contains: SMILES + 50 binary odor labels (fruity, green, sweet, etc.)
     Source: HuggingFace Hari5115/molecular-odor-dataset
     """
-    results = {"source": "huggingface_odor", "datasets": {}}
+    results: dict[str, Any] = {"source": "huggingface_odor", "datasets": {}}
 
     try:
         import pandas as pd
@@ -174,7 +175,7 @@ def integrate_huggingface_odor() -> dict:
 # ── Main ──────────────────────────────────────────────────────────────────
 
 
-def main():
+def main(argv: list[str] | None = None) -> int:
     import argparse
 
     parser = argparse.ArgumentParser(description="Integrate external perfume data sources")
@@ -182,11 +183,56 @@ def main():
         "--source",
         "-s",
         choices=["pyrfume", "dream", "huggingface", "all"],
-        default="all",
+        default=None,
         help="Which data source to integrate",
     )
     parser.add_argument("--json", "-j", action="store_true", help="Output as JSON")
-    args = parser.parse_args()
+    parser.add_argument("--manifest", type=Path, help="Exact governed source manifest")
+    parser.add_argument("--source-root", type=Path, help="Local immutable raw-source root")
+    parser.add_argument("--output-dir", type=Path, help="Noncanonical staging destination")
+    parser.add_argument("--related-source", nargs=2, action="append", default=[], metavar=("MANIFEST", "ROOT"))
+    parser.add_argument("--dry-run", action="store_true", help="Verify without creating reports")
+    parser.add_argument("--fetch", action="store_true", help="Explicitly allow hash-locked artifact retrieval")
+    args = parser.parse_args(argv)
+
+    if args.manifest is not None:
+        if args.source is not None or args.source_root is None or args.output_dir is None:
+            parser.error("--manifest requires --source-root and --output-dir; it cannot be mixed with --source")
+        from engine.ingestion.scientific import stage_scientific_source
+
+        related = []
+        for index, (manifest_path, source_root) in enumerate(args.related_source):
+            parent_manifest = json.loads(Path(manifest_path).read_text(encoding="utf-8"))
+            related.append(stage_scientific_source(
+                parent_manifest, source_root=Path(source_root),
+                output_dir=args.output_dir / f"related-{index + 1}",
+                allow_fetch=args.fetch,
+            ))
+        manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
+        result = stage_scientific_source(
+            manifest, source_root=args.source_root, output_dir=args.output_dir,
+            allow_fetch=args.fetch, related_sources=related,
+        )
+        written = result.write() if result.accepted and not args.dry_run else {}
+        payload = {
+            "accepted": result.accepted,
+            "status": result.status,
+            "source_id": result.source_id,
+            "manifest_sha256": result.manifest_hash,
+            "bundle_sha256": result.bundle_hash,
+            "rejections": [rejection.to_dict() for rejection in result.rejections],
+            "written": written,
+            "release_authority": False,
+            "safety_authority": False,
+            "compounding_authority": False,
+            "evidence_admission_authorized": False,
+        }
+        print(json.dumps(payload, indent=2, ensure_ascii=False) if args.json else f"{result.status}: {result.source_id}")
+        return 0 if result.accepted else 2
+    if args.source is None:
+        parser.error("choose --manifest for governed local staging or an explicit --source for legacy collection")
+    if args.dry_run or args.fetch or args.source_root or args.output_dir or args.related_source:
+        parser.error("governed staging options require --manifest")
 
     all_results = {}
 
@@ -212,7 +258,8 @@ def main():
                         print(
                             f"  {ds_name}: {ds_data.get('molecules', ds_data.get('rows', '?'))} entries"
                         )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

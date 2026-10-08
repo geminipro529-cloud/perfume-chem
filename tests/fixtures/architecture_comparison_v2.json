@@ -1,0 +1,274 @@
+{
+  "schema_version": "architecture-comparison-corpus-v2",
+  "frozen_before_execution": true,
+  "scope": "DIAGNOSTIC_CONTRACT_CORPUS_NOT_HELD_OUT_SENSORY_DATA",
+  "configuration": {
+    "max_materials": 12,
+    "liquid_concentrate_ul": "6000",
+    "design_mode": "DEEP_COMPOSE",
+    "control_variants": 1,
+    "comparison_variants": 3,
+    "network_allowed": false,
+    "reverse_replay_required": true,
+    "ranking_allowed": false,
+    "adapter_schema": "source-bound-architecture-adapters-v2",
+    "purpose": "Successor mapping and recognizer diagnostic; not held-out sensory evidence"
+  },
+  "cases": [
+    {
+      "case_id": "lychee",
+      "brief": "A juicy lychee fruit perfume",
+      "expected_subtype": "ORCHARD_LYCHEE_CULTIVARS",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "fig_leaf",
+      "brief": "A fig leaf perfume",
+      "expected_subtype": "GREEN_FIG_LEAF",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "fig_fruit",
+      "brief": "A fig fruit perfume",
+      "expected_subtype": "ORCHARD_FIG_FRUIT",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "freesia",
+      "brief": "A peppery freesia perfume",
+      "expected_subtype": "FREESIA_PEPPER",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "jasmine_tea",
+      "brief": "A jasmine green tea perfume",
+      "expected_subtype": "JAS_TEA_GREEN",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "gardenia",
+      "brief": "A creamy gardenia perfume",
+      "expected_subtype": "GARDENIA_CREAM",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "lavender_blossom",
+      "brief": "Lavender orange blossom perfume",
+      "expected_subtype": "LAV_ORANGE",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "lavender_incense",
+      "brief": "Lavender incense without Ambroxan",
+      "expected_subtype": "LAV_INCENSE",
+      "must_preserve": [
+        "lavender"
+      ],
+      "must_avoid": [
+        "Ambroxan"
+      ],
+      "expected_hold": null
+    },
+    {
+      "case_id": "lavender_vanilla",
+      "brief": "A lavender vanilla perfume",
+      "expected_subtype": "LAV_VANILLIC",
+      "must_preserve": [
+        "lavender"
+      ],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "jammy_rose",
+      "brief": "A jammy rose perfume",
+      "expected_subtype": "ROSE_JAMMY",
+      "must_preserve": [
+        "rose"
+      ],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "negated_incense",
+      "brief": "Lavender, without incense",
+      "expected_subtype": null,
+      "must_preserve": [],
+      "must_avoid": [
+        "incense"
+      ],
+      "expected_hold": null
+    },
+    {
+      "case_id": "violet_leaf",
+      "brief": "Watery violet leaf",
+      "expected_subtype": null,
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "violet_petals",
+      "brief": "Violet petals",
+      "expected_subtype": null,
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "campaign_hold",
+      "brief": "CHIMIE LHOMME, lavender incense",
+      "expected_subtype": null,
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": "WITHHELD_CAMPAIGN_IDENTITY"
+    },
+    {
+      "case_id": "exact_stock_and_solid",
+      "brief": "A lychee perfume with exactly 15 uL of Hedione and crystal Ambrox",
+      "expected_subtype": "ORCHARD_LYCHEE_CULTIVARS",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "successor_orange_neroli",
+      "brief": "A fresh neroli perfume",
+      "must_avoid": [],
+      "must_preserve": [],
+      "expected_subtype": "ORANGE_NEROLI",
+      "expected_hold": null
+    },
+    {
+      "case_id": "successor_orange_petitgrain",
+      "brief": "A bitter-green petitgrain perfume",
+      "must_avoid": [],
+      "must_preserve": [],
+      "expected_subtype": "ORANGE_PETITGRAIN",
+      "expected_hold": null
+    },
+    {
+      "case_id": "successor_muguet_soft",
+      "brief": "A soft muguet perfume",
+      "must_avoid": [],
+      "must_preserve": [],
+      "expected_subtype": "MUGUET_SOFT",
+      "expected_hold": null
+    },
+    {
+      "case_id": "successor_tuberose_indolic",
+      "brief": "An indolic tuberose perfume",
+      "must_avoid": [],
+      "must_preserve": [],
+      "expected_subtype": "TUBEROSE_INDOLIC",
+      "expected_hold": null
+    },
+    {
+      "case_id": "successor_tuberose_transparent",
+      "brief": "A transparent tuberose perfume",
+      "must_avoid": [],
+      "must_preserve": [],
+      "expected_subtype": "TUBEROSE_TRANSPARENT",
+      "expected_hold": null
+    },
+    {
+      "case_id": "successor_trop_champaca",
+      "brief": "A champaca flower perfume",
+      "must_avoid": [],
+      "must_preserve": [],
+      "expected_subtype": "TROP_CHAMPACA",
+      "expected_hold": null
+    },
+    {
+      "case_id": "successor_lily_green",
+      "brief": "A green fresh cut lily perfume",
+      "must_avoid": [],
+      "must_preserve": [],
+      "expected_subtype": "LILY_GREEN",
+      "expected_hold": null
+    },
+    {
+      "case_id": "successor_pollen_spartium_broom",
+      "brief": "A Spanish broom absolute perfume",
+      "must_avoid": [],
+      "must_preserve": [],
+      "expected_subtype": "POLLEN_SPARTIUM_BROOM",
+      "expected_hold": null
+    },
+    {
+      "case_id": "successor_violet_powder",
+      "brief": "A powdery violet perfume",
+      "must_avoid": [],
+      "must_preserve": [],
+      "expected_subtype": "VIOLET_POWDER",
+      "expected_hold": null
+    },
+    {
+      "case_id": "successor_iris_violet_leaf",
+      "brief": "An iris perfume with violet leaf",
+      "must_avoid": [],
+      "must_preserve": [],
+      "expected_subtype": "IRIS_VIOLET_LEAF",
+      "expected_hold": null
+    },
+    {
+      "case_id": "successor_bouquet_aldehydic",
+      "brief": "An aldehydic floral bouquet",
+      "must_avoid": [],
+      "must_preserve": [],
+      "expected_subtype": "BOUQUET_ALDEHYDIC",
+      "expected_hold": null
+    },
+    {
+      "case_id": "successor_bouquet_soft",
+      "brief": "A gentle floral bouquet",
+      "must_avoid": [],
+      "must_preserve": [],
+      "expected_subtype": "BOUQUET_SOFT",
+      "expected_hold": null
+    },
+    {
+      "case_id": "lily_of_valley_boundary",
+      "brief": "A lily of the valley perfume",
+      "must_avoid": [],
+      "must_preserve": [],
+      "expected_subtype": "MUGUET_SOFT",
+      "expected_hold": null
+    },
+    {
+      "case_id": "leaf_exclusion",
+      "brief": "An iris perfume without violet leaf",
+      "must_avoid": [
+        "violet leaf"
+      ],
+      "must_preserve": [],
+      "expected_subtype": null,
+      "expected_hold": null
+    },
+    {
+      "case_id": "juniper_identity",
+      "brief": "A juniper perfume without fruit",
+      "must_avoid": [
+        "fruit"
+      ],
+      "must_preserve": [],
+      "expected_subtype": null,
+      "expected_hold": null
+    }
+  ]
+}
+

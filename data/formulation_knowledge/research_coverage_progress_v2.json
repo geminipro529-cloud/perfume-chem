@@ -1,0 +1,1968 @@
+{
+  "schema_version": "fragrance-research-coverage-progress-v2",
+  "as_of_date": "2026-10-06",
+  "status": "INITIAL_CONSTRUCTION_ADVISORY_INTEGRATION_COMPLETE",
+  "full_research_program_complete": false,
+  "predecessor": {
+    "path": "data/formulation_knowledge/research_coverage_progress_v1.json",
+    "sha256": "9753eaf2ba058be4b4bb7d710e9dbbf5a0a241a35591c8a0fca02613dabdca02",
+    "preserved": true
+  },
+  "frozen_plan": {
+    "path": "data/formulation_knowledge/research_coverage_plan_v1.json",
+    "sha256": "4b1225736af6b4ef6a564c8f2df40a846aa3cbab15f0584cd952088a8021a4ac",
+    "planning_manifest_activated": false
+  },
+  "runtime_library": {
+    "path": "data/formulation_knowledge/construction_library_v1.json",
+    "scope": "INITIAL_SOURCE_BOUND_ADVISORY_CONSTRUCTION",
+    "runtime_use": "OFFLINE_ADVISORY_ONLY"
+  },
+  "totals": {
+    "initial_package_dossiers": 49,
+    "scope_entries": 275,
+    "source_bound_core_scope_entries": 120,
+    "unreviewed_subtype_scope_entries": 155,
+    "functional_nodes": 147,
+    "untested_architecture_alternatives": 98,
+    "scientific_front_questions": 14,
+    "market_segment_boundaries": 8,
+    "product_format_boundaries": 13,
+    "commercial_panel_tracks": 14,
+    "new_panel_admissions": 0,
+    "sources": 115,
+    "claims": 109,
+    "profiles": 43,
+    "exact_material_cards": 25,
+    "reviewed_advisory_sources": 51,
+    "legacy_advisory_sources": 64,
+    "new_primary_or_manufacturer_summaries": 31,
+    "numeric_calibrations_admitted_in_this_library": 0,
+    "empirically_validated_packages": 0
+  },
+  "packages": [
+    {
+      "package_id": "AR_LAVENDER",
+      "title": "Lavender material registers and structures",
+      "domain": "aromatic",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "soliflore",
+        "classical fougere",
+        "mineral ambrox"
+      ],
+      "unreviewed_subtypes": [
+        "cologne",
+        "green barbershop",
+        "vanillic resin",
+        "soft musk",
+        "orange blossom",
+        "iris",
+        "apple",
+        "pineapple",
+        "incense",
+        "coffee milk",
+        "licorice",
+        "spiced wood"
+      ],
+      "source_ids": [
+        "bontoux_lavender_products",
+        "houbigant_fougere_royale_extrait",
+        "dsm_ambrox_super_description"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "AR_FOUGERE",
+      "title": "Fougere chassis",
+      "domain": "aromatic",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "classical",
+        "green dry",
+        "modern mineral"
+      ],
+      "unreviewed_subtypes": [
+        "tonka sweet",
+        "floral fougere",
+        "leathery"
+      ],
+      "source_ids": [
+        "houbigant_fougere_royale_extrait",
+        "iff_tonka_foundation",
+        "guerlain_mitsouko_edp_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "AR_HERBS",
+      "title": "Other aromatic/herbal structures",
+      "domain": "aromatic",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "clary sage",
+        "tea herbal"
+      ],
+      "unreviewed_subtypes": [
+        "rosemary",
+        "basil thyme",
+        "mint",
+        "anise tarragon"
+      ],
+      "source_ids": [
+        "iff_clary_completion",
+        "iff_mate_completion",
+        "iff_bergamot_fcr_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FL_ROSE",
+      "title": "Rose structures",
+      "domain": "floral",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "fresh dewy",
+        "green",
+        "powdery"
+      ],
+      "unreviewed_subtypes": [
+        "lemony",
+        "jammy fruity",
+        "honeyed",
+        "metallic spicy",
+        "dark patchouli"
+      ],
+      "source_ids": [
+        "iff_rose_completion",
+        "dsm_hedione_foundation",
+        "iff_gamma"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FL_JASMINE",
+      "title": "Jasmine structures",
+      "domain": "floral",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "sambac",
+        "fruity petal",
+        "indolic"
+      ],
+      "unreviewed_subtypes": [
+        "grandiflorum",
+        "tea green",
+        "leathery"
+      ],
+      "source_ids": [
+        "iff_jasmine_completion",
+        "dsm_hedione_foundation",
+        "dsm_exaltolide_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FL_ORANGE",
+      "title": "Orange-flower structures",
+      "domain": "floral",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "orange blossom absolute",
+        "transparent citrus floral"
+      ],
+      "unreviewed_subtypes": [
+        "distilled neroli",
+        "petitgrain bridge",
+        "honeyed indolic"
+      ],
+      "source_ids": [
+        "iff_orange_flower_completion",
+        "iff_bergamot_fcr_foundation",
+        "dsm_hedione_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FL_TUBEROSE",
+      "title": "Tuberose structures",
+      "domain": "floral",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "green watery",
+        "creamy"
+      ],
+      "unreviewed_subtypes": [
+        "indolic animalic",
+        "modern transparent"
+      ],
+      "source_ids": [
+        "iff_tuberose_completion",
+        "dsm_hedione_foundation",
+        "givaudan_methyl_laitone_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FL_GARDENIA",
+      "title": "Gardenia structures",
+      "domain": "floral",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "green petal",
+        "modern reconstruction"
+      ],
+      "unreviewed_subtypes": [
+        "creamy white floral"
+      ],
+      "source_ids": [
+        "gardenia_extract_completion",
+        "dsm_hedione_foundation",
+        "givaudan_methyl_laitone_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FL_TROPICAL",
+      "title": "Ylang and tropical floral structures",
+      "domain": "floral",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "ylang complete",
+        "solar floral"
+      ],
+      "unreviewed_subtypes": [
+        "ylang fractions",
+        "cananga",
+        "tiare",
+        "frangipani"
+      ],
+      "source_ids": [
+        "iff_ylang_completion",
+        "dsm_hedione_foundation",
+        "givaudan_methyl_laitone_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FL_MUGUET",
+      "title": "Muguet/cyclamen/watery flowers",
+      "domain": "floral",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "modern muguet",
+        "wet petal",
+        "transparent floral"
+      ],
+      "unreviewed_subtypes": [
+        "classical muguet",
+        "cyclamen",
+        "watery musk"
+      ],
+      "source_ids": [
+        "givaudan_florhydral_completion",
+        "dsm_sharing_innovation_2026",
+        "dsm_hedione_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FL_LIGHT",
+      "title": "Peony, freesia and magnolia",
+      "domain": "floral",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "transparent freesia",
+        "citrus magnolia"
+      ],
+      "unreviewed_subtypes": [
+        "dewy peony",
+        "rose adjacent peony",
+        "peppery freesia",
+        "creamy magnolia"
+      ],
+      "source_ids": [
+        "iff_magnolia_completion",
+        "dsm_hedione_foundation",
+        "jomalone_english_pear_freesia_cologne"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FL_GREEN",
+      "title": "Hyacinth, narcissus and jonquil",
+      "domain": "floral",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "green hyacinth",
+        "jonquil",
+        "hay leathery flower"
+      ],
+      "unreviewed_subtypes": [
+        "narcissus absolute"
+      ],
+      "source_ids": [
+        "givaudan_florhydral_completion",
+        "iff_jonquille_completion",
+        "dsm_hedione_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FL_SPICY",
+      "title": "Carnation and lily",
+      "domain": "floral",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "carnation",
+        "rose spice"
+      ],
+      "unreviewed_subtypes": [
+        "salicylate lily",
+        "green lily"
+      ],
+      "source_ids": [
+        "iff_carnation_completion",
+        "iff_cassie_completion",
+        "dsm_hedione_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FL_POLLEN",
+      "title": "Pollen/powder/honey flowers",
+      "domain": "floral",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "mimosa",
+        "cassie",
+        "heliotrope",
+        "linden"
+      ],
+      "unreviewed_subtypes": [
+        "pollen honey"
+      ],
+      "source_ids": [
+        "iff_mimosa_completion",
+        "iff_cassie_completion",
+        "givaudan_florhydral_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FL_IRIS",
+      "title": "Iris, orris and violet",
+      "domain": "floral",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "root butter",
+        "cosmetic powder",
+        "transparent woody iris",
+        "violet petals",
+        "orris grade differences"
+      ],
+      "unreviewed_subtypes": [
+        "violet powder",
+        "violet leaf"
+      ],
+      "source_ids": [
+        "biolandes_orris",
+        "iff_gamma",
+        "iff_orivone",
+        "givaudan_dihydro"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FL_BOUQUET",
+      "title": "Bouquets and floral aldehydic structures",
+      "domain": "floral",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "transparent bouquet",
+        "woody floral musk"
+      ],
+      "unreviewed_subtypes": [
+        "classical bouquet",
+        "floral aldehydic",
+        "soft floral"
+      ],
+      "source_ids": [
+        "dsm_hedione_foundation",
+        "iff_iso_e_super_completion",
+        "dsm_exaltolide_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "AM_RESIN",
+      "title": "Resinous amber",
+      "domain": "amber",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "labdanum benzoin vanilla",
+        "dry resinous"
+      ],
+      "unreviewed_subtypes": [
+        "styrax",
+        "opoponax",
+        "tolu peru balsam",
+        "animalic resinous"
+      ],
+      "source_ids": [
+        "iff_labdanum_foundation",
+        "iff_benzoin_siam_foundation",
+        "iff_iso_e_super_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "AM_SOFT",
+      "title": "Soft/powdery amber",
+      "domain": "amber",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "heliotropic",
+        "iris musky"
+      ],
+      "unreviewed_subtypes": [
+        "coumarinic",
+        "soft vanillic"
+      ],
+      "source_ids": [
+        "dsm_sharing_innovation_2026",
+        "iff_gamma",
+        "dsm_exaltolide_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "AM_FLORAL",
+      "title": "Floral/spicy amber",
+      "domain": "amber",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "rose amber",
+        "dry spice amber"
+      ],
+      "unreviewed_subtypes": [
+        "white floral amber",
+        "balsamic amber"
+      ],
+      "source_ids": [
+        "iff_labdanum_foundation",
+        "dsm_hedione_foundation",
+        "iff_cashmeran_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "AM_AMBERGRIS",
+      "title": "Ambergris and ambroxide",
+      "domain": "amber",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "commercial grade differences",
+        "mineral warm construction"
+      ],
+      "unreviewed_subtypes": [
+        "natural tincture",
+        "ambroxide stereochemistry"
+      ],
+      "source_ids": [
+        "dsm_ambrox_super_description",
+        "iff_iso_e_super_completion",
+        "dsm_exaltolide_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "AM_WOODS",
+      "title": "High-impact amberwoods",
+      "domain": "amber",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "dry sharp",
+        "velvety woody",
+        "trace support"
+      ],
+      "unreviewed_subtypes": [
+        "mineral",
+        "sandal cedar associated"
+      ],
+      "source_ids": [
+        "dsm_norlimbanol_dextro_completion",
+        "iff_cashmeran_completion",
+        "iff_iso_e_super_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "MU_MUSK",
+      "title": "Musk identities and architectures",
+      "domain": "musk",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "macrocyclic",
+        "metallic clean",
+        "fruity",
+        "warm skin"
+      ],
+      "unreviewed_subtypes": [
+        "alicyclic",
+        "polycyclic",
+        "powdery"
+      ],
+      "source_ids": [
+        "helvetolide",
+        "dsm_habanolide_foundation",
+        "dsm_exaltolide_foundation",
+        "iff_ambrettolide_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "CI_PRODUCTS",
+      "title": "Citrus species and product processing",
+      "domain": "citrus_fresh",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "bergamot",
+        "processing grades",
+        "peel juice pith"
+      ],
+      "unreviewed_subtypes": [
+        "lemon lime",
+        "orange mandarin",
+        "grapefruit bitter orange",
+        "citron cedrat",
+        "yuzu regional citrus"
+      ],
+      "source_ids": [
+        "iff_bergamot_fcr_foundation",
+        "dsm_hedione_foundation",
+        "givaudan_florhydral_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "CI_CHASSIS",
+      "title": "Citrus construction styles",
+      "domain": "citrus_fresh",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "classical cologne",
+        "aromatic citrus",
+        "persistent citrus illusion"
+      ],
+      "unreviewed_subtypes": [
+        "neroli petitgrain",
+        "fresh woody"
+      ],
+      "source_ids": [
+        "iff_bergamot_fcr_foundation",
+        "givaudan_florhydral_completion",
+        "iff_iso_e_super_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "GR_GREEN",
+      "title": "Green leafy structures",
+      "domain": "citrus_fresh",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "leaf stem",
+        "fig green"
+      ],
+      "unreviewed_subtypes": [
+        "cut grass",
+        "galbanum",
+        "violet leaf",
+        "conifer green"
+      ],
+      "source_ids": [
+        "givaudan_stemone_foundation",
+        "givaudan_florhydral_completion",
+        "dsm_hedione_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "WA_AQUATIC",
+      "title": "Aquatic/ozonic/mineral/solar structures",
+      "domain": "citrus_fresh",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "marine saline",
+        "rain ozone"
+      ],
+      "unreviewed_subtypes": [
+        "melon watery",
+        "airy mineral",
+        "solar salicylate",
+        "dry mineral"
+      ],
+      "source_ids": [
+        "dsm_calone_completion",
+        "givaudan_florhydral_completion",
+        "dsm_ambrox_super_description"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FR_ORCHARD",
+      "title": "Orchard-fruit structures",
+      "domain": "fruit",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "pear peel",
+        "pear juice flesh",
+        "apple skin",
+        "apple juicy body",
+        "lychee floral"
+      ],
+      "unreviewed_subtypes": [
+        "pear persistent bridge",
+        "ripe apple",
+        "fruit heart continuity"
+      ],
+      "source_ids": [
+        "apple_aroma",
+        "pear_aroma",
+        "helvetolide",
+        "guerlain_pera_granita_edt",
+        "jomalone_english_pear_freesia_cologne"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FR_BERRY",
+      "title": "Berry/rhubarb/grape structures",
+      "domain": "fruit",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "red berries"
+      ],
+      "unreviewed_subtypes": [
+        "blackcurrant",
+        "raspberry",
+        "rhubarb",
+        "grape",
+        "berry floral"
+      ],
+      "source_ids": [
+        "dsm_sharing_innovation_2026",
+        "dsm_hedione_foundation",
+        "helvetolide"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FR_TROPICAL",
+      "title": "Tropical/melon fruit structures",
+      "domain": "fruit",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "tropical citrus"
+      ],
+      "unreviewed_subtypes": [
+        "pineapple",
+        "mango",
+        "passionfruit",
+        "melon",
+        "banana"
+      ],
+      "source_ids": [
+        "givaudan_paradisamide_completion",
+        "malle_music_for_a_while_edp",
+        "helvetolide"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "FR_STONE",
+      "title": "Stone/dried fruit structures",
+      "domain": "fruit",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "apricot osmanthus",
+        "lactonic flesh",
+        "dried fruit"
+      ],
+      "unreviewed_subtypes": [
+        "peach skin",
+        "plum",
+        "cherry"
+      ],
+      "source_ids": [
+        "iff_osmanthus_completion",
+        "givaudan_methyl_laitone_completion",
+        "iff_davana_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "CH_CHYPRE",
+      "title": "Chypre structures",
+      "domain": "structural",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "classical",
+        "fruity",
+        "modern moss alternatives"
+      ],
+      "unreviewed_subtypes": [
+        "floral",
+        "green",
+        "leathery"
+      ],
+      "source_ids": [
+        "iff_bergamot_fcr_foundation",
+        "guerlain_mitsouko_edp_foundation",
+        "iff_labdanum_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "WO_CEDAR",
+      "title": "Cedar/conifer/dry woods",
+      "domain": "woody",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "dry transparent woods",
+        "pale woods"
+      ],
+      "unreviewed_subtypes": [
+        "cedar pencil",
+        "conifer resin",
+        "guaiac smoke"
+      ],
+      "source_ids": [
+        "iff_iso_e_super_completion",
+        "iff_cashmeran_completion",
+        "dsm_exaltolide_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "WO_SANDAL",
+      "title": "Sandalwood structures",
+      "domain": "woody",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "natural species",
+        "creamy",
+        "synthetic grade alternatives"
+      ],
+      "unreviewed_subtypes": [
+        "dry transparent"
+      ],
+      "source_ids": [
+        "iff_sandal_nc_completion",
+        "givaudan_sandalore_foundation",
+        "givaudan_javanol_super_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "WO_VETIVER",
+      "title": "Vetiver structures",
+      "domain": "woody",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "root earthy",
+        "citrus fresh"
+      ],
+      "unreviewed_subtypes": [
+        "smoky dry",
+        "fractionated clean"
+      ],
+      "source_ids": [
+        "iff_vetiver_completion",
+        "iff_bergamot_fcr_foundation",
+        "iff_iso_e_super_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "WO_PATCH",
+      "title": "Patchouli structures",
+      "domain": "woody",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "earthy leaf",
+        "amber bridge",
+        "floral chypre bridge"
+      ],
+      "unreviewed_subtypes": [
+        "clean fractions"
+      ],
+      "source_ids": [
+        "iff_patchouli_completion",
+        "iff_labdanum_foundation",
+        "dsm_hedione_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "WO_OUD",
+      "title": "Oud structures",
+      "domain": "woody",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "natural product variation",
+        "clean woody"
+      ],
+      "unreviewed_subtypes": [
+        "medicinal animalic",
+        "rose amber",
+        "spiced"
+      ],
+      "source_ids": [
+        "agarwood_variation_completion",
+        "iff_iso_e_super_completion",
+        "iff_labdanum_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "LE_LEATHER",
+      "title": "Leather and suede",
+      "domain": "structural",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "soft suede",
+        "saffron leather",
+        "iris leather"
+      ],
+      "unreviewed_subtypes": [
+        "smoky tar",
+        "bitter green",
+        "floral leather"
+      ],
+      "source_ids": [
+        "givaudan_safraleine_foundation",
+        "iff_orivone",
+        "iff_cashmeran_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "RE_INCENSE",
+      "title": "Incense and resin structures",
+      "domain": "resin_specialty",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "frankincense oil",
+        "frankincense resinoid",
+        "mineral incense"
+      ],
+      "unreviewed_subtypes": [
+        "myrrh opoponax",
+        "elemi",
+        "church smoke"
+      ],
+      "source_ids": [
+        "iff_olibanum_oil_completion",
+        "iff_olibanum_resinoid_completion",
+        "iff_iso_e_super_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "TO_HAY",
+      "title": "Tobacco, hay and beeswax",
+      "domain": "resin_specialty",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "coumarinic hay"
+      ],
+      "unreviewed_subtypes": [
+        "dry leaf",
+        "sweet pipe",
+        "smoky tobacco",
+        "beeswax"
+      ],
+      "source_ids": [
+        "iff_tonka_foundation",
+        "iff_jonquille_completion",
+        "iff_iso_e_super_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "GO_VANILLA",
+      "title": "Vanilla/tonka/sugar gourmand",
+      "domain": "gourmand",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "tonka coumarinic",
+        "dry edible"
+      ],
+      "unreviewed_subtypes": [
+        "vanilla botanical products",
+        "caramel toasted",
+        "sweet floral gourmand"
+      ],
+      "source_ids": [
+        "iff_tonka_foundation",
+        "iff_benzoin_siam_foundation",
+        "dsm_sharing_innovation_2026"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "GO_ROAST",
+      "title": "Roasted coffee/cacao/nuts",
+      "domain": "gourmand",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "roasted coffee",
+        "toasted grain"
+      ],
+      "unreviewed_subtypes": [
+        "brewed coffee",
+        "cacao chocolate",
+        "almond",
+        "hazelnut"
+      ],
+      "source_ids": [
+        "dsm_sharing_innovation_2026",
+        "margiela_coffee_break_edt",
+        "dsm_exaltolide_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "GO_DAIRY",
+      "title": "Dairy/honey/gourmand textures",
+      "domain": "gourmand",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "milk cream",
+        "buttery texture"
+      ],
+      "unreviewed_subtypes": [
+        "honey",
+        "maple"
+      ],
+      "source_ids": [
+        "givaudan_methyl_laitone_completion",
+        "iff_tonka_foundation",
+        "dsm_exaltolide_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "BO_BOOZY",
+      "title": "Boozy and fermentation structures",
+      "domain": "specialty",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "wine cider",
+        "liqueur aromatic"
+      ],
+      "unreviewed_subtypes": [
+        "rum cognac",
+        "whisky"
+      ],
+      "source_ids": [
+        "iff_davana_completion",
+        "dsm_sharing_innovation_2026",
+        "iff_iso_e_super_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "SP_SPICE",
+      "title": "Dry/warm/fresh spice structures",
+      "domain": "specialty",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "cardamom",
+        "cool spice"
+      ],
+      "unreviewed_subtypes": [
+        "pepper",
+        "ginger",
+        "cinnamon clove",
+        "saffron"
+      ],
+      "source_ids": [
+        "iff_cardamom_completion",
+        "givaudan_safraleine_foundation",
+        "iff_carnation_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "TE_TEA",
+      "title": "Tea, mate and aromatic infusions",
+      "domain": "specialty",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "mate",
+        "floral tea"
+      ],
+      "unreviewed_subtypes": [
+        "green tea",
+        "black tea",
+        "oolong",
+        "smoky tea"
+      ],
+      "source_ids": [
+        "iff_mate_completion",
+        "iff_osmanthus_completion",
+        "dsm_hedione_foundation"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "AN_SKIN",
+      "title": "Animalic and skin structures",
+      "domain": "specialty",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "skin musk",
+        "animalic substitutes"
+      ],
+      "unreviewed_subtypes": [
+        "civet castoreum identities",
+        "salty sweaty",
+        "ambergris associated"
+      ],
+      "source_ids": [
+        "dsm_exaltolide_foundation",
+        "iff_ambrettolide_foundation",
+        "iff_cashmeran_completion",
+        "dsm_ambrox_super_description"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "AB_ABSTRACT",
+      "title": "Aldehydic/powder/abstract effects",
+      "domain": "specialty",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "cosmetic powder",
+        "metal mineral"
+      ],
+      "unreviewed_subtypes": [
+        "waxy aldehydic",
+        "citrus aldehydic",
+        "paper chalk",
+        "conceptual atmosphere"
+      ],
+      "source_ids": [
+        "iff_gamma",
+        "dsm_habanolide_foundation",
+        "iff_iso_e_super_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "CU_TRADITIONS",
+      "title": "Regional/traditional perfume constructions",
+      "domain": "cultural",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "hydrodistillation carrier context"
+      ],
+      "unreviewed_subtypes": [
+        "exact attar traditions",
+        "regional floral oils",
+        "rose oud traditions",
+        "historical materials"
+      ],
+      "source_ids": [
+        "iff_sandal_nc_completion",
+        "iff_extraction_foundation",
+        "bontoux_lavender_products"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    },
+    {
+      "package_id": "HY_HYBRIDS",
+      "title": "Custom and hybrid structures",
+      "domain": "structural",
+      "initial_advisory_integration_complete": true,
+      "full_package_review_complete": false,
+      "reviewed_core_facets": [
+        "floral gourmand",
+        "fruity fougere",
+        "leather floral"
+      ],
+      "unreviewed_subtypes": [
+        "tea musk",
+        "incense floral",
+        "rose mineral"
+      ],
+      "source_ids": [
+        "dsm_hedione_foundation",
+        "helvetolide",
+        "iff_cashmeran_completion"
+      ],
+      "architecture_count": 2,
+      "remaining_requirements": [
+        "Complete the listed unreviewed subtype collection and exact source/identity/applicability review before claiming exhaustive coverage.",
+        "Archival source bytes, full text, corrections/retractions and data/weights rights require separate review for any stronger empirical use.",
+        "Validate amounts, mixture behavior, trajectories and liking against matching observations rather than promoting descriptor hypotheses."
+      ]
+    }
+  ],
+  "cross_domain": {
+    "scientific_fronts": [
+      {
+        "front_id": "RF01_IDENTITY",
+        "requirement": "Exact identities, admitted aliases, carriers/bases, source conflicts and separation of target from build",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "front_id": "RF02_SENSOMICS",
+        "requirement": "Peak amount is not sensory importance; unknown constituents and unknown odor events retained",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "front_id": "RF03_PHYSICS",
+        "requirement": "Matrix/geometry/time-specific mass conservation; no missing-property defaults",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "front_id": "RF04_INTENSITY",
+        "requirement": "Compatible OAV diagnostic; admitted exact gas curves; corrected threshold equation; separate mixture challengers",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "front_id": "RF05_CHARACTER",
+        "requirement": "Simple profile baseline first; endpoint/coverage limits and human labels",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "front_id": "RF06_LIKING",
+        "requirement": "Independent human labels, individual variability, blinded protocol and explicit ties",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "front_id": "RF07_EXPECTATION",
+        "requirement": "Separate blinded sensory result from branded consumer concept/market response",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "front_id": "RF08_SEARCH",
+        "requirement": "Leakage-safe splits, equal-budget random/local/adaptive arms, Pareto endpoints and selected-outcome metrics",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "front_id": "RF09_STABILITY",
+        "requirement": "Exact product/matrix behavior and measured homogeneity; no universal shelf-life/solubility claim",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "front_id": "RF10_SAFETY",
+        "requirement": "Independent current reviewed policy, exact limits/aliases and finished-product assessment; never creative beauty authority",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "front_id": "RF11_MARKET",
+        "requirement": "Time/region/channel/franchise scope; no sales-derived liking label",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "front_id": "RF12_FORMAT",
+        "requirement": "Hydroalcoholic EDP/EDT, oil, solid, mist, hair/textile and functional matrices are not interchangeable",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "front_id": "RF13_ENGINEERING",
+        "requirement": "Exact fingerprints, explicit source/review states, no runtime web calls and focused tests",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "front_id": "RF14_PRACTICE",
+        "requirement": "µL liquids/mg solids, proper stock arithmetic, additive-only deltas, no duplicate transfer and proportionate questions",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      }
+    ],
+    "market_segments": [
+      {
+        "segment_id": "MASS_MARKET_RETAIL",
+        "requirement": "Region/channel/price-period evidence required; not inferred from a scent family",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "segment_id": "MASSTIGE",
+        "requirement": "Define relative to the selected market, not a universal price threshold",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "segment_id": "MAINSTREAM_DESIGNER_PRESTIGE",
+        "requirement": "Can be mainstream while belonging to a prestige retail segment",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "segment_id": "LUXURY_DESIGNER",
+        "requirement": "Exact collection/product rather than a brand-wide assumption",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "segment_id": "NICHE_ARTISAN",
+        "requirement": "Not proof of unusual quality or low mass appeal",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "segment_id": "ULTRA_PREMIUM",
+        "requirement": "Market-relative and evidence-bounded",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "segment_id": "REGIONAL_MAINSTREAM",
+        "requirement": "No claim of global leadership",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "segment_id": "AFFORDABLE_ALTERNATIVE",
+        "requirement": "Do not infer proprietary composition, equivalence or licensing from marketing",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      }
+    ],
+    "product_formats": [
+      {
+        "format_id": "HYDROALCOHOLIC_EDC",
+        "requirement": "Review the exact matrix, substrate and delivery conditions for HYDROALCOHOLIC_EDC; hydroalcoholic perfume parameters cannot be inherited without applicability evidence.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "format_id": "HYDROALCOHOLIC_EDT",
+        "requirement": "Review the exact matrix, substrate and delivery conditions for HYDROALCOHOLIC_EDT; hydroalcoholic perfume parameters cannot be inherited without applicability evidence.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "format_id": "HYDROALCOHOLIC_EDP",
+        "requirement": "Review the exact matrix, substrate and delivery conditions for HYDROALCOHOLIC_EDP; hydroalcoholic perfume parameters cannot be inherited without applicability evidence.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "format_id": "HYDROALCOHOLIC_PARFUM_EXTRACT",
+        "requirement": "Review the exact matrix, substrate and delivery conditions for HYDROALCOHOLIC_PARFUM_EXTRACT; hydroalcoholic perfume parameters cannot be inherited without applicability evidence.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "format_id": "PERFUME_OIL_ATTAR",
+        "requirement": "Review the exact matrix, substrate and delivery conditions for PERFUME_OIL_ATTAR; hydroalcoholic perfume parameters cannot be inherited without applicability evidence.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "format_id": "SOLID_PERFUME",
+        "requirement": "Review the exact matrix, substrate and delivery conditions for SOLID_PERFUME; hydroalcoholic perfume parameters cannot be inherited without applicability evidence.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "format_id": "BODY_MIST",
+        "requirement": "Review the exact matrix, substrate and delivery conditions for BODY_MIST; hydroalcoholic perfume parameters cannot be inherited without applicability evidence.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "format_id": "HAIR_FRAGRANCE",
+        "requirement": "Review the exact matrix, substrate and delivery conditions for HAIR_FRAGRANCE; hydroalcoholic perfume parameters cannot be inherited without applicability evidence.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "format_id": "TEXTILE_FABRIC_FRAGRANCE",
+        "requirement": "Review the exact matrix, substrate and delivery conditions for TEXTILE_FABRIC_FRAGRANCE; hydroalcoholic perfume parameters cannot be inherited without applicability evidence.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "format_id": "AQUEOUS_OR_EMULSION",
+        "requirement": "Review the exact matrix, substrate and delivery conditions for AQUEOUS_OR_EMULSION; hydroalcoholic perfume parameters cannot be inherited without applicability evidence.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "format_id": "HOME_DIFFUSER",
+        "requirement": "Review the exact matrix, substrate and delivery conditions for HOME_DIFFUSER; hydroalcoholic perfume parameters cannot be inherited without applicability evidence.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "format_id": "CANDLE_INCENSE",
+        "requirement": "Review the exact matrix, substrate and delivery conditions for CANDLE_INCENSE; hydroalcoholic perfume parameters cannot be inherited without applicability evidence.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "format_id": "FUNCTIONAL_PRODUCT_FRAGRANCE",
+        "requirement": "Review the exact matrix, substrate and delivery conditions for FUNCTIONAL_PRODUCT_FRAGRANCE; hydroalcoholic perfume parameters cannot be inherited without applicability evidence.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      }
+    ],
+    "commercial_panel_tracks": [
+      {
+        "track_id": "MP01_FRUITY_FLORAL",
+        "requirement": "Review exact product edition, concentration, region, date and primary market provenance for Mainstream feminine fruity-floral; sales or official notes do not provide liking labels or proprietary formula quantities.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "track_id": "MP02_SWEET_FLORAL",
+        "requirement": "Review exact product edition, concentration, region, date and primary market provenance for Mainstream sweet-floral/gourmand; sales or official notes do not provide liking labels or proprietary formula quantities.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "track_id": "MP03_ROSE_PETAL",
+        "requirement": "Review exact product edition, concentration, region, date and primary market provenance for Rose/peony/fresh petal; sales or official notes do not provide liking labels or proprietary formula quantities.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "track_id": "MP04_WHITE_FLORAL",
+        "requirement": "Review exact product edition, concentration, region, date and primary market provenance for White-floral volume and restraint; sales or official notes do not provide liking labels or proprietary formula quantities.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "track_id": "MP05_LAVENDER_AMBER",
+        "requirement": "Review exact product edition, concentration, region, date and primary market provenance for Lavender/aromatic/amber; sales or official notes do not provide liking labels or proprietary formula quantities.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "track_id": "MP06_MALE_FRESH",
+        "requirement": "Review exact product edition, concentration, region, date and primary market provenance for Mainstream masculine aromatic/fresh woody; sales or official notes do not provide liking labels or proprietary formula quantities.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "track_id": "MP07_MALE_SWEET",
+        "requirement": "Review exact product edition, concentration, region, date and primary market provenance for Mainstream masculine sweet/spiced; sales or official notes do not provide liking labels or proprietary formula quantities.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "track_id": "MP08_CLEAN_UNISEX",
+        "requirement": "Review exact product edition, concentration, region, date and primary market provenance for Clean/fresh broadly accessible unisex; sales or official notes do not provide liking labels or proprietary formula quantities.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "track_id": "MP09_VALUE_MASS",
+        "requirement": "Review exact product edition, concentration, region, date and primary market provenance for Value/mass-retail fragrance; sales or official notes do not provide liking labels or proprietary formula quantities.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "track_id": "MP10_MISTS",
+        "requirement": "Review exact product edition, concentration, region, date and primary market provenance for Body/hair mist comparison; sales or official notes do not provide liking labels or proprietary formula quantities.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "track_id": "MP11_IRIS_POLISHED",
+        "requirement": "Review exact product edition, concentration, region, date and primary market provenance for Iris/clean polished mainstream; sales or official notes do not provide liking labels or proprietary formula quantities.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "track_id": "MP12_NICHE_NEIGHBOURS",
+        "requirement": "Review exact product edition, concentration, region, date and primary market provenance for Niche structural contrasts; sales or official notes do not provide liking labels or proprietary formula quantities.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "track_id": "MP13_HERITAGE",
+        "requirement": "Review exact product edition, concentration, region, date and primary market provenance for Historical/classical structural controls; sales or official notes do not provide liking labels or proprietary formula quantities.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "track_id": "MP14_REGIONAL_VALUE",
+        "requirement": "Review exact product edition, concentration, region, date and primary market provenance for Regional/value/alternative comparisons; sales or official notes do not provide liking labels or proprietary formula quantities.",
+        "state": "QUESTION_AND_BOUNDARY_DEFINED_NOT_CAPABILITY_ADMISSION",
+        "authority": {
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      }
+    ]
+  },
+  "runtime_boundaries": {
+    "network_calls": false,
+    "automatic_inventory_mapping": false,
+    "automatic_doses": false,
+    "automatic_formula_change": false,
+    "automatic_compounding": false,
+    "automatic_source_or_empirical_admission": false,
+    "protected_anchors": "LOCKED_REQUEST_NOT_LIBRARY_FLOORS"
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "verification_artifact": "docs/research/CONSTRUCTION_LIBRARY_COMPLETION_AUDIT_20261006.json"
+}

@@ -48,6 +48,8 @@ _CAPABILITY_PATHS = (
     "data/governance/ifra_policy_status_20260927.json",
     "data/governance/full_potential_cp10_legacy_surface_transitions_20260927.json",
     "data/governance/commercial_reference_registry_v1.json",
+    "data/governance/commercial_reference_registry_v2.json",
+    "data/governance/commercial_reference_registry_v3.json",
     "data/governance/lavande_ambre_profond_r5_design_comparator_20260923.json",
     "data/governance/lavande_ambre_profond_r5_cp3_readiness_protocol_20260924.json",
     "data/governance/lavande_ambre_profond_r5_cp3_readiness_protocol_20260926_v5.json",
@@ -68,12 +70,21 @@ _CAPABILITY_PATHS = (
     "engine/experiments/checkpoint7_readiness.py",
     "engine/experiments/checkpoint8_readiness.py",
     "engine/formulation_intelligence/contracts.py",
+    "engine/formulation_intelligence/literature_knowledge.py",
+    "engine/formulation_intelligence/construction_library.py",
+    "engine/formulation_intelligence/subtype_research.py",
+    "engine/formulation_intelligence/campaign_reference.py",
+    "engine/formulation_intelligence/architecture_bridge.py",
+    "engine/formulation_intelligence/architecture_rules_v5.py",
+    "engine/formulation_intelligence/subtype_coverage.py",
+    "engine/formulation_intelligence/source_review.py",
     "engine/formulation_intelligence/hedonic_platform.py",
     "engine/sensory/panel_contract.py",
     "engine/hedonic_model.py",
     "engine/research/accounting.py",
     "engine/research/capabilities.py",
     "engine/research/comparison.py",
+    "engine/research/controlled_omission.py",
     "engine/research/commercial_references.py",
     "engine/research/contracts.py",
     "engine/research/perception.py",
@@ -106,6 +117,24 @@ _REFERENCE_PATHS = (
     "data/compounds.json",
     "data/formulation_knowledge/literature_v1.json",
     "data/formulation_knowledge/prior_research_corpus_v1.json",
+    "data/formulation_knowledge/prior_research_corpus_v2.json",
+    "data/formulation_knowledge/source_reviews_v1.json",
+    "data/formulation_knowledge/construction_library_v1.json",
+    "data/formulation_knowledge/subtype_research_v1.json",
+    "data/formulation_knowledge/subtype_research_v2.json",
+    "data/formulation_knowledge/subtype_research_v3.json",
+    "data/formulation_knowledge/subtype_research_v4.json",
+    "data/formulation_knowledge/architecture_adapters_v1.json",
+    "data/formulation_knowledge/architecture_adapters_v2.json",
+    "data/formulation_knowledge/architecture_adapters_v3.json",
+    "data/formulation_knowledge/architecture_adapters_v4.json",
+    "data/formulation_knowledge/architecture_adapters_v5.json",
+    "data/formulation_knowledge/subtype_implementation_dispositions_v1.json",
+    "data/formulation_knowledge/research_coverage_plan_v1.json",
+    "data/governance/campaign_reference_chimie_lhomme_v1.json",
+    "data/research/campaign_recovery/chimie_lhomme_v1/source_formula.md",
+    "data/research/campaign_recovery/chimie_lhomme_v1/source_identity_handoff.md",
+    "data/research/campaign_recovery/chimie_lhomme_v1/chat_corrections.json",
 )
 _AUTHORITY_CONTEXT = {
     "schema": "engine-job-authority-context-v1",
@@ -222,7 +251,7 @@ def _research_reference_paths(job_type: str) -> tuple[str, ...]:
     """
     if job_type not in {"FORMULA_DESIGN", "FORMULA_ANALYSIS"}:
         return _REFERENCE_PATHS
-    corpus_path = REPOSITORY_ROOT / "data/formulation_knowledge/prior_research_corpus_v1.json"
+    corpus_path = REPOSITORY_ROOT / "data/formulation_knowledge/prior_research_corpus_v2.json"
     pack_path = REPOSITORY_ROOT / "data/formulation_knowledge/literature_v1.json"
     try:
         corpus = json.loads(corpus_path.read_text(encoding="utf-8"))

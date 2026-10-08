@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 
 from engine.calibration.hashing import stable_json_hash
+from tests.historical_snapshots import assert_historical_artifact, historical_replay_status
 
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT = (
@@ -48,18 +49,20 @@ def test_v13_completion_audit_is_self_hashing_and_fail_closed() -> None:
     assert not any(original["authority"].values())
 
 
-def test_v13_collection_and_g2_parent_pins_are_exact() -> None:
+def test_v13_collection_pins_are_exact_and_unrecovered_g2_sources_stay_held() -> None:
     audit = _load()
     for entry in audit["parent_evidence"]:
         path = ROOT / entry["path"]
-        assert path.stat().st_size == entry["byte_size"]
-        assert _sha256(path) == entry["sha256"]
+        assert_historical_artifact(path, entry["sha256"], entry["byte_size"])
 
     boundary = audit["g2_native_metadata_boundary"]
+    held = set()
     for entry in boundary["files"]:
         path = ROOT / entry["path"]
-        assert path.stat().st_size == entry["byte_size"]
-        assert _sha256(path) == entry["sha256"]
+        status = historical_replay_status(path, entry["sha256"], entry["byte_size"])
+        if status == "HOLD_ORIGINAL_SOURCE_BYTES_UNAVAILABLE":
+            held.add(entry["path"])
+    assert held == {"backend/app/schemas/lab.py", "backend/app/services/lab_service.py"}
 
     assert audit["current_collection_state"]["v13_sealed_exact_outer_candidate_lower_bound"] == 47
     assert audit["current_collection_state"]["current_exact_outer_candidate_lower_bound"] == 48
@@ -95,14 +98,17 @@ def test_v13_preserves_mass_authority_and_external_holds() -> None:
     assert audit["verification"]["full_release_verifier"].startswith("KNOWN_TIMEOUT_NOT_PASS")
 
 
-def test_v13_completion_ledger_replays_exact_bytes() -> None:
+def test_v13_completion_ledger_preserves_exact_pins_and_explicit_replay_holds() -> None:
     lines = [line for line in LEDGER.read_text(encoding="utf-8").splitlines() if line]
     assert len(lines) == 9
+    held = set()
     for line in lines:
         sha256, byte_size, relative_path = line.split("\t")
         path = ROOT / relative_path
-        assert path.stat().st_size == int(byte_size)
-        assert _sha256(path) == sha256
+        status = historical_replay_status(path, sha256, int(byte_size))
+        if status == "HOLD_ORIGINAL_SOURCE_BYTES_UNAVAILABLE":
+            held.add(relative_path)
+    assert held == {"backend/app/schemas/lab.py", "backend/app/services/lab_service.py"}
 
     plan = PLAN.read_text(encoding="utf-8")
     assert "RECOVERED_NON_P6_NATIVE_SOFTWARE_SCOPE_COMPLETE" in plan

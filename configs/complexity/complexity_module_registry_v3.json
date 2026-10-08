@@ -1,0 +1,540 @@
+{
+  "schema_version": "complexity_module_registry_v1",
+  "discovery": {
+    "roots": [
+      "engine",
+      "future_modules",
+      "incoming_review",
+      "references/existing_evidence_packages",
+      "data/governance",
+      "chat_bridge/complex_perfumery"
+    ],
+    "terms": [
+      "complexity",
+      "hedonic",
+      "temporal",
+      "interaction",
+      "ablation",
+      "admission",
+      "sensory",
+      "musk"
+    ],
+    "metadata_keys": [
+      "module_name",
+      "file_name",
+      "receipt_id",
+      "classification",
+      "role"
+    ]
+  },
+  "modules": [
+    {
+      "module_id": "construction-profile",
+      "family_id": "construction_profile",
+      "role": "CAPABILITY",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/perception/construction_complexity.py",
+      "import_path": null,
+      "sha256": "f8dd92ae5da1a9aa409ed27ad2e5e789874f32bc77a156e28a65870dae871ab1",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved.",
+        "Current-source census snapshot only; prior v1 source SHA-256 f8dd92ae5da1a9aa409ed27ad2e5e789874f32bc77a156e28a65870dae871ab1. No state, runtime eligibility or scientific admission changed.",
+        "Parent registry: configs/complexity/complexity_module_registry_v1.json, SHA-256 34f1a82fa6a6882458aecd46ac6aeebaf42347c09274ac3820de9a73b627e51f. V3 is source-census bookkeeping only; historical benchmark execution remains bound to v1."
+      ]
+    },
+    {
+      "module_id": "complexity-expansion-frontier",
+      "family_id": "complexity_expansion",
+      "role": "CAPABILITY",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/perception/complexity_expansion.py",
+      "import_path": null,
+      "sha256": "69b0e2a38f33545efa94e8e3a832091a2ce72d9496b9b211edcd60c0c8afb54e",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved.",
+        "Current-source census snapshot only; prior v1 source SHA-256 69b0e2a38f33545efa94e8e3a832091a2ce72d9496b9b211edcd60c0c8afb54e. No state, runtime eligibility or scientific admission changed."
+      ]
+    },
+    {
+      "module_id": "musk-design-restraint",
+      "family_id": "musk_design_restraint",
+      "role": "CAPABILITY",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/perception/musk_design.py",
+      "import_path": null,
+      "sha256": "ed34dc12790795d83e9f612bf1982b23cb34e9bf226bd13d1268d2226c35f23a",
+      "evidence_refs": [
+        "docs/superpowers/specs/2026-08-22-complexity-xhigh-benchmark-design.md",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json",
+        "data/governance/complexity_decision_card_candidate_freeze_20260823_v2.json",
+        "data/governance/complexity_inventory_catalog_v1.json"
+      ],
+      "notes": [
+        "One precise musk is valid; layered designs require distinct roles and complete pairwise nonredundancy records.",
+        "Tonalide, Macrolide, and Musk Ketone are exception-only and do not create physical-stock authority.",
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved.",
+        "V2 candidate stock semantics distinguish owned-neat Habanolide and Romandolide, planned Ambrettolide 10% in DPG, and missing Ethylene Brassylate without changing retired runtime state.",
+        "The shared V5 catalog can bind any exact target-defined musk candidate to one of 280 current-master records or an advisory missing-material row; it never defines role, nonredundancy, or hedonic value.",
+        "Current-source census snapshot only; prior v1 source SHA-256 ed34dc12790795d83e9f612bf1982b23cb34e9bf226bd13d1268d2226c35f23a. No state, runtime eligibility or scientific admission changed."
+      ]
+    },
+    {
+      "module_id": "complexity-experimental-design",
+      "family_id": "experimental_design",
+      "role": "CAPABILITY",
+      "state": "ACTIVE_CANDIDATE",
+      "path": "engine/scientific_validation/complexity_design_contracts.py",
+      "import_path": "engine.scientific_validation.complexity_design_contracts",
+      "sha256": "ef905b8adb6c7c8bdf02372c56040295054fdbeb4dcfe39c3410cb09390ae968",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json"
+      ],
+      "notes": [
+        "Current-source census snapshot only; prior v1 source SHA-256 ef905b8adb6c7c8bdf02372c56040295054fdbeb4dcfe39c3410cb09390ae968. No state, runtime eligibility or scientific admission changed."
+      ]
+    },
+    {
+      "module_id": "complexity-model-admission",
+      "family_id": "admission_lifecycle",
+      "role": "GUARDRAIL",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/scientific_validation/complexity_model_admission.py",
+      "import_path": null,
+      "sha256": "eedd0cd08dad77291ad1bba65f788a46080bc8ce324b768105850dfccb8d9183",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved.",
+        "Current-source census snapshot only; prior v1 source SHA-256 484a0d3902eb96b946f9b3e566d3caa1083187655f12ed456942c9353e0a3710. No state, runtime eligibility or scientific admission changed."
+      ]
+    },
+    {
+      "module_id": "complexity-model-lifecycle",
+      "family_id": "admission_lifecycle",
+      "role": "GUARDRAIL",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/physics/model_lifecycle.py",
+      "import_path": null,
+      "sha256": "c320593f3e1bea8dd16014794e32ca5adffd557effb749f82193d487988acaaf",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved.",
+        "Current-source census snapshot only; prior v1 source SHA-256 c320593f3e1bea8dd16014794e32ca5adffd557effb749f82193d487988acaaf. No state, runtime eligibility or scientific admission changed."
+      ]
+    },
+    {
+      "module_id": "within-sniff-observation-contract",
+      "family_id": "temporal_sensory_integrity",
+      "role": "GUARDRAIL",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/sensory/within_sniff.py",
+      "import_path": null,
+      "sha256": "2ac737b87a3a9e237647b4f2bd7fe4601c5634926d7267c240c606726b269caa",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved.",
+        "Current-source census snapshot only; prior v1 source SHA-256 2ac737b87a3a9e237647b4f2bd7fe4601c5634926d7267c240c606726b269caa. No state, runtime eligibility or scientific admission changed."
+      ]
+    },
+    {
+      "module_id": "temporal-observation-contract",
+      "family_id": "temporal_sensory_integrity",
+      "role": "GUARDRAIL",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/sensory/temporal_observations.py",
+      "import_path": null,
+      "sha256": "e730484f30ecbab428e02d31042649990db46b389d0da6bbfa13e93a6006770b",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved.",
+        "Current-source census snapshot only; prior v1 source SHA-256 e730484f30ecbab428e02d31042649990db46b389d0da6bbfa13e93a6006770b. No state, runtime eligibility or scientific admission changed."
+      ]
+    },
+    {
+      "module_id": "order-balance-contract",
+      "family_id": "temporal_sensory_integrity",
+      "role": "GUARDRAIL",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/sensory/order_balance.py",
+      "import_path": null,
+      "sha256": "fe71999d09c7d2366f2ba7c6f27718ba04282435125fd37a02a06051dba5807c",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved.",
+        "Current-source census snapshot only; prior v1 source SHA-256 fe71999d09c7d2366f2ba7c6f27718ba04282435125fd37a02a06051dba5807c. No state, runtime eligibility or scientific admission changed."
+      ]
+    },
+    {
+      "module_id": "sensory-panel-contract",
+      "family_id": "temporal_sensory_integrity",
+      "role": "GUARDRAIL",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/sensory/panel_contract.py",
+      "import_path": null,
+      "sha256": "418ecf7f42454ba335c8113487570458fb81210db016cfe778abce72955898cc",
+      "evidence_refs": [
+        "data/governance/complexity_native_module_admission_20260822.json",
+        "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json"
+      ],
+      "notes": [
+        "Retired after one bounded MISSING_DISCRIMINATOR repair failed relevant frozen cases and four unseen holdouts in CXB-20260822T144500Z-v2-7f31c0a2; source preserved.",
+        "Current-source census snapshot only; prior v1 source SHA-256 418ecf7f42454ba335c8113487570458fb81210db016cfe778abce72955898cc. No state, runtime eligibility or scientific admission changed."
+      ]
+    },
+    {
+      "module_id": "temporal-graph-future",
+      "family_id": "temporal_graph_future",
+      "role": "EVIDENCE",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/temporal_graph.py",
+      "import_path": null,
+      "sha256": "9b2b72f5107039273bfb22118a36270b8a11ff1a47265d3b221d37eed49f4302",
+      "evidence_refs": [],
+      "notes": [
+        "Derived temporal view only; it cannot replace observations."
+      ]
+    },
+    {
+      "module_id": "temporal-volatility-future",
+      "family_id": "temporal_volatility_future",
+      "role": "EVIDENCE",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/temporal_volatility.py",
+      "import_path": null,
+      "sha256": "a7411771f4ccd5c28b8caf36928f41e8b63e1c5da6ce9f724acd251e4a2814d5",
+      "evidence_refs": [],
+      "notes": [
+        "Predicted release is not measured headspace or perceived time behavior."
+      ]
+    },
+    {
+      "module_id": "hedonic-model-future",
+      "family_id": "hedonic_model_future",
+      "role": "EVIDENCE",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/hedonic_model.py",
+      "import_path": null,
+      "sha256": "e213465333f728462f0fac10f7c57a8a6a9730e7a1f13175786452c84b83fefc",
+      "evidence_refs": [],
+      "notes": [
+        "Composition cannot establish liking.",
+        "Current-source census snapshot only; prior v1 source SHA-256 c5a25a93192c4e38231710cb25f00c7e16127780c3417e8fa0606da7e8bd3529. No state, runtime eligibility or scientific admission changed."
+      ]
+    },
+    {
+      "module_id": "family-hedonic-optimizer",
+      "family_id": "family_hedonic_optimizer_future",
+      "role": "EVIDENCE",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "future_modules/family_hedonic_optimizer.py",
+      "import_path": null,
+      "sha256": "1878c10f91bec5dc95b5593a176e31772c8b93aa53886fd653c37a16c61eaeb6",
+      "evidence_refs": [],
+      "notes": [
+        "No beauty or liking optimization is admitted without response data.",
+        "Current-source census snapshot only; prior v1 source SHA-256 8c3de4caedd2dc184d1c2c4573e8721647579aa317b93b074fd2fdad41c6547f. No state, runtime eligibility or scientific admission changed."
+      ]
+    },
+    {
+      "module_id": "advanced-musk-intelligence",
+      "family_id": "advanced_musk_intelligence_future",
+      "role": "EVIDENCE",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "future_modules/advanced_musk_intelligence.py",
+      "import_path": null,
+      "sha256": "a549a210c366f0abe6a852d7c75993fda697340651120a93d293bc6996f6db16",
+      "evidence_refs": [],
+      "notes": [
+        "Fixed platform and dose recommendations are unvalidated.",
+        "Perception, prestige, and substitution assertions are unvalidated.",
+        "The module must never be imported by the complexity runtime.",
+        "Current-source census snapshot only; prior v1 source SHA-256 28745ddba38677eaf9717d67067feb436d68b0f0dce672f2b2a405d776adba7b. No state, runtime eligibility or scientific admission changed."
+      ]
+    },
+    {
+      "module_id": "citrus-architecture-selector",
+      "family_id": "citrus_selection",
+      "role": "CAPABILITY",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "path": "engine/perception/citrus_selection.py",
+      "import_path": null,
+      "sha256": "bdeacf985bc8ea6bdc64dbef5712620239046c177bc1ebd1ba17519b89f1464c",
+      "evidence_refs": [
+        "docs/superpowers/specs/2026-08-22-complexity-decision-cards-recovery-design.md",
+        "tests/fixtures/complexity_module_retest_cases_v2.json",
+        "data/governance/complexity_decision_card_candidate_freeze_20260823_v2.json",
+        "data/governance/complexity_inventory_catalog_v1.json"
+      ],
+      "notes": [
+        "Target-first non-scalar selector candidate; not runtime eligible before its external xhigh retention gate passes.",
+        "DHC_CITRUS_SCORING.txt is excluded from runtime evidence and computed hedonism authority.",
+        "Target/ideal selection and current-inventory build remain separate.",
+        "Neroli EO 10% in DPG is an exact-stock support-only floral-transition bridge and cannot replace the target-fit primary citrus.",
+        "The shared V5 catalog binds exact current stock for any target-defined citrus candidate while keeping carrier-open, out-of-stock, planned, missing, and unlisted states fail-closed.",
+        "Current-source census snapshot only; prior v1 source SHA-256 bdeacf985bc8ea6bdc64dbef5712620239046c177bc1ebd1ba17519b89f1464c. No state, runtime eligibility or scientific admission changed.",
+        "Retired and unreachable from runtime after failing the prior external xhigh retention benchmark; source retained as a provenance tombstone.",
+        "DHC_CITRUS_SCORING.txt is excluded from runtime evidence and computed hedonism authority.",
+        "Target/ideal selection and current-inventory build remain separate.",
+        "Neroli EO 10% in DPG is an exact-stock support-only floral-transition bridge and cannot replace the target-fit primary citrus.",
+        "The shared V5 catalog binds exact current stock for any target-defined citrus candidate while keeping carrier-open, out-of-stock, planned, missing, and unlisted states fail-closed."
+      ]
+    },
+    {
+      "module_id": "meaningful-complexity-v2-evidence",
+      "family_id": "legacy_external_evidence",
+      "role": "EVIDENCE",
+      "state": "EVIDENCE_ONLY_NOT_ADMITTED",
+      "path": "incoming_review/Meaningful_Complexity_Audit_v2.md",
+      "import_path": null,
+      "sha256": "07d84574365abb6a8e505fdcaf4e496ee1ac1d90f1397053d41f20b0a9394ff3",
+      "evidence_refs": [],
+      "notes": [
+        "Historical evidence only; row minima and scalar scores are not runtime authority.",
+        "Current-source census snapshot only; prior v1 source SHA-256 07d84574365abb6a8e505fdcaf4e496ee1ac1d90f1397053d41f20b0a9394ff3. No state, runtime eligibility or scientific admission changed."
+      ]
+    },
+    {
+      "module_id": "formulation-admission-support",
+      "family_id": "formulation_admission_support",
+      "role": "EVIDENCE",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/formulation_intelligence/admission.py",
+      "import_path": null,
+      "sha256": "f555ae09238f7075521b6d4fcc50775d1db88ccd6c2c7ab4977d05f6d5dc07f6",
+      "evidence_refs": [
+        "docs/research/VERIFICATION_REPAIR_PLAN_20261007.md"
+      ],
+      "notes": [
+        "Fail-closed artifact/admission receipt infrastructure; listing does not supply benchmark execution or empirical admission.",
+        "Source discovery only; no imports, execution, sensory, liking, safety, release or compounding authority."
+      ]
+    },
+    {
+      "module_id": "formulation-hedonic-evidence-support",
+      "family_id": "formulation_hedonic_evidence_support",
+      "role": "EVIDENCE",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/formulation_intelligence/hedonic_platform.py",
+      "import_path": null,
+      "sha256": "384ba412e9ebce41d59e60c129a50694f189da048067918b7d11afa33613e9a4",
+      "evidence_refs": [
+        "docs/research/VERIFICATION_REPAIR_PLAN_20261007.md"
+      ],
+      "notes": [
+        "Immutable evidence-scoped preference records; not an admitted predictor or beauty objective.",
+        "Source discovery only; no imports, execution, sensory, liking, safety, release or compounding authority."
+      ]
+    },
+    {
+      "module_id": "formulation-temporal-evidence-support",
+      "family_id": "formulation_temporal_evidence_support",
+      "role": "EVIDENCE",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/formulation_intelligence/temporal_architecture.py",
+      "import_path": null,
+      "sha256": "f07bb551c10fc24e9a3f03af17ac1967d8f6ce791017936c1e7b3e94d29e98b8",
+      "evidence_refs": [
+        "docs/research/VERIFICATION_REPAIR_PLAN_20261007.md"
+      ],
+      "notes": [
+        "Physical/sensory temporal hypothesis records; not an admitted measured release or perception capability.",
+        "Source discovery only; no imports, execution, sensory, liking, safety, release or compounding authority."
+      ]
+    },
+    {
+      "module_id": "architectural-delta-engine",
+      "family_id": "architectural_delta_replacement",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/perception/architectural_delta.py",
+      "import_path": null,
+      "sha256": "ddf6e97411071782bc607fb5e29acbc02459299fa2bfdda2e65d01594dd5e622",
+      "evidence_refs": [
+        "tests/fixtures/complexity_replacement_retest_cases_v2.json",
+        "tests/test_architectural_delta.py",
+        "tests/test_complexity_replacement_benchmark.py"
+      ],
+      "notes": [
+        "Target-first zero-or-one delta engine; ingredient count is never complexity evidence.",
+        "Current inventory constrains the build but cannot redefine the ideal target.",
+        "Nonruntime until a completely fresh xhigh benchmark clears plain and length-matched controls."
+      ]
+    },
+    {
+      "module_id": "temporal-sensory-ledger",
+      "family_id": "temporal_sensory_replacement",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/sensory/ledger.py",
+      "import_path": null,
+      "sha256": "46fc9fa63c4dc6878ace417b08b16232b729822554f3ba4049aa4654e924883c",
+      "evidence_refs": [
+        "tests/fixtures/complexity_replacement_retest_cases_v2.json",
+        "tests/test_temporal_sensory_evidence.py",
+        "tests/test_complexity_replacement_benchmark.py"
+      ],
+      "notes": [
+        "Evidence ledger preserves missing and duplicate cells, assessor disagreement, order balance, and observed transitions.",
+        "Predicted volatility is never converted into perceived behavior.",
+        "Nonruntime until a completely fresh xhigh benchmark clears plain and length-matched controls."
+      ]
+    },
+    {
+      "module_id": "hedonic-preference-learner",
+      "family_id": "hedonic_preference_replacement",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/preference.py",
+      "import_path": null,
+      "sha256": "20ecbfe90e838361d08d8236f3325f124630d4fe8a50677f45223e76b00cc575",
+      "evidence_refs": [
+        "tests/fixtures/complexity_replacement_retest_cases_v2.json",
+        "tests/test_scoped_preference.py",
+        "tests/test_complexity_replacement_benchmark.py"
+      ],
+      "notes": [
+        "Learns only scoped criteria from blinded comparisons; no synthetic beauty score.",
+        "Sparse, disconnected, order-confounded, unscoped, or baseline-failing evidence is not validated.",
+        "Nonruntime until a completely fresh xhigh benchmark clears plain and length-matched controls."
+      ]
+    },
+    {
+      "module_id": "universal-perceptual-topology-core",
+      "family_id": "perceptual_topology_candidate",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/perception/perceptual_topology.py",
+      "import_path": null,
+      "sha256": "aff0c0cb5ec8673b8f738248efb023f4c80d0861f579d905477c9c6e03bff750",
+      "evidence_refs": [
+        "tests/test_perceptual_topology.py",
+        "engine/perception/construction_complexity.py",
+        "engine/scientific_validation/complexity_model_admission.py"
+      ],
+      "notes": [
+        "Universal target-linked topology composes existing Meaningful Complexity, anti-collapse, evidence, temporal, and OAV-firewall contracts rather than replacing them.",
+        "Target/ideal topology and current-inventory build are separate; component count and literal internal 3-D claims have no depth authority.",
+        "Nonruntime until a completely fresh blinded Sol 5.6 XHIGH benchmark clears plain and length-matched controls."
+      ]
+    },
+    {
+      "module_id": "perfumery-art-composition-topology-v1",
+      "family_id": "perfumery_art_topology_candidate",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/perception/perfumery_art_topology.py",
+      "import_path": null,
+      "sha256": "bb402adbbcdeecd7e11ece49519c7159c759bd7cb4eaf23d99ca021a489c8718",
+      "evidence_refs": [
+        "tests/test_perceptual_topology.py",
+        "engine/perception/construction_complexity.py",
+        "engine/perception/perceptual_topology.py"
+      ],
+      "notes": [
+        "Primary-before-Sol composition notation for ratio, hierarchy, focus, width, density, texture, contrast, shadow, air, temporal contour, and residue identity.",
+        "Consumes Construction Complexity v1 and the Universal Core; no final-formula, physical, sensory, hedonic, safety, OAV, purchase, or release authority.",
+        "Sol 5.6 XHIGH remains final integration authority until a completely fresh blinded replacement benchmark succeeds."
+      ]
+    },
+    {
+      "module_id": "wood-depth-model-v2",
+      "family_id": "wood_depth_topology_candidate",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/perception/wood_depth.py",
+      "import_path": null,
+      "sha256": "f92b66286a5f87aa84d0c6c653e961b05281fac9e5abdf47b492626b8f513780",
+      "evidence_refs": [
+        "tests/test_perceptual_topology.py",
+        "engine/perception/perfumery_art_topology.py",
+        "engine/perception/perceptual_topology.py"
+      ],
+      "notes": [
+        "Specializes the shared topology stack across G16 grain/root, G17 creamy woods, G18 transparent woods, G19 amberwoods, and bounded shadow/rounding functions.",
+        "Natural woods remain whole formula identities; modeled OAV/headspace cannot establish depth, beauty, projection, or sensory contribution.",
+        "No runtime admission or empirical pass until the blinded Sol 5.6 XHIGH benchmark and controlled physical comparisons succeed."
+      ]
+    }
+  ],
+  "artifact_rules": [
+    {
+      "rule_id": "incoming-review-evidence",
+      "path_prefix": "incoming_review",
+      "classification": "EVIDENCE_ONLY_NOT_ADMITTED"
+    },
+    {
+      "rule_id": "existing-reference-evidence",
+      "path_prefix": "references/existing_evidence_packages",
+      "classification": "EVIDENCE_ONLY_NOT_ADMITTED"
+    },
+    {
+      "rule_id": "governance-receipt-evidence",
+      "path_prefix": "data/governance",
+      "classification": "EVIDENCE_ONLY_NOT_ADMITTED"
+    },
+    {
+      "rule_id": "chat-bridge-evidence",
+      "path_prefix": "chat_bridge/complex_perfumery",
+      "classification": "EVIDENCE_ONLY_NOT_ADMITTED"
+    }
+  ],
+  "dismissal_rules": [
+    {
+      "rule_id": "complexity-runtime-infrastructure",
+      "path_glob": "engine/perception/complexity_*.py",
+      "reason": "Registry, adapter, ensemble, benchmark, and request infrastructure; not an independent perfumery capability."
+    },
+    {
+      "rule_id": "sensory-support-infrastructure",
+      "path_glob": "engine/sensory/*.py",
+      "reason": "Support or package surface outside the admitted temporal and panel contracts."
+    },
+    {
+      "rule_id": "interaction-graph-support",
+      "path": "engine/interaction_graph.py",
+      "reason": "Existing interaction support outside the separated complexity family contract."
+    },
+    {
+      "rule_id": "material-interactions-support",
+      "path": "engine/material_interactions.py",
+      "reason": "Existing interaction support outside the separated complexity family contract."
+    },
+    {
+      "rule_id": "skin-interaction-support",
+      "path": "engine/skin_interaction.py",
+      "reason": "Existing interaction support outside the separated complexity family contract."
+    },
+    {
+      "rule_id": "interaction-registry-support",
+      "path_prefix": "engine/interaction_registry",
+      "reason": "Existing interaction registry support, not an independent complexity module."
+    },
+    {
+      "rule_id": "somatosensory-future-name-collision",
+      "path": "future_modules/somatosensory.py",
+      "reason": "Name match only; not part of the approved complexity ensemble."
+    }
+  ]
+}

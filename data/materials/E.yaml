@@ -322,8 +322,10 @@
   trp_targets:
   hedonic_valence:
   ifra_max_pct_edp:
-  user_stock_dilution: 0.001 # SYNCED: matched inventory.txt, 2026-05-30
+  user_stock_dilution: 1  # Product label fraction; exact basis/forms in receipt.
   user_in_inventory: true
+  # Received-stock authority: data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json; line(s) 40.
+  # Existing working dilutions remain separate inventory rows; no purity assay inferred.
   supplier:
     perfumersworld_sku: 4FD04118
     perfumersworld_price_usd_per_g: 0.36
@@ -743,8 +745,10 @@
   trp_targets:
   hedonic_valence:
   ifra_max_pct_edp:
-  user_stock_dilution:
-  user_in_inventory: false
+  user_stock_dilution: 1  # Product label fraction; exact basis/forms in receipt.
+  user_in_inventory: true
+  # Received-stock authority: data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json; line(s) 38.
+  # Existing working dilutions remain separate inventory rows; no purity assay inferred.
   supplier:
     perfumersworld_sku: 3LC19147
     perfumersworld_price_usd_per_g: 0.28

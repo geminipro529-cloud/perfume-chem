@@ -16,7 +16,8 @@ from engine.inventory_parser import (
     CURRENT_INVENTORY_WORKBOOK_SHA256,
     CURRENT_USER_INVENTORY_AUTHORITY,
     CURRENT_USER_INVENTORY_OVERLAY_SHA256,
-    NEROLI_USER_INVENTORY_OVERLAY_SHA256,
+    AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256,
+    PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256,
     load_current_user_inventory_overlay,
     materialize_current_inventory,
     parse_current_inventory,
@@ -51,6 +52,7 @@ RESOLVED_LABELS = {
     "Caraway Seed Oil": "Caraway Seed Essential Oil",
 }
 UNKNOWN_LABELS = {"Tuberose Base"}
+INHERITED_USER_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907"
 
 
 def _manifest() -> dict[str, object]:
@@ -88,18 +90,15 @@ def test_reconciliation_manifest_closes_every_original_gap_explicitly() -> None:
 
 def test_resolved_inventory_labels_are_exact_data_spine_aliases() -> None:
     registry = load_registry()
-    listed_names = {
-        record.name
-        for record in parse_inventory(
-            unique=True,
-            include_solvents=True,
-            include_unavailable=True,
-        )
-    }
-
     for label, canonical_name in RESOLVED_LABELS.items():
-        assert label in listed_names
+        # These are archived label witnesses, not today's physical stock list.
+        assert label in {row["inventory_label"] for row in _manifest()["entries"]}
         material = registry.get(label)
+        if "resin ethanol tincture" in label:
+            # Those former 20% identities were retired, not renamed to the new
+            # physical tinctures. Keep the August decision only in its archive.
+            assert material is None
+            continue
         assert material is not None
         assert material.canonical_name == canonical_name
 
@@ -144,6 +143,8 @@ def test_v5_current_inventory_master_is_the_pinned_physical_authority() -> None:
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260915",
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924",
         AIMI_IDENTITY_USER_INVENTORY_AUTHORITY,
+        "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261007",
+        "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261008",
     }
 
 
@@ -189,8 +190,8 @@ def test_user_inventory_overlay_is_parent_pinned_and_non_rebasing() -> None:
     assert payload["policy"]["preserve_exact_ap_t1_cinnamon_substitution"] is True
     assert payload["policy"]["require_sub_10_ul_working_stock"] is True
     assert payload["predecessor"] == {
-        "path": "data/governance/inventory_user_authority_overlay_20260906.json",
-        "normalized_text_sha256": NEROLI_USER_INVENTORY_OVERLAY_SHA256,
+        "path": "data/governance/inventory_user_authority_overlay_20261007_pw_received.json",
+        "normalized_text_sha256": PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256,
     }
 
 
@@ -227,7 +228,7 @@ def test_dhi_w_w_stocks_are_unique_current_raw_volume_stocks() -> None:
             stock.source_rows,
         ) == signature
         assert stock.execution_ready is True
-        assert stock.authority == CURRENT_USER_INVENTORY_AUTHORITY
+        assert stock.authority == INHERITED_USER_AUTHORITY
         assert stock.stock_id.startswith("inventory:user-20260904:")
 
     dispositions = {
@@ -281,7 +282,7 @@ def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> 
         "ethylene brassylate": (1.0, "neat", ""),
         "amber xtreme": (0.10, "mass_fraction", "dep"),
         "alpha irone": (0.10, "mass_fraction", "dep"),
-        "opoponax resinoid": (0.50, "unspecified", "dep"),
+        "opoponax resinoid": (0.50, "mass_fraction", "dep"),
         "myrrh eo": (0.50, "unspecified", "dep"),
         "osmanthus absolute": (0.10, "unspecified", "dpg"),
         "rose de mai absolute": (0.10, "unspecified", "dpg"),
@@ -298,7 +299,9 @@ def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> 
         assert stock.authority == (
             AIMI_IDENTITY_USER_INVENTORY_AUTHORITY
             if identity == "alpha isomethyl ionone"
-            else CURRENT_USER_INVENTORY_AUTHORITY
+            else "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924"
+            if identity == "opoponax resinoid"
+            else INHERITED_USER_AUTHORITY
         )
 
     assert not any(
@@ -306,8 +309,7 @@ def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> 
         for record in materialized.stocks
     )
     assert not any(
-        "tincture" in record.identity_name.casefold()
-        or (record.source_rows == (222,) and record.dilution == pytest.approx(0.20))
+        record.source_rows == (222,) and record.dilution == pytest.approx(0.20)
         for record in materialized.stocks
     )
 
@@ -351,14 +353,18 @@ def test_ambrofix_recovered_bottle_is_historical_not_current_stock() -> None:
     assert "Ambrofix" not in legacy_available
 
     ambrox_super = _stocks_for("Ambrox Super")
-    assert len(ambrox_super) == 1
-    assert ambrox_super[0].dilution == pytest.approx(0.25)
-    assert ambrox_super[0].fraction_basis == "mass_fraction"
-    assert ambrox_super[0].carrier == "dpg + ipm + ethanol"
-    assert ambrox_super[0].execution_ready is True
-    assert ambrox_super[0].authority == CURRENT_USER_INVENTORY_AUTHORITY
-    assert ambrox_super[0].source_rows == (30,)
-    assert ambrox_super[0].source_ref.endswith("#INV-USER-20260902-002")
+    assert len(ambrox_super) == 2
+    solution = next(row for row in ambrox_super if row.dilution == pytest.approx(0.25))
+    crystals = next(row for row in ambrox_super if row.dilution == pytest.approx(1.0))
+    assert (crystals.fraction_basis, crystals.carrier) == ("neat", "")
+    assert crystals.stock_id != solution.stock_id
+    assert crystals.authority == "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924"
+    assert solution.fraction_basis == "mass_fraction"
+    assert solution.carrier == "dpg + ipm + ethanol"
+    assert solution.execution_ready is True
+    assert solution.authority == INHERITED_USER_AUTHORITY
+    assert solution.source_rows == (30,)
+    assert solution.source_ref.endswith("#INV-USER-20260902-002")
     assert not any(row.dilution == pytest.approx(0.33) for row in ambrox_super)
     assert not names_match("Ambrofix", "Ambrox Super")
     assert not names_match("Ambrofix", "Ambrofix Crystals")
@@ -551,7 +557,7 @@ def test_corrected_wood_stock_authority_supports_quantitative_mass_basis(
 
     assert check.status == "PASS"
     assert check.data["resolved_stock_specs"][material]["inventory_authority"] == (
-        CURRENT_USER_INVENTORY_AUTHORITY
+        INHERITED_USER_AUTHORITY
     )
 
 
@@ -573,7 +579,7 @@ def test_clearwood_neat_current_authority_remains_quantitatively_executable() ->
 
     assert check.status == "PASS"
     assert check.data["resolved_stock_specs"]["Clearwood"]["inventory_authority"] == (
-        CURRENT_USER_INVENTORY_AUTHORITY
+        INHERITED_USER_AUTHORITY
     )
 
     inferred = _inventory_stock_dilutions(
@@ -603,7 +609,9 @@ def test_legacy_inventory_text_matches_user_overlay_availability() -> None:
     assert available["Opoponax Resinoid"].carrier == "dep"
     assert available["Myrrh EO"].carrier == "dep"
     assert available["Red Mandarin EO"].dilution == pytest.approx(1.0)
-    assert not any("tincture" in name.casefold() for name in available)
+    # New, explicitly received tinctures do not revive the retired 20% stocks.
+    assert "Turkish Storax Tincture" not in available
+    assert "Vietnamese Benzoin Tincture" not in available
 
 
 def test_v5_2_acetyl_pyrazine_scopes_carrier_hold_to_working_stock() -> None:
@@ -788,7 +796,7 @@ def test_preflight_accepts_exact_user_overlay_alpha_irone_stock() -> None:
 
     assert check.status == "PASS"
     spec = check.data["resolved_stock_specs"]["Alpha Irone"]
-    assert spec["inventory_authority"] == CURRENT_USER_INVENTORY_AUTHORITY
+    assert spec["inventory_authority"] == INHERITED_USER_AUTHORITY
     assert spec["stock_id"].startswith("inventory:user-20260828:")
 
 
@@ -825,7 +833,7 @@ def test_preflight_accepts_current_neat_neroli_and_v5_javanol_stocks() -> None:
     for material, spec in check.data["resolved_stock_specs"].items():
         assert spec["authority"] == "formula_row+inventory_snapshot"
         assert spec["inventory_authority"] == (
-            CURRENT_USER_INVENTORY_AUTHORITY if material == "Neroli EO"
+            INHERITED_USER_AUTHORITY if material == "Neroli EO"
             else CURRENT_INVENTORY_AUTHORITY
         )
         assert spec["stock_id"].startswith(

@@ -1,0 +1,1081 @@
+{
+  "schema_version": "perfume-root-design-research-v1",
+  "title": "Fleur de Peau EDP research interpretation",
+  "version": "v1",
+  "created_date": "2026-10-02",
+  "mode": "CREATIVE_REFERENCE_INTERPRETATION",
+  "claim": "Weighed development hypothesis for a musky iris/ambrette skin fragrance referencing Diptyque Fleur de Peau EDP; not an exact clone, measured similarity, commercial clearance or physical execution.",
+  "reference": {
+    "brand": "Diptyque",
+    "product": "Fleur de Peau",
+    "concentration": "Eau de Parfum",
+    "edition": "current official EDP page checked 2026-10-02; reformulation scope unknown",
+    "proprietary_formula_known": false,
+    "authenticated_quantitative_analysis_available": false,
+    "reference_sample_evaluated": false
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false,
+    "purchase_authority": false,
+    "physical_execution_performed": false
+  },
+  "locked_brief": {
+    "recognizers": [
+      "soft tactile skin musk",
+      "iris-root/violet powder behind musk",
+      "natural ambrette-seed seam",
+      "restrained pink-pepper freshness"
+    ],
+    "protected_anchors": [
+      "musk-first identity",
+      "iris without lipstick takeover",
+      "quiet seed/root texture"
+    ],
+    "negative_space": [
+      "Aventus-style Ambrox bomb",
+      "laundry detergent",
+      "gourmand vanilla/ethyl maltol",
+      "rose or white-floral dominance",
+      "heavy amberwood",
+      "large green vegetal accord"
+    ],
+    "temporal_profile": "Opening freshness should hand over to iris/seed/skin musk; actual transitions and longevity remain unmeasured.",
+    "density_conversions_authorized": false
+  },
+  "canonical_state": {
+    "inventory_path": "inventory.txt",
+    "inventory_sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "project_instructions_sha256": "a97d05907b9eddba1212b42c9765b8b4903b6ba731d185cdd3ba8bbd35e57870",
+    "personal_inventory_projection_sha256": "3ed783092c94aed53b3987583b8131b4b348995bddb82afab13716f47cad0687",
+    "current_bottle_stream": "NOT_SELECTED",
+    "parent_formula": "NONE_NEW_DESIGN",
+    "safety_snapshot": "NO_FORMULA_SPECIFIC_CLEARANCE",
+    "analytical_results": "NONE_FOR_THIS_FORMULA",
+    "sensory_results": "NONE_FOR_THIS_FORMULA",
+    "inventory_modified": false
+  },
+  "identity_roster_policy": {
+    "naturals_and_commercial_grades_remain_whole_products": true,
+    "unknown_natural_remainders": "UNQUANTIFIED_NO_CONSTITUENT_RENORMALIZATION",
+    "unknown_analytical_peaks": "NO_AUTHENTICATED_ANALYTICAL_DATA_DO_NOT_INVENT_PEAKS",
+    "alpha_irone_is_beta_irone": false,
+    "alpha_irone_is_alpha_ionone": false,
+    "orris_stock_percent_is_irone_assay": false,
+    "heliotropal_base_is_pure_piperonal": false,
+    "methyl_ionone_gamma_coeur_is_aimi": false
+  },
+  "stock_conflicts": [
+    {
+      "material": "Ambrettolide",
+      "file_state": "10% w/w in DPG",
+      "user_in_this_chat": "neat",
+      "selected_branch": "USER_SCOPED_NEAT_NOT_GLOBAL_INVENTORY_MUTATION",
+      "other_branch": "18.6450 g current-adapted working charge if actually 10% w/w"
+    },
+    {
+      "material": "Galaxolide",
+      "file_state": "50% in DEP, basis unspecified",
+      "required": "50% w/w in DEP for printed mass table",
+      "state": "HOLD_BASIS_CONFIRMATION"
+    },
+    {
+      "material": "Exaltolide",
+      "file_state": "10% in DPG, basis unspecified",
+      "selected_lead": "new neat product",
+      "owned_stock_branch": "10% w/w DPG only after basis confirmation"
+    }
+  ],
+  "target_basis": "100.000% undiluted perfumery-product-equivalent mass; natural/trade products are not asserted pure molecules",
+  "target_rows": [
+    {
+      "row": 1,
+      "material": "Ethylene Brassylate",
+      "module": "MUSK_CORE",
+      "chemical_or_product_class": "Macrocyclic diester",
+      "function_hypothesis": "Rounded, low-sharpness musk cushion; risk of blurring iris.",
+      "pw_sku": "3XU00180",
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "20",
+      "product_equivalent_g_per_6g": "1.2000",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "1.2000",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 2,
+      "material": "Ambrettolide",
+      "module": "MUSK_CORE",
+      "chemical_or_product_class": "Unsaturated macrocyclic lactone",
+      "function_hypothesis": "Warm seed-associated skin texture; not whole ambrette seed.",
+      "pw_sku": "4XU00034",
+      "stock_binding_state": "USER_CONFIRMED_NEAT_FILE_CONFLICT",
+      "target_product_mass_percent": "12",
+      "product_equivalent_g_per_6g": "0.7200",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.7200",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 3,
+      "material": "Exaltolide Pentadecanolide",
+      "module": "MUSK_CORE",
+      "chemical_or_product_class": "Saturated macrocyclic lactone",
+      "function_hypothesis": "Soft waxy/powdery skin cushion; test against ambrettolide redundancy.",
+      "pw_sku": "2XX00186",
+      "stock_binding_state": "PURCHASE_NEAT_OR_CONDITIONAL_OWNED_10_PERCENT_DPG",
+      "target_product_mass_percent": "8",
+      "product_equivalent_g_per_6g": "0.4800",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.4800",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 4,
+      "material": "Galaxolide",
+      "module": "MUSK_CORE",
+      "chemical_or_product_class": "Polycyclic musk",
+      "function_hypothesis": "Cotton-clean contrast; may become laundry-like.",
+      "pw_sku": "3XA00199",
+      "stock_binding_state": "OWNED_50_PERCENT_DEP_BASIS_UNCONFIRMED",
+      "target_product_mass_percent": "10",
+      "product_equivalent_g_per_6g": "0.6000",
+      "required_working_stock_percent_ww": "50",
+      "carrier": "DEP",
+      "working_stock_g_per_6g": "1.2000",
+      "carrier_g_per_6g": "0.6000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 5,
+      "material": "Hedione",
+      "module": "AIRY_BRIDGE",
+      "chemical_or_product_class": "Jasmonate ester",
+      "function_hypothesis": "Transparent floral space, not an overt jasmine-absolute bouquet.",
+      "pw_sku": "3JJ00218",
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "15.3",
+      "product_equivalent_g_per_6g": "0.9180",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.9180",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 6,
+      "material": "Iso E Super",
+      "module": "PALE_WOODS",
+      "chemical_or_product_class": "Commercial woody ketone grade",
+      "function_hypothesis": "Transparent wood framework; too much can flatten root/skin detail.",
+      "pw_sku": "3WY00244",
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "10",
+      "product_equivalent_g_per_6g": "0.6000",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.6000",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 7,
+      "material": "Ambrox Super crystals",
+      "module": "PALE_WOODS",
+      "chemical_or_product_class": "Ambergris-associated ether product",
+      "function_hypothesis": "Restrained dry support, not an amberwood bomb.",
+      "pw_sku": null,
+      "stock_binding_state": "OWNED_CRYSTALS",
+      "target_product_mass_percent": "2.5",
+      "product_equivalent_g_per_6g": "0.1500",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.1500",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 8,
+      "material": "Alpha Isomethyl Ionone (AIMI)",
+      "module": "IRIS_ROOT",
+      "chemical_or_product_class": "Commercial ionone isomer grade",
+      "function_hypothesis": "Main soft violet/orris body; preserve exact AIMI identity.",
+      "pw_sku": "3IW00300",
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "6",
+      "product_equivalent_g_per_6g": "0.3600",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.3600",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 9,
+      "material": "Alpha Ionone",
+      "module": "IRIS_ROOT",
+      "chemical_or_product_class": "Ionone isomer",
+      "function_hypothesis": "Dry-violet brightness; not a natural orris substitute.",
+      "pw_sku": "3IF00237",
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "1.2",
+      "product_equivalent_g_per_6g": "0.0720",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.0720",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 10,
+      "material": "Beta Ionone",
+      "module": "IRIS_ROOT",
+      "chemical_or_product_class": "Ionone isomer",
+      "function_hypothesis": "Warmer violet-fruit nuance; excessive dose can sweeten iris.",
+      "pw_sku": "3IF00238",
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "0.8",
+      "product_equivalent_g_per_6g": "0.0480",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.0480",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 11,
+      "material": "Alpha Irone",
+      "module": "IRIS_ROOT",
+      "chemical_or_product_class": "Irone isomer product",
+      "function_hypothesis": "Concentrated iris-root accent, distinct from ionones.",
+      "pw_sku": "8II00243",
+      "stock_binding_state": "OWNED_10_PERCENT_WW_DEP",
+      "target_product_mass_percent": "0.5",
+      "product_equivalent_g_per_6g": "0.0300",
+      "required_working_stock_percent_ww": "10",
+      "carrier": "DEP",
+      "working_stock_g_per_6g": "0.3000",
+      "carrier_g_per_6g": "0.2700",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 12,
+      "material": "Orris Liquid",
+      "module": "IRIS_ROOT",
+      "chemical_or_product_class": "Natural whole-product orris grade",
+      "function_hypothesis": "Natural root texture; irone assay is not inferred from 9% stock.",
+      "pw_sku": "8IQ24653",
+      "stock_binding_state": "OWNED_9_PERCENT_WW_DEP",
+      "target_product_mass_percent": "0.45",
+      "product_equivalent_g_per_6g": "0.0270",
+      "required_working_stock_percent_ww": "9",
+      "carrier": "DEP",
+      "working_stock_g_per_6g": "0.3000",
+      "carrier_g_per_6g": "0.2730",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 13,
+      "material": "Carrot Seed EO",
+      "module": "IRIS_ROOT",
+      "chemical_or_product_class": "Natural essential oil",
+      "function_hypothesis": "Trace earthy/rooty seam; vegetal/celery risk.",
+      "pw_sku": "7IS00086",
+      "stock_binding_state": "OWNED_NEAT_PREPARE_WORKING_STOCK",
+      "target_product_mass_percent": "0.15",
+      "product_equivalent_g_per_6g": "0.0090",
+      "required_working_stock_percent_ww": "10",
+      "carrier": "perfumery ethanol",
+      "working_stock_g_per_6g": "0.0900",
+      "carrier_g_per_6g": "0.0810",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 14,
+      "material": "Ambrette Seed Absolute",
+      "module": "SEED_TEXTURE",
+      "chemical_or_product_class": "Natural whole-product absolute",
+      "function_hypothesis": "Seedy/wine-like ambrette complexity absent from pure ambrettolide.",
+      "pw_sku": "8XU00529",
+      "stock_binding_state": "PURCHASE_NEAT_PREPARE_WORKING_STOCK",
+      "target_product_mass_percent": "0.4",
+      "product_equivalent_g_per_6g": "0.0240",
+      "required_working_stock_percent_ww": "10",
+      "carrier": "perfumery ethanol",
+      "working_stock_g_per_6g": "0.2400",
+      "carrier_g_per_6g": "0.2160",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 15,
+      "material": "Phenethyl Alcohol",
+      "module": "PETAL_BRIDGE",
+      "chemical_or_product_class": "Aromatic alcohol",
+      "function_hypothesis": "Quiet petal body connecting root to musk.",
+      "pw_sku": null,
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "2",
+      "product_equivalent_g_per_6g": "0.1200",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.1200",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 16,
+      "material": "Citronellol",
+      "module": "PETAL_BRIDGE",
+      "chemical_or_product_class": "Terpenoid alcohol",
+      "function_hypothesis": "Small rose-petal continuity; not a rose identity.",
+      "pw_sku": null,
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "0.4",
+      "product_equivalent_g_per_6g": "0.0240",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.0240",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 17,
+      "material": "Rose de Mai Absolute",
+      "module": "PETAL_BRIDGE",
+      "chemical_or_product_class": "Natural whole-product absolute",
+      "function_hypothesis": "Trace natural petal irregularity; Rose de Mai remains minor.",
+      "pw_sku": null,
+      "stock_binding_state": "OWNED_10_PERCENT_WW_DPG_USER_CONFIRMED",
+      "target_product_mass_percent": "0.15",
+      "product_equivalent_g_per_6g": "0.0090",
+      "required_working_stock_percent_ww": "10",
+      "carrier": "DPG",
+      "working_stock_g_per_6g": "0.0900",
+      "carrier_g_per_6g": "0.0810",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 18,
+      "material": "Florol",
+      "module": "PETAL_BRIDGE",
+      "chemical_or_product_class": "Muguet alcohol",
+      "function_hypothesis": "Soft transparent floral volume, not a muguet target.",
+      "pw_sku": "3ML00192",
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "0.8",
+      "product_equivalent_g_per_6g": "0.0480",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.0480",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 19,
+      "material": "Hydroxycitronellal",
+      "module": "PETAL_BRIDGE",
+      "chemical_or_product_class": "Aldehydic floral material",
+      "function_hypothesis": "Moist muguet/petal seam; soap risk if prominent.",
+      "pw_sku": "3MC00233",
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "0.8",
+      "product_equivalent_g_per_6g": "0.0480",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.0480",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 20,
+      "material": "Hexyl Salicylate",
+      "module": "PETAL_BRIDGE",
+      "chemical_or_product_class": "Salicylate ester",
+      "function_hypothesis": "Quiet floral body and smoother root-to-wood transition.",
+      "pw_sku": "3OG00230",
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "3",
+      "product_equivalent_g_per_6g": "0.1800",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.1800",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 21,
+      "material": "Cashmeran",
+      "module": "PALE_WOODS",
+      "chemical_or_product_class": "Woody-musky ketone",
+      "function_hypothesis": "Small dry/fuzzy counter-texture to smooth musks.",
+      "pw_sku": "4XB00090",
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "0.65",
+      "product_equivalent_g_per_6g": "0.0390",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.0390",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 22,
+      "material": "Ebanol",
+      "module": "PALE_WOODS",
+      "chemical_or_product_class": "Sandalwood alcohol",
+      "function_hypothesis": "Pale sandalwood cushion, not a dominant sandalwood accord.",
+      "pw_sku": "4WX07563",
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "1",
+      "product_equivalent_g_per_6g": "0.0600",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.0600",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 23,
+      "material": "Vetiveryl Acetate",
+      "module": "PALE_WOODS",
+      "chemical_or_product_class": "Commercial vetiver acetate grade",
+      "function_hypothesis": "Dry root/wood seam without a large earthy vetiver dose.",
+      "pw_sku": "3WY00468",
+      "stock_binding_state": "OWNED_NEAT_CURRENT_CONFIRMATION",
+      "target_product_mass_percent": "0.5",
+      "product_equivalent_g_per_6g": "0.0300",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.0300",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 24,
+      "material": "Pink Pepper EO",
+      "module": "PEPPER_LIFT",
+      "chemical_or_product_class": "Schinus molle essential oil",
+      "function_hypothesis": "Peppery lift framing skin musk; exact species preserved.",
+      "pw_sku": null,
+      "stock_binding_state": "OWNED_NEAT_PREPARE_WORKING_STOCK",
+      "target_product_mass_percent": "0.3",
+      "product_equivalent_g_per_6g": "0.0180",
+      "required_working_stock_percent_ww": "10",
+      "carrier": "perfumery ethanol",
+      "working_stock_g_per_6g": "0.1800",
+      "carrier_g_per_6g": "0.1620",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 25,
+      "material": "Bergamot FCF Sicilian",
+      "module": "PEPPER_LIFT",
+      "chemical_or_product_class": "FCF citrus essential oil",
+      "function_hypothesis": "Short restrained freshness; natural lot variation remains.",
+      "pw_sku": null,
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "1.2",
+      "product_equivalent_g_per_6g": "0.0720",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.0720",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 26,
+      "material": "Linalyl Acetate",
+      "module": "PEPPER_LIFT",
+      "chemical_or_product_class": "Terpenoid acetate ester",
+      "function_hypothesis": "Smooth aromatic-citrus transition into the heart.",
+      "pw_sku": null,
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "1",
+      "product_equivalent_g_per_6g": "0.0600",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.0600",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 27,
+      "material": "Linalool",
+      "module": "PEPPER_LIFT",
+      "chemical_or_product_class": "Terpenoid alcohol",
+      "function_hypothesis": "Light aromatic/floral openness.",
+      "pw_sku": null,
+      "stock_binding_state": "OWNED_NEAT",
+      "target_product_mass_percent": "0.4",
+      "product_equivalent_g_per_6g": "0.0240",
+      "required_working_stock_percent_ww": "100",
+      "carrier": "none",
+      "working_stock_g_per_6g": "0.0240",
+      "carrier_g_per_6g": "0.0000",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 28,
+      "material": "Coriander Essential Oil",
+      "module": "PEPPER_LIFT",
+      "chemical_or_product_class": "Natural essential oil",
+      "function_hypothesis": "Trace spicy seed link to ambrette/root; not a culinary accord.",
+      "pw_sku": "7SL00125",
+      "stock_binding_state": "OWNED_NEAT_PREPARE_WORKING_STOCK",
+      "target_product_mass_percent": "0.08",
+      "product_equivalent_g_per_6g": "0.0048",
+      "required_working_stock_percent_ww": "10",
+      "carrier": "perfumery ethanol",
+      "working_stock_g_per_6g": "0.0480",
+      "carrier_g_per_6g": "0.0432",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 29,
+      "material": "Heliotropal / Piperonal",
+      "module": "IRIS_ROOT",
+      "chemical_or_product_class": "Aromatic aldehyde, pure piperonal",
+      "function_hypothesis": "Small almond-powder accent; do not replace with PW Heliotropal base.",
+      "pw_sku": null,
+      "stock_binding_state": "OWNED_NEAT_SOLID_PREPARE_WORKING_STOCK",
+      "target_product_mass_percent": "0.3",
+      "product_equivalent_g_per_6g": "0.0180",
+      "required_working_stock_percent_ww": "10",
+      "carrier": "perfumery ethanol",
+      "working_stock_g_per_6g": "0.1800",
+      "carrier_g_per_6g": "0.1620",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 30,
+      "material": "Aldehyde C12 MNA",
+      "module": "PEPPER_LIFT",
+      "chemical_or_product_class": "Branched aldehyde",
+      "function_hypothesis": "Tiny waxy/aldehydic air; excessive dose makes soap.",
+      "pw_sku": null,
+      "stock_binding_state": "OWNED_NEAT_PREPARE_NEW_WW_NOT_OLD_VV_STOCK",
+      "target_product_mass_percent": "0.02",
+      "product_equivalent_g_per_6g": "0.0012",
+      "required_working_stock_percent_ww": "1",
+      "carrier": "perfumery ethanol",
+      "working_stock_g_per_6g": "0.1200",
+      "carrier_g_per_6g": "0.1188",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    },
+    {
+      "row": 31,
+      "material": "Farnesol",
+      "module": "PETAL_BRIDGE",
+      "chemical_or_product_class": "Sesquiterpenoid alcohol",
+      "function_hypothesis": "Small naturalistic floral continuity; not an ambrette-oil reconstruction.",
+      "pw_sku": "3LW00187",
+      "stock_binding_state": "OWNED_NEAT_PREPARE_WORKING_STOCK",
+      "target_product_mass_percent": "0.1",
+      "product_equivalent_g_per_6g": "0.0060",
+      "required_working_stock_percent_ww": "10",
+      "carrier": "perfumery ethanol",
+      "working_stock_g_per_6g": "0.0600",
+      "carrier_g_per_6g": "0.0540",
+      "fraction_basis": "w/w",
+      "quantities_are_decimal_strings": true
+    }
+  ],
+  "concentrate": {
+    "product_equivalent_g": "6.0000",
+    "working_stock_charge_g": "8.0610",
+    "carrier_g": "2.0610",
+    "note": "The working-stock charge is not 6 g of neat concentrate and is not 6 mL. Galaxolide basis must match; new working stocks are proposals, not prepared receipts."
+  },
+  "finished_options": [
+    {
+      "basis": "20% w/w",
+      "finished_mass_g": "30.0000",
+      "product_equivalent_g": "6.0000",
+      "additional_perfumery_ethanol_g": "21.9390",
+      "finished_volume_ml": null
+    },
+    {
+      "basis": "20% w/v product-equivalent",
+      "finished_volume_ml": "30.00",
+      "product_equivalent_g": "6.0000",
+      "ethanol": "q.s. measured final 30.00 mL after dissolution/equilibration",
+      "finished_mass_g": null
+    }
+  ],
+  "current_inventory_adaptation": {
+    "target_changes": [
+      {
+        "material": "Ambrette Seed Absolute",
+        "from_percent": "0.4",
+        "to_percent": "0"
+      },
+      {
+        "material": "Hedione",
+        "from_percent": "15.3",
+        "to_percent": "15.7"
+      }
+    ],
+    "lost_function": "Whole natural ambrette-seed texture; pure Ambrettolide remains but is not equivalent.",
+    "conditions": [
+      "Galaxolide stock must be 50% w/w DEP",
+      "owned Exaltolide must be 10% w/w DPG",
+      "all newly specified trace stocks must actually be prepared"
+    ],
+    "branches": [
+      {
+        "ambrettolide": "neat per user",
+        "working_stock_charge_g": "12.1650",
+        "additional_ethanol_to_30g_g": "17.8350"
+      },
+      {
+        "ambrettolide": "10% w/w DPG per older file",
+        "working_stock_charge_g": "18.6450",
+        "additional_ethanol_to_30g_g": "11.3550"
+      }
+    ],
+    "active_dose_equivalence_is_matrix_equivalence": false,
+    "full_build_ready": false
+  },
+  "candidate_families": [
+    {
+      "id": "CONTROL_CURRENT",
+      "family": "conservative inventory adaptation",
+      "patches": {
+        "Ambrette Seed Absolute": "0",
+        "Hedione": "15.7"
+      },
+      "status": "CONDITIONAL_STOCK_BASIS_AND_SEED_IDENTITY_LOSS"
+    },
+    {
+      "id": "LITERAL_FIT",
+      "family": "literal quantitative reconstruction",
+      "status": "WITHHELD_NO_AUTHENTICATED_QUANTITATIVE_SOURCE"
+    },
+    {
+      "id": "LEAD_TEXTURE",
+      "family": "interaction-aware root/seed/musk",
+      "patches": {},
+      "status": "SELECTED_DESIGN_LEAD_NOT_SENSORY_WINNER"
+    },
+    {
+      "id": "MINIMAL",
+      "family": "independent minimalist architecture",
+      "complete_target_percent": {
+        "Ethylene Brassylate": "20",
+        "Ambrettolide": "12",
+        "Exaltolide Pentadecanolide": "8",
+        "Galaxolide": "10",
+        "Hedione": "25.7",
+        "Iso E Super": "6",
+        "Alpha Isomethyl Ionone (AIMI)": "8",
+        "Alpha Irone": "0.5",
+        "Orris Liquid": "0.45",
+        "Ambrette Seed Absolute": "0.4",
+        "Hexyl Salicylate": "3",
+        "Ambrox Super crystals": "2.5",
+        "Cashmeran": "0.65",
+        "Pink Pepper EO": "0.3",
+        "Bergamot FCF Sicilian": "1.2",
+        "Linalyl Acetate": "1",
+        "Aldehyde C12 MNA": "0.02",
+        "Carrot Seed EO": "0.08",
+        "Heliotropal / Piperonal": "0.2"
+      },
+      "status": "UNTESTED_DISTINCT_CHASSIS"
+    },
+    {
+      "id": "ROBUSTNESS",
+      "family": "less cotton-clean/rooty risk",
+      "patches": {
+        "Galaxolide": "6",
+        "Ethylene Brassylate": "24",
+        "Carrot Seed EO": "0.05",
+        "Hedione": "15.4"
+      },
+      "status": "UNTESTED_HYPOTHESIS"
+    },
+    {
+      "id": "EXPLORATORY_VELVET",
+      "family": "velvet ketone substitution architecture",
+      "patches": {
+        "Exaltolide Pentadecanolide": "0",
+        "Velvione": "3",
+        "Hedione": "20.3"
+      },
+      "status": "UNTESTED_NO_MASS_TO_ODOR_EQUIVALENCE"
+    }
+  ],
+  "musk_pairwise_nonredundancy_hypotheses": [
+    {
+      "pair": [
+        "Ethylene Brassylate",
+        "Ambrettolide"
+      ],
+      "contrast": "rounded cushion versus warm seed-associated skin",
+      "counterexample": "both may blur into undifferentiated sweetness"
+    },
+    {
+      "pair": [
+        "Ethylene Brassylate",
+        "Exaltolide Pentadecanolide"
+      ],
+      "contrast": "rounded bulk versus waxy/powdered skin",
+      "counterexample": "softness may be redundant on this iris scale"
+    },
+    {
+      "pair": [
+        "Ethylene Brassylate",
+        "Galaxolide"
+      ],
+      "contrast": "rounded softness versus cotton-clean edge",
+      "counterexample": "cotton edge may turn detergent-like"
+    },
+    {
+      "pair": [
+        "Ambrettolide",
+        "Exaltolide Pentadecanolide"
+      ],
+      "contrast": "warmer seed-associated texture versus cleaner wax/powder",
+      "counterexample": "unnecessary smooth-musky overlap"
+    },
+    {
+      "pair": [
+        "Ambrettolide",
+        "Galaxolide"
+      ],
+      "contrast": "skin/seed versus clean textile impression",
+      "counterexample": "cotton may mask the skin character"
+    },
+    {
+      "pair": [
+        "Exaltolide Pentadecanolide",
+        "Galaxolide"
+      ],
+      "contrast": "soft powder versus cotton contrast",
+      "counterexample": "could combine into generic cosmetic powder"
+    }
+  ],
+  "gates": {
+    "arithmetic": "VERIFY_WITH_DECIMAL",
+    "trace_measurement": "WORKING_STOCKS_USED_NO_SUB_UL_DOSES",
+    "identity": "WHOLE_PRODUCTS_AND_STOCKS_DISTINCT",
+    "inventory_build": "CONDITIONAL_NOT_RELEASED",
+    "sensory_identity": "UNTESTED",
+    "safety": "NO_FORMULA_SPECIFIC_REVIEW",
+    "historical_30000_variant_35_guardrail_score": "NOT_REPRODUCED_NOT_APPLICABLE_WITHOUT_EXACT_CAMPAIGN_INPUTS",
+    "pareto_ranking": "QUALITATIVE_DESIGN_TRADEOFFS_ONLY_NO_MEASURED_ORDERING",
+    "formula_action": "PROPOSE_ONLY"
+  },
+  "shared_core_experiment": {
+    "scope": "Only printed stronger-stock lead; do not reuse these aliquots for the dilute owned-Exaltolide variant.",
+    "exclude_rows": [
+      "Galaxolide",
+      "Ambrette Seed Absolute"
+    ],
+    "table_charge_multiplier": "0.5",
+    "remaining_working_stock_charge_g": "3.3105",
+    "product_equivalent_g": "2.6880",
+    "ethanol_added_to_core_g": "3.0000",
+    "core_total_g": "6.3105",
+    "aliquot_g": "2.1035",
+    "aliquot_product_equivalent_g": "0.8960",
+    "samples": [
+      {
+        "id": "LEAD",
+        "core_g": "2.1035",
+        "galaxolide_50ww_DEP_g": "0.2000",
+        "ambrette_seed_10ww_ethanol_g": "0.0400",
+        "extra_DEP_g": "0.0000",
+        "ethanol_qs_g": "2.6565",
+        "finished_g": "5.0000",
+        "product_equivalent_g": "1.0000"
+      },
+      {
+        "id": "SEED_OMISSION",
+        "core_g": "2.1035",
+        "galaxolide_50ww_DEP_g": "0.2000",
+        "ambrette_seed_10ww_ethanol_g": "0.0000",
+        "extra_DEP_g": "0.0000",
+        "ethanol_qs_g": "2.6965",
+        "finished_g": "5.0000",
+        "product_equivalent_g": "0.9960"
+      },
+      {
+        "id": "LOWER_COTTON_MUSK",
+        "core_g": "2.1035",
+        "galaxolide_50ww_DEP_g": "0.1200",
+        "ambrette_seed_10ww_ethanol_g": "0.0400",
+        "extra_DEP_g": "0.0400",
+        "ethanol_qs_g": "2.6965",
+        "finished_g": "5.0000",
+        "product_equivalent_g": "0.9600"
+      }
+    ],
+    "not_constant_total_fragrance_mass": true,
+    "carrier_matching": "Galaxolide-associated DEP held at 0.1000 g between LEAD and LOWER_COTTON_MUSK; omitted fragrant mass is replaced with ethanol, not another odorant.",
+    "bench_rounding": "On a verified 0.001 g balance use 2.104 g core and ethanol q.s. exactly 5.000 g; record actual weights. This is a rounded development build, not exact source-dose reproduction."
+  },
+  "testing": {
+    "substrate": "blotter initially, not authorized skin application",
+    "timepoints": [
+      "5 minutes",
+      "30-60 minutes",
+      "4 hours",
+      "next-day blotter"
+    ],
+    "endpoints": [
+      "cotton versus skin musk",
+      "iris-root identity",
+      "seed texture benefit",
+      "pepper integration",
+      "soap/lipstick/root defects",
+      "personal liking"
+    ],
+    "blind_codes": "randomized codes; match substrate and deposit; comparator must be the same EDP not EDT",
+    "stops": [
+      "persistent haze or crystals",
+      "detergent/laundry domination",
+      "lipstick/violet domination",
+      "vegetal carrot/celery",
+      "musty seed overload",
+      "sweet almond-powder domination",
+      "dry amberwood domination"
+    ],
+    "new_observations": "NONE",
+    "posterior_state": "NO_EMPIRICAL_UPDATE",
+    "similarity": "NOT_TESTED",
+    "longevity": "NOT_MEASURED"
+  },
+  "purchases": {
+    "checked_date": "2026-10-02",
+    "checkout_or_cart_modified": false,
+    "fx_reference_THB_per_USD": "33.5960",
+    "items": [
+      {
+        "priority": "TARGET_FUNCTION",
+        "name": "Ambrette Seed Absolute",
+        "sku": "8XU00529",
+        "recommended_g": "1",
+        "USD_per_g": "20.02",
+        "material_USD": "20.02",
+        "material_THB": "672.59",
+        "availability": "IN_STOCK_ON_PAGE",
+        "full_6g_equivalent_batches_before_loss": 41
+      },
+      {
+        "priority": "STRONGER_STOCK_UTILITY",
+        "name": "Exaltolide Pentadecanolide",
+        "sku": "2XX00186",
+        "recommended_g": "5",
+        "USD_per_g": "1.10",
+        "material_USD": "5.50",
+        "material_THB": "184.78",
+        "availability": "IN_STOCK_ON_PAGE",
+        "full_6g_equivalent_batches_before_loss": 10
+      }
+    ],
+    "materials_USD": "25.52",
+    "materials_THB": "857.37",
+    "bottling_fees": "NOT_VERIFIED_CHECKOUT_EXTRA",
+    "shipping_tax": "NOT_INCLUDED",
+    "optional": [
+      {
+        "name": "Velvione",
+        "sku": "4XU11429",
+        "USD_per_g": "1.57",
+        "recommended_g": "1",
+        "purpose": "replacement-architecture trial only"
+      }
+    ],
+    "declined": [
+      "redundant Ambrettolide if user-owned neat",
+      "fruity pear-directed Helvetolide",
+      "Muscone for first pass",
+      "strong amberwoods",
+      "Tonalide/Macrolide/Musk Ketone",
+      "full-price duplicate Orris if owned product is sound",
+      "misidentified Heliotropal replacement base"
+    ],
+    "cheaper_seed_entry": {
+      "name": "Ambrette Seed Absolute 10% in DPG",
+      "sku": "5XU12235",
+      "USD_per_g": "2.52",
+      "recommended_g": "2",
+      "material_USD": "5.04",
+      "condition": "Vendor confirms w/w basis; replacing ethanol stock changes carrier matrix and must be recomputed."
+    }
+  },
+  "sources": [
+    {
+      "id": "D1",
+      "classification": "OFFICIAL_PRODUCT",
+      "url": "https://diptyqueparis.com/en-eu/products/eau-de-parfum-fleur-de-peau-fleurp75cv1",
+      "scope": "EDP marketed musk/iris/ambrette/pink-pepper architecture; label is not a quantitative formula.",
+      "checked_date": "2026-10-02",
+      "raw_source_bytes_archived": false,
+      "source_byte_sha256": null
+    },
+    {
+      "id": "D2",
+      "classification": "OFFICIAL_DISTINCT_PRODUCT",
+      "url": "https://uk.diptyqueparis.com/en-uk/products/eau-de-toilette-fleur-de-peau-fleur100",
+      "scope": "EDT is a distinct reference; do not import its brighter mandarin/magnolia brief into the EDP target.",
+      "checked_date": "2026-10-02",
+      "raw_source_bytes_archived": false,
+      "source_byte_sha256": null
+    },
+    {
+      "id": "L1",
+      "classification": "PRIMARY_RESEARCH",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6272330/",
+      "scope": "One studied ambrette essential oil contains multiple constituents; its fractions are not transferred to PW absolute.",
+      "checked_date": "2026-10-02",
+      "raw_source_bytes_archived": false,
+      "source_byte_sha256": null
+    },
+    {
+      "id": "L2",
+      "classification": "PRIMARY_RESEARCH",
+      "url": "https://www.nature.com/articles/s41598-025-08925-z",
+      "scope": "Small perfumer evaluation distinguishes specified irone/ionone grades and natural orris; not a consumer preference proof.",
+      "checked_date": "2026-10-02",
+      "raw_source_bytes_archived": false,
+      "source_byte_sha256": null
+    },
+    {
+      "id": "L3",
+      "classification": "PRIMARY_RESEARCH",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9874024/",
+      "scope": "Measured human musk perception varies with receptor genotype; does not supply this formula's receptor map or liking.",
+      "checked_date": "2026-10-02",
+      "raw_source_bytes_archived": false,
+      "source_byte_sha256": null
+    },
+    {
+      "id": "P1",
+      "classification": "SUPPLIER_PRODUCT",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=8XU00529",
+      "scope": "Natural Ambrette Seed Absolute, not pure Ambrettolide despite confusing synonyms.",
+      "checked_date": "2026-10-02",
+      "raw_source_bytes_archived": false,
+      "source_byte_sha256": null
+    },
+    {
+      "id": "P2",
+      "classification": "SUPPLIER_PRODUCT",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=2XX00186",
+      "scope": "Exaltolide Pentadecanolide; stronger-stock alternative to owned 10% DPG preparation.",
+      "checked_date": "2026-10-02",
+      "raw_source_bytes_archived": false,
+      "source_byte_sha256": null
+    },
+    {
+      "id": "P3",
+      "classification": "SUPPLIER_PRODUCT",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3XA00199",
+      "scope": "Galaxolide 50% DEP; percentage basis must be confirmed for the mass recipe.",
+      "checked_date": "2026-10-02",
+      "raw_source_bytes_archived": false,
+      "source_byte_sha256": null
+    },
+    {
+      "id": "P4",
+      "classification": "SUPPLIER_PRODUCT",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=8IQ24653",
+      "scope": "Whole Orris Liquid product. Stock dilution is not an irone assay.",
+      "checked_date": "2026-10-02",
+      "raw_source_bytes_archived": false,
+      "source_byte_sha256": null
+    },
+    {
+      "id": "P5",
+      "classification": "SUPPLIER_PRODUCT",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4XU00034",
+      "scope": "Pure-product Ambrettolide is distinct from natural seed absolute.",
+      "checked_date": "2026-10-02",
+      "raw_source_bytes_archived": false,
+      "source_byte_sha256": null
+    },
+    {
+      "id": "P6",
+      "classification": "SUPPLIER_PRODUCT",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4XU11429",
+      "scope": "Velvione is an optional replacement-architecture trial, not an obligatory additional musk.",
+      "checked_date": "2026-10-02",
+      "raw_source_bytes_archived": false,
+      "source_byte_sha256": null
+    },
+    {
+      "id": "P7",
+      "classification": "SUPPLIER_PRODUCT",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4XU05022",
+      "scope": "Muscone considered; unnecessary for the first controlled lead.",
+      "checked_date": "2026-10-02",
+      "raw_source_bytes_archived": false,
+      "source_byte_sha256": null
+    },
+    {
+      "id": "P8",
+      "classification": "SUPPLIER_PRODUCT",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=5XU12235",
+      "scope": "Ambrette Seed Absolute 10% DPG; cheaper small-entry option if the supplied percentage basis is confirmed.",
+      "checked_date": "2026-10-02",
+      "raw_source_bytes_archived": false,
+      "source_byte_sha256": null
+    },
+    {
+      "id": "FX",
+      "classification": "OFFICIAL_REFERENCE_RATE",
+      "url": "https://app.bot.or.th/BTWS_STAT/statistics/ReportPage.aspx?language=eng&reportID=123",
+      "scope": "2 October 2026 budget reference 33.5960 THB/USD, not guaranteed checkout conversion.",
+      "checked_date": "2026-10-02",
+      "raw_source_bytes_archived": false,
+      "source_byte_sha256": null
+    }
+  ],
+  "limitations": [
+    "No proprietary formula or authenticated quantitative GC-MS was identified.",
+    "Supplier odor descriptions and primary material studies do not prove the blend's smell.",
+    "No OAV, gas release, calibrated human intensity, or receptor competition calculation was run.",
+    "No sensory validation, safety clearance, physical mixing, inventory mutation or purchase was performed.",
+    "Source pages were checked but raw source byte archives/hashes were not created."
+  ]
+}

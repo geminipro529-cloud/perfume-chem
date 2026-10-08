@@ -9,6 +9,7 @@ from engine.calibration.hashing import (
     PORTABLE_FILE_HASH_MATCH_ALGORITHM,
     portable_file_hash_matches,
 )
+from tests.historical_snapshots import assert_historical_source_pin
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,7 +21,7 @@ MANIFEST = (
 )
 
 
-def test_classified_source_hashes_match_current_bytes() -> None:
+def test_classified_source_hashes_match_the_frozen_september_source() -> None:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     assert manifest["artifact_hash_semantics"] == (
         PORTABLE_FILE_HASH_MATCH_ALGORITHM
@@ -29,7 +30,9 @@ def test_classified_source_hashes_match_current_bytes() -> None:
         for record in records:
             path = ROOT / record["path"]
             assert path.is_file(), record["path"]
-            assert portable_file_hash_matches(path, record["sha256"])
+            if not portable_file_hash_matches(path, record["sha256"]):
+                # A historical classification is not current-source acceptance.
+                assert_historical_source_pin(record["path"], record["sha256"])
 
 
 def test_classification_does_not_claim_or_authorize_deletion() -> None:

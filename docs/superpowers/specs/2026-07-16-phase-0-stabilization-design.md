@@ -2,7 +2,7 @@
 
 **Date:** 2026-07-16
 **Status:** Approved for autonomous implementation
-**Authority:** `Perfume-Chem Completion Roadmap.txt`
+**Authority:** `docs/legacy-root/Perfume-Chem Completion Roadmap.txt`
 
 ## Objective
 

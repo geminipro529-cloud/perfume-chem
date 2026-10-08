@@ -1,0 +1,2479 @@
+{
+  "schema_version": "perfume-all-domain-research-plan-v1",
+  "version": "2026-10-06.1",
+  "review_date": "2026-10-06",
+  "status": "PLANNING_AND_RESEARCH_INVENTORY_ONLY",
+  "runtime_activation_allowed": false,
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "parent_plan": "docs/research/FRAGRANCE_KNOWLEDGE_EXPANSION_PLAN_20261006.md",
+  "parent_plan_sha256": "8eceec7f0175b969d76c172054db688b2808a2e211e54f61d7ef3cdecf347fd9",
+  "coverage_is_open_ended": true,
+  "scope_entries_are_not_mutually_exclusive_families": true,
+  "review_before_implementation": true,
+  "gate_is_for_development_and_promotion_not_every_hobby_bottle": true,
+  "runtime_web_research_allowed": false,
+  "model_training_or_evidence_admission_authorized": false,
+  "coverage_counts": {
+    "construction_packages": 49,
+    "proposed_subtype_scope_entries": 275,
+    "scientific_fronts": 14,
+    "market_segments": 8,
+    "product_formats": 13,
+    "commercial_panel_research_tracks": 14,
+    "sources": 28
+  },
+  "construction_packages": [
+    {
+      "package_id": "AR_LAVENDER",
+      "title": "Lavender material registers and structures",
+      "domain": "aromatic",
+      "priority": 1,
+      "review_state": "REVIEWED_ADVISORY_PARTIAL",
+      "subtype_scope": [
+        "soliflore",
+        "cologne",
+        "classical fougere",
+        "green barbershop",
+        "vanillic resin",
+        "soft musk",
+        "orange blossom",
+        "iris",
+        "apple",
+        "pineapple",
+        "incense",
+        "coffee milk",
+        "licorice",
+        "mineral ambrox",
+        "spiced wood"
+      ],
+      "research_question": "Which exact lavender products and structure roles are supported, and which sensory or quantitative conclusions remain untested?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "AR_FOUGERE",
+      "title": "Fougere chassis",
+      "domain": "aromatic",
+      "priority": 1,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "classical",
+        "green dry",
+        "modern mineral",
+        "tonka sweet",
+        "floral fougere",
+        "leathery"
+      ],
+      "research_question": "Which recognizer relationships define each fougere chassis, and which licensed demonstration or sensory sources support alternatives?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "AR_HERBS",
+      "title": "Other aromatic/herbal structures",
+      "domain": "aromatic",
+      "priority": 2,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "clary sage",
+        "rosemary",
+        "basil thyme",
+        "mint",
+        "anise tarragon",
+        "tea herbal"
+      ],
+      "research_question": "How do exact botanical and synthetic aromatic products differ without automatically substituting lavender?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FL_ROSE",
+      "title": "Rose structures",
+      "domain": "floral",
+      "priority": 1,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "fresh dewy",
+        "green",
+        "lemony",
+        "jammy fruity",
+        "honeyed",
+        "powdery",
+        "metallic spicy",
+        "dark patchouli"
+      ],
+      "research_question": "Which aroma-active and recombination evidence distinguishes rose products and these construction registers?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FL_JASMINE",
+      "title": "Jasmine structures",
+      "domain": "floral",
+      "priority": 1,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "grandiflorum",
+        "sambac",
+        "tea green",
+        "fruity petal",
+        "indolic",
+        "leathery"
+      ],
+      "research_question": "Which flower, concrete, absolute and synthetic-support evidence distinguishes jasmine profiles and grades?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FL_ORANGE",
+      "title": "Orange-flower structures",
+      "domain": "floral",
+      "priority": 1,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "distilled neroli",
+        "orange blossom absolute",
+        "petitgrain bridge",
+        "honeyed indolic",
+        "transparent citrus floral"
+      ],
+      "research_question": "How do flower and leaf products differ in recognizers, extraction and construction roles?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FL_TUBEROSE",
+      "title": "Tuberose structures",
+      "domain": "floral",
+      "priority": 1,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "green watery",
+        "creamy",
+        "indolic animalic",
+        "modern transparent"
+      ],
+      "research_question": "Which tuberose facets require separate roles, and what avoids white-floral, lactonic or shampoo drift?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FL_GARDENIA",
+      "title": "Gardenia structures",
+      "domain": "floral",
+      "priority": 2,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "green petal",
+        "creamy white floral",
+        "modern reconstruction"
+      ],
+      "research_question": "Which primary flower and manufacturer sources support gardenia recognizers versus generic tuberose substitution?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FL_TROPICAL",
+      "title": "Ylang and tropical floral structures",
+      "domain": "floral",
+      "priority": 2,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "ylang fractions",
+        "ylang complete",
+        "cananga",
+        "tiare",
+        "frangipani",
+        "solar floral"
+      ],
+      "research_question": "Which botanical, fraction and construction distinctions prevent an automatic tropical-creamy default?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FL_MUGUET",
+      "title": "Muguet/cyclamen/watery flowers",
+      "domain": "floral",
+      "priority": 1,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "classical muguet",
+        "modern muguet",
+        "cyclamen",
+        "wet petal",
+        "transparent floral",
+        "watery musk"
+      ],
+      "research_question": "Which exact materials, current restrictions and permitted demonstration formulas support each muguet or watery construction?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FL_LIGHT",
+      "title": "Peony, freesia and magnolia",
+      "domain": "floral",
+      "priority": 2,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "dewy peony",
+        "rose adjacent peony",
+        "peppery freesia",
+        "transparent freesia",
+        "citrus magnolia",
+        "creamy magnolia"
+      ],
+      "research_question": "Which observed or supplier-supported roles distinguish these flowers without inventing natural compositions?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FL_GREEN",
+      "title": "Hyacinth, narcissus and jonquil",
+      "domain": "floral",
+      "priority": 2,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "green hyacinth",
+        "narcissus absolute",
+        "jonquil",
+        "hay leathery flower"
+      ],
+      "research_question": "Which exact extracts and aroma-active facets distinguish green bulb flowers?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FL_SPICY",
+      "title": "Carnation and lily",
+      "domain": "floral",
+      "priority": 2,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "carnation",
+        "rose spice",
+        "salicylate lily",
+        "green lily"
+      ],
+      "research_question": "Which structure and identity evidence separates spicy flowers and lily from lily of the valley?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FL_POLLEN",
+      "title": "Pollen/powder/honey flowers",
+      "domain": "floral",
+      "priority": 2,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "mimosa",
+        "cassie",
+        "heliotrope",
+        "linden",
+        "pollen honey"
+      ],
+      "research_question": "Which exact naturals and constructions distinguish pollen, honey, almond and powder?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FL_IRIS",
+      "title": "Iris, orris and violet",
+      "domain": "floral",
+      "priority": 1,
+      "review_state": "REVIEWED_ADVISORY_PARTIAL",
+      "subtype_scope": [
+        "root butter",
+        "cosmetic powder",
+        "transparent woody iris",
+        "violet petals",
+        "violet powder",
+        "violet leaf",
+        "orris grade differences"
+      ],
+      "research_question": "Which exact irone/ionone/products and applicable evidence support each profile while preserving current stock holds?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FL_BOUQUET",
+      "title": "Bouquets and floral aldehydic structures",
+      "domain": "floral",
+      "priority": 2,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "classical bouquet",
+        "transparent bouquet",
+        "floral aldehydic",
+        "soft floral",
+        "woody floral musk"
+      ],
+      "research_question": "Which recognizers and relationships distinguish bouquets rather than an automatic rose-jasmine-muguet stack?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "AM_RESIN",
+      "title": "Resinous amber",
+      "domain": "amber",
+      "priority": 1,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "labdanum benzoin vanilla",
+        "styrax",
+        "opoponax",
+        "tolu peru balsam",
+        "dry resinous",
+        "animalic resinous"
+      ],
+      "research_question": "Which exact resin products and roles support resinous amber without substituting Ambrox or strong amberwoods?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "AM_SOFT",
+      "title": "Soft/powdery amber",
+      "domain": "amber",
+      "priority": 1,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "coumarinic",
+        "heliotropic",
+        "iris musky",
+        "soft vanillic"
+      ],
+      "research_question": "How do soft amber constructions achieve texture independently of sweetness, musk quantity or ingredient count?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "AM_FLORAL",
+      "title": "Floral/spicy amber",
+      "domain": "amber",
+      "priority": 2,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "rose amber",
+        "white floral amber",
+        "dry spice amber",
+        "balsamic amber"
+      ],
+      "research_question": "Which recognizer and bridge evidence preserves flower or spice identity through amber warmth?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "AM_AMBERGRIS",
+      "title": "Ambergris and ambroxide",
+      "domain": "amber",
+      "priority": 1,
+      "review_state": "REVIEWED_ADVISORY_PARTIAL",
+      "subtype_scope": [
+        "natural tincture",
+        "ambroxide stereochemistry",
+        "commercial grade differences",
+        "mineral warm construction"
+      ],
+      "research_question": "Which exact identity, grade, solubility and human evidence applies to each ambergris/ambroxide product?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "AM_WOODS",
+      "title": "High-impact amberwoods",
+      "domain": "amber",
+      "priority": 1,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "dry sharp",
+        "velvety woody",
+        "mineral",
+        "sandal cedar associated",
+        "trace support"
+      ],
+      "research_question": "What distinguishes each supplier amberwood product and its masking/measurement risks without generic power rankings?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "MU_MUSK",
+      "title": "Musk identities and architectures",
+      "domain": "musk",
+      "priority": 1,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "macrocyclic",
+        "alicyclic",
+        "polycyclic",
+        "metallic clean",
+        "fruity",
+        "powdery",
+        "warm skin"
+      ],
+      "research_question": "Which exact identities, individual sensitivity and omission evidence support distinct musk roles and nonredundancy?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "CI_PRODUCTS",
+      "title": "Citrus species and product processing",
+      "domain": "citrus_fresh",
+      "priority": 1,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "bergamot",
+        "lemon lime",
+        "orange mandarin",
+        "grapefruit bitter orange",
+        "citron cedrat",
+        "yuzu regional citrus",
+        "processing grades",
+        "peel juice pith"
+      ],
+      "research_question": "How do species, plant parts and extraction/processing alter aroma-active citrus facets and applicable safety scope?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "CI_CHASSIS",
+      "title": "Citrus construction styles",
+      "domain": "citrus_fresh",
+      "priority": 1,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "classical cologne",
+        "aromatic citrus",
+        "neroli petitgrain",
+        "fresh woody",
+        "persistent citrus illusion"
+      ],
+      "research_question": "Which heart bridges and chassis preserve a citrus recognizer without inferring longevity from a material label?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "GR_GREEN",
+      "title": "Green leafy structures",
+      "domain": "citrus_fresh",
+      "priority": 2,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "cut grass",
+        "leaf stem",
+        "galbanum",
+        "violet leaf",
+        "fig green",
+        "conifer green"
+      ],
+      "research_question": "Which chemical/product and sensory distinctions prevent juicy green effects from becoming vegetal or bitter?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "WA_AQUATIC",
+      "title": "Aquatic/ozonic/mineral/solar structures",
+      "domain": "citrus_fresh",
+      "priority": 2,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "marine saline",
+        "melon watery",
+        "rain ozone",
+        "airy mineral",
+        "solar salicylate",
+        "dry mineral"
+      ],
+      "research_question": "Which exact material roles and tested descriptors support these effects without invented receptor or environmental chemistry?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FR_ORCHARD",
+      "title": "Orchard-fruit structures",
+      "domain": "fruit",
+      "priority": 1,
+      "review_state": "REVIEWED_ADVISORY_PARTIAL",
+      "subtype_scope": [
+        "pear peel",
+        "pear juice flesh",
+        "pear persistent bridge",
+        "apple skin",
+        "apple juicy body",
+        "ripe apple",
+        "lychee floral",
+        "fruit heart continuity"
+      ],
+      "research_question": "Which exact aroma chemicals and applicable sensory evidence supply distinct orchard facets rather than one generic fruit base?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FR_BERRY",
+      "title": "Berry/rhubarb/grape structures",
+      "domain": "fruit",
+      "priority": 2,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "blackcurrant",
+        "red berries",
+        "raspberry",
+        "rhubarb",
+        "grape",
+        "berry floral"
+      ],
+      "research_question": "Which odor-active and supplier evidence supports berry recognizers while controlling sulfur, candy or jam drift?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FR_TROPICAL",
+      "title": "Tropical/melon fruit structures",
+      "domain": "fruit",
+      "priority": 2,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "pineapple",
+        "mango",
+        "passionfruit",
+        "melon",
+        "banana",
+        "tropical citrus"
+      ],
+      "research_question": "Which trace/support facets distinguish realistic tropical fruit from fruit soup or shampoo effects?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "FR_STONE",
+      "title": "Stone/dried fruit structures",
+      "domain": "fruit",
+      "priority": 2,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "peach skin",
+        "apricot osmanthus",
+        "plum",
+        "cherry",
+        "dried fruit",
+        "lactonic flesh"
+      ],
+      "research_question": "Which roles keep lactones, ionones and bridges from creating coconut cream or gourmand drift?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "CH_CHYPRE",
+      "title": "Chypre structures",
+      "domain": "structural",
+      "priority": 1,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "classical",
+        "floral",
+        "fruity",
+        "green",
+        "leathery",
+        "modern moss alternatives"
+      ],
+      "research_question": "Which chassis evidence and exact modern alternatives distinguish chypre from any patchouli-musk perfume?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "WO_CEDAR",
+      "title": "Cedar/conifer/dry woods",
+      "domain": "woody",
+      "priority": 2,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "cedar pencil",
+        "dry transparent woods",
+        "conifer resin",
+        "guaiac smoke",
+        "pale woods"
+      ],
+      "research_question": "Which species/products and functional bridges distinguish woody registers and misleading trade names?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "WO_SANDAL",
+      "title": "Sandalwood structures",
+      "domain": "woody",
+      "priority": 1,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "natural species",
+        "creamy",
+        "dry transparent",
+        "synthetic grade alternatives"
+      ],
+      "research_question": "Which exact sandalwood products preserve different recognizable functions rather than equal-dose substitution?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "WO_VETIVER",
+      "title": "Vetiver structures",
+      "domain": "woody",
+      "priority": 2,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "root earthy",
+        "citrus fresh",
+        "smoky dry",
+        "fractionated clean"
+      ],
+      "research_question": "Which product/fraction and sensory evidence distinguishes vetiver profiles and temporal roles?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "WO_PATCH",
+      "title": "Patchouli structures",
+      "domain": "woody",
+      "priority": 2,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "earthy leaf",
+        "clean fractions",
+        "amber bridge",
+        "floral chypre bridge"
+      ],
+      "research_question": "Which patchouli identities and fractions preserve or lose functions in the target construction?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "WO_OUD",
+      "title": "Oud structures",
+      "domain": "woody",
+      "priority": 2,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "natural product variation",
+        "clean woody",
+        "medicinal animalic",
+        "rose amber",
+        "spiced"
+      ],
+      "research_question": "Which exact natural/base identities and authenticated evidence prevent a generic oud-label recipe?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "LE_LEATHER",
+      "title": "Leather and suede",
+      "domain": "structural",
+      "priority": 2,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "smoky tar",
+        "bitter green",
+        "soft suede",
+        "saffron leather",
+        "iris leather",
+        "floral leather"
+      ],
+      "research_question": "Which identity, restriction and role evidence separates smoke, leather and suede textures?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "RE_INCENSE",
+      "title": "Incense and resin structures",
+      "domain": "resin_specialty",
+      "priority": 2,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "frankincense oil",
+        "frankincense resinoid",
+        "myrrh opoponax",
+        "elemi",
+        "church smoke",
+        "mineral incense"
+      ],
+      "research_question": "How do extraction and burning conditions change resin identity and what can transfer to a bottled perfume?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "TO_HAY",
+      "title": "Tobacco, hay and beeswax",
+      "domain": "resin_specialty",
+      "priority": 2,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "dry leaf",
+        "sweet pipe",
+        "smoky tobacco",
+        "coumarinic hay",
+        "beeswax"
+      ],
+      "research_question": "Which exact products and facets distinguish cured leaf, smoke, sweet hay and wax?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "GO_VANILLA",
+      "title": "Vanilla/tonka/sugar gourmand",
+      "domain": "gourmand",
+      "priority": 1,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "vanilla botanical products",
+        "tonka coumarinic",
+        "caramel toasted",
+        "dry edible",
+        "sweet floral gourmand"
+      ],
+      "research_question": "Which role and sensory evidence distinguishes edible identity from merely adding sweetness?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "GO_ROAST",
+      "title": "Roasted coffee/cacao/nuts",
+      "domain": "gourmand",
+      "priority": 2,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "brewed coffee",
+        "roasted coffee",
+        "cacao chocolate",
+        "almond",
+        "hazelnut",
+        "toasted grain"
+      ],
+      "research_question": "Which food/extract/headspace findings are transferable hypotheses rather than direct perfume calibrations?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "GO_DAIRY",
+      "title": "Dairy/honey/gourmand textures",
+      "domain": "gourmand",
+      "priority": 3,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "milk cream",
+        "honey",
+        "maple",
+        "buttery texture"
+      ],
+      "research_question": "What exact material roles and off-note risks support texture without syrup, rancidity or heavy lactonic drift?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "BO_BOOZY",
+      "title": "Boozy and fermentation structures",
+      "domain": "specialty",
+      "priority": 3,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "rum cognac",
+        "whisky",
+        "wine cider",
+        "liqueur aromatic"
+      ],
+      "research_question": "How can an intended boozy recognizer be distinguished from solvent flash and uncontrolled fermentation notes?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "SP_SPICE",
+      "title": "Dry/warm/fresh spice structures",
+      "domain": "specialty",
+      "priority": 2,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "cardamom",
+        "pepper",
+        "ginger",
+        "cinnamon clove",
+        "saffron",
+        "cool spice"
+      ],
+      "research_question": "Which products, chemical roles and current restrictions support specific spices instead of a generic spice blend?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "TE_TEA",
+      "title": "Tea, mate and aromatic infusions",
+      "domain": "specialty",
+      "priority": 2,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "green tea",
+        "black tea",
+        "oolong",
+        "mate",
+        "smoky tea",
+        "floral tea"
+      ],
+      "research_question": "Which exact leaf, brew and extract evidence supports tea constructions without confusing food aroma with perfume behavior?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "AN_SKIN",
+      "title": "Animalic and skin structures",
+      "domain": "specialty",
+      "priority": 3,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "civet castoreum identities",
+        "animalic substitutes",
+        "skin musk",
+        "salty sweaty",
+        "ambergris associated"
+      ],
+      "research_question": "Which exact identity, provenance and human variability evidence supports animalic/skin roles?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "AB_ABSTRACT",
+      "title": "Aldehydic/powder/abstract effects",
+      "domain": "specialty",
+      "priority": 3,
+      "review_state": "LEGACY_SKETCH_REVIEW_REQUIRED",
+      "subtype_scope": [
+        "waxy aldehydic",
+        "citrus aldehydic",
+        "cosmetic powder",
+        "paper chalk",
+        "metal mineral",
+        "conceptual atmosphere"
+      ],
+      "research_question": "Which source-bounded roles support a perceptual metaphor without turning it into fabricated chemical or receptor identity?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "CU_TRADITIONS",
+      "title": "Regional/traditional perfume constructions",
+      "domain": "cultural",
+      "priority": 2,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "exact attar traditions",
+        "hydrodistillation carrier context",
+        "regional floral oils",
+        "rose oud traditions",
+        "historical materials"
+      ],
+      "research_question": "Which exact product and historical sources describe each tradition without stereotypes or automatic population-preference claims?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    },
+    {
+      "package_id": "HY_HYBRIDS",
+      "title": "Custom and hybrid structures",
+      "domain": "structural",
+      "priority": 2,
+      "review_state": "REVIEW_REQUIRED",
+      "subtype_scope": [
+        "floral gourmand",
+        "tea musk",
+        "incense floral",
+        "fruity fougere",
+        "rose mineral",
+        "leather floral"
+      ],
+      "research_question": "How are source-bound modules combined while preserving the named brief, recognizers and negative space?",
+      "source_requirements": [
+        "primary chemistry/sensory or exact manufacturer technical source appropriate to claim",
+        "exact edition/product references where used",
+        "correction/retraction/license/applicability review"
+      ],
+      "deliverables": [
+        "recognizer and negative-space card",
+        "exact identity and material-role graph",
+        "chassis/bridge alternatives with heuristic edges marked",
+        "coverage and unknowns",
+        "focused regression and smallest useful authorized experiment"
+      ],
+      "implementation_status": "NOT_NEWLY_IMPLEMENTED_BY_THIS_PLAN",
+      "numeric_capability_admission": false
+    }
+  ],
+  "scientific_fronts": [
+    {
+      "front_id": "RF01_IDENTITY",
+      "title": "Chemical, stereochemical, botanical, commercial-grade and stock identity",
+      "requirement": "Exact identities, admitted aliases, carriers/bases, source conflicts and separation of target from build",
+      "priority_packages": [
+        "AR_LAVENDER",
+        "AM_AMBERGRIS",
+        "FL_IRIS",
+        "CI_PRODUCTS"
+      ],
+      "review_state": "TARGETED_REVIEW_PARTIAL_FURTHER_DOMAIN_REVIEW_REQUIRED"
+    },
+    {
+      "front_id": "RF02_SENSOMICS",
+      "title": "GC-MS, GC-O, recombination and omission/addition",
+      "requirement": "Peak amount is not sensory importance; unknown constituents and unknown odor events retained",
+      "priority_packages": [
+        "FL_ROSE",
+        "FL_JASMINE",
+        "CI_PRODUCTS",
+        "FR_ORCHARD"
+      ],
+      "review_state": "TARGETED_REVIEW_PARTIAL_FURTHER_DOMAIN_REVIEW_REQUIRED"
+    },
+    {
+      "front_id": "RF03_PHYSICS",
+      "title": "Equilibrium, finite release, delivery and substrate",
+      "requirement": "Matrix/geometry/time-specific mass conservation; no missing-property defaults",
+      "priority_packages": [],
+      "review_state": "TARGETED_REVIEW_PARTIAL_FURTHER_DOMAIN_REVIEW_REQUIRED"
+    },
+    {
+      "front_id": "RF04_INTENSITY",
+      "title": "Detection and human gas-dose intensity",
+      "requirement": "Compatible OAV diagnostic; admitted exact gas curves; corrected threshold equation; separate mixture challengers",
+      "priority_packages": [],
+      "review_state": "TARGETED_REVIEW_PARTIAL_FURTHER_DOMAIN_REVIEW_REQUIRED"
+    },
+    {
+      "front_id": "RF05_CHARACTER",
+      "title": "Concentration-aware character and temporal identity",
+      "requirement": "Simple profile baseline first; endpoint/coverage limits and human labels",
+      "priority_packages": [],
+      "review_state": "TARGETED_REVIEW_PARTIAL_FURTHER_DOMAIN_REVIEW_REQUIRED"
+    },
+    {
+      "front_id": "RF06_LIKING",
+      "title": "Population pleasantness and personal preference",
+      "requirement": "Independent human labels, individual variability, blinded protocol and explicit ties",
+      "priority_packages": [],
+      "review_state": "TARGETED_REVIEW_PARTIAL_FURTHER_DOMAIN_REVIEW_REQUIRED"
+    },
+    {
+      "front_id": "RF07_EXPECTATION",
+      "title": "Brand, familiarity, language, packaging and context",
+      "requirement": "Separate blinded sensory result from branded consumer concept/market response",
+      "priority_packages": [],
+      "review_state": "TARGETED_REVIEW_PARTIAL_FURTHER_DOMAIN_REVIEW_REQUIRED"
+    },
+    {
+      "front_id": "RF08_SEARCH",
+      "title": "Experiment design and conservative optimization",
+      "requirement": "Leakage-safe splits, equal-budget random/local/adaptive arms, Pareto endpoints and selected-outcome metrics",
+      "priority_packages": [],
+      "review_state": "TARGETED_REVIEW_PARTIAL_FURTHER_DOMAIN_REVIEW_REQUIRED"
+    },
+    {
+      "front_id": "RF09_STABILITY",
+      "title": "Solubility, crystallization, oxidation and packaging",
+      "requirement": "Exact product/matrix behavior and measured homogeneity; no universal shelf-life/solubility claim",
+      "priority_packages": [],
+      "review_state": "TARGETED_REVIEW_PARTIAL_FURTHER_DOMAIN_REVIEW_REQUIRED"
+    },
+    {
+      "front_id": "RF10_SAFETY",
+      "title": "Safety/regulatory and supplier documentation",
+      "requirement": "Independent current reviewed policy, exact limits/aliases and finished-product assessment; never creative beauty authority",
+      "priority_packages": [],
+      "review_state": "TARGETED_REVIEW_PARTIAL_FURTHER_DOMAIN_REVIEW_REQUIRED"
+    },
+    {
+      "front_id": "RF11_MARKET",
+      "title": "Mass, mainstream/prestige, niche and regional positioning",
+      "requirement": "Time/region/channel/franchise scope; no sales-derived liking label",
+      "priority_packages": [],
+      "review_state": "TARGETED_REVIEW_PARTIAL_FURTHER_DOMAIN_REVIEW_REQUIRED"
+    },
+    {
+      "front_id": "RF12_FORMAT",
+      "title": "Delivery formats and use scenarios",
+      "requirement": "Hydroalcoholic EDP/EDT, oil, solid, mist, hair/textile and functional matrices are not interchangeable",
+      "priority_packages": [],
+      "review_state": "TARGETED_REVIEW_PARTIAL_FURTHER_DOMAIN_REVIEW_REQUIRED"
+    },
+    {
+      "front_id": "RF13_ENGINEERING",
+      "title": "Offline retrieval, versioning, compiler and deterministic execution",
+      "requirement": "Exact fingerprints, explicit source/review states, no runtime web calls and focused tests",
+      "priority_packages": [],
+      "review_state": "TARGETED_REVIEW_PARTIAL_FURTHER_DOMAIN_REVIEW_REQUIRED"
+    },
+    {
+      "front_id": "RF14_PRACTICE",
+      "title": "Measurable compounding and evolving-bottle workflow",
+      "requirement": "µL liquids/mg solids, proper stock arithmetic, additive-only deltas, no duplicate transfer and proportionate questions",
+      "priority_packages": [],
+      "review_state": "TARGETED_REVIEW_PARTIAL_FURTHER_DOMAIN_REVIEW_REQUIRED"
+    }
+  ],
+  "market_segments": [
+    {
+      "segment_id": "MASS_MARKET_RETAIL",
+      "title": "Broad-distribution value/mass fragrance",
+      "scope": "Region/channel/price-period evidence required; not inferred from a scent family",
+      "classification_status": "PROPOSED_PLANNING_DIMENSION",
+      "supplies_liking_label": false
+    },
+    {
+      "segment_id": "MASSTIGE",
+      "title": "Accessible aspirational positioning",
+      "scope": "Define relative to the selected market, not a universal price threshold",
+      "classification_status": "PROPOSED_PLANNING_DIMENSION",
+      "supplies_liking_label": false
+    },
+    {
+      "segment_id": "MAINSTREAM_DESIGNER_PRESTIGE",
+      "title": "Broadly distributed/popular designer fine fragrance",
+      "scope": "Can be mainstream while belonging to a prestige retail segment",
+      "classification_status": "PROPOSED_PLANNING_DIMENSION",
+      "supplies_liking_label": false
+    },
+    {
+      "segment_id": "LUXURY_DESIGNER",
+      "title": "Luxury house/collection positioning",
+      "scope": "Exact collection/product rather than a brand-wide assumption",
+      "classification_status": "PROPOSED_PLANNING_DIMENSION",
+      "supplies_liking_label": false
+    },
+    {
+      "segment_id": "NICHE_ARTISAN",
+      "title": "Specialist/artisan or selective perfume positioning",
+      "scope": "Not proof of unusual quality or low mass appeal",
+      "classification_status": "PROPOSED_PLANNING_DIMENSION",
+      "supplies_liking_label": false
+    },
+    {
+      "segment_id": "ULTRA_PREMIUM",
+      "title": "Highest-positioned price/distribution tier",
+      "scope": "Market-relative and evidence-bounded",
+      "classification_status": "PROPOSED_PLANNING_DIMENSION",
+      "supplies_liking_label": false
+    },
+    {
+      "segment_id": "REGIONAL_MAINSTREAM",
+      "title": "Region-specific broad-market relevance",
+      "scope": "No claim of global leadership",
+      "classification_status": "PROPOSED_PLANNING_DIMENSION",
+      "supplies_liking_label": false
+    },
+    {
+      "segment_id": "AFFORDABLE_ALTERNATIVE",
+      "title": "Value alternatives and similarity-positioned products",
+      "scope": "Do not infer proprietary composition, equivalence or licensing from marketing",
+      "classification_status": "PROPOSED_PLANNING_DIMENSION",
+      "supplies_liking_label": false
+    }
+  ],
+  "product_formats": [
+    {
+      "format_id": "HYDROALCOHOLIC_EDC",
+      "review_state": "REVIEW_REQUIRED_FOR_MATRIX_SPECIFIC_IMPLEMENTATION",
+      "safety_authority": false
+    },
+    {
+      "format_id": "HYDROALCOHOLIC_EDT",
+      "review_state": "REVIEW_REQUIRED_FOR_MATRIX_SPECIFIC_IMPLEMENTATION",
+      "safety_authority": false
+    },
+    {
+      "format_id": "HYDROALCOHOLIC_EDP",
+      "review_state": "REVIEW_REQUIRED_FOR_MATRIX_SPECIFIC_IMPLEMENTATION",
+      "safety_authority": false
+    },
+    {
+      "format_id": "HYDROALCOHOLIC_PARFUM_EXTRACT",
+      "review_state": "REVIEW_REQUIRED_FOR_MATRIX_SPECIFIC_IMPLEMENTATION",
+      "safety_authority": false
+    },
+    {
+      "format_id": "PERFUME_OIL_ATTAR",
+      "review_state": "REVIEW_REQUIRED_FOR_MATRIX_SPECIFIC_IMPLEMENTATION",
+      "safety_authority": false
+    },
+    {
+      "format_id": "SOLID_PERFUME",
+      "review_state": "REVIEW_REQUIRED_FOR_MATRIX_SPECIFIC_IMPLEMENTATION",
+      "safety_authority": false
+    },
+    {
+      "format_id": "BODY_MIST",
+      "review_state": "REVIEW_REQUIRED_FOR_MATRIX_SPECIFIC_IMPLEMENTATION",
+      "safety_authority": false
+    },
+    {
+      "format_id": "HAIR_FRAGRANCE",
+      "review_state": "REVIEW_REQUIRED_FOR_MATRIX_SPECIFIC_IMPLEMENTATION",
+      "safety_authority": false
+    },
+    {
+      "format_id": "TEXTILE_FABRIC_FRAGRANCE",
+      "review_state": "REVIEW_REQUIRED_FOR_MATRIX_SPECIFIC_IMPLEMENTATION",
+      "safety_authority": false
+    },
+    {
+      "format_id": "AQUEOUS_OR_EMULSION",
+      "review_state": "REVIEW_REQUIRED_FOR_MATRIX_SPECIFIC_IMPLEMENTATION",
+      "safety_authority": false
+    },
+    {
+      "format_id": "HOME_DIFFUSER",
+      "review_state": "REVIEW_REQUIRED_FOR_MATRIX_SPECIFIC_IMPLEMENTATION",
+      "safety_authority": false
+    },
+    {
+      "format_id": "CANDLE_INCENSE",
+      "review_state": "REVIEW_REQUIRED_FOR_MATRIX_SPECIFIC_IMPLEMENTATION",
+      "safety_authority": false
+    },
+    {
+      "format_id": "FUNCTIONAL_PRODUCT_FRAGRANCE",
+      "review_state": "REVIEW_REQUIRED_FOR_MATRIX_SPECIFIC_IMPLEMENTATION",
+      "safety_authority": false
+    }
+  ],
+  "commercial_panel_tracks": [
+    {
+      "track_id": "MP01_FRUITY_FLORAL",
+      "title": "Mainstream feminine fruity-floral",
+      "proposed_segment": "MAINSTREAM_DESIGNER_PRESTIGE",
+      "reference_research_queue": [
+        "Prada Paradoxe EDP",
+        "Marc Jacobs Daisy EDT",
+        "Versace Bright Crystal EDT",
+        "Chanel Chance Eau Tendre EDP"
+      ],
+      "reference_identity_review_state": "QUEUE_ONLY_EXACT_EDITION_REGION_AND_PRIMARY_SOURCES_MUST_BE_VERIFIED",
+      "panel_state": "PLANNED_NOT_ADMITTED",
+      "sales_rank_claim": false,
+      "liking_claim": false,
+      "proprietary_composition_known": false,
+      "maximum_active_personal_references": 4
+    },
+    {
+      "track_id": "MP02_SWEET_FLORAL",
+      "title": "Mainstream sweet-floral/gourmand",
+      "proposed_segment": "MAINSTREAM_DESIGNER_PRESTIGE",
+      "reference_research_queue": [
+        "Lancome La Vie Est Belle EDP",
+        "YSL Black Opium EDP",
+        "Carolina Herrera Good Girl EDP",
+        "Viktor&Rolf Flowerbomb EDP"
+      ],
+      "reference_identity_review_state": "QUEUE_ONLY_EXACT_EDITION_REGION_AND_PRIMARY_SOURCES_MUST_BE_VERIFIED",
+      "panel_state": "PLANNED_NOT_ADMITTED",
+      "sales_rank_claim": false,
+      "liking_claim": false,
+      "proprietary_composition_known": false,
+      "maximum_active_personal_references": 4
+    },
+    {
+      "track_id": "MP03_ROSE_PETAL",
+      "title": "Rose/peony/fresh petal",
+      "proposed_segment": "MAINSTREAM_DESIGNER_PRESTIGE",
+      "reference_research_queue": [
+        "Chloe EDP",
+        "Dior Miss Dior Blooming Bouquet EDT",
+        "PDM Delina EDP (structural neighbour, not an assumed mass-retail leader)"
+      ],
+      "reference_identity_review_state": "QUEUE_ONLY_EXACT_EDITION_REGION_AND_PRIMARY_SOURCES_MUST_BE_VERIFIED",
+      "panel_state": "PLANNED_NOT_ADMITTED",
+      "sales_rank_claim": false,
+      "liking_claim": false,
+      "proprietary_composition_known": false,
+      "maximum_active_personal_references": 4
+    },
+    {
+      "track_id": "MP04_WHITE_FLORAL",
+      "title": "White-floral volume and restraint",
+      "proposed_segment": "MAINSTREAM_DESIGNER_PRESTIGE",
+      "reference_research_queue": [
+        "Dior J'adore EDP",
+        "Dior Pure Poison EDP",
+        "Gucci Bloom EDP"
+      ],
+      "reference_identity_review_state": "QUEUE_ONLY_EXACT_EDITION_REGION_AND_PRIMARY_SOURCES_MUST_BE_VERIFIED",
+      "panel_state": "PLANNED_NOT_ADMITTED",
+      "sales_rank_claim": false,
+      "liking_claim": false,
+      "proprietary_composition_known": false,
+      "maximum_active_personal_references": 4
+    },
+    {
+      "track_id": "MP05_LAVENDER_AMBER",
+      "title": "Lavender/aromatic/amber",
+      "proposed_segment": "MAINSTREAM_DESIGNER_PRESTIGE",
+      "reference_research_queue": [
+        "YSL Libre EDP",
+        "Dior Sauvage EDP",
+        "Prada Luna Rossa Carbon EDT",
+        "Burberry Goddess EDP"
+      ],
+      "reference_identity_review_state": "QUEUE_ONLY_EXACT_EDITION_REGION_AND_PRIMARY_SOURCES_MUST_BE_VERIFIED",
+      "panel_state": "PLANNED_NOT_ADMITTED",
+      "sales_rank_claim": false,
+      "liking_claim": false,
+      "proprietary_composition_known": false,
+      "maximum_active_personal_references": 4
+    },
+    {
+      "track_id": "MP06_MALE_FRESH",
+      "title": "Mainstream masculine aromatic/fresh woody",
+      "proposed_segment": "MAINSTREAM_DESIGNER_PRESTIGE",
+      "reference_research_queue": [
+        "Bleu de Chanel EDP",
+        "YSL MYSLF EDP",
+        "Armani Acqua di Gio EDP",
+        "Dior Sauvage EDP"
+      ],
+      "reference_identity_review_state": "QUEUE_ONLY_EXACT_EDITION_REGION_AND_PRIMARY_SOURCES_MUST_BE_VERIFIED",
+      "panel_state": "PLANNED_NOT_ADMITTED",
+      "sales_rank_claim": false,
+      "liking_claim": false,
+      "proprietary_composition_known": false,
+      "maximum_active_personal_references": 4
+    },
+    {
+      "track_id": "MP07_MALE_SWEET",
+      "title": "Mainstream masculine sweet/spiced",
+      "proposed_segment": "MAINSTREAM_DESIGNER_PRESTIGE",
+      "reference_research_queue": [
+        "Armani Stronger With You EDT",
+        "JPG Le Male Le Parfum EDP Intense",
+        "Hugo Boss Bottled EDP",
+        "YSL La Nuit de L'Homme EDT"
+      ],
+      "reference_identity_review_state": "QUEUE_ONLY_EXACT_EDITION_REGION_AND_PRIMARY_SOURCES_MUST_BE_VERIFIED",
+      "panel_state": "PLANNED_NOT_ADMITTED",
+      "sales_rank_claim": false,
+      "liking_claim": false,
+      "proprietary_composition_known": false,
+      "maximum_active_personal_references": 4
+    },
+    {
+      "track_id": "MP08_CLEAN_UNISEX",
+      "title": "Clean/fresh broadly accessible unisex",
+      "proposed_segment": "MAINSTREAM_DESIGNER_PRESTIGE",
+      "reference_research_queue": [
+        "Calvin Klein CK One EDT",
+        "Calvin Klein CK Be EDT",
+        "Exact family-matched contemporary sample to be selected"
+      ],
+      "reference_identity_review_state": "QUEUE_ONLY_EXACT_EDITION_REGION_AND_PRIMARY_SOURCES_MUST_BE_VERIFIED",
+      "panel_state": "PLANNED_NOT_ADMITTED",
+      "sales_rank_claim": false,
+      "liking_claim": false,
+      "proprietary_composition_known": false,
+      "maximum_active_personal_references": 4
+    },
+    {
+      "track_id": "MP09_VALUE_MASS",
+      "title": "Value/mass-retail fragrance",
+      "proposed_segment": "MASS_MARKET_RETAIL",
+      "reference_research_queue": [
+        "Adidas Ice Dive EDT",
+        "Nautica Voyage EDT",
+        "Bruno Banani Man EDT",
+        "David Beckham Instinct EDT"
+      ],
+      "reference_identity_review_state": "QUEUE_ONLY_EXACT_EDITION_REGION_AND_PRIMARY_SOURCES_MUST_BE_VERIFIED",
+      "panel_state": "PLANNED_NOT_ADMITTED",
+      "sales_rank_claim": false,
+      "liking_claim": false,
+      "proprietary_composition_known": false,
+      "maximum_active_personal_references": 4
+    },
+    {
+      "track_id": "MP10_MISTS",
+      "title": "Body/hair mist comparison",
+      "proposed_segment": "MASS_MARKET_RETAIL",
+      "reference_research_queue": [
+        "Sol de Janeiro Cheirosa 62 Perfume Mist",
+        "Bath & Body Works Japanese Cherry Blossom Fine Fragrance Mist",
+        "Victoria's Secret Bare Vanilla Fragrance Mist"
+      ],
+      "reference_identity_review_state": "QUEUE_ONLY_EXACT_EDITION_REGION_AND_PRIMARY_SOURCES_MUST_BE_VERIFIED",
+      "panel_state": "PLANNED_NOT_ADMITTED",
+      "sales_rank_claim": false,
+      "liking_claim": false,
+      "proprietary_composition_known": false,
+      "maximum_active_personal_references": 4
+    },
+    {
+      "track_id": "MP11_IRIS_POLISHED",
+      "title": "Iris/clean polished mainstream",
+      "proposed_segment": "MAINSTREAM_DESIGNER_PRESTIGE",
+      "reference_research_queue": [
+        "Prada L'Homme EDT",
+        "Dior Homme Intense EDP (edition/year must be specified)",
+        "Dior Homme Parfum (edition/year must be specified)"
+      ],
+      "reference_identity_review_state": "QUEUE_ONLY_EXACT_EDITION_REGION_AND_PRIMARY_SOURCES_MUST_BE_VERIFIED",
+      "panel_state": "PLANNED_NOT_ADMITTED",
+      "sales_rank_claim": false,
+      "liking_claim": false,
+      "proprietary_composition_known": false,
+      "maximum_active_personal_references": 4
+    },
+    {
+      "track_id": "MP12_NICHE_NEIGHBOURS",
+      "title": "Niche structural contrasts",
+      "proposed_segment": "NICHE_ARTISAN",
+      "reference_research_queue": [
+        "Le Labo Santal 33 EDP",
+        "MFK Baccarat Rouge 540 EDP",
+        "Creed Aventus EDP",
+        "Frederic Malle Portrait of a Lady EDP"
+      ],
+      "reference_identity_review_state": "QUEUE_ONLY_EXACT_EDITION_REGION_AND_PRIMARY_SOURCES_MUST_BE_VERIFIED",
+      "panel_state": "PLANNED_NOT_ADMITTED",
+      "sales_rank_claim": false,
+      "liking_claim": false,
+      "proprietary_composition_known": false,
+      "maximum_active_personal_references": 4
+    },
+    {
+      "track_id": "MP13_HERITAGE",
+      "title": "Historical/classical structural controls",
+      "proposed_segment": "LUXURY_DESIGNER",
+      "reference_research_queue": [
+        "Chanel No. 5 EDP",
+        "Guerlain Shalimar EDP",
+        "Lanvin Arpege EDP",
+        "Houbigant Fougere Royale Extrait"
+      ],
+      "reference_identity_review_state": "QUEUE_ONLY_EXACT_EDITION_REGION_AND_PRIMARY_SOURCES_MUST_BE_VERIFIED",
+      "panel_state": "PLANNED_NOT_ADMITTED",
+      "sales_rank_claim": false,
+      "liking_claim": false,
+      "proprietary_composition_known": false,
+      "maximum_active_personal_references": 4
+    },
+    {
+      "track_id": "MP14_REGIONAL_VALUE",
+      "title": "Regional/value/alternative comparisons",
+      "proposed_segment": "REGIONAL_MAINSTREAM",
+      "reference_research_queue": [
+        "Zara Red Temptation EDP",
+        "Lattafa Khamrah EDP",
+        "Armaf Club de Nuit Intense Man EDT",
+        "Al-Rehab Choco Musk perfume oil"
+      ],
+      "reference_identity_review_state": "QUEUE_ONLY_EXACT_EDITION_REGION_AND_PRIMARY_SOURCES_MUST_BE_VERIFIED",
+      "panel_state": "PLANNED_NOT_ADMITTED",
+      "sales_rank_claim": false,
+      "liking_claim": false,
+      "proprietary_composition_known": false,
+      "maximum_active_personal_references": 4
+    }
+  ],
+  "source_records": [
+    {
+      "source_id": "SRC01_WHEEL",
+      "title": "Official fragrance taxonomy",
+      "url": "https://www.fragrancesoftheworld.com/Docs/Fragrance-Wheels-2024.pdf",
+      "doi": null,
+      "evidence_class": "OFFICIAL_CLASSIFICATION",
+      "review_scope": "OFFICIAL_INDEX_AND_FILE_METADATA_ONLY",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Classification reference; not formula proportions. PDF screenshot extraction failed.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC02_IFRA_PALETTE",
+      "title": "IFRA transparency list",
+      "url": "https://ifrafragrance.org/transparency-list",
+      "doi": null,
+      "evidence_class": "OFFICIAL_TECHNICAL_RESOURCE",
+      "review_scope": "SELECTED_PRIMARY_PAGE_SCOPE",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Ingredient palette metadata; not safety approval, ownership or all physicochemical properties.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC03_IFRA_STANDARDS",
+      "title": "IFRA standards library",
+      "url": "https://ifrafragrance.org/standards-library",
+      "doi": null,
+      "evidence_class": "OFFICIAL_TECHNICAL_RESOURCE",
+      "review_scope": "SELECTED_PRIMARY_PAGE_SCOPE",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Versioned independent safety-policy source; no amendment-effective-date claim made here.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC04_LOREAL_MARKET",
+      "title": "L'Oreal 2025 Luxe annual report",
+      "url": "https://www.loreal-finance.com/en/annual-report-2025/luxe/",
+      "doi": null,
+      "evidence_class": "ISSUER_MARKET_REPORT",
+      "review_scope": "PRIMARY_PAGE_SCRAPED_AND_SELECTED_SECTIONS",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Current report selects market anchors; line/franchise scope retained; sales not liking.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC05_LOREAL_RESULTS",
+      "title": "L'Oreal 2025 annual results",
+      "url": "https://www.loreal-finance.com/eng/press-release/2025-annual-results",
+      "doi": null,
+      "evidence_class": "ISSUER_MARKET_REPORT",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Mainstream couture and collections are distinct positioning; no exact EDP ranking inferred.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC06_COTY_FY26",
+      "title": "Coty Q4 fiscal 2026 results",
+      "url": "https://v2.coty.com/news/coty-announces-fourth-quarter-fiscal-year-2026-results",
+      "doi": null,
+      "evidence_class": "ISSUER_MARKET_REPORT",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Distinguishes prestige and mass-fragrance portfolios; issuer report, not consumer liking.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC07_LVMH_2025",
+      "title": "LVMH 2025 fragrance report",
+      "url": "https://www.lvmh.com/static/letter-to-shareholders-january-2026/perfumes-and-cosmetics.html",
+      "doi": null,
+      "evidence_class": "ISSUER_MARKET_REPORT",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Current text states Sauvage men's-fragrance position; not all fragrances or one exact flanker.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC08_CULTURE",
+      "title": "Arshamian et al. cross-cultural pleasantness",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/35381183/",
+      "doi": "10.1016/j.cub.2022.02.062",
+      "evidence_class": "PRIMARY_HUMAN_RESEARCH",
+      "review_scope": "PRIMARY_ABSTRACT_VIA_LIFE_SCIENCE_INDEX_AND_PRIOR_REVIEW",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Monomolecular ranking and individual variation, not finished-perfume market prediction.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC09_BODY",
+      "title": "Lenochova et al. fragrance/body-odor interactions",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0033810",
+      "doi": "10.1371/journal.pone.0033810",
+      "evidence_class": "PRIMARY_HUMAN_RESEARCH",
+      "review_scope": "PRIMARY_ABSTRACT_VIA_LIFE_SCIENCE_INDEX_AND_PRIOR_REVIEW",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Individual interactions; not automatic skin-versus-blotter transfer.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC10_BINARY",
+      "title": "Ma et al. binary-mixture pleasantness",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/32188973/",
+      "doi": "10.1093/chemse/bjaa020",
+      "evidence_class": "PRIMARY_HUMAN_RESEARCH",
+      "review_scope": "PRIMARY_ABSTRACT_RECORD",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Binary study with observed component sensations; do not relabel as formula-only 60-row prediction.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC11_REGIONS",
+      "title": "Drnovsek et al. 909 individuals/16 regions",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41169516/",
+      "doi": "10.1016/j.isci.2025.113455",
+      "evidence_class": "PRIMARY_HUMAN_RESEARCH",
+      "review_scope": "PRIMARY_ABSTRACT_RECORD",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Separate intensity, pleasantness and other descriptors; stimulus and population applicability need full-method review.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC12_LABELS",
+      "title": "de Araujo et al. cognitive odor-label effects",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/15944134/",
+      "doi": "10.1016/j.neuron.2005.04.021",
+      "evidence_class": "PRIMARY_HUMAN_RESEARCH",
+      "review_scope": "PRIMARY_ABSTRACT_RECORD",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Supports keeping blinded sensory and branded concept response separate, not a brand-success coefficient.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC13_CITRUS",
+      "title": "Dharmawan et al. orange peel reconstitution/omission",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19061307/",
+      "doi": "10.1021/jf801070r",
+      "evidence_class": "PRIMARY_SENSOMICS_RESEARCH",
+      "review_scope": "PRIMARY_INDEXED_ABSTRACT",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Exact peel product/method domain; not a transferable complete perfume recipe.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC14_JASMINE",
+      "title": "Zhang et al. Jasminum sambac concrete",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1002/ffj.3631",
+      "doi": "10.1002/ffj.3631",
+      "evidence_class": "PRIMARY_SENSOMICS_LEAD",
+      "review_scope": "DISCOVERY_ONLY_PRIMARY_FULL_TEXT_ACCESS_FAILED",
+      "review_date": "2026-10-06",
+      "applicability_limit": "No quantitative data admission; requires primary full-text/source and license review before implementation.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC15_INTENSITY_CORRECTION",
+      "title": "Wakayama 2020 correction",
+      "url": "https://doi.org/10.1021/acs.iecr.0c05822",
+      "doi": "10.1021/acs.iecr.0c05822",
+      "evidence_class": "PRIMARY_CORRECTION",
+      "review_scope": "REUSED_PRIOR_PRIMARY_REVIEW",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Gas-unit equation scope; algebra is not human validity.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC16_RECOMBINATION",
+      "title": "Johnson et al. GC recomposition olfactometry",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0042693",
+      "doi": "10.1371/journal.pone.0042693",
+      "evidence_class": "PRIMARY_METHOD_RESEARCH",
+      "review_scope": "REUSED_PRIOR_PRIMARY_REVIEW",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Recombination method precedent; do not infer whole-perfume liking.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC17_CONSERVATIVE",
+      "title": "Trabucco et al. conservative objective models",
+      "url": "https://proceedings.mlr.press/v139/trabucco21a.html",
+      "doi": null,
+      "evidence_class": "PRIMARY_ML_RESEARCH",
+      "review_scope": "REUSED_PRIOR_PRIMARY_REVIEW",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Offline optimization support/extrapolation control; perfume endpoint validation still required.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC18_RANK",
+      "title": "Tan et al. offline optimization by learning to rank",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/hash/768c19273e20fa09147885d03da7550f-Abstract-Conference.html",
+      "doi": null,
+      "evidence_class": "PRIMARY_ML_RESEARCH",
+      "review_scope": "REUSED_PRIOR_PRIMARY_REVIEW",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Selected-outcome/ranking evaluation rationale; not an admitted perfume optimizer.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC19_RETRACTION",
+      "title": "Retraction: Social success of perfumes",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0222524",
+      "doi": "10.1371/journal.pone.0222524",
+      "evidence_class": "PRIMARY_RETRACTION_NOTICE",
+      "review_scope": "PRIMARY_NOTICE_VERIFIED",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Original DOI 10.1371/journal.pone.0218664 rejected for reproducibility/data-availability issues.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC20_LINEAR_CHARACTER",
+      "title": "Pellegrino et al. 2026 linear mixture character preprint",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13371102/",
+      "doi": "10.64898/2026.07.03.736426",
+      "evidence_class": "PRIMARY_HUMAN_RESEARCH_PREPRINT",
+      "review_scope": "SELECTED_PRIMARY_RESULTS_LIMITATIONS_AND_METHODS",
+      "review_date": "2026-10-06",
+      "applicability_limit": "432 mixtures; 144 concentration-specific component profiles from 115 molecular odorants; 2-10 components and moderate intensities. No validated 63-stock drydown or global liking claim.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null,
+      "publication_state": "PREPRINT_NOT_PEER_REVIEWED_ON_REVIEW_DATE",
+      "displayed_manuscript_license": "CC-BY-NC-4.0",
+      "commercial_dataset_or_model_reuse_authorized": false,
+      "data_and_code_license_review": "NOT_COMPLETED"
+    },
+    {
+      "source_id": "SRC21_PAIR_GNN",
+      "title": "Sisson et al. 2025 deep learning for aroma-chemical blends",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11904650/",
+      "doi": "10.1021/acsomega.4c07078",
+      "evidence_class": "PRIMARY_ML_RESEARCH",
+      "review_scope": "PRIMARY_INDEXED_EXCERPTS_AND_AMASS_ABSTRACT",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Labeled molecular pairs, not a dose-dependent complete-perfume liking model. Direct PMC open returned a browser check; full methods, split and artifact rights review remain pending.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null,
+      "data_and_code_license_review": "NOT_COMPLETED"
+    },
+    {
+      "source_id": "SRC22_POM",
+      "title": "Lee et al. 2023 Principal Odor Map",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37651511/",
+      "doi": "10.1126/science.ade4401",
+      "evidence_class": "PRIMARY_ML_RESEARCH",
+      "review_scope": "PRIMARY_ABSTRACT_VIA_AMASS_AND_FETCHED_CONSENSUS_RECORD",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Prospective single-molecule descriptor prediction. Mixture, concentration adapter, proprietary product identity and liking require separate evaluation.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null,
+      "data_and_code_license_review": "NOT_COMPLETED"
+    },
+    {
+      "source_id": "SRC23_DIFFUSION_2013",
+      "title": "Teixeira et al. fragrance diffusion prediction and validation",
+      "url": "https://sigarra.up.pt/fmup/pt/pub_geral.pub_view?pi_pub_base_id=64696",
+      "doi": "10.1002/aic.14106",
+      "evidence_class": "PRIMARY_PHYSICAL_RESEARCH",
+      "review_scope": "AUTHOR_INSTITUTION_INDEXED_ABSTRACT_AND_SCISPACE_DISCOVERY",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Controlled diffusion-tube systems up to eleven chemicals. Not blanket skin/sillage validation; full parameters and methods review pending.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC24_DPG_2015",
+      "title": "Costa et al. fragrance release from simplified DPG matrix",
+      "url": "https://pubs.acs.org/doi/10.1021/acs.iecr.5b03852",
+      "doi": "10.1021/acs.iecr.5b03852",
+      "evidence_class": "PRIMARY_PHYSICAL_RESEARCH",
+      "review_scope": "PRIMARY_INDEXED_ABSTRACT_AND_SUPPORTING_INFORMATION_SCOPE",
+      "review_date": "2026-10-06",
+      "applicability_limit": "One to four fragrance ingredients in DPG. Partition convention and exact matrix apply; do not transfer DPG coefficients to ethanol/water EDP.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC25_SKIN_2019",
+      "title": "Almeida et al. evaporation and permeation applied to skin",
+      "url": "https://ciencia.ucp.pt/en/publications/evaporation-and-permeation-of-fragrance-applied-to-the-skin/",
+      "doi": "10.1021/acs.iecr.9b01004",
+      "evidence_class": "PRIMARY_PHYSICAL_RESEARCH",
+      "review_scope": "SELECTED_AUTHOR_INSTITUTION_RECORD_AND_SCISPACE_DISCOVERY",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Finite/infinite dosing of alpha-pinene, limonene and linalool in ethanol with porcine-skin Franz cells. Not complete human-perfume performance or safety validation.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC26_RADIAL_2021",
+      "title": "Almeida et al. radial fragrance diffusion prediction and validation",
+      "url": "https://aiche.onlinelibrary.wiley.com/doi/10.1002/aic.17351",
+      "doi": "10.1002/aic.17351",
+      "evidence_class": "PRIMARY_PHYSICAL_RESEARCH",
+      "review_scope": "SCISPACE_ABSTRACT_AND_REUSED_PRIOR_PRIMARY_REVIEW",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Pure, binary and ternary controlled systems with parameterized UNIFAC; source physical concentration validation does not validate repository Hansen or universal Stevens intensity.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    },
+    {
+      "source_id": "SRC27_CALKIN_JELLINEK",
+      "title": "Calkin and Jellinek, Perfumery: Practice and Principles",
+      "url": "https://www.wiley-vch.de/de/fachgebiete/naturwissenschaften/perfumery-978-0-471-58934-1",
+      "doi": null,
+      "evidence_class": "PUBLISHER_TECHNICAL_BOOK_METADATA",
+      "review_scope": "PRIMARY_PUBLISHER_DESCRIPTION_AND_TABLE_OF_CONTENTS_ONLY",
+      "review_date": "2026-10-06",
+      "applicability_limit": "1994 historical training/composition reference. Chapters not read here; law, palette and commercial editions require fresh sources.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null,
+      "isbn": "978-0-471-58934-1",
+      "full_book_review": "NOT_PERFORMED"
+    },
+    {
+      "source_id": "SRC28_MANUFACTURER_RESOURCES",
+      "title": "dsm-firmenich exact ingredient and extraction resources",
+      "url": "https://www.dsm-firmenich.com/en/businesses/perfumery-beauty/ingredients.html",
+      "doi": null,
+      "evidence_class": "EXACT_MANUFACTURER_RESOURCE",
+      "review_scope": "SELECTED_PRIMARY_RESOURCE_PAGE_SCOPE",
+      "review_date": "2026-10-06",
+      "applicability_limit": "Manufacturer product/extraction descriptors, not independent empirical liking or all-material stock availability. Exact product documents still required.",
+      "empirical_data_admission": false,
+      "rights_scope": "METADATA_AND_ORIGINAL_BOUNDED_SUMMARY_ONLY",
+      "raw_publisher_artifact_sha256": null
+    }
+  ],
+  "implementation_decision_candidates": [
+    {
+      "decision_id": "ID01",
+      "layer": "Reviewed family/brief knowledge",
+      "preferred_initial_candidate": "Versioned local source cards, typed identity/role graph and composable recognizer/negative-space chassis using existing modules",
+      "challengers": [
+        "optional bounded semantic adapter"
+      ],
+      "not_selected_as_default": [
+        "live research for every formula",
+        "unversioned LLM-generated scientific facts"
+      ],
+      "promotion_requires": "Exact constraints, cited source scope, conflict handling and affected compiler regressions"
+    },
+    {
+      "decision_id": "ID02",
+      "layer": "Finite release",
+      "preferred_initial_candidate": "Measured same-scenario data or fully parameterized equilibrium plus finite mass-balance/transfer/delivery solver",
+      "challengers": [
+        "ideal Raoult sensitivity",
+        "explicitly qualified Hansen sensitivity"
+      ],
+      "not_selected_as_default": [
+        "constant bottle composition skin drydown",
+        "silent molecular-weight/vapor-pressure/density defaults"
+      ],
+      "promotion_requires": "Conservation, parameter applicability and held-out same-scenario measurements"
+    },
+    {
+      "decision_id": "ID03",
+      "layer": "Individual and mixture intensity",
+      "preferred_initial_candidate": "Exact governed gas-dose curves and separately inspected strongest/partial-addition/primacy alternatives",
+      "challengers": [
+        "dose-aware ridge/tree",
+        "frozen representation adapter"
+      ],
+      "not_selected_as_default": [
+        "OAV transformed into universal intensity",
+        "generic chemical-family receptor maps"
+      ],
+      "promotion_requires": "Identity/unit/range/license review and grouped held-out human observations"
+    },
+    {
+      "decision_id": "ID04",
+      "layer": "Character",
+      "preferred_initial_candidate": "Measured component-vector average baseline, then separately tested concentration/intensity-aware variant",
+      "challengers": [
+        "frozen POM/POMMix/AROMMA adapter",
+        "small residual interaction model",
+        "binary-pair GNN in its supported domain"
+      ],
+      "not_selected_as_default": [
+        "unvalidated pairwise interaction matrix",
+        "mixture-distance model used as liking"
+      ],
+      "promotion_requires": "Rights-cleared applicable labels; concentration/palette/study-disjoint tests; no held-out fit"
+    },
+    {
+      "decision_id": "ID05",
+      "layer": "Liking and market fit",
+      "preferred_initial_candidate": "Independent population priors and blinded personal pairwise preference with ties; documentary market selection kept separate",
+      "challengers": [
+        "rights-cleared population model in exact target domain"
+      ],
+      "not_selected_as_default": [
+        "sales or note-popularity as liking labels",
+        "ingredient valence sum",
+        "fabricated neutral 50"
+      ],
+      "promotion_requires": "Endpoint/population match, adequate connected observations, uncertainty and separate branded testing"
+    },
+    {
+      "decision_id": "ID06",
+      "layer": "Candidate generation and selection",
+      "preferred_initial_candidate": "Hard feasibility and recognizer constraints, low-dimensional block search, Pareto endpoints, equal-budget random/local/conservative adaptive arms",
+      "challengers": [
+        "more complex adaptive search after selected-outcome improvement"
+      ],
+      "not_selected_as_default": [
+        "63 free row variables without sufficient data",
+        "hidden beauty weighted sum",
+        "ingredient-count objective"
+      ],
+      "promotion_requires": "Unique feasible evaluation budgets, fixed seeds, support control and selected-candidate outcome comparison"
+    },
+    {
+      "decision_id": "ID07",
+      "layer": "Practical workflow",
+      "preferred_initial_candidate": "Offline fast interpretation card and one small additive evolving-bottle hypothesis with exact-once existing action lifecycle",
+      "challengers": [
+        "new-formula mode only when selected",
+        "controlled sensory mode only for the requested stronger claim"
+      ],
+      "not_selected_as_default": [
+        "photographs/lots/receipts for every creative idea",
+        "one new bottle per delta"
+      ],
+      "promotion_requires": "Unit/stock correctness, no negative physical additions, measurement floors and replay protection"
+    }
+  ],
+  "literature_gate": {
+    "implementation_state": "PROPOSED_NOT_RUNTIME_ENFORCED_BY_THIS_PLAN",
+    "required_fields": [
+      "source identity/version and genuine capture basis",
+      "review scope and rights/license",
+      "correction/retraction state",
+      "chemical/product/grade/stimulus/condition scope",
+      "claims versus hypotheses and unknowns",
+      "endpoint and false action-authority flags",
+      "local review receipt and hashes",
+      "tests for affected behavior"
+    ],
+    "states": [
+      "RESEARCH_SCOPED",
+      "SOURCE_REVIEWED",
+      "ARCHITECTURE_ADVISORY_READY",
+      "IMPLEMENTATION_REVIEWED",
+      "FOCUSED_VERIFIED",
+      "EMPIRICAL_CAPABILITY_HOLD",
+      "OUT_OF_DOMAIN",
+      "RETRACTED_REJECTED"
+    ],
+    "creative_hypotheses_allowed_with_explicit_limits": true,
+    "quantitative_claim_without_applicable_evidence_allowed": false,
+    "abstention_must_not_fabricate_zero_or_neutral_score": true
+  },
+  "market_freshness_policy": {
+    "implementation_state": "PROPOSED_REPAIR_NOT_APPLIED_TO_EXISTING_REGISTRY",
+    "separate_fields": [
+      "published_on",
+      "source_period_start",
+      "source_period_end",
+      "captured_on",
+      "reviewed_on",
+      "market_region",
+      "market_channel",
+      "metric",
+      "product_line_or_franchise_scope",
+      "current_selection_expires_on"
+    ],
+    "review_date_does_not_renew_old_observation": true,
+    "historical_launch_evidence_may_remain_historical": true,
+    "max_current_evidence_age_months": 12,
+    "newer_admissible_period_replaces_current_market_role_not_historical_source": true
+  },
+  "completion_boundary": {
+    "planned_scope_reviewed_and_compiler_regressions": "ARCHITECTURE_SOFTWARE_COVERAGE_COMPLETE",
+    "limited_or_no_empirical_coverage_is_explicit": true,
+    "consumer_superiority_not_claimed": true,
+    "commercial_release_ready_not_automatically_granted": true,
+    "unresolved_domains_remain_visible": true
+  }
+}

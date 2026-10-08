@@ -21,6 +21,16 @@
 
 ## Reviewed formulation knowledge
 
+### Temporary user compounding exclusions
+
+`data/governance/inventory_compounding_holds.json` records user-requested
+exclusions independently of physical stock ownership. PerfumersWorld **Orris
+Liquid (8IQ24653), including the owned 9% w/w in DEP stock, must not be selected
+for new compounding formulas or bottle additions** until the user supplies more
+information and explicitly clears the hold. Preserve historical formulas and
+stock receipts; do not mark it depleted, infer that it is unsafe, or automatically
+substitute another iris material. Completing stock details does not clear a hold.
+
 `data/formulation_knowledge/literature_v1.json` contains source-bounded facts,
 manufacturer descriptions and explicitly uncalibrated architecture hypotheses.
 `prior_research_corpus_v1.json` indexes prior local research by exact bytes;
@@ -30,6 +40,93 @@ Exact material grades, iris root/butter/cosmetic/transparent/woody profiles, vio
 petals, violet powder and violet leaf remain distinct. Explicit user constraints
 take precedence. Literature guidance cannot fabricate doses, receptor maps,
 physical properties, intensity, pleasantness or liking measurements.
+
+`construction_library_v1.json` adds initial advisory dossiers for all 49 frozen
+construction packages. It is a separate runtime library, not activation of the
+planning manifest. Functional connections and architectural alternatives are
+untested hypotheses; unreviewed subtype scope remains explicit. Exact source
+records and review receipts are required for retrieval. Do not turn these cards
+into empirical doses, automatic stock aliases, performance or liking claims.
+Formula Studio exposes the raw dossier options inside optional research details.
+
+`subtype_research_v4.json` is the active, separately hashed partial subtype layer;
+its v1–v3 predecessors and parent library remain immutable and byte-bound.
+Successors preserve prior cards, botanical declarations, addenda and campaign
+holds. Species, organs, flower stages and exact extract/reconstruction grades
+remain distinct. The Tilia card requires both the corrected paper and notice.
+Match all required request facets, preserve
+negations, and keep source observations separate from construction hypotheses.
+Food/tea studies do not provide perfume doses or performance. A detailed card is
+not exhaustive subtype review; unavailable or drifted sources withhold that card.
+All 13 planned floral packages now have additional partial subtype research;
+this is not exhaustive botanical coverage. Named campaigns whose exact brief or
+formula is unavailable must not inherit adjacent commercial-fragrance identities.
+
+`architecture_adapters_v5.json` is the active, separate, closed Deep Compose bridge;
+it binds immutable v1/v2/v3/v4 bytes and preserves their ordered mappings. All five
+versions participate in durable fingerprints. It prioritizes complete positive
+request matches over title-only matches, then qualified subtypes over umbrella
+cards; this is request specificity, not quality ranking.
+Its 104 mappings and 168 options supply
+explicitly supported subtype-to-role mappings. Keep the original control and at
+most two unordered source-bound comparison briefs; solve and critique each with
+its own roles. Preserve exact anchors, protected recognizers, avoid constraints,
+stock holds and quantities. Numeric allocation comes only from separately hashed
+local heuristic templates, never paper prose or source peak percentages. Missing
+campaign governance is not an empty hold list. Unsupported mappings remain
+advisory; a different composition does not establish a better-smelling perfume.
+Fruit roles require own-material odor annotations, not a berry token in a stock
+name, category proxy, comment or synergy partner. Named fruits remain explicit
+intent with untested recognition. Structural role coverage is not sensory request
+accuracy. Diagnostic signatures must be recomputed from executable role records;
+exact option/template/policy lineage and protected roles must replay from the
+control. Missing authority records, conflicting source receipts, malformed
+physical quantities and inconsistent separate totals fail verification. Empty,
+withheld or physically duplicate alternatives cannot inflate executable coverage.
+V4 chypre/cologne options require exact own-odor predicates. Every planned option
+must be attempted and accounted for. An unavailable option needs an exhaustively
+verified empty admissible stock pool; consumed stock, solver failure and critic
+rejection are not empty-pool evidence. Botanical organs and suggested applications
+are not own-odor annotations. Scarce required descriptor roles use bounded forward
+checking without weakening stock, trace, exclusion or identity gates.
+Numerically equal doses and split rows describe the same physical composition.
+Suppressed duplicates retain bounded physical rows and an earlier retained
+reference; verify their conservation, identity and complete attempt accounting.
+Relabeled failure states or mismatched attempt IDs must not bypass that check.
+Historical protocols use fixed predecessor paths and hashes, never the active
+manifest as a substitute. An active mapping is not full-corpus acceptance;
+consult the versioned research coverage progress and its exact input hashes.
+
+V5 uses a closed own-odor operation registry. Application suggestions, synergy
+partners, negated descriptions and botanical origin cannot supply odor roles.
+Exact product refinements must strengthen the canonical role without changing
+its quantities, function or protected constraints. Avoid constraints apply to
+the entire comparison, including unchanged background roles; missing odor words
+do not certify absence. Source review assessments must match the current
+canonical review bytes, not merely a caller-supplied allowed flag.
+`subtype_implementation_dispositions_v1.json` accounts for the 132 cards that
+lacked v4 mappings. Its dispositions separate architecture, exact-product,
+omission and evidence/input needs. After v5, 75 cards still have no executable
+mapping. This is honest coverage accounting, not exhaustive research or a claim
+that all mapped options are feasible with current stocks.
+
+The optional `OMISSION_COMPARISON_PLAN` job creates a fixed-row, equal-total-mass
+control/omission plan with explicit carrier blanks. It does not re-solve the
+background, preserve total fragrance-active mass, authenticate inventory, remove
+anything from an existing bottle, or authorize a physical action. Missing exact
+mass/basis/blank information withholds that experiment only. The protocol handoff
+is planning-only, not an executed or privately blinded session. Ordinary personal
+clues and observations still need no photographs, lots or formal paperwork.
+
+`data/governance/campaign_reference_chimie_lhomme_v1.json` recovers the exact
+historical Terre-heart CHIMIE L'HOMME design from saved chat sources. It is not
+Sport Citrus / Dry Amber. The archived 5,510 uL liquid stocks and 600 mg Ambrox
+crystals are design totals, not a reconstruction of the current physical bottle.
+The later user correction says fixed ethanol was used and final volume was not
+measured. Read-only retrieval may display this hash-bound recovery context;
+it must not import historical dilutions into inventory or bypass the existing
+campaign-generation hold. The original no-reference hold is historical evidence,
+not a reason to keep asking the user to find a reference now recovered locally.
 
 Older session learnings and numeric tables below are historical diagnostics,
 not universal scientific or formulation policy. Where they contradict Rules 1,
@@ -206,136 +303,6 @@ python scripts/formula_release_gate.py \
 python scripts/format_pipeline_analysis.py --input output.json
 ```
 
-## Key conventions
-
-- **Always read `inventory.txt` before formulating.** The `.github/copilot-instructions.md` contains extensive rules for perfume formulation, material selection, and dosing. Agents creating formulas **must** read it.
-- **Two test directories**: `tests/` (engine-level tests, runs from root) and `backend/tests/` (API tests, runs via Poetry). Each has its own `conftest.py` with different `sys.path` and fixture setups.
-- **Test env vars**: `OPENAI_API_KEY=test-key`, `SECRET_KEY=test-secret-key-for-ci`, and `PERFUME_PIPELINE_AUDIT_PATH` (auto-set by root `conftest.py` to a tempfile).
-- **`inventory.txt` format**: `--- CATEGORY ---` headers, `- Material Name (dilution%)` bullets. Parsed by `engine/inventory_parser.py` which deduplicates by keeping the highest-dilution entry.
-- **`archive/` and `output/` are gitignored** — scratch scripts (prefix `_`) and generated outputs go there.
-- **Pipeline logic** lives in `engine/pipeline/` (gates, formula_state, simulator, oav_intelligence, etc.). The entry point is `scripts/formula_release_gate.py`. The old `pipelines/` directory has been removed — all orchestration now imports `engine/` modules directly.
-- **`.vscode/`, `.claude/`, `*.db`, `*.xlsx`, `*.csv`, `*.png` are gitignored.**
-- **`engine/` dependencies** (`sentence-transformers`, `faiss-cpu`, `torch`, etc.) are in root `requirements.txt`, not in the Poetry project.
-
-## When formulating perfumes
-
-The `.github/copilot-instructions.md` file has mandatory rules: no material defaults (evaluate every option), use perfumer vocabulary, justify every material choice, and always read `inventory.txt` first. A single precisely chosen musk is valid; multiple musks require distinct target-linked roles plus pairwise nonredundancy and controlled omission/alternative comparisons. Tonalide, Macrolide, and Musk Ketone are omitted by default and are exception-only under the complete design-call and inventory-separation contract.
-
-> **⚠️ RULE 3: When optimizing longevity, scan ALL categories for low-VP materials — don't just reach for "base" or "musk" materials.**
-> Materials in Citrus, Floral, and Accord Bases/Other categories can have surprisingly low vapor pressure (Paradisamide VP=0.002 Pa, Lemonile VP=0.2 Pa, Pamzest VP=30 Pa). Run `engine.formula_recommendations.find_hidden_fixatives()` to surface materials whose VP qualifies them as fixatives but whose note/role places them in top/heart categories. This prevents the blind spot of treating "citrus" and "fixative" as mutually exclusive.
-
----
-
-## Running Formulas Through the Pipeline
-
-### Before running
-
-1. **Read `docs/fragrance_families_reference.md`** to confirm the family exists and is buildable from inventory.
-2. **Confirm every material is in stock** — check `inventory.txt` for DEPLETED markers.
-3. **Confirm every material has physics data** — check `engine/odor_thresholds.py` ODT_DATA, `data/materials/<LETTER>.yaml` for MW/logP/VP/ODT, and `engine/ingredient_intelligence.py` _PROFILES for note/role/texture.
-4. **Check for duplicate ODT entries** — `grepp "material_name" engine/odor_thresholds.py` and count occurrences. The last entry wins.
-
-### Running
-
-```bash
-python scripts/formula_release_gate.py \
-    --formula-file formulas/My_Formula_30mL_EDP.md \
-    --expected-concentrate-ul 6000 \
-    --brief <family> \
-    --json
-```
-
-Supported `--brief` values: `generic`, `aromatic_fougere`, `layton_dna`, `vetiver_woody`. Pass `--family-archetype <key>` directly if the brief isn't in the defaults table.
-
-### After running — read MORE than just gate status
-
-The JSON output is ~6000 lines. Gates are only ~20%. Agents MUST extract these sections:
-
-| Section | JSON path | What it tells you |
-|---------|-----------|-------------------|
-| **Headspace OAV** | `formulas[0].formula_state.materials[]` | Per-material OAV, VP, gamma, mole fraction, active µL |
-| **Temporal evolution** | `formulas[0].time_series[]` | 5-window OAV (0s→5min→30min→2hr→4hr) |
-| **Note distribution** | `formulas[0].formula_state.note_distribution` | OAV-weighted T/H/B split (more accurate than pyramid gate) |
-| **Pyramid evaluation** | Gate `perfume_knowledge` → `data.pyramid` | VP-tier pyramid vs family targets |
-| **OAV intelligence** | Gate `oav_intelligence` → `data` | Balance reports, performance projection, material cliff findings |
-| **IFRA details** | Gate `safety_ifra_allergen` → `data` | Violations, edge dosing, allergen declarations |
-| **Config** | `config_summary` | Confirm brief, archetype, temperature, concentration bracket |
-| **Dermal exposure** | Gate `safety_ifra_allergen` → `data.dermal_exposure[]` | Per-material skin penetration estimates |
-
-### Required: always present the OAV headspace table
-
-After every pipeline run, format the per-material OAV table from
-`formulas[0].formula_state.materials[]` in this exact column order:
-
-```
-| Material | Dil | Raw µL | Act µL | MW | MF% | VP Pa | γ | Vapor ppm | ODT ppm | OAV | Note |
-```
-
-Include `note_distribution` (T/H/B split) and `time_series` temporal
-windows (opening → top → heart → late_heart → drydown). Present this
-**before** discussing gate outcomes — raw headspace physics is more
-diagnostic than pass/fail.
-
-Flag any material with OAV < 1 (below perceptible threshold) if its
-functional role requires perceptibility (e.g. projection musk,
-character note, radiance amplifier). Materials with OAV < 1 whose role
-is purely structural (fixative, inert base) are acceptable.
-
-### Required: perfumer analysis format
-
-After presenting the OAV headspace table and temporal evolution, produce a
-complete perfumer analysis section covering these topics **in order**:
-
-1. **Character** — What is the fragrance family? What classical reference perfumes does it evoke? Describe the dominant structural architecture (e.g. "top-to-base with thin heart").
-
-2. **Opening (0-5min)** — Describe what the first blast smells like. Reference OAV ratios: which materials dominate, what is their perceptibility (massive >1000, very strong 100-1000, strong 50-100, moderate 10-50, perceptible 5-10, at threshold 1-5, sub-threshold <1). Quote total vapor ppm.
-
-3. **Heart (30min-2hr)** — How does the composition evolve as top notes burn off? Describe which materials emerge and what they contribute. Note the H/T/B distribution shift.
-
-4. **Drydown (2hr-4hr+)** — What persists at 4h? Quote base % dominance at drydown. Describe the final character (mossy, woody, sweet, etc.). Flag any materials that functionally underperform.
-
-5. **Sillage & Diffusion** — Identify primary OAV carriers. Quote opening vs drydown projection materials.
-
-6. **Longevity** — Quote % raw evaporation over 4h, base persistence %, expected skin life.
-
-7. **Balance** — Pyramid vs target, OAV range min-to-max, sigma-log contrast score, heart density assessment.
-
-8. **Flags** — Sub-threshold materials by functional role, IFRA edges, data quality issues.
-
-
-### Using the analysis script
-
-The repo provides `scripts/format_pipeline_analysis.py` which reads a
-pipeline JSON output and prints the full formatted analysis. Run:
-
-```bash
-python scripts/format_pipeline_analysis.py --input <pipeline_output.json>
-```
-
-This is the **required** format. Every pipeline run output must be run
-through this script and the result presented in **two places**:
-
-1. **In the chat** — paste the full analysis output into the conversation so the user can review it immediately.
-2. **Appended to the formula file** — add the analysis to the formula markdown file (under a `## Pipeline Analysis` section) for permanent record.
-
-Agents must NOT skip the chat presentation step. The analysis must be shown
-verbatim in the chat before discussing decisions or next steps. Do not
-summarize or paraphrase the analysis output — present it directly.
-
-### Integrated CLI usage
-
-The pipeline CLI supports a `--print-analysis` flag that runs both the
-release gates and the analysis script:
-
-```bash
-python scripts/formula_release_gate.py \
-    --formula-file formulas/My_Formula_30mL_EDP.md \
-    --expected-concentrate-ul 6000 \
-    --brief vetiver_woody \
-    --json 2>/dev/null | python -c "import sys,json; d=json.load(sys.stdin); open('output.json','w').write(json.dumps(d,indent=2))"
-python scripts/format_pipeline_analysis.py --input output.json
-```
-
 ### Common pipeline bugs
 
 | Symptom | Root cause | Fix location |
@@ -369,6 +336,25 @@ python scripts/format_pipeline_analysis.py --input output.json
 7. **`engine/knowledge/pyramid_targets.py`** — if new family, add pyramid ratios and OAV targets
 
 **Verify:** run `python scripts/formula_release_gate.py --brief <key> --json` and check `family_drift_detector` PASSes.
+
+## Key conventions
+
+- **Always read `inventory.txt` before formulating.** The `.github/copilot-instructions.md` contains extensive rules for perfume formulation, material selection, and dosing. Agents creating formulas **must** read it.
+- **Two test directories**: `tests/` (engine-level tests, runs from root) and `backend/tests/` (API tests, runs via Poetry). Each has its own `conftest.py` with different `sys.path` and fixture setups.
+- **Test env vars**: `OPENAI_API_KEY=test-key`, `SECRET_KEY=test-secret-key-for-ci`, and `PERFUME_PIPELINE_AUDIT_PATH` (auto-set by root `conftest.py` to a tempfile).
+- **`inventory.txt` format**: `--- CATEGORY ---` headers, `- Material Name (dilution%)` bullets. Parsed by `engine/inventory_parser.py` which deduplicates by keeping the highest-dilution entry.
+- **`archive/` and `output/` are gitignored** — scratch scripts (prefix `_`) and generated outputs go there.
+- **The repo root holds only config and entry points.** Root-level `_*`, `*.json`, `*.jsonl` and `*.txt` files are gitignored (except the named config files and `inventory.txt`/`requirements.txt`); older root reference docs live in `docs/legacy-root/`.
+- **Pipeline logic** lives in `engine/pipeline/` (gates, formula_state, simulator, oav_intelligence, etc.). The entry point is `scripts/formula_release_gate.py`. The old `pipelines/` directory has been removed — all orchestration now imports `engine/` modules directly.
+- **`.vscode/`, `.claude/`, `*.db`, `*.xlsx`, `*.csv`, `*.png` are gitignored.**
+- **`engine/` dependencies** (`sentence-transformers`, `faiss-cpu`, `torch`, etc.) are in root `requirements.txt`, not in the Poetry project.
+
+## When formulating perfumes
+
+The `.github/copilot-instructions.md` file has mandatory rules: no material defaults (evaluate every option), use perfumer vocabulary, justify every material choice, and always read `inventory.txt` first. A single precisely chosen musk is valid; multiple musks require distinct target-linked roles plus pairwise nonredundancy and controlled omission/alternative comparisons. Tonalide, Macrolide, and Musk Ketone are omitted by default and are exception-only under the complete design-call and inventory-separation contract.
+
+> **⚠️ RULE 3: When optimizing longevity, scan ALL categories for low-VP materials — don't just reach for "base" or "musk" materials.**
+> Materials in Citrus, Floral, and Accord Bases/Other categories can have surprisingly low vapor pressure (Paradisamide VP=0.002 Pa, Lemonile VP=0.2 Pa, Pamzest VP=30 Pa). Run `engine.formula_recommendations.find_hidden_fixatives()` to surface materials whose VP qualifies them as fixatives but whose note/role places them in top/heart categories. This prevents the blind spot of treating "citrus" and "fixative" as mutually exclusive.
 
 ---
 

@@ -1,0 +1,1047 @@
+{
+  "schema_version": "perfume-formulation-research-design-v1",
+  "design_id": "AVENTUS-MERIDIAN-RICH-AMBROX-V1-20261002",
+  "name": "Aventus Meridian — Rich Ambrox development lead v1",
+  "date": "2026-10-02",
+  "status": "FORMULATION_HYPOTHESIS_NOT_SENSORILY_VALIDATED",
+  "operating_mode": "RECONSTRUCTION_INFORMED_CREATIVE_TARGET",
+  "claim": "Aventus-style pineapple/cassis/citrus/wood design with intentionally increased Ambrox. Not an authenticated Creed formula or demonstrated sensory match.",
+  "lineage": {
+    "kind": "ROOT_DESIGN",
+    "parent": null,
+    "historical_comparators_are_immutable": true,
+    "existing_bottle_action": "NONE"
+  },
+  "reference": {
+    "brand": "Creed",
+    "product": "Aventus",
+    "edition": "CURRENT_OFFICIAL_ARCHITECTURE_WITH_BATCH_UNCERTAINTY",
+    "proprietary_formula_known": false,
+    "authenticated_reference_sample_bound": false
+  },
+  "brief": {
+    "recognizers": [
+      "citrus peel",
+      "controlled pineapple and cassis",
+      "jasmine-linked heart",
+      "smoky leather/wood",
+      "patchouli/cedar/moss",
+      "prominent ambergris/Ambrox drydown"
+    ],
+    "negative_space": [
+      "fruit candy",
+      "huge vanilla/coumarin sweetness",
+      "blue shower-gel character",
+      "obvious iris",
+      "campfire tar",
+      "superamber pile-up"
+    ],
+    "temporal_claims": "HYPOTHESES_ONLY",
+    "richness_definition": "distinct fruit facets and linked texture, not material count, raw OAV, or strength alone"
+  },
+  "stock_basis_confirmation": {
+    "source": "USER_REPLY_20261002_W_W",
+    "scope": [
+      "Allyl Amyl Glycolate 10%",
+      "Allyl Cyclohexyl Propionate 10%",
+      "Blackcurrant Absolute 10%",
+      "Jasmine Absolute 10%",
+      "Rose de Mai Absolute 10%"
+    ],
+    "basis": "w/w",
+    "changes_global_inventory": false
+  },
+  "source_snapshots": {
+    "inventory_sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "personal_projection_sha256": "3ed783092c94aed53b3987583b8131b4b348995bddb82afab13716f47cad0687",
+    "historical_aventus_luxe_sha256": "6333de78fb6fcc660bb4ea235ae527df7426002ff2f9af9efd64b4e1d518fcf3"
+  },
+  "accounting": {
+    "basis": "undiluted perfumery-product-equivalent mass; no molecular purity assay claimed for naturals or commercial mixtures",
+    "percent_sum": "100.000",
+    "target_product_mass_g": "6.000000",
+    "working_stock_mass_g": "8.672400",
+    "working_stock_carrier_mass_g": "2.672400",
+    "proposed_master_extra_ethanol_g": "6.000000",
+    "master_total_mass_g": "14.672400",
+    "final_bottle_volume_mL": "30.00",
+    "nominal_product_equivalent_loading_g_per_100mL": "20.000",
+    "ethanol_completion": "q.s. to measured 30.00 mL after dissolution and equilibration; no fixed 24 mL instruction",
+    "final_w_w_percent": null,
+    "alternative_finished_mass_g": "30.000000",
+    "alternative_product_equivalent_w_w_percent": "20.000000",
+    "alternative_total_additional_ethanol_g": "21.327600",
+    "alternative_finished_volume_mL": null,
+    "combined_mass_volume_total": null,
+    "carrier_identity_coverage": "PARTIAL_AAG_AND_COMMERCIAL_MIXTURE_UNRESOLVED",
+    "weighed_solid_Ambrox_mg": "1080.000",
+    "crystal_uL": null
+  },
+  "rows": [
+    {
+      "row": 1,
+      "material": "Ambrox Super crystals",
+      "module": "H",
+      "chemical_or_product_class": "Oxygenated polycyclic terpenoid",
+      "function": "ambergris body and the deliberately enlarged Ambrox signature",
+      "target_percent_by_product_equivalent_mass": "18",
+      "target_product_mass_g_for_6g": "1.080000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "1.080000",
+      "inventory_mapping": "OWNED_NEAT_SOLID",
+      "carrier": "none",
+      "pw_sku": "1UW00035",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=1UW00035",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 2,
+      "material": "Iso E Super",
+      "module": "I",
+      "chemical_or_product_class": "Isomeric woody ketone product",
+      "function": "transparent cedar-amber envelope",
+      "target_percent_by_product_equivalent_mass": "20",
+      "target_product_mass_g_for_6g": "1.200000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "1.200000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": "3WY00244",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3WY00244",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 3,
+      "material": "Hedione",
+      "module": "F",
+      "chemical_or_product_class": "Jasmonate ester",
+      "function": "open floral space linking fruit to woods",
+      "target_percent_by_product_equivalent_mass": "16.54",
+      "target_product_mass_g_for_6g": "0.992400",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.992400",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": "3JJ00218",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3JJ00218",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 4,
+      "material": "Hedione HC",
+      "module": "F",
+      "chemical_or_product_class": "High-cis jasmonate product",
+      "function": "a second, higher-cis diffusion treatment; test against ordinary Hedione alone",
+      "target_percent_by_product_equivalent_mass": "3",
+      "target_product_mass_g_for_6g": "0.180000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.180000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": "4JJ10013",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4JJ10013",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 5,
+      "material": "Habanolide",
+      "module": "H",
+      "chemical_or_product_class": "Macrocyclic musk",
+      "function": "dry, warm musk structure; test for metallic masking",
+      "target_percent_by_product_equivalent_mass": "6",
+      "target_product_mass_g_for_6g": "0.360000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.360000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": "3XA09821",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3XA09821",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 6,
+      "material": "Romandolide",
+      "module": "H",
+      "chemical_or_product_class": "Alicyclic ester musk",
+      "function": "softer musk cushion; omit against the Habanolide-only control",
+      "target_percent_by_product_equivalent_mass": "4",
+      "target_product_mass_g_for_6g": "0.240000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.240000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": "3XU22379",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3XU22379",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 7,
+      "material": "Bergamot FCF oil Sicilian",
+      "module": "E",
+      "chemical_or_product_class": "Whole citrus essential oil",
+      "function": "bitter-bright bergamot recognizer",
+      "target_percent_by_product_equivalent_mass": "6",
+      "target_product_mass_g_for_6g": "0.360000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.360000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": "7CL24020",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7CL24020",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 8,
+      "material": "Lemon FCF oil Sicilian",
+      "module": "E",
+      "chemical_or_product_class": "Whole citrus essential oil",
+      "function": "lemon peel sparkle",
+      "target_percent_by_product_equivalent_mass": "2",
+      "target_product_mass_g_for_6g": "0.120000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.120000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 9,
+      "material": "Linalyl Acetate",
+      "module": "E",
+      "chemical_or_product_class": "Terpenoid ester",
+      "function": "citrus-to-floral continuity",
+      "target_percent_by_product_equivalent_mass": "3.5",
+      "target_product_mass_g_for_6g": "0.210000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.210000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 10,
+      "material": "Linalool",
+      "module": "E",
+      "chemical_or_product_class": "Terpenoid alcohol",
+      "function": "fresh terpene detail",
+      "target_percent_by_product_equivalent_mass": "0.5",
+      "target_product_mass_g_for_6g": "0.030000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.030000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 11,
+      "material": "Dihydromyrcenol",
+      "module": "E",
+      "chemical_or_product_class": "Acyclic terpenoid alcohol",
+      "function": "controlled fresh lift; not a blue-fragrance chassis",
+      "target_percent_by_product_equivalent_mass": "1.4",
+      "target_product_mass_g_for_6g": "0.084000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.084000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 12,
+      "material": "Pink Pepper EO",
+      "module": "E",
+      "chemical_or_product_class": "Whole spice essential oil",
+      "function": "dry fruity-pepper contrast",
+      "target_percent_by_product_equivalent_mass": "0.35",
+      "target_product_mass_g_for_6g": "0.021000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.021000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 13,
+      "material": "Allyl Cyclohexyl Propionate",
+      "module": "B",
+      "chemical_or_product_class": "Allyl ester",
+      "function": "green waxy pineapple body",
+      "target_percent_by_product_equivalent_mass": "0.65",
+      "target_product_mass_g_for_6g": "0.039000",
+      "working_stock_fraction": {
+        "numerator": "10",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.390000",
+      "inventory_mapping": "OWNED_10_W_W_USER_CONFIRMED",
+      "carrier": "DPG",
+      "pw_sku": "4FC00030",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4FC00030",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 14,
+      "material": "Allyl Amyl Glycolate",
+      "module": "A",
+      "chemical_or_product_class": "Allyl glycolate ester",
+      "function": "green pineapple rind",
+      "target_percent_by_product_equivalent_mass": "0.35",
+      "target_product_mass_g_for_6g": "0.021000",
+      "working_stock_fraction": {
+        "numerator": "10",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.210000",
+      "inventory_mapping": "OWNED_10_W_W_USER_CONFIRMED",
+      "carrier": "not declared in this turn",
+      "pw_sku": "4FG00029",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4FG00029",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 15,
+      "material": "Allyl Caproate",
+      "module": "C",
+      "chemical_or_product_class": "Allyl ester",
+      "function": "fatty ripe pineapple flesh",
+      "target_percent_by_product_equivalent_mass": "0.15",
+      "target_product_mass_g_for_6g": "0.009000",
+      "working_stock_fraction": {
+        "numerator": "10",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.090000",
+      "inventory_mapping": "PURCHASE_AND_PREPARE_10_W_W",
+      "carrier": "perfumery ethanol",
+      "pw_sku": "4FC02995",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4FC02995",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 16,
+      "material": "Ethyl Butyrate",
+      "module": "B",
+      "chemical_or_product_class": "Ethyl ester",
+      "function": "brief juicy pineapple lift, with banana risk under test",
+      "target_percent_by_product_equivalent_mass": "0.10",
+      "target_product_mass_g_for_6g": "0.006000",
+      "working_stock_fraction": {
+        "numerator": "10",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.060000",
+      "inventory_mapping": "PURCHASE_AND_PREPARE_10_W_W",
+      "carrier": "perfumery ethanol",
+      "pw_sku": "3FD00174",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3FD00174",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 17,
+      "material": "Ethyl 2-Methylbutyrate",
+      "module": "A",
+      "chemical_or_product_class": "Branched ethyl ester",
+      "function": "sharp pineapple-skin/apple-peel accent",
+      "target_percent_by_product_equivalent_mass": "0.025",
+      "target_product_mass_g_for_6g": "0.001500",
+      "working_stock_fraction": {
+        "numerator": "1",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.150000",
+      "inventory_mapping": "OWNED_0_1_BASIS_UNRESOLVED_OR_PURCHASE_NEAT_AND_PREPARE_1_W_W",
+      "carrier": "perfumery ethanol for the printed build",
+      "pw_sku": "4FD04118",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4FD04118",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 18,
+      "material": "Hexyl Acetate",
+      "module": "A",
+      "chemical_or_product_class": "Aliphatic ester",
+      "function": "fruit-skin softness; neat procurement is optional",
+      "target_percent_by_product_equivalent_mass": "0.5",
+      "target_product_mass_g_for_6g": "0.030000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.030000",
+      "inventory_mapping": "OWNED_10_W_V_ALTERNATIVE_OR_PURCHASE_NEAT",
+      "carrier": "none for the printed build",
+      "pw_sku": "4FG01284",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4FG01284",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 19,
+      "material": "Verdox",
+      "module": "D",
+      "chemical_or_product_class": "Cycloaliphatic acetate product",
+      "function": "longer woody-fruity fruit-to-wood bridge",
+      "target_percent_by_product_equivalent_mass": "1",
+      "target_product_mass_g_for_6g": "0.060000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.060000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": "3FG00463",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3FG00463",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 20,
+      "material": "Cassis Base 345B",
+      "module": "A",
+      "chemical_or_product_class": "Opaque commercial cassis mixture",
+      "function": "cassis-leaf/product recognizer without inventing constituent percentages",
+      "target_percent_by_product_equivalent_mass": "0.45",
+      "target_product_mass_g_for_6g": "0.027000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.027000",
+      "inventory_mapping": "OWNED_AS_SUPPLIED_EXACT_VENDOR_GRADE_UNBOUND",
+      "carrier": "as-supplied composition unknown",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 21,
+      "material": "Blackcurrant Absolute",
+      "module": "G",
+      "chemical_or_product_class": "Whole natural absolute",
+      "function": "trace authentic leafy/sulfurous blackcurrant texture",
+      "target_percent_by_product_equivalent_mass": "0.05",
+      "target_product_mass_g_for_6g": "0.003000",
+      "working_stock_fraction": {
+        "numerator": "1",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.300000",
+      "inventory_mapping": "PREPARE_1_W_W_FROM_OWNED_10_W_W",
+      "carrier": "0.09 DPG + 0.90 ethanol by final stock mass",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 22,
+      "material": "Jasmine Absolute",
+      "module": "G",
+      "chemical_or_product_class": "Whole natural absolute",
+      "function": "jasmine flesh behind the fruit, not an obvious bouquet",
+      "target_percent_by_product_equivalent_mass": "0.15",
+      "target_product_mass_g_for_6g": "0.009000",
+      "working_stock_fraction": {
+        "numerator": "10",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.090000",
+      "inventory_mapping": "OWNED_10_W_W_USER_CONFIRMED",
+      "carrier": "DPG",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 23,
+      "material": "Geranium EO",
+      "module": "G",
+      "chemical_or_product_class": "Whole natural essential oil",
+      "function": "tiny leafy-floral transition",
+      "target_percent_by_product_equivalent_mass": "0.10",
+      "target_product_mass_g_for_6g": "0.006000",
+      "working_stock_fraction": {
+        "numerator": "10",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.060000",
+      "inventory_mapping": "PREPARE_10_W_W_FROM_OWNED_NEAT",
+      "carrier": "perfumery ethanol",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 24,
+      "material": "Rose de Mai Absolute",
+      "module": "G",
+      "chemical_or_product_class": "Whole natural absolute",
+      "function": "trace petal texture, not a rose accord",
+      "target_percent_by_product_equivalent_mass": "0.025",
+      "target_product_mass_g_for_6g": "0.001500",
+      "working_stock_fraction": {
+        "numerator": "1",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.150000",
+      "inventory_mapping": "PREPARE_1_W_W_FROM_OWNED_10_W_W",
+      "carrier": "0.09 DPG + 0.90 ethanol by final stock mass",
+      "pw_sku": "8RM00395",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=8RM00395",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 25,
+      "material": "Beta Damascone",
+      "module": "F",
+      "chemical_or_product_class": "Rose ketone",
+      "function": "trace fruity transition; an omission test must justify it",
+      "target_percent_by_product_equivalent_mass": "0.025",
+      "target_product_mass_g_for_6g": "0.001500",
+      "working_stock_fraction": {
+        "numerator": "1",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.150000",
+      "inventory_mapping": "PREPARE_1_W_W_FROM_OWNED_10_W_W",
+      "carrier": "0.09 DPG + 0.90 ethanol by final stock mass",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 26,
+      "material": "Alpha Isomethyl Ionone",
+      "module": "F",
+      "chemical_or_product_class": "Ionone-family isomer product",
+      "function": "fine woody-violet heart seam, intentionally low",
+      "target_percent_by_product_equivalent_mass": "0.50",
+      "target_product_mass_g_for_6g": "0.030000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.030000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": "3IW00300",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3IW00300",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 27,
+      "material": "Patchouli EO",
+      "module": "I",
+      "chemical_or_product_class": "Whole natural essential oil",
+      "function": "earthy patchouli grain",
+      "target_percent_by_product_equivalent_mass": "3.5",
+      "target_product_mass_g_for_6g": "0.210000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.210000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 28,
+      "material": "Clearwood",
+      "module": "I",
+      "chemical_or_product_class": "Fermentation-derived woody product",
+      "function": "clean patchouli-like body without increasing earthy oil",
+      "target_percent_by_product_equivalent_mass": "1.5",
+      "target_product_mass_g_for_6g": "0.090000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.090000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 29,
+      "material": "Cedarwood oil Virginia",
+      "module": "I",
+      "chemical_or_product_class": "Whole natural essential oil",
+      "function": "dry cedar grain",
+      "target_percent_by_product_equivalent_mass": "2.5",
+      "target_product_mass_g_for_6g": "0.150000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.150000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": "7WW00095",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7WW00095",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 30,
+      "material": "Vetiveryl Acetate",
+      "module": "I",
+      "chemical_or_product_class": "Vetiver-derived ester product",
+      "function": "dry root/wood polish",
+      "target_percent_by_product_equivalent_mass": "2.5",
+      "target_product_mass_g_for_6g": "0.150000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.150000",
+      "inventory_mapping": "OWNED_NEAT_LATEST_CONFIRMATION",
+      "carrier": "none",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 31,
+      "material": "Cedramber",
+      "module": "I",
+      "chemical_or_product_class": "Woody ether product",
+      "function": "cedar-amber connection, restrained versus Ambrox",
+      "target_percent_by_product_equivalent_mass": "1.5",
+      "target_product_mass_g_for_6g": "0.090000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.090000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 32,
+      "material": "Timberol",
+      "module": "I",
+      "chemical_or_product_class": "Woody alcohol product",
+      "function": "small firmer wood edge; omission challenger required",
+      "target_percent_by_product_equivalent_mass": "0.6",
+      "target_product_mass_g_for_6g": "0.036000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.036000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 33,
+      "material": "Cashmeran",
+      "module": "I",
+      "chemical_or_product_class": "Polycyclic ketone",
+      "function": "textural woody warmth; not a second huge amber chassis",
+      "target_percent_by_product_equivalent_mass": "0.7",
+      "target_product_mass_g_for_6g": "0.042000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.042000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 34,
+      "material": "Guaiacwood EO",
+      "module": "I",
+      "chemical_or_product_class": "Whole natural essential oil",
+      "function": "soft smoky wood transition",
+      "target_percent_by_product_equivalent_mass": "0.4",
+      "target_product_mass_g_for_6g": "0.024000",
+      "working_stock_fraction": {
+        "numerator": "1",
+        "denominator": "3",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.072000",
+      "inventory_mapping": "OWNED_EXACT_ONE_THIRD_W_W",
+      "carrier": "1/3 ethanol + 1/3 DEP + 1/3 oil",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 35,
+      "material": "Evernyl",
+      "module": "I",
+      "chemical_or_product_class": "Oakmoss-type aromatic ester",
+      "function": "moss texture without inferring whole oakmoss composition",
+      "target_percent_by_product_equivalent_mass": "0.5",
+      "target_product_mass_g_for_6g": "0.030000",
+      "working_stock_fraction": {
+        "numerator": "10",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.300000",
+      "inventory_mapping": "OWNED_10_W_W",
+      "carrier": "DPG",
+      "pw_sku": "1YP00185",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=1YP00185",
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 36,
+      "material": "Suederal",
+      "module": "I",
+      "chemical_or_product_class": "Opaque leather product",
+      "function": "quiet suede transition; test independently of the phenolic smoke",
+      "target_percent_by_product_equivalent_mass": "0.12",
+      "target_product_mass_g_for_6g": "0.007200",
+      "working_stock_fraction": {
+        "numerator": "1",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.720000",
+      "inventory_mapping": "PREPARE_1_W_W_FROM_OWNED_10_W_W",
+      "carrier": "0.09 DPG + 0.90 ethanol by final stock mass",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 37,
+      "material": "Guaiacol",
+      "module": "I",
+      "chemical_or_product_class": "Phenolic aromatic chemical",
+      "function": "controlled phenolic smoke hypothesis, not an exact birch replacement",
+      "target_percent_by_product_equivalent_mass": "0.015",
+      "target_product_mass_g_for_6g": "0.000900",
+      "working_stock_fraction": {
+        "numerator": "1",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.090000",
+      "inventory_mapping": "PREPARE_1_W_W_FROM_OWNED_10_W_W",
+      "carrier": "0.09 DEP + 0.90 ethanol by final stock mass",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    },
+    {
+      "row": 38,
+      "material": "Hexyl Salicylate",
+      "module": "F",
+      "chemical_or_product_class": "Salicylate ester",
+      "function": "soft green floral/woody linking body",
+      "target_percent_by_product_equivalent_mass": "0.8",
+      "target_product_mass_g_for_6g": "0.048000",
+      "working_stock_fraction": {
+        "numerator": "100",
+        "denominator": "100",
+        "basis": "w/w"
+      },
+      "working_stock_mass_g_for_6g": "0.048000",
+      "inventory_mapping": "OWNED_NEAT",
+      "carrier": "none",
+      "pw_sku": null,
+      "pw_url": null,
+      "functional_evidence_scope": "PERFUMER_HYPOTHESIS_NOT_MEASURED_SYNERGY"
+    }
+  ],
+  "birch_reference_alternative": {
+    "replace_row": 37,
+    "replace_material": "Guaiacol",
+    "with_material": "Birch Tar Oil Rectified",
+    "target_percent_by_product_equivalent_mass": "0.015",
+    "target_product_mass_g_for_6g": "0.000900",
+    "fresh_working_stock_fraction": "0.01 w/w",
+    "fresh_working_stock_mass_g": "0.090000",
+    "chemical_equivalence": false,
+    "sensory_equivalence": false,
+    "state": "HOLD_EXACT_RECTIFIED_PRODUCT_PAH_AND_SUPPLIER_DOCUMENT_CLARIFICATION",
+    "pw_sku": "7TP00822",
+    "reason": "PW's printed Category 4 0.0100% table conflicts with its own prohibition wording. Exact rectification and PAH applicability must be established, not inferred from a label.",
+    "printed_build_is_the_guaiacol_branch": true
+  },
+  "small_trials": {
+    "master_excludes_Ambrox": true,
+    "non_Ambrox_working_stock_mass_g": "7.592400",
+    "extra_ethanol_g": "6.000000",
+    "non_Ambrox_master_mass_g": "13.592400",
+    "aliquot_mass_g_per_trial": "2.265400",
+    "non_Ambrox_product_mass_g_per_trial": "0.820000",
+    "finished_trial_mass_g": "5.000000",
+    "arms": [
+      {
+        "id": "CONTROL_LOWER_AMBROX",
+        "Ambrox_crystals_g": "0.120000",
+        "additional_ethanol_g": "2.614600",
+        "product_equivalent_mass_g": "0.940000",
+        "finished_product_equivalent_w_w_percent": "18.800"
+      },
+      {
+        "id": "LEAD",
+        "Ambrox_crystals_g": "0.180000",
+        "additional_ethanol_g": "2.554600",
+        "product_equivalent_mass_g": "1.000000",
+        "finished_product_equivalent_w_w_percent": "20.000"
+      },
+      {
+        "id": "HIGH_AMBROX_CHALLENGER",
+        "Ambrox_crystals_g": "0.220000",
+        "additional_ethanol_g": "2.514600",
+        "product_equivalent_mass_g": "1.040000",
+        "finished_product_equivalent_w_w_percent": "20.800"
+      }
+    ],
+    "comparison_scope": "matched non-Ambrox material exposure and fixed finished mass; NOT equal total aromatic concentration",
+    "timepoints": [
+      "5 min",
+      "30-60 min",
+      "4 h",
+      "next-day blotter"
+    ],
+    "reference_required_for_similarity_claim": true,
+    "skin_permission": false
+  },
+  "current_inventory_alternatives": {
+    "Hexyl_Acetate": {
+      "stock": "10% w/v in DPG",
+      "dose_uL_for_6g_target": "300.000",
+      "product_mass_g": "0.030000",
+      "requires_recording_actual_delivered_stock_mass_for_master_aliquot": true,
+      "printed_working_stock_total_not_applicable": true,
+      "chemical_target_unchanged": true
+    },
+    "Ethyl_2_Methylbutyrate": {
+      "stock": "existing 0.1%",
+      "basis": "UNRESOLVED_NOT_COVERED_BY_FIVE_STOCK_REPLY",
+      "stock_mass_g_if_later_confirmed_0_1_w_w": "1.500000",
+      "carrier_mass_g_if_0_1_w_w": "1.498500",
+      "printed_working_stock_total_not_applicable": true
+    },
+    "Ambrox_25_w_w": {
+      "stock_mass_g_for_same_product_mass": "4.320000",
+      "carrier_mass_g": "3.240000",
+      "same_matrix_as_crystal_build": false,
+      "printed_working_stock_total_not_applicable": true
+    }
+  },
+  "candidate_families": [
+    {
+      "id": "CONSERVATIVE_REFERENCE_BALANCE",
+      "state": "DESIGN_ONLY",
+      "changes_to_lead_percent": {
+        "Ambrox Super crystals": "12",
+        "Hedione": "22.54"
+      },
+      "purpose": "compare recognizer clarity against the 18% Ambrox lead; exact reference ratio unknown"
+    },
+    {
+      "id": "LITERAL_ANALYTICAL_FIT",
+      "state": "WITHHELD_AUTHENTICATED_ANALYTICAL_INPUTS_MISSING",
+      "changes_to_lead_percent": null,
+      "purpose": "not invented from note pyramids or internet clone formulas"
+    },
+    {
+      "id": "INTERACTION_AWARE_LEAD",
+      "state": "DESIGN_ONLY",
+      "changes_to_lead_percent": {},
+      "purpose": "layered ester/green fruit, natural heart seams and a controlled wood/musk base"
+    },
+    {
+      "id": "MINIMALIST_CONTROL",
+      "state": "DESIGN_ONLY",
+      "standalone_percent": {
+        "Ambrox Super crystals": "18",
+        "Iso E Super": "22",
+        "Hedione": "28",
+        "Habanolide": "8",
+        "Bergamot FCF oil Sicilian": "6",
+        "Lemon FCF oil Sicilian": "2",
+        "Linalyl Acetate": "3.5",
+        "Dihydromyrcenol": "1",
+        "Pink Pepper EO": "0.3",
+        "Allyl Cyclohexyl Propionate": "0.65",
+        "Allyl Amyl Glycolate": "0.35",
+        "Cassis Base 345B": "0.5",
+        "Patchouli EO": "4",
+        "Cedarwood oil Virginia": "5",
+        "Evernyl": "0.5",
+        "Suederal": "0.185",
+        "Guaiacol": "0.015"
+      },
+      "purpose": "17-product architectural control; not a causal omission experiment because several weights differ"
+    },
+    {
+      "id": "ROBUSTNESS_SMOKE_BRANCH",
+      "state": "DESIGN_ONLY",
+      "changes_to_lead_percent": {},
+      "purpose": "printed guaiacol branch avoids relying on uncleared birch; cannot claim identical smoke"
+    },
+    {
+      "id": "EXPLORATORY_AMBROX_BOMB",
+      "state": "DESIGN_ONLY",
+      "changes_to_lead_percent": {
+        "Ambrox Super crystals": "22",
+        "Iso E Super": "16"
+      },
+      "purpose": "test extra Ambrox while holding the undiluted product target at 100%"
+    }
+  ],
+  "historical_integer_search": {
+    "state": "NOT_RUN",
+    "reported_30000_variants_35_guardrails_97_76_score_verified": false,
+    "reason": "exact historical inputs and family-specific acceptance evidence are not supplied; these scores do not prove Aventus similarity or liking"
+  },
+  "selection": {
+    "development_lead": "INTERACTION_AWARE_LEAD_WITH_GUAIACOL_SMOKE_BRANCH",
+    "ranked_candidates": [],
+    "sensory_winner": null,
+    "formula_action": "PROPOSAL_ONLY_NO_BOTTLE_COMMIT"
+  },
+  "unresolved_claims": [
+    "Creed composition percentages",
+    "edition-specific sensory similarity",
+    "actual skin longevity and sillage",
+    "consumer preference",
+    "complete IFRA/natural-allergen assessment",
+    "solubility/stability of the high-Ambrox finished blend"
+  ],
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false,
+    "purchase_authority": false,
+    "physical_action_performed": false
+  },
+  "sources": [
+    {
+      "id": "CREED_CURRENT",
+      "url": "https://creedboutique.com/products/aventus",
+      "scope": "marketed architecture, not quantitative formula"
+    },
+    {
+      "id": "CREED_ARCHITECTURE",
+      "url": "https://creedboutique.com/blogs/creed-journal/aventus-your-questions-answered",
+      "scope": "pineapple/jasmine/patchouli/cedar/moss/Ambrox context"
+    },
+    {
+      "id": "PINEAPPLE_GCMS",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6264279/",
+      "scope": "fruit chemistry only; no perfume dose or threshold transfer"
+    },
+    {
+      "id": "AMBROX_MANUFACTURER",
+      "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/AMBROX_SUPER_909158.pdf",
+      "scope": "product identity/olfactive profile; no superiority or dose approval"
+    },
+    {
+      "id": "HABANOLIDE_MANUFACTURER",
+      "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/HABANOLIDE_947303.pdf",
+      "scope": "musk product profile; performance transfer remains a hypothesis"
+    },
+    {
+      "id": "BIRCH_PW_DOC",
+      "url": "https://www.perfumersworld.com/document-list.php?pro_id=7TP00822",
+      "scope": "supplier documentary conflict; not safety admission"
+    },
+    {
+      "id": "BIRCH_IFRA",
+      "url": "https://ifrafragrance.org/standards/IFRA_STD48_0011.pdf",
+      "scope": "crude versus qualified rectified pyrolysate and PAH specification"
+    }
+  ]
+}

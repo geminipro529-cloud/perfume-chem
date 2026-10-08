@@ -19,7 +19,7 @@ from app.services.lab_export import ImportConflictError, LabExportService
 from app.services.lab_service import LabService
 from tests.a2_planning_fixtures import _approved_plan
 
-CURRENT_HEAD = "20260929_0024"
+CURRENT_HEAD = "20261007_0025"
 
 
 def _database(path, value: str, revision: str = "20260716_0001") -> None:

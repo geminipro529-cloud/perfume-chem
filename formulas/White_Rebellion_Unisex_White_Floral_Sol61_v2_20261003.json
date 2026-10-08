@@ -1,0 +1,3144 @@
+{
+  "schema_version": "sol61-fragrance-remake-design-v1",
+  "design_id": "White_Rebellion_Unisex_White_Floral_Sol61_v2_20261003",
+  "name": "White Rebellion — Unisex White Floral",
+  "version": "Sol61 v2",
+  "date": "2026-10-03",
+  "author_model": "gpt-6.1-sol",
+  "status": "DESIGN_COMPLETE_CONDITIONAL_BENCH_BUILD_UNTESTED",
+  "operating_mode": "INDEPENDENT_CREATIVE_REMAKE_NEW_FORMULA",
+  "claim": "A literature-bounded, exact product-mass design and conditional stock realization; no sensory, clone, liking, safety or release superiority.",
+  "lineage": {
+    "immediate_parent_path": "formulas/White_Rebellion_Unisex_White_Floral_30mL_Commercial_Pilot_v1.md",
+    "immediate_parent_sha256": "1eb7a913ddc2eb7029b5a97dc1d2055e05151391cd9d4d997231b9afa13c0b21",
+    "parent_model": "gpt-5.6-sol",
+    "parent_preserved": true,
+    "revision_type": "INTENTIONAL_COMPOSITION_RETARGET",
+    "stock_rebase_equivalence_claim": false,
+    "R5_R6_modified": false
+  },
+  "model_provenance": {
+    "native_session_id": "01a0c324-0a57-77b0-bf57-dd6661f5b661",
+    "root_model": "gpt-6.1-sol",
+    "native_review_agent": "white_rebellion_sol61_review",
+    "review_model": "gpt-6.1-sol",
+    "external_llm_used": false
+  },
+  "source_snapshots": {
+    "inventory_path": "inventory.txt",
+    "inventory_sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "agents_path": "AGENTS.md",
+    "agents_sha256": "a97d05907b9eddba1212b42c9765b8b4903b6ba731d185cdd3ba8bbd35e57870",
+    "current_physical_bottle_state": "NOT_BOUND_NOT_AN_EXISTING_BOTTLE_ACTION",
+    "analytical_observations": "NOT_AVAILABLE_FOR_THIS_REMAKE",
+    "sensory_observations": "NOT_AVAILABLE_FOR_THIS_REMAKE",
+    "safety_snapshot": "NO_COMPLETE_FORMULA_SAFETY_REVIEW"
+  },
+  "locked_brief": {
+    "text": "Approachable gender-open white floral in the Good girl gone Bad territory: tuberose, orange blossom and apricot-osmanthus remain the heart. Bitter-green citrus, mineral/skin musk and pale woods frame the flowers without making a dry masculine amberwood scent.",
+    "protected_anchors": [
+      "tuberose / Tuberlia",
+      "orange blossom / neroli",
+      "apricot-osmanthus",
+      "accessible floral body"
+    ],
+    "negative_space": [
+      "cedar/amberwood takeover",
+      "coconut-heavy sunscreen",
+      "grape candy",
+      "dirty indole / leather",
+      "laundry musk veil",
+      "generic rose/jasmine bouquet"
+    ],
+    "temporal_goal": "Opening identity -> coherent heart -> subordinate supportive drydown; not a measured trajectory",
+    "reference_use": "DOCUMENTARY_ARCHITECTURE_ONLY",
+    "actual_reference_bottle_uncertainty": "NO_AUTHENTICATED_BOTTLE_OR_ANALYTICAL_SAMPLE_BOUND"
+  },
+  "target_basis": {
+    "unit": "percent_w_w_undiluted_perfumery_product_equivalent",
+    "total_percent": "100.000000",
+    "target_product_mass_g": "6.000000",
+    "pure_molecular_odorant_fraction": null,
+    "unknown_natural_remainder": "RETAINED_WITHIN_WHOLE_PRODUCT_NOT_RENORMALIZED",
+    "commercial_base_composition": "UNKNOWN"
+  },
+  "rows": [
+    {
+      "material": "Hedione",
+      "target_percent_product_mass": "22.89",
+      "chemical_or_product_class": "jasmonate ester",
+      "module": "Transparent chassis",
+      "function": "Air around tuberose and orange blossom",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Hedione",
+      "target_product_mass_g_for_6g": "1.373400",
+      "working_stock_mass_g_for_6g": "1.373400",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 1,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Hedione HC",
+      "target_percent_product_mass": "6",
+      "chemical_or_product_class": "high-cis jasmonate product",
+      "module": "Transparent chassis",
+      "function": "Focused floral lift; distinct grade, not an alias of Hedione",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Hedione HC",
+      "target_product_mass_g_for_6g": "0.360000",
+      "working_stock_mass_g_for_6g": "0.360000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 2,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Benzyl Salicylate",
+      "target_percent_product_mass": "10",
+      "chemical_or_product_class": "aromatic salicylate ester",
+      "module": "White-floral body",
+      "function": "Warm petal body; monitor oily/sunscreen impression",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Benzyl Salicylate",
+      "target_product_mass_g_for_6g": "0.600000",
+      "working_stock_mass_g_for_6g": "0.600000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 3,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Hexyl Salicylate",
+      "target_percent_product_mass": "2",
+      "chemical_or_product_class": "salicylate ester",
+      "module": "Floral adhesion",
+      "function": "Soft persistence bridge",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Hexyl Salicylate",
+      "target_product_mass_g_for_6g": "0.120000",
+      "working_stock_mass_g_for_6g": "0.120000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 4,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Tuberlia Base",
+      "target_percent_product_mass": "8",
+      "chemical_or_product_class": "opaque proprietary tuberose product",
+      "module": "Tuberose recognizer",
+      "function": "Repeatable tuberose body; supplier recipe and captives unknown",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Tuberlia Base",
+      "target_product_mass_g_for_6g": "0.480000",
+      "working_stock_mass_g_for_6g": "0.480000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 5,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Tuberose Absolute",
+      "target_percent_product_mass": "2",
+      "chemical_or_product_class": "natural absolute product",
+      "module": "Natural tuberose",
+      "function": "Irregular floral texture supporting rather than replacing the trade base",
+      "required_working_fraction_w_w": "0.1",
+      "required_carrier": "DPG",
+      "stock_dependency": "VERIFY_WW_BASIS_OR_PREPARE_EXACT_STOCK",
+      "source_product_phase": "viscous_product",
+      "inventory_label": "Tuberose Absolute (10% in DPG)",
+      "target_product_mass_g_for_6g": "0.120000",
+      "working_stock_mass_g_for_6g": "1.200000",
+      "added_working_carrier_mass_g_for_6g": "1.080000",
+      "required_stock_basis": "w/w",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 6,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Osmanthus Absolute",
+      "target_percent_product_mass": "1.2",
+      "chemical_or_product_class": "natural absolute product",
+      "module": "Apricot / suede bridge",
+      "function": "Protected apricot-tea facet without an apricot perfume",
+      "required_working_fraction_w_w": "0.1",
+      "required_carrier": "DPG",
+      "stock_dependency": "VERIFY_WW_BASIS_OR_PREPARE_EXACT_STOCK",
+      "source_product_phase": "viscous_product",
+      "inventory_label": "Osmanthus Absolute (10% in DPG)",
+      "target_product_mass_g_for_6g": "0.072000",
+      "working_stock_mass_g_for_6g": "0.720000",
+      "added_working_carrier_mass_g_for_6g": "0.648000",
+      "required_stock_basis": "w/w",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 7,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Jasmine Sambac Absolute",
+      "target_percent_product_mass": "0.5",
+      "chemical_or_product_class": "natural absolute product, target identity conditional",
+      "module": "Natural floral texture",
+      "function": "Small petal-flesh contribution; distinguish Sambac stock from blossoms or a base",
+      "required_working_fraction_w_w": "0.1",
+      "required_carrier": "DPG",
+      "stock_dependency": "VERIFY_PRODUCT_IDENTITY_AND_WW_BASIS",
+      "source_product_phase": "viscous_product",
+      "inventory_label": "Jasmine Sambac (10% in DPG)",
+      "target_product_mass_g_for_6g": "0.030000",
+      "working_stock_mass_g_for_6g": "0.300000",
+      "added_working_carrier_mass_g_for_6g": "0.270000",
+      "required_stock_basis": "w/w",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 8,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Aurantiol",
+      "target_percent_product_mass": "1.5",
+      "chemical_or_product_class": "Schiff-base commercial orange-floral product",
+      "module": "Orange blossom",
+      "function": "Persistent orange-blossom body",
+      "required_working_fraction_w_w": "0.1",
+      "required_carrier": "DPG",
+      "stock_dependency": "NEAT_OR_10_PERCENT_BRANCH_MUST_BE_RESOLVED",
+      "source_product_phase": "commercial_product",
+      "inventory_label": "Aurantiol (neat)",
+      "target_product_mass_g_for_6g": "0.090000",
+      "working_stock_mass_g_for_6g": "0.900000",
+      "added_working_carrier_mass_g_for_6g": "0.810000",
+      "required_stock_basis": "w/w",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 9,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Benzyl Acetate",
+      "target_percent_product_mass": "4",
+      "chemical_or_product_class": "aromatic ester",
+      "module": "Fresh petal volume",
+      "function": "Luminous floral top-to-heart connection",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Benzyl Acetate",
+      "target_product_mass_g_for_6g": "0.240000",
+      "working_stock_mass_g_for_6g": "0.240000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 10,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Methyl Benzoate",
+      "target_percent_product_mass": "0.7",
+      "chemical_or_product_class": "aromatic ester",
+      "module": "Tuberose facet",
+      "function": "Sweet-green floral contour, not a separate theme",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Methyl Benzoate",
+      "target_product_mass_g_for_6g": "0.042000",
+      "working_stock_mass_g_for_6g": "0.042000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 11,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Methyl Anthranilate",
+      "target_percent_product_mass": "0.25",
+      "chemical_or_product_class": "aromatic amino ester",
+      "module": "Orange blossom trace",
+      "function": "Orange-floral nuance; monitor grape/candy drift",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Methyl Anthranilate",
+      "target_product_mass_g_for_6g": "0.015000",
+      "working_stock_mass_g_for_6g": "0.015000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 12,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Indole",
+      "target_percent_product_mass": "0.03",
+      "chemical_or_product_class": "nitrogen heterocycle",
+      "module": "Flower breath",
+      "function": "Trace naturalistic flower breath; omit if dirty",
+      "required_working_fraction_w_w": "0.01",
+      "required_carrier": "DPG",
+      "stock_dependency": "VERIFY_PARENT_STOCK_BASIS_OR_PREPARE_EXACT_STOCK",
+      "source_product_phase": "solid",
+      "inventory_label": "Indole (10%)",
+      "target_product_mass_g_for_6g": "0.001800",
+      "working_stock_mass_g_for_6g": "0.180000",
+      "added_working_carrier_mass_g_for_6g": "0.178200",
+      "required_stock_basis": "w/w",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 13,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Stralyl Acetate",
+      "target_percent_product_mass": "1.3",
+      "chemical_or_product_class": "1-phenylethyl acetate ester",
+      "module": "Green petal edge",
+      "function": "Crisp gardenia-like floral boundary",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Stralyl Acetate",
+      "target_product_mass_g_for_6g": "0.078000",
+      "working_stock_mass_g_for_6g": "0.078000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 14,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Dihydrojasmone",
+      "target_percent_product_mass": "1",
+      "chemical_or_product_class": "cyclopentanone",
+      "module": "Floral body",
+      "function": "Green-jasmine bridge",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Dihydrojasmone",
+      "target_product_mass_g_for_6g": "0.060000",
+      "working_stock_mass_g_for_6g": "0.060000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 15,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Jessemal (Jasmonyl)",
+      "target_percent_product_mass": "0.7",
+      "chemical_or_product_class": "tetrahydropyran acetate product",
+      "module": "Petal texture",
+      "function": "Waxy-fleshy petal body",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Jessemal (Jasmonyl)",
+      "target_product_mass_g_for_6g": "0.042000",
+      "working_stock_mass_g_for_6g": "0.042000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 16,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Apritone",
+      "target_percent_product_mass": "0.08",
+      "chemical_or_product_class": "supplier fruit product, grade identity retained",
+      "module": "Apricot trace",
+      "function": "Osmanthus-associated fruit continuity, not a peach accord",
+      "required_working_fraction_w_w": "0.01",
+      "required_carrier": "perfumery ethanol",
+      "stock_dependency": "REQUIRES_KNOWN_WW_STOCK_OR_NEAT_PW_PRODUCT",
+      "source_product_phase": "liquid",
+      "inventory_label": "Apritone (10%)",
+      "target_product_mass_g_for_6g": "0.004800",
+      "working_stock_mass_g_for_6g": "0.480000",
+      "added_working_carrier_mass_g_for_6g": "0.475200",
+      "required_stock_basis": "w/w",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 17,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Beta Ionone",
+      "target_percent_product_mass": "0.3",
+      "chemical_or_product_class": "ionone ketone",
+      "module": "Osmanthus / woody bridge",
+      "function": "Small violet-fruit-wood seam",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Beta Ionone",
+      "target_product_mass_g_for_6g": "0.018000",
+      "working_stock_mass_g_for_6g": "0.018000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 18,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Bergamot FCF oil Sicilian",
+      "target_percent_product_mass": "5",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Bitter citrus opening",
+      "function": "Fresh bitter citrus frame",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Bergamot FCF oil Sicilian",
+      "target_product_mass_g_for_6g": "0.300000",
+      "working_stock_mass_g_for_6g": "0.300000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 19,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Cedrat FCF oil Sicilian",
+      "target_percent_product_mass": "1.5",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Citrus opening",
+      "function": "Dry citrus cut against heavy flowers",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Cedrat FCF oil Sicilian",
+      "target_product_mass_g_for_6g": "0.090000",
+      "working_stock_mass_g_for_6g": "0.090000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 20,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Petitgrain EO Paraguay",
+      "target_percent_product_mass": "3",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Green orange bridge",
+      "function": "Bitter leaf/twig definition",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Petitgrain EO Paraguay",
+      "target_product_mass_g_for_6g": "0.180000",
+      "working_stock_mass_g_for_6g": "0.180000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 21,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Neroli EO",
+      "target_percent_product_mass": "2",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Orange-blossom recognizer",
+      "function": "Natural orange flower; use neat bottle, not volumetric working stock",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_NEAT_STOCK",
+      "source_product_phase": "liquid",
+      "inventory_label": "Neroli EO (neat)",
+      "target_product_mass_g_for_6g": "0.120000",
+      "working_stock_mass_g_for_6g": "0.120000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 22,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Linalyl Acetate",
+      "target_percent_product_mass": "2",
+      "chemical_or_product_class": "terpene ester",
+      "module": "Citrus / floral bridge",
+      "function": "Softens the seam between citrus and dense flowers",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Linalyl Acetate",
+      "target_product_mass_g_for_6g": "0.120000",
+      "working_stock_mass_g_for_6g": "0.120000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 23,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Ethyl Linalool",
+      "target_percent_product_mass": "2",
+      "chemical_or_product_class": "terpenoid alcohol",
+      "module": "Transparent floral bridge",
+      "function": "Clean floral-air extension",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Ethyl Linalool",
+      "target_product_mass_g_for_6g": "0.120000",
+      "working_stock_mass_g_for_6g": "0.120000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 24,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Pink Pepper EO (Schinus molle)",
+      "target_percent_product_mass": "0.5",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Spice opening",
+      "function": "Low rosy-spicy sparkle",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_USER_CONFIRMED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Pink Pepper EO (Schinus molle; neat / as supplied)",
+      "target_product_mass_g_for_6g": "0.030000",
+      "working_stock_mass_g_for_6g": "0.030000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 25,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Cardamom EO",
+      "target_percent_product_mass": "0.15",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Green spice seam",
+      "function": "Small cool-spice cut",
+      "required_working_fraction_w_w": "0.1",
+      "required_carrier": "perfumery ethanol",
+      "stock_dependency": "PREPARE_FROM_OWNED_NEAT",
+      "source_product_phase": "liquid",
+      "inventory_label": "Cardamom EO",
+      "target_product_mass_g_for_6g": "0.009000",
+      "working_stock_mass_g_for_6g": "0.090000",
+      "added_working_carrier_mass_g_for_6g": "0.081000",
+      "required_stock_basis": "w/w",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 26,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Clary Sage EO",
+      "target_percent_product_mass": "0.2",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Dry aromatic seam",
+      "function": "Trace herbal dryness, not a fougere pivot",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Clary Sage EO",
+      "target_product_mass_g_for_6g": "0.012000",
+      "working_stock_mass_g_for_6g": "0.012000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 27,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Iso E Super",
+      "target_percent_product_mass": "9",
+      "chemical_or_product_class": "commercial tetramethyl acetyloctahydronaphthalene grade",
+      "module": "Pale woody base",
+      "function": "Transparent wood without an amberwood takeover",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Iso E Super",
+      "target_product_mass_g_for_6g": "0.540000",
+      "working_stock_mass_g_for_6g": "0.540000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 28,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Habanolide",
+      "target_percent_product_mass": "3",
+      "chemical_or_product_class": "macrocyclic unsaturated lactone musk",
+      "module": "Musk / diffusion",
+      "function": "Dry mineral-air musk; compare omission separately",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Habanolide",
+      "target_product_mass_g_for_6g": "0.180000",
+      "working_stock_mass_g_for_6g": "0.180000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 29,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Ambrettolide",
+      "target_percent_product_mass": "2",
+      "chemical_or_product_class": "macrocyclic unsaturated lactone musk",
+      "module": "Fruit / skin musk",
+      "function": "Warmer fruit-skin bridge distinct from Habanolide",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "USER_NEAT_OVERRIDE_CANONICAL_FILE_STILL_10_WW",
+      "source_product_phase": "liquid",
+      "inventory_label": "Ambrettolide (10% w/w in DPG)",
+      "target_product_mass_g_for_6g": "0.120000",
+      "working_stock_mass_g_for_6g": "0.120000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 30,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Vetiveryl Acetate",
+      "target_percent_product_mass": "3",
+      "chemical_or_product_class": "acetylated vetiver commercial product",
+      "module": "Dry floral / wood seam",
+      "function": "Polished dry contour",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Vetiveryl Acetate",
+      "target_product_mass_g_for_6g": "0.180000",
+      "working_stock_mass_g_for_6g": "0.180000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 31,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Cedarwood oil Virginia",
+      "target_percent_product_mass": "1",
+      "chemical_or_product_class": "natural essential-oil product",
+      "module": "Dry woods",
+      "function": "Low natural cedar texture",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Cedarwood oil Virginia",
+      "target_product_mass_g_for_6g": "0.060000",
+      "working_stock_mass_g_for_6g": "0.060000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 32,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Clearwood",
+      "target_percent_product_mass": "0.7",
+      "chemical_or_product_class": "fermentation-derived patchouli-like commercial product",
+      "module": "Base contour",
+      "function": "Light patchouli-like depth",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_AS_SUPPLIED",
+      "source_product_phase": "liquid",
+      "inventory_label": "Clearwood",
+      "target_product_mass_g_for_6g": "0.042000",
+      "working_stock_mass_g_for_6g": "0.042000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 33,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Ambrox Super Crystals",
+      "target_percent_product_mass": "2",
+      "chemical_or_product_class": "commercial ambroxide product",
+      "module": "Mineral amber",
+      "function": "Small separate solid pillar, not a huge Ambrox bomb",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_NEAT_SOLID",
+      "source_product_phase": "solid",
+      "inventory_label": "Ambrox Super Crystals (solid; neat / as supplied)",
+      "target_product_mass_g_for_6g": "0.120000",
+      "working_stock_mass_g_for_6g": "0.120000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 34,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Cashmeran",
+      "target_percent_product_mass": "0.25",
+      "chemical_or_product_class": "polycyclic ketone grade",
+      "module": "Textile contour",
+      "function": "Low warm-mineral texture",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_NEAT_STOCK",
+      "source_product_phase": "liquid",
+      "inventory_label": "Cashmeran (neat)",
+      "target_product_mass_g_for_6g": "0.015000",
+      "working_stock_mass_g_for_6g": "0.015000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 35,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    },
+    {
+      "material": "Suederal",
+      "target_percent_product_mass": "0.25",
+      "chemical_or_product_class": "opaque proprietary suede product",
+      "module": "Osmanthus / suede bridge",
+      "function": "Tiny suede support; remove if floral profile becomes leathery",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "stock_dependency": "OWNED_NEAT_STOCK",
+      "source_product_phase": "commercial_product",
+      "inventory_label": "Suederal (neat)",
+      "target_product_mass_g_for_6g": "0.015000",
+      "working_stock_mass_g_for_6g": "0.015000",
+      "added_working_carrier_mass_g_for_6g": "0.000000",
+      "required_stock_basis": "undiluted_as_supplied_product",
+      "source_time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+      "exact_gas_curve_binding": null,
+      "row": 36,
+      "evidence_ids": [
+        "INVENTORY_CURRENT",
+        "USER_BRIEF",
+        "DESIGN_HYPOTHESIS"
+      ],
+      "anti_compression_state": "RETAIN_EXACT_PRODUCT_AND_STOCK_ROW"
+    }
+  ],
+  "chemical_family_function_graph": {
+    "row_edge_status": "HEURISTIC_DESIGN_CONNECTION_NOT_RECEPTOR_MAP",
+    "edges": [
+      {
+        "material": "Hedione",
+        "family": "jasmonate ester",
+        "module": "Transparent chassis",
+        "function": "Air around tuberose and orange blossom",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Hedione HC",
+        "family": "high-cis jasmonate product",
+        "module": "Transparent chassis",
+        "function": "Focused floral lift; distinct grade, not an alias of Hedione",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Benzyl Salicylate",
+        "family": "aromatic salicylate ester",
+        "module": "White-floral body",
+        "function": "Warm petal body; monitor oily/sunscreen impression",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Hexyl Salicylate",
+        "family": "salicylate ester",
+        "module": "Floral adhesion",
+        "function": "Soft persistence bridge",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Tuberlia Base",
+        "family": "opaque proprietary tuberose product",
+        "module": "Tuberose recognizer",
+        "function": "Repeatable tuberose body; supplier recipe and captives unknown",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Tuberose Absolute",
+        "family": "natural absolute product",
+        "module": "Natural tuberose",
+        "function": "Irregular floral texture supporting rather than replacing the trade base",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Osmanthus Absolute",
+        "family": "natural absolute product",
+        "module": "Apricot / suede bridge",
+        "function": "Protected apricot-tea facet without an apricot perfume",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Jasmine Sambac Absolute",
+        "family": "natural absolute product, target identity conditional",
+        "module": "Natural floral texture",
+        "function": "Small petal-flesh contribution; distinguish Sambac stock from blossoms or a base",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Aurantiol",
+        "family": "Schiff-base commercial orange-floral product",
+        "module": "Orange blossom",
+        "function": "Persistent orange-blossom body",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Benzyl Acetate",
+        "family": "aromatic ester",
+        "module": "Fresh petal volume",
+        "function": "Luminous floral top-to-heart connection",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Methyl Benzoate",
+        "family": "aromatic ester",
+        "module": "Tuberose facet",
+        "function": "Sweet-green floral contour, not a separate theme",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Methyl Anthranilate",
+        "family": "aromatic amino ester",
+        "module": "Orange blossom trace",
+        "function": "Orange-floral nuance; monitor grape/candy drift",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Indole",
+        "family": "nitrogen heterocycle",
+        "module": "Flower breath",
+        "function": "Trace naturalistic flower breath; omit if dirty",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Stralyl Acetate",
+        "family": "1-phenylethyl acetate ester",
+        "module": "Green petal edge",
+        "function": "Crisp gardenia-like floral boundary",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Dihydrojasmone",
+        "family": "cyclopentanone",
+        "module": "Floral body",
+        "function": "Green-jasmine bridge",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Jessemal (Jasmonyl)",
+        "family": "tetrahydropyran acetate product",
+        "module": "Petal texture",
+        "function": "Waxy-fleshy petal body",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Apritone",
+        "family": "supplier fruit product, grade identity retained",
+        "module": "Apricot trace",
+        "function": "Osmanthus-associated fruit continuity, not a peach accord",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Beta Ionone",
+        "family": "ionone ketone",
+        "module": "Osmanthus / woody bridge",
+        "function": "Small violet-fruit-wood seam",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Bergamot FCF oil Sicilian",
+        "family": "natural essential-oil product",
+        "module": "Bitter citrus opening",
+        "function": "Fresh bitter citrus frame",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Cedrat FCF oil Sicilian",
+        "family": "natural essential-oil product",
+        "module": "Citrus opening",
+        "function": "Dry citrus cut against heavy flowers",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Petitgrain EO Paraguay",
+        "family": "natural essential-oil product",
+        "module": "Green orange bridge",
+        "function": "Bitter leaf/twig definition",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Neroli EO",
+        "family": "natural essential-oil product",
+        "module": "Orange-blossom recognizer",
+        "function": "Natural orange flower; use neat bottle, not volumetric working stock",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Linalyl Acetate",
+        "family": "terpene ester",
+        "module": "Citrus / floral bridge",
+        "function": "Softens the seam between citrus and dense flowers",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Ethyl Linalool",
+        "family": "terpenoid alcohol",
+        "module": "Transparent floral bridge",
+        "function": "Clean floral-air extension",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Pink Pepper EO (Schinus molle)",
+        "family": "natural essential-oil product",
+        "module": "Spice opening",
+        "function": "Low rosy-spicy sparkle",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Cardamom EO",
+        "family": "natural essential-oil product",
+        "module": "Green spice seam",
+        "function": "Small cool-spice cut",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Clary Sage EO",
+        "family": "natural essential-oil product",
+        "module": "Dry aromatic seam",
+        "function": "Trace herbal dryness, not a fougere pivot",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Iso E Super",
+        "family": "commercial tetramethyl acetyloctahydronaphthalene grade",
+        "module": "Pale woody base",
+        "function": "Transparent wood without an amberwood takeover",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Habanolide",
+        "family": "macrocyclic unsaturated lactone musk",
+        "module": "Musk / diffusion",
+        "function": "Dry mineral-air musk; compare omission separately",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Ambrettolide",
+        "family": "macrocyclic unsaturated lactone musk",
+        "module": "Fruit / skin musk",
+        "function": "Warmer fruit-skin bridge distinct from Habanolide",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Vetiveryl Acetate",
+        "family": "acetylated vetiver commercial product",
+        "module": "Dry floral / wood seam",
+        "function": "Polished dry contour",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Cedarwood oil Virginia",
+        "family": "natural essential-oil product",
+        "module": "Dry woods",
+        "function": "Low natural cedar texture",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Clearwood",
+        "family": "fermentation-derived patchouli-like commercial product",
+        "module": "Base contour",
+        "function": "Light patchouli-like depth",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Ambrox Super Crystals",
+        "family": "commercial ambroxide product",
+        "module": "Mineral amber",
+        "function": "Small separate solid pillar, not a huge Ambrox bomb",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Cashmeran",
+        "family": "polycyclic ketone grade",
+        "module": "Textile contour",
+        "function": "Low warm-mineral texture",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      },
+      {
+        "material": "Suederal",
+        "family": "opaque proprietary suede product",
+        "module": "Osmanthus / suede bridge",
+        "function": "Tiny suede support; remove if floral profile becomes leathery",
+        "time_domain": "ROLE_HYPOTHESIS_NOT_MEASURED_DRYDOWN",
+        "interaction_status": "TO_BE_TESTED",
+        "protected": "ROLE_LINKED_MOBILE_UNLESS_BRIEF_PROTECTED"
+      }
+    ],
+    "whole_products_not_merged": true
+  },
+  "chassis": {
+    "protected_anchors": [
+      "tuberose / Tuberlia",
+      "orange blossom / neroli",
+      "apricot-osmanthus",
+      "accessible floral body"
+    ],
+    "mobile_sockets": "Trace modifiers, texture support and competing musk/amber alternatives only within this brief",
+    "core_plus_module_reproduction": "NOT_PROVEN_WITHOUT_SENSORY_OR_ANALYTICAL_DATA",
+    "omission_plan": "Compare LEAD with AIRY_CONSERVATIVE for density/oiliness. For musk nonredundancy, compare separate carrier-matched no-Habanolide and no-Ambrettolide controls; only then test the Romandolide replacement if metallicness is objectionable. Reject woody-men's-fragrance, grape-candy, sunscreen or leather-first drift."
+  },
+  "decision_changes": [
+    "Put the tuberose-orange-osmanthus axis ahead of the dry framework; this is an intentional new mass target, not a volume-equivalent conversion.",
+    "Keep Tuberlia's reproducible commercial body and natural tuberose's texture separate. The base remains opaque; it is not a molecule or an analytical tuberose surrogate.",
+    "Use only Habanolide (mineral-air hypothesis) and Ambrettolide (fruit-skin hypothesis). Romandolide is a substitute test, not a third default musk.",
+    "Remove Cedramber and extra Haiti vetiver from the lead. Keep polished Vetiveryl Acetate, small cedar/Clearwood and only 2% crystal Ambrox.",
+    "Use the user's newer neat Ambrettolide statement explicitly, while leaving the stale 10% inventory entry untouched. Aurantiol's uncertain strength remains an explicit branch."
+  ],
+  "candidates": [
+    {
+      "id": "LEAD",
+      "family": "interaction-aware",
+      "patches": {},
+      "hypothesis": "Restored floral axis with restrained dry contrast.",
+      "resolved_target_percent": {
+        "Hedione": "22.89",
+        "Hedione HC": "6",
+        "Benzyl Salicylate": "10",
+        "Hexyl Salicylate": "2",
+        "Tuberlia Base": "8",
+        "Tuberose Absolute": "2",
+        "Osmanthus Absolute": "1.2",
+        "Jasmine Sambac Absolute": "0.5",
+        "Aurantiol": "1.5",
+        "Benzyl Acetate": "4",
+        "Methyl Benzoate": "0.7",
+        "Methyl Anthranilate": "0.25",
+        "Indole": "0.03",
+        "Stralyl Acetate": "1.3",
+        "Dihydrojasmone": "1",
+        "Jessemal (Jasmonyl)": "0.7",
+        "Apritone": "0.08",
+        "Beta Ionone": "0.3",
+        "Bergamot FCF oil Sicilian": "5",
+        "Cedrat FCF oil Sicilian": "1.5",
+        "Petitgrain EO Paraguay": "3",
+        "Neroli EO": "2",
+        "Linalyl Acetate": "2",
+        "Ethyl Linalool": "2",
+        "Pink Pepper EO (Schinus molle)": "0.5",
+        "Cardamom EO": "0.15",
+        "Clary Sage EO": "0.2",
+        "Iso E Super": "9",
+        "Habanolide": "3",
+        "Ambrettolide": "2",
+        "Vetiveryl Acetate": "3",
+        "Cedarwood oil Virginia": "1",
+        "Clearwood": "0.7",
+        "Ambrox Super Crystals": "2",
+        "Cashmeran": "0.25",
+        "Suederal": "0.25"
+      },
+      "target_sum_percent": "100.000000",
+      "build_rows_for_6g": [
+        {
+          "material": "Hedione",
+          "target_percent_product_mass": "22.89",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "1.373400",
+          "working_stock_mass_g_for_6g": "1.373400"
+        },
+        {
+          "material": "Hedione HC",
+          "target_percent_product_mass": "6",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.360000",
+          "working_stock_mass_g_for_6g": "0.360000"
+        },
+        {
+          "material": "Benzyl Salicylate",
+          "target_percent_product_mass": "10",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.600000",
+          "working_stock_mass_g_for_6g": "0.600000"
+        },
+        {
+          "material": "Hexyl Salicylate",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Tuberlia Base",
+          "target_percent_product_mass": "8",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.480000",
+          "working_stock_mass_g_for_6g": "0.480000"
+        },
+        {
+          "material": "Tuberose Absolute",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "1.200000"
+        },
+        {
+          "material": "Osmanthus Absolute",
+          "target_percent_product_mass": "1.2",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.072000",
+          "working_stock_mass_g_for_6g": "0.720000"
+        },
+        {
+          "material": "Jasmine Sambac Absolute",
+          "target_percent_product_mass": "0.5",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.030000",
+          "working_stock_mass_g_for_6g": "0.300000"
+        },
+        {
+          "material": "Aurantiol",
+          "target_percent_product_mass": "1.5",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.090000",
+          "working_stock_mass_g_for_6g": "0.900000"
+        },
+        {
+          "material": "Benzyl Acetate",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "Methyl Benzoate",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Methyl Anthranilate",
+          "target_percent_product_mass": "0.25",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.015000",
+          "working_stock_mass_g_for_6g": "0.015000"
+        },
+        {
+          "material": "Indole",
+          "target_percent_product_mass": "0.03",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.001800",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Stralyl Acetate",
+          "target_percent_product_mass": "1.3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.078000",
+          "working_stock_mass_g_for_6g": "0.078000"
+        },
+        {
+          "material": "Dihydrojasmone",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Jessemal (Jasmonyl)",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Apritone",
+          "target_percent_product_mass": "0.08",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.004800",
+          "working_stock_mass_g_for_6g": "0.480000"
+        },
+        {
+          "material": "Beta Ionone",
+          "target_percent_product_mass": "0.3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.018000",
+          "working_stock_mass_g_for_6g": "0.018000"
+        },
+        {
+          "material": "Bergamot FCF oil Sicilian",
+          "target_percent_product_mass": "5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.300000",
+          "working_stock_mass_g_for_6g": "0.300000"
+        },
+        {
+          "material": "Cedrat FCF oil Sicilian",
+          "target_percent_product_mass": "1.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.090000",
+          "working_stock_mass_g_for_6g": "0.090000"
+        },
+        {
+          "material": "Petitgrain EO Paraguay",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Neroli EO",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Linalyl Acetate",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Ethyl Linalool",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Pink Pepper EO (Schinus molle)",
+          "target_percent_product_mass": "0.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.030000",
+          "working_stock_mass_g_for_6g": "0.030000"
+        },
+        {
+          "material": "Cardamom EO",
+          "target_percent_product_mass": "0.15",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.009000",
+          "working_stock_mass_g_for_6g": "0.090000"
+        },
+        {
+          "material": "Clary Sage EO",
+          "target_percent_product_mass": "0.2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.012000",
+          "working_stock_mass_g_for_6g": "0.012000"
+        },
+        {
+          "material": "Iso E Super",
+          "target_percent_product_mass": "9",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.540000",
+          "working_stock_mass_g_for_6g": "0.540000"
+        },
+        {
+          "material": "Habanolide",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Ambrettolide",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Vetiveryl Acetate",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Cedarwood oil Virginia",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Clearwood",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Ambrox Super Crystals",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Cashmeran",
+          "target_percent_product_mass": "0.25",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.015000",
+          "working_stock_mass_g_for_6g": "0.015000"
+        },
+        {
+          "material": "Suederal",
+          "target_percent_product_mass": "0.25",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.015000",
+          "working_stock_mass_g_for_6g": "0.015000"
+        }
+      ],
+      "working_stock_total_g": "9.542400",
+      "additional_ethanol_to_30g": "20.457600",
+      "state": "UNTESTED_DESIGN_HYPOTHESIS",
+      "single_row_weighing_floor_check": "LEAD_ONLY_VERIFIED_USE_WORKING_DILUTION_OR_COMMON_MASTER_FOR_SMALLER_ALTERNATIVES"
+    },
+    {
+      "id": "AIRY_CONSERVATIVE",
+      "family": "conservative identity-preserving",
+      "patches": {
+        "Tuberlia Base": "6",
+        "Benzyl Salicylate": "8",
+        "Hedione": "26.89"
+      },
+      "hypothesis": "Less creamy/oily weight while preserving the core flowers.",
+      "resolved_target_percent": {
+        "Hedione": "26.89",
+        "Hedione HC": "6",
+        "Benzyl Salicylate": "8",
+        "Hexyl Salicylate": "2",
+        "Tuberlia Base": "6",
+        "Tuberose Absolute": "2",
+        "Osmanthus Absolute": "1.2",
+        "Jasmine Sambac Absolute": "0.5",
+        "Aurantiol": "1.5",
+        "Benzyl Acetate": "4",
+        "Methyl Benzoate": "0.7",
+        "Methyl Anthranilate": "0.25",
+        "Indole": "0.03",
+        "Stralyl Acetate": "1.3",
+        "Dihydrojasmone": "1",
+        "Jessemal (Jasmonyl)": "0.7",
+        "Apritone": "0.08",
+        "Beta Ionone": "0.3",
+        "Bergamot FCF oil Sicilian": "5",
+        "Cedrat FCF oil Sicilian": "1.5",
+        "Petitgrain EO Paraguay": "3",
+        "Neroli EO": "2",
+        "Linalyl Acetate": "2",
+        "Ethyl Linalool": "2",
+        "Pink Pepper EO (Schinus molle)": "0.5",
+        "Cardamom EO": "0.15",
+        "Clary Sage EO": "0.2",
+        "Iso E Super": "9",
+        "Habanolide": "3",
+        "Ambrettolide": "2",
+        "Vetiveryl Acetate": "3",
+        "Cedarwood oil Virginia": "1",
+        "Clearwood": "0.7",
+        "Ambrox Super Crystals": "2",
+        "Cashmeran": "0.25",
+        "Suederal": "0.25"
+      },
+      "target_sum_percent": "100.000000",
+      "build_rows_for_6g": [
+        {
+          "material": "Hedione",
+          "target_percent_product_mass": "26.89",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "1.613400",
+          "working_stock_mass_g_for_6g": "1.613400"
+        },
+        {
+          "material": "Hedione HC",
+          "target_percent_product_mass": "6",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.360000",
+          "working_stock_mass_g_for_6g": "0.360000"
+        },
+        {
+          "material": "Benzyl Salicylate",
+          "target_percent_product_mass": "8",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.480000",
+          "working_stock_mass_g_for_6g": "0.480000"
+        },
+        {
+          "material": "Hexyl Salicylate",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Tuberlia Base",
+          "target_percent_product_mass": "6",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.360000",
+          "working_stock_mass_g_for_6g": "0.360000"
+        },
+        {
+          "material": "Tuberose Absolute",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "1.200000"
+        },
+        {
+          "material": "Osmanthus Absolute",
+          "target_percent_product_mass": "1.2",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.072000",
+          "working_stock_mass_g_for_6g": "0.720000"
+        },
+        {
+          "material": "Jasmine Sambac Absolute",
+          "target_percent_product_mass": "0.5",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.030000",
+          "working_stock_mass_g_for_6g": "0.300000"
+        },
+        {
+          "material": "Aurantiol",
+          "target_percent_product_mass": "1.5",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.090000",
+          "working_stock_mass_g_for_6g": "0.900000"
+        },
+        {
+          "material": "Benzyl Acetate",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "Methyl Benzoate",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Methyl Anthranilate",
+          "target_percent_product_mass": "0.25",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.015000",
+          "working_stock_mass_g_for_6g": "0.015000"
+        },
+        {
+          "material": "Indole",
+          "target_percent_product_mass": "0.03",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.001800",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Stralyl Acetate",
+          "target_percent_product_mass": "1.3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.078000",
+          "working_stock_mass_g_for_6g": "0.078000"
+        },
+        {
+          "material": "Dihydrojasmone",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Jessemal (Jasmonyl)",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Apritone",
+          "target_percent_product_mass": "0.08",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.004800",
+          "working_stock_mass_g_for_6g": "0.480000"
+        },
+        {
+          "material": "Beta Ionone",
+          "target_percent_product_mass": "0.3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.018000",
+          "working_stock_mass_g_for_6g": "0.018000"
+        },
+        {
+          "material": "Bergamot FCF oil Sicilian",
+          "target_percent_product_mass": "5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.300000",
+          "working_stock_mass_g_for_6g": "0.300000"
+        },
+        {
+          "material": "Cedrat FCF oil Sicilian",
+          "target_percent_product_mass": "1.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.090000",
+          "working_stock_mass_g_for_6g": "0.090000"
+        },
+        {
+          "material": "Petitgrain EO Paraguay",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Neroli EO",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Linalyl Acetate",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Ethyl Linalool",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Pink Pepper EO (Schinus molle)",
+          "target_percent_product_mass": "0.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.030000",
+          "working_stock_mass_g_for_6g": "0.030000"
+        },
+        {
+          "material": "Cardamom EO",
+          "target_percent_product_mass": "0.15",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.009000",
+          "working_stock_mass_g_for_6g": "0.090000"
+        },
+        {
+          "material": "Clary Sage EO",
+          "target_percent_product_mass": "0.2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.012000",
+          "working_stock_mass_g_for_6g": "0.012000"
+        },
+        {
+          "material": "Iso E Super",
+          "target_percent_product_mass": "9",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.540000",
+          "working_stock_mass_g_for_6g": "0.540000"
+        },
+        {
+          "material": "Habanolide",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Ambrettolide",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Vetiveryl Acetate",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Cedarwood oil Virginia",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Clearwood",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Ambrox Super Crystals",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Cashmeran",
+          "target_percent_product_mass": "0.25",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.015000",
+          "working_stock_mass_g_for_6g": "0.015000"
+        },
+        {
+          "material": "Suederal",
+          "target_percent_product_mass": "0.25",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.015000",
+          "working_stock_mass_g_for_6g": "0.015000"
+        }
+      ],
+      "working_stock_total_g": "9.542400",
+      "additional_ethanol_to_30g": "20.457600",
+      "state": "UNTESTED_DESIGN_HYPOTHESIS",
+      "single_row_weighing_floor_check": "LEAD_ONLY_VERIFIED_USE_WORKING_DILUTION_OR_COMMON_MASTER_FOR_SMALLER_ALTERNATIVES"
+    },
+    {
+      "id": "MUSK_ALTERNATIVE",
+      "family": "robustness-focused",
+      "patches": {
+        "Habanolide": "0",
+        "Romandolide": "3"
+      },
+      "stock_overrides": {
+        "Romandolide": {
+          "fraction": "1",
+          "carrier": null,
+          "inventory_label": "Romandolide"
+        }
+      },
+      "hypothesis": "Replace rather than stack the mineral musk.",
+      "resolved_target_percent": {
+        "Hedione": "22.89",
+        "Hedione HC": "6",
+        "Benzyl Salicylate": "10",
+        "Hexyl Salicylate": "2",
+        "Tuberlia Base": "8",
+        "Tuberose Absolute": "2",
+        "Osmanthus Absolute": "1.2",
+        "Jasmine Sambac Absolute": "0.5",
+        "Aurantiol": "1.5",
+        "Benzyl Acetate": "4",
+        "Methyl Benzoate": "0.7",
+        "Methyl Anthranilate": "0.25",
+        "Indole": "0.03",
+        "Stralyl Acetate": "1.3",
+        "Dihydrojasmone": "1",
+        "Jessemal (Jasmonyl)": "0.7",
+        "Apritone": "0.08",
+        "Beta Ionone": "0.3",
+        "Bergamot FCF oil Sicilian": "5",
+        "Cedrat FCF oil Sicilian": "1.5",
+        "Petitgrain EO Paraguay": "3",
+        "Neroli EO": "2",
+        "Linalyl Acetate": "2",
+        "Ethyl Linalool": "2",
+        "Pink Pepper EO (Schinus molle)": "0.5",
+        "Cardamom EO": "0.15",
+        "Clary Sage EO": "0.2",
+        "Iso E Super": "9",
+        "Ambrettolide": "2",
+        "Vetiveryl Acetate": "3",
+        "Cedarwood oil Virginia": "1",
+        "Clearwood": "0.7",
+        "Ambrox Super Crystals": "2",
+        "Cashmeran": "0.25",
+        "Suederal": "0.25",
+        "Romandolide": "3"
+      },
+      "target_sum_percent": "100.000000",
+      "build_rows_for_6g": [
+        {
+          "material": "Hedione",
+          "target_percent_product_mass": "22.89",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "1.373400",
+          "working_stock_mass_g_for_6g": "1.373400"
+        },
+        {
+          "material": "Hedione HC",
+          "target_percent_product_mass": "6",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.360000",
+          "working_stock_mass_g_for_6g": "0.360000"
+        },
+        {
+          "material": "Benzyl Salicylate",
+          "target_percent_product_mass": "10",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.600000",
+          "working_stock_mass_g_for_6g": "0.600000"
+        },
+        {
+          "material": "Hexyl Salicylate",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Tuberlia Base",
+          "target_percent_product_mass": "8",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.480000",
+          "working_stock_mass_g_for_6g": "0.480000"
+        },
+        {
+          "material": "Tuberose Absolute",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "1.200000"
+        },
+        {
+          "material": "Osmanthus Absolute",
+          "target_percent_product_mass": "1.2",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.072000",
+          "working_stock_mass_g_for_6g": "0.720000"
+        },
+        {
+          "material": "Jasmine Sambac Absolute",
+          "target_percent_product_mass": "0.5",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.030000",
+          "working_stock_mass_g_for_6g": "0.300000"
+        },
+        {
+          "material": "Aurantiol",
+          "target_percent_product_mass": "1.5",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.090000",
+          "working_stock_mass_g_for_6g": "0.900000"
+        },
+        {
+          "material": "Benzyl Acetate",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "Methyl Benzoate",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Methyl Anthranilate",
+          "target_percent_product_mass": "0.25",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.015000",
+          "working_stock_mass_g_for_6g": "0.015000"
+        },
+        {
+          "material": "Indole",
+          "target_percent_product_mass": "0.03",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.001800",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Stralyl Acetate",
+          "target_percent_product_mass": "1.3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.078000",
+          "working_stock_mass_g_for_6g": "0.078000"
+        },
+        {
+          "material": "Dihydrojasmone",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Jessemal (Jasmonyl)",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Apritone",
+          "target_percent_product_mass": "0.08",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.004800",
+          "working_stock_mass_g_for_6g": "0.480000"
+        },
+        {
+          "material": "Beta Ionone",
+          "target_percent_product_mass": "0.3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.018000",
+          "working_stock_mass_g_for_6g": "0.018000"
+        },
+        {
+          "material": "Bergamot FCF oil Sicilian",
+          "target_percent_product_mass": "5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.300000",
+          "working_stock_mass_g_for_6g": "0.300000"
+        },
+        {
+          "material": "Cedrat FCF oil Sicilian",
+          "target_percent_product_mass": "1.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.090000",
+          "working_stock_mass_g_for_6g": "0.090000"
+        },
+        {
+          "material": "Petitgrain EO Paraguay",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Neroli EO",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Linalyl Acetate",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Ethyl Linalool",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Pink Pepper EO (Schinus molle)",
+          "target_percent_product_mass": "0.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.030000",
+          "working_stock_mass_g_for_6g": "0.030000"
+        },
+        {
+          "material": "Cardamom EO",
+          "target_percent_product_mass": "0.15",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.009000",
+          "working_stock_mass_g_for_6g": "0.090000"
+        },
+        {
+          "material": "Clary Sage EO",
+          "target_percent_product_mass": "0.2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.012000",
+          "working_stock_mass_g_for_6g": "0.012000"
+        },
+        {
+          "material": "Iso E Super",
+          "target_percent_product_mass": "9",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.540000",
+          "working_stock_mass_g_for_6g": "0.540000"
+        },
+        {
+          "material": "Ambrettolide",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Vetiveryl Acetate",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Cedarwood oil Virginia",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Clearwood",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Ambrox Super Crystals",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Cashmeran",
+          "target_percent_product_mass": "0.25",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.015000",
+          "working_stock_mass_g_for_6g": "0.015000"
+        },
+        {
+          "material": "Suederal",
+          "target_percent_product_mass": "0.25",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.015000",
+          "working_stock_mass_g_for_6g": "0.015000"
+        },
+        {
+          "material": "Romandolide",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.180000"
+        }
+      ],
+      "working_stock_total_g": "9.542400",
+      "additional_ethanol_to_30g": "20.457600",
+      "state": "UNTESTED_DESIGN_HYPOTHESIS",
+      "single_row_weighing_floor_check": "LEAD_ONLY_VERIFIED_USE_WORKING_DILUTION_OR_COMMON_MASTER_FOR_SMALLER_ALTERNATIVES"
+    },
+    {
+      "id": "EXPLORATORY_OSMANTHUS",
+      "family": "exploratory",
+      "patches": {
+        "Osmanthus Absolute": "1.8",
+        "Hedione": "22.29"
+      },
+      "hypothesis": "More apricot/tea/leather; reject if tuberose-orange identity disappears.",
+      "resolved_target_percent": {
+        "Hedione": "22.29",
+        "Hedione HC": "6",
+        "Benzyl Salicylate": "10",
+        "Hexyl Salicylate": "2",
+        "Tuberlia Base": "8",
+        "Tuberose Absolute": "2",
+        "Osmanthus Absolute": "1.8",
+        "Jasmine Sambac Absolute": "0.5",
+        "Aurantiol": "1.5",
+        "Benzyl Acetate": "4",
+        "Methyl Benzoate": "0.7",
+        "Methyl Anthranilate": "0.25",
+        "Indole": "0.03",
+        "Stralyl Acetate": "1.3",
+        "Dihydrojasmone": "1",
+        "Jessemal (Jasmonyl)": "0.7",
+        "Apritone": "0.08",
+        "Beta Ionone": "0.3",
+        "Bergamot FCF oil Sicilian": "5",
+        "Cedrat FCF oil Sicilian": "1.5",
+        "Petitgrain EO Paraguay": "3",
+        "Neroli EO": "2",
+        "Linalyl Acetate": "2",
+        "Ethyl Linalool": "2",
+        "Pink Pepper EO (Schinus molle)": "0.5",
+        "Cardamom EO": "0.15",
+        "Clary Sage EO": "0.2",
+        "Iso E Super": "9",
+        "Habanolide": "3",
+        "Ambrettolide": "2",
+        "Vetiveryl Acetate": "3",
+        "Cedarwood oil Virginia": "1",
+        "Clearwood": "0.7",
+        "Ambrox Super Crystals": "2",
+        "Cashmeran": "0.25",
+        "Suederal": "0.25"
+      },
+      "target_sum_percent": "100.000000",
+      "build_rows_for_6g": [
+        {
+          "material": "Hedione",
+          "target_percent_product_mass": "22.29",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "1.337400",
+          "working_stock_mass_g_for_6g": "1.337400"
+        },
+        {
+          "material": "Hedione HC",
+          "target_percent_product_mass": "6",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.360000",
+          "working_stock_mass_g_for_6g": "0.360000"
+        },
+        {
+          "material": "Benzyl Salicylate",
+          "target_percent_product_mass": "10",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.600000",
+          "working_stock_mass_g_for_6g": "0.600000"
+        },
+        {
+          "material": "Hexyl Salicylate",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Tuberlia Base",
+          "target_percent_product_mass": "8",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.480000",
+          "working_stock_mass_g_for_6g": "0.480000"
+        },
+        {
+          "material": "Tuberose Absolute",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "1.200000"
+        },
+        {
+          "material": "Osmanthus Absolute",
+          "target_percent_product_mass": "1.8",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.108000",
+          "working_stock_mass_g_for_6g": "1.080000"
+        },
+        {
+          "material": "Jasmine Sambac Absolute",
+          "target_percent_product_mass": "0.5",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.030000",
+          "working_stock_mass_g_for_6g": "0.300000"
+        },
+        {
+          "material": "Aurantiol",
+          "target_percent_product_mass": "1.5",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.090000",
+          "working_stock_mass_g_for_6g": "0.900000"
+        },
+        {
+          "material": "Benzyl Acetate",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "Methyl Benzoate",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Methyl Anthranilate",
+          "target_percent_product_mass": "0.25",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.015000",
+          "working_stock_mass_g_for_6g": "0.015000"
+        },
+        {
+          "material": "Indole",
+          "target_percent_product_mass": "0.03",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.001800",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Stralyl Acetate",
+          "target_percent_product_mass": "1.3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.078000",
+          "working_stock_mass_g_for_6g": "0.078000"
+        },
+        {
+          "material": "Dihydrojasmone",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Jessemal (Jasmonyl)",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Apritone",
+          "target_percent_product_mass": "0.08",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.004800",
+          "working_stock_mass_g_for_6g": "0.480000"
+        },
+        {
+          "material": "Beta Ionone",
+          "target_percent_product_mass": "0.3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.018000",
+          "working_stock_mass_g_for_6g": "0.018000"
+        },
+        {
+          "material": "Bergamot FCF oil Sicilian",
+          "target_percent_product_mass": "5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.300000",
+          "working_stock_mass_g_for_6g": "0.300000"
+        },
+        {
+          "material": "Cedrat FCF oil Sicilian",
+          "target_percent_product_mass": "1.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.090000",
+          "working_stock_mass_g_for_6g": "0.090000"
+        },
+        {
+          "material": "Petitgrain EO Paraguay",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Neroli EO",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Linalyl Acetate",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Ethyl Linalool",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Pink Pepper EO (Schinus molle)",
+          "target_percent_product_mass": "0.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.030000",
+          "working_stock_mass_g_for_6g": "0.030000"
+        },
+        {
+          "material": "Cardamom EO",
+          "target_percent_product_mass": "0.15",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.009000",
+          "working_stock_mass_g_for_6g": "0.090000"
+        },
+        {
+          "material": "Clary Sage EO",
+          "target_percent_product_mass": "0.2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.012000",
+          "working_stock_mass_g_for_6g": "0.012000"
+        },
+        {
+          "material": "Iso E Super",
+          "target_percent_product_mass": "9",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.540000",
+          "working_stock_mass_g_for_6g": "0.540000"
+        },
+        {
+          "material": "Habanolide",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Ambrettolide",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Vetiveryl Acetate",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Cedarwood oil Virginia",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Clearwood",
+          "target_percent_product_mass": "0.7",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.042000",
+          "working_stock_mass_g_for_6g": "0.042000"
+        },
+        {
+          "material": "Ambrox Super Crystals",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Cashmeran",
+          "target_percent_product_mass": "0.25",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.015000",
+          "working_stock_mass_g_for_6g": "0.015000"
+        },
+        {
+          "material": "Suederal",
+          "target_percent_product_mass": "0.25",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.015000",
+          "working_stock_mass_g_for_6g": "0.015000"
+        }
+      ],
+      "working_stock_total_g": "9.866400",
+      "additional_ethanol_to_30g": "20.133600",
+      "state": "UNTESTED_DESIGN_HYPOTHESIS",
+      "single_row_weighing_floor_check": "LEAD_ONLY_VERIFIED_USE_WORKING_DILUTION_OR_COMMON_MASTER_FOR_SMALLER_ALTERNATIVES"
+    },
+    {
+      "id": "MINIMALIST_CONTROL",
+      "family": "minimalist",
+      "complete_target_percent": {
+        "Hedione": "31.52",
+        "Hedione HC": "6",
+        "Benzyl Salicylate": "10",
+        "Tuberlia Base": "8",
+        "Tuberose Absolute": "2",
+        "Osmanthus Absolute": "1.2",
+        "Aurantiol": "1.5",
+        "Benzyl Acetate": "4",
+        "Indole": "0.03",
+        "Apritone": "0.08",
+        "Bergamot FCF oil Sicilian": "5",
+        "Petitgrain EO Paraguay": "3",
+        "Neroli EO": "2",
+        "Linalyl Acetate": "2",
+        "Ethyl Linalool": "2",
+        "Pink Pepper EO (Schinus molle)": "0.5",
+        "Iso E Super": "9",
+        "Habanolide": "3",
+        "Ambrettolide": "2",
+        "Vetiveryl Acetate": "3",
+        "Ambrox Super Crystals": "2",
+        "Cedarwood oil Virginia": "1",
+        "Beta Ionone": "0.3",
+        "Suederal": "0.25",
+        "Clary Sage EO": "0.2",
+        "Hexyl Salicylate": "0.42"
+      },
+      "hypothesis": "Compressed independent chassis testing whether micro-facets add richness.",
+      "resolved_target_percent": {
+        "Hedione": "31.52",
+        "Hedione HC": "6",
+        "Benzyl Salicylate": "10",
+        "Tuberlia Base": "8",
+        "Tuberose Absolute": "2",
+        "Osmanthus Absolute": "1.2",
+        "Aurantiol": "1.5",
+        "Benzyl Acetate": "4",
+        "Indole": "0.03",
+        "Apritone": "0.08",
+        "Bergamot FCF oil Sicilian": "5",
+        "Petitgrain EO Paraguay": "3",
+        "Neroli EO": "2",
+        "Linalyl Acetate": "2",
+        "Ethyl Linalool": "2",
+        "Pink Pepper EO (Schinus molle)": "0.5",
+        "Iso E Super": "9",
+        "Habanolide": "3",
+        "Ambrettolide": "2",
+        "Vetiveryl Acetate": "3",
+        "Ambrox Super Crystals": "2",
+        "Cedarwood oil Virginia": "1",
+        "Beta Ionone": "0.3",
+        "Suederal": "0.25",
+        "Clary Sage EO": "0.2",
+        "Hexyl Salicylate": "0.42"
+      },
+      "target_sum_percent": "100.000000",
+      "build_rows_for_6g": [
+        {
+          "material": "Hedione",
+          "target_percent_product_mass": "31.52",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "1.891200",
+          "working_stock_mass_g_for_6g": "1.891200"
+        },
+        {
+          "material": "Hedione HC",
+          "target_percent_product_mass": "6",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.360000",
+          "working_stock_mass_g_for_6g": "0.360000"
+        },
+        {
+          "material": "Benzyl Salicylate",
+          "target_percent_product_mass": "10",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.600000",
+          "working_stock_mass_g_for_6g": "0.600000"
+        },
+        {
+          "material": "Tuberlia Base",
+          "target_percent_product_mass": "8",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.480000",
+          "working_stock_mass_g_for_6g": "0.480000"
+        },
+        {
+          "material": "Tuberose Absolute",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "1.200000"
+        },
+        {
+          "material": "Osmanthus Absolute",
+          "target_percent_product_mass": "1.2",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.072000",
+          "working_stock_mass_g_for_6g": "0.720000"
+        },
+        {
+          "material": "Aurantiol",
+          "target_percent_product_mass": "1.5",
+          "required_working_fraction_w_w": "0.1",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.090000",
+          "working_stock_mass_g_for_6g": "0.900000"
+        },
+        {
+          "material": "Benzyl Acetate",
+          "target_percent_product_mass": "4",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.240000",
+          "working_stock_mass_g_for_6g": "0.240000"
+        },
+        {
+          "material": "Indole",
+          "target_percent_product_mass": "0.03",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "DPG",
+          "target_product_mass_g_for_6g": "0.001800",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Apritone",
+          "target_percent_product_mass": "0.08",
+          "required_working_fraction_w_w": "0.01",
+          "required_carrier": "perfumery ethanol",
+          "target_product_mass_g_for_6g": "0.004800",
+          "working_stock_mass_g_for_6g": "0.480000"
+        },
+        {
+          "material": "Bergamot FCF oil Sicilian",
+          "target_percent_product_mass": "5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.300000",
+          "working_stock_mass_g_for_6g": "0.300000"
+        },
+        {
+          "material": "Petitgrain EO Paraguay",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Neroli EO",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Linalyl Acetate",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Ethyl Linalool",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Pink Pepper EO (Schinus molle)",
+          "target_percent_product_mass": "0.5",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.030000",
+          "working_stock_mass_g_for_6g": "0.030000"
+        },
+        {
+          "material": "Iso E Super",
+          "target_percent_product_mass": "9",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.540000",
+          "working_stock_mass_g_for_6g": "0.540000"
+        },
+        {
+          "material": "Habanolide",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Ambrettolide",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Vetiveryl Acetate",
+          "target_percent_product_mass": "3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.180000",
+          "working_stock_mass_g_for_6g": "0.180000"
+        },
+        {
+          "material": "Ambrox Super Crystals",
+          "target_percent_product_mass": "2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.120000",
+          "working_stock_mass_g_for_6g": "0.120000"
+        },
+        {
+          "material": "Cedarwood oil Virginia",
+          "target_percent_product_mass": "1",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.060000",
+          "working_stock_mass_g_for_6g": "0.060000"
+        },
+        {
+          "material": "Beta Ionone",
+          "target_percent_product_mass": "0.3",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.018000",
+          "working_stock_mass_g_for_6g": "0.018000"
+        },
+        {
+          "material": "Suederal",
+          "target_percent_product_mass": "0.25",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.015000",
+          "working_stock_mass_g_for_6g": "0.015000"
+        },
+        {
+          "material": "Clary Sage EO",
+          "target_percent_product_mass": "0.2",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.012000",
+          "working_stock_mass_g_for_6g": "0.012000"
+        },
+        {
+          "material": "Hexyl Salicylate",
+          "target_percent_product_mass": "0.42",
+          "required_working_fraction_w_w": "1",
+          "required_carrier": null,
+          "target_product_mass_g_for_6g": "0.025200",
+          "working_stock_mass_g_for_6g": "0.025200"
+        }
+      ],
+      "working_stock_total_g": "9.191400",
+      "additional_ethanol_to_30g": "20.808600",
+      "state": "UNTESTED_DESIGN_HYPOTHESIS",
+      "single_row_weighing_floor_check": "LEAD_ONLY_VERIFIED_USE_WORKING_DILUTION_OR_COMMON_MASTER_FOR_SMALLER_ALTERNATIVES"
+    },
+    {
+      "id": "LITERAL_REFERENCE_FIT",
+      "family": "literal evidence fit",
+      "status": "WITHHELD_NO_AUTHENTICATED_QUANTITATIVE_TARGET",
+      "hypothesis": "No authenticated quantitative reference, original prompt recovery or sensory calibration is available; official notes cannot supply a literal formula."
+    }
+  ],
+  "hard_gates": {
+    "target_arithmetic": "PASS_100_PERCENT",
+    "negative_target_dose": "PASS_NONE",
+    "duplicate_target_rows": "PASS_NONE",
+    "lead_measurable_stock_mass": "PASS_AT_LEAST_0.010_G_PER_ROW_FOR_6G_TARGET",
+    "stock_basis_binding": "HOLD_SELECTED_STOCK_BASES_OR_IDENTITY",
+    "active_parent_equivalence": "NOT_CLAIMED_INTENTIONAL_RETARGET",
+    "pre_mix_guard": "NOT_RUN_NO_SUPPORTED_PARENT_ACTIVE_MASS_AND_DELIVERED_GAS_CHAIN",
+    "perceptual_identity": "UNTESTED",
+    "safety_category_4": "NOT_ASSESSED",
+    "physical_action_permission": "NOT_GRANTED_BY_DESIGN"
+  },
+  "pareto": {
+    "numeric_beauty_score": null,
+    "ranked_sensory_winner": null,
+    "development_lead": "LEAD",
+    "axes": [
+      "brief identity",
+      "texture",
+      "aromatic/floral restraint",
+      "sweetness/off-note risk",
+      "measurement feasibility",
+      "uncertainty",
+      "handling burden"
+    ],
+    "selection_reason": "Qualitative design coverage and practical stock accounting, not demonstrated sensory superiority"
+  },
+  "accounting": {
+    "working_stock_total_g": "9.542400",
+    "added_working_carrier_mass_g": "3.542400",
+    "added_carrier_breakdown_g": {
+      "DPG": "2.986200",
+      "perfumery ethanol": "0.556200"
+    },
+    "concentration_definition": "20% by undiluted perfumery-product-equivalent mass, not 20% identified odorant or stock volume",
+    "finished_options": [
+      {
+        "basis": "20% w/w product-equivalent",
+        "finished_mass_g": "30.000000",
+        "product_equivalent_g": "6.000000",
+        "additional_perfumery_ethanol_g": "20.457600",
+        "finished_volume_mL": null
+      },
+      {
+        "basis": "20 g product-equivalent per 100 mL (w/v)",
+        "finished_volume_mL": "30.00",
+        "product_equivalent_g": "6.000000",
+        "ethanol": "q.s. measured final 30.00 mL after dissolution and equilibration",
+        "finished_mass_g": null,
+        "exact_20_percent_w_w_claim": false
+      }
+    ],
+    "crystal_uL": null,
+    "grams_equal_mL": false,
+    "ethanol_96_percent_as_supplied": "Count as solvent product mass; strength basis not silently converted to absolute-ethanol mass"
+  },
+  "small_sample": {
+    "finished_mass_g": "5.000000",
+    "product_equivalent_g": "1.000000",
+    "fraction_of_homogeneous_master": "1/6",
+    "master_aliquot_g_before_extra_dissolution_alcohol": "1.590400",
+    "additional_ethanol_g": "3.409600",
+    "extra_alcohol_rule": "If a grams of dissolution ethanol enters the master, aliquot (stock_total+a)/6 and add 5-(stock_total+a)/6 grams ethanol; never count a twice.",
+    "homogeneity_required": true,
+    "per_row_one_sixth_weighing_not_recommended": true,
+    "aliquot_scale_floor_g": "0.010"
+  },
+  "stock_notes": "Tuberose and osmanthus bottles are listed as 10% DPG but their basis is unstated. The exact recipe requires 10% w/w. Verify that Jasmine Sambac is the intended absolute/product, not dried blossoms or an unrelated base. Apritone's old 10% w/v is not a 1% w/w stock. Indole's parent stock basis must be known before serial dilution. No photos or purchase receipts are required for this personal design.",
+  "stock_preparations": [
+    "Aurantiol: use a confirmed 10% w/w DPG stock; or for this batch use exactly 0.090 g neat Aurantiol + 0.810 g DPG instead of 0.900 g stock. Choose one branch only. A bottle marked merely 10% of unknown basis cannot use this equivalence.",
+    "Ambrettolide: default is 0.120 g neat, following the user. If the actual bottle is the older 10% w/w DPG stock, use 1.200 g of it instead, adding 1.080 g carrier; the alternative total stock charge is 10.6224 g and alcohol to 30 g is 19.3776 g. Do not add both branches.",
+    "Apritone 1% w/w ethanol: 0.10 g neat PW 3FD06779 + 9.90 g ethanol. Cardamom 10% w/w ethanol: 0.10 g neat + 0.90 g ethanol.",
+    "Indole 1% w/w DPG: 1.00 g confirmed 10% w/w stock + 9.00 g DPG. Reuse correctly identified homogeneous natural stocks if their w/w basis is known; otherwise obtain/prepare the required stock."
+  ],
+  "mixing_order": [
+    "Dissolve 120 mg crystal Ambrox using a portion of the final alcohol allowance; count that alcohol in the ledger.",
+    "Weigh pale woods, the two selected musks and salicylates; add Hedione and Hedione HC.",
+    "Add Tuberlia, the correctly identified natural floral stocks and exactly one Aurantiol branch; follow with floral-body esters/ketones.",
+    "Add Indole and Apritone working stocks, then neroli, petitgrain, citrus and spices last. Close, mix and inspect after equilibration."
+  ],
+  "bottle_action_plan": {
+    "state": "PROPOSAL_ONLY",
+    "strategy": "NEW_FORMULA_NOT_ADDITIVE_DELTA",
+    "sequence": [
+      "PROPOSE",
+      "HUMAN_CONFIRM",
+      "MEASURE",
+      "COMMIT"
+    ],
+    "stop_conditions": [
+      "wrong or ambiguous stock basis",
+      "undissolved solid/separation",
+      "target stock cannot be weighed reliably",
+      "unexpected savory/medicinal/dirty off-note"
+    ],
+    "existing_bottle_commit_performed": false
+  },
+  "sensory_plan": {
+    "small_first": true,
+    "substrate": "blotter",
+    "codes": "Randomized three-digit codes where feasible",
+    "timepoints": [
+      "5 minutes",
+      "30-60 minutes",
+      "4 hours",
+      "next-day blotter"
+    ],
+    "repeat_relevant_comparison": "At least three sessions before a strong personal-preference claim",
+    "carrier_matching_required_for_causal_omission_claim": true,
+    "record": [
+      "brief recognizers",
+      "forbidden drift",
+      "texture",
+      "transition",
+      "intensity separate from liking",
+      "tie/cannot determine"
+    ],
+    "instructions": "Compare LEAD with AIRY_CONSERVATIVE for density/oiliness. For musk nonredundancy, compare separate carrier-matched no-Habanolide and no-Ambrettolide controls; only then test the Romandolide replacement if metallicness is objectionable. Reject woody-men's-fragrance, grape-candy, sunscreen or leather-first drift.",
+    "skin_application_authorized": false
+  },
+  "sensomics": {
+    "GC_MS_or_GC_O": "NOT_AVAILABLE",
+    "recombination": "METHOD_AVAILABLE_NOT_EXECUTED",
+    "OAV": "WITHHELD_NO_COMPATIBLE_DELIVERED_GAS_CHAIN",
+    "importance_or_deletion_from_OAV": false
+  },
+  "posterior": {
+    "state": "NO_NEW_PHYSICAL_OBSERVATIONS",
+    "history_rewritten": false,
+    "next_version_rule": "Record formula/sample hash, observation, accepted change and why; preserve tested versions."
+  },
+  "historical_search": {
+    "status": "NOT_REPRODUCED",
+    "reason": "No bound historical integer-uL search inputs/code for this exact target. No 35/35 or 97.76/100 result claimed."
+  },
+  "safety": {
+    "category": "IFRA Category 4 assessment required for intended alcoholic fine fragrance",
+    "supplier_documents": "Exact grade/base/natural composition and current limits required for commercial assessment",
+    "natural_allergens": "Not completely quantified",
+    "proprietary_base_components": "Unknown",
+    "stability": "Not tested",
+    "commercially_cleared": false
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false,
+    "purchase_authority": false,
+    "physical_action_performed": false
+  },
+  "sources": [
+    {
+      "id": "W1",
+      "title": "KILIAN official Good girl gone Bad description",
+      "url": "https://m.bykilian.com/product/19797/52759/perfume/good-girl-gone-bad-by-kilian/the-narcotics",
+      "scope": "Supports orange blossom/osmanthus/tuberose recognizers only; no proprietary ratios.",
+      "checked_date": "2026-10-03",
+      "authority": "DOCUMENTARY_OR_METHOD_SCOPE_ONLY",
+      "numerical_formula_transferred": false
+    },
+    {
+      "id": "W2",
+      "title": "PW Apritone, 3FD06779",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3FD06779",
+      "scope": "Supplier apricot-texture clue only, not a measured finished-mixture benefit.",
+      "checked_date": "2026-10-03",
+      "authority": "DOCUMENTARY_OR_METHOD_SCOPE_ONLY",
+      "numerical_formula_transferred": false
+    }
+  ]
+}
+

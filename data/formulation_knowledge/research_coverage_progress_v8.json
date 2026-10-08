@@ -1,0 +1,333 @@
+{
+  "schema_version": "fragrance-research-coverage-progress-v8",
+  "as_of_date": "2026-10-07",
+  "status": "FLORAL_ARCHITECTURE_SUCCESSOR_AND_FRUIT_ELIGIBILITY_VERIFIED",
+  "full_research_program_complete": false,
+  "completion_boundary": "A verified twelve-mapping successor and bounded fruit-matching repair; not completion of every subtype mapping, empirical modeling, sensory validation or the continuing research objective.",
+  "workspace": {
+    "branch": "master",
+    "head": "1ed79650313c23b1a2fe1c36c2e90a606c64833b",
+    "dirty_worktree_preserved": true,
+    "git_commit_or_push_performed": false
+  },
+  "predecessor": {
+    "path": "data/formulation_knowledge/research_coverage_progress_v7.json",
+    "sha256": "96f08852540d89d986f570f991245cc247d14f2280637a1825d785defd5d1d0e",
+    "preserved": true
+  },
+  "totals": {
+    "construction_dossiers": 49,
+    "partial_subtype_cards": 179,
+    "floral_packages": 13,
+    "floral_packages_with_at_least_one_executable_mapping": 13,
+    "sources": 233,
+    "claims": 226,
+    "profiles": 43,
+    "exact_material_cards": 25,
+    "reviewed_advisory_sources": 168,
+    "legacy_advisory_sources": 64,
+    "held_sources": 1,
+    "architecture_mappings": 22,
+    "architecture_options": 44,
+    "subtype_cards_without_executable_mapping": 157,
+    "empirical_capabilities_added": 0,
+    "numeric_calibrations_admitted": 0,
+    "source_records_added_this_wave": 0
+  },
+  "successor": {
+    "manifest": {
+      "path": "data/formulation_knowledge/architecture_adapters_v2.json",
+      "sha256": "3f2fc6bb721b9902d1d08c4f3b900f7d685008818364dc66bff747adb59b3972"
+    },
+    "predecessor_manifest": {
+      "path": "data/formulation_knowledge/architecture_adapters_v1.json",
+      "sha256": "2a18a458d26fa891dc665ce4e75f8b8964873d46bbd36a780cd72bcd0a77e3bd"
+    },
+    "inherited_mappings_unchanged": 10,
+    "new_mappings": [
+      "ORANGE_NEROLI",
+      "ORANGE_PETITGRAIN",
+      "MUGUET_SOFT",
+      "TUBEROSE_INDOLIC",
+      "TUBEROSE_TRANSPARENT",
+      "TROP_CHAMPACA",
+      "LILY_GREEN",
+      "POLLEN_SPARTIUM_BROOM",
+      "VIOLET_POWDER",
+      "IRIS_VIOLET_LEAF",
+      "BOUQUET_ALDEHYDIC",
+      "BOUQUET_SOFT"
+    ],
+    "added_options": 24,
+    "mapped_floral_packages": [
+      "FL_BOUQUET",
+      "FL_GARDENIA",
+      "FL_GREEN",
+      "FL_IRIS",
+      "FL_JASMINE",
+      "FL_LIGHT",
+      "FL_MUGUET",
+      "FL_ORANGE",
+      "FL_POLLEN",
+      "FL_ROSE",
+      "FL_SPICY",
+      "FL_TROPICAL",
+      "FL_TUBEROSE"
+    ],
+    "scope": "LOCAL_HEURISTIC_ROLE_MAPPING_NOT_EMPIRICAL_FORMULA",
+    "maximum_alternatives": 2,
+    "ordering": "UNORDERED_UNTIL_SENSORY_COMPARISON",
+    "explicit_v1_replay_supported": true,
+    "v1_replay_limit": "Current source with v1 manifest; not historical installation replay.",
+    "runtime_network_used": false
+  },
+  "recognizer_repair": {
+    "initial_regressions_reproduced": 2,
+    "requirement": "OWN_MATERIAL_DESCRIPTOR_NOT_NAME_OR_CATEGORY_V1",
+    "lexical_fruit_aliases": [
+      "litchi -> lychee"
+    ],
+    "stock_aliases_added": [],
+    "explicit_material_anchors_preserved": true,
+    "fruit_eligibility_excludes": [
+      "IDENTITY_NAME_ALONE",
+      "CATEGORY_PROXY",
+      "STOCK_COMMENTS",
+      "SYNERGY_PARTNER_NAMES",
+      "FRESHNESS_PLUS_SWEETNESS_ALONE",
+      "CHEMICAL_CLASS_ESTER_ALONE"
+    ],
+    "alignment_basis": "STRUCTURAL_ROLE_COVERAGE_ONLY_NOT_SENSORY_ACCURACY",
+    "named_fruit_recognition": "NOT_SENSORY_VALIDATED",
+    "missing_sensory_recognition_blocks_advisory_proposal": false,
+    "remaining_limit": "Once independently fruit-eligible, ordinary ranking still uses broader contextual vocabulary; this is not complete feature provenance separation."
+  },
+  "diagnostic_hardening": [
+    "ACTIVE_SCHEMA_CANNOT_DOWNGRADE_PREDECESSOR_CONTRACT",
+    "ROLE_HASH_RECOMPUTED_FROM_FULL_EXECUTABLE_DATA",
+    "EXACT_FALSE_AUTHORITY_FIELDS_REQUIRED",
+    "COMPLETE_MANIFEST_CARD_SOURCE_DEPENDENCIES_REQUIRED",
+    "REVIEW_ALLOWED_MUST_BE_LITERAL_TRUE",
+    "BOTH_CONTROL_AND_COMPARISON_ARMS_CHECKED"
+  ],
+  "diagnostics": {
+    "protocol": "architecture-comparison-corpus-v2",
+    "corpus_path": "tests/fixtures/architecture_comparison_v2.json",
+    "corpus_sha256": "df29990670f6981f4b9c048198e8bd1c5246510d65be3821330ec79c6e8e3d54",
+    "artifact": {
+      "path": "docs/research/floral_architecture_comparison_20261007.json",
+      "sha256": "aec58cc923a0d48d9b429cd64ac3ef4f2d86581e7999d5da24f250b1189e0e3d"
+    },
+    "status": "PASS",
+    "briefs": 30,
+    "design_calls": 120,
+    "source_bound_variants": 48,
+    "cases_with_source_bound_variants": 24,
+    "cases_with_changed_physical_composition": 24,
+    "returned_formula_hypotheses": 87,
+    "critic_states": {
+      "ACCEPTED_WITH_HOLDS": 85,
+      "ACCEPTED_AS_DESIGN_HYPOTHESIS": 2
+    },
+    "original_control_preserved": true,
+    "reverse_order_repeat_identical": true,
+    "same_inventory": true,
+    "changed_paths": [],
+    "watched_files": 1020,
+    "opening_snapshot_sha256": "bef8e2f737d8018880dace1b9fd06cf36cdc897db4808c792049d541cbb070c5",
+    "closing_snapshot_sha256": "bef8e2f737d8018880dace1b9fd06cf36cdc897db4808c792049d541cbb070c5",
+    "in_process_p95_seconds": {
+      "CONTROL_ONLY": 1.4995310999947833,
+      "ARCHITECTURE_COMPARISON": 2.489185099999304
+    },
+    "timing_scope": "Thirty frozen diagnostic briefs on this workstation; not browser/server startup or full-system performance acceptance.",
+    "sensory_improvement": "NOT_TESTED",
+    "network_used": false
+  },
+  "verification": {
+    "focused_engine": {
+      "passed": 630,
+      "failed": 0,
+      "seconds": 143.54,
+      "command": ".venv\\Scripts\\python.exe -m pytest tests/test_architecture_bridge.py tests/test_architecture_successor.py tests/test_fruit_recognizer_matching.py tests/test_botanical_depth.py tests/test_subtype_research.py tests/test_source_review_governance.py tests/test_construction_library.py tests/test_floral_woody_research.py tests/test_research_closure.py tests/test_family_foundation_expansion.py tests/test_orchard_reference_panel.py tests/test_commercial_reference_freshness.py tests/test_foundation_literature_knowledge.py tests/test_lavender_literature_knowledge.py tests/test_formula_design_chat.py -q -p no:cacheprovider"
+    },
+    "focused_backend": {
+      "passed": 18,
+      "failed": 0,
+      "deselected": 15,
+      "seconds": 55.03,
+      "command": "$env:OPENAI_API_KEY='test-key'\n$env:SECRET_KEY='test-secret-key-for-ci'\npoetry run pytest tests/unit/test_source_review_job_fingerprints.py tests/integration/test_lab_ui.py -k 'architecture or formula_chat or formula_conversation or deeper_review' -q -p no:cacheprovider --basetemp D:\\chatbots\\perfume-chem\\output\\pytest-temp-backend\\floral-successor-20261007-final",
+      "environment": "Poetry Python 3.11; unique per-run scratch and per-test database"
+    },
+    "scoped_ruff": "PASS",
+    "engine_mypy": {
+      "state": "PASS",
+      "modules": 7,
+      "follow_imports": "skip",
+      "explicit_package_bases": true
+    },
+    "backend_mypy": {
+      "state": "PASS",
+      "modules": [
+        "app/services/engine_jobs.py"
+      ]
+    },
+    "quick_project": {
+      "path": "output/floral_architecture_successor_20261007/project_verification_quick.json",
+      "sha256": "cee1ff7e9a0b82e1e38dea3a8e0bda61b521814b4420b51b62f20d0d22151cae",
+      "passed": 10,
+      "failed": [],
+      "scope": "partial",
+      "completion_gate": "NOT_EVALUATED",
+      "golden_changes": "unchanged"
+    },
+    "scoped_git_diff_check": "PASS",
+    "whole_worktree_git_check": "EXIT_ZERO_BUT_LIMITED_BY_HISTORICAL_SCRATCH_ACCESS_ERRORS",
+    "full_verifier": "NOT_RUN_NO_MERGE_OR_RELEASE_CLAIM",
+    "docker": "NOT_RUN",
+    "browser_visual_interaction": "NOT_RUN",
+    "migration_changes": "NONE",
+    "notes": [
+      "Initial regression tests reproduced the named-fruit and Juniper eligibility defects before repair.",
+      "An initial mypy invocation lacked namespace-package flags; the corrected scoped invocation passed.",
+      "The quick verifier retains pytest-cache access warnings; its checks passed.",
+      "No source manifest, empirical source-review state or production hold was weakened to pass tests."
+    ]
+  },
+  "preserved": {
+    "formula_count": 578,
+    "formula_census": "Recursive regular-file enumeration including ignored formula files",
+    "formula_byte_changes": [],
+    "protected_file_hashes": {
+      "inventory.txt": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+      "data/governance/inventory_compounding_holds.json": "4e3d5e98c8328fe92e7b5722e5f5e41ababb934067ccdce142cf32bfc0dc823a",
+      "data/formulation_knowledge/literature_v1.json": "94659e7167cd23dbc7df6e7b4ee527ef3f792ab2940c653beacaa671ea55db39",
+      "data/formulation_knowledge/source_reviews_v1.json": "50627e5999064128792f67be198e395af5376ec7b8b08e8e7ac8c82d5fe19453",
+      "data/formulation_knowledge/subtype_research_v4.json": "14eef313a501262a63c839577d3b9cf48124441c1dbc1a03a2fcda1f17225c83",
+      "data/formulation_knowledge/architecture_adapters_v1.json": "2a18a458d26fa891dc665ce4e75f8b8964873d46bbd36a780cd72bcd0a77e3bd"
+    },
+    "protected_file_changes": [],
+    "inventory_modified": false,
+    "formula_modified": false,
+    "physical_compounding_performed": false,
+    "orris_liquid_hold_preserved": true
+  },
+  "artifacts": [
+    {
+      "path": "docs/research/FLORAL_ARCHITECTURE_SUCCESSOR_PLAN_20261007.md",
+      "sha256": "6b95bda89801e6a82968fd12f57dca3c652c948ee9c83ea028354c3a67e2086c"
+    },
+    {
+      "path": "docs/research/FLORAL_ARCHITECTURE_SUCCESSOR_REVIEW_20261007.md",
+      "sha256": "efe014913b812b343a9d674dbf0e4257fb867ba1f67f3f6cdb68dcd30aaa0c68"
+    }
+  ],
+  "accepted_source_hashes": {
+    "AGENTS.md": "360adee5eb8e36c2e3a6a1622600645d3f7338c1a82dcc5bdc618940a9d09868",
+    "engine/formulation_intelligence/architecture_bridge.py": "442958683838d534535b84369b2c2be2c246362bfab57dac8f62daf43adc3863",
+    "engine/formulation_intelligence/formula_critic.py": "b83fe6108058dd1c0f36ac90feb2bd7618dca349a46b39871a49fe7fba10f4af",
+    "engine/formulation_intelligence/formula_design_runtime.py": "6dd87fc7b959005154dd59f82cb8560dedad8e3dcf33d44b82cb8631bd927baf",
+    "engine/formulation_intelligence/formula_solver.py": "faef0528763e62a204a3394967b8d13486081830d70cd652a7c679601aee0a9c",
+    "engine/formulation_intelligence/material_capability_index.py": "bbc1a86418a48401c0f218c8efbdc0c149f6fa35ce2f853511b693a62494d311",
+    "engine/formulation_intelligence/semantic_brief_adapter.py": "fde09dbf6927b7f80fa92eea67093a9e27e520f871461301654330809978efb9",
+    "engine/research/subtype_benchmark.py": "8cc0aae275ab35f228bb99d59bb0722947cf7f5577448ed8d311ef9a73245b27",
+    "backend/app/services/engine_jobs.py": "8c3a100396d6e73abdd33c0a3ed06350ebba39235df5d5fdc2f6be0b8ab51069",
+    "backend/app/services/engine_job_registry.py": "e3fc6d77e8234f40cd53403c036c074635000c3c4f38281f77a34418574cefe1",
+    "backend/tests/unit/test_source_review_job_fingerprints.py": "5dba60418648b35e75fd66eeda1981bb0b8d1917fdf8e8afc732d6c61c199b50",
+    "backend/tests/integration/test_lab_ui.py": "49bf6dcc0c90b5cc5be9f598f9e0dbb3e298e5c995a710f8ed12d5e908380e90",
+    "tests/test_architecture_bridge.py": "432759640201deabc06fea2f7918f19b946a330b51d0f1d508542cf7129b6ba3",
+    "tests/test_architecture_successor.py": "58c517517401c34dcbd1b0ba77959ca154c490d8bd3b616b12afc9e454af81d3",
+    "tests/test_fruit_recognizer_matching.py": "85c42fe0a4afbc70d1fc85d3f07e3d281c6402a25746f72387811e4c6d647412",
+    "tests/fixtures/architecture_comparison_v1.json": "5c952b513dc87cc9156a6f805b9e1f4d1f9430b946ffeadfc73f60c0c594c035",
+    "tests/fixtures/architecture_comparison_v2.json": "df29990670f6981f4b9c048198e8bd1c5246510d65be3821330ec79c6e8e3d54",
+    "data/formulation_knowledge/architecture_adapters_v1.json": "2a18a458d26fa891dc665ce4e75f8b8964873d46bbd36a780cd72bcd0a77e3bd",
+    "data/formulation_knowledge/architecture_adapters_v2.json": "3f2fc6bb721b9902d1d08c4f3b900f7d685008818364dc66bff747adb59b3972",
+    "data/formulation_knowledge/research_coverage_progress_v7.json": "96f08852540d89d986f570f991245cc247d14f2280637a1825d785defd5d1d0e",
+    "docs/research/FLORAL_ARCHITECTURE_SUCCESSOR_PLAN_20261007.md": "6b95bda89801e6a82968fd12f57dca3c652c948ee9c83ea028354c3a67e2086c",
+    "docs/research/floral_architecture_comparison_20261007.json": "aec58cc923a0d48d9b429cd64ac3ef4f2d86581e7999d5da24f250b1189e0e3d",
+    "output/floral_architecture_successor_20261007/project_verification_quick.json": "cee1ff7e9a0b82e1e38dea3a8e0bda61b521814b4420b51b62f20d0d22151cae",
+    "docs/research/FLORAL_ARCHITECTURE_SUCCESSOR_REVIEW_20261007.md": "efe014913b812b343a9d674dbf0e4257fb867ba1f67f3f6cdb68dcd30aaa0c68"
+  },
+  "next_work": [
+    {
+      "scope": "Remaining executable subtype mappings",
+      "state": "PARTIAL",
+      "remaining_cards": 157,
+      "remaining_by_package": {
+        "AB_ABSTRACT": 4,
+        "AM_AMBERGRIS": 2,
+        "AM_FLORAL": 2,
+        "AM_RESIN": 8,
+        "AM_SOFT": 2,
+        "AM_WOODS": 2,
+        "AN_SKIN": 3,
+        "AR_FOUGERE": 3,
+        "AR_HERBS": 4,
+        "AR_LAVENDER": 9,
+        "BO_BOOZY": 2,
+        "CH_CHYPRE": 5,
+        "CI_CHASSIS": 2,
+        "CI_PRODUCTS": 5,
+        "CU_TRADITIONS": 4,
+        "FL_BOUQUET": 1,
+        "FL_GREEN": 3,
+        "FL_JASMINE": 2,
+        "FL_LIGHT": 11,
+        "FL_MUGUET": 2,
+        "FL_ORANGE": 1,
+        "FL_POLLEN": 2,
+        "FL_ROSE": 4,
+        "FL_SPICY": 1,
+        "FL_TROPICAL": 5,
+        "FR_BERRY": 5,
+        "FR_ORCHARD": 4,
+        "FR_STONE": 3,
+        "FR_TROPICAL": 5,
+        "GO_DAIRY": 2,
+        "GO_ROAST": 4,
+        "GO_VANILLA": 3,
+        "GR_GREEN": 4,
+        "HY_HYBRIDS": 3,
+        "LE_LEATHER": 3,
+        "MU_MUSK": 3,
+        "RE_INCENSE": 3,
+        "SP_SPICE": 4,
+        "TE_TEA": 4,
+        "TO_HAY": 4,
+        "WA_AQUATIC": 4,
+        "WO_CEDAR": 3,
+        "WO_OUD": 3,
+        "WO_PATCH": 1,
+        "WO_SANDAL": 1,
+        "WO_VETIVER": 2
+      },
+      "needed": "Review and test mappings individually; package-level presence is not complete subtype coverage."
+    },
+    {
+      "scope": "Exact material-to-role suitability",
+      "state": "HEURISTIC",
+      "needed": "Resolve weak material/grade hypotheses without promoting broad descriptors into measured named-fruit recognition."
+    },
+    {
+      "scope": "CHIMIE LHOMME identity",
+      "state": "HOLD_EXACT_BRIEF_OR_FORMULA_REQUIRED",
+      "needed": "Accepted campaign brief or formula; nearby lavender, Aventus and other LHomme references are not identity substitutes."
+    },
+    {
+      "scope": "Quantitative capabilities and source rights",
+      "state": "NOT_ADMITTED_BY_THIS_WAVE",
+      "needed": "Complete applicable methods, observation rights, exact identities and independent validation."
+    },
+    {
+      "scope": "Sensory, physical and market outcomes",
+      "state": "NOT_TESTED",
+      "needed": "Separately authorized proportional observations; not prerequisites for ordinary non-authoritative design research."
+    }
+  ],
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

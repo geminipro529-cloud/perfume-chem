@@ -1,0 +1,460 @@
+{
+  "schema_version": "fragrance-research-coverage-progress-v13",
+  "as_of_date": "2026-10-07",
+  "status": "V5_ACTIVE_FOCUSED_AND_LIVE_HANDOFF_ACCEPTED_WITH_EXPLICIT_RESEARCH_AND_RELEASE_GAPS",
+  "full_research_program_complete": false,
+  "completion_boundary": "Source-bound subtype implementation and disposition pass; optional fixed-row omission planning and recovered historical campaign context. Not all subtype experiments, empirical modeling, sensory validation or project release completion.",
+  "predecessor": {
+    "path": "data/formulation_knowledge/research_coverage_progress_v12.json",
+    "sha256": "55f4b2ef387e96d67f2ada82286ffbfb83d80574e131b14bea4f9044e7de036b",
+    "preserved": true
+  },
+  "user_scope": {
+    "speed_optimization": "EXCLUDED_NOT_IMPLEMENTED",
+    "subtype_work_prioritized": true
+  },
+  "totals": {
+    "construction_dossiers": 49,
+    "partial_subtype_cards": 179,
+    "floral_packages": 13,
+    "sources": 233,
+    "claims": 226,
+    "profiles": 43,
+    "architecture_mappings": 104,
+    "architecture_options": 168,
+    "new_mappings": 57,
+    "new_options": 75,
+    "previously_unmapped_cards_accounted_for": 132,
+    "subtype_cards_without_executable_mapping": 75,
+    "empirical_capabilities_added": 0,
+    "numeric_calibrations_admitted": 0
+  },
+  "dispositions": {
+    "counts": {
+      "EXACT_PRODUCT_GRADE": 32,
+      "CONTROLLED_OMISSION": 18,
+      "EVIDENCE_OR_TARGET_INPUT": 27,
+      "ARCHITECTURE_ADDITION": 55
+    },
+    "remaining": {
+      "CONTROLLED_OMISSION": 17,
+      "EXACT_PRODUCT_GRADE": 31,
+      "EVIDENCE_OR_TARGET_INPUT": 27
+    },
+    "manifest_path": "data/formulation_knowledge/subtype_implementation_dispositions_v1.json",
+    "manifest_sha256": "6ebb46b2ecd4a751d1c2275be68d4d15ff0d185ef3b02d3f29c2a2e672ea741a",
+    "all_architecture_addition_dispositions_mapped": true,
+    "other_dispositions_are_not_executable_coverage": true
+  },
+  "active_adapter": {
+    "path": "data/formulation_knowledge/architecture_adapters_v5.json",
+    "sha256": "a88ebdd25e440da5ed23c532e632de2bd05a98ee7abc70ea05590d3a16a67c12",
+    "ordered_predecessor_mappings_preserved": 47,
+    "predecessor_versions_preserved": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "live_server_deployment_performed": true,
+    "fresh_full_corpus_before_activation": true,
+    "fresh_full_corpus_after_final_changes": false,
+    "post_activation_focused_tests_passed": true
+  },
+  "staged_diagnostic": {
+    "path": "output/architecture_v5_staged_20261007_run01.json",
+    "sha256": "fa0b1565f8aba421b27003efd48aecb75cfc92a3fd8223637014b548e7c35ed8",
+    "status": "PASS",
+    "case_count": 67,
+    "design_calls": 268,
+    "reverse_order_repeat_identical": true,
+    "same_inventory": true,
+    "changed_paths": [],
+    "opening_snapshot_sha256": "ba1e8273e20d99b004290f96f38bdedba950d979275bb00aad570b856ee5a553",
+    "closing_snapshot_sha256": "ba1e8273e20d99b004290f96f38bdedba950d979275bb00aad570b856ee5a553",
+    "snapshot_file_count": 1034,
+    "corpus_sha256": "573bb9ebe737e958c0ecf69395a7e090608fbe6f31f91b8e6dba8b733d29870e",
+    "cases_with_source_bound_variants": 34,
+    "source_bound_variants": 42,
+    "viable_source_bound_variants": 42,
+    "cases_with_changed_physical_composition": 34,
+    "outcome_counts": {
+      "EMPTY_ADMISSIBLE_POOL": 40,
+      "VIABLE_COMPARISON": 42
+    },
+    "failing_cases": [],
+    "includes_later_activation_title_repair_omission_precision_and_campaign_recovery_bytes": false,
+    "outcome_note": "82 per-case outcomes: 42 viable and 40 verified empty. These are 78 distinct option IDs, including inherited/repeated cases, not 75 new options all feasible."
+  },
+  "verification": {
+    "root_runs": [
+      {
+        "scope": "v5, omission and historical bridge",
+        "passed": 354,
+        "seconds": 69.79
+      },
+      {
+        "scope": "post-activation successor, replay and descriptor contracts",
+        "passed": 199,
+        "seconds": 152.14
+      },
+      {
+        "scope": "post-title-boundary v5 and receipt replay",
+        "passed": 316,
+        "seconds": 491.84
+      },
+      {
+        "scope": "campaign recovery, botanical and subtype contracts",
+        "passed": 131,
+        "seconds": 24.07
+      },
+      {
+        "scope": "managed loopback launcher",
+        "passed": 1,
+        "seconds": 0.31
+      }
+    ],
+    "backend_runs": [
+      {
+        "scope": "fingerprints/UI before final recovery",
+        "passed": 43,
+        "deselected": 1,
+        "seconds": 157.37
+      },
+      {
+        "scope": "omission API, durable v5 execution and migration round-trip",
+        "passed": 32,
+        "seconds": 23.56
+      },
+      {
+        "scope": "repaired current-head backup/restore and migrations",
+        "passed": 12,
+        "seconds": 20.34
+      },
+      {
+        "scope": "final reference and campaign fingerprints",
+        "passed": 14,
+        "seconds": 5.86
+      }
+    ],
+    "overlapping_runs_not_unique_test_total": true,
+    "reproduced_and_repaired": [
+      "Historical adapter tests used active rather than fixed predecessor path; pinned the historical fixture without weakening runtime gates.",
+      "Diagnostic title negation swallowed the separate brief; explicit clause boundary now preserves independent fields and avoid constraints.",
+      "Three backup/migration failures expected earlier Alembic heads; reviewed head expectations advanced to 20261007_0025 and all 12 focused tests passed."
+    ],
+    "root_scoped_ruff": "PASS",
+    "root_scoped_mypy": "PASS",
+    "backend_scoped_ruff": "PASS",
+    "backend_scoped_mypy": "PASS",
+    "javascript_syntax": "PASS",
+    "final_quick": {
+      "path": "output/subtype_v5_final_quick_20261007.json",
+      "sha256": "5fcf11f56f66b9f954414ce4e60dc7c56c7ab03c6be2da4a5b19746b06e7f0a7",
+      "passed": 10,
+      "failed": 0,
+      "status": "PASS_PARTIAL_SCOPE_NOT_RELEASE"
+    },
+    "full": {
+      "path": "output/subtype_v5_full_20261007.json",
+      "sha256": "d7d20a32e49b87494abcb35bb945fd5c9475e96e96127307e0a60ae60f7632b2",
+      "status": "FAIL",
+      "ran_before_final_repairs": true,
+      "frozen_final_source_acceptance": false,
+      "rerun_after_focused_repairs": false,
+      "failed_check_groups": [
+        "engine-tests-truth-core",
+        "engine-tests-data-knowledge",
+        "engine-tests-gates-families",
+        "engine-tests-legacy",
+        "engine-tests-additional",
+        "backend-tests"
+      ],
+      "resolved_failures": "Three backend current-head assertions repaired and focused retested; original full report preserved.",
+      "remaining": [
+        "Python 3.14 protobuf/upb collection incompatibility (2 collection errors).",
+        "Owned inventory/range expectations are stale (3 test failures).",
+        "Commercial gate and current-stock scenario tests (6 failures) require their own contract review.",
+        "Complexity census (1 failure) and root/backend tests namespace collision (5 collection errors).",
+        "Historical inventory-v5 source-byte fixture drift (10 backend errors); pins not weakened.",
+        "Full backend exceeded its 1200-second timeout; 875 passed, 3 failed, 10 errors were reported before repair.",
+        "Docker checks skipped."
+      ]
+    },
+    "git_diff_check": "PASS",
+    "merge_or_release_readiness_claimed": false
+  },
+  "app_handoff": {
+    "url": "http://127.0.0.1:8000/app",
+    "host": "127.0.0.1",
+    "launcher_pid": 20204,
+    "api_pid": 26108,
+    "worker_wrapper_pid": 19156,
+    "worker_pid": 20928,
+    "schema_head": "20261007_0025",
+    "health": "healthy",
+    "live_diagnostic_jobs": [
+      {
+        "job_id": "f789f9ef-4db5-443e-a9ca-846954d415c7",
+        "state": "SUCCEEDED",
+        "fingerprint": "d437543cb3b0262a7d431706c679c05a84715a2743179fe3ea28ec8160c679a0",
+        "event_chain_verified": true,
+        "result_hash_verified": true,
+        "source_bound_subtypes": [
+          "WOOD_MINERAL"
+        ],
+        "campaign_reference_recovered": false,
+        "omission_plan_state": null,
+        "physical_execution_authorized": false,
+        "authority": {
+          "scientific_claim_scope": "ADVISORY_EVIDENCE_ONLY",
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "job_id": "9a379f4f-c8f1-4467-aacf-ab56513403b8",
+        "state": "SUCCEEDED",
+        "fingerprint": "0e92e9842d554fa30f275c773f0f6ef6295be08d6d82eda3161ae0508d67df96",
+        "event_chain_verified": true,
+        "result_hash_verified": true,
+        "source_bound_subtypes": [],
+        "campaign_reference_recovered": false,
+        "omission_plan_state": "CONTROLLED_OMISSION_DESIGN_READY",
+        "physical_execution_authorized": false,
+        "authority": {
+          "scientific_claim_scope": "ADVISORY_EVIDENCE_ONLY",
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      },
+      {
+        "job_id": "bb52fb7b-8520-407a-990a-dfdd071e9853",
+        "state": "WITHHELD",
+        "fingerprint": "8e44535b776c4469f150a720ad53a5edfa001f4f7ea3b8010c21ec1b0f243265",
+        "event_chain_verified": true,
+        "result_hash_verified": true,
+        "source_bound_subtypes": [],
+        "campaign_reference_recovered": true,
+        "omission_plan_state": null,
+        "physical_execution_authorized": false,
+        "authority": {
+          "scientific_claim_scope": "ADVISORY_EVIDENCE_ONLY",
+          "release_authority": false,
+          "safety_authority": false,
+          "compounding_authority": false,
+          "evidence_admission_authorized": false
+        }
+      }
+    ],
+    "interactive_browser_click_test_performed": false,
+    "static_html_js_and_api_checked": true,
+    "before_final_handoff_counts": {
+      "lab_engine_jobs": 4,
+      "lab_bottles": 0,
+      "lab_experiments": 0,
+      "lab_formula_versions": 0,
+      "lab_bottle_events": 0
+    },
+    "after_final_handoff_counts": {
+      "lab_engine_jobs": 7,
+      "lab_bottles": 0,
+      "lab_experiments": 0,
+      "lab_formula_versions": 0,
+      "lab_bottle_events": 0
+    },
+    "foreign_key_errors": [],
+    "backup": {
+      "path": "pre-upgrade-snapshots/perfume_chem_before_0025_20261007T124249Z.db",
+      "sha256": "7a94eea194085afeb867b3482a7bff7d9451d03cfbd605771c65efc50b442cc5"
+    }
+  },
+  "campaign_recovery": {
+    "campaign_id": "CHIMIE_LHOMME",
+    "state": "HISTORICAL_DESIGN_REFERENCE_RECOVERED",
+    "manifest_path": "data/governance/campaign_reference_chimie_lhomme_v1.json",
+    "manifest_sha256": "8ab669919d6633d440a7691f5b431ea6323807f6614d9d9d6598ac50d1cd166a",
+    "formula_liquid_ul": "5510",
+    "crystal_ambrox_mg": "600",
+    "current_bottle_reconstructed": false,
+    "automatic_campaign_generation_enabled": false,
+    "compatibility_hold_code_retained": true
+  },
+  "preserved_boundaries": {
+    "inventory_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "inventory_modified_by_this_increment": false,
+    "formula_modified_by_this_increment": false,
+    "orris_liquid_hold_cleared": false,
+    "physical_compounding_performed": false,
+    "sensory_validation_performed": false,
+    "empirical_promotion_performed": false,
+    "purchase_performed": false,
+    "git_commit_or_push_performed": false,
+    "unrelated_dirty_work_preserved": true,
+    "new_pipeline_script_added": false,
+    "speed_optimization_performed": false,
+    "deepseek_or_external_llm_route_used": false
+  },
+  "working_tree": {
+    "branch": "master",
+    "head": "1ed79650313c23b1a2fe1c36c2e90a606c64833b",
+    "dirty_work_preserved": true
+  },
+  "final_source_and_reference_hashes": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "b4a7a94b56f6ba083ef52bcab4cff2f068d52a93b173b617784329333db83e53"
+    },
+    {
+      "path": "run_api_server.py",
+      "sha256": "75f489fa64e3f113a4ae8018f8e4c867eabc6514253c052cf35e8bce2ff4cd7c"
+    },
+    {
+      "path": "engine/formulation_intelligence/architecture_bridge.py",
+      "sha256": "4e3adec2c9fca1cafdfd8e59897af6d6b9554aea4edffe9566d17f3380e434a2"
+    },
+    {
+      "path": "engine/formulation_intelligence/architecture_rules_v5.py",
+      "sha256": "52e0f65802f50661a110bbc3ab5b4b55b9fd9370d283ab387e817d368dc3b36b"
+    },
+    {
+      "path": "engine/formulation_intelligence/subtype_coverage.py",
+      "sha256": "ba9c74bf9f763bf10f3277ac3e65cbab95f7a634a16506e7d5c409fa47b5951c"
+    },
+    {
+      "path": "engine/formulation_intelligence/material_capability_index.py",
+      "sha256": "268c2139c7b8474b65481b61d152d45d8ce95166fc5f2d229cb5216dc941f688"
+    },
+    {
+      "path": "engine/formulation_intelligence/formula_solver.py",
+      "sha256": "0a7c79930d12f6244e18960f454c806a2edb4298c946bc07fcbe5a4922798391"
+    },
+    {
+      "path": "engine/formulation_intelligence/formula_critic.py",
+      "sha256": "8bdcb5e19cfe3b31e9ded2d407ad2e8ca53858b6ba0ba58ccbb2c5ec85979c48"
+    },
+    {
+      "path": "engine/formulation_intelligence/semantic_brief_adapter.py",
+      "sha256": "a2e08fecb290199d18a4427a3225703c812b13fba0375507c8e12249640cd26e"
+    },
+    {
+      "path": "engine/formulation_intelligence/formula_design_runtime.py",
+      "sha256": "05812c3c0444676153b48da4a2863a8007ca43154085714268830cc929d4458b"
+    },
+    {
+      "path": "engine/formulation_intelligence/subtype_research.py",
+      "sha256": "9b5d5216dd35e7a147923f52e28969d2777bbf355d11a74d1381cb32eef7d591"
+    },
+    {
+      "path": "engine/formulation_intelligence/campaign_reference.py",
+      "sha256": "4adcbd7d63ea1bda932f832ee9fc45d021d93b80d657d185a73463411518becc"
+    },
+    {
+      "path": "engine/research/subtype_benchmark.py",
+      "sha256": "22e6efc1e0584ad9ce949885db75502b5ee11e5fa6e8d5c6be8c978ea1a69273"
+    },
+    {
+      "path": "engine/research/controlled_omission.py",
+      "sha256": "da05075d84c1ed8389fe903925dd30b2fc51bf9ae371ed6e2c1fec5f18525f94"
+    },
+    {
+      "path": "backend/app/models/lab_engine_jobs.py",
+      "sha256": "9db8b9d4140a601b933c64cefa06d9b64edd74999135ef633c02a6453a84f829"
+    },
+    {
+      "path": "backend/app/schemas/engine_jobs.py",
+      "sha256": "6473491d31950e1be18daa2a6b4d568ddf588bd9d862e9cb4969c4121393596d"
+    },
+    {
+      "path": "backend/app/services/engine_job_registry.py",
+      "sha256": "cfda9eca7b9e1550984b08d27be1445d593d27957bf42b5718cedf7d8b8613a2"
+    },
+    {
+      "path": "backend/app/services/engine_jobs.py",
+      "sha256": "ea5249354be5df0ecaf97534e9bb76fe42eabe4e557485d30ba4e27c36ae64a4"
+    },
+    {
+      "path": "backend/app/services/engine_job_executor.py",
+      "sha256": "462adb539b9509817d2fc5cc464490c5228fa62e8822763248e1a990a90789df"
+    },
+    {
+      "path": "backend/app/static/index.html",
+      "sha256": "95e19c61e014640e4f42085a0f098a2dbf1bd1fc62763253f68b08d8a0049b5b"
+    },
+    {
+      "path": "backend/app/static/lab.js",
+      "sha256": "4a7828f08b9e7da35d634b330bdaf4448ebec92ab080da2d05fe65a7e5cbc793"
+    },
+    {
+      "path": "backend/alembic/versions/20261007_0025_omission_comparison_job.py",
+      "sha256": "b97d561e85de7fc08c343bb1bdbe4a5ccf485c84d06bb228ffb02ccf925accdd"
+    },
+    {
+      "path": "data/formulation_knowledge/subtype_research_v4.json",
+      "sha256": "14eef313a501262a63c839577d3b9cf48124441c1dbc1a03a2fcda1f17225c83"
+    },
+    {
+      "path": "data/formulation_knowledge/architecture_adapters_v5.json",
+      "sha256": "a88ebdd25e440da5ed23c532e632de2bd05a98ee7abc70ea05590d3a16a67c12"
+    },
+    {
+      "path": "data/formulation_knowledge/source_reviews_v1.json",
+      "sha256": "50627e5999064128792f67be198e395af5376ec7b8b08e8e7ac8c82d5fe19453"
+    },
+    {
+      "path": "data/formulation_knowledge/literature_v1.json",
+      "sha256": "94659e7167cd23dbc7df6e7b4ee527ef3f792ab2940c653beacaa671ea55db39"
+    },
+    {
+      "path": "data/formulation_knowledge/subtype_implementation_dispositions_v1.json",
+      "sha256": "6ebb46b2ecd4a751d1c2275be68d4d15ff0d185ef3b02d3f29c2a2e672ea741a"
+    },
+    {
+      "path": "tests/fixtures/architecture_comparison_v5.json",
+      "sha256": "573bb9ebe737e958c0ecf69395a7e090608fbe6f31f91b8e6dba8b733d29870e"
+    },
+    {
+      "path": "data/governance/campaign_reference_chimie_lhomme_v1.json",
+      "sha256": "8ab669919d6633d440a7691f5b431ea6323807f6614d9d9d6598ac50d1cd166a"
+    },
+    {
+      "path": "docs/research/SUBTYPE_COVERAGE_COMPLETION_PLAN_20261007.md",
+      "sha256": "98229cf66e1eb6dac086986b622b15299fe72b56e16be84775a8e932281972cb"
+    },
+    {
+      "path": "output/subtype_v5_final_quick_20261007.json",
+      "sha256": "5fcf11f56f66b9f954414ce4e60dc7c56c7ab03c6be2da4a5b19746b06e7f0a7"
+    },
+    {
+      "path": "output/subtype_v5_full_20261007.json",
+      "sha256": "d7d20a32e49b87494abcb35bb945fd5c9475e96e96127307e0a60ae60f7632b2"
+    },
+    {
+      "path": "output/architecture_v5_staged_20261007_run01.json",
+      "sha256": "fa0b1565f8aba421b27003efd48aecb75cfc92a3fd8223637014b548e7c35ed8"
+    },
+    {
+      "path": "inventory.txt",
+      "sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58"
+    }
+  ],
+  "next_evidence": [
+    "31 exact-product/grade cards need actual product binding and controlled alternatives; a generic family is not an exact substitute.",
+    "17 remaining omission cards need a specified fixed-row control and explicit comparable-basis blank. The generic planning tool exists.",
+    "27 cards need target or evidence inputs before a source-specific mapping is justified.",
+    "Current-stock empty-pool outcomes remain holds; do not manufacture odor annotations.",
+    "Use the recovered CHIMIE historical design as an explicit comparison target before any separately requested revision; do not infer its current bottle or +20% build.",
+    "Sensory usefulness and liking require real observations; quick personal observations remain optional and lightweight.",
+    "Resolve the catalogued full-verifier environment/fixture/gate failures before merge readiness; no sensory or release promotion."
+  ],
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

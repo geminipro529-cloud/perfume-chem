@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import copy
 import hashlib
-from dataclasses import asdict
+import json
+from dataclasses import asdict, replace
 from decimal import Decimal
 
 import pytest
@@ -44,7 +45,8 @@ def test_orris_current_stock_is_unique_nine_percent_mass_fraction_in_dep():
     assert stock.source_ref.endswith(
         "inventory_user_authority_overlay_20260905.json#INV-USER-20260905-001"
     )
-    assert stock.execution_ready is True
+    assert stock.execution_ready is False
+    assert "USER_COMPOUNDING_HOLD" in stock.execution_hold_reason
     assert len(materialized.requirements) == 280
     requirement = next(r for r in materialized.requirements if r.source_row == 195)
     assert requirement.disposition == "OWNED"
@@ -70,16 +72,14 @@ def test_orris_current_text_and_yaml_agree_without_rewriting_material_density():
     assert "Orris Liquid (9% w/w in DEP)" in record["aliases"]
 
 
-def test_orris_exact_stock_resolves_without_asserting_volume_to_mass_conversion():
+def test_orris_stock_binding_receipt_is_preserved_during_the_user_hold():
     check = _stock_check()
-    assert check.status == "PASS"
-    stock = check.data["resolved_stock_specs"]["Orris Liquid"]
-    assert stock["fraction_basis"] == "mass_fraction"
-    assert stock["carrier"] == "dep"
+    assert check.status == "FAIL"
+    assert "Orris Liquid" not in check.data.get("resolved_stock_specs", {})
     payload = inventory_parser.load_current_user_inventory_overlay()
     record = next(r for r in payload["records"] if r["canonical_name"] == "Orris Liquid")
-    # This check binds a declared stock; it does not validate a volume-to-mass
-    # conversion or impose a weighed-only restriction on downstream consumers.
+    # The historical binding remains readable but cannot override the new hold.
+    # It never validated a volume-to-mass conversion.
     assert record["stock"]["execution_scope"] == "STOCK_IDENTITY_AND_FRACTION_BINDING_ONLY"
     limits = record["authority_limits"]
     assert limits["product_mass_from_weighed_stock_known"] is True
@@ -173,3 +173,112 @@ def test_successor_rejects_changed_predecessor_bytes(tmp_path, monkeypatch):
     monkeypatch.setattr(inventory_parser, "PREVIOUS_USER_INVENTORY_OVERLAY_PATH", altered)
     with pytest.raises(inventory_parser.InventoryAuthorityError, match="hash drift"):
         inventory_parser.load_current_user_inventory_overlay()
+
+
+def test_user_compounding_hold_preserves_ownership_and_stock_binding():
+    materialized = inventory_parser.materialize_current_inventory()
+    stock = next(s for s in materialized.stocks if s.identity_name == "Orris Liquid")
+    assert stock.status == "owned"
+    assert (stock.dilution, stock.fraction_basis, stock.carrier) == (
+        0.09, "mass_fraction", "dep"
+    )
+    assert stock.execution_ready is False
+    assert stock.design_ready is False
+    assert "USER_COMPOUNDING_HOLD" in stock.execution_hold_reason
+    assert stock.stock_id.startswith("inventory:user-20260905:")
+    check = _stock_check()
+    assert check.status == "FAIL"
+    assert "Orris Liquid" not in check.data.get("resolved_stock_specs", {})
+
+
+def test_hold_does_not_mutate_stock_identity_or_unrelated_iris_materials():
+    materialized = inventory_parser.materialize_current_inventory()
+    held = next(s for s in materialized.stocks if s.identity_name == "Orris Liquid")
+    historical = replace(
+        held, execution_ready=True, execution_hold_reason="", design_ready=None,
+        design_hold_reason="",
+    )
+    other = replace(historical, name="Orris Butter", identity_name="Orris Butter")
+    stronger = replace(historical, dilution=0.30, stock_id="test:another-orris-strength")
+    result, digest = inventory_parser.apply_user_compounding_holds(
+        (historical, other, stronger)
+    )
+    assert len(digest) == 64
+    assert result[1] == other
+    assert not result[0].execution_ready
+    assert not result[2].execution_ready
+    changed = {
+        key for key, value in asdict(historical).items()
+        if asdict(result[0])[key] != value
+    }
+    assert changed == {
+        "execution_ready", "execution_hold_reason", "design_ready", "design_hold_reason"
+    }
+
+
+def test_stock_detail_completion_cannot_clear_user_hold(tmp_path, monkeypatch):
+    from engine.inventory_completions import effective_design_ready, record_inventory_completion
+
+    monkeypatch.setenv("PERFUME_INVENTORY_COMPLETION_PATH", str(tmp_path / "details.jsonl"))
+    baseline = inventory_parser.materialize_current_inventory()
+    stock = next(s for s in baseline.stocks if s.identity_name == "Orris Liquid")
+    _receipt, completed = record_inventory_completion(
+        stock_id=stock.stock_id,
+        expected_effective_inventory_sha256=baseline.effective_inventory_sha256,
+        idempotency_key="details-do-not-clear-user-hold",
+        fraction_decimal="0.09",
+        fraction_basis="mass_fraction",
+        carrier="DEP",
+        physical_form="solution",
+        possession_confirmed=True,
+        homogeneity="HOMOGENEOUS",
+        final_fraction_known=True,
+        source_kind="USER_LABEL_OR_RECIPE",
+        user_note="Stock details are not permission to use this product.",
+    )
+    updated = next(s for s in completed.stocks if s.stock_id == stock.stock_id)
+    assert not updated.execution_ready
+    assert not effective_design_ready(updated)
+    assert updated.design_ready is False
+    assert inventory_parser.is_user_compounding_held(updated)
+
+
+def test_hold_applies_to_legacy_and_personal_design_views(tmp_path):
+    from engine.inventory_completions import effective_design_ready
+    from engine.personal_inventory import materialize_personal_inventory
+    from engine.research.composition_planner import _load_candidates
+
+    for stocks in (
+        inventory_parser.parse_inventory(),
+        materialize_personal_inventory(addition_path=tmp_path / "unused.jsonl").stocks,
+    ):
+        held = [s for s in stocks if s.identity_name == "Orris Liquid"]
+        assert held and all(s.status == "owned" for s in held)
+        assert all(not effective_design_ready(s) for s in held)
+    candidates, _inventory, _known = _load_candidates(("Orris Liquid",))
+    assert all(c.stock.identity_name != "Orris Liquid" for c in candidates)
+
+
+def test_hold_source_drift_invalidates_cached_inventory(tmp_path, monkeypatch):
+    path = tmp_path / "holds.json"
+    path.write_bytes(inventory_parser.USER_COMPOUNDING_HOLDS_PATH.read_bytes())
+    monkeypatch.setattr(inventory_parser, "USER_COMPOUNDING_HOLDS_PATH", path)
+    before = inventory_parser.materialize_current_inventory()
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["source"]["request"] += " Additional information remains pending."
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    after = inventory_parser.materialize_current_inventory()
+    assert before.effective_inventory_sha256 != after.effective_inventory_sha256
+    assert before.stocks == after.stocks
+    assert before.snapshot_sha256 == after.snapshot_sha256
+    assert before.overlay_sha256 == after.overlay_sha256
+
+
+@pytest.mark.parametrize("bad_content", [None, "{", "[]", '{"records": []}'])
+def test_missing_or_malformed_hold_policy_fails_closed(tmp_path, monkeypatch, bad_content):
+    path = tmp_path / "invalid-holds.json"
+    if bad_content is not None:
+        path.write_text(bad_content, encoding="utf-8")
+    monkeypatch.setattr(inventory_parser, "USER_COMPOUNDING_HOLDS_PATH", path)
+    with pytest.raises(inventory_parser.InventoryAuthorityError, match="compounding hold"):
+        inventory_parser.materialize_current_inventory()

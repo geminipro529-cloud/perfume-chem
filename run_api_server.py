@@ -13,6 +13,10 @@ from pathlib import Path
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
+        "--host", default="0.0.0.0",
+        help="API bind address; use 127.0.0.1 for a loopback-only desktop session.",
+    )
+    parser.add_argument(
         "--no-engine-worker",
         action="store_true",
         help="Run only the API process (the durable worker is enabled by default).",
@@ -67,7 +71,7 @@ def main() -> None:
     try:
         uvicorn.run(
             "app.main:app",
-            host="0.0.0.0",
+            host=args.host,
             port=8000,
             reload=args.reload,
             log_level="info",

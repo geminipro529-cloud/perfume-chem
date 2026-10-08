@@ -20,6 +20,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from app.models.lab import LabRecord, UTCDateTime
 
 ENGINE_JOB_TYPES = (
+    "OMISSION_COMPARISON_PLAN",
     "FORMULA_DESIGN",
     "FORMULA_ANALYSIS",
     "RELEASE_SIMULATION",

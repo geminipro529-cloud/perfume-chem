@@ -161,7 +161,8 @@ def test_derived_material_cache_reflects_both_inventory_closures() -> None:
 
     assert pepper["in_inventory"] is True
     assert pepper["inventory_status"] == "BOUND_CURRENT_STOCK"
-    assert pepper["stock_authority"] == inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256
+    # This persisted cache is September 15 output, not a live authority rebind.
+    assert pepper["stock_authority"] == inventory.METHYL_PAMPLEMOUSSE_10WW_ETHANOL_USER_INVENTORY_OVERLAY_SHA256
     assert pepper["quantitative_stock_ready"] is True
     assert pepper["current_stocks"][0]["stock_id"] == _pink_stock().stock_id
 

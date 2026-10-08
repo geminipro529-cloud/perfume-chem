@@ -19,6 +19,30 @@ def _r6_rows() -> tuple[GoalFormulaRowV1, ...]:
     )
 
 
+@pytest.mark.parametrize("strategy", ["NEW_FORMULA", "EVOLVING_BOTTLE"])
+def test_user_hold_prevents_orris_compounding_or_bottle_addition_hypotheses(strategy):
+    rows = (
+        GoalFormulaRowV1("orris", "Orris Liquid", "100", "uL"),
+        GoalFormulaRowV1("hedione", "Hedione", "500", "uL"),
+    )
+    request = GoalAnalysisRequestV1(
+        formula_id="historical-iris",
+        formula_name="Historical Iris Study",
+        rows=rows,
+        goals=("Increase Orris Liquid",),
+        available_materials=("Orris Liquid",),
+        execution_strategy=strategy,
+    )
+    result = analyze_formula_for_goal(request)
+    assert result["status"] == "WITHHELD_USER_COMPOUNDING_HOLD"
+    assert result["modification_hypotheses"] == []
+    assert result["selection"]["formula_action"] == "NO_CHANGE"
+    assert result["formula_modified"] is False
+    assert any(c["evidence_class"] == "USER_COMPOUNDING_EXCLUSION" for c in result["clues"])
+    assert len(result["user_compounding_holds_sha256"]) == 64
+    assert request.rows == rows
+
+
 def test_named_formula_block_becomes_small_ratio_preserving_trial() -> None:
     result = analyze_formula_for_goal(
         GoalAnalysisRequestV1(

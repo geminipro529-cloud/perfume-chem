@@ -134,8 +134,10 @@
   trp_targets:
   hedonic_valence: 0.65
   ifra_max_pct_edp:
-  user_stock_dilution: 1.0 # SYNCED: matched inventory.txt, 2026-05-30
+  user_stock_dilution: 1  # Product label fraction; exact basis/forms in receipt.
   user_in_inventory: true
+  # Received-stock authority: data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json; line(s) 5.
+  # Existing working dilutions remain separate inventory rows; no purity assay inferred.
   supplier:
     perfumersworld_sku: 3XA22378
     perfumersworld_price_usd_per_g: 0.22

@@ -1,6 +1,7 @@
 """Runtime literature is bounded design guidance, not invented sensory data."""
 
 import hashlib
+import json
 import socket
 from dataclasses import replace
 from pathlib import Path
@@ -87,12 +88,76 @@ def test_pack_preserves_source_classes_and_has_no_dose_or_hedonic_labels() -> No
     )
 
 
-def test_prior_research_census_is_complete_and_non_authoritative() -> None:
+def test_prior_research_snapshot_is_byte_verified_and_non_authoritative() -> None:
     result = audit_prior_research()
     assert result["indexed_record_count"] >= 128
     assert result["drifted_paths"] == []
     assert result["runtime_claim_authority"] is False
     assert result["reviewed_full_text"] is False
+
+
+def test_byte_successor_preserves_original_corpus_and_exact_newline_proofs() -> None:
+    from engine.formulation_intelligence import literature_knowledge as knowledge
+
+    parent_bytes = knowledge.CORPUS_PARENT_PATH.read_bytes()
+    assert hashlib.sha256(parent_bytes).hexdigest() == (
+        "d614d475e88b049a21747737842fe35e8ff40292c83c403b73ba69e1c554841a"
+    )
+    parent = knowledge._parse_corpus(parent_bytes)
+    successor = knowledge._parse_corpus(knowledge.CORPUS_PATH.read_bytes(), parent_bytes)
+    rebound = [row for row in successor["records"] if "byte_rebinding" in row]
+    assert len(rebound) == 8
+    assert [row["path"] for row in successor["records"]] == [
+        row["path"] for row in parent["records"]
+    ]
+    assert set(audit_prior_research(manifest=parent)["drifted_paths"]) == {
+        row["path"] for row in rebound
+    }
+    assert audit_prior_research(manifest=successor)["drifted_paths"] == []
+
+
+def test_cached_corpus_cannot_hide_parent_byte_drift() -> None:
+    from engine.formulation_intelligence import literature_knowledge as knowledge
+
+    child_bytes = knowledge.CORPUS_PATH.read_bytes()
+    parent_bytes = knowledge.CORPUS_PARENT_PATH.read_bytes()
+    knowledge._parse_corpus(child_bytes, parent_bytes)
+    with pytest.raises(ValueError, match="predecessor hash drift"):
+        knowledge._parse_corpus(child_bytes, parent_bytes + b"\n")
+
+
+@pytest.mark.parametrize("mutation", ["title", "order", "authority"])
+def test_byte_successor_cannot_rewrite_reference_scope(mutation: str) -> None:
+    from engine.formulation_intelligence import literature_knowledge as knowledge
+
+    child = json.loads(knowledge.CORPUS_PATH.read_bytes())
+    if mutation == "title":
+        child["records"][0]["title"] = "new scientific result"
+    elif mutation == "order":
+        child["records"].reverse()
+    else:
+        child["authority_scope"] = "EMPIRICAL_ADMISSION"
+    with pytest.raises(ValueError, match="changed"):
+        knowledge._parse_corpus(json.dumps(child).encode(), knowledge.CORPUS_PARENT_PATH.read_bytes())
+
+
+def test_semantic_change_cannot_borrow_newline_rebinding(tmp_path: Path) -> None:
+    original = b"original\r\n"
+    changed = b"different\n"
+    (tmp_path / "source.md").write_bytes(changed)
+    manifest = {
+        "records": [{
+            "path": "source.md",
+            "sha256": hashlib.sha256(changed).hexdigest(),
+            "byte_count": len(changed),
+            "byte_rebinding": {
+                "kind": "VERIFIED_LF_CRLF_ONLY",
+                "previous_sha256": hashlib.sha256(original).hexdigest(),
+                "previous_byte_count": len(original),
+            },
+        }],
+    }
+    assert audit_prior_research(manifest=manifest, root=tmp_path)["state"] == "WITHHOLD_SOURCE_DRIFT"
 
 
 def test_prior_document_drift_is_reported_not_silently_reindexed(tmp_path: Path) -> None:

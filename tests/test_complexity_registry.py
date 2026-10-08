@@ -114,11 +114,58 @@ def test_failed_benchmark_families_are_recoverably_retired() -> None:
 
 
 def test_repository_census_has_exactly_one_classification_per_finding() -> None:
-    registry = load_complexity_registry(PROJECT_ROOT, REGISTRY_PATH)
+    registry = load_complexity_registry(
+        PROJECT_ROOT, REGISTRY_PATH.with_name("complexity_module_registry_v3.json"),
+    )
     result = census_complexity_artifacts(PROJECT_ROOT, registry)
     assert result.multiply_classified == ()
     assert result.unclassified == ()
     assert result.state == "PASS"
+
+
+def test_current_census_cannot_rewrite_historical_benchmark_authority() -> None:
+    historical = load_complexity_registry(PROJECT_ROOT, REGISTRY_PATH)
+    current = load_complexity_registry(
+        PROJECT_ROOT, REGISTRY_PATH.with_name("complexity_module_registry_v3.json"),
+    )
+    for prior in historical.modules:
+        successor = current.module_by_id(prior.module_id)
+        if prior.module_id == "citrus-architecture-selector":
+            assert successor.state is ModuleState.RETIRED_BENCHMARK_UNDERPERFORMER
+        else:
+            assert successor.state is prior.state
+        assert successor.role is prior.role
+        assert successor.import_path == prior.import_path
+        assert successor.evidence_refs[:len(prior.evidence_refs)] == prior.evidence_refs
+        assert successor.notes[:len(prior.notes)] == prior.notes
+    new_modules = {
+        row.module_id for row in current.modules
+    } - {row.module_id for row in historical.modules}
+    assert len(new_modules) == 9
+    assert all(
+        not current.module_by_id(module_id).runtime_eligible
+        for module_id in new_modules
+    )
+
+
+def test_benchmark_preparation_still_checks_frozen_v1_registry(monkeypatch) -> None:
+    from engine.perception import complexity_benchmark as benchmark
+
+    captured = {}
+
+    def frozen_census(**kwargs):
+        captured.update(kwargs)
+        return {"state": "HOLD", "blockers": ["frozen_registry_drift"]}
+
+    monkeypatch.setattr(benchmark, "run_complexity_census", frozen_census)
+    result = benchmark.prepare_complexity_benchmark(
+        project_root=PROJECT_ROOT,
+        run_dir=Path("output/complexity_xhigh_benchmark/repair-contract-test"),
+    )
+    assert captured["registry_path"] == benchmark._REGISTRY_PATH
+    assert result["state"] == "HOLD"
+    assert result["prepared_request_count"] == 0
+    assert result["provider_calls"] == 0
 
 
 def test_registry_rejects_paths_outside_the_project(tmp_path: Path) -> None:

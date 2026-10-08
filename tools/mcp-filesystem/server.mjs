@@ -14,10 +14,12 @@ import {
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
+import { fileURLToPath } from "node:url";
 
+const DEFAULT_WORKSPACE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const WORKSPACE = process.env.FS_MCP_ROOT
   ? path.resolve(process.env.FS_MCP_ROOT)
-  : path.resolve(process.cwd());
+  : DEFAULT_WORKSPACE;
 const READONLY = process.env.FS_MCP_READONLY === "1";
 const MAX_READ_BYTES = Number(process.env.FS_MCP_MAX_READ_BYTES ?? 2_000_000);
 const MAX_WRITE_BYTES = Number(process.env.FS_MCP_MAX_WRITE_BYTES ?? 1_000_000);

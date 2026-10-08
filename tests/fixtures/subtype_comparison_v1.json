@@ -1,0 +1,162 @@
+{
+  "schema_version": "subtype-comparison-corpus-v1",
+  "frozen_before_execution": true,
+  "scope": "PAIRED_SUBTYPE_MANIFEST_ABLATION_NOT_SENSORY_BENCHMARK",
+  "cases": [
+    {
+      "case_id": "LILAC",
+      "brief": "Lilac flowers, Syringa vulgaris, with a light green floral character",
+      "review_topics": [
+        "Syringa",
+        "flower"
+      ],
+      "identity_risks": [
+        "seed"
+      ],
+      "must_avoid": []
+    },
+    {
+      "case_id": "HONEYSUCKLE",
+      "brief": "Honeysuckle flowers, Lonicera japonica, with airy floral sweetness",
+      "review_topics": [
+        "Lonicera",
+        "species"
+      ],
+      "identity_risks": [],
+      "must_avoid": []
+    },
+    {
+      "case_id": "SWEET_PEA",
+      "brief": "Sweet pea flowers, Lathyrus odoratus, with a delicate floral character",
+      "review_topics": [
+        "Lathyrus",
+        "flower"
+      ],
+      "identity_risks": [
+        "edible pea"
+      ],
+      "must_avoid": []
+    },
+    {
+      "case_id": "CHAMPACA",
+      "brief": "Champaca flowers, Magnolia champaca, with warm floral character",
+      "review_topics": [
+        "champaca",
+        "flower"
+      ],
+      "identity_risks": [],
+      "must_avoid": []
+    },
+    {
+      "case_id": "ALBA",
+      "brief": "White Michelia alba flowers, Magnolia x alba, with luminous floral character",
+      "review_topics": [
+        "alba",
+        "flower"
+      ],
+      "identity_risks": [],
+      "must_avoid": []
+    },
+    {
+      "case_id": "CANANGA",
+      "brief": "Cananga floral character with restrained tropical warmth",
+      "review_topics": [
+        "cananga",
+        "ylang"
+      ],
+      "identity_risks": [],
+      "must_avoid": []
+    },
+    {
+      "case_id": "COFFEE_LAVENDER",
+      "brief": "Lavender with a coffee milk accent, without vanilla",
+      "review_topics": [
+        "coffee",
+        "lavender"
+      ],
+      "identity_risks": [],
+      "must_avoid": [
+        "vanilla"
+      ]
+    },
+    {
+      "case_id": "CEDRAT",
+      "brief": "Citron cedrat peel in a fresh woody cologne, without lime",
+      "review_topics": [
+        "citron",
+        "peel"
+      ],
+      "identity_risks": [],
+      "must_avoid": [
+        "lime"
+      ]
+    },
+    {
+      "case_id": "MANGO",
+      "brief": "Mango fruit with a green peel accent, without pineapple",
+      "review_topics": [
+        "mango",
+        "matrix"
+      ],
+      "identity_risks": [],
+      "must_avoid": [
+        "pineapple"
+      ]
+    },
+    {
+      "case_id": "VETIVER",
+      "brief": "Smoky dry vetiver with restrained sweetness",
+      "review_topics": [
+        "vetiver",
+        "product"
+      ],
+      "identity_risks": [],
+      "must_avoid": []
+    },
+    {
+      "case_id": "SMOKY_TEA",
+      "brief": "Smoky tea with a dry woody background, without vanilla",
+      "review_topics": [
+        "tea",
+        "smok"
+      ],
+      "identity_risks": [],
+      "must_avoid": [
+        "vanilla"
+      ]
+    },
+    {
+      "case_id": "GENERIC",
+      "brief": "A fresh floral fragrance",
+      "review_topics": [],
+      "identity_risks": [],
+      "must_avoid": []
+    }
+  ],
+  "configuration": {
+    "arms": [
+      "IMMUTABLE_V2",
+      "CURRENT_V3"
+    ],
+    "design_mode": "DEEP_COMPOSE",
+    "variant_count": 1,
+    "max_materials": 12,
+    "liquid_concentrate_ul_decimal": "6000",
+    "seed": "NOT_APPLICABLE_DETERMINISTIC",
+    "variant_index": 0,
+    "beam_width": 48,
+    "common_literature_and_reviews": true
+  },
+  "criteria": {
+    "composition": "Compare complete optimized_formula objects, quantities, units and exact stock identities independently of report fingerprints; equality is not sensory superiority.",
+    "advice": "Evaluate source closure, separately identified hypothesis, comparison control/question/stop and identity/matrix limits. Review topics are an audit aid, not an automatic quality/beauty score.",
+    "constraints": "Preserve explicit avoid instructions; generic floral must not invent botanical specificity.",
+    "sensory": "NOT_TESTED; do not declare better smelling formulas or consumer preference."
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

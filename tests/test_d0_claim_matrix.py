@@ -5,6 +5,7 @@ import subprocess
 import sys
 from dataclasses import FrozenInstanceError, replace
 from decimal import Decimal
+from hashlib import sha256
 from pathlib import Path
 
 import pytest
@@ -38,6 +39,7 @@ from engine.scientific_validation.first_claim import (
     FIRST_CLAIM_ID,
     build_prada_orris_first_claim,
 )
+from scripts import verify_d0_claim_matrix as d0_verifier
 from scripts.verify_d0_claim_matrix import build_gate_payload
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
@@ -452,10 +454,10 @@ def test_live_d0_gate_binds_quarantined_formula_bytes() -> None:
     formula_bindings = payload["formula_bindings"]
     assert isinstance(formula_bindings, list)
     assert formula_bindings[0]["sha256"] == (
-        "151de70b2983a7902a67daf8ddd43e0692bfea4ee5f8c92e553c3174827e1d00"
+        sha256((REPOSITORY_ROOT / d0_verifier.CONTROL_RELATIVE).read_bytes()).hexdigest()
     )
     assert formula_bindings[1]["sha256"] == (
-        "c05661384d53c27aa7a50b50e14e62cf245ee5aa8d3974e0829a56f873d5eb4d"
+        sha256((REPOSITORY_ROOT / d0_verifier.INTERVENTION_RELATIVE).read_bytes()).hexdigest()
     )
     assert all(item["status"] == "QUARANTINED" for item in formula_bindings)
     assert payload["blockers"] == [
@@ -465,6 +467,30 @@ def test_live_d0_gate_binds_quarantined_formula_bytes() -> None:
         "trained panel, pilot, power, protocol, and confirmatory evidence do not exist",
         "authorized human scientific release has not occurred",
     ]
+
+
+@pytest.mark.parametrize("line_ending", [b"\n", b"\r\n"])
+def test_d0_only_accepts_verified_byte_variants_and_returns_raw_hash(
+    tmp_path, monkeypatch, line_ending,
+) -> None:
+    (tmp_path / ".git").mkdir()
+    monkeypatch.setattr(d0_verifier, "_repository_head", lambda _: "a" * 40)
+    for relative in (d0_verifier.CONTROL_RELATIVE, d0_verifier.INTERVENTION_RELATIVE):
+        raw = (REPOSITORY_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+        target = tmp_path / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(raw.replace(b"\n", line_ending))
+    payload = build_gate_payload(tmp_path)
+    for binding in payload["formula_bindings"]:
+        assert binding["sha256"] == sha256(
+            (tmp_path / binding["path"]).read_bytes()
+        ).hexdigest()
+    assert payload["release_authority"] is False
+    assert payload["study_authorized"] is False
+    control = tmp_path / d0_verifier.CONTROL_RELATIVE
+    control.write_bytes(control.read_bytes() + b"arbitrary alteration")
+    with pytest.raises(ValueError, match="control formula binding changed"):
+        build_gate_payload(tmp_path)
 
 
 def test_live_d0_gate_cli_is_deterministic_utf8_json_with_empty_stderr() -> None:

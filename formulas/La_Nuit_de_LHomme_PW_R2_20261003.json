@@ -1,0 +1,2029 @@
+{
+  "schema_version": "pw-reference-reconstruction-design-v1",
+  "design_id": "La_Nuit_de_LHomme_PW_R2_20261003",
+  "name": "La Nuit de L'Homme — PW R2 original EDT study",
+  "date": "2026-10-03",
+  "status": "DESIGN_COMPLETE_CONDITIONAL_BENCH_RECIPE_UNTESTED",
+  "operating_mode": "REFERENCE_ARCHITECTURE_RECONSTRUCTION_NEW_FORMULA",
+  "claim": "A PerfumersWorld-based attempt at the original YSL EDT architecture; not the original commercial formula, not a measured similarity claim, not a physical mixing record.",
+  "author": "Codex-native root formulation",
+  "external_llm_used": false,
+  "lineage": {
+    "immediate_parent_path": "formulas/La_Nuit_de_LHomme_Realistic_Reconstruction_30mL_EDT.md",
+    "immediate_parent_sha256": "adb175e5f5ad410b00b6f822219e3fb00558201139afa7bca4b56d86f338bb04",
+    "parent_preserved": true,
+    "revision_type": "INTENTIONAL_RETARGET_AND_NEW_WEIGHED_REALIZATION",
+    "stock_rebase_active_equivalence_claim": false,
+    "parent_active_equivalence": "UNAVAILABLE_OLD_MIXED_VOLUME_STOCK_BASES_NO_DENSITY_CHAIN",
+    "premix_guard": "NOT_RUN_NO_VALIDATED_PHYSICAL_BUILD_OR_SENSORY_RELEASE"
+  },
+  "source_snapshots": {
+    "inventory.txt": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "AGENTS.md": "a97d05907b9eddba1212b42c9765b8b4903b6ba731d185cdd3ba8bbd35e57870",
+    ".github\\copilot-instructions.md": "ac8de3a4db8096f82cf5c26843b00912528281873f94c2f87052b46d9dd19814",
+    "docs\\fragrance_families_reference.md": "54f1238dbd86586e5405195b3b4988478d743c3c5caab93baae3d76874eaaf66",
+    "formulas\\La_Nuit_de_LHomme_Realistic_Reconstruction_30mL_EDT.md": "adb175e5f5ad410b00b6f822219e3fb00558201139afa7bca4b56d86f338bb04",
+    "formulas\\La_Nuit_de_LHomme_Luxe_30mL_EDT.md": "254a73b6b45420cf89034fc5c2caabcaace9a197be315c31e9958e4a5cfdaebb",
+    "formulas\\La_Nuit_Realistic_Reconstruction_30mL_EDT.md": "615b57a1c4cff46503788dd5dcbdae7a5f9c993d8d03d1bf22ed794e1cc3e9ec",
+    "docs\\research\\YSL_LHomme_La_Nuit_Reverse_Engineering_Research_2026-07-27.md": "6b365a535b5a76cab245408eabfdbaac67f036a7f26b04610bb343ed445d7746"
+  },
+  "pw_catalog": {
+    "path": "output/research/perfumersworld_catalog_20260930/catalog_rows_v1.json",
+    "sha256": "277ddd8e3a0080fb6af6fa7218bb16c51fdf2e1e28cebaf67c2f5ac404d77bb4",
+    "date": "2026-09-30",
+    "candidate_specific_fresh_reads": [
+      "7SC00084",
+      "7HB07675",
+      "1UW00035",
+      "2XX00186",
+      "4XA13770",
+      "3WY00465",
+      "3IW00300",
+      "3WY00468",
+      "3LK00432",
+      "9IF02656",
+      "9IF07120",
+      "3GO00229",
+      "7WY00466",
+      "7WB13670"
+    ],
+    "complete_catalog_current_census_claim": false
+  },
+  "locked_brief": {
+    "reference": "YSL La Nuit de L'Homme original Eau de Toilette",
+    "reference_bottle": "NOT_BOUND_NO_VERSION_MATCHED_SAMPLE",
+    "protected_anchors": [
+      "recognizable green cardamom",
+      "soft aromatic lavender bridge",
+      "cedar texture",
+      "restrained coumarin/tonka warmth",
+      "subordinate smooth musks"
+    ],
+    "negative_space": [
+      "blue shower gel",
+      "menthol/eucalyptus medicine",
+      "pencil-shaving drywood",
+      "vanilla caramel gourmand",
+      "iris lipstick soliflore",
+      "Ambrox/superamber bomb",
+      "loud floral bouquet"
+    ],
+    "temporal_goals": [
+      "spice/citrus opening",
+      "aromatic/powder heart",
+      "soft cedar/vetiver/musk drydown"
+    ],
+    "temporal_goals_are": "UNTESTED_DESIGN_INTENT_NOT_PREDICTED_DURATION"
+  },
+  "target_basis": {
+    "unit": "percent_w_w_undiluted_perfumery_product_equivalent",
+    "total_percent": "100",
+    "product_equivalent_master_g": "5",
+    "pure_odorant_mass": null,
+    "natural_remainder": "RETAINED_WITHIN_WHOLE_OIL",
+    "proprietary_product_composition": "NOT_FULLY_KNOWN",
+    "working_carriers_excluded_from_target_percent": true
+  },
+  "rows": [
+    {
+      "line_id": "L01",
+      "material": "Iso E Super",
+      "percent_product_equivalent_w_w": "25",
+      "pw_sku": "3WY00244",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3WY00244",
+      "chemical_or_product_class": "sesquiterpenoid ketone product/isomer mixture",
+      "module": "Woody halo",
+      "function": "Abstract soft cedar diffusion around cardamom; not literal natural cedar",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Iso E Super",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Iso E Super",
+      "pw_price_usd_per_g": "0.14",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "1.250000",
+      "required_working_stock_g_for_5g": "1.250000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L02",
+      "material": "Galaxolide",
+      "percent_product_equivalent_w_w": "12",
+      "pw_sku": "4XA13770",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4XA13770",
+      "chemical_or_product_class": "polycyclic isochroman musk",
+      "module": "Musk body",
+      "function": "Clean, smooth bulk musk under the aromatic heart; laundry risk controlled by comparison",
+      "current_inventory_state": "OWNED_50_DEP_BASIS_UNRECORDED",
+      "inventory_label": "Galaxolide (50% in DEP)",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "viscous_liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Galaxolide 100 (Undiluted)",
+      "pw_price_usd_per_g": "0.15",
+      "catalog_evidence": "PW_PAGE_READ_20261003_LISTED_IN_STOCK",
+      "undiluted_product_mass_g_for_5g": "0.600000",
+      "required_working_stock_g_for_5g": "0.600000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L03",
+      "material": "Hedione",
+      "percent_product_equivalent_w_w": "8.4",
+      "pw_sku": "3JJ00218",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3JJ00218",
+      "chemical_or_product_class": "methyl dihydrojasmonate product",
+      "module": "Aromatic air",
+      "function": "Transparent air between spice and wood without a named jasmine bouquet",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Hedione",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Hedione",
+      "pw_price_usd_per_g": "0.15",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.420000",
+      "required_working_stock_g_for_5g": "0.420000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L04",
+      "material": "Ethyl Linalool",
+      "percent_product_equivalent_w_w": "7",
+      "pw_sku": "4LL11499",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4LL11499",
+      "chemical_or_product_class": "terpenoid alcohol",
+      "module": "Aromatic air",
+      "function": "Smooth floral-aromatic lift extending the bergamot/lavender impression",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Ethyl Linalool",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Ethyl Linalool",
+      "pw_price_usd_per_g": "0.19",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.350000",
+      "required_working_stock_g_for_5g": "0.350000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L05",
+      "material": "Linalyl Acetate",
+      "percent_product_equivalent_w_w": "5",
+      "pw_sku": "3LF00279",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3LF00279",
+      "chemical_or_product_class": "terpenoid ester",
+      "module": "Citrus / aromatic opening",
+      "function": "Soft fruity-aromatic ester linking bergamot to lavender; not a pear accord",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Linalyl Acetate",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Linalyl Acetate",
+      "pw_price_usd_per_g": "0.10",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.250000",
+      "required_working_stock_g_for_5g": "0.250000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L06",
+      "material": "Vertofix Coeur",
+      "percent_product_equivalent_w_w": "6",
+      "pw_sku": "3WY00465",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3WY00465",
+      "chemical_or_product_class": "acetylated cedrene product",
+      "module": "Woody / vetiver foundation",
+      "function": "Dry cedar/leather body distinct from abstract Iso E; mobile if scratchy",
+      "current_inventory_state": "OWNED_GENERIC_GRADE_UNBOUND",
+      "inventory_label": "Vertofix",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Vertofix Couer",
+      "pw_price_usd_per_g": "0.22",
+      "catalog_evidence": "PW_PAGE_READ_20261003_LISTED_IN_STOCK",
+      "undiluted_product_mass_g_for_5g": "0.300000",
+      "required_working_stock_g_for_5g": "0.300000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L07",
+      "material": "Alpha Isomethyl Ionone",
+      "percent_product_equivalent_w_w": "4",
+      "pw_sku": "3IW00300",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3IW00300",
+      "chemical_or_product_class": "methyl-ionone product; grade-specific",
+      "module": "Soft powder / tonka",
+      "function": "Low violet-woody softness connecting aromatic heart to musks; not Gamma Coeur equivalence",
+      "current_inventory_state": "OWNED_EXACT_PW_ID",
+      "inventory_label": "Alpha Isomethyl Ionone (AIMI; PW 3IW00300)",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Alpha Isomethyl Ionone",
+      "pw_price_usd_per_g": "0.23",
+      "catalog_evidence": "PW_PAGE_READ_20261003_LISTED_IN_STOCK",
+      "undiluted_product_mass_g_for_5g": "0.200000",
+      "required_working_stock_g_for_5g": "0.200000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L08",
+      "material": "Ambrox Super",
+      "percent_product_equivalent_w_w": "3",
+      "pw_sku": "1UW00035",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=1UW00035",
+      "chemical_or_product_class": "ambroxide commercial grade",
+      "module": "Woody / vetiver foundation",
+      "function": "Moderate ambergris support, not an Ambrox bomb",
+      "current_inventory_state": "OWNED_NEAT_CRYSTALS",
+      "inventory_label": "Ambrox Super Crystals",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "solid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Ambrox Super",
+      "pw_price_usd_per_g": "1.50",
+      "catalog_evidence": "PW_PAGE_READ_20261003_LISTED_IN_STOCK",
+      "undiluted_product_mass_g_for_5g": "0.150000",
+      "required_working_stock_g_for_5g": "0.150000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L09",
+      "material": "Dihydro Myrcenol",
+      "percent_product_equivalent_w_w": "3",
+      "pw_sku": "3CK00150",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3CK00150",
+      "chemical_or_product_class": "acyclic monoterpenoid alcohol",
+      "module": "Citrus / aromatic opening",
+      "function": "Restricted clean freshness; mobile downward if it reads like blue shower gel",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Dihydromyrcenol",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Dihydro Myrcenol",
+      "pw_price_usd_per_g": "0.12",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.150000",
+      "required_working_stock_g_for_5g": "0.150000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L10",
+      "material": "Cashmeran",
+      "percent_product_equivalent_w_w": "2.5",
+      "pw_sku": "4XB00090",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4XB00090",
+      "chemical_or_product_class": "polycyclic indanone",
+      "module": "Woody / vetiver foundation",
+      "function": "Small warm textile-spice shadow, not a huge powdery-musky base",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Cashmeran neat",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid_or_low_melting",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Cashmeran",
+      "pw_price_usd_per_g": "0.52",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.125000",
+      "required_working_stock_g_for_5g": "0.125000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L11",
+      "material": "Vetiveryl Acetate",
+      "percent_product_equivalent_w_w": "2.5",
+      "pw_sku": "3WY00468",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3WY00468",
+      "chemical_or_product_class": "acetylated vetiver-alcohol product mixture",
+      "module": "Woody / vetiver foundation",
+      "function": "Polished sweet-dry vetiver facet that natural root oil alone cannot reproduce",
+      "current_inventory_state": "OWNED_USER_CONFIRMED_NEAT",
+      "inventory_label": "Vetiveryl Acetate neat",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Vetiveryl Acetate",
+      "pw_price_usd_per_g": "2.72",
+      "catalog_evidence": "PW_PAGE_READ_20261003_LISTED_IN_STOCK",
+      "undiluted_product_mass_g_for_5g": "0.125000",
+      "required_working_stock_g_for_5g": "0.125000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L12",
+      "material": "Florol",
+      "percent_product_equivalent_w_w": "2",
+      "pw_sku": "3ML00192",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3ML00192",
+      "chemical_or_product_class": "tetrahydropyranol floral product",
+      "module": "Aromatic air",
+      "function": "Restricted clean floral volume; omission test against soap/shampoo risk",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Florol",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Florol",
+      "pw_price_usd_per_g": "0.10",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.100000",
+      "required_working_stock_g_for_5g": "0.100000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L13",
+      "material": "Exaltolide Pentadecanolide",
+      "percent_product_equivalent_w_w": "3",
+      "pw_sku": "2XX00186",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=2XX00186",
+      "chemical_or_product_class": "macrocyclic lactone musk",
+      "module": "Musk body",
+      "function": "Soft skin/powder cushion distinct from Galaxolide's clean bulk",
+      "current_inventory_state": "OWNED_10_DPG_BASIS_UNRECORDED",
+      "inventory_label": "Exaltolide (10% in DPG)",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "waxy_solid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Exaltolide Pentadecanolide",
+      "pw_price_usd_per_g": "1.10",
+      "catalog_evidence": "PW_PAGE_READ_20261003_LISTED_IN_STOCK",
+      "undiluted_product_mass_g_for_5g": "0.150000",
+      "required_working_stock_g_for_5g": "0.150000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L14",
+      "material": "Bergamot FCF oil Sicilian",
+      "percent_product_equivalent_w_w": "3.8",
+      "pw_sku": "7CL24020",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7CL24020",
+      "chemical_or_product_class": "whole processed citrus oil",
+      "module": "Citrus / aromatic opening",
+      "function": "Literal bergamot peel brightness with FCF grade preserved",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Bergamot FCF oil Sicilian",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Bergamot FCF oil Sicilian",
+      "pw_price_usd_per_g": "0.22",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.190000",
+      "required_working_stock_g_for_5g": "0.190000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L15",
+      "material": "Cedarwood Virginian Essential Oil",
+      "percent_product_equivalent_w_w": "1.2",
+      "pw_sku": "7WW00095",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7WW00095",
+      "chemical_or_product_class": "whole conifer wood oil",
+      "module": "Woody / vetiver foundation",
+      "function": "Small literal cedar grain; not a pencil-shaving overdose",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Cedarwood oil Virginia",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Cedarwood Virginian Essential Oil",
+      "pw_price_usd_per_g": "0.32",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.060000",
+      "required_working_stock_g_for_5g": "0.060000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L16",
+      "material": "Sandalore",
+      "percent_product_equivalent_w_w": "1.8",
+      "pw_sku": "4WX00405",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4WX00405",
+      "chemical_or_product_class": "synthetic sandalwood alcohol product",
+      "module": "Woody / vetiver foundation",
+      "function": "Restrained cream rounding underneath cedar; reduce if sandalwood emerges as a note",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Sandalore",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Sandalore",
+      "pw_price_usd_per_g": "0.22",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.090000",
+      "required_working_stock_g_for_5g": "0.090000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L17",
+      "material": "Cardamom Essential Oil",
+      "percent_product_equivalent_w_w": "1.5",
+      "pw_sku": "7SC00084",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7SC00084",
+      "chemical_or_product_class": "whole green-cardamom essential oil",
+      "module": "Cardamom recognizer",
+      "function": "Primary cool, sweet-spicy recognizer; lot chemistry matters",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Cardamom EO",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Cardamom Essential Oil",
+      "pw_price_usd_per_g": "3.56",
+      "catalog_evidence": "PW_PAGE_READ_20261003_LISTED_IN_STOCK",
+      "undiluted_product_mass_g_for_5g": "0.075000",
+      "required_working_stock_g_for_5g": "0.075000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L18",
+      "material": "Terpinyl Acetate",
+      "percent_product_equivalent_w_w": "1.2",
+      "pw_sku": "3LK00432",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3LK00432",
+      "chemical_or_product_class": "alpha-terpinyl acetate",
+      "module": "Cardamom recognizer",
+      "function": "Aromatic ester bridge from cardamom toward lavender/citrus; not a full cardamom substitute",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Terpinyl Acetate",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Terpinyl Acetate",
+      "pw_price_usd_per_g": "0.23",
+      "catalog_evidence": "PW_PAGE_READ_20261003_LISTED_IN_STOCK",
+      "undiluted_product_mass_g_for_5g": "0.060000",
+      "required_working_stock_g_for_5g": "0.060000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L19",
+      "material": "Lavandin Grosso Essential Oil",
+      "percent_product_equivalent_w_w": "1.2",
+      "pw_sku": "7HB07675",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7HB07675",
+      "chemical_or_product_class": "whole hybrid lavender oil",
+      "module": "Aromatic air",
+      "function": "Controlled herb/camphor contrast; hypothesis grade, not authenticated YSL ingredient",
+      "current_inventory_state": "NOT_LISTED_OWNED",
+      "inventory_label": "Lavandin Grosso EO (new PW purchase)",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Lavandin Grosso Essential Oil",
+      "pw_price_usd_per_g": "0.46",
+      "catalog_evidence": "PW_PAGE_READ_20261003_LISTED_IN_STOCK",
+      "undiluted_product_mass_g_for_5g": "0.060000",
+      "required_working_stock_g_for_5g": "0.060000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L20",
+      "material": "Linalool",
+      "percent_product_equivalent_w_w": "1",
+      "pw_sku": "3LL00278",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3LL00278",
+      "chemical_or_product_class": "terpenoid alcohol",
+      "module": "Citrus / aromatic opening",
+      "function": "Naturalistic aromatic freshness supporting citrus and lavender",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Linalool",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Linalool Synthetic",
+      "pw_price_usd_per_g": "0.12",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.050000",
+      "required_working_stock_g_for_5g": "0.050000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L21",
+      "material": "Coumarin",
+      "percent_product_equivalent_w_w": "1.2",
+      "pw_sku": "1VD00129",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=1VD00129",
+      "chemical_or_product_class": "benzopyrone",
+      "module": "Soft powder / tonka",
+      "function": "Protected restrained hay-tonka warmth; not caramel gourmand",
+      "current_inventory_state": "OWNED_NEAT_AND_EXACT_10_WW_DPG",
+      "inventory_label": "Coumarin neat powder / confirmed 10% w/w DPG",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "solid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Coumarin",
+      "pw_price_usd_per_g": "0.11",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.060000",
+      "required_working_stock_g_for_5g": "0.060000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L22",
+      "material": "Vanillin",
+      "percent_product_equivalent_w_w": "0.25",
+      "pw_sku": "1VW00456",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=1VW00456",
+      "chemical_or_product_class": "phenolic aromatic aldehyde",
+      "module": "Soft powder / tonka",
+      "function": "Trace vanilla rounding beneath coumarin rather than a vanilla perfume",
+      "current_inventory_state": "OWNED_10_VV_NOT_USABLE_AS_10_WW",
+      "inventory_label": "Vanillin (10% v/v nominal in ethanol)",
+      "required_working_fraction_w_w": "0.1",
+      "required_carrier": "ethanol",
+      "source_phase": "solid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Vanillin",
+      "pw_price_usd_per_g": "0.19",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.012500",
+      "required_working_stock_g_for_5g": "0.125000",
+      "carrier_mass_g_for_5g": "0.112500",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L23",
+      "material": "Bacdanol",
+      "percent_product_equivalent_w_w": "1",
+      "pw_sku": "4WR00045",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4WR00045",
+      "chemical_or_product_class": "synthetic sandalwood alcohol",
+      "module": "Woody / vetiver foundation",
+      "function": "Sharper woody-sandal support distinct from Sandalore's cream; omission candidate",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Bacdanol",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Bacdanol",
+      "pw_price_usd_per_g": "0.29",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.050000",
+      "required_working_stock_g_for_5g": "0.050000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L24",
+      "material": "Cedramber",
+      "percent_product_equivalent_w_w": "1",
+      "pw_sku": "3WW00097",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3WW00097",
+      "chemical_or_product_class": "cedrane ether product",
+      "module": "Woody / vetiver foundation",
+      "function": "Small cedar-amber edge without replacing Amberwood F by false alias",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Cedramber",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Cedramber",
+      "pw_price_usd_per_g": "0.24",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.050000",
+      "required_working_stock_g_for_5g": "0.050000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L25",
+      "material": "Patchouli Light Essential Oil",
+      "percent_product_equivalent_w_w": "0.25",
+      "pw_sku": "7WB13670",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7WB13670",
+      "chemical_or_product_class": "whole processed patchouli oil",
+      "module": "Woody / vetiver foundation",
+      "function": "Very small clean earthy shadow, not the woody mass centre",
+      "current_inventory_state": "OWNED_OTHER_PATCHOULI_GRADE",
+      "inventory_label": "Patchouli EO; Light grade not bound",
+      "required_working_fraction_w_w": "0.1",
+      "required_carrier": "DPG",
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Patchouli Light Essential Oil",
+      "pw_price_usd_per_g": "0.35",
+      "catalog_evidence": "PW_PAGE_READ_20261003_LISTED_IN_STOCK",
+      "undiluted_product_mass_g_for_5g": "0.012500",
+      "required_working_stock_g_for_5g": "0.125000",
+      "carrier_mass_g_for_5g": "0.112500",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L26",
+      "material": "cis-3 Hexenyl Salicylate",
+      "percent_product_equivalent_w_w": "0.15",
+      "pw_sku": "3GO00229",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3GO00229",
+      "chemical_or_product_class": "green salicylate ester",
+      "module": "Woody / vetiver foundation",
+      "function": "Tiny persistent green texture between lavender and vetiver; remove if medicinal",
+      "current_inventory_state": "OWNED_20_WW_CARRIER_UNKNOWN",
+      "inventory_label": "Cis-3-Hexenyl Salicylate 20% w/w, carrier unspecified",
+      "required_working_fraction_w_w": "0.1",
+      "required_carrier": "DPG",
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "cis-3 Hexenyl Salicylate",
+      "pw_price_usd_per_g": "0.52",
+      "catalog_evidence": "PW_PAGE_READ_20261003_LISTED_IN_STOCK",
+      "undiluted_product_mass_g_for_5g": "0.007500",
+      "required_working_stock_g_for_5g": "0.075000",
+      "carrier_mass_g_for_5g": "0.067500",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L27",
+      "material": "Geraniol",
+      "percent_product_equivalent_w_w": "0.15",
+      "pw_sku": "3RL00204",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3RL00204",
+      "chemical_or_product_class": "terpenoid alcohol",
+      "module": "Soft powder / tonka",
+      "function": "Trace petal bridge; not proof a commercial formula uses this exact dose",
+      "current_inventory_state": "OWNED_NEAT_PLUS_UNKNOWN_10_STOCK",
+      "inventory_label": "Geraniol neat",
+      "required_working_fraction_w_w": "0.1",
+      "required_carrier": "DPG",
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Geraniol",
+      "pw_price_usd_per_g": "0.12",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.007500",
+      "required_working_stock_g_for_5g": "0.075000",
+      "carrier_mass_g_for_5g": "0.067500",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L28",
+      "material": "CitronellOL",
+      "percent_product_equivalent_w_w": "0.10",
+      "pw_sku": "3RM00116",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3RM00116",
+      "chemical_or_product_class": "terpenoid alcohol",
+      "module": "Soft powder / tonka",
+      "function": "Tiny rounded floral counterweight to dry ionone; not a rose note",
+      "current_inventory_state": "OWNED_AS_SUPPLIED",
+      "inventory_label": "Citronellol",
+      "required_working_fraction_w_w": "0.1",
+      "required_carrier": "DPG",
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "CitronellOL",
+      "pw_price_usd_per_g": "0.22",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.005000",
+      "required_working_stock_g_for_5g": "0.050000",
+      "carrier_mass_g_for_5g": "0.045000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L29",
+      "material": "Alpha Damascone",
+      "percent_product_equivalent_w_w": "0.025",
+      "pw_sku": "9IF02656",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=9IF02656",
+      "chemical_or_product_class": "norisoprenoid enone",
+      "module": "Soft powder / tonka",
+      "function": "Trace fruit/petal inflection; optional detail whose contribution must be earned",
+      "current_inventory_state": "OWNED_10_DPG_BASIS_UNRECORDED",
+      "inventory_label": "Alpha Damascone 10% in DPG",
+      "required_working_fraction_w_w": "0.01",
+      "required_carrier": "DPG",
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Alpha Damascone",
+      "pw_price_usd_per_g": "1.90",
+      "catalog_evidence": "PW_PAGE_READ_20261003_LISTED_IN_STOCK",
+      "undiluted_product_mass_g_for_5g": "0.001250",
+      "required_working_stock_g_for_5g": "0.125000",
+      "carrier_mass_g_for_5g": "0.123750",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L30",
+      "material": "Damascenone",
+      "percent_product_equivalent_w_w": "0.005",
+      "pw_sku": "9IF07120",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=9IF07120",
+      "chemical_or_product_class": "norisoprenoid enone",
+      "module": "Soft powder / tonka",
+      "function": "Trace fruity shadow supporting tonka/woods; never added to chase richness score",
+      "current_inventory_state": "OWNED_1_BASIS_UNRECORDED",
+      "inventory_label": "Damascenone (1%)",
+      "required_working_fraction_w_w": "0.001",
+      "required_carrier": "DPG",
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Damascenone",
+      "pw_price_usd_per_g": "2.72",
+      "catalog_evidence": "PW_PAGE_READ_20261003_LISTED_IN_STOCK",
+      "undiluted_product_mass_g_for_5g": "0.000250",
+      "required_working_stock_g_for_5g": "0.250000",
+      "carrier_mass_g_for_5g": "0.249750",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L31",
+      "material": "Pink Pepper Essential Oil",
+      "percent_product_equivalent_w_w": "0.15",
+      "pw_sku": "7SC00941",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7SC00941",
+      "chemical_or_product_class": "whole Schinus pepper oil, PW species unbound",
+      "module": "Cardamom recognizer",
+      "function": "Trace pepper sparkle without replacing green cardamom; optional identity test",
+      "current_inventory_state": "OWNED_OTHER_SPECIES_OR_GRADE",
+      "inventory_label": "Pink Pepper EO (Schinus molle); PW exact grade not bound",
+      "required_working_fraction_w_w": "0.1",
+      "required_carrier": "DPG",
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Pink Pepper Essential Oil",
+      "pw_price_usd_per_g": "4.92",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.007500",
+      "required_working_stock_g_for_5g": "0.075000",
+      "carrier_mass_g_for_5g": "0.067500",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L32",
+      "material": "Evernyl",
+      "percent_product_equivalent_w_w": "0.02",
+      "pw_sku": "1YP00185",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=1YP00185",
+      "chemical_or_product_class": "methyl atrarate aromatic ester",
+      "module": "Woody / vetiver foundation",
+      "function": "Tiny mossy contour below a named oakmoss note",
+      "current_inventory_state": "OWNED_NEAT_AND_10_WW_DPG",
+      "inventory_label": "Evernyl crystals / 10% w/w in DPG",
+      "required_working_fraction_w_w": "0.01",
+      "required_carrier": "DPG",
+      "source_phase": "solid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Evernyl",
+      "pw_price_usd_per_g": "0.52",
+      "catalog_evidence": "LOCAL_PW_CATALOG_SNAPSHOT_20260930_NOT_LIVE_REVERIFIED",
+      "undiluted_product_mass_g_for_5g": "0.001000",
+      "required_working_stock_g_for_5g": "0.100000",
+      "carrier_mass_g_for_5g": "0.099000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    },
+    {
+      "line_id": "L33",
+      "material": "Vetiver Essential Oil",
+      "percent_product_equivalent_w_w": "0.6",
+      "pw_sku": "7WY00466",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7WY00466",
+      "chemical_or_product_class": "whole root essential oil; PW origin unspecified",
+      "module": "Woody / vetiver foundation",
+      "function": "Small natural root texture under polished acetate; not a vetiver soliflore",
+      "current_inventory_state": "OWNED_HAITIAN_GRADE_NOT_PW_BOUND",
+      "inventory_label": "Vetiver EO (Haiti)",
+      "required_working_fraction_w_w": "1",
+      "required_carrier": null,
+      "source_phase": "liquid",
+      "recipe_stock_status": "REQUIRED_RECIPE_NOT_EVIDENCE_PREPARED",
+      "interaction_evidence": "DESIGN_HEURISTIC_NOT_MEASURED_RECEPTOR_OR_SYNERGY",
+      "authority": false,
+      "pw_name": "Vetiver Essential Oil",
+      "pw_price_usd_per_g": "1.55",
+      "catalog_evidence": "PW_PAGE_READ_20261003_LISTED_IN_STOCK",
+      "undiluted_product_mass_g_for_5g": "0.030000",
+      "required_working_stock_g_for_5g": "0.030000",
+      "carrier_mass_g_for_5g": "0.000000",
+      "stock_independent_target_authority": "CREATIVE_PROPORTION_HYPOTHESIS_NOT_AUTHENTICATED_YSL_QUANTITY"
+    }
+  ],
+  "realization": {
+    "required_stock_mass_g": "5.945000",
+    "product_equivalent_mass_g": "5.000000",
+    "added_carrier_mass_g": "0.945000",
+    "minimum_master_transfer_g": "0.030000",
+    "stock_fractions_are": "REQUIRED_WEIGHED_PREPARATIONS_NOT_ASSUMED_EXISTING_STOCKS",
+    "galaxolide": "Preferred PW realization uses weighed undiluted 4XA13770; the viscous material is not pipetted. Existing Galaxolide 50% DEP may be used only with confirmed w/w basis, at 1.200 g instead of 0.600 g per 5 g product-equivalent master, introducing 0.600 g extra DEP; record the changed matrix.",
+    "exaltolide": "Preferred PW realization uses weighed undiluted 2XX00186. Confirmed 10% w/w DPG may supply the same product amount at 1.500 g instead of 0.150 g, introducing 1.350 g extra DPG; not a matrix-identical substitute.",
+    "ambrox": "Weigh 150 mg neat Ambrox Super in the full master; no fictitious liquid volume.",
+    "five_g_finished_test": {
+      "master_fraction": "0.15",
+      "master_stock_mass_g": "0.891750",
+      "product_equivalent_mass_g": "0.750000",
+      "perfumer_alcohol_stock_add_g": "4.108250",
+      "finished_mass_g": "5.000000",
+      "loading_product_equivalent_w_w": "15"
+    },
+    "thirty_g_finished": {
+      "master_fraction": "0.9",
+      "master_stock_mass_g": "5.350500",
+      "product_equivalent_mass_g": "4.500000",
+      "perfumer_alcohol_stock_add_g": "24.649500",
+      "finished_mass_g": "30.000000",
+      "loading_product_equivalent_w_w": "15"
+    },
+    "thirty_ml_finished": {
+      "master_fraction": "0.9",
+      "master_stock_mass_g": "5.350500",
+      "product_equivalent_mass_g": "4.500000",
+      "alcohol_addition": "QS_TO_MEASURED_30_ML_AFTER_DISSOLUTION_AND_ROOM_TEMPERATURE_EQUILIBRATION",
+      "concentration": "15 g product-equivalent / 100 mL finished solution (w/v); NOT 15% w/w or v/v",
+      "fixed_ethanol_ml": null
+    },
+    "volume_conversion": {
+      "status": "NOT_PERFORMED_NO_STOCK_SPECIFIC_DENSITY_CHAIN",
+      "formula": "uL = 1000 * mass_g / stock_density_g_per_mL"
+    },
+    "coumarin": "Use 0.060 g owned/PW neat powder. Confirmed 10% w/w DPG may supply the same product amount with 0.600 g stock, introducing 0.540 g extra DPG; record the changed matrix."
+  },
+  "candidates": [
+    {
+      "candidate_id": "PW_R2_LEAD",
+      "family": "INTERACTION_AWARE_ARCHITECTURE",
+      "changes": {},
+      "status": "SELECTED_FOR_FIRST_BLOTTER_NOT_VALIDATED_WINNER",
+      "question": "Does cardamom remain central across a soft aromatic, tonka and cedar transition?",
+      "target_rows": [
+        {
+          "line_id": "L01",
+          "material": "Iso E Super",
+          "percent_product_equivalent_w_w": "25"
+        },
+        {
+          "line_id": "L02",
+          "material": "Galaxolide",
+          "percent_product_equivalent_w_w": "12"
+        },
+        {
+          "line_id": "L03",
+          "material": "Hedione",
+          "percent_product_equivalent_w_w": "8.4"
+        },
+        {
+          "line_id": "L04",
+          "material": "Ethyl Linalool",
+          "percent_product_equivalent_w_w": "7"
+        },
+        {
+          "line_id": "L05",
+          "material": "Linalyl Acetate",
+          "percent_product_equivalent_w_w": "5"
+        },
+        {
+          "line_id": "L06",
+          "material": "Vertofix Coeur",
+          "percent_product_equivalent_w_w": "6"
+        },
+        {
+          "line_id": "L07",
+          "material": "Alpha Isomethyl Ionone",
+          "percent_product_equivalent_w_w": "4"
+        },
+        {
+          "line_id": "L08",
+          "material": "Ambrox Super",
+          "percent_product_equivalent_w_w": "3"
+        },
+        {
+          "line_id": "L09",
+          "material": "Dihydro Myrcenol",
+          "percent_product_equivalent_w_w": "3"
+        },
+        {
+          "line_id": "L10",
+          "material": "Cashmeran",
+          "percent_product_equivalent_w_w": "2.5"
+        },
+        {
+          "line_id": "L11",
+          "material": "Vetiveryl Acetate",
+          "percent_product_equivalent_w_w": "2.5"
+        },
+        {
+          "line_id": "L12",
+          "material": "Florol",
+          "percent_product_equivalent_w_w": "2"
+        },
+        {
+          "line_id": "L13",
+          "material": "Exaltolide Pentadecanolide",
+          "percent_product_equivalent_w_w": "3"
+        },
+        {
+          "line_id": "L14",
+          "material": "Bergamot FCF oil Sicilian",
+          "percent_product_equivalent_w_w": "3.8"
+        },
+        {
+          "line_id": "L15",
+          "material": "Cedarwood Virginian Essential Oil",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L16",
+          "material": "Sandalore",
+          "percent_product_equivalent_w_w": "1.8"
+        },
+        {
+          "line_id": "L17",
+          "material": "Cardamom Essential Oil",
+          "percent_product_equivalent_w_w": "1.5"
+        },
+        {
+          "line_id": "L18",
+          "material": "Terpinyl Acetate",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L19",
+          "material": "Lavandin Grosso Essential Oil",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L20",
+          "material": "Linalool",
+          "percent_product_equivalent_w_w": "1"
+        },
+        {
+          "line_id": "L21",
+          "material": "Coumarin",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L22",
+          "material": "Vanillin",
+          "percent_product_equivalent_w_w": "0.25"
+        },
+        {
+          "line_id": "L23",
+          "material": "Bacdanol",
+          "percent_product_equivalent_w_w": "1"
+        },
+        {
+          "line_id": "L24",
+          "material": "Cedramber",
+          "percent_product_equivalent_w_w": "1"
+        },
+        {
+          "line_id": "L25",
+          "material": "Patchouli Light Essential Oil",
+          "percent_product_equivalent_w_w": "0.25"
+        },
+        {
+          "line_id": "L26",
+          "material": "cis-3 Hexenyl Salicylate",
+          "percent_product_equivalent_w_w": "0.15"
+        },
+        {
+          "line_id": "L27",
+          "material": "Geraniol",
+          "percent_product_equivalent_w_w": "0.15"
+        },
+        {
+          "line_id": "L28",
+          "material": "CitronellOL",
+          "percent_product_equivalent_w_w": "0.10"
+        },
+        {
+          "line_id": "L29",
+          "material": "Alpha Damascone",
+          "percent_product_equivalent_w_w": "0.025"
+        },
+        {
+          "line_id": "L30",
+          "material": "Damascenone",
+          "percent_product_equivalent_w_w": "0.005"
+        },
+        {
+          "line_id": "L31",
+          "material": "Pink Pepper Essential Oil",
+          "percent_product_equivalent_w_w": "0.15"
+        },
+        {
+          "line_id": "L32",
+          "material": "Evernyl",
+          "percent_product_equivalent_w_w": "0.02"
+        },
+        {
+          "line_id": "L33",
+          "material": "Vetiver Essential Oil",
+          "percent_product_equivalent_w_w": "0.6"
+        }
+      ],
+      "target_total_percent": "100.000"
+    },
+    {
+      "candidate_id": "PW_R2_CARDAMOM_CLEAR",
+      "family": "CONSERVATIVE_IDENTITY_PRESERVING",
+      "changes": {
+        "Cardamom Essential Oil": "1.8",
+        "Terpinyl Acetate": "2",
+        "Dihydro Myrcenol": "1.2",
+        "Lavandin Grosso Essential Oil": "0.8",
+        "Ethyl Linalool": "8.1"
+      },
+      "status": "UNTESTED_ALTERNATIVE",
+      "question": "Does stronger ester-supported cardamom and less blue/camphor freshness better match the reference?",
+      "target_rows": [
+        {
+          "line_id": "L01",
+          "material": "Iso E Super",
+          "percent_product_equivalent_w_w": "25"
+        },
+        {
+          "line_id": "L02",
+          "material": "Galaxolide",
+          "percent_product_equivalent_w_w": "12"
+        },
+        {
+          "line_id": "L03",
+          "material": "Hedione",
+          "percent_product_equivalent_w_w": "8.4"
+        },
+        {
+          "line_id": "L04",
+          "material": "Ethyl Linalool",
+          "percent_product_equivalent_w_w": "8.1"
+        },
+        {
+          "line_id": "L05",
+          "material": "Linalyl Acetate",
+          "percent_product_equivalent_w_w": "5"
+        },
+        {
+          "line_id": "L06",
+          "material": "Vertofix Coeur",
+          "percent_product_equivalent_w_w": "6"
+        },
+        {
+          "line_id": "L07",
+          "material": "Alpha Isomethyl Ionone",
+          "percent_product_equivalent_w_w": "4"
+        },
+        {
+          "line_id": "L08",
+          "material": "Ambrox Super",
+          "percent_product_equivalent_w_w": "3"
+        },
+        {
+          "line_id": "L09",
+          "material": "Dihydro Myrcenol",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L10",
+          "material": "Cashmeran",
+          "percent_product_equivalent_w_w": "2.5"
+        },
+        {
+          "line_id": "L11",
+          "material": "Vetiveryl Acetate",
+          "percent_product_equivalent_w_w": "2.5"
+        },
+        {
+          "line_id": "L12",
+          "material": "Florol",
+          "percent_product_equivalent_w_w": "2"
+        },
+        {
+          "line_id": "L13",
+          "material": "Exaltolide Pentadecanolide",
+          "percent_product_equivalent_w_w": "3"
+        },
+        {
+          "line_id": "L14",
+          "material": "Bergamot FCF oil Sicilian",
+          "percent_product_equivalent_w_w": "3.8"
+        },
+        {
+          "line_id": "L15",
+          "material": "Cedarwood Virginian Essential Oil",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L16",
+          "material": "Sandalore",
+          "percent_product_equivalent_w_w": "1.8"
+        },
+        {
+          "line_id": "L17",
+          "material": "Cardamom Essential Oil",
+          "percent_product_equivalent_w_w": "1.8"
+        },
+        {
+          "line_id": "L18",
+          "material": "Terpinyl Acetate",
+          "percent_product_equivalent_w_w": "2"
+        },
+        {
+          "line_id": "L19",
+          "material": "Lavandin Grosso Essential Oil",
+          "percent_product_equivalent_w_w": "0.8"
+        },
+        {
+          "line_id": "L20",
+          "material": "Linalool",
+          "percent_product_equivalent_w_w": "1"
+        },
+        {
+          "line_id": "L21",
+          "material": "Coumarin",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L22",
+          "material": "Vanillin",
+          "percent_product_equivalent_w_w": "0.25"
+        },
+        {
+          "line_id": "L23",
+          "material": "Bacdanol",
+          "percent_product_equivalent_w_w": "1"
+        },
+        {
+          "line_id": "L24",
+          "material": "Cedramber",
+          "percent_product_equivalent_w_w": "1"
+        },
+        {
+          "line_id": "L25",
+          "material": "Patchouli Light Essential Oil",
+          "percent_product_equivalent_w_w": "0.25"
+        },
+        {
+          "line_id": "L26",
+          "material": "cis-3 Hexenyl Salicylate",
+          "percent_product_equivalent_w_w": "0.15"
+        },
+        {
+          "line_id": "L27",
+          "material": "Geraniol",
+          "percent_product_equivalent_w_w": "0.15"
+        },
+        {
+          "line_id": "L28",
+          "material": "CitronellOL",
+          "percent_product_equivalent_w_w": "0.10"
+        },
+        {
+          "line_id": "L29",
+          "material": "Alpha Damascone",
+          "percent_product_equivalent_w_w": "0.025"
+        },
+        {
+          "line_id": "L30",
+          "material": "Damascenone",
+          "percent_product_equivalent_w_w": "0.005"
+        },
+        {
+          "line_id": "L31",
+          "material": "Pink Pepper Essential Oil",
+          "percent_product_equivalent_w_w": "0.15"
+        },
+        {
+          "line_id": "L32",
+          "material": "Evernyl",
+          "percent_product_equivalent_w_w": "0.02"
+        },
+        {
+          "line_id": "L33",
+          "material": "Vetiver Essential Oil",
+          "percent_product_equivalent_w_w": "0.6"
+        }
+      ],
+      "target_total_percent": "100.000"
+    },
+    {
+      "candidate_id": "PW_R2_MINIMAL_CONTROL",
+      "family": "MINIMALIST",
+      "changes": {
+        "Bacdanol": "0",
+        "cis-3 Hexenyl Salicylate": "0",
+        "Patchouli Light Essential Oil": "0",
+        "Alpha Damascone": "0",
+        "Damascenone": "0",
+        "Pink Pepper Essential Oil": "0",
+        "Evernyl": "0",
+        "Geraniol": "0",
+        "CitronellOL": "0",
+        "Florol": "0",
+        "Vanillin": "0",
+        "Cedramber": "0",
+        "Hedione": "13.5"
+      },
+      "status": "UNTESTED_CONTROL",
+      "question": "Does removing the entire detail block improve or weaken recognition and transition? This tests a block, not each ingredient separately.",
+      "target_rows": [
+        {
+          "line_id": "L01",
+          "material": "Iso E Super",
+          "percent_product_equivalent_w_w": "25"
+        },
+        {
+          "line_id": "L02",
+          "material": "Galaxolide",
+          "percent_product_equivalent_w_w": "12"
+        },
+        {
+          "line_id": "L03",
+          "material": "Hedione",
+          "percent_product_equivalent_w_w": "13.5"
+        },
+        {
+          "line_id": "L04",
+          "material": "Ethyl Linalool",
+          "percent_product_equivalent_w_w": "7"
+        },
+        {
+          "line_id": "L05",
+          "material": "Linalyl Acetate",
+          "percent_product_equivalent_w_w": "5"
+        },
+        {
+          "line_id": "L06",
+          "material": "Vertofix Coeur",
+          "percent_product_equivalent_w_w": "6"
+        },
+        {
+          "line_id": "L07",
+          "material": "Alpha Isomethyl Ionone",
+          "percent_product_equivalent_w_w": "4"
+        },
+        {
+          "line_id": "L08",
+          "material": "Ambrox Super",
+          "percent_product_equivalent_w_w": "3"
+        },
+        {
+          "line_id": "L09",
+          "material": "Dihydro Myrcenol",
+          "percent_product_equivalent_w_w": "3"
+        },
+        {
+          "line_id": "L10",
+          "material": "Cashmeran",
+          "percent_product_equivalent_w_w": "2.5"
+        },
+        {
+          "line_id": "L11",
+          "material": "Vetiveryl Acetate",
+          "percent_product_equivalent_w_w": "2.5"
+        },
+        {
+          "line_id": "L13",
+          "material": "Exaltolide Pentadecanolide",
+          "percent_product_equivalent_w_w": "3"
+        },
+        {
+          "line_id": "L14",
+          "material": "Bergamot FCF oil Sicilian",
+          "percent_product_equivalent_w_w": "3.8"
+        },
+        {
+          "line_id": "L15",
+          "material": "Cedarwood Virginian Essential Oil",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L16",
+          "material": "Sandalore",
+          "percent_product_equivalent_w_w": "1.8"
+        },
+        {
+          "line_id": "L17",
+          "material": "Cardamom Essential Oil",
+          "percent_product_equivalent_w_w": "1.5"
+        },
+        {
+          "line_id": "L18",
+          "material": "Terpinyl Acetate",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L19",
+          "material": "Lavandin Grosso Essential Oil",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L20",
+          "material": "Linalool",
+          "percent_product_equivalent_w_w": "1"
+        },
+        {
+          "line_id": "L21",
+          "material": "Coumarin",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L33",
+          "material": "Vetiver Essential Oil",
+          "percent_product_equivalent_w_w": "0.6"
+        }
+      ],
+      "target_total_percent": "100.000"
+    },
+    {
+      "candidate_id": "PW_R2_MUSK_ALTERNATIVE",
+      "family": "EXPLORATORY_SKIN_MUSK",
+      "changes": {
+        "Galaxolide": "8",
+        "Exaltolide Pentadecanolide": "7"
+      },
+      "status": "UNTESTED_ALTERNATIVE",
+      "question": "Does macrocyclic cushion reduce laundry character without washing out cardamom? Use the same stock matrix policy; do not compare a diluted Exaltolide variant against neat-only lead as if carriers were identical.",
+      "target_rows": [
+        {
+          "line_id": "L01",
+          "material": "Iso E Super",
+          "percent_product_equivalent_w_w": "25"
+        },
+        {
+          "line_id": "L02",
+          "material": "Galaxolide",
+          "percent_product_equivalent_w_w": "8"
+        },
+        {
+          "line_id": "L03",
+          "material": "Hedione",
+          "percent_product_equivalent_w_w": "8.4"
+        },
+        {
+          "line_id": "L04",
+          "material": "Ethyl Linalool",
+          "percent_product_equivalent_w_w": "7"
+        },
+        {
+          "line_id": "L05",
+          "material": "Linalyl Acetate",
+          "percent_product_equivalent_w_w": "5"
+        },
+        {
+          "line_id": "L06",
+          "material": "Vertofix Coeur",
+          "percent_product_equivalent_w_w": "6"
+        },
+        {
+          "line_id": "L07",
+          "material": "Alpha Isomethyl Ionone",
+          "percent_product_equivalent_w_w": "4"
+        },
+        {
+          "line_id": "L08",
+          "material": "Ambrox Super",
+          "percent_product_equivalent_w_w": "3"
+        },
+        {
+          "line_id": "L09",
+          "material": "Dihydro Myrcenol",
+          "percent_product_equivalent_w_w": "3"
+        },
+        {
+          "line_id": "L10",
+          "material": "Cashmeran",
+          "percent_product_equivalent_w_w": "2.5"
+        },
+        {
+          "line_id": "L11",
+          "material": "Vetiveryl Acetate",
+          "percent_product_equivalent_w_w": "2.5"
+        },
+        {
+          "line_id": "L12",
+          "material": "Florol",
+          "percent_product_equivalent_w_w": "2"
+        },
+        {
+          "line_id": "L13",
+          "material": "Exaltolide Pentadecanolide",
+          "percent_product_equivalent_w_w": "7"
+        },
+        {
+          "line_id": "L14",
+          "material": "Bergamot FCF oil Sicilian",
+          "percent_product_equivalent_w_w": "3.8"
+        },
+        {
+          "line_id": "L15",
+          "material": "Cedarwood Virginian Essential Oil",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L16",
+          "material": "Sandalore",
+          "percent_product_equivalent_w_w": "1.8"
+        },
+        {
+          "line_id": "L17",
+          "material": "Cardamom Essential Oil",
+          "percent_product_equivalent_w_w": "1.5"
+        },
+        {
+          "line_id": "L18",
+          "material": "Terpinyl Acetate",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L19",
+          "material": "Lavandin Grosso Essential Oil",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L20",
+          "material": "Linalool",
+          "percent_product_equivalent_w_w": "1"
+        },
+        {
+          "line_id": "L21",
+          "material": "Coumarin",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L22",
+          "material": "Vanillin",
+          "percent_product_equivalent_w_w": "0.25"
+        },
+        {
+          "line_id": "L23",
+          "material": "Bacdanol",
+          "percent_product_equivalent_w_w": "1"
+        },
+        {
+          "line_id": "L24",
+          "material": "Cedramber",
+          "percent_product_equivalent_w_w": "1"
+        },
+        {
+          "line_id": "L25",
+          "material": "Patchouli Light Essential Oil",
+          "percent_product_equivalent_w_w": "0.25"
+        },
+        {
+          "line_id": "L26",
+          "material": "cis-3 Hexenyl Salicylate",
+          "percent_product_equivalent_w_w": "0.15"
+        },
+        {
+          "line_id": "L27",
+          "material": "Geraniol",
+          "percent_product_equivalent_w_w": "0.15"
+        },
+        {
+          "line_id": "L28",
+          "material": "CitronellOL",
+          "percent_product_equivalent_w_w": "0.10"
+        },
+        {
+          "line_id": "L29",
+          "material": "Alpha Damascone",
+          "percent_product_equivalent_w_w": "0.025"
+        },
+        {
+          "line_id": "L30",
+          "material": "Damascenone",
+          "percent_product_equivalent_w_w": "0.005"
+        },
+        {
+          "line_id": "L31",
+          "material": "Pink Pepper Essential Oil",
+          "percent_product_equivalent_w_w": "0.15"
+        },
+        {
+          "line_id": "L32",
+          "material": "Evernyl",
+          "percent_product_equivalent_w_w": "0.02"
+        },
+        {
+          "line_id": "L33",
+          "material": "Vetiver Essential Oil",
+          "percent_product_equivalent_w_w": "0.6"
+        }
+      ],
+      "target_total_percent": "100.000"
+    },
+    {
+      "candidate_id": "PW_R2_SOFT_WOOD",
+      "family": "ROBUSTNESS_FOCUSED",
+      "changes": {
+        "Vertofix Coeur": "3.5",
+        "Cashmeran": "1.5",
+        "Cedramber": "0.5",
+        "Hedione": "12.4"
+      },
+      "status": "UNTESTED_ALTERNATIVE_SECOND_WAVE",
+      "question": "Are dry woody edges masking the spice? This is a base-block intervention, not isolated proof of synergy.",
+      "target_rows": [
+        {
+          "line_id": "L01",
+          "material": "Iso E Super",
+          "percent_product_equivalent_w_w": "25"
+        },
+        {
+          "line_id": "L02",
+          "material": "Galaxolide",
+          "percent_product_equivalent_w_w": "12"
+        },
+        {
+          "line_id": "L03",
+          "material": "Hedione",
+          "percent_product_equivalent_w_w": "12.4"
+        },
+        {
+          "line_id": "L04",
+          "material": "Ethyl Linalool",
+          "percent_product_equivalent_w_w": "7"
+        },
+        {
+          "line_id": "L05",
+          "material": "Linalyl Acetate",
+          "percent_product_equivalent_w_w": "5"
+        },
+        {
+          "line_id": "L06",
+          "material": "Vertofix Coeur",
+          "percent_product_equivalent_w_w": "3.5"
+        },
+        {
+          "line_id": "L07",
+          "material": "Alpha Isomethyl Ionone",
+          "percent_product_equivalent_w_w": "4"
+        },
+        {
+          "line_id": "L08",
+          "material": "Ambrox Super",
+          "percent_product_equivalent_w_w": "3"
+        },
+        {
+          "line_id": "L09",
+          "material": "Dihydro Myrcenol",
+          "percent_product_equivalent_w_w": "3"
+        },
+        {
+          "line_id": "L10",
+          "material": "Cashmeran",
+          "percent_product_equivalent_w_w": "1.5"
+        },
+        {
+          "line_id": "L11",
+          "material": "Vetiveryl Acetate",
+          "percent_product_equivalent_w_w": "2.5"
+        },
+        {
+          "line_id": "L12",
+          "material": "Florol",
+          "percent_product_equivalent_w_w": "2"
+        },
+        {
+          "line_id": "L13",
+          "material": "Exaltolide Pentadecanolide",
+          "percent_product_equivalent_w_w": "3"
+        },
+        {
+          "line_id": "L14",
+          "material": "Bergamot FCF oil Sicilian",
+          "percent_product_equivalent_w_w": "3.8"
+        },
+        {
+          "line_id": "L15",
+          "material": "Cedarwood Virginian Essential Oil",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L16",
+          "material": "Sandalore",
+          "percent_product_equivalent_w_w": "1.8"
+        },
+        {
+          "line_id": "L17",
+          "material": "Cardamom Essential Oil",
+          "percent_product_equivalent_w_w": "1.5"
+        },
+        {
+          "line_id": "L18",
+          "material": "Terpinyl Acetate",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L19",
+          "material": "Lavandin Grosso Essential Oil",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L20",
+          "material": "Linalool",
+          "percent_product_equivalent_w_w": "1"
+        },
+        {
+          "line_id": "L21",
+          "material": "Coumarin",
+          "percent_product_equivalent_w_w": "1.2"
+        },
+        {
+          "line_id": "L22",
+          "material": "Vanillin",
+          "percent_product_equivalent_w_w": "0.25"
+        },
+        {
+          "line_id": "L23",
+          "material": "Bacdanol",
+          "percent_product_equivalent_w_w": "1"
+        },
+        {
+          "line_id": "L24",
+          "material": "Cedramber",
+          "percent_product_equivalent_w_w": "0.5"
+        },
+        {
+          "line_id": "L25",
+          "material": "Patchouli Light Essential Oil",
+          "percent_product_equivalent_w_w": "0.25"
+        },
+        {
+          "line_id": "L26",
+          "material": "cis-3 Hexenyl Salicylate",
+          "percent_product_equivalent_w_w": "0.15"
+        },
+        {
+          "line_id": "L27",
+          "material": "Geraniol",
+          "percent_product_equivalent_w_w": "0.15"
+        },
+        {
+          "line_id": "L28",
+          "material": "CitronellOL",
+          "percent_product_equivalent_w_w": "0.10"
+        },
+        {
+          "line_id": "L29",
+          "material": "Alpha Damascone",
+          "percent_product_equivalent_w_w": "0.025"
+        },
+        {
+          "line_id": "L30",
+          "material": "Damascenone",
+          "percent_product_equivalent_w_w": "0.005"
+        },
+        {
+          "line_id": "L31",
+          "material": "Pink Pepper Essential Oil",
+          "percent_product_equivalent_w_w": "0.15"
+        },
+        {
+          "line_id": "L32",
+          "material": "Evernyl",
+          "percent_product_equivalent_w_w": "0.02"
+        },
+        {
+          "line_id": "L33",
+          "material": "Vetiver Essential Oil",
+          "percent_product_equivalent_w_w": "0.6"
+        }
+      ],
+      "target_total_percent": "100.000"
+    },
+    {
+      "candidate_id": "AUTHENTICATED_LITERAL_FIT",
+      "family": "LITERAL_EVIDENCE_FIT",
+      "changes": null,
+      "status": "WITHHELD_AUTHENTICATED_FORMULA_AND_REFERENCE_SAMPLE_MISSING",
+      "question": "No public quantities, chromatogram or version-matched blind data justify an exact literal reconstruction."
+    }
+  ],
+  "selection": {
+    "development_lead": "PW_R2_LEAD",
+    "rationale": "Best first information-rich architecture hypothesis balancing the documented EDT anchors; not a validated sensory winner.",
+    "ranked_candidates": [],
+    "best_measured_candidate": null,
+    "selection_status": "UNORDERED_UNTESTED_HYPOTHESES_WITH_PREDECLARED_LEAD",
+    "formula_action": "PROPOSE_ONLY_NEW_FORMULA",
+    "no_existing_bottle_addition": true
+  },
+  "scientific_endpoints": {
+    "delivered_concentration": "UNAVAILABLE",
+    "oav": "UNAVAILABLE_MATCHED_GAS_RELEASE_AND_THRESHOLD",
+    "measured_intensity": "UNAVAILABLE_EXACT_CURVE_APPLICABILITY",
+    "blind_similarity": "NOT_TESTED",
+    "pleasantness": "NOT_ESTABLISHED",
+    "longevity": "NOT_TESTED",
+    "market_superiority": "NOT_ESTABLISHED",
+    "safety": "NOT_FULLY_SCREENED",
+    "stability": "NOT_TESTED"
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false,
+    "commercial_release_ready": false
+  },
+  "sources": [
+    {
+      "evidence_id": "S1",
+      "url": "https://www.yslbeautyus.com/fragrance/mens-fragrances/la-nuit-de-lhomme/la-nuit-de-lhomme-eau-de-toilette-spray/426YSL.html",
+      "class": "OFFICIAL_PRODUCT_ARCHITECTURE_AND_PRESENCE_ONLY",
+      "claim": "Original EDT: cardamom, cedar, coumarin; US page also describes iris/tonka. Ingredient declaration is presence information, never a quantitative formula.",
+      "read_date": "2026-10-03"
+    },
+    {
+      "evidence_id": "S2",
+      "url": "https://www.yslbeauty.com/int/fragrance/fragrance-for-him/la-nuit-de-l-homme/la-nuit-de-l-homme-eau-de-toilette/426YSL.html",
+      "class": "OFFICIAL_PRODUCT_ARCHITECTURE",
+      "claim": "Bergamot, cedar/lavender and vetiver support the aromatic ambery EDT; other flankers are distinct.",
+      "read_date": "2026-10-03"
+    },
+    {
+      "evidence_id": "S3",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37836202/",
+      "doi": "10.3390/plants12193463",
+      "class": "PRIMARY_CHEMISTRY_NOT_PERFUME_LIKING",
+      "claim": "Composition/oxygenated-fraction work supports cineole/terpinyl-acetate/linalool-family chemistry in sampled cardamom oil. No aroma-intensity, YSL proportion or perfume synergy was inferred from the enzyme study.",
+      "read_date": "2026-10-03",
+      "full_text_access": "PMC_OPEN_RETURNED_TEXT_THEN_RECAPTCHA_ON_FIND; PUBMED_ABSTRACT_AVAILABLE"
+    },
+    {
+      "evidence_id": "S4",
+      "url": "https://www.iff.com/scent/ingredients-compendium/galaxolide-50-ipm/",
+      "class": "PRIMARY_MANUFACTURER_MATERIAL_DESCRIPTION",
+      "claim": "Isochroman/polycyclic musk identity and clean body. IPM product is not the DEP stock used in this recipe.",
+      "read_date": "2026-10-03"
+    },
+    {
+      "evidence_id": "S5",
+      "url": "https://www.iff.com/scent/ingredients-compendium/vertofix-coeur/",
+      "class": "PRIMARY_MANUFACTURER_MATERIAL_DESCRIPTION",
+      "claim": "Warm dry cedar/leather with musky undertones. No missing Trimofix/Vetiverol identity was silently merged into it.",
+      "read_date": "2026-10-03"
+    },
+    {
+      "evidence_id": "S6",
+      "url": "https://ifrafragrance.org/standards-library",
+      "class": "OFFICIAL_SAFETY_REVIEW_ENTRYPOINT_NOT_COMPLETED_CLEARANCE",
+      "claim": "Consult current applicable restriction records and supplier certificates, including coumarin and grouped rose ketones. No full-formula conformity claim is made.",
+      "read_date": "2026-10-03"
+    },
+    {
+      "evidence_id": "S7",
+      "url": "https://dupehacking.com/fragrances/la-nuit-de-lhomme",
+      "class": "UNAUTHENTICATED_SECONDARY_HISTORICAL_ROSTER_NOT_PROMOTED",
+      "claim": "50-name historical local transcription retained for questions/coverage only; not freshly authenticated, not a measured ingredient rank, not YSL formula quantities.",
+      "read_date": null
+    }
+  ],
+  "experiment": {
+    "default": "ONE_5G_FINISHED_BLOTTER_PROTOTYPE_FIRST",
+    "reference": "Compare with your actual original EDT bottle; do not use an EDP/Le Parfum flanker",
+    "next": "Lead vs minimal control; cardamom clear if recognizer weak; musk alternative if laundry drydown",
+    "timepoints_minutes": [
+      5,
+      45,
+      240
+    ],
+    "next_day_blotter": true,
+    "blind_codes": true,
+    "ratings": [
+      "cardamom recognition",
+      "aromatic continuity",
+      "drywood harshness",
+      "tonka sweetness",
+      "musk/laundry risk",
+      "reference closeness",
+      "personal liking separately"
+    ],
+    "no_skin_testing_authorized": true
+  },
+  "purchase_options": [
+    {
+      "name": "Lavandin Grosso Essential Oil",
+      "sku": "7HB07675",
+      "recommended_g": "5",
+      "usd_per_g": "0.46",
+      "product_usd": "2.30",
+      "product_thb_budget": "77.28",
+      "theoretical_30ml_4_5g_pe_bottles": 92,
+      "tier": "TEST_GRADE_PURCHASE",
+      "why": "New aromatic/camphor comparison grade; not proof YSL used it.",
+      "bottling_fee_usd": null,
+      "total_checkout_cost": null,
+      "fee_state": "NOT_CONFIRMED_CHECKOUT_REQUIRED",
+      "yield_scope": "MATERIAL_LIMITED_ONLY_EXCLUDES_OTHER_INGREDIENTS_STOCK_PREP_WASTE_AGING"
+    },
+    {
+      "name": "Exaltolide Pentadecanolide",
+      "sku": "2XX00186",
+      "recommended_g": "2",
+      "usd_per_g": "1.10",
+      "product_usd": "2.20",
+      "product_thb_budget": "73.92",
+      "theoretical_30ml_4_5g_pe_bottles": 14,
+      "tier": "CONDITIONAL_LOW_CARRIER_REALIZATION",
+      "why": "Own 10% DPG stock does not replace neat without carrier/basis accounting.",
+      "bottling_fee_usd": null,
+      "total_checkout_cost": null,
+      "fee_state": "NOT_CONFIRMED_CHECKOUT_REQUIRED",
+      "yield_scope": "MATERIAL_LIMITED_ONLY_EXCLUDES_OTHER_INGREDIENTS_STOCK_PREP_WASTE_AGING"
+    },
+    {
+      "name": "Galaxolide 100 (Undiluted)",
+      "sku": "4XA13770",
+      "recommended_g": "5",
+      "usd_per_g": "0.15",
+      "product_usd": "0.75",
+      "product_thb_budget": "25.20",
+      "theoretical_30ml_4_5g_pe_bottles": 9,
+      "tier": "CONDITIONAL_LOW_CARRIER_REALIZATION",
+      "why": "Avoid rebuying if own 50% DEP basis is confirmed and extra DEP is acceptable.",
+      "bottling_fee_usd": null,
+      "total_checkout_cost": null,
+      "fee_state": "NOT_CONFIRMED_CHECKOUT_REQUIRED",
+      "yield_scope": "MATERIAL_LIMITED_ONLY_EXCLUDES_OTHER_INGREDIENTS_STOCK_PREP_WASTE_AGING"
+    },
+    {
+      "name": "Vanillin",
+      "sku": "1VW00456",
+      "recommended_g": "1",
+      "usd_per_g": "0.19",
+      "product_usd": "0.19",
+      "product_thb_budget": "6.38",
+      "theoretical_30ml_4_5g_pe_bottles": 88,
+      "tier": "CONDITIONAL_EXACT_WORKING_STOCK",
+      "why": "Existing 10% v/v stock is not a weighed 10% recipe. Omitted by minimalist control.",
+      "bottling_fee_usd": null,
+      "total_checkout_cost": null,
+      "fee_state": "NOT_CONFIRMED_CHECKOUT_REQUIRED",
+      "yield_scope": "MATERIAL_LIMITED_ONLY_EXCLUDES_OTHER_INGREDIENTS_STOCK_PREP_WASTE_AGING"
+    },
+    {
+      "name": "cis-3 Hexenyl Salicylate",
+      "sku": "3GO00229",
+      "recommended_g": "1",
+      "usd_per_g": "0.52",
+      "product_usd": "0.52",
+      "product_thb_budget": "17.47",
+      "theoretical_30ml_4_5g_pe_bottles": 148,
+      "tier": "OPTIONAL_DETAIL",
+      "why": "Owned 20% w/w carrier unknown; only rebuy if using full detail instead of control.",
+      "bottling_fee_usd": null,
+      "total_checkout_cost": null,
+      "fee_state": "NOT_CONFIRMED_CHECKOUT_REQUIRED",
+      "yield_scope": "MATERIAL_LIMITED_ONLY_EXCLUDES_OTHER_INGREDIENTS_STOCK_PREP_WASTE_AGING"
+    },
+    {
+      "name": "Alpha Damascone",
+      "sku": "9IF02656",
+      "recommended_g": "1",
+      "usd_per_g": "1.90",
+      "product_usd": "1.90",
+      "product_thb_budget": "63.84",
+      "theoretical_30ml_4_5g_pe_bottles": 888,
+      "tier": "OPTIONAL_DETAIL",
+      "why": "Do not rebuy if owned stock basis and carrier can already be used accurately.",
+      "bottling_fee_usd": null,
+      "total_checkout_cost": null,
+      "fee_state": "NOT_CONFIRMED_CHECKOUT_REQUIRED",
+      "yield_scope": "MATERIAL_LIMITED_ONLY_EXCLUDES_OTHER_INGREDIENTS_STOCK_PREP_WASTE_AGING"
+    },
+    {
+      "name": "Damascenone",
+      "sku": "9IF07120",
+      "recommended_g": "1",
+      "usd_per_g": "2.72",
+      "product_usd": "2.72",
+      "product_thb_budget": "91.39",
+      "theoretical_30ml_4_5g_pe_bottles": 4444,
+      "tier": "OPTIONAL_DETAIL",
+      "why": "Trace complexity; do not buy merely to complete a long list.",
+      "bottling_fee_usd": null,
+      "total_checkout_cost": null,
+      "fee_state": "NOT_CONFIRMED_CHECKOUT_REQUIRED",
+      "yield_scope": "MATERIAL_LIMITED_ONLY_EXCLUDES_OTHER_INGREDIENTS_STOCK_PREP_WASTE_AGING"
+    },
+    {
+      "name": "Patchouli Light Essential Oil",
+      "sku": "7WB13670",
+      "recommended_g": "2",
+      "usd_per_g": "0.35",
+      "product_usd": "0.70",
+      "product_thb_budget": "23.52",
+      "theoretical_30ml_4_5g_pe_bottles": 177,
+      "tier": "OPTIONAL_GRADE_COMPARISON",
+      "why": "Own ordinary patchouli is a declared different-grade alternative; not the same sample.",
+      "bottling_fee_usd": null,
+      "total_checkout_cost": null,
+      "fee_state": "NOT_CONFIRMED_CHECKOUT_REQUIRED",
+      "yield_scope": "MATERIAL_LIMITED_ONLY_EXCLUDES_OTHER_INGREDIENTS_STOCK_PREP_WASTE_AGING"
+    }
+  ]
+}

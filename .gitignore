@@ -134,3 +134,20 @@ incoming_review/*.exe
 
 # Key material must never be tracked.
 /incoming_review/openai-api-key*.txt
+
+# Root-level scratch and run outputs belong in archive/ or output/.
+/_*
+!/_generate_material_properties.py
+/*.json
+!/opencode.json
+!/package.json
+!/package-lock.json
+/*.jsonl
+/*.txt
+/*.log
+!/inventory.txt
+!/requirements.txt
+!/requirements-bridge.txt
+
+# Pipeline audit log: appended on every gate run, kept local only.
+/data/pipeline_audit/events.jsonl

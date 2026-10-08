@@ -22,7 +22,15 @@ def historical_source_root(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> P
             content = delta._SNAPSHOT_PATH.read_bytes()
         else:
             fixture_file = fixture_root / Path(relative_path).name
-            content = fixture_file.read_text(encoding="utf-8").replace("\n", "\r\n").encode("utf-8")
+            text = fixture_file.read_text(encoding="utf-8")
+            if relative_path == "inventory.txt":
+                # Git 8d5cb54b records one trailing space on this exact line.
+                # Restore archive-only padding before checking original pins;
+                # keep text fixtures free of editor-trimmable trailing spaces.
+                marker = "- Myristic Acid Powder\n"
+                assert text.count(marker) == 1
+                text = text.replace(marker, "- Myristic Acid Powder \n", 1)
+            content = text.replace("\n", "\r\n").encode("utf-8")
         assert len(content) == expected_size
         assert sha256(content).hexdigest() == expected_hash
         destination = isolated_root / relative_path

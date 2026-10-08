@@ -1,0 +1,615 @@
+{
+  "schema_version": "architecture-comparison-aborted-v1",
+  "date": "2026-10-07",
+  "status": "WITHHELD_LIVE_INVENTORY_BINDING_CHANGED",
+  "planned_design_calls": 224,
+  "completed_design_calls": 65,
+  "final_comparison_accepted": false,
+  "all_cases_passed": false,
+  "corpus_sha256": "999810479674a7f7f041def9e992c4bdfc88a9eda20f7e6b4700612f75dfe34c",
+  "adapter_manifest_sha256": "70ec8bd60abefa7d5e09556fece34067caecacba539e6db1fcdea5d7d2f0111c",
+  "error": {
+    "type": "InventoryAuthorityError",
+    "message": "AIMI identity successor is not bound to live inventory text"
+  },
+  "inventory": {
+    "opening_sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "observed_after_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "updated_by_this_work": false,
+    "observed_receipt": "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+  },
+  "timing_authority": "PRELIMINARY_ABORTED_RUN_NOT_PERFORMANCE_ACCEPTANCE",
+  "progress": [
+    {
+      "completed": 1,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "lychee",
+      "design_seconds": 4.0798890000005485,
+      "audit_seconds": 0.016887000001588603
+    },
+    {
+      "completed": 2,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "fig_leaf",
+      "design_seconds": 1.8996227999996336,
+      "audit_seconds": 0.019001399999979185
+    },
+    {
+      "completed": 3,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "fig_fruit",
+      "design_seconds": 1.814698700000008,
+      "audit_seconds": 0.02064119999704417
+    },
+    {
+      "completed": 4,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "freesia",
+      "design_seconds": 2.2847158999975363,
+      "audit_seconds": 0.017845300000772113
+    },
+    {
+      "completed": 5,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "jasmine_tea",
+      "design_seconds": 3.1119380999989517,
+      "audit_seconds": 0.021140900000318652
+    },
+    {
+      "completed": 6,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "gardenia",
+      "design_seconds": 2.15118689999872,
+      "audit_seconds": 0.02161330000308226
+    },
+    {
+      "completed": 7,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "lavender_blossom",
+      "design_seconds": 3.9828113000003214,
+      "audit_seconds": 0.040213000000221655
+    },
+    {
+      "completed": 8,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "lavender_incense",
+      "design_seconds": 3.6155709999984538,
+      "audit_seconds": 0.03638200000204961
+    },
+    {
+      "completed": 9,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "lavender_vanilla",
+      "design_seconds": 3.5078268999968714,
+      "audit_seconds": 0.03861420000248472
+    },
+    {
+      "completed": 10,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "jammy_rose",
+      "design_seconds": 4.136078399998951,
+      "audit_seconds": 0.03520639999987907
+    },
+    {
+      "completed": 11,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "negated_incense",
+      "design_seconds": 3.687219699997513,
+      "audit_seconds": 0.038903799999388866
+    },
+    {
+      "completed": 12,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "violet_leaf",
+      "design_seconds": 3.693198400000256,
+      "audit_seconds": 0.03952399999980116
+    },
+    {
+      "completed": 13,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "violet_petals",
+      "design_seconds": 2.45204190000004,
+      "audit_seconds": 0.020380599999043625
+    },
+    {
+      "completed": 14,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "campaign_hold",
+      "design_seconds": 1.2992833999996947,
+      "audit_seconds": 0.13505809999696794
+    },
+    {
+      "completed": 15,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "exact_stock_and_solid",
+      "design_seconds": 1.4769392000016524,
+      "audit_seconds": 0.02124339999863878
+    },
+    {
+      "completed": 16,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "successor_orange_neroli",
+      "design_seconds": 1.9620543000019097,
+      "audit_seconds": 0.03472730000066804
+    },
+    {
+      "completed": 17,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "successor_orange_petitgrain",
+      "design_seconds": 1.9392549999975017,
+      "audit_seconds": 0.020463100001506973
+    },
+    {
+      "completed": 18,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "successor_muguet_soft",
+      "design_seconds": 2.047416500001418,
+      "audit_seconds": 0.017206900000019232
+    },
+    {
+      "completed": 19,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "successor_tuberose_indolic",
+      "design_seconds": 3.149215000001277,
+      "audit_seconds": 0.0354559999977937
+    },
+    {
+      "completed": 20,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "successor_tuberose_transparent",
+      "design_seconds": 4.277501399999892,
+      "audit_seconds": 0.03778900000179419
+    },
+    {
+      "completed": 21,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "successor_trop_champaca",
+      "design_seconds": 3.8644911000010325,
+      "audit_seconds": 0.02486959999805549
+    },
+    {
+      "completed": 22,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "successor_lily_green",
+      "design_seconds": 2.6273995000010473,
+      "audit_seconds": 0.02312309999979334
+    },
+    {
+      "completed": 23,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "successor_pollen_spartium_broom",
+      "design_seconds": 3.2017973000001803,
+      "audit_seconds": 0.018105499999364838
+    },
+    {
+      "completed": 24,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "successor_violet_powder",
+      "design_seconds": 2.9706418000023405,
+      "audit_seconds": 0.054850699998496566
+    },
+    {
+      "completed": 25,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "successor_iris_violet_leaf",
+      "design_seconds": 2.013382900000579,
+      "audit_seconds": 0.01783689999865601
+    },
+    {
+      "completed": 26,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "successor_bouquet_aldehydic",
+      "design_seconds": 1.6936028999989503,
+      "audit_seconds": 0.016376499999751104
+    },
+    {
+      "completed": 27,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "successor_bouquet_soft",
+      "design_seconds": 2.098645599999145,
+      "audit_seconds": 0.026014900002337527
+    },
+    {
+      "completed": 28,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "lily_of_valley_boundary",
+      "design_seconds": 1.8413122999991174,
+      "audit_seconds": 0.02419029999873601
+    },
+    {
+      "completed": 29,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "leaf_exclusion",
+      "design_seconds": 1.6476626999974542,
+      "audit_seconds": 0.021636100002069725
+    },
+    {
+      "completed": 30,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "juniper_identity",
+      "design_seconds": 1.6202477000006184,
+      "audit_seconds": 0.015382099998532794
+    },
+    {
+      "completed": 31,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "rose_lemony",
+      "design_seconds": 2.679725399997551,
+      "audit_seconds": 0.04338840000127675
+    },
+    {
+      "completed": 32,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "rose_honey",
+      "design_seconds": 2.913607899998169,
+      "audit_seconds": 0.04306390000056126
+    },
+    {
+      "completed": 33,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "rose_metallic",
+      "design_seconds": 2.993906600000628,
+      "audit_seconds": 0.07795489999989513
+    },
+    {
+      "completed": 34,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "rose_dark_patch",
+      "design_seconds": 3.2293364999968617,
+      "audit_seconds": 0.03372520000266377
+    },
+    {
+      "completed": 35,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "jas_grandiflorum",
+      "design_seconds": 2.834305799999129,
+      "audit_seconds": 0.04176759999973001
+    },
+    {
+      "completed": 36,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "jas_leather",
+      "design_seconds": 3.9594355000008363,
+      "audit_seconds": 0.040585200000350596
+    },
+    {
+      "completed": 37,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "orange_honey",
+      "design_seconds": 3.5573077000008198,
+      "audit_seconds": 0.04091279999920516
+    },
+    {
+      "completed": 38,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "muguet_cyclamen",
+      "design_seconds": 4.632529100003012,
+      "audit_seconds": 0.06292059999759658
+    },
+    {
+      "completed": 39,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "muguet_watery_musk",
+      "design_seconds": 3.377216100001533,
+      "audit_seconds": 0.04093450000073062
+    },
+    {
+      "completed": 40,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "peony_dewy",
+      "design_seconds": 3.5165137000003597,
+      "audit_seconds": 0.032466099997691344
+    },
+    {
+      "completed": 41,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "peony_rose",
+      "design_seconds": 2.3322732000015094,
+      "audit_seconds": 0.023914800000056857
+    },
+    {
+      "completed": 42,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "lily_salicylate",
+      "design_seconds": 2.062039000000368,
+      "audit_seconds": 0.017804499999328982
+    },
+    {
+      "completed": 43,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "pollen_honey",
+      "design_seconds": 1.8163056999983382,
+      "audit_seconds": 0.016129299998283386
+    },
+    {
+      "completed": 44,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "light_honeysuckle",
+      "design_seconds": 1.6209352999976545,
+      "audit_seconds": 0.017120800002885517
+    },
+    {
+      "completed": 45,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "lav_cologne",
+      "design_seconds": 2.3727937000003294,
+      "audit_seconds": 0.028546199999254895
+    },
+    {
+      "completed": 46,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "lav_barbershop",
+      "design_seconds": 1.8652323999995133,
+      "audit_seconds": 0.02048329999888665
+    },
+    {
+      "completed": 47,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "lav_soft_musk",
+      "design_seconds": 1.5998399999989488,
+      "audit_seconds": 0.016313100000843406
+    },
+    {
+      "completed": 48,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "lav_spiced_wood",
+      "design_seconds": 1.4627891999989515,
+      "audit_seconds": 0.018559200001618592
+    },
+    {
+      "completed": 49,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "fougere_floral",
+      "design_seconds": 1.5827334000023257,
+      "audit_seconds": 0.018120799999451265
+    },
+    {
+      "completed": 50,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "fougere_tonka",
+      "design_seconds": 1.921799399999145,
+      "audit_seconds": 0.017171999999845866
+    },
+    {
+      "completed": 51,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "sandal_dry",
+      "design_seconds": 1.4572530999976152,
+      "audit_seconds": 0.01532480000241776
+    },
+    {
+      "completed": 52,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "patch_clean",
+      "design_seconds": 2.26211770000009,
+      "audit_seconds": 0.022296099999948638
+    },
+    {
+      "completed": 53,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "metallic_rose_avoids_both_options",
+      "design_seconds": 2.4627516999971704,
+      "audit_seconds": 0.023312299999815878
+    },
+    {
+      "completed": 54,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "orange_honey_no_indole",
+      "design_seconds": 3.107570800002577,
+      "audit_seconds": 0.05203999999866937
+    },
+    {
+      "completed": 55,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "dewy_peony_no_rose",
+      "design_seconds": 4.068438899998,
+      "audit_seconds": 0.016444199998659315
+    },
+    {
+      "completed": 56,
+      "total": 224,
+      "phase": "forward",
+      "arm": "CONTROL_ONLY",
+      "case_id": "lavender_cologne_no_ambrox",
+      "design_seconds": 2.3301085000020976,
+      "audit_seconds": 0.06444969999938621
+    },
+    {
+      "completed": 57,
+      "total": 224,
+      "phase": "forward",
+      "arm": "ARCHITECTURE_COMPARISON",
+      "case_id": "lychee",
+      "design_seconds": 6.521526099997573,
+      "audit_seconds": 0.028251600000658073
+    },
+    {
+      "completed": 58,
+      "total": 224,
+      "phase": "forward",
+      "arm": "ARCHITECTURE_COMPARISON",
+      "case_id": "fig_leaf",
+      "design_seconds": 6.482624200001737,
+      "audit_seconds": 0.04692769999746815
+    },
+    {
+      "completed": 59,
+      "total": 224,
+      "phase": "forward",
+      "arm": "ARCHITECTURE_COMPARISON",
+      "case_id": "fig_fruit",
+      "design_seconds": 4.164047299997037,
+      "audit_seconds": 0.02851340000052005
+    },
+    {
+      "completed": 60,
+      "total": 224,
+      "phase": "forward",
+      "arm": "ARCHITECTURE_COMPARISON",
+      "case_id": "freesia",
+      "design_seconds": 3.6242163999995682,
+      "audit_seconds": 0.0328442999998515
+    },
+    {
+      "completed": 61,
+      "total": 224,
+      "phase": "forward",
+      "arm": "ARCHITECTURE_COMPARISON",
+      "case_id": "jasmine_tea",
+      "design_seconds": 6.184471099997609,
+      "audit_seconds": 0.0551928000022599
+    },
+    {
+      "completed": 62,
+      "total": 224,
+      "phase": "forward",
+      "arm": "ARCHITECTURE_COMPARISON",
+      "case_id": "gardenia",
+      "design_seconds": 5.279589400000987,
+      "audit_seconds": 0.0594978999979503
+    },
+    {
+      "completed": 63,
+      "total": 224,
+      "phase": "forward",
+      "arm": "ARCHITECTURE_COMPARISON",
+      "case_id": "lavender_blossom",
+      "design_seconds": 4.959109799998259,
+      "audit_seconds": 0.0447052999988955
+    },
+    {
+      "completed": 64,
+      "total": 224,
+      "phase": "forward",
+      "arm": "ARCHITECTURE_COMPARISON",
+      "case_id": "lavender_incense",
+      "design_seconds": 4.352182800001174,
+      "audit_seconds": 0.028039099997840822
+    },
+    {
+      "completed": 65,
+      "total": 224,
+      "phase": "forward",
+      "arm": "ARCHITECTURE_COMPARISON",
+      "case_id": "lavender_vanilla",
+      "design_seconds": 4.818611700000474,
+      "audit_seconds": 0.045264899999892805
+    }
+  ],
+  "raw_log": "output/floral_aromatic_v3_20261007/benchmark_aborted_inventory_drift.log",
+  "required_next_step": "Finish the new receipt/stock binding without weakening the historical AIMI guard; freeze the reconciled inventory and rerun the full current-source corpus.",
+  "release_authority": false,
+  "safety_authority": false,
+  "compounding_authority": false,
+  "evidence_admission_authorized": false
+}

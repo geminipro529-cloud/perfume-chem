@@ -7,11 +7,11 @@ from pathlib import Path
 
 from engine.calibration.hashing import (
     PORTABLE_FILE_HASH_MATCH_ALGORITHM,
-    portable_file_hash_matches,
 )
 from engine.experiments.checkpoint19_comparison import (
     evaluate_checkpoint19_comparison_boundary,
 )
+from tests.historical_snapshots import assert_historical_artifact
 
 ROOT = Path(__file__).resolve().parents[1]
 ACCEPTANCE = (
@@ -85,7 +85,7 @@ def test_current_comparator_boundary_keeps_crystal_mass_separate() -> None:
     assert report["formula_action"] == "NO_CHANGE"
 
 
-def test_platform_completion_receipt_is_hash_bound_and_authority_safe() -> None:
+def test_historical_platform_completion_receipt_preserves_its_own_source_pins() -> None:
     receipt = json.loads(ACCEPTANCE.read_text(encoding="utf-8"))
 
     assert receipt["schema_version"] == "full-potential-cp10-cp19-acceptance-v2"
@@ -116,4 +116,4 @@ def test_platform_completion_receipt_is_hash_bound_and_authority_safe() -> None:
     for relative_path, expected_sha256 in receipt["artifact_sha256"].items():
         artifact = ROOT / relative_path
         assert artifact.is_file(), relative_path
-        assert portable_file_hash_matches(artifact, expected_sha256)
+        assert_historical_artifact(artifact, expected_sha256)

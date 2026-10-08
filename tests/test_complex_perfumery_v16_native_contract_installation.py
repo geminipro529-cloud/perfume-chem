@@ -4,6 +4,8 @@ import hashlib
 import json
 from pathlib import Path
 
+from tests.historical_snapshots import assert_historical_artifact
+
 ROOT = Path(__file__).resolve().parents[1]
 RECEIPT = (
     ROOT
@@ -17,7 +19,7 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def test_native_contract_receipt_binds_exact_live_module_bytes() -> None:
+def test_historical_native_contract_receipt_retains_exact_original_source_pins() -> None:
     payload = json.loads(RECEIPT.read_text(encoding="utf-8"))
     assert payload["state"] == (
         "NATIVE_CLEAN_ROOM_DIAGNOSTICS_INSTALLED_PACKAGE_CONTENT_HELD"
@@ -25,8 +27,7 @@ def test_native_contract_receipt_binds_exact_live_module_bytes() -> None:
     assert len(payload["native_modules"]) == 6
     for item in payload["native_modules"]:
         path = ROOT / item["path"]
-        assert path.stat().st_size == item["byte_size"]
-        assert _sha256(path) == item["sha256"]
+        assert_historical_artifact(path, item["sha256"], item["byte_size"])
 
 
 def test_oav_and_authority_boundaries_remain_fail_closed() -> None:

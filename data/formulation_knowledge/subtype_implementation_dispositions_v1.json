@@ -1,0 +1,4039 @@
+{
+  "schema_version": "subtype-implementation-dispositions-v1",
+  "review_date": "2026-10-07",
+  "scope": "IMPLEMENTATION_DISPOSITION_NOT_RESEARCH_OR_SENSORY_COMPLETENESS",
+  "subtype_manifest_sha256": "14eef313a501262a63c839577d3b9cf48124441c1dbc1a03a2fcda1f17225c83",
+  "baseline_adapter_sha256": "44776decd27ba01d88dbdbc30b37393b1700c9b9403634be1162044ef01638a3",
+  "baseline_mapped_count": 47,
+  "reviewed_remaining_count": 132,
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "dispositions": [
+    {
+      "subtype_id": "LAV_IRIS",
+      "subtype_card_sha256": "6f7e2801c995d8de24ec2373de29e6d74588eb990e0cc13cf675e7610d06c9b2",
+      "source_bindings": [
+        {
+          "source_id": "caron_le_soir_edp",
+          "source_record_sha256": "0873146aae873dfc57420252453aaec000e85087e0aed27cacf2abbd2984d9d7"
+        },
+        {
+          "source_id": "jpg_le_male_le_parfum",
+          "source_record_sha256": "79702d680778b9e74480829e7139ba9a186fe1dfd5d38a81638ab8c744e92a7a"
+        },
+        {
+          "source_id": "iff_gamma",
+          "source_record_sha256": "0158eb039645955eae7c6bed9c0d3b1cbd8fc27a2923613d64ffba0e42b6504e"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "lav_iris_v5:woody_iris_grade",
+        "lav_iris_v5:cosmetic_iris_grade"
+      ],
+      "required_next": "Refinement is limited to canonical woody/cosmetic iris roles and exact Gamma Coeur eligibility.",
+      "remaining_scope": [
+        "Refinement is limited to canonical woody/cosmetic iris roles and exact Gamma Coeur eligibility.",
+        "Orris Liquid remains excluded for compounding.",
+        "Methyl Ionone Gamma Coeur is not AIMI or a whole orris extract."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LAV_LICORICE",
+      "subtype_card_sha256": "ac36ed9b788f9d861b7ae2b53d0edbf7b7b1ce3eff5ff9befc32a45142d84896",
+      "source_bindings": [
+        {
+          "source_id": "hermes_brin_reglisse_edt",
+          "source_record_sha256": "159c21a38f477599cb825c01461f5a554d82a8de0cf6bf444084af009d4a858c"
+        },
+        {
+          "source_id": "bontoux_lavender_products",
+          "source_record_sha256": "05dc7e9330b6176a39a9a186739ec8877deb289a0fffba67b5f6b58d1b35e437"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "No glycyrrhizin, anethole, formula quantity or specific licorice chemical is inferred from product notes."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CIT_MANDARIN_GREEN",
+      "subtype_card_sha256": "5ec3805f200a1f97b5dfffd14328ea16cd8e99c738478f8009c599e25615a08f",
+      "source_bindings": [
+        {
+          "source_id": "iff_mandarin_green_subtypes",
+          "source_record_sha256": "57237f2641b1416816b94162f93938187682059cf62962316584b6cee83fb10e"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "One grade's description does not calibrate a red/green replacement ratio."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CIT_GRAPEFRUIT",
+      "subtype_card_sha256": "b0bf40e8e1c7a9e0e775afecdb0e7c44a491d6b6cd7fb342590e82555f91ce44",
+      "source_bindings": [
+        {
+          "source_id": "grapefruit_reconstitution_subtypes",
+          "source_record_sha256": "d98a49a533b7943c1e1137cdb1a8d791782918586007aa82abfcdc5e749e0409"
+        },
+        {
+          "source_id": "givaudan_paradisamide_completion",
+          "source_record_sha256": "8682aabf681b39585972782d0a8a5b66b01fb80c155c474e4dcdc44c8ca3032a"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "Food matrix thresholds and concentrations do not become perfume OAVs.",
+        "Paradisamide is not grapefruit juice or a complete peel oil."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CIT_YUZU",
+      "subtype_card_sha256": "3c15d13735eb08de96ab75249644831a4feb3e8d0fba61d8f0162f78887d6b34",
+      "source_bindings": [
+        {
+          "source_id": "yuzu_character_subtypes",
+          "source_record_sha256": "4fb71b8d1f1d736427720c5bd4e63ee6db387fb6cb259a3893a038d809a31838"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Identify a usable yuzu-character product and its own odor evidence; yuzunone availability is unbound.",
+      "remaining_scope": [
+        "The reported source occurrence is not proof of botanical exclusivity.",
+        "Yuzunone availability, permitted use and dose remain unbound."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "GREEN_GALBANUM",
+      "subtype_card_sha256": "0e9e44214d8225f7ef1e336ddde1f4271d35e8433d51c74b0796c8a037314a52",
+      "source_bindings": [
+        {
+          "source_id": "galbanum_character_subtypes",
+          "source_record_sha256": "aa5ed7c9f4aaa41658e72354258fec50154f0a74555f1b0ee100400401fbbc81"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "Oil and resinoid are not identical.",
+        "No trace ketone or pyrazine dose is admitted."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "GREEN_VIOLET_LEAF",
+      "subtype_card_sha256": "3aad20dfc003d019a8082a9df6f073f7c5e0d1f5b6d1127d8dc62b32d85254c9",
+      "source_bindings": [
+        {
+          "source_id": "iff_violet_leaf_subtypes",
+          "source_record_sha256": "ca2e27425aaac65c5faa010ce20ff801ee9376696cb74c833d59b50a48e46e2d"
+        },
+        {
+          "source_id": "violet_emissions",
+          "source_record_sha256": "8fcf5996069e7f4f875b28dcf5149105b8a84f8c5f402e8656f3bffbd573db9f"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Viola flower headspace does not characterise leaf absolute.",
+        "This card does not clear the Orris Liquid hold."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ORCHARD_RIPE_APPLE",
+      "subtype_card_sha256": "fa5037b1cca2876338d23c8aea6cb552f09566efc4d922ebf08b804831182c40",
+      "source_bindings": [
+        {
+          "source_id": "givaudan_manzanate_subtypes",
+          "source_record_sha256": "0d10c24774688e4d120a89644b88732beb8955c55fa3e24951d667e8c62378bb"
+        },
+        {
+          "source_id": "iff_fructone_subtypes",
+          "source_record_sha256": "5f1da274bf85ec50746f306cc17b7fdeea3f7752ce5518da83ff003ad2d5d462"
+        },
+        {
+          "source_id": "apple_aroma",
+          "source_record_sha256": "f210af34dd21a4d3834fe60013957c27cf8ce954c73a62e3f7cb9930c9f2ffdc"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "IFF Fructone is not automatically a reseller's Fructone B.",
+        "Ethyl 2-methylpentanoate is not ethyl 2-methylbutyrate."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ORCHARD_PEAR_MUSK",
+      "subtype_card_sha256": "ac231e1f1470516cb8133baae34a105bf3f72380c06537a8c98c2dfc15c2fa41",
+      "source_bindings": [
+        {
+          "source_id": "helvetolide",
+          "source_record_sha256": "d7b21c8dadb05bae5a8b6f0c4470ac0a8eb35c511b24c8eba2c030ac3132cbbc"
+        },
+        {
+          "source_id": "pear_aroma",
+          "source_record_sha256": "dd49b0eb88e5fa3b5a15ed393612b6899c4f6fb10f8885179e0d3162d6b6aebf"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "Helvetolide is not pear ester or a measured late-pear response curve.",
+        "No longevity or projection guarantee."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ORCHARD_HEART",
+      "subtype_card_sha256": "ce53986e110d2fcb0faaf91c53a85d61ec2f6ee47501561aebb93d835865cbb1",
+      "source_bindings": [
+        {
+          "source_id": "iff_osmanthus_completion",
+          "source_record_sha256": "0f178c02e7a9d4b9d0b64cdc89038b2ce598625a34ff7ab3414544df1743a516"
+        },
+        {
+          "source_id": "guerlain_pera_granita_edt",
+          "source_record_sha256": "85e81ba1a18540e2b0f242f3342f286f663c361e030f98ba20f2b9eea53c242f"
+        },
+        {
+          "source_id": "jomalone_english_pear_freesia_cologne",
+          "source_record_sha256": "db3c4cfae691e547f6794acb8e46fd864e28dac28beb0f625510ab22cb7c90e9"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "orchard_heart_v5:transparent_flower",
+        "orchard_heart_v5:apricot_flower"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Commercial note pyramids are not disclosed formulas or measured similarity.",
+        "Osmanthus grade and product identity stay exact."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "BERRY_CASSIS",
+      "subtype_card_sha256": "03eba3730bfa56c4fc91c68516805185e1037efaf117fc1338ceb070d3b801cf",
+      "source_bindings": [
+        {
+          "source_id": "iff_blackcurrant_subtypes",
+          "source_record_sha256": "49f7cae5a4aa681ae8b55df7ea36906a5f393c7fb08e5cae5650b55f8086e34b"
+        },
+        {
+          "source_id": "grapefruit_reconstitution_subtypes",
+          "source_record_sha256": "d98a49a533b7943c1e1137cdb1a8d791782918586007aa82abfcdc5e749e0409"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "A bud extract is not berry essential oil.",
+        "Grapefruit-juice sulfur evidence does not supply cassis perfume concentrations."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "BERRY_RASPBERRY",
+      "subtype_card_sha256": "4695ad94dd3f3a22c3b346950d2b43236136b146db20ce836d0ef9933411ff23",
+      "source_bindings": [
+        {
+          "source_id": "raspberry_recombination_subtypes",
+          "source_record_sha256": "3c25fa3885840a77a117e5c78cf3a8f9815ece6b67f9d2fe989688e2e60393b3"
+        },
+        {
+          "source_id": "beta_ionone_or5a1",
+          "source_record_sha256": "3c436225ab5e3c70c01b8b2d1d95164398efb55e32c592fc62b97fe957fab9da"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "Food aroma is not perfume calibration.",
+        "Beta-ionone sensitivity variation is not a universal anosmia assignment."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TEA_GREEN",
+      "subtype_card_sha256": "ee3071e89644d89162e21404d99a4657f0dcab91167e8e5c8a2679d1c94aa437",
+      "source_bindings": [
+        {
+          "source_id": "tea_green_cultivar_subtypes",
+          "source_record_sha256": "20ab2f8b8efcb2f0edc02d8272d8f289d9fe39ced1b949111fc370d20404371f"
+        },
+        {
+          "source_id": "givaudan_stemone_foundation",
+          "source_record_sha256": "1c712d16cb1708796e4a5d91b4066c0bac49bdc315caee64371b26a9abb233f1"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "Stemone is not a complete tea extract.",
+        "No tea-consumer preference is transferred to perfume."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TEA_BLACK",
+      "subtype_card_sha256": "30be0f3c4ce9e456a703df8ec28dbffc36d652cc7ab6f54f24f7b0244cbdcbe2",
+      "source_bindings": [
+        {
+          "source_id": "tea_black_omission_subtypes",
+          "source_record_sha256": "69847627a14afa01698ed45a00f63ec0586151db78c3332d4945c3d9eb02b23d"
+        },
+        {
+          "source_id": "givaudan_dihydro",
+          "source_record_sha256": "9a2ac22d66c36aa383e7672ce816f89f929adfc0eb46e2c775d7228a881d590d"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "The study used a deodorized tea matrix, not ethanol or skin.",
+        "Dihydro-beta-ionone remains a distinct ingredient grade."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TEA_OOLONG",
+      "subtype_card_sha256": "96d90e520f591a018e16ffcbace261b08157250fa341a9af1f53411f820e3a43",
+      "source_bindings": [
+        {
+          "source_id": "tea_oolong_omission_subtypes",
+          "source_record_sha256": "7db970b938427be44aa95c53038233e603b19936d43f6325b9721faf6b02c2fe"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "Not every oolong is Dong Ding or heavily roasted.",
+        "Food grade rankings are not perfume-quality labels."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "YLANG_FRACTIONS",
+      "subtype_card_sha256": "5f7c10a609b7db8d3cbbe87628dd72ec3514502e32268746b685f24c1a9f08a9",
+      "source_bindings": [
+        {
+          "source_id": "ylang_fractions_floral_v2",
+          "source_record_sha256": "58199171e12e17146e872f0570168dd24b03ab86ccf71fe2d5e9e2d90b86d745"
+        },
+        {
+          "source_id": "iff_ylang_completion",
+          "source_record_sha256": "052b5e439becd7fbc9c46c17215fd609ff7f1466bc711bf2627ee134524b66a7"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "GC area and distillation order do not establish odor intensity, dose equivalence or cananga identity.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TROP_TIARE",
+      "subtype_card_sha256": "20fb616ef195fac1ea3f87293894ed3dd4a1b94b0a2f7cc02325553b1078718e",
+      "source_bindings": [
+        {
+          "source_id": "pacific_flowers_floral_v2",
+          "source_record_sha256": "8ccc582387d6c5ebedc5f12703505a7ffbb6f66adee3d1cd554840485d2ce186"
+        },
+        {
+          "source_id": "dsm_salicynile_floral_v2",
+          "source_record_sha256": "e25c1d054459ff63e3360df3234f285bf3f4bf72912b5d2f894bfc4db836b39b"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Choose an authenticated Gardenia taitensis flower/reference profile; concrete, monoi and living flower are different.",
+      "remaining_scope": [
+        "Species-resolved constituent and sensory evidence remain missing; this is a partial research card.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TROP_FRANGIPANI",
+      "subtype_card_sha256": "80330bb2dc89b7b63e1dd69c48b52ddc7330a2a3c941ff9d64b1e1c3fe838a58",
+      "source_bindings": [
+        {
+          "source_id": "pacific_flowers_floral_v2",
+          "source_record_sha256": "8ccc582387d6c5ebedc5f12703505a7ffbb6f66adee3d1cd554840485d2ce186"
+        },
+        {
+          "source_id": "iff_ylang_completion",
+          "source_record_sha256": "052b5e439becd7fbc9c46c17215fd609ff7f1466bc711bf2627ee134524b66a7"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Choose the Plumeria species and intended reference; the P. rubra study does not define every frangipani.",
+      "remaining_scope": [
+        "Abstract-only research does not bind a Plumeria species, perfume dose or commercial extract.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "MAGNOLIA_CREAM",
+      "subtype_card_sha256": "236871a1fbfb7638c2d0d872bbd13aba4783c4a1d8734e4b7562d3299dcd9b8f",
+      "source_bindings": [
+        {
+          "source_id": "iff_magnolia_completion",
+          "source_record_sha256": "d12ff496073a9da65b7e03ab8614b7eba33c62da7a0b6f185bf5c25976364bcc"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        },
+        {
+          "source_id": "givaudan_methyl_laitone_completion",
+          "source_record_sha256": "699e8662b0414c36dc2c54bc7a501c4c09115bdf8eb4b2a96814b95fd4498a96"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "magnolia_cream_v5:musk_texture",
+        "magnolia_cream_v5:lactonic_texture"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Michelia alba flower oil is not every Magnolia species or leaf product.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "NARCISSUS_ABS",
+      "subtype_card_sha256": "c71d028d7b1e7bf9c83fe5aec6e1da533ce4710b37b78a5bb516c9badd439858",
+      "source_bindings": [
+        {
+          "source_id": "iff_narcisse_floral_v2",
+          "source_record_sha256": "44cc0514c1af42bee2b0a22f9b42b6a4ccee937bcdeebb3f7e45ace4db49bcd6"
+        },
+        {
+          "source_id": "iff_jonquille_completion",
+          "source_record_sha256": "cd60ee025249bcde56ab3235716b42e1d291df95abdf5489170a38b30eca10ce"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "Species and proprietary extraction remain product-specific; no universal narcissus dose or grade equivalence.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "BOUQUET_CLASSICAL",
+      "subtype_card_sha256": "ce4c15c443dd941284eacfa55135112cb63c74363217c7a30a7c41d1f00c6f08",
+      "source_bindings": [
+        {
+          "source_id": "chanel_n5_floral_v2",
+          "source_record_sha256": "95a7ce0421e62415218062186e7b6d2ce75067408508b0b3cafc40b68bff7222"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_jasmine_grand_subtypes",
+          "source_record_sha256": "1345f5739e57f064df0f82fed060381c7791d6c7d5ea3efba5f331ac1ff7ddbb"
+        },
+        {
+          "source_id": "iff_ylang_completion",
+          "source_record_sha256": "052b5e439becd7fbc9c46c17215fd609ff7f1466bc711bf2627ee134524b66a7"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "Official note architecture does not prove composition, quantities or superiority.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "PINEAPPLE_WOODY",
+      "subtype_card_sha256": "8128b70430af0d019ae3531f61486a5d7c6675542aa3b9b738e0de32b48401c4",
+      "source_bindings": [
+        {
+          "source_id": "pineapple_recombination_floral_v2",
+          "source_record_sha256": "0345863796d6b35609affe51f0ee180e283c5026d2f740ce2232270f1e2528c0"
+        },
+        {
+          "source_id": "creed_aventus_current_floral_v2",
+          "source_record_sha256": "e69e63c45dfa1dbac69cd18202c0c864f32c169cf243b702455987ba73558b63"
+        },
+        {
+          "source_id": "creed_aventus_collection_floral_v2",
+          "source_record_sha256": "fa21e364c65d4a7c0e3f9f1fe18fe70433d3006ebc9f75587c3ebd3853aa5f90"
+        },
+        {
+          "source_id": "givaudan_paradisamide_completion",
+          "source_record_sha256": "8682aabf681b39585972782d0a8a5b66b01fb80c155c474e4dcdc44c8ca3032a"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "pineapple_woody_v5:crisp_fruit",
+        "pineapple_woody_v5:sweet_fruit_body"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "No Aventus formula, current batch composition or CHIMIE L'HOMME identity is established; food concentrations never become perfume doses.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LAV_APPLE",
+      "subtype_card_sha256": "fefcb3a6d4df9f17cbca759c807758a725a98710240246f234f6733105d63cc9",
+      "source_bindings": [
+        {
+          "source_id": "pdm_layton_edp",
+          "source_record_sha256": "8add2076a2876635313f0136d0fc6239fb56c019779089b9f1e434804a279a31"
+        },
+        {
+          "source_id": "apple_aroma",
+          "source_record_sha256": "f210af34dd21a4d3834fe60013957c27cf8ce954c73a62e3f7cb9930c9f2ffdc"
+        },
+        {
+          "source_id": "givaudan_manzanate_subtypes",
+          "source_record_sha256": "0d10c24774688e4d120a89644b88732beb8955c55fa3e24951d667e8c62378bb"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "lav_apple_v5:crisp_apple",
+        "lav_apple_v5:ripe_apple"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Manufacturer and official descriptions are not analytical proof of Layton or CHIMIE composition.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LAV_PINEAPPLE",
+      "subtype_card_sha256": "7c09e3dab4bf5fb1e94c8cc474c320901c69ea01e6f69cb453312465ce09606d",
+      "source_bindings": [
+        {
+          "source_id": "malle_music_for_a_while_edp",
+          "source_record_sha256": "c3efeda848749f89c61b0465d5abee69a6f1347b19e49c58e5f834d9668ff52b"
+        },
+        {
+          "source_id": "pineapple_recombination_floral_v2",
+          "source_record_sha256": "0345863796d6b35609affe51f0ee180e283c5026d2f740ce2232270f1e2528c0"
+        },
+        {
+          "source_id": "iff_patchouli_completion",
+          "source_record_sha256": "c535745de882a0e9c5836f5aa002e6f7d2fb40b36d33e7de0dc852110b8ebc61"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "A commercial reference is architectural evidence only, not a clone recipe or calibrated intensity target.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "FOUGERE_LEATHER",
+      "subtype_card_sha256": "3714664f9538303958e0792b5f9a3112f7179403313e1bac776b3c415805f64a",
+      "source_bindings": [
+        {
+          "source_id": "tom_ford_beau_de_jour_edp",
+          "source_record_sha256": "486a5f057aeb84f16d2fe833dabe12a62b8b868bcb34c58b16fc63f431d1b4fd"
+        },
+        {
+          "source_id": "givaudan_safraleine_foundation",
+          "source_record_sha256": "eacc33459c2ea9caf104f237aa6d824d4bc98a90a1cf051d312a426665ad6642"
+        },
+        {
+          "source_id": "iff_labdanum_foundation",
+          "source_record_sha256": "716abc14e0963cfd856cda98a765c6ae04d4cb019e481572fd6f64e79181fd14"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "fougere_leather_v5:leather_edge",
+        "fougere_leather_v5:resin_edge"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "No leather material is inferred present in a referenced proprietary perfume.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CHYPRE_LEATHER",
+      "subtype_card_sha256": "f67dc3ac094cc304500ae632528dc435ab113e2f79d677cc95ed866044d6a829",
+      "source_bindings": [
+        {
+          "source_id": "givaudan_chypre_floral_v2",
+          "source_record_sha256": "e693e6839867a77621338c6bc4d38d9c88c669c5be3637dcbe0c8779ccd5ef13"
+        },
+        {
+          "source_id": "givaudan_orcinyl_floral_v2",
+          "source_record_sha256": "e66c9db48e18a250fd2b92069d045ce409b97bbb0873c82cf69248e3b96cbfcd"
+        },
+        {
+          "source_id": "givaudan_safraleine_foundation",
+          "source_record_sha256": "eacc33459c2ea9caf104f237aa6d824d4bc98a90a1cf051d312a426665ad6642"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "Neither Orcinyl nor another synthetic is a whole-oakmoss or safety-equivalent substitute.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "WOOD_MINERAL",
+      "subtype_card_sha256": "cdd598d5b722057a1aab2672d8c7744e7ec3b1db0c20becb39642011a2619280",
+      "source_bindings": [
+        {
+          "source_id": "dsm_ambrox_super_description",
+          "source_record_sha256": "8ff89903fab195039347f9ec55b8f9859cb60227274055fd95293e73fc8ce8b0"
+        },
+        {
+          "source_id": "iff_iso_e_super_completion",
+          "source_record_sha256": "54c3b1da3231dd68cbc5f900c7d313f6d38d3be99b1180b29159005fd4b41082"
+        },
+        {
+          "source_id": "iff_amber_xtreme_foundation",
+          "source_record_sha256": "56837c912031875a6b3eb2efa09da894352733677bd1e3a400910ef70ab514fd"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "wood_mineral_v5:smooth_wood"
+      ],
+      "required_next": "Mineral-resin option requires the separately bound addendum; smooth wood alone does not close it.",
+      "remaining_scope": [
+        "Mineral-resin option requires the separately bound addendum; smooth wood alone does not close it.",
+        "Vapor pressure, source blotter tenacity and OAV do not establish finished-perfume sillage or liking.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "AMBERGRIS_MUSK",
+      "subtype_card_sha256": "9942713645225e1727d414cf4fc490df2760bcb4c3fcc454436f7a43f87ca09b",
+      "source_bindings": [
+        {
+          "source_id": "dsm_ambrox_super_description",
+          "source_record_sha256": "8ff89903fab195039347f9ec55b8f9859cb60227274055fd95293e73fc8ce8b0"
+        },
+        {
+          "source_id": "iff_ambrettolide_foundation",
+          "source_record_sha256": "edf6fee353746ba250e6ebb42742ff2807e8c4493203d4850cd421b2503eb390"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "Natural ambergris tincture, ambroxide grades and musks are not equivalent; no longevity or personal-liking claim.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TROP_CANANGA",
+      "subtype_card_sha256": "6046a1693d876f7f43e4c878e30093c4e2840e97d91af9ec5c974b8efa08eb44",
+      "source_bindings": [
+        {
+          "source_id": "indesso_cananga_finish",
+          "source_record_sha256": "b26b74a7e372a23fa1b5a4255a279167b106cd0069f233805a4c8bdfb27554d8"
+        },
+        {
+          "source_id": "cananga_ylang_identity_finish",
+          "source_record_sha256": "983266888b1d4adbf88ec6cf5dd9b9250383fd402ab3732aa9c9230515eda156"
+        },
+        {
+          "source_id": "ylang_methods_finish",
+          "source_record_sha256": "c6a56d65b1025d660be227b0e4498b9b0596a2f287dbe02bd0b78aaa57999248"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "The Indesso botanical form and distillation cut are not established by the reviewed page.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LIGHT_LILAC",
+      "subtype_card_sha256": "f6a399089eac83bb145cb8816da4d98e899de34dedfd3fb111e5550a1e8040e5",
+      "source_bindings": [
+        {
+          "source_id": "lilac_isomers_finish",
+          "source_record_sha256": "6d02279d5068221551923a7da32cfbf4ecc33ebea546e3c4ece885fc438e99b5"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "No complete natural lilac reconstruction is supplied; moth responses are not human sensory evidence.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LIGHT_SWEET_PEA",
+      "subtype_card_sha256": "1c1c19476603b27d4a20aa7ddb529a81ed981e013d566ee107276c8755545aa4",
+      "source_bindings": [
+        {
+          "source_id": "sweet_pea_methods_finish",
+          "source_record_sha256": "9820438987699ede52ae12d18955475aeaa2ea67b7603b019d778bc7a999079c"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "light_sweet_pea_v5:terpenic_flower"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Do not merge immediate and next-day analytical profiles or infer gas doses from peak area.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TROP_ALBA",
+      "subtype_card_sha256": "9c96646c78b951eccbab9d4359d1951c03dd6c72d2f197bdd441436588322829",
+      "source_bindings": [
+        {
+          "source_id": "alba_drying_finish",
+          "source_record_sha256": "588596185179c93ae686597b391564fb235c43a7fce34aefea713d3a5ad36a82"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "trop_alba_v5:aromatic_flower"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Do not infer drying superiority or delivered concentration from relative areas and different heating/mass conditions.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LAV_COFFEE_MILK",
+      "subtype_card_sha256": "6fb3543edf1858b00a6605fe792577a579a3fe95173eecb1b47f2f7858775199",
+      "source_bindings": [
+        {
+          "source_id": "coffee_roasting_finish",
+          "source_record_sha256": "95cc74b982ef885c435abc063f8e46d4f803afd4006d49d5946c9ecd1f46ffb7"
+        },
+        {
+          "source_id": "margiela_coffee_break_edt",
+          "source_record_sha256": "31a19787327488fc944152c8a24804337c6d7f06bd6512f2ff8938665bda05f8"
+        },
+        {
+          "source_id": "givaudan_methyl_laitone_completion",
+          "source_record_sha256": "699e8662b0414c36dc2c54bc7a501c4c09115bdf8eb4b2a96814b95fd4498a96"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "lav_coffee_milk_v5:milk_texture"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Brand notes do not disclose a formula; the milk material is a product-specific hypothesis, not measured dairy equivalence.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "BERRY_RHUBARB",
+      "subtype_card_sha256": "4162fe1474facf539e38b62c427a059469a44fb793db98df628d50651f8a5652",
+      "source_bindings": [
+        {
+          "source_id": "symrise_perfumers_finish",
+          "source_record_sha256": "6246b899120265533bdc6131638b1c2865c7cf569bae35c7b0654a6ee81a4aef"
+        },
+        {
+          "source_id": "pdm_delina_edp",
+          "source_record_sha256": "fa4704e6b84efa5e9651618efb2e6a72120977c58db6e665a13fedebf2c8269d"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "berry_rhubarb_v5:rhubarb_contour"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Rhubarb is an odor concept here, not a claim to measured botanical juice composition.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "BERRY_GRAPE",
+      "subtype_card_sha256": "08aa7bddb483d08eaac31fbacb0585e95ef239a22864cac53130a8ab7e7efee8",
+      "source_bindings": [
+        {
+          "source_id": "symrise_perfumers_finish",
+          "source_record_sha256": "6246b899120265533bdc6131638b1c2865c7cf569bae35c7b0654a6ee81a4aef"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "berry_grape_v5:grape_flower"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Muscat, Concord and wine are distinct targets; the named product is not their full reconstruction.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "BERRY_FLORAL_BRIDGE",
+      "subtype_card_sha256": "60efda87ab2f27b508409fdf2985815167229a2a790ecc60c471300946790116",
+      "source_bindings": [
+        {
+          "source_id": "raspberry_recombination_subtypes",
+          "source_record_sha256": "3c25fa3885840a77a117e5c78cf3a8f9815ece6b67f9d2fe989688e2e60393b3"
+        },
+        {
+          "source_id": "dsm_hedione_foundation",
+          "source_record_sha256": "e16f04e784546916f2f084b4e9dbb9a23e5654fb30d282cd2237f93b13f5d187"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "berry_floral_bridge_v5:transparent_flower",
+        "berry_floral_bridge_v5:rose_petals"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "A raspberry recombination does not establish all berry profiles or ethanol-perfume ratios.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TROP_MANGO",
+      "subtype_card_sha256": "f899c46c8fb8a2b695eeac532bba933f13eb2bc5a689a4b84f3d3cffadfc6c02",
+      "source_bindings": [
+        {
+          "source_id": "mango_cultivars_finish",
+          "source_record_sha256": "485b57d1240e1a806c9afd6042c120d4e859a0ae13979b31a9bf56898362cadb"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Declare cultivar/ripeness or accept an explicitly unspecified mango interpretation; no invented cultivar.",
+      "remaining_scope": [
+        "Cultivar and ripeness must be declared; food matrix findings are not perfume dosage.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TROP_PASSIONFRUIT",
+      "subtype_card_sha256": "d4b60fd316e7ffd4079219045b6918e4faf2c5376ec4a4a1811106b61740810f",
+      "source_bindings": [
+        {
+          "source_id": "passionfruit_products_finish",
+          "source_record_sha256": "ea377bed4a04bc78c9abeb62e8ae3102a970782647f9e690c7886cd7fa2ae746"
+        },
+        {
+          "source_id": "givaudan_paradisamide_completion",
+          "source_record_sha256": "8682aabf681b39585972782d0a8a5b66b01fb80c155c474e4dcdc44c8ca3032a"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "trop_passionfruit_v5:tropical_body"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "A supplier fruity descriptor is not chemical or sensory equivalence to fresh juice.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TROP_MELON",
+      "subtype_card_sha256": "919613c192ad7be711114a144cf756390d30f5c5ca5a10e2a3a7d527c1f7287e",
+      "source_bindings": [
+        {
+          "source_id": "symrise_perfumers_finish",
+          "source_record_sha256": "6246b899120265533bdc6131638b1c2865c7cf569bae35c7b0654a6ee81a4aef"
+        },
+        {
+          "source_id": "dsm_calone_completion",
+          "source_record_sha256": "6507a59013c5c0815cedc98646422dc78adc724263118e3104bdae9b9ccd0b85"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "trop_melon_v5:rind_green",
+        "trop_melon_v5:marine"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Watery is descriptive, not measured moisture or gas release; melon cultivar remains unspecified.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TROP_BANANA",
+      "subtype_card_sha256": "b2b1c004d4c8fc158ca3fd2b8cf4249af6a1b3486100b96955fdf02822118854",
+      "source_bindings": [
+        {
+          "source_id": "symrise_flavor_finish",
+          "source_record_sha256": "3de6e1bb884df1e47f9710bca59759844eba6d665e1acbe1ae9b0812516a44e6"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "trop_banana_v5:cream_texture"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Flavor use is not a fragrance dose or a complete banana aroma model.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "STONE_PEACH_SKIN",
+      "subtype_card_sha256": "9ee302060e6abbd1f1fe5f87d94a801451f632ce9d587083a02d963b69e22e32",
+      "source_bindings": [
+        {
+          "source_id": "symrise_perfumers_finish",
+          "source_record_sha256": "6246b899120265533bdc6131638b1c2865c7cf569bae35c7b0654a6ee81a4aef"
+        },
+        {
+          "source_id": "guerlain_mitsouko_edp_foundation",
+          "source_record_sha256": "fa3920923505af9501114034e39c1fbd95d73e1c444fe69ce8264ab35c1de4df"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "stone_peach_skin_v5:dry_frame"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Peach fuzz or tactile softness is not directly measured by these sources.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "STONE_PLUM",
+      "subtype_card_sha256": "5f20d283abcc08a0c16fec847f56c2c5d58f9057ef48e1d58f4f28b477351df3",
+      "source_bindings": [
+        {
+          "source_id": "symrise_perfumers_finish",
+          "source_record_sha256": "6246b899120265533bdc6131638b1c2865c7cf569bae35c7b0654a6ee81a4aef"
+        },
+        {
+          "source_id": "iff_davana_completion",
+          "source_record_sha256": "c45d3e49718605d509729bb7d3213d94452d72039909744a12969505c56e04f3"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Trade products and davana extract are alternatives, not compositionally equivalent substitutes.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "STONE_CHERRY",
+      "subtype_card_sha256": "8c911360e43d42dd3d843c331aa47870b8e4c8e8b6a250bf1407ec830fbb41b0",
+      "source_bindings": [
+        {
+          "source_id": "symrise_flavor_finish",
+          "source_record_sha256": "3de6e1bb884df1e47f9710bca59759844eba6d665e1acbe1ae9b0812516a44e6"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Review the selected product's own cherry odor, not flavor applications alone.",
+      "remaining_scope": [
+        "Flavor applications do not prove fresh-cherry realism in an alcoholic fragrance.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "VAN_BOTANICAL",
+      "subtype_card_sha256": "3cccd58971621ceef1dd39090dd35498537d899de09681b3156b05063feebaa8",
+      "source_bindings": [
+        {
+          "source_id": "vanilla_products_finish",
+          "source_record_sha256": "22743689a86b5bdf08fb516083671052e3d184015bb7654f3a59690c185dbc38"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Species, origin, processing and extraction are not interchangeable.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "VAN_CARAMEL_TOAST",
+      "subtype_card_sha256": "f02e5d8921a4e24e65102e9c58697d0afe0e93d773bfd13c6c8cd17fbcbd027d",
+      "source_bindings": [
+        {
+          "source_id": "symrise_flavor_finish",
+          "source_record_sha256": "3de6e1bb884df1e47f9710bca59759844eba6d665e1acbe1ae9b0812516a44e6"
+        },
+        {
+          "source_id": "dsm_sharing_innovation_2026",
+          "source_record_sha256": "5f185c27b3ac31c0d702367325d4e1928f67b508ea01880b40ea17c1a86980d9"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "van_caramel_toast_v5:toast"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Flavor taste and use levels are not perfume odor levels.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "VAN_FLORAL_GOURMAND",
+      "subtype_card_sha256": "a6f9ea463ae9a031734e29cb1e5fb28f3dcee2af569fe1ce205cc9496129b4a8",
+      "source_bindings": [
+        {
+          "source_id": "guerlain_mon_guerlain_edp",
+          "source_record_sha256": "206b2a39cbce6a58df46ba85546488f447d312c48d862cf14de12528d7fa6c5c"
+        },
+        {
+          "source_id": "ysl_libre_edp",
+          "source_record_sha256": "74904035a43d0b59ce3452248f9900d88f686a966a61725e10f698fae67799df"
+        },
+        {
+          "source_id": "iff_orange_flower_completion",
+          "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "van_floral_gourmand_v5:balsamic_link"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Commercial architecture is not composition, measured liking or improvement.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ROAST_COFFEE",
+      "subtype_card_sha256": "45d3ff78fda8477c53556885bacd0684c843101bba61771685652f893d429254",
+      "source_bindings": [
+        {
+          "source_id": "coffee_roasting_finish",
+          "source_record_sha256": "95cc74b982ef885c435abc063f8e46d4f803afd4006d49d5946c9ecd1f46ffb7"
+        },
+        {
+          "source_id": "margiela_coffee_break_edt",
+          "source_record_sha256": "31a19787327488fc944152c8a24804337c6d7f06bd6512f2ff8938665bda05f8"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "roast_coffee_v5:roast"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Coffee matrix and extraction differ from perfume; no dose model admitted.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ROAST_CACAO",
+      "subtype_card_sha256": "c35f80ac796f472ebc168030596c587f1b330739e27391d9b0e8053afbdd47f8",
+      "source_bindings": [
+        {
+          "source_id": "chocolate_recombination_finish",
+          "source_record_sha256": "d7fa89d66a669bc05c9f81dd753335ad65666d8cdac7614d7beb4b5ea3035a4c"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "roast_cacao_v5:cream_texture",
+        "roast_cacao_v5:floral_texture"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Oil-matrix findings cannot set ethanol-perfume ratios.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ROAST_ALMOND",
+      "subtype_card_sha256": "2ed967d9383f4497d73cc271e10153e19fc0941d6533293716735df91513f4d7",
+      "source_bindings": [
+        {
+          "source_id": "symrise_perfumers_finish",
+          "source_record_sha256": "6246b899120265533bdc6131638b1c2865c7cf569bae35c7b0654a6ee81a4aef"
+        },
+        {
+          "source_id": "dsm_sharing_innovation_2026",
+          "source_record_sha256": "5f185c27b3ac31c0d702367325d4e1928f67b508ea01880b40ea17c1a86980d9"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Tolyl Acetaldehyde Para 50% DPG is not neat; no stock or dose binding.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ROAST_HAZELNUT",
+      "subtype_card_sha256": "450d38430c96d2a8548285ff00fb6d30dea3c8267c674778644e9f5c7c135acf",
+      "source_bindings": [
+        {
+          "source_id": "symrise_perfumers_finish",
+          "source_record_sha256": "6246b899120265533bdc6131638b1c2865c7cf569bae35c7b0654a6ee81a4aef"
+        },
+        {
+          "source_id": "dsm_sharing_innovation_2026",
+          "source_record_sha256": "5f185c27b3ac31c0d702367325d4e1928f67b508ea01880b40ea17c1a86980d9"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Filbertone 1% TEC is not neat; food levels are not perfume levels.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "DAIRY_HONEY",
+      "subtype_card_sha256": "bfa9c46f6aed39d7c525b0bc417e65ab10efe9094547abf6d42f58c3f977932e",
+      "source_bindings": [
+        {
+          "source_id": "iff_mimosa_completion",
+          "source_record_sha256": "8af78d74a785c25017a8505daa065b53ded0130da22ab1200da2edf0d5bf8d62"
+        },
+        {
+          "source_id": "iff_cassie_completion",
+          "source_record_sha256": "1b97627df586b3001bb417527d0135116226f5a0d9aad3b6e370294dcd7c882f"
+        },
+        {
+          "source_id": "beeswax_finish",
+          "source_record_sha256": "78629ec7502e3370086dd1277b4ba63906e57be50fa0a0fee6cd9c9163b2ecd1"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Not a reconstruction of a particular botanical honey.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "DAIRY_MAPLE",
+      "subtype_card_sha256": "2f38713886f95501745ae3461aa7e8d3bfd9b939d7a2a4c1c9cb1f158ceeed41",
+      "source_bindings": [
+        {
+          "source_id": "maple_model_finish",
+          "source_record_sha256": "dd315a3f4af29ffa4667f765b39b1c6d2c5e7cb8f237c0d1f2295be2382be0ac"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "dairy_maple_v5:maple_accent"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Syrup is not an ethanol fragrance or liking calibration.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "BO_RUM_COGNAC",
+      "subtype_card_sha256": "d221bc641eca7500f69497ce8d7218e98e76ff0d28c9d6e1c9fd30d82566ef72",
+      "source_bindings": [
+        {
+          "source_id": "rum_sensomics_finish",
+          "source_record_sha256": "6f36b38fe08f34ee4d13109dbbe697a7ea60f15c4bf35908025105ed9f3d1900"
+        },
+        {
+          "source_id": "cognac_terpenes_finish",
+          "source_record_sha256": "f4d64e17b1246c7fea3773737e8b6fffaed5eb4301518a44f84f8c9e4340dd35"
+        },
+        {
+          "source_id": "iff_davana_completion",
+          "source_record_sha256": "c45d3e49718605d509729bb7d3213d94452d72039909744a12969505c56e04f3"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Choose rum or Cognac; preserve each spirit's separate evidence domain.",
+      "remaining_scope": [
+        "Tested food interactions are not universal perfume synergy; davana is an analogy.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "BO_WHISKY",
+      "subtype_card_sha256": "8df699b4515392c258ba615bf4e8b2ce05a28d3cb2a4f9a937b61b5707e838e3",
+      "source_bindings": [
+        {
+          "source_id": "bourbon_recombination_finish",
+          "source_record_sha256": "cc6d6efe9b8b9db9f82c763c8ec24df74ac1b1e3e11e2ed263984d37db545ae7"
+        },
+        {
+          "source_id": "iff_iso_e_super_completion",
+          "source_record_sha256": "54c3b1da3231dd68cbc5f900c7d313f6d38d3be99b1180b29159005fd4b41082"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Specify whisky style; bourbon evidence and generic woody Iso E Super do not establish oak fidelity.",
+      "remaining_scope": [
+        "Bourbon is not all whisky; the wood material is not oak-extract equivalence.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TEA_SMOKED",
+      "subtype_card_sha256": "133ff2bad0ccb8937b9e14113c6fb4c651a429555f7a9628059b464b11a9a729",
+      "source_bindings": [
+        {
+          "source_id": "smoked_tea_finish",
+          "source_record_sha256": "f03a98a7a288d19778625f20c0b9cbae22536f1d5d514e84860f2d9f7766ba7f"
+        },
+        {
+          "source_id": "tea_black_omission_subtypes",
+          "source_record_sha256": "69847627a14afa01698ed45a00f63ec0586151db78c3332d4945c3d9eb02b23d"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "tea_smoked_v5:smoke"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Food-process findings do not calibrate perfume smoke doses.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CEDAR_PENCIL",
+      "subtype_card_sha256": "502e88253aa2148f4e67c20838467d4e64788cb78b1d91108cf1bbbebbde37be",
+      "source_bindings": [
+        {
+          "source_id": "cedar_virginia_finish",
+          "source_record_sha256": "67aa75c217dbd6eb53987da26af61785a88751a7f4d762559e2fdeeee1ab4245"
+        },
+        {
+          "source_id": "iff_cedar_atlas_floral_v2",
+          "source_record_sha256": "f298a3a96d5df7a4f25750e2dd2a273dceaa84b74157a786d42af85fd658a187"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Supplier descriptions do not establish purchased-lot behavior.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CEDAR_CONIFER_RESIN",
+      "subtype_card_sha256": "21dc6e711c93320bfc1e9827048bf09e3c523185d2afe10f46506d2835198c76",
+      "source_bindings": [
+        {
+          "source_id": "fir_balsam_finish",
+          "source_record_sha256": "7fde5903581ae6d400bcf3dca29cc53490f51d9fabe763b0764711b76e062539"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Resin extraction differs from needles; page origin is not verified harvest origin.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CEDAR_GUAIAC",
+      "subtype_card_sha256": "6618c9fd54be9f5ec3f8a931d2c639de6d9c65726b805c894bb8a6ca3742d4ec",
+      "source_bindings": [
+        {
+          "source_id": "guaiac_finish",
+          "source_record_sha256": "7ad24331e37b2f7d34b290c7810c1e7ec0348ff9ac26de875c611afe89191aec"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "cedar_guaiac_v5:smoky_wood"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Smoky odor is not combustion chemistry.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "VETIVER_SMOKY",
+      "subtype_card_sha256": "4acae1b366933fb2406a61c884e3dc6055a7c808684ebca3bce07892b63be182",
+      "source_bindings": [
+        {
+          "source_id": "iff_vetiver_completion",
+          "source_record_sha256": "9c2643f7504a529e9aa00750f0c6e17f7970b8837969d953cdab371d2baca152"
+        },
+        {
+          "source_id": "guaiac_finish",
+          "source_record_sha256": "7ad24331e37b2f7d34b290c7810c1e7ec0348ff9ac26de875c611afe89191aec"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "vetiver_smoky_v5:smoky_wood"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Do not infer a smoky profile from origin alone.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "VETIVER_HEART",
+      "subtype_card_sha256": "8d82cc714aa2135276bd66afdf25bda89bb408f318b82fb25d9cc0692cb05608",
+      "source_bindings": [
+        {
+          "source_id": "vetiver_heart_finish",
+          "source_record_sha256": "aa3e873b8e18b6380e78ba7e37eae56d9d738cd2f35bd7701a17b3aa8653ded0"
+        },
+        {
+          "source_id": "iff_vetiver_completion",
+          "source_record_sha256": "9c2643f7504a529e9aa00750f0c6e17f7970b8837969d953cdab371d2baca152"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Cleaner is a descriptor, not automatically better.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "OUD_ANIMALIC",
+      "subtype_card_sha256": "2ccfcc9e182f61f1841c499c5e2b591cd677298ec29c298f26b7f9f264a90ec2",
+      "source_bindings": [
+        {
+          "source_id": "agarwood_reco_finish",
+          "source_record_sha256": "bee8b9bd9ef5bd29f7bd83d612e0cb11ade86a8f6e4b88ee4105c36957e1a3b1"
+        },
+        {
+          "source_id": "agarwood_variation_completion",
+          "source_record_sha256": "eb450922f6db80afb5fbb4e9fe9294ba934aaa27db51b4f3494dbe1965497617"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Review applicable medicinal-facet evidence; artificial Agarwood Reco does not establish natural oud fidelity.",
+      "remaining_scope": [
+        "MEDICINAL_FACET_NOT_ESTABLISHED; species, process and artificial blend remain separate.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "OUD_ROSE_AMBER",
+      "subtype_card_sha256": "85590b43b10604a287cf8a490249b2781cb80072d9523db7ab6f6169de922bee",
+      "source_bindings": [
+        {
+          "source_id": "agarwood_reco_finish",
+          "source_record_sha256": "bee8b9bd9ef5bd29f7bd83d612e0cb11ade86a8f6e4b88ee4105c36957e1a3b1"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_labdanum_foundation",
+          "source_record_sha256": "716abc14e0963cfd856cda98a765c6ae04d4cb019e481572fd6f64e79181fd14"
+        },
+        {
+          "source_id": "iff_benzoin_siam_foundation",
+          "source_record_sha256": "08615faaba10718c2da06185239a30cb05b32aaab84a5b0a999dde0bc2c9ab04"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "oud_rose_amber_v5:resin_leather",
+        "oud_rose_amber_v5:vanillic_balsam"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Not a disclosed formula or authenticated historical tradition.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "OUD_SPICED",
+      "subtype_card_sha256": "47c53735ebe1aa474c16c61e1d4d261ee6c0d42d9bb2537c5b9cb10a3e766784",
+      "source_bindings": [
+        {
+          "source_id": "agarwood_reco_finish",
+          "source_record_sha256": "bee8b9bd9ef5bd29f7bd83d612e0cb11ade86a8f6e4b88ee4105c36957e1a3b1"
+        },
+        {
+          "source_id": "iff_cardamom_completion",
+          "source_record_sha256": "3de0a45a2ddbfa5e0468f133eabf0697662978d13c73b0e0f716284dfaf5e6da"
+        },
+        {
+          "source_id": "givaudan_safraleine_foundation",
+          "source_record_sha256": "eacc33459c2ea9caf104f237aa6d824d4bc98a90a1cf051d312a426665ad6642"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "Safraleine is not saffron extract; reconstruction is not natural oud.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "RESIN_STYRAX",
+      "subtype_card_sha256": "9213497c84444223f3024e72d88024279ab8c71b014b75527623b342fbb82398",
+      "source_bindings": [
+        {
+          "source_id": "styrax_finish",
+          "source_record_sha256": "be32a7e0dd04760339c4d5239444666543220adb0f51e82191cd1ec378f0b8f1"
+        },
+        {
+          "source_id": "iff_benzoin_siam_foundation",
+          "source_record_sha256": "08615faaba10718c2da06185239a30cb05b32aaab84a5b0a999dde0bc2c9ab04"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "resin_styrax_v5:leathery_resin"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Low-styrene grade is not general safety approval.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "RESIN_OPOPONAX",
+      "subtype_card_sha256": "e53bab8e4ea7e4075119212e3e66cfc8d048025b729ed7f57065eddc44351089",
+      "source_bindings": [
+        {
+          "source_id": "opoponax_finish",
+          "source_record_sha256": "9eb57b362a5e89062ceb301cfef255855e4e88a21e56769fce687b7925e3bbd6"
+        },
+        {
+          "source_id": "myrrh_finish",
+          "source_record_sha256": "226e41aedc8ba6d1bccd88ea829f10b039c49e878fe59316fb8b84460df92912"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "No matched opoponax resinoid profile has been reviewed here.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "RESIN_TOLU_PERU",
+      "subtype_card_sha256": "30a332ad8fc9ee76d98ea82873ae6b7d41ef6b7305e8abe3c950639d12a5cd9f",
+      "source_bindings": [
+        {
+          "source_id": "peru_tolu_identity_finish",
+          "source_record_sha256": "2504a82f4f4af596d379f367fbe45c3fef144b55d1e98766867b7aef0022f40a"
+        },
+        {
+          "source_id": "iff_benzoin_siam_foundation",
+          "source_record_sha256": "08615faaba10718c2da06185239a30cb05b32aaab84a5b0a999dde0bc2c9ab04"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Obtain matched natural Tolu/Peru odor evidence; Peru molecular distillate and Tolu reconstructions are not substitutes.",
+      "remaining_scope": [
+        "COMPARATIVE_ODOR_NOT_ESTABLISHED; historical draft identity is not current regulation.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "RESIN_ANIMALIC",
+      "subtype_card_sha256": "528fc060e25a679c896bc2dcbfc19be16fbb4c3a651cbf24abcac4933daf2d1e",
+      "source_bindings": [
+        {
+          "source_id": "styrax_finish",
+          "source_record_sha256": "be32a7e0dd04760339c4d5239444666543220adb0f51e82191cd1ec378f0b8f1"
+        },
+        {
+          "source_id": "iff_labdanum_foundation",
+          "source_record_sha256": "716abc14e0963cfd856cda98a765c6ae04d4cb019e481572fd6f64e79181fd14"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "resin_animalic_v5:leathery_resin"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "No universal animalic intensity or liking multiplier follows.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LEATHER_SMOKY",
+      "subtype_card_sha256": "57452d95ae7c565bec4e2fbb0915432cc15282246f76b190bfd9cf01bdcc4c24",
+      "source_bindings": [
+        {
+          "source_id": "guaiac_finish",
+          "source_record_sha256": "7ad24331e37b2f7d34b290c7810c1e7ec0348ff9ac26de875c611afe89191aec"
+        },
+        {
+          "source_id": "styrax_finish",
+          "source_record_sha256": "be32a7e0dd04760339c4d5239444666543220adb0f51e82191cd1ec378f0b8f1"
+        },
+        {
+          "source_id": "iff_labdanum_foundation",
+          "source_record_sha256": "716abc14e0963cfd856cda98a765c6ae04d4cb019e481572fd6f64e79181fd14"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "leather_smoky_v5:smoky_wood"
+      ],
+      "required_next": "Literal tar grade remains unreviewed.",
+      "remaining_scope": [
+        "Literal tar grade remains unreviewed.",
+        "LITERAL_TAR_GRADE_NOT_REVIEWED; impression is not combustion-product composition.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LEATHER_GREEN",
+      "subtype_card_sha256": "18ee78f9e6d0d911cc155282b3e57b49477964ff5992d85c63bbb3f963f98a90",
+      "source_bindings": [
+        {
+          "source_id": "galbanum_character_subtypes",
+          "source_record_sha256": "aa5ed7c9f4aaa41658e72354258fec50154f0a74555f1b0ee100400401fbbc81"
+        },
+        {
+          "source_id": "givaudan_safraleine_foundation",
+          "source_record_sha256": "eacc33459c2ea9caf104f237aa6d824d4bc98a90a1cf051d312a426665ad6642"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "leather_green_v5:green_resin"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Bitterness is an uncalibrated odor metaphor, not a taste measurement.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LEATHER_FLORAL",
+      "subtype_card_sha256": "0ab09a1d4a3775a7f439d8c65390d6f85da2c4c0da83ae80889af3becde113c5",
+      "source_bindings": [
+        {
+          "source_id": "iff_osmanthus_completion",
+          "source_record_sha256": "0f178c02e7a9d4b9d0b64cdc89038b2ce598625a34ff7ab3414544df1743a516"
+        },
+        {
+          "source_id": "iff_jasmine_completion",
+          "source_record_sha256": "5d4db39c433fd72932f6d12c64f4cf966a638d1fb1103951abf162437573a1ab"
+        },
+        {
+          "source_id": "givaudan_safraleine_foundation",
+          "source_record_sha256": "eacc33459c2ea9caf104f237aa6d824d4bc98a90a1cf051d312a426665ad6642"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "leather_floral_v5:floral_leather_bridge"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Exact extracts and synthetic leather interpretations are not chemically interchangeable.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "INCENSE_MYRRH",
+      "subtype_card_sha256": "ef4cf133347db994ccfe1b917c676cd5cf5aebe23c4f8a1f60806e57b010371a",
+      "source_bindings": [
+        {
+          "source_id": "myrrh_finish",
+          "source_record_sha256": "226e41aedc8ba6d1bccd88ea829f10b039c49e878fe59316fb8b84460df92912"
+        },
+        {
+          "source_id": "opoponax_finish",
+          "source_record_sha256": "9eb57b362a5e89062ceb301cfef255855e4e88a21e56769fce687b7925e3bbd6"
+        },
+        {
+          "source_id": "iff_olibanum_oil_completion",
+          "source_record_sha256": "7d1ab60ba12f335541b07a22210d8f76dccf245523be3f799a61af70d2e75e79"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Oil and resinoid forms remain distinct; generic resin names do not bind stocks.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "INCENSE_ELEMI",
+      "subtype_card_sha256": "7bc21814a54f88ec45db7a7b7099d5d8d0a1303f7d87b5aa5f412f10ead5ce5d",
+      "source_bindings": [
+        {
+          "source_id": "elemi_finish",
+          "source_record_sha256": "e5dbba2b03ed1e363cf0030daf19d484672b152cfe1322bb9a1c6c6dd52f9eb6"
+        },
+        {
+          "source_id": "iff_olibanum_oil_completion",
+          "source_record_sha256": "7d1ab60ba12f335541b07a22210d8f76dccf245523be3f799a61af70d2e75e79"
+        },
+        {
+          "source_id": "iff_olibanum_resinoid_completion",
+          "source_record_sha256": "799c648cebdbd035cdf20a67b2eadb12ba0d5a3769c2e3087267855f54beefb4"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "incense_elemi_v5:citrus_pepper_resin"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "No predicted duration or mass-transfer effect is inferred.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "INCENSE_CHURCH",
+      "subtype_card_sha256": "28bfddb5118fad95913bbdc45039db4326c27d974b59c2d12c1ee8913263f313",
+      "source_bindings": [
+        {
+          "source_id": "iff_olibanum_oil_completion",
+          "source_record_sha256": "7d1ab60ba12f335541b07a22210d8f76dccf245523be3f799a61af70d2e75e79"
+        },
+        {
+          "source_id": "iff_olibanum_resinoid_completion",
+          "source_record_sha256": "799c648cebdbd035cdf20a67b2eadb12ba0d5a3769c2e3087267855f54beefb4"
+        },
+        {
+          "source_id": "guaiac_finish",
+          "source_record_sha256": "7ad24331e37b2f7d34b290c7810c1e7ec0348ff9ac26de875c611afe89191aec"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "incense_church_v5:smoky_wood"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Not an analysis of burned church incense, a sacred-tradition reconstruction or air-safety evidence.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TOBACCO_DRY",
+      "subtype_card_sha256": "dbc1fcd7a0bf54071bffd8854f6536a42f00e51d6752e1ab4f84acfd224a16f6",
+      "source_bindings": [
+        {
+          "source_id": "tobacco_finish",
+          "source_record_sha256": "8d41e65caf1a02e88471ba018ba91de7c2f4f579364394411509cebd71c815ee"
+        },
+        {
+          "source_id": "iff_tonka_foundation",
+          "source_record_sha256": "febdf7489a348ac6118b36d1e9058dbabd476c229a749b1ce24da1e71ab7a8aa"
+        },
+        {
+          "source_id": "iff_jonquille_completion",
+          "source_record_sha256": "cd60ee025249bcde56ab3235716b42e1d291df95abdf5489170a38b30eca10ce"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "tobacco_dry_v5:hay_support",
+        "tobacco_dry_v5:floral_hay"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Denicotinization is not nicotine-free certification.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TOBACCO_PIPE",
+      "subtype_card_sha256": "67316d6816aeb2a5227b9a716b4a1933043e0854768880bf66ca098ee62ccd93",
+      "source_bindings": [
+        {
+          "source_id": "tobacco_finish",
+          "source_record_sha256": "8d41e65caf1a02e88471ba018ba91de7c2f4f579364394411509cebd71c815ee"
+        },
+        {
+          "source_id": "iff_tonka_foundation",
+          "source_record_sha256": "febdf7489a348ac6118b36d1e9058dbabd476c229a749b1ce24da1e71ab7a8aa"
+        },
+        {
+          "source_id": "iff_benzoin_siam_foundation",
+          "source_record_sha256": "08615faaba10718c2da06185239a30cb05b32aaab84a5b0a999dde0bc2c9ab04"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "tobacco_pipe_v5:hay_support",
+        "tobacco_pipe_v5:balsamic_support"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Not a measured profile of every pipe blend or evidence about smoking safety.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TOBACCO_SMOKY",
+      "subtype_card_sha256": "205535c1d764a88a02007a95202503b76d42639d4b746771ceb6fe235d7d6e5b",
+      "source_bindings": [
+        {
+          "source_id": "tobacco_finish",
+          "source_record_sha256": "8d41e65caf1a02e88471ba018ba91de7c2f4f579364394411509cebd71c815ee"
+        },
+        {
+          "source_id": "guaiac_finish",
+          "source_record_sha256": "7ad24331e37b2f7d34b290c7810c1e7ec0348ff9ac26de875c611afe89191aec"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "tobacco_smoky_v5:smoky_wood"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Not a reconstruction of tobacco combustion products.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TOBACCO_BEESWAX",
+      "subtype_card_sha256": "42ceed6998441addf52ff2b05dcc33cf7ddcb11399fe3d60143828cd00280485",
+      "source_bindings": [
+        {
+          "source_id": "beeswax_finish",
+          "source_record_sha256": "78629ec7502e3370086dd1277b4ba63906e57be50fa0a0fee6cd9c9163b2ecd1"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "No physical wax behavior, honey-equivalence or lot composition is implied.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "HERB_ROSEMARY",
+      "subtype_card_sha256": "aff925fb8a51ba3dd3d3adaa893a6934180e415066f601fd2c9edf51bf53a145",
+      "source_bindings": [
+        {
+          "source_id": "herb_chemotypes_finish",
+          "source_record_sha256": "8dba7b36a30fdd39ddfc6b2a5b3df3b5ebd1297c62adab76f60947ecac17c783"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Botanical name alone does not bind a lot profile.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "HERB_BASIL_THYME",
+      "subtype_card_sha256": "6059aaa1163ddb821eb7a993d63490867e7a7223d02b9fe27e8fabf81fd912d7",
+      "source_bindings": [
+        {
+          "source_id": "herb_chemotypes_finish",
+          "source_record_sha256": "8dba7b36a30fdd39ddfc6b2a5b3df3b5ebd1297c62adab76f60947ecac17c783"
+        },
+        {
+          "source_id": "basil_cultivars_finish",
+          "source_record_sha256": "a961b133da3b4933c7cc46989939e3e9d75798e8022917366c463835e81b9015"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Cultivar, chemotype and process are not stock-independent constants.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "HERB_MINT",
+      "subtype_card_sha256": "35d4684d2f69ba8855b8e6321f4725b379ed856f52cfc4fb47a57473a751c465",
+      "source_bindings": [
+        {
+          "source_id": "herb_chemotypes_finish",
+          "source_record_sha256": "8dba7b36a30fdd39ddfc6b2a5b3df3b5ebd1297c62adab76f60947ecac17c783"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Chemical class does not establish cooling equivalence, safe dose or fragrance tenacity.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "HERB_ANISE_TARRAGON",
+      "subtype_card_sha256": "6f01f84f54d9bc865d79ac2121d95db66b6cd2e72e5accfc7b14bcd640e97ae3",
+      "source_bindings": [
+        {
+          "source_id": "anise_tarragon_finish",
+          "source_record_sha256": "feb9af2938fd742d3a70bf6255189eebc785caf4aab11454fc83019f1caf0adf"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Food/sorption threshold results are not perfume gas thresholds.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "SOFT_COUMARIN",
+      "subtype_card_sha256": "d587ad1c2065beccddedb02d606c96054853c4f67a0c84374eb43509db0f2296",
+      "source_bindings": [
+        {
+          "source_id": "iff_tonka_foundation",
+          "source_record_sha256": "febdf7489a348ac6118b36d1e9058dbabd476c229a749b1ce24da1e71ab7a8aa"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "soft_coumarin_v5:hay_support"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Softness is descriptive; no measured hedonic or intensity calibration.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "SOFT_VANILLA",
+      "subtype_card_sha256": "460fee9eebea1dd4a424c9257f5664780d251d73dfda4a4747fa7c47c7ae24a5",
+      "source_bindings": [
+        {
+          "source_id": "iff_benzoin_siam_foundation",
+          "source_record_sha256": "08615faaba10718c2da06185239a30cb05b32aaab84a5b0a999dde0bc2c9ab04"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        },
+        {
+          "source_id": "chanel_jersey_edp",
+          "source_record_sha256": "f67f9f7083979431b255226c7402d15bb62ba501415868eee7277da40b082114"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "soft_vanilla_v5:balsamic_support"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Official architecture does not supply ingredient proportions.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "FLORAL_AMBER_WHITE",
+      "subtype_card_sha256": "bc1f8ede34c9f747ce665ed6b7ce0360e123c4e0f13431af7c844d6de3f8a490",
+      "source_bindings": [
+        {
+          "source_id": "iff_jasmine_completion",
+          "source_record_sha256": "5d4db39c433fd72932f6d12c64f4cf966a638d1fb1103951abf162437573a1ab"
+        },
+        {
+          "source_id": "iff_orange_flower_completion",
+          "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758"
+        },
+        {
+          "source_id": "iff_labdanum_foundation",
+          "source_record_sha256": "716abc14e0963cfd856cda98a765c6ae04d4cb019e481572fd6f64e79181fd14"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "floral_amber_white_v5:resin_support"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Whole extracts cannot be treated as one molecular curve or a disclosed commercial formula.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "FLORAL_AMBER_BALSAM",
+      "subtype_card_sha256": "6f595917578b335a708dcf2e5bf1f55fc63248abf01f2e43d189a403c73efb18",
+      "source_bindings": [
+        {
+          "source_id": "iff_benzoin_siam_foundation",
+          "source_record_sha256": "08615faaba10718c2da06185239a30cb05b32aaab84a5b0a999dde0bc2c9ab04"
+        },
+        {
+          "source_id": "iff_labdanum_foundation",
+          "source_record_sha256": "716abc14e0963cfd856cda98a765c6ae04d4cb019e481572fd6f64e79181fd14"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "floral_amber_balsam_v5:vanillic_balsam",
+        "floral_amber_balsam_v5:leathery_resin"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Balsamic descriptions are not dose equivalence or preference.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "AMBERGRIS_TINCTURE",
+      "subtype_card_sha256": "fc4acad295a1bd57e63741e47e5777a55cc7c8bd3d0d4ed050fd569ae4bacf64",
+      "source_bindings": [
+        {
+          "source_id": "ambergris_jetsam_finish",
+          "source_record_sha256": "f9d6ac465a846f448c0c1adaee0c35ddcc00d4c0943c6567e2f58a3b4b2a4030"
+        },
+        {
+          "source_id": "dsm_ambrox_super_description",
+          "source_record_sha256": "8ff89903fab195039347f9ec55b8f9859cb60227274055fd95293e73fc8ce8b0"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Identify the existing tincture/sample and preparation; this is not permission to acquire animal material.",
+      "remaining_scope": [
+        "TINCTURE_PREPARATION_NOT_ESTABLISHED; research does not authorize animal-material acquisition.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "AMBERGRIS_STEREO",
+      "subtype_card_sha256": "60d18069d086b0e0afb3bb4e1b36083964f8d8e43a6097940e2b7463668c4dd4",
+      "source_bindings": [
+        {
+          "source_id": "ambroxide_grades_finish",
+          "source_record_sha256": "116b574fd5931e6b45cecefd55207f41ac88e6313773548b8b7d9b7410658d47"
+        },
+        {
+          "source_id": "dsm_ambrox_super_description",
+          "source_record_sha256": "8ff89903fab195039347f9ec55b8f9859cb60227274055fd95293e73fc8ce8b0"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact commercial stereoisomer/grade specification and applicable human odor evidence.",
+      "remaining_scope": [
+        "Receptor experiments are not full grade specifications, human liking or perfume intensity calibration.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "WOOD_SANDAL_CEDAR",
+      "subtype_card_sha256": "de913449f7af388cd63a5a47ff62700b056fa33df25baab60be29a0d42daf961",
+      "source_bindings": [
+        {
+          "source_id": "iff_sandal_nc_completion",
+          "source_record_sha256": "302ee14133143606413ef2e2e2a6fa34c1424765fe8833fd66618e4b417fb5b3"
+        },
+        {
+          "source_id": "iff_cedar_atlas_floral_v2",
+          "source_record_sha256": "f298a3a96d5df7a4f25750e2dd2a273dceaa84b74157a786d42af85fd658a187"
+        },
+        {
+          "source_id": "iff_iso_e_super_completion",
+          "source_record_sha256": "54c3b1da3231dd68cbc5f900c7d313f6d38d3be99b1180b29159005fd4b41082"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "wood_sandal_cedar_v5:creamy_wood",
+        "wood_sandal_cedar_v5:warm_wood"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Wood associations do not imply shared chemistry or equal performance.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "MUSK_ALICYCLIC",
+      "subtype_card_sha256": "86c2a0056d131cd7df937700925af2705dd627107df2ad5a60b1497878f632e9",
+      "source_bindings": [
+        {
+          "source_id": "musk_classes_finish",
+          "source_record_sha256": "61e5d1d7f0d07e85b35c81c62cd942c035ee5b5fbc0d8b16bd60756d473e40b4"
+        },
+        {
+          "source_id": "helvetolide",
+          "source_record_sha256": "d7b21c8dadb05bae5a8b6f0c4470ac0a8eb35c511b24c8eba2c030ac3132cbbc"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "HOLD_FIXED_CONTROL_AND_COMPARABLE_BASIS_REQUIRED",
+      "registered_options": [],
+      "required_next": "Provide the existing control and exact removable stock rows; compare fixed retained doses on an explicit mass or volume basis.",
+      "remaining_scope": [
+        "Chemical class is not a universal odor, receptor or safety map.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "MUSK_POLYCYCLIC",
+      "subtype_card_sha256": "69d220d076cada4c9a6c9163f3a8fc31ec5ff48e509aa6b99a57520fd49af21a",
+      "source_bindings": [
+        {
+          "source_id": "musk_classes_finish",
+          "source_record_sha256": "61e5d1d7f0d07e85b35c81c62cd942c035ee5b5fbc0d8b16bd60756d473e40b4"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Complete the exact Galaxolide product odor review; chemical class alone cannot select the odor role.",
+      "remaining_scope": [
+        "GALAXOLIDE_PRODUCT_ODOR_REVIEW_INCOMPLETE; class identity does not authorize inventory use or selection.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "MUSK_POWDER",
+      "subtype_card_sha256": "439dbce0ba041585ac45dd2b6227115a8c2a62ad7215ce2937f0bb80c64879c2",
+      "source_bindings": [
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        },
+        {
+          "source_id": "iff_gamma",
+          "source_record_sha256": "0158eb039645955eae7c6bed9c0d3b1cbd8fc27a2923613d64ffba0e42b6504e"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "musk_powder_v5:ionone_powder"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Powder is an uncalibrated perception descriptor, not a chemical family.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CIT_LEMON_LIME",
+      "subtype_card_sha256": "d95205a8a7ad07df915863b3f91ed96e38629ec52ef419094af233e9eb2713e4",
+      "source_bindings": [
+        {
+          "source_id": "key_lime_finish",
+          "source_record_sha256": "0ac9718912b65b9a523791ee2b8109e0926ea8baa7fb8178ee22c685e40121e4"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "LEMON_SIDE_NOT_FULLY_REVIEWED; extracted does not automatically mean cold-expressed or FCF.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CIT_CEDRAT",
+      "subtype_card_sha256": "b0cc67158d1c4a12ea1053b1555a96f29f2581292fa3dcd66f5b45356d3b9b1d",
+      "source_bindings": [
+        {
+          "source_id": "cedrat_finish",
+          "source_record_sha256": "993d6b477497b7004e15a7f8b39d67a6f631b873efd4efaec08aab51b697468e"
+        },
+        {
+          "source_id": "iff_petitgrain_subtypes",
+          "source_record_sha256": "532922d8655855b3e8d619bf7a768719ba19acd1af8482c9603be2f113c66bdd"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "cit_cedrat_v5:green_flower_bridge"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "No stock ownership, density or FCF status inferred from botanical name.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "COLOGNE_NEROLI",
+      "subtype_card_sha256": "a9fa81874896e7b45d9d98eba8232f53e5c6db1d3487acae7d9dbc33fa04601c",
+      "source_bindings": [
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        },
+        {
+          "source_id": "iff_petitgrain_subtypes",
+          "source_record_sha256": "532922d8655855b3e8d619bf7a768719ba19acd1af8482c9603be2f113c66bdd"
+        },
+        {
+          "source_id": "iff_orange_flower_completion",
+          "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "cologne_neroli_v5:green_flower_bridge"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Same botanical tree does not imply interchangeable extraction, dose or odor.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "GREEN_GRASS",
+      "subtype_card_sha256": "0748459a11542bb9efe5de625aa7a267f4ed9bcca230b0602aabe655fd25a990",
+      "source_bindings": [
+        {
+          "source_id": "zeon_green_finish",
+          "source_record_sha256": "12a7a0e4c0a96603840a9d9c5ad79ca33e8952b4208b8be2e940847b5ab4f9e2"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "No automatic aldehyde addition, mixture intensity or performance prediction.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "GREEN_CONIFER",
+      "subtype_card_sha256": "205e31b3dd0234d23bdf838ed691c65778797c3c74a59245b8fadbb3d1259664",
+      "source_bindings": [
+        {
+          "source_id": "fir_needle_finish",
+          "source_record_sha256": "9dafed9ea541f9e7aa0d3217fa73f269bab218786a9cad150f850a9443f87008"
+        },
+        {
+          "source_id": "cedar_virginia_finish",
+          "source_record_sha256": "67aa75c217dbd6eb53987da26af61785a88751a7f4d762559e2fdeeee1ab4245"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "green_conifer_v5:dry_wood"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Exact source and preparation matter; no generic conifer stock binding.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "SPICE_PEPPER",
+      "subtype_card_sha256": "bf609965c0160d0ad613e08fb7ace5d808d9bcad18cced9e2080b5f55e4176c2",
+      "source_bindings": [
+        {
+          "source_id": "spice_identities_finish",
+          "source_record_sha256": "529d8a767ad5f0402c999064d6d5d16d3143b890a36f84d791a2d0bde2b5de49"
+        },
+        {
+          "source_id": "iff_cardamom_completion",
+          "source_record_sha256": "3de0a45a2ddbfa5e0468f133eabf0697662978d13c73b0e0f716284dfaf5e6da"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Review black and pink pepper own-odor evidence separately; the bound antifungal paper is identity-only.",
+      "remaining_scope": [
+        "Identity-only source use; odor transition is an untested hypothesis.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "SPICE_GINGER",
+      "subtype_card_sha256": "79c3316fccc397f836a92e729d7443e186ff7651a9562a21e0339b480f61b310",
+      "source_bindings": [
+        {
+          "source_id": "spice_identities_finish",
+          "source_record_sha256": "529d8a767ad5f0402c999064d6d5d16d3143b890a36f84d791a2d0bde2b5de49"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Review a direct product/primary ginger-odor source; the bound identity study supplies no odor predicate.",
+      "remaining_scope": [
+        "No ginger-perfume performance or safe-dose claim follows from this identity section.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "SPICE_CINNAMON_CLOVE",
+      "subtype_card_sha256": "21f42fcc872429cba38bb1d06e962f56eb5ef7ec6c7df46d0502a6b7f2d0475f",
+      "source_bindings": [
+        {
+          "source_id": "spice_identities_finish",
+          "source_record_sha256": "529d8a767ad5f0402c999064d6d5d16d3143b890a36f84d791a2d0bde2b5de49"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Review cinnamon leaf and clove bud own-odor sources; do not substitute cinnamon bark.",
+      "remaining_scope": [
+        "The antifungal study cannot supply fragrance ratios, sensory optimization or regulatory clearance.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "SPICE_SAFFRON",
+      "subtype_card_sha256": "ffe032097d91145b764cc9765f42d7c6ef73148977a0721f1e7b5fdb37ccd962",
+      "source_bindings": [
+        {
+          "source_id": "saffron_finish",
+          "source_record_sha256": "7b30094bb2caa065d99bd3fc1fe60001418d9c357988c9b83b116102b767ced5"
+        },
+        {
+          "source_id": "givaudan_safraleine_foundation",
+          "source_record_sha256": "eacc33459c2ea9caf104f237aa6d824d4bc98a90a1cf051d312a426665ad6642"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Identify the intended natural saffron extract or explicitly synthetic Safraleine interpretation.",
+      "remaining_scope": [
+        "Aqueous food preparation is not perfume extract; no dosing or compliance transfer.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "AQUA_MELON",
+      "subtype_card_sha256": "41e96627e51b57656cc3aa3b7dc671659ed5d6659d1dc2c203c377f9f772b1eb",
+      "source_bindings": [
+        {
+          "source_id": "pcw_melolal_finish",
+          "source_record_sha256": "d11c9cd5e3380e972a43f97ca607096ffd6638e6f1a9e59d917030dd5c73779a"
+        },
+        {
+          "source_id": "dsm_calone_completion",
+          "source_record_sha256": "6507a59013c5c0815cedc98646422dc78adc724263118e3104bdae9b9ccd0b85"
+        },
+        {
+          "source_id": "givaudan_florhydral_completion",
+          "source_record_sha256": "aa00a1a2c661d81e28add1283fba41a7ed15612c43c455c5b56c37cf11b112f2"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "aqua_melon_v5:marine",
+        "aqua_melon_v5:wet_floral"
+      ],
+      "required_next": "Only marine and wet-floral routes are represented; the exact rind product is separate.",
+      "remaining_scope": [
+        "Only marine and wet-floral routes are represented; the exact rind product is separate.",
+        "PCW product description does not authenticate another manufacturer grade or a stock.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "AQUA_AIRY_MINERAL",
+      "subtype_card_sha256": "a377794a91a927df2a5fb9c959623d66d5db3836ea52da4af3468d99db1e85f3",
+      "source_bindings": [
+        {
+          "source_id": "iff_iso_e_super_completion",
+          "source_record_sha256": "54c3b1da3231dd68cbc5f900c7d313f6d38d3be99b1180b29159005fd4b41082"
+        },
+        {
+          "source_id": "dsm_ambrox_super_description",
+          "source_record_sha256": "8ff89903fab195039347f9ec55b8f9859cb60227274055fd95293e73fc8ce8b0"
+        },
+        {
+          "source_id": "iff_olibanum_resinoid_completion",
+          "source_record_sha256": "799c648cebdbd035cdf20a67b2eadb12ba0d5a3769c2e3087267855f54beefb4"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "aqua_airy_mineral_v5:mineral_resin"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Airiness and delivered concentration are unmeasured; the exact resinoid descriptor is not a universal mineral chemistry.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "AQUA_SOLAR",
+      "subtype_card_sha256": "ac94ae9c227aa1ca7aa61ea8e6e4d97c4cebb4947d8863ff9051852388094dcf",
+      "source_bindings": [
+        {
+          "source_id": "mfk_solar_finish",
+          "source_record_sha256": "6f2b83dc82037edff9d830b3ee5e3f38d88b9de68772ab852810e3a4793faf95"
+        },
+        {
+          "source_id": "iff_hexenylsal_floral_v2",
+          "source_record_sha256": "d0c5860ca66a015a7d936e8a61f7bd5382973868d12c0a1b0e3cf6f1a7b60cc3"
+        },
+        {
+          "source_id": "dsm_salicynile_floral_v2",
+          "source_record_sha256": "e25c1d054459ff63e3360df3234f285bf3f4bf72912b5d2f894bfc4db836b39b"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "aqua_solar_v5:solar_floral",
+        "aqua_solar_v5:green_floral"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Salicynile is a nitrile, not a salicylate ester; product names cannot override chemistry.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "AQUA_DRY_MINERAL",
+      "subtype_card_sha256": "02e0a5583f3034fafde4921397f5b42633af95aa5c6e4cfe3305f80f47008a06",
+      "source_bindings": [
+        {
+          "source_id": "iff_olibanum_resinoid_completion",
+          "source_record_sha256": "799c648cebdbd035cdf20a67b2eadb12ba0d5a3769c2e3087267855f54beefb4"
+        },
+        {
+          "source_id": "iff_olibanum_oil_completion",
+          "source_record_sha256": "7d1ab60ba12f335541b07a22210d8f76dccf245523be3f799a61af70d2e75e79"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Oil and resinoid are not intensity-equivalent; stone-like is a descriptive hypothesis.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "SKIN_CIVET_CASTOR",
+      "subtype_card_sha256": "22e6500058dbb7a95099f9b6ad38aa12369561a36e7986ebb922213da7b08f41",
+      "source_bindings": [
+        {
+          "source_id": "civettone_finish",
+          "source_record_sha256": "2a4f1200b32c9c4d69a01d305c09c1b5f644a68556c5ce8b6963a972d846eb57"
+        },
+        {
+          "source_id": "castoreum_finish",
+          "source_record_sha256": "60a09d3e6c06f71fefcc39489b9b81376e089c7614e1d09a2d81f460483a70df"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Choose the exact synthetic civettone or castoreum interpretation and product.",
+      "remaining_scope": [
+        "Natural civet species and commercial castoreum extraction remain incompletely reviewed; no purchase, dose or pheromone authority.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "SKIN_SWEAT",
+      "subtype_card_sha256": "ce6c84df6a40e1cab2b2a2136e94e23c5e4a62b6e6b46b443c23e3af97a23e9c",
+      "source_bindings": [
+        {
+          "source_id": "axillary_finish",
+          "source_record_sha256": "43bb47f8c375a00d96dfc00b68122f1be0fb7b97a32f31b2291d5ae7c961bfef"
+        },
+        {
+          "source_id": "iff_ambrettolide_foundation",
+          "source_record_sha256": "edf6fee353746ba250e6ebb42742ff2807e8c4493203d4850cd421b2503eb390"
+        },
+        {
+          "source_id": "dsm_calone_completion",
+          "source_record_sha256": "6507a59013c5c0815cedc98646422dc78adc724263118e3104bdae9b9ccd0b85"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Clarify salt metaphor, clean skin musk or literal sweat; these are not interchangeable endpoints.",
+      "remaining_scope": [
+        "Salt itself is not the reviewed volatile target; no pheromone, attraction or safe-dose inference.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "AB_WAXY",
+      "subtype_card_sha256": "6b16fe4f6d11f725a3468c291f4bfecde41a942f5c914319d2caa613b408bbfb",
+      "source_bindings": [
+        {
+          "source_id": "dodecanal_finish",
+          "source_record_sha256": "dd50481bb3951d561a7135d3e75578fc8f9172d5a27808fb6e2ee0d057e85f77"
+        },
+        {
+          "source_id": "decanal_finish",
+          "source_record_sha256": "5421b347cf02c5f0a097d4125fd486a852c796e62585ca0ee2a03cc03b9cf7e2"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "ab_waxy_v5:waxy_aldehyde"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Supplier description is not a quantitative aldehyde-dose rule.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "AB_CITRUS",
+      "subtype_card_sha256": "2111493333524b78bb21ceb92611b4e4a0438dd0ace76fcaf89d15016b4e21f0",
+      "source_bindings": [
+        {
+          "source_id": "decanal_finish",
+          "source_record_sha256": "5421b347cf02c5f0a097d4125fd486a852c796e62585ca0ee2a03cc03b9cf7e2"
+        },
+        {
+          "source_id": "dodecanal_finish",
+          "source_record_sha256": "dd50481bb3951d561a7135d3e75578fc8f9172d5a27808fb6e2ee0d057e85f77"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "ab_citrus_v5:citrus_aldehyde"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Carbon count is not an odor equivalence map or a performance calibration.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "AB_PAPER_CHALK",
+      "subtype_card_sha256": "3204abd9e23557e833558acef0ef9b13c0e7229c66dd8b240c95674287c5779d",
+      "source_bindings": [
+        {
+          "source_id": "historic_paper_finish",
+          "source_record_sha256": "461988aa0f4b041c3471e0ebfe79c2082f3297e3db8655e478f42cc8cc512977"
+        },
+        {
+          "source_id": "iff_iso_e_super_completion",
+          "source_record_sha256": "54c3b1da3231dd68cbc5f900c7d313f6d38d3be99b1180b29159005fd4b41082"
+        },
+        {
+          "source_id": "iff_gamma",
+          "source_record_sha256": "0158eb039645955eae7c6bed9c0d3b1cbd8fc27a2923613d64ffba0e42b6504e"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Review the missing chalk facet; dry wood/ionone powder is not literal chalk.",
+      "remaining_scope": [
+        "CHALK_FACET_NOT_REVIEWED; old-paper environment and contextual labels do not disclose a perfume formula.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "AB_ATMOSPHERE",
+      "subtype_card_sha256": "0732f30f11f6f8c4825f2c7ed60cd4578dc61dc851915b608d571bc3908908b3",
+      "source_bindings": [
+        {
+          "source_id": "historic_paper_finish",
+          "source_record_sha256": "461988aa0f4b041c3471e0ebfe79c2082f3297e3db8655e478f42cc8cc512977"
+        },
+        {
+          "source_id": "olfactory_white",
+          "source_record_sha256": "f83927432ca121968c3d6572fe1aa7cac5520a006106658020b3100479d89dea"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Name the scene and protected recognizers before proposing an atmospheric comparison.",
+      "remaining_scope": [
+        "Equal-intensity experimental mixtures are not generic complex perfumes; conceptual similarity remains untested.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CU_ATTAR",
+      "subtype_card_sha256": "680196d7fb9cf1624d0a373fe8dffdd7f1f4375976aadbb88bda8c587ae66155",
+      "source_bindings": [
+        {
+          "source_id": "unido_attar_finish",
+          "source_record_sha256": "bfeb07528b67983cc47bd6aaaf094a7fc82c449080821a4e95681deb2359a73d"
+        },
+        {
+          "source_id": "iff_extraction_foundation",
+          "source_record_sha256": "44c62e7a54ee5ca92f3a14beec3d885cb6fd55f11ac5f2f5b56729c67745e272"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Name the tradition/product and applicable historical reference; no generic authenticity inference.",
+      "remaining_scope": [
+        "Historical sandalwood or paraffin receivers do not prove every modern attar uses either; no executable process instruction.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CU_FLORAL_OILS",
+      "subtype_card_sha256": "6d7f3addddea3c81cbddbff21fe1bfddad4d021160782b2a07409c993054223a",
+      "source_bindings": [
+        {
+          "source_id": "unido_attar_finish",
+          "source_record_sha256": "bfeb07528b67983cc47bd6aaaf094a7fc82c449080821a4e95681deb2359a73d"
+        },
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        },
+        {
+          "source_id": "iff_jasmine_completion",
+          "source_record_sha256": "5d4db39c433fd72932f6d12c64f4cf966a638d1fb1103951abf162437573a1ab"
+        },
+        {
+          "source_id": "iff_orange_flower_completion",
+          "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Region does not predict population liking, chemical composition or cultural authenticity.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CU_ROSE_OUD",
+      "subtype_card_sha256": "150731750cf9cc8ee082c55edfa742ca789a13bb500db8d64667a5fd0b1d65b4",
+      "source_bindings": [
+        {
+          "source_id": "ima_history_finish",
+          "source_record_sha256": "187917fa0c7c14244cffa45c4d8870df313153055c86767513ccaf95ec71ef9b"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "agarwood_variation_completion",
+          "source_record_sha256": "eb450922f6db80afb5fbb4e9fe9294ba934aaa27db51b4f3494dbe1965497617"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Supply the exact historical recipe if historical fidelity is intended; modern rose/oud is a different claim.",
+      "remaining_scope": [
+        "EXACT_HISTORICAL_RECIPE_NOT_ESTABLISHED; contemporary exhibition scents are interpretations.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CU_HISTORICAL",
+      "subtype_card_sha256": "b3ad5d4d6aa01abfebaa14ef324d9f4911ce5d56d8e5716a2e7d75ddf47092b1",
+      "source_bindings": [
+        {
+          "source_id": "unido_attar_finish",
+          "source_record_sha256": "bfeb07528b67983cc47bd6aaaf094a7fc82c449080821a4e95681deb2359a73d"
+        },
+        {
+          "source_id": "ima_history_finish",
+          "source_record_sha256": "187917fa0c7c14244cffa45c4d8870df313153055c86767513ccaf95ec71ef9b"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Identify the historical object, recipe or process and permitted modern substitutions.",
+      "remaining_scope": [
+        "Objects, process descriptions and recreated exhibition smells are different evidence types.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "HY_TEA_MUSK",
+      "subtype_card_sha256": "033a8303e0e0e6e37c59e835cc9105718c7c3db8a12312b12acbb5fd998221d1",
+      "source_bindings": [
+        {
+          "source_id": "tea_green_cultivar_subtypes",
+          "source_record_sha256": "20ab2f8b8efcb2f0edc02d8272d8f289d9fe39ced1b949111fc370d20404371f"
+        },
+        {
+          "source_id": "tea_black_omission_subtypes",
+          "source_record_sha256": "69847627a14afa01698ed45a00f63ec0586151db78c3332d4945c3d9eb02b23d"
+        },
+        {
+          "source_id": "tea_oolong_omission_subtypes",
+          "source_record_sha256": "7db970b938427be44aa95c53038233e603b19936d43f6325b9721faf6b02c2fe"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        },
+        {
+          "source_id": "helvetolide",
+          "source_record_sha256": "d7b21c8dadb05bae5a8b6f0c4470ac0a8eb35c511b24c8eba2c030ac3132cbbc"
+        }
+      ],
+      "disposition": "CONTROLLED_OMISSION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "hy_tea_musk_v5:powder_musk",
+        "hy_tea_musk_v5:pear_musk"
+      ],
+      "required_next": "Refinement supplies one-musk alternatives only; the no-musk fixed-composition control is still required.",
+      "remaining_scope": [
+        "Refinement supplies one-musk alternatives only; the no-musk fixed-composition control is still required.",
+        "Tea food observations do not establish perfume persistence; later recognition needs smelling.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "HY_INCENSE_FLORAL",
+      "subtype_card_sha256": "cdc599902afa0427c7a63f1eb352e5aed5f335af8dc1359bf854d61d0a8fca53",
+      "source_bindings": [
+        {
+          "source_id": "iff_olibanum_oil_completion",
+          "source_record_sha256": "7d1ab60ba12f335541b07a22210d8f76dccf245523be3f799a61af70d2e75e79"
+        },
+        {
+          "source_id": "iff_olibanum_resinoid_completion",
+          "source_record_sha256": "799c648cebdbd035cdf20a67b2eadb12ba0d5a3769c2e3087267855f54beefb4"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_jasmine_completion",
+          "source_record_sha256": "5d4db39c433fd72932f6d12c64f4cf966a638d1fb1103951abf162437573a1ab"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "hy_incense_floral_v5:bright_resin",
+        "hy_incense_floral_v5:mineral_resin"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "No oil-to-resinoid equivalence or sensory-improvement claim follows.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "HY_ROSE_MINERAL",
+      "subtype_card_sha256": "22538f8f5bda1a2292088ed14aa44fa68240ba518b828e69b0e59cc7f7856422",
+      "source_bindings": [
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_olibanum_resinoid_completion",
+          "source_record_sha256": "799c648cebdbd035cdf20a67b2eadb12ba0d5a3769c2e3087267855f54beefb4"
+        },
+        {
+          "source_id": "symrise_roseoxide_floral_v2",
+          "source_record_sha256": "f1bfd60cd4a55e829d6b845d6dbb19c619d21b4974d567bd89f63314ad4886fb"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "hy_rose_mineral_v5:mineral_resin"
+      ],
+      "required_next": "Metallic-rose option remains unsupported by the current green/rose/geranium source.",
+      "remaining_scope": [
+        "Metallic-rose option remains unsupported by the current green/rose/geranium source.",
+        "Mineral and metallic are not synonyms or measured receptor categories.",
+        "No doses, stock availability, empirical calibration, safety or preference authority are supplied by this card."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "GREEN_HYACINTH_WHITE",
+      "subtype_card_sha256": "2f6d1dbe0e2be770f0cfad0e90c9e1394d45cc87382e64427e6728a4b749e4e1",
+      "source_bindings": [
+        {
+          "source_id": "hyacinth_headspace_depth",
+          "source_record_sha256": "2500829ce2a0c39fce6e2fb50ea130a2e0307371ac976a5f0cce3a7f3121c381"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "green_hyacinth_white_v5:earthy_green"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "No all-hyacinth recipe, commercial absolute identity or pyrazine dose follows from the abstract.",
+        "Source observations and construction hypotheses are separate; no empirical calibration or action authority."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "POLLEN_TILIA_STAGES",
+      "subtype_card_sha256": "5fbc05aa1b09abb37611a1b9ad29737db83c6f02a66767233e96b28be7faa930",
+      "source_bindings": [
+        {
+          "source_id": "tilia_stages_depth",
+          "source_record_sha256": "bde47dac5bdca2936be3dfbf1bb7c6f02390a427d1d4d3781cdec152ed39cb5b"
+        },
+        {
+          "source_id": "tilia_correction_depth",
+          "source_record_sha256": "82fd841215d8a6dda8379e0c54997c288330edcaae5e15a53b73f44b0a596b53"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Choose the Tilia species and flower stage; preserve the corrected paper and correction together.",
+      "remaining_scope": [
+        "The 2023 correction is mandatory support; unidentified peaks stay unknown.",
+        "Laboratory 45 C headspace and database odor labels do not constitute a human perfume panel.",
+        "Source observations and construction hypotheses are separate; no empirical calibration or action authority."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "GREEN_BORONIA_ABSOLUTE",
+      "subtype_card_sha256": "2159d0dac6d1072eb695c96c29c8e4c759e8da0d6a20ea87f91c5fadfb507904",
+      "source_bindings": [
+        {
+          "source_id": "boronia_eot_depth",
+          "source_record_sha256": "a01a2183cb49cdc7d27ddea30f93af801aac8ef9f29e131f27781e16e5e461ba"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Flower-plus-leaf extraction is not flower-only headspace.",
+        "Heart Absolute and Leaf Absolute need their own product evidence.",
+        "Source observations and construction hypotheses are separate; no empirical calibration or action authority."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "AQUATIC_NELUMBO",
+      "subtype_card_sha256": "dc74ec3f6ad57cab22b4f4306f8306232fe94241e6cd290c2f65d174e86b9f41",
+      "source_bindings": [
+        {
+          "source_id": "lotus_antique_depth",
+          "source_record_sha256": "ce41c31c5fd8574cc7ea1b5c5263dee57e7e75a6b0e5070d8cd9ac28494df90a"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "aquatic_nelumbo_v5:aromatic_flower"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Excised organs, first-day collection and 37 C headspace are not intact ambient-flower calibration.",
+        "Nelumbo is not Nymphaea; no receptor, gas threshold or perfume ratio is admitted.",
+        "Source observations and construction hypotheses are separate; no empirical calibration or action authority."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "AQUATIC_NYMPHAEA_PROLIFERA",
+      "subtype_card_sha256": "f41d5058411a49b719215bea7bff90ae503fc63f4c75516da02675d8e5cc80dc",
+      "source_bindings": [
+        {
+          "source_id": "nymphaea_prolifera_depth",
+          "source_record_sha256": "9f93f6669b3dfc5bd210a9482c7b83ee459016acafa961e651e6da0a48845cc9"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "aquatic_nymphaea_prolifera_v5:sweet_aromatic"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Ecological function and chromatographic abundance are not human sensory contributions.",
+        "Not a generic blue lotus, sacred lotus or all-water-lily reconstruction.",
+        "Source observations and construction hypotheses are separate; no empirical calibration or action authority."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "AQUATIC_NYMPHAEA_STETSON",
+      "subtype_card_sha256": "0f9b9b5796a146e3e715ccdd0c9a5f97a7c0154bd28ef3fdcb50c1973790e390",
+      "source_bindings": [
+        {
+          "source_id": "nymphaea_stetson_depth",
+          "source_record_sha256": "0ccabb4be7c1614129750b45e17f6a47afffa47bd9c48811a20db619d06747ac"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Supply the intended Nymphaea Stetson cultivar/stage reference; heated stamen sampling is not ambient flower.",
+      "remaining_scope": [
+        "60 C prepared-stamen headspace does not equal ambient scent from the living flower.",
+        "Metabolomic counts, pathway correlations and rOAV classifications are not measured perfume character.",
+        "Source observations and construction hypotheses are separate; no empirical calibration or action authority."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ORCHID_PHALAENOPSIS",
+      "subtype_card_sha256": "b7fe6bb37a36ae86bd1a6735aa014f4138dbdd7647174e1f4d7472681b707b52",
+      "source_bindings": [
+        {
+          "source_id": "phalaenopsis_light_depth",
+          "source_record_sha256": "75842c2716eadeb2adf3a046a2cb6fc4675d5425ac1384bdea9d4248394b166a"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Choose the exact Phalaenopsis species/hybrid; resolve KHM221/KHM2212 and photoperiod before fidelity claims.",
+      "remaining_scope": [
+        "Attached flowers and specified light/age conditions matter.",
+        "KHM221/KHM2212 and photoperiod discrepancies are unresolved; no generic orchid chemical profile.",
+        "Source observations and construction hypotheses are separate; no empirical calibration or action authority."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ORCHID_CYMBIDIUM_SUNNY",
+      "subtype_card_sha256": "030c90b73e47f4a26cdae2d1c437c9012e83ee1e5af4a800ee6f796d5b83ddb8",
+      "source_bindings": [
+        {
+          "source_id": "cymbidium_sunny_depth",
+          "source_record_sha256": "f9f007fe57b1728571f3cdd219e62751012c743a50a91217470b84fbb2a6fbbf"
+        }
+      ],
+      "disposition": "ARCHITECTURE_ADDITION",
+      "implementation_state": "REGISTERED_ARCHITECTURE_HYPOTHESIS_STOCK_ACCEPTANCE_REQUIRED",
+      "registered_options": [
+        "orchid_cymbidium_sunny_v5:green_aromatic"
+      ],
+      "required_next": "Verify each planned role against actual eligible stock and physical-row receipts; then smell a controlled comparison.",
+      "remaining_scope": [
+        "Sliced floral tissues and chromatographic area fractions do not identify perfume doses.",
+        "Do not pool this hybrid with Phalaenopsis or an unspecified orchid accord.",
+        "Source observations and construction hypotheses are separate; no empirical calibration or action authority."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ORCHARD_QUINCE_CYDONIA",
+      "subtype_card_sha256": "6360a3747ad7f3daa5d4cc320fd001065bc721c02f4b1119240e715a1a508429",
+      "source_bindings": [
+        {
+          "source_id": "quince_free_bound_depth",
+          "source_record_sha256": "0755a75bb5425531c91fc3d7df850d0d2cc9a9ed6ab4e9aee505ec09d306eb57"
+        }
+      ],
+      "disposition": "EVIDENCE_OR_TARGET_INPUT",
+      "implementation_state": "HOLD_SPECIFIC_EVIDENCE_OR_TARGET_REQUIRED",
+      "registered_options": [],
+      "required_next": "Choose fresh or cooked Cydonia oblonga; do not substitute other quince genera.",
+      "remaining_scope": [
+        "Pseudocydonia sinensis and Chaenomeles are not aliases for this evidence.",
+        "Bound precursors, processed juice and intact fruit cannot share an automatic release model.",
+        "Source observations and construction hypotheses are separate; no empirical calibration or action authority."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CHYPRE_OAKMOSS_PRODUCT",
+      "subtype_card_sha256": "b04ed25e002f613c7e9b10afd4debc9acbc1c8df3c92f5265b39e0267b150911",
+      "source_bindings": [
+        {
+          "source_id": "oakmoss_biolandes_depth",
+          "source_record_sha256": "7179ac0321384890157afed7853e7fc5197e0c69506d610f2086a361add10573"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Evidence applies to F0420, not all oakmoss products or stocks.",
+        "No IFRA clearance, allergen estimate or longevity measurement is granted.",
+        "Source observations and construction hypotheses are separate; no empirical calibration or action authority."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CHYPRE_TREEMOSS_PRODUCT",
+      "subtype_card_sha256": "3420e360caa5e3c5892cc46c60de8f2b2d4f67edbf3ad9939032cba76cd27a5c",
+      "source_bindings": [
+        {
+          "source_id": "treemoss_biolandes_depth",
+          "source_record_sha256": "9fc78590ad1f56de2f4596004e2c97d3a98e785e8411a04e46ec53e396dbe2ed"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Manufacturer comparison does not identify a controlled F0080-versus-F0420 trial.",
+        "No substitution, numerical strength ranking or safety permission follows.",
+        "Source observations and construction hypotheses are separate; no empirical calibration or action authority."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "RESIN_BENZOIN_SIAM",
+      "subtype_card_sha256": "e79e1e58003c7c47d7f6e25a987a42ae7a267dc043bcf0671620c6dbf3c689a7",
+      "source_bindings": [
+        {
+          "source_id": "iff_benzoin_siam_foundation",
+          "source_record_sha256": "08615faaba10718c2da06185239a30cb05b32aaab84a5b0a999dde0bc2c9ab04"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "The existing manufacturer record is reused, not a new independent study.",
+        "Extraction solvent does not establish final supplied carrier; no Siam/Sumatra equivalence.",
+        "Source observations and construction hypotheses are separate; no empirical calibration or action authority."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "RESIN_BENZOIN_SUMATRA",
+      "subtype_card_sha256": "c35ea68c56e9b6c98ead46fd6b4f3a46f9e41b8925562a3058bf12b2f132ef02",
+      "source_bindings": [
+        {
+          "source_id": "benzoin_sumatra_depth",
+          "source_record_sha256": "c23747237bf2096c81d31b017c8c54960d6131dfd91edf3813dbf14a63a435ff"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Shared CAS and overlapping descriptors do not establish botanical or product equivalence.",
+        "No universal sweeter, stronger or better ranking against Siam.",
+        "Source observations and construction hypotheses are separate; no empirical calibration or action authority."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "RESIN_PERU_MD",
+      "subtype_card_sha256": "be981e2372a742bcce4b0899bf7e316f07b7fae76eca0a68867b599a4c2cc5f9",
+      "source_bindings": [
+        {
+          "source_id": "peru_md_depth",
+          "source_record_sha256": "e75db7b4b1f9dbf6641f86da04b7bc14fcbe31720c24ceacd696934f22a017e2"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Molecular distillation grade is not crude balsam, resinoid or Tolu.",
+        "Identity-bound description does not supply stock readiness or skin permission.",
+        "Source observations and construction hypotheses are separate; no empirical calibration or action authority."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "RESIN_TOLU_RECONSTRUCTIONS",
+      "subtype_card_sha256": "a40e6ba7496f34a9cd36191dc667eba529ad0b70e77d902bc1decfa3cddd73b5",
+      "source_bindings": [
+        {
+          "source_id": "tolu_firmenich_reco_depth",
+          "source_record_sha256": "aaba845cae70dc1b6561c94aac00e3a90731b33e88329ff8a8f01849b6c32398"
+        },
+        {
+          "source_id": "tolu_robertet_reco_depth",
+          "source_record_sha256": "27e268ca00b60f198f9bf4565bf5be4e4460c6f123fd160ce9590c72baad2663"
+        }
+      ],
+      "disposition": "EXACT_PRODUCT_GRADE",
+      "implementation_state": "HOLD_EXACT_PRODUCT_COMPARISON_REQUIRED",
+      "registered_options": [],
+      "required_next": "Bind the exact products/grades named in the source-bound card; adjacent identities are not substitutions.",
+      "remaining_scope": [
+        "Neither product page closes the natural Tolu extract gap.",
+        "Exact blends remain separate; product names do not disclose carriers, ratios or captives.",
+        "Source observations and construction hypotheses are separate; no empirical calibration or action authority."
+      ],
+      "sensory_validation": "NOT_TESTED",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    }
+  ]
+}

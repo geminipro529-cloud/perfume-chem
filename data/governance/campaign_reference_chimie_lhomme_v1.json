@@ -1,0 +1,472 @@
+{
+  "schema_version": "campaign-reference-recovery-v1",
+  "campaign_id": "CHIMIE_LHOMME",
+  "recovered_on": "2026-10-07",
+  "state": "HISTORICAL_DESIGN_REFERENCE_RECOVERED",
+  "canonical_name": "Chimie L’Homme",
+  "accepted_identity": "Terre-Dominant Hybrid V2.0: dry geranium-pepper/patchouli heart, green berry detail, woody-Ambrox base",
+  "not_equivalent_to": [
+    "Sport Citrus / Dry Amber",
+    "Earlier jasmine-heart Aventus Rival"
+  ],
+  "sources": [
+    {
+      "path": "data/research/campaign_recovery/chimie_lhomme_v1/source_formula.md",
+      "sha256": "4b37ad36711bdfffc03c2fe70ed39f3b8c534dcf34cbbdf0f6261cc7e5153944",
+      "origin_path": "C:\\Users\\ASUS\\Documents\\Codex\\2026-10-05\\task\\perfume-chem-formulation-output\\compounding-sources-2026-10-05\\Chimie_LHomme_CANON_Terre_Heart_30mL.md",
+      "origin_sha256": "7934bac4483d1b02b35e9efd8fd15778f295778f2d785c7c1aea54556959e87d",
+      "copy_transform": "UTF-8 text with LF line endings; no formula or wording edits"
+    },
+    {
+      "path": "data/research/campaign_recovery/chimie_lhomme_v1/source_identity_handoff.md",
+      "sha256": "022414c1c1d64ea1fc38dd7229e89a012424f96dff9d32fe11905745c7951a66",
+      "origin_path": "C:\\Users\\ASUS\\Documents\\Codex\\2026-10-05\\task\\perfume-chem-formulation-output\\compounding-sources-2026-10-05\\Chimie_LHomme_Codex_Handoff_2026-10-04.md",
+      "origin_sha256": "c5cc6446775d2c730be34b1d4a58e74a3bbac2961ac92badda57479f3b745665",
+      "copy_transform": "UTF-8 text with LF line endings; no wording edits"
+    },
+    {
+      "path": "data/research/campaign_recovery/chimie_lhomme_v1/chat_corrections.json",
+      "sha256": "62ba4cf32f264cae5f67c22f0bba9d028b5fe9074d2859fe5a536bc757dd671e",
+      "origin_chat_id": "01a10aeb-0606-7ef1-ba72-d533f523c6db",
+      "scope": "Selected verbatim user messages with source line references; not a full chat export"
+    }
+  ],
+  "rows": [
+    {
+      "source_line": 32,
+      "basket": "0 Crystals",
+      "material": "Ambrox Super",
+      "historical_stock_description": "Undiluted crystals / powder",
+      "amount_decimal": "600",
+      "amount_unit": "mg"
+    },
+    {
+      "source_line": 39,
+      "basket": "1 Woods",
+      "material": "Iso E Super",
+      "historical_stock_description": "Undiluted / as supplied",
+      "amount_decimal": "1020",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 40,
+      "basket": "1 Woods",
+      "material": "Clearwood",
+      "historical_stock_description": "Neat",
+      "amount_decimal": "315",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 41,
+      "basket": "1 Woods",
+      "material": "Patchouli EO",
+      "historical_stock_description": "Neat",
+      "amount_decimal": "225",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 42,
+      "basket": "1 Woods",
+      "material": "Vetiveryl acetate",
+      "historical_stock_description": "NEAT",
+      "amount_decimal": "200",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 43,
+      "basket": "1 Woods",
+      "material": "Cedarwood Virginia",
+      "historical_stock_description": "Neat",
+      "amount_decimal": "84",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 44,
+      "basket": "1 Woods",
+      "material": "Cedramber",
+      "historical_stock_description": "Undiluted / as supplied",
+      "amount_decimal": "66",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 45,
+      "basket": "1 Woods",
+      "material": "Haitian vetiver EO",
+      "historical_stock_description": "Neat",
+      "amount_decimal": "54",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 46,
+      "basket": "1 Woods",
+      "material": "Cashmeran",
+      "historical_stock_description": "NEAT",
+      "amount_decimal": "24",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 47,
+      "basket": "1 Woods",
+      "material": "Amber Xtreme",
+      "historical_stock_description": "10% w/w in DEP",
+      "amount_decimal": "24",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 54,
+      "basket": "2 Moss and leather",
+      "material": "Evernyl",
+      "historical_stock_description": "20% w/w in DPG",
+      "amount_decimal": "120",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 55,
+      "basket": "2 Moss and leather",
+      "material": "Suederal",
+      "historical_stock_description": "10% working stock",
+      "amount_decimal": "96",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 56,
+      "basket": "2 Moss and leather",
+      "material": "Guaiacwood EO",
+      "historical_stock_description": "Exactly 1/3 w/w; ethanol + DEP",
+      "amount_decimal": "48",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 57,
+      "basket": "2 Moss and leather",
+      "material": "Isobutyl quinoline",
+      "historical_stock_description": "10% working stock",
+      "amount_decimal": "12",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 64,
+      "basket": "3 Musks",
+      "material": "Habanolide",
+      "historical_stock_description": "Neat",
+      "amount_decimal": "240",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 65,
+      "basket": "3 Musks",
+      "material": "Galaxolide",
+      "historical_stock_description": "50% in DEP",
+      "amount_decimal": "180",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 66,
+      "basket": "3 Musks",
+      "material": "Ethylene brassylate",
+      "historical_stock_description": "Undiluted / as supplied",
+      "amount_decimal": "120",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 67,
+      "basket": "3 Musks",
+      "material": "Ambrettolide",
+      "historical_stock_description": "10% w/w in DPG",
+      "amount_decimal": "120",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 74,
+      "basket": "4 Dry floral heart",
+      "material": "Hedione",
+      "historical_stock_description": "Undiluted / as supplied",
+      "amount_decimal": "720",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 75,
+      "basket": "4 Dry floral heart",
+      "material": "Hedione HC",
+      "historical_stock_description": "UNDILUTED parent",
+      "amount_decimal": "120",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 76,
+      "basket": "4 Dry floral heart",
+      "material": "Geranium EO, Bontoux",
+      "historical_stock_description": "Neat",
+      "amount_decimal": "120",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 77,
+      "basket": "4 Dry floral heart",
+      "material": "Hydroxycitronellal",
+      "historical_stock_description": "Neat",
+      "amount_decimal": "36",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 78,
+      "basket": "4 Dry floral heart",
+      "material": "PEDMC",
+      "historical_stock_description": "Neat; homogeneous liquid",
+      "amount_decimal": "30",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 79,
+      "basket": "4 Dry floral heart",
+      "material": "cis-Jasmone",
+      "historical_stock_description": "P1: 10% v/v in ethanol",
+      "amount_decimal": "30",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 80,
+      "basket": "4 Dry floral heart",
+      "material": "Florol",
+      "historical_stock_description": "Undiluted / as supplied",
+      "amount_decimal": "24",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 81,
+      "basket": "4 Dry floral heart",
+      "material": "Citronellol",
+      "historical_stock_description": "Neat",
+      "amount_decimal": "24",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 82,
+      "basket": "4 Dry floral heart",
+      "material": "Geraniol",
+      "historical_stock_description": "NEAT",
+      "amount_decimal": "18",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 83,
+      "basket": "4 Dry floral heart",
+      "material": "ACA, amyl cinnamic aldehyde",
+      "historical_stock_description": "Undiluted / as supplied",
+      "amount_decimal": "18",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 84,
+      "basket": "4 Dry floral heart",
+      "material": "Jessemal",
+      "historical_stock_description": "Undiluted; CAS 38285-49-3",
+      "amount_decimal": "18",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 85,
+      "basket": "4 Dry floral heart",
+      "material": "Benzyl acetate",
+      "historical_stock_description": "Undiluted / as supplied",
+      "amount_decimal": "12",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 86,
+      "basket": "4 Dry floral heart",
+      "material": "Dihydrojasmone",
+      "historical_stock_description": "Undiluted / as supplied",
+      "amount_decimal": "12",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 93,
+      "basket": "5 Citrus and pepper",
+      "material": "Bergamot FCF Sicilian",
+      "historical_stock_description": "Undiluted / as supplied",
+      "amount_decimal": "480",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 94,
+      "basket": "5 Citrus and pepper",
+      "material": "Linalyl acetate",
+      "historical_stock_description": "Undiluted / as supplied",
+      "amount_decimal": "324",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 95,
+      "basket": "5 Citrus and pepper",
+      "material": "Grapefruit FCF Sicilian",
+      "historical_stock_description": "Undiluted / as supplied",
+      "amount_decimal": "180",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 96,
+      "basket": "5 Citrus and pepper",
+      "material": "Ethyl linalool",
+      "historical_stock_description": "Undiluted parent",
+      "amount_decimal": "96",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 97,
+      "basket": "5 Citrus and pepper",
+      "material": "Dihydromyrcenol (DHM)",
+      "historical_stock_description": "Undiluted / as supplied",
+      "amount_decimal": "72",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 98,
+      "basket": "5 Citrus and pepper",
+      "material": "Petitgrain Paraguay",
+      "historical_stock_description": "Neat",
+      "amount_decimal": "36",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 99,
+      "basket": "5 Citrus and pepper",
+      "material": "Pink pepper EO",
+      "historical_stock_description": "Neat, Schinus molle",
+      "amount_decimal": "36",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 100,
+      "basket": "5 Citrus and pepper",
+      "material": "Black pepper EO",
+      "historical_stock_description": "Undiluted / as supplied",
+      "amount_decimal": "24",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 101,
+      "basket": "5 Citrus and pepper",
+      "material": "Clary sage EO",
+      "historical_stock_description": "Undiluted / as supplied",
+      "amount_decimal": "12",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 108,
+      "basket": "6 Green berry detail",
+      "material": "Blackcurrant absolute",
+      "historical_stock_description": "10% in DPG",
+      "amount_decimal": "36",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 109,
+      "basket": "6 Green berry detail",
+      "material": "Damascenone",
+      "historical_stock_description": "P2: one-tenth dilution of 1% stock",
+      "amount_decimal": "30",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 110,
+      "basket": "6 Green berry detail",
+      "material": "Dynascone",
+      "historical_stock_description": "10% w/w in DPG",
+      "amount_decimal": "18",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 111,
+      "basket": "6 Green berry detail",
+      "material": "Alpha damascone",
+      "historical_stock_description": "10% working stock in DPG",
+      "amount_decimal": "12",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 112,
+      "basket": "6 Green berry detail",
+      "material": "Beta damascone",
+      "historical_stock_description": "10% working stock",
+      "amount_decimal": "12",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 113,
+      "basket": "6 Green berry detail",
+      "material": "cis-3-Hexenol",
+      "historical_stock_description": "1% working stock",
+      "amount_decimal": "6",
+      "amount_unit": "uL"
+    },
+    {
+      "source_line": 114,
+      "basket": "6 Green berry detail",
+      "material": "Rose de Mai absolute",
+      "historical_stock_description": "10% in DPG",
+      "amount_decimal": "6",
+      "amount_unit": "uL"
+    }
+  ],
+  "totals": {
+    "liquid_row_count": 46,
+    "liquid_stock_transfer_ul_decimal": "5510",
+    "solid_row_count": 1,
+    "crystal_ambrox_mg_decimal": "600",
+    "unique_material_names": 47,
+    "final_volume_target_ml_decimal": "30",
+    "final_volume_is_measured": false
+  },
+  "historical_design_is_current_bottle": false,
+  "current_inventory_binding": "NOT_PERFORMED",
+  "physical_history": {
+    "scope": "USER_REPORTED_NOT_INSTRUMENT_VERIFIED",
+    "fresh_bottle": true,
+    "matured_one_week_reported": true,
+    "fixed_ethanol_addition": true,
+    "final_volume_ml_decimal": null,
+    "nominal_30_ml_not_measurement": true,
+    "withdrawn_source_line": 1719,
+    "correcting_source_lines": [
+      1737,
+      1740,
+      1758
+    ],
+    "reported_aliquot_dilutions": [
+      {
+        "nominal_aliquot_ml_decimal": "10",
+        "added_ethanol_ml_decimal": "0"
+      },
+      {
+        "nominal_aliquot_ml_decimal": "10",
+        "added_ethanol_ml_decimal": "0.5"
+      },
+      {
+        "nominal_aliquot_ml_decimal": "10",
+        "added_ethanol_ml_decimal": "1"
+      }
+    ],
+    "reported_remaining_control_ml_decimal": "3.2",
+    "plus_20_percent_exact_recipe": "UNRESOLVED_DO_NOT_SCALE_BY_INFERENCE"
+  },
+  "stock_cautions": [
+    "Historical Ambrettolide row is 10% w/w in DPG; the user later reported neat ownership. No same-volume substitution or prepared-dilution inference.",
+    "P1 and P2 are historical proposed preparations, not receipts that those stocks exist.",
+    "Unspecified stock bases remain unspecified; no active-mass conversion.",
+    "Trace transfers in historical pilot tables do not override current minimum-measurable-dose rules."
+  ],
+  "runtime_message": "CHIMIE L’HOMME’s accepted Terre-heart reference has been recovered (5,510 µL liquid stocks plus 600 mg Ambrox crystals). It is not Sport Citrus. Open the recovered reference before choosing a revision or bottle delta; the current bottle’s final volume and exact +20% recipe are not established. No formula or bottle has been changed.",
+  "runtime_question": "Use the recovered historical design for read-only comparison; select an exact target version before generating a revision. You do not need to find or upload the original again.",
+  "runtime_scope": "RECOVERY_CONTEXT_ONLY_EXISTING_GENERATION_HOLD_NOT_BYPASSED",
+  "formula_action": "NO_CHANGE",
+  "formula_modified": false,
+  "inventory_modified": false,
+  "bottle_modified": false,
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

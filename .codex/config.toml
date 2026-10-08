@@ -12,7 +12,7 @@
 model = "deepseek-flash"
 model_reasoning_effort = "ultra"
 
-approval_policy = "never"
+approval_policy = "on-request"
 sandbox_mode = "danger-full-access"
 
 [features]

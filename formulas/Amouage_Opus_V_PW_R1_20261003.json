@@ -1,0 +1,1478 @@
+{
+  "schema_version": "perfume-development-campaign-v1",
+  "campaign": "Amouage Opus V / Woods Symphony PW research interpretation R1",
+  "date": "2026-10-03",
+  "mode": "RECONSTRUCTION",
+  "claim": "A testable product-level iris/rhum/oud-civet/dry-wood interpretation; not an authenticated Amouage formula",
+  "parent_formula": null,
+  "parent_status": "INDEPENDENT_NEW_DESIGN_HISTORICAL_FILES_ARE_COMPARATORS_NOT_REBASED_PARENTS",
+  "git_head": "9e501074e0046717c447d5e1404c85e653274769",
+  "protected_input_hashes": {
+    "AGENTS.md": "a97d05907b9eddba1212b42c9765b8b4903b6ba731d185cdd3ba8bbd35e57870",
+    ".github/copilot-instructions.md": "ac8de3a4db8096f82cf5c26843b00912528281873f94c2f87052b46d9dd19814",
+    "inventory.txt": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "formulas/Opus_V_Woods_Symphony_30mL_EdP.md": "8069abbdd665d25570b171d720aabf2e7e03eaf462eee6e1fb6107819d738018",
+    "formulas/Opus_V_Woods_Symphony_30mL_EDP_CHEMCLASS_INVENTORY_FORMULA.md": "695d78d83a1bfe587eb3cddea500148f9e65e444286319a9d69b7275016d7860",
+    "formulas/ORR-01_FINAL_FULL_RUM_30mL_21.8PCT.md": "7c8e520137e82d66b10c352a8a421ea52ba60261f260e199d58463d2a649cf2e",
+    "formulas/Dior_Homme_Intense_PW_R1_20261003.md": "4f3684f6914511c3b8491e5be8e17f6048fdd36adffa2a947a827d25b0acc537",
+    "formulas/Dior_Homme_Parfum_2025_PW_R1_20261003.md": "19e2c6f11381afe48f16f8826f872ce1d898da2d3c94ff3614a4dfaff2726933",
+    "formulas/Dior_Homme_Parfum_2014_PW_R1_20261003.md": "2b2aa87887019dd0c5829d3a1d9a121ed20d3af9f9823c9529b0cea04a6be117",
+    "formulas/Dior_Homme_PW_Designs_R1_20261003.json": "b0184b5f67c5996025f96d60b0159e0992d68a74363b8658a6abd1c2b01079de",
+    "docs/research/Dior_Homme_PW_Research_20261003.md": "861b22d9674dafda3e4b7e6c8f004da727fda9a0618d3d732617eb93e5117ab2",
+    "docs/research/Dior_Homme_PW_Verification_20261003.json": "1d6fc3b05be64893c667dd6445aa731dee00d8431ff1221bd67bb8dc83421d32",
+    "output/research/perfumersworld_catalog_20260930/catalog_rows_v1.json": "277ddd8e3a0080fb6af6fa7218bb16c51fdf2e1e28cebaf67c2f5ac404d77bb4"
+  },
+  "basis": {
+    "target": "100.00 parts by mass of named PW products as supplied, before user-added working-stock carriers",
+    "chemical_odorant_purity": "NOT_ESTABLISHED_FOR_WHOLE_ROSTER",
+    "deliberate_carrier_excluded_from_target": true,
+    "intrinsic_product_carrier": "UNKNOWN_NOT_SUBTRACTED_OR_ASSUMED_ZERO",
+    "default_evaluation_load": "24.00 percent w/w named-source-product equivalents, not pure oil assay"
+  },
+  "reference_lock": {
+    "edition": "Opus V / Woods Symphony Eau de Parfum; current marketed architecture",
+    "perfumer": "Jacques Cavallier",
+    "mandatory_recognizers": [
+      "floral-waxy iris",
+      "buttery-root iris",
+      "rhum",
+      "dry woods",
+      "secondary oud/civet",
+      "restrained rose/jasmine"
+    ],
+    "negative_space": [
+      "sweet rum gourmand",
+      "rose-oud",
+      "Dior Homme Intense clone",
+      "generic suede leather",
+      "large amberwood/musk bomb",
+      "citrus cologne"
+    ],
+    "concentration_conflict": {
+      "current_page": "24% oil; basis unspecified; 3+3 week ageing",
+      "older_faq": "20% pure oils; basis unspecified; 2+4 week ageing",
+      "resolution": "Use our own 24% w/w product-load trial; no claim of exact original loading or identical current/2011 batches"
+    }
+  },
+  "sources": [
+    {
+      "id": "A1",
+      "title": "Amouage Opus V Woods Symphony current product page",
+      "url": "https://amouage.com/en-ca/products/opus-v-woods-symphony",
+      "reviewed": "2026-10-03",
+      "scope": "Marketed architecture and current 24% oil claim; basis unspecified; ingredient presence only",
+      "raw_content_sha256": null
+    },
+    {
+      "id": "A2",
+      "title": "Amouage Library Collection FAQ, dated 23 November 2023",
+      "url": "https://intercom.help/amouage/en/articles/6281737-the-library-collection-faqs",
+      "reviewed": "2026-10-03",
+      "scope": "Jacques Cavallier; packaging/name-only relaunch assertion; older 20% oil claim; not proof for all batches",
+      "raw_content_sha256": null
+    },
+    {
+      "id": "P1",
+      "title": "Brenna, Fuganti and Serra 2003, irone isomers",
+      "doi": "10.1016/S1631-0748(03)00087-0",
+      "url": "https://comptes-rendus.academie-sciences.fr/chimie/articles/10.1016/S1631-0748(03)00087-0/",
+      "read_scope": "Publisher full text; stereochemistry/odor distinction, not formula quantities"
+    },
+    {
+      "id": "P2",
+      "title": "Pino et al. 2012, Characterisation of odour-active compounds in aged rum",
+      "doi": "10.1016/j.foodchem.2011.11.133",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29243633/",
+      "read_scope": "Primary abstract; source thresholds in 35% v/v ethanol must not be transferred to this perfume"
+    },
+    {
+      "id": "P3",
+      "title": "Franitza, Granvogl and Schieberle 2016, rum production and aroma recombination",
+      "doi": "10.1021/acs.jafc.6b04046",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27788585/",
+      "read_scope": "Primary abstract; recombination, ester/wood/norisoprenoid structure; not a fine-fragrance dosage prescription"
+    },
+    {
+      "id": "P4",
+      "title": "Pripdeevech, Khummueng and Park 2011, Thai agarwood oils GC/MS and GC-O",
+      "doi": "10.1080/10412905.2011.9700468",
+      "url": "https://www.tandfonline.com/doi/full/10.1080/10412905.2011.9700468",
+      "read_scope": "Publisher indexed abstract, full text not accessed; species-specific profiles, no same-lot binding"
+    },
+    {
+      "id": "S1",
+      "title": "IFRA Standards official guidance",
+      "url": "https://ifrafragrance.org/initiatives-positions/safe-use-fragrance-science/ifra-standards",
+      "read_scope": "General framework only; no completed Category 4 whole-formula assessment"
+    },
+    {
+      "id": "D1",
+      "title": "PW Orris Butter generated documentation",
+      "url": "https://www.perfumersworld.com/document-list.php?pro_id=8IA00344&tab=coa",
+      "reviewed": "2026-10-03",
+      "scope": "Product description says proprietary compound despite natural-sounding product marketing; no independent irone assay"
+    },
+    {
+      "id": "D2",
+      "title": "PW Caribbean Rum Extract generated documentation",
+      "url": "https://www.perfumersworld.com/document-list.php?pro_id=8FY24655&tab=coa",
+      "reviewed": "2026-10-03",
+      "scope": "Product description says proprietary compound, alcohol-free; no independent natural-extract authentication"
+    },
+    {
+      "id": "D3",
+      "title": "PW Civet Art documentation",
+      "url": "https://www.perfumersworld.com/document-list.php?pro_id=3UU07513&tab=coa",
+      "reviewed": "2026-10-03",
+      "scope": "Synthetic proprietary mixture; not pure civetone; blanket document fields not whole-formula clearance"
+    },
+    {
+      "id": "D4",
+      "title": "PW supplier IFRA document spot checks",
+      "urls": [
+        "https://www.perfumersworld.com/document-list.php?pro_id=3IW00300&tab=ifra",
+        "https://www.perfumersworld.com/document-list.php?pro_id=3ON00060&tab=ifra",
+        "https://www.perfumersworld.com/document-list.php?pro_id=9IF07120&tab=ifra"
+      ],
+      "scope": "Only three product pages checked; damascenone page restricted-row name says beta damascone; no complete safety clearance"
+    }
+  ],
+  "catalog_discovery": {
+    "path": "output/research/perfumersworld_catalog_20260930/catalog_rows_v1.json",
+    "rows": 1329,
+    "scope": "Targeted name/category candidate search, not a new exhaustive review of all 1329 products"
+  },
+  "rows": [
+    {
+      "sku": "3IW00300",
+      "name": "Alpha Isomethyl Ionone",
+      "module": "IRIS",
+      "target_percent": "18.50",
+      "target_10g_product_g": "1.850000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "1.850000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Ionone-family cyclic ketone, exact PW grade",
+      "expected_role": "Main powdery-woody iris body; bridges root products to woods",
+      "failure_mode": "Cosmetic-violet sweetness; masks rum/root contrast",
+      "protected_anchor_hypothesis": true,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3IW00300",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "8IA00344",
+      "name": "Orris Concrete Orris Butter",
+      "module": "IRIS",
+      "target_percent": "2.50",
+      "target_10g_product_g": "0.250000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.250000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "PW product; composition and natural authenticity not independently established",
+      "expected_role": "Butter/wax/root texture distinct from a pure irone accent",
+      "failure_mode": "Wax haze or creamy heaviness",
+      "protected_anchor_hypothesis": true,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=8IA00344",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "8IQ24653",
+      "name": "Orris Liquid",
+      "module": "IRIS",
+      "target_percent": "0.80",
+      "target_10g_product_g": "0.080000",
+      "working_stock_fraction_ww": "0.10",
+      "working_stock_carrier": "TEC",
+      "working_10g_target_g": "0.800000",
+      "external_carrier_10g_target_g": "0.720000",
+      "chemical_or_product_class": "PW product; internal composition and irone assay unbound",
+      "expected_role": "Concentrated floral-waxy orris accent",
+      "failure_mode": "Lipstick/raspberry emphasis",
+      "protected_anchor_hypothesis": true,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=8IQ24653",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "8II00243",
+      "name": "Alpha Irone",
+      "module": "IRIS",
+      "target_percent": "0.80",
+      "target_10g_product_g": "0.080000",
+      "working_stock_fraction_ww": "0.10",
+      "working_stock_carrier": "TEC",
+      "working_10g_target_g": "0.800000",
+      "external_carrier_10g_target_g": "0.720000",
+      "chemical_or_product_class": "Irone cyclic ketone; lot stereochemistry unbound",
+      "expected_role": "Bright orris identity above the heavier root texture",
+      "failure_mode": "Sharp violet/berry bias",
+      "protected_anchor_hypothesis": true,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=8II00243",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "3IF00237",
+      "name": "Alpha Ionone",
+      "module": "IRIS",
+      "target_percent": "2.00",
+      "target_10g_product_g": "0.200000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.200000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Ionone cyclic ketone",
+      "expected_role": "Quiet violet-flower edge between orris and faint flowers",
+      "failure_mode": "Violet perfume drift",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3IF00237",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "3IL00153",
+      "name": "Dihydro Beta Ionone",
+      "module": "IRIS",
+      "target_percent": "1.50",
+      "target_10g_product_g": "0.150000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.150000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Dihydro-ionone cyclic ketone",
+      "expected_role": "Dry earthy-woody connection from iris to wood chassis",
+      "failure_mode": "Flat woody darkness",
+      "protected_anchor_hypothesis": true,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3IL00153",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "3IA06874",
+      "name": "Irotyl",
+      "module": "IRIS",
+      "target_percent": "1.15",
+      "target_10g_product_g": "0.115000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.115000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Ethyl 2-ethylhexanoate; aliphatic ester, CAS 2983-37-1",
+      "expected_role": "Fatty-fruity early root/rhum transition, not a persistent irone",
+      "failure_mode": "Generic fruity/herbal top",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3IA06874",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "7IS00086",
+      "name": "Carrot Seed Essential Oil",
+      "module": "IRIS",
+      "target_percent": "0.08",
+      "target_10g_product_g": "0.008000",
+      "working_stock_fraction_ww": "0.10",
+      "working_stock_carrier": "TEC",
+      "working_10g_target_g": "0.080000",
+      "external_carrier_10g_target_g": "0.072000",
+      "chemical_or_product_class": "Natural-product mixture; composition unassayed",
+      "expected_role": "Small earthy-root grain, not an irone substitute",
+      "failure_mode": "Vegetal/celery seed effect",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7IS00086",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "8FY24655",
+      "name": "Caribbean Rum Extract",
+      "module": "RUM",
+      "target_percent": "1.20",
+      "target_10g_product_g": "0.120000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.120000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "PW proprietary mixture according to generated document page",
+      "expected_role": "Brown-rum/raisin/cask accent; not proven natural rum extract",
+      "failure_mode": "Pineapple/coconut/molasses or vanilla dominance",
+      "protected_anchor_hypothesis": true,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=8FY24655",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "3FG00172",
+      "name": "Ethyl Acetoacetate",
+      "module": "RUM",
+      "target_percent": "0.50",
+      "target_10g_product_g": "0.050000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.050000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Beta-keto ester, CAS 141-97-9",
+      "expected_role": "Dry ethereal/winey opening in rum module",
+      "failure_mode": "Fruity solvent/apple drift",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3FG00172",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "3RP00371",
+      "name": "Phenyl Ethyl Acetate",
+      "module": "RUM",
+      "target_percent": "0.80",
+      "target_10g_product_g": "0.080000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.080000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Aromatic ester, phenethyl acetate",
+      "expected_role": "Fermented fruity-floral link between rum and rose",
+      "failure_mode": "Honeyed rosy fruitiness",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3RP00371",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "3FD00174",
+      "name": "Ethyl Butyrate",
+      "module": "RUM",
+      "target_percent": "0.05",
+      "target_10g_product_g": "0.005000",
+      "working_stock_fraction_ww": "0.10",
+      "working_stock_carrier": "TEC",
+      "working_10g_target_g": "0.050000",
+      "external_carrier_10g_target_g": "0.045000",
+      "chemical_or_product_class": "Short-chain ethyl ester",
+      "expected_role": "Minute fermentation-ester lift in rum impression",
+      "failure_mode": "Pineapple/banana",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3FD00174",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "4FD04118",
+      "name": "Ethyl 2-Methylbutyrate",
+      "module": "RUM",
+      "target_percent": "0.02",
+      "target_10g_product_g": "0.002000",
+      "working_stock_fraction_ww": "0.10",
+      "working_stock_carrier": "TEC",
+      "working_10g_target_g": "0.020000",
+      "external_carrier_10g_target_g": "0.018000",
+      "chemical_or_product_class": "Branched short-chain ethyl ester",
+      "expected_role": "Tiny crisp fruity edge to rum top",
+      "failure_mode": "Apple/fruit-candy drift",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4FD04118",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "9IF07120",
+      "name": "Damascenone",
+      "module": "RUM",
+      "target_percent": "0.01",
+      "target_10g_product_g": "0.001000",
+      "working_stock_fraction_ww": "0.01",
+      "working_stock_carrier": "TEC",
+      "working_10g_target_g": "0.100000",
+      "external_carrier_10g_target_g": "0.099000",
+      "chemical_or_product_class": "Norisoprenoid cyclic ketone; supplier damascenone grade",
+      "expected_role": "Trace dried-fruit link to rum and faint rose",
+      "failure_mode": "Plum/jam/rose dominance",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=9IF07120",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "1VW00456",
+      "name": "Vanillin",
+      "module": "RUM",
+      "target_percent": "0.30",
+      "target_10g_product_g": "0.030000",
+      "working_stock_fraction_ww": "0.10",
+      "working_stock_carrier": "PERFUMER_ALCOHOL_AS_SUPPLIED",
+      "working_10g_target_g": "0.300000",
+      "external_carrier_10g_target_g": "0.270000",
+      "chemical_or_product_class": "Aromatic aldehyde/phenol",
+      "expected_role": "Barrel-like softening in rum, not a vanilla base",
+      "failure_mode": "Gourmand sweetening",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=1VW00456",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "9PT00213",
+      "name": "Guaiacol",
+      "module": "RUM",
+      "target_percent": "0.01",
+      "target_10g_product_g": "0.001000",
+      "working_stock_fraction_ww": "0.01",
+      "working_stock_carrier": "TEC",
+      "working_10g_target_g": "0.100000",
+      "external_carrier_10g_target_g": "0.099000",
+      "chemical_or_product_class": "Methoxyphenol",
+      "expected_role": "Tiny toasted cask/wood link, not smoke theme",
+      "failure_mode": "Medicinal smoke",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=9PT00213",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "3SP00184",
+      "name": "Eugenol",
+      "module": "RUM",
+      "target_percent": "0.03",
+      "target_10g_product_g": "0.003000",
+      "working_stock_fraction_ww": "0.10",
+      "working_stock_carrier": "TEC",
+      "working_10g_target_g": "0.030000",
+      "external_carrier_10g_target_g": "0.027000",
+      "chemical_or_product_class": "Allyl methoxyphenol, CAS 97-53-0",
+      "expected_role": "Tiny dry spice/cask accent; declared presence in reference ingredient list",
+      "failure_mode": "Clove intrusion",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3SP00184",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "3JJ00218",
+      "name": "Hedione",
+      "module": "FLORAL",
+      "target_percent": "8.00",
+      "target_10g_product_g": "0.800000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.800000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Methyl dihydrojasmonate trade grade",
+      "expected_role": "Transparent flower space without a loud white-floral bouquet",
+      "failure_mode": "Jasmine-clean dilution of iris identity",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3JJ00218",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "3RM00358",
+      "name": "Phenyl Ethyl Alcohol (PEA)",
+      "module": "FLORAL",
+      "target_percent": "1.50",
+      "target_10g_product_g": "0.150000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.150000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Aromatic alcohol",
+      "expected_role": "Muted petal body behind iris",
+      "failure_mode": "Rose dominance",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3RM00358",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "8RM00395",
+      "name": "Rose de Mai Absolute",
+      "module": "FLORAL",
+      "target_percent": "0.45",
+      "target_10g_product_g": "0.045000",
+      "working_stock_fraction_ww": "0.10",
+      "working_stock_carrier": "TEC",
+      "working_10g_target_g": "0.450000",
+      "external_carrier_10g_target_g": "0.405000",
+      "chemical_or_product_class": "PW rose absolute product; natural mixture",
+      "expected_role": "Low dry-petal detail, not rose-oud",
+      "failure_mode": "Rose-oud drift",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=8RM00395",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "8JN00254",
+      "name": "Jasmine Absolute",
+      "module": "FLORAL",
+      "target_percent": "0.35",
+      "target_10g_product_g": "0.035000",
+      "working_stock_fraction_ww": "0.10",
+      "working_stock_carrier": "TEC",
+      "working_10g_target_g": "0.350000",
+      "external_carrier_10g_target_g": "0.315000",
+      "chemical_or_product_class": "PW jasmine absolute product; natural mixture",
+      "expected_role": "Quiet warm/narcotic floral underside",
+      "failure_mode": "White-floral/indolic dominance",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=8JN00254",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "3ON00060",
+      "name": "Benzyl Salicylate",
+      "module": "FLORAL",
+      "target_percent": "6.00",
+      "target_10g_product_g": "0.600000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.600000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Aromatic salicylate ester",
+      "expected_role": "Waxy floral texture linking orris and faded flowers; reference disclosed ingredient",
+      "failure_mode": "Heavy cosmetic blur",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3ON00060",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "3WY00244",
+      "name": "Iso E Super",
+      "module": "WOOD",
+      "target_percent": "26.00",
+      "target_10g_product_g": "2.600000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "2.600000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Tetramethyl acetyloctahydronaphthalene trade-grade isomer mixture",
+      "expected_role": "Transparent abstract wood frame leaving room for iris",
+      "failure_mode": "Hollow generic woody dominance/anosmic gaps",
+      "protected_anchor_hypothesis": true,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3WY00244",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "3WY00465",
+      "name": "Vertofix Couer",
+      "module": "WOOD",
+      "target_percent": "8.00",
+      "target_10g_product_g": "0.800000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.800000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Acetylated cedarwood material, exact PW product",
+      "expected_role": "Dry cedar-root grain bridging iris and musks",
+      "failure_mode": "Warm heavy cedar-amber blur",
+      "protected_anchor_hypothesis": true,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3WY00465",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "4WY07089",
+      "name": "Kephalis",
+      "module": "WOOD",
+      "target_percent": "4.00",
+      "target_10g_product_g": "0.400000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.400000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Woody aroma-chemical trade grade",
+      "expected_role": "Dark dry tobacco-wood accent at modest loading",
+      "failure_mode": "Sweet amber/tobacco dominance",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4WY07089",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "7WW00095",
+      "name": "Cedarwood Virginian Essential Oil",
+      "module": "WOOD",
+      "target_percent": "2.00",
+      "target_10g_product_g": "0.200000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.200000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Cedarwood natural-product mixture",
+      "expected_role": "Recognizable dry wood grain",
+      "failure_mode": "Pencil shavings",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7WW00095",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "3WY00468",
+      "name": "Vetiveryl Acetate",
+      "module": "WOOD",
+      "target_percent": "3.00",
+      "target_10g_product_g": "0.300000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.300000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Acetylated vetiver product mixture",
+      "expected_role": "Smoother dry root/wood plane, not smoky vetiver oil",
+      "failure_mode": "Vetiver domination",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3WY00468",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "7WB00357",
+      "name": "Patchouli Essential Oil",
+      "module": "WOOD",
+      "target_percent": "1.50",
+      "target_10g_product_g": "0.150000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.150000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Patchouli natural-product mixture",
+      "expected_role": "Small earthy bedding for oud and roots",
+      "failure_mode": "Patchouli patch/earth dominance",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7WB00357",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "7WU09815",
+      "name": "Nagarmotha Oil",
+      "module": "WOOD",
+      "target_percent": "0.50",
+      "target_10g_product_g": "0.050000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.050000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Cypriol natural-product mixture",
+      "expected_role": "Dry woody-earthy link into oud, not chemically equivalent to oud",
+      "failure_mode": "Cypriol/smoky root drift",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7WU09815",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "7WU09890",
+      "name": "Agarwood Oil Siam",
+      "module": "WOOD",
+      "target_percent": "1.00",
+      "target_10g_product_g": "0.100000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.100000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "PW agarwood product, supplier claims natural origin",
+      "expected_role": "Distinct oud/animalic wood complexity under iris",
+      "failure_mode": "Oud/phenolic dominance; lot variability",
+      "protected_anchor_hypothesis": true,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7WU09890",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "7RW00214",
+      "name": "Guaiacwood Essential Oil",
+      "module": "WOOD",
+      "target_percent": "0.80",
+      "target_10g_product_g": "0.080000",
+      "working_stock_fraction_ww": "0.50",
+      "working_stock_carrier": "TEC",
+      "working_10g_target_g": "0.160000",
+      "external_carrier_10g_target_g": "0.080000",
+      "chemical_or_product_class": "Guaiacwood natural-product mixture",
+      "expected_role": "Smoky-rosy wood bridge from rum cask to faint rose",
+      "failure_mode": "Smoke or waxiness",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7RW00214",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "4XB00090",
+      "name": "Cashmeran",
+      "module": "WOOD",
+      "target_percent": "0.50",
+      "target_10g_product_g": "0.050000",
+      "working_stock_fraction_ww": "0.10",
+      "working_stock_carrier": "TEC",
+      "working_10g_target_g": "0.500000",
+      "external_carrier_10g_target_g": "0.450000",
+      "chemical_or_product_class": "Polycyclic ketone trade grade",
+      "expected_role": "Small dry textile/grain effect, not a musk-bed expansion",
+      "failure_mode": "Warm dusty musk",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4XB00090",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "1UW00035",
+      "name": "Ambrox Super",
+      "module": "WOOD",
+      "target_percent": "1.50",
+      "target_10g_product_g": "0.150000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.150000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Ambroxide, CAS 6790-58-5; solid supplied product",
+      "expected_role": "Restrained mineral ambergris-colored tail",
+      "failure_mode": "Amberwood/ambergris domination",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=1UW00035",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "3XA09821",
+      "name": "Habanolide",
+      "module": "ANIMALIC_MUSK",
+      "target_percent": "2.50",
+      "target_10g_product_g": "0.250000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.250000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Macrocyclic musk lactone trade grade",
+      "expected_role": "Cleaner lifted musk edge to contrast root warmth",
+      "failure_mode": "Soapy clean musk masks animality",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3XA09821",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "4XU00034",
+      "name": "Ambrettolide",
+      "module": "ANIMALIC_MUSK",
+      "target_percent": "2.00",
+      "target_10g_product_g": "0.200000",
+      "working_stock_fraction_ww": "1.00",
+      "working_stock_carrier": null,
+      "working_10g_target_g": "0.200000",
+      "external_carrier_10g_target_g": "0.000000",
+      "chemical_or_product_class": "Macrocyclic musk lactone",
+      "expected_role": "Warmer skin/fruity continuity between rum and animalic wood",
+      "failure_mode": "Top suppression/musk blur",
+      "protected_anchor_hypothesis": false,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4XU00034",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    },
+    {
+      "sku": "3UU07513",
+      "name": "Civet Art",
+      "module": "ANIMALIC_MUSK",
+      "target_percent": "0.15",
+      "target_10g_product_g": "0.015000",
+      "working_stock_fraction_ww": "0.10",
+      "working_stock_carrier": "TEC",
+      "working_10g_target_g": "0.150000",
+      "external_carrier_10g_target_g": "0.135000",
+      "chemical_or_product_class": "PW synthetic proprietary civet compound; not pure civetone",
+      "expected_role": "Explicit animalic undertone unavailable from a leather-only substitution",
+      "failure_mode": "Fecal/dirty musk overtakes iris",
+      "protected_anchor_hypothesis": true,
+      "role_evidence": "SUPPLIER_DESCRIPTION_PLUS_FORMULATION_HYPOTHESIS",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3UU07513",
+      "target_quantity_authority": "FORMULATOR_SELECTED_NOT_RECONSTRUCTED"
+    }
+  ],
+  "working_stock_preparations": [
+    {
+      "product_sku": "8IQ24653",
+      "product_name": "Orris Liquid",
+      "fraction_ww": "0.10",
+      "carrier": "TEC",
+      "preparation_state": "PROPOSED_NOT_ASSUMED_PREPARED",
+      "batch_g": "2.000",
+      "product_g": "0.200",
+      "carrier_g": "1.800",
+      "use_condition": "Fully homogeneous at weighing temperature; if insoluble, do not use this concentration unchanged"
+    },
+    {
+      "product_sku": "8II00243",
+      "product_name": "Alpha Irone",
+      "fraction_ww": "0.10",
+      "carrier": "TEC",
+      "preparation_state": "PROPOSED_NOT_ASSUMED_PREPARED",
+      "batch_g": "2.000",
+      "product_g": "0.200",
+      "carrier_g": "1.800",
+      "use_condition": "Fully homogeneous at weighing temperature; if insoluble, do not use this concentration unchanged"
+    },
+    {
+      "product_sku": "7IS00086",
+      "product_name": "Carrot Seed Essential Oil",
+      "fraction_ww": "0.10",
+      "carrier": "TEC",
+      "preparation_state": "PROPOSED_NOT_ASSUMED_PREPARED",
+      "batch_g": "2.000",
+      "product_g": "0.200",
+      "carrier_g": "1.800",
+      "use_condition": "Fully homogeneous at weighing temperature; if insoluble, do not use this concentration unchanged"
+    },
+    {
+      "product_sku": "3FD00174",
+      "product_name": "Ethyl Butyrate",
+      "fraction_ww": "0.10",
+      "carrier": "TEC",
+      "preparation_state": "PROPOSED_NOT_ASSUMED_PREPARED",
+      "batch_g": "2.000",
+      "product_g": "0.200",
+      "carrier_g": "1.800",
+      "use_condition": "Fully homogeneous at weighing temperature; if insoluble, do not use this concentration unchanged"
+    },
+    {
+      "product_sku": "4FD04118",
+      "product_name": "Ethyl 2-Methylbutyrate",
+      "fraction_ww": "0.10",
+      "carrier": "TEC",
+      "preparation_state": "PROPOSED_NOT_ASSUMED_PREPARED",
+      "batch_g": "2.000",
+      "product_g": "0.200",
+      "carrier_g": "1.800",
+      "use_condition": "Fully homogeneous at weighing temperature; if insoluble, do not use this concentration unchanged"
+    },
+    {
+      "product_sku": "9IF07120",
+      "product_name": "Damascenone",
+      "fraction_ww": "0.01",
+      "carrier": "TEC",
+      "preparation_state": "PROPOSED_NOT_ASSUMED_PREPARED",
+      "batch_g": "5.000",
+      "product_g": "0.050",
+      "carrier_g": "4.950",
+      "use_condition": "Fully homogeneous at weighing temperature; if insoluble, do not use this concentration unchanged"
+    },
+    {
+      "product_sku": "1VW00456",
+      "product_name": "Vanillin",
+      "fraction_ww": "0.10",
+      "carrier": "PERFUMER_ALCOHOL_AS_SUPPLIED",
+      "preparation_state": "PROPOSED_NOT_ASSUMED_PREPARED",
+      "batch_g": "2.000",
+      "product_g": "0.200",
+      "carrier_g": "1.800",
+      "use_condition": "Fully homogeneous at weighing temperature; if insoluble, do not use this concentration unchanged"
+    },
+    {
+      "product_sku": "9PT00213",
+      "product_name": "Guaiacol",
+      "fraction_ww": "0.01",
+      "carrier": "TEC",
+      "preparation_state": "PROPOSED_NOT_ASSUMED_PREPARED",
+      "batch_g": "5.000",
+      "product_g": "0.050",
+      "carrier_g": "4.950",
+      "use_condition": "Fully homogeneous at weighing temperature; if insoluble, do not use this concentration unchanged"
+    },
+    {
+      "product_sku": "3SP00184",
+      "product_name": "Eugenol",
+      "fraction_ww": "0.10",
+      "carrier": "TEC",
+      "preparation_state": "PROPOSED_NOT_ASSUMED_PREPARED",
+      "batch_g": "2.000",
+      "product_g": "0.200",
+      "carrier_g": "1.800",
+      "use_condition": "Fully homogeneous at weighing temperature; if insoluble, do not use this concentration unchanged"
+    },
+    {
+      "product_sku": "8RM00395",
+      "product_name": "Rose de Mai Absolute",
+      "fraction_ww": "0.10",
+      "carrier": "TEC",
+      "preparation_state": "PROPOSED_NOT_ASSUMED_PREPARED",
+      "batch_g": "2.000",
+      "product_g": "0.200",
+      "carrier_g": "1.800",
+      "use_condition": "Fully homogeneous at weighing temperature; if insoluble, do not use this concentration unchanged"
+    },
+    {
+      "product_sku": "8JN00254",
+      "product_name": "Jasmine Absolute",
+      "fraction_ww": "0.10",
+      "carrier": "TEC",
+      "preparation_state": "PROPOSED_NOT_ASSUMED_PREPARED",
+      "batch_g": "2.000",
+      "product_g": "0.200",
+      "carrier_g": "1.800",
+      "use_condition": "Fully homogeneous at weighing temperature; if insoluble, do not use this concentration unchanged"
+    },
+    {
+      "product_sku": "7RW00214",
+      "product_name": "Guaiacwood Essential Oil",
+      "fraction_ww": "0.50",
+      "carrier": "TEC",
+      "preparation_state": "PROPOSED_NOT_ASSUMED_PREPARED",
+      "batch_g": "2.000",
+      "product_g": "1.000",
+      "carrier_g": "1.000",
+      "use_condition": "Fully homogeneous at weighing temperature; if insoluble, do not use this concentration unchanged"
+    },
+    {
+      "product_sku": "4XB00090",
+      "product_name": "Cashmeran",
+      "fraction_ww": "0.10",
+      "carrier": "TEC",
+      "preparation_state": "PROPOSED_NOT_ASSUMED_PREPARED",
+      "batch_g": "2.000",
+      "product_g": "0.200",
+      "carrier_g": "1.800",
+      "use_condition": "Fully homogeneous at weighing temperature; if insoluble, do not use this concentration unchanged"
+    },
+    {
+      "product_sku": "3UU07513",
+      "product_name": "Civet Art",
+      "fraction_ww": "0.10",
+      "carrier": "TEC",
+      "preparation_state": "PROPOSED_NOT_ASSUMED_PREPARED",
+      "batch_g": "2.000",
+      "product_g": "0.200",
+      "carrier_g": "1.800",
+      "use_condition": "Fully homogeneous at weighing temperature; if insoluble, do not use this concentration unchanged"
+    }
+  ],
+  "working_concentrate": {
+    "target_product_mass_g": "10.000000",
+    "working_mass_g": "13.455000",
+    "added_TEC_g": "3.185000",
+    "stock_added_perfumer_alcohol_g": "0.270000",
+    "row_count": 36,
+    "minimum_transfer_g": "0.020000",
+    "assumes": "Specified product identities, fractions and homogeneous stocks; proposed preparations are not existing inventory by implication"
+  },
+  "evaluation_bottles": [
+    {
+      "finished_mass_g": "5.000000",
+      "nominal_load_ww": "0.24",
+      "working_concentrate_g": "1.614600",
+      "add_perfumer_alcohol_g": "3.385400"
+    },
+    {
+      "finished_mass_g": "30.000000",
+      "nominal_load_ww": "0.24",
+      "working_concentrate_g": "9.687600",
+      "add_perfumer_alcohol_g": "20.312400"
+    },
+    {
+      "finished_mass_g": "5.000000",
+      "nominal_load_ww": "0.20",
+      "working_concentrate_g": "1.345500",
+      "add_perfumer_alcohol_g": "3.654500"
+    }
+  ],
+  "volumetric_bottle_rule": "No g=mL inference. Prepare a sufficient mass at chosen w/w load and measure the final 30 mL separately; remaining perfume is retained, not discarded.",
+  "candidate_families": [
+    {
+      "id": "L1",
+      "family": "CONSERVATIVE_IDENTITY_PRESERVING",
+      "name": "Root-Rum Lead",
+      "status": "DEVELOPMENT_LEAD_NOT_SENSORY_WINNER",
+      "reason": "Balances all official axes without a big vanilla, leather or amberwood chassis",
+      "deltas_percent": {}
+    },
+    {
+      "id": "I1",
+      "family": "LITERAL_ROOT_FORWARD",
+      "name": "Butter and wax emphasis",
+      "status": "CONSIDERED_NOT_MIXED",
+      "deltas_percent": {
+        "8IA00344": "2.00",
+        "8IQ24653": "1.00",
+        "3WY00244": "-3.00"
+      },
+      "risk": "Wax haze and cosmetic heaviness; literal notes do not prove the authentic dosage"
+    },
+    {
+      "id": "B1",
+      "family": "INTERACTION_AWARE",
+      "name": "Drier decomposed rum bridge",
+      "status": "CONSIDERED_NOT_MIXED",
+      "deltas_percent": {
+        "8FY24655": "-0.70",
+        "3FG00172": "0.40",
+        "3RP00371": "0.30"
+      },
+      "risk": "Less distinctive brown-rum depth; ester-fruit drift"
+    },
+    {
+      "id": "C1",
+      "family": "MINIMALIST",
+      "name": "Simplified iris and wood control",
+      "status": "CONSIDERED_NOT_MIXED",
+      "deltas_percent": {
+        "3IA06874": "-1.15",
+        "7IS00086": "-0.08",
+        "3IL00153": "-1.50",
+        "7WU09815": "-0.50",
+        "4XB00090": "-0.50",
+        "7RW00214": "-0.80",
+        "3IW00300": "1.23",
+        "3WY00465": "2.30",
+        "3WY00468": "1.00"
+      },
+      "risk": "May be easier to mix but loses root/cask grain; not automatically inferior"
+    },
+    {
+      "id": "R1",
+      "family": "ROBUSTNESS_AND_COST",
+      "name": "Product-based oud/root alternative",
+      "status": "CONSIDERED_NOT_MIXED",
+      "deltas_percent": {
+        "7WU09890": "-1.00",
+        "6WU07708": "0.40",
+        "7WU09815": "0.30",
+        "3WY00468": "0.30",
+        "8IA00344": "-2.50",
+        "3IW00300": "1.50",
+        "8II00243": "0.30",
+        "3IF00237": "0.70"
+      },
+      "risk": "Named Black Agarwood product is not natural oud equivalent; natural-root nuance may be lost"
+    },
+    {
+      "id": "E1",
+      "family": "EXPLORATORY_DRY_ANIMALIC",
+      "name": "Darker wood and civet",
+      "status": "CONSIDERED_NOT_MIXED",
+      "deltas_percent": {
+        "4WY07089": "2.00",
+        "3UU07513": "0.35",
+        "3WY00244": "-2.35"
+      },
+      "risk": "Animalic/tobacco dominance; do not select merely for power"
+    }
+  ],
+  "shared_core": {
+    "exclude_skus": [
+      "8FY24655",
+      "3UU07513",
+      "3XA09821",
+      "4XU00034"
+    ],
+    "working_mass_g": "12.735000",
+    "product_mass_g": "9.415000"
+  },
+  "trial_recipes": [
+    {
+      "id": "LEAD",
+      "core_g": "1.528200",
+      "rum_product_g": "0.014400",
+      "civet_10pct_TEC_g": "0.018000",
+      "habanolide_g": "0.030000",
+      "ambrettolide_g": "0.024000",
+      "TEC_blank_g": "0.000000",
+      "added_alcohol_g": "3.385400",
+      "finished_g": "5.000000",
+      "nominal_source_product_g": "1.200000",
+      "question": "Does the complete target read as iris/rhum/dry woods with secondary animality?"
+    },
+    {
+      "id": "NO_RUM_PRODUCT",
+      "core_g": "1.528200",
+      "rum_product_g": "0.000000",
+      "civet_10pct_TEC_g": "0.018000",
+      "habanolide_g": "0.030000",
+      "ambrettolide_g": "0.024000",
+      "TEC_blank_g": "0.014400",
+      "added_alcohol_g": "3.385400",
+      "finished_g": "5.000000",
+      "nominal_source_product_g": "1.185600",
+      "question": "Does the named rum product improve rum recognizability, or just add syrup/tropical fruit?"
+    },
+    {
+      "id": "NO_CIVET_PRODUCT",
+      "core_g": "1.528200",
+      "rum_product_g": "0.014400",
+      "civet_10pct_TEC_g": "0.000000",
+      "habanolide_g": "0.030000",
+      "ambrettolide_g": "0.024000",
+      "TEC_blank_g": "0.018000",
+      "added_alcohol_g": "3.385400",
+      "finished_g": "5.000000",
+      "nominal_source_product_g": "1.198200",
+      "question": "Does civet add a useful undertone rather than fecal dirt?"
+    },
+    {
+      "id": "AMBRETTOLIDE_ONLY",
+      "core_g": "1.528200",
+      "rum_product_g": "0.014400",
+      "civet_10pct_TEC_g": "0.018000",
+      "habanolide_g": "0.000000",
+      "ambrettolide_g": "0.054000",
+      "TEC_blank_g": "0.000000",
+      "added_alcohol_g": "3.385400",
+      "finished_g": "5.000000",
+      "nominal_source_product_g": "1.200000",
+      "question": "Does the warmer single musk make Habanolide unnecessary?"
+    },
+    {
+      "id": "HABANOLIDE_ONLY",
+      "core_g": "1.528200",
+      "rum_product_g": "0.014400",
+      "civet_10pct_TEC_g": "0.018000",
+      "habanolide_g": "0.054000",
+      "ambrettolide_g": "0.000000",
+      "TEC_blank_g": "0.000000",
+      "added_alcohol_g": "3.385400",
+      "finished_g": "5.000000",
+      "nominal_source_product_g": "1.200000",
+      "question": "Does the cleaner single musk make Ambrettolide unnecessary?"
+    }
+  ],
+  "trial_rules": {
+    "first_three": "LEAD, NO_RUM_PRODUCT, NO_CIVET_PRODUCT; two single-musk trials optional",
+    "all_masses": "Nominal unrounded quantities; actual nearest-0.001g transfers and alcohol q.s. to 5.000g must be recorded",
+    "omission_state": "Blanked at same finished mass; fewer source-product equivalents than lead; not relabeled 24% odorants",
+    "intrinsic_matrix_matching": "UNVERIFIED_FOR_OPAQUE_PRODUCTS",
+    "timepoints": [
+      "5 minutes",
+      "30-60 minutes",
+      "4 hours",
+      "next-day blotter"
+    ],
+    "physical_status": "NOT_MIXED_OR_SMELLED"
+  },
+  "price_snapshot": [
+    {
+      "sku": "3IW00300",
+      "usd_per_g": "0.23",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3IW00300",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "8IA00344",
+      "usd_per_g": "21.50",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=8IA00344",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "8IQ24653",
+      "usd_per_g": "18.00",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=8IQ24653",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "8II00243",
+      "usd_per_g": "5.50",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=8II00243",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "3IF00237",
+      "usd_per_g": "0.26",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3IF00237",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "3IL00153",
+      "usd_per_g": "0.60",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3IL00153",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "3IA06874",
+      "usd_per_g": "0.60",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3IA06874",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "7IS00086",
+      "usd_per_g": "4.00",
+      "source_date": "2026-09-30",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=7IS00086",
+      "status": "LOCAL_CATALOG_SNAPSHOT_NOT_FRESH_AVAILABILITY"
+    },
+    {
+      "sku": "8FY24655",
+      "usd_per_g": "8.80",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=8FY24655",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "3FG00172",
+      "usd_per_g": "0.08",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3FG00172",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "3RP00371",
+      "usd_per_g": "0.20",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3RP00371",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "3FD00174",
+      "usd_per_g": "0.08",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3FD00174",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "4FD04118",
+      "usd_per_g": "0.36",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4FD04118",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "9IF07120",
+      "usd_per_g": "2.72",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=9IF07120",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "1VW00456",
+      "usd_per_g": "0.19",
+      "source_date": "2026-09-30",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=1VW00456",
+      "status": "LOCAL_CATALOG_SNAPSHOT_NOT_FRESH_AVAILABILITY"
+    },
+    {
+      "sku": "9PT00213",
+      "usd_per_g": "0.19",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=9PT00213",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "3SP00184",
+      "usd_per_g": "0.20",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3SP00184",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "3JJ00218",
+      "usd_per_g": "0.15",
+      "source_date": "2026-09-30",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3JJ00218",
+      "status": "LOCAL_CATALOG_SNAPSHOT_NOT_FRESH_AVAILABILITY"
+    },
+    {
+      "sku": "3RM00358",
+      "usd_per_g": "0.07",
+      "source_date": "2026-09-30",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3RM00358",
+      "status": "LOCAL_CATALOG_SNAPSHOT_NOT_FRESH_AVAILABILITY"
+    },
+    {
+      "sku": "8RM00395",
+      "usd_per_g": "13.50",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=8RM00395",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "8JN00254",
+      "usd_per_g": "21.70",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=8JN00254",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "3ON00060",
+      "usd_per_g": "0.09",
+      "source_date": "2026-09-30",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3ON00060",
+      "status": "LOCAL_CATALOG_SNAPSHOT_NOT_FRESH_AVAILABILITY"
+    },
+    {
+      "sku": "3WY00244",
+      "usd_per_g": "0.14",
+      "source_date": "2026-09-30",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3WY00244",
+      "status": "LOCAL_CATALOG_SNAPSHOT_NOT_FRESH_AVAILABILITY"
+    },
+    {
+      "sku": "3WY00465",
+      "usd_per_g": "0.22",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3WY00465",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "4WY07089",
+      "usd_per_g": "0.57",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4WY07089",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "7WW00095",
+      "usd_per_g": "0.32",
+      "source_date": "2026-09-30",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=7WW00095",
+      "status": "LOCAL_CATALOG_SNAPSHOT_NOT_FRESH_AVAILABILITY"
+    },
+    {
+      "sku": "3WY00468",
+      "usd_per_g": "2.72",
+      "source_date": "2026-09-30",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3WY00468",
+      "status": "LOCAL_CATALOG_SNAPSHOT_NOT_FRESH_AVAILABILITY"
+    },
+    {
+      "sku": "7WB00357",
+      "usd_per_g": "0.96",
+      "source_date": "2026-09-30",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=7WB00357",
+      "status": "LOCAL_CATALOG_SNAPSHOT_NOT_FRESH_AVAILABILITY"
+    },
+    {
+      "sku": "7WU09815",
+      "usd_per_g": "1.60",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=7WU09815",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "7WU09890",
+      "usd_per_g": "25.00",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=7WU09890",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "7RW00214",
+      "usd_per_g": "0.30",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=7RW00214",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "4XB00090",
+      "usd_per_g": "0.52",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4XB00090",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "1UW00035",
+      "usd_per_g": "1.50",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=1UW00035",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "3XA09821",
+      "usd_per_g": "0.45",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3XA09821",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "4XU00034",
+      "usd_per_g": "2.50",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=4XU00034",
+      "status": "FRESH_LISTING_IN_STOCK"
+    },
+    {
+      "sku": "3UU07513",
+      "usd_per_g": "4.00",
+      "source_date": "2026-10-03",
+      "source_url": "https://www.perfumersworld.com/view.php?pro_id=3UU07513",
+      "status": "FRESH_LISTING_IN_STOCK"
+    }
+  ],
+  "known_consumed_input_cost": {
+    "for_10g_source_product_usd": "15.880830",
+    "TEC_master_cost_usd": "0.159250",
+    "for_30g_perfume_usd": "11.5488576",
+    "excludes": [
+      "all perfumer alcohol",
+      "bottling fees",
+      "shipping",
+      "taxes",
+      "unused purchased material",
+      "stock preparation waste",
+      "transfer losses"
+    ],
+    "not_a_checkout_cart": true
+  },
+  "hard_gates": {
+    "accounting": "REQUIRE_EXACT_DECIMAL_CONSERVATION",
+    "measurability": "MINIMUM_PROPOSED_MASTER_TRANSFER_20_MG; scale actual accuracy not inferred from resolution",
+    "stocks": "NO_UNDECLARED_STRENGTH_REBASE",
+    "sensory": "NOT_TESTED; reject if iris unclear, gourmand/rose-oud/leather/amberwood drift or overt fecality",
+    "solubility": "NOT_TESTED; no visibly heterogeneous sample used as a homogeneous stock",
+    "safety": "NOT_CLEARED_FOR_SKIN_OR_SALE"
+  },
+  "historical_integer_search": {
+    "status": "NOT_APPLICABLE_NOT_RUN",
+    "reason": "No matched Opus V empirical objective or validated 35-guardrail contract; no 97.76/100 or 35/35 claim"
+  },
+  "endpoint_states": {
+    "formula_arithmetic": "VERIFIED_DECIMAL_ARTIFACT_ONLY",
+    "gas_release": "UNAVAILABLE",
+    "OAV": "NOT_COMPUTED",
+    "individual_intensity": "NOT_ESTABLISHED",
+    "mixture_intensity": "NOT_ESTABLISHED",
+    "similarity": "NOT_TESTED",
+    "liking": "NOT_TESTED",
+    "longevity": "NOT_MEASURED",
+    "safety": "NOT_CLEARED"
+  },
+  "actions": {
+    "inventory_modified": false,
+    "existing_formula_modified": false,
+    "bottle_events_committed": false,
+    "purchase_executed": false,
+    "physically_compounded": false
+  },
+  "authority": {
+    "scientific_claim_scope": "DOCUMENTARY_ARCHITECTURE_AND_ACCOUNTING_ONLY",
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "supplier_safety_spotchecks": [
+    {
+      "sku": "3IW00300",
+      "direct_product_finished_percent": "4.4400",
+      "published_supplier_fine_fragrance_max_percent": "25.0000",
+      "state": "BELOW_LISTED_VALUE_ONLY_NOT_WHOLE_FORMULA_CLEARANCE"
+    },
+    {
+      "sku": "3ON00060",
+      "direct_product_finished_percent": "1.4400",
+      "published_supplier_fine_fragrance_max_percent": "7.3000",
+      "state": "BELOW_LISTED_VALUE_ONLY_NOT_WHOLE_FORMULA_CLEARANCE"
+    },
+    {
+      "sku": "9IF07120",
+      "direct_product_finished_percent": "0.0024",
+      "published_supplier_fine_fragrance_max_percent": "0.0400",
+      "state": "DOCUMENT_RESTRICTED_ROW_NAME_CONFLICT; DO_NOT_ADMIT_AS_EXACT_SAFETY_POLICY"
+    }
+  ]
+}

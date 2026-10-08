@@ -1,0 +1,321 @@
+{
+  "schema_version": "all-fragrance-domains-research-audit-v1",
+  "review_date": "2026-10-06",
+  "task_state": "PLANNING_AND_TARGETED_RESEARCH_COMPLETE_NOT_ALL_PACKAGE_REVIEWS",
+  "repository": {
+    "root": "D:/chatbots/perfume-chem",
+    "branch": "master",
+    "head": "1ed79650313c23b1a2fe1c36c2e90a606c64833b",
+    "dirty_worktree_preserved": true,
+    "unrelated_changes_not_edited": true,
+    "complete_unrelated_file_byte_census_performed": false
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "scope": {
+    "new_files": [
+      "data/formulation_knowledge/research_coverage_plan_v1.json",
+      "docs/research/ALL_FRAGRANCE_DOMAINS_RESEARCH_PLAN_20261006.md",
+      "docs/research/ALL_FRAGRANCE_DOMAINS_RESEARCH_AUDIT_20261006.json"
+    ],
+    "runtime_edits_this_review": false,
+    "planning_manifest_loaded_by_runtime": false,
+    "formula_or_inventory_edits": false,
+    "model_training": false,
+    "empirical_dataset_or_weight_import": false,
+    "scientific_promotion": false,
+    "physical_trials": false,
+    "purchases": false,
+    "full_verifier": false,
+    "git_commit_or_push": false,
+    "new_pipeline_scripts": false
+  },
+  "coverage": {
+    "construction_packages": 49,
+    "proposed_subtype_scope_entries": 275,
+    "scientific_fronts": 14,
+    "market_segments": 8,
+    "product_formats": 13,
+    "commercial_panel_research_tracks": 14,
+    "sources": 28
+  },
+  "coverage_interpretation": "275 overlapping scope entries, not 275 independently validated families. Source records include reused reviews, discovery-only leads and abstracts, not 28 full-text reviews.",
+  "current_commercial_gap": {
+    "products": 5,
+    "active_panels": 1,
+    "active_panel_id": "global-lavender-amber-2026-v1",
+    "reviewed_on": "2026-09-28",
+    "hash": "1d83c920487b69f55c7ca0b439f43beeaac048f5edc6b6d6bfcce00c441510f3",
+    "freshness_risk": "FY24 historical evidence with a later review date; review does not renew observation period",
+    "proposed_repair_applied": false,
+    "hash_capture_basis": "LOCAL_DECLARED_SUMMARY_NOT_RAW_DYNAMIC_WEBPAGE"
+  },
+  "critical_findings": [
+    {
+      "id": "LINEAR_CHARACTER_SCOPE_AND_RIGHTS",
+      "source_id": "SRC20_LINEAR_CHARACTER",
+      "finding": "2-10 components at moderate intensities; CC-BY-NC-4.0 displayed manuscript license; commercial data/code/artifact rights not admitted."
+    },
+    {
+      "id": "MARKET_SCOPE",
+      "source_id": "SRC07_LVMH_2025",
+      "finding": "Current issuer page states men's-fragrance position for Sauvage, not all-fragrance global liking or an exact flanker rank."
+    },
+    {
+      "id": "RETRACTION_IDENTITY",
+      "source_id": "SRC19_RETRACTION",
+      "original_doi": "10.1371/journal.pone.0218664",
+      "notice_doi": "10.1371/journal.pone.0222524",
+      "state": "RETRACTED_REJECTED"
+    },
+    {
+      "id": "MATRIX_TRANSFER",
+      "source_id": "SRC24_DPG_2015",
+      "finding": "DPG partition observations not transferable to ethanol/water EDP without applicability review."
+    },
+    {
+      "id": "CHARACTER_BASELINE",
+      "source_ids": [
+        "SRC20_LINEAR_CHARACTER",
+        "SRC21_PAIR_GNN",
+        "SRC22_POM"
+      ],
+      "finding": "Simple measured-profile baseline first; frozen and nonlinear representations are separately benchmarked challengers, not generic liking models."
+    }
+  ],
+  "tool_activity": [
+    {
+      "provider": "Plugin Management",
+      "state": "USED_READ_ONLY_DISCOVERY",
+      "requested_new_providers": [
+        "Undermind",
+        "Proto",
+        "Life Sciences Literature"
+      ],
+      "exact_named_tools_exposed": false,
+      "installed_or_changed_permissions": false
+    },
+    {
+      "provider": "Parallel Search",
+      "state": "USED_DISCOVERY",
+      "targeted_queries": 2,
+      "session_id": "d15f0bd727e045858933954875b50c1af",
+      "model_override_sent": false,
+      "primary_source_verification_required": true
+    },
+    {
+      "provider": "Firecrawl",
+      "state": "USED_ONE_FRESH_BOUNDED_SCRAPE",
+      "url": "https://www.loreal-finance.com/en/annual-report-2025/luxe/",
+      "scrape_id": "01a11026-5f3b-7252-900c-fbde02d56fdc",
+      "max_age": 0,
+      "reported_http_status": 200,
+      "reported_credits": 1,
+      "raw_page_bytes_archived": false,
+      "autonomous_agent_or_full_site_crawl": false
+    },
+    {
+      "provider": "Life Science Research / Amass",
+      "state": "USED_ABSTRACT_AND_DOI_RECORDS",
+      "topic_search_limit": 8,
+      "doi_record_requests": [
+        "10.1021/acsomega.4c07078",
+        "10.1126/science.ade4401"
+      ],
+      "include_fulltext_requested": false,
+      "exact_life_sciences_literature_connector_executed": false
+    },
+    {
+      "provider": "Consensus",
+      "state": "USED_SEARCH_AND_REQUIRED_FETCH",
+      "search_queries": 1,
+      "fetched_ids": [
+        "004229f777a4530d82d4292f9b4d0f67",
+        "2456fca6164a53d8b4e6efb9ad0e75b1",
+        "ca4e70ae2b29579f82e3d1aac031c8bf"
+      ],
+      "source_data_or_models_imported": false
+    },
+    {
+      "provider": "SciSpace",
+      "state": "USED_DISCOVERY",
+      "search_queries": 1,
+      "returned_paper_records": 10,
+      "full_corpus_admitted": false
+    },
+    {
+      "provider": "Wolfram",
+      "state": "SYMBOLIC_VERIFICATION_COMPLETED_AFTER_UNHELPFUL_CONTEXT_RESULTS",
+      "returned_exact_response": "7/5",
+      "returned_unit_factor": 1000,
+      "validation_scope": "ALGEBRA_AND_UNITS_ONLY"
+    },
+    {
+      "provider": "HAPI MCP Registry",
+      "state": "USED_READ_ONLY_SERVER_METADATA_SEARCH",
+      "search": "pubmed",
+      "limit": 5,
+      "servers_installed": false,
+      "authentication_or_payment": false,
+      "untrusted_activation_instructions_ignored": true
+    },
+    {
+      "provider": "Undermind",
+      "state": "NOT_CALLABLE_IN_AVAILABLE_TOOL_INVENTORY",
+      "name_and_supplied_identifier_searched": true,
+      "claimed_execution": false
+    },
+    {
+      "provider": "Proto",
+      "state": "NOT_CALLABLE_IN_AVAILABLE_TOOL_INVENTORY",
+      "name_and_supplied_identifier_searched": true,
+      "claimed_execution": false
+    },
+    {
+      "provider": "Life Sciences Literature",
+      "state": "EXACT_CONNECTOR_NOT_RESOLVED",
+      "available_related_tool": "Life Science Research / Amass",
+      "claimed_exact_execution": false
+    },
+    {
+      "provider": "DeepSeek / DeepLuna",
+      "state": "NO_TRANSMISSION_FAILED_HEALTH_ADMISSION",
+      "reason": "DAEMON_TRANSPORT",
+      "model_calls": 0,
+      "native_subagents_spawned": 0,
+      "fallback": false
+    },
+    {
+      "provider": "Built-in web",
+      "state": "USED_PRIMARY_SOURCE_VERIFICATION",
+      "some_direct_opens_failed": true
+    }
+  ],
+  "source_access_limits": [
+    "Fragrances of the World PDF screenshot extraction failed; index/file metadata only.",
+    "Jasminum sambac source full-text access failed; discovery-only.",
+    "Direct Sisson PMC browser check and Science/publisher fetch errors; abstracts/indexed primary excerpts only where stated.",
+    "Technical book publisher metadata and contents only; chapters not reviewed.",
+    "No raw publisher artifact archived; null hashes are intentional.",
+    "POM/mixture-model data, executable and commercial rights remain unresolved.",
+    "No claim that every construction package or plugin has been fully reviewed or executed."
+  ],
+  "verification": {
+    "focused_tests": {
+      "command": ".venv/Scripts/python.exe -X utf8 -m pytest tests/test_commercial_references.py tests/test_formulation_literature_knowledge.py tests/test_lavender_literature_knowledge.py -q -p no:cacheprovider",
+      "status": "PASS",
+      "passed": 71,
+      "elapsed_seconds": 6.03,
+      "scope": "CURRENT_SOURCE_FOCUSED_TESTS_NOT_FULL_PROJECT_VERIFIER"
+    },
+    "planning_contract": {
+      "status": "PASS",
+      "contract_checks_passed": 49,
+      "checks": [
+        "versioned planning schema",
+        "planning only status",
+        "declared and observed counts match",
+        "49 construction packages",
+        "275 overlapping scope entries",
+        "14 scientific fronts",
+        "8 market segments",
+        "13 product formats",
+        "14 proposed panel tracks",
+        "28 scoped source records",
+        "unique package IDs",
+        "unique source IDs",
+        "unique scientific front IDs",
+        "unique commercial track IDs",
+        "bounded priorities",
+        "subtype scopes nonempty",
+        "no new package implementation claims",
+        "no numeric package admission",
+        "no empirical source admission",
+        "no archived publisher byte hash fabricated",
+        "all four action authority flags false",
+        "runtime activation forbidden",
+        "runtime web research forbidden",
+        "training and admission not authorized",
+        "review before implementation",
+        "gate not imposed on every hobby bottle",
+        "proposed panels not admitted",
+        "no panel sales or liking claims",
+        "no proprietary formula inference",
+        "personal active reference cap",
+        "source HTTPS identifiers",
+        "actual review scopes recorded",
+        "source applicability limits recorded",
+        "literature gate not falsely claimed enforced",
+        "creative hypotheses permitted with limits",
+        "no unsupported quantitative claim",
+        "missing data never neutral",
+        "market freshness repair not falsely applied",
+        "review cannot refresh old observation",
+        "retraction notice exact DOI",
+        "linear study still preprint",
+        "linear manuscript NC license retained",
+        "no unauthorized commercial data reuse",
+        "seven implementation candidate decisions",
+        "parent plan hash unchanged",
+        "open ended coverage explicit",
+        "no consumer superiority claim",
+        "no automatic commercial release",
+        "corrected threshold numerical round trip"
+      ],
+      "counts": {
+        "construction_packages": 49,
+        "proposed_subtype_scope_entries": 275,
+        "scientific_fronts": 14,
+        "market_segments": 8,
+        "product_formats": 13,
+        "commercial_panel_research_tracks": 14,
+        "sources": 28
+      },
+      "corrected_threshold_round_trip": {
+        "cases": 64,
+        "max_abs_error": 9.325873406851315e-15,
+        "scope": "ALGEBRA_UNITS_ONLY_NOT_HUMAN_VALIDATION"
+      }
+    },
+    "runtime_backlog_reference_search": {
+      "command": "rg -n --fixed-strings research_coverage_plan_v1 engine backend/app",
+      "exit_code": 1,
+      "matches": 0,
+      "interpretation": "NO_RUNTIME_FILENAME_REFERENCE_FOUND_NOT_A_FORMAL_WHOLE_PROGRAM_PROOF"
+    },
+    "whitespace": {
+      "method": "git diff --no-index --check -- NUL <each new plan artifact>",
+      "output_diagnostics": [],
+      "exit_code": 1,
+      "interpretation": "NO_INDEX_REPORTS_ADDED_FILE_DIFFERENCE; NO_WHITESPACE_DIAGNOSTICS",
+      "audit_file_checked_separately_after_creation": true
+    },
+    "all_selected_existing_hashes_preserved": true,
+    "future_performance_targets_not_claimed_passed": true,
+    "full_release_readiness_not_claimed": true
+  },
+  "artifact_sha256": {
+    "data/formulation_knowledge/research_coverage_plan_v1.json": "4b1225736af6b4ef6a564c8f2df40a846aa3cbab15f0584cd952088a8021a4ac",
+    "docs/research/ALL_FRAGRANCE_DOMAINS_RESEARCH_PLAN_20261006.md": "75f1e1872d919c3e63325e151718b82b1b87e5a5c07deeed41537f5b072c39f7"
+  },
+  "audit_self_hash_policy": "SELF_HASH_EXCLUDED; obtain audit SHA-256 from filesystem verification",
+  "selected_existing_file_sha256": {
+    "AGENTS.md": "4a6788f04f592f8a86a4c854da7d8f343fdf7bc5f67cd812b718a36a8021985c",
+    "inventory.txt": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "data/formulation_knowledge/literature_v1.json": "d5c3683035b813e46a72dfb1d9bc3543d3ab377b001a8561bca659638196c778",
+    "data/formulation_knowledge/prior_research_corpus_v1.json": "d614d475e88b049a21747737842fe35e8ff40292c83c403b73ba69e1c554841a",
+    "docs/research/FRAGRANCE_KNOWLEDGE_EXPANSION_PLAN_20261006.md": "8eceec7f0175b969d76c172054db688b2808a2e211e54f61d7ef3cdecf347fd9",
+    "docs/research/LAVENDER_ARCHITECTURE_REVIEW_20261006.md": "6ed8f8444de1c89b8fa79a6e5419c72dcf310bde8678d5e31796c752c7a2a8a2",
+    "docs/research/LAVENDER_KNOWLEDGE_AUDIT_20261006.json": "0ad2e2e104b623744563ecfcfa4f23fd033363c6227b1c04a9d82ea0b42cc88c",
+    "engine/formulation_intelligence/literature_knowledge.py": "e8eb5ffc431e83e41b6d357bf9e1b25ba4735c86ec94f081dcf5cc4ba88d4e39",
+    "tests/test_lavender_literature_knowledge.py": "c3046eeaea22d4ea1e6884c5c1f0791baff1d3788efea46917a63b7148286789",
+    "data/governance/commercial_reference_registry_v1.json": "1d83c920487b69f55c7ca0b439f43beeaac048f5edc6b6d6bfcce00c441510f3"
+  },
+  "next_work": "R1 shared source/rights/market freshness gate, bounded R2 amber/musk/citrus foundations, and family-specific fruity-floral/mainstream panel review before runtime implementation.",
+  "remaining_work": "Full package reviews, generic runtime gate wiring and panel admission, rights-cleared data/model evaluation, scenario-specific empirical release/perception, optional explicitly authorized sensory/physical work."
+}
+

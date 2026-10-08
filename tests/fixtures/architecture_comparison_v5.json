@@ -1,0 +1,1451 @@
+{
+  "schema_version": "architecture-comparison-corpus-v5",
+  "frozen_before_execution": true,
+  "scope": "DIAGNOSTIC_CONTRACT_CORPUS_NOT_HELD_OUT_SENSORY_DATA",
+  "configuration": {
+    "max_materials": 12,
+    "liquid_concentrate_ul": "6000",
+    "design_mode": "DEEP_COMPOSE",
+    "control_variants": 1,
+    "comparison_variants": 3,
+    "network_allowed": false,
+    "reverse_replay_required": true,
+    "ranking_allowed": false,
+    "adapter_schema": "source-bound-architecture-adapters-v5",
+    "purpose": "Remaining subtype architecture operation coverage; all verified holds and duplicates separate from viable coverage"
+  },
+  "predecessor_sha256": "4e3e24bd12fa968d60e35576f06c1729f72f528794fff7f4ed31ed44db20b79f",
+  "cases": [
+    {
+      "case_id": "v5_01",
+      "brief": "musk powdery",
+      "expected_subtype": "MUSK_POWDER",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_02",
+      "brief": "fougere leather",
+      "expected_subtype": "FOUGERE_LEATHER",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_03",
+      "brief": "mineral woody",
+      "expected_subtype": "WOOD_MINERAL",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_04",
+      "brief": "guaiac",
+      "expected_subtype": "CEDAR_GUAIAC",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_05",
+      "brief": "vetiver smoky",
+      "expected_subtype": "VETIVER_SMOKY",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_06",
+      "brief": "oud rose amber",
+      "expected_subtype": "OUD_ROSE_AMBER",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_07",
+      "brief": "styrax",
+      "expected_subtype": "RESIN_STYRAX",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_08",
+      "brief": "resin animalic",
+      "expected_subtype": "RESIN_ANIMALIC",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_09",
+      "brief": "leather smoky",
+      "expected_subtype": "LEATHER_SMOKY",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_10",
+      "brief": "leather bitter",
+      "expected_subtype": "LEATHER_GREEN",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_11",
+      "brief": "leather floral",
+      "expected_subtype": "LEATHER_FLORAL",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_12",
+      "brief": "elemi",
+      "expected_subtype": "INCENSE_ELEMI",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_13",
+      "brief": "incense smoke",
+      "expected_subtype": "INCENSE_CHURCH",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_14",
+      "brief": "tobacco dry",
+      "expected_subtype": "TOBACCO_DRY",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_15",
+      "brief": "tobacco sweet",
+      "expected_subtype": "TOBACCO_PIPE",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_16",
+      "brief": "tobacco smoky",
+      "expected_subtype": "TOBACCO_SMOKY",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_17",
+      "brief": "amber coumarin",
+      "expected_subtype": "SOFT_COUMARIN",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_18",
+      "brief": "amber soft",
+      "expected_subtype": "SOFT_VANILLA",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_19",
+      "brief": "amber white floral",
+      "expected_subtype": "FLORAL_AMBER_WHITE",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_20",
+      "brief": "floral balsamic amber",
+      "expected_subtype": "FLORAL_AMBER_BALSAM",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_21",
+      "brief": "sandal amber",
+      "expected_subtype": "WOOD_SANDAL_CEDAR",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_22",
+      "brief": "citron",
+      "expected_subtype": "CIT_CEDRAT",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_23",
+      "brief": "neroli petitgrain",
+      "expected_subtype": "COLOGNE_NEROLI",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_24",
+      "brief": "conifer",
+      "expected_subtype": "GREEN_CONIFER",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_25",
+      "brief": "melon watery",
+      "expected_subtype": "AQUA_MELON",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_26",
+      "brief": "mineral airy",
+      "expected_subtype": "AQUA_AIRY_MINERAL",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_27",
+      "brief": "solar salicylate",
+      "expected_subtype": "AQUA_SOLAR",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_28",
+      "brief": "aldehydic waxy",
+      "expected_subtype": "AB_WAXY",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_29",
+      "brief": "aldehydic citrus",
+      "expected_subtype": "AB_CITRUS",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_30",
+      "brief": "incense floral",
+      "expected_subtype": "HY_INCENSE_FLORAL",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_31",
+      "brief": "rose mineral",
+      "expected_subtype": "HY_ROSE_MINERAL",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_32",
+      "brief": "magnolia creamy",
+      "expected_subtype": "MAGNOLIA_CREAM",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_33",
+      "brief": "sweet pea",
+      "expected_subtype": "LIGHT_SWEET_PEA",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_34",
+      "brief": "michelia alba",
+      "expected_subtype": "TROP_ALBA",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_35",
+      "brief": "lavender coffee milk",
+      "expected_subtype": "LAV_COFFEE_MILK",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_36",
+      "brief": "white hyacinth",
+      "expected_subtype": "GREEN_HYACINTH_WHITE",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_37",
+      "brief": "nelumbo nucifera",
+      "expected_subtype": "AQUATIC_NELUMBO",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_38",
+      "brief": "nymphaea prolifera",
+      "expected_subtype": "AQUATIC_NYMPHAEA_PROLIFERA",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_39",
+      "brief": "cymbidium sunny bell",
+      "expected_subtype": "ORCHID_CYMBIDIUM_SUNNY",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_40",
+      "brief": "pear heart",
+      "expected_subtype": "ORCHARD_HEART",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_41",
+      "brief": "pineapple woody",
+      "expected_subtype": "PINEAPPLE_WOODY",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_42",
+      "brief": "lavender apple",
+      "expected_subtype": "LAV_APPLE",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_43",
+      "brief": "rhubarb",
+      "expected_subtype": "BERRY_RHUBARB",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_44",
+      "brief": "grape",
+      "expected_subtype": "BERRY_GRAPE",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_45",
+      "brief": "berry floral",
+      "expected_subtype": "BERRY_FLORAL_BRIDGE",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_46",
+      "brief": "passionfruit",
+      "expected_subtype": "TROP_PASSIONFRUIT",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_47",
+      "brief": "melon",
+      "expected_subtype": "TROP_MELON",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_48",
+      "brief": "banana",
+      "expected_subtype": "TROP_BANANA",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_49",
+      "brief": "peach skin",
+      "expected_subtype": "STONE_PEACH_SKIN",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_50",
+      "brief": "caramel",
+      "expected_subtype": "VAN_CARAMEL_TOAST",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_51",
+      "brief": "floral gourmand",
+      "expected_subtype": "VAN_FLORAL_GOURMAND",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_52",
+      "brief": "coffee",
+      "expected_subtype": "ROAST_COFFEE",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_53",
+      "brief": "cacao",
+      "expected_subtype": "ROAST_CACAO",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_54",
+      "brief": "maple",
+      "expected_subtype": "DAIRY_MAPLE",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_55",
+      "brief": "tea smoky",
+      "expected_subtype": "TEA_SMOKED",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_56",
+      "brief": "Green tea and musk",
+      "expected_subtype": "HY_TEA_MUSK",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_57",
+      "brief": "Lavender with woody iris",
+      "expected_subtype": "LAV_IRIS",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_58",
+      "brief": "Lavender with cosmetic iris",
+      "expected_subtype": "LAV_IRIS",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_59",
+      "brief": "Lavender with apple without cider",
+      "expected_subtype": "LAV_APPLE",
+      "must_preserve": [],
+      "must_avoid": [
+        "cider"
+      ],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_60",
+      "brief": "Green tea and musk without pear",
+      "expected_subtype": "HY_TEA_MUSK",
+      "must_preserve": [],
+      "must_avoid": [
+        "pear"
+      ],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_61",
+      "brief": "Green tea without musk",
+      "expected_subtype": null,
+      "must_preserve": [],
+      "must_avoid": [
+        "musk"
+      ],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_62",
+      "brief": "Lavender coffee without milk",
+      "expected_subtype": "ROAST_COFFEE",
+      "must_preserve": [],
+      "must_avoid": [
+        "milk"
+      ],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_63",
+      "brief": "Michelia champaca",
+      "expected_subtype": "TROP_CHAMPACA",
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_64",
+      "brief": "A black pepper perfume",
+      "expected_subtype": null,
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_65",
+      "brief": "CHIMIE L'HOMME",
+      "expected_subtype": null,
+      "must_preserve": [],
+      "must_avoid": [],
+      "expected_hold": "WITHHELD_CAMPAIGN_IDENTITY"
+    },
+    {
+      "case_id": "v5_66",
+      "brief": "A floral perfume without leather",
+      "expected_subtype": null,
+      "must_preserve": [],
+      "must_avoid": [
+        "leather"
+      ],
+      "expected_hold": null
+    },
+    {
+      "case_id": "v5_67",
+      "brief": "An aldehydic perfume without waxy facets",
+      "expected_subtype": null,
+      "must_preserve": [],
+      "must_avoid": [
+        "waxy"
+      ],
+      "expected_hold": null
+    }
+  ],
+  "option_expectations": {
+    "v5_01": {
+      "planned_options": [
+        "musk_powder_v5:ionone_powder"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_02": {
+      "planned_options": [
+        "fougere_leather_v5:leather_edge",
+        "fougere_leather_v5:resin_edge"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_03": {
+      "planned_options": [
+        "wood_mineral_v5:smooth_wood"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_04": {
+      "planned_options": [
+        "cedar_guaiac_v5:smoky_wood"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_05": {
+      "planned_options": [
+        "vetiver_smoky_v5:smoky_wood"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_06": {
+      "planned_options": [
+        "oud_rose_amber_v5:resin_leather",
+        "oud_rose_amber_v5:vanillic_balsam"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_07": {
+      "planned_options": [
+        "resin_styrax_v5:leathery_resin"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_08": {
+      "planned_options": [
+        "resin_animalic_v5:leathery_resin"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_09": {
+      "planned_options": [
+        "leather_smoky_v5:smoky_wood"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_10": {
+      "planned_options": [
+        "leather_green_v5:green_resin"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_11": {
+      "planned_options": [
+        "leather_floral_v5:floral_leather_bridge"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_12": {
+      "planned_options": [
+        "incense_elemi_v5:citrus_pepper_resin"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_13": {
+      "planned_options": [
+        "incense_church_v5:smoky_wood"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_14": {
+      "planned_options": [
+        "tobacco_dry_v5:hay_support",
+        "tobacco_dry_v5:floral_hay"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_15": {
+      "planned_options": [
+        "tobacco_pipe_v5:hay_support",
+        "tobacco_pipe_v5:balsamic_support"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_16": {
+      "planned_options": [
+        "tobacco_smoky_v5:smoky_wood"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_17": {
+      "planned_options": [
+        "soft_coumarin_v5:hay_support"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_18": {
+      "planned_options": [
+        "soft_vanilla_v5:balsamic_support"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_19": {
+      "planned_options": [
+        "floral_amber_white_v5:resin_support"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_20": {
+      "planned_options": [
+        "floral_amber_balsam_v5:vanillic_balsam",
+        "floral_amber_balsam_v5:leathery_resin"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_21": {
+      "planned_options": [
+        "wood_sandal_cedar_v5:creamy_wood",
+        "wood_sandal_cedar_v5:warm_wood"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_22": {
+      "planned_options": [
+        "cit_cedrat_v5:green_flower_bridge"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_23": {
+      "planned_options": [
+        "cologne_neroli_v5:green_flower_bridge",
+        "orange_neroli:green_blossom"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_24": {
+      "planned_options": [
+        "green_conifer_v5:dry_wood"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_25": {
+      "planned_options": [
+        "aqua_melon_v5:marine",
+        "aqua_melon_v5:wet_floral"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_26": {
+      "planned_options": [
+        "aqua_airy_mineral_v5:mineral_resin"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_27": {
+      "planned_options": [
+        "aqua_solar_v5:solar_floral",
+        "aqua_solar_v5:green_floral"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_28": {
+      "planned_options": [
+        "ab_waxy_v5:waxy_aldehyde"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_29": {
+      "planned_options": [
+        "ab_citrus_v5:citrus_aldehyde"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_30": {
+      "planned_options": [
+        "hy_incense_floral_v5:bright_resin",
+        "hy_incense_floral_v5:mineral_resin"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_31": {
+      "planned_options": [
+        "hy_rose_mineral_v5:mineral_resin"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_32": {
+      "planned_options": [
+        "magnolia_cream_v5:musk_texture",
+        "magnolia_cream_v5:lactonic_texture"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_33": {
+      "planned_options": [
+        "light_sweet_pea_v5:terpenic_flower"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_34": {
+      "planned_options": [
+        "trop_alba_v5:aromatic_flower"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_35": {
+      "planned_options": [
+        "lav_coffee_milk_v5:milk_texture",
+        "roast_coffee_v5:roast"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_36": {
+      "planned_options": [
+        "green_hyacinth_white_v5:earthy_green"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_37": {
+      "planned_options": [
+        "aquatic_nelumbo_v5:aromatic_flower"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_38": {
+      "planned_options": [
+        "aquatic_nymphaea_prolifera_v5:sweet_aromatic"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_39": {
+      "planned_options": [
+        "orchid_cymbidium_sunny_v5:green_aromatic"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_40": {
+      "planned_options": [
+        "orchard_heart_v5:transparent_flower",
+        "orchard_heart_v5:apricot_flower"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_41": {
+      "planned_options": [
+        "pineapple_woody_v5:crisp_fruit",
+        "pineapple_woody_v5:sweet_fruit_body"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_42": {
+      "planned_options": [
+        "lav_apple_v5:crisp_apple",
+        "lav_apple_v5:ripe_apple"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_43": {
+      "planned_options": [
+        "berry_rhubarb_v5:rhubarb_contour"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_44": {
+      "planned_options": [
+        "berry_grape_v5:grape_flower"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_45": {
+      "planned_options": [
+        "berry_floral_bridge_v5:transparent_flower",
+        "berry_floral_bridge_v5:rose_petals"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_46": {
+      "planned_options": [
+        "trop_passionfruit_v5:tropical_body"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_47": {
+      "planned_options": [
+        "trop_melon_v5:rind_green",
+        "trop_melon_v5:marine"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_48": {
+      "planned_options": [
+        "trop_banana_v5:cream_texture"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_49": {
+      "planned_options": [
+        "stone_peach_skin_v5:dry_frame"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_50": {
+      "planned_options": [
+        "van_caramel_toast_v5:toast"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_51": {
+      "planned_options": [
+        "van_floral_gourmand_v5:balsamic_link"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_52": {
+      "planned_options": [
+        "roast_coffee_v5:roast"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_53": {
+      "planned_options": [
+        "roast_cacao_v5:cream_texture",
+        "roast_cacao_v5:floral_texture"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_54": {
+      "planned_options": [
+        "dairy_maple_v5:maple_accent"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_55": {
+      "planned_options": [
+        "tea_smoked_v5:smoke"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_56": {
+      "planned_options": [
+        "hy_tea_musk_v5:powder_musk",
+        "hy_tea_musk_v5:pear_musk"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_57": {
+      "planned_options": [
+        "lav_iris_v5:woody_iris_grade"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_58": {
+      "planned_options": [
+        "lav_iris_v5:cosmetic_iris_grade"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_59": {
+      "planned_options": [
+        "lav_apple_v5:crisp_apple"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_60": {
+      "planned_options": [
+        "hy_tea_musk_v5:powder_musk"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_61": {
+      "planned_options": [],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_62": {
+      "planned_options": [
+        "roast_coffee_v5:roast"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_63": {
+      "planned_options": [
+        "trop_champaca:flower_link",
+        "trop_champaca:fruit_bridge"
+      ],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_64": {
+      "planned_options": [],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_65": {
+      "planned_options": [],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_66": {
+      "planned_options": [],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    },
+    "v5_67": {
+      "planned_options": [],
+      "required_viable_options": [],
+      "allowed_verified_outcomes": [
+        "VIABLE_COMPARISON",
+        "EMPTY_ADMISSIBLE_POOL",
+        "BOUNDED_SOLVER_WITHHOLD",
+        "DUPLICATE_PHYSICAL_COMPOSITION",
+        "CRITIC_WITHHOLD"
+      ]
+    }
+  }
+}

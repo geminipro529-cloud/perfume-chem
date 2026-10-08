@@ -1,0 +1,876 @@
+{
+  "schema_version": "commercial-reference-registry-v3",
+  "as_of_date": "2026-10-06",
+  "review_policy": {
+    "market_evidence_max_age_months": 12,
+    "runtime_network_access_allowed": false,
+    "market_success_supplies_liking_label": false,
+    "official_notes_supply_formula_quantities": false,
+    "declared_ingredient_order_supplies_formula_quantities": false
+  },
+  "products": [
+    {
+      "product_id": "ysl-libre-edp",
+      "franchise_id": "ysl-libre",
+      "brand": "Yves Saint Laurent",
+      "product_name": "Libre",
+      "concentration": "Eau de Parfum",
+      "edition": "original Eau de Parfum",
+      "launch_version_scope": "current official product page reviewed 2026-09-28",
+      "region": "global official site",
+      "official_product_url": "https://www.yslbeauty.com/int/fragrance/fragrance-for-her/libre/libre-eau-de-parfum/WW-50424YSL.html",
+      "official_page_snapshot_sha256": "46c9c8c23406c30a3963644a434ff6470db30a9da6aec39d1a2d1a1c8f4302cd",
+      "official_page_snapshot_basis": "SHA-256 of the reviewed local architecture summary, not a claim to hash all dynamic webpage bytes",
+      "marketed_family": "floral lavender vanilla",
+      "marketed_facets": [
+        "lavender",
+        "orange blossom",
+        "vanilla"
+      ],
+      "marketed_note_architecture": {
+        "signature": [
+          "lavender",
+          "orange blossom",
+          "vanilla"
+        ]
+      },
+      "formula_composition_known": false,
+      "market_position_authority": false,
+      "official_architecture_authority": true,
+      "analytical_composition_authority": false,
+      "sensory_profile_authority": false,
+      "liking_authority": false
+    },
+    {
+      "product_id": "dior-sauvage-edp",
+      "franchise_id": "dior-sauvage",
+      "brand": "Dior",
+      "product_name": "Sauvage",
+      "concentration": "Eau de Parfum",
+      "edition": "Eau de Parfum",
+      "launch_version_scope": "current official product page reviewed 2026-09-28",
+      "region": "United States official site",
+      "official_product_url": "https://www.dior.com/en_us/beauty/products/sauvage-eau-de-parfum-E000000376.html",
+      "official_page_snapshot_sha256": "4dc685bc65c1f84277f945d042e0fcb5ae1f88437723942142079abd94ef1f5f",
+      "official_page_snapshot_basis": "SHA-256 of the reviewed local architecture summary, not a claim to hash all dynamic webpage bytes",
+      "marketed_family": "fresh aromatic woody warm",
+      "marketed_facets": [
+        "bergamot",
+        "pepper",
+        "lavender",
+        "vanilla"
+      ],
+      "marketed_note_architecture": {
+        "signature": [
+          "bergamot",
+          "pepper",
+          "lavender",
+          "vanilla"
+        ]
+      },
+      "formula_composition_known": false,
+      "market_position_authority": false,
+      "official_architecture_authority": true,
+      "analytical_composition_authority": false,
+      "sensory_profile_authority": false,
+      "liking_authority": false
+    },
+    {
+      "product_id": "prada-luna-rossa-carbon-edt",
+      "franchise_id": "prada-luna-rossa",
+      "brand": "Prada",
+      "product_name": "Luna Rossa Carbon",
+      "concentration": "Eau de Toilette",
+      "edition": "Eau de Toilette",
+      "launch_version_scope": "current official product page reviewed 2026-09-28",
+      "region": "official product site",
+      "official_product_url": "https://www.prada-beauty.com/fragrance/luna-rossa/luna-rossa-carbon-eau-de-toilette/8435137772704.html",
+      "official_page_snapshot_sha256": "57e028bc1e2e2db994bb9d626e791df7db129d384eefb661b8b72df0605173d3",
+      "official_page_snapshot_basis": "SHA-256 of the reviewed local architecture summary, not a claim to hash all dynamic webpage bytes",
+      "marketed_family": "aromatic mineral ambroxan",
+      "marketed_facets": [
+        "lavender",
+        "geranium",
+        "mineral",
+        "ambroxan"
+      ],
+      "marketed_note_architecture": {
+        "signature": [
+          "lavender",
+          "geranium",
+          "mineral Ambroxan"
+        ]
+      },
+      "formula_composition_known": false,
+      "market_position_authority": false,
+      "official_architecture_authority": true,
+      "analytical_composition_authority": false,
+      "sensory_profile_authority": false,
+      "liking_authority": false
+    },
+    {
+      "product_id": "burberry-goddess-edp",
+      "franchise_id": "burberry-goddess",
+      "brand": "Burberry",
+      "product_name": "Goddess",
+      "concentration": "Eau de Parfum",
+      "edition": "original Eau de Parfum",
+      "launch_version_scope": "current official product page reviewed 2026-09-28",
+      "region": "United States official site",
+      "official_product_url": "https://us.burberry.com/burberry-goddess-eau-de-parfum-for-women-100ml-p40835981",
+      "official_page_snapshot_sha256": "38d8a613538d5c21a0d3d83261574b138ab2edf098c4f9ebce769f354a30c1a9",
+      "official_page_snapshot_basis": "SHA-256 of the reviewed local architecture summary, not a claim to hash all dynamic webpage bytes",
+      "marketed_family": "lavender vanilla gourmand",
+      "marketed_facets": [
+        "lavender",
+        "vanilla"
+      ],
+      "marketed_note_architecture": {
+        "signature": [
+          "lavender",
+          "vanilla"
+        ]
+      },
+      "formula_composition_known": false,
+      "market_position_authority": false,
+      "official_architecture_authority": true,
+      "analytical_composition_authority": false,
+      "sensory_profile_authority": false,
+      "liking_authority": false
+    },
+    {
+      "product_id": "mon-guerlain-edp",
+      "franchise_id": "guerlain-mon-guerlain",
+      "brand": "Guerlain",
+      "product_name": "Mon Guerlain",
+      "concentration": "Eau de Parfum",
+      "edition": "original Eau de Parfum",
+      "launch_version_scope": "current official product page reviewed 2026-09-28",
+      "region": "United States official site",
+      "official_product_url": "https://www.guerlain.com/us/en-us/p/mon-guerlain-eau-de-parfum-G013138.html",
+      "official_page_snapshot_sha256": "fb2f47c5898dddc92bf5be4b7d6652153da770735a8b44825ab820c4cd5f0c17",
+      "official_page_snapshot_basis": "SHA-256 of the reviewed local architecture summary, not a claim to hash all dynamic webpage bytes",
+      "marketed_family": "lavender amber vanilla",
+      "marketed_facets": [
+        "lavender",
+        "jasmine",
+        "sandalwood",
+        "vanilla"
+      ],
+      "marketed_note_architecture": {
+        "signature": [
+          "lavender",
+          "jasmine",
+          "sandalwood",
+          "vanilla"
+        ]
+      },
+      "formula_composition_known": false,
+      "market_position_authority": false,
+      "official_architecture_authority": true,
+      "analytical_composition_authority": false,
+      "sensory_profile_authority": false,
+      "liking_authority": false
+    },
+    {
+      "product_id": "prada-paradoxe-edp",
+      "franchise_id": "prada-paradoxe",
+      "brand": "Prada",
+      "product_name": "Paradoxe",
+      "concentration": "Eau de Parfum",
+      "edition": "Original Eau de Parfum",
+      "launch_version_scope": "Original named product; current official page reviewed 2026-10-06, no historical formula or flanker equivalence",
+      "region": "OFFICIAL_REGIONAL_PAGE_DOCUMENTARY_ONLY",
+      "official_product_url": "https://www.prada-beauty.com/fragrance/paradoxe/paradoxe-eau-de-parfum/MPL01610.html",
+      "official_page_snapshot_sha256": "d996fb9831c79a839a6b637b7588a26c499edf416761a3152e1d6a5907a01deb",
+      "official_page_snapshot_basis": "SHA-256 of canonical local architecture summary, not archived publisher-page bytes",
+      "marketed_family": "Floral ambery",
+      "marketed_facets": [
+        "neroli",
+        "amber",
+        "musk"
+      ],
+      "marketed_note_architecture": {
+        "top": [
+          "neroli bud"
+        ],
+        "heart": [
+          "Ambrofix marketed warm amber"
+        ],
+        "base": [
+          "Serenolide marketed musk"
+        ]
+      },
+      "formula_composition_known": false,
+      "market_position_authority": false,
+      "official_architecture_authority": true,
+      "analytical_composition_authority": false,
+      "sensory_profile_authority": false,
+      "liking_authority": false
+    },
+    {
+      "product_id": "guerlain-pera-granita-edt",
+      "franchise_id": "guerlain-pera-granita",
+      "brand": "Guerlain",
+      "product_name": "Aqua Allegoria Pera Granita",
+      "concentration": "Eau de Toilette",
+      "edition": "Original Eau de Toilette",
+      "launch_version_scope": "Original named product; current official page reviewed 2026-10-06, no historical formula or flanker equivalence",
+      "region": "OFFICIAL_REGIONAL_PAGE_DOCUMENTARY_ONLY",
+      "official_product_url": "https://www.guerlain.com/us/en-us/p/aqua-allegoria-pera-granita---eau-de-toilette-P014403.html",
+      "official_page_snapshot_sha256": "4d08ccf513417247d63c0c4882e10ba2e42269b4251ef2e4d0682ae79e81165f",
+      "official_page_snapshot_basis": "SHA-256 of canonical local architecture summary, not archived publisher-page bytes",
+      "marketed_family": "Fruity citrus",
+      "marketed_facets": [
+        "pear",
+        "grapefruit",
+        "lemon",
+        "osmanthus",
+        "apricot",
+        "woods",
+        "musk"
+      ],
+      "marketed_note_architecture": {
+        "architecture": [
+          "pear accord",
+          "grapefruit/lemon freshness",
+          "osmanthus-apricot bridge",
+          "woody musk support"
+        ]
+      },
+      "formula_composition_known": false,
+      "market_position_authority": false,
+      "official_architecture_authority": true,
+      "analytical_composition_authority": false,
+      "sensory_profile_authority": false,
+      "liking_authority": false
+    },
+    {
+      "product_id": "jomalone-english-pear-freesia-cologne",
+      "franchise_id": "jomalone-english-pear-freesia",
+      "brand": "Jo Malone London",
+      "product_name": "English Pear & Freesia",
+      "concentration": "Cologne",
+      "edition": "Original Cologne",
+      "launch_version_scope": "Original named product; current official page reviewed 2026-10-06, no historical formula or flanker equivalence",
+      "region": "OFFICIAL_REGIONAL_PAGE_DOCUMENTARY_ONLY",
+      "official_product_url": "https://www.jomalone.es/product/english-pear-freesia-cologne",
+      "official_page_snapshot_sha256": "ebbb2fd029a4c0eeb1e1a2eee17a2dac076a10fb43dc1eebdbace9cb370972ad",
+      "official_page_snapshot_basis": "SHA-256 of canonical local architecture summary, not archived publisher-page bytes",
+      "marketed_family": "Fruity floral",
+      "marketed_facets": [
+        "pear",
+        "freesia",
+        "rose",
+        "patchouli"
+      ],
+      "marketed_note_architecture": {
+        "top": [
+          "Williams pear accord"
+        ],
+        "heart": [
+          "white freesia",
+          "rose accent"
+        ],
+        "base": [
+          "patchouli"
+        ]
+      },
+      "formula_composition_known": false,
+      "market_position_authority": false,
+      "official_architecture_authority": true,
+      "analytical_composition_authority": false,
+      "sensory_profile_authority": false,
+      "liking_authority": false
+    },
+    {
+      "product_id": "pdm-delina-edp",
+      "franchise_id": "pdm-delina",
+      "brand": "Parfums de Marly",
+      "product_name": "Delina",
+      "concentration": "Eau de Parfum",
+      "edition": "Original Eau de Parfum",
+      "launch_version_scope": "Original named product; current official page reviewed 2026-10-06, no historical formula or flanker equivalence",
+      "region": "OFFICIAL_REGIONAL_PAGE_DOCUMENTARY_ONLY",
+      "official_product_url": "https://parfums-de-marly.com/products/delina",
+      "official_page_snapshot_sha256": "f43c7f73944ab6c588ce86da5a0e61d3584ea3b890c8faae85653a0c65cc3a91",
+      "official_page_snapshot_basis": "SHA-256 of canonical local architecture summary, not archived publisher-page bytes",
+      "marketed_family": "Fruity rose woody",
+      "marketed_facets": [
+        "lychee",
+        "rhubarb",
+        "rose",
+        "cashmeran",
+        "musk",
+        "vetiver"
+      ],
+      "marketed_note_architecture": {
+        "top": [
+          "bergamot",
+          "lychee",
+          "rhubarb"
+        ],
+        "heart": [
+          "Damascena rose",
+          "nutmeg"
+        ],
+        "base": [
+          "cashmeran",
+          "musks",
+          "vetiver"
+        ]
+      },
+      "formula_composition_known": false,
+      "market_position_authority": false,
+      "official_architecture_authority": true,
+      "analytical_composition_authority": false,
+      "sensory_profile_authority": false,
+      "liking_authority": false
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "lvmh-2025-sauvage-franchise",
+      "evidence_class": "AUDITED_OR_ISSUER_MARKET_PANEL",
+      "title": "LVMH 2025 results - Perfumes and Cosmetics",
+      "url": "https://www.lvmh.com/static/letter-to-shareholders-january-2026/perfumes-and-cosmetics.html",
+      "source_snapshot_sha256": "f3deb4374d40e1a540d71516f67742aa16658d3a1b7b2957497cf4ee92274b97",
+      "source_snapshot_basis": "SHA-256 of a reviewed local market-claim summary; dynamic source-page bytes were not archived",
+      "reviewed_on": "2026-09-28",
+      "expires_on": "2026-12-31",
+      "product_ids": [
+        "dior-sauvage-edp"
+      ],
+      "market_scope": "FRAGRANCE_FRANCHISE",
+      "claim_scope": "Sauvage franchise global market position; not variant liking",
+      "usable_for_panel_selection": true,
+      "supplies_liking_label": false,
+      "retraction_state": "NOT_RETRACTED_AT_REVIEW",
+      "source_period_start": "2025-01-01",
+      "source_period_end": "2025-12-31",
+      "published_on": null,
+      "market_region": "GLOBAL",
+      "market_channel": "ISSUER_REPORTED_NOT_CHANNEL_RESOLVED",
+      "metric": "Global men's-fragrance franchise leadership (issuer claim)"
+    },
+    {
+      "evidence_id": "loreal-luxe-2025-libre-line",
+      "evidence_class": "AUDITED_OR_ISSUER_MARKET_PANEL",
+      "title": "L'Oreal Luxe 2025 annual report",
+      "url": "https://www.loreal-finance.com/en/annual-report-2025/luxe/",
+      "source_snapshot_sha256": "d03435bce92ce431100c40fee77030eb20b2a45ee6140ba3dbf41f1af8479aa1",
+      "source_snapshot_basis": "SHA-256 of a reviewed local market-claim summary; dynamic source-page bytes were not archived",
+      "reviewed_on": "2026-09-28",
+      "expires_on": "2026-12-31",
+      "product_ids": [
+        "ysl-libre-edp"
+      ],
+      "market_scope": "PRODUCT_LINE",
+      "claim_scope": "Libre line feminine-fragrance market leadership; not exact EDP sensory liking",
+      "usable_for_panel_selection": true,
+      "supplies_liking_label": false,
+      "retraction_state": "NOT_RETRACTED_AT_REVIEW",
+      "source_period_start": "2025-01-01",
+      "source_period_end": "2025-12-31",
+      "published_on": null,
+      "market_region": "GLOBAL",
+      "market_channel": "ISSUER_REPORTED_NOT_CHANNEL_RESOLVED",
+      "metric": "Global feminine-fragrance line leadership (issuer claim)"
+    },
+    {
+      "evidence_id": "coty-fy24-burberry-goddess",
+      "evidence_class": "AUDITED_OR_ISSUER_MARKET_PANEL",
+      "title": "Coty FY24 results",
+      "url": "https://www.coty.com/news/coty-reports-double-digit-growth-in-fy24-outpacing-beauty-market",
+      "source_snapshot_sha256": "f0a042b2a1d859bb740bc188c5818c1c2ed4e4587de279457c8eab5deeea5d6e",
+      "source_snapshot_basis": "SHA-256 of a reviewed local market-claim summary; dynamic source-page bytes were not archived",
+      "reviewed_on": "2026-09-28",
+      "expires_on": "2025-06-30",
+      "product_ids": [
+        "burberry-goddess-edp"
+      ],
+      "market_scope": "EXACT_PRODUCT",
+      "claim_scope": "major launch and innovation position; not universal liking",
+      "usable_for_panel_selection": true,
+      "supplies_liking_label": false,
+      "retraction_state": "NOT_RETRACTED_AT_REVIEW",
+      "source_period_start": "2023-07-01",
+      "source_period_end": "2024-06-30",
+      "published_on": "2024-08-20",
+      "market_region": "UNITED_STATES_CANADA_GERMANY",
+      "market_channel": "ISSUER_REPORTED_NOT_CHANNEL_RESOLVED",
+      "metric": "Female-fragrance innovation rank in the United States, Canada and Germany plus issuer-described launch success in FY24; not a global sales rank or current ranking"
+    },
+    {
+      "evidence_id": "official-architecture-ysl-libre-edp",
+      "evidence_class": "OFFICIAL_PRODUCT_ARCHITECTURE",
+      "title": "YSL Libre Eau de Parfum official product page",
+      "url": "https://www.yslbeauty.com/int/fragrance/fragrance-for-her/libre/libre-eau-de-parfum/WW-50424YSL.html",
+      "source_snapshot_sha256": "46c9c8c23406c30a3963644a434ff6470db30a9da6aec39d1a2d1a1c8f4302cd",
+      "source_snapshot_basis": "SHA-256 of a reviewed local architecture summary; dynamic source-page bytes were not archived",
+      "reviewed_on": "2026-09-28",
+      "expires_on": "2027-09-28",
+      "product_ids": [
+        "ysl-libre-edp"
+      ],
+      "market_scope": null,
+      "claim_scope": "marketed architecture only",
+      "usable_for_panel_selection": true,
+      "supplies_liking_label": false,
+      "retraction_state": "NOT_APPLICABLE"
+    },
+    {
+      "evidence_id": "official-architecture-dior-sauvage-edp",
+      "evidence_class": "OFFICIAL_PRODUCT_ARCHITECTURE",
+      "title": "Dior Sauvage Eau de Parfum official product page",
+      "url": "https://www.dior.com/en_us/beauty/products/sauvage-eau-de-parfum-E000000376.html",
+      "source_snapshot_sha256": "4dc685bc65c1f84277f945d042e0fcb5ae1f88437723942142079abd94ef1f5f",
+      "source_snapshot_basis": "SHA-256 of a reviewed local architecture summary; dynamic source-page bytes were not archived",
+      "reviewed_on": "2026-09-28",
+      "expires_on": "2027-09-28",
+      "product_ids": [
+        "dior-sauvage-edp"
+      ],
+      "market_scope": null,
+      "claim_scope": "marketed architecture only",
+      "usable_for_panel_selection": true,
+      "supplies_liking_label": false,
+      "retraction_state": "NOT_APPLICABLE"
+    },
+    {
+      "evidence_id": "official-architecture-prada-luna-rossa-carbon-edt",
+      "evidence_class": "OFFICIAL_PRODUCT_ARCHITECTURE",
+      "title": "Prada Luna Rossa Carbon Eau de Toilette official product page",
+      "url": "https://www.prada-beauty.com/fragrance/luna-rossa/luna-rossa-carbon-eau-de-toilette/8435137772704.html",
+      "source_snapshot_sha256": "57e028bc1e2e2db994bb9d626e791df7db129d384eefb661b8b72df0605173d3",
+      "source_snapshot_basis": "SHA-256 of a reviewed local architecture summary; dynamic source-page bytes were not archived",
+      "reviewed_on": "2026-09-28",
+      "expires_on": "2027-09-28",
+      "product_ids": [
+        "prada-luna-rossa-carbon-edt"
+      ],
+      "market_scope": null,
+      "claim_scope": "marketed architecture only",
+      "usable_for_panel_selection": true,
+      "supplies_liking_label": false,
+      "retraction_state": "NOT_APPLICABLE"
+    },
+    {
+      "evidence_id": "official-architecture-burberry-goddess-edp",
+      "evidence_class": "OFFICIAL_PRODUCT_ARCHITECTURE",
+      "title": "Burberry Goddess Eau de Parfum official product page",
+      "url": "https://us.burberry.com/burberry-goddess-eau-de-parfum-for-women-100ml-p40835981",
+      "source_snapshot_sha256": "38d8a613538d5c21a0d3d83261574b138ab2edf098c4f9ebce769f354a30c1a9",
+      "source_snapshot_basis": "SHA-256 of a reviewed local architecture summary; dynamic source-page bytes were not archived",
+      "reviewed_on": "2026-09-28",
+      "expires_on": "2027-09-28",
+      "product_ids": [
+        "burberry-goddess-edp"
+      ],
+      "market_scope": null,
+      "claim_scope": "marketed architecture only",
+      "usable_for_panel_selection": true,
+      "supplies_liking_label": false,
+      "retraction_state": "NOT_APPLICABLE"
+    },
+    {
+      "evidence_id": "official-architecture-mon-guerlain-edp",
+      "evidence_class": "OFFICIAL_PRODUCT_ARCHITECTURE",
+      "title": "Mon Guerlain Eau de Parfum official product page",
+      "url": "https://www.guerlain.com/us/en-us/p/mon-guerlain-eau-de-parfum-G013138.html",
+      "source_snapshot_sha256": "fb2f47c5898dddc92bf5be4b7d6652153da770735a8b44825ab820c4cd5f0c17",
+      "source_snapshot_basis": "SHA-256 of a reviewed local architecture summary; dynamic source-page bytes were not archived",
+      "reviewed_on": "2026-09-28",
+      "expires_on": "2027-09-28",
+      "product_ids": [
+        "mon-guerlain-edp"
+      ],
+      "market_scope": null,
+      "claim_scope": "marketed architecture only",
+      "usable_for_panel_selection": true,
+      "supplies_liking_label": false,
+      "retraction_state": "NOT_APPLICABLE"
+    },
+    {
+      "evidence_id": "official-architecture-prada-paradoxe-edp",
+      "evidence_class": "OFFICIAL_PRODUCT_ARCHITECTURE",
+      "title": "Prada Paradoxe Eau de Parfum official architecture",
+      "url": "https://www.prada-beauty.com/fragrance/paradoxe/paradoxe-eau-de-parfum/MPL01610.html",
+      "source_snapshot_sha256": "d996fb9831c79a839a6b637b7588a26c499edf416761a3152e1d6a5907a01deb",
+      "source_snapshot_basis": "SHA-256 of canonical local architecture summary, not archived publisher-page bytes",
+      "reviewed_on": "2026-10-06",
+      "expires_on": "2027-10-06",
+      "product_ids": [
+        "prada-paradoxe-edp"
+      ],
+      "market_scope": null,
+      "claim_scope": "Exact original concentration marketed architecture only; not formula quantities, measured performance or liking",
+      "usable_for_panel_selection": true,
+      "supplies_liking_label": false,
+      "retraction_state": "NOT_APPLICABLE"
+    },
+    {
+      "evidence_id": "official-architecture-guerlain-pera-granita-edt",
+      "evidence_class": "OFFICIAL_PRODUCT_ARCHITECTURE",
+      "title": "Guerlain Aqua Allegoria Pera Granita Eau de Toilette official architecture",
+      "url": "https://www.guerlain.com/us/en-us/p/aqua-allegoria-pera-granita---eau-de-toilette-P014403.html",
+      "source_snapshot_sha256": "4d08ccf513417247d63c0c4882e10ba2e42269b4251ef2e4d0682ae79e81165f",
+      "source_snapshot_basis": "SHA-256 of canonical local architecture summary, not archived publisher-page bytes",
+      "reviewed_on": "2026-10-06",
+      "expires_on": "2027-10-06",
+      "product_ids": [
+        "guerlain-pera-granita-edt"
+      ],
+      "market_scope": null,
+      "claim_scope": "Exact original concentration marketed architecture only; not formula quantities, measured performance or liking",
+      "usable_for_panel_selection": true,
+      "supplies_liking_label": false,
+      "retraction_state": "NOT_APPLICABLE"
+    },
+    {
+      "evidence_id": "official-architecture-jomalone-english-pear-freesia-cologne",
+      "evidence_class": "OFFICIAL_PRODUCT_ARCHITECTURE",
+      "title": "Jo Malone London English Pear & Freesia Cologne official architecture",
+      "url": "https://www.jomalone.es/product/english-pear-freesia-cologne",
+      "source_snapshot_sha256": "ebbb2fd029a4c0eeb1e1a2eee17a2dac076a10fb43dc1eebdbace9cb370972ad",
+      "source_snapshot_basis": "SHA-256 of canonical local architecture summary, not archived publisher-page bytes",
+      "reviewed_on": "2026-10-06",
+      "expires_on": "2027-10-06",
+      "product_ids": [
+        "jomalone-english-pear-freesia-cologne"
+      ],
+      "market_scope": null,
+      "claim_scope": "Exact original concentration marketed architecture only; not formula quantities, measured performance or liking",
+      "usable_for_panel_selection": true,
+      "supplies_liking_label": false,
+      "retraction_state": "NOT_APPLICABLE"
+    },
+    {
+      "evidence_id": "official-architecture-pdm-delina-edp",
+      "evidence_class": "OFFICIAL_PRODUCT_ARCHITECTURE",
+      "title": "Parfums de Marly Delina Eau de Parfum official architecture",
+      "url": "https://parfums-de-marly.com/products/delina",
+      "source_snapshot_sha256": "f43c7f73944ab6c588ce86da5a0e61d3584ea3b890c8faae85653a0c65cc3a91",
+      "source_snapshot_basis": "SHA-256 of canonical local architecture summary, not archived publisher-page bytes",
+      "reviewed_on": "2026-10-06",
+      "expires_on": "2027-10-06",
+      "product_ids": [
+        "pdm-delina-edp"
+      ],
+      "market_scope": null,
+      "claim_scope": "Exact original concentration marketed architecture only; not formula quantities, measured performance or liking",
+      "usable_for_panel_selection": true,
+      "supplies_liking_label": false,
+      "retraction_state": "NOT_APPLICABLE"
+    },
+    {
+      "evidence_id": "loreal-luxe-2025-paradoxe-line",
+      "evidence_class": "AUDITED_OR_ISSUER_MARKET_PANEL",
+      "title": "L'Oreal Luxe 2025 global fragrance lines",
+      "url": "https://www.loreal-finance.com/en/annual-report-2025/luxe/",
+      "source_snapshot_sha256": "881ea394048b965a2ac336c95a1ffbf45aced1391049623061e91765c593f0ae",
+      "source_snapshot_basis": "SHA-256 of canonical local claim summary, not archived publisher-page bytes",
+      "reviewed_on": "2026-10-06",
+      "expires_on": "2026-12-31",
+      "product_ids": [
+        "prada-paradoxe-edp"
+      ],
+      "market_scope": "PRODUCT_LINE",
+      "claim_scope": "Issuer lists Prada Paradoxe among global top 15 fragrance lines in 2025; no exact EDP rank, apple/pear claim or sensory liking",
+      "usable_for_panel_selection": true,
+      "supplies_liking_label": false,
+      "retraction_state": "NOT_RETRACTED_AT_REVIEW",
+      "source_period_start": "2025-01-01",
+      "source_period_end": "2025-12-31",
+      "published_on": null,
+      "market_region": "GLOBAL",
+      "market_channel": "ISSUER_REPORTED_NOT_CHANNEL_RESOLVED",
+      "metric": "Global top-15 fragrance-line presence, issuer claim; exact concentration sales not resolved"
+    }
+  ],
+  "panels": [
+    {
+      "panel_id": "global-lavender-amber-2026-v2",
+      "concept_tags": [
+        "lavender",
+        "amber",
+        "ambrox",
+        "aromatic",
+        "vanilla"
+      ],
+      "as_of_date": "2026-09-28",
+      "expires_on": "2026-12-31",
+      "active_members": [
+        {
+          "product_id": "ysl-libre-edp",
+          "role": "FEMININE_GLOBAL_ANCHOR",
+          "reason": "Current market anchor with lavender, orange blossom, and vanilla marketed architecture.",
+          "market_anchor": true,
+          "structural_neighbour": true
+        },
+        {
+          "product_id": "dior-sauvage-edp",
+          "role": "MASCULINE_GLOBAL_ANCHOR",
+          "reason": "Global franchise anchor with fresh aromatic, woody, and warm marketed structure.",
+          "market_anchor": true,
+          "structural_neighbour": false
+        },
+        {
+          "product_id": "prada-luna-rossa-carbon-edt",
+          "role": "CLOSEST_LAVENDER_AMBROX_NEIGHBOUR",
+          "reason": "Direct marketed lavender, geranium, mineral, and Ambroxan comparison axis.",
+          "market_anchor": false,
+          "structural_neighbour": true
+        },
+        {
+          "product_id": "burberry-goddess-edp",
+          "role": "LAVENDER_GOURMAND_ARCHITECTURE_REFERENCE",
+          "reason": "Lavender-vanilla architectural contrast. FY24 launch evidence is historical context, not a current market anchor.",
+          "market_anchor": false,
+          "structural_neighbour": true
+        }
+      ],
+      "reserve_members": [
+        {
+          "product_id": "mon-guerlain-edp",
+          "role": "REFINED_LAVENDER_AMBER_RESERVE",
+          "reason": "Use when classical refined amber architecture matters more than current market rank.",
+          "market_anchor": false,
+          "structural_neighbour": true
+        }
+      ],
+      "evidence_ids": [
+        "lvmh-2025-sauvage-franchise",
+        "loreal-luxe-2025-libre-line",
+        "coty-fy24-burberry-goddess",
+        "official-architecture-ysl-libre-edp",
+        "official-architecture-dior-sauvage-edp",
+        "official-architecture-prada-luna-rossa-carbon-edt",
+        "official-architecture-burberry-goddess-edp",
+        "official-architecture-mon-guerlain-edp"
+      ]
+    },
+    {
+      "panel_id": "global-orchard-floral-2026-v1",
+      "concept_tags": [
+        "pear",
+        "apple",
+        "lychee",
+        "orchard",
+        "freesia",
+        "fruity",
+        "floral"
+      ],
+      "as_of_date": "2026-10-06",
+      "expires_on": "2026-12-31",
+      "active_members": [
+        {
+          "product_id": "ysl-libre-edp",
+          "role": "feminine global anchor and white-floral contrast",
+          "reason": "Current issuer-reported Libre line leadership; do not import lavender/vanilla into the orchard target.",
+          "market_anchor": true,
+          "structural_neighbour": false
+        },
+        {
+          "product_id": "prada-paradoxe-edp",
+          "role": "feminine global anchor and neroli-amber-musk contrast",
+          "reason": "Current issuer global top-15 line evidence; official original EDP is not a verified pear/apple reference.",
+          "market_anchor": true,
+          "structural_neighbour": false
+        },
+        {
+          "product_id": "guerlain-pera-granita-edt",
+          "role": "pear-citrus-osmanthus structural neighbour",
+          "reason": "Official pear/flesh and apricot-osmanthus bridge with wood/musk; no sales or sensory superiority claim.",
+          "market_anchor": false,
+          "structural_neighbour": true
+        },
+        {
+          "product_id": "jomalone-english-pear-freesia-cologne",
+          "role": "pear-freesia-patchouli structural neighbour",
+          "reason": "Official pear/floral/patchouli architecture; keep fruit primary and rose subordinate.",
+          "market_anchor": false,
+          "structural_neighbour": true
+        }
+      ],
+      "reserve_members": [
+        {
+          "product_id": "pdm-delina-edp",
+          "role": "lychee/rose drift contrast, reserve only",
+          "reason": "Original Delina's rose-led architecture helps define negative space; no global mass-market rank established.",
+          "market_anchor": false,
+          "structural_neighbour": false
+        }
+      ],
+      "evidence_ids": [
+        "loreal-luxe-2025-libre-line",
+        "loreal-luxe-2025-paradoxe-line",
+        "official-architecture-ysl-libre-edp",
+        "official-architecture-prada-paradoxe-edp",
+        "official-architecture-guerlain-pera-granita-edt",
+        "official-architecture-jomalone-english-pear-freesia-cologne",
+        "official-architecture-pdm-delina-edp"
+      ]
+    }
+  ],
+  "prohibited_sources": [
+    {
+      "title": "Social success of perfumes",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0222524",
+      "source_snapshot_sha256": "11565958effaeb86a1ed5897277841076c2397f5fee1777c2ca1ae4430ae4709",
+      "status": "RETRACTED_REJECTED",
+      "reason": "Underlying commercial dataset and analysis could not be reproduced.",
+      "optimizer_use_allowed": false,
+      "scientific_evidence_use_allowed": false,
+      "original_study_url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0218664"
+    }
+  ],
+  "historical_provisional_paths": [
+    "data/thai_market_sales_2500_15000_thb.md",
+    "docs/thailand_mass_market_perfumes_2000_20000.md",
+    "docs/research/formula_ratings_comparison.md",
+    "docs/research/rating_system_comparison.md"
+  ],
+  "authority": {
+    "market_selection_authority": true,
+    "market_success_is_liking": false,
+    "proprietary_formula_inference_authorized": false,
+    "sensory_superiority_authorized": false,
+    "population_liking_authorized": false,
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "predecessor_sha256": "d6452bfe6c743551a496fc88b5737aa33f163458fc3f72973c626058dd88de5e",
+  "review_date": "2026-10-06",
+  "market_expiry_policy": "TWELVE_CALENDAR_MONTHS_AFTER_SOURCE_PERIOD_END_REVIEW_CANNOT_RENEW",
+  "predecessor_path": "data/governance/commercial_reference_registry_v2.json",
+  "selection_rules": {
+    "global-lavender-amber-2026-v2": {
+      "required_any_tag_groups": [
+        [
+          "lavender"
+        ]
+      ]
+    },
+    "global-orchard-floral-2026-v1": {
+      "required_any_tag_groups": [
+        [
+          "pear",
+          "apple",
+          "lychee",
+          "orchard"
+        ]
+      ]
+    }
+  },
+  "reviewed_summary_objects": {
+    "prada-paradoxe-edp": {
+      "product_id": "prada-paradoxe-edp",
+      "official_product_url": "https://www.prada-beauty.com/fragrance/paradoxe/paradoxe-eau-de-parfum/MPL01610.html",
+      "marketed_family": "Floral ambery",
+      "marketed_facets": [
+        "neroli",
+        "amber",
+        "musk"
+      ],
+      "marketed_note_architecture": {
+        "top": [
+          "neroli bud"
+        ],
+        "heart": [
+          "Ambrofix marketed warm amber"
+        ],
+        "base": [
+          "Serenolide marketed musk"
+        ]
+      },
+      "reviewed_on": "2026-10-06"
+    },
+    "guerlain-pera-granita-edt": {
+      "product_id": "guerlain-pera-granita-edt",
+      "official_product_url": "https://www.guerlain.com/us/en-us/p/aqua-allegoria-pera-granita---eau-de-toilette-P014403.html",
+      "marketed_family": "Fruity citrus",
+      "marketed_facets": [
+        "pear",
+        "grapefruit",
+        "lemon",
+        "osmanthus",
+        "apricot",
+        "woods",
+        "musk"
+      ],
+      "marketed_note_architecture": {
+        "architecture": [
+          "pear accord",
+          "grapefruit/lemon freshness",
+          "osmanthus-apricot bridge",
+          "woody musk support"
+        ]
+      },
+      "reviewed_on": "2026-10-06"
+    },
+    "jomalone-english-pear-freesia-cologne": {
+      "product_id": "jomalone-english-pear-freesia-cologne",
+      "official_product_url": "https://www.jomalone.es/product/english-pear-freesia-cologne",
+      "marketed_family": "Fruity floral",
+      "marketed_facets": [
+        "pear",
+        "freesia",
+        "rose",
+        "patchouli"
+      ],
+      "marketed_note_architecture": {
+        "top": [
+          "Williams pear accord"
+        ],
+        "heart": [
+          "white freesia",
+          "rose accent"
+        ],
+        "base": [
+          "patchouli"
+        ]
+      },
+      "reviewed_on": "2026-10-06"
+    },
+    "pdm-delina-edp": {
+      "product_id": "pdm-delina-edp",
+      "official_product_url": "https://parfums-de-marly.com/products/delina",
+      "marketed_family": "Fruity rose woody",
+      "marketed_facets": [
+        "lychee",
+        "rhubarb",
+        "rose",
+        "cashmeran",
+        "musk",
+        "vetiver"
+      ],
+      "marketed_note_architecture": {
+        "top": [
+          "bergamot",
+          "lychee",
+          "rhubarb"
+        ],
+        "heart": [
+          "Damascena rose",
+          "nutmeg"
+        ],
+        "base": [
+          "cashmeran",
+          "musks",
+          "vetiver"
+        ]
+      },
+      "reviewed_on": "2026-10-06"
+    },
+    "market": {
+      "url": "https://www.loreal-finance.com/en/annual-report-2025/luxe/",
+      "claim_scope": "Issuer lists Prada Paradoxe among global top 15 fragrance lines in 2025; no exact EDP rank, apple/pear claim or sensory liking",
+      "source_period_start": "2025-01-01",
+      "source_period_end": "2025-12-31",
+      "market_region": "GLOBAL"
+    }
+  }
+}

@@ -13,7 +13,7 @@ from __future__ import annotations
 import hashlib
 import re
 import unicodedata
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from typing import Any, Iterable, Mapping, Sequence
 
 from engine.formulation_intelligence.contracts import EvidenceClass, ProvenanceRef
@@ -80,6 +80,7 @@ class SemanticRole:
     max_raw_share: float | None = None
     provenance: str = "PROMPT_DERIVED_FACET"
     knowledge_role_slot: str | None = None
+    descriptor_requirement: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -97,6 +98,8 @@ class SemanticBrief:
     target_intent: dict[str, Any]
     authority: str = "STRUCTURAL_DESIGN_ONLY"
     knowledge_context: dict[str, Any] = field(default_factory=dict)
+    architecture_plan: dict[str, Any] = field(default_factory=dict)
+    requested_fruits: tuple[str, ...] = ()
 
     def as_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -215,6 +218,17 @@ def _matched_facets(
     ]
     iris_context = any(_phrase_present(text_key, term) for term in ("iris", "orris"))
     for facet in _FACETS:
+        if facet.facet_id == "fruit":
+            # A named fruit is not interchangeable with every other fruit in
+            # the umbrella vocabulary. This is request parsing, not a chemical
+            # alias or evidence that a stock reproduces the requested fruit.
+            named = _requested_fruits(text)
+            generic = replace(facet, triggers=("fruit", "fruity"))
+            if _facet_is_avoided(generic, avoid):
+                continue
+            if named or any(_phrase_present(text_key, t) for t in generic.triggers):
+                result.append(replace(facet, query_terms=(*named, "fruit", "fruity")))
+            continue
         if _facet_is_avoided(facet, avoid):
             continue
         if any(_phrase_present(text_key, trigger) for trigger in facet.triggers):
@@ -245,12 +259,30 @@ def _matched_facets(
     return tuple(result)
 
 
+_FRUIT_NAMES = (
+    "pear", "apple", "peach", "plum", "berry", "mango", "pineapple", "lychee",
+    "raspberry", "cassis", "rhubarb", "grape", "passionfruit", "melon", "banana",
+    "cherry", "quince",
+)
+
+
+def _requested_fruits(text: str) -> tuple[str, ...]:
+    normalized = _key(text)
+    normalized = re.sub(r"\blitchi\b", "lychee", normalized)
+    # Juniper Berry is a botanical material name, not a berry-fruit request.
+    normalized = re.sub(r"\bjuniper berr(?:y|ies)\b", "juniper", normalized)
+    return tuple(name for name in _FRUIT_NAMES if _phrase_present(normalized, name))
+
+
 def _mask_avoided_phrases(text: str, avoid: Sequence[str]) -> str:
-    masked = text
-    for raw in sorted((_clean(item) for item in avoid), key=len, reverse=True):
+    # Positive and negative request vocabulary share lexical aliases, never
+    # stock aliases. A banned apple must not erase pineapple or a word fragment.
+    masked = re.sub(r"\blitchi\b", "lychee", _key(text))
+    rejected = (re.sub(r"\blitchi\b", "lychee", _key(item)) for item in avoid)
+    for raw in sorted(rejected, key=len, reverse=True):
         if not raw:
             continue
-        masked = re.sub(re.escape(raw), " ", masked, flags=re.I)
+        masked = re.sub(rf"(?<!\w){re.escape(raw)}(?!\w)", " ", masked)
     return _clean(masked)
 
 
@@ -333,6 +365,7 @@ def _roles(
                 share=facet.default_share,
                 max_raw_share=facet.max_raw_share,
                 knowledge_role_slot=facet.knowledge_role_slot,
+                descriptor_requirement="fruit" if facet.facet_id == "fruit" else None,
             )
         )
 
@@ -501,18 +534,22 @@ def compile_semantic_brief(
     preserve = tuple(str(item) for item in interpretation.get("must_preserve", ()))
     explicit = tuple(str(item) for item in interpretation.get("explicit_materials", ()))
     positive_semantic_text = _mask_avoided_phrases(f"{name} {raw}", avoid)
-    knowledge_context = retrieve_formulation_knowledge(f"{name} {raw}", avoid=avoid)
+    requested_fruits = _requested_fruits(positive_semantic_text)
+    # Separate fields are separate clauses. A negation in a diagnostic title
+    # must not consume the user's entire following brief. Explicit avoid terms
+    # still mask both fields in the shared retrieval function.
+    knowledge_context = retrieve_formulation_knowledge(f"{name}; {raw}", avoid=avoid)
     facets = _matched_facets(positive_semantic_text, avoid, knowledge_context)
     qualifiers = _qualifier_weights(positive_semantic_text, avoid)
     expression_terms = _dedupe(
-        [*(facet.facet_id.replace("_", " ") for facet in facets), *preserve]
+        [*requested_fruits, *(facet.facet_id.replace("_", " ") for facet in facets), *preserve]
         or _source_tokens(f"{name} {raw}")[:6]
     )
     family_neighborhoods = _dedupe(
         f"{facet.note} {facet.facet_id.replace('_', ' ')}"
         for facet in facets[:4]
     ) or ("request-defined perfume architecture",)
-    protected = _dedupe((*preserve, *explicit, *expression_terms[:2]))
+    protected = _dedupe((*preserve, *explicit, *requested_fruits, *expression_terms[:2]))
     forbidden = _dedupe((*avoid, "anonymous generic perfume drift"))
     roles = _roles(
         formula_name=name,
@@ -618,6 +655,7 @@ def compile_semantic_brief(
         roles=roles,
         target_intent=target_intent.as_dict(),
         knowledge_context=knowledge_context,
+        requested_fruits=requested_fruits,
     )
 
 

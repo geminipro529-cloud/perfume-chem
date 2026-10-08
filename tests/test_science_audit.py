@@ -1,4 +1,9 @@
+import hashlib
+import json
+from pathlib import Path
+
 from engine.data_spine.loader import load_materials
+from engine.inventory_parser import INVENTORY_PATH
 from engine.science_audit import (
     _gather_data_coverage,
     build_inventory_oav_coverage_audit,
@@ -86,13 +91,29 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     assert audit["oav_available_count"] + audit["oav_unknown_count"] == audit[
         "material_count"
     ]
-    # Exact counts bind this regression to the current owned, non-solvent
-    # inventory snapshot.  Unknown identities remain fail-closed even when a
-    # numeric placeholder happens to be available elsewhere in the data spine.
-    assert audit["material_count"] == 253
-    assert audit["oav_available_count"] == 217
-    assert audit["oav_unknown_count"] == 36
-    assert audit["oav_coverage_pct"] == 85.771
+    # Exact counts bind this view (not physical stock lots) to the reviewed
+    # received-stock successor. Ownership does not supply missing OAV evidence.
+    receipt_path = (
+        Path(__file__).resolve().parents[1]
+        / "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+    )
+    receipt_bytes = receipt_path.read_bytes()
+    assert hashlib.sha256(receipt_bytes).hexdigest() == (
+        "089c930e044b55e434c0e0438ee7b2c20f48d871f00a219a7237a932419fbc9a"
+    )
+    receipt = json.loads(receipt_bytes)
+    assert hashlib.sha256(INVENTORY_PATH.read_bytes()).hexdigest() == receipt[
+        "inventory_after_sha256"
+    ]
+    assert audit["material_count"] == 290
+    assert audit["oav_available_count"] == 221
+    assert audit["oav_unknown_count"] == 69
+    assert audit["oav_coverage_pct"] == 76.207
+    assert audit["status"] == "FAIL_CLOSED_GAPS"
+    assert {"Fructone B", "Helvetolide", "Manzanate", "Ambrocenide"} <= set(
+        categories["other_oav_unknowns"]
+    )
+    assert "Frangipani Absolute" in categories["naturals_missing_composite_evidence"]
     assert "Leather FO" in categories[
         "opaque_preblends_without_disclosed_composition"
     ]

@@ -93,11 +93,12 @@ def check_musk_class_coverage(musk_materials: Sequence[str]) -> tuple[bool, list
             covered.add(class_name)
 
     required = {"polycyclic", "macrocyclic", "alicyclic" if "alicyclic" in covered else "terpenic_amber"}
-    missing = [c for c in required if c not in covered and c != "terpenic_amber"]
+    missing = sorted(c for c in required if c not in covered and c != "terpenic_amber")
 
     # If alicyclic not covered, check terpenic_amber
     if "alicyclic" not in covered and "terpenic_amber" not in covered:
         missing.append("alicyclic_or_terpenic_amber")
+    missing = sorted(missing)
 
     n_classes = len(covered)
     if n_classes >= 3:

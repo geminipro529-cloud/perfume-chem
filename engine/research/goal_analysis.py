@@ -17,6 +17,8 @@ from __future__ import annotations
 import math
 import re
 from dataclasses import asdict, dataclass
+from dataclasses import field as dataclass_field
+from datetime import date
 from decimal import Decimal, InvalidOperation
 from typing import Any, Iterable, Mapping, Sequence
 
@@ -26,6 +28,8 @@ from engine.intervention_profiles import (
     normalize_observation_signal,
     suggest_interventions,
 )
+from engine.inventory_parser import load_user_compounding_holds
+from engine.name_utils import normalize_name
 
 from .commercial_references import build_commercial_reference_panel
 from .contracts import FALSE_ACTION_AUTHORITY, stable_payload_hash
@@ -333,7 +337,7 @@ class GoalAnalysisRequestV1:
     application_context: str | None = None
     active_bottle_id: str | None = None
     known_references: tuple[str, ...] = ()
-    market_evidence_as_of_date: str = "2026-09-28"
+    market_evidence_as_of_date: str = dataclass_field(default_factory=lambda: date.today().isoformat())
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "formula_id", _text(self.formula_id, "formula_id"))
@@ -771,9 +775,11 @@ def _commercial_concept_tags(request: GoalAnalysisRequestV1) -> tuple[str, ...]:
             request.formula_name,
             request.family or "",
             *request.goals,
-            *(row.material for row in request.rows),
         )
     ).casefold()
+    source = re.sub(r"\b(?:no|not|without|avoid)\s+[^,.;]+", " ", source)
+    for phrase in request.must_avoid:
+        source = re.sub(rf"(?<!\w){re.escape(phrase)}(?!\w)", " ", source)
     return _dedupe_text(
         token
         for token in re.findall(r"[a-z][a-z0-9-]{2,}", source)
@@ -803,6 +809,9 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
         )
     )
     request_payload = request.canonical_payload()
+    hold_labels, hold_sha = load_user_compounding_holds()
+    held_names = {normalize_name(label) for label in hold_labels}
+    request_payload["user_compounding_holds_sha256"] = hold_sha
     knowledge = retrieve_formulation_knowledge(
         " ".join((request.formula_name or "", request.original_request or "", *request.goals)),
         avoid=tuple(interpretation["must_avoid"]),
@@ -884,11 +893,28 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
             }
         )
 
+    user_hold_blocked = False
     # First honor explicit material/block directions in the user's goal.
     for group in _goal_row_groups(request):
         rows = group["rows"]
         held_rows = group["held_rows"]
         material_label = " + ".join(row.material for row in rows)
+        excluded_rows = [row for row in rows if normalize_name(row.material) in held_names]
+        if excluded_rows:
+            user_hold_blocked = True
+            clues.append({
+                "clue_id": "user-compounding-hold-" + group["matched_term"],
+                "evidence_class": "USER_COMPOUNDING_EXCLUSION",
+                "endpoint": "COMPOUNDING_ELIGIBILITY",
+                "statement": (
+                    "This block contains a material temporarily excluded by the user: "
+                    + ", ".join(row.material for row in excluded_rows)
+                    + ". Stock details do not clear this hold."
+                ),
+                "row_ids": [row.row_id for row in excluded_rows],
+                "action_authority": False,
+            })
+            continue
         direction = group["direction"]
         if evolving_bottle and direction == "DECREASE":
             additive_repair_blocked = True
@@ -1029,6 +1055,9 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
         for material in recommendation.materials:
             if len(hypotheses) >= effective_max_hypotheses:
                 break
+            if normalize_name(material) in held_names:
+                user_hold_blocked = True
+                continue
             if request.available_materials and not _material_is_available(
                 material, request.available_materials
             ):
@@ -1145,6 +1174,8 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
         if hypotheses
         else "ADDITIVE_REPAIR_NOT_FEASIBLE"
         if additive_repair_blocked
+        else "WITHHELD_USER_COMPOUNDING_HOLD"
+        if user_hold_blocked
         else "GOAL_NOT_MAPPED"
     )
     validation = "ADVISORY_FINDINGS" if hypotheses else "WITHHOLD_UNKNOWN"
@@ -1160,6 +1191,8 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
         if hypotheses
         else "ADDITIVE_REPAIR_NOT_FEASIBLE"
         if additive_repair_blocked
+        else "WITHHELD_USER_COMPOUNDING_HOLD"
+        if user_hold_blocked
         else "WITHHELD_GOAL_NOT_MAPPED"
     )
     has_bidirectional_trial = any(
@@ -1178,9 +1211,35 @@ def analyze_formula_for_goal(request: GoalAnalysisRequestV1) -> dict[str, Any]:
             "pack_sha256": knowledge["pack_sha256"],
             "action_authority": False,
         })
+    for card in knowledge.get("subtype_context", {}).get("cards", [])[:2]:
+        clues.append({
+            "clue_id": f"subtype-{card['subtype_id']}",
+            "evidence_class": "UNTESTED_SUBTYPE_HYPOTHESIS",
+            "endpoint": "FORMULATION_KNOWLEDGE_ONLY",
+            "statement": card["construction_hypothesis"],
+            "source_evidence_summary": card["evidence_summary"],
+            "negative_space": card["negative_space"],
+            "comparison_question": card["comparison"]["question"],
+            "source_ids": [binding["source_id"] for binding in card["source_bindings"]],
+            "subtype_research_sha256": knowledge["subtype_research_sha256"],
+            "action_authority": False,
+        })
+    for dossier in knowledge.get("construction_context", {}).get("dossiers", [])[:2]:
+        clues.append({
+            "clue_id": f"construction-{dossier['package_id']}",
+            "evidence_class": "UNTESTED_ARCHITECTURE_HYPOTHESIS",
+            "endpoint": "FORMULATION_KNOWLEDGE_ONLY",
+            "statement": dossier["recognizers"][0],
+            "negative_space": dossier["negative_space"],
+            "comparison_question": dossier["comparison"]["question"],
+            "source_ids": [binding["source_id"] for binding in dossier["source_bindings"]],
+            "construction_library_sha256": knowledge["construction_library_sha256"],
+            "action_authority": False,
+        })
     report = {
         "schema_version": "goal-directed-formula-analysis-v2",
         "request_sha256": stable_payload_hash(request_payload),
+        "user_compounding_holds_sha256": hold_sha,
         "formula_id": request.formula_id,
         "formula_name": request.formula_name,
         "goals": list(request.goals),

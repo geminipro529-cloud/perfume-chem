@@ -17,6 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from engine.advisory_stock_strength import declared_stock_fraction
 from engine.optimizer.models import FormulaVector
 from engine.optimizer.scoring import FormulaScorer
 
@@ -28,14 +29,8 @@ OUT_TXT = ROOT / "_designer_prestige_18_scored.txt"
 # ── Dilution parsing ──────────────────────────────────────────────────────
 
 def parse_dilution(s: str) -> float:
-    """Convert dilution string to factor. neat→1.0, '10 %'→0.10, '—'→1.0 (FO/FTEC)."""
-    s = s.strip().lower().replace("**", "")
-    if s in ("neat", "", "—", "-"):
-        return 1.0
-    m = re.match(r"(\d+(?:\.\d+)?)\s*%", s)
-    if m:
-        return float(m.group(1)) / 100.0
-    return 1.0
+    """Convert an explicit dilution cell; placeholders are not neat."""
+    return declared_stock_fraction(s)
 
 
 # ── Material name normalization ───────────────────────────────────────────
@@ -103,6 +98,8 @@ def parse_formula_rows(rows: list[list[str]]) -> tuple[dict[str, float], dict[st
             next((i for i, c in enumerate(lc) if c.strip() == "layer"), -1)
             cols_material = next((i for i, c in enumerate(lc) if "material" in c), -1)
             cols_dilution = next((i for i, c in enumerate(lc) if "dilution" in c), -1)
+            if cols_dilution < 0:
+                raise ValueError("Formula requires an explicit dilution column")
             cols_ul = next((i for i, c in enumerate(lc) if "µl" in c or c.strip() == "ul"), -1)
             in_formula_table = True
             continue
@@ -120,7 +117,7 @@ def parse_formula_rows(rows: list[list[str]]) -> tuple[dict[str, float], dict[st
             continue
 
         material_raw = cells[cols_material]
-        dilution_raw = cells[cols_dilution] if cols_dilution >= 0 and cols_dilution < len(cells) else "neat"
+        dilution_raw = cells[cols_dilution] if cols_dilution < len(cells) else ""
         ul_raw = cells[cols_ul]
 
         # Skip total / blank rows

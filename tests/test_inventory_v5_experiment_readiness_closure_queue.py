@@ -4,6 +4,9 @@ import hashlib
 import json
 from pathlib import Path
 
+from tests.historical_snapshots import ROOT as CANONICAL_ROOT
+from tests.historical_snapshots import historical_replay_status
+
 ROOT = Path(__file__).resolve().parents[1]
 REPORT_PATH = (
     ROOT / "data" / "governance" / "inventory_v5_experiment_readiness_closure_queue_20260812.json"
@@ -54,11 +57,21 @@ def test_closure_queue_is_hash_bound_nonpromoting_and_semantically_exact() -> No
         "release": False,
     }
 
+    held = set()
     for parent in report["parents"]:
         path = ROOT / parent["path"]
         assert path.is_file()
+        if parent["path"] == "docs/research/PERFUME_CHEM_CHATGPT_PROJECT_RECONCILIATION_2026-08-10.md":
+            assert historical_replay_status(CANONICAL_ROOT / parent["path"], parent["sha256"],
+                                            parent["size_bytes"]) == (
+                "HOLD_ORIGINAL_SOURCE_BYTES_UNAVAILABLE"
+            )
+            assert path.read_bytes() == (CANONICAL_ROOT / parent["path"]).read_bytes()
+            held.add(parent["path"])
+            continue
         assert path.stat().st_size == parent["size_bytes"]
         assert _sha256(path) == parent["sha256"]
+    assert held == {"docs/research/PERFUME_CHEM_CHATGPT_PROJECT_RECONCILIATION_2026-08-10.md"}
 
 
 def test_closure_queue_reconstructs_live_v5_census_and_source_rows() -> None:

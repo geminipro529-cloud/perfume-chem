@@ -1,0 +1,524 @@
+{
+  "schema_version": "formulation-construction-completion-audit-v1",
+  "as_of_date": "2026-10-06",
+  "status": "INITIAL_CONSTRUCTION_ADVISORY_INTEGRATION_COMPLETE",
+  "full_research_program_complete": false,
+  "repository": {
+    "root": "D:/chatbots/perfume-chem",
+    "branch": "master",
+    "head": "1ed79650313c23b1a2fe1c36c2e90a606c64833b",
+    "dirty_worktree_preserved": true,
+    "commit_created": false,
+    "push_performed": false
+  },
+  "scope": {
+    "initial_construction_packages": 49,
+    "overlapping_scope_entries": 275,
+    "source_bound_core_scope_entries": 120,
+    "unreviewed_subtype_scope_entries": 155,
+    "functional_nodes": 147,
+    "untested_architectures": 98,
+    "fully_reviewed_packages": 0,
+    "empirically_validated_packages": 0,
+    "scientific_fronts": 14,
+    "market_segments": 8,
+    "product_formats": 13,
+    "commercial_panel_tracks": 14,
+    "new_panel_admissions": 0,
+    "new_numeric_calibrations_admitted": 0
+  },
+  "source_boundary": {
+    "total_sources": 115,
+    "total_claims": 109,
+    "profile_count": 43,
+    "exact_material_cards": 25,
+    "reviewed_advisory_sources": 51,
+    "legacy_advisory_sources": 64,
+    "new_source_summaries": 31,
+    "new_manufacturer_descriptions": 29,
+    "new_primary_research_records": 2,
+    "source_record_hash_scope": "CANONICAL_LOCAL_METADATA_NOT_PUBLISHER_PAGE_BYTES",
+    "underlying_empirical_data_admitted": false,
+    "publisher_pages_archived": false,
+    "full_retraction_census_claimed": false,
+    "access_limited_source_ids": [
+      "gardenia_extract_completion",
+      "agarwood_variation_completion"
+    ],
+    "historical_ingredient_only_source_ids": [
+      "givaudan_paradisamide_completion"
+    ]
+  },
+  "current_hashes": {
+    "AGENTS.md": "82989f7b15f6e627ed9623c7f72ea4e65ab8468572f0572f1f08974b18c92891",
+    "inventory.txt": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "engine/formulation_intelligence/construction_library.py": "9f78e5f6323b687cca34e8a6ecf3b2c6bd1a1b3b01e74263ef5a816df47b049b",
+    "engine/formulation_intelligence/literature_knowledge.py": "f7227f4ec9ebc15b5a477f37b2c1409feff00c83867027b2ea83cb985141ffa7",
+    "engine/formulation_intelligence/formula_design_runtime.py": "e18dae4047ca5114f593dc74813a713e6517020f72ecc8fed39ebdeda308fe91",
+    "engine/research/goal_analysis.py": "0d7523839b5ba55c7ac21433f65301799a832530682a7099212f2f94aec28872",
+    "backend/app/services/engine_jobs.py": "09221135cd0827f0b513f87ba4a55d498e2df1945202f9ef626988fc34079315",
+    "backend/app/services/engine_job_registry.py": "22f513122d84f358becee84ccb6eb1db8b99bb2bb30c38405494fee3c91ff48b",
+    "backend/app/static/lab.js": "834b90ea25253a1d6e600e86bffd10aa24c2e6756fa157cb3270b8024d6cb210",
+    "backend/tests/conftest.py": "5c386992902fd100743e1214cb6f3320e4a5a92dcc2bbd0162598bd428f6898b",
+    "tests/test_construction_library.py": "d8ee6a18ab8e2337b801407a66a178d6258e54491d1a9824b1285d2dfe3e7711",
+    "backend/tests/unit/test_source_review_job_fingerprints.py": "9412fe63726fe7d757bdf2d45f42aaecb809b7c30425a16929d76f1c384dc26e",
+    "backend/tests/unit/test_backend_database_isolation.py": "3a861b6646c47761f270e492d6d2331e08a5291d1f7c3d795c1e74a06c789166",
+    "backend/tests/integration/test_lab_ui.py": "97fcf444dcb15533f21253ff9ab6605b3359442df40a525be05cb40719904ae9",
+    "data/formulation_knowledge/literature_v1.json": "59cf73963fe392d251e2296c009494e99b94a1da04f9922ce0a956f708fced1b",
+    "data/formulation_knowledge/source_reviews_v1.json": "33bee775dc89cf6015ad4660a8ed127773973569c62923942a991d7ae658a252",
+    "data/formulation_knowledge/construction_library_v1.json": "cba922283537998fa1dcc57dccd896b070cc7f1545c6209040d3d76b1f3652c7",
+    "data/formulation_knowledge/research_coverage_plan_v1.json": "4b1225736af6b4ef6a564c8f2df40a846aa3cbab15f0584cd952088a8021a4ac",
+    "data/formulation_knowledge/research_coverage_progress_v1.json": "9753eaf2ba058be4b4bb7d710e9dbbf5a0a241a35591c8a0fca02613dabdca02",
+    "data/formulation_knowledge/research_coverage_progress_v2.json": "9ab58225b63436977eb01892acfc13f8f588add418bf0f72cccb373286ad06f4",
+    "data/formulation_knowledge/prior_research_corpus_v1.json": "d614d475e88b049a21747737842fe35e8ff40292c83c403b73ba69e1c554841a",
+    "data/governance/commercial_reference_registry_v1.json": "1d83c920487b69f55c7ca0b439f43beeaac048f5edc6b6d6bfcce00c441510f3",
+    "data/governance/commercial_reference_registry_v2.json": "d6452bfe6c743551a496fc88b5737aa33f163458fc3f72973c626058dd88de5e",
+    "data/governance/commercial_reference_registry_v3.json": "759a0593c7e5e5a52182cd6b8de98827a742f5c9140a0c05f97efd326217bf6b",
+    "data/governance/inventory_compounding_holds.json": "4e3d5e98c8328fe92e7b5722e5f5e41ababb934067ccdce142cf32bfc0dc823a",
+    "docs/research/CONSTRUCTION_LIBRARY_COMPLETION_20261006.md": "c40e59dc1ec6bbce7b1f9ed01f4d044211170c94a7dbb12c533e0cd59c6c85dd",
+    "output/research-construction-20261006/quick-project-verify.json": "d73fabeadd13c1f479af746a09fb65c413be9618f39a6078f076fc336a2d7f6d",
+    "output/research-construction-20261006/final-quick-project-verify.json": "182a3d677530bc9368429616ad3357d16dfb87c7a51696c60f32590ebe928f29",
+    "output/research-construction-20261006/final-isolated-quick-project-verify.json": "062a3c92db6f64c8b1adf8532fb657046bf54fde1724ec484c9960f11dad6b3a"
+  },
+  "new_source_records": [
+    {
+      "source_id": "dsm_sharing_innovation_2026",
+      "url": "https://www.dsm-firmenich.com/content/dam/dsm-firmenich/perfumery-beauty/Ingredients/documents/enjoy-booklet-sharing-innov-coll-26.pdf",
+      "source_record_sha256": "5f185c27b3ac31c0d702367325d4e1928f67b508ea01880b40ea17c1a86980d9",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Selected Josenol, Heliotropin Base, Z11 HD, Strawberry SFE, Sesame SFE and Apple Firad descriptor/extraction sections; demonstration formula quantities not admitted.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_jonquille_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/jonquille-absolute-france/",
+      "source_record_sha256": "cd60ee025249bcde56ab3235716b42e1d291df95abdf5489170a38b30eca10ce",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Named Narcissus jonquilla flower absolute, odor/extraction sections only.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "givaudan_florhydral_completion",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm",
+      "source_record_sha256": "aa00a1a2c661d81e28add1283fba41a7ed15612c43c455c5b56c37cf11b112f2",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Named ingredient descriptor and chemical-identity sections only; use levels and performance tables not admitted.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_cashmeran_completion",
+      "url": "https://www.iff.com/scent/ingredients-compendium/cashmeran/",
+      "source_record_sha256": "5ca07e7aabf740d8f3788b0a32b4b138a694d3bf22e3d1e04ac2cad7d8059675",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Named chemical identity and descriptor sections, not blanket product-grade physical parameters.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_iso_e_super_completion",
+      "url": "https://www.iff.com/scent/ingredients-compendium/iso-e-super/",
+      "source_record_sha256": "54c3b1da3231dd68cbc5f900c7d313f6d38d3be99b1180b29159005fd4b41082",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Named main-isomer and descriptor sections; no generic grade-equivalence or dosage admission.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "givaudan_javanol_super_completion",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/javanoltm-super",
+      "source_record_sha256": "21df02959585267fb5b7ca4225a576f0dab3e7414882b0c8785abae5feb134bb",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Exact Javanol Super identity/descriptor comparison only.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_sandal_nc_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/sandalwood-oil-newcaledonia-for-life/",
+      "source_record_sha256": "302ee14133143606413ef2e2e2a6fa34c1424765fe8833fd66618e4b417fb5b3",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Exact Santalum austrocaledonicum wood/root oil and extraction/odor sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_mimosa_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/mimosa-absolute-morocco/",
+      "source_record_sha256": "8af78d74a785c25017a8505daa065b53ded0130da22ab1200da2edf0d5bf8d62",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Selected Acacia mearnsii identity, extraction and odor sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_cassie_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/cassie-absolute-egypt/",
+      "source_record_sha256": "1b97627df586b3001bb417527d0135116226f5a0d9aad3b6e370294dcd7c882f",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Selected Acacia farnesiana identity, extraction and odor sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "dsm_norlimbanol_dextro_completion",
+      "url": "https://studio.dsm-firmenich.com/product/norlimbanolr-dextro-pe-967406",
+      "source_record_sha256": "eb4367ee01cba90acd8994696109aa54af8fc558ed4a586d0f31c8a7f560bb6b",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Exact stereochemical label and odor description only; usage/stability and physical-property tables not admitted.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_vetiver_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/vetiver-oil-haiti/",
+      "source_record_sha256": "9c2643f7504a529e9aa00750f0c6e17f7970b8837969d953cdab371d2baca152",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Exact Haiti root hydrodistillate identity and odor sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_patchouli_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/patchouli-oil-indonesia-for-life/",
+      "source_record_sha256": "c535745de882a0e9c5836f5aa002e6f7d2fb40b36d33e7de0dc852110b8ebc61",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Exact Pogostemon cablin stem/leaf oil identity and odor sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_rose_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/rose-essential-low-me-for-life/",
+      "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Selected Rosa x damascena identity, process and odor description.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_jasmine_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/jasmin-absolute-sambac/",
+      "source_record_sha256": "5d4db39c433fd72932f6d12c64f4cf966a638d1fb1103951abf162437573a1ab",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Selected exact Jasminum sambac flower absolute identity and odor sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_orange_flower_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/orange-flower-absolute-tunisia/",
+      "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Selected Citrus aurantium flower absolute identity, extraction and odor sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_tuberose_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/tuberose-abs-india-traceable/",
+      "source_record_sha256": "e3e7e26ae4d1966712c6627970e940d1877511d776ff42e93de0bca4cea5b7e2",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Selected named Polianthes tuberosa flower absolute identity, process and odor sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_ylang_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/ylang-ylang-oil-complete-madag-org/",
+      "source_record_sha256": "052b5e439becd7fbc9c46c17215fd609ff7f1466bc711bf2627ee134524b66a7",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Selected exact complete Cananga odorata flower-oil identity, process and odor sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_magnolia_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/magnolia-flower-oil/",
+      "source_record_sha256": "d12ff496073a9da65b7e03ab8614b7eba33c62da7a0b6f185bf5c25976364bcc",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Exact Michelia alba flower hydrodistillate identity and odor sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_carnation_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/carnation-absolute-egypt/",
+      "source_record_sha256": "ab51da30ff2edc2fb6cdfd3f219e26e39f0cc8cd0ca75a6a6f745e26e71a3892",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Exact Dianthus flower absolute and selected odor/extraction sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_osmanthus_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/osmanthus-absolute/",
+      "source_record_sha256": "0f178c02e7a9d4b9d0b64cdc89038b2ce598625a34ff7ab3414544df1743a516",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Exact Osmanthus fragrans flower absolute and selected odor/extraction sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "gardenia_extract_completion",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27125012/",
+      "source_record_sha256": "dc066a12a6dea9a009afad7388fdeaa350be94a2a4481d7770ef1d4738757f83",
+      "review_scope": "PRIMARY_ABSTRACT_OR_SELECTED_INDEXED_EXCERPTS",
+      "summary_scope": "PubMed-indexed abstract only; direct page was access-limited. Full text, correction/retraction census and underlying panel data not independently reviewed.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "dsm_calone_completion",
+      "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/CALONE_918970.pdf?8d5f421=",
+      "source_record_sha256": "6507a59013c5c0815cedc98646422dc78adc724263118e3104bdae9b9ccd0b85",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Exact Calone identity and ozone/marine/floral descriptor section only; physical and tenacity tables excluded.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_olibanum_oil_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/olibanum-oil/",
+      "source_record_sha256": "7d1ab60ba12f335541b07a22210d8f76dccf245523be3f799a61af70d2e75e79",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Selected exact Boswellia carterii gum-resin oil identity, process and odor sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_olibanum_resinoid_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/olibanum-resinoid/",
+      "source_record_sha256": "799c648cebdbd035cdf20a67b2eadb12ba0d5a3769c2e3087267855f54beefb4",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Selected named Boswellia carterii/related-species gum-resin ethanol extract and odor sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_mate_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/mate-abs-40pct-tec-blo/",
+      "source_record_sha256": "e6de3a78266784f7c14c197dd18c662961d033dcdc690579404cbfafc872a27e",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Selected exact Ilex paraguariensis leaf absolute product label and odor/extraction sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_clary_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/sage-clary-oil-france/",
+      "source_record_sha256": "26165151439da615ad9e0a8907bda0f6231f4852f01afcbc8291163669ad8bdc",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Selected Salvia sclarea stem/flower oil identity and odor sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_davana_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/davana-oil/",
+      "source_record_sha256": "c45d3e49718605d509729bb7d3213d94452d72039909744a12969505c56e04f3",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Selected Artemisia pallens identity and liquorous/dried-fruit descriptor sections.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "iff_cardamom_completion",
+      "url": "https://www.iff.com/scent/lmr-compendium/cardamom-oil-guatemala/",
+      "source_record_sha256": "3de0a45a2ddbfa5e0468f133eabf0697662978d13c73b0e0f716284dfaf5e6da",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Selected exact Elettaria cardamomum product identity and odor description.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "givaudan_methyl_laitone_completion",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-laitone-10dpg",
+      "source_record_sha256": "699e8662b0414c36dc2c54bc7a501c4c09115bdf8eb4b2a96814b95fd4498a96",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Selected exact diluted spiro-lactone identity and coconut-milk/creamy/floral-fruit descriptor sections; example recipe, use levels and tenacity not imported.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "agarwood_variation_completion",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6225301/",
+      "source_record_sha256": "eb450922f6db80afb5fbb4e9fe9294ba934aaa27db51b4f3494dbe1965497617",
+      "review_scope": "PRIMARY_ABSTRACT_OR_SELECTED_INDEXED_EXCERPTS",
+      "summary_scope": "Selected indexed primary abstract, introduction and conclusion; live PMC/publisher pages were access-limited. GC-MS profiles are not GC-O importance, whole perfume preference or grade equivalence.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    },
+    {
+      "source_id": "givaudan_paradisamide_completion",
+      "url": "https://www.givaudan.com/file/28901/download",
+      "source_record_sha256": "8682aabf681b39585972782d0a8a5b66b01fb80c155c474e4dcdc44c8ca3032a",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "summary_scope": "Historical issuer ingredient-description paragraph only; no current captive availability, current market position, physical or perfume performance admission.",
+      "root_direct_section_review": true,
+      "empirical_data_admission": false,
+      "numeric_calibration_allowed": false
+    }
+  ],
+  "verification_runs": [
+    {
+      "name": "final-focused-engine-suite",
+      "state": "PASS",
+      "passed": 230,
+      "duration_seconds": 120.44,
+      "scope": "Selected engine/library/Formula Studio/goal-analysis tests, not full engine suite",
+      "command": ".venv/Scripts/python.exe -m pytest tests/test_construction_library.py tests/test_family_foundation_expansion.py tests/test_orchard_reference_panel.py tests/test_source_review_governance.py tests/test_formulation_literature_knowledge.py tests/test_lavender_literature_knowledge.py tests/test_foundation_literature_knowledge.py tests/test_formula_design_chat.py tests/test_goal_directed_analysis.py -q -p no:cacheprovider"
+    },
+    {
+      "name": "final-focused-backend-job-ui-api-suite",
+      "state": "PASS",
+      "passed": 34,
+      "duration_seconds": 26.61,
+      "scope": "Three unit files, two selected UI integration nodes and exact golden API node after fixture isolation",
+      "command": "poetry run pytest tests/unit/test_source_review_job_fingerprints.py tests/unit/test_formulation_knowledge_jobs.py tests/unit/test_cp2_engine_jobs.py tests/integration/test_lab_ui.py::test_guided_improvement_ui_is_default_local_and_authority_safe tests/integration/test_lab_ui.py::test_formula_conversation_creates_and_refines_read_only_design tests/integration/test_api_endpoints.py::test_golden_explicit_solvent_case_exercises_api_adapter -q -p no:cacheprovider --basetemp ../output/pytest-temp-backend/construction-api-final-20261006-928619eb"
+    },
+    {
+      "name": "final-test-database-isolation-regression",
+      "state": "PASS",
+      "passed": 1,
+      "duration_seconds": 4.38,
+      "scope": "Drive first fixture teardown and prove the independent second fixture still retains its job table",
+      "command": "poetry run pytest tests/unit/test_backend_database_isolation.py -q -p no:cacheprovider --basetemp ../output/pytest-temp-backend/isolation-regression-20261006-83aa7d2f"
+    },
+    {
+      "name": "final-isolated-quick-project-verification",
+      "state": "SELECTED_CHECKS_PASS_NOT_FULL_COMPLETION",
+      "report_path": "output/research-construction-20261006/final-isolated-quick-project-verify.json",
+      "passed": [
+        "engine-compile",
+        "engine-lint",
+        "engine-typecheck",
+        "formula-artifact-validation",
+        "scientific-audit",
+        "material-data-validation",
+        "knowledge-rule-validation",
+        "golden-formula-regression",
+        "golden-api-regression",
+        "golden-fixture-lock"
+      ],
+      "failed": [],
+      "verification_scope": "partial",
+      "completion_gate": "NOT_EVALUATED",
+      "docker_status": "SKIPPED",
+      "golden_output_changes": {
+        "status": "unchanged",
+        "changed": false,
+        "expected_sha256": "9cf31e92d3c8e814f3bc2654ffba6f3fbd766de8c705630ae78fb5c24a1dfc61",
+        "actual_sha256": "9cf31e92d3c8e814f3bc2654ffba6f3fbd766de8c705630ae78fb5c24a1dfc61"
+      }
+    }
+  ],
+  "intermediate_verification_notes": [
+    "Baseline 134 tests passed before this tranche. Intermediate overlapping suites are not added to final counts.",
+    "Intermediate expanded knowledge suite passed 163, then 168 tests as contracts were added; final combined suite passed 230.",
+    "First quick selected-check run passed. A parallel rerun failed golden-api-regression with no such table: lab_engine_jobs because backend pytest processes shared test_perfume_chem.db; its failure report is preserved.",
+    "The shared backend test DB was replaced by each test's unique tmp_path database. Production database paths, authority decisions and scientific gates were unchanged.",
+    "The isolation regression first hit an import-path collection error; corrected tests-package import. An initial manual fixture-close probe skipped post-yield disposal and retained scratch; corrected to drive normal post-yield teardown. Final regression passed without warnings.",
+    "The successful final quick run still reports pytest-cache filesystem warnings for legacy root cache paths. These are retained in the report.",
+    "Broad git diff --check encountered unreadable historical verification scratch files. Scoped tracked diff check passed; new-file whitespace scan had zero issues. Unrelated scratch, user changes and failures were not cleaned or hidden."
+  ],
+  "static_checks": {
+    "engine_ruff": "PASS_SELECTED_CHANGED_PYTHON",
+    "engine_mypy": "PASS_CONSTRUCTION_AND_LITERATURE_TWO_MODULES_EXPLICIT_PACKAGE_BASES_FOLLOW_IMPORTS_SKIP",
+    "backend_ruff": "PASS_CHANGED_SERVICES_TESTS_AND_FIXTURE",
+    "backend_mypy": "PASS_ENGINE_JOBS_AND_REGISTRY_WITH_NORMAL_IMPORT_FOLLOWING",
+    "javascript_node_syntax": "PASS",
+    "scoped_git_diff_check": "PASS_EXIT_0_LINE_ENDING_WARNINGS_ONLY",
+    "new_file_whitespace_check": "PASS",
+    "full_repository_whitespace_certification": false
+  },
+  "benchmark": {
+    "scope": "KNOWLEDGE_RETRIEVAL_ONLY_NOT_FULL_FORMULA_ENGINE_BENCHMARK",
+    "unique_prompts": 49,
+    "measured_calls": 490,
+    "warm_p50_ms": 33.001350000631646,
+    "warm_p95_ms": 63.00740000006044,
+    "warm_max_ms": 120.2049999992596,
+    "same_results_all_repetitions": true,
+    "serial_parallel_equivalent": true,
+    "elapsed_seconds": 19.09958280000137,
+    "network_used": false,
+    "fingerprint_manifest_sha256": "839b37ae200c473eea750ddff6c34960f10d48954e02ae169f19989813c726b8"
+  },
+  "preservation": {
+    "inventory_sha256_unchanged": true,
+    "frozen_plan_unchanged": true,
+    "prior_research_corpus_unchanged": true,
+    "commercial_registry_v1_v2_v3_unchanged": true,
+    "user_compounding_holds_unchanged": true,
+    "prior_progress_v1_unchanged": true,
+    "formula_files_edited_by_this_tranche": [],
+    "inventory_receipts_written": false,
+    "existing_user_changes_reset_or_deleted": false
+  },
+  "delegation": {
+    "requested_native_model": "deepseek-flash",
+    "route_state": "UNAVAILABLE_UNKNOWN_MODEL",
+    "fallback_provider_used": false,
+    "external_model_packets_transmitted": 0,
+    "permitted_codex_native_readonly_collectors": 5,
+    "worker_findings_untrusted_until_parent_check": true,
+    "canonical_edits_by_root": true,
+    "root_direct_primary_or_manufacturer_reviews": 31,
+    "workers_stopped_or_completed_before_handoff": true
+  },
+  "not_performed": [
+    "full subtype literature programme",
+    "full backend or full engine verifier",
+    "Docker build or smoke",
+    "migration cycle (no application schema change)",
+    "empirical model training or promotion",
+    "new safety or regulatory review",
+    "instrumental or sensory validation",
+    "formula/inventory change",
+    "purchase or physical compounding",
+    "new commercial panel admission",
+    "all-plugin execution claim"
+  ],
+  "formula_action": "NO_CHANGE",
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "successor_progress_path": "data/formulation_knowledge/research_coverage_progress_v2.json",
+  "report_path": "docs/research/CONSTRUCTION_LIBRARY_COMPLETION_20261006.md"
+}
