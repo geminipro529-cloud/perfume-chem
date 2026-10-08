@@ -325,7 +325,16 @@ class FormulaAnalysisImportParser:
         rendered = format(value, "f")
         return rendered.rstrip("0").rstrip(".") if "." in rendered else rendered
 
-    _AMOUNT_NUMBER = re.compile(r"[-+]?(?:\d[\d,\s]*(?:\.\d+)?|\.\d+)")
+    # Same grammar as the release gate (scripts/verify_formula_workflow.py):
+    # a number with exact 3-digit thousands groups ("1,500", "1 168"), or any
+    # other run of digits and commas, validated after matching.
+    _AMOUNT_NUMBER = re.compile(
+        r"\d{1,3}(?:[ \u00a0\u202f]\d{3})+(?:\.\d+)?(?!\d)"
+        r"|\d[\d,]*(?:\.\d+)?|\.\d+"
+    )
+    _EXACT_THOUSANDS = re.compile(r"\d{1,3}(?:[, \u00a0\u202f]\d{3})+(?:\.\d+)?")
+    # A percent or a 1:N / 1/N ratio anywhere in a strength cell.
+    _STRENGTH_VALUE = re.compile(r"\d\s*%|(?<![\d.])1\s*[:/]\s*\d")
     # Placeholders that mean "no strength given": treated like a blank cell.
     _NO_STRENGTH = frozenset({"", "-", "\u2013", "\u2014", "n/a", "na", "none"})
 
@@ -340,6 +349,14 @@ class FormulaAnalysisImportParser:
         return len(cls._AMOUNT_NUMBER.findall(cls._amount_text(value))) > 1
 
     @classmethod
+    def _has_bad_comma(cls, value: str) -> bool:
+        """A comma that is not an exact 3-digit thousands group ("1,5")."""
+        return any(
+            "," in token and not cls._EXACT_THOUSANDS.fullmatch(token)
+            for token in cls._AMOUNT_NUMBER.findall(cls._amount_text(value))
+        )
+
+    @classmethod
     def _parse_amount(
         cls,
         value: str,
@@ -349,8 +366,10 @@ class FormulaAnalysisImportParser:
         match = cls._AMOUNT_NUMBER.search(text)
         if not match:
             return None
+        if re.search(r"-\s*$", text[: match.start()]):
+            return None
         try:
-            amount = Decimal(match.group(0).replace(",", "").replace(" ", ""))
+            amount = Decimal(re.sub(r"[, \u00a0\u202f]", "", match.group(0)))
         except InvalidOperation:
             return None
         if not amount.is_finite() or amount <= 0:
@@ -386,13 +405,21 @@ class FormulaAnalysisImportParser:
             return None, "UNKNOWN"
         text = cls._normalized(value)
         if text.startswith(("neat", "as supplied")):
+            if cls._STRENGTH_VALUE.search(text):
+                # "neat (pre-dil. 10% in DPG)" says two strengths; read neither.
+                return None, "UNKNOWN"
             return "1", "NEAT"
-        ratio = re.match(r"1\s*[:/]\s*(\d+(?:\.\d+)?)(?![\d.])", text)
+        ratio = re.match(r"1\s*[:/]\s*(\d+(?:\.\d+)?)(?![\d.,:/])", text)
         if ratio:
             divisor = Decimal(ratio.group(1))
             if divisor < 1:
                 return None, "UNKNOWN"
-            return cls._decimal_text(Decimal(1) / divisor), cls._basis_of(text)
+            fraction = Decimal(1) / divisor
+            stated = re.search(r"(\d+(?:\.\d+)?)\s*%", text)
+            if stated and Decimal(stated.group(1)) / Decimal(100) != fraction:
+                # "1:10 (5%)": the ratio and the percent disagree.
+                return None, "UNKNOWN"
+            return cls._decimal_text(fraction), cls._basis_of(text)
         percent = re.search(r"(\d+(?:\.\d+)?)\s*%", text)
         if percent:
             amount = Decimal(percent.group(1)) / Decimal(100)
@@ -669,11 +696,15 @@ class FormulaAnalysisImportParser:
             )
             parsed_amount: tuple[str, str] | None = None
             ambiguous_amount: str | None = None
+            bad_comma_amount: str | None = None
             amount_header = ""
             for amount_index, header_unit in indexed_amounts:
                 if amount_index < len(cells):
                     if cls._has_several_numbers(cells[amount_index]):
                         ambiguous_amount = cls._plain(cells[amount_index])
+                        break
+                    if cls._has_bad_comma(cells[amount_index]):
+                        bad_comma_amount = cls._plain(cells[amount_index])
                         break
                     parsed_amount = cls._parse_amount(cells[amount_index], header_unit)
                 if parsed_amount is not None:
@@ -683,6 +714,13 @@ class FormulaAnalysisImportParser:
                 warnings.append(
                     f"Skipped line {source_line}: amount '{ambiguous_amount}' for {material} "
                     "has more than one number; write a single amount (put notes in parentheses)."
+                )
+                continue
+            if bad_comma_amount is not None:
+                warnings.append(
+                    f"Skipped line {source_line}: amount '{bad_comma_amount}' for {material} "
+                    "has a comma that is not a 3-digit thousands separator; "
+                    "write a decimal point (1.5) or full thousands (1,500)."
                 )
                 continue
             if parsed_amount is None:

@@ -199,3 +199,85 @@ def test_bare_number_in_percent_column_is_percent(cell, fraction):
 def test_bare_number_above_100_in_percent_column_is_refused():
     _, dilutions, specs, blockers = _one_row("150", header="Dilution %")
     assert dilutions["Rose Oxide"] is None and len(blockers) == 1
+
+
+# --- Shared with backend/tests/unit/test_formula_import.py: keep both identical.
+# Each strength cell reads as the given fraction, or None when it is refused.
+SHARED_STRENGTH_CASES = [
+    ("neat (solid; pre-dil. 10% in DPG)", None),
+    ("neat 10% in DPG", None),
+    ("as supplied 1:10", None),
+    ("1/10/2024", None),
+    ("1:10,5", None),
+    ("1:10 (5%)", None),
+    ("1:10 (10%)", "0.1"),
+    ("1:10 in DPG", "0.1"),
+    ("neat (w/w)", "1"),
+]
+# Each amount cell in a uL column reads as the given number, or None when refused.
+SHARED_AMOUNT_CASES = [
+    ("50 60", None),
+    ("1,5", None),
+    ("1,500", "1500"),
+    ("60 (was 50)", "60"),
+]
+
+
+@pytest.mark.parametrize(("cell", "expected"), SHARED_STRENGTH_CASES)
+def test_shared_strength_cases(cell, expected):
+    ingredients, dilutions, specs, blockers = _one_row(cell)
+    if expected is None:
+        assert dilutions["Rose Oxide"] is None
+        assert "Rose Oxide" not in ingredients
+        assert len(blockers) == 1 and blockers[0]["field"] == "strength"
+        assert f"'{cell}'" in blockers[0]["message"]
+    else:
+        assert blockers == []
+        assert dilutions["Rose Oxide"] == pytest.approx(float(expected))
+
+
+@pytest.mark.parametrize(("amount", "expected"), SHARED_AMOUNT_CASES)
+def test_shared_amount_cases(amount, expected):
+    ingredients, _, _, blockers = _one_row("10% in DPG", amount)
+    if expected is None:
+        assert "Rose Oxide" not in ingredients
+        assert len(blockers) == 1 and blockers[0]["field"] == "amount"
+        assert f"'{amount}'" in blockers[0]["message"]
+    else:
+        assert blockers == []
+        assert ingredients["Rose Oxide"] == float(expected)
+
+
+def _rows(header: str, rows: list[str]):
+    lines = ["# Header Formula", "", "Total concentrate (µL): 1000", "", "## Formula", ""]
+    lines += [header, "|" + "---|" * (header.count("|") - 1)] + rows
+    blockers: list = []
+    _, dilutions, _ = _parse_formula_rows("\n".join(lines) + "\n", blockers)
+    return dilutions, blockers
+
+
+def test_formula_percent_column_does_not_hide_dilution_column():
+    dilutions, blockers = _rows(
+        "| Material | Formula % | Dilution |",
+        ["| Rose Oxide | 10 | 10% in DPG |", "| Hedione | 20 | 1:10 in DPG |"],
+    )
+    assert blockers == []
+    assert dilutions == {"Rose Oxide": pytest.approx(0.1), "Hedione": pytest.approx(0.1)}
+
+
+def test_stock_amount_column_does_not_hide_dilution_column():
+    dilutions, blockers = _rows(
+        "| Material | Amount (uL stock) | Dilution |",
+        ["| Rose Oxide | 100 | 10% in DPG |", "| Hedione | 200 | 1:10 in DPG |"],
+    )
+    assert blockers == []
+    assert dilutions == {"Rose Oxide": pytest.approx(0.1), "Hedione": pytest.approx(0.1)}
+
+
+def test_dilution_column_wins_over_earlier_stock_column():
+    dilutions, blockers = _rows(
+        "| Material | Stock | Dilution | Amount (uL) |",
+        ["| Rose Oxide | DEP lot 3 | 10% in DPG | 100 |"],
+    )
+    assert blockers == []
+    assert dilutions == {"Rose Oxide": pytest.approx(0.1)}

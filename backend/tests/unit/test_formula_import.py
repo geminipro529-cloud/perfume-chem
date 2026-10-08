@@ -456,3 +456,49 @@ def test_placeholder_strength_cells_do_not_warn(cell):
     fraction, basis, warnings = _strength(cell)
     assert fraction is None
     assert warnings == []
+
+
+# --- Shared with tests/test_verify_formula_workflow_cells.py: keep both identical.
+# Each strength cell reads as the given fraction, or None when it is refused.
+SHARED_STRENGTH_CASES = [
+    ("neat (solid; pre-dil. 10% in DPG)", None),
+    ("neat 10% in DPG", None),
+    ("as supplied 1:10", None),
+    ("1/10/2024", None),
+    ("1:10,5", None),
+    ("1:10 (5%)", None),
+    ("1:10 (10%)", "0.1"),
+    ("1:10 in DPG", "0.1"),
+    ("neat (w/w)", "1"),
+]
+# Each amount cell in a uL column reads as the given number, or None when refused.
+SHARED_AMOUNT_CASES = [
+    ("50 60", None),
+    ("1,5", None),
+    ("1,500", "1500"),
+    ("60 (was 50)", "60"),
+]
+
+
+@pytest.mark.parametrize(("cell", "expected"), SHARED_STRENGTH_CASES)
+def test_shared_strength_cases(cell, expected):
+    fraction, _, warnings = _strength(cell)
+    assert fraction == expected
+    if expected is None:
+        assert warnings == [
+            f"Strength '{cell}' for Rose Oxide can't be read; write it like 10% w/w in DPG"
+        ]
+    else:
+        assert warnings == []
+
+
+@pytest.mark.parametrize(("amount", "expected"), SHARED_AMOUNT_CASES)
+def test_shared_amount_cases(amount, expected):
+    result, rows = _analysis_rows(
+        _table("Raw µL", "Dilution", [("Hedione", "neat", amount), ("Iso E Super", "neat", "45")])
+    )
+    if expected is None:
+        assert [r[0] for r in rows] == ["Iso E Super"]
+        assert any("Hedione" in w and f"'{amount}'" in w for w in result.warnings)
+    else:
+        assert rows[0][:3] == ("Hedione", expected, "uL")

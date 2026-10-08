@@ -437,6 +437,23 @@ _BARE_STRENGTH_RE = re.compile(
     re.IGNORECASE | re.DOTALL,
 )
 _AS_SUPPLIED_CELL_RE = re.compile(r"^\s*(?:neat|as\s+supplied)", re.IGNORECASE)
+# A percent or a 1:N / 1/N ratio anywhere in a cell.
+_STRENGTH_VALUE_RE = re.compile(r"\d\s*%|(?<![\d.])1\s*[:/]\s*\d")
+_PERCENT_VALUE_RE = re.compile(r"(\d+(?:[.,]\d+)?)\s*%")
+_STRENGTH_PROBLEM_MESSAGES = {
+    "ambiguous_bare_number": (
+        "Strength '{cell}' for {material} is ambiguous "
+        "(a bare number above 1 may be a percent or a ratio); write 10% w/w in DPG"
+    ),
+    "neat_with_strength": (
+        "Strength '{cell}' for {material} says neat and also gives a strength; "
+        "write the strength of the stock used, e.g. neat or 10% w/w in DPG"
+    ),
+    "ratio_percent_conflict": (
+        "Strength '{cell}' for {material} gives a ratio and a percent that disagree; "
+        "write one, e.g. 10% w/w in DPG"
+    ),
+}
 _VOLUME_UL_PER_UNIT = {"ul": 1.0, "ml": 1000.0}
 _MASS_UNITS = frozenset({"g", "mg", "kg"})
 
@@ -453,7 +470,11 @@ def read_strength_cell(
     the equivalent percent cell. Any other non-blank cell is unreadable: the
     fraction is ``None`` (never neat) and ``problem`` names why.
 
-    A cell starting with ``neat`` or ``as supplied`` reads as plain ``neat``.
+    A cell starting with ``neat`` or ``as supplied`` reads as plain ``neat``,
+    unless it also gives a percent or ratio (``neat (pre-dil. 10% in DPG)``),
+    which is refused (``neat_with_strength``). A ratio cell that also gives a
+    percent reads only when the two agree (``1:10 (10%)``); otherwise it is
+    refused (``ratio_percent_conflict``).
     A bare number is a percent when the column ``header`` contains ``%``;
     otherwise 0 < n <= 1 is a fraction and n > 1 is refused as ambiguous
     (``ambiguous_bare_number``). A bare number with no basis or carrier stays
@@ -462,9 +483,27 @@ def read_strength_cell(
 
     clean = str(cell or "").strip().replace("**", "").replace("`", "")
     if _AS_SUPPLIED_CELL_RE.match(clean):
+        if _STRENGTH_VALUE_RE.search(clean):
+            # "neat (pre-dil. 10% in DPG)" says two strengths; read neither.
+            spec = parse_stock_specification(clean).as_dict()
+            spec["fraction"] = None
+            spec["readable"] = False
+            return None, spec, "neat_with_strength"
         stock = parse_stock_specification("neat")
         return stock.fraction, stock.as_dict(), None
     stock = parse_stock_specification(clean)
+    ratio = _RATIO_STRENGTH_RE.match(clean)
+    percent = _PERCENT_VALUE_RE.search(clean)
+    if ratio is not None and percent is not None and not math.isclose(
+        100.0 / float(ratio.group(1)) if float(ratio.group(1)) else math.inf,
+        float(percent.group(1).replace(",", ".")),
+        rel_tol=1e-9,
+    ):
+        # "1:10 (5%)": the ratio and the percent disagree; read neither.
+        spec = stock.as_dict()
+        spec["fraction"] = None
+        spec["readable"] = False
+        return None, spec, "ratio_percent_conflict"
     bare = None if stock.declared else _BARE_STRENGTH_RE.match(clean)
     if bare is not None:
         number = float(bare.group(1))
@@ -489,7 +528,6 @@ def read_strength_cell(
             stock = replace(stock, fraction_basis="unspecified", declared=False)
         return stock.fraction, stock.as_dict(), None
     if not stock.declared:
-        ratio = _RATIO_STRENGTH_RE.match(clean)
         if ratio is not None and float(ratio.group(1)) >= 1.0:
             denominator = float(ratio.group(1))
             equivalent = f"{100.0 / denominator!r}%{ratio.group(2)}"
@@ -603,6 +641,13 @@ def _parse_formula_rows(
             if any(token in header for token in tokens):
                 return idx
         return None
+
+    def _is_amount_header(header: str) -> bool:
+        return bool(
+            "amount" in header
+            or re.search(r"(?<![a-z])(?:ul|ml|mg|g)(?![a-z])", header)
+            or ("formula" in header and "%" in header)
+        )
 
     def _parse_amount(v: str) -> float | None:
         clean = v.strip().replace("**", "").replace("`", "")
@@ -841,7 +886,6 @@ def _parse_formula_rows(
             continue
 
         name_idx = _find_col(current_headers, "ingredient", "material", "component")
-        dilution_idx = _find_col(current_headers, "dilution", "form", "stock")
         amount_ul_idx = None
         amount_ml_idx = None
         percent_idx = None
@@ -866,10 +910,29 @@ def _parse_formula_rows(
             continue
         if amount_ul_idx is None and amount_ml_idx is None and percent_idx is None:
             continue
-        if dilution_idx in {amount_ul_idx, amount_ml_idx, percent_idx}:
-            # "form" also matches a "Formula (uL)" amount header; an amount
-            # column is never the strength column.
-            dilution_idx = None
+        # An amount column ("Formula %", "Amount (uL stock)") is never the
+        # strength column; a "dilution" header wins over other strength words.
+        # ("conc" is not one: "% concentrate" / "% of conc" are share columns.)
+        amount_cols = {amount_ul_idx, amount_ml_idx, percent_idx}
+        strength_cols = [
+            i
+            for i, header in enumerate(current_headers)
+            if i not in amount_cols and not _is_amount_header(header)
+        ]
+        dilution_idx = next(
+            (i for i in strength_cols if "dilution" in current_headers[i]),
+            next(
+                (
+                    i
+                    for i in strength_cols
+                    if any(
+                        token in current_headers[i]
+                        for token in ("form", "stock", "strength")
+                    )
+                ),
+                None,
+            ),
+        )
 
         if name_idx >= len(parts):
             continue
@@ -942,15 +1005,12 @@ def _parse_formula_rows(
                         "field": "strength",
                         "cell": cell_text,
                         "reason": strength_problem,
-                        "message": (
-                            f"Strength '{cell_text}' for {ingredient} is ambiguous "
-                            "(a bare number above 1 may be a percent or a ratio); "
-                            "write 10% w/w in DPG"
-                            if strength_problem == "ambiguous_bare_number"
-                            else f"Strength '{cell_text}' for {ingredient} can't be read; "
+                        "message": _STRENGTH_PROBLEM_MESSAGES.get(
+                            strength_problem,
+                            "Strength '{cell}' for {material} can't be read; "
                             "write it as a percent with basis and carrier, "
-                            "e.g. 10% w/w in DPG"
-                        ),
+                            "e.g. 10% w/w in DPG",
+                        ).format(cell=cell_text, material=ingredient),
                     }
                 )
             continue
