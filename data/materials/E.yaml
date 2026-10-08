@@ -1361,7 +1361,7 @@
 - canonical_name: Exaltolide
   aliases:
   - exaltolide
-  cas:
+  cas: '106-02-5'
   smiles:
   inchikey:
   mw_g_mol: 240.4
@@ -1369,9 +1369,8 @@
   logp: 5.8
   functional_groups: []
   chirality:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 0.015, corrected to 0.0001)
-  vp_25c_pa: 0.0001
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.027
+  vp_source: RIFM_cited_literature  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.00015
@@ -1389,10 +1388,11 @@
   families:
   - musks
   character:
-  notes:
+  notes: 'VP: the Vuilleumier 1995 figure (0.0002 torr = 0.027 Pa) has no temperature stated in the source dossier. ChemicalBook gives 0.085 Pa at 25 C, about 3x higher; the two sources disagree and the lower RIFM-cited value is used. Previous gate value 0.0001 Pa had no cited source.'
   provenance:
+    cas: 'The Good Scents Company rw1004211 (omega-pentadecalactone): "CAS Number: 106-02-5", https://www.thegoodscentscompany.com/data/rw1004211.html'
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, CAS 106-02-5, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-02-5.pdf; "0.027 (0.0002 torr, Vuilleumier 1995)" as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08); 0.0002 torr x 133.322 Pa/torr = 0.0267 Pa. Measurement temperature not given in the dossier; filed under 25 C as the dossier does'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

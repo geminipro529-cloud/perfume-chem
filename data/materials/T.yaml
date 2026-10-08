@@ -3090,9 +3090,8 @@
   logp: 5.7
   functional_groups: []
   chirality:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.0001)
-  vp_25c_pa: 0.0001
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.07
+  vp_source: supplier  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -3119,8 +3118,9 @@
   families:
   - musks
   character:
-  notes:
+  notes: 'VP from a supplier data sheet that states no temperature; filed under 25 C without a temperature basis. Previous gate value 0.0001 Pa had no cited source.'
   provenance:
+    vp_25c_pa: 'Hekserij Tonalid data sheet 1Doc-23018 (2025-08), https://www.hekserij.nl/wp-content/uploads/2026/05/1Doc-23018-Tonalid-2025-08.pdf: "0.07" Pa, temperature not stated, as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds

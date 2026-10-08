@@ -100,8 +100,10 @@ ODT_DATA: dict[str, dict] = {
         "odt_eth": 1.0,
         "char": "musk, sweet, clean",
     },
+    # UNSOURCED class estimate: no published air ODT for Habanolide itself. 2.8 ppb is a
+    # macrocyclic-lactone class figure (see ODT_VERIFICATION); do not promote to verified.
     "habanolide": {
-        "vfy": "PEER_EST",
+        "vfy": "UNVERIFIED",
         "odt_air": 2.8,
         "odt_eth": 0.2,
         "char": "musk, white, skin",
@@ -188,6 +190,18 @@ ODT_DATA: dict[str, dict] = {
         "odt_air": 7.11,
         "odt_eth": None,
         "char": "citrus",
+    },
+    # Armanino et al. (2020) Angew. Chem. Int. Ed., doi:10.1002/anie.202005719 — commercial
+    # Helvetolide 1.7 ng/L air = 0.146 ppb at 25 °C (MW 284.43). The 1.1 ng/L figure is the
+    # (+)-enantiomer only and is not used. Read from a search excerpt of the figure label.
+    "helvetolide": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Armanino et al. (2020) Angew. Chem. Int. Ed., doi:10.1002/anie.202005719 — 1.7 ng/L (0.146 ppb), commercial Helvetolide"
+        ],
+        "odt_air": 0.146,
+        "odt_eth": None,
+        "char": "fruity pear musk",
     },
     "eugenol": {
         "vfy": "PEER_SINGLE",
@@ -685,7 +699,8 @@ ODT_DATA: dict[str, dict] = {
         "odt_eth": 0.5,
         "char": "clean woody-musk, projective",
     },
-    # UNVERIFIED — no peer-reviewed air-phase ODT found
+    # UNVERIFIED — no peer-reviewed air-phase ODT found. 3.0 ppb is a macrocyclic-lactone
+    # surrogate (Exaltolide/Habanolide), not a Zenolide measurement; do not promote.
     "zenolide": {"odt_air": 3.0, "odt_eth": 1.0, "char": "clean citrus-musk"},
     "tonalide": {
         "vfy": "PEER_SINGLE",
@@ -693,15 +708,20 @@ ODT_DATA: dict[str, dict] = {
         "odt_eth": 1.0,
     },
     # odt_eth backported from material_properties.json 2026-05-30
+    # UNSOURCED: no published air ODT for musk ketone itself; 2.0 ppb is unverified.
     "musk ketone": {
         "odt_air": 2.0,
         "odt_eth": 0.4000,
         "char": "powdery nitro-musk",
     },  # VERIFIED: PubChem CID=6669, MW=294.30, XLogP=3.7, 2026-05-30
+    # Macrolide is the same molecule as Exaltolide (pentadecanolide, CAS 106-02-5), so it
+    # takes the Exaltolide air ODT and source (was 2.0 ppb, unsourced). odt_eth left as is.
     "macrolide": {
-        "odt_air": 2.0,
+        "vfy": "PEER_SINGLE",
+        "sources": ["van Gemert (2011)"],
+        "odt_air": 3.2,
         "odt_eth": 1.5,
-        "char": "soft macrocyclic musk — Exaltolide/pentadecanolide ODT published 3.2 ppb",
+        "char": "soft macrocyclic musk — same molecule as Exaltolide (pentadecanolide)",
     },
     "nirvanolide": {
         "odt_air": 1.5,
@@ -1500,6 +1520,12 @@ ODT_VERIFICATION: dict[str, dict] = {
             "Elsharif & Buettner (2018) Flavour Science, doi:10.3217/978-3-85125-593-5-54 — 57.1 ng/L (7.11 ppb), GC-O"
         ],
     },
+    "helvetolide": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Armanino et al. (2020) Angew. Chem. Int. Ed., doi:10.1002/anie.202005719 — 1.7 ng/L (0.146 ppb), commercial Helvetolide; read from a search excerpt"
+        ],
+    },
     "damascenone": {
         "vfy": "PEER_SINGLE",
         "sources": ["Motooka et al. (2015) J. Oleo Sci. 64:503 — 0.004 ppb in air"],
@@ -1599,11 +1625,11 @@ ODT_VERIFICATION: dict[str, dict] = {
         "note": "Tier C — structural surrogate (orcinol ester class)",
     },
     "zenolide": {
-        "vfy": "PEER_EST",
+        "vfy": "UNVERIFIED",
         "sources": [
             "Macrocyclic musk structural analogue (15-membered ring); Exaltolide 3.2 ppb, Habanolide 2.8 ppb surrogates"
         ],
-        "note": "Tier C — macrocyclic lactone surrogate",
+        "note": "Tier C — macrocyclic lactone surrogate; no source for Zenolide itself, not verified",
     },
     "vetival": {
         "vfy": "PEER_EST",
@@ -2243,11 +2269,11 @@ ODT_VERIFICATION: dict[str, dict] = {
         "note": "Tier A — character-odorant weighted threshold (nootkatone+thiol dominant)",
     },
     "habanolide": {
-        "vfy": "PEER_EST",
+        "vfy": "UNVERIFIED",
         "sources": [
             "Kraft & Swift (2005) — macrocyclic musk class ~2.1-4 ppb; ScenTree Exaltolide 3.2 ppb as surrogate"
         ],
-        "note": "Tier B — macrocyclic lactone class estimate",
+        "note": "Tier B — macrocyclic lactone class estimate; no source for Habanolide itself, not verified",
     },
     "hedione hc": {
         "vfy": "UNVERIFIED",
@@ -2425,8 +2451,8 @@ ODT_VERIFICATION: dict[str, dict] = {
     "limonene": {"vfy": "PEER_SINGLE", "sources": ["Nagata (2003)"]},
     "macrolide": {
         "vfy": "PEER_SINGLE",
-        "sources": ["ScenTree Exaltolide published threshold — pentadecanolide 3.2 ppb air"],
-        "note": "Tier A published value (Exaltolide = pentadecanolide = macrolide)",
+        "sources": ["van Gemert (2011)"],
+        "note": "Exaltolide's value and source (Exaltolide = pentadecanolide = macrolide, CAS 106-02-5)",
     },
     "maltol": {
         "vfy": "UNVERIFIED",
@@ -3526,7 +3552,6 @@ _VERIFIED_ODT = {
     "ethylene brassylate": 0.97,
     "galaxolide": 0.31,
     "geraniol": 0.04,
-    "habanolide": 2.8,
     "hedione": 0.05,
     "helional": 0.1,
     "iso e super": 0.05,
@@ -3566,6 +3591,7 @@ _VERIFIED_ODT = {
     "peonile": 5.0,
     "jessemal": 5.0,
     # Tier C: SURROGATE
+    "habanolide": 2.8,  # macrocyclic-class estimate, no Habanolide-specific source
     "vetiver eo": 5.0,
     "vetiver eo (india)": 5.0,
     "cardamom eo": 3.0,
@@ -4006,12 +4032,6 @@ _INVENTORY_ODT_UNAVAILABLE_20261007 = {'ambrette seed absolute': {'odt_air': Non
                             'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
                             'note': 'Inventory receipt establishes product and stock ownership '
                                     'only; no compatible measured threshold is supplied.'},
- 'helvetolide': {'odt_air': None,
-                 'odt_eth': None,
-                 'vfy': 'UNAVAILABLE',
-                 'sources': ['data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json'],
-                 'note': 'Inventory receipt establishes product and stock ownership only; no '
-                         'compatible measured threshold is supplied.'},
  'gamma octalactone': {'odt_air': None,
                        'odt_eth': None,
                        'vfy': 'UNAVAILABLE',

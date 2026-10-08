@@ -116,7 +116,7 @@
   inchikey: null
   mw_g_mol: 258.4
   density_25c_g_ml: null
-  logp: 4.8
+  logp: 5.9
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.0727
@@ -151,7 +151,7 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'AICIS assessment, log Kow "5.9" measured, as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08); previous repo value 4.8 (engine.skin_interaction, PubChem computed)'
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal

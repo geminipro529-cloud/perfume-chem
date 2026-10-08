@@ -130,8 +130,12 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # 2026-10-08: cited air ODTs for octanal/nonanal (Cometto-Muniz & Abraham
     # 2010: aldehyde c8 5.7 -> 0.17, aldehyde c9 8.5 -> 0.53, plus keys octanal,
     # nonanal, aldehyde c-8 octanal, aldehyde c-9 nonanal) and butyl butyrate
-    # (Nagata 2003, 4.8 ppb). Reverting those seven gives 35b7d603….
-    assert digest == "d4bcca51f3e1fbbf20ddea340c6c62bc561115108b748bed93dd50ed4fa5670c"
+    # (Nagata 2003, 4.8 ppb); reverting those seven gives 35b7d603….
+    # Musk fix 2026-10-08: Macrolide odt_air 2.0 -> 3.2 (Exaltolide's value, same
+    # molecule) and Helvetolide 0.146 (Armanino 2020) added; with only the musk
+    # change on top of 35b7d603… the digest is 7bca0ddc…, with only the aldehyde
+    # and ester change it is d4bcca51….
+    assert digest == "667ba337275fab8703291a2ea7cd49414e8c1d21f9241f6992ebfa7b7916378e"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

@@ -75,18 +75,16 @@
 - canonical_name: Habanolide
   aliases:
   - habanolide
-  cas: null
+  cas: '34902-57-3'
   smiles: null
   inchikey: null
   mw_g_mol: 238.4
   density_25c_g_ml: null
-  logp: 4.5
+  logp: 5.45
   functional_groups: []
   chirality: null
-  # dsm-firmenich reports 0.00003 Pa at 20 C. This 25 C value is an
-  # explicit temperature-adjusted estimate, not a direct measurement.
-  vp_25c_pa: 0.000053
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.076
+  vp_source: RIFM_measured  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0002
@@ -111,15 +109,16 @@
   families:
   - musks
   character: null
-  notes: null
+  notes: 'VP 25 C set to the RIFM 2004 measured value. Other figures kept for the record, not used: 0.039 Pa at 20 C and 0.16 Pa at 25 C from an older study (RIFM 1995), both quoted in the same RIFM assessment; the producer figure 0.00003 Pa at 20 C (previous gate value 0.000053 Pa was a temperature-adjusted estimate from it) looks like an EPI estimate (2.68e-5 mm Hg) printed as Pa. Air ODT in engine/odor_thresholds.py (2.8 ppb) is an unsourced macrocyclic-class estimate, not a Habanolide measurement.'
   provenance:
+    cas: 'The Good Scents Company rw1016021 (musk decenone): "CAS Number: 34902-57-3", https://www.thegoodscentscompany.com/data/rw1016021.html'
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: dsm-firmenich official 20 C value with explicit 25 C estimate
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, CAS 34902-57-3, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/34902-57-3.pdf; "0.076" Pa at 25 C, measured (RIFM 2004), as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'Producer figure "5.45" (supplier value, method not stated), as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08); previous repo value 4.5 (engine.skin_interaction)'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
@@ -626,10 +625,10 @@
     user_in_inventory: inventory.txt
 - canonical_name: Helvetolide
   aliases: []
-  cas: null
+  cas: '141773-73-1'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 284.43
   density_25c_g_ml: null
   logp: null
   functional_groups: []
@@ -640,7 +639,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.146  # Armanino et al. (2020) Angew. Chem. Int. Ed., doi:10.1002/anie.202005719: 1.7 ng/L air, commercial Helvetolide
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -659,8 +658,12 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'VP 25 C left null: the only supplier VP is 0.02 Pa at 20 C (Firmenich marketing sheet, measured or estimated not stated); RIFM 2023 gives EPI estimates 0.0436 Pa at 25 C and 0.0227 Pa at 20 C. log P left null: two measured values disagree, 4.68 (RIFM 1994a) and 5.46 (Firmenich). Density not filled from this source set: Vigon SDS 503096 gives SG 0.94 at 25 C. Air ODT 1.7 ng/L is for the commercial product; 1.1 ng/L applies to the (+)-enantiomer only and is not used.'
   provenance:
+    cas: 'PerfumersWorld 3XD17215 supplier SDS and RIFM assessment Food Chem. Toxicol. 182 (2023) 114253, doi:10.1016/j.fct.2023.114253: CAS 141773-73-1, as quoted in /mnt/project-files/material-data-firecrawl/BATCH1_FEMME_20261008.md (Helvetolide section, read 2026-10-08)'
+    mw_g_mol: 'PerfumersWorld 3XD17215 supplier SDS: "MW 284.43, C17H32O3", as quoted in /mnt/project-files/material-data-firecrawl/BATCH1_FEMME_20261008.md (Helvetolide section, read 2026-10-08)'
+    odt_air_ppb: 'Armanino, Charpentier, Flachsmann, Goeke, Liniger, Kraft, Angew. Chem. Int. Ed. 2020, doi:10.1002/anie.202005719: figure label "Helvetolide ... th 1.7 ng/L air" (read from a search excerpt; full page not readable), as quoted in /mnt/project-files/material-data-firecrawl/BATCH1_FEMME_20261008.md (Helvetolide section, read 2026-10-08); 1.7 ng/L x 24.465 / 284.43 = 0.146 ppb at 25 C'
+    vp_note: 'Firmenich marketing sheet, https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/HELVETOLIDE_947650.pdf: "0.02 Pa @20 C"; 20 C value, so recorded in notes and not in vp_25c_pa'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Hercolyn D
   aliases: []
