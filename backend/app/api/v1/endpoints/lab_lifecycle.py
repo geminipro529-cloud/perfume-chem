@@ -6,6 +6,14 @@ from collections.abc import Awaitable, Callable
 from decimal import Decimal
 from typing import Any, TypeAlias, cast
 
+from engine.inventory_baskets import (
+    BasketError,
+    basket_list,
+    confirmed_baskets,
+    load_basket_seed,
+    record_basket_choice,
+    stock_basket_fields,
+)
 from engine.inventory_completions import (
     InventoryCompletionConflictError,
     InventoryCompletionError,
@@ -53,6 +61,7 @@ from app.schemas.lab_lifecycle import (
     RegulatoryAssessmentResponse,
     SensoryResultCreate,
     SensoryResultResponse,
+    StockBasketChoiceCreate,
 )
 from app.services.formula_import import FormulaAnalysisLibrary
 from app.services.lab_claims import (
@@ -160,15 +169,21 @@ def _inventory_decimal(value: float) -> str:
 
 def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
     stocks = []
+    confirmed = confirmed_baskets()
+    seed = load_basket_seed()
     for stock in materialized.stocks:
         design_ready = effective_design_ready(stock)
         missing_fields = list(inventory_completion_requirements(stock))
+        normalized_identity = personal_inventory_identity_key(stock)
         stocks.append(
             {
                 "stock_id": stock.stock_id,
                 "material": stock.name,
                 "identity_name": stock.identity_name or stock.name,
-                "normalized_identity": personal_inventory_identity_key(stock),
+                "normalized_identity": normalized_identity,
+                **stock_basket_fields(
+                    normalized_identity, confirmed=confirmed, seed=seed
+                ),
                 "stock_label": stock.raw_name or stock.name,
                 "fraction_decimal": _inventory_decimal(stock.dilution),
                 "fraction_percent_decimal": _inventory_decimal(stock.dilution * 100),
@@ -241,6 +256,7 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
             "requirements": len(materialized.requirements),
         },
         "stocks": stocks,
+        "baskets": basket_list(),
         "inventory_modified": False,
         "compounding_authority": False,
     }
@@ -315,6 +331,48 @@ async def complete_workbench_inventory(
             status_code=status.HTTP_400_BAD_REQUEST,
             content={"error": {"code": error.code, "message": str(error)}},
         )
+
+
+@router.post("/workbench/current-inventory/basket", response_model=None)
+async def set_workbench_inventory_basket(
+    request: StockBasketChoiceCreate,
+) -> ResponsePayload:
+    """Record which basket Kenny keeps a material in (Lab page display only)."""
+
+    stock = next(
+        (
+            item
+            for item in materialize_personal_inventory().stocks
+            if personal_inventory_identity_key(item) == request.normalized_identity
+        ),
+        None,
+    )
+    if stock is None:
+        return JSONResponse(
+            status_code=422,
+            content={
+                "error": {
+                    "code": "BASKET_IDENTITY_NOT_IN_INVENTORY",
+                    "message": "normalized_identity is not in the current inventory",
+                }
+            },
+        )
+    try:
+        event = record_basket_choice(
+            normalized_identity=request.normalized_identity,
+            identity_name=stock.identity_name or stock.name,
+            basket=request.basket,
+        )
+    except BasketError as error:
+        return JSONResponse(
+            status_code=422,
+            content={"error": {"code": error.code, "message": str(error)}},
+        )
+    return {
+        "normalized_identity": event["normalized_identity"],
+        "basket": event["basket"],
+        "basket_status": "confirmed",
+    }
 
 
 @router.post("/workbench/current-inventory/add", response_model=None)
