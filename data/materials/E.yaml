@@ -1372,6 +1372,8 @@
 - canonical_name: Exaltolide
   aliases:
   - exaltolide
+  - Pentalide
+  - pentalide
   cas: '106-02-5'
   smiles:
   inchikey:
@@ -1399,7 +1401,7 @@
   families:
   - musks
   character:
-  notes: 'VP: the Vuilleumier 1995 figure (0.0002 torr = 0.027 Pa) has no temperature stated in the source dossier. ChemicalBook gives 0.085 Pa at 25 C, about 3x higher; the two sources disagree and the lower RIFM-cited value is used. Previous gate value 0.0001 Pa had no cited source.'
+  notes: 'Identity: the owner''s bottle listed as Exaltolide (10% in DPG) in inventory.txt is Pentalide (Kenny, 2026-10-08), the same molecule (omega-pentadecalactone, CAS 106-02-5). Macrolide (Symrise) is also the same molecule and keeps its own depleted entry. VP: the Vuilleumier 1995 figure (0.0002 torr = 0.027 Pa) has no temperature stated in the source dossier. ChemicalBook gives 0.085 Pa at 25 C, about 3x higher; the two sources disagree and the lower RIFM-cited value is used. Previous gate value 0.0001 Pa had no cited source.'
   provenance:
     cas: 'The Good Scents Company rw1004211 (omega-pentadecalactone): "CAS Number: 106-02-5", https://www.thegoodscentscompany.com/data/rw1004211.html'
     mw_g_mol: engine.diffusion_model
@@ -1411,6 +1413,7 @@
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    aliases.pentalide: 'Owner identification, Kenny 2026-10-08 ("My exaltolide is pentatolide"); The Good Scents Company rw1004211 (omega-pentadecalactone, CAS 106-02-5) lists supplier products "PENTALIDE" (Indukern), "611272006 Pentalide" (Soda Aromatic), "100421 EXALTOLIDE" (Azelis), "600356 Macrolide" (Symrise), https://www.thegoodscentscompany.com/data/rw1004211.html'
     user_stock_dilution: inventory.txt
 - canonical_name: Exaltolide Pentadecanolide
   aliases: []
