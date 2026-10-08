@@ -381,8 +381,42 @@ def test_real_table_loads_with_seeded_contents():
     assert tbl.lookup("MOC").cat4_limit_pct == 0.01
     assert tbl.lookup("Methyl 2-Octynoate").cat4_limit_pct == 0.047
     assert tbl.lookup("Hedione HC").status == "no_standard"
-    assert {g.id for g in tbl.group_rules} == {"oakmoss_treemoss_total", "mhc_moc_total"}
+    assert {g.id for g in tbl.group_rules} == {
+        "oakmoss_treemoss_total", "mhc_moc_total", "methyl_ionones_total", "rose_ketones_total",
+        "phototoxic_citrus_ratio",
+    }
     assert load_ifra_table(DEFAULT_TABLE_PATH) == tbl
+
+
+@pytest.mark.parametrize(
+    ("name", "status", "limit"),
+    [
+        ("Treemoss Absolute", "restricted", 0.1),
+        ("Coumarin", "restricted", 1.5),
+        ("Cinnamaldehyde", "restricted", 0.25),
+        ("Hydroxycitronellal", "restricted", 2.1),
+        ("Bergamot EO", "restricted", 0.4),
+        ("Hedione", "no_standard", None),  # the old 40 % was an internal ceiling, not IFRA
+        ("Evernyl", "no_standard", None),  # the old 0.1 % had no IFRA source
+        ("Diethyl Phthalate", "no_standard", None),
+        ("Bergamot FCF Oil Sicilian", "specification", None),
+        ("Birch Tar Rectified", "specification", None),  # only crude birch tar is prohibited
+        ("Lilial", "prohibited", None),
+        ("Lyral", "prohibited", None),
+        ("Tonka Bean Absolute", "natural_no_own_standard", None),
+    ],
+)
+def test_real_table_pins_reviewed_decisions(name, status, limit):
+    material = load_ifra_table().lookup(name)
+    assert (material.status, material.cat4_limit_pct) == (status, limit)
+
+
+def test_real_table_eu_bans_name_their_authority_and_source():
+    tbl = load_ifra_table()
+    for name in ("Lilial", "Lyral"):
+        material = tbl.lookup(name)
+        assert material.authority.startswith("EU Cosmetics Regulation"), name
+        assert material.source_url.startswith("https://"), name
 
 
 def test_real_table_every_restricted_limit_appears_in_its_standard_quote():

@@ -5,10 +5,515 @@
   "basis": "percent_w_w_finished_product",
   "library_url": "https://ifrafragrance.org/standards-library",
   "verified_on": "2026-10-08",
+  "provenance": "Each Category 4 row is quoted from the standard's PDF at its url. 23 key values were re-read independently on 2026-10-08 with no differences. Materials not listed here are unchecked, not compliant.",
   "standards": {
+    "IFRA_STD_002": {
+      "name": "Acetylated Vetiver oil",
+      "cas": [
+        "84082-84-8",
+        "68917-34-0",
+        "73246-97-6",
+        "62563-80-8"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.9,
+      "cat4_quote": "Category 4 0.90 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_002.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_005": {
+      "name": "alpha-Amyl cinnamic aldehyde",
+      "cas": [
+        "122-40-7"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 7.0,
+      "cat4_quote": "Category 4 7.0 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_005.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "If more than one endpoint is of relevance, the maximum acceptable concentrations for each product category",
+        "Such maximum acceptable concentrations correspond to the lowest level obtained per category."
+      ]
+    },
+    "IFRA_STD_006": {
+      "name": "Anisyl alcohol",
+      "cas": [
+        "105-13-5",
+        "1331-81-3"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.21,
+      "cat4_quote": "Category 4 0.21 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_006.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_007": {
+      "name": "Benzaldehyde",
+      "cas": [
+        "100-52-7"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.25,
+      "cat4_quote": "Category 4 0.25 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_007.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "Such maximum acceptable concentrations correspond to the lowest level obtained per category."
+      ]
+    },
+    "IFRA_STD_008": {
+      "name": "Benzyl alcohol",
+      "cas": [
+        "100-51-6"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 2.5,
+      "cat4_quote": "Category 4 2.5 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_008.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_009": {
+      "name": "Benzyl benzoate",
+      "cas": [
+        "120-51-4"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 4.8,
+      "cat4_quote": "Category 4 4.8 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_009.pdf",
+      "notes": [
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well"
+      ]
+    },
+    "IFRA_STD_010": {
+      "name": "Benzyl cinnamate",
+      "cas": [
+        "103-41-3"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 2.0,
+      "cat4_quote": "Category 4 2.0 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_010.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_011": {
+      "name": "Benzyl salicylate",
+      "cas": [
+        "118-58-1"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 7.3,
+      "cat4_quote": "Category 4 7.3 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_011.pdf",
+      "notes": [
+        "If more than one endpoint is of relevance, the maximum acceptable concentrations for each product category are derived",
+        "from comparing maximum permitted level per endpoint consideration (e.g. dermal sensitization and/or systemic toxicity).",
+        "Such maximum acceptable concentrations correspond to the lowest level obtained per category."
+      ]
+    },
+    "IFRA_STD_014": {
+      "name": "p-tert-Butyldihydrocinnamaldehyde",
+      "cas": [
+        "18127-01-0"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.47,
+      "cat4_quote": "Category 4 0.47 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_014.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_015": {
+      "name": "p-tert-Butyl-α-methylhydrocinnamic aldehyde (p-BMHCA)",
+      "cas": [
+        "80-54-6"
+      ],
+      "kind": "restriction_prohibition",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 1.4,
+      "cat4_quote": "Category 4 1.4 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_015.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "If more than one endpoint is of relevance, the recommended concentration levels for each product category is derived from comparing maximum permitted level per endpoint consideration."
+      ]
+    },
+    "IFRA_STD_017": {
+      "name": "Cinnamic alcohol",
+      "cas": [
+        "104-54-1"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 1.2,
+      "cat4_quote": "Category 4 1.2 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_017.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_018": {
+      "name": "Cinnamic aldehyde",
+      "cas": [
+        "104-55-2"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.25,
+      "cat4_quote": "Category 4 0.25 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_018.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_021": {
+      "name": "Citral",
+      "cas": [
+        "5392-40-5",
+        "141-27-5",
+        "106-26-3"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.6,
+      "cat4_quote": "Category 4 0.60 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_021.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;"
+      ]
+    },
+    "IFRA_STD_022": {
+      "name": "Citronellol",
+      "cas": [
+        "106-22-9",
+        "1117-61-9",
+        "26489-01-0",
+        "6812-78-8",
+        "141-25-3",
+        "7540-51-4"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 12.0,
+      "cat4_quote": "Category 4 12 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_022.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify these fragrance ingredients should be considered in scope as well.",
+        "Maximum acceptable concentrations are based on a comprehensive safety assessment, considering various endpoints.",
+        "If more than one endpoint is of relevance, the maximum acceptable concentrations for each product category",
+        "are derived from comparing maximum permitted level per endpoint consideration",
+        "Such maximum acceptable concentrations correspond to the lowest level obtained per category."
+      ]
+    },
+    "IFRA_STD_023": {
+      "name": "Coumarin",
+      "cas": [
+        "91-64-5"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 1.5,
+      "cat4_quote": "Category 4 1.5 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_023.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_025": {
+      "name": "Cyclamen aldehyde",
+      "cas": [
+        "103-95-7"
+      ],
+      "kind": "restriction_specification",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.95,
+      "cat4_quote": "Category 4 0.95 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_025.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "FRAGRANCE INGREDIENT SPECIFICATION: Cyclamen aldehyde should not contain more than 1.5% of Cyclamen alcohol.",
+        "In addition, they recommend to use Cyclamen aldehyde according to the specification above mentioned."
+      ]
+    },
+    "IFRA_STD_026": {
+      "name": "Cyclopentadecanolide",
+      "cas": [
+        "106-02-5"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 2.4,
+      "cat4_quote": "Category 4 2.4 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_026.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_028": {
+      "name": "6,7-Dihydro-1,1,2,3,3-pentamethyl-4(5H)-indanone (DPMI)",
+      "cas": [
+        "33704-61-9"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 3.8,
+      "cat4_quote": "Category 4 3.8 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_028.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_030": {
+      "name": "Dimethylcyclohex-3-ene-1-carbaldehyde (mixed isomers)",
+      "cas": [
+        "68737-61-1 (mixed isomers) 68039-49-6 68039-48-5 27939-60-2 67801-65-4 36635-35-5 68084-52-6 35145-02-9"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 2.5,
+      "cat4_quote": "Category 4 2.5 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_030.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify these fragrance ingredients should be considered in scope as well.",
+        "The above limits apply to Dimethylcyclohexen-3-ene-1-carbaldehyde (mixed isomers) used individually or in combination.",
+        "The sum of concentrations of Dimethylcyclohexen-3-ene-1-carbaldehyde isomers should not exceed",
+        "the maximum concentration levels established by this Standard."
+      ]
+    },
+    "IFRA_STD_031": {
+      "name": "1-(5,5-Dimethyl-1-cyclohexen-1-yl)pent-4-en-1-one",
+      "cas": [
+        "56973-85-4"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 1.1,
+      "cat4_quote": "Category 4 1.1 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_031.pdf",
+      "notes": [
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_035": {
+      "name": "Eugenol",
+      "cas": [
+        "97-53-0"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 2.5,
+      "cat4_quote": "Category 4 2.5 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_035.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_036": {
+      "name": "Farnesol",
+      "cas": [
+        "4602-84-0"
+      ],
+      "kind": "restriction_specification",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 1.2,
+      "cat4_quote": "Category 4 1.2 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_036.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "If more than one endpoint is of relevance, the maximum acceptable concentrations for each product category are derived from comparing maximum permitted level per endpoint consideration",
+        "Such maximum acceptable concentrations correspond to the lowest level obtained per category.",
+        "Farnesol should only be used as a fragrance ingredient if it contains a minimum of 96% of",
+        "farnesol isomers as determined by GLC."
+      ]
+    },
+    "IFRA_STD_037": {
+      "name": "Geraniol",
+      "cas": [
+        "106-24-1"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 4.7,
+      "cat4_quote": "Category 4 4.7 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_037.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_040": {
+      "name": "alpha-Hexyl cinnamic aldehyde",
+      "cas": [
+        "101-86-0"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 9.9,
+      "cat4_quote": "Category 4 9.9 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_040.pdf",
+      "notes": []
+    },
+    "IFRA_STD_042": {
+      "name": "Hexyl salicylate",
+      "cas": [
+        "6259-76-3"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 6.5,
+      "cat4_quote": "Category 4 6.5 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_042.pdf",
+      "notes": [
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_043": {
+      "name": "Hydroxycitronellal",
+      "cas": [
+        "107-75-5"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 2.1,
+      "cat4_quote": "Category 4 2.1 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_043.pdf",
+      "notes": [
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_044": {
+      "name": "3 and 4-(4-Hydroxy-4-methylpentyl)-3-cyclohexene-1-carboxaldehyde (HMPCC)",
+      "cas": [
+        "31906-04-4",
+        "51414-25-6"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.2,
+      "cat4_quote": "Category 4 0.20 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_044.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_048": {
+      "name": "Isoeugenol",
+      "cas": [
+        "97-54-1",
+        "5932-68-3"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.11,
+      "cat4_quote": "Category 4 0.11 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_048.pdf",
+      "notes": [
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "If more than one endpoint is of relevance, the maximum acceptable concentrations for each product category are derived from comparing maximum permitted level per endpoint consideration."
+      ]
+    },
+    "IFRA_STD_049": {
+      "name": "Jasmine absolute (grandiflorum)",
+      "cas": [
+        "8022-96-6",
+        "8024-43-9",
+        "90045-94-6",
+        "84776-64-7"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.6,
+      "cat4_quote": "Category 4 0.60 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_049.pdf",
+      "notes": [
+        "should be considered in scope as well"
+      ]
+    },
+    "IFRA_STD_050": {
+      "name": "Jasmine absolute (sambac)",
+      "cas": [
+        "91770-14-8",
+        "1034798-23-6"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 3.8,
+      "cat4_quote": "Category 4 3.8 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_050.pdf",
+      "notes": [
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_054": {
+      "name": "p-Methoxybenzaldehyde",
+      "cas": [
+        "123-11-5"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 1.4,
+      "cat4_quote": "Category 4 1.4 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_054.pdf",
+      "notes": [
+        "Such maximum acceptable concentrations correspond to the lowest level obtained per category."
+      ]
+    },
+    "IFRA_STD_059": {
+      "name": "alpha-Methyl-1,3-benzodioxole-5-propionaldehyde (MMDHCA)",
+      "cas": [
+        "1205-17-0"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 2.6,
+      "cat4_quote": "Category 4 2.6 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_059.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
     "IFRA_STD_062": {
       "name": "Methyl heptine carbonate",
-      "cas": ["111-12-6"],
+      "cas": [
+        "111-12-6"
+      ],
       "kind": "restriction",
       "amendment": "2020 (Amendment 49)",
       "cat4_limit_pct": 0.047,
@@ -18,75 +523,2889 @@
         "When used in the same fragrance compound within a specific QRA category, the sum total of Methyl heptine carbonate (MHC, CAS number 111-12-6) and Methyl octine carbonate (MOC, CAS number 111-80-8) contributions must not exceed the maximum permitted level for MHC."
       ]
     },
+    "IFRA_STD_063": {
+      "name": "Methyl ionone, mixed isomers",
+      "cas": [
+        "1335-46-2",
+        "127-42-4",
+        "127-43-5",
+        "127-51-5",
+        "7779-30-8",
+        "79-89-0",
+        "1335-94-0"
+      ],
+      "kind": "restriction_specification",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 30.0,
+      "cat4_quote": "Category 4 30 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_063.pdf",
+      "notes": [
+        "The above limits apply to Methyl ionone isomers used individually or in combination.",
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify these fragrance ingredients should be considered in scope as well.",
+        "A level of up to 2% of Pseudo methyl ionones as an impurity in Methyl ionones is accepted.",
+        "Pseudo methyl ionones (CAS numbers 26651-96-7, 72968-25-3, 1117-41-5) should not be used as fragrance ingredient as such."
+      ]
+    },
     "IFRA_STD_064": {
       "name": "Methyl octine carbonate",
-      "cas": ["111-80-8"],
+      "cas": [
+        "111-80-8"
+      ],
       "kind": "restriction",
       "amendment": "2020 (Amendment 49)",
       "cat4_limit_pct": 0.01,
       "cat4_quote": "Category 4 0.010 %",
       "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_064.pdf",
-      "notes": []
+      "notes": [
+        "When used in the same fragrance compound within a specific QRA category, the sum total of and Methyl",
+        "heptine carbonate (MHC, CAS number 111-12-6) and Methyl octine carbonate (MOC, CAS number 111-80-8)",
+        "contributions must not exceed the maximum permitted level for MHC.",
+        "At the same time, the contribution from MOC should always respect the maximum levels permitted as listed in the table above."
+      ]
     },
     "IFRA_STD_067": {
       "name": "Oakmoss extracts",
-      "cas": ["90028-68-5", "68917-10-2", "9000-50-4"],
+      "cas": [
+        "90028-68-5",
+        "68917-10-2",
+        "9000-50-4"
+      ],
       "kind": "restriction_specification",
       "amendment": "2020 (Amendment 49)",
       "cat4_limit_pct": 0.1,
       "cat4_quote": "Category 4 0.10 %",
       "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_067.pdf",
       "notes": [
-        "Oakmoss extracts must not contain added Treemoss.",
-        "levels of Atranol and Chloroatranol should each be below 100 ppm in Oakmoss extracts."
+        "In the presence of Treemoss extracts, the level of Oakmoss in the respective category has to be reduced accordingly",
+        "such that the total amount of both extracts does not exceed the maximum permitted level in each category",
+        "If the same fragrance mixture is intended to be used in more than one IFRA Category, then the most restrictive limitation",
+        "the restrictions in the Standards are directly linked to the presence of Atranol and Chloroatranol in the finished products",
+        "Oakmoss extracts must not contain added Treemoss, which is a source of resin acids.",
+        "Traces of resin acids may be carried over to commercial qualities of Oakmoss in the manufacturing process.",
+        "These traces must not exceed 0.1% (1000 ppm) of Dehydroabietic acid (DHA) in the extract.",
+        "The concentration of resin acids in Oakmoss can be measured with an High Performance Liquid Chromatography (HPLC)",
+        "Reverse Phase – Spectrofluorometry method.",
+        "levels of Atranol and Chloroatranol should each be below 100 ppm in Oakmoss extracts.",
+        "materials must not only comply with IFRA Standards but must also be recognized as safe as a flavoring ingredient"
+      ]
+    },
+    "IFRA_STD_068": {
+      "name": "1-(1,2,3,4,5,6,7,8 Octahydro-2,3,8,8-tetramethyl-2-naphthalenyl) ethanone (OTNE)",
+      "cas": [
+        "54464-57-2",
+        "54464-59-4",
+        "68155-66-8",
+        "68155-67-9"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 20.0,
+      "cat4_quote": "Category 4 20 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_068.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "Such maximum acceptable concentrations correspond to the lowest level obtained per category."
+      ]
+    },
+    "IFRA_STD_070": {
+      "name": "Opoponax",
+      "cas": [
+        "8021-36-1",
+        "9000-78-6",
+        "93384-32-8"
+      ],
+      "kind": "restriction_specification",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.43,
+      "cat4_quote": "Category 4 0.43 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_070.pdf",
+      "notes": [
+        "If used alone or in combination with rectified Cade oil, rectified Birch tar oils or rectified Styrax oil, the total concentration of both of the markers should not exceed 1 ppb in the final product.",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "Opoponax oil can be obtained from solvent extraction or pyrolysis.",
+        "Benzopyrene and 1,2-Benzanthracene are to be used as markers for PAH."
+      ]
+    },
+    "IFRA_STD_071": {
+      "name": "Peru balsam",
+      "cas": [
+        "8007-00-9"
+      ],
+      "kind": "restriction_prohibition",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.41,
+      "cat4_quote": "Category 4 0.41 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_071.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "The restriction only applies to Peru balsam extracts and distillates (Peru balsam oil, absolute and anhydrol).",
+        "FRAGRANCE INGREDIENT PROHIBITION: Peru balsam crude should not be used as a fragrance ingredient for any finished product application."
+      ]
+    },
+    "IFRA_STD_077": {
+      "name": "Rose ketones",
+      "cas": [
+        "23696-85-7",
+        "23726-93-4",
+        "59739-63-8",
+        "43052-87-5",
+        "24720-09-0",
+        "23726-94-5",
+        "23726-92-3",
+        "23726-91-2",
+        "35044-68-9",
+        "57378-68-4",
+        "71048-82-3",
+        "35087-49-1",
+        "39872-57-6",
+        "70266-48-7",
+        "33673-71-1",
+        "87064-19-5"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.043,
+      "cat4_quote": "Category 4 0.043 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_077.pdf",
+      "notes": [
+        "The above limits apply to Rose Ketones used individually or in combination.",
+        "The sum of concentrations of Rose ketones isomers should not exceed the maximum concentration levels established by this Standard.",
+        "The scope of the Standard covers but is not limited to the list of CAS numbers enumerated above (including all their geometric isomers)."
+      ]
+    },
+    "IFRA_STD_078": {
+      "name": "Styrax",
+      "cas": [
+        "8046-19-3",
+        "8024-01-9",
+        "94891-27-7",
+        "94891-28-8",
+        "101227-15-0"
+      ],
+      "kind": "prohibition_restriction_specification",
+      "amendment": "2020 (Amendment 49) 1/3",
+      "cat4_limit_pct": 0.64,
+      "cat4_quote": "Category 4 0.64 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_078.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "If used alone or in combination with rectified Cade oil, rectified Birch tar oils or rectified Opoponax oil, the total concentration of both of the markers should not exceed 1 ppb in the final product.",
+        "Crude gums of Liquidambar styraficula L. var. macrophylla or Liquidambar orientalis Mill. should not be used as fragrance ingredients for any finished product application.",
+        "Only extracts or distillates (resinoids, absolutes and oils), prepared from exudations of Liquidambar styraciflua L. var. macrophylla or Liquidambar orientalis Mill., can be used.",
+        "Styrax resin; Styrax oil; Styrax oil, rectified; Styrax oil, pyrogenated, distilled",
+        "Styrax oil can be obtained from solvent extraction or pyrolysis.",
+        "Styrax oil obtained through pyrolysis shall be rectified according to Good Manufacturing Practices (GMP) and the content of Polycyclic Aromatic Hydrocarbons (PAH) resulting from their use shall respect the following requirement:",
+        "Benzopyrene and 1,2-Benzanthracene are to be used as markers for PAH."
       ]
     },
     "IFRA_STD_080": {
       "name": "Treemoss extracts",
-      "cas": ["90028-67-4", "68648-41-9", "68917-40-8"],
+      "cas": [
+        "90028-67-4",
+        "68648-41-9",
+        "68917-40-8"
+      ],
       "kind": "restriction_specification",
       "amendment": "2020 (Amendment 49)",
       "cat4_limit_pct": 0.1,
       "cat4_quote": "Category 4 0.10 %",
       "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_080.pdf",
+      "notes": [
+        "For Treemoss and Oakmoss extracts, the restrictions in the Standards are directly linked to the presence of Atranol and Chloroatranol in the finished products.",
+        "In the presence of Oakmoss extracts, the level of Treemoss in the respective category has to be reduced accordingly, such that the total amount of both extracts does not exceed the maximum permitted level in each category as listed in the table above.",
+        "If the same fragrance mixture is intended to be used in more than one IFRA Category, then the most restrictive limitation (based on foreseen use concentrations and maximum permitted level) will apply.",
+        "Treemoss extracts shall not contain more than 0.8% of Dehydroabietic acid (DHA) as a marker of 2% of total resin acids.",
+        "levels of Atranol and Chloroatranol should each be below 100 ppm in Treemoss extracts."
+      ]
+    },
+    "IFRA_STD_084": {
+      "name": "Ylang ylang extracts",
+      "cas": [
+        "8006-81-3",
+        "68606-83-7",
+        "83863-30-3"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.73,
+      "cat4_quote": "Category 4 0.73 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_084.pdf",
+      "notes": [
+        "any other CAS number(s) used to identify these fragrance ingredients should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_087": {
+      "name": "Bergamot oil expressed",
+      "cas": [
+        "8007-75-8",
+        "89957-91-5"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.4,
+      "cat4_quote": "Category 4 0.40 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_087.pdf",
+      "notes": [
+        "If combinations of furocoumarin-containing phototoxic fragrance ingredients (extracts) are used, the use levels must be reduced accordingly.",
+        "The sum of the concentrations of all furocoumarin-containing phototoxic fragrance ingredients (extracts), expressed in % of their recommended upper concentration level in the consumer product shall not exceed 100.",
+        "Combination effects of phototoxic ingredients are only taken into consideration for the furocoumarincontaining fragrance ingredients (extracts) listed in the IFRA Standard of Citrus oils and other furocoumarins containing essential oils.",
+        "For qualities of the expressed oil in which the less volatile components have been concentrated by partial or total removal of the terpene fraction, this limit should be reduced in proportion to the degree of concentration."
+      ]
+    },
+    "IFRA_STD_088": {
+      "name": "Bitter orange peel oil expressed",
+      "cas": [
+        "68916-04-1",
+        "72968-50-4"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 1.25,
+      "cat4_quote": "Category 4 1.25 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_088.pdf",
+      "notes": [
+        "Combination effects of phototoxic ingredients are only taken into consideration for the furocoumarincontaining fragrance ingredients (extracts) listed in the IFRA Standard of Citrus oils and other furocoumarins containing essential oils.",
+        "If combinations of furocoumarin-containing phototoxic fragrance ingredients (extracts) are used, the use levels must be reduced accordingly.",
+        "The sum of the concentrations of all furocoumarin-containing phototoxic fragrance ingredients (extracts), expressed in % of their recommended upper concentration level in the consumer product shall not exceed 100.",
+        "For qualities of the expressed oil in which the less volatile components have been concentrated by partial or total removal of the terpene fraction, this limit should be reduced in proportion to the degree of concentration."
+      ]
+    },
+    "IFRA_STD_089": {
+      "name": "Citrus oils and other furocoumarins containing essential oils",
+      "cas": [],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": null,
+      "cat4_quote": null,
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_089.pdf",
+      "notes": [
+        "Where the Bergapten (5-Methoxypsoralen, (5-MOP)) content of all relevant oils present in a compound has been determined it is recommended that for applications on areas of skin exposed to UV-light",
+        "should not exceed 0.0015% (15 ppm)",
+        "This upper concentration level only applies to applications on skin exposed to UV-light",
+        "the limits specified in the guidelines on individual oils should apply",
+        "the additive effect has to be taken into consideration and the concentration levels have to be reduced accordingly",
+        "The sum of the concentrations of all furocoumarin-containing phototoxic fragrance ingredients (extracts), expressed in % of their recommended upper concentration level in the finished consumer product, shall not exceed 100.",
+        "These levels are not high enough to require special restrictions if used alone",
+        "but if used in combination with one or the other furocoumarin-containing phototoxic fragrance ingredients (extracts)",
+        "attention should be paid that the total level of Bergapten in the consumer product does not exceed 15 ppm",
+        "the total level of Bergapten in the consumer products should not exceed 0.0015% (15 ppm).",
+        "excluding rinse-off products and incidental skin contact products"
+      ]
+    },
+    "IFRA_STD_091": {
+      "name": "Grapefruit oil expressed",
+      "cas": [
+        "8016-20-4",
+        "90045-43-5"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 4.0,
+      "cat4_quote": "Category 4 4.0 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_091.pdf",
+      "notes": [
+        "If the level of furocoumarins is unknown, the restriction level specified in this IFRA Standard applies."
+      ]
+    },
+    "IFRA_STD_092": {
+      "name": "Lemon oil cold pressed",
+      "cas": [
+        "8008-56-8",
+        "84929-31-7"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 2.0,
+      "cat4_quote": "Category 4 2.0 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_092.pdf",
+      "notes": [
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "If the level of furocoumarins is unknown, the restriction level specified in this IFRA Standard applies.",
+        "this limit should be reduced in proportion to the degree of concentration."
+      ]
+    },
+    "IFRA_STD_093": {
+      "name": "Lime oil expressed",
+      "cas": [
+        "8008-26-2",
+        "90063-52-8"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.7,
+      "cat4_quote": "Category 4 0.70 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_093.pdf",
+      "notes": [
+        "\"If combinations of furocoumarin-containing phototoxic fragrance ingredients (extracts) are used,\" the use levels must be reduced accordingly."
+      ]
+    },
+    "IFRA_STD_095": {
+      "name": "Methyl beta-naphthyl ketone",
+      "cas": [
+        "93-08-3"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.2,
+      "cat4_quote": "Category 4 0.20 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_095.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_097": {
+      "name": "Tagetes oil and absolute",
+      "cas": [
+        "90131-43-4",
+        "8016-84-0",
+        "91722-29-1",
+        "8016-84-0",
+        "91770-75-1"
+      ],
+      "kind": "prohibition_restriction_specification",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.01,
+      "cat4_quote": "Category 4 0.010 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_097.pdf",
+      "notes": [
+        "The content of alpha-Terthienyl (Terthiophene, CAS number 1081-34-1) in Tagetes patula and Tagetes minuta oils and absolutes must not exceed 0.35 %."
+      ]
+    },
+    "IFRA_STD_114": {
+      "name": "Birch wood pyrolysate",
+      "cas": [
+        "8001-88-5",
+        "68917-50-0",
+        "84012-15-7",
+        "85251-66-7",
+        "85940-29-0",
+        "91745-85-6"
+      ],
+      "kind": "prohibition_specification",
+      "amendment": "Amendment 47 Birch wood pyrolysate 2013 (Amendment 47)",
+      "cat4_limit_pct": null,
+      "cat4_quote": null,
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_114.pdf",
+      "notes": [
+        "If used alone or in combination with rectified Cade oil, rectified Styrax oil or rectified Opoponax oil, the total concentration of both of the markers should not exceed 1 ppb in the final product.",
+        "Benzopyrene and 1,2-Benzanthracene are to be used as markers for PAH.",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "Limit content of polynuclear aromatic hydrocarbons (PAH) resulting from the use of rectified oils according to Good Manufacturing Practice.",
+        "Only rectified (purified) Birch tar oils being in compliance with the limitations for polynuclear aromatic hydrocarbons (PAH) established by this IFRA Standard should be used."
+      ]
+    },
+    "IFRA_STD_119": {
+      "name": "Cade oil",
+      "cas": [
+        "8013-10-3",
+        "90046-02-9"
+      ],
+      "kind": "prohibition_specification",
+      "amendment": "Amendment 47 Cade oil 2013 (Amendment 47)",
+      "cat4_limit_pct": null,
+      "cat4_quote": null,
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_119.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "Benzopyrene and 1,2-Benzanthracene are to be used as markers for PAH.",
+        "If used alone or in combination with rectified Birch tar oils, rectified Opoponax oil or rectified Styrax oil, the total concentration of both of the markers should not exceed 1 ppb in the final product.",
+        "Specification for the distillates: Juniper tar oil",
+        "Only rectified (purified) cade oils being in compliance with the limitations for polynuclear aromatic hydrocarbons (PAH) established by this IFRA Standard should be used.",
+        "Limit content of polynuclear aromatic hydrocarbons (PAH) resulting from the use of rectified oils according to Good Manufacturing Practice."
+      ]
+    },
+    "IFRA_STD_124": {
+      "name": "Costus root oil, absolute and concrete",
+      "cas": [
+        "8023-88-9",
+        "90106-55-1"
+      ],
+      "kind": "prohibition",
+      "amendment": "2006-01, Amendment 40",
+      "cat4_limit_pct": null,
+      "cat4_quote": null,
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_124.pdf",
+      "notes": []
+    },
+    "IFRA_STD_160": {
+      "name": "6-Methylcoumarin",
+      "cas": [
+        "92-48-8"
+      ],
+      "kind": "prohibition",
+      "amendment": "2006-01, Amendment 40",
+      "cat4_limit_pct": null,
+      "cat4_quote": null,
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_160.pdf",
+      "notes": []
+    },
+    "IFRA_STD_168": {
+      "name": "Musk ambrette",
+      "cas": [
+        "83-66-9"
+      ],
+      "kind": "prohibition",
+      "amendment": "2006-01, Amendment 40",
+      "cat4_limit_pct": null,
+      "cat4_quote": null,
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_168.pdf",
+      "notes": []
+    },
+    "IFRA_STD_170": {
+      "name": "Musk xylene",
+      "cas": [
+        "81-15-2"
+      ],
+      "kind": "prohibition",
+      "amendment": "2009-01, Amendment 44",
+      "cat4_limit_pct": null,
+      "cat4_quote": null,
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_170.pdf",
+      "notes": []
+    },
+    "IFRA_STD_171": {
+      "name": "Nitrobenzene",
+      "cas": [
+        "98-95-3"
+      ],
+      "kind": "prohibition",
+      "amendment": "2006-01, Amendment 40",
+      "cat4_limit_pct": null,
+      "cat4_quote": null,
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_171.pdf",
+      "notes": []
+    },
+    "IFRA_STD_184": {
+      "name": "Pinacea derivatives",
+      "cas": [],
+      "kind": "specification",
+      "amendment": "Amendment 28 Pinacea derivatives 1994 (Amendment 28) 1/2",
+      "cat4_limit_pct": null,
+      "cat4_quote": null,
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_184.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify these fragrance ingredients should be considered in scope as well.",
+        "should only be used when the level of peroxides is kept to the lowest practicable level, for instance by adding antioxidants at the time of production.",
+        "Such products should have a peroxide value of less than 10 millimoles peroxide per liter,"
+      ]
+    },
+    "IFRA_STD_186": {
+      "name": "Limonene",
+      "cas": [
+        "138-86-3",
+        "7705-14-8",
+        "5989-27-5",
+        "5989-54-8"
+      ],
+      "kind": "specification",
+      "amendment": "Amendment 29 Limonene 1995 (Amendment 29)",
+      "cat4_limit_pct": null,
+      "cat4_quote": null,
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_186.pdf",
+      "notes": [
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "Oxidation products of Limonene, especially hydroperoxides, have been demonstrated to be potent sensitizers.",
+        "d-, l- and dl-Limonene and natural products containing substantial amounts of it, should only be used when the level of (hydro)peroxides is kept to the lowest practical level, for instance by adding antioxidants at the time of production.",
+        "The addition of 0.1% BHT or α-Tocopherol for example has shown great efficiency.",
+        "Such products should have a peroxide value of less than 20 millimoles per liter, determined according to the IFRA analytical method for the determination of the peroxide value,"
+      ]
+    },
+    "IFRA_STD_187": {
+      "name": "Linalool",
+      "cas": [
+        "78-70-6",
+        "126-90-9",
+        "126-91-0"
+      ],
+      "kind": "specification",
+      "amendment": "2004 (Amendment 38)",
+      "cat4_limit_pct": null,
+      "cat4_quote": null,
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_187.pdf",
+      "notes": [
+        "d-, l- and dl-Linalool and natural products containing substantial amounts of it, should only be used when the level of (hydro)peroxides is kept to the lowest practical level, for instance by adding antioxidants at the time of production.",
+        "Oxidation products of Linalool, especially hydroperoxides, have been demonstrated to be potent sensitizers.",
+        "The addition of 0.1% BHT or α-Tocopherol for example has shown great efficiency.",
+        "Such products should have a peroxide value of less than 20 millimoles per liter, determined according to the IFRA analytical method for the determination of the peroxide value,",
+        "materials must not only comply with IFRA Standards but must also be recognized as safe as a flavoring ingredient as defined by the IOFI Code of Practice"
+      ]
+    },
+    "IFRA_STD_188": {
+      "name": "Allyl esters",
+      "cas": [],
+      "kind": "specification",
+      "amendment": "Amendment 44 Allyl esters 2009 (Amendment 44)",
+      "cat4_limit_pct": null,
+      "cat4_quote": null,
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_188.pdf",
+      "notes": [
+        "Allyl esters should only be used when the level of free Allylalcohol in the ester is less than 0.1%."
+      ]
+    },
+    "IFRA_STD_189": {
+      "name": "Musk ketone",
+      "cas": [
+        "81-14-1"
+      ],
+      "kind": "specification",
+      "amendment": "Amendment 45 Musk ketone 2010 (Amendment 45) 1/2",
+      "cat4_limit_pct": null,
+      "cat4_quote": null,
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_189.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "FRAGRANCE INGREDIENT SPECIFICATION: Musk xylene (CAS number 81-15-2), which has been prohibited for use in fragrance compounds for environmental reasons (vPvB), can be present in Musk ketone as an impurity.",
+        "Musk ketone should only be used if it contains less than 0.1% of Musk xylene."
+      ]
+    },
+    "IFRA_STD_197": {
+      "name": "Cedrene",
+      "cas": [
+        "11028-42-5",
+        "469-61-4",
+        "546-28-1"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 1.5,
+      "cat4_quote": "Category 4 1.5 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_197.pdf",
+      "notes": [
+        "The natural contribution of Cedrene is determined by the sum of the natural contributions of each of its isomers."
+      ]
+    },
+    "IFRA_STD_206": {
+      "name": "Citronellal",
+      "cas": [
+        "106-23-0",
+        "5949-05-3"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.49,
+      "cat4_quote": "Category 4 0.49 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_206.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "If more than one endpoint is of relevance, the maximum acceptable concentrations for each product category are derived from comparing maximum permitted level per endpoint consideration.",
+        "Such maximum acceptable concentrations correspond to the lowest level obtained per category."
+      ]
+    },
+    "IFRA_STD_208": {
+      "name": "cis,trans-4-(Isopropyl)cyclohexanemethanol",
+      "cas": [
+        "5502-75-0",
+        "13828-37-0",
+        "13674-19-6"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 4.7,
+      "cat4_quote": "Category 4 4.7 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_208.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "Reaction mass of trans-4-(isopropyl)cyclohexanemethanol and cis-4-(isopropyl)cyclohexanemethanol (synonym, as returned)",
+        "Such maximum acceptable concentrations correspond to the lowest level obtained per category."
+      ]
+    },
+    "IFRA_STD_212": {
+      "name": "5-(2,2,3-Trimethyl-3-cyclopentenyl)-3-methylpentan-2-ol",
+      "cas": [
+        "65113-99-7"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 1.2,
+      "cat4_quote": "Category 4 1.2 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_212.pdf",
+      "notes": [
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_217": {
+      "name": "4-(4-Hydroxyphenyl)butan-2-one",
+      "cas": [
+        "5471-51-2"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 1.0,
+      "cat4_quote": "Category 4 1.0 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_217.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_221": {
+      "name": "1-(2,2,6-Trimethylcyclohexyl)-3-hexanol",
+      "cas": [
+        "70788-30-6"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 1.3,
+      "cat4_quote": "Category 4 1.3 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_221.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_232": {
+      "name": "3,4,5,6,6-Pentamethylhept-3-en-2-one",
+      "cas": [
+        "81786-75-6",
+        "81786-73-4",
+        "86115-11-9",
+        "81786-74-5"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 1.9,
+      "cat4_quote": "Category 4 1.9 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_232.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_236": {
+      "name": "Isopentylcyclohexanone",
+      "cas": [
+        "16587-71-6"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 0.15,
+      "cat4_quote": "Category 4 0.15 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_236.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_238": {
+      "name": "Allyl 3-cyclohexylpropionate",
+      "cas": [
+        "2705-87-5"
+      ],
+      "kind": "restriction_specification",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 0.47,
+      "cat4_quote": "Category 4 0.47 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_238.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "Allyl esters should only be used when the level of free Allylalcohol in the ester is less than 0.1%.",
+        "Please also refer to the IFRA Specification Standard Allyl esters."
+      ]
+    },
+    "IFRA_STD_241": {
+      "name": "alpha-Cyclohexylidene benzeneacetonitrile",
+      "cas": [
+        "10461-98-0"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 0.52,
+      "cat4_quote": "Category 4 0.52 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_241.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_246": {
+      "name": "cis-3-Hexenyl methyl carbonate",
+      "cas": [
+        "67633-96-9"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 0.56,
+      "cat4_quote": "Category 4 0.56 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_246.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_248": {
+      "name": "Citronellyl acetate",
+      "cas": [
+        "150-84-5",
+        "67601-05-2",
+        "141-11-7"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 2.7,
+      "cat4_quote": "Category 4 2.7 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_248.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_252": {
+      "name": "(Ethoxymethoxy)-cyclododecane",
+      "cas": [
+        "58567-11-6"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 1.5,
+      "cat4_quote": "Category 4 1.5 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_252.pdf",
       "notes": []
     }
   },
   "materials": {
+    "2-Acetyl Pyrazine": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "22047-25-2"
+      ]
+    },
+    "6-Methylcoumarin": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_160",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "92-48-8"
+      ]
+    },
+    "Adoxal": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "141-13-9"
+      ]
+    },
+    "Aldehyde C10": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Aldehyde C10 neat",
+        "Decanal"
+      ],
+      "note": null,
+      "cas": [
+        "112-31-2"
+      ]
+    },
+    "Aldehyde C11": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Aldehyde C11 neat",
+        "Undecanal"
+      ],
+      "note": null,
+      "cas": [
+        "112-44-7"
+      ]
+    },
+    "Aldehyde C11 Undecylenic": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "10-Undecenal"
+      ],
+      "note": null,
+      "cas": [
+        "112-45-8"
+      ]
+    },
+    "Aldehyde C12 MNA": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Aldehyde C12 MNA neat",
+        "Methyl Nonyl Acetaldehyde"
+      ],
+      "note": null,
+      "cas": [
+        "110-41-8"
+      ]
+    },
+    "Aldehyde C16 EMPG": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Ethyl Methylphenylglycidate"
+      ],
+      "note": null,
+      "cas": [
+        "77-83-8"
+      ]
+    },
+    "Allyl Amyl Glycolate": {
+      "status": "specification",
+      "standard": "IFRA_STD_188",
+      "aliases": [
+        "Allyl Amyl Glycolate (AAG)",
+        "AAG"
+      ],
+      "note": "Free allyl alcohol in the ester must be below 0.1 %.",
+      "cas": [
+        "67634-00-8"
+      ]
+    },
+    "Allyl Cyclohexyl Propionate": {
+      "status": "restricted",
+      "standard": "IFRA_STD_238",
+      "aliases": [
+        "Allyl 3-Cyclohexylpropionate"
+      ],
+      "note": "Also an allyl ester: IFRA STD_188 requires free allyl alcohol below 0.1 %.",
+      "cas": [
+        "2705-87-5"
+      ]
+    },
+    "Allyl Ionone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "79-78-7"
+      ]
+    },
+    "Alpha Damascone": {
+      "status": "restricted",
+      "standard": "IFRA_STD_077",
+      "aliases": [
+        "alpha-Damascone"
+      ],
+      "note": null,
+      "cas": [
+        "24720-09-0"
+      ]
+    },
+    "Alpha Ionone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "127-41-3"
+      ]
+    },
+    "Alpha Irone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "79-69-6"
+      ]
+    },
+    "Alpha Isomethyl Ionone": {
+      "status": "restricted",
+      "standard": "IFRA_STD_063",
+      "aliases": [
+        "Alpha-Isomethyl Ionone"
+      ],
+      "note": null,
+      "cas": [
+        "127-51-5"
+      ]
+    },
+    "Amberwood F": {
+      "status": "restricted",
+      "standard": "IFRA_STD_252",
+      "aliases": [],
+      "note": "Identity rests on one supplier page (Boisambrene type, CAS 58567-11-6) whose chemical name conflicts with that CAS; the IFRA limit for that CAS is applied.",
+      "cas": [
+        "58567-11-6"
+      ],
+      "source_url": "https://scentspiracy.com/fragrance-ingredients/p/amberwood"
+    },
+    "Ambrettolide": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "123-69-3",
+        "28645-51-4"
+      ]
+    },
+    "Ambrofix Crystals": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Ambrofix"
+      ],
+      "note": null,
+      "cas": [
+        "6790-58-5"
+      ]
+    },
+    "Ambrox Super": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Ambroxan",
+        "Ambrox"
+      ],
+      "note": null,
+      "cas": [
+        "6790-58-5"
+      ]
+    },
+    "Amyl Cinnamic Aldehyde": {
+      "status": "restricted",
+      "standard": "IFRA_STD_005",
+      "aliases": [
+        "Amyl Cinnamic Aldehyde (ACA)",
+        "ACA",
+        "Amyl Cinnamal",
+        "alpha-Amyl Cinnamic Aldehyde"
+      ],
+      "note": null,
+      "cas": [
+        "122-40-7"
+      ]
+    },
+    "Anisaldehyde": {
+      "status": "restricted",
+      "standard": "IFRA_STD_054",
+      "aliases": [
+        "p-Anisaldehyde",
+        "Anisic Aldehyde",
+        "Aubepine",
+        "p-Methoxybenzaldehyde"
+      ],
+      "note": null,
+      "cas": [
+        "123-11-5"
+      ]
+    },
+    "Anise EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Anisyl Alcohol": {
+      "status": "restricted",
+      "standard": "IFRA_STD_006",
+      "aliases": [
+        "Anise Alcohol"
+      ],
+      "note": null,
+      "cas": [
+        "105-13-5"
+      ]
+    },
+    "Apritone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "68133-79-9"
+      ]
+    },
+    "Bacdanol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "28219-61-6"
+      ]
+    },
+    "Benzaldehyde": {
+      "status": "restricted",
+      "standard": "IFRA_STD_007",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "100-52-7"
+      ]
+    },
+    "Benzoin Resinoid": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Benzyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "140-11-4"
+      ]
+    },
+    "Benzyl Alcohol": {
+      "status": "restricted",
+      "standard": "IFRA_STD_008",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "100-51-6"
+      ]
+    },
+    "Benzyl Benzoate": {
+      "status": "restricted",
+      "standard": "IFRA_STD_009",
+      "aliases": [],
+      "note": "Counts wherever it is present, including as a stock's carrier.",
+      "cas": [
+        "120-51-4"
+      ]
+    },
+    "Benzyl Cinnamate": {
+      "status": "restricted",
+      "standard": "IFRA_STD_010",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "103-41-3"
+      ]
+    },
+    "Benzyl Salicylate": {
+      "status": "restricted",
+      "standard": "IFRA_STD_011",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "118-58-1"
+      ]
+    },
+    "Bergamot EO": {
+      "status": "restricted",
+      "standard": "IFRA_STD_087",
+      "aliases": [
+        "Bergamot Oil",
+        "Bergamot Oil Expressed"
+      ],
+      "note": "Expressed bergamot that is not furocoumarin-free."
+    },
+    "Bergamot FCF Oil Sicilian": {
+      "status": "specification",
+      "standard": "IFRA_STD_089",
+      "aliases": [
+        "Bergamot FCF",
+        "Bergamot FCF Sicilian",
+        "Bergamot FCF Oil"
+      ],
+      "note": "Furocoumarin-free grade. STD_087 says its 0.40 % limit applies when the furocoumarin level is unknown, so keep the supplier certificate. Total bergapten in the finished product must stay at or below 0.0015 % (STD_089)."
+    },
+    "Beta Damascone": {
+      "status": "restricted",
+      "standard": "IFRA_STD_077",
+      "aliases": [
+        "Damascone Beta",
+        "beta-Damascone"
+      ],
+      "note": null,
+      "cas": [
+        "23726-91-2"
+      ]
+    },
+    "Beta Ionone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "beta-Ionone"
+      ],
+      "note": null,
+      "cas": [
+        "14901-07-6"
+      ]
+    },
+    "Birch Tar Rectified": {
+      "status": "specification",
+      "standard": "IFRA_STD_114",
+      "aliases": [
+        "Birch Tar",
+        "Birch Tar Oil Rectified"
+      ],
+      "note": "Only rectified (PAH-limited) birch tar oil may be used; inventory.txt records PerfumersWorld's rectified grade."
+    },
+    "Black Pepper EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Blackcurrant Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Blood Orange Oil Sicilian": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [
+        "Blood Orange Sicilian"
+      ],
+      "note": "Sweet orange (Citrus sinensis); no IFRA standard of its own."
+    },
+    "Blue Chamomile EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Bourgeonal": {
+      "status": "restricted",
+      "standard": "IFRA_STD_014",
+      "aliases": [
+        "p-tert-Butyldihydrocinnamaldehyde"
+      ],
+      "note": null,
+      "cas": [
+        "18127-01-0"
+      ]
+    },
+    "Cabreuva EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Cade Oil Rectified": {
+      "status": "specification",
+      "standard": "IFRA_STD_119",
+      "aliases": [
+        "Cade Oil"
+      ],
+      "note": "Only rectified cade oil may be used."
+    },
+    "Calone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "28940-11-6"
+      ]
+    },
+    "Caraway Seed EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Cardamom EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Carrot Seed EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Caryophyllene Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "32214-91-8"
+      ]
+    },
+    "Cashmeran": {
+      "status": "restricted",
+      "standard": "IFRA_STD_028",
+      "aliases": [
+        "DPMI"
+      ],
+      "note": null,
+      "cas": [
+        "33704-61-9"
+      ]
+    },
+    "Cedarwood EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Species not recorded; cedarwoods from Juniperus or Cupressus contain cedrene (STD_197, 1.5 %)."
+    },
+    "Cedarwood EO (China; species unspecified)": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Contains cedrene, which STD_197 limits to 1.5 % counting natural sources."
+    },
+    "Cedarwood Himalayan EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Cedrus is a Pinaceae genus: STD_184 asks for a peroxide value below 10 mmol/L."
+    },
+    "Cedarwood Virginia": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [
+        "Cedarwood Virginia EO"
+      ],
+      "note": "Contains cedrene, which STD_197 limits to 1.5 % counting natural sources."
+    },
+    "Cedramber": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "19870-74-7",
+        "67874-81-1"
+      ]
+    },
+    "Cedrat FCF Sicilian": {
+      "status": "specification",
+      "standard": "IFRA_STD_089",
+      "aliases": [
+        "Cedrat FCF"
+      ],
+      "note": "Furocoumarin-free citron oil. Total bergapten in the finished product must stay at or below 0.0015 % (STD_089)."
+    },
+    "Cedrene": {
+      "status": "restricted",
+      "standard": "IFRA_STD_197",
+      "aliases": [
+        "alpha-Cedrene"
+      ],
+      "note": null,
+      "cas": [
+        "11028-42-5"
+      ]
+    },
+    "Champaca Flower EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Cinnamaldehyde": {
+      "status": "restricted",
+      "standard": "IFRA_STD_018",
+      "aliases": [
+        "Cinnamal",
+        "Cinnamic Aldehyde"
+      ],
+      "note": null,
+      "cas": [
+        "104-55-2"
+      ]
+    },
+    "Cinnamon Bark EO (Telvada)": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Rich in cinnamal (STD_018, 0.25 %) and contains eugenol (STD_035)."
+    },
+    "Cinnamyl Alcohol": {
+      "status": "restricted",
+      "standard": "IFRA_STD_017",
+      "aliases": [
+        "Cinnamic Alcohol"
+      ],
+      "note": null,
+      "cas": [
+        "104-54-1"
+      ]
+    },
+    "cis-3-Hexenol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Cis-3-Hexenol"
+      ],
+      "note": null,
+      "cas": [
+        "928-96-1"
+      ]
+    },
+    "Cis-3-Hexenyl Salicylate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "65405-77-8"
+      ]
+    },
+    "cis-Jasmone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Cis Jasmone"
+      ],
+      "note": null,
+      "cas": [
+        "488-10-8"
+      ]
+    },
+    "Citral": {
+      "status": "restricted",
+      "standard": "IFRA_STD_021",
+      "aliases": [
+        "Citral Natural"
+      ],
+      "note": null,
+      "cas": [
+        "5392-40-5"
+      ]
+    },
+    "Citronellal": {
+      "status": "restricted",
+      "standard": "IFRA_STD_206",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "106-23-0"
+      ]
+    },
+    "Citronellol": {
+      "status": "restricted",
+      "standard": "IFRA_STD_022",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "106-22-9"
+      ]
+    },
+    "Citronellyl Acetate": {
+      "status": "restricted",
+      "standard": "IFRA_STD_248",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "150-84-5"
+      ]
+    },
+    "Clary Sage EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Cocoa CO2 Extract": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Coffee Absolute Grasse": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Coriander Essential Oil": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Costus Root Oil": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_124",
+      "aliases": [
+        "Costus Root Absolute",
+        "Costus Root Concrete",
+        "Saussurea Costus Oil"
+      ],
+      "note": "IFF's Costus Olifac is a replacement base, not costus root oil."
+    },
+    "Coumarin": {
+      "status": "restricted",
+      "standard": "IFRA_STD_023",
+      "aliases": [
+        "Coumarin Powder"
+      ],
+      "note": null,
+      "cas": [
+        "91-64-5"
+      ]
+    },
+    "Cyclamen Aldehyde": {
+      "status": "restricted",
+      "standard": "IFRA_STD_025",
+      "aliases": [
+        "Cyclamal"
+      ],
+      "note": null,
+      "cas": [
+        "103-95-7"
+      ]
+    },
+    "Cypress EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "D-Limonene": {
+      "status": "specification",
+      "standard": "IFRA_STD_186",
+      "aliases": [
+        "Limonene",
+        "d-Limonene"
+      ],
+      "note": "Peroxide value must stay below 20 mmol/L.",
+      "cas": [
+        "5989-27-5"
+      ]
+    },
+    "Damascenone": {
+      "status": "restricted",
+      "standard": "IFRA_STD_077",
+      "aliases": [
+        "Beta Damascenone",
+        "beta-Damascenone"
+      ],
+      "note": null,
+      "cas": [
+        "23696-85-7"
+      ]
+    },
+    "Damascol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "A ketone (5-methyl-5-phenylhexan-3-one), not a damascone; STD_077 does not list its CAS.",
+      "cas": [
+        "4927-36-0"
+      ]
+    },
+    "Delta Damascone": {
+      "status": "restricted",
+      "standard": "IFRA_STD_077",
+      "aliases": [
+        "delta-Damascone"
+      ],
+      "note": null,
+      "cas": [
+        "57378-68-4"
+      ]
+    },
+    "Delta Decalactone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "705-86-2"
+      ]
+    },
+    "Diethyl Phthalate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "DEP"
+      ],
+      "note": "A solvent; no IFRA standard.",
+      "cas": [
+        "84-66-2"
+      ]
+    },
+    "Dihydro Beta Ionone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "17283-81-7"
+      ]
+    },
+    "Dihydromyrcenol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "18479-58-8"
+      ]
+    },
+    "Dimethyl Benzyl Carbinyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "DBCA",
+        "Dimethyl Benzyl Carbinyl Acetate (DBCA)",
+        "Dimethyl Benzyl Carbonyl Acetate"
+      ],
+      "note": "inventory.txt names it Dimethyl Benzyl Carbinyl Acetate (DBCA).",
+      "cas": [
+        "151-05-3"
+      ]
+    },
+    "Dipropylene Glycol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "DPG"
+      ],
+      "note": null,
+      "cas": [
+        "25265-71-8"
+      ]
+    },
+    "Dynascone": {
+      "status": "restricted",
+      "standard": "IFRA_STD_031",
+      "aliases": [
+        "Galbascone"
+      ],
+      "note": null,
+      "cas": [
+        "56973-85-4"
+      ]
+    },
+    "Ebanol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "67801-20-1"
+      ]
+    },
+    "Elemi EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Ethanol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Perfumer's Alcohol"
+      ],
+      "note": null,
+      "cas": [
+        "64-17-5"
+      ]
+    },
+    "Ethyl 2-Methylbutyrate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "7452-79-1"
+      ]
+    },
+    "Ethyl Linalool": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "10339-55-6"
+      ]
+    },
+    "Ethyl Maltol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Ethyl Maltol 1% +"
+      ],
+      "note": null,
+      "cas": [
+        "4940-11-8"
+      ]
+    },
+    "Ethyl Safranate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "35044-59-8"
+      ]
+    },
+    "Ethyl Vanillin": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "121-32-4"
+      ]
+    },
+    "Ethylene Brassylate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "105-95-3"
+      ]
+    },
+    "Eugenol": {
+      "status": "restricted",
+      "standard": "IFRA_STD_035",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "97-53-0"
+      ]
+    },
+    "Evernyl Crystals": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Evernyl",
+        "Veramoss",
+        "Methyl Atrarate"
+      ],
+      "note": "Methyl atrarate; the old table's 0.1 % limit had no IFRA source.",
+      "cas": [
+        "4707-47-5"
+      ]
+    },
+    "Exaltolide": {
+      "status": "restricted",
+      "standard": "IFRA_STD_026",
+      "aliases": [
+        "Cyclopentadecanolide",
+        "Pentalide",
+        "Pentadecanolide"
+      ],
+      "note": null,
+      "cas": [
+        "106-02-5"
+      ]
+    },
+    "Farnesol": {
+      "status": "restricted",
+      "standard": "IFRA_STD_036",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "4602-84-0"
+      ]
+    },
+    "Floralozone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "67634-15-5"
+      ]
+    },
+    "Florhydral": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "125109-85-5"
+      ]
+    },
+    "Florol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "63500-71-0"
+      ]
+    },
+    "Galaxolide": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "1222-05-5"
+      ]
+    },
+    "Gamma Damascone": {
+      "status": "restricted",
+      "standard": "IFRA_STD_077",
+      "aliases": [
+        "gamma-Damascone"
+      ],
+      "note": null,
+      "cas": [
+        "35087-49-1"
+      ]
+    },
+    "Gamma Decalactone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "706-14-9"
+      ]
+    },
+    "Gamma Nonalactone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "104-61-0"
+      ]
+    },
+    "Gamma Undecalactone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "104-67-6"
+      ]
+    },
+    "Geosmin": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "19700-21-1"
+      ]
+    },
+    "Geraniol": {
+      "status": "restricted",
+      "standard": "IFRA_STD_037",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "106-24-1"
+      ]
+    },
+    "Geranium EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Contains citronellol (STD_022) and geraniol (STD_037)."
+    },
+    "Geranyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "105-87-3"
+      ]
+    },
+    "Ginger EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Grapefruit FCF Oil Sicilian": {
+      "status": "specification",
+      "standard": "IFRA_STD_089",
+      "aliases": [
+        "Grapefruit FCF",
+        "Grapefruit FCF Oil"
+      ],
+      "note": "Furocoumarin-free grade. STD_091 says its 4.0 % limit applies when the furocoumarin level is unknown, so keep the supplier certificate. Total bergapten in the finished product must stay at or below 0.0015 % (STD_089)."
+    },
+    "Grapefruit Oil": {
+      "status": "restricted",
+      "standard": "IFRA_STD_091",
+      "aliases": [
+        "Grapefruit EO",
+        "Grapefruit Oil Expressed"
+      ],
+      "note": "Expressed grapefruit that is not furocoumarin-free."
+    },
+    "Guaiacol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "90-05-1"
+      ]
+    },
+    "Guaiacwood EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Habanolide": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "34902-57-3"
+      ]
+    },
+    "Hay Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Contains coumarin (STD_023, 1.5 %)."
+    },
+    "Hedione": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Hedione HC"
+      ],
+      "note": null,
+      "cas": [
+        "24851-98-7"
+      ]
+    },
+    "Helichrysum EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Helional": {
+      "status": "restricted",
+      "standard": "IFRA_STD_059",
+      "aliases": [
+        "Tropional"
+      ],
+      "note": null,
+      "cas": [
+        "1205-17-0"
+      ]
+    },
+    "Heliotropin": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Piperonal",
+        "Heliotropal",
+        "Heliotropal (Piperonal)"
+      ],
+      "note": null,
+      "cas": [
+        "120-57-0"
+      ]
+    },
+    "Hexyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "142-92-7"
+      ]
+    },
+    "Hexyl Cinnamic Aldehyde": {
+      "status": "restricted",
+      "standard": "IFRA_STD_040",
+      "aliases": [
+        "Hexyl Cinnamal",
+        "HCA",
+        "alpha-Hexyl Cinnamic Aldehyde"
+      ],
+      "note": null,
+      "cas": [
+        "101-86-0"
+      ]
+    },
+    "Hexyl Salicylate": {
+      "status": "restricted",
+      "standard": "IFRA_STD_042",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "6259-76-3"
+      ]
+    },
+    "Hydroxycitronellal": {
+      "status": "restricted",
+      "standard": "IFRA_STD_043",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "107-75-5"
+      ]
+    },
+    "IBQ": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Isobutyl Quinoline",
+        "IBQ (isobutyl quinoline)"
+      ],
+      "note": null,
+      "cas": [
+        "65442-31-1"
+      ]
+    },
+    "Immortelle Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Indole": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "120-72-9"
+      ]
+    },
+    "Iso E Super": {
+      "status": "restricted",
+      "standard": "IFRA_STD_068",
+      "aliases": [
+        "OTNE"
+      ],
+      "note": null,
+      "cas": [
+        "54464-57-2"
+      ]
+    },
+    "Isobutavan": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "20665-85-4"
+      ]
+    },
+    "Isoeugenol": {
+      "status": "restricted",
+      "standard": "IFRA_STD_048",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "97-54-1"
+      ]
+    },
+    "Isopropyl Myristate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "IPM"
+      ],
+      "note": null,
+      "cas": [
+        "110-27-0"
+      ]
+    },
+    "Jasmine Absolute": {
+      "status": "restricted",
+      "standard": "IFRA_STD_049",
+      "aliases": [
+        "Jasmine Grandiflorum Absolute",
+        "Jasminum Grandiflorum Absolute"
+      ],
+      "note": "inventory.txt records Jasminum grandiflorum."
+    },
+    "Jasmine Sambac Absolute": {
+      "status": "restricted",
+      "standard": "IFRA_STD_050",
+      "aliases": [
+        "Jasminum Sambac Absolute"
+      ],
+      "note": null
+    },
+    "Javanol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "198404-98-7"
+      ]
+    },
+    "Juniper Berry EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Kenyan Myrrh Ethanol Tincture": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Koavone": {
+      "status": "restricted",
+      "standard": "IFRA_STD_232",
+      "aliases": [
+        "Acetyl Diisoamylene"
+      ],
+      "note": null,
+      "cas": [
+        "81786-73-4"
+      ]
+    },
+    "Labdanum Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Labdanum Resinoid": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Lavender 40/42, Aroma&More": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Lavender EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Lavender EO (BONTAUX SAS)": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Leafovert": {
+      "status": "restricted",
+      "standard": "IFRA_STD_246",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "67633-96-9"
+      ]
+    },
+    "Lemon FCF Oil Sicilian": {
+      "status": "specification",
+      "standard": "IFRA_STD_089",
+      "aliases": [
+        "Lemon FCF",
+        "Lemon FCF Oil"
+      ],
+      "note": "Furocoumarin-free grade. STD_092 says its 2.0 % limit applies when the furocoumarin level is unknown, so keep the supplier certificate. Total bergapten in the finished product must stay at or below 0.0015 % (STD_089)."
+    },
+    "Lemon Oil": {
+      "status": "restricted",
+      "standard": "IFRA_STD_092",
+      "aliases": [
+        "Lemon EO",
+        "Lemon Oil Cold Pressed"
+      ],
+      "note": "Cold-pressed lemon that is not furocoumarin-free."
+    },
+    "Lemonile": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "61792-11-8"
+      ]
+    },
+    "Liffarome": {
+      "status": "restricted",
+      "standard": "IFRA_STD_246",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "67633-96-9"
+      ]
+    },
+    "Lilial": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_015",
+      "aliases": [
+        "Butylphenyl Methylpropional",
+        "p-BMHCA",
+        "BMHCA"
+      ],
+      "note": "IFRA STD_015 still lists 1.4 % for Category 4, but EU cosmetics containing it must be off shelves from 1 March 2022 (Regulation (EU) 2021/1902).",
+      "cas": [
+        "80-54-6"
+      ],
+      "source_url": "https://coslaw.eu/omnibus-iv-new-ingredients-banned-in-cosmetics/",
+      "authority": "EU Cosmetics Regulation (EC) No 1223/2009, Annex II (Regulation (EU) 2021/1902)"
+    },
+    "Lime Distilled EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Distilled, so STD_093 (expressed lime) does not apply."
+    },
+    "Lime Oil Expressed": {
+      "status": "restricted",
+      "standard": "IFRA_STD_093",
+      "aliases": [
+        "Lime EO Expressed"
+      ],
+      "note": null
+    },
+    "Linalool": {
+      "status": "specification",
+      "standard": "IFRA_STD_187",
+      "aliases": [],
+      "note": "Peroxide value must stay below 20 mmol/L.",
+      "cas": [
+        "78-70-6"
+      ]
+    },
+    "Linalool Oxide": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "1365-19-1",
+        "60047-17-8"
+      ]
+    },
+    "Linalyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "115-95-7"
+      ]
+    },
+    "Lyral": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_044",
+      "aliases": [
+        "HICC",
+        "HMPCC",
+        "Hydroxyisohexyl 3-Cyclohexene Carboxaldehyde"
+      ],
+      "note": "IFRA STD_044 still lists 0.20 % for Category 4, but EU Annex II entry 1380: not placed on the market from 23 August 2019, not made available from 23 August 2021.",
+      "cas": [
+        "31906-04-4",
+        "51414-25-6"
+      ],
+      "source_url": "https://www.legislation.gov.uk/eur/2017/1410",
+      "authority": "EU Cosmetics Regulation (EC) No 1223/2009, Annex II entry 1380 (Regulation (EU) 2017/1410)"
+    },
+    "Magnolia EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Maple Lactone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "80-71-7"
+      ]
+    },
+    "Mayol": {
+      "status": "restricted",
+      "standard": "IFRA_STD_208",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "13828-37-0"
+      ]
+    },
+    "Melonal": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "106-72-9"
+      ]
+    },
+    "Methyl Anthranilate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "134-20-3"
+      ]
+    },
+    "Methyl Heptine Carbonate": {
+      "status": "restricted",
+      "standard": "IFRA_STD_062",
+      "aliases": [
+        "MHC",
+        "Methyl 2-Octynoate"
+      ],
+      "note": null,
+      "cas": [
+        "111-12-6"
+      ]
+    },
+    "Methyl Ionone Pure": {
+      "status": "restricted",
+      "standard": "IFRA_STD_063",
+      "aliases": [
+        "Methyl Ionone"
+      ],
+      "note": null
+    },
+    "Methyl Laitone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "94201-19-1"
+      ]
+    },
+    "Methyl Nonyl Ketone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "112-12-9"
+      ]
+    },
+    "Methyl Octine Carbonate": {
+      "status": "restricted",
+      "standard": "IFRA_STD_064",
+      "aliases": [
+        "MOC",
+        "Methyl 2-Nonynoate"
+      ],
+      "note": null,
+      "cas": [
+        "111-80-8"
+      ]
+    },
+    "Methyl Salicylate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "119-36-8"
+      ]
+    },
+    "Mimosa Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Musk Ambrette": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_168",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "83-66-9"
+      ]
+    },
+    "Musk Ketone": {
+      "status": "specification",
+      "standard": "IFRA_STD_189",
+      "aliases": [],
+      "note": "Must contain less than 0.1 % musk xylene.",
+      "cas": [
+        "81-14-1"
+      ]
+    },
+    "Musk Xylene": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_170",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "81-15-2"
+      ]
+    },
+    "Myrrh EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Nerol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "106-25-2"
+      ]
+    },
+    "Neroli EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Nerolidol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "7212-44-4"
+      ]
+    },
+    "Nitrobenzene": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_171",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "98-95-3"
+      ]
+    },
+    "Norlimbanol Dextro": {
+      "status": "restricted",
+      "standard": "IFRA_STD_221",
+      "aliases": [
+        "Norlimbanol"
+      ],
+      "note": null,
+      "cas": [
+        "70788-30-6"
+      ]
+    },
+    "Nutmeg EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Contains methyl eugenol (STD_100) and safrole (STD_179)."
+    },
+    "Nympheal": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "1637294-12-2"
+      ]
+    },
     "Oakmoss Absolute": {
       "status": "restricted",
       "standard": "IFRA_STD_067",
       "aliases": [
-        "Oakmoss", "Oak Moss", "Oakmoss Extract", "Evernia Prunastri", "Evernia Prunastri Extract"
+        "Oakmoss",
+        "Oak Moss",
+        "Oakmoss Extract",
+        "Evernia Prunastri",
+        "Evernia Prunastri Extract"
       ],
       "note": null
+    },
+    "Olibanum Resinoid": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Oman Frankincense Ethanol Tincture": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Opoponax Resinoid": {
+      "status": "restricted",
+      "standard": "IFRA_STD_070",
+      "aliases": [
+        "Opoponax",
+        "Opopanax",
+        "Opoponax Resin"
+      ],
+      "note": null
+    },
+    "Orange Peel EO": {
+      "status": "restricted",
+      "standard": "IFRA_STD_088",
+      "aliases": [
+        "Orange Peel Oil"
+      ],
+      "note": "inventory.txt does not record the species. The bitter orange (expressed) limit is applied until it does; sweet orange has no IFRA standard of its own."
+    },
+    "Oranger Crystals": {
+      "status": "restricted",
+      "standard": "IFRA_STD_095",
+      "aliases": [
+        "Methyl beta-Naphthyl Ketone",
+        "2-Acetonaphthone",
+        "Methyl Naphthyl Ketone"
+      ],
+      "note": null,
+      "cas": [
+        "93-08-3"
+      ]
+    },
+    "Orivone": {
+      "status": "restricted",
+      "standard": "IFRA_STD_236",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "16587-71-6"
+      ]
+    },
+    "Orris Liquid": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Osmanthus Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Paradisamide": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "406488-30-0"
+      ]
+    },
+    "Patchouli EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Peonile": {
+      "status": "restricted",
+      "standard": "IFRA_STD_241",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "10461-98-0"
+      ]
+    },
+    "Peppermint EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Peru Balsam Crude": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_071",
+      "aliases": [
+        "Peru Balsam Crude Exudation"
+      ],
+      "note": null
+    },
+    "Peru Balsam Resinoid": {
+      "status": "restricted",
+      "standard": "IFRA_STD_071",
+      "aliases": [
+        "Peru Balsam Extract",
+        "Peru Balsam Absolute"
+      ],
+      "note": "IFRA prohibits crude Peru balsam; extracts and distillates are restricted."
+    },
+    "Petitgrain EO Paraguay": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [
+        "Petitgrain EO"
+      ],
+      "note": null
+    },
+    "Phenethyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "103-45-7"
+      ]
+    },
+    "Phenethyl Alcohol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "60-12-8"
+      ]
+    },
+    "Phenyl Ethyl Dimethyl Carbinol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "103-05-9"
+      ]
+    },
+    "Phenylacetaldehyde Dimethyl Acetal": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Phenylacetaldehyde Dimethyl Acetal (PADMA)",
+        "PADMA"
+      ],
+      "note": null,
+      "cas": [
+        "101-48-4"
+      ]
+    },
+    "Pine EO": {
+      "status": "specification",
+      "standard": "IFRA_STD_184",
+      "aliases": [
+        "Pine Oil",
+        "Pine Needle Oil"
+      ],
+      "note": "Pinaceae oils need a peroxide value below 10 mmol/L."
+    },
+    "Pink Pepper EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Raspberry Ketone": {
+      "status": "restricted",
+      "standard": "IFRA_STD_217",
+      "aliases": [
+        "Frambinone"
+      ],
+      "note": null,
+      "cas": [
+        "5471-51-2"
+      ]
+    },
+    "Red Mandarin EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "STD_089 counts mandarin and tangerine furocoumarins toward its 0.0015 % bergapten total."
+    },
+    "Romandolide": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "236391-76-7"
+      ]
+    },
+    "Rose de Mai Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Contains methyl eugenol (STD_100), citronellol (STD_022) and geraniol (STD_037)."
+    },
+    "Rose Essential Oil (Rosa Damascena, India)": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Contains methyl eugenol (STD_100), citronellol (STD_022), geraniol (STD_037) and eugenol (STD_035)."
+    },
+    "Rose Oxide": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "16409-43-1"
+      ]
+    },
+    "Rosemary EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [
+        "Rosemary EO (French Rosmarinus Officinalis leaf oil)"
+      ],
+      "note": null
+    },
+    "Safraleine": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "54440-17-4"
+      ]
+    },
+    "Sandalore": {
+      "status": "restricted",
+      "standard": "IFRA_STD_212",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "65113-99-7"
+      ]
+    },
+    "Sandalwood EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Siam Benzoin": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Skatole": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "83-34-1"
+      ]
+    },
+    "Spike Lavender EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Styralyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "93-92-5"
+      ]
+    },
+    "Tagetes EO": {
+      "status": "restricted",
+      "standard": "IFRA_STD_097",
+      "aliases": [
+        "Tagetes Oil",
+        "Tagetes Minuta Oil"
+      ],
+      "note": "inventory.txt records Tagetes minuta. IFRA prohibits Tagetes erecta oil."
+    },
+    "Tagetes Erecta Oil": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_097",
+      "aliases": [
+        "Tagetes Erecta"
+      ],
+      "note": null
+    },
+    "Terpinyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "80-26-2"
+      ]
+    },
+    "Timberol": {
+      "status": "restricted",
+      "standard": "IFRA_STD_221",
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "70788-30-6"
+      ]
+    },
+    "Tobacco Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Tonka Bean Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Rich in coumarin (STD_023, 1.5 %)."
     },
     "Treemoss Absolute": {
       "status": "restricted",
       "standard": "IFRA_STD_080",
       "aliases": [
-        "Treemoss", "Tree Moss", "Treemoss Extract", "Evernia Furfuracea",
+        "Treemoss",
+        "Tree Moss",
+        "Treemoss Extract",
+        "Evernia Furfuracea",
         "Evernia Furfuracea Extract"
       ],
       "note": null
     },
-    "Methyl Heptine Carbonate": {
-      "status": "restricted",
-      "standard": "IFRA_STD_062",
-      "aliases": ["MHC", "Methyl 2-Octynoate"],
-      "note": null
-    },
-    "Methyl Octine Carbonate": {
-      "status": "restricted",
-      "standard": "IFRA_STD_064",
-      "aliases": ["MOC", "Methyl 2-Nonynoate"],
-      "note": null
-    },
-    "Hedione": {
+    "Triethyl Citrate": {
       "status": "no_standard",
       "standard": null,
-      "aliases": ["Hedione HC", "Methyl Dihydrojasmonate"],
-      "note": "No IFRA Standard names methyl dihydrojasmonate (24851-98-7) in the IFRA library index read 2026-10-08."
+      "aliases": [
+        "TEC"
+      ],
+      "note": null,
+      "cas": [
+        "77-93-0"
+      ]
+    },
+    "Triplal": {
+      "status": "restricted",
+      "standard": "IFRA_STD_030",
+      "aliases": [
+        "Ligustral",
+        "Cyclal C",
+        "Vertocitral"
+      ],
+      "note": null,
+      "cas": [
+        "68039-49-6"
+      ]
+    },
+    "Tuberose Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Turkish Storax Tincture": {
+      "status": "restricted",
+      "standard": "IFRA_STD_078",
+      "aliases": [
+        "Styrax",
+        "Storax",
+        "Styrax Resinoid",
+        "Storax Resinoid"
+      ],
+      "note": "IFRA prohibits crude styrax gums; extracts and distillates are restricted."
+    },
+    "Ultralia": {
+      "status": "restricted",
+      "standard": "IFRA_STD_063",
+      "aliases": [],
+      "note": "Methylionone, mixed isomers.",
+      "cas": [
+        "1335-46-2"
+      ]
+    },
+    "Undecavertol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "81782-77-6"
+      ]
+    },
+    "Vanillin": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "121-33-5"
+      ]
+    },
+    "Verdox": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "88-41-5"
+      ]
+    },
+    "Verdyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "5413-60-5"
+      ]
+    },
+    "Vetikon": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null,
+      "cas": [
+        "7403-42-1"
+      ]
+    },
+    "Vetival": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "4-Cyclohexyl-4-methylpentan-2-one, not acetylated vetiver.",
+      "cas": [
+        "4927-39-3"
+      ]
+    },
+    "Vetiver EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Vetiver EO (Haiti)": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Vetiver EO (India)": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Vetiveryl Acetate": {
+      "status": "restricted",
+      "standard": "IFRA_STD_002",
+      "aliases": [
+        "Acetylated Vetiver Oil",
+        "Vetiver Acetate"
+      ],
+      "note": null,
+      "cas": [
+        "62563-80-8"
+      ]
+    },
+    "Vietnamese Benzoin Tincture": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Violet Leaf Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": null
+    },
+    "Ylang Ylang EO": {
+      "status": "restricted",
+      "standard": "IFRA_STD_084",
+      "aliases": [
+        "Ylang Ylang Oil",
+        "Ylang Comoros Complete EO",
+        "Ylang Comoros III EO"
+      ],
+      "note": null
     }
   },
   "group_rules": [
@@ -95,7 +3414,10 @@
       "standard": "IFRA_STD_067",
       "rule": "sum_le_limit",
       "limit_pct": 0.1,
-      "members": ["Oakmoss Absolute", "Treemoss Absolute"],
+      "members": [
+        "Oakmoss Absolute",
+        "Treemoss Absolute"
+      ],
       "quote": "In the presence of Treemoss extracts, the level of Oakmoss in the respective category has to be reduced accordingly such that the total amount of both extracts does not exceed the maximum permitted level in each category"
     },
     {
@@ -103,8 +3425,51 @@
       "standard": "IFRA_STD_062",
       "rule": "sum_le_limit",
       "limit_pct": 0.047,
-      "members": ["Methyl Heptine Carbonate", "Methyl Octine Carbonate"],
+      "members": [
+        "Methyl Heptine Carbonate",
+        "Methyl Octine Carbonate"
+      ],
       "quote": "When used in the same fragrance compound within a specific QRA category, the sum total of Methyl heptine carbonate (MHC, CAS number 111-12-6) and Methyl octine carbonate (MOC, CAS number 111-80-8) contributions must not exceed the maximum permitted level for MHC."
+    },
+    {
+      "id": "methyl_ionones_total",
+      "standard": "IFRA_STD_063",
+      "rule": "sum_le_limit",
+      "limit_pct": 30.0,
+      "members": [
+        "Alpha Isomethyl Ionone",
+        "Methyl Ionone Pure",
+        "Ultralia"
+      ],
+      "quote": "The above limits apply to Methyl ionone isomers used individually or in combination."
+    },
+    {
+      "id": "rose_ketones_total",
+      "standard": "IFRA_STD_077",
+      "rule": "sum_le_limit",
+      "limit_pct": 0.043,
+      "members": [
+        "Alpha Damascone",
+        "Beta Damascone",
+        "Delta Damascone",
+        "Gamma Damascone",
+        "Damascenone"
+      ],
+      "quote": "The sum of concentrations of Rose ketones isomers should not exceed the maximum concentration levels established by this Standard."
+    },
+    {
+      "id": "phototoxic_citrus_ratio",
+      "standard": "IFRA_STD_089",
+      "rule": "sum_of_ratios_le_1",
+      "limit_pct": null,
+      "members": [
+        "Bergamot EO",
+        "Orange Peel EO",
+        "Grapefruit Oil",
+        "Lemon Oil",
+        "Lime Oil Expressed"
+      ],
+      "quote": "The sum of the concentrations of all furocoumarin-containing phototoxic fragrance ingredients (extracts), expressed in % of their recommended upper concentration level in the finished consumer product, shall not exceed 100."
     }
   ]
 }
