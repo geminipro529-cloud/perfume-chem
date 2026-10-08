@@ -99,6 +99,7 @@
             <textarea name="goal" required maxlength="4000" placeholder="For example: Make the lavender clearer at 30 minutes, keep the dry amber, and do not add sweetness."></textarea>
           </label>
           <p id="improve-draft-restored" class="draft-restored" hidden><span data-draft-restored-text></span> <button type="button" class="quiet-button" data-discard-draft="improve">Discard</button></p>
+          <p id="improve-draft-unsaved" class="draft-unsaved" role="status" hidden></p>
 
           <div class="field-pair compact-fields">
             <label>Style of answer
@@ -464,6 +465,7 @@
                 <button id="formula-chat-submit" type="submit">Create my formula</button>
                 <button id="formula-chat-reset" class="quiet-button" type="button">Start another idea</button>
               </div>
+              <p id="formula-draft-unsaved" class="draft-unsaved" role="status" hidden></p>
             </form>
           </article>
 
@@ -736,6 +738,7 @@
       </section>
     </main>
   </div>
+  <script src="/static/lab-drafts.js" defer></script>
   <script src="/static/lab.js" defer></script>
 </body>
 </html>

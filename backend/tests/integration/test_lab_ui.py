@@ -1,4 +1,11 @@
+import json
+import shutil
+import subprocess
+from pathlib import Path
+
 import pytest
+
+LAB_DRAFTS_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "lab-drafts.js"
 
 
 @pytest.mark.asyncio
@@ -426,28 +433,195 @@ async def test_create_and_improve_drafts_are_kept_in_browser_storage(client):
     page = await client.get("/app")
     css = await client.get("/static/lab.css")
     javascript = await client.get("/static/lab.js")
+    drafts = await client.get("/static/lab-drafts.js")
 
-    assert '"perfume-lab.draft.create.v1"' in javascript.text
-    assert '"perfume-lab.draft.improve.v1"' in javascript.text
-    assert "const DRAFT_VERSION = 1;" in javascript.text
-    assert "const DRAFT_MAX_CHARS = 1000000;" in javascript.text
+    assert drafts.status_code == 200
+    assert page.text.index('src="/static/lab-drafts.js"') < page.text.index('src="/static/lab.js"')
+    assert '"perfume-lab.draft.create.v1"' in drafts.text
+    assert '"perfume-lab.draft.improve.v1"' in drafts.text
+    assert "const DRAFT_VERSION = 1;" in drafts.text
+    assert "const DRAFT_MAX_CHARS = 1000000;" in drafts.text
     assert "`Restored your draft from ${formatDraftTime(iso)}. ${text}`" in javascript.text
     assert "made from your inventory at that time" in javascript.text
     assert "restoreStoredDrafts();\nrefresh()" in javascript.text
     assert 'window.addEventListener("pagehide"' in javascript.text
     # Every storage access is guarded so blocked or full storage cannot break the page.
-    lines = javascript.text.splitlines()
-    for call in ("localStorage.getItem(", "localStorage.setItem(", "localStorage.removeItem("):
+    lines = drafts.text.splitlines()
+    for call in ("storage.getItem(", "storage.setItem(", "storage.removeItem("):
         positions = [index for index, line in enumerate(lines) if call in line]
-        assert len(positions) == 1
-        assert lines[positions[0] - 1].strip() == "try {"
+        assert positions
+        assert all(lines[position - 1].strip() == "try {" for position in positions)
+    assert "localStorage" not in drafts.text
+    lab_lines = javascript.text.splitlines()
+    positions = [index for index, line in enumerate(lab_lines) if "window.localStorage" in line]
+    assert len(positions) == 1
+    assert lab_lines[positions[0] - 1].strip() == "try {"
     # Only what the page draws is stored, not server source paths.
-    assert "stock_source_ref" not in javascript.text
+    assert "stock_source_ref" not in javascript.text + drafts.text
+    assert 'id="formula-draft-unsaved"' in page.text
+    assert 'id="improve-draft-unsaved"' in page.text
     assert 'id="formula-draft-restored"' in page.text
     assert 'id="improve-draft-restored"' in page.text
     assert 'data-discard-draft="create">Discard</button>' in page.text
     assert 'data-discard-draft="improve">Discard</button>' in page.text
     assert ".draft-restored" in css.text
+
+
+_DRAFT_HARNESS = """
+const assert = require("assert");
+const D = require(process.argv[1]);
+function fakeStorage({ failGet = false, failSet = false } = {}) {
+  const items = new Map();
+  return {
+    items,
+    getItem(key) { if (failGet) throw new Error("blocked"); return items.has(key) ? items.get(key) : null; },
+    setItem(key, value) { if (failSet) throw new Error("QuotaExceededError"); items.set(key, String(value)); },
+    removeItem(key) { if (failGet) throw new Error("blocked"); items.delete(key); },
+  };
+}
+const KEY = D.DRAFT_KEYS.create;
+const body = (text) => ({ fields: { message: text } });
+"""
+
+
+def _run_draft_case(script):
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("node is not installed, so the browser draft rules cannot be run")
+    completed = subprocess.run(
+        [node, "-e", _DRAFT_HARNESS + script, str(LAB_DRAFTS_JS)],
+        capture_output=True,
+        text=True,
+        timeout=60,
+    )
+    assert completed.returncode == 0, completed.stderr
+    return completed.stdout
+
+
+def test_unusable_stored_drafts_are_removed_and_ignored():
+    _run_draft_case(r"""
+    const now = new Date().toISOString();
+    const cases = {
+      corrupt: "{not json",
+      older_version: JSON.stringify({ version: 0, saved_at: now, fields: { message: "old" } }),
+      bad_saved_at: JSON.stringify({ version: 1, saved_at: "yesterday-ish", fields: {} }),
+      bad_designed_at: JSON.stringify({ version: 1, saved_at: now, designed_at: "not a date", fields: {} }),
+      oversize: JSON.stringify({ version: 1, saved_at: now, fields: { message: "x".repeat(D.DRAFT_MAX_CHARS) } }),
+    };
+    for (const [name, raw] of Object.entries(cases)) {
+      const storage = fakeStorage();
+      storage.items.set(KEY, raw);
+      const read = D.readDraft(storage, "create");
+      assert.strictEqual(read.draft, null, name);
+      assert.strictEqual(read.outcome, "removed", name);
+      assert.ok(!storage.items.has(KEY), name);
+    }
+    const blocked = D.readDraft(fakeStorage({ failGet: true }), "create");
+    assert.deepStrictEqual(blocked, { draft: null, outcome: "unavailable" });
+    assert.strictEqual(D.readDraft(null, "create").outcome, "unavailable");
+    const good = fakeStorage();
+    const saved = D.writeDraft(good, "create", body("kept"), { writer: "a" });
+    assert.strictEqual(saved.outcome, "saved");
+    const restored = D.readDraft(good, "create");
+    assert.strictEqual(restored.draft.fields.message, "kept");
+    assert.strictEqual(D.draftStamp(restored.draft), saved.stamp);
+    """)
+
+
+def test_a_failed_or_oversize_save_removes_the_older_draft():
+    _run_draft_case(r"""
+    const storage = fakeStorage();
+    const first = D.writeDraft(storage, "create", body("older brief"), { writer: "a" });
+    assert.strictEqual(first.outcome, "saved");
+    storage.setItem = () => { throw new Error("QuotaExceededError"); };
+    const failed = D.writeDraft(storage, "create", body("newer brief"), { writer: "a", lastSeen: first.stamp });
+    assert.deepStrictEqual(failed, { outcome: "failed", stamp: null });
+    assert.ok(!storage.items.has(KEY), "the older draft must not come back");
+
+    const big = fakeStorage();
+    const kept = D.writeDraft(big, "create", body("older brief"), { writer: "a" });
+    const tooLarge = D.writeDraft(big, "create", body("x".repeat(D.DRAFT_MAX_CHARS)), { writer: "a", lastSeen: kept.stamp });
+    assert.deepStrictEqual(tooLarge, { outcome: "too_large", stamp: null });
+    assert.ok(!big.items.has(KEY));
+
+    const blocked = D.writeDraft(fakeStorage({ failGet: true }), "create", body("x"), { writer: "a" });
+    assert.strictEqual(blocked.outcome, "failed");
+    """)
+
+
+def test_a_stale_tab_cannot_undo_a_discard_or_overwrite_a_newer_draft():
+    _run_draft_case(r"""
+    const storage = fakeStorage();
+    const original = D.writeDraft(storage, "create", body("design"), { writer: "a" });
+    // Tabs A and B both restore the same draft.
+    const seenByA = D.draftStamp(D.readDraft(storage, "create").draft);
+    const seenByB = D.draftStamp(D.readDraft(storage, "create").draft);
+    assert.strictEqual(seenByA, original.stamp);
+    // A discards; B then types.
+    D.removeDraft(storage, "create");
+    const fromB = D.writeDraft(storage, "create", body("design plus one"), { writer: "b", lastSeen: seenByB });
+    assert.strictEqual(fromB.outcome, "stale");
+    assert.ok(!storage.items.has(KEY), "Discard must not be undone");
+    // A, having discarded, may start again.
+    const fresh = D.writeDraft(storage, "create", body("new idea"), { writer: "a", lastSeen: null });
+    assert.strictEqual(fresh.outcome, "saved");
+
+    // Reverse: B opened before any design; A then creates one; B types.
+    const second = fakeStorage();
+    const newer = D.writeDraft(second, "create", body("newer design"), { writer: "a", lastSeen: null });
+    const old = D.writeDraft(second, "create", body("old text"), { writer: "b", lastSeen: null });
+    assert.strictEqual(old.outcome, "stale");
+    assert.strictEqual(JSON.parse(second.items.get(KEY)).fields.message, "newer design");
+    const cleared = D.writeDraft(second, "create", null, { writer: "b", lastSeen: null });
+    assert.strictEqual(cleared.outcome, "stale");
+    assert.ok(second.items.has(KEY));
+    // The writer that saw the newest draft keeps saving over it.
+    const next = D.writeDraft(second, "create", body("newer design, edited"), { writer: "a", lastSeen: newer.stamp });
+    assert.strictEqual(next.outcome, "saved");
+    """)
+
+
+def test_stored_copy_has_no_hashes_or_source_paths_and_keeps_bench_fields():
+    out = _run_draft_case(r"""
+    const row = {
+      material: "Linalool", stock_id: "stock-1", stock_source_ref: "inventory.txt:12", source_ref: "data/x.json",
+      amount_decimal: "120", amount_unit: "uL", operation: "PREPARE_DILUTION_FIRST", execution_ready: false,
+      stock_authority: "PERSONAL_INVENTORY",
+    };
+    const result = {
+      formula_name: "Cold Lavender", request_sha256: "a".repeat(64), design_sha256: "b".repeat(64),
+      inventory: { source_path: "/home/user/inventory.txt" },
+      critic: { state: "PASS", issues: ["hold"], limitations: [], strongest_clue: "clue", source_ref: "x" },
+      optimized_formula: { rows: [row], separate_totals: { liquid_total_ul: "120" } },
+      design_variants: [{ label: "A", formula: { rows: [row] }, critic: { state: "PASS", issues: [] } }],
+    };
+    const copy = D.draftDisplayCopy(result);
+    process.stdout.write(JSON.stringify(copy));
+    """)
+    copy = json.loads(out)
+    text = json.dumps(copy)
+    for forbidden in ("request_sha256", "design_sha256", "stock_source_ref", "source_ref", "source_path", "stock_authority"):
+        assert forbidden not in text
+    row = copy["optimized_formula"]["rows"][0]
+    assert row["operation"] == "PREPARE_DILUTION_FIRST"
+    assert row["execution_ready"] is False
+    assert row["stock_id"] == "stock-1"
+    assert copy["design_variants"][0]["formula"]["rows"][0]["operation"] == "PREPARE_DILUTION_FIRST"
+    assert copy["critic"] == {"state": "PASS", "issues": ["hold"], "limitations": [], "strongest_clue": "clue"}
+
+
+def test_restored_download_is_labelled_as_a_trimmed_browser_copy():
+    out = _run_draft_case(r"""
+    process.stdout.write(JSON.stringify([
+      D.draftDownload({ formula_name: "Cold Lavender!" }, false),
+      D.draftDownload({ formula_name: "Cold Lavender!" }, true),
+    ]));
+    """)
+    fresh, restored = json.loads(out)
+    assert fresh == {"filename": "cold-lavender.json", "message": "Read-only formula draft downloaded."}
+    assert restored["filename"] == "cold-lavender-restored-browser-copy.json"
+    assert "trimmed browser copy of a restored draft" in restored["message"]
+    assert "not the full server result" in restored["message"]
 
 
 @pytest.mark.asyncio

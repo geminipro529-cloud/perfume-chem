@@ -1321,8 +1321,8 @@ function renderFormulaDesign(result, variantIndex = 0) {
   card.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-function resetFormulaChat() {
-  state.formulaChat = { messages: [], result: null, variantIndex: 0, turns: [], designedAt: null };
+function resetFormulaChat(announce = true) {
+  state.formulaChat = { messages: [], result: null, variantIndex: 0, turns: [], designedAt: null, restored: false };
   discardStoredDraft("create");
   const form = $("#formula-chat-form");
   form.reset();
@@ -1332,7 +1332,7 @@ function resetFormulaChat() {
   $("#formula-chat-log").innerHTML = '<div class="chat-bubble assistant-bubble"><strong>Perfumer</strong><p>Tell me the name or feeling of the perfume you want to make. I will use your inventory, honor hard constraints first, and stop before filler.</p></div>';
   $("#formula-chat-result").hidden = true;
   $("#formula-chat-submit").textContent = "Create my formula";
-  notify("Ready for a new perfume idea.");
+  if (announce) notify("Ready for a new perfume idea.");
 }
 
 $("#formula-chat-form").addEventListener("submit", async (event) => {
@@ -1342,7 +1342,6 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
   const message = String(data.message || "").trim();
   const previous = state.formulaChat.result;
   const priorMessages = state.formulaChat.messages.slice(-8);
-  hideDraftRestoredLine("create");
   const previousRows = selectedFormulaVariant(previous).formula?.rows || [];
   appendFormulaChatBubble("user", message);
   state.formulaChat.messages.push(message);
@@ -1396,6 +1395,8 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
     }
     appendFormulaChatBubble("assistant", result.assistant_message || "The brief needs clarification before I can create the formula.");
     renderFormulaDesign(result);
+    state.formulaChat.restored = false;
+    hideDraftRestoredLine("create");
     if (result.formula_name) $('[name="formula_name"]', form).value = result.formula_name;
     $('[name="message"]', form).value = "";
     submit.textContent = result.optimized_formula ? "Refine this formula" : "Try clarified brief";
@@ -1411,171 +1412,43 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
   }
 });
 
-$("#formula-chat-reset").addEventListener("click", resetFormulaChat);
+$("#formula-chat-reset").addEventListener("click", () => resetFormulaChat());
 
 $("#formula-download").addEventListener("click", () => {
   const result = state.formulaChat.result;
   if (!result) return;
+  const { filename, message } = Drafts.draftDownload(result, state.formulaChat.restored);
   const blob = new Blob([JSON.stringify(result, null, 2)], { type: "application/json" });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
-  link.download = `${String(result.formula_name || "formula-draft").replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() || "formula-draft"}.json`;
+  link.download = filename;
   link.click();
   URL.revokeObjectURL(link.href);
-  notify("Read-only formula draft downloaded.");
+  notify(message);
 });
 
 // Browser-saved drafts ---------------------------------------------------
-// One versioned localStorage key per view. Only what the page shows is kept;
-// storage that is blocked, full, old or corrupt is ignored without breaking the page.
-const DRAFT_VERSION = 1;
-const DRAFT_KEYS = { create: "perfume-lab.draft.create.v1", improve: "perfume-lab.draft.improve.v1" };
-const DRAFT_MAX_CHARS = 1000000;
+// Storage rules live in lab-drafts.js (window.LabDrafts); this part draws the page.
+// A tab saves only over the draft it last saw (its writer id and saved_at), so a
+// stale tab can neither undo a Discard made elsewhere nor overwrite a newer draft.
+const Drafts = window.LabDrafts;
 const CREATE_DRAFT_FIELDS = ["formula_name", "liquid_concentrate_ul_decimal", "message", "must_preserve", "must_avoid", "max_materials", "design_mode"];
 const CREATE_DRAFT_TYPED_FIELDS = ["formula_name", "message", "must_preserve", "must_avoid"];
-const DRAFT_ROW_FIELDS = ["material", "stock_label", "stock_id", "stock_fraction_decimal", "fraction_basis", "carrier", "profile_source", "slot_label", "note", "role", "amount_decimal", "amount_unit", "rationale", "allocation_basis"];
+const DRAFT_WRITER = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+const DRAFT_UNSAVED_TEXT = {
+  failed: "This draft couldn't be kept in this browser (storage is blocked or full), so it won't come back after a reload.",
+  too_large: "This draft is too large to keep in this browser, so it won't come back after a reload.",
+  stale: "Changes in this tab aren't being kept: the saved draft was changed or discarded in another tab. Reload to continue from the saved draft.",
+};
 const draftSaveTimers = {};
+const draftLastSeen = { create: null, improve: null };
 
-function readStoredDraft(view) {
-  let raw = null;
+function draftStorage() {
   try {
-    raw = window.localStorage.getItem(DRAFT_KEYS[view]);
-  } catch (error) {
-    console.info(`Saved drafts are unavailable: ${error.message}`);
+    return window.localStorage;
+  } catch {
     return null;
   }
-  if (!raw) return null;
-  try {
-    const draft = JSON.parse(raw);
-    if (draft && draft.version === DRAFT_VERSION && !Number.isNaN(Date.parse(draft.saved_at))) return draft;
-  } catch {
-    // An unreadable value is removed below.
-  }
-  console.info(`Removed an unreadable or older saved ${view} draft.`);
-  removeStoredDraft(view);
-  return null;
-}
-
-function removeStoredDraft(view) {
-  try {
-    window.localStorage.removeItem(DRAFT_KEYS[view]);
-  } catch {
-    // Blocked storage has nothing to remove.
-  }
-}
-
-function writeStoredDraft(view, body) {
-  if (!body) {
-    removeStoredDraft(view);
-    return;
-  }
-  const text = JSON.stringify({ version: DRAFT_VERSION, saved_at: new Date().toISOString(), ...body });
-  if (text.length > DRAFT_MAX_CHARS) {
-    console.info(`The ${view} draft was not saved in this browser: ${text.length} characters is over the ${DRAFT_MAX_CHARS} limit.`);
-    removeStoredDraft(view);
-    return;
-  }
-  try {
-    window.localStorage.setItem(DRAFT_KEYS[view], text);
-  } catch (error) {
-    console.info(`The ${view} draft was not saved in this browser: ${error.message}`);
-  }
-}
-
-function pickDraftFields(source, keys) {
-  const copy = {};
-  if (!source || typeof source !== "object") return copy;
-  keys.forEach((key) => { if (source[key] !== undefined) copy[key] = source[key]; });
-  return copy;
-}
-
-function draftFormulaCopy(formula) {
-  if (!formula) return null;
-  return {
-    rows: (formula.rows || []).map((row) => pickDraftFields(row, DRAFT_ROW_FIELDS)),
-    separate_totals: pickDraftFields(formula.separate_totals, ["liquid_total_ul", "mass_total_mg"]),
-  };
-}
-
-function draftCriticCopy(critic) {
-  return critic ? pickDraftFields(critic, ["state", "issues", "limitations", "strongest_clue"]) : null;
-}
-
-function draftTemporalCopy(hypothesis) {
-  if (!hypothesis) return null;
-  return {
-    sequence: (hypothesis.sequence || []).map((entry) => ({
-      window: entry.window,
-      intended_roles: (entry.intended_roles || []).map((role) => ({ role: role.role })),
-    })),
-  };
-}
-
-function draftReferenceCopy(context) {
-  if (!context) return null;
-  return {
-    named_products: (context.named_products || []).map((product) => (
-      typeof product === "string" ? product : { display_name: product?.display_name }
-    )),
-    design_criteria: context.design_criteria || [],
-  };
-}
-
-// The fields renderFormulaDesign draws, plus stock ids so a refine can seed from them.
-function draftDisplayCopy(result) {
-  const knowledge = result.formulation_knowledge;
-  const coverage = result.architecture_planning?.implementation_coverage;
-  return {
-    ...pickDraftFields(result, ["formula_name", "assistant_message", "concept_family", "requested_material_limit", "request_sha256", "design_sha256"]),
-    draft_copy_note: "Display copy saved in this browser; the full design response was not kept.",
-    request_interpretation: { appeal_mode: result.request_interpretation?.appeal_mode },
-    composition_plan: result.composition_plan
-      ? pickDraftFields(result.composition_plan, ["method", "request_specific_repairs", "roles_filled"])
-      : null,
-    optimization: result.optimization ? { status: result.optimization.status } : null,
-    design_reasoning: (result.design_reasoning || []).map((entry) => ({ pass: entry.pass })),
-    critic: draftCriticCopy(result.critic),
-    temporal_hypothesis: draftTemporalCopy(result.temporal_hypothesis),
-    commercial_reference_context: draftReferenceCopy(result.commercial_reference_context),
-    optimized_formula: draftFormulaCopy(result.optimized_formula),
-    design_variants: (result.design_variants || []).map((variant) => ({
-      label: variant.label,
-      formula: draftFormulaCopy(variant.formula),
-      critic: draftCriticCopy(variant.critic),
-      role_plan: (variant.role_plan || []).map((role) => ({ role_id: role.role_id })),
-      architecture: { comparison_question: variant.architecture?.comparison_question },
-      temporal_hypothesis: draftTemporalCopy(variant.temporal_hypothesis),
-      commercial_reference_context: draftReferenceCopy(variant.commercial_reference_context),
-    })),
-    architecture_planning: coverage ? {
-      implementation_coverage: {
-        state: coverage.state,
-        items: (coverage.items || []).map((item) => pickDraftFields(item, ["subtype_id", "implementation_state", "required_next"])),
-      },
-    } : null,
-    formulation_knowledge: knowledge ? {
-      strongest_clue: knowledge.strongest_clue,
-      construction_context: {
-        dossiers: (knowledge.construction_context?.dossiers || []).map((dossier) => ({
-          title: dossier.title,
-          recognizers: dossier.recognizers,
-          architectures: (dossier.architectures || []).map((architecture) => ({ intent: architecture.intent })),
-          comparison: { question: dossier.comparison?.question },
-          negative_space: dossier.negative_space,
-        })),
-      },
-      subtype_context: {
-        campaign_identity_holds: (knowledge.subtype_context?.campaign_identity_holds || []).map((hold) => pickDraftFields(hold, ["reason", "question"])),
-        cards: (knowledge.subtype_context?.cards || []).map((card) => ({
-          ...pickDraftFields(card, ["title", "evidence_summary", "construction_hypothesis", "negative_space", "identity_limits"]),
-          comparison: { question: card.comparison?.question },
-          review_addenda: (card.review_addenda || []).map((addendum) => pickDraftFields(addendum, ["evidence_summary", "identity_limits"])),
-        })),
-      },
-      sources: (knowledge.sources || []).map((source) => pickDraftFields(source, ["title", "evidence_class", "url"])),
-      prior_references: (knowledge.prior_references || []).map((reference) => pickDraftFields(reference, ["title", "state"])),
-    } : null,
-  };
 }
 
 function createDraftBody() {
@@ -1591,7 +1464,7 @@ function createDraftBody() {
     messages: chat.messages,
     variant_index: chat.variantIndex,
     designed_at: chat.result ? chat.designedAt : null,
-    result: chat.result ? draftDisplayCopy(chat.result) : null,
+    result: chat.result ? Drafts.draftDisplayCopy(chat.result) : null,
   };
 }
 
@@ -1600,14 +1473,26 @@ function improveDraftBody() {
   return goal.trim() ? { fields: { goal } } : null;
 }
 
+function showDraftSaveOutcome(view, outcome) {
+  const note = $(view === "create" ? "#formula-draft-unsaved" : "#improve-draft-unsaved");
+  note.textContent = DRAFT_UNSAVED_TEXT[outcome] || "";
+  note.hidden = !DRAFT_UNSAVED_TEXT[outcome];
+}
+
 function saveDraftNow(view) {
   window.clearTimeout(draftSaveTimers[view]);
   delete draftSaveTimers[view];
+  const options = { writer: DRAFT_WRITER, lastSeen: draftLastSeen[view] };
+  let saved;
   try {
-    writeStoredDraft(view, view === "create" ? createDraftBody() : improveDraftBody());
-  } catch (error) {
-    console.info(`The ${view} draft was not saved in this browser: ${error.message}`);
+    saved = Drafts.writeDraft(draftStorage(), view, view === "create" ? createDraftBody() : improveDraftBody(), options);
+  } catch {
+    // The page state could not be copied; drop the older draft so it cannot come back.
+    saved = Drafts.writeDraft(draftStorage(), view, null, options);
+    if (saved.outcome === "cleared") saved.outcome = "failed";
   }
+  draftLastSeen[view] = saved.stamp;
+  showDraftSaveOutcome(view, saved.outcome);
 }
 
 function scheduleDraftSave(view) {
@@ -1618,8 +1503,10 @@ function scheduleDraftSave(view) {
 function discardStoredDraft(view) {
   window.clearTimeout(draftSaveTimers[view]);
   delete draftSaveTimers[view];
-  removeStoredDraft(view);
+  Drafts.removeDraft(draftStorage(), view);
+  draftLastSeen[view] = null;
   hideDraftRestoredLine(view);
+  showDraftSaveOutcome(view, null);
 }
 
 function draftRestoredLine(view) {
@@ -1645,8 +1532,9 @@ function showDraftRestoredLine(view, iso, text) {
 }
 
 function restoreCreateDraft() {
-  const draft = readStoredDraft("create");
+  const { draft } = Drafts.readDraft(draftStorage(), "create");
   if (!draft) return;
+  draftLastSeen.create = Drafts.draftStamp(draft);
   try {
     const form = $("#formula-chat-form");
     const fields = draft.fields && typeof draft.fields === "object" ? draft.fields : {};
@@ -1668,8 +1556,9 @@ function restoreCreateDraft() {
       const variantIndex = Number.isInteger(draft.variant_index) && draft.variant_index >= 0 && draft.variant_index < Math.max(variantCount, 1)
         ? draft.variant_index
         : 0;
-      state.formulaChat.designedAt = typeof draft.designed_at === "string" ? draft.designed_at : null;
+      state.formulaChat.designedAt = draft.designed_at || null;
       renderFormulaDesign(result, variantIndex);
+      state.formulaChat.restored = true;
       $("#formula-chat-submit").textContent = result.optimized_formula ? "Refine this formula" : "Try clarified brief";
       $("#formula-result-summary").before(line);
       showDraftRestoredLine("create", state.formulaChat.designedAt || draft.saved_at,
@@ -1680,19 +1569,20 @@ function restoreCreateDraft() {
     }
   } catch (error) {
     console.info(`A saved create draft could not be shown and was removed: ${error.message}`);
-    resetFormulaChat();
+    resetFormulaChat(false);
   }
 }
 
 function restoreImproveDraft() {
-  const draft = readStoredDraft("improve");
+  const { draft } = Drafts.readDraft(draftStorage(), "improve");
   const goal = draft?.fields?.goal;
   if (typeof goal !== "string" || !goal.trim()) {
-    if (draft) removeStoredDraft("improve");
+    if (draft) Drafts.removeDraft(draftStorage(), "improve");
     return;
   }
+  draftLastSeen.improve = Drafts.draftStamp(draft);
   $('#improve-form [name="goal"]').value = goal;
-  showDraftRestoredLine("improve", draft.saved_at, "Your typed change was saved in this browser.");
+  showDraftRestoredLine("improve", draft.saved_at, "Your typed change was saved in this browser. Choose the formula or bottle again before you run it.");
 }
 
 function restoreStoredDrafts() {
