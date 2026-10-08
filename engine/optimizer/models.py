@@ -4,6 +4,7 @@ import hashlib
 import json
 import re
 import unicodedata
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
@@ -1103,67 +1104,225 @@ def _stock_base_name(name: str) -> str | None:
     return base if base and base != low else None
 
 
-# Different materials that share name fragments, aliases or data alt_names.
-# Identity matching must never treat them as one stock (AGENTS.md material
-# identity model, plus look-alikes the substring matcher used to collapse).
-# This list wins over every key, alias and alt_name.
-_NON_INTERCHANGEABLE_PAIRS: frozenset[frozenset[str]] = frozenset(
-    frozenset(pair)
-    for pair in (
-        ("habanolide", "galaxolide"),
-        ("muscenone delta", "exaltolide"),
-        ("alpha isomethyl ionone", "methyl ionone gamma coeur"),
-        ("bacdanol", "sandalore"),
-        ("haitian vetiver", "indian vetiver"),
-        ("lavender", "lavandin"),
-        ("isoeugenol", "eugenol"),
-        ("hedione", "hedione hc"),
-        ("iso e super", "iso e super plus"),
-        ("beta ionone", "dihydro beta ionone"),
-        ("vertofix", "vertofix coeur"),
-        ("heliotropal", "heliotropin"),
-        ("ultralia", "alpha isomethyl ionone"),
-        ("benzoin resinoid", "siam benzoin"),
-    )
+# Materials whose names share fragments, aliases or data alt_names but are
+# different materials (AGENTS.md material identity model, plus look-alikes the
+# matcher used to collapse). Each concept is recognised from the meaning of a
+# name's words, not its literal spelling, so word order, punctuation, strength
+# or carrier suffixes and trade-name aliases all land on the same concept. Two
+# names with different concepts never match. Order matters: the more specific
+# concept of a pair is tested first. Haitian/Indian vetiver is decided by the
+# origin rule below, which covers every origin, not only vetiver's.
+_HEDIONE_WORDS = ("hedione", "dihydrojasmonate")
+_MATERIAL_CONCEPTS: tuple[tuple[str, Callable[[set[str], str], bool]], ...] = (
+    ("hedione hc", lambda t, c: any(w in c for w in _HEDIONE_WORDS)
+        and ("hc" in t or "highcis" in c)),
+    ("hedione", lambda t, c: any(w in c for w in _HEDIONE_WORDS)),
+    ("iso e super plus", lambda t, c: "isoesuperplus" in c or "isoeplus" in c),
+    ("iso e super", lambda t, c: "isoesuper" in c or c == "isoe"),
+    ("dihydro beta ionone", lambda t, c: "dihydro" in c and "ionone" in c and "alpha" not in t),
+    ("methyl ionone gamma coeur", lambda t, c: "methyl" in c and "ionone" in c
+        and ("coeur" in t or "couer" in t)),
+    ("alpha isomethyl ionone", lambda t, c: "isomethylionone" in c or "aimi" in t),
+    ("ultralia", lambda t, c: "ultralia" in c),
+    ("beta ionone", lambda t, c: "ionone" in c and ("beta" in t or "b" in t or "betaionone" in c)
+        and "methyl" not in c),
+    ("vertofix coeur", lambda t, c: "vertofix" in c and ("coeur" in t or "couer" in t)),
+    ("vertofix", lambda t, c: "vertofix" in c),
+    ("heliotropin", lambda t, c: "heliotropin" in c or "piperonal" in c),
+    ("heliotropal", lambda t, c: "heliotropal" in c),
+    ("isoeugenol", lambda t, c: "isoeugenol" in c),
+    ("eugenol", lambda t, c: "eugenol" in c),
+    ("habanolide", lambda t, c: "habanolide" in c),
+    ("galaxolide", lambda t, c: "galaxolide" in c),
+    ("muscenone delta", lambda t, c: "muscenone" in c),
+    ("exaltolide", lambda t, c: "exaltolide" in c),
+    ("bacdanol", lambda t, c: "bacdanol" in c),
+    ("sandalore", lambda t, c: "sandalore" in c),
+    ("lavandin", lambda t, c: "lavandin" in c),
+    ("lavender", lambda t, c: "lavender" in c),
+    # Styrax tonkinensis (Siam: Laos, Thailand, Vietnam) and Styrax benzoin
+    # (Sumatra) are different resins; a bare "benzoin" names neither.
+    ("siam benzoin", lambda t, c: "benzoin" in c and bool(
+        {"siam", "thai", "tonkinensis", "laos", "laotian", "vietnam", "vietnamese"} & t)),
+    ("sumatra benzoin", lambda t, c: "benzoin" in c and bool({"sumatra", "sumatran"} & t)),
+    ("benzoin", lambda t, c: "benzoin" in c),
+    # 10-undecenal (undecylenic) and undecanal (undecylic) are both "C11".
+    ("aldehyde c11 undecylenic", lambda t, c: "undecylenic" in c or "undecenal" in c
+        or ("c11" in t and "lenic" in t)),
+    ("aldehyde c11 undecylic", lambda t, c: "undecylic" in c or "undecanal" in c),
+    ("aldehyde c11", lambda t, c: "c11" in t and "aldehyde" in t),
 )
-_DENY_TERMS = frozenset(term for pair in _NON_INTERCHANGEABLE_PAIRS for term in pair)
+
+# Origins stated in a name. Two names stating incompatible origins are
+# different materials; a name stating none may still match one that does.
+_ORIGIN_WORDS = {
+    "haiti": "haiti", "haitian": "haiti",
+    "india": "india", "indian": "india", "mysore": "india", "khus": "india",
+    "java": "java", "javanese": "java",
+    "indonesia": "indonesia", "indonesian": "indonesia",
+    "bourbon": "reunion", "reunion": "reunion",
+    "madagascar": "madagascar", "madagascan": "madagascar", "malagasy": "madagascar",
+    "comoros": "comoros",
+    "ceylon": "sri lanka",
+    "china": "china", "chinese": "china",
+    "egypt": "egypt", "egyptian": "egypt",
+    "morocco": "morocco", "moroccan": "morocco",
+    "france": "france", "french": "france",
+    "bulgaria": "bulgaria", "bulgarian": "bulgaria",
+    "turkey": "turkey", "turkish": "turkey",
+    "italy": "italy", "italian": "italy",
+    "sicily": "sicily", "sicilian": "sicily",
+    "calabria": "calabria", "calabrian": "calabria",
+    "spain": "spain", "spanish": "spain",
+    "paraguay": "paraguay", "paraguayan": "paraguay",
+    "brazil": "brazil", "brazilian": "brazil",
+    "mexico": "mexico", "mexican": "mexico",
+    "tahiti": "tahiti", "tahitian": "tahiti",
+    "australia": "australia", "australian": "australia",
+    "virginia": "virginia", "texas": "texas", "atlas": "atlas",
+    "himalaya": "himalaya", "himalayan": "himalaya",
+}
+# A region is compatible with the country that contains it.
+_ORIGIN_PARENT = {"java": "indonesia", "sicily": "italy", "calabria": "italy"}
+
+# Extraction methods, most specific first: "absolute oil" is an absolute and a
+# "CO2 extract oil" is a CO2 extract.
+_METHOD_WORDS: tuple[tuple[str, frozenset[str]], ...] = (
+    ("co2 extract", frozenset({"co2", "sco2", "supercritical"})),
+    ("absolute", frozenset({"absolute", "abs"})),
+    ("resinoid", frozenset({"resinoid"})),
+    ("concrete", frozenset({"concrete"})),
+    ("tincture", frozenset({"tincture", "tinct"})),
+    ("infusion", frozenset({"infusion", "infused"})),
+    ("essential oil", frozenset({"eo", "essential", "oil"})),
+)
+# FCF (furocoumarin-free) only removes furocoumarins from the same expressed
+# oil: it is neither an origin nor a method, so it never separates two names
+# ("Bergamot EO" is "Bergamot FCF oil Sicilian").
+_SAME_MATERIAL_TREATMENTS = frozenset({"fcf"})
+_FACET_WORDS = (
+    frozenset(_ORIGIN_WORDS)
+    | frozenset().union(*(words for _, words in _METHOD_WORDS))
+    | _SAME_MATERIAL_TREATMENTS
+    | {"extract", "sri", "lanka"}
+)
 
 
-@lru_cache(maxsize=4096)
-def _deny_term(name: str) -> str | None:
-    """The most specific deny-list identity a name refers to, if any.
+def _name_tokens(name: str) -> list[str]:
+    """Words of a name's own spelling, without a trailing strength/carrier."""
+    low = unicodedata.normalize("NFKD", name.lower())
+    low = "".join(ch for ch in low if not unicodedata.combining(ch))
+    low = low.translate(str.maketrans({"α": "a", "β": "b", "γ": "g", "δ": "d"}))
+    low = re.sub(r"\s+", " ", low.strip())
+    low = _STOCK_SUFFIX_RE.sub("", low).strip() or low
+    return re.findall(r"[a-z0-9]+", low)
 
-    The name's own spellings win over data aliases, so 'Heliotropin' stays
-    heliotropin even though a profile alias maps it to Heliotropal.
-    """
-    own = set(_material_alias_keys(name))
-    base = _stock_base_name(name)
-    if base:
-        own.update(_material_alias_keys(base))
-    for pool in (own, material_match_keys(name)):
-        hits = _DENY_TERMS.intersection(pool)
-        if hits:
-            return max(hits, key=lambda term: (len(term), term))
+
+def _concept_of_text(name: str) -> str | None:
+    tokens = _name_tokens(name)
+    token_set, compact = set(tokens), "".join(tokens)
+    for concept, test in _MATERIAL_CONCEPTS:
+        if test(token_set, compact):
+            return concept
     return None
 
 
 @lru_cache(maxsize=4096)
+def _material_concept(name: str) -> str | None:
+    """The non-interchangeable material a name means, if it is one of them.
+
+    The name's own words win over data aliases, so 'Heliotropin' stays
+    heliotropin even though a profile alias maps it to Heliotropal; a bare
+    trade alias ('AIMI') is recognised through its alias keys.
+    """
+    own = _concept_of_text(name)
+    if own is not None:
+        return own
+    found = {_concept_of_text(key) for key in material_match_keys(name)} - {None}
+    for concept, _ in _MATERIAL_CONCEPTS:
+        if concept in found:
+            return concept
+    return None
+
+
+@lru_cache(maxsize=4096)
+def _stated_facets(name: str) -> tuple[frozenset[str], str | None]:
+    """Origins and extraction method stated in a name's own words."""
+    tokens = set(_name_tokens(name))
+    origins = {_ORIGIN_WORDS[token] for token in tokens if token in _ORIGIN_WORDS}
+    if {"sri", "lanka"} <= tokens:
+        origins.add("sri lanka")
+    method = next((m for m, words in _METHOD_WORDS if words & tokens), None)
+    return frozenset(origins), method
+
+
+def _origins_conflict(a: frozenset[str], b: frozenset[str]) -> bool:
+    if not a or not b:
+        return False
+    return not any(
+        x == y or _ORIGIN_PARENT.get(x) == y or _ORIGIN_PARENT.get(y) == x
+        for x in a
+        for y in b
+    )
+
+
+def _facets_conflict(a: str, b: str) -> bool:
+    """True when two names state different materials, origins or methods."""
+    concept_a, concept_b = _material_concept(a), _material_concept(b)
+    if concept_a and concept_b and concept_a != concept_b:
+        return True
+    origins_a, method_a = _stated_facets(a)
+    origins_b, method_b = _stated_facets(b)
+    if _origins_conflict(origins_a, origins_b):
+        return True
+    return bool(method_a and method_b and method_a != method_b)
+
+
+def _faceted_identity_key(name: str) -> str:
+    """'vetiver (haiti; essential oil)' for 'Vetiver EO (Haiti)' and 'Haitian Vetiver EO'."""
+    origins, method = _stated_facets(name)
+    concept = _material_concept(name)
+    core = concept or " ".join(t for t in _name_tokens(name) if t not in _FACET_WORDS)
+    core = core or " ".join(_name_tokens(name)) or name.lower().strip()
+    facets = [*sorted(origins), *([method] if method else [])]
+    return f"{core} ({'; '.join(facets)})" if facets else core
+
+
+@lru_cache(maxsize=4096)
 def material_identity_key(name: str) -> str:
-    """Stable lower-case key for deduplicating equivalent materials."""
+    """Stable lower-case key for deduplicating equivalent materials.
+
+    Two sides of a non-interchangeable pair, or names stating different origins
+    or extraction methods, never share a key even when data aliases resolve
+    them to one record.
+    """
     from ..material_identity import resolve_material_identity
 
     identity = resolve_material_identity(name)
     if identity is not None:
-        return identity.identity_key
+        key = identity.identity_key
+    else:
+        resolved = resolve_material_name(name)
+        if resolved:
+            key = resolved.lower().strip()
+        else:
+            keys = material_match_keys(name)
+            key = (
+                sorted(keys, key=lambda value: (len(value), value))[0]
+                if keys
+                else name.lower().strip()
+            )
 
-    resolved = resolve_material_name(name)
-    if resolved:
-        return resolved.lower().strip()
-
-    keys = material_match_keys(name)
-    if keys:
-        return sorted(keys, key=lambda value: (len(value), value))[0]
-    return name.lower().strip()
+    concept = _material_concept(name)
+    origins, method = _stated_facets(name)
+    key_origins, key_method = _stated_facets(key)
+    if (
+        (concept is not None and _material_concept(key) != concept)
+        or (origins and origins != key_origins)
+        or (method and method != key_method)
+    ):
+        return _faceted_identity_key(name)
+    return key
 
 
 @lru_cache(maxsize=8192)
@@ -1171,15 +1330,13 @@ def materials_match(a: str, b: str) -> bool:
     """True when two names refer to the same concrete material identity.
 
     Names match only through equal normalized keys or explicit aliases, never a
-    bare substring, and never across a non-interchangeable pair.
+    bare substring, and never when they mean different non-interchangeable
+    materials or state different origins or extraction methods.
     """
     if not a or not b:
         return False
-
-    term_a, term_b = _deny_term(a), _deny_term(b)
-    if term_a and term_b and frozenset((term_a, term_b)) in _NON_INTERCHANGEABLE_PAIRS:
+    if _facets_conflict(a, b):
         return False
-
     return bool(material_match_keys(a) & material_match_keys(b))
 
 

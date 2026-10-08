@@ -11,7 +11,11 @@ from engine.formula_recommendations import (
     _material_in_inventory,
     load_inventory,
 )
-from engine.optimizer.models import material_match_keys, materials_match
+from engine.optimizer.models import (
+    material_identity_key,
+    material_match_keys,
+    materials_match,
+)
 
 DENY_PAIRS = [
     ("Habanolide", "Galaxolide"),
@@ -32,6 +36,60 @@ DENY_PAIRS = [
     ("Hedione 10% w/w in DPG", "Hedione HC"),
     ("Galaxolide (50% in DEP)", "Habanolide (neat / as supplied)"),
     ("Isoeugenol (neat)", "Eugenol (10%)"),
+    # Other spellings, word orders, suffixes and aliases of the same pairs.
+    ("Vetiver EO (India)", "Haitian Vetiver EO"),
+    ("Vetiver (Indian)", "Haitian Vetiver EO"),
+    ("Vetiver Bourbon", "Vetiver India"),
+    ("Vetiver Haiti", "Vetiver India"),
+    ("Vetiver EO (Haiti)", "Ruh Khus"),
+    ("Hedione HC 10% in DPG", "Hedione"),
+    ("methyl dihydrojasmonate high cis", "Hedione"),
+    ("Hedione HC", "methyl dihydrojasmonate"),
+    ("Iso E Super Plus", "iso e super"),
+    ("Iso-E-Super Plus (10% in DPG)", "ISO E SUPER"),
+    ("Habanolide 10% in DEP", "galaxolide 50"),
+    ("Exaltolide", "Delta Muscenone"),
+    ("AIMI", "Methyl Ionone Gamma Coeur"),
+    ("Isomethyl Ionone Alpha", "Methyl Ionone Gamma Coeur (10% in DPG)"),
+    ("AIMI", "Ultralia"),
+    ("Sandalore (neat)", "bacdanol 10% in DPG"),
+    ("Lavandin Grosso EO", "Lavender EO"),
+    ("Iso Eugenol", "Eugenol"),
+    ("b-ionone", "Dihydro-beta-ionone"),
+    ("Beta Ionone", "Ionone Beta Dihydro"),
+    ("Vertofix Coeur (10%)", "vertofix"),
+    ("Coeur Vertofix", "Vertofix (neat / as supplied)"),
+    ("Piperonal", "Heliotropal"),
+    ("Heliotropin (10% in DPG)", "heliotropal"),
+    ("Benzoin Resinoid", "Siam Benzoin (50% w/w in DPG)"),
+    ("benzoin", "Benzoin Sumatra Resinoid (10%)"),
+    ("Siam Benzoin", "Benzoin Sumatra Resinoid (10%)"),
+    ("aldehyde c11", "Aldehyde C11 undecylenic (1%)"),
+    ("Aldehyde C11 undecylic", "Aldehyde C11 undecylenic"),
+]
+
+# Different origins or extraction methods stated on both sides.
+ORIGIN_OR_METHOD_DIFFERS = [
+    ("Lavender Absolute", "Lavender EO"),
+    ("Labdanum Absolute", "Labdanum Resinoid"),
+    ("Vetiver EO (Java)", "Vetiver EO (Haiti)"),
+    ("Geranium Bourbon", "Geranium EO Egypt"),
+    ("Orris Concrete", "Orris Absolute"),
+    ("Ginger CO2 extract", "Ginger EO"),
+    ("Vanilla Tincture", "Vanilla Absolute"),
+    ("Oakmoss Resinoid", "Oakmoss Absolute"),
+]
+
+# A side stating no origin/method, or the same one spelled differently.
+ORIGIN_OR_METHOD_COMPATIBLE = [
+    ("Lavender", "Lavender EO"),
+    ("Haitian Vetiver EO", "Vetiver EO (Haiti)"),
+    ("Vetiver EO", "Haitian Vetiver EO"),
+    ("Labdanum", "Labdanum Resinoid"),
+    ("Vetiver EO (Bourbon)", "Vetiver EO (Reunion)"),
+    # Stated rule: FCF only removes furocoumarins from the same expressed oil.
+    ("Bergamot EO", "Bergamot FCF oil Sicilian"),
+    ("Bergamot FCF", "Bergamot EO"),
 ]
 
 SAME_MATERIAL = [
@@ -68,6 +126,45 @@ def test_same_material_spellings_still_match(a, b):
     assert materials_match(b, a) is True
 
 
+@pytest.mark.parametrize(("a", "b"), ORIGIN_OR_METHOD_DIFFERS)
+def test_different_stated_origins_or_methods_never_match(a, b):
+    assert materials_match(a, b) is False
+    assert materials_match(b, a) is False
+
+
+@pytest.mark.parametrize(("a", "b"), ORIGIN_OR_METHOD_COMPATIBLE)
+def test_unstated_or_equal_origin_and_method_still_match(a, b):
+    assert materials_match(a, b) is True
+    assert materials_match(b, a) is True
+
+
+@pytest.mark.parametrize(("a", "b"), DENY_PAIRS + ORIGIN_OR_METHOD_DIFFERS)
+def test_identity_keys_keep_different_materials_apart(a, b):
+    # Duplicate removal keys on material_identity_key; it must not merge them.
+    assert material_identity_key(a) != material_identity_key(b)
+
+
+IDENTITY_KEY_VARIANTS = [
+    ("Hedione", "  HEDIONE "),
+    ("Hedione", "Hedione 10% w/w in DPG"),
+    ("Hedione HC", "hedione  hc"),
+    ("Hedione HC", "Hedione HC 10% in DPG"),
+    ("Iso E Super Plus", "iso e super plus 10% in DPG"),
+    ("Iso E Super", "iso e  super"),
+    ("Lavender Absolute", "lavender absolute (10% in ethanol)"),
+    ("Vetiver EO (India)", "vetiver eo (india)"),
+    ("Exaltolide (10%)", "exaltolide"),
+    ("Siam Benzoin", "Siam Benzoin (50% w/w in DPG)"),
+    ("Alpha Isomethyl Ionone", "AIMI"),
+    ("methyl dihydrojasmonate", "Hedione"),
+]
+
+
+@pytest.mark.parametrize(("a", "b"), IDENTITY_KEY_VARIANTS)
+def test_identity_keys_equal_for_same_material_variants(a, b):
+    assert material_identity_key(a) == material_identity_key(b)
+
+
 def _base(name: str) -> str:
     low = re.sub(r"\s+", " ", name.strip().lower())
     low = re.sub(r"\s*\([^)]*\)\s*$", "", low)
@@ -79,27 +176,34 @@ def _base(name: str) -> str:
 EXPLICIT_ALIAS_MATCHES = {
     "dbca": "Dimethyl Benzyl Carbinyl Acetate",
     "labdanum": "Labdanum Resinoid",
-}
-# Pre-existing grade-level collapses from qualifier-token normalization in
-# _material_alias_keys (not substring matching). Pinned so a change is visible.
-KNOWN_GRADE_COLLAPSES = {
+    # Stated FCF rule: same expressed oil, furocoumarins removed.
     "bergamot eo": "Bergamot FCF oil Sicilian",
-    "labdanum absolute": "Labdanum Resinoid",
+}
+# Candidates with no same-material stock: each must resolve to nothing rather
+# than to a different material.
+EXPECTED_NO_MATCH = {
+    "aldehyde c11",  # stock is C11 undecylenic; C11 undecylic is another material
+    "benzoin resinoid",  # umbrella name; stock is Siam and Sumatra resinoids
+    "vertofix coeur",  # stock is Vertofix
+    "labdanum absolute",  # stock is Labdanum Resinoid, a different extract
 }
 
 
 def test_axis_candidates_resolve_only_to_the_same_inventory_material():
     inventory = load_inventory()
     names = sorted({name for options in AXIS_CANDIDATES.values() for name, _, _ in options})
+    assert EXPECTED_NO_MATCH <= set(names)
     wrong = []
     for name in names:
         item = _material_in_inventory(name, inventory)
+        if name in EXPECTED_NO_MATCH:
+            if item is not None:
+                wrong.append(f"{name!r} -> {item['name']!r} (expected no match)")
+            continue
         if item is None:
             continue
         stock = item["name"]
-        if _base(stock) == _base(name):
-            continue
-        if EXPLICIT_ALIAS_MATCHES.get(name) == stock or KNOWN_GRADE_COLLAPSES.get(name) == stock:
+        if _base(stock) == _base(name) or EXPLICIT_ALIAS_MATCHES.get(name) == stock:
             continue
         wrong.append(f"{name!r} -> {stock!r}")
     assert wrong == []
