@@ -3,7 +3,7 @@
 import json
 import logging
 from functools import lru_cache
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Any, Optional, TypedDict, cast
 
 logger = logging.getLogger(__name__)
@@ -28,6 +28,15 @@ class KnowledgeSearchResult(TypedDict):
 
     files: list[str]
     matches: list[KnowledgeMatch]
+
+
+def _is_unsafe_relative_name(name: str) -> bool:
+    """True when a caller-supplied name is not a plain relative path."""
+    for flavour in (PurePosixPath, PureWindowsPath):
+        pure = flavour(name)
+        if pure.anchor or pure.drive or ".." in pure.parts:
+            return True
+    return False
 
 
 class DataLoader:
@@ -162,9 +171,21 @@ class DataLoader:
     @staticmethod
     def load_knowledge_file(filename: str) -> Optional[str]:
         """Load a knowledge markdown file by name"""
+        # Refuse absolute, drive, UNC and ../ names before touching the disk.
+        # On Windows, resolving a UNC name such as \\host\share\x.md opens a
+        # network connection (sending the user's sign-in hash) even though
+        # the containment check below would then refuse it.
+        if _is_unsafe_relative_name(filename):
+            return None
         try:
-            file_path = KNOWLEDGE_DIR / filename
-            if file_path.exists() and file_path.suffix == ".md":
+            # Resolve both sides (following symlinks) and refuse anything that
+            # lands outside the knowledge folder: ../ segments, absolute paths
+            # and links pointing elsewhere.
+            knowledge_root = KNOWLEDGE_DIR.resolve()
+            file_path = (knowledge_root / filename).resolve()
+            if not file_path.is_relative_to(knowledge_root):
+                return None
+            if file_path.is_file() and file_path.suffix == ".md":
                 with open(file_path, 'r', encoding='utf-8') as f:
                     return f.read()
         except Exception as e:

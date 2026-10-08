@@ -266,6 +266,11 @@ launcher is also available:
 .venv\Scripts\python.exe run_api_server.py
 ```
 
+The launcher listens on `127.0.0.1` (this PC only) by default. The app has no
+login, so `--lan` (or `--host 0.0.0.0`) lets anyone on the same network open,
+change and delete the lab data; the launcher prints a warning when started that
+way. The Docker Compose setup likewise publishes port 8000 on `127.0.0.1` only.
+
 The laboratory interface is served at `http://localhost:8000/app`; API
 documentation is served at `http://localhost:8000/docs`. The bootstrap command
 uses the mandatory backup-before-migration path for file-backed SQLite

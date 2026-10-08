@@ -4,7 +4,9 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     ports:
-      - "8000:8000"
+      # Published on this PC only. The app has no login; do not widen this
+      # to all interfaces. Inside the container uvicorn still listens on 0.0.0.0.
+      - "127.0.0.1:8000:8000"
     environment:
       - DATABASE_URL=sqlite+aiosqlite:////app/backend/runtime/perfume_chem.db
       - OPENAI_API_KEY=${OPENAI_API_KEY}
@@ -47,17 +49,19 @@ services:
 
   redis:
     image: redis:7-alpine
-    ports:
-      - "6379:6379"
+    # No host port: only containers on this compose network (the api, via
+    # REDIS_URL=redis://redis:6379/0) talk to Redis, and it has no password.
     volumes:
       - redis_data:/data
 
   jaeger:
     image: jaegertracing/all-in-one:1.52
     ports:
-      - "16686:16686"   # Jaeger UI
-      - "4317:4317"     # OTLP gRPC
-      - "4318:4318"     # OTLP HTTP
+      # This PC only: traces can include request paths and formula names.
+      # The api reaches Jaeger over the compose network (jaeger:4318).
+      - "127.0.0.1:16686:16686"   # Jaeger UI
+      - "127.0.0.1:4317:4317"     # OTLP gRPC
+      - "127.0.0.1:4318:4318"     # OTLP HTTP
     environment:
       - COLLECTOR_OTLP_ENABLED=true
 
