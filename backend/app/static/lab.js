@@ -441,11 +441,14 @@ function resetImproveResult() {
   setWorkflowStep(1);
 }
 
-const ENGINE_JOB_TERMINAL_STATES = new Set(["SUCCEEDED", "WITHHELD", "FAILED", "CANCELLED", "EXPIRED"]);
+const ENGINE_JOB_TERMINAL_STATES = new Set(["SUCCEEDED", "WITHHELD", "FAILED", "CANCELLED"]);
 const ENGINE_JOB_DEFAULT_WAIT_MS = 15 * 60 * 1000;
+// The server lets a claimed job run its timeout_seconds plus a 60 s lease grace; wait a little longer.
+const ENGINE_JOB_RUN_GRACE_MS = 90 * 1000;
 const ENGINE_WORKER_CHECK_MS = 15 * 1000;
 const ENGINE_POLL_REQUEST_TIMEOUT_MS = 20 * 1000;
 const ENGINE_JOB_FAILURE_WORDS = {
+  FAILED_CLOSED_WORKER_STOPPED: "The analysis stopped because the server restarted or shut down; run it again.",
   FAILED_CLOSED_WORKER_LOST: "The analysis worker stopped while it was running this job, so the job was closed without a result.",
   ENGINE_JOB_TIMEOUT: "The job ran past its time limit and was stopped without a result.",
   ENGINE_JOB_EXECUTION_FAILED: "The analysis hit an internal error and stopped without a result.",
@@ -479,6 +482,16 @@ function abortableDelay(milliseconds, signal) {
 async function liveEngineWorkerCount() {
   const status = await request("/v2/engine-workers/status", { timeoutMs: ENGINE_POLL_REQUEST_TIMEOUT_MS });
   return Number(status.live) || 0;
+}
+
+// Like liveEngineWorkerCount, but a failed, timed-out or 404 status request (an older server)
+// is "worker status unknown" (null) rather than an error, so the job keeps being polled.
+async function liveEngineWorkerCountOrUnknown() {
+  try {
+    return await liveEngineWorkerCount();
+  } catch (error) {
+    return null;
+  }
 }
 
 // Shows the no-worker message in `area` and resolves once a re-check finds a live worker.
@@ -517,11 +530,12 @@ function waitForEngineWorker(area, jobState, signal) {
 }
 
 // Polls one engine job until it reaches a terminal state. Pauses with a plain message while no
-// worker is alive, and throws a plain-words error for FAILED or EXPIRED jobs. Other terminal
+// worker is alive, and throws a plain-words error for FAILED jobs. Other terminal
 // snapshots are returned unchanged so each caller keeps its own result handling.
 async function waitForEngineJob(jobId, { area, intervalMs = 1000, signal, stillRunningMessage } = {}) {
   const path = `/v2/engine-jobs/${encodeURIComponent(jobId)}`;
-  let startedAt = Date.now();
+  const waitStartedAt = Date.now();
+  let runningSince = null;
   let nextWorkerCheck = 0;
   const progress = document.createElement("p");
   area.replaceChildren(progress);
@@ -529,7 +543,7 @@ async function waitForEngineJob(jobId, { area, intervalMs = 1000, signal, stillR
     if (signal?.aborted) throw signal.reason;
     const snapshot = await request(path, { timeoutMs: ENGINE_POLL_REQUEST_TIMEOUT_MS });
     if (ENGINE_JOB_TERMINAL_STATES.has(snapshot.state)) {
-      if (snapshot.state === "FAILED" || snapshot.state === "EXPIRED") {
+      if (snapshot.state === "FAILED") {
         const reason = engineJobFailureText(snapshot);
         progress.textContent = reason;
         area.replaceChildren(progress);
@@ -540,21 +554,30 @@ async function waitForEngineJob(jobId, { area, intervalMs = 1000, signal, stillR
     }
     if (Date.now() >= nextWorkerCheck) {
       nextWorkerCheck = Date.now() + ENGINE_WORKER_CHECK_MS;
-      if (await liveEngineWorkerCount() === 0) {
+      if (await liveEngineWorkerCountOrUnknown() === 0) {
         await waitForEngineWorker(area, snapshot.state, signal);
         area.replaceChildren(progress);
-        startedAt = Date.now();
+        runningSince = null;
         nextWorkerCheck = Date.now() + ENGINE_WORKER_CHECK_MS;
         continue;
       }
     }
-    const limitMs = snapshot.timeout_seconds ? snapshot.timeout_seconds * 1000 : ENGINE_JOB_DEFAULT_WAIT_MS;
-    const elapsed = Date.now() - startedAt;
-    if (elapsed > limitMs) {
-      area.replaceChildren();
-      throw new Error(stillRunningMessage || "The job is still running. Its durable job can be checked again without resubmitting the request.");
+    // Queued jobs wait as long as a worker may pick them up. The limit starts at the first
+    // running snapshot: the job's timeout plus the server's lease grace.
+    if (snapshot.state === "QUEUED") {
+      runningSince = null;
+    } else if (runningSince === null) {
+      runningSince = Date.now();
     }
-    progress.textContent = `${snapshot.state === "QUEUED" ? "Waiting in the queue" : "Running"} for ${formatElapsed(elapsed)}.`;
+    if (runningSince !== null) {
+      const timeoutMs = snapshot.timeout_seconds ? snapshot.timeout_seconds * 1000 : ENGINE_JOB_DEFAULT_WAIT_MS;
+      if (Date.now() - runningSince > timeoutMs + ENGINE_JOB_RUN_GRACE_MS) {
+        area.replaceChildren();
+        throw new Error(stillRunningMessage || "The job is still running. Its durable job can be checked again without resubmitting the request.");
+      }
+    }
+    const elapsed = Date.now() - (runningSince ?? waitStartedAt);
+    progress.textContent = `${runningSince === null ? "Waiting in the queue" : "Running"} for ${formatElapsed(elapsed)}.`;
     await abortableDelay(intervalMs, signal);
   }
 }

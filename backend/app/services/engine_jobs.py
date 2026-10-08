@@ -754,6 +754,10 @@ class LabEngineJobServiceMixin:
                         seconds=job.timeout_seconds + 60
                     )
                     expiry = min(expiry, deadline)
+                if latest.lease_expires_at and expiry <= latest.lease_expires_at:
+                    # Already at the cap (or later than this renewal would reach):
+                    # nothing to extend, so append no event.
+                    return latest.lease_expires_at
                 await self._append_engine_job_event(
                     job_id=job_id,
                     state="RUNNING",

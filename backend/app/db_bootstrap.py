@@ -153,6 +153,8 @@ def upgrade_database(
     if database_path is not None:
         destination = snapshot_directory or database_path.parent / "pre-upgrade-snapshots"
         snapshot = prepare_database_upgrade(database_path, destination)
+    # Running inside the host process: keep its logging configuration.
+    config.attributes["configure_logger"] = False
     command.upgrade(config, revision)
     return snapshot
 

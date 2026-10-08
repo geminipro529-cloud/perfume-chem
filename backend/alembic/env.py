@@ -7,9 +7,11 @@ from alembic import context
 from app.models.base import Base
 
 config = context.config
-if config.config_file_name is not None:
-    # Keep loggers the host process already created (the API runs migrations at
-    # startup); the default would silently disable every one of them.
+if config.config_file_name is not None and config.attributes.get(
+    "configure_logger", True
+):
+    # The API sets configure_logger=False when it migrates in-process, so its
+    # own logging survives; the alembic CLI keeps configuring logging here.
     fileConfig(config.config_file_name, disable_existing_loggers=False)
 
 target_metadata = Base.metadata

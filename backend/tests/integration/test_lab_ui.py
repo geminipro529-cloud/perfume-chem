@@ -596,3 +596,12 @@ async def test_science_authority_view_preserves_labels_modes_and_unknowns(client
     assert "/api/v1/lab/science/report.md?view=" in javascript.text
     assert "confidence percentage" not in page.text.casefold()
     assert "confidence percentage" not in javascript.text.casefold()
+
+
+@pytest.mark.asyncio
+async def test_engine_job_wait_uses_current_server_states_and_failure_words(client):
+    javascript = await client.get("/static/lab.js")
+
+    assert "FAILED_CLOSED_WORKER_STOPPED" in javascript.text
+    assert "the server restarted or shut down; run it again" in javascript.text
+    assert "EXPIRED" not in javascript.text
