@@ -123,8 +123,31 @@ class EngineJobResponse(BaseModel):
     evidence_admission_authorized: Literal[False] = False
 
 
+class EngineWorkerResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid", from_attributes=True)
+
+    id: str
+    host: str
+    pid: int
+    started_at: datetime
+    last_seen_at: datetime
+
+
+class EngineWorkerStatusResponse(BaseModel):
+    """Workers whose heartbeat is newer than ``max_age_seconds``."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    live: int
+    workers: list[EngineWorkerResponse]
+    max_age_seconds: int
+    checked_at: datetime
+
+
 __all__ = [
     "EngineJobCancelRequest",
     "EngineJobRequest",
     "EngineJobResponse",
+    "EngineWorkerResponse",
+    "EngineWorkerStatusResponse",
 ]

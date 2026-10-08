@@ -71,7 +71,8 @@ async def test_guided_improvement_ui_is_default_local_and_authority_safe(client)
     assert 'request("/v2/workbench/formula-library")' in javascript.text
     assert "/v2/workbench/formula-source?source_path=" in javascript.text
     assert 'navigate(location.hash.slice(1) || "improve")' in javascript.text
-    assert "window.setTimeout(resolve, 1000)" in javascript.text
+    assert "waitForEngineJob(jobId, { area, intervalMs = 1000" in javascript.text
+    assert 'request("/v2/engine-workers/status"' in javascript.text
     assert "http://" not in javascript.text
     assert "https://" not in javascript.text
     assert "Research behind this design · optional details" in javascript.text
@@ -595,6 +596,18 @@ async def test_science_authority_view_preserves_labels_modes_and_unknowns(client
     assert "/api/v1/lab/science/report.md?view=" in javascript.text
     assert "confidence percentage" not in page.text.casefold()
     assert "confidence percentage" not in javascript.text.casefold()
+
+
+@pytest.mark.asyncio
+async def test_engine_job_wait_uses_current_server_states_and_failure_words(client):
+    javascript = await client.get("/static/lab.js")
+
+    assert "FAILED_CLOSED_WORKER_STOPPED" in javascript.text
+    assert "the server restarted or shut down, so it has no result" in javascript.text
+    # The same request coalesces onto the stopped job, so the page must not
+    # promise that asking again re-runs it.
+    assert "run it again" not in javascript.text.casefold()
+    assert "EXPIRED" not in javascript.text
 
 
 @pytest.mark.asyncio

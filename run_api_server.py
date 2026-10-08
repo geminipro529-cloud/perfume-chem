@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import os
-import subprocess
 import sys
 from pathlib import Path
 
@@ -19,7 +18,10 @@ def main() -> None:
     parser.add_argument(
         "--no-engine-worker",
         action="store_true",
-        help="Run only the API process (the durable worker is enabled by default).",
+        help=(
+            "Run only the API process: sets PERFUME_ENGINE_WORKER_AUTOSTART=0 so "
+            "the app does not start its engine worker (enabled by default)."
+        ),
     )
     parser.add_argument(
         "--reload",
@@ -49,42 +51,20 @@ def main() -> None:
     # import-time discovery performed by Uvicorn on the same application path.
     import uvicorn
 
-    worker: subprocess.Popen | None = None
-    if not args.no_engine_worker:
-        environment = dict(os.environ)
-        environment["PYTHONPATH"] = os.pathsep.join(
-            [
-                str(backend_dir),
-                str(repository_root),
-                environment.get("PYTHONPATH", ""),
-            ]
-        ).rstrip(os.pathsep)
-        creation_flags = (
-            subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
-        )
-        worker = subprocess.Popen(
-            [sys.executable, "-m", "app.services.engine_job_worker"],
-            cwd=backend_dir,
-            env=environment,
-            creationflags=creation_flags,
-        )
-    try:
-        uvicorn.run(
-            "app.main:app",
-            host=args.host,
-            port=8000,
-            reload=args.reload,
-            log_level="info",
-            app_dir=str(backend_dir),
-        )
-    finally:
-        if worker is not None and worker.poll() is None:
-            worker.terminate()
-            try:
-                worker.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                worker.kill()
-                worker.wait(timeout=5)
+    # The app's lifespan starts and stops the engine worker (see
+    # backend/app/services/engine_worker_process.py), so this launcher no longer
+    # spawns its own: that would give two workers.  --no-engine-worker keeps its
+    # meaning by switching the app's autostart off.
+    if args.no_engine_worker:
+        os.environ["PERFUME_ENGINE_WORKER_AUTOSTART"] = "0"
+    uvicorn.run(
+        "app.main:app",
+        host=args.host,
+        port=8000,
+        reload=args.reload,
+        log_level="info",
+        app_dir=str(backend_dir),
+    )
 
 
 if __name__ == "__main__":

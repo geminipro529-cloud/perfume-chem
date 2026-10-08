@@ -18,6 +18,7 @@ const state = {
   improve: {
     jobId: null,
     pollCancelled: false,
+    pollAbort: null,
     sourceKind: null,
     sourceId: null,
     sourceRows: [],
@@ -41,10 +42,18 @@ function notify(message, error = false) {
 }
 
 async function request(path, options = {}) {
-  const response = await fetch(`${API}${path}`, {
-    headers: { "Content-Type": "application/json", ...(options.headers || {}) },
-    ...options,
-  });
+  const { timeoutMs, ...fetchOptions } = options;
+  let response;
+  try {
+    response = await fetch(`${API}${path}`, {
+      headers: { "Content-Type": "application/json", ...(fetchOptions.headers || {}) },
+      ...fetchOptions,
+      ...(timeoutMs ? { signal: AbortSignal.timeout(timeoutMs) } : {}),
+    });
+  } catch (error) {
+    if (error.name === "TimeoutError") throw new Error(`The server did not answer within ${Math.round(timeoutMs / 1000)} s.`);
+    throw error;
+  }
   const payload = await response.json().catch(() => ({}));
   if (!response.ok) {
     const detail = Array.isArray(payload.detail)
@@ -436,16 +445,153 @@ function resetImproveResult() {
   setWorkflowStep(1);
 }
 
-async function pollEngineJob(jobId) {
-  const terminalStates = new Set(["SUCCEEDED", "WITHHELD", "FAILED", "CANCELLED"]);
-  for (let attempt = 0; attempt < 180; attempt += 1) {
-    if (state.improve.pollCancelled) throw new Error("Analysis cancelled.");
-    const snapshot = await request(`/v2/engine-jobs/${encodeURIComponent(jobId)}`);
-    $("#improve-running-detail").textContent = `Job state: ${humanize(snapshot.state)}.`;
-    if (terminalStates.has(snapshot.state)) return snapshot;
-    await new Promise((resolve) => window.setTimeout(resolve, 1000));
+const ENGINE_JOB_TERMINAL_STATES = new Set(["SUCCEEDED", "WITHHELD", "FAILED", "CANCELLED"]);
+const ENGINE_JOB_DEFAULT_WAIT_MS = 15 * 60 * 1000;
+// The server lets a claimed job run its timeout_seconds plus a 60 s lease grace; wait a little longer.
+const ENGINE_JOB_RUN_GRACE_MS = 90 * 1000;
+const ENGINE_WORKER_CHECK_MS = 15 * 1000;
+const ENGINE_POLL_REQUEST_TIMEOUT_MS = 20 * 1000;
+const ENGINE_JOB_FAILURE_WORDS = {
+  FAILED_CLOSED_WORKER_STOPPED: "The analysis stopped because the server restarted or shut down, so it has no result. Asking again with the same formula and goals shows this result again; change either one to start a new analysis.",
+  FAILED_CLOSED_WORKER_LOST: "The analysis worker stopped while it was running this job, so the job was closed without a result.",
+  ENGINE_JOB_TIMEOUT: "The job ran past its time limit and was stopped without a result.",
+  ENGINE_JOB_EXECUTION_FAILED: "The analysis hit an internal error and stopped without a result.",
+};
+
+function formatElapsed(milliseconds) {
+  const total = Math.max(0, Math.floor(milliseconds / 1000));
+  const hours = Math.floor(total / 3600);
+  const minutes = Math.floor((total % 3600) / 60);
+  const seconds = total % 60;
+  if (hours) return `${hours} h ${minutes} min`;
+  if (minutes) return `${minutes} min ${seconds} s`;
+  return `${seconds} s`;
+}
+
+function engineJobFailureText(snapshot) {
+  const code = snapshot.result?.result?.code || snapshot.result?.validation_state || snapshot.events?.at(-1)?.reason;
+  return ENGINE_JOB_FAILURE_WORDS[code]
+    || `The job ended as ${humanize(snapshot.state)}${code ? ` (${humanize(code)})` : ""}, without a result.`;
+}
+
+function abortableDelay(milliseconds, signal) {
+  return new Promise((resolve, reject) => {
+    if (signal?.aborted) { reject(signal.reason); return; }
+    const timer = window.setTimeout(() => { signal?.removeEventListener("abort", onAbort); resolve(); }, milliseconds);
+    function onAbort() { window.clearTimeout(timer); reject(signal.reason); }
+    signal?.addEventListener("abort", onAbort, { once: true });
+  });
+}
+
+async function liveEngineWorkerCount() {
+  const status = await request("/v2/engine-workers/status", { timeoutMs: ENGINE_POLL_REQUEST_TIMEOUT_MS });
+  return Number(status.live) || 0;
+}
+
+// Like liveEngineWorkerCount, but a failed, timed-out or 404 status request (an older server)
+// is "worker status unknown" (null) rather than an error, so the job keeps being polled.
+async function liveEngineWorkerCountOrUnknown() {
+  try {
+    return await liveEngineWorkerCount();
+  } catch (error) {
+    return null;
   }
-  throw new Error("The analysis is still running. Its durable job can be checked again without resubmitting the request.");
+}
+
+// Shows the no-worker message in `area` and resolves once a re-check finds a live worker.
+function waitForEngineWorker(area, jobState, signal) {
+  return new Promise((resolve, reject) => {
+    const box = document.createElement("div");
+    box.className = "inline-warning engine-worker-missing";
+    const message = document.createElement("p");
+    message.textContent = `No analysis worker is running, so this job can't ${jobState === "QUEUED" ? "start" : "finish"}. Start the app with \`python run_api_server.py\`, or run \`python -m app.services.engine_job_worker\` from backend/. Then press Check again.`;
+    const checkStatus = document.createElement("p");
+    checkStatus.className = "field-help";
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "quiet-button";
+    button.textContent = "Check again";
+    box.append(message, button, checkStatus);
+    area.replaceChildren(box);
+    function onAbort() { reject(signal.reason); }
+    signal?.addEventListener("abort", onAbort, { once: true });
+    button.addEventListener("click", async () => {
+      button.disabled = true;
+      checkStatus.textContent = "Checking…";
+      try {
+        if (await liveEngineWorkerCount() > 0) {
+          signal?.removeEventListener("abort", onAbort);
+          resolve();
+          return;
+        }
+        checkStatus.textContent = `Still no worker at ${new Date().toLocaleTimeString()}.`;
+      } catch (error) {
+        checkStatus.textContent = `Could not check: ${error.message}`;
+      }
+      button.disabled = false;
+    });
+  });
+}
+
+// Polls one engine job until it reaches a terminal state. Pauses with a plain message while no
+// worker is alive, and throws a plain-words error for FAILED jobs. Other terminal
+// snapshots are returned unchanged so each caller keeps its own result handling.
+async function waitForEngineJob(jobId, { area, intervalMs = 1000, signal, stillRunningMessage } = {}) {
+  const path = `/v2/engine-jobs/${encodeURIComponent(jobId)}`;
+  const waitStartedAt = Date.now();
+  let runningSince = null;
+  let nextWorkerCheck = 0;
+  const progress = document.createElement("p");
+  area.replaceChildren(progress);
+  for (;;) {
+    if (signal?.aborted) throw signal.reason;
+    const snapshot = await request(path, { timeoutMs: ENGINE_POLL_REQUEST_TIMEOUT_MS });
+    if (ENGINE_JOB_TERMINAL_STATES.has(snapshot.state)) {
+      if (snapshot.state === "FAILED") {
+        const reason = engineJobFailureText(snapshot);
+        progress.textContent = reason;
+        area.replaceChildren(progress);
+        throw new Error(reason);
+      }
+      area.replaceChildren();
+      return snapshot;
+    }
+    if (Date.now() >= nextWorkerCheck) {
+      nextWorkerCheck = Date.now() + ENGINE_WORKER_CHECK_MS;
+      if (await liveEngineWorkerCountOrUnknown() === 0) {
+        await waitForEngineWorker(area, snapshot.state, signal);
+        area.replaceChildren(progress);
+        runningSince = null;
+        nextWorkerCheck = Date.now() + ENGINE_WORKER_CHECK_MS;
+        continue;
+      }
+    }
+    // Queued jobs wait as long as a worker may pick them up. The limit starts at the first
+    // running snapshot: the job's timeout plus the server's lease grace.
+    if (snapshot.state === "QUEUED") {
+      runningSince = null;
+    } else if (runningSince === null) {
+      runningSince = Date.now();
+    }
+    if (runningSince !== null) {
+      const timeoutMs = snapshot.timeout_seconds ? snapshot.timeout_seconds * 1000 : ENGINE_JOB_DEFAULT_WAIT_MS;
+      if (Date.now() - runningSince > timeoutMs + ENGINE_JOB_RUN_GRACE_MS) {
+        area.replaceChildren();
+        throw new Error(stillRunningMessage || "The job is still running. Its durable job can be checked again without resubmitting the request.");
+      }
+    }
+    const elapsed = Date.now() - (runningSince ?? waitStartedAt);
+    progress.textContent = `${runningSince === null ? "Waiting in the queue" : "Running"} for ${formatElapsed(elapsed)}.`;
+    await abortableDelay(intervalMs, signal);
+  }
+}
+
+async function pollEngineJob(jobId) {
+  return waitForEngineJob(jobId, {
+    area: $("#improve-running-detail"),
+    signal: state.improve.pollAbort.signal,
+    stillRunningMessage: "The analysis is still running. Its durable job can be checked again without resubmitting the request.",
+  });
 }
 
 function addSummaryRow(list, label, value) {
@@ -786,6 +932,7 @@ $("#improve-form").addEventListener("submit", async (event) => {
   resetImproveResult();
   setImproveBusy(true);
   state.improve.pollCancelled = false;
+  state.improve.pollAbort = new AbortController();
   try {
     const data = formData(event.currentTarget);
     const payload = await buildGoalAnalysisPayload(data);
@@ -818,6 +965,7 @@ $("#improve-form").addEventListener("submit", async (event) => {
 
 $("#cancel-improve-job").addEventListener("click", async () => {
   state.improve.pollCancelled = true;
+  state.improve.pollAbort?.abort(new Error("Analysis cancelled."));
   if (state.improve.jobId) {
     try {
       await request(`/v2/engine-jobs/${encodeURIComponent(state.improve.jobId)}/cancel`, {
@@ -1372,13 +1520,18 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
           payload,
         }),
       });
-      const terminalStates = new Set(["SUCCEEDED", "WITHHELD", "FAILED", "CANCELLED"]);
-      let completed = submitted;
-      for (let attempt = 0; attempt < 500 && !terminalStates.has(completed.state); attempt += 1) {
-        await new Promise((resolve) => window.setTimeout(resolve, 600));
-        completed = await request(`/v2/engine-jobs/${encodeURIComponent(submitted.id)}`);
+      const jobArea = $("#formula-chat-job-status");
+      jobArea.hidden = false;
+      let completed;
+      try {
+        completed = await waitForEngineJob(submitted.id, {
+          area: jobArea,
+          intervalMs: 600,
+          stillRunningMessage: "Deep Compose is still running; its durable job remains available without resubmitting.",
+        });
+      } finally {
+        if (!jobArea.childElementCount) jobArea.hidden = true;
       }
-      if (!terminalStates.has(completed.state)) throw new Error("Deep Compose is still running; its durable job remains available without resubmitting.");
       result = completed.result?.result?.result?.formula_design;
       if (!result) throw new Error(completed.events?.at(-1)?.reason || `Deep Compose ended as ${completed.state}.`);
     } else {
@@ -1677,12 +1830,11 @@ $("#omission-plan-form").addEventListener("submit", async (event) => {
       }
       throw error;
     }
-    let completed = submitted;
-    const terminal = new Set(["SUCCEEDED", "WITHHELD", "FAILED", "CANCELLED"]);
-    for (let i = 0; i < 120 && !terminal.has(completed.state); i += 1) {
-      await new Promise((resolve) => window.setTimeout(resolve, 500));
-      completed = await request(`/v2/engine-jobs/${encodeURIComponent(submitted.id)}`);
-    }
+    const completed = await waitForEngineJob(submitted.id, {
+      area: $("#omission-plan-output"),
+      intervalMs: 500,
+      stillRunningMessage: `Planning job ${submitted.id} is still running. It remains available without resubmitting.`,
+    });
     const handoff = completed.result?.result?.result;
     if (!handoff?.omission_plan && !handoff?.one_change_plan) throw new Error(`Planning job ${submitted.id}: ${completed.state}. It remains available without resubmitting.`);
     const output = $("#omission-plan-output"); output.replaceChildren();

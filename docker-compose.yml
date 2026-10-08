@@ -12,6 +12,8 @@ services:
       - DEBUG=True
       - REDIS_URL=redis://redis:6379/0
       - OTEL_OTLP_ENDPOINT=http://jaeger:4318
+      # The engine-worker service below runs jobs; the API must not start its own.
+      - PERFUME_ENGINE_WORKER_AUTOSTART=0
     volumes:
       - ./backend/data:/app/backend/data
       - ./backend/app:/app/backend/app
