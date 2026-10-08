@@ -22,7 +22,7 @@ import math
 import re
 import sys
 import unicodedata
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from datetime import datetime
 from pathlib import Path
 
@@ -413,9 +413,101 @@ def _install_formula_vector_compatibility() -> None:
         FormulaVector.weighted_volatility_index = _safe_weighted_volatility_index  # type: ignore[method-assign]
 
 
+_BLANK_CELLS = frozenset({"", "-", "--", "---", "\u2014", "\u2013", "na", "n/a"})
+# "1:10" / "1/10" with optional basis and carrier after it ("1:10 w/w in DPG").
+_RATIO_STRENGTH_RE = re.compile(
+    r"^\s*1\s*[:/]\s*(\d+(?:\.\d+)?)(?![\d.,:/])(.*)$", re.DOTALL
+)
+# A number written with exact 3-digit thousands groups ("1,500", "1 168"),
+# or any other run of digits with commas/dots (validated after matching).
+_AMOUNT_NUMBER_RE = re.compile(
+    r"\d{1,3}(?:[ \u00a0\u202f]\d{3})+(?:\.\d+)?(?!\d)"
+    r"|\d[\d,]*(?:\.\d+)?|\.\d+"
+)
+_EXACT_THOUSANDS_RE = re.compile(r"\d{1,3}(?:[, \u00a0\u202f]\d{3})+(?:\.\d+)?")
+_AMOUNT_UNIT_RE = re.compile(
+    r"(?<![a-z])(ul|ml|mg|kg|g|drops?)(?![a-z])", re.IGNORECASE
+)
+_VOLUME_UL_PER_UNIT = {"ul": 1.0, "ml": 1000.0}
+_MASS_UNITS = frozenset({"g", "mg", "kg"})
+
+
+def read_strength_cell(cell: str) -> tuple[float | None, dict[str, object], str | None]:
+    """Read one formula-row strength cell.
+
+    Returns ``(dilution, stock_spec, problem)``. ``dilution`` always equals
+    ``stock_spec["fraction"]``. A blank cell keeps the historical undeclared
+    1.0; ``neat``/``100%`` and percent cells are read by
+    ``parse_stock_specification``; ``1:N``/``1/N`` cells are read exactly as
+    the equivalent percent cell. Any other non-blank cell is unreadable: the
+    fraction is ``None`` (never neat) and ``problem`` names why.
+    """
+
+    clean = str(cell or "").strip().replace("**", "").replace("`", "")
+    stock = parse_stock_specification(clean)
+    if not stock.declared:
+        ratio = _RATIO_STRENGTH_RE.match(clean)
+        if ratio is not None and float(ratio.group(1)) >= 1.0:
+            denominator = float(ratio.group(1))
+            equivalent = f"{100.0 / denominator!r}%{ratio.group(2)}"
+            stock = replace(
+                parse_stock_specification(equivalent),
+                fraction=1.0 / denominator,
+                raw=clean,
+            )
+    if stock.declared or clean.lower() in _BLANK_CELLS:
+        return stock.fraction, stock.as_dict(), None
+    spec = stock.as_dict()
+    spec["fraction"] = None
+    spec["readable"] = False
+    return None, spec, "unreadable_strength"
+
+
+def read_amount_cell(cell: str, column_unit: str) -> tuple[float | None, str | None]:
+    """Read one amount cell in ``column_unit`` (``ul``, ``ml`` or ``%``).
+
+    Returns ``(value, refusal)``. Parenthesised text is a note and ignored.
+    A volume unit written in the cell is converted to the column's unit; a
+    mass unit (or drops) is refused, as is more than one number (an edit such
+    as ``50 -> 60``) or a comma that is not an exact 3-digit thousands group.
+    A blank cell is ``(None, None)``.
+    """
+
+    clean = str(cell or "").strip().replace("**", "").replace("`", "")
+    if clean.lower() in _BLANK_CELLS:
+        return None, None
+    outside = re.sub(r"\([^()]*\)", " ", clean)
+    outside = outside.replace("\u00b5", "u").replace("\u03bc", "u")
+    numbers = _AMOUNT_NUMBER_RE.findall(outside)
+    if not numbers:
+        return None, None
+    if len(numbers) > 1:
+        return None, "more than one number outside parentheses"
+    token = numbers[0]
+    if "," in token and not _EXACT_THOUSANDS_RE.fullmatch(token):
+        return None, "comma is not a 3-digit thousands separator"
+    value = float(re.sub(r"[, \u00a0\u202f]", "", token))
+    if re.search(r"-\s*" + re.escape(token), outside):
+        value = -value
+    units = {unit.lower() for unit in _AMOUNT_UNIT_RE.findall(outside)}
+    if len(units) > 1:
+        return None, "more than one unit"
+    if units:
+        unit = units.pop()
+        if unit.startswith("drop"):
+            return None, "drops are not a volume"
+        if unit in _MASS_UNITS:
+            return None, f"mass unit '{unit}' in a {column_unit} column"
+        if column_unit not in _VOLUME_UL_PER_UNIT:
+            return None, f"volume unit '{unit}' in a {column_unit} column"
+        value = value * _VOLUME_UL_PER_UNIT[unit] / _VOLUME_UL_PER_UNIT[column_unit]
+    return value, None
+
+
 def _parse_formula_rows(
     body: str,
-) -> tuple[dict[str, float], dict[str, float], dict[str, dict[str, object]]]:
+    blockers: list[dict[str, object]] | None = None,
+) -> tuple[dict[str, float], dict[str, float | None], dict[str, dict[str, object]]]:
     """Parse formula rows from a markdown table. Accepts multiple formats.
 
     Supported:
@@ -425,9 +517,14 @@ def _parse_formula_rows(
       | Ingredient | % | Dilution |               (percentages with dilution)
 
     Handles section headers (**Top**, **Heart**, **Base**) and inline dilutions
-    like "(10% in DPG)" or "10%".
+    like "(10% in DPG)", "10%" or "1:10 in DPG".
+
+    A row whose strength or amount cell can't be read is held out of the
+    returned ingredients (so no physics models it); its strength is ``None``
+    in ``dilutions`` and ``stock_specs``, and a blocking message naming the
+    material and quoting the cell is appended to ``blockers`` when given.
     """
-    dilutions: dict[str, float] = {}
+    dilutions: dict[str, float | None] = {}
     stock_specs: dict[str, dict[str, object]] = {}
     # Keep percentage rows separate from volume rows.  A value below 100 is
     # not evidence that a table is expressed as percentages: many valid
@@ -436,6 +533,8 @@ def _parse_formula_rows(
     volume_amounts_ul: dict[str, float] = {}
     percentage_amounts: dict[str, float] = {}
     ingredient_order: list[str] = []
+    held_out: set[str] = set()
+    unreadable_strength: dict[str, dict[str, object]] = {}
     total_ul_val: float | None = None
 
     def _split_row(line: str) -> list[str]:
@@ -573,21 +672,6 @@ def _parse_formula_rows(
                 "parts %",
             )
         )
-
-    def _parse_dil(v: str) -> float:
-        clean = v.strip().replace("**", "").replace("`", "")
-        low = clean.lower()
-        if low in ("", "neat", "pure", "-", "--", "---", "—", "–"):
-            return 1.0
-        m = re.search(r"(\d+(?:[.,]\d+)?)\s*%", clean)
-        if m:
-            return float(m.group(1).replace(",", ".")) / 100.0
-        numeric = _parse_amount(clean)
-        if numeric is None:
-            return 1.0
-        if 0.0 < numeric <= 1.0:
-            return numeric
-        return 1.0
 
     def _skip_ingredient(name: str) -> bool:
         low = re.sub(r"\s+", " ", name.strip().lower())
@@ -739,6 +823,10 @@ def _parse_formula_rows(
             continue
         if amount_ul_idx is None and amount_ml_idx is None and percent_idx is None:
             continue
+        if dilution_idx in {amount_ul_idx, amount_ml_idx, percent_idx}:
+            # "form" also matches a "Formula (uL)" amount header; an amount
+            # column is never the strength column.
+            dilution_idx = None
 
         if name_idx >= len(parts):
             continue
@@ -748,30 +836,74 @@ def _parse_formula_rows(
 
         amount_ul: float | None = None
         amount_is_percentage = False
-        if amount_ul_idx is not None and amount_ul_idx < len(parts):
-            amount_ul = _parse_amount(parts[amount_ul_idx])
-        if amount_ul is None and percent_idx is not None and percent_idx < len(parts):
-            amount_ul = _parse_amount(parts[percent_idx])
-            amount_is_percentage = amount_ul is not None
+        amount_refusal: tuple[str, str] | None = None
         # If both cells are present, the explicit physical volume remains
         # authoritative. Percentage columns in these tables are derived
         # diagnostics; retaining this precedence avoids double-counting the
         # same row while keeping the historical parser contract stable.
-        if amount_ul is None and amount_ml_idx is not None and amount_ml_idx < len(parts):
-            amount_ml = _parse_amount(parts[amount_ml_idx])
-            if amount_ml is not None:
-                amount_ul = amount_ml * 1000.0
+        for column_idx, column_unit in (
+            (amount_ul_idx, "ul"),
+            (percent_idx, "%"),
+            (amount_ml_idx, "ml"),
+        ):
+            if column_idx is None or column_idx >= len(parts):
+                continue
+            value, refusal = read_amount_cell(parts[column_idx], column_unit)
+            if refusal is not None:
+                amount_refusal = (parts[column_idx].strip(), refusal)
+                break
+            if value is not None:
+                amount_ul = value * 1000.0 if column_unit == "ml" else value
+                amount_is_percentage = column_unit == "%"
+                break
+        if amount_refusal is not None:
+            held_out.add(ingredient)
+            if ingredient not in ingredient_order:
+                ingredient_order.append(ingredient)
+            if blockers is not None:
+                cell_text, refusal = amount_refusal
+                blockers.append(
+                    {
+                        "material": ingredient,
+                        "field": "amount",
+                        "cell": cell_text,
+                        "reason": refusal,
+                        "message": (
+                            f"Amount '{cell_text}' for {ingredient} can't be read "
+                            f"({refusal}); write one number in the column's unit"
+                        ),
+                    }
+                )
+            continue
         if amount_ul is None or amount_ul <= 0.0:
             continue
 
         dilution_cell = ""
         if dilution_idx is not None and dilution_idx < len(parts):
             dilution_cell = parts[dilution_idx]
-        stock = parse_stock_specification(dilution_cell)
-        dilution = stock.fraction if stock.declared else _parse_dil(dilution_cell)
+        dilution, spec, strength_problem = read_strength_cell(dilution_cell)
 
         if ingredient not in ingredient_order:
             ingredient_order.append(ingredient)
+        if strength_problem is not None:
+            held_out.add(ingredient)
+            unreadable_strength[ingredient] = spec
+            if blockers is not None:
+                cell_text = str(spec.get("raw", ""))
+                blockers.append(
+                    {
+                        "material": ingredient,
+                        "field": "strength",
+                        "cell": cell_text,
+                        "reason": strength_problem,
+                        "message": (
+                            f"Strength '{cell_text}' for {ingredient} can't be read; "
+                            "write it as a percent with basis and carrier, "
+                            "e.g. 10% w/w in DPG"
+                        ),
+                    }
+                )
+            continue
 
         if amount_is_percentage:
             percentage_amounts[ingredient] = (
@@ -783,14 +915,21 @@ def _parse_formula_rows(
             )
         if ingredient not in dilutions or dilution != 1.0:
             dilutions[ingredient] = dilution
-        spec = stock.as_dict()
         previous = stock_specs.get(ingredient)
         if previous is not None and any(
             previous.get(key) != spec.get(key)
             for key in ("fraction", "fraction_basis", "carrier", "declared")
         ):
+            fresh = dict(spec)
+            spec = dict(spec)
             spec["conflict"] = True
-            spec["variants"] = [previous, stock.as_dict()]
+            spec["variants"] = [previous, fresh]
+        stock_specs[ingredient] = spec
+
+    # An unreadable strength is None in both outputs, never neat; an unreadable
+    # strength or amount holds the whole material out of the ingredient rows.
+    for ingredient, spec in unreadable_strength.items():
+        dilutions[ingredient] = None
         stock_specs[ingredient] = spec
 
     if percentage_amounts and total_ul_val is None:
@@ -803,6 +942,8 @@ def _parse_formula_rows(
     # any independently declared uL/mL rows for the same material).
     ingredients_ul = {}
     for name in ingredient_order:
+        if name in held_out:
+            continue
         ingredients_ul[name] = volume_amounts_ul.get(name, 0.0) + (
             percentage_amounts.get(name, 0.0)
             * (float(total_ul_val) / 100.0 if total_ul_val is not None else 0.0)
@@ -1243,9 +1384,10 @@ def _build_formula_record(
     name: str,
     body: str,
     ingredients_ul: dict[str, float],
-    dilutions: dict[str, float],
+    dilutions: dict[str, float | None],
     stock_specs: dict[str, dict[str, object]],
     embedded_analysis: str = "",
+    row_parse_blockers: list[dict[str, object]] | None = None,
 ) -> dict:
     total_ul = sum(ingredients_ul.values()) or 1.0
     ingredients_pct = {
@@ -1262,6 +1404,9 @@ def _build_formula_record(
         "ingredients_pct": ingredients_pct,
         "dilutions": dilutions,
         "stock_specs": stock_specs,
+        # Rows held out of ingredients_ul because a strength or amount cell
+        # could not be read. Any entry blocks release and physics output.
+        "row_parse_blockers": list(row_parse_blockers or []),
         **compounding_contract,
         "concentrate_ml": concentrate_ml,
         "body": body,
@@ -1353,8 +1498,9 @@ def parse_formula_markdown(path: Path) -> list[dict]:
         number = int(sections[idx])
         name = sections[idx + 1].strip()
         body = sections[idx + 2]
-        ingredients_ul, dilutions, stock_specs = _parse_formula_rows(body)
-        if not ingredients_ul:
+        blockers: list[dict[str, object]] = []
+        ingredients_ul, dilutions, stock_specs = _parse_formula_rows(body, blockers)
+        if not ingredients_ul and not blockers:
             continue
         formulas.append(
             _build_formula_record(
@@ -1365,14 +1511,16 @@ def parse_formula_markdown(path: Path) -> list[dict]:
                 dilutions,
                 stock_specs,
                 embedded_analysis,
+                blockers,
             )
         )
 
     if formulas:
         return formulas
 
-    ingredients_ul, dilutions, stock_specs = _parse_formula_rows(text)
-    if not ingredients_ul:
+    blockers = []
+    ingredients_ul, dilutions, stock_specs = _parse_formula_rows(text, blockers)
+    if not ingredients_ul and not blockers:
         return []
 
     title_match = re.search(r"^#\s+(.+?)\s*$", text, flags=re.MULTILINE)
@@ -1386,7 +1534,17 @@ def parse_formula_markdown(path: Path) -> list[dict]:
             dilutions,
             stock_specs,
             embedded_analysis,
+            blockers,
         )
+    ]
+
+
+def formula_row_parse_blocker_messages(formula: dict) -> list[str]:
+    """Blocking messages for rows held out because a cell could not be read."""
+
+    return [
+        str(blocker.get("message", ""))
+        for blocker in formula.get("row_parse_blockers", []) or []
     ]
 
 
@@ -1417,6 +1575,9 @@ def build_verification_bundle(
 ) -> dict:
     from engine.advisory_stock_strength import validated_advisory_dilutions
 
+    row_blockers = formula_row_parse_blocker_messages(formula)
+    if row_blockers:
+        raise ValueError("advisory scoring abstained: " + "; ".join(row_blockers))
     dilutions = validated_advisory_dilutions(
         formula["ingredients_pct"], formula.get("dilutions", {}),
         stock_specs=formula.get("stock_specs"), context="advisory scoring",
