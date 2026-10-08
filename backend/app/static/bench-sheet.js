@@ -42,6 +42,13 @@ function benchPercentText(fraction) {
   return decimals ? `${integer}.${decimals}%` : `${integer}%`;
 }
 
+// The planner's basis codes in the words a bench card uses: "w/w", not "mass_fraction".
+const BENCH_BASIS_TEXT = { mass_fraction: "w/w", volume_fraction: "v/v", mass_per_volume: "w/v" };
+function benchBasisText(basis) {
+  const text = String(basis ?? "").trim();
+  return BENCH_BASIS_TEXT[text] || text.replaceAll("_", " ");
+}
+
 // A liquid row the planner marks PREPARED_DILUTION_REQUIRED (raw volume of the
 // existing stock under the 10 uL transfer floor) is not pipetted as written.
 function benchNeedsPreparedDilution(row) {
@@ -71,7 +78,7 @@ function benchSheetLines(rows) {
       number: index + 1,
       material: String(row.material ?? ""),
       stockLabel: String(row.stock_label || row.material || ""),
-      strength: `${percent ?? String(row.stock_fraction_decimal ?? "")} ${row.fraction_basis ?? ""}${row.carrier ? ` in ${row.carrier}` : ""}`.trim(),
+      strength: `${percent ?? String(row.stock_fraction_decimal ?? "")} ${benchBasisText(row.fraction_basis)}${row.carrier ? ` in ${row.carrier}` : ""}`.trim(),
       amount,
       unit,
       unitKey: key,
@@ -145,5 +152,5 @@ function benchSheetHtml({ formulaName, variantLabel, dateText, totals, rows, cri
 }
 
 if (typeof module === "object" && module.exports) {
-  module.exports = { addDecimalText, benchUnitKey, benchPercentText, benchNeedsPreparedDilution, benchSheetLines, benchSheetHold, benchLeaveOutNote, benchSheetHtml, benchEscape };
+  module.exports = { addDecimalText, benchUnitKey, benchPercentText, benchBasisText, benchNeedsPreparedDilution, benchSheetLines, benchSheetHold, benchLeaveOutNote, benchSheetHtml, benchEscape };
 }

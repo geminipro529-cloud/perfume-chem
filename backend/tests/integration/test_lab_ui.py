@@ -663,6 +663,7 @@ async def test_formula_result_fits_prints_and_offers_a_bench_sheet(client):
     assert "window.print()" in javascript.text
     assert "benchSheetHtml(" in javascript.text
     assert "formula-dose-hold" in javascript.text
+    assert "benchBasisText(row.fraction_basis)" in javascript.text
     bench = await client.get("/static/bench-sheet.js")
     assert bench.status_code == 200
     assert "Order as designed" in bench.text
@@ -684,6 +685,19 @@ def _row(material, amount, unit="uL", **extra):
         "fraction_basis": "w/w", "carrier": "DPG", "amount_decimal": amount, "amount_unit": unit,
         "operation": "MASS_ADD" if unit == "mg" else "DIRECT_ADD", "execution_ready": True, **extra,
     }
+
+
+def test_bench_sheet_writes_the_basis_as_w_w_or_v_v():
+    rows = [
+        _row("Ambrox Super", "840", stock_fraction_decimal="0.25", fraction_basis="mass_fraction"),
+        _row("Bergamot", "100", stock_fraction_decimal="0.1", fraction_basis="volume_fraction", carrier="ethanol"),
+        _row("Lavender EO", "1061", stock_fraction_decimal="1", fraction_basis="neat", carrier=None),
+    ]
+    strengths = _run_bench_sheet(
+        "(b) => b.benchSheetLines(ROWS).lines.map((line) => line.strength)".replace("ROWS", json.dumps(rows))
+    )
+
+    assert strengths == ["25% w/w in DPG", "10% v/v in ethanol", "100% neat"]
 
 
 def test_bench_sheet_logic_keeps_exact_per_unit_totals_and_flags_prepared_dilutions():
