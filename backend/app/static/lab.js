@@ -408,9 +408,13 @@ function bindForm(selector, handler) {
     clearFormError(form);
     const buttons = form.querySelectorAll('button[type="submit"], input[type="submit"], button:not([type])');
     buttons.forEach((button) => { button.disabled = true; });
-    try { await handler(formData(form)); notify("Record committed."); await refresh(); }
-    catch (error) { notify(showFormError(form, error).join("; "), true); }
-    finally { buttons.forEach((button) => { button.disabled = false; }); }
+    try {
+      try { await handler(formData(form)); }
+      catch (error) { notify(showFormError(form, error).join("; "), true); return; }
+      notify("Record committed.");
+      // The record is saved; a failed refresh must not show "Not saved." and invite a duplicate.
+      await refresh().catch((error) => notify(error.message, true));
+    } finally { buttons.forEach((button) => { button.disabled = false; }); }
   });
 }
 
@@ -2548,6 +2552,12 @@ window.addEventListener("hashchange", () => {
   if ($(`[data-panel="${requested}"]`)) navigate(requested);
 });
 
+// Move focus to the main area without putting "#main-content" in the URL.
+$(".skip-link").addEventListener("click", (event) => {
+  event.preventDefault();
+  $("#main-content").focus();
+});
+
 const THEME_KEY = "perfumechem.theme";
 const THEME_COLORS = { light: "#FFFDF8", dark: "#12171B" };
 function applyTheme(choice) {
@@ -2577,6 +2587,8 @@ function applyTheme(choice) {
   });
 })();
 
-navigate(location.hash.slice(1) || "improve");
+const startView = location.hash.slice(1);
+// An unknown hash (an old "#main-content" bookmark, say) would hide every view.
+navigate($$(".view").some((panel) => panel.dataset.panel === startView) ? startView : "improve");
 restoreStoredDrafts();
 refresh().catch((error) => notify(error.message, true));

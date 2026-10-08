@@ -78,7 +78,7 @@ async def test_guided_improvement_ui_is_default_local_and_authority_safe(client)
     assert "/quick-evaluations" in javascript.text
     assert 'request("/v2/workbench/formula-library")' in javascript.text
     assert "/v2/workbench/formula-source?source_path=" in javascript.text
-    assert 'navigate(location.hash.slice(1) || "improve")' in javascript.text
+    assert '? startView : "improve")' in javascript.text
     assert "waitForEngineJob(jobId, { area, intervalMs = 1000" in javascript.text
     assert 'request("/v2/engine-workers/status"' in javascript.text
     assert "http://" not in javascript.text

@@ -33,7 +33,7 @@ async def test_navigation_is_grouped_with_skip_link_and_theme_picker(client):
     html = page.text
 
     assert '<a class="skip-link" href="#main-content">Skip to content</a>' in html
-    assert '<main id="main-content">' in html
+    assert '<main id="main-content" tabindex="-1">' in html
     assert 'id="theme-select"' in html
     for value in ("system", "light", "dark"):
         assert f'<option value="{value}">' in html
