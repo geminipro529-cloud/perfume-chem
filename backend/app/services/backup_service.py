@@ -9,17 +9,29 @@ import secrets
 import shutil
 import sqlite3
 import tempfile
-from collections.abc import Mapping
+import time
+from collections.abc import Callable, Mapping
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from hashlib import sha256
 from pathlib import Path
 
+from engine.user_records import (
+    ADDITION_LOG_NAME,
+    BASKET_LOG_NAME,
+    COMPLETION_LOG_NAME,
+    record_files,
+)
 from sqlalchemy.engine import URL, make_url
 
 from app import db_bootstrap
 
 BACKUP_DIRECTORY_NAME = "lab-backups"
+# The personal stock records copied into every backup, by standard file name.
+USER_RECORD_NAMES = (ADDITION_LOG_NAME, COMPLETION_LOG_NAME, BASKET_LOG_NAME)
+# Why a live stock record was left as it was by a restore.
+RECORD_NOT_IN_BACKUP = "this backup has no copy of it"
+RECORDS_PREDATE_BACKUP = "this backup was made before stock records were included"
 
 
 class RestoreSafetyError(ValueError):
@@ -39,10 +51,14 @@ class RestoreAfterSafetyCopyError(RestoreSafetyError):
         *,
         pre_restore_backup: BackupArtifact | None,
         damaged_copy: Path | None,
+        records_copy: Path | None = None,
     ) -> None:
         super().__init__(message)
         self.pre_restore_backup = pre_restore_backup
         self.damaged_copy = damaged_copy
+        # Raw copies of the live stock records, taken when the live database
+        # was missing or damaged (so no pre-restore backup holds them).
+        self.records_copy = records_copy
 
 
 @dataclass(frozen=True, slots=True)
@@ -53,8 +69,10 @@ class BackupArtifact:
     schema_fingerprint_sha256: str
     schema_revision: str
     created_at: str
+    # Standard record name -> {"sha256", "bytes"}, or None when it did not exist.
+    user_records: Mapping[str, Mapping[str, object] | None] | None = None
 
-    def as_dict(self) -> dict[str, str]:
+    def as_dict(self) -> dict[str, object]:
         payload = asdict(self)
         payload["snapshot_path"] = str(self.snapshot_path)
         payload["manifest_path"] = str(self.manifest_path)
@@ -68,6 +86,10 @@ class RestoreValidation:
     errors: tuple[str, ...]
     snapshot_sha256: str | None
     schema_revision: str | None
+    # False for a backup made before stock records were included in backups.
+    includes_user_records: bool = False
+    # Standard record name -> "verified", "not in backup", "missing" or "damaged".
+    user_records: Mapping[str, str] | None = None
 
     def as_dict(self) -> dict[str, object]:
         return {
@@ -76,6 +98,8 @@ class RestoreValidation:
             "errors": list(self.errors),
             "snapshot_sha256": self.snapshot_sha256,
             "schema_revision": self.schema_revision,
+            "includes_user_records": self.includes_user_records,
+            "user_records": dict(self.user_records or {}),
         }
 
 
@@ -102,6 +126,14 @@ class AppliedRestore:
     pre_restore_backup: BackupArtifact | None
     # A raw byte copy of a live database that failed its integrity check.
     damaged_copy: Path | None = None
+    # False when the backup predates stock records in backups.
+    backup_has_user_records: bool = False
+    # Standard names of the stock records put back from the backup.
+    records_restored: tuple[str, ...] = ()
+    # (standard name, reason) for each live stock record left as it was.
+    records_left: tuple[tuple[str, str], ...] = ()
+    # Raw copies of the live stock records when no pre-restore backup holds them.
+    records_copy: Path | None = None
 
 
 class BackupService:
@@ -113,8 +145,10 @@ class BackupService:
         database_path: Path,
         backup_directory: Path,
         expected_schema_revision: str,
+        user_records: Callable[[], Mapping[str, Path]] = record_files,
     ) -> None:
         self.database_path = database_path.expanduser().resolve()
+        self.user_records = user_records
         self.backup_directory = backup_directory.expanduser().resolve()
         self.expected_schema_revision = expected_schema_revision.strip()
         if not self.expected_schema_revision:
@@ -153,17 +187,66 @@ class BackupService:
             destination.close()
             source.close()
 
-        _fsync_path(snapshot_path)
-        artifact = BackupArtifact(
-            snapshot_path=snapshot_path,
-            manifest_path=snapshot_path.with_suffix(".manifest.json"),
-            snapshot_sha256=_file_sha256(snapshot_path),
-            schema_fingerprint_sha256=schema_fingerprint,
-            schema_revision=schema_revision,
-            created_at=datetime.now(timezone.utc).isoformat(),
-        )
-        _atomic_json_write(artifact.manifest_path, artifact.as_dict())
+        manifest_path = snapshot_path.with_suffix(".manifest.json")
+        records_directory = _records_directory(snapshot_path)
+        try:
+            _fsync_path(snapshot_path)
+            records = self._copy_user_records(records_directory)
+            artifact = BackupArtifact(
+                snapshot_path=snapshot_path,
+                manifest_path=manifest_path,
+                snapshot_sha256=_file_sha256(snapshot_path),
+                schema_fingerprint_sha256=schema_fingerprint,
+                schema_revision=schema_revision,
+                created_at=datetime.now(timezone.utc).isoformat(),
+                user_records=records,
+            )
+            _atomic_json_write(manifest_path, artifact.as_dict())
+        except BaseException:
+            snapshot_path.unlink(missing_ok=True)
+            manifest_path.unlink(missing_ok=True)
+            shutil.rmtree(records_directory, ignore_errors=True)
+            raise
         return artifact
+
+    def _copy_user_records(
+        self, records_directory: Path
+    ) -> dict[str, dict[str, object] | None]:
+        """Copy each existing stock record into ``records_directory``.
+
+        The logs are appended to with one write per event, so a copy taken
+        while the app runs can, rarely, end part-way through a line; such a
+        copy is taken again.
+        """
+
+        live = self._live_user_records()
+        records_directory.mkdir()
+        manifest: dict[str, dict[str, object] | None] = {}
+        for name in USER_RECORD_NAMES:
+            source = live.get(name)
+            if source is None or not source.is_file():
+                manifest[name] = None
+                continue
+            target = records_directory / name
+            for attempt in range(_RECORD_COPY_ATTEMPTS):
+                if attempt:
+                    time.sleep(_RECORD_RETAKE_PAUSE_SECONDS * attempt)
+                _copy_file(source, target, exclusive=False)
+                if _ends_with_whole_line(target):
+                    break
+            else:
+                raise RestoreSafetyError(
+                    f"The stock record {source} ends part-way through a line, so it "
+                    "could not be backed up. No backup was made; try again."
+                )
+            manifest[name] = {"sha256": _file_sha256(target), "bytes": target.stat().st_size}
+        return manifest
+
+    def _live_user_records(self) -> dict[str, Path]:
+        return {
+            name: Path(path).expanduser().resolve()
+            for name, path in self.user_records().items()
+        }
 
     def validate_restore(self, snapshot_path: Path) -> RestoreValidation:
         path = self._managed_snapshot(snapshot_path)
@@ -179,6 +262,20 @@ class BackupService:
                 manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
             except (OSError, json.JSONDecodeError):
                 errors.append("snapshot manifest is invalid JSON")
+
+        includes_records = "user_records" in manifest
+        record_status: dict[str, str] = {}
+        if includes_records:
+            try:
+                expected_records = _manifest_user_records(manifest)
+            except RestoreSafetyError as exc:
+                errors.append(str(exc))
+            else:
+                for name, expected in expected_records.items():
+                    status = _record_copy_status(_records_directory(path) / name, expected)
+                    record_status[name] = status
+                    if status in {"missing", "damaged"}:
+                        errors.append(f"stock record copy {name} is {status}")
 
         actual_sha: str | None = None
         schema_revision: str | None = None
@@ -211,6 +308,8 @@ class BackupService:
             errors=tuple(dict.fromkeys(errors)),
             snapshot_sha256=actual_sha,
             schema_revision=schema_revision,
+            includes_user_records=includes_records,
+            user_records=record_status,
         )
 
     @property
@@ -288,31 +387,112 @@ class BackupService:
         finally:
             connection.close()
 
-        # Copy the live database to safety first: a verified backup when it is
-        # sound, a raw byte copy when it is damaged, nothing when it is missing.
-        pre_restore: BackupArtifact | None = None
-        damaged_copy: Path | None = None
-        if self.database_path.exists():
-            if _database_is_sound(self.database_path):
-                pre_restore = self.create_backup(label="pre-restore")
-            else:
-                damaged_copy = self._keep_damaged_copy()
+        # Stage the backup's stock record copies beside the live records and
+        # check them before anything changes.
+        expected_records = self._backup_user_records(staged.source_snapshot_path)
+        live_records = self._live_user_records()
+        record_stages: dict[str, Path] = {}
         try:
-            os.replace(staged_path, self.database_path)
-            restored = sqlite3.connect(self.database_path)
+            records_left: list[tuple[str, str]] = []
+            for name in USER_RECORD_NAMES:
+                live = live_records.get(name)
+                if expected_records is None or expected_records.get(name) is None:
+                    if live is not None and live.exists():
+                        reason = (
+                            RECORDS_PREDATE_BACKUP
+                            if expected_records is None
+                            else RECORD_NOT_IN_BACKUP
+                        )
+                        records_left.append((name, reason))
+                    continue
+                if live is None:
+                    raise RestoreSafetyError(f"no live location is configured for {name}")
+                record_stages[name] = _stage_record_copy(
+                    _records_directory(staged.source_snapshot_path) / name,
+                    live,
+                    expected_records[name],
+                )
+
+            # Copy the live database to safety first: a verified backup (which
+            # also holds the live stock records) when it is sound, a raw byte
+            # copy when it is damaged, nothing when it is missing.  Without a
+            # verified backup, raw copies of the live stock records are kept.
+            pre_restore: BackupArtifact | None = None
+            damaged_copy: Path | None = None
+            records_copy: Path | None = None
+            database_sound = self.database_path.exists() and _database_is_sound(
+                self.database_path
+            )
+            if database_sound:
+                pre_restore = self.create_backup(label="pre-restore")
+            elif any(live_records[name].exists() for name in record_stages):
+                records_copy = self._keep_live_records_copy(live_records)
+            if self.database_path.exists() and not database_sound:
+                try:
+                    damaged_copy = self._keep_damaged_copy()
+                except BaseException:
+                    if records_copy is not None:
+                        shutil.rmtree(records_copy, ignore_errors=True)
+                    raise
             try:
-                _require_integrity(restored, "restored database")
-            finally:
-                restored.close()
-        except (OSError, sqlite3.Error, RestoreSafetyError) as exc:
-            raise RestoreAfterSafetyCopyError(
-                str(exc), pre_restore_backup=pre_restore, damaged_copy=damaged_copy
-            ) from exc
+                os.replace(staged_path, self.database_path)
+                restored = sqlite3.connect(self.database_path)
+                try:
+                    _require_integrity(restored, "restored database")
+                finally:
+                    restored.close()
+                for name, stage in record_stages.items():
+                    os.replace(stage, live_records[name])
+            except (OSError, sqlite3.Error, RestoreSafetyError) as exc:
+                raise RestoreAfterSafetyCopyError(
+                    str(exc),
+                    pre_restore_backup=pre_restore,
+                    damaged_copy=damaged_copy,
+                    records_copy=records_copy,
+                ) from exc
+        finally:
+            for stage in record_stages.values():
+                stage.unlink(missing_ok=True)
         return AppliedRestore(
             database_path=self.database_path,
             pre_restore_backup=pre_restore,
             damaged_copy=damaged_copy,
+            backup_has_user_records=expected_records is not None,
+            records_restored=tuple(record_stages),
+            records_left=tuple(records_left),
+            records_copy=records_copy,
         )
+
+    def _backup_user_records(
+        self, snapshot_path: Path
+    ) -> dict[str, Mapping[str, object] | None] | None:
+        """The backup's stock record entries, or None for an older backup."""
+
+        manifest_path = snapshot_path.with_suffix(".manifest.json")
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise RestoreSafetyError(f"snapshot manifest cannot be read: {exc}") from exc
+        if not isinstance(manifest, dict) or "user_records" not in manifest:
+            return None
+        return _manifest_user_records(manifest)
+
+    def _keep_live_records_copy(self, live_records: Mapping[str, Path]) -> Path:
+        timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+        folder = Path(
+            tempfile.mkdtemp(
+                prefix=f"stock-records-pre-restore-{timestamp}-", dir=self.backup_directory
+            )
+        )
+        try:
+            for name in USER_RECORD_NAMES:
+                live = live_records.get(name)
+                if live is not None and live.exists():
+                    _copy_file(live, folder / name, exclusive=True)
+        except BaseException:
+            shutil.rmtree(folder, ignore_errors=True)
+            raise
+        return folder
 
     def _keep_damaged_copy(self) -> Path:
         timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
@@ -356,6 +536,8 @@ def backup_service_for_database_url(database_url: str | URL) -> BackupService:
 
 
 _STAGE_SUFFIX_BYTES = 8
+_RECORD_COPY_ATTEMPTS = 5
+_RECORD_RETAKE_PAUSE_SECONDS = 0.05
 _STAGE_SUFFIX_PATTERN = rf"[0-9a-f]{{{2 * _STAGE_SUFFIX_BYTES}}}\.sqlite"
 _O_BINARY = getattr(os, "O_BINARY", 0)  # Windows text-mode guard
 
@@ -364,6 +546,78 @@ def _fsync_path(path: Path) -> None:
     # Opened for writing: Windows refuses to flush a read-only handle.
     with path.open("rb+") as handle:
         os.fsync(handle.fileno())
+
+
+def _records_directory(snapshot_path: Path) -> Path:
+    return snapshot_path.with_suffix(".records")
+
+
+def _copy_file(source: Path, target: Path, *, exclusive: bool) -> None:
+    with source.open("rb") as reader, target.open("xb" if exclusive else "wb") as writer:
+        shutil.copyfileobj(reader, writer, 1024 * 1024)
+        writer.flush()
+        os.fsync(writer.fileno())
+
+
+def _ends_with_whole_line(path: Path) -> bool:
+    with path.open("rb") as handle:
+        handle.seek(0, os.SEEK_END)
+        if handle.tell() == 0:
+            return True
+        handle.seek(-1, os.SEEK_END)
+        return handle.read(1) == b"\n"
+
+
+def _manifest_user_records(
+    manifest: Mapping[str, object],
+) -> dict[str, Mapping[str, object] | None]:
+    entries = manifest.get("user_records")
+    if not isinstance(entries, dict) or set(entries) != set(USER_RECORD_NAMES):
+        raise RestoreSafetyError("stock records manifest entry is invalid")
+    for entry in entries.values():
+        if entry is None:
+            continue
+        if not (
+            isinstance(entry, dict)
+            and isinstance(entry.get("sha256"), str)
+            and isinstance(entry.get("bytes"), int)
+        ):
+            raise RestoreSafetyError("stock records manifest entry is invalid")
+    return {name: entries[name] for name in USER_RECORD_NAMES}
+
+
+def _record_copy_status(copy: Path, expected: Mapping[str, object] | None) -> str:
+    if expected is None:
+        return "not in backup"
+    if not copy.is_file():
+        return "missing"
+    if copy.stat().st_size != expected["bytes"] or _file_sha256(copy) != expected["sha256"]:
+        return "damaged"
+    return "verified"
+
+
+def _stage_record_copy(
+    copy: Path, live: Path, expected: Mapping[str, object] | None
+) -> Path:
+    """Copy a backup's stock record beside ``live``; refuse it unless it matches."""
+
+    status = _record_copy_status(copy, expected)
+    if status != "verified":
+        raise RestoreSafetyError(f"stock record copy {copy.name} is {status}")
+    live.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, raw_path = tempfile.mkstemp(
+        prefix=f".{live.name}.", suffix=".restore-tmp", dir=live.parent
+    )
+    os.close(descriptor)
+    stage = Path(raw_path)
+    try:
+        _copy_file(copy, stage, exclusive=False)
+        if _record_copy_status(stage, expected) != "verified":
+            raise RestoreSafetyError(f"stock record copy {copy.name} changed while staging")
+    except BaseException:
+        stage.unlink(missing_ok=True)
+        raise
+    return stage
 
 
 def _database_is_sound(path: Path) -> bool:

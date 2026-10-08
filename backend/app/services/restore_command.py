@@ -14,10 +14,13 @@ import sys
 from pathlib import Path
 from typing import TextIO
 
+from engine.user_records import ADDITION_LOG_NAME, BASKET_LOG_NAME, COMPLETION_LOG_NAME
 from sqlalchemy.engine import URL
 
 from app.services import app_lock
 from app.services.backup_service import (
+    RECORDS_PREDATE_BACKUP,
+    AppliedRestore,
     BackupArtifact,
     BackupService,
     RestoreAfterSafetyCopyError,
@@ -27,6 +30,12 @@ from app.services.backup_service import (
 )
 
 RESTORE_COMMAND = "python run_api_server.py --restore"
+# The stock records in plain words, by standard file name.
+RECORD_LABELS = {
+    ADDITION_LOG_NAME: "stock you added",
+    COMPLETION_LOG_NAME: "stock details you completed",
+    BASKET_LOG_NAME: "basket choices",
+}
 
 
 def restore_from_backup(backup: str, *, database_url: str | URL, port: int) -> int:
@@ -82,7 +91,10 @@ def _replace(service: BackupService, snapshot: Path) -> int:
     except RestoreAfterSafetyCopyError as exc:
         print(f"Restore failed: {exc}", file=sys.stderr)
         print(f"The database at {database} may already have been replaced.", file=sys.stderr)
-        _print_safety_copies(exc.pre_restore_backup, exc.damaged_copy, file=sys.stderr)
+        print("Your stock records may also have been replaced.", file=sys.stderr)
+        _print_safety_copies(
+            exc.pre_restore_backup, exc.damaged_copy, exc.records_copy, file=sys.stderr
+        )
         return 1
     except (OSError, sqlite3.Error, RestoreSafetyError) as exc:
         print(f"Restore failed: {exc}", file=sys.stderr)
@@ -93,19 +105,56 @@ def _replace(service: BackupService, snapshot: Path) -> int:
             staged.staged_path.unlink(missing_ok=True)
 
     print(f"Restored {database} from {snapshot.name}.")
+    _print_records_outcome(applied)
     if applied.pre_restore_backup is None and applied.damaged_copy is None:
         print(f"There was no database at {database}, so no pre-restore backup was taken.")
-    _print_safety_copies(applied.pre_restore_backup, applied.damaged_copy, file=sys.stdout)
+    _print_safety_copies(
+        applied.pre_restore_backup, applied.damaged_copy, applied.records_copy, file=sys.stdout
+    )
     return 0
 
 
+def _print_records_outcome(applied: AppliedRestore) -> None:
+    if not applied.backup_has_user_records:
+        print(
+            "This backup was made before stock records were included in backups; "
+            "your current stock records were left as they are."
+        )
+        return
+    if applied.records_restored:
+        print("Stock records restored: " + _record_list(applied.records_restored) + ".")
+    left = [name for name, reason in applied.records_left if reason != RECORDS_PREDATE_BACKUP]
+    if left:
+        print(
+            "Left as they are, because this backup has no copy of them: "
+            + _record_list(left)
+            + "."
+        )
+
+
+def _record_list(names: tuple[str, ...] | list[str]) -> str:
+    return ", ".join(RECORD_LABELS.get(name, name) for name in names)
+
+
 def _print_safety_copies(
-    pre_restore: BackupArtifact | None, damaged_copy: Path | None, *, file: TextIO
+    pre_restore: BackupArtifact | None,
+    damaged_copy: Path | None,
+    records_copy: Path | None,
+    *,
+    file: TextIO,
 ) -> None:
     if pre_restore is not None:
         path = pre_restore.snapshot_path
         print(f"The database as it was before this restore is saved at: {path}", file=file)
+        if any(entry is not None for entry in (pre_restore.user_records or {}).values()):
+            print("That backup also holds your stock records as they were.", file=file)
         print(f"To put it back, run: {RESTORE_COMMAND} {path.name}", file=file)
+    if records_copy is not None:
+        print(
+            "Your stock records as they were before this restore are kept at: "
+            f"{records_copy}",
+            file=file,
+        )
     if damaged_copy is not None:
         print(
             "The database failed its integrity check, so no backup could be made of it. "

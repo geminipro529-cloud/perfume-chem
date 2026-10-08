@@ -70,6 +70,13 @@ directory and pass all of these checks:
 - schema fingerprint against its manifest; and
 - exact application schema revision.
 
+Every backup also includes your stock records kept in `data/user/` (the stock
+you added, the stock details you completed and your basket choices). They are
+copied byte for byte into a `<backup name>.records/` folder beside the backup,
+and the manifest records each one's SHA-256, or that it did not exist yet. A
+backup whose record copy is missing or does not match its digest cannot be
+restored.
+
 The HTTP API validates and stages a restore but never replaces the live
 database. After staging, the page shows the exact command that finishes the
 restore. To apply it:
@@ -90,6 +97,13 @@ The command restores and exits without starting the server. It:
   `127.0.0.1:8000` or another program holds a lock on the database;
 - takes a fresh pre-restore backup of the live database, then atomically
   replaces it and checks the restored database;
+- puts back the stock records the backup holds (the pre-restore backup keeps
+  the ones it replaces; when the live database was missing or damaged, raw
+  copies of the live stock records are kept in a
+  `stock-records-pre-restore-*` folder in the backup directory). A stock record
+  the backup has no copy of is left in place, and a backup made before stock
+  records were included in backups leaves all of them as they are; the command
+  says which records it restored and which it left;
 - prints where the pre-restore backup is and the command that undoes the
   restore (`python run_api_server.py --restore <pre-restore backup name>`); and
 - removes its staged copy. Staging a new restore from the app also removes
