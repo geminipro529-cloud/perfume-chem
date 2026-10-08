@@ -261,13 +261,22 @@ def _screening_oav_claim_ceiling(data: dict | None) -> dict:
     return bounded
 
 
+# Gate statuses, from best to worst. HOLD means the gate could not decide
+# because data is missing (an undeclared stock basis, no authoritative active
+# mass, no composition for a natural, ...). It blocks release exactly like FAIL,
+# but it says "supply this data" rather than "the formula is wrong", so a real
+# formula error stays visible as the only FAIL.
+GATE_STATUSES = ("PASS", "WARN", "HOLD", "FAIL")
+BLOCKING_STATUSES = frozenset({"HOLD", "FAIL"})
+
+
 def _result(gate: str, status: str, detail: str = "", data: dict | None = None) -> GateResult:
-    if status not in ("PASS", "WARN", "FAIL"):
+    if status not in GATE_STATUSES:
         raise ValueError(f"Invalid gate status '{status}' for gate '{gate}'")
     if _is_screening_oav_diagnostic_gate(gate):
         data = _screening_oav_claim_ceiling(data)
-        if status == "FAIL":
-            data.setdefault("original_status", "FAIL")
+        if status in BLOCKING_STATUSES:
+            data.setdefault("original_status", status)
             data.setdefault("gate_policy", "screening_oav_failures_demoted_to_warn")
             detail = detail or "Screening OAV diagnostic raised a flag"
             detail = f"{detail} [screening diagnostic; not release or recompounding authority]"
@@ -336,19 +345,19 @@ def _apply_guideline_policy(gate: GateResult) -> GateResult:
     """Keep safety/data/math failures blocking; treat perfumery gates as advice."""
     if _is_screening_oav_diagnostic_gate(gate.gate):
         data = _screening_oav_claim_ceiling(gate.data)
-        if gate.status == "FAIL":
-            data.setdefault("original_status", "FAIL")
+        if gate.status in BLOCKING_STATUSES:
+            data.setdefault("original_status", gate.status)
             data.setdefault("gate_policy", "screening_oav_failures_demoted_to_warn")
             detail = gate.detail or "Screening OAV diagnostic raised a flag"
             detail = f"{detail} [screening diagnostic; not release or recompounding authority]"
             return GateResult(gate=gate.gate, status="WARN", detail=detail, data=data)
         return GateResult(gate=gate.gate, status=gate.status, detail=gate.detail, data=data)
 
-    if gate.status != "FAIL" or gate.gate not in ADVISORY_FAILURE_GATES:
+    if gate.status not in BLOCKING_STATUSES or gate.gate not in ADVISORY_FAILURE_GATES:
         return gate
 
     data = dict(gate.data or {})
-    data.setdefault("original_status", "FAIL")
+    data.setdefault("original_status", gate.status)
     data.setdefault("gate_policy", "advisory_failures_demoted_to_warn")
     detail = gate.detail or "Advisory gate failed"
     detail = f"{detail} [advisory guideline; not release-blocking]"
@@ -403,9 +412,13 @@ def _config_summary(config: ReleaseGateConfig) -> dict:
 
 
 def _status_from_gates(gates: list[GateResult]) -> str:
-    if any(g.status == "FAIL" for g in gates):
+    """Worst status wins: FAIL, then HOLD, then WARN, then PASS (SKIP never votes)."""
+    statuses = {g.status for g in gates}
+    if "FAIL" in statuses:
         return "FAIL"
-    if any(g.status == "WARN" for g in gates):
+    if "HOLD" in statuses:
+        return "HOLD"
+    if "WARN" in statuses:
         return "WARN"
     return "PASS"
 
@@ -435,15 +448,89 @@ def _material_ifra_limit(material) -> float | None:
     return IFRA_CAT4_LIMITS.get(material.name) or IFRA_CAT4_LIMITS.get(material.profile_name or "")
 
 
+_SUBTOTAL_SHIFT_FACTORS = (10, 100, 1000)
+
+
+def _exact_subtotal_findings(rows: Mapping[str, float], total_ul: float, expected_ul: float) -> dict:
+    """Point at the rows most likely behind a subtotal mismatch.
+
+    A misplaced decimal point (8200 typed for 820) or a mL/uL slip moves one row
+    by a factor of 10, 100 or 1000. A row is a suspect when undoing that one
+    factor brings the total back to the expected concentrate (within 0.5% of
+    it). Rows larger than the whole expected concentrate are listed separately.
+    """
+    gap = total_ul - expected_ul
+    tolerance = max(0.5, 0.005 * expected_ul)
+    suspects = []
+    for name, ul in rows.items():
+        if ul <= 0:
+            continue
+        for factor in _SUBTOTAL_SHIFT_FACTORS:
+            corrected = ul / factor if gap > 0 else ul * factor
+            new_total = total_ul - ul + corrected
+            if abs(new_total - expected_ul) <= tolerance:
+                suspects.append(
+                    {
+                        "material": name,
+                        "ul": round(ul, 3),
+                        "corrected_ul": round(corrected, 3),
+                        "factor": f"/{factor}" if gap > 0 else f"x{factor}",
+                        "total_if_corrected_ul": round(new_total, 3),
+                    }
+                )
+    suspects.sort(key=lambda s: abs(s["total_if_corrected_ul"] - expected_ul))
+    over_expected = [
+        {"material": name, "ul": round(ul, 3)}
+        for name, ul in sorted(rows.items(), key=lambda item: -item[1])
+        if expected_ul > 0 and ul > expected_ul
+    ]
+    largest = [
+        {
+            "material": name,
+            "ul": round(ul, 3),
+            "share_of_parsed": round(ul / total_ul, 4) if total_ul else 0.0,
+        }
+        for name, ul in sorted(rows.items(), key=lambda item: -item[1])[:3]
+    ]
+    return {
+        "parsed_ul": round(total_ul, 3),
+        "expected_ul": round(expected_ul, 3),
+        "difference_ul": round(gap, 3),
+        "decimal_shift_suspects": suspects,
+        "rows_over_expected": over_expected,
+        "largest_rows": largest,
+    }
+
+
 def _gate_exact_subtotal(formula: Mapping, config: ReleaseGateConfig) -> GateResult:
-    total_ul = sum(float(v or 0.0) for v in formula["ingredients_ul"].values())
-    if abs(total_ul - config.expected_concentrate_ul) <= 0.5:
+    rows = {str(name): float(value or 0.0) for name, value in formula["ingredients_ul"].items()}
+    total_ul = sum(rows.values())
+    expected_ul = config.expected_concentrate_ul
+    if abs(total_ul - expected_ul) <= 0.5:
         return _result("exact_subtotal", "PASS", f"{total_ul:.1f} uL")
-    return _result(
-        "exact_subtotal",
-        "FAIL",
-        f"{total_ul:.1f} uL parsed; expected {config.expected_concentrate_ul:.1f} uL",
+    findings = _exact_subtotal_findings(rows, total_ul, expected_ul)
+    gap = findings["difference_ul"]
+    detail = (
+        f"{total_ul:.1f} uL parsed; expected {expected_ul:.1f} uL "
+        f"({abs(gap):.1f} uL {'over' if gap > 0 else 'short'})"
     )
+    suspects = findings["decimal_shift_suspects"]
+    if suspects:
+        named = "; ".join(
+            f"{s['material']} {s['ul']:g} uL (at {s['corrected_ul']:g} uL the total would be "
+            f"{s['total_if_corrected_ul']:g} uL)"
+            for s in suspects[:3]
+        )
+        detail += f". Likely misplaced decimal or unit: {named}"
+    if findings["rows_over_expected"]:
+        named = ", ".join(f"{r['material']} {r['ul']:g} uL" for r in findings["rows_over_expected"][:3])
+        detail += f". Larger than the whole expected concentrate: {named}"
+    if not suspects and not findings["rows_over_expected"] and findings["largest_rows"]:
+        named = ", ".join(
+            f"{r['material']} {r['ul']:g} uL ({r['share_of_parsed']:.0%})" for r in findings["largest_rows"]
+        )
+        detail += f". Largest rows: {named}"
+    return _result("exact_subtotal", "FAIL", detail, findings)
 
 
 def _gate_duplicates(state: FormulaState) -> GateResult:
