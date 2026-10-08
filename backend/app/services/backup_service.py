@@ -13,6 +13,12 @@ from datetime import datetime, timezone
 from hashlib import sha256
 from pathlib import Path
 
+from sqlalchemy.engine import URL, make_url
+
+from app import db_bootstrap
+
+BACKUP_DIRECTORY_NAME = "lab-backups"
+
 
 class RestoreSafetyError(ValueError):
     """Raised when a restore cannot satisfy the replacement safety contract."""
@@ -182,14 +188,28 @@ class BackupService:
             schema_revision=schema_revision,
         )
 
+    @property
+    def stage_prefix(self) -> str:
+        return f".{self.database_path.stem}-restore-stage-"
+
     def stage_restore(self, snapshot_path: Path) -> StagedRestore:
         validation = self.validate_restore(snapshot_path)
         if not validation.valid or validation.snapshot_sha256 is None:
             raise RestoreSafetyError(
                 "restore snapshot is not valid: " + "; ".join(validation.errors)
             )
+        # A stage is a full-size copy; only the newest one is ever applied, so
+        # earlier ones would otherwise pile up (hidden, dot-prefixed) beside
+        # the live database.
+        for leftover in self.database_path.parent.iterdir():
+            if (
+                leftover.name.startswith(self.stage_prefix)
+                and leftover.name.endswith(".sqlite")
+                and leftover.is_file()
+            ):
+                leftover.unlink(missing_ok=True)
         descriptor, raw_path = tempfile.mkstemp(
-            prefix=f".{self.database_path.stem}-restore-stage-",
+            prefix=self.stage_prefix,
             suffix=".sqlite",
             dir=self.database_path.parent,
         )
@@ -218,7 +238,7 @@ class BackupService:
             )
         staged_path = staged.staged_path.resolve()
         if staged_path.parent != self.database_path.parent or not staged_path.name.startswith(
-            f".{self.database_path.stem}-restore-stage-"
+            self.stage_prefix
         ):
             raise RestoreSafetyError("staged restore is outside the managed staging area")
         if _file_sha256(staged_path) != staged.expected_sha256:
@@ -248,6 +268,31 @@ class BackupService:
         if not path.is_relative_to(self.backup_directory):
             raise RestoreSafetyError("snapshot must be inside the managed backup directory")
         return path
+
+
+def backup_service_for_database_url(database_url: str | URL) -> BackupService:
+    """Return the BackupService the app uses for ``database_url``.
+
+    Backups live in ``lab-backups`` beside the database file and must carry the
+    current Alembic head revision.
+    """
+
+    url = make_url(database_url)
+    database = url.database
+    if not database or database == ":memory:" or database.startswith("file:"):
+        raise RestoreSafetyError("Backup requires a file-backed SQLite database.")
+    database_path = Path(database).expanduser()
+    if not database_path.is_absolute():
+        database_path = Path.cwd() / database_path
+    alembic_config = db_bootstrap.build_alembic_config(
+        Path(__file__).resolve().parents[2] / "alembic.ini",
+        str(url),
+    )
+    return BackupService(
+        database_path=database_path,
+        backup_directory=database_path.parent / BACKUP_DIRECTORY_NAME,
+        expected_schema_revision=db_bootstrap.alembic_head_revision(alembic_config),
+    )
 
 
 def _file_sha256(path: Path) -> str:

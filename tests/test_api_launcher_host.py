@@ -47,3 +47,53 @@ def test_no_engine_worker_switches_app_autostart_off(monkeypatch):
     calls = _launch(monkeypatch, "--no-engine-worker")
     assert [call[0] for call in calls] == ["api"]
     assert calls[0][3] == "0"
+
+
+def test_restore_option_restores_the_backup_and_does_not_start_the_server(
+    monkeypatch, tmp_path, capsys
+):
+    import socket
+    import sqlite3
+
+    from alembic.config import Config
+    from alembic.script import ScriptDirectory
+
+    monkeypatch.syspath_prepend(str(ROOT / "backend"))
+    from app.services.backup_service import backup_service_for_database_url
+
+    config = Config(str(ROOT / "backend" / "alembic.ini"))
+    config.set_main_option("script_location", str(ROOT / "backend" / "alembic"))
+    head = ScriptDirectory.from_config(config).get_current_head()
+    database = tmp_path / "lab.db"
+    connection = sqlite3.connect(database)
+    connection.execute("CREATE TABLE alembic_version (version_num TEXT PRIMARY KEY)")
+    connection.execute("INSERT INTO alembic_version VALUES (?)", (head,))
+    connection.execute("CREATE TABLE lab_record (name TEXT NOT NULL)")
+    connection.execute("INSERT INTO lab_record VALUES ('first')")
+    connection.commit()
+    connection.close()
+    database_url = f"sqlite+aiosqlite:///{database.as_posix()}"
+    backup = backup_service_for_database_url(database_url).create_backup("manual")
+    connection = sqlite3.connect(database)
+    connection.execute("INSERT INTO lab_record VALUES ('second')")
+    connection.commit()
+    connection.close()
+
+    def nothing_listening(*args, **kwargs):  # a real app on :8000 must not leak in
+        raise ConnectionRefusedError
+
+    monkeypatch.setattr(socket, "create_connection", nothing_listening)
+    monkeypatch.setenv("DATABASE_URL", database_url)
+    calls = _launch(monkeypatch, "--restore", backup.snapshot_path.name)
+
+    assert calls == []  # uvicorn.run was not called
+    connection = sqlite3.connect(database)
+    rows = connection.execute("SELECT name FROM lab_record").fetchall()
+    connection.close()
+    assert rows == [("first",)]
+    pre_restore = sorted((tmp_path / "lab-backups").glob("lab-pre-restore-*.sqlite"))
+    assert len(pre_restore) == 1
+    output = capsys.readouterr().out
+    assert str(pre_restore[0]) in output
+    assert f"python run_api_server.py --restore {pre_restore[0].name}" in output
+    assert list(tmp_path.glob(".lab-restore-stage-*.sqlite")) == []
