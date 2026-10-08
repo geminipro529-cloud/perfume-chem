@@ -413,7 +413,7 @@ function bindForm(selector, handler) {
       catch (error) { notify(showFormError(form, error).join("; "), true); return; }
       notify("Record committed.");
       // The record is saved; a failed refresh must not show "Not saved." and invite a duplicate.
-      await refresh().catch((error) => notify(error.message, true));
+      await refresh().catch((error) => notify(`Saved, but the lists didn't refresh: ${error.message}`, true));
     } finally { buttons.forEach((button) => { button.disabled = false; }); }
   });
 }
@@ -1385,7 +1385,8 @@ $("#inventory-completion-form").addEventListener("submit", async (event) => {
       const missing = (result.missing_fields || []).filter((field) => field !== "USER_COMPOUNDING_HOLD").map((field) => humanize(field)).join(", ");
       $("#inventory-completion-help").textContent = missing ? `Saved, but this still needs: ${missing}.` : "Saved. This stock stays on hold until you clear the hold.";
       $('[name="expected_effective_inventory_sha256"]', form).value = result.inventory.canonical_effective_inventory_sha256;
-      notify("Details saved, but the stock is still incomplete.", true);
+      if (missing) notify("Details saved, but the stock is still incomplete.", true);
+      else notify("Details saved. This stock stays on hold until you clear the hold.");
     }
   } catch (error) {
     notify(error.message, true);

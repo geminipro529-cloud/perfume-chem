@@ -26,7 +26,12 @@ def lab(lab_browser):
     from tests.integration.lab_browser import LabPage
 
     context = lab_browser.new_context()
+    page = LabPage(context.new_page())
     try:
-        yield LabPage(context.new_page())
+        yield page
+        # Every test fails on a JS error or an API call with no fixture; a test that
+        # expects one clears the list itself.
+        assert not page.page_errors, f"JS errors on the Lab page: {page.page_errors}"
+        assert not page.unexpected, f"API calls with no fixture: {page.unexpected}"
     finally:
         context.close()

@@ -25,7 +25,7 @@ def test_saved_bottle_is_not_reported_as_not_saved_when_the_refresh_fails(lab):
 
     _submit_bottle(lab)
     lab.page.wait_for_function(
-        "() => window.__statusHistory.some((entry) => entry.error)"
+        "() => window.__statusHistory.some((entry) => entry.text.startsWith(\"Saved, but the lists didn't refresh\"))"
     )
     lab.page.locator('#bottle-form button[type="submit"]:enabled').wait_for()
 
@@ -38,7 +38,7 @@ def test_saved_bottle_is_not_reported_as_not_saved_when_the_refresh_fails(lab):
     # The refresh failure is still reported, just not as a failed save.
     last = lab.status_history()[-1]
     assert last["error"] is True
-    assert "Not saved." not in last["text"]
+    assert last["text"].startswith("Saved, but the lists didn't refresh")
 
 
 def test_rejected_bottle_still_shows_the_inline_error_box(lab):

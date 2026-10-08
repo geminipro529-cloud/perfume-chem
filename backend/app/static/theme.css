@@ -389,7 +389,6 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
 .draft-restored { color: var(--muted); background: var(--info-bg); border-left-color: var(--amber); }
 .draft-unsaved { color: var(--ink); background: var(--fail-bg); border-left-color: var(--red); }
 .formula-design-table .formula-dose small.formula-dose-hold { color: var(--hold-fg); }
-/* The bench sheet prints black on white whatever the screen theme is. */
 /* Errors other views emit ------------------------------------------------- */
 .form-error {
   padding: 12px 14px; color: var(--fail-fg); background: var(--fail-bg);
