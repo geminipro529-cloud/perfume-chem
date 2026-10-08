@@ -46,7 +46,9 @@ naturals.
    (NIST WebBook Antoine, Landolt, Poling, Perry, VDI). It refuses thermo's
    estimation methods, which were 10-1000x off on fragrance materials. A VP flagged
    `extrapolated` comes from a fit outside 25 C: record it with that flag or prefer a
-   measured 25 C value from step 4.
+   measured 25 C value from step 4. Names resolve through NCBI (PubChem synonyms)
+   because thermo's own name list has errors (it files nerol and geraniol under one
+   CAS); any WARNING line means the VP was withheld, so treat it as a gap.
 4. RIFM safety assessments (measured log Kow, VP).
 5. Threshold papers (Buettner group, Czerny et al. 2008) and ISO standards.
 6. The web: on Kenny's PC use the self-hosted crawler
@@ -83,3 +85,4 @@ affected formula with the `perfume-gate-run` skill to show the gap closed.
   material data gaps thread (names first, one ledger, priority, cheap sources first).
 - 2026-10-08: added the self-hosted webcrawl tool as a web source.
 - 2026-10-08: added the offline chemprops tool (RDKit + thermo, measured-only VP).
+- 2026-10-08: chemprops resolves names via NCBI and refuses thermo's mismatched records.
