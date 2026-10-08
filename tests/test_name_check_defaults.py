@@ -165,3 +165,74 @@ def test_new_gates_run_right_after_perfume_knowledge():
     assert names[index + 1 : index + 3] == ["hedione_share", "musk_count"]
     assert by_name["hedione_share"].status == "WARN"
     assert by_name["musk_count"].status == "WARN"
+
+
+# ── Review fixes: audit ranking, musk identity/trace, accented chypre ──
+
+
+def test_skipped_gates_do_not_enter_audit_issue_ranking():
+    from engine.pipeline.audit_log import suggest_repairs, summarize_events
+
+    events = [
+        {
+            "event_type": "release_gate",
+            "status": "PASS",
+            "gates": [
+                {"gate": "novelty_vs_reference", "status": "SKIP", "data": {}},
+                {"gate": "oav_scaling_guard", "status": "SKIP", "data": {}},
+                {"gate": "musk_count", "status": "WARN", "data": {}},
+            ],
+        }
+    ]
+
+    summary = summarize_events(events)
+
+    assert [row["issue"] for row in summary["ranked_issues"]] == ["musk_count"]
+    assert summary["gate_status_counts"]["novelty_vs_reference:SKIP"] == 1
+    assert all("distinctive signature" not in s["suggestion"] for s in suggest_repairs(events))
+
+
+def test_one_musk_in_two_dilutions_counts_once():
+    ingredients = {
+        "Ambrettolide": 20.0,
+        "Ambrettolide (10%)": 300.0,
+        "Galaxolide": 40.0,
+        "Habanolide": 40.0,
+    }
+    state = build_formula_state(
+        ingredients,
+        {"Ambrettolide": 1.0, "Ambrettolide (10%)": 0.1, "Galaxolide": 1.0, "Habanolide": 1.0},
+    )
+    result = gates_module._gate_musk_count(state, ReleaseGateConfig(audit_enabled=False))
+
+    assert result.status == "WARN"
+    assert result.detail.startswith("3 musks (")
+    assert result.detail.count("Ambrettolide") == 1
+
+
+def test_trace_musk_is_not_counted_and_is_named_as_trace():
+    rows = {"Galaxolide": 49.95, "Habanolide": 49.95, "Ethylene Brassylate": 0.05, "Linalool": 0.05}
+    result = gates_module._gate_musk_count(_state(rows), ReleaseGateConfig(audit_enabled=False))
+
+    assert result.status == "PASS"
+    assert result.detail.startswith("2 musk(s)")
+    assert "trace" in result.detail and "Ethylene Brassylate" in result.detail
+
+
+def test_trace_tonalide_still_warns_as_exception_only():
+    rows = {"Galaxolide": 99.95, "Tonalide": 0.05}
+    result = gates_module._gate_musk_count(_state(rows), ReleaseGateConfig(audit_enabled=False))
+
+    assert result.status == "WARN"
+    assert "Tonalide" in result.detail and "exception-only" in result.detail
+
+
+@pytest.mark.parametrize("name", ["Moss Chypré", "MOSS CHYPRE", "Chypré Noir"])
+def test_hedione_share_chypre_name_is_accent_and_case_insensitive(name):
+    rows = _hedione_rows(13.0)
+    result = gates_module._gate_hedione_share(
+        _formula(rows, name=name), _state(rows), ReleaseGateConfig(audit_enabled=False)
+    )
+
+    assert result.status == "WARN"
+    assert "12%" in result.detail

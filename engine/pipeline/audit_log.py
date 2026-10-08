@@ -219,7 +219,7 @@ def summarize_events(events: Iterable[Mapping]) -> dict:
     for event in events:
         for gate in event.get("gates", []) or []:
             gate_counts[f"{gate.get('gate')}:{gate.get('status')}"] += 1
-            if gate.get("status") == "PASS":
+            if gate.get("status") in {"PASS", "SKIP"}:
                 continue
             for issue_key in _issue_keys_from_gate(gate):
                 issue_counts[issue_key] += 1

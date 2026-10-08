@@ -4703,7 +4703,14 @@ def _gate_hedione_share(
     formula: Mapping, state: FormulaState, config: ReleaseGateConfig
 ) -> GateResult:
     """Warn when Hedione dominates the concentrate (AGENTS.md F2). Advisory only."""
+    import unicodedata
+
     from engine.name_utils import normalize_name
+
+    def _fold(text: str) -> str:
+        return "".join(
+            c for c in unicodedata.normalize("NFKD", text) if not unicodedata.combining(c)
+        ).casefold()
 
     hedione_ul = sum(
         m.active_ul
@@ -4716,9 +4723,9 @@ def _gate_hedione_share(
     share = 100.0 * hedione_ul / total_ul if total_ul > 0.0 else 0.0
     archetype = str(infer_archetype(config.brief, config.family_archetype) or "")
     name = str(formula.get("name", "") or "")
-    if "chypre" in archetype.lower():
+    if "chypre" in _fold(archetype):
         cap, why = _HEDIONE_CAP_CHYPRE_PCT, f"chypre family ({archetype})"
-    elif "chypre" in name.lower():
+    elif "chypre" in _fold(name):
         cap, why = _HEDIONE_CAP_CHYPRE_PCT, "chypre named in the formula name"
     else:
         cap, why = _HEDIONE_CAP_DEFAULT_PCT, "not a chypre, so the floral/default cap applies"
@@ -4753,6 +4760,8 @@ def _gate_hedione_share(
 _EXCEPTION_ONLY_MUSKS = frozenset({"tonalide", "macrolide", "musk ketone"})
 # One lead plus one support musk.
 _MUSK_COUNT_LIMIT = 2
+# A musk under this share of fragrance-active uL (hedione_share's basis) is trace, not counted.
+_MUSK_TRACE_PCT = 0.1
 
 
 def _gate_musk_count(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
@@ -4764,22 +4773,35 @@ def _gate_musk_count(state: FormulaState, config: ReleaseGateConfig) -> GateResu
     """
     from engine.name_utils import normalize_name
 
-    musks = [
-        m.name
-        for m in state.materials
-        if m.active_ul > 0.0 and str(m.family or "").lower() == "musk"
-    ]
+    total_ul = state.odorant_active_ul if state.odorant_active_ul > 0.0 else state.total_active_ul
+    musk_ul: dict[str, float] = {}
+    musk_label: dict[str, str] = {}
+    for m in state.materials:
+        if m.active_ul > 0.0 and str(m.family or "").lower() == "musk":
+            key = normalize_name(m.canonical_name or m.name)
+            musk_ul[key] = musk_ul.get(key, 0.0) + m.active_ul
+            musk_label.setdefault(key, m.name)
+    trace_floor_ul = total_ul * _MUSK_TRACE_PCT / 100.0
+    musks = [musk_label[k] for k, ul in musk_ul.items() if ul >= trace_floor_ul]
+    trace_musks = [musk_label[k] for k, ul in musk_ul.items() if ul < trace_floor_ul]
+    trace_note = (
+        f"{', '.join(trace_musks)} left out as trace (<{_MUSK_TRACE_PCT}% of fragrance-active uL)"
+        if trace_musks
+        else ""
+    )
     exception_only = [
         m.name
         for m in state.materials
         if m.active_ul > 0.0
         and normalize_name(m.canonical_name or m.name) in _EXCEPTION_ONLY_MUSKS
     ]
-    if not musks and not exception_only:
+    if not musk_ul and not exception_only:
         return _skipped("musk_count", "no musks in formula")
     data = {
         "musks": musks,
         "exception_only_musks": exception_only,
+        "trace_musks_not_counted": trace_musks,
+        "trace_pct": _MUSK_TRACE_PCT,
         "limit": _MUSK_COUNT_LIMIT,
         "classification_source": "ingredient_intelligence profile odor family == 'musk'",
     }
@@ -4795,10 +4817,13 @@ def _gate_musk_count(state: FormulaState, config: ReleaseGateConfig) -> GateResu
             "(needs the full design-call and inventory-separation case)"
         )
     if problems:
+        if trace_note:
+            problems.append(trace_note)
         return _result("musk_count", "WARN", "; ".join(problems), data)
-    return _result(
-        "musk_count", "PASS", f"{len(musks)} musk(s): {', '.join(musks)}", data
-    )
+    detail = f"{len(musks)} musk(s): {', '.join(musks)}"
+    if trace_note:
+        detail += f"; {trace_note}"
+    return _result("musk_count", "PASS", detail, data)
 
 
 def _gate_roudnitska_hedione_pct(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
