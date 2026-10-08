@@ -32,10 +32,18 @@ from engine.inventory_parser import (
     parse_inventory,
 )
 from engine.name_utils import normalize_name
+from engine.user_records import (
+    ADDITION_LOG_NAME,
+    LEGACY_RECORDS_DIR,
+    USER_RECORDS_DIR,
+    copy_legacy_record,
+)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 ADDITION_PATH_ENV = "PERFUME_PERSONAL_INVENTORY_ADDITION_PATH"
-DEFAULT_ADDITION_PATH = PROJECT_ROOT / "output" / "user_inventory_addition_events.jsonl"
+DEFAULT_ADDITION_PATH = USER_RECORDS_DIR / ADDITION_LOG_NAME
+# Older versions kept the log in output/; it is copied once, never moved.
+LEGACY_ADDITION_PATH = LEGACY_RECORDS_DIR / ADDITION_LOG_NAME
 
 SCHEMA_VERSION = "perfume-chem-personal-inventory-addition-event-v1"
 DESIGN_ONLY_AUTHORITY = "PERSONAL_INVENTORY_ADDITION_DESIGN_ONLY"
@@ -104,7 +112,11 @@ def addition_log_path(path: Path | None = None) -> Path:
     if path is not None:
         return path.resolve()
     override = os.environ.get(ADDITION_PATH_ENV)
-    return Path(override).resolve() if override else DEFAULT_ADDITION_PATH.resolve()
+    if override:
+        return Path(override).resolve()
+    default = DEFAULT_ADDITION_PATH.resolve()
+    copy_legacy_record(LEGACY_ADDITION_PATH, default)
+    return default
 
 
 def _canonical_json(payload: Mapping[str, Any]) -> str:

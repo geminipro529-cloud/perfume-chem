@@ -30,14 +30,18 @@ poetry run uvicorn app.main:app --reload
 Open `http://localhost:8000/app`. The interface is dependency-free and does not
 load fonts, scripts, or styles from a CDN.
 
-For an existing file-backed SQLite database, the migration helper:
+For an existing file-backed SQLite database, the migration helper first checks
+whether a migration is pending. Only when one is, it:
 
 1. runs `PRAGMA integrity_check` on the source;
 2. creates a consistent SQLite backup and SHA-256 manifest;
 3. records the pre-upgrade schema fingerprint; and
 4. runs the frozen Alembic migration only after the snapshot succeeds.
 
-An empty or not-yet-created database does not need a pre-upgrade snapshot.
+A database already at the current schema, and an empty or not-yet-created
+database, get no pre-upgrade snapshot. Snapshots go in `pre-upgrade-snapshots/`
+beside the database. On each start the helper deletes old ones, keeping the 5
+newest and any younger than 30 days.
 
 ## Canonical Records
 
@@ -66,19 +70,48 @@ directory and pass all of these checks:
 - schema fingerprint against its manifest; and
 - exact application schema revision.
 
+Every backup also includes your stock records kept in `data/user/` (the stock
+you added, the stock details you completed and your basket choices). They are
+copied byte for byte into a `<backup name>.records/` folder beside the backup,
+and the manifest records each one's SHA-256, or that it did not exist yet. A
+backup whose record copy is missing or does not match its digest cannot be
+restored.
+
 The HTTP API validates and stages a restore but never replaces the live
-database. To apply a staged restore:
+database. After staging, the page shows the exact command that finishes the
+restore. To apply it:
 
-1. stop every application process that can hold the database;
-2. construct `BackupService` with the configured database and backup paths;
-3. validate and stage the selected managed snapshot;
-4. call `apply_staged_restore(..., maintenance_mode=True)` from a one-off local
-   maintenance process; and
-5. restart the application and run the health and laboratory smoke tests.
+1. stop the app (close the window running `python run_api_server.py`);
+2. from the repository root, run
+   `python run_api_server.py --restore <backup>`, where `<backup>` is the
+   backup's file name as the app shows it (for example
+   `lab-manual-20261008T101500000000Z-ab12cd34.sqlite`) or a path to the backup
+   file inside the managed backup directory; and
+3. start the app again and run the health and laboratory smoke tests.
 
-The apply operation creates a fresh pre-restore backup before atomic
-replacement and checks the restored database afterward. Never delete the
-pre-restore backup until the recovered workspace has been inspected.
+The command restores and exits without starting the server. It:
+
+- validates the backup with the same checks as above and refuses a missing or
+  damaged backup;
+- refuses, changing nothing, while the app still answers on
+  `127.0.0.1:8000` or another program holds a lock on the database;
+- takes a fresh pre-restore backup of the live database, then atomically
+  replaces it and checks the restored database;
+- puts back the stock records the backup holds (the pre-restore backup keeps
+  the ones it replaces; when the live database was missing or damaged, raw
+  copies of the live stock records are kept in a
+  `stock-records-pre-restore-*` folder in the backup directory). A stock record
+  the backup has no copy of is left in place, and a backup made before stock
+  records were included in backups leaves all of them as they are; the command
+  says which records it restored and which it left;
+- prints where the pre-restore backup is and the command that undoes the
+  restore (`python run_api_server.py --restore <pre-restore backup name>`); and
+- removes its staged copy. Staging a new restore from the app also removes
+  earlier staged copies (`.<database name>-restore-stage-*.sqlite` beside the
+  database).
+
+Never delete the pre-restore backup until the recovered workspace has been
+inspected.
 
 ## Scientific Truth Boundary
 

@@ -1,4 +1,5 @@
 import json
+import socket
 import sqlite3
 from pathlib import Path
 
@@ -10,13 +11,20 @@ from sqlalchemy.orm import sessionmaker
 
 from alembic import command
 from app.api.v1.endpoints.lab import _backup_service
+from app.api.v1.endpoints.lab import stage_restore as stage_restore_route
 from app.db_bootstrap import build_alembic_config
 from app.models.base import Base
 from app.models.lab import LabBottleEvent, LabMaterial
 from app.models.lab_planning import LabInventoryReservationEvent
-from app.services.backup_service import BackupService, RestoreSafetyError
+from app.schemas.lab import RestoreSnapshotCreate
+from app.services.backup_service import (
+    BackupService,
+    RestoreSafetyError,
+    backup_service_for_database_url,
+)
 from app.services.lab_export import ImportConflictError, LabExportService
 from app.services.lab_service import LabService
+from app.services.restore_command import restore_from_backup
 from tests.a2_planning_fixtures import _approved_plan
 
 CURRENT_HEAD = "20261008_0026"
@@ -301,3 +309,138 @@ async def test_json_export_preserves_ids_event_order_and_imports_idempotently(db
             await importer.import_workspace(conflicting)
 
     await target_engine.dispose()
+
+
+def _app_database(tmp_path, value: str) -> tuple[Path, str]:
+    """A file database at the app's schema head, with its database URL."""
+
+    database = tmp_path / "lab.db"
+    database_url = f"sqlite+aiosqlite:///{database.as_posix()}"
+    config_path = Path(__file__).resolve().parents[2] / "alembic.ini"
+    head = ScriptDirectory.from_config(
+        build_alembic_config(config_path, database_url)
+    ).get_current_head()
+    _database(database, value, revision=head)
+    return database, database_url
+
+
+def _free_port() -> int:
+    with socket.socket() as probe:
+        probe.bind(("127.0.0.1", 0))
+        return probe.getsockname()[1]
+
+
+def _leftovers(tmp_path) -> tuple[list[str], list[str]]:
+    stages = sorted(path.name for path in tmp_path.glob(".lab.db-restore-stage-*"))
+    backups = sorted(
+        path.name for path in (tmp_path / "lab-backups").glob("*.sqlite")
+    )
+    return stages, backups
+
+
+def test_restore_command_refuses_while_the_app_answers_on_its_port(
+    tmp_path, capsys
+):
+    database, database_url = _app_database(tmp_path, "old")
+    service = backup_service_for_database_url(database_url)
+    backup = service.create_backup()
+    connection = sqlite3.connect(database)
+    connection.execute("UPDATE lab_probe SET value = 'current'")
+    connection.commit()
+    connection.close()
+
+    with socket.socket() as app:  # an idle running app: listening, no SQLite lock
+        app.bind(("127.0.0.1", 0))
+        app.listen()
+        code = restore_from_backup(
+            backup.snapshot_path.name,
+            database_url=database_url,
+            port=app.getsockname()[1],
+        )
+
+    assert code != 0
+    assert "The app is still running" in capsys.readouterr().err
+    assert _value(database) == "current"
+    assert _leftovers(tmp_path) == ([], [backup.snapshot_path.name])
+
+
+def test_restore_command_refuses_while_another_program_locks_the_database(
+    tmp_path, capsys
+):
+    database, database_url = _app_database(tmp_path, "old")
+    backup = backup_service_for_database_url(database_url).create_backup()
+
+    holder = sqlite3.connect(database)
+    holder.execute("BEGIN IMMEDIATE")
+    holder.execute("UPDATE lab_probe SET value = 'uncommitted'")
+    try:
+        code = restore_from_backup(
+            str(backup.snapshot_path), database_url=database_url, port=_free_port()
+        )
+    finally:
+        holder.rollback()
+        holder.close()
+
+    assert code != 0
+    assert "in use by another program" in capsys.readouterr().err
+    assert _value(database) == "old"
+    assert _leftovers(tmp_path) == ([], [backup.snapshot_path.name])
+
+
+def test_restore_command_refuses_missing_and_corrupted_backups(tmp_path, capsys):
+    database, database_url = _app_database(tmp_path, "current")
+    backup = backup_service_for_database_url(database_url).create_backup()
+    backup.snapshot_path.write_bytes(backup.snapshot_path.read_bytes() + b"tamper")
+
+    missing = restore_from_backup(
+        "lab-manual-missing.sqlite", database_url=database_url, port=_free_port()
+    )
+    missing_error = capsys.readouterr().err
+    corrupted = restore_from_backup(
+        backup.snapshot_path.name, database_url=database_url, port=_free_port()
+    )
+    corrupted_error = capsys.readouterr().err
+
+    assert missing != 0 and "snapshot file is missing" in missing_error
+    assert corrupted != 0 and "snapshot digest mismatch" in corrupted_error
+    assert _value(database) == "current"
+    assert _leftovers(tmp_path) == ([], [backup.snapshot_path.name])
+
+
+def test_staging_again_removes_the_earlier_stage_copy(tmp_path):
+    database = tmp_path / "lab.db"
+    _database(database, "old")
+    unrelated = tmp_path / ".lab.db-restore-stage-notes.txt"
+    unrelated.write_text("not a stage copy", encoding="utf-8")
+    service = BackupService(
+        database_path=database,
+        backup_directory=tmp_path / "backups",
+        expected_schema_revision="20260716_0001",
+    )
+    backup = service.create_backup()
+
+    first = service.stage_restore(backup.snapshot_path)
+    second = service.stage_restore(backup.snapshot_path)
+
+    assert not first.staged_path.exists()
+    assert list(tmp_path.glob(".lab.db-restore-stage-*.sqlite")) == [second.staged_path]
+    assert unrelated.exists()
+
+
+@pytest.mark.asyncio
+async def test_stage_route_message_names_the_exact_restore_command(tmp_path):
+    database, database_url = _app_database(tmp_path, "old")
+    backup = backup_service_for_database_url(database_url).create_backup()
+    engine = create_async_engine(database_url)
+    async with AsyncSession(engine) as session:
+        response = await stage_restore_route(
+            RestoreSnapshotCreate(snapshot_path=str(backup.snapshot_path)), session
+        )
+    await engine.dispose()
+
+    assert response["message"] == (
+        "Validated. Stop the app, then run: python run_api_server.py "
+        f"--restore {backup.snapshot_path.name}"
+    )
+    assert response["source_snapshot_path"] == str(backup.snapshot_path)
+    assert Path(response["staged_path"]).exists()

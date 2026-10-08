@@ -266,6 +266,11 @@ launcher is also available:
 .venv\Scripts\python.exe run_api_server.py
 ```
 
+The launcher listens on `127.0.0.1` (this PC only) by default. The app has no
+login, so `--lan` (or `--host 0.0.0.0`) lets anyone on the same network open,
+change and delete the lab data; the launcher prints a warning when started that
+way. The Docker Compose setup likewise publishes port 8000 on `127.0.0.1` only.
+
 The laboratory interface is served at `http://localhost:8000/app`; API
 documentation is served at `http://localhost:8000/docs`. The bootstrap command
 uses the mandatory backup-before-migration path for file-backed SQLite
@@ -292,6 +297,30 @@ restore replacement is intentionally unavailable over HTTP and requires a
 stopped server or explicit maintenance mode. See
 [`docs/laboratory_beta.md`](docs/laboratory_beta.md) for the recovery procedure
 and truth boundaries.
+
+### Your records and moving to a new PC
+
+Your own lab records live inside the checkout but are never committed, so
+copy them yourself before you re-clone or move to a new PC:
+
+- `perfume_chem.db`, the lab database, and `lab-backups/`, its backups (both
+  beside each other, or wherever `DATABASE_URL` points).
+- `data/user/`: the stock you added, stock details you completed and your
+  basket choices (`user_inventory_addition_events.jsonl`,
+  `user_inventory_completion_events.jsonl`, `user_basket_events.jsonl`). Older
+  versions kept these in `output/`. The first start after updating copies them
+  into `data/user/` and leaves the old files where they were; from then on only
+  `data/user/` is used.
+- `data/pipeline_audit/events.jsonl`, the release gate's audit log.
+
+Lab backups also keep a copy of the three `data/user/` files (in a
+`<backup name>.records/` folder beside each backup), and
+`python run_api_server.py --restore <backup name>` puts them back. The file the
+Export button saves carries them too: importing it on a new PC writes them into
+`data/user/`, and an import never overwrites different records already there.
+
+Never run `git clean -x` or `git clean -X` in the checkout: either one deletes
+all of these.
 
 ### Docker
 

@@ -2,12 +2,20 @@
 
 from __future__ import annotations
 
+import base64
+import binascii
+import hashlib
 import json
+import os
+import tempfile
+from collections.abc import Callable
 from copy import deepcopy
 from dataclasses import dataclass
 from datetime import date, datetime, timezone
+from pathlib import Path
 from typing import Any, Mapping
 
+from engine import user_records
 from sqlalchemy import Date, DateTime, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -15,16 +23,32 @@ from app.models.base import Base
 
 
 class ImportConflictError(ValueError):
-    """Raised when an exported UUID already exists with different content."""
+    """Raised when an exported UUID or stock record already exists with different content."""
 
 
 @dataclass(frozen=True, slots=True)
 class ImportResult:
     inserted: int
     skipped: int
+    records_written: int = 0
+    records_already_present: int = 0
 
     def as_dict(self) -> dict[str, int]:
-        return {"inserted": self.inserted, "skipped": self.skipped}
+        return {
+            "inserted": self.inserted,
+            "skipped": self.skipped,
+            "records_written": self.records_written,
+            "records_already_present": self.records_already_present,
+        }
+
+
+RecordPaths = Callable[[], Mapping[str, Path]]
+_RECORD_NAMES = (
+    user_records.ADDITION_LOG_NAME,
+    user_records.COMPLETION_LOG_NAME,
+    user_records.BASKET_LOG_NAME,
+)
+_RECORD_TEMP_SUFFIX = ".import-tmp"
 
 
 _PLANNING_FORMAT_REVISION = "lab-export-v2"
@@ -141,6 +165,7 @@ _ALLOWED_TOP_LEVEL_FIELDS = {
     "provenance_contract",
     "tables",
     "extensions",
+    "records",
 }
 
 
@@ -181,14 +206,28 @@ def migrate_export_packet(packet: Mapping[str, Any]) -> dict[str, Any]:
 
 
 class LabExportService:
-    def __init__(self, session: AsyncSession) -> None:
+    def __init__(
+        self,
+        session: AsyncSession,
+        *,
+        record_paths: RecordPaths = user_records.record_files,
+    ) -> None:
         self.session = session
+        self.record_paths = record_paths
 
     async def export_workspace(
         self,
         *,
         format_revision: str = "lab-export-v1",
+        include_records: bool = True,
     ) -> dict[str, Any]:
+        """Write the database tables and, by default, the personal stock records.
+
+        ``records`` holds each standard record file by name: null when the file
+        does not exist, otherwise its sha256, byte size and base64 content.  The
+        partial exports below leave the records out.
+        """
+
         if format_revision not in _SUPPORTED_REVISIONS:
             raise ValueError("unsupported laboratory export revision")
         table_order: tuple[str, ...]
@@ -487,32 +526,37 @@ class LabExportService:
                     ),
                 }
             )
+        if include_records:
+            packet["records"] = _export_records(self.record_paths())
         return packet
 
     async def export_planning_workspace(self) -> dict[str, Any]:
         """Write the complete v2 graph while the legacy endpoint stays v1."""
 
         return await self.export_workspace(
-            format_revision=_PLANNING_FORMAT_REVISION
+            format_revision=_PLANNING_FORMAT_REVISION, include_records=False
         )
 
     async def export_science_workspace(self) -> dict[str, Any]:
         """Write the complete v3 science-authority graph."""
 
         return await self.export_workspace(
-            format_revision=_SCIENCE_FORMAT_REVISION
+            format_revision=_SCIENCE_FORMAT_REVISION, include_records=False
         )
 
     async def export_execution_workspace(self) -> dict[str, Any]:
         """Write the complete v4 canonical execution graph."""
 
-        return await self.export_workspace(format_revision=_FORMAT_REVISION)
+        return await self.export_workspace(
+            format_revision=_FORMAT_REVISION, include_records=False
+        )
 
     async def export_external_validation_workspace(self) -> dict[str, Any]:
         """Write the complete v5 durable laboratory and validation graph."""
 
         return await self.export_workspace(
-            format_revision=_EXTERNAL_VALIDATION_FORMAT_REVISION
+            format_revision=_EXTERNAL_VALIDATION_FORMAT_REVISION,
+            include_records=False,
         )
 
     async def canonical_bytes(self) -> bytes:
@@ -565,6 +609,17 @@ class LabExportService:
         unknown = set(incoming_tables).difference(allowed_tables)
         if unknown:
             raise ValueError("laboratory export contains unknown tables")
+        records: dict[str, bytes] = {}
+        record_paths: Mapping[str, Path] = {}
+        if packet.get("records") is not None:
+            records = _verified_records(packet["records"])
+            record_paths = self.record_paths()
+            for name, content in records.items():
+                if _live_record_conflicts(record_paths[name], content):
+                    raise ImportConflictError(
+                        f"Stock record conflict: {record_paths[name]} already exists "
+                        f"with different content than {name} in the export"
+                    )
 
         owns_transaction = not self.session.in_transaction()
         if owns_transaction:
@@ -598,13 +653,31 @@ class LabExportService:
                     values = _deserialize_row(table, incoming)
                     await self.session.execute(table.insert().values(**values))
                     inserted += 1
+            records_written = 0
+            records_already_present = 0
+            for name, content in records.items():
+                destination = record_paths[name]
+                if _publish_record(destination, content):
+                    records_written += 1
+                elif _live_record_conflicts(destination, content):
+                    raise ImportConflictError(
+                        f"Stock record conflict: {destination} already exists "
+                        f"with different content than {name} in the export"
+                    )
+                else:
+                    records_already_present += 1
             if owns_transaction:
                 await self.session.commit()
         except BaseException:
             if owns_transaction:
                 await self.session.rollback()
             raise
-        return ImportResult(inserted=inserted, skipped=skipped)
+        return ImportResult(
+            inserted=inserted,
+            skipped=skipped,
+            records_written=records_written,
+            records_already_present=records_already_present,
+        )
 
     async def _schema_revision(self) -> str:
         bind = self.session.get_bind()
@@ -735,6 +808,89 @@ def _ordering_columns(table_name: str, table):
             table.c.id,
         )
     return (table.c.id,)
+
+
+def _export_records(paths: Mapping[str, Path]) -> dict[str, Any]:
+    exported: dict[str, Any] = {}
+    for name in _RECORD_NAMES:
+        try:
+            content = paths[name].read_bytes()
+        except FileNotFoundError:
+            exported[name] = None
+            continue
+        exported[name] = {
+            "sha256": hashlib.sha256(content).hexdigest(),
+            "size_bytes": len(content),
+            "content_base64": base64.b64encode(content).decode("ascii"),
+        }
+    return exported
+
+
+def _verified_records(records: Any) -> dict[str, bytes]:
+    """Decode every exported record, refusing the packet if any fails its hash."""
+
+    if not isinstance(records, Mapping):
+        raise ValueError("laboratory export records must be an object")
+    if set(records).difference(_RECORD_NAMES):
+        raise ValueError("laboratory export contains unknown stock records")
+    verified: dict[str, bytes] = {}
+    for name in _RECORD_NAMES:
+        entry = records.get(name)
+        if entry is None:
+            continue
+        if not isinstance(entry, Mapping) or not isinstance(
+            entry.get("content_base64"), str
+        ):
+            raise ValueError(f"export stock record {name} is malformed")
+        try:
+            content = base64.b64decode(entry["content_base64"], validate=True)
+        except (binascii.Error, ValueError) as error:
+            raise ValueError(f"export stock record {name} is malformed") from error
+        if (
+            entry.get("size_bytes") != len(content)
+            or entry.get("sha256") != hashlib.sha256(content).hexdigest()
+        ):
+            raise ValueError(
+                f"export stock record {name} does not match its recorded hash"
+            )
+        verified[name] = content
+    return verified
+
+
+def _live_record_conflicts(path: Path, content: bytes) -> bool:
+    """True when the live record holds events the exported one does not.
+
+    The records are append-only logs, so a live record that begins with the
+    exported bytes (an older export of this PC) already holds every exported
+    event and is left as it is.
+    """
+
+    try:
+        return not path.read_bytes().startswith(content)
+    except FileNotFoundError:
+        return False
+
+
+def _publish_record(destination: Path, content: bytes) -> bool:
+    """Write ``destination`` only if it does not exist; True when this call wrote it."""
+
+    if destination.exists():
+        return False
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    handle, temp_name = tempfile.mkstemp(
+        prefix=f".{destination.name}.",
+        suffix=_RECORD_TEMP_SUFFIX,
+        dir=destination.parent,
+    )
+    temp = Path(temp_name)
+    try:
+        with os.fdopen(handle, "wb") as target:
+            target.write(content)
+            target.flush()
+            os.fsync(target.fileno())
+        return user_records._publish(temp, destination)
+    finally:
+        temp.unlink(missing_ok=True)
 
 
 def _serialize_row(row: dict[str, Any]) -> dict[str, Any]:

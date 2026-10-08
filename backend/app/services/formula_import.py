@@ -325,18 +325,51 @@ class FormulaAnalysisImportParser:
         rendered = format(value, "f")
         return rendered.rstrip("0").rstrip(".") if "." in rendered else rendered
 
+    # Same grammar as the release gate (scripts/verify_formula_workflow.py):
+    # a number with exact 3-digit thousands groups ("1,500", "1 168"), or any
+    # other run of digits and commas, validated after matching.
+    _AMOUNT_NUMBER = re.compile(
+        r"\d{1,3}(?:[ \u00a0\u202f]\d{3})+(?:\.\d+)?(?!\d)"
+        r"|\d[\d,]*(?:\.\d+)?|\.\d+"
+    )
+    _EXACT_THOUSANDS = re.compile(r"\d{1,3}(?:[, \u00a0\u202f]\d{3})+(?:\.\d+)?")
+    # A percent or a 1:N / 1/N ratio anywhere in a strength cell.
+    _STRENGTH_VALUE = re.compile(r"\d\s*%|(?<![\d.])1\s*[:/]\s*\d")
+    # Placeholders that mean "no strength given": treated like a blank cell.
+    _NO_STRENGTH = frozenset({"", "-", "\u2013", "\u2014", "n/a", "na", "none"})
+
+    @classmethod
+    def _amount_text(cls, value: str) -> str:
+        """The cell without parenthesised notes ("60 (was 50)" -> "60")."""
+        text = cls._plain(value).replace("µ", "u").replace("μ", "u")
+        return re.sub(r"\([^)]*\)", " ", text).strip()
+
+    @classmethod
+    def _has_several_numbers(cls, value: str) -> bool:
+        return len(cls._AMOUNT_NUMBER.findall(cls._amount_text(value))) > 1
+
+    @classmethod
+    def _has_bad_comma(cls, value: str) -> bool:
+        """A comma that is not an exact 3-digit thousands group ("1,5")."""
+        return any(
+            "," in token and not cls._EXACT_THOUSANDS.fullmatch(token)
+            for token in cls._AMOUNT_NUMBER.findall(cls._amount_text(value))
+        )
+
     @classmethod
     def _parse_amount(
         cls,
         value: str,
         header_unit: str | None,
     ) -> tuple[str, str] | None:
-        text = cls._plain(value).replace("µ", "u").replace("μ", "u")
-        match = re.search(r"[-+]?(?:\d[\d,\s]*(?:\.\d+)?|\.\d+)", text)
+        text = cls._amount_text(value)
+        match = cls._AMOUNT_NUMBER.search(text)
         if not match:
             return None
+        if re.search(r"-\s*$", text[: match.start()]):
+            return None
         try:
-            amount = Decimal(match.group(0).replace(",", "").replace(" ", ""))
+            amount = Decimal(re.sub(r"[, \u00a0\u202f]", "", match.group(0)))
         except InvalidOperation:
             return None
         if not amount.is_finite() or amount <= 0:
@@ -356,25 +389,55 @@ class FormulaAnalysisImportParser:
             return None
         return cls._decimal_text(amount), unit
 
+    @staticmethod
+    def _basis_of(text: str) -> str:
+        if "w/w" in text or "w-w" in text:
+            return "W_W"
+        if "v/v" in text or "v-v" in text:
+            return "V_V"
+        return "UNKNOWN"
+
     @classmethod
-    def _parse_concentration(cls, value: str | None) -> tuple[str | None, str]:
+    def _parse_concentration(
+        cls, value: str | None, header: str | None = None
+    ) -> tuple[str | None, str]:
         if value is None:
             return None, "UNKNOWN"
         text = cls._normalized(value)
+        if text.startswith(("neat", "as supplied")):
+            if cls._STRENGTH_VALUE.search(text):
+                # "neat (pre-dil. 10% in DPG)" says two strengths; read neither.
+                return None, "UNKNOWN"
+            return "1", "NEAT"
+        ratio = re.match(r"1\s*[:/]\s*(\d+(?:\.\d+)?)(?![\d.,:/])", text)
+        if ratio:
+            divisor = Decimal(ratio.group(1))
+            if divisor < 1:
+                return None, "UNKNOWN"
+            fraction = Decimal(1) / divisor
+            stated = re.search(r"(\d+(?:\.\d+)?)\s*%", text)
+            if stated and Decimal(stated.group(1)) / Decimal(100) != fraction:
+                # "1:10 (5%)": the ratio and the percent disagree.
+                return None, "UNKNOWN"
+            return cls._decimal_text(fraction), cls._basis_of(text)
         percent = re.search(r"(\d+(?:\.\d+)?)\s*%", text)
         if percent:
             amount = Decimal(percent.group(1)) / Decimal(100)
             if amount <= 0 or amount > 1:
                 return None, "UNKNOWN"
-            if "w/w" in text or "w-w" in text:
-                basis = "W_W"
-            elif "v/v" in text or "v-v" in text:
-                basis = "V_V"
-            else:
-                basis = "UNKNOWN"
-            return cls._decimal_text(amount), basis
+            return cls._decimal_text(amount), cls._basis_of(text)
         if any(token in text for token in ("neat", "undiluted", "as supplied")):
             return "1", "NEAT"
+        if re.fullmatch(r"\d+(?:\.\d+)?", text):
+            number = Decimal(text)
+            if header is not None and "%" in header:
+                number /= Decimal(100)
+                if 0 < number <= 1:
+                    return cls._decimal_text(number), "UNKNOWN"
+            elif 0 < number < 1:
+                return cls._decimal_text(number), "UNKNOWN"
+            elif number == 1:
+                return "1", "NEAT"
         return None, "UNKNOWN"
 
     # A trailing strength or dilution note on a material name ("10%",
@@ -632,13 +695,34 @@ class FormulaAnalysisImportParser:
                 key=lambda item: ({"uL": 0, "mg": 1, "g": 2, "mL": 3, None: 4}[item[1]], item[0])
             )
             parsed_amount: tuple[str, str] | None = None
+            ambiguous_amount: str | None = None
+            bad_comma_amount: str | None = None
             amount_header = ""
             for amount_index, header_unit in indexed_amounts:
                 if amount_index < len(cells):
+                    if cls._has_several_numbers(cells[amount_index]):
+                        ambiguous_amount = cls._plain(cells[amount_index])
+                        break
+                    if cls._has_bad_comma(cells[amount_index]):
+                        bad_comma_amount = cls._plain(cells[amount_index])
+                        break
                     parsed_amount = cls._parse_amount(cells[amount_index], header_unit)
                 if parsed_amount is not None:
                     amount_header = cls._plain(header[amount_index])
                     break
+            if ambiguous_amount is not None:
+                warnings.append(
+                    f"Skipped line {source_line}: amount '{ambiguous_amount}' for {material} "
+                    "has more than one number; write a single amount (put notes in parentheses)."
+                )
+                continue
+            if bad_comma_amount is not None:
+                warnings.append(
+                    f"Skipped line {source_line}: amount '{bad_comma_amount}' for {material} "
+                    "has a comma that is not a 3-digit thousands separator; "
+                    "write a decimal point (1.5) or full thousands (1,500)."
+                )
+                continue
             if parsed_amount is None:
                 warnings.append(
                     f"Skipped line {source_line}: no positive amount with an explicit supported unit for {material}."
@@ -661,7 +745,19 @@ class FormulaAnalysisImportParser:
                 if dilution_index is not None and dilution_index < len(cells)
                 else None
             )
-            fraction, basis = cls._parse_concentration(dilution_text)
+            fraction, basis = cls._parse_concentration(
+                dilution_text,
+                header[dilution_index] if dilution_index is not None else None,
+            )
+            if (
+                fraction is None
+                and dilution_text is not None
+                and cls._plain(dilution_text).strip().lower() not in cls._NO_STRENGTH
+            ):
+                warnings.append(
+                    f"Strength '{cls._plain(dilution_text)}' for {material} can't be read; "
+                    "write it like 10% w/w in DPG"
+                )
             basket_index = next(
                 (index for index, cell in enumerate(normalized_header) if cell == "basket"),
                 None,

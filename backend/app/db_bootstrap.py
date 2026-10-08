@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import os
+import re
 import sqlite3
 import tempfile
 from dataclasses import asdict, dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from alembic.config import Config
@@ -16,6 +18,14 @@ from alembic.script import ScriptDirectory
 from sqlalchemy.engine import make_url
 
 from alembic import command
+
+logger = logging.getLogger(__name__)
+
+_SNAPSHOT_TIMESTAMP_FORMAT = "%Y%m%dT%H%M%SZ"
+# Pruning keeps this many newest pre-upgrade snapshots ...
+_SNAPSHOT_KEEP_NEWEST = 5
+# ... plus every snapshot younger than this.
+_SNAPSHOT_KEEP_YOUNGER_THAN = timedelta(days=30)
 
 
 @dataclass(frozen=True, slots=True)
@@ -84,7 +94,7 @@ def prepare_database_upgrade(
         )
 
     snapshot_directory.mkdir(parents=True, exist_ok=True)
-    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    timestamp = datetime.now(timezone.utc).strftime(_SNAPSHOT_TIMESTAMP_FORMAT)
     descriptor, snapshot_name = tempfile.mkstemp(
         prefix=f"{source_path.stem}-pre-upgrade-{timestamp}-",
         suffix=".db",
@@ -140,19 +150,121 @@ def _sqlite_file_path(config: Config) -> Path | None:
     return path.resolve()
 
 
+def _target_revisions(config: Config, revision: str) -> frozenset[str] | None:
+    """Resolve the revisions a migration to ``revision`` ends at, if resolvable offline."""
+
+    try:
+        revisions = ScriptDirectory.from_config(config).get_revisions(revision)
+    except Exception:
+        # Relative or unknown identifiers need a live context; treat them as pending.
+        return None
+    return frozenset(item.revision for item in revisions if item is not None)
+
+
+def _database_at_revision(config: Config, revision: str, database_path: Path) -> bool:
+    """Return True only when the database already stands at the target revision."""
+
+    if not database_path.exists() or database_path.stat().st_size == 0:
+        return False
+    target = _target_revisions(config, revision)
+    if target is None:
+        return False
+    connection = sqlite3.connect(database_path)
+    try:
+        has_version_table = connection.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='alembic_version'"
+        ).fetchone()
+        if has_version_table is None:
+            return False
+        current = frozenset(
+            row[0] for row in connection.execute("SELECT version_num FROM alembic_version")
+        )
+    finally:
+        connection.close()
+    return current == target
+
+
+def _snapshot_created_at(path: Path, timestamp: str) -> datetime | None:
+    try:
+        return datetime.strptime(timestamp, _SNAPSHOT_TIMESTAMP_FORMAT).replace(tzinfo=timezone.utc)
+    except ValueError:
+        pass
+    try:
+        return datetime.fromtimestamp(path.stat().st_mtime, timezone.utc)
+    except OSError:
+        return None
+
+
+def prune_upgrade_snapshots(
+    snapshot_directory: Path,
+    database_stem: str,
+    *,
+    now: datetime | None = None,
+) -> None:
+    """Delete old pre-upgrade snapshots of one database, keeping recent ones.
+
+    Only ``<stem>-pre-upgrade-<timestamp>-<random>.db`` files written by
+    ``prepare_database_upgrade`` are candidates; each deleted snapshot takes its
+    ``.manifest.json`` with it. The newest snapshots and every snapshot younger
+    than the age limit are kept. Deletion failures are logged, never raised.
+    """
+
+    pattern = re.compile(
+        rf"{re.escape(database_stem)}-pre-upgrade-(\d{{8}}T\d{{6}}Z)-[a-z0-9_]{{8}}\.db"
+    )
+    try:
+        entries = list(snapshot_directory.iterdir())
+    except FileNotFoundError:
+        return
+    except OSError:
+        logger.warning("Cannot list pre-upgrade snapshots in %s", snapshot_directory, exc_info=True)
+        return
+
+    snapshots: list[tuple[datetime, str, Path]] = []
+    for path in entries:
+        match = pattern.fullmatch(path.name)
+        if match is None or not path.is_file():
+            continue
+        created_at = _snapshot_created_at(path, match.group(1))
+        if created_at is not None:
+            snapshots.append((created_at, path.name, path))
+    snapshots.sort(reverse=True)
+
+    cutoff = (now or datetime.now(timezone.utc)) - _SNAPSHOT_KEEP_YOUNGER_THAN
+    for created_at, _name, snapshot_path in snapshots[_SNAPSHOT_KEEP_NEWEST:]:
+        if created_at >= cutoff:
+            continue
+        # The snapshot goes first: if it cannot be deleted, its manifest stays with it.
+        for path in (snapshot_path, snapshot_path.with_suffix(".manifest.json")):
+            try:
+                path.unlink(missing_ok=True)
+            except OSError:
+                logger.warning(
+                    "Cannot delete old pre-upgrade snapshot file %s", path, exc_info=True
+                )
+                break
+            logger.info("Deleted old pre-upgrade snapshot file %s", path)
+
+
 def upgrade_database(
     config: Config,
     revision: str = "head",
     *,
     snapshot_directory: Path | None = None,
 ) -> UpgradeSnapshot | None:
-    """Back up a file-backed SQLite database, then run Alembic."""
+    """Back up a file-backed SQLite database when a migration is pending, then run Alembic.
+
+    Returns None when no snapshot step ran: a non-file database, or one already
+    at ``revision``. Old pre-upgrade snapshots of the database are pruned on every call.
+    """
 
     database_path = _sqlite_file_path(config)
     snapshot = None
     if database_path is not None:
         destination = snapshot_directory or database_path.parent / "pre-upgrade-snapshots"
-        snapshot = prepare_database_upgrade(database_path, destination)
+        if not _database_at_revision(config, revision, database_path):
+            snapshot = prepare_database_upgrade(database_path, destination)
+        prune_upgrade_snapshots(destination, database_path.stem)
     # Running inside the host process: keep its logging configuration.
     config.attributes["configure_logger"] = False
     command.upgrade(config, revision)
@@ -163,5 +275,6 @@ __all__ = [
     "UpgradeSnapshot",
     "build_alembic_config",
     "prepare_database_upgrade",
+    "prune_upgrade_snapshots",
     "upgrade_database",
 ]

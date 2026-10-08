@@ -4,6 +4,7 @@ import hashlib
 import json
 import re
 import unicodedata
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
@@ -859,9 +860,21 @@ def _get_logp(name: str, mat: dict | None = None) -> float | None:
 @lru_cache(maxsize=4096)
 def _lookup_material(name: str) -> dict | None:
     """Find a material in the knowledge graph by name match."""
+    mat = _lookup_material_exact(name)
+    if mat is not None:
+        return mat
+    db = get_materials_db()
+    for key in _material_lookup_candidates(name):
+        for k, v in db.items():
+            if _fuzzy_name_match(key, k):
+                return v
+    return None
+
+
+@lru_cache(maxsize=4096)
+def _material_lookup_candidates(name: str) -> tuple[str, ...]:
     from ..material_identity import resolve_material_identity
 
-    db = get_materials_db()
     candidates: list[str] = []
     seen: set[str] = set()
 
@@ -884,6 +897,14 @@ def _lookup_material(name: str) -> dict | None:
                 if key not in seen:
                     candidates.append(key)
                     seen.add(key)
+    return tuple(candidates)
+
+
+@lru_cache(maxsize=4096)
+def _lookup_material_exact(name: str) -> dict | None:
+    """Knowledge-graph record reached by exact key or explicit alias only."""
+    db = get_materials_db()
+    candidates = _material_lookup_candidates(name)
 
     for key in candidates:
         if key in db:
@@ -894,11 +915,6 @@ def _lookup_material(name: str) -> dict | None:
             expanded = key[:-3] + " essential oil"
             if expanded in db:
                 return db[expanded]
-
-    for key in candidates:
-        for k, v in db.items():
-            if _fuzzy_name_match(key, k):
-                return v
     return None
 
 
@@ -1037,10 +1053,11 @@ def material_match_keys(name: str) -> set[str]:
         if alias:
             keys.update(_material_alias_keys(alias))
 
-    mat = _lookup_material(name)
+    # Exact/alias lookup only: a substring-found record names another material.
+    mat = _lookup_material_exact(name)
     if mat is not None:
         for candidate in (mat.get("name"), mat.get("alt_name")):
-            if candidate:
+            if candidate and not _is_non_identity_alt_name(candidate):
                 keys.update(_material_alias_keys(candidate))
 
     from ..ingredient_intelligence import get_profile
@@ -1049,44 +1066,361 @@ def material_match_keys(name: str) -> set[str]:
     if profile is not None:
         keys.update(_material_alias_keys(profile.name))
 
+    # A stock written with its strength ("Hedione 10% w/w in DPG") is that material.
+    base = _stock_base_name(name)
+    if base:
+        keys.update(material_match_keys(base))
+
     return frozenset(key for key in keys if key)
+
+
+# Knowledge-graph alt_name sometimes records a stock strength ("10%") or a
+# carrier ("DPG") instead of another name. Used as identity keys, they made
+# every 10% stock match every other (Exaltolide == Hexyl Acetate 1% in DPG).
+_CARRIER_NAMES = frozenset({
+    "dep", "diethyl phthalate", "dpg", "dipropylene glycol", "ethanol",
+    "ethyl alcohol", "alcohol", "etoh", "ipm", "isopropyl myristate",
+    "tec", "triethyl citrate", "fragrance oil",
+})
+_STRENGTH_RE = re.compile(
+    r"^\s*\d+(?:\.\d+)?\s*%\s*(?:(?:w/w|v/v|w/v)\b)?\s*(?:in\s+)?(?P<carrier>.*?)\s*$"
+)
+_STOCK_SUFFIX_RE = re.compile(r"[\s,]+[~≈]?\s*\d+(?:\.\d+)?\s*%.*$")
+
+
+def _is_non_identity_alt_name(value: str) -> bool:
+    """True when an alt_name is only a strength and/or a carrier, not a name."""
+    low = re.sub(r"\s+", " ", value.strip().lower())
+    if low in _CARRIER_NAMES:
+        return True
+    match = _STRENGTH_RE.match(low)
+    return bool(match) and (not match["carrier"] or match["carrier"] in _CARRIER_NAMES)
+
+
+def _stock_base_name(name: str) -> str | None:
+    """Strip a trailing strength/carrier suffix: 'Hedione 10% w/w in DPG' -> 'hedione'."""
+    low = re.sub(r"\s+", " ", name.strip().lower())
+    base = _STOCK_SUFFIX_RE.sub("", low).strip()
+    return base if base and base != low else None
+
+
+# Materials whose names share fragments, aliases or data alt_names but are
+# different materials (AGENTS.md material identity model, plus look-alikes the
+# matcher used to collapse). Each concept is recognised from the meaning of a
+# name's words, not its literal spelling, so word order, punctuation, strength
+# or carrier suffixes and trade-name aliases all land on the same concept. Two
+# names with different concepts never match. Order matters: the more specific
+# concept of a pair is tested first. Haitian/Indian vetiver is decided by the
+# origin rule below, which covers every origin, not only vetiver's.
+_HEDIONE_WORDS = ("hedione", "dihydrojasmonate")
+_MATERIAL_CONCEPTS: tuple[tuple[str, Callable[[set[str], str], bool]], ...] = (
+    ("hedione hc", lambda t, c: any(w in c for w in _HEDIONE_WORDS)
+        and ("hc" in t or "highcis" in c)),
+    ("hedione", lambda t, c: any(w in c for w in _HEDIONE_WORDS)),
+    ("iso e super plus", lambda t, c: "isoesuperplus" in c or "isoeplus" in c),
+    ("iso e super", lambda t, c: "isoesuper" in c or c == "isoe"),
+    ("dihydro beta ionone", lambda t, c: "dihydro" in c and "ionone" in c and "alpha" not in t),
+    ("methyl ionone gamma coeur", lambda t, c: "methyl" in c and "ionone" in c
+        and ("coeur" in t or "couer" in t)),
+    ("alpha isomethyl ionone", lambda t, c: "isomethylionone" in c or "aimi" in t),
+    ("ultralia", lambda t, c: "ultralia" in c),
+    ("beta ionone", lambda t, c: "ionone" in c and ("beta" in t or "b" in t or "betaionone" in c)
+        and "methyl" not in c),
+    ("vertofix coeur", lambda t, c: "vertofix" in c and ("coeur" in t or "couer" in t)),
+    ("vertofix", lambda t, c: "vertofix" in c),
+    # Heliotropal first: "Heliotropal (Piperonal)" is the Heliotropal stock line.
+    ("heliotropal", lambda t, c: "heliotropal" in c),
+    ("heliotropin", lambda t, c: "heliotropin" in c or "piperonal" in c),
+    ("isoeugenol", lambda t, c: "isoeugenol" in c),
+    ("methyl eugenol", lambda t, c: "methyleugenol" in c),
+    ("eugenol", lambda t, c: "eugenol" in c),
+    ("habanolide", lambda t, c: "habanolide" in c),
+    ("galaxolide", lambda t, c: "galaxolide" in c),
+    ("muscenone delta", lambda t, c: "muscenone" in c),
+    ("exaltolide", lambda t, c: "exaltolide" in c),
+    ("bacdanol", lambda t, c: "bacdanol" in c),
+    ("sandalore", lambda t, c: "sandalore" in c),
+    ("lavandin", lambda t, c: "lavandin" in c),
+    ("lavender", lambda t, c: "lavender" in c),
+    # Styrax tonkinensis (Siam: Laos, Thailand, Vietnam) and Styrax benzoin
+    # (Sumatra) are different resins; a bare "benzoin" names neither.
+    ("siam benzoin", lambda t, c: "benzoin" in c and bool(
+        {"siam", "thai", "tonkinensis", "laos", "laotian", "vietnam", "vietnamese"} & t)),
+    ("sumatra benzoin", lambda t, c: "benzoin" in c and bool({"sumatra", "sumatran"} & t)),
+    ("benzoin", lambda t, c: "benzoin" in c),
+    # 10-undecenal (undecylenic) and undecanal (undecylic) are both "C11".
+    ("aldehyde c11 undecylenic", lambda t, c: "undecylenic" in c or "undecenal" in c
+        or ("c11" in t and "lenic" in t)),
+    ("aldehyde c11 undecylic", lambda t, c: "undecylic" in c or "undecanal" in c),
+    ("aldehyde c11", lambda t, c: "c11" in t and "aldehyde" in t),
+    # "Aldehyde C-14" is the trade name of gamma-undecalactone.
+    ("gamma undecalactone", lambda t, c: ("undecalactone" in c and "delta" not in t)
+        or ("c14" in t and "aldehyde" in t)),
+    # "Aldehyde C-18" is the trade name of gamma-nonalactone.
+    ("gamma nonalactone", lambda t, c: ("nonalactone" in c and "delta" not in t)
+        or ("c18" in t and "aldehyde" in t)),
+    ("linalool oxide", lambda t, c: "linalooloxide" in c),
+)
+
+# Umbrella names that, stated without a subtype, mean any one of their
+# subtypes ("Aldehyde C-11" alone is undecylenic in trade usage). An umbrella
+# matches each subtype; two different subtypes never match each other.
+_UMBRELLA_OF = {
+    "siam benzoin": "benzoin",
+    "sumatra benzoin": "benzoin",
+    "aldehyde c11 undecylenic": "aldehyde c11",
+    "aldehyde c11 undecylic": "aldehyde c11",
+}
+
+# Origins stated in a name. Two names stating incompatible origins are
+# different materials; a name stating none may still match one that does.
+_ORIGIN_WORDS = {
+    "haiti": "haiti", "haitian": "haiti",
+    "india": "india", "indian": "india", "mysore": "india", "khus": "india",
+    "java": "java", "javanese": "java",
+    "indonesia": "indonesia", "indonesian": "indonesia",
+    "bourbon": "reunion", "reunion": "reunion",
+    "madagascar": "madagascar", "madagascan": "madagascar", "malagasy": "madagascar",
+    "comoros": "comoros",
+    "ceylon": "sri lanka",
+    "china": "china", "chinese": "china",
+    "egypt": "egypt", "egyptian": "egypt",
+    "morocco": "morocco", "moroccan": "morocco",
+    "france": "france", "french": "france",
+    "bulgaria": "bulgaria", "bulgarian": "bulgaria",
+    "turkey": "turkey", "turkish": "turkey",
+    "italy": "italy", "italian": "italy",
+    "sicily": "sicily", "sicilian": "sicily",
+    "calabria": "calabria", "calabrian": "calabria",
+    "spain": "spain", "spanish": "spain",
+    "paraguay": "paraguay", "paraguayan": "paraguay",
+    "brazil": "brazil", "brazilian": "brazil",
+    "mexico": "mexico", "mexican": "mexico",
+    "tahiti": "tahiti", "tahitian": "tahiti",
+    "australia": "australia", "australian": "australia",
+    "virginia": "virginia", "va": "virginia", "texas": "texas", "atlas": "atlas",
+    "himalaya": "himalaya", "himalayan": "himalaya",
+}
+# A region is compatible with the country that contains it.
+_ORIGIN_PARENT = {"java": "indonesia", "sicily": "italy", "calabria": "italy"}
+
+# Extraction methods, most specific first: "absolute oil" is an absolute and a
+# "CO2 extract oil" is a CO2 extract.
+_METHOD_WORDS: tuple[tuple[str, frozenset[str]], ...] = (
+    ("co2 extract", frozenset({"co2", "sco2", "supercritical"})),
+    ("absolute", frozenset({"absolute", "abs"})),
+    ("resinoid", frozenset({"resinoid"})),
+    ("concrete", frozenset({"concrete"})),
+    ("tincture", frozenset({"tincture", "tinct"})),
+    ("infusion", frozenset({"infusion", "infused"})),
+    ("essential oil", frozenset({"eo", "essential", "oil"})),
+)
+# FCF (furocoumarin-free) only removes furocoumarins from the same expressed
+# oil: it is neither an origin nor a method, so it never separates two names
+# ("Bergamot EO" is "Bergamot FCF oil Sicilian").
+_SAME_MATERIAL_TREATMENTS = frozenset({"fcf"})
+_FACET_WORDS = (
+    frozenset(_ORIGIN_WORDS)
+    | frozenset().union(*(words for _, words in _METHOD_WORDS))
+    | _SAME_MATERIAL_TREATMENTS
+    | {"extract", "sri", "lanka"}
+)
+
+
+_GREEK_WORDS = str.maketrans({"α": " alpha ", "β": " beta ", "γ": " gamma ", "δ": " delta "})
+_GREEK_LETTERS = {"a": "alpha", "b": "beta", "g": "gamma", "d": "delta"}
+# Physical form and handling words say how a stock is held, not what it is.
+_STOCK_WORDS = frozenset({"crystals", "crystal", "crystalline", "solid", "neat", "as", "supplied"})
+# Spelling variants of one word.
+_WORD_SPELLINGS = {"couer": "coeur", "sal": "salicylate"}
+_STRENGTH_PAREN_RE = re.compile(r"\([^()]*\d\s*%[^()]*\)")
+
+
+def _name_tokens(name: str) -> list[str]:
+    """Words of a name's own spelling, without a trailing strength/carrier."""
+    low = unicodedata.normalize("NFKD", name.lower())
+    low = "".join(ch for ch in low if not unicodedata.combining(ch))
+    low = low.translate(_GREEK_WORDS)
+    low = re.sub(r"\s+", " ", low.strip())
+    low = _STOCK_SUFFIX_RE.sub("", low).strip() or low
+    low = re.sub(r"\bc[\s-](\d+)\b", r"c\1", low)  # "Aldehyde C-11" -> c11
+    return re.findall(r"[a-z0-9]+", low)
+
+
+@lru_cache(maxsize=4096)
+def _material_core(name: str) -> str:
+    """What a name means once stock, origin and method words are set aside.
+
+    The concept when the name has one, else its own words without origin,
+    extraction-method, physical-form, strength or supplier text ("Cinnamon
+    Bark EO - Telvada" -> "bark cinnamon"), sorted so word order does not count.
+    Shared by materials_match and material_identity_key.
+    """
+    concept = _material_concept(name)
+    if concept is not None:
+        return concept
+    return " ".join(sorted(_product_words(name) - _FACET_WORDS))
+
+
+@lru_cache(maxsize=4096)
+def _product_words(name: str) -> frozenset[str]:
+    """A name's own words without strength, physical-form or supplier text."""
+    low = name.split(" - ", 1)[0]
+    low = _STRENGTH_PAREN_RE.sub(" ", low.lower())
+    return frozenset(
+        _GREEK_LETTERS.get(token, _WORD_SPELLINGS.get(token, token))
+        for token in _name_tokens(low)
+        if token not in _STOCK_WORDS
+    )
+
+
+def _cores_match(a: str, b: str) -> bool:
+    core_a, core_b = _material_core(a), _material_core(b)
+    if not core_a or not core_b:
+        return False
+    return core_a == core_b or _UMBRELLA_OF.get(core_a) == core_b or _UMBRELLA_OF.get(core_b) == core_a
+
+
+def _concept_of_text(name: str) -> str | None:
+    tokens = _name_tokens(name)
+    token_set, compact = set(tokens), "".join(tokens)
+    for concept, test in _MATERIAL_CONCEPTS:
+        if test(token_set, compact):
+            return concept
+    return None
+
+
+@lru_cache(maxsize=4096)
+def _material_concept(name: str) -> str | None:
+    """The non-interchangeable material a name means, if it is one of them.
+
+    The name's own words win over data aliases, so 'Heliotropin' stays
+    heliotropin even though a profile alias maps it to Heliotropal; a bare
+    trade alias ('AIMI') is recognised through its alias keys.
+    """
+    own = _concept_of_text(name)
+    if own is not None:
+        return own
+    found = {_concept_of_text(key) for key in material_match_keys(name)} - {None}
+    for concept, _ in _MATERIAL_CONCEPTS:
+        if concept in found:
+            return concept
+    return None
+
+
+@lru_cache(maxsize=4096)
+def _stated_facets(name: str) -> tuple[frozenset[str], str | None]:
+    """Origins and extraction method stated in a name's own words."""
+    tokens = set(_name_tokens(name))
+    origins = {_ORIGIN_WORDS[token] for token in tokens if token in _ORIGIN_WORDS}
+    if {"sri", "lanka"} <= tokens:
+        origins.add("sri lanka")
+    method = next((m for m, words in _METHOD_WORDS if words & tokens), None)
+    return frozenset(origins), method
+
+
+def _origins_conflict(a: frozenset[str], b: frozenset[str]) -> bool:
+    if not a or not b:
+        return False
+    return not any(
+        x == y or _ORIGIN_PARENT.get(x) == y or _ORIGIN_PARENT.get(y) == x
+        for x in a
+        for y in b
+    )
+
+
+def _facets_conflict(a: str, b: str) -> bool:
+    """True when two names state different materials, origins or methods."""
+    concept_a, concept_b = _material_concept(a), _material_concept(b)
+    if (
+        concept_a
+        and concept_b
+        and concept_a != concept_b
+        and _UMBRELLA_OF.get(concept_a) != concept_b
+        and _UMBRELLA_OF.get(concept_b) != concept_a
+    ):
+        return True
+    origins_a, method_a = _stated_facets(a)
+    origins_b, method_b = _stated_facets(b)
+    if _origins_conflict(origins_a, origins_b):
+        return True
+    return bool(method_a and method_b and method_a != method_b)
+
+
+def product_match_rank(a: str, b: str) -> int:
+    """How closely two matching names name one product: 0 same spelling,
+    1 same words once strength and form are set aside, 2 same core (origin and
+    method wording aside too), 3 alias or umbrella only."""
+    if _name_tokens(a) == _name_tokens(b):
+        return 0
+    if _product_words(a) == _product_words(b):
+        return 1
+    return 2 if _material_core(a) == _material_core(b) else 3
+
+
+def _faceted_identity_key(name: str) -> str:
+    """'vetiver (haiti; essential oil)' for 'Vetiver EO (Haiti)' and 'Haitian Vetiver EO'."""
+    origins, method = _stated_facets(name)
+    core = _material_core(name) or " ".join(_name_tokens(name)) or name.lower().strip()
+    facets = [*sorted(origins), *([method] if method else [])]
+    return f"{core} ({'; '.join(facets)})" if facets else core
 
 
 @lru_cache(maxsize=4096)
 def material_identity_key(name: str) -> str:
-    """Stable lower-case key for deduplicating equivalent materials."""
+    """Stable lower-case key for deduplicating equivalent materials.
+
+    Two sides of a non-interchangeable pair, or names stating different origins
+    or extraction methods, never share a key even when data aliases resolve
+    them to one record.
+    """
     from ..material_identity import resolve_material_identity
 
     identity = resolve_material_identity(name)
     if identity is not None:
-        return identity.identity_key
+        key = identity.identity_key
+    else:
+        resolved = resolve_material_name(name)
+        # resolve_material_name may reach a record by substring
+        # ("Methyl Eugenol" -> Eugenol); keep it only for the same material.
+        if resolved and materials_match(name, resolved):
+            key = resolved.lower().strip()
+        elif resolved:
+            return _faceted_identity_key(name)
+        else:
+            keys = material_match_keys(name)
+            key = (
+                sorted(keys, key=lambda value: (len(value), value))[0]
+                if keys
+                else name.lower().strip()
+            )
 
-    resolved = resolve_material_name(name)
-    if resolved:
-        return resolved.lower().strip()
-
-    keys = material_match_keys(name)
-    if keys:
-        return sorted(keys, key=lambda value: (len(value), value))[0]
-    return name.lower().strip()
+    concept = _material_concept(name)
+    origins, method = _stated_facets(name)
+    key_origins, key_method = _stated_facets(key)
+    if (
+        (concept is not None and _material_concept(key) != concept)
+        or (origins and origins != key_origins)
+        or (method and method != key_method)
+    ):
+        return _faceted_identity_key(name)
+    return key
 
 
 @lru_cache(maxsize=8192)
 def materials_match(a: str, b: str) -> bool:
-    """True when two names refer to the same concrete material identity."""
+    """True when two names refer to the same concrete material identity.
+
+    Names match through equal normalized keys, explicit aliases or an equal
+    core (see _material_core; an umbrella core matches each of its subtypes),
+    never a bare substring, and never when they mean different
+    non-interchangeable materials or state different origins or methods.
+    """
     if not a or not b:
         return False
-
-    keys_a = material_match_keys(a)
-    keys_b = material_match_keys(b)
-    if keys_a & keys_b:
-        return True
-
-    for key_a in keys_a or {a.lower().strip()}:
-        for key_b in keys_b or {b.lower().strip()}:
-            if _fuzzy_name_match(key_a, key_b):
-                return True
-    return False
+    if _facets_conflict(a, b):
+        return False
+    return bool(material_match_keys(a) & material_match_keys(b)) or _cores_match(a, b)
 
 
 def _rule_signature(rule: dict) -> tuple[str, str, str, str]:

@@ -26,7 +26,6 @@ from sqlalchemy import func, select
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app import db_bootstrap
 from app.api.deps import get_db
 from app.api.v1.endpoints.formulas import _to_workbench_request
 from app.models.lab import (
@@ -66,7 +65,11 @@ from app.schemas.lab import (
     StockUpdateRemaining,
 )
 from app.schemas.perfume import FormulaCreate
-from app.services.backup_service import BackupService, RestoreSafetyError
+from app.services.backup_service import (
+    BackupService,
+    RestoreSafetyError,
+    backup_service_for_database_url,
+)
 from app.services.engine_job_compatibility import (
     enqueue_formula_analysis_compatibility,
 )
@@ -559,7 +562,7 @@ async def import_workspace(
 @router.post("/backups", status_code=status.HTTP_201_CREATED)
 async def create_backup(
     request: BackupCreate, session: AsyncSession = Depends(get_db)
-) -> dict[str, str]:
+) -> dict[str, object]:
     try:
         return _backup_service(session).create_backup(request.label).as_dict()
     except (OSError, ValueError) as exc:
@@ -581,9 +584,17 @@ async def stage_restore(
     request: RestoreSnapshotCreate, session: AsyncSession = Depends(get_db)
 ) -> dict[str, str]:
     try:
-        return _backup_service(session).stage_restore(Path(request.snapshot_path)).as_dict()
+        staged = _backup_service(session).stage_restore(Path(request.snapshot_path))
     except RestoreSafetyError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    # The server never replaces its own open database; the launcher does it.
+    return {
+        **staged.as_dict(),
+        "message": (
+            "Validated. Stop the app, then run: python run_api_server.py "
+            f"--restore {staged.source_snapshot_path.name}"
+        ),
+    }
 
 
 @router.post("/stocks/preparations/finalize", status_code=status.HTTP_201_CREATED)
@@ -761,21 +772,7 @@ def _record(record, *fields: str) -> dict[str, Any]:
 def _backup_service(session: AsyncSession) -> BackupService:
     bind = session.get_bind()
     url = bind.engine.url if isinstance(bind, Connection) else bind.url
-    database = url.database
-    if not database or database == ":memory:" or database.startswith("file:"):
-        raise HTTPException(
-            status_code=400,
-            detail="Backup requires a file-backed SQLite database.",
-        )
-    database_path = Path(database).expanduser()
-    if not database_path.is_absolute():
-        database_path = Path.cwd() / database_path
-    alembic_config = db_bootstrap.build_alembic_config(
-        Path(__file__).resolve().parents[4] / "alembic.ini",
-        str(url),
-    )
-    return BackupService(
-        database_path=database_path,
-        backup_directory=database_path.parent / "lab-backups",
-        expected_schema_revision=db_bootstrap.alembic_head_revision(alembic_config),
-    )
+    try:
+        return backup_service_for_database_url(url)
+    except RestoreSafetyError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
