@@ -377,35 +377,108 @@ class FormulaAnalysisImportParser:
             return "1", "NEAT"
         return None, "UNKNOWN"
 
+    # A trailing strength or dilution note on a material name ("10%",
+    # "10% in DPG", "(neat)") does not make it a different material.
+    _TRAILING_STRENGTH = re.compile(
+        r"\s*\(?\s*(?:\d+(?:\.\d+)?\s*%(?:\s*(?:w/w|v/v|w/v))?(?:\s+in\s+[a-z][\w\s-]*?)?"
+        r"|neat|undiluted)\s*\)?\s*$"
+    )
+    # Ethanol is the final dilution, not part of the concentrate.  Other
+    # carriers (DPG, DEP, IPM, TEC) can be real concentrate rows and stay.
+    _ETHANOL_NAME = re.compile(r"(?:ethanol|ethyl alcohol|perfumer'?s alcohol|alcohol)\b(?!\s*c\s*-?\d)")
+
+    @classmethod
+    def _material_key(cls, value: str) -> str:
+        key = cls._normalized(value).replace("*", "").replace("_", " ").strip()
+        while True:
+            stripped = cls._TRAILING_STRENGTH.sub("", key).strip()
+            if stripped == key or not stripped:
+                return key
+            key = stripped
+
+    @staticmethod
+    def _table_label(line: int, heading: str | None) -> str:
+        if heading:
+            return f'the table under "{heading}" (line {line})'
+        return f"the table at line {line}"
+
     @classmethod
     def _without_restated_tables(
         cls,
         rows: list[ParsedAnalysisRow],
         row_tables: list[int],
+        table_headings: dict[int, str | None],
+        addition_tables: set[int],
         warnings: list[str],
+        errors: list[str],
     ) -> list[ParsedAnalysisRow]:
-        """Drop a table whose every row repeats a row already read.
+        """Keep each amount once when a file restates, summarizes or breaks down its build.
 
         Formula notes often restate the build as a summary or bench table;
-        reading both would count every material twice.
+        reading both would count materials twice.  A later table whose
+        materials were all read already is skipped with a warning.  A later
+        table that repeats some materials and adds others is ambiguous and
+        refuses the import.  A table of new names whose amounts add up to
+        exactly one row already read breaks that row down and is skipped.
+        Additions to an existing bottle may repeat materials and are kept.
         """
         kept: list[ParsedAnalysisRow] = []
-        seen: set[tuple[str, str, str]] = set()
+        first_seen: dict[str, int] = {}
+        kept_additions: list[int] = []
         for table_line in dict.fromkeys(row_tables):
             table_rows = [
                 row for row, line in zip(rows, row_tables, strict=True) if line == table_line
             ]
-            keys = [
-                (cls._normalized(row.material), row.amount_decimal, row.amount_unit)
-                for row in table_rows
-            ]
-            if kept and all(key in seen for key in keys):
-                warnings.append(
-                    f"Skipped the table at line {table_line}: it repeats rows already read."
-                )
-                continue
+            label = cls._table_label(table_line, table_headings.get(table_line))
+            keys = [cls._material_key(row.material) for row in table_rows]
+            repeated = [key for key in dict.fromkeys(keys) if key in first_seen]
+            if kept and table_line not in addition_tables:
+                if repeated and len(repeated) == len(set(keys)):
+                    warnings.append(
+                        f"Skipped {label}: every material in it was already read above, "
+                        "so it restates the formula rather than adding to it."
+                    )
+                    continue
+                if repeated:
+                    places = ", ".join(
+                        f"{table_rows[keys.index(key)].material} (line {first_seen[key]})"
+                        for key in repeated
+                    )
+                    errors.append(
+                        f"{label[0].upper()}{label[1:]} repeats materials already read: {places}. "
+                        "It may be a summary or an older version; list each material once so "
+                        "nothing is counted twice."
+                    )
+                    continue
+                units = {row.amount_unit for row in table_rows}
+                if len(table_rows) > 1 and len(units) == 1:
+                    unit = units.pop()
+                    table_sum = sum(Decimal(row.amount_decimal) for row in table_rows)
+                    whole = next(
+                        (
+                            row
+                            for row in kept
+                            if row.amount_unit == unit and Decimal(row.amount_decimal) == table_sum
+                        ),
+                        None,
+                    )
+                    if whole is not None:
+                        warnings.append(
+                            f"Skipped {label}: its amounts add up to the {whole.amount_decimal} "
+                            f"{unit} of {whole.material} already read, so it breaks that row down."
+                        )
+                        continue
             kept.extend(table_rows)
-            seen.update(keys)
+            if table_line in addition_tables:
+                kept_additions.append(table_line)
+            for key in keys:
+                first_seen.setdefault(key, table_line)
+        if kept_additions:
+            lines = ", ".join(str(line) for line in kept_additions)
+            warnings.append(
+                f"The rows from the table(s) at line {lines} are additions to an existing "
+                "bottle, so the total is the amount added, not a whole bottle."
+            )
         return kept
 
     @classmethod
@@ -425,6 +498,13 @@ class FormulaAnalysisImportParser:
         header: list[str] | None = None
         header_line = 0
         row_tables: list[int] = []
+        section_heading: str | None = None
+        table_headings: dict[int, str | None] = {}
+        # Tables whose rows are additions to an existing bottle: an Add
+        # column, or a section about adding to an existing bottle.
+        addition_tables: set[int] = set()
+        # Heading level of an enclosing "existing bottle" section, if any.
+        addition_section_level: int | None = None
         # The first material table whose header had no usable stock amount
         # column, kept to explain an empty result.
         unusable_header: tuple[list[str], bool] | None = None
@@ -433,13 +513,19 @@ class FormulaAnalysisImportParser:
             heading = re.match(r"^\s*#\s+(.+?)\s*$", line)
             if heading and formula_name == default_name:
                 formula_name = cls._plain(heading.group(1))[:255]
-            section = re.match(r"^\s*##+\s+(.+?)\s*$", line)
+            section = re.match(r"^\s*(##+)\s+(.+?)\s*$", line)
             if section:
-                section_name = cls._normalized(section.group(1))
+                section_name = cls._normalized(section.group(2))
                 if section_name.startswith("pipeline analysis"):
                     # An appended pipeline report repeats the formula in its
                     # headspace table (Raw µL / Act µL); it is not a formula.
                     break
+                section_heading = cls._plain(section.group(2))[:120]
+                level = len(section.group(1))
+                if addition_section_level is not None and level <= addition_section_level:
+                    addition_section_level = None
+                if addition_section_level is None and "existing bottle" in section_name:
+                    addition_section_level = level
                 current_role = next(
                     (role for role in ("top", "heart", "base") if role in section_name),
                     None,
@@ -465,13 +551,17 @@ class FormulaAnalysisImportParser:
             if material_candidates and "stock" in column_kinds:
                 header = cells
                 header_line = source_line
+                table_headings[header_line] = section_heading
+                if addition_section_level is not None:
+                    addition_tables.add(header_line)
                 continue
-            if (
-                material_candidates
-                and unusable_header is None
-                and not re.search(r"\d", "".join(normalized_cells))
-            ):
-                unusable_header = (cells, "active" in column_kinds)
+            if material_candidates and not re.search(r"\d", "".join(normalized_cells)):
+                # A new material table without a stock column (for example
+                # Active µL only) ends the previous table; its amounts must
+                # not be read under the previous header.
+                header = None
+                if unusable_header is None:
+                    unusable_header = (cells, "active" in column_kinds)
             if header is None:
                 continue
 
@@ -489,6 +579,12 @@ class FormulaAnalysisImportParser:
                 continue
             material = cls._plain(cells[material_index])
             if not material or "total" in cls._normalized(material):
+                continue
+            if cls._ETHANOL_NAME.match(cls._material_key(material)):
+                warnings.append(
+                    f"Skipped line {source_line}: {material} is the final dilution, "
+                    "not part of the concentrate."
+                )
                 continue
 
             indexed_amounts: list[tuple[int, str | None]] = []
@@ -554,6 +650,8 @@ class FormulaAnalysisImportParser:
                 else current_role
             )
             amount_decimal, amount_unit = parsed_amount
+            if cls._ADD_HEADER.fullmatch(cls._normalized(amount_header)):
+                addition_tables.add(header_line)
             row_tables.append(header_line)
             rows.append(
                 ParsedAnalysisRow(
@@ -572,7 +670,9 @@ class FormulaAnalysisImportParser:
                 )
             )
 
-        rows = cls._without_restated_tables(rows, row_tables, warnings)
+        rows = cls._without_restated_tables(
+            rows, row_tables, table_headings, addition_tables, warnings, errors
+        )
         if not rows:
             if unusable_header is not None:
                 found_cells, has_active = unusable_header

@@ -284,9 +284,70 @@ def test_restated_table_and_pipeline_report_are_not_counted_twice():
     assert rows == [("Hedione", "120", "uL", "1")]
 
 
+_BUILD = (
+    "| # | Material | Dilution | µL |\n|---|---|---|---|\n"
+    "| 1 | Hedione | neat | 120 |\n| 2 | Ambrettolide | 10% in DPG | 100 |\n"
+)
+
+
+def test_summary_table_with_dilution_note_in_name_is_skipped_with_warning():
+    summary = (
+        "| Axis | Material | Dose |\n|---|---|---|\n"
+        "| Depth | **Ambrettolide 10%** | 90 µL |\n| Lift | hedione (neat) | 120 µL |"
+    )
+    result, rows = _analysis_rows(f"{_BUILD}\n## The musk chord\n\n{summary}")
+    assert [row[:2] for row in rows] == [("Hedione", "120"), ("Ambrettolide", "100")]
+    assert result.errors == []
+    assert any('under "The musk chord"' in warning for warning in result.warnings)
+
+
+def test_partially_overlapping_table_refuses_the_import():
+    later = "| Material | Dose |\n|---|---|\n| Hedione | 80 µL |\n| Linalool | 40 µL |"
+    result, _ = _analysis_rows(f"{_BUILD}\n## Summary\n\n{later}")
+    assert len(result.errors) == 1
+    assert "Hedione (line 3)" in result.errors[0]
+    assert 'under "Summary" (line 10)' in result.errors[0]
+
+
+def test_table_breaking_down_one_row_is_not_summed():
+    chord = "| Material | Dose |\n|---|---|\n| Aurantiol | 70 µL |\n| Nerol | 30 µL |"
+    result, rows = _analysis_rows(f"{_BUILD}\n## Chord explained\n\n{chord}")
+    assert [row[0] for row in rows] == ["Hedione", "Ambrettolide"]
+    assert any("breaks that row down" in warning for warning in result.warnings)
+
+
+def test_active_only_table_after_raw_table_is_not_read_as_stock():
+    _, rows = _analysis_rows(
+        "| Material | Dilution | Raw µL |\n|---|---|---|\n| Hedione | neat | 120 |\n\n"
+        "| Material | Dilution | Active µL |\n|---|---|---|\n| Iso E Super | 10% | 12 |"
+    )
+    assert rows == [("Hedione", "120", "uL", "1")]
+
+
+def test_add_column_and_existing_bottle_rows_warn_that_total_is_additions():
+    result, rows = _analysis_rows(
+        "| Material | Add (µL) |\n|---|---|\n| Linalool | 250 |\n\n"
+        "## v5c — Add to Existing Bottle\n\n### What to Add\n\n"
+        "| Material | µL |\n|---|---|\n| Linalool | 50 |\n| Irotyl | 650 |"
+    )
+    assert len(rows) == 3
+    assert result.errors == []
+    assert any("additions to an existing bottle" in warning for warning in result.warnings)
+
+
+def test_ethanol_row_is_skipped_but_carrier_rows_stay():
+    result, rows = _analysis_rows(
+        "| Material | µL |\n|---|---|\n| Hedione | 600 |\n| DPG | 100 |\n| Ethanol 96% | 24,222 |"
+    )
+    assert [row[0] for row in rows] == ["Hedione", "DPG"]
+    assert any("Ethanol 96% is the final dilution" in warning for warning in result.warnings)
+
+
 # Tracked formula files that parsed: 209 of 543 before unit-only headers were
-# read; this floor pins the coverage reached by the fix.
-LIBRARY_PARSE_FLOOR = 469
+# read, then 469.  Files whose later tables partly repeat materials already
+# read now refuse instead of double counting (a deliberate spec change), so
+# the floor counts imports without errors and pins the count measured then.
+LIBRARY_PARSE_FLOOR = 429
 
 
 def test_project_formula_library_parse_coverage():
@@ -298,7 +359,7 @@ def test_project_formula_library_parse_coverage():
         result = FormulaAnalysisImportParser.parse_text(
             text, default_name="x", source_sha256="0" * 64
         )
-        if result.rows:
+        if result.rows and not result.errors:
             parsed += 1
         for row in result.rows:
             assert "active" not in row.amount_header.casefold(), source["source_path"]
