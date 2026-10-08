@@ -172,13 +172,21 @@ def test_required_recognizers_clear_oav_one_while_support_hypotheses_are_flagged
         "Benzyl Salicylate",
         "Carrot Seed EO",
         "Dihydro Beta Ionone",
-        "Irotyl",
         "Sandalore",
-        "Ultralia",
     }
-    required_recognizers = set(EXPECTED_INGREDIENTS).difference(structural_only)
+    # 2026-10-08 identity fix: Irotyl is ethyl 2-ethylhexanoate (VP 130 Pa, was 0.005 Pa) and
+    # Ultralia is methyl ionone (VP 0.817 Pa, was 0.002 Pa), so both now model above OAV 1
+    # although the card still labels them sub-threshold structural hypotheses.
+    now_above_threshold = {"Irotyl", "Ultralia"}
+    # Ambrettolide's sourced density (0.956 g/mL, was the 1.0 default) puts it just under OAV 1.
+    near_threshold = {"Ambrettolide"}
+    required_recognizers = (
+        set(EXPECTED_INGREDIENTS) - structural_only - now_above_threshold - near_threshold
+    )
     assert all((rows[name].oav or 0.0) >= 1.0 for name in required_recognizers)
     assert all((rows[name].oav or 0.0) < 1.0 for name in structural_only)
+    assert all((rows[name].oav or 0.0) > 1.0 for name in now_above_threshold)
+    assert all(0.95 <= (rows[name].oav or 0.0) < 1.0 for name in near_threshold)
     assert (rows["Ethyl 2-Methylbutyrate"].oav or 0.0) >= 1.0
     assert (rows["Verdox"].oav or 0.0) >= 1.0
 

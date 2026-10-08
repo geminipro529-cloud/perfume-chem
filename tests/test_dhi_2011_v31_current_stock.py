@@ -30,6 +30,7 @@ STRUCTURAL_ONLY = {
     "Sandalore",
     "Ultralia",
 }
+NEAR_THRESHOLD = {"Ambrettolide"}
 
 
 @pytest.fixture(scope="module")
@@ -83,6 +84,41 @@ def test_v31_recognizers_still_model_at_oav_one_or_more(formula):
         matrix_source=formula["matrix_source"],
     )
     rows = {material.name: material for material in state.materials}
-    recognizers = set(formula["ingredients_ul"]) - STRUCTURAL_ONLY
+    recognizers = set(formula["ingredients_ul"]) - STRUCTURAL_ONLY - NEAR_THRESHOLD
     low = {name: rows[name].oav for name in recognizers if (rows[name].oav or 0.0) < 1.0}
     assert low == {}
+    # 2026-10-08: Ambrettolide got a sourced density (0.956 g/mL, was the 1.0 default), so the
+    # 160 uL dose now models just under OAV 1 (about 0.98). The recipe is unchanged; about
+    # 163 uL would restore OAV 1, which is Kenny's call.
+    for name in NEAR_THRESHOLD:
+        assert 0.95 <= (rows[name].oav or 0.0) < 1.0, (name, rows[name].oav)
+
+
+def test_v31_lacks_authoritative_mass_only_for_its_w_w_stocks(formula):
+    # 2026-10-08: sourced densities for the ten neat stocks (data/materials/*.yaml provenance)
+    # leave only the w/w dilutions, which need a measured stock-solution density.
+    state = build_formula_state(
+        formula["ingredients_ul"],
+        formula["dilutions"],
+        stock_specs=formula["stock_specs"],
+        batch_volume_ml=30.0,
+        temperature_K=305.0,
+        matrix_moles=formula["matrix_moles"],
+        matrix_mass_g=formula["matrix_mass_g"],
+        matrix_source=formula["matrix_source"],
+    )
+    missing = {
+        material.name: material.active_mass_authority
+        for material in state.materials
+        if material.authoritative_active_g is None
+    }
+    assert missing == {
+        name: "unavailable:stock_solution_density_for_w_w"
+        for name in (
+            "Alpha Irone",
+            "Ethyl 2-Methylbutyrate",
+            "Mimosa Absolute",
+            "Osmanthus Absolute",
+            "Tonkarome",
+        )
+    }

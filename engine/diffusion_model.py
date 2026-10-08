@@ -87,7 +87,7 @@ DIFFUSION_DATA: dict[str, dict[str, float]] = {
     # ── Heart notes: moderate MW, moderate VP ──
     "Hedione": {"MW": 226.3, "VP_25": 0.5, "Kaw_eff": 0.003},
     "DBCA": {"MW": 204.3, "VP_25": 0.8, "Kaw_eff": 0.003},
-    "Hydroxycitronellal": {"MW": 172.3, "VP_25": 2.0, "Kaw_eff": 0.005},
+    "Hydroxycitronellal": {"MW": 172.27, "VP_25": 0.773, "Kaw_eff": 0.005},
     "Phenethyl Alcohol": {"MW": 122.2, "VP_25": 12.0, "Kaw_eff": 0.002},
     "Lilyreal ND": {"MW": 192.3, "VP_25": 1.5, "Kaw_eff": 0.003},
     "Bourgeonal": {"MW": 204.3, "VP_25": 1.0, "Kaw_eff": 0.003},
@@ -103,7 +103,7 @@ DIFFUSION_DATA: dict[str, dict[str, float]] = {
     "Alpha Ionone": {"MW": 192.3, "VP_25": 1.5, "Kaw_eff": 0.003},
     "Beta Ionone": {"MW": 192.3, "VP_25": 1.2, "Kaw_eff": 0.003},
     "Methyl Ionone Pure": {"MW": 192.3, "VP_25": 1.0, "Kaw_eff": 0.003},
-    "Ultralia": {"MW": 192.3, "VP_25": 0.5, "Kaw_eff": 0.002},
+    "Ultralia": {"MW": 206.33, "VP_25": 0.817, "Kaw_eff": 0.002},
     # ── Damascones (OR5A1/A2 family, structurally related to ionones) ──
     "Alpha Damascone": {"MW": 192.3, "VP_25": 2.0, "Kaw_eff": 0.003},
     "Damascone Beta": {"MW": 192.3, "VP_25": 1.5, "Kaw_eff": 0.003},
@@ -124,12 +124,12 @@ DIFFUSION_DATA: dict[str, dict[str, float]] = {
     "Scentenal": {"MW": 166.2, "VP_25": 6.0, "Kaw_eff": 0.007},
     "Calone": {"MW": 192.2, "VP_25": 2.0, "Kaw_eff": 0.004},
     # ── Base notes: high MW, very low VP, very low Kaw → intimate ──
-    "Galaxolide": {"MW": 258.4, "VP_25": 0.01, "Kaw_eff": 0.0001},
-    "Habanolide": {"MW": 238.4, "VP_25": 0.02, "Kaw_eff": 0.0002},
+    "Galaxolide": {"MW": 258.4, "VP_25": 0.0727, "Kaw_eff": 0.0001},
+    "Habanolide": {"MW": 238.4, "VP_25": 0.076, "Kaw_eff": 0.0002},
     "Ethylene Brassylate": {"MW": 270.4, "VP_25": 0.008, "Kaw_eff": 0.00008},
-    "Exaltolide": {"MW": 240.4, "VP_25": 0.015, "Kaw_eff": 0.00015},
-    "Musk Ketone": {"MW": 294.3, "VP_25": 0.003, "Kaw_eff": 0.00003},
-    "Ambrettolide": {"MW": 252.4, "VP_25": 0.012, "Kaw_eff": 0.00012},
+    "Exaltolide": {"MW": 240.4, "VP_25": 0.027, "Kaw_eff": 0.00015},
+    "Musk Ketone": {"MW": 294.3, "VP_25": 0.00069, "Kaw_eff": 0.00003},
+    "Ambrettolide": {"MW": 252.4, "VP_25": 0.003, "Kaw_eff": 0.00012},
     "Iso E Super": {"MW": 234.4, "VP_25": 0.15, "Kaw_eff": 0.0008},
     "Cashmeran": {"MW": 206.3, "VP_25": 0.4, "Kaw_eff": 0.001},
     "Vertofix Coeur": {"MW": 234.4, "VP_25": 0.08, "Kaw_eff": 0.0005},
@@ -137,7 +137,7 @@ DIFFUSION_DATA: dict[str, dict[str, float]] = {
     "Kephalis": {"MW": 234.4, "VP_25": 0.05, "Kaw_eff": 0.0003},
     "Koavone": {"MW": 192.3, "VP_25": 0.3, "Kaw_eff": 0.001},
     "Amberwood F": {"MW": 234.4, "VP_25": 0.10, "Kaw_eff": 0.0005},
-    "Vetival": {"MW": 206.3, "VP_25": 0.20, "Kaw_eff": 0.0008},
+    "Vetival": {"MW": 182.31, "VP_25": 6.53, "Kaw_eff": 0.0008},
     "Suederal": {"MW": 238.4, "VP_25": 0.06, "Kaw_eff": 0.0003},
     "Javanol": {"MW": 210.4, "VP_25": 0.10, "Kaw_eff": 0.0005},
     "Ebanol": {"MW": 220.4, "VP_25": 0.08, "Kaw_eff": 0.0004},
@@ -160,7 +160,7 @@ DIFFUSION_DATA: dict[str, dict[str, float]] = {
     # ── Coumarin / vanillins ──
     "Coumarin": {"MW": 146.2, "VP_25": 0.5, "Kaw_eff": 0.0005},
     "Vanillin": {"MW": 152.2, "VP_25": 0.2, "Kaw_eff": 0.0002},
-    "Ethyl Vanillin": {"MW": 166.2, "VP_25": 0.15, "Kaw_eff": 0.0002},
+    "Ethyl Vanillin": {"MW": 166.2, "VP_25": 0.019, "Kaw_eff": 0.0002},
     "Maple Lactone": {"MW": 128.1, "VP_25": 1.5, "Kaw_eff": 0.001},
     "Gamma Decalactone": {"MW": 170.3, "VP_25": 0.8, "Kaw_eff": 0.001},
     "Raspberry Ketone": {"MW": 164.2, "VP_25": 0.3, "Kaw_eff": 0.0004},
@@ -171,7 +171,7 @@ DIFFUSION_DATA: dict[str, dict[str, float]] = {
     # ── Added 2026-04-25: previously-missing materials used in Mr_Sandman and similar ──
     "Anisaldehyde": {"MW": 136.2, "VP_25": 0.05, "Kaw_eff": 0.0002},
     "Ethyl Maltol": {"MW": 140.1, "VP_25": 0.02, "Kaw_eff": 0.0001},
-    "Romandolide": {"MW": 268.4, "VP_25": 0.0005, "Kaw_eff": 0.00005},
+    "Romandolide": {"MW": 270.36, "VP_25": 0.1, "Kaw_eff": 0.00005},
     "Azarbre": {"MW": 234.4, "VP_25": 0.001, "Kaw_eff": 0.0002},
     # Cedarwood oil Virginia: alias "cedarwood oil virginia" → "cedarwood virginia" in name_utils
     "Cedarwood oil Virginia": {"MW": 204.4, "VP_25": 0.15, "Kaw_eff": 0.001},
@@ -201,7 +201,7 @@ DIFFUSION_DATA: dict[str, dict[str, float]] = {
         "Kaw_eff": 0.00003,
     },  # Pa, not mmHg
     # Macrocyclic musk (heavy — Pa not mmHg)
-    "Zenolide": {"MW": 238.4, "VP_25": 0.05, "Kaw_eff": 0.00005},  # Pa, not mmHg
+    "Zenolide": {"MW": 256.34, "VP_25": 0.028, "Kaw_eff": 0.00005},  # Pa, not mmHg
 }
 
 

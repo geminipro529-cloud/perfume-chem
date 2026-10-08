@@ -86,11 +86,14 @@ def test_opaque_lilyreal_is_not_promoted_to_a_single_chemical():
 
 def test_hydroxycitronellal_pressure_preserves_temperature_and_source_units():
     evidence = get_profile("Hydroxycitronellal").evidence["vp"]
-    assert evidence["status"] == "HOLD_REFERENCE_TEMPERATURE_MISMATCH"
+    # 2026-10-08: the held legacy 0.005 Pa was about 100x below every source, so the 25 C value
+    # is now RIFM's EPI Suite estimate (labelled as an estimate); the BASF 20 C figure stays
+    # recorded at its own temperature and units, not converted.
+    assert evidence["status"] == "ESTIMATE_25C_WITH_MEASURED_20C_REFERENCE"
     assert evidence["reference_temperature_c"] == 20
     assert evidence["reference_value_hpa"] == pytest.approx(0.005472)
     assert evidence["reference_value_pa"] == pytest.approx(0.5472)
-    assert get_profile("Hydroxycitronellal").vp == pytest.approx(0.005)
+    assert get_profile("Hydroxycitronellal").vp == pytest.approx(0.773)
 
 
 def test_heuristic_gamma_and_hedonics_are_explicit_not_measurements():
