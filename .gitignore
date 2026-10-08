@@ -143,5 +143,6 @@ incoming_review/*.exe
 !/package-lock.json
 /*.jsonl
 /*.txt
+/*.log
 !/inventory.txt
 !/requirements.txt
