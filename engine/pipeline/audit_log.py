@@ -168,6 +168,7 @@ def gate_report_event(
     """Build a compact event from a GateReport without simulation payloads."""
     gates = [compact_gate(gate) for gate in getattr(report, "gates", [])]
     failed = [gate["gate"] for gate in gates if gate.get("status") == "FAIL"]
+    held = [gate["gate"] for gate in gates if gate.get("status") == "HOLD"]
     warned = [gate["gate"] for gate in gates if gate.get("status") == "WARN"]
     confidence = dict(getattr(report, "confidence", {}) or {})
     event_source = source or getattr(config, "audit_source", "")
@@ -199,6 +200,7 @@ def gate_report_event(
             "pipeline_confidence": confidence.get("pipeline_confidence"),
         },
         "failed_gates": failed,
+        "hold_gates": held,
         "warn_gates": warned,
         "gates": gates,
         "run_evidence": evidence_gates,

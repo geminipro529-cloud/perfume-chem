@@ -14,6 +14,11 @@ from engine.formula_recommendations import generate_intervention_recommendations
 from engine.intervention_context import InterventionContext
 from engine.optimizer.models import FormulaVector
 
+# Release-gate statuses that block release (mirrors gates.BLOCKING_STATUSES;
+# kept local so this module does not import the gate engine). HOLD means a gate
+# could not decide because data is missing: it blocks like FAIL.
+_BLOCKING_GATE_STATUSES = frozenset({"HOLD", "FAIL"})
+
 SEVERITY_RANK = {"CRITICAL": 0, "HIGH": 1, "MEDIUM": 2, "LOW": 3, "INFO": 4}
 
 
@@ -214,16 +219,17 @@ def diagnose_gates(gates: list[Mapping[str, Any]]) -> list[dict[str, Any]]:
     issues: list[dict[str, Any]] = []
     for gate in gates:
         status = gate.get("status")
-        if status not in {"FAIL", "WARN"}:
+        if status not in {"FAIL", "HOLD", "WARN"}:
             continue
+        blocking = status in _BLOCKING_GATE_STATUSES
         issues.append({
-            "severity": "HIGH" if status == "FAIL" else "LOW",
+            "severity": "HIGH" if blocking else "LOW",
             "axis": "gate",
             "gate": gate.get("gate", "?"),
             "message": str(gate.get("detail", f"Gate {status.lower()}"))[:160],
             "status": status,
-            "blocks_release": status == "FAIL",
-            "remediation_required": status == "FAIL",
+            "blocks_release": blocking,
+            "remediation_required": blocking,
             "compounding_action_authority": False,
             "physical_change_authority": False,
         })
@@ -368,8 +374,12 @@ def _deterministic_repairs_from_gates(report: Mapping[str, Any]) -> list[dict[st
 
 
 def _repairability(report: Mapping[str, Any], deterministic_repairs: list[dict[str, Any]]) -> str:
-    failed = [gate for gate in report.get("gates", []) or [] if gate.get("status") == "FAIL"]
+    gates = report.get("gates", []) or []
+    failed = [gate for gate in gates if gate.get("status") == "FAIL"]
     if not failed:
+        # A HOLD is not repairable by changing the formula: it needs data.
+        if any(gate.get("status") == "HOLD" for gate in gates):
+            return "data_required"
         return "none_needed"
     if deterministic_repairs and len(deterministic_repairs) == len(failed):
         return "deterministic"
@@ -409,8 +419,9 @@ def build_intervention_contract(
     if not formula_optimization_authority:
         for issue in diagnosis:
             if issue.get("axis") == "gate":
-                issue["blocks_release"] = issue.get("status") == "FAIL"
-                issue["remediation_required"] = issue.get("status") == "FAIL"
+                blocking = issue.get("status") in _BLOCKING_GATE_STATUSES
+                issue["blocks_release"] = blocking
+                issue["remediation_required"] = blocking
                 issue["compounding_action_authority"] = False
                 issue["physical_change_authority"] = False
                 continue
@@ -470,7 +481,7 @@ def build_intervention_contract(
         for issue in diagnosis
         if (
             issue.get("blocks_release", False)
-            or issue.get("status") == "FAIL"
+            or issue.get("status") in _BLOCKING_GATE_STATUSES
             or (
                 issue.get("compounding_action_authority", False)
                 and issue.get("severity") in {"CRITICAL", "HIGH"}

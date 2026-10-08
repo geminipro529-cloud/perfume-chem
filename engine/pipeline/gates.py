@@ -5477,6 +5477,11 @@ def _commercial_readiness(
 ) -> str:
     if status == "FAIL":
         return "NOT_RELEASE_READY"
+    # HOLD (missing data) blocks release like FAIL, so no ready or trial-ready
+    # state may follow from it; the suffix keeps "data missing" distinct from
+    # "formula wrong".
+    if status == "HOLD" or any(g.status == "HOLD" for g in gates):
+        return "NOT_RELEASE_READY_HOLD"
     if config.is_commercial_trial() and confidence.get("combined_confidence", 0.0) < 50.0:
         return "COMMERCIAL_TRIAL_READY_LOW_CONFIDENCE"
     if confidence.get("combined_confidence", 0.0) < 50.0:
