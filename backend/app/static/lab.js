@@ -1277,11 +1277,12 @@ function renderFormulaDesign(result, variantIndex = 0) {
       const fraction = `${formatDecimal(Number(row.stock_fraction_decimal) * 100, 4)}%`;
       const carrier = row.carrier ? ` in ${row.carrier}` : "";
       const proxy = row.profile_source === "HEURISTIC_CATEGORY_PROXY" ? '<small class="proxy-label">category proxy</small>' : "";
-      const stockLabel = row.stock_label || `${fraction} ${row.fraction_basis}${carrier}`;
+      const basis = benchBasisText(row.fraction_basis);
+      const stockLabel = row.stock_label || `${fraction} ${basis}${carrier}`;
       return `<tr>
         <td><strong>${escapeHtml(row.material)}</strong>${proxy}<small class="formula-why">${escapeHtml(row.rationale)}</small></td>
         <td class="formula-dose">${escapeHtml(row.amount_decimal)} ${escapeHtml(row.amount_unit)}${benchNeedsPreparedDilution(row) ? '<small class="formula-dose-hold">prepare dilution first</small>' : ""}</td>
-        <td>${escapeHtml(stockLabel)}<small>${escapeHtml(fraction)} ${escapeHtml(row.fraction_basis)}${escapeHtml(carrier)}</small></td>
+        <td>${escapeHtml(stockLabel)}<small>${escapeHtml(fraction)} ${escapeHtml(basis)}${escapeHtml(carrier)}</small></td>
         <td>${escapeHtml(row.slot_label)}<small>${escapeHtml(row.note)} · ${escapeHtml(row.role)}</small></td>
       </tr>`;
     }).join("")
