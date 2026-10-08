@@ -1048,7 +1048,7 @@ def identify_weak_axes(scores: dict, n: int = 4) -> list[tuple[str, float]]:
 
 
 def _material_in_formula(name: str, fv: FormulaVector) -> str | None:
-    """Check if a material (by substring) is already in the formula.
+    """Check if a material (same identity) is already in the formula.
     Returns the matching ingredient name or None."""
     for ing in fv.ingredient_list():
         if materials_match(name, ing):
@@ -1057,11 +1057,15 @@ def _material_in_formula(name: str, fv: FormulaVector) -> str | None:
 
 
 def _material_in_inventory(name: str, inventory: list[dict]) -> dict | None:
-    """Find a material in inventory by substring match."""
-    for item in inventory:
-        if materials_match(name, item["name"]):
-            return item
-    return None
+    """Find a material in inventory by identity match (see materials_match).
+
+    A line for the very product named wins over a same-molecule product reached
+    through a data alias: "Ambrofix" finds "Ambrofix Crystals", not "Ambrox Super".
+    """
+    from engine.optimizer.models import product_match_rank
+
+    matches = [item for item in inventory if materials_match(name, item["name"])]
+    return min(matches, key=lambda item: product_match_rank(name, item["name"]), default=None)
 
 
 def _annotate_warnings(
