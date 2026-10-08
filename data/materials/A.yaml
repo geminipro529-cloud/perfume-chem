@@ -2949,7 +2949,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: 10% w/w in DPG
+  user_stock_dilution: neat
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 4XU00034
@@ -2979,7 +2979,7 @@
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
-    user_stock_dilution: inventory.txt
+    user_stock_dilution: 'Kenny, 2026-10-08: "My ambretteolide is neat" (data/governance/inventory_user_authority_overlay_20261008_ambrettolide_neat.json); inventory.txt line still reads 10% w/w in DPG and was left unedited because its hash binds the overlay chain and research receipts'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Ambrettolide Macro
   aliases:

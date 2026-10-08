@@ -1,0 +1,84 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v21",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-10-08",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20261008_tobacco_dbca.json",
+    "normalized_text_sha256": "356a103c4908b85936831ee4593610f3c63210d05f25b0c65963ee74b8548e4c"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 35704,
+    "inventory_text_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "source_kind": "DIRECT_USER_MESSAGE",
+    "user": "Kenny",
+    "message_date": "2026-10-08",
+    "verbatim_user_statement": "My ambretteolide is neat"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "ambrettolide_10ww_dpg_record_superseded": true,
+    "ambrettolide_stock_is_neat_per_user_message": true,
+    "inventory_text_line_not_edited": true,
+    "historical_formula_records_unchanged": true,
+    "formula_rebase_authorized": false,
+    "compounding_authorized": false,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [
+    "INV-USER-20260904-001"
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20261008-AMBNEAT-001",
+      "canonical_name": "Ambrettolide",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "musk",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20260904-001_EXECUTION_STATE_CARRIED_FORWARD_FRACTION_CORRECTED"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 27,
+          "disposition": "OWNED",
+          "status": "HAVE - USER-CONFIRMED NEAT / AS SUPPLIED (2026-10-08); REPLACES THE 2026-09-04 10% W/W IN DPG RECORD",
+          "actual_stock_text": "Ambrettolide, neat / as supplied",
+          "can_prepare": ""
+        },
+        {
+          "source_row": 28,
+          "disposition": "OWNED",
+          "status": "DUPLICATE REQUIREMENT ROW - SAME OWNED NEAT AMBRETTOLIDE STOCK; COUNT ONCE",
+          "actual_stock_text": "Ambrettolide, neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-08",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "execution_state_carried_forward": true,
+        "ten_percent_dpg_stock_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'My ambretteolide is neat'. The 2026-09-04 record (10% w/w in DPG) is superseded; formulas and bench recipes that dosed the 10% stock need their Ambrettolide volumes rechecked by their owners. If a separate 10% dilution also exists, it needs its own record."
+    }
+  ]
+}

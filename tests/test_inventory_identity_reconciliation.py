@@ -18,6 +18,8 @@ from engine.inventory_parser import (
     CURRENT_USER_INVENTORY_OVERLAY_SHA256,
     AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256,
     PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256,
+    TOBACCO_DBCA_USER_INVENTORY_AUTHORITY,
+    TOBACCO_DBCA_USER_INVENTORY_OVERLAY_SHA256,
     load_current_user_inventory_overlay,
     materialize_current_inventory,
     parse_current_inventory,
@@ -190,8 +192,8 @@ def test_user_inventory_overlay_is_parent_pinned_and_non_rebasing() -> None:
     assert payload["policy"]["preserve_exact_ap_t1_cinnamon_substitution"] is True
     assert payload["policy"]["require_sub_10_ul_working_stock"] is True
     assert payload["predecessor"] == {
-        "path": "data/governance/inventory_user_authority_overlay_20261007_pw_received.json",
-        "normalized_text_sha256": PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256,
+        "path": "data/governance/inventory_user_authority_overlay_20261008_tobacco_dbca.json",
+        "normalized_text_sha256": TOBACCO_DBCA_USER_INVENTORY_OVERLAY_SHA256,
     }
 
 
@@ -213,11 +215,21 @@ def test_dhi_w_w_stocks_are_unique_current_raw_volume_stocks() -> None:
     for stock in materialized.stocks:
         by_identity.setdefault(stock.identity_name.casefold(), []).append(stock)
 
+    # 2026-10-08: Kenny corrected Ambrettolide to neat; the 2026-09-04
+    # 10% w/w in DPG record is superseded by the v21 overlay.
     expected = {
-        "ambrettolide": (0.10, "mass_fraction", "dpg", (27, 28)),
-        "tonkarome": (0.20, "mass_fraction", "tec", (264,)),
+        "ambrettolide": (
+            (1.0, "neat", "", (27, 28)),
+            TOBACCO_DBCA_USER_INVENTORY_AUTHORITY,
+            "inventory:user-20261008:",
+        ),
+        "tonkarome": (
+            (0.20, "mass_fraction", "tec", (264,)),
+            INHERITED_USER_AUTHORITY,
+            "inventory:user-20260904:",
+        ),
     }
-    for identity, signature in expected.items():
+    for identity, (signature, authority, stock_prefix) in expected.items():
         stocks = by_identity[identity]
         assert len(stocks) == 1
         stock = stocks[0]
@@ -228,8 +240,8 @@ def test_dhi_w_w_stocks_are_unique_current_raw_volume_stocks() -> None:
             stock.source_rows,
         ) == signature
         assert stock.execution_ready is True
-        assert stock.authority == INHERITED_USER_AUTHORITY
-        assert stock.stock_id.startswith("inventory:user-20260904:")
+        assert stock.authority == authority
+        assert stock.stock_id.startswith(stock_prefix)
 
     dispositions = {
         row.source_row: row.disposition
@@ -240,10 +252,10 @@ def test_dhi_w_w_stocks_are_unique_current_raw_volume_stocks() -> None:
 
 
 @pytest.mark.parametrize(
-    ("material", "fraction", "basis", "carrier"),
+    ("material", "fraction", "basis", "carrier", "stock_prefix"),
     [
-        ("Ambrettolide", 0.10, "mass_fraction", "dpg"),
-        ("Tonkarome", 0.20, "mass_fraction", "tec"),
+        ("Ambrettolide", 1.0, "neat", "", "inventory:user-20261008:"),
+        ("Tonkarome", 0.20, "mass_fraction", "tec", "inventory:user-20260904:"),
     ],
 )
 def test_dhi_w_w_stocks_pass_exact_inventory_resolution(
@@ -251,6 +263,7 @@ def test_dhi_w_w_stocks_pass_exact_inventory_resolution(
     fraction: float,
     basis: str,
     carrier: str,
+    stock_prefix: str,
 ) -> None:
     formula = {
         "ingredients_ul": {material: 100.0},
@@ -271,7 +284,7 @@ def test_dhi_w_w_stocks_pass_exact_inventory_resolution(
     spec = check.data["resolved_stock_specs"][material]
     assert spec["fraction_basis"] == basis
     assert spec["carrier"] == carrier
-    assert spec["stock_id"].startswith("inventory:user-20260904:")
+    assert spec["stock_id"].startswith(stock_prefix)
 
 
 def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> None:
