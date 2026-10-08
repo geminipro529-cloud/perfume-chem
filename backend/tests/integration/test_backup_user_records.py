@@ -111,16 +111,22 @@ def test_partial_last_line_is_taken_again(tmp_path, monkeypatch):
     assert copy.read_bytes() == b'{"event_id":"a1"}\n{"event_id":"a2"}\n'
 
 
-def test_record_that_stays_partial_fails_the_backup_and_leaves_nothing(tmp_path, monkeypatch):
+def test_record_that_stays_partial_is_backed_up_as_it_is(tmp_path, monkeypatch):
+    # A torn last line that outlasts every retake is the file's real content;
+    # refusing it would block every backup, and with it every restore.
     service, records = _service(tmp_path)
-    records[COMPLETION_LOG_NAME].write_bytes(b'{"event_id":"c1"}\n{"event_')
+    torn = b'{"event_id":"c1"}\n{"event_'
+    records[COMPLETION_LOG_NAME].write_bytes(torn)
     monkeypatch.setattr(backup_service_module, "_RECORD_RETAKE_PAUSE_SECONDS", 0)
 
-    with pytest.raises(RestoreSafetyError) as error:
-        service.create_backup()
+    artifact = service.create_backup()
 
-    assert str(records[COMPLETION_LOG_NAME].resolve()) in str(error.value)
-    assert list((tmp_path / "lab-backups").iterdir()) == []
+    copy = _records_dir(artifact.snapshot_path) / COMPLETION_LOG_NAME
+    assert copy.read_bytes() == torn
+    assert artifact.user_records[COMPLETION_LOG_NAME] == {
+        "sha256": sha256(torn).hexdigest(),
+        "bytes": len(torn),
+    }
 
 
 def test_restore_puts_records_back_and_pre_restore_backup_holds_the_previous_ones(tmp_path):

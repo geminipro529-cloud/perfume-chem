@@ -216,7 +216,10 @@ class BackupService:
 
         The logs are appended to with one write per event, so a copy taken
         while the app runs can, rarely, end part-way through a line; such a
-        copy is taken again.
+        copy is taken again.  A record that still ends part-way through a line
+        after the last try is not being written to: that is what the file
+        holds, so it is copied as it is rather than refusing every backup
+        (including the one a restore takes first).
         """
 
         live = self._live_user_records()
@@ -234,11 +237,6 @@ class BackupService:
                 _copy_file(source, target, exclusive=False)
                 if _ends_with_whole_line(target):
                     break
-            else:
-                raise RestoreSafetyError(
-                    f"The stock record {source} ends part-way through a line, so it "
-                    "could not be backed up. No backup was made; try again."
-                )
             manifest[name] = {"sha256": _file_sha256(target), "bytes": target.stat().st_size}
         return manifest
 
