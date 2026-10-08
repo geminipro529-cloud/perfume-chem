@@ -1183,7 +1183,7 @@
   smiles: CCC(C)(C)C1CCC(=O)CC1
   inchikey: DCSKAMGZSIRJAQ-UHFFFAOYSA-N
   mw_g_mol: 168.28
-  density_25c_g_ml:
+  density_25c_g_ml: 0.919
   logp: 2.9
   functional_groups: []
   chirality:
@@ -1233,6 +1233,7 @@
     stevens_n: engine.odor_thresholds
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.91800 to 0.92600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1003401.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Orris Concrete Orris Butter
   aliases: []
   cas:

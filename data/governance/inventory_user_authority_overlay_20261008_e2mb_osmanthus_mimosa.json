@@ -1,0 +1,246 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v22",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-10-08",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20261008_ambrettolide_neat.json",
+    "normalized_text_sha256": "0b6915b4c28536393bd13bf797b01d77a39bd371efa9d4346cede3b73a6d9a63"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 35704,
+    "inventory_text_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "source_kind": "DIRECT_USER_MESSAGE",
+    "user": "Kenny",
+    "message_date": "2026-10-08",
+    "verbatim_user_statements": [
+      "1. Let me prepare another solution, tell new what to dilute it to. 2. It’s w/w in DPG",
+      "1 is about E2MB",
+      "2is about mimosa",
+      "Osmanthus is made by w/w, e2mb just record as the percentage"
+    ],
+    "context": "Answers to 'Mimosa 10%: use it as it is, or drop it?' and 'Osmanthus 10% and E2MB 0.1%: did you make them by weight or by volume?'. Kenny then chose 0.01% E2MB for DHI-11 V3.1 on a decision card (2026-10-08 16:28 UTC) and was given a three-step by-weight E2MB recipe in DPG (1%, 0.1%, 0.01%)."
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "osmanthus_basis_mass_fraction_per_user_message": true,
+    "mimosa_kept_for_use_per_user_answer": true,
+    "mimosa_lot_and_preparation_receipts_still_missing": true,
+    "e2mb_solutions_recorded_at_nominal_percentage_per_user_instruction": true,
+    "e2mb_old_unspecified_basis_0_1_percent_row_replaced": true,
+    "inventory_text_line_not_edited": true,
+    "historical_formula_records_unchanged": true,
+    "formula_rebase_authorized": false,
+    "compounding_authorized": false,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [
+    "INV-USER-20260828-006",
+    "INV-USER-20260924-R5-011"
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20261008-V22-001",
+      "canonical_name": "Osmanthus Absolute",
+      "aliases": [
+        "premium Osmanthus Absolute"
+      ],
+      "state": "OWNED",
+      "category": "air floral",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20260828-006_EXECUTION_STATE_CARRIED_FORWARD_BASIS_DECLARED"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 196
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 196,
+          "disposition": "OWNED",
+          "status": "HAVE - PREMIUM ABSOLUTE ONLY AS 10% W/W IN DPG (BASIS USER-CONFIRMED 2026-10-08)",
+          "actual_stock_text": "Osmanthus Absolute 10% w/w in DPG",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-08",
+      "source_kind": "DIRECT_USER_STOCK_BASIS_CONFIRMATION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "user_lot_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false
+      },
+      "note": "Kenny: 'Osmanthus is made by w/w'. Supersedes the 2026-08-28 record, whose basis was unspecified. As before, this narrows the premium absolute only; the separately named volume-grade inventory row is not relabeled."
+    },
+    {
+      "record_id": "INV-USER-20261008-V22-002",
+      "canonical_name": "Mimosa Absolute",
+      "aliases": [
+        "Mimosa Absolute 10%",
+        "Mimosa Absolute 10% in DPG"
+      ],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CURRENT_STOCK_BASIS_AND_CARRIER_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_USE_AS_IS_DECISION_20261008_LOT_AND_PREPARATION_RECEIPTS_STILL_MISSING"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 175,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-08",
+      "source_kind": "DIRECT_USER_USE_AS_IS_DECISION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "bottle_lot_receipt_asserted": false,
+        "preparation_receipt_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false
+      },
+      "note": "Asked whether to use Mimosa 10% as it is or drop it, Kenny answered 'It's w/w in DPG' ('2is about mimosa'), keeping it. The 2026-09-24 record's execution hold (BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING) is lifted on that decision; the receipts are still missing and are not asserted here."
+    },
+    {
+      "record_id": "INV-USER-20261008-V22-003",
+      "canonical_name": "Ethyl 2-Methylbutyrate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NOMINAL_PREPARATION_PERCENTAGE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_INSTRUCTION_RECORD_AT_NOMINAL_PERCENTAGE"
+      },
+      "prepared_from_record_id": "INV-USER-20261007-PW-040",
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-08",
+      "source_kind": "DIRECT_USER_STOCK_PREPARATION_STATEMENT",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "nominal_percentage_only": true,
+        "preparation_weights_asserted": false,
+        "user_lot_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false
+      },
+      "note": "Kenny: 'e2mb just record as the percentage'. Step 1 of the three-step recipe: about 0.100 g neat E2MB in 9.900 g DPG. Recorded at the nominal 1% w/w; actual weights not reported."
+    },
+    {
+      "record_id": "INV-USER-20261008-V22-004",
+      "canonical_name": "Ethyl 2-Methylbutyrate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.001,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NOMINAL_PREPARATION_PERCENTAGE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_INSTRUCTION_RECORD_AT_NOMINAL_PERCENTAGE"
+      },
+      "prepared_from_record_id": "INV-USER-20261007-PW-040",
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 101,
+          "fraction": 0.001
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-08",
+      "source_kind": "DIRECT_USER_STOCK_PREPARATION_STATEMENT",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "nominal_percentage_only": true,
+        "preparation_weights_asserted": false,
+        "user_lot_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false
+      },
+      "note": "Kenny: 'e2mb just record as the percentage'. Step 2: 1.000 g of the 1% in 9.000 g DPG, at the nominal 0.1% w/w. Kenny remade this solution because the basis of the earlier 0.1% (V5 row 101) was unknown; this record replaces that row's stock. Actual weights not reported."
+    },
+    {
+      "record_id": "INV-USER-20261008-V22-005",
+      "canonical_name": "Ethyl 2-Methylbutyrate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.0001,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NOMINAL_PREPARATION_PERCENTAGE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_INSTRUCTION_RECORD_AT_NOMINAL_PERCENTAGE"
+      },
+      "prepared_from_record_id": "INV-USER-20261007-PW-040",
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-08",
+      "source_kind": "DIRECT_USER_STOCK_PREPARATION_STATEMENT",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "nominal_percentage_only": true,
+        "preparation_weights_asserted": false,
+        "user_lot_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false
+      },
+      "note": "Kenny: 'e2mb just record as the percentage'. Step 3: 1.000 g of the 0.1% in 9.000 g DPG, at the nominal 0.01% w/w. Used by DHI-11 V3.1 (Kenny's decision card, 2026-10-08 16:28 UTC). Actual weights not reported."
+    }
+  ]
+}

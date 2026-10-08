@@ -75,11 +75,11 @@
 - canonical_name: Ebanol
   aliases:
   - ebanol
-  cas:
+  cas: '67801-20-1'
   smiles:
   inchikey:
   mw_g_mol: 208.34
-  density_25c_g_ml:
+  density_25c_g_ml: 0.898
   logp: 3.3
   functional_groups: []
   chirality:
@@ -120,6 +120,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 67801-20-1 (https://www.thegoodscentscompany.com/data/rw1061371.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.89800 to 0.90400 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1061371.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Elemi EO
   aliases:
   - elemi eo
@@ -299,18 +301,18 @@
 - canonical_name: Ethyl 2-Methylbutyrate
   aliases:
   - ethyl 2-methylbutyrate
-  cas:
+  cas: '7452-79-1'
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 130.18)
   mw_g_mol: 130.18
-  density_25c_g_ml:
+  density_25c_g_ml: 0.864
   logp:
   functional_groups: []
   chirality:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 5.0)
-  vp_25c_pa: 5.0
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 5.0 (unsourced profile sync; about 200x low); replaced with RIFM's quoted EPI Suite estimate
+  vp_25c_pa: 1070.0
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -341,11 +343,14 @@
   character:
   notes:
   provenance:
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, ethyl 2-methylbutyrate, CAS 7452-79-1 (Api et al., Food Chem. Toxicol. 2018, doi:10.1016/j.fct.2018.11.033): "8.03 mm Hg @ 25 C (US EPA, 2012a)"; appendix "Vapor Pressure (Pa @ 25 C, EPI Suite) 1.07E+003". Estimate, not measured. ChemicalBook lists 11.73 hPa at 20 C (method not stated); Verevkin et al. 1992 (Thermochim. Acta 197:27) measured vapour pressures at 288-308 K but were not read.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 7452-79-1 (https://www.thegoodscentscompany.com/data/rw1004871.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.86300 to 0.87000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1004871.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Ethyl Acetate
   aliases: []
   cas:
@@ -681,12 +686,12 @@
 - canonical_name: Ethyl Linalool
   aliases:
   - ethyl linalool
-  cas:
+  cas: '10339-55-6'
   smiles:
   inchikey:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 182.3)
-  mw_g_mol: 182.3
-  density_25c_g_ml:
+  # 2026-10-08: was 182.3; corrected from the molecular formula
+  mw_g_mol: 168.28
+  density_25c_g_ml: 0.858
   logp:
   functional_groups: []
   chirality:
@@ -717,23 +722,26 @@
   character:
   notes:
   provenance:
+    mw_g_mol: 'Molecular formula C11H20O for 3,7-dimethylnona-1,6-dien-3-ol, CAS 10339-55-6 (the CAS already cited from TGSC rw1015171); MW from IUPAC standard atomic weights = 168.28. The old 182.3 matched no formula for this CAS.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 10339-55-6 (https://www.thegoodscentscompany.com/data/rw1015171.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.85800 to 0.86300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1015171.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Ethyl Linalyl Acetate
   aliases: []
-  cas:
+  cas: '61931-80-4'
   smiles:
   inchikey:
-  mw_g_mol:
+  mw_g_mol: 210.31
   density_25c_g_ml:
-  logp:
+  logp: 4.88
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 4.25
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -757,14 +765,20 @@
     other: {}
   families: []
   character:
-  notes:
+  notes: 'Density left null (2026-10-08). VP is the RIFM-quoted EPI Suite estimate, "Vapor Pressure: 0.0319 mm Hg (EPI Suite v4.11)" = 4.25 Pa at 133.322 Pa/mmHg; the quote states no temperature, but EPI Suite reports vapour pressure at 25 C. Other values: Givaudan 0.0487 hPa = 4.87 Pa (20 C per Perfumer''s Apprentice); TGSC rw1022781 0.026 mmHg at 25 C (est) = 3.47 Pa. The values agree within 1.4x. Givaudan log Pow "4,7" (garbled scrape); TGSC logP 4.416 (est). Density 0.898-0.901 g/mL at 20 C (Ventos), 20 C, not used. No air ODT found. Source: material-data-firecrawl/BATCH1_FEMME_20261008.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'RIFM fragrance ingredient safety assessment, ethyl linalyl acetate, CAS 61931-80-4, Food Chem. Toxicol. 192 Suppl 1 (2024) 114873, doi:10.1016/j.fct.2024.114873; PerfumersWorld SDS 3LC19147 (local snapshot, batch ETH19147/26280) (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
+    mw_g_mol: 'RIFM fragrance ingredient safety assessment, ethyl linalyl acetate, CAS 61931-80-4, Food Chem. Toxicol. 192 Suppl 1 (2024) 114873, doi:10.1016/j.fct.2024.114873; "Molecular Weight: 210.31 g/mol" (PerfumersWorld SDS gives 210.32) (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
+    logp: 'RIFM fragrance ingredient safety assessment, ethyl linalyl acetate, CAS 61931-80-4, Food Chem. Toxicol. 192 Suppl 1 (2024) 114873, doi:10.1016/j.fct.2024.114873; "Log K OW : 4.88 (EPI Suite v4.11)", estimate, not measured (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, ethyl linalyl acetate, CAS 61931-80-4, Food Chem. Toxicol. 192 Suppl 1 (2024) 114873, doi:10.1016/j.fct.2024.114873; "Vapor Pressure: 0.0319 mm Hg (EPI Suite v4.11)", EPI Suite estimate (reported at 25 C), converted at 133.322 Pa/mm Hg; not measured (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
 - canonical_name: Ethyl Maltol
   aliases:
   - "Ethyl Maltol 1%"
+  - "Ethyl Maltol 1% +"
+  - "Ethyl Maltol 1% + 10%"
   - ethyl maltol
-  cas:
+  cas: '4940-11-8'
   smiles:
   inchikey:
   mw_g_mol: 140.1
@@ -817,6 +831,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 4940-11-8 (https://www.thegoodscentscompany.com/data/rw1004172.html)'
 - canonical_name: Ethyl Phenyl Acetate
   aliases: []
   cas:
@@ -860,7 +875,7 @@
 - canonical_name: Ethyl Safranate
   aliases:
   - ethyl safranate
-  cas:
+  cas: '35044-59-8'
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 166.2, corrected to 168.23)
@@ -918,6 +933,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 35044-59-8 (https://www.thegoodscentscompany.com/data/rw1028771.html)'
 - canonical_name: Ethyl Salicylate
   aliases: []
   cas:
@@ -961,7 +977,7 @@
 - canonical_name: Ethyl Vanillin
   aliases:
   - ethyl vanillin
-  cas:
+  cas: '121-32-4'
   smiles:
   inchikey:
   mw_g_mol: 166.2
@@ -1010,6 +1026,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 121-32-4 (https://www.thegoodscentscompany.com/data/rw1002652.html)'
 - canonical_name: Ethylene Brassylate
   aliases:
   - ethylene brassylate
@@ -1212,17 +1229,17 @@
 - canonical_name: Eugenol
   aliases:
   - eugenol
-  cas:
+  cas: '97-53-0'
   smiles:
   inchikey:
   mw_g_mol: 164.2
-  density_25c_g_ml:
+  density_25c_g_ml: 1.064
   logp: 2.2
   functional_groups: []
   chirality:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 2.5, corrected to 0.01)
-  vp_25c_pa: 0.01
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-08: was 0.01 (unsourced; about 100x low per the science review); replaced with the cited value
+  vp_25c_pa: 2.95
+  vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.003
@@ -1253,7 +1270,7 @@
   notes:
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 3314 (https://pubchem.ncbi.nlm.nih.gov/compound/3314#section=Vapor-Pressure): "0.0221 mm Hg at 25 °C", citing Van Roon A et al., Chemosphere 61:599-609 (2005); x 133.322 = 2.95 Pa.'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -1265,6 +1282,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC: CAS Number: 97-53-0 (https://www.thegoodscentscompany.com/data/rw1004991.html)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.06400 to 1.07000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1004991.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Evening Primrose Oil - Fixed Oil
   aliases: []
   cas:
@@ -1357,7 +1376,9 @@
 - canonical_name: Exaltolide
   aliases:
   - exaltolide
-  cas:
+  - Pentalide
+  - pentalide
+  cas: '106-02-5'
   smiles:
   inchikey:
   mw_g_mol: 240.4
@@ -1365,9 +1386,8 @@
   logp: 5.8
   functional_groups: []
   chirality:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 0.015, corrected to 0.0001)
-  vp_25c_pa: 0.0001
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.027
+  vp_source: RIFM_cited_literature  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.00015
@@ -1385,10 +1405,11 @@
   families:
   - musks
   character:
-  notes:
+  notes: 'Identity: the owner''s bottle listed as Exaltolide (10% in DPG) in inventory.txt is Pentalide (Kenny, 2026-10-08), the same molecule (omega-pentadecalactone, CAS 106-02-5). Macrolide (Symrise) is also the same molecule and keeps its own depleted entry. VP: the Vuilleumier 1995 figure (0.0002 torr = 0.027 Pa) has no temperature stated in the source dossier. ChemicalBook gives 0.085 Pa at 25 C, about 3x higher; the two sources disagree and the lower RIFM-cited value is used. Previous gate value 0.0001 Pa had no cited source.'
   provenance:
+    cas: 'The Good Scents Company rw1004211 (omega-pentadecalactone): "CAS Number: 106-02-5", https://www.thegoodscentscompany.com/data/rw1004211.html'
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, CAS 106-02-5, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-02-5.pdf; "0.027 (0.0002 torr, Vuilleumier 1995)" as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08); 0.0002 torr x 133.322 Pa/torr = 0.0267 Pa. Measurement temperature not given in the dossier; filed under 25 C as the dossier does'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -1396,6 +1417,7 @@
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    aliases.pentalide: 'Owner identification, Kenny 2026-10-08 ("My exaltolide is pentatolide"); The Good Scents Company rw1004211 (omega-pentadecalactone, CAS 106-02-5) lists supplier products "PENTALIDE" (Indukern), "611272006 Pentalide" (Soda Aromatic), "100421 EXALTOLIDE" (Azelis), "600356 Macrolide" (Symrise), https://www.thegoodscentscompany.com/data/rw1004211.html'
     user_stock_dilution: inventory.txt
 - canonical_name: Exaltolide Pentadecanolide
   aliases: []

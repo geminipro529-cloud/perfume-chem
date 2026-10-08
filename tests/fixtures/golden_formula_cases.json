@@ -10,8 +10,8 @@
       "expected_ppm_status": "unavailable",
       "modeled_output_relative_tolerance": 1e-8,
       "expected_material_outputs": {
-        "Hedione": {"vapor_ppm": 0.9932270762705844, "oav": 19864.541525411685},
-        "Iso E Super": {"vapor_ppm": 2.2751415320202555, "oav": 45502.83064040511}
+        "Hedione": {"vapor_ppm": 0.9927603627355738, "oav": 19855.207254711473},
+        "Iso E Super": {"vapor_ppm": 2.2762488536493475, "oav": 45524.97707298695}
       }
     },
     {
@@ -24,8 +24,8 @@
       "modeled_output_relative_tolerance": 1e-8,
       "expected_composite_materials": ["Olibanum Resinoid (viscous, 3 g)", "Bergamot FCF"],
       "expected_material_outputs": {
-        "Olibanum Resinoid (viscous, 3 g)": {"vapor_ppm": 324.1655661476274, "oav": 17996.13852957649},
-        "Bergamot FCF": {"vapor_ppm": 2518.0545957760432, "oav": 164825.20764246685}
+        "Olibanum Resinoid (viscous, 3 g)": {"vapor_ppm": 324.08901106475656, "oav": 17991.888553575467},
+        "Bergamot FCF": {"vapor_ppm": 2588.315031715184, "oav": 156393.61992962266}
       }
     },
     {
@@ -68,8 +68,8 @@
       "modeled_output_relative_tolerance": 1e-8,
       "expected_composite_materials": ["Bergamot FCF"],
       "expected_material_outputs": {
-        "Bergamot FCF": {"vapor_ppm": 2662.1128498760095, "oav": 174254.88072599284},
-        "Hedione": {"vapor_ppm": 1.0138896646506623, "oav": 20277.793293013245}
+        "Bergamot FCF": {"vapor_ppm": 2737.7333217283176, "oav": 165421.91322951627},
+        "Hedione": {"vapor_ppm": 1.0134140758930015, "oav": 20268.28151786003}
       }
     },
     {
@@ -82,8 +82,8 @@
       "modeled_output_relative_tolerance": 1e-8,
       "equivalent_active_case": "simple_aromachemical",
       "expected_material_outputs": {
-        "Hedione": {"vapor_ppm": 0.9932270762705844, "oav": 19864.541525411685},
-        "Iso E Super": {"vapor_ppm": 2.2751415320202555, "oav": 45502.83064040511}
+        "Hedione": {"vapor_ppm": 0.9927603627355738, "oav": 19855.207254711473},
+        "Iso E Super": {"vapor_ppm": 2.2762488536493475, "oav": 45524.97707298695}
       }
     },
     {
@@ -104,14 +104,14 @@
       "ingredients_ul": {"Eugenol": 250.0, "Hedione": 1750.0},
       "dilutions": {"Eugenol": 1.0, "Hedione": 1.0},
       "batch_volume_ml": 10.0,
-      "expected_ppm_status": "unavailable",
+      "expected_ppm_status": "exact",
       "modeled_output_relative_tolerance": 1e-8,
       "expected_regulatory_status": "unverified",
       "ifra_material": "Eugenol",
       "ifra_limit_pct": 2.5,
       "expected_material_outputs": {
-        "Eugenol": {"vapor_ppm": 0.03948932587775666, "oav": 6.581554312959443},
-        "Hedione": {"vapor_ppm": 1.5970722850248937, "oav": 31941.445700497872}
+        "Eugenol": {"vapor_ppm": 10.082703486922485, "oav": 1680.4505811537474},
+        "Hedione": {"vapor_ppm": 1.580187139354253, "oav": 31603.74278708506}
       }
     }
   ],
