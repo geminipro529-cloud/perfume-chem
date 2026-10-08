@@ -108,9 +108,13 @@ AIMI_IDENTITY_USER_INVENTORY_OVERLAY_PATH = (
     / "data/governance/"
     "inventory_user_authority_overlay_20260930_aimi_identity.json"
 )
-CURRENT_USER_INVENTORY_OVERLAY_PATH = (
+PW_RECEIVED_USER_INVENTORY_OVERLAY_PATH = (
     PROJECT_ROOT
     / "data/governance/inventory_user_authority_overlay_20261007_pw_received.json"
+)
+CURRENT_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT
+    / "data/governance/inventory_user_authority_overlay_20261008_tobacco_dbca.json"
 )
 PW_RECEIVED_INVENTORY_RECEIPT_PATH = (
     PROJECT_ROOT
@@ -165,7 +169,8 @@ R5_STOCK_CLARIFICATIONS_USER_INVENTORY_OVERLAY_SHA256 = "3f4ef634e2bd299a8463559
 R5_STOCK_CLARIFICATIONS_V2_USER_INVENTORY_OVERLAY_SHA256 = "9a10cd2f99af1c960a77bd0a7270c25daa24657b790707ecb76c365898b747df"
 R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_SHA256 = "0bccf890ee05487b20daca94d02c65103c2a22ed4c6435ba8cb311cd041575fb"
 AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256 = "582acaf38382b95252dcc67f01b21a2b56b96ae418c31bda1cef3d355f419ad8"
-CURRENT_USER_INVENTORY_OVERLAY_SHA256 = "180e2823200162a4eaa2975aa4eef9403ad10fec33f2caa1d48a83409c9d7eac"
+PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256 = "180e2823200162a4eaa2975aa4eef9403ad10fec33f2caa1d48a83409c9d7eac"
+CURRENT_USER_INVENTORY_OVERLAY_SHA256 = "356a103c4908b85936831ee4593610f3c63210d05f25b0c65963ee74b8548e4c"
 PW_RECEIVED_INVENTORY_RECEIPT_SHA256 = "089c930e044b55e434c0e0438ee7b2c20f48d871f00a219a7237a932419fbc9a"
 ROMANDOLIDE_DEPLETION_CONFIRMATION_SHA256 = "5b94ac7cf95a0ee0bb4fc0754a97bda4b0be5aae910c13c7fc4557317f823ade"
 FLORHYDRAL_ADDITION_CONFIRMATION_SHA256 = "ff481e5e993f749ce6a5ee0dd8a9606b698c03a17caeac86d1c3adf85065389d"
@@ -196,6 +201,7 @@ PINK_PEPPER_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORIT
 STOCK_FORMS_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260915"
 R5_STOCK_CLARIFICATIONS_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924"
 AIMI_IDENTITY_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260930"
+TOBACCO_DBCA_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261008"
 
 _HEADING_RE = re.compile(r"^---\s+(.+?)\s+---$")
 _BULLET_RE = re.compile(r"^[-•]\s+(.+?)\s*$")
@@ -4410,7 +4416,7 @@ def _load_20261007_pw_received_successor(
     """Bind the received order while retaining predecessor stock identities."""
 
     encoded = (json.dumps(dict(successor), ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-    if hashlib.sha256(encoded).hexdigest() != CURRENT_USER_INVENTORY_OVERLAY_SHA256:
+    if hashlib.sha256(encoded).hexdigest() != PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256:
         raise InventoryAuthorityError("PW received successor exact metadata drift")
     source = successor["source"]
     if require_live_inventory_binding and (
@@ -4464,8 +4470,8 @@ def _load_20261007_pw_received_successor(
         if key not in superseded
     }
     origin = {
-        "path": CURRENT_USER_INVENTORY_OVERLAY_PATH.relative_to(PROJECT_ROOT).as_posix(),
-        "sha256": CURRENT_USER_INVENTORY_OVERLAY_SHA256,
+        "path": PW_RECEIVED_USER_INVENTORY_OVERLAY_PATH.relative_to(PROJECT_ROOT).as_posix(),
+        "sha256": PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256,
     }
     for record in records:
         origins[record["record_id"]] = dict(origin)
@@ -4484,6 +4490,49 @@ def _load_20261007_pw_received_successor(
             *previous.get("retired_records", []),
             *(previous_by_id[record_id] for record_id in sorted(superseded)),
         ],
+    }
+
+
+def _load_20261008_tobacco_dbca_successor(
+    successor: Mapping[str, Any],
+    *,
+    require_live_inventory_binding: bool = True,
+) -> dict[str, Any]:
+    """Retire the duplicate Tobacco row and bind DBCA's supplier identity."""
+
+    encoded = (json.dumps(dict(successor), ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    if hashlib.sha256(encoded).hexdigest() != CURRENT_USER_INVENTORY_OVERLAY_SHA256:
+        raise InventoryAuthorityError("Tobacco/DBCA successor exact metadata drift")
+    source = successor["source"]
+    if require_live_inventory_binding and (
+        len(_normalized_text_bytes(INVENTORY_PATH)) != source["inventory_text_size_bytes"]
+        or _normalized_text_sha256(INVENTORY_PATH) != source["inventory_text_sha256"]
+    ):
+        raise InventoryAuthorityError("Tobacco/DBCA successor is not bound to live inventory text")
+    predecessor_path = PW_RECEIVED_USER_INVENTORY_OVERLAY_PATH
+    if _normalized_text_sha256(predecessor_path) != PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256:
+        raise InventoryAuthorityError("Tobacco/DBCA successor predecessor drift")
+    previous = _load_20261007_pw_received_successor(
+        json.loads(predecessor_path.read_text(encoding="utf-8")),
+        require_live_inventory_binding=False,
+    )
+    records = successor["records"]
+    origins = {key: dict(value) for key, value in previous["record_origins"].items()}
+    origin = {
+        "path": CURRENT_USER_INVENTORY_OVERLAY_PATH.relative_to(PROJECT_ROOT).as_posix(),
+        "sha256": CURRENT_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    for record in records:
+        origins[record["record_id"]] = dict(origin)
+    return {
+        **dict(successor),
+        "parent": dict(previous["parent"]),
+        "base_policy": dict(previous["base_policy"]),
+        "policy": {**dict(previous["policy"]), **dict(successor["policy"])},
+        "delta_records": records,
+        "records": [*previous["records"], *records],
+        "record_origins": origins,
+        "retired_records": list(previous.get("retired_records", [])),
     }
 
 
@@ -4532,6 +4581,7 @@ def load_current_user_inventory_overlay(
             R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_SHA256
         ),
         AIMI_IDENTITY_USER_INVENTORY_OVERLAY_PATH.resolve(): AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256,
+        PW_RECEIVED_USER_INVENTORY_OVERLAY_PATH.resolve(): PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256,
         CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve(): CURRENT_USER_INVENTORY_OVERLAY_SHA256,
     }
     expected_overlay_sha = pinned_overlays.get(overlay_path.resolve(), CURRENT_USER_INVENTORY_OVERLAY_SHA256)
@@ -4547,6 +4597,13 @@ def load_current_user_inventory_overlay(
             f"current user inventory overlay is unreadable: {exc}"
         ) from exc
 
+    if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v20":
+        return _load_20261008_tobacco_dbca_successor(
+            payload,
+            require_live_inventory_binding=(
+                overlay_path.resolve() == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
+            ),
+        )
     if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v19":
         return _load_20261007_pw_received_successor(
             payload,
@@ -5163,7 +5220,9 @@ def _apply_current_user_inventory_overlay(
                 identity_name=_v5_identity_name(canonical_name),
                 stock_id=f"inventory:user-{authority_date}:{stock_digest}",
                 authority=(
-                    "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261007"
+                    TOBACCO_DBCA_USER_INVENTORY_AUTHORITY
+                    if authority_date == "20261008"
+                    else "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261007"
                     if authority_date == "20261007"
                     else AIMI_IDENTITY_USER_INVENTORY_AUTHORITY
                     if authority_date == "20260930"
@@ -5385,6 +5444,7 @@ _USER_OVERLAY_CHAIN_PATHS = (
     R5_STOCK_CLARIFICATIONS_V2_USER_INVENTORY_OVERLAY_PATH,
     R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_PATH,
     AIMI_IDENTITY_USER_INVENTORY_OVERLAY_PATH,
+    PW_RECEIVED_USER_INVENTORY_OVERLAY_PATH,
     CURRENT_USER_INVENTORY_OVERLAY_PATH,
     PW_RECEIVED_INVENTORY_RECEIPT_PATH,
 )

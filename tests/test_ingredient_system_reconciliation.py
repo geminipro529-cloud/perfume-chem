@@ -216,6 +216,9 @@ def test_physical_stock_identity_and_mixture_firewall():
         "Tonka Bean FO",
     ):
         assert by_name[name]["oav_typical"] is None
-    for name in ("Tobacco Absolute", "Exaltolide"):
+    # 2026-10-08 overlay retires the duplicate Tobacco row: one stock remains.
+    assert by_name["Tobacco Absolute"]["dilution_pct"] == 0.1
+    assert by_name["Tobacco Absolute"]["quantitative_stock_ready"] is True
+    for name in ("Exaltolide",):
         assert by_name[name]["dilution_pct"] is None
         assert by_name[name]["quantitative_stock_ready"] is False

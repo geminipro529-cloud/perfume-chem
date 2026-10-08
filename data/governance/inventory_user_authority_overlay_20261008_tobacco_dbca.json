@@ -1,0 +1,144 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v20",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-10-08",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20261007_pw_received.json",
+    "normalized_text_sha256": "180e2823200162a4eaa2975aa4eef9403ad10fec33f2caa1d48a83409c9d7eac"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 35704,
+    "inventory_text_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "source_kind": "DIRECT_USER_MESSAGE",
+    "user": "Kenny",
+    "message_date": "2026-10-08",
+    "verbatim_user_statement": "Tobacco Absolute is in 10% in DPG only, DBCA is whatever is found on perfumers world.",
+    "supplier_identity_source": "Kenny's local PerfumersWorld snapshot, 2026-10-07"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "tobacco_absolute_single_stock_is_v5_row_229": true,
+    "tobacco_fraction_basis_taken_from_v5_row_229_not_user_message": true,
+    "tobacco_pw_receipt_unchanged": true,
+    "dbca_supplier_identity_only": true,
+    "supplier_product_identity_does_not_assert_user_lot_assay": true,
+    "supplier_product_identity_does_not_assert_density": true,
+    "receipt_or_lot_holds_not_cleared": true,
+    "formula_rebase_authorized": false,
+    "compounding_authorized": false,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [],
+  "records": [
+    {
+      "record_id": "INV-USER-20261008-TOBDBCA-001",
+      "canonical_name": "Tobacco Absolute",
+      "aliases": [],
+      "state": "RETIRED_DUPLICATE_ENTRY",
+      "category": "sweet / balsamic",
+      "retained_parent_stock": {
+        "source_row": 229,
+        "stock_id": "inventory:v5:e0fbf5a84fd0feb76599",
+        "actual_stock_text": "Tobacco Absolute 10% w/w in DPG"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 230,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 230,
+          "disposition": "OWNED",
+          "status": "HAVE — DUPLICATE ENTRY FOR THE ROW 229 BOTTLE (TOBACCO ABSOLUTE 10% W/W IN DPG)",
+          "actual_stock_text": "Same bottle as row 229: Tobacco Absolute 10% w/w in DPG",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-08",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "single_physical_stock_asserted": true,
+        "fraction_basis_from_user_message": false,
+        "fraction_basis_source": "inventory_v5_current_stock_snapshot.json#_source_row=229",
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: Tobacco Absolute is 10% in DPG only. Row 230 ('10% in DPG', 'Confirms item 189') is retired as a duplicate entry for the row 229 bottle. Kenny did not state w/w vs v/v; the w/w basis stands from row 229."
+    },
+    {
+      "record_id": "INV-USER-20261008-TOBDBCA-002",
+      "canonical_name": "Dimethyl Benzyl Carbinyl Acetate",
+      "aliases": [
+        "DBCA",
+        "Dimethyl Benzyl Carbonyl Acetate",
+        "PerfumersWorld Dimethyl Benzyl Carbinyl Acetate"
+      ],
+      "state": "OWNED",
+      "category": "floral / green",
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Dimethyl Benzyl Carbinyl Acetate",
+        "sku": "3LF00157",
+        "cas": "151-05-3",
+        "ec": "205-781-3",
+        "mw_g_mol": 192.26,
+        "evidence_scope": "SUPPLIER_PRODUCT_IDENTITY_ONLY",
+        "source": "Kenny's local PerfumersWorld snapshot, 2026-10-07"
+      },
+      "resolves_authority_delta": {
+        "path": "data/governance/inventory_v5_authority_delta_20260811.json",
+        "record_id": "INV-V5-DELTA-DBCA-IDENTITY"
+      },
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "V5_ROW_257_NEAT_STOCK_CARRIED_FORWARD_AFTER_SUPPLIER_IDENTITY_CORRECTION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "V5_ROW_257_EXECUTION_STATE_CARRIED_FORWARD_UNCHANGED"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 257,
+          "fraction": 1.0
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 257,
+          "disposition": "OWNED",
+          "status": "HAVE — PERFUMERSWORLD DIMETHYL BENZYL CARBINYL ACETATE (DBCA), NEAT / AS SUPPLIED",
+          "actual_stock_text": "Dimethyl Benzyl Carbinyl Acetate (DBCA), PerfumersWorld SKU 3LF00157, CAS 151-05-3, neat/as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-08",
+      "source_kind": "DIRECT_USER_MESSAGE_PLUS_SUPPLIER_IDENTITY_RESOLUTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_product_identity_confirmed": true,
+        "stock_fraction_carried_forward": true,
+        "fraction_basis_carried_forward": true,
+        "user_lot_asserted": false,
+        "label_asserted": false,
+        "exact_user_lot_assay_asserted": false,
+        "density_asserted": false,
+        "receipt_or_lot_holds_cleared": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: DBCA is whatever is found on PerfumersWorld. The V5 snapshot spelling 'Carbonyl' is corrected to PerfumersWorld 'Dimethyl Benzyl Carbinyl Acetate' (CAS 151-05-3). Supplier identity only; no lot, label or density is supplied."
+    }
+  ]
+}

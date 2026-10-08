@@ -20,7 +20,7 @@ def _receipt() -> dict:
 
 
 def _head() -> dict:
-    return json.loads(inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
+    return json.loads(inventory.PW_RECEIVED_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
 
 
 def test_received_order_totals_and_all_stock_forms_are_visible() -> None:

@@ -17,6 +17,7 @@ from engine.inventory_parser import (
     CURRENT_USER_INVENTORY_AUTHORITY,
     CURRENT_USER_INVENTORY_OVERLAY_SHA256,
     AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256,
+    PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256,
     load_current_user_inventory_overlay,
     materialize_current_inventory,
     parse_current_inventory,
@@ -143,6 +144,7 @@ def test_v5_current_inventory_master_is_the_pinned_physical_authority() -> None:
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924",
         AIMI_IDENTITY_USER_INVENTORY_AUTHORITY,
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261007",
+        "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261008",
     }
 
 
@@ -188,8 +190,8 @@ def test_user_inventory_overlay_is_parent_pinned_and_non_rebasing() -> None:
     assert payload["policy"]["preserve_exact_ap_t1_cinnamon_substitution"] is True
     assert payload["policy"]["require_sub_10_ul_working_stock"] is True
     assert payload["predecessor"] == {
-        "path": "data/governance/inventory_user_authority_overlay_20260930_aimi_identity.json",
-        "normalized_text_sha256": AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256,
+        "path": "data/governance/inventory_user_authority_overlay_20261007_pw_received.json",
+        "normalized_text_sha256": PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256,
     }
 
 
