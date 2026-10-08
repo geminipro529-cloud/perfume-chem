@@ -4818,6 +4818,18 @@ def _gate_tenacity_projection(state: FormulaState, config: ReleaseGateConfig) ->
     )
 
 
+# Inventory names of oakmoss/treemoss -> the EU-listed INCI allergen (lowercase,
+# matching the normalized names used by the screen below).
+_MOSS_INVENTORY_ALLERGENS: dict[str, str] = {
+    **dict.fromkeys(
+        ("oakmoss absolute", "oakmoss", "oak moss", "oakmoss extract"), "evernia prunastri"
+    ),
+    **dict.fromkeys(
+        ("treemoss absolute", "treemoss", "tree moss", "treemoss extract"), "evernia furfuracea"
+    ),
+}
+
+
 def _gate_eu_allergen_declaration(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     """Check EU allergen labeling requirements (EU 2023/1545 — 82 allergens)."""
     # Core 26 allergens (Reg 1223/2009 Annex III original list + expansions)
@@ -4904,6 +4916,9 @@ def _gate_eu_allergen_declaration(state: FormulaState, config: ReleaseGateConfig
     for m in state.materials:
         n = normalize_name(m.canonical_name or m.name)
         matched_allergens = {n} if n in eu_allergens else set()
+        moss_inci = _MOSS_INVENTORY_ALLERGENS.get(n)
+        if moss_inci:
+            matched_allergens.add(moss_inci)
         matched_allergens.update(
             allergen
             for allergen in eu_allergens
@@ -4918,7 +4933,13 @@ def _gate_eu_allergen_declaration(state: FormulaState, config: ReleaseGateConfig
             row: dict[str, object] = {
                 "material": m.canonical_name or m.name,
                 "allergen": allergen,
-                "identity_match": "exact" if n == allergen else "name_contains",
+                "identity_match": (
+                    "exact"
+                    if n == allergen
+                    else "inventory_alias"
+                    if allergen == moss_inci
+                    else "name_contains"
+                ),
                 "active_finished_product_ppm_w_w": (
                     None if ppm is None else round(float(ppm), 6)
                 ),

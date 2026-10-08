@@ -454,12 +454,34 @@ EU_FRAGRANCE_ALLERGENS: dict[str, dict[str, Any]] = {
 }
 
 # Map inventory names to allergen names where they differ
-_ALLERGEN_NAME_MAP: dict[str, str] = {
-    "D-Limonene": "Limonene",
-    "d-Limonene": "Limonene",
-    "Alpha Isomethyl Ionone": "Alpha Isomethyl Ionone",
-    "Benzyl Salicylate": "Benzyl Salicylate",
-}
+class _CaseInsensitiveAllergenMap(dict):  # type: ignore[type-arg]
+    """dict whose ``get`` ignores case and a trailing "(10% in DPG)" stock suffix."""
+
+    def get(self, key: Any, default: Any = None) -> Any:
+        if isinstance(key, str):
+            folded = key.split("(")[0].strip().lower()
+            for name, value in self.items():
+                if name.lower() == folded:
+                    return value
+        return default
+
+
+_ALLERGEN_NAME_MAP: dict[str, str] = _CaseInsensitiveAllergenMap(
+    {
+        "D-Limonene": "Limonene",
+        "d-Limonene": "Limonene",
+        "Alpha Isomethyl Ionone": "Alpha Isomethyl Ionone",
+        "Benzyl Salicylate": "Benzyl Salicylate",
+        "Oakmoss Absolute": "Evernia Prunastri",
+        "Oakmoss": "Evernia Prunastri",
+        "Oak Moss": "Evernia Prunastri",
+        "Oakmoss Extract": "Evernia Prunastri",
+        "Treemoss Absolute": "Evernia Furfuracea",
+        "Treemoss": "Evernia Furfuracea",
+        "Tree Moss": "Evernia Furfuracea",
+        "Treemoss Extract": "Evernia Furfuracea",
+    }
+)
 
 
 def _allergen_threshold_pct(allergen_data: dict[str, Any], *, leave_on: bool) -> float:
