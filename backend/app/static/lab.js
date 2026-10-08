@@ -41,26 +41,62 @@ function notify(message, error = false) {
   node.classList.toggle("is-error", error);
 }
 
+// A routine success message must not erase an error the user has not dismissed yet.
+function notifyRoutine(message) {
+  if ($("#status").classList.contains("is-error")) return;
+  notify(message);
+}
+
+function fieldWords(name) {
+  const text = String(name || "").replaceAll("_", " ").trim();
+  return text ? text.charAt(0).toUpperCase() + text.slice(1) : "This field";
+}
+
+const REQUEST_TIMEOUT_MS = 30000;
+
 async function request(path, options = {}) {
   const { timeoutMs, ...fetchOptions } = options;
+  // Engine-job polling passes its own timeoutMs; every other call gets the 30 s default.
+  const limitMs = timeoutMs || REQUEST_TIMEOUT_MS;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), limitMs);
   let response;
+  let payload;
   try {
     response = await fetch(`${API}${path}`, {
       headers: { "Content-Type": "application/json", ...(fetchOptions.headers || {}) },
       ...fetchOptions,
-      ...(timeoutMs ? { signal: AbortSignal.timeout(timeoutMs) } : {}),
+      signal: controller.signal,
     });
+    payload = await response.json().catch(() => ({}));
   } catch (error) {
-    if (error.name === "TimeoutError") throw new Error(`The server did not answer within ${Math.round(timeoutMs / 1000)} s.`);
-    throw error;
+    if (controller.signal.aborted) {
+      throw new Error(timeoutMs ? `The server did not answer within ${Math.round(timeoutMs / 1000)} s.` : "The app didn't answer within 30 seconds.");
+    }
+    throw new Error("Can't reach the app on this PC. Is it still running?");
+  } finally {
+    clearTimeout(timer);
   }
-  const payload = await response.json().catch(() => ({}));
   if (!response.ok) {
-    const detail = Array.isArray(payload.detail)
-      ? payload.detail.map((item) => item.msg || JSON.stringify(item)).join("; ")
-      : payload.detail;
-    const error = new Error(payload?.error?.message || detail || `Request failed (${response.status})`);
+    const serverText = typeof payload?.detail === "string" ? payload.detail : payload?.error?.message;
+    let items = [];
+    let message;
+    if (Array.isArray(payload?.detail)) {
+      items = payload.detail.map((item) => {
+        const loc = Array.isArray(item.loc) ? item.loc.filter((part) => typeof part === "string" && part !== "body") : [];
+        const field = loc.length ? loc[loc.length - 1] : "";
+        return { field, msg: item.msg || "is not valid" };
+      });
+      message = items.map((item) => `${fieldWords(item.field)}: ${item.msg}`).join("\n");
+    } else if (response.status === 409) {
+      message = serverText ? `That already exists. ${serverText}` : "That already exists.";
+    } else {
+      message = serverText || `The server returned ${response.status}.`;
+    }
+    const error = new Error(message);
     error.status = response.status;
+    error.items = items;
+    error.fields = items.map((item) => item.field).filter(Boolean);
     throw error;
   }
   return payload;
@@ -160,7 +196,7 @@ async function refresh() {
   renderProjectInventory($("#project-inventory-search").value);
   updateSelectors();
   syncImproveSourceMode();
-  notify("Inventory and ledger refreshed.");
+  notifyRoutine("Inventory and ledger refreshed.");
 }
 
 function navigate(view) {
@@ -179,14 +215,66 @@ function navigate(view) {
 }
 
 function formData(form) { return Object.fromEntries(new FormData(form).entries()); }
+
+function fieldLabel(form, name) {
+  const input = [...form.elements].find((element) => element.name === name);
+  const label = input?.closest("label") || (input?.id ? form.querySelector(`label[for="${input.id}"]`) : null);
+  if (!label) return fieldWords(name);
+  const copy = label.cloneNode(true);
+  copy.querySelectorAll("span, small, select, input, textarea, button").forEach((node) => node.remove());
+  return copy.textContent.replace(/\s+/g, " ").trim() || fieldWords(name);
+}
+
+function clearFormError(form) {
+  form.querySelectorAll("[aria-invalid]").forEach((input) => {
+    input.removeAttribute("aria-invalid");
+    input.removeAttribute("aria-describedby");
+  });
+  document.getElementById(`${form.id}-error`)?.remove();
+}
+
+function showFormError(form, error) {
+  const lines = error.items?.length
+    ? error.items.map((item) => `${item.field ? fieldLabel(form, item.field) : "This form"}: ${item.msg}`)
+    : String(error.message).split("\n");
+  const id = `${form.id}-error`;
+  let box = document.getElementById(id);
+  if (!box) {
+    box = document.createElement("div");
+    box.className = "form-error";
+    box.setAttribute("role", "alert");
+    box.id = id;
+    const submit = form.querySelector('button[type="submit"], input[type="submit"], button:not([type])');
+    const anchor = submit?.closest(".button-row, .actions, .row") || submit;
+    if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(box, anchor.nextSibling);
+    else form.appendChild(box);
+  }
+  box.replaceChildren();
+  const strong = document.createElement("strong");
+  strong.textContent = "Not saved.";
+  box.append(strong, " ");
+  lines.forEach((line, index) => {
+    if (index) box.appendChild(document.createElement("br"));
+    box.appendChild(document.createTextNode(line));
+  });
+  (error.fields || []).forEach((name) => {
+    [...form.elements].filter((element) => element.name === name).forEach((input) => {
+      input.setAttribute("aria-invalid", "true");
+      input.setAttribute("aria-describedby", id);
+    });
+  });
+  return lines;
+}
+
 function bindForm(selector, handler) {
   $(selector).addEventListener("submit", async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
+    clearFormError(form);
     const buttons = form.querySelectorAll('button[type="submit"], input[type="submit"], button:not([type])');
     buttons.forEach((button) => { button.disabled = true; });
     try { await handler(formData(form)); notify("Record committed."); await refresh(); }
-    catch (error) { notify(error.message, true); }
+    catch (error) { notify(showFormError(form, error).join("; "), true); }
     finally { buttons.forEach((button) => { button.disabled = false; }); }
   });
 }
@@ -837,7 +925,7 @@ function preparePhysicalDelta() {
       unit: target.unit,
       suggestedMassG: suggested.massG,
       suggestedVolumeUl: suggested.volumeUl,
-      commandId: crypto.randomUUID(),
+      commandId: newRequestId("command"),
       expectedSequence: null,
       requestBody: null,
       event: null,
@@ -883,7 +971,7 @@ async function recordPreparedDelta() {
       $("#record-delta-status").textContent = `Recorded ${index + 1} of ${state.improve.preparedLines.length} additions.`;
     }
     state.improve.additionEvents = state.improve.preparedLines.map((line) => line.event);
-    state.improve.evaluationCommandId = crypto.randomUUID();
+    state.improve.evaluationCommandId = newRequestId("command");
     state.improve.evaluationRequestBody = null;
     $$("#delta-line-editor input").forEach((input) => { input.disabled = true; });
     $("#physical-addition-confirmed").disabled = true;
@@ -947,7 +1035,7 @@ $("#improve-form").addEventListener("submit", async (event) => {
         schema_version: "lab-engine-job-request-v2",
         job_type: "FORMULA_ANALYSIS",
         requester: "personal-workbench-ui",
-        idempotency_key: crypto.randomUUID(),
+        idempotency_key: newRequestId("job"),
         payload,
       }),
     });
@@ -1108,8 +1196,7 @@ $("#inventory-completion-form").addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
   const data = formData(form);
-  const idempotencyKey = globalThis.crypto?.randomUUID?.()
-    || `inventory-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  const idempotencyKey = newRequestId("inventory");
   const submit = form.querySelector('button[type="submit"]');
   submit.disabled = true;
   submit.textContent = "Saving…";
@@ -1169,8 +1256,7 @@ $("#inventory-addition-form").addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
   const data = formData(form);
-  const idempotencyKey = globalThis.crypto?.randomUUID?.()
-    || `inventory-add-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  const idempotencyKey = newRequestId("inventory-add");
   const submit = form.querySelector('button[type="submit"]');
   submit.disabled = true;
   submit.textContent = "Adding…";
@@ -1520,7 +1606,7 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
           schema_version: "lab-engine-job-request-v2",
           job_type: "FORMULA_DESIGN",
           requester: "formula-studio-ui",
-          idempotency_key: crypto.randomUUID(),
+          idempotency_key: newRequestId("job"),
           payload,
         }),
       });
@@ -1646,7 +1732,7 @@ $("#version-form").addEventListener("submit", async (event) => {
   } catch (error) { notify(error.message, true); }
 });
 bindForm("#bottle-form", (data) => request("/bottles", { method: "POST", body: JSON.stringify({ label: data.label, initial_mass_g: Number(data.initial_mass_g) }) }));
-bindForm("#addition-form", (data) => request(`/bottles/${data.bottle_id}/additions`, { method: "POST", body: JSON.stringify({ stock_solution_id: data.stock_solution_id, mass_g: Number(data.mass_g), expected_sequence: Number(data.expected_sequence), command_id: crypto.randomUUID() }) }));
+bindForm("#addition-form", (data) => request(`/bottles/${data.bottle_id}/additions`, { method: "POST", body: JSON.stringify({ stock_solution_id: data.stock_solution_id, mass_g: Number(data.mass_g), expected_sequence: Number(data.expected_sequence), command_id: newRequestId("command") }) }));
 bindForm("#experiment-form", (data) => request("/experiments", { method: "POST", body: JSON.stringify({ name: data.name, protocol: { observation_times_seconds: data.times.split(",").map((item) => Number(item.trim())) } }) }));
 
 const OMISSION_BASIS = { mass_fraction: "w/w", volume_fraction: "v/v", mass_per_volume: "w/v", "w/w": "w/w", "v/v": "v/v", "w/v": "w/v", neat: "neat" };
