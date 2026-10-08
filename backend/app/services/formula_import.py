@@ -326,6 +326,8 @@ class FormulaAnalysisImportParser:
         return rendered.rstrip("0").rstrip(".") if "." in rendered else rendered
 
     _AMOUNT_NUMBER = re.compile(r"[-+]?(?:\d[\d,\s]*(?:\.\d+)?|\.\d+)")
+    # Placeholders that mean "no strength given": treated like a blank cell.
+    _NO_STRENGTH = frozenset({"", "-", "\u2013", "\u2014", "n/a", "na", "none"})
 
     @classmethod
     def _amount_text(cls, value: str) -> str:
@@ -709,7 +711,11 @@ class FormulaAnalysisImportParser:
                 dilution_text,
                 header[dilution_index] if dilution_index is not None else None,
             )
-            if fraction is None and dilution_text is not None and cls._plain(dilution_text):
+            if (
+                fraction is None
+                and dilution_text is not None
+                and cls._plain(dilution_text).strip().lower() not in cls._NO_STRENGTH
+            ):
                 warnings.append(
                     f"Strength '{cls._plain(dilution_text)}' for {material} can't be read; "
                     "write it like 10% w/w in DPG"

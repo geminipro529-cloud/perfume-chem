@@ -449,3 +449,10 @@ def test_unreadable_strength_warns_but_keeps_row_and_blank_does_not_warn():
         "Strength 'banana' for Rose Oxide can't be read; write it like 10% w/w in DPG"
     ]
     assert _strength("")[2] == []
+
+
+@pytest.mark.parametrize("cell", ["-", "\u2014", "n/a", "N/A", "none"])
+def test_placeholder_strength_cells_do_not_warn(cell):
+    fraction, basis, warnings = _strength(cell)
+    assert fraction is None
+    assert warnings == []
