@@ -154,7 +154,9 @@ def test_new_head_rejects_live_text_drift(tmp_path, monkeypatch):
     path.write_bytes(inventory_parser.INVENTORY_PATH.read_bytes() + b" ")
     monkeypatch.setattr(inventory_parser, "INVENTORY_PATH", path)
     with pytest.raises(inventory_parser.InventoryAuthorityError, match="live inventory text"):
-        inventory_parser.load_current_user_inventory_overlay()
+        inventory_parser.load_current_user_inventory_overlay(require_live_inventory_binding=True)
+    assert inventory_parser.load_current_user_inventory_overlay()["records"]
+    assert inventory_parser.live_inventory_text_binding()["bound"] is False
 
 
 def test_new_head_rejects_predecessor_byte_drift(tmp_path, monkeypatch):
