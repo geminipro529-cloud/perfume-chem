@@ -555,6 +555,27 @@
 
       <section class="view" data-panel="experiments" aria-labelledby="experiments-title">
         <div class="view-heading"><div><p class="eyebrow">Measured learning</p><h1 id="experiments-title">Experiment loop</h1></div></div>
+        <details class="panel optional-details">
+          <summary>Optional: compare a control with one ingredient omitted</summary>
+          <p class="friendly-boundary">Planning only. This needs two separate samples; it cannot remove anything from your existing bottle. Retained doses stay fixed and the omitted stock is replaced by an equal mass of its declared carrier. A simple personal note does not need this tool.</p>
+          <form id="omission-plan-form" class="form-panel">
+            <label>What should the comparison answer?<input name="goal" required maxlength="500" placeholder="Does this material add useful floral texture?"></label>
+            <button id="omission-load-design" class="quiet-button" type="button">Use the selected Formula Studio design</button>
+            <p id="omission-input-help" class="field-help">Exact mg and w/w inputs are required only for this quantitative comparison. Volumes are never silently converted to masses.</p>
+            <div id="omission-stock-choices" class="record-list"></div>
+            <div class="field-pair">
+              <label>Replacement carrier<input name="blank_carrier" placeholder="Exact carrier, for example DPG"></label>
+              <label>Carrier blank stock identifier<input name="blank_stock_id" placeholder="Your identified blank stock"></label>
+            </div>
+            <label>Comparison schedule<select name="mode"><option value="QUICK_REFERENCE">Quick personal check — 5 min and 2 h</option><option value="CONTROLLED_REFERENCE">Repeated personal check — three sessions</option></select></label>
+            <details class="optional-details"><summary>Import an existing exact weighed control instead</summary>
+              <label>Control rows, JSON<textarea name="control_rows_json" spellcheck="false" placeholder='[{"stock_id":"...","identity_name":"...","amount_decimal":"...","amount_unit":"mg","stock_fraction_decimal":"...","fraction_basis":"w/w","carrier":"DPG"}]'></textarea></label>
+              <button id="omission-load-rows" class="quiet-button" type="button">Load these rows</button>
+            </details>
+            <button type="submit">Plan comparison — do not compound</button>
+            <div id="omission-plan-output" aria-live="polite"></div>
+          </form>
+        </details>
         <div class="three-grid">
           <form id="experiment-form" class="panel form-panel">
             <p class="panel-index">E1</p><h2>Define protocol</h2>

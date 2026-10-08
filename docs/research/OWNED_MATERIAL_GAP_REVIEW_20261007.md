@@ -1,0 +1,13 @@
+# Owned-material gap review — 7 October 2026
+
+Completed the four authorized research jobs in a separate revision 2 packet. All 34 missing-description cards were attempted; nine received named-label advisory context, 23 received comparison-only context and two have no accepted odor context. All five identity conflicts, 172 unbound stock relationships and 79 unspecified percentage bases remain explicit. All 319 cards now show qualitative practical-use context and the relevant preparation limits.
+
+Reader: [revision 2 inspector](../../data/research/owned_material_integration/20261007_01a1152f_v2/inspector.html).
+
+The source review distinguishes producer facts from owned-stock identity. It preserves botanical, organ, isomer, carrier and grade differences and withheld unavailable/partial sources. The root verified the worker collection against selected primary passages and current local bytes; no worker independently gained admission authority. The accepted payload hash is `f5532891233ac3599f687bfb4688d1fdde42cd88f22d303dbfb002602e5b1c72`. Acceptance is recorded in the packet's `verification.json`: 45 focused semantic and identity/mutation tests, 29 desktop/mobile browser checks, and 14 artifact-integrity and accounting checks passed. The full 515-file cached gzip/body source closure, 343 original dossier payloads and 14 immutable integration-v1 payloads were verified. This is advisory and standalone-reader acceptance, not release acceptance.
+
+The packet includes the complete 172-record lineage audit and supplier questions. Zero new exact links or percentage bases were admitted. The existing 147 exact links, 53-row received chain, four tincture accounting corrections and one user-held Orris Liquid stock are unchanged. Runtime integration, complete science, measured sensory response, quantitative formulation authority and release are not established by this work.
+
+Current integration worktree inventory snapshots were rechecked read-only: both engineering copies still have 294 listed rows, while the canonical research inventory has 333 listed rows and 319 owned stocks. They must reconcile the existing 53-row receipt and current stock authority before attaching this current packet; no duplicate purchase or alias-only join is authorized.
+
+Manifest SHA256: `e692314fac5673a169145f34a559d22e1be1ee8db22e2e3802b2516585c69b12`. Verification SHA256: `ab38c0253ced8c2aa87ccd76bd2629c055cbf23e0defd884f9fa09d543c33b3f`. The project instructions were reread after their concurrent v4 bridge update, and the separate local profile drift was recorded without rewriting frozen source claims.

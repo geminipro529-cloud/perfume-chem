@@ -56,8 +56,9 @@ def test_current_overlay_is_pinned_to_live_inventory_and_receipts() -> None:
     normalized = overlay_path.read_bytes().replace(b"\r\n", b"\n")
     assert hashlib.sha256(normalized).hexdigest() == inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256
     payload = inventory.load_current_user_inventory_overlay()
-    assert payload["schema_version"].endswith("_v18")
-    assert len(payload["delta_records"]) == 1
+    assert payload["schema_version"].endswith("_v19")
+    assert len(payload["delta_records"]) == 43
+    assert payload["predecessor"]["normalized_text_sha256"] == inventory.AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256
 
 
 def test_stock_clarification_internal_loader_rejects_any_record_mutation() -> None:

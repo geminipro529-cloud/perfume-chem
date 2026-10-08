@@ -1,0 +1,225 @@
+{
+  "schema_version": "fragrance-research-coverage-progress-v9",
+  "as_of_date": "2026-10-07",
+  "status": "V3_IMPLEMENTED_TARGETED_VERIFICATION_PASSED_FINAL_CORPUS_WITHHELD",
+  "full_research_program_complete": false,
+  "completion_boundary": "44 mappings implemented with targeted tests; final 56-case corpus rerun interrupted by an external live-inventory update. No empirical or release completion.",
+  "predecessor": {
+    "path": "data/formulation_knowledge/research_coverage_progress_v8.json",
+    "sha256": "2ead1a59b84c9a035f43c3ce88a1a58cdba0afeb1d905beb7b1c55f2ad85caa9",
+    "preserved": true
+  },
+  "totals": {
+    "construction_dossiers": 49,
+    "partial_subtype_cards": 179,
+    "floral_packages": 13,
+    "floral_packages_with_at_least_one_mapping": 13,
+    "sources": 233,
+    "claims": 226,
+    "profiles": 43,
+    "exact_material_cards": 25,
+    "architecture_mappings": 44,
+    "architecture_options": 88,
+    "subtype_cards_without_executable_mapping": 135,
+    "empirical_capabilities_added": 0,
+    "numeric_calibrations_admitted": 0,
+    "source_records_added_this_wave": 0
+  },
+  "successor": {
+    "path": "data/formulation_knowledge/architecture_adapters_v3.json",
+    "sha256": "70ec8bd60abefa7d5e09556fece34067caecacba539e6db1fcdea5d7d2f0111c",
+    "inherited_mappings_unchanged": 22,
+    "new_mappings": [
+      "ROSE_LEMONY",
+      "ROSE_HONEY",
+      "ROSE_METALLIC",
+      "ROSE_DARK_PATCH",
+      "JAS_GRANDIFLORUM",
+      "JAS_LEATHER",
+      "ORANGE_HONEY",
+      "MUGUET_CYCLAMEN",
+      "MUGUET_WATERY_MUSK",
+      "PEONY_DEWY",
+      "PEONY_ROSE",
+      "LILY_SALICYLATE",
+      "POLLEN_HONEY",
+      "LIGHT_HONEYSUCKLE",
+      "LAV_COLOGNE",
+      "LAV_BARBERSHOP",
+      "LAV_SOFT_MUSK",
+      "LAV_SPICED_WOOD",
+      "FOUGERE_FLORAL",
+      "FOUGERE_TONKA",
+      "SANDAL_DRY",
+      "PATCH_CLEAN"
+    ],
+    "maximum_alternatives": 2,
+    "ordering": "UNORDERED_UNTIL_SENSORY_COMPARISON",
+    "scope": "LOCAL_HEURISTIC_ROLE_MAPPING_NOT_EMPIRICAL_FORMULA",
+    "runtime_network_used": false,
+    "final_corpus_accepted": false
+  },
+  "repairs": [
+    "Explicit positive request matches precede title-only matches in v3, followed by conjunctive specificity and stable order.",
+    "Exact physical duplicates are suppressed with independently checked physical rows and complete attempt accounting.",
+    "Campaign holds are verified against canonical local knowledge rather than a self-reported status.",
+    "One per-request material index with explicit-flag rebinding; no new cross-request cache."
+  ],
+  "verification": {
+    "initial_comparison": {
+      "path": "docs/research/floral_aromatic_comparison_initial_20261007.json",
+      "status": "FAIL",
+      "case_count": 56,
+      "design_calls": 224,
+      "case_contract_passes": 53,
+      "failed_cases": [
+        "campaign_hold",
+        "muguet_cyclamen",
+        "lav_soft_musk"
+      ]
+    },
+    "final_rerun": {
+      "path": "docs/research/floral_aromatic_comparison_aborted_20261007.json",
+      "status": "WITHHELD_LIVE_INVENTORY_BINDING_CHANGED",
+      "design_calls_completed": 65,
+      "design_calls_required": 224,
+      "performance_acceptance": "NOT_ESTABLISHED"
+    },
+    "final_focused_tests": {
+      "passed": 88,
+      "failed": 0,
+      "seconds": 42.97,
+      "scope": "receipt binding, successor, and repairs; pre-inventory-drift"
+    },
+    "prior_broader_test_runs": [
+      {
+        "passed": 242,
+        "scope": "architecture plus Formula Studio before final audit refinements"
+      },
+      {
+        "passed": 202,
+        "scope": "architecture after initial suppression audit"
+      }
+    ],
+    "counts_overlap_do_not_sum": true,
+    "scoped_ruff": "PASS",
+    "scoped_mypy": "PASS_4_MODULES",
+    "backend_fingerprint_ui_slice": {
+      "passed": 19,
+      "scope": "Earlier v3 integration; same backend source"
+    },
+    "quick_project": {
+      "status": "FAIL_SANDBOX_ENVIRONMENT_SELECTION",
+      "passed": 9,
+      "failed": [
+        "golden-api-regression"
+      ],
+      "artifact": "output/floral_aromatic_v3_20261007/quick_verification_sandbox_failure.json"
+    },
+    "exact_backend_api_recheck": {
+      "passed": 1,
+      "deselected": 18,
+      "seconds": 5.11,
+      "environment": "existing Poetry-managed Python 3.11; disposable database; authorized local loopback"
+    },
+    "details": "output/floral_aromatic_v3_20261007/repair_verification.json",
+    "full_verifier": "NOT_RUN_NO_MERGE_OR_RELEASE_CLAIM",
+    "docker": "NOT_RUN",
+    "browser_visual": "NOT_RUN",
+    "git_commit_or_push_performed": false
+  },
+  "protected_inputs": {
+    "scope": "CURRENT_PRE_VALIDATION_CENSUS_NOT_ORIGINAL_TURN_BASELINE",
+    "files": 587,
+    "formula_files": 578,
+    "formula_byte_changes": [],
+    "inventory_modified_by_this_work": false,
+    "inventory_changed_during_benchmark": true,
+    "changed_paths": [
+      "inventory.txt"
+    ],
+    "inventory_before_sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "inventory_observed_after_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "new_receipt_preserved": "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json",
+    "orris_liquid_hold_preserved": true
+  },
+  "next_work": [
+    {
+      "scope": "Inventory-version reconciliation",
+      "state": "EXTERNAL_UPDATE_IN_PROGRESS_OR_UNRECONCILED",
+      "requirement": "Version-bind the new received-stock receipt without weakening the historical AIMI guard; preserve user changes."
+    },
+    {
+      "scope": "V3 final corpus acceptance",
+      "state": "PENDING",
+      "requirement": "Freeze the reconciled inventory and source, review inventory-dependent fixtures, rerun all 56 cases/224 calls and reverse-order equivalence."
+    },
+    {
+      "scope": "Remaining executable subtype mappings",
+      "state": "PARTIAL",
+      "remaining_cards": 135,
+      "remaining_by_package": {
+        "AB_ABSTRACT": 4,
+        "AM_AMBERGRIS": 2,
+        "AM_FLORAL": 2,
+        "AM_RESIN": 8,
+        "AM_SOFT": 2,
+        "AM_WOODS": 2,
+        "AN_SKIN": 3,
+        "AR_FOUGERE": 1,
+        "AR_HERBS": 4,
+        "AR_LAVENDER": 5,
+        "BO_BOOZY": 2,
+        "CH_CHYPRE": 5,
+        "CI_CHASSIS": 2,
+        "CI_PRODUCTS": 5,
+        "CU_TRADITIONS": 4,
+        "FL_BOUQUET": 1,
+        "FL_GREEN": 3,
+        "FL_LIGHT": 8,
+        "FL_POLLEN": 1,
+        "FL_TROPICAL": 5,
+        "FR_BERRY": 5,
+        "FR_ORCHARD": 4,
+        "FR_STONE": 3,
+        "FR_TROPICAL": 5,
+        "GO_DAIRY": 2,
+        "GO_ROAST": 4,
+        "GO_VANILLA": 3,
+        "GR_GREEN": 4,
+        "HY_HYBRIDS": 3,
+        "LE_LEATHER": 3,
+        "MU_MUSK": 3,
+        "RE_INCENSE": 3,
+        "SP_SPICE": 4,
+        "TE_TEA": 4,
+        "TO_HAY": 4,
+        "WA_AQUATIC": 4,
+        "WO_CEDAR": 3,
+        "WO_OUD": 3,
+        "WO_VETIVER": 2
+      }
+    },
+    {
+      "scope": "CHIMIE LHOMME",
+      "state": "HOLD_EXACT_BRIEF_OR_FORMULA_REQUIRED"
+    },
+    {
+      "scope": "Empirical scent and consumer performance",
+      "state": "NOT_TESTED"
+    }
+  ],
+  "tested_implementation_sha256": {
+    "engine/formulation_intelligence/architecture_bridge.py": "f3031dd724e03867175e51b433a822b5e2f96aacaf67f220034da093d4672493",
+    "engine/formulation_intelligence/formula_design_runtime.py": "6b604f4b51b5b785c7a566a3ec1eed060568bc851f30de3525890a4680e0256a",
+    "engine/formulation_intelligence/material_capability_index.py": "67c9c4611687929e8c10f701292e8e9966e8d77a7b2a021caa08c87f349a0bf5",
+    "engine/research/subtype_benchmark.py": "765b2a9217fed7c6a19b86745796ab1bb90edaf6ad7c8ec9f63e776d247d481d"
+  },
+  "review": "docs/research/FLORAL_AROMATIC_V3_REVIEW_20261007.md",
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "schema_version": "lavender-knowledge-audit-v1",
+  "review_date": "2026-10-06",
+  "recorded_at_utc": "2026-10-06T07:25:50Z",
+  "work_type": "LITERATURE_REVIEW_COVERAGE_AUDIT_AND_ADVISORY_KNOWLEDGE_INTEGRATION",
+  "repository": {
+    "root": "D:/chatbots/perfume-chem",
+    "branch": "master",
+    "head": "1ed79650313c23b1a2fe1c36c2e90a606c64833b",
+    "preexisting_dirty_worktree": true,
+    "unrelated_changes_not_reset_or_edited_by_this_task": true,
+    "git_commit_or_push_performed": false
+  },
+  "scope": {
+    "representative_current_reference_table_rows": 32,
+    "positively_disclosed_male_lavender_ambrox_references": 5,
+    "exhaustive_historical_census": false,
+    "complete_full_text_review": false,
+    "proprietary_formula_reconstruction": false,
+    "model_training": false,
+    "numeric_calibration_or_empirical_data_admission": false,
+    "full_formula_execution_benchmark": false,
+    "physical_or_sensory_validation": false,
+    "formula_modified_by_this_task": false,
+    "inventory_modified_by_this_task": false,
+    "inventory_baseline_hash_matched": true
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "coverage": {
+    "before": {
+      "sources": 31,
+      "claims": 36,
+      "profiles": 11,
+      "materials": 11
+    },
+    "after": {
+      "sources": 66,
+      "claims": 62,
+      "profiles": 30,
+      "materials": 17,
+      "quarantined_claims": 4,
+      "numeric_calibrations_admitted": 0
+    },
+    "added": {
+      "sources": 35,
+      "claims": 26,
+      "profiles": 19,
+      "materials": 6
+    },
+    "added_source_classes": {
+      "PRIMARY_RESEARCH": 4,
+      "MANUFACTURER_DESCRIPTION": 31
+    },
+    "preexisting_knowledge_objects_unchanged": true,
+    "source_claim_profile_referential_integrity": true,
+    "other_existing_surfaces": {
+      "registry_archetypes": 38,
+      "registry_brief_defaults": 14,
+      "family_document_broad_chapters": 22,
+      "knowledge_graph_families_excluding_metadata": 18,
+      "knowledge_graph_accord_sketches_excluding_metadata": 20,
+      "knowledge_graph_modern_niche_types_excluding_metadata": 5,
+      "curated_planner_concepts": 10,
+      "prior_corpus_indexed_records": 128,
+      "indexed_records_do_not_imply_full_text_review_or_admission": true
+    }
+  },
+  "new_profile_ids": [
+    "lavender_identity",
+    "lavender_cologne",
+    "lavender_classic_fougere",
+    "lavender_green_fougere",
+    "lavender_vanillic_amber",
+    "lavender_soft_musk",
+    "lavender_orange_blossom",
+    "lavender_floral_sandalwood",
+    "lavender_gourmand_vanilla",
+    "lavender_fruity_apple",
+    "lavender_fruity_pineapple",
+    "lavender_iris",
+    "lavender_incense",
+    "lavender_oud",
+    "lavender_coffee",
+    "lavender_licorice",
+    "lavender_spiced_wood",
+    "lavender_mineral_ambergris",
+    "lavender_ginger"
+  ],
+  "implementation": {
+    "modified_existing_files": [
+      "data/formulation_knowledge/literature_v1.json",
+      "engine/formulation_intelligence/literature_knowledge.py"
+    ],
+    "added_files": [
+      "tests/test_lavender_literature_knowledge.py",
+      "docs/research/LAVENDER_ARCHITECTURE_REVIEW_20261006.md",
+      "docs/research/FRAGRANCE_KNOWLEDGE_EXPANSION_PLAN_20261006.md",
+      "docs/research/LAVENDER_KNOWLEDGE_AUDIT_20261006.json"
+    ],
+    "behavior": [
+      "offline lavender architecture retrieval",
+      "explicit no-Ambrox prefix/suffix retrieval masking",
+      "returned profiles and material bindings retain all required claims and sources"
+    ],
+    "retrieval_masking_is_not_a_general_request_parser": true,
+    "no_new_pipeline_script": true,
+    "existing_iris_violet_orchard_claims_preserved": true,
+    "literature_is_advisory_not_calibrated_construction": true
+  },
+  "source_artifact_hashes": {
+    "data/formulation_knowledge/literature_v1.json": "d5c3683035b813e46a72dfb1d9bc3543d3ab377b001a8561bca659638196c778",
+    "data/formulation_knowledge/prior_research_corpus_v1.json": "d614d475e88b049a21747737842fe35e8ff40292c83c403b73ba69e1c554841a",
+    "engine/formulation_intelligence/literature_knowledge.py": "e8eb5ffc431e83e41b6d357bf9e1b25ba4735c86ec94f081dcf5cc4ba88d4e39",
+    "tests/test_lavender_literature_knowledge.py": "c3046eeaea22d4ea1e6884c5c1f0791baff1d3788efea46917a63b7148286789",
+    "docs/research/LAVENDER_ARCHITECTURE_REVIEW_20261006.md": "6ed8f8444de1c89b8fa79a6e5419c72dcf310bde8678d5e31796c752c7a2a8a2",
+    "docs/research/FRAGRANCE_KNOWLEDGE_EXPANSION_PLAN_20261006.md": "8eceec7f0175b969d76c172054db688b2808a2e211e54f61d7ef3cdecf347fd9",
+    "inventory.txt": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "AGENTS.md": "4a6788f04f592f8a86a4c854da7d8f343fdf7bc5f67cd812b718a36a8021985c"
+  },
+  "hash_scope": "Exact local bytes; linked publisher/brand source URLs are not represented as raw-page hashes. This receipt excludes its own hash to avoid circular hashing.",
+  "baseline_knowledge_pack_sha256": "b6c1439bc0ce7b92bd5a98f8609eba9b4689cbc5cf07f86319a51495055f281c",
+  "source_access_and_tools": {
+    "local_repository_first": true,
+    "primary_publishers_brand_pages_author_repositories": "selected current sources checked; abstract/section access limitations disclosed",
+    "plugin_management": "discovery completed; Scite available but not installed",
+    "consensus": "discovery only; findings checked against primary records",
+    "scispace": "two paper-discovery searches; primary article/erratum identity separately checked",
+    "github": "read-only fetch of baseline literature pack at exact pinned commit succeeded",
+    "motherduck": "authentication-retry response on initial attempt and requested retry; no usable data result; no remote read/write",
+    "elicit": "API access denied; no evidence obtained",
+    "deepseek_route": "read-only health check failed DAEMON_TRANSPORT; no packet transmitted",
+    "alternate_model_or_provider_used": false,
+    "corrected_source_watchlist": [
+      {
+        "doi": "10.1055/s-0035-1558095",
+        "erratum_doi": "10.1055/s-0035-1558195",
+        "status": "ERRATUM_IDENTIFIED_TEXT_UNAVAILABLE_NUMERICAL_RESULTS_NOT_ADMITTED"
+      }
+    ]
+  },
+  "verification": {
+    "baseline": {
+      "tests": 33,
+      "status": "PASS",
+      "elapsed_seconds": 5.45
+    },
+    "initial_focused_after_changes": {
+      "tests": 67,
+      "status": "PASS",
+      "elapsed_seconds": 4.13
+    },
+    "expanded_focused": {
+      "command": ".venv/Scripts/python.exe -X utf8 -m pytest tests/test_lavender_literature_knowledge.py tests/test_formulation_literature_knowledge.py tests/test_classical_family_resolution.py tests/test_formula_design_chat.py tests/test_goal_directed_analysis.py tests/test_formulation_intelligence_family_architecture.py tests/test_knowledge_rule_formula_scope.py -q -p no:cacheprovider",
+      "tests": 146,
+      "status": "PASS",
+      "elapsed_seconds": 54.66,
+      "warnings": 1,
+      "warning_scope": "Test scratch retained due to WinError 32 on runtime_rules.db; no failed test; no scratch deletion attempted"
+    },
+    "ruff_changed_python_files": "PASS",
+    "ast_parse_changed_python_files": "PASS",
+    "loader_schema_and_link_integrity": "PASS",
+    "preexisting_source_claim_profile_material_semantic_preservation": "PASS",
+    "focused_git_diff_check": "PASS",
+    "new_file_no_index_whitespace_checks": "No whitespace diagnostics; --no-index exits 1 because files differ from NUL",
+    "whole_worktree_git_diff_check": "Command exited 0 but reported permission-denied reads of unrelated tracked c10 temporary artifacts; not a clean complete-worktree verification claim",
+    "full_verifier_run": false,
+    "backend_suite_run": false,
+    "release_or_merge_readiness_claimed": false
+  },
+  "retrieval_performance": {
+    "scope": "Offline knowledge retrieval only; excludes whole formula execution, API/UI startup and empirical modeling",
+    "clock": "time.perf_counter",
+    "quantile_method": "nearest_rank",
+    "first_retrieval_after_import_ms": 58.61359999835258,
+    "distinct_prompts": 24,
+    "warm_calls": 240,
+    "warm_p50_ms": 10.813900000357535,
+    "warm_p95_ms": 20.760100000188686,
+    "warm_max_ms": 136.6931000011391,
+    "deterministic_results": true,
+    "network_used_by_retrieval": false,
+    "runtime": {
+      "python": "3.14.6",
+      "executable": "D:/chatbots/perfume-chem/.venv/Scripts/python.exe"
+    }
+  },
+  "remaining": [
+    "Historical and regional lavender census",
+    "Corrected full-text numerical evidence and licenses where unavailable",
+    "Source-bound amber, musk, floral, citrus and specialty subtype library",
+    "Generic construction compiler hard-constraint wiring beyond advisory retrieval",
+    "Licensed formula reproduction and applicable quantitative capability admission",
+    "Authorized experimental and blinded sensory validation"
+  ],
+  "next_priority": "K2: separate resinous amber, ambergris/ambroxide, high-impact amberwoods and musks, then wire recognizer/chassis/negative-space constraints"
+}

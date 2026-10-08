@@ -1,0 +1,274 @@
+{
+  "schema_version": "verification-repair-result-v1",
+  "captured_date": "2026-10-07",
+  "scope": "REPRODUCED_SOFTWARE_AND_VERIFICATION_FAILURES",
+  "status": "PASS_REPAIR_SCOPE",
+  "repository_root": "D:/chatbots/perfume-chem",
+  "branch": "master",
+  "head": "1ed79650313c23b1a2fe1c36c2e90a606c64833b",
+  "root_engine_shards": {
+    "passed": 5223,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 1,
+    "skip_reason": "test_paired_formulation_performance requires explicit timing acceptance opt-in",
+    "reports": [
+      {
+        "path": "output/verification_repair_engine-tests-truth-core_final_20261007.xml",
+        "tests": 936,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "time": 50.516,
+        "sha256": "e6f5dcc3e9f025b245d86973cbb5b221f27b07f6a51829df41b353694984ed3c"
+      },
+      {
+        "path": "output/verification_repair_engine-tests-data-knowledge_20261007.xml",
+        "tests": 253,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "time": 46.514,
+        "sha256": "8e726448350d2dda7e68c5fee5d07364a6b1ae3becb623de4388fce4a2dd1299"
+      },
+      {
+        "path": "output/verification_repair_engine-tests-gates-families_final_20261007.xml",
+        "tests": 661,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "time": 55.345,
+        "sha256": "7a4c77d618c3c8c1137d5f7d3d133f4d6bf185b1446730d129e9deb4904cd0a3"
+      },
+      {
+        "path": "output/verification_repair_engine-tests-legacy_20261007.xml",
+        "tests": 104,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "time": 15.317,
+        "sha256": "492a64565bae55a86a2baf1610f29bc2dc1ed193f9a2141f8ef4a7a550df3d95"
+      },
+      {
+        "path": "output/verification_repair_engine_additional_1_accepted_20261007.xml",
+        "passed": 1103,
+        "skipped": 0,
+        "sha256": "e8bf3b088d2213603a69e7b33a9f822783c3eb07d1574d92e87fc90079e18825"
+      },
+      {
+        "path": "output/verification_repair_engine_additional_2_accepted_20261007.xml",
+        "passed": 1205,
+        "skipped": 1,
+        "sha256": "fd817655fa7fecdf6a64c42a996571b5e2a8164507073ff667c836d4c1431189"
+      },
+      {
+        "path": "output/verification_repair_engine_additional_3_accepted_20261007.xml",
+        "passed": 961,
+        "skipped": 0,
+        "sha256": "ae3bc6e91b870d817b4f6e12a76b85e555e9ccf923d3984a96e7f5d4cef81d34"
+      }
+    ]
+  },
+  "focused_followthrough": {
+    "passed": 364,
+    "failed": 0,
+    "report": "output/verification_repair_remaining_final_20261007.xml",
+    "sha256": "06e2f700055c6907edae845069554bd18d9901839d8c63278c3b5c8546ca52a5",
+    "overlap_with_engine_shards": true
+  },
+  "backend": {
+    "full_suite_before_final_reference_index_successor": {
+      "passed": 892,
+      "failed": 0,
+      "errors": 0,
+      "report": "output/verification_repair_backend_20261007.xml",
+      "sha256": "e721f84400cd69e73b688b208420a434a557efe900efb684c38af9a7a3b0fa66"
+    },
+    "final_changed_surfaces": {
+      "passed": 62,
+      "failed": 0,
+      "errors": 0,
+      "report": "output/verification_repair_backend_jobs_accepted_20261007.xml",
+      "sha256": "928d637be89d5da6327d5de8cd98a05a6910dc3c7a778eb57bf39fef0f701bc2"
+    },
+    "lint": "PASS_BACKEND_APP",
+    "typecheck": "PASS_153_SOURCE_FILES",
+    "sandboxed_rerun": {
+      "status": "STOPPED_NOT_ACCEPTED",
+      "reason": "Stalled at isolated child execution; identical 62-test suite passed outside sandbox",
+      "scratch_retained": true,
+      "application_services_untouched": true
+    }
+  },
+  "quick_verifier": {
+    "passed": 10,
+    "failed": 0,
+    "skipped": 0,
+    "scope": "partial",
+    "report": "output/verification_repair_quick_final_20261007.json",
+    "sha256": "549d85fbbe5c23cd1241739bcbcaa94495c29c017f84bdd3924943743c59f260"
+  },
+  "root_static_checks": {
+    "scoped_ruff": "PASS",
+    "scoped_mypy": "PASS_5_SOURCE_FILES",
+    "compile": "PASS_QUICK_VERIFIER"
+  },
+  "git_diff_check": "PASS",
+  "runtime_versions": {
+    "engine_python": "3.14.6",
+    "backend_python": "3.11.15"
+  },
+  "inventory_sha256_unchanged": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+  "formula_doses_changed": false,
+  "live_inventory_changed": false,
+  "dirty_worktree_preserved": true,
+  "historical_replay": {
+    "state": "HOLD_ORIGINAL_SOURCE_BYTES_UNAVAILABLE",
+    "missing_versions": 9,
+    "review_path": "data/governance/historical_source_replay_review_20261007.json",
+    "original_receipts_rebound": false
+  },
+  "not_claimed": [
+    "CANONICAL_FULL_VERIFIER_RERUN",
+    "MERGE_READINESS",
+    "DOCKER_RUNTIME_SMOKE",
+    "PERFORMANCE_ACCEPTANCE",
+    "LIVE_OTLP_EXPORT",
+    "SCIENTIFIC_MODEL_PROMOTION",
+    "SENSORY_VALIDATION",
+    "SAFETY_OR_RELEASE_APPROVAL"
+  ],
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "source_pins": [
+    {
+      "path": "engine/tracing.py",
+      "sha256": "659ff7df4e164d425632cd00a5ba3b5a8df907f448faf6ae7621dd2d783e6a95",
+      "byte_count": 9664
+    },
+    {
+      "path": "engine/advisory_stock_strength.py",
+      "sha256": "b3d8a95375be548dfb36e51d22b64fb2547dfca34537fbeb412b9fd058c810ec",
+      "byte_count": 3224
+    },
+    {
+      "path": "engine/formula_analyzer.py",
+      "sha256": "fff0dc2bded306293d410f282a8bb4dd21fb1765c3746fb492a2dc03855c8168",
+      "byte_count": 56720
+    },
+    {
+      "path": "scripts/intervention_recommend.py",
+      "sha256": "e437beb2b5fc0d92c6c0119c3b35f067a9a38670142f2bfc21bbe02646a5a787",
+      "byte_count": 62017
+    },
+    {
+      "path": "scripts/score_collection_formulas.py",
+      "sha256": "d2d2db67ac6ed87fb3823d53489774f23c8296420c333d31017adcd33f32fbd4",
+      "byte_count": 27905
+    },
+    {
+      "path": "scripts/score_designer_prestige_18.py",
+      "sha256": "e081df344618b08b1e991340368cf6d4a4c5464dae1f349452f9c910f56bb33b",
+      "byte_count": 12191
+    },
+    {
+      "path": "scripts/verify_formula_workflow.py",
+      "sha256": "7f24c489ee712b79e9eecaa63baac25819aa03bad002308d632ece8678642a8b",
+      "byte_count": 128907
+    },
+    {
+      "path": "engine/perception/complexity_registry.py",
+      "sha256": "fbdf2d0d0431fd65fb7eed521c39fee5f1945dcfc4f227250d46d49a0488f3ac",
+      "byte_count": 17694
+    },
+    {
+      "path": "engine/perception/complexity_benchmark.py",
+      "sha256": "3eef79d4237c1ef5c92820351f84ee490d1e66b47c28ec5d74f648be52144ef2",
+      "byte_count": 58480
+    },
+    {
+      "path": "engine/scientific_validation/complexity_model_admission.py",
+      "sha256": "eedd0cd08dad77291ad1bba65f788a46080bc8ce324b768105850dfccb8d9183",
+      "byte_count": 23030
+    },
+    {
+      "path": "engine/formulation_intelligence/literature_knowledge.py",
+      "sha256": "abea3747d2953d145d66a120bbd9a4ad63800ac90c74a35f706edac82acb905b",
+      "byte_count": 23798
+    },
+    {
+      "path": "engine/project_verification.py",
+      "sha256": "aef99365221ad1fe1cbc311ce034774bac388144a69a9d6bedf570b3edaa6c2c",
+      "byte_count": 50061
+    },
+    {
+      "path": "scripts/integrate_external_data.py",
+      "sha256": "2e085c79a455cc320716ef2d6526b4c5328609188f20e12da43d97076a145714",
+      "byte_count": 10622
+    },
+    {
+      "path": "backend/app/services/engine_jobs.py",
+      "sha256": "b53bf6a44e041380d2d66974745abc6d329d01b615589b23a0c4d781dd339d6e",
+      "byte_count": 40617
+    },
+    {
+      "path": "data/formulation_knowledge/prior_research_corpus_v1.json",
+      "sha256": "d614d475e88b049a21747737842fe35e8ff40292c83c403b73ba69e1c554841a",
+      "byte_count": 118604
+    },
+    {
+      "path": "data/formulation_knowledge/prior_research_corpus_v2.json",
+      "sha256": "4023afd2c482bc795f84dfa7a359e4008b2bdb12300d3a74987a9d2eefea7759",
+      "byte_count": 120441
+    },
+    {
+      "path": "configs/complexity/complexity_module_registry_v1.json",
+      "sha256": "7567f3ca00ccbf3e1b2b41f50645ed21f4d163612872b8449db6cc022818c639",
+      "byte_count": 15166
+    },
+    {
+      "path": "configs/complexity/complexity_module_registry_v2.json",
+      "sha256": "71da6cd55c4e12d5560ba843ff96095eec7d065d457989ea6e16320337d37806",
+      "byte_count": 6729
+    },
+    {
+      "path": "configs/complexity/complexity_module_registry_v3.json",
+      "sha256": "3490b3a6dce249fcef125ac835279ff850b50ecc0bb89a8aaf1280aa82cc34a1",
+      "byte_count": 27052
+    },
+    {
+      "path": "data/governance/historical_source_replay_review_20261007.json",
+      "sha256": "200d38924e17d906a1344f702f077959b272c844fe1195f93d21585bd44ba50d",
+      "byte_count": 5828
+    },
+    {
+      "path": "inventory.txt",
+      "sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+      "byte_count": 35704
+    },
+    {
+      "path": "opencode.json",
+      "sha256": "a93bc0c3f89592346dfd38edb6f63f60748059c776151554c752e50a76ddec33",
+      "byte_count": 22368
+    },
+    {
+      "path": ".gitattributes",
+      "sha256": "4888ce50f33515888e915e453d0fe51626509d41a080cbb4035a5bc9e6674ca6",
+      "byte_count": 57998
+    },
+    {
+      "path": "tests/historical_snapshots.py",
+      "sha256": "0f99365524edecba7841b579b6632f99123a663db0b21d5f76012c07a558be45",
+      "byte_count": 8899
+    },
+    {
+      "path": "tests/fixtures/checkpoint_inventory_20260926.txt",
+      "sha256": "1b4324da5a35cebe8c59959e58276d84ac8f2f0e0e6f3239fdef0a4250d8df71",
+      "byte_count": 28251
+    }
+  ]
+}

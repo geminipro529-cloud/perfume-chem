@@ -2657,9 +2657,52 @@ def _batch_gate_v2(payload: dict[str, Any]) -> tuple[str, dict[str, Any], str]:
     return "SUCCEEDED", envelope, validation
 
 
+def _omission_comparison_plan_v2(payload: dict[str, Any]) -> tuple[str, dict[str, Any], str]:
+    from engine.research.controlled_omission import (
+        plan_controlled_omission,
+        verify_controlled_omission,
+    )
+    from engine.research.protocols import build_reference_anchored_protocol
+
+    inputs = {k: payload[k] for k in ("control_rows", "omit_stock_ids", "protected_stock_ids", "carrier_blanks")}
+    omission = plan_controlled_omission(**inputs)
+    ready = omission["state"] == "CONTROLLED_OMISSION_DESIGN_READY"
+    if not verify_controlled_omission(omission, **inputs):
+        raise ValueError("OMISSION_REPLAY_MISMATCH")
+    result: dict[str, Any] = {
+        "schema_version": "omission-comparison-handoff-v1", "goal": payload["goal"],
+        "omission_plan": omission, "protocol": None, "candidate_formula_sha256": {},
+        "formula_action": "PROPOSAL_ONLY" if ready else "NO_CHANGE",
+        "sensory_validation": "NOT_TESTED", "physical_execution_authorized": False,
+        "blinding_state": "PLANNING_ONLY_NOT_AN_EXECUTABLE_BLIND_SESSION",
+        "private_code_mapping_persisted": False,
+        "observations_created": False, "inventory_modified": False, "bottle_modified": False,
+    }
+    if ready:
+        hashes = {"control": omission["control_sha256"], "omission": stable_json_hash(omission["candidate_rows"])}
+        protocol_id = "omission-" + omission["plan_sha256"][:20]
+        sessions = [protocol_id + f"-session-{i + 1}" for i in range(1 if payload["mode"] == "QUICK_REFERENCE" else 3)]
+        protocol, _private_mapping = build_reference_anchored_protocol(
+            hashes, target_candidate_id="control", protocol_id=protocol_id, mode=payload["mode"],
+            session_ids=sessions, seed=payload["seed"], requested_descriptors=[payload["goal"]],
+        )
+        result.update(protocol=protocol, candidate_formula_sha256=hashes)
+    result["handoff_sha256"] = stable_json_hash(result)
+    validation = "ADVISORY_FINDINGS" if ready else (
+        "INVALID_INPUT" if omission["state"] == "INVALID_INPUT" else "WITHHOLD_UNKNOWN"
+    )
+    return ("SUCCEEDED" if ready else "WITHHELD"), _v2_envelope(
+        validation_state=validation, applicability_state="PARTIAL" if ready else "UNAVAILABLE",
+        result=result, missing_requirements=omission["reason_codes"],
+        findings=[{"code": "NO_PHYSICAL_OR_SENSORY_EXECUTION"}],
+    ), validation
+
+
 def _execute_v2_engine_job(
     job_type: str, payload: dict[str, Any]
 ) -> tuple[str, dict[str, Any], str]:
+    if job_type == "OMISSION_COMPARISON_PLAN":
+        return _omission_comparison_plan_v2(payload)
     if job_type == "FORMULA_DESIGN":
         return _formula_design_v2(payload)
     if job_type == "RELEASE_SIMULATION":

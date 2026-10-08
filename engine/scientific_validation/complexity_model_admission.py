@@ -293,7 +293,8 @@ class OAVGateBinding:
             raise TypeError("preflight_report must be a PreflightReport")
         if not isinstance(pre_mix_report, PreMixGuardReport):
             raise TypeError("pre_mix_report must be a PreMixGuardReport")
-        if oav_result.dose_receipt_sha256 is None:
+        dose_receipt_sha256 = oav_result.state.dose_receipt_sha256
+        if dose_receipt_sha256 is None:
             raise ValueError("native OAV result lacks a bound dose receipt")
         native_formula_sha256 = stable_formula_hash(
             oav_result.request.formula_name,
@@ -306,6 +307,7 @@ class OAVGateBinding:
             )
         checks = {item.name: item.status for item in preflight_report.checks}
         required_checks = {
+            "formula_dose_receipt",
             "quantitative_authority",
             "odt_authority",
             "natural_composite_coverage",
@@ -314,18 +316,28 @@ class OAVGateBinding:
         missing = sorted(required_checks - set(checks))
         if missing:
             raise ValueError("preflight report lacks checks: " + ", ".join(missing))
+        receipt_check = next(item for item in preflight_report.checks
+                             if item.name == "formula_dose_receipt")
+        receipt_is_bound = (
+            receipt_check.status == "PASS"
+            and receipt_check.data.get("receipt_sha256") == dose_receipt_sha256
+            and oav_result.state.dose_receipt_status == "BOUND"
+        )
         return cls(
             formula_sha256=formula_sha256,
-            dose_receipt_sha256=oav_result.dose_receipt_sha256,
+            dose_receipt_sha256=dose_receipt_sha256,
             oav_result_sha256=stable_json_hash(oav_result.as_dict()),
             quantitative_ppm_status=checks["quantitative_authority"],
             odt_authority_status=checks["odt_authority"],
             odt_coverage_status=str(oav_result.odt_coverage.get("status") or "MISSING"),
             natural_composite_coverage_status=checks["natural_composite_coverage"],
             headspace_scope_status=checks["headspace_scope"],
-            receipt_binding_status=oav_result.receipt_binding_status,
-            strict_oav_status=oav_result.strict_oav_status,
-            pre_mix_gate_status=pre_mix_report.gate_status,
+            receipt_binding_status=("BOUND_GATE_RECEIPT" if receipt_is_bound else "UNBOUND_OR_ABSTAINED"),
+            # The current native OAV request contains formula inputs, not an
+            # admitted measured delivered-air/threshold pair. Never promote a
+            # simulated screening result to the strict measurement endpoint.
+            strict_oav_status="ABSTAINED",
+            pre_mix_gate_status=pre_mix_report.status,
             planned_active_equivalence_status=planned_active_equivalence_status,
             formula_is_revision=formula_is_revision,
             parent_formula_sha256=parent_formula_sha256,

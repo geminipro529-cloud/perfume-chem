@@ -10,21 +10,22 @@ no Codex tokens — ChatGPT plan + a free tunnel.
 |---|---|---|
 | Filesystem MCP server | `tools/mcp-filesystem/server.mjs` | read_file / write_file / edit_file / list_dir / search_text / file_info, scoped to `D:\chatbots\perfume-chem` |
 | MCP SDK deps | `tools/mcp-filesystem/node_modules` | `@modelcontextprotocol/sdk` (installed) |
-| Tunnel profile | `%USERPROFILE%\.config\tunnel-client\perfume-chem-fs.yaml` | wires the MCP server into tunnel-client |
+| Tunnel profile | `tools/mcp-filesystem/perfume-chem-fs.yaml` | canonical project-scoped profile that wires the MCP server into tunnel-client |
 | Start script | `tools/mcp-filesystem/start_tunnel.ps1` | validates profile + starts detached daemon |
 | Check script | `tools/mcp-filesystem/check_tunnel.ps1` | healthz / readyz / doctor |
 | Local test harness | (temp) | verified all 6 tools + escape rejection end-to-end |
 
 Security model (tested): workspace-relative paths only; absolute paths and `..` escapes
-rejected; symlinks never followed; writes are exact-byte with SHA-256; optional read-only
-mode via `FS_MCP_READONLY=1`.
+rejected; the default root is pinned to this repository regardless of the launch directory;
+symlinks are never followed; writes are exact-byte with SHA-256; optional read-only mode via
+`FS_MCP_READONLY=1`.
 
 ## Step 1 — Create the Tunnel (you, in Platform settings)
 
 1. Open https://platform.openai.com/settings/organization/tunnels
 2. Create a tunnel (any name, e.g. `perfume-chem-fs`)
 3. Copy the **tunnel ID** (format `tunnel_<32 hex>`)
-4. Edit `%USERPROFILE%\.config\tunnel-client\perfume-chem-fs.yaml` and replace
+4. Edit `tools/mcp-filesystem/perfume-chem-fs.yaml` and replace
    `tunnel_00000000000000000000000000000000` with your real ID
 
 ## Step 2 — Create a Runtime API key (you)
@@ -73,4 +74,4 @@ Get-Process tunnel-client -ErrorAction SilentlyContinue | Stop-Process -Force
 - Want read-only guardrails → set `FS_MCP_READONLY: "1"` in the profile's mcp.command env.
 
 Sources: OpenAI Codex docs (Codex cloud / Remote / web surfaces), Secure MCP Tunnel guide
-(developers.openai.com/api/docs/guides/secure-mcp-tunnels), tunnel-client v0.0.11.
+(developers.openai.com/api/docs/guides/secure-mcp-tunnels), and the latest public tunnel-client release.

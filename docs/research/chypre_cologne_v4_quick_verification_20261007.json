@@ -1,0 +1,434 @@
+{
+  "schema_version": "architecture-v4-verification-environment-receipt-v1",
+  "scope": "NORMALIZED_CAPTURE_OF_ORIGINAL_QUICK_REPORT_PLUS_SEPARATE_TARGETED_RETEST",
+  "original_report": {
+    "passed": [
+      "engine-compile",
+      "engine-lint",
+      "engine-typecheck",
+      "formula-artifact-validation",
+      "scientific-audit",
+      "material-data-validation",
+      "knowledge-rule-validation",
+      "golden-formula-regression",
+      "golden-fixture-lock"
+    ],
+    "failed": [
+      "golden-api-regression"
+    ],
+    "skipped": [],
+    "known_legacy_limitations": [
+      "Full-engine Ruff cleanup remains legacy debt; the canonical truth-core slice is blocking.",
+      "Compatibility requests may omit the finished solvent matrix; strict mode requires it, and headspace remains modeled rather than measured.",
+      "Temporal evolution is heuristic and is not calibrated to skin or blotter measurements.",
+      "Longevity, sillage, receptor activation, and emotion outputs remain unsupported; preference fits remain UNKNOWN until held-out validation passes.",
+      "Composite natural OAV is olfactory headspace evidence, not regulatory constituent composition."
+    ],
+    "scientific_data_coverage": {
+      "odt_verification_counts": {
+        "PEER_CROSS": 1,
+        "PEER_SINGLE": 71,
+        "DERIVED": 91,
+        "PEER_EST": 14,
+        "UNVERIFIED": 108,
+        "UNKNOWN": 1,
+        "MULTI_SOURCE_LITERATURE": 14,
+        "UNAVAILABLE": 32
+      },
+      "science_coverage_pct": {
+        "mw": 23.487824037706204,
+        "logp": 17.203456402199528,
+        "vp_25c": 23.095051060487037,
+        "antoine": 0,
+        "dhvap": 0.15710919088766692,
+        "hsp": 0,
+        "odt_air": 8.012568735271014,
+        "or_targets": 0,
+        "ifra": 1.0997643362136684,
+        "hedonic": 10.683424980361352,
+        "trp": 3.927729772191673,
+        "smiles": 1.178318931657502,
+        "cas": 5.813040062843676
+      }
+    },
+    "golden_output_changes": {
+      "status": "unchanged",
+      "changed": false,
+      "expected_sha256": "9cf31e92d3c8e814f3bc2654ffba6f3fbd766de8c705630ae78fb5c24a1dfc61",
+      "actual_sha256": "9cf31e92d3c8e814f3bc2654ffba6f3fbd766de8c705630ae78fb5c24a1dfc61"
+    },
+    "docker_status": "SKIPPED",
+    "verification_scope": "partial",
+    "selected_checks": [
+      "engine-compile",
+      "engine-lint",
+      "engine-typecheck",
+      "formula-artifact-validation",
+      "scientific-audit",
+      "material-data-validation",
+      "knowledge-rule-validation",
+      "golden-formula-regression",
+      "golden-api-regression"
+    ],
+    "omitted_checks": [
+      "engine-tests-truth-core",
+      "engine-tests-data-knowledge",
+      "engine-tests-gates-families",
+      "engine-tests-legacy",
+      "engine-tests-additional",
+      "backend-lint",
+      "backend-typecheck",
+      "backend-tests",
+      "package-build",
+      "package-wheel-smoke",
+      "docker-build",
+      "docker-smoke-test"
+    ],
+    "completion_gate": "FAIL",
+    "release_readiness": {
+      "laboratory_beta_status": "blocked",
+      "scientific_release_status": "blocked",
+      "axes": {
+        "code": {
+          "status": "blocked",
+          "evidence": [],
+          "blockers": [
+            "Required code checks have failures or were not fully evaluated."
+          ]
+        },
+        "data": {
+          "status": "blocked",
+          "evidence": [],
+          "blockers": [
+            "Required data contracts are incomplete or failing."
+          ]
+        },
+        "validation": {
+          "status": "blocked",
+          "evidence": [],
+          "blockers": [
+            "Local validation has failures or was not fully evaluated.",
+            "Held-out sensory validation has not passed."
+          ]
+        },
+        "infrastructure": {
+          "status": "blocked",
+          "evidence": [],
+          "blockers": [
+            "Migration verification has not passed.",
+            "Backup and restore verification has not passed."
+          ]
+        }
+      },
+      "external_blockers": [
+        "held-out sensory validation is still required"
+      ],
+      "evidence": {
+        "classification": "EXACT",
+        "basis": "Boolean release gates reported independently by axis without score blending.",
+        "sources": [
+          "engine.release_readiness"
+        ],
+        "assumptions": [],
+        "limitations": [
+          "A ready gate means its declared checks passed; it does not expand their scientific scope."
+        ]
+      }
+    },
+    "checks": [
+      {
+        "name": "engine-compile",
+        "status": "PASS",
+        "required": true,
+        "command": [
+          "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe",
+          "-m",
+          "compileall",
+          "-q",
+          "engine"
+        ],
+        "duration_seconds": 5.143,
+        "stdout_tail": "",
+        "stderr_tail": "Failed to find real location of C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "reason": null
+      },
+      {
+        "name": "engine-lint",
+        "status": "PASS",
+        "required": true,
+        "command": [
+          "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\ruff.exe",
+          "check",
+          "--color",
+          "never",
+          "engine/workbench.py",
+          "engine/authority_gates.py",
+          "engine/bottle_addition.py",
+          "engine/calibration/hashing.py",
+          "engine/canonical_serialization.py",
+          "engine/physics/equilibrium.py",
+          "engine/physics/calibration_program.py",
+          "engine/physics/dynamic_release.py",
+          "engine/physics/natural_lots.py",
+          "tests/test_c7_natural_lots.py",
+          "engine/physics/headspace_oav.py",
+          "tests/test_c8_headspace_oav.py",
+          "engine/evidence/unsupported_science.py",
+          "engine/evidence/__init__.py",
+          "tests/test_c9_unsupported_science.py",
+          "engine/optimization/__init__.py",
+          "engine/optimization/contracts.py",
+          "engine/optimization/historical.py",
+          "engine/optimization/mixture_design.py",
+          "engine/optimization/selection.py",
+          "tests/test_c10_historical.py",
+          "tests/test_c10_mixture_design.py",
+          "tests/test_c10_selection.py",
+          "engine/scientific_validation",
+          "scripts/verify_d0_claim_matrix.py",
+          "tests/test_d0_claim_matrix.py",
+          "engine/intervention_hypotheses.py",
+          "engine/intervention_profiles.py",
+          "engine/intervention_trial.py",
+          "engine/interventions.py",
+          "engine/mixture.py",
+          "engine/preference.py",
+          "engine/provenance.py",
+          "engine/quantities.py",
+          "engine/release_readiness.py",
+          "engine/safety_assessment.py",
+          "engine/scientific_contract.py",
+          "engine/project_verification.py",
+          "engine/pipeline/formula_state.py",
+          "engine/pipeline/simulator.py",
+          "engine/domain_errors.py",
+          "engine/units/concentration.py",
+          "engine/target/formula.py",
+          "engine/reconstruction/anti_compression.py",
+          "engine/bottle/events.py",
+          "engine/inventory/operations.py",
+          "engine/analytical/ledger.py",
+          "engine/evidence/ledger.py",
+          "engine/safety/regulatory.py",
+          "engine/sensory/ledger.py",
+          "engine/versioning/formula_version.py",
+          "engine/reconstruction/rank_prior.py",
+          "engine/reconstruction/ensembles.py",
+          "engine/reconstruction/chassis.py",
+          "engine/reconstruction/recognizer.py",
+          "engine/inventory/stock_model.py",
+          "engine/identity/resolver.py",
+          "scripts/pipeline_audit.py",
+          "scripts/formula_release_gate.py",
+          "scripts/rebind_formula_artifact.py"
+        ],
+        "duration_seconds": 1.586,
+        "stdout_tail": "All checks passed!",
+        "stderr_tail": "",
+        "reason": null
+      },
+      {
+        "name": "engine-typecheck",
+        "status": "PASS",
+        "required": true,
+        "command": [
+          "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\mypy.exe",
+          "--explicit-package-bases",
+          "--follow-imports=skip",
+          "--ignore-missing-imports",
+          "engine/workbench.py",
+          "engine/authority_gates.py",
+          "engine/bottle_addition.py",
+          "engine/calibration/hashing.py",
+          "engine/canonical_serialization.py",
+          "engine/physics/equilibrium.py",
+          "engine/physics/calibration_program.py",
+          "engine/physics/dynamic_release.py",
+          "engine/physics/natural_lots.py",
+          "tests/test_c7_natural_lots.py",
+          "engine/physics/headspace_oav.py",
+          "tests/test_c8_headspace_oav.py",
+          "engine/evidence/unsupported_science.py",
+          "engine/evidence/__init__.py",
+          "tests/test_c9_unsupported_science.py",
+          "engine/optimization/__init__.py",
+          "engine/optimization/contracts.py",
+          "engine/optimization/historical.py",
+          "engine/optimization/mixture_design.py",
+          "engine/optimization/selection.py",
+          "tests/test_c10_historical.py",
+          "tests/test_c10_mixture_design.py",
+          "tests/test_c10_selection.py",
+          "engine/scientific_validation",
+          "scripts/verify_d0_claim_matrix.py",
+          "engine/intervention_hypotheses.py",
+          "engine/intervention_trial.py",
+          "engine/interventions.py",
+          "engine/mixture.py",
+          "engine/preference.py",
+          "engine/provenance.py",
+          "engine/quantities.py",
+          "engine/release_readiness.py",
+          "engine/safety_assessment.py",
+          "engine/scientific_contract.py",
+          "engine/project_verification.py",
+          "engine/domain_errors.py",
+          "engine/units/concentration.py",
+          "engine/target/formula.py",
+          "engine/reconstruction/anti_compression.py",
+          "engine/bottle/events.py",
+          "engine/inventory/operations.py",
+          "engine/analytical/ledger.py",
+          "engine/evidence/ledger.py",
+          "engine/safety/regulatory.py",
+          "engine/sensory/ledger.py",
+          "engine/versioning/formula_version.py",
+          "engine/reconstruction/rank_prior.py",
+          "engine/reconstruction/ensembles.py",
+          "engine/reconstruction/chassis.py",
+          "engine/reconstruction/recognizer.py",
+          "engine/inventory/stock_model.py",
+          "engine/identity/resolver.py"
+        ],
+        "duration_seconds": 16.597,
+        "stdout_tail": "Success: no issues found in 58 source files",
+        "stderr_tail": "Failed to find real location of C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "reason": null
+      },
+      {
+        "name": "formula-artifact-validation",
+        "status": "PASS",
+        "required": true,
+        "command": [
+          "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe",
+          "scripts/pipeline_audit.py",
+          "artifact-verify",
+          "--json"
+        ],
+        "duration_seconds": 39.556,
+        "stdout_tail": "      \"issues\": []\n    },\n    {\n      \"file\": \"formulas\\\\WM_Optimized_50mL_EDP.md\",\n      \"status\": \"NONE\",\n      \"issues\": []\n    },\n    {\n      \"file\": \"formulas\\\\Y_LHomme_Luxe_30mL_EDT.md\",\n      \"status\": \"QUARANTINED\",\n      \"artifact_binding_status\": \"STALE\",\n      \"issues\": [\n        \"formula_definition\",\n        \"inventory\",\n        \"scientific_inputs\",\n        \"pipeline_source\"\n      ],\n      \"integrity_issues\": [],\n      \"stale_issues\": [\n        \"formula_definition\",\n        \"inventory\",\n        \"scientific_inputs\",\n        \"pipeline_source\"\n      ],\n      \"artifact_sha256\": \"d75e25e0f81305062db3b56813a63e2220b380ed0762e91c65278678c33d0ac4\",\n      \"release_authority\": false,\n      \"quarantine_explicit\": true\n    }\n  ]\n}",
+        "stderr_tail": "Failed to find real location of C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "reason": null
+      },
+      {
+        "name": "scientific-audit",
+        "status": "PASS",
+        "required": true,
+        "command": [
+          "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe",
+          "-m",
+          "pytest",
+          "tests/test_scientific_contract.py",
+          "tests/test_science_audit.py",
+          "tests/test_oav_authority.py",
+          "tests/test_receptor_evidence_quarantine.py",
+          "-q"
+        ],
+        "duration_seconds": 27.927,
+        "stdout_tail": "...........................                                              [100%]\n27 passed in 16.55s",
+        "stderr_tail": "Failed to find real location of C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "reason": null
+      },
+      {
+        "name": "material-data-validation",
+        "status": "PASS",
+        "required": true,
+        "command": [
+          "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe",
+          "-m",
+          "pytest",
+          "tests/test_data_spine_loader.py",
+          "tests/test_inventory_material_additions.py",
+          "tests/test_property_estimator.py",
+          "-q"
+        ],
+        "duration_seconds": 15.402,
+        "stdout_tail": "........................................................................ [ 90%]\n........                                                                 [100%]\n80 passed in 4.88s",
+        "stderr_tail": "Failed to find real location of C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "reason": null
+      },
+      {
+        "name": "knowledge-rule-validation",
+        "status": "PASS",
+        "required": true,
+        "command": [
+          "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe",
+          "-m",
+          "pytest",
+          "tests/test_literature_rules_contract.py",
+          "tests/test_kb_migration.py",
+          "tests/test_kb_query.py",
+          "-q"
+        ],
+        "duration_seconds": 34.124,
+        "stdout_tail": "........................................................................ [ 93%]\n.....                                                                    [100%]\n77 passed in 27.31s",
+        "stderr_tail": "Failed to find real location of C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "reason": null
+      },
+      {
+        "name": "golden-formula-regression",
+        "status": "PASS",
+        "required": true,
+        "command": [
+          "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe",
+          "-m",
+          "pytest",
+          "tests/test_golden_formula_regression.py",
+          "-q"
+        ],
+        "duration_seconds": 14,
+        "stdout_tail": ".............                                                            [100%]\n13 passed in 3.94s",
+        "stderr_tail": "Failed to find real location of C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "reason": null
+      },
+      {
+        "name": "golden-api-regression",
+        "status": "FAIL",
+        "required": true,
+        "command": [
+          "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\poetry.exe",
+          "run",
+          "pytest",
+          "tests/integration/test_api_endpoints.py",
+          "-k",
+          "golden_explicit_solvent",
+          "-q"
+        ],
+        "duration_seconds": 59.7,
+        "stdout_tail": "",
+        "stderr_tail": "Failed to find real location of C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python314\\python.exe\nCreating virtualenv perfume-chem-api-m5yTrWGZ-py3.14 in C:\\Users\\ASUS\\AppData\\Local\\Packages\\sandbox.{48423d47-de95-4ba4-b0d0-2e751983ab7a}\\AC\\pypoetry\\Cache\\virtualenvs\nFailed to find real location of C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python314\\python.exe\nImportError while loading conftest 'D:\\chatbots\\perfume-chem\\backend\\tests\\conftest.py'.\ntests\\conftest.py:12: in <module>\n    import pytest_asyncio\nE   ModuleNotFoundError: No module named 'pytest_asyncio'\n\nFailed-check scratch retained at D:\\chatbots\\perfume-chem\\output\\verification-temp\\check-1kwv2ndc",
+        "reason": null
+      },
+      {
+        "name": "golden-fixture-lock",
+        "status": "PASS",
+        "required": true,
+        "command": [],
+        "duration_seconds": 0,
+        "stdout_tail": "",
+        "stderr_tail": "",
+        "reason": "Golden fixture SHA-256 matches its reviewed lock."
+      }
+    ]
+  },
+  "independent_api_retest": {
+    "interpreter": "C:/Users/ASUS/AppData/Local/pypoetry/Cache/virtualenvs/perfume-chem-api-m5yTrWGZ-py3.11/Scripts/python.exe",
+    "test_file": "backend/tests/integration/test_api_endpoints.py",
+    "selection": "golden_explicit_solvent",
+    "passed": 1,
+    "deselected": 18,
+    "seconds": 9.86,
+    "environment": "Approved out-of-sandbox disposable test database and in-process ASGI request; loopback needed for asyncio self-pipe",
+    "no_live_database_or_service_modified": true,
+    "original_quick_report_reclassified": false,
+    "diagnostic": "Default Poetry sandbox selected an incomplete Python 3.14 environment missing pytest_asyncio. In-sandbox direct 3.11 execution then stalled constructing the asyncio Windows proactor self-pipe. No production repair made for either environment issue."
+  },
+  "full_verifier_run": false,
+  "merge_or_release_readiness_claimed": false,
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

@@ -155,7 +155,13 @@ def test_optimizer_uses_only_executable_or_explicit_nominal_model_stocks() -> No
 
 
 def test_maple_lactone_is_removed_from_current_physical_inventory() -> None:
-    materialized = inventory.materialize_current_inventory()
+    # Characterize the immutable removal, not the later newly received stock.
+    base = inventory.materialize_current_inventory(apply_user_overlay=False)
+    materialized = inventory._apply_current_user_inventory_overlay(
+        base, inventory.load_current_user_inventory_overlay(
+            inventory.STOCK_FORMS_AND_TINCTURE_MODEL_USER_INVENTORY_OVERLAY_PATH,
+        ),
+    )
     assert not any(
         row.identity_name == "Maple Lactone" for row in materialized.stocks
     )
@@ -168,8 +174,7 @@ def test_maple_lactone_is_removed_from_current_physical_inventory() -> None:
     registry = load_registry()
     material = registry.get("Maple Lactone")
     assert material is not None
-    assert material.user_in_inventory is False
-    assert material.user_stock_dilution is None
+    assert material.user_in_inventory is True  # October purchase is separate.
 
 
 def test_unaffected_parallel_stocks_remain_available() -> None:
@@ -209,7 +214,9 @@ def test_current_successor_is_pinned_to_aimi_receipt_inventory_and_v17_predecess
         inventory_normalized
     ).hexdigest()
 
-    loaded = inventory.load_current_user_inventory_overlay()
+    loaded = inventory.load_current_user_inventory_overlay(
+        inventory.AIMI_IDENTITY_USER_INVENTORY_OVERLAY_PATH,
+    )
     assert loaded["schema_version"].endswith("_v18")
     assert len(loaded["delta_records"]) == 1
     assert loaded["superseded_record_ids"] == ["INV-USER-20260904-003"]
@@ -235,7 +242,7 @@ def test_evernyl_predecessor_remains_loadable_and_pinned() -> None:
 
 def test_current_successor_rejects_record_mutation() -> None:
     payload = json.loads(
-        inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8")
+        inventory.AIMI_IDENTITY_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8")
     )
     candidate = copy.deepcopy(payload)
     candidate["records"][0]["stock"]["carrier"] = "ethanol"
@@ -248,7 +255,10 @@ def test_current_successor_rejects_record_mutation() -> None:
 
 
 def test_current_inventory_counts_reflect_r5_stock_clarifications() -> None:
-    materialized = inventory.materialize_current_inventory()
+    base = inventory.materialize_current_inventory(apply_user_overlay=False)
+    materialized = inventory._apply_current_user_inventory_overlay(
+        base, inventory.load_current_user_inventory_overlay(inventory.AIMI_IDENTITY_USER_INVENTORY_OVERLAY_PATH),
+    )
     assert len(materialized.stocks) == 244
     assert sum(row.execution_ready for row in materialized.stocks) == 183
     assert sum(not row.execution_ready for row in materialized.stocks) == 61

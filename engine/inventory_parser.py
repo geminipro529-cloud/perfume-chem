@@ -17,6 +17,10 @@ from typing import Any, Mapping
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 INVENTORY_PATH = PROJECT_ROOT / "inventory.txt"
+USER_COMPOUNDING_HOLDS_PATH = (
+    PROJECT_ROOT / "data" / "governance" / "inventory_compounding_holds.json"
+)
+USER_COMPOUNDING_HOLD = "USER_COMPOUNDING_HOLD"
 CURRENT_INVENTORY_SNAPSHOT_PATH = (
     PROJECT_ROOT / "data" / "governance" / "inventory_v5_current_stock_snapshot.json"
 )
@@ -99,10 +103,18 @@ R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_PATH = (
     / "data/governance/"
     "inventory_user_authority_overlay_20260924_r5_remaining_stock_forms_v3.json"
 )
-CURRENT_USER_INVENTORY_OVERLAY_PATH = (
+AIMI_IDENTITY_USER_INVENTORY_OVERLAY_PATH = (
     PROJECT_ROOT
     / "data/governance/"
     "inventory_user_authority_overlay_20260930_aimi_identity.json"
+)
+CURRENT_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT
+    / "data/governance/inventory_user_authority_overlay_20261007_pw_received.json"
+)
+PW_RECEIVED_INVENTORY_RECEIPT_PATH = (
+    PROJECT_ROOT
+    / "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
 )
 CURRENT_INVENTORY_WORKBOOK_SHA256 = (
     "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331"
@@ -152,7 +164,9 @@ METHYL_PAMPLEMOUSSE_10WW_ETHANOL_USER_INVENTORY_OVERLAY_SHA256 = "d0ee1d77b01515
 R5_STOCK_CLARIFICATIONS_USER_INVENTORY_OVERLAY_SHA256 = "3f4ef634e2bd299a8463559364a03a7805b1198e14396567dce3e7f8caaf4df5"
 R5_STOCK_CLARIFICATIONS_V2_USER_INVENTORY_OVERLAY_SHA256 = "9a10cd2f99af1c960a77bd0a7270c25daa24657b790707ecb76c365898b747df"
 R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_SHA256 = "0bccf890ee05487b20daca94d02c65103c2a22ed4c6435ba8cb311cd041575fb"
-CURRENT_USER_INVENTORY_OVERLAY_SHA256 = "582acaf38382b95252dcc67f01b21a2b56b96ae418c31bda1cef3d355f419ad8"
+AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256 = "582acaf38382b95252dcc67f01b21a2b56b96ae418c31bda1cef3d355f419ad8"
+CURRENT_USER_INVENTORY_OVERLAY_SHA256 = "180e2823200162a4eaa2975aa4eef9403ad10fec33f2caa1d48a83409c9d7eac"
+PW_RECEIVED_INVENTORY_RECEIPT_SHA256 = "089c930e044b55e434c0e0438ee7b2c20f48d871f00a219a7237a932419fbc9a"
 ROMANDOLIDE_DEPLETION_CONFIRMATION_SHA256 = "5b94ac7cf95a0ee0bb4fc0754a97bda4b0be5aae910c13c7fc4557317f823ade"
 FLORHYDRAL_ADDITION_CONFIRMATION_SHA256 = "ff481e5e993f749ce6a5ee0dd8a9606b698c03a17caeac86d1c3adf85065389d"
 ROMANDOLIDE_RESTOCK_CONFIRMATION_SHA256 = "42409d0d5420dd66eee3ae845fa2fc6ba701a2f72b9d53f44cda1a1beaabe53b"
@@ -300,6 +314,84 @@ class CurrentInventoryAliasCrosswalk:
 
 class InventoryAuthorityError(ValueError):
     """Raised when the executable inventory authority is absent or drifts."""
+
+
+def is_user_compounding_held(stock: InventoryMaterial) -> bool:
+    return USER_COMPOUNDING_HOLD in stock.execution_hold_reason.split("|")
+
+
+def load_user_compounding_holds() -> tuple[frozenset[str], str]:
+    """Load exact product-label exclusions; missing/malformed policy fails closed."""
+    try:
+        raw = USER_COMPOUNDING_HOLDS_PATH.read_bytes()
+        payload = json.loads(raw)
+    except (OSError, ValueError, UnicodeError) as error:
+        raise InventoryAuthorityError("user compounding hold policy is unavailable") from error
+    flags = {
+        "release_authority", "safety_authority", "compounding_authority",
+        "evidence_admission_authorized",
+    }
+    if (
+        not isinstance(payload, dict)
+        or set(payload) != {"schema_version", "effective_date", "source", "records", *flags}
+        or payload["schema_version"] != "perfume-chem-user-compounding-holds-v1"
+        or not isinstance(payload["effective_date"], str)
+        or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", payload["effective_date"])
+        or any(payload[flag] is not False for flag in flags)
+        or not isinstance(payload["source"], dict)
+        or set(payload["source"]) != {"kind", "request"}
+        or payload["source"]["kind"] != "DIRECT_USER_TEMPORARY_COMPOUNDING_EXCLUSION"
+        or not isinstance(payload["source"]["request"], str)
+        or not payload["source"]["request"].strip()
+        or not isinstance(payload["records"], list)
+    ):
+        raise InventoryAuthorityError("user compounding hold policy is invalid")
+    names: dict[str, str] = {}
+    fields = {
+        "record_id", "identity_name", "supplier_name", "supplier_sku",
+        "state", "reason", "clearance",
+    }
+    for record in payload["records"]:
+        if (
+            not isinstance(record, dict)
+            or set(record) != fields
+            or any(not isinstance(value, str) or not value.strip() for value in record.values())
+            or record["state"] != "ACTIVE"
+            or record["clearance"] != "EXPLICIT_USER_CLEARANCE_REQUIRED"
+        ):
+            raise InventoryAuthorityError("user compounding hold record is invalid")
+        key = record["identity_name"].strip().casefold()
+        if key in names:
+            raise InventoryAuthorityError("user compounding hold identity is duplicated")
+        names[key] = record["identity_name"].strip()
+    return frozenset(names.values()), hashlib.sha256(raw).hexdigest()
+
+
+def apply_user_compounding_holds(
+    stocks: tuple[InventoryMaterial, ...],
+) -> tuple[tuple[InventoryMaterial, ...], str]:
+    """Restrict eligibility without changing stock truth or historical receipts.
+
+    These are exact product-label exclusions, not chemical-family or CAS aliases.
+    Apply after stock-detail completions: they cannot clear an exclusion.
+    """
+    labels, digest = load_user_compounding_holds()
+    names = {label.casefold() for label in labels}
+    held_stocks = tuple(
+        replace(
+            stock,
+            execution_ready=False,
+            execution_hold_reason="|".join(dict.fromkeys(
+                [USER_COMPOUNDING_HOLD, *filter(None, stock.execution_hold_reason.split("|"))]
+            )),
+            design_ready=False,
+            design_hold_reason=USER_COMPOUNDING_HOLD,
+        )
+        if (stock.identity_name or stock.name).strip().casefold() in names
+        else stock
+        for stock in stocks
+    )
+    return held_stocks, digest
 
 
 @dataclass(frozen=True)
@@ -4291,7 +4383,7 @@ def _load_20260930_aimi_identity_successor(
             "data/governance/"
             "inventory_user_authority_overlay_20260930_aimi_identity.json"
         ),
-        "sha256": CURRENT_USER_INVENTORY_OVERLAY_SHA256,
+        "sha256": AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256,
     }
     for record in records:
         origins[str(record["record_id"])] = dict(origin)
@@ -4306,6 +4398,91 @@ def _load_20260930_aimi_identity_successor(
         "retired_records": [
             *previous.get("retired_records", []),
             *(previous_by_id[record_id] for record_id in expected_superseded),
+        ],
+    }
+
+
+def _load_20261007_pw_received_successor(
+    successor: Mapping[str, Any],
+    *,
+    require_live_inventory_binding: bool = True,
+) -> dict[str, Any]:
+    """Bind the received order while retaining predecessor stock identities."""
+
+    encoded = (json.dumps(dict(successor), ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    if hashlib.sha256(encoded).hexdigest() != CURRENT_USER_INVENTORY_OVERLAY_SHA256:
+        raise InventoryAuthorityError("PW received successor exact metadata drift")
+    source = successor["source"]
+    if require_live_inventory_binding and (
+        len(_normalized_text_bytes(INVENTORY_PATH)) != source["inventory_text_size_bytes"]
+        or _normalized_text_sha256(INVENTORY_PATH) != source["inventory_text_sha256"]
+    ):
+        raise InventoryAuthorityError("PW received successor is not bound to live inventory text")
+    receipt_path = PW_RECEIVED_INVENTORY_RECEIPT_PATH
+    if not receipt_path.is_file() or _file_sha256(receipt_path) != PW_RECEIVED_INVENTORY_RECEIPT_SHA256:
+        raise InventoryAuthorityError("PW received inventory receipt drift")
+    try:
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise InventoryAuthorityError("PW received inventory receipt is unreadable") from exc
+    receipt_rows = {row["line"]: row for row in receipt["records"]}
+    if (
+        len(receipt_rows) != 53
+        or receipt["authority"]["ownership_confirmed"] is not True
+        or receipt["authority"]["quantity_unit_confirmed"] != "g"
+        or sum(int(row["received_quantity_g"]) for row in receipt_rows.values()) != 133
+    ):
+        raise InventoryAuthorityError("PW received inventory confirmation drift")
+    records = successor["records"]
+    for record in records:
+        row = receipt_rows[record["receipt_line"]]
+        stock = record["stock"]
+        if (
+            record["canonical_name"] != row["inventory_identity"]
+            or record["supplier_product"]["sku"] != row["supplier_sku"]
+            or record["received_quantity_g"] != row["received_quantity_g"]
+            or stock["fraction"] != float(row["stock_fraction_decimal"])
+            or stock["fraction_basis"] != row["fraction_basis"]
+            or stock["carrier"].casefold() != row["carrier"].casefold()
+            or stock["execution_ready"] is not False
+        ):
+            raise InventoryAuthorityError("PW received stock disagrees with source receipt")
+    predecessor_path = AIMI_IDENTITY_USER_INVENTORY_OVERLAY_PATH
+    if _normalized_text_sha256(predecessor_path) != AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256:
+        raise InventoryAuthorityError("PW received inventory predecessor drift")
+    previous = _load_20260930_aimi_identity_successor(
+        json.loads(predecessor_path.read_text(encoding="utf-8")),
+        require_live_inventory_binding=False,
+    )
+    superseded = set(successor["superseded_record_ids"])
+    previous_by_id = {record["record_id"]: record for record in previous["records"]}
+    if not superseded.issubset(previous_by_id):
+        raise InventoryAuthorityError("PW received inventory superseded record missing")
+    origins = {
+        key: dict(value)
+        for key, value in previous["record_origins"].items()
+        if key not in superseded
+    }
+    origin = {
+        "path": CURRENT_USER_INVENTORY_OVERLAY_PATH.relative_to(PROJECT_ROOT).as_posix(),
+        "sha256": CURRENT_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    for record in records:
+        origins[record["record_id"]] = dict(origin)
+    return {
+        **dict(successor),
+        "parent": dict(previous["parent"]),
+        "base_policy": dict(previous["base_policy"]),
+        "policy": {**dict(previous["policy"]), **dict(successor["policy"])},
+        "delta_records": records,
+        "records": [
+            *(record for record in previous["records"] if record["record_id"] not in superseded),
+            *records,
+        ],
+        "record_origins": origins,
+        "retired_records": [
+            *previous.get("retired_records", []),
+            *(previous_by_id[record_id] for record_id in sorted(superseded)),
         ],
     }
 
@@ -4354,6 +4531,7 @@ def load_current_user_inventory_overlay(
         R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_PATH.resolve(): (
             R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_SHA256
         ),
+        AIMI_IDENTITY_USER_INVENTORY_OVERLAY_PATH.resolve(): AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256,
         CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve(): CURRENT_USER_INVENTORY_OVERLAY_SHA256,
     }
     expected_overlay_sha = pinned_overlays.get(overlay_path.resolve(), CURRENT_USER_INVENTORY_OVERLAY_SHA256)
@@ -4369,6 +4547,13 @@ def load_current_user_inventory_overlay(
             f"current user inventory overlay is unreadable: {exc}"
         ) from exc
 
+    if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v19":
+        return _load_20261007_pw_received_successor(
+            payload,
+            require_live_inventory_binding=(
+                overlay_path.resolve() == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
+            ),
+        )
     if (
         payload.get("schema_version")
         == "perfume_chem_user_inventory_authority_successor_overlay_v18"
@@ -4978,7 +5163,9 @@ def _apply_current_user_inventory_overlay(
                 identity_name=_v5_identity_name(canonical_name),
                 stock_id=f"inventory:user-{authority_date}:{stock_digest}",
                 authority=(
-                    AIMI_IDENTITY_USER_INVENTORY_AUTHORITY
+                    "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261007"
+                    if authority_date == "20261007"
+                    else AIMI_IDENTITY_USER_INVENTORY_AUTHORITY
                     if authority_date == "20260930"
                     else R5_STOCK_CLARIFICATIONS_USER_INVENTORY_AUTHORITY
                     if authority_date == "20260924"
@@ -5166,6 +5353,15 @@ def _materialize_current_inventory_uncached(
                 )
             ).hexdigest(),
         )
+    if apply_user_overlay:
+        stocks, hold_sha = apply_user_compounding_holds(materialized.stocks)
+        materialized = replace(
+            materialized,
+            stocks=stocks,
+            effective_inventory_sha256=hashlib.sha256(
+                f"{materialized.effective_inventory_sha256}|{hold_sha}".encode("utf-8")
+            ).hexdigest(),
+        )
     return materialized
 
 
@@ -5188,7 +5384,9 @@ _USER_OVERLAY_CHAIN_PATHS = (
     R5_STOCK_CLARIFICATIONS_USER_INVENTORY_OVERLAY_PATH,
     R5_STOCK_CLARIFICATIONS_V2_USER_INVENTORY_OVERLAY_PATH,
     R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_PATH,
+    AIMI_IDENTITY_USER_INVENTORY_OVERLAY_PATH,
     CURRENT_USER_INVENTORY_OVERLAY_PATH,
+    PW_RECEIVED_INVENTORY_RECEIPT_PATH,
 )
 
 
@@ -5200,7 +5398,7 @@ def _inventory_materialization_fingerprint(
 ) -> tuple[tuple[str, int, int], ...]:
     paths = [snapshot_path]
     if apply_user_overlay:
-        paths.extend((*_USER_OVERLAY_CHAIN_PATHS, INVENTORY_PATH))
+        paths.extend((*_USER_OVERLAY_CHAIN_PATHS, INVENTORY_PATH, USER_COMPOUNDING_HOLDS_PATH))
     if apply_user_completions:
         from engine.inventory_completions import completion_log_path
 
@@ -5398,6 +5596,7 @@ def parse_inventory(
             continue
         materials.append(record)
 
+    materials = list(apply_user_compounding_holds(tuple(materials))[0])
     if not unique:
         return materials
 

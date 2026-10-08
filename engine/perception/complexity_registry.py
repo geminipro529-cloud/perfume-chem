@@ -183,6 +183,46 @@ def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
     payload = json.loads(raw.decode("utf-8"))
     if not isinstance(payload, dict):
         raise ValueError("complexity registry must be a JSON object")
+    registry_schema = payload.get("schema_version")
+    if registry_schema == "complexity_module_registry_v2":
+        if set(payload) != {"schema_version", "base_registry", "module_overrides", "module_additions"}:
+            raise ValueError("complexity registry overlay top-level keys are closed")
+        if payload["base_registry"] != "complexity_module_registry_v1.json":
+            raise ValueError("complexity registry overlay requires its exact v1 predecessor")
+        base = load_complexity_registry(project_root, registry_path.with_name(payload["base_registry"]))
+        rows = []
+        for module in base.modules:
+            row = module.as_dict()
+            row.pop("runtime_eligible")
+            rows.append(row)
+        overrides = payload["module_overrides"]
+        additions = payload["module_additions"]
+        if not isinstance(overrides, list) or not isinstance(additions, list):
+            raise ValueError("complexity registry overlay rows must be lists")
+        seen_overrides: set[str] = set()
+        for override in overrides:
+            if not isinstance(override, dict) or set(override) != {"module_id", "state", "import_path", "notes"}:
+                raise ValueError("complexity registry override keys are closed")
+            module_id = _nonblank(override["module_id"], "module_id")
+            matches = [row for row in rows if row["module_id"] == module_id]
+            if len(matches) != 1 or module_id in seen_overrides:
+                raise ValueError("complexity registry override must identify one existing module")
+            seen_overrides.add(module_id)
+            if override["state"] in _RUNTIME_STATES or override["import_path"] is not None:
+                raise ValueError("complexity registry overlay cannot grant runtime authority")
+            matches[0]["state"] = override["state"]
+            matches[0]["import_path"] = None
+            matches[0]["notes"] += list(_string_tuple(override["notes"], "notes"))
+        for addition in additions:
+            if not isinstance(addition, dict) or addition.get("state") in _RUNTIME_STATES or addition.get("import_path") is not None:
+                raise ValueError("complexity registry additions cannot grant runtime authority")
+        payload = {
+            "schema_version": "complexity_module_registry_v1",
+            "discovery": {key: list(values) for key, values in base.discovery.items()},
+            "modules": rows + additions,
+            "artifact_rules": list(base.artifact_rules),
+            "dismissal_rules": list(base.dismissal_rules),
+        }
     required = {
         "schema_version",
         "discovery",
@@ -283,7 +323,7 @@ def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
         "metadata_keys": metadata_keys,
     }
     return ComplexityRegistry(
-        schema_version=payload["schema_version"],
+        schema_version=str(registry_schema),
         discovery=normalized_discovery,
         modules=tuple(modules),
         artifact_rules=artifact_rules,
@@ -356,10 +396,10 @@ def census_complexity_artifacts(
     unclassified: list[str] = []
     multiply_classified: list[str] = []
     for relative in sorted(discovered, key=str.casefold):
-        module = module_paths.get(relative.casefold())
-        if module is not None:
+        listed_module = module_paths.get(relative.casefold())
+        if listed_module is not None:
             findings.append(
-                CensusFinding(relative, module.state.value, f"module:{module.module_id}")
+                CensusFinding(relative, listed_module.state.value, f"module:{listed_module.module_id}")
             )
             continue
         matches: list[tuple[str, str]] = []

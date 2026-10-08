@@ -120,13 +120,9 @@ def _slugify(value: str) -> str:
 
 
 def _parse_dilution(raw: str) -> float:
-    raw = raw.strip().lower()
-    if raw in ("", "neat", "pure"):
-        return 1.0
-    match = re.match(r"(\d+(?:\.\d+)?)\s*%", raw)
-    if match:
-        return float(match.group(1)) / 100.0
-    return 1.0
+    from engine.advisory_stock_strength import declared_stock_fraction
+
+    return declared_stock_fraction(raw)
 
 
 def _serialize_recommendation(rec: object) -> dict:
@@ -1419,9 +1415,15 @@ def build_verification_bundle(
     *,
     include_advisory_recommendations: bool = False,
 ) -> dict:
+    from engine.advisory_stock_strength import validated_advisory_dilutions
+
+    dilutions = validated_advisory_dilutions(
+        formula["ingredients_pct"], formula.get("dilutions", {}),
+        stock_specs=formula.get("stock_specs"), context="advisory scoring",
+    )
     fv = FormulaVector(
         ingredients=dict(formula["ingredients_pct"]),
-        dilutions=dict(formula["dilutions"]),
+        dilutions=dilutions,
     )
 
     _install_formula_vector_compatibility()

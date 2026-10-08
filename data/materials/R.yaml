@@ -410,8 +410,10 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: 1  # Product label fraction; exact basis/forms in receipt.
+  user_in_inventory: true
+  # Received-stock authority: data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json; line(s) 35.
+  # Existing working dilutions remain separate inventory rows; no purity assay inferred.
   supplier:
     perfumersworld_sku: 3FL06757
     perfumersworld_price_usd_per_g: 1.9
@@ -523,8 +525,10 @@
   trp_targets: null
   hedonic_valence: 0.68
   ifra_max_pct_edp: null
-  user_stock_dilution: 1.0
+  user_stock_dilution: 1  # Product label fraction; exact basis/forms in receipt.
   user_in_inventory: true
+  # Received-stock authority: data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json; line(s) 4.
+  # Existing working dilutions remain separate inventory rows; no purity assay inferred.
   supplier:
     perfumersworld_sku: 3XU22379
     perfumersworld_price_usd_per_g: 0.3
@@ -983,8 +987,10 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: 0.1  # Product label fraction; exact basis/forms in receipt.
+  user_in_inventory: true
+  # Received-stock authority: data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json; line(s) 27.
+  # Existing working dilutions remain separate inventory rows; no purity assay inferred.
   supplier:
     perfumersworld_sku: 7RB00900
     perfumersworld_price_usd_per_g: 40.02

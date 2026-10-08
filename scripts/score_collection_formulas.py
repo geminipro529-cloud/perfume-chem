@@ -37,6 +37,7 @@ from typing import Iterable
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from engine.advisory_stock_strength import declared_stock_fraction
 from engine.ifra_safety import score_ifra_compliance
 from engine.inventory_parser import InventoryMaterial, parse_inventory
 from engine.material_resolver import unknown_materials
@@ -96,13 +97,7 @@ class FormulaRecord:
 
 def parse_dilution(value: str) -> float:
     """Convert a markdown dilution cell into an active-stock factor."""
-    value = (value or "").strip().lower().replace("**", "")
-    if value in ("", "-", "--", "---", "neat"):
-        return 1.0
-    match = re.search(r"(\d+(?:\.\d+)?)\s*%", value)
-    if match:
-        return float(match.group(1)) / 100.0
-    return 1.0
+    return declared_stock_fraction(value)
 
 
 def clean_material(name: str) -> str:
@@ -168,6 +163,8 @@ def parse_formula_table(body: str) -> tuple[dict[str, float], dict[str, float], 
         if is_formula_header(cells):
             material_col = _column(cells, lambda c: "material" in c)
             dilution_col = _column(cells, lambda c: "dilution" in c)
+            if dilution_col < 0:
+                raise ValueError("Formula requires an explicit dilution column")
             ul_col = _column(cells, lambda c: c == "ul" or "µl" in c)
             in_table = True
             continue
@@ -191,7 +188,7 @@ def parse_formula_table(body: str) -> tuple[dict[str, float], dict[str, float], 
         if not material or material in ("-", "--", "---"):
             continue
 
-        dilution_raw = cells[dilution_col] if 0 <= dilution_col < len(cells) else "neat"
+        dilution_raw = cells[dilution_col] if 0 <= dilution_col < len(cells) else ""
         dilution = parse_dilution(dilution_raw)
         if material in ingredients_ul:
             old_ul = ingredients_ul[material]
@@ -281,6 +278,8 @@ def parse_additions(additions_path: Path) -> dict[int, dict[str, object]]:
             if is_addition_header(cells):
                 add_col = _column(cells, lambda c: "addition" in c)
                 dilution_col = _column(cells, lambda c: "dilution" in c)
+                if dilution_col < 0:
+                    raise ValueError("Additions require an explicit dilution column")
                 ul_col = _column(cells, lambda c: c == "ul" or "µl" in c)
                 axis_col = _column(cells, lambda c: "axis" in c)
                 in_table = True
@@ -297,7 +296,7 @@ def parse_additions(additions_path: Path) -> dict[int, dict[str, object]]:
             additions.append(
                 {
                     "material": material,
-                    "dilution": parse_dilution(cells[dilution_col]) if 0 <= dilution_col < len(cells) else 1.0,
+                    "dilution": parse_dilution(cells[dilution_col]) if 0 <= dilution_col < len(cells) else parse_dilution(""),
                     "ul": ul,
                     "axis": cells[axis_col].replace("**", "").strip() if 0 <= axis_col < len(cells) else "",
                 }

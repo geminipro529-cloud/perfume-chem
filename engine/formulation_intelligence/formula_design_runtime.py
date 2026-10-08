@@ -2,10 +2,17 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 import re
+from dataclasses import asdict
 from decimal import Decimal, InvalidOperation
 from typing import Any, Literal, Sequence
 
+from engine.formulation_intelligence.architecture_bridge import (
+    derive_architecture_briefs,
+    role_plan_signature,
+)
 from engine.formulation_intelligence.formula_critic import critique_formula
 from engine.formulation_intelligence.formula_solver import FormulaSolveResult, solve_formula
 from engine.formulation_intelligence.literature_knowledge import retrieve_formulation_knowledge
@@ -222,12 +229,55 @@ def _formula_payload(solve: FormulaSolveResult, role_count: int) -> dict[str, An
         "active_mass_basis_state": "PARTIAL_OR_WITHHELD_PER_ROW",
         "exact_active_mass_established": False,
         "request_alignment_decimal": format(Decimal(str(round(coverage, 6))), "f"),
+        "request_alignment_basis": "STRUCTURAL_ROLE_COVERAGE_ONLY_NOT_SENSORY_ACCURACY",
         "basis_state": (
             "SEPARATE_LIQUID_AND_SOLID_TOTALS"
             if int(solve.separate_totals.get("mass_total_mg", "0")) > 0
             else "LIQUID_STOCK_VOLUME_ONLY"
         ),
     }
+
+
+def _stock_dose_signature(formula: dict[str, Any]) -> str | None:
+    """Exact stock-dose equivalence only; not active mass or sensory sameness.
+
+    Independent of role labels and row splitting. Invalid rows cannot suppress
+    another candidate. The external diagnostic separately verifies conservation.
+    """
+    def digest(value: Any) -> str:
+        return hashlib.sha256(json.dumps(
+            value, sort_keys=True, ensure_ascii=False, separators=(",", ":"),
+            allow_nan=False,
+        ).encode()).hexdigest()
+
+    try:
+        identities: dict[str, dict[str, Any]] = {}
+        amounts: dict[str, Decimal] = {}
+        if not formula["rows"]:
+            return None
+        for row in formula["rows"]:
+            amount, fraction = (Decimal(row[k]) if isinstance(row[k], str) else Decimal("NaN")
+                                for k in ("amount_decimal", "stock_fraction_decimal"))
+            if not amount.is_finite() or amount <= 0 or not fraction.is_finite() or not 0 < fraction <= 1:
+                return None
+            identity = {k: row[k] for k in (
+                "stock_id", "identity_name", "fraction_basis", "carrier", "amount_unit", "operation",
+            )}
+            if not all(isinstance(identity[k], str) and identity[k] for k in (
+                "stock_id", "identity_name", "fraction_basis",
+            )) or (identity["amount_unit"], identity["operation"]) not in {
+                ("uL", "DIRECT_ADD"), ("uL", "PREPARED_DILUTION_REQUIRED"), ("mg", "MASS_ADD"),
+            }:
+                return None
+            identity["stock_fraction_decimal"] = format(fraction.normalize(), "f")
+            key = digest(identity)
+            identities[key] = identity
+            amounts[key] = amounts.get(key, Decimal(0)) + amount
+        return digest(sorted(({
+            **identities[key], "amount_decimal": format(amount.normalize(), "f"),
+        } for key, amount in amounts.items()), key=digest))
+    except (ValueError, TypeError, KeyError, InvalidOperation):
+        return None
 
 
 def _dynamic_report(
@@ -243,8 +293,30 @@ def _dynamic_report(
     index: Any,
     solves: Sequence[FormulaSolveResult],
     appeal_mode: str,
+    variant_briefs: Sequence[SemanticBrief] | None = None,
+    architecture_planning: dict[str, Any] | None = None,
+    previous_stock_ids: Sequence[str] = (),
 ) -> dict[str, Any]:
-    successful = [solve for solve in solves if solve.rows]
+    paired = list(zip(variant_briefs or [brief] * len(solves), solves, strict=True))
+    successful = [(candidate, solve) for candidate, solve in paired if solve.rows]
+    attempts = [{
+        "variant_id": solve.variant_id, "state": solve.status,
+        "role_count": len(candidate.roles),
+        "role_plan_sha256": role_plan_signature(candidate.roles),
+        "architecture": candidate.architecture_plan or {"kind": "UNCHANGED_CONTROL_OR_STOCK_ALTERNATIVE"},
+        "missing_roles": list(solve.missing_roles), "holds": list(solve.holds),
+        "assigned_role_ids": [assignment.role.role_id for assignment in solve.assignments],
+        "assignment_bindings": [{"role_id": a.role.role_id, "stock_id": a.capability.stock_id}
+                                for a in solve.assignments],
+        "solver": solve.solver_receipt,
+    } for candidate, solve in paired]
+    execution_inputs = {
+        "schema_version": "architecture-execution-inputs-v1",
+        "liquid_total_ul_decimal": str(liquid_total_ul),
+        "explicit_quantities": list(interpretation.get("explicit_quantities", ())),
+        "previous_stock_ids": list(previous_stock_ids),
+        "effective_inventory_sha256": index.effective_inventory_sha256,
+    }
     if not successful:
         reason_codes = sorted(
             {
@@ -270,6 +342,9 @@ def _dynamic_report(
             "initial_formula": None,
             "optimized_formula": None,
             "design_variants": [],
+            "architecture_planning": architecture_planning,
+            "architecture_attempts": attempts,
+            "architecture_execution_inputs": execution_inputs,
             "assistant_message": "The current inventory cannot cover every required structural role without inventing filler or violating a hard constraint.",
             "reason_codes": reason_codes,
             "formula_action": "NO_CHANGE",
@@ -286,15 +361,17 @@ def _dynamic_report(
         return {**report, "design_sha256": stable_payload_hash(report)}
 
     variants: list[dict[str, Any]] = []
+    retained_physical: dict[str, str] = {}
     all_critics: list[dict[str, Any]] = []
     labels = (
         "Intended structural hypothesis",
         "Conservative material alternative",
         "Diverse structural alternative",
     )
-    for solve in successful:
+    for candidate_brief, solve in successful:
+        is_control = candidate_brief is paired[0][0] and solve is paired[0][1]
         critic = critique_formula(
-            brief=brief,
+            brief=candidate_brief,
             solve=solve,
             interpretation=interpretation,
             max_materials=maximum,
@@ -302,30 +379,59 @@ def _dynamic_report(
         )
         critic_payload = critic.as_dict()
         all_critics.append(critic_payload)
+        variant_formula = _formula_payload(solve, len(candidate_brief.roles))
+        physical_signature = _stock_dose_signature(variant_formula)
+        if candidate_brief.architecture_plan and physical_signature is not None and physical_signature in retained_physical:
+            attempt = next(a for a in attempts if a["variant_id"] == solve.variant_id)
+            attempt.update({
+                "state": "WITHHELD_DUPLICATE_PHYSICAL_COMPOSITION",
+                "duplicate_of_variant_id": retained_physical[physical_signature],
+                "physical_composition_sha256": physical_signature,
+                "suppressed_formula": variant_formula,
+                "suppressed_critic": critic_payload,
+            })
+            continue
+        if physical_signature is not None and critic.state != "WITHHELD":
+            retained_physical[physical_signature] = solve.variant_id
         variants.append(
             {
                 "variant_id": solve.variant_id,
-                "label": labels[min(len(variants), len(labels) - 1)],
+                "label": candidate_brief.architecture_plan.get("label") or (
+                    "Unchanged structural control" if architecture_planning and is_control
+                    else "Stock alternative · same role plan" if architecture_planning
+                    else labels[min(len(variants), len(labels) - 1)]
+                ),
                 "ordering": "UNORDERED_UNTIL_SENSORY_COMPARISON",
-                "formula": _formula_payload(solve, len(brief.roles)),
+                "formula": variant_formula,
+                "formula_action": "NO_CHANGE" if critic.state == "WITHHELD" else "PROPOSAL_ONLY",
                 "solver": solve.solver_receipt,
                 "critic": critic_payload,
+                "temporal_hypothesis": _temporal_hypothesis(
+                    variant_formula["rows"], interpretation.get("evaluation_windows", ()),
+                    f"{name} {idea}",
+                ),
+                "commercial_reference_context": _reference_context(
+                    f"{name} {idea}", appeal_mode=appeal_mode, concept=None,
+                    rows=variant_formula["rows"],
+                ),
+                "architecture": candidate_brief.architecture_plan or {
+                    "kind": "UNCHANGED_CONTROL" if is_control
+                    else "STOCK_ALTERNATIVE_SAME_ROLE_PLAN",
+                },
+                "role_plan_sha256": role_plan_signature(candidate_brief.roles),
+                "roles_requested": [role.role_id for role in candidate_brief.roles],
+                "role_plan": [
+                    asdict(role)
+                    for role in candidate_brief.roles
+                ],
             }
         )
     primary = variants[0]
+    brief = successful[0][0]
     formula = primary["formula"]
     rows = formula["rows"]
-    temporal = _temporal_hypothesis(
-        rows,
-        interpretation.get("evaluation_windows", ()),
-        f"{name} {idea}",
-    )
-    reference = _reference_context(
-        f"{name} {idea}",
-        appeal_mode=appeal_mode,
-        concept=None,
-        rows=rows,
-    )
+    temporal = primary["temporal_hypothesis"]
+    reference = primary["commercial_reference_context"]
     primary_critic = primary["critic"]
     issues = primary_critic["issues"]
     hard_withhold = primary_critic["state"] == "WITHHELD"
@@ -350,9 +456,14 @@ def _dynamic_report(
         "commercial_reference_registry_sha256": _reference_registry_sha256(),
         "knowledge_pack_sha256": brief.knowledge_context.get("pack_sha256"),
         "prior_research_corpus_sha256": brief.knowledge_context.get("prior_corpus_sha256"),
+        "source_review_manifest_sha256": brief.knowledge_context.get("source_review_manifest_sha256"),
+        "construction_library_sha256": brief.knowledge_context.get("construction_library_sha256"),
+        "subtype_research_sha256": brief.knowledge_context.get("subtype_research_sha256"),
+        "architecture_plan_sha256": (architecture_planning or {}).get("plan_sha256"),
     }
     report = {
         "schema_version": "inventory-grounded-formula-design-v3",
+        "architecture_execution_inputs": execution_inputs,
         "status": status,
         "request_sha256": stable_payload_hash(request_payload),
         "formula_name": name,
@@ -390,7 +501,7 @@ def _dynamic_report(
             "concept_id": "request_defined_architecture",
             "facets": list(brief.facets),
             "roles_requested": [role.role_id for role in brief.roles],
-            "roles_filled": [assignment.role.role_id for assignment in successful[0].assignments],
+            "roles_filled": [assignment.role.role_id for assignment in successful[0][1].assignments],
             "stop_rule": "STOP_WHEN_ALL_JUSTIFIED_ROLES_ARE_FILLED",
             "ingredient_count_is_objective": False,
             "character_basis": "COMPONENT_PROFILE_HYPOTHESIS_NOT_SENSORY_MEASUREMENT",
@@ -399,10 +510,13 @@ def _dynamic_report(
         "initial_formula": formula,
         "optimized_formula": None if hard_withhold else formula,
         "design_variants": variants,
+        "architecture_planning": architecture_planning,
+        "architecture_attempts": attempts,
         "optimization": {
             "status": "GLOBAL_CONSTRAINT_ASSIGNMENT_COMPLETE",
             "objective": "REQUEST_CONSTRAINT_AND_NONREDUNDANT_ROLE_FULFILMENT",
-            "architecture_preserved": True,
+            "architecture_preserved": not any(item.architecture_plan for item, _ in paired),
+            "target_request_preserved": True,
             "iterations": 1,
             "initial_alignment_decimal": formula["request_alignment_decimal"],
             "optimized_alignment_decimal": formula["request_alignment_decimal"],
@@ -567,6 +681,36 @@ def design_formula(
         max_materials=effective_maximum,
         target_material_count=target_material_count,
     )
+    if not brief.knowledge_context.get("subtype_research_sha256"):
+        # An unreadable hold-bearing manifest is not an empty hold list. This
+        # blocks corrupt governance, not requests lacking empirical calibration.
+        withheld = _withheld_count_conflict(
+            name=name, interpretation=interpretation, design_mode=design_mode,
+            reason_codes=("CAMPAIGN_GOVERNANCE_UNAVAILABLE",),
+        )
+        withheld.update({
+            "status": "WITHHELD_GOVERNANCE_UNAVAILABLE",
+            "assistant_message": "Local research and campaign-identity rules could not be verified. Restore the reviewed knowledge files before generating a formula.",
+        })
+        return _with_runtime_metadata(withheld, brief=brief, design_mode=design_mode)
+    campaign_holds = brief.knowledge_context.get("subtype_context", {}).get("campaign_identity_holds", ())
+    if campaign_holds:
+        withheld = _withheld_count_conflict(
+            name=name, interpretation=interpretation, design_mode=design_mode,
+            reason_codes=("HOLD_EXACT_BRIEF_OR_FORMULA_REQUIRED",),
+        )
+        recovered_messages = [
+            hold["recovered_reference"]["runtime_message"]
+            for hold in campaign_holds if hold.get("recovered_reference")
+        ]
+        withheld.update({
+            "status": "WITHHELD_CAMPAIGN_IDENTITY",
+            "assistant_message": " ".join(recovered_messages) if recovered_messages else "The accepted campaign brief or formula has not been recovered. Please supply it; adjacent perfume styles are not substitutes.",
+            "recovered_campaign_references": [
+                hold["recovered_reference"] for hold in campaign_holds if hold.get("recovered_reference")
+            ],
+        })
+        return _with_runtime_metadata(withheld, brief=brief, design_mode=design_mode)
 
     # Curated capsules remain useful for their exact, reviewed architecture.
     # They are a governed specialization inside the compiler, not the generic
@@ -597,7 +741,7 @@ def design_formula(
         return _with_runtime_metadata(curated, brief=brief, design_mode=design_mode)
 
     explicit = tuple(interpretation.get("explicit_materials", ()))
-    index = build_material_capability_index(explicit)
+    index = initial_index.with_explicit_materials(explicit)
     mandatory = tuple(interpretation.get("mandatory_materials", ()))
     missing = [item for item in mandatory if not index.exact_matches(str(item))]
     if missing:
@@ -618,17 +762,27 @@ def design_formula(
         return _with_runtime_metadata(legacy, brief=brief, design_mode=design_mode)
 
     avoid = tuple(dict.fromkeys((*must_avoid, *interpretation.get("must_avoid", ()))))
+    planning = derive_architecture_briefs(
+        control=brief, interpretation=interpretation, max_materials=effective_maximum,
+        max_architectures=int(requested_variants) - 1,
+    ) if design_mode == "DEEP_COMPOSE" else None
+    branch_briefs = list(planning.briefs) if planning is not None else [brief]
+    # Unsupported requests retain the existing stock-alternative behavior.
+    # When a real source-bound comparison exists, do not pad missing branches
+    # with misleading architecture labels or duplicate the accepted plan.
+    if len(branch_briefs) == 1:
+        branch_briefs = [brief] * int(requested_variants)
     solves: list[FormulaSolveResult] = []
     prior: set[str] = set()
-    for variant_index in range(int(requested_variants)):
+    for variant_index, candidate_brief in enumerate(branch_briefs):
         solve = solve_formula(
-            brief=brief,
+            brief=candidate_brief,
             index=index,
             liquid_total_ul=liquid_total_ul,
             explicit_quantities=interpretation.get("explicit_quantities", ()),
             avoid=avoid,
             previous_stock_ids=previous_stock_ids,
-            prior_variant_stock_ids=tuple(prior),
+            prior_variant_stock_ids=() if candidate_brief.architecture_plan else tuple(prior),
             variant_index=variant_index,
             beam_width=48 if design_mode == "DEEP_COMPOSE" else 12,
         )
@@ -646,6 +800,9 @@ def design_formula(
         index=index,
         solves=solves,
         appeal_mode=interpretation["appeal_mode"],
+        variant_briefs=branch_briefs,
+        architecture_planning=planning.receipt if planning is not None else None,
+        previous_stock_ids=previous_stock_ids,
     )
 
 

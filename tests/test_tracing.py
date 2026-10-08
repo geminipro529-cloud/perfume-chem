@@ -1,4 +1,38 @@
+import subprocess
+import sys
+
+import pytest
+
 from engine import tracing
+
+
+def test_import_does_not_load_optional_otlp_or_protobuf_stack():
+    probe = (
+        "import sys; from engine import tracing; "
+        "tracing.get_tracer(); "
+        "assert not any(n.startswith(('opentelemetry.exporter.otlp', "
+        "'opentelemetry.proto', 'google.protobuf')) for n in sys.modules)"
+    )
+    result = subprocess.run(
+        [sys.executable, "-c", probe],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr
+
+
+def test_explicit_exporter_import_failure_is_not_silently_enabled(monkeypatch):
+    monkeypatch.setattr(tracing, "_provider", None)
+    monkeypatch.delenv("OTEL_SDK_DISABLED", raising=False)
+
+    def unavailable_exporter(*args, **kwargs):
+        raise ImportError("optional exporter runtime unavailable")
+
+    monkeypatch.setattr(tracing, "OTLPSpanExporter", unavailable_exporter)
+    with pytest.raises(ImportError, match="optional exporter runtime unavailable"):
+        tracing.setup_tracing()
+    assert tracing._provider is None
 
 
 def test_get_tracer_does_not_auto_initialize_exporter(monkeypatch):

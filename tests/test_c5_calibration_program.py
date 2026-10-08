@@ -9,7 +9,6 @@ from pathlib import Path
 
 import pytest
 
-from engine.inventory_parser import parse_inventory
 from engine.physics.calibration_program import (
     C5_INVENTORY_SHA256,
     LEAKAGE_DIMENSIONS,
@@ -356,17 +355,22 @@ def _released_real_set(
     return program, plan, model_lock, release
 
 
-def test_material_panel_matches_inventory_snapshot_and_required_domains() -> None:
+def test_material_panel_preserves_frozen_parent_and_required_domains() -> None:
     program = _program()
-    inventory_path = ROOT / "inventory.txt"
-    assert hashlib.sha256(inventory_path.read_bytes()).hexdigest() == C5_INVENTORY_SHA256
+    assessment = json.loads(
+        (ROOT / "docs/verification/c5/inventory_v5_rebase_assessment.json").read_text(
+            encoding="utf-8",
+        )
+    )
+    parent = assessment["parent_program"]
     assert program.inventory_sha256 == C5_INVENTORY_SHA256
-    owned = {
-        record.name
-        for record in parse_inventory(inventory_path)
-        if record.status == "owned"
+    assert parent["inventory_sha256"] == C5_INVENTORY_SHA256
+    assert program.content_sha256 == parent["content_sha256"]
+    assert parent["preserved_unchanged"] is True
+    assert assessment["decision"] == "HOLD_REDESIGN_REQUIRED"
+    assert {entry.inventory_name for entry in program.materials} == {
+        row["parent_inventory_name"] for row in assessment["material_diffs"]
     }
-    assert {entry.inventory_name for entry in program.materials} <= owned
     assert {
         "HYDROCARBON_TERPENE",
         "ALCOHOL",

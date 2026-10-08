@@ -7,6 +7,10 @@ from dataclasses import dataclass
 from typing import Any, Mapping
 
 from engine.formulation_intelligence.formula_solver import FormulaSolveResult
+from engine.formulation_intelligence.material_capability_index import (
+    architecture_avoid_conflict,
+    supports_descriptor_requirement,
+)
 from engine.formulation_intelligence.semantic_brief_adapter import SemanticBrief
 from engine.name_utils import normalize_name
 
@@ -64,8 +68,26 @@ def critique_formula(
         "PERSONAL_LIKING_NOT_TESTED",
         "PHYSICAL_RELEASE_AND_TEMPORAL_BEHAVIOR_NOT_VALIDATED",
     ]
+    limitations.extend(
+        f"NAMED_FRUIT_RECOGNITION_UNVERIFIED:{name}" for name in brief.requested_fruits
+    )
     passed: list[str] = []
     rows = list(solve.rows)
+    if brief.architecture_plan.get("operation"):
+        expected = {role.role_id: role for role in brief.roles}
+        for assignment in solve.assignments:
+            role = assignment.role
+            if expected.get(role.role_id) != role:
+                issues.append(f"WITHHELD_ASSIGNMENT_ROLE_MISMATCH:{role.role_id}")
+            if not supports_descriptor_requirement(assignment.capability, role.descriptor_requirement):
+                issues.append(f"WITHHELD_OWN_ODOR_ELIGIBILITY:{role.role_id}")
+            if architecture_avoid_conflict(assignment.capability, role.descriptor_requirement,
+                                          tuple(interpretation.get("must_avoid", ())), all_roles=True):
+                issues.append(f"WITHHELD_OWN_ODOR_AVOID_CONFLICT:{role.role_id}")
+        limitations.extend((
+            "ARCHITECTURE_COMPARISON_NOT_FIXED_DOSE_OMISSION_EXPERIMENT",
+            "PARTIAL_OWN_ODOR_ANNOTATIONS_DO_NOT_CERTIFY_ABSENCE",
+        ))
     if solve.status != "SOLVED":
         issues.append(solve.status)
     if solve.missing_roles:

@@ -1,0 +1,23 @@
+{
+  "schema_version": "perfume-chem-user-compounding-holds-v1",
+  "effective_date": "2026-10-05",
+  "source": {
+    "kind": "DIRECT_USER_TEMPORARY_COMPOUNDING_EXCLUSION",
+    "request": "do not use it for compounding for now until i get more information"
+  },
+  "records": [
+    {
+      "record_id": "USER-HOLD-20261005-ORRIS-LIQUID",
+      "identity_name": "Orris Liquid",
+      "supplier_name": "PerfumersWorld",
+      "supplier_sku": "8IQ24653",
+      "state": "ACTIVE",
+      "reason": "AWAITING_PRODUCT_INFORMATION",
+      "clearance": "EXPLICIT_USER_CLEARANCE_REQUIRED"
+    }
+  ],
+  "release_authority": false,
+  "safety_authority": false,
+  "compounding_authority": false,
+  "evidence_admission_authorized": false
+}

@@ -731,6 +731,7 @@ def classify_repair(
     codes = tuple(sorted(set(summary.codes)))
     case_ids = tuple(sorted(set(summary.case_ids)))
     joined = " ".join(codes).upper()
+    allowed: tuple[str, ...]
     if "VERBOS" in joined or "COST" in joined:
         repair_class = RepairClass.BUNDLE_VERBOSITY_OR_COST
         allowed = ("engine/perception/complexity_adapters.py",)
@@ -800,7 +801,7 @@ def propose_registry_transition(
 
 
 def _jsonable(value: Any) -> Any:
-    if is_dataclass(value):
+    if is_dataclass(value) and not isinstance(value, type):
         return _jsonable(asdict(value))
     if isinstance(value, Enum):
         return value.value
@@ -933,6 +934,9 @@ _RUN_BASE = Path("output/complexity_xhigh_benchmark")
 _CORPUS_PATH = Path("tests/fixtures/complexity_xhigh_cases_v1.json")
 _CORPUS_SIDECAR = Path("tests/fixtures/complexity_xhigh_cases_v1.sha256")
 _REGISTRY_PATH = Path("configs/complexity/complexity_module_registry_v1.json")
+# Current source discovery is independent of historical benchmark admission.
+# Never substitute this census snapshot for a frozen benchmark's registry.
+_CENSUS_REGISTRY_PATH = Path("configs/complexity/complexity_module_registry_v3.json")
 
 
 def _run_dir(project_root: Path, run_dir: Path) -> Path:
@@ -1028,16 +1032,19 @@ def _resolve_cases(payload: Mapping[str, Any]) -> tuple[ComplexityCasePacket, ..
     return tuple(cases)
 
 
-def run_complexity_census(*, project_root: Path, run_dir: Path) -> dict[str, Any]:
+def run_complexity_census(
+    *, project_root: Path, run_dir: Path, registry_path: Path | None = None,
+) -> dict[str, Any]:
     target = _run_dir(project_root, run_dir)
-    registry = load_complexity_registry(project_root, project_root / _REGISTRY_PATH)
+    source_registry = registry_path if registry_path is not None else _CENSUS_REGISTRY_PATH
+    registry = load_complexity_registry(project_root, project_root / source_registry)
     census = census_complexity_artifacts(project_root, registry)
     return _envelope(
         state=census.state,
         operation="census",
         project_root=project_root,
         run_dir=target,
-        artifacts=(_REGISTRY_PATH.as_posix(),),
+        artifacts=(source_registry.as_posix(),),
         blockers=(
             *census.hash_drift,
             *census.missing,
@@ -1050,6 +1057,7 @@ def run_complexity_census(*, project_root: Path, run_dir: Path) -> dict[str, Any
         unclassified=list(census.unclassified),
         multiply_classified=list(census.multiply_classified),
         registry_sha256=registry.registry_sha256,
+        registry_scope="SOURCE_CENSUS_ONLY_NO_ADMISSION",
     )
 
 
@@ -1058,7 +1066,7 @@ def prepare_complexity_benchmark(
 ) -> dict[str, Any]:
     target = _run_dir(project_root, run_dir)
     census_payload = run_complexity_census(
-        project_root=project_root, run_dir=target
+        project_root=project_root, run_dir=target, registry_path=_REGISTRY_PATH,
     )
     if census_payload["state"] != "PASS":
         return _envelope(

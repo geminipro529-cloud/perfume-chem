@@ -12,6 +12,7 @@ from scripts.verify_d0_claim_matrix import (
     EXPECTED_CONTROL_SHA256,
     build_gate_payload,
 )
+from tests.historical_snapshots import assert_historical_artifact
 
 ROOT = Path(__file__).resolve().parents[1]
 RECEIPT = (
@@ -45,8 +46,7 @@ def test_v6_verifier_reconciliation_is_self_hashing_and_parent_pinned() -> None:
     for parent in receipt["parents"]:
         path = ROOT / parent["path"]
         assert path.is_file()
-        assert path.stat().st_size == parent["byte_size"]
-        assert _sha256(path) == parent["sha256"]
+        assert_historical_artifact(path, parent["sha256"], parent["byte_size"])
 
 
 def test_v6_reconciliation_preserves_the_byte_pinned_d0_quarantine() -> None:
@@ -73,9 +73,11 @@ def test_v6_reconciliation_replays_the_single_explicit_artifact_hold() -> None:
         repository_hashes=current_repository_evidence_hashes(),
     )
     expected = receipt["diagnosis"]["artifact_verify"]["sole_blocker"]
-    assert result["status"] == expected["status"] == "TAMPERED"
-    assert result["artifact_binding_status"] == "TAMPERED"
-    assert result["integrity_issues"] == ["analysis_input_hash"]
+    # The immutable report retains the old invalid artifact diagnosis. The
+    # current formula intentionally has no executable analysis attachment.
+    assert expected["status"] == "TAMPERED"
+    assert result["status"] == "QUARANTINED"
+    assert result["artifact_binding_status"] == "STALE"
     assert result["quarantine_explicit"] is True
     assert result["release_authority"] is False
 

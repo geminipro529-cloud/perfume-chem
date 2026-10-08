@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+from tests.historical_snapshots import assert_historical_artifact
 
 ROOT = Path(__file__).resolve().parents[1]
 RECEIPT_PATH = (
@@ -32,7 +33,7 @@ def test_v3_freeze_binds_complete_inventory_catalog_and_module_bytes() -> None:
     for artifact in receipt["candidate_artifacts"]:
         path = ROOT / artifact["path"]
         assert path.is_file()
-        assert hashlib.sha256(path.read_bytes()).hexdigest() == artifact["sha256"]
+        assert_historical_artifact(path, artifact["sha256"])
 
 
 def test_v3_freeze_preserves_inventory_target_and_authority_firewalls() -> None:

@@ -42,6 +42,17 @@ EXPECTED_CONTROL_SHA256 = (
 EXPECTED_INTERVENTION_SHA256 = (
     "c05661384d53c27aa7a50b50e14e62cf245ee5aa8d3974e0829a56f873d5eb4d"
 )
+# Verified LF/Windows-CRLF byte variants of the same quarantined texts. Keep
+# historical pins; do not normalize arbitrary input or report a normalized hash
+# as though it identifies the physical source bytes.
+CONTROL_BYTE_SHA256S = frozenset({
+    EXPECTED_CONTROL_SHA256,
+    "10c0ad9651c84938abc436e626eab1e35ff1bc06b3e7c8bf708b80fcd89037c6",
+})
+INTERVENTION_BYTE_SHA256S = frozenset({
+    EXPECTED_INTERVENTION_SHA256,
+    "b4b4d19b06614eceee0ff46eb4f08ba4542a3e189e706807fc0b2282ae0743a8",
+})
 _GIT_SHA1_RE = re.compile(r"^[0-9a-f]{40}$")
 
 
@@ -116,9 +127,9 @@ def build_gate_payload(repository_root: Path) -> dict[str, Any]:
 
     control_sha256 = _sha256_path(control_path)
     intervention_sha256 = _sha256_path(intervention_path)
-    if control_sha256 != EXPECTED_CONTROL_SHA256:
+    if control_sha256 not in CONTROL_BYTE_SHA256S:
         raise ValueError("control formula binding changed")
-    if intervention_sha256 != EXPECTED_INTERVENTION_SHA256:
+    if intervention_sha256 not in INTERVENTION_BYTE_SHA256S:
         raise ValueError("intervention formula binding changed")
     _require_quarantined(control_path, require_orris_carrier_gap=False)
     _require_quarantined(intervention_path, require_orris_carrier_gap=True)

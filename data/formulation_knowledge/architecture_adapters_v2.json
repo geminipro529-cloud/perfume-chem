@@ -1,0 +1,1249 @@
+{
+  "schema_version": "source-bound-architecture-adapters-v2",
+  "version": "2026-10-07.2",
+  "scope": "LOCAL_HEURISTIC_ROLE_MAPPING_NOT_EMPIRICAL_FORMULA",
+  "allocation_policy": "EXISTING_SEMANTIC_FACET_TEMPLATES_V1",
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "adapters": [
+    {
+      "adapter_id": "orchard_lychee_cultivars",
+      "subtype_id": "ORCHARD_LYCHEE_CULTIVARS",
+      "subtype_card_sha256": "f66021dfe5fc903a8d85b8797a93ce4e5a776c0bbf195c95c2349fe23f0181dd",
+      "source_bindings": [
+        {
+          "source_id": "lychee_sweetheart_depth",
+          "source_record_sha256": "a9cb91cbb92f5d06d9348605b647f5b813172999e9dedb422ae47e8cabb948ac"
+        },
+        {
+          "source_id": "lychee_cultivars_depth",
+          "source_record_sha256": "3eca8db200298b3846b733d3c4d9e411c0478985d3106581ebc09cbec2dd1ef1"
+        }
+      ],
+      "title": "Lychee fruit continuity",
+      "options": [
+        {
+          "option_id": "floral_bridge",
+          "label": "Floral-fruit bridge",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "lychee",
+            "fruity",
+            "floral",
+            "linalool",
+            "petal"
+          ],
+          "conflict_terms": [
+            "floral",
+            "rose",
+            "rosy"
+          ],
+          "comparison_question": "Does a floral-fruit link improve lychee recognition without becoming a rose perfume?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "green_juice",
+          "label": "Green-juice contrast",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "lychee",
+            "juicy",
+            "green",
+            "fresh",
+            "watery"
+          ],
+          "conflict_terms": [
+            "green",
+            "leafy",
+            "watery"
+          ],
+          "comparison_question": "Does a green/watery edge add juicy realism without vegetable or sulfur character?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "green_fig_leaf",
+      "subtype_id": "GREEN_FIG_LEAF",
+      "subtype_card_sha256": "08d594d8c6b37ac419ce43c779524ae626a56bb4abf712a1da4513533e398002",
+      "source_bindings": [
+        {
+          "source_id": "fig_organs_depth",
+          "source_record_sha256": "2daa8d7c44b4b2cc82a8a08029a5a12d7b29c59332d5fdc22f0227391e81d477"
+        }
+      ],
+      "title": "Fig leaf rather than fruit or latex",
+      "options": [
+        {
+          "option_id": "leaf_contour",
+          "label": "Leaf-green contour",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "fig leaf",
+            "leaf",
+            "green",
+            "stem"
+          ],
+          "conflict_terms": [
+            "green",
+            "leaf",
+            "leafy"
+          ],
+          "comparison_question": "Does a distinct leaf socket improve the requested leaf image without claiming latex reconstruction?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "airy_leaf",
+          "label": "Transparent leaf bridge",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "fig leaf",
+            "green floral",
+            "transparent",
+            "fresh"
+          ],
+          "conflict_terms": [
+            "floral",
+            "watery"
+          ],
+          "comparison_question": "Does a transparent bridge retain leaf character with less heavy cream texture?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "orchard_fig_fruit",
+      "subtype_id": "ORCHARD_FIG_FRUIT",
+      "subtype_card_sha256": "e2806482c2f106499ec061eb5c0527d4cef6c49ecddadd31dfdf0ac87d575d71",
+      "source_bindings": [
+        {
+          "source_id": "fig_organs_depth",
+          "source_record_sha256": "2daa8d7c44b4b2cc82a8a08029a5a12d7b29c59332d5fdc22f0227391e81d477"
+        },
+        {
+          "source_id": "fig_aroma_active_depth",
+          "source_record_sha256": "96670c66f468d4254f753550c576716930ab34cf52d38ddc5fa22e7dc95ff109"
+        }
+      ],
+      "title": "Fresh fig flesh and peel",
+      "options": [
+        {
+          "option_id": "fruit_flesh",
+          "label": "Fruit-flesh socket",
+          "template_id": "fruit",
+          "query_terms": [
+            "fig fruit",
+            "ripe",
+            "fruit",
+            "flesh"
+          ],
+          "conflict_terms": [
+            "fruit",
+            "fruity",
+            "ripe"
+          ],
+          "comparison_question": "Does fruit flesh remain recognizable rather than becoming a generic coconut fig?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "peel_bridge",
+          "label": "Peel-to-flesh bridge",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "fig fruit",
+            "peel",
+            "green fruity",
+            "fresh"
+          ],
+          "conflict_terms": [
+            "green",
+            "peel",
+            "leafy"
+          ],
+          "comparison_question": "Does a separate peel edge add contrast without substituting fig leaf for fruit?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "freesia_pepper",
+      "subtype_id": "FREESIA_PEPPER",
+      "subtype_card_sha256": "78a2a007c6ee8eac542506f1518916429e92d1fef47482449d72bb3177e05bfd",
+      "source_bindings": [
+        {
+          "source_id": "freesia_cultivars_floral_v2",
+          "source_record_sha256": "371eca9d54b8f4d22288f2941619e06a94a38cc32482980920793762bfd24e60"
+        },
+        {
+          "source_id": "jomalone_english_pear_freesia_cologne",
+          "source_record_sha256": "db3c4cfae691e547f6794acb8e46fd864e28dac28beb0f625510ab22cb7c90e9"
+        }
+      ],
+      "title": "Freesia with a separately tested pepper edge",
+      "options": [
+        {
+          "option_id": "petal_clarity",
+          "label": "Transparent freesia frame",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "freesia",
+            "petal",
+            "floral",
+            "linalool"
+          ],
+          "conflict_terms": [
+            "floral",
+            "freesia"
+          ],
+          "comparison_question": "Does a more distinct petal frame improve the requested freesia image?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "green_air",
+          "label": "Fresh floral transition",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "freesia",
+            "transparent",
+            "fresh floral",
+            "green"
+          ],
+          "conflict_terms": [
+            "floral",
+            "green",
+            "watery"
+          ],
+          "comparison_question": "Does fresh floral continuity preserve freesia beside the requested pepper nuance?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "jas_tea_green",
+      "subtype_id": "JAS_TEA_GREEN",
+      "subtype_card_sha256": "4f8746dbfeaa6ae5724c5c05bda440f6cb706ac377f4550603de078686f90f0d",
+      "source_bindings": [
+        {
+          "source_id": "jasmine_species_subtypes",
+          "source_record_sha256": "b48a3bec89b7a5f6243f441cc4102b460e9d8417a47d29741b7d0d3ba7c1addb"
+        },
+        {
+          "source_id": "tea_green_cultivar_subtypes",
+          "source_record_sha256": "20ab2f8b8efcb2f0edc02d8272d8f289d9fe39ced1b949111fc370d20404371f"
+        },
+        {
+          "source_id": "iff_jasmine_completion",
+          "source_record_sha256": "5d4db39c433fd72932f6d12c64f4cf966a638d1fb1103951abf162437573a1ab"
+        }
+      ],
+      "title": "Jasmine and tea kept as distinct functions",
+      "options": [
+        {
+          "option_id": "flower_link",
+          "label": "Airy jasmine connection",
+          "template_id": "white_floral",
+          "query_terms": [
+            "jasmine",
+            "petal",
+            "transparent",
+            "floral"
+          ],
+          "conflict_terms": [
+            "jasmine",
+            "white floral",
+            "floral"
+          ],
+          "comparison_question": "Does an airy flower connection improve jasmine recognition without making indole the tea proxy?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "tea_texture",
+          "label": "Tea-green texture",
+          "template_id": "tea",
+          "query_terms": [
+            "tea",
+            "green",
+            "leaf",
+            "tannin"
+          ],
+          "conflict_terms": [
+            "tea",
+            "green",
+            "leafy"
+          ],
+          "comparison_question": "Does tea-green texture remain legible alongside the flower without grassy sharpness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "gardenia_cream",
+      "subtype_id": "GARDENIA_CREAM",
+      "subtype_card_sha256": "fc577b7943535bb6183b6560709b193478b55e3314d2d6c7cbe704789d70200f",
+      "source_bindings": [
+        {
+          "source_id": "gardenia_extract_completion",
+          "source_record_sha256": "dc066a12a6dea9a009afad7388fdeaa350be94a2a4481d7770ef1d4738757f83"
+        },
+        {
+          "source_id": "givaudan_methyl_laitone_completion",
+          "source_record_sha256": "699e8662b0414c36dc2c54bc7a501c4c09115bdf8eb4b2a96814b95fd4498a96"
+        },
+        {
+          "source_id": "iff_hexenylsal_floral_v2",
+          "source_record_sha256": "d0c5860ca66a015a7d936e8a61f7bd5382973868d12c0a1b0e3cf6f1a7b60cc3"
+        }
+      ],
+      "title": "Gardenia petal and cream separated",
+      "options": [
+        {
+          "option_id": "petal_anchor",
+          "label": "Green gardenia petal support",
+          "template_id": "white_floral",
+          "query_terms": [
+            "gardenia",
+            "floral",
+            "petal",
+            "green"
+          ],
+          "conflict_terms": [
+            "floral",
+            "gardenia",
+            "green"
+          ],
+          "comparison_question": "Does the petal support retain gardenia rather than merely adding cream?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "green_contour",
+          "label": "Fresh petal contour",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "gardenia",
+            "green floral",
+            "fresh",
+            "transparent"
+          ],
+          "conflict_terms": [
+            "green",
+            "watery",
+            "floral"
+          ],
+          "comparison_question": "Does a fresh contour prevent a creamy gardenia brief becoming a generic lactonic accord?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "lav_orange",
+      "subtype_id": "LAV_ORANGE",
+      "subtype_card_sha256": "5c96c1543a7b05ec304fb9fbfb2d20db102b7e1d2a8528ae60078984df42e2bf",
+      "source_bindings": [
+        {
+          "source_id": "ysl_libre_edp",
+          "source_record_sha256": "74904035a43d0b59ce3452248f9900d88f686a966a61725e10f698fae67799df"
+        },
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        },
+        {
+          "source_id": "iff_orange_flower_completion",
+          "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758"
+        }
+      ],
+      "title": "Lavender and orange-flower bridge",
+      "options": [
+        {
+          "option_id": "fresh_flower",
+          "label": "Fresh orange-flower bridge",
+          "template_id": "white_floral",
+          "query_terms": [
+            "neroli",
+            "orange blossom",
+            "fresh floral"
+          ],
+          "conflict_terms": [
+            "neroli",
+            "orange blossom",
+            "floral"
+          ],
+          "comparison_question": "Does a fresher flower bridge preserve both lavender and orange-blossom recognition?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "aromatic_link",
+          "label": "Aromatic continuity",
+          "template_id": "aromatic_lavender",
+          "query_terms": [
+            "lavender",
+            "aromatic",
+            "herbal",
+            "floral"
+          ],
+          "conflict_terms": [
+            "lavender",
+            "herbal",
+            "aromatic"
+          ],
+          "comparison_question": "Does an aromatic continuity socket keep lavender from being covered by the flower?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "lav_incense",
+      "subtype_id": "LAV_INCENSE",
+      "subtype_card_sha256": "99c8a3692390fd74859b9324b756fdb5a42aff12c8281dc00be5a6996ba573cf",
+      "source_bindings": [
+        {
+          "source_id": "serge_encens_lavande_edp",
+          "source_record_sha256": "73f6362dcb457f6e47d1702f40eb4854871ebaa36820b19524c3329a2ed72596"
+        },
+        {
+          "source_id": "iff_olibanum_oil_completion",
+          "source_record_sha256": "7d1ab60ba12f335541b07a22210d8f76dccf245523be3f799a61af70d2e75e79"
+        },
+        {
+          "source_id": "iff_olibanum_resinoid_completion",
+          "source_record_sha256": "799c648cebdbd035cdf20a67b2eadb12ba0d5a3769c2e3087267855f54beefb4"
+        }
+      ],
+      "title": "Lavender and incense without assumed smoke",
+      "options": [
+        {
+          "option_id": "incense_link",
+          "label": "Incense-resin connection",
+          "template_id": "incense_resin",
+          "query_terms": [
+            "incense",
+            "olibanum",
+            "frankincense",
+            "resin"
+          ],
+          "conflict_terms": [
+            "incense",
+            "resin",
+            "smoke",
+            "smoky"
+          ],
+          "comparison_question": "Does an incense connection bridge lavender into the base without reading as smoke?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "aromatic_air",
+          "label": "Aromatic-resin transition",
+          "template_id": "aromatic_lavender",
+          "query_terms": [
+            "lavender",
+            "aromatic",
+            "fresh",
+            "resin"
+          ],
+          "conflict_terms": [
+            "lavender",
+            "herbal",
+            "aromatic"
+          ],
+          "comparison_question": "Does an aromatic transition retain lavender beside the existing incense anchor?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "lav_vanillic",
+      "subtype_id": "LAV_VANILLIC",
+      "subtype_card_sha256": "fe52145174e9db4affb92952f8bd8db15022e27061907c5e318bcc91b6dc11a6",
+      "source_bindings": [
+        {
+          "source_id": "caron_pour_un_homme_edt",
+          "source_record_sha256": "49952bdf6650bd32afb547a940425e60370e9ae4d192971e37c81daa96cefbc7"
+        },
+        {
+          "source_id": "iff_benzoin_siam_foundation",
+          "source_record_sha256": "08615faaba10718c2da06185239a30cb05b32aaab84a5b0a999dde0bc2c9ab04"
+        }
+      ],
+      "title": "Lavender and vanillic warmth",
+      "options": [
+        {
+          "option_id": "rounded_link",
+          "label": "Rounded vanillic bridge",
+          "template_id": "vanilla_balsam",
+          "query_terms": [
+            "vanillic",
+            "balsamic",
+            "benzoin",
+            "warm"
+          ],
+          "conflict_terms": [
+            "vanilla",
+            "vanillic",
+            "sweet",
+            "sweetness",
+            "gourmand",
+            "balsamic"
+          ],
+          "comparison_question": "Does rounded warmth soften the transition without turning lavender into a gourmand?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "aromatic_relief",
+          "label": "Aromatic relief",
+          "template_id": "aromatic_lavender",
+          "query_terms": [
+            "lavender",
+            "aromatic",
+            "fresh",
+            "herbal"
+          ],
+          "conflict_terms": [
+            "lavender",
+            "herbal",
+            "aromatic"
+          ],
+          "comparison_question": "Does aromatic relief keep the lavender legible against the requested vanillic support?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "rose_jammy",
+      "subtype_id": "ROSE_JAMMY",
+      "subtype_card_sha256": "f5cf2ef84c78d2ab8994ba882d91547927975f1e89bb840c2e2f916a9177220b",
+      "source_bindings": [
+        {
+          "source_id": "rose_cultivars_floral_v2",
+          "source_record_sha256": "f15319f0bc5398597ef07bfca67b312b9fc5f12011ac5cc3b46e967440d60cdd"
+        },
+        {
+          "source_id": "raspberry_recombination_subtypes",
+          "source_record_sha256": "3c25fa3885840a77a117e5c78cf3a8f9815ece6b67f9d2fe989688e2e60393b3"
+        },
+        {
+          "source_id": "iff_osmanthus_completion",
+          "source_record_sha256": "0f178c02e7a9d4b9d0b64cdc89038b2ce598625a34ff7ab3414544df1743a516"
+        }
+      ],
+      "title": "Rose petal versus fruit-facet bridge",
+      "options": [
+        {
+          "option_id": "fruit_link",
+          "label": "Fruit-petal bridge",
+          "template_id": "fruit",
+          "query_terms": [
+            "fruity",
+            "berry",
+            "rose",
+            "fruit"
+          ],
+          "conflict_terms": [
+            "fruit",
+            "fruity",
+            "berry",
+            "sweet"
+          ],
+          "comparison_question": "Does a fruit facet create the requested jammy impression without sweetness alone?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "petal_frame",
+          "label": "Petal clarity",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "rose",
+            "petal",
+            "floral",
+            "transparent"
+          ],
+          "conflict_terms": [
+            "rose",
+            "rosy",
+            "floral"
+          ],
+          "comparison_question": "Does petal clarity keep the fruit bridge from displacing rose?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "orange_neroli",
+      "subtype_id": "ORANGE_NEROLI",
+      "subtype_card_sha256": "a40efbfa97074a7ff79209f1dfc14197db0d3bc496cf5ed88556ddad0b82f341",
+      "source_bindings": [
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        },
+        {
+          "source_id": "iff_orange_flower_completion",
+          "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758"
+        }
+      ],
+      "title": "Fresh distilled neroli",
+      "options": [
+        {
+          "option_id": "green_blossom",
+          "label": "Fresh green blossom edge",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "neroli",
+            "fresh floral",
+            "green",
+            "blossom"
+          ],
+          "conflict_terms": [
+            "green",
+            "leafy",
+            "bitter"
+          ],
+          "comparison_question": "Does green articulation retain the control's blossom clarity without harshness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "warm_flower",
+          "label": "Warmer flower body",
+          "template_id": "white_floral",
+          "query_terms": [
+            "orange flower",
+            "blossom",
+            "honeyed",
+            "warm floral"
+          ],
+          "conflict_terms": [
+            "honey",
+            "honeyed",
+            "sweet",
+            "warm",
+            "white floral"
+          ],
+          "comparison_question": "Does warmer support obscure the fresh blossom recognizer?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "orange_petitgrain",
+      "subtype_id": "ORANGE_PETITGRAIN",
+      "subtype_card_sha256": "9d0d5988e2c2fca3a3e569386f9f932843f341049db91b409927baf29098d2d4",
+      "source_bindings": [
+        {
+          "source_id": "iff_petitgrain_subtypes",
+          "source_record_sha256": "532922d8655855b3e8d619bf7a768719ba19acd1af8482c9603be2f113c66bdd"
+        },
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        }
+      ],
+      "title": "Petitgrain flower-to-leaf bridge",
+      "options": [
+        {
+          "option_id": "leaf_bridge",
+          "label": "Bitter-green leaf bridge",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "petitgrain",
+            "bitter green",
+            "leaf",
+            "twig",
+            "stem"
+          ],
+          "conflict_terms": [
+            "bitter",
+            "green",
+            "leaf",
+            "leafy"
+          ],
+          "comparison_question": "Does a leaf bridge connect the unchanged flower to the opening without twig dominance?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "citrus_link",
+          "label": "Citrus-to-flower link",
+          "template_id": "citrus_peel",
+          "query_terms": [
+            "petitgrain",
+            "citrus",
+            "orange floral",
+            "fresh"
+          ],
+          "conflict_terms": [
+            "citrus",
+            "orange",
+            "peel"
+          ],
+          "comparison_question": "Does citrus articulation preserve the leaf/flower distinction better than bitter-green support?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "muguet_soft",
+      "subtype_id": "MUGUET_SOFT",
+      "subtype_card_sha256": "cc5bb8f195b88352bd7239da821841a4d465ae8af757d16af87b0a5908164e20",
+      "source_bindings": [
+        {
+          "source_id": "dsm_florol_subtypes",
+          "source_record_sha256": "8a11ad4223cedb450e2668c189ee6cf96e829bfed72f35d90ee97f1faeb6aeb0"
+        },
+        {
+          "source_id": "givaudan_florhydral_completion",
+          "source_record_sha256": "aa00a1a2c661d81e28add1283fba41a7ed15612c43c455c5b56c37cf11b112f2"
+        }
+      ],
+      "title": "Soft muguet versus watery cyclamen",
+      "options": [
+        {
+          "option_id": "soft_petal",
+          "label": "Soft petal continuation",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "muguet",
+            "soft floral",
+            "petal",
+            "bell flower"
+          ],
+          "conflict_terms": [
+            "muguet",
+            "floral",
+            "soft"
+          ],
+          "comparison_question": "Does soft petal support preserve the control's muguet identity?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "watery_lift",
+          "label": "Green-watery floral lift",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "muguet",
+            "fresh floral",
+            "watery",
+            "green"
+          ],
+          "conflict_terms": [
+            "watery",
+            "green",
+            "freshness"
+          ],
+          "comparison_question": "Does watery lift clarify muguet or replace it with generic freshness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "tuberose_indolic",
+      "subtype_id": "TUBEROSE_INDOLIC",
+      "subtype_card_sha256": "7262ecaa6e049d8a1af5c8fe31f34bf297416834fb69c0f55bce254a9d6b53c5",
+      "source_bindings": [
+        {
+          "source_id": "tuberose_development_floral_v2",
+          "source_record_sha256": "3ea524d7206bd189a7513c66b3789b90691df671ca84e50c6a9c7eb90821d0ab"
+        },
+        {
+          "source_id": "iff_tuberose_completion",
+          "source_record_sha256": "e3e7e26ae4d1966712c6627970e940d1877511d776ff42e93de0bca4cea5b7e2"
+        }
+      ],
+      "title": "Indolic tuberose",
+      "options": [
+        {
+          "option_id": "warm_edge",
+          "label": "Independent indolic warmth",
+          "template_id": "animalic_fur",
+          "query_terms": [
+            "tuberose",
+            "indolic",
+            "animalic",
+            "flower warmth"
+          ],
+          "conflict_terms": [
+            "indole",
+            "indolic",
+            "animalic"
+          ],
+          "comparison_question": "Does the optional warm edge support the fixed tuberose rather than merely add heaviness?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "solar_body",
+          "label": "Floral and solar body",
+          "template_id": "white_floral",
+          "query_terms": [
+            "tuberose",
+            "white floral",
+            "creamy",
+            "solar"
+          ],
+          "conflict_terms": [
+            "cream",
+            "creamy",
+            "solar",
+            "coconut"
+          ],
+          "comparison_question": "Does floral body preserve tuberose without coconut cream takeover?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "tuberose_transparent",
+      "subtype_id": "TUBEROSE_TRANSPARENT",
+      "subtype_card_sha256": "e2eee085c5aa1f01ff257bce129bb2cb82509ce7f75cd8fb10d9e30a00af4862",
+      "source_bindings": [
+        {
+          "source_id": "iff_tuberose_completion",
+          "source_record_sha256": "e3e7e26ae4d1966712c6627970e940d1877511d776ff42e93de0bca4cea5b7e2"
+        },
+        {
+          "source_id": "dsm_hedione_foundation",
+          "source_record_sha256": "e16f04e784546916f2f084b4e9dbb9a23e5654fb30d282cd2237f93b13f5d187"
+        },
+        {
+          "source_id": "tuberose_development_floral_v2",
+          "source_record_sha256": "3ea524d7206bd189a7513c66b3789b90691df671ca84e50c6a9c7eb90821d0ab"
+        }
+      ],
+      "title": "Transparent tuberose",
+      "options": [
+        {
+          "option_id": "airy_continuity",
+          "label": "Transparent floral continuity",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "tuberose",
+            "transparent floral",
+            "airy",
+            "sheer"
+          ],
+          "conflict_terms": [
+            "airy",
+            "watery",
+            "transparent floral"
+          ],
+          "comparison_question": "Does airy support open the control without hollowing its tuberose heart?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "green_petals",
+          "label": "Green petal articulation",
+          "template_id": "white_floral",
+          "query_terms": [
+            "tuberose",
+            "green floral",
+            "petal",
+            "flower"
+          ],
+          "conflict_terms": [
+            "green",
+            "white floral",
+            "floral"
+          ],
+          "comparison_question": "Does green petal support retain tuberose more clearly than generic floral air?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "trop_champaca",
+      "subtype_id": "TROP_CHAMPACA",
+      "subtype_card_sha256": "47a163d6d4547afb1f418af8539ce3c9a54635276d11b4c7b1832d79531e7d35",
+      "source_bindings": [
+        {
+          "source_id": "champaca_flowers_finish",
+          "source_record_sha256": "577589ae09c7b0bc9f8649a2a0039c6fc3bb7a3147dd59880e6fd825d3f1a07c"
+        }
+      ],
+      "title": "Champaca — source-bounded comparison",
+      "options": [
+        {
+          "option_id": "flower_link",
+          "label": "Floral-terpenic continuity",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "champaca",
+            "floral",
+            "petal",
+            "terpenic"
+          ],
+          "conflict_terms": [
+            "floral",
+            "terpenic"
+          ],
+          "comparison_question": "Does floral continuity preserve the intended champaca rather than a generic bouquet?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "fruit_bridge",
+          "label": "Restrained fruit-floral bridge",
+          "template_id": "fruit",
+          "query_terms": [
+            "champaca",
+            "fruity",
+            "ester",
+            "fruit floral"
+          ],
+          "conflict_terms": [
+            "fruit",
+            "fruity",
+            "sweet"
+          ],
+          "comparison_question": "Does fruit-associated support add a useful contrast without fruit taking over?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "lily_green",
+      "subtype_id": "LILY_GREEN",
+      "subtype_card_sha256": "0a380f8e51c5f07041613d3692dbdd7f5c375fc2ba808d5413202e4be1ba0b1e",
+      "source_bindings": [
+        {
+          "source_id": "lily_cultivars_floral_v2",
+          "source_record_sha256": "fadedea3fa3276c2ed92477b27c18cc3705c391aeee02cff65f005d409de3772"
+        },
+        {
+          "source_id": "iff_hexenylsal_floral_v2",
+          "source_record_sha256": "d0c5860ca66a015a7d936e8a61f7bd5382973868d12c0a1b0e3cf6f1a7b60cc3"
+        },
+        {
+          "source_id": "givaudan_florhydral_completion",
+          "source_record_sha256": "aa00a1a2c661d81e28add1283fba41a7ed15612c43c455c5b56c37cf11b112f2"
+        }
+      ],
+      "title": "Green Lilium rather than generic muguet",
+      "options": [
+        {
+          "option_id": "stem_edge",
+          "label": "Stem-green edge",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "lilium",
+            "stem green",
+            "green floral",
+            "fresh cut"
+          ],
+          "conflict_terms": [
+            "green",
+            "leaf",
+            "leafy",
+            "stem"
+          ],
+          "comparison_question": "Does stem-green articulation help the chosen Lilium target without vegetal drift?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "watery_link",
+          "label": "Watery flower continuity",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "lilium",
+            "fresh floral",
+            "watery",
+            "petal"
+          ],
+          "conflict_terms": [
+            "watery",
+            "dewy",
+            "floral"
+          ],
+          "comparison_question": "Does watery support preserve the chosen Lilium, rather than substitute muguet?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "pollen_spartium_broom",
+      "subtype_id": "POLLEN_SPARTIUM_BROOM",
+      "subtype_card_sha256": "568afc36db98cb7dfd4d8f4c60ad765c6c80f1ef0dc697b8e0e65c170e41d738",
+      "source_bindings": [
+        {
+          "source_id": "broom_iff_depth",
+          "source_record_sha256": "dd2f9f97742a282a814e8db38411738fa40827e7df49437ca02d4916f41d3fa7"
+        }
+      ],
+      "title": "Spanish broom absolute: honey, dried-fruit and hay facets",
+      "options": [
+        {
+          "option_id": "hay_texture",
+          "label": "Hay and malt-associated texture",
+          "template_id": "tobacco_hay",
+          "query_terms": [
+            "broom",
+            "hay",
+            "dry floral",
+            "straw",
+            "malt"
+          ],
+          "conflict_terms": [
+            "hay",
+            "malt",
+            "tobacco",
+            "smoky"
+          ],
+          "comparison_question": "Does hay-associated texture distinguish the honey-floral control without cereal or smoke drift?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "fruit_contour",
+          "label": "Dried-fruit contour",
+          "template_id": "fruit",
+          "query_terms": [
+            "broom",
+            "dried fruit",
+            "honey floral",
+            "fruit"
+          ],
+          "conflict_terms": [
+            "fruit",
+            "fruity",
+            "sweet"
+          ],
+          "comparison_question": "Does dried-fruit support retain the flower rather than make a gourmand?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "violet_powder",
+      "subtype_id": "VIOLET_POWDER",
+      "subtype_card_sha256": "0fbba580eddababff7e98c55d59ae1e45a082a64850efb5112a5a809f7b3dfe0",
+      "source_bindings": [
+        {
+          "source_id": "iff_alpha_extra",
+          "source_record_sha256": "0f6f26d10363535bac56e6d0455cdc6d279d32aadd909c1e85987ddface404a1"
+        },
+        {
+          "source_id": "iff_gamma",
+          "source_record_sha256": "0158eb039645955eae7c6bed9c0d3b1cbd8fc27a2923613d64ffba0e42b6504e"
+        },
+        {
+          "source_id": "violet_emissions",
+          "source_record_sha256": "8fcf5996069e7f4f875b28dcf5149105b8a84f8c5f402e8656f3bffbd573db9f"
+        }
+      ],
+      "title": "Violet powder distinct from orris root",
+      "options": [
+        {
+          "option_id": "petal_powder",
+          "label": "Petal-powder continuation",
+          "template_id": "powder",
+          "query_terms": [
+            "violet petal",
+            "powder",
+            "floral",
+            "cosmetic"
+          ],
+          "conflict_terms": [
+            "powder",
+            "powdery",
+            "cosmetic",
+            "lipstick"
+          ],
+          "comparison_question": "Does powder support preserve the fixed violet petals without lipstick takeover?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "woody_link",
+          "label": "Woody violet continuation",
+          "template_id": "dry_wood",
+          "query_terms": [
+            "violet",
+            "woody",
+            "orris",
+            "powder"
+          ],
+          "conflict_terms": [
+            "wood",
+            "woody",
+            "orris",
+            "rooty"
+          ],
+          "comparison_question": "Does a woody continuation clarify or displace violet petals?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "iris_violet_leaf",
+      "subtype_id": "IRIS_VIOLET_LEAF",
+      "subtype_card_sha256": "9cc538eb7d8372bf1b4d528dffd2e1e9729c2b1f777e1e18fd26f28720e4505c",
+      "source_bindings": [
+        {
+          "source_id": "iff_violet_leaf_subtypes",
+          "source_record_sha256": "ca2e27425aaac65c5faa010ce20ff801ee9376696cb74c833d59b50a48e46e2d"
+        },
+        {
+          "source_id": "iff_orivone",
+          "source_record_sha256": "0649ad214cf4f691ca15ddb37e7cbd2e0588781508fe602d90d01dfe78edb771"
+        },
+        {
+          "source_id": "biolandes_orris",
+          "source_record_sha256": "8da16c2ba96e4841c391004e557c1957be73f85feff3dce9fadcf63da52b7c17"
+        }
+      ],
+      "title": "Violet-leaf contrast in an iris structure",
+      "options": [
+        {
+          "option_id": "green_contrast",
+          "label": "Leaf-green contrast",
+          "template_id": "green_leaf",
+          "query_terms": [
+            "violet leaf",
+            "leafy",
+            "green",
+            "stem"
+          ],
+          "conflict_terms": [
+            "leaf",
+            "leafy",
+            "green"
+          ],
+          "comparison_question": "Does a leaf edge clarify the fixed iris rather than replace root/powder with cucumber?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "watery_link",
+          "label": "Watery leaf continuity",
+          "template_id": "muguet_air",
+          "query_terms": [
+            "violet leaf",
+            "watery",
+            "green floral",
+            "transparent"
+          ],
+          "conflict_terms": [
+            "watery",
+            "cucumber",
+            "green"
+          ],
+          "comparison_question": "Does watery support connect the leaf to the exact iris control?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "bouquet_aldehydic",
+      "subtype_id": "BOUQUET_ALDEHYDIC",
+      "subtype_card_sha256": "e485f08f60fcf559265dac25bf541b4f03dc508a1e7702069ab2422bbe1fb18a",
+      "source_bindings": [
+        {
+          "source_id": "chanel_n5_floral_v2",
+          "source_record_sha256": "95a7ce0421e62415218062186e7b6d2ce75067408508b0b3cafc40b68bff7222"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "dsm_hedione_foundation",
+          "source_record_sha256": "e16f04e784546916f2f084b4e9dbb9a23e5654fb30d282cd2237f93b13f5d187"
+        }
+      ],
+      "title": "Aldehydic floral architecture",
+      "options": [
+        {
+          "option_id": "surface_definition",
+          "label": "Aldehydic surface definition",
+          "template_id": "aldehydic",
+          "query_terms": [
+            "floral bouquet",
+            "aldehydic",
+            "sparkling",
+            "petal"
+          ],
+          "conflict_terms": [
+            "aldehyde",
+            "aldehydic",
+            "soapy",
+            "waxy"
+          ],
+          "comparison_question": "Does the optional surface effect define petals without wax or soap masking?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "citrus_surface",
+          "label": "Citrus surface lift",
+          "template_id": "citrus_peel",
+          "query_terms": [
+            "floral bouquet",
+            "citrus",
+            "fresh",
+            "peel"
+          ],
+          "conflict_terms": [
+            "citrus",
+            "peel",
+            "orange"
+          ],
+          "comparison_question": "Does citrus lift preserve the same protected floral heart better than an aldehydic surface?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    },
+    {
+      "adapter_id": "bouquet_soft",
+      "subtype_id": "BOUQUET_SOFT",
+      "subtype_card_sha256": "90f8909355fa75131c3899f3b88eeddeb5991c5a63450ddcd09a54702b9363ec",
+      "source_bindings": [
+        {
+          "source_id": "dsm_florol_subtypes",
+          "source_record_sha256": "8a11ad4223cedb450e2668c189ee6cf96e829bfed72f35d90ee97f1faeb6aeb0"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        },
+        {
+          "source_id": "dsm_hedione_foundation",
+          "source_record_sha256": "e16f04e784546916f2f084b4e9dbb9a23e5654fb30d282cd2237f93b13f5d187"
+        }
+      ],
+      "title": "Soft floral without loss of recognizer",
+      "options": [
+        {
+          "option_id": "petal_texture",
+          "label": "Soft-petal texture",
+          "template_id": "floral_bouquet",
+          "query_terms": [
+            "soft floral",
+            "petal",
+            "gentle",
+            "floral"
+          ],
+          "conflict_terms": [
+            "floral",
+            "soft"
+          ],
+          "comparison_question": "Does petal support soften the unchanged flower without loss of recognition?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        },
+        {
+          "option_id": "musk_link",
+          "label": "Restrained musk link",
+          "template_id": "skin_musk",
+          "query_terms": [
+            "musk",
+            "soft",
+            "floral bridge",
+            "skin"
+          ],
+          "conflict_terms": [
+            "musk",
+            "skin",
+            "powder"
+          ],
+          "comparison_question": "Does a separate musk bridge smooth the control or flatten its flower?",
+          "status": "UNTESTED_FORMULATION_HYPOTHESIS"
+        }
+      ]
+    }
+  ],
+  "predecessor_sha256": "2a18a458d26fa891dc665ce4e75f8b8964873d46bbd36a780cd72bcd0a77e3bd"
+}
+

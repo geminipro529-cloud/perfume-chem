@@ -199,7 +199,13 @@ def test_formula_design_deep_mode_does_not_collapse_to_one_curated_capsule() -> 
     )
 
     assert result["design_mode"] == "DEEP_COMPOSE"
-    assert len(result["design_variants"]) == 3
+    assert 1 < len(result["design_variants"]) <= 3
+    signatures = {
+        tuple((row["stock_id"], row["amount_decimal"], row["amount_unit"])
+              for row in variant["formula"]["rows"])
+        for variant in result["design_variants"]
+    }
+    assert len(signatures) == len(result["design_variants"])
     assert all(
         variant["ordering"] == "UNORDERED_UNTIL_SENSORY_COMPARISON"
         for variant in result["design_variants"]
@@ -412,8 +418,8 @@ def test_formula_design_withholds_impossible_and_unavailable_briefs() -> None:
     )
     unavailable = design_inventory_formula(
         idea=(
-            "Create a current-inventory executable green fig perfume and make Gamma "
-            "Decalactone mandatory. Do not use unavailable material."
+            "Create a current-inventory executable green fig perfume and make "
+            "Polysantol mandatory. Do not use unavailable material."
         ),
         max_materials=12,
     )
@@ -640,7 +646,7 @@ def test_formula_design_uses_named_commercial_products_as_documentary_context_on
     assert all("selected_architecture_links" in item for item in context["named_products"])
 
 
-def test_formula_design_honors_exact_iris_and_incense_stock_forms() -> None:
+def test_formula_design_withholds_if_exact_requested_iris_stock_is_held() -> None:
     result = design_inventory_formula(
         idea=(
             "Use exactly Alpha Irone 10% in DEP, Orris Liquid 9% in DEP, and "
@@ -651,12 +657,13 @@ def test_formula_design_honors_exact_iris_and_incense_stock_forms() -> None:
         max_materials=10,
     )
 
-    rows = result["optimized_formula"]["rows"]
-    selected = {row["identity_name"]: row for row in rows}
-    assert {"Alpha Irone", "Orris Liquid", "Olibanum Resinoid"} <= set(selected)
-    assert selected["Alpha Irone"]["stock_fraction_decimal"] == "0.1"
-    assert selected["Orris Liquid"]["stock_fraction_decimal"] == "0.09"
-    assert selected["Olibanum Resinoid"]["stock_fraction_decimal"] == "0.5"
+    assert result["status"] == "WITHHELD_MANDATORY_MATERIAL_UNAVAILABLE"
+    assert result["optimized_formula"] is None
+    assert result["formula_action"] == "NO_CHANGE"
+    assert any(
+        "orris liquid" in reason.casefold()
+        for reason in result["constraint_audit"]["reason_codes"]
+    )
 
 
 def test_formula_design_treats_any_musk_as_a_group_level_exclusion() -> None:

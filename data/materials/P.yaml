@@ -1401,8 +1401,10 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: 0.85  # Product label fraction; exact basis/forms in receipt.
+  user_in_inventory: true
+  # Received-stock authority: data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json; line(s) 36.
+  # Existing working dilutions remain separate inventory rows; no purity assay inferred.
   supplier:
     perfumersworld_sku: 5GN10163
     perfumersworld_price_usd_per_g: 0.09
