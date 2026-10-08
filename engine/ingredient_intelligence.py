@@ -3608,6 +3608,18 @@ _ALIASES = {
     "Piperonal": "Heliotropal",
     "Cedamber": "Cedramber",
     "Jasmine Sambac": "Jasmine Sambac Absolute",
+    # Current-inventory spelling variants of the same material (stock
+    # strength/grade word or typo); mirrored in name_utils._ALIASES and YAML.
+    "Aldehyde C10 neat": "Aldehyde C10",
+    "Aldehyde C12 MNA neat": "Aldehyde C12 MNA",
+    "Dimethyl Benzyl Carbonyl Acetate": "DBCA",
+    "Ethyl Maltol 1% +": "Ethyl Maltol",
+    "Ethyl Maltol 1% + 10%": "Ethyl Maltol",
+    "Phenethyl Acetate": "Phenyl Ethyl Acetate",
+    "Phenylacetaldehyde Dimethyl Acetal (PADMA)": "padma",
+    "Phenylacetaldehyde Dimethyl Acetal": "padma",
+    "Ambrox Super Crystals": "Ambrox Super",
+    "Citral Natural": "Citral",
 }
 
 
