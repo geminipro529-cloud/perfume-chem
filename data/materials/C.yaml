@@ -1033,7 +1033,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Caryophyllene Acetate
   aliases: []
-  cas: null
+  cas: '32214-91-8'
   smiles: null
   inchikey: null
   mw_g_mol: null
@@ -1064,9 +1064,10 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'MW, logP and VP left null (2026-10-08). MW conflict: TGSC "Molecular Weight: 262.39262000" (C17H26O2) vs PerfumersWorld SDS 264.41 (matches C17H28O2); unresolved. logP and VP exist only as TGSC estimates, not RIFM-quoted: "logP (o/w): 5.366 (est)"; "Vapor Pressure: 0.000240 mmHg @ 25.00 C. (est)" = 0.0320 Pa at 133.322 Pa/mmHg (https://www.thegoodscentscompany.com/data/rw1023611.html). Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://www.thegoodscentscompany.com/data/rw1023611.html; "CAS Number: 32214-91-8" (TGSC name "caryophyllene alcohol acetate") (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
 - canonical_name: Cashmeran
   aliases:
   - cashmeran
@@ -1927,12 +1928,12 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Cedryl Acetate
   aliases: []
-  cas: null
+  cas: '77-54-3'
   smiles: null
   inchikey: null
   mw_g_mol: null
   density_25c_g_ml: null
-  logp: null
+  logp: 6.2
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -1960,9 +1961,11 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'MW, VP and density left null (2026-10-08). Formula C17H28O2 per IFF; no source states the MW. IFF VP "0.000489 mm Hg @ 23 C" = 0.0652 Pa at 23 C, not 25 C. Specific gravity 1.0014 at 20 C (measured lot), spec 0.986-1.016 (https://scent.vn/en/products/cedryl-acetate-aroma-chemical); 20 C, not used. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/ (IFF, producer); "77-54-3" (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
+    logp: 'https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/ (IFF, producer); log P "6.2", method not stated (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
 - canonical_name: Celery Seed Essential Oil
   aliases: []
   cas: null

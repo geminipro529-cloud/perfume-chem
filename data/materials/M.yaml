@@ -389,10 +389,10 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Magnolan
   aliases: []
-  cas:
+  cas: '27606-09-3'
   smiles:
   inchikey:
-  mw_g_mol:
+  mw_g_mol: 204.27
   density_25c_g_ml:
   logp:
   functional_groups: []
@@ -422,9 +422,11 @@
     other: {}
   families: []
   character:
-  notes:
+  notes: 'logP, VP and density left null (2026-10-08). logP: RIFM fragrance ingredient safety assessment, Magnolan, CAS 27606-09-3, Food Chem. Toxicol. 130 Suppl 1 (2019) 110568, doi:10.1016/j.fct.2019.110568 quotes "2.67 (EPI Suite), 2.43 and 2.90 for isomer 1 and 2, respectively, at 22.8 C (RIFM, 2014d)"; Magnolan is an isomer mixture with two measured values and unknown isomer ratio, so no single value was chosen. VP: only TGSC rw1007991 0.003 mmHg at 25 C (est) = 0.40 Pa. Density 1.086-1.090 g/mL at 20 C (Ventos, https://www.ventos.com/index.php/en/producto/5104), 20 C, not used. No air ODT found. Source: material-data-firecrawl/BATCH1_FEMME_20261008.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'PerfumersWorld SDS 3MN13569 (local snapshot, batch MAG13569/26280); RIFM fragrance ingredient safety assessment, Magnolan, CAS 27606-09-3, Food Chem. Toxicol. 130 Suppl 1 (2019) 110568, doi:10.1016/j.fct.2019.110568 (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
+    mw_g_mol: 'PerfumersWorld SDS 3MN13569 (local snapshot, batch MAG13569/26280); MW 204.27, C13H16O2 (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
 - canonical_name: Magnolia EO
   aliases:
   - magnolia eo
@@ -955,10 +957,10 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Manzanate
   aliases: []
-  cas:
+  cas: '39255-32-8'
   smiles:
   inchikey:
-  mw_g_mol:
+  mw_g_mol: 144.21
   density_25c_g_ml:
   logp:
   functional_groups: []
@@ -988,9 +990,11 @@
     other: {}
   families: []
   character:
-  notes:
+  notes: 'logP, VP and density left null (2026-10-08). logP and VP exist only as TGSC estimates, not RIFM-quoted: "logP (o/w): 2.667 (est)"; "Vapor Pressure: 2.906000 mmHg @ 25.00 C. (est)" = 387 Pa at 133.322 Pa/mmHg (https://www.perflavory.com/docs/doc1006801.html). Parchem "Specific gravity 0.861-0.865" has no stated temperature. Identity: ethyl 2-methylpentanoate (Givaudan). Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://scentspiracy.com/fragrance-ingredients/p/manzanate and https://www.parchem.com/chemical-supplier-distributor/ethyl-2-methylpentanoate-manzanate-022982; "CAS No.: 39255-32-8" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    mw_g_mol: 'https://www.parchem.com/chemical-supplier-distributor/ethyl-2-methylpentanoate-manzanate-022982; "Molecular weight 144.21" (C8H16O2) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
 - canonical_name: Maple Lactone
   aliases:
   - maple lactone
@@ -1583,7 +1587,7 @@
   cas:
   smiles:
   inchikey:
-  mw_g_mol:
+  mw_g_mol: 182.22
   density_25c_g_ml:
   logp:
   functional_groups: []
@@ -1613,9 +1617,10 @@
     other: {}
   families: []
   character:
-  notes:
+  notes: 'CAS, logP and VP left null (2026-10-08). CAS conflict: TGSC "5595-79-9" (https://thegoodscentscompany.com/data/rw1009761.html) vs 5595-79-6 in the task brief; unresolved. Note: only 5595-79-9 passes the CAS check digit (computed, not sourced). logP and VP exist only as TGSC estimates, not RIFM-quoted: "logP (o/w): 1.571 (est)"; "Vapor Pressure: 0.003000 mmHg @ 25.00 C. (est)" = 0.400 Pa at 133.322 Pa/mmHg. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    mw_g_mol: 'https://thegoodscentscompany.com/data/rw1009761.html; "Molecular Weight: 182.21918000", calculated from C10H14O3 (2-ethoxy-4-(methoxymethyl)phenol) (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
 - canonical_name: Methyl Eugenol
   aliases: []
   cas:
@@ -2875,7 +2880,7 @@
 - canonical_name: Methyl Laitone
   aliases: [methyl laitone]
   mw_g_mol: 168.23
-  cas: null
+  cas: '94201-19-1'
   vp_25c_pa: null
   logp: null
   odt_air_ppb: null
@@ -2884,8 +2889,9 @@
   user_in_inventory: true
   families: [lactonic, floral]
   character: Creamy lactonic fruity modifier; white-flower body and sandalwood milkiness.
-  notes: The exact PerfumersWorld product is SKU 5VD10871, Methyl Laitone 10% DPG, active CAS 94201-19-1. The user's separate current stock is user-confirmed 20% v/v in ethanol.
+  notes: 'The exact PerfumersWorld product is SKU 5VD10871, Methyl Laitone 10% DPG, active CAS 94201-19-1. The user''s separate current stock is user-confirmed 20% v/v in ethanol. logP, VP and density left null (2026-10-08). logP only TGSC "1.882 (est)"; Givaudan gives none. VP conflict: Givaudan "0.0240 hPa / 0.0060 hPa" (temperature and isomer not captured) vs TGSC "0.024000 mmHg @ 20.00 C." = 3.20 Pa (possible unit slip). Specific gravity 1.025 at 20 C (scent.vn), 20 C, not used. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md.'
   provenance:
     mw_g_mol: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-laitone-10dpg
     supplier_product_comparison: https://www.perfumersworld.com/view.php?pro_id=5VD10871
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
+    cas: 'https://www.givaudan.com/print/1314651 (Givaudan, producer); "94201-19-1, 91069-37-3/25265-71-8" (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'

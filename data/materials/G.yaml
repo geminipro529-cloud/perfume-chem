@@ -1504,10 +1504,10 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Glycolierral
   aliases: []
-  cas: null
+  cas: '68901-32-6'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 236.35
   density_25c_g_ml: null
   logp: null
   functional_groups: []
@@ -1537,9 +1537,11 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'Second CAS for the isomer mixture: 94087-23-7. logP and VP left null (2026-10-08), no measured value: logP 4.007 (TGSC est) vs "Log Pow: 3.8" (scentspiracy, method not stated); VP "0.001000 mmHg @ 25.00 C. (est)" = 0.133 Pa (TGSC) vs "0.0024 hPa at 25C" = 0.24 Pa (scentspiracy, method not stated). Producer is Givaudan per TGSC. Density not found. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://thegoodscentscompany.com/data/rw1492991.html; "CAS Number: 68901-32-6"; the isomer mixture also carries "94087-23-7 (isomeric mixture)" (https://www.scentspiracy.com/fragrance-ingredients/p/glycolierral) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    mw_g_mol: 'https://thegoodscentscompany.com/data/rw1492991.html; "Molecular Weight: 236.35468000", calculated from C15H24O2 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
 - canonical_name: Gourmande F-TEC
   aliases:
   - GOURMANDE F-TEC

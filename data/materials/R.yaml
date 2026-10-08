@@ -389,12 +389,12 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Rhubofix
   aliases: []
-  cas: null
+  cas: '41816-03-9'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 204.31
   density_25c_g_ml: null
-  logp: null
+  logp: 3.1
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -422,9 +422,12 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'VP and density left null (2026-10-08). VP: dsm-firmenich "0.00735 Pa at 20C" (https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880) and Hekserij "Vapor pressure: 0.007 Pa" with no stated temperature (https://eng.hekserij.nl/shop/fragrance-raw-material/search-by-type/aroma-chemicals/rhubofix-fir); no 25 C value. Hekserij "Density: 1.03" has no stated temperature. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880 (dsm-firmenich, producer); "CAS# 0041816-03-9" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    mw_g_mol: 'https://www.scentspiracy.com/fragrance-ingredients/p/rhubofix (secondary site); "204.31 g/mol" (C14H20O) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    logp: 'https://eng.hekserij.nl/shop/fragrance-raw-material/search-by-type/aroma-chemicals/rhubofix-fir (Hekserij, supplier); "Log P: 3.1", method not stated (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
 - canonical_name: Rice Bran Oil - Fixed Oil
   aliases: []
   cas: null

@@ -1394,12 +1394,12 @@
 - canonical_name: Berry Hexanoate (berryflor)
   aliases:
   - Berry Hexanoate (BerryFlor)
-  cas: null
+  cas: '104986-28-9'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 202.25
+  density_25c_g_ml: 1.004
+  logp: 2.0
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -1427,9 +1427,13 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'VP left null (2026-10-08): only a TGSC estimate exists, not RIFM-quoted: "Vapor Pressure: 0.020000 mmHg @ 25.00 C. (est)" = 2.67 Pa at 133.322 Pa/mmHg (https://www.thegoodscentscompany.com/data/rw1061362.html). Identity: ethyl 6-acetoxyhexanoate; producer is Givaudan per TGSC and Fraterworks. TGSC: "Odor threshold: not reported". Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "CAS Number: 104986-28-9" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    mw_g_mol: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "Molecular Weight: 202.25026000", calculated from C10H18O4 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    logp: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "logP (o/w): 2.000", database value not marked (est), basis not stated (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    density_25c_g_ml: 'https://www.thegoodscentscompany.com/data/rw1061362.html; supplier range "Specific Gravity: 1.00500 to 1.00900 @ 25.00 C."; midpoint 1.007 x 0.99705 (water at 25 C) = 1.0040 g/mL (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
 - canonical_name: Beta Caryophyllene
   aliases: []
   cas: null
@@ -2679,10 +2683,10 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Buccoxime
   aliases: []
-  cas: null
+  cas: '75147-23-8'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 167.25
   density_25c_g_ml: null
   logp: null
   functional_groups: []
@@ -2716,9 +2720,11 @@
         price_usd_per_g: 0.32
   families: []
   character: null
-  notes: null
+  notes: 'logP, VP and density left null (2026-10-08). logP conflict, no measured value: 1.930 (TGSC est, https://thegoodscentscompany.com/data/rw1004001.html) vs "LogP 2.94 at 25C" (ChemicalBook, method not stated, https://chemicalbook.com/CASEN_75147-23-8.htm). VP conflict: TGSC "0.006000 mmHg @ 25.00 C. (est)" = 0.800 Pa vs ChemicalBook "vapor pressure 0.095 Pa at 20C" (method not stated), 8-fold. Density only "1.13+/-0.1 g/cm3 (Predicted)" (ChemicalBook), an estimate. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://thegoodscentscompany.com/data/rw1004001.html; "CAS Number: 75147-23-8" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    mw_g_mol: 'https://thegoodscentscompany.com/data/rw1004001.html; "Molecular Weight:167.25169000", calculated from C10H17NO (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
 - canonical_name: Butyl Butyrate
   aliases: []
   cas: null
