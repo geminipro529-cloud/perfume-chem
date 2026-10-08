@@ -87,3 +87,21 @@ transcript sharing or connector proof.
   precondition when available, and verify the resulting SHA-256.
 
 See `PROTOCOL.md` and `handoff.schema.json` for the exact contract.
+
+## Local MCP bridge (`engine/bridge`)
+
+The fail-closed local MCP bridge in `engine/bridge/` (see
+`docs/perfume_chem_bridge.md`) is an evidence-transport boundary, not canonical
+scientific or formula authority. It reads `PROTOCOL.md` from this directory and
+pins it through `PERFUME_CHEM_PROTOCOL_SHA256`; it refuses packet staging when
+that file or hash is absent, mismatched, non-UTF-8, or lacks the protocol
+identity marker.
+
+Bridge packets are created only beneath:
+
+```text
+inbox/<conversation-id>/<nonce>/PACKET.json
+```
+
+Packet creation does not imply acknowledgement, installation, claim acceptance,
+formula mutation, or canonical promotion.
