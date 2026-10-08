@@ -278,10 +278,14 @@ def _parse_dilution_from_name(raw: str) -> tuple[str, float]:
 
 
 def load_inventory() -> list[dict]:
-    """Parse inventory.txt → list of {name, dilution, category}."""
+    """Parse inventory.txt → list of {name, dilution, category}, one per owned stock.
+
+    Every owned stock of a material is kept (e.g. Beta Ionone neat and 0.1% in
+    TEC), so a suggestion can name the stock that makes its dose pipettable.
+    """
     records = parse_inventory(
         _INVENTORY_PATH,
-        unique=True,
+        unique=False,
         include_solvents=False,
         include_unavailable=False,
     )
@@ -1064,6 +1068,78 @@ def _material_in_inventory(name: str, inventory: list[dict]) -> dict | None:
     return None
 
 
+# Kenny's bench rule: a pipetted stock volume should be at least 20 µL.
+_MIN_PIPETTE_UL = 20.0
+
+
+def _stock_volume_basis_ul(fv: FormulaVector, intervention: InterventionContext) -> float:
+    """µL that 100% of a candidate dose refers to.
+
+    Post-mix doses are % of the bottle (the same basis as ``dose_ul``). Design-time
+    doses are % of the concentrate; the formula carries percentages only, so the
+    concentrate is taken as ``sum(percentages) × 100 µL`` (10 mL for a 100% formula),
+    the convention ``_annotate_warnings`` already uses.
+    """
+    if intervention.mode == "post_mix" and intervention.batch_volume_ml:
+        return float(intervention.batch_volume_ml) * 1000.0
+    return sum(fv.ingredients.values()) * 100.0
+
+
+def _owned_stocks(inv_item: dict, inventory: list[dict]) -> list[dict]:
+    """Every owned stock of ``inv_item``'s material, strongest first.
+
+    Stocks are grouped by inventory name, the key ``parse_inventory(unique=True)``
+    used to collapse them.
+    """
+    key = inv_item["name"].lower()
+    stocks = [item for item in inventory if item["name"].lower() == key] or [inv_item]
+    return sorted(stocks, key=lambda item: item["dilution"], reverse=True)
+
+
+def _choose_stock(
+    inv_item: dict,
+    inventory: list[dict],
+    strongest_raw_pct: float,
+    volume_basis_ul: float,
+) -> tuple[dict, float]:
+    """Pick the owned stock that makes a new material's active dose pipettable.
+
+    ``strongest_raw_pct`` is the candidate dose expressed in the strongest owned
+    stock; its active dose is kept. Returns the strongest stock whose raw volume
+    is at least ``_MIN_PIPETTE_UL`` (else the most dilute) and its raw % dose.
+    """
+    stocks = _owned_stocks(inv_item, inventory)
+    positive = [item for item in stocks if item["dilution"] > 0]
+    if len(positive) < 2:
+        return stocks[0], strongest_raw_pct
+    active_pct = strongest_raw_pct * positive[0]["dilution"]
+    for index, stock in enumerate(positive):
+        raw_pct = strongest_raw_pct if index == 0 else active_pct / stock["dilution"]
+        if raw_pct / 100.0 * volume_basis_ul >= _MIN_PIPETTE_UL:
+            return stock, raw_pct
+    return positive[-1], active_pct / positive[-1]["dilution"]
+
+
+def _format_stock_strength(dilution: float) -> str:
+    """'neat' for an undiluted stock, else the stock strength such as '0.1%'."""
+    if dilution >= 1.0:
+        return "neat"
+    return f"{dilution * 100:g}%"
+
+
+def _round_dose_pct(dose_pct: float) -> float:
+    """One decimal from 0.1 up; two significant figures below, so it never shows 0.0."""
+    if dose_pct >= 0.1 or dose_pct <= 0:
+        return round(dose_pct, 1)
+    return float(f"{dose_pct:.2g}")
+
+
+def _format_dose_pct(dose_pct: float) -> str:
+    if dose_pct >= 0.1 or dose_pct <= 0:
+        return f"{dose_pct:.1f}"
+    return f"{dose_pct:.2g}"
+
+
 def _annotate_warnings(
     rec: "Recommendation",
     fv: FormulaVector,
@@ -1278,9 +1354,19 @@ def generate_recommendations(
 
             if existing:
                 mod_ings[existing] = mod_ings.get(existing, 0) + add_pct
+                stock_dilution = fv.dilutions.get(
+                    existing, _owned_stocks(inv_item, inventory)[0]["dilution"]
+                )
             else:
+                stock_item, add_pct = _choose_stock(
+                    inv_item,
+                    inventory,
+                    add_pct,
+                    _stock_volume_basis_ul(fv, intervention),
+                )
+                stock_dilution = stock_item["dilution"]
                 mod_ings[inv_item["name"]] = add_pct
-                mod_dils[inv_item["name"]] = inv_item["dilution"]
+                mod_dils[inv_item["name"]] = stock_dilution
 
             # Renormalize to 100%
             total = sum(mod_ings.values())
@@ -1327,9 +1413,7 @@ def generate_recommendations(
 
             seen_materials.add(candidate_key)
 
-            mat_display = inv_item["name"]
-            if inv_item["dilution"] < 1.0:
-                mat_display += f" ({int(inv_item['dilution'] * 100)}%)"
+            mat_display = f"{inv_item['name']} ({_format_stock_strength(stock_dilution)})"
 
             candidates.append(
                 Recommendation(
@@ -1337,7 +1421,7 @@ def generate_recommendations(
                     baseline_score=axis_score,
                     action=action,
                     material=mat_display,
-                    dose_pct=round(add_pct, 1),
+                    dose_pct=_round_dose_pct(add_pct),
                     rationale=rationale,
                     new_axis_score=round(new_axis_score, 1),
                     delta=round(delta, 1),
@@ -1495,7 +1579,7 @@ def format_recommendations(
             )
         lines.append(
             f"    {axis_display:<18s} {r.action:<9s} {r.material:<30s} "
-            f"{r.dose_pct:5.1f}  {delta_display:>7s}  {comp_display:>7s}  {stars:<9s} {rationale}"
+            f"{_format_dose_pct(r.dose_pct):>5s}  {delta_display:>7s}  {comp_display:>7s}  {stars:<9s} {rationale}"
         )
         for label, details in (r.provenance or {}).items():
             normalized_details = [str(detail).strip() for detail in details if str(detail).strip()]
