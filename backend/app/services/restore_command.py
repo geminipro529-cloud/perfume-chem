@@ -2,7 +2,8 @@
 
 The running app only validates and stages a restore; replacing the live
 database happens here, in a process of its own, after checking that nothing
-else is using the database.
+else is using the database: the app's lock file (see ``app_lock``) first,
+then its port and a SQLite lock probe.
 """
 
 from __future__ import annotations
@@ -11,11 +12,17 @@ import socket
 import sqlite3
 import sys
 from pathlib import Path
+from typing import TextIO
 
 from sqlalchemy.engine import URL
 
+from app.services import app_lock
 from app.services.backup_service import (
+    BackupArtifact,
+    BackupService,
+    RestoreAfterSafetyCopyError,
     RestoreSafetyError,
+    StagedRestore,
     backup_service_for_database_url,
 )
 
@@ -35,8 +42,6 @@ def restore_from_backup(backup: str, *, database_url: str | URL, port: int) -> i
     except RestoreSafetyError as exc:
         return _refuse(str(exc))
     database = service.database_path
-    if not database.is_file():
-        return _refuse(f"There is no database to restore into at {database}.")
 
     snapshot = _backup_path(backup, service.backup_directory)
     try:
@@ -48,24 +53,65 @@ def restore_from_backup(backup: str, *, database_url: str | URL, port: int) -> i
             f"Backup {snapshot} cannot be restored: " + "; ".join(validation.errors) + "."
         )
 
-    in_use = _database_in_use(database, port)
-    if in_use:
-        return _refuse(in_use + " Nothing was changed.")
-
-    staged = service.stage_restore(snapshot)
+    # The running app holds this lock whatever host or port it serves on.
+    lock_path = app_lock.lock_path_for(database)
     try:
+        held = app_lock.try_acquire(lock_path)
+    except OSError as exc:
+        return _refuse(f"Cannot open the lock file {lock_path}: {exc}. Nothing was changed.")
+    if held is None:
+        return _refuse(
+            f"The app is still running: another process holds {lock_path}. "
+            "Stop the app, then run this command again. Nothing was changed."
+        )
+    try:
+        in_use = _database_in_use(database, port)
+        if in_use:
+            return _refuse(in_use + " Nothing was changed.")
+        return _replace(service, validation.snapshot_path)
+    finally:
+        held.release()
+
+
+def _replace(service: BackupService, snapshot: Path) -> int:
+    database = service.database_path
+    staged: StagedRestore | None = None
+    try:
+        staged = service.stage_restore(snapshot)
         applied = service.apply_staged_restore(staged, maintenance_mode=True)
+    except RestoreAfterSafetyCopyError as exc:
+        print(f"Restore failed: {exc}", file=sys.stderr)
+        print(f"The database at {database} may already have been replaced.", file=sys.stderr)
+        _print_safety_copies(exc.pre_restore_backup, exc.damaged_copy, file=sys.stderr)
+        return 1
     except (OSError, sqlite3.Error, RestoreSafetyError) as exc:
         print(f"Restore failed: {exc}", file=sys.stderr)
+        print(f"The database at {database} was not changed.", file=sys.stderr)
         return 1
     finally:
-        staged.staged_path.unlink(missing_ok=True)
+        if staged is not None:
+            staged.staged_path.unlink(missing_ok=True)
 
-    pre_restore = applied.pre_restore_backup.snapshot_path
-    print(f"Restored {database} from {validation.snapshot_path.name}.")
-    print(f"The database as it was before this restore is saved at: {pre_restore}")
-    print(f"To undo, run: {RESTORE_COMMAND} {pre_restore.name}")
+    print(f"Restored {database} from {snapshot.name}.")
+    if applied.pre_restore_backup is None and applied.damaged_copy is None:
+        print(f"There was no database at {database}, so no pre-restore backup was taken.")
+    _print_safety_copies(applied.pre_restore_backup, applied.damaged_copy, file=sys.stdout)
     return 0
+
+
+def _print_safety_copies(
+    pre_restore: BackupArtifact | None, damaged_copy: Path | None, *, file: TextIO
+) -> None:
+    if pre_restore is not None:
+        path = pre_restore.snapshot_path
+        print(f"The database as it was before this restore is saved at: {path}", file=file)
+        print(f"To put it back, run: {RESTORE_COMMAND} {path.name}", file=file)
+    if damaged_copy is not None:
+        print(
+            "The database failed its integrity check, so no backup could be made of it. "
+            f"A raw copy of the damaged file is kept at: {damaged_copy}",
+            file=file,
+        )
 
 
 def _backup_path(backup: str, backup_directory: Path) -> Path:
@@ -76,9 +122,9 @@ def _backup_path(backup: str, backup_directory: Path) -> Path:
 
 
 def _database_in_use(database: Path, port: int) -> str | None:
-    # An idle running app holds no SQLite lock, so a lock probe alone cannot
-    # see it; its listening port can.  The lock probe then catches any other
-    # program in the middle of reading or writing the database.
+    # Second checks behind the app lock: an app from a build without that
+    # lock still answers on its port, and the SQLite lock probe catches any
+    # other program in the middle of reading or writing the database.
     try:
         with socket.create_connection(("127.0.0.1", port), timeout=1.0):
             return (
@@ -87,6 +133,8 @@ def _database_in_use(database: Path, port: int) -> str | None:
             )
     except OSError:
         pass
+    if not database.exists():  # connecting would create an empty database
+        return None
     connection = sqlite3.connect(database, timeout=0)
     try:
         connection.execute("BEGIN EXCLUSIVE")
@@ -96,6 +144,8 @@ def _database_in_use(database: Path, port: int) -> str | None:
             f"The database {database} is in use by another program. "
             "Close it, then run this command again."
         )
+    except sqlite3.DatabaseError:
+        return None  # damaged, not in use: the restore keeps a raw copy of it
     finally:
         connection.close()
     return None

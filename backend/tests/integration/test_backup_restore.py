@@ -331,7 +331,7 @@ def _free_port() -> int:
 
 
 def _leftovers(tmp_path) -> tuple[list[str], list[str]]:
-    stages = sorted(path.name for path in tmp_path.glob(".lab-restore-stage-*"))
+    stages = sorted(path.name for path in tmp_path.glob(".lab.db-restore-stage-*"))
     backups = sorted(
         path.name for path in (tmp_path / "lab-backups").glob("*.sqlite")
     )
@@ -410,7 +410,7 @@ def test_restore_command_refuses_missing_and_corrupted_backups(tmp_path, capsys)
 def test_staging_again_removes_the_earlier_stage_copy(tmp_path):
     database = tmp_path / "lab.db"
     _database(database, "old")
-    unrelated = tmp_path / ".lab-restore-stage-notes.txt"
+    unrelated = tmp_path / ".lab.db-restore-stage-notes.txt"
     unrelated.write_text("not a stage copy", encoding="utf-8")
     service = BackupService(
         database_path=database,
@@ -423,7 +423,7 @@ def test_staging_again_removes_the_earlier_stage_copy(tmp_path):
     second = service.stage_restore(backup.snapshot_path)
 
     assert not first.staged_path.exists()
-    assert list(tmp_path.glob(".lab-restore-stage-*.sqlite")) == [second.staged_path]
+    assert list(tmp_path.glob(".lab.db-restore-stage-*.sqlite")) == [second.staged_path]
     assert unrelated.exists()
 
 

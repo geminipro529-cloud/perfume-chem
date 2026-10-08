@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 import os
+import re
+import secrets
 import shutil
 import sqlite3
 import tempfile
@@ -22,6 +24,25 @@ BACKUP_DIRECTORY_NAME = "lab-backups"
 
 class RestoreSafetyError(ValueError):
     """Raised when a restore cannot satisfy the replacement safety contract."""
+
+
+class RestoreAfterSafetyCopyError(RestoreSafetyError):
+    """A restore failed after the live database was copied to safety.
+
+    The live database may already have been replaced, so the caller must tell
+    the user where the safety copies are.
+    """
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        pre_restore_backup: BackupArtifact | None,
+        damaged_copy: Path | None,
+    ) -> None:
+        super().__init__(message)
+        self.pre_restore_backup = pre_restore_backup
+        self.damaged_copy = damaged_copy
 
 
 @dataclass(frozen=True, slots=True)
@@ -77,7 +98,10 @@ class StagedRestore:
 @dataclass(frozen=True, slots=True)
 class AppliedRestore:
     database_path: Path
-    pre_restore_backup: BackupArtifact
+    # None when there was no live database to back up, or it was damaged.
+    pre_restore_backup: BackupArtifact | None
+    # A raw byte copy of a live database that failed its integrity check.
+    damaged_copy: Path | None = None
 
 
 class BackupService:
@@ -129,6 +153,7 @@ class BackupService:
             destination.close()
             source.close()
 
+        _fsync_path(snapshot_path)
         artifact = BackupArtifact(
             snapshot_path=snapshot_path,
             manifest_path=snapshot_path.with_suffix(".manifest.json"),
@@ -190,7 +215,14 @@ class BackupService:
 
     @property
     def stage_prefix(self) -> str:
-        return f".{self.database_path.stem}-restore-stage-"
+        return f".{self.database_path.name}-restore-stage-"
+
+    def is_stage_file(self, path: Path) -> bool:
+        """Whether ``path`` is a stage copy this service made for its database."""
+
+        return path.parent == self.database_path.parent and bool(
+            re.fullmatch(re.escape(self.stage_prefix) + _STAGE_SUFFIX_PATTERN, path.name)
+        )
 
     def stage_restore(self, snapshot_path: Path) -> StagedRestore:
         validation = self.validate_restore(snapshot_path)
@@ -202,29 +234,36 @@ class BackupService:
         # earlier ones would otherwise pile up (hidden, dot-prefixed) beside
         # the live database.
         for leftover in self.database_path.parent.iterdir():
-            if (
-                leftover.name.startswith(self.stage_prefix)
-                and leftover.name.endswith(".sqlite")
-                and leftover.is_file()
-            ):
+            if self.is_stage_file(leftover) and leftover.is_file():
                 leftover.unlink(missing_ok=True)
-        descriptor, raw_path = tempfile.mkstemp(
-            prefix=self.stage_prefix,
-            suffix=".sqlite",
-            dir=self.database_path.parent,
-        )
-        os.close(descriptor)
-        staged_path = Path(raw_path).resolve()
-        shutil.copy2(validation.snapshot_path, staged_path)
-        if _file_sha256(staged_path) != validation.snapshot_sha256:
+        staged_path, descriptor = self._create_stage_file()
+        try:
+            with os.fdopen(descriptor, "wb") as target:
+                with validation.snapshot_path.open("rb") as source:
+                    shutil.copyfileobj(source, target, 1024 * 1024)
+                target.flush()
+                os.fsync(target.fileno())
+            if _file_sha256(staged_path) != validation.snapshot_sha256:
+                raise RestoreSafetyError("staged restore digest mismatch")
+        except BaseException:
             staged_path.unlink(missing_ok=True)
-            raise RestoreSafetyError("staged restore digest mismatch")
+            raise
         return StagedRestore(
             staged_path=staged_path,
             source_snapshot_path=validation.snapshot_path,
             expected_sha256=validation.snapshot_sha256,
             schema_revision=validation.schema_revision or "unknown",
         )
+
+    def _create_stage_file(self) -> tuple[Path, int]:
+        while True:
+            path = self.database_path.parent / (
+                f"{self.stage_prefix}{secrets.token_hex(_STAGE_SUFFIX_BYTES)}.sqlite"
+            )
+            try:
+                return path, os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | _O_BINARY)
+            except FileExistsError:
+                continue
 
     def apply_staged_restore(
         self,
@@ -237,9 +276,7 @@ class BackupService:
                 "database replacement requires maintenance mode or a stopped-server command"
             )
         staged_path = staged.staged_path.resolve()
-        if staged_path.parent != self.database_path.parent or not staged_path.name.startswith(
-            self.stage_prefix
-        ):
+        if not self.is_stage_file(staged_path):
             raise RestoreSafetyError("staged restore is outside the managed staging area")
         if _file_sha256(staged_path) != staged.expected_sha256:
             raise RestoreSafetyError("staged restore digest mismatch")
@@ -251,17 +288,40 @@ class BackupService:
         finally:
             connection.close()
 
-        pre_restore = self.create_backup(label="pre-restore")
-        os.replace(staged_path, self.database_path)
-        restored = sqlite3.connect(self.database_path)
+        # Copy the live database to safety first: a verified backup when it is
+        # sound, a raw byte copy when it is damaged, nothing when it is missing.
+        pre_restore: BackupArtifact | None = None
+        damaged_copy: Path | None = None
+        if self.database_path.exists():
+            if _database_is_sound(self.database_path):
+                pre_restore = self.create_backup(label="pre-restore")
+            else:
+                damaged_copy = self._keep_damaged_copy()
         try:
-            _require_integrity(restored, "restored database")
-        finally:
-            restored.close()
+            os.replace(staged_path, self.database_path)
+            restored = sqlite3.connect(self.database_path)
+            try:
+                _require_integrity(restored, "restored database")
+            finally:
+                restored.close()
+        except (OSError, sqlite3.Error, RestoreSafetyError) as exc:
+            raise RestoreAfterSafetyCopyError(
+                str(exc), pre_restore_backup=pre_restore, damaged_copy=damaged_copy
+            ) from exc
         return AppliedRestore(
             database_path=self.database_path,
             pre_restore_backup=pre_restore,
+            damaged_copy=damaged_copy,
         )
+
+    def _keep_damaged_copy(self) -> Path:
+        timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+        copy = self.database_path.with_name(f"{self.database_path.name}.corrupt-{timestamp}")
+        with self.database_path.open("rb") as source, copy.open("xb") as target:
+            shutil.copyfileobj(source, target, 1024 * 1024)
+            target.flush()
+            os.fsync(target.fileno())
+        return copy
 
     def _managed_snapshot(self, snapshot_path: Path) -> Path:
         path = snapshot_path.expanduser().resolve()
@@ -293,6 +353,33 @@ def backup_service_for_database_url(database_url: str | URL) -> BackupService:
         backup_directory=database_path.parent / BACKUP_DIRECTORY_NAME,
         expected_schema_revision=db_bootstrap.alembic_head_revision(alembic_config),
     )
+
+
+_STAGE_SUFFIX_BYTES = 8
+_STAGE_SUFFIX_PATTERN = rf"[0-9a-f]{{{2 * _STAGE_SUFFIX_BYTES}}}\.sqlite"
+_O_BINARY = getattr(os, "O_BINARY", 0)  # Windows text-mode guard
+
+
+def _fsync_path(path: Path) -> None:
+    # Opened for writing: Windows refuses to flush a read-only handle.
+    with path.open("rb+") as handle:
+        os.fsync(handle.fileno())
+
+
+def _database_is_sound(path: Path) -> bool:
+    """False when the database is damaged; a locked database still raises."""
+
+    try:
+        connection = sqlite3.connect(f"file:{path.as_posix()}?mode=ro", uri=True)
+        try:
+            _require_integrity(connection, "live database")
+        finally:
+            connection.close()
+    except sqlite3.OperationalError:
+        raise
+    except (sqlite3.DatabaseError, RestoreSafetyError):
+        return False
+    return True
 
 
 def _file_sha256(path: Path) -> str:
@@ -339,10 +426,10 @@ def _atomic_json_write(path: Path, payload: Mapping[str, object]) -> None:
     os.close(descriptor)
     temporary = Path(raw_path)
     try:
-        temporary.write_text(
-            json.dumps(payload, indent=2, sort_keys=True) + "\n",
-            encoding="utf-8",
-        )
+        with temporary.open("w", encoding="utf-8") as handle:
+            handle.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+            handle.flush()
+            os.fsync(handle.fileno())
         os.replace(temporary, path)
     finally:
         temporary.unlink(missing_ok=True)
@@ -352,6 +439,7 @@ __all__ = [
     "AppliedRestore",
     "BackupArtifact",
     "BackupService",
+    "RestoreAfterSafetyCopyError",
     "RestoreSafetyError",
     "RestoreValidation",
     "StagedRestore",

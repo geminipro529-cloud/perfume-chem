@@ -15,6 +15,7 @@ from app.api.v1.router import api_router
 from app.core.config import get_settings
 from app.core.logging import get_logger, setup_logging
 from app.core.tracing import setup_tracing
+from app.services import app_lock as app_lock_module
 from app.services import engine_worker_process
 
 settings = get_settings()
@@ -36,41 +37,62 @@ async def lifespan(app: FastAPI):
     logger.info(f"Environment: {settings.ENVIRONMENT}")
     logger.info(f"Debug mode: {settings.DEBUG}")
 
+    # While the app runs it holds an OS lock beside the database; the
+    # stopped-server restore command refuses to run while it is held.
+    app_lock = _hold_database_lock()
     try:
-        alembic_cfg = db_bootstrap.build_alembic_config(
-            Path(__file__).resolve().parent.parent / "alembic.ini",
-            settings.DATABASE_URL,
-        )
-        snapshot = db_bootstrap.upgrade_database(alembic_cfg)
-        if snapshot is not None:
-            logger.info(
-                "Database migration applied. Schema fingerprint: %s",
-                snapshot.schema_fingerprint_sha256,
+        try:
+            alembic_cfg = db_bootstrap.build_alembic_config(
+                Path(__file__).resolve().parent.parent / "alembic.ini",
+                settings.DATABASE_URL,
             )
-        else:
-            logger.info("Database schema checked; no pre-upgrade snapshot was needed.")
-    except Exception:
-        logger.exception("Database migration failed; application startup aborted.")
-        raise
+            snapshot = db_bootstrap.upgrade_database(alembic_cfg)
+            if snapshot is not None:
+                logger.info(
+                    "Database migration applied. Schema fingerprint: %s",
+                    snapshot.schema_fingerprint_sha256,
+                )
+            else:
+                logger.info("Database schema checked; no pre-upgrade snapshot was needed.")
+        except Exception:
+            logger.exception("Database migration failed; application startup aborted.")
+            raise
 
-    # Engine jobs run only in a separate worker process.  Start one here so every
-    # launch path (plain uvicorn included) gets one; deployments that run their
-    # own worker set PERFUME_ENGINE_WORKER_AUTOSTART=0.
-    # The supervisor replaces a worker that dies so leased jobs still fail closed.
-    worker = (
-        engine_worker_process.EngineWorkerSupervisor()
-        if engine_worker_process.engine_worker_autostart_enabled()
-        else None
-    )
-    if worker is not None:
-        worker.start()
-    try:
-        yield
-    finally:
-        # Shutdown
-        logger.info("Shutting down application")
+        # Engine jobs run only in a separate worker process.  Start one here so every
+        # launch path (plain uvicorn included) gets one; deployments that run their
+        # own worker set PERFUME_ENGINE_WORKER_AUTOSTART=0.
+        # The supervisor replaces a worker that dies so leased jobs still fail closed.
+        worker = (
+            engine_worker_process.EngineWorkerSupervisor()
+            if engine_worker_process.engine_worker_autostart_enabled()
+            else None
+        )
         if worker is not None:
-            await worker.stop()
+            worker.start()
+        try:
+            yield
+        finally:
+            # Shutdown
+            logger.info("Shutting down application")
+            if worker is not None:
+                await worker.stop()
+    finally:
+        if app_lock is not None:
+            app_lock.release()
+
+
+def _hold_database_lock() -> app_lock_module.AppLock | None:
+    database = app_lock_module.sqlite_database_path(settings.DATABASE_URL)
+    if database is None:
+        return None
+    lock_path = app_lock_module.lock_path_for(database)
+    held = app_lock_module.try_acquire(lock_path)
+    if held is None:
+        raise RuntimeError(
+            f"Another copy of the app, or a database restore, is using {database} "
+            f"(it holds {lock_path}). Stop it, then start the app again."
+        )
+    return held
 
 
 # Create FastAPI app

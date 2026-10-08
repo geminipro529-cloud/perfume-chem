@@ -28,6 +28,8 @@ venv/
 # Manifests committed before this rule stay tracked.
 pre-upgrade-snapshots/
 lab-backups/
+# Lock file the running app holds beside its database (never deleted).
+*.app.lock
 *.xlsx
 *.csv
 

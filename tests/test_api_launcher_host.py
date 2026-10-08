@@ -96,4 +96,4 @@ def test_restore_option_restores_the_backup_and_does_not_start_the_server(
     output = capsys.readouterr().out
     assert str(pre_restore[0]) in output
     assert f"python run_api_server.py --restore {pre_restore[0].name}" in output
-    assert list(tmp_path.glob(".lab-restore-stage-*.sqlite")) == []
+    assert list(tmp_path.glob(".lab.db-restore-stage-*.sqlite")) == []
