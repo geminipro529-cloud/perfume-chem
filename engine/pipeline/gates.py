@@ -758,8 +758,6 @@ def _formula_vector_from_state(state: FormulaState) -> FormulaVector:
     )
 
 
-
-
 _SUBTOTAL_SHIFT_FACTORS = (10, 100, 1000)
 
 
@@ -1458,7 +1456,9 @@ def _ifra_row_dict(check: IFRACheck, headroom: float) -> dict:
         "matched_name": check.matched_name,
         "ifra_status": check.status,
         "standard": check.standard,
-        "actual_pct": round(check.pct, 6),
+        # Unrounded: the optimizer scales its cap by actual/limit, and a rounded value
+        # can hide a hair over the limit and stall the repair.
+        "actual_pct": check.pct,
         "limit_pct": limit,
         "effective_limit_pct": round(effective_limit, 6) if effective_limit is not None else None,
         "headroom": headroom,
@@ -1481,7 +1481,7 @@ def _ifra_group_dict(group: IFRAGroupCheck, headroom: float) -> dict:
         "standard": group.standard,
         "rule": group.rule,
         "members": dict(group.member_pcts),
-        "actual_pct": round(group.total, 6),
+        "actual_pct": group.total,
         "limit_pct": limit,
         "effective_limit_pct": round(effective_limit, 6) if effective_limit is not None else None,
         "headroom": headroom,
@@ -1503,20 +1503,23 @@ def _ifra_entry_dict(entry: IFRACheck | IFRAGroupCheck, headroom: float) -> dict
 def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     ingredients = {m.name: m.raw_ul for m in state.materials}
     dilutions = {m.name: m.dilution for m in state.materials}
-    # Allergen declarations, dermal exposure and sensitizer scoring only; IFRA verdicts come
-    # from the sourced Category 4 table below.
+    headroom = config.effective_ifra_headroom()
+    pct_w_w, basis, estimate = _finished_product_pct_w_w(state, config)
+    alt_names = {m.name: _ifra_alt_names(m) for m in state.materials}
+    # Allergen declarations, dermal exposure and sensitizer scoring only, on the same
+    # finished-product % w/w; IFRA verdicts come from the sourced Category 4 table below.
     report = score_ifra_compliance(
         ingredients,
         dilutions,
         total_volume_ml=config.batch_volume_ml,
+        finished_pct_w_w=pct_w_w,
+        alt_names=alt_names,
     )
-    headroom = config.effective_ifra_headroom()
-    pct_w_w, basis, estimate = _finished_product_pct_w_w(state, config)
     table = load_ifra_table()
     evaluation = evaluate_ifra(
         pct_w_w,
         table=table,
-        alt_names={m.name: _ifra_alt_names(m) for m in state.materials},
+        alt_names=alt_names,
         headroom=headroom,
     )
     failures = [_ifra_entry_dict(e, headroom) for e in evaluation.failures]

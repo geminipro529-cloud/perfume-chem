@@ -1964,7 +1964,9 @@ def _apply_ifra_repairs(
 
     for violation in violations:
         material = str(violation.get("material", ""))
-        if material not in raw_ul:
+        # A row over its limit is listed in both "violations" and "headroom_violations"
+        # with the same reported %; cap it once, or the ratio cap below compounds.
+        if material not in raw_ul or material in excluded:
             continue
         limit_pct = float(violation.get("limit_pct"))
         dilution = float(stock_dilutions.get(material, 1.0))

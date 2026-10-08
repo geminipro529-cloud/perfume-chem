@@ -507,9 +507,10 @@ class TestGetIfraLimit:
     """get_ifra_limit: IFRA Cat4 limit lookups."""
 
     def test_known_material_returns_value(self) -> None:
+        # IFRA_STD_023 (Coumarin), 51st Amendment, Category 4: 1.5 %.
         limit = get_ifra_limit("Coumarin")
         assert limit is not None
-        assert limit == 2.78
+        assert limit == 1.5
 
     def test_unknown_material_returns_none(self) -> None:
         limit = get_ifra_limit("Fictionalium")
@@ -517,16 +518,20 @@ class TestGetIfraLimit:
 
     def test_case_insensitive(self) -> None:
         limit = get_ifra_limit("coumarin")
-        assert limit == 2.78
+        assert limit == 1.5
 
     def test_known_material_different_rule_set(self) -> None:
         limit = get_ifra_limit("Coumarin", rule_set="IFRA_50th_2022")
         assert limit == 1.6
 
     def test_rule_set_without_material_falls_back(self) -> None:
-        # "Hedione" is not in IFRA_50th_2022 but is in IFRA_CAT4_LIMITS
-        limit = get_ifra_limit("Hedione", rule_set="IFRA_50th_2022")
-        assert limit == 40.0
+        # Oakmoss is not in IFRA_50th_2022, so the current sourced table answers (0.1 %).
+        assert get_ifra_limit("Oakmoss Absolute", rule_set="IFRA_50th_2022") == 0.1
+
+    def test_material_without_a_standard_has_no_limit(self) -> None:
+        # Hedione has no IFRA Standard; the old hand-typed 40 % fallback is gone.
+        assert get_ifra_limit("Hedione") is None
+        assert get_ifra_limit("Hedione", rule_set="IFRA_50th_2022") is None
 
 
 # ── REDUCED_RISK_PRODUCT_TYPES ─────────────────────────────────────────────────
