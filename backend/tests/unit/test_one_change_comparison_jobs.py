@@ -5,7 +5,7 @@ from decimal import Decimal
 
 import pytest
 from engine.research.contracts import stable_payload_hash
-from engine.research.one_change import triangle_min_correct
+from engine.research.one_change import stock_label, triangle_min_correct
 
 from app.services.engine_job_registry import validate_engine_payload
 from app.services.engine_jobs import build_engine_job_identity
@@ -64,7 +64,7 @@ def test_addition_plan_adds_one_row_and_offers_split_vial():
     assert split["stock"] == "Cashmeran (10% w/w in DPG)"
     assert "Add 20 µL of Cashmeran (10% w/w in DPG) to the vial." in split["steps"]
     assert any("add 180 µL of Cashmeran (10% w/w in DPG) to the main bottle" in s for s in split["steps"])
-    assert "Pull 3,000 µL" in split["steps"][0]
+    assert "pull 3,000 µL" in split["steps"][0]
     unsigned = {k: v for k, v in result.items() if k != "handoff_sha256"}
     assert stable_payload_hash(unsigned) == result["handoff_sha256"]
     assert result["blinding_state"] == "PLANNING_ONLY_NOT_AN_EXECUTABLE_BLIND_SESSION"
@@ -91,7 +91,7 @@ def test_dose_step_down_gets_fresh_vials_not_a_split():
     how = result["how_to_try"]
     assert how["method"] == "FRESH_VIALS" and how["split_vial"] is None and how["blotter_preview"] is None
     assert "Nothing can be taken out" in how["why_no_split"]
-    assert any("400 uL in the control, 250 uL in the variant" in s for s in how["fresh_vials"]["steps"])
+    assert any("400 µL in the control, 250 µL in the variant" in s for s in how["fresh_vials"]["steps"])
 
 
 def totals_by_unit(rows):
@@ -117,7 +117,8 @@ def test_dose_step_down_fresh_vials_have_equal_totals_via_carrier_blank(unit):
     total = "mass" if unit == "mg" else "volume"
     assert plan["comparison_basis"] == f"EQUAL_TOTAL_{total.upper()}_ONE_ROW_CHANGED_CARRIER_BLANK"
     assert f"same total {total}" in plan["limitation"]
-    assert any(f"Add 150 {unit} of your DPG blank (dpg_blank) to the variant vial" in s
+    shown = "µL" if unit == "uL" else unit
+    assert any(f"Add 150 {shown} of your DPG blank (dpg_blank) to the variant vial" in s
                for s in result["how_to_try"]["fresh_vials"]["steps"])
 
 
@@ -130,7 +131,7 @@ def test_split_and_blotter_plans_carry_no_carrier_blank():
 
 
 @pytest.mark.parametrize("change,reason", [
-    (addition(amount="50"), "under the 100 µL"),
+    (addition(amount="50"), "share of the step would be 5 µL, under the 10 µL"),
     (addition(bottle=None), "No bottle volume"),
     (addition(bottle="3000"), "3,000 µL or less"),
     (addition(unit="mg"), "this step is in mg"),
@@ -194,10 +195,11 @@ def test_omission_canonical_payload_unchanged_by_new_optional_fields():
     (lambda d: d.update(change=dict(dose("UP"), stock_id="missing")), "name one of the control rows"),
     (lambda d: d.update(change=dose("UP", step="0")), "greater than zero"),
     (lambda d: d.update(change=dict(kind="OMISSION")), "kind"),
-    (lambda d: d.update(change=dose("DOWN"), carrier_blanks={}), "needs a declared carrier and a blank"),
+    (lambda d: d.update(change=dose("DOWN"), carrier_blanks={}), "needs a blank stock for its carrier"),
     (lambda d: d.update(change=dose("DOWN"), carrier_blanks={"DPG": dict(stock_id="ambrox", carrier="DPG")}),
      "not one of the control rows"),
-    (lambda d: d.update(change=dict(dose("DOWN"), stock_id="iso_e_super")), "needs a declared carrier"),
+    (lambda d: d.update(change=dict(dose("DOWN"), stock_id="iso_e_super", step_decimal="100")),
+     "is neat, so there is no carrier"),
 ])
 def test_exactly_one_change_is_required(mutate, message):
     data = payload(addition())
@@ -212,3 +214,40 @@ def test_change_alters_durable_job_fingerprint():
     up = build_engine_job_identity(payload=payload(dose("UP")), **arguments)["job_fingerprint_sha256"]
     down = build_engine_job_identity(payload=payload(dose("DOWN")), **arguments)["job_fingerprint_sha256"]
     assert up != down
+
+
+def test_split_guard_looks_at_the_vials_share_not_the_step():
+    how = result_of(payload(addition(amount="100", bottle="1000000")))["how_to_try"]
+    assert how["method"] == "BLOTTER_PREVIEW" and how["split_vial"] is None
+    assert "3,000 of the bottle's 1000000 µL" in how["why_no_split"]
+    assert "share of the step would be 0 µL" in how["why_no_split"] and "one-tenth" not in how["why_no_split"]
+    split = result_of(payload(addition(amount="100", bottle="30000")))["how_to_try"]["split_vial"]
+    assert (split["split_ul"], split["main_bottle_ul"], split["full_bottle_step_ul"]) == (10, 90, 100)
+
+
+def test_fractional_microlitre_step_gets_no_split_recipe():
+    how = result_of(payload(addition(amount="100.4")))["how_to_try"]
+    assert how["method"] == "BLOTTER_PREVIEW" and how["split_vial"] is None
+    assert "whole-µL step" in how["why_no_split"]
+
+
+def test_stock_label_never_prints_a_basis_less_percentage():
+    unknown = stock_label(row("ambrox", "1", basis="unknown"))
+    assert "basis not stated" in unknown and "10%" in unknown
+    neat_basis_diluted = stock_label(row("ambrox", "1", basis="neat"))
+    assert "(neat)" not in neat_basis_diluted and "basis not stated" in neat_basis_diluted
+    assert stock_label(row("ambrox", "1", fraction="1", basis="neat", carrier=None)) == "Ambrox (neat)"
+    assert stock_label(row("ambrox", "1")) == "Ambrox (10% w/w in DPG)"
+
+
+def test_neat_row_step_down_is_refused_with_the_neat_message():
+    data = payload(dose("DOWN", step="100"))
+    data["change"]["stock_id"] = "iso_e_super"
+    with pytest.raises(ValueError, match="is neat, so there is no carrier to balance a step down with"):
+        execute(data)
+
+
+def test_split_vial_is_a_suggestion_only():
+    split = result_of(payload(addition()))["how_to_try"]["split_vial"]
+    assert "A suggestion only" in split["note"] and "never changes your bottle" in split["note"]
+    assert split["steps"][0].startswith("If you want to try it this way, pull 3,000 µL")

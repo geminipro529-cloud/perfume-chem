@@ -22,7 +22,7 @@ from engine.research.contracts import FALSE_ACTION_AUTHORITY
 from engine.research.controlled_omission import carrier_blank_row
 
 SPLIT_VIAL_UL = 3000
-MIN_SPLIT_STEP_UL = 100
+MIN_SPLIT_UL = 10
 BLOTTER_TIMES_MIN = (0, 15, 60)
 
 
@@ -43,11 +43,15 @@ def _whole(value: Decimal) -> int:
 def stock_label(row: Mapping[str, Any]) -> str:
     """Name the stock being dosed with its dilution, e.g. ``Ambrox (10% w/w in DPG)``."""
     fraction = Decimal(row["stock_fraction_decimal"])
-    if fraction == 1 or row["fraction_basis"] == "neat":
-        return f"{row['identity_name']} (neat)"
-    basis = "" if row["fraction_basis"] == "unknown" else f" {row['fraction_basis']}"
+    name, basis = row["identity_name"], row["fraction_basis"]
+    if fraction == 1:
+        return f"{name} (neat)"
+    percent = _plain(fraction * 100)
+    if basis in ("unknown", "neat"):
+        carrier = f" in {row['carrier']}" if row.get("carrier") and basis == "unknown" else ""
+        return f"{name} ({percent}%{carrier}, basis not stated)"
     carrier = f" in {row['carrier']}" if row.get("carrier") else ""
-    return f"{row['identity_name']} ({_plain(fraction * 100)}%{basis}{carrier})"
+    return f"{name} ({percent}% {basis}{carrier})"
 
 
 def triangle_min_correct(tries: int, alpha: Fraction = Fraction(1, 20)) -> int | None:
@@ -94,13 +98,15 @@ def _blotter_preview(label: str) -> dict[str, Any]:
 
 def _split_vial(label: str, step: Decimal, bottle_ul: Decimal) -> dict[str, Any]:
     split = _whole(step * SPLIT_VIAL_UL / bottle_ul)
-    main = _whole(step) - split
+    main = int(step) - split
     return {
         "bottle_volume_ul": _plain(bottle_ul), "vial_ul": SPLIT_VIAL_UL,
-        "full_bottle_step_ul": _whole(step), "split_ul": split, "main_bottle_ul": main,
+        "full_bottle_step_ul": int(step), "split_ul": split, "main_bottle_ul": main,
         "remaining_main_bottle_ul": _plain(bottle_ul - SPLIT_VIAL_UL), "stock": label,
+        "note": ("A suggestion only: whether to touch your bottle is your call. "
+                 "The program never changes your bottle or its records."),
         "steps": [
-            f"Pull {SPLIT_VIAL_UL:,} µL of the perfume from the main bottle into a small clean vial.",
+            f"If you want to try it this way, pull {SPLIT_VIAL_UL:,} µL of the perfume from the main bottle into a small clean vial.",
             f"Add {split} µL of {label} to the vial.",
             "Dip one blotter in the vial and one in the main bottle; smell them side by side at 0, 15 and 60 minutes.",
             f"If you like the vial better, add {main} µL of {label} to the main bottle, then pour the vial back in.",
@@ -117,9 +123,14 @@ def _why_no_split(unit: str, step: Decimal, bottle_ul: Decimal | None) -> str | 
         return "No bottle volume was given, so there is no split recipe; try the blotter preview instead."
     if bottle_ul <= SPLIT_VIAL_UL:
         return "The bottle holds 3,000 µL or less, so there is nothing to split off; try the blotter preview instead."
-    if step < MIN_SPLIT_STEP_UL:
-        return (f"The step is {_plain(step)} µL, under the 100 µL needed for an accurate one-tenth split, "
-                "so try the blotter preview instead.")
+    if step != step.to_integral_value():
+        return ("The split recipe needs a whole-µL step so it can be measured exactly; "
+                "try the blotter preview instead.")
+    split = _whole(step * SPLIT_VIAL_UL / bottle_ul)
+    if split < MIN_SPLIT_UL:
+        return (f"The vial takes {SPLIT_VIAL_UL:,} of the bottle's {_plain(bottle_ul)} µL, so its share of the step "
+                f"would be {split} µL, under the {MIN_SPLIT_UL} µL that can be measured accurately; "
+                "try the blotter preview instead.")
     return None
 
 
@@ -162,6 +173,7 @@ def plan_one_change(*, control_rows: Sequence[Mapping[str, Any]], change: Mappin
     else:
         raise ValueError("unsupported change kind")
     unit = changed_row["amount_unit"]
+    shown = "µL" if unit == "uL" else unit
     label = stock_label(changed_row)
     plan: dict[str, Any] = {
         "schema_version": "one-change-plan-v1", "state": "ONE_CHANGE_DESIGN_READY",
@@ -182,7 +194,7 @@ def plan_one_change(*, control_rows: Sequence[Mapping[str, Any]], change: Mappin
         total = "mass" if unit == "mg" else "volume"
         plan.update(
             comparison_basis=f"EQUAL_TOTAL_{total.upper()}_ONE_ROW_CHANGED_CARRIER_BLANK", carrier_blank=blank,
-            limitation=(f"Every other row keeps its amount and the variant gets {_plain(step)} {unit} of "
+            limitation=(f"Every other row keeps its amount and the variant gets {_plain(step)} {shown} of "
                         f"{blank['carrier']} blank, so both sides have the same total {total}; equal-{total} "
                         "blanking lowers active fragrance mass, so this is not an equal-active-dose "
                         "comparison or safety approval."
@@ -203,8 +215,8 @@ def plan_one_change(*, control_rows: Sequence[Mapping[str, Any]], change: Mappin
             "Nothing can be taken out of a mixed bottle, so a step down is tried in fresh vials."), fresh_vials={
             "steps": [
                 "Mix the control rows in one fresh vial and the variant rows in another, using the same amounts for every other row.",
-                f"The only difference is {label}: {_plain(before)} {unit} in the control, {_plain(after)} {unit} in the variant.",
-                (f"Add {_plain(step)} {unit} of your {changed_row['carrier']} blank ({candidate[-1]['stock_id']}) "
+                f"The only difference is {label}: {_plain(before)} {shown} in the control, {_plain(after)} {shown} in the variant.",
+                (f"Add {_plain(step)} {shown} of your {changed_row['carrier']} blank ({candidate[-1]['stock_id']}) "
                  "to the variant vial so both vials hold the same total."),
                 "Compare the two on blotters at 0, 15 and 60 minutes.",
             ],

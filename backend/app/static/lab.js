@@ -1598,7 +1598,7 @@ function oneChangeView(handoff) {
   if (how.method === "SPLIT_VIAL") {
     const split = how.split_vial;
     block.append(textNode("p", `Split vial: ${split.split_ul} µL into a ${split.vial_ul.toLocaleString("en-US")} µL vial now; ${split.main_bottle_ul} µL into the main bottle only if you prefer the vial.`),
-      stepList(split.steps));
+      textNode("p", split.note, "field-help"), stepList(split.steps));
   } else if (how.method === "BLOTTER_PREVIEW") {
     block.append(textNode("p", "Blotter preview:"), stepList(how.blotter_preview.steps),
       textNode("p", how.blotter_preview.note, "field-help"));
@@ -1670,11 +1670,13 @@ $("#omission-plan-form").addEventListener("submit", async (event) => {
     if (!handoff?.omission_plan && !handoff?.one_change_plan) throw new Error(`Planning job ${submitted.id}: ${completed.state}. It remains available without resubmitting.`);
     const output = $("#omission-plan-output"); output.replaceChildren();
     const summary = document.createElement("p");
+    const goalText = data.goal.trim();
+    const goalSentence = /[.?!]$/.test(goalText) ? goalText : `${goalText}.`;
     if (handoff.one_change_plan) {
-      summary.textContent = `Comparison proposed: ${data.goal}. Only one row changes. Nothing was compounded, reserved, or evaluated. This is not yet an executable blind session.`;
+      summary.textContent = `Comparison proposed: ${goalSentence} Only one row changes. Nothing was compounded, reserved, or evaluated. This is not yet an executable blind session.`;
     } else {
       summary.textContent = handoff.omission_plan.state === "CONTROLLED_OMISSION_DESIGN_READY"
-        ? `Comparison proposed: ${data.goal}. Retained doses unchanged. Nothing was compounded, reserved, or evaluated. This is not yet an executable blind session.`
+        ? `Comparison proposed: ${goalSentence} Retained doses unchanged. Nothing was compounded, reserved, or evaluated. This is not yet an executable blind session.`
         : `Quantitative comparison withheld: ${(handoff.omission_plan.reason_codes || []).join(", ")}. You may still use the ordinary observation form.`;
     }
     output.append(summary);

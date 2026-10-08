@@ -787,13 +787,18 @@ class OmissionComparisonPlanPayloadV2(_StrictV2Payload):
                         "A step down must leave some of the material; to remove it completely, use an omission plan."
                     )
                 stepped = self.control_rows[ids.index(change.stock_id)]
+                if change.direction == "DOWN" and not stepped.carrier:
+                    raise ValueError(
+                        f"{stepped.identity_name} is neat, so there is no carrier to balance a step down with; "
+                        "this plan can't keep both versions at the same total for a neat material yet."
+                    )
                 blank = self.carrier_blanks.get(stepped.carrier) if stepped.carrier else None
                 if change.direction == "DOWN" and (blank is None or blank.carrier != stepped.carrier
                                                    or blank.stock_id in ids):
                     raise ValueError(
                         "A step down is tried in fresh vials with a carrier blank so both hold the same total: "
-                        f"{stepped.identity_name} needs a declared carrier and a blank stock for that exact "
-                        "carrier that is not one of the control rows."
+                        f"{stepped.identity_name} needs a blank stock for its carrier ({stepped.carrier}) "
+                        "that is not one of the control rows."
                     )
         blank_ids = [blank.stock_id for blank in self.carrier_blanks.values()]
         if len(set(blank_ids)) != len(blank_ids):
