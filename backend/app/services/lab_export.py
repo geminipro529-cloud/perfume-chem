@@ -31,14 +31,14 @@ class ImportResult:
     inserted: int
     skipped: int
     records_written: int = 0
-    records_identical: int = 0
+    records_already_present: int = 0
 
     def as_dict(self) -> dict[str, int]:
         return {
             "inserted": self.inserted,
             "skipped": self.skipped,
             "records_written": self.records_written,
-            "records_identical": self.records_identical,
+            "records_already_present": self.records_already_present,
         }
 
 
@@ -615,7 +615,7 @@ class LabExportService:
             records = _verified_records(packet["records"])
             record_paths = self.record_paths()
             for name, content in records.items():
-                if _live_record_differs(record_paths[name], content):
+                if _live_record_conflicts(record_paths[name], content):
                     raise ImportConflictError(
                         f"Stock record conflict: {record_paths[name]} already exists "
                         f"with different content than {name} in the export"
@@ -654,18 +654,18 @@ class LabExportService:
                     await self.session.execute(table.insert().values(**values))
                     inserted += 1
             records_written = 0
-            records_identical = 0
+            records_already_present = 0
             for name, content in records.items():
                 destination = record_paths[name]
                 if _publish_record(destination, content):
                     records_written += 1
-                elif _live_record_differs(destination, content):
+                elif _live_record_conflicts(destination, content):
                     raise ImportConflictError(
                         f"Stock record conflict: {destination} already exists "
                         f"with different content than {name} in the export"
                     )
                 else:
-                    records_identical += 1
+                    records_already_present += 1
             if owns_transaction:
                 await self.session.commit()
         except BaseException:
@@ -676,7 +676,7 @@ class LabExportService:
             inserted=inserted,
             skipped=skipped,
             records_written=records_written,
-            records_identical=records_identical,
+            records_already_present=records_already_present,
         )
 
     async def _schema_revision(self) -> str:
@@ -857,9 +857,16 @@ def _verified_records(records: Any) -> dict[str, bytes]:
     return verified
 
 
-def _live_record_differs(path: Path, content: bytes) -> bool:
+def _live_record_conflicts(path: Path, content: bytes) -> bool:
+    """True when the live record holds events the exported one does not.
+
+    The records are append-only logs, so a live record that begins with the
+    exported bytes (an older export of this PC) already holds every exported
+    event and is left as it is.
+    """
+
     try:
-        return path.read_bytes() != content
+        return not path.read_bytes().startswith(content)
     except FileNotFoundError:
         return False
 

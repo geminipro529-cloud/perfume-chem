@@ -86,7 +86,7 @@ async def test_export_holds_records_and_round_trips_byte_exact(db_session, tmp_p
     async with _EmptyWorkspace(_paths(target)) as workspace:
         result = await workspace.importer.import_workspace(packet)
         assert result.records_written == 2
-        assert result.records_identical == 0
+        assert result.records_already_present == 0
         assert result.as_dict()["records_written"] == 2
         assert await workspace.material_count() == 1
     assert (target / ADDITIONS).read_bytes() == ADDITION_BYTES
@@ -105,10 +105,25 @@ async def test_identical_live_record_is_left_alone(db_session, tmp_path):
     before = live.stat()
     async with _EmptyWorkspace(_paths(target)) as workspace:
         result = await workspace.importer.import_workspace(packet)
-        assert (result.records_written, result.records_identical) == (1, 1)
+        assert (result.records_written, result.records_already_present) == (1, 1)
     after = live.stat()
     assert (after.st_ino, after.st_mtime_ns) == (before.st_ino, before.st_mtime_ns)
     assert live.read_bytes() == ADDITION_BYTES
+
+
+@pytest.mark.asyncio
+async def test_live_record_that_grew_since_the_export_is_left_alone(db_session, tmp_path):
+    packet = await _exported_packet(db_session, _source_records(tmp_path))
+    target = tmp_path / "target"
+    target.mkdir()
+    grown = COMPLETION_BYTES + b'{"event":"completed","later":true}\n'
+    (target / COMPLETIONS).write_bytes(grown)
+    async with _EmptyWorkspace(_paths(target)) as workspace:
+        result = await workspace.importer.import_workspace(packet)
+        assert (result.records_written, result.records_already_present) == (1, 1)
+        assert await workspace.material_count() == 1
+    assert (target / COMPLETIONS).read_bytes() == grown
+    assert (target / ADDITIONS).read_bytes() == ADDITION_BYTES
 
 
 @pytest.mark.asyncio
@@ -147,7 +162,7 @@ async def test_packet_without_records_leaves_live_records_alone(db_session, tmp_
     (target / ADDITIONS).write_bytes(b"live history\n")
     async with _EmptyWorkspace(_paths(target)) as workspace:
         result = await workspace.importer.import_workspace(packet)
-        assert (result.records_written, result.records_identical) == (0, 0)
+        assert (result.records_written, result.records_already_present) == (0, 0)
         assert await workspace.material_count() == 1
     assert (target / ADDITIONS).read_bytes() == b"live history\n"
     assert sorted(path.name for path in target.iterdir()) == [ADDITIONS]
