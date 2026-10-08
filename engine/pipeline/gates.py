@@ -125,6 +125,7 @@ class ReleaseGateConfig:
     expected_concentrate_ul: float = DEFAULT_CONCENTRATE_UL
     min_neat_trace_ul: float = MIN_NEAT_TRACE_UL
     batch_volume_ml: float = 30.0
+    batch_volume_source: str = "default"
     temperature_K: float = 305.0  # noqa: N815
     brief: str = "auto"
     family_archetype: str = ""
@@ -390,6 +391,7 @@ def _config_summary(config: ReleaseGateConfig) -> dict:
     return {
         "expected_concentrate_ul": config.expected_concentrate_ul,
         "batch_volume_ml": config.batch_volume_ml,
+        "batch_volume_source": config.batch_volume_source,
         "temperature_K": config.temperature_K,
         "brief": config.brief,
         "family_archetype": config.family_archetype,
