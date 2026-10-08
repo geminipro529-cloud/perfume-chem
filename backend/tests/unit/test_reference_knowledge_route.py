@@ -79,3 +79,41 @@ def test_real_knowledge_file_still_served(http):
     response = http.get(ROUTE + real.name)
     assert response.status_code == 200
     assert response.json()["content"] == real.read_text(encoding="utf-8")
+
+
+@pytest.mark.parametrize(
+    "windows_name",
+    ["C:\\x.md", "C:/x.md", "\\\\server\\share\\x.md", "\\\\?\\C:\\x.md"],
+)
+def test_windows_absolute_names_get_the_generic_404(http, knowledge_sandbox, windows_name):
+    response = http.get(ROUTE + quote(windows_name, safe=""))
+    assert response.status_code == 404
+    assert response.json()["detail"] == "Knowledge file not found"
+
+
+@pytest.mark.parametrize(
+    "name",
+    [
+        "\\\\attacker.example\\s\\x.md",
+        "//attacker.example/s/x.md",
+        "\\\\?\\UNC\\attacker.example\\s\\x.md",
+        "C:x.md",
+        "sub/../inside.md",
+    ],
+)
+def test_unsafe_names_are_refused_before_any_path_is_resolved(
+    knowledge_sandbox, monkeypatch, name
+):
+    # On Windows, Path.resolve opens the target, so a UNC name would reach the
+    # network before any containment check. It must never be called for these.
+    # The loader swallows exceptions, so record calls instead of raising.
+    path_class = type(data_loader.KNOWLEDGE_DIR)
+    calls = []
+
+    def no_resolve(self, *args, **kwargs):
+        calls.append(str(self))
+        raise OSError("resolve() must not run for an unsafe name")
+
+    monkeypatch.setattr(path_class, "resolve", no_resolve)
+    assert data_loader.DataLoader.load_knowledge_file(name) is None
+    assert calls == []
