@@ -125,7 +125,8 @@ def _missing_table_names(connection: SyncConnection) -> set[str]:
 
 async def _missing_engine_job_tables() -> set[str]:
     async with database_engine.connect() as connection:
-        return await connection.run_sync(_missing_table_names)
+        missing: set[str] = await connection.run_sync(_missing_table_names)
+        return missing
 
 
 async def wait_for_engine_job_tables(

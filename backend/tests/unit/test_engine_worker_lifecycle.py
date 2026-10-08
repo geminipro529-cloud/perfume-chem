@@ -68,10 +68,11 @@ class _FakeWorker:
         self.pid = 4242
         self.calls: list[tuple] = []
         self.exit_on_terminate = True
+        self.returncode = None
         _FakeWorker.instances.append(self)
 
     def poll(self):
-        return None
+        return self.returncode
 
     def terminate(self) -> None:
         self.calls.append(("terminate",))
@@ -133,6 +134,44 @@ async def test_lifespan_autostart_off_starts_nothing(monkeypatch, fake_popen) ->
     async with main_module.lifespan(FastAPI()):
         pass
     assert fake_popen.instances == []
+
+
+@pytest.fixture
+def fast_supervision(monkeypatch):
+    monkeypatch.setattr(engine_worker_process, "_SUPERVISE_INTERVAL_SECONDS", 0.01, raising=False)
+    monkeypatch.setattr(engine_worker_process, "_RESTART_INITIAL_DELAY_SECONDS", 0.01, raising=False)
+
+
+@pytest.mark.asyncio
+async def test_lifespan_replaces_a_worker_that_died(
+    monkeypatch, fake_popen, fast_supervision
+) -> None:
+    monkeypatch.setenv("PERFUME_ENGINE_WORKER_AUTOSTART", "1")
+    async with main_module.lifespan(FastAPI()):
+        first = fake_popen.instances[0]
+        first.returncode = -9  # SIGKILL: its leased job would otherwise hang.
+
+        async def replaced() -> bool:
+            return len(fake_popen.instances) == 2
+
+        await _wait_until(replaced)
+        second = fake_popen.instances[1]
+        await asyncio.sleep(0.05)
+        assert len(fake_popen.instances) == 2
+    assert first.calls == []
+    assert second.calls == [("terminate",), ("wait", 10)]
+
+
+@pytest.mark.asyncio
+async def test_lifespan_does_not_restart_a_worker_that_was_stopped(
+    monkeypatch, fake_popen, fast_supervision
+) -> None:
+    monkeypatch.setenv("PERFUME_ENGINE_WORKER_AUTOSTART", "1")
+    async with main_module.lifespan(FastAPI()):
+        fake_popen.instances[0].returncode = 0  # Clean exit after SIGINT/SIGTERM.
+        await asyncio.sleep(0.1)
+        assert len(fake_popen.instances) == 1
+    assert fake_popen.instances[0].calls == []
 
 
 # ------------------------------------------------- shared database plumbing
