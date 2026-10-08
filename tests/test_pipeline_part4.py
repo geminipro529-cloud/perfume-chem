@@ -5,14 +5,14 @@ from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 from scripts.formula_release_gate import main as release_gate_main
 
 
-def _fougere_formula(evernyl_ul=150.0):
+def _fougere_formula(evernyl_ul=150.0, edge_material="Evernyl"):
     ingredients = {
         "Cedrat FCF oil Sicilian": 1200.0,
         "Lavender EO (BONTAUX SAS)": 700.0,
         "Linalyl Acetate": 600.0,
         "Hedione": 900.0,
         "Coumarin": 300.0,
-        "Evernyl": evernyl_ul,
+        edge_material: evernyl_ul,
         "Iso E Super": 1500.0,
         "Cedarwood oil Virginia": 300.0,
         "Zenolide": 500.0 - evernyl_ul,
@@ -28,7 +28,7 @@ def _fougere_formula(evernyl_ul=150.0):
                 0.3
                 if name == "Coumarin"
                 else 0.2
-                if name == "Evernyl"
+                if name == edge_material
                 else 1.0
             )
             for name in ingredients
@@ -46,8 +46,12 @@ def test_ifra_headroom_math_for_evernyl():
     assert round(max_raw_ul_for_ifra(0.1, 30.0, 1.0, headroom=0.8), 6) == 24.0
 
 
-def test_commercial_mode_blocks_technical_edge_evernyl():
-    formula = _fougere_formula(evernyl_ul=150.0)
+def test_commercial_mode_blocks_technical_edge_oakmoss():
+    # Evernyl has no IFRA standard, so the edge material is Oakmoss Absolute (Cat4 0.1 % w/w).
+    # 112 uL of a 20 % stock = 22.4 mg active. Finished mass: 5.7004 g actives + 0.2996 g
+    # carriers (1.0 g/mL) + 24 mL ethanol x 0.789 = 24.936 g, so 0.0898 % w/w: 90 % of the
+    # limit (edge, not over) but over the commercial 80 % headroom limit of 0.08 %.
+    formula = _fougere_formula(evernyl_ul=112.0, edge_material="Oakmoss Absolute")
 
     technical = gate_formula(
         formula,
@@ -72,6 +76,8 @@ def test_commercial_mode_blocks_technical_edge_evernyl():
     assert technical_gates["safety_ifra_allergen"].status != "FAIL"
     assert commercial_gates["safety_ifra_allergen"].status == "FAIL"
     assert commercial_gates["safety_ifra_allergen"].data["effective_headroom"] == 0.8
+    commercial_violations = commercial_gates["safety_ifra_allergen"].data["headroom_violations"]
+    assert "Oakmoss Absolute" in {v["material"] for v in commercial_violations}
 
 
 def test_commercial_optimizer_repairs_evernyl_robustness_margin():

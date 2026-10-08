@@ -10,6 +10,7 @@
 from __future__ import annotations
 
 import json
+import re
 import traceback
 from collections.abc import Sequence
 from dataclasses import dataclass, field, replace
@@ -30,7 +31,16 @@ from engine.families.registry import (
     novelty_assessment,
 )
 from engine.fuckups.pre_mix_guard import evaluate_pre_mix_guard
-from engine.ifra_safety import IFRA_CAT4_LIMITS, score_ifra_compliance
+from engine.ifra_safety import score_ifra_compliance
+from engine.ifra_standards import (
+    FinishedProductEstimate,
+    FinishedProductRow,
+    IFRACheck,
+    IFRAGroupCheck,
+    estimate_finished_product_pct_w_w,
+    evaluate_ifra,
+    load_ifra_table,
+)
 from engine.knowledge.literature_rules import (
     _LITERATURE_DB_LOADED,
     _cite_fn,
@@ -748,8 +758,6 @@ def _formula_vector_from_state(state: FormulaState) -> FormulaVector:
     )
 
 
-def _material_ifra_limit(material) -> float | None:
-    return IFRA_CAT4_LIMITS.get(material.name) or IFRA_CAT4_LIMITS.get(material.profile_name or "")
 
 
 _SUBTOTAL_SHIFT_FACTORS = (10, 100, 1000)
@@ -1402,59 +1410,166 @@ def _gate_oav_scaling(formula: Mapping, config: ReleaseGateConfig) -> GateResult
     return _result("oav_scaling_guard", "PASS", "all requested targets scale cleanly", data)
 
 
+_TRAILING_PARENTHETICAL = re.compile(r"\s*\([^()]*\)\s*$")
+
+
+def _ifra_alt_names(material) -> list[str]:
+    """Other names to try for a row: canonical, profile, registry and the suffix-free name."""
+    names = [material.canonical_name, material.profile_name, material.registry_name]
+    stripped = _TRAILING_PARENTHETICAL.sub("", material.name).strip()
+    if stripped and stripped != material.name:
+        names.append(stripped)
+    return [n for n in dict.fromkeys(names) if n and n != material.name]
+
+
+def _finished_product_pct_w_w(
+    state: FormulaState, config: ReleaseGateConfig
+) -> tuple[dict[str, float], str, FinishedProductEstimate | None]:
+    """Each row's active material as % w/w of the finished product, and the basis used."""
+    if state.exact_finished_product_ppm_available:
+        pct: dict[str, float] = {}
+        for m in state.materials:
+            pct[m.name] = pct.get(m.name, 0.0) + float(m.active_finished_product_ppm_w_w) / 1e4
+        return pct, "exact_finished_product_w_w", None
+    estimate = estimate_finished_product_pct_w_w(
+        [
+            FinishedProductRow(
+                name=m.name,
+                stock_ul=m.raw_ul,
+                active_fraction=m.dilution,
+                active_g=m.authoritative_active_g,
+                active_density_g_ml=(
+                    None if str(m.density_source).startswith("fallback:") else m.density_g_ml
+                ),
+                carrier=m.stock_carrier or None,
+            )
+            for m in state.materials
+        ],
+        batch_volume_ml=config.batch_volume_ml,
+    )
+    return dict(estimate.pct_w_w), "finished_product_w_w_estimate", estimate
+
+
+def _ifra_row_dict(check: IFRACheck, headroom: float) -> dict:
+    limit = check.limit_pct
+    effective_limit = limit * headroom if limit is not None else None
+    return {
+        "material": check.material,
+        "matched_name": check.matched_name,
+        "ifra_status": check.status,
+        "standard": check.standard,
+        "actual_pct": round(check.pct, 6),
+        "limit_pct": limit,
+        "effective_limit_pct": round(effective_limit, 6) if effective_limit is not None else None,
+        "headroom": headroom,
+        "usage_pct": round(check.ratio * 100.0, 1) if check.ratio is not None else None,
+        "effective_usage_pct": (
+            round(check.pct / effective_limit * 100.0, 1) if effective_limit else None
+        ),
+        "verdict": check.verdict,
+        "message": check.message,
+    }
+
+
+def _ifra_group_dict(group: IFRAGroupCheck, headroom: float) -> dict:
+    ratio_rule = group.rule == "sum_of_ratios_le_1"
+    limit = 1.0 if ratio_rule else group.limit_pct
+    effective_limit = limit * headroom if limit is not None else None
+    return {
+        "material": group.id,
+        "group": group.id,
+        "standard": group.standard,
+        "rule": group.rule,
+        "members": dict(group.member_pcts),
+        "actual_pct": round(group.total, 6),
+        "limit_pct": limit,
+        "effective_limit_pct": round(effective_limit, 6) if effective_limit is not None else None,
+        "headroom": headroom,
+        "usage_pct": round(group.total / limit * 100.0, 1) if limit else None,
+        "effective_usage_pct": (
+            round(group.total / effective_limit * 100.0, 1) if effective_limit else None
+        ),
+        "verdict": group.verdict,
+        "message": group.message,
+    }
+
+
+def _ifra_entry_dict(entry: IFRACheck | IFRAGroupCheck, headroom: float) -> dict:
+    if isinstance(entry, IFRAGroupCheck):
+        return _ifra_group_dict(entry, headroom)
+    return _ifra_row_dict(entry, headroom)
+
+
 def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     ingredients = {m.name: m.raw_ul for m in state.materials}
     dilutions = {m.name: m.dilution for m in state.materials}
+    # Allergen declarations, dermal exposure and sensitizer scoring only; IFRA verdicts come
+    # from the sourced Category 4 table below.
     report = score_ifra_compliance(
         ingredients,
         dilutions,
         total_volume_ml=config.batch_volume_ml,
     )
-    missing_ifra = sorted(
-        m.name
-        for m in state.materials
-        if m.name not in IFRA_CAT4_LIMITS and (m.profile_name or "") not in IFRA_CAT4_LIMITS
-    )
     headroom = config.effective_ifra_headroom()
-    headroom_violations = []
-    edge_dosing = []
-    for material in state.materials:
-        limit = _material_ifra_limit(material)
-        if limit is None:
-            continue
-        actual_pct = (material.active_ul / 1000.0) / config.batch_volume_ml * 100.0
-        effective_limit = limit * headroom
-        ratio = actual_pct / limit if limit > 0 else 0.0
-        effective_ratio = actual_pct / effective_limit if effective_limit > 0 else 0.0
-        row = {
-            "material": material.name,
-            "actual_pct": round(actual_pct, 6),
-            "limit_pct": limit,
-            "effective_limit_pct": round(effective_limit, 6),
-            "headroom": headroom,
-            "usage_pct": round(ratio * 100.0, 1),
-            "effective_usage_pct": round(effective_ratio * 100.0, 1),
-        }
-        if actual_pct > effective_limit + 1e-12:
-            headroom_violations.append(row)
-        elif ratio >= 0.7:
-            edge_dosing.append(row)
+    pct_w_w, basis, estimate = _finished_product_pct_w_w(state, config)
+    table = load_ifra_table()
+    evaluation = evaluate_ifra(
+        pct_w_w,
+        table=table,
+        alt_names={m.name: _ifra_alt_names(m) for m in state.materials},
+        headroom=headroom,
+    )
+    failures = [_ifra_entry_dict(e, headroom) for e in evaluation.failures]
+    warnings = [_ifra_entry_dict(e, headroom) for e in evaluation.warnings]
+    holds = [_ifra_row_dict(c, headroom) for c in evaluation.holds]
+    unchecked = sorted(c.material for c in evaluation.unchecked)
+    banned = [f["material"] for f in failures if f.get("ifra_status") == "prohibited"]
+    headroom_violations = [f for f in failures if f.get("ifra_status") != "prohibited"]
+    # Over the IFRA limit itself; headroom_violations also holds rows over limit x headroom.
+    violations = [
+        f
+        for f in headroom_violations
+        if f["limit_pct"] is not None and f["actual_pct"] > f["limit_pct"]
+    ]
+    edge_dosing = [w for w in warnings if w.get("ifra_status") == "restricted" or "group" in w]
+    natural_warnings = [w for w in warnings if w.get("ifra_status") == "natural_no_own_standard"]
+    overfilled = bool(estimate.overfilled) if estimate is not None else False
+    assumptions = list(estimate.assumptions) if estimate is not None else []
+    batch_default = config.batch_volume_source == "default"
     data = {
         "score": report.score,
-        "violations": report.ifra_violations,
+        "violations": violations,
         "headroom_violations": headroom_violations,
-        "warnings": report.ifra_warnings,
+        "warnings": warnings,
         "diagnostics": report.diagnostics,
         "edge_dosing": edge_dosing,
-        "banned": report.banned_flags,
+        "banned": banned,
         "allergen_declarations": report.allergen_declarations,
         "dermal_exposure": report.dermal_exposure,
         "uptake_weighted_sensitizers": report.uptake_weighted_sensitizers,
-        "missing_ifra_limit": missing_ifra,
+        "missing_ifra_limit": unchecked,
+        "unchecked": unchecked,
+        "holds": holds,
+        "specification_notes": [_ifra_row_dict(c, headroom) for c in evaluation.notes],
+        "rows": [_ifra_row_dict(c, headroom) for c in evaluation.checks],
+        "groups": [_ifra_group_dict(g, headroom) for g in evaluation.group_checks],
         "headroom": config.ifra_headroom,
         "effective_headroom": headroom,
         "commercial_mode": config.commercial_mode,
-        "concentration_basis": "modeled_active_volume_fraction",
+        "concentration_basis": basis,
+        "batch_volume_ml": config.batch_volume_ml,
+        "batch_volume_source": config.batch_volume_source,
+        "ifra_table": {
+            "amendment_in_force": table.amendment_in_force,
+            "category": table.category,
+            "basis": table.basis,
+            "verified_on": table.verified_on,
+        },
+        "assumptions": assumptions,
+        "overfilled": overfilled,
+        "finished_mass_g": (
+            round(estimate.finished_mass_g, 6) if estimate is not None else None
+        ),
         "quantitative_authority": state.quantitative_authority,
         "authorization": (
             "PROVISIONAL_NOT_RELEASE_AUTHORITY"
@@ -1462,41 +1577,53 @@ def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
             else "EXACT_FINISHED_PRODUCT_MASS_CHAIN"
         ),
     }
-    if report.banned_flags or report.ifra_violations or headroom_violations:
-        parts: list[str] = []
-        if report.banned_flags:
-            parts.append("banned: " + ", ".join(report.banned_flags))
-        if report.ifra_violations:
+    basis_note = f"basis {basis}"
+    if assumptions:
+        basis_note += f" ({len(assumptions)} density/carrier assumption(s))"
+    if failures:
+        return _result(
+            "safety_ifra_allergen",
+            "FAIL",
+            "IFRA Category 4 failures: "
+            + "; ".join(f["message"] for f in failures)
+            + f"; {basis_note}",
+            data,
+        )
+    if holds or overfilled:
+        parts = [f"IFRA hold: {h['message']}" for h in holds]
+        if overfilled:
             parts.append(
-                "IFRA violations: "
-                + ", ".join(
-                    f"{v['material']} {v['actual_pct']}% > {v['limit_pct']}%"
-                    for v in report.ifra_violations
-                )
+                f"stocks ({estimate.concentrate_ml:.3g} mL) exceed the "
+                f"{config.batch_volume_ml:g} mL bottle; finished-product % w/w is not defined"
             )
-        if headroom_violations:
-            parts.append(
-                f"IFRA headroom {headroom:.0%} violations: "
-                + ", ".join(
-                    f"{v['material']} {v['actual_pct']}% > {v['effective_limit_pct']}%"
-                    for v in headroom_violations
-                )
-            )
-        if report.diagnostics:
-            parts.append("; ".join(report.diagnostics))
-        return _result("safety_ifra_allergen", "FAIL", "; ".join(parts), data)
-    if missing_ifra or report.ifra_warnings or report.allergen_declarations or edge_dosing:
-        detail = []
-        if missing_ifra:
-            detail.append(f"{len(missing_ifra)} materials lack explicit IFRA Cat4 limits")
-        if report.ifra_warnings or edge_dosing:
-            detail.append(
-                f"{len(report.ifra_warnings or edge_dosing)} materials near IFRA/headroom edge"
-            )
-        if report.allergen_declarations:
-            detail.append(f"{len(report.allergen_declarations)} EU allergen declarations")
-        return _result("safety_ifra_allergen", "WARN", "; ".join(detail), data)
-    return _result("safety_ifra_allergen", "PASS", f"score {report.score:.1f}", data)
+        return _result("safety_ifra_allergen", "HOLD", "; ".join(parts) + f"; {basis_note}", data)
+    detail: list[str] = []
+    if edge_dosing:
+        detail.append(
+            f"{len(edge_dosing)} near the IFRA limit: "
+            + ", ".join(f"{w['material']} {w['usage_pct']}%" for w in edge_dosing)
+        )
+    if natural_warnings:
+        detail.append(
+            f"{len(natural_warnings)} natural(s) without their own IFRA standard "
+            "(constituents not summed)"
+        )
+    if unchecked:
+        detail.append(f"{len(unchecked)} material(s) not in the IFRA Category 4 table")
+    if batch_default:
+        detail.append(
+            f"bottle size not found; default {config.batch_volume_ml:g} mL assumed"
+        )
+    if report.allergen_declarations:
+        detail.append(f"{len(report.allergen_declarations)} EU allergen declarations")
+    if detail:
+        return _result("safety_ifra_allergen", "WARN", "; ".join(detail) + f"; {basis_note}", data)
+    return _result(
+        "safety_ifra_allergen",
+        "PASS",
+        f"IFRA Category 4 within limits; score {report.score:.1f}; {basis_note}",
+        data,
+    )
 
 
 def _gate_perfumer_logic(formula: Mapping, config: ReleaseGateConfig) -> GateResult:
