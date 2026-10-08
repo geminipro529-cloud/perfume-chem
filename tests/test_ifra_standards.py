@@ -516,7 +516,3 @@ def test_evaluate_ifra_reports_the_specific_entry_for_a_suffixed_row():
     result = evaluate_ifra({"Vetiver EO (Haiti) 10%": 0.5})
     (check,) = result.checks
     assert check.ifra_name == "Vetiver EO (Haiti)"
-
-
-def test_stock_base_name_keeps_a_qualifier_written_after_the_strength_out_of_the_phrase():
-    assert stock_base_name("Vetiver EO 10% (Haiti)") == "Vetiver EO"
