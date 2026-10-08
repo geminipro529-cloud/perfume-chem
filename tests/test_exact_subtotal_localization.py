@@ -55,3 +55,26 @@ def test_a_matching_total_still_passes():
 
     assert result.status == "PASS"
     assert result.detail == "6000.2 uL"
+
+
+def test_a_small_gap_does_not_blame_a_trace_row():
+    # 2 uL over: shrinking the 10 uL Rose Oxide row tenfold would leave a 7 uL gap.
+    rows = {"Iso E Super": 3000.0, "Hedione": 2992.0, "Rose Oxide": 10.0}
+
+    result = _gate_exact_subtotal(_formula(rows), _config(6000.0))
+
+    assert result.status == "FAIL"
+    assert result.data["decimal_shift_suspects"] == []
+    assert "Likely misplaced decimal" not in result.detail
+    assert "Largest rows: Iso E Super 3000 uL" in result.detail
+
+
+def test_a_row_is_named_once_at_its_best_factor():
+    # Undoing /100 or /1000 on the 1000 uL row leaves the same 4.5 uL residual.
+    rows = {"Iso E Super": 3000.0, "Hedione": 2000.0, "Ethyl Maltol": 1000.0}
+
+    result = _gate_exact_subtotal(_formula(rows), _config(5005.5))
+
+    suspects = result.data["decimal_shift_suspects"]
+    assert [s["material"] for s in suspects] == ["Ethyl Maltol"]
+    assert suspects[0]["factor"] == "/100"

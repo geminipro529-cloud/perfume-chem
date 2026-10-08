@@ -648,29 +648,36 @@ def _exact_subtotal_findings(rows: Mapping[str, float], total_ul: float, expecte
 
     A misplaced decimal point (8200 typed for 820) or a mL/uL slip moves one row
     by a factor of 10, 100 or 1000. A row is a suspect when undoing that one
-    factor brings the total back to the expected concentrate (within 0.5% of
-    it). Rows larger than the whole expected concentrate are listed separately.
+    factor explains the gap: the corrected total is closer to the expected
+    concentrate than the parsed one, and within 0.5% of the gap (at least
+    0.5 uL) of it. Each row is named once, at its best factor. Rows larger than
+    the whole expected concentrate are listed separately.
     """
     gap = total_ul - expected_ul
-    tolerance = max(0.5, 0.005 * expected_ul)
-    suspects = []
+    tolerance = max(0.5, 0.005 * abs(gap))
+    best: dict[str, tuple[float, dict]] = {}
     for name, ul in rows.items():
         if ul <= 0:
             continue
         for factor in _SUBTOTAL_SHIFT_FACTORS:
             corrected = ul / factor if gap > 0 else ul * factor
             new_total = total_ul - ul + corrected
-            if abs(new_total - expected_ul) <= tolerance:
-                suspects.append(
-                    {
-                        "material": name,
-                        "ul": round(ul, 3),
-                        "corrected_ul": round(corrected, 3),
-                        "factor": f"/{factor}" if gap > 0 else f"x{factor}",
-                        "total_if_corrected_ul": round(new_total, 3),
-                    }
-                )
-    suspects.sort(key=lambda s: abs(s["total_if_corrected_ul"] - expected_ul))
+            residual = abs(new_total - expected_ul)
+            if residual > tolerance or residual >= abs(gap):
+                continue
+            if name in best and best[name][0] <= residual:
+                continue
+            best[name] = (
+                residual,
+                {
+                    "material": name,
+                    "ul": round(ul, 3),
+                    "corrected_ul": round(corrected, 3),
+                    "factor": f"/{factor}" if gap > 0 else f"x{factor}",
+                    "total_if_corrected_ul": round(new_total, 3),
+                },
+            )
+    suspects = [suspect for _, suspect in sorted(best.values(), key=lambda item: item[0])]
     over_expected = [
         {"material": name, "ul": round(ul, 3)}
         for name, ul in sorted(rows.items(), key=lambda item: -item[1])

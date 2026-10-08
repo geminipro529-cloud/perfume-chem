@@ -384,6 +384,12 @@ def compute_unified_release_scores(
         for gate in gate_report.get("gates", [])
         if gate.get("status") == "FAIL"
     ]
+    # HOLD gates block release on missing data; no dose repair can supply it.
+    held_gates = [
+        gate.get("gate")
+        for gate in gate_report.get("gates", [])
+        if gate.get("status") == "HOLD"
+    ]
     repairable = [
         gate for gate in failed_gates if gate in _DETERMINISTIC_REPAIRABLE_GATES
     ]
@@ -430,10 +436,13 @@ def compute_unified_release_scores(
         "industry_10_availability": industry_10_availability,
         "repairability": {
             "failed_gates": failed_gates,
+            "held_gates": held_gates,
             "deterministic_repairable": repairable,
             "blocked_rerun_required": nonrepairable,
             "status": (
-                "none_needed"
+                "data_required"
+                if held_gates and not failed_gates
+                else "none_needed"
                 if not failed_gates
                 else "deterministic"
                 if repairable and not nonrepairable
