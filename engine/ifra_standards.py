@@ -385,6 +385,7 @@ def evaluate_ifra(
     alt_names = alt_names or {}
     checks: list[IFRACheck] = []
     pct_by_member: dict[str, float] = {}
+    restricted_rows: dict[str, list[str]] = {}
     for row_name, pct in pct_by_material.items():
         extra = alt_names.get(row_name, ())
         candidates = [row_name, *([extra] if isinstance(extra, str) else extra)]
@@ -402,13 +403,43 @@ def evaluate_ifra(
             ))
             continue
         pct_by_member[material.name] = pct_by_member.get(material.name, 0.0) + pct
+        if material.status == "restricted" and material.standard is not None:
+            restricted_rows.setdefault(material.standard, []).append(material.name)
         checks.append(_check_row(row_name, matched_name, material, pct, edge_ratio, headroom))
+    rules = [*table.group_rules, *_standard_total_rules(table, restricted_rows)]
     group_checks = tuple(
         g
-        for rule in table.group_rules
+        for rule in rules
         if (g := _check_group(rule, table, pct_by_member, edge_ratio, headroom)) is not None
     )
     return IFRAEvaluation(checks=tuple(checks), group_checks=group_checks)
+
+
+def _standard_total_rules(
+    table: IFRATable, restricted_rows: Mapping[str, Sequence[str]]
+) -> list[IFRAGroupRule]:
+    """A standard's limit covers every row in its scope, so rows sharing one are totalled.
+
+    Two rows of the same material (a neat and a diluted stock, say) or two materials under
+    one standard each pass alone and can still exceed the limit together. Standards that an
+    explicit ``sum_le_limit`` rule already totals are left to that rule.
+    """
+    totalled = {r.standard for r in table.group_rules if r.rule == "sum_le_limit"}
+    rules = []
+    for sid, names in restricted_rows.items():
+        if len(names) < 2 or sid in totalled:
+            continue
+        limit = table.standards[sid].cat4_limit_pct
+        assert limit is not None  # restricted materials need a numeric standard limit
+        rules.append(IFRAGroupRule(
+            id=f"{sid}_total",
+            standard=sid,
+            rule="sum_le_limit",
+            limit_pct=limit,
+            members=tuple(dict.fromkeys(names)),
+            quote=None,
+        ))
+    return rules
 
 
 def _check_row(

@@ -336,6 +336,39 @@ def test_group_counts_aliases_and_skips_absent_groups(tmp_path):
     assert evaluate_ifra({"Hedione": 5.0, "Mystery": 1.0}, table=tbl).group_checks == ()
 
 
+def test_two_rows_of_one_material_are_totalled_against_its_standard(table):
+    result = evaluate_ifra({"Alpha Absolute": 0.06, "Alpha (10% in DPG)": 0.0}, table=table)
+    assert result.group_checks == ()  # the second row is unchecked, not a second Alpha row
+    result = evaluate_ifra({"Alpha Absolute": 0.06, "alpha  extract": 0.06}, table=table)
+    assert [c.verdict for c in result.checks] == ["pass", "pass"]
+    (group,) = result.group_checks
+    assert (group.id, group.standard, group.rule) == ("STD_A_total", "STD_A", "sum_le_limit")
+    assert group.member_pcts == {"Alpha Absolute": pytest.approx(0.12)}
+    assert group.limit_pct == 0.1
+    assert result.failures == (group,)
+
+
+def test_two_materials_under_one_standard_are_totalled(tmp_path):
+    doc = _doc(only_groups=())
+    doc["materials"]["Alpha Resinoid"] = {"status": "restricted", "standard": "STD_A"}
+    tbl = load_ifra_table(_write(tmp_path, doc))
+    result = evaluate_ifra({"Alpha Absolute": 0.06, "Alpha Resinoid": 0.06}, table=tbl)
+    assert [c.verdict for c in result.checks] == ["pass", "pass"]
+    (group,) = result.failures
+    assert group.member_pcts == {"Alpha Absolute": 0.06, "Alpha Resinoid": 0.06}
+    assert group.total == pytest.approx(0.12)
+    single = evaluate_ifra({"Alpha Absolute": 0.06, "Beta Oil": 0.005}, table=tbl)
+    assert single.group_checks == ()
+
+
+def test_explicit_sum_rule_replaces_the_automatic_standard_total(tmp_path):
+    tbl = load_ifra_table(_write(tmp_path, _doc(only_groups={"alpha_beta_total"})))
+    result = evaluate_ifra({"Alpha Absolute": 0.06, "Alpha": 0.06}, table=tbl)
+    (group,) = result.group_checks
+    assert group.id == "alpha_beta_total"
+    assert group.verdict == "fail"
+
+
 # ------------------------------------------------------------------ the real data file
 
 
