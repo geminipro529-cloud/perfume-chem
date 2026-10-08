@@ -57,14 +57,18 @@ def test_v31_keeps_v3_smooth_doses_except_the_named_stock_swaps(formula):
     assert active == pytest.approx(4010.005)
 
 
-def test_v31_preflight_blockers_are_only_the_mimosa_hold_and_the_new_e2mb_solution(formula):
+def test_v31_preflight_resolves_every_stock_to_a_recorded_bottle(formula):
+    # 2026-10-08 (v22 overlay): Osmanthus recorded as w/w, Mimosa kept as it is, and the
+    # 1% / 0.1% / 0.01% E2MB solutions recorded at their nominal percentages.
     result = _dilution_consistency_check(formula)
-    issues = {item["material"]: item["reason"] for item in result.data["issues"]}
-    assert issues["Mimosa Absolute"] == "inventory_stock_non_executable"
-    # The 0.01% E2MB solution is not in the inventory records yet. Preflight's absolute
-    # 0.005 fraction tolerance currently matches it to the 0.1% stock, so it may not be flagged.
-    assert set(issues) <= {"Mimosa Absolute", "Ethyl 2-Methylbutyrate"}
-    assert len(result.data["matched_stocks"]) + len(issues) == 30
+    assert result.status == "PASS"
+    assert result.data["issues"] == []
+    assert len(result.data["matched_stocks"]) == 30
+    resolved = result.data["resolved_stock_specs"]
+    for name in ("Osmanthus Absolute", "Mimosa Absolute", "Ethyl 2-Methylbutyrate"):
+        assert resolved[name]["stock_id"].startswith("inventory:user-20261008:")
+    assert resolved["Osmanthus Absolute"]["fraction_basis"] == "mass_fraction"
+    assert resolved["Ethyl 2-Methylbutyrate"]["fraction"] == pytest.approx(0.0001)
 
 
 def test_v31_recognizers_still_model_at_oav_one_or_more(formula):

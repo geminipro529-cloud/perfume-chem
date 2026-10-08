@@ -116,9 +116,13 @@ TOBACCO_DBCA_USER_INVENTORY_OVERLAY_PATH = (
     PROJECT_ROOT
     / "data/governance/inventory_user_authority_overlay_20261008_tobacco_dbca.json"
 )
-CURRENT_USER_INVENTORY_OVERLAY_PATH = (
+AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_PATH = (
     PROJECT_ROOT
     / "data/governance/inventory_user_authority_overlay_20261008_ambrettolide_neat.json"
+)
+CURRENT_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT
+    / "data/governance/inventory_user_authority_overlay_20261008_e2mb_osmanthus_mimosa.json"
 )
 PW_RECEIVED_INVENTORY_RECEIPT_PATH = (
     PROJECT_ROOT
@@ -175,7 +179,8 @@ R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_SHA256 = "0bccf890ee05487b20d
 AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256 = "582acaf38382b95252dcc67f01b21a2b56b96ae418c31bda1cef3d355f419ad8"
 PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256 = "180e2823200162a4eaa2975aa4eef9403ad10fec33f2caa1d48a83409c9d7eac"
 TOBACCO_DBCA_USER_INVENTORY_OVERLAY_SHA256 = "356a103c4908b85936831ee4593610f3c63210d05f25b0c65963ee74b8548e4c"
-CURRENT_USER_INVENTORY_OVERLAY_SHA256 = "0b6915b4c28536393bd13bf797b01d77a39bd371efa9d4346cede3b73a6d9a63"
+AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_SHA256 = "0b6915b4c28536393bd13bf797b01d77a39bd371efa9d4346cede3b73a6d9a63"
+CURRENT_USER_INVENTORY_OVERLAY_SHA256 = "88f10b4bab667ff96822f8365d735a2e28af20e1a0feae4cc254958635c52741"
 PW_RECEIVED_INVENTORY_RECEIPT_SHA256 = "089c930e044b55e434c0e0438ee7b2c20f48d871f00a219a7237a932419fbc9a"
 ROMANDOLIDE_DEPLETION_CONFIRMATION_SHA256 = "5b94ac7cf95a0ee0bb4fc0754a97bda4b0be5aae910c13c7fc4557317f823ade"
 FLORHYDRAL_ADDITION_CONFIRMATION_SHA256 = "ff481e5e993f749ce6a5ee0dd8a9606b698c03a17caeac86d1c3adf85065389d"
@@ -209,6 +214,8 @@ AIMI_IDENTITY_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHOR
 TOBACCO_DBCA_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261008"
 # The Ambrettolide-neat successor shares the 2026-10-08 authority date.
 AMBRETTOLIDE_NEAT_USER_INVENTORY_AUTHORITY = TOBACCO_DBCA_USER_INVENTORY_AUTHORITY
+# So does the E2MB / Osmanthus / Mimosa successor (v22).
+E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_AUTHORITY = TOBACCO_DBCA_USER_INVENTORY_AUTHORITY
 
 _HEADING_RE = re.compile(r"^---\s+(.+?)\s+---$")
 _BULLET_RE = re.compile(r"^[-•]\s+(.+?)\s*$")
@@ -4562,7 +4569,7 @@ def _load_20261008_ambrettolide_neat_successor(
     """Replace the 10% w/w DPG Ambrettolide record with the owner's neat stock."""
 
     encoded = (json.dumps(dict(successor), ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-    if hashlib.sha256(encoded).hexdigest() != CURRENT_USER_INVENTORY_OVERLAY_SHA256:
+    if hashlib.sha256(encoded).hexdigest() != AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_SHA256:
         raise InventoryAuthorityError("Ambrettolide-neat successor exact metadata drift")
     source = successor["source"]
     if require_live_inventory_binding and (
@@ -4581,6 +4588,65 @@ def _load_20261008_ambrettolide_neat_successor(
     previous_by_id = {record["record_id"]: record for record in previous["records"]}
     if not superseded.issubset(previous_by_id):
         raise InventoryAuthorityError("Ambrettolide-neat successor superseded record missing")
+    records = successor["records"]
+    origins = {
+        key: dict(value)
+        for key, value in previous["record_origins"].items()
+        if key not in superseded
+    }
+    origin = {
+        "path": AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_PATH.relative_to(PROJECT_ROOT).as_posix(),
+        "sha256": AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    for record in records:
+        origins[record["record_id"]] = dict(origin)
+    return {
+        **dict(successor),
+        "parent": dict(previous["parent"]),
+        "base_policy": dict(previous["base_policy"]),
+        "policy": {**dict(previous["policy"]), **dict(successor["policy"])},
+        "delta_records": records,
+        "records": [
+            *(record for record in previous["records"] if record["record_id"] not in superseded),
+            *records,
+        ],
+        "record_origins": origins,
+        "retired_records": [
+            *previous.get("retired_records", []),
+            *(previous_by_id[record_id] for record_id in sorted(superseded)),
+        ],
+    }
+
+
+def _load_20261008_e2mb_osmanthus_mimosa_successor(
+    successor: Mapping[str, Any],
+    *,
+    require_live_inventory_binding: bool = True,
+) -> dict[str, Any]:
+    """Declare Osmanthus as w/w, keep Mimosa for use, and add the new E2MB solutions."""
+
+    encoded = (json.dumps(dict(successor), ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    if hashlib.sha256(encoded).hexdigest() != CURRENT_USER_INVENTORY_OVERLAY_SHA256:
+        raise InventoryAuthorityError("E2MB/Osmanthus/Mimosa successor exact metadata drift")
+    source = successor["source"]
+    if require_live_inventory_binding and (
+        len(_normalized_text_bytes(INVENTORY_PATH)) != source["inventory_text_size_bytes"]
+        or _normalized_text_sha256(INVENTORY_PATH) != source["inventory_text_sha256"]
+    ):
+        raise InventoryAuthorityError(
+            "E2MB/Osmanthus/Mimosa successor is not bound to live inventory text"
+        )
+    predecessor_path = AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_PATH
+    if _normalized_text_sha256(predecessor_path) != AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_SHA256:
+        raise InventoryAuthorityError("E2MB/Osmanthus/Mimosa successor predecessor drift")
+    previous = _load_20261008_ambrettolide_neat_successor(
+        json.loads(predecessor_path.read_text(encoding="utf-8")),
+        require_live_inventory_binding=False,
+    )
+    superseded = set(successor["superseded_record_ids"])
+    previous_by_id = {record["record_id"]: record for record in previous["records"]}
+    if not superseded.issubset(previous_by_id):
+        raise InventoryAuthorityError("E2MB/Osmanthus/Mimosa successor superseded record missing")
     records = successor["records"]
     origins = {
         key: dict(value)
@@ -4658,6 +4724,7 @@ def load_current_user_inventory_overlay(
         AIMI_IDENTITY_USER_INVENTORY_OVERLAY_PATH.resolve(): AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256,
         PW_RECEIVED_USER_INVENTORY_OVERLAY_PATH.resolve(): PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256,
         TOBACCO_DBCA_USER_INVENTORY_OVERLAY_PATH.resolve(): TOBACCO_DBCA_USER_INVENTORY_OVERLAY_SHA256,
+        AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_PATH.resolve(): AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_SHA256,
         CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve(): CURRENT_USER_INVENTORY_OVERLAY_SHA256,
     }
     expected_overlay_sha = pinned_overlays.get(overlay_path.resolve(), CURRENT_USER_INVENTORY_OVERLAY_SHA256)
@@ -4673,6 +4740,13 @@ def load_current_user_inventory_overlay(
             f"current user inventory overlay is unreadable: {exc}"
         ) from exc
 
+    if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v22":
+        return _load_20261008_e2mb_osmanthus_mimosa_successor(
+            payload,
+            require_live_inventory_binding=(
+                overlay_path.resolve() == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
+            ),
+        )
     if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v21":
         return _load_20261008_ambrettolide_neat_successor(
             payload,
@@ -5529,6 +5603,7 @@ _USER_OVERLAY_CHAIN_PATHS = (
     AIMI_IDENTITY_USER_INVENTORY_OVERLAY_PATH,
     PW_RECEIVED_USER_INVENTORY_OVERLAY_PATH,
     TOBACCO_DBCA_USER_INVENTORY_OVERLAY_PATH,
+    AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_PATH,
     CURRENT_USER_INVENTORY_OVERLAY_PATH,
     PW_RECEIVED_INVENTORY_RECEIPT_PATH,
 )

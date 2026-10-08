@@ -1,6 +1,6 @@
 # DHI-11 — Velours d'Iris V3.1 Current Stock — 05443/A Architecture Study — 30 mL / 20%
 
-**Status:** DRAFT — current-stock rebuild of V3 Smooth; not yet cleared to mix (see Open holds).
+**Status:** DRAFT — current-stock rebuild of V3 Smooth. Every stock is in the inventory records (2026-10-08); the gate's remaining FAILs are density data gaps (see Stocks and remaining holds). Mixing is Kenny's call.
 **Case:** `DHI-11-VELOURS-D-IRIS-05443A-V3-1-CURRENT-STOCK`  
 **Claim mode:** named_reference  
 **Reference contract:** dior_homme_intense_2011_05443a_architecture_v1  
@@ -25,23 +25,25 @@ The finished volume is about 28.6 mL, not 30 mL (see the Ambrettolide row below)
 | Lavender EO High Altitude (angustifolia, France), 110 µL | Lavender EO (BONTAUX SAS), 110 µL | The High Altitude lavender is no longer owned (removed 2026-09-08). BONTAUX is the owned French angustifolia lavender. This is a substitution, not the same oil. |
 | Vetiver EO (India), 140 µL, basket 2 | Vetiver EO (Haiti), 140 µL, basket 1 | Kenny corrected this bottle's origin to Haiti on 2026-09-10. Basket 1 is where docs/basket_order_preference.md puts Haitian vetiver. |
 | Vetival, basket 5 | Vetival, basket 1 | Same dose; docs/basket_order_preference.md lists Vetival in Always used. |
-| Mimosa Absolute, "10% in DPG" | Mimosa Absolute, 10% w/w in DPG | The inventory records this stock as 10% w/w in DPG. |
+| Mimosa Absolute, "10% in DPG" | Mimosa Absolute, 10% w/w in DPG | The inventory records this stock as 10% w/w in DPG; Kenny is keeping it (2026-10-08). |
+| Osmanthus Absolute, "10% in DPG" | Osmanthus Absolute, 10% w/w in DPG | Kenny confirmed it was made by weight (2026-10-08). |
 | Ethyl 2-Methylbutyrate, 0.1% in DPG, 50 µL | Ethyl 2-Methylbutyrate, 0.01% w/w in DPG, 50 µL | Kenny's choice (2026-10-08) after E2MB's vapour pressure was corrected from an unsourced 5 Pa to 1,070 Pa (RIFM safety assessment, EPI Suite estimate). At 0.1% it modelled at about 187 times its odour threshold, fourth in the opening; at 0.01% it models at about 19, below Linalyl Acetate, which keeps it the short pear flash V3 designed. This is an intended tenfold cut in E2MB's active dose, not a stock rebase. |
 
 Every other dose is V3 Smooth's, including the 2026-10-08 Verdox 340 µL / Benzyl Acetate 160 µL revision.
 
 **E2MB dose authority:** the tenfold E2MB cut is Kenny's decision (card, 2026-10-08 16:28 UTC). Gate this card against V3 Smooth with `--authorize-active-dose-change "Ethyl 2-Methylbutyrate=Kenny decision card 2026-10-08 16:28 UTC: use 0.01% after the E2MB vapour-pressure fix (5 -> 1,070 Pa)"`; the pre-mix guard then reports it as an authorized dose change (WARN) instead of a stock-rebase FAIL.
 
-## Open holds before mixing
+## Stocks and remaining holds
 
-- **Ethyl 2-Methylbutyrate (0.01% w/w in DPG):** a new solution Kenny is making from his neat PerfumersWorld E2MB (received 2026-10-07). It is not in the inventory records until he reports the weights. Make it by weight in three steps, capping each vial straight away because E2MB is very volatile:
+All 30 stocks now resolve in the inventory records (successor overlay v22, 2026-10-08), and preflight passes.
+
+- **Ethyl 2-Methylbutyrate (0.01% w/w in DPG):** a new solution made from Kenny's neat PerfumersWorld E2MB (received 2026-10-07). Kenny asked for it to be recorded at its nominal percentage, so no weights are on file. Make it by weight in three steps, capping each vial straight away because E2MB is very volatile:
   1. **1% w/w:** 9.900 g DPG, then 0.100 g E2MB.
   2. **0.1% w/w:** 9.000 g DPG, then 1.000 g of the 1%.
   3. **0.01% w/w:** 9.000 g DPG, then 1.000 g of the 0.1%.
-  Record the actual weights; the true strength is the E2MB mass over the total mass at each step.
-- **Mimosa Absolute (10% w/w in DPG):** Kenny keeps it (2026-10-08). The inventory still holds it for execution because its bottle lot and preparation receipts are missing; the hold is cleared in the same inventory record as the new E2MB solution.
-- **Osmanthus Absolute (10% in DPG):** the inventory does not say whether it was made by weight or by volume, so the gate's concentration-basis check fails on it.
-- **Densities:** the gate's chemistry-stability and phase checks need a measured density for each w/w stock (Alpha Irone, Mimosa, Tonkarome, E2MB) and a density for some neat materials; they report UNKNOWN until those exist. This is a data gap, not a formula problem.
+- **Mimosa Absolute (10% w/w in DPG):** Kenny keeps it. Its execution hold is lifted on that decision; its bottle-lot and preparation receipts are still missing.
+- **Osmanthus Absolute (10% w/w in DPG):** basis confirmed by Kenny.
+- **Densities:** the gate's chemistry-stability and phase checks need an authoritative active mass, so they report UNKNOWN (and FAIL closed) until densities exist for 15 stocks: Alpha Irone, Ambrettolide, Carrot Seed EO, Ethyl 2-Methylbutyrate, Ethylene Brassylate, Irotyl, Iso E Super, Isobutavan, Mimosa Absolute, Osmanthus Absolute, Romandolide, Tonkarome, Ultralia, Vetival and Vetiver EO (Haiti). This is a data gap, not a formula problem.
 
 ## CURRENT-INVENTORY RAW-VOLUME BUILD — parser-visible formula
 
@@ -104,7 +106,7 @@ only at a new basket. No separate carrier is added.
 | # | Material | Dilution | Amount (µL) | Active µL | Raw ppm | Active ppm | Current-build function |
 |---:|---|---|---:|---:|---:|---:|---|
 | 16 | Mimosa Absolute | 10% w/w in DPG | 80 | 8.000 nominal | 17543.8596 | 1754.3860 nominal | natural honeyed-green powder irregularity |
-| 17 | Osmanthus Absolute | 10% in DPG | 20 | 2.000 nominal | 4385.9649 | 438.5965 nominal | trace suede-apricot fruit skin |
+| 17 | Osmanthus Absolute | 10% w/w in DPG | 20 | 2.000 nominal | 4385.9649 | 438.5965 nominal | trace suede-apricot fruit skin |
 
 **BASKET 10 — ROSE**
 
@@ -161,7 +163,7 @@ stocks without solution density do not supply literal active volume or exact
 mass ppm.
 
 <!-- FORMULA_MIXING_PROTOCOL_START -->
-### Pour sequence — raw-volume card; mixing waits on the open holds above
+### Pour sequence — raw-volume card
 
 Use a fresh tip whenever moving to a new material. Complete each basket and
 dose high to low raw µL inside it:
@@ -174,7 +176,7 @@ dose high to low raw µL inside it:
 6. **Musks:** Ethylene Brassylate 870; Romandolide 210; Ambrettolide (neat) 160.
 7. **Muguet and lavender:** Lavender EO (BONTAUX SAS) 110; Linalyl Acetate 70; Linalool 20.
 8. **Jasmine, indole, and magnolia:** none.
-9. **Ylang, orange flower, and narcotics:** Mimosa Absolute (10% w/w in DPG) 80; Osmanthus Absolute (10% in DPG) 20.
+9. **Ylang, orange flower, and narcotics:** Mimosa Absolute (10% w/w in DPG) 80; Osmanthus Absolute (10% w/w in DPG) 20.
 10. **Rose:** none.
 11. **Iris and orris:** Alpha Isomethyl Ionone (Methyl Ionone Pure) 420; Alpha Ionone 180; Alpha Irone (10% w/w in DEP) 180; Dihydro Beta Ionone 100; Irotyl 80; Ultralia 60; Orivone 20; Carrot Seed EO 10.
 12. **Edible smells:** Tonkarome (20% w/w in TEC) 310; Isobutavan 140.
@@ -204,7 +206,7 @@ dose high to low raw µL inside it:
 | 14 | 7 | Linalyl Acetate | neat | 70 µL | 2,390 µL |
 | 15 | 7 | Linalool | neat | 20 µL | 2,410 µL |
 | 16 | 9 | Mimosa Absolute (10% w/w in DPG) | 10% w/w in DPG | 80 µL | 2,490 µL |
-| 17 | 9 | Osmanthus Absolute (10% in DPG) | 10% in DPG | 20 µL | 2,510 µL |
+| 17 | 9 | Osmanthus Absolute (10% w/w in DPG) | 10% w/w in DPG | 20 µL | 2,510 µL |
 | 18 | 11 | Alpha Isomethyl Ionone (Methyl Ionone Pure) | neat | 420 µL | 2,930 µL |
 | 19 | 11 | Alpha Ionone | neat | 180 µL | 3,110 µL |
 | 20 | 11 | Alpha Irone (10% w/w in DEP) | 10% w/w in DEP | 180 µL | 3,290 µL |

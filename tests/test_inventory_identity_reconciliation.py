@@ -18,8 +18,8 @@ from engine.inventory_parser import (
     CURRENT_USER_INVENTORY_OVERLAY_SHA256,
     AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256,
     PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256,
+    AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_SHA256,
     TOBACCO_DBCA_USER_INVENTORY_AUTHORITY,
-    TOBACCO_DBCA_USER_INVENTORY_OVERLAY_SHA256,
     load_current_user_inventory_overlay,
     materialize_current_inventory,
     parse_current_inventory,
@@ -191,9 +191,10 @@ def test_user_inventory_overlay_is_parent_pinned_and_non_rebasing() -> None:
     assert payload["policy"]["general_substitution_authorized"] is False
     assert payload["policy"]["preserve_exact_ap_t1_cinnamon_substitution"] is True
     assert payload["policy"]["require_sub_10_ul_working_stock"] is True
+    # 2026-10-08: the E2MB/Osmanthus/Mimosa record (v22) succeeds the Ambrettolide-neat one.
     assert payload["predecessor"] == {
-        "path": "data/governance/inventory_user_authority_overlay_20261008_tobacco_dbca.json",
-        "normalized_text_sha256": TOBACCO_DBCA_USER_INVENTORY_OVERLAY_SHA256,
+        "path": "data/governance/inventory_user_authority_overlay_20261008_ambrettolide_neat.json",
+        "normalized_text_sha256": AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_SHA256,
     }
 
 
@@ -297,7 +298,8 @@ def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> 
         "alpha irone": (0.10, "mass_fraction", "dep"),
         "opoponax resinoid": (0.50, "mass_fraction", "dep"),
         "myrrh eo": (0.50, "unspecified", "dep"),
-        "osmanthus absolute": (0.10, "unspecified", "dpg"),
+        # 2026-10-08: Kenny confirmed the Osmanthus dilution is w/w (v22 overlay).
+        "osmanthus absolute": (0.10, "mass_fraction", "dpg"),
         "rose de mai absolute": (0.10, "unspecified", "dpg"),
         "clearwood": (1.0, "neat", ""),
         "alpha isomethyl ionone": (1.0, "neat", ""),
@@ -312,6 +314,8 @@ def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> 
         assert stock.authority == (
             AIMI_IDENTITY_USER_INVENTORY_AUTHORITY
             if identity == "alpha isomethyl ionone"
+            else TOBACCO_DBCA_USER_INVENTORY_AUTHORITY
+            if identity == "osmanthus absolute"
             else "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924"
             if identity == "opoponax resinoid"
             else INHERITED_USER_AUTHORITY

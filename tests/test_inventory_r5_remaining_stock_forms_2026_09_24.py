@@ -48,7 +48,6 @@ def test_v17_overlay_remains_pinned_to_its_historical_receipt_and_inventory() ->
         ("Tonka Bean Absolute", 0.1, "dpg"),
         ("Olibanum Resinoid", 0.5, "dpg"),
         ("Opoponax Resinoid", 0.5, "dep"),
-        ("Mimosa Absolute", 0.1, "dpg"),
     ],
 )
 def test_percentage_stocks_are_mass_fraction_without_false_lineage_readiness(
@@ -66,6 +65,18 @@ def test_percentage_stocks_are_mass_fraction_without_false_lineage_readiness(
     assert stock.execution_hold_reason == (
         "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING"
     )
+
+
+def test_mimosa_is_released_by_the_owner_use_as_is_decision() -> None:
+    # 2026-10-08: Kenny kept the Mimosa 10% w/w in DPG as it is (v22 overlay); the
+    # bottle-lot and preparation receipts are still missing and stay recorded as such.
+    stocks = _stocks("Mimosa Absolute")
+    assert len(stocks) == 1
+    stock = stocks[0]
+    assert stock.dilution == pytest.approx(0.1)
+    assert (stock.fraction_basis, stock.carrier) == ("mass_fraction", "dpg")
+    assert stock.execution_ready is True
+    assert stock.stock_id.startswith("inventory:user-20261008:")
 
 
 @pytest.mark.parametrize(

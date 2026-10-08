@@ -13,7 +13,9 @@ from engine.pipeline.preflight import _dilution_consistency_check
 
 
 def _head() -> dict:
-    return json.loads(inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
+    # The v21 overlay was the current head until the 2026-10-08 E2MB/Osmanthus/Mimosa
+    # record (v22) succeeded it; these tests pin v21 itself.
+    return json.loads(inventory.AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
 
 
 def _check(fraction: float, basis: str, carrier: str):
@@ -33,10 +35,10 @@ def _check(fraction: float, basis: str, carrier: str):
     )
 
 
-def test_v21_is_current_and_pinned_to_v20_and_live_inventory() -> None:
-    path = inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH
+def test_v21_is_pinned_to_v20_and_live_inventory() -> None:
+    path = inventory.AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_PATH
     assert path.name == "inventory_user_authority_overlay_20261008_ambrettolide_neat.json"
-    assert hashlib.sha256(path.read_bytes()).hexdigest() == inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == inventory.AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_SHA256
     head = _head()
     assert head["predecessor"]["normalized_text_sha256"] == inventory.TOBACCO_DBCA_USER_INVENTORY_OVERLAY_SHA256
     raw = inventory.INVENTORY_PATH.read_bytes().replace(b"\r\n", b"\n")
@@ -64,7 +66,8 @@ def test_ambrettolide_has_one_neat_stock_and_the_ten_percent_record_is_retired()
     assert "INV-USER-20260904-001" not in {r["record_id"] for r in overlay["records"]}
     assert "INV-USER-20260904-001" not in overlay["record_origins"]
     assert "INV-USER-20260904-001" in {r["record_id"] for r in overlay["retired_records"]}
-    record = next(r for r in overlay["delta_records"] if r["canonical_name"] == "Ambrettolide")
+    # v22 is now the head, so the Ambrettolide record is no longer one of its deltas.
+    record = next(r for r in overlay["records"] if r["canonical_name"] == "Ambrettolide")
     limits = record["authority_limits"]
     assert limits["fraction_basis_from_user_message"] is True
     assert limits["ten_percent_dpg_stock_asserted"] is False

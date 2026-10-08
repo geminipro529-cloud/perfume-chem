@@ -307,6 +307,18 @@ def _status_from_checks(checks: list[PreflightCheck]) -> str:
     return "PASS"
 
 
+def _same_stock_fraction(formula_fraction: float, stock_fraction: float) -> bool:
+    """Whether a declared stock fraction names the same physical stock strength.
+
+    The tolerance is 0.005 absolute for stocks of 10% and stronger, as before,
+    and 5% relative below that, so trace stocks (0.01%, 0.1%, 0.5%, 1%) no longer
+    match a neighbour five or ten times stronger or weaker.
+    """
+
+    tolerance = min(0.005, 0.05 * max(abs(formula_fraction), abs(stock_fraction)))
+    return abs(formula_fraction - stock_fraction) <= tolerance
+
+
 def _literal_inventory_key(name: str) -> str:
     """Normalize only spaces/case (no alias expansion)."""
     return " ".join((name or "").strip().lower().split())
@@ -745,7 +757,7 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
         physical_fraction_matches = [
             record
             for record in physical_owned
-            if abs(formula_dil - record.dilution) <= 0.005
+            if _same_stock_fraction(formula_dil, record.dilution)
         ]
         fraction_matches = [
             record for record in physical_fraction_matches if record.execution_ready
@@ -757,7 +769,7 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
             matching_requirements = [
                 record
                 for record in requirements
-                if abs(record.dilution - formula_dil) <= 0.005
+                if _same_stock_fraction(formula_dil, record.dilution)
             ]
             requirement_states = {
                 record.requirement_state for record in matching_requirements
@@ -805,7 +817,7 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
             matching_requirements = [
                 record
                 for record in requirements
-                if abs(record.dilution - formula_dil) <= 0.005
+                if _same_stock_fraction(formula_dil, record.dilution)
             ]
             requirement_states = {
                 record.requirement_state for record in matching_requirements
@@ -851,7 +863,7 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
             matching_requirements = [
                 record
                 for record in requirements
-                if abs(record.dilution - formula_dil) <= 0.005
+                if _same_stock_fraction(formula_dil, record.dilution)
             ]
             requirement_states = {
                 record.requirement_state for record in matching_requirements

@@ -107,9 +107,11 @@ def test_historical_build_cannot_execute_against_superseded_current_stocks(formu
     issues = {item["material"]: item["reason"] for item in result.data["issues"]}
     assert issues["Vetiver EO (India)"] == "not_in_inventory"
     assert issues["Lavender EO High Altitude"] == "inventory_gap"
-    assert issues["Mimosa Absolute"] == "inventory_stock_non_executable"
+    # 2026-10-08 (v22 overlay): Kenny kept the Mimosa 10% w/w in DPG as it is, so it
+    # resolves now; the 0.1% E2MB row also resolves to his recorded 0.1% w/w stock.
+    assert "Mimosa Absolute" not in issues
     assert set(issues) <= {
-        "Vetiver EO (India)", "Lavender EO High Altitude", "Mimosa Absolute", "Ambrettolide"
+        "Vetiver EO (India)", "Lavender EO High Altitude", "Ambrettolide"
     }
     if "Ambrettolide" in issues:
         assert issues["Ambrettolide"] == "stock_fraction_mismatch"
