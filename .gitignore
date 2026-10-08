@@ -62,7 +62,8 @@ cache/**
 .DS_Store
 Thumbs.db
 .vscode/
-.claude/
+.claude/*
+!.claude/skills/
 .codex/runtime/
 
 # Node / frontend build
