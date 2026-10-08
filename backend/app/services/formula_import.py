@@ -226,6 +226,9 @@ class ParsedAnalysisRow:
     basket: str | None
     role: str | None
     operation: str
+    # Header text of the column the amount was read from (provenance only;
+    # not part of the engine payload).
+    amount_header: str = ""
 
     def as_engine_dict(self) -> dict[str, Any]:
         return {
@@ -259,6 +262,13 @@ class FormulaAnalysisImportParser:
 
     _AMOUNT_HEADER_TOKENS = ("amount", "dose", "volume", "mass", "quantity")
     _VALID_UNITS = {"uL", "mL", "mg", "g"}
+    # A header that is only a unit ("µL", "mg"), a raw-stock unit ("Raw µL")
+    # or an addition column ("Add", "Add (µL)") names the stock amount.  The
+    # unit still has to come from the header or the cell; "Add" alone never
+    # supplies one.
+    _UNIT_ONLY_HEADER = re.compile(r"(?:(?:raw|stock)\s+)?\(?(?:ul|ml|mg|g)\)?")
+    _ADD_HEADER = re.compile(r"add(?:\s*\((?:ul|ml|mg|g)\)|\s+(?:ul|ml|mg|g))?")
+    _EXPECTED_AMOUNT_HINT = "Use a column named µL, mg, g, Raw µL or Amount."
 
     @staticmethod
     def _cells(line: str) -> list[str]:
@@ -292,6 +302,22 @@ class FormulaAnalysisImportParser:
             return "mg"
         if re.search(r"(?:\(|\b)g(?:\)|\b)", text):
             return "g"
+        return None
+
+    @classmethod
+    def _amount_column_kind(cls, normalized: str) -> str | None:
+        """Classify a normalized header cell as a stock or active amount column.
+
+        Returns ``"stock"`` for a column holding the stock (raw) amount,
+        ``"active"`` for an active-material amount that must never be read as
+        the stock amount, and ``None`` for any other column.
+        """
+        if re.search(r"\bact(?:ive)?\b", normalized):
+            return "active"
+        if any(token in normalized for token in cls._AMOUNT_HEADER_TOKENS):
+            return "stock"
+        if cls._UNIT_ONLY_HEADER.fullmatch(normalized) or cls._ADD_HEADER.fullmatch(normalized):
+            return "stock"
         return None
 
     @staticmethod
@@ -352,6 +378,37 @@ class FormulaAnalysisImportParser:
         return None, "UNKNOWN"
 
     @classmethod
+    def _without_restated_tables(
+        cls,
+        rows: list[ParsedAnalysisRow],
+        row_tables: list[int],
+        warnings: list[str],
+    ) -> list[ParsedAnalysisRow]:
+        """Drop a table whose every row repeats a row already read.
+
+        Formula notes often restate the build as a summary or bench table;
+        reading both would count every material twice.
+        """
+        kept: list[ParsedAnalysisRow] = []
+        seen: set[tuple[str, str, str]] = set()
+        for table_line in dict.fromkeys(row_tables):
+            table_rows = [
+                row for row, line in zip(rows, row_tables, strict=True) if line == table_line
+            ]
+            keys = [
+                (cls._normalized(row.material), row.amount_decimal, row.amount_unit)
+                for row in table_rows
+            ]
+            if kept and all(key in seen for key in keys):
+                warnings.append(
+                    f"Skipped the table at line {table_line}: it repeats rows already read."
+                )
+                continue
+            kept.extend(table_rows)
+            seen.update(keys)
+        return kept
+
+    @classmethod
     def parse_text(
         cls,
         text: str,
@@ -367,6 +424,10 @@ class FormulaAnalysisImportParser:
         current_role: str | None = None
         header: list[str] | None = None
         header_line = 0
+        row_tables: list[int] = []
+        # The first material table whose header had no usable stock amount
+        # column, kept to explain an empty result.
+        unusable_header: tuple[list[str], bool] | None = None
 
         for source_line, line in enumerate(lines, start=1):
             heading = re.match(r"^\s*#\s+(.+?)\s*$", line)
@@ -375,6 +436,10 @@ class FormulaAnalysisImportParser:
             section = re.match(r"^\s*##+\s+(.+?)\s*$", line)
             if section:
                 section_name = cls._normalized(section.group(1))
+                if section_name.startswith("pipeline analysis"):
+                    # An appended pipeline report repeats the formula in its
+                    # headspace table (Raw µL / Act µL); it is not a formula.
+                    break
                 current_role = next(
                     (role for role in ("top", "heart", "base") if role in section_name),
                     None,
@@ -396,15 +461,17 @@ class FormulaAnalysisImportParser:
                 if re.search(r"\b(?:ingredient|material)\b", cell)
                 and "role" not in cell
             ]
-            amount_candidates = [
-                index
-                for index, cell in enumerate(normalized_cells)
-                if any(token in cell for token in cls._AMOUNT_HEADER_TOKENS)
-            ]
-            if material_candidates and amount_candidates:
+            column_kinds = [cls._amount_column_kind(cell) for cell in normalized_cells]
+            if material_candidates and "stock" in column_kinds:
                 header = cells
                 header_line = source_line
                 continue
+            if (
+                material_candidates
+                and unusable_header is None
+                and not re.search(r"\d", "".join(normalized_cells))
+            ):
+                unusable_header = (cells, "active" in column_kinds)
             if header is None:
                 continue
 
@@ -426,7 +493,7 @@ class FormulaAnalysisImportParser:
 
             indexed_amounts: list[tuple[int, str | None]] = []
             for index, cell in enumerate(normalized_header):
-                if any(token in cell for token in cls._AMOUNT_HEADER_TOKENS):
+                if cls._amount_column_kind(cell) == "stock":
                     indexed_amounts.append((index, cls._header_unit(header[index])))
             # Prefer the explicit uL representation when a table repeats the
             # same transfer in both uL and mL columns.
@@ -434,10 +501,12 @@ class FormulaAnalysisImportParser:
                 key=lambda item: ({"uL": 0, "mg": 1, "g": 2, "mL": 3, None: 4}[item[1]], item[0])
             )
             parsed_amount: tuple[str, str] | None = None
+            amount_header = ""
             for amount_index, header_unit in indexed_amounts:
                 if amount_index < len(cells):
                     parsed_amount = cls._parse_amount(cells[amount_index], header_unit)
                 if parsed_amount is not None:
+                    amount_header = cls._plain(header[amount_index])
                     break
             if parsed_amount is None:
                 warnings.append(
@@ -485,6 +554,7 @@ class FormulaAnalysisImportParser:
                 else current_role
             )
             amount_decimal, amount_unit = parsed_amount
+            row_tables.append(header_line)
             rows.append(
                 ParsedAnalysisRow(
                     row_id=f"project-{source_sha256[:12]}-{source_line}-{len(rows) + 1}",
@@ -498,11 +568,26 @@ class FormulaAnalysisImportParser:
                     operation=(
                         "MASS_ADD" if amount_unit in {"mg", "g"} else "DIRECT_ADD"
                     ),
+                    amount_header=amount_header,
                 )
             )
 
+        rows = cls._without_restated_tables(rows, row_tables, warnings)
         if not rows:
-            errors.append("No formula rows with explicit material, amount, and unit were found.")
+            if unusable_header is not None:
+                found_cells, has_active = unusable_header
+                found = ", ".join(cls._plain(cell) for cell in found_cells if cls._plain(cell))
+                if has_active:
+                    errors.append(
+                        f"Found columns {found} but the only amount column is an active amount. "
+                        "Active amounts are not stock amounts; add the stock amount as a Raw µL column."
+                    )
+                else:
+                    errors.append(
+                        f"Found columns {found} but no amount column. {cls._EXPECTED_AMOUNT_HINT}"
+                    )
+            else:
+                errors.append("No formula rows with explicit material, amount, and unit were found.")
         if len(rows) > 500:
             errors.append("The formula contains more than the 500-row analysis limit.")
             rows = []
