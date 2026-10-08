@@ -22,6 +22,8 @@ services:
       - ./backend/config:/app/backend/config:ro
       - ./engine:/app/engine
       - ./data:/app/data:ro
+      # Personal stock records: writable, and kept on this PC when the container goes.
+      - ./data/user:/app/data/user
       - engine_job_db:/app/backend/runtime
     depends_on:
       - redis
@@ -43,6 +45,8 @@ services:
       - ./backend/config:/app/backend/config:ro
       - ./engine:/app/engine
       - ./data:/app/data:ro
+      # Personal stock records: writable, and kept on this PC when the container goes.
+      - ./data/user:/app/data/user
       - engine_job_db:/app/backend/runtime
     depends_on:
       - api

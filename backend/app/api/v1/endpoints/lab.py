@@ -562,7 +562,7 @@ async def import_workspace(
 @router.post("/backups", status_code=status.HTTP_201_CREATED)
 async def create_backup(
     request: BackupCreate, session: AsyncSession = Depends(get_db)
-) -> dict[str, str]:
+) -> dict[str, object]:
     try:
         return _backup_service(session).create_backup(request.label).as_dict()
     except (OSError, ValueError) as exc:
