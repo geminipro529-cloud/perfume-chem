@@ -27,6 +27,9 @@
 /docs/research/** -text whitespace=-blank-at-eol,-blank-at-eof
 /knowledge/** -text whitespace=-blank-at-eol,-blank-at-eof
 /future_modules/literature_references.py -text
+# The received-stock receipt is pinned by its original CRLF byte hash
+# (engine/inventory_parser.py PW_RECEIVED_INVENTORY_RECEIPT_SHA256).
+/data/inventory_receipts/*.json -text
 /docs/verification/FORMULA_ARTIFACT_REVIEW_20261005.json text eol=lf
 # Exact original SHA-verified artifacts repaired on 2026-10-07. These are
 # archival byte locks, not source/content normalization at runtime.
