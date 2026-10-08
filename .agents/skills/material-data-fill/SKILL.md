@@ -41,8 +41,11 @@ naturals.
    typical composition, not a lot assay.
 3. RIFM safety assessments (measured log Kow, VP).
 4. Threshold papers (Buettner group, Czerny et al. 2008) and ISO standards.
-5. The web, through the Firecrawl connector tools in cloud sessions (the Firecrawl
-   CLI and direct HTTP are blocked by the cloud proxy).
+5. The web: on Kenny's PC use the self-hosted crawler
+   `python D:\agent-cache\webcrawl\webcrawl.py scrape|crawl|map|search` (cloud
+   sessions run it through the desktop-commander device shell; see its README).
+   Otherwise use the Firecrawl connector tools (the Firecrawl CLI and direct HTTP
+   are blocked by the cloud proxy).
 
 Batches of about 10 materials can run in parallel, each writing its own file, merged
 once into the ledger.
@@ -69,3 +72,4 @@ affected formula with the `perfume-gate-run` skill to show the gap closed.
 ## Known issues / change log
 - 2026-10-08: first draft, aligned with the gap-ledger workflow proposed in the
   material data gaps thread (names first, one ledger, priority, cheap sources first).
+- 2026-10-08: added the self-hosted webcrawl tool as a web source.
