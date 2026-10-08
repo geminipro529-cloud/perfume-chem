@@ -104,7 +104,7 @@
       "ingredients_ul": {"Eugenol": 250.0, "Hedione": 1750.0},
       "dilutions": {"Eugenol": 1.0, "Hedione": 1.0},
       "batch_volume_ml": 10.0,
-      "expected_ppm_status": "unavailable",
+      "expected_ppm_status": "exact",
       "modeled_output_relative_tolerance": 1e-8,
       "expected_regulatory_status": "unverified",
       "ifra_material": "Eugenol",

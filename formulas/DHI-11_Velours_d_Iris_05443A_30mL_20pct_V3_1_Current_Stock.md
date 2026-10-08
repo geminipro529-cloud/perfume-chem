@@ -1,6 +1,6 @@
 # DHI-11 — Velours d'Iris V3.1 Current Stock — 05443/A Architecture Study — 30 mL / 20%
 
-**Status:** DRAFT — current-stock rebuild of V3 Smooth. Every stock is in the inventory records (2026-10-08); the gate's remaining FAILs are density data gaps (see Stocks and remaining holds). Mixing is Kenny's call.
+**Status:** DRAFT — current-stock rebuild of V3 Smooth. Every stock is in the inventory records (2026-10-08); the gate has no FAILs; its two remaining HOLDs are density data gaps (see Stocks and remaining holds). Mixing is Kenny's call.
 **Case:** `DHI-11-VELOURS-D-IRIS-05443A-V3-1-CURRENT-STOCK`  
 **Claim mode:** named_reference  
 **Reference contract:** dior_homme_intense_2011_05443a_architecture_v1  
@@ -43,7 +43,7 @@ All 30 stocks now resolve in the inventory records (successor overlay v22, 2026-
   3. **0.01% w/w:** 9.000 g DPG, then 1.000 g of the 0.1%.
 - **Mimosa Absolute (10% w/w in DPG):** Kenny keeps it. Its execution hold is lifted on that decision; its bottle-lot and preparation receipts are still missing.
 - **Osmanthus Absolute (10% w/w in DPG):** basis confirmed by Kenny.
-- **Densities:** the gate's chemistry-stability and phase checks need an authoritative active mass, so they report UNKNOWN (and FAIL closed) until densities exist for 15 stocks: Alpha Irone, Ambrettolide, Carrot Seed EO, Ethyl 2-Methylbutyrate, Ethylene Brassylate, Irotyl, Iso E Super, Isobutavan, Mimosa Absolute, Osmanthus Absolute, Romandolide, Tonkarome, Ultralia, Vetival and Vetiver EO (Haiti). This is a data gap, not a formula problem.
+- **Densities:** the gate's chemistry-stability and phase checks need an authoritative active mass, so they report HOLD until densities exist for 15 stocks: Alpha Irone, Ambrettolide, Carrot Seed EO, Ethyl 2-Methylbutyrate, Ethylene Brassylate, Irotyl, Iso E Super, Isobutavan, Mimosa Absolute, Osmanthus Absolute, Romandolide, Tonkarome, Ultralia, Vetival and Vetiver EO (Haiti). This is a data gap, not a formula problem.
 
 ## CURRENT-INVENTORY RAW-VOLUME BUILD — parser-visible formula
 

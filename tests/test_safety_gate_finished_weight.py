@@ -1,7 +1,9 @@
 """The safety gate judges IFRA Category 4 by finished-product % w/w from the sourced table.
 
 Hand-worked numbers use the gate's estimate: finished mass = active mass + carrier mass +
-ethanol top-up x 0.789 g/mL. Every row below has an unknown density, so 1.0 g/mL is used.
+ethanol top-up x 0.789 g/mL. Benzyl Benzoate has a sourced density (1.114 g/mL, TGSC, added
+with the 2026-10-08 material data); every other row below has an unknown density, so 1.0 g/mL
+is used.
 """
 
 from dataclasses import replace
@@ -33,17 +35,19 @@ def test_restricted_material_is_judged_by_weight_not_volume():
     bb = TABLE.lookup("Benzyl Benzoate")
     assert bb.status == "restricted" and bb.cat4_limit_pct == pytest.approx(4.8)
     # 1400 uL neat in a 30 mL bottle: 1.4 / 30 = 4.667 % v/v, under 4.8 %.
-    # By weight: 1.4 g / (1.4 g + 28.6 mL x 0.789) = 1.4 / 23.9654 = 5.842 % w/w, over 4.8 %.
+    # By weight: 1.4 mL x 1.114 g/mL = 1.5596 g; 1.5596 / (1.5596 + 28.6 mL x 0.789)
+    # = 1.5596 / 24.1250 = 6.465 % w/w, over 4.8 %.
     gate = _gate({"Benzyl Benzoate": 1400.0})
 
     row = _row(gate, "Benzyl Benzoate")
-    assert row["actual_pct"] == pytest.approx(1.4 / 23.9654 * 100, rel=1e-4)
+    assert row["actual_pct"] == pytest.approx(1.5596 / 24.1250 * 100, rel=1e-4)
     assert row["limit_pct"] == pytest.approx(4.8)
     assert gate.status == "FAIL"
     assert [v["material"] for v in gate.data["headroom_violations"]] == ["Benzyl Benzoate"]
     assert gate.data["concentration_basis"] == "finished_product_w_w_estimate"
-    assert gate.data["finished_mass_g"] == pytest.approx(23.9654, rel=1e-5)
-    assert any("Benzyl Benzoate" in a for a in gate.data["assumptions"])
+    assert gate.data["finished_mass_g"] == pytest.approx(24.1250, rel=1e-5)
+    # Its density is sourced now, so no 1.0 g/mL density assumption is recorded for it.
+    assert not any("Benzyl Benzoate" in a for a in gate.data["assumptions"])
 
 
 def test_evernyl_at_one_percent_no_longer_fails():
