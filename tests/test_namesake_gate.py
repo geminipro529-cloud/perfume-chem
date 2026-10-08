@@ -1,5 +1,7 @@
 """namesake gate: a formula's name promises odours its materials must carry (AGENTS.md RULE 3)."""
 
+import pytest
+
 import engine.pipeline.gates as gates_module
 from engine.ingredient_intelligence import get_profile
 from engine.pipeline.formula_state import build_formula_state
@@ -110,3 +112,107 @@ def test_resinoid_carries_resin():
 def test_namesake_is_advisory_and_never_blocking():
     assert "namesake" not in gates_module.HARD_BLOCKING_GATES
     assert "namesake" in gates_module.ADVISORY_FAILURE_GATES
+
+
+# Reviewer cases: real formulas that WARNed falsely, or PASSed/SKIPped wrongly.
+_PLAIN_BASE = {"Hedione": 300.0, "Iso E Super": 300.0}
+
+
+@pytest.mark.parametrize(
+    ("name", "material", "word"),
+    [
+        ("Amber Vanilla", "Vanillin", "vanilla"),
+        ("Vetiver Moderne", "Vetival", "vetiver"),
+        ("Osmanthus Sandalwood Creme", "Sandalore", "sandalwood"),
+        ("White Suede", "Suederal", "suede"),
+        ("Tonka Wood", "Tonkarome", "tonka"),
+        ("Jasmin d'Orris", "Jasmine Sambac 10%", "jasmin"),
+        ("Jasmin d'Orris", "Orivone", "orris"),
+    ],
+)
+def test_material_carries_its_own_odour_word(name, material, word):
+    result = _namesake(name, {**_PLAIN_BASE, material: 150.0})
+
+    assert material in result.data["carried_by"][word]
+    assert word not in result.data["missing"]
+
+
+def test_negated_word_is_not_required():
+    result = _namesake("Cedar Azure — No Bergamot", {**_PLAIN_BASE, "Cedarwood EO": 200.0})
+
+    assert result.status == "PASS"
+    assert "bergamot" not in result.data["words"]
+    assert result.data["not_required"] == ["bergamot"]
+
+
+def test_without_and_free_negate():
+    result = _namesake("Iris without Violet, Musk-free", {**_PLAIN_BASE, "Orivone": 150.0})
+
+    assert result.data["words"] == ["iris"]
+    assert set(result.data["not_required"]) == {"violet", "musk"}
+
+
+def test_violet_leaf_does_not_carry_violet():
+    result = _namesake("Violet Noir", {**_PLAIN_BASE, "Violet Leaf Absolute": 150.0})
+
+    assert result.data["words"] == ["violet"]
+    assert result.status == "WARN"
+    assert result.data["missing"] == ["violet"]
+
+
+def test_orange_peel_does_not_carry_orange_blossom():
+    result = _namesake("Orange Blossom", {**_PLAIN_BASE, "Orange Peel EO": 150.0})
+
+    assert result.data["words"] == ["orange blossom"]
+    assert result.status == "WARN"
+    assert "Name says orange blossom" in result.detail
+
+
+def test_plural_words_are_checked():
+    result = _namesake("Roses and Violets", _PLAIN_BASE)
+
+    assert result.data["words"] == ["rose", "violet"]
+    assert result.status == "WARN"
+
+
+def test_generic_modifier_is_not_an_odour_word():
+    result = _namesake("Citrus Fresh", {**_PLAIN_BASE, "Orange Peel EO": 150.0})
+
+    assert result.data["words"] == ["citrus"]
+    assert result.status == "PASS"
+
+
+def test_opaque_base_makes_a_missing_word_unverified_not_missing():
+    result = _namesake("Blue Lavender", {**_PLAIN_BASE, "Oops Fougere Base": 600.0})
+
+    assert result.status == "SKIP"
+    assert result.data["missing"] == []
+    assert result.data["unverified"] == {"lavender": ["Oops Fougere Base"]}
+    assert "Oops Fougere Base has no odour data, so lavender couldn't be checked" in result.detail
+
+
+def test_cassis_without_a_carrier_is_not_claimed_carried():
+    result = _namesake(
+        "Cassis Iris Smoke", {**_PLAIN_BASE, "Orivone": 150.0, "Olibanum Resinoid": 150.0}
+    )
+
+    assert result.data["words"] == ["cassis", "iris", "smoke"]
+    assert result.status == "WARN"
+    assert result.data["missing"] == ["cassis"]
+    assert "Every odour word" not in result.detail
+
+
+def test_vetival_own_odour_text_carries_vetiver():
+    # Vetival's ODT descriptor is "suede-vetiver dryness": its own odour is vetiver.
+    result = _namesake(
+        "Cocoa Vetiver Tuberose — 30 mL EdP", {**_COCOA_TUBEROSE_BASE, "Vetival": 60.0}
+    )
+
+    assert result.status == "PASS"
+    assert result.data["carried_by"]["vetiver"] == ["Vetival"]
+
+
+def test_rosewood_does_not_carry_rose():
+    result = _namesake("Rose Noir", {**_PLAIN_BASE, "Rosewood EO": 150.0})
+
+    assert "Rosewood EO" not in result.data["carried_by"]["rose"]
