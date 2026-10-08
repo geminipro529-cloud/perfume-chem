@@ -472,7 +472,7 @@
             <div id="formula-variant-picker" class="formula-variant-picker" hidden aria-label="Design alternatives"></div>
             <div class="formula-table-wrap">
               <table class="formula-design-table">
-                <thead><tr><th>Material</th><th>Stock</th><th>Role</th><th>Dose</th><th>Why</th></tr></thead>
+                <thead><tr><th>Material <span>and why</span></th><th>Dose</th><th>Stock</th><th>Role</th></tr></thead>
                 <tbody id="formula-result-rows"></tbody>
               </table>
             </div>
@@ -483,6 +483,7 @@
             </details>
             <div class="request-actions">
               <button id="formula-download" type="button">Download draft</button>
+              <button id="formula-print-bench" type="button">Print bench sheet</button>
               <p class="field-help">Downloading saves a design artifact only. It does not change inventory, save a lab version, or authorize compounding.</p>
             </div>
           </article>
@@ -734,6 +735,7 @@
       </section>
     </main>
   </div>
+  <section id="bench-sheet" class="bench-sheet" aria-label="Printable bench sheet"></section>
   <script src="/static/lab.js" defer></script>
 </body>
 </html>

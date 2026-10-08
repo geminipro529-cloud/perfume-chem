@@ -1118,14 +1118,13 @@ function renderFormulaDesign(result, variantIndex = 0) {
       const proxy = row.profile_source === "HEURISTIC_CATEGORY_PROXY" ? '<small class="proxy-label">category proxy</small>' : "";
       const stockLabel = row.stock_label || `${fraction} ${row.fraction_basis}${carrier}`;
       return `<tr>
-        <td><strong>${escapeHtml(row.material)}</strong>${proxy}</td>
+        <td><strong>${escapeHtml(row.material)}</strong>${proxy}<small class="formula-why">${escapeHtml(row.rationale)}</small></td>
+        <td class="formula-dose">${escapeHtml(row.amount_decimal)} ${escapeHtml(row.amount_unit)}</td>
         <td>${escapeHtml(stockLabel)}<small>${escapeHtml(fraction)} ${escapeHtml(row.fraction_basis)}${escapeHtml(carrier)}</small></td>
         <td>${escapeHtml(row.slot_label)}<small>${escapeHtml(row.note)} · ${escapeHtml(row.role)}</small></td>
-        <td class="formula-dose">${escapeHtml(row.amount_decimal)} ${escapeHtml(row.amount_unit)}</td>
-        <td>${escapeHtml(row.rationale)}</td>
       </tr>`;
     }).join("")
-    : '<tr><td colspan="5">Clarify the brief before a formula can be created.</td></tr>';
+    : '<tr><td colspan="4">Clarify the brief before a formula can be created.</td></tr>';
 
   const totals = $("#formula-result-totals");
   totals.replaceChildren();
@@ -1413,6 +1412,77 @@ $("#formula-download").addEventListener("click", () => {
   link.click();
   URL.revokeObjectURL(link.href);
   notify("Read-only formula draft downloaded.");
+});
+
+// Exact sum of two non-negative decimal strings, so a running total never
+// drifts from the pipetted values the design gives (no float rounding).
+function addDecimalText(left, right) {
+  const pattern = /^\d+(\.\d+)?$/;
+  if (!pattern.test(left) || !pattern.test(right)) return null;
+  const [leftWhole, leftFraction = ""] = left.split(".");
+  const [rightWhole, rightFraction = ""] = right.split(".");
+  const scale = Math.max(leftFraction.length, rightFraction.length);
+  const sum = BigInt(leftWhole + leftFraction.padEnd(scale, "0")) + BigInt(rightWhole + rightFraction.padEnd(scale, "0"));
+  const digits = sum.toString().padStart(scale + 1, "0");
+  if (!scale) return digits;
+  const fraction = digits.slice(-scale).replace(/0+$/, "");
+  return fraction ? `${digits.slice(0, -scale)}.${fraction}` : digits.slice(0, -scale);
+}
+
+function buildBenchSheet(result, variantIndex) {
+  const selected = selectedFormulaVariant(result, variantIndex);
+  const rows = selected.formula?.rows || [];
+  const totals = selected.formula?.separate_totals || {};
+  const variants = result.design_variants || [];
+  const variantLabel = variants.length > 1 ? ` · ${variants[variantIndex]?.label || `Alternative ${variantIndex + 1}`}` : "";
+  const running = {};
+  const lines = rows.map((row, index) => {
+    const unit = String(row.amount_unit);
+    const amount = String(row.amount_decimal).trim();
+    running[unit] = running[unit] === undefined ? amount : addDecimalText(running[unit], amount);
+    const fraction = `${formatDecimal(Number(row.stock_fraction_decimal) * 100, 4)}%`;
+    const carrier = row.carrier ? ` in ${row.carrier}` : "";
+    const stockLabel = row.stock_label || row.material;
+    return `<tr${unit === "mg" ? ' class="bench-mass-line"' : ""}>
+      <td class="bench-number">${index + 1}</td>
+      <td><span class="bench-tick" role="img" aria-label="not yet added"></span></td>
+      <td><strong>${escapeHtml(row.material)}</strong></td>
+      <td>${escapeHtml(stockLabel)}<small>${escapeHtml(fraction)} ${escapeHtml(row.fraction_basis)}${escapeHtml(carrier)}</small></td>
+      <td class="bench-amount">${escapeHtml(amount)} ${escapeHtml(unit)}</td>
+      <td class="bench-amount">${running[unit] === null ? "check by hand" : `${escapeHtml(running[unit])} ${escapeHtml(unit)}`}</td>
+    </tr>`;
+  }).join("");
+  const totalParts = [];
+  if (totals.liquid_total_ul !== undefined) totalParts.push(`${totals.liquid_total_ul} µL liquid stock`);
+  if (Number(totals.mass_total_mg) > 0) totalParts.push(`${totals.mass_total_mg} mg solids, weighed as separate mg lines`);
+  const sheet = $("#bench-sheet");
+  sheet.innerHTML = `
+    <header class="bench-sheet-header">
+      <p class="bench-sheet-kicker">Bench sheet · design proposal, not a compounding authorization</p>
+      <h1>${escapeHtml(result.formula_name || "Formula draft")}${escapeHtml(variantLabel)}</h1>
+      <dl>
+        <div><dt>Date</dt><dd>${escapeHtml(new Date().toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }))}</dd></div>
+        <div><dt>Total</dt><dd>${escapeHtml(totalParts.join(" · ") || "not stated")}</dd></div>
+        <div><dt>Order</dt><dd>Order as designed. Use your own basket order at the balance.</dd></div>
+      </dl>
+    </header>
+    <table class="bench-sheet-table">
+      <thead><tr><th>#</th><th>Done</th><th>Material</th><th>Stock and strength</th><th>Amount</th><th>Running total</th></tr></thead>
+      <tbody>${lines}</tbody>
+    </table>`;
+  return rows.length;
+}
+
+$("#formula-print-bench").addEventListener("click", () => {
+  const result = state.formulaChat.result;
+  if (!result) return;
+  if (!buildBenchSheet(result, state.formulaChat.variantIndex || 0)) {
+    notify("There is no formula to print yet. Clarify the brief first.", true);
+    return;
+  }
+  document.body.classList.add("printing-bench-sheet");
+  window.addEventListener("afterprint", () => document.body.classList.remove("printing-bench-sheet"), { once: true });
+  window.print();
 });
 
 bindForm("#material-form", (data) => request("/materials", { method: "POST", body: JSON.stringify(data) }));

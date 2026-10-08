@@ -422,6 +422,36 @@ async def test_formula_studio_ui_exposes_inventory_and_conversation(client):
 
 
 @pytest.mark.asyncio
+async def test_formula_result_fits_prints_and_offers_a_bench_sheet(client):
+    page = await client.get("/app")
+    css = await client.get("/static/lab.css")
+    javascript = await client.get("/static/lab.js")
+
+    header = page.text.split('class="formula-design-table"', 1)[1].split("</thead>", 1)[0]
+    headings = [cell.split("</th>", 1)[0] for cell in header.split("<th>")[1:]]
+    assert headings[1] == "Dose"
+    assert headings[0].startswith("Material")
+    assert "min-width: 790px" not in css.text
+    assert '<td class="formula-dose">' in javascript.text.split("formula-why", 1)[1].split("</tr>", 1)[0]
+
+    print_css = css.text.split("@media print {", 1)[1]
+    assert ".formula-table-wrap { overflow: visible; }" in print_css
+    assert ".formula-design-table { min-width: 0; }" in print_css
+    hidden_in_print = print_css.split("{ display: none !important; }", 1)[0].rsplit("}", 1)[1]
+    for hidden in (".masthead", ".rail", "#status", "form", ".request-actions", "details > summary"):
+        assert hidden in hidden_in_print
+    assert "body.printing-bench-sheet .bench-sheet { display: block;" in print_css
+
+    actions = page.text.split('id="formula-download"', 1)[1].split("</div>", 1)[0]
+    assert '<button id="formula-print-bench" type="button">Print bench sheet</button>' in actions
+    assert 'id="bench-sheet"' in page.text
+    assert "window.print()" in javascript.text
+    assert "Order as designed" in javascript.text
+    assert "bench-tick" in javascript.text
+    assert "addDecimalText(running[unit], amount)" in javascript.text
+
+
+@pytest.mark.asyncio
 async def test_missing_owned_material_can_be_added_for_personal_design(client):
     inventory_response = await client.get(
         "/api/v1/lab/v2/workbench/current-inventory"
