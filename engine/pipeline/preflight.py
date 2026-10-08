@@ -1052,6 +1052,18 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
                 }
             )
         active_impact_by_inventory_material[material] = impact
+    for blocker in list(formula.get("row_parse_blockers", []) or []):
+        # The parser held this row out of ingredients_ul because a strength or
+        # amount cell could not be read; it must not pass as a smaller formula.
+        issues.append(
+            {
+                "material": str(blocker.get("material", "")),
+                "reason": "formula_row_unreadable",
+                "field": str(blocker.get("field", "")),
+                "cell": str(blocker.get("cell", "")),
+                "message": str(blocker.get("message", "")),
+            }
+        )
     for issue in issues:
         issue.update(alias_evidence_by_material.get(str(issue.get("material")), {}))
     data = {
