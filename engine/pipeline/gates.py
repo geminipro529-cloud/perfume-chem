@@ -423,18 +423,210 @@ def _status_from_gates(gates: list[GateResult]) -> str:
     return "PASS"
 
 
+# Preflight checks keep their own PASS/WARN/FAIL statuses; the HOLD mapping is
+# computed here, from each failing check's reasons, so no preflight reader ever
+# sees a status it does not handle. Everything not listed below as a
+# missing-data reason stays FAIL (fail closed).
+#
+# Execution holds on an owned stock that only record missing data about it,
+# with what the user should supply.
+_STOCK_DATA_HOLDS: dict[str, str] = {
+    "STOCK_INTAKE_IDENTITY_ONLY": "record the strength, concentration basis and carrier",
+    "FRACTION_BASIS_UNSPECIFIED": "record the concentration basis (w/w, v/v or w/v)",
+    "CARRIER_UNSPECIFIED": "record the carrier",
+    "FRACTION_BASIS_AND_CARRIER_UNSPECIFIED": "record the concentration basis and carrier",
+    "FRACTION_BASIS_OR_CARRIER_UNSPECIFIED": "record the concentration basis and carrier",
+    "STOCK_FRACTION_UNSPECIFIED": "record the stock strength and carrier",
+    "RESTOCKED_BOTTLE_STRENGTH_AND_CARRIER_NOT_STATED": "record the restocked bottle's strength and carrier",
+    "APPROXIMATE_STOCK_FRACTION": "record the exact stock strength",
+    "BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING": "record the bottle lot and label receipt",
+    "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING": "record the bottle lot and preparation receipt",
+    "LOT_PURCHASE_SOURCE_AND_LABEL_RECEIPT_MISSING": "record the lot, purchase source and label receipt",
+    "PREPARATION_QUANTITIES_DATE_AND_LOTS_MISSING": "record the preparation quantities, date and lots",
+    "FINAL_DISSOLVED_FRACTION_UNMEASURED": "measure the final dissolved fraction",
+    "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN": "measure the final dissolved fraction",
+    "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED": (
+        "record the tincture percentage basis and extracted solids"
+    ),
+    "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED": "confirm the concentration basis and homogeneity",
+    "HOMOGENEITY_NOT_RECONFIRMED": "reconfirm homogeneity",
+}
+# Holds under which the recorded strength itself is unknown, so a strength that
+# differs from the formula is not yet evidence of a wrong strength.
+_STOCK_STRENGTH_UNKNOWN_HOLDS = frozenset(
+    {
+        "STOCK_INTAKE_IDENTITY_ONLY",
+        "STOCK_FRACTION_UNSPECIFIED",
+        "RESTOCKED_BOTTLE_STRENGTH_AND_CARRIER_NOT_STATED",
+        "APPROXIMATE_STOCK_FRACTION",
+        "FINAL_DISSOLVED_FRACTION_UNMEASURED",
+        "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN",
+        "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED",
+    }
+)
+
+
+def _stock_issue_data_request(issue: Mapping[str, object]) -> str | None:
+    """Return what to supply when a stock issue is only missing data, else None.
+
+    None means the formula cannot be built as written (not owned, wrong
+    strength, depleted, a gap, a preparation still to make, a user hold, or any
+    reason this mapping does not know): the issue stays FAIL.
+    """
+    reason = str(issue.get("reason", ""))
+    if reason not in {"inventory_stock_metadata_incomplete", "inventory_stock_non_executable"}:
+        return None
+    holds = [
+        hold
+        for raw in list(issue.get("execution_holds", []) or [])
+        for hold in str(raw).split("|")
+        if hold
+    ]
+    if reason == "inventory_stock_non_executable" and not holds:
+        return None
+    if any(hold not in _STOCK_DATA_HOLDS for hold in holds):
+        return None
+    if issue.get("fraction_matches_formula") is not True and not (
+        holds and all(hold in _STOCK_STRENGTH_UNKNOWN_HOLDS for hold in holds)
+    ):
+        return None
+    if not holds:
+        return "record the carrier and concentration basis"
+    return "; ".join(dict.fromkeys(_STOCK_DATA_HOLDS[hold] for hold in holds))
+
+
+def _describe_stock_issue(issue: Mapping[str, object]) -> str:
+    material = str(issue.get("material", "?"))
+    reason = str(issue.get("reason", "inventory_stock_contract_failed"))
+    if reason == "stock_fraction_mismatch":
+        live = ", ".join(
+            f"{float(value):.4g}" for value in list(issue.get("inventory_dilutions", []) or [])
+        )
+        return f"{material} ({reason}: formula {issue.get('formula_dilution')} vs stock {live})"
+    return f"{material} ({reason})"
+
+
+def _classify_inventory_stock_contract(check: Mapping[str, object]) -> tuple[str, str, dict]:
+    data = dict(check.get("data", {}) or {})
+    status = str(check.get("status", "FAIL"))
+    detail = str(check.get("detail", ""))
+    issues = [dict(issue) for issue in list(data.get("issues", []) or [])]
+    if status != "FAIL" or not issues:
+        return status, detail, data
+    fail_issues = []
+    needs_data = []
+    for issue in issues:
+        request = _stock_issue_data_request(issue)
+        if request is None:
+            fail_issues.append(issue)
+        else:
+            needs_data.append({**issue, "data_request": request})
+    data["fail_issues"] = fail_issues
+    data["needs_data"] = needs_data
+    parts = []
+    if fail_issues:
+        parts.append(
+            f"{len(fail_issues)} material(s) cannot be built as written: "
+            + ", ".join(_describe_stock_issue(issue) for issue in fail_issues)
+        )
+    if needs_data:
+        parts.append(
+            "needs data: "
+            + "; ".join(
+                f"{issue.get('material')} ({issue['data_request']} of the {issue.get('material')} stock)"
+                for issue in needs_data
+            )
+        )
+    return ("FAIL" if fail_issues else "HOLD"), ". ".join(parts), data
+
+
+def _classify_natural_composite_coverage(check: Mapping[str, object]) -> tuple[str, str, dict]:
+    data = dict(check.get("data", {}) or {})
+    status = str(check.get("status", "FAIL"))
+    detail = str(check.get("detail", ""))
+    materials = [str(name) for name in list(data.get("materials", []) or [])]
+    if status != "FAIL" or not materials:
+        return status, detail, data
+    data["needs_data"] = materials
+    detail = f"{detail}; needs data: supply a constituent decomposition for {', '.join(materials)}"
+    return "HOLD", detail, data
+
+
+_PREFLIGHT_CLASSIFIERS = {
+    "inventory_stock_contract": _classify_inventory_stock_contract,
+    "natural_composite_coverage": _classify_natural_composite_coverage,
+}
+
+
+def _classify_preflight_check(check: Mapping[str, object]) -> tuple[str, str, dict]:
+    """Map one preflight check to its gate status: HOLD only for missing data."""
+    classifier = _PREFLIGHT_CLASSIFIERS.get(str(check.get("check_name", "")))
+    if classifier is None:
+        return (
+            str(check.get("status", "FAIL")),
+            str(check.get("detail", "")),
+            dict(check.get("data", {}) or {}),
+        )
+    return classifier(check)
+
+
+def _dose_receipt_follows_stock_contract(
+    receipt_check: Mapping[str, object],
+    stock_check: Mapping[str, object] | None,
+) -> bool:
+    """True when the dose receipt abstains only because of stock-contract issues."""
+    if stock_check is None or str(stock_check.get("status")) != "FAIL":
+        return False
+    receipt = dict(receipt_check.get("data", {}) or {})
+    if receipt.get("status") != "ABSTAINED" or "state_mismatches" in receipt:
+        return False
+    stock_data = dict(stock_check.get("data", {}) or {})
+    issue_materials = {
+        str(issue.get("material", "")).casefold()
+        for issue in list(stock_data.get("issues", []) or [])
+    }
+    return all(
+        str(line.get("material_name", "")).casefold() in issue_materials
+        for line in list(receipt.get("lines", []) or [])
+        if line.get("status") != "BOUND"
+    )
+
+
 def _gate_pipeline_preflight(preflight: Mapping[str, object]) -> GateResult:
     checks = list(preflight.get("checks", []))
     warnings = list(preflight.get("warnings", []))
     detail = f"{len(checks)} checks"
     if warnings:
         detail += f"; {len(warnings)} warnings"
-    return _result(
-        "pipeline_preflight",
-        str(preflight.get("status", "WARN")),
-        detail,
-        dict(preflight),
-    )
+    status = str(preflight.get("status", "WARN"))
+    data = dict(preflight)
+    if status == "FAIL":
+        by_name = {str(dict(raw).get("check_name", "")): dict(raw) for raw in checks}
+        stock_check = by_name.get("inventory_stock_contract")
+        stock_status = (
+            _classify_preflight_check(stock_check)[0] if stock_check is not None else "FAIL"
+        )
+        failing: dict[str, list[str]] = {"FAIL": [], "HOLD": []}
+        for name, check in by_name.items():
+            if str(check.get("status")) != "FAIL":
+                continue
+            if name == "formula_dose_receipt" and _dose_receipt_follows_stock_contract(
+                check, stock_check
+            ):
+                check_status = stock_status
+            else:
+                check_status = _classify_preflight_check(check)[0]
+            failing["FAIL" if check_status != "HOLD" else "HOLD"].append(name)
+        if not failing["FAIL"] and not failing["HOLD"]:
+            failing["FAIL"].append("preflight_status")
+        status = "FAIL" if failing["FAIL"] else "HOLD"
+        data["failing_checks"] = failing["FAIL"]
+        data["needs_data_checks"] = failing["HOLD"]
+        if failing["FAIL"]:
+            detail += f"; failing: {', '.join(failing['FAIL'])}"
+        if failing["HOLD"]:
+            detail += f"; needs data: {', '.join(failing['HOLD'])}"
+    return _result("pipeline_preflight", status, detail, data)
 
 
 def _formula_vector_from_state(state: FormulaState) -> FormulaVector:
@@ -3104,12 +3296,8 @@ def _gate_preflight_contract(
         check = dict(raw)
         if check.get("check_name") != check_name:
             continue
-        return _result(
-            check_name,
-            str(check.get("status", "FAIL")),
-            str(check.get("detail", "")),
-            dict(check.get("data", {}) or {}),
-        )
+        status, detail, data = _classify_preflight_check(check)
+        return _result(check_name, status, detail, data)
     return _result(
         check_name,
         "FAIL",

@@ -797,6 +797,9 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
                             if record.execution_hold_reason
                         }
                     ),
+                    # An owned-but-held stock at another strength is a wrong
+                    # strength, not only missing data; the gate needs to know.
+                    "fraction_matches_formula": bool(physical_fraction_matches),
                 }
             )
             continue
@@ -843,6 +846,7 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
                             if record.execution_hold_reason
                         }
                     ),
+                    "fraction_matches_formula": True,
                 }
             )
             continue
