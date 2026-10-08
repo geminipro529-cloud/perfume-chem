@@ -836,7 +836,60 @@ _PEPPERMINT_LK_LITERATURE_CONSTITUENTS = [
     ("isomenthone", 0.050, 154.25, 10.0, 5.0, 2.0),
     ("limonene", 0.007, 136.24, 200.0, 20.0, 3.0),
 ]
+# ISO 4719:2012, Table 1 (chromatographic profile of essential oil of spike
+# lavender, Lavandula latifolia Medikus, Spanish type). Fractions are the
+# midpoints of the standard's min-max ranges; linalyl acetate is "n.d." to 1.6%,
+# so its midpoint is 0.8%. They describe a conforming commercial oil, not the
+# owned bottle. Inputs reuse this module's existing runtime tuples (the same
+# linalool and camphor rows the lavender EO profile uses). trans-alpha-Bisabolene
+# (0.4-2.5%) has no runtime headspace input and stays unresolved, not odorless.
+# Nothing is renormalized.
+_SPIKE_LAVENDER_ISO_4719_MIDPOINT_CONSTITUENTS = [
+    ("linalool", 0.420, 154.25, 21.3, 1.5, 2.0),
+    ("1,8-cineole", 0.275, 154.25, 200.0, 50.0, 2.0),
+    ("camphor", 0.120, 152.23, 25.0, 20.0, 2.0),
+    ("limonene", 0.0175, 136.24, 200.0, 20.0, 3.0),
+    ("alpha terpineol", 0.011, 154.25, 2.0, 10.0, 1.5),
+    ("linalyl acetate", 0.008, 196.29, 17.5, 2.7, 2.0),
+]
 
+# PerfumersWorld allergen declaration for Elemi Essential Oil, SKU 7QC00902
+# (document list for that SKU; values identical in the 2026-10-07 snapshot and
+# the 2026-10-08 page). These are supplier-declared concentrations for the
+# product the owner buys, not an analysis of the owned bottle. The declaration
+# covers allergens only: elemol, elemicin, alpha-phellandrene, sabinene and
+# p-cymene, which published Canarium oils report as major constituents, are not
+# quantified for this product and stay unresolved. Carvone and alpha-terpinene
+# are declared but have no runtime headspace input. Inputs reuse this module's
+# existing runtime tuples. Nothing is renormalized.
+_ELEMI_PW_7QC00902_ALLERGEN_DECLARATION_CONSTITUENTS = [
+    ("limonene", 0.450869, 136.23, 200.0, 20.0, 3.0),
+    ("alpha terpineol", 0.030843, 154.25, 2.0, 10.0, 1.5),
+    ("terpinolene", 0.005133, 136.23, 150.0, 30.0, 3.0),
+    ("alpha pinene", 0.003888, 136.24, 400.0, 20.0, 3.0),
+    ("methyl eugenol", 0.003068, 178.23, 2.0, 0.5, 1.5),
+    ("gamma terpinene", 0.000507, 136.24, 90.0, 50.0, 3.0),
+    ("geranial", 0.000359, 152.23, 3.0, 0.5, 1.5),
+    ("camphor", 0.000334, 152.23, 25.0, 20.0, 2.0),
+]
+
+# ISO 3215:1998, Table 1 (normative chromatographic profile of oil of nutmeg,
+# Indonesian type, Myristica fragrans Houtt.). Fractions are the midpoints of
+# the standard's min-max ranges. They describe a conforming commercial oil, not
+# the owned bottle: Aroma&More sells Indonesian seed oil it calls East Indian
+# type but publishes no composition and claims no ISO conformity. Inputs reuse
+# this module's existing runtime tuples. Safrole (1.0-2.5%) and myristicin
+# (5-12%) have no runtime headspace inputs and stay unresolved, not odorless.
+# Nothing is renormalized.
+_NUTMEG_INDONESIAN_ISO_3215_MIDPOINT_CONSTITUENTS = [
+    ("alpha pinene", 0.215, 136.24, 400.0, 20.0, 3.0),
+    ("sabinene", 0.215, 136.24, 300.0, 30.0, 3.0),
+    ("beta pinene", 0.155, 136.24, 250.0, 30.0, 3.0),
+    ("limonene", 0.045, 136.23, 200.0, 20.0, 3.0),
+    ("gamma terpinene", 0.040, 136.24, 90.0, 50.0, 3.0),
+    ("terpinen-4-ol", 0.040, 154.25, 10.0, 50.0, 1.5),
+    ("delta-3-carene", 0.0125, 136.23, 200.0, 50.0, 3.0),
+]
 
 # ── Master Registry ───────────────────────────────────────────────────
 
@@ -935,6 +988,15 @@ _ABSOLUTE_CONSTITUENTS = {
     # Literature-only proxy identities (not supplier-batch identities).
     "cupressus sempervirens leaf oil literature profile": _CYPRESS_LEAF_LITERATURE_CONSTITUENTS,
     "mentha piperita lk literature profile": _PEPPERMINT_LK_LITERATURE_CONSTITUENTS,
+    "lavandula latifolia spanish type iso 4719 midpoint profile": (
+        _SPIKE_LAVENDER_ISO_4719_MIDPOINT_CONSTITUENTS
+    ),
+    "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile": (
+        _ELEMI_PW_7QC00902_ALLERGEN_DECLARATION_CONSTITUENTS
+    ),
+    "myristica fragrans indonesian type iso 3215 midpoint profile": (
+        _NUTMEG_INDONESIAN_ISO_3215_MIDPOINT_CONSTITUENTS
+    ),
     "tonka bean solvent extract literature profile": _TONKA_SOLVENT_EXTRACT_PROXY_CONSTITUENTS,
     # Specialty bases
     "cassis base 345b": _CASSIS_BASE_345B_CONSTITUENTS,
@@ -966,6 +1028,18 @@ _PROFILE_ALIASES = {
     "cypress eo": "cupressus sempervirens leaf oil literature profile",
     "cypress essential oil": "cupressus sempervirens leaf oil literature profile",
     "peppermint essential oil": "mentha piperita lk literature profile",
+    "spike lavender eo": "lavandula latifolia spanish type iso 4719 midpoint profile",
+    "spike lavender": "lavandula latifolia spanish type iso 4719 midpoint profile",
+    "elemi eo": "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile",
+    "elemi essential oil": "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile",
+    # Aroma&More "Nutmeg Essential oil, Indonesia" (ref NutId0612B): seed oil,
+    # East Indian type per the supplier. Mace (aril) oil is not mapped.
+    "nutmeg eo": "myristica fragrans indonesian type iso 3215 midpoint profile",
+    "nutmeg essential oil": "myristica fragrans indonesian type iso 3215 midpoint profile",
+    # Aroma&More SKU Lav420811P: sold as French Lavandula angustifolia oil.
+    # It reuses the generic L. angustifolia profile as a labelled proxy.
+    "lavender 40/42, aroma&more": "lavender eo",
+    "lavender 40/42": "lavender eo",
     "olibanum": "olibanum resinoid",
     "turkish storax tincture": (
         "liquidambar orientalis resin ethanol tincture generic profile"
@@ -999,7 +1073,19 @@ _PROFILE_ALIASES = {
     ),
 }
 
+_LAVENDER_40_42_PROXY_LIMITATIONS = (
+    "Aroma&More SKU Lav420811P (https://aromaandmore.com/en/essential-oil-100-pure-/67-11388-lavender-4042-essential-oil-france.html) "
+    "is sold as French steam-distilled Lavandula angustifolia flower oil standardized toward a 40/42 "
+    "linalool and linalyl acetate target.",
+    "The supplier states the current product does not fully meet that target and that lavandin or another "
+    "lavender can be added at production; any such admixture is not represented here.",
+    "The reused generic L. angustifolia literature profile is not an analysis of that product or lot; "
+    "no supplier GC, certificate of analysis, or density was located.",
+)
+
 _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
+    "lavender 40/42, aroma&more": _LAVENDER_40_42_PROXY_LIMITATIONS,
+    "lavender 40/42": _LAVENDER_40_42_PROXY_LIMITATIONS,
     "grapefruit fcf oil sicilian": (
         "PerfumersWorld identifies SKU 7CA24030 as Sicilian furocoumarin-free grapefruit oil; "
         "the reused legacy grapefruit FCF composition is not an analysis of that supplier product or lot.",
@@ -1103,6 +1189,17 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "pink pepper eo": (
         "https://doi.org/10.1080/0972060X.2004.10643396",
     ),
+    "lavandula latifolia spanish type iso 4719 midpoint profile": (
+        "https://www.iso.org/standard/55964.html",
+    ),
+    "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile": (
+        "https://www.perfumersworld.com/document-list.php?pro_id=7QC00902",
+        "https://www.perfumersworld.com/view.php?pro_id=7QC00902",
+    ),
+    "myristica fragrans indonesian type iso 3215 midpoint profile": (
+        "https://www.iso.org/standard/8418.html",
+        "https://cdn.standards.iteh.ai/samples/8418/25f1579e1e374221b2ca9c0dfd38a3af/ISO-3215-1998.pdf",
+    ),
 }
 
 
@@ -1116,6 +1213,201 @@ _LEGACY_CONSTITUENT_INPUT_AUTHORITY = {
     "owned_oil_activity_measured": False,
 }
 _PARTIAL_PROFILE_EVIDENCE = {
+    "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile": {
+        "analytical_method": "SUPPLIER_ALLERGEN_DECLARATION",
+        "composition_basis": "SUPPLIER_DECLARED_CONCENTRATION_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.perfumersworld.com/document-list.php?pro_id=7QC00902",
+                "document": "PerfumersWorld Allergen Declaration, Elemi Essential Oil, SKU 7QC00902",
+                "declared_pct": {
+                    "limonene (5989-27-5)": 45.0869,
+                    "terpineol (98-55-5, alpha-terpineol)": 3.0843,
+                    "terpinolene (586-62-9)": 0.5133,
+                    "pinene (80-56-8, alpha-pinene)": 0.3888,
+                    "methyl eugenol (93-15-2)": 0.3068,
+                    "carvone (99-49-0)": 0.1230,
+                    "alpha-terpinene (99-86-5)": 0.0545,
+                    "gamma-terpinene (99-85-4)": 0.0507,
+                    "geranial (141-27-5)": 0.0359,
+                    "camphor (464-49-3)": 0.0334,
+                },
+                "sds_section_3_range_pct": {
+                    "d-limonene": (40.0, 50.0),
+                    "alpha terpineol": (1.0, 10.0),
+                    "beta-pinene": (1.0, 10.0),
+                    "para-cymene": (1.0, 10.0),
+                    "alpha pinene": (0.1, 1.0),
+                    "methyl eugenol": (0.1, 1.0),
+                    "l-carvone": (0.1, 1.0),
+                },
+                "supplier_species_label": "Canarium indicum (PerfumersWorld synonyms and CoA; also listed as Manila Elemi)",
+                "owner_inventory_species_label": "Canarium luzonicum",
+                "fraction_rule": "DECLARED_CONCENTRATION_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_supplier_and_origin_recorded": True,
+                "owned_bottle_sku_verified": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("limonene", "alpha terpineol", "terpinolene", "alpha pinene",
+                            "methyl eugenol", "gamma terpinene", "geranial", "camphor")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "carvone",
+                "reported_fraction": 0.001230,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-terpinene",
+                "reported_fraction": 0.000545,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "beta-pinene",
+                "reported_fraction_range": (0.01, 0.10),
+                "missing_input": "SDS_HAZARD_BAND_ONLY_NOT_A_COMPOSITION_VALUE",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "para-cymene",
+                "reported_fraction_range": (0.01, 0.10),
+                "missing_input": "SDS_HAZARD_BAND_ONLY_NOT_A_COMPOSITION_VALUE",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "elemol",
+                "missing_input": "NOT_QUANTIFIED_FOR_THIS_PRODUCT_AND_NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "elemicin",
+                "missing_input": "NOT_QUANTIFIED_FOR_THIS_PRODUCT_AND_NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-phellandrene",
+                "missing_input": "NOT_QUANTIFIED_FOR_THIS_PRODUCT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "An allergen declaration lists regulated allergens only; it is not a full composition and its analytical basis is not stated.",
+            "Only 49.5% of the oil is modeled. Published Canarium oils report elemol, elemicin and alpha-phellandrene as major constituents (for example Galovičová et al. 2020, Potravinarstvo 14:1088-1096, doi:10.5219/1490: d-limonene 36.4, elemol 16.7, alpha-phellandrene 12.2, elemicin 9.59 TIC area %); these remain uncomputed, not odorless.",
+            "PerfumersWorld labels the oil Canarium indicum while the owner's inventory says Canarium luzonicum; species identity is unresolved.",
+            "The supplier SDS lists hexyl salicylate at 0.1-1%, which is not a known elemi constituent; supplier documents may follow a template.",
+        ),
+    },
+    "lavandula latifolia spanish type iso 4719 midpoint profile": {
+        "analytical_method": "STANDARD_CHROMATOGRAPHIC_PROFILE_RANGES",
+        "composition_basis": "SPECIFICATION_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.iso.org/standard/55964.html",
+                "document": "ISO 4719:2012 Essential oil of spike lavender (Lavandula latifolia Medikus), Spanish type",
+                "table": "Table 1, Chromatographic profile",
+                "published_botanical_name": "Lavandula latifolia Medikus",
+                "published_type": "Spanish type",
+                "standard_range_pct": {
+                    "limonene": (0.5, 3.0),
+                    "1,8-cineole": (16.0, 39.0),
+                    "camphor": (8.0, 16.0),
+                    "linalool": (34.0, 50.0),
+                    "linalyl acetate": (0.0, 1.6),
+                    "alpha terpineol": (0.2, 2.0),
+                    "trans-alpha-bisabolene": (0.4, 2.5),
+                },
+                "fraction_rule": "MIDPOINT_OF_STANDARD_MIN_MAX_RANGE",
+                "linalyl_acetate_lower_bound": "NOT_DETECTABLE_TAKEN_AS_ZERO",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_supplier_and_origin_recorded": False,
+                "owned_bottle_sku_verified": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ('linalool', '1,8-cineole', 'camphor', 'limonene', 'alpha terpineol', 'linalyl acetate')},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "trans-alpha-bisabolene",
+                "reported_fraction": 0.0145,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "ISO 4719 describes a conforming Spanish-type commercial oil; it is not an analysis of the owned bottle, whose supplier and origin are not recorded.",
+            "Range midpoints are nominal model inputs; a conforming oil can sit anywhere in each range (linalool 34-50%, 1,8-cineole 16-39%, camphor 8-16%).",
+            "Only 85.15% of nominal composition is modeled; trans-alpha-bisabolene and unlisted constituents remain uncomputed, not odorless.",
+            "Spike lavender oils of other origins, and lavandin, are not covered by this profile.",
+        ),
+    },
+    "myristica fragrans indonesian type iso 3215 midpoint profile": {
+        "analytical_method": "STANDARD_CHROMATOGRAPHIC_PROFILE_RANGES",
+        "composition_basis": "SPECIFICATION_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.iso.org/standard/8418.html",
+                "document": "ISO 3215:1998 Oil of nutmeg, Indonesian type (Myristica fragrans Houtt.)",
+                "table": "Table 1, Chromatographic profile (normative)",
+                "published_botanical_name": "Myristica fragrans Houtt.",
+                "published_type": "Indonesian type",
+                "standard_range_pct": {
+                    "alpha pinene": (15.0, 28.0),
+                    "beta pinene": (13.0, 18.0),
+                    "sabinene": (14.0, 29.0),
+                    "delta-3-carene": (0.5, 2.0),
+                    "limonene": (2.0, 7.0),
+                    "gamma terpinene": (2.0, 6.0),
+                    "terpinen-4-ol": (2.0, 6.0),
+                    "safrole": (1.0, 2.5),
+                    "myristicin": (5.0, 12.0),
+                },
+                "fraction_rule": "MIDPOINT_OF_STANDARD_MIN_MAX_RANGE",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_supplier_page": "https://aromaandmore.com/en/essential-oil-100-pure-/86-nutmeg-essential-oil-indonesia.html",
+                "owned_supplier_reference": "NutId0612B",
+                "owned_supplier_type_statement": "Indonesia normally produces the East Indian type of Nutmeg.",
+                "owned_supplier_iso_conformity_claimed": False,
+                "owned_supplier_and_origin_recorded": True,
+                "owned_bottle_sku_verified": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("alpha pinene", "sabinene", "beta pinene", "limonene",
+                            "gamma terpinene", "terpinen-4-ol", "delta-3-carene")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "myristicin",
+                "reported_fraction": 0.085,
+                "reported_fraction_range": (0.05, 0.12),
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "safrole",
+                "reported_fraction": 0.0175,
+                "reported_fraction_range": (0.01, 0.025),
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "ISO 3215 describes a conforming Indonesian-type commercial oil; it is not an analysis of the owned bottle. Aroma&More lists Indonesian steam-distilled seed oil of East Indian type but publishes no composition or CoA and claims no ISO conformity.",
+            "Range midpoints are nominal model inputs; a conforming oil can sit anywhere in each range (sabinene 14-29%, alpha-pinene 15-28%, myristicin 5-12%). The range minima sum to 54.5% and the maxima to 110.5%.",
+            "Single lots can fall outside the standard: a water-distilled Bogor seed oil (Muchtaridi et al. 2010, Int. J. Mol. Sci. 11:4771, doi:10.3390/ijms11114771) reported alpha-pinene 10.23%, terpinen-4-ol 13.92%, safrole 4.28% and myristicin 13.57%.",
+            "Only 72.25% of nominal composition is modeled; myristicin, safrole and unlisted constituents remain uncomputed, not odorless.",
+            "Safrole is restricted by IFRA Standard 179 (safrole, isosafrole and dihydrosafrole together at most 0.01% of the finished product); this composition scenario does not feed the IFRA screen.",
+            "Mace (aril) oil and West Indian nutmeg oil are not covered by this profile.",
+        ),
+    },
     "cupressus sempervirens leaf oil literature profile": {
         "input_authority": {
             "composition": {

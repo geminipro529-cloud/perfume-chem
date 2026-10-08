@@ -15,7 +15,7 @@ from datetime import date
 from decimal import Decimal, InvalidOperation
 from hashlib import sha256
 from pathlib import Path
-from typing import Any, Literal
+from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
@@ -694,23 +694,112 @@ class OmissionCarrierBlankV1(_StrictV2Payload):
     carrier: str = Field(min_length=1, max_length=255)
 
 
+def _positive_plain_decimal(value: str) -> str:
+    if not re.fullmatch(r"[0-9]+(?:\.[0-9]+)?", value):
+        raise ValueError("use a plain positive decimal string, not exponent notation")
+    return _decimal_text(value, positive=True)
+
+
+class AdditionChangeV1(_StrictV2Payload):
+    """Add one material that is not in the control, at a stated amount and stock dilution."""
+
+    kind: Literal["ADDITION"]
+    row: OmissionControlRowV1
+    bottle_volume_ul_decimal: str | None = Field(default=None, min_length=1, max_length=40)
+
+    @field_validator("bottle_volume_ul_decimal")
+    @classmethod
+    def positive_volume(cls, value: str | None) -> str | None:
+        return None if value is None else _positive_plain_decimal(value)
+
+
+class DoseStepChangeV1(_StrictV2Payload):
+    """Change one existing control row by a stated amount, in that row's unit."""
+
+    kind: Literal["DOSE_STEP"]
+    stock_id: str = Field(min_length=1, max_length=255)
+    direction: Literal["UP", "DOWN"]
+    step_decimal: str = Field(min_length=1, max_length=40)
+    bottle_volume_ul_decimal: str | None = Field(default=None, min_length=1, max_length=40)
+
+    @field_validator("step_decimal", "bottle_volume_ul_decimal")
+    @classmethod
+    def positive_decimals(cls, value: str | None) -> str | None:
+        return None if value is None else _positive_plain_decimal(value)
+
+
 class OmissionComparisonPlanPayloadV2(_StrictV2Payload):
     schema_version: Literal["omission-comparison-plan-request-v1"]
     control_rows: list[OmissionControlRowV1] = Field(min_length=2, max_length=60)
-    omit_stock_ids: list[str] = Field(min_length=1, max_length=59)
+    omit_stock_ids: list[str] = Field(default_factory=list, max_length=59)
     protected_stock_ids: list[str] = Field(default_factory=list, max_length=60)
     carrier_blanks: dict[str, OmissionCarrierBlankV1] = Field(default_factory=dict, max_length=10)
     goal: str = Field(min_length=1, max_length=500)
     mode: Literal["QUICK_REFERENCE", "CONTROLLED_REFERENCE"] = "QUICK_REFERENCE"
     seed: int = Field(default=17, ge=0, le=2147483647)
+    # Absent fields keep an omission request's canonical payload byte-identical.
+    change: Annotated[AdditionChangeV1 | DoseStepChangeV1, Field(discriminator="kind")] | None = Field(
+        default=None, exclude_if=lambda value: value is None)
+    triangle_tries: int | None = Field(default=None, ge=3, le=30, exclude_if=lambda value: value is None)
+
+    @field_validator("change", mode="before")
+    @classmethod
+    def one_change_object(cls, value: Any) -> Any:
+        if isinstance(value, list):
+            raise ValueError(
+                f"Choose exactly one change per plan; this request lists {len(value)}. "
+                "Send each change as its own plan."
+            )
+        return value
 
     @model_validator(mode="after")
     def exact_ids(self):
         ids = [row.stock_id for row in self.control_rows]
-        if (len(set(ids)) != len(ids) or len(set(self.omit_stock_ids)) != len(self.omit_stock_ids)
-                or not set(self.omit_stock_ids) < set(ids)
-                or not set(self.protected_stock_ids) <= set(ids)):
-            raise ValueError("omission IDs must name distinct control rows and retain a control")
+        if self.change is None:
+            if not self.omit_stock_ids:
+                raise ValueError(
+                    "Choose exactly one change: name the row to omit, or give one ADDITION or DOSE_STEP change."
+                )
+            if (len(set(ids)) != len(ids) or len(set(self.omit_stock_ids)) != len(self.omit_stock_ids)
+                    or not set(self.omit_stock_ids) < set(ids)
+                    or not set(self.protected_stock_ids) <= set(ids)):
+                raise ValueError("omission IDs must name distinct control rows and retain a control")
+        else:
+            if self.omit_stock_ids:
+                raise ValueError(
+                    "Choose exactly one change per plan: this request has both an omission and an "
+                    f"{self.change.kind}. Send them as separate plans."
+                )
+            if len(set(ids)) != len(ids) or not set(self.protected_stock_ids) <= set(ids):
+                raise ValueError("control rows must be distinct and protected IDs must name control rows")
+            change = self.change
+            if isinstance(change, AdditionChangeV1) and change.row.stock_id in ids:
+                raise ValueError(
+                    "An addition must be a material that is not already in the control; "
+                    "use DOSE_STEP to change an existing row."
+                )
+            if isinstance(change, DoseStepChangeV1):
+                if change.stock_id not in ids:
+                    raise ValueError("A dose step must name one of the control rows.")
+                current = Decimal(self.control_rows[ids.index(change.stock_id)].amount_decimal)
+                if change.direction == "DOWN" and Decimal(change.step_decimal) >= current:
+                    raise ValueError(
+                        "A step down must leave some of the material; to remove it completely, use an omission plan."
+                    )
+                stepped = self.control_rows[ids.index(change.stock_id)]
+                if change.direction == "DOWN" and not stepped.carrier:
+                    raise ValueError(
+                        f"{stepped.identity_name} is neat, so there is no carrier to balance a step down with; "
+                        "this plan can't keep both versions at the same total for a neat material yet."
+                    )
+                blank = self.carrier_blanks.get(stepped.carrier) if stepped.carrier else None
+                if change.direction == "DOWN" and (blank is None or blank.carrier != stepped.carrier
+                                                   or blank.stock_id in ids):
+                    raise ValueError(
+                        "A step down is tried in fresh vials with a carrier blank so both hold the same total: "
+                        f"{stepped.identity_name} needs a blank stock for its carrier ({stepped.carrier}) "
+                        "that is not one of the control rows."
+                    )
         blank_ids = [blank.stock_id for blank in self.carrier_blanks.values()]
         if len(set(blank_ids)) != len(blank_ids):
             raise ValueError("one blank stock cannot represent multiple carriers")
@@ -720,7 +809,8 @@ class OmissionComparisonPlanPayloadV2(_StrictV2Payload):
 ENGINE_JOB_REGISTRY: dict[str, EngineJobSpec] = {
     "OMISSION_COMPARISON_PLAN": EngineJobSpec(
         OmissionComparisonPlanPayloadV2, "READ_ONLY_DIAGNOSTIC", 30,
-        ("engine/research/controlled_omission.py", "engine/research/protocols.py", "engine/research/contracts.py"),
+        ("engine/research/controlled_omission.py", "engine/research/one_change.py",
+         "engine/research/protocols.py", "engine/research/contracts.py"),
         OmissionComparisonPlanPayloadV2,
     ),
     "FORMULA_DESIGN": EngineJobSpec(

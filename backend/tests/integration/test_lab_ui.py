@@ -609,3 +609,14 @@ async def test_omission_loader_translates_design_fraction_bases_and_shows_percen
     assert "loaded.fraction_basis = omissionBasis(loaded.fraction_basis)" in javascript.text
     assert "omissionStrength(row)" in javascript.text
     assert "${row.stock_fraction_decimal} ${row.fraction_basis}" not in javascript.text
+
+
+@pytest.mark.asyncio
+async def test_comparison_planning_is_worded_as_a_suggestion_and_uses_safe_request_ids(client):
+    page = await client.get("/app")
+    javascript = await client.get("/static/lab.js")
+    assert "cannot remove anything from your existing bottle" in page.text
+    assert "needs separate samples" not in page.text
+    submit = javascript.text.split('$("#omission-plan-form").addEventListener("submit"', 1)[1]
+    submit = submit.split('$("#sample-form")', 1)[0]
+    assert 'newRequestId("comparison")' in submit and "crypto.randomUUID()" not in submit

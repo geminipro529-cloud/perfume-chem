@@ -32,6 +32,28 @@ def _quantity(value: Any, *, positive: bool = False) -> Decimal:
     return result
 
 
+def carrier_blank_row(
+    row: Mapping[str, Any], carrier_blanks: Mapping[str, Any], control_ids: Sequence[str], *,
+    amount_decimal: str, amount_unit: str = "mg", operation: str = "CARRIER_BLANK_REPLACEMENT",
+) -> dict[str, Any] | None:
+    """Pure-carrier row standing in for ``amount_decimal`` of ``row``, or None without an exact match.
+
+    The blank must be declared for the row's exact carrier and must not be a control stock.
+    """
+    carrier = row["carrier"]
+    blank = carrier_blanks.get(carrier) if isinstance(carrier, str) else None
+    if (not carrier or not isinstance(blank, dict)
+            or set(blank) != {"stock_id", "carrier"}
+            or not isinstance(blank["stock_id"], str) or not blank["stock_id"]
+            or blank["stock_id"] in control_ids or blank["carrier"] != carrier):
+        return None
+    return {"stock_id": blank["stock_id"], "identity_name": carrier,
+            "carrier": carrier, "amount_decimal": amount_decimal,
+            "amount_unit": amount_unit, "stock_fraction_decimal": "0",
+            "fraction_basis": "w/w", "operation": operation,
+            "replaces_stock_id": row["stock_id"]}
+
+
 def plan_controlled_omission(
     *, control_rows: Sequence[Mapping[str, Any]], omit_stock_ids: Sequence[str],
     protected_stock_ids: Sequence[str], carrier_blanks: Mapping[str, Mapping[str, str]],
@@ -104,19 +126,11 @@ def plan_controlled_omission(
         omitted = [r for r in rows if r["stock_id"] in omit_stock_ids]
         additions = []
         for row in omitted:
-            carrier = row["carrier"]
-            blank = carrier_blanks.get(carrier) if isinstance(carrier, str) else None
-            if (not carrier or not isinstance(blank, dict)
-                    or set(blank) != {"stock_id", "carrier"}
-                    or not isinstance(blank["stock_id"], str) or not blank["stock_id"]
-                    or blank["stock_id"] in ids or blank["carrier"] != carrier):
+            blank_row = carrier_blank_row(row, carrier_blanks, ids, amount_decimal=row["amount_decimal"])
+            if blank_row is None:
                 result["reason_codes"] = ["HOLD_MATCHED_CARRIER_BLANK_REQUIRED"]
                 return result
-            additions.append({"stock_id": blank["stock_id"], "identity_name": carrier,
-                              "carrier": carrier, "amount_decimal": row["amount_decimal"],
-                              "amount_unit": "mg", "stock_fraction_decimal": "0",
-                              "fraction_basis": "w/w", "operation": "CARRIER_BLANK_REPLACEMENT",
-                              "replaces_stock_id": row["stock_id"]})
+            additions.append(blank_row)
         result.update(
             state="CONTROLLED_OMISSION_DESIGN_READY", formula_action="PROPOSAL_ONLY",
             candidate_rows=[*retained, *additions], omitted_stock_ids=list(omit_stock_ids),

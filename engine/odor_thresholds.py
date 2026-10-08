@@ -177,6 +177,18 @@ ODT_DATA: dict[str, dict] = {
         "odt_eth": 0.3,
         "char": "rose, geranium, sweet",
     },
+    # Verified: Elsharif & Buettner (2018) Flavour Science, doi:10.3217/978-3-85125-593-5-54,
+    # Table 2 — 57.1 ng/L air (GC-O, 5 panelists, geometric mean) = 7.11 ppb at 25 °C.
+    # No published ethanol-solution threshold was found, so odt_eth stays None.
+    "geranyl acetate": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Elsharif & Buettner (2018) Flavour Science, doi:10.3217/978-3-85125-593-5-54 — 57.1 ng/L (7.11 ppb)"
+        ],
+        "odt_air": 7.11,
+        "odt_eth": None,
+        "char": "citrus",
+    },
     "eugenol": {
         "vfy": "PEER_SINGLE",
         "sources": ["Rychlik et al. (1998); Blank et al. (1989)"],
@@ -1409,6 +1421,12 @@ ODT_VERIFICATION: dict[str, dict] = {
     "geraniol": {
         "vfy": "PEER_SINGLE",
         "sources": ["Elsharif & Buettner (2016) J. Agric. Food Chem. 64:4830 — 14 ng/L (2.22 ppb)"],
+    },
+    "geranyl acetate": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Elsharif & Buettner (2018) Flavour Science, doi:10.3217/978-3-85125-593-5-54 — 57.1 ng/L (7.11 ppb), GC-O"
+        ],
     },
     "damascenone": {
         "vfy": "PEER_SINGLE",

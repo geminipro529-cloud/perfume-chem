@@ -12,12 +12,17 @@ d = json.load(open(f, encoding="utf-8"))
 gates = d["formulas"][0]["gates"]
 p = sum(1 for g in gates if g.get("status") == "PASS")
 w = sum(1 for g in gates if g.get("status") == "WARN")
+h = sum(1 for g in gates if g.get("status") == "HOLD")
 fc = sum(1 for g in gates if g.get("status") == "FAIL")
-fails = [(g.get("gate","?"), (g.get("message") or "")[:80]) for g in gates if g.get("status") == "FAIL"]
-print(f"{p} PASS | {w} WARN | {fc} FAIL")
+fails = [
+    (g.get("status"), g.get("gate", "?"), (g.get("message") or "")[:80])
+    for g in gates
+    if g.get("status") in ("FAIL", "HOLD")
+]
+print(f"{p} PASS | {w} WARN | {h} HOLD | {fc} FAIL")
 if show_detail:
-    for name, msg in fails:
-        print(f"  FAIL {name}: {msg}")
+    for status, name, msg in fails:
+        print(f"  {status} {name}: {msg}")
 else:
-    for name, _ in fails:
-        print(f"  FAIL {name}")
+    for status, name, _ in fails:
+        print(f"  {status} {name}")

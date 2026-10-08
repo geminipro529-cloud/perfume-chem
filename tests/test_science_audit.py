@@ -106,9 +106,9 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
         "inventory_after_sha256"
     ]
     assert audit["material_count"] == 290
-    assert audit["oav_available_count"] == 221
-    assert audit["oav_unknown_count"] == 69
-    assert audit["oav_coverage_pct"] == 76.207
+    assert audit["oav_available_count"] == 226
+    assert audit["oav_unknown_count"] == 64
+    assert audit["oav_coverage_pct"] == 77.931
     assert audit["status"] == "FAIL_CLOSED_GAPS"
     assert {"Fructone B", "Helvetolide", "Manzanate", "Ambrocenide"} <= set(
         categories["other_oav_unknowns"]

@@ -4,7 +4,6 @@ from dataclasses import replace
 import pytest
 
 import engine.pipeline.robustness as robustness
-from engine.ifra_safety import score_ifra_compliance
 from engine.pipeline.formula_state import FormulaState, build_formula_state
 from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 from engine.pipeline.robustness import audit_formula_robustness
@@ -43,20 +42,17 @@ def _fougere_formula(evernyl_ul=100.0):
     }
 
 
-def test_robustness_warns_when_evernyl_plus_perturbation_breaks_ifra():
+def test_robustness_does_not_flag_evernyl_which_has_no_ifra_standard():
+    # The sourced IFRA 51st Amendment table gives Evernyl (methyl atrarate) no
+    # standard; the old hand-typed 0.1 % limit had no IFRA source.
     formula = _fougere_formula(evernyl_ul=150.0)
     report = audit_formula_robustness(
         formula,
         ReleaseGateConfig(brief="aromatic_fougere"),
     )
 
-    assert report.status == "WARN"
-    assert any(
-        issue.material == "Evernyl"
-        and issue.direction == "up"
-        and issue.safety_failed
-        for issue in report.issues
-    )
+    evernyl_issues = [issue for issue in report.issues if issue.material == "Evernyl"]
+    assert not any(issue.safety_failed for issue in evernyl_issues)
 
 
 def test_robustness_audit_preserves_original_formula_and_gate_is_nonblocking():
@@ -259,27 +255,64 @@ def test_reused_state_matches_fresh_build_for_diluted_and_natural_inputs(
 
 
 @pytest.mark.parametrize(
-    ("ingredients", "dilutions"),
+    ("ingredients", "dilutions", "expected"),
     (
-        ({"Hedione": 100.0, "Evernyl": 100.0}, {"Evernyl": 0.2}),
-        ({"Hedione": 100.0, "Evernyl": 200.0}, {"Evernyl": 0.2}),
-        ({"Hedione": 100.0, "Lilial": 1.0}, {}),
-        ({"Hedione": 100.0, "Unknown material": 1.0}, {}),
+        ({"Hedione": 100.0, "Evernyl": 100.0}, {"Evernyl": 0.2}, False),
+        ({"Hedione": 100.0, "Evernyl": 200.0}, {"Evernyl": 0.2}, False),
+        ({"Hedione": 100.0, "Lilial": 1.0}, {}, True),
+        ({"Hedione": 100.0, "Unknown material": 1.0}, {}, False),
     ),
 )
-def test_narrow_robustness_safety_check_matches_consumed_full_report_fields(
-    ingredients, dilutions
+def test_narrow_robustness_safety_check_follows_sourced_ifra_table(
+    ingredients, dilutions, expected
 ):
+    # Evernyl and Hedione have no IFRA standard, Lilial is prohibited, and a
+    # material outside the table is unchecked rather than failed.
     config = ReleaseGateConfig(batch_volume_ml=30.0)
-    full = score_ifra_compliance(
-        ingredients,
-        dilutions,
-        total_volume_ml=float(config.batch_volume_ml),
-    )
-    expected = bool(full.ifra_violations or full.banned_flags)
 
     assert robustness._has_ifra_or_banned_failure(
         ingredients,
         dilutions,
         config,
     ) is expected
+
+
+def test_headroom_flags_restricted_material_by_finished_product_weight():
+    # 450 uL neat Coumarin + 1000 uL neat Hedione, ethanol to 30 mL, densities
+    # unknown so 1.0 g/mL: finished mass = 1.45 g + 28.55 mL * 0.789 g/mL
+    # = 23.97595 g, Coumarin = 0.45 / 23.97595 = 1.87688 % w/w, over the
+    # IFRA_STD_023 limit of 1.5 %. By volume it would be exactly 1.5 %.
+    config = ReleaseGateConfig(batch_volume_ml=30.0)
+    ingredients = {"Coumarin": 450.0, "Hedione": 1000.0}
+
+    violations = robustness._headroom_violations(ingredients, {}, config)
+
+    assert [row["material"] for row in violations] == ["Coumarin"]
+    row = violations[0]
+    assert row["actual_pct"] == pytest.approx(1.87688, rel=1e-5)
+    assert row["limit_pct"] == 1.5
+    assert row["standard"] == "IFRA_STD_023"
+    assert robustness._has_ifra_or_banned_failure(ingredients, {}, config) is True
+
+
+def test_headroom_ignores_evernyl_which_has_no_ifra_standard():
+    config = ReleaseGateConfig(batch_volume_ml=30.0)
+    ingredients = {"Evernyl": 1000.0, "Hedione": 1000.0}
+
+    assert robustness._headroom_violations(ingredients, {}, config) == []
+    assert robustness._has_ifra_or_banned_failure(ingredients, {}, config) is False
+
+
+def test_oakmoss_and_treemoss_are_totalled_against_their_group_limit():
+    # 15 uL each neat + 1000 uL Hedione in 30 mL: finished mass
+    # = 1.03 g + 28.97 mL * 0.789 g/mL = 23.88733 g; each moss is
+    # 0.06279 % w/w (under 0.1 % alone), together 0.12559 % > 0.1 %.
+    config = ReleaseGateConfig(batch_volume_ml=30.0)
+    ingredients = {"Oakmoss Absolute": 15.0, "Treemoss Absolute": 15.0, "Hedione": 1000.0}
+
+    violations = robustness._headroom_violations(ingredients, {}, config)
+
+    assert [row["material"] for row in violations] == ["oakmoss_treemoss_total"]
+    assert violations[0]["actual_pct"] == pytest.approx(0.12559, rel=1e-4)
+    assert violations[0]["limit_pct"] == 0.1
+    assert robustness._has_ifra_or_banned_failure(ingredients, {}, config) is True

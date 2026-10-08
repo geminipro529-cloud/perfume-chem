@@ -284,3 +284,26 @@ def test_complete_diagnostic_inputs_remain_numeric(monkeypatch):
     assert industry["balance"] == 80.0
     assert industry["family_alignment"] is None
     assert industry["character"] is None
+
+
+def test_repairability_reports_missing_data_when_only_holds_block(monkeypatch):
+    monkeypatch.setattr(
+        "engine.data_spine.loader.load_registry",
+        lambda: _PriceRegistry({"Top Material": 1.0, "Base Material": 2.0}),
+    )
+    gate_report = _gate_report()
+    gate_report["gates"].append({"gate": "phase_compatibility", "status": "HOLD"})
+    held = compute_unified_release_scores(
+        _diagnostic_formula(), _oav_result(), gate_report, scorer=_StubScorer()
+    ).as_dict()["provenance"]["repairability"]
+
+    gate_report["gates"].append({"gate": "exact_subtotal", "status": "FAIL"})
+    failed = compute_unified_release_scores(
+        _diagnostic_formula(), _oav_result(), gate_report, scorer=_StubScorer()
+    ).as_dict()["provenance"]["repairability"]
+
+    assert held["status"] == "data_required"
+    assert held["held_gates"] == ["phase_compatibility"]
+    assert held["failed_gates"] == []
+    assert failed["failed_gates"] == ["exact_subtotal"]
+    assert failed["status"] not in {"data_required", "none_needed"}

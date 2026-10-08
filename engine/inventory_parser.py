@@ -435,6 +435,15 @@ def _normalize_carrier(value: str) -> str:
     return value
 
 
+# Build cards and formula files write the neat declaration with its supply
+# form ("neat / as supplied", "NEAT / undiluted supplied product"). Only these
+# whole-cell spellings count; a cell carrying more text stays undeclared.
+_NEAT_AS_SUPPLIED_RE = re.compile(
+    r"(?:neat|pure|undiluted)\s*(?:/|,|\(|-|\u2013|\u2014)\s*"
+    r"(?:as supplied|undiluted(?: supplied product)?)\s*\)?"
+)
+
+
 def parse_stock_specification(
     raw: str,
     *,
@@ -449,7 +458,9 @@ def parse_stock_specification(
 
     text = str(raw or "").strip().replace("**", "").replace("`", "")
     low = text.lower()
-    explicit_neat = low in {"neat", "pure", "undiluted"}
+    explicit_neat = low in {"neat", "pure", "undiluted"} or bool(
+        _NEAT_AS_SUPPLIED_RE.fullmatch(low)
+    )
     match = re.search(r"~?\s*(\d+(?:[.,]\d+)?)\s*%", text)
     fraction_match = re.search(
         r"\bexactly\s+(\d+)\s*/\s*(\d+)\b",
@@ -4536,12 +4547,51 @@ def _load_20261008_tobacco_dbca_successor(
     }
 
 
+def live_inventory_text_binding() -> dict[str, Any]:
+    """Report whether ``inventory.txt`` still matches the current overlay's source text.
+
+    The gate's stock comes from the V5 workbook plus the dated overlays, so this
+    binding is a consistency check between the hand-kept list and the structured
+    authority. It reports drift; it never raises on it.
+    """
+
+    overlay = json.loads(CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
+    source = overlay["source"]
+    actual_size = len(_normalized_text_bytes(INVENTORY_PATH))
+    actual_sha = _normalized_text_sha256(INVENTORY_PATH)
+    try:
+        inventory_path = INVENTORY_PATH.resolve().relative_to(PROJECT_ROOT.resolve()).as_posix()
+    except ValueError:
+        inventory_path = INVENTORY_PATH.as_posix()
+    return {
+        "bound": (
+            actual_size == source["inventory_text_size_bytes"]
+            and actual_sha == source["inventory_text_sha256"]
+        ),
+        "inventory_path": inventory_path,
+        "overlay_path": CURRENT_USER_INVENTORY_OVERLAY_PATH.relative_to(PROJECT_ROOT).as_posix(),
+        "overlay_effective_date": overlay.get("effective_date"),
+        "expected_size_bytes": source["inventory_text_size_bytes"],
+        "actual_size_bytes": actual_size,
+        "expected_sha256": source["inventory_text_sha256"],
+        "actual_sha256": actual_sha,
+    }
+
+
 def load_current_user_inventory_overlay(
     path: Path | None = None,
     *,
     require_pinned_overlay: bool = True,
+    require_live_inventory_binding: bool = False,
 ) -> dict[str, Any]:
-    """Load the dated user-authority overlay without mutating the V5 parent."""
+    """Load the dated user-authority overlay without mutating the V5 parent.
+
+    By default a hand edit to ``inventory.txt`` does not block the load; use
+    :func:`live_inventory_text_binding` to report that drift.  Pass
+    ``require_live_inventory_binding=True`` to reject it, as the current
+    overlay's own loader does.  Overlay hash pins, predecessor drift and
+    metadata drift always raise.
+    """
 
     overlay_path = path or CURRENT_USER_INVENTORY_OVERLAY_PATH
     if not overlay_path.exists():
@@ -4597,19 +4647,18 @@ def load_current_user_inventory_overlay(
             f"current user inventory overlay is unreadable: {exc}"
         ) from exc
 
+    bind_live_text = require_live_inventory_binding and (
+        overlay_path.resolve() == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
+    )
     if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v20":
         return _load_20261008_tobacco_dbca_successor(
             payload,
-            require_live_inventory_binding=(
-                overlay_path.resolve() == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
-            ),
+            require_live_inventory_binding=bind_live_text,
         )
     if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v19":
         return _load_20261007_pw_received_successor(
             payload,
-            require_live_inventory_binding=(
-                overlay_path.resolve() == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
-            ),
+            require_live_inventory_binding=bind_live_text,
         )
     if (
         payload.get("schema_version")
@@ -4617,10 +4666,7 @@ def load_current_user_inventory_overlay(
     ):
         return _load_20260930_aimi_identity_successor(
             payload,
-            require_live_inventory_binding=(
-                overlay_path.resolve()
-                == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
-            ),
+            require_live_inventory_binding=bind_live_text,
         )
     if (
         payload.get("schema_version")
@@ -4628,10 +4674,7 @@ def load_current_user_inventory_overlay(
     ):
         return _load_20260924_r5_remaining_stock_forms_v3_successor(
             payload,
-            require_live_inventory_binding=(
-                overlay_path.resolve()
-                == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
-            ),
+            require_live_inventory_binding=bind_live_text,
         )
     if (
         payload.get("schema_version")
@@ -4639,10 +4682,7 @@ def load_current_user_inventory_overlay(
     ):
         return _load_20260924_r5_stock_clarifications_v2_successor(
             payload,
-            require_live_inventory_binding=(
-                overlay_path.resolve()
-                == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
-            ),
+            require_live_inventory_binding=bind_live_text,
         )
     if (
         payload.get("schema_version")
@@ -4650,10 +4690,7 @@ def load_current_user_inventory_overlay(
     ):
         return _load_20260924_r5_stock_clarifications_successor(
             payload,
-            require_live_inventory_binding=(
-                overlay_path.resolve()
-                == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
-            ),
+            require_live_inventory_binding=bind_live_text,
         )
     if (
         payload.get("schema_version")
@@ -4661,31 +4698,22 @@ def load_current_user_inventory_overlay(
     ):
         return _load_20260915_methyl_pamplemousse_10ww_ethanol_successor(
             payload,
-            require_live_inventory_binding=(
-                overlay_path.resolve()
-                == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
-            ),
+            require_live_inventory_binding=bind_live_text,
         )
     if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v13":
         return _load_20260915_evernyl_10ww_dpg_successor(
             payload,
-            require_live_inventory_binding=(
-                overlay_path.resolve() == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
-            ),
+            require_live_inventory_binding=bind_live_text,
         )
     if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v12":
         return _load_20260915_stock_forms_and_tincture_model_successor(
             payload,
-            require_live_inventory_binding=(
-                overlay_path.resolve() == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
-            ),
+            require_live_inventory_binding=bind_live_text,
         )
     if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v11":
         return _load_20260915_pink_pepper_inventory_successor(
             payload,
-            require_live_inventory_binding=(
-                overlay_path.resolve() == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
-            ),
+            require_live_inventory_binding=bind_live_text,
         )
     if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v10":
         return _load_20260910_stock_clarification_inventory_successor(payload)
