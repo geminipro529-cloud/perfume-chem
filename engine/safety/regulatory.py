@@ -19,7 +19,7 @@ import uuid
 from dataclasses import dataclass
 from typing import Any
 
-from engine.ifra_safety import IFRA_CAT4_LIMITS
+from engine.ifra_standards import load_ifra_table
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Constants
@@ -83,21 +83,32 @@ class ComplianceResult:
 
     Attributes:
         material:        Material name as used in the formula.
-        current_dose_pct: Current dose as % of finished product.
-        max_allowed_pct: Maximum allowed % under the applicable rule.
-        exceeds:         True when current_dose_pct > max_allowed_pct.
-        rule_reference:  Which rule or standard limits this material.
+        current_dose_pct: Current dose as % v/v of finished product
+                          (active µL per finished-product mL).
+        max_allowed_pct: IFRA Category 4 limit (% w/w of finished product)
+                          from the sourced table; 0.0 for a prohibited
+                          material; ``None`` when the table gives no number.
+        exceeds:         True when a restricted dose is over its limit, or a
+                          prohibited material is present.
+        rule_reference:  Which rule set the caller's snapshot names.
         rule_version:    Version string of the rule set.
         detail:          Human-readable explanation.
+        ifra_status:     Table status (restricted, prohibited, specification,
+                          restricted_unverified, no_standard,
+                          natural_no_own_standard) or ``unknown`` when the
+                          material is not in the table.
+        ifra_standard:   IFRA Standard id from the table, when there is one.
     """
 
     material: str
     current_dose_pct: float
-    max_allowed_pct: float
+    max_allowed_pct: float | None
     exceeds: bool
     rule_reference: str
     rule_version: str
     detail: str
+    ifra_status: str = "unknown"
+    ifra_standard: str | None = None
 
     def as_dict(self) -> dict[str, Any]:
         """Return compliance result as a plain dict."""
@@ -109,6 +120,8 @@ class ComplianceResult:
             "rule_reference": self.rule_reference,
             "rule_version": self.rule_version,
             "detail": self.detail,
+            "ifra_status": self.ifra_status,
+            "ifra_standard": self.ifra_standard,
         }
 
 
@@ -130,49 +143,88 @@ def check_compliance(
         ``active_ul``                — active µL in the concentrate (float / int)
         ``finished_product_volume_ml`` — total finished product volume in mL (float / int)
 
-    The active dose is converted to a % of finished product, then looked up
-    against ``IFRA_CAT4_LIMITS``.  Materials not found in the limits dict
-    are returned with ``max_allowed_pct = 0.0`` and ``exceeds = False``.
+    The active dose is converted to a % of finished product by volume
+    (active µL per finished-product mL): these inputs carry no stock dilution,
+    carrier or density, so no weight basis can be estimated here.  The IFRA
+    Category 4 limits it is compared with are % w/w, from the sourced table
+    (``engine.ifra_standards.load_ifra_table``); there is no numeric fallback.
+    Materials with no limit in the table get ``max_allowed_pct = None``.
 
     Returns a list of :class:`ComplianceResult` — one per material.
     """
     results: list[ComplianceResult] = []
+    table = load_ifra_table()
 
     for mat in formula_materials:
         name: str = mat.get("name", "")
         active_ul: float = float(mat.get("active_ul", 0))
         fp_vol_ml: float = float(mat.get("finished_product_volume_ml", 0))
+        material = table.lookup(name)
+        status = material.status if material is not None else "unknown"
+        standard = material.standard if material is not None else None
 
         if fp_vol_ml <= 0:
             results.append(
                 ComplianceResult(
                     material=name,
                     current_dose_pct=0.0,
-                    max_allowed_pct=0.0,
+                    max_allowed_pct=None,
                     exceeds=False,
                     rule_reference=snapshot.rule_set,
                     rule_version=snapshot.effective_date,
                     detail="Finished product volume is zero or missing — cannot compute %.",
+                    ifra_status=status,
+                    ifra_standard=standard,
                 )
             )
             continue
 
         current_pct = (active_ul / 1000.0) / fp_vol_ml * 100.0
-        max_allowed = IFRA_CAT4_LIMITS.get(name, 0.0)
-        exceeds = max_allowed > 0 and current_pct > max_allowed
-
-        detail_parts: list[str] = []
-        if max_allowed == 0:
-            detail_parts.append(f"No IFRA Cat4 limit found for '{name}' — treated as unrestricted.")
-        elif exceeds:
-            detail_parts.append(
-                f"Dose {current_pct:.4f}% exceeds limit {max_allowed:.4f}% "
-                f"(ratio {current_pct / max_allowed:.2f}×)."
+        std_text = standard or "no IFRA standard"
+        dose_text = f"Dose {current_pct:.4f}% v/v"
+        max_allowed: float | None = None
+        exceeds = False
+        if material is None:
+            detail = (
+                f"'{name}' is not in the IFRA 51st Amendment Category 4 table — "
+                "unknown, not checked."
             )
-        else:
-            detail_parts.append(
-                f"Dose {current_pct:.4f}% within limit {max_allowed:.4f}% "
-                f"(usage {current_pct / max_allowed * 100:.1f}%)."
+        elif status == "restricted":
+            max_allowed = material.cat4_limit_pct
+            assert max_allowed is not None  # restricted rows carry a sourced limit
+            exceeds = current_pct > max_allowed
+            ratio = current_pct / max_allowed
+            if exceeds:
+                detail = (
+                    f"{dose_text} exceeds limit {max_allowed:.4f}% w/w "
+                    f"({std_text}, ratio {ratio:.2f}×)."
+                )
+            else:
+                detail = (
+                    f"{dose_text} within limit {max_allowed:.4f}% w/w "
+                    f"({std_text}, usage {ratio * 100:.1f}%)."
+                )
+        elif status == "prohibited":
+            max_allowed = 0.0
+            exceeds = current_pct > 0
+            authority = material.authority or "IFRA"
+            detail = f"{dose_text}: '{name}' is prohibited by {authority} ({std_text})."
+        elif status == "specification":
+            detail = (
+                f"{dose_text}: '{name}' is covered by specification standard {std_text}, "
+                "which sets no Category 4 % limit; check the material grade."
+            )
+        elif status == "restricted_unverified":
+            detail = (
+                f"{dose_text}: '{name}' is restricted by {std_text} but its Category 4 "
+                "limit is not recorded; hold until verified."
+            )
+        elif status == "no_standard":
+            detail = f"{dose_text}: '{name}' has no IFRA standard."
+        else:  # natural_no_own_standard
+            detail = (
+                f"{dose_text}: '{name}' is a natural with no IFRA standard of its own; "
+                "its restricted constituents are not summed here."
             )
 
         results.append(
@@ -183,7 +235,9 @@ def check_compliance(
                 exceeds=exceeds,
                 rule_reference=snapshot.rule_set,
                 rule_version=snapshot.effective_date,
-                detail=" ".join(detail_parts),
+                detail=detail,
+                ifra_status=status,
+                ifra_standard=standard,
             )
         )
 
@@ -213,7 +267,7 @@ def generate_compliant_build(
     for mat in target_materials:
         name = mat.get("name", "")
         vio = violation_map.get(name)
-        if vio is None:
+        if vio is None or vio.max_allowed_pct is None:
             adjusted.append(dict(mat))
             continue
 
@@ -222,7 +276,7 @@ def generate_compliant_build(
             adjusted.append(dict(mat))
             continue
 
-        # max_allowed_pct is % of finished product → convert back to µL
+        # Same volume basis as check_compliance: % of finished-product mL → µL
         max_active_ml = vio.max_allowed_pct / 100.0 * fp_vol_ml
         max_active_ul = max_active_ml * 1000.0
 
