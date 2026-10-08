@@ -31,6 +31,12 @@ os.environ.setdefault(
 tempfile.tempdir = str(PYTEST_TEMP_ROOT)
 # The app lifespan starts an engine worker subprocess by default; tests never do.
 os.environ["PERFUME_ENGINE_WORKER_AUTOSTART"] = "0"
+# Tests never use the real lab database. The app lifespan migrates the configured
+# database and holds a lock beside it, so a test run against the default
+# perfume_chem.db would touch Kenny's records and fail while his app is running.
+os.environ["DATABASE_URL"] = (
+    "sqlite+aiosqlite:///" + (PYTEST_TEMP_ROOT / "perfume_chem_pytest.db").as_posix()
+)
 
 from app.api.deps import get_db  # noqa: E402 - test environment must precede app import
 from app.main import app  # noqa: E402 - test environment must precede app import

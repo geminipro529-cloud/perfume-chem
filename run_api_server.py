@@ -59,6 +59,15 @@ def main() -> None:
             "cannot leave an orphaned listener behind."
         ),
     )
+    parser.add_argument(
+        "--restore",
+        metavar="BACKUP",
+        help=(
+            "Restore the lab database from a backup (its file name as the app "
+            "shows it, or a path to the backup file) and exit without starting "
+            "the server. Stop the app first."
+        ),
+    )
     args = parser.parse_args()
     if args.host is not None:
         host = args.host
@@ -90,6 +99,10 @@ def main() -> None:
         [*runtime_paths, os.environ.get("PYTHONPATH", "")]
     ).rstrip(os.pathsep)
 
+    if args.restore is not None:
+        _restore(args.restore)
+        return
+
     # Import Uvicorn only after pinning this checkout.  This also keeps any
     # import-time discovery performed by Uvicorn on the same application path.
     import uvicorn
@@ -108,6 +121,18 @@ def main() -> None:
         log_level="info",
         app_dir=str(backend_dir),
     )
+
+
+def _restore(backup: str) -> None:
+    from app.core.config import Settings
+    from app.services.restore_command import restore_from_backup
+
+    # Port 8000 is the port uvicorn.run serves the app on in main().
+    exit_code = restore_from_backup(
+        backup, database_url=Settings().DATABASE_URL, port=8000
+    )
+    if exit_code:
+        sys.exit(exit_code)
 
 
 if __name__ == "__main__":
