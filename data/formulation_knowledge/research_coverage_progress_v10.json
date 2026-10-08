@@ -1,0 +1,285 @@
+{
+  "schema_version": "fragrance-research-coverage-progress-v10",
+  "as_of_date": "2026-10-07",
+  "status": "V3_CURRENT_INVENTORY_EXECUTION_COMPARISON_ACCEPTED",
+  "full_research_program_complete": false,
+  "completion_boundary": "Current-source v3 diagnostic acceptance and receipt hardening; partial advisory knowledge, not empirical scent or release completion.",
+  "predecessor": {
+    "path": "data/formulation_knowledge/research_coverage_progress_v9.json",
+    "sha256": "63dc92c200777ff04566967e126baa9cd98a1e1a3ba507b285aa3311444c3a8d",
+    "preserved": true
+  },
+  "totals": {
+    "construction_dossiers": 49,
+    "partial_subtype_cards": 179,
+    "floral_packages": 13,
+    "floral_packages_with_at_least_one_mapping": 13,
+    "sources": 233,
+    "claims": 226,
+    "profiles": 43,
+    "exact_material_cards": 25,
+    "architecture_mappings": 44,
+    "architecture_options": 88,
+    "subtype_cards_without_executable_mapping": 135,
+    "empirical_capabilities_added": 0,
+    "numeric_calibrations_admitted": 0,
+    "source_records_added_this_wave": 0
+  },
+  "active_adapter": {
+    "path": "data/formulation_knowledge/architecture_adapters_v3.json",
+    "sha256": "70ec8bd60abefa7d5e09556fece34067caecacba539e6db1fcdea5d7d2f0111c",
+    "mappings": 44,
+    "options": 88,
+    "maximum_alternatives": 2,
+    "ordering": "UNORDERED_UNTIL_SENSORY_COMPARISON",
+    "scope": "LOCAL_HEURISTIC_ROLE_MAPPING_NOT_EMPIRICAL_FORMULA",
+    "final_corpus_accepted": true,
+    "adapter_bytes_changed_this_acceptance_pass": false
+  },
+  "repairs": [
+    "Changed a stale current-inventory duplicate assertion into separate live-diversity and controlled-assignment duplicate tests.",
+    "Every solver attempt now records exact role/stock bindings, solver receipt and execution-input hashes.",
+    "Offline verification checks eligible current stocks and replays allocation and critique for retained and suppressed alternatives.",
+    "Claimed coverage failures require a deterministic solver replay; empty assignments cannot fabricate unavailable inventory.",
+    "The frozen diagnostic snapshot includes received-stock receipts; one index is reused only within that diagnostic run.",
+    "Bound the scientific-audit inventory snapshot test to the received-stock receipt and updated exact counts; preserved all unknown categories and added newly owned material abstention checks."
+  ],
+  "verification": {
+    "focused_regressions": {
+      "passed": 108,
+      "failed": 0,
+      "seconds": 387.65,
+      "command": ".venv/Scripts/python.exe -m pytest tests/test_architecture_v3_repairs.py tests/test_architecture_receipt_binding.py tests/test_architecture_successor.py tests/test_inventory_pw_received_2026_10_07.py -q -p no:cacheprovider --tb=short"
+    },
+    "studio_and_v3_smoke": {
+      "passed": 27,
+      "failed": 0,
+      "seconds": 43.09,
+      "scope": "All tests/test_architecture_v3.py plus seven exact-material, strength, hold and Deep Compose tests in test_formula_design_chat.py"
+    },
+    "red_before_repair": {
+      "failed": 11,
+      "passed": 0,
+      "seconds": 35.42,
+      "scope": "New forged stock, assignment, suppression and false-failure mutations"
+    },
+    "counts_overlap_do_not_sum": true,
+    "current_comparison": {
+      "path": "docs/research/floral_aromatic_comparison_current_inventory_20261007.json",
+      "sha256": "7325d93bb94ff52038c2b818a6eaaaec8ae2d8b06891fe4cc839d7e1f23563b6",
+      "status": "PASS",
+      "case_count": 56,
+      "case_contract_passes": 56,
+      "design_calls": 224,
+      "cases_with_source_bound_variants": 49,
+      "viable_source_bound_variants": 96,
+      "control_preserved_for_all_cases": true,
+      "reverse_order_repeat_identical": true,
+      "same_inventory": true,
+      "changed_paths": [],
+      "opening_snapshot_sha256": "dc79fc557862a7bcb5a28b966d92950a7840c39e1c251154c9d8a4cc31867346",
+      "closing_snapshot_sha256": "dc79fc557862a7bcb5a28b966d92950a7840c39e1c251154c9d8a4cc31867346",
+      "snapshot_file_count": 1025,
+      "network_used": false
+    },
+    "diagnostic_timing": {
+      "design_p95_seconds": {
+        "CONTROL_ONLY": 4.884734200000821,
+        "ARCHITECTURE_COMPARISON": 7.0989048999981605
+      },
+      "audit_p95_seconds": {
+        "CONTROL_ONLY": 0.08971069999824977,
+        "ARCHITECTURE_COMPARISON": 0.139141000003292
+      },
+      "full_system_performance_acceptance": "NOT_ESTABLISHED",
+      "scope": "Frozen 56-prompt current-workstation diagnostic, not a full-system latency or scent-quality benchmark"
+    },
+    "scoped_ruff": "PASS_5_CHANGED_FILES_ACROSS_TWO_SCOPED_RUNS",
+    "scoped_mypy": "PASS_2_MODULES",
+    "git_diff_check": "PASS",
+    "quick_project": {
+      "path": "output/floral_aromatic_v3_20261007/current_inventory_quick_after_fixture.json",
+      "sha256": "4c8e8ce0a925215f85d6ee9ffb87bbea102edd764a5123f9a973ea201cef44e2",
+      "status": "PASS_SELECTED_QUICK_CHECKS",
+      "passed_checks": [
+        "engine-compile",
+        "engine-lint",
+        "engine-typecheck",
+        "formula-artifact-validation",
+        "scientific-audit",
+        "material-data-validation",
+        "knowledge-rule-validation",
+        "golden-formula-regression",
+        "golden-api-regression",
+        "golden-fixture-lock"
+      ],
+      "failed_checks": [],
+      "verification_scope": "partial",
+      "completion_gate": "NOT_EVALUATED",
+      "environment": "Root engine Python 3.14.6; backend exact existing Poetry-managed Python 3.11 via VIRTUAL_ENV; disposable backend database; authorized loopback."
+    },
+    "full_verifier": "NOT_RUN_NO_MERGE_OR_RELEASE_CLAIM",
+    "docker": "NOT_RUN",
+    "browser_visual": "NOT_RUN",
+    "git_commit_or_push_performed": false,
+    "scientific_audit_slice": {
+      "passed": 27,
+      "failed": 0,
+      "seconds": 8.83,
+      "scope": "Scientific contract, science audit, OAV authority and receptor-evidence quarantine; test-only snapshot repair"
+    },
+    "initial_quick_project": {
+      "path": "output/floral_aromatic_v3_20261007/current_inventory_quick.json",
+      "status": "FAIL_STALE_INVENTORY_TEST_SNAPSHOT",
+      "passed_checks": 9,
+      "failed_checks": [
+        "scientific-audit"
+      ],
+      "observed": "Live modeled-OAV audit returned 290 materials versus the old test's 253; no runtime science change.",
+      "sha256": "82cae0993a50ec36cc2ef9c2b34740b064bbb11cd5d6ab45b1e0f062217db15f"
+    },
+    "post_verification_snapshot": {
+      "post_verification_snapshot_sha256": "dc79fc557862a7bcb5a28b966d92950a7840c39e1c251154c9d8a4cc31867346",
+      "file_count": 1025,
+      "matches_comparison_closing_snapshot": true,
+      "note": "Captured after tests and before writing this progress successor; newly generated progress metadata is not a benchmark input."
+    }
+  },
+  "inventory_boundary": {
+    "inventory_text_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "runtime_inventory": {
+      "snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+      "overlay_sha256": "180e2823200162a4eaa2975aa4eef9403ad10fec33f2caa1d48a83409c9d7eac",
+      "completion_sha256": "6a8e0cf2fa77c5c19eb0aafdab0ffc0334faaf2221e7a8154ce7cdfb79097de3",
+      "effective_inventory_sha256": "e8094e07505fbfbb7121d94693069e624531c4726d853e27b7a24f6c5d0fb280",
+      "inventory_text_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+      "eligible_design_stock_count": 357
+    },
+    "canonical_materialization_stock_count": 287,
+    "canonical_effective_inventory_sha256": "234ce2909b9ccf1a33a872a20e4b3bced395643e25c0430497f4afb5ce2c0feb",
+    "count_scope_note": "Canonical materialized stocks and runtime eligible design-stock candidates are different views; do not equate their counts or hashes.",
+    "inventory_modified_by_this_work": false,
+    "formula_modified_by_this_work": false,
+    "orris_liquid_hold_preserved": true,
+    "received_stock_receipt_preserved": "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json",
+    "legacy_oav_diagnostic": {
+      "scope": "live_owned_non_solvent_inventory",
+      "material_count": 290,
+      "modeled_oav_available_count": 221,
+      "oav_unknown_count": 69,
+      "coverage_pct": 76.207,
+      "status": "FAIL_CLOSED_GAPS",
+      "interpretation": "Modeled availability only; not measured headspace, intensity, sensory quality or release clearance."
+    }
+  },
+  "research_followup": {
+    "runtime_source_records_added": 0,
+    "documents": [
+      "docs/research/CHYPRE_COLOGNE_AND_TEXTURE_NEXT_WAVE_20261007.md",
+      "docs/research/LILAC_IDENTITY_AND_ENDPOINT_REVIEW_20261007.md"
+    ],
+    "activation_state": "REVIEWED_PLAN_NOT_ACTIVATED",
+    "scope": "Manufacturer architecture/identity descriptions and bounded primary lilac abstracts/methods; no numerical calibration",
+    "document_hashes": [
+      {
+        "path": "docs/research/CHYPRE_COLOGNE_AND_TEXTURE_NEXT_WAVE_20261007.md",
+        "sha256": "ddb9bc7dc1f53bcb88a88c3d88d8b7d6123cae5aabfacbd4dc74b3976afd8fd3"
+      },
+      {
+        "path": "docs/research/LILAC_IDENTITY_AND_ENDPOINT_REVIEW_20261007.md",
+        "sha256": "619803ef0f799dcb35b146318127fe8609de96d1c72bdd8c2582b11cd00cd64b"
+      }
+    ]
+  },
+  "next_work": [
+    {
+      "scope": "Chypre and citrus-to-wood successor",
+      "state": "RESEARCHED_NOT_IMPLEMENTED",
+      "candidates": [
+        "CHYPRE_FLORAL",
+        "CHYPRE_GREEN",
+        "COLOGNE_WOOD"
+      ],
+      "requirement": "Own-material facet eligibility, immutable predecessor bindings, frozen positive and negative cases, and verified distinct stock/dose interventions."
+    },
+    {
+      "scope": "Remaining executable subtype mappings",
+      "state": "PARTIAL",
+      "remaining_cards": 135,
+      "remaining_by_package": {
+        "AB_ABSTRACT": 4,
+        "AM_AMBERGRIS": 2,
+        "AM_FLORAL": 2,
+        "AM_RESIN": 8,
+        "AM_SOFT": 2,
+        "AM_WOODS": 2,
+        "AN_SKIN": 3,
+        "AR_FOUGERE": 1,
+        "AR_HERBS": 4,
+        "AR_LAVENDER": 5,
+        "BO_BOOZY": 2,
+        "CH_CHYPRE": 5,
+        "CI_CHASSIS": 2,
+        "CI_PRODUCTS": 5,
+        "CU_TRADITIONS": 4,
+        "FL_BOUQUET": 1,
+        "FL_GREEN": 3,
+        "FL_LIGHT": 8,
+        "FL_POLLEN": 1,
+        "FL_TROPICAL": 5,
+        "FR_BERRY": 5,
+        "FR_ORCHARD": 4,
+        "FR_STONE": 3,
+        "FR_TROPICAL": 5,
+        "GO_DAIRY": 2,
+        "GO_ROAST": 4,
+        "GO_VANILLA": 3,
+        "GR_GREEN": 4,
+        "HY_HYBRIDS": 3,
+        "LE_LEATHER": 3,
+        "MU_MUSK": 3,
+        "RE_INCENSE": 3,
+        "SP_SPICE": 4,
+        "TE_TEA": 4,
+        "TO_HAY": 4,
+        "WA_AQUATIC": 4,
+        "WO_CEDAR": 3,
+        "WO_OUD": 3,
+        "WO_VETIVER": 2
+      }
+    },
+    {
+      "scope": "CHIMIE LHOMME",
+      "state": "HOLD_EXACT_BRIEF_OR_FORMULA_REQUIRED"
+    },
+    {
+      "scope": "Empirical scent and consumer performance",
+      "state": "NOT_TESTED"
+    },
+    {
+      "scope": "Exact identity and omission operations",
+      "state": "PENDING",
+      "requirement": "Add role-specific identity/grade support and real omission operations before mapping lilac, iris/musk texture, leather and botanical-grade comparisons."
+    }
+  ],
+  "tested_implementation_sha256": {
+    "engine/formulation_intelligence/architecture_bridge.py": "f3031dd724e03867175e51b433a822b5e2f96aacaf67f220034da093d4672493",
+    "engine/formulation_intelligence/formula_design_runtime.py": "08bb68192c4f4c55ab1442474f8b51e10385f567688dc5f796e31a552d36273a",
+    "engine/formulation_intelligence/formula_solver.py": "faef0528763e62a204a3394967b8d13486081830d70cd652a7c679601aee0a9c",
+    "engine/formulation_intelligence/formula_critic.py": "b83fe6108058dd1c0f36ac90feb2bd7618dca349a46b39871a49fe7fba10f4af",
+    "engine/formulation_intelligence/material_capability_index.py": "67c9c4611687929e8c10f701292e8e9966e8d77a7b2a021caa08c87f349a0bf5",
+    "engine/research/subtype_benchmark.py": "3547ee3f02a887b50d933456ce93420125f76704b34be63891b7ca0b1aa7ec8c"
+  },
+  "review": "docs/research/FLORAL_AROMATIC_V3_CURRENT_INVENTORY_REVIEW_20261007.md",
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "tested_test_sha256": {
+    "tests/test_architecture_v3_repairs.py": "7bfc7f703fba1d2171a72348114a1fe8216fe5245bd08a01591b9e5c3ebeb4a5",
+    "tests/test_architecture_receipt_binding.py": "62ddffe11aea131bafc45f63fe30f946f8657205c2a47ed0298c46d7ed1dcb22",
+    "tests/test_science_audit.py": "bec5271de0d47f756b51c68b84a6b5e9e7cedcdbfd03e415fbb726a29d5d88fb"
+  }
+}

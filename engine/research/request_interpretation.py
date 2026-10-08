@@ -205,6 +205,12 @@ def _direction(text: str) -> str:
     return next(iter(matches), "UNSPECIFIED")
 
 
+def positive_reference_text(text: str) -> str:
+    """Exclude explicitly avoided clauses from documentary reference matching."""
+    _values, spans = _avoid_values_and_spans(text)
+    return _masked_text(text, spans)
+
+
 def _matched_names(text: str, names: Sequence[str]) -> tuple[str, ...]:
     # Longest-first span claiming prevents a short identity (for example
     # ``Ambrox Super``) from duplicating an exact product/form mention (for
@@ -212,7 +218,7 @@ def _matched_names(text: str, names: Sequence[str]) -> tuple[str, ...]:
     claimed: list[tuple[int, int]] = []
     matched: list[str] = []
     for name in sorted(names, key=lambda item: (-len(item), item.casefold())):
-        hits = tuple(re.finditer(re.escape(name), text, re.I))
+        hits = tuple(re.finditer(rf"(?<!\w){re.escape(name)}(?!\w)", text, re.I))
         accepted = False
         for hit in hits:
             span = hit.span()
@@ -673,7 +679,7 @@ def interpret_request(request: RequestInterpretationInputV1) -> dict[str, Any]:
         if _constraints_overlap(request.known_materials, (value,))
     )
     mandatory_materials = _mandatory_materials(positive_text, request.known_materials)
-    references = _matched_names(text, request.known_references)
+    references = _matched_names(positive_text, request.known_references)
     quantities = _quantities(text, request.known_materials)
     material_count_constraints = _material_count_constraints(text)
     quantity_materials = tuple(
@@ -726,7 +732,7 @@ def interpret_request(request: RequestInterpretationInputV1) -> dict[str, Any]:
         ambiguities.append("MUTUALLY_EXCLUSIVE_SENSORY_REQUIREMENTS")
 
     desired = request.desired_changes or (text,)
-    desired_rows = [
+    desired_rows: list[dict[str, Any]] = [
         {
             "text": change,
             "direction": _direction(change),

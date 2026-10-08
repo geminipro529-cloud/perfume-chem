@@ -75,9 +75,11 @@ def test_commercial_mode_blocks_technical_edge_evernyl():
 
 
 def test_commercial_optimizer_repairs_evernyl_robustness_margin():
+    formula = _fougere_formula(evernyl_ul=150.0)
     result = optimize_until_release_ready(
         "Commercial Fougere Repair",
-        _raw_pct_from_formula(_fougere_formula(evernyl_ul=150.0)),
+        _raw_pct_from_formula(formula),
+        stock_dilutions=formula["dilutions"],
         config=ReleaseGateConfig(
             brief="aromatic_fougere",
             commercial_mode=True,
@@ -95,6 +97,12 @@ def test_commercial_optimizer_repairs_evernyl_robustness_margin():
         and action.action == "cap_robustness_safety_margin"
         and action.material == "Evernyl"
         for action in result.repair_actions
+    )
+    # Arithmetic repair is not proof of stock binding or release authority.
+    assert result.status == "FAIL"
+    assert any(
+        gate.status == "FAIL" and gate.gate in {"inventory_stock_contract", "authority_vector"}
+        for gate in result.gate_report.gates
     )
 
 

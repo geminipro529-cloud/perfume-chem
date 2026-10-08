@@ -1,0 +1,1922 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v19",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-10-07",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260930_aimi_identity.json",
+    "normalized_text_sha256": "582acaf38382b95252dcc67f01b21a2b56b96ae418c31bda1cef3d355f419ad8"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 35704,
+    "inventory_text_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "confirmed_receipt": "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json",
+    "confirmed_receipt_sha256": "089c930e044b55e434c0e0438ee7b2c20f48d871f00a219a7237a932419fbc9a"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "received_quantities_are_not_remaining": true,
+    "existing_dilutions_preserved": true,
+    "missing_percentage_basis_remains_unspecified": true,
+    "formula_rebase_authorized": false,
+    "compounding_authorized": false,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [
+    "INV-USER-20260907-007"
+  ],
+  "receipt_stock_links": [
+    {
+      "line": 1,
+      "name": "Ambrette Seed Absolute",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 2,
+      "name": "Habanolide",
+      "existing_stock_ids": [
+        "inventory:v5:1bd4a222c53bc7aadc0e"
+      ]
+    },
+    {
+      "line": 3,
+      "name": "Helvetolide",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 4,
+      "name": "Romandolide",
+      "existing_stock_ids": [
+        "inventory:user-20260915:f9010a6ac82c5d4bedbd"
+      ]
+    },
+    {
+      "line": 5,
+      "name": "Zenolide",
+      "existing_stock_ids": [
+        "inventory:v5:3fec3fbd1ff43a62aac7"
+      ]
+    },
+    {
+      "line": 6,
+      "name": "Ambrofix Crystals",
+      "existing_stock_ids": [
+        "inventory:user-20260907:991f1c0a4cc3605da5ae"
+      ]
+    },
+    {
+      "line": 7,
+      "name": "Vertofix",
+      "existing_stock_ids": [
+        "inventory:v5:956f2505d56f3a21b129"
+      ]
+    },
+    {
+      "line": 8,
+      "name": "Birch Tar Rectified",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 9,
+      "name": "Tobacco Absolute",
+      "existing_stock_ids": [
+        "inventory:v5:e0fbf5a84fd0feb76599",
+        "inventory:v5:684e427978f599103572"
+      ]
+    },
+    {
+      "line": 10,
+      "name": "Gamma Undecalactone",
+      "existing_stock_ids": [
+        "inventory:v5:d207ad98b34efac9f76e"
+      ]
+    },
+    {
+      "line": 11,
+      "name": "Aldehyde C-18",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 12,
+      "name": "Delta Decalactone",
+      "existing_stock_ids": [
+        "inventory:v5:49416d4f3ca1f033f25b"
+      ]
+    },
+    {
+      "line": 13,
+      "name": "Gamma Decalactone",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 14,
+      "name": "Gamma Octalactone",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 15,
+      "name": "Aldehyde C-12 Lauric Dodecanal",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 16,
+      "name": "Aldehyde C-8 Octanal",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 17,
+      "name": "Aldehyde C-9 Nonanal",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 18,
+      "name": "Acetoin",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 19,
+      "name": "Coumarin",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 20,
+      "name": "Alpha Damascone",
+      "existing_stock_ids": [
+        "inventory:v5:9ba563c19007b9f0eca5"
+      ]
+    },
+    {
+      "line": 21,
+      "name": "Buccoxime",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 22,
+      "name": "Frangipani Absolute",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 23,
+      "name": "Kephalis",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 24,
+      "name": "Manzanate",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 25,
+      "name": "Mate Absolute",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 26,
+      "name": "Orris Concrete Orris Butter",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 27,
+      "name": "Rose Otto Bulgarian",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 28,
+      "name": "Cis-3 Hexenyl Acetate",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 29,
+      "name": "Cis-3 Hexenyl Hexanoate",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 30,
+      "name": "Glycolierral",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 31,
+      "name": "Magnolan",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 32,
+      "name": "Veloutone",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 33,
+      "name": "Methyl Diantilis",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 34,
+      "name": "Cedryl Acetate",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 35,
+      "name": "Rhubofix",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 36,
+      "name": "Phenyl Acetaldehyde",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 37,
+      "name": "Lemon Terpeneless Oil Sicilian",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 38,
+      "name": "Ethyl Linalyl Acetate",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 39,
+      "name": "Diethyl Malonate",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 40,
+      "name": "Ethyl 2-Methylbutyrate",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 41,
+      "name": "Buccoxime",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 42,
+      "name": "Butyl Butyrate",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 43,
+      "name": "Berry Hexanoate (BerryFlor)",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 44,
+      "name": "Florol",
+      "existing_stock_ids": [
+        "inventory:v5:9f1fee283f31fe598eca"
+      ]
+    },
+    {
+      "line": 45,
+      "name": "Allyl Amyl Glycolate",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 46,
+      "name": "Fructone B",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 47,
+      "name": "Maltol",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 48,
+      "name": "Maple Lactone",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 49,
+      "name": "Vanilla Absolute",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 50,
+      "name": "Black Tea Base",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 51,
+      "name": "Lavandin Absolute",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 52,
+      "name": "Saffranal",
+      "existing_stock_ids": []
+    },
+    {
+      "line": 53,
+      "name": "Ambrocenide",
+      "existing_stock_ids": []
+    }
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20261007-PW-001",
+      "canonical_name": "Ambrette Seed Absolute",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "musks",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "physical_form": "supplier_prepared_solution",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Ambrette Seed Absolute 10% in DPG",
+        "sku": "5XU12235"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 1,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-003",
+      "canonical_name": "Helvetolide",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "musks",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Helvetolide",
+        "sku": "3XD17215"
+      },
+      "received_quantity_g": "5",
+      "receipt_line": 3,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-008",
+      "canonical_name": "Birch Tar Rectified",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "leather / smoky / phenolic",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "physical_form": "supplier_prepared_solution",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Birch Tar Oil Rectified 10% in DPG",
+        "sku": "5TP11094"
+      },
+      "received_quantity_g": "2",
+      "receipt_line": 8,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-011",
+      "canonical_name": "Aldehyde C-18",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / gourmand / balsamic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Aldehyde C-18 Gamma Nonalactone",
+        "sku": "4DD00324"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 11,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-013",
+      "canonical_name": "Gamma Decalactone",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / gourmand / balsamic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Gamma Decalactone",
+        "sku": "4DD01639"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 13,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-014",
+      "canonical_name": "Gamma Octalactone",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / gourmand / balsamic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Gamma Octalactone",
+        "sku": "4DD00331"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 14,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-015",
+      "canonical_name": "Aldehyde C-12 Lauric Dodecanal",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Aldehyde C-12 Lauric Dodecanal",
+        "sku": "4AA00021"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 15,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-016",
+      "canonical_name": "Aldehyde C-8 Octanal",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Aldehyde C-8 Octanal",
+        "sku": "4AC00026"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 16,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-017",
+      "canonical_name": "Aldehyde C-9 Nonanal",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Aldehyde C-9 Nonanal",
+        "sku": "4AC00027"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 17,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-018",
+      "canonical_name": "Acetoin",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / gourmand / balsamic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Acetoin",
+        "sku": "4DV02664"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 18,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-019",
+      "canonical_name": "Coumarin",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / gourmand / balsamic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "solid_as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Coumarin",
+        "sku": "1VD00129"
+      },
+      "received_quantity_g": "10",
+      "receipt_line": 19,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-021",
+      "canonical_name": "Buccoxime",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green / fresh / marine",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "physical_form": "supplier_prepared_solution",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Buccoxime 10% in DPG",
+        "sku": "5FB07818"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 21,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-022",
+      "canonical_name": "Frangipani Absolute",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "physical_form": "supplier_prepared_solution",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Frangipani Absolute 10% in DPG",
+        "sku": "5ON09236"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 22,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-023",
+      "canonical_name": "Kephalis",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods / amber / structure",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Kephalis",
+        "sku": "4WY07089"
+      },
+      "received_quantity_g": "5",
+      "receipt_line": 23,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 153
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 153,
+          "disposition": "OWNED",
+          "status": "HAVE - USER CONFIRMED RECEIVED 2026-10-07",
+          "actual_stock_text": "Kephalis (neat / as supplied); PW 4WY07089",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-024",
+      "canonical_name": "Manzanate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Manzanate",
+        "sku": "4FG15438"
+      },
+      "received_quantity_g": "3",
+      "receipt_line": 24,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-025",
+      "canonical_name": "Mate Absolute",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice / aromatic",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "physical_form": "supplier_prepared_solution",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Mate Absolute 10% in DPG",
+        "sku": "5HE13845"
+      },
+      "received_quantity_g": "2",
+      "receipt_line": 25,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-026",
+      "canonical_name": "Orris Concrete Orris Butter",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "iris / violet",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "physical_form": "supplier_prepared_solution",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Orris Concrete Orris Butter 10% in DPG",
+        "sku": "5IA07847"
+      },
+      "received_quantity_g": "2",
+      "receipt_line": 26,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-027",
+      "canonical_name": "Rose Otto Bulgarian",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "physical_form": "supplier_prepared_solution",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Rose Otto Bulgarian 10% in DPG",
+        "sku": "5RR12478"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 27,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-028",
+      "canonical_name": "Cis-3 Hexenyl Acetate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green / fresh / marine",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "cis-3 Hexenyl Acetate",
+        "sku": "4GF00226"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 28,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-029",
+      "canonical_name": "Cis-3 Hexenyl Hexanoate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green / fresh / marine",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "cis-3 Hexenyl Hexanoate",
+        "sku": "4GG01946"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 29,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-030",
+      "canonical_name": "Glycolierral",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green / fresh / marine",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Glycolierral",
+        "sku": "3MW11714"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 30,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-031",
+      "canonical_name": "Magnolan",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Magnolan",
+        "sku": "3MN13569"
+      },
+      "received_quantity_g": "2",
+      "receipt_line": 31,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-032",
+      "canonical_name": "Veloutone",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Veloutone",
+        "sku": "3LH00459"
+      },
+      "received_quantity_g": "2",
+      "receipt_line": 32,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-033",
+      "canonical_name": "Methyl Diantilis",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice / aromatic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Methyl Diantilis",
+        "sku": "4SP16859"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 33,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-034",
+      "canonical_name": "Cedryl Acetate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods / amber / structure",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Cedryl Acetate",
+        "sku": "2WW00099"
+      },
+      "received_quantity_g": "2",
+      "receipt_line": 34,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-035",
+      "canonical_name": "Rhubofix",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green / fresh / marine",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Rhubofix",
+        "sku": "3FL06757"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 35,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-036",
+      "canonical_name": "Phenyl Acetaldehyde",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {
+        "fraction": 0.85,
+        "fraction_basis": "unspecified",
+        "carrier": "pea",
+        "physical_form": "supplier_prepared_solution",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Phenyl Acetaldehyde 85% in PEA",
+        "sku": "5GP07497"
+      },
+      "received_quantity_g": "2",
+      "receipt_line": 36,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-037",
+      "canonical_name": "Lemon Terpeneless Oil Sicilian",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Lemon Terpeneless oil Sicilian",
+        "sku": "7CC24027"
+      },
+      "received_quantity_g": "2",
+      "receipt_line": 37,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-038",
+      "canonical_name": "Ethyl Linalyl Acetate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Ethyl Linalyl Acetate",
+        "sku": "3LC19147"
+      },
+      "received_quantity_g": "5",
+      "receipt_line": 38,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-039",
+      "canonical_name": "Diethyl Malonate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / gourmand / balsamic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Diethyl Malonate",
+        "sku": "3FG00145"
+      },
+      "received_quantity_g": "2",
+      "receipt_line": 39,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-040",
+      "canonical_name": "Ethyl 2-Methylbutyrate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Ethyl 2-Methylbutyrate",
+        "sku": "4FD04118"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 40,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-041",
+      "canonical_name": "Buccoxime",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green / fresh / marine",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "solid_as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Buccoxime",
+        "sku": "1FB00071"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 41,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-042",
+      "canonical_name": "Butyl Butyrate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / gourmand / balsamic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Butyl Butyrate",
+        "sku": "3FD05860"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 42,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-043",
+      "canonical_name": "Berry Hexanoate (BerryFlor)",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Berry Hexanoate (BerryFlor)",
+        "sku": "3FG19149"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 43,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-045",
+      "canonical_name": "Allyl Amyl Glycolate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / gourmand / balsamic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Allyl Amyl Glycolate",
+        "sku": "4FG00029"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 45,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-046",
+      "canonical_name": "Fructone B",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / gourmand / balsamic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Fructone B",
+        "sku": "3FG00196"
+      },
+      "received_quantity_g": "2",
+      "receipt_line": 46,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-047",
+      "canonical_name": "Maltol",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / gourmand / balsamic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "solid_as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Maltol",
+        "sku": "1VE00283"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 47,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-048",
+      "canonical_name": "Maple Lactone",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / gourmand / balsamic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Maple Lactone",
+        "sku": "1VE00286"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 48,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-049",
+      "canonical_name": "Vanilla Absolute",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / gourmand / balsamic",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "physical_form": "supplier_prepared_solution",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Vanilla Absolute 10% in DPG",
+        "sku": "5VW09926"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 49,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-050",
+      "canonical_name": "Black Tea Base",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "accord bases / other",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Black Tea Base",
+        "sku": "6HE09224"
+      },
+      "received_quantity_g": "2",
+      "receipt_line": 50,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-051",
+      "canonical_name": "Lavandin Absolute",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice / aromatic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Lavandin Absolute",
+        "sku": "8HY00554"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 51,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-052",
+      "canonical_name": "Saffranal",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice / aromatic",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "physical_form": "supplier_prepared_solution",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Saffranal 10% in DPG",
+        "sku": "5ES07841"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 52,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20261007-PW-053",
+      "canonical_name": "Ambrocenide",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods / amber / structure",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "tec",
+        "physical_form": "supplier_prepared_solution",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Ambrocenide 10% in TEC",
+        "sku": "5WU22696"
+      },
+      "received_quantity_g": "3",
+      "receipt_line": 53,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-07",
+      "source_kind": "USER_CONFIRMED_RECEIVED_SUPPLIER_ORDER",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "purity_assay_asserted": false,
+        "percentage_basis_inferred": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,271 @@
+{
+  "schema_version": "fragrance-research-coverage-progress-v12",
+  "as_of_date": "2026-10-07",
+  "status": "V4_ACTIVE_AFTER_STAGED_CORPUS_AND_POST_ACTIVATION_FOCUSED_ACCEPTANCE",
+  "full_research_program_complete": false,
+  "completion_boundary": "Three source-bound chypre/cologne mappings with exact option accounting, honest stock-pool holds and bounded forward checking; no sensory, performance-target or full-project completion claim.",
+  "predecessor": {
+    "path": "data/formulation_knowledge/research_coverage_progress_v11.json",
+    "sha256": "5e2c9b509bb55580e7595d956ac2f729423360c907113fd0a27def1e18006666",
+    "preserved": true
+  },
+  "totals": {
+    "construction_dossiers": 49,
+    "partial_subtype_cards": 179,
+    "floral_packages": 13,
+    "floral_packages_with_at_least_one_mapping": 13,
+    "sources": 233,
+    "claims": 226,
+    "profiles": 43,
+    "exact_material_cards": 25,
+    "architecture_mappings": 47,
+    "architecture_options": 93,
+    "subtype_cards_without_executable_mapping": 132,
+    "empirical_capabilities_added": 0,
+    "numeric_calibrations_admitted": 0,
+    "source_records_added_this_wave": 0
+  },
+  "active_adapter": {
+    "path": "data/formulation_knowledge/architecture_adapters_v4.json",
+    "sha256": "44776decd27ba01d88dbdbc30b37393b1700c9b9403634be1162044ef01638a3",
+    "schema_version": "source-bound-architecture-adapters-v4",
+    "predecessor_sha256": "70ec8bd60abefa7d5e09556fece34067caecacba539e6db1fcdea5d7d2f0111c",
+    "ordered_predecessor_mappings_preserved": 44,
+    "v4_activated": true,
+    "activation_scope": "SOURCE_CONFIGURATION_NOT_LIVE_SERVER_DEPLOYMENT",
+    "fresh_full_corpus_before_activation": true,
+    "fresh_full_corpus_after_activation": false,
+    "post_activation_focused_tests_passed": true
+  },
+  "new_options": [
+    {
+      "subtype_id": "CHYPRE_FLORAL",
+      "option": "chypre_floral_axes:rose_petals",
+      "requirement": "rose",
+      "current_state": "EXECUTABLE_COMPARISON",
+      "sensory_validation": "NOT_TESTED"
+    },
+    {
+      "subtype_id": "CHYPRE_FLORAL",
+      "option": "chypre_floral_axes:jasmine_bridge",
+      "requirement": "jasmine",
+      "current_state": "EXECUTABLE_COMPARISON",
+      "sensory_validation": "NOT_TESTED"
+    },
+    {
+      "subtype_id": "CHYPRE_GREEN",
+      "option": "chypre_green_axes:bitter_resin",
+      "requirement": "bitter_resin_green",
+      "current_state": "HOLD_NO_ELIGIBLE_CURRENT_STOCK",
+      "sensory_validation": "NOT_TESTED"
+    },
+    {
+      "subtype_id": "CHYPRE_GREEN",
+      "option": "chypre_green_axes:watery_leaf",
+      "requirement": "watery_leaf",
+      "current_state": "EXECUTABLE_COMPARISON",
+      "sensory_validation": "NOT_TESTED"
+    },
+    {
+      "subtype_id": "COLOGNE_WOOD",
+      "option": "cologne_wood_leaf_bridge:leaf_bridge",
+      "requirement": "citrus_leaf_floral",
+      "current_state": "HOLD_NO_ELIGIBLE_CURRENT_STOCK",
+      "sensory_validation": "NOT_TESTED"
+    }
+  ],
+  "implementation": {
+    "own_odor_correction": "Fructone B application flower names excluded; BerryFlor and Hedione independent own-jasmine evidence preserved.",
+    "inventory_annotations_not_manufactured": true,
+    "option_accounting": "Full planned/attempted/returned/viable/verified-empty partition with replay and exhaustive admissible stock pool.",
+    "future_role_policy": "BOUNDED_REQUIRED_DESCRIPTOR_FORWARD_CHECK_V1",
+    "forward_checking_is_complete_feasibility_proof": false,
+    "numeric_allocation_templates_changed": false,
+    "stock_trace_exclusion_and_identity_gates_weakened": false,
+    "new_pipeline_script_added": false,
+    "source_files": [
+      {
+        "path": "engine/ingredient_intelligence.py",
+        "sha256": "f4f1957803a6ee66b3e9079879bda05a2ef46a28fd6edbd0696737ceff8e6726"
+      },
+      {
+        "path": "engine/formulation_intelligence/material_capability_index.py",
+        "sha256": "c5a5496205addf22a1f1a9cbc7a6dced370e5edaaf5e9456877679f587c52edb"
+      },
+      {
+        "path": "engine/formulation_intelligence/architecture_bridge.py",
+        "sha256": "7df21e9c99d363a405b981ee2be879eeb35b6a03399e9680fda46f7b0e5174d1"
+      },
+      {
+        "path": "engine/formulation_intelligence/formula_solver.py",
+        "sha256": "c2837cd2083e478ca721cd209b9fda80656097d663c80240efd9a76069bf30b0"
+      },
+      {
+        "path": "engine/research/subtype_benchmark.py",
+        "sha256": "74356ed4c1cf652f604bbe05935a2ee4c8fbfbe97e771e2e57ea7ef34b583b4f"
+      },
+      {
+        "path": "backend/app/services/engine_jobs.py",
+        "sha256": "ac01a318db3125c3423c4681a39a8a78f8f4ab958325af9790e51c2f2baecc51"
+      },
+      {
+        "path": "AGENTS.md",
+        "sha256": "ca04b9088d71d5517189e2f0330cc04f60437d6ddb55702e940b1f948a1d9cc9"
+      }
+    ]
+  },
+  "staged_diagnostic": {
+    "path": "docs/research/chypre_cologne_v4_staged_20261007.json",
+    "sha256": "2b384f516a4453b86e4891e0693bf0644ce7ddcb5583b5e4f79d7e0da0c3d976",
+    "corpus": {
+      "path": "tests/fixtures/architecture_comparison_v4.json",
+      "sha256": "4e3e24bd12fa968d60e35576f06c1729f72f528794fff7f4ed31ed44db20b79f",
+      "frozen_before_first_run": true,
+      "modified_to_hide_failure": false
+    },
+    "status": "PASS",
+    "case_count": 68,
+    "design_calls": 272,
+    "source_bound_variants": 99,
+    "viable_source_bound_variants": 99,
+    "cases_with_source_bound_variants": 51,
+    "cases_with_changed_physical_composition": 51,
+    "reverse_order_repeat_identical": true,
+    "same_inventory": true,
+    "snapshot_file_count": 1028,
+    "changed_paths": [],
+    "opening_snapshot_sha256": "c8606ab1959127ef323a6b1fb37e3601a16242e82df9862dba732db8d15ab067",
+    "closing_snapshot_sha256": "c8606ab1959127ef323a6b1fb37e3601a16242e82df9862dba732db8d15ab067",
+    "includes_later_activation_and_documentation_bytes": false
+  },
+  "verification": {
+    "reproduced_failures": [
+      {
+        "scope": "Fructone B own-jasmine eligibility",
+        "failed": 1,
+        "passed": 2,
+        "seconds": 17.42
+      },
+      {
+        "scope": "First staged v4 suite, viable watery-leaf option consumed by broad earlier role",
+        "failed": 1,
+        "passed": 39,
+        "seconds": 49.68
+      },
+      {
+        "scope": "Isolated scarce future role beam-width-one regression before repair",
+        "failed": 1,
+        "deselected": 40,
+        "seconds": 19.93
+      }
+    ],
+    "pre_activation_focused": {
+      "passed": 361,
+      "failed": 0,
+      "seconds": 774.57
+    },
+    "extra_paraphrases": {
+      "passed": 8,
+      "failed": 0,
+      "seconds": 4.52
+    },
+    "pre_activation_studio_guards": {
+      "passed": 5,
+      "failed": 0,
+      "seconds": 29.18
+    },
+    "post_activation_focused": {
+      "passed": 179,
+      "failed": 0,
+      "seconds": 194.79,
+      "scope": "v4, predecessor replay, v3, own-descriptor tests and five exact Formula Studio guards"
+    },
+    "backend_fingerprint_tests": {
+      "passed": 8,
+      "failed": 0,
+      "seconds": 27.36
+    },
+    "repeated_test_counts_are_not_unique_test_totals": true,
+    "scoped_root_ruff": "PASS",
+    "scoped_root_mypy": "PASS_THREE_MODULES_EXPLICIT_PACKAGE_BASES_IMPORTS_SKIPPED",
+    "scoped_backend_ruff": "PASS",
+    "scoped_backend_mypy": "PASS_ONE_MODULE_IMPORTS_SKIPPED",
+    "quick_project_report": "FAIL_ENVIRONMENT_MISSING_PYTEST_ASYNCIO",
+    "independent_exact_api_retest": {
+      "passed": 1,
+      "deselected": 18,
+      "seconds": 9.86,
+      "real_backend_python": "3.11",
+      "outside_sandbox": true,
+      "original_quick_failure_not_reclassified": true
+    },
+    "environment_receipt": {
+      "path": "docs/research/chypre_cologne_v4_quick_verification_20261007.json",
+      "sha256": "728e006e10532344f38ac2496839a0f3712019a91559dbaebe554ec88316e280"
+    },
+    "git_diff_check": "PASS",
+    "full_verifier_run": false,
+    "merge_or_release_readiness_claimed": false
+  },
+  "performance": {
+    "scope": "FORWARD_DIAGNOSTIC_TIMINGS_ON_THIS_WORKSTATION_NOT_ISOLATED_FULL_SYSTEM_ACCEPTANCE",
+    "design_p95_seconds": {
+      "CONTROL_ONLY": 7.512602499999048,
+      "ARCHITECTURE_COMPARISON": 10.817380699998466
+    },
+    "combined_p95_seconds": {
+      "CONTROL_ONLY": 7.603759999998147,
+      "ARCHITECTURE_COMPARISON": 11.092093600000226
+    },
+    "five_second_target_met": false,
+    "worker_1_2_4_8_acceptance_performed": false,
+    "measured_bottleneck_identified": false,
+    "code_review_candidates": [
+      "Per-stock repeated knowledge/source byte reads",
+      "Repeated immutable adapter lineage parsing",
+      "Repeated source-record digest and duplicate-aware scans"
+    ],
+    "performance_cache_implemented": false
+  },
+  "review_artifacts": [
+    {
+      "path": "docs/research/CHYPRE_COLOGNE_V4_IMPLEMENTATION_PLAN_20261007.md",
+      "sha256": "f5320f540f4f3728be7dbe6cbbe5c8e923c3d5e1cba0bb0ee43765668ccf8d22"
+    },
+    {
+      "path": "docs/research/CHYPRE_COLOGNE_V4_REVIEW_20261007.md",
+      "sha256": "609fea622125f570da88d0e0ffcdc89f7d23a17c922c73d0fa49094d2c23a43d"
+    }
+  ],
+  "next_checkpoint": [
+    "Profile fresh/warm representative control and comparison requests with exact source and inventory hashes, file-read counts and exclusive/cumulative times.",
+    "Only for measured redundant reads, implement request-scoped verified bundles or pure byte-keyed caching; retain freshness, missing/duplicate evidence detection and exact scientific result equivalence.",
+    "Re-measure p95 without conflating the offline multi-request diagnostic with ordinary formula execution; retain unsuccessful target results.",
+    "Then research powder-musk, lavender-iris and tea-musk descriptor contracts, exact grade boundaries and source-specific alternatives.",
+    "Require distinct representation work for non-smoky suede/resin and real omission experiments; do not use generic smoke templates or extra roles as substitutes."
+  ],
+  "preserved_boundaries": {
+    "inventory_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "effective_inventory_sha256": "e8094e07505fbfbb7121d94693069e624531c4726d853e27b7a24f6c5d0fb280",
+    "inventory_modified_by_this_increment": false,
+    "formula_modified_by_this_increment": false,
+    "orris_liquid_compounding_hold_cleared": false,
+    "chimie_lhomme_exact_campaign_available": false,
+    "primary_source_web_review_performed": true,
+    "runtime_network_used": false,
+    "deepseek_or_external_llm_route_used": false,
+    "native_read_only_reviewers": 2,
+    "live_server_deployment_performed": false,
+    "sensory_validation_performed": false,
+    "physical_compounding_performed": false,
+    "purchase_performed": false,
+    "git_commit_or_push_performed": false,
+    "unrelated_dirty_work_preserved": true
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

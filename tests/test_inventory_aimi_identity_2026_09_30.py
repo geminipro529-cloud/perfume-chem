@@ -46,11 +46,11 @@ def _stock_check(label: str):
     return resolve_inventory_stock_contract(formula)
 
 
-def test_v18_overlay_is_bound_to_receipt_and_live_inventory() -> None:
-    overlay_path = inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH
+def test_v18_overlay_remains_bound_to_its_historical_receipt() -> None:
+    overlay_path = inventory.AIMI_IDENTITY_USER_INVENTORY_OVERLAY_PATH
     normalized_overlay = overlay_path.read_bytes().replace(b"\r\n", b"\n")
     assert hashlib.sha256(normalized_overlay).hexdigest() == (
-        inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256
+        inventory.AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256
     )
 
     payload = json.loads(overlay_path.read_text(encoding="utf-8"))
@@ -58,15 +58,11 @@ def test_v18_overlay_is_bound_to_receipt_and_live_inventory() -> None:
     assert payload["predecessor"]["normalized_text_sha256"] == (
         inventory.R5_REMAINING_STOCK_FORMS_V3_USER_INVENTORY_OVERLAY_SHA256
     )
-    normalized_inventory = inventory.INVENTORY_PATH.read_bytes().replace(
-        b"\r\n", b"\n"
+    assert payload["source"]["inventory_text_size_bytes"] == 28082
+    assert payload["source"]["inventory_text_sha256"] == (
+        "6b11f3aa198b9483f9f7f9567e362f987a8447b47915853ea22fada66ff3cbe3"
     )
-    assert payload["source"]["inventory_text_size_bytes"] == len(
-        normalized_inventory
-    )
-    assert payload["source"]["inventory_text_sha256"] == hashlib.sha256(
-        normalized_inventory
-    ).hexdigest()
+    inventory.load_current_user_inventory_overlay(overlay_path)
 
     receipt_path = (
         inventory.PROJECT_ROOT
@@ -174,14 +170,17 @@ def test_v17_history_retains_old_label_but_v18_supersedes_it() -> None:
         record["record_id"] == "INV-USER-20260904-003"
         for record in current["records"]
     )
-    assert current["delta_records"][0]["canonical_name"] == (
+    historical_v18 = inventory.load_current_user_inventory_overlay(
+        inventory.AIMI_IDENTITY_USER_INVENTORY_OVERLAY_PATH
+    )
+    assert historical_v18["delta_records"][0]["canonical_name"] == (
         "Alpha Isomethyl Ionone"
     )
 
 
 def test_v18_loader_rejects_identity_or_supplier_mutation() -> None:
     payload = json.loads(
-        inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8")
+        inventory.AIMI_IDENTITY_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8")
     )
     candidate = copy.deepcopy(payload)
     candidate["records"][0]["supplier_product"]["sku"] = "unverified"

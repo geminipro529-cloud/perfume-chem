@@ -1,0 +1,43 @@
+{
+  "schema_version": "wakayama-identity-adjudication-summary-v2",
+  "recorded_date": "2026-10-07",
+  "manifest_id": "wakayama-2019-governed-curves-20260923",
+  "reproduction": {
+    "implementation": "engine/research/capabilities.py",
+    "source_manifest_sha256": "fee99f21290212cc0c46df0c464130117eb5c41b8a5dc89db75270d71bfbc464",
+    "rules_sha256": "b605c7540724de10a5ba11f8f992d624c52c8245ecfcb82f5199952ca985d269",
+    "local_identity_manifest_schema_version": "local-material-identity-index-v2",
+    "local_identity_hash_semantics": "sha256-utf8-lf-normalized-v1",
+    "local_identity_manifest_sha256": "ed2ff7dfd1e89d2993309642e18c00f7a0e97bbd94ab3c228c491d2c6c863542",
+    "full_report_sha256": "87546dde2eaad4a55835ed8188e2dbc4b1c10aa236be0299c814ca89f601b4c5"
+  },
+  "verification": {
+    "source_artifact_verified": true,
+    "transcription_artifact_verified": true,
+    "license_present": true,
+    "source_row_count": 314,
+    "positive_curve_count": 313,
+    "state_counts": {
+      "CAS_NAME_CONFLICT": 1,
+      "EXACT_IDENTITY_BOUND": 11,
+      "NOT_APPLICABLE": 1,
+      "NO_LOCAL_IDENTITY": 299,
+      "PRODUCT_OR_GRADE_AMBIGUOUS": 2
+    },
+    "exact_stock_binding_count": 0,
+    "observed_range_bound_count": 0
+  },
+  "capability_admission_state": "HOLD_EXACT_STOCK_RANGE_MATRIX_BINDING",
+  "formula_action": "NO_CHANGE",
+  "scope_note": "This compact artifact is a reproducible summary, not a replacement for the 314-row adjudication output.",
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "predecessor": {
+    "path": "data/governance/wakayama_identity_adjudication_summary_20260927.json",
+    "sha256": "6f18e519b99b7f6555fd60581fba2f4f330961578377629b867e6edc894a8db4"
+  }
+}

@@ -10,7 +10,9 @@ from typing import Any, Sequence
 from engine.formulation_intelligence.material_capability_index import (
     MaterialCapability,
     MaterialCapabilityIndex,
+    architecture_avoid_conflict,
     capability_role_score,
+    supports_descriptor_requirement,
 )
 from engine.formulation_intelligence.semantic_brief_adapter import SemanticBrief, SemanticRole
 from engine.research.composition_planner import (
@@ -132,6 +134,7 @@ def _allowed(
     *,
     avoid: Sequence[str],
     allow_multiple_musks: bool,
+    enforce_own_odor_avoid: bool = False,
 ) -> bool:
     identity = _chemical_identity(capability)
     if identity in state.used_identities:
@@ -139,6 +142,11 @@ def _allowed(
     if _avoid_candidate(capability.candidate, avoid):
         return False
     if role.knowledge_role_slot and role.knowledge_role_slot not in capability.knowledge_role_slots:
+        return False
+    if not supports_descriptor_requirement(capability, role.descriptor_requirement):
+        return False
+    if architecture_avoid_conflict(capability, role.descriptor_requirement, avoid,
+                                  all_roles=enforce_own_odor_avoid):
         return False
     groups = state.groups()
     if capability.group == "musk" and groups.get("musk", 0) >= 1:
@@ -197,6 +205,7 @@ def _unary_rank_for_role(
     previous_stock_ids: frozenset[str],
     prior_variant_stock_ids: frozenset[str],
     variant_index: int,
+    enforce_own_odor_avoid: bool = False,
 ) -> list[tuple[float, MaterialCapability]]:
     ranked: list[tuple[float, MaterialCapability]] = []
     for capability in index.capabilities:
@@ -205,6 +214,11 @@ def _unary_rank_for_role(
         if capability.candidate.solid and role.exact_material is None:
             continue
         if role.knowledge_role_slot and role.knowledge_role_slot not in capability.knowledge_role_slots:
+            continue
+        if not supports_descriptor_requirement(capability, role.descriptor_requirement):
+            continue
+        if architecture_avoid_conflict(capability, role.descriptor_requirement, avoid,
+                                      all_roles=enforce_own_odor_avoid):
             continue
         score = capability_role_score(
             capability,
@@ -267,6 +281,7 @@ def _rank_for_state(
     *,
     avoid: Sequence[str],
     allow_multiple_musks: bool,
+    enforce_own_odor_avoid: bool = False,
 ) -> list[tuple[float, MaterialCapability]]:
     selected = tuple(item[1] for item in state.assignments)
     ranked = [
@@ -278,6 +293,7 @@ def _rank_for_state(
             state,
             avoid=avoid,
             allow_multiple_musks=allow_multiple_musks,
+            enforce_own_odor_avoid=enforce_own_odor_avoid,
         )
     ]
     ranked.sort(
@@ -311,7 +327,7 @@ def _solve_assignments(
     variant_index: int,
     beam_width: int,
 ) -> tuple[tuple[SolvedAssignment, ...], tuple[str, ...]]:
-    states = (
+    states: tuple[_BeamState, ...] = (
         _BeamState(
             assignments=(),
             used_identities=frozenset(),
@@ -321,6 +337,9 @@ def _solve_assignments(
     )
     missing: list[str] = []
     allow_multiple_musks = _allows_multiple_musks(brief.normalized_request, brief.roles)
+    # v5 applies explicit own-odor exclusions to the entire comparison, not
+    # only the added/refined role. Historical controls keep their replay path.
+    enforce_own_odor_avoid = bool(brief.architecture_plan.get("operation"))
     unary_rankings = {
         role.role_id: _unary_rank_for_role(
             index,
@@ -329,10 +348,11 @@ def _solve_assignments(
             previous_stock_ids=previous_stock_ids,
             prior_variant_stock_ids=prior_variant_stock_ids,
             variant_index=variant_index,
+            enforce_own_odor_avoid=enforce_own_odor_avoid,
         )
         for role in brief.roles
     }
-    for role in brief.roles:
+    for position, role in enumerate(brief.roles):
         expanded: list[_BeamState] = []
         role_has_candidate = False
         for state in states:
@@ -342,6 +362,7 @@ def _solve_assignments(
                 state,
                 avoid=avoid,
                 allow_multiple_musks=allow_multiple_musks,
+                enforce_own_odor_avoid=enforce_own_odor_avoid,
             )
             role_has_candidate = role_has_candidate or bool(ranked)
             for score, capability in ranked:
@@ -368,7 +389,25 @@ def _solve_assignments(
             if role.required:
                 missing.append(role.label)
             continue
-        expanded.sort(key=_state_sort_key)
+        future_constrained = tuple(
+            r for r in brief.roles[position + 1:] if r.required and r.descriptor_requirement
+        )
+
+        def forward_key(state: _BeamState) -> tuple[Any, ...]:
+            # Preserve candidates for a later constrained role before pruning
+            # the beam. This is bounded look-ahead, not an infeasibility proof:
+            # pools are the existing unary frontiers and no state is discarded
+            # solely for a missing future match. All hard gates still apply.
+            blocked = sum(
+                not any(_allowed(
+                    cap, future, state, avoid=avoid, allow_multiple_musks=allow_multiple_musks,
+                    enforce_own_odor_avoid=enforce_own_odor_avoid,
+                ) for _, cap in unary_rankings[future.role_id])
+                for future in future_constrained
+            )
+            return (blocked, *_state_sort_key(state))
+
+        expanded.sort(key=forward_key if future_constrained else _state_sort_key)
         states = tuple(expanded[:beam_width])
 
     if not states:
@@ -470,6 +509,10 @@ def solve_formula(
         "prohibited_objectives_used": [],
         "ingredient_count_is_objective": False,
         "pleasantness_claimed": False,
+        "architecture_plan": brief.architecture_plan,
+        "descriptor_eligibility_policy": "OWN_MATERIAL_DESCRIPTOR_NOT_NAME_OR_CATEGORY_V1",
+        "future_role_policy": "BOUNDED_REQUIRED_DESCRIPTOR_FORWARD_CHECK_V1",
+        "named_fruit_recognition": {name: "NOT_SENSORY_VALIDATED" for name in brief.requested_fruits},
     }
     signature = hashlib.sha256(
         "|".join(f"{row.role.role_id}:{row.capability.stock_id}" for row in assignments).encode()

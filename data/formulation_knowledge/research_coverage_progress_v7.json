@@ -1,0 +1,249 @@
+{
+  "schema_version": "fragrance-research-coverage-progress-v7",
+  "as_of_date": "2026-10-07",
+  "status": "SOURCE_BOUND_ARCHITECTURE_BRIDGE_VERIFIED",
+  "full_research_program_complete": false,
+  "completion_boundary": "Ten reviewed subtype-to-role mappings and twenty comparison options are wired into Deep Compose and verified. This bounded implementation is not completion of every subtype mapping, quantitative modeling, sensory validation or the continuing research objective.",
+  "workspace": {
+    "branch": "master",
+    "head": "1ed79650313c23b1a2fe1c36c2e90a606c64833b",
+    "dirty_worktree_preserved": true,
+    "git_commit_or_push_performed": false
+  },
+  "predecessor": {
+    "path": "data/formulation_knowledge/research_coverage_progress_v6.json",
+    "sha256": "225bf4a6321b387cfc10e6e31baa9496ad81a0f0abe9b8baf4f2efcd56866537",
+    "preserved": true
+  },
+  "totals": {
+    "construction_dossiers": 49,
+    "original_scope_entries": 275,
+    "declared_botanical_additions": 24,
+    "total_tracked_scopes": 299,
+    "partial_subtype_cards": 179,
+    "floral_packages_deepened": 13,
+    "sources": 233,
+    "claims": 226,
+    "profiles": 43,
+    "exact_material_cards": 25,
+    "reviewed_advisory_sources": 168,
+    "legacy_advisory_sources": 64,
+    "held_sources": 1,
+    "architecture_mappings": 10,
+    "architecture_options": 20,
+    "subtype_cards_without_executable_mapping": 169,
+    "empirical_capabilities_added": 0,
+    "numeric_calibrations_admitted": 0,
+    "source_records_added_this_wave": 0
+  },
+  "bridge": {
+    "manifest": {
+      "path": "data/formulation_knowledge/architecture_adapters_v1.json",
+      "sha256": "2a18a458d26fa891dc665ce4e75f8b8964873d46bbd36a780cd72bcd0a77e3bd"
+    },
+    "mode": "DEEP_COMPOSE",
+    "control": "UNCHANGED_ORIGINAL_BRIEF",
+    "maximum_source_bound_alternatives": 2,
+    "source_scope": "EXACT_SUBTYPE_CARD_AND_REVIEWED_LOCAL_SOURCE_RECORDS",
+    "allocation_scope": "SEPARATELY_HASHED_EXISTING_LOCAL_HEURISTIC_TEMPLATES",
+    "numerical_source_to_dose_inference": false,
+    "ordering": "UNORDERED_UNTIL_SENSORY_COMPARISON",
+    "fast_sketch_change": "No adapter-driven composition changes; matched unresolved campaigns and unavailable campaign governance withhold generation.",
+    "variants_criticized_and_reported_against_own_brief": true,
+    "protected_recognizers_preserved": true,
+    "stock_holds_preserved": true,
+    "quantity_and_solid_mass_invariants_tested": true,
+    "user_interface": "Existing variant picker shows each option's own question, timing, reference links, roles and holds; hard-critic failures are not shown as actionable formulas.",
+    "durable_job_binding": true,
+    "network_used": false
+  },
+  "diagnostics": {
+    "protocol": "architecture-comparison-corpus-v1",
+    "corpus_path": "tests/fixtures/architecture_comparison_v1.json",
+    "corpus_sha256": "5c952b513dc87cc9156a6f805b9e1f4d1f9430b946ffeadfc73f60c0c594c035",
+    "initial_failed_artifact": {
+      "path": "docs/research/architecture_comparison_initial_20261007.json",
+      "sha256": "ffa6670fa15aab852b7e0757fcf7cf7ab4a18e957bd874014de0abfb83b2d1a4",
+      "reason": "Underscore word-boundary mismatch reactivated an explicitly avoided incense subtype through the generated title.",
+      "retained": true
+    },
+    "final_artifact": {
+      "path": "docs/research/architecture_comparison_20261007.json",
+      "sha256": "d05c4cbd9461ff0269d56c24b888dec72405e1a773763ada52f40d7e7bc95238"
+    },
+    "status": "PASS",
+    "briefs": 15,
+    "design_calls": 60,
+    "source_bound_variants": 22,
+    "cases_with_changed_physical_composition": 11,
+    "returned_formula_hypotheses": 42,
+    "critic_states": {
+      "ACCEPTED_WITH_HOLDS": 42
+    },
+    "original_control_preserved": true,
+    "reverse_order_repeat_identical": true,
+    "same_inventory": true,
+    "changed_paths": [],
+    "watched_files": 1018,
+    "in_process_p95_seconds": {
+      "CONTROL_ONLY": 1.6051165999961086,
+      "ARCHITECTURE_COMPARISON": 2.886743800001568
+    },
+    "timing_scope": "Fifteen current-source diagnostic briefs on this workstation, not full-system or browser/server-startup acceptance.",
+    "sensory_improvement": "NOT_TESTED",
+    "source_scope": "Current implementation and evidence, not historical installation replay or independent sensory data."
+  },
+  "fixes_verified": [
+    "UNAVAILABLE_CAMPAIGN_GOVERNANCE_DOES_NOT_CLEAR_HOLDS",
+    "BASE_SOURCE_DEPENDENCIES_NOT_ERASED_AS_ADDENDA",
+    "CONTROL_PROTECTED_RECOGNIZERS_PRESERVED",
+    "FAILED_CONTROL_NOT_RELABELLED_AS_STOCK_ALTERNATIVE",
+    "NORMALIZED_NEGATION_BOUNDARIES",
+    "OWN_BRIEF_CRITIQUE_AND_UI_METADATA"
+  ],
+  "verification": {
+    "focused_engine": {
+      "passed": 573,
+      "failed": 0,
+      "seconds": 98.1,
+      "command": ".venv/Scripts/python.exe -m pytest tests/test_architecture_bridge.py tests/test_botanical_depth.py tests/test_subtype_research.py tests/test_source_review_governance.py tests/test_construction_library.py tests/test_floral_woody_research.py tests/test_research_closure.py tests/test_family_foundation_expansion.py tests/test_orchard_reference_panel.py tests/test_commercial_reference_freshness.py tests/test_foundation_literature_knowledge.py tests/test_lavender_literature_knowledge.py tests/test_formula_design_chat.py -q -p no:cacheprovider"
+    },
+    "focused_backend": {
+      "passed": 17,
+      "failed": 0,
+      "deselected": 15,
+      "seconds": 51.31,
+      "scope": "architecture or formula_chat or formula_conversation or deeper_review in test_source_review_job_fingerprints.py and test_lab_ui.py",
+      "environment": "Poetry Python 3.11; unique per-run scratch and per-test database"
+    },
+    "scoped_ruff": "PASS",
+    "engine_mypy": {
+      "state": "PASS",
+      "modules": [
+        "architecture_bridge.py",
+        "literature_knowledge.py"
+      ],
+      "follow_imports": "skip",
+      "explicit_package_bases": true
+    },
+    "backend_mypy": {
+      "state": "PASS",
+      "modules": [
+        "engine_job_registry.py",
+        "engine_jobs.py"
+      ]
+    },
+    "javascript_syntax": "PASS",
+    "quick_project": {
+      "path": "output/architecture_bridge_20261007/project_verification_quick.json",
+      "sha256": "80795a6e370ceea01fb22c3088ffbd738e751d320d83f77a4759ecdc05770406",
+      "passed": 10,
+      "failed": [],
+      "scope": "partial",
+      "completion_gate": "NOT_EVALUATED",
+      "golden_changes": "unchanged"
+    },
+    "scoped_git_diff_check": "PASS",
+    "whole_worktree_git_check": "LIMITED_BY_HISTORICAL_SCRATCH_ACCESS_ERRORS",
+    "full_verifier": "NOT_RUN_NO_MERGE_OR_RELEASE_CLAIM",
+    "docker": "NOT_RUN",
+    "browser_visual_interaction": "NOT_RUN",
+    "migration_changes": "NONE",
+    "repair_notes": [
+      "The new temporary-root fingerprint fixture initially omitted required manifests; real manifest bytes were added to the fixture without altering production gates.",
+      "Temporal tests now preserve no-window UNAVAILABLE behavior and separately test explicit time windows.",
+      "The first frozen diagnostic failure was retained; corpus bytes were unchanged for the successful rerun.",
+      "A transitive typecheck was cancelled; scoped and canonical quick checks passed.",
+      "No broad cleanup, reset, commit or push was performed."
+    ]
+  },
+  "preserved": {
+    "formula_count": 578,
+    "formula_census": "Recursive filesystem regular-file enumeration, including ignored formula files",
+    "formula_byte_changes": [],
+    "protected_file_hashes": {
+      "inventory.txt": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+      "data/governance/inventory_compounding_holds.json": "4e3d5e98c8328fe92e7b5722e5f5e41ababb934067ccdce142cf32bfc0dc823a",
+      "data/formulation_knowledge/literature_v1.json": "94659e7167cd23dbc7df6e7b4ee527ef3f792ab2940c653beacaa671ea55db39",
+      "data/formulation_knowledge/source_reviews_v1.json": "50627e5999064128792f67be198e395af5376ec7b8b08e8e7ac8c82d5fe19453",
+      "data/formulation_knowledge/subtype_research_v4.json": "14eef313a501262a63c839577d3b9cf48124441c1dbc1a03a2fcda1f17225c83"
+    },
+    "protected_file_changes": [],
+    "inventory_modified": false,
+    "formula_modified": false,
+    "physical_compounding_performed": false,
+    "orris_liquid_hold_preserved": true
+  },
+  "artifacts": [
+    {
+      "path": "docs/research/ARCHITECTURE_BRIDGE_REVIEW_20261007.md",
+      "sha256": "79badd32db474041a003136170cf27d9b9afdd073e5e7c2a33f7ea3c2a896667"
+    },
+    {
+      "path": "docs/research/ARCHITECTURE_BRIDGE_PLAN_20261007.md",
+      "sha256": "b9cb07998b06cead4b9591ece61596c3d8c8f13111b0abecc511fc092a6e4fd1"
+    }
+  ],
+  "accepted_source_hashes": {
+    "engine/research/subtype_benchmark.py": "f4115b8e6fab3fff942103feb3d042f4e3243de6ca70deebb12302b13afba76a",
+    "tests/test_architecture_bridge.py": "561feca95b24fbb2d06a4d433d68e78edfcfa54dc00509d0fc75bf23aa710416",
+    "backend/tests/unit/test_source_review_job_fingerprints.py": "9368a014a06bc50073aed308a0c419c755d2e7723428c122eb61f541c42d4b51",
+    "docs/research/architecture_comparison_initial_20261007.json": "ffa6670fa15aab852b7e0757fcf7cf7ab4a18e957bd874014de0abfb83b2d1a4",
+    "docs/research/architecture_comparison_20261007.json": "d05c4cbd9461ff0269d56c24b888dec72405e1a773763ada52f40d7e7bc95238",
+    "engine/formulation_intelligence/semantic_brief_adapter.py": "ef04a47553b1d20f2f456b97b923cb83a8e011bbc41219457f032a385d9b435f",
+    "backend/app/services/engine_job_registry.py": "e3fc6d77e8234f40cd53403c036c074635000c3c4f38281f77a34418574cefe1",
+    "backend/app/services/engine_jobs.py": "72e45caba2bf30cacdae46932772bb161576357a9380ec2a3450d5128328af2c",
+    "engine/formulation_intelligence/architecture_bridge.py": "eb595925fc9975171245f7ec8c6ce8fd2916b52bdf15714a13dc6dcf537a9c66",
+    "tests/fixtures/architecture_comparison_v1.json": "5c952b513dc87cc9156a6f805b9e1f4d1f9430b946ffeadfc73f60c0c594c035",
+    "engine/formulation_intelligence/literature_knowledge.py": "d3da9e66135aba9d8b679da7a1eac80dba082e3ea83c4886c3db20862d8b3e30",
+    "data/formulation_knowledge/architecture_adapters_v1.json": "2a18a458d26fa891dc665ce4e75f8b8964873d46bbd36a780cd72bcd0a77e3bd",
+    "engine/formulation_intelligence/formula_design_runtime.py": "0394396372472e290b03941d9ca29779482888bcb4764e41ea5a3d3e012acad2",
+    "engine/formulation_intelligence/formula_solver.py": "3afbfbeefbd66ceeebb40f9ccfed26918ba056e34c19b8cb92ef6b9545d088e0",
+    "data/formulation_knowledge/research_coverage_progress_v6.json": "225bf4a6321b387cfc10e6e31baa9496ad81a0f0abe9b8baf4f2efcd56866537",
+    "AGENTS.md": "1df9d0828d16bfce8a84df63732da0a44f53d651530aeb3875f848926643ba73",
+    "backend/tests/integration/test_lab_ui.py": "49bf6dcc0c90b5cc5be9f598f9e0dbb3e298e5c995a710f8ed12d5e908380e90",
+    "backend/app/static/lab.js": "3fc865654e0b7c6a5e6a1379285b32c13ffdcf839863094619ece87e13910156",
+    "data/formulation_knowledge/literature_v1.json": "94659e7167cd23dbc7df6e7b4ee527ef3f792ab2940c653beacaa671ea55db39",
+    "data/formulation_knowledge/subtype_research_v4.json": "14eef313a501262a63c839577d3b9cf48124441c1dbc1a03a2fcda1f17225c83",
+    "output/architecture_bridge_20261007/project_verification_quick.json": "80795a6e370ceea01fb22c3088ffbd738e751d320d83f77a4759ecdc05770406",
+    "docs/research/ARCHITECTURE_BRIDGE_PLAN_20261007.md": "b9cb07998b06cead4b9591ece61596c3d8c8f13111b0abecc511fc092a6e4fd1",
+    "docs/research/ARCHITECTURE_BRIDGE_REVIEW_20261007.md": "79badd32db474041a003136170cf27d9b9afdd073e5e7c2a33f7ea3c2a896667",
+    "data/formulation_knowledge/source_reviews_v1.json": "50627e5999064128792f67be198e395af5376ec7b8b08e8e7ac8c82d5fe19453",
+    "data/governance/inventory_compounding_holds.json": "4e3d5e98c8328fe92e7b5722e5f5e41ababb934067ccdce142cf32bfc0dc823a",
+    "inventory.txt": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb"
+  },
+  "next_work": [
+    {
+      "scope": "Remaining executable subtype mappings",
+      "state": "PARTIAL",
+      "remaining_cards": 169,
+      "needed": "Review each mapping independently and preserve control, exclusions and executable/physical diversity checks; do not auto-convert prose."
+    },
+    {
+      "scope": "Material-to-role suitability",
+      "state": "HEURISTIC",
+      "needed": "Improve exact recognizer suitability and weak material assignments without equating descriptor score with scent quality."
+    },
+    {
+      "scope": "CHIMIE L'HOMME identity",
+      "state": "HOLD_EXACT_BRIEF_OR_FORMULA_REQUIRED",
+      "needed": "Accepted campaign brief or formula; adjacent named fragrances are not identity substitutes."
+    },
+    {
+      "scope": "Quantitative evidence and source rights",
+      "state": "NOT_ADMITTED_BY_THIS_WAVE",
+      "needed": "Applicable human/physical observations, complete methods, rights and independent validation before promotion."
+    },
+    {
+      "scope": "Sensory and market outcomes",
+      "state": "NOT_TESTED",
+      "needed": "Separately authorized proportional comparisons; not required to browse or create non-authoritative design hypotheses."
+    }
+  ],
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

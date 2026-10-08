@@ -101,11 +101,19 @@ def test_dilutions_and_nominal_active_ppm_are_arithmetically_closed(formula):
     assert active_ul / 6000.0 * 1_000_000.0 == pytest.approx(668341.6666667)
 
 
-def test_every_formula_row_resolves_to_one_executable_current_stock(formula):
+def test_historical_build_cannot_execute_against_superseded_current_stocks(formula):
     result = _dilution_consistency_check(formula)
-    assert result.status == "PASS"
-    assert result.data["issues"] == []
-    assert len(result.data["matched_stocks"]) == 30
+    assert result.status == "FAIL"
+    issues = {item["material"]: item["reason"] for item in result.data["issues"]}
+    assert issues["Vetiver EO (India)"] == "not_in_inventory"
+    assert issues["Lavender EO High Altitude"] == "inventory_gap"
+    assert issues["Mimosa Absolute"] == "inventory_stock_non_executable"
+    assert set(issues) <= {
+        "Vetiver EO (India)", "Lavender EO High Altitude", "Mimosa Absolute", "Ambrettolide"
+    }
+    if "Ambrettolide" in issues:
+        assert issues["Ambrettolide"] == "stock_fraction_mismatch"
+    assert len(result.data["matched_stocks"]) + len(issues) == 30
 
 
 def test_formula_has_explicit_fruit_talc_depth_warmth_and_three_musk_axes(formula):
@@ -263,12 +271,11 @@ def test_formula_bound_pour_protocol_and_transfer_card_close_exactly():
     assert "Do not q.s. to 30 mL" in text
 
 
-def test_live_physical_labels_are_present_and_not_depleted():
+def test_live_physical_labels_keep_superseded_origin_and_unowned_lavender_unavailable():
     inventory_lines = (ROOT / "inventory.txt").read_text(encoding="utf-8").splitlines()
     labels = (
         "Ethanol 96%",
         "Benzyl Salicylate",
-        "Indian Vetiver EO (volume grade)",
         "Cedarwood oil Virginia",
         "Cashmeran (neat)",
         "Sandalore",
@@ -276,8 +283,7 @@ def test_live_physical_labels_are_present_and_not_depleted():
         "Ambrettolide (10% w/w in DPG)",
         "Ethylene Brassylate",
         "Romandolide",
-        "Lavender EO High Altitude (angustifolia, France)",
-        "Mimosa Absolute (10% in DPG)",
+        "Mimosa Absolute (10% w/w in DPG)",
         "Osmanthus Absolute (10% in DPG)",
         "Alpha Irone (10% w/w in DEP)",
         "Tonkarome (20% w/w in TEC)",
@@ -287,6 +293,10 @@ def test_live_physical_labels_are_present_and_not_depleted():
         matches = [line for line in inventory_lines if line.startswith(f"- {label}")]
         assert len(matches) == 1, label
         assert "DEPLETED" not in matches[0].upper(), label
+    assert not any(line.startswith("- Indian Vetiver EO (volume grade)") for line in inventory_lines)
+    lavender = next(line for line in inventory_lines
+                    if line.startswith("- Lavender EO High Altitude (angustifolia, France)"))
+    assert "NOT OWNED" in lavender
 
 
 def test_richer_child_passes_strengthened_reference_and_family_while_parent_does_not(formula, formula_state):

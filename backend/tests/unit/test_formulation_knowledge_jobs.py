@@ -21,6 +21,7 @@ def test_runtime_reference_bundle_contains_pack_census_and_current_documents() -
     paths = engine_jobs._research_reference_paths("FORMULA_DESIGN")
     assert "data/formulation_knowledge/literature_v1.json" in paths
     assert "data/formulation_knowledge/prior_research_corpus_v1.json" in paths
+    assert "data/formulation_knowledge/prior_research_corpus_v2.json" in paths
     assert "docs/research/chimie_femme_pw2_20261002/README.md" in paths
     assert "data/governance/inventory_user_confirmation_20260930_aimi_identity.json" in paths
 
@@ -32,7 +33,7 @@ def test_current_research_source_drift_changes_reference_fingerprint(monkeypatch
     document = root / "docs/research/iris.md"
     document.parent.mkdir(parents=True)
     document.write_text("first", encoding="utf-8")
-    (folder / "prior_research_corpus_v1.json").write_text(
+    (folder / "prior_research_corpus_v2.json").write_text(
         json.dumps(
             {
                 "records": [{"path": "docs/research/iris.md"}],
@@ -54,10 +55,23 @@ def test_current_research_source_drift_changes_reference_fingerprint(monkeypatch
 def test_unregistered_research_paths_fail_closed(monkeypatch, tmp_path, path) -> None:
     folder = tmp_path / "data/formulation_knowledge"
     folder.mkdir(parents=True)
-    (folder / "prior_research_corpus_v1.json").write_text(
+    (folder / "prior_research_corpus_v2.json").write_text(
         json.dumps({"records": [{"path": path}]}), encoding="utf-8"
     )
     (folder / "literature_v1.json").write_text('{"sources": []}', encoding="utf-8")
     monkeypatch.setattr(engine_jobs, "REPOSITORY_ROOT", tmp_path)
     with pytest.raises(engine_jobs.EngineJobError, match="reference manifest"):
         engine_jobs._research_reference_paths("FORMULA_ANALYSIS")
+
+
+@pytest.mark.parametrize("version", [1, 2])
+def test_each_corpus_version_participates_in_reference_identity(monkeypatch, tmp_path, version):
+    relative = f"data/formulation_knowledge/prior_research_corpus_v{version}.json"
+    assert relative in engine_jobs._REFERENCE_PATHS
+    source = tmp_path / relative
+    source.parent.mkdir(parents=True)
+    source.write_text('{"records": []}', encoding="utf-8")
+    monkeypatch.setattr(engine_jobs, "REPOSITORY_ROOT", tmp_path)
+    before = engine_jobs._bundle_fingerprint(engine_jobs._REFERENCE_PATHS)
+    source.write_text('{"records": [], "changed": true}', encoding="utf-8")
+    assert before != engine_jobs._bundle_fingerprint(engine_jobs._REFERENCE_PATHS)

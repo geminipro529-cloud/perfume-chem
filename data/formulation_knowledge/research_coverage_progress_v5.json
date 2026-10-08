@@ -1,0 +1,1151 @@
+{
+  "schema_version": "fragrance-research-coverage-progress-v5",
+  "as_of_date": "2026-10-07",
+  "status": "PLANNED_SCOPE_ADVISORY_PASS_COMPLETE",
+  "full_research_program_complete": false,
+  "completion_boundary": "All frozen gap entries now have bounded advisory cards, five declared botanicals are added, deeper addenda and runtime/API/UI retrieval are tested, and paired composition-versus-advice evaluation is recorded. Neither full-text coverage nor scientific, sensory or full-program completion is claimed.",
+  "predecessor": {
+    "path": "data/formulation_knowledge/research_coverage_progress_v4.json",
+    "sha256": "c42172676120faa09f87d40617ff58608d7ead22134f0151dc87fe47d11cf432",
+    "preserved": true
+  },
+  "frozen_parent": {
+    "path": "data/formulation_knowledge/construction_library_v1.json",
+    "sha256": "cba922283537998fa1dcc57dccd896b070cc7f1545c6209040d3d76b1f3652c7",
+    "preserved": true
+  },
+  "extension_path": "data/formulation_knowledge/subtype_research_v3.json",
+  "extension_sha256": "e70ddbfcb56b026003dc91785441e2da58c9292584112d2ae3afa66f86499f22",
+  "frozen_extension_predecessor": {
+    "path": "data/formulation_knowledge/subtype_research_v2.json",
+    "sha256": "6a7da23c4dbc7f205390cc2502f2b4d451025741eb3aa2cc1b60d89eb9e4d6c2",
+    "preserved": true
+  },
+  "totals": {
+    "initial_package_dossiers": 49,
+    "planned_scope_entries": 275,
+    "initial_core_scope_entries": 120,
+    "initial_gap_scope_entries": 155,
+    "declared_additional_botanical_scopes": 5,
+    "total_tracked_scope_entries": 280,
+    "partial_subtype_cards": 160,
+    "cards_added_this_pass": 94,
+    "initial_gaps_addressed_this_pass": 89,
+    "initial_gap_entries_without_extension": 0,
+    "packages_deepened": 49,
+    "floral_packages_deepened": 13,
+    "fully_reviewed_subtypes_promoted": 0,
+    "empirically_validated_subtypes": 0,
+    "deeper_review_addenda": 8,
+    "sources": 212,
+    "claims": 205,
+    "profiles": 43,
+    "exact_material_cards": 25,
+    "reviewed_advisory_sources": 147,
+    "legacy_advisory_sources": 64,
+    "held_sources": 1,
+    "source_records_added": 58,
+    "primary_research_records_added": 33,
+    "manufacturer_brand_records_added": 22,
+    "institutional_records_added": 3,
+    "reviews_revisiting_existing_papers": 3
+  },
+  "coverage_interpretation": "All 155 frozen gaps have partial source-bound extension cards. This closes the no-card backlog, not every scientific gap. The five additional botanical scopes do not rewrite the original 275-entry taxonomy. Sources are metadata records, not a count of independent experiments.",
+  "packages": [
+    {
+      "package_id": "AR_LAVENDER",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "LAV_COLOGNE",
+          "planned_subtype": "cologne"
+        },
+        {
+          "subtype_id": "LAV_BARBERSHOP",
+          "planned_subtype": "green barbershop"
+        },
+        {
+          "subtype_id": "LAV_VANILLIC",
+          "planned_subtype": "vanillic resin"
+        },
+        {
+          "subtype_id": "LAV_SOFT_MUSK",
+          "planned_subtype": "soft musk"
+        },
+        {
+          "subtype_id": "LAV_ORANGE",
+          "planned_subtype": "orange blossom"
+        },
+        {
+          "subtype_id": "LAV_IRIS",
+          "planned_subtype": "iris"
+        },
+        {
+          "subtype_id": "LAV_INCENSE",
+          "planned_subtype": "incense"
+        },
+        {
+          "subtype_id": "LAV_LICORICE",
+          "planned_subtype": "licorice"
+        },
+        {
+          "subtype_id": "LAV_APPLE",
+          "planned_subtype": "apple"
+        },
+        {
+          "subtype_id": "LAV_PINEAPPLE",
+          "planned_subtype": "pineapple"
+        },
+        {
+          "subtype_id": "LAV_SPICED_WOOD",
+          "planned_subtype": "spiced wood"
+        },
+        {
+          "subtype_id": "LAV_COFFEE_MILK",
+          "planned_subtype": "coffee milk"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "AR_FOUGERE",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "FOUGERE_FLORAL",
+          "planned_subtype": "floral fougere"
+        },
+        {
+          "subtype_id": "FOUGERE_LEATHER",
+          "planned_subtype": "leathery"
+        },
+        {
+          "subtype_id": "FOUGERE_TONKA",
+          "planned_subtype": "tonka sweet"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "AR_HERBS",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "HERB_ROSEMARY",
+          "planned_subtype": "rosemary"
+        },
+        {
+          "subtype_id": "HERB_BASIL_THYME",
+          "planned_subtype": "basil thyme"
+        },
+        {
+          "subtype_id": "HERB_MINT",
+          "planned_subtype": "mint"
+        },
+        {
+          "subtype_id": "HERB_ANISE_TARRAGON",
+          "planned_subtype": "anise tarragon"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FL_ROSE",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "ROSE_LEMONY",
+          "planned_subtype": "lemony"
+        },
+        {
+          "subtype_id": "ROSE_JAMMY",
+          "planned_subtype": "jammy fruity"
+        },
+        {
+          "subtype_id": "ROSE_HONEY",
+          "planned_subtype": "honeyed"
+        },
+        {
+          "subtype_id": "ROSE_METALLIC",
+          "planned_subtype": "metallic spicy"
+        },
+        {
+          "subtype_id": "ROSE_DARK_PATCH",
+          "planned_subtype": "dark patchouli"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FL_JASMINE",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "JAS_GRANDIFLORUM",
+          "planned_subtype": "grandiflorum"
+        },
+        {
+          "subtype_id": "JAS_TEA_GREEN",
+          "planned_subtype": "tea green"
+        },
+        {
+          "subtype_id": "JAS_LEATHER",
+          "planned_subtype": "leathery"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FL_ORANGE",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "ORANGE_NEROLI",
+          "planned_subtype": "distilled neroli"
+        },
+        {
+          "subtype_id": "ORANGE_PETITGRAIN",
+          "planned_subtype": "petitgrain bridge"
+        },
+        {
+          "subtype_id": "ORANGE_HONEY",
+          "planned_subtype": "honeyed indolic"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FL_TUBEROSE",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "TUBEROSE_INDOLIC",
+          "planned_subtype": "indolic animalic"
+        },
+        {
+          "subtype_id": "TUBEROSE_TRANSPARENT",
+          "planned_subtype": "modern transparent"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FL_GARDENIA",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "GARDENIA_CREAM",
+          "planned_subtype": "creamy white floral"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FL_TROPICAL",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "YLANG_FRACTIONS",
+          "planned_subtype": "ylang fractions"
+        },
+        {
+          "subtype_id": "TROP_TIARE",
+          "planned_subtype": "tiare"
+        },
+        {
+          "subtype_id": "TROP_FRANGIPANI",
+          "planned_subtype": "frangipani"
+        },
+        {
+          "subtype_id": "TROP_CANANGA",
+          "planned_subtype": "cananga"
+        },
+        {
+          "subtype_id": "TROP_CHAMPACA",
+          "planned_subtype": "champaca"
+        },
+        {
+          "subtype_id": "TROP_ALBA",
+          "planned_subtype": "white michelia alba"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FL_MUGUET",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "MUGUET_SOFT",
+          "planned_subtype": "classical muguet"
+        },
+        {
+          "subtype_id": "MUGUET_CYCLAMEN",
+          "planned_subtype": "cyclamen"
+        },
+        {
+          "subtype_id": "MUGUET_WATERY_MUSK",
+          "planned_subtype": "watery musk"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FL_LIGHT",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "PEONY_DEWY",
+          "planned_subtype": "dewy peony"
+        },
+        {
+          "subtype_id": "PEONY_ROSE",
+          "planned_subtype": "rose adjacent peony"
+        },
+        {
+          "subtype_id": "FREESIA_PEPPER",
+          "planned_subtype": "peppery freesia"
+        },
+        {
+          "subtype_id": "MAGNOLIA_CREAM",
+          "planned_subtype": "creamy magnolia"
+        },
+        {
+          "subtype_id": "LIGHT_LILAC",
+          "planned_subtype": "lilac"
+        },
+        {
+          "subtype_id": "LIGHT_HONEYSUCKLE",
+          "planned_subtype": "honeysuckle"
+        },
+        {
+          "subtype_id": "LIGHT_SWEET_PEA",
+          "planned_subtype": "sweet pea"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FL_GREEN",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "NARCISSUS_ABS",
+          "planned_subtype": "narcissus absolute"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FL_SPICY",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "LILY_SALICYLATE",
+          "planned_subtype": "salicylate lily"
+        },
+        {
+          "subtype_id": "LILY_GREEN",
+          "planned_subtype": "green lily"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FL_POLLEN",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "POLLEN_HONEY",
+          "planned_subtype": "pollen honey"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FL_IRIS",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "VIOLET_POWDER",
+          "planned_subtype": "violet powder"
+        },
+        {
+          "subtype_id": "IRIS_VIOLET_LEAF",
+          "planned_subtype": "violet leaf"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FL_BOUQUET",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "BOUQUET_CLASSICAL",
+          "planned_subtype": "classical bouquet"
+        },
+        {
+          "subtype_id": "BOUQUET_ALDEHYDIC",
+          "planned_subtype": "floral aldehydic"
+        },
+        {
+          "subtype_id": "BOUQUET_SOFT",
+          "planned_subtype": "soft floral"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "AM_RESIN",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "RESIN_STYRAX",
+          "planned_subtype": "styrax"
+        },
+        {
+          "subtype_id": "RESIN_OPOPONAX",
+          "planned_subtype": "opoponax"
+        },
+        {
+          "subtype_id": "RESIN_TOLU_PERU",
+          "planned_subtype": "tolu peru balsam"
+        },
+        {
+          "subtype_id": "RESIN_ANIMALIC",
+          "planned_subtype": "animalic resinous"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "AM_SOFT",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "SOFT_COUMARIN",
+          "planned_subtype": "coumarinic"
+        },
+        {
+          "subtype_id": "SOFT_VANILLA",
+          "planned_subtype": "soft vanillic"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "AM_FLORAL",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "FLORAL_AMBER_WHITE",
+          "planned_subtype": "white floral amber"
+        },
+        {
+          "subtype_id": "FLORAL_AMBER_BALSAM",
+          "planned_subtype": "balsamic amber"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "AM_AMBERGRIS",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "AMBERGRIS_TINCTURE",
+          "planned_subtype": "natural tincture"
+        },
+        {
+          "subtype_id": "AMBERGRIS_STEREO",
+          "planned_subtype": "ambroxide stereochemistry"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "AM_WOODS",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "WOOD_MINERAL",
+          "planned_subtype": "mineral"
+        },
+        {
+          "subtype_id": "WOOD_SANDAL_CEDAR",
+          "planned_subtype": "sandal cedar associated"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "MU_MUSK",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "MUSK_ALICYCLIC",
+          "planned_subtype": "alicyclic"
+        },
+        {
+          "subtype_id": "MUSK_POLYCYCLIC",
+          "planned_subtype": "polycyclic"
+        },
+        {
+          "subtype_id": "MUSK_POWDER",
+          "planned_subtype": "powdery"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "CI_PRODUCTS",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "CIT_MANDARIN_GREEN",
+          "planned_subtype": "orange mandarin"
+        },
+        {
+          "subtype_id": "CIT_GRAPEFRUIT",
+          "planned_subtype": "grapefruit bitter orange"
+        },
+        {
+          "subtype_id": "CIT_YUZU",
+          "planned_subtype": "yuzu regional citrus"
+        },
+        {
+          "subtype_id": "CIT_LEMON_LIME",
+          "planned_subtype": "lemon lime"
+        },
+        {
+          "subtype_id": "CIT_CEDRAT",
+          "planned_subtype": "citron cedrat"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "CI_CHASSIS",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "COLOGNE_NEROLI",
+          "planned_subtype": "neroli petitgrain"
+        },
+        {
+          "subtype_id": "COLOGNE_WOOD",
+          "planned_subtype": "fresh woody"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "GR_GREEN",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "GREEN_GALBANUM",
+          "planned_subtype": "galbanum"
+        },
+        {
+          "subtype_id": "GREEN_VIOLET_LEAF",
+          "planned_subtype": "violet leaf"
+        },
+        {
+          "subtype_id": "GREEN_GRASS",
+          "planned_subtype": "cut grass"
+        },
+        {
+          "subtype_id": "GREEN_CONIFER",
+          "planned_subtype": "conifer green"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "WA_AQUATIC",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "AQUA_MELON",
+          "planned_subtype": "melon watery"
+        },
+        {
+          "subtype_id": "AQUA_AIRY_MINERAL",
+          "planned_subtype": "airy mineral"
+        },
+        {
+          "subtype_id": "AQUA_SOLAR",
+          "planned_subtype": "solar salicylate"
+        },
+        {
+          "subtype_id": "AQUA_DRY_MINERAL",
+          "planned_subtype": "dry mineral"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FR_ORCHARD",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "ORCHARD_RIPE_APPLE",
+          "planned_subtype": "ripe apple"
+        },
+        {
+          "subtype_id": "ORCHARD_PEAR_MUSK",
+          "planned_subtype": "pear persistent bridge"
+        },
+        {
+          "subtype_id": "ORCHARD_HEART",
+          "planned_subtype": "fruit heart continuity"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FR_BERRY",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "BERRY_CASSIS",
+          "planned_subtype": "blackcurrant"
+        },
+        {
+          "subtype_id": "BERRY_RASPBERRY",
+          "planned_subtype": "raspberry"
+        },
+        {
+          "subtype_id": "BERRY_RHUBARB",
+          "planned_subtype": "rhubarb"
+        },
+        {
+          "subtype_id": "BERRY_GRAPE",
+          "planned_subtype": "grape"
+        },
+        {
+          "subtype_id": "BERRY_FLORAL_BRIDGE",
+          "planned_subtype": "berry floral"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FR_TROPICAL",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "PINEAPPLE_WOODY",
+          "planned_subtype": "pineapple"
+        },
+        {
+          "subtype_id": "TROP_MANGO",
+          "planned_subtype": "mango"
+        },
+        {
+          "subtype_id": "TROP_PASSIONFRUIT",
+          "planned_subtype": "passionfruit"
+        },
+        {
+          "subtype_id": "TROP_MELON",
+          "planned_subtype": "melon"
+        },
+        {
+          "subtype_id": "TROP_BANANA",
+          "planned_subtype": "banana"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "FR_STONE",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "STONE_PEACH_SKIN",
+          "planned_subtype": "peach skin"
+        },
+        {
+          "subtype_id": "STONE_PLUM",
+          "planned_subtype": "plum"
+        },
+        {
+          "subtype_id": "STONE_CHERRY",
+          "planned_subtype": "cherry"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "CH_CHYPRE",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "CHYPRE_FLORAL",
+          "planned_subtype": "floral"
+        },
+        {
+          "subtype_id": "CHYPRE_GREEN",
+          "planned_subtype": "green"
+        },
+        {
+          "subtype_id": "CHYPRE_LEATHER",
+          "planned_subtype": "leathery"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "WO_CEDAR",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "CEDAR_PENCIL",
+          "planned_subtype": "cedar pencil"
+        },
+        {
+          "subtype_id": "CEDAR_CONIFER_RESIN",
+          "planned_subtype": "conifer resin"
+        },
+        {
+          "subtype_id": "CEDAR_GUAIAC",
+          "planned_subtype": "guaiac smoke"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "WO_SANDAL",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "SANDAL_DRY",
+          "planned_subtype": "dry transparent"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "WO_VETIVER",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "VETIVER_SMOKY",
+          "planned_subtype": "smoky dry"
+        },
+        {
+          "subtype_id": "VETIVER_HEART",
+          "planned_subtype": "fractionated clean"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "WO_PATCH",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "PATCH_CLEAN",
+          "planned_subtype": "clean fractions"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "WO_OUD",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "OUD_ANIMALIC",
+          "planned_subtype": "medicinal animalic"
+        },
+        {
+          "subtype_id": "OUD_ROSE_AMBER",
+          "planned_subtype": "rose amber"
+        },
+        {
+          "subtype_id": "OUD_SPICED",
+          "planned_subtype": "spiced"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "LE_LEATHER",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "LEATHER_SMOKY",
+          "planned_subtype": "smoky tar"
+        },
+        {
+          "subtype_id": "LEATHER_GREEN",
+          "planned_subtype": "bitter green"
+        },
+        {
+          "subtype_id": "LEATHER_FLORAL",
+          "planned_subtype": "floral leather"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "RE_INCENSE",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "INCENSE_MYRRH",
+          "planned_subtype": "myrrh opoponax"
+        },
+        {
+          "subtype_id": "INCENSE_ELEMI",
+          "planned_subtype": "elemi"
+        },
+        {
+          "subtype_id": "INCENSE_CHURCH",
+          "planned_subtype": "church smoke"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "TO_HAY",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "TOBACCO_DRY",
+          "planned_subtype": "dry leaf"
+        },
+        {
+          "subtype_id": "TOBACCO_PIPE",
+          "planned_subtype": "sweet pipe"
+        },
+        {
+          "subtype_id": "TOBACCO_SMOKY",
+          "planned_subtype": "smoky tobacco"
+        },
+        {
+          "subtype_id": "TOBACCO_BEESWAX",
+          "planned_subtype": "beeswax"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "GO_VANILLA",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "VAN_BOTANICAL",
+          "planned_subtype": "vanilla botanical products"
+        },
+        {
+          "subtype_id": "VAN_CARAMEL_TOAST",
+          "planned_subtype": "caramel toasted"
+        },
+        {
+          "subtype_id": "VAN_FLORAL_GOURMAND",
+          "planned_subtype": "sweet floral gourmand"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "GO_ROAST",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "ROAST_COFFEE",
+          "planned_subtype": "brewed coffee"
+        },
+        {
+          "subtype_id": "ROAST_CACAO",
+          "planned_subtype": "cacao chocolate"
+        },
+        {
+          "subtype_id": "ROAST_ALMOND",
+          "planned_subtype": "almond"
+        },
+        {
+          "subtype_id": "ROAST_HAZELNUT",
+          "planned_subtype": "hazelnut"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "GO_DAIRY",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "DAIRY_HONEY",
+          "planned_subtype": "honey"
+        },
+        {
+          "subtype_id": "DAIRY_MAPLE",
+          "planned_subtype": "maple"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "BO_BOOZY",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "BO_RUM_COGNAC",
+          "planned_subtype": "rum cognac"
+        },
+        {
+          "subtype_id": "BO_WHISKY",
+          "planned_subtype": "whisky"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "SP_SPICE",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "SPICE_PEPPER",
+          "planned_subtype": "pepper"
+        },
+        {
+          "subtype_id": "SPICE_GINGER",
+          "planned_subtype": "ginger"
+        },
+        {
+          "subtype_id": "SPICE_CINNAMON_CLOVE",
+          "planned_subtype": "cinnamon clove"
+        },
+        {
+          "subtype_id": "SPICE_SAFFRON",
+          "planned_subtype": "saffron"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "TE_TEA",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "TEA_GREEN",
+          "planned_subtype": "green tea"
+        },
+        {
+          "subtype_id": "TEA_BLACK",
+          "planned_subtype": "black tea"
+        },
+        {
+          "subtype_id": "TEA_OOLONG",
+          "planned_subtype": "oolong"
+        },
+        {
+          "subtype_id": "TEA_SMOKED",
+          "planned_subtype": "smoky tea"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "AN_SKIN",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "AMBERGRIS_MUSK",
+          "planned_subtype": "ambergris associated"
+        },
+        {
+          "subtype_id": "SKIN_CIVET_CASTOR",
+          "planned_subtype": "civet castoreum identities"
+        },
+        {
+          "subtype_id": "SKIN_SWEAT",
+          "planned_subtype": "salty sweaty"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "AB_ABSTRACT",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "AB_WAXY",
+          "planned_subtype": "waxy aldehydic"
+        },
+        {
+          "subtype_id": "AB_CITRUS",
+          "planned_subtype": "citrus aldehydic"
+        },
+        {
+          "subtype_id": "AB_PAPER_CHALK",
+          "planned_subtype": "paper chalk"
+        },
+        {
+          "subtype_id": "AB_ATMOSPHERE",
+          "planned_subtype": "conceptual atmosphere"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "CU_TRADITIONS",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "CU_ATTAR",
+          "planned_subtype": "exact attar traditions"
+        },
+        {
+          "subtype_id": "CU_FLORAL_OILS",
+          "planned_subtype": "regional floral oils"
+        },
+        {
+          "subtype_id": "CU_ROSE_OUD",
+          "planned_subtype": "rose oud traditions"
+        },
+        {
+          "subtype_id": "CU_HISTORICAL",
+          "planned_subtype": "historical materials"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    },
+    {
+      "package_id": "HY_HYBRIDS",
+      "additional_partial_cards": [
+        {
+          "subtype_id": "HY_TEA_MUSK",
+          "planned_subtype": "tea musk"
+        },
+        {
+          "subtype_id": "HY_INCENSE_FLORAL",
+          "planned_subtype": "incense floral"
+        },
+        {
+          "subtype_id": "HY_ROSE_MINERAL",
+          "planned_subtype": "rose mineral"
+        }
+      ],
+      "gaps_without_extension": [],
+      "full_package_review_complete": false
+    }
+  ],
+  "campaign_identity_holds": [
+    {
+      "campaign_id": "CHIMIE_LHOMME",
+      "names": [
+        "CHIMIE LHOMME",
+        "CHIMIE L'HOMME",
+        "CHIMIE L HOMME"
+      ],
+      "state": "HOLD_EXACT_BRIEF_OR_FORMULA_REQUIRED",
+      "reason": "The exact accepted CHIMIE L'HOMME brief/formula was not recovered from accessible local sources. Adjacent Aventus and other L'Homme files are not substitutes.",
+      "question": "Please provide the accepted CHIMIE L'HOMME brief or latest formula so related architectures can be matched accurately.",
+      "inferred_package_ids": [],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    }
+  ],
+  "unresolved_boundaries": [
+    {
+      "scope": "CHIMIE L'HOMME",
+      "state": "HOLD_EXACT_BRIEF_OR_FORMULA_REQUIRED",
+      "reason": "No accepted brief/formula recovered; adjacent Aventus and unrelated L'Homme records are not substitutes.",
+      "needed": "The accepted brief or latest formula, not photographs or purchase receipts."
+    },
+    {
+      "scope": "From advice to composition",
+      "state": "NOT_IMPLEMENTED_BY_THIS_ADVISORY_EXPANSION",
+      "reason": "Paired test found 11 advice changes and zero role, material or dose changes.",
+      "needed": "A separately validated compiler bridge from explicit subtype recognizers and constraints to diverse candidate architectures; no conversion of source prose into numerical rules."
+    },
+    {
+      "scope": "Exact products and under-supported facets",
+      "state": "PARTIAL_EVIDENCE",
+      "reason": "Natural ambergris tincture preparation, medicinal oud, literal tar grade, chalk, detailed polycyclic musk odor, lemon versus lime and exact historical attar/rose-oud recipes remain incompletely supported.",
+      "needed": "Exact product/process sources and matched observations where the requested conclusion depends on them."
+    },
+    {
+      "scope": "Source rights and publication integrity",
+      "state": "NO_EMPIRICAL_ADMISSION",
+      "reason": "Abstracts and selected sections reviewed; correction/retraction checks not exhaustively repeated. Three method-review records revisit existing papers.",
+      "needed": "Separate rights and publication-integrity review before dataset, quantitative calibration or model admission."
+    },
+    {
+      "scope": "Sensory and performance outcomes",
+      "state": "NOT_TESTED",
+      "reason": "No physical blending, blind sensory comparison, measured projection or consumer preference trial took place.",
+      "needed": "Only separately authorized, proportionate comparisons for the user's actual goal; not required just to browse clues."
+    }
+  ],
+  "benchmark": {
+    "path": "docs/research/subtype_comparison_20261007.json",
+    "sha256": "3534834fc72f7d2f2cf4c4169241f6cc46281c9ec47a8909e8ca8f05392f3b41",
+    "status": "PASS",
+    "cases": 12,
+    "design_calls": 48,
+    "advice_changes": 11,
+    "composition_changes": 0,
+    "role_changes": 0,
+    "physical_row_changes": 0,
+    "reverse_order_repeat_identical": true,
+    "network_used": false,
+    "formula_mutations": 0,
+    "sensory_improvement": "NOT_TESTED"
+  },
+  "verification": {
+    "focused_engine_tests": {
+      "passed": 434,
+      "failed": 0
+    },
+    "focused_backend_tests": {
+      "passed": 16,
+      "failed": 0,
+      "deselected": 29
+    },
+    "targeted_ruff": "PASS",
+    "engine_mypy_changed_modules": "PASS",
+    "backend_mypy_changed_module": "PASS",
+    "javascript_syntax": "PASS",
+    "quick_project_verification": {
+      "path": "output/research_closure_20261007/project_verification_quick.json",
+      "sha256": "2eb994ce5a5cc31e1d35bbf93e47b42dd62114962eefecd18bbd0fc38363987e",
+      "passed_checks": 10,
+      "failed": [],
+      "scope": "partial",
+      "completion_gate": "NOT_EVALUATED"
+    },
+    "scoped_git_diff_check": "PASS",
+    "full_verifier": "NOT_RUN_NO_MERGE_OR_RELEASE_CLAIM",
+    "notes": [
+      "Initial backend run failed before tests because old pytest scratch was inaccessible; rerun with unique verified scratch passed without changing production gates.",
+      "An initial new test incorrectly expected DOI metadata in older records; corrected to verify explicit predecessor-card/addendum links without rewriting historical metadata.",
+      "Whole-worktree diff inspection emitted pre-existing access warnings under historical verification scratch; scoped changed-file check passed."
+    ]
+  },
+  "preserved": {
+    "inventory_sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "formula_count": 573,
+    "formula_aggregate_sha256": "3a9bfd2c17c74b7ea365537fdaaeef52a905eef93b0ecb1dedf058d5ec99ab8b",
+    "orris_liquid_user_hold_preserved": true,
+    "formula_modified": false,
+    "inventory_modified": false,
+    "git_commit_or_push_performed": false
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

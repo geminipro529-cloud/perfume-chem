@@ -883,7 +883,7 @@ def test_package_and_docker_checks_validate_release_artifacts():
 def test_backend_suite_timeout_has_full_run_margin():
     specs = {spec.name: spec for spec in build_check_specs(PROJECT_ROOT)}
 
-    assert specs["backend-tests"].timeout_seconds == 1200
+    assert specs["backend-tests"].timeout_seconds == 1800
 
 
 def test_ruff_checks_explicitly_disable_ansi_color():

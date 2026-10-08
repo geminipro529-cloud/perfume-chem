@@ -110,6 +110,24 @@ def test_complexity_benchmark_census_json(capsys) -> None:
     assert payload["state"] == "PASS"
     assert payload["unclassified"] == []
     assert payload["provider_calls"] == 0
+    assert payload["registry_scope"] == "SOURCE_CENSUS_ONLY_NO_ADMISSION"
+    assert payload["artifacts"] == ["configs/complexity/complexity_module_registry_v2.json"]
+
+
+def test_complexity_benchmark_census_preserves_hold_exit_code(monkeypatch, capsys):
+    monkeypatch.setattr(
+        pipeline_audit, "run_complexity_census",
+        lambda **_: {
+            "state": "HOLD", "provider_calls": 0,
+            "hash_drift": ["changed.py"], "unclassified": ["new.py"],
+        },
+    )
+    rc = pipeline_audit.main(["complexity-benchmark", "--operation", "census", "--json"])
+    payload = json.loads(capsys.readouterr().out)
+    assert rc == 1
+    assert payload["hash_drift"] == ["changed.py"]
+    assert payload["unclassified"] == ["new.py"]
+    assert payload["provider_calls"] == 0
 
 
 def test_complexity_benchmark_prepare_is_provider_free(

@@ -1,0 +1,193 @@
+{
+  "schema_version": "perfume-chem-foundation-implementation-audit-v1",
+  "date": "2026-10-06",
+  "branch": "master",
+  "head": "1ed79650313c23b1a2fe1c36c2e90a606c64833b",
+  "completion": {
+    "R1": "FOCUSED_CONTRACTS_VERIFIED",
+    "R2": "BOUNDED_AMBER_MUSK_CITRUS_ADVISORY_TRANCHE_ONLY",
+    "expanded_fruity_floral_panel": "NOT_ADMITTED_THIS_BATCH",
+    "all_49_packages": "NOT_COMPLETE",
+    "merge_release_readiness": "NOT_CLAIMED"
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "implementation": [
+    "Bounded source-review metadata/hash/rights/issue gates in offline retrieval.",
+    "Separate legacy advisory and freshly reviewed primary manufacturer sections.",
+    "Versioned commercial registry successor, source-period freshness, per-anchor support and historical context.",
+    "Three manufacturer source records, three advisory claims, three profiles and two exact material cards.",
+    "Review/registry/implementation dependencies bound into current design and durable-job fingerprints.",
+    "Use one exact pack/review snapshot per retrieval; material bindings do not reread mutable files under the same path."
+  ],
+  "knowledge_counts": {
+    "sources": 69,
+    "claims": 65,
+    "profiles": 33,
+    "materials": 19
+  },
+  "review_counts": {
+    "LEGACY_ADVISORY": 65,
+    "REVIEWED_ADVISORY": 4
+  },
+  "preservation": {
+    "existing_66_source_records": "UNCHANGED_CANONICAL_OBJECT_HASHES",
+    "commercial_registry_v1": "UNCHANGED_RAW_SHA256",
+    "inventory": "UNCHANGED_RAW_SHA256",
+    "formula_files": "NOT_EDITED",
+    "prior_research_corpus": "UNCHANGED_RAW_SHA256",
+    "unrelated_user_work": "PRESERVED"
+  },
+  "verification": [
+    {
+      "check": "Pre-edit commercial/literature/lavender baseline",
+      "status": "PASS",
+      "passed": 71,
+      "duration_seconds": 4.36
+    },
+    {
+      "check": "Engine/literature/foundation/Formula Studio/goal regression",
+      "status": "PASS",
+      "passed": 166,
+      "duration_seconds": 62.4
+    },
+    {
+      "check": "Final focused source/market/foundation regression",
+      "status": "PASS",
+      "passed": 38,
+      "duration_seconds": 2.06
+    },
+    {
+      "check": "Backend current v2 jobs and source fingerprint tests",
+      "status": "PASS",
+      "passed": 14,
+      "duration_seconds": 5.63
+    },
+    {
+      "check": "Final source fingerprint tests and durable API/worker integration",
+      "status": "PASS",
+      "passed": 6,
+      "duration_seconds": 7.87
+    },
+    {
+      "check": "Focused root Ruff and compile",
+      "status": "PASS"
+    },
+    {
+      "check": "Backend changed-surface Ruff then mypy",
+      "status": "PASS",
+      "typechecked_files": 2
+    },
+    {
+      "check": "Root targeted mypy explicit-package-bases follow-imports=skip",
+      "status": "PASS",
+      "typechecked_files": 3,
+      "scope": "Targeted modules only, not full engine dependency type verification."
+    },
+    {
+      "check": "Changed tracked paths git diff --check",
+      "status": "PASS"
+    },
+    {
+      "check": "Whole-worktree git diff --check",
+      "status": "PARTIAL_READ_PERMISSION_LIMIT",
+      "reason": "Unreadable old verifier artifacts generated permission warnings; no whole-worktree cleanliness claim."
+    },
+    {
+      "check": "Latest commercial scope/freshness metadata",
+      "status": "PASS",
+      "passed": 17,
+      "duration_seconds": 0.76
+    }
+  ],
+  "initial_check_failures": [
+    {
+      "check": "Backend default scratch",
+      "status": "SETUP_ERROR",
+      "errors": 33,
+      "reason": "Access denied in pre-existing output/pytest-temp-backend/pytest-of-ASUS; rerun in fresh unique disposable scratch, no test/production gate changes."
+    },
+    {
+      "check": "Broad backend CP2 plus current v2",
+      "status": "LEGACY_BASELINE_FAILURES_RETAINED",
+      "passed": 26,
+      "failed": 7,
+      "reason": "Frozen CP3 inventory mismatch stops historical shortlist tests before the later gate they expect.",
+      "hold": "HOLD_CP3_READINESS_PROTOCOL_DRIFT",
+      "frozen_inventory_sha256": "1b4324da5a35cebe8c59959e58276d84ac8f2f0e0e6f3239fdef0a4250d8df71",
+      "current_portable_inventory_sha256": "6b11f3aa198b9483f9f7f9567e362f987a8447b47915853ea22fada66ff3cbe3",
+      "executor_and_protocol_changes_this_batch": false
+    },
+    {
+      "check": "Initial root mypy invocation",
+      "status": "INVOCATION_FIXED",
+      "reason": "Namespace package paths/stub traversal needed scoped flags; later explicit-package targeted run passed. Two transient candidate-list union errors were fixed before the final run."
+    }
+  ],
+  "performance": {
+    "warm_retrieval_repetitions": 25,
+    "warm_retrieval_p95_ms": 24.994200000946876,
+    "threshold_ms": 500,
+    "scope": "Offline knowledge retrieval only; no claim about full-formula, corpus or physical compounding performance."
+  },
+  "market": {
+    "panel_id": "global-lavender-amber-2026-v2",
+    "current_anchor_ids": [
+      "ysl-libre-edp",
+      "dior-sauvage-edp"
+    ],
+    "historical_context_ids": [
+      "coty-fy24-burberry-goddess"
+    ],
+    "current_anchor_deadline": "2026-12-31",
+    "population_liking_established": false
+  },
+  "delegation": {
+    "native_deepseek": "UNAVAILABLE_MODEL",
+    "project_deepluna_health": "DAEMON_TRANSPORT",
+    "inference_packets_sent": 0,
+    "fallback_used": false,
+    "acceptor": "ROOT_CODEX"
+  },
+  "not_performed": [
+    "Model training",
+    "Empirical dataset or model admission",
+    "Full-text/retraction review of the 65 legacy advisory wrappers",
+    "Physical compounding",
+    "Purchase",
+    "Sensory validation",
+    "Safety/regulatory clearance",
+    "Full project verifier",
+    "Live service restart",
+    "Git commit or push"
+  ],
+  "next_packets": [
+    "Complete missing resin/amber, musk, citrus and numerical-applicability foundation reviews.",
+    "Review exact-edition fruity-floral/mainstream reference panel for CHIMIE Femme before admission.",
+    "Create historical frozen-state test fixtures for legacy CP2/CP3 tests without replacing live inventory or weakening drift gates.",
+    "Continue the 49-package corpus in bounded reviewed tranches."
+  ],
+  "sha256": {
+    "engine/formulation_intelligence/source_review.py": "98c1f17e9315efe9c6ccc5a17cc538db3cb5aafd6f8eff93beea2e38e66648c2",
+    "engine/formulation_intelligence/literature_knowledge.py": "0266615cecc067c99b4ac9237c946cf4f57855085724aceef925615e4478a1dd",
+    "engine/formulation_intelligence/formula_design_runtime.py": "f6dfb7a3e89207848f6dfe56981f27c1ed3a2d85ee5f20effb0f61f398a0e3c3",
+    "engine/research/commercial_references.py": "c7acd52e02930552ccfaa31ca4f14233f180dc85118d2cfe446cc8ab398beed1",
+    "backend/app/services/engine_jobs.py": "4bd909a53a863b8460ca8ab3fbdb4fbd3111809133dc2e5fc1bc372cc7acad90",
+    "backend/app/services/engine_job_registry.py": "96e74e395725ec2f71c22b63091259e249e154c68708563d17ac9c20f728632d",
+    "data/formulation_knowledge/literature_v1.json": "7cac2b5a824926755e6170de2f404a8010017ffb6d80e1a1415e0131b2b0b835",
+    "data/formulation_knowledge/source_reviews_v1.json": "153bd94be6e2490b26dd00cca6db36ea3e7e9dabf675b4dc3bd70a6984ba4e96",
+    "data/governance/commercial_reference_registry_v1.json": "1d83c920487b69f55c7ca0b439f43beeaac048f5edc6b6d6bfcce00c441510f3",
+    "data/governance/commercial_reference_registry_v2.json": "d6452bfe6c743551a496fc88b5737aa33f163458fc3f72973c626058dd88de5e",
+    "tests/test_source_review_governance.py": "c9ccee0e23d324da19c77720af96203cd499f22ac0293a46cb5274814ea59dd6",
+    "tests/test_commercial_reference_freshness.py": "5f710b6c063c53959865fd833fd66e4b9a4e1a54ac00469240a4dd97409e4790",
+    "tests/test_foundation_literature_knowledge.py": "bc9d9e88dae7da07656349f339c46c851ead81286ec0ba074e5be1c2dc75eca6",
+    "backend/tests/unit/test_source_review_job_fingerprints.py": "66491ef9e8441121fcab99e119c16f24e61f95d08950d42a666baf3b09591ebe",
+    "docs/research/R1_R2_FOUNDATIONS_IMPLEMENTATION_20261006.md": "04f46fc5857e48db1803fc56063247226bafff02cc29d4e69199824ba7ca2a13",
+    "docs/research/AMBER_MUSK_CITRUS_FOUNDATIONS_REVIEW_20261006.md": "1ba7d1ce8bb70f0828360434a456af1011e230e8488455cfc912522a72150d50",
+    "inventory.txt": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb"
+  }
+}

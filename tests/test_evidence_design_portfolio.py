@@ -1,7 +1,23 @@
 """Behavior tests for uncertainty-aware, computer-only candidate search."""
+import json
+
 import pytest
 
 from engine.optimizer import gate_aware
+from tests.historical_snapshots import bind_gin_design_test_plan
+
+
+def test_plan_path(root, tmp_path):
+    """Bind an isolated algorithm fixture, not the superseded canonical plan."""
+    plan = bind_gin_design_test_plan(json.loads(
+        (root / "data/design_briefs/gin_vetiver_edp_evidence_v1.json").read_bytes()
+    ))
+    path = tmp_path / "gin-stock-contract-fixture.json"
+    path.write_text(json.dumps(plan), encoding="utf-8")
+    return path
+
+
+test_plan_path.__test__ = False
 
 
 def run(evaluate, **overrides):
@@ -137,7 +153,7 @@ def test_equal_uncertainty_ranges_do_not_prove_equal_latent_values():
     assert result["selected"]["b"] == 4
 
 
-def test_real_gin_record_runs_via_existing_cli_adapter_without_formula_change():
+def test_gin_stock_contract_fixture_runs_via_cli_without_formula_change(tmp_path):
     import hashlib
     from pathlib import Path
 
@@ -147,7 +163,7 @@ def test_real_gin_record_runs_via_existing_cli_adapter_without_formula_change():
     root = Path(__file__).resolve().parents[1]
     formula = root / "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
     before = hashlib.sha256(formula.read_bytes()).hexdigest()
-    result = function(formula, root / "data/design_briefs/gin_vetiver_edp_evidence_v1.json")
+    result = function(formula, test_plan_path(root, tmp_path))
     assert result["status"] == "EVIDENCE_BOUNDARY"
     assert result["evaluated_candidates"] == 72
     assert result["selected"] == result["baseline"]
@@ -171,7 +187,7 @@ def test_cli_rejects_stale_formula_or_inventory_binding(tmp_path, change):
 
     from scripts.verify_formula_workflow import run_design_portfolio
     root = Path(__file__).resolve().parents[1]
-    plan = json.loads((root / "data/design_briefs/gin_vetiver_edp_evidence_v1.json").read_text())
+    plan = json.loads(test_plan_path(root, tmp_path).read_text())
     plan[change] = "0" * 64
     path = tmp_path / "stale.json"
     path.write_text(json.dumps(plan))
@@ -185,7 +201,7 @@ def test_cli_rejects_changing_diluted_stock_without_carrier_mass_model(tmp_path)
 
     from scripts.verify_formula_workflow import run_design_portfolio
     root = Path(__file__).resolve().parents[1]
-    plan = json.loads((root / "data/design_briefs/gin_vetiver_edp_evidence_v1.json").read_text())
+    plan = json.loads(test_plan_path(root, tmp_path).read_text())
     plan["bounds"]["Ambrettolide"] = [200, 300]
     path = tmp_path / "carrier.json"
     path.write_text(json.dumps(plan))
@@ -281,7 +297,7 @@ def test_final_cli_binds_review_and_evidence_before_closing(tmp_path, drift):
 
     from scripts.verify_formula_workflow import run_design_portfolio
     root = Path(__file__).resolve().parents[1]
-    plan = root / "data/design_briefs/gin_vetiver_edp_evidence_v1.json"
+    plan = test_plan_path(root, tmp_path)
     formula = root / "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
     def digest(p):
         return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -322,14 +338,14 @@ def test_ledger_accounts_for_bounds_duplicates_and_budget_without_losing_origins
     assert result["pending_proposals"] == 0
 
 
-def test_real_plan_ledger_explains_all_three_clearwood_steps():
+def test_fixture_plan_ledger_explains_all_three_clearwood_steps(tmp_path):
     from pathlib import Path
 
     from scripts.verify_formula_workflow import run_design_portfolio
     root = Path(__file__).resolve().parents[1]
     result = run_design_portfolio(
         root / "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json",
-        root / "data/design_briefs/gin_vetiver_edp_evidence_v1.json")
+        test_plan_path(root, tmp_path))
     assert len(result.get("proposal_ledger", [])) == 156
     rows = [r for r in result["proposal_ledger"]
             if r["origin"]["donor"] == "Hedione" and r["origin"]["receiver"] == "Clearwood"]
@@ -365,17 +381,18 @@ def test_final_ledger_budget_event_overrides_nonbudget_summary():
 
 
 @pytest.mark.parametrize("field", ["source_workbook_sha256", "snapshot_sha256", "overlay_sha256"])
-def test_cli_rejects_materialized_authority_drift_with_unchanged_inventory_text(monkeypatch, field):
+def test_cli_rejects_materialized_authority_drift_with_unchanged_inventory_text(monkeypatch, tmp_path, field):
     from dataclasses import replace
     from pathlib import Path
 
     from engine import inventory_parser
     from scripts.verify_formula_workflow import run_design_portfolio
     root = Path(__file__).resolve().parents[1]
+    plan_path = test_plan_path(root, tmp_path)
     materialized = inventory_parser.materialize_current_inventory()
     monkeypatch.setattr(inventory_parser, "materialize_current_inventory",
                         lambda *args, **kwargs: replace(materialized, **{field: "0" * 64}))
     with pytest.raises(ValueError, match="source drift"):
         run_design_portfolio(
             root / "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json",
-            root / "data/design_briefs/gin_vetiver_edp_evidence_v1.json")
+            plan_path)

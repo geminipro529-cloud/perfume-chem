@@ -48,7 +48,9 @@ def _triggers(database: Path) -> set[str]:
         }
 
 
-def _insert_populated_job_graph(database: Path) -> None:
+def _insert_populated_job_graph(
+    database: Path, *, job_type: str = "FORMULA_ANALYSIS"
+) -> None:
     with closing(sqlite3.connect(database)) as connection:
         connection.execute("PRAGMA foreign_keys=ON")
         hash_a = "a" * 64
@@ -72,7 +74,7 @@ def _insert_populated_job_graph(database: Path) -> None:
                 "2026-09-29 00:00:00",
                 "lab-engine-job-request-v2",
                 "lab-engine-job-contract-v2",
-                "FORMULA_ANALYSIS",
+                job_type,
                 "READ_ONLY_DIAGNOSTIC",
                 "migration-test",
                 "{}",

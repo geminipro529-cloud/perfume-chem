@@ -9,7 +9,9 @@ exact implementation files that must participate in its fingerprint.
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
+from datetime import date
 from decimal import Decimal, InvalidOperation
 from hashlib import sha256
 from pathlib import Path
@@ -147,7 +149,7 @@ class FormulaGoalAnalysisPayloadV2(FormulaAnalysisPayload):
     application_context: str | None = Field(default=None, max_length=500)
     active_bottle_id: str | None = Field(default=None, max_length=255)
     market_evidence_as_of_date: str = Field(
-        default="2026-09-28",
+        default_factory=lambda: date.today().isoformat(),
         pattern=r"^\d{4}-\d{2}-\d{2}$",
     )
 
@@ -664,7 +666,63 @@ class EngineJobSpec:
     payload_model_v2: type[BaseModel] | None = None
 
 
+class OmissionControlRowV1(_StrictV2Payload):
+    stock_id: str = Field(min_length=1, max_length=255)
+    identity_name: str = Field(min_length=1, max_length=255)
+    amount_decimal: str = Field(min_length=1, max_length=40)
+    amount_unit: Literal["mg", "uL"]
+    stock_fraction_decimal: str = Field(min_length=1, max_length=40)
+    fraction_basis: Literal["w/w", "w/v", "v/v", "unknown", "neat"]
+    carrier: str | None = Field(default=None, max_length=255)
+
+    @field_validator("amount_decimal", "stock_fraction_decimal")
+    @classmethod
+    def positive_decimal(cls, value: str) -> str:
+        if not re.fullmatch(r"[0-9]+(?:\.[0-9]+)?", value):
+            raise ValueError("use a plain positive decimal string, not exponent notation")
+        return _decimal_text(value, positive=True)
+
+    @model_validator(mode="after")
+    def fraction_ceiling(self):
+        if Decimal(self.stock_fraction_decimal) > 1:
+            raise ValueError("stock fraction cannot exceed one")
+        return self
+
+
+class OmissionCarrierBlankV1(_StrictV2Payload):
+    stock_id: str = Field(min_length=1, max_length=255)
+    carrier: str = Field(min_length=1, max_length=255)
+
+
+class OmissionComparisonPlanPayloadV2(_StrictV2Payload):
+    schema_version: Literal["omission-comparison-plan-request-v1"]
+    control_rows: list[OmissionControlRowV1] = Field(min_length=2, max_length=60)
+    omit_stock_ids: list[str] = Field(min_length=1, max_length=59)
+    protected_stock_ids: list[str] = Field(default_factory=list, max_length=60)
+    carrier_blanks: dict[str, OmissionCarrierBlankV1] = Field(default_factory=dict, max_length=10)
+    goal: str = Field(min_length=1, max_length=500)
+    mode: Literal["QUICK_REFERENCE", "CONTROLLED_REFERENCE"] = "QUICK_REFERENCE"
+    seed: int = Field(default=17, ge=0, le=2147483647)
+
+    @model_validator(mode="after")
+    def exact_ids(self):
+        ids = [row.stock_id for row in self.control_rows]
+        if (len(set(ids)) != len(ids) or len(set(self.omit_stock_ids)) != len(self.omit_stock_ids)
+                or not set(self.omit_stock_ids) < set(ids)
+                or not set(self.protected_stock_ids) <= set(ids)):
+            raise ValueError("omission IDs must name distinct control rows and retain a control")
+        blank_ids = [blank.stock_id for blank in self.carrier_blanks.values()]
+        if len(set(blank_ids)) != len(blank_ids):
+            raise ValueError("one blank stock cannot represent multiple carriers")
+        return self
+
+
 ENGINE_JOB_REGISTRY: dict[str, EngineJobSpec] = {
+    "OMISSION_COMPARISON_PLAN": EngineJobSpec(
+        OmissionComparisonPlanPayloadV2, "READ_ONLY_DIAGNOSTIC", 30,
+        ("engine/research/controlled_omission.py", "engine/research/protocols.py", "engine/research/contracts.py"),
+        OmissionComparisonPlanPayloadV2,
+    ),
     "FORMULA_DESIGN": EngineJobSpec(
         FormulaDesignPayloadV2,
         "READ_ONLY_BATCH",
@@ -678,7 +736,12 @@ ENGINE_JOB_REGISTRY: dict[str, EngineJobSpec] = {
             "engine/formulation_intelligence/formula_solver.py",
             "engine/formulation_intelligence/formula_critic.py",
             "engine/formulation_intelligence/formula_design_runtime.py",
+            "engine/formulation_intelligence/architecture_bridge.py",
+            "engine/formulation_intelligence/architecture_rules_v5.py",
+            "engine/formulation_intelligence/subtype_coverage.py",
             "engine/formulation_intelligence/literature_knowledge.py",
+            "engine/formulation_intelligence/construction_library.py",
+            "engine/formulation_intelligence/subtype_research.py",
             "engine/inventory_parser.py",
             "engine/ingredient_intelligence.py",
         ),
@@ -694,6 +757,8 @@ ENGINE_JOB_REGISTRY: dict[str, EngineJobSpec] = {
             "backend/app/services/validation_pipeline.py",
             "engine/research/goal_analysis.py",
             "engine/formulation_intelligence/literature_knowledge.py",
+            "engine/formulation_intelligence/construction_library.py",
+            "engine/formulation_intelligence/subtype_research.py",
             "engine/intervention_profiles.py",
             "engine/inventory_parser.py",
         ),
@@ -790,6 +855,8 @@ ENGINE_JOB_REGISTRY: dict[str, EngineJobSpec] = {
             "engine/research/request_interpretation.py",
             "engine/research/protocols.py",
             "data/governance/commercial_reference_registry_v1.json",
+            "data/governance/commercial_reference_registry_v2.json",
+            "data/governance/commercial_reference_registry_v3.json",
         ),
         ReferencePanelEvaluationPayloadV2,
     ),
@@ -830,6 +897,7 @@ def validate_engine_payload(
         "PREFERENCE_ANALYSIS",
         "REFERENCE_PANEL_EVALUATION",
         "FORMULA_DESIGN",
+        "OMISSION_COMPARISON_PLAN",
     }:
         raise ValueError("ENGINE_JOB_TYPE_REQUIRES_V2_SCHEMA")
     validated = model.model_validate(payload)

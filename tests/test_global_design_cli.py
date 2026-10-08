@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 from scripts.verify_formula_workflow import run_design_portfolio
+from tests.historical_snapshots import bind_gin_design_test_plan
 
 ROOT = Path(__file__).resolve().parents[1]
 FORMULA = ROOT / "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
@@ -29,7 +30,7 @@ LOCAL_MIXTURE_DATA = _local_mixture_assets_available()
 
 
 def global_plan(tmp_path):
-    plan = json.loads(OLD_PLAN.read_text())
+    plan = bind_gin_design_test_plan(json.loads(OLD_PLAN.read_text()))
     plan.update(schema="global_design_portfolio_v1", budget=16, seed=31,
                 evaluator_version="fixture-numeric-v1")
     path = tmp_path / "global.json"
@@ -72,7 +73,7 @@ def test_numeric_callback_is_not_silently_ignored_by_legacy_mode():
 
 @pytest.mark.skipif(not LOCAL_MIXTURE_DATA, reason="Optional local DREAM/PubChem evidence bundle not downloaded")
 def test_hash_bound_partial_model_runs_without_full_perfume_promotion(tmp_path):
-    plan = json.loads((ROOT / "data/design_briefs/gin_vetiver_edp_partial_mixture_v1.json").read_text())
+    plan = bind_gin_design_test_plan(json.loads((ROOT / "data/design_briefs/gin_vetiver_edp_partial_mixture_v1.json").read_text()))
     plan["budget"] = 8
     path = tmp_path / "partial.json"
     path.write_text(json.dumps(plan))
@@ -83,14 +84,18 @@ def test_hash_bound_partial_model_runs_without_full_perfume_promotion(tmp_path):
     assert result["formula_modified"] is False
     assert result["predicted_liking"] is None
     assert result["experimental_recommendation"] is None
-    assert result["partial_model_best_observed"] is not None
+    assert result["status"] == "DIAGNOSTIC_ONLY_NO_CHANGE"
+    assert result["evaluator_authority_admitted"] is False
+    assert result["evaluator_authority_reasons"]
+    assert result["partial_model_best_observed"] is None
+    assert result["diagnostic_frontier"]
     assert result["full_perfume_gate"] == "FAIL_TARGET_AND_MIXTURE_COVERAGE"
 
 
 @pytest.mark.parametrize("mutation", ["model_hash", "structure", "unfrozen"])
 @pytest.mark.skipif(not LOCAL_MIXTURE_DATA, reason="Optional local DREAM/PubChem evidence bundle not downloaded")
 def test_partial_model_drift_and_silent_unknown_changes_fail(tmp_path, mutation):
-    plan = json.loads((ROOT / "data/design_briefs/gin_vetiver_edp_partial_mixture_v1.json").read_text())
+    plan = bind_gin_design_test_plan(json.loads((ROOT / "data/design_briefs/gin_vetiver_edp_partial_mixture_v1.json").read_text()))
     if mutation == "model_hash":
         plan["numerical_model"]["sha256"] = "0" * 64
     elif mutation == "structure":
@@ -143,11 +148,25 @@ def test_natural_adapter_rejects_unbound_profile_before_prediction(tmp_path):
 
 @pytest.mark.skipif(not LOCAL_MIXTURE_DATA or not (ROOT / 'output/optimizer_research_20260909/natural_structures/manifest_stereo_v2.json').is_file(),
                     reason='Optional natural/PubChem evidence bundle not downloaded')
-def test_natural_scenarios_run_with_residuals_and_no_full_perfume_promotion(tmp_path):
-    plan = json.loads((ROOT / 'data/design_briefs/gin_vetiver_edp_natural_selected_v2.json').read_text())
+def test_natural_scenarios_require_exact_source_before_any_prediction(tmp_path, monkeypatch):
+    plan = bind_gin_design_test_plan(json.loads((ROOT / 'data/design_briefs/gin_vetiver_edp_natural_selected_v2.json').read_text()))
     plan['budget'] = 4
     path = tmp_path / 'natural.json'
     path.write_text(json.dumps(plan))
+    manifest = json.loads((ROOT / plan['numerical_model']['natural_manifest']['path']).read_bytes())
+    source = manifest['source_hashes']['natural_profile_source']
+    if hashlib.sha256((ROOT / source['path']).read_bytes()).hexdigest() != source['sha256']:
+        # Preserve real current-source drift rather than rebind the old model.
+        from scripts import train_odor_predictor
+
+        def forbidden_prediction(*args, **kwargs):
+            pytest.fail('Source-drifted natural model reached prediction')
+
+        monkeypatch.setattr(train_odor_predictor, 'predict_dream_mixture', forbidden_prediction)
+        with pytest.raises(ValueError, match='Natural model source hash drift'):
+            run_design_portfolio(FORMULA, path)
+        assert hashlib.sha256(FORMULA.read_bytes()).hexdigest() == plan['formula_sha256']
+        return
     result = run_design_portfolio(FORMULA, path)
     assert result['evaluation_counts']['total'] == 9
     assert result['search_complete'] is True

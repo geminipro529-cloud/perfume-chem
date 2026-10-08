@@ -151,12 +151,12 @@ def test_native_gate_objects_bind_directly_and_preserve_current_holds() -> None:
         "dilutions": {"Javanol": 0.2},
     }
     gate = gate_formula(formula, ReleaseGateConfig(audit_enabled=False))
+    assert gate.formula_state.dose_receipt_sha256 is not None
     oav_result = analyze_oav_authority(
         OAVAuthorityRequest(
             formula_name=formula["name"],
             ingredients_ul=formula["ingredients_ul"],
             dilutions=formula["dilutions"],
-            dose_receipt_sha256=gate.dose_receipt.receipt_sha256,
         ),
         gate_report=gate,
     )
@@ -210,3 +210,39 @@ def test_native_gate_objects_bind_directly_and_preserve_current_holds() -> None:
     )
     assert result.state is ComplexityAdmissionState.HOLD
     assert result.release_authority is False
+
+    native_kwargs = dict(
+        formula_sha256=formula_sha256,
+        oav_result=oav_result,
+        preflight_report=preflight,
+        pre_mix_report=pre_mix,
+        planned_active_equivalence_status="NOT_APPLICABLE_NEW_FORMULA",
+        formula_is_revision=False,
+    )
+    bad_receipt = replace(
+        preflight,
+        checks=tuple(
+            replace(item, data={**item.data, "receipt_sha256": "0" * 64})
+            if item.name == "formula_dose_receipt" else item
+            for item in preflight.checks
+        ),
+    )
+    unbound = OAVGateBinding.from_native_results(
+        **{**native_kwargs, "preflight_report": bad_receipt}
+    )
+    assert unbound.receipt_binding_status == "UNBOUND_OR_ABSTAINED"
+    assert unbound.strict_oav_status == "ABSTAINED"
+    with pytest.raises(ValueError, match="lacks checks: formula_dose_receipt"):
+        OAVGateBinding.from_native_results(**{
+            **native_kwargs,
+            "preflight_report": replace(preflight, checks=tuple(
+                item for item in preflight.checks if item.name != "formula_dose_receipt"
+            )),
+        })
+    with pytest.raises(ValueError, match="lacks a bound dose receipt"):
+        OAVGateBinding.from_native_results(**{
+            **native_kwargs,
+            "oav_result": replace(oav_result, state=replace(
+                oav_result.state, dose_receipt_sha256=None
+            )),
+        })

@@ -1,0 +1,390 @@
+{
+  "schema_version": "botanical-depth-retrieval-diagnostic-v1",
+  "scope": "PAIRED_CURRENT_CODE_MANIFEST_ABLATION_RETRIEVAL_ONLY",
+  "status": "PASS",
+  "case_count": 19,
+  "repeats_per_arm": 4,
+  "measured_calls": 152,
+  "warmup_calls": 2,
+  "warm_p95_ms": {
+    "V3": 23.606,
+    "V4": 23.283
+  },
+  "repeat_order_stable": true,
+  "source_closure": true,
+  "network_used": false,
+  "changed_paths": [],
+  "source_snapshot": {
+    "engine/formulation_intelligence/literature_knowledge.py": "2e71e81c57be03bee2433d2c179d0594410389249fbbae1f61b5021a846d94b1",
+    "engine/formulation_intelligence/subtype_research.py": "e4ccca0843773fad47f4aabeb46a74d37b9b281b3d9ceb03fc68d1f0eab39427",
+    "engine/formulation_intelligence/source_review.py": "edc0031a89df17070e28e81502b52d4ae17de25e5f65f6b3ce397f58b92c5f6d",
+    "engine/formulation_intelligence/construction_library.py": "9f78e5f6323b687cca34e8a6ecf3b2c6bd1a1b3b01e74263ef5a816df47b049b",
+    "data/formulation_knowledge/construction_library_v1.json": "cba922283537998fa1dcc57dccd896b070cc7f1545c6209040d3d76b1f3652c7",
+    "data/formulation_knowledge/literature_v1.json": "94659e7167cd23dbc7df6e7b4ee527ef3f792ab2940c653beacaa671ea55db39",
+    "data/formulation_knowledge/prior_research_corpus_v1.json": "d614d475e88b049a21747737842fe35e8ff40292c83c403b73ba69e1c554841a",
+    "data/formulation_knowledge/research_coverage_plan_v1.json": "4b1225736af6b4ef6a564c8f2df40a846aa3cbab15f0584cd952088a8021a4ac",
+    "data/formulation_knowledge/research_coverage_progress_v1.json": "9753eaf2ba058be4b4bb7d710e9dbbf5a0a241a35591c8a0fca02613dabdca02",
+    "data/formulation_knowledge/research_coverage_progress_v2.json": "9ab58225b63436977eb01892acfc13f8f588add418bf0f72cccb373286ad06f4",
+    "data/formulation_knowledge/research_coverage_progress_v3.json": "4bf25e84a27a7694109c82dbf62720562be7bec6d4fdc3d909ca58913db104f1",
+    "data/formulation_knowledge/research_coverage_progress_v4.json": "c42172676120faa09f87d40617ff58608d7ead22134f0151dc87fe47d11cf432",
+    "data/formulation_knowledge/research_coverage_progress_v5.json": "d2f48e63684b99690b4a57aafbc76802b499cea73a10977f48ea473003470672",
+    "data/formulation_knowledge/source_reviews_v1.json": "50627e5999064128792f67be198e395af5376ec7b8b08e8e7ac8c82d5fe19453",
+    "data/formulation_knowledge/subtype_research_v1.json": "2bbc6d9116fac0bcc033b3547c860a4f4033c517b76e11b016d8464b55a1f8f0",
+    "data/formulation_knowledge/subtype_research_v2.json": "6a7da23c4dbc7f205390cc2502f2b4d451025741eb3aa2cc1b60d89eb9e4d6c2",
+    "data/formulation_knowledge/subtype_research_v3.json": "e70ddbfcb56b026003dc91785441e2da58c9292584112d2ae3afa66f86499f22",
+    "data/formulation_knowledge/subtype_research_v4.json": "14eef313a501262a63c839577d3b9cf48124441c1dbc1a03a2fcda1f17225c83"
+  },
+  "advice_changed_count": 19,
+  "formula_generation_executed": false,
+  "sensory_improvement": "NOT_TESTED",
+  "cases": [
+    {
+      "subtype_id": "GREEN_HYACINTH_WHITE",
+      "prompt": "white hyacinth",
+      "V3": {
+        "result_sha256": "3b1f4643ee996bd3aa2cf6589b7834e74097350b82dc9ed847f607f306e1072b",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "0955a10e8f62de101570244fde292b013b854420b8aa530161679197161800b4",
+        "cards_sha256": "92cdcd8b04ecd521b07d3bf2a1d21250b773f43d0d50f6f5f011450609a5affa",
+        "ids": [
+          "GREEN_HYACINTH_WHITE"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "POLLEN_TILIA_STAGES",
+      "prompt": "tilia",
+      "V3": {
+        "result_sha256": "20812fb2ee15065a14ab7f42c8577b702dde8ee8d01d71498d71b003b3d5f8e0",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "349e8d113dac3761c9164cadc34975bea7c2a97fb129136fec22a77d280b6325",
+        "cards_sha256": "019ca6d9879418499fc4a97057d194400aa000092345984b79aeb3c8a16d06b0",
+        "ids": [
+          "POLLEN_TILIA_STAGES"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "GREEN_BORONIA_ABSOLUTE",
+      "prompt": "boronia absolute",
+      "V3": {
+        "result_sha256": "c18d8bf04859306f2d8d1da82798556e409391c0bbcbb9adfaf57cd7342346a6",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "5fdfb3ac11e2c000b3882380d46903cc2920e61df905f06d3611e908bafeb0cc",
+        "cards_sha256": "72ffbbcf7b68e5d3074338115e1e3aae9e35c4a3b545c9777eae006e0df267e8",
+        "ids": [
+          "GREEN_BORONIA_ABSOLUTE"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "POLLEN_SPARTIUM_BROOM",
+      "prompt": "spartium junceum",
+      "V3": {
+        "result_sha256": "c94dcdb0b7db916ea791271c735fb662212fb8cdda1c5e542fdd0a2d7cf60fb8",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "3460f28f65c67ea4a3b544189189e78e815652b8ebf93ead15bd83ce2d99d3e2",
+        "cards_sha256": "ae306c32ddcf9d5b76f16801eb6b784fd665afd16317a689e7ad365ab19ddeca",
+        "ids": [
+          "POLLEN_SPARTIUM_BROOM"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "AQUATIC_NELUMBO",
+      "prompt": "nelumbo nucifera",
+      "V3": {
+        "result_sha256": "c94dcdb0b7db916ea791271c735fb662212fb8cdda1c5e542fdd0a2d7cf60fb8",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "f26de423527baf75e08058b5ac2f92917cf87164bfe813843deee4d1a278f5db",
+        "cards_sha256": "cc56be4e1c5eb6dc0037001e4bb03636d1df476c3952c94880bf1a6e11387b95",
+        "ids": [
+          "AQUATIC_NELUMBO"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "AQUATIC_NYMPHAEA_PROLIFERA",
+      "prompt": "nymphaea prolifera",
+      "V3": {
+        "result_sha256": "b55c4499e6347992be1d81a8ffaa6885c71c3e4fec532bce6c3cacb84923c102",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "0c118ef6ea948ead7d763afd56f7b20ca652b1d0cb845f0c874b88fd1f60d1af",
+        "cards_sha256": "bb65a4fb0b4789dc801b702f3b064443c3a772c9723c3d0241902b33987005ff",
+        "ids": [
+          "AQUATIC_NYMPHAEA_PROLIFERA"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "AQUATIC_NYMPHAEA_STETSON",
+      "prompt": "nymphaea paul stetson",
+      "V3": {
+        "result_sha256": "b55c4499e6347992be1d81a8ffaa6885c71c3e4fec532bce6c3cacb84923c102",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "76a76fffdb362dfaacad61fd56264daaa4ee03f6c06c835599f12d5f25835d28",
+        "cards_sha256": "a61df01a368df058f938885c059c9b60cbc6504fc2b2bd8f22c802f09a946d2f",
+        "ids": [
+          "AQUATIC_NYMPHAEA_STETSON"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "ORCHID_PHALAENOPSIS",
+      "prompt": "phalaenopsis violacea",
+      "V3": {
+        "result_sha256": "63e6e841a3f60f58e04f0e37fe5c215bf652ae8080f47ac5a0bd74623b02830f",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "6a14fec7070e1939ad5e6c3fbfb9b7cdcd74fa0b77e7fad0bfa1f019134ecb2b",
+        "cards_sha256": "06617d271a8dd945788d16f01d91ab390cee371de4be16902f891b2cffb27a8f",
+        "ids": [
+          "ORCHID_PHALAENOPSIS"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "ORCHID_CYMBIDIUM_SUNNY",
+      "prompt": "cymbidium sunny bell",
+      "V3": {
+        "result_sha256": "df87ae0718e3a5558902e805e9a4deedcd89c9f8d3b9008cd0266c5e07385e27",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "6fa3b2bc9f2dbea23ac705c0841528687e9ea120a853d6965f1bc1243f798a09",
+        "cards_sha256": "576a401ab5f98f8051a4c66da081784813f09c1c77d535df5e709fa89e4891c5",
+        "ids": [
+          "ORCHID_CYMBIDIUM_SUNNY"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "ORCHARD_LYCHEE_CULTIVARS",
+      "prompt": "lychee",
+      "V3": {
+        "result_sha256": "251f7651e5fd910775fb8b7fe05bee2ff741bc972139a16602ee67f7462662e3",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "670dbf1dc779500b5a28ac5c9fbcc80a31aa5ac1ff24362373cf5b6bb3427639",
+        "cards_sha256": "09a4f4e4502ad698e94baf7353bbeddc7cf9050c35d5588a3bb16c6fa88d6bf8",
+        "ids": [
+          "ORCHARD_LYCHEE_CULTIVARS"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "ORCHARD_FIG_FRUIT",
+      "prompt": "fig fruit",
+      "V3": {
+        "result_sha256": "702d4026a68cf30db3d226b198f5b1a7563296883398d8c83915bc30762dfe39",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "29475a1f30a17be160a554837edcf063e2546649dd1751beb852d09bf1d2cbbf",
+        "cards_sha256": "9406699ea0ff613ab247490d312912fe3ac5a344108192b014b741b8fb88bb73",
+        "ids": [
+          "ORCHARD_FIG_FRUIT"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "GREEN_FIG_LEAF",
+      "prompt": "fig leaf",
+      "V3": {
+        "result_sha256": "853dcde37befb0033bf2388f3a22e023ec4c5b611ec295497f4ad63f5349752b",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "043f99b9d3c3a82307a665e965078384afe660ff82caf9dcdfff638c44bd6f0c",
+        "cards_sha256": "87b773eb65a7ce7f1febf69541072184fa9966afd5617199ca1be414965e19eb",
+        "ids": [
+          "GREEN_FIG_LEAF"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "ORCHARD_QUINCE_CYDONIA",
+      "prompt": "cydonia oblonga",
+      "V3": {
+        "result_sha256": "c94dcdb0b7db916ea791271c735fb662212fb8cdda1c5e542fdd0a2d7cf60fb8",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "3e1095d5668047418bf732f706868496782cd3d2803895f4a2e9caf358941ff9",
+        "cards_sha256": "e01596e17b06708d82eaa6d47247b066b1e1c8ade298aabcab0de61718c0a252",
+        "ids": [
+          "ORCHARD_QUINCE_CYDONIA"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "CHYPRE_OAKMOSS_PRODUCT",
+      "prompt": "oakmoss",
+      "V3": {
+        "result_sha256": "253d226d1351394f67f226332ee979adc73312e324df0959c746fb01add39680",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "5723c4dc19fd75970b1d7635aa5fee22a112a60afa1a444877672d2f71af374f",
+        "cards_sha256": "6206126fef19e78af117e0ccce702fb525b367bb3d2e94604e9d9508a364d2e0",
+        "ids": [
+          "CHYPRE_OAKMOSS_PRODUCT"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "CHYPRE_TREEMOSS_PRODUCT",
+      "prompt": "treemoss",
+      "V3": {
+        "result_sha256": "45e265bcf5acdf4a47b42fd30802a050dd37150295890839a3b88ba72295c4f0",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "754dc4bb1d52e0621a1f005be57d69cacb759e0df2c726eaf7b6e2452ce0dd37",
+        "cards_sha256": "257e83c7d8beac0643622f718a24fdaf73f81316a72ce7993854f3b8e52ba40d",
+        "ids": [
+          "CHYPRE_TREEMOSS_PRODUCT"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "RESIN_BENZOIN_SIAM",
+      "prompt": "benzoin siam",
+      "V3": {
+        "result_sha256": "6589d0900ef64acd27da8b0f118a213c16b57743eeaa66712fe5b803a7a8e029",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "83bfeee3b8eaee089c1f7818c5421e4ebb7f20b9417c86bbfc7562c05a3c7833",
+        "cards_sha256": "dcd9752eef6f9ff9b6cc843717a0fc1b2a36549e0099746884537f444a28f939",
+        "ids": [
+          "RESIN_BENZOIN_SIAM"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "RESIN_BENZOIN_SUMATRA",
+      "prompt": "benzoin sumatra",
+      "V3": {
+        "result_sha256": "6589d0900ef64acd27da8b0f118a213c16b57743eeaa66712fe5b803a7a8e029",
+        "cards_sha256": "6bffeba331b3891aa4e0b369cd5d7d22a9a827ba6213ae772ae275c754f9570e",
+        "ids": []
+      },
+      "V4": {
+        "result_sha256": "9c23ee67f2b9f7e9eb86ef9fc21753a1f2dcaa9655302722fea56c1d7d8f14f7",
+        "cards_sha256": "f038618d19f37005188f91268caeb21f2f075436c370e2d5fb561bb042de9f08",
+        "ids": [
+          "RESIN_BENZOIN_SUMATRA"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "RESIN_PERU_MD",
+      "prompt": "peru balsam oil",
+      "V3": {
+        "result_sha256": "83508179168dae87f10366358f1f667b5d0491c231234e76e4f1ce758810e423",
+        "cards_sha256": "3ae6f830ab02b166e846464d4e84ab21161b19970965921d296af1f714956100",
+        "ids": [
+          "RESIN_TOLU_PERU"
+        ]
+      },
+      "V4": {
+        "result_sha256": "412b01ba1e0689c0f1f6faea84f3b0d8d05554579dfece8a0f62aa198dbe9908",
+        "cards_sha256": "52440ead1096384fc11a196d999c33f3d426eef850cb90a019028c1f9e8a88cd",
+        "ids": [
+          "RESIN_TOLU_PERU",
+          "RESIN_PERU_MD"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    },
+    {
+      "subtype_id": "RESIN_TOLU_RECONSTRUCTIONS",
+      "prompt": "tolu reconstruction",
+      "V3": {
+        "result_sha256": "7ea273ffbc8855e4e5fd055496e6bf7f707bae8969ef71dbd69c48635689b10b",
+        "cards_sha256": "3ae6f830ab02b166e846464d4e84ab21161b19970965921d296af1f714956100",
+        "ids": [
+          "RESIN_TOLU_PERU"
+        ]
+      },
+      "V4": {
+        "result_sha256": "ec9765eca3f41c906a0eb589b01b0acdfff8fff192db3239aa503932295208a9",
+        "cards_sha256": "8a447469b0b2eb5ce8642ce1dca4953033a7a73f7f9cef796ce909583b412fd2",
+        "ids": [
+          "RESIN_TOLU_PERU",
+          "RESIN_TOLU_RECONSTRUCTIONS"
+        ]
+      },
+      "expected_card_present": true,
+      "advice_changed": true
+    }
+  ]
+}

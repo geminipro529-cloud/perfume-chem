@@ -1,0 +1,3706 @@
+{
+  "schema_version": "formulation-subtype-research-v2",
+  "version": "2026-10-06.2",
+  "review_date": "2026-10-06",
+  "scope": "PARTIAL_SOURCE_BOUND_SUBTYPE_RESEARCH",
+  "parent_library_sha256": "cba922283537998fa1dcc57dccd896b070cc7f1545c6209040d3d76b1f3652c7",
+  "plan_sha256": "4b1225736af6b4ef6a564c8f2df40a846aa3cbab15f0584cd952088a8021a4ac",
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  },
+  "numeric_calibrations_admitted": [],
+  "cards": [
+    {
+      "subtype_id": "LAV_COLOGNE",
+      "package_id": "AR_LAVENDER",
+      "planned_subtype": "cologne",
+      "title": "Lavender cologne",
+      "match_groups": [
+        [
+          "lavender",
+          "lavande"
+        ],
+        [
+          "cologne",
+          "citrus"
+        ]
+      ],
+      "evidence_summary": "Existing fresh-lavender reference descriptions plus exact citrus-flower products motivate a cologne hypothesis.",
+      "construction_hypothesis": "Use citrus-flower lift around the lavender recognizer before investigating heavier support; a cologne structure does not require an amberwood chassis.",
+      "function_map": [
+        "Lavender: protected recognizer only when required by the brief.",
+        "Neroli-type flower and petitgrain-type leaf: separate transition hypotheses.",
+        "Drydown support: compare a restrained version with the control."
+      ],
+      "negative_space": [
+        "Cleaning-product citrus",
+        "Unrequested sweetness",
+        "Amberwood replacing lavender"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Lavender cologne control.",
+        "change": "Compare one neroli or petitgrain bridge at a time, without changing the lavender block.",
+        "question": "Does the citrus-flower bridge preserve lavender beyond the initial freshness?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Official perfume notes are architecture only, not a formula or evidence of Ambrox absence.",
+        "Neroli and petitgrain are not stock substitutes."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "caron_le_matin_edt",
+          "source_record_sha256": "41f735c53d0100da59cc0b3251ae5e209222060095ec65004338b74a88df100a"
+        },
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        },
+        {
+          "source_id": "iff_petitgrain_subtypes",
+          "source_record_sha256": "532922d8655855b3e8d619bf7a768719ba19acd1af8482c9603be2f113c66bdd"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LAV_BARBERSHOP",
+      "package_id": "AR_LAVENDER",
+      "planned_subtype": "green barbershop",
+      "title": "Green barbershop lavender",
+      "match_groups": [
+        [
+          "lavender",
+          "lavande"
+        ],
+        [
+          "barbershop",
+          "green fougere",
+          "green barbershop"
+        ]
+      ],
+      "evidence_summary": "Official aromatic references support distinguishing herbal-green fougere texture from mineral amberwood effects.",
+      "construction_hypothesis": "Test an herbal-green bridge and dry mossy impression around a legible lavender core; keep sweetness an independent axis.",
+      "function_map": [
+        "Lavender: recognizer.",
+        "Clary-sage-type herbal facets: bridge hypothesis.",
+        "Mossy/dry support: texture hypothesis, not a compulsory material."
+      ],
+      "negative_space": [
+        "Camphor taking over",
+        "Sweet amber turning the target gourmand"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Green barbershop lavender control.",
+        "change": "Omit the herbal bridge while keeping other blocks fixed.",
+        "question": "Does the herbal facet add a barbershop recognizer or merely medicinal sharpness?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Modern commercial descriptions do not reveal historical or proprietary formula quantities."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "tom_ford_beau_de_jour_edp",
+          "source_record_sha256": "486a5f057aeb84f16d2fe833dabe12a62b8b868bcb34c58b16fc63f431d1b4fd"
+        },
+        {
+          "source_id": "chanel_platinum_egoiste_edt",
+          "source_record_sha256": "34ba17f0d4d8e9ae3af491ef9ad47bc432a10d9b61cb321249ae2afd46d438f8"
+        },
+        {
+          "source_id": "iff_clary_completion",
+          "source_record_sha256": "26165151439da615ad9e0a8907bda0f6231f4852f01afcbc8291163669ad8bdc"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LAV_VANILLIC",
+      "package_id": "AR_LAVENDER",
+      "planned_subtype": "vanillic resin",
+      "title": "Vanillic-resin lavender",
+      "match_groups": [
+        [
+          "lavender",
+          "lavande"
+        ],
+        [
+          "vanilla",
+          "vanillic",
+          "benzoin",
+          "resin"
+        ]
+      ],
+      "evidence_summary": "Lavender-vanilla commercial architecture and a named balsamic benzoin grade support a softer route than mineral amberwoods.",
+      "construction_hypothesis": "Separate rounded vanillic warmth from resin body, then ask whether either improves the lavender transition.",
+      "function_map": [
+        "Lavender: recognizer.",
+        "Vanillic facet: rounding hypothesis.",
+        "Benzoin-type balsamic body: optional second dimension, not automatically needed."
+      ],
+      "negative_space": [
+        "Syrup",
+        "Vanilla becoming protagonist"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Vanillic-resin lavender control.",
+        "change": "Compare the minimal lavender-vanillic control against a resin-bridge alternative.",
+        "question": "Does resin add texture beyond sweetness already supplied by the vanillic block?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Siam benzoin is not interchangeable with Sumatra benzoin or a generic amber base.",
+        "No skin longevity is inferred."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "caron_pour_un_homme_edt",
+          "source_record_sha256": "49952bdf6650bd32afb547a940425e60370e9ae4d192971e37c81daa96cefbc7"
+        },
+        {
+          "source_id": "iff_benzoin_siam_foundation",
+          "source_record_sha256": "08615faaba10718c2da06185239a30cb05b32aaab84a5b0a999dde0bc2c9ab04"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LAV_SOFT_MUSK",
+      "package_id": "AR_LAVENDER",
+      "planned_subtype": "soft musk",
+      "title": "Soft musky lavender",
+      "match_groups": [
+        [
+          "lavender",
+          "lavande"
+        ],
+        [
+          "soft musk",
+          "musky",
+          "musk"
+        ]
+      ],
+      "evidence_summary": "Official lavender-musky architecture and distinct musk descriptions support testing texture independently of woody-amber power.",
+      "construction_hypothesis": "Compare a restrained soft-musk cushion with a fruit-associated musk bridge; do not maximise musk or assume the two are redundant.",
+      "function_map": [
+        "Lavender: recognizer.",
+        "Exaltolide-type soft musk: cushion hypothesis.",
+        "Helvetolide-type fruity musk: alternative bridge, not an obligatory layer."
+      ],
+      "negative_space": [
+        "Laundry dominance",
+        "Loss of aromatic bite"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Soft musky lavender control.",
+        "change": "Run a soft-musk versus fruity-musk alternative while preserving the target block.",
+        "question": "Does the musk retain lavender identity or leave an unrelated clean drydown?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Manufacturer tenacity language is not delivered concentration or perfume longevity.",
+        "A referenced perfume is not certified Ambrox-free."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "chanel_jersey_edp",
+          "source_record_sha256": "f67f9f7083979431b255226c7402d15bb62ba501415868eee7277da40b082114"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        },
+        {
+          "source_id": "helvetolide",
+          "source_record_sha256": "d7b21c8dadb05bae5a8b6f0c4470ac0a8eb35c511b24c8eba2c030ac3132cbbc"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LAV_ORANGE",
+      "package_id": "AR_LAVENDER",
+      "planned_subtype": "orange blossom",
+      "title": "Lavender and orange blossom",
+      "match_groups": [
+        [
+          "lavender",
+          "lavande"
+        ],
+        [
+          "orange blossom",
+          "orange flower",
+          "neroli"
+        ]
+      ],
+      "evidence_summary": "Libre's official architecture pairs lavender and orange blossom; natural flower oil and absolute remain different products.",
+      "construction_hypothesis": "Treat fresh neroli and fuller orange-flower absolute as different bridge directions, with lavender/floral balance explicitly tested.",
+      "function_map": [
+        "Lavender: aromatic contrast.",
+        "Neroli: fresh flower bridge hypothesis.",
+        "Orange-flower absolute: fuller alternative, not a synonym."
+      ],
+      "negative_space": [
+        "White flowers obscuring lavender",
+        "Unrequested vanilla sweetness"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Lavender and orange blossom control.",
+        "change": "Compare flower-oil and flower-absolute bridge variants rather than combining both by default.",
+        "question": "Which flower register bridges the lavender while respecting floral restraint?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Marketed architecture does not provide Libre's formula.",
+        "Exact product and extraction matter; no automatic inventory substitution."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "ysl_libre_edp",
+          "source_record_sha256": "74904035a43d0b59ce3452248f9900d88f686a966a61725e10f698fae67799df"
+        },
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        },
+        {
+          "source_id": "iff_orange_flower_completion",
+          "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LAV_IRIS",
+      "package_id": "AR_LAVENDER",
+      "planned_subtype": "iris",
+      "title": "Lavender with iris texture",
+      "match_groups": [
+        [
+          "lavender",
+          "lavande"
+        ],
+        [
+          "iris",
+          "orris"
+        ]
+      ],
+      "evidence_summary": "Official lavender/iris references motivate a powder-texture direction, while methyl-ionone grades remain product-specific.",
+      "construction_hypothesis": "Separate cool aromatic recognition from a dry cosmetic or woody-violet texture; preserve whichever iris profile the user actually asked for.",
+      "function_map": [
+        "Lavender: cool recognizer.",
+        "Exact methyl-ionone grade: testable texture candidate.",
+        "Warm support: optional contrast, not automatic sweetness."
+      ],
+      "negative_space": [
+        "Powder swallowing lavender",
+        "Heavy sweet amber"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Lavender with iris texture control.",
+        "change": "Compare the control with one iris-texture block; assess recognizer retention.",
+        "question": "Does iris texture deepen the transition without turning the perfume into lipstick or violet powder?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Orris Liquid remains excluded for compounding.",
+        "Methyl Ionone Gamma Coeur is not AIMI or a whole orris extract."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "caron_le_soir_edp",
+          "source_record_sha256": "0873146aae873dfc57420252453aaec000e85087e0aed27cacf2abbd2984d9d7"
+        },
+        {
+          "source_id": "jpg_le_male_le_parfum",
+          "source_record_sha256": "79702d680778b9e74480829e7139ba9a186fe1dfd5d38a81638ab8c744e92a7a"
+        },
+        {
+          "source_id": "iff_gamma",
+          "source_record_sha256": "0158eb039645955eae7c6bed9c0d3b1cbd8fc27a2923613d64ffba0e42b6504e"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LAV_INCENSE",
+      "package_id": "AR_LAVENDER",
+      "planned_subtype": "incense",
+      "title": "Lavender incense",
+      "match_groups": [
+        [
+          "lavender",
+          "lavande"
+        ],
+        [
+          "incense",
+          "olibanum",
+          "frankincense"
+        ]
+      ],
+      "evidence_summary": "An official lavender-incense reference and distinct olibanum extracts motivate a non-amberwood resin route.",
+      "construction_hypothesis": "Contrast aromatic lift with an incense impression; compare volatile oil character against denser resinoid body rather than treating either as smoke.",
+      "function_map": [
+        "Lavender: recognizer.",
+        "Olibanum oil: lifted resin hypothesis.",
+        "Olibanum resinoid: denser alternative."
+      ],
+      "negative_space": [
+        "Tar or smoke becoming the target",
+        "Resin suppressing freshness"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Lavender incense control.",
+        "change": "Oil-versus-resinoid bridge comparison with the aromatic core unchanged.",
+        "question": "Does a resin bridge connect to lavender or separate into two unrelated smells?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Boswellia species, extraction and stock dilution stay distinct.",
+        "Neither extract alone establishes church-smoke reconstruction."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "serge_encens_lavande_edp",
+          "source_record_sha256": "73f6362dcb457f6e47d1702f40eb4854871ebaa36820b19524c3329a2ed72596"
+        },
+        {
+          "source_id": "iff_olibanum_oil_completion",
+          "source_record_sha256": "7d1ab60ba12f335541b07a22210d8f76dccf245523be3f799a61af70d2e75e79"
+        },
+        {
+          "source_id": "iff_olibanum_resinoid_completion",
+          "source_record_sha256": "799c648cebdbd035cdf20a67b2eadb12ba0d5a3769c2e3087267855f54beefb4"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LAV_LICORICE",
+      "package_id": "AR_LAVENDER",
+      "planned_subtype": "licorice",
+      "title": "Lavender licorice",
+      "match_groups": [
+        [
+          "lavender",
+          "lavande"
+        ],
+        [
+          "licorice",
+          "liquorice",
+          "reglisse"
+        ]
+      ],
+      "evidence_summary": "The official Brin de Reglisse description supports lavender/licorice as an architectural reference only.",
+      "construction_hypothesis": "Use a licorice impression as a dark aromatic accent, not as permission to replace lavender with sweet anise.",
+      "function_map": [
+        "Lavender: recognizer.",
+        "Licorice impression: contrast hypothesis; exact material remains unresolved."
+      ],
+      "negative_space": [
+        "Candy",
+        "Dominant anise"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Lavender licorice control.",
+        "change": "Compare omission of the licorice accent before adding more base.",
+        "question": "Does licorice sharpen the lavender identity or turn it into confectionery?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "No glycyrrhizin, anethole, formula quantity or specific licorice chemical is inferred from product notes."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "hermes_brin_reglisse_edt",
+          "source_record_sha256": "159c21a38f477599cb825c01461f5a554d82a8de0cf6bf444084af009d4a858c"
+        },
+        {
+          "source_id": "bontoux_lavender_products",
+          "source_record_sha256": "05dc7e9330b6176a39a9a186739ec8877deb289a0fffba67b5f6b58d1b35e437"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CIT_MANDARIN_GREEN",
+      "package_id": "CI_PRODUCTS",
+      "planned_subtype": "orange mandarin",
+      "title": "Green mandarin versus ripe mandarin",
+      "match_groups": [
+        [
+          "green mandarin",
+          "mandarin"
+        ]
+      ],
+      "evidence_summary": "The supplier identifies a green-harvest peel product distinct from red mandarin.",
+      "construction_hypothesis": "Use ripeness-specific citrus choice as a construction variable, not a rename of a generic orange top.",
+      "function_map": [
+        "Named green-mandarin grade: zesty/floral-fruity option.",
+        "Ripe-mandarin comparison: requires its own exact product evidence."
+      ],
+      "negative_space": [
+        "Orange candy",
+        "Green label misread as cut grass"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Green mandarin versus ripe mandarin control.",
+        "change": "Compare authenticated citrus grades on the same control chassis; do not infer equal potency.",
+        "question": "Does the harvest register improve recognizability without excessive sweetness?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "One grade's description does not calibrate a red/green replacement ratio."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "iff_mandarin_green_subtypes",
+          "source_record_sha256": "57237f2641b1416816b94162f93938187682059cf62962316584b6cee83fb10e"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CIT_GRAPEFRUIT",
+      "package_id": "CI_PRODUCTS",
+      "planned_subtype": "grapefruit bitter orange",
+      "title": "Grapefruit peel versus juice facets",
+      "match_groups": [
+        [
+          "grapefruit"
+        ]
+      ],
+      "evidence_summary": "Juice reconstitution and a tropical-fruity supplier description address different evidence domains.",
+      "construction_hypothesis": "Distinguish peel bitterness, juicy fruit body and sulfurous realism; investigate them as separate facets rather than adding generic citrus strength.",
+      "function_map": [
+        "Juice-like esters: body hypothesis.",
+        "Sulfurous nuance: optional realism question, no dose imported.",
+        "Peel/dry support: independent axis."
+      ],
+      "negative_space": [
+        "Catty dominance",
+        "Tropical fruit displacing grapefruit"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Grapefruit peel versus juice facets control.",
+        "change": "Compare one facet omission at a time; keep total perceived strength a separate observation.",
+        "question": "Which facet is missing: peel, juice, or characteristic sulfurous detail?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Food matrix thresholds and concentrations do not become perfume OAVs.",
+        "Paradisamide is not grapefruit juice or a complete peel oil."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "grapefruit_reconstitution_subtypes",
+          "source_record_sha256": "d98a49a533b7943c1e1137cdb1a8d791782918586007aa82abfcdc5e749e0409"
+        },
+        {
+          "source_id": "givaudan_paradisamide_completion",
+          "source_record_sha256": "8682aabf681b39585972782d0a8a5b66b01fb80c155c474e4dcdc44c8ca3032a"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CIT_YUZU",
+      "package_id": "CI_PRODUCTS",
+      "planned_subtype": "yuzu regional citrus",
+      "title": "Yuzu-specific citrus",
+      "match_groups": [
+        [
+          "yuzu"
+        ]
+      ],
+      "evidence_summary": "Yuzu peel-oil work supports character-impact polar odorants beyond the bulk terpene profile.",
+      "construction_hypothesis": "Build a yuzu-led recognizer instead of relabeling lemon-grapefruit; use an authenticated reference to judge the distinction.",
+      "function_map": [
+        "Exact yuzu peel reference: recognizer evidence.",
+        "Polar character facet: research question, not a procurement-ready formula."
+      ],
+      "negative_space": [
+        "Generic lemon",
+        "Unsupported universal yuzu marker"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Yuzu-specific citrus control.",
+        "change": "Retain a generic citrus control and compare recognition blindly.",
+        "question": "Can the proposed accord be distinguished from the generic citrus control as yuzu?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "The reported source occurrence is not proof of botanical exclusivity.",
+        "Yuzunone availability, permitted use and dose remain unbound."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "yuzu_character_subtypes",
+          "source_record_sha256": "4fb71b8d1f1d736427720c5bd4e63ee6db387fb6cb259a3893a038d809a31838"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "GREEN_GALBANUM",
+      "package_id": "GR_GREEN",
+      "planned_subtype": "galbanum",
+      "title": "Galbanum bitter-green resin",
+      "match_groups": [
+        [
+          "galbanum"
+        ]
+      ],
+      "evidence_summary": "Odor-directed analysis distinguishes galbanum character from its bulk terpene content.",
+      "construction_hypothesis": "Separate green-resin bite from leafy freshness and ask whether added trace character improves the intended green structure.",
+      "function_map": [
+        "Galbanum oil identity: resin recognizer.",
+        "Leafy bridge: separate design hypothesis.",
+        "Trace character: prioritise investigation by sensory evidence, not peak size."
+      ],
+      "negative_space": [
+        "Vegetal harshness",
+        "Generic terpene reconstruction"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Galbanum bitter-green resin control.",
+        "change": "Compare galbanum-block omission against a leafy control.",
+        "question": "Does the green-resin facet earn its place beyond an ordinary leafy accord?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Oil and resinoid are not identical.",
+        "No trace ketone or pyrazine dose is admitted."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "galbanum_character_subtypes",
+          "source_record_sha256": "aa5ed7c9f4aaa41658e72354258fec50154f0a74555f1b0ee100400401fbbc81"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "GREEN_VIOLET_LEAF",
+      "package_id": "GR_GREEN",
+      "planned_subtype": "violet leaf",
+      "title": "Watery violet leaf",
+      "match_groups": [
+        [
+          "violet leaf"
+        ]
+      ],
+      "evidence_summary": "An exact leaf absolute and the existing flower-emission source address distinct plant organs.",
+      "construction_hypothesis": "Construct watery leaf freshness separately from violet-petal powder, then test whether a mossy/leathery transition is appropriate.",
+      "function_map": [
+        "Violet leaf absolute: leafy-watery option.",
+        "Petal/powder block: excluded unless separately requested.",
+        "Mossy transition: hypothesis, not a measured drydown."
+      ],
+      "negative_space": [
+        "Powder mislabeled as leaf",
+        "Cucumber or leather taking over"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Watery violet leaf control.",
+        "change": "Compare leaf-led and petal-led controls rather than merging their identities.",
+        "question": "Does the leaf effect remain recognisable without borrowing violet powder?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Viola flower headspace does not characterise leaf absolute.",
+        "This card does not clear the Orris Liquid hold."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "iff_violet_leaf_subtypes",
+          "source_record_sha256": "ca2e27425aaac65c5faa010ce20ff801ee9376696cb74c833d59b50a48e46e2d"
+        },
+        {
+          "source_id": "violet_emissions",
+          "source_record_sha256": "8fcf5996069e7f4f875b28dcf5149105b8a84f8c5f402e8656f3bffbd573db9f"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ORANGE_NEROLI",
+      "package_id": "FL_ORANGE",
+      "planned_subtype": "distilled neroli",
+      "title": "Fresh distilled neroli",
+      "match_groups": [
+        [
+          "neroli"
+        ]
+      ],
+      "evidence_summary": "Neroli blossom oil and orange-flower absolute have different extraction identities.",
+      "construction_hypothesis": "Keep fresh green-floral bloom legible; use the absolute only as a separately tested warmer alternative.",
+      "function_map": [
+        "Neroli oil: fresh floral recognizer.",
+        "Orange-flower absolute: optional contrast."
+      ],
+      "negative_space": [
+        "Honeyed heaviness",
+        "Oil/absolute stock confusion"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Fresh distilled neroli control.",
+        "change": "Compare the two exact product registers; do not assume equal-dose equivalence.",
+        "question": "Is fresh flower clarity lost when a richer extract is used?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Missing neat stock is not permission to use the same volume of a dilute stock."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        },
+        {
+          "source_id": "iff_orange_flower_completion",
+          "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ORANGE_PETITGRAIN",
+      "package_id": "FL_ORANGE",
+      "planned_subtype": "petitgrain bridge",
+      "title": "Petitgrain flower-to-leaf bridge",
+      "match_groups": [
+        [
+          "petitgrain"
+        ]
+      ],
+      "evidence_summary": "Shared Citrus aurantium origin does not erase the distinction between twigs/leaves and blossoms.",
+      "construction_hypothesis": "Test a bitter-green leaf bridge behind a flower or citrus recognizer without relabeling it neroli.",
+      "function_map": [
+        "Petitgrain bigarade: bitter-green bridge.",
+        "Neroli: independent floral axis."
+      ],
+      "negative_space": [
+        "Twig bitterness dominating",
+        "Generic petitgrain species alias"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Petitgrain flower-to-leaf bridge control.",
+        "change": "Compare addition/omission of the leaf bridge on an unchanged flower control.",
+        "question": "Does the leaf bridge connect the citrus to the heart or make it harsh?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Citronnier, bigarade and terpene-reduced products require separate identity records."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "iff_petitgrain_subtypes",
+          "source_record_sha256": "532922d8655855b3e8d619bf7a768719ba19acd1af8482c9603be2f113c66bdd"
+        },
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "JAS_GRANDIFLORUM",
+      "package_id": "FL_JASMINE",
+      "planned_subtype": "grandiflorum",
+      "title": "Grandiflorum jasmine texture",
+      "match_groups": [
+        [
+          "grandiflorum",
+          "jasmine grandiflorum"
+        ]
+      ],
+      "evidence_summary": "Species-specific flower emissions and an exact grandiflorum absolute description are complementary, not equivalent evidence.",
+      "construction_hypothesis": "Separate fruity floral volume, indolic warmth and green/hay texture; decide which of these the brief actually needs.",
+      "function_map": [
+        "Exact grandiflorum absolute: texture candidate.",
+        "Transparent floral support: hypothesis, not proof of natural equivalence."
+      ],
+      "negative_space": [
+        "Indolic heaviness",
+        "Automatic sambac replacement"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Grandiflorum jasmine texture control.",
+        "change": "Use a natural-texture omission while holding the recognizer structure fixed.",
+        "question": "Does the natural texture improve the target or simply increase indolic weight?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Flower headspace is not absolute composition.",
+        "A natural's label does not prove superior liking."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "iff_jasmine_grand_subtypes",
+          "source_record_sha256": "1345f5739e57f064df0f82fed060381c7791d6c7d5ea3efba5f331ac1ff7ddbb"
+        },
+        {
+          "source_id": "jasmine_species_subtypes",
+          "source_record_sha256": "b48a3bec89b7a5f6243f441cc4102b460e9d8417a47d29741b7d0d3ba7c1addb"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "JAS_TEA_GREEN",
+      "package_id": "FL_JASMINE",
+      "planned_subtype": "tea green",
+      "title": "Tea-green jasmine",
+      "match_groups": [
+        [
+          "jasmine",
+          "sambac"
+        ],
+        [
+          "tea",
+          "green"
+        ]
+      ],
+      "evidence_summary": "Jasmine species and tea cultivars vary, so a tea-jasmine bridge needs an explicit target register.",
+      "construction_hypothesis": "Test airy flower against green-tea texture; do not use indole or grassy sharpness as a universal tea proxy.",
+      "function_map": [
+        "Exact jasmine register: flower recognizer.",
+        "Tea-green texture: second axis requiring reference comparison."
+      ],
+      "negative_space": [
+        "White-floral domination",
+        "Grass standing in for tea"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Tea-green jasmine control.",
+        "change": "Compare tea texture alone, flower control and a combined bridge.",
+        "question": "Does the bridge suggest tea-flower continuity instead of two separate accords?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Tea chemistry is not a jasmine absolute analysis.",
+        "No tea-ingredient ratios or skin effects are imported."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "jasmine_species_subtypes",
+          "source_record_sha256": "b48a3bec89b7a5f6243f441cc4102b460e9d8417a47d29741b7d0d3ba7c1addb"
+        },
+        {
+          "source_id": "tea_green_cultivar_subtypes",
+          "source_record_sha256": "20ab2f8b8efcb2f0edc02d8272d8f289d9fe39ced1b949111fc370d20404371f"
+        },
+        {
+          "source_id": "iff_jasmine_completion",
+          "source_record_sha256": "5d4db39c433fd72932f6d12c64f4cf966a638d1fb1103951abf162437573a1ab"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "MUGUET_SOFT",
+      "package_id": "FL_MUGUET",
+      "planned_subtype": "classical muguet",
+      "title": "Soft muguet versus watery cyclamen",
+      "match_groups": [
+        [
+          "muguet",
+          "lily of the valley",
+          "florol"
+        ]
+      ],
+      "evidence_summary": "Named floral ingredients support distinguishing soft muguet volume from green-watery floral facets.",
+      "construction_hypothesis": "Use a clear bell-flower recognizer and test watery lift separately; adding every modern floral material is not a structure.",
+      "function_map": [
+        "Florol-type softness: volume hypothesis.",
+        "Florhydral-type facet: contrasting lift hypothesis."
+      ],
+      "negative_space": [
+        "Laundry abstraction",
+        "Watery floral obscuring the brief"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Soft muguet versus watery cyclamen control.",
+        "change": "Compare one soft-floral control with one watery-floral alternative.",
+        "question": "Does watery lift improve muguet recognition or dilute it into generic freshness?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Supplier use descriptions are not regulatory substitutions or universal equal-potency ratios."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "dsm_florol_subtypes",
+          "source_record_sha256": "8a11ad4223cedb450e2668c189ee6cf96e829bfed72f35d90ee97f1faeb6aeb0"
+        },
+        {
+          "source_id": "givaudan_florhydral_completion",
+          "source_record_sha256": "aa00a1a2c661d81e28add1283fba41a7ed15612c43c455c5b56c37cf11b112f2"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ORCHARD_RIPE_APPLE",
+      "package_id": "FR_ORCHARD",
+      "planned_subtype": "ripe apple",
+      "title": "Ripe apple with controlled cider facets",
+      "match_groups": [
+        [
+          "ripe apple",
+          "apple body",
+          "manzanate",
+          "fructone"
+        ]
+      ],
+      "evidence_summary": "Named apple-associated ingredients also carry cider, pineapple, strawberry or woody facets.",
+      "construction_hypothesis": "Keep crispness, ripe flesh and fermentation nuance separate; do not let apple body turn into tropical fruit shampoo.",
+      "function_map": [
+        "Manzanate: ripe/cider candidate.",
+        "Fructone: alternate fruity-body candidate.",
+        "Existing cultivar evidence: realism boundary, not a dose recipe."
+      ],
+      "negative_space": [
+        "Tropical fruit soup",
+        "Fermented dominance",
+        "Shampoo"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Ripe apple with controlled cider facets control.",
+        "change": "Compare body alternatives and a body-omitted crisp control.",
+        "question": "Which body option supports apple recognizability without the strongest side character?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "IFF Fructone is not automatically a reseller's Fructone B.",
+        "Ethyl 2-methylpentanoate is not ethyl 2-methylbutyrate."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "givaudan_manzanate_subtypes",
+          "source_record_sha256": "0d10c24774688e4d120a89644b88732beb8955c55fa3e24951d667e8c62378bb"
+        },
+        {
+          "source_id": "iff_fructone_subtypes",
+          "source_record_sha256": "5f1da274bf85ec50746f306cc17b7fdeea3f7752ce5518da83ff003ad2d5d462"
+        },
+        {
+          "source_id": "apple_aroma",
+          "source_record_sha256": "f210af34dd21a4d3834fe60013957c27cf8ce954c73a62e3f7cb9930c9f2ffdc"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ORCHARD_PEAR_MUSK",
+      "package_id": "FR_ORCHARD",
+      "planned_subtype": "pear persistent bridge",
+      "title": "Pear-to-musk continuity",
+      "match_groups": [
+        [
+          "pear"
+        ],
+        [
+          "musk",
+          "persistent",
+          "persistence",
+          "drydown"
+        ]
+      ],
+      "evidence_summary": "A pear-associated musk descriptor and pear-food aroma study support different aspects of a continuity hypothesis.",
+      "construction_hypothesis": "Test whether a fruit-associated musk preserves a pear memory after the volatile recognizer fades; persistence must be smelled, not assumed from the label.",
+      "function_map": [
+        "Pear recognizer: preserve independently.",
+        "Helvetolide: fruit-to-musk bridge hypothesis."
+      ],
+      "negative_space": [
+        "Musk replacing fruit",
+        "Pear candy"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Pear-to-musk continuity control.",
+        "change": "Compare with and without the fruit-associated musk bridge at predeclared timepoints.",
+        "question": "Is pear still recognised later, or is only a pleasant musk left?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Helvetolide is not pear ester or a measured late-pear response curve.",
+        "No longevity or projection guarantee."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "helvetolide",
+          "source_record_sha256": "d7b21c8dadb05bae5a8b6f0c4470ac0a8eb35c511b24c8eba2c030ac3132cbbc"
+        },
+        {
+          "source_id": "pear_aroma",
+          "source_record_sha256": "dd49b0eb88e5fa3b5a15ed393612b6899c4f6fb10f8885179e0d3162d6b6aebf"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ORCHARD_HEART",
+      "package_id": "FR_ORCHARD",
+      "planned_subtype": "fruit heart continuity",
+      "title": "Orchard fruit into a restrained floral heart",
+      "match_groups": [
+        [
+          "pear",
+          "apple",
+          "orchard"
+        ],
+        [
+          "heart",
+          "freesia",
+          "osmanthus"
+        ]
+      ],
+      "evidence_summary": "Official orchard references and an osmanthus descriptor suggest different fruit-to-flower bridge directions.",
+      "construction_hypothesis": "Compare transparent flower support with a restrained stone-fruit floral bridge while pear/apple remains the protagonist.",
+      "function_map": [
+        "Orchard core: recognizer.",
+        "Transparent flower: clarity route.",
+        "Osmanthus: alternate flesh/texture route, not mandatory luxury."
+      ],
+      "negative_space": [
+        "Apricot replacing pear",
+        "Floral bouquet",
+        "Leather"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Orchard fruit into a restrained floral heart control.",
+        "change": "Compare transparent and osmanthus-led bridges against a simple fruit control.",
+        "question": "Does the added bridge extend fruit identity or merely make the heart more floral?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Commercial note pyramids are not disclosed formulas or measured similarity.",
+        "Osmanthus grade and product identity stay exact."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "iff_osmanthus_completion",
+          "source_record_sha256": "0f178c02e7a9d4b9d0b64cdc89038b2ce598625a34ff7ab3414544df1743a516"
+        },
+        {
+          "source_id": "guerlain_pera_granita_edt",
+          "source_record_sha256": "85e81ba1a18540e2b0f242f3342f286f663c361e030f98ba20f2b9eea53c242f"
+        },
+        {
+          "source_id": "jomalone_english_pear_freesia_cologne",
+          "source_record_sha256": "db3c4cfae691e547f6794acb8e46fd864e28dac28beb0f625510ab22cb7c90e9"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "BERRY_CASSIS",
+      "package_id": "FR_BERRY",
+      "planned_subtype": "blackcurrant",
+      "title": "Cassis bud-green versus berry-juice",
+      "match_groups": [
+        [
+          "cassis",
+          "blackcurrant"
+        ]
+      ],
+      "evidence_summary": "A bud absolute's green-sulfurous descriptor is distinct from a juice reconstruction.",
+      "construction_hypothesis": "Use cassis bud character as a separate realism axis from sweet berry body; decide whether the target needs the bud at all.",
+      "function_map": [
+        "Exact bud absolute: green/sulfurous option.",
+        "Berry body: independent construction hypothesis."
+      ],
+      "negative_space": [
+        "Catty dominance",
+        "Jam hiding the green identity"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Cassis bud-green versus berry-juice control.",
+        "change": "Compare bud-present and bud-omitted variants with fruit body fixed.",
+        "question": "Does bud character improve recognisability or just increase sulfurous sharpness?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "A bud extract is not berry essential oil.",
+        "Grapefruit-juice sulfur evidence does not supply cassis perfume concentrations."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "iff_blackcurrant_subtypes",
+          "source_record_sha256": "49f7cae5a4aa681ae8b55df7ea36906a5f393c7fb08e5cae5650b55f8086e34b"
+        },
+        {
+          "source_id": "grapefruit_reconstitution_subtypes",
+          "source_record_sha256": "d98a49a533b7943c1e1137cdb1a8d791782918586007aa82abfcdc5e749e0409"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "BERRY_RASPBERRY",
+      "package_id": "FR_BERRY",
+      "planned_subtype": "raspberry",
+      "title": "Raspberry floral-green complexity",
+      "match_groups": [
+        [
+          "raspberry"
+        ]
+      ],
+      "evidence_summary": "Raspberry-juice work supports multiple facets; existing beta-ionone sensitivity research cautions against a single observer's verdict.",
+      "construction_hypothesis": "Explore floral-green realism separately from a sweet berry impression, with an omission control for the ionone-associated facet.",
+      "function_map": [
+        "Berry recognizer: lock first.",
+        "Floral-green detail: realism hypothesis.",
+        "Sweet body: independent axis."
+      ],
+      "negative_space": [
+        "Violet taking over",
+        "Candy syrup"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Raspberry floral-green complexity control.",
+        "change": "Compare the complete hypothesis with one floral-detail omission.",
+        "question": "Does the floral-green detail improve raspberry identity across observers?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Food aroma is not perfume calibration.",
+        "Beta-ionone sensitivity variation is not a universal anosmia assignment."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "raspberry_recombination_subtypes",
+          "source_record_sha256": "3c25fa3885840a77a117e5c78cf3a8f9815ece6b67f9d2fe989688e2e60393b3"
+        },
+        {
+          "source_id": "beta_ionone_or5a1",
+          "source_record_sha256": "3c436225ab5e3c70c01b8b2d1d95164398efb55e32c592fc62b97fe957fab9da"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TEA_GREEN",
+      "package_id": "TE_TEA",
+      "planned_subtype": "green tea",
+      "title": "Floral-green tea",
+      "match_groups": [
+        [
+          "green tea"
+        ]
+      ],
+      "evidence_summary": "Floral green-tea character depends on cultivar and processing; a green-smelling ingredient alone does not establish tea identity.",
+      "construction_hypothesis": "Keep fresh infusion, soft floral detail and leafy texture separate, using the leaf block only where the selected reference needs it.",
+      "function_map": [
+        "Reference tea register: recognizer.",
+        "Leafy detail: optional texture hypothesis."
+      ],
+      "negative_space": [
+        "Cut-grass substitute",
+        "Generic citrus cologne"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Floral-green tea control.",
+        "change": "Compare leaf-block omission against an authenticated tea reference.",
+        "question": "Does the leafy detail make the target read as tea or simply greener?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Stemone is not a complete tea extract.",
+        "No tea-consumer preference is transferred to perfume."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "tea_green_cultivar_subtypes",
+          "source_record_sha256": "20ab2f8b8efcb2f0edc02d8272d8f289d9fe39ced1b949111fc370d20404371f"
+        },
+        {
+          "source_id": "givaudan_stemone_foundation",
+          "source_record_sha256": "1c712d16cb1708796e4a5d91b4066c0bac49bdc315caee64371b26a9abb233f1"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TEA_BLACK",
+      "package_id": "TE_TEA",
+      "planned_subtype": "black tea",
+      "title": "Sun-dried black-tea floral-woody texture",
+      "match_groups": [
+        [
+          "black tea",
+          "sun dried tea"
+        ]
+      ],
+      "evidence_summary": "Omission-supported tea odorants and incomplete recombination illustrate why tea identity is more than a list of abundant peaks.",
+      "construction_hypothesis": "Investigate ionone-related and floral-alcohol texture as a tea bridge, without treating woody intensity as black-tea accuracy.",
+      "function_map": [
+        "Ionone-related block: texture hypothesis.",
+        "Floral alcohol block: complementary hypothesis.",
+        "Tea recognizer: assessed against a reference."
+      ],
+      "negative_space": [
+        "Violet powder",
+        "Dry wood replacing tea"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Sun-dried black-tea floral-woody texture control.",
+        "change": "Omit one block at a time, preserving the full control.",
+        "question": "Does the ionone/floral bridge improve tea recognition without excess woodiness?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "The study used a deodorized tea matrix, not ethanol or skin.",
+        "Dihydro-beta-ionone remains a distinct ingredient grade."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "tea_black_omission_subtypes",
+          "source_record_sha256": "69847627a14afa01698ed45a00f63ec0586151db78c3332d4945c3d9eb02b23d"
+        },
+        {
+          "source_id": "givaudan_dihydro",
+          "source_record_sha256": "9a2ac22d66c36aa383e7672ce816f89f929adfc0eb46e2c775d7228a881d590d"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TEA_OOLONG",
+      "package_id": "TE_TEA",
+      "planned_subtype": "oolong",
+      "title": "Roasted Dong Ding oolong",
+      "match_groups": [
+        [
+          "oolong",
+          "dong ding"
+        ]
+      ],
+      "evidence_summary": "Infusion omission experiments support a roast/caramel block alongside floral-fruity material, not a generic smoke formula.",
+      "construction_hypothesis": "Separate roast from floral-fruity tea texture and retain both as independently adjustable design questions.",
+      "function_map": [
+        "Roasted pyrazine block: candidate dimension, no dose imported.",
+        "Floral-fruity tea block: recognizer support hypothesis."
+      ],
+      "negative_space": [
+        "Coffee",
+        "Nut confectionery",
+        "Smoke mistaken for roast"
+      ],
+      "comparison": {
+        "control": "Unchanged target or simplest recognisable Roasted Dong Ding oolong control.",
+        "change": "Compare the full hypothesis with roast-omitted and floral-omitted controls.",
+        "question": "Does roast increase oolong recognition or make it smell like coffee or nuts?",
+        "stop": "Reject the alternative if the locked recognizer weakens, an avoid constraint becomes noticeable, or the result cannot be distinguished reliably."
+      },
+      "identity_limits": [
+        "Not every oolong is Dong Ding or heavily roasted.",
+        "Food grade rankings are not perfume-quality labels."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "source_bindings": [
+        {
+          "source_id": "tea_oolong_omission_subtypes",
+          "source_record_sha256": "7db970b938427be44aa95c53038233e603b19936d43f6325b9721faf6b02c2fe"
+        }
+      ],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ROSE_LEMONY",
+      "package_id": "FL_ROSE",
+      "planned_subtype": "lemony",
+      "title": "Lemony rose",
+      "match_groups": [
+        [
+          "rose"
+        ],
+        [
+          "lemony",
+          "citrus"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "rose_cultivars_floral_v2",
+          "source_record_sha256": "f15319f0bc5398597ef07bfca67b312b9fc5f12011ac5cc3b46e967440d60cdd"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_bergamot_fcr_foundation",
+          "source_record_sha256": "5e67e66cbc59f2005a966eecf6940e9fc30688ff7d095325726cfed09fb905d3"
+        }
+      ],
+      "evidence_summary": "Cultivar headspace variation and a fresh rose-product description do not reduce rose to one alcohol or citrus oil.",
+      "construction_hypothesis": "Keep the rose-petal recognizer fixed while testing whether citrus lift extends its fresh edge or merely creates rose cologne.",
+      "function_map": [
+        "Rose-petal body: protected identity.",
+        "Citrus/terpenic edge: mobile lift, distinct from extra sweetness."
+      ],
+      "negative_space": [
+        "Lemon-cleaner drift",
+        "Citrus replacing rose"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Lemony rose control.",
+        "change": "Change only the citrus-edge block.",
+        "question": "Does the citrus edge make the same rose fresher without shortening its recognizable heart?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Living petals, distilled oils and absolutes are different source matrices.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ROSE_JAMMY",
+      "package_id": "FL_ROSE",
+      "planned_subtype": "jammy fruity",
+      "title": "Jammy fruity rose",
+      "match_groups": [
+        [
+          "rose"
+        ],
+        [
+          "jammy",
+          "fruity",
+          "berry"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "rose_cultivars_floral_v2",
+          "source_record_sha256": "f15319f0bc5398597ef07bfca67b312b9fc5f12011ac5cc3b46e967440d60cdd"
+        },
+        {
+          "source_id": "raspberry_recombination_subtypes",
+          "source_record_sha256": "3c25fa3885840a77a117e5c78cf3a8f9815ece6b67f9d2fe989688e2e60393b3"
+        },
+        {
+          "source_id": "iff_osmanthus_completion",
+          "source_record_sha256": "0f178c02e7a9d4b9d0b64cdc89038b2ce598625a34ff7ab3414544df1743a516"
+        }
+      ],
+      "evidence_summary": "Rose cultivar variation, raspberry food research and fruity floral extract descriptions support separate fruit and petal questions.",
+      "construction_hypothesis": "Compare a fruit-facet bridge against sweetness alone; jamminess should not be assumed to require a gourmand base.",
+      "function_map": [
+        "Rose: protected floral recognizer.",
+        "Berry or stone-fruit nuance: optional mobile modifier.",
+        "Sweetness: independently controlled variable."
+      ],
+      "negative_space": [
+        "Berry syrup replacing petals",
+        "Apricot/leather takeover"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Jammy fruity rose control.",
+        "change": "Compare one fruit modifier with a sweetness-matched control.",
+        "question": "Does the fruit modifier add depth that sweetness alone does not?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Food-domain raspberry evidence does not supply perfume ratios; osmanthus has its own identity.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ROSE_HONEY",
+      "package_id": "FL_ROSE",
+      "planned_subtype": "honeyed",
+      "title": "Honeyed rose",
+      "match_groups": [
+        [
+          "rose"
+        ],
+        [
+          "honey",
+          "honeyed",
+          "pollen"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_mimosa_completion",
+          "source_record_sha256": "8af78d74a785c25017a8505daa065b53ded0130da22ab1200da2edf0d5bf8d62"
+        },
+        {
+          "source_id": "iff_cassie_completion",
+          "source_record_sha256": "1b97627df586b3001bb417527d0135116226f5a0d9aad3b6e370294dcd7c882f"
+        }
+      ],
+      "evidence_summary": "Exact mimosa and cassie products carry different honey/powder/green facets beside the rose product's petals.",
+      "construction_hypothesis": "Test one pollen-associated modifier around rose while separating honey texture from vanilla sweetness.",
+      "function_map": [
+        "Rose petals: identity anchor.",
+        "One chosen pollen product: textural hypothesis.",
+        "Base sweetness: held constant."
+      ],
+      "negative_space": [
+        "Acacia bouquet replacing rose",
+        "Wax or sweetness dominating"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Honeyed rose control.",
+        "change": "Compare one pollen modifier and its omission.",
+        "question": "Is honeyed texture perceptible without losing rose clarity?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Mimosa and cassie are not equal-dose or botanical substitutes.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ROSE_METALLIC",
+      "package_id": "FL_ROSE",
+      "planned_subtype": "metallic spicy",
+      "title": "Metallic or spicy rose",
+      "match_groups": [
+        [
+          "rose"
+        ],
+        [
+          "metallic",
+          "spicy",
+          "pepper"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "symrise_roseoxide_floral_v2",
+          "source_record_sha256": "f1bfd60cd4a55e829d6b845d6dbb19c619d21b4974d567bd89f63314ad4886fb"
+        },
+        {
+          "source_id": "iff_carnation_completion",
+          "source_record_sha256": "ab51da30ff2edc2fb6cdfd3f219e26e39f0cc8cd0ca75a6a6f745e26e71a3892"
+        },
+        {
+          "source_id": "rose_cultivars_floral_v2",
+          "source_record_sha256": "f15319f0bc5398597ef07bfca67b312b9fc5f12011ac5cc3b46e967440d60cdd"
+        }
+      ],
+      "evidence_summary": "Rose Oxide L has manufacturer-described green rose/geranium facets; carnation supplies a separate spicy reference.",
+      "construction_hypothesis": "Separate the cool green-metallic interpretation from clove-like spice; compare them independently before combining.",
+      "function_map": [
+        "Rose body: protected.",
+        "Exact rose-oxide grade: cool-edge hypothesis.",
+        "Spice facet: separate optional branch."
+      ],
+      "negative_space": [
+        "Geranium takeover",
+        "Clove perfume",
+        "Sharp metallic harshness"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Metallic or spicy rose control.",
+        "change": "Use separate cool-edge and spice alternatives, not one combined change.",
+        "question": "Which edge adds detail while preserving the intended rose?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Metallic is a proposed perceptual interpretation, not a measured Rose Oxide L descriptor or grade alias.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ROSE_DARK_PATCH",
+      "package_id": "FL_ROSE",
+      "planned_subtype": "dark patchouli",
+      "title": "Rose with dark patchouli contrast",
+      "match_groups": [
+        [
+          "rose"
+        ],
+        [
+          "patchouli",
+          "dark chypre"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_patchouli_completion",
+          "source_record_sha256": "c535745de882a0e9c5836f5aa002e6f7d2fb40b36d33e7de0dc852110b8ebc61"
+        },
+        {
+          "source_id": "dsm_clearwood_floral_v2",
+          "source_record_sha256": "76172565652010f2913043bcfcf020140f4ddef93986b6be8bb2e958712c4037"
+        }
+      ],
+      "evidence_summary": "Natural patchouli and the biotech Clearwood product have distinct source-described profiles.",
+      "construction_hypothesis": "Compare earthy patchouli texture and a cleaner woody alternative under the same rose target; darkness need not mean more total base.",
+      "function_map": [
+        "Rose: protected recognizable heart.",
+        "Earthy or cleaner wood branch: alternate support roles.",
+        "Amber sweetness: independent choice."
+      ],
+      "negative_space": [
+        "Patchouli soliflore",
+        "Base masking the rose"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Rose with dark patchouli contrast control.",
+        "change": "Swap one support branch while retaining the rose control.",
+        "question": "Does the darker support create contrast or bury the petals?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Clearwood is not a fraction of the owned patchouli oil and cannot inherit its dose or composition.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "JAS_LEATHER",
+      "package_id": "FL_JASMINE",
+      "planned_subtype": "leathery",
+      "title": "Leathery jasmine",
+      "match_groups": [
+        [
+          "jasmine",
+          "jasmin"
+        ],
+        [
+          "leathery",
+          "leather",
+          "suede"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "iff_jasmine_grand_subtypes",
+          "source_record_sha256": "1345f5739e57f064df0f82fed060381c7791d6c7d5ea3efba5f331ac1ff7ddbb"
+        },
+        {
+          "source_id": "givaudan_safraleine_foundation",
+          "source_record_sha256": "eacc33459c2ea9caf104f237aa6d824d4bc98a90a1cf051d312a426665ad6642"
+        },
+        {
+          "source_id": "iff_osmanthus_completion",
+          "source_record_sha256": "0f178c02e7a9d4b9d0b64cdc89038b2ce598625a34ff7ab3414544df1743a516"
+        }
+      ],
+      "evidence_summary": "Grandiflorum absolute, saffron-leather material and osmanthus descriptions expose different floral, hay and leather-associated functions.",
+      "construction_hypothesis": "Use jasmine as the anchor and compare a suede edge with a fruity-tea leather bridge, keeping indolic warmth a separate axis.",
+      "function_map": [
+        "Exact jasmine product: protected flower identity.",
+        "Leather edge: optional modifier.",
+        "Fruit/tea bridge: alternative, not compulsory complexity."
+      ],
+      "negative_space": [
+        "Saffron leather replacing jasmine",
+        "Animalic overload",
+        "Apricot drift"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Leathery jasmine control.",
+        "change": "Compare a single suede edge against a single osmanthus-associated bridge.",
+        "question": "Does the leather edge preserve living-flower character better than simply darkening the base?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Source descriptors do not prove synergy or that every jasmine absolute is intrinsically leathery.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "ORANGE_HONEY",
+      "package_id": "FL_ORANGE",
+      "planned_subtype": "honeyed indolic",
+      "title": "Honeyed orange blossom",
+      "match_groups": [
+        [
+          "orange blossom",
+          "orange flower"
+        ],
+        [
+          "honey",
+          "honeyed",
+          "indolic"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "iff_orange_flower_completion",
+          "source_record_sha256": "17518406350093a701c18a6a5ac9e305118cfa1e2fb1a1fba2e28839bd481758"
+        },
+        {
+          "source_id": "iff_neroli_subtypes",
+          "source_record_sha256": "c3fdf9f13b7de5f815efaa853b8c52b5d3ee41ea1f7684824b439a6527c6bb79"
+        },
+        {
+          "source_id": "iff_jasmine_completion",
+          "source_record_sha256": "5d4db39c433fd72932f6d12c64f4cf966a638d1fb1103951abf162437573a1ab"
+        }
+      ],
+      "evidence_summary": "The flower absolute's warm honey facets differ from distilled neroli; sambac indolic warmth is a separate product description.",
+      "construction_hypothesis": "Preserve orange-flower identity and compare honeyed body versus indolic warmth as independent changes.",
+      "function_map": [
+        "Orange-flower product: anchor.",
+        "Neroli freshness: optional transition.",
+        "Indolic nuance: separate restrained hypothesis."
+      ],
+      "negative_space": [
+        "Jasmine taking over",
+        "Grape candy",
+        "Heavy honey syrup"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Honeyed orange blossom control.",
+        "change": "Test one warm facet at a time, with the fresh control retained.",
+        "question": "Does the warm detail enrich orange blossom without obscuring its freshness?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Orange-flower absolute, neroli and jasmine are not substitutes.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TUBEROSE_INDOLIC",
+      "package_id": "FL_TUBEROSE",
+      "planned_subtype": "indolic animalic",
+      "title": "Indolic tuberose",
+      "match_groups": [
+        [
+          "tuberose"
+        ],
+        [
+          "indolic",
+          "animalic",
+          "narcotic"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "tuberose_development_floral_v2",
+          "source_record_sha256": "3ea524d7206bd189a7513c66b3789b90691df671ca84e50c6a9c7eb90821d0ab"
+        },
+        {
+          "source_id": "iff_tuberose_completion",
+          "source_record_sha256": "e3e7e26ae4d1966712c6627970e940d1877511d776ff42e93de0bca4cea5b7e2"
+        }
+      ],
+      "evidence_summary": "The developmental study detects indole alongside benzenoid, green/cooling and terpene facets; the absolute has a different source description.",
+      "construction_hypothesis": "Retain tuberose's green-floral recognizer while testing animalic warmth separately from creamy body.",
+      "function_map": [
+        "Green-floral core: protected.",
+        "Indolic warmth: mobile.",
+        "Cream/solar body: independent from animalic intensity."
+      ],
+      "negative_space": [
+        "Fecal dominance",
+        "Medicinal wintergreen",
+        "Coconut cream takeover"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Indolic tuberose control.",
+        "change": "Compare an indolic-edge change with an otherwise unchanged tuberose control.",
+        "question": "Does a warmer edge improve tuberose realism or only make it heavier?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Flower-emission peak percentages are not perfume amounts or perceived fractions.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TUBEROSE_TRANSPARENT",
+      "package_id": "FL_TUBEROSE",
+      "planned_subtype": "modern transparent",
+      "title": "Transparent tuberose",
+      "match_groups": [
+        [
+          "tuberose"
+        ],
+        [
+          "transparent",
+          "airy",
+          "sheer"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "iff_tuberose_completion",
+          "source_record_sha256": "e3e7e26ae4d1966712c6627970e940d1877511d776ff42e93de0bca4cea5b7e2"
+        },
+        {
+          "source_id": "dsm_hedione_foundation",
+          "source_record_sha256": "e16f04e784546916f2f084b4e9dbb9a23e5654fb30d282cd2237f93b13f5d187"
+        },
+        {
+          "source_id": "tuberose_development_floral_v2",
+          "source_record_sha256": "3ea524d7206bd189a7513c66b3789b90691df671ca84e50c6a9c7eb90821d0ab"
+        }
+      ],
+      "evidence_summary": "Transparent jasmine-type support and a tuberose extract answer different olfactory roles.",
+      "construction_hypothesis": "Compare reducing opaque support with adding transparent support; neither approach may remove the tuberose recognizer.",
+      "function_map": [
+        "Tuberose identity: protected.",
+        "Transparent floral space: support hypothesis.",
+        "Creamy background: inspect for masking."
+      ],
+      "negative_space": [
+        "Generic white floral",
+        "Tuberose disappearing",
+        "Hollow heart"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Transparent tuberose control.",
+        "change": "Compare support redistribution against an unchanged control.",
+        "question": "Can the fragrance become more open without becoming less recognizably tuberose?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Manufacturer diffusion language is not measured projection of the complete blend.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "GARDENIA_CREAM",
+      "package_id": "FL_GARDENIA",
+      "planned_subtype": "creamy white floral",
+      "title": "Creamy green gardenia",
+      "match_groups": [
+        [
+          "gardenia"
+        ],
+        [
+          "creamy",
+          "cream",
+          "white floral"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "gardenia_extract_completion",
+          "source_record_sha256": "dc066a12a6dea9a009afad7388fdeaa350be94a2a4481d7770ef1d4738757f83"
+        },
+        {
+          "source_id": "givaudan_methyl_laitone_completion",
+          "source_record_sha256": "699e8662b0414c36dc2c54bc7a501c4c09115bdf8eb4b2a96814b95fd4498a96"
+        },
+        {
+          "source_id": "iff_hexenylsal_floral_v2",
+          "source_record_sha256": "d0c5860ca66a015a7d936e8a61f7bd5382973868d12c0a1b0e3cf6f1a7b60cc3"
+        }
+      ],
+      "evidence_summary": "Gardenia extraction research and separate creamy/green product descriptors distinguish petal identity from a lactonic effect.",
+      "construction_hypothesis": "Keep green gardenia recognizable and test cream texture as a modifier, not a replacement for its floral construction.",
+      "function_map": [
+        "Gardenia green-petal target: protected.",
+        "Cream modifier: optional.",
+        "Green support: contrast rather than added leaf volume."
+      ],
+      "negative_space": [
+        "Peach coconut perfume",
+        "Heavy cream masking the flower"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Creamy green gardenia control.",
+        "change": "Compare the same green-floral core with and without one cream modifier.",
+        "question": "Does cream make the petal fuller without turning it into fruit or sunscreen?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "An extraction study does not establish every gardenia base; Methyl Laitone is not gardenia absolute.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "YLANG_FRACTIONS",
+      "package_id": "FL_TROPICAL",
+      "planned_subtype": "ylang fractions",
+      "title": "Ylang distillation-fraction contrasts",
+      "match_groups": [
+        [
+          "ylang"
+        ],
+        [
+          "fractions",
+          "extra",
+          "iii",
+          "grade"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "ylang_fractions_floral_v2",
+          "source_record_sha256": "58199171e12e17146e872f0570168dd24b03ab86ccf71fe2d5e9e2d90b86d745"
+        },
+        {
+          "source_id": "iff_ylang_completion",
+          "source_record_sha256": "052b5e439becd7fbc9c46c17215fd609ff7f1466bc711bf2627ee134524b66a7"
+        }
+      ],
+      "evidence_summary": "Early and late distillation fractions differ chemically; the complete product is its own blend of facets.",
+      "construction_hypothesis": "Compare exact fractions by smell against the complete-grade control; do not label a later fraction lighter or universally superior.",
+      "function_map": [
+        "Exact fraction: independent material identity.",
+        "Floral lift versus heavier texture: observations to measure.",
+        "Background support: held fixed."
+      ],
+      "negative_space": [
+        "Treating grade numbers as quality rankings",
+        "Yellow-floral overload"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Ylang distillation-fraction contrasts control.",
+        "change": "Make a grade-alternative comparison, not an automatic equal-volume swap.",
+        "question": "Which exact fraction supplies the needed facet at comparable perceived prominence?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "GC area and distillation order do not establish odor intensity, dose equivalence or cananga identity.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TROP_TIARE",
+      "package_id": "FL_TROPICAL",
+      "planned_subtype": "tiare",
+      "title": "Tiare as a separate flower target",
+      "match_groups": [
+        [
+          "tiare",
+          "tiaré"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "pacific_flowers_floral_v2",
+          "source_record_sha256": "8ccc582387d6c5ebedc5f12703505a7ffbb6f66adee3d1cd554840485d2ce186"
+        },
+        {
+          "source_id": "dsm_salicynile_floral_v2",
+          "source_record_sha256": "e25c1d054459ff63e3360df3234f285bf3f4bf72912b5d2f894bfc4db836b39b"
+        }
+      ],
+      "evidence_summary": "Pacific flower research treats tiare separately; the abstract does not disclose a complete reconstruction. A solar-floral material offers only an independent design cue.",
+      "construction_hypothesis": "Lock a tiare reference before testing a green-white-floral core against a solar interpretation; coconut is optional, not the definition.",
+      "function_map": [
+        "Authenticated flower/reference profile: unresolved anchor.",
+        "Solar modifier: hypothesis only.",
+        "Coconut association: separate optional effect."
+      ],
+      "negative_space": [
+        "Coconut sunscreen replacing flower",
+        "Calling a generic white floral an exact tiare"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Tiare as a separate flower target control.",
+        "change": "Compare green-white-floral and solar branches after the target profile is supplied.",
+        "question": "Does the solar interpretation retain the chosen flower reference without coconut dependence?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Species-resolved constituent and sensory evidence remain missing; this is a partial research card.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "TROP_FRANGIPANI",
+      "package_id": "FL_TROPICAL",
+      "planned_subtype": "frangipani",
+      "title": "Frangipani flower versus tropical stereotype",
+      "match_groups": [
+        [
+          "frangipani",
+          "plumeria"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "pacific_flowers_floral_v2",
+          "source_record_sha256": "8ccc582387d6c5ebedc5f12703505a7ffbb6f66adee3d1cd554840485d2ce186"
+        },
+        {
+          "source_id": "iff_ylang_completion",
+          "source_record_sha256": "052b5e439becd7fbc9c46c17215fd609ff7f1466bc711bf2627ee134524b66a7"
+        }
+      ],
+      "evidence_summary": "Frangipani is a distinct analytical target in the Pacific paper; ylang's creamy-spicy description cannot establish a frangipani formula.",
+      "construction_hypothesis": "Require a species/reference description, then contrast floral lift and soft cream without automatically importing a full ylang accord.",
+      "function_map": [
+        "Exact frangipani reference: must be resolved.",
+        "Fresh floral lift: hypothesis.",
+        "Cream texture: optional separate branch."
+      ],
+      "negative_space": [
+        "Ylang substituted for frangipani",
+        "Banana/coconut takeover"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Frangipani flower versus tropical stereotype control.",
+        "change": "Compare a simpler floral control with a single cream-texture addition.",
+        "question": "Does the creamy interpretation still resemble the chosen frangipani reference?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Abstract-only research does not bind a Plumeria species, perfume dose or commercial extract.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "MUGUET_CYCLAMEN",
+      "package_id": "FL_MUGUET",
+      "planned_subtype": "cyclamen",
+      "title": "Green watery cyclamen interpretation",
+      "match_groups": [
+        [
+          "cyclamen"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "givaudan_cyclamen_floral_v2",
+          "source_record_sha256": "cda4a42d13f9553db3bee51d66f4639c3a0e185002045d1d893e3553d4c67203"
+        },
+        {
+          "source_id": "givaudan_florhydral_completion",
+          "source_record_sha256": "aa00a1a2c661d81e28add1283fba41a7ed15612c43c455c5b56c37cf11b112f2"
+        }
+      ],
+      "evidence_summary": "Exact synthetic green-floral material descriptions support construction options, not natural cyclamen chemistry.",
+      "construction_hypothesis": "Contrast watery-green lift with soft petal body while preventing a marine or watermelon effect from taking over.",
+      "function_map": [
+        "Soft floral body: retained.",
+        "Green-watery edge: compare exact materials.",
+        "Marine facet: controlled side character."
+      ],
+      "negative_space": [
+        "Watermelon marine drift",
+        "Laundry identity replacing flower"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Green watery cyclamen interpretation control.",
+        "change": "Compare two exact green-floral support choices one at a time.",
+        "question": "Is the watery edge clearly floral rather than aquatic fruit?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "A flower name or shared odor role does not establish chemical or equal-dose equivalence.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "MUGUET_WATERY_MUSK",
+      "package_id": "FL_MUGUET",
+      "planned_subtype": "watery musk",
+      "title": "Watery muguet with a restrained musk bridge",
+      "match_groups": [
+        [
+          "muguet",
+          "lily of the valley"
+        ],
+        [
+          "watery musk",
+          "watery musky"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "dsm_florol_subtypes",
+          "source_record_sha256": "8a11ad4223cedb450e2668c189ee6cf96e829bfed72f35d90ee97f1faeb6aeb0"
+        },
+        {
+          "source_id": "givaudan_florhydral_completion",
+          "source_record_sha256": "aa00a1a2c661d81e28add1283fba41a7ed15612c43c455c5b56c37cf11b112f2"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        }
+      ],
+      "evidence_summary": "Soft muguet, green-floral and musk descriptors identify different support roles.",
+      "construction_hypothesis": "Test whether musk smooths the watery petal transition while leaving muguet readable; compare against less musk as well as a different musk.",
+      "function_map": [
+        "Muguet identity: protected.",
+        "Watery lift: distinct from marine character.",
+        "Musk: background texture, not the flower."
+      ],
+      "negative_space": [
+        "Fabric-softener takeover",
+        "Musk hiding the petal"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Watery muguet with a restrained musk bridge control.",
+        "change": "Compare one musk-background change with the flower block fixed.",
+        "question": "Does the musk bridge preserve the flower into the heart rather than flattening it?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "No whole-perfume persistence or liking follows from individual material descriptions.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "PEONY_DEWY",
+      "package_id": "FL_LIGHT",
+      "planned_subtype": "dewy peony",
+      "title": "Dewy peony without a generic rose overwrite",
+      "match_groups": [
+        [
+          "peony"
+        ],
+        [
+          "dewy",
+          "watery",
+          "fresh"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "peony_cultivars_floral_v2",
+          "source_record_sha256": "30192d35b65230ddbfaaa72dac6f124bb1ef2e141bc6f7ba3285c8f4bdbfdc00"
+        },
+        {
+          "source_id": "givaudan_peonile_floral_v2",
+          "source_record_sha256": "00299441846cbacd4ffbc3e897da84a98c5be647ec1c041afa6f0049068499a3"
+        },
+        {
+          "source_id": "givaudan_florhydral_completion",
+          "source_record_sha256": "aa00a1a2c661d81e28add1283fba41a7ed15612c43c455c5b56c37cf11b112f2"
+        }
+      ],
+      "evidence_summary": "Studied herbaceous peonies vary in floral type; Peonile's rosy-geranium character represents only one material option.",
+      "construction_hypothesis": "Choose the intended peony type first, then test watery lift separately from a rose-associated body.",
+      "function_map": [
+        "Chosen peony profile: anchor.",
+        "Dewy green lift: mobile.",
+        "Rosy body: optional, not imposed by product name."
+      ],
+      "negative_space": [
+        "Rose soliflore",
+        "Marine melon",
+        "Functional-cleaner drift"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Dewy peony without a generic rose overwrite control.",
+        "change": "Compare a dewy-edge change without altering the underlying flower body.",
+        "question": "Is the result recognizably the chosen peony profile rather than rose plus water?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Peonile is not an authenticated whole-peony profile; tree and herbaceous peonies differ.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "PEONY_ROSE",
+      "package_id": "FL_LIGHT",
+      "planned_subtype": "rose adjacent peony",
+      "title": "Rose-adjacent peony",
+      "match_groups": [
+        [
+          "peony"
+        ],
+        [
+          "rose",
+          "rosy"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "peony_cultivars_floral_v2",
+          "source_record_sha256": "30192d35b65230ddbfaaa72dac6f124bb1ef2e141bc6f7ba3285c8f4bdbfdc00"
+        },
+        {
+          "source_id": "givaudan_peonile_floral_v2",
+          "source_record_sha256": "00299441846cbacd4ffbc3e897da84a98c5be647ec1c041afa6f0049068499a3"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        }
+      ],
+      "evidence_summary": "The peony study includes rose-like types; manufacturer Peonile and rose descriptions remain independent product evidence.",
+      "construction_hypothesis": "Build a lighter rose-associated petal hypothesis while retaining the selected peony reference as the recognizer test.",
+      "function_map": [
+        "Rose-associated petal: chosen profile, not universal peony.",
+        "Fresh support: keeps profile distinct from a dense rose.",
+        "Powder: optional competing texture."
+      ],
+      "negative_space": [
+        "Jammy rose drift",
+        "Assuming every peony smells rosy"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Rose-adjacent peony control.",
+        "change": "Compare rose-adjacent and dewy alternatives with the same base.",
+        "question": "Does the rose-associated branch match the peony brief more closely than the dewy control?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Cultivar grouping is not a consumer-preference ranking or a commercial formula.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "FREESIA_PEPPER",
+      "package_id": "FL_LIGHT",
+      "planned_subtype": "peppery freesia",
+      "title": "Peppery freesia as a controlled interpretation",
+      "match_groups": [
+        [
+          "freesia"
+        ],
+        [
+          "peppery",
+          "pepper",
+          "spicy"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "freesia_cultivars_floral_v2",
+          "source_record_sha256": "371eca9d54b8f4d22288f2941619e06a94a38cc32482980920793762bfd24e60"
+        },
+        {
+          "source_id": "jomalone_english_pear_freesia_cologne",
+          "source_record_sha256": "db3c4cfae691e547f6794acb8e46fd864e28dac28beb0f625510ab22cb7c90e9"
+        }
+      ],
+      "evidence_summary": "Freesia emissions vary by cultivar; the primary abstract does not establish pepper as its defining natural constituent.",
+      "construction_hypothesis": "Treat a pepper edge as a testable creative modifier over a transparent freesia target rather than an automatic realism ingredient.",
+      "function_map": [
+        "Freesia reference: protected.",
+        "Fresh floral lift: support.",
+        "Pepper: optional mobile edge."
+      ],
+      "negative_space": [
+        "Spicy cologne replacing freesia",
+        "Treating official notes as formula amounts"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Peppery freesia as a controlled interpretation control.",
+        "change": "Compare a pepper-edge version with a strict omission control.",
+        "question": "Does a pepper edge sharpen the petals or distract from them?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "The commercial reference supplies marketed architecture only; no universal freesia recipe is inferred.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "MAGNOLIA_CREAM",
+      "package_id": "FL_LIGHT",
+      "planned_subtype": "creamy magnolia",
+      "title": "Creamy magnolia with a retained fresh edge",
+      "match_groups": [
+        [
+          "magnolia"
+        ],
+        [
+          "creamy",
+          "cream",
+          "velvety"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "iff_magnolia_completion",
+          "source_record_sha256": "d12ff496073a9da65b7e03ab8614b7eba33c62da7a0b6f185bf5c25976364bcc"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        },
+        {
+          "source_id": "givaudan_methyl_laitone_completion",
+          "source_record_sha256": "699e8662b0414c36dc2c54bc7a501c4c09115bdf8eb4b2a96814b95fd4498a96"
+        }
+      ],
+      "evidence_summary": "The specific magnolia flower oil and separate creamy/musk materials have different identities and descriptors.",
+      "construction_hypothesis": "Compare a soft musk texture against a lactonic texture while retaining the exact magnolia flower character.",
+      "function_map": [
+        "Flower profile: protected.",
+        "Musk smoothness: one alternative.",
+        "Lactonic cream: competing alternative, not a default."
+      ],
+      "negative_space": [
+        "Peach/coconut dominance",
+        "Leaf oil substituted for flower oil"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Creamy magnolia with a retained fresh edge control.",
+        "change": "Compare two texture branches separately with the flower core fixed.",
+        "question": "Which texture smooths the magnolia without removing its fresh detail?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Michelia alba flower oil is not every Magnolia species or leaf product.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "NARCISSUS_ABS",
+      "package_id": "FL_GREEN",
+      "planned_subtype": "narcissus absolute",
+      "title": "Narcissus green-hay-floral texture",
+      "match_groups": [
+        [
+          "narcissus",
+          "narcisse"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "iff_narcisse_floral_v2",
+          "source_record_sha256": "44cc0514c1af42bee2b0a22f9b42b6a4ccee937bcdeebb3f7e45ace4db49bcd6"
+        },
+        {
+          "source_id": "iff_jonquille_completion",
+          "source_record_sha256": "cd60ee025249bcde56ab3235716b42e1d291df95abdf5489170a38b30eca10ce"
+        }
+      ],
+      "evidence_summary": "The named Narcissus poeticus absolute combines green floral, hay/tobacco and apricot-associated facets, distinct from the jonquil product.",
+      "construction_hypothesis": "Test a green-hay floral anchor with restrained support before adding extra leather, smoke or sweetness.",
+      "function_map": [
+        "Exact narcissus product: recognizer and texture.",
+        "Green onset: preserve.",
+        "Hay/leather support: inspect for redundant duplication."
+      ],
+      "negative_space": [
+        "Tobacco replacing flower",
+        "Animalic heaviness",
+        "Jonquil auto-substitution"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Narcissus green-hay-floral texture control.",
+        "change": "Use a texture-omission comparison around the unchanged flower anchor.",
+        "question": "Does the natural already supply the texture that added leather was meant to provide?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Species and proprietary extraction remain product-specific; no universal narcissus dose or grade equivalence.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LILY_SALICYLATE",
+      "package_id": "FL_SPICY",
+      "planned_subtype": "salicylate lily",
+      "title": "Salicylate-associated lily construction",
+      "exclude_phrases": ["lily of the valley", "muguet"],
+      "match_groups": [
+        [
+          "lily"
+        ],
+        [
+          "salicylate",
+          "solar"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "lily_cultivars_floral_v2",
+          "source_record_sha256": "fadedea3fa3276c2ed92477b27c18cc3705c391aeee02cff65f005d409de3772"
+        },
+        {
+          "source_id": "iff_hexenylsal_floral_v2",
+          "source_record_sha256": "d0c5860ca66a015a7d936e8a61f7bd5382973868d12c0a1b0e3cf6f1a7b60cc3"
+        },
+        {
+          "source_id": "dsm_salicynile_floral_v2",
+          "source_record_sha256": "e25c1d054459ff63e3360df3234f285bf3f4bf72912b5d2f894bfc4db836b39b"
+        }
+      ],
+      "evidence_summary": "Lilium has multiple studied aroma types; green salicylate and solar-floral product descriptions are separate construction cues.",
+      "construction_hypothesis": "Choose a Lilium target before comparing green body with solar body; the salicylate association is a hypothesis, not proof of botanical composition.",
+      "function_map": [
+        "Chosen lily type: protected.",
+        "Green salicylate-associated body: one option.",
+        "Solar floral body: alternative."
+      ],
+      "negative_space": [
+        "Lily-of-the-valley confusion",
+        "Wintergreen medicine",
+        "Banana sunscreen"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Salicylate-associated lily construction control.",
+        "change": "Compare green-body and solar-body alternatives independently.",
+        "question": "Which body supports the chosen lily rather than a generic solar floral?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Salicynile is chemically a nitrile; methyl, hexyl and cis-3-hexenyl salicylates are not interchangeable.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LILY_GREEN",
+      "package_id": "FL_SPICY",
+      "planned_subtype": "green lily",
+      "title": "Green Lilium rather than generic muguet",
+      "exclude_phrases": ["lily of the valley", "muguet"],
+      "match_groups": [
+        [
+          "lily"
+        ],
+        [
+          "green",
+          "fresh cut"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "lily_cultivars_floral_v2",
+          "source_record_sha256": "fadedea3fa3276c2ed92477b27c18cc3705c391aeee02cff65f005d409de3772"
+        },
+        {
+          "source_id": "iff_hexenylsal_floral_v2",
+          "source_record_sha256": "d0c5860ca66a015a7d936e8a61f7bd5382973868d12c0a1b0e3cf6f1a7b60cc3"
+        },
+        {
+          "source_id": "givaudan_florhydral_completion",
+          "source_record_sha256": "aa00a1a2c661d81e28add1283fba41a7ed15612c43c455c5b56c37cf11b112f2"
+        }
+      ],
+      "evidence_summary": "Lilium cultivar emissions vary; green-floral product descriptors cannot identify the whole flower on their own.",
+      "construction_hypothesis": "Keep a chosen lily profile as anchor and test a stem-green edge separately from watery freshness.",
+      "function_map": [
+        "Lilium reference: protected.",
+        "Stem-green edge: mobile.",
+        "Watery support: separate alternative."
+      ],
+      "negative_space": [
+        "Leafy vegetable character",
+        "Generic muguet substitution"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Green Lilium rather than generic muguet control.",
+        "change": "Compare a green-edge modification and its omission.",
+        "question": "Does the green edge make the lily more lifelike without changing which flower it is?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Lilium, Convallaria and cyclamen are separate botanical/construction targets.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "POLLEN_HONEY",
+      "package_id": "FL_POLLEN",
+      "planned_subtype": "pollen honey",
+      "title": "Pollen-honey texture without a gourmand rewrite",
+      "match_groups": [
+        [
+          "pollen",
+          "mimosa",
+          "cassie"
+        ],
+        [
+          "honey",
+          "honeyed"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "iff_mimosa_completion",
+          "source_record_sha256": "8af78d74a785c25017a8505daa065b53ded0130da22ab1200da2edf0d5bf8d62"
+        },
+        {
+          "source_id": "iff_cassie_completion",
+          "source_record_sha256": "1b97627df586b3001bb417527d0135116226f5a0d9aad3b6e370294dcd7c882f"
+        },
+        {
+          "source_id": "iff_carnation_completion",
+          "source_record_sha256": "ab51da30ff2edc2fb6cdfd3f219e26e39f0cc8cd0ca75a6a6f745e26e71a3892"
+        }
+      ],
+      "evidence_summary": "The selected floral extracts carry distinct honey, green, powder and spice facets.",
+      "construction_hypothesis": "Compare one chosen pollen-associated extract against extra sweetness; keep dry powder and honey body separately adjustable.",
+      "function_map": [
+        "Exact flower product: identity.",
+        "Pollen/powder: texture.",
+        "Honey body: distinct from sugar or vanilla."
+      ],
+      "negative_space": [
+        "Sticky gourmand drift",
+        "Mimosa/cassie identity collapse"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Pollen-honey texture without a gourmand rewrite control.",
+        "change": "Compare one pollen-associated change with a sweetness-only control.",
+        "question": "Is the perceived richness textural rather than simply sweeter?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Descriptor similarity is not botanical, compositional or dose equivalence.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "VIOLET_POWDER",
+      "package_id": "FL_IRIS",
+      "planned_subtype": "violet powder",
+      "title": "Violet powder distinct from orris root",
+      "match_groups": [
+        [
+          "violet"
+        ],
+        [
+          "powder",
+          "powdery",
+          "cosmetic"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "iff_alpha_extra",
+          "source_record_sha256": "0f6f26d10363535bac56e6d0455cdc6d279d32aadd909c1e85987ddface404a1"
+        },
+        {
+          "source_id": "iff_gamma",
+          "source_record_sha256": "0158eb039645955eae7c6bed9c0d3b1cbd8fc27a2923613d64ffba0e42b6504e"
+        },
+        {
+          "source_id": "violet_emissions",
+          "source_record_sha256": "8fcf5996069e7f4f875b28dcf5149105b8a84f8c5f402e8656f3bffbd573db9f"
+        }
+      ],
+      "evidence_summary": "Violet petal emissions and ionone-grade descriptions are different evidence classes.",
+      "construction_hypothesis": "Compare a petal-powder continuation with a woody/cosmetic continuation; do not turn every violet brief into rooty iris.",
+      "function_map": [
+        "Violet-petal recognizer: protected.",
+        "Powder texture: optional.",
+        "Woody continuation: competing support branch."
+      ],
+      "negative_space": [
+        "Lipstick or carrot-root takeover",
+        "Sugar candy",
+        "Automatic stacking of ionones"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Violet powder distinct from orris root control.",
+        "change": "Compare one grade-specific texture branch with its omission.",
+        "question": "Does the powder support preserve violet identity better than extra woody iris?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Exact ionone grades remain distinct; PW Orris Liquid remains excluded from compounding.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "IRIS_VIOLET_LEAF",
+      "package_id": "FL_IRIS",
+      "planned_subtype": "violet leaf",
+      "title": "Violet-leaf contrast in an iris structure",
+      "match_groups": [
+        [
+          "iris",
+          "orris"
+        ],
+        [
+          "violet leaf"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "iff_violet_leaf_subtypes",
+          "source_record_sha256": "ca2e27425aaac65c5faa010ce20ff801ee9376696cb74c833d59b50a48e46e2d"
+        },
+        {
+          "source_id": "iff_orivone",
+          "source_record_sha256": "0649ad214cf4f691ca15ddb37e7cbd2e0588781508fe602d90d01dfe78edb771"
+        },
+        {
+          "source_id": "biolandes_orris",
+          "source_record_sha256": "8da16c2ba96e4841c391004e557c1957be73f85feff3dce9fadcf63da52b7c17"
+        }
+      ],
+      "evidence_summary": "A leaf absolute's watery-green profile is distinct from root products and violet-petal effects.",
+      "construction_hypothesis": "Treat violet leaf as an optional contrast to iris root/powder, not another interchangeable iris material.",
+      "function_map": [
+        "Exact iris/root target: protected.",
+        "Violet leaf: green contrast.",
+        "Powder support: independently retained or reduced."
+      ],
+      "negative_space": [
+        "Cucumber leaf replacing iris",
+        "Stock alias by odor family"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Violet-leaf contrast in an iris structure control.",
+        "change": "Compare a leaf-edge version with an unchanged iris control.",
+        "question": "Does the leaf edge clarify the iris or displace its recognizer?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "The whole leaf absolute cannot inherit molecular iris curves; Orris Liquid hold is unchanged.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "BOUQUET_CLASSICAL",
+      "package_id": "FL_BOUQUET",
+      "planned_subtype": "classical bouquet",
+      "title": "Classical bouquet with protected flower roles",
+      "match_groups": [
+        [
+          "bouquet"
+        ],
+        [
+          "classical",
+          "classic"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "chanel_n5_floral_v2",
+          "source_record_sha256": "95a7ce0421e62415218062186e7b6d2ce75067408508b0b3cafc40b68bff7222"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_jasmine_grand_subtypes",
+          "source_record_sha256": "1345f5739e57f064df0f82fed060381c7791d6c7d5ea3efba5f331ac1ff7ddbb"
+        },
+        {
+          "source_id": "iff_ylang_completion",
+          "source_record_sha256": "052b5e439becd7fbc9c46c17215fd609ff7f1466bc711bf2627ee134524b66a7"
+        }
+      ],
+      "evidence_summary": "Official bouquet architecture and separate natural-product descriptions support a role-based comparison, not a copied commercial formula.",
+      "construction_hypothesis": "Assign recognizable petal, warmer flower and connecting support roles before adding more flower materials; compare omission of redundant blocks.",
+      "function_map": [
+        "Named primary flower: protected.",
+        "Secondary flower: contrast or bridge only.",
+        "Base: preserves transitions rather than adding bouquet count."
+      ],
+      "negative_space": [
+        "Indistinct floral soup",
+        "Natural-material count as luxury score"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Classical bouquet with protected flower roles control.",
+        "change": "Remove one secondary flower block at a time from the control.",
+        "question": "Which secondary block measurably improves continuity without blurring the main flower?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Official note architecture does not prove composition, quantities or superiority.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "BOUQUET_ALDEHYDIC",
+      "package_id": "FL_BOUQUET",
+      "planned_subtype": "floral aldehydic",
+      "title": "Aldehydic floral architecture",
+      "match_groups": [
+        [
+          "floral",
+          "bouquet"
+        ],
+        [
+          "aldehydic",
+          "aldehyde"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "chanel_n5_floral_v2",
+          "source_record_sha256": "95a7ce0421e62415218062186e7b6d2ce75067408508b0b3cafc40b68bff7222"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "dsm_hedione_foundation",
+          "source_record_sha256": "e16f04e784546916f2f084b4e9dbb9a23e5654fb30d282cd2237f93b13f5d187"
+        }
+      ],
+      "evidence_summary": "CHANEL describes a specific Eau de Parfum as aldehydic rose-jasmine with citrus and vanilla-associated development.",
+      "construction_hypothesis": "Compare an aldehydic surface effect with plain citrus lift over the same floral heart; neither replaces the heart.",
+      "function_map": [
+        "Floral heart: protected identity.",
+        "Aldehydic surface: experimental effect.",
+        "Base texture: controlled independently."
+      ],
+      "negative_space": [
+        "Soapy wax masking petals",
+        "Calling the result a No. 5 reconstruction"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Aldehydic floral architecture control.",
+        "change": "Compare aldehydic and citrus-only branches after exact materials and safe test scope are resolved.",
+        "question": "Does the surface effect add space and definition without losing the flowers?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "The official page supplies no aldehyde identities, ratios or calibrated sillage data.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "BOUQUET_SOFT",
+      "package_id": "FL_BOUQUET",
+      "planned_subtype": "soft floral",
+      "title": "Soft floral without loss of recognizer",
+      "match_groups": [
+        [
+          "floral",
+          "bouquet"
+        ],
+        [
+          "soft",
+          "gentle",
+          "skin close"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "dsm_florol_subtypes",
+          "source_record_sha256": "8a11ad4223cedb450e2668c189ee6cf96e829bfed72f35d90ee97f1faeb6aeb0"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        },
+        {
+          "source_id": "dsm_hedione_foundation",
+          "source_record_sha256": "e16f04e784546916f2f084b4e9dbb9a23e5654fb30d282cd2237f93b13f5d187"
+        }
+      ],
+      "evidence_summary": "Soft petal, transparent floral support and musk descriptions represent separate functions.",
+      "construction_hypothesis": "First test whether reducing rough support is sufficient; only then compare a soft petal or musk bridge.",
+      "function_map": [
+        "Flower recognizer: retained.",
+        "Softness: target-linked texture, not lower complexity by decree.",
+        "Musk: independent support choice."
+      ],
+      "negative_space": [
+        "Musk flattening the flower",
+        "Sweetness used as the only smoothing tool"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Soft floral without loss of recognizer control.",
+        "change": "Compare reduced opaque support against one soft-bridge alternative.",
+        "question": "Can softness increase while the intended flower remains clear?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Source descriptions do not establish skin closeness, projection, longevity or liking for the finished perfume.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "PINEAPPLE_WOODY",
+      "package_id": "FR_TROPICAL",
+      "planned_subtype": "pineapple",
+      "title": "Pineapple-to-dry-wood architecture",
+      "match_groups": [
+        [
+          "pineapple",
+          "aventus"
+        ],
+        [
+          "woody",
+          "woods",
+          "chypre",
+          "aventus"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "pineapple_recombination_floral_v2",
+          "source_record_sha256": "0345863796d6b35609affe51f0ee180e283c5026d2f740ce2232270f1e2528c0"
+        },
+        {
+          "source_id": "creed_aventus_current_floral_v2",
+          "source_record_sha256": "e69e63c45dfa1dbac69cd18202c0c864f32c169cf243b702455987ba73558b63"
+        },
+        {
+          "source_id": "creed_aventus_collection_floral_v2",
+          "source_record_sha256": "fa21e364c65d4a7c0e3f9f1fe18fe70433d3006ebc9f75587c3ebd3853aa5f90"
+        },
+        {
+          "source_id": "givaudan_paradisamide_completion",
+          "source_record_sha256": "8682aabf681b39585972782d0a8a5b66b01fb80c155c474e4dcdc44c8ca3032a"
+        }
+      ],
+      "evidence_summary": "Food-domain pineapple omission evidence and official Aventus architecture support different questions: fruit recognizability and fruit-to-wood contrast.",
+      "construction_hypothesis": "Compare a crisp ester-associated fruit hypothesis with a flesh/sweetness hypothesis over unchanged dry woods; persistent tropical materials need their own side-character check.",
+      "function_map": [
+        "Pineapple recognizer: chosen brief, not a brand formula.",
+        "Cassis/apple nuance: optional supporting facet.",
+        "Dry woods: continuity without suppressing fruit."
+      ],
+      "negative_space": [
+        "Tropical fruit soup",
+        "Syrupy pineapple",
+        "Amberwood erasing fruit"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Pineapple-to-dry-wood architecture control.",
+        "change": "Compare two fruit branches and a simple control with the same woody support.",
+        "question": "Which fruit branch stays recognizable through the heart without becoming sweeter or heavier?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "No Aventus formula, current batch composition or CHIMIE L'HOMME identity is established; food concentrations never become perfume doses.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LAV_APPLE",
+      "package_id": "AR_LAVENDER",
+      "planned_subtype": "apple",
+      "title": "Apple-aromatic lavender bridge",
+      "match_groups": [
+        [
+          "lavender",
+          "lavande"
+        ],
+        [
+          "apple"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "pdm_layton_edp",
+          "source_record_sha256": "8add2076a2876635313f0136d0fc6239fb56c019779089b9f1e434804a279a31"
+        },
+        {
+          "source_id": "apple_aroma",
+          "source_record_sha256": "f210af34dd21a4d3834fe60013957c27cf8ce954c73a62e3f7cb9930c9f2ffdc"
+        },
+        {
+          "source_id": "givaudan_manzanate_subtypes",
+          "source_record_sha256": "0d10c24774688e4d120a89644b88732beb8955c55fa3e24951d667e8c62378bb"
+        }
+      ],
+      "evidence_summary": "Official Layton architecture and apple/aroma-material evidence provide bounded aromatic-fruit comparison cues.",
+      "construction_hypothesis": "Keep lavender recognizable while separating crisp apple lift from ripe or sweet fruit body; compare them over the same support.",
+      "function_map": [
+        "Lavender: aromatic anchor.",
+        "Apple skin/juice: distinct mobile facets.",
+        "Wood/vanillic support: preserve the stated brief."
+      ],
+      "negative_space": [
+        "Generic shampoo",
+        "Pineapple side note becoming dominant",
+        "Vanilla masking lavender"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Apple-aromatic lavender bridge control.",
+        "change": "Compare crisp and ripe apple branches with the lavender block unchanged.",
+        "question": "Does the apple branch improve aromatic continuity without a shampoo-like effect?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Manufacturer and official descriptions are not analytical proof of Layton or CHIMIE composition.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LAV_PINEAPPLE",
+      "package_id": "AR_LAVENDER",
+      "planned_subtype": "pineapple",
+      "title": "Pineapple aromatic versus fruity woody",
+      "match_groups": [
+        [
+          "lavender",
+          "lavande"
+        ],
+        [
+          "pineapple"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "malle_music_for_a_while_edp",
+          "source_record_sha256": "c3efeda848749f89c61b0465d5abee69a6f1347b19e49c58e5f834d9668ff52b"
+        },
+        {
+          "source_id": "pineapple_recombination_floral_v2",
+          "source_record_sha256": "0345863796d6b35609affe51f0ee180e283c5026d2f740ce2232270f1e2528c0"
+        },
+        {
+          "source_id": "iff_patchouli_completion",
+          "source_record_sha256": "c535745de882a0e9c5836f5aa002e6f7d2fb40b36d33e7de0dc852110b8ebc61"
+        }
+      ],
+      "evidence_summary": "An official lavender-pineapple reference and food-domain pineapple work motivate an aromatic-fruit hypothesis distinct from a woody-only structure.",
+      "construction_hypothesis": "Test whether pineapple can bridge lavender to patchouli-associated support without turning into candy or copying a reference.",
+      "function_map": [
+        "Lavender: protected aromatic identity.",
+        "Pineapple: chosen fruit modifier.",
+        "Dry support: continuation, not automatic smoke."
+      ],
+      "negative_space": [
+        "Tropical dessert drift",
+        "Patchouli swallowing the aromatic heart"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Pineapple aromatic versus fruity woody control.",
+        "change": "Compare one pineapple transition with a no-fruit aromatic control.",
+        "question": "Is the heart a coherent aromatic fruit rather than a separate fruity opening and woody ending?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "A commercial reference is architectural evidence only, not a clone recipe or calibrated intensity target.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "LAV_SPICED_WOOD",
+      "package_id": "AR_LAVENDER",
+      "planned_subtype": "spiced wood",
+      "title": "Lavender over spiced dry woods",
+      "match_groups": [
+        [
+          "lavender",
+          "lavande"
+        ],
+        [
+          "spiced wood",
+          "spicy wood",
+          "spicy woody"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "dior_sauvage_elixir",
+          "source_record_sha256": "8e51c564e3b6dcdc7800acf8f544f5f080b1b2d918752d3f442b08ae2a3a8b33"
+        },
+        {
+          "source_id": "iff_cardamom_completion",
+          "source_record_sha256": "3de0a45a2ddbfa5e0468f133eabf0697662978d13c73b0e0f716284dfaf5e6da"
+        },
+        {
+          "source_id": "iff_iso_e_super_completion",
+          "source_record_sha256": "54c3b1da3231dd68cbc5f900c7d313f6d38d3be99b1180b29159005fd4b41082"
+        },
+        {
+          "source_id": "dsm_ambrox_super_description",
+          "source_record_sha256": "8ff89903fab195039347f9ec55b8f9859cb60227274055fd95293e73fc8ce8b0"
+        }
+      ],
+      "evidence_summary": "Official aromatic-spice architecture and exact material descriptors distinguish spice lift, transparent wood and ambergris-associated support.",
+      "construction_hypothesis": "Compare spice definition before increasing the base; lavender should remain readable when the spice fades.",
+      "function_map": [
+        "Lavender: protected recognizer.",
+        "Dry spice: transition cue.",
+        "Wood and ambergris-associated support: separately adjustable hypotheses."
+      ],
+      "negative_space": [
+        "Culinary spice",
+        "Harsh amberwood takeover",
+        "Unasked licorice sweetness"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Lavender over spiced dry woods control.",
+        "change": "Change the spice transition and base strength in separate alternatives.",
+        "question": "Does spice clarify the aromatic heart more effectively than a heavier base?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "No named perfume's formula or projection is inferred from notes or raw-material tenacity.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "FOUGERE_FLORAL",
+      "package_id": "AR_FOUGERE",
+      "planned_subtype": "floral fougere",
+      "title": "Floral-heart fougere",
+      "match_groups": [
+        [
+          "fougere",
+          "fougère"
+        ],
+        [
+          "floral",
+          "rose",
+          "jasmine"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "houbigant_fougere_royale_extrait",
+          "source_record_sha256": "2632d6a93a88f0aeda3f45e59c55c980d1338fd8826792fc176619955e2eb484"
+        },
+        {
+          "source_id": "givaudan_peonile_floral_v2",
+          "source_record_sha256": "00299441846cbacd4ffbc3e897da84a98c5be647ec1c041afa6f0049068499a3"
+        },
+        {
+          "source_id": "dsm_hedione_foundation",
+          "source_record_sha256": "e16f04e784546916f2f084b4e9dbb9a23e5654fb30d282cd2237f93b13f5d187"
+        }
+      ],
+      "evidence_summary": "Classical aromatic reference descriptions and floral material roles allow a restrained flower-bridge hypothesis.",
+      "construction_hypothesis": "Test a petal bridge inside the aromatic structure while preserving its dry/aromatic recognizers; do not add a bouquet by default.",
+      "function_map": [
+        "Aromatic recognizer: protected.",
+        "Petal bridge: mobile support.",
+        "Dry/coumarinic contrast: separately controlled."
+      ],
+      "negative_space": [
+        "Bouquet replacing fougere",
+        "Sweet tonka dominating"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Floral-heart fougere control.",
+        "change": "Compare one rosy or transparent floral branch and its omission.",
+        "question": "Does the floral bridge fill the heart while leaving the aromatic structure obvious?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Fougere is an olfactory construction, not evidence of fern extract or fixed universal ratios.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "FOUGERE_LEATHER",
+      "package_id": "AR_FOUGERE",
+      "planned_subtype": "leathery",
+      "title": "Leathery fougere without added smoke by default",
+      "match_groups": [
+        [
+          "fougere",
+          "fougère"
+        ],
+        [
+          "leather",
+          "leathery",
+          "suede"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "tom_ford_beau_de_jour_edp",
+          "source_record_sha256": "486a5f057aeb84f16d2fe833dabe12a62b8b868bcb34c58b16fc63f431d1b4fd"
+        },
+        {
+          "source_id": "givaudan_safraleine_foundation",
+          "source_record_sha256": "eacc33459c2ea9caf104f237aa6d824d4bc98a90a1cf051d312a426665ad6642"
+        },
+        {
+          "source_id": "iff_labdanum_foundation",
+          "source_record_sha256": "716abc14e0963cfd856cda98a765c6ae04d4cb019e481572fd6f64e79181fd14"
+        }
+      ],
+      "evidence_summary": "Aromatic architecture and separate leather/resin material descriptors motivate alternatives, not a measured interaction.",
+      "construction_hypothesis": "Compare a dry suede edge and a resin-associated leather edge while keeping the aromatic core fixed.",
+      "function_map": [
+        "Aromatic heart: protected.",
+        "Suede versus resin: alternate modifiers.",
+        "Smoke: separate optional decision."
+      ],
+      "negative_space": [
+        "Saffron leather soliflore",
+        "Resin heaviness",
+        "Unrequested smoke"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Leathery fougere without added smoke by default control.",
+        "change": "Use separate suede-edge and resin-edge comparisons.",
+        "question": "Which leather edge adds depth without reducing aromatic clarity?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "No leather material is inferred present in a referenced proprietary perfume.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CHYPRE_FLORAL",
+      "package_id": "CH_CHYPRE",
+      "planned_subtype": "floral",
+      "title": "Floral chypre heart integration",
+      "match_groups": [
+        [
+          "chypre"
+        ],
+        [
+          "floral",
+          "rose",
+          "jasmine"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "givaudan_chypre_floral_v2",
+          "source_record_sha256": "e693e6839867a77621338c6bc4d38d9c88c669c5be3637dcbe0c8779ccd5ef13"
+        },
+        {
+          "source_id": "iff_rose_completion",
+          "source_record_sha256": "c76f720235f513645833ee28f0821ee91e7402105b48f8243d6f6cc6aa80d054"
+        },
+        {
+          "source_id": "iff_jasmine_grand_subtypes",
+          "source_record_sha256": "1345f5739e57f064df0f82fed060381c7791d6c7d5ea3efba5f331ac1ff7ddbb"
+        },
+        {
+          "source_id": "dsm_clearwood_floral_v2",
+          "source_record_sha256": "76172565652010f2913043bcfcf020140f4ddef93986b6be8bb2e958712c4037"
+        }
+      ],
+      "evidence_summary": "A manufacturer-perfumer account places floral elements within citrus/moss/resin or modern patchouli-associated structures.",
+      "construction_hypothesis": "Compare a restrained rose or jasmine bridge while preserving the dry contrast; the bridge need not become the main flower.",
+      "function_map": [
+        "Dry/citrus contrast: target anchor.",
+        "One floral connector: mobile.",
+        "Patchouli/moss branch: keep identities distinct."
+      ],
+      "negative_space": [
+        "Floral bouquet replacing contrast",
+        "Earthy muddy base"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Floral chypre heart integration control.",
+        "change": "Compare rose-associated and jasmine-associated bridge alternatives separately.",
+        "question": "Does the flower connect the opening to the dry base without softening away the intended contrast?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "The account is not a universal chypre definition, reconstruction or compliance certificate.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CHYPRE_GREEN",
+      "package_id": "CH_CHYPRE",
+      "planned_subtype": "green",
+      "title": "Green chypre with explicit bitterness control",
+      "match_groups": [
+        [
+          "chypre"
+        ],
+        [
+          "green",
+          "galbanum",
+          "leafy"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "givaudan_chypre_floral_v2",
+          "source_record_sha256": "e693e6839867a77621338c6bc4d38d9c88c669c5be3637dcbe0c8779ccd5ef13"
+        },
+        {
+          "source_id": "galbanum_character_subtypes",
+          "source_record_sha256": "aa5ed7c9f4aaa41658e72354258fec50154f0a74555f1b0ee100400401fbbc81"
+        },
+        {
+          "source_id": "iff_violet_leaf_subtypes",
+          "source_record_sha256": "ca2e27425aaac65c5faa010ce20ff801ee9376696cb74c833d59b50a48e46e2d"
+        }
+      ],
+      "evidence_summary": "Green materials differ: galbanum odor-directed evidence and violet-leaf product descriptors are not interchangeable.",
+      "construction_hypothesis": "Contrast bitter-green resin with watery leaf over the same citrus/dry framework; judge the desired green identity before adding more complexity.",
+      "function_map": [
+        "Citrus/dry framework: retained.",
+        "Bitter resin green: one branch.",
+        "Watery leaf green: alternative branch."
+      ],
+      "negative_space": [
+        "Vegetal bitterness",
+        "Cucumber dominance",
+        "Assuming all green materials reinforce each other"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Green chypre with explicit bitterness control control.",
+        "change": "Compare one bitter-green branch and one watery-leaf branch.",
+        "question": "Which green edge preserves the intended elegant dry contrast?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "A GC peak hierarchy is not sensory importance; green-family labels do not imply chemical compatibility or synergy.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "CHYPRE_LEATHER",
+      "package_id": "CH_CHYPRE",
+      "planned_subtype": "leathery",
+      "title": "Leathery moss contrast",
+      "match_groups": [
+        [
+          "chypre"
+        ],
+        [
+          "leather",
+          "leathery",
+          "suede"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "givaudan_chypre_floral_v2",
+          "source_record_sha256": "e693e6839867a77621338c6bc4d38d9c88c669c5be3637dcbe0c8779ccd5ef13"
+        },
+        {
+          "source_id": "givaudan_orcinyl_floral_v2",
+          "source_record_sha256": "e66c9db48e18a250fd2b92069d045ce409b97bbb0873c82cf69248e3b96cbfcd"
+        },
+        {
+          "source_id": "givaudan_safraleine_foundation",
+          "source_record_sha256": "eacc33459c2ea9caf104f237aa6d824d4bc98a90a1cf051d312a426665ad6642"
+        }
+      ],
+      "evidence_summary": "Orcinyl 3 is described as one leathery/phenolic moss facet; a separate saffron-leather material supplies a different cue.",
+      "construction_hypothesis": "Test whether the moss-associated base already supplies enough leather before introducing a second leather effect.",
+      "function_map": [
+        "Dry moss contrast: protected.",
+        "Phenolic edge: inspect existing contribution.",
+        "Suede edge: optional alternative."
+      ],
+      "negative_space": [
+        "Tar or smoke takeover",
+        "Redundant leather stacking"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Leathery moss contrast control.",
+        "change": "Compare a leather omission and a single alternative edge.",
+        "question": "Does another leather modifier improve the profile or duplicate an existing facet?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Neither Orcinyl nor another synthetic is a whole-oakmoss or safety-equivalent substitute.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "PATCH_CLEAN",
+      "package_id": "WO_PATCH",
+      "planned_subtype": "clean fractions",
+      "title": "Cleaner patchouli-associated support: fraction versus biotech",
+      "match_groups": [
+        [
+          "patchouli",
+          "clearwood"
+        ],
+        [
+          "clean",
+          "cleaner",
+          "fraction",
+          "fractions",
+          "clearwood"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "dsm_clearwood_floral_v2",
+          "source_record_sha256": "76172565652010f2913043bcfcf020140f4ddef93986b6be8bb2e958712c4037"
+        },
+        {
+          "source_id": "iff_patchouli_completion",
+          "source_record_sha256": "c535745de882a0e9c5836f5aa002e6f7d2fb40b36d33e7de0dc852110b8ebc61"
+        },
+        {
+          "source_id": "givaudan_chypre_floral_v2",
+          "source_record_sha256": "e693e6839867a77621338c6bc4d38d9c88c669c5be3637dcbe0c8779ccd5ef13"
+        }
+      ],
+      "evidence_summary": "Natural patchouli and biotech Clearwood are different products; clean odor is not proof of a distillation fraction.",
+      "construction_hypothesis": "Compare exact natural-product fractions only when documented, and label the biotech branch separately; test fruit/floral masking instead of assuming cleaner is better.",
+      "function_map": [
+        "Exact patchouli identity: retained or explicitly substituted.",
+        "Earthiness: target-dependent feature.",
+        "Cleaner wood: alternative support role."
+      ],
+      "negative_space": [
+        "Calling Clearwood a natural fraction",
+        "Removing desired earthy character"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Cleaner patchouli-associated support: fraction versus biotech control.",
+        "change": "Compare exact support alternatives under a fixed recognizer block.",
+        "question": "Does cleaner support preserve fruit or floral detail without losing the intended dry foundation?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "No automatic equal-dose swap, stock availability or perfume performance is implied.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "WOOD_MINERAL",
+      "package_id": "AM_WOODS",
+      "planned_subtype": "mineral",
+      "title": "Mineral woody-amber support without a performance shortcut",
+      "match_groups": [
+        [
+          "mineral"
+        ],
+        [
+          "woody",
+          "wood",
+          "amberwood",
+          "amber"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "dsm_ambrox_super_description",
+          "source_record_sha256": "8ff89903fab195039347f9ec55b8f9859cb60227274055fd95293e73fc8ce8b0"
+        },
+        {
+          "source_id": "iff_iso_e_super_completion",
+          "source_record_sha256": "54c3b1da3231dd68cbc5f900c7d313f6d38d3be99b1180b29159005fd4b41082"
+        },
+        {
+          "source_id": "iff_amber_xtreme_foundation",
+          "source_record_sha256": "56837c912031875a6b3eb2efa09da894352733677bd1e3a400910ef70ab514fd"
+        }
+      ],
+      "evidence_summary": "Ambergris-associated, transparent woody and powerful woody-amber products have distinct manufacturer descriptions.",
+      "construction_hypothesis": "Compare recognizer preservation at different support balances; increased base amount is not evidence of improved opening projection.",
+      "function_map": [
+        "Mineral impression: explicitly hypothetical target.",
+        "Transparent wood: one support route.",
+        "Powerful woody-amber: separate alternative, never a default booster."
+      ],
+      "negative_space": [
+        "Harshness",
+        "Fruit/floral masking",
+        "Calling more base guaranteed projection"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Mineral woody-amber support without a performance shortcut control.",
+        "change": "Compare support alternatives with unchanged top/heart identity and matched evaluation conditions.",
+        "question": "Which support route retains character and perceived space without harshness?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Vapor pressure, source blotter tenacity and OAV do not establish finished-perfume sillage or liking.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    },
+    {
+      "subtype_id": "AMBERGRIS_MUSK",
+      "package_id": "AN_SKIN",
+      "planned_subtype": "ambergris associated",
+      "title": "Ambergris-associated musk transition",
+      "match_groups": [
+        [
+          "ambergris",
+          "ambroxide",
+          "ambroxan"
+        ],
+        [
+          "musk",
+          "musky"
+        ]
+      ],
+      "source_bindings": [
+        {
+          "source_id": "dsm_ambrox_super_description",
+          "source_record_sha256": "8ff89903fab195039347f9ec55b8f9859cb60227274055fd95293e73fc8ce8b0"
+        },
+        {
+          "source_id": "iff_ambrettolide_foundation",
+          "source_record_sha256": "edf6fee353746ba250e6ebb42742ff2807e8c4493203d4850cd421b2503eb390"
+        },
+        {
+          "source_id": "dsm_exaltolide_foundation",
+          "source_record_sha256": "ca40de93318d886b0c240e0ddbb2c8666f6f40c893ffd279e11ecb7cb895ced2"
+        }
+      ],
+      "evidence_summary": "Ambrox Super and distinct musk descriptions support separate mineral-warm and soft-skin roles.",
+      "construction_hypothesis": "Test one musk bridge against the unchanged ambergris-associated support; additional musks need a distinct function and omission comparison.",
+      "function_map": [
+        "Exact ambergris-associated product: separate identity.",
+        "Musk texture: one chosen role.",
+        "Fruit/floral memory: recognizer retained from the brief."
+      ],
+      "negative_space": [
+        "Musk flattening the heart",
+        "Amberwood substituted for ambergris identity"
+      ],
+      "comparison": {
+        "control": "Unchanged target or the simplest recognizable Ambergris-associated musk transition control.",
+        "change": "Compare one musk bridge and an omission control.",
+        "question": "Does the musk bridge preserve recognizable character rather than merely enlarge the base?",
+        "stop": "Reject a branch if the protected recognizer weakens, avoid constraints become noticeable, or repeated observations cannot distinguish its proposed benefit."
+      },
+      "identity_limits": [
+        "Natural ambergris tincture, ambroxide grades and musks are not equivalent; no longevity or personal-liking claim.",
+        "Source-derived cues are advisory; interaction, dose, finished-perfume performance and liking are unmeasured."
+      ],
+      "status": "UNTESTED_SUBTYPE_HYPOTHESIS",
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    }
+  ],
+  "predecessor_manifest_sha256": "2bbc6d9116fac0bcc033b3547c860a4f4033c517b76e11b016d8464b55a1f8f0",
+  "campaign_identity_holds": [
+    {
+      "campaign_id": "CHIMIE_LHOMME",
+      "names": [
+        "CHIMIE LHOMME",
+        "CHIMIE L'HOMME",
+        "CHIMIE L HOMME"
+      ],
+      "state": "HOLD_EXACT_BRIEF_OR_FORMULA_REQUIRED",
+      "reason": "The exact accepted CHIMIE L'HOMME brief/formula was not recovered from accessible local sources. Adjacent Aventus and other L'Homme files are not substitutes.",
+      "question": "Please provide the accepted CHIMIE L'HOMME brief or latest formula so related architectures can be matched accurately.",
+      "inferred_package_ids": [],
+      "authority": {
+        "release_authority": false,
+        "safety_authority": false,
+        "compounding_authority": false,
+        "evidence_admission_authorized": false
+      }
+    }
+  ]
+}

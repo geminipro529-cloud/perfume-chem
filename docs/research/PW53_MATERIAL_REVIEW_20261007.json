@@ -1,0 +1,3450 @@
+{
+  "schema_version": "pw53-authored-material-review-v1",
+  "date": "2026-10-07",
+  "sources": {
+    "HAB": {
+      "title": "dsm-firmenich Habanolide technical sheet",
+      "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/HABANOLIDE_947303.pdf",
+      "kind": "Manufacturer description"
+    },
+    "HEL": {
+      "title": "dsm-firmenich Helvetolide",
+      "url": "https://studio.dsm-firmenich.com/product/helvetolider-pe-947650",
+      "kind": "Manufacturer description"
+    },
+    "ROM": {
+      "title": "dsm-firmenich Romandolide product record",
+      "url": "https://studio.dsm-firmenich.com/product/romandolider-pe-979031",
+      "kind": "Manufacturer description; current English product page"
+    },
+    "ZEN": {
+      "title": "IFF Zenolide",
+      "url": "https://www.iff.com/scent/ingredients-compendium/zenolide/",
+      "kind": "Manufacturer description"
+    },
+    "AMB": {
+      "title": "Givaudan Ambrofix",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ambrofix",
+      "kind": "Manufacturer description"
+    },
+    "VER": {
+      "title": "IFF Vertofix Coeur",
+      "url": "https://www.iff.com/scent/ingredients-compendium/vertofix-coeur/",
+      "kind": "Manufacturer description"
+    },
+    "KEP": {
+      "title": "Givaudan Kephalis",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/kephalis",
+      "kind": "Manufacturer description"
+    },
+    "MAN": {
+      "title": "Givaudan Manzanate",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/manzanate",
+      "kind": "Manufacturer description"
+    },
+    "GLY": {
+      "title": "Givaudan Glycolierral",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/glycolierral",
+      "kind": "Manufacturer description"
+    },
+    "MAG": {
+      "title": "Symrise Magnolan technical sheet",
+      "url": "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Magnolan.pdf",
+      "kind": "Manufacturer description"
+    },
+    "VEL": {
+      "title": "dsm-firmenich Veloutone",
+      "url": "https://studio.dsm-firmenich.com/product/veloutoner-pe-990257",
+      "kind": "Manufacturer description"
+    },
+    "RHU": {
+      "title": "dsm-firmenich Rhubofix technical sheet",
+      "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/RHUBOFIX_978880.pdf",
+      "kind": "Manufacturer description"
+    },
+    "ELA": {
+      "title": "Givaudan Ethyl Linalyl Acetate",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ethyl-linalyl-acetate",
+      "kind": "Manufacturer description"
+    },
+    "FLO": {
+      "title": "dsm-firmenich Florol",
+      "url": "https://studio.dsm-firmenich.com/product/florolr-pe-966458",
+      "kind": "Manufacturer description"
+    },
+    "FLO_PDF": {
+      "title": "Firmenich Florol technical sheet",
+      "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/FLOROL_966458.pdf",
+      "kind": "Manufacturer description; conflicts with current web physical values"
+    },
+    "ACD": {
+      "title": "Symrise Ambrocenide 10 DPG technical sheet",
+      "url": "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Ambrocenide_10_DPG.pdf",
+      "kind": "Related preparation: DPG, not user's TEC stock"
+    },
+    "FRA": {
+      "title": "IFF Fraistone",
+      "url": "https://www.iff.com/scent/ingredients-compendium/fraistone/",
+      "kind": "Identity-matched manufacturer reference; does not establish supplier provenance"
+    },
+    "FRU": {
+      "title": "IFF Fructone",
+      "url": "https://www.iff.com/scent/ingredients-compendium/fructone/",
+      "kind": "Different molecule; identity contrast"
+    },
+    "MAP": {
+      "title": "TCI cyclotene / 2-hydroxy-3-methyl-2-cyclopentenone",
+      "url": "https://www.tcichemicals.com/IN/en/p/H0469",
+      "kind": "Chemical identity and reference-grade physical specification"
+    },
+    "MD": {
+      "title": "NIH NCATS Methyl diantilis identity",
+      "url": "https://drugs.ncats.io/substance/7QHC87YPG8",
+      "kind": "Chemical identity registry"
+    },
+    "AMBSEED": {
+      "title": "Givaudan Ambrette Seed Absolute",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/ambrette-seed-absolute",
+      "kind": "Different producer/grade family reference; not user's lot composition"
+    },
+    "IFRA": {
+      "title": "IFRA Standards library",
+      "url": "https://ifrafragrance.org/standards-library",
+      "kind": "Official standards"
+    },
+    "IFRA_INDEX": {
+      "title": "IFRA 51st Amendment index",
+      "url": "https://ifrafragrance.org/docs/default-source/51st-amendment/ifra-51st-amendment---index-of-ifra-standards.pdf?sfvrsn=6511ee03_2",
+      "kind": "Official index; no numerical limit calculation"
+    },
+    "IFRA_52": {
+      "title": "IFRA 52nd Amendment consultation closure",
+      "url": "https://ifrafragrance.org/latest-updates/ifra-news/ifra-52nd-amendment-consultation-closed",
+      "kind": "Official June 2026 status: notification expected late November 2026"
+    },
+    "IFRA_52_END": {
+      "title": "IFRA August 2026 end-of-consultation announcement",
+      "url": "https://ifrafragrance.org/latest-updates/ifra-news/ifra-publishes-end-of-consultation-letter-for-the-52nd-amendment-to-the-ifra-standards",
+      "kind": "Official forthcoming changes, not final notification"
+    },
+    "BIRCH": {
+      "title": "IFRA published birch wood pyrolysate standard in compiled 50th Amendment",
+      "url": "https://ifrafragrance.org/docs/default-source/ifra-code-of-practice-and-standards/ifra-standards---50th-amendment/standards-compiled.pdf",
+      "kind": "Official historical standard: crude prohibition versus rectified PAH specification"
+    },
+    "SAFR": {
+      "title": "IFRA published Safranal standard",
+      "url": "https://ifrafragrance.org/standards/IFRA_STD48_0139.pdf",
+      "kind": "Historical restriction reference; not current numerical release limit"
+    },
+    "MIXTURE": {
+      "title": "Zak et al., 2020: antagonistic odor interactions in freely breathing mice",
+      "url": "https://www.nature.com/articles/s41467-020-17124-5",
+      "kind": "Primary experimental neuroscience; not a L'Homme or human liking trial"
+    }
+  },
+  "cards": [
+    {
+      "n": 1,
+      "sku": "5XU12235",
+      "family": "Musk",
+      "identity": "Natural seed extract diluted in DPG; not isolated ambrettolide. Botanical/lot composition is not established by the generic CAS label.",
+      "odor_role": "Musky seed warmth with woody, hay, tobacco and wine-like facets. A source of natural texture and soft complexity, rather than a neutral clean-musk replacement.",
+      "performance": "The supplier's parent extract and other manufacturers support a persistent musky role qualitatively; the exact purchased dilution has no verified skin-longevity curve.",
+      "handling": "Keep the original dilution identity. Colour, viscosity, solubility and constituent allergens depend on the extract; the captured SDS has no usable classification data.",
+      "priority": "Character change",
+      "lhomme": "Possible later natural-texture comparison, but the seed/hay facets could move the clean sporty identity. Do not substitute it numerically for ambrettolide.",
+      "sources": [
+        "AMBSEED"
+      ],
+      "issues": [
+        "Natural mixture composition unknown",
+        "10% basis unspecified"
+      ],
+      "name": "Ambrette Seed Absolute 10% in DPG",
+      "received_g": "1",
+      "inventory_label": "Ambrette Seed Absolute (10% in DPG)",
+      "fraction_basis": "unspecified",
+      "carrier": "DPG",
+      "supplier_cas_raw": "84455-19-6",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 5XU12235",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=5XU12235",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 5XU12235",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=5XU12235",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "f809ccd84e8184c986dae897dcd101054b3af044bdc8e1cf1f02698d59f7a31f",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/5XU12235/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 5XU12235",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=5XU12235",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 5XU12235",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=5XU12235",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "PerfumersWorld parent extract; qualitative family reference",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=8XU00529",
+          "kind": "Parent material description, not dilution assay"
+        },
+        {
+          "title": "Givaudan Ambrette Seed Absolute",
+          "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/ambrette-seed-absolute",
+          "kind": "Different producer/grade family reference; not user's lot composition"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 2,
+      "sku": "3XA09821",
+      "family": "Musk",
+      "identity": "Habanolide, CAS 111879-80-2; a macrocyclic musk lactone. The supplier lists a liquid.",
+      "odor_role": "Clean, diffusive musk with a warm, slightly woody underpinning. Its distinct task would be a dry, clear musky support behind the citrus and pepper.",
+      "performance": "Firmenich describes a powerful heart/base musk and reports two weeks on a smelling strip. That is manufacturer strip evidence, not two weeks on skin or proof of a more separated opening.",
+      "handling": "The supplier SDS flags aquatic hazards. Evaluate its own odor character; adding more powerful musk can also increase the perceived base presence.",
+      "priority": "First comparison",
+      "lhomme": "A useful alternative-musks lane for a fresh rebuild, with the rest of the formula held constant. It is not established as an improvement over the original musk system.",
+      "sources": [
+        "HAB"
+      ],
+      "issues": [],
+      "name": "Habanolide",
+      "received_g": "10",
+      "inventory_label": "Habanolide (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "111879-80-2",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 3XA09821",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=3XA09821",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 3XA09821",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=3XA09821",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "5cf5dfb28e1ab2a19660da3d1a9ebe80086dded8861478274bbb5ec973721268",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/3XA09821/product.html.gz",
+      "sds_codes_screened": [
+        "H400",
+        "H410"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 3XA09821",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3XA09821",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 3XA09821",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=3XA09821",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "dsm-firmenich Habanolide technical sheet",
+          "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/HABANOLIDE_947303.pdf",
+          "kind": "Manufacturer description"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 3,
+      "sku": "3XD17215",
+      "family": "Musk",
+      "identity": "Helvetolide, CAS 141773-73-1; an alicyclic musk, distinct from Habanolide and Romandolide.",
+      "odor_role": "Musky warmth with pear-like freshness and ambrette facets. Its role is a fruity musky connection from opening through drydown.",
+      "performance": "The manufacturer specifically describes presence in the top note as well as later stages. 'Musk' therefore does not imply that it is absent from the initial spray.",
+      "handling": "The supplier SDS flags chronic aquatic toxicity. Pear/ambrette character must be assessed as part of the intended smell, not treated as an odorless performance aid.",
+      "priority": "Conditional comparison",
+      "lhomme": "Useful only if its fruity softness supports the original. Less conservative than a musk without a noticeable pear facet when preserving pink pepper is the goal.",
+      "sources": [
+        "HEL"
+      ],
+      "issues": [],
+      "name": "Helvetolide",
+      "received_g": "5",
+      "inventory_label": "Helvetolide (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "141773-73-1",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 3XD17215",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=3XD17215",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 3XD17215",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=3XD17215",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "15a17c8d414209368ce0531bd8976484fb8df224c139d4d97f086dba34b630c5",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/3XD17215/product.html.gz",
+      "sds_codes_screened": [
+        "H411"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 3XD17215",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3XD17215",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 3XD17215",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=3XD17215",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "dsm-firmenich Helvetolide",
+          "url": "https://studio.dsm-firmenich.com/product/helvetolider-pe-947650",
+          "kind": "Manufacturer description"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 4,
+      "sku": "3XU22379",
+      "family": "Musk",
+      "identity": "Romandolide, CAS 236391-76-7; an alicyclic musk, not a polycyclic musk.",
+      "odor_role": "Soft musk with delicate balsamic facets. The manufacturer describes it as less fruity and less ambrette-like than Helvetolide, with more drydown volume.",
+      "performance": "It is described as both a top-note musk and a contributor to tenacity. Neither description proves that it will unmask pepper in this perfume.",
+      "handling": "The supplier SDS flags chronic aquatic toxicity. Supplier descriptions of airy or transparent character are sensory guidance, not measurements of reduced mixture masking.",
+      "priority": "First comparison",
+      "lhomme": "A sensible controlled alternative to assess against the original musk system. Do not assume equal mass gives the same odor strength or that Galaxolide caused the block.",
+      "sources": [
+        "ROM"
+      ],
+      "issues": [],
+      "name": "Romandolide",
+      "received_g": "10",
+      "inventory_label": "Romandolide (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "236391-76-7",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 3XU22379",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=3XU22379",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 3XU22379",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=3XU22379",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "262db8b773557d85c076152c81d49b98f224c389e71d2f06b76f3651524dbc5f",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/3XU22379/product.html.gz",
+      "sds_codes_screened": [
+        "H411"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 3XU22379",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3XU22379",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 3XU22379",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=3XU22379",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "dsm-firmenich Romandolide product record",
+          "url": "https://studio.dsm-firmenich.com/product/romandolider-pe-979031",
+          "kind": "Manufacturer description; current English product page"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 5,
+      "sku": "3XA22378",
+      "family": "Musk",
+      "identity": "Zenolide, CAS 54982-83-1; a macrocyclic diester musk.",
+      "odor_role": "Soft, delicate musk with red-fruit facets. Its role would be gentle musky body with a fruit-tinted texture.",
+      "performance": "IFF rates heart impact medium and base impact low. The supplier's long strip-life claim is a different endpoint and does not make Zenolide a proven high-projection base.",
+      "handling": "The live supplier SDS flags acute and chronic aquatic toxicity. The page was recovered after the local crawl missed it; its classification is recorded as a supplier statement, not a final safety assessment.",
+      "priority": "Conditional comparison",
+      "lhomme": "A worthwhile later musk alternative if the red-fruit nuance fits. It cannot be promised as a longevity-equivalent replacement.",
+      "sources": [
+        "ZEN"
+      ],
+      "issues": [
+        "Supplier and manufacturer describe different performance endpoints"
+      ],
+      "name": "Zenolide",
+      "received_g": "5",
+      "inventory_label": "Zenolide (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "54982-83-1",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 3XA22378",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=3XA22378",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 3XA22378",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=3XA22378",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "WEB_RETRIEVED_EXACT_PRODUCT_PAGE",
+      "product_source_hash": null,
+      "product_source_path": null,
+      "sds_codes_screened": [
+        "H400",
+        "H410"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "SDS section 2 reviewed through web",
+      "ifra_document_state": "PUBLIC_PAGE_LOCATED_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 3XA22378",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3XA22378",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 3XA22378",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=3XA22378",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "IFF Zenolide",
+          "url": "https://www.iff.com/scent/ingredients-compendium/zenolide/",
+          "kind": "Manufacturer description"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 6,
+      "sku": "1UW16861",
+      "family": "Woody / amber",
+      "identity": "Ambrofix, CAS 6790-58-5; an ambroxide material supplied as crystals. It is distinct from Ambrocenide.",
+      "odor_role": "Persistent ambergris-like warmth and woody body. Its specific job is the recognizable ambergris foundation, rather than a sharp woody booster.",
+      "performance": "Givaudan describes strong substantivity and stability. The supplier page contains conflicting strip-duration claims, so no numerical duration is accepted here.",
+      "handling": "Weigh crystals; a crystalline raw material is not a directly pipettable liquid. Any later stock preparation needs an explicit concentration and carrier.",
+      "priority": "Preserve / compare grade",
+      "lhomme": "First check overlap with the existing Ambrox component. This may be a grade comparison rather than a new functional role; extra Ambrofix would also change total amber loading.",
+      "sources": [
+        "AMB"
+      ],
+      "issues": [
+        "Conflicting supplier strip-life statements",
+        "Not interchangeable with Ambrocenide"
+      ],
+      "name": "Ambrofix",
+      "received_g": "10",
+      "inventory_label": "Ambrofix Crystals (solid; neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "6790-58-5",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 1UW16861",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=1UW16861",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 1UW16861",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=1UW16861",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "d4aad0d5bf525a50336d97cb6bb0da7e1c0188177d867a0cbd791ec1fccf03a4",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/1UW16861/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 1UW16861",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=1UW16861",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 1UW16861",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=1UW16861",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "Givaudan Ambrofix",
+          "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ambrofix",
+          "kind": "Manufacturer description"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 7,
+      "sku": "3WY00465",
+      "family": "Woody / amber",
+      "identity": "Supplier spelling Vertofix Couer; manufacturer Vertofix Coeur, CAS 32388-55-9. Methyl cedryl ketone family.",
+      "odor_role": "Dry cedar/precious-wood character with leathery and musky undertones. It can connect an aromatic heart to dry woods.",
+      "performance": "IFF describes diffusion and substantivity above 48 hours in its ingredient compendium; the substrate/protocol is not a finished-perfume wear trial.",
+      "handling": "Supplier SDS flags sensitization and aquatic hazards. Its dry wood odor is an active character contribution, not an inert fixative.",
+      "priority": "Conditional comparison",
+      "lhomme": "Potentially compatible with a restrained dry woody heart, but an addition could make the opening woodier. Consider only for an identified missing woody role.",
+      "sources": [
+        "VER"
+      ],
+      "issues": [],
+      "name": "Vertofix Couer",
+      "received_g": "5",
+      "inventory_label": "Vertofix (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "32388-55-9",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 3WY00465",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=3WY00465",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 3WY00465",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=3WY00465",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "ec3c0579dd964132f3c4fb634c29af2c00fcb9a01046c1267fd0097116ab429d",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/3WY00465/product.html.gz",
+      "sds_codes_screened": [
+        "H317",
+        "H400",
+        "H410"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 3WY00465",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3WY00465",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 3WY00465",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=3WY00465",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "IFF Vertofix Coeur",
+          "url": "https://www.iff.com/scent/ingredients-compendium/vertofix-coeur/",
+          "kind": "Manufacturer description"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 8,
+      "sku": "5TP11094",
+      "family": "Natural / character base",
+      "identity": "Birch tar oil rectified, nominal 10% in DPG. Rectified and crude birch pyrolysates require different treatment.",
+      "odor_role": "Intense smoke, phenolic leather and burnt wood. Useful when a deliberate smoky leather accent is required.",
+      "performance": "A character-dominant accent; there is no evidence it would recover a clean sporty opening or preserve the original smell.",
+      "handling": "IFRA distinguishes prohibited crude pyrolysate from rectified oils meeting PAH specifications. 'Rectified' on the name alone does not prove this lot meets those specifications.",
+      "priority": "Character change",
+      "lhomme": "Poor first candidate for this brief because smoke and leather introduce a conspicuous new direction.",
+      "sources": [
+        "BIRCH"
+      ],
+      "issues": [
+        "PAH specification applicability unverified",
+        "10% basis unspecified"
+      ],
+      "name": "Birch Tar Oil Rectified 10% in DPG",
+      "received_g": "2",
+      "inventory_label": "Birch Tar Rectified (10% in DPG)",
+      "fraction_basis": "unspecified",
+      "carrier": "DPG",
+      "supplier_cas_raw": "8001-88-5",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 5TP11094",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=5TP11094",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 5TP11094",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=5TP11094",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "59c9bd4b3ab098a61471001ef576b59ac0becef3803572a7225c0864f4d15f60",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/5TP11094/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 5TP11094",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=5TP11094",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 5TP11094",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=5TP11094",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "IFRA published birch wood pyrolysate standard in compiled 50th Amendment",
+          "url": "https://ifrafragrance.org/docs/default-source/ifra-code-of-practice-and-standards/ifra-standards---50th-amendment/standards-compiled.pdf",
+          "kind": "Official historical standard: crude prohibition versus rectified PAH specification"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 9,
+      "sku": "5TH13846",
+      "family": "Natural / character base",
+      "identity": "Tobacco absolute in DPG, nominal 10%; a variable natural extract, not a single tobacco odorant.",
+      "odor_role": "Cured-leaf richness with earthy and herbal warmth. Its role is natural tobacco body in aromatic, woody or tobacco accords.",
+      "performance": "The supplier supports a tobacco/fougere role. Its generic strip-life field does not establish persistence of this stock on skin.",
+      "handling": "The captured SDS lacks usable classification data. Do not infer nicotine content, nicotine absence or a complete allergen profile from the product name.",
+      "priority": "Character change",
+      "lhomme": "Useful for a tobacco project; it would be a deliberate new character choice for L'Homme rather than a neutral layering adjustment.",
+      "sources": [],
+      "issues": [
+        "Extract composition and nicotine content not established",
+        "10% basis unspecified"
+      ],
+      "name": "Tobacco Absolute 10% in DPG",
+      "received_g": "1",
+      "inventory_label": "Tobacco Absolute (10% in DPG)",
+      "fraction_basis": "unspecified",
+      "carrier": "DPG",
+      "supplier_cas_raw": "8037-19-2",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 5TH13846",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=5TH13846",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 5TH13846",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=5TH13846",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "456548be9047674f44cbb52a22090943f34d00ff2ce8e602cda89c9031ea7524",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/5TH13846/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 5TH13846",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=5TH13846",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 5TH13846",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=5TH13846",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 10,
+      "sku": "4DD00454",
+      "family": "Fruit / lactonic",
+      "identity": "Gamma-undecalactone, CAS 104-67-6. 'Aldehyde C-14' is a historical trade name: the molecule is a lactone, not an aldehyde.",
+      "odor_role": "Peach/apricot flesh and creamy fruit. It supplies rounded fruit body and supports richer floral textures.",
+      "performance": "Supplier descriptions and strip data support more than a fleeting fruity effect; no exact skin duration is established.",
+      "handling": "Supplied as a liquid. The supplier SDS contains aquatic-hazard classifications that require reconciliation rather than copying a single code as final.",
+      "priority": "Character change",
+      "lhomme": "Likely to round or sweeten the composition toward peach. No specific need for that role has been demonstrated in the original sporty perfume.",
+      "sources": [],
+      "issues": [
+        "Historical trade name can mislead chemical-class assignment"
+      ],
+      "name": "Aldehyde C-14 Gamma Undecalactone",
+      "received_g": "1",
+      "inventory_label": "Gamma Undecalactone (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "104-67-6",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4DD00454",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4DD00454",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4DD00454",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4DD00454",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "af71aa858294af1556028e5e94734699de23916e56f45d4a8489bafff72fc930",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/4DD00454/product.html.gz",
+      "sds_codes_screened": [
+        "H411",
+        "H412"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4DD00454",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4DD00454",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4DD00454",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4DD00454",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 11,
+      "sku": "4DD00324",
+      "family": "Fruit / lactonic",
+      "identity": "Gamma-nonalactone, CAS 104-61-0. 'Aldehyde C-18' is a lactone trade name.",
+      "odor_role": "Coconut, creamy milk and sweet floral richness. A coconut or creamy-white-floral building block.",
+      "performance": "Supplier strip claims indicate persistence, but are not comparable controlled skin measurements.",
+      "handling": "The supplier lists a liquid; the captured SDS states no classification data. That is missing information, not a finding of harmlessness.",
+      "priority": "Character change",
+      "lhomme": "Its coconut/cream identity is unlikely to be a conservative way of restoring the existing citrus-pepper contrast.",
+      "sources": [],
+      "issues": [
+        "Not an aldehyde",
+        "Product-specific hazard data incomplete"
+      ],
+      "name": "Aldehyde C-18 Gamma Nonalactone",
+      "received_g": "1",
+      "inventory_label": "Aldehyde C-18 (Gamma Nonalactone, neat)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "104-61-0",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4DD00324",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4DD00324",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4DD00324",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4DD00324",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "324bc375e3fedbb7dd7c639f9d75b60d8aaef9aecb94526819df6f9e9cd0ea11",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/4DD00324/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4DD00324",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4DD00324",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4DD00324",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4DD00324",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 12,
+      "sku": "4DD03683",
+      "family": "Fruit / lactonic",
+      "identity": "Delta-decalactone, CAS 2825-91-4. Distinct ring structure from gamma-decalactone.",
+      "odor_role": "Cream, milk-fat and peach/coconut nuances. Its function is dairy-like softness and rounded fruit texture.",
+      "performance": "A potentially persistent creamy modifier according to supplier descriptions. Exact comparative strength versus the other lactones is not established by this review.",
+      "handling": "Liquid stock; protect label identity so gamma and delta isomers are not silently swapped. Captured hazard classification is incomplete.",
+      "priority": "Character change",
+      "lhomme": "A texture-changing material, not a substantiated fix for the blocked opening.",
+      "sources": [],
+      "issues": [
+        "Gamma and delta forms are distinct"
+      ],
+      "name": "Delta Decalactone",
+      "received_g": "1",
+      "inventory_label": "Delta Decalactone (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "2825-91-4",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4DD03683",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4DD03683",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4DD03683",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4DD03683",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "86035eeb7fee885a9048afd604d3719618ffeba487c80e0a9f94507282a33328",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/4DD03683/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4DD03683",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4DD03683",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4DD03683",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4DD03683",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 13,
+      "sku": "4DD01639",
+      "family": "Fruit / lactonic",
+      "identity": "Gamma-decalactone, CAS 706-14-9; distinct from gamma-undecalactone and delta-decalactone.",
+      "odor_role": "Juicy peach/apricot with creamy, fatty floral nuances. Useful for fruit flesh and rounded floral body.",
+      "performance": "Supplier evidence supports a fruity-lactonic role. Relative persistence and preferred proportion among lactones need direct smelling comparisons.",
+      "handling": "Supplied as a liquid; captured product-specific hazard data are incomplete.",
+      "priority": "Character change",
+      "lhomme": "Could create a new peach facet. It does not have a demonstrated role in preserving this L'Homme's current identity.",
+      "sources": [],
+      "issues": [],
+      "name": "Gamma Decalactone",
+      "received_g": "1",
+      "inventory_label": "Gamma Decalactone (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "706-14-9",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4DD01639",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4DD01639",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4DD01639",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4DD01639",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "356f30441775c1e6c5b7f9d73af35f12aa0b70dc029004fcda38e0fb55f61e4b",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/4DD01639/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4DD01639",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4DD01639",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4DD01639",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4DD01639",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 14,
+      "sku": "4DD00331",
+      "family": "Fruit / lactonic",
+      "identity": "Gamma-octalactone, CAS 104-50-7.",
+      "odor_role": "Coconut, cream and oily/fatty warmth. A supporting dairy/coconut texture rather than a citrus peel material.",
+      "performance": "The supplier reports persistent strip odor; no common protocol supports a numerical ranking against the other four lactones.",
+      "handling": "Supplied as a liquid. Do not assign universal solubility or shelf-life from its chemical class; the captured classification is incomplete.",
+      "priority": "Character change",
+      "lhomme": "Low priority for the stated sporty brief because creamy texture may reduce the desired sense of crispness.",
+      "sources": [],
+      "issues": [],
+      "name": "Gamma Octalactone",
+      "received_g": "1",
+      "inventory_label": "Gamma Octalactone (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "104-50-7",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4DD00331",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4DD00331",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4DD00331",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4DD00331",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "e35d508a6141e8e93a93fe298ac278f07d531dc740b757fa45f8272e940d6b42",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/4DD00331/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4DD00331",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4DD00331",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4DD00331",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4DD00331",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 15,
+      "sku": "4AA00021",
+      "family": "Citrus / fresh",
+      "identity": "Dodecanal, CAS 112-54-9; C-12 Lauric. It is not C-12 MNA.",
+      "odor_role": "Waxy, fatty, soapy aldehydic lift. It can give polished aldehydic character and reinforce floral/clean impressions.",
+      "performance": "A strong odor-active accent; persistence of an aldehydic impression is not equivalent to keeping natural citrus intact.",
+      "handling": "Supplier SDS flags skin/eye irritation and sensitization. Keep tightly closed and follow product storage guidance; no degradation rate or shelf-life was verified.",
+      "priority": "Conditional comparison",
+      "lhomme": "Only relevant if a waxy-soapy accent is acceptable. It may shift the smell more than it improves separation.",
+      "sources": [],
+      "issues": [
+        "C-12 Lauric and C-12 MNA are different materials"
+      ],
+      "name": "Aldehyde C-12 Lauric Dodecanal",
+      "received_g": "1",
+      "inventory_label": "Aldehyde C-12 Lauric Dodecanal (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "112-54-9",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4AA00021",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4AA00021",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4AA00021",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4AA00021",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "f31e514a0700dc0c7620d578cd0acd8f3ae1080d66b6cf18cbf5df1129e32939",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/4AA00021/product.html.gz",
+      "sds_codes_screened": [
+        "H315",
+        "H317",
+        "H319",
+        "H411"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4AA00021",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4AA00021",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4AA00021",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4AA00021",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 16,
+      "sku": "4AC00026",
+      "family": "Citrus / fresh",
+      "identity": "Octanal, CAS 124-13-0; Aldehyde C-8.",
+      "odor_role": "Powerful lemon-peel/fatty aldehydic brightness. Its role would be a sharper citrus accent in the opening.",
+      "performance": "Supplier evidence supports an opening contribution. It is not a base or a demonstrated longevity solution.",
+      "handling": "The supplier SDS flags flammability and skin/eye irritation. Limit unnecessary air/light/heat exposure and keep storage conditions documented.",
+      "priority": "Conditional comparison",
+      "lhomme": "A plausible later test of citrus definition, after establishing whether the original top itself needs adjustment. More aldehydic impact could also make the spray harsher.",
+      "sources": [],
+      "issues": [],
+      "name": "Aldehyde C-8 Octanal",
+      "received_g": "1",
+      "inventory_label": "Aldehyde C-8 Octanal (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "124-13-0",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4AC00026",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4AC00026",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4AC00026",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4AC00026",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "780db5ea6272adb08a3829b232725eee11cc34cf02f64c0bbb945e131a6247c4",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/4AC00026/product.html.gz",
+      "sds_codes_screened": [
+        "H226",
+        "H315",
+        "H319",
+        "H411"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4AC00026",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4AC00026",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4AC00026",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4AC00026",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 17,
+      "sku": "4AC00027",
+      "family": "Citrus / fresh",
+      "identity": "Nonanal, CAS 124-19-6; Aldehyde C-9.",
+      "odor_role": "Orange-peel citrus with a fatty/waxy edge. It can give body to a peely citrus accord.",
+      "performance": "An opening modifier in the supplier description; no verified ranking of its persistence against octanal is used.",
+      "handling": "The supplier SDS flags skin/eye irritation. Keep separate from C-8 and C-12 labels; apparent similarity does not justify a one-for-one replacement.",
+      "priority": "Conditional comparison",
+      "lhomme": "Potentially more peely than a generic fresh booster, but it introduces its own fatty character. A separate top-note question from the musk question.",
+      "sources": [],
+      "issues": [],
+      "name": "Aldehyde C-9 Nonanal",
+      "received_g": "1",
+      "inventory_label": "Aldehyde C-9 Nonanal (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "124-19-6",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4AC00027",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4AC00027",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4AC00027",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4AC00027",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "5022aa560b53128e47fe258d2026e86b35b62cc578ec41679b2935aa9340da0a",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/4AC00027/product.html.gz",
+      "sds_codes_screened": [
+        "H315",
+        "H319",
+        "H412"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4AC00027",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4AC00027",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4AC00027",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4AC00027",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 18,
+      "sku": "4DV02664",
+      "family": "Gourmand / spice",
+      "identity": "Acetoin, CAS 513-86-0; a hydroxyketone, distinct from diacetyl.",
+      "odor_role": "Butter, cream and soft caramel with a sour/dairy facet. Its purpose is a food-like dairy accent.",
+      "performance": "Supplier evidence suggests a relatively fleeting accent. No evidence supports using it to extend this perfume.",
+      "handling": "The page lists a liquid while the SDS mixes liquid/solid flammability classifications; exact supplied form needs clarification before quantitative handling assumptions.",
+      "priority": "Character change",
+      "lhomme": "Not a useful first direction for preserving the sporty citrus/pepper identity.",
+      "sources": [],
+      "issues": [
+        "Physical-state and hazard-document consistency unresolved"
+      ],
+      "name": "Acetoin",
+      "received_g": "1",
+      "inventory_label": "Acetoin (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "513-86-0",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4DV02664",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4DV02664",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4DV02664",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4DV02664",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "1d20105bac6a98ac57d2b7a372596059e4480583a79ec54cbc5879614ae18d1a",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/4DV02664/product.html.gz",
+      "sds_codes_screened": [
+        "H226",
+        "H228",
+        "H315",
+        "H319"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4DV02664",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4DV02664",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4DV02664",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4DV02664",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 19,
+      "sku": "1VD00129",
+      "family": "Gourmand / spice",
+      "identity": "Coumarin, CAS 91-64-5; supplied as crystals.",
+      "odor_role": "Sweet hay, tonka-like warmth and dry tobacco/herbal shading. It can connect lavender/aromatic notes to a warm fougere base.",
+      "performance": "A substantive character material, not an odorless fixative. Its contribution to overall wear time cannot be separated from its hay-like smell by a name change.",
+      "handling": "Weigh the solid. IFRA lists a Coumarin restriction; total contributions, including naturals, require formula-level accounting. Supplier oral-hazard entries are internally inconsistent.",
+      "priority": "Character change",
+      "lhomme": "Only relevant if a sweeter fougere direction is intended. Increasing it would alter the restrained, snappy character.",
+      "sources": [
+        "IFRA"
+      ],
+      "issues": [
+        "Published restriction applies",
+        "Supplier classification inconsistency"
+      ],
+      "name": "Coumarin",
+      "received_g": "10",
+      "inventory_label": "Coumarin (neat powder)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "91-64-5",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 1VD00129",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=1VD00129",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 1VD00129",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=1VD00129",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "ac1bb6cba139b880d2519c28520a72827b5191497fe867665acb421acef2b623",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/1VD00129/product.html.gz",
+      "sds_codes_screened": [
+        "H301",
+        "H302",
+        "H317"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 1VD00129",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=1VD00129",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 1VD00129",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=1VD00129",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "IFRA Standards library",
+          "url": "https://ifrafragrance.org/standards-library",
+          "kind": "Official standards"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 20,
+      "sku": "9IF02656",
+      "family": "Fruit / floral",
+      "identity": "Alpha-damascone, CAS 43052-87-5. This purchased undiluted/as-supplied stock is separate from an older working dilution and from beta-damascone.",
+      "odor_role": "Diffusive rose-fruit lift with plum/prune facets. Its job is a strong fruity-floral accent and definition, rather than bulk floral volume.",
+      "performance": "A potent modifier according to the supplier. A tiny stock transfer can be meaningful, but no exact strength equivalence to beta-damascone is established here.",
+      "handling": "Rose ketone restrictions require grouped accounting. Preserve the exact stock strength: an old instruction for a dilution cannot be reused with this bottle.",
+      "priority": "Preserve / compare grade",
+      "lhomme": "The user reports alpha and beta additions in the old bottle. Preserve that historical branch; increasing alpha alone would be a new sensory and active-dose change.",
+      "sources": [
+        "IFRA_INDEX"
+      ],
+      "issues": [
+        "New undiluted stock differs from old dilution",
+        "Rose ketone group accounting needed"
+      ],
+      "name": "Alpha Damascone",
+      "received_g": "1",
+      "inventory_label": "Alpha Damascone (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "43052-87-5",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 9IF02656",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=9IF02656",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 9IF02656",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=9IF02656",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "580a26f3da4b03f9bcb140ffb83d5f5080a9411f9faefa1068ef9be5a55b6539",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/9IF02656/product.html.gz",
+      "sds_codes_screened": [
+        "H302",
+        "H317",
+        "H411"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 9IF02656",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=9IF02656",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 9IF02656",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=9IF02656",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "IFRA 51st Amendment index",
+          "url": "https://ifrafragrance.org/docs/default-source/51st-amendment/ifra-51st-amendment---index-of-ifra-standards.pdf?sfvrsn=6511ee03_2",
+          "kind": "Official index; no numerical limit calculation"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 21,
+      "sku": "5FB07818",
+      "family": "Fruit / green",
+      "identity": "Buccoxime nominal 10% in DPG; CAS handle 75147-23-8 refers to the odorant. Separate stock from the purchased crystals.",
+      "odor_role": "Buchu/cassis-like green fruit with an herbal edge. Its role is blackcurrant-leaf definition in fruity or green accords.",
+      "performance": "The dilution changes the amount of odorant and adds DPG; it does not guarantee a particular reduction in odor duration or perceived intensity.",
+      "handling": "The percentage basis remains unspecified. Label it separately from undiluted Buccoxime and do not infer ten-fold volumetric equivalence without the required basis/density. The supplier SDS flags harmful-if-swallowed and aquatic hazards.",
+      "priority": "Character change",
+      "lhomme": "Could introduce a conspicuous cassis/green identity. It should not be treated as a neutral substitute for pink pepper.",
+      "sources": [],
+      "issues": [
+        "Two purchased strengths must remain separate",
+        "10% basis unspecified"
+      ],
+      "name": "Buccoxime 10% in DPG",
+      "received_g": "1",
+      "inventory_label": "Buccoxime (10% in DPG)",
+      "fraction_basis": "unspecified",
+      "carrier": "DPG",
+      "supplier_cas_raw": "75147-23-8*10%",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 5FB07818",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=5FB07818",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 5FB07818",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=5FB07818",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "WEB_RETRIEVED_EXACT_PRODUCT_PAGE",
+      "product_source_hash": null,
+      "product_source_path": null,
+      "sds_codes_screened": [
+        "H302",
+        "H412"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "SDS section 2 reviewed through web",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 5FB07818",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=5FB07818",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 5FB07818",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=5FB07818",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 22,
+      "sku": "5ON09236",
+      "family": "Natural / floral",
+      "identity": "Frangipani absolute nominal 10% in DPG. Exact species, extraction details and lot composition are not established.",
+      "odor_role": "Supplier parent-extract descriptions indicate rich sweet white-floral character, with orange-flower/gardenia associations. Its purpose is floral identity and richness.",
+      "performance": "Natural complexity is plausible from the extract description; a quantitative longevity benefit for this diluted stock is not demonstrated.",
+      "handling": "The original cached document fetch failed; a public document page was subsequently located. Generic mixture declarations cannot replace product-specific constituent information.",
+      "priority": "Character change",
+      "lhomme": "A substantial new floral direction; not a conservative way to keep the existing restrained heart.",
+      "sources": [],
+      "issues": [
+        "Botanical and composition detail incomplete",
+        "10% basis unspecified"
+      ],
+      "name": "Frangipani Absolute 10% in DPG",
+      "received_g": "1",
+      "inventory_label": "Frangipani Absolute (10% in DPG)",
+      "fraction_basis": "unspecified",
+      "carrier": "DPG",
+      "supplier_cas_raw": "223748-06-9",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 5ON09236",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=5ON09236",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 5ON09236",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=5ON09236",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "ce3ffc5e72fd8074a14084b5135c9d59cc6b83fef136cff29edf7deb8e1014b2",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/5ON09236/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "SDS section 2 reviewed through web; no classification data",
+      "ifra_document_state": "PUBLIC_PAGE_LOCATED_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 5ON09236",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=5ON09236",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 5ON09236",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=5ON09236",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "PerfumersWorld parent extract; qualitative family reference",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=8ON00534",
+          "kind": "Parent material description, not dilution assay"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 23,
+      "sku": "4WY07089",
+      "family": "Woody / amber",
+      "identity": "Kephalis, CAS 36306-87-3; a woody amber material, not a musk.",
+      "odor_role": "Rich dry woods, amber and tobacco shading. Its role is the transition from aromatic/floral heart into a darker woody base.",
+      "performance": "Givaudan describes a long-lasting heart/base ingredient. That supports persistence of its own character, not evidence that it extends every top note.",
+      "handling": "Supplier SDS flags irritation and aquatic hazards. Evaluate richness and tobacco color as deliberate changes.",
+      "priority": "Conditional comparison",
+      "lhomme": "A potential structural wood comparison, but adding it to an already crowded woody-amber system could increase density. It is not automatically an opening clarifier.",
+      "sources": [
+        "KEP"
+      ],
+      "issues": [],
+      "name": "Kephalis",
+      "received_g": "5",
+      "inventory_label": "Kephalis (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "36306-87-3",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4WY07089",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4WY07089",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4WY07089",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4WY07089",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "e1f6afee75d7962e2495a5a787d8c0671e2076c97c33bb4b7c8f11c48d2a5741",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/4WY07089/product.html.gz",
+      "sds_codes_screened": [
+        "H315",
+        "H411"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4WY07089",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4WY07089",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4WY07089",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4WY07089",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "Givaudan Kephalis",
+          "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/kephalis",
+          "kind": "Manufacturer description"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 24,
+      "sku": "4FG15438",
+      "family": "Fruit / green",
+      "identity": "Manzanate, CAS 39255-32-8; ethyl 2-methylpentanoate. Distinct from ethyl 2-methylbutyrate.",
+      "odor_role": "Ripe apple/cider with pineapple facets. It gives a bright, juicy fruity accent.",
+      "performance": "Givaudan reports several hours on blotter and strong bloom in water-contact products. Water-contact bloom does not establish spray-perfume projection or skin longevity.",
+      "handling": "Supplier SDS flags flammability. Keep the name and CAS distinct from the other small fruit esters.",
+      "priority": "Character change",
+      "lhomme": "Useful for an apple/pineapple project. For L'Homme it would introduce a new fruit recognizer rather than simply separate the existing notes.",
+      "sources": [
+        "MAN"
+      ],
+      "issues": [
+        "Different molecule from ethyl 2-methylbutyrate"
+      ],
+      "name": "Manzanate",
+      "received_g": "3",
+      "inventory_label": "Manzanate (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "39255-32-8",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4FG15438",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4FG15438",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4FG15438",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4FG15438",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "01b9ffba3f78eecd20df9d41e149462090255c1b22e11aea34c57e3b95b57c82",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/4FG15438/product.html.gz",
+      "sds_codes_screened": [
+        "H226"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4FG15438",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4FG15438",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4FG15438",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4FG15438",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "Givaudan Manzanate",
+          "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/manzanate",
+          "kind": "Manufacturer description"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 25,
+      "sku": "5HE13845",
+      "family": "Natural / character base",
+      "identity": "Mate absolute nominal 10% in DPG; a botanical extract, not green tea leaf oil.",
+      "odor_role": "Green tea-like, herbal and dry leaf character. It can support tea, tobacco, forest or aromatic compositions.",
+      "performance": "The supplier's odor description supports a tea/leaf role, not a measured long-wearing tea effect in ethanol perfume.",
+      "handling": "The diluted product page describes a hard dark-green solid, possibly inherited from the parent extract. Do not use that wording to assume the actual dilution needs heating.",
+      "priority": "Character change",
+      "lhomme": "A possible future tea interpretation, but a distinct brief from preserving the original citrus-pink-pepper smell.",
+      "sources": [],
+      "issues": [
+        "Preparation physical-state wording ambiguous",
+        "Natural composition unknown",
+        "10% basis unspecified"
+      ],
+      "name": "Mate Absolute 10% in DPG",
+      "received_g": "2",
+      "inventory_label": "Mate Absolute (10% in DPG)",
+      "fraction_basis": "unspecified",
+      "carrier": "DPG",
+      "supplier_cas_raw": "68916-96-1",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 5HE13845",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=5HE13845",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 5HE13845",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=5HE13845",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "4f58a03af026366697585cfdb08e93f165799466514af14cbc948c0b838f5da5",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/5HE13845/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 5HE13845",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=5HE13845",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 5HE13845",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=5HE13845",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 26,
+      "sku": "5IA07847",
+      "family": "Natural / floral",
+      "identity": "Orris concrete/butter nominal 10% in DPG. The 10% is the supplied product fraction, not a statement of irone content.",
+      "odor_role": "Rooty, violet-like, fatty/creamy woody-floral texture according to the supplier parent material. Its task is natural orris character.",
+      "performance": "Orris character and persistence depend on grade and irone composition. Neither was established for this lot.",
+      "handling": "This SKU is distinct from the user-held Orris Liquid 8IQ24653. That hold remains unchanged. No fixed irone percentage, whole-product density or ready-dose equivalence is inferred.",
+      "priority": "Character change",
+      "lhomme": "Potentially valuable for an orris project; a new powder/root texture would be a meaningful change to the restrained sporty heart.",
+      "sources": [],
+      "issues": [
+        "Not Orris Liquid",
+        "Irone content unspecified",
+        "10% basis unspecified"
+      ],
+      "name": "Orris Concrete Orris Butter 10% in DPG",
+      "received_g": "2",
+      "inventory_label": "Orris Concrete Orris Butter (10% in DPG)",
+      "fraction_basis": "unspecified",
+      "carrier": "DPG",
+      "supplier_cas_raw": "8002-73-1*10",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 5IA07847",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=5IA07847",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 5IA07847",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=5IA07847",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "8527dc887c20a468ea733fcc6a1233f18ba4b2aefda394af8e8133c9ba2cefa6",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/5IA07847/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 5IA07847",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=5IA07847",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 5IA07847",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=5IA07847",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "PerfumersWorld parent extract; qualitative family reference",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=8IA00344",
+          "kind": "Parent material description, not dilution assay"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 27,
+      "sku": "5RR12478",
+      "family": "Natural / floral",
+      "identity": "Bulgarian rose otto nominal 10% in DPG; a natural distilled rose material, distinct from rose absolute and a synthetic rose base.",
+      "odor_role": "Fresh, clean rose opening with spicy and richer balsamic facets as it develops, according to the supplier parent oil.",
+      "performance": "An evolving floral identity; no proof that adding this stock improves diffusion without making L'Homme rosier.",
+      "handling": "Natural constituent allergens and restricted constituents require grade-specific accounting. The generic captured classification is incomplete; named dilution is not a full composition declaration.",
+      "priority": "Character change",
+      "lhomme": "Could reinforce a rose facet, but that is a character decision and should not be bundled into the first musk comparison.",
+      "sources": [],
+      "issues": [
+        "Natural constituent profile incomplete",
+        "10% basis unspecified"
+      ],
+      "name": "Rose Otto Bulgarian 10% in DPG",
+      "received_g": "1",
+      "inventory_label": "Rose Otto Bulgarian (10% in DPG)",
+      "fraction_basis": "unspecified",
+      "carrier": "DPG",
+      "supplier_cas_raw": "8007-01-0*10%",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 5RR12478",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=5RR12478",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 5RR12478",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=5RR12478",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "5a6f57aa062a74e7150a60ffe0cfa87f9f8ee459e85c14d7deea95d61ccf72cd",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/5RR12478/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 5RR12478",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=5RR12478",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 5RR12478",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=5RR12478",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "PerfumersWorld parent extract; qualitative family reference",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=7RB00900",
+          "kind": "Parent material description, not dilution assay"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 28,
+      "sku": "4GF00226",
+      "family": "Fruit / green",
+      "identity": "cis-3-Hexenyl acetate, CAS 3681-71-8; a green leaf ester.",
+      "odor_role": "Sharp, fresh green leaf with fruity sweetness. Its task is a vivid fresh-cut-green accent.",
+      "performance": "Supplier evidence supports an opening modifier. It does not supply a demonstrated long-lasting citrus effect.",
+      "handling": "Supplier SDS flags flammability. Seal promptly and avoid assuming that all cis-3-hexenyl esters have the same odor or wear curve.",
+      "priority": "Conditional comparison",
+      "lhomme": "Potentially useful if a green edge is already part of the original. Too much would shift the opening toward crushed leaves.",
+      "sources": [],
+      "issues": [],
+      "name": "cis-3 Hexenyl Acetate",
+      "received_g": "1",
+      "inventory_label": "Cis-3 Hexenyl Acetate (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "3681-71-8",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4GF00226",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4GF00226",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4GF00226",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4GF00226",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "2eb7efb53b851b966e8d48ab1daea203912de91c5ed158ad281469665e967d5d",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/4GF00226/product.html.gz",
+      "sds_codes_screened": [
+        "H226"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4GF00226",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4GF00226",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4GF00226",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4GF00226",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 29,
+      "sku": "4GG01946",
+      "family": "Fruit / green",
+      "identity": "cis-3-Hexenyl hexanoate, CAS 31501-11-8; distinct from the acetate.",
+      "odor_role": "Green vegetable and pear-like fruit character. Its role is a broader leafy-fruity nuance.",
+      "performance": "The source descriptions support a green-fruit role. The supplier's strip times are not a validated basis for ranking it against the acetate.",
+      "handling": "Supplier SDS flags skin, eye and respiratory irritation. Verify each ester by name, not just the shared cis-3-hexenyl prefix.",
+      "priority": "Character change",
+      "lhomme": "More relevant to fruit/leaf reconstruction than to a conservative citrus-pepper repair.",
+      "sources": [],
+      "issues": [],
+      "name": "cis-3 Hexenyl Hexanoate",
+      "received_g": "1",
+      "inventory_label": "Cis-3 Hexenyl Hexanoate (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "31501-11-8",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4GG01946",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4GG01946",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4GG01946",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4GG01946",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "1f1694aa4daadd35d032a384533100db9d5336cf5e8adb05c37be7702e724f97",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/4GG01946/product.html.gz",
+      "sds_codes_screened": [
+        "H315",
+        "H319",
+        "H335"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4GG01946",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4GG01946",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4GG01946",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4GG01946",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 30,
+      "sku": "3MW11714",
+      "family": "Green / floral",
+      "identity": "Glycolierral. Supplier CAS 68901-32-6; Givaudan also lists 94087-23-7. Exact isomer/grade composition is not inferred.",
+      "odor_role": "Soft green ivy-leaf, woody and milky nuance. Its job is green texture, particularly in fig and green floral accords.",
+      "performance": "Givaudan positions it as a green top-note modifier. The creamy-green character must be distinguished from a sharp fresh-cut-leaf effect.",
+      "handling": "Supplier SDS flags irritation and aquatic hazards. No odorless 'space-maker' property is established.",
+      "priority": "Character change",
+      "lhomme": "Useful if a fig/ivy direction is wanted. It is less conservative for the present brief than evaluating the existing musk and amber balance.",
+      "sources": [
+        "GLY"
+      ],
+      "issues": [
+        "Manufacturer lists multiple CAS handles; no automatic stock alias expansion"
+      ],
+      "name": "Glycolierral",
+      "received_g": "1",
+      "inventory_label": "Glycolierral (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "68901-32-6",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 3MW11714",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=3MW11714",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 3MW11714",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=3MW11714",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "6a30db15d30bfaa4c3f589a4856156b1c2afb8499e3840f22d360423ce1cf76e",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/3MW11714/product.html.gz",
+      "sds_codes_screened": [
+        "H315",
+        "H411"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 3MW11714",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3MW11714",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 3MW11714",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=3MW11714",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "Givaudan Glycolierral",
+          "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/glycolierral",
+          "kind": "Manufacturer description"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 31,
+      "sku": "3MN13569",
+      "family": "Green / floral",
+      "identity": "Magnolan, CAS 27606-09-3; distinct from Neomagnolan.",
+      "odor_role": "Transparent white-floral/magnolia-muguet character with grapefruit facets. Its role can be to connect citrus freshness to dry woods through the heart.",
+      "performance": "Symrise explicitly describes that citrus-to-floral connection and compatibility with dry woody materials. This is useful architectural guidance, not proof of greater liking.",
+      "handling": "Supplier SDS flags oral toxicity. Manufacturer grade specifications do not establish the assay of the rebottled user stock.",
+      "priority": "Conditional comparison",
+      "lhomme": "One of the more relevant later heart options if the current heart needs continuity. It still adds floral character and should be tested separately from musk changes.",
+      "sources": [
+        "MAG"
+      ],
+      "issues": [],
+      "name": "Magnolan",
+      "received_g": "2",
+      "inventory_label": "Magnolan (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "27606-09-3",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 3MN13569",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=3MN13569",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 3MN13569",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=3MN13569",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "1d5a8438c450990ceb521db44c613c0166782432cdd6075a39759c7a10ab754b",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/3MN13569/product.html.gz",
+      "sds_codes_screened": [
+        "H302"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 3MN13569",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3MN13569",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 3MN13569",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=3MN13569",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "Symrise Magnolan technical sheet",
+          "url": "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Magnolan.pdf",
+          "kind": "Manufacturer description"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 32,
+      "sku": "3LH00459",
+      "family": "Fruit / floral",
+      "identity": "Veloutone, CAS 65443-14-3; a ketone. It is not Hedione, despite its manufacturing relationship.",
+      "odor_role": "Peach/apricot and lactonic jasmine with a lavender-like nuance. Its role is a soft fruity-floral texture and an aromatic-to-floral connection.",
+      "performance": "dsm-firmenich assigns top/heart use. Membership in the Hedione ingredient family does not establish the same odor or the same effect as the user's Hedione tests.",
+      "handling": "Supplier SDS flags aquatic toxicity. Do not borrow Hedione transfer amounts or assume active equivalence.",
+      "priority": "Character change",
+      "lhomme": "Potentially interesting for a softer floral variant, but less conservative when preserving the dry sporty smell is the priority.",
+      "sources": [
+        "VEL"
+      ],
+      "issues": [
+        "Not interchangeable with Hedione"
+      ],
+      "name": "Veloutone",
+      "received_g": "2",
+      "inventory_label": "Veloutone (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "65443-14-3",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 3LH00459",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=3LH00459",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 3LH00459",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=3LH00459",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "031f49e1ca1175c2c20cf781f0ed478fe6cb1240f1cd7467be8a2d57a1fc8ddc",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/3LH00459/product.html.gz",
+      "sds_codes_screened": [
+        "H411"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 3LH00459",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3LH00459",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 3LH00459",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=3LH00459",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "dsm-firmenich Veloutone",
+          "url": "https://studio.dsm-firmenich.com/product/veloutoner-pe-990257",
+          "kind": "Manufacturer description"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 33,
+      "sku": "4SP16859",
+      "family": "Gourmand / spice",
+      "identity": "Methyl Diantilis, CAS 5595-79-9; 2-ethoxy-4-(methoxymethyl)phenol. It is not isoeugenol.",
+      "odor_role": "Sweet, warm clove/carnation-like spice with a powdery/vanillic impression. Its function is a soft spicy-floral accent.",
+      "performance": "The supplier describes a persistent spicy material. That is different from the bright peppery impact wanted in this opening.",
+      "handling": "Supplier SDS flags sensitization and harmful-if-swallowed hazards. Similar smell to isoeugenol does not establish matching safety limits or a hazard-free substitute.",
+      "priority": "Character change",
+      "lhomme": "Not a direct pink-pepper replacement. It could warm and sweeten the composition rather than restore its original sparkle.",
+      "sources": [
+        "MD"
+      ],
+      "issues": [
+        "Olfactive resemblance is not chemical or safety equivalence"
+      ],
+      "name": "Methyl Diantilis",
+      "received_g": "1",
+      "inventory_label": "Methyl Diantilis (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "5595-79-9",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4SP16859",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4SP16859",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4SP16859",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4SP16859",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "09a4e5fe0cc4c6d9ab2bc202e32913730bfd418ebb86bdfbb7cea84be9d12a5c",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/4SP16859/product.html.gz",
+      "sds_codes_screened": [
+        "H302",
+        "H317"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4SP16859",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4SP16859",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4SP16859",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4SP16859",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "NIH NCATS Methyl diantilis identity",
+          "url": "https://drugs.ncats.io/substance/7QHC87YPG8",
+          "kind": "Chemical identity registry"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 34,
+      "sku": "2WW00099",
+      "family": "Woody / amber",
+      "identity": "Cedryl acetate, CAS 77-54-3; distinct from methyl cedryl ketone/Vertofix.",
+      "odor_role": "Dry cedar with soft earthy, leathery and slightly oily facets. Its job is quieter woody body.",
+      "performance": "Supplier evidence supports substantive wood character; it is not established as a projection booster.",
+      "handling": "The supplier lists liquid or crystals. Verify homogeneity before any future transfer; do not assume all of the material is pipettable. SDS flags aquatic toxicity.",
+      "priority": "Conditional comparison",
+      "lhomme": "A potential dry-wood texture comparison if that role is missing. Adding it simply for longevity could add base weight without solving the opening.",
+      "sources": [],
+      "issues": [
+        "Physical form may vary",
+        "Not a Vertofix alias"
+      ],
+      "name": "Cedryl Acetate",
+      "received_g": "2",
+      "inventory_label": "Cedryl Acetate (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "77-54-3",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 2WW00099",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=2WW00099",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 2WW00099",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=2WW00099",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "c6f8eafef62c89850f7fc83710b11b10979df6895971629aa62ae348a7adee88",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/2WW00099/product.html.gz",
+      "sds_codes_screened": [
+        "H411"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 2WW00099",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=2WW00099",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 2WW00099",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=2WW00099",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 35,
+      "sku": "3FL06757",
+      "family": "Green / floral",
+      "identity": "Rhubofix, CAS 41816-03-9; a complex green-woody odorant, not a generic rhubarb flavor base.",
+      "odor_role": "Zesty rhubarb-like green freshness with woody, spicy and floral facets. It can connect citrus to a dry woody/aromatic heart.",
+      "performance": "Firmenich describes a heart-note role and compatibility with lemon, grapefruit, bergamot and woody notes. A four-day strip claim does not establish four-day skin wear.",
+      "handling": "The captured supplier SDS lacks classification data. Its distinct rhubarb effect can become a new recognizable note.",
+      "priority": "Conditional comparison",
+      "lhomme": "Relevant as a later citrus/wood bridge, but the rhubarb character may change the smell. It is not a neutral method for separating the existing notes.",
+      "sources": [
+        "RHU"
+      ],
+      "issues": [],
+      "name": "Rhubofix",
+      "received_g": "1",
+      "inventory_label": "Rhubofix (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "41816-03-9",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 3FL06757",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=3FL06757",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 3FL06757",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=3FL06757",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "1789f3ba74b60d73a794324681bcfeb26be2a80f58d997855be89b694b737ea9",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/3FL06757/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 3FL06757",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3FL06757",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 3FL06757",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=3FL06757",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "dsm-firmenich Rhubofix technical sheet",
+          "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/RHUBOFIX_978880.pdf",
+          "kind": "Manufacturer description"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 36,
+      "sku": "5GP07497",
+      "family": "Green / floral",
+      "identity": "Phenylacetaldehyde nominal 85% in phenylethyl alcohol (PEA). The supplier describes PEA as the stabilizing 15%; the fraction basis is unspecified.",
+      "odor_role": "Very forceful green hyacinth/lilac floral lift. PEA also has an odor, so the carrier is not a neutral blank.",
+      "performance": "A strong floral accent, distinct from a broad transparent floral building block. No perfume-specific storage or opening-benefit measurement was retrieved.",
+      "handling": "The supplier SDS flags serious skin/eye hazards and sensitization. Follow the bottle SDS and keep it tightly closed; do not treat this stock as pure phenylacetaldehyde or as an acetal.",
+      "priority": "Character change",
+      "lhomme": "A high-character-change option for the restrained heart. Not the first material to add for generic diffusion.",
+      "sources": [
+        "IFRA_INDEX"
+      ],
+      "issues": [
+        "Published phenylacetaldehyde restriction",
+        "Odorous PEA carrier",
+        "85% basis unspecified"
+      ],
+      "name": "Phenyl Acetaldehyde 85% in PEA",
+      "received_g": "2",
+      "inventory_label": "Phenyl Acetaldehyde (85% in PEA)",
+      "fraction_basis": "unspecified",
+      "carrier": "PEA",
+      "supplier_cas_raw": "122-78-1 Mix",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 5GP07497",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=5GP07497",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 5GP07497",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=5GP07497",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "fddc380ffde9e0a210c68e6dee8ff109be051e21950296e921ffd41840959b12",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/5GP07497/product.html.gz",
+      "sds_codes_screened": [
+        "H302",
+        "H314",
+        "H317",
+        "H318"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 5GP07497",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=5GP07497",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 5GP07497",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=5GP07497",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "IFRA 51st Amendment index",
+          "url": "https://ifrafragrance.org/docs/default-source/51st-amendment/ifra-51st-amendment---index-of-ifra-standards.pdf?sfvrsn=6511ee03_2",
+          "kind": "Official index; no numerical limit calculation"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 37,
+      "sku": "7CC24027",
+      "family": "Citrus / fresh",
+      "identity": "Sicilian terpeneless lemon oil; a processed natural mixture. 'Terpeneless' does not identify an FCF grade or a known furocoumarin level.",
+      "odor_role": "The supplier describes a smoother, sweeter, concentrated lemon heart with juicy aldehydic character. Its role is lemon identity with a different balance from ordinary expressed oil.",
+      "performance": "Claims of improved stability/solubility are supplier descriptions; no head-to-head storage or skin-wear data for this exact stock were located.",
+      "handling": "The cache missed the documentation page; a live public page was located. Phototoxic constituents, citral and other constituent restrictions require the appropriate grade documentation.",
+      "priority": "Conditional comparison",
+      "lhomme": "Potentially useful if the original lemon profile has deteriorated or lacks definition, but substituting grades changes the odor. It cannot be assumed to extend the original citrus unchanged.",
+      "sources": [
+        "IFRA",
+        "IFRA_52_END"
+      ],
+      "issues": [
+        "Terpeneless is not FCF",
+        "Constituent and phototoxicity profile unresolved"
+      ],
+      "name": "Lemon Terpeneless oil Sicilian",
+      "received_g": "2",
+      "inventory_label": "Lemon Terpeneless Oil Sicilian (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "68648-39-5",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 7CC24027",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=7CC24027",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 7CC24027",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=7CC24027",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "0a9ba668a8a636eab75794102faffa6af2a994967bffff5aa3208220b6963397",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/7CC24027/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "SDS section 2 reviewed through web; no classification data",
+      "ifra_document_state": "PUBLIC_PAGE_LOCATED_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 7CC24027",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=7CC24027",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 7CC24027",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=7CC24027",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "IFRA Standards library",
+          "url": "https://ifrafragrance.org/standards-library",
+          "kind": "Official standards"
+        },
+        {
+          "title": "IFRA August 2026 end-of-consultation announcement",
+          "url": "https://ifrafragrance.org/latest-updates/ifra-news/ifra-publishes-end-of-consultation-letter-for-the-52nd-amendment-to-the-ifra-standards",
+          "kind": "Official forthcoming changes, not final notification"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 38,
+      "sku": "3LC19147",
+      "family": "Citrus / fresh",
+      "identity": "Ethyl linalyl acetate, CAS 61931-80-4; distinct from linalyl acetate.",
+      "odor_role": "Soft bergamot-like citrus, floral freshness and a light fruity/pear facet. Its role is a smooth fresh connection between opening and heart.",
+      "performance": "Givaudan describes a more floral, less lavender-like character than linalyl acetate and reports 16 hours on blotter. That supports a persistent fresh impression, not equivalent skin longevity.",
+      "handling": "Supplier SDS flags chronic aquatic toxicity. It adds its own odor; it is not an odorless solvent or fixative.",
+      "priority": "Conditional comparison",
+      "lhomme": "A relevant later option for fresh continuity without adding another heavy woody note. Still requires a smell-preservation comparison.",
+      "sources": [
+        "ELA"
+      ],
+      "issues": [],
+      "name": "Ethyl Linalyl Acetate",
+      "received_g": "5",
+      "inventory_label": "Ethyl Linalyl Acetate (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "61931-80-4",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 3LC19147",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=3LC19147",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 3LC19147",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=3LC19147",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "1ba5195e1bbf4eec6be67170c582e2fe049a0482f7f77e2189b42c3a1b676e13",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/3LC19147/product.html.gz",
+      "sds_codes_screened": [
+        "H411"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 3LC19147",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3LC19147",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 3LC19147",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=3LC19147",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "Givaudan Ethyl Linalyl Acetate",
+          "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ethyl-linalyl-acetate",
+          "kind": "Manufacturer description"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 39,
+      "sku": "3FG00145",
+      "family": "Fruit / green",
+      "identity": "Diethyl malonate, CAS 105-53-3; a diester, distinct from diethyl phthalate and dipropylene glycol.",
+      "odor_role": "Soft apple-like, winey/estery green fruit. Its specific job is a gentle fruity opening modifier.",
+      "performance": "Supplier descriptions support a relatively light fruity role. No evidence supports treating it as the main longevity solution.",
+      "handling": "Supplier SDS flags eye irritation. Despite its other chemical uses, the purchased ingredient is odor-active and should not silently serve as a neutral control carrier.",
+      "priority": "Character change",
+      "lhomme": "Low priority unless a soft apple/wine nuance is specifically wanted.",
+      "sources": [],
+      "issues": [],
+      "name": "Diethyl Malonate",
+      "received_g": "2",
+      "inventory_label": "Diethyl Malonate (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "105-53-3",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 3FG00145",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=3FG00145",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 3FG00145",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=3FG00145",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "5aa1295d90f2cb560ed054278a5a6e8d518be2bcf9821f39ee38e6674773f36e",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/3FG00145/product.html.gz",
+      "sds_codes_screened": [
+        "H319"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 3FG00145",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3FG00145",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 3FG00145",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=3FG00145",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 40,
+      "sku": "4FD04118",
+      "family": "Fruit / green",
+      "identity": "Ethyl 2-methylbutyrate, CAS 7452-79-1. The newly received undiluted/as-supplied bottle is separate from the existing very dilute working stock.",
+      "odor_role": "Diffusive green apple peel, pineapple and plum-like fruit. Its job is a bright short fruity accent.",
+      "performance": "The supplier describes a volatile top-note effect. It can change recognition quickly without providing persistent base character.",
+      "handling": "Supplier SDS flags flammability. Do not transfer an old microlitre instruction for the 0.1% working dilution to the new stock.",
+      "priority": "Character change",
+      "lhomme": "Would add apple/pineapple rather than clarify existing pepper directly; not the most conservative first comparison.",
+      "sources": [],
+      "issues": [
+        "Undiluted stock must not inherit old 0.1% dosing"
+      ],
+      "name": "Ethyl 2-Methylbutyrate",
+      "received_g": "1",
+      "inventory_label": "Ethyl 2-Methylbutyrate (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "7452-79-1",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4FD04118",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4FD04118",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4FD04118",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4FD04118",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "b1618d7508879d4f9f6579d7406eea9e92261c1d1a8ceaed16d249a4d94512e1",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/4FD04118/product.html.gz",
+      "sds_codes_screened": [
+        "H226"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4FD04118",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4FD04118",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4FD04118",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4FD04118",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 41,
+      "sku": "1FB00071",
+      "family": "Fruit / green",
+      "identity": "Buccoxime, CAS 75147-23-8; supplier lists white crystals. Separate from SKU 5FB07818 at 10% in DPG.",
+      "odor_role": "Herbal green cassis/buchu character. The same odorant family as the dilute stock, with the same intended blackcurrant-leaf role.",
+      "performance": "The supplier describes persistent green-fruit character. The crystal form does not create a separate olfactory function from the dilute preparation.",
+      "handling": "Weigh solids and prepare an explicitly labelled stock if later needed. The supplier SDS flags harmful-if-swallowed and aquatic hazards.",
+      "priority": "Character change",
+      "lhomme": "Keep for a deliberate cassis/green comparison or another formula; do not add both strengths as though they were complementary ingredients.",
+      "sources": [],
+      "issues": [
+        "Same odorant in two purchased preparations"
+      ],
+      "name": "Buccoxime",
+      "received_g": "1",
+      "inventory_label": "Buccoxime (solid; neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "75147-23-8",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 1FB00071",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=1FB00071",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 1FB00071",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=1FB00071",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "103a805b542ad08d9984734cf92989ad374946f88b68592736a7c1dc40a9be98",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/1FB00071/product.html.gz",
+      "sds_codes_screened": [
+        "H302",
+        "H412"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 1FB00071",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=1FB00071",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 1FB00071",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=1FB00071",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 42,
+      "sku": "3FD05860",
+      "family": "Fruit / green",
+      "identity": "Butyl butyrate, CAS 109-21-7; a fruity ester.",
+      "odor_role": "Pineapple-like fruit with apple and other estery facets. Its role is a bright fruity opening accent.",
+      "performance": "The exact supplier page describes poor tenacity. It is unsuitable as a rationale for longer drydown by itself.",
+      "handling": "Live supplier SDS flags flammability. The product page's melting-point entry conflicts with its liquid description, so that numerical field is not accepted.",
+      "priority": "Character change",
+      "lhomme": "A new tropical-fruit facet, not an established solution to the current opening.",
+      "sources": [],
+      "issues": [
+        "Supplier physical-property field inconsistency"
+      ],
+      "name": "Butyl Butyrate",
+      "received_g": "1",
+      "inventory_label": "Butyl Butyrate (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "109-21-7",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 3FD05860",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=3FD05860",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 3FD05860",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=3FD05860",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "WEB_RETRIEVED_EXACT_PRODUCT_PAGE",
+      "product_source_hash": null,
+      "product_source_path": null,
+      "sds_codes_screened": [
+        "H226"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "SDS section 2 reviewed through web",
+      "ifra_document_state": "PUBLIC_PAGE_LOCATED_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 3FD05860",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3FD05860",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 3FD05860",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=3FD05860",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 43,
+      "sku": "3FG19149",
+      "family": "Fruit / floral",
+      "identity": "Berry Hexanoate (BerryFlor), supplier CAS 104986-28-9. The trade name is not permission to substitute an arbitrary hexanoate ester.",
+      "odor_role": "Raspberry-like fruit with floral jasmine and anisic facets. Its task is a berry-floral connection.",
+      "performance": "The supplier supports an odor-active fruity/floral modifier; exact wear time and berry recognition in a complex mixture remain unmeasured.",
+      "handling": "Product-specific classification is incomplete in the captured SDS. Preserve the exact trade grade and identity.",
+      "priority": "Character change",
+      "lhomme": "Useful for berry/floral projects. It would introduce a new recognizable direction in this sporty citrus perfume.",
+      "sources": [],
+      "issues": [
+        "Trade grade and composition not independently assayed"
+      ],
+      "name": "Berry Hexanoate (BerryFlor)",
+      "received_g": "1",
+      "inventory_label": "Berry Hexanoate (BerryFlor) (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "104986-28-9",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 3FG19149",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=3FG19149",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 3FG19149",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=3FG19149",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "95ba51bf7175796b410861fa7a94ff9514e3dc1c72b790817c96e40ccf7bbe66",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/3FG19149/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 3FG19149",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3FG19149",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 3FG19149",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=3FG19149",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 44,
+      "sku": "3ML00192",
+      "family": "Green / floral",
+      "identity": "Florol, CAS 63500-71-0; a muguet-type cyclic alcohol. It is not a floral aldehyde.",
+      "odor_role": "Fresh, soft muguet-like floral diffusion. Its task is to provide a coherent floral body between the opening and the base.",
+      "performance": "dsm-firmenich describes broad applicability and stability. Its claim of adding diffusion without changing character is manufacturer guidance, not a result established for L'Homme.",
+      "handling": "Supplier SDS flags eye irritation. The current manufacturer page and older PDF disagree on vapor-pressure values; those numbers are not used for calculations.",
+      "priority": "Conditional comparison",
+      "lhomme": "One of the relevant later heart comparisons if a bridge is missing. Since the heart must remain restrained, an increase could also make it too floral or smooth.",
+      "sources": [
+        "FLO",
+        "FLO_PDF"
+      ],
+      "issues": [
+        "Conflicting manufacturer vapor-pressure fields",
+        "Character preservation not demonstrated"
+      ],
+      "name": "Florol",
+      "received_g": "10",
+      "inventory_label": "Florol (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "63500-71-0",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 3ML00192",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=3ML00192",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 3ML00192",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=3ML00192",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "139af936d48c31d523f458a7052adf0847a2871ad2b9d6c002e2b728943ab7dc",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/3ML00192/product.html.gz",
+      "sds_codes_screened": [
+        "H319"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 3ML00192",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3ML00192",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 3ML00192",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=3ML00192",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "dsm-firmenich Florol",
+          "url": "https://studio.dsm-firmenich.com/product/florolr-pe-966458",
+          "kind": "Manufacturer description"
+        },
+        {
+          "title": "Firmenich Florol technical sheet",
+          "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/FLOROL_966458.pdf",
+          "kind": "Manufacturer description; conflicts with current web physical values"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 45,
+      "sku": "4FG00029",
+      "family": "Fruit / green",
+      "identity": "Allyl amyl glycolate, CAS 67634-00-8; a green-fruity ester. This received as-supplied stock is separate from the older dilute stock.",
+      "odor_role": "Green galbanum-like freshness with pineapple/apple facets. Its role is a penetrating green-fruit accent.",
+      "performance": "The supplier describes top-note freshness. 'Softens harshness' in a supplier description does not prove reduced masking in this perfume.",
+      "handling": "An online supplier conformity table was located, but its generic application percentages are not accepted as a formula-specific limit. Preserve stock-strength distinctions. The supplier SDS flags harmful-if-swallowed and skin-irritation hazards.",
+      "priority": "Conditional comparison",
+      "lhomme": "Possible only if a green-fruit edge fits the original; not a neutral replacement for pink pepper and not a reason to raise several top chemicals together.",
+      "sources": [],
+      "issues": [
+        "Old dilution and new stock differ",
+        "Exact safety limit not adjudicated"
+      ],
+      "name": "Allyl Amyl Glycolate",
+      "received_g": "1",
+      "inventory_label": "Allyl Amyl Glycolate (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "67634-00-8",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 4FG00029",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=4FG00029",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 4FG00029",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=4FG00029",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "WEB_RETRIEVED_EXACT_PRODUCT_PAGE",
+      "product_source_hash": null,
+      "product_source_path": null,
+      "sds_codes_screened": [
+        "H302",
+        "H315"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "SDS section 2 reviewed through web",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 4FG00029",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4FG00029",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 4FG00029",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=4FG00029",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 46,
+      "sku": "3FG00196",
+      "family": "Fruit / floral",
+      "identity": "Fructone B, supplier CAS 6290-17-1, aligns with the Fraistone chemical identity. Standard IFF Fructone is CAS 6413-10-1 and is different.",
+      "odor_role": "Apple/strawberry/plum-like fruit, with anisic and winey/cooked-fruit facets. Its function is a fruity-floral body or modifier.",
+      "performance": "IFF's identity-matched Fraistone reference supports the tart fruity character and fine-fragrance stability; it does not prove the purchased material was made by IFF.",
+      "handling": "The exact supplier document page explicitly lacks an IFRA certificate. That does not mean prohibited or unrestricted. Keep the B suffix and CAS in records.",
+      "priority": "Character change",
+      "lhomme": "Would add a recognizable fruity dimension. It is not interchangeable with a recipe line that merely says Fructone.",
+      "sources": [
+        "FRA",
+        "FRU"
+      ],
+      "issues": [
+        "Fructone B is not standard Fructone",
+        "Exact supplier IFRA document unavailable"
+      ],
+      "name": "Fructone B",
+      "received_g": "2",
+      "inventory_label": "Fructone B (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "6290-17-1",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 3FG00196",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=3FG00196",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 3FG00196",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=3FG00196",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "9967dfb9fd085b1aebdef111b460a2a4d7e0bf78b257a3e42de53a3e8d58454a",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/3FG00196/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_DOCUMENT_UNAVAILABLE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 3FG00196",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3FG00196",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 3FG00196",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=3FG00196",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "IFF Fraistone",
+          "url": "https://www.iff.com/scent/ingredients-compendium/fraistone/",
+          "kind": "Identity-matched manufacturer reference; does not establish supplier provenance"
+        },
+        {
+          "title": "IFF Fructone",
+          "url": "https://www.iff.com/scent/ingredients-compendium/fructone/",
+          "kind": "Different molecule; identity contrast"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 47,
+      "sku": "1VE00283",
+      "family": "Gourmand / spice",
+      "identity": "Maltol, CAS 118-71-8; supplied as powder. Distinct from ethyl maltol.",
+      "odor_role": "Caramel, toasted sugar and jam-like sweetness. Its task is edible sweetness or rounding in a gourmand/fruit accord.",
+      "performance": "A persistent odor character according to the supplier. It does not extend citrus unchanged; it changes what persists.",
+      "handling": "Weigh the powder and confirm dissolution for any future stock. Supplier SDS flags harmful-if-swallowed; do not assume equal strength to ethyl maltol.",
+      "priority": "Character change",
+      "lhomme": "Low priority because a sugary direction conflicts with the present crisp, sporty preserve criterion.",
+      "sources": [],
+      "issues": [
+        "Not ethyl maltol"
+      ],
+      "name": "Maltol",
+      "received_g": "1",
+      "inventory_label": "Maltol (solid; neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "118-71-8",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 1VE00283",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=1VE00283",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 1VE00283",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=1VE00283",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "1fd5c5829ef9063e0339fabf089e57a53602b0ff3e0dc1f9f9146ef6d3882031",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/1VE00283/product.html.gz",
+      "sds_codes_screened": [
+        "H302"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 1VE00283",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=1VE00283",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 1VE00283",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=1VE00283",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 48,
+      "sku": "1VE00286",
+      "family": "Gourmand / spice",
+      "identity": "Maple Lactone is listed by the supplier as CAS 80-71-7, cyclotene / 2-hydroxy-3-methyl-2-cyclopentenone. That structure is a hydroxyketone, not a lactone.",
+      "odor_role": "Maple syrup, caramel, toasted/nutty warmth and woody sweetness. Its task is a maple/caramel accent.",
+      "performance": "No validated skin-life claim. The odor label is useful, but the supplier's quantitative physical fields need reconciliation.",
+      "handling": "The supplier calls it an oily liquid; TCI's same-CAS reference is a solid with a melting range of 104–108 °C. Do not assume the bottle's form or a volume conversion before clarifying the preparation.",
+      "priority": "Character change",
+      "lhomme": "An intentional gourmand change, not a first repair material for the original sporty opening.",
+      "sources": [
+        "MAP"
+      ],
+      "issues": [
+        "Chemical class differs from trade name",
+        "Supplied form unresolved; conflicting references"
+      ],
+      "name": "Maple Lactone",
+      "received_g": "1",
+      "inventory_label": "Maple Lactone (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "80-71-7",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 1VE00286",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=1VE00286",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 1VE00286",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=1VE00286",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "ddbb09e2df81f10f3da71ed759cdbefad62255c0ff58706967b8b7c3e0043bc5",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/1VE00286/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 1VE00286",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=1VE00286",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 1VE00286",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=1VE00286",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "TCI cyclotene / 2-hydroxy-3-methyl-2-cyclopentenone",
+          "url": "https://www.tcichemicals.com/IN/en/p/H0469",
+          "kind": "Chemical identity and reference-grade physical specification"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 49,
+      "sku": "5VW09926",
+      "family": "Natural / character base",
+      "identity": "Vanilla absolute nominal 10% in DPG; natural extract, not a 10% vanillin solution.",
+      "odor_role": "Vanilla, balsamic/toffee and cured woody warmth. Its job is textured natural sweetness.",
+      "performance": "The supplier parent extract supports a sweet persistent base role. The purchased dilution does not have a verified skin-longevity curve.",
+      "handling": "Colour and viscosity can vary; no exact vanillin fraction or complete constituent profile is established. Keep the original dilution identity.",
+      "priority": "Character change",
+      "lhomme": "A distinct sweet-balsamic direction; not a conservative option while preserving the crisp dry original.",
+      "sources": [],
+      "issues": [
+        "Not vanillin",
+        "10% basis unspecified",
+        "Extract composition unknown"
+      ],
+      "name": "Vanilla Absolute 10% in DPG",
+      "received_g": "1",
+      "inventory_label": "Vanilla Absolute (10% in DPG)",
+      "fraction_basis": "unspecified",
+      "carrier": "DPG",
+      "supplier_cas_raw": "8024-06-4",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 5VW09926",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=5VW09926",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 5VW09926",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=5VW09926",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "65f51725fc3356a1b34a3468508a70bbf4b15c8f68dc31e81579929460a894fb",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/5VW09926/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 5VW09926",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=5VW09926",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 5VW09926",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=5VW09926",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "PerfumersWorld parent extract; qualitative family reference",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=8VW08619",
+          "kind": "Parent material description, not dilution assay"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 50,
+      "sku": "6HE09224",
+      "family": "Natural / character base",
+      "identity": "Black Tea Base is a proprietary blend. Supplier wording about tea leaves plus added compounds does not disclose its complete formula.",
+      "odor_role": "A ready-composed black-tea effect. Its job is tea identity, rather than a transparent single-material adjustment.",
+      "performance": "The source does not establish which constituents provide its effect or how long the tea identity lasts in this perfume.",
+      "handling": "Supplier SDS lists multiple hazard classes. IFRA lists tea leaf absolute, but this proprietary base cannot inherit that identity or limit automatically; its constituents and proportions remain undisclosed.",
+      "priority": "Character change",
+      "lhomme": "Would introduce a tea accord and several undisclosed variables. It is not a clean way to diagnose which part of the original base causes the block.",
+      "sources": [
+        "IFRA_INDEX"
+      ],
+      "issues": [
+        "Proprietary composition",
+        "Multiple variables introduced by a base"
+      ],
+      "name": "Black Tea Base",
+      "received_g": "2",
+      "inventory_label": "Black Tea Base (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "Mixture",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 6HE09224",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=6HE09224",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 6HE09224",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=6HE09224",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "c2e2da5db3e9595ba046ef5fdb7987bc769454f6f833ddc6e225d25dc1dddf77",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/6HE09224/product.html.gz",
+      "sds_codes_screened": [
+        "H226",
+        "H302",
+        "H315",
+        "H317",
+        "H319",
+        "H335",
+        "H400",
+        "H410",
+        "H411"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 6HE09224",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=6HE09224",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 6HE09224",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=6HE09224",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "IFRA 51st Amendment index",
+          "url": "https://ifrafragrance.org/docs/default-source/51st-amendment/ifra-51st-amendment---index-of-ifra-standards.pdf?sfvrsn=6511ee03_2",
+          "kind": "Official index; no numerical limit calculation"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 51,
+      "sku": "8HY00554",
+      "family": "Natural / aromatic",
+      "identity": "Lavandin absolute; supplier CAS 8022-15-9. An absolute, not automatically equivalent to lavandin essential oil or true lavender oil.",
+      "odor_role": "Herbal lavandin flower with sweeter, warm vanillic facets. Its role is aromatic floral body.",
+      "performance": "The supplier describes a richer herbal extract; exact comparative volatility versus an essential oil and this lot's composition are not established.",
+      "handling": "The supplier lists a dark-green viscous liquid. Colour, waxes, solubility and natural constituents require stock-specific treatment rather than an essential-oil substitution rule.",
+      "priority": "Character change",
+      "lhomme": "Potentially relevant to a fougere variant, but it can thicken or sweeten the aromatic heart. Not a neutral freshness replacement.",
+      "sources": [],
+      "issues": [
+        "Absolute and essential oil are distinct grades",
+        "Botanical/lot composition incomplete"
+      ],
+      "name": "Lavandin Absolute",
+      "received_g": "1",
+      "inventory_label": "Lavandin Absolute (neat / as supplied)",
+      "fraction_basis": "neat",
+      "carrier": "",
+      "supplier_cas_raw": "8022-15-9",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 8HY00554",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=8HY00554",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 8HY00554",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=8HY00554",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "cbe367f2925c3782e6167451769be5f52a1e16355a8768c8380181ac2f417535",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/8HY00554/product.html.gz",
+      "sds_codes_screened": [],
+      "sds_no_classification_data": true,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 8HY00554",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=8HY00554",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 8HY00554",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=8HY00554",
+          "kind": "Public specimen documents; lot applicability not established"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 52,
+      "sku": "5ES07841",
+      "family": "Gourmand / spice",
+      "identity": "Supplier spelling Saffranal; its description and CAS 116-26-7 identify Safranal nominal 10% in DPG. Distinct from Safraleine.",
+      "odor_role": "Strong saffron-like, herbal/camphoraceous and tobacco nuances, sometimes metallic or savory. Its function is a specific saffron accent.",
+      "performance": "A potent character modifier. It cannot be equated with the peppery sparkle of pink pepper or a neutral diffusion enhancer.",
+      "handling": "A published IFRA Safranal restriction exists. Current category limits and the stock fraction must be resolved before dosing; the old standard's values are not reused as a current release.",
+      "priority": "Character change",
+      "lhomme": "A clear change of spicy identity. Keep it for a deliberate saffron direction rather than the first musk/amber comparison.",
+      "sources": [
+        "SAFR",
+        "IFRA_INDEX"
+      ],
+      "issues": [
+        "Not Safraleine",
+        "10% basis unspecified",
+        "Current quantitative restriction not adjudicated"
+      ],
+      "name": "Saffranal 10% in DPG",
+      "received_g": "1",
+      "inventory_label": "Saffranal (10% in DPG)",
+      "fraction_basis": "unspecified",
+      "carrier": "DPG",
+      "supplier_cas_raw": "116-26-7*10%",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 5ES07841",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=5ES07841",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 5ES07841",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=5ES07841",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "18fcac1d66612e2dc4bfd368507493871e562ea997c78c10a744a01fe792bfff",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/5ES07841/product.html.gz",
+      "sds_codes_screened": [
+        "H302",
+        "H315",
+        "H317",
+        "H319",
+        "H412"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 5ES07841",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=5ES07841",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 5ES07841",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=5ES07841",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "IFRA published Safranal standard",
+          "url": "https://ifrafragrance.org/standards/IFRA_STD48_0139.pdf",
+          "kind": "Historical restriction reference; not current numerical release limit"
+        },
+        {
+          "title": "IFRA 51st Amendment index",
+          "url": "https://ifrafragrance.org/docs/default-source/51st-amendment/ifra-51st-amendment---index-of-ifra-standards.pdf?sfvrsn=6511ee03_2",
+          "kind": "Official index; no numerical limit calculation"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    },
+    {
+      "n": 53,
+      "sku": "5WU22696",
+      "family": "Woody / amber",
+      "identity": "Ambrocenide nominal 10% in TEC, CAS 211299-54-6. Distinct from Ambrofix/ambroxide and from the manufacturer's 10% DPG preparation.",
+      "odor_role": "Very forceful dry woody-amber with sharp, smoky/animalic facets. Its job is an active woody-amber booster.",
+      "performance": "Symrise's DPG technical sheet describes effects from opening to base, including bringing musk forward. Those qualitative claims explain why more could increase the opening's base presence; they do not validate this TEC stock's quantitative response.",
+      "handling": "Keep TEC identity and unspecified percentage basis explicit. Do not reuse a DPG technical sheet's physical properties or suggested percentages as a dosing card for this stock.",
+      "priority": "Conditional comparison",
+      "lhomme": "Relevant to the requested superamber comparison, but only as a separate variable. Adding it to a failed aliquot tests an added woody-amber effect; it does not test replacement of Amber Xtreme.",
+      "sources": [
+        "ACD"
+      ],
+      "issues": [
+        "Manufacturer evidence uses DPG, user stock uses TEC",
+        "10% basis unspecified",
+        "Added superamber is not a replacement experiment"
+      ],
+      "name": "Ambrocenide 10% in TEC",
+      "received_g": "3",
+      "inventory_label": "Ambrocenide (10% in TEC)",
+      "fraction_basis": "unspecified",
+      "carrier": "TEC",
+      "supplier_cas_raw": "211299-54-6",
+      "supplier_product_source": {
+        "title": "PerfumersWorld exact product 5WU22696",
+        "url": "https://www.perfumersworld.com/view.php?pro_id=5WU22696",
+        "kind": "Exact purchased SKU; supplier statement"
+      },
+      "supplier_document_source": {
+        "title": "PerfumersWorld documents 5WU22696",
+        "url": "https://www.perfumersworld.com/document-list.php?pro_id=5WU22696",
+        "kind": "Public specimen documents; lot applicability not established"
+      },
+      "product_retrieval": "HASH_VERIFIED_LOCAL_HTML",
+      "product_source_hash": "ab4d24805628638e840781e13460053060d81eca55b1001362797d2ab0010f7b",
+      "product_source_path": "data/research/perfumersworld/20261007_01a1152f/sources/5WU22696/product.html.gz",
+      "sds_codes_screened": [
+        "H315",
+        "H319"
+      ],
+      "sds_no_classification_data": false,
+      "document_review": "HASH_VERIFIED_LOCAL_HTML_SECTION_SCREEN",
+      "ifra_document_state": "PUBLIC_SPECIMEN_PRESENT_NOT_ACCEPTED_AS_FORMULA_RELEASE",
+      "source_links": [
+        {
+          "title": "PerfumersWorld exact product 5WU22696",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=5WU22696",
+          "kind": "Exact purchased SKU; supplier statement"
+        },
+        {
+          "title": "PerfumersWorld documents 5WU22696",
+          "url": "https://www.perfumersworld.com/document-list.php?pro_id=5WU22696",
+          "kind": "Public specimen documents; lot applicability not established"
+        },
+        {
+          "title": "Symrise Ambrocenide 10 DPG technical sheet",
+          "url": "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Ambrocenide_10_DPG.pdf",
+          "kind": "Related preparation: DPG, not user's TEC stock"
+        }
+      ],
+      "sensory_result_status": "NOT_TESTED_IN_LHOMME",
+      "numeric_use_level": null
+    }
+  ],
+  "overview": {
+    "title": "Research review of all 53 received PerfumersWorld stocks",
+    "subtitle": "Roles, odor character, evidence limits, handling and relevance to Chimie L’Homme",
+    "date": "2026-10-07",
+    "scope": "All 53 purchase lines from order 261004-055451ce1; 52 catalogue identities because Buccoxime was bought at two strengths.",
+    "summary": [
+      "The collection expands the palette in several genuinely different directions: clean musks; dry woods and ambergris; citrus-to-floral materials; green/fruit accents; creamy lactones; natural extracts; and sweet/spicy character materials.",
+      "For the original L’Homme, the most useful first question remains the balance and character of its musk system. Habanolide and Romandolide are distinct comparison options. This review does not demonstrate that Galaxolide caused the block or that replacing it will preserve the original smell.",
+      "Florol, Magnolan and ethyl linalyl acetate offer different ways to connect fresh top notes to the heart. Their documented descriptions support separate hypotheses, not a combined addition or a claim that they physically separate odors.",
+      "Ambrocenide is an odor-active woody-amber booster, including in the opening. The manufacturer's 10% DPG sheet cannot supply quantitative properties or dosing for your 10% TEC bottle.",
+      "Many new materials would be excellent for other briefs but introduce a new recognizer into L’Homme: peach/coconut, apple/pineapple/cassis, tea/tobacco, smoky leather, saffron, maple or vanilla."
+    ],
+    "boundaries": [
+      "Received masses are the purchase quantities confirmed by the user, not current remaining inventory or active chemical masses.",
+      "Nominal 10% and 85% preparations retain an unspecified percentage basis. 'As supplied' records whole-product loading, not a purity assay.",
+      "Odor character and common roles are sourced primarily from the supplier's own descriptions and manufacturer technical literature. The proposed role in L’Homme is the reviewer's untested formulation hypothesis.",
+      "Strip persistence, stability in a product base, diffusion descriptions, vapor pressure, and wearer-observed longevity are different endpoints. No 6-hour skin-performance guarantee is inferred.",
+      "No complete lot-specific composition, safety assessment, IFRA compliance calculation, numerical OAV model or dosing card was produced. Missing or contradictory quantitative data remain unresolved.",
+      "Research collection is complete for the 53-item scope; scientific and regulatory evidence depth varies by material. No runtime physics, odor-threshold values, inventory authorities or formulas were changed by this research."
+    ],
+    "key_findings": [
+      {
+        "title": "Both Buccoxime purchases are the same odorant in different preparations",
+        "text": "Keep the undiluted crystals and 10% DPG stock separate in dosing records. They do not supply two complementary musk or fruit roles.",
+        "items": [
+          21,
+          41
+        ]
+      },
+      {
+        "title": "Three misleading historical trade names",
+        "text": "C-14 and C-18 'aldehydes' are lactones. The supplier's Maple Lactone CAS identifies cyclotene, a hydroxyketone. The latter also has an unresolved physical-form discrepancy.",
+        "items": [
+          10,
+          11,
+          48
+        ]
+      },
+      {
+        "title": "Fructone B is not ordinary Fructone",
+        "text": "The supplier's 6290-17-1 identity matches IFF Fraistone. IFF Fructone is 6413-10-1. Formula aliases must preserve the difference.",
+        "items": [
+          46
+        ]
+      },
+      {
+        "title": "Natural preparations are whole products",
+        "text": "Ambrette absolute is not ambrettolide; vanilla absolute is not vanillin; orris butter is not an irone assay; lavandin absolute is not lavandin essential oil.",
+        "items": [
+          1,
+          26,
+          49,
+          51
+        ]
+      },
+      {
+        "title": "Terpeneless lemon is not an FCF declaration",
+        "text": "The retrieved lemon document lacks usable composition/classification data. Its name alone does not resolve furocoumarins or phototoxicity.",
+        "items": [
+          37
+        ]
+      },
+      {
+        "title": "Supplier document presence is not proof of suitability",
+        "text": "Several retrieved SDS pages contain no classification data, and some pages have contradictory physical or hazard entries. Generic conformity tables were not promoted into material-specific safe-use limits.",
+        "items": [
+          8,
+          18,
+          19,
+          36,
+          37,
+          48
+        ]
+      },
+      {
+        "title": "Published restrictions and grade specifications matter",
+        "text": "Coumarin, rose ketones, phenylacetaldehyde and Safranal have relevant published IFRA restrictions. Rectified birch tar must be distinguished from prohibited crude pyrolysate and requires the applicable PAH specification.",
+        "items": [
+          8,
+          19,
+          20,
+          36,
+          52
+        ]
+      }
+    ],
+    "lhomme_comparisons": [
+      {
+        "materials": "Habanolide or Romandolide",
+        "question": "Does changing one defined musk role improve citrus/pink-pepper clarity while preserving the original drydown?",
+        "caution": "Compare alternatives separately; no equal-strength replacement factor was established.",
+        "items": [
+          2,
+          4
+        ]
+      },
+      {
+        "materials": "Zenolide or Helvetolide",
+        "question": "Would a softer fruit-tinted musk texture help?",
+        "caution": "Red-fruit or pear/ambrette facets can change the original smell.",
+        "items": [
+          3,
+          5
+        ]
+      },
+      {
+        "materials": "Florol, Magnolan, or ethyl linalyl acetate",
+        "question": "Is there a missing transition between the fresh opening and the restrained heart?",
+        "caution": "Each supplies its own floral/citrus character; adding all three confounds the question.",
+        "items": [
+          31,
+          38,
+          44
+        ]
+      },
+      {
+        "materials": "Ambrocenide",
+        "question": "What happens when a distinct woody-amber booster is introduced?",
+        "caution": "An addition to an old aliquot tests an addition, not replacement of its existing superamber.",
+        "items": [
+          53
+        ]
+      },
+      {
+        "materials": "Ambrofix, Vertofix, Kephalis or cedryl acetate",
+        "question": "Does the base need a different texture rather than more power?",
+        "caution": "These have separate ambergris, cedar and tobacco/amber roles; they are not interchangeable fixatives.",
+        "items": [
+          6,
+          7,
+          23,
+          34
+        ]
+      }
+    ],
+    "evidence_notes": [
+      {
+        "title": "What the sensory literature supports",
+        "text": "Zak and colleagues measured nonlinear, antagonistic responses to odor mixtures in olfactory sensory neurons in freely breathing mice. This supports caution about predicting a mixture by adding individual material descriptions. It does not identify a culprit in L’Homme or demonstrate a human hedonic benefit from any replacement.",
+        "sources": [
+          "MIXTURE"
+        ]
+      },
+      {
+        "title": "IFRA status checked on 7 October 2026",
+        "text": "The public documentation located includes the 51st Amendment. IFRA reported that the 52nd consultation closed in June 2026, with formal notification expected towards late November 2026, and published an end-of-consultation update in August. Forthcoming changes are not treated as already-notified limits.",
+        "sources": [
+          "IFRA_INDEX",
+          "IFRA_52",
+          "IFRA_52_END"
+        ]
+      },
+      {
+        "title": "Manufacturer and purchased grade",
+        "text": "The manufacturer sources describe their own grades. Agreement of a trade name/CAS supports identity-level interpretation, but does not prove the rebottled supplier's producer, assay or lot composition. The Ambrocenide DPG-to-TEC and Ambrette extract comparisons are explicitly limited.",
+        "sources": [
+          "ACD",
+          "AMBSEED"
+        ]
+      },
+      {
+        "title": "Handling and storage",
+        "text": "Retain original labels and carriers, close containers promptly, and follow the exact product SDS for storage and handling. Use mass for solids and confirm any future dilution is homogeneous. No universal refrigeration temperature, shelf-life, dissolution procedure or safe skin-evaluation concentration is inferred for the entire collection.",
+        "sources": []
+      }
+    ],
+    "research_status": "53/53 practical material profiles; non-authoritative formulation research; no compounding release"
+  },
+  "provenance": {
+    "inventory_receipt": "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json",
+    "inventory_receipt_sha256": "089c930e044b55e434c0e0438ee7b2c20f48d871f00a219a7237a932419fbc9a",
+    "inventory_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "source_pdf_sha256": "dbd190045b966cdebd300474654bc24d59668295f30d328fe53e37ec32cd2432",
+    "supplier_cache": "data/research/perfumersworld/20261007_01a1152f",
+    "verified_exact_product_html_count": 49,
+    "additional_exact_product_web_count": 4,
+    "verified_parent_extract_html_count": 5,
+    "verified_document_html_count": 47,
+    "additional_document_web_pages": 6,
+    "supplier_ifra_parser_correction": "The inherited cache marked IFRA missing. Direct inspection found 46 IFRA sections and one explicit unavailable notice in the 47 valid local document pages. The original cache was not modified.",
+    "external_worker_route": "No eligible DeepSeek route exposed; review continued locally using verified cache and primary web sources.",
+    "collection_failures": "Direct HTTP from the local sandbox failed DNS. Web browsing supplied the missing public pages; failures are retained in supplement_fetch_receipts.json."
+  },
+  "coverage": {
+    "stock_lines": 53,
+    "catalogue_identities": 52,
+    "received_g": 133.0,
+    "families": {
+      "Musk": 5,
+      "Woody / amber": 5,
+      "Natural / character base": 5,
+      "Fruit / lactonic": 5,
+      "Citrus / fresh": 5,
+      "Gourmand / spice": 6,
+      "Fruit / floral": 4,
+      "Fruit / green": 9,
+      "Natural / floral": 3,
+      "Green / floral": 5,
+      "Natural / aromatic": 1
+    },
+    "supplier_sds_no_classification_data": 19,
+    "unreviewed_sds_section2_pages": 0
+  }
+}

@@ -489,7 +489,10 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                     "--junitxml=../verification_runs/backend.xml",
                 ),
                 cwd="backend",
-                timeout_seconds=1200,
+                # Full-schema isolated DB regressions now exceed 20 minutes
+                # on the local Windows runner. Keep a bounded suite budget;
+                # this does not change formula/job execution timeouts.
+                timeout_seconds=1800,
             ),
             CheckSpec(
                 "scientific-audit",

@@ -46,6 +46,15 @@ def _raw_head():
 @pytest.mark.parametrize("name,fraction,basis,carrier", EXPECTED)
 def test_corrected_stocks_bind_exactly_without_density_or_release(name, fraction, basis, carrier):
     check = _check(name, fraction, basis, carrier)
+    if name == "Tonka Bean Absolute":
+        # The September 24 w/w declaration supersedes the old nominal v/v
+        # interpretation; both records remain readable, but are not equivalent.
+        assert check.status == "FAIL"
+        current = _check(name, fraction, "mass_fraction", carrier)
+        assert current.status == "FAIL"
+        assert current.data["issues"][0]["reason"] == "inventory_stock_non_executable"
+        assert "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING" in current.data["issues"][0]["execution_holds"]
+        return
     assert check.status == "PASS", check.data.get("issues")
     resolved = check.data["resolved_stock_specs"][name]
     assert (resolved["fraction"], resolved["fraction_basis"], resolved["carrier"]) == (

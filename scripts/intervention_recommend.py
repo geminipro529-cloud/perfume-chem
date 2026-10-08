@@ -48,6 +48,7 @@ except Exception:  # pragma: no cover - fallback path for future refactors
     format_recommendations = None  # type: ignore[assignment]
     load_inventory = None  # type: ignore[assignment]
 
+from engine.advisory_stock_strength import declared_stock_fraction, validated_advisory_dilutions
 from engine.ingredient_intelligence import get_profile
 from engine.intervention_context import (
     BottleAddition,
@@ -178,13 +179,7 @@ def _write_bottle_state(path: Path, state: BottleState, source: SourceFormula) -
 
 
 def _parse_dilution(raw: str) -> float:
-    text = raw.strip()
-    if not text:
-        return 1.0
-    match = re.match(r"(\d+(?:\.\d+)?)\s*%", text)
-    if match:
-        return float(match.group(1)) / 100.0
-    return 1.0
+    return declared_stock_fraction(raw)
 
 
 def _table_cells(line: str) -> list[str]:
@@ -284,7 +279,7 @@ def _parse_formula_tables(text: str) -> tuple[dict[str, float], dict[str, float]
             ),
             None,
         )
-        dilution_raw = cells[dilution_index] if dilution_index is not None else "neat"
+        dilution_raw = cells[dilution_index] if dilution_index is not None else ""
         basket_index = next(
             (index for index, key in enumerate(header_keys) if key == "basket"),
             None,
@@ -435,9 +430,12 @@ def _bundle_observation_rows(bundle_dir: Path) -> list[dict[str, str]]:
 
 
 def _build_formula_vector(formula: SourceFormula) -> FormulaVector:
+    dilutions = validated_advisory_dilutions(
+        formula.ingredients_pct, formula.dilutions, context="intervention analysis",
+    )
     return FormulaVector(
         ingredients=dict(formula.ingredients_pct),
-        dilutions=dict(formula.dilutions),
+        dilutions=dilutions,
     )
 
 

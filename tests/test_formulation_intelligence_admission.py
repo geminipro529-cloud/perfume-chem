@@ -4,12 +4,6 @@ from dataclasses import FrozenInstanceError, replace
 from hashlib import sha256
 
 import pytest
-from test_formulation_intelligence_benchmark_result import (
-    _campaign_manifest,
-)
-from test_formulation_intelligence_benchmark_result import (
-    _harness as _benchmark_harness,
-)
 
 from engine.formulation_intelligence.admission import (
     MANDATORY_AUTHORITY_EXCLUSIONS,
@@ -48,6 +42,12 @@ from engine.formulation_intelligence.contracts import (
     EvidenceClass,
     PlaneAssessment,
     PlaneId,
+)
+from tests.test_formulation_intelligence_benchmark_result import (
+    _campaign_manifest,
+)
+from tests.test_formulation_intelligence_benchmark_result import (
+    _harness as _benchmark_harness,
 )
 
 _A = "a" * 64

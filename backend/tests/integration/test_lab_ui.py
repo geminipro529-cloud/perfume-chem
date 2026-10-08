@@ -79,6 +79,18 @@ async def test_guided_improvement_ui_is_default_local_and_authority_safe(client)
     assert 'parsed.protocol === "https:"' in javascript.text
     assert 'link.rel = "noopener noreferrer"' in javascript.text
     assert "paragraph.textContent = label" in javascript.text
+    assert "knowledge.construction_context?.dossiers" in javascript.text
+    assert "knowledge.subtype_context?.cards" in javascript.text
+    assert "knowledge.subtype_context?.campaign_identity_holds" in javascript.text
+    assert "result.architecture_planning?.implementation_coverage" in javascript.text
+    assert "Coverage and remaining prerequisites" in javascript.text
+    assert "line.textContent" in javascript.text
+    assert "no completeness claim is made" in javascript.text
+    assert "Reference identity unresolved:" in javascript.text
+    assert "Design hypothesis:" in javascript.text
+    assert "untested construction options" in javascript.text
+    assert "Question to resolve:" in javascript.text
+    assert "title.textContent" in javascript.text
 
     assert ".workflow-strip" in css.text
     assert ".hypothesis-grid" in css.text
@@ -160,9 +172,151 @@ async def test_formula_conversation_creates_and_refines_read_only_design(client)
         "REQUEST_CONSTRAINT_AND_NONREDUNDANT_ROLE_FULFILMENT"
     )
     assert result["critic"]["filler_rows_added"] == 0
+    construction = result["formulation_knowledge"]["construction_context"]
+    assert "AR_LAVENDER" in {row["package_id"] for row in construction["dossiers"]}
+    assert construction["coverage"]["empirically_validated_packages"] == 0
+    assert len(result["formulation_knowledge"]["construction_library_sha256"]) == 64
 
     after = await client.get("/api/v1/lab/dashboard")
     assert after.json()["counts"] == before.json()["counts"]
+
+
+@pytest.mark.asyncio
+async def test_formula_chat_exposes_source_bound_subtype_research(client):
+    response = await client.post(
+        "/api/v1/lab/v2/workbench/formula-chat",
+        json={
+            "schema_version": "inventory-grounded-formula-chat-request-v1",
+            "message": "Lavender incense without Ambroxan",
+            "formula_name": "Subtype Research Test",
+            "liquid_concentrate_ul_decimal": "6000",
+            "max_materials": 8,
+            "must_preserve": ["lavender"],
+            "must_avoid": ["Ambroxan"],
+            "previous_stock_ids": [],
+            "conversation_context": [],
+        },
+    )
+    assert response.status_code == 200
+    result = response.json()
+    knowledge = result["formulation_knowledge"]
+    assert len(knowledge["subtype_research_sha256"]) == 64
+    assert "LAV_INCENSE" in {
+        card["subtype_id"] for card in knowledge["subtype_context"]["cards"]
+    }
+    assert knowledge["subtype_context"]["coverage"]["empirically_validated_subtypes"] == 0
+    assert knowledge["subtype_context"]["network_used"] is False
+    assert result["inventory_modified"] is False
+    assert result["physical_compounding_performed"] is False
+    assert result["compounding_authority"] is False
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "message,expected,campaign_hold",
+    [
+        ("A dewy peony perfume", "PEONY_DEWY", False),
+        ("A pineapple woody perfume", "PINEAPPLE_WOODY", False),
+        ("CHIMIE LHOMME, dewy peony", "PEONY_DEWY", True),
+        ("Lilac flowers, Syringa vulgaris", "LIGHT_LILAC", False),
+        ("Honeysuckle flowers", "LIGHT_HONEYSUCKLE", False),
+        ("Sweet pea flowers", "LIGHT_SWEET_PEA", False),
+        ("Champaca flowers", "TROP_CHAMPACA", False),
+        ("White Michelia alba flowers", "TROP_ALBA", False),
+        ("Cananga floral character", "TROP_CANANGA", False),
+        ("A smoky tea perfume", "TEA_SMOKED", False),
+        ("A sacred lotus perfume", "AQUATIC_NELUMBO", False),
+        ("A lychee perfume", "ORCHARD_LYCHEE_CULTIVARS", False),
+    ],
+)
+async def test_formula_chat_exposes_floral_woody_successor(client, message, expected, campaign_hold):
+    response = await client.post(
+        "/api/v1/lab/v2/workbench/formula-chat",
+        json={
+            "schema_version": "inventory-grounded-formula-chat-request-v1",
+            "message": message,
+            "formula_name": "Research Successor Test",
+            "liquid_concentrate_ul_decimal": "6000",
+            "max_materials": 8,
+            "must_preserve": [],
+            "must_avoid": [],
+            "previous_stock_ids": [],
+            "conversation_context": [],
+        },
+    )
+    assert response.status_code == 200
+    result = response.json()
+    context = result["formulation_knowledge"]["subtype_context"]
+    assert expected in {card["subtype_id"] for card in context["cards"]}
+    assert context["coverage"]["floral_packages_deepened"] == 13
+    assert context["coverage"]["partial_research_cards"] == 179
+    assert context["coverage"]["declared_additional_botanical_scopes"] == 24
+    assert len(context["predecessor_manifest_sha256"]) == 64
+    assert bool(context["campaign_identity_holds"]) is campaign_hold
+    assert result["inventory_modified"] is False
+    assert result["physical_compounding_performed"] is False
+    assert result["compounding_authority"] is False
+
+
+@pytest.mark.asyncio
+async def test_deeper_review_reaches_api_and_text_safe_optional_ui(client):
+    response = await client.post(
+        "/api/v1/lab/v2/workbench/formula-chat",
+        json={
+            "schema_version": "inventory-grounded-formula-chat-request-v1",
+            "message": "A dewy peony perfume", "formula_name": "Review Addendum Test",
+            "liquid_concentrate_ul_decimal": "6000", "max_materials": 8,
+            "must_preserve": [], "must_avoid": [], "previous_stock_ids": [],
+            "conversation_context": [],
+        },
+    )
+    assert response.status_code == 200
+    knowledge = response.json()["formulation_knowledge"]
+    peony = next(c for c in knowledge["subtype_context"]["cards"] if c["subtype_id"] == "PEONY_DEWY")
+    assert peony["review_addenda"]
+    assert "peony_methods_finish" in {s["source_id"] for s in knowledge["sources"]}
+    asset = await client.get("/static/lab.js")
+    assert "card.review_addenda" in asset.text
+    assert "update.textContent = `Deeper source review:" in asset.text
+    assert "Research behind this design · optional details" in asset.text
+
+
+@pytest.mark.asyncio
+async def test_source_bound_architecture_comparisons_reach_formula_ui_without_writes(client):
+    before = await client.get("/api/v1/lab/dashboard")
+    response = await client.post(
+        "/api/v1/lab/v2/workbench/formula-chat",
+        json={
+            "schema_version": "inventory-grounded-formula-chat-request-v1",
+            "message": "A peppery freesia perfume", "formula_name": "Architecture test",
+            "liquid_concentrate_ul_decimal": "6000", "max_materials": 12,
+            "design_mode": "DEEP_COMPOSE", "variant_count": 3,
+        },
+    )
+    assert response.status_code == 200
+    result = response.json()
+    variants = result["design_variants"]
+    assert len(variants) == 3
+    assert len({v["role_plan_sha256"] for v in variants}) == 3
+    assert variants[0]["architecture"]["kind"] == "UNCHANGED_CONTROL"
+    assert result["architecture_planning"]["state"] == "SOURCE_BOUND_COMPARISON_READY"
+    for variant in variants[1:]:
+        assert variant["architecture"]["subtype_id"] == "FREESIA_PEPPER"
+        assert variant["architecture"]["source_bindings"]
+        assert variant["architecture"]["comparison_question"]
+        assert not any(variant["architecture"]["authority"].values())
+    after = await client.get("/api/v1/lab/dashboard")
+    assert after.json()["counts"] == before.json()["counts"]
+    assert result["inventory_modified"] is False
+    assert result["formula_modified"] is False
+    assert result["physical_compounding_performed"] is False
+    asset = await client.get("/static/lab.js")
+    assert "selected.variant?.architecture?.comparison_question" in asset.text
+    assert "This is an untested role-plan hypothesis, not a measured improvement." in asset.text
+    assert "paragraph.textContent = text;" in asset.text
+    assert "selected.variant?.role_plan?.length" in asset.text
+    assert "selected.variant?.temporal_hypothesis" in asset.text
+    assert 'critic?.state === "WITHHELD" ? null' in asset.text
 
 
 @pytest.mark.asyncio

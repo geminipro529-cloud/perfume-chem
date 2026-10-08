@@ -13,8 +13,10 @@ try {
 Write-Output ""
 Write-Output "=== doctor (profile validation) ==="
 $tc = "C:\Users\ASUS\AppData\Local\OpenCode\profiles\perfume-chem\tmp\opencode\tunnel-client\tunnel-client.exe"
+$profile = Join-Path $PSScriptRoot "perfume-chem-fs.yaml"
 if (Test-Path -LiteralPath $tc) {
-    & $tc doctor --profile perfume-chem-fs --explain 2>&1 | Select-Object -First 25
+    # Avoid colliding with the live daemon's loopback listener during validation.
+    & $tc doctor --profile-file $profile --health.listen-addr 127.0.0.1:0 --explain 2>&1 | Select-Object -First 25
 } else {
     Write-Output "tunnel-client.exe not found"
 }

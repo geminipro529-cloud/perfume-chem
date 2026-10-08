@@ -226,7 +226,7 @@ class _LowConfidence:
         }
 
 
-def test_commercial_trial_low_confidence_warns_not_blocks(monkeypatch):
+def test_commercial_trial_confidence_warning_cannot_clear_independent_holds(monkeypatch):
     monkeypatch.setattr(gates_module, "ConfidenceScorer", lambda: _LowConfidence())
     report = gate_formula(
         _trial_fougere(),
@@ -239,9 +239,24 @@ def test_commercial_trial_low_confidence_warns_not_blocks(monkeypatch):
     )
     gate_map = {gate.gate: gate for gate in report.gates}
 
-    assert report.status == "WARN"
     assert gate_map["confidence_minimum"].status == "WARN"
-    assert report.commercial_readiness == "COMMERCIAL_TRIAL_READY_LOW_CONFIDENCE"
+    assert gate_map["inventory_stock_contract"].status == "FAIL"
+    assert gate_map["authority_vector"].status == "FAIL"
+    assert report.status == "FAIL"
+    assert report.commercial_readiness == "NOT_RELEASE_READY"
+
+
+def test_confidence_warning_policy_is_distinct_from_release_readiness():
+    config = ReleaseGateConfig(
+        commercial_mode=True, commercial_confidence_policy="warn",
+    )
+    confidence = {"combined_confidence": 30.0}
+    assert gates_module._commercial_readiness("WARN", [], confidence, config) == (
+        "COMMERCIAL_TRIAL_READY_LOW_CONFIDENCE"
+    )
+    assert gates_module._commercial_readiness("FAIL", [], confidence, config) == (
+        "NOT_RELEASE_READY"
+    )
 
 
 def test_noncommercial_low_confidence_is_diagnostic_not_blocking(monkeypatch):
@@ -405,8 +420,12 @@ def test_formula_release_gate_cli_accepts_commercial_trial_and_scaling_target(
     )
     captured = capsys.readouterr()
 
-    assert status == 0
+    # Options are accepted and the scaling gate runs, but the historical
+    # formula's incompatible stock/evidence cannot become commercial-ready.
+    assert status == 1
     assert "oav_scaling_guard" in captured.out
+    assert "inventory_stock_contract" in captured.out
+    assert "Overall: FAIL" in captured.out
 
 
 def test_regenerated_thai_markdown_is_commercial_trial_safe():

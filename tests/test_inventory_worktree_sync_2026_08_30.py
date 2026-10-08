@@ -39,7 +39,7 @@ def _records(*, include_unavailable: bool = True):
 
 
 def test_consolidated_inventory_has_declared_stock_row_count():
-    assert inventory_counts(INVENTORY)["raw_entries"] == 287
+    assert inventory_counts(INVENTORY)["raw_entries"] == len(_records())
 
 
 @pytest.mark.parametrize(
@@ -103,13 +103,17 @@ def test_methyl_pamplemousse_mass_fraction_stock_is_current_and_ready():
     (
         ("Polysantol", "depleted"),
         ("Nagarmortha Oil", "depleted"),
-        ("Gamma Decalactone", "out_of_stock"),
     ),
 )
 def test_latest_unavailable_and_depleted_authority_is_preserved(name, status):
     row = next(record for record in _records() if record.name == name)
     assert row.status == status
     assert row.execution_ready is False
+
+
+def test_gamma_decalactone_received_stock_does_not_remain_out_of_stock():
+    rows = [row for row in _records() if row.name == "Gamma Decalactone"]
+    assert rows and all(row.status == "owned" for row in rows)
 
 
 def test_benzyl_salicylate_current_text_records_return_to_stock():

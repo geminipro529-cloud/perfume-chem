@@ -10,9 +10,10 @@ from __future__ import annotations
 
 import re
 import unicodedata
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Iterable, Sequence
 
+from engine.formulation_intelligence import architecture_rules_v5 as rules_v5
 from engine.formulation_intelligence.literature_knowledge import material_knowledge
 from engine.research.composition_planner import (
     Candidate,
@@ -38,6 +39,44 @@ def _tokens(values: Iterable[object]) -> frozenset[str]:
     return frozenset(result)
 
 
+def _usable_odor_description(description: str) -> str:
+    """Stock-intake identity placeholders are not own-material odor evidence.
+
+    This rejects the intake's explicit unreviewed sentinels, not the stock or
+    other independently annotated fields. It does not promote the remaining
+    supplier/profile text into a sensory measurement.
+    """
+    normalized = _key(description)
+    if (
+        not normalized
+        or normalized.startswith(("supplier labelled ", "supplier labeled "))
+        or "detailed odor profile not reviewed" in normalized
+        or "detailed odour profile not reviewed" in normalized
+    ):
+        return ""
+    return description
+
+
+# Conjunction across groups, alternatives within a group. Whole own-descriptor
+# tokens only: neither a product name nor generic freshness proves a facet.
+# These are eligibility heuristics, not sensory-recognition calibrations.
+_DESCRIPTOR_REQUIREMENTS: dict[str, tuple[frozenset[str], ...]] = {
+    "fruit": (frozenset({
+        "fruit", "fruity", "pear", "apple", "peach", "plum", "berry", "mango",
+        "pineapple", "lychee", "litchi", "apricot", "guava", "melon", "cassis",
+    }),),
+    "rose": (frozenset({"rose", "rosy"}),),
+    "jasmine": (frozenset({"jasmine", "jasmin", "jasminic"}),),
+    "bitter_resin_green": (
+        frozenset({"green"}), frozenset({"bitter"}), frozenset({"resin", "resinous"}),
+    ),
+    "watery_leaf": (frozenset({"leaf", "leafy"}), frozenset({"watery", "aquatic"})),
+    "citrus_leaf_floral": (
+        frozenset({"leaf", "leafy"}), frozenset({"citrus"}), frozenset({"floral"}),
+    ),
+}
+
+
 @dataclass(frozen=True, slots=True)
 class MaterialCapability:
     candidate: Candidate
@@ -55,6 +94,8 @@ class MaterialCapability:
     execution_ready: bool
     knowledge_claim_ids: tuple[str, ...] = ()
     knowledge_role_slots: tuple[str, ...] = ()
+    descriptor_vocabulary: frozenset[str] = frozenset()
+    architecture_v5_vocabulary: frozenset[str] = frozenset()
 
     @property
     def character_map(self) -> dict[str, float]:
@@ -69,6 +110,21 @@ class MaterialCapabilityIndex:
     inventory_completion_sha256: str
     effective_inventory_sha256: str
     known_materials: tuple[str, ...]
+
+    def with_explicit_materials(self, materials: Sequence[str]) -> MaterialCapabilityIndex:
+        """Rebind only request flags on this snapshot; never reuse across calls.
+
+        The candidate loader changes only ``explicit`` for this argument. Keep
+        the same matcher, capabilities, stock hashes and ordering, without a
+        second inventory materialization or source review within one request.
+        """
+        if not materials and not any(c.candidate.explicit for c in self.capabilities):
+            return self
+        return replace(self, capabilities=tuple(
+            replace(c, candidate=replace(c.candidate, explicit=any(
+                _candidate_matches_text(c.candidate, value) for value in materials
+            ))) for c in self.capabilities
+        ))
 
     def exact_matches(self, material: str) -> tuple[MaterialCapability, ...]:
         return tuple(
@@ -90,6 +146,24 @@ def _capability(candidate: Candidate) -> MaterialCapability:
             re.sub(r"\s*#.*$", "", stock.raw_name),
         )
     )
+    # Own-material annotations only. Names, stock categories/comments, carriers
+    # and synergy partners are context, not evidence of an odor descriptor.
+    # A category proxy cannot turn freshness + sweetness into a fruit label.
+    own_descriptors = () if candidate.profile_source == "HEURISTIC_CATEGORY_PROXY" else (
+        _usable_odor_description(profile.odor_description), profile.texture, profile.or_family or "",
+        *profile.formulation_roles,
+        *(key for key, value in profile.character.items() if float(value) > 0),
+    )
+    descriptor_vocabulary = _tokens((*own_descriptors, *(reviewed["vocabulary"] if reviewed else ())))
+    # v5 does not use role/application lists or numeric character dimensions as
+    # own-odor evidence. Keep the historical vocabulary unchanged for replay.
+    v5_descriptors = () if candidate.profile_source == "HEURISTIC_CATEGORY_PROXY" else (
+        rules_v5.positive_description(_usable_odor_description(profile.odor_description)),
+        rules_v5.positive_description(profile.texture),
+    )
+    v5_vocabulary = _tokens((*v5_descriptors, *(reviewed["vocabulary"] if reviewed else ())))
+    if "fruit" in descriptor_vocabulary or "fruity" in descriptor_vocabulary:
+        descriptor_vocabulary |= frozenset(("fruit", "fruity"))
     vocabulary = _tokens(
         (
             identity,
@@ -107,6 +181,7 @@ def _capability(candidate: Candidate) -> MaterialCapability:
             *(reviewed["vocabulary"] if reviewed else ()),
         )
     )
+    vocabulary |= descriptor_vocabulary & {"fruit", "fruity"}
     functions = _tokens(
         (
             profile.role,
@@ -132,7 +207,29 @@ def _capability(candidate: Candidate) -> MaterialCapability:
         execution_ready=bool(stock.execution_ready),
         knowledge_claim_ids=tuple(reviewed["claim_ids"]) if reviewed else (),
         knowledge_role_slots=tuple(reviewed["role_slots"]) if reviewed else (),
+        descriptor_vocabulary=descriptor_vocabulary,
+        architecture_v5_vocabulary=v5_vocabulary,
     )
+
+
+def supports_descriptor_requirement(capability: MaterialCapability, requirement: str | None) -> bool:
+    """Closed own-descriptor eligibility; never sensory equivalence or calibration."""
+    if requirement is None:
+        return True
+    if not isinstance(requirement, str):
+        return False
+    if requirement.startswith("v5_"):
+        return rules_v5.eligible(capability.identity_name, capability.architecture_v5_vocabulary, requirement)
+    groups = _DESCRIPTOR_REQUIREMENTS.get(requirement)
+    return groups is not None and all(capability.descriptor_vocabulary & group for group in groups)
+
+
+def architecture_avoid_conflict(
+    capability: MaterialCapability, requirement: str | None, avoid: Sequence[str],
+    *, all_roles: bool = False,
+) -> bool:
+    return bool((all_roles or (requirement and requirement.startswith("v5_"))) and
+                rules_v5.own_odor_avoid_conflict(capability.architecture_v5_vocabulary, avoid))
 
 
 def build_material_capability_index(

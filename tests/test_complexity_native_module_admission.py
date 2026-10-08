@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
+
+from tests.historical_snapshots import assert_historical_artifact
 
 ROOT = Path(__file__).resolve().parents[1]
 RECEIPT = ROOT / "data/governance/complexity_native_module_admission_20260822.json"
@@ -20,12 +21,12 @@ EXPECTED = {
 }
 
 
-def test_admitted_native_files_match_exact_receipt() -> None:
+def test_historical_admitted_native_files_retain_exact_original_pins() -> None:
     payload = json.loads(RECEIPT.read_text(encoding="utf-8"))
     recorded = {row["path"]: row["sha256"] for row in payload["native_modules"]}
     assert recorded == EXPECTED
     for relative, expected in EXPECTED.items():
-        assert hashlib.sha256((ROOT / relative).read_bytes()).hexdigest() == expected
+        assert_historical_artifact(ROOT / relative, expected)
 
 
 def test_admission_grants_no_scientific_or_release_authority() -> None:

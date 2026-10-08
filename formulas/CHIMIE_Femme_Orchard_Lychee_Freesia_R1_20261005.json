@@ -1,0 +1,1723 @@
+{
+  "schema_version": "perfume-development-campaign-v1",
+  "campaign": "CHIMIE Femme - Orchard / Lychee / Freesia R1",
+  "created_date": "2026-10-05",
+  "mode": "CREATIVE_TARGET_FIRST_NEW_DEVELOPMENT_FORMULA",
+  "claim": "A source-bounded, weighable pear-led apple/lychee fruity-floral development hypothesis, not a reconstruction or a tested commercial winner.",
+  "formula_action": "PROPOSE_NEW_DEVELOPMENT_FORMULA",
+  "physical_compounded": false,
+  "inventory_modified": false,
+  "existing_formula_modified": false,
+  "bottle_stream_modified": false,
+  "accepted_sensory_target_exists": false,
+  "parent_formula_id": null,
+  "parent_boundary": "New campaign follows the user's newly locked pear/apple/lychee brief. PW2 is a historical pear/apple-only comparator, not a declared physical parent. No stock rebase or parent-equivalence pass is claimed.",
+  "scientific_status": "UNSMELLED_FORMULATION_HYPOTHESIS",
+  "physical_build_status": "CONDITIONAL_ON_ACTUAL_AVAILABILITY_AND_PRESCRIBED_STOCKS",
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false,
+    "purchase_authority": false,
+    "consumer_superiority_established": false
+  },
+  "brief": {
+    "dominant_identity": [
+      "pear",
+      "apple"
+    ],
+    "secondary_signature": "fresh lychee; not a rose perfume",
+    "heart": "restrained cool freesia-like transparency with trace osmanthus",
+    "base": "pear-associated musk, restrained clean musk and pale warm wood",
+    "must_preserve": [
+      "Immediate orchard-fruit readability",
+      "Pear as protagonist",
+      "Apple crispness and juice",
+      "Fruit-associated early-heart continuity",
+      "Easy-to-like feminine accessibility",
+      "Warm-climate intention"
+    ],
+    "must_avoid": [
+      "Fruit soup",
+      "Rose/jasmine/ylang dominance",
+      "Candied or syrupy pear",
+      "Tropical pineapple/melon takeover",
+      "Obvious peach/coconut cream",
+      "Shampoo or detergent character",
+      "Vegetal peel",
+      "Huge amberwoods or woody-amber dominance"
+    ],
+    "timepoints_minutes": [
+      "5",
+      "45",
+      "240",
+      "1440"
+    ],
+    "reference_scope": "Official marketed architecture only; no proprietary formula or authenticated bottle analysis.",
+    "reference_products": [
+      "Guerlain Aqua Allegoria Pera Granita EDT",
+      "Jo Malone English Pear & Freesia Cologne",
+      "Parfums de Marly Delina EDP",
+      "Versace Dylan Purple EDP"
+    ],
+    "richness_definition": "Separate peel, juice, flesh, fine natural texture, integrated transitions and fruit-memory; never ingredient count or generic beauty score."
+  },
+  "baseline": {
+    "git_head": "1ed79650313c23b1a2fe1c36c2e90a606c64833b",
+    "inventory_text_sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb",
+    "personal_inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "personal_inventory_effective_sha256": "8fe23c28c55dd557f3148422bc20d001f178fba0040f43f248a058966a604b62",
+    "protected_paths": [
+      {
+        "path": "AGENTS.md",
+        "sha256": "4a6788f04f592f8a86a4c854da7d8f343fdf7bc5f67cd812b718a36a8021985c"
+      },
+      {
+        "path": ".github/copilot-instructions.md",
+        "sha256": "ac6b76ba7a20b5308511d57b549fea0a479f07e11861de2410fd57d33c5d7906"
+      },
+      {
+        "path": "inventory.txt",
+        "sha256": "a07a862febe2e6da3b6301a1189b2cb330a55a801f5126b89ccd57751f0591bb"
+      },
+      {
+        "path": "docs/research/chimie_femme_pw2_20261002/campaign.json",
+        "sha256": "7c70e6b297a9ea04b77f0b8ddcf21cb87b2604cf4e09b50fd54e026bbe6f60fc"
+      },
+      {
+        "path": "data/governance/inventory_compounding_holds.json",
+        "sha256": "4e3d5e98c8328fe92e7b5722e5f5e41ababb934067ccdce142cf32bfc0dc823a"
+      },
+      {
+        "path": "output/research/perfumersworld_catalog_20260930/catalog_rows_v1.json",
+        "sha256": "277ddd8e3a0080fb6af6fa7218bb16c51fdf2e1e28cebaf67c2f5ac404d77bb4"
+      }
+    ],
+    "dirty_worktree_preserved": true
+  },
+  "basis": {
+    "target": "w/w shares of the named undiluted supplier perfume products before deliberate working-stock carriers",
+    "chemical_assay_equated_to_product_fraction": false,
+    "natural_products_preserved_whole": true,
+    "decimal_string_quantities": true,
+    "stock_fraction_basis": "mass_fraction",
+    "density_assumed": false,
+    "volumetric_conversion_performed": false,
+    "supplier_physical_fields_used_for_headspace": false,
+    "product_equivalent_target_g": "2.00000",
+    "finished_batch_target_g": "10.000",
+    "finished_product_equivalent_target_fraction": "0.20",
+    "ethanol_bottle_grade": "Same suitable perfumery alcohol as used for working stocks; ethanol strength, denaturants and water content are not assumed to be pure ethanol."
+  },
+  "modules": {
+    "A": "Crisp pear/apple skin",
+    "B": "Juicy fruit opening",
+    "C": "Orchard body and fruit-to-heart continuity",
+    "D": "Fresh lychee and cool floral connection",
+    "E": "Citrus/fruit lift",
+    "F": "Transparent freesia-like support",
+    "G": "Restrained natural and fruit-flesh texture",
+    "H": "Fruit-persistence / musk bridge",
+    "I": "Pale woody support"
+  },
+  "rows": [
+    {
+      "line": 1,
+      "name": "cis-3-Hexenyl Acetate",
+      "percent": "0.08",
+      "module": "A",
+      "sku": "4GF00226",
+      "stock_fraction": "0.01",
+      "carrier": "ethanol",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=4GF00226",
+      "supplier_declared_cas": "3681-71-8",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_4GF00226"
+      ],
+      "role": "Cut-fruit peel bite; limited so it does not become grass.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {
+        "ethanol": "0.99"
+      },
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".80",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "1% w/w named product in ethanol; prepare by measured mass, not drops or volume."
+    },
+    {
+      "line": 2,
+      "name": "cis-3-Hexenyl Hexanoate",
+      "percent": "0.40",
+      "module": "A",
+      "sku": "4GG01946",
+      "stock_fraction": "0.10",
+      "carrier": "ethanol",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=4GG01946",
+      "supplier_declared_cas": "31501-11-8",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_4GG01946"
+      ],
+      "role": "Waxy pear-skin facet; not relied on as a long-lasting pear fixative.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {
+        "ethanol": "0.9"
+      },
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": "1.40",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "10% w/w named product in ethanol; prepare by measured mass, not drops or volume."
+    },
+    {
+      "line": 3,
+      "name": "Liffarome",
+      "percent": "0.06",
+      "module": "A",
+      "sku": "4GI24147",
+      "stock_fraction": "0.10",
+      "carrier": "dep",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=4GI24147",
+      "supplier_declared_cas": "67633-96-9",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_4GI24147"
+      ],
+      "role": "Trace green-fruit/floral seam; distinct carbonate, not cis-3-hexenol.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {
+        "dep": "0.9"
+      },
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".95",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "10% w/w named product in dep; prepare by measured mass, not drops or volume."
+    },
+    {
+      "line": 4,
+      "name": "Hexyl Acetate",
+      "percent": "14.00",
+      "module": "B",
+      "sku": "4FG01284",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=4FG01284",
+      "supplier_declared_cas": "142-92-7",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_4FG01284"
+      ],
+      "role": "Main recognizable juicy apple/pear ester body; banana/solvent/shampoo risk is a test gate.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".12",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 5,
+      "name": "Ethyl 2-Methylbutyrate",
+      "percent": "0.12",
+      "module": "B",
+      "sku": "4FD04118",
+      "stock_fraction": "0.10",
+      "carrier": "ethanol",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=4FD04118",
+      "supplier_declared_cas": "7452-79-1",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_4FD04118"
+      ],
+      "role": "Small pungent apple-peel sparkle; kept low to avoid pineapple.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {
+        "ethanol": "0.9"
+      },
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".36",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "10% w/w named product in ethanol; prepare by measured mass, not drops or volume."
+    },
+    {
+      "line": 6,
+      "name": "Ethyl Linalyl Acetate",
+      "percent": "16.00",
+      "module": "C",
+      "sku": "3LC19147",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=3LC19147",
+      "supplier_declared_cas": "61931-80-4",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_3LC19147"
+      ],
+      "role": "Fresh pear-associated bergamot/floral body connecting fruit to the heart; not a true Pear Ester substitute.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".28",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 7,
+      "name": "Phenyl Ethyl Dimethyl Carbinyl Acetate",
+      "percent": "2.00",
+      "module": "C",
+      "sku": "3LR00160",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=3LR00160",
+      "supplier_declared_cas": "103-07-1",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_3LR00160"
+      ],
+      "role": "Leafy, petal-like fruity body; acetate identity, not the carbinol.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".70",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 8,
+      "name": "Verdox",
+      "percent": "3.00",
+      "module": "C",
+      "sku": "3FG00463",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=3FG00463",
+      "supplier_declared_cas": "88-41-5",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_3FG00463"
+      ],
+      "role": "Green-apple/woody body; useful but shampoo and dry-wood risks require comparison.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".18",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 9,
+      "name": "Manzanate",
+      "percent": "0.45",
+      "module": "C",
+      "sku": "4FG15438",
+      "stock_fraction": "0.10",
+      "carrier": "ethanol",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=4FG15438",
+      "supplier_declared_cas": "39255-32-8",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_4FG15438",
+        "M_MANZ"
+      ],
+      "role": "Ripe-apple/cider facet; tiny enough to avoid pineapple/melon dominance.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {
+        "ethanol": "0.9"
+      },
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".28",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "10% w/w named product in ethanol; prepare by measured mass, not drops or volume."
+    },
+    {
+      "line": 10,
+      "name": "Linalool",
+      "percent": "2.00",
+      "module": "D",
+      "sku": "3LL00278",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=3LL00278",
+      "supplier_declared_cas": "78-70-6",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_3LL00278"
+      ],
+      "role": "Shared cool floral/citrus freshness for lychee and freesia, not proof of a complete flower accord.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".12",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 11,
+      "name": "Geraniol",
+      "percent": "0.90",
+      "module": "D",
+      "sku": "3RL00204",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=3RL00204",
+      "supplier_declared_cas": "106-24-1",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_3RL00204"
+      ],
+      "role": "Lychee construction with Rose Oxide; can instead read as rose/geranium.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".12",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 12,
+      "name": "Nerol",
+      "percent": "0.60",
+      "module": "D",
+      "sku": "3CR00317",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=3CR00317",
+      "supplier_declared_cas": "106-25-2",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_3CR00317"
+      ],
+      "role": "Fresh wet citrus-petal counterweight to Geraniol; not Neroli oil.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".20",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 13,
+      "name": "Rose Oxide",
+      "percent": "0.020",
+      "module": "D",
+      "sku": "4RL00399",
+      "stock_fraction": "0.01",
+      "carrier": "ethanol",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=4RL00399",
+      "supplier_declared_cas": "16409-43-1",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_4RL00399"
+      ],
+      "role": "Very small lychee signal; generic product has unbound stereoisomer ratio.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {
+        "ethanol": "0.99"
+      },
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".43",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "1% w/w named product in ethanol; prepare by measured mass, not drops or volume."
+    },
+    {
+      "line": 14,
+      "name": "Damascenone",
+      "percent": "0.003",
+      "module": "D",
+      "sku": "9IF07120",
+      "stock_fraction": "0.001",
+      "carrier": "mixed_dpg_ethanol",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=9IF07120",
+      "supplier_declared_cas": "23696-85-7",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_9IF07120"
+      ],
+      "role": "Trace ripe-fruit continuity; not sugar and not evidence of measured persistence.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {
+        "dpg": "0.099",
+        "ethanol": "0.90"
+      },
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": "2.72",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "1.000 g of known 1% w/w Damascenone in DPG + 9.000 g perfumery alcohol; final product 0.1%, DPG 9.9%, alcohol 90%."
+    },
+    {
+      "line": 15,
+      "name": "Bergamot FCF oil Sicilian",
+      "percent": "3.00",
+      "module": "E",
+      "sku": "7CL24020",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=7CL24020",
+      "supplier_declared_cas": "68648-33-9",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_7CL24020"
+      ],
+      "role": "Citrus/fruit lift using the specified FCF product, not expressed bergamot.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".22",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 16,
+      "name": "Mandarin Essential Oil",
+      "percent": "1.00",
+      "module": "E",
+      "sku": "7CA00285",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=7CA00285",
+      "supplier_declared_cas": "8008-31-9",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_7CA00285"
+      ],
+      "role": "Small sweet citrus rounding; public PW listing does not establish red-mandarin grade.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".50",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 17,
+      "name": "Hedione",
+      "percent": "26.652",
+      "module": "F",
+      "sku": "3JJ00218",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=3JJ00218",
+      "supplier_declared_cas": "24851-98-7",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_3JJ00218",
+        "M_HED"
+      ],
+      "role": "Transparent floral space supporting fruit; deliberately not Jasmine Absolute.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".15",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 18,
+      "name": "Hedione HC",
+      "percent": "3.00",
+      "module": "F",
+      "sku": "4JJ10013",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=4JJ10013",
+      "supplier_declared_cas": "24851-98-7",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_4JJ10013",
+        "M_HC"
+      ],
+      "role": "Separate high-cis booster trial; does not inherit ordinary Hedione isomer ratios.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": "1.00",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 19,
+      "name": "Florol",
+      "percent": "2.40",
+      "module": "F",
+      "sku": "3ML00192",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=3ML00192",
+      "supplier_declared_cas": "63500-71-0",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_3ML00192",
+        "M_FLOROL"
+      ],
+      "role": "Soft muguet/freesia-like volume behind fruit.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".10",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 20,
+      "name": "Nympheal",
+      "percent": "0.12",
+      "module": "F",
+      "sku": "3MA22553",
+      "stock_fraction": "0.10",
+      "carrier": "ethanol",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=3MA22553",
+      "supplier_declared_cas": "1637294-12-2",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_3MA22553",
+        "M_NYMPH"
+      ],
+      "role": "Minute watery/linden/muguet edge; avoid creamy or detergent drift.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {
+        "ethanol": "0.9"
+      },
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".61",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "10% w/w named product in ethanol; prepare by measured mass, not drops or volume."
+    },
+    {
+      "line": 21,
+      "name": "Peonile",
+      "percent": "0.18",
+      "module": "F",
+      "sku": "3RB12753",
+      "stock_fraction": "0.10",
+      "carrier": "ethanol",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=3RB12753",
+      "supplier_declared_cas": "10461-98-0",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_3RB12753"
+      ],
+      "role": "Tiny cool petal edge; rose-nitrile character must remain subordinate.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {
+        "ethanol": "0.9"
+      },
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".20",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "10% w/w named product in ethanol; prepare by measured mass, not drops or volume."
+    },
+    {
+      "line": 22,
+      "name": "Osmanthus Absolute",
+      "percent": "0.20",
+      "module": "G",
+      "sku": "8ND00346",
+      "stock_fraction": "0.10",
+      "carrier": "dpg",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=8ND00346",
+      "supplier_declared_cas": "68917-05-5",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_8ND00346"
+      ],
+      "role": "Low apricot/waxy natural texture linking pear flesh to petals; not dominant leather/osmanthus.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {
+        "dpg": "0.9"
+      },
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": "18.14",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "10% w/w named product in dpg; prepare by measured mass, not drops or volume."
+    },
+    {
+      "line": 23,
+      "name": "Rose de Mai Absolute",
+      "percent": "0.03",
+      "module": "G",
+      "sku": "8RM00395",
+      "stock_fraction": "0.01",
+      "carrier": "mixed_dpg_ethanol",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=8RM00395",
+      "supplier_declared_cas": "8007-01-0",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_8RM00395"
+      ],
+      "role": "Trace natural petal texture; no claimed rosy heart or automatic luxury benefit.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {
+        "dpg": "0.09",
+        "ethanol": "0.90"
+      },
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": "13.50",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "1.000 g of known 10% w/w Rose de Mai Absolute in DPG + 9.000 g perfumery alcohol; final product 1%, DPG 9%, alcohol 90%."
+    },
+    {
+      "line": 24,
+      "name": "Beta Ionone",
+      "percent": "0.05",
+      "module": "G",
+      "sku": "3IF00238",
+      "stock_fraction": "0.01",
+      "carrier": "ethanol",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=3IF00238",
+      "supplier_declared_cas": "79-77-6; source also compares 14901-07-6",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_3IF00238"
+      ],
+      "role": "Very low violet/fruity/woody texture supporting osmanthus; not Orris Liquid.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {
+        "ethanol": "0.99"
+      },
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".29",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "1% w/w named product in ethanol; prepare by measured mass, not drops or volume."
+    },
+    {
+      "line": 25,
+      "name": "Gamma Undecalactone",
+      "percent": "0.035",
+      "module": "G",
+      "sku": "4DD00454",
+      "stock_fraction": "0.01",
+      "carrier": "ethanol",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=4DD00454",
+      "supplier_declared_cas": "104-67-6",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_4DD00454"
+      ],
+      "role": "Tiny peach-skin flesh modifier; must not make peach or coconut cream.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {
+        "ethanol": "0.99"
+      },
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".17",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "1% w/w named product in ethanol; prepare by measured mass, not drops or volume."
+    },
+    {
+      "line": 26,
+      "name": "Helvetolide",
+      "percent": "11.00",
+      "module": "H",
+      "sku": "3XD17215",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=3XD17215",
+      "supplier_declared_cas": "141773-73-1",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_3XD17215",
+        "M_HELV"
+      ],
+      "role": "Principal pear-musk bridge; acyclic/alicyclic ester musk, not a macrocyclic musk.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": "1.90",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 27,
+      "name": "Habanolide",
+      "percent": "3.00",
+      "module": "H",
+      "sku": "3XA09821",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=3XA09821",
+      "supplier_declared_cas": "111879-80-2",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_3XA09821",
+        "M_HABA"
+      ],
+      "role": "Secondary clean diffusive macrocyclic musk; keep metallic/linen facets controlled.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".45",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 28,
+      "name": "Ambrettolide",
+      "percent": "2.00",
+      "module": "H",
+      "sku": "4XU00034",
+      "stock_fraction": "0.10",
+      "carrier": "dpg",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=4XU00034",
+      "supplier_declared_cas": "28645-51-4",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_4XU00034",
+        "M_AMBRET"
+      ],
+      "role": "Soft floral/fruity skin finish; test whether it earns its place beside the other musks.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {
+        "dpg": "0.9"
+      },
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": "2.50",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "10% w/w named product in dpg; prepare by measured mass, not drops or volume."
+    },
+    {
+      "line": 29,
+      "name": "Iso E Super",
+      "percent": "6.00",
+      "module": "I",
+      "sku": "3WY00244",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=3WY00244",
+      "supplier_declared_cas": "54464-57-2; 68155-66-8; 68155-67-9",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_3WY00244",
+        "M_ISOE"
+      ],
+      "role": "Small smooth woody-amber support, not an amberwood wall.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".14",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 30,
+      "name": "Sandalore",
+      "percent": "1.50",
+      "module": "I",
+      "sku": "4WX00405",
+      "stock_fraction": "1",
+      "carrier": "",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=4WX00405",
+      "supplier_declared_cas": "65113-99-7",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_4WX00405",
+        "M_SAND"
+      ],
+      "role": "Restrained warm sandalwood smoothing, not intrinsically cold or odorless.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {},
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".22",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "Use undiluted named product; this is not a chemical-purity claim."
+    },
+    {
+      "line": 31,
+      "name": "Clearwood",
+      "percent": "0.20",
+      "module": "I",
+      "sku": "3WB13402",
+      "stock_fraction": "0.10",
+      "carrier": "ethanol",
+      "supplier": "PerfumersWorld",
+      "supplier_product_url": "https://www.perfumersworld.com/view.php?pro_id=3WB13402",
+      "supplier_declared_cas": "84238-39-1; 1450625-49-6",
+      "supplier_cas_is_identity_adjudication": false,
+      "source_ids": [
+        "PW_3WB13402",
+        "M_CLEAR"
+      ],
+      "role": "Trace clean patchouli continuity; a branded fermentation product, not pure patchoulol.",
+      "dose_evidence": "Formulation judgment for this specific R1 test, not a measured optimum, sensory prediction or IFRA limit.",
+      "stock_carrier_fractions": {
+        "ethanol": "0.9"
+      },
+      "stock_state": "PLANNED_OR_EXPLICITLY_LABEL_MATCHED_NOT_NEWLY_PREPARED_BY_SOFTWARE",
+      "supplier_price_usd_per_g": ".34",
+      "price_scope": "Public listing reference only; not an order, stock reservation or full landed cost.",
+      "required_product_supply": "UNDILUTED_NAMED_PRODUCT_NOT_UNKNOWN_RETAIL_DILUTION",
+      "recommended_stock_recipe": "10% w/w named product in ethanol; prepare by measured mass, not drops or volume."
+    }
+  ],
+  "bench_build": {
+    "basis_product_equivalents_g": "2.00000",
+    "minimum_planned_transfer_g": "0.010",
+    "recommended_balance_resolution_g": "0.001",
+    "balance_resolution_is_accuracy_or_calibration_claim": false,
+    "exact_working_master_g": "3.15704",
+    "exact_product_equivalents_g": "2.00000",
+    "exact_carriers_g": {
+      "ethanol": "0.73890",
+      "dpg": "0.40734",
+      "dep": "0.01080"
+    },
+    "exact_additional_perfumery_alcohol_g": "6.84296",
+    "rounded_working_master_g": "3.157",
+    "rounded_product_equivalents_g": "1.99996",
+    "rounded_additional_perfumery_alcohol_g": "6.843",
+    "rounded_finished_mass_g": "10.000",
+    "rounded_finished_product_equivalent_percent": "19.9996",
+    "rounding_policy": "All practical charges to 0.001 g; only Hedione changes from 0.53304 g to 0.533 g. Record actual measured weights. These are targets, not completed transfers.",
+    "per_line_mass_rule": "target_product_g = 2 * percent / 100; exact_stock_charge_g = target_product_g / stock_fraction",
+    "concentrate_state": "Working concentrate contains the prescribed carriers; never sell or label 3.157 g of it as 3.157 g undiluted fragrance.",
+    "actual_measurements_recorded": false
+  },
+  "declared_stock_rebase_variants": [
+    {
+      "id": "UNDILUTED_AMBRETTOLIDE_IF_BOTTLE_CONFIRMS",
+      "parent_design": "CHIMIE Femme - Orchard / Lychee / Freesia R1",
+      "material": "Ambrettolide",
+      "parent_charge_g": "0.400",
+      "parent_product_fraction": "0.10",
+      "variant_charge_g": "0.040",
+      "variant_product_fraction": "1",
+      "product_equivalence_g": "0.040",
+      "rounded_working_master_g": "2.797",
+      "rounded_additional_perfumery_alcohol_g": "7.203",
+      "dpg_decrease_g": "0.360",
+      "same_matrix_claim": false,
+      "same_release_or_smell_claim": false,
+      "condition": "Actual bottle label/product is undiluted; no physical stock truth is inferred from conversation memory."
+    }
+  ],
+  "thirty_ml": {
+    "fixed_g_equal_to_ml": false,
+    "option_1": "Scale the complete 10 g composition uniformly, then fill exactly 30 mL after mixing and measuring at a stated temperature. Retain any excess.",
+    "option_2": "If rho is measured finished-blend density in g/mL, finished mass = 30*rho g. Multiply every exact 10 g recipe charge, including additional alcohol, by 3*rho.",
+    "density_g_per_ml": null,
+    "fixed_30_ml_mass_recipe_available": false
+  },
+  "current_inventory_notes": [
+    {
+      "material": "Helvetolide; Manzanate; Ethyl Linalyl Acetate; cis-3-Hexenyl Hexanoate; cis-3-Hexenyl Acetate",
+      "state": "NO_BOUND_PERSONAL_STOCK_FOUND",
+      "action": "Check whether newly purchased materials have arrived; absence from the current projection does not prove physical nonownership."
+    },
+    {
+      "material": "Hexyl Acetate",
+      "state": "OWNED_DILUTED_DIFFERENT_BASIS",
+      "action": "10% w/v DPG and 1% v/v DPG cannot substitute gram-for-gram or be assumed w/w. Use the specified undiluted PW product for the full target."
+    },
+    {
+      "material": "Ethyl 2-Methylbutyrate",
+      "state": "OWNED_0.1_PERCENT_DPG_BASIS_UNSPECIFIED",
+      "action": "Do not inflate that stock into this build. Prepare known 10% w/w from undiluted product."
+    },
+    {
+      "material": "Liffarome",
+      "state": "OWNED_10_PERCENT_WW_DEP",
+      "stock_id": "inventory:user-20260915:5195b063cbe62777db7c",
+      "action": "Label-matched stock can supply the prescribed 0.012 g charge."
+    },
+    {
+      "material": "Rose Oxide",
+      "state": "OWNED_1_PERCENT_WW_ALCOHOL",
+      "stock_id": "inventory:v5:445cc20c4a8b96d6e3d6",
+      "action": "Use the 1% stock; do not use the separate ambiguous 10% row. Stereoisomer ratio remains unknown."
+    },
+    {
+      "material": "Damascenone",
+      "state": "OWNED_1_PERCENT_WW_DPG",
+      "stock_id": "inventory:v5:51405a4fd651848ea908",
+      "action": "Weighed 1:9 dilution with alcohol produces the prescribed 0.1% mixed-carrier stock."
+    },
+    {
+      "material": "Ambrettolide",
+      "state": "PERSONAL_DESIGN_10_PERCENT_WW_DPG",
+      "stock_id": "inventory:text-design-only:1ea95b1cab59dd2f0159",
+      "action": "Recipe accepts this precise dilution if bottle label matches; it is not assumed neat and software does not promote the legacy row."
+    },
+    {
+      "material": "Osmanthus Absolute; Rose de Mai Absolute",
+      "state": "OWNED_10_PERCENT_DPG_BASIS_UNSPECIFIED",
+      "action": "Use only if actual bottle confirms w/w or prepare known stocks from specified undiluted PW products. Unknown basis is not converted silently."
+    },
+    {
+      "material": "Beta Ionone",
+      "state": "OWNED_UNDILUTED_AND_SEPARATE_AMBIGUOUS_0.1_PERCENT_TEC",
+      "stock_id": "inventory:v5:f3291fcd7c33ce1abab8",
+      "action": "Prepare the prescribed 1% w/w alcohol stock from the undiluted product, not the ambiguous weaker stock."
+    },
+    {
+      "material": "Phenyl Ethyl Dimethyl Carbinyl Acetate",
+      "state": "OWNED_PERSONAL_DESIGN_UNDILUTED",
+      "stock_id": "inventory:personal-addition:95facb6d466a2295d3c5",
+      "action": "Do not repurchase automatically or substitute the distinct carbinol."
+    },
+    {
+      "material": "Red Mandarin EO",
+      "state": "OWNED_DIFFERENT_PRODUCT_SCOPE",
+      "action": "Optional same-mass sensory substitution for generic PW Mandarin oil, recorded as a grade change, not exact equivalence."
+    },
+    {
+      "material": "Orris Liquid",
+      "state": "USER_COMPOUNDING_HOLD",
+      "action": "Excluded completely; ownership does not clear the hold."
+    }
+  ],
+  "candidate_architectures": [
+    {
+      "id": "COMMERCIAL_CLEAR",
+      "style": "Pear/apple clarity with minimal trace texturing",
+      "selection": "REFERENCE_ALIGNED_HYPOTHESIS",
+      "limits": "Simpler is not automatically more likeable."
+    },
+    {
+      "id": "RICH_ORCHARD_LEAD",
+      "style": "Full R1 fruit skin/juice/body, restrained lychee and osmanthus, three distinct musk roles",
+      "selection": "CHOSEN_AS_FIRST_DEVELOPMENT_LEAD_BY_BRIEF_FIT_NOT_SENSORY_SCORE",
+      "limits": "Richness and early-heart recognition untested."
+    },
+    {
+      "id": "LUXURY_POLISHED",
+      "style": "Lower sharp-green emphasis, more rounded musk integration",
+      "selection": "RESERVE_TEST_FAMILY",
+      "limits": "Can become smooth but less readable; no winner declared."
+    },
+    {
+      "id": "LYCHEE_FORWARD",
+      "style": "A stronger lychee recognizer with orchard still primary",
+      "selection": "EXPLORATORY_FAMILY",
+      "limits": "Rose/geranium drift means reject; do not jump to large full-bottle additions."
+    },
+    {
+      "id": "CONTROL_MINIMAL",
+      "style": "Same broad orchard/freesia chassis without specialty green, lychee and natural-texture traces",
+      "selection": "WHOLE_ARCHITECTURE_COMPARATOR_NOT_CAUSAL_OMISSION",
+      "limits": "Compensation and lower complexity change other features; no ingredient-count inference."
+    }
+  ],
+  "focused_comparisons": [
+    {
+      "id": "MUSK_ALTERNATIVE",
+      "mode": "EQUAL_PRODUCT_LOAD_AND_WORKING_CARRIER",
+      "override": {
+        "Ambrettolide": "0",
+        "Habanolide": "5.00"
+      },
+      "stock_override": "Replace 0.400 g Ambrettolide 10% w/w DPG with 0.400 g freshly prepared Habanolide 10% w/w DPG per 10 g recipe.",
+      "question": "Does Ambrettolide improve fruit-softness enough to earn its role beside Helvetolide and Habanolide?"
+    },
+    {
+      "id": "RIPE_APPLE_ALTERNATIVE",
+      "mode": "EQUAL_PRODUCT_LOAD_AND_WORKING_CARRIER",
+      "override": {
+        "Manzanate": "0",
+        "Hexyl Acetate": "14.45"
+      },
+      "stock_override": "Replace 0.090 g Manzanate 10% w/w alcohol with 0.090 g freshly prepared Hexyl Acetate 10% w/w alcohol per 10 g recipe; retain original neat Hexyl Acetate dose.",
+      "question": "Does ripe-apple/cider detail help, or is clearer juicy orchard preferable?"
+    },
+    {
+      "id": "GREEN_FACET_OMISSIONS",
+      "mode": "FOLLOWUP_MODULE_OMISSION_ONLY",
+      "question": "Test green materials one at a time after the first trial; do not assume all three are perceptibly necessary.",
+      "limit": "Use carrier-matched blanks and disclose lower product load; no silent renormalization."
+    }
+  ],
+  "hard_gates": [
+    {
+      "gate": "EXACT_DESIGN_ARITHMETIC",
+      "state": "PASS_LOCAL_DECIMAL_CHECK"
+    },
+    {
+      "gate": "PRACTICAL_WORKING_STOCK_MEASURABILITY",
+      "state": "PASS_PLANNED_MASS_INCREMENTS_ONLY",
+      "limit": "At least 10 mg planned transfer does not establish balance accuracy."
+    },
+    {
+      "gate": "ORRIS_HOLD",
+      "state": "EXCLUDED"
+    },
+    {
+      "gate": "PRODUCT_AND_STOCK_LABELS",
+      "state": "CONDITIONAL_BEFORE_MIXING"
+    },
+    {
+      "gate": "PEAR_APPLE_IDENTITY",
+      "state": "NOT_TESTED"
+    },
+    {
+      "gate": "LYCHEE_WITHOUT_ROSE_DOMINANCE",
+      "state": "NOT_TESTED"
+    },
+    {
+      "gate": "SHAMPOO_TROPICAL_GOURMAND_DRIFT",
+      "state": "NOT_TESTED"
+    },
+    {
+      "gate": "FRUIT_HEART_CONTINUITY",
+      "state": "NOT_TESTED"
+    },
+    {
+      "gate": "IFRA_CATEGORY_4_WHOLE_FORMULA",
+      "state": "NOT_CLEARED"
+    },
+    {
+      "gate": "SOLUBILITY_AND_STABILITY",
+      "state": "NOT_TESTED"
+    },
+    {
+      "gate": "PHYSICAL_EXECUTION",
+      "state": "NOT_PERFORMED"
+    }
+  ],
+  "model_state": {
+    "delivered_gas_concentration": "UNAVAILABLE",
+    "numeric_oav": "NOT_COMPUTED",
+    "calibrated_intensity": "UNAVAILABLE",
+    "pleasantness": "NOT_ESTABLISHED",
+    "personal_liking": "NOT_TESTED",
+    "commercial_superiority": "NOT_ESTABLISHED"
+  },
+  "sources": [
+    {
+      "id": "PW_4GF00226",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4GF00226",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_4GG01946",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4GG01946",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_4GI24147",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4GI24147",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_4FG01284",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4FG01284",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_4FD04118",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4FD04118",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_3LC19147",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3LC19147",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_3LR00160",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3LR00160",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_3FG00463",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3FG00463",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_4FG15438",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4FG15438",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_3LL00278",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3LL00278",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_3RL00204",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3RL00204",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_3CR00317",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3CR00317",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_4RL00399",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4RL00399",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_9IF07120",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=9IF07120",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_7CL24020",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=7CL24020",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_7CA00285",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=7CA00285",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_3JJ00218",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3JJ00218",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_4JJ10013",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4JJ10013",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_3ML00192",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3ML00192",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_3MA22553",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3MA22553",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_3RB12753",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3RB12753",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_8ND00346",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=8ND00346",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_8RM00395",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=8RM00395",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_3IF00238",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3IF00238",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_4DD00454",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4DD00454",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_3XD17215",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3XD17215",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_3XA09821",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3XA09821",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_4XU00034",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4XU00034",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_3WY00244",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3WY00244",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_4WX00405",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4WX00405",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "PW_3WB13402",
+      "kind": "SUPPLIER_PRODUCT_DESCRIPTION",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=3WB13402",
+      "scope": "Product label, odor description and public catalogue identity. Not lot assay, calibrated response, IFRA certificate, or proof of a complete proprietary formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "M_MANZ",
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "title": "Givaudan Manzanate",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/manzanate",
+      "scope": "Named manufacturer product description; does not authenticate an owned bottle or independently validate R1.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "M_HED",
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "title": "Firmenich Hedione marketing sheet",
+      "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/HEDIONE_964898.pdf",
+      "scope": "Named manufacturer product description; does not authenticate an owned bottle or independently validate R1.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "M_HC",
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "title": "Firmenich Hedione HC marketing sheet",
+      "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/HEDIONE_HC_947325.pdf",
+      "scope": "Named manufacturer product description; does not authenticate an owned bottle or independently validate R1.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "M_FLOROL",
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "title": "dsm-firmenich Florol",
+      "url": "https://studio.dsm-firmenich.com/product/florolr-pe-966458",
+      "scope": "Named manufacturer product description; does not authenticate an owned bottle or independently validate R1.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "M_NYMPH",
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "title": "Givaudan Nympheal",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/nympheal",
+      "scope": "Named manufacturer product description; does not authenticate an owned bottle or independently validate R1.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "M_HELV",
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "title": "Firmenich Helvetolide marketing sheet",
+      "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/HELVETOLIDE_947650.pdf",
+      "scope": "Named manufacturer product description; does not authenticate an owned bottle or independently validate R1.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "M_HABA",
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "title": "dsm-firmenich Habanolide",
+      "url": "https://studio.dsm-firmenich.com/product/habanolider-pe-947303",
+      "scope": "Named manufacturer product description; does not authenticate an owned bottle or independently validate R1.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "M_AMBRET",
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "title": "IFF Ambrettolide",
+      "url": "https://www.iff.com/scent/ingredients-compendium/ambrettolide/",
+      "scope": "Named manufacturer product description; does not authenticate an owned bottle or independently validate R1.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "M_ISOE",
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "title": "IFF Iso E Super",
+      "url": "https://www.iff.com/scent/ingredients-compendium/iso-e-super/",
+      "scope": "Named manufacturer product description; does not authenticate an owned bottle or independently validate R1.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "M_SAND",
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "title": "Givaudan Sandalore",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/sandaloretm",
+      "scope": "Named manufacturer product description; does not authenticate an owned bottle or independently validate R1.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "M_CLEAR",
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "title": "Firmenich Clearwood marketing sheet",
+      "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/CLEARWOOD_970953.pdf",
+      "scope": "Named manufacturer product description; does not authenticate an owned bottle or independently validate R1.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "P_PEAR",
+      "kind": "PRIMARY_RESEARCH",
+      "title": "Zierer, Schieberle and Granvogl 2016; Bartlett pear aroma",
+      "url": "https://portal.fis.tum.de/en/publications/aroma-active-compounds-in-bartlett-pears-and-their-changes-during/",
+      "doi": "10.1021/acs.jafc.6b04612",
+      "scope": "Author-institution abstract, not a reproduced perfume-dose model.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "P_APPLE",
+      "kind": "PRIMARY_RESEARCH",
+      "title": "Young et al. 1996; Royal Gala apple aroma",
+      "url": "https://scijournals.onlinelibrary.wiley.com/doi/abs/10.1002/%28SICI%291097-0010%28199607%2971%3A3%3C329%3A%3AAID-JSFA588%3E3.0.CO%3B2-8",
+      "doi": "10.1002/(SICI)1097-0010(199607)71:3<329::AID-JSFA588>3.0.CO;2-8",
+      "scope": "Primary abstract; food-matrix findings cannot fix perfume doses.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "P_LYCHEE",
+      "kind": "PRIMARY_RESEARCH",
+      "title": "Wang, Frank and Steinhaus 2024; Muscaris lychee note",
+      "url": "https://portal.fis.leibniz-lsb.tum.de/en/publications/molecular-background-of-the-lychee-aroma-of-vitis-vinifera-l-musc-4/",
+      "doi": "10.1021/acs.jafc.3c08298",
+      "scope": "Author-institution abstract; supports testing a particular rose-oxide/geraniol interaction in a different matrix. Full ACS/PMC retrieval was intermittently blocked.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "P_FREESIA",
+      "kind": "PRIMARY_RESEARCH",
+      "title": "Gao et al. 2018; Freesia terpene emissions",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6093421/",
+      "doi": "10.1093/jxb/ery224",
+      "scope": "Primary article abstract and selected results; cultivar emissions, not a commercial freesia formula.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "P_OSMANTHUS",
+      "kind": "PRIMARY_RESEARCH",
+      "title": "Cai et al. 2014; osmanthus GC-O and GC-MS",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4097373/",
+      "doi": "10.1631/jzus.B1400058",
+      "scope": "Primary article abstract and selected results/discussion; flower headspace, not exact absolute-lot composition.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    },
+    {
+      "id": "IFRA_LIBRARY",
+      "kind": "OFFICIAL_POLICY_DISCOVERY",
+      "url": "https://ifrafragrance.org/standards-library",
+      "scope": "Current document discovery only. No complete formula certificate or final safety determination obtained.",
+      "review_date": "2026-10-05",
+      "raw_remote_bytes_sha256": null
+    }
+  ],
+  "sources_review_boundary": "Public supplier descriptions and selected manufacturer documents plus primary research; not every lot COA, SDS, IFRA certificate, correction/retraction database or full licensed paper has been reviewed. No physical-property or model admission follows.",
+  "simple_control": {
+    "id": "CONTROL_MINIMAL",
+    "mode": "WHOLE_ARCHITECTURE_COMPARISON",
+    "immediate_design_comparator": "RICH_ORCHARD_LEAD",
+    "all_dose_changes_intentional": true,
+    "quantity_basis": "Same 2.000 g product-equivalent target in 10.000 g finished batch",
+    "retained_material_count": 15,
+    "rows": [
+      {
+        "sku": "4GF00226",
+        "name": "cis-3-Hexenyl Acetate",
+        "percent": "0"
+      },
+      {
+        "sku": "4GG01946",
+        "name": "cis-3-Hexenyl Hexanoate",
+        "percent": "0"
+      },
+      {
+        "sku": "4GI24147",
+        "name": "Liffarome",
+        "percent": "0"
+      },
+      {
+        "sku": "4FG01284",
+        "name": "Hexyl Acetate",
+        "percent": "14.00"
+      },
+      {
+        "sku": "4FD04118",
+        "name": "Ethyl 2-Methylbutyrate",
+        "percent": "0.12"
+      },
+      {
+        "sku": "3LC19147",
+        "name": "Ethyl Linalyl Acetate",
+        "percent": "16.00"
+      },
+      {
+        "sku": "3LR00160",
+        "name": "Phenyl Ethyl Dimethyl Carbinyl Acetate",
+        "percent": "2.00"
+      },
+      {
+        "sku": "3FG00463",
+        "name": "Verdox",
+        "percent": "3.00"
+      },
+      {
+        "sku": "4FG15438",
+        "name": "Manzanate",
+        "percent": "0"
+      },
+      {
+        "sku": "3LL00278",
+        "name": "Linalool",
+        "percent": "2.00"
+      },
+      {
+        "sku": "3RL00204",
+        "name": "Geraniol",
+        "percent": "0"
+      },
+      {
+        "sku": "3CR00317",
+        "name": "Nerol",
+        "percent": "0"
+      },
+      {
+        "sku": "4RL00399",
+        "name": "Rose Oxide",
+        "percent": "0"
+      },
+      {
+        "sku": "9IF07120",
+        "name": "Damascenone",
+        "percent": "0"
+      },
+      {
+        "sku": "7CL24020",
+        "name": "Bergamot FCF oil Sicilian",
+        "percent": "3.00"
+      },
+      {
+        "sku": "7CA00285",
+        "name": "Mandarin Essential Oil",
+        "percent": "1.00"
+      },
+      {
+        "sku": "3JJ00218",
+        "name": "Hedione",
+        "percent": "31.980"
+      },
+      {
+        "sku": "4JJ10013",
+        "name": "Hedione HC",
+        "percent": "3.00"
+      },
+      {
+        "sku": "3ML00192",
+        "name": "Florol",
+        "percent": "2.40"
+      },
+      {
+        "sku": "3MA22553",
+        "name": "Nympheal",
+        "percent": "0"
+      },
+      {
+        "sku": "3RB12753",
+        "name": "Peonile",
+        "percent": "0"
+      },
+      {
+        "sku": "8ND00346",
+        "name": "Osmanthus Absolute",
+        "percent": "0"
+      },
+      {
+        "sku": "8RM00395",
+        "name": "Rose de Mai Absolute",
+        "percent": "0"
+      },
+      {
+        "sku": "3IF00238",
+        "name": "Beta Ionone",
+        "percent": "0"
+      },
+      {
+        "sku": "4DD00454",
+        "name": "Gamma Undecalactone",
+        "percent": "0"
+      },
+      {
+        "sku": "3XD17215",
+        "name": "Helvetolide",
+        "percent": "11.00"
+      },
+      {
+        "sku": "3XA09821",
+        "name": "Habanolide",
+        "percent": "3.00"
+      },
+      {
+        "sku": "4XU00034",
+        "name": "Ambrettolide",
+        "percent": "0"
+      },
+      {
+        "sku": "3WY00244",
+        "name": "Iso E Super",
+        "percent": "6.00"
+      },
+      {
+        "sku": "4WX00405",
+        "name": "Sandalore",
+        "percent": "1.50"
+      },
+      {
+        "sku": "3WB13402",
+        "name": "Clearwood",
+        "percent": "0"
+      }
+    ],
+    "carrier_match_rule": "Calculate stock charges from these product percentages with the same per-product working stocks as R1. Add pure DPG and DEP to match R1's 0.40734 g DPG and 0.01080 g DEP, then bring finished mass to 10 g with the same perfumery alcohol. Compare exact recipes or record all rounding changes; do not claim exact measured carrier matching from a 1 mg balance.",
+    "removed_product_total_percent": "5.328",
+    "compensation": "Hedione receives the removed product mass; it is not an odorless control. This comparison therefore tests whole architecture, not causally isolated richness or ingredient count.",
+    "semantic_inference": "NOT_A_TESTED_WINNER"
+  },
+  "receptor_map_fabricated": false,
+  "numerical_beauty_score_used": false
+}

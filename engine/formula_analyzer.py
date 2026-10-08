@@ -22,6 +22,10 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+from engine.advisory_stock_strength import (  # noqa: E402  # sys.path
+    declared_stock_fraction,
+    validated_advisory_dilutions,
+)
 from engine.chemical_data_validator import is_blocked_chemical  # noqa: E402  # sys.path
 from engine.chemical_life_graph import build_chemical_life_graph  # noqa: E402  # sys.path
 from engine.confidence import ConfidenceScorer  # noqa: E402  # sys.path
@@ -74,13 +78,7 @@ class FormulaInfo:
 
 def _parse_dilution(raw: str) -> float:
     """Convert dilution text to factor: '10%' -> 0.1, 'neat' -> 1.0."""
-    raw = raw.strip().lower()
-    if raw in ("", "neat", "pure"):
-        return 1.0
-    match = re.match(r"(\d+(?:\.\d+)?)\s*%", raw)
-    if match:
-        return float(match.group(1)) / 100.0
-    return 1.0
+    return declared_stock_fraction(raw)
 
 
 def parse_formulas(path: Path | None = None) -> list[FormulaInfo]:
@@ -147,12 +145,15 @@ def parse_formulas(path: Path | None = None) -> list[FormulaInfo]:
 
 def formula_to_vector(info: FormulaInfo) -> FormulaVector:
     """Convert FormulaInfo (µL amounts) to FormulaVector (percentage of concentrate)."""
+    dilutions = validated_advisory_dilutions(
+        info.ingredients, info.dilutions, context="advisory analysis",
+    )
     total_ul = sum(info.ingredients.values())
     if total_ul == 0:
         return FormulaVector()
     # Convert µL amounts to percentage of concentrate
     pct_dict = {name: (ul / total_ul) * 100 for name, ul in info.ingredients.items()}
-    return FormulaVector(ingredients=pct_dict, dilutions=dict(info.dilutions))
+    return FormulaVector(ingredients=pct_dict, dilutions=dilutions)
 
 
 # ── Suggestion Engine ──
