@@ -984,11 +984,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Aldehyde C-16 Ethyl Methyl Phenyl Glycidate
   aliases: []
-  cas: null
+  cas: '77-83-8'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
+  mw_g_mol: 206.24
+  density_25c_g_ml: 1.096
   logp: null
   functional_groups: []
   chirality: null
@@ -1019,9 +1019,12 @@
         price_usd_per_g: 0.06
   families: []
   character: null
-  notes: null
+  notes: 'logP and VP left null (2026-10-08). logP conflict, no measured value: 1.655 (TGSC est, https://www.perflavory.com/docs/doc1001602.html) vs 2.43 (ChemicalBook, method not stated, https://www.chemicalbook.com/CASEN_77-83-8.htm). VP: only an estimate exists, not RIFM-quoted: 0.006 mmHg at 25 C (TGSC est) = 0.800 Pa at 133.322 Pa/mmHg. ChemicalBook density 1.087 g/mL at 25 C (lit.) agrees with the TGSC midpoint. ChemicalBook "Aroma threshold values: Detection: 2 ppm" has no stated medium and is not an air ODT. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://www.thegoodscentscompany.com/data/rw1001602.html; "ethyl methylphenylglycidate" "CAS 77-83-8"; "aldehyde C-16 (so-called)" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    mw_g_mol: 'https://www.perflavory.com/docs/doc1001602.html (TGSC mirror); "Molecular Weight: 206.24118000", calculated from C12H14O3 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    density_25c_g_ml: 'https://www.perflavory.com/docs/doc1001602.html (TGSC mirror); supplier range "Specific Gravity: 1.08600 to 1.11200 @ 25.00 C."; midpoint 1.099 x 0.99705 (water at 25 C) = 1.0958 g/mL (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
 - canonical_name: Aldehyde C-18 Gamma Nonalactone
   aliases:
   - "Aldehyde C-18"
@@ -2965,12 +2968,12 @@
 - canonical_name: Ambrocenide
   aliases:
   - ambrocenide
-  cas: null
+  cas: '211299-54-6'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 278.4
   density_25c_g_ml: null
-  logp: null
+  logp: 6.0
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -3005,12 +3008,15 @@
         price_usd_per_g: 0.58
   families: []
   character: null
-  notes: null
+  notes: 'VP and density not found on the Symrise datasheet (2026-10-08); bp 309.2 C (Symrise). The air ODT is not set: a figure read from the datasheet chart is unverified. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md.'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Ambrocenide_Cryst.pdf (Symrise datasheet, producer); "Cas 211299-54-6" (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
+    mw_g_mol: 'https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Ambrocenide_Cryst.pdf (Symrise datasheet, producer); "mW 278.4 g/mol" (C18H30O2) (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
+    logp: 'https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Ambrocenide_Cryst.pdf (Symrise datasheet, producer); "log P (kow) 6", integer only, method not stated (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
 - canonical_name: Ambrofix
   aliases:
   - ambrofix

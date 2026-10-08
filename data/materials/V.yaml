@@ -220,12 +220,12 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Veloutone
   aliases: []
-  cas:
+  cas: '65443-14-3'
   smiles:
   inchikey:
-  mw_g_mol:
-  density_25c_g_ml:
-  logp:
+  mw_g_mol: 196.33
+  density_25c_g_ml: 0.867
+  logp: 4.34
   functional_groups: []
   chirality:
   vp_25c_pa:
@@ -253,9 +253,13 @@
     other: {}
   families: []
   character:
-  notes:
+  notes: 'VP left null (2026-10-08): 40x conflict and no 25 C measurement. RIFM 2017 quotes "0.00938 mm Hg @ 20 C (US EPA, 2012a), 0.4 mm Hg @20C [FMA Database], 0.0163 mm Hg @ 25 C (US EPA, 2012a)" = 1.25 Pa (20 C, est), 53.3 Pa (20 C, basis unstated), 2.17 Pa (25 C, est) at 133.322 Pa/mmHg; Vigon SDS 502847 also gives 0.4 mmHg at 20 C; TGSC rw1000241 0.026 mmHg at 25 C (est) = 3.47 Pa. TGSC logP 4.164 (est). No air ODT found. Source: material-data-firecrawl/BATCH1_FEMME_20261008.md.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'PerfumersWorld SDS 3LH00459 (local snapshot, batch VEL00459/26280); RIFM fragrance ingredient safety assessment, Veloutone, CAS 65443-14-3, Food Chem. Toxicol. 110 Suppl 1 (2017) S662-S669, doi:10.1016/j.fct.2017.10.009 (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
+    mw_g_mol: 'PerfumersWorld SDS 3LH00459 (local snapshot, batch VEL00459/26280); MW 196.33, C13H24O (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
+    logp: 'RIFM fragrance ingredient safety assessment, Veloutone, CAS 65443-14-3, Food Chem. Toxicol. 110 Suppl 1 (2017) S662-S669, doi:10.1016/j.fct.2017.10.009; "4.34 (US EPA, 2012a)", EPI Suite estimate, not measured (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
+    density_25c_g_ml: 'Vigon SDS 502847; "SG 0.87 @25 C" single value; 0.87 x 0.99705 (water at 25 C) = 0.8674 g/mL (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
 - canonical_name: Velvione
   aliases: []
   cas:
