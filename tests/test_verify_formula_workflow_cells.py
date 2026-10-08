@@ -5,12 +5,14 @@ import pytest
 from scripts.verify_formula_workflow import _parse_formula_rows, parse_formula_markdown
 
 
-def _one_row(strength: str, amount: str = "100", unit: str = "µL"):
+def _one_row(
+    strength: str, amount: str = "100", unit: str = "µL", header: str = "Dilution"
+):
     body = f"""# Cell Formula
 
 ## Formula
 
-| Ingredient | Dilution | Amount ({unit}) |
+| Ingredient | {header} | Amount ({unit}) |
 |---|---|---:|
 | Rose Oxide | {strength} | {amount} |
 | Hedione | neat | 200 |
@@ -42,7 +44,9 @@ def test_ratio_strength_matches_equivalent_percent_cell(ratio_cell, percent_cell
     assert specs["Rose Oxide"]["declared"] is True
 
 
-@pytest.mark.parametrize("cell", ["0.1 in DPG", "banana"])
+@pytest.mark.parametrize(
+    "cell", ["banana", "oil Sicilian", "premade accord", "powder", "15g/10mL in EtOH"]
+)
 def test_unreadable_strength_is_none_held_out_and_blocking(cell):
     ingredients, dilutions, specs, blockers = _one_row(cell)
 
@@ -81,13 +85,13 @@ def test_unreadable_strength_reaches_formula_record_and_release_block(tmp_path):
     path = tmp_path / "f.md"
     path.write_text(
         "# F\n\n## Formula\n\n| Ingredient | Dilution | Amount (µL) |\n|---|---|---:|\n"
-        "| Rose Oxide | 0.1 in DPG | 100 |\n| Hedione | neat | 200 |\n",
+        "| Rose Oxide | banana | 100 |\n| Hedione | neat | 200 |\n",
         encoding="utf-8",
     )
     formula = parse_formula_markdown(path)[0]
     messages = formula_row_parse_blocker_messages(formula)
-    assert messages and "'0.1 in DPG'" in messages[0]
-    with pytest.raises(ValueError, match="0.1 in DPG"):
+    assert messages and "'banana'" in messages[0]
+    with pytest.raises(ValueError, match="banana"):
         build_verification_bundle(formula)
     contract = resolve_inventory_stock_contract(formula)
     assert contract.status == "FAIL"
@@ -124,3 +128,74 @@ def test_refused_amount_holds_row_out_with_message(amount):
     assert blockers[0]["field"] == "amount"
     assert f"'{amount}'" in blockers[0]["message"]
     assert "Rose Oxide" in blockers[0]["message"]
+
+
+@pytest.mark.parametrize(
+    "cell",
+    [
+        "neat (w/w)",
+        "neat/as supplied; product basis",
+        "neat EO",
+        "neat carrier",
+        "Neat, ownership to reconfirm",
+        "as supplied",
+        "As supplied; strength/species/part unrecorded",
+        "NEAT",
+    ],
+)
+def test_neat_and_as_supplied_variants_read_exactly_like_neat(cell):
+    assert _one_row(cell) == _one_row("neat")
+
+
+def _agree(cell, header):
+    ingredients, dilutions, specs, blockers = _one_row(cell, header=header)
+    if blockers:
+        return None, specs, blockers
+    assert dilutions["Rose Oxide"] == specs["Rose Oxide"]["fraction"]
+    return dilutions["Rose Oxide"], specs["Rose Oxide"], blockers
+
+
+@pytest.mark.parametrize(
+    ("cell", "fraction"),
+    [("1.0", 1.0), ("0.20", 0.2), ("0.01", 0.01), ("0.1 in DPG", 0.1), ("1", 1.0)],
+)
+def test_bare_fraction_in_dilution_column(cell, fraction):
+    value, spec, blockers = _agree(cell, "Dilution")
+    assert blockers == []
+    assert value == pytest.approx(fraction)
+
+
+def test_bare_number_basis_follows_equivalent_percent_cell():
+    _, spec, _ = _agree("0.1 w/w in DPG", "Dilution")
+    _, expected, _ = _agree("10% w/w in DPG", "Dilution")
+    for key in ("fraction", "declared", "fraction_basis", "carrier"):
+        assert spec[key] == pytest.approx(expected[key])
+    assert spec["declared"] is True
+    _, bare, _ = _agree("0.20", "Dilution")
+    assert bare["declared"] is False
+
+
+@pytest.mark.parametrize("cell", ["10", "1.5", "50 in DPG", "0"])
+def test_bare_number_above_one_is_refused_with_percent_hint(cell):
+    ingredients, dilutions, specs, blockers = _one_row(cell, header="Dilution")
+    assert dilutions["Rose Oxide"] is None
+    assert specs["Rose Oxide"]["fraction"] is None
+    assert "Rose Oxide" not in ingredients
+    assert len(blockers) == 1
+    if cell != "0":
+        assert "10% w/w in DPG" in blockers[0]["message"]
+
+
+@pytest.mark.parametrize(
+    ("cell", "fraction"), [("10", 0.1), ("0.5", 0.005), ("100", 1.0), ("10 in DPG", 0.1)]
+)
+def test_bare_number_in_percent_column_is_percent(cell, fraction):
+    for header in ("Dilution %", "Dilution (%)"):
+        value, _, blockers = _agree(cell, header)
+        assert blockers == []
+        assert value == pytest.approx(fraction)
+
+
+def test_bare_number_above_100_in_percent_column_is_refused():
+    _, dilutions, specs, blockers = _one_row("150", header="Dilution %")
+    assert dilutions["Rose Oxide"] is None and len(blockers) == 1

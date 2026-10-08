@@ -428,11 +428,22 @@ _EXACT_THOUSANDS_RE = re.compile(r"\d{1,3}(?:[, \u00a0\u202f]\d{3})+(?:\.\d+)?")
 _AMOUNT_UNIT_RE = re.compile(
     r"(?<![a-z])(ul|ml|mg|kg|g|drops?)(?![a-z])", re.IGNORECASE
 )
+# A bare number in a strength column, optionally followed by a basis and/or
+# "in <carrier>" ("0.20", "0.1 in DPG", "0.1 w/w in DPG"); anything else
+# after the number ("15g/10mL in EtOH") is not a bare number.
+_BARE_STRENGTH_RE = re.compile(
+    r"^\s*(\d+(?:\.\d+)?|\.\d+)((?:\s+(?:w\s*/\s*w|w\s*/\s*v|v\s*/\s*v))?"
+    r"(?:\s+in\s+\S.*)?)\s*$",
+    re.IGNORECASE | re.DOTALL,
+)
+_AS_SUPPLIED_CELL_RE = re.compile(r"^\s*(?:neat|as\s+supplied)", re.IGNORECASE)
 _VOLUME_UL_PER_UNIT = {"ul": 1.0, "ml": 1000.0}
 _MASS_UNITS = frozenset({"g", "mg", "kg"})
 
 
-def read_strength_cell(cell: str) -> tuple[float | None, dict[str, object], str | None]:
+def read_strength_cell(
+    cell: str, header: str = ""
+) -> tuple[float | None, dict[str, object], str | None]:
     """Read one formula-row strength cell.
 
     Returns ``(dilution, stock_spec, problem)``. ``dilution`` always equals
@@ -441,10 +452,42 @@ def read_strength_cell(cell: str) -> tuple[float | None, dict[str, object], str 
     ``parse_stock_specification``; ``1:N``/``1/N`` cells are read exactly as
     the equivalent percent cell. Any other non-blank cell is unreadable: the
     fraction is ``None`` (never neat) and ``problem`` names why.
+
+    A cell starting with ``neat`` or ``as supplied`` reads as plain ``neat``.
+    A bare number is a percent when the column ``header`` contains ``%``;
+    otherwise 0 < n <= 1 is a fraction and n > 1 is refused as ambiguous
+    (``ambiguous_bare_number``). A bare number with no basis or carrier stays
+    undeclared; with them it follows the equivalent percent cell.
     """
 
     clean = str(cell or "").strip().replace("**", "").replace("`", "")
+    if _AS_SUPPLIED_CELL_RE.match(clean):
+        stock = parse_stock_specification("neat")
+        return stock.fraction, stock.as_dict(), None
     stock = parse_stock_specification(clean)
+    bare = None if stock.declared else _BARE_STRENGTH_RE.match(clean)
+    if bare is not None:
+        number = float(bare.group(1))
+        rest = bare.group(2)
+        if "%" in header:
+            fraction = number / 100.0
+            valid = 0.0 < number <= 100.0
+        else:
+            fraction = number
+            valid = 0.0 < number <= 1.0
+        if not valid:
+            spec = stock.as_dict()
+            spec["fraction"] = None
+            spec["readable"] = False
+            return None, spec, "ambiguous_bare_number"
+        stock = replace(
+            parse_stock_specification(f"{fraction * 100.0!r}%{rest}"),
+            fraction=fraction,
+            raw=clean,
+        )
+        if not rest.strip():
+            stock = replace(stock, fraction_basis="unspecified", declared=False)
+        return stock.fraction, stock.as_dict(), None
     if not stock.declared:
         ratio = _RATIO_STRENGTH_RE.match(clean)
         if ratio is not None and float(ratio.group(1)) >= 1.0:
@@ -881,7 +924,10 @@ def _parse_formula_rows(
         dilution_cell = ""
         if dilution_idx is not None and dilution_idx < len(parts):
             dilution_cell = parts[dilution_idx]
-        dilution, spec, strength_problem = read_strength_cell(dilution_cell)
+        dilution, spec, strength_problem = read_strength_cell(
+            dilution_cell,
+            current_headers[dilution_idx] if dilution_idx is not None else "",
+        )
 
         if ingredient not in ingredient_order:
             ingredient_order.append(ingredient)
@@ -897,7 +943,11 @@ def _parse_formula_rows(
                         "cell": cell_text,
                         "reason": strength_problem,
                         "message": (
-                            f"Strength '{cell_text}' for {ingredient} can't be read; "
+                            f"Strength '{cell_text}' for {ingredient} is ambiguous "
+                            "(a bare number above 1 may be a percent or a ratio); "
+                            "write 10% w/w in DPG"
+                            if strength_problem == "ambiguous_bare_number"
+                            else f"Strength '{cell_text}' for {ingredient} can't be read; "
                             "write it as a percent with basis and carrier, "
                             "e.g. 10% w/w in DPG"
                         ),
