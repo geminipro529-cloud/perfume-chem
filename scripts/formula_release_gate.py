@@ -61,6 +61,7 @@ from scripts.format_pipeline_analysis import cli_transport_text
 from scripts.verify_formula_workflow import (
     PIPELINE_ANALYSIS_END,
     PIPELINE_ANALYSIS_START,
+    formula_row_parse_blocker_messages,
     parse_formula_markdown,
     parse_pipeline_analysis_manifest,
     split_generated_pipeline_analysis,
@@ -759,6 +760,18 @@ def main(
     formulas = parse_formula_markdown(formula_path)
     if not formulas:
         raise ValueError(f"No parseable formulas found in {formula_path}")
+    row_blocks = [
+        message
+        for formula in formulas
+        for message in formula_row_parse_blocker_messages(formula)
+    ]
+    if row_blocks:
+        # A held-out row would leave the OAV and IFRA physics modelling a
+        # partial formula; withhold the whole run instead.
+        print("FORMULA ROW HARD BLOCK — gate aborted; OAV/IFRA withheld", file=sys.stderr)
+        for message in row_blocks:
+            print(f"  HARD_BLOCK: {message}", file=sys.stderr)
+        return 1
 
     parent_formulas = None
     if args.parent_formula_file:
