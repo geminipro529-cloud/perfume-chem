@@ -312,11 +312,11 @@
 - canonical_name: Safranal
   aliases:
   - safranal
-  cas: null
+  cas: '116-26-7'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
+  mw_g_mol: 150.22
+  density_25c_g_ml: 0.971
   logp: null
   functional_groups: []
   chirality: null
@@ -343,12 +343,15 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'log Kow not set: two estimates disagree (EPI KOWWIN v1.67 3.22, TGSC EPI page ep1016371; TGSC 2.825 est). VP not set: two estimates disagree, no measured or RIFM value (EPI 21.2 Pa mean Antoine & Grain; TGSC 0.134 mm Hg at 25 C est = 17.9 Pa). No air ODT found. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1016371.html (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    mw_g_mol: 'TGSC https://www.thegoodscentscompany.com/data/rw1016371.html: "Molecular Weight: | 150.22078000" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1016371.html: specific gravity "0.96800 to 0.98000 @ 25.00 °C."; midpoint 0.974 x 0.99705 g/mL (water at 25 C) = 0.971 (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
 - canonical_name: Sage Dalmation Essential Oil
   aliases: []
   cas: null

@@ -127,7 +127,11 @@ def test_runtime_odt_numeric_map_is_unchanged():
     ).hexdigest()
     # Geranyl acetate air ODT added from Elsharif & Buettner (2018); the
     # digest without that one entry is master's 2505240f… value.
-    assert digest == "35b7d603f2b7b60efe87baf1e784afec158d3722ee8f516d0fc1f1ff0eb8dd0d"
+    # 2026-10-08: cited air ODTs for octanal/nonanal (Cometto-Muniz & Abraham
+    # 2010: aldehyde c8 5.7 -> 0.17, aldehyde c9 8.5 -> 0.53, plus keys octanal,
+    # nonanal, aldehyde c-8 octanal, aldehyde c-9 nonanal) and butyl butyrate
+    # (Nagata 2003, 4.8 ppb). Reverting those seven gives 35b7d603….
+    assert digest == "d4bcca51f3e1fbbf20ddea340c6c62bc561115108b748bed93dd50ed4fa5670c"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

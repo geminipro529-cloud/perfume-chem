@@ -1380,16 +1380,16 @@
 - canonical_name: Phenyl Acetaldehyde
   aliases:
   - Phenyl acetaldehyde
-  cas: null
+  cas: '122-78-1'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 120.15
   density_25c_g_ml: null
-  logp: null
+  logp: 1.78
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 52.3
+  vp_source: EPI_exp_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1417,9 +1417,13 @@
         price_usd_per_g: 0.32
   families: []
   character: null
-  notes: null
+  notes: 'Other values: RIFM (Food Chem Toxicol 2020, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/122-78-1_0.pdf) log Kow 1.54 (EPI Suite estimate) and VP 0.354 mm Hg at 25 C (EPI Suite) = 47.2 Pa; TGSC 0.368 mm Hg at 25 C (est); FMA 0.3 mm Hg at 20 C = 40.0 Pa (not 25 C). Density not set: sources conflict (RIFM 1.07 g/mL (RIFM 1994); FMA 1.03; TGSC specific gravity 1.025-1.035 at 25 C), none measured. No air ODT found (RIFM: none reported). Polymerises/oxidises on storage. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1009931.html and RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/122-78-1_0.pdf (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    mw_g_mol: 'TGSC https://www.thegoodscentscompany.com/data/rw1009931.html: "Molecular Weight: | 120.15096000" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    logp: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1009932 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "Log Kow (Exper. database match) = 1.78" (Ref: Hansch C et al. 1995), measured'
+    vp_25c_pa: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1009932 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "VP (exp database): 3.92E-01 mm Hg (5.23E+001 Pa) at 25 deg C" (literature value, original reference not shown); 0.392 mm Hg x 133.322 Pa/mm Hg = 52.3 Pa'
 - canonical_name: Phenyl Acetaldehyde Dimethyl Acetal (padma)
   aliases:
   - "PADMA"
@@ -1809,16 +1813,16 @@
 - canonical_name: Phenylacetaldehyde
   aliases:
   - phenylacetaldehyde
-  cas: null
+  cas: '122-78-1'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 120.15
   density_25c_g_ml: null
-  logp: null
+  logp: 1.78
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 52.3
+  vp_source: EPI_exp_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1835,11 +1839,15 @@
   supplier: null
   families: []
   character: null
-  notes: null
+  notes: 'Other values: RIFM (Food Chem Toxicol 2020, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/122-78-1_0.pdf) log Kow 1.54 (EPI Suite estimate) and VP 0.354 mm Hg at 25 C (EPI Suite) = 47.2 Pa; TGSC 0.368 mm Hg at 25 C (est); FMA 0.3 mm Hg at 20 C = 40.0 Pa (not 25 C). Density not set: sources conflict (RIFM 1.07 g/mL (RIFM 1994); FMA 1.03; TGSC specific gravity 1.025-1.035 at 25 C), none measured. No air ODT found (RIFM: none reported). Polymerises/oxidises on storage. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1009931.html and RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/122-78-1_0.pdf (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    mw_g_mol: 'TGSC https://www.thegoodscentscompany.com/data/rw1009931.html: "Molecular Weight: | 120.15096000" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
+    logp: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1009932 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "Log Kow (Exper. database match) = 1.78" (Ref: Hansch C et al. 1995), measured'
+    vp_25c_pa: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1009932 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "VP (exp database): 3.92E-01 mm Hg (5.23E+001 Pa) at 25 deg C" (literature value, original reference not shown); 0.392 mm Hg x 133.322 Pa/mm Hg = 52.3 Pa'
 - canonical_name: Physeol
   aliases: []
   cas: null

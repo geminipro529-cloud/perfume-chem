@@ -2727,21 +2727,21 @@
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1004001.html; "Molecular Weight:167.25169000", calculated from C10H17NO (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
 - canonical_name: Butyl Butyrate
   aliases: []
-  cas: null
+  cas: '109-21-7'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 144.21
+  density_25c_g_ml: 0.866
+  logp: 2.83
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 241.3
+  vp_source: TGSC_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 4.8
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -2760,9 +2760,15 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'VP: RIFM EPI Suite estimate 1.76 mm Hg at 25 C = 234.7 Pa agrees within 3%; at 20 C (not used) EPI v4.0 1.24 mm Hg = 165.3 Pa, FMA 0.8 mm Hg = 106.7 Pa. Other log Kow estimates: perflavory 2.823, XLogP3-AA 2.20. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'perflavory (TGSC mirror) https://www.perflavory.com/docs/doc1014091.html: "109-21-7" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    mw_g_mol: 'RIFM fragrance ingredient safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/109-21-7_0.pdf: "Molecular Weight: 144.21" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    logp: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/109-21-7_0.pdf: "Log KOW: 2.83 (EPI Suite)", EPI Suite estimate, no measured value found (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    vp_25c_pa: 'perflavory https://www.perflavory.com/docs/doc1014091.html: "1.810000 mmHg @ 25.00 °C." (database value, not marked est, method not stated); 1.81 mm Hg x 133.322 Pa/mm Hg = 241.3 Pa (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    density_25c_g_ml: 'perflavory https://www.perflavory.com/docs/doc1014091.html: specific gravity "0.86700 to 0.87100 @ 25.00 °C."; midpoint 0.869 x 0.99705 g/mL (water at 25 C) = 0.866 (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    odt_air_ppb: 'Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review, Japan Ministry of the Environment, pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 (ppm, v/v): "n-Butyl n-butyrate 0.0048" ppm v/v = 4.8 ppb (measured, triangle odor bag)'
 - canonical_name: Butyl Isovalerate
   aliases: []
   cas: null
