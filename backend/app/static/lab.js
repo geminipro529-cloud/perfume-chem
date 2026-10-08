@@ -162,7 +162,8 @@ const STOCK_NEED_SENTENCES = {
 };
 const STOCK_HOLD_NOTE = "Kept out of new formulas until you clear it";
 const STOCK_STATUS_LABEL = { ready: "Ready", needs: "Needs details", hold: "On hold" };
-const stockView = { filter: "all", solvent: "", sort: "name" };
+const stockView = { filter: "all", solvent: "", basket: "", sort: "name", basketErrors: {}, basketBusy: new Set() };
+const BASKET_CHECK_STATUSES = new Set(["from_past_cards", "conflicting"]);
 
 function stockSolvents(stock) {
   return String(stock.carrier || "").toLowerCase().replace(/\bw\/w\b|\bv\/v\b/g, "")
@@ -221,6 +222,109 @@ function stockEl(tag, className, text) {
   return node;
 }
 
+// Baskets: older inventory payloads have no "baskets" list, and then the page shows nothing about them.
+function stockBaskets() {
+  const baskets = state.projectInventory?.baskets;
+  return Array.isArray(baskets) ? baskets.filter((basket) => Number.isInteger(basket?.number)) : [];
+}
+
+function stockBasketNumber(stock) {
+  return Number.isInteger(stock.basket) ? stock.basket : null;
+}
+
+function stockBasketStatus(stock) {
+  return ["confirmed", "from_past_cards", "conflicting"].includes(stock.basket_status) ? stock.basket_status : "none";
+}
+
+function basketName(number) {
+  const basket = stockBaskets().find((item) => item.number === number);
+  return basket && basket.name ? `${number} · ${basket.name}` : `Basket ${number}`;
+}
+
+function basketOptionText(number) {
+  const basket = stockBaskets().find((item) => item.number === number);
+  return basket && basket.name ? `${number} ${basket.name}` : `Basket ${number}`;
+}
+
+function basketWordList(numbers) {
+  return numbers.length > 1 ? `${numbers.slice(0, -1).join(", ")} or ${numbers[numbers.length - 1]}` : String(numbers[0]);
+}
+
+function stockBasketCell(stock) {
+  const cell = stockEl("td", "stock-basket");
+  const number = stockBasketNumber(stock);
+  const status = stockBasketStatus(stock);
+  const label = stockEl("span", "stock-basket-label");
+  if (status === "conflicting") {
+    const suggestions = (stock.basket_suggestions || []).filter(Number.isInteger);
+    label.textContent = suggestions.length ? `${basketWordList(suggestions)}?` : (number === null ? "Not sure?" : `${basketName(number)}?`);
+  } else {
+    label.textContent = number === null ? "—" : basketName(number);
+  }
+  cell.appendChild(label);
+  if (BASKET_CHECK_STATUSES.has(status)) cell.appendChild(stockEl("span", "stock-chip stock-chip-needs stock-basket-check", "check it"));
+  const controls = stockEl("div", "stock-basket-controls");
+  const busy = stockView.basketBusy.has(stock.normalized_identity);
+  const select = stockEl("select", "stock-basket-select");
+  select.setAttribute("aria-label", `Basket for ${stock.identity_name}, ${stockStrengthLabel(stock)}`);
+  select.dataset.basketFor = stock.stock_id;
+  select.append(new Option("No basket", ""), ...stockBaskets().map((basket) => new Option(basketOptionText(basket.number), String(basket.number))));
+  select.value = number === null ? "" : String(number);
+  select.disabled = busy;
+  controls.appendChild(select);
+  if (status === "from_past_cards" && number !== null) {
+    const confirm = stockEl("button", "quiet-button stock-basket-confirm", `Confirm ${number}`);
+    confirm.type = "button";
+    confirm.dataset.confirmBasket = stock.stock_id;
+    confirm.setAttribute("aria-label", `Confirm ${number} ${basketName(number).replace(/^\d+ · /, "")} for ${stock.identity_name}`);
+    confirm.disabled = busy;
+    controls.appendChild(confirm);
+  }
+  cell.appendChild(controls);
+  const error = stockView.basketErrors[stock.stock_id];
+  if (error) cell.appendChild(stockEl("span", "stock-row-note stock-basket-error", error));
+  return cell;
+}
+
+function stockMatchesBasketFilter(stock) {
+  if (!stockView.basket) return true;
+  const number = stockBasketNumber(stock);
+  const status = stockBasketStatus(stock);
+  if (stockView.basket === "none") return number === null && status !== "conflicting";
+  if (stockView.basket === "check") return BASKET_CHECK_STATUSES.has(status);
+  return number !== null && String(number) === stockView.basket;
+}
+
+async function setStockBasket(stockId, basket) {
+  const stocks = state.projectInventory.stocks || [];
+  const stock = stocks.find((item) => item.stock_id === stockId);
+  if (!stock || stockView.basketBusy.has(stock.normalized_identity)) return;
+  const identity = stock.normalized_identity;
+  const name = stock.identity_name;
+  delete stockView.basketErrors[stockId];
+  stockView.basketBusy.add(identity);
+  renderProjectInventory($("#project-inventory-search").value);
+  try {
+    const result = await request("/v2/workbench/current-inventory/basket", {
+      method: "POST",
+      body: JSON.stringify({ normalized_identity: identity, basket }),
+    });
+    const saved = Number.isInteger(result?.basket) ? result.basket : null;
+    // Every strength of one material sits in the same basket, so every row of it changes.
+    stocks.filter((item) => item.normalized_identity === identity).forEach((item) => {
+      Object.assign(item, { basket: saved, basket_status: result?.basket_status || "confirmed", basket_suggestions: [] });
+      delete stockView.basketErrors[item.stock_id];
+    });
+    notify(saved === null ? `Basket cleared: ${name}` : `Basket set: ${name} → ${basketOptionText(saved)}`);
+  } catch (error) {
+    stockView.basketErrors[stockId] = `Basket not saved: ${error.message}`;
+    notify(`Basket not saved for ${name}: ${error.message}`, true);
+  } finally {
+    stockView.basketBusy.delete(identity);
+    renderProjectInventory($("#project-inventory-search").value, stockId);
+  }
+}
+
 function syncStockToolbar(stocks) {
   const select = $("#project-inventory-solvent");
   const found = [...new Set(stocks.flatMap(stockSolvents))].sort();
@@ -232,6 +336,22 @@ function syncStockToolbar(stocks) {
     if (![...select.options].some((option) => option.value === stockView.solvent)) stockView.solvent = "";
   }
   select.value = stockView.solvent;
+  const baskets = stockBaskets();
+  const basketSelect = $("#project-inventory-basket");
+  const basketSignature = baskets.map((basket) => `${basket.number}:${basket.name}`).join("|");
+  if (basketSelect.dataset.signature !== basketSignature) {
+    basketSelect.dataset.signature = basketSignature;
+    basketSelect.replaceChildren(new Option("All baskets", ""), new Option("No basket yet", "none"), new Option("Check it", "check"),
+      ...baskets.map((basket) => new Option(basketOptionText(basket.number), String(basket.number))));
+  }
+  $("#project-inventory-basket-filter").hidden = !baskets.length;
+  $('#project-inventory-sort option[value="basket"]').hidden = !baskets.length;
+  if (!baskets.length) {
+    stockView.basket = "";
+    if (stockView.sort === "basket") stockView.sort = "name";
+  }
+  if (![...basketSelect.options].some((option) => option.value === stockView.basket)) stockView.basket = "";
+  basketSelect.value = stockView.basket;
   $("#project-inventory-sort").value = stockView.sort;
   $$("[data-stock-filter]").forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.stockFilter === stockView.filter));
@@ -239,7 +359,7 @@ function syncStockToolbar(stocks) {
   $("#project-inventory-incomplete-only").checked = stockView.filter === "unfinished";
 }
 
-function renderProjectInventory(filter = "") {
+function renderProjectInventory(filter = "", focusStockId = "") {
   const inventory = state.projectInventory || { stocks: [], counts: {} };
   const query = String(filter || "").trim().toLowerCase();
   const stocks = inventory.stocks || [];
@@ -255,6 +375,7 @@ function renderProjectInventory(filter = "") {
         if (stockIsNeat(stock) || solvents.length) return false;
       } else if (!solvents.includes(stockView.solvent)) return false;
     }
+    if (!stockMatchesBasketFilter(stock)) return false;
     if (!query) return true;
     return [stock.material, stock.identity_name, stock.normalized_identity, stock.stock_label, stock.category, stock.carrier, label]
       .some((value) => String(value || "").toLowerCase().includes(query));
@@ -264,6 +385,7 @@ function renderProjectInventory(filter = "") {
   rows.sort((a, b) => {
     if (stockView.sort === "needs") return (order[a.status] - order[b.status]) || byName(a, b);
     if (stockView.sort === "strength") return (Number(b.stock.fraction_percent_decimal) - Number(a.stock.fraction_percent_decimal)) || byName(a, b);
+    if (stockView.sort === "basket") return ((stockBasketNumber(a.stock) ?? 99) - (stockBasketNumber(b.stock) ?? 99)) || byName(a, b);
     return byName(a, b);
   });
   const counts = inventory.counts || {};
@@ -278,8 +400,9 @@ function renderProjectInventory(filter = "") {
   }
   const table = stockEl("table", "stock-table");
   table.appendChild(stockEl("caption", "sr-only", "Stock list"));
+  const showBaskets = stockBaskets().length > 0;
   const headRow = document.createElement("tr");
-  ["Material", "Stock", "Status", ""].forEach((title) => {
+  ["Material", "Stock", ...(showBaskets ? ["Basket"] : []), "Status", ""].forEach((title) => {
     const th = stockEl("th", "", title);
     th.scope = "col";
     if (!title) th.appendChild(stockEl("span", "sr-only", "Action"));
@@ -290,6 +413,7 @@ function renderProjectInventory(filter = "") {
   rows.forEach(({ stock, status, label }) => {
     const tr = document.createElement("tr");
     tr.dataset.stockStatus = status;
+    tr.dataset.stockId = stock.stock_id;
     const name = stockEl("td", "stock-name");
     name.appendChild(stockEl("strong", "", stock.identity_name));
     if (stock.source_class === "PERSONAL_ADDITION") name.appendChild(stockEl("span", "stock-row-note", "Added by you"));
@@ -306,7 +430,7 @@ function renderProjectInventory(filter = "") {
       button.dataset.completeStock = stock.stock_id;
       action.appendChild(button);
     }
-    tr.append(name, strength, statusCell, action);
+    tr.append(name, strength, ...(showBaskets ? [stockBasketCell(stock)] : []), statusCell, action);
     body.appendChild(tr);
   });
   table.appendChild(body);
@@ -315,6 +439,8 @@ function renderProjectInventory(filter = "") {
   wrap.setAttribute("aria-label", "Stock list");
   wrap.appendChild(table);
   list.replaceChildren(wrap);
+  // A basket change redraws the table; keep the keyboard where it was.
+  if (focusStockId) [...list.querySelectorAll("[data-basket-for]")].find((node) => node.dataset.basketFor === focusStockId)?.focus();
 }
 
 async function refresh() {
@@ -1304,6 +1430,24 @@ $("#project-inventory-sort").addEventListener("change", (event) => {
   renderProjectInventory($("#project-inventory-search").value);
 });
 
+$("#project-inventory-basket").addEventListener("change", (event) => {
+  stockView.basket = event.currentTarget.value;
+  renderProjectInventory($("#project-inventory-search").value);
+});
+
+$("#project-inventory-list").addEventListener("change", (event) => {
+  const select = event.target.closest("[data-basket-for]");
+  if (!select) return;
+  setStockBasket(select.dataset.basketFor, select.value === "" ? null : Number(select.value));
+});
+
+$("#project-inventory-list").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-confirm-basket]");
+  if (!button) return;
+  const stock = (state.projectInventory.stocks || []).find((item) => item.stock_id === button.dataset.confirmBasket);
+  if (stock && Number.isInteger(stock.basket)) setStockBasket(stock.stock_id, stock.basket);
+});
+
 function closeInventoryCompletion() {
   $("#inventory-completion-panel").hidden = true;
   $("#inventory-completion-form").reset();
@@ -1441,7 +1585,7 @@ $("#inventory-addition-form").addEventListener("submit", async (event) => {
     });
     state.projectInventory = result.inventory;
     $("#project-inventory-search").value = data.identity_name;
-    Object.assign(stockView, { filter: "all", solvent: "" });
+    Object.assign(stockView, { filter: "all", solvent: "", basket: "" });
     renderProjectInventory(data.identity_name);
     closeInventoryAddition();
     notify(`${data.identity_name} is now available for personal formula design.`);

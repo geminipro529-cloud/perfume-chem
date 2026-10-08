@@ -275,7 +275,8 @@
           <div class="inventory-toolbar">
             <label class="inventory-search">Find a material<input id="project-inventory-search" type="search" placeholder="Lavender, Ambrox, bergamot…" autocomplete="off"></label>
             <label class="inventory-select">Solvent<select id="project-inventory-solvent"><option value="">Any solvent</option><option value="neat">Neat</option></select></label>
-            <label class="inventory-select">Sort<select id="project-inventory-sort"><option value="name">Name A to Z</option><option value="needs">Needs attention first</option><option value="strength">Strength high to low</option></select></label>
+            <label class="inventory-select">Sort<select id="project-inventory-sort"><option value="name">Name A to Z</option><option value="needs">Needs attention first</option><option value="strength">Strength high to low</option><option value="basket">Basket 1 to 17</option></select></label>
+            <label id="project-inventory-basket-filter" class="inventory-select" hidden>Basket<select id="project-inventory-basket"><option value="">All baskets</option></select></label>
             <div class="stock-filters" role="group" aria-label="Show">
               <button type="button" class="stock-filter" aria-pressed="true" data-stock-filter="all">All</button>
               <button type="button" class="stock-filter" aria-pressed="false" data-stock-filter="ready">Ready to use</button>

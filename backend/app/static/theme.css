@@ -341,6 +341,14 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
 .stock-strength { color: var(--ink); font-variant-numeric: tabular-nums; }
 .stock-status .stock-chip { white-space: nowrap; }
 .stock-action { width: 1%; text-align: right; white-space: nowrap; }
+.stock-basket-label { color: var(--ink); font-variant-numeric: tabular-nums; }
+.stock-basket .stock-basket-check { min-height: 24px; margin-left: 6px; padding: 0 9px; font-size: 12px; white-space: nowrap; }
+.stock-basket-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 6px; }
+.stock-basket-controls .stock-basket-select {
+  width: auto; max-width: 13rem; min-height: 36px; margin: 0; padding: 0 8px; font-size: 14px;
+}
+.stock-basket-controls .stock-basket-confirm { width: auto; min-height: 36px; margin: 0; padding: 0 12px; border-width: 1px; }
+.stock-basket-error { color: var(--fail-fg); }
 .stock-action .inventory-complete-button { width: auto; min-height: 40px; margin: 0; padding: 0 12px; border-width: 1px; border-color: var(--field-border); }
 /* The table replaces the old card grid inside the same list container. */
 #project-inventory-list:has(> .stock-table-wrap) { display: block; padding-right: 0; }
@@ -413,7 +421,9 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
   }
   .workflow-step.is-current { border-bottom-color: var(--amber); }
   .view-heading { flex-direction: column; align-items: start; gap: 12px; }
-  .stock-table { min-width: 600px; }
+  .stock-table { min-width: 760px; }
+  .stock-basket-controls .stock-basket-select, .stock-basket-controls .stock-basket-confirm { min-height: 44px; }
+  .stock-basket-controls .stock-basket-select { font-size: 16px; }
   .workflow-strip { overflow-x: auto; }
   .workflow-step { flex: 0 0 auto; min-width: 92px; }
   .inventory-toolbar { flex-direction: column; align-items: stretch; }
