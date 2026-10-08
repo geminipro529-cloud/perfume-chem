@@ -31,7 +31,9 @@ DENY_PAIRS = [
     ("Vertofix", "Vertofix Coeur"),
     ("Heliotropal", "Heliotropin"),
     ("Ultralia", "Alpha Isomethyl Ionone"),
-    ("benzoin resinoid", "Siam Benzoin"),
+    ("Heliotropal (Piperonal)", "Heliotropin"),
+    ("Eugenol", "Methyl Eugenol"),
+    ("Linalool", "Linalool Oxide"),
     # Stock spellings of the same pairs.
     ("Hedione 10% w/w in DPG", "Hedione HC"),
     ("Galaxolide (50% in DEP)", "Habanolide (neat / as supplied)"),
@@ -61,11 +63,22 @@ DENY_PAIRS = [
     ("Coeur Vertofix", "Vertofix (neat / as supplied)"),
     ("Piperonal", "Heliotropal"),
     ("Heliotropin (10% in DPG)", "heliotropal"),
+    # Two subtypes of one umbrella never match each other.
+    ("Siam Benzoin", "Benzoin Sumatra Resinoid (10%)"),
+    ("Benzoin Siam Resinoid", "Benzoin Sumatra"),
+    ("Aldehyde C11 undecylic", "Aldehyde C11 undecylenic"),
+    ("C11 Undecanal (10%)", "C11 undecylenic (1%)"),
+]
+
+# An umbrella name with no subtype matches each of its subtypes (decision:
+# bare "Aldehyde C-11" is undecylenic in trade usage; bare benzoin resinoid
+# finds the benzoin owned). Only umbrellas the concept table declares.
+UMBRELLA_MATCHES = [
+    ("benzoin resinoid", "Siam Benzoin"),
     ("Benzoin Resinoid", "Siam Benzoin (50% w/w in DPG)"),
     ("benzoin", "Benzoin Sumatra Resinoid (10%)"),
-    ("Siam Benzoin", "Benzoin Sumatra Resinoid (10%)"),
     ("aldehyde c11", "Aldehyde C11 undecylenic (1%)"),
-    ("Aldehyde C11 undecylic", "Aldehyde C11 undecylenic"),
+    ("Aldehyde C11 (1%)", "Aldehyde C11 undecylic"),
 ]
 
 # Different origins or extraction methods stated on both sides.
@@ -101,6 +114,27 @@ SAME_MATERIAL = [
     ("Hedione HC", "hedione hc"),
     ("Alpha Isomethyl Ionone", "AIMI"),
     ("methyl dihydrojasmonate", "Hedione"),
+    # Same material, no shared alias key: equal cores once stock, origin,
+    # method, Greek-letter and spelling variants are set aside.
+    ("Heliotropal (Piperonal)", "heliotropal"),
+    ("Ambrofix", "Ambrofix Crystals"),
+    ("Ambrofix (30% active)", "Ambrofix Crystals"),
+    ("Petitgrain EO", "Petitgrain EO Paraguay"),
+    ("Petitgrain", "Petitgrain EO Paraguay"),
+    ("Vertofix Couer", "Vertofix Coeur"),
+    ("Vetiver Haiti EO", "Haitian Vetiver EO"),
+    ("C11 undecylenic", "Aldehyde C11 undecylenic"),
+    ("C11 undecylenic (1%)", "Aldehyde C11 undecylenic"),
+    ("Benzoin Siam Resinoid", "Siam Benzoin"),
+    ("Cinnamon Bark Essential Oil", "Cinnamon Bark EO - Telvada USDA Organic"),
+    ("Aldehyde C-14 Gamma Undecalactone", "Gamma Undecalactone"),
+    ("α-Damascone", "Alpha Damascone"),
+    ("Jasmine Sambac Abs 10%", "Jasmine Sambac"),
+    # Found by the formulas/ corpus probe.
+    ("Benzyl Sal", "Benzyl Salicylate"),
+    ("Cedarwood VA", "Cedarwood oil Virginia"),
+    ("Ambrox Super ~33%", "Ambrox Super"),
+    ("γ-Nonalactone (Aldehyde C-18)", "Aldehyde C-18"),
 ]
 
 
@@ -122,6 +156,12 @@ def test_non_interchangeable_pairs_never_match(a, b):
 
 @pytest.mark.parametrize(("a", "b"), SAME_MATERIAL)
 def test_same_material_spellings_still_match(a, b):
+    assert materials_match(a, b) is True
+    assert materials_match(b, a) is True
+
+
+@pytest.mark.parametrize(("a", "b"), UMBRELLA_MATCHES)
+def test_umbrella_name_matches_each_subtype(a, b):
     assert materials_match(a, b) is True
     assert materials_match(b, a) is True
 
@@ -178,12 +218,13 @@ EXPLICIT_ALIAS_MATCHES = {
     "labdanum": "Labdanum Resinoid",
     # Stated FCF rule: same expressed oil, furocoumarins removed.
     "bergamot eo": "Bergamot FCF oil Sicilian",
+    # Umbrella names find the subtype owned (first in inventory order).
+    "aldehyde c11": "Aldehyde C11 undecylenic",
+    "benzoin resinoid": "Siam Benzoin",
 }
 # Candidates with no same-material stock: each must resolve to nothing rather
 # than to a different material.
 EXPECTED_NO_MATCH = {
-    "aldehyde c11",  # stock is C11 undecylenic; C11 undecylic is another material
-    "benzoin resinoid",  # umbrella name; stock is Siam and Sumatra resinoids
     "vertofix coeur",  # stock is Vertofix
     "labdanum absolute",  # stock is Labdanum Resinoid, a different extract
 }
@@ -207,3 +248,63 @@ def test_axis_candidates_resolve_only_to_the_same_inventory_material():
             continue
         wrong.append(f"{name!r} -> {stock!r}")
     assert wrong == []
+
+
+# Real inventory.txt and formula spellings -> the inventory line they must find.
+# A line for the very product named wins over a same-molecule product reached
+# through a data alias (Ambrofix is not Ambrox Super; Heliotropal and
+# Heliotropin are separate piperonal stock lines).
+INVENTORY_LOOKUPS = {
+    "Heliotropal (Piperonal)": "Heliotropal",
+    "heliotropal": "Heliotropal",
+    "Heliotropin": "Heliotropin",
+    "Ambrofix": "Ambrofix Crystals",
+    "Ambrofix 30%": "Ambrofix Crystals",
+    "Ambrofix (30% active)": "Ambrofix Crystals",
+    "Ambrox Super": "Ambrox Super",
+    "Ambrox Super Crystals": "Ambrox Super Crystals",
+    "Petitgrain EO": "Petitgrain EO Paraguay",
+    "Petitgrain": "Petitgrain EO Paraguay",
+    "Vetiver Haiti EO": "Haitian Vetiver EO",
+    "C11 undecylenic": "Aldehyde C11 undecylenic",
+    "C11 undecylenic (1%)": "Aldehyde C11 undecylenic",
+    "Aldehyde C11": "Aldehyde C11 undecylenic",
+    "Aldehyde C11 (1%)": "Aldehyde C11 undecylenic",
+    "Benzoin Resinoid": "Siam Benzoin",
+    "Benzoin Resinoid (50% in DPG)": "Siam Benzoin",
+    "Benzoin Siam Resinoid": "Siam Benzoin",
+    "Siam Benzoin (50% in DPG)": "Siam Benzoin",
+    "Benzyl Sal": "Benzyl Salicylate",
+    "Ambrox Super ~33%": "Ambrox Super",
+    "Benzoin Sumatra Resinoid": "Benzoin Sumatra Resinoid",
+    "Cinnamon Bark Essential Oil": "Cinnamon Bark EO - Telvada USDA Organic",
+    "Aldehyde C-14 Gamma Undecalactone": "Gamma Undecalactone",
+    "α-Damascone": "Alpha Damascone",
+    "Jasmine Sambac Abs 10%": "Jasmine Sambac",
+    "Linalool Oxide": "Linalool Oxide",
+    "Linalool": "Linalool",
+}
+
+
+def test_real_inventory_lookups_find_the_named_product():
+    inventory = load_inventory()
+    found = {}
+    for query in INVENTORY_LOOKUPS:
+        item = _material_in_inventory(query, inventory)
+        found[query] = item and item["name"]
+    assert found == INVENTORY_LOOKUPS
+
+
+def test_grades_and_subtypes_do_not_find_another_line():
+    inventory = load_inventory()
+    for query in ("Vertofix Couer", "Vertofix Coeur", "Aldehyde C11 undecylic", "Methyl Eugenol"):
+        assert _material_in_inventory(query, inventory) is None, query
+
+
+@pytest.mark.parametrize(
+    ("a", "b"),
+    [("Linalool", "Linalool Oxide"), ("Eugenol", "Methyl Eugenol")],
+)
+def test_resolved_identity_keys_keep_derivatives_apart(a, b):
+    assert material_identity_key(a) != material_identity_key(b)
+    assert material_identity_key(b) not in {"linalool", "eugenol"}

@@ -1057,11 +1057,15 @@ def _material_in_formula(name: str, fv: FormulaVector) -> str | None:
 
 
 def _material_in_inventory(name: str, inventory: list[dict]) -> dict | None:
-    """Find a material in inventory by identity match (see materials_match)."""
-    for item in inventory:
-        if materials_match(name, item["name"]):
-            return item
-    return None
+    """Find a material in inventory by identity match (see materials_match).
+
+    A line for the very product named wins over a same-molecule product reached
+    through a data alias: "Ambrofix" finds "Ambrofix Crystals", not "Ambrox Super".
+    """
+    from engine.optimizer.models import product_match_rank
+
+    matches = [item for item in inventory if materials_match(name, item["name"])]
+    return min(matches, key=lambda item: product_match_rank(name, item["name"]), default=None)
 
 
 def _annotate_warnings(
