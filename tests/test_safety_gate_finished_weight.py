@@ -146,3 +146,29 @@ def test_strength_suffix_in_the_row_name_does_not_hide_a_restricted_material():
     assert row["verdict"] == "fail"
     assert gate.status == "FAIL"
     assert "Coumarin 20% EtOH" not in gate.data["unchecked"]
+
+
+def test_declared_volume_fraction_basis_reaches_the_finished_weight_estimate():
+    # 3000 uL of 20 % Coumarin in DEP, declared v/v (formula_state basis "volume_fraction").
+    # Active density is unknown (1.0 g/mL); DEP is 1.12 g/mL.
+    # v/v: 0.6 g active + 2.4 mL x 1.12 = 2.688 g carrier + 27 mL ethanol x 0.789 = 21.303 g
+    # -> 24.591 g finished, 0.6 / 24.591 = 2.4399 % w/w.
+    # A w/w reading would be 0.65625 g active in 24.58425 g (2.6694 %), more than 0.5 % away.
+    name = "Coumarin 20% DEP"
+    state = build_formula_state(
+        {name: 3000.0},
+        {name: 0.2},
+        batch_volume_ml=30.0,
+        stock_specs={name: {"fraction_basis": "volume_fraction", "carrier": "DEP"}},
+    )
+    assert state.materials[0].stock_fraction_basis == "volume_fraction"
+    gate = _gate_safety(state, ReleaseGateConfig(batch_volume_source="title"))
+
+    by_volume = 0.6 / 24.591 * 100
+    by_weight = 0.65625 / 24.58425 * 100
+    assert abs(by_weight - by_volume) / by_volume > 0.005
+    row = _row(gate, name)
+    assert row["actual_pct"] == pytest.approx(by_volume, rel=1e-4)
+    assert not any(
+        name in a and "dilution basis not recorded" in a for a in gate.data["assumptions"]
+    )

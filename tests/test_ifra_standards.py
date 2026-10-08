@@ -488,3 +488,35 @@ def test_exact_alt_name_wins_over_the_stripped_row_name():
     (check,) = result.checks
     assert check.matched_name == "Vetiver EO (India)"
     assert load_ifra_table().lookup("Vetiver EO 10%", "Vetiver EO (India)").name == "Vetiver EO (India)"
+
+
+# ------------------------------------------------- least-stripped form wins
+
+
+@pytest.mark.parametrize(
+    "name",
+    ["Vetiver EO (Haiti) 10%", "Vetiver EO (Haiti) F3255", "Vetiver EO 10% (Haiti)"],
+)
+def test_a_qualified_name_with_a_suffix_finds_its_specific_entry(name):
+    table = load_ifra_table()
+    specific = table.lookup("Vetiver EO (Haiti)")
+    assert specific is not None
+    assert table.lookup(name) is specific
+    assert specific is not table.lookup("Vetiver EO")
+
+
+def test_cinnamon_bark_telvada_with_a_strength_finds_its_entry():
+    table = load_ifra_table()
+    specific = table.lookup("Cinnamon Bark EO (Telvada)")
+    assert specific is not None
+    assert table.lookup("Cinnamon Bark EO (Telvada) 10%") is specific
+
+
+def test_evaluate_ifra_reports_the_specific_entry_for_a_suffixed_row():
+    result = evaluate_ifra({"Vetiver EO (Haiti) 10%": 0.5})
+    (check,) = result.checks
+    assert check.ifra_name == "Vetiver EO (Haiti)"
+
+
+def test_stock_base_name_keeps_a_qualifier_written_after_the_strength_out_of_the_phrase():
+    assert stock_base_name("Vetiver EO 10% (Haiti)") == "Vetiver EO"

@@ -47,7 +47,8 @@ _TOLERANCE = 1e-12
 _PERCENT_NUMBER = re.compile(r"(\d+(?:[.,]\d+)?)\s*%")
 # Stock-name suffixes that hide the material name: "(...)", " 20% EtOH", " F3255".
 _TRAILING_PARENTHETICAL = re.compile(r"\s*\([^()]*\)\s*$")
-_TRAILING_STRENGTH = re.compile(r"\s+\d+(?:[.,]\d+)?\s*%.*$")
+# One strength phrase: the number, the "%" and the text up to the next "(" or the end.
+_STRENGTH_PHRASE = re.compile(r"\s+\d+(?:[.,]\d+)?\s*%[^(]*")
 _TRAILING_LOT_CODE = re.compile(r"\s+[A-Za-z]{0,4}\d{3,}[A-Za-z0-9-]*\s*$")
 
 
@@ -118,11 +119,19 @@ class IFRATable:
 
     def _match(self, names: Sequence[str | None]) -> tuple[str | None, IFRAMaterial | None]:
         given = [name for name in names if name and name.strip()]
-        for candidates in (given, [stock_base_name(name) for name in given]):
-            for name, candidate in zip(given, candidates):
-                material = self._index.get(_normalise(candidate))
-                if material is not None:
-                    return name, material
+        for name in given:
+            material = self._index.get(_normalise(name))
+            if material is not None:
+                return name, material
+        # Least-stripped form first, across all given names, before any more-stripped form.
+        levels = [_stripped_forms(name) for name in given]
+        for depth in range(max((len(forms) for forms in levels), default=0)):
+            for name, forms in zip(given, levels):
+                if depth < len(forms):
+                    for form in forms[depth]:
+                        material = self._index.get(_normalise(form))
+                        if material is not None:
+                            return name, material
         return None, None
 
     def cat4_limits(self) -> dict[str, float]:
@@ -374,12 +383,52 @@ def stock_base_name(name: str) -> str:
     base = name.strip()
     while True:
         stripped = base
-        for pattern in (_TRAILING_PARENTHETICAL, _TRAILING_STRENGTH, _TRAILING_LOT_CODE):
-            stripped = pattern.sub("", stripped).strip()
+        for pattern in (_TRAILING_PARENTHETICAL, _STRENGTH_PHRASE, _TRAILING_LOT_CODE):
+            stripped = _collapse(pattern.sub(" ", stripped))
         if stripped == base:
             break
         base = stripped
     return base or name
+
+
+def _collapse(text: str) -> str:
+    return " ".join(text.split())
+
+
+def _stripped_forms(name: str) -> list[list[str]]:
+    """Stripped forms of a name by number of suffix removals: index 0 is one removal away.
+
+    A removal is one trailing parenthetical, one strength phrase ("10%" and the text after it
+    up to the next "("), or a trailing lot code. No duplicates, no empty strings, never the
+    original name.
+    """
+    seen = {_collapse(name)}
+    frontier = [_collapse(name)]
+    levels: list[list[str]] = []
+    while frontier:
+        level: list[str] = []
+        for current in frontier:
+            for form in _one_removal(current):
+                if form and form not in seen:
+                    seen.add(form)
+                    level.append(form)
+        if level:
+            levels.append(level)
+        frontier = level
+    return levels
+
+
+def _one_removal(name: str) -> list[str]:
+    forms = []
+    paren = _TRAILING_PARENTHETICAL.search(name)
+    if paren:
+        forms.append(_collapse(name[: paren.start()] + " " + name[paren.end():]))
+    for match in _STRENGTH_PHRASE.finditer(name):
+        forms.append(_collapse(name[: match.start()] + " " + name[match.end():]))
+    lot = _TRAILING_LOT_CODE.search(name)
+    if lot:
+        forms.append(_collapse(name[: lot.start()] + " " + name[lot.end():]))
+    return forms
 
 
 def _is_number(value: object) -> bool:

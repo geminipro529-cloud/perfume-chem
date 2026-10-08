@@ -1,3 +1,5 @@
+import pytest
+
 from engine.optimizer.gate_aware import optimize_until_release_ready, render_gate_audit_markdown
 from engine.pipeline.gates import ReleaseGateConfig
 
@@ -289,6 +291,54 @@ def test_gate_aware_optimizer_repairs_failing_ifra_group_total():
     assert all("rose_ketones_total" in action.detail for action in caps)
     group = {g["group"]: g for g in safety.data["groups"]}["rose_ketones_total"]
     assert group["actual_pct"] <= group["limit_pct"]
+
+
+def test_gate_aware_optimizer_caps_a_row_once_at_the_smaller_of_its_factors():
+    # Alpha Damascone is over its own 0.043 % limit and is also a member of the failing
+    # rose_ketones_total group, so two violations ask for a cap; the group's is the smaller.
+    raw_pct = {
+        "Hedione": 25.0,
+        "Iso E Super": 25.0,
+        "Zenolide": 12.0,
+        "Linalool": 8.0,
+        "Geraniol": 5.0,
+        "Phenyl Ethyl Alcohol": 8.0,
+        "Vetiver EO": 4.0,
+        "Bergamot FCF": 10.0,
+        "Alpha Damascone": 2.0,
+        "Damascone Beta": 1.5,
+    }
+    dilutions = {"Alpha Damascone": 0.1, "Damascone Beta": 0.1}
+    pool = {"Iso E Super": 2.0, "Hedione": 1.0}
+
+    start = optimize_until_release_ready(
+        "Rose Ketone Row And Group Test", raw_pct, stock_dilutions=dilutions,
+        config=_config(), repair_pool=pool, max_passes=0,
+    )
+    safety = _safety(start)
+    rows = {row["material"]: row for row in safety.data["rows"]}
+    alpha = rows["Alpha Damascone"]
+    assert alpha["actual_pct"] > alpha["limit_pct"]
+    violations = {v["material"]: v for v in safety.data["headroom_violations"]}
+    group = violations["rose_ketones_total"]
+    assert "Alpha Damascone" in violations
+    headroom = _config().effective_ifra_headroom()
+
+    first = optimize_until_release_ready(
+        "Rose Ketone Row And Group Test", raw_pct, stock_dilutions=dilutions,
+        config=_config(), repair_pool=pool, max_passes=1,
+    )
+    caps = [
+        a for a in first.repair_actions
+        if a.action == "cap_ifra_finished_product_limit" and a.material == "Alpha Damascone"
+    ]
+    assert len(caps) == 1
+    (cap,) = caps
+    assert "rose_ketones_total" in cap.detail
+    group_factor = group["limit_pct"] * headroom / group["actual_pct"]
+    own_factor = alpha["limit_pct"] * headroom / alpha["actual_pct"]
+    assert group_factor < own_factor
+    assert cap.after_ul == pytest.approx(cap.before_ul * group_factor * 0.995, rel=1e-4)
 
 
 def test_gate_aware_optimizer_single_cap_clears_row_in_one_pass():
