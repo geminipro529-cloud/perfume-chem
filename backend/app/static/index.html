@@ -136,7 +136,7 @@
 
         <article id="improve-running" class="panel progress-card" hidden aria-live="polite">
           <span class="progress-spinner" aria-hidden="true"></span>
-          <div><p class="panel-index">Working locally</p><h2>Looking for the strongest useful clue…</h2><p id="improve-running-detail">The request is in the durable job queue.</p></div>
+          <div><p class="panel-index">Working locally</p><h2>Looking for the strongest useful clue…</h2><div id="improve-running-detail" class="engine-job-status"><p>The request is in the durable job queue.</p></div></div>
           <button id="cancel-improve-job" class="quiet-button" type="button">Cancel</button>
         </article>
 
@@ -463,6 +463,7 @@
                 <button id="formula-chat-submit" type="submit">Create my formula</button>
                 <button id="formula-chat-reset" class="quiet-button" type="button">Start another idea</button>
               </div>
+              <div id="formula-chat-job-status" class="engine-job-status" aria-live="polite" hidden></div>
             </form>
           </article>
 
