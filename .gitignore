@@ -147,3 +147,6 @@ incoming_review/*.exe
 !/inventory.txt
 !/requirements.txt
 !/requirements-bridge.txt
+
+# Pipeline audit log: appended on every gate run, kept local only.
+/data/pipeline_audit/events.jsonl
