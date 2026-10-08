@@ -40,7 +40,7 @@ def test_coriander_seed_eo_label_resolves_to_generic_seed_oil_physics_profile():
     "stock_label,profile_key,coverage",
     [
         ("Coriander Seed EO", "coriander essential oil", 0.7975),
-        ("Grapefruit FCF oil Sicilian", "grapefruit fcf", 0.698),
+        ("Grapefruit FCF oil Sicilian", "citrus paradisi expressed oil iso 3053 midpoint profile", 0.9816),
     ],
 )
 def test_exact_stock_labels_resolve_as_partial_non_batch_proxies(
