@@ -222,3 +222,19 @@ def test_browser_two_formulas_show_the_ab_pick_and_post_it(lab):
     assert body["formula_b_name"] == "Liking test · Variant two"
     assert body["formula_b_key"] == hashlib.sha256(_canonical(ROWS_B).encode()).hexdigest()
     assert body["shares_a"] == {"Hedione": 1.0} and body["crowd_a"] == 0.2
+
+
+def test_browser_save_stays_disabled_after_saving_until_undo(lab):
+    pytest.importorskip("playwright.sync_api")
+    feedback = _open(lab, _result())
+    row = lab.page.locator('#formula-result-liking .liking-row[data-window="opening"]')
+    row.locator('[data-liking="8"]').click()
+    save = row.locator(".liking-save")
+    save.click()
+    row.locator(".liking-status", has_text="Saved").wait_for()
+    assert save.is_disabled()
+    save.click(force=True)
+    assert [entry[:2] for entry in feedback].count(("POST", "/liking/ratings")) == 1
+    row.locator(".liking-undo").click()
+    row.locator(".liking-status", has_text="Removed").wait_for()
+    assert save.is_enabled()

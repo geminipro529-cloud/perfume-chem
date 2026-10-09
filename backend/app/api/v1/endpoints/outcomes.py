@@ -212,6 +212,10 @@ class LikingRatingResponse(LikingRatingCreate):
     model_config = {"from_attributes": True}
 
 
+class LikingRatingSaved(LikingRatingResponse):
+    personal_fit_written: bool
+
+
 class LikingPickCreate(BaseModel):
     window: LikingWindow
     formula_a_name: str = Field(..., min_length=1, max_length=255)
@@ -235,26 +239,16 @@ class LikingPickResponse(LikingPickCreate):
     model_config = {"from_attributes": True}
 
 
-async def _save_and_refit(db: AsyncSession) -> None:
-    """Refit and rewrite data/user/personal_liking.json, then commit.
-
-    The file is written before the commit, so a failed write leaves the change
-    unsaved rather than saved beside a stale personal fit.
-    """
-
-    await db.flush()
-    await personal_liking.refit_and_write(db)
-    await db.commit()
+class LikingPickSaved(LikingPickResponse):
+    personal_fit_written: bool
 
 
-@router.post("/liking/ratings", response_model=LikingRatingResponse, status_code=201)
+@router.post("/liking/ratings", response_model=LikingRatingSaved, status_code=201)
 async def record_liking_rating(body: LikingRatingCreate, db: AsyncSession = Depends(get_db)):
     """Record Kenny's liking for a bottle at one time point."""
     rating = LikingRating(**body.model_dump())
-    db.add(rating)
-    await _save_and_refit(db)
-    await db.refresh(rating)
-    return rating
+    rating, written = await personal_liking.save_record(db, rating)
+    return {**LikingRatingResponse.model_validate(rating).model_dump(), "personal_fit_written": written}
 
 
 @router.get("/liking/ratings", response_model=list[LikingRatingResponse])
@@ -276,19 +270,16 @@ async def delete_liking_rating(rating_id: int, db: AsyncSession = Depends(get_db
     rating = await db.get(LikingRating, rating_id)
     if rating is None:
         raise HTTPException(status_code=404, detail="Liking rating not found")
-    await db.delete(rating)
-    await _save_and_refit(db)
+    await personal_liking.delete_record(db, rating)
     return Response(status_code=204)
 
 
-@router.post("/liking/picks", response_model=LikingPickResponse, status_code=201)
+@router.post("/liking/picks", response_model=LikingPickSaved, status_code=201)
 async def record_liking_pick(body: LikingPickCreate, db: AsyncSession = Depends(get_db)):
     """Record which of two bottles Kenny preferred at one time point."""
     pick = LikingPick(**body.model_dump())
-    db.add(pick)
-    await _save_and_refit(db)
-    await db.refresh(pick)
-    return pick
+    pick, written = await personal_liking.save_record(db, pick)
+    return {**LikingPickResponse.model_validate(pick).model_dump(), "personal_fit_written": written}
 
 
 @router.get("/liking/picks", response_model=list[LikingPickResponse])
@@ -310,8 +301,7 @@ async def delete_liking_pick(pick_id: int, db: AsyncSession = Depends(get_db)):
     pick = await db.get(LikingPick, pick_id)
     if pick is None:
         raise HTTPException(status_code=404, detail="Liking pick not found")
-    await db.delete(pick)
-    await _save_and_refit(db)
+    await personal_liking.delete_record(db, pick)
     return Response(status_code=204)
 
 

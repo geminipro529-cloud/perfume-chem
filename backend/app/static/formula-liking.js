@@ -216,7 +216,7 @@ function likingRatingRow(choice, windowKey, windowLabel) {
   const scale = likingEl("div", "liking-scale");
   scale.setAttribute("role", "group");
   scale.setAttribute("aria-label", `How much you like it at ${windowLabel.toLowerCase()}, 1 to 10`);
-  const updateSave = () => { save.disabled = !link.ok || liking === null || saving; };
+  const updateSave = () => { save.disabled = !link.ok || liking === null || saving || savedId !== null; };
   for (let value = 1; value <= 10; value += 1) {
     const button = likingEl("button", "", String(value));
     button.type = "button";
@@ -282,6 +282,7 @@ function likingRatingRow(choice, windowKey, windowLabel) {
       await request(`/liking/ratings/${encodeURIComponent(savedId)}`, { method: "DELETE", base: LIKING_API });
       savedId = null;
       undo.hidden = true;
+      updateSave();
       status.textContent = "Removed";
     } catch (error) {
       status.textContent = `Not removed: ${error.message}`;
@@ -365,7 +366,7 @@ function likingPickBlock(choices) {
       } catch (error) {
         status.textContent = `Not saved: ${error.message}`;
       } finally {
-        buttons.forEach((other) => { other.disabled = false; });
+        buttons.forEach((other) => { other.disabled = savedId !== null; });
       }
     });
     return button;
@@ -377,6 +378,7 @@ function likingPickBlock(choices) {
       await request(`/liking/picks/${encodeURIComponent(savedId)}`, { method: "DELETE", base: LIKING_API });
       savedId = null;
       undo.hidden = true;
+      buttons.forEach((other) => { other.disabled = false; });
       status.textContent = "Removed";
     } catch (error) {
       status.textContent = `Not removed: ${error.message}`;

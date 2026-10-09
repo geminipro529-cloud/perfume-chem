@@ -23,7 +23,7 @@ from app.core.config import get_settings
 from app.core.logging import get_logger, setup_logging
 from app.core.tracing import setup_tracing
 from app.services import app_lock as app_lock_module
-from app.services import engine_worker_process
+from app.services import engine_worker_process, personal_liking
 
 settings = get_settings()
 logger = get_logger(__name__)
@@ -66,6 +66,8 @@ async def lifespan(app: FastAPI):
         except Exception:
             logger.exception("Database migration failed; application startup aborted.")
             raise
+
+        await personal_liking.refit_at_startup()
 
         # Engine jobs run only in a separate worker process.  Start one here so every
         # launch path (plain uvicorn included) gets one; deployments that run their
