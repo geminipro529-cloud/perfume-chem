@@ -437,9 +437,8 @@ def test_live_design_changes_roles_and_physical_rows_not_only_labels(prompt):
         assert set(variant["roles_requested"]) == {r["role_id"] for r in variant["role_plan"]}
         assert variant["solver"]["prohibited_objectives_used"] == []
         assert variant["critic"]["filler_rows_added"] == 0
-        assert not any(
-            "orris liquid" in r["identity_name"].casefold() for r in variant["formula"]["rows"]
-        )
+        # The Orris Liquid exclusion this used to check was lifted on Kenny's
+        # request (ac32ee9); layered roles may now pick it.
         own_materials = {r["material"] for r in variant["formula"]["rows"]}
         for frame in (variant["temporal_hypothesis"] or {}).get("sequence", []):
             assert {r["material"] for r in frame["intended_roles"]} <= own_materials

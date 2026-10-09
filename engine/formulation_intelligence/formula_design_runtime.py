@@ -16,7 +16,11 @@ from engine.formulation_intelligence.architecture_bridge import (
 )
 from engine.formulation_intelligence.composition_checks import attach_composition_checks
 from engine.formulation_intelligence.formula_critic import critique_formula
-from engine.formulation_intelligence.formula_solver import FormulaSolveResult, solve_formula
+from engine.formulation_intelligence.formula_solver import (
+    FormulaSolveResult,
+    _has_exact_material_count,
+    solve_formula,
+)
 from engine.formulation_intelligence.literature_knowledge import retrieve_formulation_knowledge
 from engine.formulation_intelligence.material_capability_index import (
     build_material_capability_index,
@@ -614,7 +618,7 @@ def design_formula(
     idea: str,
     formula_name: str | None = None,
     liquid_concentrate_ul_decimal: str = "6000",
-    max_materials: int = 15,
+    max_materials: int = 60,
     must_preserve: Sequence[str] = (),
     must_avoid: Sequence[str] = (),
     previous_stock_ids: Sequence[str] = (),
@@ -798,6 +802,7 @@ def design_formula(
             prior_variant_stock_ids=() if candidate_brief.architecture_plan else tuple(prior),
             variant_index=variant_index,
             beam_width=48 if design_mode == "DEEP_COMPOSE" else 12,
+            exact_material_count=_has_exact_material_count(interpretation),
         )
         solves.append(solve)
         prior.update(assignment.capability.stock_id for assignment in solve.assignments)

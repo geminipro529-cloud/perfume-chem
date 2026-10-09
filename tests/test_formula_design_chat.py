@@ -100,7 +100,9 @@ def test_formula_design_follow_up_keeps_a_bounded_inventory_seed() -> None:
     assert refined["constraint_audit"]["liquid_total_conserved"] is True
     refined_ids = {row["stock_id"] for row in refined["optimized_formula"]["rows"]}
     assert refined_ids & set(stock_ids)
-    assert 6 <= len(refined_ids) <= 8
+    # Concept roles, up to four supporting base layers and two supporting
+    # accord materials per requested note.
+    assert 6 <= len(refined_ids) <= 20
     assert refined["physical_compounding_performed"] is False
 
 
@@ -128,17 +130,18 @@ def test_formula_design_treats_sixty_as_a_ceiling_and_adds_no_filler() -> None:
     assert result["beauty_score"] is None
 
 
-def test_formula_design_default_ceiling_is_fifteen_materials() -> None:
-    # 2026-10-09: Kenny chose a 15-material default (was 30). Blends of many
-    # similar-strength materials blur together, so a larger formula is opt-in.
+def test_formula_design_default_ceiling_is_sixty_materials() -> None:
+    # 2026-10-09 08:01 UTC: Kenny raised the default ceiling from 15 to 60 so
+    # layers and accents fit. It is a ceiling: the composer stops once its
+    # notes, accords and layers are placed.
     result = design_inventory_formula(
         idea="a panoramic, exceptionally detailed modern chypre with rose, patchouli and oakmoss",
         formula_name="Panoramic Chypre",
     )
 
     rows = result["optimized_formula"]["rows"]
-    assert result["requested_material_limit"] == 15
-    assert 6 <= result["selected_material_count"] <= 15
+    assert result["requested_material_limit"] == 60
+    assert 6 <= result["selected_material_count"] < 60
     assert len(rows) == result["selected_material_count"]
     assert result["optimized_formula"]["separate_totals"]["liquid_total_ul"] == "6000"
 
@@ -243,6 +246,7 @@ def test_formula_design_honors_exact_seven_material_request() -> None:
     assert result["status"].startswith("INVENTORY_GROUNDED_DESIGN_READY")
     assert result["selected_material_count"] == 7
     assert result["effective_material_limit"] == 7
+    assert not any("__accord_" in row["slot"] for row in result["optimized_formula"]["rows"])
     assert (
         "REQUESTED_MATERIAL_COUNT_CONSTRAINTS_SATISFIED"
         in result["critic"]["passed_checks"]
@@ -947,3 +951,89 @@ def test_formula_design_does_not_add_third_tuberose_source_by_default() -> None:
         if "tuber" in (row["identity_name"] + row["stock_label"]).casefold()
     ]
     assert len(tuberose_rows) == 2
+
+
+def _base_layer_rows(result: dict) -> dict[str, dict]:
+    return {
+        row["slot"]: row
+        for row in result["optimized_formula"]["rows"]
+        if row["slot"].startswith("base_") and row["slot"].endswith(("_layer", "_contrast"))
+    }
+
+
+def test_formula_design_builds_a_layered_base_from_several_families() -> None:
+    result = design_inventory_formula(
+        idea="A warm woody amber for evening",
+        formula_name="Evening Amber",
+    )
+
+    layers = _base_layer_rows(result)
+    # Wood and amber are requested facets; the base adds a second wood, a musk
+    # and a balsamic resin around them instead of more of the same amber.
+    assert {"base_wood_contrast", "base_musk_layer", "base_resin_layer"} <= set(layers)
+    assert "drydown_structure" not in {row["slot"] for row in result["optimized_formula"]["rows"]}
+    base_identities = {
+        row["identity_name"]
+        for row in result["optimized_formula"]["rows"]
+        if row["note"] == "base"
+    }
+    assert len(base_identities) >= 5
+    total_ul = sum(int(row["amount_decimal"]) for row in result["optimized_formula"]["rows"])
+    for row in layers.values():
+        assert int(row["amount_decimal"]) <= total_ul * 0.08
+
+
+def test_formula_design_base_layers_respect_avoid_and_light_briefs() -> None:
+    result = design_inventory_formula(
+        idea="A fresh citrus cologne with a soft musky drydown",
+        formula_name="Clean Cologne",
+        must_avoid=("amber",),
+    )
+
+    layers = _base_layer_rows(result)
+    assert "skin_musk" in result["matched_descriptors"]
+    assert "base_amber_layer" not in layers
+    assert "base_resin_layer" not in layers
+    assert "base_musk_layer" not in layers  # the requested musk already covers it
+
+
+def test_formula_design_base_layers_never_reach_an_ifra_limit() -> None:
+    from engine.ifra_safety import get_ifra_limit
+
+    for idea in ("A warm woody amber for evening", "A rose perfume for spring"):
+        result = design_inventory_formula(idea=idea, formula_name="Layer IFRA")
+        supporting = [
+            *_base_layer_rows(result).values(),
+            *(row for row in result["optimized_formula"]["rows"] if "__accord_" in row["slot"]),
+        ]
+        assert supporting
+        for row in supporting:
+            limit = get_ifra_limit(row["identity_name"])
+            if limit is None:
+                continue
+            # 6,000 uL of concentrate in a 30 mL bottle.
+            finished_pct = (
+                float(row["amount_decimal"]) * float(row["stock_fraction_decimal"]) / 30_000 * 100
+            )
+            assert finished_pct <= limit, (idea, row["identity_name"], finished_pct, limit)
+
+
+def test_formula_design_builds_each_requested_note_as_an_accord() -> None:
+    # Two supports per note need room beyond the 15-material default.
+    result = design_inventory_formula(
+        idea="A warm woody amber for evening",
+        formula_name="Evening Amber",
+        max_materials=30,
+    )
+
+    rows = {row["slot"]: row for row in result["optimized_formula"]["rows"]}
+    for lead_slot in ("facet_dry_wood", "facet_amber_mineral"):
+        lead = rows[lead_slot]
+        supports = [rows[slot] for slot in rows if slot.startswith(f"{lead_slot}__accord_")]
+        assert len(supports) == 2, lead_slot
+        identities = {lead["identity_name"], *(row["identity_name"] for row in supports)}
+        assert len(identities) == 3
+        for support in supports:
+            assert support["note"] == lead["note"]
+            # The lead keeps the named character; supports add nuance.
+            assert int(support["amount_decimal"]) < int(lead["amount_decimal"])

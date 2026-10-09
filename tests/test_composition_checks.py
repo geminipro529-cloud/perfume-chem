@@ -7,6 +7,15 @@ CHYPRE = {
     "idea": "a panoramic, exceptionally detailed modern chypre with rose, patchouli and oakmoss",
     "formula_name": "Panoramic Chypre",
 }
+# The composer keeps IFRA-binding stock out of the roles it adds on its own,
+# so the damascone FAIL path needs a brief that names the material.
+NAMED_DAMASCONE_CHYPRE = {
+    "idea": (
+        "a panoramic, exceptionally detailed modern chypre with rose, patchouli, "
+        "oakmoss and alpha damascone"
+    ),
+    "formula_name": "Panoramic Chypre",
+}
 
 
 def _flagged(checks: dict) -> list[dict]:
@@ -14,7 +23,11 @@ def _flagged(checks: dict) -> list[dict]:
 
 
 def test_composed_chypre_carries_the_gate_ifra_fail_for_alpha_damascone() -> None:
-    report = design_inventory_formula(**CHYPRE)
+    unnamed = design_inventory_formula(**CHYPRE)
+    assert not any(
+        "damascone" in row["material"].casefold() for row in unnamed["optimized_formula"]["rows"]
+    )
+    report = design_inventory_formula(**NAMED_DAMASCONE_CHYPRE)
 
     checks = report["composition_checks"]
     assert "30 mL" in checks["basis"]

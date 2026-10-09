@@ -421,7 +421,7 @@ async def test_formula_studio_ui_exposes_inventory_and_conversation(client):
     assert 'id="formula-chat-log"' in page.text
     assert 'id="formula-chat-result"' in page.text
     assert "Create my formula" in page.text
-    assert '<option value="60">Maximum — up to 60</option>' in page.text
+    assert '<option value="60" selected>Maximum — up to 60</option>' in page.text
     assert "Any selected crystal remains a separate mg line" in page.text
     assert 'request("/v2/workbench/current-inventory")' in javascript.text
     assert 'request("/v2/workbench/current-inventory/complete"' in javascript.text

@@ -2101,7 +2101,7 @@ function resetFormulaChat(announce = true) {
   const form = $("#formula-chat-form");
   form.reset();
   $('[name="liquid_concentrate_ul_decimal"]', form).value = "6000";
-  $('[name="max_materials"]', form).value = "15";
+  $('[name="max_materials"]', form).value = "60";
   $('[name="design_mode"]', form).value = "FAST_SKETCH";
   $("#formula-chat-log").innerHTML = '<div class="chat-bubble assistant-bubble"><strong>Perfumer</strong><p>Tell me the name or feeling of the perfume you want to make. I will use your inventory, honor hard constraints first, and stop before filler.</p></div>';
   $("#formula-chat-result").hidden = true;
@@ -2128,7 +2128,7 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
       message,
       formula_name: data.formula_name || previous?.formula_name || null,
       liquid_concentrate_ul_decimal: String(data.liquid_concentrate_ul_decimal || "6000"),
-      max_materials: Number(data.max_materials || 15),
+      max_materials: Number(data.max_materials || 60),
       must_preserve: splitList(data.must_preserve),
       must_avoid: splitList(data.must_avoid),
       previous_stock_ids: previousRows.map((row) => row.stock_id),

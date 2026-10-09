@@ -4,8 +4,9 @@ from __future__ import annotations
 
 import hashlib
 import re
-from dataclasses import dataclass
-from typing import Any, Sequence
+from dataclasses import dataclass, replace
+from functools import lru_cache
+from typing import Any, Mapping, Sequence
 
 from engine.formulation_intelligence.material_capability_index import (
     MaterialCapability,
@@ -14,11 +15,23 @@ from engine.formulation_intelligence.material_capability_index import (
     capability_role_score,
     supports_descriptor_requirement,
 )
-from engine.formulation_intelligence.semantic_brief_adapter import SemanticBrief, SemanticRole
+from engine.formulation_intelligence.semantic_brief_adapter import (
+    ACCENT_MAX_RAW_SHARE,
+    ACCENT_PROVENANCE,
+    ACCORD_SUPPORT_PROVENANCE,
+    LAYER_MAX_RAW_SHARE,
+    LAYER_PROVENANCE,
+    SemanticBrief,
+    SemanticRole,
+    accord_lead_role_id,
+)
 from engine.research.composition_planner import (
     Choice,
     RoleSpec,
+    _allocate_capped,
+    _allocation_weight,
     _avoid_candidate,
+    _design_cap_ul,
     _formula_rows,
     _hard_cap_ul,
 )
@@ -79,6 +92,269 @@ def _role_spec(role: SemanticRole) -> RoleSpec:
     )
 
 
+# Generic structural roles the composer adds to bridge the requested notes.
+# While a named note can still take volume, none of them may carry the formula.
+_BRIDGE_PROVENANCE = frozenset({
+    "FUNCTIONAL_COVERAGE",
+    "MINIMUM_FUNCTIONAL_ARCHITECTURE",
+    "PROMPT_REQUESTED_EXPANDED_ARCHITECTURE",
+})
+_BRIDGE_MAX_RAW_SHARE = .12
+
+
+def _is_named_note(role: SemanticRole) -> bool:
+    return (
+        role.provenance in {"PROMPT_DERIVED_FACET", ACCORD_SUPPORT_PROVENANCE}
+        or role.exact_material is not None
+    )
+
+
+def _ifra_admits_raw_share(capability: MaterialCapability, raw_share: float) -> bool:
+    """False when a raw share could breach the stock's IFRA Cat 4 limit.
+
+    Same worst case as `_ifra_binds_layer`: the concentrate is up to 30% of
+    the finished perfume.  A prohibited material never qualifies.
+    """
+
+    entry = _ifra_entry(capability.identity_name)
+    if entry is None:
+        return True
+    status, limit = entry
+    if status == "prohibited":
+        return False
+    if status != "restricted" or limit is None:
+        return True
+    fraction = float(capability.candidate.stock.dilution)
+    return raw_share * _CONCENTRATE_FINISHED_FRACTION * fraction * 100 <= limit
+
+
+def _ifra_safe_supports(
+    assignments: Sequence[SolvedAssignment],
+    choices: Sequence[Choice],
+    supports: Sequence[int],
+    spare_ul: float,
+    liquid_total_ul: int,
+) -> list[int]:
+    """The supports that can take their part of the spare volume within IFRA.
+
+    A support whose ceiling plus its part would breach its Cat 4 limit takes
+    none; the rest share its part, so the check repeats until it settles.
+    """
+
+    eligible = list(supports)
+    while eligible:
+        share_total = sum(choices[index].role.share for index in eligible)
+        safe = [
+            index
+            for index in eligible
+            if _ifra_admits_raw_share(
+                assignments[index].capability,
+                (
+                    (_design_cap_ul(choices[index], liquid_total_ul) or liquid_total_ul)
+                    + spare_ul * choices[index].role.share / share_total
+                ) / liquid_total_ul,
+            )
+        ]
+        if safe == eligible:
+            return eligible
+        eligible = safe
+    return eligible
+
+
+def _bridge_cap_ul(
+    caps: dict[int, int],
+    other_capacity: int,
+    liquid_total_ul: int,
+) -> int | None:
+    """The smallest common bridge cap (at least 12%) that still places the liquid.
+
+    A bridge whose own cap is already smaller keeps it, so it counts at that
+    capacity and the shortfall is shared over the remaining bridges.  None
+    means even the bridges' own caps cannot hold the liquid total.
+    """
+
+    floor = int(liquid_total_ul * _BRIDGE_MAX_RAW_SHARE)
+    if other_capacity + sum(caps.values()) < liquid_total_ul:
+        return None
+    if other_capacity + sum(min(cap, floor) for cap in caps.values()) >= liquid_total_ul:
+        return floor
+    remaining = liquid_total_ul - other_capacity
+    open_count = len(caps)
+    for cap in sorted(caps.values()):
+        if cap * open_count >= remaining:
+            break
+        remaining -= cap
+        open_count -= 1
+    return max(floor, -(-remaining // open_count))
+
+
+def _hold_hard_capped_bridges(
+    choices: list[Choice],
+    targets: dict[int, int],
+    free: Sequence[int],
+    liquid_total_ul: int,
+) -> bool:
+    """Hold hard-capped bridges to the bridge cap by scaling their share down.
+
+    The planner applies a stock's hard dose cap instead of the role's raw-share
+    ceiling, so for such a bridge (cis-Jasmone 10%, Methyl Laitone 1%) the
+    ceiling cannot be set.  Its share is scaled instead, checked against the
+    planner's own capped allocation.  Returns False if that does not settle.
+    """
+
+    for _ in range(8):
+        try:
+            allocated = _allocate_capped(
+                liquid_total_ul,
+                [
+                    (index, _allocation_weight(choices[index]), _design_cap_ul(choices[index], liquid_total_ul))
+                    for index in free
+                ],
+            )
+        except ValueError:
+            return False
+        over = {index: allocated[index] for index, target in targets.items() if allocated[index] > target}
+        if not over:
+            return True
+        for index, amount in over.items():
+            role = choices[index].role
+            choices[index] = replace(
+                choices[index],
+                role=replace(role, share=role.share * targets[index] / amount * .98),
+            )
+    return False
+
+
+def _route_spare_volume(
+    assignments: Sequence[SolvedAssignment],
+    choices: Sequence[Choice],
+    liquid_total_ul: int,
+) -> tuple[Choice, ...]:
+    """Keep volume a hard cap frees on the named notes, not on generic bridges.
+
+    The planner hands volume a capped row cannot take to every open row in
+    proportion to weight, so a trace-capped accord lead (Rose Oxide) would let
+    the bridges carry the perfume.  The unused part of a capped lead's weight
+    moves to its own accord supports instead (never past a support's IFRA
+    Cat 4 limit), and a bridge is held to 12% of the liquid while a named note
+    can still take volume.  The bridge cap only rises as far as needed for the
+    caps to hold the whole liquid total; if no cap can, or a hard-capped
+    bridge cannot be held, the planner's own choices are returned unchanged.
+
+    The rows report these routed shares as `design_share_decimal`, so that
+    field shows the share the allocation used, not the brief's original one.
+    """
+
+    free = [index for index, choice in enumerate(choices) if not choice.candidate.solid]
+    weights = {index: _allocation_weight(choices[index]) for index in free}
+    weight_total = sum(weights.values())
+    specs = {index: choices[index].role for index in free}
+    for lead in free:
+        role = assignments[lead].role
+        cap = _hard_cap_ul(choices[lead].candidate, liquid_total_ul)
+        expected = liquid_total_ul * weights[lead] / weight_total if weight_total else 0.0
+        if role.provenance != "PROMPT_DERIVED_FACET" or cap is None or cap >= expected:
+            continue
+        spare_ul = expected - cap
+        supports = _ifra_safe_supports(
+            assignments,
+            choices,
+            [
+                index
+                for index in free
+                if accord_lead_role_id(assignments[index].role) == role.role_id
+                and _hard_cap_ul(choices[index].candidate, liquid_total_ul) is None
+            ],
+            spare_ul,
+            liquid_total_ul,
+        )
+        if not supports:
+            continue
+        spare_weight = weights[lead] * spare_ul / expected
+        specs[lead] = replace(specs[lead], share=specs[lead].share * cap / expected)
+        support_share = sum(choices[index].role.share for index in supports)
+        for index in supports:
+            part = choices[index].role.share / support_share
+            # Shares are converted back from allocation weight, which may be
+            # stock-strength compensated; the support's ceiling grows by the
+            # volume it receives.
+            per_share = weights[index] / max(choices[index].role.share, 0.000001)
+            specs[index] = replace(
+                specs[index],
+                share=specs[index].share + spare_weight * part / per_share,
+                max_raw_share=(
+                    None
+                    if specs[index].max_raw_share is None
+                    else specs[index].max_raw_share + spare_ul * part / liquid_total_ul
+                ),
+            )
+
+    adjusted = [
+        replace(choice, role=specs[index]) if index in specs else choice
+        for index, choice in enumerate(choices)
+    ]
+    named_open = any(
+        _is_named_note(assignments[index].role)
+        and _hard_cap_ul(choices[index].candidate, liquid_total_ul) is None
+        for index in free
+    )
+    bridge_caps = {
+        index: _design_cap_ul(adjusted[index], liquid_total_ul) or liquid_total_ul
+        for index in free
+        if assignments[index].role.provenance in _BRIDGE_PROVENANCE
+    }
+    if not bridge_caps or not named_open:
+        return tuple(adjusted)
+    other_capacity = sum(
+        _design_cap_ul(adjusted[index], liquid_total_ul) or liquid_total_ul
+        for index in free
+        if index not in bridge_caps
+    )
+    # Relax rather than fail: if the other rows cannot hold what the bridges
+    # give up, the bridges keep just enough to place the whole liquid total.
+    bridge_cap = _bridge_cap_ul(bridge_caps, other_capacity, liquid_total_ul)
+    if bridge_cap is None:
+        return tuple(choices)
+    hard_capped: dict[int, int] = {}
+    for index, cap in bridge_caps.items():
+        if cap <= bridge_cap:
+            continue
+        if _hard_cap_ul(adjusted[index].candidate, liquid_total_ul) is not None:
+            hard_capped[index] = bridge_cap
+            continue
+        # Half a microlitre over, so the planner's floor lands on the cap.
+        adjusted[index] = replace(
+            adjusted[index],
+            role=replace(adjusted[index].role, max_raw_share=(bridge_cap + .5) / liquid_total_ul),
+        )
+    if hard_capped and not _hold_hard_capped_bridges(adjusted, hard_capped, free, liquid_total_ul):
+        return tuple(choices)
+    return tuple(adjusted)
+
+
+def _has_exact_material_count(interpretation: Mapping[str, Any]) -> bool:
+    return any(
+        row.get("kind") == "EXACT"
+        for row in interpretation.get("material_count_constraints", ())
+    )
+
+
+def _allocation_choices(
+    assignments: Sequence[SolvedAssignment],
+    choices: Sequence[Choice],
+    liquid_total_ul: int,
+    explicit_quantities: Sequence[dict[str, Any]],
+    exact_material_count: bool = False,
+) -> tuple[Choice, ...]:
+    """The choices the dose allocation sees; audits replay through this too."""
+
+    if explicit_quantities or exact_material_count:
+        # Exact-quantity and exact-count requests keep the planner's own
+        # allocation: every row there is one the user asked to count.
+        return tuple(choices)
+    return _route_spare_volume(assignments, choices, liquid_total_ul)
+
+
 def _allows_multiple_musks(request: str, roles: Sequence[SemanticRole]) -> bool:
     explicit_musks = sum(
         role.exact_material is not None
@@ -127,6 +403,127 @@ def _family_bucket(capability: MaterialCapability) -> str | None:
     return None
 
 
+# Roles the composer adds on its own, as opposed to notes the user asked for.
+# A material IFRA could limit at their dose never fills one by default.
+_SUPPORTING_PROVENANCE = frozenset({
+    *LAYER_PROVENANCE.values(),
+    ACCENT_PROVENANCE,
+    ACCORD_SUPPORT_PROVENANCE,
+    "FUNCTIONAL_COVERAGE",
+    "MINIMUM_FUNCTIONAL_ARCHITECTURE",
+    "PROMPT_REQUESTED_EXPANDED_ARCHITECTURE",
+})
+
+# Worst case for a supporting role: its raw-share ceiling (8% unless the role
+# sets a smaller one) in a concentrate that is up to 30% of the finished
+# perfume (extrait strength).
+_SUPPORTING_RAW_SHARE_CEILING = LAYER_MAX_RAW_SHARE
+_CONCENTRATE_FINISHED_FRACTION = .30
+# Requested notes: the planner's default role cap when a facet sets none, in
+# the standard concentrate (6,000 uL in a 30 mL bottle).
+_REQUESTED_NOTE_RAW_SHARE_CEILING = .28
+_STANDARD_FINISHED_FRACTION = .20
+
+
+@lru_cache(maxsize=None)
+def _ifra_entry(identity_name: str) -> tuple[str, float | None] | None:
+    from engine.ifra_safety import _IFRA_TABLE
+
+    entry = _IFRA_TABLE.lookup(identity_name)
+    if entry is None:
+        return None
+    return entry.status, entry.cat4_limit_pct
+
+
+def _ifra_binds_layer(capability: MaterialCapability, role: SemanticRole) -> bool:
+    """True when IFRA could bind at a role's dose ceiling.
+
+    Supporting roles are judged at their raw-share ceiling in an extrait-strength
+    concentrate.  A requested note named only by a descriptor ("vanilla") is
+    judged at its own raw-share cap in the standard 6,000 uL-in-30 mL
+    concentrate, so it keeps its core materials (neat Geraniol for a rose) but
+    never reaches for one IFRA limits below that dose (Peru Balsam for
+    vanilla).  A stock the user names is always their call.
+    """
+
+    entry = _ifra_entry(capability.identity_name)
+    if entry is None:
+        return False
+    status, limit = entry
+    if status == "prohibited":
+        return True
+    if status != "restricted" or limit is None:
+        return False
+    if role.provenance == "PROMPT_DERIVED_FACET":
+        ceiling = (role.max_raw_share or _REQUESTED_NOTE_RAW_SHARE_CEILING) * _STANDARD_FINISHED_FRACTION
+    else:
+        ceiling = (
+            min(role.max_raw_share or _SUPPORTING_RAW_SHARE_CEILING, _SUPPORTING_RAW_SHARE_CEILING)
+            * _CONCENTRATE_FINISHED_FRACTION
+        )
+    fraction = float(capability.candidate.stock.dilution)
+    return ceiling * fraction * 100 > limit
+
+
+def _accent_admits(capability: MaterialCapability, role: SemanticRole) -> bool:
+    """A potent stock may be an accent when its own dose stays a trace.
+
+    A trace material qualifies only from a dilution of 10% or less, and a
+    material with a hard dose cap only when that cap sits inside the accent's
+    own raw-share ceiling, so the cap can never hand it extra volume.
+    """
+
+    if "trace" in capability.function_terms and float(capability.candidate.stock.dilution) > .1:
+        return False
+    probe_total = 10_000
+    cap = _hard_cap_ul(capability.candidate, probe_total)
+    return cap is None or cap <= probe_total * (role.max_raw_share or ACCENT_MAX_RAW_SHARE)
+
+
+def _supports_accord(capability: MaterialCapability, role: SemanticRole) -> bool:
+    """A supporting accord stock sits in the lead's note and carries its odor.
+
+    Its own annotated character must be clearly present (3 of 10 or more) on
+    the role's strongest requested dimension; a synergy listing alone never
+    qualifies a stock.  Family buckets elsewhere keep it from repeating the
+    lead's family.
+    """
+
+    if capability.note != role.note:
+        return False
+    positive = [(weight, dimension) for dimension, weight in role.character_weights if weight > 0]
+    if not positive:
+        return True
+    _weight, dimension = max(positive)
+    return capability.character_map.get(dimension, 0.0) >= 3.0
+
+
+def _accord_affinity(
+    capability: MaterialCapability,
+    role: SemanticRole,
+    state: "_BeamState",
+) -> float:
+    """Rank supports by declared pairing with their own lead stock."""
+
+    lead_id = accord_lead_role_id(role)
+    if lead_id is None:
+        return 0.0
+    lead = next(
+        (cap for prior, cap, _score in state.assignments if prior.role_id == lead_id),
+        None,
+    )
+    if lead is None:
+        return 0.0
+    affinity = 0.0
+    own = " ".join(capability.candidate.profile.synergies).casefold()
+    theirs = " ".join(lead.candidate.profile.synergies).casefold()
+    if lead.identity_name.casefold() in own:
+        affinity += .6
+    if capability.identity_name.casefold() in theirs:
+        affinity += .6
+    return affinity
+
+
 def _allowed(
     capability: MaterialCapability,
     role: SemanticRole,
@@ -173,10 +570,27 @@ def _allowed(
         }
         if None in previous_slots or role.knowledge_role_slot in previous_slots:
             return False
+    if (
+        role.exact_material is None
+        and (
+            role.provenance in _SUPPORTING_PROVENANCE
+            # A reviewed recognizer slot (iris root texture) may have a single
+            # eligible stock; the release gate's IFRA check judges that one.
+            or (role.provenance == "PROMPT_DERIVED_FACET" and not role.knowledge_role_slot)
+        )
+        and _ifra_binds_layer(capability, role)
+    ):
+        return False
+    if role.provenance == ACCORD_SUPPORT_PROVENANCE and not _supports_accord(capability, role):
+        return False
     if capability.candidate.solid and role.exact_material is None:
         # A solid needs an explicit mass-bearing request.  Selecting one from a
         # descriptor alone would force the solver to invent a mass operation.
         return False
+    if role.provenance == ACCENT_PROVENANCE and role.exact_material is None:
+        # Accents are the one supporting place for potent materials, kept to
+        # a trace by _accent_admits and the accent's small raw-share ceiling.
+        return _accent_admits(capability, role)
     if (
         role.exact_material is None
         and role.provenance != "PROMPT_DERIVED_FACET"
@@ -285,7 +699,12 @@ def _rank_for_state(
 ) -> list[tuple[float, MaterialCapability]]:
     selected = tuple(item[1] for item in state.assignments)
     ranked = [
-        (score + _pair_adjustment(capability, selected), capability)
+        (
+            score
+            + _pair_adjustment(capability, selected)
+            + _accord_affinity(capability, role, state),
+            capability,
+        )
         for score, capability in unary_ranked
         if _allowed(
             capability,
@@ -443,6 +862,7 @@ def solve_formula(
     prior_variant_stock_ids: Sequence[str] = (),
     variant_index: int = 0,
     beam_width: int = 48,
+    exact_material_count: bool = False,
 ) -> FormulaSolveResult:
     if liquid_total_ul <= 0:
         raise ValueError("liquid_total_ul must be positive")
@@ -465,6 +885,9 @@ def solve_formula(
             alternatives=assignment.alternatives,
         )
         for assignment in assignments
+    )
+    choices = _allocation_choices(
+        assignments, choices, liquid_total_ul, explicit_quantities, exact_material_count,
     )
     rows: list[dict[str, Any]] = []
     totals = {"liquid_total_ul": "0", "mass_total_mg": "0"}
