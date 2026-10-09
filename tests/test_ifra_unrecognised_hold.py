@@ -66,15 +66,17 @@ def test_word_order_variant_is_checked_against_its_limit_and_group():
 
 
 def test_unrecognised_row_holds_the_gate():
-    # A compounded base: its composition is not one molecule, so it stays unrecognised.
-    assert TABLE.lookup("Black Tea Base") is None
-    gate = _gate({"Evernyl": 240.0, "Black Tea Base": 20.0})
+    # A trade name whose identity was not confirmed: it stays unrecognised. (Supplier
+    # bases with no published composition are flagged instead; see
+    # test_ifra_undisclosed_bases.py.)
+    assert TABLE.lookup("Vertofix") is None
+    gate = _gate({"Evernyl": 240.0, "Vertofix": 20.0})
 
     assert gate.status == "HOLD"
-    assert "Black Tea Base" in gate.detail
+    assert "Vertofix" in gate.detail
     assert "To clear" in gate.detail
-    assert gate.data["unchecked"] == ["Black Tea Base"]
-    hold = next(h for h in gate.data["holds"] if h["material"] == "Black Tea Base")
+    assert gate.data["unchecked"] == ["Vertofix"]
+    hold = next(h for h in gate.data["holds"] if h["material"] == "Vertofix")
     assert "not recognised by the IFRA Category 4 table" in hold["message"]
     assert "supplier's IFRA certificate" in hold["message"]
 
@@ -115,7 +117,21 @@ def test_formula_with_every_row_recognised_keeps_its_verdict():
 # Owned stocks reviewed against the IFRA Standards Library on 2026-10-09 and left
 # unrecognised on purpose: compounded bases, naturals and absolutes, a Schiff base,
 # cedarwood-derived grades that may carry cedrene (IFRA_STD_197, Category 4 1.5 %), and
-# trade names whose identity was not confirmed from a source. Each must keep holding.
+# trade names whose identity was not confirmed from a source. Each must keep holding,
+# except the supplier bases with no published composition, which are flagged by name
+# with a warning (Kenny, 2026-10-09), and Aurantiol, whose hydroxycitronellal share is
+# counted as a Schiff base.
+FLAGGED_BASES = {
+    "Black Agarwood Artificial",
+    "Black Tea Base",
+    "Castoreum Synthetic",
+    "Clearwood",
+    "Costus Olifac 10%",
+    "Lilyreal ND",
+    "Suederal 10%",
+    "Tonkarome",
+}
+SCHIFF_BASES = {"Aurantiol 10% in DPG"}
 STILL_HELD = {
     "Ambrette Seed Absolute",
     "Aurantiol 10% in DPG",
@@ -153,8 +169,10 @@ def test_every_owned_stock_is_matched_or_holds_by_name():
 
     gate = _gate({name: 10.0 for name in unmatched})
     assert gate.status == "HOLD"
-    assert sorted(gate.data["unchecked"]) == unmatched
+    assert sorted(gate.data["unchecked"]) == sorted(set(unmatched) - SCHIFF_BASES)
     held = {h["material"] for h in gate.data["holds"]}
-    assert set(unmatched) <= held
-    for name in unmatched:
+    assert set(unmatched) - FLAGGED_BASES - SCHIFF_BASES <= held
+    assert not held & (FLAGGED_BASES | SCHIFF_BASES)
+    assert {u["material"] for u in gate.data["undisclosed_bases"]} == FLAGGED_BASES
+    for name in set(unmatched) - SCHIFF_BASES:
         assert name in gate.detail

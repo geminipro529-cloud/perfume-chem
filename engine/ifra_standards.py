@@ -18,6 +18,9 @@ from dataclasses import dataclass, field, replace
 from decimal import Decimal, InvalidOperation
 from functools import lru_cache
 from pathlib import Path
+from typing import TypeVar
+
+_T = TypeVar("_T")
 
 SCHEMA_VERSION = "ifra_cat4_table/1"
 DEFAULT_TABLE_PATH = (
@@ -45,6 +48,8 @@ GROUP_RULES = frozenset({"sum_le_limit", "sum_of_ratios_le_1"})
 
 CONSTITUENTS_SCHEMA_VERSION = "ifra_annex1_constituents/1"
 DEFAULT_CONSTITUENTS_PATH = DEFAULT_TABLE_PATH.parent / "ifra_annex1_constituents.json"
+UNDISCLOSED_BASES_SCHEMA_VERSION = "ifra_undisclosed_bases/1"
+DEFAULT_UNDISCLOSED_BASES_PATH = DEFAULT_TABLE_PATH.parent / "ifra_undisclosed_bases.json"
 
 _TOLERANCE = 1e-12
 _PERCENT_NUMBER = re.compile(r"(\d+(?:[.,]\d+)?)\s*%")
@@ -220,9 +225,12 @@ class IFRAGroupCheck:
 class IFRAConstituentContributor:
     # Table canonical name; the key of this material in the group check's member_pcts.
     material: str
-    kind: str  # "natural" (an Annex I constituent) or "synthetic" (the substance's own row)
+    # "natural" (an Annex I constituent), "schiff_base" (the substance's share by mass of a
+    # Schiff base made from it) or "synthetic" (the substance's own row)
+    kind: str
     pct: float  # the material's own finished-product % w/w
-    constituent_pct: float | None  # natural only: its Annex I level of the substance, %
+    # natural: its Annex I level of the substance, %; schiff_base: the substance's mass share
+    constituent_pct: float | None
     ncs_name: str | None  # natural only: the Annex I row that level comes from
     contribution_pct: float  # finished-product % w/w of the substance from this material
 
@@ -237,11 +245,31 @@ class IFRAConstituentTotal:
 
 
 @dataclass(frozen=True)
+class SchiffBase:
+    """A Schiff base whose share of a restricted aldehyde counts toward that aldehyde's total."""
+
+    name: str
+    standard: str
+    substance: str
+    share_pct: float  # % of the Schiff base's mass that is the restricted substance
+    source: str
+
+
+@dataclass(frozen=True)
+class UndisclosedBase:
+    """A supplier base whose composition is not published: flagged, never counted."""
+
+    name: str
+    reason: str
+
+
+@dataclass(frozen=True)
 class NaturalConstituents:
     """IFRA Annex I levels of restricted substances in owned naturals, per stock.
 
     ``stocks`` maps a stock's IFRA-table canonical name to {standard id: (level %, NCS
     name)}; the level is the highest across the stock's candidate NCS rows, never a sum.
+    ``schiff_bases`` maps a Schiff base's name to the restricted substance it is made from.
     """
 
     amendment: int | None
@@ -249,6 +277,11 @@ class NaturalConstituents:
     verification: str | None
     stocks: Mapping[str, Mapping[str, tuple[float, str]]]
     standards: frozenset[str] = frozenset()  # every standard the file has rows for
+    schiff_bases: Mapping[str, SchiffBase] = field(default_factory=dict)
+
+    def schiff_base(self, names: Sequence[str | None]) -> SchiffBase | None:
+        """The Schiff base a row names, by any of its names with stock suffixes stripped."""
+        return _match_by_name(self.schiff_bases, names)
 
     def coverage_note(self, table: IFRATable) -> str:
         names = sorted({table.standards[sid].name for sid in self.standards})
@@ -377,13 +410,61 @@ def _load_constituents(path: Path) -> NaturalConstituents:
                 if row["standard"] not in levels or level > levels[row["standard"]][0]:
                     levels[row["standard"]] = (level, ncs)
         stocks[stock] = levels
+    schiff_bases = {}
+    for name, rec in raw.get("schiff_bases", {}).items():
+        if not _is_number(rec.get("share_pct")) or not 0 < rec["share_pct"] <= 100:
+            raise ValueError(f"{path}: Schiff base {name!r} needs a share_pct in (0, 100]")
+        schiff_bases[name] = SchiffBase(
+            name, rec["standard"], rec["substance"], float(rec["share_pct"]), rec["source"]
+        )
     return NaturalConstituents(
         amendment=raw.get("amendment"),
         amendment_year=raw.get("amendment_year"),
         verification=raw.get("verification"),
         stocks=stocks,
         standards=frozenset(row["standard"] for rows in rows_by_ncs.values() for row in rows),
+        schiff_bases=schiff_bases,
     )
+
+
+def load_undisclosed_bases(path: str | Path | None = None) -> tuple[UndisclosedBase, ...]:
+    """Load the supplier bases whose composition is not published. Default path is cached."""
+    if path is None:
+        return _load_default_undisclosed_bases()
+    return _load_undisclosed_bases(Path(path))
+
+
+@lru_cache(maxsize=1)
+def _load_default_undisclosed_bases() -> tuple[UndisclosedBase, ...]:
+    return _load_undisclosed_bases(DEFAULT_UNDISCLOSED_BASES_PATH)
+
+
+def _load_undisclosed_bases(path: Path) -> tuple[UndisclosedBase, ...]:
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if raw.get("schema_version") != UNDISCLOSED_BASES_SCHEMA_VERSION:
+        raise ValueError(
+            f"{path}: schema_version {raw.get('schema_version')!r} is not "
+            f"{UNDISCLOSED_BASES_SCHEMA_VERSION!r}"
+        )
+    return tuple(UndisclosedBase(b["name"], b["reason"]) for b in raw.get("bases", ()))
+
+
+def undisclosed_base(
+    bases: Iterable[UndisclosedBase], names: Sequence[str | None]
+) -> UndisclosedBase | None:
+    """The undisclosed base a row names, by any of its names with stock suffixes stripped."""
+    return _match_by_name({b.name: b for b in bases}, names)
+
+
+def _match_by_name(entries: Mapping[str, _T], names: Sequence[str | None]) -> _T | None:
+    keyed = {_normalise(name): entry for name, entry in entries.items()}
+    for name in names:
+        if not name:
+            continue
+        for form in (name, stock_base_name(name)):
+            if (entry := keyed.get(_normalise(form))) is not None:
+                return entry
+    return None
 
 
 def _parse_standard(sid: str, rec: Mapping) -> IFRAStandard:
@@ -605,11 +686,21 @@ def evaluate_ifra(
     pct_by_member: dict[str, float] = {}
     restricted_rows: dict[str, list[str]] = {}
     natural_pcts: dict[str, float] = {}
+    schiff_pcts: dict[str, float] = {}
     for row_name, pct in pct_by_material.items():
         extra = alt_names.get(row_name, ())
         candidates = [row_name, *([extra] if isinstance(extra, str) else extra)]
         matched_name, material = table._match(candidates)
         pct = float(pct)
+        schiff = (
+            constituents.schiff_base(candidates)
+            if material is None and constituents is not None
+            else None
+        )
+        if schiff is not None:
+            schiff_pcts[schiff.name] = schiff_pcts.get(schiff.name, 0.0) + pct
+            checks.append(_schiff_base_row(row_name, schiff, pct))
+            continue
         if material is None:
             checks.append(IFRACheck(
                 row_name, None, None, None, pct, None, None, "unchecked",
@@ -622,7 +713,9 @@ def evaluate_ifra(
         if constituents is not None and material.name in constituents.stocks:
             natural_pcts[material.name] = natural_pcts.get(material.name, 0.0) + pct
         checks.append(_check_row(row_name, matched_name, material, pct, edge_ratio, headroom))
-    totals = _constituent_totals(table, constituents, natural_pcts, pct_by_member, restricted_rows)
+    totals = _constituent_totals(
+        table, constituents, natural_pcts, schiff_pcts, pct_by_member, restricted_rows
+    )
     counted = {t.standard for t in totals}
     rules = [
         *table.group_rules,
@@ -645,13 +738,19 @@ def _constituent_totals(
     table: IFRATable,
     constituents: NaturalConstituents | None,
     natural_pcts: Mapping[str, float],
+    schiff_pcts: Mapping[str, float],
     pct_by_member: Mapping[str, float],
     restricted_rows: Mapping[str, Sequence[str]],
 ) -> tuple[IFRAConstituentTotal, ...]:
-    """Per standard a mapped natural contributes to: its synthetic rows plus natural shares."""
-    if constituents is None or not natural_pcts:
+    """Per standard a natural or Schiff base contributes to: synthetic rows plus shares."""
+    if constituents is None or not (natural_pcts or schiff_pcts):
         return ()
     shares: dict[str, list[IFRAConstituentContributor]] = {}
+    for name, pct in schiff_pcts.items():
+        schiff = constituents.schiff_bases[name]
+        shares.setdefault(schiff.standard, []).append(IFRAConstituentContributor(
+            name, "schiff_base", pct, schiff.share_pct, None, pct * schiff.share_pct / 100.0
+        ))
     for natural, pct in natural_pcts.items():
         for sid, (level, ncs) in constituents.stocks[natural].items():
             contribution = pct * level / 100.0
@@ -705,9 +804,14 @@ def _constituent_group_check(
     else:
         lead = "is within"
     parts = ", ".join(_contribution_text(c) for c in total.contributors)
+    kinds = {c.kind for c in total.contributors}
+    sources = [
+        *(["naturals' IFRA Annex I constituents"] if "natural" in kinds else []),
+        *(["Schiff bases' share"] if "schiff_base" in kinds else []),
+    ]
     message = (
-        f"{total.substance} ({total.standard}) including naturals' IFRA Annex I "
-        f"constituents: {parts}; total {_fmt(total.total)} % {lead} the IFRA Category 4 "
+        f"{total.substance} ({total.standard}) including {' and '.join(sources)}: "
+        f"{parts}; total {_fmt(total.total)} % {lead} the IFRA Category 4 "
         f"limit of {_fmt(total.limit_pct)} %"
         + (f" (headroom {headroom:g})." if headroom != 1 else ".")
     )
@@ -717,9 +821,35 @@ def _constituent_group_check(
 def _contribution_text(c: IFRAConstituentContributor) -> str:
     if c.kind == "synthetic":
         return f"{c.material} {_fmt(c.contribution_pct)} %"
+    if c.kind == "schiff_base":
+        return (
+            f"{c.material} {_fmt(c.contribution_pct)} % ({_fmt(c.pct)} % of the product x "
+            f"{_fmt(c.constituent_pct or 0.0)} % by mass, Schiff base)"
+        )
     return (
         f"{c.material} {_fmt(c.contribution_pct)} % ({_fmt(c.pct)} % of the product x up "
         f"to {_fmt(c.constituent_pct or 0.0)} % in {c.ncs_name})"
+    )
+
+
+def _schiff_base_row(row_name: str, schiff: SchiffBase, pct: float) -> IFRACheck:
+    """A Schiff base's own row passes; its share of the restricted substance is in the total."""
+    return IFRACheck(
+        material=row_name,
+        matched_name=schiff.name,
+        status="schiff_base",
+        standard=schiff.standard,
+        pct=pct,
+        limit_pct=None,
+        ratio=None,
+        verdict="pass",
+        message=(
+            f"{row_name} at {_fmt(pct)} % is a Schiff base of {schiff.substance}; "
+            f"{_fmt(schiff.share_pct)} % of it ({_fmt(pct * schiff.share_pct / 100.0)} % of "
+            f"the product) is counted toward the {schiff.substance} ({schiff.standard}) "
+            f"total. Source: {schiff.source}."
+        ),
+        ifra_name=schiff.name,
     )
 
 
