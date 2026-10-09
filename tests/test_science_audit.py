@@ -114,9 +114,14 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # Labelled proxy profiles for Ambrette Seed Absolute, Lavandin Absolute,
     # Orris Concrete Orris Butter and Cinnamon Bark EO (Telvada) made them
     # OAV-available (231 -> 235).
-    assert audit["oav_available_count"] == 235
-    assert audit["oav_unknown_count"] == 55
-    assert audit["oav_coverage_pct"] == 81.034
+    # Name links put Aldehyde C-12 Lauric Dodecanal, Aldehyde C-18 and Phenyl
+    # Acetaldehyde on thresholds held under another name (235 -> 238), and
+    # labelled proxy profiles for Magnolia EO, Champaca Flower EO, Peru Balsam
+    # Resinoid, Basil EO, Tagetes EO, Helichrysum EO and Guaiacwood EO made
+    # them OAV-available (238 -> 245).
+    assert audit["oav_available_count"] == 245
+    assert audit["oav_unknown_count"] == 45
+    assert audit["oav_coverage_pct"] == 84.483
     assert audit["status"] == "FAIL_CLOSED_GAPS"
     assert {"Fructone B", "Helvetolide", "Manzanate", "Ambrocenide"} <= set(
         categories["other_oav_unknowns"]
