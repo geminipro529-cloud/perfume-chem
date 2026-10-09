@@ -314,7 +314,7 @@ def test_undeclared_formula_gets_the_default_ethanol_fill_with_its_mass():
     assert sum(m.raw_ul for m in state.materials) == pytest.approx(MIXED_TOTAL_UL)
     frames = simulator.simulate_formula(MIXED, _neat(MIXED), initial_state=state)
 
-    assert simulator.TEMPORAL_MODEL == "dynamic_headspace_mass_balanced_loss_v5"
+    assert simulator.TEMPORAL_MODEL == "dynamic_headspace_mass_balanced_loss_v6"
     opening = frames[0]
     assert opening.state.matrix_components_moles == (
         ("Ethanol", pytest.approx(EXPECTED_FILL_MOLES, rel=1e-12)),
@@ -326,7 +326,7 @@ def test_undeclared_formula_gets_the_default_ethanol_fill_with_its_mass():
     assert state.matrix_components_moles == ()
     for frame in frames:
         payload = frame.as_dict()
-        assert payload["temporal_model"] == "dynamic_headspace_mass_balanced_loss_v5"
+        assert payload["temporal_model"] == "dynamic_headspace_mass_balanced_loss_v6"
         assumption = payload["matrix_assumption"]
         assert assumption["basis"] == "DEFAULT_ETHANOL_FILL"
         assert assumption["bottle_volume_ml"] == 30.0
