@@ -24,12 +24,10 @@
 ### Temporary user compounding exclusions
 
 `data/governance/inventory_compounding_holds.json` records user-requested
-exclusions independently of physical stock ownership. PerfumersWorld **Orris
-Liquid (8IQ24653), including the owned 9% w/w in DEP stock, must not be selected
-for new compounding formulas or bottle additions** until the user supplies more
-information and explicitly clears the hold. Preserve historical formulas and
-stock receipts; do not mark it depleted, infer that it is unsafe, or automatically
-substitute another iris material. Completing stock details does not clear a hold.
+exclusions independently of physical stock ownership. The user cleared the
+PerfumersWorld Orris Liquid (8IQ24653) hold on 2026-10-08, so no material is held
+now. A hold is cleared only by the user's explicit word; completing stock details
+does not clear one.
 
 `data/formulation_knowledge/literature_v1.json` contains source-bounded facts,
 manufacturer descriptions and explicitly uncalibrated architecture hypotheses.

@@ -7,12 +7,38 @@ import hashlib
 import json
 from dataclasses import asdict, replace
 from decimal import Decimal
+from pathlib import Path
 
 import pytest
 import yaml
 
 import engine.inventory_parser as inventory_parser
 from engine.pipeline.preflight import _dilution_consistency_check
+
+# Kenny lifted the Orris Liquid hold on 2026-10-08. The hold tests below keep
+# exercising the hold mechanism against the 2026-10-05 hold record.
+ORRIS_HOLD_FIXTURE = (
+    Path(__file__).parent / "fixtures" / "orris_liquid_hold_20261005.json"
+)
+
+
+@pytest.fixture(autouse=True)
+def _historical_orris_hold(monkeypatch):
+    monkeypatch.setattr(
+        inventory_parser, "USER_COMPOUNDING_HOLDS_PATH", ORRIS_HOLD_FIXTURE
+    )
+
+
+def test_live_hold_list_no_longer_holds_orris_liquid(monkeypatch):
+    monkeypatch.undo()
+    labels, _sha = inventory_parser.load_user_compounding_holds()
+    assert labels == frozenset()
+    stock = next(
+        s
+        for s in inventory_parser.materialize_current_inventory().stocks
+        if s.identity_name == "Orris Liquid"
+    )
+    assert "USER_COMPOUNDING_HOLD" not in stock.execution_hold_reason
 
 
 def _stock_check(fraction=0.09, basis="mass_fraction", carrier="dep"):
