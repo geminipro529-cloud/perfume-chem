@@ -8,7 +8,7 @@ import pytest
 
 from engine.formulation_intelligence import pleasantness as pl
 from engine.formulation_intelligence import pleasantness_table as pt
-from engine.hedonic_model import score_hedonic
+from engine.formulation_intelligence.pleasantness import score_hedonic_crowd
 
 FAKE_VALUES = {"Sweet": 0.8, "Sour": -0.4, "Even A": 0.5, "Even B": 0.5, "High": 0.9, "Low": 0.1}
 
@@ -21,7 +21,6 @@ def fake_table(monkeypatch):
         return pt.CrowdValue(name, FAKE_VALUES[name], "test", "hand", False, None)
 
     monkeypatch.setattr(pl, "crowd_pleasantness", fake)
-    monkeypatch.setattr(pt, "crowd_pleasantness", fake)  # score_hedonic reads it from the table module
     return fake
 
 
@@ -142,13 +141,13 @@ def test_top_level_labels_overall_and_rating_windows(fake_table):
     assert result["rating_windows"]["4h"]["crowd_guess"] is None
 
 
-def test_legacy_score_no_longer_penalises_contrast(fake_table):
-    even = score_hedonic({"Even A": 100.0, "Even B": 100.0})
-    spread = score_hedonic({"High": 100.0, "Low": 100.0})
+def test_crowd_score_does_not_penalise_contrast(fake_table):
+    even = score_hedonic_crowd({"Even A": 100.0, "Even B": 100.0})
+    spread = score_hedonic_crowd({"High": 100.0, "Low": 100.0})
     assert spread.hedonic_contrast > 0.3
     assert even.score == spread.score == 75.0
     assert not any("⚠" in line for line in spread.diagnostics)
-    with_unknown = score_hedonic({"Even A": 100.0, "Mystery": 100.0})
+    with_unknown = score_hedonic_crowd({"Even A": 100.0, "Mystery": 100.0})
     assert with_unknown.score == 75.0  # unknown excluded, not averaged in as neutral
     assert with_unknown.coverage_status == "PARTIAL_TABLE_COVERAGE"
     assert with_unknown.unrated_materials == ["Mystery"]
