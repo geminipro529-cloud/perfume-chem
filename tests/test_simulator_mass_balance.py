@@ -155,13 +155,14 @@ def test_pure_volatile_is_zero_order_until_the_rate_cap_binds():
 MATRIX = {"Ethanol": 0.4, "Water": 0.05}
 
 
-def _matrix_state(ingredients: dict[str, float]) -> FormulaState:
+def _matrix_state(ingredients: dict[str, float], **kwargs) -> FormulaState:
     return build_formula_state(
         ingredients,
         _neat(ingredients),
         matrix_moles=MATRIX,
         matrix_mass_g=19.3,
         matrix_source="explicit",
+        **kwargs,
     )
 
 
@@ -228,10 +229,26 @@ def test_declared_matrix_differs_from_the_frozen_matrix_integration():
     assert frozen.matrix_moles == pytest.approx(sum(MATRIX.values()), rel=1e-12)
     assert drydown.state.matrix_moles < 1e-3 * frozen.matrix_moles
     # The matrix dilutes every material until it leaves, and the loss scale no
-    # longer grows with it (PHYS-01), so the drydown keeps more than the frozen
-    # integration, whose N_0 included the matrix.
+    # longer grows with it (PHYS-01). How long that dilution lasts depends on how
+    # fast the matrix leaves, and the matrix vapour pressures now follow the
+    # simulator temperature, so at the default 305 K only the difference is pinned.
     new_total = sum(m.raw_ul for m in drydown.state.materials)
-    assert new_total > sum(m.raw_ul for m in frozen.materials)
+    frozen_total = sum(m.raw_ul for m in frozen.materials)
+    assert abs(new_total - frozen_total) > 1e-4 * frozen_total
+
+
+def test_declared_matrix_keeps_more_than_the_frozen_integration_at_25_c():
+    # At 25 C the matrix vapour pressures are their reference values, the case
+    # the frozen-matrix comparison was written for: the matrix's dilution outweighs
+    # its early exit, so the drydown keeps more than the frozen integration,
+    # whose N_0 included the matrix.
+    state = _matrix_state(MIXED, temperature_K=298.15)
+    frames = simulator.simulate_formula(
+        MIXED, _neat(MIXED), initial_state=state, temperature_K=298.15
+    )
+    expected = _frozen_matrix_frames(state, simulator.DEFAULT_WINDOWS)
+    new_total = sum(m.raw_ul for m in frames[-1].state.materials)
+    assert new_total > sum(m.raw_ul for m in expected[-1][1].materials)
 
 
 def test_heavy_material_rate_rises_as_the_matrix_leaves():
