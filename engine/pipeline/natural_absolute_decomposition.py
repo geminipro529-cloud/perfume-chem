@@ -996,6 +996,61 @@ _ORRIS_CONCRETE_8PCT_IRONE_CONSTITUENTS = [
     ("myristic acid", 0.725, 228.38, 0.0, 1e6, 0.5),
 ]
 
+# -- Proxy profiles, batch B (2026-10-09) --
+# Same conventions as the block above: labelled literature or supplier proxies,
+# reused runtime tuples, unresolved constituents kept, nothing renormalized.
+
+# Michelia alba DC. (Magnolia x alba) flower, Zhu et al. (1993) Aromatic Plants
+# and Essential Constituents p.14, as tabulated by scent.vn ("Michelia alba
+# flower absolute (China)"; listed sum 92.03%). The page calls the sample an
+# absolute, but a 76% linalool profile matches the published distilled-oil
+# pattern (linalool-dominant), so the sample type is doubtful. The owner's
+# Magnolia EO is Michelia alba flower oil (owner-confirmed; Shopee shop "True
+# Industry"); no supplier composition exists. Phenylethyl alcohol uses its cited
+# data-spine VP (11.57 Pa, PubChem HSDB / Daubert & Danner 1989, which the
+# runtime would substitute anyway) and the ODT_DATA literature air ODT (26 ppb,
+# engine/odor_thresholds.py). Citral (0.10%) uses the module's 3.0 Pa / 0.5 ppb
+# citral row. Eleven minor constituents (6.17%) have no runtime input and stay
+# unresolved.
+_MICHELIA_ALBA_FLOWER_ZHU_1993_CONSTITUENTS = [
+    ("linalool", 0.7629, 154.25, 21.3, 1.5, 2.0),
+    ("phenylethyl alcohol", 0.0638, 122.16, 11.57, 26.0, 0.7),
+    ("methyl eugenol", 0.0232, 178.23, 2.0, 0.5, 1.5),
+    ("benzyl acetate", 0.0033, 150.17, 20.0, 2.0, 2.0),
+    ("1,8-cineole", 0.0030, 154.25, 200.0, 50.0, 2.0),
+    ("neral", 0.0014, 152.23, 3.0, 0.5, 1.5),
+    ("citral", 0.0010, 152.23, 3.0, 0.5, 1.5),
+]
+
+# PerfumersWorld IFRA certificate for "Champaca Flower Essential Oil", SKU
+# 7NJ07740 (CAS 94333-99-0; PW synonym "Michaellia Alba FLOWER Oil"). These are
+# supplier-declared levels of IFRA-relevant items only (57.0% listed), not a
+# full composition or an analysis of the owned bottle. The certificate names
+# "Linalool synthetic", so the product may be reconstituted or extended. The
+# linalool-dominant pattern matches Michelia alba oil, not true Michelia champaca
+# absolute (Kaiser 1989, phenylethyl alcohol/ester/ionone profile), which is
+# non-equivalent and not used. L-Carvone and safrole have no runtime input.
+_CHAMPACA_PW_7NJ07740_IFRA_DECLARATION_CONSTITUENTS = [
+    ("linalool", 0.529063, 154.25, 21.3, 1.5, 2.0),
+    ("benzyl benzoate", 0.020679, 212.24, 0.02, 810.0, 0.5),
+    ("benzyl salicylate", 0.009121, 228.24, 0.01, 50.0, 0.5),
+    ("limonene", 0.006484, 136.23, 200.0, 20.0, 3.0),
+    ("methyl eugenol", 0.004126, 178.23, 2.0, 0.5, 1.5),
+]
+
+# Peru balsam (Myroxylon balsamum var. pereirae). PerfumersWorld SKU 2QV00363
+# ("Peru Balsam Resinoid") allergen values as relayed by the owner and not
+# re-verified against the supplier document. They are declared levels of
+# regulated allergens, not a full composition. Benzyl cinnamate (16.71%) and
+# benzaldehyde (0.02%) have no runtime headspace input and stay unresolved;
+# cinnamic acid, nerolidol and vanillin are reported in literature only as GC-MS
+# peak areas, which cannot be converted to percent, and are not modeled.
+_PERU_BALSAM_PW_2QV00363_ALLERGEN_DECLARATION_CONSTITUENTS = [
+    ("benzyl benzoate", 0.268389, 212.24, 0.02, 810.0, 0.5),
+    ("eugenol", 0.000300, 164.20, 2.50, 0.50, 1.5),
+    ("coumarin", 0.000162, 146.14, 0.05, 2.0, 0.5),
+]
+
 # ── Master Registry ───────────────────────────────────────────────────
 
 _ABSOLUTE_CONSTITUENTS = {
@@ -1125,6 +1180,13 @@ _ABSOLUTE_CONSTITUENTS = {
     # New EOs 2026-06-15
     "rose essential oil": _ROSE_EO_CONSTITUENTS,
     "cassia essential oil": _CASSIA_EO_CONSTITUENTS,
+    "michelia alba flower oil zhu 1993 literature profile": _MICHELIA_ALBA_FLOWER_ZHU_1993_CONSTITUENTS,
+    "champaca flower oil perfumersworld 7nj07740 ifra declaration profile": (
+        _CHAMPACA_PW_7NJ07740_IFRA_DECLARATION_CONSTITUENTS
+    ),
+    "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile": (
+        _PERU_BALSAM_PW_2QV00363_ALLERGEN_DECLARATION_CONSTITUENTS
+    ),
 }
 
 
@@ -1227,6 +1289,17 @@ _PROFILE_ALIASES = {
     "oman frankincense resin ethanol tincture": (
         "oman boswellia resin ethanol tincture generic profile"
     ),
+    # Owner stock "Magnolia EO (neat / as supplied)": Michelia alba flower oil
+    # (owner-confirmed species; Shopee shop "True Industry").
+    "magnolia eo": "michelia alba flower oil zhu 1993 literature profile",
+    # Owner stock "Champaca Flower EO"; PerfumersWorld 7NJ07740 is assumed.
+    "champaca flower eo": "champaca flower oil perfumersworld 7nj07740 ifra declaration profile",
+    # Owner stock "Peru Balsam Resinoid (50% w/w in DEP)" and the V5 requirement
+    # row "Peru Balsam 10%" (10% stock not prepared): same balsam identity.
+    "peru balsam resinoid": "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile",
+    "peru balsam resinoid (50% w/w in dep)": "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile",
+    "peru balsam": "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile",
+    "peru balsam 10%": "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile",
 }
 
 _LAVENDER_40_42_PROXY_LIMITATIONS = (
@@ -1397,6 +1470,19 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "citrus paradisi expressed oil iso 3053 midpoint profile": (
         "https://www.iso.org/standard/32040.html",
         "https://cdn.standards.iteh.ai/samples/32040/5decda805f4f4d28af4cdb41a472155b/ISO-3053-2004.pdf",
+    ),
+    "michelia alba flower oil zhu 1993 literature profile": (
+        "https://scent.vn/pages/oil/michelia-alba-flower-absolute-china-1874",
+        "https://thegoodscentscompany.com/data/es1068501.html",
+        "https://li01.tci-thaijo.org/index.php/anres/article/view/244814",
+    ),
+    "champaca flower oil perfumersworld 7nj07740 ifra declaration profile": (
+        "https://www.perfumersworld.com/ifra/IFRA/IFRA_7NJ07740.pdf",
+        "https://www.perfumersworld.com/view.php?pro_id=7NJ07740",
+    ),
+    "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile": (
+        "https://www.perfumersworld.com/view.php?pro_id=2QV00363",
+        "https://keele-repository.worktribe.com/OutputFile/459690",
     ),
 }
 
@@ -2142,6 +2228,236 @@ _PARTIAL_PROFILE_EVIDENCE = {
                 for name, *_rest in _OMAN_FRANKINCENSE_TINCTURE_GENERIC_CONSTITUENTS
             },
         },
+    },
+    "michelia alba flower oil zhu 1993 literature profile": {
+        "analytical_method": "LITERATURE_GC_MS_SECONDARY_COMPILATION",
+        "composition_basis": "LITERATURE_PERCENT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://scent.vn/pages/oil/michelia-alba-flower-absolute-china-1874",
+                "document": "Zhu L. et al. (1993) Aromatic Plants and Essential Constituents, p.14, as tabulated by scent.vn",
+                "published_botanical_name": "Michelia alba DC. (Magnolia x alba)",
+                "published_type": "Flower 'absolute' (China) per the compilation; linalool-dominant profile is oil-like",
+                "sample_type_status": "DOUBTFUL_ABSOLUTE_LABEL_OIL_LIKE_PROFILE",
+                "reported_pct": {
+                    "linalool": 76.29,
+                    "phenylethyl alcohol": 6.38,
+                    "octadecadienal": 2.34,
+                    "methyl eugenol": 2.32,
+                    "methyl hexanoate": 1.03,
+                    "cis-linalool oxide": 0.78,
+                    "(3Z)-hex-3-enyl butyrate": 0.54,
+                    "phenethyl isovalerate": 0.37,
+                    "benzyl acetate": 0.33,
+                    "methyl 7-methyloctanoate": 0.33,
+                    "eucalyptol (1,8-cineole)": 0.30,
+                    "trans-linalool oxide": 0.23,
+                    "geranyl isobutyrate": 0.18,
+                    "myrcenol": 0.15,
+                    "neral": 0.14,
+                    "2-phenylethyl propionate": 0.12,
+                    "citral": 0.10,
+                    "isomethyleugenol": 0.10,
+                },
+                "reported_sum_pct": 92.03,
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Magnolia EO (neat / as supplied)",
+                "owned_species": "Michelia alba (owner-confirmed)",
+                "owned_supplier_reference": "Shopee shop True Industry",
+                "owned_plant_part_recorded": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("linalool", "methyl eugenol", "benzyl acetate", "1,8-cineole",
+                            "neral", "citral")},
+            "phenylethyl alcohol": {
+                "mw_status": "EXISTING_RUNTIME_MOLECULAR_MASS",
+                "vp_status": "CITED_DATA_SPINE_VP",
+                "vp_source": "PubChem CID 6054 HSDB, Daubert & Danner (1989): 8.68e-2 mm Hg at 25 C = 11.57 Pa",
+                "odt_status": "ODT_DATA_MULTI_SOURCE_LITERATURE",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+        },
+        "unresolved_constituents": (
+            {
+                "name": "octadecadienal",
+                "reported_fraction": 0.0234,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "methyl hexanoate",
+                "reported_fraction": 0.0103,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "cis-linalool oxide",
+                "reported_fraction": 0.0078,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "(3Z)-hex-3-enyl butyrate",
+                "reported_fraction": 0.0054,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "phenethyl isovalerate",
+                "reported_fraction": 0.0037,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "methyl 7-methyloctanoate",
+                "reported_fraction": 0.0033,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "trans-linalool oxide",
+                "reported_fraction": 0.0023,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "geranyl isobutyrate",
+                "reported_fraction": 0.0018,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "myrcenol",
+                "reported_fraction": 0.0015,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "2-phenylethyl propionate",
+                "reported_fraction": 0.0012,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "isomethyleugenol",
+                "reported_fraction": 0.001,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The composition is one 1993 literature sample from a secondary compilation, not an analysis of the owned Shopee True Industry bottle; plant part and process of the owned oil are not recorded (flower oil is assumed).",
+            "The compilation calls the sample an absolute, but its 76% linalool profile matches published Michelia alba distilled oils; the sample type is doubtful.",
+            "Only 85.86% of the listed composition is modeled; eleven minor constituents (6.17%) and the 7.97% unidentified remainder are uncomputed, not odorless. Nothing is renormalized.",
+            "Michelia alba flower oil is non-equivalent to Michelia champaca absolute and to Magnolia leaf oils.",
+        ),
+    },
+    "champaca flower oil perfumersworld 7nj07740 ifra declaration profile": {
+        "analytical_method": "SUPPLIER_IFRA_CERTIFICATE_DECLARATION",
+        "composition_basis": "SUPPLIER_DECLARED_CONCENTRATION_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.perfumersworld.com/ifra/IFRA/IFRA_7NJ07740.pdf",
+                "document": "PerfumersWorld IFRA certificate, Champaca Flower Essential Oil, SKU 7NJ07740",
+                "declared_pct": {
+                    "linalool synthetic (78-70-6)": 52.9063,
+                    "benzyl benzoate": 2.0679,
+                    "benzyl salicylate": 0.9121,
+                    "d-limonene": 0.6484,
+                    "methyl eugenol": 0.4126,
+                    "safrole": 0.0104,
+                    "l-carvone": 0.0067,
+                },
+                "declared_sum_pct": 57.0,
+                "supplier_cas": "94333-99-0",
+                "supplier_synonym": "Michaellia Alba FLOWER Oil",
+                "fraction_rule": "DECLARED_CONCENTRATION_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Champaca Flower EO",
+                "owned_bottle_sku_verified": False,
+                "true_champaca_absolute_rows_used": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("linalool", "benzyl benzoate", "benzyl salicylate", "limonene",
+                            "methyl eugenol")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "safrole",
+                "reported_fraction": 0.000104,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "L-carvone",
+                "reported_fraction": 6.7e-05,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "An IFRA certificate declares regulated items only; it is not a full composition, its analytical basis is not stated, and the values are declared levels, not a lot analysis.",
+            "Only 56.95% of the oil is modeled; the 43.0% undeclared remainder is uncomputed, not odorless. Nothing is renormalized.",
+            "The certificate lists 'Linalool synthetic', so the product may be reconstituted or extended; its linalool-dominant pattern and the supplier synonym point to Michelia alba oil, not true Michelia champaca absolute (non-equivalent).",
+            "The owned bottle's supplier SKU is assumed to be PerfumersWorld 7NJ07740 and has not been verified.",
+        ),
+    },
+    "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile": {
+        "analytical_method": "SUPPLIER_ALLERGEN_DECLARATION",
+        "composition_basis": "SUPPLIER_DECLARED_CONCENTRATION_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.perfumersworld.com/view.php?pro_id=2QV00363",
+                "document": "PerfumersWorld allergen values for Peru Balsam Resinoid, SKU 2QV00363, as relayed by the owner",
+                "document_reverified": False,
+                "declared_pct": {
+                    "benzyl benzoate": 26.8389,
+                    "benzyl cinnamate": 16.7053,
+                    "eugenol": 0.0300,
+                    "benzaldehyde": 0.0206,
+                    "coumarin": 0.0162,
+                },
+                "fraction_rule": "DECLARED_CONCENTRATION_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Peru Balsam Resinoid (50% w/w in DEP)",
+                "owned_bottle_sku_verified": False,
+                "literature_peak_areas_used": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("benzyl benzoate", "eugenol", "coumarin")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "benzyl cinnamate",
+                "reported_fraction": 0.167053,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "benzaldehyde",
+                "reported_fraction": 0.000206,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "cinnamic acid, nerolidol, vanillin",
+                "missing_input": "LITERATURE_PEAK_AREAS_ONLY_NOT_CONVERTIBLE_TO_PERCENT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "Allergen values are supplier-declared levels of regulated allergens, relayed by the owner and not re-verified against the supplier document; they are not a full composition or a lot analysis.",
+            "Only 26.89% of the resinoid is modeled. Benzyl cinnamate (16.71%) and benzaldehyde have no runtime headspace input, and cinnamic acid, nerolidol and vanillin are known only as literature GC-MS peak areas; all remain uncomputed, not odorless. Nothing is renormalized.",
+            "Peru balsam esters hydrolyse with age (literature historical sample); the owned lot's age and ester content are unknown.",
+        ),
     },
 }
 
