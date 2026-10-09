@@ -698,6 +698,8 @@ def _default_runner(project_root: Path) -> Callable[[CheckSpec], CommandOutcome]
         if spec.cwd == "backend":
             env.setdefault("OPENAI_API_KEY", "test-key")
             env.setdefault("SECRET_KEY", "test-secret-key-for-ci")
+        if spec.environment == _BACKEND_POETRY_ENVIRONMENT:
+            env.pop("PYTHONPATH", None)
         try:
             completed = subprocess.run(
                 command,
@@ -848,6 +850,7 @@ def _backend_environment_gap(project_root: Path) -> str | None:
             text=True,
             timeout=120,
             check=False,
+            env=_without_pythonpath(),
         )
     except OSError:
         return f"Poetry executable is unavailable; install Poetry, then {install_hint}."
@@ -882,6 +885,7 @@ def _backend_environment_gap(project_root: Path) -> str | None:
             text=True,
             timeout=120,
             check=False,
+            env=_without_pythonpath(),
         )
     except OSError:
         return f"Backend Poetry environment at {env_path} has no Python; {install_hint}."
@@ -893,6 +897,20 @@ def _backend_environment_gap(project_root: Path) -> str | None:
             f"dependencies ({listed}); {install_hint}."
         )
     return None
+
+
+def _without_pythonpath() -> dict[str, str]:
+    """Return this process's environment without PYTHONPATH.
+
+    The backend checks run in the backend's own Poetry environment. A
+    PYTHONPATH inherited from the interpreter running the verifier puts that
+    interpreter's packages ahead of the Poetry ones (seen as a FastAPI and
+    Starlette version clash), and lets the dependency probe find packages the
+    Poetry environment does not have.
+    """
+    env = dict(os.environ)
+    env.pop("PYTHONPATH", None)
+    return env
 
 
 def _skipped_check(spec: CheckSpec, reason: str) -> CheckResult:

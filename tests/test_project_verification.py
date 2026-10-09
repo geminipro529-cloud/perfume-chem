@@ -1082,3 +1082,48 @@ def test_unavailable_backend_environment_skips_only_backend_checks(tmp_path, mon
         "Backend Poetry environment does not exist; run `cd backend && poetry install`.",
     )
     assert report.completion_gate == "PASS_WITH_SKIPS"
+
+
+def test_backend_poetry_checks_do_not_inherit_pythonpath(tmp_path, monkeypatch):
+    invocations: list[dict[str, str]] = []
+
+    def fake_run(command, **kwargs):
+        invocations.append(dict(kwargs["env"]))
+        return subprocess.CompletedProcess(command, 0, "", "")
+
+    monkeypatch.setenv("PYTHONPATH", "/outer/site-packages")
+    monkeypatch.setattr(project_verification.subprocess, "run", fake_run)
+    runner = _default_runner(tmp_path)
+    backend = CheckSpec(
+        "backend-tests",
+        ("poetry", "run", "pytest", "-q"),
+        cwd="backend",
+        environment="backend-poetry",
+    )
+    engine = CheckSpec("engine-tests", (sys.executable, "-m", "pytest", "-q"))
+
+    assert runner(backend).returncode == 0
+    assert runner(engine).returncode == 0
+    backend_env, engine_env = invocations
+    assert "PYTHONPATH" not in backend_env
+    assert engine_env["PYTHONPATH"] == "/outer/site-packages"
+
+
+@pytest.mark.skipif(os.name == "nt", reason="fake environment uses a POSIX shell bin/python")
+def test_backend_environment_probe_ignores_an_outer_pythonpath(tmp_path, monkeypatch):
+    outer = tmp_path / "outer"
+    dist_info = outer / "only_outer_dist_xyz-1.0.dist-info"
+    dist_info.mkdir(parents=True)
+    (dist_info / "METADATA").write_text(
+        "Metadata-Version: 2.1\nName: only-outer-dist-xyz\nVersion: 1.0\n",
+        encoding="utf-8",
+    )
+    env_dir = _fake_backend_environment(tmp_path, monkeypatch, 'only-outer-dist-xyz = "^1"')
+    monkeypatch.setenv("PYTHONPATH", str(outer))
+
+    reason = project_verification._backend_environment_gap(tmp_path)
+
+    assert reason == (
+        f"Backend Poetry environment at {env_dir} is missing declared dependencies "
+        "(only-outer-dist-xyz); run `cd backend && poetry install`."
+    )
