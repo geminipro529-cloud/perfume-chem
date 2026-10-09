@@ -2753,6 +2753,15 @@
         "111-12-6"
       ]
     },
+    "Methyl Ionone Gamma Coeur": {
+      "status": "restricted",
+      "standard": "IFRA_STD_063",
+      "aliases": [],
+      "note": "Trade grade of alpha-isomethyl ionone (CAS 127-51-5, in STD_063's CAS list). Kept as its own stock name, not an alias of Alpha Isomethyl Ionone; both count toward methyl_ionones_total.",
+      "cas": [
+        "127-51-5"
+      ]
+    },
     "Methyl Ionone Pure": {
       "status": "restricted",
       "standard": "IFRA_STD_063",
@@ -3438,6 +3447,7 @@
       "limit_pct": 30.0,
       "members": [
         "Alpha Isomethyl Ionone",
+        "Methyl Ionone Gamma Coeur",
         "Methyl Ionone Pure",
         "Ultralia"
       ],

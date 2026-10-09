@@ -101,19 +101,34 @@ class IFRATable:
     _index: Mapping[str, IFRAMaterial] = field(
         init=False, repr=False, compare=False, default_factory=dict
     )
+    # Word-order-free keys ("Damascone Alpha" = "Alpha Damascone"); a key that two
+    # materials share maps to None so it never picks either.
+    _order_index: Mapping[str, IFRAMaterial | None] = field(
+        init=False, repr=False, compare=False, default_factory=dict
+    )
 
     def __post_init__(self) -> None:
         index: dict[str, IFRAMaterial] = {}
+        order_index: dict[str, IFRAMaterial | None] = {}
         for material in self.materials.values():
             for name in (material.name, *material.aliases):
                 index[_normalise(name)] = material
+                key = _order_key(name)
+                if order_index.get(key, material) is not material:
+                    order_index[key] = None
+                else:
+                    order_index[key] = material
         object.__setattr__(self, "_index", index)
+        object.__setattr__(self, "_order_index", order_index)
 
     def lookup(self, *names: str | None) -> IFRAMaterial | None:
         """Return the first material matching any name, case/whitespace-insensitive.
 
         Every name is tried exactly first; only when none matches is each retried without
-        its stock suffix (see ``stock_base_name``), so an exact name always wins.
+        its stock suffix (see ``stock_base_name``), so an exact name always wins. Only when
+        that fails too are the same forms compared with their words in any order, so
+        "Damascone Alpha" finds "Alpha Damascone". Words are never dropped or added:
+        "Methyl Ionone" and "Ionone" stay different names.
         """
         return self._match(names)[1]
 
@@ -125,11 +140,24 @@ class IFRATable:
                 return name, material
         # Least-stripped form first, across all given names, before any more-stripped form.
         levels = [_stripped_forms(name) for name in given]
-        for depth in range(max((len(forms) for forms in levels), default=0)):
+        depths = range(max((len(forms) for forms in levels), default=0))
+        for depth in depths:
             for name, forms in zip(given, levels):
                 if depth < len(forms):
                     for form in forms[depth]:
                         material = self._index.get(_normalise(form))
+                        if material is not None:
+                            return name, material
+        # Then the same forms, in the same order, with their words in any order.
+        for name in given:
+            material = self._order_index.get(_order_key(name))
+            if material is not None:
+                return name, material
+        for depth in depths:
+            for name, forms in zip(given, levels):
+                if depth < len(forms):
+                    for form in forms[depth]:
+                        material = self._order_index.get(_order_key(form))
                         if material is not None:
                             return name, material
         return None, None
@@ -371,6 +399,10 @@ def _parse_group_rule(
 
 def _normalise(name: str) -> str:
     return " ".join(name.split()).casefold()
+
+
+def _order_key(name: str) -> str:
+    return " ".join(sorted(_normalise(name).split()))
 
 
 def stock_base_name(name: str) -> str:
