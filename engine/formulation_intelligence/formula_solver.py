@@ -757,6 +757,20 @@ def _state_sort_key(state: _BeamState) -> tuple[Any, ...]:
     )
 
 
+def _annotate_liking(
+    rows: list[dict[str, Any]],
+    assignments: Sequence[SolvedAssignment],
+    liking: _LikingFn,
+) -> None:
+    """Record each row's tie-break liking; audits replay rows through this too."""
+    exact_roles = {a.role.role_id for a in assignments if a.role.exact_material is not None}
+    for row in rows:
+        row["liking_tie_break"] = {
+            **liking(str(row.get("identity_name") or "")).as_dict(),
+            "applied": row.get("slot") not in exact_roles,
+        }
+
+
 def _solve_assignments(
     *,
     brief: SemanticBrief,
@@ -939,12 +953,7 @@ def solve_formula(
         except ValueError as exc:
             status = "WITHHELD_DOSE_ALLOCATION_INFEASIBLE"
             holds.append(f"DOSE_ALLOCATION_INFEASIBLE:{exc}")
-    exact_roles = {a.role.role_id for a in assignments if a.role.exact_material is not None}
-    for row in rows:
-        row["liking_tie_break"] = {
-            **liking(str(row.get("identity_name") or "")).as_dict(),
-            "applied": row.get("slot") not in exact_roles,
-        }
+    _annotate_liking(rows, assignments, liking)
 
     role_scores = {
         assignment.role.role_id: format(assignment.score, ".6f")

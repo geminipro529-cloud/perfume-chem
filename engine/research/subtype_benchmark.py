@@ -429,6 +429,7 @@ def _execution_verified(
             return False
         stocks = {c.stock_id: c for c in index.capabilities}
         returned = {v["variant_id"]: v for v in result["design_variants"]}
+        liking = solver._liking_lookup()
         prior: set[str] = set()
         for position, attempt in enumerate(result["architecture_attempts"]):
             brief = briefs[position] if len(briefs) > 1 else briefs[0]
@@ -505,6 +506,9 @@ def _execution_verified(
                 except ValueError as exc:
                     status = "WITHHELD_DOSE_ALLOCATION_INFEASIBLE"
                     holds = [f"DOSE_ALLOCATION_INFEASIBLE:{exc}"]
+                # Rows carry the solver's liking annotation; replay it from the
+                # live lookup rather than trusting the recorded values.
+                solver._annotate_liking(rows, assignments, liking)
             if attempt["holds"] != sorted(set(holds)):
                 return False
             duplicate = attempt["state"] == "WITHHELD_DUPLICATE_PHYSICAL_COMPOSITION"
