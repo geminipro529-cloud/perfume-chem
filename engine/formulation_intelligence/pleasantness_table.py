@@ -344,7 +344,8 @@ def build_crowd_table(keller_stimuli_path: str) -> dict:
         "source_citation": CITATION,
         "dose_rule": (
             f"strength_share <= {WEAK_SHARE} -> weak, >= {STRONG_SHARE} -> strong, linear between; "
-            "heuristic_unmeasured flips set strong = min(value, -0.4)"
+            "heuristic_unmeasured flips set strong = min(value, -0.4); a flip material with no "
+            f"base value reads unknown below {STRONG_SHARE} and -0.4 at or above"
         ),
         "counts": dict(sorted(counts.items())),
         "calibration": calibration,
