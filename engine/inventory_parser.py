@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from collections import Counter
 from dataclasses import dataclass, replace
 from functools import lru_cache
 from pathlib import Path
@@ -5787,7 +5788,72 @@ def _materialize_current_inventory_uncached(
                 f"{materialized.effective_inventory_sha256}|{hold_sha}".encode("utf-8")
             ).hexdigest(),
         )
-    return materialized
+    return replace(materialized, stocks=_strength_display_names(materialized.stocks))
+
+
+_NAME_PERCENT_RE = re.compile(r"(?<![\d.,])(\d+(?:[.,]\d+)?)\s*%")
+_TRAILING_STRENGTHS_RE = re.compile(
+    r"(?:\s*(?:\+|&|\band\b|~?\d+(?:[.,]\d+)?\s*%))+\s*$", re.IGNORECASE
+)
+
+
+def _strength_label(dilution: float) -> str:
+    if dilution >= 1.0:
+        return "(neat)"
+    return f"{dilution * 100:.6g}%"
+
+
+def _strength_display_names(
+    stocks: tuple[InventoryMaterial, ...],
+) -> tuple[InventoryMaterial, ...]:
+    """Rename stocks whose name states a wrong strength or names another bottle.
+
+    Only ``name`` changes. A name keeps its text when every percentage in it
+    equals the stored dilution and no other stock carries the same name;
+    otherwise it becomes ``<identity> <stored strength>`` (carrier added only
+    when that still collides), so one name always means one bottle.
+    """
+
+    counts = Counter(stock.name.casefold() for stock in stocks)
+
+    def truthful(stock: InventoryMaterial) -> bool:
+        return all(
+            abs(float(value.replace(",", ".")) / 100.0 - float(stock.dilution)) <= 1e-9
+            for value in _NAME_PERCENT_RE.findall(stock.name)
+        )
+
+    def derived(stock: InventoryMaterial, *, with_carrier: bool) -> str:
+        base = _TRAILING_STRENGTHS_RE.sub("", stock.identity_name or stock.name).strip()
+        label = f"{base} {_strength_label(float(stock.dilution))}"
+        if with_carrier and stock.carrier:
+            label += f" in {stock.carrier.upper()}"
+        return label
+
+    keep = {
+        index
+        for index, stock in enumerate(stocks)
+        if counts[stock.name.casefold()] == 1 and truthful(stock)
+    }
+    taken = {stocks[index].name.casefold() for index in keep}
+    renamed: list[InventoryMaterial] = []
+    for index, stock in enumerate(stocks):
+        if index in keep:
+            renamed.append(stock)
+            continue
+        siblings = [
+            other
+            for position, other in enumerate(stocks)
+            if position != index
+            and position not in keep
+            and derived(other, with_carrier=False).casefold()
+            == derived(stock, with_carrier=False).casefold()
+        ]
+        name = derived(stock, with_carrier=bool(siblings))
+        if name.casefold() in taken:
+            raise ValueError(f"inventory display name is not unique: {name!r}")
+        taken.add(name.casefold())
+        renamed.append(replace(stock, name=name))
+    return tuple(renamed)
 
 
 _USER_OVERLAY_CHAIN_PATHS = (

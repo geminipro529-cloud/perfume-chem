@@ -41,6 +41,7 @@ from engine.personal_inventory import (
     DESIGN_ONLY_AUTHORITY,
     LIVE_TEXT_AUTHORITY,
     materialize_personal_inventory,
+    personal_inventory_identity_key,
 )
 from engine.research.commercial_references import (
     DEFAULT_REGISTRY_PATH,
@@ -676,6 +677,45 @@ def _candidate_matches_text(candidate: Candidate, value: str) -> bool:
     return bool(wanted_tokens) and wanted_tokens <= probe_tokens
 
 
+_LABEL_STRENGTH_RE = re.compile(r"(?<![\d.,])(\d+(?:[.,]\d+)?)\s*%")
+
+
+def _label_names_several_strengths(stock: InventoryMaterial) -> bool:
+    """True when a stock label names more than one bottle strength.
+
+    Such a label (e.g. "Birch Tar 1% and Birch Tar 10%") cannot say which
+    bottle a row means, so binding it risks a tenfold dosing error.
+    """
+
+    label = re.sub(r"\s*#.*$", "", stock.raw_name or stock.name)  # drop free-text comments
+    label = re.sub(r"\[[^\]]*\]", " ", label)  # drop the parser's "[0.1]" fraction tag
+    strengths = {
+        float(value.replace(",", ".")) for value in _LABEL_STRENGTH_RE.findall(label)
+    }
+    if re.search(r"\bneat\b", label, re.IGNORECASE):
+        strengths.add(100.0)
+    return len(strengths) > 1
+
+
+def _unconfirmed_two_strength_label(
+    stock: InventoryMaterial, live_identities: frozenset[str]
+) -> bool:
+    """True for a two-strength label that inventory.txt does not back up.
+
+    The personal projection already drops a governed stock whose strength
+    contradicts inventory.txt's own line for that material, so a two-strength
+    stock that survives beside an inventory.txt line is a confirmed bottle
+    (Cashmeran neat and 20%). With no inventory.txt line for the material the
+    label cannot say which bottle a row means (Birch Tar 1% and 10%, while
+    inventory.txt lists Birch Tar Rectified 10% in DPG), so the composer
+    refuses it and uses inventory.txt's own stock instead.
+    """
+
+    return _label_names_several_strengths(stock) and (
+        personal_inventory_identity_key(stock) not in live_identities
+    )
+
+
 def _load_candidates(explicit_materials: Sequence[str]) -> tuple[list[Candidate], Any, tuple[str, ...]]:
     inventory = materialize_personal_inventory()
     inventory_text_sha = _inventory_text_sha256()
@@ -698,12 +738,18 @@ def _load_candidates(explicit_materials: Sequence[str]) -> tuple[list[Candidate]
             cached_known,
         )
 
+    live_identities = frozenset(
+        personal_inventory_identity_key(stock)
+        for stock in parse_inventory(unique=False, include_unavailable=False)
+        if stock.status.casefold() == "owned"
+    )
     candidates: list[Candidate] = []
     for stock in inventory.stocks:
         if (
             stock.status.casefold() != "owned"
             or stock.dilution <= 0
             or is_user_compounding_held(stock)
+            or _unconfirmed_two_strength_label(stock, live_identities)
         ):
             continue
         identity_key = _key(stock.identity_name or stock.name)
