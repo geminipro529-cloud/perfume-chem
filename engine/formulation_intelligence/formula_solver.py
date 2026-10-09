@@ -89,6 +89,7 @@ def _role_spec(role: SemanticRole) -> RoleSpec:
         descriptor_weights=role.character_weights,
         exact_preference_required=role.exact_material is not None,
         max_raw_share=role.max_raw_share,
+        serves_requested_facet=_is_named_note(role),
     )
 
 
