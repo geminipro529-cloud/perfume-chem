@@ -1,10 +1,13 @@
 """Append-only personal inventory-detail completion receipts.
 
 The dated governance overlays remain immutable scientific/physical authority.
-This module adds a deliberately lighter personal-design layer so a user can
-confirm the stock facts that are actually needed to formulate from material
-they already own.  A completion may make a stock eligible for *design*; it
-never grants physical-compounding, safety, release, or regulatory authority.
+This module adds a deliberately lighter personal layer so a user can confirm
+the stock facts needed to formulate from material they already own (the Lab
+app's Stock page writes these events).  A completion that gives the strength,
+basis and carrier (or neat) makes the stock design-ready and, for the hold
+reasons ``COMPLETION_HOLD_DISPOSITIONS`` marks cleared, ready at the release
+gate too.  The gate still runs every check, and a completion never grants
+physical-compounding, safety, release, or regulatory authority.
 """
 
 from __future__ import annotations
@@ -63,6 +66,67 @@ FALSE_ACTION_AUTHORITY = {
     "compounding_authority": False,
     "evidence_admission_authorized": False,
 }
+
+# Set when the latest Stock page entry for a stock leaves it not design-ready:
+# its strength is then Kenny's unfinished word, so the gate must not use it.
+# A later complete entry replaces that entry and so clears this hold.
+STOCK_PAGE_ENTRY_INCOMPLETE = "STOCK_PAGE_ENTRY_INCOMPLETE"
+
+# Every execution hold reason the current inventory carries (plus the earlier
+# ones the overlays have used), and whether a completion that makes the stock
+# design-ready also clears it at the release gate.  True: the hold only records
+# a strength/basis/carrier fact the Stock page form supplies.  False: the form
+# does not answer it.  A reason not listed here is kept.
+COMPLETION_HOLD_DISPOSITIONS: dict[str, tuple[bool, str]] = {
+    "": (True, "unnamed hold: cleared only if the stock lacked basis or carrier"),
+    STOCK_PAGE_ENTRY_INCOMPLETE: (True, "the latest Stock page entry left the stock incomplete"),
+    "STOCK_INTAKE_IDENTITY_ONLY": (True, "intake named the product, not its strength/basis/carrier"),
+    "FRACTION_BASIS_UNSPECIFIED": (True, "basis is a form field"),
+    "CARRIER_UNSPECIFIED": (True, "carrier is a form field"),
+    "FRACTION_BASIS_AND_CARRIER_UNSPECIFIED": (True, "basis and carrier are form fields"),
+    "FRACTION_BASIS_OR_CARRIER_UNSPECIFIED": (True, "basis and carrier are form fields"),
+    "STOCK_FRACTION_UNSPECIFIED": (True, "strength is a form field"),
+    "RESTOCKED_BOTTLE_STRENGTH_AND_CARRIER_NOT_STATED": (True, "strength and carrier are form fields"),
+    "APPROXIMATE_STOCK_FRACTION": (True, "the form records an exact strength"),
+    "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED": (
+        True,
+        "design readiness requires a basis and a homogeneity confirmation",
+    ),
+    "HOMOGENEITY_NOT_RECONFIRMED": (True, "design readiness requires a homogeneity confirmation"),
+    "FINAL_DISSOLVED_FRACTION_UNMEASURED": (
+        True,
+        "design readiness requires a known final fraction from a measurement or label",
+    ),
+    "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN": (
+        False,
+        "the final-fraction safeguard covers only starting-charge stocks",
+    ),
+    "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED": (
+        False,
+        "extracted solids are not a form field",
+    ),
+    "VISIBLE_CRYSTALS_LIQUID_PHASE_STRENGTH_UNKNOWN": (False, "a phase problem, not a label fact"),
+    # AGENTS.md RULE 6: lots and receipts are not needed to compute a formula;
+    # Kenny confirming the bottle and its strength on the Stock page is.
+    "BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING": (True, "RULE 6: a lot or label receipt is not needed"),
+    "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING": (
+        True,
+        "RULE 6: the confirmed strength, basis and carrier replace the receipts",
+    ),
+    "PREPARATION_QUANTITIES_DATE_AND_LOTS_MISSING": (
+        True,
+        "RULE 6: the confirmed strength, basis and carrier replace the preparation record",
+    ),
+    "LOT_PURCHASE_SOURCE_AND_LABEL_RECEIPT_MISSING": (
+        True,
+        "RULE 6: a lot, purchase source or label receipt is not needed",
+    ),
+    "LEGACY_TEXT_CURRENT_STOCK_HOLD": (False, "a legacy-text conflict, not a missing fact"),
+    "USER_COMPOUNDING_HOLD": (False, "the user's exclusion; only an explicit clearance lifts it"),
+}
+COMPLETION_CLEARABLE_HOLDS = frozenset(
+    reason for reason, (cleared, _why) in COMPLETION_HOLD_DISPOSITIONS.items() if cleared and reason
+)
 
 _WRITE_LOCK = threading.Lock()
 
@@ -233,6 +297,10 @@ def completion_log_sha256(path: Path | None = None) -> str:
         raise InventoryCompletionError(f"inventory completion log is unreadable: {error}") from error
 
 
+def _hold_reasons(stock: Any) -> list[str]:
+    return [item for item in str(getattr(stock, "execution_hold_reason", "")).split("|") if item]
+
+
 def _effective_design_readiness(stock: Any, values: Mapping[str, Any]) -> tuple[bool, tuple[str, ...]]:
     missing: list[str] = []
     fraction = Decimal(str(values["fraction_decimal"]))
@@ -258,8 +326,7 @@ def _effective_design_readiness(stock: Any, values: Mapping[str, Any]) -> tuple[
         missing.append("physical_form")
     starting_charge = (
         str(getattr(stock, "fraction_basis", "")) == "mass_fraction_starting_charge"
-        or str(getattr(stock, "execution_hold_reason", ""))
-        == "FINAL_DISSOLVED_FRACTION_UNMEASURED"
+        or "FINAL_DISSOLVED_FRACTION_UNMEASURED" in _hold_reasons(stock)
     )
     if starting_charge and not values["final_fraction_known"]:
         missing.append("final_usable_fraction_confirmation")
@@ -293,11 +360,108 @@ def inventory_completion_requirements(stock: Any) -> tuple[str, ...]:
         missing.append("physical_form")
     if (
         basis == "mass_fraction_starting_charge"
-        or str(getattr(stock, "execution_hold_reason", ""))
-        == "FINAL_DISSOLVED_FRACTION_UNMEASURED"
+        or "FINAL_DISSOLVED_FRACTION_UNMEASURED" in _hold_reasons(stock)
     ):
         missing.append("final_usable_fraction_confirmation")
     return tuple(dict.fromkeys(missing))
+
+
+def completion_clears_execution_hold(stock: Any) -> bool:
+    """Whether a complete Stock page entry would make this held stock ready."""
+
+    if str(getattr(stock, "row_unresolved_tokens", "") or ""):
+        # The V5 row itself is unresolved (identity kept separate, species
+        # unresolved, ...); the form's strength/basis/carrier do not answer it.
+        return False
+    reasons = _hold_reasons(stock)
+    if reasons:
+        return all(reason in COMPLETION_CLEARABLE_HOLDS for reason in reasons)
+    # An unnamed hold on a stock whose strength, basis and carrier were already
+    # complete came from elsewhere in its row (an unresolved species or a
+    # product basis, say), which a completion does not answer.
+    basis = str(getattr(stock, "fraction_basis", "") or "")
+    if float(getattr(stock, "dilution", 0) or 0) == 1:
+        return basis != "neat"
+    return basis in {"", "unspecified"} or not str(getattr(stock, "carrier", "") or "").strip()
+
+
+def _authority_facts_differ(
+    stock: Any, fraction: float, basis: str, carrier: str
+) -> tuple[tuple[str, Any], ...]:
+    """The authority's stock facts when the completion changes any of them.
+
+    An authority value that states nothing (no strength, an unspecified basis,
+    no carrier) is filled in by the completion rather than contradicted.
+    """
+
+    authority_fraction = float(getattr(stock, "dilution", 0) or 0)
+    authority_basis = str(getattr(stock, "fraction_basis", "") or "")
+    authority_carrier = str(getattr(stock, "carrier", "") or "").strip()
+    differs = (
+        (authority_fraction > 0 and abs(authority_fraction - fraction) > 1e-9)
+        or (authority_basis not in {"", "unspecified"} and authority_basis != basis)
+        or (bool(authority_carrier) and authority_carrier.casefold() != carrier.casefold())
+    )
+    if not differs:
+        return ()
+    return (
+        ("dilution", authority_fraction),
+        ("fraction_basis", authority_basis),
+        ("carrier", authority_carrier),
+    )
+
+
+_BASIS_ABBREVIATIONS = {
+    "mass_fraction": "w/w",
+    "volume_fraction": "v/v",
+    "mass_per_volume": "w/v",
+}
+
+
+def stock_facts_text(fraction: Any, basis: Any, carrier: Any) -> str:
+    """Plain words for a stock's strength, basis and carrier ("10% w/w in DEP")."""
+
+    value = float(fraction or 0)
+    basis_text = str(basis or "")
+    carrier_text = str(carrier or "").strip()
+    if basis_text == "neat" or (value == 1 and not carrier_text):
+        return "neat"
+    parts = [f"{value * 100:g}%" if value > 0 else "strength not stated"]
+    if basis_text in _BASIS_ABBREVIATIONS:
+        parts.append(_BASIS_ABBREVIATIONS[basis_text])
+    if carrier_text:
+        parts.append(f"in {carrier_text}")
+    return " ".join(parts)
+
+
+def describe_authority_disagreement(
+    fraction: Any, basis: Any, carrier: Any, authority_facts: Mapping[str, Any]
+) -> dict[str, Any] | None:
+    """RULE 0: what the Stock page says against what the workbook/overlay says."""
+
+    if not authority_facts:
+        return None
+    facts = dict(authority_facts)
+    authority = stock_facts_text(
+        facts.get("dilution"), facts.get("fraction_basis"), facts.get("carrier")
+    )
+    return {
+        "stock_page": stock_facts_text(fraction, basis, carrier),
+        "authority": authority,
+        "authority_facts": facts,
+        "text": f"Differs from the workbook: workbook says {authority}",
+    }
+
+
+def authority_disagreement(stock: Any) -> dict[str, Any] | None:
+    """The disagreement a Stock page entry has with the authority, or None."""
+
+    return describe_authority_disagreement(
+        getattr(stock, "dilution", 0),
+        getattr(stock, "fraction_basis", ""),
+        getattr(stock, "carrier", ""),
+        dict(getattr(stock, "authority_facts_differ", ()) or ()),
+    )
 
 
 def apply_inventory_completion_events(materialization: Any, path: Path | None = None) -> Any:
@@ -323,9 +487,23 @@ def apply_inventory_completion_events(materialization: Any, path: Path | None = 
             if fraction == 1
             else f"{fraction * 100:g}% {values['fraction_basis']} in {carrier or 'carrier unstated'}"
         )
+        execution_ready = bool(stock.execution_ready)
+        execution_hold_reason = str(stock.execution_hold_reason)
+        if not design_ready:
+            # The entry replaces the stock's strength, so an unfinished one
+            # must not leave a ready stock ready at a strength nobody confirmed.
+            execution_ready = False
+            execution_hold_reason = "|".join(
+                dict.fromkeys([STOCK_PAGE_ENTRY_INCOMPLETE, *_hold_reasons(stock)])
+            )
+        elif not execution_ready and completion_clears_execution_hold(stock):
+            execution_ready = True
+            execution_hold_reason = ""
         completed_stocks.append(
             replace(
                 stock,
+                execution_ready=execution_ready,
+                execution_hold_reason=execution_hold_reason,
                 dilution=fraction,
                 fraction_basis=str(values["fraction_basis"]),
                 carrier=carrier,
@@ -335,6 +513,9 @@ def apply_inventory_completion_events(materialization: Any, path: Path | None = 
                 design_ready=design_ready,
                 design_hold_reason="|".join(missing),
                 completion_event_sha256=str(latest_event["event_sha256"]),
+                authority_facts_differ=_authority_facts_differ(
+                    stock, fraction, str(values["fraction_basis"]), carrier
+                ),
                 completion_source_ref=(
                     f"{completion_log_path(path)}#{latest_event['event_id']}"
                 ),
@@ -506,9 +687,13 @@ def effective_design_ready(stock: Any) -> bool:
 
 
 __all__ = [
+    "COMPLETION_CLEARABLE_HOLDS",
+    "COMPLETION_HOLD_DISPOSITIONS",
     "COMPLETION_PATH_ENV",
+    "STOCK_PAGE_ENTRY_INCOMPLETE",
     "InventoryCompletionConflictError",
     "InventoryCompletionError",
+    "completion_clears_execution_hold",
     "apply_inventory_completion_events",
     "completion_log_path",
     "completion_log_sha256",

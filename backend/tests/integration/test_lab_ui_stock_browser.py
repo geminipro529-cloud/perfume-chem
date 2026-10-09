@@ -149,3 +149,39 @@ def test_sort_reorders_rows_without_dropping_any(stock):
     assert by_strength[2:4] == ["Eugenol", "Dihydromyrcenol"]
     assert by_strength[-1] == "Galbanum"
     _clean(stock)
+
+
+def test_table_rows_show_dilutions_gate_holds_and_workbook_differences(lab):
+    # The Stock page entries (PR #43) inside the redesigned table (PR #24).
+    parent = dict(_stock("Iso E Super"), dilution_available=True)
+    made = dict(
+        _stock("Iso E Super 10% w/w in DPG", percent="10", basis="mass_fraction", carrier="DPG"),
+        source_class="PREPARED_DILUTION",
+        gate_hold_text="Held at the gate: its parent bottle changed after this dilution",
+    )
+    differs = dict(
+        _stock("Hedione", percent="50", basis="mass_fraction", carrier="DPG"),
+        authority_disagreement={"text": "Differs from the workbook: workbook says neat"},
+    )
+    lab.respond("GET", INVENTORY_PATH, json={
+        "stocks": [parent, made, differs],
+        "counts": {"stocks": 3, "design_ready": 3, "prepared_dilutions": 1},
+        "display_source": "Test inventory",
+    })
+    lab.open("#materials")
+    lab.page.locator("#project-inventory-list tbody tr").first.wait_for()
+
+    assert lab.page.locator("#project-inventory-ready").inner_text() == (
+        "3 ready to use · 1 dilutions you made"
+    )
+    made_row = _row(lab, "Iso E Super 10% w/w in DPG").inner_text()
+    assert "Your dilution" in made_row
+    assert "Held at the gate: its parent bottle changed after this dilution" in made_row
+    assert "Differs from the workbook: workbook says neat" in _row(lab, "Hedione").inner_text()
+    assert lab.page.get_by_role("button", name="Add a dilution").count() == 1
+
+    lab.page.get_by_role("button", name="Add a dilution").click()
+    panel = lab.page.locator("#stock-dilution-panel")
+    panel.wait_for()
+    assert "Iso E Super" in panel.inner_text()
+    _clean(lab)
