@@ -528,7 +528,13 @@ function benchSourceNotes({ scaledFrom = null, scaledTo = null, unscaled = [], u
   return notes;
 }
 
-// ---- Pour fix: one row went in over or under, what to do with the rest ----
+// ---- Pour fix: one row went in over or under, what still goes in ----
+//
+// The fix keeps the whole batch: for every row of the first sheet, its batch
+// amount (target) and how much is already in. A factor scales every target
+// when a row goes in over, so every ratio is kept; the sheet then lists only
+// what still goes in (target x factor - already in). Exact fractions
+// throughout; a printed amount is rounded only when it is shown.
 
 // Exact left - right for plain decimals; null unless left >= right.
 function subtractDecimalText(left, right) {
@@ -544,6 +550,50 @@ function subtractDecimalText(left, right) {
   return fraction ? `${digits.slice(0, -scale)}.${fraction}` : digits.slice(0, -scale);
 }
 
+function benchGcd(a, b) {
+  let x = a < 0n ? -a : a;
+  let y = b < 0n ? -b : b;
+  while (y) [x, y] = [y, x % y];
+  return x || 1n;
+}
+function benchFraction(n, d) {
+  const sign = d < 0n ? -1n : 1n;
+  const g = benchGcd(n, d);
+  return { n: (sign * n) / g, d: (sign * d) / g };
+}
+function benchFractionOf(text) {
+  const trimmed = String(text ?? "").trim();
+  if (!BENCH_DECIMAL.test(trimmed)) return null;
+  const [whole, fraction = ""] = trimmed.split(".");
+  return benchFraction(BigInt(whole + fraction), 10n ** BigInt(fraction.length));
+}
+const benchTimes = (a, b) => benchFraction(a.n * b.n, a.d * b.d);
+const benchOver = (a, b) => benchFraction(a.n * b.d, a.d * b.n);
+const benchPlus = (a, b) => benchFraction(a.n * b.d + b.n * a.d, a.d * b.d);
+const benchMinus = (a, b) => benchFraction(a.n * b.d - b.n * a.d, a.d * b.d);
+function benchCompare(a, b) {
+  const x = a.n * b.d;
+  const y = b.n * a.d;
+  return x < y ? -1 : x > y ? 1 : 0;
+}
+// Rounded half up to `places` decimals, without trailing zeros; "0" for zero or less.
+function benchFractionText(value, places) {
+  if (value.n <= 0n) return "0";
+  const digits = ((2n * value.n * 10n ** BigInt(places) + value.d) / (2n * value.d)).toString().padStart(places + 1, "0");
+  if (!places) return digits;
+  const fraction = digits.slice(-places).replace(/0+$/, "");
+  return fraction ? `${digits.slice(0, -places)}.${fraction}` : digits.slice(0, -places);
+}
+// A percentage that never prints as 0 when it is not 0.
+function benchPercentOf(part, whole) {
+  const value = benchTimes(benchOver(part, whole), { n: 100n, d: 1n });
+  for (const places of [1, 2]) {
+    const text = benchFractionText(value, places);
+    if (text !== "0") return text;
+  }
+  return "under 0.01";
+}
+
 // What the sheet tells Kenny to pour for a row, in the sheet's unit: the mix
 // pour for a row under 10 µL, else the amount. null when the sheet does not
 // pour the row as written.
@@ -555,85 +605,123 @@ function benchPlannedPour(row) {
   return { amount, unit: line.unitKey, mix: Boolean(line.mix) };
 }
 
-// `rows` are in sheet order; the rows above `overIndex` are already in.
-// `actualText` is what really went in for that row, in the unit the sheet
-// shows for it (µL of the mix for a mix row).
-// - under: the amount still missing.
-// - over: every ratio is kept by scaling the batch by actual / planned: the
-//   rows already in get a top-up of (factor - 1) x their amount, the rows
-//   still to come are poured at factor x, the over row itself is done.
-function benchPourFix(rows, overIndex, actualText) {
-  const row = (rows || [])[overIndex];
+// The batch as the first sheet prints it: every row, nothing in yet.
+function benchPourStart(rows) {
+  return {
+    factor: { n: 1n, d: 1n },
+    entries: (rows || []).map((row) => ({ row, target: benchFractionOf(row.amount_decimal), done: { n: 0n, d: 1n } })),
+  };
+}
+
+// The rows still to pour, with `pour_entry` (the batch row) and `pour_target`
+// (the amount in the batch row's own unit). A row partly in is a top-up. A
+// liquid amount under 1 mL is shown in µL so the 10 µL mix rule applies to
+// it. Top-ups too small to measure or to mix are left out and named.
+function benchPourSheet(state) {
+  const rows = [];
+  const skipped = [];
+  const unscaled = [];
+  state.entries.forEach((entry, index) => {
+    const { row } = entry;
+    if (!entry.target || entry.target.n === 0n) {
+      if (!entry.target) unscaled.push(String(row.material ?? ""));
+      rows.push({ ...row, pour_entry: index, pour_target: null });
+      return;
+    }
+    const left = benchMinus(benchTimes(entry.target, state.factor), entry.done);
+    if (left.n <= 0n) return;
+    const topUp = entry.done.n > 0n;
+    const unit = benchUnitKey(row.amount_unit);
+    const ownPlaces = (String(row.amount_decimal).split(".")[1] || "").length;
+    const places = Math.max(BENCH_SCALE_PLACES[unit] ?? 3, ownPlaces);
+    let target = benchFractionText(left, places);
+    if (target === "0") target = benchFractionText(left, places + 2);
+    if (target === "0") {
+      skipped.push(String(row.material ?? ""));
+      return;
+    }
+    let shown = { amount_decimal: target, amount_unit: row.amount_unit };
+    if (unit === "mL" && compareDecimalText(target, "1") < 0) {
+      shown = { amount_decimal: benchFractionText(benchTimes(benchFractionOf(target), { n: 1000n, d: 1n }), 3), amount_unit: "µL" };
+    }
+    const next = { ...row, ...shown, pour_entry: index, pour_target: target, ...(topUp ? { pour_fix: "top-up" } : {}) };
+    // A top-up too small to mix, or a few µL of carrier, is left out.
+    if (topUp && benchNeedsPreparedDilution(next) && (!benchMixRecipe(next) || benchIsCarrierRow(row))) {
+      skipped.push(String(row.material ?? ""));
+      return;
+    }
+    rows.push(next);
+  });
+  return { rows, skipped, unscaled };
+}
+
+// `rows` are the rows of the sheet on screen, in the order it prints them;
+// the rows above `index` are in as printed. `actualText` is what really went
+// in for that row, in the unit the sheet shows for it (µL of the mix for a mix
+// row). Returns the new batch state, or the reason there is none.
+function benchPourFix(state, rows, index, actualText) {
+  const row = (rows || [])[index];
   const planned = row ? benchPlannedPour(row) : null;
-  if (!planned) return { kind: "invalid", reason: "Pick a row the sheet pours as written." };
+  const entry = row ? state.entries[row.pour_entry] : null;
+  if (!planned || !entry || !entry.target || !BENCH_DECIMAL.test(String(row.pour_target ?? ""))) {
+    return { kind: "invalid", reason: "Pick a row the sheet pours as written." };
+  }
   const actual = String(actualText ?? "").trim();
   if (!BENCH_DECIMAL.test(actual) || compareDecimalText(actual, "0") <= 0) {
     return { kind: "invalid", reason: "Type what went in as a plain number, more than 0." };
   }
-  const material = String(row.material ?? "");
-  const base = { material, planned: planned.amount, actual, unit: planned.unit, mix: planned.mix };
+  const base = { material: String(row.material ?? ""), planned: planned.amount, actual, unit: planned.unit, mix: planned.mix, entry: row.pour_entry };
   const order = compareDecimalText(actual, planned.amount);
-  if (order === 0) return { ...base, kind: "same" };
-  if (order < 0) {
-    const missing = subtractDecimalText(planned.amount, actual);
-    return { ...base, kind: "under", missing, percent: scaleDecimalText("100", missing, planned.amount, 1) };
-  }
-  const extra = subtractDecimalText(actual, planned.amount);
-  const fixed = [];
-  const skipped = [];
-  const unscaled = [];
-  (rows || []).forEach((item, index) => {
-    if (index === overIndex) return;
-    const alreadyIn = index < overIndex && benchPlannedPour(item) !== null;
-    const amount = alreadyIn ? benchScaleAmount(item, extra, planned.amount) : benchScaleAmount(item, actual, planned.amount);
-    if (amount === null) {
-      unscaled.push(String(item.material ?? ""));
-      fixed.push({ ...item });
-    } else if (compareDecimalText(amount, "0") === 0) {
-      skipped.push(String(item.material ?? ""));
-    } else {
-      fixed.push({ ...item, amount_decimal: amount, ...(alreadyIn ? { pour_fix: "top-up" } : {}) });
-    }
+  if (order === 0) return { ...base, kind: "same", state };
+  const entries = state.entries.map((item) => ({ ...item }));
+  rows.slice(0, index).forEach((above) => {
+    const item = entries[above.pour_entry];
+    const amount = benchFractionOf(above.pour_target);
+    if (item && amount && benchPlannedPour(above)) item.done = benchPlus(item.done, amount);
   });
+  // What went in, in the batch row's own unit (a mix carries 1 part in n).
+  const went = benchTimes(benchFractionOf(actual), benchOver(benchFractionOf(row.pour_target), benchFractionOf(planned.amount)));
+  const mine = entries[row.pour_entry];
+  mine.done = benchPlus(mine.done, went);
+  const plannedFraction = benchFractionOf(planned.amount);
+  const difference = order > 0 ? benchMinus(benchFractionOf(actual), plannedFraction) : benchMinus(plannedFraction, benchFractionOf(actual));
+  const factor = order > 0 ? benchOver(mine.done, mine.target) : state.factor;
   return {
     ...base,
-    kind: "over",
-    factor: scaleDecimalText("1", actual, planned.amount, 3),
-    percent: scaleDecimalText("100", extra, planned.amount, 1),
-    rows: fixed,
-    topUps: fixed.filter((item) => item.pour_fix === "top-up").length,
-    skipped,
-    unscaled,
+    kind: order > 0 ? "over" : "under",
+    difference: benchFractionText(difference, 3),
+    percent: benchPercentOf(difference, plannedFraction),
+    factor: benchFractionText(factor, 4),
+    state: { factor, entries },
   };
 }
 
-// Plain-language result. `sizeMl` is the batch the sheet makes, when known.
-function benchPourFixText(fix, sizeMl = null) {
-  const unit = fix.unit;
-  const what = fix.mix ? `${unit} of the mix` : unit;
-  if (fix.kind === "invalid") return { message: fix.reason, notes: [] };
-  if (fix.kind === "same") return { message: `${fix.material} went in as planned; nothing to fix.`, notes: [] };
-  if (fix.kind === "under") {
-    const small = unit === "µL" && Number(fix.missing) < BENCH_MIN_PIPETTE_UL;
-    const how = !small ? `Add the missing ${fix.missing} ${what}.`
-      : fix.mix ? `Add ${fix.missing} ${what} more, or leave it: under 10 µL is hard to pipette.`
-        : (() => {
-          const recipe = benchMixRecipe({ amount_unit: "µL", amount_decimal: fix.missing, material: fix.material });
-          return recipe ? benchMixText(recipe, "µL") : `${fix.missing} µL is too small to add; leave it.`;
-        })();
-    return { message: `${fix.material} went in ${fix.missing} ${what} short (${fix.percent}% under). ${how}`, notes: [] };
+// Plain-language result for the fix, the sheet it leads to and, when known,
+// the size of the batch the first sheet makes.
+function benchPourFixText(fix, sheet = null, firstSizeMl = null) {
+  const what = fix.mix ? `${fix.unit} of the mix` : fix.unit;
+  if (fix.kind === "invalid") return { message: fix.reason, notes: [], sizeMl: null };
+  if (fix.kind === "same") return { message: `${fix.material} went in as planned; nothing to fix.`, notes: [], sizeMl: null };
+  const size = firstSizeMl && benchFractionOf(firstSizeMl) ? benchFractionText(benchTimes(benchFractionOf(firstSizeMl), fix.state.factor), 2) : null;
+  const notes = [];
+  let message;
+  if (fix.kind === "over") {
+    message = `Fixed: the sheet now shows what still goes in after ${fix.material}.`;
+    notes.push(`Pour fix: ${fix.material} went in at ${fix.actual} ${what} instead of ${fix.planned} (${fix.percent}% over). To keep every ratio, the whole batch is now ${fix.factor} times the first sheet${size ? `: ${size} mL instead of ${firstSizeMl} mL` : ""}.`);
+    notes.push(`Or leave it: undo this fix, and ${fix.material} stays ${fix.percent}% over while the rest pours as before; check its IFRA limit if it is restricted.`);
+  } else {
+    const tooSmall = (sheet?.skipped || []).includes(fix.material) && !(sheet?.rows || []).some((item) => item.pour_entry === fix.entry);
+    message = tooSmall
+      ? `${fix.material} went in ${fix.difference} ${what} short (${fix.percent}% under). That is too small to add; leave it.`
+      : `${fix.material} went in ${fix.difference} ${what} short (${fix.percent}% under). The sheet now lists the missing amount as a top-up, with what still goes in.`;
   }
-  const bigger = sizeMl ? scaleDecimalText(sizeMl, fix.actual, fix.planned, 2) : null;
-  const notes = [
-    `Pour fix: ${fix.material} went in at ${fix.actual} ${what} instead of ${fix.planned} (${fix.percent}% over). To keep every ratio, this sheet lists only what still goes in: top-ups for the ${fix.topUps} ${fix.topUps === 1 ? "row" : "rows"} already in, then the rest at ${fix.factor} times.`,
-    bigger ? `The batch becomes ${bigger} mL instead of ${sizeMl} mL.` : `The batch grows by ${fix.percent}%.`,
-    `Or leave it: ${fix.material} stays ${fix.percent}% over and the rest pours as first printed; check its IFRA limit if it is restricted.`,
-  ];
-  if (fix.skipped.length) notes.push(`Top-ups too small to matter are left out: ${benchNameList(fix.skipped)}.`);
-  if (fix.unscaled.length) notes.push(`Not rescaled, the amount is not a plain number: ${benchNameList(fix.unscaled)}.`);
-  return { message: `Fixed: the sheet now shows what still goes in after ${fix.material}.`, notes, sizeMl: bigger };
+  notes.push("This sheet lists only what still goes in, in basket order, and its totals count only that. Rows marked Top-up are already partly in.");
+  const skipped = (sheet?.skipped || []).filter((name) => name !== (fix.kind === "under" ? fix.material : null));
+  if (skipped.length) notes.push(`Top-ups too small to add, leave them: ${benchNameList(skipped)}.`);
+  if (sheet?.unscaled?.length) notes.push(`Not rescaled, the amount is not a plain number: ${benchNameList(sheet.unscaled)}.`);
+  return { message, notes, sizeMl: size };
 }
 
 if (typeof module === "object" && module.exports) {
-  module.exports = { addDecimalText, benchUnitKey, benchPercentText, benchBasisText, benchNeedsPreparedDilution, benchSheetLines, benchSheetHold, benchLeaveOutNote, benchSheetHtml, benchEscape, compareDecimalText, benchBasketLookup, benchRowBasket, benchBasketOrder, multiplyDecimalText, benchMixRecipe, benchMixText, benchMixShortText, benchMixNote, benchBottleMl, scaleDecimalText, benchScaleRows, benchSeparateTotals, benchRowFromSource, benchMatchStocks, benchSourceNotes, subtractDecimalText, benchPlannedPour, benchPourFix, benchPourFixText };
+  module.exports = { addDecimalText, benchUnitKey, benchPercentText, benchBasisText, benchNeedsPreparedDilution, benchSheetLines, benchSheetHold, benchLeaveOutNote, benchSheetHtml, benchEscape, compareDecimalText, benchBasketLookup, benchRowBasket, benchBasketOrder, multiplyDecimalText, benchMixRecipe, benchMixText, benchMixShortText, benchMixNote, benchBottleMl, scaleDecimalText, benchScaleRows, benchSeparateTotals, benchRowFromSource, benchMatchStocks, benchSourceNotes, subtractDecimalText, benchPlannedPour, benchPourStart, benchPourSheet, benchPourFix, benchPourFixText };
 }

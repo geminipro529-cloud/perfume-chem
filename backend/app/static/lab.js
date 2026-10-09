@@ -2420,7 +2420,7 @@ $("#formula-print-bench").addEventListener("click", () => {
 // the same sheet as Create (bench-sheet.js); nothing is saved.
 // `ticket` changes whenever the form changes, so a reply that arrives after
 // an edit is dropped instead of drawing a sheet for the old values.
-const benchSource = { html: "", autoSourceMl: "", ticket: 0, base: null, orderedRows: [] };
+const benchSource = { html: "", autoSourceMl: "", ticket: 0, base: null, orderedRows: [], pours: [] };
 
 function benchFieldError(message, field) {
   const error = new Error(message);
@@ -2439,6 +2439,7 @@ function clearBenchPreview() {
   benchSource.html = "";
   benchSource.base = null;
   benchSource.orderedRows = [];
+  benchSource.pours = [];
   resetBenchPourForm();
   $("#bench-source-print").disabled = true;
   $("#bench-preview-card").hidden = true;
@@ -2498,6 +2499,19 @@ function drawBenchSheet(sheet) {
     notes: sheet.notes,
   });
   $("#bench-preview").innerHTML = benchSource.html;
+  // The pour fix works on the rows in the order this sheet prints them.
+  benchSource.orderedRows = benchBasketOrder(sheet.rows, sheet.lookup).map((entry) => entry.row);
+  const select = $('#bench-pour-form [name="pour_row"]');
+  select.replaceChildren(...benchSource.orderedRows.map((row, index) => {
+    const planned = benchPlannedPour(row);
+    if (!planned || row.pour_target === null) return null;
+    const option = document.createElement("option");
+    option.value = String(index);
+    option.textContent = `${index + 1}. ${row.material} · ${planned.amount} ${planned.unit}${planned.mix ? " of the mix" : ""}`;
+    return option;
+  }).filter(Boolean));
+  $("#bench-pour-form").hidden = !select.options.length;
+  $("#bench-pour-undo").hidden = benchSource.pours.length < 2;
 }
 
 function renderBenchPreview(source, sizes) {
@@ -2506,13 +2520,13 @@ function renderBenchPreview(source, sizes) {
   const scaling = sizes.to && compareDecimalText(sizes.to, sizes.from) !== 0;
   const scaled = scaling ? benchScaleRows(rows, sizes.from, sizes.to) : { rows, unscaled: [] };
   const matched = benchMatchStocks(scaled.rows, state.projectInventory);
-  const lookup = benchBasketLookup(state.projectInventory);
+  const start = benchPourStart(matched.rows);
   benchSource.base = {
     formulaName: source.formula_name,
     variantLabel: scaling ? `${sizes.to} mL` : "",
     sizeMl: (scaling ? sizes.to : sizes.from) || null,
-    rows: matched.rows,
-    lookup,
+    rows: benchPourSheet(start).rows,
+    lookup: benchBasketLookup(state.projectInventory),
     notes: benchSourceNotes({
       scaledFrom: scaling ? sizes.from : null,
       scaledTo: scaling ? sizes.to : null,
@@ -2523,19 +2537,9 @@ function renderBenchPreview(source, sizes) {
       warnings: source.warnings,
     }),
   };
+  // Each pour fix pushes the batch and the sheet it leads to; undo pops one.
+  benchSource.pours = [{ state: start, sheet: benchSource.base }];
   drawBenchSheet(benchSource.base);
-  // The pour fix works on the rows in the order the sheet prints them.
-  benchSource.orderedRows = benchBasketOrder(matched.rows, lookup).map((entry) => entry.row);
-  const select = $('#bench-pour-form [name="pour_row"]');
-  select.replaceChildren(...benchSource.orderedRows.map((row, index) => {
-    const planned = benchPlannedPour(row);
-    if (!planned) return null;
-    const option = document.createElement("option");
-    option.value = String(index);
-    option.textContent = `${index + 1}. ${row.material} · ${planned.amount} ${planned.unit}${planned.mix ? " of the mix" : ""}`;
-    return option;
-  }).filter(Boolean));
-  $("#bench-pour-form").hidden = !select.options.length;
   $("#bench-preview-card").hidden = false;
   $("#bench-source-print").disabled = false;
 }
@@ -2546,7 +2550,7 @@ function resetBenchPourForm() {
   form.reset();
   $('#bench-pour-form [name="pour_row"]').replaceChildren();
   $("#bench-pour-result").textContent = "";
-  $("#bench-pour-reset").hidden = true;
+  $("#bench-pour-undo").hidden = true;
 }
 
 $("#bench-pour-form").addEventListener("submit", (event) => {
@@ -2554,34 +2558,39 @@ $("#bench-pour-form").addEventListener("submit", (event) => {
   const form = event.currentTarget;
   clearFormError(form);
   $("#bench-pour-result").textContent = "";
-  if (!benchSource.base) return;
+  const current = benchSource.pours.at(-1);
+  if (!benchSource.base || !current) return;
   try {
     const data = formData(form);
-    const fix = benchPourFix(benchSource.orderedRows, Number(data.pour_row), data.pour_actual);
-    const text = benchPourFixText(fix, benchSource.base.sizeMl);
-    if (fix.kind === "invalid") throw benchFieldError(text.message, benchPlannedPour(benchSource.orderedRows[Number(data.pour_row)] || {}) ? "pour_actual" : "pour_row");
-    if (fix.kind === "over") {
-      drawBenchSheet({
+    const index = Number(data.pour_row);
+    const fix = benchPourFix(current.state, benchSource.orderedRows, index, data.pour_actual);
+    if (fix.kind === "invalid") {
+      throw benchFieldError(fix.reason, benchPlannedPour(benchSource.orderedRows[index] || {}) ? "pour_actual" : "pour_row");
+    }
+    const next = fix.kind === "same" ? null : benchPourSheet(fix.state);
+    const text = benchPourFixText(fix, next, benchSource.base.sizeMl);
+    if (next) {
+      const sheet = {
         ...benchSource.base,
-        rows: fix.rows,
-        variantLabel: `${text.sizeMl ? `${text.sizeMl} mL · ` : ""}pour fix`,
+        rows: next.rows,
+        variantLabel: `${text.sizeMl ? `${text.sizeMl} mL · ` : ""}still to add`,
         notes: [...text.notes, ...benchSource.base.notes],
-      });
-      $("#bench-pour-reset").hidden = false;
-    } else if (benchSource.html !== "" && !$("#bench-pour-reset").hidden) {
-      drawBenchSheet(benchSource.base);
-      $("#bench-pour-reset").hidden = true;
+      };
+      benchSource.pours.push({ state: fix.state, sheet });
+      drawBenchSheet(sheet);
+      form.reset();
     }
     $("#bench-pour-result").textContent = text.message;
   } catch (error) {
     showFormError(form, error, "No fix yet.");
   }
 });
-$("#bench-pour-reset").addEventListener("click", () => {
-  if (!benchSource.base) return;
-  drawBenchSheet(benchSource.base);
-  $("#bench-pour-reset").hidden = true;
-  $("#bench-pour-result").textContent = "Back to the sheet as first shown.";
+$("#bench-pour-undo").addEventListener("click", () => {
+  if (benchSource.pours.length < 2) return;
+  benchSource.pours.pop();
+  clearFormError($("#bench-pour-form"));
+  drawBenchSheet(benchSource.pours.at(-1).sheet);
+  $("#bench-pour-result").textContent = benchSource.pours.length === 1 ? "Undone: back to the sheet as first shown." : "Undone: back to the sheet before the last fix.";
 });
 
 $('#bench-source-form [name="source_kind"]').addEventListener("change", () => {
@@ -2589,6 +2598,9 @@ $('#bench-source-form [name="source_kind"]').addEventListener("change", () => {
   clearBenchPreview();
 });
 $('#bench-source-form [name="project_formula_path"]').addEventListener("change", (event) => {
+  // Hiding the focused path field (switching to Pasted) blurs it, and the blur
+  // fires a late change; that must not refill the size for a pasted formula.
+  if ($('#bench-source-form [name="source_kind"]').value === "PASTED") return;
   const selected = state.formulaLibrary.find((item) => item.source_path === event.target.value.trim());
   if (selected) prefillBenchSourceMl(selected.source_path, selected.display_name);
 });

@@ -211,6 +211,9 @@ def test_a_size_filled_from_a_file_name_does_not_scale_a_pasted_formula(lab):
     assert form.locator('[name="source_ml"]').input_value() == "30"
 
     form.locator('[name="source_kind"]').select_option("PASTED")
+    # Let a frame pass: hiding the focused path field blurs it, and the late
+    # change that fires must not put the file's size back.
+    lab.page.evaluate("() => new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)))")
     assert form.locator('[name="source_ml"]').input_value() == ""
     form.locator('[name="pasted_text"]').fill("# Tuberose 50mL\n\n| Material | uL |\n|---|---|\n| Hedione | 600 |")
     form.locator('[name="target_ml"]').fill("5")
@@ -230,7 +233,7 @@ def test_a_size_filled_from_a_file_name_does_not_scale_a_pasted_formula(lab):
     assert lab.unexpected == []
 
 
-def test_pour_fix_rescales_the_rest_after_an_overshoot_and_explains_a_short_pour(lab):
+def test_pour_fix_rescales_the_rest_works_on_the_fixed_sheet_and_undoes(lab):
     lab.respond("GET", SOURCE_PATH, json=SOURCE)
     lab.page.add_init_script("window.print = () => { window.__printed = (window.__printed || 0) + 1; };")
     _open(lab)
@@ -239,44 +242,52 @@ def test_pour_fix_rescales_the_rest_after_an_overshoot_and_explains_a_short_pour
     preview = lab.page.locator("#bench-preview")
     preview.locator(".bench-sheet-table").wait_for()
     pour = lab.page.locator("#bench-pour-form")
-    assert pour.locator('[name="pour_row"] option').all_inner_texts() == [
+    options = pour.locator('[name="pour_row"] option')
+    assert options.all_inner_texts() == [
         "1. Hedione · 600 µL", "2. Rose Oxide · 30 µL", "3. Velvet Musk · 60 µL", "4. Ambrox crystals · 120 mg",
     ]
+    assert lab.page.locator("#bench-pour-undo").is_hidden()
+
+    def amount(material):
+        return preview.locator("tbody tr", has_text=material).locator(".bench-amount").first.inner_text()
 
     # Rose Oxide went in at 36 uL instead of 30: Hedione (already in) is topped
     # up and the rest pour at 1.2 x, in a 36 mL batch.
     pour.locator('[name="pour_row"]').select_option("1")
     pour.locator('[name="pour_actual"]').fill("36")
     pour.locator('button[type="submit"]').click()
-    lab.page.wait_for_function("document.querySelector('#bench-preview h1').textContent.includes('pour fix')")
-    assert preview.locator("h1").inner_text() == "Rose Test · 36 mL · pour fix"
+    lab.page.wait_for_function("document.querySelector('#bench-preview h1').textContent.includes('still to add')")
+    assert preview.locator("h1").inner_text() == "Rose Test · 36 mL · still to add"
     assert preview.locator("tbody td strong").all_inner_texts() == ["Hedione", "Velvet Musk", "Ambrox crystals"]
-    hedione = preview.locator("tbody tr", has_text="Hedione")
-    assert "Top-up" in hedione.inner_text()
-    assert hedione.locator(".bench-amount").first.inner_text() == "120 uL"
-    assert preview.locator("tbody tr", has_text="Velvet Musk").locator(".bench-amount").first.inner_text() == "72 uL"
-    assert preview.locator("tbody tr", has_text="Ambrox crystals").locator(".bench-amount").first.inner_text() == "144 mg"
-    assert "The batch becomes 36 mL instead of 30 mL." in preview.inner_text()
+    assert "Top-up" in preview.locator("tbody tr", has_text="Hedione").inner_text()
+    assert (amount("Hedione"), amount("Velvet Musk"), amount("Ambrox crystals")) == ("120 uL", "72 uL", "144 mg")
+    assert "the whole batch is now 1.2 times the first sheet: 36 mL instead of 30 mL." in preview.inner_text()
     assert lab.page.locator("#bench-pour-result").inner_text() == "Fixed: the sheet now shows what still goes in after Rose Oxide."
+    # The form now offers the fixed sheet's rows.
+    assert options.all_inner_texts() == ["1. Hedione · 120 µL", "2. Velvet Musk · 72 µL", "3. Ambrox crystals · 144 mg"]
 
     lab.page.locator("#bench-source-print").click()
     assert lab.page.evaluate("window.__printed") == 1
-    assert "36 mL · pour fix" in lab.page.locator("#bench-sheet").inner_html()
+    assert "36 mL · still to add" in lab.page.locator("#bench-sheet").inner_html()
 
-    lab.page.locator("#bench-pour-reset").click()
-    assert preview.locator("h1").inner_text() == "Rose Test"
-    assert "Rose Oxide" in preview.locator("tbody").inner_text()
-    assert lab.page.locator("#bench-pour-reset").is_hidden()
-
-    # A short pour leaves the sheet alone and says how to add the rest.
+    # Then Ambrox is weighed at 119 mg of the 144: only the 25 mg is missing.
     pour.locator('[name="pour_row"]').select_option("2")
-    pour.locator('[name="pour_actual"]').fill("55")
+    pour.locator('[name="pour_actual"]').fill("119")
     pour.locator('button[type="submit"]').click()
+    lab.page.wait_for_function("document.querySelector('#bench-pour-result').textContent.includes('short')")
     assert lab.page.locator("#bench-pour-result").inner_text() == (
-        "Velvet Musk went in 5 µL short (8.3% under). Under 10 µL: first mix 10 µL of this stock with 10 µL DPG,"
-        " then add 10 µL of the mix (it carries the 5 µL)."
+        "Ambrox crystals went in 25 mg short (17.4% under). The sheet now lists the missing amount as a top-up, with what still goes in."
     )
+    assert preview.locator("tbody td strong").all_inner_texts() == ["Ambrox crystals"]
+    assert amount("Ambrox crystals") == "25 mg"
+
+    # Undo goes back one fix at a time.
+    lab.page.locator("#bench-pour-undo").click()
+    assert preview.locator("tbody td strong").all_inner_texts() == ["Hedione", "Velvet Musk", "Ambrox crystals"]
+    lab.page.locator("#bench-pour-undo").click()
     assert preview.locator("h1").inner_text() == "Rose Test"
+    assert lab.page.locator("#bench-pour-result").inner_text() == "Undone: back to the sheet as first shown."
+    assert lab.page.locator("#bench-pour-undo").is_hidden()
 
     pour.locator('[name="pour_actual"]').fill("lots")
     pour.locator('button[type="submit"]').click()
@@ -284,12 +295,11 @@ def test_pour_fix_rescales_the_rest_after_an_overshoot_and_explains_a_short_pour
     error.wait_for()
     assert " ".join(error.inner_text().split()) == "No fix yet. Type what went in as a plain number, more than 0."
     assert pour.locator('[name="pour_actual"]').get_attribute("aria-invalid") == "true"
-    assert lab.page.locator("#bench-pour-result").inner_text() == ""
 
     # A new sheet starts the pour fix over.
     lab.page.locator('#bench-source-form [name="target_ml"]').fill("10")
     assert lab.page.locator("#bench-preview-card").is_hidden()
-    assert pour.locator('[name="pour_row"] option').count() == 0
+    assert options.count() == 0
     assert lab.page.locator("#bench-pour-form-error").count() == 0
     assert lab.page_errors == []
     assert lab.unexpected == []
