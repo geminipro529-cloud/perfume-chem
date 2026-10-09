@@ -263,7 +263,7 @@ function benchSheetHtml({ formulaName, variantLabel, dateText, totals, rows, cri
     return `${heading}<tr${classes ? ` class="${classes}"` : ""}>
       <td class="bench-number">${line.number}</td>
       <td>${line.pipettable ? '<span class="bench-tick" role="img" aria-label="not yet added"></span>' : ""}</td>
-      <td><strong>${benchEscape(line.material)}</strong>${entry.basket !== null ? `<small class="bench-basket-tag">Basket ${benchEscape(entry.basket)}</small>` : ""}${line.mark ? `<small class="bench-dilution-mark">${benchEscape(line.mark)}</small>` : ""}${line.smallPour ? `<small class="bench-small-pour">${benchEscape(BENCH_SMALL_POUR_TEXT)}</small>` : ""}</td>
+      <td><strong>${benchEscape(line.material)}</strong>${entry.basket !== null ? `<small class="bench-basket-tag">Basket ${benchEscape(entry.basket)}</small>` : entry.group === "unassigned" ? '<small class="bench-basket-tag">No basket</small>' : ""}${line.mark ? `<small class="bench-dilution-mark">${benchEscape(line.mark)}</small>` : ""}${line.smallPour ? `<small class="bench-small-pour">${benchEscape(BENCH_SMALL_POUR_TEXT)}</small>` : ""}</td>
       <td>${benchEscape(line.stockLabel)}<small>${benchEscape(line.strength)}</small></td>
       <td class="bench-amount">${benchEscape(line.amount)} ${benchEscape(line.unit)}</td>
       <td class="bench-amount">${line.pipettable ? benchEscape(line.runningTotal) : "not in total"}</td>

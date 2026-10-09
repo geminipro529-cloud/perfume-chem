@@ -56,7 +56,7 @@ def test_rejected_bottle_still_shows_the_inline_error_box(lab):
 
     assert box.get_attribute("role") == "alert"
     assert box.inner_text().startswith("Not saved.")
-    assert "Field required" in box.inner_text()
+    assert "Label: required" in box.inner_text()
     assert lab.page.locator('#bottle-form input[name="label"]').get_attribute("aria-invalid") == "true"
     assert "Record committed." not in [entry["text"] for entry in lab.status_history()]
 

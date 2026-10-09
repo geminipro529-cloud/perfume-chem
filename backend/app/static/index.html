@@ -450,7 +450,7 @@
               <label>Material<select name="material_id" data-material-select required></select></label>
               <div class="field-pair">
                 <label>Active fraction<input name="active_fraction" type="number" value="0.1" min="0.000001" max="1" step="0.000001" required></label>
-                <label>Initial mass, g<input name="initial_mass_g" type="number" value="10" min="0" step="0.001" required></label>
+                <label>Initial mass, g<input name="initial_mass_g" type="number" value="10" min="0" max="10000" step="any" required></label>
               </div>
               <label>Fraction basis<select name="fraction_basis"><option value="mass_fraction">Mass fraction</option><option value="volume_fraction">Volume fraction</option><option value="amount_fraction">Amount fraction</option></select></label>
               <label>Density, g/mL <span>(optional)</span><input name="density_g_ml" type="number" min="0.000001" step="0.000001"></label>
@@ -568,7 +568,7 @@
           <form id="bottle-form" class="panel form-panel">
             <p class="panel-index">B1</p><h2>Open bottle</h2>
             <label>Label<input name="label" required></label>
-            <label>Initial mass, g<input name="initial_mass_g" type="number" value="0" min="0" step="0.001" required></label>
+            <label>Initial mass, g<input name="initial_mass_g" type="number" value="0" min="0" max="10000" step="any" required></label>
             <button type="submit">Create bottle</button>
           </form>
           <form id="addition-form" class="panel form-panel">

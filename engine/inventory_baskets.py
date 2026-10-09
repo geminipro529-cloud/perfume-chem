@@ -9,6 +9,7 @@ the mixer sequence, bench instructions or any release gate.
 
 from __future__ import annotations
 
+import errno
 import hashlib
 import json
 import os
@@ -60,6 +61,12 @@ class BasketLogCorruptError(BasketError):
     """The basket log can't be read; the message is plain enough to show Kenny."""
 
     code = "BASKET_LOG_CORRUPT"
+
+
+class BasketLogBusyError(BasketError):
+    """Another save kept the basket log locked past the wait limit."""
+
+    code = "BASKET_LOG_BUSY"
 
 
 def _damaged_line(line_number: int) -> BasketLogCorruptError:
@@ -228,6 +235,17 @@ def stock_basket_fields(
     }
 
 
+BASKET_LOCK_TIMEOUT_S = 15.0
+# flock reports a lock held elsewhere with one of these; anything else is a real error.
+_LOCK_BUSY_ERRNOS = frozenset({errno.EAGAIN, errno.EACCES, errno.EWOULDBLOCK})
+
+
+def _busy() -> BasketLogBusyError:
+    return BasketLogBusyError(
+        "Another save is still writing the basket log. Try again in a moment."
+    )
+
+
 @contextmanager
 def _file_lock(log_path: Path) -> Iterator[None]:
     """Cross-process lock so two servers can't append with one previous_hash."""
@@ -235,15 +253,27 @@ def _file_lock(log_path: Path) -> Iterator[None]:
     lock_path = log_path.with_name(log_path.name + ".lock")
     lock_path.parent.mkdir(parents=True, exist_ok=True)
     with lock_path.open("a+b") as handle:
+        deadline = time.monotonic() + BASKET_LOCK_TIMEOUT_S
         if fcntl is not None:
-            fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+            while True:
+                try:
+                    fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+                    break
+                except OSError as error:
+                    if error.errno not in _LOCK_BUSY_ERRNOS:
+                        raise
+                    if time.monotonic() >= deadline:
+                        raise _busy() from None
+                    time.sleep(0.05)
         elif msvcrt is not None:
-            while True:  # LK_LOCK gives up after ~10 s; keep waiting instead
+            while True:
                 try:
                     handle.seek(0)
-                    msvcrt.locking(handle.fileno(), msvcrt.LK_LOCK, 1)
+                    msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
                     break
                 except OSError:
+                    if time.monotonic() >= deadline:
+                        raise _busy() from None
                     time.sleep(0.05)
         # With neither module available only the in-process lock protects us.
         try:
@@ -268,7 +298,18 @@ def record_basket_choice(
     if basket is not None and not _valid_basket(basket):
         raise BasketError("basket must be a number from 1 to 17, or null for no basket")
     source = basket_event_log_path(path)
-    with _WRITE_LOCK, _file_lock(source):
+    if not _WRITE_LOCK.acquire(timeout=BASKET_LOCK_TIMEOUT_S):
+        raise _busy()
+    try:
+        return _append_basket_event(source, normalized_identity, identity_name, basket)
+    finally:
+        _WRITE_LOCK.release()
+
+
+def _append_basket_event(
+    source: Path, normalized_identity: str, identity_name: str, basket: int | None
+) -> dict[str, Any]:
+    with _file_lock(source):
         events = load_basket_events(source)
         core: dict[str, Any] = {
             "schema": EVENT_SCHEMA,
@@ -290,7 +331,9 @@ __all__ = [
     "BASKET_EVENT_PATH_ENV",
     "BASKET_SEED_PATH",
     "BasketError",
+    "BasketLogBusyError",
     "BasketLogCorruptError",
+    "BASKET_LOCK_TIMEOUT_S",
     "basket_key",
     "basket_event_log_path",
     "default_basket_event_path",

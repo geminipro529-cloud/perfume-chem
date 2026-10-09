@@ -8,6 +8,7 @@ from typing import Any, TypeAlias, cast
 
 from engine.inventory_baskets import (
     BasketError,
+    BasketLogBusyError,
     BasketLogCorruptError,
     basket_list,
     confirmed_baskets,
@@ -35,6 +36,7 @@ from engine.research.formula_design import design_inventory_formula
 from fastapi import APIRouter, Body, Depends, status
 from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
+from starlette.concurrency import run_in_threadpool
 
 from app.api.deps import get_db
 from app.schemas.lab_lifecycle import (
@@ -368,10 +370,17 @@ async def set_workbench_inventory_basket(
             },
         )
     try:
-        event = record_basket_choice(
+        # In a worker thread: waiting on a held basket-log lock must not stall other requests.
+        event = await run_in_threadpool(
+            record_basket_choice,
             normalized_identity=request.normalized_identity,
             identity_name=stock.identity_name or stock.name,
             basket=request.basket,
+        )
+    except BasketLogBusyError as error:
+        return JSONResponse(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            content={"error": {"code": error.code, "message": str(error)}},
         )
     except BasketLogCorruptError as error:
         return JSONResponse(

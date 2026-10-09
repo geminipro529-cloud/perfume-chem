@@ -37,10 +37,67 @@ const state = {
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
+const OFFLINE_TEXT = "Can't reach the app on this PC. Is it still running?";
+const MESSAGE_LIMIT = 200;
+let offlineFailures = 0;
+
 function notify(message, error = false) {
   const node = $("#status");
   node.textContent = message;
   node.classList.toggle("is-error", error);
+  // Tagged so the next successful request can clear a "can't reach the app" message.
+  if (String(message).includes(OFFLINE_TEXT)) node.dataset.offline = "true";
+  else delete node.dataset.offline;
+}
+
+// The server is reachable again: drop every message that said it was not.
+function clearOfflineMessages() {
+  const status = $("#status");
+  if (status.dataset.offline) {
+    status.textContent = "";
+    status.classList.remove("is-error");
+    delete status.dataset.offline;
+  }
+  $$(".form-error[data-offline]").forEach((box) => box.remove());
+  const errors = stockView.basketErrors || {};
+  const stale = Object.keys(errors).filter((id) => String(errors[id]).includes(OFFLINE_TEXT));
+  if (stale.length) {
+    stale.forEach((id) => { delete errors[id]; });
+    if (state.projectInventory) renderProjectInventory($("#project-inventory-search").value);
+  }
+}
+
+function capMessage(text) {
+  const value = String(text);
+  return value.length > MESSAGE_LIMIT ? `${value.slice(0, MESSAGE_LIMIT - 1)}…` : value;
+}
+
+// Server text in plain words: one pair of surrounding quotes off, and not longer than a line or two.
+function plainServerText(text) {
+  let value = String(text ?? "").trim();
+  if (value.length >= 2 && (value[0] === "'" || value[0] === '"') && value.endsWith(value[0])) value = value.slice(1, -1).trim();
+  return capMessage(value);
+}
+
+const PYDANTIC_WORDS = [
+  [/^Field required$/, () => "required"],
+  [/^String should have at least 1 character$/, () => "required"],
+  [/^String should have at most (\d+) characters?$/, (m) => `too long (at most ${m[1]} characters)`],
+  [/^Input should be greater than or equal to (\S+)$/, (m) => `must be ${m[1]} or more`],
+  [/^Input should be greater than (\S+)$/, (m) => `must be more than ${m[1]}`],
+  [/^Input should be less than or equal to (\S+)$/, (m) => `must be ${m[1]} or less`],
+  [/^Input should be less than (\S+)$/, (m) => `must be less than ${m[1]}`],
+  [/^Input should be a valid number/, () => "must be a number"],
+  [/^Input should be a finite number/, () => "must be a number"],
+];
+
+function plainValidationText(text) {
+  const value = String(text ?? "");
+  for (const [pattern, words] of PYDANTIC_WORDS) {
+    const match = value.match(pattern);
+    if (match) return words(match);
+  }
+  return capMessage(value);
 }
 
 // A routine success message must not erase an error the user has not dismissed yet.
@@ -64,6 +121,7 @@ async function request(path, options = {}) {
   const timer = limitMs > 0 ? setTimeout(() => controller.abort(), limitMs) : null;
   let response;
   let payload;
+  const failuresAtStart = offlineFailures;
   try {
     response = await fetch(`${API}${path}`, {
       headers: { "Content-Type": "application/json", ...(fetchOptions.headers || {}) },
@@ -79,23 +137,25 @@ async function request(path, options = {}) {
       const method = String(fetchOptions.method || "GET").toUpperCase();
       throw new Error(`The app didn't answer within ${wait}.${method === "GET" ? "" : " It may still finish, so check before you try again."}`);
     }
-    throw new Error("Can't reach the app on this PC. Is it still running?");
+    offlineFailures += 1;
+    throw new Error(OFFLINE_TEXT);
   } finally {
     if (timer) clearTimeout(timer);
   }
   if (!response.ok) {
-    const serverText = typeof payload?.detail === "string" ? payload.detail : payload?.error?.message;
+    const rawText = typeof payload?.detail === "string" ? payload.detail : payload?.error?.message;
+    const serverText = rawText ? plainServerText(rawText) : rawText;
     let items = [];
     let message;
     if (Array.isArray(payload?.detail)) {
       items = payload.detail.map((item) => {
         const loc = Array.isArray(item.loc) ? item.loc.filter((part) => typeof part === "string" && part !== "body") : [];
         const field = loc.length ? loc[loc.length - 1] : "";
-        return { field, msg: item.msg || "is not valid" };
+        return { field, path: loc.join("."), msg: plainValidationText(item.msg || "is not valid") };
       });
-      message = items.map((item) => `${fieldWords(item.field)}: ${item.msg}`).join("\n");
+      message = capMessage(items.map((item) => `${fieldWords(item.field)}: ${item.msg}`).join("; "));
     } else if (response.status === 409) {
-      message = serverText ? `That already exists. ${serverText}` : "That already exists.";
+      message = capMessage(serverText ? `That already exists. ${serverText}` : "That already exists.");
     } else {
       message = serverText || `The server returned ${response.status}.`;
     }
@@ -107,6 +167,8 @@ async function request(path, options = {}) {
     error.fields = items.map((item) => item.field).filter(Boolean);
     throw error;
   }
+  // Not while another request failed to connect meanwhile: that failure's message is newer.
+  if (offlineFailures === failuresAtStart) clearOfflineMessages();
   return payload;
 }
 
@@ -480,6 +542,9 @@ async function refresh() {
   notifyRoutine("Inventory and ledger refreshed.");
 }
 
+// False until the start-up navigate() has run: the first Tab must still reach the skip link.
+let pageStarted = false;
+
 function navigate(view) {
   $$(".nav-item").forEach((item) => item.classList.toggle("is-active", item.dataset.view === view));
   $$(".nav-item").forEach((item) => {
@@ -488,8 +553,14 @@ function navigate(view) {
   });
   $$(".view").forEach((panel) => panel.classList.toggle("is-visible", panel.dataset.panel === view));
   history.replaceState(null, "", `#${view}`);
-  const heading = $(`[data-panel="${view}"] h1`);
-  if (heading) heading.focus?.({ preventScroll: true });
+  if (pageStarted) {
+    // Switching views makes no request, so a routine "refreshed" line would go stale; an error stays.
+    if (!$("#status").classList.contains("is-error")) notify("");
+    const heading = $(`[data-panel="${view}"] h1`);
+    // Only some headings carry tabindex in the HTML; without one, focus() silently does nothing.
+    if (heading && !heading.hasAttribute("tabindex")) heading.tabIndex = -1;
+    if (heading) heading.focus?.({ preventScroll: true });
+  }
   if (view === "science") {
     loadScienceAuthority().catch((error) => notify(error.message, true));
   }
@@ -515,9 +586,15 @@ function clearFormError(form) {
 }
 
 function showFormError(form, error) {
+  // Each listed item is its own sentence; the field that holds it is the nested path, else the last name.
+  const names = (error.items || []).map((item) => [item.path, item.field].find((name) => name
+    && [...form.elements].some((element) => element.name === name)) || "");
   const lines = error.items?.length
-    ? error.items.map((item) => `${item.field ? fieldLabel(form, item.field) : "This form"}: ${item.msg}`)
-    : String(error.message).split("\n");
+    ? [capMessage(error.items.map((item, index) => {
+      const name = names[index] || item.field;
+      return `${name ? fieldLabel(form, name) : "This form"}: ${item.msg}`;
+    }).join("; "))]
+    : capMessage(error.message).split("\n");
   const id = `${form.id}-error`;
   let box = document.getElementById(id);
   if (!box) {
@@ -531,6 +608,8 @@ function showFormError(form, error) {
     else form.appendChild(box);
   }
   box.replaceChildren();
+  if (String(error.message).includes(OFFLINE_TEXT)) box.dataset.offline = "true";
+  else delete box.dataset.offline;
   const strong = document.createElement("strong");
   strong.textContent = "Not saved.";
   box.append(strong, " ");
@@ -538,7 +617,7 @@ function showFormError(form, error) {
     if (index) box.appendChild(document.createElement("br"));
     box.appendChild(document.createTextNode(line));
   });
-  (error.fields || []).forEach((name) => {
+  (error.items?.length ? names : error.fields || []).filter(Boolean).forEach((name) => {
     [...form.elements].filter((element) => element.name === name).forEach((input) => {
       input.setAttribute("aria-invalid", "true");
       input.setAttribute("aria-describedby", id);
@@ -561,6 +640,65 @@ function bindForm(selector, handler) {
       // The record is saved; a failed refresh must not show "Not saved." and invite a duplicate.
       await refresh().catch((error) => notify(`Saved, but the lists didn't refresh: ${error.message}`, true));
     } finally { buttons.forEach((button) => { button.disabled = false; }); }
+  });
+}
+
+// Like bindForm for the forms that keep their own success behaviour: handler(data, form) does the
+// save and renders its own result. A failed save shows the inline "Not saved." box and marks a 422
+// field; the submit button stays disabled while the save is in flight so a second click can't save twice.
+const savingForms = new WeakSet();
+// A local server can answer before a double click's second click lands; after a good save the
+// button stays disabled this long (from the first click) so that click can't save again.
+const SAVE_COOLDOWN_MS = 800;
+
+function bindSavingForm(selector, handler) {
+  $(selector).addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (savingForms.has(form)) return;
+    savingForms.add(form);
+    clearFormError(form);
+    const buttons = form.querySelectorAll('button[type="submit"], input[type="submit"], button:not([type])');
+    buttons.forEach((button) => { button.disabled = true; });
+    // The handler calls saved() as soon as its save request has succeeded. A later failure
+    // (re-render, refresh) must not show "Not saved." or re-enable a retry that would save twice.
+    let didSave = false;
+    const startedAt = Date.now();
+    try {
+      await handler(formData(form), form, () => { didSave = true; });
+    } catch (error) {
+      if (didSave) notify(`Saved, but the lists didn't refresh: ${error.message}`, true);
+      else notify(showFormError(form, error).join("; "), true);
+    } finally {
+      const wait = didSave ? SAVE_COOLDOWN_MS - (Date.now() - startedAt) : 0;
+      if (wait > 0) await new Promise((resolve) => { setTimeout(resolve, wait); });
+      buttons.forEach((button) => { button.disabled = false; });
+      savingForms.delete(form);
+    }
+  });
+}
+
+// A bottle or stock starts with 0 to 10,000 g; 0 is an empty bottle.
+const MAX_INITIAL_MASS_G = 10000;
+function checkedInitialMassG(value) {
+  const text = String(value ?? "").trim();
+  const mass = text === "" ? NaN : Number(text);
+  if (!Number.isFinite(mass) || mass < 0 || mass > MAX_INITIAL_MASS_G) {
+    const error = new Error("Initial mass, g: must be a number from 0 to 10,000 g.");
+    error.items = [{ field: "initial_mass_g", msg: "must be a number from 0 to 10,000 g" }];
+    error.fields = ["initial_mass_g"];
+    throw error;
+  }
+  return mass;
+}
+// The browser stops a submit with an out-of-range number before our handler runs; show the same
+// inline box there instead of a hover bubble.
+function showMassLimitInline(selector) {
+  const form = $(selector);
+  form.elements.initial_mass_g.addEventListener("invalid", (event) => {
+    event.preventDefault();
+    clearFormError(form);
+    try { checkedInitialMassG(event.target.value); } catch (error) { showFormError(form, error); }
   });
 }
 
@@ -1389,15 +1527,12 @@ $("#quick-reaction-form").addEventListener("submit", async (event) => {
   }
 });
 
-$("#backup-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
-  try {
-    const result = await request("/backups", { method: "POST", body: JSON.stringify(data), timeoutMs: 0 });
-    $("#backup-output").textContent = JSON.stringify(result, null, 2);
-    $("#stage-restore-form [name=snapshot_path]").value = result.snapshot_path;
-    notify("Verified backup created.");
-  } catch (error) { notify(error.message, true); }
+bindSavingForm("#backup-form", async (data, form, saved) => {
+  const result = await request("/backups", { method: "POST", body: JSON.stringify(data), timeoutMs: 0 });
+  saved();
+  $("#backup-output").textContent = JSON.stringify(result, null, 2);
+  $("#stage-restore-form [name=snapshot_path]").value = result.snapshot_path;
+  notify("Verified backup created.");
 });
 
 $("#stage-restore-form").addEventListener("submit", async (event) => {
@@ -1455,9 +1590,46 @@ $("#project-inventory-basket").addEventListener("change", (event) => {
   renderProjectInventory($("#project-inventory-search").value);
 });
 
+// Basket picker: keys only move the shown value; Enter or leaving the picker saves it, Escape puts the
+// saved one back. A change that no key caused (a mouse or touch choice) saves at once.
+function savedBasketValue(select) {
+  const stock = (state.projectInventory.stocks || []).find((item) => item.stock_id === select.dataset.basketFor);
+  return stock && Number.isInteger(stock.basket) ? String(stock.basket) : "";
+}
+
+function saveShownBasket(select) {
+  delete select.dataset.keyMoved;
+  if (select.value === savedBasketValue(select)) return;
+  setStockBasket(select.dataset.basketFor, select.value === "" ? null : Number(select.value));
+}
+
+$("#project-inventory-list").addEventListener("keydown", (event) => {
+  const select = event.target.closest("[data-basket-for]");
+  if (!select || event.ctrlKey || event.metaKey || event.altKey) return;
+  if (event.key === "Enter") {
+    event.preventDefault();
+    saveShownBasket(select);
+  } else if (event.key === "Escape") {
+    select.value = savedBasketValue(select);
+    delete select.dataset.keyMoved;
+  } else if (event.key !== "Tab" && event.key !== "Shift") {
+    select.dataset.keyMoved = "1";
+  }
+});
+
+$("#project-inventory-list").addEventListener("pointerdown", (event) => {
+  const select = event.target.closest("[data-basket-for]");
+  if (select) delete select.dataset.keyMoved;
+});
+
+$("#project-inventory-list").addEventListener("focusout", (event) => {
+  const select = event.target.closest?.("[data-basket-for]");
+  if (select && select.dataset.keyMoved) saveShownBasket(select);
+});
+
 $("#project-inventory-list").addEventListener("change", (event) => {
   const select = event.target.closest("[data-basket-for]");
-  if (!select) return;
+  if (!select || select.dataset.keyMoved) return;
   setStockBasket(select.dataset.basketFor, select.value === "" ? null : Number(select.value));
 });
 
@@ -1574,13 +1746,9 @@ $("#inventory-add-open").addEventListener("click", () => {
 $("#inventory-add-close").addEventListener("click", closeInventoryAddition);
 $("#inventory-add-cancel").addEventListener("click", closeInventoryAddition);
 
-$("#inventory-addition-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const form = event.currentTarget;
-  const data = formData(form);
+bindSavingForm("#inventory-addition-form", async (data, form, saved) => {
   const idempotencyKey = newRequestId("inventory-add");
   const submit = form.querySelector('button[type="submit"]');
-  submit.disabled = true;
   submit.textContent = "Adding…";
   try {
     const result = await request("/v2/workbench/current-inventory/add", {
@@ -1603,16 +1771,14 @@ $("#inventory-addition-form").addEventListener("submit", async (event) => {
         user_note: data.user_note || "",
       }),
     });
+    saved();
     state.projectInventory = result.inventory;
     $("#project-inventory-search").value = data.identity_name;
     Object.assign(stockView, { filter: "all", solvent: "", basket: "" });
     renderProjectInventory(data.identity_name);
     closeInventoryAddition();
     notify(`${data.identity_name} is now available for personal formula design.`);
-  } catch (error) {
-    notify(error.message, true);
   } finally {
-    submit.disabled = false;
     submit.textContent = "Add to my inventory";
   }
 });
@@ -1668,7 +1834,8 @@ function renderFormulaRows(rows) {
       const fraction = `${formatDecimal(Number(row.stock_fraction_decimal) * 100, 4)}%`;
       const carrier = row.carrier ? ` in ${row.carrier}` : "";
       const proxy = row.profile_source === "HEURISTIC_CATEGORY_PROXY" ? '<small class="proxy-label">category proxy</small>' : "";
-      const basketTag = entry.basket !== null ? `<small class="formula-basket-tag">Basket ${escapeHtml(entry.basket)}</small>` : "";
+      const basketTag = entry.basket !== null ? `<small class="formula-basket-tag">Basket ${escapeHtml(entry.basket)}</small>`
+        : entry.group === "unassigned" ? '<small class="formula-basket-tag">No basket</small>' : "";
       const basis = benchBasisText(row.fraction_basis);
       const stockLabel = row.stock_label || `${fraction} ${basis}${carrier}`;
       return `${heading}<tr>
@@ -2223,7 +2390,7 @@ $("#formula-print-bench").addEventListener("click", () => {
 });
 
 bindForm("#material-form", (data) => request("/materials", { method: "POST", body: JSON.stringify(data) }));
-bindForm("#stock-form", (data) => request("/stocks", { method: "POST", body: JSON.stringify({ ...data, active_fraction: Number(data.active_fraction), initial_mass_g: Number(data.initial_mass_g), density_g_ml: data.density_g_ml ? Number(data.density_g_ml) : null }) }));
+bindForm("#stock-form", (data) => request("/stocks", { method: "POST", body: JSON.stringify({ ...data, active_fraction: Number(data.active_fraction), initial_mass_g: checkedInitialMassG(data.initial_mass_g), density_g_ml: data.density_g_ml ? Number(data.density_g_ml) : null }) }));
 bindForm("#formula-form", (data) => request("/formulas", { method: "POST", body: JSON.stringify(data) }));
 
 function componentRows() {
@@ -2291,7 +2458,9 @@ $("#version-form").addEventListener("submit", async (event) => {
     await refresh();
   } catch (error) { notify(error.message, true); }
 });
-bindForm("#bottle-form", (data) => request("/bottles", { method: "POST", body: JSON.stringify({ label: data.label, initial_mass_g: Number(data.initial_mass_g) }) }));
+showMassLimitInline("#stock-form");
+showMassLimitInline("#bottle-form");
+bindForm("#bottle-form", (data) => request("/bottles", { method: "POST", body: JSON.stringify({ label: data.label, initial_mass_g: checkedInitialMassG(data.initial_mass_g) }) }));
 bindForm("#addition-form", (data) => request(`/bottles/${data.bottle_id}/additions`, { method: "POST", body: JSON.stringify({ stock_solution_id: data.stock_solution_id, mass_g: Number(data.mass_g), expected_sequence: Number(data.expected_sequence), command_id: newRequestId("command") }) }));
 bindForm("#experiment-form", (data) => request("/experiments", { method: "POST", body: JSON.stringify({ name: data.name, protocol: { observation_times_seconds: data.times.split(",").map((item) => Number(item.trim())) } }) }));
 
@@ -2509,22 +2678,16 @@ $("#omission-plan-form").addEventListener("submit", async (event) => {
   finally { button.disabled = false; }
 });
 
-$("#sample-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
-  try {
-    const row = await request(`/experiments/${data.experiment_id}/samples`, { method: "POST", body: JSON.stringify({ bottle_id: data.bottle_id, blind_code: data.blind_code }) });
-    $("#latest-sample").value = row.id; notify("Blind sample recorded.");
-  } catch (error) { notify(error.message, true); }
+bindSavingForm("#sample-form", async (data, form, saved) => {
+  const row = await request(`/experiments/${data.experiment_id}/samples`, { method: "POST", body: JSON.stringify({ bottle_id: data.bottle_id, blind_code: data.blind_code }) });
+  saved();
+  $("#latest-sample").value = row.id; notify("Blind sample recorded.");
 });
 
-$("#application-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
-  try {
-    const row = await request("/applications", { method: "POST", body: JSON.stringify({ sample_id: data.sample_id, applied_at: new Date().toISOString(), dose: { mass_mg: Number(data.mass_mg) }, context: { substrate: "blotter" } }) });
-    $("#latest-application").value = row.id; notify("Application recorded.");
-  } catch (error) { notify(error.message, true); }
+bindSavingForm("#application-form", async (data, form, saved) => {
+  const row = await request("/applications", { method: "POST", body: JSON.stringify({ sample_id: data.sample_id, applied_at: new Date().toISOString(), dose: { mass_mg: Number(data.mass_mg) }, context: { substrate: "blotter" } }) });
+  saved();
+  $("#latest-application").value = row.id; notify("Application recorded.");
 });
 
 bindForm("#observation-form", (data) => request(`/applications/${data.application_id}/observations`, { method: "POST", body: JSON.stringify({ elapsed_seconds: Number(data.elapsed_seconds), observations: { note: data.observation } }) }));
@@ -2539,11 +2702,9 @@ $("#analysis-form").addEventListener("submit", async (event) => {
   } catch (error) { notify(error.message, true); }
 });
 
-$("#hypothesis-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
+bindSavingForm("#hypothesis-form", async (data, form, saved) => {
   const splitValues = (value) => value.split(",").map((item) => item.trim()).filter(Boolean);
-  try {
+  {
     const result = await request("/intervention-hypotheses", {
       method: "POST",
       body: JSON.stringify({
@@ -2556,15 +2717,14 @@ $("#hypothesis-form").addEventListener("submit", async (event) => {
         limit: Number(data.limit),
       }),
     });
+    saved();
     $("#hypothesis-output").textContent = JSON.stringify(result, null, 2);
     notify(`${result.hypotheses.length} inventory-valid hypotheses generated.`);
-  } catch (error) { notify(error.message, true); }
+  }
 });
 
-$("#trial-plan-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
-  try {
+bindSavingForm("#trial-plan-form", async (data, form, saved) => {
+  {
     const result = await request("/intervention-trials/plan", {
       method: "POST",
       body: JSON.stringify({
@@ -2587,18 +2747,16 @@ $("#trial-plan-form").addEventListener("submit", async (event) => {
         evaluation_times_seconds: data.evaluation_times_seconds.split(",").map((item) => Number(item.trim())),
       }),
     });
+    saved();
     $("#trial-plan-output").textContent = JSON.stringify(result, null, 2);
     notify(`Trial planned at ${result.achieved_active_ppm_w_w.toFixed(3)} ppm w/w.`);
-  } catch (error) { notify(error.message, true); }
+  }
 });
 
-$("#assistant-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
-  try {
-    const packet = await request("/assistant", { method: "POST", body: JSON.stringify({ intent: data.intent, subject_id: data.subject_id || null, facts: {}, calculations: {}, evidence: {} }) });
-    $("#assistant-output").textContent = JSON.stringify(packet, null, 2); notify(`Packet ${packet.payload_sha256.slice(0, 10)} built.`);
-  } catch (error) { notify(error.message, true); }
+bindSavingForm("#assistant-form", async (data, form, saved) => {
+  const packet = await request("/assistant", { method: "POST", body: JSON.stringify({ intent: data.intent, subject_id: data.subject_id || null, facts: {}, calculations: {}, evidence: {} }) });
+  saved();
+  $("#assistant-output").textContent = JSON.stringify(packet, null, 2); notify(`Packet ${packet.payload_sha256.slice(0, 10)} built.`);
 });
 
 function scienceEvidenceClass(label) {
@@ -2771,5 +2929,6 @@ function applyTheme(choice) {
 const startView = location.hash.slice(1);
 // An unknown hash (an old "#main-content" bookmark, say) would hide every view.
 navigate($$(".view").some((panel) => panel.dataset.panel === startView) ? startView : "improve");
+pageStarted = true;
 restoreStoredDrafts();
 refresh().catch((error) => notify(error.message, true));

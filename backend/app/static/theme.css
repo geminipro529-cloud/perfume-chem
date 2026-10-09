@@ -423,7 +423,15 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
   .masthead { height: 56px; padding: 0 14px; }
   .saved-state { display: none; }
   .theme-picker { font-size: 13px; }
-  .theme-picker select { font-size: 16px; }
+  .theme-picker select { font-size: 16px; min-height: 44px; }
+  /* Tap targets: every phone control is at least 44 px tall. */
+  .stock-filter { min-height: 44px; }
+  .stock-action .inventory-complete-button { min-height: 44px; }
+  .optional-details summary, .analysis-details > summary, .optional-ledger-tools > summary, .science-record summary {
+    box-sizing: border-box; min-height: 44px; padding-top: 11px; padding-bottom: 11px;
+  }
+  .component-row .quiet-button { min-height: 44px; }
+  .check-line, .confirm-line { box-sizing: border-box; min-height: 44px; }
   .app-shell { min-height: 0; }
   .rail { align-items: center; padding: 0 8px; border-bottom: 1px solid var(--line); }
   .nav-group { display: none; }
