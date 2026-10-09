@@ -38,7 +38,14 @@ def _choice(
     named: bool = False,
 ) -> Any:
     role = planner.RoleSpec(
-        "r", "Role", "heart", function, 0.1, (), max_raw_share=max_raw_share, serves_requested_facet=named
+        "r",
+        "Role",
+        "heart",
+        function,
+        0.1,
+        (),
+        max_raw_share=max_raw_share,
+        serves_requested_facet=named,
     )
     return planner.Choice(role, candidate, 1.0, ())
 
@@ -61,10 +68,13 @@ def test_shipped_block_is_a_labelled_screening_default() -> None:
         ("Cedramber", 1.0, 2, 120),  # aroma chemical with no row: 2% active
         ("Cedramber", 0.1, 2, 1200),  # same active share from a 10% stock
         ("Bergamot EO", 1.0, 5, 300),  # natural with no row: 5% active
+        ("Cedarwood Virginia", 1.0, 5, 300),  # a botanical name marks a natural too
         ("Iso E Super", 1.0, 15, 900),  # typical-use floor raises the default
     ],
 )
-def test_rows_without_a_ceiling_get_the_class_default(name: str, dilution: float, pct: int, cap_ul: int) -> None:
+def test_rows_without_a_ceiling_get_the_class_default(
+    name: str, dilution: float, pct: int, cap_ul: int
+) -> None:
     assert ceilings.match_normal_use_ceiling(name) is None
     choice = _choice(_stocked(name, dilution))
     assert _default_pct(name, dilution) == pct
@@ -78,11 +88,20 @@ def test_a_researched_row_and_an_identity_hard_cap_win_over_the_default() -> Non
     lemonile = _choice(_stocked("Lemonile"))
     assert planner._hard_cap_ul(lemonile.candidate, TOTAL) is not None
     assert _default_pct("Lemonile") is None
-    assert planner._design_cap_ul(lemonile, TOTAL) == planner._hard_cap_ul(lemonile.candidate, TOTAL)
+    assert planner._design_cap_ul(lemonile, TOTAL) == planner._hard_cap_ul(
+        lemonile.candidate, TOTAL
+    )
 
 
 def test_a_named_note_row_keeps_its_role_cap() -> None:
     choice = _choice(_stocked("Cedramber"), named=True)
+    assert planner._screening_default(choice, TOTAL) is None
+    assert planner._design_cap_ul(choice, TOTAL) == planner._role_cap_ul(choice, TOTAL)
+
+
+def test_a_functional_carrier_gets_no_default() -> None:
+    # Benzyl Benzoate as the quiet carrier is a carrier, not an odorant dose.
+    choice = _choice(_stocked("Benzyl Benzoate"), function="fixative")
     assert planner._screening_default(choice, TOTAL) is None
     assert planner._design_cap_ul(choice, TOTAL) == planner._role_cap_ul(choice, TOTAL)
 
@@ -127,9 +146,28 @@ def test_a_released_volume_row_is_named_by_its_default_not_its_role_cap() -> Non
     choices = [
         _choice(_stocked("Alpha Damascone")),
         _choice(_stocked("Cedramber"), function="volume"),
-        _choice(_stocked("Iso E Super"), named=True),
+        _choice(_stocked("Iso E Super"), max_raw_share=0.3),
     ]
     allocated, holds = _fallback(choices)
 
     assert sum(allocated.values()) == TOTAL
     assert holds == ["SCREENING_DEFAULT_EXCEEDED_TO_FILL_TOTAL:stock:Cedramber"]
+
+
+def test_spare_volume_goes_to_the_named_note_before_the_structure_rows() -> None:
+    # The defaults leave the total unfillable.  The named note takes the
+    # spare (past its role cap, and said so); the structure row and the
+    # defaulted row stay within their caps.
+    choices = [
+        _choice(_stocked("Alpha Damascone")),
+        _choice(_stocked("Cedramber"), function="volume"),
+        _choice(_stocked("Amber Xtreme", 0.1), function="structure", max_raw_share=0.08),
+        _choice(_stocked("Phenethyl Alcohol"), max_raw_share=0.07, named=True),
+    ]
+    allocated, holds = _fallback(choices)
+
+    assert sum(allocated.values()) == TOTAL
+    assert allocated[1] <= planner._design_cap_ul(choices[1], TOTAL)
+    assert allocated[2] <= planner._design_cap_ul(choices[2], TOTAL)
+    assert allocated[3] > planner._design_cap_ul(choices[3], TOTAL)
+    assert holds == ["ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:stock:Phenethyl Alcohol"]

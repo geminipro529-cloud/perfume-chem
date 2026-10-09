@@ -1439,13 +1439,16 @@ def _screening_default(choice: Choice, liquid_total_ul: int) -> NormalUseCeiling
     """The project screening default for a row nobody has researched.
 
     Only a row with no ceiling row and no identity hard cap gets one, and
-    never a row that carries a note the brief names: the name leads.
+    never a row that carries a note the brief names (the name leads) or a
+    functional carrier such as Benzyl Benzoate (a carrier, not an odorant dose).
     """
 
     role = choice.role
     if role.serves_requested_facet or role.exact_preference_required:
         return None
     candidate = choice.candidate
+    if _key(candidate.stock.identity_name or candidate.stock.name) in _DESIGN_FUNCTIONAL_CARRIERS:
+        return None
     if _normal_use_ceiling(candidate) is not None or _hard_cap_ul(candidate, liquid_total_ul) is not None:
         return None
     return match_screening_default(_candidate_identity_probe(candidate))
@@ -1458,16 +1461,20 @@ def _screening_default_cap_ul(choice: Choice, liquid_total_ul: int) -> int | Non
     return _active_fraction_cap_ul(choice.candidate, default.max_active_fraction, liquid_total_ul)
 
 
-def _design_cap_ul(choice: Choice, liquid_total_ul: int) -> int | None:
+def _design_cap_ul(
+    choice: Choice, liquid_total_ul: int, *, screening_default: bool = True
+) -> int | None:
     """Return a conservative bench-design cap, never a safety limit.
 
     The cap is the lower of the identity hard cap (or, without one, the role
     cap and any screening default) and the material's normal-use ceiling.
+    ``screening_default=False`` leaves the soft screening default out, for
+    callers that plan around the caps the planner never releases.
     """
 
     hard = _hard_cap_ul(choice.candidate, liquid_total_ul)
     base = hard if hard is not None else _role_cap_ul(choice, liquid_total_ul)
-    default = _screening_default_cap_ul(choice, liquid_total_ul)
+    default = _screening_default_cap_ul(choice, liquid_total_ul) if screening_default else None
     if default is not None:
         base = min(base, default)
     ceiling = _normal_use_ceiling_cap_ul(choice.candidate, liquid_total_ul)
@@ -1539,19 +1546,21 @@ def _allocate_with_bulk_fallback(
 ) -> dict[int, int]:
     """Allocate within every cap; if that cannot fill the total, release soft role caps.
 
-    Normal-use ceilings and trace caps can leave too little room.  The spare
-    space goes first to volume and structure rows, then to other rows whose
-    role has no explicit restraint share (such as a 3% contrast accent).  A
-    ceiling or trace cap is never exceeded; if no row can take the space this
-    still raises ValueError and the design is withheld.  Each row pushed past
-    its role cap is named in a ROLE_CAP_EXCEEDED_TO_FILL_TOTAL hold.
+    Normal-use ceilings, trace caps and screening defaults can leave too
+    little room.  The spare space goes first to the rows that carry a note the
+    brief names (the name leads), then to volume and structure rows, then to
+    other rows whose role has no explicit restraint share (such as a 3%
+    contrast accent).  A ceiling or trace cap is never exceeded; if no row can
+    take the space this still raises ValueError and the design is withheld.
+    Each row pushed past its role cap is named in a
+    ROLE_CAP_EXCEEDED_TO_FILL_TOTAL hold.
 
-    A screening default is soft like a role cap and released in the same two
-    stages.  If the rows are still short, a last stage drops the screening
-    defaults of the remaining rows, so a design that fills without them is
-    never withheld because of them.  Each row pushed past its screening
-    default is named in a SCREENING_DEFAULT_EXCEEDED_TO_FILL_TOTAL hold
-    instead of the role-cap one.
+    A screening default is soft like a role cap and released with the volume
+    and structure stages.  If the rows are still short, a last stage drops the
+    screening defaults of the remaining rows, so a design that fills without
+    them is never withheld because of them.  Each row pushed past its
+    screening default is named in a SCREENING_DEFAULT_EXCEEDED_TO_FILL_TOTAL
+    hold instead of the role-cap one.
     """
 
     try:
@@ -1565,9 +1574,19 @@ def _allocate_with_bulk_fallback(
         or _normal_use_ceiling_cap_ul(choices[index].candidate, liquid_total_ul) is not None
     }
 
+    named = {
+        index
+        for index, _weight, _cap in free_rows
+        if index not in firm and choices[index].role.serves_requested_facet
+    }
+
     def releasable(index: int, stage: int) -> bool:
         role = choices[index].role
         if index in firm:
+            return False
+        if index in named:
+            return True
+        if stage == 0:
             return False
         if role.function in {"volume", "structure"}:
             return True
@@ -1586,7 +1605,7 @@ def _allocate_with_bulk_fallback(
             return cap
         return _role_cap_ul(choices[index], liquid_total_ul)
 
-    stages = (1, 2, 3) if defaults else (1, 2)
+    stages = ((0,) if named else ()) + (1, 2) + ((3,) if defaults else ())
     allocated: dict[int, int] = {}
     for stage in stages:
         relaxed = [
