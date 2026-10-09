@@ -4,10 +4,12 @@ Every test writes to a temporary completion log through the environment
 variable the app and the gate both read, never to the real data/user log.
 """
 
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
 
+import engine.inventory_parser as inventory_parser
 from engine.inventory_completions import (
     COMPLETION_CLEARABLE_HOLDS,
     COMPLETION_HOLD_DISPOSITIONS,
@@ -258,7 +260,14 @@ def test_tincture_safeguard_applies_within_a_combined_hold_reason() -> None:
     assert "final_usable_fraction_confirmation" in inventory_completion_requirements(stock)
 
 
-def test_user_compounding_hold_still_applies_after_a_completion(completion_log) -> None:
+def test_user_compounding_hold_still_applies_after_a_completion(completion_log, monkeypatch) -> None:
+    # Kenny lifted the live Orris Liquid hold on 2026-10-08 (PR #33); the hold
+    # mechanism is still exercised against the 2026-10-05 hold record.
+    monkeypatch.setattr(
+        inventory_parser,
+        "USER_COMPOUNDING_HOLDS_PATH",
+        Path(__file__).parent / "fixtures" / "orris_liquid_hold_20261005.json",
+    )
     _receipt, orris = _complete(
         "Orris Liquid",
         "orris-liquid-details",
