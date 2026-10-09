@@ -1,0 +1,2412 @@
+{
+  "schema_version": "ifra_annex1_constituents/1",
+  "amendment": 49,
+  "amendment_year": 2020,
+  "verification": "two_independent_reads",
+  "verification_note": "Each value was read twice from its PDF by two independent automated readers on 2026-10-09. The reads agreed on 267 of the 274 rows transcribed (these 261 rows plus 13 estragole and methyl eugenol rows kept for the next change). The 7 disagreements were settled from the PDF's own text lines, where each row reads '<value> <substance CAS> <NCS name>' (checked against Palmarosa oil, 82.4 % geraniol): 5 kept the first read, and Styrax extract (0.1) and Styrax oil, Honduras (0.05) took the second for benzaldehyde. No value has been checked by a person against the printed page. Correct a value by editing its row; every row carries its source PDF.",
+  "source": "IFRA Standards, Amendment 49 (2020), Annex I 'Contributions from other sources' tables, as copied by PerfumersWorld; one PDF per restricted substance (source_url on every row). Each value is the highest concentration of that substance reported in that natural.",
+  "scope": "Only the 17 restricted substances with a Category 4 limit in ifra_cat4_51.json, and only rows for naturals Kenny owns and their close variants. Estragole and methyl eugenol rows wait for their standards. Annexes of other restricted substances were not read.",
+  "stock_rule": "A stock maps to the NCS rows that are that natural, not its part or species variants. Where the species, part or extraction is uncertain, every candidate is listed and the highest value per substance is used. Rows that print one substance under several CAS numbers (cedrene) also take the highest value, never the sum.",
+  "unmapped_owned_naturals": {
+    "Cedarwood Himalayan EO": "Cedrus deodara has no Annex I row; the Atlas cedar row is another species.",
+    "Anise EO": "Only estragole rows; they wait for the estragole standard.",
+    "Elemi EO": "Only methyl eugenol rows; they wait for the methyl eugenol standard.",
+    "Ambrette Seed Absolute": "Not in the IFRA table yet (held as unrecognised); Annex row: Ambrette seed absolute.",
+    "Lavandin Absolute": "Not in the IFRA table yet (held as unrecognised); Annex lists lavandin oils only.",
+    "Lemon Terpeneless Oil": "Not in the IFRA table yet (held as unrecognised); Annex row: Lemon oil terpeneless.",
+    "Vanilla Absolute": "Not in the IFRA table yet (held as unrecognised); Annex row: Vanilla absolute.",
+    "Rose Otto Bulgarian": "Not in the IFRA table yet (held as unrecognised); Annex row: Rose oil."
+  },
+  "rows": [
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Balsam oil, Peru",
+      "max_pct": 0.03,
+      "max_pct_as_printed": "0.03",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Cinnamon bark extract",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Cinnamon bark oil",
+      "max_pct": 2.0,
+      "max_pct_as_printed": "2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Cinnamon leaf oil",
+      "max_pct": 74.0,
+      "max_pct_as_printed": "74",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Jasmine concrete",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Jasmine officinale absolute",
+      "max_pct": 2.0,
+      "max_pct_as_printed": "2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Nutmeg oil",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Osmanthus absolute",
+      "max_pct": 0.07,
+      "max_pct_as_printed": "0.07",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Osmanthus concrete",
+      "max_pct": 0.06,
+      "max_pct_as_printed": "0.06",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Rose absolute",
+      "max_pct": 2.3,
+      "max_pct_as_printed": "2.3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Rose concrete",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Rose oil",
+      "max_pct": 1.2,
+      "max_pct_as_printed": "1.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Tuberose absolute",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Tuberose concrete",
+      "max_pct": 0.48,
+      "max_pct_as_printed": "0.48",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
+    },
+    {
+      "substance": "Isoeugenol",
+      "standard": "IFRA_STD_048",
+      "ncs_name": "Balsam oil, Peru",
+      "max_pct": 0.03,
+      "max_pct_as_printed": "0.03",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Isoeugenol.pdf"
+    },
+    {
+      "substance": "Isoeugenol",
+      "standard": "IFRA_STD_048",
+      "ncs_name": "Cinnamon bark extract",
+      "max_pct": 0.01,
+      "max_pct_as_printed": "0.01",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Isoeugenol.pdf"
+    },
+    {
+      "substance": "Isoeugenol",
+      "standard": "IFRA_STD_048",
+      "ncs_name": "Cinnamon bark oil",
+      "max_pct": 0.02,
+      "max_pct_as_printed": "0.02",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Isoeugenol.pdf"
+    },
+    {
+      "substance": "Isoeugenol",
+      "standard": "IFRA_STD_048",
+      "ncs_name": "Cinnamon leaf oil",
+      "max_pct": 0.13,
+      "max_pct_as_printed": "0.13",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Isoeugenol.pdf"
+    },
+    {
+      "substance": "Isoeugenol",
+      "standard": "IFRA_STD_048",
+      "ncs_name": "Jasmine officinale absolute",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Isoeugenol.pdf"
+    },
+    {
+      "substance": "Isoeugenol",
+      "standard": "IFRA_STD_048",
+      "ncs_name": "Nutmeg oil",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Isoeugenol.pdf"
+    },
+    {
+      "substance": "Isoeugenol",
+      "standard": "IFRA_STD_048",
+      "ncs_name": "Tuberose absolute",
+      "max_pct": 1.5,
+      "max_pct_as_printed": "1.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Isoeugenol.pdf"
+    },
+    {
+      "substance": "Isoeugenol",
+      "standard": "IFRA_STD_048",
+      "ncs_name": "Tuberose concrete",
+      "max_pct": 1.5,
+      "max_pct_as_printed": "1.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Isoeugenol.pdf"
+    },
+    {
+      "substance": "Citronellol",
+      "standard": "IFRA_STD_022",
+      "ncs_name": "Geranium absolute",
+      "max_pct": 10.6,
+      "max_pct_as_printed": "10.6",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellol.pdf"
+    },
+    {
+      "substance": "Citronellol",
+      "standard": "IFRA_STD_022",
+      "ncs_name": "Geranium oil",
+      "max_pct": 21.1,
+      "max_pct_as_printed": "21.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellol.pdf"
+    },
+    {
+      "substance": "Citronellol",
+      "standard": "IFRA_STD_022",
+      "ncs_name": "Geranium oil African",
+      "max_pct": 33.0,
+      "max_pct_as_printed": "33",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellol.pdf"
+    },
+    {
+      "substance": "Citronellol",
+      "standard": "IFRA_STD_022",
+      "ncs_name": "Geranium oil, terpenefree",
+      "max_pct": 40.0,
+      "max_pct_as_printed": "40",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellol.pdf"
+    },
+    {
+      "substance": "Citronellol",
+      "standard": "IFRA_STD_022",
+      "ncs_name": "Rose absolute",
+      "max_pct": 6.0,
+      "max_pct_as_printed": "6",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellol.pdf"
+    },
+    {
+      "substance": "Citronellol",
+      "standard": "IFRA_STD_022",
+      "ncs_name": "Rose concrete",
+      "max_pct": 4.7,
+      "max_pct_as_printed": "4.7",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellol.pdf"
+    },
+    {
+      "substance": "Citronellol",
+      "standard": "IFRA_STD_022",
+      "ncs_name": "Rose oil",
+      "max_pct": 34.0,
+      "max_pct_as_printed": "34",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Bergamot oil, expressed",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Bergamot oil, furocoumarin free",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Cardamom seed extract",
+      "max_pct": 0.7,
+      "max_pct_as_printed": "0.7",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Cardamom seed oil",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Carrot seed oil",
+      "max_pct": 1.1,
+      "max_pct_as_printed": "1.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Clary sage concrete",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Clary sage oil",
+      "max_pct": 1.2,
+      "max_pct_as_printed": "1.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Coriander herb oil",
+      "max_pct": 0.8,
+      "max_pct_as_printed": "0.8",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Coriander seed oil",
+      "max_pct": 1.6,
+      "max_pct_as_printed": "1.6",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Geranium absolute",
+      "max_pct": 9.0,
+      "max_pct_as_printed": "9",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Geranium oil",
+      "max_pct": 17.7,
+      "max_pct_as_printed": "17.7",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Geranium oil African",
+      "max_pct": 17.0,
+      "max_pct_as_printed": "17",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Geranium oil, terpenefree",
+      "max_pct": 10.0,
+      "max_pct_as_printed": "10",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Ginger oil",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Ginger oleoresin",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Grapefruit oil, terpeneless",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Helichrysum absolute",
+      "max_pct": 0.4,
+      "max_pct_as_printed": "0.4",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Helichrysum oil",
+      "max_pct": 0.7,
+      "max_pct_as_printed": "0.7",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Jasmine officinale absolute",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Juniper berry oil",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Lavandin abrialis oil",
+      "max_pct": 0.3,
+      "max_pct_as_printed": "0.3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Lavandin oil",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Lavender absolute",
+      "max_pct": 0.9,
+      "max_pct_as_printed": "0.9",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Lavender concrete",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Lavender oil",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Lavendin super oil",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Lemon extract",
+      "max_pct": 0.03,
+      "max_pct_as_printed": "0.03",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Lemon oil folded (5X)",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Lemon oil folded (10X)",
+      "max_pct": 2.0,
+      "max_pct_as_printed": "2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Lemon oil terpeneless",
+      "max_pct": 2.0,
+      "max_pct_as_printed": "2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Lemon oil, distilled",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Lemon oil, expressed",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Lemon oil, furocoumarin free",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Lemon oil. essence",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Lime oil, cold pressed, furocoumarin free",
+      "max_pct": 0.03,
+      "max_pct_as_printed": "0.03",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Mandarin oil, terpeneless",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Michelia alba extract",
+      "max_pct": 0.4,
+      "max_pct_as_printed": "0.4",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Orange flower oil, bitter (neroli and neroli bigarade)",
+      "max_pct": 2.8,
+      "max_pct_as_printed": "2.8",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Orange peel oil, sweet terpeneless",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Orange sweet oil folded",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Osmanthus absolute",
+      "max_pct": 1.2,
+      "max_pct_as_printed": "1.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Osmanthus concrete",
+      "max_pct": 1.2,
+      "max_pct_as_printed": "1.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Petitgrain bigarade oil",
+      "max_pct": 2.4,
+      "max_pct_as_printed": "2.4",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Petitgrain oil terpeneless, Paraguay",
+      "max_pct": 3.0,
+      "max_pct_as_printed": "3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Petitgrain oil terpenes, Paraguay",
+      "max_pct": 3.0,
+      "max_pct_as_printed": "3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Petitgrain oil, Paraguay",
+      "max_pct": 3.0,
+      "max_pct_as_printed": "3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Rose absolute",
+      "max_pct": 5.0,
+      "max_pct_as_printed": "5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Rose concrete",
+      "max_pct": 2.7,
+      "max_pct_as_printed": "2.7",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Rose oil",
+      "max_pct": 20.0,
+      "max_pct_as_printed": "20",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Tangerine oil terpeneless",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Tuberose absolute",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Tuberose concrete",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Bergamot oil terpenes",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Bergamot oil, expressed",
+      "max_pct": 0.7,
+      "max_pct_as_printed": "0.7",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Bergamot oil, furocoumarin free",
+      "max_pct": 0.43,
+      "max_pct_as_printed": "0.43",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Cardamom seed extract",
+      "max_pct": 0.35,
+      "max_pct_as_printed": "0.35",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Cardamom seed oil",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Geranium oil",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Geranium oil African",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Geranium oil, terpenefree",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Ginger oil",
+      "max_pct": 2.8,
+      "max_pct_as_printed": "2.8",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Ginger oleoresin",
+      "max_pct": 0.8,
+      "max_pct_as_printed": "0.8",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Grapefruit oil",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Grapefruit oil, folded",
+      "max_pct": 1.2,
+      "max_pct_as_printed": "1.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Grapefruit oil, terpeneless",
+      "max_pct": 10.0,
+      "max_pct_as_printed": "10",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lemon extract",
+      "max_pct": 0.7,
+      "max_pct_as_printed": "0.7",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lemon oil folded (5X)",
+      "max_pct": 12.0,
+      "max_pct_as_printed": "12",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lemon oil folded (10X)",
+      "max_pct": 25.4,
+      "max_pct_as_printed": "25.4",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lemon oil terpeneless",
+      "max_pct": 40.0,
+      "max_pct_as_printed": "40",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lemon oil, distilled",
+      "max_pct": 2.1,
+      "max_pct_as_printed": "2.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lemon oil, expressed",
+      "max_pct": 3.5,
+      "max_pct_as_printed": "3.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lemon oil, furocoumarin free",
+      "max_pct": 2.1,
+      "max_pct_as_printed": "2.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lemon oil, terpenes",
+      "max_pct": 0.51,
+      "max_pct_as_printed": "0.51",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lemon oil. essence",
+      "max_pct": 1.8,
+      "max_pct_as_printed": "1.8",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lime oil distilled",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lime oil terpenes",
+      "max_pct": 0.05,
+      "max_pct_as_printed": "0.05",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lime oil, cold pressed, furocoumarin free",
+      "max_pct": 7.0,
+      "max_pct_as_printed": "7",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lime oil, expressed",
+      "max_pct": 7.0,
+      "max_pct_as_printed": "7",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lime oil, terpeneless",
+      "max_pct": 0.22,
+      "max_pct_as_printed": "0.22",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lime oil. expressed folded (2-5X)",
+      "max_pct": 20.0,
+      "max_pct_as_printed": "20",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Lime oil. folded (2-5X)",
+      "max_pct": 0.15,
+      "max_pct_as_printed": "0.15",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Mandarin oil, terpeneless",
+      "max_pct": 10.5,
+      "max_pct_as_printed": "10.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Orange flower oil, bitter (neroli and neroli bigarade)",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Orange essence oil",
+      "max_pct": 0.15,
+      "max_pct_as_printed": "0.15",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Orange oil, sweet, psoralenfree",
+      "max_pct": 0.15,
+      "max_pct_as_printed": "0.15",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Orange peel oil, sweet terpeneless",
+      "max_pct": 5.0,
+      "max_pct_as_printed": "5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Orange peel, sweet oil",
+      "max_pct": 0.15,
+      "max_pct_as_printed": "0.15",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Orange peel, sweet, extract",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Orange sweet oil folded",
+      "max_pct": 7.0,
+      "max_pct_as_printed": "7",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Petitgrain bigarade oil",
+      "max_pct": 0.65,
+      "max_pct_as_printed": "0.65",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Rose absolute",
+      "max_pct": 0.05,
+      "max_pct_as_printed": "0.05",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Rose concrete",
+      "max_pct": 0.16,
+      "max_pct_as_printed": "0.16",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Rose oil",
+      "max_pct": 1.4,
+      "max_pct_as_printed": "1.4",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Tangerine oil",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Tangerine oil terpeneless",
+      "max_pct": 10.0,
+      "max_pct_as_printed": "10",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf"
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Balsam oil, Peru",
+      "max_pct": 0.03,
+      "max_pct_as_printed": "0.03%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Coumarin.pdf"
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Cinnamon bark extract",
+      "max_pct": 0.3,
+      "max_pct_as_printed": "0.3%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Coumarin.pdf"
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Cinnamon bark oil",
+      "max_pct": 0.6,
+      "max_pct_as_printed": "0.6%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Coumarin.pdf"
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Cinnamon bark oil, Laos",
+      "max_pct": 3.0,
+      "max_pct_as_printed": "3%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Coumarin.pdf"
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Cinnamon leaf oil",
+      "max_pct": 0.3,
+      "max_pct_as_printed": "0.3%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Coumarin.pdf"
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Hay absolute",
+      "max_pct": 8.0,
+      "max_pct_as_printed": "8%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Coumarin.pdf"
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Lavandin abrialis oil",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Coumarin.pdf"
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Lavendin super oil",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Coumarin.pdf"
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Osmanthus absolute",
+      "max_pct": 0.02,
+      "max_pct_as_printed": "0.02%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Coumarin.pdf"
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Osmanthus concrete",
+      "max_pct": 0.02,
+      "max_pct_as_printed": "0.02%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Coumarin.pdf"
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Tonka Bean absolute",
+      "max_pct": 46.7,
+      "max_pct_as_printed": "46.7%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Coumarin.pdf"
+    },
+    {
+      "substance": "Cinnamic aldehyde (cinnamal)",
+      "standard": "IFRA_STD_018",
+      "ncs_name": "Cinnamon bark extract",
+      "max_pct": 38.0,
+      "max_pct_as_printed": "38",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20aldehyde.pdf"
+    },
+    {
+      "substance": "Cinnamic aldehyde (cinnamal)",
+      "standard": "IFRA_STD_018",
+      "ncs_name": "Cinnamon bark oil",
+      "max_pct": 75.0,
+      "max_pct_as_printed": "75",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20aldehyde.pdf"
+    },
+    {
+      "substance": "Cinnamic aldehyde (cinnamal)",
+      "standard": "IFRA_STD_018",
+      "ncs_name": "Cinnamon bark oil, Laos",
+      "max_pct": 95.0,
+      "max_pct_as_printed": "95",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20aldehyde.pdf"
+    },
+    {
+      "substance": "Cinnamic aldehyde (cinnamal)",
+      "standard": "IFRA_STD_018",
+      "ncs_name": "Cinnamon leaf oil",
+      "max_pct": 1.5,
+      "max_pct_as_printed": "1.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20aldehyde.pdf"
+    },
+    {
+      "substance": "Cinnamic aldehyde (cinnamal)",
+      "standard": "IFRA_STD_018",
+      "ncs_name": "Styrax extract",
+      "max_pct": 0.05,
+      "max_pct_as_printed": "0.05",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20aldehyde.pdf"
+    },
+    {
+      "substance": "Cinnamic aldehyde (cinnamal)",
+      "standard": "IFRA_STD_018",
+      "ncs_name": "Styrax oil, Honduras",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20aldehyde.pdf"
+    },
+    {
+      "substance": "Cinnamic alcohol (cinnamyl alcohol)",
+      "standard": "IFRA_STD_017",
+      "ncs_name": "Cinnamon bark extract",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20alcohol.pdf"
+    },
+    {
+      "substance": "Cinnamic alcohol (cinnamyl alcohol)",
+      "standard": "IFRA_STD_017",
+      "ncs_name": "Cinnamon bark oil",
+      "max_pct": 0.3,
+      "max_pct_as_printed": "0.3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20alcohol.pdf"
+    },
+    {
+      "substance": "Cinnamic alcohol (cinnamyl alcohol)",
+      "standard": "IFRA_STD_017",
+      "ncs_name": "Cinnamon bark oil, Laos",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20alcohol.pdf"
+    },
+    {
+      "substance": "Cinnamic alcohol (cinnamyl alcohol)",
+      "standard": "IFRA_STD_017",
+      "ncs_name": "Jasmine sambac absolute",
+      "max_pct": 0.15,
+      "max_pct_as_printed": "0.15",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20alcohol.pdf"
+    },
+    {
+      "substance": "Cinnamic alcohol (cinnamyl alcohol)",
+      "standard": "IFRA_STD_017",
+      "ncs_name": "Styrax extract",
+      "max_pct": 0.8,
+      "max_pct_as_printed": "0.8",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20alcohol.pdf"
+    },
+    {
+      "substance": "Cinnamic alcohol (cinnamyl alcohol)",
+      "standard": "IFRA_STD_017",
+      "ncs_name": "Styrax oil, Honduras",
+      "max_pct": 1.5,
+      "max_pct_as_printed": "1.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20alcohol.pdf"
+    },
+    {
+      "substance": "Farnesol",
+      "standard": "IFRA_STD_036",
+      "ncs_name": "Ambrette seed absolute",
+      "max_pct": 5.0,
+      "max_pct_as_printed": "5%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Farnesol.pdf"
+    },
+    {
+      "substance": "Farnesol",
+      "standard": "IFRA_STD_036",
+      "ncs_name": "Ambrette seed oil",
+      "max_pct": 3.0,
+      "max_pct_as_printed": "3%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Farnesol.pdf"
+    },
+    {
+      "substance": "Farnesol",
+      "standard": "IFRA_STD_036",
+      "ncs_name": "Ambrette tincture",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Farnesol.pdf"
+    },
+    {
+      "substance": "Farnesol",
+      "standard": "IFRA_STD_036",
+      "ncs_name": "Cabreuva oil",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Farnesol.pdf"
+    },
+    {
+      "substance": "Farnesol",
+      "standard": "IFRA_STD_036",
+      "ncs_name": "Cinnamon bark oil, Laos",
+      "max_pct": 0.01,
+      "max_pct_as_printed": "0.01%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Farnesol.pdf"
+    },
+    {
+      "substance": "Farnesol",
+      "standard": "IFRA_STD_036",
+      "ncs_name": "Cinnamon leaf oil",
+      "max_pct": 0.12,
+      "max_pct_as_printed": "0.12%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Farnesol.pdf"
+    },
+    {
+      "substance": "Farnesol",
+      "standard": "IFRA_STD_036",
+      "ncs_name": "Jasmine sambac absolute",
+      "max_pct": 0.6,
+      "max_pct_as_printed": "0.6%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Farnesol.pdf"
+    },
+    {
+      "substance": "Farnesol",
+      "standard": "IFRA_STD_036",
+      "ncs_name": "Orange flower oil, bitter (neroli and neroli bigarade)",
+      "max_pct": 1.8,
+      "max_pct_as_printed": "1.8%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Farnesol.pdf"
+    },
+    {
+      "substance": "Farnesol",
+      "standard": "IFRA_STD_036",
+      "ncs_name": "Rose oil",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Farnesol.pdf"
+    },
+    {
+      "substance": "Farnesol",
+      "standard": "IFRA_STD_036",
+      "ncs_name": "Sandalwood oil",
+      "max_pct": 0.7,
+      "max_pct_as_printed": "0.7%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Farnesol.pdf"
+    },
+    {
+      "substance": "Farnesol",
+      "standard": "IFRA_STD_036",
+      "ncs_name": "Sandalwood oil, Australian",
+      "max_pct": 11.0,
+      "max_pct_as_printed": "11%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Farnesol.pdf"
+    },
+    {
+      "substance": "Farnesol",
+      "standard": "IFRA_STD_036",
+      "ncs_name": "Sandalwood oil, New Caledonian",
+      "max_pct": 0.7,
+      "max_pct_as_printed": "0.7%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Farnesol.pdf"
+    },
+    {
+      "substance": "Farnesol",
+      "standard": "IFRA_STD_036",
+      "ncs_name": "Tuberose absolute",
+      "max_pct": 0.3,
+      "max_pct_as_printed": "0.3%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Farnesol.pdf"
+    },
+    {
+      "substance": "Farnesol",
+      "standard": "IFRA_STD_036",
+      "ncs_name": "Tuberose concrete",
+      "max_pct": 0.3,
+      "max_pct_as_printed": "0.3%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Farnesol.pdf"
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Balsam oil, Peru",
+      "max_pct": 0.9,
+      "max_pct_as_printed": "0.9",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Cinnamon leaf oil",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Jasmine concrete",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Jasmine officinale absolute",
+      "max_pct": 3.0,
+      "max_pct_as_printed": "3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Jasmine sambac absolute",
+      "max_pct": 8.0,
+      "max_pct_as_printed": "8",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Mimosa absolute",
+      "max_pct": 0.05,
+      "max_pct_as_printed": "0.05",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Rose absolute",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Rose oil",
+      "max_pct": 0.02,
+      "max_pct_as_printed": "0.02",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Styrax absolute",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Tuberose absolute",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Tuberose concrete",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Violet leaf absolute",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Balsam oil, Peru",
+      "max_pct": 54.0,
+      "max_pct_as_printed": "54",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20benzoate.pdf"
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Benzoin extract, Siam",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20benzoate.pdf"
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Benzoin extract, Sumatra",
+      "max_pct": 0.6,
+      "max_pct_as_printed": "0.6",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20benzoate.pdf"
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Cinnamon bark extract",
+      "max_pct": 0.3,
+      "max_pct_as_printed": "0.3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20benzoate.pdf"
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Cinnamon bark oil",
+      "max_pct": 0.6,
+      "max_pct_as_printed": "0.6",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20benzoate.pdf"
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Cinnamon bark oil, Laos",
+      "max_pct": 0.01,
+      "max_pct_as_printed": "0.01",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20benzoate.pdf"
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Cinnamon leaf oil",
+      "max_pct": 3.5,
+      "max_pct_as_printed": "3.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20benzoate.pdf"
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Jasmine concrete",
+      "max_pct": 5.0,
+      "max_pct_as_printed": "5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20benzoate.pdf"
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Jasmine officinale absolute",
+      "max_pct": 10.0,
+      "max_pct_as_printed": "10",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20benzoate.pdf"
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Jasmine sambac absolute",
+      "max_pct": 0.75,
+      "max_pct_as_printed": "0.75",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20benzoate.pdf"
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Tuberose absolute",
+      "max_pct": 5.5,
+      "max_pct_as_printed": "5.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20benzoate.pdf"
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Tuberose concrete",
+      "max_pct": 0.72,
+      "max_pct_as_printed": "0.72",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20benzoate.pdf"
+    },
+    {
+      "substance": "Benzyl salicylate",
+      "standard": "IFRA_STD_011",
+      "ncs_name": "Jasmine concrete",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20salicylate.pdf"
+    },
+    {
+      "substance": "Benzyl salicylate",
+      "standard": "IFRA_STD_011",
+      "ncs_name": "Jasmine officinale absolute",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20salicylate.pdf"
+    },
+    {
+      "substance": "Benzyl salicylate",
+      "standard": "IFRA_STD_011",
+      "ncs_name": "Jasmine sambac absolute",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20salicylate.pdf"
+    },
+    {
+      "substance": "Benzyl salicylate",
+      "standard": "IFRA_STD_011",
+      "ncs_name": "Tuberose absolute",
+      "max_pct": 3.6,
+      "max_pct_as_printed": "3.6",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20salicylate.pdf"
+    },
+    {
+      "substance": "Benzyl salicylate",
+      "standard": "IFRA_STD_011",
+      "ncs_name": "Tuberose concrete",
+      "max_pct": 2.1,
+      "max_pct_as_printed": "2.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20salicylate.pdf"
+    },
+    {
+      "substance": "Benzyl cinnamate",
+      "standard": "IFRA_STD_010",
+      "ncs_name": "Balsam oil, Peru",
+      "max_pct": 15.2,
+      "max_pct_as_printed": "15.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20cinnamate.pdf"
+    },
+    {
+      "substance": "Benzyl cinnamate",
+      "standard": "IFRA_STD_010",
+      "ncs_name": "Benzoin extract, Siam",
+      "max_pct": 0.8,
+      "max_pct_as_printed": "0.8",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20cinnamate.pdf"
+    },
+    {
+      "substance": "Benzyl cinnamate",
+      "standard": "IFRA_STD_010",
+      "ncs_name": "Benzoin extract, Sumatra",
+      "max_pct": 0.8,
+      "max_pct_as_printed": "0.8",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20cinnamate.pdf"
+    },
+    {
+      "substance": "Benzyl cinnamate",
+      "standard": "IFRA_STD_010",
+      "ncs_name": "Styrax extract",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20cinnamate.pdf"
+    },
+    {
+      "substance": "Benzyl cinnamate",
+      "standard": "IFRA_STD_010",
+      "ncs_name": "Styrax oil, Honduras",
+      "max_pct": 2.1,
+      "max_pct_as_printed": "2.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20cinnamate.pdf"
+    },
+    {
+      "substance": "Anisyl alcohol (anise alcohol)",
+      "standard": "IFRA_STD_006",
+      "ncs_name": "Vanilla absolute",
+      "max_pct": 6.6,
+      "max_pct_as_printed": "6.6%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Anisyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Anisyl alcohol (anise alcohol)",
+      "standard": "IFRA_STD_006",
+      "ncs_name": "Vanilla oleoresin",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Anisyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Anisyl alcohol (anise alcohol)",
+      "standard": "IFRA_STD_006",
+      "ncs_name": "Vanilla tahitensis extract",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Anisyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Anisyl alcohol (anise alcohol)",
+      "standard": "IFRA_STD_006",
+      "ncs_name": "Vanilla tincture",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1%",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Anisyl%20alcohol.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 469-61-4)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cedarwood oil terpenes",
+      "max_pct": 18.0,
+      "max_pct_as_printed": "18",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 469-61-4)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cedarwood oil, Atlas",
+      "max_pct": 1.5,
+      "max_pct_as_printed": "1.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 469-61-4)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cedarwood oil, Chinese",
+      "max_pct": 19.1,
+      "max_pct_as_printed": "19.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 469-61-4)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cedarwood oil, Texas",
+      "max_pct": 12.0,
+      "max_pct_as_printed": "12",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 469-61-4)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cedarwood oil, Virginian",
+      "max_pct": 24.3,
+      "max_pct_as_printed": "24.3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 469-61-4)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cypress oil",
+      "max_pct": 0.4,
+      "max_pct_as_printed": "0.4",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 469-61-4)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Helichrysum absolute",
+      "max_pct": 1.8,
+      "max_pct_as_printed": "1.8",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 469-61-4)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Helichrysum oil",
+      "max_pct": 0.05,
+      "max_pct_as_printed": "0.05",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 469-61-4)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Juniper berry oil",
+      "max_pct": 0.4,
+      "max_pct_as_printed": "0.4",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 469-61-4)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Pine needle, dwarf, oil",
+      "max_pct": 0.25,
+      "max_pct_as_printed": "0.25",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 469-61-4)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Sandalwood oil, Australian",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 469-61-4)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Vetiver oil (all origins)",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 546-28-1)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cedarwood oil terpenes",
+      "max_pct": 5.0,
+      "max_pct_as_printed": "5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 546-28-1)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cedarwood oil, Chinese",
+      "max_pct": 6.0,
+      "max_pct_as_printed": "6",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 546-28-1)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cedarwood oil, Texas",
+      "max_pct": 3.0,
+      "max_pct_as_printed": "3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 546-28-1)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cedarwood oil, Virginian",
+      "max_pct": 5.9,
+      "max_pct_as_printed": "5.9",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 546-28-1)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cypress oil",
+      "max_pct": 0.4,
+      "max_pct_as_printed": "0.4",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 546-28-1)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Vetiver oil (all origins)",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 11028-42-5)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cedarwood oil terpenes",
+      "max_pct": 23.0,
+      "max_pct_as_printed": "23",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 11028-42-5)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cedarwood oil, Chinese",
+      "max_pct": 25.1,
+      "max_pct_as_printed": "25.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 11028-42-5)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cedarwood oil, Texas",
+      "max_pct": 15.0,
+      "max_pct_as_printed": "15",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 11028-42-5)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cedarwood oil, Virginian",
+      "max_pct": 30.2,
+      "max_pct_as_printed": "30.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 11028-42-5)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Cypress oil",
+      "max_pct": 0.8,
+      "max_pct_as_printed": "0.8",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Cedrene (CAS 11028-42-5)",
+      "standard": "IFRA_STD_197",
+      "ncs_name": "Vetiver oil (all origins)",
+      "max_pct": 0.3,
+      "max_pct_as_printed": "0.3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cedrene.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Balsam oil, Peru",
+      "max_pct": 0.03,
+      "max_pct_as_printed": "0.03",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Cinnamon bark extract",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Cinnamon bark oil",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Cinnamon bark oil, Laos",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Cinnamon leaf oil",
+      "max_pct": 0.16,
+      "max_pct_as_printed": "0.16",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Labdanum absolute",
+      "max_pct": 0.6,
+      "max_pct_as_printed": "0.6",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Labdanum concrete",
+      "max_pct": 0.4,
+      "max_pct_as_printed": "0.4",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Labdanum extract ambreine",
+      "max_pct": 0.8,
+      "max_pct_as_printed": "0.8",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Labdanum gum",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Labdanum oil",
+      "max_pct": 0.9,
+      "max_pct_as_printed": "0.9",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Labdanum oleoresin",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Rose absolute",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Rose concrete",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Styrax extract",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Styrax oil, Honduras",
+      "max_pct": 0.05,
+      "max_pct_as_printed": "0.05",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Geranium oil",
+      "max_pct": 0.15,
+      "max_pct_as_printed": "0.15",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Ginger oil",
+      "max_pct": 0.4,
+      "max_pct_as_printed": "0.4",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Grapefruit oil",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Grapefruit oil, folded",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Grapefruit oil, terpeneless",
+      "max_pct": 3.2,
+      "max_pct_as_printed": "3.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Lemon extract",
+      "max_pct": 0.03,
+      "max_pct_as_printed": "0.03",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Lemon oil folded (5X)",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Lemon oil folded (10X)",
+      "max_pct": 2.0,
+      "max_pct_as_printed": "2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Lemon oil terpeneless",
+      "max_pct": 3.0,
+      "max_pct_as_printed": "3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Lemon oil, distilled",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Lemon oil, expressed",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Lemon oil, furocoumarin free",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Lemon oil. essence",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Lime oil, cold pressed, furocoumarin free",
+      "max_pct": 1.4,
+      "max_pct_as_printed": "1.4",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Lime oil, expressed",
+      "max_pct": 1.4,
+      "max_pct_as_printed": "1.4",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Lime oil. expressed folded (2-5X)",
+      "max_pct": 5.0,
+      "max_pct_as_printed": "5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Mandarin oil, terpeneless",
+      "max_pct": 3.0,
+      "max_pct_as_printed": "3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Orange peel oil, sweet terpeneless",
+      "max_pct": 2.0,
+      "max_pct_as_printed": "2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Orange sweet oil folded",
+      "max_pct": 2.0,
+      "max_pct_as_printed": "2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Petitgrain bigarade oil",
+      "max_pct": 0.05,
+      "max_pct_as_printed": "0.05",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Rose oil",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Tangerine oil",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Tangerine oil terpeneless",
+      "max_pct": 3.0,
+      "max_pct_as_printed": "3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    }
+  ],
+  "stocks": {
+    "Blood Orange Oil Sicilian": {
+      "ncs_names": [
+        "Orange peel, sweet oil"
+      ],
+      "note": "Blood orange is a sweet orange (Citrus sinensis); the expressed peel oil row is used, not the terpeneless or folded rows."
+    },
+    "Cabreuva EO": {
+      "ncs_names": [
+        "Cabreuva oil"
+      ]
+    },
+    "Cardamom EO": {
+      "ncs_names": [
+        "Cardamom seed oil"
+      ],
+      "note": "Seed oil row; the seed extract row is a different extraction."
+    },
+    "Carrot Seed EO": {
+      "ncs_names": [
+        "Carrot seed oil"
+      ]
+    },
+    "Cedarwood EO (China; species unspecified)": {
+      "ncs_names": [
+        "Cedarwood oil, Chinese"
+      ],
+      "note": "Stock is named as Chinese cedarwood; the Chinese oil row is used, not other species or the terpene fraction."
+    },
+    "Cedarwood Virginia": {
+      "ncs_names": [
+        "Cedarwood oil, Virginian"
+      ]
+    },
+    "Cinnamon Bark EO (Telvada)": {
+      "ncs_names": [
+        "Cinnamon bark oil",
+        "Cinnamon bark oil, Laos"
+      ],
+      "note": "Bark oil, not leaf oil (74 % eugenol). Cinnamon species of the stock is not known; species, part or extraction uncertain: the highest value across these candidates is used."
+    },
+    "Clary Sage EO": {
+      "ncs_names": [
+        "Clary sage oil"
+      ]
+    },
+    "Coriander Essential Oil": {
+      "ncs_names": [
+        "Coriander seed oil",
+        "Coriander herb oil"
+      ],
+      "note": "Seed or herb oil not stated; species, part or extraction uncertain: the highest value across these candidates is used."
+    },
+    "Cypress EO": {
+      "ncs_names": [
+        "Cypress oil"
+      ]
+    },
+    "Geranium EO": {
+      "ncs_names": [
+        "Geranium oil",
+        "Geranium oil African"
+      ],
+      "note": "Origin not stated; species, part or extraction uncertain: the highest value across these candidates is used. Absolute and terpene-free rows are other extractions."
+    },
+    "Ginger EO": {
+      "ncs_names": [
+        "Ginger oil"
+      ]
+    },
+    "Hay Absolute": {
+      "ncs_names": [
+        "Hay absolute"
+      ]
+    },
+    "Helichrysum EO": {
+      "ncs_names": [
+        "Helichrysum oil"
+      ]
+    },
+    "Immortelle Absolute": {
+      "ncs_names": [
+        "Helichrysum absolute"
+      ],
+      "note": "Immortelle is Helichrysum italicum."
+    },
+    "Juniper Berry EO": {
+      "ncs_names": [
+        "Juniper berry oil"
+      ]
+    },
+    "Labdanum Absolute": {
+      "ncs_names": [
+        "Labdanum absolute"
+      ]
+    },
+    "Labdanum Resinoid": {
+      "ncs_names": [
+        "Labdanum absolute",
+        "Labdanum concrete",
+        "Labdanum extract ambreine",
+        "Labdanum gum",
+        "Labdanum oleoresin"
+      ],
+      "note": "No resinoid row; species, part or extraction uncertain: the highest value across these candidates is used (solvent extracts; the distilled oil row is excluded)."
+    },
+    "Lavender EO": {
+      "ncs_names": [
+        "Lavender oil"
+      ]
+    },
+    "Lavender 40/42, Aroma&More": {
+      "ncs_names": [
+        "Lavender oil"
+      ]
+    },
+    "Lavender EO (BONTAUX SAS)": {
+      "ncs_names": [
+        "Lavender oil"
+      ]
+    },
+    "Lime Distilled EO": {
+      "ncs_names": [
+        "Lime oil distilled"
+      ]
+    },
+    "Lime Oil Expressed": {
+      "ncs_names": [
+        "Lime oil, expressed"
+      ]
+    },
+    "Magnolia EO": {
+      "ncs_names": [
+        "Michelia alba extract"
+      ],
+      "note": "Only Michelia alba row is an extract; the stock is an essential oil. Used as the only candidate."
+    },
+    "Mimosa Absolute": {
+      "ncs_names": [
+        "Mimosa absolute"
+      ]
+    },
+    "Neroli EO": {
+      "ncs_names": [
+        "Orange flower oil, bitter (neroli and neroli bigarade)"
+      ]
+    },
+    "Nutmeg EO": {
+      "ncs_names": [
+        "Nutmeg oil"
+      ]
+    },
+    "Osmanthus Absolute": {
+      "ncs_names": [
+        "Osmanthus absolute"
+      ]
+    },
+    "Petitgrain EO Paraguay": {
+      "ncs_names": [
+        "Petitgrain oil, Paraguay"
+      ]
+    },
+    "Red Mandarin EO": {
+      "ncs_names": [
+        "Tangerine oil"
+      ],
+      "note": "Red mandarin (Citrus reticulata) is not named; the tangerine oil row (same species) is used. The terpeneless mandarin row is a concentrated fraction and is not used."
+    },
+    "Rose de Mai Absolute": {
+      "ncs_names": [
+        "Rose absolute"
+      ]
+    },
+    "Rose Essential Oil (Rosa Damascena, India)": {
+      "ncs_names": [
+        "Rose oil"
+      ]
+    },
+    "Sandalwood EO": {
+      "ncs_names": [
+        "Sandalwood oil",
+        "Sandalwood oil, Australian",
+        "Sandalwood oil, New Caledonian"
+      ],
+      "note": "Species not stated; species, part or extraction uncertain: the highest value across these candidates is used."
+    },
+    "Siam Benzoin": {
+      "ncs_names": [
+        "Benzoin extract, Siam"
+      ]
+    },
+    "Vietnamese Benzoin Tincture": {
+      "ncs_names": [
+        "Benzoin extract, Siam"
+      ],
+      "note": "Siam benzoin is Styrax tonkinensis from Vietnam and Laos; the tincture is read at the extract value."
+    },
+    "Benzoin Resinoid": {
+      "ncs_names": [
+        "Benzoin extract, Siam",
+        "Benzoin extract, Sumatra"
+      ],
+      "note": "Siam or Sumatra not stated; species, part or extraction uncertain: the highest value across these candidates is used."
+    },
+    "Tonka Bean Absolute": {
+      "ncs_names": [
+        "Tonka Bean absolute"
+      ]
+    },
+    "Tuberose Absolute": {
+      "ncs_names": [
+        "Tuberose absolute"
+      ]
+    },
+    "Vetiver EO": {
+      "ncs_names": [
+        "Vetiver oil (all origins)"
+      ]
+    },
+    "Vetiver EO (Haiti)": {
+      "ncs_names": [
+        "Vetiver oil (all origins)"
+      ]
+    },
+    "Vetiver EO (India)": {
+      "ncs_names": [
+        "Vetiver oil (all origins)"
+      ]
+    },
+    "Violet Leaf Absolute": {
+      "ncs_names": [
+        "Violet leaf absolute"
+      ]
+    },
+    "Jasmine Absolute": {
+      "ncs_names": [
+        "Jasmine officinale absolute"
+      ],
+      "note": "Grandiflorum is officinale var. grandiflorum."
+    },
+    "Jasmine Sambac Absolute": {
+      "ncs_names": [
+        "Jasmine sambac absolute"
+      ]
+    },
+    "Orange Peel EO": {
+      "ncs_names": [
+        "Orange peel, sweet oil"
+      ],
+      "note": "The IFRA table files this stock under bitter orange peel oil (IFRA_STD_088) while the inventory review assumed sweet orange; Annex I lists no bitter orange peel oil row, so the sweet orange peel oil row is used."
+    },
+    "Peru Balsam Resinoid": {
+      "ncs_names": [
+        "Balsam oil, Peru"
+      ],
+      "note": "Annex row is the oil; the resinoid may differ."
+    },
+    "Turkish Storax Tincture": {
+      "ncs_names": [
+        "Styrax extract",
+        "Styrax absolute"
+      ],
+      "note": "Turkish storax (Liquidambar orientalis) is not named; species, part or extraction uncertain: the highest value across these candidates is used. Honduras styrax is another species and is not used."
+    },
+    "Bergamot EO": {
+      "ncs_names": [
+        "Bergamot oil, expressed"
+      ]
+    },
+    "Bergamot FCF Oil Sicilian": {
+      "ncs_names": [
+        "Bergamot oil, furocoumarin free"
+      ]
+    },
+    "Grapefruit Oil": {
+      "ncs_names": [
+        "Grapefruit oil"
+      ]
+    },
+    "Grapefruit FCF Oil Sicilian": {
+      "ncs_names": [
+        "Grapefruit oil"
+      ],
+      "note": "No furocoumarin-free grapefruit row; the grapefruit oil row is used."
+    },
+    "Lemon Oil": {
+      "ncs_names": [
+        "Lemon oil, expressed"
+      ]
+    },
+    "Lemon FCF Oil Sicilian": {
+      "ncs_names": [
+        "Lemon oil, furocoumarin free"
+      ]
+    },
+    "Pine EO": {
+      "ncs_names": [
+        "Pine needle, dwarf, oil"
+      ],
+      "note": "Species not stated; the dwarf pine needle oil row is the only pine row."
+    }
+  }
+}

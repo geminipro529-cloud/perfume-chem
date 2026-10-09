@@ -14,7 +14,7 @@ from __future__ import annotations
 import json
 import re
 from collections.abc import Iterable, Mapping, Sequence
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from decimal import Decimal, InvalidOperation
 from functools import lru_cache
 from pathlib import Path
@@ -42,6 +42,9 @@ MATERIAL_STATUSES = frozenset({
     "natural_no_own_standard",
 })
 GROUP_RULES = frozenset({"sum_le_limit", "sum_of_ratios_le_1"})
+
+CONSTITUENTS_SCHEMA_VERSION = "ifra_annex1_constituents/1"
+DEFAULT_CONSTITUENTS_PATH = DEFAULT_TABLE_PATH.parent / "ifra_annex1_constituents.json"
 
 _TOLERANCE = 1e-12
 _PERCENT_NUMBER = re.compile(r"(\d+(?:[.,]\d+)?)\s*%")
@@ -214,9 +217,56 @@ class IFRAGroupCheck:
 
 
 @dataclass(frozen=True)
+class IFRAConstituentContributor:
+    # Table canonical name; the key of this material in the group check's member_pcts.
+    material: str
+    kind: str  # "natural" (an Annex I constituent) or "synthetic" (the substance's own row)
+    pct: float  # the material's own finished-product % w/w
+    constituent_pct: float | None  # natural only: its Annex I level of the substance, %
+    ncs_name: str | None  # natural only: the Annex I row that level comes from
+    contribution_pct: float  # finished-product % w/w of the substance from this material
+
+
+@dataclass(frozen=True)
+class IFRAConstituentTotal:
+    substance: str
+    standard: str
+    total: float
+    limit_pct: float
+    contributors: tuple[IFRAConstituentContributor, ...]
+
+
+@dataclass(frozen=True)
+class NaturalConstituents:
+    """IFRA Annex I levels of restricted substances in owned naturals, per stock.
+
+    ``stocks`` maps a stock's IFRA-table canonical name to {standard id: (level %, NCS
+    name)}; the level is the highest across the stock's candidate NCS rows, never a sum.
+    """
+
+    amendment: int | None
+    amendment_year: int | None
+    verification: str | None
+    stocks: Mapping[str, Mapping[str, tuple[float, str]]]
+    standards: frozenset[str] = frozenset()  # every standard the file has rows for
+
+    def coverage_note(self, table: IFRATable) -> str:
+        names = sorted({table.standards[sid].name for sid in self.standards})
+        return (
+            f"Restricted constituents of naturals are counted for {len(names)} substances "
+            f"({', '.join(names)}), using the highest level IFRA Amendment "
+            f"{self.amendment} ({self.amendment_year}) Annex I reports for each natural. "
+            "Each value was read twice by independent automated readers and has not been "
+            "checked by a person. Annexes of other restricted substances were not read, so "
+            "their amounts in naturals are not counted."
+        )
+
+
+@dataclass(frozen=True)
 class IFRAEvaluation:
     checks: tuple[IFRACheck, ...]
     group_checks: tuple[IFRAGroupCheck, ...]
+    constituent_totals: tuple[IFRAConstituentTotal, ...] = ()
 
     @property
     def failures(self) -> tuple[IFRACheck | IFRAGroupCheck, ...]:
@@ -287,6 +337,52 @@ def _load_table(path: Path) -> IFRATable:
         standards=standards,
         materials=materials,
         group_rules=group_rules,
+    )
+
+
+def load_natural_constituents(path: str | Path | None = None) -> NaturalConstituents:
+    """Load the Annex I constituent levels. The default path is cached; explicit paths are not."""
+    if path is None:
+        return _load_default_constituents()
+    return _load_constituents(Path(path))
+
+
+@lru_cache(maxsize=1)
+def _load_default_constituents() -> NaturalConstituents:
+    return _load_constituents(DEFAULT_CONSTITUENTS_PATH)
+
+
+def _load_constituents(path: Path) -> NaturalConstituents:
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if raw.get("schema_version") != CONSTITUENTS_SCHEMA_VERSION:
+        raise ValueError(
+            f"{path}: schema_version {raw.get('schema_version')!r} is not "
+            f"{CONSTITUENTS_SCHEMA_VERSION!r}"
+        )
+    rows_by_ncs: dict[str, list[Mapping]] = {}
+    for row in raw.get("rows", []):
+        if not _is_number(row.get("max_pct")):
+            raise ValueError(f"{path}: row {row!r} has no numeric max_pct")
+        rows_by_ncs.setdefault(row["ncs_name"], []).append(row)
+    stocks: dict[str, dict[str, tuple[float, str]]] = {}
+    for stock, rec in raw.get("stocks", {}).items():
+        levels: dict[str, tuple[float, str]] = {}
+        for ncs in rec.get("ncs_names", ()):
+            if ncs not in rows_by_ncs:
+                raise ValueError(f"{path}: stock {stock!r} names unknown NCS row {ncs!r}")
+            # Several candidate rows (or one substance under several CAS numbers): the
+            # highest level per standard, never the sum.
+            for row in rows_by_ncs[ncs]:
+                level = float(row["max_pct"])
+                if row["standard"] not in levels or level > levels[row["standard"]][0]:
+                    levels[row["standard"]] = (level, ncs)
+        stocks[stock] = levels
+    return NaturalConstituents(
+        amendment=raw.get("amendment"),
+        amendment_year=raw.get("amendment_year"),
+        verification=raw.get("verification"),
+        stocks=stocks,
+        standards=frozenset(row["standard"] for rows in rows_by_ncs.values() for row in rows),
     )
 
 
@@ -492,13 +588,23 @@ def evaluate_ifra(
     alt_names: Mapping[str, Sequence[str] | str] | None = None,
     edge_ratio: float = 0.7,
     headroom: float = 1.0,
+    constituents: NaturalConstituents | None = None,
 ) -> IFRAEvaluation:
-    """Evaluate finished-product % w/w per formula row against the Category 4 table."""
+    """Evaluate finished-product % w/w per formula row against the Category 4 table.
+
+    A natural with IFRA Annex I levels in ``constituents`` adds its share of each restricted
+    substance to that substance's total (group ``<standard>_constituents``), which replaces
+    the synthetic-only standard total. ``constituents`` defaults to the shipped Annex I file
+    when the table is the default one; with any other table it is used only when passed.
+    """
     table = table if table is not None else load_ifra_table()
+    if constituents is None and table is _load_default_table():
+        constituents = load_natural_constituents()
     alt_names = alt_names or {}
     checks: list[IFRACheck] = []
     pct_by_member: dict[str, float] = {}
     restricted_rows: dict[str, list[str]] = {}
+    natural_pcts: dict[str, float] = {}
     for row_name, pct in pct_by_material.items():
         extra = alt_names.get(row_name, ())
         candidates = [row_name, *([extra] if isinstance(extra, str) else extra)]
@@ -513,14 +619,135 @@ def evaluate_ifra(
         pct_by_member[material.name] = pct_by_member.get(material.name, 0.0) + pct
         if material.status == "restricted" and material.standard is not None:
             restricted_rows.setdefault(material.standard, []).append(material.name)
+        if constituents is not None and material.name in constituents.stocks:
+            natural_pcts[material.name] = natural_pcts.get(material.name, 0.0) + pct
         checks.append(_check_row(row_name, matched_name, material, pct, edge_ratio, headroom))
-    rules = [*table.group_rules, *_standard_total_rules(table, restricted_rows)]
-    group_checks = tuple(
+    totals = _constituent_totals(table, constituents, natural_pcts, pct_by_member, restricted_rows)
+    counted = {t.standard for t in totals}
+    rules = [
+        *table.group_rules,
+        *(r for r in _standard_total_rules(table, restricted_rows) if r.standard not in counted),
+    ]
+    group_checks = [
         g
         for rule in rules
         if (g := _check_group(rule, table, pct_by_member, edge_ratio, headroom)) is not None
+    ]
+    group_checks.extend(_constituent_group_check(t, table, edge_ratio, headroom) for t in totals)
+    if totals:
+        checks = [_natural_row_counted(c, totals) for c in checks]
+    return IFRAEvaluation(
+        checks=tuple(checks), group_checks=tuple(group_checks), constituent_totals=totals
     )
-    return IFRAEvaluation(checks=tuple(checks), group_checks=group_checks)
+
+
+def _constituent_totals(
+    table: IFRATable,
+    constituents: NaturalConstituents | None,
+    natural_pcts: Mapping[str, float],
+    pct_by_member: Mapping[str, float],
+    restricted_rows: Mapping[str, Sequence[str]],
+) -> tuple[IFRAConstituentTotal, ...]:
+    """Per standard a mapped natural contributes to: its synthetic rows plus natural shares."""
+    if constituents is None or not natural_pcts:
+        return ()
+    shares: dict[str, list[IFRAConstituentContributor]] = {}
+    for natural, pct in natural_pcts.items():
+        for sid, (level, ncs) in constituents.stocks[natural].items():
+            contribution = pct * level / 100.0
+            if contribution <= 0:
+                continue
+            shares.setdefault(sid, []).append(
+                IFRAConstituentContributor(natural, "natural", pct, level, ncs, contribution)
+            )
+    totals = []
+    for sid in sorted(shares):
+        standard = table.standards[sid]
+        limit = standard.cat4_limit_pct
+        assert limit is not None  # the Annex I file covers Category 4 limits only
+        synthetic = [
+            IFRAConstituentContributor(
+                name, "synthetic", pct_by_member[name], None, None, pct_by_member[name]
+            )
+            for name in dict.fromkeys(restricted_rows.get(sid, ()))
+        ]
+        contributors = (*synthetic, *shares[sid])
+        totals.append(IFRAConstituentTotal(
+            substance=standard.name,
+            standard=sid,
+            total=sum(c.contribution_pct for c in contributors),
+            limit_pct=limit,
+            contributors=contributors,
+        ))
+    return tuple(totals)
+
+
+def _constituent_group_check(
+    total: IFRAConstituentTotal, table: IFRATable, edge_ratio: float, headroom: float
+) -> IFRAGroupCheck:
+    rule = IFRAGroupRule(
+        id=f"{total.standard}_constituents",
+        standard=total.standard,
+        rule="sum_le_limit",
+        limit_pct=total.limit_pct,
+        members=tuple(c.material for c in total.contributors),
+        quote=None,
+    )
+    # Keyed by table canonical name: the optimizer scales every row whose ifra_name is a
+    # member, and a natural's share scales with its row.
+    member_pcts = {c.material: c.contribution_pct for c in total.contributors}
+    group = _check_group(rule, table, member_pcts, edge_ratio, headroom)
+    assert group is not None  # every total has at least one contributor
+    if group.verdict == "fail":
+        lead = "exceeds"
+    elif group.verdict == "warn":
+        lead = f"is {total.total / total.limit_pct:.0%} of"
+    else:
+        lead = "is within"
+    parts = ", ".join(_contribution_text(c) for c in total.contributors)
+    message = (
+        f"{total.substance} ({total.standard}) including naturals' IFRA Annex I "
+        f"constituents: {parts}; total {_fmt(total.total)} % {lead} the IFRA Category 4 "
+        f"limit of {_fmt(total.limit_pct)} %"
+        + (f" (headroom {headroom:g})." if headroom != 1 else ".")
+    )
+    return replace(group, message=message)
+
+
+def _contribution_text(c: IFRAConstituentContributor) -> str:
+    if c.kind == "synthetic":
+        return f"{c.material} {_fmt(c.contribution_pct)} %"
+    return (
+        f"{c.material} {_fmt(c.contribution_pct)} % ({_fmt(c.pct)} % of the product x up "
+        f"to {_fmt(c.constituent_pct or 0.0)} % in {c.ncs_name})"
+    )
+
+
+def _natural_row_counted(check: IFRACheck, totals: Sequence[IFRAConstituentTotal]) -> IFRACheck:
+    """Say on a mapped natural's own row what was counted; its verdict is kept."""
+    if check.status != "natural_no_own_standard":
+        return check
+    counted = [
+        (t, c)
+        for t in totals
+        for c in t.contributors
+        if c.kind == "natural" and c.material == check.ifra_name
+    ]
+    if not counted:
+        return check
+    name = check.ifra_name
+    label = check.material if check.material == name else f"{check.material} ({name})"
+    parts = ", ".join(
+        f"{t.substance} up to {_fmt(c.constituent_pct or 0.0)} % "
+        f"({_fmt(c.contribution_pct)} % of the product)"
+        for t, c in counted
+    )
+    message = (
+        f"{label} at {_fmt(check.pct)} % is a natural with no IFRA standard of its own; its "
+        f"IFRA Annex I constituents are counted toward their Category 4 totals: {parts}. "
+        "Other restricted constituents are not counted."
+    )
+    return replace(check, message=message)
 
 
 def _standard_total_rules(
@@ -609,7 +836,7 @@ def _check_row(
     elif status == "no_standard":
         verdict = "pass"
         message = f"{label} at {_fmt(pct)} % has no IFRA standard of its own."
-    else:  # natural_no_own_standard
+    else:  # natural_no_own_standard (evaluate_ifra rewords it if constituents were counted)
         verdict = "warn"
         message = (
             f"{label} at {_fmt(pct)} % is a natural with no IFRA standard of its own; its "
