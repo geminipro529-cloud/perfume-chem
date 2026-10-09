@@ -2,7 +2,9 @@
 
 The loss law is ``dn_i/dt = -A * gamma_i * x_i * P_i* / sqrt(MW_i)`` with
 ``x_i`` taken from the current pool and ``A = 2e-5 * N_0`` an unfitted
-relative scale. These tests pin the law, not any absolute evaporation claim.
+relative scale, where ``N_0`` is the t=0 concentrate moles without any declared
+matrix (audit PHYS-01). These tests pin the law, not any absolute evaporation
+claim.
 """
 
 from __future__ import annotations
@@ -92,7 +94,10 @@ def test_first_step_rates_equal_the_previous_per_material_constant():
 
 def test_mixed_formula_loses_more_by_drydown_and_total_strictly_decreases():
     state = _state(MIXED)
-    frames = simulator.simulate_formula(MIXED, _neat(MIXED), initial_state=state)
+    # The concentrate-only pool, with the v5 default ethanol fill switched off.
+    frames = simulator.simulate_formula(
+        MIXED, _neat(MIXED), initial_state=state, default_ethanol_fill=False
+    )
     totals = [sum(m.raw_ul for m in frame.state.materials) for frame in frames]
     assert all(later < earlier for earlier, later in zip(totals, totals[1:]))
 
@@ -222,13 +227,18 @@ def test_declared_matrix_differs_from_the_frozen_matrix_integration():
     drydown, (_, frozen) = frames[-1], expected[-1]
     assert frozen.matrix_moles == pytest.approx(sum(MATRIX.values()), rel=1e-12)
     assert drydown.state.matrix_moles < 1e-3 * frozen.matrix_moles
+    # The matrix dilutes every material until it leaves, and the loss scale no
+    # longer grows with it (PHYS-01), so the drydown keeps more than the frozen
+    # integration, whose N_0 included the matrix.
     new_total = sum(m.raw_ul for m in drydown.state.materials)
-    assert new_total < sum(m.raw_ul for m in frozen.materials)
+    assert new_total > sum(m.raw_ul for m in frozen.materials)
 
 
 def test_heavy_material_rate_rises_as_the_matrix_leaves():
     state = _matrix_state(MIXED)
-    n0 = simulator._pool_total_moles(state)
+    n0 = simulator._loss_scale_moles(state)
+    concentrate = sum(m.moles for m in state.materials)
+    assert n0 == pytest.approx(concentrate, rel=1e-12)
     dt = simulator.MAX_INTEGRATION_STEP_SECONDS
     frames = _per_step_frames(state, MIXED, 12)
 
@@ -247,7 +257,11 @@ def test_heavy_material_rate_rises_as_the_matrix_leaves():
         rates.append(k)
         ratios.append(ratio)
     assert all(later > earlier for earlier, later in zip(ratios, ratios[1:]))
-    assert ratios[-1] > 16.0
+    # The matrix dilutes the pool at first; while any of it is left, no
+    # material loses faster than it would without a matrix (PHYS-01).
+    assert ratios[0] == pytest.approx(concentrate / (concentrate + sum(MATRIX.values())))
+    assert ratios[-1] > 10.0 * ratios[0]
+    assert ratios[-1] < 1.0
     assert all(later > earlier for earlier, later in zip(rates[:6], rates[1:6]))
     assert rates[-1] < simulator.MAX_LOSS_RATE_PER_S
     assert rates[-1] > 3.0 * rates[0]
@@ -255,10 +269,10 @@ def test_heavy_material_rate_rises_as_the_matrix_leaves():
 
 def test_removed_moles_track_headspace_with_the_matrix_in_the_pool():
     state = _matrix_state(MIXED)
-    n0 = simulator._pool_total_moles(state)
-    assert n0 == pytest.approx(
-        sum(m.moles for m in state.materials) + sum(MATRIX.values()), rel=1e-12
-    )
+    # A is scaled by the concentrate moles alone; the matrix is in the pool
+    # that x_i uses, not in the scale (PHYS-01).
+    n0 = simulator._loss_scale_moles(state)
+    assert n0 == pytest.approx(sum(m.moles for m in state.materials), rel=1e-12)
     expected_a = 2.0e-5 * n0
     dt = simulator.MAX_INTEGRATION_STEP_SECONDS
     frames = _per_step_frames(state, MIXED, 36)
@@ -366,14 +380,38 @@ def test_default_fill_is_below_ten_percent_of_its_moles_by_7200_s():
 def test_declared_matrix_frames_are_unchanged_by_the_default_fill():
     state = _matrix_state(MIXED)
     frames = simulator.simulate_formula(MIXED, _neat(MIXED), initial_state=state)
-    n0 = simulator._pool_total_moles(state)
+    n0 = simulator._loss_scale_moles(state)
     current, now = state, 0.0
     assert frames[0].state is state
     for frame, (label, seconds) in zip(frames, simulator.DEFAULT_WINDOWS, strict=True):
-        # The v4 integration: the declared state advanced by the unchanged law.
+        # The declared state advanced by the same law, with no fill added.
         current = simulator._advance_state(current, seconds - now, initial_pool_moles=n0)
         now = seconds
         assert frame.label == label
         assert frame.state == current
         assert frame.state.matrix_source == "explicit"
         assert frame.matrix_assumption == {"basis": "DECLARED", "matrix_source": "explicit"}
+
+
+def test_heavy_materials_keep_the_same_drydown_with_or_without_a_declared_matrix():
+    """Audit PHYS-01: declaring the solvent must not empty the base.
+
+    With the matrix inside ``N_0`` the loss scale grew with the matrix, so once
+    it had evaporated every material lost at a rate inflated by about the
+    matrix-to-concentrate mole ratio. Heavy materials barely move in 4 h either
+    way; the declared matrix may only slow them while it is present.
+    """
+    plain = simulator.simulate_formula(
+        MIXED, _neat(MIXED), initial_state=_state(MIXED), default_ethanol_fill=False
+    )
+    with_matrix = simulator.simulate_formula(
+        MIXED, _neat(MIXED), initial_state=_matrix_state(MIXED)
+    )
+    assert plain[-1].t_seconds == with_matrix[-1].t_seconds == 14400.0
+    start = {m.name: m.moles for m in plain[0].state.materials}
+    for name in ("Hedione", "Iso E Super", "Galaxolide"):
+        left_plain = next(m.moles for m in plain[-1].state.materials if m.name == name)
+        left_matrix = next(m.moles for m in with_matrix[-1].state.materials if m.name == name)
+        assert left_plain / start[name] > 0.95
+        assert left_matrix / start[name] == pytest.approx(left_plain / start[name], abs=0.02)
+        assert left_matrix >= left_plain * (1.0 - 1e-9)
