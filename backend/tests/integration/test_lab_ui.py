@@ -448,8 +448,12 @@ async def test_stock_page_row_shows_where_an_entry_differs_from_the_workbook(cli
     assert disagreement["stock_page"].casefold() == "50% w/w in dpg"
 
     javascript = await client.get("/static/lab.js")
-    assert "rows[index]?.authority_disagreement?.text" in javascript.text
-    assert "note.textContent = disagreement;" in javascript.text
+    assert "const disagreement = stock.authority_disagreement?.text;" in javascript.text
+    # stockEl sets textContent, so the note is never parsed as HTML.
+    assert (
+        'stockEl("span", "stock-row-note inventory-authority-differs", disagreement)'
+        in javascript.text
+    )
 
 
 @pytest.mark.asyncio
