@@ -6,8 +6,8 @@ import hashlib
 import json
 import re
 from dataclasses import asdict
-from functools import wraps
 from decimal import Decimal, InvalidOperation
+from functools import wraps
 from typing import Any, Literal, Sequence
 
 from engine.formulation_intelligence.architecture_bridge import (
@@ -15,6 +15,7 @@ from engine.formulation_intelligence.architecture_bridge import (
     role_plan_signature,
 )
 from engine.formulation_intelligence.composition_checks import attach_composition_checks
+from engine.formulation_intelligence.detection_pass import attach_detection_checks
 from engine.formulation_intelligence.formula_critic import critique_formula
 from engine.formulation_intelligence.formula_solver import (
     FormulaSolveResult,
@@ -29,6 +30,7 @@ from engine.formulation_intelligence.semantic_brief_adapter import (
     SemanticBrief,
     compile_semantic_brief,
 )
+from engine.formulation_intelligence.voice_summary import attach_complexity_summary
 from engine.research.composition_planner import (
     _concept,
     _inventory_text_sha256,
@@ -38,7 +40,6 @@ from engine.research.composition_planner import (
     compose_inventory_formula,
 )
 from engine.research.contracts import FALSE_ACTION_AUTHORITY, stable_payload_hash
-from engine.formulation_intelligence.detection_pass import attach_detection_checks
 from engine.research.request_interpretation import (
     RequestInterpretationInputV1,
     interpret_request,
@@ -604,15 +605,18 @@ def _dynamic_report(
 
 
 def _with_composition_checks(design: Any) -> Any:
-    """Run the detection pass, then attach the gate's crowding/IFRA checks.
+    """Run the detection pass, then attach the gate's crowding/IFRA checks and
+    the voice summary.
 
-    The composition checks run on the formula after the detection pass, so
-    they describe the doses that are shown.
+    The composition checks and the voice summary run on the formula after the
+    detection pass, so they describe the doses that are shown.
     """
 
     @wraps(design)
     def wrapper(*args: Any, **kwargs: Any) -> dict[str, Any]:
-        return attach_composition_checks(attach_detection_checks(design(*args, **kwargs)))
+        return attach_complexity_summary(
+            attach_composition_checks(attach_detection_checks(design(*args, **kwargs)))
+        )
 
     return wrapper
 
