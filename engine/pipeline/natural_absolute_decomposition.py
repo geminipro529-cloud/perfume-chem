@@ -1931,10 +1931,123 @@ def _resolve_profile_key(material_name: str) -> tuple[str | None, str]:
     return None, "unresolved"
 
 
+# ── Constituent VP from the data spine (diagnosis V3) ───────────────────
+#
+# Naturals use cited data-spine VPs: a constituent inside a natural evaporates
+# with the same 25 C vapour pressure as the same molecule dosed on its own,
+# whenever that molecule's data-spine row carries a cited VP source. Only the
+# VP column is substituted; fractions, MW, ODT, gamma and the unresolved
+# remainder of every profile are unchanged and never renormalized.
+CONSTITUENT_VP_POLICY = "naturals_use_cited_data_spine_vp_v1"
+
+# Provenance tags that name an internal default, an override or an estimate
+# rather than an external measurement or assessment. A data-spine VP with one
+# of these tags (or with no tag) is not cited, so the profile row keeps its VP.
+_UNCITED_VP_PROVENANCE_PREFIXES = (
+    "engine.",
+    "manual:",
+    "heuristic:",
+    "estimated",
+    "synced",
+)
+_UNCITED_VP_PROVENANCE_MARKERS = ("proxy", "fallback", "component_weighted")
+
+
+@dataclass(frozen=True, slots=True)
+class ConstituentVpSubstitution:
+    """One profile row whose table VP was replaced by a cited registry VP."""
+
+    profile_key: str
+    constituent: str
+    registry_name: str
+    table_vp_25c_pa: float
+    registry_vp_25c_pa: float
+    source: str
+
+
+def _cited_vp_source(material) -> str | None:
+    """Return the cited VP provenance of a data-spine row, else None."""
+    if material is None or getattr(material, "vp_25c_pa", None) is None:
+        return None
+    source = (getattr(material, "provenance", None) or {}).get("vp_25c_pa")
+    text = str(source or "").strip()
+    folded = text.casefold()
+    if not text or folded.startswith(_UNCITED_VP_PROVENANCE_PREFIXES):
+        return None
+    if any(marker in folded for marker in _UNCITED_VP_PROVENANCE_MARKERS):
+        return None
+    return text
+
+
+@lru_cache(maxsize=1024)
+def _registry_vp_for_constituent(name: str) -> tuple[str, float, str] | None:
+    """Resolve a constituent like a single dosed material; cited VP only."""
+    from engine.material_resolver import resolve_material  # noqa: PLC0415
+
+    material = resolve_material(name).registry_material
+    source = _cited_vp_source(material)
+    if source is None:
+        return None
+    return material.canonical_name, float(material.vp_25c_pa), source
+
+
+@lru_cache(maxsize=1024)
+def _rows_with_cited_vp(rows: tuple[tuple, ...]) -> tuple[tuple, ...]:
+    adjusted: list[tuple] = []
+    for row in rows:
+        cited = _registry_vp_for_constituent(str(row[0]))
+        if cited is None:
+            adjusted.append(row)
+        else:
+            adjusted.append((row[0], row[1], row[2], cited[1], *row[4:]))
+    return tuple(adjusted)
+
+
+def cited_vp_substitutions() -> tuple[ConstituentVpSubstitution, ...]:
+    """Every profile row whose VP now comes from a cited data-spine value."""
+    records: list[ConstituentVpSubstitution] = []
+    for key, rows in _ABSOLUTE_CONSTITUENTS.items():
+        for row in rows:
+            cited = _registry_vp_for_constituent(str(row[0]))
+            if cited is None or float(cited[1]) == float(row[3]):
+                continue
+            records.append(
+                ConstituentVpSubstitution(
+                    profile_key=key,
+                    constituent=str(row[0]),
+                    registry_name=cited[0],
+                    table_vp_25c_pa=float(row[3]),
+                    registry_vp_25c_pa=float(cited[1]),
+                    source=cited[2],
+                )
+            )
+    return tuple(records)
+
+
 def get_constituents(material_name: str) -> list[tuple] | None:
-    """Return constituent list for a known natural mixture, or None."""
+    """Return constituent list for a known natural mixture, or None.
+
+    Rows carry the cited data-spine VP where one exists (see
+    ``CONSTITUENT_VP_POLICY``); every other column is the profile's own.
+    """
     key, _resolution = _resolve_profile_key(material_name)
-    return _ABSOLUTE_CONSTITUENTS.get(key) if key is not None else None
+    if key is None:
+        return None
+    rows = _ABSOLUTE_CONSTITUENTS.get(key)
+    if rows is None:
+        return None
+    return list(_rows_with_cited_vp(tuple(tuple(row) for row in rows)))
+
+
+def _input_authority_with_cited_vp(key: str, evidence: dict) -> dict[str, object]:
+    """Profile input authority, marking rows whose VP now comes from the data spine."""
+    authority = deepcopy(evidence.get("input_authority", {}))
+    for substitution in cited_vp_substitutions():
+        row_authority = authority.get(substitution.constituent)
+        if substitution.profile_key == key and isinstance(row_authority, dict):
+            row_authority["vp_status"] = "CITED_DATA_SPINE_VP"
+            row_authority["vp_source"] = substitution.source
+    return authority
 
 
 def get_composite_metadata(material_name: str) -> NaturalCompositeMetadata | None:
@@ -1977,7 +2090,7 @@ def get_composite_metadata(material_name: str) -> NaturalCompositeMetadata | Non
             )
         ),
         unresolved_constituents=deepcopy(evidence.get("unresolved_constituents", ())),
-        input_authority=deepcopy(evidence.get("input_authority", {})),
+        input_authority=_input_authority_with_cited_vp(key, evidence),
         composition_authority=(
             "LITERATURE_PARTIAL_PROXY"
             if resolution == "literature_proxy"

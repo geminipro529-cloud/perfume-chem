@@ -7,6 +7,7 @@ import pytest
 
 LAB_DRAFTS_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "lab-drafts.js"
 BENCH_SHEET_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "bench-sheet.js"
+COMPOSITION_CHECKS_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "composition-checks.js"
 
 
 @pytest.mark.asyncio
@@ -181,6 +182,9 @@ async def test_formula_conversation_creates_and_refines_read_only_design(client)
         "REQUEST_CONSTRAINT_AND_NONREDUNDANT_ROLE_FULFILMENT"
     )
     assert result["critic"]["filler_rows_added"] == 0
+    checks = result["composition_checks"]
+    assert {check["check"] for check in checks["checks"]} >= {"hedione_share", "musk_count", "ifra"}
+    assert "30 mL" in checks["basis"]
     construction = result["formulation_knowledge"]["construction_context"]
     assert "AR_LAVENDER" in {row["package_id"] for row in construction["dossiers"]}
     assert construction["coverage"]["empirically_validated_packages"] == 0
@@ -1127,6 +1131,81 @@ async def test_comparison_planning_is_worded_as_a_suggestion_and_uses_safe_reque
     submit = javascript.text.split('$("#omission-plan-form").addEventListener("submit"', 1)[1]
     submit = submit.split('$("#sample-form")', 1)[0]
     assert 'newRequestId("comparison")' in submit and "crypto.randomUUID()" not in submit
+
+
+def _run_composition_checks(script):
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("node is not installed; the composition-checks wording test needs it")
+    program = f"const checks = require({json.dumps(str(COMPOSITION_CHECKS_JS))});\nprocess.stdout.write(JSON.stringify(({script})(checks)));"
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=60, check=True)
+    return json.loads(completed.stdout)
+
+
+def test_composition_checks_flag_an_ifra_overdose_and_list_unchecked_rows():
+    payload = {
+        "basis": "Percent of a 30 mL bottle.",
+        "checks": [
+            {"check": "hedione_share", "status": "PASS", "message": "Hedione 9% of concentrate"},
+            {"check": "musk_count", "status": "SKIP", "message": "no musks in formula"},
+            {"check": "ifra", "status": "FAIL", "message": "Alpha Damascone at 1.364 % exceeds the IFRA Category 4 limit of 0.043 %"},
+        ],
+        "unchecked_rows": [{"material": "Coumarin", "reason": "weighed solid (mg)"}],
+    }
+    summary = _run_composition_checks("(c) => c.compositionCheckLines(PAYLOAD)".replace("PAYLOAD", json.dumps(payload)))
+
+    assert summary["flagged"] is True
+    assert [line["status"] for line in summary["lines"]] == ["FAIL", "SKIP"]
+    assert summary["lines"][0]["text"].startswith("IFRA: Alpha Damascone at 1.364 %")
+    assert summary["lines"][1]["text"] == "Not checked: Coumarin (weighed solid (mg))"
+    assert summary["basis"] == "Percent of a 30 mL bottle."
+
+
+def test_composition_checks_say_passed_when_nothing_is_flagged():
+    payload = {"basis": "", "checks": [
+        {"check": "hedione_share", "status": "PASS", "message": "ok"},
+        {"check": "ifra", "status": "PASS", "message": "ok"},
+    ], "unchecked_rows": []}
+    summary = _run_composition_checks("(c) => c.compositionCheckLines(PAYLOAD)".replace("PAYLOAD", json.dumps(payload)))
+
+    assert summary["flagged"] is False
+    assert summary["lines"] == [{"status": "PASS", "text": "Checks passed: Hedione share, musk count, IFRA"}]
+    assert _run_composition_checks("(c) => c.compositionCheckLines(null)") is None
+
+
+def test_composition_checks_flag_a_check_that_could_not_run():
+    payload = {"basis": "", "checks": [
+        {"check": "hedione_share", "status": "PASS", "message": "ok"},
+        {"check": "ifra", "status": "ERROR", "message": "checks could not run: KeyError: x"},
+    ], "unchecked_rows": []}
+    summary = _run_composition_checks("(c) => c.compositionCheckLines(PAYLOAD)".replace("PAYLOAD", json.dumps(payload)))
+
+    assert summary["flagged"] is True
+    assert summary["lines"] == [{"status": "ERROR", "text": "IFRA: checks could not run: KeyError: x"}]
+
+
+def test_composition_checks_never_say_passed_when_a_row_was_not_checked():
+    payload = {"basis": "", "checks": [{"check": "ifra", "status": "PASS", "message": "ok"}],
+               "unchecked_rows": [{"material": "Coumarin", "reason": "weighed solid (mg)"}]}
+    summary = _run_composition_checks("(c) => c.compositionCheckLines(PAYLOAD)".replace("PAYLOAD", json.dumps(payload)))
+
+    assert summary["flagged"] is True
+    assert not any(line["text"].startswith("Checks passed") for line in summary["lines"])
+    assert summary["lines"][-1]["text"] == "Not checked: Coumarin (weighed solid (mg))"
+
+
+@pytest.mark.asyncio
+async def test_formula_card_shows_the_composition_checks(client):
+    page = await client.get("/app")
+    javascript = await client.get("/static/lab.js")
+    helper = await client.get("/static/composition-checks.js")
+
+    assert helper.status_code == 200
+    assert page.text.index('src="/static/composition-checks.js"') < page.text.index('src="/static/lab.js"')
+    assert 'id="formula-result-checks"' in page.text
+    assert page.text.index('id="formula-result-checks"') < page.text.index('id="formula-result-rows"')
+    assert "compositionCheckLines(compositionChecks)" in javascript.text
+    assert "selected.variant ? selected.variant.composition_checks : result.composition_checks" in javascript.text
 
 
 def test_bench_row_basket_trusts_the_stock_id_over_the_name():

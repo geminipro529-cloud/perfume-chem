@@ -38,7 +38,7 @@ VP_PATCH = {
     "Citronellol":      2.67,      # BASF SDS: 0.02 mmHg@25C (DB was 0.67 = 4x)
     "Geraniol":         2.67,      # PubChem estimate; conservative (DB was 2.12)
     "Coumarin":         0.133,     # NIST Delta-sub-H via Sigma 0.01 mmHg@47C (DB was 0.19)
-    "Habanolide":       0.000053,  # DSM-Firmenich official: 0.00003 Pa@20C (DB was 0.0002 = 4x HIGH)
+    "Habanolide":       0.076,     # RIFM 2004 measured 0.076 Pa@25C (2026-10-08; the old 0.000053 was ~1,400x low)
     "Ambrofix":         0.066,     # ChemBook: 0.066 Pa@25C (DB was 0.05)
     "Hedione":          0.089,     # ScenTree: 0.00067 mmHg@20C (DB was 0.21 = 2.4x HIGH)
     "Hedione HC":       0.089,     # Same source — same molecule, high-cis isomer
@@ -61,7 +61,7 @@ VP_SOURCE = {
     "Citronellol": "BASF SDS: approx 0.02 mmHg@25C = 2.67 Pa; ChemicalBook confirms",
     "Geraniol": "PubChem: 3.0e-2 mmHg@25C = 4.00 Pa; conservative 2.67 Pa",
     "Coumarin": "NIST Antoine (Stull 1947); Delta-sub-H 83.1 kJ/mol (Sabbah 1991); CC extrapolation from Sigma 0.01 mmHg@47C",
-    "Habanolide": "DSM-Firmenich official product studio: 0.00003 Pa@20C",
+    "Habanolide": "RIFM 2004, measured: 0.076 Pa@25C (data/materials/H.yaml provenance)",
     "Ambrofix": "ChemicalBook: 0.066 Pa@25C; Vigon SDS: >0.001 mmHg@20C = >0.133 Pa",
     "Hedione": "ScenTree: 0.00067 mmHg@20C = 0.089 Pa; Wikipedia MW confirms",
     "Hedione HC": "ScenTree hedione value 0.00067 mmHg@20C = 0.089 Pa; high-cis isomer",

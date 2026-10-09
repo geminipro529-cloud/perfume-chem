@@ -43,7 +43,7 @@ PRADA_CASES = (
     (
         ROOT / "formulas" / "Prada_LHomme_Luxury_Orris_30mL_EdT.md",
         {
-            ("Orris Liquid", "inventory_stock_non_executable"),
+            ("Orris Liquid", "stock_fraction_mismatch"),
             ("Alpha Irone", "inventory_gap"),
             ("Bourgeonal", "stock_fraction_mismatch"),
             ("Neroli EO", "stock_carrier_mismatch"),
@@ -91,7 +91,9 @@ def test_prada_controls_preserve_architecture_but_fail_closed_on_current_stock(
             row for row in stock_contract.data["issues"]
             if row["material"] == "Orris Liquid"
         )
-        assert "USER_COMPOUNDING_HOLD" in issue["execution_holds"]
+        # The user lifted the Orris Liquid hold on 2026-10-08; the card's 30%
+        # Orris Liquid still does not match the owned 9% stock.
+        assert "USER_COMPOUNDING_HOLD" not in str(issue.get("execution_holds", ""))
     assert _natural_composite_coverage_check(state).status == "PASS"
     assert evaluate_reference_contract(formula, state)["status"] == "PASS"
     assert all(material.oav is not None for material in state.materials)

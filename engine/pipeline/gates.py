@@ -6686,15 +6686,8 @@ def _gate_concentration_basis(state, config):
     )
 
 
-def gate_formula(
-    formula: Mapping,
-    config: ReleaseGateConfig | None = None,
-    *,
-    parent_formula: Mapping | None = None,
-    authorized_active_dose_changes: Mapping[str, str] | None = None,
-) -> GateReport:
-    """Run all reusable release gates on a parsed formula record."""
-    config = config or ReleaseGateConfig()
+def _resolve_gate_config(formula: Mapping, config: ReleaseGateConfig) -> ReleaseGateConfig:
+    """Fold the formula's own claims, archetype and matrix into the gate config."""
     reference_detection = detect_reference_claim(formula)
     if reference_detection.quantitative_requested and not config.quantitative_claim:
         config = replace(config, quantitative_claim=True)
@@ -6719,6 +6712,11 @@ def gate_formula(
             matrix_mass_g=float(formula.get("matrix_mass_g", 0.0) or 0.0),
             matrix_source=str(formula.get("matrix_source", "omitted") or "omitted"),
         )
+    return config
+
+
+def _gate_formula_state(formula: Mapping, config: ReleaseGateConfig):
+    """Build the FormulaState every gate reads, plus its stock contract and dose receipt."""
     ingredients_ul: Mapping[str, float] = formula["ingredients_ul"]
     dilutions: Mapping[str, float] = formula.get("dilutions", {})
     stock_contract = resolve_inventory_stock_contract(formula)
@@ -6742,6 +6740,38 @@ def gate_formula(
         dose_receipt_sha256=dose_receipt.receipt_sha256,
         dose_receipt_status=dose_receipt.status,
     )
+    return state, stock_contract, dose_receipt
+
+
+def run_composition_gates(
+    formula: Mapping, config: ReleaseGateConfig | None = None
+) -> list[GateResult]:
+    """Run only the Hedione-share, musk-count and IFRA gates on the gate_formula state.
+
+    The composer uses this to flag crowding and IFRA problems on a draft without
+    paying for the full release gate (preflight, simulation, OAV and family gates).
+    """
+    config = _resolve_gate_config(formula, config or ReleaseGateConfig())
+    state, _, _ = _gate_formula_state(formula, config)
+    return [
+        _safe_gate(lambda: _gate_hedione_share(formula, state, config), "hedione_share"),
+        _safe_gate(lambda: _gate_musk_count(state, config), "musk_count"),
+        _safe_gate(lambda: _gate_safety(state, config), "safety"),
+    ]
+
+
+def gate_formula(
+    formula: Mapping,
+    config: ReleaseGateConfig | None = None,
+    *,
+    parent_formula: Mapping | None = None,
+    authorized_active_dose_changes: Mapping[str, str] | None = None,
+) -> GateReport:
+    """Run all reusable release gates on a parsed formula record."""
+    config = _resolve_gate_config(formula, config or ReleaseGateConfig())
+    ingredients_ul: Mapping[str, float] = formula["ingredients_ul"]
+    dilutions: Mapping[str, float] = formula.get("dilutions", {})
+    state, stock_contract, dose_receipt = _gate_formula_state(formula, config)
     preflight = run_release_preflight(
         formula,
         state,

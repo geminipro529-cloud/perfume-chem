@@ -3,6 +3,16 @@
 The temporal path is an explicitly uncalibrated screening model. It integrates
 composition-dependent modeled headspace over bounded time steps, but it does
 not predict measured skin life, blotter life, or absolute evaporation.
+
+Loss law (mass-balanced, diagnosis M3): each material leaves at a gas-side
+limited flux ``dn_i/dt = -A * gamma_i * x_i * P_i* / sqrt(MW_i)`` with
+``x_i = n_i / N(t)`` recomputed from the current pool after every step, so the
+amount removed tracks the partial pressure each frame reports. ``A`` is an
+unfitted relative scale, ``2e-5 * N_0``, chosen so every material's rate at
+t=0 equals the previous per-material constant ``2e-5 * gamma*P*/sqrt(MW)``.
+
+A declared ethanol/water matrix leaves by the same law, cap and step
+(diagnosis M1a), so it no longer stays in the pool for the whole run.
 """
 
 from __future__ import annotations
@@ -12,6 +22,7 @@ from dataclasses import dataclass
 from typing import Mapping, Sequence
 
 from engine.pipeline.formula_state import FormulaState, build_formula_state
+from engine.solvent_matrix import canonical_solvent_name
 
 DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
     ("opening", 0.0),
@@ -21,10 +32,25 @@ DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
     ("drydown", 14400.0),
 )
 
-TEMPORAL_MODEL = "dynamic_headspace_exponential_loss_v2"
+TEMPORAL_MODEL = "dynamic_headspace_mass_balanced_loss_v4"
 TEMPORAL_AUTHORITY = "HEURISTIC_UNCALIBRATED"
 REMAINING_QUANTITY_BASIS = "heuristic_remaining_stock_volume_equivalent_ul"
 MAX_INTEGRATION_STEP_SECONDS = 300.0
+# Unfitted relative scale and cap of the loss law; not kinetic parameters.
+LOSS_RATE_SCALE = 2.0e-5
+MAX_LOSS_RATE_PER_S = 2.5e-3
+# Matrix components that evaporate (diagnosis M1a): canonical solvent key ->
+# (vapour pressure in Pa at 25 C, molar mass in g/mol). Source: CRC Handbook
+# of Chemistry and Physics (vapour pressure of fluids; physical constants of
+# organic compounds). The data spine's Ethanol 96% row (5900 Pa) carries no
+# vp_source, so it is not used. No temperature correction is applied.
+MATRIX_COMPONENT_VP_MW: dict[str, tuple[float, float]] = {
+    "ETHANOL": (7870.0, 46.07),
+    "WATER": (3170.0, 18.02),
+}
+# FormulaState assigns no activity coefficient to matrix components, so the
+# matrix loss uses gamma = 1.0 (ideal solution) as an explicit assumption.
+MATRIX_COMPONENT_GAMMA = 1.0
 
 
 @dataclass(frozen=True, slots=True)
@@ -105,25 +131,59 @@ def _effective_escaping_tendency_pa(material) -> float:
 def _loss_rate_per_s(
     escaping_tendency_pa: float,
     mw_g_mol: float | None,
+    pool_ratio: float = 1.0,
 ) -> float:
     """Return an uncalibrated relative-loss rate for temporal screening.
 
-    The scale constant and cap preserve the prior model's conservative
-    numerical behavior. They are not fitted kinetic parameters and therefore
-    cannot support an absolute evaporation or longevity claim.
+    ``pool_ratio`` is ``N_0 / N(t)``: the initial pool moles over the current
+    pool moles that the headspace mole fractions use. Multiplying by it turns
+    the per-material constant into the mass-balanced flux
+    ``A * gamma * x_i * P* / sqrt(MW)`` divided by ``n_i``, with
+    ``A = LOSS_RATE_SCALE * N_0`` (diagnosis M3). The scale constant and cap
+    are not fitted kinetic parameters and therefore cannot support an
+    absolute evaporation or longevity claim.
     """
     if escaping_tendency_pa <= 0.0:
         return 0.0
     mw = max(mw_g_mol or 200.0, 1.0)
-    return min(2.5e-3, (escaping_tendency_pa / math.sqrt(mw)) * 2.0e-5)
+    return min(
+        MAX_LOSS_RATE_PER_S,
+        (escaping_tendency_pa / math.sqrt(mw)) * LOSS_RATE_SCALE * pool_ratio,
+    )
 
 
-def _remaining_raw_ul(state: FormulaState, delta_seconds: float) -> dict[str, float]:
+def _pool_total_moles(state: FormulaState) -> float:
+    """Return the mole total that the state's headspace mole fractions use."""
+    return sum(m.moles for m in state.materials) + state.matrix_moles
+
+
+def _pool_ratio(state: FormulaState, initial_pool_moles: float | None) -> float:
+    """Return ``N_0 / N(t)``; 1 when ``N_0`` is omitted or the pool is empty."""
+    pool_moles = _pool_total_moles(state)
+    if initial_pool_moles is None or pool_moles <= 0.0:
+        return 1.0
+    return float(initial_pool_moles) / pool_moles
+
+
+def _remaining_raw_ul(
+    state: FormulaState,
+    delta_seconds: float,
+    *,
+    initial_pool_moles: float | None = None,
+) -> dict[str, float]:
+    """Return raw stock remaining after one step of the loss law.
+
+    The rate of each material is frozen over the step at its start-of-step
+    value and applied as ``exp(-k * dt)``. ``initial_pool_moles`` is ``N_0``;
+    omitted, the state is treated as the initial pool (ratio 1).
+    """
+    pool_ratio = _pool_ratio(state, initial_pool_moles)
     remaining: dict[str, float] = {}
     for m in state.materials:
         k = _loss_rate_per_s(
             _effective_escaping_tendency_pa(m),
             m.mw_g_mol,
+            pool_ratio,
         )
         active_remaining = m.active_ul * math.exp(-k * delta_seconds)
         dilution = max(m.dilution, 1e-9)
@@ -131,24 +191,73 @@ def _remaining_raw_ul(state: FormulaState, delta_seconds: float) -> dict[str, fl
     return remaining
 
 
+def _remaining_matrix_moles(
+    state: FormulaState,
+    delta_seconds: float,
+    *,
+    initial_pool_moles: float | None = None,
+) -> tuple[tuple[str, float], ...]:
+    """Return matrix component moles after one step of the same loss law.
+
+    Each component's escaping tendency is ``MATRIX_COMPONENT_GAMMA * P*`` from
+    ``MATRIX_COMPONENT_VP_MW``; the rate, cap, pool ratio and ``exp(-k * dt)``
+    step are those applied to materials. A component without constants there
+    is kept unchanged rather than given guessed properties.
+    """
+    pool_ratio = _pool_ratio(state, initial_pool_moles)
+    remaining: list[tuple[str, float]] = []
+    for name, moles in state.matrix_components_moles:
+        constants = MATRIX_COMPONENT_VP_MW.get(canonical_solvent_name(name) or "")
+        if constants is None:
+            remaining.append((name, moles))
+            continue
+        vp_pa, mw_g_mol = constants
+        k = _loss_rate_per_s(MATRIX_COMPONENT_GAMMA * vp_pa, mw_g_mol, pool_ratio)
+        remaining.append((name, moles * math.exp(-k * delta_seconds)))
+    return tuple(remaining)
+
+
 def _advance_state(
     state: FormulaState,
     delta_seconds: float,
     *,
     max_step_seconds: float = MAX_INTEGRATION_STEP_SECONDS,
+    initial_pool_moles: float | None = None,
 ) -> FormulaState:
-    """Integrate the heuristic loss model while recomputing headspace."""
+    """Integrate the heuristic loss model while recomputing headspace.
+
+    ``initial_pool_moles`` is the t=0 pool total ``N_0``; omitted, ``state``
+    is taken to be the t=0 state.
+    """
     if delta_seconds < 0.0:
         raise ValueError("Temporal windows must be nondecreasing.")
     if max_step_seconds <= 0.0:
         raise ValueError("max_step_seconds must be positive.")
 
+    if initial_pool_moles is None:
+        initial_pool_moles = _pool_total_moles(state)
     current = state
     remaining_seconds = float(delta_seconds)
     while remaining_seconds > 0.0:
         step = min(max_step_seconds, remaining_seconds)
-        remaining = _remaining_raw_ul(current, step)
-        current = FormulaState.from_base(current, new_raw_ul=remaining)
+        remaining = _remaining_raw_ul(
+            current,
+            step,
+            initial_pool_moles=initial_pool_moles,
+        )
+        if current.matrix_components_moles:
+            matrix = _remaining_matrix_moles(
+                current,
+                step,
+                initial_pool_moles=initial_pool_moles,
+            )
+            current = FormulaState.from_base(
+                current,
+                new_raw_ul=remaining,
+                new_matrix_moles=matrix,
+            )
+        else:
+            current = FormulaState.from_base(current, new_raw_ul=remaining)
         remaining_seconds -= step
     return current
 
@@ -177,6 +286,7 @@ def simulate_formula(
         context=context,
     )
     frames: list[SimulationFrame] = []
+    initial_pool_moles = _pool_total_moles(initial)
     current_state = initial
     current_seconds = 0.0
     for label, seconds in windows:
@@ -188,6 +298,7 @@ def simulate_formula(
         current_state = _advance_state(
             current_state,
             target_seconds - current_seconds,
+            initial_pool_moles=initial_pool_moles,
         )
         current_seconds = target_seconds
         frames.append(

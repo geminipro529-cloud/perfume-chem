@@ -60,7 +60,8 @@ def test_new_dilutions_and_iris_products_are_not_collapsed() -> None:
     butter = next(stock for stock in stocks if stock.identity_name == "Orris Concrete Orris Butter")
     assert butter.dilution == 0.1 and butter.carrier == "dpg"
     liquid = [stock for stock in stocks if stock.identity_name == "Orris Liquid"]
-    assert liquid and all(inventory.is_user_compounding_held(stock) for stock in liquid)
+    # The user lifted the Orris Liquid compounding hold on 2026-10-08.
+    assert liquid and not any(inventory.is_user_compounding_held(stock) for stock in liquid)
     assert not inventory.is_user_compounding_held(butter)
 
 

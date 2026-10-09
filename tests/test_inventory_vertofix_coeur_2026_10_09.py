@@ -16,7 +16,11 @@ RECORD_ID = "INV-USER-20261009-VTXC-001"
 
 
 def _head() -> dict:
-    return json.loads(inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
+    # The v23 overlay was the current head until Kenny confirmed the bottle is
+    # neat (v24, same day); these tests pin v23 itself.
+    return json.loads(
+        inventory.VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8")
+    )
 
 
 def _stocks(identity_name: str):
@@ -38,11 +42,13 @@ def _check(name: str):
     )
 
 
-def test_v23_is_current_and_pinned_to_v22_and_live_inventory() -> None:
-    path = inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH
+def test_v23_is_pinned_to_v22_and_live_inventory() -> None:
+    path = inventory.VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_PATH
     assert path.name == "inventory_user_authority_overlay_20261009_vertofix_coeur.json"
     normalized = path.read_bytes().replace(b"\r\n", b"\n")
-    assert hashlib.sha256(normalized).hexdigest() == inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256
+    assert hashlib.sha256(normalized).hexdigest() == (
+        inventory.VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_SHA256
+    )
     head = _head()
     assert head["schema_version"].endswith("_v23")
     assert head["predecessor"]["normalized_text_sha256"] == (
@@ -52,7 +58,7 @@ def test_v23_is_current_and_pinned_to_v22_and_live_inventory() -> None:
     assert head["source"]["inventory_text_sha256"] == hashlib.sha256(raw).hexdigest()
     assert head["source"]["verbatim_user_statement"] == "There's both"
     assert head["superseded_record_ids"] == []
-    overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
+    overlay = inventory.load_current_user_inventory_overlay(path)
     assert [r["record_id"] for r in overlay["delta_records"]] == [RECORD_ID]
 
 
@@ -65,22 +71,35 @@ def test_plain_vertofix_keeps_its_v5_row_242_stock() -> None:
     assert (stock.status, stock.dilution, stock.execution_ready) == ("owned", 1.0, True)
 
 
-def test_vertofix_coeur_is_its_own_stock_held_for_intake() -> None:
-    stocks = _stocks("Vertofix Coeur")
-    assert len(stocks) == 1
-    stock = stocks[0]
-    assert stock.status == "owned"
-    assert stock.stock_id.startswith("inventory:user-20261009:")
-    assert stock.stock_id != V5_VERTOFIX_STOCK_ID
-    assert (stock.dilution, stock.fraction_basis, stock.carrier) == (1.0, "neat", "")
-    assert stock.execution_ready is False
-    assert stock.execution_hold_reason == "STOCK_INTAKE_IDENTITY_ONLY"
-    assert stock.authority == inventory.VERTOFIX_COEUR_USER_INVENTORY_AUTHORITY
-    assert stock.source_ref.endswith(f"#{RECORD_ID}")
+def test_v23_record_held_its_own_vertofix_coeur_stock_for_intake() -> None:
+    # v24 superseded this record when Kenny confirmed the bottle is neat; the
+    # live stock is covered in test_inventory_vertofix_coeur_neat_2026_10_09.
+    overlay = inventory.load_current_user_inventory_overlay(
+        inventory.VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_PATH
+    )
+    (record,) = [r for r in overlay["records"] if r["canonical_name"] == "Vertofix Coeur"]
+    assert record["record_id"] == RECORD_ID
+    assert record["record_id"].split("-")[2] == "20261009"
+    assert record["state"] == "OWNED"
+    stock = record["stock"]
+    assert (stock["fraction"], stock["fraction_basis"], stock["carrier"]) == (1.0, "neat", "")
+    assert stock["execution_ready"] is False
+    assert stock["execution_hold_reason"] == "STOCK_INTAKE_IDENTITY_ONLY"
+    assert overlay["record_origins"][RECORD_ID] == {
+        "path": "data/governance/inventory_user_authority_overlay_20261009_vertofix_coeur.json",
+        "sha256": inventory.VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    # Still a separate stock from the plain Vertofix in the live inventory.
+    (live,) = _stocks("Vertofix Coeur")
+    assert live.stock_id.startswith("inventory:user-20261009:")
+    assert live.stock_id != V5_VERTOFIX_STOCK_ID
+    assert live.authority == inventory.VERTOFIX_COEUR_USER_INVENTORY_AUTHORITY
 
 
 def test_pw_receipt_line_7_belongs_to_the_vertofix_coeur_record() -> None:
-    overlay = inventory.load_current_user_inventory_overlay()
+    overlay = inventory.load_current_user_inventory_overlay(
+        inventory.VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_PATH
+    )
     claims = [r for r in overlay["records"] if r.get("receipt_line") == 7]
     assert [r["record_id"] for r in claims] == [RECORD_ID]
     assert claims[0]["supplier_product"] == {
@@ -100,11 +119,12 @@ def test_preflight_resolves_each_formula_row_to_its_own_bottle() -> None:
     coeur = _check("Vertofix Coeur")
     reasons = {issue.get("reason") for issue in coeur.data["issues"]}
     assert "not_in_inventory" not in reasons
-    # Owned but held for intake, like the other new bottles on the 2026-10-07 receipt.
-    assert reasons == {"inventory_stock_non_executable"}
-    (issue,) = coeur.data["issues"]
-    assert issue["execution_holds"] == ["STOCK_INTAKE_IDENTITY_ONLY"]
-    assert issue["fraction_matches_formula"] is True
+    # v23 held this stock for intake; v24 (Kenny's neat confirmation) cleared it.
+    (coeur_stock,) = _stocks("Vertofix Coeur")
+    assert coeur.data["resolved_stock_specs"]["Vertofix Coeur"]["stock_id"] == (
+        coeur_stock.stock_id
+    )
+    assert coeur_stock.stock_id != V5_VERTOFIX_STOCK_ID
 
 
 def test_v23_loader_rejects_mutation() -> None:

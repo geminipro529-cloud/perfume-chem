@@ -507,7 +507,8 @@ _PROFILES: dict[str, dict] = {
         "role": "character",
         "texture": "cushion",
         "mw": 172.27,
-        "vp": 0.005,
+        "vp": 0.773,
+        "vp_source": "RIFM, Api et al. 2022 FCT 163:112983: 0.0058 mm Hg at 25 C (EPI Suite estimate)",
         "clogp": 1.6,
         "cas": "107-75-5",
         "material_kind": "CHEMICAL_ENTITY",
@@ -521,14 +522,18 @@ _PROFILES: dict[str, dict] = {
                 "scope": "Core muguet character candidate, not a compulsory ingredient or proven global usage rank.",
             },
             "vp": {
-                "status": "HOLD_REFERENCE_TEMPERATURE_MISMATCH",
+                "status": "ESTIMATE_25C_WITH_MEASURED_20C_REFERENCE",
                 "reference_value_hpa": 0.005472,
                 "reference_value_pa": 0.5472,
                 "reference_temperature_c": 20,
                 "sources": [
                     "https://download.basf.com/p1/EN_StaticDocuments_5941/en/Technical_Information_Hydroxycitronellal"
                 ],
-                "scope": "Legacy 0.005 Pa retained, NOT validated at 25 C. No silent temperature conversion.",
+                "scope": (
+                    "2026-10-08: the legacy 0.005 Pa was about 100x below every source (it matches the "
+                    "BASF hPa figure read as Pa). Replaced by RIFM's EPI Suite estimate at 25 C, "
+                    "0.773 Pa; the BASF 20 C value is kept here, not converted to 25 C."
+                ),
             },
         },
         "synergies": ["Hedione", "Linalool", "Lilyreal ND"],
@@ -1128,8 +1133,10 @@ _PROFILES: dict[str, dict] = {
         "note": "heart",
         "role": "modifier",
         "texture": "halo",
-        "mw": 206.33,
-        "vp": 0.005,
+        # Irotyl is ethyl 2-ethylhexanoate, CAS 2983-37-1 (PerfumersWorld 3IA06874), C10H20O2.
+        "mw": 172.27,
+        "vp": 130.0,
+        "vp_source": "ChemicalBook CB5935873 (CAS 2983-37-1): 1.3 hPa at 25 C; method not stated",
         "clogp": 3.5,
         "synergies": ["Alpha Irone", "Orivone"],
     },
@@ -1168,8 +1175,10 @@ _PROFILES: dict[str, dict] = {
         "note": "heart",
         "role": "trace",
         "texture": "halo",
-        "mw": 222.37,
-        "vp": 0.002,
+        # Ultralia is methyl ionone (isomer mixture), CAS 1335-46-2 (PerfumersWorld 6II13551), C14H22O.
+        "mw": 206.33,
+        "vp": 0.817,
+        "vp_source": "RIFM, Api et al. 2019 FCT 134:110716: 0.00613 mm Hg at 25 C (EPI Suite estimate)",
         "clogp": 4.0,
         "synergies": ["Alpha Irone", "Orivone", "Iso E Super"],
     },
@@ -1436,9 +1445,11 @@ _PROFILES: dict[str, dict] = {
         "note": "heart",
         "role": "character",
         "texture": "skin-effect",
-        "mw": 218.33,
+        # Vetival is 4-cyclohexyl-4-methylpentan-2-one, CAS 4927-39-3 (PerfumersWorld 4WL15944), C12H22O.
+        "mw": 182.31,
         "vp": 6.53,
-        "clogp": 4.0,  # VP verified: TGSC 0.049 mmHg @ 25°C = 6.53 Pa
+        "vp_source": "TGSC rw1019151: 0.049 mmHg at 25 C (est), an estimate, not measured",
+        "clogp": 4.0,
         "synergies": ["Vetiver EO", "Iso E Super"],
     },
     "Vetiveryl Acetate": {

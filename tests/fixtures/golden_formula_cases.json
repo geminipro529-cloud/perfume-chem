@@ -7,11 +7,11 @@
       "ingredients_ul": {"Hedione": 100.0, "Iso E Super": 100.0},
       "dilutions": {"Hedione": 1.0, "Iso E Super": 1.0},
       "batch_volume_ml": 10.0,
-      "expected_ppm_status": "unavailable",
+      "expected_ppm_status": "exact",
       "modeled_output_relative_tolerance": 1e-8,
       "expected_material_outputs": {
-        "Hedione": {"vapor_ppm": 0.9927603627355738, "oav": 19855.207254711473},
-        "Iso E Super": {"vapor_ppm": 2.2762488536493475, "oav": 45524.97707298695}
+        "Hedione": {"vapor_ppm": 1.011204563773908, "oav": 20224.09127547816},
+        "Iso E Super": {"vapor_ppm": 2.232451220007353, "oav": 44649.02440014706}
       }
     },
     {
@@ -22,9 +22,10 @@
       "batch_volume_ml": 10.0,
       "expected_ppm_status": "unavailable",
       "modeled_output_relative_tolerance": 1e-8,
+      "baseline_note": "Olibanum outputs re-pinned 2026-10-09: naturals use cited data-spine VPs (diagnosis V3).",
       "expected_composite_materials": ["Olibanum Resinoid (viscous, 3 g)", "Bergamot FCF"],
       "expected_material_outputs": {
-        "Olibanum Resinoid (viscous, 3 g)": {"vapor_ppm": 324.08901106475656, "oav": 17991.888553575467},
+        "Olibanum Resinoid (viscous, 3 g)": {"vapor_ppm": 324.1104630842594, "oav": 17991.915037550163},
         "Bergamot FCF": {"vapor_ppm": 2588.315031715184, "oav": 156393.61992962266}
       }
     },
@@ -55,7 +56,7 @@
       "modeled_output_relative_tolerance": 1e-8,
       "expected_material_outputs": {
         "Leather FO": {"vapor_ppm": null, "oav": null},
-        "Iso E Super": {"vapor_ppm": 4.010755087198542, "oav": 80215.10174397084}
+        "Iso E Super": {"vapor_ppm": 3.992532700449851, "oav": 79850.65400899702}
       }
     },
     {
@@ -78,12 +79,12 @@
       "ingredients_ul": {"Hedione": 1000.0, "Iso E Super": 100.0},
       "dilutions": {"Hedione": 0.1, "Iso E Super": 1.0},
       "batch_volume_ml": 10.0,
-      "expected_ppm_status": "unavailable",
+      "expected_ppm_status": "exact",
       "modeled_output_relative_tolerance": 1e-8,
       "equivalent_active_case": "simple_aromachemical",
       "expected_material_outputs": {
-        "Hedione": {"vapor_ppm": 0.9927603627355738, "oav": 19855.207254711473},
-        "Iso E Super": {"vapor_ppm": 2.2762488536493475, "oav": 45524.97707298695}
+        "Hedione": {"vapor_ppm": 1.011204563773908, "oav": 20224.09127547816},
+        "Iso E Super": {"vapor_ppm": 2.232451220007353, "oav": 44649.02440014706}
       }
     },
     {

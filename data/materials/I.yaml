@@ -480,18 +480,16 @@
 - canonical_name: Irotyl
   aliases:
   - irotyl
-  cas:
+  cas: '2983-37-1'
   smiles:
   inchikey:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 206.33)
-  mw_g_mol: 206.33
-  density_25c_g_ml:
+  mw_g_mol: 172.27
+  density_25c_g_ml: 0.8575
   logp:
   functional_groups: []
   chirality:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.005)
-  vp_25c_pa: 0.005
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 130.0
+  vp_source: supplier  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -521,14 +519,18 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'PerfumersWorld product page https://www.perfumersworld.com/view.php?pro_id=3IA06874 (Kenny''s supplier, SKU 3IA06874): "CAS 2983-37-1", "Hexanoic acid, 2-ethyl-, ethyl ester" (ethyl 2-ethylhexanoate; Kao trade name) (via material-data-firecrawl/followup-20261008/F1_densities_identity.md)'
+    mw_g_mol: 'C10H20O2 (ethyl 2-ethylhexanoate, CAS 2983-37-1) from standard atomic weights = 172.27; the old 206.33 belonged to a methyl ionone (C14H22O), not this ester'
+    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1023191.html: "Specific Gravity: 0.86000 @ 25.00 °C." x 0.99705 g/mL (water at 25 C) = 0.8575; PerfumersWorld lists SG 0.8600 (no temperature)'
+    vp_25c_pa: 'ChemicalBook https://www.chemicalbook.com/ChemicalProductProperty_EN_CB5935873.htm (ethyl 2-ethylhexanoate, CAS 2983-37-1): "vapor pressure 1.3hPa at 25℃" = 130 Pa; method and primary source not stated (no measured or ECHA value found); replaces an unsourced 0.005 Pa (via material-data-firecrawl/followup-20261008/F5_vp_irotyl_vetival_ultralia.md)'
 - canonical_name: Iso E Super
   aliases:
   - iso e super
-  cas:
+  cas: '54464-57-2'
   smiles:
   inchikey:
   mw_g_mol: 234.4
-  density_25c_g_ml:
+  density_25c_g_ml: 0.9612
   logp: 3.6
   functional_groups: []
   chirality:
@@ -576,6 +578,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'PerfumersWorld product page https://www.perfumersworld.com/view.php?pro_id=3WY00244 (Kenny''s supplier): "CAS 54464-57-2"'
+    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1020611.html (CAS 54464-57-2): "Specific Gravity: 0.96000 to 0.96800 @ 25.00 °C."; midpoint 0.964 x 0.99705 g/mL (water at 25 C) = 0.9612; PerfumersWorld lists SG 0.9610 (no temperature) (via material-data-firecrawl/allgaps/D1_density_cas.csv)'
 - canonical_name: Isoamyl Acetate
   aliases: []
   cas:
@@ -1199,7 +1203,7 @@
   - isobutyl vanillate
   cas: 20665-85-4
   mw_g_mol: 222.24
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.1326
   logp: 2.1
   functional_groups: []
   chirality: null
@@ -1216,3 +1220,5 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  provenance:
+    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1024071.html (vanillyl isobutyrate, CAS 20665-85-4): "Specific Gravity: 1.13200 to 1.14000 @ 25.00 °C."; midpoint 1.136 x 0.99705 g/mL (water at 25 C) = 1.1326; conflict: PerfumersWorld https://www.perfumersworld.com/view.php?pro_id=4VV16856 lists SG 1.1000 (no temperature) (via material-data-firecrawl/allgaps/D1_density_cas.csv)'
