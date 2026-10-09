@@ -277,6 +277,12 @@ class InventoryMaterial:
     completion_event_sha256: str = ""
     completion_source_ref: str = ""
     homogeneity: str = ""
+    # V5 row words (``ROW_WIDE_UNRESOLVED_TOKENS``) found in this stock's row,
+    # "|"-joined; a Stock page completion does not clear such a stock.
+    row_unresolved_tokens: str = ""
+    # When a Stock page completion changed the strength, basis or carrier,
+    # the overlay/V5 authority's (dilution, fraction_basis, carrier) values.
+    authority_facts_differ: tuple[tuple[str, Any], ...] = ()
 
 
 @dataclass(frozen=True)
@@ -1034,6 +1040,28 @@ def _requirement_disposition(
     return "UNRESOLVED"
 
 
+# V5 row words that leave the whole row unresolved whatever its strength,
+# basis and carrier say, so neither the row nor a Lab app Stock page
+# completion (which records only those facts) makes such a stock ready.
+ROW_WIDE_UNRESOLVED_TOKENS = (
+    "PRODUCT BASIS",
+    "HETEROGENEOUS",
+    "PHYSICAL FORM OPEN",
+    "SPECIES UNRESOLVED",
+    "IDENTITY KEPT SEPARATE",
+    "TWO PRODUCTS",
+    "MULTIPLE BENZOINS",
+    "UNCONFIRMED",
+)
+
+
+def row_wide_unresolved_tokens(text: str) -> tuple[str, ...]:
+    """Return the ``ROW_WIDE_UNRESOLVED_TOKENS`` found in a V5 row's text."""
+
+    upper = text.upper()
+    return tuple(token for token in ROW_WIDE_UNRESOLVED_TOKENS if token in upper)
+
+
 def _stock_execution_ready(
     status: str,
     spec: StockSpecification,
@@ -1047,17 +1075,7 @@ def _stock_execution_ready(
     # The V5 rows marked LOT DETAIL OPEN still authorize use at their listed
     # neat/as-supplied strength. Missing supplier/lot data limits batch-specific
     # modeling and release claims; it does not make that raw stock volume unknown.
-    row_wide_unresolved_tokens = (
-        "PRODUCT BASIS",
-        "HETEROGENEOUS",
-        "PHYSICAL FORM OPEN",
-        "SPECIES UNRESOLVED",
-        "IDENTITY KEPT SEPARATE",
-        "TWO PRODUCTS",
-        "MULTIPLE BENZOINS",
-        "UNCONFIRMED",
-    )
-    if any(token in context for token in row_wide_unresolved_tokens):
+    if row_wide_unresolved_tokens(context):
         return False
     if (
         "CARRIER UNSTATED" in descriptor_context
@@ -5650,6 +5668,9 @@ def _materialize_current_inventory_uncached(
                     spec,
                     descriptor,
                     stock_count=len(actual_specs),
+                ),
+                row_unresolved_tokens="|".join(
+                    row_wide_unresolved_tokens(f"{status} {descriptor}")
                 ),
             )
 

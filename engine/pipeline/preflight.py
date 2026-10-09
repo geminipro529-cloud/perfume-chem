@@ -18,6 +18,7 @@ from engine.calibration.hashing import (
     stable_file_hash,
     stable_json_hash,
 )
+from engine.inventory_completions import completion_clears_execution_hold
 from engine.inventory_parser import (
     CURRENT_INVENTORY_ALIAS_CROSSWALK_SHA256,
     CURRENT_INVENTORY_AUTHORITY,
@@ -810,6 +811,13 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
                             if record.execution_hold_reason
                         }
                     ),
+                    # Whether a complete Lab app Stock page entry would make a
+                    # held stock ready, so the gate knows where to send Kenny.
+                    "stock_page_entry_clears": any(
+                        completion_clears_execution_hold(record)
+                        for record in physical_owned
+                        if not record.execution_ready
+                    ),
                     # An owned-but-held stock at another strength is a wrong
                     # strength, not only missing data; the gate needs to know.
                     "fraction_matches_formula": bool(physical_fraction_matches),
@@ -872,6 +880,10 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
                             for record in held_fraction_matches
                             if record.execution_hold_reason
                         }
+                    ),
+                    "stock_page_entry_clears": any(
+                        completion_clears_execution_hold(record)
+                        for record in held_fraction_matches
                     ),
                     "fraction_matches_formula": True,
                 }
@@ -1019,6 +1031,10 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
                 "event_sha256": record.completion_event_sha256,
                 "source_ref": record.completion_source_ref,
             }
+            if record.authority_facts_differ:
+                # RULE 0: the Stock page entry wins, but the overlay/V5
+                # authority said otherwise; show what it said.
+                matched[-1]["authority_facts_differ"] = dict(record.authority_facts_differ)
 
     active_impact: dict[str, Any] = {
         "declared_active_ul": round(declared_active_ul, 6),

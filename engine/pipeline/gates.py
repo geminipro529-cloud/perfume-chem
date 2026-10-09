@@ -42,7 +42,7 @@ from engine.ifra_standards import (
     evaluate_ifra,
     load_ifra_table,
 )
-from engine.inventory_completions import COMPLETION_CLEARABLE_HOLDS
+from engine.inventory_completions import COMPLETION_CLEARABLE_HOLDS, STOCK_PAGE_ENTRY_INCOMPLETE
 from engine.knowledge.literature_rules import (
     _LITERATURE_DB_LOADED,
     _cite_fn,
@@ -469,10 +469,12 @@ _STOCK_DATA_HOLDS: dict[str, str] = {
     ),
     "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED": "confirm the concentration basis and homogeneity",
     "HOMOGENEITY_NOT_RECONFIRMED": "reconfirm homogeneity",
+    STOCK_PAGE_ENTRY_INCOMPLETE: "finish the Lab app's Stock page entry",
 }
-# A Lab app Stock page completion clears the holds in COMPLETION_CLEARABLE_HOLDS
-# (and an unnamed missing-basis/carrier hold), so those ask for it there; the
-# text above still describes each hold.  The detail appends " of the X stock".
+# When preflight reports that a complete Lab app Stock page entry would clear
+# the issue (``stock_page_entry_clears``), the holds in COMPLETION_CLEARABLE_HOLDS
+# ask for it there; otherwise each hold keeps its text above.  The detail
+# appends " of the X stock".
 _STOCK_PAGE_REQUEST = "on the Lab app's Stock page, fill in the strength, basis and carrier"
 _STOCK_PAGE_MEASURED_REQUEST = (
     "measure the final dissolved fraction, then on the Lab app's Stock page fill in "
@@ -567,13 +569,15 @@ def _stock_issue_data_request(issue: Mapping[str, object]) -> str | None:
         issue, holds
     ):
         return None
-    requests = []
-    if not holds or any(hold in COMPLETION_CLEARABLE_HOLDS for hold in holds):
-        requests.append(
-            _STOCK_PAGE_MEASURED_REQUEST
-            if any(hold in _STOCK_STRENGTH_CHARGE_BOUND_HOLDS for hold in holds)
-            else _STOCK_PAGE_REQUEST
-        )
+    if issue.get("stock_page_entry_clears") is not True:
+        if not holds:
+            return "record the carrier and concentration basis"
+        return "; ".join(dict.fromkeys(_STOCK_DATA_HOLDS[hold] for hold in holds))
+    requests = [
+        _STOCK_PAGE_MEASURED_REQUEST
+        if any(hold in _STOCK_STRENGTH_CHARGE_BOUND_HOLDS for hold in holds)
+        else _STOCK_PAGE_REQUEST
+    ]
     requests.extend(
         _STOCK_DATA_HOLDS[hold] for hold in holds if hold not in COMPLETION_CLEARABLE_HOLDS
     )

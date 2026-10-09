@@ -13,12 +13,14 @@ def _stock_check(*issues: dict) -> dict:
     }
 
 
-def _metadata_incomplete(material: str, *, matches: bool = True, holds=()) -> dict:
+def _metadata_incomplete(material: str, *, matches: bool = True, holds=(), clears: bool = True) -> dict:
     return {
         "material": material,
         "reason": "inventory_stock_non_executable" if holds else "inventory_stock_metadata_incomplete",
         "statuses": ["owned"],
         "execution_holds": list(holds),
+        # What preflight reports: would a complete Stock page entry clear it.
+        "stock_page_entry_clears": clears,
         "fraction_matches_formula": matches,
     }
 
