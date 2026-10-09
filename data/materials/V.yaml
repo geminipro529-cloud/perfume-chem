@@ -528,6 +528,7 @@
   aliases:
   - vertofix coeur
   - Vertofix
+  - Vertofix Couer
   cas: '32388-55-9'
   smiles:
   inchikey:
@@ -552,7 +553,13 @@
   ifra_max_pct_edp:
   user_stock_dilution: 1.0 # SYNCED: matched inventory.txt, 2026-05-30
   user_in_inventory: true
+  # Received-stock authority: data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json; line(s) 7 (label spelling "Vertofix Couer").
   supplier:
+    perfumersworld_sku: 3WY00465
+    perfumersworld_price_usd_per_g: 0.22
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
   families:
   - woods / amber / structure
   character:
@@ -569,44 +576,6 @@
     user_in_inventory: inventory.txt
     cas: 'TGSC: CAS Number: 32388-55-9 (https://www.thegoodscentscompany.com/data/rw1026471.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 1.00000 to 1.01000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1026471.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
-- canonical_name: Vertofix Couer
-  aliases: []
-  cas:
-  smiles:
-  inchikey:
-  mw_g_mol:
-  density_25c_g_ml:
-  logp:
-  functional_groups: []
-  chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
-  antoine:
-  dhvap_kj_mol:
-  kaw_eff:
-  hsp:
-  odt_air_ppb:
-  odt_eth_ppm:
-  stevens_n:
-  or_targets: []
-  trp_targets:
-  hedonic_valence:
-  ifra_max_pct_edp:
-  user_stock_dilution: 1  # Product label fraction; exact basis/forms in receipt.
-  user_in_inventory: true
-  # Received-stock authority: data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json; line(s) 7.
-  # Existing working dilutions remain separate inventory rows; no purity assay inferred.
-  supplier:
-    perfumersworld_sku: 3WY00465
-    perfumersworld_price_usd_per_g: 0.22
-    perfumersworld_form: neat
-    perfumersworld_snapshot_date: '2026-04-11'
-    other: {}
-  families: []
-  character:
-  notes:
-  provenance:
-    supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Vetival
   aliases:
   - vetival
@@ -1028,7 +997,7 @@
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.01)
   vp_25c_pa: 0.01
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: placeholder  # unsourced round value; gate reports it as estimated
   antoine:
   dhvap_kj_mol:
   kaw_eff:

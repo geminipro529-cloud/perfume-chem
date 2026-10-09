@@ -15,6 +15,11 @@ from engine.data_spine.loader import load_registry
 from engine.ingredient_intelligence import MaterialProfile, get_profile
 from engine.name_utils import normalize_name
 
+# Provenance label for a registry VP tagged ``vp_source: placeholder``. It avoids
+# the "registry"/"data_spine" tokens that preflight and the uncertainty bands read
+# as authoritative registry data.
+PLACEHOLDER_VP_SOURCE = "estimated:unsourced_placeholder.vp_25c"
+
 
 @dataclass(frozen=True, slots=True)
 class ResolvedMaterial:
@@ -68,6 +73,10 @@ def resolved_vp_25c_pa(resolved: ResolvedMaterial) -> tuple[float | None, str]:
     """
     reg_vp = getattr(resolved.registry_material, "vp_25c_pa", None)
     if reg_vp is not None:
+        reg_vp_source = str(getattr(resolved.registry_material, "vp_source", None) or "")
+        if reg_vp_source.strip().lower() == "placeholder":
+            # An unsourced round number must not read as registry data.
+            return float(reg_vp), PLACEHOLDER_VP_SOURCE
         return float(reg_vp), "registry:data_spine.vp_25c"
     profile_vp = getattr(resolved.profile, "vp", None)
     if profile_vp is not None:

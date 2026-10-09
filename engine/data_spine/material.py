@@ -116,6 +116,8 @@ class Material:
 
     # --- vapor phase ---
     vp_25c_pa: float | None = None
+    # "placeholder" marks an unsourced round value; the gate reports it as estimated.
+    vp_source: str | None = None
     antoine: Antoine = field(default_factory=Antoine)
     dhvap_kj_mol: float | None = None
     kaw_eff: float | None = None  # legacy effective air-water partition

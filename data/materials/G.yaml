@@ -394,7 +394,7 @@
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.1
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: placeholder  # unsourced round value; gate reports it as estimated
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -520,7 +520,7 @@
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.005
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: placeholder  # unsourced round value; gate reports it as estimated
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.001
@@ -925,7 +925,7 @@
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.1
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: placeholder  # unsourced round value; gate reports it as estimated
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
