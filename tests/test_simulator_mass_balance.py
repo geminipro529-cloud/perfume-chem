@@ -56,7 +56,9 @@ def test_removed_moles_track_reported_headspace_with_one_fixed_constant():
     dt = simulator.MAX_INTEGRATION_STEP_SECONDS
     # One frame per integration step over 3 h, through the public entry point.
     windows = tuple((f"step_{i}", i * dt) for i in range(37))
-    frames = simulator.simulate_formula(MIXED, _neat(MIXED), initial_state=state, windows=windows)
+    frames = simulator.simulate_formula(
+        MIXED, _neat(MIXED), initial_state=state, windows=windows, default_ethanol_fill=False
+    )
 
     for before, after in zip(frames, frames[1:]):
         n_now = sum(m.moles for m in before.state.materials)
@@ -78,7 +80,11 @@ def test_first_step_rates_equal_the_previous_per_material_constant():
     dt = simulator.MAX_INTEGRATION_STEP_SECONDS
 
     frames = simulator.simulate_formula(
-        MIXED, _neat(MIXED), initial_state=state, windows=(("opening", 0.0), ("top", dt))
+        MIXED,
+        _neat(MIXED),
+        initial_state=state,
+        windows=(("opening", 0.0), ("top", dt)),
+        default_ethanol_fill=False,
     )
 
     expected = _old_law_step(state, dt)
@@ -88,7 +94,10 @@ def test_first_step_rates_equal_the_previous_per_material_constant():
 
 def test_mixed_formula_loses_more_by_drydown_and_total_strictly_decreases():
     state = _state(MIXED)
-    frames = simulator.simulate_formula(MIXED, _neat(MIXED), initial_state=state)
+    # The concentrate-only pool, with the v5 default ethanol fill switched off.
+    frames = simulator.simulate_formula(
+        MIXED, _neat(MIXED), initial_state=state, default_ethanol_fill=False
+    )
     totals = [sum(m.raw_ul for m in frame.state.materials) for frame in frames]
     assert all(later < earlier for earlier, later in zip(totals, totals[1:]))
 
@@ -197,7 +206,10 @@ def test_declared_matrix_moles_strictly_decrease_and_mostly_leave_by_7200_s():
 def test_formula_without_matrix_matches_the_frozen_matrix_integration_exactly():
     state = _state(MIXED)
     assert state.matrix_components_moles == ()
-    frames = simulator.simulate_formula(MIXED, _neat(MIXED), initial_state=state)
+    # The concentrate-only pool, with the v5 default ethanol fill switched off.
+    frames = simulator.simulate_formula(
+        MIXED, _neat(MIXED), initial_state=state, default_ethanol_fill=False
+    )
     expected = _frozen_matrix_frames(state, simulator.DEFAULT_WINDOWS)
     for frame, (label, old_state) in zip(frames, expected, strict=True):
         assert frame.label == label
@@ -289,6 +301,98 @@ def test_removed_moles_track_headspace_with_the_matrix_in_the_pool():
             )
 
 
+# --- Undeclared matrix: default ethanol fill (temporal model v5) ---
+
+MIXED_TOTAL_UL = 1400.0
+# 30 mL bottle - 1400 uL concentrate = 28600 uL ethanol at 0.789 g/mL (20 C, CRC).
+EXPECTED_FILL_MASS_G = 28.6 * 0.789
+EXPECTED_FILL_MOLES = EXPECTED_FILL_MASS_G / 46.07
+
+
+def test_undeclared_formula_gets_the_default_ethanol_fill_with_its_mass():
+    state = _state(MIXED)
+    assert sum(m.raw_ul for m in state.materials) == pytest.approx(MIXED_TOTAL_UL)
+    frames = simulator.simulate_formula(MIXED, _neat(MIXED), initial_state=state)
+
+    assert simulator.TEMPORAL_MODEL == "dynamic_headspace_mass_balanced_loss_v5"
+    opening = frames[0]
+    assert opening.state.matrix_components_moles == (
+        ("Ethanol", pytest.approx(EXPECTED_FILL_MOLES, rel=1e-12)),
+    )
+    assert opening.state.matrix_source == "default_ethanol_fill"
+    # The fill gives no finished-product mass or ppm; only the frames carry it.
+    assert opening.state.matrix_mass_g == 0.0
+    assert all(m.active_finished_product_ppm_w_w is None for m in opening.state.materials)
+    assert state.matrix_components_moles == ()
+    for frame in frames:
+        payload = frame.as_dict()
+        assert payload["temporal_model"] == "dynamic_headspace_mass_balanced_loss_v5"
+        assumption = payload["matrix_assumption"]
+        assert assumption["basis"] == "DEFAULT_ETHANOL_FILL"
+        assert assumption["bottle_volume_ml"] == 30.0
+        assert assumption["concentrate_ul"] == pytest.approx(MIXED_TOTAL_UL)
+        assert assumption["ethanol_volume_ul"] == pytest.approx(28600.0)
+        assert assumption["ethanol_mass_g"] == pytest.approx(EXPECTED_FILL_MASS_G, rel=1e-12)
+        assert assumption["ethanol_density_g_ml"] == 0.789
+
+
+def test_default_fill_uses_the_bottle_volume_of_the_state():
+    state = build_formula_state(MIXED, _neat(MIXED), batch_volume_ml=10.0)
+    frame = simulator.simulate_formula(
+        MIXED, _neat(MIXED), initial_state=state, windows=(("opening", 0.0),)
+    )[0]
+    assert frame.matrix_assumption["bottle_volume_ml"] == 10.0
+    assert frame.matrix_assumption["ethanol_mass_g"] == pytest.approx(8.6 * 0.789, rel=1e-12)
+
+
+def test_concentrate_at_or_above_the_bottle_volume_gets_no_fill():
+    big = {name: amount * 25.0 for name, amount in MIXED.items()}  # 35 mL in 30 mL
+    state = _state(big)
+    frame = simulator.simulate_formula(
+        big, _neat(big), initial_state=state, windows=(("opening", 0.0),)
+    )[0]
+    assert frame.matrix_assumption["basis"] == "NONE:CONCENTRATE_FILLS_BOTTLE"
+    assert frame.state is state
+
+
+def test_default_fill_lowers_opening_screening_oavs():
+    state = _state(MIXED)
+    filled = simulator.simulate_formula(MIXED, _neat(MIXED), initial_state=state)[0]
+    bare = simulator.simulate_formula(
+        MIXED, _neat(MIXED), initial_state=state, default_ethanol_fill=False
+    )[0]
+    assert bare.state is state
+    assert bare.matrix_assumption["basis"] == "OMITTED:DEFAULT_FILL_DISABLED"
+    for with_fill, without in zip(filled.state.materials, bare.state.materials, strict=True):
+        assert without.screening_oav and without.screening_oav > 0
+        assert with_fill.screening_oav < without.screening_oav
+
+
+def test_default_fill_is_below_ten_percent_of_its_moles_by_7200_s():
+    frames = simulator.simulate_formula(MIXED, _neat(MIXED), initial_state=_state(MIXED))
+    fill = [frame.state.matrix_moles for frame in frames]
+    assert fill[0] == pytest.approx(EXPECTED_FILL_MOLES, rel=1e-12)
+    assert all(later < earlier for earlier, later in zip(fill, fill[1:]))
+    late_heart = next(frame for frame in frames if frame.t_seconds == 7200.0)
+    assert late_heart.state.matrix_moles < 0.1 * fill[0]
+
+
+def test_declared_matrix_frames_are_unchanged_by_the_default_fill():
+    state = _matrix_state(MIXED)
+    frames = simulator.simulate_formula(MIXED, _neat(MIXED), initial_state=state)
+    n0 = simulator._loss_scale_moles(state)
+    current, now = state, 0.0
+    assert frames[0].state is state
+    for frame, (label, seconds) in zip(frames, simulator.DEFAULT_WINDOWS, strict=True):
+        # The declared state advanced by the same law, with no fill added.
+        current = simulator._advance_state(current, seconds - now, initial_pool_moles=n0)
+        now = seconds
+        assert frame.label == label
+        assert frame.state == current
+        assert frame.state.matrix_source == "explicit"
+        assert frame.matrix_assumption == {"basis": "DECLARED", "matrix_source": "explicit"}
+
+
 def test_heavy_materials_keep_the_same_drydown_with_or_without_a_declared_matrix():
     """Audit PHYS-01: declaring the solvent must not empty the base.
 
@@ -297,7 +401,9 @@ def test_heavy_materials_keep_the_same_drydown_with_or_without_a_declared_matrix
     matrix-to-concentrate mole ratio. Heavy materials barely move in 4 h either
     way; the declared matrix may only slow them while it is present.
     """
-    plain = simulator.simulate_formula(MIXED, _neat(MIXED), initial_state=_state(MIXED))
+    plain = simulator.simulate_formula(
+        MIXED, _neat(MIXED), initial_state=_state(MIXED), default_ethanol_fill=False
+    )
     with_matrix = simulator.simulate_formula(
         MIXED, _neat(MIXED), initial_state=_matrix_state(MIXED)
     )
@@ -309,3 +415,24 @@ def test_heavy_materials_keep_the_same_drydown_with_or_without_a_declared_matrix
         assert left_plain / start[name] > 0.95
         assert left_matrix / start[name] == pytest.approx(left_plain / start[name], abs=0.02)
         assert left_matrix >= left_plain * (1.0 - 1e-9)
+
+
+def test_ethanol_dilutes_every_material_without_boosting_those_with_hansen_data():
+    """The matrix dilutes and evaporates; it does not shift the mixture HSP.
+
+    Only a few materials (Iso E Super, Hedione, Galaxolide...) have Hansen
+    data, so a matrix inside the mixture HSP raised just their gamma (Iso E
+    Super 1.05 -> 5.3 in ethanol) while every other row kept a fixed value.
+    """
+    bare = _state(MIXED)
+    declared = _matrix_state(MIXED)
+    filled = simulator.simulate_formula(
+        MIXED, _neat(MIXED), initial_state=bare, windows=(("opening", 0.0),)
+    )[0].state
+    for state in (declared, filled):
+        assert state.matrix_moles > 0.0
+        for with_matrix, without in zip(state.materials, bare.materials, strict=True):
+            assert with_matrix.gamma == pytest.approx(without.gamma, rel=1e-12)
+            assert with_matrix.mole_fraction < without.mole_fraction
+    hsp_rows = [m for m in bare.materials if m.sources.get("gamma") == "heuristic:hansen_distance"]
+    assert {m.name for m in hsp_rows} >= {"Iso E Super", "Hedione", "Galaxolide"}
