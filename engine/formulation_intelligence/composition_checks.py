@@ -33,25 +33,34 @@ def _decimal(value: object) -> Decimal | None:
 
 def _gate_formula_record(
     name: str, rows: list[Mapping[str, Any]]
-) -> tuple[dict[str, Any], list[str]]:
+) -> tuple[dict[str, Any], list[dict[str, str]]]:
     """Convert composer rows into the gate's formula record; list rows left out."""
 
     ingredients_ul: dict[str, Decimal] = {}
     dilutions: dict[str, Decimal] = {}
     stock_specs: dict[str, dict[str, Any]] = {}
-    unchecked: list[str] = []
+    unchecked: list[dict[str, str]] = []
     for row in rows:
         material = str(row.get("material") or "")
         amount = _decimal(row.get("amount_decimal"))
         fraction = _decimal(row.get("stock_fraction_decimal"))
         unit = str(row.get("amount_unit") or "")
-        if not material or amount is None or fraction is None or unit not in {"uL", "mL"}:
-            unchecked.append(material)
+        if unit == "mg":
+            # The gate reads liquid doses only; a weighed solid is not checked.
+            unchecked.append({"material": material, "reason": "weighed solid (mg)"})
             continue
-        if material in dilutions and dilutions[material] != fraction:
-            unchecked.append(material)
+        if not material or amount is None or fraction is None or unit not in {"uL", "mL"}:
+            unchecked.append({"material": material, "reason": "no stock strength or dose"})
             continue
         amount_ul = amount * (Decimal(1000) if unit == "mL" else Decimal(1))
+        if material in dilutions and dilutions[material] != fraction:
+            # Same material at a second strength: add it as the equivalent
+            # volume of the first stock so the active total stays right.
+            if dilutions[material] == 0:
+                unchecked.append({"material": material, "reason": "no stock strength or dose"})
+                continue
+            amount_ul = amount_ul * fraction / dilutions[material]
+            fraction = dilutions[material]
         ingredients_ul[material] = ingredients_ul.get(material, Decimal(0)) + amount_ul
         dilutions[material] = fraction
         stock_specs[material] = {
@@ -146,7 +155,7 @@ def composition_checks(
     except Exception as error:  # advisory: a gate failure must not fail the design
         result["checks"] = [{
             "check": "gate",
-            "status": "SKIP",
+            "status": "ERROR",
             "message": f"checks could not run: {type(error).__name__}: {error}",
         }]
         return result
@@ -157,7 +166,7 @@ def composition_checks(
         if error:
             checks.append({
                 "check": name,
-                "status": "SKIP",
+                "status": "ERROR",
                 "message": f"checks could not run: {error}",
             })
         elif name == "ifra":

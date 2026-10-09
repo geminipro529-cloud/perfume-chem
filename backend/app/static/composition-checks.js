@@ -9,23 +9,29 @@ const COMPOSITION_CHECK_LABELS = {
   gate: "Checks",
 };
 
+const COMPOSITION_CHECK_FLAGS = new Set(["WARN", "FAIL", "ERROR"]);
+
 function compositionCheckLines(compositionChecks) {
   if (!compositionChecks || !Array.isArray(compositionChecks.checks)) return null;
-  const flagged = compositionChecks.checks.filter((check) => check.status === "WARN" || check.status === "FAIL");
-  const skipped = compositionChecks.checks.filter((check) => check.check === "gate");
-  const lines = [...flagged, ...skipped].map((check) => ({
+  const flagged = compositionChecks.checks.filter((check) => COMPOSITION_CHECK_FLAGS.has(check.status));
+  const lines = flagged.map((check) => ({
     status: String(check.status || ""),
     text: `${COMPOSITION_CHECK_LABELS[check.check] || String(check.check || "Check")}: ${String(check.message || "")}`,
   }));
+  const unchecked = (compositionChecks.unchecked_rows || [])
+    .filter(Boolean)
+    .map((row) => (typeof row === "string" ? { material: row, reason: "" } : row));
   if (!lines.length) {
-    lines.push({ status: "PASS", text: "Checks passed: Hedione share, musk count, IFRA" });
+    lines.push(unchecked.length
+      ? { status: "PASS", text: "Hedione share, musk count and IFRA found no problem in the rows they could read" }
+      : { status: "PASS", text: "Checks passed: Hedione share, musk count, IFRA" });
   }
-  const unchecked = (compositionChecks.unchecked_rows || []).filter(Boolean);
   if (unchecked.length) {
-    lines.push({ status: "SKIP", text: `Not checked (stock strength unknown): ${unchecked.join(", ")}` });
+    const names = unchecked.map((row) => (row.reason ? `${row.material} (${row.reason})` : String(row.material)));
+    lines.push({ status: "SKIP", text: `Not checked: ${names.join(", ")}` });
   }
   return {
-    flagged: flagged.length > 0 || skipped.length > 0,
+    flagged: flagged.length > 0 || unchecked.length > 0,
     lines,
     basis: String(compositionChecks.basis || ""),
   };

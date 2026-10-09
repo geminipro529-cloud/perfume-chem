@@ -986,14 +986,14 @@ def test_composition_checks_flag_an_ifra_overdose_and_list_unchecked_rows():
             {"check": "musk_count", "status": "SKIP", "message": "no musks in formula"},
             {"check": "ifra", "status": "FAIL", "message": "Alpha Damascone at 1.364 % exceeds the IFRA Category 4 limit of 0.043 %"},
         ],
-        "unchecked_rows": ["Coumarin"],
+        "unchecked_rows": [{"material": "Coumarin", "reason": "weighed solid (mg)"}],
     }
     summary = _run_composition_checks("(c) => c.compositionCheckLines(PAYLOAD)".replace("PAYLOAD", json.dumps(payload)))
 
     assert summary["flagged"] is True
     assert [line["status"] for line in summary["lines"]] == ["FAIL", "SKIP"]
     assert summary["lines"][0]["text"].startswith("IFRA: Alpha Damascone at 1.364 %")
-    assert summary["lines"][1]["text"] == "Not checked (stock strength unknown): Coumarin"
+    assert summary["lines"][1]["text"] == "Not checked: Coumarin (weighed solid (mg))"
     assert summary["basis"] == "Percent of a 30 mL bottle."
 
 
@@ -1009,6 +1009,27 @@ def test_composition_checks_say_passed_when_nothing_is_flagged():
     assert _run_composition_checks("(c) => c.compositionCheckLines(null)") is None
 
 
+def test_composition_checks_flag_a_check_that_could_not_run():
+    payload = {"basis": "", "checks": [
+        {"check": "hedione_share", "status": "PASS", "message": "ok"},
+        {"check": "ifra", "status": "ERROR", "message": "checks could not run: KeyError: x"},
+    ], "unchecked_rows": []}
+    summary = _run_composition_checks("(c) => c.compositionCheckLines(PAYLOAD)".replace("PAYLOAD", json.dumps(payload)))
+
+    assert summary["flagged"] is True
+    assert summary["lines"] == [{"status": "ERROR", "text": "IFRA: checks could not run: KeyError: x"}]
+
+
+def test_composition_checks_never_say_passed_when_a_row_was_not_checked():
+    payload = {"basis": "", "checks": [{"check": "ifra", "status": "PASS", "message": "ok"}],
+               "unchecked_rows": [{"material": "Coumarin", "reason": "weighed solid (mg)"}]}
+    summary = _run_composition_checks("(c) => c.compositionCheckLines(PAYLOAD)".replace("PAYLOAD", json.dumps(payload)))
+
+    assert summary["flagged"] is True
+    assert not any(line["text"].startswith("Checks passed") for line in summary["lines"])
+    assert summary["lines"][-1]["text"] == "Not checked: Coumarin (weighed solid (mg))"
+
+
 @pytest.mark.asyncio
 async def test_formula_card_shows_the_composition_checks(client):
     page = await client.get("/app")
@@ -1020,4 +1041,4 @@ async def test_formula_card_shows_the_composition_checks(client):
     assert 'id="formula-result-checks"' in page.text
     assert page.text.index('id="formula-result-checks"') < page.text.index('id="formula-result-rows"')
     assert "compositionCheckLines(compositionChecks)" in javascript.text
-    assert "selected.variant?.composition_checks || result.composition_checks" in javascript.text
+    assert "selected.variant ? selected.variant.composition_checks : result.composition_checks" in javascript.text

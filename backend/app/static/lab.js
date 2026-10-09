@@ -1293,7 +1293,7 @@ function renderFormulaDesign(result, variantIndex = 0) {
     });
     picker.append(button);
   });
-  renderCompositionChecks(selected.variant?.composition_checks || result.composition_checks);
+  renderCompositionChecks(selected.variant ? selected.variant.composition_checks : result.composition_checks);
   const rows = selected.formula?.rows || [];
   $("#formula-result-rows").innerHTML = rows.length
     ? rows.map((row) => {
