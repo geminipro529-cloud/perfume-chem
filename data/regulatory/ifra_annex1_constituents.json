@@ -12,8 +12,7 @@
     "Ambrette Seed Absolute": "Not in the IFRA table yet (held as unrecognised); Annex row: Ambrette seed absolute.",
     "Lavandin Absolute": "Not in the IFRA table yet (held as unrecognised); Annex lists lavandin oils only.",
     "Lemon Terpeneless Oil": "Not in the IFRA table yet (held as unrecognised); Annex row: Lemon oil terpeneless.",
-    "Vanilla Absolute": "Not in the IFRA table yet (held as unrecognised); Annex row: Vanilla absolute.",
-    "Rose Otto Bulgarian": "Not in the IFRA table yet (held as unrecognised); Annex row: Rose oil. Once recognised it maps to Rose oil (methyl eugenol up to 2 %)."
+    "Vanilla Absolute": "Not in the IFRA table yet (held as unrecognised); Annex row: Vanilla absolute."
   },
   "rows": [
     {
@@ -2431,6 +2430,11 @@
       ]
     },
     "Rose Essential Oil (Rosa Damascena, India)": {
+      "ncs_names": [
+        "Rose oil"
+      ]
+    },
+    "Rose Otto Bulgarian": {
       "ncs_names": [
         "Rose oil"
       ]

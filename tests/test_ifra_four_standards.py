@@ -57,6 +57,18 @@ def test_rose_essential_oil_counts_methyl_eugenol_and_fails_naming_the_stock():
     assert stock in group.message and "Rose oil" in group.message
 
 
+def test_rose_otto_bulgarian_is_recognised_and_counts_rose_oil_methyl_eugenol():
+    stock = "Rose Otto Bulgarian"
+    evaluation = evaluate_ifra({stock: 0.1})
+    assert not evaluation.unchecked
+    assert evaluation.checks[0].verdict != "unchecked"
+    assert evaluation.checks[0].status == "natural_no_own_standard"
+    total = next(t for t in evaluation.constituent_totals if t.standard == "IFRA_STD_100")
+    assert total.total == pytest.approx(0.1 * 2.0 / 100)
+    raw = json.loads(DEFAULT_CONSTITUENTS_PATH.read_text(encoding="utf-8"))
+    assert stock not in raw["unmapped_owned_naturals"]
+
+
 @pytest.mark.parametrize(
     ("stock", "standard", "level"),
     [
