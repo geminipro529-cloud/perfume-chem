@@ -3,13 +3,14 @@
 Source rule: Ma, Tang, Thomas-Danguin & Xu (2020), Chemical Senses -- the
 pleasantness of an odour mixture follows the pleasantness of its components
 weighted by their intensity.  Here each window's weights are the drydown
-model's modelled strength (``intensity``, a Stevens power law of OAV) of the
-materials it can detect (OAV >= 1 and intensity > 0, the same filter the
-construction-complexity profile uses).  Component values come from the crowd
+model's strength estimate (``intensity``, a Stevens power law of each material's
+odour activity value) of the materials it can detect (OAV >= 1 and
+intensity > 0, the same filter the construction-complexity profile uses).  Component values come from the crowd
 table (``pleasantness_table.crowd_pleasantness``), with the material's share of
 the window's modelled strength as its dose.
 
-AGENTS.md Rule 1: OAV is used only as the detection floor.  The result is a
+AGENTS.md Rule 1: the weights are a model's strength estimate (a power law of
+OAV), not measured intensity, and OAV is not perceived contribution.  The result is a
 crowd guess, not measured pleasantness, intensity or liking; it never ranks or
 optimizes a formula (``optimization_authority`` is always false) and nothing
 here changes a formula row.  Unrated materials are left out of the mean, never
@@ -23,21 +24,26 @@ import math
 from typing import Any, Mapping, Sequence
 
 from engine.formulation_intelligence.pleasantness_table import SCHEMA as TABLE_SCHEMA
-from engine.formulation_intelligence.pleasantness_table import crowd_pleasantness
+from engine.formulation_intelligence.pleasantness_table import (
+    _resolve,
+    crowd_pleasantness,
+    load_crowd_table,
+)
 from engine.perception.construction_complexity import _perceptible_distribution
 
 ESTIMATE_SCHEMA = "pleasantness_estimate_v1"
 MIN_COVERAGE = 0.5
+DOSE_ADJUST_MIN = 0.05  # smallest dose-driven change in a material's value worth listing
 LABEL = (
-    "Crowd guess: panel averages and hand estimates, weighted by how strongly each "
-    "material is modelled to smell in each window. Not a measurement; your own "
-    "ratings decide."
+    "Crowd guess: panel averages and hand estimates, weighted by the drydown model's "
+    "strength estimate for each material in each window (a power law of its odour "
+    "activity value, not measured intensity). Not a measurement; your own ratings decide."
 )
 METHOD = (
     "Ma, Tang, Thomas-Danguin & Xu (2020) Chemical Senses: mixture pleasantness follows "
-    "component pleasantness weighted by component intensity. Weights are modelled "
-    "strength (intensity) from the drydown model, detectable materials only "
-    "(OAV >= 1, intensity > 0); OAV is used only as that detection floor. "
+    "component pleasantness weighted by component intensity. Weights are the drydown "
+    "model's strength estimate, a power law of each material's odour activity value "
+    "(OAV). That is a model, not measured intensity; materials below OAV 1 are left out. "
     "P = sum(share * value) / rated share; unrated materials are excluded, not neutral; "
     "no contrast penalty."
 )
@@ -59,12 +65,17 @@ def _rounded_shares(shares: Mapping[str, float], digits: int = 3) -> dict[str, f
     return {name: floors[name] / scale for name in sorted(shares, key=lambda n: (-shares[n], n))}
 
 
+def _dose_source(name: str) -> str | None:
+    key = _resolve(name)
+    return load_crowd_table()["materials"][key].get("dose_source") if key else None
+
+
 def _score_mix(shares: Mapping[str, float]) -> dict[str, Any]:
     """Strength-weighted crowd pleasantness of one mix of detectable shares."""
 
     rated: dict[str, tuple[float, Any]] = {}
     unrated: list[str] = []
-    dose_adjusted: list[str] = []
+    dose_adjusted: list[dict[str, Any]] = []
     for name, share in shares.items():
         crowd = crowd_pleasantness(name, strength_share=share)
         if crowd is None:
@@ -72,8 +83,15 @@ def _score_mix(shares: Mapping[str, float]) -> dict[str, Any]:
             continue
         rated[name] = (share, crowd)
         base = crowd_pleasantness(name)
-        if base is not None and not math.isclose(crowd.value, base.value, abs_tol=1e-9):
-            dose_adjusted.append(name)
+        if base is not None and abs(crowd.value - base.value) >= DOSE_ADJUST_MIN:
+            dose_adjusted.append(
+                {
+                    "material": name,
+                    "base": round(base.value, 3),
+                    "used": round(crowd.value, 3),
+                    "dose_source": _dose_source(name),
+                }
+            )
     coverage = sum(share for share, _ in rated.values())
     value = (
         sum(share * crowd.value for share, crowd in rated.values()) / coverage
@@ -103,7 +121,7 @@ def _score_mix(shares: Mapping[str, float]) -> dict[str, Any]:
             for name, (share, crowd) in contributors
         ],
         "unrated": sorted(unrated),
-        "dose_adjusted": sorted(dose_adjusted),
+        "dose_adjusted": sorted(dose_adjusted, key=lambda item: item["material"]),
     }
 
 

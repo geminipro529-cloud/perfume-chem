@@ -90,11 +90,29 @@ def test_a_strong_indole_share_lowers_the_window():
     trace = _score([_material("Hedione", 9.0), _material("Indole", 1.0)])["windows"][0]
     strong = _score([_material("Hedione", 6.0), _material("Indole", 4.0)])["windows"][0]
     assert strong["pleasantness"] < trace["pleasantness"]
-    assert "Indole" in strong["dose_adjusted"] and "Indole" not in trace["dose_adjusted"]
+    adjusted = {item["material"]: item for item in strong["dose_adjusted"]}
+    assert "Indole" in adjusted and "Indole" not in {i["material"] for i in trace["dose_adjusted"]}
+    assert set(adjusted["Indole"]) == {"material", "base", "used", "dose_source"}
+    assert adjusted["Indole"]["used"] <= -0.4
+    assert adjusted["Indole"]["dose_source"] == "heuristic_unmeasured"
     indole = next(c for c in strong["contributors"] if c["material"] == "Indole")
     assert indole["value"] <= -0.4
     base = pt.crowd_pleasantness("Indole").value
     assert strong["pleasantness"] < 0.6 * hedione.value + 0.4 * base  # below the share-blind mean
+
+
+def test_dose_adjusted_lists_only_material_changes_of_005_or_more():
+    keller = pt.load_crowd_table()["materials"]["Vanillin"]
+    assert keller["dose_source"] == "keller"
+    base = pt.crowd_pleasantness("Vanillin").value
+    near = pt.crowd_pleasantness("Vanillin", strength_share=0.17).value
+    assert abs(near - base) < 0.05  # premise: a Keller material at 0.17 is within tolerance
+    window = _score([_material("Vanillin", 83.0), _material("Indole", 30.0), _material("Hedione", 53.0)])
+    mix = pl._score_mix({"Vanillin": 0.17, "Indole": 0.3, "Hedione": 0.53})
+    listed = [item["material"] for item in mix["dose_adjusted"]]
+    assert "Vanillin" not in listed
+    assert "Indole" in listed
+    assert window["windows"][0]["dose_adjusted"] is not None
 
 
 def test_top_level_labels_overall_and_rating_windows(fake_table):
@@ -109,6 +127,9 @@ def test_top_level_labels_overall_and_rating_windows(fake_table):
     assert result["optimization_authority"] is False
     assert result["label"].startswith("Crowd guess:") and "Not a measurement" in result["label"]
     assert "Ma, Tang, Thomas-Danguin & Xu (2020)" in result["method"]
+    assert "a power law of each material's odour activity value (OAV)" in result["method"]
+    assert "a model, not measured intensity; materials below OAV 1 are left out" in result["method"]
+    assert "only as that detection floor" not in result["method"]
     assert result["table_schema"] == "pleasantness_crowd_v1"
     assert [w["window"] for w in result["windows"]] == ["opening", "top", "heart", "late_heart", "drydown"]
     assert result["windows"][4]["status"] == "NO_RATED_MATERIALS"
