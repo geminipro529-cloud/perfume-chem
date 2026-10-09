@@ -30,7 +30,7 @@ def _formula():
     ], "separate_totals": {"liquid_total_ul": "1950", "mass_total_mg": "40"}}
 
 
-OAV_PER_UL = {"Lead": 0.01, "Quiet": 0.01, "NoOdt": None, "Filler": 0.01, "Loud": 1.0}
+OAV_PER_UL = {"Lead": 0.01, "Quiet": 0.01, "NoOdt": None, "Filler": 0.01, "Loud": 1.0, "Support": 1.0}
 
 
 def _fake_simulate(rows, amounts):
@@ -88,7 +88,19 @@ def test_capped_role_reports_silent_at_cap_with_limit(patched):
     quiet = _status(_run(), "Quiet")
     assert quiet["status"] == "silent_at_cap"
     assert quiet["binding_limit"] == "normal-use ceiling"
-    assert quiet["dose_after_ul"] == "60"
+    # A raise that would still be silent only costs other rows volume: keep the composed dose.
+    assert quiet["dose_after_ul"] == "50"
+    assert quiet["highest_dose_tried_ul"] == "60"
+
+
+def test_still_silent_raise_gives_volume_back(patched):
+    caps, _ = patched
+    caps["Quiet"] = (Decimal(60), "normal-use ceiling")
+    result = _run()
+    filler = next(r for r in result["rows"] if r["identity_name"] == "Filler")
+    assert filler["amount_decimal"] == "1000"
+    assert result["detection_check"]["adjustments"] == []
+    assert _liquid(result) == Decimal(1950)
 
 
 def test_missing_threshold_is_not_silent(patched):
@@ -123,6 +135,15 @@ def test_unnamed_material_far_above_lead_is_flagged_only(patched):
     loud = next(r for r in result["rows"] if r["identity_name"] == "Loud")
     assert loud["amount_decimal"] == "300"
     assert "not loudness" in result["detection_check"]["note"]
+
+
+def test_rows_filling_a_requested_note_are_not_flagged(patched):
+    formula = _formula()
+    formula["rows"].append(_row(6, "Support", 300, "character", "heart", "facet_lead__accord_1"))
+    result = dp.apply_detection_pass(
+        formula, role_plan=None, interpretation={}, formula_name="t", index=[object()],
+    )
+    assert [f["material"] for f in result["detection_check"]["flags"]] == ["Loud"]
 
 
 def test_solver_formula_restores_and_rejects_tampering(patched):

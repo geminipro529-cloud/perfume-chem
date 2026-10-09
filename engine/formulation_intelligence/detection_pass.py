@@ -248,7 +248,6 @@ def apply_detection_pass(
         role = roles.get(str(rows[i].get("slot")))
         return getattr(role, "provenance", None) in _LAYER_PROVENANCES
 
-    amounts = dict(original)
     caps: dict[int, tuple[Decimal | None, str]] = {}
     # A list holder lets several formulas share one lazily built index.
     index_ref = index if isinstance(index, list) else [index]
@@ -284,101 +283,123 @@ def apply_detection_pass(
         return {**formula, "rows": out}
 
     baseline_fail = _blocking_checks(formula, formula_name) if original else set()
-    limit_hit: dict[int, str] = {}
-    oavs = _simulate(rows, amounts) if amounts else {}
-    for _ in range(MAX_ROUNDS):
-        wants: dict[int, Decimal] = {}
-        for i in amounts:
-            has_threshold, value = best(oavs, i)
-            if not has_threshold or (value is not None and value >= DETECTION_FLOOR):
-                continue
-            if i in limit_hit or anchored(i):
-                limit_hit.setdefault(i, "user-fixed or must-preserve dose")
-                continue
-            cap, label = cap_for(i)
-            if cap is None or amounts[i] >= cap:
-                limit_hit[i] = label
-                continue
-            target = min(cap, amounts[i] * STEP_FACTOR).to_integral_value(rounding=ROUND_FLOOR)
-            if target > amounts[i]:
-                wants[i] = target
-            else:
-                limit_hit[i] = label
-        if not wants:
-            break
-        # Layer budget: semantic layers together stay within their share.
-        from engine.formulation_intelligence.semantic_brief_adapter import _LAYER_SHARE_BUDGET
 
-        layer_room = Decimal(str(_LAYER_SHARE_BUDGET)) * liquid_total - sum(
-            (amounts[i] for i in amounts if is_layer(i)), Decimal(0),
-        )
-        for i in sorted(wants):
-            if is_layer(i):
-                extra = min(wants[i] - amounts[i], max(Decimal(0), layer_room))
-                layer_room -= extra
-                if extra <= 0:
-                    limit_hit[i] = "layer share budget"
-                    del wants[i]
+    def run_raises(
+        frozen: Mapping[int, str],
+    ) -> tuple[dict[int, Decimal], dict[str, dict[str, float | None]], dict[int, str]]:
+        amounts = dict(original)
+        limit_hit: dict[int, str] = dict(frozen)
+        oavs = _simulate(rows, amounts) if amounts else {}
+        for _ in range(MAX_ROUNDS):
+            wants: dict[int, Decimal] = {}
+            for i in amounts:
+                has_threshold, value = best(oavs, i)
+                if not has_threshold or (value is not None and value >= DETECTION_FLOOR):
+                    continue
+                if i in limit_hit or anchored(i):
+                    limit_hit.setdefault(i, "user-fixed or must-preserve dose")
+                    continue
+                cap, label = cap_for(i)
+                if cap is None or amounts[i] >= cap:
+                    limit_hit[i] = label
+                    continue
+                target = min(cap, amounts[i] * STEP_FACTOR).to_integral_value(rounding=ROUND_FLOOR)
+                if target > amounts[i]:
+                    wants[i] = target
                 else:
-                    wants[i] = amounts[i] + extra
-        # Donors: volume/diffusion rows first, then other detectable non-character rows.
-        donors = [
-            i for i in amounts if i not in wants and not anchored(i)
-            and str(rows[i].get("role")) != "character" and best(oavs, i)[1] is not None
-            and (best(oavs, i)[1] or 0) >= DETECTION_FLOOR
-        ]
-        volume = [i for i in donors if str(rows[i].get("role")) == "volume"]
-        others = [i for i in donors if i not in volume]
-        room = {i: amounts[i] - (original[i] * DONOR_FLOOR).to_integral_value() for i in donors}
-        needed = sum((wants[i] - amounts[i] for i in wants), Decimal(0))
-        available = sum((max(Decimal(0), room[i]) for i in donors), Decimal(0))
-        if available < needed:
-            # Scale the raises down to what the donors can give.
-            scale = available / needed if needed else Decimal(0)
+                    limit_hit[i] = label
+            if not wants:
+                break
+            # Layer budget: semantic layers together stay within their share.
+            from engine.formulation_intelligence.semantic_brief_adapter import _LAYER_SHARE_BUDGET
+
+            layer_room = Decimal(str(_LAYER_SHARE_BUDGET)) * liquid_total - sum(
+                (amounts[i] for i in amounts if is_layer(i)), Decimal(0),
+            )
             for i in sorted(wants):
-                extra = ((wants[i] - amounts[i]) * scale).to_integral_value(rounding=ROUND_FLOOR)
-                if extra <= 0:
-                    limit_hit[i] = "volume available from other rows"
-                    del wants[i]
-                else:
-                    wants[i] = amounts[i] + extra
+                if is_layer(i):
+                    extra = min(wants[i] - amounts[i], max(Decimal(0), layer_room))
+                    layer_room -= extra
+                    if extra <= 0:
+                        limit_hit[i] = "layer share budget"
+                        del wants[i]
+                    else:
+                        wants[i] = amounts[i] + extra
+            # Donors: volume/diffusion rows first, then other detectable non-character rows.
+            donors = [
+                i for i in amounts if i not in wants and not anchored(i)
+                and str(rows[i].get("role")) != "character" and best(oavs, i)[1] is not None
+                and (best(oavs, i)[1] or 0) >= DETECTION_FLOOR
+            ]
+            volume = [i for i in donors if str(rows[i].get("role")) == "volume"]
+            others = [i for i in donors if i not in volume]
+            room = {i: amounts[i] - (original[i] * DONOR_FLOOR).to_integral_value() for i in donors}
             needed = sum((wants[i] - amounts[i] for i in wants), Decimal(0))
-        if not wants:
-            break
-        trial = dict(amounts)
-        trial.update(wants)
-        remaining = needed
-        for group in (volume, others):
-            pool = sum((max(Decimal(0), room[i]) for i in group), Decimal(0))
-            if remaining <= 0 or pool <= 0:
+            available = sum((max(Decimal(0), room[i]) for i in donors), Decimal(0))
+            if available < needed:
+                # Scale the raises down to what the donors can give.
+                scale = available / needed if needed else Decimal(0)
+                for i in sorted(wants):
+                    extra = ((wants[i] - amounts[i]) * scale).to_integral_value(rounding=ROUND_FLOOR)
+                    if extra <= 0:
+                        limit_hit[i] = "volume available from other rows"
+                        del wants[i]
+                    else:
+                        wants[i] = amounts[i] + extra
+                needed = sum((wants[i] - amounts[i] for i in wants), Decimal(0))
+            if not wants:
+                break
+            trial = dict(amounts)
+            trial.update(wants)
+            remaining = needed
+            for group in (volume, others):
+                pool = sum((max(Decimal(0), room[i]) for i in group), Decimal(0))
+                if remaining <= 0 or pool <= 0:
+                    continue
+                take = min(remaining, pool)
+                shares = {
+                    i: (take * max(Decimal(0), room[i]) / pool).to_integral_value(rounding=ROUND_FLOOR)
+                    for i in group
+                }
+                short = take - sum(shares.values(), Decimal(0))
+                for i in sorted(group, key=lambda j: -room[j]):
+                    if short <= 0:
+                        break
+                    if shares[i] < room[i]:
+                        shares[i] += 1
+                        short -= 1
+                for i, value in shares.items():
+                    trial[i] -= value
+                remaining -= take
+            new_fail = _blocking_checks(as_formula(trial), formula_name) - baseline_fail
+            if new_fail:
+                blamed = [
+                    i for i in wants
+                    if any(_key(str(rows[i].get("identity_name") or "")) in _key(check) for check in new_fail)
+                ] or list(wants)
+                label = _limit_label(sorted(new_fail)[0])
+                for i in blamed:
+                    limit_hit[i] = label
                 continue
-            take = min(remaining, pool)
-            shares = {
-                i: (take * max(Decimal(0), room[i]) / pool).to_integral_value(rounding=ROUND_FLOOR)
-                for i in group
-            }
-            short = take - sum(shares.values(), Decimal(0))
-            for i in sorted(group, key=lambda j: -room[j]):
-                if short <= 0:
-                    break
-                if shares[i] < room[i]:
-                    shares[i] += 1
-                    short -= 1
-            for i, value in shares.items():
-                trial[i] -= value
-            remaining -= take
-        new_fail = _blocking_checks(as_formula(trial), formula_name) - baseline_fail
-        if new_fail:
-            blamed = [
-                i for i in wants
-                if any(_key(str(rows[i].get("identity_name") or "")) in _key(check) for check in new_fail)
-            ] or list(wants)
-            label = _limit_label(sorted(new_fail)[0])
-            for i in blamed:
-                limit_hit[i] = label
-            continue
-        amounts = trial
-        oavs = _simulate(rows, amounts)
+            amounts = trial
+            oavs = _simulate(rows, amounts)
+        return amounts, oavs, limit_hit
+
+    # A raise that still leaves the row below detection only takes volume from
+    # other rows, so such rows keep their composed dose and the pass reruns.
+    frozen: dict[int, str] = {}
+    tried: dict[int, Decimal] = {}
+    while True:
+        amounts, oavs, limit_hit = run_raises(frozen)
+        wasted = [
+            i for i in amounts
+            if amounts[i] > original[i] and (best(oavs, i)[1] or 0) < DETECTION_FLOOR
+        ]
+        if not wasted:
+            break
+        for i in wasted:
+            tried[i] = max(tried.get(i, amounts[i]), amounts[i])
+            frozen[i] = limit_hit.get(i) or cap_for(i)[1]
 
     lead = _lead_index(rows, roles)
     adjusted = as_formula(amounts)
@@ -408,6 +429,8 @@ def apply_detection_pass(
         else:
             entry["status"] = "silent_at_cap"
             entry["binding_limit"] = limit_hit.get(i) or cap_for(i)[1]
+            if i in tried:
+                entry["highest_dose_tried_ul"] = _plain(tried[i])
         statuses.append(entry)
     flags = _dominate_flags(rows, amounts, oavs, lead, explicit)
     adjustments = [
@@ -458,7 +481,10 @@ def _dominate_flags(
         row = rows[i]
         name = str(row.get("identity_name") or "")
         probe = f" {_key(name)} "
-        if (i == lead or name == lead_name or str(row.get("slot", "")).startswith("explicit_anchor")
+        slot = str(row.get("slot", ""))
+        # Rows filling a note the brief asked for (its facets and their accords)
+        # are requested, so only unrequested rows are flagged.
+        if (i == lead or name == lead_name or slot.startswith(("explicit_anchor", "facet_"))
                 or any(n and f" {n} " in probe for n in explicit)):
             continue
         # Compared only in the lead's own windows where the lead is detectable.
