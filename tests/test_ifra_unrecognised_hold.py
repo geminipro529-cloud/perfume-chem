@@ -66,16 +66,42 @@ def test_word_order_variant_is_checked_against_its_limit_and_group():
 
 
 def test_unrecognised_row_holds_the_gate():
-    assert TABLE.lookup("Phenyl Acetaldehyde") is None
-    gate = _gate({"Evernyl": 240.0, "Phenyl Acetaldehyde": 20.0})
+    # A compounded base: its composition is not one molecule, so it stays unrecognised.
+    assert TABLE.lookup("Black Tea Base") is None
+    gate = _gate({"Evernyl": 240.0, "Black Tea Base": 20.0})
 
     assert gate.status == "HOLD"
-    assert "Phenyl Acetaldehyde" in gate.detail
+    assert "Black Tea Base" in gate.detail
     assert "To clear" in gate.detail
-    assert gate.data["unchecked"] == ["Phenyl Acetaldehyde"]
-    hold = next(h for h in gate.data["holds"] if h["material"] == "Phenyl Acetaldehyde")
+    assert gate.data["unchecked"] == ["Black Tea Base"]
+    hold = next(h for h in gate.data["holds"] if h["material"] == "Black Tea Base")
     assert "not recognised by the IFRA Category 4 table" in hold["message"]
     assert "supplier's IFRA certificate" in hold["message"]
+
+
+def test_phenyl_acetaldehyde_is_restricted_by_its_own_standard():
+    material = TABLE.lookup("Phenyl Acetaldehyde")
+    assert material is not None
+    assert material.status == "restricted"
+    assert material.standard == "IFRA_STD_073"
+    assert material.cat4_limit_pct == 0.25
+    assert TABLE.standards["IFRA_STD_073"].cas == ("122-78-1",)
+
+    evaluation = evaluate_ifra({"Phenyl Acetaldehyde": 0.3})
+    row = next(c for c in evaluation.checks if c.material == "Phenyl Acetaldehyde")
+    assert row.verdict == "fail"  # 0.3 % > 0.25 %
+
+
+def test_reviewed_no_standard_stock_passes_the_gate():
+    material = TABLE.lookup("Maltol")
+    assert material is not None
+    assert material.status == "no_standard"
+    assert material.source_url == "https://ifrafragrance.org/standards-library"
+
+    gate = _gate({"Evernyl": 240.0, "Maltol": 20.0})
+    assert gate.data["unchecked"] == []
+    assert gate.data["holds"] == []
+    assert gate.status == "PASS"
 
 
 def test_formula_with_every_row_recognised_keeps_its_verdict():
@@ -86,6 +112,53 @@ def test_formula_with_every_row_recognised_keeps_its_verdict():
     assert gate.status == "PASS"
 
 
+# Owned stocks reviewed against the IFRA Standards Library on 2026-10-09 and left
+# unrecognised on purpose: compounded bases, naturals and absolutes, a Schiff base, and
+# trade names whose identity was not confirmed from a source. Each must keep holding.
+STILL_HELD = {
+    "Aldehyde C-18",
+    "Ambrette Seed Absolute",
+    "Amber Xtreme",
+    "Ambermax 50%",
+    "Ambrocenide",
+    "Aurantiol 10% in DPG",
+    "Berry Hexanoate (BerryFlor)",
+    "Black Agarwood Artificial",
+    "Black Tea Base",
+    "Buccoxime",
+    "Castoreum Synthetic",
+    "Cedryl Acetate",
+    "Clearwood",
+    "Costus Olifac 10%",
+    "Ethyl Linalyl Acetate",
+    "Frangipani Absolute",
+    "Fructone B",
+    "Glycolierral",
+    "Helvetolide",
+    "Irotyl",
+    "Kephalis",
+    "Lavandin Absolute",
+    "Lemon Terpeneless Oil Sicilian",
+    "Lilyreal ND",
+    "Magnolan",
+    "Manzanate",
+    "Mate Absolute",
+    "Methyl Diantilis",
+    "Methyl Pamplemousse",
+    "Orris Concrete Orris Butter",
+    "Rhubofix",
+    "Rose Otto Bulgarian",
+    "Saffranal",
+    "Suederal 10%",
+    "Tonkarome",
+    "Vanilla Absolute",
+    "Veloutone",
+    "Vertofix",
+    "Vertofix Coeur",
+    "Zenolide",
+}
+
+
 def test_every_owned_stock_is_matched_or_holds_by_name():
     stocks = {s.name: s for s in materialize_current_inventory().stocks}
     unmatched = sorted(
@@ -93,7 +166,7 @@ def test_every_owned_stock_is_matched_or_holds_by_name():
         for name, s in stocks.items()
         if TABLE.lookup(name, s.identity_name, s.raw_name) is None
     )
-    assert unmatched, "every owned stock matched; drop this half of the test"
+    assert set(unmatched) == STILL_HELD
 
     gate = _gate({name: 10.0 for name in unmatched})
     assert gate.status == "HOLD"

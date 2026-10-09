@@ -643,6 +643,20 @@
         "FRAGRANCE INGREDIENT PROHIBITION: Peru balsam crude should not be used as a fragrance ingredient for any finished product application."
       ]
     },
+    "IFRA_STD_073": {
+      "name": "Phenylacetaldehyde",
+      "cas": [
+        "122-78-1"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.25,
+      "cat4_quote": "Category 4 0.25 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_073.pdf",
+      "notes": [
+        "CONTRIBUTIONS FROM OTHER SOURCES: NONE TO CONSIDER BEYOND TRACES"
+      ]
+    },
     "IFRA_STD_077": {
       "name": "Rose ketones",
       "cas": [
@@ -1275,6 +1289,19 @@
         "92-48-8"
       ]
     },
+    "Acetoin": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "3-Hydroxy-2-butanone"
+      ],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "513-86-0"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Adoxal": {
       "status": "no_standard",
       "standard": null,
@@ -1283,6 +1310,46 @@
       "cas": [
         "141-13-9"
       ]
+    },
+    "Aldehyde C-12 Lauric Dodecanal": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Dodecanal",
+        "Lauric Aldehyde"
+      ],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "112-54-9"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
+    "Aldehyde C-8 Octanal": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Octanal"
+      ],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "124-13-0"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
+    "Aldehyde C-9 Nonanal": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Nonanal"
+      ],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "124-19-6"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Aldehyde C10": {
       "status": "no_standard",
@@ -1668,6 +1735,17 @@
         "18127-01-0"
       ]
     },
+    "Butyl Butyrate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "109-21-7"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Cabreuva EO": {
       "status": "natural_no_own_standard",
       "standard": null,
@@ -1818,6 +1896,32 @@
       "cas": [
         "104-54-1"
       ]
+    },
+    "Cis-3 Hexenyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "cis-3-Hexenyl Acetate"
+      ],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "3681-71-8"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
+    "Cis-3 Hexenyl Hexanoate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "cis-3-Hexenyl Hexanoate"
+      ],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "31501-11-8"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "cis-3-Hexenol": {
       "status": "no_standard",
@@ -2002,6 +2106,17 @@
       "cas": [
         "705-86-2"
       ]
+    },
+    "Diethyl Malonate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "105-53-3"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Diethyl Phthalate": {
       "status": "no_standard",
@@ -2257,6 +2372,19 @@
       "cas": [
         "104-61-0"
       ]
+    },
+    "Gamma Octalactone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "gamma-Octalactone"
+      ],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "104-50-7"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Gamma Undecalactone": {
       "status": "no_standard",
@@ -2705,6 +2833,17 @@
       "aliases": [],
       "note": null
     },
+    "Maltol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "118-71-8"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Maple Lactone": {
       "status": "no_standard",
       "standard": null,
@@ -3055,6 +3194,19 @@
       "cas": [
         "60-12-8"
       ]
+    },
+    "Phenyl Acetaldehyde": {
+      "status": "restricted",
+      "standard": "IFRA_STD_073",
+      "aliases": [
+        "Phenylacetaldehyde"
+      ],
+      "note": "Owned stock is 85 % in phenylethyl alcohol; the limit applies to the phenylacetaldehyde content.",
+      "cas": [
+        "122-78-1"
+      ],
+      "source_url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_073.pdf",
+      "verified_on": "2026-10-09"
     },
     "Phenyl Ethyl Dimethyl Carbinol": {
       "status": "no_standard",
