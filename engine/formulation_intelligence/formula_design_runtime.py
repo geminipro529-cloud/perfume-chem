@@ -38,6 +38,7 @@ from engine.research.composition_planner import (
     compose_inventory_formula,
 )
 from engine.research.contracts import FALSE_ACTION_AUTHORITY, stable_payload_hash
+from engine.formulation_intelligence.detection_pass import attach_detection_checks
 from engine.research.request_interpretation import (
     RequestInterpretationInputV1,
     interpret_request,
@@ -603,11 +604,15 @@ def _dynamic_report(
 
 
 def _with_composition_checks(design: Any) -> Any:
-    """Attach the gate's advisory crowding/IFRA checks to every composed formula."""
+    """Run the detection pass, then attach the gate's crowding/IFRA checks.
+
+    The composition checks run on the formula after the detection pass, so
+    they describe the doses that are shown.
+    """
 
     @wraps(design)
     def wrapper(*args: Any, **kwargs: Any) -> dict[str, Any]:
-        return attach_composition_checks(design(*args, **kwargs))
+        return attach_composition_checks(attach_detection_checks(design(*args, **kwargs)))
 
     return wrapper
 

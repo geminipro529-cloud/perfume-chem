@@ -26,6 +26,7 @@ from unittest.mock import patch
 from engine.formulation_intelligence import architecture_bridge, subtype_research
 from engine.formulation_intelligence import formula_solver as solver
 from engine.formulation_intelligence.formula_critic import critique_formula
+from engine.formulation_intelligence.detection_pass import solver_formula
 from engine.formulation_intelligence.formula_design_runtime import design_formula
 from engine.formulation_intelligence.literature_knowledge import retrieve_formulation_knowledge
 from engine.formulation_intelligence.material_capability_index import (
@@ -511,7 +512,9 @@ def _execution_verified(
                 return False
             if rows:
                 variant = returned.get(attempt["variant_id"], {})
-                formula = attempt["suppressed_formula"] if duplicate else variant["formula"]
+                # Compare the solver's allocation: the detection pass's recorded
+                # dose raises are undone (and checked to conserve the total).
+                formula = attempt["suppressed_formula"] if duplicate else solver_formula(variant["formula"])
                 # Alternatives are rank diagnostics, not dose/stock authority.
                 def trim(values: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     return [{k: v for k, v in row.items() if k != "alternatives_considered"} for row in values]
@@ -778,8 +781,14 @@ def audit_architectures(
             and source_record_hash(source_map[b["source_id"]]) == b["source_record_sha256"]
             for b in bindings
         )) if source_bound else None
+        try:
+            # Physical identity is the solver's allocation (duplicate suppression
+            # compares it), before the detection pass's recorded raises.
+            solved_formula: Any = solver_formula(variant["formula"])
+        except (ValueError, TypeError, KeyError, IndexError):
+            solved_formula = None
         physical_valid, physical = _physical_formula(
-            variant["formula"], "6000" if expected_case is not None else None,
+            solved_formula, "6000" if expected_case is not None else None,
         )
         critic = variant["critic"]["state"]
         action = variant.get("formula_action")
