@@ -614,7 +614,7 @@ def design_formula(
     idea: str,
     formula_name: str | None = None,
     liquid_concentrate_ul_decimal: str = "6000",
-    max_materials: int = 30,
+    max_materials: int = 15,
     must_preserve: Sequence[str] = (),
     must_avoid: Sequence[str] = (),
     previous_stock_ids: Sequence[str] = (),
