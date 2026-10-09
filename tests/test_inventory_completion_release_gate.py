@@ -18,8 +18,13 @@ from engine.inventory_completions import (
     record_inventory_completion,
 )
 from engine.inventory_parser import is_user_compounding_held, materialize_current_inventory
+from engine.pipeline.formula_state import build_formula_state
 from engine.pipeline.gates import _stock_issue_data_request
-from engine.pipeline.preflight import resolve_inventory_stock_contract
+from engine.pipeline.preflight import (
+    build_formula_dose_receipt,
+    resolve_inventory_stock_contract,
+    run_release_preflight,
+)
 
 
 @pytest.fixture
@@ -201,6 +206,30 @@ def test_complete_entry_that_changes_the_strength_wins_and_shows_the_authority(c
 def test_complete_entry_that_only_fills_gaps_reports_no_disagreement(completion_log) -> None:
     _receipt, c10 = _complete("Aldehyde C10", "aldehyde-c10-gap-fill", held=True, **_TEN_PERCENT_DPG)
     assert c10.authority_facts_differ == ()
+
+
+def test_release_gate_warns_when_a_stock_page_entry_overrides_the_authority(completion_log) -> None:
+    # RULE 0 (review finding S2): the entry wins, but the gate says so.
+    _complete("Hedione", "hedione-50-dpg-warn", **{**_TEN_PERCENT_DPG, "fraction_decimal": "0.5"})
+    formula = {"ingredients_ul": {"Hedione": 100.0}, "dilutions": {"Hedione": 0.5}}
+    contract = resolve_inventory_stock_contract(formula)
+    assert contract.status == "PASS"
+    assert build_formula_dose_receipt(formula, contract).status == "BOUND"
+
+    state = build_formula_state(formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0)
+    report = run_release_preflight(formula, state, stock_contract=contract)
+    checks = {check.name: check for check in report.checks}
+    assert checks["inventory_stock_contract"].status == "PASS"
+    warning = checks["stock_authority_disagreement"]
+    assert warning.status == "WARN"
+    # The stock record keeps the carrier lower-cased ("dpg").
+    assert (
+        "hedione: stock page says 50% w/w in dpg, workbook/overlay says neat"
+        in warning.detail.casefold()
+    )
+    assert warning.detail in report.warnings
+    (disagreement,) = warning.data["disagreements"]
+    assert disagreement["text"] == "Differs from the workbook: workbook says neat"
 
 
 def _held(reason: str, **extra):
