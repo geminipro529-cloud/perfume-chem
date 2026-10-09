@@ -3192,6 +3192,12 @@ _ODT_QUERY_ALIASES = {
     "jasmine sambac absolute": "jasmine absolute",
     "evernyl crystals": "evernyl",
     "olibanum": "olibanum resinoid",
+    # Receipt labels whose own ODT_DATA row is a null placeholder; the same
+    # molecule (same CAS in the data spine) has a threshold under another key.
+    "aldehyde c-18": "gamma nonalactone",  # CAS 104-61-0
+    "aldehyde c-18 gamma nonalactone": "gamma nonalactone",  # CAS 104-61-0
+    "aldehyde c-12 lauric dodecanal": "aldehyde c12 lauric",  # CAS 112-54-9
+    "phenyl acetaldehyde": "phenylacetaldehyde",  # CAS 122-78-1
 }
 
 

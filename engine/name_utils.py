@@ -224,6 +224,9 @@ _ALIASES: dict[str, str] = {
     "citral natural": "citral",
     # owner's Exaltolide bottle is Pentalide (same molecule, CAS 106-02-5)
     "pentalide": "exaltolide",
+    # Owned-stock spellings whose data sits under another key (same material).
+    # Word order only: Cedrus deodara wood oil, same stock identity.
+    "cedarwood himalayan eo": "himalayan cedarwood eo",
 }
 
 
