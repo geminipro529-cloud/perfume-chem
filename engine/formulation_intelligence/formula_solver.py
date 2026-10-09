@@ -6,7 +6,7 @@ import hashlib
 import re
 from dataclasses import dataclass, replace
 from functools import lru_cache
-from typing import Any, Sequence
+from typing import Any, Mapping, Sequence
 
 from engine.formulation_intelligence.material_capability_index import (
     MaterialCapability,
@@ -28,6 +28,7 @@ from engine.formulation_intelligence.semantic_brief_adapter import (
 from engine.research.composition_planner import (
     Choice,
     RoleSpec,
+    _allocate_capped,
     _allocation_weight,
     _avoid_candidate,
     _design_cap_ul,
@@ -108,6 +109,122 @@ def _is_named_note(role: SemanticRole) -> bool:
     )
 
 
+def _ifra_admits_raw_share(capability: MaterialCapability, raw_share: float) -> bool:
+    """False when a raw share could breach the stock's IFRA Cat 4 limit.
+
+    Same worst case as `_ifra_binds_layer`: the concentrate is up to 30% of
+    the finished perfume.  A prohibited material never qualifies.
+    """
+
+    entry = _ifra_entry(capability.identity_name)
+    if entry is None:
+        return True
+    status, limit = entry
+    if status == "prohibited":
+        return False
+    if status != "restricted" or limit is None:
+        return True
+    fraction = float(capability.candidate.stock.dilution)
+    return raw_share * _CONCENTRATE_FINISHED_FRACTION * fraction * 100 <= limit
+
+
+def _ifra_safe_supports(
+    assignments: Sequence[SolvedAssignment],
+    choices: Sequence[Choice],
+    supports: Sequence[int],
+    spare_ul: float,
+    liquid_total_ul: int,
+) -> list[int]:
+    """The supports that can take their part of the spare volume within IFRA.
+
+    A support whose ceiling plus its part would breach its Cat 4 limit takes
+    none; the rest share its part, so the check repeats until it settles.
+    """
+
+    eligible = list(supports)
+    while eligible:
+        share_total = sum(choices[index].role.share for index in eligible)
+        safe = [
+            index
+            for index in eligible
+            if _ifra_admits_raw_share(
+                assignments[index].capability,
+                (
+                    (_design_cap_ul(choices[index], liquid_total_ul) or liquid_total_ul)
+                    + spare_ul * choices[index].role.share / share_total
+                ) / liquid_total_ul,
+            )
+        ]
+        if safe == eligible:
+            return eligible
+        eligible = safe
+    return eligible
+
+
+def _bridge_cap_ul(
+    caps: dict[int, int],
+    other_capacity: int,
+    liquid_total_ul: int,
+) -> int | None:
+    """The smallest common bridge cap (at least 12%) that still places the liquid.
+
+    A bridge whose own cap is already smaller keeps it, so it counts at that
+    capacity and the shortfall is shared over the remaining bridges.  None
+    means even the bridges' own caps cannot hold the liquid total.
+    """
+
+    floor = int(liquid_total_ul * _BRIDGE_MAX_RAW_SHARE)
+    if other_capacity + sum(caps.values()) < liquid_total_ul:
+        return None
+    if other_capacity + sum(min(cap, floor) for cap in caps.values()) >= liquid_total_ul:
+        return floor
+    remaining = liquid_total_ul - other_capacity
+    open_count = len(caps)
+    for cap in sorted(caps.values()):
+        if cap * open_count >= remaining:
+            break
+        remaining -= cap
+        open_count -= 1
+    return max(floor, -(-remaining // open_count))
+
+
+def _hold_hard_capped_bridges(
+    choices: list[Choice],
+    targets: dict[int, int],
+    free: Sequence[int],
+    liquid_total_ul: int,
+) -> bool:
+    """Hold hard-capped bridges to the bridge cap by scaling their share down.
+
+    The planner applies a stock's hard dose cap instead of the role's raw-share
+    ceiling, so for such a bridge (cis-Jasmone 10%, Methyl Laitone 1%) the
+    ceiling cannot be set.  Its share is scaled instead, checked against the
+    planner's own capped allocation.  Returns False if that does not settle.
+    """
+
+    for _ in range(8):
+        try:
+            allocated = _allocate_capped(
+                liquid_total_ul,
+                [
+                    (index, _allocation_weight(choices[index]), _design_cap_ul(choices[index], liquid_total_ul))
+                    for index in free
+                ],
+            )
+        except ValueError:
+            return False
+        over = {index: allocated[index] for index, target in targets.items() if allocated[index] > target}
+        if not over:
+            return True
+        for index, amount in over.items():
+            role = choices[index].role
+            choices[index] = replace(
+                choices[index],
+                role=replace(role, share=role.share * targets[index] / amount * .98),
+            )
+    return False
+
+
 def _route_spare_volume(
     assignments: Sequence[SolvedAssignment],
     choices: Sequence[Choice],
@@ -118,10 +235,14 @@ def _route_spare_volume(
     The planner hands volume a capped row cannot take to every open row in
     proportion to weight, so a trace-capped accord lead (Rose Oxide) would let
     the bridges carry the perfume.  The unused part of a capped lead's weight
-    moves to its own accord supports instead, and a bridge is held to 12% of
-    the liquid while a named note can still take volume.  Total weight is
-    unchanged, and the bridge cap only rises as far as needed for the caps to
-    hold the whole liquid total, so a formula that allocated before still does.
+    moves to its own accord supports instead (never past a support's IFRA
+    Cat 4 limit), and a bridge is held to 12% of the liquid while a named note
+    can still take volume.  The bridge cap only rises as far as needed for the
+    caps to hold the whole liquid total; if no cap can, or a hard-capped
+    bridge cannot be held, the planner's own choices are returned unchanged.
+
+    The rows report these routed shares as `design_share_decimal`, so that
+    field shows the share the allocation used, not the brief's original one.
     """
 
     free = [index for index, choice in enumerate(choices) if not choice.candidate.solid]
@@ -134,15 +255,21 @@ def _route_spare_volume(
         expected = liquid_total_ul * weights[lead] / weight_total if weight_total else 0.0
         if role.provenance != "PROMPT_DERIVED_FACET" or cap is None or cap >= expected:
             continue
-        supports = [
-            index
-            for index in free
-            if accord_lead_role_id(assignments[index].role) == role.role_id
-            and _hard_cap_ul(choices[index].candidate, liquid_total_ul) is None
-        ]
+        spare_ul = expected - cap
+        supports = _ifra_safe_supports(
+            assignments,
+            choices,
+            [
+                index
+                for index in free
+                if accord_lead_role_id(assignments[index].role) == role.role_id
+                and _hard_cap_ul(choices[index].candidate, liquid_total_ul) is None
+            ],
+            spare_ul,
+            liquid_total_ul,
+        )
         if not supports:
             continue
-        spare_ul = expected - cap
         spare_weight = weights[lead] * spare_ul / expected
         specs[lead] = replace(specs[lead], share=specs[lead].share * cap / expected)
         support_share = sum(choices[index].role.share for index in supports)
@@ -162,42 +289,54 @@ def _route_spare_volume(
                 ),
             )
 
-    bridges = [
-        index
-        for index in free
-        if assignments[index].role.provenance in _BRIDGE_PROVENANCE
-        and _hard_cap_ul(choices[index].candidate, liquid_total_ul) is None
-        and (specs[index].max_raw_share or 1.0) > _BRIDGE_MAX_RAW_SHARE
+    adjusted = [
+        replace(choice, role=specs[index]) if index in specs else choice
+        for index, choice in enumerate(choices)
     ]
     named_open = any(
         _is_named_note(assignments[index].role)
         and _hard_cap_ul(choices[index].candidate, liquid_total_ul) is None
         for index in free
     )
-    adjusted = [
-        replace(choice, role=specs[index]) if index in specs else choice
-        for index, choice in enumerate(choices)
-    ]
-    if not bridges or not named_open:
-        return tuple(adjusted)
-    other_caps = sum(
-        _design_cap_ul(adjusted[index], liquid_total_ul) or 0
+    bridge_caps = {
+        index: _design_cap_ul(adjusted[index], liquid_total_ul) or liquid_total_ul
         for index in free
-        if index not in bridges
+        if assignments[index].role.provenance in _BRIDGE_PROVENANCE
+    }
+    if not bridge_caps or not named_open:
+        return tuple(adjusted)
+    other_capacity = sum(
+        _design_cap_ul(adjusted[index], liquid_total_ul) or liquid_total_ul
+        for index in free
+        if index not in bridge_caps
     )
     # Relax rather than fail: if the other rows cannot hold what the bridges
-    # give up, each bridge keeps just enough to place the whole liquid total.
-    needed = -(-(liquid_total_ul - other_caps) // len(bridges))
-    bridge_share = max(_BRIDGE_MAX_RAW_SHARE, (needed + 1) / liquid_total_ul)
-    for index in bridges:
-        capped = replace(
+    # give up, the bridges keep just enough to place the whole liquid total.
+    bridge_cap = _bridge_cap_ul(bridge_caps, other_capacity, liquid_total_ul)
+    if bridge_cap is None:
+        return tuple(choices)
+    hard_capped: dict[int, int] = {}
+    for index, cap in bridge_caps.items():
+        if cap <= bridge_cap:
+            continue
+        if _hard_cap_ul(adjusted[index].candidate, liquid_total_ul) is not None:
+            hard_capped[index] = bridge_cap
+            continue
+        # Half a microlitre over, so the planner's floor lands on the cap.
+        adjusted[index] = replace(
             adjusted[index],
-            role=replace(adjusted[index].role, max_raw_share=bridge_share),
+            role=replace(adjusted[index].role, max_raw_share=(bridge_cap + .5) / liquid_total_ul),
         )
-        # Never looser than the cap the bridge already had.
-        if (_design_cap_ul(capped, liquid_total_ul) or 0) < (_design_cap_ul(adjusted[index], liquid_total_ul) or 0):
-            adjusted[index] = capped
+    if hard_capped and not _hold_hard_capped_bridges(adjusted, hard_capped, free, liquid_total_ul):
+        return tuple(choices)
     return tuple(adjusted)
+
+
+def _has_exact_material_count(interpretation: Mapping[str, Any]) -> bool:
+    return any(
+        row.get("kind") == "EXACT"
+        for row in interpretation.get("material_count_constraints", ())
+    )
 
 
 def _allocation_choices(
@@ -205,11 +344,13 @@ def _allocation_choices(
     choices: Sequence[Choice],
     liquid_total_ul: int,
     explicit_quantities: Sequence[dict[str, Any]],
+    exact_material_count: bool = False,
 ) -> tuple[Choice, ...]:
     """The choices the dose allocation sees; audits replay through this too."""
 
-    if explicit_quantities:
-        # Exact-quantity requests keep the planner's own allocation.
+    if explicit_quantities or exact_material_count:
+        # Exact-quantity and exact-count requests keep the planner's own
+        # allocation: every row there is one the user asked to count.
         return tuple(choices)
     return _route_spare_volume(assignments, choices, liquid_total_ul)
 
@@ -721,6 +862,7 @@ def solve_formula(
     prior_variant_stock_ids: Sequence[str] = (),
     variant_index: int = 0,
     beam_width: int = 48,
+    exact_material_count: bool = False,
 ) -> FormulaSolveResult:
     if liquid_total_ul <= 0:
         raise ValueError("liquid_total_ul must be positive")
@@ -744,7 +886,9 @@ def solve_formula(
         )
         for assignment in assignments
     )
-    choices = _allocation_choices(assignments, choices, liquid_total_ul, explicit_quantities)
+    choices = _allocation_choices(
+        assignments, choices, liquid_total_ul, explicit_quantities, exact_material_count,
+    )
     rows: list[dict[str, Any]] = []
     totals = {"liquid_total_ul": "0", "mass_total_mg": "0"}
     holds: list[str] = []

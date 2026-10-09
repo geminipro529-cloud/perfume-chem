@@ -497,6 +497,7 @@ def _execution_verified(
                             assignments,
                             tuple(Choice(solver._role_spec(a.role), a.capability.candidate, 0.0, ()) for a in assignments),
                             int(total), inputs["explicit_quantities"],
+                            solver._has_exact_material_count(interpretation),
                         ),
                         liquid_total_ul=int(total), quantities=inputs["explicit_quantities"],
                     )
