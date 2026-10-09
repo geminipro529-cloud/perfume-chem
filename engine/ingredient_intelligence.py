@@ -5009,7 +5009,7 @@ _PROFILES.setdefault("nerolidol", {}).update(
         "source": "material intake batch 2026-08-07",
     }
 )
-_PROFILES.setdefault("stralyl acetate", {}).update(
+_PROFILES.setdefault("styralyl acetate", {}).update(
     {
         "character": "green-sweet gardenia-floral ester",
         "note": "floral",
@@ -5293,7 +5293,7 @@ _backfill_phenethyl_alcohol_odt()
 
 for _mi_name in [
     "nerolidol",
-    "stralyl acetate",
+    "styralyl acetate",
     "cypress eo",
     "padma",
     "hay absolute",

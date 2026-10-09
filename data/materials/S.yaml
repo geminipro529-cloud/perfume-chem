@@ -2509,30 +2509,30 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Styralyl Acetate
-  aliases: []
-  cas: null
+  aliases: ['Stralyl Acetate', 'stralyl acetate', 'styralyl acetate']
+  cas: '93-92-5'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 164.2
+  density_25c_g_ml: 1.024
+  logp: 2.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 7.0
+  vp_source: "est/literature"
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
+  odt_air_ppb: 40.0
+  odt_eth_ppm: 1.0
   stevens_n: null
   or_targets: []
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: 1.0
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 4GN00417
     perfumersworld_price_usd_per_g: 0.21
@@ -2544,10 +2544,11 @@
         sku: 5GN07535
         price_usd_per_g: 0.07
   families: []
-  character: null
-  notes: null
+  character: 'green-sweet gardenia-floral ester'
+  notes: "material intake batch 2026-08-07; merged 2026-10-09 with the misspelt 'Stralyl Acetate' record (same CAS 93-92-5) so the owned V5 label reaches its data"
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.02000 to 1.03500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1011092.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Styralyl Alcohol
   aliases: []
   cas: null
@@ -3320,24 +3321,6 @@
   user_stock_dilution: 100.0
   user_in_inventory: true
 # MATERIAL_INTAKE_BATCH_2026_08_07 additions
-- canonical_name: 'Stralyl Acetate'
-  aliases: ['stralyl acetate', 'styralyl acetate']
-  cas: '93-92-5'
-  smiles: null
-  inchikey: null
-  mw_g_mol: 164.2
-  density_25c_g_ml: 1.024
-  logp: 2.0
-  vp_25c_pa: 7.0
-  vp_source: "est/literature"
-  odt_air_ppb: 40.0
-  odt_eth_ppm: 1.0
-  user_stock_dilution: 1.0
-  user_in_inventory: true
-  character: 'green-sweet gardenia-floral ester'
-  notes: "material intake batch 2026-08-07"
-  provenance:
-    density_25c_g_ml: 'TGSC: Specific Gravity: 1.02000 to 1.03500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1011092.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: 'Sandalwood Base 3X'
   aliases: ['sandalwood base x3', 'sandalwood base']
   cas: None

@@ -137,7 +137,9 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # and ester change it is d4bcca51….
     # Geraniol air ODT 0.04 -> 2.22 ppb (Elsharif & Buettner 2018, 14 ng/L);
     # reverting only that value gives 667ba337….
-    assert digest == "37f940a31019c628a86cd2af3bc4074cb95111c942fff2792c9e613c38bfdf72"
+    # 2026-10-09: key "stralyl acetate" renamed to the correct "styralyl acetate"
+    # (same values 40.0/1.0); with the old key the digest is 37f940a3….
+    assert digest == "c86a3672b4e41ac8f5aabf3791654933539faba4b1f9c1d2452ba2fe7193a922"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

@@ -45,6 +45,8 @@ _ALIASES: dict[str, str] = {
     "a-ionone": "alpha ionone",
     "cis-3-hexenol": "cis 3 hexenol",
     "cis-3-hexenyl salicylate": "cis 3 hexenyl salicylate",
+    # inventory.txt misspelling of styralyl acetate (1-phenylethyl acetate, CAS 93-92-5)
+    "stralyl acetate": "styralyl acetate",
     "alpha-damascone": "alpha damascone",
     "beta-damascone": "beta damascone",
     "gamma-damascone": "gamma damascone",

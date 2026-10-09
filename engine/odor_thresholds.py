@@ -3836,10 +3836,10 @@ ODT_VERIFICATION.setdefault("nerolidol", {}).update(
         "note": "material intake batch 2026-08-07",
     }
 )
-ODT_DATA.setdefault("stralyl acetate", {}).update(
+ODT_DATA.setdefault("styralyl acetate", {}).update(
     {"odt_air": 40.0, "odt_eth": 1.0, "char": "green, sweet, floral"}
 )
-ODT_VERIFICATION.setdefault("stralyl acetate", {}).update(
+ODT_VERIFICATION.setdefault("styralyl acetate", {}).update(
     {
         "vfy": "MULTI_SOURCE_LITERATURE",
         "sources": [
