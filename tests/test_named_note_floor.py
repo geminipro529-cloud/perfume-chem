@@ -58,3 +58,14 @@ def test_liquid_total_is_conserved_after_the_named_notes_lead(
         formula = report["optimized_formula"] or report["initial_formula"]
         liquid = sum(int(row["amount_decimal"]) for row in formula["rows"] if row["amount_unit"] == "uL")
         assert liquid == 6000
+
+
+def test_a_capsule_slot_that_requires_its_material_is_not_generic() -> None:
+    # The fig capsule's creamy sandalwood body is a required volume slot; the
+    # named lead may trim an open volume slot but never a required one.
+    from engine.research.composition_planner import _r
+
+    assert _r("open_volume", "Open volume", "heart", "volume", .2, "hedione").generic_slot
+    assert not _r(
+        "creamy_sandalwood", "Creamy sandalwood body", "base", "volume", .25, "ebanol", required=True
+    ).generic_slot

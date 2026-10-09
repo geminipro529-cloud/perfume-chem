@@ -176,7 +176,9 @@ def _r(
         descriptor_weights=weights,
         exact_preference_required=required,
         max_raw_share=cap,
-        generic_slot=function in {"bridge", "volume"},
+        # A slot that requires its exact material is part of the capsule's
+        # identity, not a generic slot, so the named lead never trims it.
+        generic_slot=function in {"bridge", "volume"} and not required,
     )
 
 
