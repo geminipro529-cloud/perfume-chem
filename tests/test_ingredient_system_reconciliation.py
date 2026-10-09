@@ -13,7 +13,10 @@ from engine.data_spine.loader import load_registry
 from engine.data_spine.reconciliation import reconcile
 from engine.ingredient_intelligence import get_profile
 from engine.odor_thresholds import (
-    ODT_DATA, _INVENTORY_ODT_UNAVAILABLE_20261007, oav_reliability, verify_odt,
+    _INVENTORY_ODT_UNAVAILABLE_20261007,
+    ODT_DATA,
+    oav_reliability,
+    verify_odt,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -137,7 +140,9 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # and ester change it is d4bcca51….
     # Geraniol air ODT 0.04 -> 2.22 ppb (Elsharif & Buettner 2018, 14 ng/L);
     # reverting only that value gives 667ba337….
-    assert digest == "37f940a31019c628a86cd2af3bc4074cb95111c942fff2792c9e613c38bfdf72"
+    # Vertofix Coeur odt_air 240 (unsourced) -> 6.3 ppb, Vertofix's van Gemert
+    # value for the same molecule; reverting only that value gives 37f940a3….
+    assert digest == "9ec89ee9c35b8e1ef1bdaf96abe0da5c35e3ff4b42ba91f3fe8d0eaee11fed6a"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

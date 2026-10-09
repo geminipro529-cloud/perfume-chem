@@ -64,7 +64,7 @@ complete perfumer analysis section covering these topics **in order**:
 
 1. **Character** — What is the fragrance family? What classical reference perfumes does it evoke? Describe the dominant structural architecture (e.g. "top-to-base with thin heart").
 
-2. **Opening (0-5min)** — Describe what the first blast smells like. Reference OAV ratios: which materials dominate, what is their perceptibility (massive >1000, very strong 100-1000, strong 50-100, moderate 10-50, perceptible 5-10, at threshold 1-5, sub-threshold <1). Quote total vapor ppm.
+2. **Opening (0-5min)** — Describe what the first blast smells like. Quote each lead material's OAV as a number (log10 OAV where helpful) and name the highest-OAV materials. Per AGENTS.md Rule 1, OAV is a detection-related diagnostic only; it is never perceived contribution or intensity (perceived strength grows far slower than concentration, differs per material, and mixture components suppress each other), so do not translate OAV into loudness words. Quote total vapor ppm.
 
 3. **Heart (30min-2hr)** — How does the composition evolve as top notes burn off? Describe which materials emerge and what they contribute. Note the H/T/B distribution shift.
 

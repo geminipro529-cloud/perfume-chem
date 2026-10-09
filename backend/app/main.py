@@ -21,6 +21,7 @@ from app import db_bootstrap
 from app.api.v1.router import api_router
 from app.core.config import get_settings
 from app.core.logging import get_logger, setup_logging
+from app.core.request_guard import LocalRequestGuard
 from app.core.tracing import setup_tracing
 from app.services import app_lock as app_lock_module
 from app.services import engine_worker_process
@@ -197,6 +198,16 @@ async def rate_limit_middleware(request: Request, call_next):
     window.append(now)
     response = await call_next(request)
     return response
+
+
+# Added last so it runs first: a refused request never reaches the rate limiter
+# (so a hostile page cannot use up this PC's budget) or any route.
+app.add_middleware(
+    LocalRequestGuard,
+    bind_host=settings.API_BIND_HOST,
+    extra_hosts=settings.TRUSTED_HOSTS,
+    cors_origins=settings.CORS_ORIGINS,
+)
 
 
 # Include routers

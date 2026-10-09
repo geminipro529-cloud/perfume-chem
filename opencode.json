@@ -117,7 +117,7 @@
       "git branch*": "allow",
       "git checkout*": "allow",
       "git switch*": "allow",
-      "git push*": "allow",
+      "git push*": "ask",
       "git pull*": "allow",
       "git fetch*": "allow",
       "poetry run ruff*": "allow",
@@ -138,7 +138,17 @@
       ".\\scripts\\*": "allow",
       "docker compose*": "allow",
       ".venv\\Scripts\\pip*": "allow",
-      ".venv\\Scripts\\python*": "allow"
+      ".venv\\Scripts\\python*": "allow",
+      "git reset --hard*": "ask",
+      "git rebase*": "ask",
+      "git clean*": "ask",
+      "rm -*r*": "ask",
+      "rm -*R*": "ask",
+      "rm *--recursive*": "ask",
+      "rmdir /s*": "ask",
+      "rd /s*": "ask",
+      "del /s*": "ask",
+      "*Remove-Item*-Recurse*": "ask"
     },
     "external_directory": "allow"
   },
@@ -283,6 +293,16 @@
         "edit": "allow",
         "bash": {
           "*": "allow",
+          "git push*": "ask",
+          "git reset --hard*": "ask",
+          "git rebase*": "ask",
+          "git clean*": "ask",
+          "rm -*r*": "ask",
+          "rm -*R*": "ask",
+          "rm *--recursive*": "ask",
+          "rmdir /s*": "ask",
+          "rd /s*": "ask",
+          "del /s*": "ask",
           "git push *": "deny",
           "git reset --hard *": "deny",
           "git clean *": "deny",
@@ -581,7 +601,20 @@
           "*": "allow"
         },
         "edit": "allow",
-        "bash": "allow"
+        "bash": {
+          "*": "allow",
+          "git push*": "ask",
+          "git reset --hard*": "ask",
+          "git rebase*": "ask",
+          "git clean*": "ask",
+          "rm -*r*": "ask",
+          "rm -*R*": "ask",
+          "rm *--recursive*": "ask",
+          "rmdir /s*": "ask",
+          "rd /s*": "ask",
+          "del /s*": "ask",
+          "*Remove-Item*-Recurse*": "ask"
+        }
       }
     },
     "agent-deepseek-debugger": {
@@ -592,7 +625,20 @@
       "prompt": "{file:.opencode/prompts/agent-deepseek-debugger.txt}",
       "permission": {
         "edit": "allow",
-        "bash": "allow"
+        "bash": {
+          "*": "allow",
+          "git push*": "ask",
+          "git reset --hard*": "ask",
+          "git rebase*": "ask",
+          "git clean*": "ask",
+          "rm -*r*": "ask",
+          "rm -*R*": "ask",
+          "rm *--recursive*": "ask",
+          "rmdir /s*": "ask",
+          "rd /s*": "ask",
+          "del /s*": "ask",
+          "*Remove-Item*-Recurse*": "ask"
+        }
       }
     }
   }

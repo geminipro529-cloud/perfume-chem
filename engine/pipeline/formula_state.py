@@ -23,13 +23,20 @@ from typing import Mapping, Sequence
 
 from engine.ifra_safety import IFRA_CAT4_LIMITS
 from engine.ingredient_intelligence import MaterialProfile
-from engine.material_resolver import resolve_material, resolved_vp_25c_pa
+from engine.material_resolver import (
+    resolve_material,
+    resolved_logp,
+    resolved_mw_g_mol,
+    resolved_vp_25c_pa,
+)
 from engine.mixer.prebonding import get_functional_groups
 from engine.odor_thresholds import lookup_odt_entry, verify_odt
 from engine.perception.oav import oav, perceived_intensity_stevens
 from engine.pipeline.natural_absolute_decomposition import (
     NaturalCompositeHeadspace,
     NaturalCompositeMetadata,
+    NaturalCompositeVolatility,
+    composite_constituent_volatility,
     composite_headspace,
     composite_replacement_moles,
     get_composite_metadata,
@@ -225,6 +232,10 @@ class MaterialState:
     canonical_vapor_ppm: float | None = None
     canonical_oav: float | None = None
     canonical_intensity: float | None = None
+    # A natural's composition after evaporation: the fraction of each
+    # constituent row's starting mass still present (profile order), then that
+    # of the unresolved remainder. Empty = nothing has evaporated.
+    natural_composite_remaining: tuple[float, ...] = ()
     formula_optimization_authority: bool = field(default=False, init=False)
 
     @property
@@ -493,6 +504,7 @@ class FormulaState:
         *,
         new_raw_ul: dict[str, float],
         new_matrix_moles: tuple[tuple[str, float], ...] | None = None,
+        new_natural_composite_remaining: Mapping[str, Sequence[float]] | None = None,
     ) -> FormulaState:
         """Create a new FormulaState with different raw_ul amounts, reusing constant fields.
 
@@ -506,6 +518,12 @@ class FormulaState:
         simulator passes the evaporated matrix, diagnosis M1a); omitted, the
         base matrix is kept. ``matrix_mass_g`` stays the declared
         finished-product matrix mass either way.
+
+        ``new_natural_composite_remaining`` gives, by material name, a natural's
+        composition after evaporation (see
+        ``MaterialState.natural_composite_remaining``); the temporal simulator
+        passes it so a natural's light constituents can leave before its heavy
+        ones. A material it omits keeps its base composition.
         """
         materials: list[MaterialState] = []
         total_raw = sum(new_raw_ul.values())
@@ -517,6 +535,15 @@ class FormulaState:
         mole_inputs: dict[str, float] = dict(matrix_components_moles)
         authoritative_masses: dict[str, tuple[float | None, str]] = {}
         composite_rows: list[tuple[str, str, float, float]] = []
+        natural_remaining: dict[str, tuple[float, ...]] = {
+            m.name: (
+                tuple(float(value) for value in new_natural_composite_remaining[m.name])
+                if new_natural_composite_remaining is not None
+                and m.name in new_natural_composite_remaining
+                else m.natural_composite_remaining
+            )
+            for m in base.materials
+        }
         for m in base.materials:
             raw_ul = new_raw_ul.get(m.name, 0.0)
             active_ul = raw_ul * m.dilution
@@ -544,7 +571,8 @@ class FormulaState:
 
         total_moles = sum(mole_inputs.values())
         composite_replacements = tuple(
-            _composite_replacement_moles_for_row(*row) for row in composite_rows
+            _composite_replacement_moles_for_row(*row, remaining=natural_remaining[row[1]])
+            for row in composite_rows
         )
         composite_total_moles = _composite_formula_total_moles_from_replacements(
             total_moles,
@@ -624,6 +652,7 @@ class FormulaState:
                     active_g,
                     composite_total_moles,
                     temperature_K=base.temperature_K,
+                    remaining=natural_remaining[m.name],
                 )
             )
             requires_composite = m.is_opaque_preblend or _is_natural_mixture(m.name)
@@ -738,6 +767,7 @@ class FormulaState:
                         and finished_mass_g > 0
                         else None
                     ),
+                    natural_composite_remaining=natural_remaining[m.name],
                     **projection,
                 )
             )
@@ -822,24 +852,45 @@ def _odt_source_label(data: dict) -> str:
     return "unverified:odor_thresholds.odt_air"
 
 
-def _lookup_odt(
+def odt_lookup_key(name: str, registry_material=None) -> str:
+    """Return the ODT_DATA key the release gate uses for a material label."""
+    # The resolved registry identity decides the threshold, so two labels that
+    # resolve to one material (e.g. "Vertofix" and "Vertofix Coeur (neat)")
+    # cannot carry different ODTs. The raw label is the fallback only when that
+    # identity has no ODT entry.
+    registry_name = getattr(registry_material, "canonical_name", None)
+    if registry_name and lookup_odt_entry(registry_name) is not None:
+        return registry_name
+    return name
+
+
+def lookup_odt_air_ppb(
     name: str, profile: MaterialProfile | None, registry_material=None
 ) -> tuple[float | None, str]:
-    verification = verify_odt(name)
-    data = lookup_odt_entry(name)
+    """Return the air ODT (ppb) the release gate uses, with its source label."""
+    odt_key = odt_lookup_key(name, registry_material)
+    verification = verify_odt(odt_key)
+    data = lookup_odt_entry(odt_key)
     if data is not None:
         odt_air_ppb = data.get("odt_air")
         if odt_air_ppb is not None:
             source_data = verification or data
-            return float(odt_air_ppb) / 1000.0, _odt_source_label(source_data)
+            return float(odt_air_ppb), _odt_source_label(source_data)
     if (
         registry_material is not None
         and getattr(registry_material, "odt_air_ppb", None) is not None
     ):
-        return float(registry_material.odt_air_ppb) / 1000.0, "registry:data_spine.odt_air_ppb"
+        return float(registry_material.odt_air_ppb), "registry:data_spine.odt_air_ppb"
     if profile and profile.odt is not None:
-        return float(profile.odt) / 1000.0, "profile:ingredient_intelligence.odt"
+        return float(profile.odt), "profile:ingredient_intelligence.odt"
     return None, "missing"
+
+
+def _lookup_odt(
+    name: str, profile: MaterialProfile | None, registry_material=None
+) -> tuple[float | None, str]:
+    odt_air_ppb, source = lookup_odt_air_ppb(name, profile, registry_material)
+    return (odt_air_ppb / 1000.0 if odt_air_ppb is not None else None), source
 
 
 def _is_opaque_preblend(name: str, profile: MaterialProfile | None) -> bool:
@@ -876,6 +927,7 @@ def _lookup_composite_headspace(
     total_moles: float,
     *,
     temperature_K: float,  # noqa: N803
+    remaining: Sequence[float] = (),
 ) -> tuple[
     NaturalCompositeHeadspace | None,
     NaturalCompositeMetadata | None,
@@ -899,10 +951,36 @@ def _lookup_composite_headspace(
             active_g,
             total_moles,
             temperature_K=temperature_K,
+            remaining=remaining,
         )
         if composite is not None or metadata is not None:
             return composite, metadata, candidate
     return None, None, ""
+
+
+def natural_composite_volatility(
+    material: MaterialState,
+    temperature_K: float,  # noqa: N803
+) -> NaturalCompositeVolatility | None:
+    """Return constituent evaporation inputs for a row with natural-profile headspace.
+
+    None unless the row's headspace came from a natural constituent profile.
+    The identities are tried in the order the headspace lookup uses.
+    """
+    if material.sources.get("oav_model") != "modeled:natural_constituent_composite":
+        return None
+    candidates = tuple(
+        dict.fromkeys(
+            value
+            for value in (material.canonical_name, material.name)
+            if str(value or "").strip()
+        )
+    )
+    for candidate in candidates:
+        volatility = composite_constituent_volatility(candidate, temperature_K=temperature_K)
+        if volatility is not None:
+            return volatility
+    return None
 
 
 def _composite_supports_canonical_projection(
@@ -957,6 +1035,8 @@ def _composite_replacement_moles_for_row(
     stock_label: str,
     active_g: float,
     parent_moles: float,
+    *,
+    remaining: Sequence[float] = (),
 ) -> float | None:
     """Return a real constituent mole replacement, never a family proxy."""
 
@@ -972,17 +1052,11 @@ def _composite_replacement_moles_for_row(
             candidate,
             active_g,
             parent_moles,
+            remaining=remaining,
         )
         if replacement is not None:
             return float(replacement)
     return None
-
-
-def _first_present(*values):
-    for value, source in values:
-        if value is not None:
-            return value, source
-    return None, "missing"
 
 
 def _concentrate_mole_fractions(
@@ -1141,14 +1215,8 @@ def _build_formula_state_cached(
         profile = identity.profile
         reg_mat = identity.registry_material
 
-        mw, mw_source = _first_present(
-            (getattr(reg_mat, "mw_g_mol", None), "registry:data_spine.mw"),
-            (getattr(profile, "mw", None), "profile:ingredient_intelligence.mw"),
-        )
-        logp, logp_source = _first_present(
-            (getattr(reg_mat, "logp", None), "registry:data_spine.logp"),
-            (getattr(profile, "clogp", None), "profile:ingredient_intelligence.clogp"),
-        )
+        mw, mw_source = resolved_mw_g_mol(identity)
+        logp, logp_source = resolved_logp(identity)
         registry_density = getattr(reg_mat, "density_25c_g_ml", None)
         if registry_density is None:
             density = DEFAULT_DENSITY_G_ML

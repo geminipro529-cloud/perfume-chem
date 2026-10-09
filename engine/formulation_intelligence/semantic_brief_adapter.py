@@ -14,6 +14,7 @@ import hashlib
 import re
 import unicodedata
 from dataclasses import asdict, dataclass, field, replace
+from functools import lru_cache
 from typing import Any, Iterable, Mapping, Sequence
 
 from engine.formulation_intelligence.contracts import EvidenceClass, ProvenanceRef
@@ -100,9 +101,16 @@ class SemanticBrief:
     knowledge_context: dict[str, Any] = field(default_factory=dict)
     architecture_plan: dict[str, Any] = field(default_factory=dict)
     requested_fruits: tuple[str, ...] = ()
+    # Natural-material note words in the request that no facet, fruit or named
+    # material placed. Omitted from as_dict() while empty so existing briefs
+    # keep their payload and design hashes.
+    unmapped_requested_notes: tuple[str, ...] = ()
 
     def as_dict(self) -> dict[str, Any]:
-        return asdict(self)
+        payload = asdict(self)
+        if not self.unmapped_requested_notes:
+            del payload["unmapped_requested_notes"]
+        return payload
 
 
 # The entries below are descriptor-to-capability vocabulary.  They specify no
@@ -130,6 +138,9 @@ _FACETS: tuple[FacetDefinition, ...] = (
     FacetDefinition("animalic_fur", ("animalic", "clean fur", "warm fur", "fur accord", "civet", "castoreum"), ("animalic", "fur", "civet", "castoreum", "costus", "indole"), "base", "modifier", (("animalic", 1.0), ("warmth", .3), ("smoky", .15)), .035, .07),
     FacetDefinition("incense_resin", ("incense", "frankincense", "olibanum", "myrrh", "opoponax", "church", "cathedral", "resin"), ("incense", "olibanum", "frankincense", "myrrh", "opoponax", "resin"), "base", "character", (("smoky", .75), ("woody", .5), ("warmth", .25)), .09, .16),
     FacetDefinition("smoke_char", ("smoke", "smoky", "charred", "ember", "burnt", "ash"), ("smoke", "cade", "birch tar", "guaiacol", "char", "tobacco"), "base", "modifier", (("smoky", 1.0), ("woody", .35)), .035, .07),
+    # Character weights mirror the owned agarwood stock's own descriptors;
+    # share and cap copy leather_suede so no new dose is introduced.
+    FacetDefinition("oud_agarwood", ("oud", "oudh", "aoud", "agarwood"), ("agarwood", "oud"), "base", "character", (("woody", .6), ("smoky", .45), ("animalic", .3), ("warmth", .3)), .065, .12),
     FacetDefinition("leather_suede", ("leather", "suede", "saddle", "book leather"), ("leather", "suede", "isobutyl quinoline", "birch tar", "saffron"), "base", "character", (("woody", .55), ("smoky", .45), ("animalic", .25)), .065, .12),
     FacetDefinition("moss_chypre", ("moss", "mossy", "chypre", "forest moss"), ("moss", "evernyl", "oakmoss", "patchouli", "labdanum"), "base", "structure", (("green", .5), ("woody", .5), ("smoky", .15)), .07, .13),
     FacetDefinition("vanilla_balsam", ("vanilla", "vanillic", "balsamic", "benzoin", "tonka"), ("vanilla", "vanillin", "benzoin", "tonka", "coumarin", "balsam"), "base", "character", (("sweetness", .9), ("warmth", .55), ("creamy", .35)), .075, .14),
@@ -147,15 +158,26 @@ _FACETS: tuple[FacetDefinition, ...] = (
 # measured by the literature pack. Its role distinctions replace the umbrella
 # only when the request actually calls for that profile.
 _LITERATURE_FACETS = {
-    "iris_root": FacetDefinition("iris_root", ("iris", "orris"), ("iris recognizer", "alpha irone", "alpha isomethyl ionone", "iris", "orris"), "heart", "character", (("powdery", .35), ("woody", .35)), .10, .18, "iris recognizer"),
-    "iris_butter": FacetDefinition("iris_butter", ("iris", "orris"), ("iris recognizer", "alpha irone", "orris", "waxy"), "heart", "character", (("powdery", .6), ("creamy", .4)), .10, .18, "iris recognizer"),
-    "iris_cosmetic": FacetDefinition("iris_cosmetic", ("iris", "orris", "lipstick"), ("iris recognizer", "methyl ionone gamma coeur", "alpha isomethyl ionone", "iris", "cosmetic"), "heart", "character", (("powdery", .8), ("floral", .3)), .10, .18, "iris recognizer"),
-    "iris_transparent": FacetDefinition("iris_transparent", ("iris", "orris"), ("iris recognizer", "alpha irone", "alpha isomethyl ionone", "iris"), "heart", "character", (("powdery", .3), ("transparency", .65)), .10, .18, "iris recognizer"),
-    "iris_woody": FacetDefinition("iris_woody", ("iris", "orris"), ("iris recognizer", "methyl ionone gamma coeur", "alpha isomethyl ionone", "iris", "woody"), "heart", "character", (("powdery", .4), ("woody", .6)), .10, .18, "iris recognizer"),
+    "iris_root": FacetDefinition("iris_root", ("iris", "orris"), ("alpha irone", "irone", "orris", "iris recognizer", "alpha isomethyl ionone", "iris"), "heart", "character", (("powdery", .35), ("woody", .35)), .10, .18, "iris recognizer"),
+    "iris_butter": FacetDefinition("iris_butter", ("iris", "orris"), ("alpha irone", "irone", "orris", "iris recognizer", "waxy"), "heart", "character", (("powdery", .6), ("creamy", .4)), .10, .18, "iris recognizer"),
+    "iris_cosmetic": FacetDefinition("iris_cosmetic", ("iris", "orris", "lipstick"), ("alpha irone", "irone", "orris", "iris recognizer", "methyl ionone gamma coeur", "alpha isomethyl ionone", "iris", "cosmetic"), "heart", "character", (("powdery", .8), ("floral", .3)), .10, .18, "iris recognizer"),
+    "iris_transparent": FacetDefinition("iris_transparent", ("iris", "orris"), ("alpha irone", "irone", "orris", "iris recognizer", "alpha isomethyl ionone", "iris"), "heart", "character", (("powdery", .3), ("transparency", .65)), .10, .18, "iris recognizer"),
+    "iris_woody": FacetDefinition("iris_woody", ("iris", "orris"), ("alpha irone", "irone", "orris", "iris recognizer", "methyl ionone gamma coeur", "alpha isomethyl ionone", "iris", "woody"), "heart", "character", (("powdery", .4), ("woody", .6)), .10, .18, "iris recognizer"),
     "violet_petals": FacetDefinition("violet_petals", ("violet",), ("violet petal recognizer", "beta ionone", "alpha ionone", "violet", "petal"), "heart", "character", (("floral", .7), ("powdery", .25)), .10, .18, "violet petal recognizer"),
     "violet_powder": FacetDefinition("violet_powder", ("violet",), ("violet petal recognizer", "beta ionone", "alpha ionone", "violet", "powder"), "heart", "character", (("powdery", .8), ("floral", .4)), .10, .18, "violet petal recognizer"),
     "violet_leaf": FacetDefinition("violet_leaf", ("violet leaf", "violet leaves"), ("violet leaf absolute", "parmavert", "violet leaf", "leaf"), "top", "character", (("green", .8), ("freshness", .3)), .04, .10),
 }
+# Requested identities that descriptor words cannot separate: AIMI and orris
+# both carry "iris", so these name words come from the stock's own identity.
+# "ionone" is a different word, so ionones stay distinct from irone/orris.
+_IRIS_IDENTITY_WORDS = ("irone", "orris")
+FACET_IDENTITY_REQUIREMENTS: dict[str, tuple[str, ...]] = {
+    "oud_agarwood": ("agarwood",),
+    **{facet_id: _IRIS_IDENTITY_WORDS for facet_id in _LITERATURE_FACETS if facet_id.startswith("iris_")},
+    # The umbrella also answers violet-only briefs; see role_identity_requirement.
+    "iris_violet": _IRIS_IDENTITY_WORDS,
+}
+_IRIS_UMBRELLA_QUERY_TERMS = ("alpha irone", "irone", "orris", "iris", "ionone", "violet", "carrot")
 _IRIS_TEXTURE = FacetDefinition("iris_root_texture", ("rooty iris",), ("root texture", "orivone", "earthy orris"), "heart", "texture", (("woody", .25),), .025, .06, "root texture")
 
 
@@ -245,6 +267,9 @@ def _matched_facets(
                 if "iris_root" in knowledge_context.get("profile_ids", ()) and wants_root_texture and not avoids_root_texture:
                     result.append(_IRIS_TEXTURE)
                 continue
+            if facet.facet_id == "iris_violet" and iris_context:
+                result.append(replace(facet, query_terms=_IRIS_UMBRELLA_QUERY_TERMS))
+                continue
             if facet.facet_id == "vetiver_root" and iris_context and not _phrase_present(text_key, "vetiver"):
                 continue
             if facet.facet_id == "green_leaf" and any(item.facet_id == "violet_leaf" for item in result):
@@ -257,6 +282,22 @@ def _matched_facets(
                 continue
             result.append(facet)
     return tuple(result)
+
+
+def role_identity_requirement(role_id: str, request: str = "") -> tuple[str, ...]:
+    """Name words a requested-identity role's stock should carry, if any.
+
+    The umbrella iris/violet facet carries the iris requirement only when the
+    request literally names iris or orris, so violet-only briefs are unchanged.
+    """
+    if not role_id.startswith("facet_"):
+        return ()
+    facet_id = role_id[len("facet_") :]
+    if facet_id == "iris_violet" and not any(
+        _phrase_present(f" {_key(request)} ", term) for term in ("iris", "orris")
+    ):
+        return ()
+    return FACET_IDENTITY_REQUIREMENTS.get(facet_id, ())
 
 
 _FRUIT_NAMES = (
@@ -284,6 +325,63 @@ def _mask_avoided_phrases(text: str, avoid: Sequence[str]) -> str:
             continue
         masked = re.sub(rf"(?<!\w){re.escape(raw)}(?!\w)", " ", masked)
     return _clean(masked)
+
+
+_NATURAL_NAME_ENDING = re.compile(
+    r"^(.*?) (?:eo|oil|absolute|abs|resinoid|concrete|co2|tincture|extract)(?: |$)"
+)
+_GRADE_WORDS = re.compile(r"\b(?:distilled|terpeneless|fcf|essential|expressed)\b")
+
+
+@lru_cache(maxsize=1)
+def _natural_note_vocabulary() -> tuple[str, ...]:
+    """Natural-material name stems, longest first ("Vetiver EO" -> "vetiver").
+
+    Request-word vocabulary only: a stem here says a user may name this note,
+    not that any stock reproduces it.
+    """
+    from engine.ingredient_intelligence import _PROFILES
+    from engine.name_utils import _ALIASES
+
+    names = {*map(str, _PROFILES), *map(str, _ALIASES), *map(str, _ALIASES.values())}
+    stems: set[str] = set()
+    for name in names:
+        text = _key(re.sub(r"\([^)]*\)", " ", name))
+        text = " ".join(_GRADE_WORDS.sub(" ", text).split())
+        match = _NATURAL_NAME_ENDING.match(text)
+        if match and match.group(1).strip():
+            stems.add(match.group(1).strip())
+    return tuple(sorted(stems, key=lambda stem: (-len(stem), stem)))
+
+
+def _unmapped_requested_notes(
+    text: str,
+    facets: Sequence[FacetDefinition],
+    requested_fruits: Sequence[str],
+    explicit_materials: Sequence[str],
+) -> tuple[str, ...]:
+    """Name natural-note words the request holds that no placed term covers.
+
+    Every facet trigger is masked, matched or not: a trigger absent from the
+    result was either covered by a more specific facet or avoided, and the
+    text here is already avoid-masked.
+    """
+    masked = f" {_key(text)} "
+    covered = [
+        *(trigger for facet in (*_FACETS, *_LITERATURE_FACETS.values(), _IRIS_TEXTURE) for trigger in facet.triggers),
+        *(term for facet in facets for term in facet.query_terms),
+        *requested_fruits,
+        *explicit_materials,
+        *(trigger for triggers, _ in _QUALIFIER_WEIGHTS for trigger in triggers),
+    ]
+    for phrase in sorted({_key(item) for item in covered if _key(item)}, key=len, reverse=True):
+        masked = re.sub(rf"(?<= ){re.escape(phrase)}(?= )", " ", masked)
+    found: list[str] = []
+    for stem in _natural_note_vocabulary():
+        if _phrase_present(masked, stem):
+            found.append(stem)
+            masked = re.sub(rf"(?<= ){re.escape(stem)}(?= )", " ", masked)
+    return tuple(found)
 
 
 def _qualifier_weights(text: str, avoid: Sequence[str]) -> tuple[tuple[str, float], ...]:
@@ -1047,12 +1145,16 @@ def compile_semantic_brief(
         target_intent=target_intent.as_dict(),
         knowledge_context=knowledge_context,
         requested_fruits=requested_fruits,
+        unmapped_requested_notes=_unmapped_requested_notes(
+            positive_semantic_text, facets, requested_fruits, explicit
+        ),
     )
 
 
 __all__ = [
     "ACCENT_MAX_RAW_SHARE",
     "ACCENT_PROVENANCE",
+    "FACET_IDENTITY_REQUIREMENTS",
     "LAYER_MAX_RAW_SHARE",
     "LAYER_PROVENANCE",
     "FacetDefinition",
@@ -1060,4 +1162,5 @@ __all__ = [
     "SemanticRole",
     "accord_lead_role_id",
     "compile_semantic_brief",
+    "role_identity_requirement",
 ]
