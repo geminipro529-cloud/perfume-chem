@@ -9,6 +9,7 @@ from typing import Any, TypeAlias, cast
 from engine.inventory_completions import (
     InventoryCompletionConflictError,
     InventoryCompletionError,
+    authority_disagreement,
     effective_design_ready,
     inventory_completion_requirements,
     record_inventory_completion,
@@ -211,6 +212,8 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
                 ),
                 "completion_event_sha256": stock.completion_event_sha256 or None,
                 "completion_source_ref": stock.completion_source_ref or None,
+                # RULE 0: the Stock page entry wins; say what the workbook said.
+                "authority_disagreement": authority_disagreement(stock),
                 "execution_ready": stock.execution_ready,
                 "execution_hold_reason": stock.execution_hold_reason or None,
                 "authority": stock.authority,

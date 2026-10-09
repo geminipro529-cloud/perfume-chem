@@ -405,6 +405,50 @@ async def test_inventory_details_can_be_completed_without_physical_authority(cli
 
 
 @pytest.mark.asyncio
+async def test_stock_page_row_shows_where_an_entry_differs_from_the_workbook(client):
+    # RULE 0 (review finding S2): the entry wins, and its row says what the
+    # workbook said instead of quietly replacing it.
+    inventory = (await client.get("/api/v1/lab/v2/workbench/current-inventory")).json()
+    stock = next(
+        item
+        for item in inventory["stocks"]
+        if item["identity_name"] == "Hedione" and item["source_class"] == "GOVERNED_STOCK"
+    )
+    assert stock["authority_disagreement"] is None
+    response = await client.post(
+        "/api/v1/lab/v2/workbench/current-inventory/complete",
+        json={
+            "schema_version": "personal-inventory-completion-request-v1",
+            "stock_id": stock["stock_id"],
+            "expected_effective_inventory_sha256": inventory[
+                "canonical_effective_inventory_sha256"
+            ],
+            "idempotency_key": "ui-hedione-50-dpg",
+            "fraction_percent_decimal": "50",
+            "fraction_basis": "mass_fraction",
+            "carrier": "DPG",
+            "physical_form": "solution",
+            "possession_confirmed": True,
+            "homogeneity": "HOMOGENEOUS",
+            "final_fraction_known": True,
+            "source_kind": "USER_LABEL_OR_RECIPE",
+            "user_note": "",
+        },
+    )
+    assert response.status_code == 200
+    after = (await client.get("/api/v1/lab/v2/workbench/current-inventory")).json()
+    updated = next(item for item in after["stocks"] if item["stock_id"] == stock["stock_id"])
+    assert updated["fraction_decimal"] == "0.5"
+    disagreement = updated["authority_disagreement"]
+    assert disagreement["text"] == "Differs from the workbook: workbook says neat"
+    assert disagreement["stock_page"].casefold() == "50% w/w in dpg"
+
+    javascript = await client.get("/static/lab.js")
+    assert "rows[index]?.authority_disagreement?.text" in javascript.text
+    assert "note.textContent = disagreement;" in javascript.text
+
+
+@pytest.mark.asyncio
 async def test_formula_studio_ui_exposes_inventory_and_conversation(client):
     page = await client.get("/app")
     css = await client.get("/static/lab.css")

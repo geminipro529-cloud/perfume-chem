@@ -18,8 +18,8 @@ from engine.inventory_completions import (
     record_inventory_completion,
 )
 from engine.inventory_parser import is_user_compounding_held, materialize_current_inventory
-from engine.pipeline.gates import _stock_issue_data_request
 from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.gates import _stock_issue_data_request
 from engine.pipeline.preflight import (
     build_formula_dose_receipt,
     resolve_inventory_stock_contract,

@@ -152,6 +152,14 @@ function renderProjectInventory(filter = "") {
       </article>`;
     }).join("")
     : '<p class="empty">No current inventory entries match that search.</p>';
+  $$("#project-inventory-list .inventory-item").forEach((article, index) => {
+    const disagreement = rows[index]?.authority_disagreement?.text;
+    if (!disagreement) return;
+    const note = document.createElement("small");
+    note.className = "inventory-authority-differs";
+    note.textContent = disagreement;
+    article.querySelector(".inventory-source").after(note);
+  });
 }
 
 async function refresh() {
