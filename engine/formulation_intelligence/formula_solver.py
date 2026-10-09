@@ -90,6 +90,7 @@ def _role_spec(role: SemanticRole) -> RoleSpec:
         descriptor_weights=role.character_weights,
         exact_preference_required=role.exact_material is not None,
         max_raw_share=role.max_raw_share,
+        serves_requested_facet=_is_named_note(role),
     )
 
 
@@ -299,15 +300,19 @@ def _route_spare_volume(
         and _hard_cap_ul(choices[index].candidate, liquid_total_ul) is None
         for index in free
     )
+    # The planner releases screening defaults (named notes first) when they
+    # leave the total unfillable, so they must not raise the bridge cap.
     bridge_caps = {
-        index: _design_cap_ul(adjusted[index], liquid_total_ul) or liquid_total_ul
+        index: _design_cap_ul(adjusted[index], liquid_total_ul, screening_default=False)
+        or liquid_total_ul
         for index in free
         if assignments[index].role.provenance in _BRIDGE_PROVENANCE
     }
     if not bridge_caps or not named_open:
         return tuple(adjusted)
     other_capacity = sum(
-        _design_cap_ul(adjusted[index], liquid_total_ul) or liquid_total_ul
+        _design_cap_ul(adjusted[index], liquid_total_ul, screening_default=False)
+        or liquid_total_ul
         for index in free
         if index not in bridge_caps
     )

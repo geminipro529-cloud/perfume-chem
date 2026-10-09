@@ -49,7 +49,11 @@ from engine.research.commercial_references import (
     resolve_documentary_references,
 )
 from engine.research.contracts import FALSE_ACTION_AUTHORITY, stable_payload_hash
-from engine.research.normal_use_ceilings import NormalUseCeiling, match_normal_use_ceiling
+from engine.research.normal_use_ceilings import (
+    NormalUseCeiling,
+    match_normal_use_ceiling,
+    match_screening_default,
+)
 from engine.research.request_interpretation import (
     RequestInterpretationInputV1,
     interpret_request,
@@ -115,6 +119,9 @@ class RoleSpec:
     descriptor_weights: tuple[tuple[str, float], ...] = ()
     exact_preference_required: bool = False
     max_raw_share: float | None = None
+    # The row carries a note the brief names (a requested facet, its accord
+    # support, or an exact material); such rows never get a screening default.
+    serves_requested_facet: bool = False
 
 
 @dataclass(frozen=True, slots=True)
@@ -1428,15 +1435,48 @@ def _normal_use_ceiling_cap_ul(candidate: Candidate, liquid_total_ul: int) -> in
     return _active_fraction_cap_ul(candidate, ceiling.max_active_fraction, liquid_total_ul)
 
 
-def _design_cap_ul(choice: Choice, liquid_total_ul: int) -> int | None:
+def _screening_default(choice: Choice, liquid_total_ul: int) -> NormalUseCeiling | None:
+    """The project screening default for a row nobody has researched.
+
+    Only a row with no ceiling row and no identity hard cap gets one, and
+    never a row that carries a note the brief names (the name leads) or a
+    functional carrier such as Benzyl Benzoate (a carrier, not an odorant dose).
+    """
+
+    role = choice.role
+    if role.serves_requested_facet or role.exact_preference_required:
+        return None
+    candidate = choice.candidate
+    if _key(candidate.stock.identity_name or candidate.stock.name) in _DESIGN_FUNCTIONAL_CARRIERS:
+        return None
+    if _normal_use_ceiling(candidate) is not None or _hard_cap_ul(candidate, liquid_total_ul) is not None:
+        return None
+    return match_screening_default(_candidate_identity_probe(candidate))
+
+
+def _screening_default_cap_ul(choice: Choice, liquid_total_ul: int) -> int | None:
+    default = _screening_default(choice, liquid_total_ul)
+    if default is None:
+        return None
+    return _active_fraction_cap_ul(choice.candidate, default.max_active_fraction, liquid_total_ul)
+
+
+def _design_cap_ul(
+    choice: Choice, liquid_total_ul: int, *, screening_default: bool = True
+) -> int | None:
     """Return a conservative bench-design cap, never a safety limit.
 
     The cap is the lower of the identity hard cap (or, without one, the role
-    cap) and the material's normal-use ceiling.
+    cap and any screening default) and the material's normal-use ceiling.
+    ``screening_default=False`` leaves the soft screening default out, for
+    callers that plan around the caps the planner never releases.
     """
 
     hard = _hard_cap_ul(choice.candidate, liquid_total_ul)
     base = hard if hard is not None else _role_cap_ul(choice, liquid_total_ul)
+    default = _screening_default_cap_ul(choice, liquid_total_ul) if screening_default else None
+    if default is not None:
+        base = min(base, default)
     ceiling = _normal_use_ceiling_cap_ul(choice.candidate, liquid_total_ul)
     return base if ceiling is None else min(base, ceiling)
 
@@ -1506,12 +1546,21 @@ def _allocate_with_bulk_fallback(
 ) -> dict[int, int]:
     """Allocate within every cap; if that cannot fill the total, release soft role caps.
 
-    Normal-use ceilings and trace caps can leave too little room.  The spare
-    space goes first to volume and structure rows, then to other rows whose
-    role has no explicit restraint share (such as a 3% contrast accent).  A
-    ceiling or trace cap is never exceeded; if no row can take the space this
-    still raises ValueError and the design is withheld.  Each row pushed past
-    its role cap is named in a ROLE_CAP_EXCEEDED_TO_FILL_TOTAL hold.
+    Normal-use ceilings, trace caps and screening defaults can leave too
+    little room.  The spare space goes first to the rows that carry a note the
+    brief names (the name leads), then to volume and structure rows, then to
+    other rows whose role has no explicit restraint share (such as a 3%
+    contrast accent).  A ceiling or trace cap is never exceeded; if no row can
+    take the space this still raises ValueError and the design is withheld.
+    Each row pushed past its role cap is named in a
+    ROLE_CAP_EXCEEDED_TO_FILL_TOTAL hold.
+
+    A screening default is soft like a role cap and released with the volume
+    and structure stages.  If the rows are still short, a last stage drops the
+    screening defaults of the remaining rows, so a design that fills without
+    them is never withheld because of them.  Each row pushed past its
+    screening default is named in a SCREENING_DEFAULT_EXCEEDED_TO_FILL_TOTAL
+    hold instead of the role-cap one.
     """
 
     try:
@@ -1525,29 +1574,63 @@ def _allocate_with_bulk_fallback(
         or _normal_use_ceiling_cap_ul(choices[index].candidate, liquid_total_ul) is not None
     }
 
+    named = {
+        index
+        for index, _weight, _cap in free_rows
+        if index not in firm and choices[index].role.serves_requested_facet
+    }
+
     def releasable(index: int, stage: int) -> bool:
         role = choices[index].role
         if index in firm:
+            return False
+        if index in named:
+            return True
+        if stage == 0:
             return False
         if role.function in {"volume", "structure"}:
             return True
         return stage == 2 and role.max_raw_share is None
 
+    defaults = {
+        index: default
+        for index, _weight, _cap in free_rows
+        if index not in firm
+        and (default := _screening_default_cap_ul(choices[index], liquid_total_ul)) is not None
+    }
+
+    def without_default(index: int, cap: int | None) -> int | None:
+        # The cap the row would have had without its screening default.
+        if index not in defaults:
+            return cap
+        return _role_cap_ul(choices[index], liquid_total_ul)
+
+    stages = ((0,) if named else ()) + (1, 2) + ((3,) if defaults else ())
     allocated: dict[int, int] = {}
-    for stage in (1, 2):
+    for stage in stages:
         relaxed = [
-            (index, weight, None if releasable(index, stage) else cap)
+            (
+                index,
+                weight,
+                None
+                if releasable(index, min(stage, 2))
+                else (without_default(index, cap) if stage == 3 else cap),
+            )
             for index, weight, cap in free_rows
         ]
         try:
             allocated = _allocate_capped(total, relaxed)
             break
         except ValueError:
-            if stage == 2:
+            if stage == stages[-1]:
                 raise
     for index, _weight, cap in free_rows:
-        if index not in firm and cap is not None and allocated.get(index, 0) > cap:
-            holds.append(f"ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:{choices[index].candidate.stock.stock_id}")
+        amount = allocated.get(index, 0)
+        stock_id = choices[index].candidate.stock.stock_id
+        if index in defaults and amount > defaults[index]:
+            holds.append(f"SCREENING_DEFAULT_EXCEEDED_TO_FILL_TOTAL:{stock_id}")
+        elif index not in firm and cap is not None and amount > cap:
+            holds.append(f"ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:{stock_id}")
     return allocated
 
 
@@ -1792,8 +1875,13 @@ def _formula_rows(
             }
         )
         ceiling = _normal_use_ceiling(candidate)
+        if ceiling is None and not candidate.solid:
+            ceiling = _screening_default(choice, liquid_total_ul)
         if ceiling is not None:
             rows[-1]["normal_use_ceiling_pct_of_concentrate"] = ceiling.max_active_pct_of_concentrate
+            rows[-1]["normal_use_ceiling_kind"] = ceiling.kind
+            if ceiling.label:
+                rows[-1]["normal_use_ceiling_label"] = ceiling.label
     if liquid_sum != liquid_total_ul:
         raise AssertionError("liquid allocation failed exact conservation")
     return rows, {"liquid_total_ul": str(liquid_sum), "mass_total_mg": str(mass_sum)}, sorted(set(holds))

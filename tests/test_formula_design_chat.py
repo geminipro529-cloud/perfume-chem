@@ -392,7 +392,18 @@ def test_formula_design_honors_exact_crystal_mass_and_separate_liquid_total() ->
         max_materials=18,
     )
 
-    assert result["status"] == "INVENTORY_GROUNDED_DESIGN_READY"
+    # Six liquid rows fill the 6000 uL, so a row may pass its bench-design cap
+    # (screening default or role cap) and be named for it; nothing else holds.
+    assert result["status"] in {
+        "INVENTORY_GROUNDED_DESIGN_READY",
+        "INVENTORY_GROUNDED_DESIGN_READY_WITH_HOLDS",
+    }
+    assert all(
+        str(issue).startswith(
+            ("SCREENING_DEFAULT_EXCEEDED_TO_FILL_TOTAL:", "ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:")
+        )
+        for issue in result["critic"]["issues"]
+    )
     solid = next(row for row in result["optimized_formula"]["rows"] if row["amount_unit"] == "mg")
     assert solid["identity_name"] == "Ambrox Super"
     assert solid["amount_decimal"] == "180"
