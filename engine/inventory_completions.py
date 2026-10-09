@@ -100,18 +100,20 @@ COMPLETION_HOLD_DISPOSITIONS: dict[str, tuple[bool, str]] = {
         "extracted solids are not a form field",
     ),
     "VISIBLE_CRYSTALS_LIQUID_PHASE_STRENGTH_UNKNOWN": (False, "a phase problem, not a label fact"),
-    "BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING": (False, "lot and label receipt are not form fields"),
+    # AGENTS.md RULE 6: lots and receipts are not needed to compute a formula;
+    # Kenny confirming the bottle and its strength on the Stock page is.
+    "BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING": (True, "RULE 6: a lot or label receipt is not needed"),
     "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING": (
-        False,
-        "lot and preparation receipts are not form fields",
+        True,
+        "RULE 6: the confirmed strength, basis and carrier replace the receipts",
     ),
     "PREPARATION_QUANTITIES_DATE_AND_LOTS_MISSING": (
-        False,
-        "preparation quantities, date and lots are not form fields",
+        True,
+        "RULE 6: the confirmed strength, basis and carrier replace the preparation record",
     ),
     "LOT_PURCHASE_SOURCE_AND_LABEL_RECEIPT_MISSING": (
-        False,
-        "lot, purchase source and label receipt are not form fields",
+        True,
+        "RULE 6: a lot, purchase source or label receipt is not needed",
     ),
     "LEGACY_TEXT_CURRENT_STOCK_HOLD": (False, "a legacy-text conflict, not a missing fact"),
     "USER_COMPOUNDING_HOLD": (False, "the user's exclusion; only an explicit clearance lifts it"),

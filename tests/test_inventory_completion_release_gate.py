@@ -91,13 +91,16 @@ def test_completion_with_unspecified_basis_leaves_stock_held(completion_log) -> 
     assert _stock_issue_reasons("Vertofix Coeur", 0.1) == ["inventory_stock_non_executable"]
 
 
-def test_lot_receipt_hold_survives_a_complete_stock_page_entry(completion_log) -> None:
+def test_lot_receipt_hold_clears_with_a_complete_stock_page_entry(completion_log) -> None:
+    # AGENTS.md RULE 6: a lot or label receipt is not needed to compute a formula.
+    assert _stock_issue_reasons("Cedrat FCF Sicilian", 1.0) == ["inventory_stock_non_executable"]
+
     _receipt, stock = _complete("Cedrat FCF Sicilian", "cedrat-neat")
 
     assert stock.design_ready is True
-    assert stock.execution_ready is False
-    assert stock.execution_hold_reason == "BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING"
-    assert _stock_issue_reasons("Cedrat FCF Sicilian", 1.0) == ["inventory_stock_non_executable"]
+    assert stock.execution_ready is True
+    assert stock.execution_hold_reason == ""
+    assert _stock_issue_reasons("Cedrat FCF Sicilian", 1.0) == []
 
 
 def test_unnamed_hold_clears_only_when_basis_or_carrier_was_missing(completion_log) -> None:
@@ -160,6 +163,6 @@ def test_hold_text_for_clearable_reasons_points_to_the_stock_page() -> None:
     request = _stock_issue_data_request(issue)
     assert request == "on the Lab app's Stock page, fill in the strength, basis and carrier"
     kept = _stock_issue_data_request(
-        {**issue, "execution_holds": ["BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING"]}
+        {**issue, "execution_holds": ["TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED"]}
     )
-    assert kept == "record the bottle lot and label receipt"
+    assert kept == "record the tincture percentage basis and extracted solids"
