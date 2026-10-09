@@ -24,6 +24,26 @@ def _owned_stocks():
 def test_no_two_owned_stocks_share_a_display_name() -> None:
     counts = Counter(stock.name.casefold() for stock in _owned_stocks())
     assert [name for name, count in counts.items() if count > 1] == []
+    # The Stock page and the composer read the personal projection, which adds
+    # inventory.txt lines and personal additions to the governed stocks.
+    personal = Counter(
+        stock.name.casefold()
+        for stock in materialize_personal_inventory().stocks
+        if stock.status.casefold() == "owned"
+    )
+    assert [name for name, count in personal.items() if count > 1] == []
+
+
+def test_stock_label_check_reads_the_label_as_written() -> None:
+    by_id = {stock.stock_id: stock for stock in materialize_personal_inventory().stocks}
+    # V5 names "Allyl Ionone 10%" a neat bottle and inventory.txt has no
+    # Allyl Ionone line, so the governed stock stays out of the projection.
+    assert "inventory:v5:629b084e9d9542accfb7" not in by_id
+    # V5 names "Isoeugenol 10%" a neat bottle, but inventory.txt lists
+    # Isoeugenol (neat), which confirms the stored strength.
+    isoeugenol = by_id["inventory:v5:1395228f45438ea9fe58"]
+    assert (isoeugenol.name, isoeugenol.dilution) == ("Isoeugenol (neat)", 1.0)
+    assert isoeugenol.execution_ready is True
 
 
 def test_every_percentage_in_a_stock_name_equals_its_stored_dilution() -> None:

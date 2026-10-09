@@ -291,6 +291,9 @@ class InventoryMaterial:
     # When a Stock page completion changed the strength, basis or carrier,
     # the overlay/V5 authority's (dilution, fraction_basis, carrier) values.
     authority_facts_differ: tuple[tuple[str, Any], ...] = ()
+    # The name as the source wrote it, set only when the display ``name`` was
+    # derived from the stored strength (see ``assign_stock_display_names``).
+    source_name: str = ""
 
 
 @dataclass(frozen=True)
@@ -5813,7 +5816,7 @@ def _materialize_current_inventory_uncached(
                 f"{materialized.effective_inventory_sha256}|{hold_sha}".encode("utf-8")
             ).hexdigest(),
         )
-    return replace(materialized, stocks=_strength_display_names(materialized.stocks))
+    return replace(materialized, stocks=assign_stock_display_names(materialized.stocks))
 
 
 _NAME_PERCENT_RE = re.compile(r"(?<![\d.,])(\d+(?:[.,]\d+)?)\s*%")
@@ -5828,56 +5831,108 @@ def _strength_label(dilution: float) -> str:
     return f"{dilution * 100:.6g}%"
 
 
-def _strength_display_names(
+_BASIS_LABELS = {"mass_fraction": "w/w", "volume_fraction": "v/v"}
+_DISPLAY_NAME_LEVELS = 3  # strength, then + basis, then + carrier
+
+
+def stock_name_states_stored_strength(stock: InventoryMaterial) -> bool:
+    """True when every percentage in ``stock.name`` equals the stored dilution."""
+
+    return all(
+        abs(float(value.replace(",", ".")) / 100.0 - float(stock.dilution)) <= 1e-9
+        for value in _NAME_PERCENT_RE.findall(stock.name)
+    )
+
+
+def _derived_display_name(stock: InventoryMaterial, level: int) -> str:
+    base = _TRAILING_STRENGTHS_RE.sub("", stock.identity_name or stock.name).strip()
+    label = f"{base} {_strength_label(float(stock.dilution))}"
+    basis = _BASIS_LABELS.get(stock.fraction_basis, "")
+    if level >= 1 and basis:
+        label += f" {basis}"
+    if level >= 2 and stock.carrier:
+        label += f" in {stock.carrier.upper()}"
+    return label
+
+
+def assign_stock_display_names(
     stocks: tuple[InventoryMaterial, ...],
 ) -> tuple[InventoryMaterial, ...]:
-    """Rename stocks whose name states a wrong strength or names another bottle.
+    """Give each owned bottle its own display name, changing as few as possible.
 
-    Only ``name`` changes. A name keeps its text when every percentage in it
-    equals the stored dilution and no other stock carries the same name;
-    otherwise it becomes ``<identity> <stored strength>`` (carrier added only
-    when that still collides), so one name always means one bottle.
+    * A Stock page entry (a completion, a personal addition or a prepared
+      dilution) keeps the name and strength it was recorded with.
+    * A prepared dilution never renames an existing stock, so it takes no part
+      in collisions.
+    * Any other stock keeps its name unless the name states a strength other
+      than the stored one, or another owned stock carries the same name.
+    * A renamed stock becomes ``<identity> <strength>``; while that still
+      collides, the basis (w/w, v/v) and then the carrier are added.  Names
+      that still collide after that raise ``ValueError``.
+
+    Only ``name`` changes; ``source_name`` keeps the name as first written.
     """
 
-    counts = Counter(stock.name.casefold() for stock in stocks)
+    from engine.inventory_dilutions import PREPARED_DILUTION_AUTHORITY
 
-    def truthful(stock: InventoryMaterial) -> bool:
-        return all(
-            abs(float(value.replace(",", ".")) / 100.0 - float(stock.dilution)) <= 1e-9
-            for value in _NAME_PERCENT_RE.findall(stock.name)
-        )
-
-    def derived(stock: InventoryMaterial, *, with_carrier: bool) -> str:
-        base = _TRAILING_STRENGTHS_RE.sub("", stock.identity_name or stock.name).strip()
-        label = f"{base} {_strength_label(float(stock.dilution))}"
-        if with_carrier and stock.carrier:
-            label += f" in {stock.carrier.upper()}"
-        return label
-
-    keep = {
+    owned = [stock.status.casefold() == "owned" for stock in stocks]
+    prepared = {
         index
         for index, stock in enumerate(stocks)
-        if counts[stock.name.casefold()] == 1 and truthful(stock)
+        if stock.authority == PREPARED_DILUTION_AUTHORITY
     }
-    taken = {stocks[index].name.casefold() for index in keep}
-    renamed: list[InventoryMaterial] = []
-    for index, stock in enumerate(stocks):
-        if index in keep:
-            renamed.append(stock)
-            continue
-        siblings = [
-            other
-            for position, other in enumerate(stocks)
-            if position != index
-            and position not in keep
-            and derived(other, with_carrier=False).casefold()
-            == derived(stock, with_carrier=False).casefold()
+    recorded = prepared | {
+        index for index, stock in enumerate(stocks) if stock.completion_event_sha256
+    }
+    counts = Counter(
+        stock.name.casefold()
+        for index, stock in enumerate(stocks)
+        if owned[index] and index not in prepared
+    )
+    rename = [
+        index
+        for index, stock in enumerate(stocks)
+        if index not in recorded
+        and (
+            not stock_name_states_stored_strength(stock)
+            or (owned[index] and counts[stock.name.casefold()] > 1)
+        )
+    ]
+    settled = {
+        stock.name.casefold()
+        for index, stock in enumerate(stocks)
+        if owned[index] and index not in prepared and index not in rename
+    }
+    level = dict.fromkeys(rename, 0)
+    while True:
+        names = {index: _derived_display_name(stocks[index], level[index]) for index in rename}
+        derived_counts = Counter(
+            names[index].casefold() for index in rename if owned[index]
+        )
+        clashes = [
+            index
+            for index in rename
+            if owned[index]
+            and (
+                names[index].casefold() in settled
+                or derived_counts[names[index].casefold()] > 1
+            )
         ]
-        name = derived(stock, with_carrier=bool(siblings))
-        if name.casefold() in taken:
-            raise ValueError(f"inventory display name is not unique: {name!r}")
-        taken.add(name.casefold())
-        renamed.append(replace(stock, name=name))
+        escalate = [index for index in clashes if level[index] < _DISPLAY_NAME_LEVELS - 1]
+        if not escalate:
+            break
+        for index in escalate:
+            level[index] += 1
+    if clashes:
+        raise ValueError(
+            f"inventory display name is not unique: {names[clashes[0]]!r}"
+        )
+    renamed = list(stocks)
+    for index in rename:
+        stock = stocks[index]
+        renamed[index] = replace(
+            stock, name=names[index], source_name=stock.source_name or stock.name
+        )
     return tuple(renamed)
 
 
