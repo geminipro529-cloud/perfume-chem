@@ -24,6 +24,7 @@ from engine.formulation_intelligence.semantic_brief_adapter import (
     SemanticBrief,
     SemanticRole,
     accord_lead_role_id,
+    role_identity_requirement,
 )
 from engine.research.composition_planner import (
     Choice,
@@ -620,6 +621,7 @@ def _unary_rank_for_role(
     prior_variant_stock_ids: frozenset[str],
     variant_index: int,
     enforce_own_odor_avoid: bool = False,
+    request: str = "",
 ) -> list[tuple[float, MaterialCapability]]:
     ranked: list[tuple[float, MaterialCapability]] = []
     for capability in index.capabilities:
@@ -650,6 +652,18 @@ def _unary_rank_for_role(
             score -= 1.35 + .25 * variant_index
         score += _stable_tie(role.role_id, capability.stock_id, variant_index)
         ranked.append((score, capability))
+    required_words = role_identity_requirement(role.role_id, request)
+    if required_words and role.exact_material is None:
+        # A requested identity (oud, iris) is answered by a stock whose own
+        # name carries it whenever one is selectable; descriptor overlap alone
+        # cannot separate orris from an ionone.  Held stocks are not design
+        # ready, so they never satisfy this, and the fallback is unchanged.
+        named = [
+            row for row in ranked
+            if row[1].design_ready and row[1].identity_vocabulary & set(required_words)
+        ]
+        if named:
+            ranked = named
     ranked.sort(
         key=lambda row: (
             -row[0],
@@ -768,6 +782,7 @@ def _solve_assignments(
             prior_variant_stock_ids=prior_variant_stock_ids,
             variant_index=variant_index,
             enforce_own_odor_avoid=enforce_own_odor_avoid,
+            request=brief.normalized_request,
         )
         for role in brief.roles
     }
