@@ -9,7 +9,7 @@ import pytest
 from engine import ingredient_intelligence as ii
 from engine.formulation_intelligence import pleasantness_table as pt
 
-HAND_DERIVED = ("hedonic_model_table", "profile_override", "profile_direct", "character_heuristic")
+HAND_DERIVED = ("hedonic_model_table", "profile_override", "profile_direct")
 
 
 @pytest.fixture(scope="module")
@@ -69,6 +69,23 @@ def test_hand_values_follow_the_stored_calibration(table):
             assert entry["value"] == pytest.approx(expected, abs=1e-4), name
 
 
+def test_character_word_heuristic_values_are_unknown(table):
+    """They ran r = -0.22 against the panel, so they are kept for audit only."""
+    assert table["counts"].get("character_heuristic") is None
+    assert "character_heuristic" not in table["calibration"]["applied_to"]
+    heuristic = [n for n, e in table["materials"].items() if e.get("reason", "").startswith("character-word")]
+    assert len(heuristic) == 91
+    for name in heuristic:
+        entry = table["materials"][name]
+        assert entry["value"] is None and entry["source"] == "unknown", name
+        assert entry["raw_value"] != 0, name
+        assert pt.crowd_pleasantness(name) is None
+    bergamot = table["materials"]["Bergamot EO"]
+    assert bergamot["reason"] == "character-word heuristic; r = -0.22 against the panel, n = 18"
+    assert bergamot["raw_value"] == pytest.approx(0.24)
+    assert pt.crowd_pleasantness("Bergamot EO") is None
+
+
 def test_vanillin_is_panel_sourced_and_beta_ionone_drops_when_strong(table):
     vanillin = pt.crowd_pleasantness("Vanillin")
     assert vanillin.source == "keller_vosshall_2016"
@@ -84,7 +101,6 @@ def test_vanillin_is_panel_sourced_and_beta_ionone_drops_when_strong(table):
     ("raw", "expected"),
     [
         ("Indole (10%)", "Indole"),  # inventory.txt line
-        ("Cade Oil Rectified (1% in DPG)", "Cade Oil Rectified"),  # inventory.txt line
         ("Eugenol 10% in DPG", "Eugenol"),
         ("Eugenol (10% in DPG)", "Eugenol"),
         ("eugenol", "Eugenol"),
@@ -95,6 +111,12 @@ def test_inventory_style_names_resolve(raw, expected):
     value = pt.crowd_pleasantness(raw)
     assert value is not None
     assert value.material == expected
+
+
+def test_inventory_line_of_a_now_unknown_material_still_resolves():
+    # Cade's only value was a character-word heuristic, so it resolves but has no value.
+    assert pt._resolve("Cade Oil Rectified (1% in DPG)") == "Cade Oil Rectified"  # inventory.txt line
+    assert pt.crowd_pleasantness("Cade Oil Rectified (1% in DPG)") is None
 
 
 def test_unknown_name_returns_none():
