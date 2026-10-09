@@ -9,12 +9,7 @@
     "Ambrox Super / Ambrofix": "only supplier averages (0.1%) and an unclear-basis range; usually weighed as crystals.",
     "Vanillin, Ethyl Vanillin, Maltol, Methyl Salicylate, Phenyl Acetaldehyde, Manzanate": "only Fraterworks averages, no stated maximum.",
     "Calone, Ethyl 2-Methylbutyrate": "the only figures have an unclear basis (fine fragrance may mean the finished product).",
-    "Damascol": "the only figure in the research files is Good Scents' 5% for CAS 4927-36-0, which Good Scents names pepper hexanone (5-methyl-5-phenylhexan-3-one, MW 190.3); the project records Damascol as a rose-plum damascone alcohol (MW 194.3), so the figure is not used. The composer applies the screening default instead.",
-    "Patchouli EO": "Good Scents has several patchouli pages; the 10% figure could not be tied to one oil.",
-    "Safraleine": "no use-level source in the research files (normal_use_sources_A-D.csv). The composer applies the screening default instead.",
-    "Florhydral": "no use-level source in the research files (normal_use_sources_A-D.csv). The composer applies the screening default instead.",
-    "Paradisamide": "no use-level source in the research files (normal_use_sources_A-D.csv). The composer applies the screening default instead.",
-    "Carrot Seed EO": "no use-level source in the research files (normal_use_sources_A-D.csv). The composer applies the screening default instead."
+    "Patchouli EO": "Good Scents has several patchouli pages; the 10% figure could not be tied to one oil."
   },
   "materials": [
     {
@@ -768,6 +763,99 @@
           "max_pct_of_concentrate": 10.0,
           "quote": "Recommendation for grapefruit acetal usage levels up to: 10.0000 % in the fragrance concentrate.",
           "url": "https://www.thegoodscentscompany.com/data/rw1042632.html"
+        }
+      ]
+    },
+    {
+      "material": "Safraleine",
+      "match": [
+        "safraleine"
+      ],
+      "max_active_pct_of_concentrate": 3,
+      "note": "Set by the highest supplier maximum (The Good Scents Company). CAS 54440-17-4 (2,3,3-trimethylinden-1-one); Good Scents lists it as saffron indenone.",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 3.0,
+          "quote": "Recommendation for saffron indenone usage levels up to: 3.0000 % in the fragrance concentrate.",
+          "url": "https://www.thegoodscentscompany.com/data/rw1051301.html"
+        }
+      ]
+    },
+    {
+      "material": "Florhydral",
+      "match": [
+        "florhydral"
+      ],
+      "max_active_pct_of_concentrate": 2,
+      "note": "Set by the highest supplier maximum (The Good Scents Company). CAS 125109-85-5 (3-(3-isopropylphenyl)butanal); Good Scents lists it as floral butanal.",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 2.0,
+          "quote": "Recommendation for floral butanal usage levels up to: 2.0000 % in the fragrance concentrate.",
+          "url": "https://thegoodscentscompany.com/data/rw1131041.html"
+        }
+      ]
+    },
+    {
+      "material": "Paradisamide",
+      "match": [
+        "paradisamide"
+      ],
+      "max_active_pct_of_concentrate": 15,
+      "note": "Set by the highest supplier maximum (The Good Scents Company). CAS 406488-30-0 (2-ethyl-N-methyl-N-(3-methylphenyl)butanamide).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 15.0,
+          "quote": "Recommendation for 2-ethyl-N-methyl-N-(3-methyl phenyl) butyramide usage levels up to: 15.0000 % in the fragrance concentrate.",
+          "url": "https://www.thegoodscentscompany.com/data/rw1116801.html"
+        }
+      ]
+    },
+    {
+      "material": "Damascol",
+      "match": [
+        "damascol"
+      ],
+      "max_active_pct_of_concentrate": 5,
+      "note": "Set by the highest supplier maximum (The Good Scents Company). Good Scents and the reseller Fraterworks both give IFF's Damascol (Damascol 4) as CAS 4927-36-0, 5-methyl-5-phenylhexan-3-one (MW 190.3). The project's material profile describes Damascol as a damascone-type alcohol (MW 194.3); that profile disagrees and has not been changed here. Fraterworks also quotes a draft IFRA 52 limit of 0.77 % in the finished product (not in force in the Amendment 51 table used here).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 5.0,
+          "quote": "Recommendation for pepper hexanone usage levels up to: 5.0000 % in the fragrance concentrate.",
+          "url": "https://www.thegoodscentscompany.com/data/rw1049201.html"
+        },
+        {
+          "kind": "identity",
+          "name": "Fraterworks",
+          "quote": "Damascol 4: manufacturer IFF, CAS 4927-36-0, 5-methyl-5-phenylhexan-3-one.",
+          "url": "https://fraterworks.com/products/damascol-4"
+        }
+      ]
+    },
+    {
+      "material": "Carrot Seed EO",
+      "match": [
+        "carrot seed eo",
+        "carrot seed oil",
+        "carrot seed essential oil"
+      ],
+      "max_active_pct_of_concentrate": 4,
+      "note": "Set by the highest supplier maximum (The Good Scents Company). CAS 8015-88-1 (Daucus carota seed oil).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 4.0,
+          "quote": "Recommendation for carrot seed oil usage levels up to: 4.0000 % in the fragrance concentrate.",
+          "url": "https://www.thegoodscentscompany.com/data/es1024731.html"
         }
       ]
     }
