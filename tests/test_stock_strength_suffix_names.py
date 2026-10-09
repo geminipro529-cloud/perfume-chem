@@ -11,7 +11,7 @@ from __future__ import annotations
 import pytest
 
 from engine.material_resolver import resolve_material, strip_stock_strength_suffix
-from engine.pipeline.formula_state import FormulaState
+from engine.pipeline.formula_state import FormulaState, natural_composite_volatility
 from engine.workbench import PerfumeWorkbench, WorkbenchFormulaRequest
 
 
@@ -123,6 +123,13 @@ def test_cocoa_stock_row_uses_composite_decomposition() -> None:
     )
     rescaled_row = {m.name: m for m in rescaled.materials}[label]
     assert rescaled_row.oav is not None
+
+
+def test_cocoa_stock_row_evaporates_constituent_by_constituent() -> None:
+    # A suffixed natural row also gets the per-constituent drydown (PR #67).
+    label = "Cocoa CO2 Extract 7.7%"
+    row = _row(_analyze(label, 250.0, 0.077), label)
+    assert natural_composite_volatility(row, 298.15) is not None
 
 
 def test_registered_stock_and_unknown_rows_keep_current_results() -> None:

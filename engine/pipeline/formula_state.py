@@ -568,8 +568,8 @@ class FormulaState:
 
         total_moles = sum(mole_inputs.values())
         composite_replacements = tuple(
-            _composite_replacement_moles_for_row(*row, remaining=natural_remaining[row[1]])
-            for row in composite_rows
+            _composite_replacement_moles_for_row(*row, remaining=natural_remaining[m.name])
+            for m, row in zip(base.materials, composite_rows, strict=True)
         )
         composite_total_moles = _composite_formula_total_moles_from_replacements(
             total_moles,
