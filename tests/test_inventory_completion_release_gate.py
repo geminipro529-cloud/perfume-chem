@@ -72,15 +72,15 @@ def _stock_issue_reasons(material: str, fraction: float) -> list[str]:
 
 
 def test_identity_only_intake_completed_on_stock_page_passes_preflight(completion_log) -> None:
-    assert _stock_issue_reasons("Vertofix Coeur", 1.0) == ["inventory_stock_non_executable"]
+    assert _stock_issue_reasons("Manzanate", 1.0) == ["inventory_stock_non_executable"]
 
-    receipt, stock = _complete("Vertofix Coeur", "vertofix-coeur-neat")
+    receipt, stock = _complete("Manzanate", "manzanate-neat")
 
     assert stock.execution_ready is True
     assert stock.execution_hold_reason == ""
     assert all(receipt[field] is False for field in FALSE_ACTION_AUTHORITY)
     check = resolve_inventory_stock_contract(
-        {"ingredients_ul": {"Vertofix Coeur": 100.0}, "dilutions": {"Vertofix Coeur": 1.0}}
+        {"ingredients_ul": {"Manzanate": 100.0}, "dilutions": {"Manzanate": 1.0}}
     )
     assert check.data["issues"] == []
     (matched,) = check.data["matched_stocks"]
@@ -90,8 +90,8 @@ def test_identity_only_intake_completed_on_stock_page_passes_preflight(completio
 
 def test_completion_with_unspecified_basis_leaves_stock_held(completion_log) -> None:
     _receipt, stock = _complete(
-        "Vertofix Coeur",
-        "vertofix-coeur-unspecified",
+        "Manzanate",
+        "manzanate-unspecified",
         fraction_decimal="0.1",
         fraction_basis="unspecified",
         carrier="DPG",
@@ -102,7 +102,7 @@ def test_completion_with_unspecified_basis_leaves_stock_held(completion_log) -> 
     assert stock.design_ready is False
     assert stock.execution_ready is False
     assert stock.execution_hold_reason == "STOCK_PAGE_ENTRY_INCOMPLETE|STOCK_INTAKE_IDENTITY_ONLY"
-    assert _stock_issue_reasons("Vertofix Coeur", 0.1) == ["inventory_stock_non_executable"]
+    assert _stock_issue_reasons("Manzanate", 0.1) == ["inventory_stock_non_executable"]
 
 
 def test_lot_receipt_hold_clears_with_a_complete_stock_page_entry(completion_log) -> None:
