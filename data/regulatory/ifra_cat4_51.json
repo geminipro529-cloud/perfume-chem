@@ -867,7 +867,7 @@
       "notes": [
         "RECOMMENDATION: RESTRICTION / SPECIFICATION; the specification concerns nitrosamine formation.",
         "Contributions from other sources: see the Annex on contributions from other sources (ifra_annex1_constituents.json).",
-        "Read 2026-10-09 from the standard's PDF by an automated reader; the quote is as returned, not yet re-read independently."
+        "Read 2026-10-09 from the standard's PDF by an automated reader, then re-read separately the same day; both reads gave the same Category 4 text."
       ]
     },
     "IFRA_STD_095": {
@@ -916,7 +916,7 @@
       "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_099.pdf",
       "notes": [
         "Contributions from other sources: see the Annex on contributions from other sources (ifra_annex1_constituents.json).",
-        "Read 2026-10-09 from the standard's PDF by an automated reader; the quote is as returned, not yet re-read independently."
+        "Read 2026-10-09 from the standard's PDF by an automated reader, then re-read separately the same day; both reads gave the same Category 4 text."
       ]
     },
     "IFRA_STD_100": {
@@ -931,7 +931,7 @@
       "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_100.pdf",
       "notes": [
         "Contributions from other sources: see the Annex on contributions from other sources (ifra_annex1_constituents.json).",
-        "Read 2026-10-09 from the standard's PDF by an automated reader; the quote is as returned, not yet re-read independently."
+        "Read 2026-10-09 from the standard's PDF by an automated reader, then re-read separately the same day; both reads gave the same Category 4 text."
       ]
     },
     "IFRA_STD_114": {
@@ -1054,7 +1054,7 @@
         "RECOMMENDATION: PROHIBITION / RESTRICTION: prohibited as fragrance ingredients; contributions from natural extracts are restricted to the notebox total.",
         "Natural extracts \"should not be used as substitutes for these ingredients\".",
         "The 0.01 % applies to the total of the three substances (group rule safrole_isosafrole_dihydrosafrole_total).",
-        "Read 2026-10-09 from the standard's PDF by an automated reader; the quote is as returned, not yet re-read independently."
+        "Read 2026-10-09 from the standard's PDF by an automated reader, then re-read separately the same day; both reads gave the same Category 4 text."
       ]
     },
     "IFRA_STD_184": {
@@ -1701,6 +1701,13 @@
       "cas": [
         "28219-61-6"
       ]
+    },
+    "Basil EO (India, Ocimum Basilicum)": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Contains estragole (STD_099) and methyl eugenol (STD_100).",
+      "identity_note": "The chemotype is not recorded (estragole or linalool type); the estragole type's higher levels are counted."
     },
     "Benzaldehyde": {
       "status": "restricted",

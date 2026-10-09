@@ -89,3 +89,21 @@ def test_orange_peel_eo_lists_both_species_and_says_it_is_not_recorded():
     check = evaluate_ifra({"Orange Peel EO": 0.1}).checks[0]
     assert check.standard == "IFRA_STD_088"
     assert "species is not recorded" in check.message
+
+
+def test_basil_counts_the_estragole_chemotype_and_says_it_is_not_recorded():
+    stock = "Basil EO (India, Ocimum Basilicum)"
+    evaluation = evaluate_ifra({stock: 0.1})
+    totals = {t.standard: t.total for t in evaluation.constituent_totals}
+    # Chemotype unknown: the estragole type's 80 % estragole and 0.5 % methyl eugenol.
+    assert totals["IFRA_STD_099"] == pytest.approx(0.08)
+    assert totals["IFRA_STD_100"] == pytest.approx(0.0005)
+    assert _group(evaluation, "IFRA_STD_099_constituents").verdict == "fail"
+    assert "chemotype is not recorded" in evaluation.checks[0].message
+
+
+def test_red_mandarin_counts_the_mandarin_oil_methyl_n_methylanthranilate():
+    evaluation = evaluate_ifra({"Red Mandarin EO": 1.0})
+    total = next(t for t in evaluation.constituent_totals if t.standard == "IFRA_STD_094")
+    assert total.total == pytest.approx(0.004)
+    assert _group(evaluation, "IFRA_STD_094_constituents").verdict == "pass"

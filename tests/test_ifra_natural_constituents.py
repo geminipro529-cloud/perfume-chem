@@ -120,7 +120,7 @@ def test_formula_without_a_mapped_natural_is_unchanged():
     assert rows == [tuple(r) for r in BASE_NO_MAPPED_NATURAL["rows"]]
     assert gate.data["groups"] == BASE_NO_MAPPED_NATURAL["groups"]
     assert gate.data["constituent_totals"] == []
-    assert "19 substances" in gate.data["constituent_coverage"]
+    assert "20 substances" in gate.data["constituent_coverage"]
     assert "not been checked by a person" in gate.data["constituent_coverage"]
 
 
