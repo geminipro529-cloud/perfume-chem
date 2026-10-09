@@ -93,6 +93,12 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     ALGORITHM: str = "HS256"
 
+    # Host check (see app/core/request_guard.py): besides 127.0.0.1, localhost and
+    # ::1 the app answers only its bind address, which run_api_server.py passes here
+    # when --lan or --host listens on the network, and any names listed below.
+    API_BIND_HOST: str = "127.0.0.1"
+    TRUSTED_HOSTS: List[str] = []
+
     # CORS
     CORS_ORIGINS: List[str] = ["http://localhost:5173", "http://localhost:3000"]
     CORS_ALLOW_CREDENTIALS: bool = True

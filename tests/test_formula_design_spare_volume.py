@@ -13,6 +13,7 @@ from engine.formulation_intelligence.semantic_brief_adapter import (
     ACCORD_SUPPORT_SEPARATOR,
     SemanticRole,
 )
+from engine.research import composition_planner
 from engine.research.composition_planner import Choice, _design_cap_ul, _formula_rows, _hard_cap_ul
 from engine.research.formula_design import design_inventory_formula
 
@@ -147,7 +148,11 @@ def _allocate(assignments: list) -> dict[str, int]:
     return {row["slot"]: int(row["amount_decimal"]) for row in rows}
 
 
-def test_relaxed_bridge_cap_counts_a_smaller_fixed_bridge_cap_first() -> None:
+def test_relaxed_bridge_cap_counts_a_smaller_fixed_bridge_cap_first(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # Bridge-cap arithmetic only: Iso E Super's screening default is left out.
+    monkeypatch.setattr(composition_planner, "_screening_default", lambda choice, total: None)
     plain = _stock("Iso E Super", 1.0)
     assignments = [
         _row("facet_a", plain, provenance="PROMPT_DERIVED_FACET", cap_ul=2000),

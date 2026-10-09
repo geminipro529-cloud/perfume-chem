@@ -14,10 +14,13 @@ from __future__ import annotations
 import json
 import re
 from collections.abc import Iterable, Mapping, Sequence
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from decimal import Decimal, InvalidOperation
 from functools import lru_cache
 from pathlib import Path
+from typing import TypeVar
+
+_T = TypeVar("_T")
 
 SCHEMA_VERSION = "ifra_cat4_table/1"
 DEFAULT_TABLE_PATH = (
@@ -42,6 +45,11 @@ MATERIAL_STATUSES = frozenset({
     "natural_no_own_standard",
 })
 GROUP_RULES = frozenset({"sum_le_limit", "sum_of_ratios_le_1"})
+
+CONSTITUENTS_SCHEMA_VERSION = "ifra_annex1_constituents/1"
+DEFAULT_CONSTITUENTS_PATH = DEFAULT_TABLE_PATH.parent / "ifra_annex1_constituents.json"
+UNDISCLOSED_BASES_SCHEMA_VERSION = "ifra_undisclosed_bases/1"
+DEFAULT_UNDISCLOSED_BASES_PATH = DEFAULT_TABLE_PATH.parent / "ifra_undisclosed_bases.json"
 
 _TOLERANCE = 1e-12
 _PERCENT_NUMBER = re.compile(r"(\d+(?:[.,]\d+)?)\s*%")
@@ -75,6 +83,8 @@ class IFRAMaterial:
     authority: str | None
     note: str | None
     source_url: str | None = None
+    # Said on the row's own gate message, e.g. a stock whose species is not recorded.
+    identity_note: str | None = None
 
 
 @dataclass(frozen=True)
@@ -101,19 +111,34 @@ class IFRATable:
     _index: Mapping[str, IFRAMaterial] = field(
         init=False, repr=False, compare=False, default_factory=dict
     )
+    # Word-order-free keys ("Damascone Alpha" = "Alpha Damascone"); a key that two
+    # materials share maps to None so it never picks either.
+    _order_index: Mapping[str, IFRAMaterial | None] = field(
+        init=False, repr=False, compare=False, default_factory=dict
+    )
 
     def __post_init__(self) -> None:
         index: dict[str, IFRAMaterial] = {}
+        order_index: dict[str, IFRAMaterial | None] = {}
         for material in self.materials.values():
             for name in (material.name, *material.aliases):
                 index[_normalise(name)] = material
+                key = _order_key(name)
+                if order_index.get(key, material) is not material:
+                    order_index[key] = None
+                else:
+                    order_index[key] = material
         object.__setattr__(self, "_index", index)
+        object.__setattr__(self, "_order_index", order_index)
 
     def lookup(self, *names: str | None) -> IFRAMaterial | None:
         """Return the first material matching any name, case/whitespace-insensitive.
 
         Every name is tried exactly first; only when none matches is each retried without
-        its stock suffix (see ``stock_base_name``), so an exact name always wins.
+        its stock suffix (see ``stock_base_name``), so an exact name always wins. Only when
+        that fails too are the same forms compared with their words in any order, so
+        "Damascone Alpha" finds "Alpha Damascone". Words are never dropped or added:
+        "Methyl Ionone" and "Ionone" stay different names.
         """
         return self._match(names)[1]
 
@@ -125,11 +150,24 @@ class IFRATable:
                 return name, material
         # Least-stripped form first, across all given names, before any more-stripped form.
         levels = [_stripped_forms(name) for name in given]
-        for depth in range(max((len(forms) for forms in levels), default=0)):
+        depths = range(max((len(forms) for forms in levels), default=0))
+        for depth in depths:
             for name, forms in zip(given, levels):
                 if depth < len(forms):
                     for form in forms[depth]:
                         material = self._index.get(_normalise(form))
+                        if material is not None:
+                            return name, material
+        # Then the same forms, in the same order, with their words in any order.
+        for name in given:
+            material = self._order_index.get(_order_key(name))
+            if material is not None:
+                return name, material
+        for depth in depths:
+            for name, forms in zip(given, levels):
+                if depth < len(forms):
+                    for form in forms[depth]:
+                        material = self._order_index.get(_order_key(form))
                         if material is not None:
                             return name, material
         return None, None
@@ -186,9 +224,84 @@ class IFRAGroupCheck:
 
 
 @dataclass(frozen=True)
+class IFRAConstituentContributor:
+    # Table canonical name; the key of this material in the group check's member_pcts.
+    material: str
+    # "natural" (an Annex I constituent), "schiff_base" (the substance's share by mass of a
+    # Schiff base made from it) or "synthetic" (the substance's own row)
+    kind: str
+    pct: float  # the material's own finished-product % w/w
+    # natural: its Annex I level of the substance, %; schiff_base: the substance's mass share
+    constituent_pct: float | None
+    ncs_name: str | None  # natural only: the Annex I row that level comes from
+    contribution_pct: float  # finished-product % w/w of the substance from this material
+
+
+@dataclass(frozen=True)
+class IFRAConstituentTotal:
+    substance: str
+    standard: str
+    total: float
+    limit_pct: float
+    contributors: tuple[IFRAConstituentContributor, ...]
+
+
+@dataclass(frozen=True)
+class SchiffBase:
+    """A Schiff base whose share of a restricted aldehyde counts toward that aldehyde's total."""
+
+    name: str
+    standard: str
+    substance: str
+    share_pct: float  # % of the Schiff base's mass that is the restricted substance
+    source: str
+
+
+@dataclass(frozen=True)
+class UndisclosedBase:
+    """A supplier base whose composition is not published: flagged, never counted."""
+
+    name: str
+    reason: str
+
+
+@dataclass(frozen=True)
+class NaturalConstituents:
+    """IFRA Annex I levels of restricted substances in owned naturals, per stock.
+
+    ``stocks`` maps a stock's IFRA-table canonical name to {standard id: (level %, NCS
+    name)}; the level is the highest across the stock's candidate NCS rows, never a sum.
+    ``schiff_bases`` maps a Schiff base's name to the restricted substance it is made from.
+    """
+
+    amendment: int | None
+    amendment_year: int | None
+    verification: str | None
+    stocks: Mapping[str, Mapping[str, tuple[float, str]]]
+    standards: frozenset[str] = frozenset()  # every standard the file has rows for
+    schiff_bases: Mapping[str, SchiffBase] = field(default_factory=dict)
+
+    def schiff_base(self, names: Sequence[str | None]) -> SchiffBase | None:
+        """The Schiff base a row names, by any of its names with stock suffixes stripped."""
+        return _match_by_name(self.schiff_bases, names)
+
+    def coverage_note(self, table: IFRATable) -> str:
+        names = sorted({table.standards[sid].name for sid in self.standards})
+        return (
+            f"Restricted constituents of naturals are counted for {len(names)} substances "
+            f"({', '.join(names)}), using the highest level IFRA Amendment "
+            f"{self.amendment} ({self.amendment_year}) Annex I reports for each natural. "
+            "Each value was read twice by independent automated readers and has not been "
+            "checked by a person. Annexes of other restricted substances were not read, so "
+            "their amounts in naturals are not counted."
+        )
+
+
+@dataclass(frozen=True)
 class IFRAEvaluation:
     checks: tuple[IFRACheck, ...]
     group_checks: tuple[IFRAGroupCheck, ...]
+    constituent_totals: tuple[IFRAConstituentTotal, ...] = ()
 
     @property
     def failures(self) -> tuple[IFRACheck | IFRAGroupCheck, ...]:
@@ -262,6 +375,100 @@ def _load_table(path: Path) -> IFRATable:
     )
 
 
+def load_natural_constituents(path: str | Path | None = None) -> NaturalConstituents:
+    """Load the Annex I constituent levels. The default path is cached; explicit paths are not."""
+    if path is None:
+        return _load_default_constituents()
+    return _load_constituents(Path(path))
+
+
+@lru_cache(maxsize=1)
+def _load_default_constituents() -> NaturalConstituents:
+    return _load_constituents(DEFAULT_CONSTITUENTS_PATH)
+
+
+def _load_constituents(path: Path) -> NaturalConstituents:
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if raw.get("schema_version") != CONSTITUENTS_SCHEMA_VERSION:
+        raise ValueError(
+            f"{path}: schema_version {raw.get('schema_version')!r} is not "
+            f"{CONSTITUENTS_SCHEMA_VERSION!r}"
+        )
+    rows_by_ncs: dict[str, list[Mapping]] = {}
+    for row in raw.get("rows", []):
+        if not _is_number(row.get("max_pct")):
+            raise ValueError(f"{path}: row {row!r} has no numeric max_pct")
+        rows_by_ncs.setdefault(row["ncs_name"], []).append(row)
+    stocks: dict[str, dict[str, tuple[float, str]]] = {}
+    for stock, rec in raw.get("stocks", {}).items():
+        levels: dict[str, tuple[float, str]] = {}
+        for ncs in rec.get("ncs_names", ()):
+            if ncs not in rows_by_ncs:
+                raise ValueError(f"{path}: stock {stock!r} names unknown NCS row {ncs!r}")
+            # Several candidate rows (or one substance under several CAS numbers): the
+            # highest level per standard, never the sum.
+            for row in rows_by_ncs[ncs]:
+                level = float(row["max_pct"])
+                if row["standard"] not in levels or level > levels[row["standard"]][0]:
+                    levels[row["standard"]] = (level, ncs)
+        stocks[stock] = levels
+    schiff_bases = {}
+    for name, rec in raw.get("schiff_bases", {}).items():
+        if not _is_number(rec.get("share_pct")) or not 0 < rec["share_pct"] <= 100:
+            raise ValueError(f"{path}: Schiff base {name!r} needs a share_pct in (0, 100]")
+        schiff_bases[name] = SchiffBase(
+            name, rec["standard"], rec["substance"], float(rec["share_pct"]), rec["source"]
+        )
+    return NaturalConstituents(
+        amendment=raw.get("amendment"),
+        amendment_year=raw.get("amendment_year"),
+        verification=raw.get("verification"),
+        stocks=stocks,
+        standards=frozenset(row["standard"] for rows in rows_by_ncs.values() for row in rows),
+        schiff_bases=schiff_bases,
+    )
+
+
+def load_undisclosed_bases(path: str | Path | None = None) -> tuple[UndisclosedBase, ...]:
+    """Load the supplier bases whose composition is not published. Default path is cached."""
+    if path is None:
+        return _load_default_undisclosed_bases()
+    return _load_undisclosed_bases(Path(path))
+
+
+@lru_cache(maxsize=1)
+def _load_default_undisclosed_bases() -> tuple[UndisclosedBase, ...]:
+    return _load_undisclosed_bases(DEFAULT_UNDISCLOSED_BASES_PATH)
+
+
+def _load_undisclosed_bases(path: Path) -> tuple[UndisclosedBase, ...]:
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if raw.get("schema_version") != UNDISCLOSED_BASES_SCHEMA_VERSION:
+        raise ValueError(
+            f"{path}: schema_version {raw.get('schema_version')!r} is not "
+            f"{UNDISCLOSED_BASES_SCHEMA_VERSION!r}"
+        )
+    return tuple(UndisclosedBase(b["name"], b["reason"]) for b in raw.get("bases", ()))
+
+
+def undisclosed_base(
+    bases: Iterable[UndisclosedBase], names: Sequence[str | None]
+) -> UndisclosedBase | None:
+    """The undisclosed base a row names, by any of its names with stock suffixes stripped."""
+    return _match_by_name({b.name: b for b in bases}, names)
+
+
+def _match_by_name(entries: Mapping[str, _T], names: Sequence[str | None]) -> _T | None:
+    keyed = {_normalise(name): entry for name, entry in entries.items()}
+    for name in names:
+        if not name:
+            continue
+        for form in (name, stock_base_name(name)):
+            if (entry := keyed.get(_normalise(form))) is not None:
+                return entry
+    return None
+
+
 def _parse_standard(sid: str, rec: Mapping) -> IFRAStandard:
     kind = rec.get("kind")
     if kind not in STANDARD_KINDS:
@@ -318,6 +525,7 @@ def _parse_material(
         authority=rec.get("authority", "IFRA") if status == "prohibited" else None,
         note=rec.get("note"),
         source_url=rec.get("source_url"),
+        identity_note=rec.get("identity_note"),
     )
 
 
@@ -371,6 +579,10 @@ def _parse_group_rule(
 
 def _normalise(name: str) -> str:
     return " ".join(name.split()).casefold()
+
+
+def _order_key(name: str) -> str:
+    return " ".join(sorted(_normalise(name).split()))
 
 
 def stock_base_name(name: str) -> str:
@@ -460,18 +672,38 @@ def evaluate_ifra(
     alt_names: Mapping[str, Sequence[str] | str] | None = None,
     edge_ratio: float = 0.7,
     headroom: float = 1.0,
+    constituents: NaturalConstituents | None = None,
 ) -> IFRAEvaluation:
-    """Evaluate finished-product % w/w per formula row against the Category 4 table."""
+    """Evaluate finished-product % w/w per formula row against the Category 4 table.
+
+    A natural with IFRA Annex I levels in ``constituents`` adds its share of each restricted
+    substance to that substance's total (group ``<standard>_constituents``), which replaces
+    the synthetic-only standard total. ``constituents`` defaults to the shipped Annex I file
+    when the table is the default one; with any other table it is used only when passed.
+    """
     table = table if table is not None else load_ifra_table()
+    if constituents is None and table is _load_default_table():
+        constituents = load_natural_constituents()
     alt_names = alt_names or {}
     checks: list[IFRACheck] = []
     pct_by_member: dict[str, float] = {}
     restricted_rows: dict[str, list[str]] = {}
+    natural_pcts: dict[str, float] = {}
+    schiff_pcts: dict[str, float] = {}
     for row_name, pct in pct_by_material.items():
         extra = alt_names.get(row_name, ())
         candidates = [row_name, *([extra] if isinstance(extra, str) else extra)]
         matched_name, material = table._match(candidates)
         pct = float(pct)
+        schiff = (
+            constituents.schiff_base(candidates)
+            if material is None and constituents is not None
+            else None
+        )
+        if schiff is not None:
+            schiff_pcts[schiff.name] = schiff_pcts.get(schiff.name, 0.0) + pct
+            checks.append(_schiff_base_row(row_name, schiff, pct))
+            continue
         if material is None:
             checks.append(IFRACheck(
                 row_name, None, None, None, pct, None, None, "unchecked",
@@ -481,14 +713,179 @@ def evaluate_ifra(
         pct_by_member[material.name] = pct_by_member.get(material.name, 0.0) + pct
         if material.status == "restricted" and material.standard is not None:
             restricted_rows.setdefault(material.standard, []).append(material.name)
+        if constituents is not None and material.name in constituents.stocks:
+            natural_pcts[material.name] = natural_pcts.get(material.name, 0.0) + pct
         checks.append(_check_row(row_name, matched_name, material, pct, edge_ratio, headroom))
-    rules = [*table.group_rules, *_standard_total_rules(table, restricted_rows)]
-    group_checks = tuple(
+    totals = _constituent_totals(
+        table, constituents, natural_pcts, schiff_pcts, pct_by_member, restricted_rows
+    )
+    counted = {t.standard for t in totals}
+    rules = [
+        *table.group_rules,
+        *(r for r in _standard_total_rules(table, restricted_rows) if r.standard not in counted),
+    ]
+    group_checks = [
         g
         for rule in rules
         if (g := _check_group(rule, table, pct_by_member, edge_ratio, headroom)) is not None
+    ]
+    group_checks.extend(_constituent_group_check(t, table, edge_ratio, headroom) for t in totals)
+    if totals:
+        checks = [_natural_row_counted(c, totals, table) for c in checks]
+    return IFRAEvaluation(
+        checks=tuple(checks), group_checks=tuple(group_checks), constituent_totals=totals
     )
-    return IFRAEvaluation(checks=tuple(checks), group_checks=group_checks)
+
+
+def _constituent_totals(
+    table: IFRATable,
+    constituents: NaturalConstituents | None,
+    natural_pcts: Mapping[str, float],
+    schiff_pcts: Mapping[str, float],
+    pct_by_member: Mapping[str, float],
+    restricted_rows: Mapping[str, Sequence[str]],
+) -> tuple[IFRAConstituentTotal, ...]:
+    """Per standard a natural or Schiff base contributes to: synthetic rows plus shares."""
+    if constituents is None or not (natural_pcts or schiff_pcts):
+        return ()
+    shares: dict[str, list[IFRAConstituentContributor]] = {}
+    for name, pct in schiff_pcts.items():
+        schiff = constituents.schiff_bases[name]
+        shares.setdefault(schiff.standard, []).append(IFRAConstituentContributor(
+            name, "schiff_base", pct, schiff.share_pct, None, pct * schiff.share_pct / 100.0
+        ))
+    for natural, pct in natural_pcts.items():
+        for sid, (level, ncs) in constituents.stocks[natural].items():
+            contribution = pct * level / 100.0
+            if contribution <= 0:
+                continue
+            shares.setdefault(sid, []).append(
+                IFRAConstituentContributor(natural, "natural", pct, level, ncs, contribution)
+            )
+    totals = []
+    for sid in sorted(shares):
+        standard = table.standards[sid]
+        limit = standard.cat4_limit_pct
+        assert limit is not None  # the Annex I file covers Category 4 limits only
+        synthetic = [
+            IFRAConstituentContributor(
+                name, "synthetic", pct_by_member[name], None, None, pct_by_member[name]
+            )
+            for name in dict.fromkeys(restricted_rows.get(sid, ()))
+        ]
+        contributors = (*synthetic, *shares[sid])
+        totals.append(IFRAConstituentTotal(
+            substance=standard.name,
+            standard=sid,
+            total=sum(c.contribution_pct for c in contributors),
+            limit_pct=limit,
+            contributors=contributors,
+        ))
+    return tuple(totals)
+
+
+def _constituent_group_check(
+    total: IFRAConstituentTotal, table: IFRATable, edge_ratio: float, headroom: float
+) -> IFRAGroupCheck:
+    rule = IFRAGroupRule(
+        id=f"{total.standard}_constituents",
+        standard=total.standard,
+        rule="sum_le_limit",
+        limit_pct=total.limit_pct,
+        members=tuple(c.material for c in total.contributors),
+        quote=None,
+    )
+    # Keyed by table canonical name: the optimizer scales every row whose ifra_name is a
+    # member, and a natural's share scales with its row.
+    member_pcts = {c.material: c.contribution_pct for c in total.contributors}
+    group = _check_group(rule, table, member_pcts, edge_ratio, headroom)
+    assert group is not None  # every total has at least one contributor
+    if group.verdict == "fail":
+        lead = "exceeds"
+    elif group.verdict == "warn":
+        lead = f"is {total.total / total.limit_pct:.0%} of"
+    else:
+        lead = "is within"
+    parts = ", ".join(_contribution_text(c) for c in total.contributors)
+    kinds = {c.kind for c in total.contributors}
+    sources = [
+        *(["naturals' IFRA Annex I constituents"] if "natural" in kinds else []),
+        *(["Schiff bases' share"] if "schiff_base" in kinds else []),
+    ]
+    message = (
+        f"{total.substance} ({total.standard}) including {' and '.join(sources)}: "
+        f"{parts}; total {_fmt(total.total)} % {lead} the IFRA Category 4 "
+        f"limit of {_fmt(total.limit_pct)} %"
+        + (f" (headroom {headroom:g})." if headroom != 1 else ".")
+    )
+    return replace(group, message=message)
+
+
+def _contribution_text(c: IFRAConstituentContributor) -> str:
+    if c.kind == "synthetic":
+        return f"{c.material} {_fmt(c.contribution_pct)} %"
+    if c.kind == "schiff_base":
+        return (
+            f"{c.material} {_fmt(c.contribution_pct)} % ({_fmt(c.pct)} % of the product x "
+            f"{_fmt(c.constituent_pct or 0.0)} % by mass, Schiff base)"
+        )
+    return (
+        f"{c.material} {_fmt(c.contribution_pct)} % ({_fmt(c.pct)} % of the product x up "
+        f"to {_fmt(c.constituent_pct or 0.0)} % in {c.ncs_name})"
+    )
+
+
+def _schiff_base_row(row_name: str, schiff: SchiffBase, pct: float) -> IFRACheck:
+    """A Schiff base's own row passes; its share of the restricted substance is in the total."""
+    return IFRACheck(
+        material=row_name,
+        matched_name=schiff.name,
+        status="schiff_base",
+        standard=schiff.standard,
+        pct=pct,
+        limit_pct=None,
+        ratio=None,
+        verdict="pass",
+        message=(
+            f"{row_name} at {_fmt(pct)} % is a Schiff base of {schiff.substance}; "
+            f"{_fmt(schiff.share_pct)} % of it ({_fmt(pct * schiff.share_pct / 100.0)} % of "
+            f"the product) is counted toward the {schiff.substance} ({schiff.standard}) "
+            f"total. Source: {schiff.source}."
+        ),
+        ifra_name=schiff.name,
+    )
+
+
+def _natural_row_counted(
+    check: IFRACheck, totals: Sequence[IFRAConstituentTotal], table: IFRATable
+) -> IFRACheck:
+    """Say on a mapped natural's own row what was counted; its verdict is kept."""
+    if check.status != "natural_no_own_standard":
+        return check
+    counted = [
+        (t, c)
+        for t in totals
+        for c in t.contributors
+        if c.kind == "natural" and c.material == check.ifra_name
+    ]
+    if not counted:
+        return check
+    name = check.ifra_name
+    label = check.material if check.material == name else f"{check.material} ({name})"
+    parts = ", ".join(
+        f"{t.substance} up to {_fmt(c.constituent_pct or 0.0)} % "
+        f"({_fmt(c.contribution_pct)} % of the product)"
+        for t, c in counted
+    )
+    message = (
+        f"{label} at {_fmt(check.pct)} % is a natural with no IFRA standard of its own; its "
+        f"IFRA Annex I constituents are counted toward their Category 4 totals: {parts}. "
+        "Other restricted constituents are not counted."
+    )
+    material = table.materials.get(name)
+    if material is not None and material.identity_note:
+        message = f"{message} {material.identity_note}"
+    return replace(check, message=message)
 
 
 def _standard_total_rules(
@@ -577,12 +974,14 @@ def _check_row(
     elif status == "no_standard":
         verdict = "pass"
         message = f"{label} at {_fmt(pct)} % has no IFRA standard of its own."
-    else:  # natural_no_own_standard
+    else:  # natural_no_own_standard (evaluate_ifra rewords it if constituents were counted)
         verdict = "warn"
         message = (
             f"{label} at {_fmt(pct)} % is a natural with no IFRA standard of its own; its "
             f"restricted constituents are not summed here."
         )
+    if material.identity_note:
+        message = f"{message} {material.identity_note}"
     return IFRACheck(
         material=row_name,
         matched_name=matched_name,

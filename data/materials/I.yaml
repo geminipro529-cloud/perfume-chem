@@ -52,7 +52,7 @@
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.005)
   vp_25c_pa: 0.005
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: placeholder  # unsourced round value; gate reports it as estimated
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1022,7 +1022,7 @@
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.001)
   vp_25c_pa: 0.001
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: placeholder  # unsourced round value; gate reports it as estimated
   antoine:
   dhvap_kj_mol:
   kaw_eff:
