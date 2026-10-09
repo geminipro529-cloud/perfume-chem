@@ -7,7 +7,7 @@ import pytest
 pytest.importorskip("playwright.sync_api")
 
 INVENTORY_PATH = "/v2/workbench/current-inventory"
-VIEWS = ["improve", "formulas", "materials", "bottles", "experiments", "dashboard", "perfumery", "assistant", "science"]
+VIEWS = ["improve", "formulas", "benchsheet", "materials", "bottles", "experiments", "dashboard", "perfumery", "assistant", "science"]
 
 # Deliberately not measured: the skip link (only on screen while focused), the
 # screen-reader-only class, and anything the page itself hides (zero size,

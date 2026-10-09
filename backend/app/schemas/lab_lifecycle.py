@@ -112,6 +112,13 @@ class StockBasketChoiceCreate(LifecycleRequest):
     basket: Annotated[StrictInt, Field(ge=1, le=17)] | None
 
 
+class FormulaTextParseCreate(LifecycleRequest):
+    """A pasted formula table, parsed read-only for the bench sheet."""
+
+    text: NonBlank = Field(max_length=200_000)
+    name: str | None = Field(default=None, max_length=200)
+
+
 class PersonalInventoryAdditionCreate(LifecycleRequest):
     """One user-confirmed owned stock missing from the current inventory view."""
 

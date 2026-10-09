@@ -35,6 +35,7 @@
       <p class="nav-group">Bench</p>
       <button class="nav-item is-active" data-view="improve">Improve a scent</button>
       <button class="nav-item" data-view="formulas">Create a formula</button>
+      <button class="nav-item" data-view="benchsheet">Bench sheet</button>
       <button class="nav-item" data-view="materials">Stock</button>
       <button class="nav-item" data-view="bottles">Bottles</button>
       <p class="nav-group">Records</p>
@@ -561,6 +562,37 @@
         <div class="panel"><h2>Formula register</h2><div id="formula-list" class="record-list"></div></div>
         <pre id="analysis-output" class="output-block" tabindex="0">No analysis run yet.</pre>
         </details>
+      </section>
+
+      <section class="view" data-panel="benchsheet" aria-labelledby="benchsheet-title">
+        <div class="view-heading"><div><p class="eyebrow">Any formula, ready to pour</p><h1 id="benchsheet-title">Bench sheet</h1><p class="lede">Pick a project formula or paste a formula table. The sheet runs in your basket order, names each stock you own, and gives a DPG mix for any pour under 10 µL. It reads the formula only; nothing is saved or changed.</p></div></div>
+        <form id="bench-source-form" class="panel bench-source-form" novalidate>
+          <div class="field-pair">
+            <label>Formula source
+              <select name="source_kind">
+                <option value="PROJECT_FILE">Project formula file</option>
+                <option value="PASTED">Paste a formula table</option>
+              </select>
+            </label>
+            <label id="bench-project-field">Project formula
+              <input name="project_formula_path" list="project-formula-options" placeholder="Start typing a formula name" autocomplete="off">
+            </label>
+          </div>
+          <label id="bench-paste-field" hidden>Formula table <span>a Markdown table with material, strength and amount columns, as on a bench card</span>
+            <textarea name="pasted_text" rows="8" maxlength="200000"></textarea>
+          </label>
+          <div class="field-pair">
+            <label>Formula is for <span>mL, filled in when the name says</span><input name="source_ml" inputmode="decimal" autocomplete="off" placeholder="30"></label>
+            <label>Print for <span>mL, leave empty to keep the size</span><input name="target_ml" inputmode="decimal" autocomplete="off" placeholder="same size"></label>
+          </div>
+          <div class="request-actions">
+            <button type="submit">Show bench sheet</button>
+            <button id="bench-source-print" class="quiet-button" type="button" disabled>Print</button>
+          </div>
+        </form>
+        <article id="bench-preview-card" class="panel" hidden>
+          <div id="bench-preview" class="bench-preview" tabindex="-1"></div>
+        </article>
       </section>
 
       <section class="view" data-panel="bottles" aria-labelledby="bottles-title">

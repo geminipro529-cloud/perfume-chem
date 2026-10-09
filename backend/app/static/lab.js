@@ -585,7 +585,7 @@ function clearFormError(form) {
   document.getElementById(`${form.id}-error`)?.remove();
 }
 
-function showFormError(form, error) {
+function showFormError(form, error, title = "Not saved.") {
   // Each listed item is its own sentence; the field that holds it is the nested path, else the last name.
   const names = (error.items || []).map((item) => [item.path, item.field].find((name) => name
     && [...form.elements].some((element) => element.name === name)) || "");
@@ -611,7 +611,7 @@ function showFormError(form, error) {
   if (String(error.message).includes(OFFLINE_TEXT)) box.dataset.offline = "true";
   else delete box.dataset.offline;
   const strong = document.createElement("strong");
-  strong.textContent = "Not saved.";
+  strong.textContent = title;
   box.append(strong, " ");
   lines.forEach((line, index) => {
     if (index) box.appendChild(document.createElement("br"));
@@ -2410,6 +2410,138 @@ $("#formula-print-bench").addEventListener("click", () => {
     notify("There is no formula to print yet. Clarify the brief first.", true);
     return;
   }
+  document.body.classList.add("printing-bench-sheet");
+  window.addEventListener("afterprint", () => document.body.classList.remove("printing-bench-sheet"), { once: true });
+  window.print();
+});
+
+// ---- Bench sheet view: a printable sheet for any project or pasted formula ----
+// Read-only: it fetches and parses the formula, matches owned stocks and draws
+// the same sheet as Create (bench-sheet.js); nothing is saved.
+const benchSource = { html: "", autoSourceMl: "" };
+
+function benchFieldError(message, field) {
+  const error = new Error(message);
+  error.fields = [field];
+  return error;
+}
+
+function syncBenchSourceFields() {
+  const pasted = $('#bench-source-form [name="source_kind"]').value === "PASTED";
+  $("#bench-project-field").hidden = pasted;
+  $("#bench-paste-field").hidden = !pasted;
+}
+
+function clearBenchPreview() {
+  benchSource.html = "";
+  $("#bench-source-print").disabled = true;
+  $("#bench-preview-card").hidden = true;
+  $("#bench-preview").replaceChildren();
+}
+
+// Fill "Formula is for" from a size in the name, unless Kenny typed his own.
+function prefillBenchSourceMl(...texts) {
+  const input = $('#bench-source-form [name="source_ml"]');
+  const current = input.value.trim();
+  if (current && current !== benchSource.autoSourceMl) return;
+  const size = benchBottleMl(...texts) || "";
+  input.value = size;
+  benchSource.autoSourceMl = size;
+}
+
+function benchSheetSizes(data) {
+  const from = String(data.source_ml || "").trim();
+  const to = String(data.target_ml || "").trim();
+  [[from, "source_ml"], [to, "target_ml"]].forEach(([value, field]) => {
+    if (value && (!/^\d+(\.\d+)?$/.test(value) || Number(value) <= 0 || Number(value) > 1000)) {
+      throw benchFieldError("Bottle sizes are plain numbers of mL, more than 0 and at most 1000.", field);
+    }
+  });
+  return { from, to };
+}
+
+async function loadBenchSource(data) {
+  if (data.source_kind === "PASTED") {
+    const text = String(data.pasted_text || "");
+    if (!text.trim()) throw benchFieldError("Paste a formula table first.", "pasted_text");
+    return request("/v2/workbench/formula-text", { method: "POST", body: JSON.stringify({ text }) });
+  }
+  const path = String(data.project_formula_path || "").trim();
+  if (!state.formulaLibrary.some((item) => item.source_path === path)) {
+    throw benchFieldError("Choose a project formula from the search list first.", "project_formula_path");
+  }
+  return request(`/v2/workbench/formula-source?source_path=${encodeURIComponent(path)}`);
+}
+
+function renderBenchPreview(source, sizes) {
+  const rows = (source.rows || []).map(benchRowFromSource);
+  if (!rows.length) throw new Error("The formula has no rows the sheet can read.");
+  const scaling = sizes.to && compareDecimalText(sizes.to, sizes.from) !== 0;
+  const scaled = scaling ? benchScaleRows(rows, sizes.from, sizes.to) : { rows, unscaled: [] };
+  const matched = benchMatchStocks(scaled.rows, state.projectInventory);
+  benchSource.html = benchSheetHtml({
+    formulaName: source.formula_name,
+    variantLabel: scaling ? `${sizes.to} mL` : "",
+    dateText: new Date().toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }),
+    totals: benchSeparateTotals(matched.rows),
+    rows: matched.rows,
+    critic: {},
+    basketLookup: benchBasketLookup(state.projectInventory),
+    notes: benchSourceNotes({
+      scaledFrom: scaling ? sizes.from : null,
+      scaledTo: scaling ? sizes.to : null,
+      unscaled: scaled.unscaled,
+      unmatched: matched.unmatched,
+      ambiguous: matched.ambiguous,
+      held: matched.held,
+      warnings: source.warnings,
+    }),
+  });
+  $("#bench-preview").innerHTML = benchSource.html;
+  $("#bench-preview-card").hidden = false;
+  $("#bench-source-print").disabled = false;
+}
+
+$('#bench-source-form [name="source_kind"]').addEventListener("change", () => {
+  syncBenchSourceFields();
+  clearBenchPreview();
+});
+$('#bench-source-form [name="project_formula_path"]').addEventListener("change", (event) => {
+  const selected = state.formulaLibrary.find((item) => item.source_path === event.target.value.trim());
+  if (selected) prefillBenchSourceMl(selected.source_path, selected.display_name);
+});
+$("#bench-source-form").addEventListener("input", clearBenchPreview);
+$("#bench-source-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  if (form.dataset.busy) return;
+  const button = form.querySelector('button[type="submit"]');
+  clearFormError(form);
+  clearBenchPreview();
+  form.dataset.busy = "true";
+  button.disabled = true;
+  try {
+    const data = formData(form);
+    const sizes = benchSheetSizes(data);
+    const source = await loadBenchSource(data);
+    if (sizes.to && !sizes.from) {
+      sizes.from = benchBottleMl(source.formula_name, source.source_path) || "";
+      if (!sizes.from) throw benchFieldError("Say what size the formula is for, so it can be scaled.", "source_ml");
+      form.elements.source_ml.value = sizes.from;
+      benchSource.autoSourceMl = sizes.from;
+    }
+    renderBenchPreview(source, sizes);
+    $("#bench-preview").focus({ preventScroll: false });
+  } catch (error) {
+    showFormError(form, error, "No sheet yet.");
+  } finally {
+    delete form.dataset.busy;
+    button.disabled = false;
+  }
+});
+$("#bench-source-print").addEventListener("click", () => {
+  if (!benchSource.html) return;
+  $("#bench-sheet").innerHTML = benchSource.html;
   document.body.classList.add("printing-bench-sheet");
   window.addEventListener("afterprint", () => document.body.classList.remove("printing-bench-sheet"), { once: true });
   window.print();

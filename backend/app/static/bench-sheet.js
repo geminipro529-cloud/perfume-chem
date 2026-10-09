@@ -43,7 +43,11 @@ function benchPercentText(fraction) {
 }
 
 // The planner's basis codes in the words a bench card uses: "w/w", not "mass_fraction".
-const BENCH_BASIS_TEXT = { mass_fraction: "w/w", volume_fraction: "v/v", mass_per_volume: "w/v" };
+// The formula-file parser's codes (W_W, V_V, NEAT, UNKNOWN) read the same way.
+const BENCH_BASIS_TEXT = {
+  mass_fraction: "w/w", volume_fraction: "v/v", mass_per_volume: "w/v",
+  W_W: "w/w", V_V: "v/v", NEAT: "neat", UNKNOWN: "basis not stated",
+};
 function benchBasisText(basis) {
   const text = String(basis ?? "").trim();
   return BENCH_BASIS_TEXT[text] || text.replaceAll("_", " ");
@@ -253,7 +257,9 @@ function benchSheetLines(rows) {
       number: index + 1,
       material: String(row.material ?? ""),
       stockLabel: String(row.stock_label || row.material || ""),
-      strength: `${percent ?? String(row.stock_fraction_decimal ?? "")} ${benchBasisText(row.fraction_basis)}${row.carrier ? ` in ${row.carrier}` : ""}`.trim(),
+      strength: percent === null && !String(row.stock_fraction_decimal ?? "").trim()
+        ? "strength not stated"
+        : `${percent ?? String(row.stock_fraction_decimal ?? "")} ${benchBasisText(row.fraction_basis)}${row.carrier ? ` in ${row.carrier}` : ""}`.trim(),
       amount,
       unit,
       unitKey: key,
@@ -301,7 +307,7 @@ const BENCH_BASKET_ORDER_TEXT = "Basket order 1 to 17, largest pour first in eac
 
 // basketLookup (from benchBasketLookup) is optional: without it the sheet keeps
 // the design order, exactly as before baskets existed.
-function benchSheetHtml({ formulaName, variantLabel, dateText, totals, rows, critic, basketLookup = null }) {
+function benchSheetHtml({ formulaName, variantLabel, dateText, totals, rows, critic, basketLookup = null, notes = [] }) {
   const ordered = benchBasketOrder(rows, basketLookup);
   const { lines, leftOut, mixes } = benchSheetLines(ordered.map((entry) => entry.row));
   const hold = benchSheetHold(rows, critic);
@@ -341,6 +347,7 @@ function benchSheetHtml({ formulaName, variantLabel, dateText, totals, rows, cri
       </dl>
       ${mixNote ? `<p class="bench-sheet-note">${benchEscape(mixNote)}</p>` : ""}
       ${note ? `<p class="bench-sheet-note">${benchEscape(note)}</p>` : ""}
+      ${(notes || []).filter(Boolean).map((text) => `<p class="bench-sheet-note">${benchEscape(text)}</p>`).join("")}
     </header>
     <table class="bench-sheet-table">
       <thead><tr><th>#</th><th>Done</th><th>Material</th><th>Stock and strength</th><th>Amount</th><th>Running total</th></tr></thead>
@@ -348,6 +355,170 @@ function benchSheetHtml({ formulaName, variantLabel, dateText, totals, rows, cri
     </table>`;
 }
 
+// ---- A bench sheet for any formula (a project file or a pasted table) ----
+
+// The bottle a formula was written for, from "30mL", "30 mL" or "5ml" in its
+// name or file path; null when neither says.
+function benchBottleMl(...texts) {
+  for (const text of texts) {
+    for (const match of String(text ?? "").matchAll(/(\d+(?:\.\d+)?)\s*ml(?![a-z])/gi)) {
+      if (Number(match[1]) > 0) return match[1].replace(/^0+(?=\d)/, "");
+    }
+  }
+  return null;
+}
+
+// Exact value x target / source, rounded half up to `places` decimals, as a
+// plain decimal without trailing zeros. null unless all three are plain
+// decimals and source is not zero.
+function scaleDecimalText(value, target, source, places) {
+  const parse = (text) => {
+    const trimmed = String(text ?? "").trim();
+    if (!BENCH_DECIMAL.test(trimmed)) return null;
+    const [whole, fraction = ""] = trimmed.split(".");
+    return { digits: BigInt(whole + fraction), scale: fraction.length };
+  };
+  const amount = parse(value);
+  const to = parse(target);
+  const from = parse(source);
+  if (!amount || !to || !from || from.digits === 0n) return null;
+  const numerator = amount.digits * to.digits * 10n ** BigInt(from.scale + places);
+  const denominator = 10n ** BigInt(amount.scale + to.scale) * from.digits;
+  const digits = ((2n * numerator + denominator) / (2n * denominator)).toString().padStart(places + 1, "0");
+  if (!places) return digits;
+  const fraction = digits.slice(-places).replace(/0+$/, "");
+  return fraction ? `${digits.slice(0, -places)}.${fraction}` : digits.slice(0, -places);
+}
+
+// Decimal places kept when scaling: 0.1 µL and 0.1 mg, 1 µL in mL, 1 mg in g.
+const BENCH_SCALE_PLACES = { "µL": 1, mg: 1, mL: 3, g: 3 };
+
+// Every row scaled by target / source mL. A row too small to show at the
+// usual places keeps two more, so it still reaches the mix rule. Rows whose
+// amount is not a plain number stay as written and are listed.
+function benchScaleRows(rows, sourceMl, targetMl) {
+  const unscaled = [];
+  const scaled = (rows || []).map((row) => {
+    const places = BENCH_SCALE_PLACES[benchUnitKey(row.amount_unit)];
+    let amount = places === undefined ? null : scaleDecimalText(row.amount_decimal, targetMl, sourceMl, places);
+    if (amount === "0" && Number(row.amount_decimal) > 0) amount = scaleDecimalText(row.amount_decimal, targetMl, sourceMl, places + 2);
+    if (amount === null) {
+      unscaled.push(String(row.material ?? ""));
+      return { ...row };
+    }
+    return { ...row, amount_decimal: amount, unscaled_amount_decimal: row.amount_decimal };
+  });
+  return { rows: scaled, unscaled };
+}
+
+// Liquid µL (mL x 1000) and mg (g x 1000) totals, exact; "check by hand" when
+// an amount is not a plain number.
+function benchSeparateTotals(rows) {
+  let liquid = "0";
+  let mass = "0";
+  let liquidOk = true;
+  let massOk = true;
+  (rows || []).forEach((row) => {
+    const key = benchUnitKey(row.amount_unit);
+    const amount = String(row.amount_decimal ?? "").trim();
+    if (key === "µL" || key === "mL") {
+      const ul = key === "mL" ? multiplyDecimalText(amount, 1000) : amount;
+      const sum = ul === null ? null : addDecimalText(liquid, ul);
+      if (sum === null) liquidOk = false; else liquid = sum;
+    } else if (key === "mg" || key === "g") {
+      const mg = key === "g" ? multiplyDecimalText(amount, 1000) : amount;
+      const sum = mg === null ? null : addDecimalText(mass, mg);
+      if (sum === null) massOk = false; else mass = sum;
+    }
+  });
+  return { liquid_total_ul: liquidOk ? liquid : "check by hand", mass_total_mg: massOk ? mass : "check by hand" };
+}
+
+// A row from GET /workbench/formula-source (or the pasted-text parser) in the
+// shape the sheet reads. The file gives strength and basis but no solvent.
+function benchRowFromSource(row) {
+  return {
+    material: String(row.material ?? ""),
+    amount_decimal: String(row.amount_decimal ?? ""),
+    amount_unit: String(row.amount_unit ?? ""),
+    stock_fraction_decimal: row.concentration_fraction_decimal ?? "",
+    fraction_basis: row.concentration_basis || "UNKNOWN",
+    carrier: null,
+    stock_label: null,
+    stock_id: row.stock_id ?? null,
+    operation: row.operation,
+  };
+}
+
+const BENCH_BASIS_GROUP = { mass_fraction: "w/w", W_W: "w/w", volume_fraction: "v/v", V_V: "v/v" };
+
+function benchBasisFits(rowBasis, stockBasis, fraction) {
+  if (String(fraction).trim() === "1") return true;
+  const row = BENCH_BASIS_GROUP[rowBasis];
+  return !row || !BENCH_BASIS_GROUP[stockBasis] || row === BENCH_BASIS_GROUP[stockBasis];
+}
+
+// Fill each row's stock from the owned inventory: same material name (or
+// identity name) and the same strength, with a basis that does not conflict.
+// One match (or several that read the same) names the bottle, solvent and
+// basket; otherwise the row keeps the file's words and is listed in a note.
+function benchMatchStocks(rows, inventory) {
+  const owned = (inventory?.stocks || []).filter((stock) => String(stock.status ?? "").toLowerCase() === "owned");
+  const unmatched = [];
+  const ambiguous = [];
+  const held = [];
+  const matched = (rows || []).map((row) => {
+    const names = new Set([row.material, row.identity_name].map(benchNameKey).filter(Boolean));
+    const fraction = String(row.stock_fraction_decimal ?? "").trim();
+    const candidates = BENCH_DECIMAL.test(fraction) ? owned.filter((stock) => (
+      (names.has(benchNameKey(stock.material)) || names.has(benchNameKey(stock.identity_name)))
+      && BENCH_DECIMAL.test(String(stock.fraction_decimal ?? ""))
+      && compareDecimalText(String(stock.fraction_decimal), fraction) === 0
+      && benchBasisFits(row.fraction_basis, stock.fraction_basis, fraction)
+    )) : [];
+    const readings = new Set(candidates.map((stock) => [stock.stock_label, stock.fraction_basis, stock.carrier ?? ""].join("|")));
+    if (!candidates.length) {
+      unmatched.push(row.material);
+      return { ...row };
+    }
+    if (readings.size > 1) {
+      ambiguous.push(row.material);
+      return { ...row };
+    }
+    const stock = candidates[0];
+    if (candidates.some((item) => item.design_ready === false)) {
+      held.push(`${stock.stock_label || stock.material} (${String(stock.design_hold_reason || "on hold").replaceAll("_", " ").toLowerCase()})`);
+    }
+    return {
+      ...row,
+      stock_id: stock.stock_id,
+      identity_name: stock.identity_name,
+      stock_label: stock.stock_label || stock.material,
+      fraction_basis: stock.fraction_basis || row.fraction_basis,
+      carrier: stock.carrier || null,
+      execution_ready: candidates.some((item) => item.design_ready === false) ? false : row.execution_ready,
+    };
+  });
+  return { rows: matched, unmatched, ambiguous, held };
+}
+
+function benchNameList(names) {
+  const unique = [...new Set(names.filter(Boolean))];
+  return unique.length > 6 ? `${unique.slice(0, 6).join(", ")} and ${unique.length - 6} more` : unique.join(", ");
+}
+
+// Plain-language notes for the sheet header.
+function benchSourceNotes({ scaledFrom = null, scaledTo = null, unscaled = [], unmatched = [], ambiguous = [], held = [], warnings = [] }) {
+  const notes = [];
+  if (scaledFrom && scaledTo) notes.push(`Scaled from the ${scaledFrom} mL formula to ${scaledTo} mL; µL and mg rounded to one decimal.`);
+  if (unscaled.length) notes.push(`Not scaled, the amount is not a plain number: ${benchNameList(unscaled)}.`);
+  if (held.length) notes.push(`On hold in Stock: ${benchNameList(held)}.`);
+  if (unmatched.length) notes.push(`No owned stock with this name and strength, check the bottle: ${benchNameList(unmatched)}.`);
+  if (ambiguous.length) notes.push(`More than one owned stock fits, pick the bottle by hand: ${benchNameList(ambiguous)}.`);
+  (warnings || []).slice(0, 5).forEach((warning) => notes.push(`From the file: ${String(warning).slice(0, 200)}`));
+  return notes;
+}
+
 if (typeof module === "object" && module.exports) {
-  module.exports = { addDecimalText, benchUnitKey, benchPercentText, benchBasisText, benchNeedsPreparedDilution, benchSheetLines, benchSheetHold, benchLeaveOutNote, benchSheetHtml, benchEscape, compareDecimalText, benchBasketLookup, benchRowBasket, benchBasketOrder, multiplyDecimalText, benchMixRecipe, benchMixText, benchMixShortText, benchMixNote };
+  module.exports = { addDecimalText, benchUnitKey, benchPercentText, benchBasisText, benchNeedsPreparedDilution, benchSheetLines, benchSheetHold, benchLeaveOutNote, benchSheetHtml, benchEscape, compareDecimalText, benchBasketLookup, benchRowBasket, benchBasketOrder, multiplyDecimalText, benchMixRecipe, benchMixText, benchMixShortText, benchMixNote, benchBottleMl, scaleDecimalText, benchScaleRows, benchSeparateTotals, benchRowFromSource, benchMatchStocks, benchSourceNotes };
 }
