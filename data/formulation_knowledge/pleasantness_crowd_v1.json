@@ -3,7 +3,7 @@
   "scale": "-1 (most unpleasant) .. 0 (neutral) .. +1 (most pleasant); panel values are (mean - 50) / 50 of the Keller 0-100 rating with 50 = neutral",
   "label": "crowd guess: panel averages and hand estimates, not a measurement of this formula or of Kenny's taste",
   "source_citation": "Keller A, Vosshall LB (2016) Olfactory perception of chemically diverse molecules. BMC Neuroscience. doi:10.1186/s12868-016-0287-2 (CC BY 4.0), via pyrfume-data keller_2016, retrieved 2026-10-09",
-  "dose_rule": "strength_share <= 0.1 -> weak, >= 0.25 -> strong, linear between; heuristic_unmeasured flips set strong = min(value, -0.4)",
+  "dose_rule": "strength_share <= 0.1 -> weak, >= 0.25 -> strong, linear between; heuristic_unmeasured flips set strong = min(value, -0.4); a flip material with no base value reads unknown below 0.25 and -0.4 at or above",
   "counts": {
     "hedonic_model_table": 96,
     "keller_vosshall_2016": 53,
