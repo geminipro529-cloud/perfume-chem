@@ -256,7 +256,55 @@ def _matched_facets(
             ):
                 continue
             result.append(facet)
-    return tuple(result)
+    return tuple(_focus_query_terms(facet, text_key, result) for facet in result)
+
+
+# Facets whose vocabulary names several distinct flowers.  Each group is one
+# material named two ways; when a brief names one group, the others are a
+# different flower the brief did not ask for.
+_NAMED_TERM_GROUPS: dict[str, tuple[tuple[str, ...], ...]] = {
+    "white_floral": (("neroli", "orange blossom"), ("jasmine",), ("tuberose",), ("gardenia",)),
+    "iris_violet": (("iris", "orris"), ("violet",)),
+}
+
+
+def _focus_query_terms(
+    facet: FacetDefinition, text_key: str, matched: Sequence[FacetDefinition],
+) -> FacetDefinition:
+    """Lead a facet's search with the words the brief actually used.
+
+    This is request parsing only.  Literature profiles and the fruit facet keep
+    their own ordering, and violet vocabulary stays as it was whenever the brief
+    names violet, so violet petals, powder and leaf remain distinct.
+    """
+
+    if facet.facet_id == "fruit" or facet.knowledge_role_slot or facet in _LITERATURE_FACETS.values():
+        return facet
+    if _phrase_present(text_key, "violet") and any(
+        "violet" in term for term in (*facet.triggers, *facet.query_terms)
+    ):
+        return facet
+    # A word that calls up another requested facet belongs to that facet.
+    foreign = {
+        _key(trigger)
+        for other in matched
+        if other.facet_id != facet.facet_id
+        for trigger in other.triggers
+        if _phrase_present(text_key, trigger)
+    }
+    groups = _NAMED_TERM_GROUPS.get(facet.facet_id, ())
+    named_groups = [group for group in groups if any(_phrase_present(text_key, term) for term in group)]
+    unrequested = {term for group in groups if group not in named_groups for term in group} if named_groups else set()
+    lead: list[str] = []
+    for term in facet.query_terms:
+        if _key(term) in foreign or not _phrase_present(text_key, term):
+            continue
+        lead.append(term)
+        lead.extend(next((group for group in named_groups if term in group), ()))
+    lead_terms = _dedupe(lead)
+    rest = tuple(term for term in facet.query_terms if term not in lead_terms and term not in unrequested)
+    query_terms = (*lead_terms, *rest)
+    return facet if query_terms == facet.query_terms else replace(facet, query_terms=query_terms)
 
 
 _FRUIT_NAMES = (
@@ -589,9 +637,19 @@ def _roles(
         )
 
     filled_knowledge_slots: set[str] = set()
+    request_key = f" {_key(f'{formula_name} {request}')} "
+    explicit_keys = tuple(f" {_key(material)} " for material in explicit_materials)
     for facet in facets:
         if len(roles) >= maximum:
             break
+        # A facet called up only by the name of an explicit anchor would fill
+        # the same note twice.  Recognizer slots and fruit keep their roles.
+        if not facet.knowledge_role_slot and facet.facet_id != "fruit":
+            matched_triggers = [t for t in facet.triggers if _phrase_present(request_key, t)]
+            if matched_triggers and all(
+                any(_phrase_present(name, t) for name in explicit_keys) for t in matched_triggers
+            ):
+                continue
         # A rooty-and-transparent iris has one recognizer with two requested
         # qualities, not two mandatory copies of the same recognizer role.
         if facet.knowledge_role_slot in filled_knowledge_slots:
