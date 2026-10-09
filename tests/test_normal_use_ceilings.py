@@ -395,3 +395,15 @@ def test_a_volume_row_with_an_explicit_share_still_takes_the_spare_space(fixture
     assert sum(allocated.values()) == 6000
     assert allocated[0] <= 12 and allocated[1] <= 180
     assert holds == ["ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:stock:Dihydrojasmone"]
+
+
+def test_unsourced_audit_materials_stay_not_set_and_hedione_is_a_style_warning() -> None:
+    payload = json.loads(ceilings.NORMAL_USE_CEILINGS_PATH.read_text(encoding="utf-8"))
+    for material in ("Safraleine", "Florhydral", "Paradisamide", "Damascol", "Carrot Seed EO"):
+        assert material in payload["not_set"]
+        assert planner.match_normal_use_ceiling(material.lower()) is None
+    hedione = next(row for row in payload["materials"] if row["material"] == "Hedione")
+    assert hedione["kind"] == "style_warning"
+    assert "not a safety ceiling" in hedione["note"] and "IFRA sets no Hedione limit" in hedione["note"]
+    assert hedione["max_active_pct_of_concentrate"] == 15
+    assert hedione["match"] == ["hedione", "methyl dihydrojasmonate"]

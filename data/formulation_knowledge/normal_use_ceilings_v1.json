@@ -9,8 +9,12 @@
     "Ambrox Super / Ambrofix": "only supplier averages (0.1%) and an unclear-basis range; usually weighed as crystals.",
     "Vanillin, Ethyl Vanillin, Maltol, Methyl Salicylate, Phenyl Acetaldehyde, Manzanate": "only Fraterworks averages, no stated maximum.",
     "Calone, Ethyl 2-Methylbutyrate": "the only figures have an unclear basis (fine fragrance may mean the finished product).",
-    "Damascol": "the Good Scents page found describes a different compound (pepper hexanone).",
-    "Patchouli EO": "Good Scents has several patchouli pages; the 10% figure could not be tied to one oil."
+    "Damascol": "the only figure in the research files is Good Scents' 5% for CAS 4927-36-0, which Good Scents names pepper hexanone (5-methyl-5-phenylhexan-3-one, MW 190.3); the project records Damascol as a rose-plum damascone alcohol (MW 194.3), so the figure is not used. The composer applies the screening default instead.",
+    "Patchouli EO": "Good Scents has several patchouli pages; the 10% figure could not be tied to one oil.",
+    "Safraleine": "no use-level source in the research files (normal_use_sources_A-D.csv). The composer applies the screening default instead.",
+    "Florhydral": "no use-level source in the research files (normal_use_sources_A-D.csv). The composer applies the screening default instead.",
+    "Paradisamide": "no use-level source in the research files (normal_use_sources_A-D.csv). The composer applies the screening default instead.",
+    "Carrot Seed EO": "no use-level source in the research files (normal_use_sources_A-D.csv). The composer applies the screening default instead."
   },
   "materials": [
     {
@@ -496,7 +500,7 @@
         "methyl dihydrojasmonate"
       ],
       "max_active_pct_of_concentrate": 15,
-      "note": "Set by the project's Hedione rule (15%; the gate still applies 12% to chypres).",
+      "note": "Style warning, not a safety ceiling: the project's Hedione rule (15%; the gate still applies 12% to chypres) comes from one over-Hedioned bottle (AGENTS.md F2). IFRA sets no Hedione limit.",
       "sources": [
         {
           "kind": "supplier_maximum",
@@ -512,7 +516,8 @@
           "quote": "Max 12% for chypre. Max 15% for floral.",
           "max_pct_of_concentrate": 15.0
         }
-      ]
+      ],
+      "kind": "style_warning"
     },
     {
       "material": "Cashmeran",
