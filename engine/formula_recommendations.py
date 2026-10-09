@@ -1671,17 +1671,19 @@ def find_hidden_fixatives(vp_threshold: float = 1.0) -> list[dict]:
           "category": str, "families": list[str], "why": str }
     """
     from engine.ingredient_intelligence import _PROFILES
+    from engine.material_resolver import gate_vp_25c_pa
 
     results: list[dict] = []
     for mat_name, profile in _PROFILES.items():
-        vp = profile.get("vp", None)
+        # Same VP as the release gate: YAML data spine first, profile fallback.
+        vp = gate_vp_25c_pa(mat_name)
         if vp is None or vp > vp_threshold:
             continue
         note = profile.get("note", "unknown")
         role = profile.get("role", "unknown")
         char = profile.get("character", {})
         # Determine dominant odor family from character keys
-        families = sorted(char, key=char.get, reverse=True)[:3] if char else []
+        families = sorted(char, key=char.get, reverse=True)[:3] if isinstance(char, dict) and char else []
         why_parts = []
         if note in ("top", "heart"):
             why_parts.append(f"note={note} (not base)")

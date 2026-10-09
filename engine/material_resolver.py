@@ -59,6 +59,27 @@ def resolve_material(name: str) -> ResolvedMaterial:
     )
 
 
+def resolved_vp_25c_pa(resolved: ResolvedMaterial) -> tuple[float | None, str]:
+    """Return the 25 C reference vapour pressure the release gate uses.
+
+    The YAML data spine is the canonical VP store; the ingredient-intelligence
+    profile is the fallback. Formula state and the scoring/optimizer paths both
+    call this so the two cannot drift apart.
+    """
+    reg_vp = getattr(resolved.registry_material, "vp_25c_pa", None)
+    if reg_vp is not None:
+        return float(reg_vp), "registry:data_spine.vp_25c"
+    profile_vp = getattr(resolved.profile, "vp", None)
+    if profile_vp is not None:
+        return float(profile_vp), "profile:ingredient_intelligence.vp"
+    return None, "missing"
+
+
+def gate_vp_25c_pa(name: str) -> float | None:
+    """Reference VP (Pa, 25 C) for a material label, as the release gate sees it."""
+    return resolved_vp_25c_pa(resolve_material(str(name or "")))[0]
+
+
 def clear_material_resolver_cache() -> None:
     """Invalidate registry-backed resolution after an in-process data edit."""
     resolve_material.cache_clear()

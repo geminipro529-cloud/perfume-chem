@@ -23,7 +23,7 @@ from typing import Mapping
 
 from engine.ifra_safety import IFRA_CAT4_LIMITS
 from engine.ingredient_intelligence import MaterialProfile
-from engine.material_resolver import resolve_material
+from engine.material_resolver import resolve_material, resolved_vp_25c_pa
 from engine.mixer.prebonding import get_functional_groups
 from engine.odor_thresholds import lookup_odt_entry, verify_odt
 from engine.perception.oav import oav, perceived_intensity_stevens
@@ -1246,10 +1246,7 @@ def _build_formula_state_cached(
         canonical = identity.canonical_name
         x_i = mole_fractions.get(canonical, 0.0)
         ant = _registry_antoine(reg_mat)
-        vp_25, vp_source = _first_present(
-            (getattr(reg_mat, "vp_25c_pa", None), "registry:data_spine.vp_25c"),
-            (getattr(profile, "vp", None), "profile:ingredient_intelligence.vp"),
-        )
+        vp_25, vp_source = resolved_vp_25c_pa(identity)
         dhvap = getattr(reg_mat, "dhvap_kj_mol", None)
         vp_temperature_source = "unavailable:no_vp"
         dhvap_source = "unavailable:not_used"
