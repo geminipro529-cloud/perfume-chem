@@ -10,6 +10,9 @@ limited flux ``dn_i/dt = -A * gamma_i * x_i * P_i* / sqrt(MW_i)`` with
 amount removed tracks the partial pressure each frame reports. ``A`` is an
 unfitted relative scale, ``2e-5 * N_0``, chosen so every material's rate at
 t=0 equals the previous per-material constant ``2e-5 * gamma*P*/sqrt(MW)``.
+
+A declared ethanol/water matrix leaves by the same law, cap and step
+(diagnosis M1a), so it no longer stays in the pool for the whole run.
 """
 
 from __future__ import annotations
@@ -19,6 +22,7 @@ from dataclasses import dataclass
 from typing import Mapping, Sequence
 
 from engine.pipeline.formula_state import FormulaState, build_formula_state
+from engine.solvent_matrix import canonical_solvent_name
 
 DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
     ("opening", 0.0),
@@ -28,13 +32,25 @@ DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
     ("drydown", 14400.0),
 )
 
-TEMPORAL_MODEL = "dynamic_headspace_mass_balanced_loss_v3"
+TEMPORAL_MODEL = "dynamic_headspace_mass_balanced_loss_v4"
 TEMPORAL_AUTHORITY = "HEURISTIC_UNCALIBRATED"
 REMAINING_QUANTITY_BASIS = "heuristic_remaining_stock_volume_equivalent_ul"
 MAX_INTEGRATION_STEP_SECONDS = 300.0
 # Unfitted relative scale and cap of the loss law; not kinetic parameters.
 LOSS_RATE_SCALE = 2.0e-5
 MAX_LOSS_RATE_PER_S = 2.5e-3
+# Matrix components that evaporate (diagnosis M1a): canonical solvent key ->
+# (vapour pressure in Pa at 25 C, molar mass in g/mol). Source: CRC Handbook
+# of Chemistry and Physics (vapour pressure of fluids; physical constants of
+# organic compounds). The data spine's Ethanol 96% row (5900 Pa) carries no
+# vp_source, so it is not used. No temperature correction is applied.
+MATRIX_COMPONENT_VP_MW: dict[str, tuple[float, float]] = {
+    "ETHANOL": (7870.0, 46.07),
+    "WATER": (3170.0, 18.02),
+}
+# FormulaState assigns no activity coefficient to matrix components, so the
+# matrix loss uses gamma = 1.0 (ideal solution) as an explicit assumption.
+MATRIX_COMPONENT_GAMMA = 1.0
 
 
 @dataclass(frozen=True, slots=True)
@@ -141,6 +157,14 @@ def _pool_total_moles(state: FormulaState) -> float:
     return sum(m.moles for m in state.materials) + state.matrix_moles
 
 
+def _pool_ratio(state: FormulaState, initial_pool_moles: float | None) -> float:
+    """Return ``N_0 / N(t)``; 1 when ``N_0`` is omitted or the pool is empty."""
+    pool_moles = _pool_total_moles(state)
+    if initial_pool_moles is None or pool_moles <= 0.0:
+        return 1.0
+    return float(initial_pool_moles) / pool_moles
+
+
 def _remaining_raw_ul(
     state: FormulaState,
     delta_seconds: float,
@@ -153,11 +177,7 @@ def _remaining_raw_ul(
     value and applied as ``exp(-k * dt)``. ``initial_pool_moles`` is ``N_0``;
     omitted, the state is treated as the initial pool (ratio 1).
     """
-    pool_moles = _pool_total_moles(state)
-    if initial_pool_moles is None or pool_moles <= 0.0:
-        pool_ratio = 1.0
-    else:
-        pool_ratio = float(initial_pool_moles) / pool_moles
+    pool_ratio = _pool_ratio(state, initial_pool_moles)
     remaining: dict[str, float] = {}
     for m in state.materials:
         k = _loss_rate_per_s(
@@ -169,6 +189,32 @@ def _remaining_raw_ul(
         dilution = max(m.dilution, 1e-9)
         remaining[m.name] = active_remaining / dilution
     return remaining
+
+
+def _remaining_matrix_moles(
+    state: FormulaState,
+    delta_seconds: float,
+    *,
+    initial_pool_moles: float | None = None,
+) -> tuple[tuple[str, float], ...]:
+    """Return matrix component moles after one step of the same loss law.
+
+    Each component's escaping tendency is ``MATRIX_COMPONENT_GAMMA * P*`` from
+    ``MATRIX_COMPONENT_VP_MW``; the rate, cap, pool ratio and ``exp(-k * dt)``
+    step are those applied to materials. A component without constants there
+    is kept unchanged rather than given guessed properties.
+    """
+    pool_ratio = _pool_ratio(state, initial_pool_moles)
+    remaining: list[tuple[str, float]] = []
+    for name, moles in state.matrix_components_moles:
+        constants = MATRIX_COMPONENT_VP_MW.get(canonical_solvent_name(name) or "")
+        if constants is None:
+            remaining.append((name, moles))
+            continue
+        vp_pa, mw_g_mol = constants
+        k = _loss_rate_per_s(MATRIX_COMPONENT_GAMMA * vp_pa, mw_g_mol, pool_ratio)
+        remaining.append((name, moles * math.exp(-k * delta_seconds)))
+    return tuple(remaining)
 
 
 def _advance_state(
@@ -199,7 +245,19 @@ def _advance_state(
             step,
             initial_pool_moles=initial_pool_moles,
         )
-        current = FormulaState.from_base(current, new_raw_ul=remaining)
+        if current.matrix_components_moles:
+            matrix = _remaining_matrix_moles(
+                current,
+                step,
+                initial_pool_moles=initial_pool_moles,
+            )
+            current = FormulaState.from_base(
+                current,
+                new_raw_ul=remaining,
+                new_matrix_moles=matrix,
+            )
+        else:
+            current = FormulaState.from_base(current, new_raw_ul=remaining)
         remaining_seconds -= step
     return current
 

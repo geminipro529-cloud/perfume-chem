@@ -137,3 +137,142 @@ def test_pure_volatile_is_zero_order_until_the_rate_cap_binds():
         # Zero order: n(t) = n0 - k0 * n0 * t while the cap does not bind.
         assert state.materials[0].moles == pytest.approx(n0 * (1.0 - k0 * t), rel=1e-2)
     assert t > 0.0
+
+
+# --- Declared matrix evaporates by the same law (diagnosis M1a) ---
+
+MATRIX = {"Ethanol": 0.4, "Water": 0.05}
+
+
+def _matrix_state(ingredients: dict[str, float]) -> FormulaState:
+    return build_formula_state(
+        ingredients,
+        _neat(ingredients),
+        matrix_moles=MATRIX,
+        matrix_mass_g=19.3,
+        matrix_source="explicit",
+    )
+
+
+def _per_step_frames(state: FormulaState, ingredients: dict[str, float], steps: int):
+    dt = simulator.MAX_INTEGRATION_STEP_SECONDS
+    windows = tuple((f"step_{i}", i * dt) for i in range(steps + 1))
+    return simulator.simulate_formula(
+        ingredients, _neat(ingredients), initial_state=state, windows=windows
+    )
+
+
+def _frozen_matrix_frames(state: FormulaState, windows):
+    """The b92e000 integration: materials deplete, the matrix is copied unchanged."""
+    n0 = simulator._pool_total_moles(state)
+    frames = []
+    current, now = state, 0.0
+    for label, seconds in windows:
+        remaining_seconds = float(seconds) - now
+        while remaining_seconds > 0.0:
+            step = min(simulator.MAX_INTEGRATION_STEP_SECONDS, remaining_seconds)
+            raw = simulator._remaining_raw_ul(current, step, initial_pool_moles=n0)
+            current = FormulaState.from_base(current, new_raw_ul=raw)
+            remaining_seconds -= step
+        now = float(seconds)
+        frames.append((label, current))
+    return frames
+
+
+def test_declared_matrix_moles_strictly_decrease_and_mostly_leave_by_7200_s():
+    state = _matrix_state(MIXED)
+    frames = simulator.simulate_formula(MIXED, _neat(MIXED), initial_state=state)
+    matrix = [frame.state.matrix_moles for frame in frames]
+    assert matrix[0] == pytest.approx(sum(MATRIX.values()), rel=1e-12)
+    assert all(later < earlier for earlier, later in zip(matrix, matrix[1:]))
+    late_heart = next(frame for frame in frames if frame.t_seconds == 7200.0)
+    assert late_heart.state.matrix_moles < 0.1 * matrix[0]
+    # Component identities are kept; only their amounts fall.
+    for frame in frames:
+        assert [name for name, _ in frame.state.matrix_components_moles] == list(MATRIX)
+
+
+def test_formula_without_matrix_matches_the_frozen_matrix_integration_exactly():
+    state = _state(MIXED)
+    assert state.matrix_components_moles == ()
+    frames = simulator.simulate_formula(MIXED, _neat(MIXED), initial_state=state)
+    expected = _frozen_matrix_frames(state, simulator.DEFAULT_WINDOWS)
+    for frame, (label, old_state) in zip(frames, expected, strict=True):
+        assert frame.label == label
+        assert frame.state.matrix_components_moles == ()
+        for new_row, old_row in zip(frame.state.materials, old_state.materials, strict=True):
+            assert new_row.raw_ul == old_row.raw_ul
+            assert new_row.moles == old_row.moles
+            assert new_row.screening_oav == old_row.screening_oav
+
+
+def test_declared_matrix_differs_from_the_frozen_matrix_integration():
+    state = _matrix_state(MIXED)
+    frames = simulator.simulate_formula(MIXED, _neat(MIXED), initial_state=state)
+    expected = _frozen_matrix_frames(state, simulator.DEFAULT_WINDOWS)
+    drydown, (_, frozen) = frames[-1], expected[-1]
+    assert frozen.matrix_moles == pytest.approx(sum(MATRIX.values()), rel=1e-12)
+    assert drydown.state.matrix_moles < 1e-3 * frozen.matrix_moles
+    new_total = sum(m.raw_ul for m in drydown.state.materials)
+    assert new_total < sum(m.raw_ul for m in frozen.materials)
+
+
+def test_heavy_material_rate_rises_as_the_matrix_leaves():
+    state = _matrix_state(MIXED)
+    n0 = simulator._pool_total_moles(state)
+    dt = simulator.MAX_INTEGRATION_STEP_SECONDS
+    frames = _per_step_frames(state, MIXED, 12)
+
+    rates, ratios = [], []
+    for before, after in zip(frames, frames[1:]):
+        row_before = next(m for m in before.state.materials if m.name == "Galaxolide")
+        row_after = next(m for m in after.state.materials if m.name == "Galaxolide")
+        k = -math.log(row_after.moles / row_before.moles) / dt
+        ratio = n0 / simulator._pool_total_moles(before.state)
+        # Per unit escaping tendency the rate is scale * N0/N(t) / sqrt(MW);
+        # gamma itself also falls as ethanol leaves, so k is compared per unit.
+        escaping = row_before.partial_pressure_pa / row_before.mole_fraction
+        assert k / escaping == pytest.approx(
+            simulator.LOSS_RATE_SCALE * ratio / math.sqrt(row_before.mw_g_mol), rel=1e-9
+        )
+        rates.append(k)
+        ratios.append(ratio)
+    assert all(later > earlier for earlier, later in zip(ratios, ratios[1:]))
+    assert ratios[-1] > 16.0
+    assert all(later > earlier for earlier, later in zip(rates[:6], rates[1:6]))
+    assert rates[-1] < simulator.MAX_LOSS_RATE_PER_S
+    assert rates[-1] > 3.0 * rates[0]
+
+
+def test_removed_moles_track_headspace_with_the_matrix_in_the_pool():
+    state = _matrix_state(MIXED)
+    n0 = simulator._pool_total_moles(state)
+    assert n0 == pytest.approx(
+        sum(m.moles for m in state.materials) + sum(MATRIX.values()), rel=1e-12
+    )
+    expected_a = 2.0e-5 * n0
+    dt = simulator.MAX_INTEGRATION_STEP_SECONDS
+    frames = _per_step_frames(state, MIXED, 36)
+
+    for before, after in zip(frames, frames[1:]):
+        n_now = simulator._pool_total_moles(before.state)
+        for before_row, after_row in zip(
+            before.state.materials, after.state.materials, strict=True
+        ):
+            # x_i is n_i over materials plus matrix, the pool the law uses.
+            assert before_row.mole_fraction == pytest.approx(before_row.moles / n_now, rel=1e-12)
+            k_applied = -math.log(after_row.moles / before_row.moles) / dt
+            if k_applied < simulator.MAX_LOSS_RATE_PER_S * (1.0 - 1e-9):
+                removal_rate = k_applied * before_row.moles
+                assert removal_rate / _gas_side_term(before_row) == pytest.approx(
+                    expected_a, rel=1e-9
+                )
+        matrix_after = dict(after.state.matrix_components_moles)
+        for name, moles in before.state.matrix_components_moles:
+            vp, mw = simulator.MATRIX_COMPONENT_VP_MW[name.upper()]
+            x_j = moles / n_now
+            gas_term = simulator.MATRIX_COMPONENT_GAMMA * x_j * vp / math.sqrt(mw)
+            k_applied = -math.log(matrix_after[name] / moles) / dt
+            assert k_applied == pytest.approx(
+                min(simulator.MAX_LOSS_RATE_PER_S, expected_a * gas_term / moles), rel=1e-9
+            )
