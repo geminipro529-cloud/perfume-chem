@@ -2,8 +2,8 @@
   "schema_version": "ifra_annex1_constituents/1",
   "amendment": 49,
   "amendment_year": 2020,
-  "verification": "single_read_unverified",
-  "verification_note": "Values were transcribed once by an automated PDF reader and have not been checked against the PDF pages. A second independent read is pending. Correct a value by editing its row; every row carries its source PDF.",
+  "verification": "two_independent_reads",
+  "verification_note": "Each value was read twice from its PDF by two independent automated readers on 2026-10-09. The reads agreed on 267 of the 274 rows transcribed (these 261 rows plus 13 estragole and methyl eugenol rows kept for the next change). The 7 disagreements were settled from the PDF's own text lines, where each row reads '<value> <substance CAS> <NCS name>' (checked against Palmarosa oil, 82.4 % geraniol): 5 kept the first read, and Styrax extract (0.1) and Styrax oil, Honduras (0.05) took the second for benzaldehyde. No value has been checked by a person against the printed page. Correct a value by editing its row; every row carries its source PDF.",
   "source": "IFRA Standards, Amendment 49 (2020), Annex I 'Contributions from other sources' tables, as copied by PerfumersWorld; one PDF per restricted substance (source_url on every row). Each value is the highest concentration of that substance reported in that natural.",
   "scope": "Only the 17 restricted substances with a Category 4 limit in ifra_cat4_51.json, and only rows for naturals Kenny owns and their close variants. Estragole and methyl eugenol rows wait for their standards. Annexes of other restricted substances were not read.",
   "stock_rule": "A stock maps to the NCS rows that are that natural, not its part or species variants. Where the species, part or extraction is uncertain, every candidate is listed and the highest value per substance is used. Rows that print one substance under several CAS numbers (cedrene) also take the highest value, never the sum.",
@@ -1910,16 +1910,16 @@
       "substance": "Benzaldehyde",
       "standard": "IFRA_STD_007",
       "ncs_name": "Styrax extract",
-      "max_pct": 0.05,
-      "max_pct_as_printed": "0.05",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
       "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
     },
     {
       "substance": "Benzaldehyde",
       "standard": "IFRA_STD_007",
       "ncs_name": "Styrax oil, Honduras",
-      "max_pct": 0.1,
-      "max_pct_as_printed": "0.1",
+      "max_pct": 0.05,
+      "max_pct_as_printed": "0.05",
       "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
     },
     {
