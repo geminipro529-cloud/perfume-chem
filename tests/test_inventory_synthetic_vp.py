@@ -46,3 +46,16 @@ def test_aldehyde_c11_neat_label_is_undecylenic_aldehyde():
     assert material.odt_air_ppm == pytest.approx(reference.odt_air_ppm)
     assert material.vp_pure_pa == pytest.approx(reference.vp_pure_pa)
     assert material.oav is not None
+
+
+def test_cis_3_hexenyl_salicylate_label_uses_iff_vapour_pressure():
+    # IFF compendium: 0.000336 mm Hg at 23 C = 0.0448 Pa, recorded as stated.
+    resolved = resolve_material("Cis-3-Hexenyl Salicylate")
+    assert resolved.registry_name == "Cis-3-Hexenyl Salicylate"
+    record = resolved.registry_material
+    assert record.cas == "65405-77-8"
+    assert record.vp_25c_pa == pytest.approx(0.0448)
+
+    material = _state("Cis-3-Hexenyl Salicylate")
+    assert material.vp_pure_pa is not None
+    assert material.oav is not None
