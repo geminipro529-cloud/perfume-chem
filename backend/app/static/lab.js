@@ -1865,6 +1865,28 @@ function renderCompositionChecks(compositionChecks) {
   }
 }
 
+function renderDetectionCheck(detectionCheck) {
+  const box = $("#formula-result-detection");
+  const summary = typeof detectionCheckLines === "function" ? detectionCheckLines(detectionCheck) : null;
+  box.replaceChildren();
+  box.hidden = !summary;
+  if (!summary) return;
+  box.className = summary.flagged ? "formula-result-checks inline-warning" : "formula-result-checks";
+  const list = document.createElement("ul");
+  summary.lines.forEach((line) => {
+    const item = document.createElement("li");
+    item.dataset.status = line.status;
+    item.textContent = line.text;
+    list.append(item);
+  });
+  box.append(list);
+  if (summary.note) {
+    const note = document.createElement("small");
+    note.textContent = summary.note;
+    box.append(note);
+  }
+}
+
 // With basket data in the inventory payload the rows follow Kenny's basket
 // order (benchBasketOrder in bench-sheet.js) under one heading per basket;
 // without it they keep the design order. Doses are never changed.
@@ -1929,6 +1951,7 @@ function renderFormulaDesign(result, variantIndex = 0) {
     picker.append(button);
   });
   renderCompositionChecks(selected.variant ? selected.variant.composition_checks : result.composition_checks);
+  renderDetectionCheck((selected.variant ? selected.formula : (selected.formula || result.initial_formula))?.detection_check);
   const rows = selected.formula?.rows || [];
   renderFormulaRows(rows);
 
