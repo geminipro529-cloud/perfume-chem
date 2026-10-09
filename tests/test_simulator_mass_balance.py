@@ -415,3 +415,24 @@ def test_heavy_materials_keep_the_same_drydown_with_or_without_a_declared_matrix
         assert left_plain / start[name] > 0.95
         assert left_matrix / start[name] == pytest.approx(left_plain / start[name], abs=0.02)
         assert left_matrix >= left_plain * (1.0 - 1e-9)
+
+
+def test_ethanol_dilutes_every_material_without_boosting_those_with_hansen_data():
+    """The matrix dilutes and evaporates; it does not shift the mixture HSP.
+
+    Only a few materials (Iso E Super, Hedione, Galaxolide...) have Hansen
+    data, so a matrix inside the mixture HSP raised just their gamma (Iso E
+    Super 1.05 -> 5.3 in ethanol) while every other row kept a fixed value.
+    """
+    bare = _state(MIXED)
+    declared = _matrix_state(MIXED)
+    filled = simulator.simulate_formula(
+        MIXED, _neat(MIXED), initial_state=bare, windows=(("opening", 0.0),)
+    )[0].state
+    for state in (declared, filled):
+        assert state.matrix_moles > 0.0
+        for with_matrix, without in zip(state.materials, bare.materials, strict=True):
+            assert with_matrix.gamma == pytest.approx(without.gamma, rel=1e-12)
+            assert with_matrix.mole_fraction < without.mole_fraction
+    hsp_rows = [m for m in bare.materials if m.sources.get("gamma") == "heuristic:hansen_distance"]
+    assert {m.name for m in hsp_rows} >= {"Iso E Super", "Hedione", "Galaxolide"}
