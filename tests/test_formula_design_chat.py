@@ -130,17 +130,18 @@ def test_formula_design_treats_sixty_as_a_ceiling_and_adds_no_filler() -> None:
     assert result["beauty_score"] is None
 
 
-def test_formula_design_default_ceiling_is_fifteen_materials() -> None:
-    # 2026-10-09: Kenny chose a 15-material default (was 30). Blends of many
-    # similar-strength materials blur together, so a larger formula is opt-in.
+def test_formula_design_default_ceiling_is_sixty_materials() -> None:
+    # 2026-10-09 08:01 UTC: Kenny raised the default ceiling from 15 to 60 so
+    # layers and accents fit. It is a ceiling: the composer stops once its
+    # notes, accords and layers are placed.
     result = design_inventory_formula(
         idea="a panoramic, exceptionally detailed modern chypre with rose, patchouli and oakmoss",
         formula_name="Panoramic Chypre",
     )
 
     rows = result["optimized_formula"]["rows"]
-    assert result["requested_material_limit"] == 15
-    assert 6 <= result["selected_material_count"] <= 15
+    assert result["requested_material_limit"] == 60
+    assert 6 <= result["selected_material_count"] < 60
     assert len(rows) == result["selected_material_count"]
     assert result["optimized_formula"]["separate_totals"]["liquid_total_ul"] == "6000"
 
