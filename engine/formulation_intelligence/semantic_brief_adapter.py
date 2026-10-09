@@ -14,6 +14,7 @@ import hashlib
 import re
 import unicodedata
 from dataclasses import asdict, dataclass, field, replace
+from functools import lru_cache
 from typing import Any, Iterable, Mapping, Sequence
 
 from engine.formulation_intelligence.contracts import EvidenceClass, ProvenanceRef
@@ -100,9 +101,16 @@ class SemanticBrief:
     knowledge_context: dict[str, Any] = field(default_factory=dict)
     architecture_plan: dict[str, Any] = field(default_factory=dict)
     requested_fruits: tuple[str, ...] = ()
+    # Natural-material note words in the request that no facet, fruit or named
+    # material placed. Omitted from as_dict() while empty so existing briefs
+    # keep their payload and design hashes.
+    unmapped_requested_notes: tuple[str, ...] = ()
 
     def as_dict(self) -> dict[str, Any]:
-        return asdict(self)
+        payload = asdict(self)
+        if not self.unmapped_requested_notes:
+            del payload["unmapped_requested_notes"]
+        return payload
 
 
 # The entries below are descriptor-to-capability vocabulary.  They specify no
@@ -317,6 +325,63 @@ def _mask_avoided_phrases(text: str, avoid: Sequence[str]) -> str:
             continue
         masked = re.sub(rf"(?<!\w){re.escape(raw)}(?!\w)", " ", masked)
     return _clean(masked)
+
+
+_NATURAL_NAME_ENDING = re.compile(
+    r"^(.*?) (?:eo|oil|absolute|abs|resinoid|concrete|co2|tincture|extract)(?: |$)"
+)
+_GRADE_WORDS = re.compile(r"\b(?:distilled|terpeneless|fcf|essential|expressed)\b")
+
+
+@lru_cache(maxsize=1)
+def _natural_note_vocabulary() -> tuple[str, ...]:
+    """Natural-material name stems, longest first ("Vetiver EO" -> "vetiver").
+
+    Request-word vocabulary only: a stem here says a user may name this note,
+    not that any stock reproduces it.
+    """
+    from engine.ingredient_intelligence import _PROFILES
+    from engine.name_utils import _ALIASES
+
+    names = {*map(str, _PROFILES), *map(str, _ALIASES), *map(str, _ALIASES.values())}
+    stems: set[str] = set()
+    for name in names:
+        text = _key(re.sub(r"\([^)]*\)", " ", name))
+        text = " ".join(_GRADE_WORDS.sub(" ", text).split())
+        match = _NATURAL_NAME_ENDING.match(text)
+        if match and match.group(1).strip():
+            stems.add(match.group(1).strip())
+    return tuple(sorted(stems, key=lambda stem: (-len(stem), stem)))
+
+
+def _unmapped_requested_notes(
+    text: str,
+    facets: Sequence[FacetDefinition],
+    requested_fruits: Sequence[str],
+    explicit_materials: Sequence[str],
+) -> tuple[str, ...]:
+    """Name natural-note words the request holds that no placed term covers.
+
+    Every facet trigger is masked, matched or not: a trigger absent from the
+    result was either covered by a more specific facet or avoided, and the
+    text here is already avoid-masked.
+    """
+    masked = f" {_key(text)} "
+    covered = [
+        *(trigger for facet in (*_FACETS, *_LITERATURE_FACETS.values(), _IRIS_TEXTURE) for trigger in facet.triggers),
+        *(term for facet in facets for term in facet.query_terms),
+        *requested_fruits,
+        *explicit_materials,
+        *(trigger for triggers, _ in _QUALIFIER_WEIGHTS for trigger in triggers),
+    ]
+    for phrase in sorted({_key(item) for item in covered if _key(item)}, key=len, reverse=True):
+        masked = re.sub(rf"(?<= ){re.escape(phrase)}(?= )", " ", masked)
+    found: list[str] = []
+    for stem in _natural_note_vocabulary():
+        if _phrase_present(masked, stem):
+            found.append(stem)
+            masked = re.sub(rf"(?<= ){re.escape(stem)}(?= )", " ", masked)
+    return tuple(found)
 
 
 def _qualifier_weights(text: str, avoid: Sequence[str]) -> tuple[tuple[str, float], ...]:
@@ -1080,6 +1145,9 @@ def compile_semantic_brief(
         target_intent=target_intent.as_dict(),
         knowledge_context=knowledge_context,
         requested_fruits=requested_fruits,
+        unmapped_requested_notes=_unmapped_requested_notes(
+            positive_semantic_text, facets, requested_fruits, explicit
+        ),
     )
 
 

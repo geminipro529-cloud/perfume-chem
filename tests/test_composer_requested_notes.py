@@ -73,3 +73,31 @@ def test_violet_leaf_brief_role_plan_is_unchanged() -> None:
 
     roles = [SemanticRole(**role) for role in result["semantic_brief"]["roles"]]
     assert role_plan_signature(roles) == _VIOLET_LEAF_SIGNATURE_ON_MASTER
+
+
+# COMP-01, second half: a requested natural note no facet can place must be
+# named, not dropped while the message claims a full compile.  Lime is not in
+# the vocabulary (no lime stock name exists), so osmanthus stands in: it is a
+# natural-material stem that no facet trigger covers.
+def test_unplaceable_requested_note_is_named_as_a_hold() -> None:
+    result = design_formula(idea="rose and osmanthus")
+
+    assert result["semantic_brief"]["unmapped_requested_notes"] == ("osmanthus",)
+    assert "UNMAPPED_REQUESTED_NOTE:osmanthus" in result["reason_codes"]
+    assert "UNMAPPED_REQUESTED_NOTE:osmanthus" in result["constraint_audit"]["holds"]
+    assert result["status"] == "INVENTORY_GROUNDED_DESIGN_READY_WITH_HOLDS"
+    message = result["assistant_message"]
+    assert "osmanthus" in message
+    assert "only in part" in message
+    assert not message.startswith("I compiled Rose Osmanthus into")
+
+
+@pytest.mark.parametrize("idea", ["rose and oud", "iris", "violet leaf", "rose"])
+def test_fully_placed_briefs_report_no_unmapped_note(idea: str) -> None:
+    result = design_formula(idea=idea)
+
+    # Absent (not empty) keeps the semantic brief payload and its hashes unchanged.
+    assert "unmapped_requested_notes" not in result["semantic_brief"]
+    assert not any(code.startswith("UNMAPPED_REQUESTED_NOTE") for code in result.get("reason_codes", ()))
+    assert not any(hold.startswith("UNMAPPED_REQUESTED_NOTE") for hold in result["constraint_audit"]["holds"])
+    assert result["assistant_message"].startswith(f"I compiled {result['formula_name']} into")
