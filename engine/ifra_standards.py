@@ -83,6 +83,8 @@ class IFRAMaterial:
     authority: str | None
     note: str | None
     source_url: str | None = None
+    # Said on the row's own gate message, e.g. a stock whose species is not recorded.
+    identity_note: str | None = None
 
 
 @dataclass(frozen=True)
@@ -523,6 +525,7 @@ def _parse_material(
         authority=rec.get("authority", "IFRA") if status == "prohibited" else None,
         note=rec.get("note"),
         source_url=rec.get("source_url"),
+        identity_note=rec.get("identity_note"),
     )
 
 
@@ -972,6 +975,8 @@ def _check_row(
             f"{label} at {_fmt(pct)} % is a natural with no IFRA standard of its own; its "
             f"restricted constituents are not summed here."
         )
+    if material.identity_note:
+        message = f"{message} {material.identity_note}"
     return IFRACheck(
         material=row_name,
         matched_name=matched_name,

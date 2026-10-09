@@ -3,19 +3,17 @@
   "amendment": 49,
   "amendment_year": 2020,
   "verification": "two_independent_reads",
-  "verification_note": "Each value was read twice from its PDF by two independent automated readers on 2026-10-09. The reads agreed on 267 of the 274 rows transcribed (these 261 rows plus 13 estragole and methyl eugenol rows kept for the next change). The 7 disagreements were settled from the PDF's own text lines, where each row reads '<value> <substance CAS> <NCS name>' (checked against Palmarosa oil, 82.4 % geraniol): 5 kept the first read, and Styrax extract (0.1) and Styrax oil, Honduras (0.05) took the second for benzaldehyde. No value has been checked by a person against the printed page. Correct a value by editing its row; every row carries its source PDF.",
+  "verification_note": "Each value was read twice from its PDF by two independent automated readers on 2026-10-09. The reads agreed on 267 of the 274 rows transcribed (all 274 rows here, including 13 estragole and methyl eugenol rows). The 7 disagreements were settled from the PDF's own text lines, where each row reads '<value> <substance CAS> <NCS name>' (checked against Palmarosa oil, 82.4 % geraniol): 5 kept the first read, and Styrax extract (0.1) and Styrax oil, Honduras (0.05) took the second for benzaldehyde. No value has been checked by a person against the printed page. Correct a value by editing its row; every row carries its source PDF.",
   "source": "IFRA Standards, Amendment 49 (2020), Annex I 'Contributions from other sources' tables, as copied by PerfumersWorld; one PDF per restricted substance (source_url on every row). Each value is the highest concentration of that substance reported in that natural.",
-  "scope": "Only the 17 restricted substances with a Category 4 limit in ifra_cat4_51.json, and only rows for naturals Kenny owns and their close variants. Estragole and methyl eugenol rows wait for their standards. Annexes of other restricted substances were not read.",
+  "scope": "Only the 19 restricted substances with a Category 4 limit in ifra_cat4_51.json, and only rows for naturals Kenny owns and their close variants. Natural rows for methyl N-methylanthranilate (mandarin), safrole (nutmeg) and basil's estragole are not read yet. Annexes of other restricted substances were not read.",
   "stock_rule": "A stock maps to the NCS rows that are that natural, not its part or species variants. Where the species, part or extraction is uncertain, every candidate is listed and the highest value per substance is used. Rows that print one substance under several CAS numbers (cedrene) also take the highest value, never the sum.",
   "unmapped_owned_naturals": {
     "Cedarwood Himalayan EO": "Cedrus deodara has no Annex I row; the Atlas cedar row is another species.",
-    "Anise EO": "Only estragole rows; they wait for the estragole standard.",
-    "Elemi EO": "Only methyl eugenol rows; they wait for the methyl eugenol standard.",
     "Ambrette Seed Absolute": "Not in the IFRA table yet (held as unrecognised); Annex row: Ambrette seed absolute.",
     "Lavandin Absolute": "Not in the IFRA table yet (held as unrecognised); Annex lists lavandin oils only.",
     "Lemon Terpeneless Oil": "Not in the IFRA table yet (held as unrecognised); Annex row: Lemon oil terpeneless.",
     "Vanilla Absolute": "Not in the IFRA table yet (held as unrecognised); Annex row: Vanilla absolute.",
-    "Rose Otto Bulgarian": "Not in the IFRA table yet (held as unrecognised); Annex row: Rose oil."
+    "Rose Otto Bulgarian": "Not in the IFRA table yet (held as unrecognised); Annex row: Rose oil. Once recognised it maps to Rose oil (methyl eugenol up to 2 %)."
   },
   "rows": [
     {
@@ -2105,6 +2103,110 @@
       "max_pct": 3.0,
       "max_pct_as_printed": "3",
       "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citronellal.pdf"
+    },
+    {
+      "substance": "Estragole",
+      "standard": "IFRA_STD_099",
+      "ncs_name": "Anise seed oil",
+      "max_pct": 0.3,
+      "max_pct_as_printed": "0.3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Estragole.pdf"
+    },
+    {
+      "substance": "Estragole",
+      "standard": "IFRA_STD_099",
+      "ncs_name": "Star anise oil",
+      "max_pct": 3.3,
+      "max_pct_as_printed": "3.3",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Estragole.pdf"
+    },
+    {
+      "substance": "Methyl eugenol",
+      "standard": "IFRA_STD_100",
+      "ncs_name": "Cinnamon leaf oil",
+      "max_pct": 0.01,
+      "max_pct_as_printed": "0.01",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Methyl%20eugenol.pdf"
+    },
+    {
+      "substance": "Methyl eugenol",
+      "standard": "IFRA_STD_100",
+      "ncs_name": "Elemi gum",
+      "max_pct": 0.07,
+      "max_pct_as_printed": "0.07",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Methyl%20eugenol.pdf"
+    },
+    {
+      "substance": "Methyl eugenol",
+      "standard": "IFRA_STD_100",
+      "ncs_name": "Elemi oil",
+      "max_pct": 0.4,
+      "max_pct_as_printed": "0.4",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Methyl%20eugenol.pdf"
+    },
+    {
+      "substance": "Methyl eugenol",
+      "standard": "IFRA_STD_100",
+      "ncs_name": "Elemi resinoid",
+      "max_pct": 0.07,
+      "max_pct_as_printed": "0.07",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Methyl%20eugenol.pdf"
+    },
+    {
+      "substance": "Methyl eugenol",
+      "standard": "IFRA_STD_100",
+      "ncs_name": "Michelia alba extract",
+      "max_pct": 2.8,
+      "max_pct_as_printed": "2.8",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Methyl%20eugenol.pdf"
+    },
+    {
+      "substance": "Methyl eugenol",
+      "standard": "IFRA_STD_100",
+      "ncs_name": "Nutmeg oil",
+      "max_pct": 1.2,
+      "max_pct_as_printed": "1.2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Methyl%20eugenol.pdf"
+    },
+    {
+      "substance": "Methyl eugenol",
+      "standard": "IFRA_STD_100",
+      "ncs_name": "Rose absolute",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Methyl%20eugenol.pdf"
+    },
+    {
+      "substance": "Methyl eugenol",
+      "standard": "IFRA_STD_100",
+      "ncs_name": "Rose concrete",
+      "max_pct": 0.5,
+      "max_pct_as_printed": "0.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Methyl%20eugenol.pdf"
+    },
+    {
+      "substance": "Methyl eugenol",
+      "standard": "IFRA_STD_100",
+      "ncs_name": "Rose oil",
+      "max_pct": 2,
+      "max_pct_as_printed": "2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Methyl%20eugenol.pdf"
+    },
+    {
+      "substance": "Methyl eugenol",
+      "standard": "IFRA_STD_100",
+      "ncs_name": "Tuberose absolute",
+      "max_pct": 1.8,
+      "max_pct_as_printed": "1.8",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Methyl%20eugenol.pdf"
+    },
+    {
+      "substance": "Methyl eugenol",
+      "standard": "IFRA_STD_100",
+      "ncs_name": "Tuberose concrete",
+      "max_pct": 1.07,
+      "max_pct_as_printed": "1.07",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Methyl%20eugenol.pdf"
     }
   ],
   "stocks": {
@@ -2242,7 +2344,7 @@
       "ncs_names": [
         "Michelia alba extract"
       ],
-      "note": "Only Michelia alba row is an extract; the stock is an essential oil. Used as the only candidate."
+      "note": "Kenny identifies the stock as Michelia alba; its extraction is not recorded. Michelia alba extract is the only Michelia alba row, so it is used as the only candidate."
     },
     "Mimosa Absolute": {
       "ncs_names": [
@@ -2356,7 +2458,7 @@
       "ncs_names": [
         "Orange peel, sweet oil"
       ],
-      "note": "The IFRA table files this stock under bitter orange peel oil (IFRA_STD_088) while the inventory review assumed sweet orange; Annex I lists no bitter orange peel oil row, so the sweet orange peel oil row is used."
+      "note": "Species not recorded: sweet (Citrus sinensis) or bitter (Citrus aurantium) orange peel oil; both are candidates. Annex I lists no bitter orange peel oil row for the substances read, so the sweet orange peel oil row is the highest value. The IFRA table applies the stricter bitter orange direct limit (IFRA_STD_088)."
     },
     "Peru Balsam Resinoid": {
       "ncs_names": [
@@ -2407,6 +2509,19 @@
         "Pine needle, dwarf, oil"
       ],
       "note": "Species not stated; the dwarf pine needle oil row is the only pine row."
+    },
+    "Anise EO": {
+      "ncs_names": [
+        "Anise seed oil",
+        "Star anise oil"
+      ],
+      "note": "Stock is Chinese anise: anise seed (Pimpinella anisum) or star anise (Illicium verum) is not recorded; species, part or extraction uncertain: the highest value across these candidates is used."
+    },
+    "Elemi EO": {
+      "ncs_names": [
+        "Elemi oil"
+      ],
+      "note": "Canarium luzonicum essential oil: the oil row, not the gum or resinoid rows."
     }
   },
   "schiff_bases": {

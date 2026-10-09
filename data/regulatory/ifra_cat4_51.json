@@ -854,6 +854,22 @@
         "\"If combinations of furocoumarin-containing phototoxic fragrance ingredients (extracts) are used,\" the use levels must be reduced accordingly."
       ]
     },
+    "IFRA_STD_094": {
+      "name": "Methyl N-methylanthranilate",
+      "cas": [
+        "85-91-6"
+      ],
+      "kind": "restriction_specification",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 0.1,
+      "cat4_quote": "Category 4 0.10 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_094.pdf",
+      "notes": [
+        "RECOMMENDATION: RESTRICTION / SPECIFICATION; the specification concerns nitrosamine formation.",
+        "Contributions from other sources: see the Annex on contributions from other sources (ifra_annex1_constituents.json).",
+        "Read 2026-10-09 from the standard's PDF by an automated reader; the quote is as returned, not yet re-read independently."
+      ]
+    },
     "IFRA_STD_095": {
       "name": "Methyl beta-naphthyl ketone",
       "cas": [
@@ -884,6 +900,38 @@
       "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_097.pdf",
       "notes": [
         "The content of alpha-Terthienyl (Terthiophene, CAS number 1081-34-1) in Tagetes patula and Tagetes minuta oils and absolutes must not exceed 0.35 %."
+      ]
+    },
+    "IFRA_STD_099": {
+      "name": "Estragole",
+      "cas": [
+        "140-67-0",
+        "1407-27-8",
+        "77525-18-9"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 0.014,
+      "cat4_quote": "Category 4 0.014 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_099.pdf",
+      "notes": [
+        "Contributions from other sources: see the Annex on contributions from other sources (ifra_annex1_constituents.json).",
+        "Read 2026-10-09 from the standard's PDF by an automated reader; the quote is as returned, not yet re-read independently."
+      ]
+    },
+    "IFRA_STD_100": {
+      "name": "Methyl eugenol",
+      "cas": [
+        "93-15-2"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 0.011,
+      "cat4_quote": "Category 4 0.011 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_100.pdf",
+      "notes": [
+        "Contributions from other sources: see the Annex on contributions from other sources (ifra_annex1_constituents.json).",
+        "Read 2026-10-09 from the standard's PDF by an automated reader; the quote is as returned, not yet re-read independently."
       ]
     },
     "IFRA_STD_114": {
@@ -989,6 +1037,25 @@
       "cat4_quote": null,
       "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_171.pdf",
       "notes": []
+    },
+    "IFRA_STD_179": {
+      "name": "Safrole, Isosafrole, Dihydrosafrole",
+      "cas": [
+        "94-59-7",
+        "120-58-1",
+        "94-58-6"
+      ],
+      "kind": "restriction_prohibition",
+      "amendment": "1987 (Amendment 17)",
+      "cat4_limit_pct": 0.01,
+      "cat4_quote": "Category 4 See notebox: regarded acceptable as long as the total concentration of Safrole, Isosafrole and Dihydrosafrole in the finished consumer product does not exceed 0.01%",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_179.pdf",
+      "notes": [
+        "RECOMMENDATION: PROHIBITION / RESTRICTION: prohibited as fragrance ingredients; contributions from natural extracts are restricted to the notebox total.",
+        "Natural extracts \"should not be used as substitutes for these ingredients\".",
+        "The 0.01 % applies to the total of the three substances (group rule safrole_isosafrole_dihydrosafrole_total).",
+        "Read 2026-10-09 from the standard's PDF by an automated reader; the quote is as returned, not yet re-read independently."
+      ]
     },
     "IFRA_STD_184": {
       "name": "Pinacea derivatives",
@@ -2220,6 +2287,15 @@
         "18479-58-8"
       ]
     },
+    "Dihydrosafrole": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_179",
+      "aliases": [],
+      "note": "Prohibited as an ingredient; counts toward the 0.01 % total of safrole, isosafrole and dihydrosafrole.",
+      "cas": [
+        "94-58-6"
+      ]
+    },
     "Dimethyl Benzyl Carbinyl Acetate": {
       "status": "no_standard",
       "standard": null,
@@ -2269,6 +2345,17 @@
       "standard": null,
       "aliases": [],
       "note": null
+    },
+    "Estragole": {
+      "status": "restricted",
+      "standard": "IFRA_STD_099",
+      "aliases": [
+        "Methyl Chavicol"
+      ],
+      "note": null,
+      "cas": [
+        "140-67-0"
+      ]
     },
     "Ethanol": {
       "status": "no_standard",
@@ -2750,6 +2837,15 @@
         "110-27-0"
       ]
     },
+    "Isosafrole": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_179",
+      "aliases": [],
+      "note": "Prohibited as an ingredient; counts toward the 0.01 % total of safrole, isosafrole and dihydrosafrole.",
+      "cas": [
+        "120-58-1"
+      ]
+    },
     "Jasmine Absolute": {
       "status": "restricted",
       "standard": "IFRA_STD_049",
@@ -3046,6 +3142,17 @@
       "source_url": "https://ifrafragrance.org/standards-library",
       "verified_on": "2026-10-09"
     },
+    "Methyl Eugenol": {
+      "status": "restricted",
+      "standard": "IFRA_STD_100",
+      "aliases": [
+        "Eugenyl Methyl Ether"
+      ],
+      "note": null,
+      "cas": [
+        "93-15-2"
+      ]
+    },
     "Methyl Heptine Carbonate": {
       "status": "restricted",
       "standard": "IFRA_STD_062",
@@ -3082,6 +3189,18 @@
       "note": null,
       "cas": [
         "94201-19-1"
+      ]
+    },
+    "Methyl N-Methylanthranilate": {
+      "status": "restricted",
+      "standard": "IFRA_STD_094",
+      "aliases": [
+        "Dimethyl Anthranilate",
+        "Methyl N-methyl anthranilate"
+      ],
+      "note": null,
+      "cas": [
+        "85-91-6"
       ]
     },
     "Methyl Nonyl Ketone": {
@@ -3263,7 +3382,8 @@
       "aliases": [
         "Orange Peel Oil"
       ],
-      "note": "inventory.txt does not record the species. The bitter orange (expressed) limit is applied until it does; sweet orange has no IFRA standard of its own."
+      "note": "inventory.txt does not record the species: sweet orange (Citrus sinensis) or bitter orange (Citrus aurantium) peel oil. Both are candidates: the stricter direct limit, bitter orange peel oil expressed (IFRA_STD_088), applies; sweet orange has no IFRA standard of its own.",
+      "identity_note": "The species is not recorded (sweet or bitter orange peel oil); the stricter bitter orange limit applies."
     },
     "Oranger Crystals": {
       "status": "restricted",
@@ -3494,6 +3614,15 @@
       "note": null,
       "cas": [
         "54440-17-4"
+      ]
+    },
+    "Safrole": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_179",
+      "aliases": [],
+      "note": "Prohibited as an ingredient; counts toward the 0.01 % total of safrole, isosafrole and dihydrosafrole.",
+      "cas": [
+        "94-59-7"
       ]
     },
     "Sandalore": {
@@ -3844,6 +3973,18 @@
         "Lime Oil Expressed"
       ],
       "quote": "The sum of the concentrations of all furocoumarin-containing phototoxic fragrance ingredients (extracts), expressed in % of their recommended upper concentration level in the finished consumer product, shall not exceed 100."
+    },
+    {
+      "id": "safrole_isosafrole_dihydrosafrole_total",
+      "standard": "IFRA_STD_179",
+      "rule": "sum_le_limit",
+      "limit_pct": 0.01,
+      "members": [
+        "Safrole",
+        "Isosafrole",
+        "Dihydrosafrole"
+      ],
+      "quote": "regarded acceptable as long as the total concentration of Safrole, Isosafrole and Dihydrosafrole in the finished consumer product does not exceed 0.01%"
     }
   ]
 }

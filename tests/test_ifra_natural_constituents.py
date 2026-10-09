@@ -73,7 +73,8 @@ def test_natural_and_synthetic_eugenol_add_up():
     )
     assert total["total_pct"] > 2.5
     failed = [f["group"] for f in gate.data["headroom_violations"] if "group" in f]
-    assert failed == ["IFRA_STD_035_constituents"]
+    # Rose de Mai Absolute's methyl eugenol (up to 0.5 %) also exceeds its own limit.
+    assert failed == ["IFRA_STD_035_constituents", "IFRA_STD_100_constituents"]
     # Counted once: the synthetic-only eugenol total is not also built.
     assert "IFRA_STD_035_total" not in [g["group"] for g in gate.data["groups"]]
 
@@ -119,7 +120,7 @@ def test_formula_without_a_mapped_natural_is_unchanged():
     assert rows == [tuple(r) for r in BASE_NO_MAPPED_NATURAL["rows"]]
     assert gate.data["groups"] == BASE_NO_MAPPED_NATURAL["groups"]
     assert gate.data["constituent_totals"] == []
-    assert "17 substances" in gate.data["constituent_coverage"]
+    assert "19 substances" in gate.data["constituent_coverage"]
     assert "not been checked by a person" in gate.data["constituent_coverage"]
 
 
