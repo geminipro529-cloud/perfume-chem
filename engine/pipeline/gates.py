@@ -4998,7 +4998,7 @@ def _gate_hedione_share(
     elif "chypre" in _fold(name):
         cap, why = _HEDIONE_CAP_CHYPRE_PCT, "chypre named in the formula name"
     else:
-        cap, why = _HEDIONE_CAP_DEFAULT_PCT, "not a chypre, so the floral/default cap applies"
+        cap, why = _HEDIONE_CAP_DEFAULT_PCT, "not a chypre, so the floral/default level applies"
     basis = "% of fragrance-active uL"
     data = {
         "hedione_active_ul": round(hedione_ul, 4),
@@ -5013,7 +5013,7 @@ def _gate_hedione_share(
         return _result(
             "hedione_share",
             "WARN",
-            f"Hedione is {share:.1f}{basis}, above the {cap:.0f}% cap ({why}). "
+            f"Hedione is {share:.1f}{basis}, above the {cap:.0f}% style warning level ({why}). "
             "Above about 15% Hedione often dominates; compare against a lower-Hedione "
             "control before mixing.",
             data,
@@ -5021,7 +5021,7 @@ def _gate_hedione_share(
     return _result(
         "hedione_share",
         "PASS",
-        f"Hedione is {share:.1f}{basis}, within the {cap:.0f}% cap ({why}).",
+        f"Hedione is {share:.1f}{basis}, within the {cap:.0f}% style warning level ({why}).",
         data,
     )
 

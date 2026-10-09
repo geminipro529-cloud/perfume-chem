@@ -15,7 +15,7 @@ Every systemic failure from this session. Read before formulating. Learn or repe
 ### F2. HEDIONE CROWDING - 18% = ONE-NOTE
 - Symptom: All character voices buried under Hedione radiance.
 - Root cause: One bottle with Hedione at 18% of concentrate smelled flat. Hedione is used at high levels in many fine fragrances, so this is a single observation, not a rule about where it stops being a carrier.
-- Fix: Cannot reduce in mixed bottle. Only counter: brute-force character material dosing above Hedione OAV.
+- Fix: Hedione cannot be taken out of a mixed bottle; adding more of the character materials is the only way to lower its share.
 - Learning: Soft warning from that one bottle: above about 15% Hedione often dominates; compare against a lower-Hedione control before mixing. Not a safety limit and not a universal cap.
 
 ### F3. SILENT PASSENGERS - MATERIALS BELOW OAV 1

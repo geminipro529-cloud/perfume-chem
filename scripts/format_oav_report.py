@@ -38,7 +38,7 @@ print()
 
 # ── OAV Rank ──
 print(f"{BOLD}{'OAV RANKING':─^50}{RESET}")
-print(f"  {'#':>2s} {'Material':<30s} {'OAV':>8s} {'Percept':>16s}")
+print(f"  {'#':>2s} {'Material':<30s} {'OAV':>8s} {'Range':>16s}")
 print(f"  {'─' * 2} {'─' * 30} {'─' * 8} {'─' * 16}")
 ranked = sorted(
     (m for m in ms if m.get("oav") is not None),
@@ -50,21 +50,22 @@ for i, m in enumerate(ranked, 1):
     if oav < 1:
         break
     name = m["name"][:29]
+    # Numeric ranges only: OAV is not perceived intensity (AGENTS.md Rule 1).
     if m.get("role") == "anosmia-prone":
-        percept = "(abstract)"
+        band = "anosmia-prone"
     elif oav > 1000:
-        percept = "MASSIVE"
+        band = "> 1,000"
     elif oav > 100:
-        percept = "very strong"
+        band = "100-1,000"
     elif oav > 50:
-        percept = "strong"
+        band = "50-100"
     elif oav > 10:
-        percept = "moderate"
+        band = "10-50"
     elif oav > 5:
-        percept = "perceptible"
+        band = "5-10"
     else:
-        percept = "at threshold"
-    print(f"  {i:2d} {name:<30s} {oav:8.0f} {percept:>16s}")
+        band = "1-5"
+    print(f"  {i:2d} {name:<30s} {oav:8.0f} {band:>16s}")
 
 # ── Time ──
 print(f"\n{BOLD}{'TIME RELEASE':─^50}{RESET}")
