@@ -575,8 +575,15 @@ def _ends_with_whole_line(path: Path) -> bool:
 def _manifest_user_records(
     manifest: Mapping[str, object],
 ) -> dict[str, Mapping[str, object] | None]:
+    """The manifest's entry for every standard record, None when it has no copy.
+
+    A backup made before a record joined ``USER_RECORD_NAMES`` (such as one
+    from before the prepared-dilution log) has no entry for it; that record is
+    treated exactly like one that was absent when the backup was made.
+    """
+
     entries = manifest.get("user_records")
-    if not isinstance(entries, dict) or set(entries) != set(USER_RECORD_NAMES):
+    if not isinstance(entries, dict) or not set(entries) <= set(USER_RECORD_NAMES):
         raise RestoreSafetyError("stock records manifest entry is invalid")
     for entry in entries.values():
         if entry is None:
@@ -587,7 +594,7 @@ def _manifest_user_records(
             and isinstance(entry.get("bytes"), int)
         ):
             raise RestoreSafetyError("stock records manifest entry is invalid")
-    return {name: entries[name] for name in USER_RECORD_NAMES}
+    return {name: entries.get(name) for name in USER_RECORD_NAMES}
 
 
 def _record_copy_status(copy: Path, expected: Mapping[str, object] | None) -> str:
