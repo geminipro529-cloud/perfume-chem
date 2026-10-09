@@ -1431,9 +1431,10 @@ _PROFILE_ALIASES = {
     "peru balsam resinoid (50% w/w in dep)": "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile",
     "peru balsam": "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile",
     "peru balsam 10%": "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile",
-    # Owner stock "Basil EO (India, Ocimum Basilicum)": Indian estragole-type oil;
-    # the V5 row names the same chemotype ("ct. Methyl Chavicol").
-    "basil eo": "ocimum basilicum oil india estragole type supplier gc profile",
+    # Only the V5 row that names the chemotype ("ct. Methyl Chavicol") maps.
+    # Profile lookup drops parentheticals, so the owner stock "Basil EO (India,
+    # Ocimum Basilicum)" reads as a bare "Basil EO", whose chemotype is unknown
+    # and which stays unresolved.
     "basil eo ct. methyl chavicol": (
         "ocimum basilicum oil india estragole type supplier gc profile"
     ),

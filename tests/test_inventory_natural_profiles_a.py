@@ -17,8 +17,6 @@ _TAGETES = "tagetes minuta whole plant oil india bansal 1999 profile"
 _HELICHRYSUM = "helichrysum italicum oil corsica bianchini 2001 profile"
 
 _MAPPED = {
-    "Basil EO (India, Ocimum Basilicum)": (_BASIL, 0.2045),
-    "Basil EO": (_BASIL, 0.2045),
     "Basil EO ct. Methyl Chavicol": (_BASIL, 0.2045),
     "Tagetes EO (10% in DPG)": (_TAGETES, 0.114),
     "Tagetes EO": (_TAGETES, 0.114),
@@ -45,8 +43,8 @@ def test_stock_label_resolves_to_a_partial_labelled_proxy(label):
 
 
 def test_basil_is_the_indian_estragole_gc_with_estragole_unresolved():
-    meta = get_composite_metadata("Basil EO (India, Ocimum Basilicum)")
-    rows = {row[0]: row for row in get_constituents("Basil EO")}
+    meta = get_composite_metadata("Basil EO ct. Methyl Chavicol")
+    rows = {row[0]: row for row in get_constituents("Basil EO ct. Methyl Chavicol")}
     assert rows["linalool"][1] == pytest.approx(0.1813)
     assert "estragole" not in rows
     unresolved = {u["name"]: u for u in meta.unresolved_constituents}
@@ -82,7 +80,16 @@ def test_helichrysum_uses_corsica_and_records_the_croatian_conflict():
 
 @pytest.mark.parametrize(
     "label",
-    ["Anise EO", "Sandalwood EO", "Pine EO", "Lemon Terpeneless Oil Sicilian"],
+    [
+        "Anise EO",
+        "Sandalwood EO",
+        "Pine EO",
+        "Lemon Terpeneless Oil Sicilian",
+        # Lookup drops the parenthetical origin, leaving a bare Basil EO whose
+        # chemotype is unknown.
+        "Basil EO (India, Ocimum Basilicum)",
+        "Basil EO",
+    ],
 )
 def test_materials_without_a_defensible_profile_stay_unmapped(label):
     assert get_composite_metadata(label) is None
@@ -91,7 +98,7 @@ def test_materials_without_a_defensible_profile_stay_unmapped(label):
 @pytest.mark.parametrize(
     "label, ul, dilution",
     [
-        ("Basil EO (India, Ocimum Basilicum)", 20.0, 1.0),
+        ("Basil EO ct. Methyl Chavicol", 20.0, 1.0),
         ("Tagetes EO (10% in DPG)", 50.0, 0.1),
         ("Helichrysum EO", 20.0, 1.0),
     ],
