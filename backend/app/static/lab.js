@@ -2420,7 +2420,7 @@ $("#formula-print-bench").addEventListener("click", () => {
 // the same sheet as Create (bench-sheet.js); nothing is saved.
 // `ticket` changes whenever the form changes, so a reply that arrives after
 // an edit is dropped instead of drawing a sheet for the old values.
-const benchSource = { html: "", autoSourceMl: "", ticket: 0 };
+const benchSource = { html: "", autoSourceMl: "", ticket: 0, base: null, orderedRows: [] };
 
 function benchFieldError(message, field) {
   const error = new Error(message);
@@ -2437,6 +2437,9 @@ function syncBenchSourceFields() {
 function clearBenchPreview() {
   benchSource.ticket += 1;
   benchSource.html = "";
+  benchSource.base = null;
+  benchSource.orderedRows = [];
+  resetBenchPourForm();
   $("#bench-source-print").disabled = true;
   $("#bench-preview-card").hidden = true;
   $("#bench-preview").replaceChildren();
@@ -2483,20 +2486,33 @@ async function loadBenchSource(data) {
   return request(`/v2/workbench/formula-source?source_path=${encodeURIComponent(path)}`);
 }
 
+function drawBenchSheet(sheet) {
+  benchSource.html = benchSheetHtml({
+    formulaName: sheet.formulaName,
+    variantLabel: sheet.variantLabel,
+    dateText: new Date().toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }),
+    totals: benchSeparateTotals(sheet.rows),
+    rows: sheet.rows,
+    critic: {},
+    basketLookup: sheet.lookup,
+    notes: sheet.notes,
+  });
+  $("#bench-preview").innerHTML = benchSource.html;
+}
+
 function renderBenchPreview(source, sizes) {
   const rows = (source.rows || []).map(benchRowFromSource);
   if (!rows.length) throw new Error("The formula has no rows the sheet can read.");
   const scaling = sizes.to && compareDecimalText(sizes.to, sizes.from) !== 0;
   const scaled = scaling ? benchScaleRows(rows, sizes.from, sizes.to) : { rows, unscaled: [] };
   const matched = benchMatchStocks(scaled.rows, state.projectInventory);
-  benchSource.html = benchSheetHtml({
+  const lookup = benchBasketLookup(state.projectInventory);
+  benchSource.base = {
     formulaName: source.formula_name,
     variantLabel: scaling ? `${sizes.to} mL` : "",
-    dateText: new Date().toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }),
-    totals: benchSeparateTotals(matched.rows),
+    sizeMl: (scaling ? sizes.to : sizes.from) || null,
     rows: matched.rows,
-    critic: {},
-    basketLookup: benchBasketLookup(state.projectInventory),
+    lookup,
     notes: benchSourceNotes({
       scaledFrom: scaling ? sizes.from : null,
       scaledTo: scaling ? sizes.to : null,
@@ -2506,11 +2522,67 @@ function renderBenchPreview(source, sizes) {
       held: matched.held,
       warnings: source.warnings,
     }),
-  });
-  $("#bench-preview").innerHTML = benchSource.html;
+  };
+  drawBenchSheet(benchSource.base);
+  // The pour fix works on the rows in the order the sheet prints them.
+  benchSource.orderedRows = benchBasketOrder(matched.rows, lookup).map((entry) => entry.row);
+  const select = $('#bench-pour-form [name="pour_row"]');
+  select.replaceChildren(...benchSource.orderedRows.map((row, index) => {
+    const planned = benchPlannedPour(row);
+    if (!planned) return null;
+    const option = document.createElement("option");
+    option.value = String(index);
+    option.textContent = `${index + 1}. ${row.material} · ${planned.amount} ${planned.unit}${planned.mix ? " of the mix" : ""}`;
+    return option;
+  }).filter(Boolean));
+  $("#bench-pour-form").hidden = !select.options.length;
   $("#bench-preview-card").hidden = false;
   $("#bench-source-print").disabled = false;
 }
+
+function resetBenchPourForm() {
+  const form = $("#bench-pour-form");
+  clearFormError(form);
+  form.reset();
+  $('#bench-pour-form [name="pour_row"]').replaceChildren();
+  $("#bench-pour-result").textContent = "";
+  $("#bench-pour-reset").hidden = true;
+}
+
+$("#bench-pour-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  clearFormError(form);
+  $("#bench-pour-result").textContent = "";
+  if (!benchSource.base) return;
+  try {
+    const data = formData(form);
+    const fix = benchPourFix(benchSource.orderedRows, Number(data.pour_row), data.pour_actual);
+    const text = benchPourFixText(fix, benchSource.base.sizeMl);
+    if (fix.kind === "invalid") throw benchFieldError(text.message, benchPlannedPour(benchSource.orderedRows[Number(data.pour_row)] || {}) ? "pour_actual" : "pour_row");
+    if (fix.kind === "over") {
+      drawBenchSheet({
+        ...benchSource.base,
+        rows: fix.rows,
+        variantLabel: `${text.sizeMl ? `${text.sizeMl} mL · ` : ""}pour fix`,
+        notes: [...text.notes, ...benchSource.base.notes],
+      });
+      $("#bench-pour-reset").hidden = false;
+    } else if (benchSource.html !== "" && !$("#bench-pour-reset").hidden) {
+      drawBenchSheet(benchSource.base);
+      $("#bench-pour-reset").hidden = true;
+    }
+    $("#bench-pour-result").textContent = text.message;
+  } catch (error) {
+    showFormError(form, error, "No fix yet.");
+  }
+});
+$("#bench-pour-reset").addEventListener("click", () => {
+  if (!benchSource.base) return;
+  drawBenchSheet(benchSource.base);
+  $("#bench-pour-reset").hidden = true;
+  $("#bench-pour-result").textContent = "Back to the sheet as first shown.";
+});
 
 $('#bench-source-form [name="source_kind"]').addEventListener("change", () => {
   syncBenchSourceFields();

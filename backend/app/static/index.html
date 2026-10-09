@@ -592,6 +592,19 @@
         </form>
         <article id="bench-preview-card" class="panel" hidden>
           <div id="bench-preview" class="bench-preview" tabindex="-1"></div>
+          <form id="bench-pour-form" class="bench-pour-form" novalidate>
+            <h2>Pour fix</h2>
+            <p class="lede">A row went in over or under? Pick it and type what really went in. Rows above it on the sheet count as already in.</p>
+            <div class="field-pair">
+              <label>Row that went in wrong<select name="pour_row"></select></label>
+              <label>Actually added <span>in the unit the sheet shows for that row</span><input name="pour_actual" inputmode="decimal" autocomplete="off"></label>
+            </div>
+            <div class="request-actions">
+              <button type="submit">Fix the rest</button>
+              <button id="bench-pour-reset" class="quiet-button" type="button" hidden>Back to the first sheet</button>
+            </div>
+            <p id="bench-pour-result" class="bench-pour-result" role="status" aria-live="polite"></p>
+          </form>
         </article>
       </section>
 
