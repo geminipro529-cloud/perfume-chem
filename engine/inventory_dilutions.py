@@ -350,7 +350,15 @@ def _prepared_carrier(prepared: Mapping[str, str]) -> str:
     neat_parent = Decimal(str(prepared.get("parent_fraction_decimal", "1"))) == 1
     if neat_parent or not parent_carrier or parent_carrier == entered:
         return entered
-    return f"{entered} + {parent_carrier}"
+    # A component already in the parent's carrier is named once.
+    seen = {part.strip().casefold() for part in entered.split("+")}
+    extra = []
+    for part in parent_carrier.split("+"):
+        component = part.strip()
+        if component and component.casefold() not in seen:
+            seen.add(component.casefold())
+            extra.append(component)
+    return " + ".join([entered, *extra])
 
 
 def _label(identity: str, prepared: Mapping[str, str], carrier: str) -> str:
@@ -360,20 +368,21 @@ def _label(identity: str, prepared: Mapping[str, str], carrier: str) -> str:
 
 
 def _prepared_name(parent: Any, fraction: Decimal) -> str:
-    """The parent's name with its strength replaced by the prepared strength.
+    """The parent's name with its stated strength replaced by the prepared one.
 
-    ``Apritone 10%`` becomes ``Apritone 1%``; a name that states no strength
-    (``Alpha Damascone``) is kept, so formula rows still match by identity.
+    ``Apritone 10%`` becomes ``Apritone 1%`` whatever strength the parent now
+    has (a Stock page entry does not rename its stock).  A name that states no
+    strength (``Alpha Damascone``) or more than one is kept; the stock's label
+    and dilution still give its own strength, and formula rows match by
+    identity, not by this name.
     """
 
-    parent_percent = Decimal(str(parent.dilution)) * 100
+    pattern = r"(?<![\d.,])(\d+(?:[.,]\d+)?)\s*%"
+    name = str(parent.name)
+    if len(re.findall(pattern, name)) != 1:
+        return name
     new_percent = format((fraction * 100).normalize(), "f")
-
-    def swap(match: re.Match[str]) -> str:
-        stated = Decimal(match.group(1).replace(",", "."))
-        return f"{new_percent}%" if stated == parent_percent else match.group(0)
-
-    return re.sub(r"(?<![\d.,])(\d+(?:[.,]\d+)?)\s*%", swap, str(parent.name))
+    return re.sub(pattern, f"{new_percent}%", name)
 
 
 def _prepared_hold(parent: Any, prepared: Mapping[str, str]) -> str:
