@@ -9,6 +9,7 @@ This never uses OAV and never outweighs a difference in role fit.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import os
@@ -47,11 +48,11 @@ def _finite(value: Any) -> float | None:
     return number if math.isfinite(number) else None
 
 
-def _read_personal(path: Path) -> tuple[dict[str, float], int] | None:
+def _parse_personal(data: bytes) -> tuple[dict[str, float], int] | None:
     """Personal values with enough evidence, by casefold name; None if no usable file."""
     try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, ValueError):
+        payload = json.loads(data.decode("utf-8"))
+    except ValueError:
         return None
     if not isinstance(payload, dict) or payload.get("schema") != PERSONAL_SCHEMA:
         return None
@@ -78,7 +79,13 @@ class LikingLookup:
     """One solve's liking values, cached by identity name."""
 
     def __init__(self, personal_path: Path | None = None) -> None:
-        loaded = _read_personal(personal_path or personal_liking_path())
+        try:
+            data: bytes | None = (personal_path or personal_liking_path()).read_bytes()
+        except OSError:
+            data = None
+        # Hash the exact bytes parsed, so a receipt names the file it used.
+        self.personal_file_sha256 = hashlib.sha256(data).hexdigest() if data is not None else None
+        loaded = _parse_personal(data) if data is not None else None
         self.personal_file = loaded is not None
         self._personal, self.personal_ratings_used = loaded if loaded is not None else ({}, 0)
         self._cache: dict[str, Liking] = {}
@@ -107,6 +114,7 @@ class LikingLookup:
             "method": METHOD,
             "weight": None,
             "personal_file": self.personal_file,
+            "personal_file_sha256": self.personal_file_sha256,
             "personal_ratings_used": self.personal_ratings_used,
         }
 

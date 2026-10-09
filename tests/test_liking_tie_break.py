@@ -1,6 +1,8 @@
 """Liking breaks ties only between materials that fit a role equally (Rule 3: fit leads)."""
 
+import hashlib
 import json
+import os
 from dataclasses import replace
 from functools import lru_cache
 from types import SimpleNamespace
@@ -132,10 +134,12 @@ def test_personal_value_needs_evidence_of_at_least_one_half(tmp_path):
     crowd = crowd_pleasantness(name).value
     personal = -0.9 if crowd > 0 else 0.9
 
-    enough = LikingLookup(_personal_file(tmp_path, name, personal=personal, evidence=0.5))
+    path = _personal_file(tmp_path, name, personal=personal, evidence=0.5)
+    enough = LikingLookup(path)
     assert enough(name) == Liking(personal, "personal")
     assert enough.receipt() == {"method": "ROUNDED_FIT_6DP_THEN_LIKING_V1", "weight": None,
-                                "personal_file": True, "personal_ratings_used": 7}
+                                "personal_file": True, "personal_file_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                                "personal_ratings_used": 7}
 
     thin = LikingLookup(_personal_file(tmp_path, name, personal=personal, evidence=0.49))
     assert thin(name) == Liking(crowd, "crowd")
@@ -151,6 +155,7 @@ def test_missing_or_corrupt_personal_file_means_no_personal_data(tmp_path, conte
     name = _crowd_name()
 
     assert lookup.personal_file is False
+    assert lookup.personal_file_sha256 == (hashlib.sha256(content.encode()).hexdigest() if content else None)
     assert lookup.personal_ratings_used == 0
     assert lookup(name) == Liking(crowd_pleasantness(name).value, "crowd")
     assert lookup("Not A Material In Any Table 9z") == Liking(0.0, "none")
@@ -169,7 +174,7 @@ def _picks():
             receipt = variant["solver"]
             assert receipt["pleasantness_claimed"] is False
             assert set(receipt["liking_tie_break"]) == {
-                "method", "weight", "personal_file", "personal_ratings_used"}
+                "method", "weight", "personal_file", "personal_file_sha256", "personal_ratings_used"}
             for row in variant["formula"]["rows"]:
                 assert row["liking_tie_break"]["source"] in {"personal", "crowd", "none"}
                 picks[(idea, number, row["slot"])] = row["identity_name"]
@@ -190,3 +195,66 @@ def test_five_briefs_change_only_a_few_picks(monkeypatch, tmp_path):
     # Measured 2026-10-09: Clove EO (India) -> Eugenol in the third DEEP_COMPOSE
     # variant's heart_spice_accent of "amber iris smoke" and "white floral".
     assert len(changed) <= 4, changed
+
+
+def test_tests_never_read_the_real_personal_liking_file(tmp_path_factory):
+    path = os.environ["PERFUME_PERSONAL_LIKING_PATH"]
+    assert path.startswith(str(tmp_path_factory.getbasetemp()))
+    assert not os.path.exists(path)
+
+
+def _write_personal(path, names, personal):
+    path.write_text(json.dumps({
+        "schema": "personal_liking_v1", "ratings_used": 5,
+        "materials": {n: {"personal": personal, "evidence": 1.0} for n in names},
+    }), encoding="utf-8")
+
+
+def _audit_design(monkeypatch, tmp_path):
+    """Design under personal file A; returns (design, file path, row names)."""
+    from engine.research.formula_design import design_inventory_formula
+
+    def make():
+        return design_inventory_formula(
+            idea="A juicy lychee fruit perfume", design_mode="DEEP_COMPOSE", max_materials=12)
+
+    names = sorted({r["identity_name"] for r in make()["design_variants"][0]["formula"]["rows"]})
+    path = tmp_path / "personal_liking.json"
+    _write_personal(path, names, 0.8)
+    monkeypatch.setenv("PERFUME_PERSONAL_LIKING_PATH", str(path))
+    design = make()
+    rows = [r for v in design["design_variants"] for r in v["formula"]["rows"]]
+    assert any(r["liking_tie_break"]["source"] == "personal" for r in rows)
+    return design, path, names
+
+
+def test_design_still_verifies_after_the_personal_file_changes(monkeypatch, tmp_path):
+    from engine.research.subtype_benchmark import audit_architectures
+
+    design, path, names = _audit_design(monkeypatch, tmp_path)
+    unchanged = audit_architectures(design)
+    assert unchanged["execution_verified"] is True
+    assert "liking_replay" not in unchanged
+
+    _write_personal(path, names, -0.6)
+    changed = audit_architectures(design)
+    assert changed["execution_verified"] is True
+    assert changed["liking_replay"] == "RECORDED_VALUES_FILE_CHANGED"
+
+    path.unlink()
+    removed = audit_architectures(design)
+    assert removed["execution_verified"] is True
+    assert removed["liking_replay"] == "RECORDED_VALUES_FILE_CHANGED"
+
+
+def test_a_tampered_row_liking_value_fails_while_the_file_is_unchanged(monkeypatch, tmp_path):
+    import copy
+
+    from engine.research.subtype_benchmark import audit_architectures
+
+    design, _, _ = _audit_design(monkeypatch, tmp_path)
+    forged = copy.deepcopy(design)
+    forged["design_variants"][0]["formula"]["rows"][0]["liking_tie_break"]["value"] = -0.9
+    audited = audit_architectures(forged)
+    assert audited["execution_verified"] is False
+    assert "liking_replay" not in audited

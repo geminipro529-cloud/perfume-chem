@@ -74,6 +74,13 @@ def managed_test_scratch(tmp_path_factory):
                 os.environ[key] = value
 
 
+@pytest.fixture(autouse=True)
+def isolated_personal_liking(monkeypatch, tmp_path_factory):
+    """Never read Kenny's real data/user/personal_liking.json; a test may set its own."""
+    absent = tmp_path_factory.getbasetemp() / "no_personal_liking" / "personal_liking.json"
+    monkeypatch.setenv("PERFUME_PERSONAL_LIKING_PATH", str(absent))
+
+
 @pytest.hookimpl(trylast=True)
 def pytest_sessionfinish(session, exitstatus):
     """Preserve teardown failures; remove only this session's successful scratch."""
