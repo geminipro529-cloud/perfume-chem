@@ -361,7 +361,8 @@ _NOTE_LAYERS: tuple[_LayerSpec, ...] = (
         ("amber",),
         (("warmth", .45), ("woody", .35), ("radiance", .2)),
         ("amber", "ambrox", "ambergris", "labdanum"),
-        _LAYER, None,
+        # A fresh or light brief keeps its warmth out of the drydown.
+        _LAYER, "light",
     ),
     (
         "top_green_layer", "Top green aromatic layer", "top", "top_green", .025,
@@ -435,6 +436,9 @@ ACCENT_PROVENANCE = "ACCENT_LAYER"
 # rows leave behind, and an accent stays a nuance.
 LAYER_MAX_RAW_SHARE = .08
 ACCENT_MAX_RAW_SHARE = .025
+# On a fresh or light brief the base layers only underline the opening: at
+# 8% each a cologne's wood and musk outweighed its citrus.
+LIGHT_BASE_LAYER_MAX_RAW_SHARE = .03
 # How strongly each layer leans toward the requested notes' character.
 _BRIEF_ECHO = .35
 # Layers together never outweigh the brief: past this share of the formula
@@ -521,6 +525,10 @@ def _note_layers(
         for dimension, weight in brief_vector.items():
             merged[dimension] = merged.get(dimension, 0.0) + weight / strongest * _BRIEF_ECHO
         accent = kind == _ACCENT
+        light_base = light and note == "base" and not accent
+        if light_base:
+            # A light brief's base leans sheer, not heavy.
+            merged["transparency"] = merged.get("transparency", 0.0) + .4
         layers.append(
             SemanticRole(
                 role_id=role_id,
@@ -531,7 +539,11 @@ def _note_layers(
                 character_weights=tuple(sorted(merged.items())),
                 share=share,
                 required=False,
-                max_raw_share=ACCENT_MAX_RAW_SHARE if accent else LAYER_MAX_RAW_SHARE,
+                max_raw_share=(
+                    ACCENT_MAX_RAW_SHARE if accent
+                    else LIGHT_BASE_LAYER_MAX_RAW_SHARE if light_base
+                    else LAYER_MAX_RAW_SHARE
+                ),
                 provenance=ACCENT_PROVENANCE if accent else LAYER_PROVENANCE[note],
                 descriptor_requirement=requirement,
             )

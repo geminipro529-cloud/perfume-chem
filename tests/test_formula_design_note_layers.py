@@ -2,6 +2,8 @@
 
 from functools import lru_cache
 
+import pytest
+
 from engine.formulation_intelligence.semantic_brief_adapter import compile_semantic_brief
 from engine.research.formula_design import design_inventory_formula
 
@@ -69,6 +71,26 @@ def test_light_brief_drops_covered_and_warm_only_layers() -> None:
     for slot in ("top_citrus_layer", "heart_powder_layer", "heart_spice_accent", "base_shadow_accent"):
         assert slot not in slots, (slot, sorted(slots))
     assert "top_green_layer" in slots, sorted(slots)
+
+
+@pytest.mark.parametrize(("idea", "name"), [
+    ("A fresh citrus cologne", "Cologne"),
+    (SPRING_ROSE, "Spring Rose"),
+])
+def test_light_brief_keeps_base_layers_under_the_requested_note(idea: str, name: str) -> None:
+    # A light brief takes no amber layer, and its wood and musk layers only
+    # underline the opening: at 8% each they outweighed a cologne's citrus.
+    result = _design(idea, name)
+    rows = _rows(result)
+    total_ul = int(result["optimized_formula"]["separate_totals"]["liquid_total_ul"])
+
+    assert "base_amber_layer" not in _slots(result), sorted(_slots(result))
+    base_layers = [row for row in rows if row["slot"].startswith("base_") and row["slot"].endswith("_layer")]
+    assert base_layers, sorted(_slots(result))
+    for row in base_layers:
+        assert float(row["amount_decimal"]) <= total_ul * 0.03, (row["slot"], row["amount_decimal"])
+    requested = sum(float(row["amount_decimal"]) for row in rows if row["slot"].startswith("facet_"))
+    assert requested > 2 * sum(float(row["amount_decimal"]) for row in base_layers)
 
 
 def test_floral_brief_skips_floral_layer_and_light_brief_skips_resin() -> None:
