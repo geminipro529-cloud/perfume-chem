@@ -20,7 +20,7 @@ def test_simulation_does_not_emit_family_proxy_receptor_numbers():
     # Model id bumped by the mass-balanced loss law (diagnosis M3), then to v4
     # because the declared matrix now evaporates (diagnosis M1a), then to v5
     # because an undeclared matrix is simulated as a default ethanol fill.
-    assert payload["temporal_model"] == "dynamic_headspace_mass_balanced_loss_v5"
+    assert payload["temporal_model"] == "dynamic_headspace_mass_balanced_loss_v6"
     assert payload["temporal_authority"] == "HEURISTIC_UNCALIBRATED"
     assert (
         payload["remaining_quantity_basis"]

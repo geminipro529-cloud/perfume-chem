@@ -1152,11 +1152,12 @@ def _stock_label(identity_name: str, dilution: float, basis: str = "", carrier: 
     """Name a stock the way Kenny's bench cards do: real name, strength, basis, solvent.
 
     'Helional 10% v/v in ethanol', 'Osmanthus Absolute 10% in DPG',
-    'Osmanthus Absolute (volume grade), neat'. Basis and solvent appear only when
-    the inventory records them.
+    'Osmanthus Absolute (volume grade) (neat)'. Basis and solvent appear only
+    when the inventory records them.  A neat stock reads "(neat)", as on the
+    Stock page and in inventory.txt.
     """
     if dilution >= 1.0:
-        return f"{identity_name}, neat"
+        return f"{identity_name} (neat)"
     label = f"{identity_name} {dilution * 100:g}%"
     if basis in _BASIS_TEXT:
         label += f" {_BASIS_TEXT[basis]}"
@@ -1210,7 +1211,7 @@ def _annotate_warnings(
     2. Character shift risk — the new dose may push material into a different character zone
     3. Cross-adaptation — recommended material may suppress perception of existing materials
     """
-    # The label names a stock ("Beta Ionone, neat"); the caller passes the material.
+    # The label names a stock ("Beta Ionone (neat)"); the caller passes the material.
     mat_name = material_name or rec.material.split(" (")[0].strip()
 
     # 1. Anosmia risk

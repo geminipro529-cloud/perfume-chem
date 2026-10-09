@@ -139,8 +139,17 @@ def copy_referenced_artifacts(destination: Path, sources: list[Path]) -> None:
 
         def visit(item):
             if isinstance(item, str):
-                path = (ROOT / item).resolve()
-                if path.is_relative_to(ROOT) and path.is_file() and path != ROOT / "inventory.txt":
+                # Prose strings are not paths; Linux raises OSError (ENAMETOOLONG)
+                # on very long names, so probe only plausible candidates.
+                if "\n" in item or len(item.encode("utf-8")) > 240:
+                    return
+                try:
+                    path = (ROOT / item).resolve()
+                    is_candidate = (path.is_relative_to(ROOT) and path.is_file()
+                                    and path != ROOT / "inventory.txt")
+                except OSError:
+                    return
+                if is_candidate:
                     pending.append(path)
             elif isinstance(item, dict):
                 for child in item.values():

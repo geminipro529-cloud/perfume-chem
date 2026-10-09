@@ -113,6 +113,9 @@ def main() -> None:
     # meaning by switching the app's autostart off.
     if args.no_engine_worker:
         os.environ["PERFUME_ENGINE_WORKER_AUTOSTART"] = "0"
+    # The app answers only Host names that point at this PC; tell it the bind
+    # address so --lan / --host also answer the address other devices use.
+    os.environ["API_BIND_HOST"] = host
     uvicorn.run(
         "app.main:app",
         host=host,

@@ -22,6 +22,15 @@ minus concentrate volume, at ``DEFAULT_FILL_ETHANOL_DENSITY_G_ML``. The
 assumption applies to the temporal frames only; the state the other gates
 read, its dose arithmetic and finished-product figures are not changed. Each
 frame's ``matrix_assumption`` says whether the matrix was declared or assumed.
+
+A natural with a constituent profile is not one pseudo-component: each
+constituent row leaves by the same law from its own ``gamma_j * VP_j(T)`` and
+MW, the terms its headspace uses, so light rows go first and heavy rows stay.
+The unresolved remainder, whose identity is unknown, leaves at the natural's
+own bulk ``gamma * VP`` and MW, and stays when the natural has no bulk VP.
+Before v6 the whole natural left at the rate its lightest rows set, and the
+same starting composition was rebuilt from what was left after every step,
+so a resinoid with some pinene in its profile was gone in two hours.
 """
 
 from __future__ import annotations
@@ -30,8 +39,13 @@ import math
 from dataclasses import dataclass, replace
 from typing import Mapping, Sequence
 
-from engine.pipeline.formula_state import FormulaState, build_formula_state
+from engine.pipeline.formula_state import (
+    FormulaState,
+    build_formula_state,
+    natural_composite_volatility,
+)
 from engine.solvent_matrix import canonical_solvent_name
+from engine.thermo.antoine import VP_REFERENCE_T_K
 
 DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
     ("opening", 0.0),
@@ -42,7 +56,8 @@ DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
 )
 
 # v5: an undeclared matrix is simulated as a default ethanol fill.
-TEMPORAL_MODEL = "dynamic_headspace_mass_balanced_loss_v5"
+# v6: a natural's constituents leave at their own rates.
+TEMPORAL_MODEL = "dynamic_headspace_mass_balanced_loss_v6"
 TEMPORAL_AUTHORITY = "HEURISTIC_UNCALIBRATED"
 REMAINING_QUANTITY_BASIS = "heuristic_remaining_stock_volume_equivalent_ul"
 MAX_INTEGRATION_STEP_SECONDS = 300.0
@@ -53,10 +68,22 @@ MAX_LOSS_RATE_PER_S = 2.5e-3
 # (vapour pressure in Pa at 25 C, molar mass in g/mol). Source: CRC Handbook
 # of Chemistry and Physics (vapour pressure of fluids; physical constants of
 # organic compounds). The data spine's Ethanol 96% row (5900 Pa) carries no
-# vp_source, so it is not used. No temperature correction is applied.
+# vp_source, so it is not used. These are the 298.15 K values; the loss law
+# uses them at the state's temperature (audit PHYS-03), see
+# :func:`_matrix_component_vp_pa`.
 MATRIX_COMPONENT_VP_MW: dict[str, tuple[float, float]] = {
     "ETHANOL": (7870.0, 46.07),
     "WATER": (3170.0, 18.02),
+}
+# Antoine constants for the matrix components, NIST Chemistry WebBook (SRD 69)
+# form ``log10(P / bar) = A - B / (T / K + C)``:
+#   ethanol: Ambrose and Sprake, J. Chem. Thermodyn. 2 (1970) 631, 292.77-366.63 K;
+#   water:   Stull, Ind. Eng. Chem. 39 (1947) 517, 255.9-373 K.
+# Only their temperature ratio is used, anchored to the 298.15 K values above:
+# at 305 K ethanol is x1.473 and water x1.498 of their 25 C pressures.
+MATRIX_COMPONENT_ANTOINE_BAR_K: dict[str, tuple[float, float, float]] = {
+    "ETHANOL": (5.24677, 1598.673, -46.424),
+    "WATER": (4.6543, 1435.264, -64.848),
 }
 # FormulaState assigns no activity coefficient to matrix components, so the
 # matrix loss uses gamma = 1.0 (ideal solution) as an explicit assumption.
@@ -201,6 +228,71 @@ def _pool_ratio(state: FormulaState, initial_pool_moles: float | None) -> float:
     return float(initial_pool_moles) / pool_moles
 
 
+def _natural_composite_step(
+    material,
+    delta_seconds: float,
+    pool_ratio: float,
+    temperature_K: float,  # noqa: N803
+) -> tuple[float, tuple[float, ...]] | None:
+    """Advance one natural's constituents by the loss law; None for other rows.
+
+    Returns the share of the row's current mass left after the step and the
+    natural's new composition (``MaterialState.natural_composite_remaining``).
+    Each constituent row and the unresolved remainder get their own
+    ``exp(-k * dt)`` with the rate, cap and pool ratio applied to materials.
+    """
+    volatility = natural_composite_volatility(material, temperature_K)
+    if volatility is None:
+        return None
+    current = volatility.remaining_or_full(material.natural_composite_remaining)
+    updated: list[float] = []
+    for left, mw_g_mol, escaping in zip(
+        current[:-1],
+        volatility.mw_g_mol,
+        volatility.escaping_tendency_pa,
+        strict=True,
+    ):
+        k = _loss_rate_per_s(escaping, mw_g_mol, pool_ratio)
+        updated.append(left * math.exp(-k * delta_seconds))
+    bulk_escaping = (
+        max(0.0, material.gamma * material.vp_pure_pa)
+        if material.vp_pure_pa is not None and material.vp_pure_pa > 0.0
+        else 0.0
+    )
+    k_unresolved = _loss_rate_per_s(bulk_escaping, material.mw_g_mol, pool_ratio)
+    updated.append(current[-1] * math.exp(-k_unresolved * delta_seconds))
+    before = volatility.mass_share(current)
+    after = volatility.mass_share(updated)
+    return (after / before if before > 0.0 else 0.0), tuple(updated)
+
+
+def _step_remaining(
+    state: FormulaState,
+    delta_seconds: float,
+    *,
+    initial_pool_moles: float | None = None,
+) -> tuple[dict[str, float], dict[str, tuple[float, ...]]]:
+    """Return raw stock and natural compositions after one step of the loss law."""
+    pool_ratio = _pool_ratio(state, initial_pool_moles)
+    remaining: dict[str, float] = {}
+    compositions: dict[str, tuple[float, ...]] = {}
+    for m in state.materials:
+        natural = _natural_composite_step(m, delta_seconds, pool_ratio, state.temperature_K)
+        if natural is not None:
+            kept, compositions[m.name] = natural
+            active_remaining = m.active_ul * kept
+        else:
+            k = _loss_rate_per_s(
+                _effective_escaping_tendency_pa(m),
+                m.mw_g_mol,
+                pool_ratio,
+            )
+            active_remaining = m.active_ul * math.exp(-k * delta_seconds)
+        dilution = max(m.dilution, 1e-9)
+        remaining[m.name] = active_remaining / dilution
+    return remaining, compositions
+
+
 def _remaining_raw_ul(
     state: FormulaState,
     delta_seconds: float,
@@ -211,20 +303,26 @@ def _remaining_raw_ul(
 
     The rate of each material is frozen over the step at its start-of-step
     value and applied as ``exp(-k * dt)``. ``initial_pool_moles`` is ``N_0``;
-    omitted, the state is treated as the initial pool (ratio 1).
+    omitted, the state is treated as the initial pool (ratio 1). A natural with
+    a constituent profile loses what its constituents lose
+    (:func:`_natural_composite_step`).
     """
-    pool_ratio = _pool_ratio(state, initial_pool_moles)
-    remaining: dict[str, float] = {}
-    for m in state.materials:
-        k = _loss_rate_per_s(
-            _effective_escaping_tendency_pa(m),
-            m.mw_g_mol,
-            pool_ratio,
-        )
-        active_remaining = m.active_ul * math.exp(-k * delta_seconds)
-        dilution = max(m.dilution, 1e-9)
-        remaining[m.name] = active_remaining / dilution
-    return remaining
+    return _step_remaining(state, delta_seconds, initial_pool_moles=initial_pool_moles)[0]
+
+
+def _matrix_component_vp_pa(key: str, temperature_K: float) -> float:  # noqa: N803
+    """Return a matrix component's vapour pressure in Pa at ``temperature_K``.
+
+    The 298.15 K value from ``MATRIX_COMPONENT_VP_MW`` is scaled by the
+    component's own Antoine ratio ``P(T) / P(298.15 K)`` from
+    ``MATRIX_COMPONENT_ANTOINE_BAR_K`` (audit PHYS-03), so the solvent follows
+    the same skin temperature as the materials rather than staying at 25 C.
+    """
+    vp_25c_pa = MATRIX_COMPONENT_VP_MW[key][0]
+    _a, b, c = MATRIX_COMPONENT_ANTOINE_BAR_K[key]
+    return vp_25c_pa * 10.0 ** (
+        b / (VP_REFERENCE_T_K + c) - b / (float(temperature_K) + c)
+    )
 
 
 def _remaining_matrix_moles(
@@ -235,19 +333,22 @@ def _remaining_matrix_moles(
 ) -> tuple[tuple[str, float], ...]:
     """Return matrix component moles after one step of the same loss law.
 
-    Each component's escaping tendency is ``MATRIX_COMPONENT_GAMMA * P*`` from
-    ``MATRIX_COMPONENT_VP_MW``; the rate, cap, pool ratio and ``exp(-k * dt)``
-    step are those applied to materials. A component without constants there
-    is kept unchanged rather than given guessed properties.
+    Each component's escaping tendency is ``MATRIX_COMPONENT_GAMMA * P*`` with
+    ``P*`` at the state's temperature (:func:`_matrix_component_vp_pa`); the
+    rate, cap, pool ratio and ``exp(-k * dt)`` step are those applied to
+    materials. A component without constants in ``MATRIX_COMPONENT_VP_MW`` is
+    kept unchanged rather than given guessed properties.
     """
     pool_ratio = _pool_ratio(state, initial_pool_moles)
     remaining: list[tuple[str, float]] = []
     for name, moles in state.matrix_components_moles:
-        constants = MATRIX_COMPONENT_VP_MW.get(canonical_solvent_name(name) or "")
+        key = canonical_solvent_name(name) or ""
+        constants = MATRIX_COMPONENT_VP_MW.get(key)
         if constants is None:
             remaining.append((name, moles))
             continue
-        vp_pa, mw_g_mol = constants
+        _vp_25c_pa, mw_g_mol = constants
+        vp_pa = _matrix_component_vp_pa(key, state.temperature_K)
         k = _loss_rate_per_s(MATRIX_COMPONENT_GAMMA * vp_pa, mw_g_mol, pool_ratio)
         remaining.append((name, moles * math.exp(-k * delta_seconds)))
     return tuple(remaining)
@@ -325,7 +426,7 @@ def _advance_state(
     remaining_seconds = float(delta_seconds)
     while remaining_seconds > 0.0:
         step = min(max_step_seconds, remaining_seconds)
-        remaining = _remaining_raw_ul(
+        remaining, compositions = _step_remaining(
             current,
             step,
             initial_pool_moles=initial_pool_moles,
@@ -340,9 +441,14 @@ def _advance_state(
                 current,
                 new_raw_ul=remaining,
                 new_matrix_moles=matrix,
+                new_natural_composite_remaining=compositions,
             )
         else:
-            current = FormulaState.from_base(current, new_raw_ul=remaining)
+            current = FormulaState.from_base(
+                current,
+                new_raw_ul=remaining,
+                new_natural_composite_remaining=compositions,
+            )
         remaining_seconds -= step
     return current
 

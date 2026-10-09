@@ -19,7 +19,13 @@ def _launch(monkeypatch, *argv):
 
     def run(app, **kwargs):
         calls.append(
-            ("api", app, kwargs, os.environ.get("PERFUME_ENGINE_WORKER_AUTOSTART"))
+            (
+                "api",
+                app,
+                kwargs,
+                os.environ.get("PERFUME_ENGINE_WORKER_AUTOSTART"),
+                os.environ.get("API_BIND_HOST"),
+            )
         )
 
     monkeypatch.setattr(subprocess, "Popen", popen)
@@ -30,6 +36,8 @@ def _launch(monkeypatch, *argv):
     # Record the variable so teardown removes whatever the launcher sets.
     monkeypatch.setenv("PERFUME_ENGINE_WORKER_AUTOSTART", "unset")
     monkeypatch.delenv("PERFUME_ENGINE_WORKER_AUTOSTART")
+    monkeypatch.setenv("API_BIND_HOST", "unset")
+    monkeypatch.delenv("API_BIND_HOST")
     runpy.run_path(str(ROOT / "run_api_server.py"), run_name="__main__")
     return calls
 
@@ -68,6 +76,13 @@ def test_explicit_non_loopback_host_warns(monkeypatch, capsys):
     calls = _launch(monkeypatch, "--host", "0.0.0.0")
     assert calls[0][2]["host"] == "0.0.0.0"
     assert "no login" in capsys.readouterr().err
+
+
+def test_launcher_tells_the_app_its_bind_address(monkeypatch):
+    # The app's Host check answers the bind address only when it is told it.
+    assert _launch(monkeypatch)[0][4] == "127.0.0.1"
+    assert _launch(monkeypatch, "--lan")[0][4] == "0.0.0.0"
+    assert _launch(monkeypatch, "--host", "192.168.1.20")[0][4] == "192.168.1.20"
 
 
 def test_explicit_host_wins_over_lan(monkeypatch, capsys):
