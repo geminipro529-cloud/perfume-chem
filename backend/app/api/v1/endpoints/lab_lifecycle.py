@@ -66,6 +66,7 @@ from app.schemas.lab_lifecycle import (
     ClaimAuthorityReviewCreate,
     ClaimAuthorityReviewResponse,
     FormulaDesignChatCreate,
+    FormulaTextParseCreate,
     InventoryCompletionCreate,
     PersonalInventoryAdditionCreate,
     PreparedDilutionCreate,
@@ -172,6 +173,16 @@ async def read_workbench_formula_source(source_path: str) -> ResponsePayload:
 
     try:
         return FormulaAnalysisLibrary().load_source(source_path)
+    except ValueError as error:
+        return _error_response(error)
+
+
+@router.post("/workbench/formula-text", response_model=None)
+async def parse_workbench_formula_text(request: FormulaTextParseCreate) -> ResponsePayload:
+    """Parse a pasted formula table read-only, for the bench sheet."""
+
+    try:
+        return FormulaAnalysisLibrary().parse_pasted(request.text, request.name)
     except ValueError as error:
         return _error_response(error)
 

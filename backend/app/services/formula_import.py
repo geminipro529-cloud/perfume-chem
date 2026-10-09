@@ -878,9 +878,32 @@ class FormulaAnalysisLibrary:
         except UnicodeDecodeError as error:
             raise ValueError("The selected project formula is not UTF-8 text.") from error
         source_hash = sha256(source_bytes).hexdigest()
+        return {
+            "schema_version": "workbench-formula-source-v1",
+            "source_path": relative.as_posix(),
+            **self._parsed_payload(text, default_name=relative.stem, source_hash=source_hash),
+        }
+
+    def parse_pasted(self, text: str, name: str | None = None) -> dict[str, Any]:
+        """Parse a pasted formula table the same read-only way as a project file."""
+
+        source_bytes = text.encode("utf-8")
+        if len(source_bytes) > self.MAX_SOURCE_BYTES:
+            raise ValueError("The pasted formula exceeds the read-only analysis size limit.")
+        return {
+            "schema_version": "workbench-formula-text-v1",
+            "source_path": None,
+            **self._parsed_payload(
+                text,
+                default_name=(name or "").strip() or "Pasted formula",
+                source_hash=sha256(source_bytes).hexdigest(),
+            ),
+        }
+
+    def _parsed_payload(self, text: str, *, default_name: str, source_hash: str) -> dict[str, Any]:
         result = FormulaAnalysisImportParser.parse_text(
             text,
-            default_name=relative.stem,
+            default_name=default_name,
             source_sha256=source_hash,
         )
         if result.errors:
@@ -900,8 +923,6 @@ class FormulaAnalysisLibrary:
                 mass_total_mg += amount * Decimal(1000)
 
         return {
-            "schema_version": "workbench-formula-source-v1",
-            "source_path": relative.as_posix(),
             "source_sha256": source_hash,
             "formula_name": result.formula_name,
             "rows": [row.as_engine_dict() for row in result.rows],
