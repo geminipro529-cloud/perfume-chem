@@ -16,7 +16,7 @@ def _stock(materialized, identity: str):
     return next(stock for stock in materialized.stocks if stock.identity_name == identity)
 
 
-def test_completion_makes_missing_stock_design_ready_without_execution_authority(
+def test_completion_makes_missing_stock_ready_without_action_authority(
     tmp_path, monkeypatch
 ) -> None:
     path = tmp_path / "inventory-completions.jsonl"
@@ -46,7 +46,7 @@ def test_completion_makes_missing_stock_design_ready_without_execution_authority
     assert updated.carrier == "dpg"
     assert updated.physical_form == "solution"
     assert effective_design_ready(updated) is True
-    assert updated.execution_ready is False
+    assert updated.execution_ready is True
     assert inventory_completion_requirements(updated) == ()
     assert completed.completion_sha256
     assert completed.effective_inventory_sha256 != baseline.effective_inventory_sha256
@@ -125,7 +125,7 @@ def test_tincture_starting_charge_remains_withheld_until_final_fraction_is_known
     )
     resolved = _stock(complete, "Kenyan Myrrh Ethanol Tincture")
     assert effective_design_ready(resolved) is True
-    assert resolved.execution_ready is False
+    assert resolved.execution_ready is True
 
 
 def test_completion_log_hash_chain_detects_tampering(tmp_path) -> None:

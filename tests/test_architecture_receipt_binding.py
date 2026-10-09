@@ -156,9 +156,14 @@ def test_equal_decimal_spellings_and_split_rows_are_the_same_composition(split):
     if split:
         row["amount_decimal"] = str(Decimal(row["amount_decimal"]) / 2)
         formula["rows"].append(copy.deepcopy(row))
+    def respell(value: str) -> str:
+        # Same number, more digits: a 1/3 stock must not be rounded to 0.3333.
+        plain = format(Decimal(value), "f")
+        return plain + ("0000" if "." in plain else ".0000")
+
     for row in formula["rows"]:
-        row["amount_decimal"] = format(Decimal(row["amount_decimal"]), ".4f")
-        row["stock_fraction_decimal"] = format(Decimal(row["stock_fraction_decimal"]), ".4f")
+        row["amount_decimal"] = respell(row["amount_decimal"])
+        row["stock_fraction_decimal"] = respell(row["stock_fraction_decimal"])
     result["design_variants"][2]["formula"] = formula
     receipt = audit_architectures(result)
     assert receipt["variants"][2]["physical_formula_verified"]

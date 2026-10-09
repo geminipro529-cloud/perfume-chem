@@ -7,6 +7,9 @@ import pytest
 
 LAB_DRAFTS_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "lab-drafts.js"
 BENCH_SHEET_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "bench-sheet.js"
+STOCK_DILUTIONS_JS = (
+    Path(__file__).resolve().parents[2] / "app" / "static" / "stock-dilutions.js"
+)
 COMPOSITION_CHECKS_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "composition-checks.js"
 
 
@@ -376,7 +379,9 @@ async def test_inventory_details_can_be_completed_without_physical_authority(cli
         if item["stock_id"] == stock["stock_id"]
     )
     assert updated["design_ready"] is True
-    assert updated["execution_ready"] is False
+    # Kenny's decision (2026-10-09, AGENTS.md RULE 6): a complete Stock page
+    # entry makes the stock gate-ready; Cedrat's only hold was a lot receipt.
+    assert updated["execution_ready"] is True
     assert updated["missing_fields"] == []
 
     replay = await client.post(
@@ -404,6 +409,54 @@ async def test_inventory_details_can_be_completed_without_physical_authority(cli
 
 
 @pytest.mark.asyncio
+async def test_stock_page_row_shows_where_an_entry_differs_from_the_workbook(client):
+    # RULE 0 (review finding S2): the entry wins, and its row says what the
+    # workbook said instead of quietly replacing it.
+    inventory = (await client.get("/api/v1/lab/v2/workbench/current-inventory")).json()
+    stock = next(
+        item
+        for item in inventory["stocks"]
+        if item["identity_name"] == "Hedione" and item["source_class"] == "GOVERNED_STOCK"
+    )
+    assert stock["authority_disagreement"] is None
+    response = await client.post(
+        "/api/v1/lab/v2/workbench/current-inventory/complete",
+        json={
+            "schema_version": "personal-inventory-completion-request-v1",
+            "stock_id": stock["stock_id"],
+            "expected_effective_inventory_sha256": inventory[
+                "canonical_effective_inventory_sha256"
+            ],
+            "idempotency_key": "ui-hedione-50-dpg",
+            "fraction_percent_decimal": "50",
+            "fraction_basis": "mass_fraction",
+            "carrier": "DPG",
+            "physical_form": "solution",
+            "possession_confirmed": True,
+            "homogeneity": "HOMOGENEOUS",
+            "final_fraction_known": True,
+            "source_kind": "USER_LABEL_OR_RECIPE",
+            "user_note": "",
+        },
+    )
+    assert response.status_code == 200
+    after = (await client.get("/api/v1/lab/v2/workbench/current-inventory")).json()
+    updated = next(item for item in after["stocks"] if item["stock_id"] == stock["stock_id"])
+    assert updated["fraction_decimal"] == "0.5"
+    disagreement = updated["authority_disagreement"]
+    assert disagreement["text"] == "Differs from the workbook: workbook says neat"
+    assert disagreement["stock_page"].casefold() == "50% w/w in dpg"
+
+    javascript = await client.get("/static/lab.js")
+    assert "const disagreement = stock.authority_disagreement?.text;" in javascript.text
+    # stockEl sets textContent, so the note is never parsed as HTML.
+    assert (
+        'stockEl("span", "stock-row-note inventory-authority-differs", disagreement)'
+        in javascript.text
+    )
+
+
+@pytest.mark.asyncio
 async def test_formula_studio_ui_exposes_inventory_and_conversation(client):
     page = await client.get("/app")
     css = await client.get("/static/lab.css")
@@ -421,7 +474,7 @@ async def test_formula_studio_ui_exposes_inventory_and_conversation(client):
     assert 'id="formula-chat-log"' in page.text
     assert 'id="formula-chat-result"' in page.text
     assert "Create my formula" in page.text
-    assert '<option value="60">Maximum — up to 60</option>' in page.text
+    assert '<option value="60" selected>Maximum — up to 60</option>' in page.text
     assert "Any selected crystal remains a separate mg line" in page.text
     assert 'request("/v2/workbench/current-inventory")' in javascript.text
     assert 'request("/v2/workbench/current-inventory/complete"' in javascript.text
@@ -1131,6 +1184,194 @@ async def test_comparison_planning_is_worded_as_a_suggestion_and_uses_safe_reque
     submit = javascript.text.split('$("#omission-plan-form").addEventListener("submit"', 1)[1]
     submit = submit.split('$("#sample-form")', 1)[0]
     assert 'newRequestId("comparison")' in submit and "crypto.randomUUID()" not in submit
+
+
+_DILUTION_DOM = r"""
+const D = require(process.argv[1]);
+class Node {
+  constructor(tag) { this.tag = tag; this.attributes = {}; this.children = []; this.textContent = ""; this.value = ""; this.hidden = false; this.disabled = false; }
+  setAttribute(name, value) { this.attributes[name] = String(value); }
+  appendChild(child) { this.children.push(child); return child; }
+  addEventListener() {}
+  set innerHTML(_) { throw new Error("innerHTML must not be used"); }
+  get innerHTML() { throw new Error("innerHTML must not be used"); }
+}
+const doc = { createElement: (tag) => new Node(tag) };
+const walk = (node) => [node, ...node.children.flatMap(walk)];
+"""
+
+
+def _run_dilution_case(script):
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("node is not installed; the Stock page dilution form test needs it")
+    completed = subprocess.run(
+        [node, "-e", _DILUTION_DOM + script, str(STOCK_DILUTIONS_JS)],
+        capture_output=True,
+        text=True,
+        timeout=60,
+    )
+    assert completed.returncode == 0, completed.stderr
+    return json.loads(completed.stdout)
+
+
+@pytest.mark.asyncio
+async def test_stock_page_offers_a_dilution_form_wired_to_the_endpoint(client):
+    page = await client.get("/app")
+    javascript = await client.get("/static/lab.js")
+    dilutions = await client.get("/static/stock-dilutions.js")
+
+    assert dilutions.status_code == 200
+    assert page.text.index('src="/static/stock-dilutions.js"') < page.text.index(
+        'src="/static/lab.js"'
+    )
+    assert 'const DILUTION_ENDPOINT = "/v2/workbench/current-inventory/dilute"' in dilutions.text
+    assert ".innerHTML" not in dilutions.text
+    assert "button.dataset.diluteStock = stock.stock_id" in javascript.text
+    assert 'closest("[data-dilute-stock]")' in dilutions.text
+    assert "stock.dilution_available" in javascript.text
+    assert "attachStockDilutions({" in javascript.text
+
+
+def test_dilution_form_defaults_to_dpg_w_w_posts_and_shows_errors_as_text():
+    result = _run_dilution_case(r"""
+    const stock = { stock_id: "inventory:alpha-damascone", identity_name: "Alpha <b>Damascone</b>", fraction_percent_decimal: "100", fraction_basis: "neat" };
+    const form = D.buildDilutionForm(doc, stock);
+    const { fields, error } = form.dilutionParts;
+    const defaults = { basis: fields.fraction_basis.value, carrier: fields.carrier.value, date: fields.prepared_on.attributes.type };
+    fields.fraction_percent_decimal.value = " 1 ";
+    fields.amount_made_g.value = "10";
+    fields.prepared_on.value = "2026-10-09";
+    const calls = [];
+    const refuse = async (path, options) => { calls.push([path, JSON.parse(options.body), options.method]); throw new Error("<b>the new strength must be weaker</b>"); };
+    (async () => {
+      const refused = await D.submitDilutionForm(form, { stock, expectedSha: "a".repeat(64), idempotencyKey: "k1", request: refuse });
+      const shown = { text: error.textContent, hidden: error.hidden, submitEnabled: !form.dilutionParts.submit.disabled };
+      const saved = await D.submitDilutionForm(form, { stock, expectedSha: "a".repeat(64), idempotencyKey: "k1", request: async () => ({ status: "PREPARED_DILUTION_RECORDED" }) });
+      const labels = walk(form).filter((node) => node.tag === "label").map((node) => node.textContent);
+      process.stdout.write(JSON.stringify({ defaults, refused, shown, saved, cleared: error.hidden, calls, labels }));
+    })().catch((failure) => { console.error(failure); process.exit(1); });
+    """)
+
+    assert result["defaults"] == {"basis": "mass_fraction", "carrier": "DPG", "date": "date"}
+    assert result["refused"] is None
+    assert result["shown"] == {
+        "text": "<b>the new strength must be weaker</b>",
+        "hidden": False,
+        "submitEnabled": True,
+    }
+    assert result["saved"] == {"status": "PREPARED_DILUTION_RECORDED"}
+    assert result["cleared"] is True
+    path, body, method = result["calls"][0]
+    assert path == "/v2/workbench/current-inventory/dilute"
+    assert method == "POST"
+    assert body == {
+        "schema_version": "prepared-dilution-request-v1",
+        "parent_stock_id": "inventory:alpha-damascone",
+        "expected_effective_inventory_sha256": "a" * 64,
+        "idempotency_key": "k1",
+        "fraction_percent_decimal": "1",
+        "fraction_basis": "mass_fraction",
+        "carrier": "DPG",
+        "amount_made_g": "10",
+        "prepared_on": "2026-10-09",
+        "user_note": "",
+    }
+    assert result["labels"] == [
+        "Strength of the material in the new bottle, %",
+        "How that percentage is defined",
+        "Carrier",
+        "Amount made, g (optional)",
+        "Date made (optional)",
+        "Optional note",
+    ]
+
+
+@pytest.mark.asyncio
+async def test_stock_rows_show_the_gate_hold_text_as_plain_text(client):
+    javascript = await client.get("/static/lab.js")
+
+    # stockEl sets textContent, so the hold text is never parsed as HTML.
+    assert (
+        'stockEl("span", "stock-row-note inventory-gate-hold", stock.gate_hold_text)'
+        in javascript.text
+    )
+
+
+def test_dilution_mix_line_is_hidden_when_the_basis_differs_from_a_non_neat_parent():
+    result = _run_dilution_case(r"""
+    const parent = { identity_name: "Apritone", fraction_percent_decimal: "10", fraction_basis: "mass_fraction" };
+    const neat = { identity_name: "Apritone", fraction_percent_decimal: "100", fraction_basis: "neat" };
+    process.stdout.write(JSON.stringify({
+      same: D.dilutionMixText(parent, "1", "mass_fraction", "DPG"),
+      mismatch: D.dilutionMixText(parent, "1", "volume_fraction", "DPG"),
+      neatAnyBasis: D.dilutionMixText(neat, "10", "volume_fraction", "DPG"),
+    }));
+    """)
+
+    assert result["same"] == "Mix 1 part Apritone 10% w/w + 9 parts DPG by weight"
+    assert result["mismatch"] == ""
+    assert result["neatAnyBasis"] == "Mix 1 part Apritone + 9 parts DPG by volume"
+
+
+def test_dilution_form_reports_a_null_prepared_stock_as_an_error_not_a_success():
+    result = _run_dilution_case(r"""
+    const stock = { stock_id: "s1", identity_name: "Apritone", fraction_percent_decimal: "10", fraction_basis: "mass_fraction" };
+    const form = D.buildDilutionForm(doc, stock);
+    form.dilutionParts.fields.fraction_percent_decimal.value = "1";
+    const { error } = form.dilutionParts;
+    (async () => {
+      const held = await D.submitDilutionForm(form, { stock, expectedSha: "a".repeat(64), idempotencyKey: "k", request: async () => ({ status: "PREPARED_DILUTION_RECORDED", prepared_stock_id: null }) });
+      const shown = { text: error.textContent, hidden: error.hidden, submitEnabled: !form.dilutionParts.submit.disabled };
+      const ok = await D.submitDilutionForm(form, { stock, expectedSha: "a".repeat(64), idempotencyKey: "k", request: async () => ({ prepared_stock_id: "p1" }) });
+      process.stdout.write(JSON.stringify({ held, shown, ok, cleared: error.hidden }));
+    })().catch((failure) => { console.error(failure); process.exit(1); });
+    """)
+
+    assert result["held"] is None
+    assert result["shown"] == {
+        "text": (
+            "Saved, but this dilution doesn't count as a stock yet: its parent bottle "
+            "changed or is held. Check the parent bottle on the Stock page."
+        ),
+        "hidden": False,
+        "submitEnabled": True,
+    }
+    assert result["ok"] == {"prepared_stock_id": "p1"}
+    assert result["cleared"] is True
+
+
+def test_dilution_form_shows_the_implied_mix_in_plain_words():
+    result = _run_dilution_case(r"""
+    const mixFor = (stock, value, basis) => {
+      const form = D.buildDilutionForm(doc, stock);
+      const { fields, mix, updateMix } = form.dilutionParts;
+      fields.fraction_percent_decimal.value = value;
+      fields.fraction_basis.value = basis;
+      updateMix();
+      return { text: mix.textContent, hidden: mix.hidden };
+    };
+    const neat = { stock_id: "n", identity_name: "Apritone", fraction_percent_decimal: "100", fraction_basis: "neat" };
+    const tenth = { stock_id: "t", identity_name: "Apritone", fraction_percent_decimal: "10", fraction_basis: "mass_fraction" };
+    process.stdout.write(JSON.stringify({
+      neatWeight: mixFor(neat, "10", "mass_fraction"),
+      neatVolume: mixFor(neat, "3", "volume_fraction"),
+      tenth: mixFor(tenth, "1", "mass_fraction"),
+      rounded: mixFor(tenth, "3", "mass_fraction"),
+      empty: mixFor(tenth, "", "mass_fraction"),
+      junk: mixFor(tenth, "abc", "mass_fraction"),
+      zero: mixFor(tenth, "0", "mass_fraction"),
+      tooStrong: mixFor(tenth, "10", "mass_fraction"),
+    }));
+    """)
+
+    assert result["neatWeight"]["text"] == "Mix 1 part Apritone + 9 parts DPG by weight"
+    assert result["neatVolume"]["text"] == "Mix 1 part Apritone + 32.33 parts DPG by volume"
+    assert result["tenth"]["text"] == "Mix 1 part Apritone 10% w/w + 9 parts DPG by weight"
+    assert result["tenth"]["hidden"] is False
+    assert result["rounded"]["text"] == "Mix 1 part Apritone 10% w/w + 2.33 parts DPG by weight"
+    for name in ("empty", "junk", "zero", "tooStrong"):
+        assert result[name] == {"text": "", "hidden": True}
 
 
 def _run_composition_checks(script):

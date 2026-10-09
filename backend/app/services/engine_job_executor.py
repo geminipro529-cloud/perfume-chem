@@ -510,7 +510,7 @@ def _formula_design_v2(
         liquid_concentrate_ul_decimal=str(
             payload.get("liquid_concentrate_ul_decimal", "6000")
         ),
-        max_materials=int(payload.get("max_materials", 15)),
+        max_materials=int(payload.get("max_materials", 60)),
         must_preserve=tuple(payload.get("must_preserve", [])),
         must_avoid=tuple(payload.get("must_avoid", [])),
         previous_stock_ids=tuple(payload.get("previous_stock_ids", [])),

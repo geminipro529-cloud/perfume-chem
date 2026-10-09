@@ -463,7 +463,8 @@ function renderProjectInventory(filter = "", focusStockId = "") {
   });
   const counts = inventory.counts || {};
   $("#project-inventory-count").textContent = `${counts.stocks || stocks.length} stock bottles`;
-  $("#project-inventory-ready").textContent = `${counts.design_ready || counts.execution_ready || 0} ready to use`;
+  const madeDilutions = counts.prepared_dilutions ? ` · ${counts.prepared_dilutions} dilutions you made` : "";
+  $("#project-inventory-ready").textContent = `${counts.design_ready || counts.execution_ready || 0} ready to use${madeDilutions}`;
   $("#project-inventory-source").textContent = `${inventory.display_source || "Current project inventory"}. Effective version ${String(inventory.effective_inventory_sha256 || inventory.snapshot_sha256 || "unknown").slice(0, 12)}…`;
   $("#project-inventory-live").textContent = `Showing ${rows.length} of ${stocks.length}`;
   const list = $("#project-inventory-list");
@@ -497,17 +498,28 @@ function renderProjectInventory(filter = "", focusStockId = "") {
     const name = stockEl("td", "stock-name");
     name.appendChild(stockEl("strong", "", stock.identity_name));
     if (stock.source_class === "PERSONAL_ADDITION") name.appendChild(stockEl("span", "stock-row-note", "Added by you"));
+    if (stock.source_class === "PREPARED_DILUTION") name.appendChild(stockEl("span", "stock-row-note", "Your dilution"));
     const strength = stockEl("td", "stock-strength", label);
     const statusCell = stockEl("td", "stock-status");
     statusCell.appendChild(stockEl("span", `stock-chip stock-chip-${status}`, STOCK_STATUS_LABEL[status]));
     const note = stockNote(stock, status);
     if (status === "hold") statusCell.appendChild(stockEl("span", "stock-row-note", STOCK_HOLD_NOTE));
     if (note) statusCell.appendChild(stockEl("span", "stock-row-note", note));
+    // Why the release gate still holds this bottle, and where a Stock page entry overrides the workbook.
+    if (stock.gate_hold_text) statusCell.appendChild(stockEl("span", "stock-row-note inventory-gate-hold", stock.gate_hold_text));
+    const disagreement = stock.authority_disagreement?.text;
+    if (disagreement) statusCell.appendChild(stockEl("span", "stock-row-note inventory-authority-differs", disagreement));
     const action = stockEl("td", "stock-action");
     if (status !== "ready" && stock.completion_available) {
       const button = stockEl("button", "inventory-complete-button quiet-button", "Complete details");
       button.type = "button";
       button.dataset.completeStock = stock.stock_id;
+      action.appendChild(button);
+    }
+    if (stock.dilution_available) {
+      const button = stockEl("button", "inventory-complete-button quiet-button", "Add a dilution");
+      button.type = "button";
+      button.dataset.diluteStock = stock.stock_id;
       action.appendChild(button);
     }
     tr.append(name, strength, ...(showBaskets ? [stockBasketCell(stock)] : []), statusCell, action);
@@ -1682,6 +1694,19 @@ $("#project-inventory-list").addEventListener("click", (event) => {
   if (stock) openInventoryCompletion(stock);
 });
 
+attachStockDilutions({
+  doc: document,
+  list: $("#project-inventory-list"),
+  getInventory: () => state.projectInventory || { stocks: [] },
+  request,
+  newKey: () => globalThis.crypto?.randomUUID?.() || `dilution-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+  onSaved: (result) => {
+    state.projectInventory = result.inventory;
+    renderProjectInventory($("#project-inventory-search").value);
+    notify("Dilution saved. It is now a stock you can design with and gate.");
+  },
+});
+
 $("#inventory-completion-close").addEventListener("click", closeInventoryCompletion);
 $("#inventory-completion-cancel").addEventListener("click", closeInventoryCompletion);
 
@@ -2101,7 +2126,7 @@ function resetFormulaChat(announce = true) {
   const form = $("#formula-chat-form");
   form.reset();
   $('[name="liquid_concentrate_ul_decimal"]', form).value = "6000";
-  $('[name="max_materials"]', form).value = "15";
+  $('[name="max_materials"]', form).value = "60";
   $('[name="design_mode"]', form).value = "FAST_SKETCH";
   $("#formula-chat-log").innerHTML = '<div class="chat-bubble assistant-bubble"><strong>Perfumer</strong><p>Tell me the name or feeling of the perfume you want to make. I will use your inventory, honor hard constraints first, and stop before filler.</p></div>';
   $("#formula-chat-result").hidden = true;
@@ -2128,7 +2153,7 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
       message,
       formula_name: data.formula_name || previous?.formula_name || null,
       liquid_concentrate_ul_decimal: String(data.liquid_concentrate_ul_decimal || "6000"),
-      max_materials: Number(data.max_materials || 15),
+      max_materials: Number(data.max_materials || 60),
       must_preserve: splitList(data.must_preserve),
       must_avoid: splitList(data.must_avoid),
       previous_stock_ids: previousRows.map((row) => row.stock_id),
