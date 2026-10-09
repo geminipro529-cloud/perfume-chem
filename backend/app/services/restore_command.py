@@ -14,7 +14,12 @@ import sys
 from pathlib import Path
 from typing import TextIO
 
-from engine.user_records import ADDITION_LOG_NAME, BASKET_LOG_NAME, COMPLETION_LOG_NAME
+from engine.user_records import (
+    ADDITION_LOG_NAME,
+    BASKET_LOG_NAME,
+    COMPLETION_LOG_NAME,
+    DILUTION_LOG_NAME,
+)
 from sqlalchemy.engine import URL
 
 from app.services import app_lock
@@ -35,6 +40,7 @@ RECORD_LABELS = {
     ADDITION_LOG_NAME: "stock you added",
     COMPLETION_LOG_NAME: "stock details you completed",
     BASKET_LOG_NAME: "basket choices",
+    DILUTION_LOG_NAME: "dilutions you prepared",
 }
 
 
