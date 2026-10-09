@@ -15,8 +15,8 @@ def _design(
     idea: str,
     formula_name: str,
     must_avoid: tuple[str, ...] = (),
-    # Every register layered with accents needs room beyond the 15-material
-    # default; the tight-limit case passes 15 itself.
+    # Every register layered with accents needs room beyond 15 materials;
+    # the tight-limit cases pass their own ceiling.
     max_materials: int | None = 30,
 ) -> dict:
     kwargs: dict = {"idea": idea, "formula_name": formula_name}
@@ -98,6 +98,19 @@ def test_tight_material_limit_keeps_room_for_each_requested_accord() -> None:
     assert any(slot.startswith(("top_", "heart_")) and slot.endswith("_layer") for slot in slots)
     # Two places stay free for Deep Compose.
     assert len(_rows(result)) <= 13, sorted(slots)
+
+
+def test_layering_never_shrinks_a_small_formula() -> None:
+    # Before layering, a ceiling of 8 gave this brief 8 materials. The places
+    # kept free for Deep Compose must not leave it at 6.
+    result = _design(
+        "A clear mineral lavender over dry amber, not sweet",
+        "Stone Lavender",
+        must_avoid=("vanilla",),
+        max_materials=8,
+    )
+
+    assert len(_rows(result)) == 8, sorted(_slots(result))
 
 
 def _compiled_role_ids(target_material_count: int | None) -> set[str]:

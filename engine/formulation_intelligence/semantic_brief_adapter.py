@@ -678,6 +678,9 @@ def _roles(
         roles.append(role)
         coverage.add(note)
 
+    # The count built without layers; layers and accords never shrink a
+    # formula below it.
+    base_target = role_target
     if layers:
         # Each requested note keeps room for its first accord material, and
         # Deep Compose keeps its two places, before a generic layer takes one.
@@ -702,24 +705,6 @@ def _roles(
         ("diffusion_texture", "Diffusion and spatial texture", "heart", "volume", .11, (("radiance", .45), ("transparency", .4))),
         ("persistent_identity", "Persistent identity echo", "base", "fixative", .10, (("woody", .25), ("warmth", .15))),
     )
-    for role_id, label, note, function, share, base_weights in optional_structural:
-        if len(roles) >= role_target:
-            break
-        merged = dict(base_weights)
-        for dimension, weight in qualifier_weights:
-            merged[dimension] = merged.get(dimension, 0.0) + weight * .3
-        roles.append(
-            SemanticRole(
-                role_id=role_id,
-                label=label,
-                note=note,
-                function=function,
-                query_terms=support_query(note, label, function),
-                character_weights=tuple(sorted(merged.items())),
-                share=share,
-                provenance="FUNCTIONAL_COVERAGE",
-            )
-        )
 
     # A brief that explicitly asks for an expanded or highly detailed
     # architecture receives additional *named functions*, never anonymous
@@ -739,24 +724,6 @@ def _roles(
         ("drydown_nuance", "Drydown nuance", "base", "modifier", .04, (("warmth", .15), ("green", .1))),
         ("drydown_anchor", "Drydown anchor", "base", "fixative", .065, (("woody", .35), ("creamy", .1))),
     )
-    for role_id, label, note, function, share, base_weights in expanded_functions:
-        if len(roles) >= role_target:
-            break
-        merged = dict(base_weights)
-        for dimension, weight in qualifier_weights:
-            merged[dimension] = merged.get(dimension, 0.0) + weight * .2
-        roles.append(
-            SemanticRole(
-                role_id=role_id,
-                label=label,
-                note=note,
-                function=function,
-                query_terms=support_query(note, label, function),
-                character_weights=tuple(sorted(merged.items())),
-                share=share,
-                provenance="PROMPT_REQUESTED_EXPANDED_ARCHITECTURE",
-            )
-        )
 
     # Very short briefs still receive enough distinct structural functions for
     # a small perfume.  A user-supplied exact/minimum count may raise this
@@ -767,24 +734,77 @@ def _roles(
         ("texture_support", "Texture support", "base", "texture", .065),
         ("recognizer_restatement", "Recognizer restatement", "heart", "character", .085),
     )
-    for role_id, label, note, function, share in fillers:
-        if len(roles) >= role_target:
-            break
-        roles.append(
-            SemanticRole(
-                role_id=role_id,
-                label=label,
-                note=note,
-                function=function,
-                query_terms=prompt_terms,
-                character_weights=qualifier_weights,
-                share=share,
-                provenance="MINIMUM_FUNCTIONAL_ARCHITECTURE",
+
+    def fill(roles: list[SemanticRole], target: int) -> list[SemanticRole]:
+        present = {role.role_id for role in roles}
+        for role_id, label, note, function, share, base_weights in optional_structural:
+            if len(roles) >= target:
+                break
+            if role_id in present:
+                continue
+            merged = dict(base_weights)
+            for dimension, weight in qualifier_weights:
+                merged[dimension] = merged.get(dimension, 0.0) + weight * .3
+            roles.append(
+                SemanticRole(
+                    role_id=role_id,
+                    label=label,
+                    note=note,
+                    function=function,
+                    query_terms=support_query(note, label, function),
+                    character_weights=tuple(sorted(merged.items())),
+                    share=share,
+                    provenance="FUNCTIONAL_COVERAGE",
+                )
             )
-        )
+        for role_id, label, note, function, share, base_weights in expanded_functions:
+            if len(roles) >= target:
+                break
+            if role_id in present:
+                continue
+            merged = dict(base_weights)
+            for dimension, weight in qualifier_weights:
+                merged[dimension] = merged.get(dimension, 0.0) + weight * .2
+            roles.append(
+                SemanticRole(
+                    role_id=role_id,
+                    label=label,
+                    note=note,
+                    function=function,
+                    query_terms=support_query(note, label, function),
+                    character_weights=tuple(sorted(merged.items())),
+                    share=share,
+                    provenance="PROMPT_REQUESTED_EXPANDED_ARCHITECTURE",
+                )
+            )
+        for role_id, label, note, function, share in fillers:
+            if len(roles) >= target:
+                break
+            if role_id in present:
+                continue
+            roles.append(
+                SemanticRole(
+                    role_id=role_id,
+                    label=label,
+                    note=note,
+                    function=function,
+                    query_terms=prompt_terms,
+                    character_weights=qualifier_weights,
+                    share=share,
+                    provenance="MINIMUM_FUNCTIONAL_ARCHITECTURE",
+                )
+            )
+        return roles
+
+    roles = fill(roles, role_target)
     roles = roles[:maximum]
     if target_count is None:
         roles = _with_accords(roles, maximum)
+        # Layers and accords add to the formula the composer built before
+        # layering; at a tight ceiling they never leave it smaller.  The
+        # Deep Compose places are only kept free from layers and accords.
+        if len(roles) < base_target:
+            roles = fill(roles, base_target)
     return tuple(roles)
 
 
