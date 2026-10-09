@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from functools import lru_cache
 from typing import Any, Sequence
 
@@ -28,7 +28,9 @@ from engine.formulation_intelligence.semantic_brief_adapter import (
 from engine.research.composition_planner import (
     Choice,
     RoleSpec,
+    _allocation_weight,
     _avoid_candidate,
+    _design_cap_ul,
     _formula_rows,
     _hard_cap_ul,
 )
@@ -87,6 +89,129 @@ def _role_spec(role: SemanticRole) -> RoleSpec:
         exact_preference_required=role.exact_material is not None,
         max_raw_share=role.max_raw_share,
     )
+
+
+# Generic structural roles the composer adds to bridge the requested notes.
+# While a named note can still take volume, none of them may carry the formula.
+_BRIDGE_PROVENANCE = frozenset({
+    "FUNCTIONAL_COVERAGE",
+    "MINIMUM_FUNCTIONAL_ARCHITECTURE",
+    "PROMPT_REQUESTED_EXPANDED_ARCHITECTURE",
+})
+_BRIDGE_MAX_RAW_SHARE = .12
+
+
+def _is_named_note(role: SemanticRole) -> bool:
+    return (
+        role.provenance in {"PROMPT_DERIVED_FACET", ACCORD_SUPPORT_PROVENANCE}
+        or role.exact_material is not None
+    )
+
+
+def _route_spare_volume(
+    assignments: Sequence[SolvedAssignment],
+    choices: Sequence[Choice],
+    liquid_total_ul: int,
+) -> tuple[Choice, ...]:
+    """Keep volume a hard cap frees on the named notes, not on generic bridges.
+
+    The planner hands volume a capped row cannot take to every open row in
+    proportion to weight, so a trace-capped accord lead (Rose Oxide) would let
+    the bridges carry the perfume.  The unused part of a capped lead's weight
+    moves to its own accord supports instead, and a bridge is held to 12% of
+    the liquid while a named note can still take volume.  Total weight is
+    unchanged, and the bridge cap only rises as far as needed for the caps to
+    hold the whole liquid total, so a formula that allocated before still does.
+    """
+
+    free = [index for index, choice in enumerate(choices) if not choice.candidate.solid]
+    weights = {index: _allocation_weight(choices[index]) for index in free}
+    weight_total = sum(weights.values())
+    specs = {index: choices[index].role for index in free}
+    for lead in free:
+        role = assignments[lead].role
+        cap = _hard_cap_ul(choices[lead].candidate, liquid_total_ul)
+        expected = liquid_total_ul * weights[lead] / weight_total if weight_total else 0.0
+        if role.provenance != "PROMPT_DERIVED_FACET" or cap is None or cap >= expected:
+            continue
+        supports = [
+            index
+            for index in free
+            if accord_lead_role_id(assignments[index].role) == role.role_id
+            and _hard_cap_ul(choices[index].candidate, liquid_total_ul) is None
+        ]
+        if not supports:
+            continue
+        spare_ul = expected - cap
+        spare_weight = weights[lead] * spare_ul / expected
+        specs[lead] = replace(specs[lead], share=specs[lead].share * cap / expected)
+        support_share = sum(choices[index].role.share for index in supports)
+        for index in supports:
+            part = choices[index].role.share / support_share
+            # Shares are converted back from allocation weight, which may be
+            # stock-strength compensated; the support's ceiling grows by the
+            # volume it receives.
+            per_share = weights[index] / max(choices[index].role.share, 0.000001)
+            specs[index] = replace(
+                specs[index],
+                share=specs[index].share + spare_weight * part / per_share,
+                max_raw_share=(
+                    None
+                    if specs[index].max_raw_share is None
+                    else specs[index].max_raw_share + spare_ul * part / liquid_total_ul
+                ),
+            )
+
+    bridges = [
+        index
+        for index in free
+        if assignments[index].role.provenance in _BRIDGE_PROVENANCE
+        and _hard_cap_ul(choices[index].candidate, liquid_total_ul) is None
+        and (specs[index].max_raw_share or 1.0) > _BRIDGE_MAX_RAW_SHARE
+    ]
+    named_open = any(
+        _is_named_note(assignments[index].role)
+        and _hard_cap_ul(choices[index].candidate, liquid_total_ul) is None
+        for index in free
+    )
+    adjusted = [
+        replace(choice, role=specs[index]) if index in specs else choice
+        for index, choice in enumerate(choices)
+    ]
+    if not bridges or not named_open:
+        return tuple(adjusted)
+    other_caps = sum(
+        _design_cap_ul(adjusted[index], liquid_total_ul) or 0
+        for index in free
+        if index not in bridges
+    )
+    # Relax rather than fail: if the other rows cannot hold what the bridges
+    # give up, each bridge keeps just enough to place the whole liquid total.
+    needed = -(-(liquid_total_ul - other_caps) // len(bridges))
+    bridge_share = max(_BRIDGE_MAX_RAW_SHARE, (needed + 1) / liquid_total_ul)
+    for index in bridges:
+        capped = replace(
+            adjusted[index],
+            role=replace(adjusted[index].role, max_raw_share=bridge_share),
+        )
+        # Never looser than the cap the bridge already had.
+        if (_design_cap_ul(capped, liquid_total_ul) or 0) < (_design_cap_ul(adjusted[index], liquid_total_ul) or 0):
+            adjusted[index] = capped
+    return tuple(adjusted)
+
+
+def _allocation_choices(
+    assignments: Sequence[SolvedAssignment],
+    choices: Sequence[Choice],
+    liquid_total_ul: int,
+    explicit_quantities: Sequence[dict[str, Any]],
+) -> tuple[Choice, ...]:
+    """The choices the dose allocation sees; audits replay through this too."""
+
+    if explicit_quantities:
+        # Exact-quantity requests keep the planner's own allocation.
+        return tuple(choices)
+    return _route_spare_volume(assignments, choices, liquid_total_ul)
 
 
 def _allows_multiple_musks(request: str, roles: Sequence[SemanticRole]) -> bool:
@@ -600,6 +725,7 @@ def solve_formula(
         )
         for assignment in assignments
     )
+    choices = _allocation_choices(assignments, choices, liquid_total_ul, explicit_quantities)
     rows: list[dict[str, Any]] = []
     totals = {"liquid_total_ul": "0", "mass_total_mg": "0"}
     holds: list[str] = []
