@@ -1,5 +1,8 @@
+from pathlib import Path
+
 import pytest
 
+import engine.inventory_parser as inventory_parser
 from engine.inventory_parser import materialize_current_inventory
 from engine.research.formula_design import design_inventory_formula
 
@@ -661,7 +664,13 @@ def test_formula_design_uses_named_commercial_products_as_documentary_context_on
     assert all("selected_architecture_links" in item for item in context["named_products"])
 
 
-def test_formula_design_withholds_if_exact_requested_iris_stock_is_held() -> None:
+def test_formula_design_withholds_if_exact_requested_iris_stock_is_held(monkeypatch) -> None:
+    # The live Orris hold was lifted on 2026-10-08; test against the old record.
+    monkeypatch.setattr(
+        inventory_parser,
+        "USER_COMPOUNDING_HOLDS_PATH",
+        Path(__file__).parent / "fixtures" / "orris_liquid_hold_20261005.json",
+    )
     result = design_inventory_formula(
         idea=(
             "Use exactly Alpha Irone 10% in DEP, Orris Liquid 9% in DEP, and "
