@@ -42,6 +42,11 @@ from engine.ifra_standards import (
     evaluate_ifra,
     load_ifra_table,
 )
+from engine.inventory_completions import COMPLETION_CLEARABLE_HOLDS, STOCK_PAGE_ENTRY_INCOMPLETE
+from engine.inventory_dilutions import (
+    PREPARED_DILUTION_PARENT_CHANGED,
+    PREPARED_DILUTION_PARENT_HELD,
+)
 from engine.knowledge.literature_rules import (
     _LITERATURE_DB_LOADED,
     _cite_fn,
@@ -468,7 +473,25 @@ _STOCK_DATA_HOLDS: dict[str, str] = {
     ),
     "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED": "confirm the concentration basis and homogeneity",
     "HOMOGENEITY_NOT_RECONFIRMED": "reconfirm homogeneity",
+    STOCK_PAGE_ENTRY_INCOMPLETE: "finish the Lab app's Stock page entry",
+    PREPARED_DILUTION_PARENT_CHANGED: (
+        "the bottle this dilution was made from has changed; on the Lab app's Stock page, "
+        "record the dilution again from that bottle as it now stands"
+    ),
+    PREPARED_DILUTION_PARENT_HELD: (
+        "this dilution counts once the bottle it was made from counts at the gate; "
+        "resolve that parent bottle first"
+    ),
 }
+# When preflight reports that a complete Lab app Stock page entry would clear
+# the issue (``stock_page_entry_clears``), the holds in COMPLETION_CLEARABLE_HOLDS
+# ask for it there; otherwise each hold keeps its text above.  The detail
+# appends " of the X stock".
+_STOCK_PAGE_REQUEST = "on the Lab app's Stock page, fill in the strength, basis and carrier"
+_STOCK_PAGE_MEASURED_REQUEST = (
+    "measure the final dissolved fraction, then on the Lab app's Stock page fill in "
+    "the strength, basis and carrier"
+)
 # Holds under which the stock has no recorded strength at all, so a formula
 # strength cannot yet be compared with it.  Every other data hold sits on a
 # stock with a recorded strength (an approximate "~10%", a supplier-label
@@ -558,9 +581,19 @@ def _stock_issue_data_request(issue: Mapping[str, object]) -> str | None:
         issue, holds
     ):
         return None
-    if not holds:
-        return "record the carrier and concentration basis"
-    return "; ".join(dict.fromkeys(_STOCK_DATA_HOLDS[hold] for hold in holds))
+    if issue.get("stock_page_entry_clears") is not True:
+        if not holds:
+            return "record the carrier and concentration basis"
+        return "; ".join(dict.fromkeys(_STOCK_DATA_HOLDS[hold] for hold in holds))
+    requests = [
+        _STOCK_PAGE_MEASURED_REQUEST
+        if any(hold in _STOCK_STRENGTH_CHARGE_BOUND_HOLDS for hold in holds)
+        else _STOCK_PAGE_REQUEST
+    ]
+    requests.extend(
+        _STOCK_DATA_HOLDS[hold] for hold in holds if hold not in COMPLETION_CLEARABLE_HOLDS
+    )
+    return "; ".join(dict.fromkeys(requests))
 
 
 def _describe_stock_issue(issue: Mapping[str, object]) -> str:

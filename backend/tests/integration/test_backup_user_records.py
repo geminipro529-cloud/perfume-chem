@@ -7,7 +7,12 @@ from hashlib import sha256
 from pathlib import Path
 
 import pytest
-from engine.user_records import ADDITION_LOG_NAME, BASKET_LOG_NAME, COMPLETION_LOG_NAME
+from engine.user_records import (
+    ADDITION_LOG_NAME,
+    BASKET_LOG_NAME,
+    COMPLETION_LOG_NAME,
+    DILUTION_LOG_NAME,
+)
 
 from app.services import backup_service as backup_service_module
 from app.services.backup_service import BackupService, RestoreSafetyError
@@ -27,6 +32,7 @@ def _records(folder: Path) -> dict[str, Path]:
         ADDITION_LOG_NAME: folder / "additions.jsonl",
         COMPLETION_LOG_NAME: folder / "completions.jsonl",
         BASKET_LOG_NAME: folder / BASKET_LOG_NAME,
+        DILUTION_LOG_NAME: folder / DILUTION_LOG_NAME,
     }
 
 
@@ -66,6 +72,8 @@ def test_backup_copies_records_byte_for_byte_and_lists_absent_ones_as_null(tmp_p
     addition = b'{"event_id":"a1"}\n{"event_id":"a2","note":"\xc3\xa9"}\n'
     records[ADDITION_LOG_NAME].write_bytes(addition)
     records[COMPLETION_LOG_NAME].write_bytes(b"")
+    dilution = b'{"event_id":"prepared-dilution-1"}\n'
+    records[DILUTION_LOG_NAME].write_bytes(dilution)
 
     artifact = service.create_backup("manual")
 
@@ -73,11 +81,13 @@ def test_backup_copies_records_byte_for_byte_and_lists_absent_ones_as_null(tmp_p
     assert (copies / ADDITION_LOG_NAME).read_bytes() == addition
     assert (copies / COMPLETION_LOG_NAME).read_bytes() == b""
     assert not (copies / BASKET_LOG_NAME).exists()
+    assert (copies / DILUTION_LOG_NAME).read_bytes() == dilution
     manifest = json.loads(artifact.manifest_path.read_text(encoding="utf-8"))
     assert manifest["user_records"] == {
         ADDITION_LOG_NAME: {"sha256": sha256(addition).hexdigest(), "bytes": len(addition)},
         COMPLETION_LOG_NAME: {"sha256": sha256(b"").hexdigest(), "bytes": 0},
         BASKET_LOG_NAME: None,
+        DILUTION_LOG_NAME: {"sha256": sha256(dilution).hexdigest(), "bytes": len(dilution)},
     }
     validation = service.validate_restore(artifact.snapshot_path)
     assert validation.valid is True
@@ -86,6 +96,7 @@ def test_backup_copies_records_byte_for_byte_and_lists_absent_ones_as_null(tmp_p
         ADDITION_LOG_NAME: "verified",
         COMPLETION_LOG_NAME: "verified",
         BASKET_LOG_NAME: "not in backup",
+        DILUTION_LOG_NAME: "verified",
     }
 
 
@@ -191,6 +202,50 @@ def test_backup_from_before_records_leaves_live_records_and_says_so(tmp_path):
     )
 
 
+def test_backup_from_before_the_dilution_log_restores_and_leaves_the_log(tmp_path):
+    # Backups made before the prepared-dilution log joined the stock records
+    # list only the three older records in their manifest.
+    service, records = _service(tmp_path)
+    records[ADDITION_LOG_NAME].write_bytes(b'{"event_id":"old-addition"}\n')
+    backup = service.create_backup()
+    manifest = json.loads(backup.manifest_path.read_text(encoding="utf-8"))
+    del manifest["user_records"][DILUTION_LOG_NAME]
+    assert set(manifest["user_records"]) == {
+        ADDITION_LOG_NAME,
+        COMPLETION_LOG_NAME,
+        BASKET_LOG_NAME,
+    }
+    backup.manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    records[ADDITION_LOG_NAME].write_bytes(b'{"event_id":"new-addition"}\n')
+    records[DILUTION_LOG_NAME].write_bytes(b'{"event_id":"dilution-made-later"}\n')
+
+    applied = _restore(service, backup.snapshot_path)
+
+    assert records[ADDITION_LOG_NAME].read_bytes() == b'{"event_id":"old-addition"}\n'
+    assert records[DILUTION_LOG_NAME].read_bytes() == b'{"event_id":"dilution-made-later"}\n'
+    assert applied.records_restored == (ADDITION_LOG_NAME,)
+    assert applied.records_left == (
+        (DILUTION_LOG_NAME, backup_service_module.RECORD_NOT_IN_BACKUP),
+    )
+    validation = service.validate_restore(backup.snapshot_path)
+    assert validation.valid, validation.errors
+    assert validation.user_records[DILUTION_LOG_NAME] == "not in backup"
+
+
+def test_manifest_naming_an_unknown_record_is_refused(tmp_path):
+    service, _records_by_name = _service(tmp_path)
+    backup = service.create_backup()
+    manifest = json.loads(backup.manifest_path.read_text(encoding="utf-8"))
+    manifest["user_records"]["unknown.jsonl"] = None
+    backup.manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+    assert "stock records manifest entry is invalid" in (
+        service.validate_restore(backup.snapshot_path).errors
+    )
+    with pytest.raises(RestoreSafetyError, match="manifest entry is invalid"):
+        _restore(service, backup.snapshot_path)
+
+
 def test_damaged_record_copy_is_refused_before_anything_changes(tmp_path):
     service, records = _service(tmp_path)
     records[ADDITION_LOG_NAME].write_bytes(b'{"event_id":"backed-up"}\n')
@@ -248,6 +303,7 @@ def _command_records(tmp_path: Path, monkeypatch) -> dict[str, Path]:
         ADDITION_LOG_NAME: folder / "add.jsonl",
         COMPLETION_LOG_NAME: folder / COMPLETION_LOG_NAME,
         BASKET_LOG_NAME: folder / BASKET_LOG_NAME,
+        DILUTION_LOG_NAME: folder / DILUTION_LOG_NAME,
     }
 
 
