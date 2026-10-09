@@ -1058,7 +1058,7 @@ def _parse_formula_rows(
 
     for name, rows in row_specs.items():
         if name in ingredients_ul:
-            merged = _merge_stock_rows(rows, total_ul_val)
+            merged = _merge_stock_rows(rows, total_ul_val, name)
             if merged is not None:
                 stock_specs[name] = merged
                 dilutions[name] = float(merged["fraction"])  # type: ignore[arg-type]
@@ -1069,8 +1069,17 @@ def _parse_formula_rows(
 _STOCK_IDENTITY_KEYS = ("fraction", "fraction_basis", "carrier", "declared")
 
 
+def _strength_unwritten(row: dict[str, object]) -> bool:
+    """True for a row whose strength cell gives no strength (read as 1.0)."""
+    return not row.get("declared") and row.get("fraction") == 1.0
+
+
+def _percent_text(fraction: float) -> str:
+    return f"{fraction * 100.0:g}%"
+
+
 def _merge_stock_rows(
-    rows: list[dict[str, object]], total_ul_val: float | None
+    rows: list[dict[str, object]], total_ul_val: float | None, name: str = ""
 ) -> dict[str, object] | None:
     """One stock spec for a material written on rows with different stocks.
 
@@ -1082,7 +1091,49 @@ def _merge_stock_rows(
     keeps ``conflict`` (one material name can bind only one live stock) and
     lists every row in ``variants`` with its own raw uL; a basis or carrier the
     rows don't share is left unspecified rather than borrowed from one row.
+
+    A row with no strength written is not a neat stock line: it takes the
+    strength of the material's written rows (the highest, if they disagree).
+    When that strength is below neat the spec carries ``unwritten_strength``,
+    a plain reason the safety gate holds on; rows that are all neat are not
+    flagged.
     """
+    written = [row for row in rows if not _strength_unwritten(row)]
+    unwritten_count = len(rows) - len(written)
+    adopted: dict[str, object] | None = None
+    if written and unwritten_count:
+        adopted = max(written, key=lambda row: float(row["fraction"]))  # type: ignore[arg-type]
+        rows = [
+            row
+            if not _strength_unwritten(row)
+            else {
+                **adopted,
+                "raw": row.get("raw", ""),
+                "strength_adopted": True,
+                "row_amount": row["row_amount"],
+                "row_amount_is_percentage": row["row_amount_is_percentage"],
+            }
+            for row in rows
+        ]
+    unwritten_reason: str | None = None
+    if adopted is not None and float(adopted["fraction"]) < 1.0:  # type: ignore[arg-type]
+        strengths = sorted(
+            {float(row["fraction"]) for row in written},  # type: ignore[arg-type]
+            reverse=True,
+        )
+        unwritten_reason = (
+            f"{name}: "
+            + ("one row gives" if unwritten_count == 1 else f"{unwritten_count} rows give")
+            + " no strength, "
+            + ("another gives " if len(written) == 1 else "others give ")
+            + ", ".join(_percent_text(value) for value in strengths)
+            + (
+                f" (read at the highest, {_percent_text(strengths[0])})"
+                if len(strengths) > 1
+                else ""
+            )
+            + "; confirm which bottle"
+        )
     distinct: list[dict[str, object]] = []
     for row in rows:
         if not any(
@@ -1091,7 +1142,17 @@ def _merge_stock_rows(
         ):
             distinct.append(row)
     if len(distinct) < 2:
-        return None
+        if adopted is None:
+            return None
+        single = {
+            key: value
+            for key, value in adopted.items()
+            if key not in ("row_amount", "row_amount_is_percentage")
+        }
+        single["declared"] = False
+        if unwritten_reason is not None:
+            single["unwritten_strength"] = unwritten_reason
+        return single
     variants: list[dict[str, object]] = []
     raw_total = 0.0
     active_total = 0.0
@@ -1129,7 +1190,8 @@ def _merge_stock_rows(
             "fraction": fraction,
             "fraction_basis": bases.pop() if len(bases) == 1 else "unspecified",
             "carrier": carriers.pop() if len(carriers) == 1 else "",
-            "declared": all(bool(row.get("declared")) for row in rows),
+            "declared": not unwritten_count
+            and all(bool(row.get("declared")) for row in rows),
             "approximate": any(bool(row.get("approximate")) for row in rows),
             "raw": " + ".join(str(row.get("raw", "")) for row in rows),
             "conflict": True,
@@ -1137,6 +1199,8 @@ def _merge_stock_rows(
             "active_ul": active_total,
         }
     )
+    if unwritten_reason is not None:
+        merged["unwritten_strength"] = unwritten_reason
     return merged
 
 
