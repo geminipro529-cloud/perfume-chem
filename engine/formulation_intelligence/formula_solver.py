@@ -278,6 +278,10 @@ _SUPPORTING_PROVENANCE = frozenset({
 # perfume (extrait strength).
 _SUPPORTING_RAW_SHARE_CEILING = LAYER_MAX_RAW_SHARE
 _CONCENTRATE_FINISHED_FRACTION = .30
+# Requested notes: the planner's default role cap when a facet sets none, in
+# the standard concentrate (6,000 uL in a 30 mL bottle).
+_REQUESTED_NOTE_RAW_SHARE_CEILING = .28
+_STANDARD_FINISHED_FRACTION = .20
 
 
 @lru_cache(maxsize=None)
@@ -291,10 +295,14 @@ def _ifra_entry(identity_name: str) -> tuple[str, float | None] | None:
 
 
 def _ifra_binds_layer(capability: MaterialCapability, role: SemanticRole) -> bool:
-    """True when IFRA could bind at a supporting role's dose ceiling.
+    """True when IFRA could bind at a role's dose ceiling.
 
-    Such a material can still be used where the brief asks for it; it just
-    never fills a supporting role by default.
+    Supporting roles are judged at their raw-share ceiling in an extrait-strength
+    concentrate.  A requested note named only by a descriptor ("vanilla") is
+    judged at its own raw-share cap in the standard 6,000 uL-in-30 mL
+    concentrate, so it keeps its core materials (neat Geraniol for a rose) but
+    never reaches for one IFRA limits below that dose (Peru Balsam for
+    vanilla).  A stock the user names is always their call.
     """
 
     entry = _ifra_entry(capability.identity_name)
@@ -305,9 +313,15 @@ def _ifra_binds_layer(capability: MaterialCapability, role: SemanticRole) -> boo
         return True
     if status != "restricted" or limit is None:
         return False
-    ceiling = min(role.max_raw_share or _SUPPORTING_RAW_SHARE_CEILING, _SUPPORTING_RAW_SHARE_CEILING)
+    if role.provenance == "PROMPT_DERIVED_FACET":
+        ceiling = (role.max_raw_share or _REQUESTED_NOTE_RAW_SHARE_CEILING) * _STANDARD_FINISHED_FRACTION
+    else:
+        ceiling = (
+            min(role.max_raw_share or _SUPPORTING_RAW_SHARE_CEILING, _SUPPORTING_RAW_SHARE_CEILING)
+            * _CONCENTRATE_FINISHED_FRACTION
+        )
     fraction = float(capability.candidate.stock.dilution)
-    return ceiling * _CONCENTRATE_FINISHED_FRACTION * fraction * 100 > limit
+    return ceiling * fraction * 100 > limit
 
 
 def _accent_admits(capability: MaterialCapability, role: SemanticRole) -> bool:
@@ -417,7 +431,12 @@ def _allowed(
             return False
     if (
         role.exact_material is None
-        and role.provenance in _SUPPORTING_PROVENANCE
+        and (
+            role.provenance in _SUPPORTING_PROVENANCE
+            # A reviewed recognizer slot (iris root texture) may have a single
+            # eligible stock; the release gate's IFRA check judges that one.
+            or (role.provenance == "PROMPT_DERIVED_FACET" and not role.knowledge_role_slot)
+        )
         and _ifra_binds_layer(capability, role)
     ):
         return False

@@ -157,3 +157,22 @@ def test_accord_supports_leave_deep_compose_refinements_available() -> None:
         control=control, interpretation=interpretation, max_materials=30,
     )
     assert [b.architecture_plan["option_id"] for b in plan.briefs[1:]] == ["powder_musk", "pear_musk"]
+
+
+def test_requested_notes_never_pick_an_ifra_limited_material() -> None:
+    from engine.ifra_safety import get_ifra_limit
+
+    # "Vanilla" names a note, not a stock: Peru Balsam Resinoid (Cat 4 limit
+    # 0.41%) must not lead it at the note's own dose.
+    result = _design("Deep leather tobacco with vanilla", "Leather Vanilla")
+    checked = 0
+    for row in _rows(result):
+        limit = get_ifra_limit(row["identity_name"])
+        if limit is None:
+            continue
+        checked += 1
+        finished_pct = (
+            float(row["amount_decimal"]) * float(row["stock_fraction_decimal"]) / 30_000 * 100
+        )
+        assert finished_pct <= limit, (row["slot"], row["identity_name"], finished_pct, limit)
+    assert checked
