@@ -282,3 +282,110 @@ def test_shipped_ceilings_hold_chypre_rose_ketones_at_the_ifra_derived_level() -
     for row in ketones:
         assert _active_pct(row, liquid_total) <= Decimal("0.215")
         assert row[CEILING_KEY] == 0.215
+
+
+
+@pytest.mark.parametrize(
+    ("probe", "expected"),
+    [
+        ("Eugenol (10%)", "Eugenol"),
+        ("Isoeugenol (neat)", "Isoeugenol"),
+        ("Iso-Eugenol", "Isoeugenol"),
+        ("Iso Eugenol neat", "Isoeugenol"),
+        ("Methyl Eugenol", None),
+        ("Hexyl Cinnamaldehyde", None),
+        ("Alpha Amyl Cinnamaldehyde", None),
+        ("Amyl Cinnamic Aldehyde (ACA)", None),
+        ("Cinnamaldehyde (1%)", "Cinnamaldehyde"),
+        ("Methyl N-Methyl Anthranilate", None),
+        ("Methyl Anthranilate", "Methyl Anthranilate"),
+        ("Methyl Beta Ionone", None),
+        ("Beta Ionone Epoxide", None),
+        ("Beta Ionone (0.1% in TEC)", "Beta Ionone"),
+        ("Citral Dimethyl Acetal", None),
+        ("Galbanum Oil Resinoid", None),
+        ("Damascone Beta (10%)", "Beta Damascone"),
+        ("Aldehyde C11 undecylenic (1%)", "Aldehyde C-11 undecylenic"),
+        ("Hedione HC", "Hedione"),
+    ],
+)
+def test_shipped_phrases_never_give_a_different_material_a_ceiling(probe: str, expected: str | None) -> None:
+    shipped = ceilings.load_normal_use_ceilings(ceilings.NORMAL_USE_CEILINGS_PATH)
+    matched = ceilings.match_normal_use_ceiling(probe, shipped)
+    assert (matched.material if matched else None) == expected
+
+
+def test_loader_rejects_a_bad_exclude_list(tmp_path: Path) -> None:
+    bad = _entry("Eugenol", ["eugenol"])
+    bad["exclude"] = "methyl eugenol"
+    with pytest.raises(ceilings.NormalUseCeilingsError, match="exclude"):
+        ceilings.parse_normal_use_ceilings(_payload(bad))
+
+
+
+def _stocked(name: str, dilution: float = 1.0) -> Any:
+    candidate = _candidate(name, dilution)
+    candidate.stock.stock_id = f"stock:{name}"
+    return candidate
+
+
+def _fallback(choices: list[Any], total: int = 6000) -> tuple[dict[int, int], list[str]]:
+    free_rows = [
+        (index, planner._allocation_weight(choice), planner._design_cap_ul(choice, total))
+        for index, choice in enumerate(choices)
+    ]
+    holds: list[str] = []
+    return planner._allocate_with_bulk_fallback(total, free_rows, choices, total, holds), holds
+
+
+def test_spare_space_goes_to_volume_rows_first_and_never_past_firm_caps(fixture_ceilings: None) -> None:
+    choices = [
+        _choice(_stocked("Alpha Damascone")),  # ceiling: 12 uL
+        _choice(_stocked("Cardamom EO"), function="modifier", max_raw_share=0.03),  # explicit 180 uL
+        _choice(_stocked("Cedarwood Virginia"), function="volume"),  # soft role cap
+        _choice(_stocked("Linalool"), function="modifier"),  # soft role cap
+    ]
+    allocated, holds = _fallback(choices)
+
+    assert sum(allocated.values()) == 6000
+    assert allocated[0] <= 12
+    assert allocated[1] <= 180
+    assert allocated[3] <= planner._design_cap_ul(choices[3], 6000)
+    assert holds == ["ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:stock:Cedarwood Virginia"]
+
+
+def test_without_a_volume_row_other_soft_rows_take_the_spare_space(fixture_ceilings: None) -> None:
+    choices = [
+        _choice(_stocked("Alpha Damascone")),
+        _choice(_stocked("Cardamom EO"), function="modifier", max_raw_share=0.03),
+        _choice(_stocked("Linalool"), function="modifier"),
+    ]
+    allocated, holds = _fallback(choices)
+
+    assert sum(allocated.values()) == 6000
+    assert allocated[0] <= 12 and allocated[1] <= 180
+    assert holds == ["ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:stock:Linalool"]
+
+
+def test_ceilinged_and_restrained_rows_still_withhold(fixture_ceilings: None) -> None:
+    choices = [
+        _choice(_stocked("Alpha Damascone")),
+        _choice(_stocked("Cardamom EO"), function="contrast", max_raw_share=0.03),
+    ]
+    with pytest.raises(ValueError):
+        _fallback(choices)
+
+
+def test_a_volume_row_with_an_explicit_share_still_takes_the_spare_space(fixture_ceilings: None) -> None:
+    # Curated concepts give every role an explicit share; their volume row
+    # must still be able to take what a ceiling frees.
+    choices = [
+        _choice(_stocked("Alpha Damascone"), max_raw_share=0.25),
+        _choice(_stocked("Cardamom EO"), function="contrast", max_raw_share=0.03),
+        _choice(_stocked("Dihydrojasmone"), function="volume", max_raw_share=0.28),
+    ]
+    allocated, holds = _fallback(choices)
+
+    assert sum(allocated.values()) == 6000
+    assert allocated[0] <= 12 and allocated[1] <= 180
+    assert holds == ["ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:stock:Dihydrojasmone"]

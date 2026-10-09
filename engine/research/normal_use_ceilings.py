@@ -44,6 +44,7 @@ class NormalUseCeiling:
     phrases: tuple[str, ...]
     max_active_pct_of_concentrate: int | float
     max_active_fraction: Decimal
+    excludes: tuple[str, ...] = ()
 
 
 def _phrase_key(value: str) -> str:
@@ -74,6 +75,15 @@ def _parse_entry(index: int, entry: object) -> NormalUseCeiling:
         if not key:
             raise _fail(f"{where}.match entries must be non-empty identity phrases")
         phrases.append(key)
+    exclude = entry.get("exclude", [])
+    if not isinstance(exclude, list):
+        raise _fail(f"{where}.exclude must be a list of identity phrases")
+    excludes: list[str] = []
+    for phrase in exclude:
+        key = _phrase_key(phrase) if isinstance(phrase, str) else ""
+        if not key:
+            raise _fail(f"{where}.exclude entries must be non-empty identity phrases")
+        excludes.append(key)
     value = entry.get("max_active_pct_of_concentrate")
     if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
         raise _fail(f"{where}.max_active_pct_of_concentrate must be a number")
@@ -89,6 +99,7 @@ def _parse_entry(index: int, entry: object) -> NormalUseCeiling:
         phrases=tuple(dict.fromkeys(phrases)),
         max_active_pct_of_concentrate=value,
         max_active_fraction=Decimal(str(value)) / Decimal(100),
+        excludes=tuple(dict.fromkeys(excludes)),
     )
 
 
@@ -140,6 +151,8 @@ def match_normal_use_ceiling(
 ) -> NormalUseCeiling | None:
     """Return the ceiling whose longest whole-word phrase occurs in the probe.
 
+    An entry is skipped when one of its ``exclude`` phrases occurs.
+
     Ties between different materials resolve to the lower ceiling.
     """
 
@@ -147,6 +160,10 @@ def match_normal_use_ceiling(
     best: tuple[int, Decimal, str] | None = None
     winner: NormalUseCeiling | None = None
     for ceiling in active_normal_use_ceilings() if ceilings is None else ceilings:
+        # A different material whose name contains this one ("methyl eugenol",
+        # "hexyl cinnamaldehyde") is excluded rather than given its ceiling.
+        if any(f" {phrase} " in padded for phrase in ceiling.excludes):
+            continue
         for phrase in ceiling.phrases:
             if f" {phrase} " not in padded:
                 continue

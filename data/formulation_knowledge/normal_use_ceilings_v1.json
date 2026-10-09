@@ -104,6 +104,10 @@
       "match": [
         "beta ionone"
       ],
+      "exclude": [
+        "methyl beta ionone",
+        "beta ionone epoxide"
+      ],
       "max_active_pct_of_concentrate": 6.7,
       "note": "Set by the highest supplier maximum (PerfumersWorld).",
       "sources": [
@@ -261,6 +265,9 @@
         "decanal",
         "aldehyde c 10"
       ],
+      "exclude": [
+        "acetal"
+      ],
       "max_active_pct_of_concentrate": 3.6,
       "note": "Set by the highest supplier maximum (PerfumersWorld).",
       "sources": [
@@ -409,6 +416,9 @@
         "galbanum oil",
         "galbanum essential oil"
       ],
+      "exclude": [
+        "resinoid"
+      ],
       "max_active_pct_of_concentrate": 2.3,
       "note": "Set by the highest supplier maximum (PerfumersWorld).",
       "sources": [
@@ -461,6 +471,9 @@
       "material": "Citral",
       "match": [
         "citral"
+      ],
+      "exclude": [
+        "acetal"
       ],
       "max_active_pct_of_concentrate": 3,
       "note": "Set by the IFRA limit (IFRA_STD_021, 0.6% of the finished product).",
@@ -596,6 +609,9 @@
       "match": [
         "methyl anthranilate"
       ],
+      "exclude": [
+        "n methyl anthranilate"
+      ],
       "max_active_pct_of_concentrate": 5,
       "note": "Set by the highest supplier maximum (Hekserij).",
       "sources": [
@@ -613,6 +629,9 @@
       "material": "Benzaldehyde",
       "match": [
         "benzaldehyde"
+      ],
+      "exclude": [
+        "acetal"
       ],
       "max_active_pct_of_concentrate": 1.25,
       "note": "Set by the IFRA limit (IFRA_STD_007, 0.25% of the finished product).",
@@ -633,6 +652,10 @@
       "match": [
         "cinnamaldehyde"
       ],
+      "exclude": [
+        "hexyl cinnamaldehyde",
+        "amyl cinnamaldehyde"
+      ],
       "max_active_pct_of_concentrate": 1.25,
       "note": "Set by the IFRA limit (IFRA_STD_018, 0.25% of the finished product).",
       "sources": [
@@ -652,6 +675,10 @@
       "match": [
         "eugenol"
       ],
+      "exclude": [
+        "methyl eugenol",
+        "acetyl eugenol"
+      ],
       "max_active_pct_of_concentrate": 12.5,
       "note": "Set by the IFRA limit (IFRA_STD_035, 2.5% of the finished product).",
       "sources": [
@@ -669,7 +696,8 @@
     {
       "material": "Isoeugenol",
       "match": [
-        "isoeugenol"
+        "isoeugenol",
+        "iso eugenol"
       ],
       "max_active_pct_of_concentrate": 0.55,
       "note": "Set by the IFRA limit (IFRA_STD_048, 0.11% of the finished product).",
