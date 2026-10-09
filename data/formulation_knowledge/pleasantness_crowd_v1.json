@@ -1,0 +1,5486 @@
+{
+  "schema": "pleasantness_crowd_v1",
+  "scale": "-1 (most unpleasant) .. 0 (neutral) .. +1 (most pleasant); panel values are (mean - 50) / 50 of the Keller 0-100 rating with 50 = neutral",
+  "label": "crowd guess: panel averages and hand estimates, not a measurement of this formula or of Kenny's taste",
+  "source_citation": "Keller A, Vosshall LB (2016) Olfactory perception of chemically diverse molecules. BMC Neuroscience. doi:10.1186/s12868-016-0287-2 (CC BY 4.0), via pyrfume-data keller_2016, retrieved 2026-10-09",
+  "dose_rule": "strength_share <= 0.1 -> weak, >= 0.25 -> strong, linear between; heuristic_unmeasured flips set strong = min(value, -0.4)",
+  "counts": {
+    "character_heuristic": 91,
+    "hedonic_model_table": 96,
+    "keller_vosshall_2016": 53,
+    "profile_direct": 15,
+    "profile_override": 22,
+    "unknown": 59
+  },
+  "calibration": {
+    "model": "panel = a + b * hand, least squares; hand on -1..+1 after raw-scale division",
+    "pooled_rule": "one pair per material, using its highest-precedence hand source",
+    "per_source": {
+      "hedonic_model_table": {
+        "n": 28,
+        "a": -0.3809,
+        "b": 0.8241,
+        "r": 0.6263
+      },
+      "profile_override": {
+        "n": 18,
+        "a": -0.0004,
+        "b": 0.3558,
+        "r": 0.4693
+      },
+      "profile_direct": {
+        "n": 0,
+        "a": null,
+        "b": null,
+        "r": null
+      },
+      "character_heuristic": {
+        "n": 18,
+        "a": 0.2377,
+        "b": -1.0882,
+        "r": -0.2241
+      }
+    },
+    "pooled": {
+      "n": 35,
+      "a": -0.1839,
+      "b": 0.5466,
+      "r": 0.5319
+    },
+    "thresholds": {
+      "min_n": 15,
+      "min_r": 0.3
+    },
+    "applied": true,
+    "applied_to": [
+      "hedonic_model_table",
+      "profile_override",
+      "profile_direct",
+      "character_heuristic"
+    ],
+    "note": "pooled fit applied to every hand-derived value; character_heuristic is excluded from the fit but mapped with it so all values share one scale"
+  },
+  "generated_by": {
+    "function": "engine.formulation_intelligence.pleasantness_table.build_crowd_table",
+    "keller_input_sha256": "358200784517de311e520908155b3e2eebc52cb3bdaa7fc224c74f05a52eddef",
+    "keller_rows": 960
+  },
+  "materials": {
+    "2-Acetyl Pyrazine": {
+      "value": -0.1139,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "2-Acetyl Pyrazine (1% in DPG)",
+        "2-acetyl pyrazine 1% in dpg"
+      ],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.64,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "ACA": {
+      "value": -0.1314,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.48,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Acetoin": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Adoxal": {
+      "value": -0.1489,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "Adoxal (10% in DPG)",
+        "adoxal 10% in dpg"
+      ],
+      "family": "aldehydic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.32,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Aldehyde C-12 Lauric Dodecanal": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Aldehyde C-8 Octanal": {
+      "value": -0.0196,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [],
+      "family": null,
+      "dose_points": {
+        "weak": 0.2996,
+        "strong": -0.3388
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "octanal",
+        "cas": "124-13-0",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 64.98,
+          "intensity_mean_0_100": 55.02,
+          "n_pleasant": 43,
+          "value": 0.2996
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 33.06,
+          "intensity_mean_0_100": 66.67,
+          "n_pleasant": 54,
+          "value": -0.3388
+        }
+      }
+    },
+    "Aldehyde C-9 Nonanal": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Aldehyde C10": {
+      "value": -0.3794,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "Aldehyde C10 neat",
+        "aldehyde c10"
+      ],
+      "family": "aldehydic",
+      "dose_points": {
+        "weak": -0.3332,
+        "strong": -0.4256
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "decanal",
+        "cas": "112-31-2",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 33.34,
+          "intensity_mean_0_100": 59.94,
+          "n_pleasant": 47,
+          "value": -0.3332
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 28.72,
+          "intensity_mean_0_100": 78.91,
+          "n_pleasant": 54,
+          "value": -0.4256
+        }
+      }
+    },
+    "Aldehyde C11": {
+      "value": -0.1378,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "aldehyde c11"
+      ],
+      "family": "aldehydic",
+      "dose_points": {
+        "weak": 0.0,
+        "strong": -0.2756
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "undecanal",
+        "cas": "112-44-7",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 50.0,
+          "intensity_mean_0_100": 20.37,
+          "n_pleasant": 19,
+          "value": 0.0
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 36.22,
+          "intensity_mean_0_100": 68.16,
+          "n_pleasant": 50,
+          "value": -0.2756
+        }
+      }
+    },
+    "Aldehyde C11 undecylenic": {
+      "value": 0.0074,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "Aldehyde C11 Undecylenic",
+        "aldehyde c11 undecylenic"
+      ],
+      "family": "aldehydic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.35,
+      "raw_scale": "-1..+1"
+    },
+    "Aldehyde C12 MNA": {
+      "value": 0.0457,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "Aldehyde C12 MNA neat",
+        "aldehyde c12 mna"
+      ],
+      "family": "aldehydic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.42,
+      "raw_scale": "-1..+1"
+    },
+    "Allyl Amyl Glycolate": {
+      "value": 0.0894,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "allyl amyl glycolate"
+      ],
+      "family": "green",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.5,
+      "raw_scale": "-1..+1"
+    },
+    "Allyl Cyclohexyl Propionate": {
+      "value": 0.1554,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [],
+      "family": "fruity",
+      "dose_points": {
+        "weak": 0.093,
+        "strong": 0.2178
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Allyl cyclohexanepropionate",
+        "cas": "2705-87-5",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 54.65,
+          "intensity_mean_0_100": 30.62,
+          "n_pleasant": 26,
+          "value": 0.093
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 60.89,
+          "intensity_mean_0_100": 57.91,
+          "n_pleasant": 53,
+          "value": 0.2178
+        }
+      }
+    },
+    "Allyl Ionone": {
+      "value": -0.1227,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "Allyl Ionone (Cetone V)",
+        "Allyl Ionone (Ketone V)",
+        "Allyl Ionone Cetone V",
+        "Cetone V",
+        "Hexalon",
+        "Ketone V",
+        "allyl ionone",
+        "allyl-alpha-ionone",
+        "alpha-allyl ionone",
+        "tropical ionone"
+      ],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.56,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Alpha Damascone": {
+      "value": 0.0894,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [
+        "alpha damascone"
+      ],
+      "family": "rose",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 2.5,
+      "raw_scale": "-5..+5"
+    },
+    "Alpha Ionone": {
+      "value": 0.1878,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "alpha ionone"
+      ],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.68,
+      "raw_scale": "-1..+1"
+    },
+    "Alpha Irone": {
+      "value": 0.1714,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "Alpha Irone (30% w/w in IPM)",
+        "alpha irone"
+      ],
+      "family": "iris",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.65,
+      "raw_scale": "-1..+1"
+    },
+    "Alpha-Isomethyl Ionone": {
+      "value": -0.0877,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.88,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Amber Core": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": "amber",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Amber Core Accord": {
+      "value": -0.1664,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "amber",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.16,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Amber Xtreme": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "amber xtreme"
+      ],
+      "family": "amber",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Ambermax": {
+      "value": 0.1714,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "ambermax"
+      ],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.65,
+      "raw_scale": "-1..+1"
+    },
+    "Amberwood F": {
+      "value": 0.1441,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "amberwood f"
+      ],
+      "family": "amber",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.6,
+      "raw_scale": "-1..+1"
+    },
+    "Ambretone": {
+      "value": 0.1878,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.68,
+      "raw_scale": "-1..+1"
+    },
+    "Ambrette Seed Absolute": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Ambrettolide": {
+      "value": -0.2167,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "ambrettolide"
+      ],
+      "family": "musk",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.3,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Ambrocenide": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "ambrocenide"
+      ],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Ambrofix": {
+      "value": 0.1855,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "ambrofix"
+      ],
+      "family": "amber",
+      "dose_points": {
+        "weak": 0.2568,
+        "strong": 0.1142
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Ambrox",
+        "cas": "6790-58-5",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 62.84,
+          "intensity_mean_0_100": 50.09,
+          "n_pleasant": 45,
+          "value": 0.2568
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 55.71,
+          "intensity_mean_0_100": 73.63,
+          "n_pleasant": 52,
+          "value": 0.1142
+        }
+      }
+    },
+    "Ambrox Super": {
+      "value": 0.1855,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "Ambrox Super Crystals",
+        "ambrox super"
+      ],
+      "family": "amber",
+      "dose_points": {
+        "weak": 0.2568,
+        "strong": 0.1142
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Ambrox",
+        "cas": "6790-58-5",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 62.84,
+          "intensity_mean_0_100": 50.09,
+          "n_pleasant": 45,
+          "value": 0.2568
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 55.71,
+          "intensity_mean_0_100": 73.63,
+          "n_pleasant": 52,
+          "value": 0.1142
+        }
+      }
+    },
+    "Ambrox Super 33% DEP/EtOH": {
+      "value": -0.197,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.12,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Anisaldehyde": {
+      "value": 0.2902,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "Anisaldehyde 10%",
+        "anisaldehyde"
+      ],
+      "family": "gourmand",
+      "dose_points": {
+        "weak": 0.3804,
+        "strong": 0.2
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "p-Anisaldehyde",
+        "cas": "123-11-5",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 69.02,
+          "intensity_mean_0_100": 45.87,
+          "n_pleasant": 47,
+          "value": 0.3804
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 60.0,
+          "intensity_mean_0_100": 71.19,
+          "n_pleasant": 53,
+          "value": 0.2
+        }
+      }
+    },
+    "Anise EO (China)": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "anise eo",
+        "anise eo (china)",
+        "anise eo china"
+      ],
+      "family": "spice",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Apritone": {
+      "value": -0.1752,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "fruity",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.08,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Aurantiol": {
+      "value": 0.2097,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "aurantiol"
+      ],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.72,
+      "raw_scale": "-1..+1"
+    },
+    "Azarbre": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "azarbre"
+      ],
+      "family": "amber",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Bacdanol": {
+      "value": 0.1987,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "bacdanol"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.7,
+      "raw_scale": "-1..+1"
+    },
+    "Basil EO (India, Ocimum Basilicum)": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "basil eo",
+        "basil eo (india)",
+        "basil eo (india, ocimum basilicum)",
+        "sweet basil eo"
+      ],
+      "family": "aromatic",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Benzaldehyde": {
+      "value": 0.2616,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [],
+      "family": "almond",
+      "dose_points": {
+        "weak": 0.293,
+        "strong": 0.2302
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "benzaldehyde",
+        "cas": "100-52-7",
+        "match_by": "name",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 64.65,
+          "intensity_mean_0_100": 30.61,
+          "n_pleasant": 31,
+          "value": 0.293
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 61.51,
+          "intensity_mean_0_100": 77.42,
+          "n_pleasant": 55,
+          "value": 0.2302
+        }
+      }
+    },
+    "Benzoin Resinoid": {
+      "value": 0.1987,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "benzoin resinoid"
+      ],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.7,
+      "raw_scale": "-1..+1"
+    },
+    "benzoin styrax tonkinensis tincture": {
+      "value": 0.1987,
+      "source": "profile_direct",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "balsamic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.7,
+      "raw_scale": "-1..+1"
+    },
+    "Benzoin Sumatra Resinoid": {
+      "value": -0.2167,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.3,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Benzyl Acetate": {
+      "value": 0.1515,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "benzyl acetate"
+      ],
+      "family": "floral",
+      "dose_points": {
+        "weak": 0.0948,
+        "strong": 0.2082
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "benzyl acetate",
+        "cas": "140-11-4",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 54.74,
+          "intensity_mean_0_100": 36.34,
+          "n_pleasant": 47,
+          "value": 0.0948
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 60.41,
+          "intensity_mean_0_100": 65.8,
+          "n_pleasant": 51,
+          "value": 0.2082
+        }
+      }
+    },
+    "Benzyl Alcohol": {
+      "value": -0.0093,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "benzyl alcohol"
+      ],
+      "family": "floral",
+      "dose_points": {
+        "weak": 0.047,
+        "strong": -0.0656
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "benzyl alcohol",
+        "cas": "100-51-6",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 52.35,
+          "intensity_mean_0_100": 45.38,
+          "n_pleasant": 48,
+          "value": 0.047
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 46.72,
+          "intensity_mean_0_100": 74.15,
+          "n_pleasant": 53,
+          "value": -0.0656
+        }
+      }
+    },
+    "Benzyl Benzoate": {
+      "value": -0.0446,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "benzyl benzoate"
+      ],
+      "family": null,
+      "dose_points": {
+        "weak": -0.028,
+        "strong": -0.0612
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Benzyl benzoate",
+        "cas": "120-51-4",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 48.6,
+          "intensity_mean_0_100": 19.84,
+          "n_pleasant": 25,
+          "value": -0.028
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 46.94,
+          "intensity_mean_0_100": 53.31,
+          "n_pleasant": 49,
+          "value": -0.0612
+        }
+      }
+    },
+    "Benzyl Salicylate": {
+      "value": 0.1127,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "benzyl salicylate"
+      ],
+      "family": "salicylate",
+      "dose_points": {
+        "weak": 0.073,
+        "strong": 0.1524
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Benzyl salicylate",
+        "cas": "118-58-1",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 53.65,
+          "intensity_mean_0_100": 28.44,
+          "n_pleasant": 34,
+          "value": 0.073
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 57.62,
+          "intensity_mean_0_100": 48.59,
+          "n_pleasant": 37,
+          "value": 0.1524
+        }
+      }
+    },
+    "Bergamot EO": {
+      "value": -0.1577,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "citrus",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.24,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Bergamot FCF": {
+      "value": 0.2424,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "Bergamot EO",
+        "bergamot",
+        "bergamot eo",
+        "bergamot fcf"
+      ],
+      "family": "citrus",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.78,
+      "raw_scale": "-1..+1"
+    },
+    "Bergamot FCF oil Sicilian": {
+      "value": -0.1489,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "citrus",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.32,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Bergamot FCF Sicilian": {
+      "value": 0.2534,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "Bergamot FCF oil Sicilian",
+        "bergamot fcf oil sicilian",
+        "bergamot fcf sicilian"
+      ],
+      "family": "citrus",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.8,
+      "raw_scale": "-1..+1"
+    },
+    "Berry Hexanoate (BerryFlor)": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Beta Ionone": {
+      "value": 0.1178,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "beta ionone"
+      ],
+      "family": "iris",
+      "dose_points": {
+        "weak": 0.252,
+        "strong": -0.0164
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "beta-Ionone",
+        "cas": "79-77-6",
+        "match_by": "name",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 62.6,
+          "intensity_mean_0_100": 50.58,
+          "n_pleasant": 43,
+          "value": 0.252
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 49.18,
+          "intensity_mean_0_100": 69.75,
+          "n_pleasant": 51,
+          "value": -0.0164
+        }
+      }
+    },
+    "Beta-Pinene": {
+      "value": -0.0746,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [
+        "Beta Pinene"
+      ],
+      "family": "aromatic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 1.0,
+      "raw_scale": "-5..+5"
+    },
+    "BHT": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Birch Tar Rectified": {
+      "value": -0.1292,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "birch tar",
+        "birch tar rectified",
+        "rectified birch tar",
+        "rusian leather"
+      ],
+      "family": "smoky",
+      "dose_points": {
+        "weak": -0.1292,
+        "strong": -0.4
+      },
+      "dose_source": "heuristic_unmeasured",
+      "raw_value": 0.1,
+      "raw_scale": "-1..+1"
+    },
+    "Black Agarwood Artificial": {
+      "value": -0.2823,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "black agarwood artificial"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.9,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Black Pepper FTEC": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": "spice",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Black Pepper materials": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": "spice",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Black Tea Base": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Blackcurrant Absolute": {
+      "value": -0.2058,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "Blackcurrent Absolute (10% in DPG)",
+        "blackcurrant absolute 10% in dpg",
+        "blackcurrent absolute"
+      ],
+      "family": "fruity",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.2,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Blackcurrant FTEC": {
+      "value": -0.2167,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "green",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.3,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Blood Orange oil Sicilian": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": "citrus",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Blood Orange Sicilian": {
+      "value": 0.2534,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "Blood Orange oil Sicilian",
+        "blood orange sicilian"
+      ],
+      "family": "citrus",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.8,
+      "raw_scale": "-1..+1"
+    },
+    "Blue Chamomile EO": {
+      "value": -0.2167,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "blue chamomile eo",
+        "blue chamomile essential oil",
+        "chamomile eo"
+      ],
+      "family": "herbal",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.3,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Bourgeonal": {
+      "value": 0.1878,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "bourgeonal"
+      ],
+      "family": "muguet",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.68,
+      "raw_scale": "-1..+1"
+    },
+    "Buccoxime": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Butyl Butyrate": {
+      "value": -0.1396,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [],
+      "family": null,
+      "dose_points": {
+        "weak": -0.0406,
+        "strong": -0.2386
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "butyl butyrate",
+        "cas": "109-21-7",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 47.97,
+          "intensity_mean_0_100": 25.5,
+          "n_pleasant": 36,
+          "value": -0.0406
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 38.07,
+          "intensity_mean_0_100": 57.91,
+          "n_pleasant": 55,
+          "value": -0.2386
+        }
+      }
+    },
+    "butylated hydroxytoluene": {
+      "value": 0.0327,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [],
+      "family": null,
+      "dose_points": {
+        "weak": 0.0274,
+        "strong": 0.038
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Butylated hydroxytoluene",
+        "cas": "128-37-0",
+        "match_by": "name",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 51.37,
+          "intensity_mean_0_100": 16.95,
+          "n_pleasant": 19,
+          "value": 0.0274
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 51.9,
+          "intensity_mean_0_100": 40.33,
+          "n_pleasant": 42,
+          "value": 0.038
+        }
+      }
+    },
+    "cabreuva eo": {
+      "value": 0.1441,
+      "source": "profile_direct",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.6,
+      "raw_scale": "-1..+1"
+    },
+    "Cade Oil Rectified": {
+      "value": -0.3042,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "cade",
+        "cade oil",
+        "cade rectified",
+        "huile de cade",
+        "juniper tar"
+      ],
+      "family": "smoky",
+      "dose_points": {
+        "weak": -0.3042,
+        "strong": -0.4
+      },
+      "dose_source": "heuristic_unmeasured",
+      "raw_value": -1.1,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Calone": {
+      "value": 0.0074,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "calone"
+      ],
+      "family": "aquatic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.35,
+      "raw_scale": "-1..+1"
+    },
+    "caraway seed eo": {
+      "value": 0.0347,
+      "source": "profile_direct",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "spice",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.4,
+      "raw_scale": "-1..+1"
+    },
+    "Cardamom EO": {
+      "value": 0.1714,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "cardamom eo",
+        "green cardamom eo"
+      ],
+      "family": "spice",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.65,
+      "raw_scale": "-1..+1"
+    },
+    "Cardamom FTEC": {
+      "value": 0.0894,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "spice",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 2.5,
+      "raw_scale": "-5..+5"
+    },
+    "Carrot Seed EO": {
+      "value": -0.0199,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "carrot seed",
+        "carrot seed eo"
+      ],
+      "family": "iris",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.3,
+      "raw_scale": "-1..+1"
+    },
+    "Cashmeran": {
+      "value": 0.1714,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "cashmeran"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.65,
+      "raw_scale": "-1..+1"
+    },
+    "Cassia Essential Oil": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": "spice",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Cassis Base 345B": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "cassis 345b",
+        "cassis base 345",
+        "cassis base 345b"
+      ],
+      "family": "fruity",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Castoreum Base": {
+      "value": -0.3042,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "animalic",
+      "dose_points": {
+        "weak": -0.3042,
+        "strong": -0.4
+      },
+      "dose_source": "heuristic_unmeasured",
+      "raw_value": -1.1,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Castoreum Synthetic": {
+      "value": -0.3042,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "castoreum synthetic"
+      ],
+      "family": "animalic",
+      "dose_points": {
+        "weak": -0.3042,
+        "strong": -0.4
+      },
+      "dose_source": "heuristic_unmeasured",
+      "raw_value": -1.1,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Cedamber": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Cedarwood EO": {
+      "value": 0.1167,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "cedarwood",
+        "cedarwood eo"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.55,
+      "raw_scale": "-1..+1"
+    },
+    "Cedarwood oil Virginia": {
+      "value": 0.0894,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 2.5,
+      "raw_scale": "-5..+5"
+    },
+    "Cedramber": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "cedramber"
+      ],
+      "family": "amber",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Cedrat FCF oil Sicilian": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": "citrus",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Cedrat FCF Sicilian": {
+      "value": 0.2097,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "Cedrat FCF oil Sicilian",
+        "cedrat fcf sicilian"
+      ],
+      "family": "citrus",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.72,
+      "raw_scale": "-1..+1"
+    },
+    "Cedroxyde": {
+      "value": 0.0894,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.5,
+      "raw_scale": "-1..+1"
+    },
+    "Cedryl Acetate": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Champaca Flower EO": {
+      "value": 0.1441,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "champaca flower eo"
+      ],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.6,
+      "raw_scale": "-1..+1"
+    },
+    "Champignol": {
+      "value": -0.1948,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "Champignol (10% in DPG)",
+        "champignol 10% in dpg"
+      ],
+      "family": "earth",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.1,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Cinnamaldehyde": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": "spice",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Cinnamyl alcohol": {
+      "value": -0.0998,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "Cinnamyl Alcohol 50% w/w in DPG",
+        "Cinnamyl alcohol 50% in DPG"
+      ],
+      "family": "gourmand",
+      "dose_points": {
+        "weak": -0.1472,
+        "strong": -0.0524
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Cinnamyl alcohol",
+        "cas": "104-54-1",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 42.64,
+          "intensity_mean_0_100": 59.05,
+          "n_pleasant": 44,
+          "value": -0.1472
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 47.38,
+          "intensity_mean_0_100": 75.85,
+          "n_pleasant": 53,
+          "value": -0.0524
+        }
+      }
+    },
+    "Cis Jasmone": {
+      "value": 0.1714,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "(Z)-jasmone",
+        "cis-Jasmone",
+        "cis-jasmone",
+        "jasmone cis"
+      ],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.65,
+      "raw_scale": "-1..+1"
+    },
+    "Cis-3 Hexenyl Acetate": {
+      "value": 0.3476,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "cis-3 Hexenyl Acetate"
+      ],
+      "family": null,
+      "dose_points": {
+        "weak": 0.4186,
+        "strong": 0.2766
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "cis-3-hexenyl acetate",
+        "cas": "3681-71-8",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 70.93,
+          "intensity_mean_0_100": 40.95,
+          "n_pleasant": 41,
+          "value": 0.4186
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 63.83,
+          "intensity_mean_0_100": 76.7,
+          "n_pleasant": 53,
+          "value": 0.2766
+        }
+      }
+    },
+    "Cis-3 Hexenyl Hexanoate": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "cis-3 Hexenyl Hexanoate"
+      ],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "cis-3-Hexenol": {
+      "value": 0.1106,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "cis-3-hexenol"
+      ],
+      "family": "green",
+      "dose_points": {
+        "weak": 0.2008,
+        "strong": 0.0204
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "cis-3-Hexen-1-ol",
+        "cas": "928-96-1",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 60.04,
+          "intensity_mean_0_100": 39.65,
+          "n_pleasant": 49,
+          "value": 0.2008
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 51.02,
+          "intensity_mean_0_100": 81.93,
+          "n_pleasant": 55,
+          "value": 0.0204
+        }
+      }
+    },
+    "Citral": {
+      "value": -0.1664,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "Citral Natural",
+        "citral"
+      ],
+      "family": "citrus",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.16,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Citronellal": {
+      "value": -0.1577,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "CitronellAL",
+        "citronellal"
+      ],
+      "family": "citrus",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.24,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Citronellol": {
+      "value": -0.1314,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "CitronellOL",
+        "citronellol"
+      ],
+      "family": "rose",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.48,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Civet Reconstitution Base": {
+      "value": -0.2714,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "animalic",
+      "dose_points": {
+        "weak": -0.2714,
+        "strong": -0.4
+      },
+      "dose_source": "heuristic_unmeasured",
+      "raw_value": -0.8,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Clary Sage EO": {
+      "value": 0.0894,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "aromatic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.5,
+      "raw_scale": "-1..+1"
+    },
+    "Clearwood": {
+      "value": 0.0894,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "clearwood"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.5,
+      "raw_scale": "-1..+1"
+    },
+    "Clove EO (India)": {
+      "value": -0.2058,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "clove eo",
+        "clove eo (india)",
+        "clove eo india"
+      ],
+      "family": "spice",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.2,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Cocoa Absolute": {
+      "value": -0.1139,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "cocoa absolute"
+      ],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.64,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Cocoa CO2 Extract": {
+      "value": -0.2276,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "cocoa co2 abs",
+        "cocoa co2 absolute",
+        "cocoa co2 extract"
+      ],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.4,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Coffee Absolute Grasse": {
+      "value": -0.1467,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "Coffee absolute grasse"
+      ],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.34,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Coriander Essential Oil": {
+      "value": -0.1664,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "coriander eo",
+        "coriander seed eo",
+        "coriander seed oil"
+      ],
+      "family": "aromatic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.16,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Coumarin": {
+      "value": 0.323,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "coumarin"
+      ],
+      "family": "gourmand",
+      "dose_points": {
+        "weak": 0.302,
+        "strong": 0.344
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "coumarin",
+        "cas": "91-64-5",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 65.1,
+          "intensity_mean_0_100": 62.79,
+          "n_pleasant": 52,
+          "value": 0.302
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 67.2,
+          "intensity_mean_0_100": 77.53,
+          "n_pleasant": 55,
+          "value": 0.344
+        }
+      }
+    },
+    "Cyclamen Aldehyde": {
+      "value": 0.0621,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "cyclamen aldehyde"
+      ],
+      "family": "muguet",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.45,
+      "raw_scale": "-1..+1"
+    },
+    "cypress eo": {
+      "value": 0.0347,
+      "source": "profile_direct",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "conifer",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.4,
+      "raw_scale": "-1..+1"
+    },
+    "Cypriol EO": {
+      "value": -0.2386,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.5,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "D-Limonene": {
+      "value": -0.1654,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "d-limonene"
+      ],
+      "family": null,
+      "dose_points": {
+        "weak": -0.3826,
+        "strong": 0.0518
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "d-Limonene",
+        "cas": "5989-27-5",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 30.87,
+          "intensity_mean_0_100": 45.37,
+          "n_pleasant": 38,
+          "value": -0.3826
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 52.59,
+          "intensity_mean_0_100": 29.63,
+          "n_pleasant": 41,
+          "value": 0.0518
+        }
+      }
+    },
+    "Damascenone": {
+      "value": 0.226,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "damascenone"
+      ],
+      "family": "rose",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.75,
+      "raw_scale": "-1..+1"
+    },
+    "Damascol": {
+      "value": -0.1402,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "damascol"
+      ],
+      "family": "rose",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.4,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Damascone Beta": {
+      "value": 0.0347,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "rose",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 2.0,
+      "raw_scale": "-5..+5"
+    },
+    "DBCA": {
+      "value": 0.0432,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "Dimethyl Benzyl Carbonyl Acetate",
+        "dbca"
+      ],
+      "family": "rose",
+      "dose_points": {
+        "weak": 0.049,
+        "strong": 0.0374
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "alpha,alpha-Dimethylphenethyl acetate",
+        "cas": "151-05-3",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 52.45,
+          "intensity_mean_0_100": 36.65,
+          "n_pleasant": 31,
+          "value": 0.049
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 51.87,
+          "intensity_mean_0_100": 79.04,
+          "n_pleasant": 54,
+          "value": 0.0374
+        }
+      }
+    },
+    "Delta Decalactone": {
+      "value": 0.4173,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "delta decalactone"
+      ],
+      "family": "gourmand",
+      "dose_points": {
+        "weak": 0.4486,
+        "strong": 0.386
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "delta-Decalactone",
+        "cas": "705-86-2",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 72.43,
+          "intensity_mean_0_100": 52.02,
+          "n_pleasant": 46,
+          "value": 0.4486
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 69.3,
+          "intensity_mean_0_100": 65.7,
+          "n_pleasant": 54,
+          "value": 0.386
+        }
+      }
+    },
+    "Dewberry FTEC": {
+      "value": -0.1577,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "fruity",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.24,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Diethyl Malonate": {
+      "value": 0.3273,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [],
+      "family": null,
+      "dose_points": {
+        "weak": 0.2204,
+        "strong": 0.4342
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Diethyl malonate",
+        "cas": "105-53-3",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 61.02,
+          "intensity_mean_0_100": 27.36,
+          "n_pleasant": 44,
+          "value": 0.2204
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 71.71,
+          "intensity_mean_0_100": 57.11,
+          "n_pleasant": 55,
+          "value": 0.4342
+        }
+      }
+    },
+    "Diethyl Phthalate": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "DEP"
+      ],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Dihydro Beta Ionone": {
+      "value": 0.155,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "dihydro beta ionone"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.62,
+      "raw_scale": "-1..+1"
+    },
+    "Dihydrojasmone": {
+      "value": -0.07,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": {
+        "weak": -0.0298,
+        "strong": -0.1102
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Dihydrojasmone",
+        "cas": "1128-08-1",
+        "match_by": "name",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 48.51,
+          "intensity_mean_0_100": 44.3,
+          "n_pleasant": 37,
+          "value": -0.0298
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 44.49,
+          "intensity_mean_0_100": 62.72,
+          "n_pleasant": 53,
+          "value": -0.1102
+        }
+      }
+    },
+    "Dihydromyrcenol": {
+      "value": 0.1167,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "dihydromyrcenol"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.55,
+      "raw_scale": "-1..+1"
+    },
+    "Dipropylene Glycol": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": "fixative",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Dynascone": {
+      "value": -0.0199,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "dynascone"
+      ],
+      "family": "green",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.3,
+      "raw_scale": "-1..+1"
+    },
+    "Ebanol": {
+      "value": 0.1878,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "ebanol"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.68,
+      "raw_scale": "-1..+1"
+    },
+    "elemi eo": {
+      "value": 0.0894,
+      "source": "profile_direct",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "citrus_balsamic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.5,
+      "raw_scale": "-1..+1"
+    },
+    "Ethanol": {
+      "value": 0.1049,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [],
+      "family": "fixative",
+      "dose_points": {
+        "weak": -0.0088,
+        "strong": 0.2186
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "ethanol",
+        "cas": "64-17-5",
+        "match_by": "name",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 49.56,
+          "intensity_mean_0_100": 14.22,
+          "n_pleasant": 27,
+          "value": -0.0088
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 60.93,
+          "intensity_mean_0_100": 19.48,
+          "n_pleasant": 27,
+          "value": 0.2186
+        }
+      }
+    },
+    "Ethyl 2-Methylbutyrate": {
+      "value": 0.5296,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "ethyl 2-methylbutyrate"
+      ],
+      "family": "fruity",
+      "dose_points": {
+        "weak": 0.5578,
+        "strong": 0.5014
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Ethyl 2-methylbutyrate",
+        "cas": "7452-79-1",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 77.89,
+          "intensity_mean_0_100": 55.36,
+          "n_pleasant": 55,
+          "value": 0.5578
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 75.07,
+          "intensity_mean_0_100": 76.55,
+          "n_pleasant": 55,
+          "value": 0.5014
+        }
+      }
+    },
+    "Ethyl Linalool": {
+      "value": -0.1489,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "ethyl linalool"
+      ],
+      "family": "fruity",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.32,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Ethyl Linalyl Acetate": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Ethyl Maltol": {
+      "value": 0.2807,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "Ethyl Maltol 1%",
+        "Ethyl Maltol 1% +",
+        "Ethyl Maltol 1% + 10%",
+        "ethyl maltol"
+      ],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.85,
+      "raw_scale": "-1..+1"
+    },
+    "Ethyl Safranate": {
+      "value": 0.1167,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "ethyl safranate"
+      ],
+      "family": "spice",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.55,
+      "raw_scale": "-1..+1"
+    },
+    "Ethyl Vanillin": {
+      "value": 0.6819,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "ethyl vanillin"
+      ],
+      "family": "gourmand",
+      "dose_points": {
+        "weak": 0.6788,
+        "strong": 0.685
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Ethyl Vanillin",
+        "cas": "121-32-4",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 83.94,
+          "intensity_mean_0_100": 70.96,
+          "n_pleasant": 54,
+          "value": 0.6788
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 84.25,
+          "intensity_mean_0_100": 75.25,
+          "n_pleasant": 55,
+          "value": 0.685
+        }
+      }
+    },
+    "Ethylene Brassylate": {
+      "value": 0.1987,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "ethylene brassylate"
+      ],
+      "family": "musk",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.7,
+      "raw_scale": "-1..+1"
+    },
+    "Eucalyptus Essential Oil": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "Eucalyptus Essential Oil (Eucalyptus globulus, India)",
+        "eucalyptus eo",
+        "eucalyptus essential oil",
+        "eucalyptus globulus eo"
+      ],
+      "family": "herbal",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Eugenol": {
+      "value": 0.2941,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "eugenol"
+      ],
+      "family": "spice",
+      "dose_points": {
+        "weak": 0.2352,
+        "strong": 0.353
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "eugenol",
+        "cas": "97-53-0",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 61.76,
+          "intensity_mean_0_100": 60.43,
+          "n_pleasant": 51,
+          "value": 0.2352
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 67.65,
+          "intensity_mean_0_100": 74.65,
+          "n_pleasant": 54,
+          "value": 0.353
+        }
+      }
+    },
+    "Evernyl": {
+      "value": 0.0074,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "Evernyl Crystals",
+        "evernyl"
+      ],
+      "family": "moss",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.35,
+      "raw_scale": "-1..+1"
+    },
+    "Evernyl (50% in DPG)": {
+      "value": -0.2386,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "moss",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.5,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Exaltolide": {
+      "value": 0.2759,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "Pentalide",
+        "exaltolide",
+        "pentalide"
+      ],
+      "family": "musk",
+      "dose_points": {
+        "weak": 0.0814,
+        "strong": 0.4704
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Omega-Pentadecalactone",
+        "cas": "106-02-5",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 54.07,
+          "intensity_mean_0_100": 23.0,
+          "n_pleasant": 27,
+          "value": 0.0814
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 73.52,
+          "intensity_mean_0_100": 57.04,
+          "n_pleasant": 52,
+          "value": 0.4704
+        }
+      }
+    },
+    "Farnesol": {
+      "value": -0.0199,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [
+        "farnesol"
+      ],
+      "family": "muguet",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 1.5,
+      "raw_scale": "-5..+5"
+    },
+    "Floralozone": {
+      "value": 0.0347,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "floralozone"
+      ],
+      "family": "ozone",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.4,
+      "raw_scale": "-1..+1"
+    },
+    "Florhydral": {
+      "value": -0.1139,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "Florhydral(TM)",
+        "florhydral"
+      ],
+      "family": "muguet",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.64,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Florol": {
+      "value": 0.2097,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "florol"
+      ],
+      "family": "muguet",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.72,
+      "raw_scale": "-1..+1"
+    },
+    "Frangipani Absolute": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Frankincense EO": {
+      "value": -0.1664,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "frankincense eo"
+      ],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.16,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Freesia HDI": {
+      "value": 0.1987,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "freesia hdi"
+      ],
+      "family": "green",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.7,
+      "raw_scale": "-1..+1"
+    },
+    "Fructone B": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Galaxolide": {
+      "value": 0.1987,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "galaxolide"
+      ],
+      "family": "musk",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.7,
+      "raw_scale": "-1..+1"
+    },
+    "Galbanum EO": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": "green",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Galbanum Resinoid": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "galbanum resinoid"
+      ],
+      "family": "green",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Gamma Decalactone": {
+      "value": 0.2626,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "gamma decalactone"
+      ],
+      "family": "gourmand",
+      "dose_points": {
+        "weak": 0.2282,
+        "strong": 0.297
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "gamma-decalactone",
+        "cas": "706-14-9",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 61.41,
+          "intensity_mean_0_100": 33.21,
+          "n_pleasant": 39,
+          "value": 0.2282
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 64.85,
+          "intensity_mean_0_100": 54.0,
+          "n_pleasant": 54,
+          "value": 0.297
+        }
+      }
+    },
+    "Gamma Octalactone": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Gamma Undecalactone": {
+      "value": 0.2534,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "gamma undecalactone"
+      ],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.8,
+      "raw_scale": "-1..+1"
+    },
+    "Georgywood": {
+      "value": -0.1948,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.1,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Geosmin": {
+      "value": -0.2386,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [
+        "geosmin"
+      ],
+      "family": "earth",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.5,
+      "raw_scale": "-5..+5"
+    },
+    "Geraniol": {
+      "value": 0.2129,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "geraniol"
+      ],
+      "family": "rose",
+      "dose_points": {
+        "weak": 0.2424,
+        "strong": 0.1834
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "geraniol",
+        "cas": "106-24-1",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 62.12,
+          "intensity_mean_0_100": 42.3,
+          "n_pleasant": 40,
+          "value": 0.2424
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 59.17,
+          "intensity_mean_0_100": 71.76,
+          "n_pleasant": 54,
+          "value": 0.1834
+        }
+      }
+    },
+    "Geranium EO": {
+      "value": -0.1227,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "geranium eo",
+        "pelargonium graveolens flower oil"
+      ],
+      "family": "rose",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.56,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Ginger EO": {
+      "value": -0.1489,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "ginger eo",
+        "ginger essential oil"
+      ],
+      "family": "spice",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.32,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Glycolierral": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Grapefruit FCF": {
+      "value": 0.2151,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "grapefruit fcf"
+      ],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.73,
+      "raw_scale": "-1..+1"
+    },
+    "Guaiacol": {
+      "value": -0.2145,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "guaiacol"
+      ],
+      "family": "smoky",
+      "dose_points": {
+        "weak": -0.222,
+        "strong": -0.207
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Guaiacol",
+        "cas": "90-05-1",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-07",
+          "ratio": "1/10000000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 38.9,
+          "intensity_mean_0_100": 51.71,
+          "n_pleasant": 89,
+          "value": -0.222
+        },
+        "strong": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 39.65,
+          "intensity_mean_0_100": 64.58,
+          "n_pleasant": 104,
+          "value": -0.207
+        }
+      }
+    },
+    "Guaiacwood EO": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "guaiacwood eo"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Habanolide": {
+      "value": 0.2097,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "habanolide"
+      ],
+      "family": "musk",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.72,
+      "raw_scale": "-1..+1"
+    },
+    "hay absolute": {
+      "value": 0.1987,
+      "source": "profile_direct",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "hay",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.7,
+      "raw_scale": "-1..+1"
+    },
+    "Hedione": {
+      "value": 0.2424,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "hedione"
+      ],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.78,
+      "raw_scale": "-1..+1"
+    },
+    "Hedione HC": {
+      "value": 0.2424,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "hedione hc"
+      ],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.78,
+      "raw_scale": "-1..+1"
+    },
+    "helichrysum eo": {
+      "value": 0.0894,
+      "source": "profile_direct",
+      "confidence": "hand",
+      "aliases": [
+        "immortelle eo"
+      ],
+      "family": "immortelle",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.5,
+      "raw_scale": "-1..+1"
+    },
+    "Helional": {
+      "value": 0.155,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "Helional 10% v/v",
+        "helional"
+      ],
+      "family": "aquatic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.62,
+      "raw_scale": "-1..+1"
+    },
+    "Heliotropal": {
+      "value": 0.2807,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "HELIOTROPAL",
+        "heliotropal",
+        "heliotropin",
+        "piperonal"
+      ],
+      "family": "iris",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.85,
+      "raw_scale": "-1..+1"
+    },
+    "Heliotropin": {
+      "value": 0.4291,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [],
+      "family": "gourmand",
+      "dose_points": {
+        "weak": 0.4404,
+        "strong": 0.4178
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "piperonal",
+        "cas": "120-57-0",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 72.02,
+          "intensity_mean_0_100": 42.55,
+          "n_pleasant": 44,
+          "value": 0.4404
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 70.89,
+          "intensity_mean_0_100": 69.3,
+          "n_pleasant": 54,
+          "value": 0.4178
+        }
+      }
+    },
+    "Heliotropin Fleuressence": {
+      "value": -0.1052,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "heliotropin fleuressence"
+      ],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.72,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Helvetolide": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Hexyl Acetate": {
+      "value": 0.1682,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "Hexyl Acetate 1%",
+        "hexyl acetate"
+      ],
+      "family": "fruity",
+      "dose_points": {
+        "weak": 0.0734,
+        "strong": 0.263
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "hexyl acetate",
+        "cas": "142-92-7",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 53.67,
+          "intensity_mean_0_100": 12.73,
+          "n_pleasant": 15,
+          "value": 0.0734
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 63.15,
+          "intensity_mean_0_100": 58.04,
+          "n_pleasant": 48,
+          "value": 0.263
+        }
+      }
+    },
+    "Hexyl Salicylate": {
+      "value": 0.1441,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "hexyl salicylate"
+      ],
+      "family": "salicylate",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.6,
+      "raw_scale": "-1..+1"
+    },
+    "Himalayan Cedarwood EO": {
+      "value": -0.1948,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "himalayan cedarwood",
+        "himalayan cedarwood eo"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.1,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Hydroxycitronellal": {
+      "value": 0.2097,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "hydroxycitronellal"
+      ],
+      "family": "muguet",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.72,
+      "raw_scale": "-1..+1"
+    },
+    "Hydroxycitronellol": {
+      "value": -0.1139,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "3,7-Dimethyl-1,7-octanediol",
+        "3,7-Dimethyloctane-1,7-diol",
+        "Hydroxyciol",
+        "hydroxycitronellol"
+      ],
+      "family": "rose",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.64,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "I-IRIS F-TEC": {
+      "value": -0.079,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "iris",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.96,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Immortelle Absolute": {
+      "value": -0.1489,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.32,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Indole": {
+      "value": -0.2932,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "indole"
+      ],
+      "family": "indolic",
+      "dose_points": {
+        "weak": -0.2932,
+        "strong": -0.4
+      },
+      "dose_source": "heuristic_unmeasured",
+      "raw_value": -0.2,
+      "raw_scale": "-1..+1"
+    },
+    "Irotyl": {
+      "value": -0.1052,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "irotyl"
+      ],
+      "family": "iris",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.72,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Iso E Super": {
+      "value": 0.1167,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "iso e super"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.55,
+      "raw_scale": "-1..+1"
+    },
+    "Isobutavan": {
+      "value": -0.1489,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.32,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Isobutyl Quinoline": {
+      "value": -0.1566,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "ibq"
+      ],
+      "family": "smoky",
+      "dose_points": {
+        "weak": -0.1566,
+        "strong": -0.4
+      },
+      "dose_source": "heuristic_unmeasured",
+      "raw_value": 0.05,
+      "raw_scale": "-1..+1"
+    },
+    "Isoeugenol": {
+      "value": 0.3532,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "isoeugenol"
+      ],
+      "family": "spice",
+      "dose_points": {
+        "weak": 0.338,
+        "strong": 0.3684
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Isoeugenol",
+        "cas": "97-54-1",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 66.9,
+          "intensity_mean_0_100": 64.55,
+          "n_pleasant": 51,
+          "value": 0.338
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 68.42,
+          "intensity_mean_0_100": 81.6,
+          "n_pleasant": 55,
+          "value": 0.3684
+        }
+      }
+    },
+    "Isopropyl Myristate": {
+      "value": -0.0399,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [],
+      "family": "fixative",
+      "dose_points": {
+        "weak": 0.0124,
+        "strong": -0.0922
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Isopropyl myristate",
+        "cas": "110-27-0",
+        "match_by": "name",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 50.62,
+          "intensity_mean_0_100": 20.33,
+          "n_pleasant": 24,
+          "value": 0.0124
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 45.39,
+          "intensity_mean_0_100": 25.97,
+          "n_pleasant": 31,
+          "value": -0.0922
+        }
+      }
+    },
+    "JASMIN ABS F-TEC": {
+      "value": -0.1445,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.36,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Jasmine Absolute": {
+      "value": 0.2534,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [
+        "Jasmine Absolute (10% in DPG)",
+        "jasmine absolute",
+        "jasmine absolute 10% in dpg"
+      ],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 4.0,
+      "raw_scale": "-5..+5"
+    },
+    "Jasmine FO": {
+      "value": -0.1445,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.36,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Jasmine Sambac Absolute": {
+      "value": -0.1227,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "Jasmine Sambac",
+        "jasmine sambac"
+      ],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.56,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Jasmine Sambac Blossoms": {
+      "value": -0.1227,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.56,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Javanol": {
+      "value": 0.2097,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "javanol"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.72,
+      "raw_scale": "-1..+1"
+    },
+    "Jessemal": {
+      "value": 0.0621,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.45,
+      "raw_scale": "-1..+1"
+    },
+    "Kephalis": {
+      "value": 0.0621,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "kephalis"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.45,
+      "raw_scale": "-1..+1"
+    },
+    "Koavone": {
+      "value": 0.1167,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "koavone"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.55,
+      "raw_scale": "-1..+1"
+    },
+    "Labdanum": {
+      "value": -0.2167,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "Labdanum Resinoid",
+        "labdanum"
+      ],
+      "family": "amber",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.3,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Labdanum Absolute": {
+      "value": 0.0894,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "labdanum absolute"
+      ],
+      "family": "amber",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.5,
+      "raw_scale": "-1..+1"
+    },
+    "Labdanum Resinoid": {
+      "value": -0.2386,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "amber",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.5,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Lavandin Absolute": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Lavender EO": {
+      "value": 0.226,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "lavender eo"
+      ],
+      "family": "aromatic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.75,
+      "raw_scale": "-1..+1"
+    },
+    "Lavender EO (BONTAUX SAS)": {
+      "value": 0.2424,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.78,
+      "raw_scale": "-1..+1"
+    },
+    "Leafovert": {
+      "value": 0.0621,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "leafovert"
+      ],
+      "family": "green",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.45,
+      "raw_scale": "-1..+1"
+    },
+    "Leather FO": {
+      "value": -0.3042,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "animalic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -1.1,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Lemon Terpeneless Oil Sicilian": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "Lemon Terpeneless oil Sicilian"
+      ],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Lemonile": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": "citrus",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Lilial": {
+      "value": 0.0894,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "muguet",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 2.5,
+      "raw_scale": "-5..+5"
+    },
+    "Lilyreal ND": {
+      "value": 0.1987,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "lilyreal",
+        "lilyreal nd"
+      ],
+      "family": "muguet",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.7,
+      "raw_scale": "-1..+1"
+    },
+    "Linalool": {
+      "value": 0.4057,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "linalool"
+      ],
+      "family": "aromatic",
+      "dose_points": {
+        "weak": 0.32,
+        "strong": 0.4914
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Linalool",
+        "cas": "78-70-6",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 66.0,
+          "intensity_mean_0_100": 32.56,
+          "n_pleasant": 39,
+          "value": 0.32
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 74.57,
+          "intensity_mean_0_100": 62.08,
+          "n_pleasant": 51,
+          "value": 0.4914
+        }
+      }
+    },
+    "Linalyl Acetate": {
+      "value": 0.0136,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "linalyl acetate"
+      ],
+      "family": "aromatic",
+      "dose_points": {
+        "weak": -0.111,
+        "strong": 0.1382
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Linalyl acetate",
+        "cas": "115-95-7",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 44.45,
+          "intensity_mean_0_100": 31.5,
+          "n_pleasant": 20,
+          "value": -0.111
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 56.91,
+          "intensity_mean_0_100": 29.8,
+          "n_pleasant": 35,
+          "value": 0.1382
+        }
+      }
+    },
+    "Macrolide": {
+      "value": 0.2759,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "macrolide"
+      ],
+      "family": "musk",
+      "dose_points": {
+        "weak": 0.0814,
+        "strong": 0.4704
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Omega-Pentadecalactone",
+        "cas": "106-02-5",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 54.07,
+          "intensity_mean_0_100": 23.0,
+          "n_pleasant": 27,
+          "value": 0.0814
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 73.52,
+          "intensity_mean_0_100": 57.04,
+          "n_pleasant": 52,
+          "value": 0.4704
+        }
+      }
+    },
+    "Magnolan": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Maltol": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "maltol"
+      ],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Manzanate": {
+      "value": 0.3942,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [],
+      "family": null,
+      "dose_points": {
+        "weak": 0.298,
+        "strong": 0.4904
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Ethyl 2-methylpentanoate",
+        "cas": "39255-32-8",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 64.9,
+          "intensity_mean_0_100": 49.93,
+          "n_pleasant": 101,
+          "value": 0.298
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 74.52,
+          "intensity_mean_0_100": 60.12,
+          "n_pleasant": 108,
+          "value": 0.4904
+        }
+      }
+    },
+    "Maple Lactone": {
+      "value": 0.2672,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "maple lactone"
+      ],
+      "family": "gourmand",
+      "dose_points": {
+        "weak": 0.3182,
+        "strong": 0.2162
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "5-Ethyl-3-hydroxy-4-methyl-2(5H)-furanone",
+        "cas": "698-10-2",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-07",
+          "ratio": "1/10000000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 65.91,
+          "intensity_mean_0_100": 53.94,
+          "n_pleasant": 94,
+          "value": 0.3182
+        },
+        "strong": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 60.81,
+          "intensity_mean_0_100": 41.51,
+          "n_pleasant": 74,
+          "value": 0.2162
+        }
+      }
+    },
+    "Mate Absolute": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Mayol": {
+      "value": 0.1441,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [
+        "mayol"
+      ],
+      "family": "muguet",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 3.0,
+      "raw_scale": "-5..+5"
+    },
+    "Melonal": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "melonal"
+      ],
+      "family": "green",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Methyl Anthranilate": {
+      "value": 0.2933,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "methyl anthranilate"
+      ],
+      "family": "floral",
+      "dose_points": {
+        "weak": 0.2804,
+        "strong": 0.3062
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Methyl anthranilate",
+        "cas": "134-20-3",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 64.02,
+          "intensity_mean_0_100": 58.35,
+          "n_pleasant": 49,
+          "value": 0.2804
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 65.31,
+          "intensity_mean_0_100": 74.61,
+          "n_pleasant": 54,
+          "value": 0.3062
+        }
+      }
+    },
+    "Methyl Benzoate": {
+      "value": -0.0629,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": {
+        "weak": -0.043,
+        "strong": -0.0828
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "methyl benzoate",
+        "cas": "93-58-3",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-07",
+          "ratio": "1/10000000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 47.85,
+          "intensity_mean_0_100": 14.15,
+          "n_pleasant": 26,
+          "value": -0.043
+        },
+        "strong": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 45.86,
+          "intensity_mean_0_100": 36.07,
+          "n_pleasant": 28,
+          "value": -0.0828
+        }
+      }
+    },
+    "Methyl Diantilis": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Methyl Ionone": {
+      "value": -0.0877,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "iris",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.88,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Methyl Ionone Pure": {
+      "value": 0.2097,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.72,
+      "raw_scale": "-1..+1"
+    },
+    "Methyl Laitone": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "methyl laitone"
+      ],
+      "family": "lactonic",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Methyl Nonyl Ketone": {
+      "value": -0.0199,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.3,
+      "raw_scale": "-1..+1"
+    },
+    "Methyl Pamplemousse": {
+      "value": 0.1878,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "methyl pamplemousse"
+      ],
+      "family": "citrus",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.68,
+      "raw_scale": "-1..+1"
+    },
+    "Methyl Salicylate": {
+      "value": 0.1757,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "methyl salicylate"
+      ],
+      "family": "salicylate",
+      "dose_points": {
+        "weak": 0.1346,
+        "strong": 0.2168
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "methyl salicylate",
+        "cas": "119-36-8",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 56.73,
+          "intensity_mean_0_100": 16.68,
+          "n_pleasant": 22,
+          "value": 0.1346
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 60.84,
+          "intensity_mean_0_100": 71.87,
+          "n_pleasant": 55,
+          "value": 0.2168
+        }
+      }
+    },
+    "Mimosa Absolute": {
+      "value": -0.0702,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 1.04,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Molecule Iris": {
+      "value": 0.0894,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "iris",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 2.5,
+      "raw_scale": "-5..+5"
+    },
+    "Musk Ketone": {
+      "value": 0.2827,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "musk ketone"
+      ],
+      "family": "musk",
+      "dose_points": {
+        "weak": 0.2616,
+        "strong": 0.3038
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "musk ketone",
+        "cas": "81-14-1",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 63.08,
+          "intensity_mean_0_100": 49.27,
+          "n_pleasant": 49,
+          "value": 0.2616
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 65.19,
+          "intensity_mean_0_100": 48.15,
+          "n_pleasant": 47,
+          "value": 0.3038
+        }
+      }
+    },
+    "Myristic Acid": {
+      "value": -0.1664,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "1-tetradecanecarboxylic acid",
+        "N-tetradecan-1-oic acid",
+        "myristic acid natural",
+        "myristic acid synthetic",
+        "tetradecanoic acid"
+      ],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.16,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Myristic Acid Powder": {
+      "value": -0.1664,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "myristic acid powder",
+        "tetradecanoic acid powder"
+      ],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.16,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Myrrh EO": {
+      "value": 0.0621,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "myrrh eo"
+      ],
+      "family": "smoky",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.45,
+      "raw_scale": "-1..+1"
+    },
+    "Nagarmortha Oil": {
+      "value": -0.2386,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "Cypriol Oil",
+        "Nagar Motha Oil",
+        "nagar motha oil"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.5,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Nerol": {
+      "value": 0.1022,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "nerol"
+      ],
+      "family": "floral",
+      "dose_points": {
+        "weak": -0.0236,
+        "strong": 0.228
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Nerol",
+        "cas": "106-25-2",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 48.82,
+          "intensity_mean_0_100": 24.33,
+          "n_pleasant": 33,
+          "value": -0.0236
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 61.4,
+          "intensity_mean_0_100": 71.1,
+          "n_pleasant": 52,
+          "value": 0.228
+        }
+      }
+    },
+    "Neroli EO": {
+      "value": 0.2534,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "neroli eo",
+        "neroli eo (neat)"
+      ],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.8,
+      "raw_scale": "-1..+1"
+    },
+    "nerolidol": {
+      "value": 0.1441,
+      "source": "profile_direct",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "floral_woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.6,
+      "raw_scale": "-1..+1"
+    },
+    "Nerolin Bromelia": {
+      "value": 0.1441,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [
+        "nerolia bromelia",
+        "nerolin bromelia"
+      ],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 3.0,
+      "raw_scale": "-5..+5"
+    },
+    "Norlimbanol Dextro": {
+      "value": 0.0894,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "norlimbanol dextro"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.5,
+      "raw_scale": "-1..+1"
+    },
+    "Nympheal": {
+      "value": 0.1987,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "nympheal"
+      ],
+      "family": "muguet",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.7,
+      "raw_scale": "-1..+1"
+    },
+    "Oakmoss Absolute": {
+      "value": -0.2058,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "moss",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.2,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Olibanum Resinoid": {
+      "value": 0.1167,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "Olibanum Resinoid (Viscous)",
+        "Olibanum Resinoid (viscous, 3 g)",
+        "Olibanum Resinoid Absolute",
+        "Olibanum Resinoid Absolute (10%)"
+      ],
+      "family": "smoky",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.55,
+      "raw_scale": "-1..+1"
+    },
+    "Opoponax Resinoid": {
+      "value": -0.2167,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "balsamic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.3,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Orange Peel EO": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": "citrus",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Oranger Crystals": {
+      "value": 0.1501,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "1-(naphthalen-2-yl)ethanone",
+        "2-Acetonaphthone",
+        "2-Acetylnaphthalene",
+        "Cetone D",
+        "Methyl 2-naphthyl ketone",
+        "Methyl beta-naphthyl ketone",
+        "Nerolon",
+        "beta-Naphthyl methyl ketone"
+      ],
+      "family": "floral",
+      "dose_points": {
+        "weak": 0.213,
+        "strong": 0.0872
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Methyl beta-naphthyl ketone",
+        "cas": "93-08-3",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 60.65,
+          "intensity_mean_0_100": 63.81,
+          "n_pleasant": 52,
+          "value": 0.213
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 54.36,
+          "intensity_mean_0_100": 78.84,
+          "n_pleasant": 55,
+          "value": 0.0872
+        }
+      }
+    },
+    "Orivone": {
+      "value": 0.1714,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "4-tert-pentylcyclohexanone",
+        "isopentylcyclohexanone",
+        "orivone",
+        "orris hexanone"
+      ],
+      "family": "iris",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.65,
+      "raw_scale": "-1..+1"
+    },
+    "Orris Butter Absolute": {
+      "value": -0.0702,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "iris",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 1.04,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Orris Concrete Orris Butter": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Orris F-TEC": {
+      "value": -0.079,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "iris",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.96,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Orris Liquid": {
+      "value": -0.044,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "Orris Liquid (30%)",
+        "Orris Liquid (9% w/w in DEP)",
+        "Orris Liquid — PerfumersWorld product basis"
+      ],
+      "family": "iris",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 1.28,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Osmanthus Absolute": {
+      "value": -0.1314,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.48,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Osmanthus Absolute (volume grade)": {
+      "value": -0.1314,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "osmanthus abs volume",
+        "osmanthus absolute (volume grade)",
+        "osmanthus absolute volume grade"
+      ],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.48,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Oud Fleuressence": {
+      "value": -0.1292,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "smoky",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.5,
+      "raw_scale": "-5..+5"
+    },
+    "Oud Oil": {
+      "value": -0.2714,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "oud oil"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.8,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "p-Cresyl Methyl Ether": {
+      "value": 0.04,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [],
+      "family": "indolic",
+      "dose_points": {
+        "weak": 0.1262,
+        "strong": -0.0462
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "4-Methylanisole",
+        "cas": "104-93-8",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 56.31,
+          "intensity_mean_0_100": 44.84,
+          "n_pleasant": 45,
+          "value": 0.1262
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 47.69,
+          "intensity_mean_0_100": 70.5,
+          "n_pleasant": 52,
+          "value": -0.0462
+        }
+      }
+    },
+    "padma": {
+      "value": 0.0894,
+      "source": "profile_direct",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "green_floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.5,
+      "raw_scale": "-1..+1"
+    },
+    "Paradisamide": {
+      "value": 0.1714,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "paradisamide"
+      ],
+      "family": "fruity",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.65,
+      "raw_scale": "-1..+1"
+    },
+    "Parmavert": {
+      "value": 0.1167,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "parmavert"
+      ],
+      "family": "green",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.55,
+      "raw_scale": "-1..+1"
+    },
+    "Patchouli EO": {
+      "value": 0.0457,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "patchouli eo"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.42,
+      "raw_scale": "-1..+1"
+    },
+    "PEDMC": {
+      "value": -0.1139,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.64,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Peonile": {
+      "value": -0.1227,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "peonile"
+      ],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.56,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Peppermint Essential Oil": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": "herbal",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Peru Balsam Resinoid": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": "balsamic",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Petitgrain EO": {
+      "value": 0.2097,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "petitgrain eo"
+      ],
+      "family": "aromatic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.72,
+      "raw_scale": "-1..+1"
+    },
+    "Petitgrain EO Paraguay": {
+      "value": -0.1139,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "citrus",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.64,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Phenethyl Alcohol": {
+      "value": 0.1586,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "2-phenylethanol",
+        "2-phenylethyl alcohol",
+        "PEA",
+        "Phenyl Ethyl Alcohol",
+        "Phenyl Ethyl Alcohol (PEA)",
+        "phenethyl alcohol",
+        "phenyl ethyl alcohol",
+        "phenylethanol",
+        "phenylethyl alcohol"
+      ],
+      "family": "rose",
+      "dose_points": {
+        "weak": 0.262,
+        "strong": 0.0552
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "2-phenylethanol",
+        "cas": "60-12-8",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "1e-05",
+          "ratio": "1/100000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 63.1,
+          "intensity_mean_0_100": 59.58,
+          "n_pleasant": 50,
+          "value": 0.262
+        },
+        "strong": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 52.76,
+          "intensity_mean_0_100": 70.04,
+          "n_pleasant": 55,
+          "value": 0.0552
+        }
+      }
+    },
+    "Phenyl Acetaldehyde": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "Phenyl acetaldehyde"
+      ],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Phenyl Ethyl Acetate": {
+      "value": -0.1227,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.56,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Pink Pepper Base": {
+      "value": -0.1664,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "spice",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.16,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Pink Pepper EO": {
+      "value": -0.1314,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "Schinus molle EO (neat / as supplied)",
+        "pink pepper eo",
+        "pink pepper eo (schinus molle; neat / as supplied)",
+        "pink pepper eo schinus molle",
+        "schinus molle eo"
+      ],
+      "family": "spice",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.48,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Polysantol": {
+      "value": -0.1577,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "sandalwood",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.24,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Raspberry Ketone": {
+      "value": 0.0024,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [],
+      "family": "fruity",
+      "dose_points": {
+        "weak": 0.0118,
+        "strong": -0.007
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "4-(4-Hydroxyphenyl)-2-butanone",
+        "cas": "5471-51-2",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 50.59,
+          "intensity_mean_0_100": 46.31,
+          "n_pleasant": 49,
+          "value": 0.0118
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 49.65,
+          "intensity_mean_0_100": 50.21,
+          "n_pleasant": 48,
+          "value": -0.007
+        }
+      }
+    },
+    "Red Mandarin EO": {
+      "value": 0.2643,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "red mandarin eo"
+      ],
+      "family": "citrus",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.82,
+      "raw_scale": "-1..+1"
+    },
+    "Rhodinol ex Citronella": {
+      "value": 0.2534,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "rose",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 4.0,
+      "raw_scale": "-5..+5"
+    },
+    "Rhubofix": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Romandolide": {
+      "value": 0.1878,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "romandolide"
+      ],
+      "family": "musk",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.68,
+      "raw_scale": "-1..+1"
+    },
+    "Rose Absolute": {
+      "value": 0.308,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [
+        "rose absolute"
+      ],
+      "family": "rose",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 4.5,
+      "raw_scale": "-5..+5"
+    },
+    "Rose de Mai Absolute": {
+      "value": -0.1139,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "rose",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.64,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Rose Essential Oil": {
+      "value": -0.1139,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "Rose Essential Oil (Rosa Damascena, India)",
+        "rosa damascena eo",
+        "rose eo",
+        "rose essential oil"
+      ],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.64,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Rose Otto Bulgarian": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Rose Oxide": {
+      "value": 0.2097,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "rose oxide"
+      ],
+      "family": "rose",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.72,
+      "raw_scale": "-1..+1"
+    },
+    "Rosemary EO (French Rosmarinus Officinalis leaf oil)": {
+      "value": 0.1167,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "rosemary eo",
+        "rosemary eo (french rosmarinus officinalis leaf oil)",
+        "rosemary eo french",
+        "rosemary officinalis eo"
+      ],
+      "family": "aromatic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.55,
+      "raw_scale": "-1..+1"
+    },
+    "Rum Absolute": {
+      "value": -0.1948,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.1,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Saffranal": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Safraleine": {
+      "value": -0.2167,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "safraleine neat"
+      ],
+      "family": "smoky",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.3,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Salicylate FTEC": {
+      "value": 0.1167,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.55,
+      "raw_scale": "-1..+1"
+    },
+    "Sandalore": {
+      "value": 0.1987,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "sandalore"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.7,
+      "raw_scale": "-1..+1"
+    },
+    "sandalwood base x3": {
+      "value": 0.2534,
+      "source": "profile_direct",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "sandalwood",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.8,
+      "raw_scale": "-1..+1"
+    },
+    "Sandalwood EO": {
+      "value": 0.1987,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [
+        "sandalwood eo"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 3.5,
+      "raw_scale": "-5..+5"
+    },
+    "Sandalwood FO": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Scentenal": {
+      "value": -0.0199,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "scentenal"
+      ],
+      "family": "green",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.3,
+      "raw_scale": "-1..+1"
+    },
+    "Siam Benzoin": {
+      "value": -0.1948,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": -0.1,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Skatole": {
+      "value": -0.2757,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "skatole"
+      ],
+      "family": "animalic",
+      "dose_points": {
+        "weak": -0.2757,
+        "strong": -0.4
+      },
+      "dose_source": "heuristic_unmeasured",
+      "raw_value": -0.84,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "stralyl acetate": {
+      "value": 0.1441,
+      "source": "profile_direct",
+      "confidence": "hand",
+      "aliases": [
+        "styralyl acetate"
+      ],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.6,
+      "raw_scale": "-1..+1"
+    },
+    "Styrax FTEC": {
+      "value": -0.0473,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "smoky",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.25,
+      "raw_scale": "-1..+1"
+    },
+    "Suederal": {
+      "value": -0.0199,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "suederal"
+      ],
+      "family": "smoky",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.3,
+      "raw_scale": "-1..+1"
+    },
+    "Tagetes EO": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "marigold eo",
+        "tagetes eo",
+        "tagetes eo (10% in dpg)",
+        "tagetes essential oil"
+      ],
+      "family": "green",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Terpinyl Acetate": {
+      "value": 0.1167,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "terpinyl acetate"
+      ],
+      "family": "aromatic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.55,
+      "raw_scale": "-1..+1"
+    },
+    "Timberol": {
+      "value": 0.0894,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "timberol"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.5,
+      "raw_scale": "-1..+1"
+    },
+    "Tobacco Absolute": {
+      "value": 0.0894,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 2.5,
+      "raw_scale": "-5..+5"
+    },
+    "Tobacco Fleuressence": {
+      "value": 0.1441,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 3.0,
+      "raw_scale": "-5..+5"
+    },
+    "Tobacco FTEC": {
+      "value": 0.0894,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 2.5,
+      "raw_scale": "-5..+5"
+    },
+    "Tonalide": {
+      "value": 0.3508,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "tonalide"
+      ],
+      "family": "musk",
+      "dose_points": {
+        "weak": 0.3542,
+        "strong": 0.3474
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "6-Acetyl-1,1,2,4,4,7-Hexamethyltetralin",
+        "cas": "21145-77-7",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 67.71,
+          "intensity_mean_0_100": 29.76,
+          "n_pleasant": 34,
+          "value": 0.3542
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 67.37,
+          "intensity_mean_0_100": 51.67,
+          "n_pleasant": 52,
+          "value": 0.3474
+        }
+      }
+    },
+    "Tonka Bean Absolute": {
+      "value": -0.1314,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.48,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Tonka Bean FO": {
+      "value": -0.1489,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.32,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Tonkarome": {
+      "value": -0.1227,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "gourmand",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.56,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Triethyl Citrate": {
+      "value": -0.1275,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [],
+      "family": "fixative",
+      "dose_points": {
+        "weak": -0.0766,
+        "strong": -0.1784
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "Triethyl citrate",
+        "cas": "77-93-0",
+        "match_by": "name",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 46.17,
+          "intensity_mean_0_100": 20.39,
+          "n_pleasant": 18,
+          "value": -0.0766
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 41.08,
+          "intensity_mean_0_100": 31.27,
+          "n_pleasant": 40,
+          "value": -0.1784
+        }
+      }
+    },
+    "Tuberalia base": {
+      "value": -0.1139,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.64,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "tuberlia base": {
+      "value": 0.1987,
+      "source": "profile_direct",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "tuberose",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.7,
+      "raw_scale": "-1..+1"
+    },
+    "Tuberose Absolute": {
+      "value": -0.138,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.42,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Tuberose Absolute (India)": {
+      "value": -0.1445,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "tuberose absolute (india)",
+        "tuberose absolute india",
+        "tuberose eo"
+      ],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.36,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Tuberose Absolute (volume grade)": {
+      "value": -0.1445,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "tuberose abs volume",
+        "tuberose absolute (volume grade)",
+        "tuberose absolute volume grade"
+      ],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.36,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "tuberose eo (volume level grade)": {
+      "value": 0.1987,
+      "source": "profile_direct",
+      "confidence": "hand",
+      "aliases": [
+        "tuberose eo"
+      ],
+      "family": "tuberose",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.7,
+      "raw_scale": "-1..+1"
+    },
+    "turkish storax": {
+      "value": 0.1441,
+      "source": "profile_direct",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "balsamic",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.6,
+      "raw_scale": "-1..+1"
+    },
+    "Ultralia": {
+      "value": 0.1441,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "ultralia"
+      ],
+      "family": "iris",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.6,
+      "raw_scale": "-1..+1"
+    },
+    "Undecavertol": {
+      "value": -0.1577,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "undecavertol"
+      ],
+      "family": "green",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.24,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Vanilla Absolute": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Vanillin": {
+      "value": 0.7024,
+      "source": "keller_vosshall_2016",
+      "confidence": "panel",
+      "aliases": [
+        "vanillin"
+      ],
+      "family": "gourmand",
+      "dose_points": {
+        "weak": 0.6792,
+        "strong": 0.7256
+      },
+      "dose_source": "keller",
+      "keller": {
+        "name": "vanillin",
+        "cas": "121-33-5",
+        "match_by": "cas",
+        "weak": {
+          "concentration": "0.001",
+          "ratio": "1/1000",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 83.96,
+          "intensity_mean_0_100": 74.39,
+          "n_pleasant": 54,
+          "value": 0.6792
+        },
+        "strong": {
+          "concentration": "0.1",
+          "ratio": "1/10",
+          "solvent": "paraffin oil",
+          "pleasantness_mean_0_100": 86.28,
+          "intensity_mean_0_100": 72.09,
+          "n_pleasant": 53,
+          "value": 0.7256
+        }
+      }
+    },
+    "Veloutone": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Verdox": {
+      "value": -0.1664,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [
+        "verdox"
+      ],
+      "family": "green",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.16,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "verdyl acetate": {
+      "value": 0.0894,
+      "source": "profile_direct",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "green_floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.5,
+      "raw_scale": "-1..+1"
+    },
+    "Vertofix": {
+      "value": 0.1167,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.55,
+      "raw_scale": "-1..+1"
+    },
+    "Vertofix Coeur": {
+      "value": 0.1167,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "Vertofix",
+        "vertofix coeur"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.55,
+      "raw_scale": "-1..+1"
+    },
+    "Vetikon": {
+      "value": 0.0347,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [
+        "methyl cedryl ketone",
+        "vetikon"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 2.0,
+      "raw_scale": "-5..+5"
+    },
+    "Vetival": {
+      "value": 0.0347,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "vetival"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.4,
+      "raw_scale": "-1..+1"
+    },
+    "Vetiver EO": {
+      "value": 0.0621,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "vetiver",
+        "vetiver eo"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.45,
+      "raw_scale": "-1..+1"
+    },
+    "Vetiver EO (India)": {
+      "value": 0.0894,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "indian vetiver eo",
+        "ruh khus",
+        "vetiver eo (india)",
+        "vetiver india"
+      ],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.5,
+      "raw_scale": "-1..+1"
+    },
+    "Vetiveryl Acetate": {
+      "value": -0.0199,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [
+        "vetiveryl acetate"
+      ],
+      "family": "woody",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 1.5,
+      "raw_scale": "-5..+5"
+    },
+    "Violet Fleuressence": {
+      "value": -0.0877,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "iris",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.88,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Violet Leaf Absolute": {
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
+      "aliases": [
+        "Violet Leaf Absolute (10% in DPG)",
+        "violet leaf absolute 10% in dpg"
+      ],
+      "family": "green",
+      "dose_points": null,
+      "dose_source": null
+    },
+    "Ylang Comoros Complete EO": {
+      "value": 0.1714,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.65,
+      "raw_scale": "-1..+1"
+    },
+    "Ylang Comoros Complete EO F3255": {
+      "value": -0.1139,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.64,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Ylang Comoros III EO": {
+      "value": 0.1878,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.68,
+      "raw_scale": "-1..+1"
+    },
+    "Ylang Comoros III EO F3295": {
+      "value": -0.1227,
+      "source": "character_heuristic",
+      "confidence": "low",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.56,
+      "raw_scale": "-5..+5 field, clamped +-3"
+    },
+    "Ylang III": {
+      "value": 0.1714,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [],
+      "family": null,
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.65,
+      "raw_scale": "-1..+1"
+    },
+    "Ylang Ylang EO": {
+      "value": 0.1441,
+      "source": "profile_override",
+      "confidence": "hand",
+      "aliases": [],
+      "family": "floral",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 3.0,
+      "raw_scale": "-5..+5"
+    },
+    "Zenolide": {
+      "value": 0.1714,
+      "source": "hedonic_model_table",
+      "confidence": "hand",
+      "aliases": [
+        "zenolide"
+      ],
+      "family": "musk",
+      "dose_points": null,
+      "dose_source": null,
+      "raw_value": 0.65,
+      "raw_scale": "-1..+1"
+    }
+  }
+}
