@@ -350,6 +350,19 @@ button:disabled { cursor: not-allowed !important; opacity: .48; transform: none 
 .formula-result-voices { margin: 0 0 12px; }
 .formula-result-voices ul { margin: 0; padding-left: 18px; }
 .formula-result-voices small { display: block; margin-top: 6px; opacity: .8; font-size: .8em; }
+.formula-result-liking { display: grid; gap: 16px; margin: 16px 0; }
+.formula-result-liking h3 { margin: 0 0 6px; font-size: 1em; }
+.formula-result-liking h4 { margin: 0 0 4px; font-size: .95em; }
+.formula-result-liking ul { margin: 0; padding-left: 18px; }
+.formula-result-liking small { display: block; margin-top: 6px; opacity: .8; font-size: .8em; }
+.liking-subhead, .liking-hint { margin: 6px 0 4px; color: var(--muted); }
+.liking-row { padding: 10px 0; border-top: 1px solid rgba(0,0,0,.08); }
+.liking-scale, .liking-actions, .liking-fields { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 6px 0; }
+.liking-scale button { min-width: 36px; }
+.liking-scale button[aria-pressed="true"] { color: white; background: var(--blue); border-color: var(--blue); }
+.liking-field { display: grid; gap: 2px; font-size: .9em; }
+.liking-status { color: var(--muted); }
+.liking-personal summary { cursor: pointer; }
 .bench-sheet { display: none; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
