@@ -347,6 +347,9 @@ button:disabled { cursor: not-allowed !important; opacity: .48; transform: none 
 .formula-result-checks { margin: 0 0 12px; }
 .formula-result-checks ul { margin: 0; padding-left: 18px; }
 .formula-result-checks small { display: block; margin-top: 6px; opacity: .8; }
+.formula-result-voices { margin: 0 0 12px; }
+.formula-result-voices ul { margin: 0; padding-left: 18px; }
+.formula-result-voices small { display: block; margin-top: 6px; opacity: .8; font-size: .8em; }
 .bench-sheet { display: none; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
