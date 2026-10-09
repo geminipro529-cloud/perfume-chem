@@ -39,6 +39,7 @@ def _gate_formula_record(
     ingredients_ul: dict[str, Decimal] = {}
     dilutions: dict[str, Decimal] = {}
     stock_specs: dict[str, dict[str, Any]] = {}
+    stock_rows: dict[str, list[dict[str, Any]]] = {}
     unchecked: list[dict[str, str]] = []
     for row in rows:
         material = str(row.get("material") or "")
@@ -53,24 +54,58 @@ def _gate_formula_record(
             unchecked.append({"material": material, "reason": "no stock strength or dose"})
             continue
         amount_ul = amount * (Decimal(1000) if unit == "mL" else Decimal(1))
-        if material in dilutions and dilutions[material] != fraction:
-            # Same material at a second strength: add it as the equivalent
-            # volume of the first stock so the active total stays right.
-            if dilutions[material] == 0:
-                unchecked.append({"material": material, "reason": "no stock strength or dose"})
-                continue
-            amount_ul = amount_ul * fraction / dilutions[material]
-            fraction = dilutions[material]
-        ingredients_ul[material] = ingredients_ul.get(material, Decimal(0)) + amount_ul
-        dilutions[material] = fraction
-        stock_specs[material] = {
-            "declared": True,
-            "fraction": float(fraction),
+        stock_rows.setdefault(material, []).append({
+            "amount_ul": amount_ul,
+            "fraction": fraction,
             "fraction_basis": str(row.get("fraction_basis") or "unspecified"),
             "carrier": str(row.get("carrier") or ""),
             "stock_id": str(row.get("stock_id") or ""),
+        })
+    for material, entries in stock_rows.items():
+        # Rows of one material on different stocks keep each row's own strength:
+        # the active total is each row's amount x its own fraction, and the
+        # material is flagged as a stock conflict so the IFRA check holds.
+        raw_total = sum((e["amount_ul"] for e in entries), Decimal(0))
+        active_total = sum((e["amount_ul"] * e["fraction"] for e in entries), Decimal(0))
+        shared = {
+            key: {e[key] for e in entries}
+            for key in ("fraction", "fraction_basis", "carrier", "stock_id")
+        }
+        conflict = any(len(shared[key]) > 1 for key in ("fraction", "fraction_basis", "carrier"))
+        fraction = (
+            next(iter(shared["fraction"]))
+            if not conflict
+            else active_total / raw_total
+            if raw_total > 0
+            else max(shared["fraction"])
+        )
+        ingredients_ul[material] = raw_total
+        dilutions[material] = fraction
+        spec: dict[str, Any] = {
+            "declared": True,
+            "fraction": float(fraction),
+            "fraction_basis": (
+                next(iter(shared["fraction_basis"]))
+                if len(shared["fraction_basis"]) == 1
+                else "unspecified"
+            ),
+            "carrier": next(iter(shared["carrier"])) if len(shared["carrier"]) == 1 else "",
+            "stock_id": next(iter(shared["stock_id"])) if len(shared["stock_id"]) == 1 else "",
             "approximate": False,
         }
+        if conflict:
+            spec["conflict"] = True
+            spec["variants"] = [
+                {
+                    "row_raw_ul": float(e["amount_ul"]),
+                    "fraction": float(e["fraction"]),
+                    "fraction_basis": e["fraction_basis"],
+                    "carrier": e["carrier"],
+                    "stock_id": e["stock_id"],
+                }
+                for e in entries
+            ]
+        stock_specs[material] = spec
     record = {
         "number": 1,
         "name": name,
@@ -102,6 +137,8 @@ def _ifra_checks(gate: Mapping[str, Any]) -> list[dict[str, str]]:
         add("FAIL", message)
     for hold in data.get("holds", []):
         add("WARN", f"IFRA hold: {hold.get('message', '')}")
+    for material in data.get("stock_conflicts", []):
+        add("WARN", f"stock conflict: {material} is written at more than one strength")
     if checks:
         return checks
     status = str(gate.get("status", ""))

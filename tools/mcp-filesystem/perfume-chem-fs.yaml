@@ -8,6 +8,10 @@ health:
 admin_ui:
   open_browser: false
 mcp:
-  commands:
+  # start_tunnel.ps1 starts server.mjs on this loopback URL and sets FS_MCP_AUTH_HEADER
+  # ("Bearer <per-launch token>") in the environment; the token never goes in this file.
+  server_urls:
     - channel: main
-      command: '"C:/Program Files/nodejs/node.exe" D:/chatbots/perfume-chem/tools/mcp-filesystem/server.mjs'
+      url: http://127.0.0.1:8765/mcp
+  extra_headers:
+    Authorization: env:FS_MCP_AUTH_HEADER

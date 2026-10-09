@@ -108,7 +108,7 @@ def test_tiny_active_dose_picks_the_dilute_stock(monkeypatch):
 
 def test_large_active_dose_keeps_the_strongest_stock(monkeypatch):
     rec, scored = _recommend(monkeypatch, list(reversed(THREE_STOCKS)), 2.0)
-    assert rec.material == "Beta Ionone, neat"
+    assert rec.material == "Beta Ionone (neat)"
     assert rec.dose_pct == pytest.approx(2.0)
     assert scored.dilutions["Beta Ionone"] == 1.0
     assert scored.ingredients["Beta Ionone"] == pytest.approx(2.0 * 100.0 / 102.0)
@@ -147,7 +147,7 @@ def test_display_shows_strength_and_small_doses(monkeypatch):
     assert " 0.0 " not in text
 
     neat, _ = _recommend(monkeypatch, [_stock("Beta Ionone", 1.0)], 2.0)
-    assert neat.material == "Beta Ionone, neat"
+    assert neat.material == "Beta Ionone (neat)"
     dilute, _ = _recommend(monkeypatch, [_stock("Beta Ionone", 0.001)], 2.0)
     assert dilute.material == "Beta Ionone 0.1%"
 
@@ -199,7 +199,7 @@ def test_stocks_written_without_parentheses_form_one_group(parsed_inventory):
 def test_helional_dose_is_kept_in_the_neat_stock(monkeypatch, parsed_inventory):
     # 1.5% of a 10 mL concentrate neat is 150 µL; the 10% stock would be 10x too weak.
     rec, scored = _recommend(monkeypatch, parsed_inventory, 1.5, candidate="helional")
-    assert rec.material == "Helional, neat"
+    assert rec.material == "Helional (neat)"
     assert scored.dilutions["Helional 10% v/v in ethanol"] == 1.0
 
 
@@ -211,7 +211,7 @@ def test_grades_stay_separate_and_the_label_keeps_the_grade(monkeypatch, parsed_
     assert fr._owned_stocks(premium, parsed_inventory) == [premium]
     # 0.05% neat is 5 µL; pooling would switch to the premium 10% stock (50 µL).
     rec, scored = _recommend(monkeypatch, parsed_inventory, 0.05, candidate="osmanthus absolute")
-    assert rec.material == "Osmanthus Absolute (volume grade), neat"
+    assert rec.material == "Osmanthus Absolute (volume grade) (neat)"
     assert scored.dilutions["Osmanthus Absolute"] == 1.0
 
 
@@ -219,12 +219,12 @@ def test_labels_name_real_name_strength_basis_and_solvent_once(parsed_inventory)
     labels = {fr._owned_stock_label(stock) for stock in parsed_inventory}
     assert labels == {
         "Helional 10% v/v in ethanol",
-        "Helional, neat",
-        "Osmanthus Absolute (volume grade), neat",
+        "Helional (neat)",
+        "Osmanthus Absolute (volume grade) (neat)",
         "Osmanthus Absolute 10% in DPG",
         "Rose Oxide 1%",
         "Rose Oxide 10%",
-        "Beta Ionone, neat",
+        "Beta Ionone (neat)",
         "Beta Ionone 0.1% in TEC",
     }
     for label in labels:
@@ -237,7 +237,7 @@ def test_existing_row_without_a_dilution_is_shown_neat(monkeypatch, parsed_inven
     )
     rec, scored = _recommend(monkeypatch, parsed_inventory, 0.5, candidate="rose oxide", fv=fv)
     assert "Rose Oxide" not in scored.dilutions  # scored neat by FormulaVector.effective_pct
-    assert rec.material == "Rose Oxide, neat"
+    assert rec.material == "Rose Oxide (neat)"
 
     fv.dilutions["Rose Oxide"] = 0.1
     rec, _ = _recommend(monkeypatch, parsed_inventory, 0.5, candidate="rose oxide", fv=fv)
@@ -246,5 +246,5 @@ def test_existing_row_without_a_dilution_is_shown_neat(monkeypatch, parsed_inven
 
 def test_warnings_still_key_on_the_material_name(monkeypatch, parsed_inventory):
     rec, _ = _recommend(monkeypatch, parsed_inventory, 2.0)
-    assert rec.material == "Beta Ionone, neat"
+    assert rec.material == "Beta Ionone (neat)"
     assert any("ANOSMIA" in warning and "Beta Ionone" in warning for warning in rec.warnings)

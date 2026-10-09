@@ -45,6 +45,7 @@ from engine.pipeline.formula_state import (
     natural_composite_volatility,
 )
 from engine.solvent_matrix import canonical_solvent_name
+from engine.thermo.antoine import VP_REFERENCE_T_K
 
 DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
     ("opening", 0.0),
@@ -67,10 +68,22 @@ MAX_LOSS_RATE_PER_S = 2.5e-3
 # (vapour pressure in Pa at 25 C, molar mass in g/mol). Source: CRC Handbook
 # of Chemistry and Physics (vapour pressure of fluids; physical constants of
 # organic compounds). The data spine's Ethanol 96% row (5900 Pa) carries no
-# vp_source, so it is not used. No temperature correction is applied.
+# vp_source, so it is not used. These are the 298.15 K values; the loss law
+# uses them at the state's temperature (audit PHYS-03), see
+# :func:`_matrix_component_vp_pa`.
 MATRIX_COMPONENT_VP_MW: dict[str, tuple[float, float]] = {
     "ETHANOL": (7870.0, 46.07),
     "WATER": (3170.0, 18.02),
+}
+# Antoine constants for the matrix components, NIST Chemistry WebBook (SRD 69)
+# form ``log10(P / bar) = A - B / (T / K + C)``:
+#   ethanol: Ambrose and Sprake, J. Chem. Thermodyn. 2 (1970) 631, 292.77-366.63 K;
+#   water:   Stull, Ind. Eng. Chem. 39 (1947) 517, 255.9-373 K.
+# Only their temperature ratio is used, anchored to the 298.15 K values above:
+# at 305 K ethanol is x1.473 and water x1.498 of their 25 C pressures.
+MATRIX_COMPONENT_ANTOINE_BAR_K: dict[str, tuple[float, float, float]] = {
+    "ETHANOL": (5.24677, 1598.673, -46.424),
+    "WATER": (4.6543, 1435.264, -64.848),
 }
 # FormulaState assigns no activity coefficient to matrix components, so the
 # matrix loss uses gamma = 1.0 (ideal solution) as an explicit assumption.
@@ -297,6 +310,21 @@ def _remaining_raw_ul(
     return _step_remaining(state, delta_seconds, initial_pool_moles=initial_pool_moles)[0]
 
 
+def _matrix_component_vp_pa(key: str, temperature_K: float) -> float:  # noqa: N803
+    """Return a matrix component's vapour pressure in Pa at ``temperature_K``.
+
+    The 298.15 K value from ``MATRIX_COMPONENT_VP_MW`` is scaled by the
+    component's own Antoine ratio ``P(T) / P(298.15 K)`` from
+    ``MATRIX_COMPONENT_ANTOINE_BAR_K`` (audit PHYS-03), so the solvent follows
+    the same skin temperature as the materials rather than staying at 25 C.
+    """
+    vp_25c_pa = MATRIX_COMPONENT_VP_MW[key][0]
+    _a, b, c = MATRIX_COMPONENT_ANTOINE_BAR_K[key]
+    return vp_25c_pa * 10.0 ** (
+        b / (VP_REFERENCE_T_K + c) - b / (float(temperature_K) + c)
+    )
+
+
 def _remaining_matrix_moles(
     state: FormulaState,
     delta_seconds: float,
@@ -305,19 +333,22 @@ def _remaining_matrix_moles(
 ) -> tuple[tuple[str, float], ...]:
     """Return matrix component moles after one step of the same loss law.
 
-    Each component's escaping tendency is ``MATRIX_COMPONENT_GAMMA * P*`` from
-    ``MATRIX_COMPONENT_VP_MW``; the rate, cap, pool ratio and ``exp(-k * dt)``
-    step are those applied to materials. A component without constants there
-    is kept unchanged rather than given guessed properties.
+    Each component's escaping tendency is ``MATRIX_COMPONENT_GAMMA * P*`` with
+    ``P*`` at the state's temperature (:func:`_matrix_component_vp_pa`); the
+    rate, cap, pool ratio and ``exp(-k * dt)`` step are those applied to
+    materials. A component without constants in ``MATRIX_COMPONENT_VP_MW`` is
+    kept unchanged rather than given guessed properties.
     """
     pool_ratio = _pool_ratio(state, initial_pool_moles)
     remaining: list[tuple[str, float]] = []
     for name, moles in state.matrix_components_moles:
-        constants = MATRIX_COMPONENT_VP_MW.get(canonical_solvent_name(name) or "")
+        key = canonical_solvent_name(name) or ""
+        constants = MATRIX_COMPONENT_VP_MW.get(key)
         if constants is None:
             remaining.append((name, moles))
             continue
-        vp_pa, mw_g_mol = constants
+        _vp_25c_pa, mw_g_mol = constants
+        vp_pa = _matrix_component_vp_pa(key, state.temperature_K)
         k = _loss_rate_per_s(MATRIX_COMPONENT_GAMMA * vp_pa, mw_g_mol, pool_ratio)
         remaining.append((name, moles * math.exp(-k * delta_seconds)))
     return tuple(remaining)

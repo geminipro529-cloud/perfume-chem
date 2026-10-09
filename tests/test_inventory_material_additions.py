@@ -321,7 +321,7 @@ def test_legacy_material_properties_mirror_live_stock_and_thresholds() -> None:
     expected = {
         "alpha irone": ("79-69-6", True, 0.10, 0.9, 0.16),
         "hydroxycitronellol": ("107-74-4", False, None, 100.0, 20.0),
-        "olibanum resinoid": ("8016-36-2", False, None, 10.0, 3.0),
+        "olibanum resinoid": ("8016-36-2", True, 0.5, 10.0, 3.0),
         "orris liquid": ("8002-73-1", True, 0.09, 0.9, 0.16),
     }
     for name, (cas, owned, dilution, odt_air, odt_eth) in expected.items():

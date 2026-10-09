@@ -9,7 +9,6 @@
     "Ambrox Super / Ambrofix": "only supplier averages (0.1%) and an unclear-basis range; usually weighed as crystals.",
     "Vanillin, Ethyl Vanillin, Maltol, Methyl Salicylate, Phenyl Acetaldehyde, Manzanate": "only Fraterworks averages, no stated maximum.",
     "Calone, Ethyl 2-Methylbutyrate": "the only figures have an unclear basis (fine fragrance may mean the finished product).",
-    "Damascol": "the Good Scents page found describes a different compound (pepper hexanone).",
     "Patchouli EO": "Good Scents has several patchouli pages; the 10% figure could not be tied to one oil."
   },
   "materials": [
@@ -496,7 +495,7 @@
         "methyl dihydrojasmonate"
       ],
       "max_active_pct_of_concentrate": 15,
-      "note": "Set by the project's Hedione rule (15%; the gate still applies 12% to chypres).",
+      "note": "Style warning, not a safety ceiling: the project's Hedione rule (15%; the gate still applies 12% to chypres) comes from one over-Hedioned bottle (AGENTS.md F2). IFRA sets no Hedione limit.",
       "sources": [
         {
           "kind": "supplier_maximum",
@@ -512,7 +511,8 @@
           "quote": "Max 12% for chypre. Max 15% for floral.",
           "max_pct_of_concentrate": 15.0
         }
-      ]
+      ],
+      "kind": "style_warning"
     },
     {
       "material": "Cashmeran",
@@ -765,6 +765,376 @@
           "url": "https://www.thegoodscentscompany.com/data/rw1042632.html"
         }
       ]
+    },
+    {
+      "material": "Safraleine",
+      "match": [
+        "safraleine"
+      ],
+      "max_active_pct_of_concentrate": 3,
+      "note": "Set by the highest supplier maximum (The Good Scents Company). CAS 54440-17-4 (2,3,3-trimethylinden-1-one); Good Scents lists it as saffron indenone.",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 3.0,
+          "quote": "Recommendation for saffron indenone usage levels up to: 3.0000 % in the fragrance concentrate.",
+          "url": "https://www.thegoodscentscompany.com/data/rw1051301.html"
+        }
+      ]
+    },
+    {
+      "material": "Florhydral",
+      "match": [
+        "florhydral"
+      ],
+      "max_active_pct_of_concentrate": 2,
+      "note": "Set by the highest supplier maximum (The Good Scents Company). CAS 125109-85-5 (3-(3-isopropylphenyl)butanal); Good Scents lists it as floral butanal.",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 2.0,
+          "quote": "Recommendation for floral butanal usage levels up to: 2.0000 % in the fragrance concentrate.",
+          "url": "https://thegoodscentscompany.com/data/rw1131041.html"
+        }
+      ]
+    },
+    {
+      "material": "Paradisamide",
+      "match": [
+        "paradisamide"
+      ],
+      "max_active_pct_of_concentrate": 15,
+      "note": "Set by the highest supplier maximum (The Good Scents Company). CAS 406488-30-0 (2-ethyl-N-methyl-N-(3-methylphenyl)butanamide).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 15.0,
+          "quote": "Recommendation for 2-ethyl-N-methyl-N-(3-methyl phenyl) butyramide usage levels up to: 15.0000 % in the fragrance concentrate.",
+          "url": "https://www.thegoodscentscompany.com/data/rw1116801.html"
+        }
+      ]
+    },
+    {
+      "material": "Damascol",
+      "match": [
+        "damascol"
+      ],
+      "max_active_pct_of_concentrate": 5,
+      "note": "Set by the highest supplier maximum (The Good Scents Company). Good Scents and the reseller Fraterworks both give IFF's Damascol (Damascol 4) as CAS 4927-36-0, 5-methyl-5-phenylhexan-3-one (MW 190.3). The project's material profile describes Damascol as a damascone-type alcohol (MW 194.3); that profile disagrees and has not been changed here. Fraterworks also quotes a draft IFRA 52 limit of 0.77 % in the finished product (not in force in the Amendment 51 table used here).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 5.0,
+          "quote": "Recommendation for pepper hexanone usage levels up to: 5.0000 % in the fragrance concentrate.",
+          "url": "https://www.thegoodscentscompany.com/data/rw1049201.html"
+        },
+        {
+          "kind": "identity",
+          "name": "Fraterworks",
+          "quote": "Damascol 4: manufacturer IFF, CAS 4927-36-0, 5-methyl-5-phenylhexan-3-one.",
+          "url": "https://fraterworks.com/products/damascol-4"
+        }
+      ]
+    },
+    {
+      "material": "Carrot Seed EO",
+      "match": [
+        "carrot seed eo",
+        "carrot seed oil",
+        "carrot seed essential oil"
+      ],
+      "max_active_pct_of_concentrate": 4,
+      "note": "Set by the highest supplier maximum (The Good Scents Company). CAS 8015-88-1 (Daucus carota seed oil).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 4.0,
+          "quote": "Recommendation for carrot seed oil usage levels up to: 4.0000 % in the fragrance concentrate.",
+          "url": "https://www.thegoodscentscompany.com/data/es1024731.html"
+        }
+      ]
     }
-  ]
+  ],
+  "screening_default": {
+    "kind": "project_screening_default",
+    "label": "project screening default, not a safety or IFRA limit",
+    "note": "Applied by the composer only, to a liquid row whose material has no row above and no identity hard cap. It only lowers a cap, so it never loosens an IFRA limit; a row above always wins. It is a conservative bench-design screen against overdosing strong materials nobody has researched yet, not a use-level finding.",
+    "aroma_chemical_max_active_pct_of_concentrate": 2,
+    "natural_max_active_pct_of_concentrate": 5,
+    "natural_identity_words": [
+      "eo",
+      "oil",
+      "absolute",
+      "resinoid",
+      "tincture",
+      "concrete",
+      "co2",
+      "extract",
+      "balsam",
+      "otto",
+      "butter",
+      "blossoms",
+      "base",
+      "accord",
+      "fo",
+      "cedarwood",
+      "vetiver",
+      "patchouli",
+      "lavender",
+      "rosemary",
+      "basil",
+      "cardamom",
+      "chamomile"
+    ],
+    "typical_use_floors": [
+      {
+        "material": "Iso E Super",
+        "match": [
+          "iso e super"
+        ],
+        "max_active_pct_of_concentrate": 15,
+        "note": "Raises the screening default to the project's typical dose for this material; still a screening default.",
+        "sources": [
+          {
+            "kind": "project_typical_dose",
+            "file": "_generate_material_properties.py",
+            "table": "TYPICAL_DOSE",
+            "key": "iso e super",
+            "typical_pct": 15,
+            "meaning": "unsourced heuristic typical dose (% of concentrate) used to estimate a typical OAV; a central use level, not a maximum"
+          }
+        ]
+      },
+      {
+        "material": "Galaxolide",
+        "match": [
+          "galaxolide"
+        ],
+        "max_active_pct_of_concentrate": 10,
+        "note": "Raises the screening default to the project's typical dose for this material; still a screening default.",
+        "sources": [
+          {
+            "kind": "project_typical_dose",
+            "file": "_generate_material_properties.py",
+            "table": "TYPICAL_DOSE",
+            "key": "galaxolide",
+            "typical_pct": 10,
+            "meaning": "unsourced heuristic typical dose (% of concentrate) used to estimate a typical OAV; a central use level, not a maximum"
+          }
+        ]
+      },
+      {
+        "material": "Phenethyl Alcohol",
+        "match": [
+          "phenethyl alcohol",
+          "phenyl ethyl alcohol"
+        ],
+        "max_active_pct_of_concentrate": 5,
+        "note": "Raises the screening default to the project's typical dose for this material; still a screening default.",
+        "sources": [
+          {
+            "kind": "project_typical_dose",
+            "file": "_generate_material_properties.py",
+            "table": "TYPICAL_DOSE",
+            "key": "phenethyl alcohol",
+            "typical_pct": 5,
+            "meaning": "unsourced heuristic typical dose (% of concentrate) used to estimate a typical OAV; a central use level, not a maximum"
+          }
+        ]
+      },
+      {
+        "material": "Phenethyl Acetate",
+        "match": [
+          "phenethyl acetate",
+          "phenyl ethyl acetate"
+        ],
+        "max_active_pct_of_concentrate": 5,
+        "note": "Raises the screening default to the project's typical dose for this material; still a screening default.",
+        "sources": [
+          {
+            "kind": "project_typical_dose",
+            "file": "_generate_material_properties.py",
+            "table": "TYPICAL_DOSE",
+            "key": "phenyl ethyl acetate",
+            "typical_pct": 5,
+            "meaning": "unsourced heuristic typical dose (% of concentrate) used to estimate a typical OAV; a central use level, not a maximum"
+          }
+        ]
+      },
+      {
+        "material": "Vertofix",
+        "match": [
+          "vertofix"
+        ],
+        "max_active_pct_of_concentrate": 5,
+        "note": "Raises the screening default to the project's typical dose for this material; still a screening default.",
+        "sources": [
+          {
+            "kind": "project_typical_dose",
+            "file": "_generate_material_properties.py",
+            "table": "TYPICAL_DOSE",
+            "key": "vertofix coeur",
+            "typical_pct": 5,
+            "meaning": "unsourced heuristic typical dose (% of concentrate) used to estimate a typical OAV; a central use level, not a maximum"
+          }
+        ]
+      },
+      {
+        "material": "Amber Xtreme",
+        "match": [
+          "amber xtreme"
+        ],
+        "max_active_pct_of_concentrate": 5,
+        "note": "Raises the screening default to the project's typical dose for this material; still a screening default.",
+        "sources": [
+          {
+            "kind": "project_typical_dose",
+            "file": "_generate_material_properties.py",
+            "table": "TYPICAL_DOSE",
+            "key": "amber xtreme",
+            "typical_pct": 5,
+            "meaning": "unsourced heuristic typical dose (% of concentrate) used to estimate a typical OAV; a central use level, not a maximum"
+          }
+        ]
+      },
+      {
+        "material": "Linalyl Acetate",
+        "match": [
+          "linalyl acetate"
+        ],
+        "max_active_pct_of_concentrate": 4,
+        "note": "Raises the screening default to the project's typical dose for this material; still a screening default.",
+        "sources": [
+          {
+            "kind": "project_typical_dose",
+            "file": "_generate_material_properties.py",
+            "table": "TYPICAL_DOSE",
+            "key": "linalyl acetate",
+            "typical_pct": 4,
+            "meaning": "unsourced heuristic typical dose (% of concentrate) used to estimate a typical OAV; a central use level, not a maximum"
+          }
+        ],
+        "exclude": [
+          "ethyl linalyl acetate"
+        ]
+      },
+      {
+        "material": "Tonkarome",
+        "match": [
+          "tonkarome"
+        ],
+        "max_active_pct_of_concentrate": 4,
+        "note": "Raises the screening default to the project's typical dose for this material; still a screening default.",
+        "sources": [
+          {
+            "kind": "project_typical_dose",
+            "file": "_generate_material_properties.py",
+            "table": "TYPICAL_DOSE",
+            "key": "tonkarome",
+            "typical_pct": 4,
+            "meaning": "unsourced heuristic typical dose (% of concentrate) used to estimate a typical OAV; a central use level, not a maximum"
+          }
+        ]
+      },
+      {
+        "material": "Linalool",
+        "match": [
+          "linalool"
+        ],
+        "max_active_pct_of_concentrate": 3,
+        "note": "Raises the screening default to the project's typical dose for this material; still a screening default.",
+        "sources": [
+          {
+            "kind": "project_typical_dose",
+            "file": "_generate_material_properties.py",
+            "table": "TYPICAL_DOSE",
+            "key": "linalool",
+            "typical_pct": 3,
+            "meaning": "unsourced heuristic typical dose (% of concentrate) used to estimate a typical OAV; a central use level, not a maximum"
+          }
+        ],
+        "exclude": [
+          "ethyl linalool",
+          "linalool oxide"
+        ]
+      },
+      {
+        "material": "Citronellol",
+        "match": [
+          "citronellol"
+        ],
+        "max_active_pct_of_concentrate": 3,
+        "note": "Raises the screening default to the project's typical dose for this material; still a screening default.",
+        "sources": [
+          {
+            "kind": "project_typical_dose",
+            "file": "_generate_material_properties.py",
+            "table": "TYPICAL_DOSE",
+            "key": "citronellol",
+            "typical_pct": 3,
+            "meaning": "unsourced heuristic typical dose (% of concentrate) used to estimate a typical OAV; a central use level, not a maximum"
+          }
+        ]
+      },
+      {
+        "material": "Hydroxycitronellal",
+        "match": [
+          "hydroxycitronellal"
+        ],
+        "max_active_pct_of_concentrate": 3,
+        "note": "Raises the screening default to the project's typical dose for this material; still a screening default.",
+        "sources": [
+          {
+            "kind": "project_typical_dose",
+            "file": "_generate_material_properties.py",
+            "table": "TYPICAL_DOSE",
+            "key": "hydroxycitronellal",
+            "typical_pct": 3,
+            "meaning": "unsourced heuristic typical dose (% of concentrate) used to estimate a typical OAV; a central use level, not a maximum"
+          }
+        ]
+      },
+      {
+        "material": "Habanolide",
+        "match": [
+          "habanolide"
+        ],
+        "max_active_pct_of_concentrate": 3,
+        "note": "Raises the screening default to the project's typical dose for this material; still a screening default.",
+        "sources": [
+          {
+            "kind": "project_typical_dose",
+            "file": "_generate_material_properties.py",
+            "table": "TYPICAL_DOSE",
+            "key": "habanolide",
+            "typical_pct": 3,
+            "meaning": "unsourced heuristic typical dose (% of concentrate) used to estimate a typical OAV; a central use level, not a maximum"
+          }
+        ]
+      },
+      {
+        "material": "Bacdanol",
+        "match": [
+          "bacdanol"
+        ],
+        "max_active_pct_of_concentrate": 3,
+        "note": "Raises the screening default to the project's typical dose for this material; still a screening default.",
+        "sources": [
+          {
+            "kind": "project_typical_dose",
+            "file": "_generate_material_properties.py",
+            "table": "TYPICAL_DOSE",
+            "key": "bacdanol",
+            "typical_pct": 3,
+            "meaning": "unsourced heuristic typical dose (% of concentrate) used to estimate a typical OAV; a central use level, not a maximum"
+          }
+        ]
+      }
+    ]
+  }
 }

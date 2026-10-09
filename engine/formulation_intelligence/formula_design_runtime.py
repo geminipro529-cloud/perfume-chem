@@ -335,6 +335,7 @@ def _dynamic_report(
                 for role in solve.missing_roles
             }
             | {hold for solve in solves for hold in solve.holds}
+            | {f"UNMAPPED_REQUESTED_NOTE:{term}" for term in brief.unmapped_requested_notes}
         )
         report = {
             "schema_version": "inventory-grounded-formula-design-v3",
@@ -439,7 +440,8 @@ def _dynamic_report(
     temporal = primary["temporal_hypothesis"]
     reference = primary["commercial_reference_context"]
     primary_critic = primary["critic"]
-    issues = primary_critic["issues"]
+    unmapped_codes = [f"UNMAPPED_REQUESTED_NOTE:{term}" for term in brief.unmapped_requested_notes]
+    issues = [*primary_critic["issues"], *unmapped_codes]
     hard_withhold = primary_critic["state"] == "WITHHELD"
     status = (
         "WITHHELD_HARD_CONSTRAINT_UNSATISFIED"
@@ -582,11 +584,18 @@ def _dynamic_report(
         "effective_material_limit": maximum,
         "selected_material_count": len(rows),
         "assistant_message": (
-            f"I compiled {name} into {len(brief.facets)} request-specific facet(s) and "
-            f"{len(brief.roles)} functional role(s), then jointly assigned {len(rows)} exact "
+            (
+                f"I compiled {name} into {len(brief.facets)} request-specific facet(s) and "
+                if not unmapped_codes
+                else f"I compiled {name} only in part: I could not place the requested "
+                f"note(s) {', '.join(brief.unmapped_requested_notes)}, so the formula leaves "
+                f"them out. The rest became {len(brief.facets)} request-specific facet(s) and "
+            )
+            + f"{len(brief.roles)} functional role(s), then jointly assigned {len(rows)} exact "
             f"inventory stocks. The {len(variants)} returned design hypothesis/hypotheses are "
             "unordered until you smell them."
         ),
+        **({"reason_codes": unmapped_codes} if unmapped_codes else {}),
         "formula_action": "NO_CHANGE" if hard_withhold else "PROPOSAL_ONLY",
         "next_step": "Review the concise holds and choose the smallest practical pilot only if you want to compound it.",
         "inventory_modified": False,

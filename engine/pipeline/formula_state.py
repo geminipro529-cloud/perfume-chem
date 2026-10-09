@@ -23,7 +23,12 @@ from typing import Mapping, Sequence
 
 from engine.ifra_safety import IFRA_CAT4_LIMITS
 from engine.ingredient_intelligence import MaterialProfile
-from engine.material_resolver import resolve_material, resolved_vp_25c_pa
+from engine.material_resolver import (
+    resolve_material,
+    resolved_logp,
+    resolved_mw_g_mol,
+    resolved_vp_25c_pa,
+)
 from engine.mixer.prebonding import get_functional_groups
 from engine.odor_thresholds import lookup_odt_entry, verify_odt
 from engine.perception.oav import oav, perceived_intensity_stevens
@@ -850,24 +855,45 @@ def _odt_source_label(data: dict) -> str:
     return "unverified:odor_thresholds.odt_air"
 
 
-def _lookup_odt(
+def odt_lookup_key(name: str, registry_material=None) -> str:
+    """Return the ODT_DATA key the release gate uses for a material label."""
+    # The resolved registry identity decides the threshold, so two labels that
+    # resolve to one material (e.g. "Vertofix" and "Vertofix Coeur (neat)")
+    # cannot carry different ODTs. The raw label is the fallback only when that
+    # identity has no ODT entry.
+    registry_name = getattr(registry_material, "canonical_name", None)
+    if registry_name and lookup_odt_entry(registry_name) is not None:
+        return registry_name
+    return name
+
+
+def lookup_odt_air_ppb(
     name: str, profile: MaterialProfile | None, registry_material=None
 ) -> tuple[float | None, str]:
-    verification = verify_odt(name)
-    data = lookup_odt_entry(name)
+    """Return the air ODT (ppb) the release gate uses, with its source label."""
+    odt_key = odt_lookup_key(name, registry_material)
+    verification = verify_odt(odt_key)
+    data = lookup_odt_entry(odt_key)
     if data is not None:
         odt_air_ppb = data.get("odt_air")
         if odt_air_ppb is not None:
             source_data = verification or data
-            return float(odt_air_ppb) / 1000.0, _odt_source_label(source_data)
+            return float(odt_air_ppb), _odt_source_label(source_data)
     if (
         registry_material is not None
         and getattr(registry_material, "odt_air_ppb", None) is not None
     ):
-        return float(registry_material.odt_air_ppb) / 1000.0, "registry:data_spine.odt_air_ppb"
+        return float(registry_material.odt_air_ppb), "registry:data_spine.odt_air_ppb"
     if profile and profile.odt is not None:
-        return float(profile.odt) / 1000.0, "profile:ingredient_intelligence.odt"
+        return float(profile.odt), "profile:ingredient_intelligence.odt"
     return None, "missing"
+
+
+def _lookup_odt(
+    name: str, profile: MaterialProfile | None, registry_material=None
+) -> tuple[float | None, str]:
+    odt_air_ppb, source = lookup_odt_air_ppb(name, profile, registry_material)
+    return (odt_air_ppb / 1000.0 if odt_air_ppb is not None else None), source
 
 
 def _is_opaque_preblend(name: str, profile: MaterialProfile | None) -> bool:
@@ -1036,13 +1062,6 @@ def _composite_replacement_moles_for_row(
     return None
 
 
-def _first_present(*values):
-    for value, source in values:
-        if value is not None:
-            return value, source
-    return None, "missing"
-
-
 def _concentrate_mole_fractions(
     mole_inputs: Mapping[str, float],
     matrix_mole_items: Sequence[tuple[str, float]],
@@ -1199,14 +1218,8 @@ def _build_formula_state_cached(
         profile = identity.profile
         reg_mat = identity.registry_material
 
-        mw, mw_source = _first_present(
-            (getattr(reg_mat, "mw_g_mol", None), "registry:data_spine.mw"),
-            (getattr(profile, "mw", None), "profile:ingredient_intelligence.mw"),
-        )
-        logp, logp_source = _first_present(
-            (getattr(reg_mat, "logp", None), "registry:data_spine.logp"),
-            (getattr(profile, "clogp", None), "profile:ingredient_intelligence.clogp"),
-        )
+        mw, mw_source = resolved_mw_g_mol(identity)
+        logp, logp_source = resolved_logp(identity)
         registry_density = getattr(reg_mat, "density_25c_g_ml", None)
         if registry_density is None:
             density = DEFAULT_DENSITY_G_ML

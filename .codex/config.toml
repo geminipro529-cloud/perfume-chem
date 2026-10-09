@@ -12,8 +12,10 @@
 model = "deepseek-flash"
 model_reasoning_effort = "ultra"
 
+# Commands run inside the workspace-write sandbox; Codex asks before any
+# command that needs to leave it (on-request).
 approval_policy = "on-request"
-sandbox_mode = "danger-full-access"
+sandbox_mode = "workspace-write"
 
 [features]
 hooks = true
@@ -69,4 +71,7 @@ DEEPLUNA_RETENTION_DAYS = "30"
 DEEPLUNA_CACHE_MAX_BYTES = "268435456"
 
 [sandbox_workspace_write]
+# Kept on: the $sol-ultra-delegate helper calls the local DeepMimo router at
+# http://127.0.0.1:8421 from inside the sandbox, and this switch is the only
+# documented control for sandboxed outbound access (no loopback-only mode).
 network_access = true

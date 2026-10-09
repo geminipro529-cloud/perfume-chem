@@ -252,6 +252,7 @@ class TestInputValidation:
 # ===================================================================
 
 
+@pytest.mark.usefixtures("perfumery_kb")
 class TestDatabaseValidation:
     """Validation against the perfumery knowledge-base materials.
 
