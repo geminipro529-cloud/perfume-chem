@@ -1559,6 +1559,16 @@ def _unwritten_strength_reasons(formula: Mapping) -> list[str]:
     ]
 
 
+def _ifra_unrecognised_message(check: IFRACheck) -> str:
+    return (
+        f"{check.material} at {check.pct:.4g} % is not recognised by the IFRA Category 4 "
+        "table, so no limit or group total was checked. To clear: match it to its IFRA "
+        "standard (alias), record it as having no IFRA standard with its CAS and source, "
+        "or, for a base or natural, review its composition (the supplier's IFRA "
+        "certificate or a constituent row)."
+    )
+
+
 def _gate_safety(
     state: FormulaState,
     config: ReleaseGateConfig,
@@ -1589,6 +1599,12 @@ def _gate_safety(
     failures = [_ifra_entry_dict(e, headroom) for e in evaluation.failures]
     warnings = [_ifra_entry_dict(e, headroom) for e in evaluation.warnings]
     holds = [_ifra_row_dict(c, headroom) for c in evaluation.holds]
+    # A row the table cannot recognise is never compared with a limit and drops out of the
+    # group sums, so it holds the gate rather than passing with a warning.
+    holds.extend(
+        {**_ifra_row_dict(c, headroom), "message": _ifra_unrecognised_message(c)}
+        for c in sorted(evaluation.unchecked, key=lambda c: c.material)
+    )
     unchecked = sorted(c.material for c in evaluation.unchecked)
     banned = [f["material"] for f in failures if f.get("ifra_status") == "prohibited"]
     headroom_violations = [f for f in failures if f.get("ifra_status") != "prohibited"]
@@ -1687,8 +1703,6 @@ def _gate_safety(
             f"{len(natural_warnings)} natural(s) without their own IFRA standard "
             "(constituents not summed)"
         )
-    if unchecked:
-        detail.append(f"{len(unchecked)} material(s) not in the IFRA Category 4 table")
     if batch_default:
         detail.append(
             f"bottle size not found; default {config.batch_volume_ml:g} mL assumed"
