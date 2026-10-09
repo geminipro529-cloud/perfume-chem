@@ -83,7 +83,7 @@ Every material in a formula must have a **specific functional reason**. Ask: "Wh
 - **Geosmin (1% in TEC)** — petrichor / rain-on-earth accord; ODT ≈ 6 ppt (most extreme trace material in inventory); use max 2–5 µL of 1% dilution per 100 mL; overdose = unpleasant beet-soil; adds naturalistic mineral-earth accord at trace
 - **Cyclamen Aldehyde** — metallic-green floral
 - **Allyl Amyl Glycolate** — green-pineapple freshness, laundry effect
-- **ACA (Amyl Cinnamic Aldehyde)** — jasmine-muguet diffusant, waxy-floral volume builder; IFRA-restricted skin sensitizer (use ≤ 0.1% in EDP); adds body to white floral hearts; synergizes with Hedione
+- **ACA (Amyl Cinnamic Aldehyde)** — jasmine-muguet diffusant, waxy-floral volume builder; IFRA-restricted skin sensitizer (IFRA Amendment 49 Category 4 limit 7.0%, IFRA_STD_005; Category 4, finished product; the release gate checks it); adds body to white floral hearts; synergizes with Hedione
 - **Ambrettolide (10% in DPG)** — macrocyclic musky-fruity-wine-like; most animal-adjacent macrocyclic without being animalic; warmer and more naturalistic than Habanolide; use 0.5–2% of dilution for "quiet skin warmth"; extreme persistence
 - **Ethyl Safranate** — saffron effect in 1 material
 - **Orivone** — IFF describes earthy, camphoraceous orris; a root-texture candidate, not a universal buttery-iris substitute
@@ -241,20 +241,22 @@ When asked to optimize, enhance, or add "luxury/sparkle/glamour" to an existing 
 When asked to optimize, enhance, or modify a formula, the optimization target is the **name / concept / idea** of the perfume — not a numerical score, unless explicitly told otherwise. A formula called "Vetiver Classique" must be optimized toward classical vetiver character, even if the optimizer suggests loading in Hedione and Ambrox to inflate radiance scores. The original brief is the north star. Numerical gates (OAV, pyramid, IFRA) are **floors to meet** — not ceilings to chase. This rule applies to all agents, all sessions, all formulas — no exceptions. When in doubt, re-read the formula name and ask: "Does this still smell like what it says on the bottle?"
 
 **Family-shifting materials to watch (these change genre when overdosed):**
-| Material | Family it shifts toward | Safe ceiling in non-oriental contexts |
+| Material | Family it shifts toward | Style warning level (unsourced) |
 |----------|------------------------|---------------------------------------|
-| Benzoin Resinoid | Oriental-balsamic | 30 µL of 50% per 6 mL concentrate |
-| Labdanum Absolute | Oriental-amber | 20 µL of 10% per 6 mL concentrate |
-| Coumarin | Fougère-oriental | 25 µL of 20% per 6 mL concentrate |
-| Vanillin / Ethyl Vanillin | Gourmand-oriental | 30 µL neat per 6 mL concentrate |
-| Heliotropin / Heliotropal | Powdery-oriental | 15 µL neat per 6 mL concentrate |
-| Cashmeran | Oriental-woody | 50 µL neat per 6 mL concentrate |
-| Cinnamaldehyde / Eugenol | Spice-oriental | 10 µL neat per 6 mL concentrate |
+| Benzoin Resinoid | Oriental-balsamic | 30 µL of 50% in 6000 µL = 0.25% active |
+| Labdanum Absolute | Oriental-amber | 20 µL of 10% in 6000 µL = 0.033% active |
+| Coumarin | Fougère-oriental | 25 µL of 20% in 6000 µL = 0.083% active |
+| Vanillin / Ethyl Vanillin | Gourmand-oriental | 30 µL neat in 6000 µL = 0.5% active |
+| Heliotropin / Heliotropal | Powdery-oriental | 15 µL neat in 6000 µL = 0.25% active |
+| Cashmeran | Oriental-woody | 50 µL neat in 6000 µL = 0.83% active |
+| Cinnamaldehyde / Eugenol | Spice-oriental | 10 µL neat in 6000 µL = 0.167% active |
+
+These levels are unsourced style warnings, not safety ceilings; IFRA limits come from the gate's IFRA table.
 
 **Verification checklist before finalizing any formula modification:**
 1. State the original family explicitly
-2. Check every new or boosted material against the family-shifting table above
-3. If the total of family-shifting materials exceeds ceilings, the family has drifted — scale back
+2. Check every new or boosted material against the style warning levels in the table above
+3. If the family-shifting materials together exceed those warning levels, check for family drift and consider scaling back
 4. The incense/transparent/woody spine must dominate the base in non-oriental contexts
 
 ## File Locations

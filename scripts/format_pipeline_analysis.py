@@ -70,15 +70,18 @@ def cli_transport_text(text: str, *, ascii_only: bool | None = None) -> str:
     return normalized.encode("ascii", errors="backslashreplace").decode("ascii")
 
 
+# Numeric OAV ranges only. OAV is concentration over a detection threshold; it is not
+# perceived intensity (AGENTS.md Rule 1), so the labels carry no loudness words.
+_SUB_THRESHOLD_LABEL = "OAV < 1"
 OAV_BRACKETS = [
-    (10000, "massive"),
-    (1000, "very strong"),
-    (100, "strong"),
-    (50, "moderate-strong"),
-    (10, "moderate"),
-    (5, "perceptible"),
-    (1, "at threshold"),
-    (0, "sub-threshold"),
+    (10000, "OAV >= 10,000"),
+    (1000, "OAV 1,000-10,000"),
+    (100, "OAV 100-1,000"),
+    (50, "OAV 50-100"),
+    (10, "OAV 10-50"),
+    (5, "OAV 5-10"),
+    (1, "OAV 1-5"),
+    (0, _SUB_THRESHOLD_LABEL),
 ]
 
 
@@ -88,7 +91,7 @@ def oav_label(oav: float | None) -> str:
     for threshold, label in OAV_BRACKETS:
         if oav >= threshold:
             return label
-    return "sub-threshold"
+    return _SUB_THRESHOLD_LABEL
 
 
 def load_pipeline(path):
@@ -678,20 +681,20 @@ def build_perfumer(formula):
             f"  Thin active-mass heart ({nd.get('heart', 0):.1f}%); top-to-base architecture."
         )
     for label in [
-        "massive",
-        "very strong",
-        "strong",
-        "moderate",
-        "perceptible",
-        "at threshold",
-        "sub-threshold",
+        "OAV >= 10,000",
+        "OAV 1,000-10,000",
+        "OAV 100-1,000",
+        "OAV 10-50",
+        "OAV 5-10",
+        "OAV 1-5",
+        _SUB_THRESHOLD_LABEL,
     ]:
-        if label == "sub-threshold":
+        if label == _SUB_THRESHOLD_LABEL:
             cnt = sum(1 for o in oavs if o < 1)
         else:
             th = next((t for t, lb in OAV_BRACKETS if lb == label), 0)
             next(
-                (t for t, lb in OAV_BRACKETS if lb == label and lb != "sub-threshold" and False),
+                (t for t, lb in OAV_BRACKETS if lb == label and lb != _SUB_THRESHOLD_LABEL and False),
                 0,
             )
             cnt = sum(
@@ -755,12 +758,12 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
         return lines
 
     tiers = {
-        "massive": [],
-        "v.strong": [],
-        "strong": [],
-        "moderate": [],
-        "perceptible": [],
-        "threshold": [],
+        "OAV >= 1000": [],
+        "OAV 100-1000": [],
+        "OAV 50-100": [],
+        "OAV 10-50": [],
+        "OAV 5-10": [],
+        "OAV 1-5": [],
         "sub": [],
         "unknown": [],
     }
@@ -776,17 +779,17 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
             continue
         o = float(m["oav"])
         if o >= 1000:
-            tiers["massive"].append((name, o))
+            tiers["OAV >= 1000"].append((name, o))
         elif o >= 100:
-            tiers["v.strong"].append((name, o))
+            tiers["OAV 100-1000"].append((name, o))
         elif o >= 50:
-            tiers["strong"].append((name, o))
+            tiers["OAV 50-100"].append((name, o))
         elif o >= 10:
-            tiers["moderate"].append((name, o))
+            tiers["OAV 10-50"].append((name, o))
         elif o >= 5:
-            tiers["perceptible"].append((name, o))
+            tiers["OAV 5-10"].append((name, o))
         elif o >= 1:
-            tiers["threshold"].append((name, o))
+            tiers["OAV 1-5"].append((name, o))
         else:
             tiers["sub"].append((name, o))
 
@@ -799,12 +802,12 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
     lines.append("")
     lines.append("### OAV Tiers")
     for tier_name in [
-        "massive",
-        "v.strong",
-        "strong",
-        "moderate",
-        "perceptible",
-        "threshold",
+        "OAV >= 1000",
+        "OAV 100-1000",
+        "OAV 50-100",
+        "OAV 10-50",
+        "OAV 5-10",
+        "OAV 1-5",
         "sub",
         "unknown",
     ]:
@@ -812,13 +815,7 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
         if not items:
             continue
         names = ", ".join(n if o is None else f"{n}({o:.0f})" for n, o in items)
-        flags = []
-        if any(o is not None and o > 10000 for _, o in items):
-            flags.append("fatigue risk")
-        if tier_name == "massive" and len(items) >= 6:
-            flags.append("overload risk")
-        flag_str = f"  ! {', '.join(flags)}" if flags else ""
-        lines.append(f"  **{tier_name}** ({len(items)}): {names}{flag_str}")
+        lines.append(f"  **{tier_name}** ({len(items)}): {names}")
 
     lines.append("")
     lines.append("### Note-Tier OAV Balance")
@@ -846,14 +843,14 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
         issues.append(
             f"{len(tiers['unknown'])} material(s) have unknown OAV: {', '.join(n for n, _ in tiers['unknown'])}"
         )
-    if not tiers["v.strong"]:
-        issues.append("Missing 'very strong' tier (OAV 100-1000)")
-    if not tiers["strong"]:
-        issues.append("Missing 'strong' tier (OAV 50-100)")
+    if not tiers["OAV 100-1000"]:
+        issues.append("No materials in the OAV 100-1000 range")
+    if not tiers["OAV 50-100"]:
+        issues.append("No materials in the OAV 50-100 range")
     if top_oav > (heart_oav + base_oav) * 2:
         issues.append(f"Top tier dominates at {top_oav / total_block * 100:.0f}% of total OAV")
-    if len(tiers["massive"]) >= 8:
-        issues.append(f"{len(tiers['massive'])} massive-OAV materials — sensory overload likely")
+    if len(tiers["OAV >= 1000"]) >= 8:
+        issues.append(f"{len(tiers['OAV >= 1000'])} materials with OAV >= 1000")
     if issues:
         for issue in issues:
             lines.append(f"  ! {issue}")
