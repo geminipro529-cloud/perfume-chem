@@ -138,3 +138,22 @@ def test_layers_and_accents_never_reach_an_ifra_limit() -> None:
                 float(row["amount_decimal"]) * float(row["stock_fraction_decimal"]) / 30_000 * 100
             )
             assert finished_pct <= limit, (idea, row["identity_name"], finished_pct, limit)
+
+
+def test_accord_supports_leave_deep_compose_refinements_available() -> None:
+    from engine.formulation_intelligence import architecture_bridge as bridge
+
+    interpretation: dict = {"must_avoid": []}
+    control = compile_semantic_brief(
+        formula_name="Neutral diagnostic",
+        request="Green tea and musk",
+        interpretation=interpretation,
+        max_materials=30,
+    )
+    # The musk note is built as an accord, and its lead role stays the exact
+    # canonical role a v5 refinement strengthens.
+    assert any(role.role_id.startswith("facet_skin_musk__accord_") for role in control.roles)
+    plan = bridge.derive_architecture_briefs(
+        control=control, interpretation=interpretation, max_materials=30,
+    )
+    assert [b.architecture_plan["option_id"] for b in plan.briefs[1:]] == ["powder_musk", "pear_musk"]

@@ -788,9 +788,10 @@ def _roles(
     return tuple(roles)
 
 
-# Each requested note is built as a small accord: the lead stock keeps most of
-# the role's share and up to two supporting stocks of the same note, with
-# their own matching odor and a different family, carry the rest.
+# Each requested note is built as a small accord: the lead stock keeps its
+# role unchanged (so Deep Compose can still refine that exact role) and up to
+# two supporting stocks of the same note, with their own matching odor and a
+# different family, are added beside it in a 62/23/15 proportion.
 ACCORD_SUPPORT_PROVENANCE = "ACCORD_SUPPORT"
 ACCORD_SUPPORT_SEPARATOR = "__accord_"
 _ACCORD_SPLIT = (.62, .23, .15)
@@ -849,18 +850,10 @@ def _with_accords(roles: list[SemanticRole], maximum: int) -> list[SemanticRole]
         if not count:
             expanded.append(role)
             continue
-        lead_share = role.share * _ACCORD_SPLIT[0]
-        expanded.append(replace(
-            role,
-            share=lead_share,
-            max_raw_share=(
-                role.max_raw_share * _ACCORD_SPLIT[0]
-                if role.max_raw_share is not None
-                else None
-            ),
-        ))
+        expanded.append(role)
         for index in range(1, count + 1):
-            fraction = _ACCORD_SPLIT[index]
+            # Relative to the lead, which keeps its full share.
+            fraction = _ACCORD_SPLIT[index] / _ACCORD_SPLIT[0]
             expanded.append(SemanticRole(
                 role_id=f"{role.role_id}{ACCORD_SUPPORT_SEPARATOR}{index}",
                 label=f"{role.label}: supporting accord material {index}",
