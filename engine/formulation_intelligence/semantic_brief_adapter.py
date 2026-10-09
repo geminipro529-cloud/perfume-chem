@@ -263,7 +263,9 @@ def _matched_facets(
 # material named two ways; when a brief names one group, the others are a
 # different flower the brief did not ask for.
 _NAMED_TERM_GROUPS: dict[str, tuple[tuple[str, ...], ...]] = {
-    "white_floral": (("neroli", "orange blossom"), ("jasmine",), ("tuberose",), ("gardenia",)),
+    # Hedione is a material name, not a white-flower word: it never leads a
+    # named flower's role.
+    "white_floral": (("neroli", "orange blossom"), ("jasmine",), ("tuberose",), ("gardenia",), ("hedione",)),
     "iris_violet": (("iris", "orris"), ("violet",)),
 }
 

@@ -667,6 +667,11 @@ _ODOR_FAMILIES: dict[str, frozenset[str]] = {
 # the brief asked for.  A ranking preference, not a filter: required coverage
 # still fills when every candidate carries one.
 _OFF_BRIEF_FAMILY_PENALTY = 8.0
+# Coverage roles (opening articulation, links, diffusion) have generic query
+# words, so a full family penalty would hand them to whatever material names
+# no family at all.  There only the distinctive shadow and watery families
+# are steered off-brief.
+_COVERAGE_STEERED_FAMILIES = frozenset({"base_shadow", "heart_watery"})
 
 
 def _families(words: frozenset[str]) -> frozenset[str]:
@@ -706,6 +711,12 @@ def _off_brief_penalty(
     if role.descriptor_requirement:
         own |= {role.descriptor_requirement}
     extra = _families(capability.descriptor_vocabulary) - own - asked_families
+    if role.provenance == "FUNCTIONAL_COVERAGE":
+        return _OFF_BRIEF_FAMILY_PENALTY * len(extra & _COVERAGE_STEERED_FAMILIES)
+    if not capability.descriptor_vocabulary:
+        # No own-odor annotation (e.g. a category proxy): nothing shows the
+        # layer fits, so it must not outrank annotated materials by default.
+        return _OFF_BRIEF_FAMILY_PENALTY
     return _OFF_BRIEF_FAMILY_PENALTY * len(extra)
 
 

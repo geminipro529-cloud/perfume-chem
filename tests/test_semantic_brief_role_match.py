@@ -23,8 +23,9 @@ def test_iris_brief_leads_with_iris_and_drops_violet() -> None:
 def test_neroli_brief_leads_with_neroli_and_drops_other_white_flowers() -> None:
     terms = _roles("fresh citrus cologne with neroli and a soft musk")["facet_white_floral"]
     assert terms[:2] == ("neroli", "orange blossom")
-    assert not {"jasmine", "tuberose", "gardenia"} & set(terms)
-    assert {"indole", "hedione"} <= set(terms)
+    # Hedione is a material name; it must not lead a role the brief named neroli.
+    assert not {"jasmine", "tuberose", "gardenia", "hedione"} & set(terms)
+    assert "indole" in terms
 
 
 def test_jasmine_and_neroli_brief_keeps_both_named_flowers() -> None:

@@ -54,8 +54,18 @@ def test_off_brief_penalty_applies_to_layers_and_coverage_only():
     coverage = _role(role_id="heart_to_base_link", provenance="FUNCTIONAL_COVERAGE",
                      query_terms=("amber", "heart", "base"))
     agarwood = _cap("smoky", "animalic", "woody", "amber")
-    assert fs._off_brief_penalty(agarwood, coverage, frozenset()) == 2 * fs._OFF_BRIEF_FAMILY_PENALTY
+    # Coverage roles are steered off the shadow family only (not off wood).
+    assert fs._off_brief_penalty(agarwood, coverage, frozenset()) == fs._OFF_BRIEF_FAMILY_PENALTY
+    assert fs._off_brief_penalty(_cap("woody", "floral", "green"), coverage, frozenset()) == 0.0
     assert fs._off_brief_penalty(agarwood, _role(), frozenset()) == 0.0
+
+
+def test_layer_without_own_odor_annotation_is_not_free():
+    layer = _role(role_id="top_green_layer", provenance="LAYERED_TOP_ARCHITECTURE",
+                  query_terms=("green",), descriptor_requirement="top_green")
+    unannotated = _cap()
+    assert fs._off_brief_penalty(unannotated, layer, frozenset()) == fs._OFF_BRIEF_FAMILY_PENALTY
+    assert fs._off_brief_penalty(unannotated, _role(), frozenset()) == 0.0
 
 
 def _rows(idea):
@@ -83,6 +93,21 @@ def test_musk_accord_rows_are_musks(designs):
     for row in musk_rows:
         assert any(musk in row["identity_name"].casefold() for musk in MUSKS), row
     assert not any("Black Agarwood" in row["identity_name"] for row in rows)
+
+
+def test_coverage_fills_keep_annotated_materials(designs):
+    # A family penalty on coverage roles once handed every opening to an
+    # unannotated or family-free material (Juniper Berry EO, then Benzaldehyde).
+    openings = {
+        next(row["identity_name"] for row in rows if row["slot"] == "opening_articulation")
+        for rows in designs.values()
+    }
+    assert not openings & {"Juniper Berry EO", "Benzaldehyde"}
+
+
+def test_neroli_role_is_led_by_a_neroli_material(designs):
+    lead = next(row["identity_name"] for row in designs[COLOGNE] if row["slot"] == "facet_white_floral")
+    assert lead in {"Neroli EO", "Nerolin Bromelia", "Petitgrain EO Paraguay", "Oranger Crystals"}
 
 
 def test_no_violet_leaf_background_fill(designs):
