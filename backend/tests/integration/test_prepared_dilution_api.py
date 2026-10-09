@@ -138,3 +138,68 @@ async def test_a_stale_inventory_view_is_refused_like_a_completion(client, tempo
     assert response.status_code == 409
     assert "refresh" in response.json()["error"]["message"]
     assert not temporary_logs.exists()
+
+
+@pytest.mark.asyncio
+async def test_a_dilution_held_because_its_parent_changed_says_so_in_plain_words(
+    client, temporary_logs
+):
+    inventory, parent = await _inventory_and_parent(client)
+    first = await client.post(DILUTE, json=_command(inventory, parent, "api-held-1"))
+    assert first.status_code == 200, first.text
+    fresh = first.json()["inventory"]
+    prepared_id = first.json()["prepared_stock_id"]
+    assert {s["stock_id"]: s for s in fresh["stocks"]}[prepared_id]["gate_hold_text"] is None
+
+    changed = await client.post(
+        INVENTORY + "/complete",
+        json={
+            "schema_version": "personal-inventory-completion-request-v1",
+            "stock_id": parent["stock_id"],
+            "expected_effective_inventory_sha256": fresh[
+                "canonical_effective_inventory_sha256"
+            ],
+            "idempotency_key": "api-held-parent-50",
+            "fraction_percent_decimal": "50",
+            "fraction_basis": "mass_fraction",
+            "carrier": "DPG",
+            "physical_form": "solution",
+            "possession_confirmed": True,
+            "homogeneity": "HOMOGENEOUS",
+            "final_fraction_known": True,
+            "source_kind": "PERSONAL_CONFIRMATION",
+            "user_note": "",
+        },
+    )
+    assert changed.status_code == 200, changed.text
+    stocks = {s["stock_id"]: s for s in changed.json()["inventory"]["stocks"]}
+    held = stocks[prepared_id]
+    assert held["execution_ready"] is False
+    assert held["gate_hold_text"] == (
+        "Not counted at the gate: the parent bottle's details changed after this "
+        "dilution was recorded. Record the dilution again from the bottle as it is now."
+    )
+    assert stocks[parent["stock_id"]]["gate_hold_text"] is None
+
+
+def test_a_dilution_whose_parent_is_held_says_to_resolve_the_parent_first():
+    from types import SimpleNamespace
+
+    from engine.inventory_dilutions import PREPARED_DILUTION_AUTHORITY
+
+    from app.api.v1.endpoints.lab_lifecycle import _gate_hold_text
+
+    held = SimpleNamespace(
+        authority=PREPARED_DILUTION_AUTHORITY,
+        execution_ready=False,
+        execution_hold_reason="PREPARED_DILUTION_PARENT_HELD|STOCK_INTAKE_IDENTITY_ONLY",
+    )
+    assert _gate_hold_text(held) == (
+        "Not counted at the gate: its parent bottle is held. Resolve the parent bottle first."
+    )
+    ordinary = SimpleNamespace(
+        authority="GOVERNED",
+        execution_ready=False,
+        execution_hold_reason="STOCK_INTAKE_IDENTITY_ONLY",
+    )
+    assert _gate_hold_text(ordinary) is None

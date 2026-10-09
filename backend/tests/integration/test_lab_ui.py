@@ -1114,6 +1114,31 @@ def test_dilution_form_defaults_to_dpg_w_w_posts_and_shows_errors_as_text():
     ]
 
 
+@pytest.mark.asyncio
+async def test_stock_rows_show_the_gate_hold_text_as_plain_text(client):
+    javascript = await client.get("/static/lab.js")
+
+    assert "rows[index]?.gate_hold_text" in javascript.text
+    assert "hold.textContent = holdText" in javascript.text
+    assert "inventory-gate-hold" in javascript.text
+
+
+def test_dilution_mix_line_is_hidden_when_the_basis_differs_from_a_non_neat_parent():
+    result = _run_dilution_case(r"""
+    const parent = { identity_name: "Apritone", fraction_percent_decimal: "10", fraction_basis: "mass_fraction" };
+    const neat = { identity_name: "Apritone", fraction_percent_decimal: "100", fraction_basis: "neat" };
+    process.stdout.write(JSON.stringify({
+      same: D.dilutionMixText(parent, "1", "mass_fraction", "DPG"),
+      mismatch: D.dilutionMixText(parent, "1", "volume_fraction", "DPG"),
+      neatAnyBasis: D.dilutionMixText(neat, "10", "volume_fraction", "DPG"),
+    }));
+    """)
+
+    assert result["same"] == "Mix 1 part Apritone 10% w/w + 9 parts DPG by weight"
+    assert result["mismatch"] == ""
+    assert result["neatAnyBasis"] == "Mix 1 part Apritone + 9 parts DPG by volume"
+
+
 def test_dilution_form_reports_a_null_prepared_stock_as_an_error_not_a_success():
     result = _run_dilution_case(r"""
     const stock = { stock_id: "s1", identity_name: "Apritone", fraction_percent_decimal: "10", fraction_basis: "mass_fraction" };

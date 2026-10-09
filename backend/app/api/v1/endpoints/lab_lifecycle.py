@@ -16,6 +16,8 @@ from engine.inventory_completions import (
 )
 from engine.inventory_dilutions import (
     PREPARED_DILUTION_AUTHORITY,
+    PREPARED_DILUTION_PARENT_CHANGED,
+    PREPARED_DILUTION_PARENT_HELD,
     PreparedDilutionConflictError,
     PreparedDilutionError,
     dilution_parent_ready,
@@ -177,6 +179,29 @@ def _inventory_source_class(authority: str) -> str:
     return "GOVERNED_STOCK"
 
 
+_PREPARED_HOLD_TEXT = {
+    PREPARED_DILUTION_PARENT_HELD: (
+        "Not counted at the gate: its parent bottle is held. Resolve the parent bottle first."
+    ),
+    PREPARED_DILUTION_PARENT_CHANGED: (
+        "Not counted at the gate: the parent bottle's details changed after this dilution "
+        "was recorded. Record the dilution again from the bottle as it is now."
+    ),
+}
+
+
+def _gate_hold_text(stock: Any) -> str | None:
+    """Plain words for why a prepared dilution is held at the gate, else None."""
+
+    if stock.authority != PREPARED_DILUTION_AUTHORITY or stock.execution_ready:
+        return None
+    holds = str(stock.execution_hold_reason).split("|")
+    for hold in (PREPARED_DILUTION_PARENT_CHANGED, PREPARED_DILUTION_PARENT_HELD):
+        if hold in holds:
+            return _PREPARED_HOLD_TEXT[hold]
+    return None
+
+
 def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
     stocks = []
     for stock in materialized.stocks:
@@ -216,6 +241,7 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
                 "authority_disagreement": authority_disagreement(stock),
                 "execution_ready": stock.execution_ready,
                 "execution_hold_reason": stock.execution_hold_reason or None,
+                "gate_hold_text": _gate_hold_text(stock),
                 "authority": stock.authority,
                 "source_class": _inventory_source_class(stock.authority),
                 "source_rows": list(stock.source_rows),
