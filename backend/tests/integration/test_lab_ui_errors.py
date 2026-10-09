@@ -19,7 +19,9 @@ def test_form_errors_are_placed_next_to_the_button_and_accessible():
     assert 'setAttribute("role", "alert")' in js
     assert 'setAttribute("aria-invalid", "true")' in js
     assert 'setAttribute("aria-describedby", id)' in js
-    assert 'strong.textContent = "Not saved."' in js
+    # Saving forms say "Not saved."; a read-only form (the bench sheet) passes its own title.
+    assert 'function showFormError(form, error, title = "Not saved.")' in js
+    assert "strong.textContent = title;" in js
     assert "innerHTML" not in js[js.index("function showFormError"): js.index("function bindForm")]
 
 

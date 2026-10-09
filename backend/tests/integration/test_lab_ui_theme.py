@@ -43,7 +43,7 @@ async def test_navigation_is_grouped_with_skip_link_and_theme_picker(client):
     assert groups == ["Bench", "Records", "Reference"]
     views = re.findall(r'data-view="([a-z]+)"', rail)
     assert views == [
-        "improve", "formulas", "materials", "bottles",
+        "improve", "formulas", "benchsheet", "materials", "bottles",
         "experiments", "dashboard",
         "perfumery", "assistant", "science",
     ]

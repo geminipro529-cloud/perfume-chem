@@ -409,6 +409,29 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
 .formula-design-table .formula-dose small.formula-dose-mix {
   white-space: normal; color: var(--hold-fg); font: 600 12px/1.3 var(--font-ui); letter-spacing: 0;
 }
+/* Bench sheet view: an on-screen preview of the printable sheet. The print
+   copy goes into #bench-sheet, which lab.css shows only when printing. */
+.bench-preview { overflow-x: auto; }
+.bench-preview:focus { outline: none; }
+.bench-preview .bench-sheet-kicker { margin: 0; color: var(--muted); font: 600 12px/1.4 var(--font-ui); }
+.bench-preview .bench-sheet-header h1 { margin: 4px 0 10px; font-size: 22px; }
+.bench-preview .bench-sheet-header dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 0 0 12px; }
+.bench-preview .bench-sheet-header dl div { display: contents; }
+.bench-preview .bench-sheet-header dt { font-weight: 700; }
+.bench-preview .bench-sheet-header dd { margin: 0; }
+.bench-preview .bench-sheet-note { margin: 6px 0; padding: 8px 12px; color: var(--info-fg); background: var(--info-bg); border-radius: 8px; font-size: 14px; line-height: 1.45; }
+.bench-preview .bench-sheet-table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 14px; }
+.bench-preview .bench-sheet-table th, .bench-preview .bench-sheet-table td { padding: 8px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.bench-preview .bench-sheet-table small { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; }
+.bench-preview .bench-sheet-table small.bench-dilution-mark { color: var(--hold-fg); font-weight: 600; }
+.bench-preview .bench-amount { white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; }
+.bench-preview tr.bench-basket-row th { padding-top: 14px; color: var(--ink); background: var(--surface-2); font-weight: 700; }
+.bench-preview .bench-tick { display: inline-block; width: 16px; height: 16px; border: 1.5px solid var(--ink); border-radius: 3px; }
+.bench-source-form textarea { width: 100%; font-family: var(--font-mono, monospace); }
+.bench-pour-form { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); }
+.bench-pour-form h2 { margin: 0 0 4px; font-size: 18px; }
+.bench-pour-result:empty { display: none; }
+.bench-pour-result { margin: 10px 0 0; padding: 8px 12px; color: var(--info-fg); background: var(--info-bg); border-radius: 8px; font-size: 14px; line-height: 1.45; }
 /* Errors other views emit ------------------------------------------------- */
 .form-error {
   padding: 12px 14px; color: var(--fail-fg); background: var(--fail-bg);
