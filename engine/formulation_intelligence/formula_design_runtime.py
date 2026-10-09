@@ -26,6 +26,10 @@ from engine.formulation_intelligence.literature_knowledge import retrieve_formul
 from engine.formulation_intelligence.material_capability_index import (
     build_material_capability_index,
 )
+from engine.formulation_intelligence.pleasantness import (
+    attach_pleasantness_estimate,
+    simulate_report_formulas,
+)
 from engine.formulation_intelligence.semantic_brief_adapter import (
     SemanticBrief,
     compile_semantic_brief,
@@ -605,17 +609,21 @@ def _dynamic_report(
 
 
 def _with_composition_checks(design: Any) -> Any:
-    """Run the detection pass, then attach the gate's crowding/IFRA checks and
-    the voice summary.
+    """Run the detection pass, then attach the gate's crowding/IFRA checks, the
+    voice summary and the crowd-guess pleasantness estimate.
 
-    The composition checks and the voice summary run on the formula after the
-    detection pass, so they describe the doses that are shown.
+    The composition checks, the voice summary and the pleasantness estimate run
+    on the formula after the detection pass, so they describe the doses that are
+    shown.  Each distinct formula is simulated once and shared by the last two.
     """
 
     @wraps(design)
     def wrapper(*args: Any, **kwargs: Any) -> dict[str, Any]:
-        return attach_complexity_summary(
-            attach_composition_checks(attach_detection_checks(design(*args, **kwargs)))
+        checked = attach_composition_checks(attach_detection_checks(design(*args, **kwargs)))
+        simulations = simulate_report_formulas(checked)
+        return attach_pleasantness_estimate(
+            attach_complexity_summary(checked, simulations=simulations),
+            simulations=simulations,
         )
 
     return wrapper
