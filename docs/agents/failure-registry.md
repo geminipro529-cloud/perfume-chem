@@ -14,9 +14,9 @@ Every systemic failure from this session. Read before formulating. Learn or repe
 
 ### F2. HEDIONE CROWDING - 18% = ONE-NOTE
 - Symptom: All character voices buried under Hedione radiance.
-- Root cause: Hedione at 18% of concentrate. Below 12% it is a carrier. Above 15% it IS the perfume.
+- Root cause: One bottle with Hedione at 18% of concentrate smelled flat. Hedione is used at high levels in many fine fragrances, so this is a single observation, not a rule about where it stops being a carrier.
 - Fix: Cannot reduce in mixed bottle. Only counter: brute-force character material dosing above Hedione OAV.
-- Learning: CHECK HEDIONE DOSE BEFORE MIXING. Max 12% for chypre. Max 15% for floral.
+- Learning: Soft warning from that one bottle: above about 15% Hedione often dominates; compare against a lower-Hedione control before mixing. Not a safety limit and not a universal cap.
 
 ### F3. SILENT PASSENGERS - MATERIALS BELOW OAV 1
 - Symptom: 20/44 materials below OAV 1 despite character/signature labeling.

@@ -4964,7 +4964,7 @@ def _gate_carles_material_count(state: FormulaState, config: ReleaseGateConfig) 
 
 
 _HEDIONE_NAMES = frozenset({"hedione", "hedione hc"})
-# AGENTS.md F2: "Max 12% for chypre. Max 15% for floral."
+# AGENTS.md F2: soft style warning from one bottle (about 12% chypre, 15% floral/default).
 _HEDIONE_CAP_CHYPRE_PCT = 12.0
 _HEDIONE_CAP_DEFAULT_PCT = 15.0
 
@@ -5007,15 +5007,15 @@ def _gate_hedione_share(
         "cap_pct": cap,
         "cap_reason": why,
         "basis": basis,
-        "source": "AGENTS.md F2 (Hedione crowding)",
+        "source": "project style warning from one bottle (AGENTS.md F2), not a safety limit",
     }
     if share > cap:
         return _result(
             "hedione_share",
             "WARN",
             f"Hedione is {share:.1f}{basis}, above the {cap:.0f}% cap ({why}). "
-            "Above about 15% Hedione becomes the perfume and buries the named character; "
-            "check the dose before mixing.",
+            "Above about 15% Hedione often dominates; compare against a lower-Hedione "
+            "control before mixing.",
             data,
         )
     return _result(
