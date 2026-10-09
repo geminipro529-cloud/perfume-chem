@@ -49,6 +49,7 @@ from engine.research.commercial_references import (
     resolve_documentary_references,
 )
 from engine.research.contracts import FALSE_ACTION_AUTHORITY, stable_payload_hash
+from engine.research.normal_use_ceilings import NormalUseCeiling, match_normal_use_ceiling
 from engine.research.request_interpretation import (
     RequestInterpretationInputV1,
     interpret_request,
@@ -1368,7 +1369,6 @@ def _hard_cap_ul(candidate: Candidate, liquid_total_ul: int) -> int | None:
     # Dose caps are identity-specific.  Profile character and synergy words
     # must never make (for example) Pink Pepper inherit Rose Oxide's cap.
     probe = _candidate_identity_probe(candidate)
-    fraction = max(Decimal("0.000001"), Decimal(str(candidate.stock.dilution)))
     active_cap_fraction: Decimal | None = None
     if "geosmin" in probe:
         active_cap_fraction = Decimal("0.0000005")  # 3 uL of a 0.1% stock in 6 mL
@@ -1406,16 +1406,42 @@ def _hard_cap_ul(candidate: Candidate, liquid_total_ul: int) -> int | None:
         active_cap_fraction = Decimal("0.01")
     if active_cap_fraction is None:
         return None
+    return _active_fraction_cap_ul(candidate, active_cap_fraction, liquid_total_ul)
+
+
+def _active_fraction_cap_ul(candidate: Candidate, active_cap_fraction: Decimal, liquid_total_ul: int) -> int:
+    fraction = max(Decimal("0.000001"), Decimal(str(candidate.stock.dilution)))
     raw_fraction = active_cap_fraction / fraction
     return max(1, int((Decimal(liquid_total_ul) * raw_fraction).to_integral_value(rounding=ROUND_FLOOR)))
 
 
+def _normal_use_ceiling(candidate: Candidate) -> NormalUseCeiling | None:
+    # Same identity-only probe as the hard caps: profile, character and
+    # synergy words never select a ceiling.
+    return match_normal_use_ceiling(_candidate_identity_probe(candidate))
+
+
+def _normal_use_ceiling_cap_ul(candidate: Candidate, liquid_total_ul: int) -> int | None:
+    ceiling = _normal_use_ceiling(candidate)
+    if ceiling is None:
+        return None
+    return _active_fraction_cap_ul(candidate, ceiling.max_active_fraction, liquid_total_ul)
+
+
 def _design_cap_ul(choice: Choice, liquid_total_ul: int) -> int | None:
-    """Return a conservative bench-design cap, never a safety limit."""
+    """Return a conservative bench-design cap, never a safety limit.
+
+    The cap is the lower of the identity hard cap (or, without one, the role
+    cap) and the material's normal-use ceiling.
+    """
 
     hard = _hard_cap_ul(choice.candidate, liquid_total_ul)
-    if hard is not None:
-        return hard
+    base = hard if hard is not None else _role_cap_ul(choice, liquid_total_ul)
+    ceiling = _normal_use_ceiling_cap_ul(choice.candidate, liquid_total_ul)
+    return base if ceiling is None else min(base, ceiling)
+
+
+def _role_cap_ul(choice: Choice, liquid_total_ul: int) -> int:
     if choice.role.max_raw_share is not None:
         return max(1, int(liquid_total_ul * choice.role.max_raw_share))
     candidate = choice.candidate
@@ -1705,6 +1731,9 @@ def _formula_rows(
                 "authority": "DESIGN_HYPOTHESIS_ONLY",
             }
         )
+        ceiling = _normal_use_ceiling(candidate)
+        if ceiling is not None:
+            rows[-1]["normal_use_ceiling_pct_of_concentrate"] = ceiling.max_active_pct_of_concentrate
     if liquid_sum != liquid_total_ul:
         raise AssertionError("liquid allocation failed exact conservation")
     return rows, {"liquid_total_ul": str(liquid_sum), "mass_total_mg": str(mass_sum)}, sorted(set(holds))
