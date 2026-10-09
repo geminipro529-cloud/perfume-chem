@@ -1101,6 +1101,20 @@ _HELICHRYSUM_CORSICA_BIANCHINI_2001_CONSTITUENTS = [
     ("alpha pinene", 0.018, 136.24, 400.0, 20.0, 3.0),
 ]
 
+# Guaiacwood (Bulnesia sarmientoi, "palo santo") wood oil, steam-distilled
+# trunk-wood shavings, Formosa, Argentina, GC-MS relative %, Enriquez &
+# Orrabalis, Multequina 28:59-66 (2019), Table 1 "componentes principales";
+# the six listed peaks sum to 99.39% and no total identified is stated. The
+# owned stock has no supplier SKU, origin or lot record. Bulnesol (58.18%),
+# guaiol (28.71%), elemol (10.17%) and alpha-gurjunene (1.08%) have no runtime
+# headspace input and stay unresolved, so the modeled rows below do not carry
+# guaiacwood character. alpha-Guaiene and beta-caryophyllene reuse this
+# module's existing tuples (patchouli and cinnamon bark rows).
+_GUAIACWOOD_ENRIQUEZ_2019_CONSTITUENTS = [
+    ("alpha guaiene", 0.0067, 204.35, 1.00, 3.00, 1.2),
+    ("beta caryophyllene", 0.0058, 204.35, 1.0, 10.0, 1.2),
+]
+
 # ── Master Registry ───────────────────────────────────────────────────
 
 _ABSOLUTE_CONSTITUENTS = {
@@ -1230,6 +1244,9 @@ _ABSOLUTE_CONSTITUENTS = {
     # New EOs 2026-06-15
     "rose essential oil": _ROSE_EO_CONSTITUENTS,
     "cassia essential oil": _CASSIA_EO_CONSTITUENTS,
+    "bulnesia sarmientoi wood oil enriquez 2019 gc-ms profile": (
+        _GUAIACWOOD_ENRIQUEZ_2019_CONSTITUENTS
+    ),
     "ocimum basilicum oil india estragole type supplier gc profile": (
         _BASIL_INDIA_ESTRAGOLE_SUPPLIER_GC_CONSTITUENTS
     ),
@@ -1372,6 +1389,12 @@ _PROFILE_ALIASES = {
     # Owner stock "Helichrysum EO": H. italicum (immortelle) oil; origin unknown.
     # Distinct from the immortelle absolute profile.
     "helichrysum eo": "helichrysum italicum oil corsica bianchini 2001 profile",
+    # Owner stock "Guaiacwood EO (exactly 1/3 w/w in ethanol + DEP ...)":
+    # Bulnesia sarmientoi wood oil; no supplier SKU, origin or lot recorded.
+    "guaiacwood eo": "bulnesia sarmientoi wood oil enriquez 2019 gc-ms profile",
+    "guaiacwood eo (exactly 1/3 w/w in ethanol + dep; components are 1/3 guaiacwood eo + 1/3 ethanol + 1/3 dep by mass)": (
+        "bulnesia sarmientoi wood oil enriquez 2019 gc-ms profile"
+    ),
 }
 
 _LAVENDER_40_42_PROXY_LIMITATIONS = (
@@ -1424,6 +1447,9 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
         "Composition is the midpoint of published Peruvian Schinus molle fruit-EO ranges, not an Aroma&More lot GC-MS or GC-O assay.",
         "No Schinus-specific GC-O/AEDA profile was located; phellandrene, p-cymene, and methyl-octanoate VP/ODT inputs are modeled by class.",
         "Plant part, origin, extraction, oxidation state, density, and current leave-on IFRA conformity for the user's bottle remain unverified.",
+    ),
+    "guaiacwood eo": (
+        "The owned Guaiacwood EO has no supplier SKU, origin or lot record; the reused composition is one published Argentine wood-oil GC-MS, not an analysis of that bottle.",
     ),
 }
 
@@ -1567,6 +1593,10 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "helichrysum italicum oil corsica bianchini 2001 profile": (
         "https://scent.vn/en/pages/oil/helichrysum-italicum-france-corsica-3417",
         "https://scent.vn/en/pages/oil/helichrysum-italicum-croatia-1a-2722",
+    ),
+    "bulnesia sarmientoi wood oil enriquez 2019 gc-ms profile": (
+        "https://www.redalyc.org/journal/428/42862466009/42862466009.pdf",
+        "Enriquez M.B., Orrabalis C.J. (2019) Multequina 28:59-66, Table 1",
     ),
 }
 
@@ -2785,6 +2815,67 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "The composition is a published analysis, not an analysis of the owned bottle or lot; 91.5% of the oil is listed and the remainder is unknown, with nothing renormalized.",
             "Neryl propionate, italicene, alpha-curcumene, eudesm-5-en-11-ol and the beta-diketones (the italidione family) have no runtime headspace input and remain uncomputed, not odorless.",
             "This is the essential oil; the immortelle absolute profile is a different extraction and is not equivalent.",
+        ),
+    },
+    "bulnesia sarmientoi wood oil enriquez 2019 gc-ms profile": {
+        "analytical_method": "LITERATURE_GC_MS",
+        "composition_basis": "GC_MS_RELATIVE_AREA_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.redalyc.org/journal/428/42862466009/42862466009.pdf",
+                "document": "Enriquez & Orrabalis, Multequina 28:59-66 (2019), Table 1",
+                "published_botanical_name": "Bulnesia sarmientoi Lorentz ex Griseb.",
+                "published_type": "Steam-distilled trunk-wood oil, Formosa, Argentina",
+                "quantitation": "GC_MS_RELATIVE_AREA_PCT",
+                "reported_pct": {
+                    "bulnesol": 58.18,
+                    "guaiol": 28.71,
+                    "elemol": 10.17,
+                    "alpha-gurjunene": 1.08,
+                    "alpha-guaiene": 0.67,
+                    "beta-caryophyllene": 0.58,
+                },
+                "reported_sum_pct": 99.39,
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Guaiacwood EO (exactly 1/3 w/w in ethanol + DEP)",
+                "owned_supplier_reference": None,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("alpha guaiene", "beta caryophyllene")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "bulnesol",
+                "reported_fraction": 0.5818,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "guaiol",
+                "reported_fraction": 0.2871,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "elemol",
+                "reported_fraction": 0.1017,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-gurjunene",
+                "reported_fraction": 0.0108,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The composition is one published Argentine steam-distilled wood oil (Enriquez & Orrabalis 2019), not an analysis of the owned bottle, whose supplier, origin and lot are unknown.",
+            "Table 1 lists only six main components (99.39% of relative area); GC-MS relative areas are nominal model inputs, not mass fractions.",
+            "Only 1.25% of nominal composition is modeled (alpha-guaiene and beta-caryophyllene). Bulnesol, guaiol, elemol and alpha-gurjunene (98.14%) have no runtime headspace input; they remain uncomputed, not odorless, so the modeled headspace does not represent guaiacwood character.",
         ),
     },
 }
