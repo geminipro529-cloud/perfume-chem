@@ -6,8 +6,9 @@ import hashlib
 import re
 from dataclasses import dataclass, replace
 from functools import lru_cache
-from typing import Any, Mapping, Sequence
+from typing import Any, Callable, Mapping, Sequence
 
+from engine.formulation_intelligence.liking_tie_break import Liking, LikingLookup
 from engine.formulation_intelligence.material_capability_index import (
     MaterialCapability,
     MaterialCapabilityIndex,
@@ -63,6 +64,9 @@ class _BeamState:
     used_identities: frozenset[str]
     group_counts: tuple[tuple[str, int], ...]
     objective: float
+    # Role fit without the hash tie, and summed liking of non-exact picks.
+    fit: float = 0.0
+    liking: float = 0.0
 
     def groups(self) -> dict[str, int]:
         return dict(self.group_counts)
@@ -611,6 +615,33 @@ def _stable_tie(role_id: str, stock_id: str, variant_index: int) -> float:
     return int(digest[:8], 16) / 0xFFFFFFFF * 1e-6
 
 
+# Measured over five briefs, distinct role-fit scores sit as close as 8.6e-5
+# apart, too close for an additive liking weight that still beats the 1e-6
+# hash tie.  So liking only orders candidates whose fit agrees to 6 dp.
+_LikingFn = Callable[[str], Liking]
+
+
+def _rank_key(
+    row: tuple[float, MaterialCapability],
+    role: SemanticRole,
+    variant_index: int,
+    liking: _LikingFn | None,
+) -> tuple[Any, ...]:
+    score, capability = row
+    lead: tuple[float, ...] = ()
+    if liking is not None and role.exact_material is None:
+        fit = score - _stable_tie(role.role_id, capability.stock_id, variant_index)
+        lead = (-round(fit, 6), -liking(capability.identity_name).value)
+    return (
+        *lead,
+        -score,
+        not capability.design_ready,
+        not capability.execution_ready,
+        capability.identity_name.casefold(),
+        capability.stock_id,
+    )
+
+
 def _unary_rank_for_role(
     index: MaterialCapabilityIndex,
     role: SemanticRole,
@@ -620,6 +651,7 @@ def _unary_rank_for_role(
     prior_variant_stock_ids: frozenset[str],
     variant_index: int,
     enforce_own_odor_avoid: bool = False,
+    liking: _LikingFn | None = None,
 ) -> list[tuple[float, MaterialCapability]]:
     ranked: list[tuple[float, MaterialCapability]] = []
     for capability in index.capabilities:
@@ -650,15 +682,7 @@ def _unary_rank_for_role(
             score -= 1.35 + .25 * variant_index
         score += _stable_tie(role.role_id, capability.stock_id, variant_index)
         ranked.append((score, capability))
-    ranked.sort(
-        key=lambda row: (
-            -row[0],
-            not row[1].design_ready,
-            not row[1].execution_ready,
-            row[1].identity_name.casefold(),
-            row[1].stock_id,
-        )
-    )
+    ranked.sort(key=lambda row: _rank_key(row, role, variant_index, liking))
     # Exact roles retain every matching stock form.  The ordinary unary
     # frontier is deliberately wider than the state frontier so global
     # constraints can still route around a stock consumed by another role.
@@ -696,6 +720,8 @@ def _rank_for_state(
     avoid: Sequence[str],
     allow_multiple_musks: bool,
     enforce_own_odor_avoid: bool = False,
+    variant_index: int = 0,
+    liking: _LikingFn | None = None,
 ) -> list[tuple[float, MaterialCapability]]:
     selected = tuple(item[1] for item in state.assignments)
     ranked = [
@@ -715,15 +741,7 @@ def _rank_for_state(
             enforce_own_odor_avoid=enforce_own_odor_avoid,
         )
     ]
-    ranked.sort(
-        key=lambda row: (
-            -row[0],
-            not row[1].design_ready,
-            not row[1].execution_ready,
-            row[1].identity_name.casefold(),
-            row[1].stock_id,
-        )
-    )
+    ranked.sort(key=lambda row: _rank_key(row, role, variant_index, liking))
     return ranked if role.exact_material is not None else ranked[:10]
 
 
@@ -733,7 +751,10 @@ def _state_sort_key(state: _BeamState) -> tuple[Any, ...]:
         for role, capability, _score in state.assignments
     )
     readiness = sum(capability.design_ready for _role, capability, _score in state.assignments)
-    return (-len(state.assignments), -round(state.objective, 9), -readiness, stock_signature)
+    return (
+        -len(state.assignments), -round(state.fit, 6), -round(state.liking, 9),
+        -round(state.objective, 9), -readiness, stock_signature,
+    )
 
 
 def _solve_assignments(
@@ -745,6 +766,7 @@ def _solve_assignments(
     prior_variant_stock_ids: frozenset[str],
     variant_index: int,
     beam_width: int,
+    liking: _LikingFn | None = None,
 ) -> tuple[tuple[SolvedAssignment, ...], tuple[str, ...]]:
     states: tuple[_BeamState, ...] = (
         _BeamState(
@@ -768,6 +790,7 @@ def _solve_assignments(
             prior_variant_stock_ids=prior_variant_stock_ids,
             variant_index=variant_index,
             enforce_own_odor_avoid=enforce_own_odor_avoid,
+            liking=liking,
         )
         for role in brief.roles
     }
@@ -782,6 +805,8 @@ def _solve_assignments(
                 avoid=avoid,
                 allow_multiple_musks=allow_multiple_musks,
                 enforce_own_odor_avoid=enforce_own_odor_avoid,
+                variant_index=variant_index,
+                liking=liking,
             )
             role_has_candidate = role_has_candidate or bool(ranked)
             for score, capability in ranked:
@@ -791,6 +816,10 @@ def _solve_assignments(
                 if family is not None:
                     key = f"family:{family}"
                     groups[key] = groups.get(key, 0) + 1
+                liked = (
+                    liking(capability.identity_name).value
+                    if liking is not None and role.exact_material is None else 0.0
+                )
                 expanded.append(
                     _BeamState(
                         assignments=(*state.assignments, (role, capability, score)),
@@ -798,6 +827,9 @@ def _solve_assignments(
                         | {_chemical_identity(capability)},
                         group_counts=tuple(sorted(groups.items())),
                         objective=state.objective + score,
+                        fit=state.fit + score
+                        - _stable_tie(role.role_id, capability.stock_id, variant_index),
+                        liking=state.liking + liked,
                     )
                 )
         if not role_has_candidate:
@@ -868,6 +900,7 @@ def solve_formula(
         raise ValueError("liquid_total_ul must be positive")
     if not 0 <= variant_index <= 2:
         raise ValueError("variant_index must be from zero to two")
+    liking = _liking_lookup()
     assignments, missing = _solve_assignments(
         brief=brief,
         index=index,
@@ -876,6 +909,7 @@ def solve_formula(
         prior_variant_stock_ids=frozenset(prior_variant_stock_ids),
         variant_index=variant_index,
         beam_width=beam_width,
+        liking=liking,
     )
     choices = tuple(
         Choice(
@@ -905,6 +939,12 @@ def solve_formula(
         except ValueError as exc:
             status = "WITHHELD_DOSE_ALLOCATION_INFEASIBLE"
             holds.append(f"DOSE_ALLOCATION_INFEASIBLE:{exc}")
+    exact_roles = {a.role.role_id for a in assignments if a.role.exact_material is not None}
+    for row in rows:
+        row["liking_tie_break"] = {
+            **liking(str(row.get("identity_name") or "")).as_dict(),
+            "applied": row.get("slot") not in exact_roles,
+        }
 
     role_scores = {
         assignment.role.role_id: format(assignment.score, ".6f")
@@ -925,6 +965,7 @@ def solve_formula(
             "fill every required role",
             "satisfy exact material and exclusion constraints",
             "maximize structural capability fit",
+            "between fits equal to 6 dp only, prefer higher liking (personal, else crowd guess)",
             "prefer design-ready exact stock bindings",
             "minimize same-note profile redundancy",
             "deterministic stock identity tie-break",
@@ -932,6 +973,7 @@ def solve_formula(
         "prohibited_objectives_used": [],
         "ingredient_count_is_objective": False,
         "pleasantness_claimed": False,
+        "liking_tie_break": liking.receipt(),
         "architecture_plan": brief.architecture_plan,
         "descriptor_eligibility_policy": "OWN_MATERIAL_DESCRIPTOR_NOT_NAME_OR_CATEGORY_V1",
         "future_role_policy": "BOUNDED_REQUIRED_DESCRIPTOR_FORWARD_CHECK_V1",
@@ -950,6 +992,10 @@ def solve_formula(
         holds=tuple(sorted(set(holds))),
         solver_receipt=receipt,
     )
+
+
+# Factory seam: tests point it at temporary personal files.
+_liking_lookup = LikingLookup
 
 
 __all__ = ["FormulaSolveResult", "SolvedAssignment", "solve_formula"]
