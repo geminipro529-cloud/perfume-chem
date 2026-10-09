@@ -1508,7 +1508,20 @@ def _ifra_entry_dict(entry: IFRACheck | IFRAGroupCheck, headroom: float) -> dict
     return _ifra_row_dict(entry, headroom)
 
 
-def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+def _stock_conflict_materials(formula: Mapping) -> list[str]:
+    """Materials whose rows name more than one stock (e.g. neat plus a dilution)."""
+    return sorted(
+        str(name)
+        for name, spec in dict(formula.get("stock_specs", {}) or {}).items()
+        if isinstance(spec, Mapping) and spec.get("conflict")
+    )
+
+
+def _gate_safety(
+    state: FormulaState,
+    config: ReleaseGateConfig,
+    stock_conflicts: Sequence[str] = (),
+) -> GateResult:
     ingredients = {m.name: m.raw_ul for m in state.materials}
     dilutions = {m.name: m.dilution for m in state.materials}
     headroom = config.effective_ifra_headroom()
@@ -1600,8 +1613,17 @@ def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
             + f"; {basis_note}",
             data,
         )
-    if holds or overfilled:
+    if stock_conflicts:
+        data["stock_conflicts"] = list(stock_conflicts)
+    if holds or overfilled or stock_conflicts:
         parts = [f"IFRA hold: {h['message']}" for h in holds]
+        if stock_conflicts:
+            parts.append(
+                "stock conflict: "
+                + ", ".join(stock_conflicts)
+                + " written at more than one strength; each row can't be bound to "
+                "a stock, so the IFRA check can't pass"
+            )
         if overfilled:
             parts.append(
                 f"stocks ({estimate.concentrate_ml:.3g} mL) exceed the "
@@ -6756,7 +6778,10 @@ def run_composition_gates(
     return [
         _safe_gate(lambda: _gate_hedione_share(formula, state, config), "hedione_share"),
         _safe_gate(lambda: _gate_musk_count(state, config), "musk_count"),
-        _safe_gate(lambda: _gate_safety(state, config), "safety"),
+        _safe_gate(
+            lambda: _gate_safety(state, config, _stock_conflict_materials(formula)),
+            "safety",
+        ),
     ]
 
 
@@ -7010,7 +7035,10 @@ def gate_formula(
         _safe_gate(lambda: _gate_small_diluted_traces(state), "small_diluted_traces"),
         _safe_gate(lambda: _gate_dilution_accuracy(state, config), "dilution_accuracy"),
         _safe_gate(lambda: _gate_oav_scaling(formula, config), "oav_scaling"),
-        _safe_gate(lambda: _gate_safety(state, config), "safety"),
+        _safe_gate(
+            lambda: _gate_safety(state, config, _stock_conflict_materials(formula)),
+            "safety",
+        ),
         _safe_gate(
             lambda: _gate_eu_allergen_declaration(state, config),
             "eu_allergen_declaration",
