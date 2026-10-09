@@ -386,7 +386,7 @@ def test_real_table_loads_with_seeded_contents():
     assert tbl.lookup("Hedione HC").status == "no_standard"
     assert {g.id for g in tbl.group_rules} == {
         "oakmoss_treemoss_total", "mhc_moc_total", "methyl_ionones_total", "rose_ketones_total",
-        "phototoxic_citrus_ratio",
+        "phototoxic_citrus_ratio", "safrole_isosafrole_dihydrosafrole_total",
     }
     assert load_ifra_table(DEFAULT_TABLE_PATH) == tbl
 

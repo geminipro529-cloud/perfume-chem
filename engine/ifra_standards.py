@@ -83,6 +83,8 @@ class IFRAMaterial:
     authority: str | None
     note: str | None
     source_url: str | None = None
+    # Said on the row's own gate message, e.g. a stock whose species is not recorded.
+    identity_note: str | None = None
 
 
 @dataclass(frozen=True)
@@ -523,6 +525,7 @@ def _parse_material(
         authority=rec.get("authority", "IFRA") if status == "prohibited" else None,
         note=rec.get("note"),
         source_url=rec.get("source_url"),
+        identity_note=rec.get("identity_note"),
     )
 
 
@@ -728,7 +731,7 @@ def evaluate_ifra(
     ]
     group_checks.extend(_constituent_group_check(t, table, edge_ratio, headroom) for t in totals)
     if totals:
-        checks = [_natural_row_counted(c, totals) for c in checks]
+        checks = [_natural_row_counted(c, totals, table) for c in checks]
     return IFRAEvaluation(
         checks=tuple(checks), group_checks=tuple(group_checks), constituent_totals=totals
     )
@@ -853,7 +856,9 @@ def _schiff_base_row(row_name: str, schiff: SchiffBase, pct: float) -> IFRACheck
     )
 
 
-def _natural_row_counted(check: IFRACheck, totals: Sequence[IFRAConstituentTotal]) -> IFRACheck:
+def _natural_row_counted(
+    check: IFRACheck, totals: Sequence[IFRAConstituentTotal], table: IFRATable
+) -> IFRACheck:
     """Say on a mapped natural's own row what was counted; its verdict is kept."""
     if check.status != "natural_no_own_standard":
         return check
@@ -877,6 +882,9 @@ def _natural_row_counted(check: IFRACheck, totals: Sequence[IFRAConstituentTotal
         f"IFRA Annex I constituents are counted toward their Category 4 totals: {parts}. "
         "Other restricted constituents are not counted."
     )
+    material = table.materials.get(name)
+    if material is not None and material.identity_note:
+        message = f"{message} {material.identity_note}"
     return replace(check, message=message)
 
 
@@ -972,6 +980,8 @@ def _check_row(
             f"{label} at {_fmt(pct)} % is a natural with no IFRA standard of its own; its "
             f"restricted constituents are not summed here."
         )
+    if material.identity_note:
+        message = f"{message} {material.identity_note}"
     return IFRACheck(
         material=row_name,
         matched_name=matched_name,
