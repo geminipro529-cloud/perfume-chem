@@ -19,7 +19,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass, field
 from functools import lru_cache
-from typing import Mapping
+from typing import Mapping, Sequence
 
 from engine.ifra_safety import IFRA_CAT4_LIMITS
 from engine.ingredient_intelligence import MaterialProfile
@@ -571,7 +571,10 @@ class FormulaState:
             for name, moles in mole_inputs.items()
         }
         hsp_table = {m.canonical_name: m.hsp for m in base.materials if m.hsp is not None}
-        mixture_hsp_value = mixture_hsp(mole_fractions, hsp_table=hsp_table)
+        mixture_hsp_value = mixture_hsp(
+            _concentrate_mole_fractions(mole_inputs, matrix_components_moles),
+            hsp_table=hsp_table,
+        )
 
         for m in base.materials:
             raw_ul = new_raw_ul.get(m.name, 0.0)
@@ -982,6 +985,32 @@ def _first_present(*values):
     return None, "missing"
 
 
+def _concentrate_mole_fractions(
+    mole_inputs: Mapping[str, float],
+    matrix_mole_items: Sequence[tuple[str, float]],
+) -> dict[str, float]:
+    """Return mole fractions over the concentrate alone, for the activity model.
+
+    Only the few materials with Hansen data get a gamma that follows the
+    mixture HSP; every other row keeps a fixed value. Letting the declared or
+    default ethanol/water matrix shift the mixture HSP therefore boosted just
+    those few (Iso E Super 1.05 -> 5.3 in ethanol) over everything else. The
+    matrix still dilutes each x_i and evaporates; it does not enter the HSP.
+    """
+    matrix: dict[str, float] = {}
+    for name, moles in matrix_mole_items:
+        matrix[name] = matrix.get(name, 0.0) + float(moles)
+    concentrate = {
+        name: moles - matrix.get(name, 0.0)
+        for name, moles in mole_inputs.items()
+        if moles - matrix.get(name, 0.0) > 0.0
+    }
+    total = sum(concentrate.values())
+    if total <= 0.0:
+        return {}
+    return {name: moles / total for name, moles in concentrate.items()}
+
+
 def _registry_hsp(material) -> tuple[float, float, float] | None:
     if material is None or material.hsp is None:
         return None
@@ -1231,7 +1260,10 @@ def _build_formula_state_cached(
     )
     total_authoritative_active_g = sum(float(row[5] or 0.0) for row in raw_rows)
     finished_mass_g = total_authoritative_active_g + matrix_mass_g
-    mixture_hsp_value = mixture_hsp(mole_fractions, hsp_table=hsp_table)
+    mixture_hsp_value = mixture_hsp(
+        _concentrate_mole_fractions(mole_inputs, matrix_mole_items),
+        hsp_table=hsp_table,
+    )
 
     materials: list[MaterialState] = []
     for (

@@ -284,6 +284,12 @@ class InventoryMaterial:
     completion_event_sha256: str = ""
     completion_source_ref: str = ""
     homogeneity: str = ""
+    # V5 row words (``ROW_WIDE_UNRESOLVED_TOKENS``) found in this stock's row,
+    # "|"-joined; a Stock page completion does not clear such a stock.
+    row_unresolved_tokens: str = ""
+    # When a Stock page completion changed the strength, basis or carrier,
+    # the overlay/V5 authority's (dilution, fraction_basis, carrier) values.
+    authority_facts_differ: tuple[tuple[str, Any], ...] = ()
 
 
 @dataclass(frozen=True)
@@ -1041,6 +1047,28 @@ def _requirement_disposition(
     return "UNRESOLVED"
 
 
+# V5 row words that leave the whole row unresolved whatever its strength,
+# basis and carrier say, so neither the row nor a Lab app Stock page
+# completion (which records only those facts) makes such a stock ready.
+ROW_WIDE_UNRESOLVED_TOKENS = (
+    "PRODUCT BASIS",
+    "HETEROGENEOUS",
+    "PHYSICAL FORM OPEN",
+    "SPECIES UNRESOLVED",
+    "IDENTITY KEPT SEPARATE",
+    "TWO PRODUCTS",
+    "MULTIPLE BENZOINS",
+    "UNCONFIRMED",
+)
+
+
+def row_wide_unresolved_tokens(text: str) -> tuple[str, ...]:
+    """Return the ``ROW_WIDE_UNRESOLVED_TOKENS`` found in a V5 row's text."""
+
+    upper = text.upper()
+    return tuple(token for token in ROW_WIDE_UNRESOLVED_TOKENS if token in upper)
+
+
 def _stock_execution_ready(
     status: str,
     spec: StockSpecification,
@@ -1054,17 +1082,7 @@ def _stock_execution_ready(
     # The V5 rows marked LOT DETAIL OPEN still authorize use at their listed
     # neat/as-supplied strength. Missing supplier/lot data limits batch-specific
     # modeling and release claims; it does not make that raw stock volume unknown.
-    row_wide_unresolved_tokens = (
-        "PRODUCT BASIS",
-        "HETEROGENEOUS",
-        "PHYSICAL FORM OPEN",
-        "SPECIES UNRESOLVED",
-        "IDENTITY KEPT SEPARATE",
-        "TWO PRODUCTS",
-        "MULTIPLE BENZOINS",
-        "UNCONFIRMED",
-    )
-    if any(token in context for token in row_wide_unresolved_tokens):
+    if row_wide_unresolved_tokens(context):
         return False
     if (
         "CARRIER UNSTATED" in descriptor_context
@@ -5644,6 +5662,7 @@ def _materialize_current_inventory_uncached(
     apply_user_overlay: bool = True,
     require_pinned_overlay: bool = True,
     apply_user_completions: bool = True,
+    dilution_path: Path | None = None,
 ) -> CurrentInventoryMaterialization:
     """Materialize immutable V5 stocks plus the pinned user successor overlay."""
 
@@ -5746,6 +5765,9 @@ def _materialize_current_inventory_uncached(
                     descriptor,
                     stock_count=len(actual_specs),
                 ),
+                row_unresolved_tokens="|".join(
+                    row_wide_unresolved_tokens(f"{status} {descriptor}")
+                ),
             )
 
     stocks = tuple(
@@ -5769,6 +5791,9 @@ def _materialize_current_inventory_uncached(
         from engine.inventory_completions import apply_inventory_completion_events
 
         materialized = apply_inventory_completion_events(materialized)
+        from engine.inventory_dilutions import apply_prepared_dilution_events
+
+        materialized = apply_prepared_dilution_events(materialized, dilution_path)
     elif not materialized.effective_inventory_sha256:
         materialized = replace(
             materialized,
@@ -5825,14 +5850,16 @@ def _inventory_materialization_fingerprint(
     *,
     apply_user_overlay: bool,
     apply_user_completions: bool,
+    dilution_path: Path | None = None,
 ) -> tuple[tuple[str, int, int], ...]:
     paths = [snapshot_path]
     if apply_user_overlay:
         paths.extend((*_USER_OVERLAY_CHAIN_PATHS, INVENTORY_PATH, USER_COMPOUNDING_HOLDS_PATH))
     if apply_user_completions:
         from engine.inventory_completions import completion_log_path
+        from engine.inventory_dilutions import dilution_log_path
 
-        paths.append(completion_log_path())
+        paths.extend((completion_log_path(), dilution_log_path(dilution_path)))
     records: list[tuple[str, int, int]] = []
     for source in paths:
         resolved = source.resolve()
@@ -5855,6 +5882,7 @@ def _cached_current_inventory_materialization(
     apply_user_overlay: bool,
     require_pinned_overlay: bool,
     apply_user_completions: bool,
+    dilution_path_text: str = "",
 ) -> CurrentInventoryMaterialization:
     del source_fingerprint
     return _materialize_current_inventory_uncached(
@@ -5863,6 +5891,7 @@ def _cached_current_inventory_materialization(
         apply_user_overlay=apply_user_overlay,
         require_pinned_overlay=require_pinned_overlay,
         apply_user_completions=apply_user_completions,
+        dilution_path=Path(dilution_path_text) if dilution_path_text else None,
     )
 
 
@@ -5873,8 +5902,13 @@ def materialize_current_inventory(
     apply_user_overlay: bool = True,
     require_pinned_overlay: bool = True,
     apply_user_completions: bool = True,
+    dilution_path: Path | None = None,
 ) -> CurrentInventoryMaterialization:
-    """Materialize source-bound stock truth with drift-sensitive local reuse."""
+    """Materialize source-bound stock truth with drift-sensitive local reuse.
+
+    ``dilution_path`` reads prepared dilutions from that log instead of the
+    default one (``record_prepared_dilution(path=...)``).
+    """
 
     snapshot_path = (path or CURRENT_INVENTORY_SNAPSHOT_PATH).resolve()
     return _cached_current_inventory_materialization(
@@ -5883,11 +5917,13 @@ def materialize_current_inventory(
             snapshot_path,
             apply_user_overlay=apply_user_overlay,
             apply_user_completions=apply_user_completions,
+            dilution_path=dilution_path,
         ),
         require_pinned_snapshot,
         apply_user_overlay,
         require_pinned_overlay,
         apply_user_completions,
+        str(dilution_path.resolve()) if dilution_path is not None else "",
     )
 
 

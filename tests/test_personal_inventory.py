@@ -155,3 +155,77 @@ def test_formula_capability_index_uses_personal_additions(
     assert index.effective_inventory_sha256 == materialize_personal_inventory(
         addition_path=path
     ).effective_inventory_sha256
+
+
+CABREUVA = "Cabreuva EO"
+
+
+@pytest.fixture
+def stock_page_logs(tmp_path: Path, monkeypatch) -> Path:
+    monkeypatch.setenv("PERFUME_INVENTORY_COMPLETION_PATH", str(tmp_path / "completions.jsonl"))
+    monkeypatch.setenv("PERFUME_PERSONAL_INVENTORY_ADDITION_PATH", str(tmp_path / "additions.jsonl"))
+    monkeypatch.setenv("PERFUME_INVENTORY_DILUTION_PATH", str(tmp_path / "dilutions.jsonl"))
+    return tmp_path
+
+
+def _cabreuva_at_25_percent():
+    from engine.inventory_completions import record_inventory_completion
+    from engine.inventory_parser import materialize_current_inventory
+
+    baseline = materialize_current_inventory()
+    parent = next(s for s in baseline.stocks if s.name == "Cabreuva EO 50% in DPG")
+    _receipt, completed = record_inventory_completion(
+        stock_id=parent.stock_id,
+        expected_effective_inventory_sha256=baseline.effective_inventory_sha256,
+        idempotency_key="cabreuva-25",
+        fraction_decimal="0.25",
+        fraction_basis="mass_fraction",
+        carrier="DPG",
+        physical_form="liquid",
+        possession_confirmed=True,
+        homogeneity="HOMOGENEOUS",
+        final_fraction_known=True,
+        source_kind="PERSONAL_CONFIRMATION",
+    )
+    return parent.stock_id, completed
+
+
+def test_stock_page_entry_is_shown_even_when_its_name_states_the_workbook_strength(
+    stock_page_logs: Path,
+) -> None:
+    # RULE 0 (review finding S2/S3): the gate counts the 25% entry, so the
+    # Stock page must list it with the workbook disagreement.
+    from engine.inventory_completions import authority_disagreement
+
+    stock_id, _completed = _cabreuva_at_25_percent()
+    projection = materialize_personal_inventory()
+    (completed,) = [s for s in projection.stocks if s.stock_id == stock_id]
+    assert completed.name == "Cabreuva EO 50% in DPG"
+    assert completed.dilution == 0.25
+    assert dict(completed.authority_facts_differ)["dilution"] == 0.5
+    disagreement = authority_disagreement(completed)
+    assert disagreement is not None
+    assert disagreement["text"].startswith("Differs from the workbook")
+
+
+def test_dilution_of_a_completed_stock_is_shown_with_its_own_strength(
+    stock_page_logs: Path,
+) -> None:
+    from engine.inventory_dilutions import PREPARED_DILUTION_AUTHORITY, record_prepared_dilution
+
+    stock_id, completed = _cabreuva_at_25_percent()
+    _receipt, materialized = record_prepared_dilution(
+        parent_stock_id=stock_id,
+        expected_effective_inventory_sha256=completed.effective_inventory_sha256,
+        idempotency_key="cabreuva-5",
+        fraction_decimal="0.05",
+    )
+    (gate_stock,) = [
+        s for s in materialized.stocks if s.authority == PREPARED_DILUTION_AUTHORITY
+    ]
+    assert gate_stock.execution_ready is True
+    projection = materialize_personal_inventory()
+    (shown,) = [s for s in projection.stocks if s.stock_id == gate_stock.stock_id]
+    assert shown.dilution == 0.05
+    assert shown.name == "Cabreuva EO 5% in DPG"
+    assert shown.carrier == "dpg"
