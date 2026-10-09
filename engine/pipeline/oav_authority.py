@@ -858,10 +858,17 @@ def _validate_gate_report_binding(
         _require_close(frame_state.temperature_K, request.temperature_K, "frame temperature")
         if str(frame_state.context) != str(request.context):
             raise ValueError("Gate report frame context does not match OAV request")
-        if not _numeric_mapping_matches(
-            _matrix_mapping(frame_state.matrix_components_moles),
-            expected_matrix,
-        ):
+        frame_matrix = _matrix_mapping(frame_state.matrix_components_moles)
+        if float(frame.t_seconds) <= 0.0:
+            matrix_matches = _numeric_mapping_matches(frame_matrix, expected_matrix)
+        else:
+            # The simulated matrix evaporates (diagnosis M1a): later frames
+            # carry the requested components at no more than their t=0 moles.
+            matrix_matches = set(frame_matrix) <= set(expected_matrix) and all(
+                value <= expected_matrix[name] * (1.0 + 1e-12) + 1e-12
+                for name, value in frame_matrix.items()
+            )
+        if not matrix_matches:
             raise ValueError("Gate report frame matrix components do not match OAV request")
         _require_close(frame_state.matrix_mass_g, request.matrix_mass_g, "frame matrix mass")
         if str(frame_state.matrix_source) != str(request.matrix_source):

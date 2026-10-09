@@ -487,7 +487,13 @@ class FormulaState:
         return {k: round(v / denom * 100.0, 1) for k, v in totals.items()}
 
     @classmethod
-    def from_base(cls, base: FormulaState, *, new_raw_ul: dict[str, float]) -> FormulaState:
+    def from_base(
+        cls,
+        base: FormulaState,
+        *,
+        new_raw_ul: dict[str, float],
+        new_matrix_moles: tuple[tuple[str, float], ...] | None = None,
+    ) -> FormulaState:
         """Create a new FormulaState with different raw_ul amounts, reusing constant fields.
 
         Amount-dependent fields (raw_ul, active_g, moles, mole_fraction,
@@ -495,10 +501,20 @@ class FormulaState:
         Constant material properties (MW, VP, HSP, ODT, etc.) are copied from
         the base state. This avoids redundant material resolution and property
         lookups without freezing a composition-dependent activity coefficient.
+
+        ``new_matrix_moles`` replaces the matrix component moles (the temporal
+        simulator passes the evaporated matrix, diagnosis M1a); omitted, the
+        base matrix is kept. ``matrix_mass_g`` stays the declared
+        finished-product matrix mass either way.
         """
         materials: list[MaterialState] = []
         total_raw = sum(new_raw_ul.values())
-        mole_inputs: dict[str, float] = dict(base.matrix_components_moles)
+        matrix_components_moles = (
+            base.matrix_components_moles
+            if new_matrix_moles is None
+            else tuple((str(name), float(moles)) for name, moles in new_matrix_moles)
+        )
+        mole_inputs: dict[str, float] = dict(matrix_components_moles)
         authoritative_masses: dict[str, tuple[float | None, str]] = {}
         composite_rows: list[tuple[str, str, float, float]] = []
         for m in base.materials:
@@ -744,7 +760,7 @@ class FormulaState:
             temperature_K=base.temperature_K,
             context=base.context,
             uncertainty=base.uncertainty,
-            matrix_components_moles=base.matrix_components_moles,
+            matrix_components_moles=matrix_components_moles,
             matrix_mass_g=base.matrix_mass_g,
             matrix_source=base.matrix_source,
             dose_receipt_sha256=base.dose_receipt_sha256,
