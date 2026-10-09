@@ -1,0 +1,14 @@
+{
+  "schema_version": "normal_use_ceilings_v1",
+  "status": "TEST_FIXTURE_NOT_RESEARCHED",
+  "basis": "active material as % of the fragrance concentrate",
+  "materials": [
+    {
+      "material": "Alpha Damascone",
+      "match": ["alpha damascone"],
+      "max_active_pct_of_concentrate": 0.2,
+      "sources": [{"kind": "test_fixture", "note": "illustrative value for composer tests only"}],
+      "note": "Test fixture value; not a researched normal-use ceiling."
+    }
+  ]
+}

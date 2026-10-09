@@ -127,6 +127,21 @@ def test_formula_design_treats_sixty_as_a_ceiling_and_adds_no_filler() -> None:
     assert result["beauty_score"] is None
 
 
+def test_formula_design_default_ceiling_is_fifteen_materials() -> None:
+    # 2026-10-09: Kenny chose a 15-material default (was 30). Blends of many
+    # similar-strength materials blur together, so a larger formula is opt-in.
+    result = design_inventory_formula(
+        idea="a panoramic, exceptionally detailed modern chypre with rose, patchouli and oakmoss",
+        formula_name="Panoramic Chypre",
+    )
+
+    rows = result["optimized_formula"]["rows"]
+    assert result["requested_material_limit"] == 15
+    assert 6 <= result["selected_material_count"] <= 15
+    assert len(rows) == result["selected_material_count"]
+    assert result["optimized_formula"]["separate_totals"]["liquid_total_ul"] == "6000"
+
+
 def test_formula_design_rejects_more_than_sixty_materials() -> None:
     with pytest.raises(ValueError, match="between 6 and 60"):
         design_inventory_formula(idea="A broad lavender perfume", max_materials=61)
