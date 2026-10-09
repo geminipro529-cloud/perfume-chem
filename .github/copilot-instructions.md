@@ -80,7 +80,7 @@ Every material in a formula must have a **specific functional reason**. Ask: "Wh
 - **Parmavert** — green violet-leaf, pairs with ionones
 - **Leafovert** — sharp green cut-grass
 - **Triplal** — ultra-powerful fresh-watery-aldehydic-cyclamen direction; use at ≤ 0.05% in composition; overdoses instantly as harsh-metallic-chemical; distinct from Cyclamen Aldehyde; VP ≈ 0.5 Pa, ODT ≈ 0.001 ppb
-- **Geosmin (1% in TEC)** — petrichor / rain-on-earth accord; ODT ≈ 6 ppt (most extreme trace material in inventory); use max 2–5 µL of 1% dilution per 100 mL; overdose = unpleasant beet-soil; adds naturalistic mineral-earth accord at trace
+- **Geosmin (0.1% in TEC and 1% in TEC)** — petrichor / rain-on-earth accord; ODT ≈ 6 ppt (most extreme trace material in inventory); dose by active geosmin, not raw µL: the mistake detector's ceiling is 0.005 µL active geosmin (5 µL of the 0.1% stock = 0.5 µL of the 1% stock), learned from the 30 mL Cassis Iris Smoke formula; overdose = unpleasant beet-soil; adds naturalistic mineral-earth accord at trace
 - **Cyclamen Aldehyde** — metallic-green floral
 - **Allyl Amyl Glycolate** — green-pineapple freshness, laundry effect
 - **ACA (Amyl Cinnamic Aldehyde)** — jasmine-muguet diffusant, waxy-floral volume builder; IFRA-restricted skin sensitizer (IFRA Amendment 49 Category 4 limit 7.0%, IFRA_STD_005; Category 4, finished product; the release gate checks it); adds body to white floral hearts; synergizes with Hedione
