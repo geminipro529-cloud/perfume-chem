@@ -42,6 +42,10 @@ os.environ["DATABASE_URL"] = (
     "sqlite+aiosqlite:///" + (PYTEST_TEMP_ROOT / "perfume_chem_pytest.db").as_posix()
 )
 
+# The app answers only Host names that point at this PC (app/core/request_guard.py).
+# The test clients address it as "test" (httpx base_url) and "testserver" (TestClient).
+os.environ["TRUSTED_HOSTS"] = '["test", "testserver"]'
+
 from app.api.deps import get_db  # noqa: E402 - test environment must precede app import
 from app.main import app  # noqa: E402 - test environment must precede app import
 from app.models.base import Base  # noqa: E402 - test environment must precede app import
