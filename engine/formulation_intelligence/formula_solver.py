@@ -91,6 +91,7 @@ def _role_spec(role: SemanticRole) -> RoleSpec:
         exact_preference_required=role.exact_material is not None,
         max_raw_share=role.max_raw_share,
         serves_requested_facet=_is_named_note(role),
+        generic_slot=not _is_named_note(role) and role.provenance in _GENERIC_SLOT_PROVENANCE,
     )
 
 
@@ -102,6 +103,12 @@ _BRIDGE_PROVENANCE = frozenset({
     "PROMPT_REQUESTED_EXPANDED_ARCHITECTURE",
 })
 _BRIDGE_MAX_RAW_SHARE = .12
+# Every slot the composer adds around the named notes: none may outrank the lead.
+_GENERIC_SLOT_PROVENANCE = frozenset({
+    *_BRIDGE_PROVENANCE,
+    *LAYER_PROVENANCE.values(),
+    ACCENT_PROVENANCE,
+})
 
 
 def _is_named_note(role: SemanticRole) -> bool:

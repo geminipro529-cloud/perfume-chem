@@ -122,6 +122,9 @@ class RoleSpec:
     # The row carries a note the brief names (a requested facet, its accord
     # support, or an exact material); such rows never get a screening default.
     serves_requested_facet: bool = False
+    # A generic bridge, volume, layer or accent slot the composer adds around
+    # the named notes; it may never carry more active volume than the lead.
+    generic_slot: bool = False
 
 
 @dataclass(frozen=True, slots=True)
@@ -173,6 +176,7 @@ def _r(
         descriptor_weights=weights,
         exact_preference_required=required,
         max_raw_share=cap,
+        generic_slot=function in {"bridge", "volume"},
     )
 
 
@@ -1271,7 +1275,7 @@ def _anchor_roles(
     for index, (material, matched_role) in enumerate(
         zip(explicit_materials, matched_roles, strict=True)
     ):
-        roles.append(
+        roles.append(replace(
             _r(
                 f"explicit_anchor_{index + 1}",
                 (
@@ -1285,8 +1289,11 @@ def _anchor_roles(
                 material,
                 required=True,
                 cap=matched_role.max_raw_share if matched_role else None,
-            )
-        )
+            ),
+            # A material the brief names is a named note, never a generic slot.
+            serves_requested_facet=True,
+            generic_slot=False,
+        ))
     return roles
 
 
@@ -1634,6 +1641,175 @@ def _allocate_with_bulk_fallback(
     return allocated
 
 
+# The rows that carry the notes a brief names together hold at least this
+# share of the formula's fragrance-active volume (AGENTS.md Rule 3).
+NAMED_NOTE_FLOOR_SHARE = Decimal("0.40")
+
+
+def _firm_cap_ul(choice: Choice, liquid_total_ul: int) -> int | None:
+    """The cap no reallocation may pass: identity hard (trace) cap or normal-use ceiling."""
+
+    caps = [
+        cap
+        for cap in (
+            _hard_cap_ul(choice.candidate, liquid_total_ul),
+            _normal_use_ceiling_cap_ul(choice.candidate, liquid_total_ul),
+        )
+        if cap is not None
+    ]
+    return min(caps) if caps else None
+
+
+def _active_ul(choice: Choice, amount: int) -> Decimal:
+    """Fragrance-active volume of a liquid row: stock volume times stock strength."""
+
+    stock = choice.candidate.stock
+    if _key(stock.identity_name or stock.name) in _DESIGN_FUNCTIONAL_CARRIERS:
+        return Decimal(0)
+    return Decimal(amount) * Decimal(str(stock.dilution))
+
+
+def _lead_with_named_notes(
+    allocated: dict[int, int],
+    free_rows: Sequence[tuple[int, float, int | None]],
+    fixed_liquid: dict[int, int],
+    choices: Sequence[Choice],
+    liquid_total_ul: int,
+    holds: list[str],
+) -> dict[int, int]:
+    """Make the notes a brief names lead the formula it composes.
+
+    Two rules, applied to the free rows only (a requested quantity is never
+    moved, and neither is a row that must use an exact preferred material):
+
+    1. Floor: the rows that serve a requested facet together hold at least
+       NAMED_NOTE_FLOOR_SHARE of the fragrance-active volume.  Volume is taken
+       proportionally from the other free rows (each keeps at least the
+       10 uL transfer floor) and given to the named rows.
+    2. Lead: no generic bridge, volume, layer or accent slot carries more
+       active volume than the largest named row; its excess goes to the
+       named rows.
+
+    The named rows never pass a firm cap (identity hard cap, trace cap or
+    normal-use ceiling); their role caps may be passed, and each row that is
+    is named in a ROLE_CAP_EXCEEDED_TO_FILL_TOTAL hold.  When firm caps stop
+    the floor short, the design is kept with a NAMED_NOTE_FLOOR_SHORT hold
+    giving the share reached; a generic slot the named rows cannot outgrow
+    keeps its volume under a GENERIC_SLOT_ABOVE_NAMED_LEAD hold.
+    """
+
+    amounts = {**fixed_liquid, **allocated}
+    named_all = [index for index in amounts if choices[index].role.serves_requested_facet]
+    if not named_all or not allocated:
+        return allocated
+    named = [index for index in allocated if index in named_all]
+    donors = [
+        index
+        for index in allocated
+        if index not in named_all and not choices[index].role.exact_preference_required
+    ]
+    firm = {index: _firm_cap_ul(choices[index], liquid_total_ul) for index in named}
+
+    def active(state: dict[int, int], index: int) -> Decimal:
+        return _active_ul(choices[index], state[index])
+
+    def named_share(state: dict[int, int]) -> Decimal:
+        total = sum(active(state, index) for index in state)
+        if total <= 0:
+            return Decimal(0)
+        return sum(active(state, index) for index in named_all) / total
+
+    def move(state: dict[int, int], take: dict[int, int]) -> dict[int, int] | None:
+        freed = sum(take.values())
+        if freed == 0:
+            return state
+        room = [
+            (
+                index,
+                _allocation_weight(choices[index]),
+                None if firm[index] is None else max(0, firm[index] - state[index]),
+            )
+            for index in named
+        ]
+        try:
+            placed = _allocate_capped(freed, room)
+        except ValueError:
+            return None
+        moved = dict(state)
+        for index, amount in take.items():
+            moved[index] -= amount
+        for index, amount in placed.items():
+            moved[index] += amount
+        return moved
+
+    def floor_take(fraction: float) -> dict[int, int]:
+        return {
+            index: amounts[index]
+            - max(min(amounts[index], _MIN_RAW_TRANSFER_UL), int(amounts[index] * (1 - fraction)))
+            for index in donors
+        }
+
+    state = amounts
+    if named_share(state) < NAMED_NOTE_FLOOR_SHARE:
+        # Share and freed volume both grow with the fraction taken, so the
+        # largest placeable fraction and the smallest sufficient one are
+        # found by bisection.
+        low, high = 0.0, 1.0
+        if move(amounts, floor_take(high)) is None:
+            for _ in range(40):
+                middle = (low + high) / 2
+                if move(amounts, floor_take(middle)) is None:
+                    high = middle
+                else:
+                    low = middle
+            high = low
+        reachable = move(amounts, floor_take(high)) or amounts
+        if named_share(reachable) < NAMED_NOTE_FLOOR_SHARE:
+            state = reachable
+            percent = (named_share(state) * 100).quantize(Decimal("0.1"))
+            holds.append(f"NAMED_NOTE_FLOOR_SHORT:{percent}")
+        else:
+            low = 0.0
+            for _ in range(40):
+                middle = (low + high) / 2
+                candidate = move(amounts, floor_take(middle))
+                if candidate is not None and named_share(candidate) >= NAMED_NOTE_FLOOR_SHARE:
+                    high = middle
+                else:
+                    low = middle
+            state = move(amounts, floor_take(high)) or amounts
+
+    lead = max(active(state, index) for index in named_all)
+    over = sorted(
+        (
+            index
+            for index in allocated
+            if choices[index].role.generic_slot
+            and index not in named_all
+            and active(state, index) > lead
+        ),
+        key=lambda index: -active(state, index),
+    )
+    for index in over:
+        lead = max(active(state, row) for row in named_all)
+        strength = Decimal(str(choices[index].candidate.stock.dilution))
+        keep = int(lead / strength) if strength > 0 else state[index]
+        moved = move(state, {index: max(0, state[index] - keep)})
+        if moved is None:
+            holds.append(f"GENERIC_SLOT_ABOVE_NAMED_LEAD:{choices[index].candidate.stock.stock_id}")
+            continue
+        state = moved
+
+    caps = {index: cap for index, _weight, cap in free_rows}
+    for index in named:
+        cap = caps.get(index)
+        if cap is not None and state[index] > cap:
+            holds.append(
+                f"ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:{choices[index].candidate.stock.stock_id}"
+            )
+    return {index: state[index] for index in allocated}
+
+
 def _allocate_capped(total: int, weighted: Sequence[tuple[int, float, int | None]]) -> dict[int, int]:
     result = {index: 0 for index, _weight, _cap in weighted}
     remaining = total
@@ -1786,6 +1962,9 @@ def _formula_rows(
         )
         if free_rows
         else {}
+    )
+    allocated = _lead_with_named_notes(
+        allocated, free_rows, fixed_liquid, choices, liquid_total_ul, holds
     )
 
     rows: list[dict[str, Any]] = []
