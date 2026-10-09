@@ -31,6 +31,7 @@ The fraction basis is profile-specific. GC-FID areas used as nominal mass-model
 inputs are proxies, not measured mass fractions; subsets are never rescaled.
 """
 
+from collections.abc import Sequence
 from copy import deepcopy
 from dataclasses import asdict, dataclass, field
 from functools import lru_cache
@@ -2449,10 +2450,129 @@ def get_composite_metadata(material_name: str) -> NaturalCompositeMetadata | Non
     )
 
 
+def _profile_shares(constituents: Sequence[tuple]) -> tuple[tuple[float, ...], float]:
+    """Return each row's nominal share and the unresolved remainder's share."""
+    shares = tuple(max(0.0, float(row[1])) for row in constituents)
+    characterized_fraction = min(
+        1.0,
+        max(0.0, sum(float(row[1]) for row in constituents)),
+    )
+    return shares, 1.0 - characterized_fraction
+
+
+def _checked_remaining(row_count: int, remaining: Sequence[float]) -> tuple[float, ...]:
+    """Return ``remaining`` as floats, or all 1.0 for an unevaporated natural."""
+    if not remaining:
+        return (1.0,) * (row_count + 1)
+    if len(remaining) != row_count + 1:
+        raise ValueError(
+            f"remaining needs {row_count + 1} fractions (one per constituent row, "
+            f"then the unresolved remainder); got {len(remaining)}"
+        )
+    return tuple(max(0.0, float(value)) for value in remaining)
+
+
+def _mass_totals(
+    shares: Sequence[float],
+    unresolved: float,
+    remaining: Sequence[float],
+) -> tuple[float, float]:
+    """Return the starting and current nominal mass totals of one natural."""
+    start_total = sum(shares) + unresolved
+    current_total = (
+        sum(share * left for share, left in zip(shares, remaining, strict=False))
+        + unresolved * remaining[-1]
+    )
+    return start_total, current_total
+
+
+def _composition_weights(
+    constituents: Sequence[tuple],
+    remaining: Sequence[float],
+) -> tuple[tuple[float, ...], float]:
+    """Return per-row and remainder mass multipliers for a partly evaporated natural.
+
+    ``remaining`` holds the fraction of each constituent row's starting mass
+    still present (profile order), then that of the unresolved remainder; empty
+    means nothing has evaporated and gives every multiplier exactly 1.0. The
+    caller's ``active_g`` is what is left of the natural, so ``active_g *
+    fraction * multiplier`` is the row's remaining starting mass and the rows
+    plus the remainder add up to ``active_g`` again. No subset is rescaled to
+    100%: the unresolved remainder keeps its own share.
+    """
+    left = _checked_remaining(len(constituents), remaining)
+    shares, unresolved = _profile_shares(constituents)
+    start_total, current_total = _mass_totals(shares, unresolved, left)
+    if current_total <= 0.0:
+        return (0.0,) * len(constituents), 0.0
+    scale = start_total / current_total
+    return tuple(value * scale for value in left[:-1]), left[-1] * scale
+
+
+@dataclass(frozen=True, slots=True)
+class NaturalCompositeVolatility:
+    """Evaporation inputs of one natural profile at one temperature.
+
+    One entry per constituent row in profile order, the order a ``remaining``
+    tuple uses, then the unresolved remainder's nominal share.
+    """
+
+    fractions: tuple[float, ...]
+    mw_g_mol: tuple[float, ...]
+    escaping_tendency_pa: tuple[float, ...]
+    unresolved_fraction: float
+
+    def remaining_or_full(self, remaining: Sequence[float]) -> tuple[float, ...]:
+        """Return ``remaining`` checked, or all 1.0 when nothing has evaporated."""
+        return _checked_remaining(len(self.fractions), remaining)
+
+    def mass_share(self, remaining: Sequence[float]) -> float:
+        """Return the share of the natural's starting mass still present."""
+        start_total, current_total = _mass_totals(
+            tuple(max(0.0, fraction) for fraction in self.fractions),
+            self.unresolved_fraction,
+            self.remaining_or_full(remaining),
+        )
+        return current_total / start_total if start_total > 0.0 else 0.0
+
+
+def composite_constituent_volatility(
+    material_name: str,
+    *,
+    temperature_K: float = 298.15,  # noqa: N803
+    gamma_estimate: float = 0.6,
+) -> NaturalCompositeVolatility | None:
+    """Return each constituent row's evaporation inputs for the temporal model.
+
+    The escaping tendency is ``gamma * VP`` at ``temperature_K`` with the same
+    temperature-adjusted VP and gamma that :func:`composite_headspace` uses, so
+    a constituent leaves at the rate its own headspace implies. None when the
+    natural has no profile.
+    """
+    raw_constituents = get_constituents(material_name)
+    if raw_constituents is None:
+        return None
+    rows, _used_shared_fallback = _temperature_adjusted_constituent_rows(
+        tuple(tuple(row) for row in raw_constituents),
+        float(temperature_K),
+        float(gamma_estimate),
+        None,
+    )
+    _shares, unresolved = _profile_shares(rows)
+    return NaturalCompositeVolatility(
+        fractions=tuple(float(row[1]) for row in rows),
+        mw_g_mol=tuple(float(row[2]) for row in rows),
+        escaping_tendency_pa=tuple(float(row[5]) * float(row[3]) for row in rows),
+        unresolved_fraction=unresolved,
+    )
+
+
 def composite_replacement_moles(
     material_name: str,
     active_g: float,
     parent_moles: float,
+    *,
+    remaining: Sequence[float] = (),
 ) -> float | None:
     """Return residual-parent plus resolved-constituent moles for a natural.
 
@@ -2460,30 +2580,40 @@ def composite_replacement_moles(
     unresolved fraction uses the profile's harmonic-mean MW for mole-pool
     bookkeeping. Its uncomputed odor contribution is unknown, not odorless.
     GC-FID area fractions are nominal model proxies, not measured mass fractions.
+    ``remaining`` describes a partly evaporated natural (see
+    :func:`_composition_weights`); the remainder keeps the unevaporated
+    profile's harmonic-mean MW.
     """
     constituents = get_constituents(material_name)
     if constituents is None:
         return None
 
     _ = parent_moles  # retained for API compatibility and caller bookkeeping
+    row_weights, unresolved_weight = _composition_weights(constituents, remaining)
     characterized_fraction = min(
         1.0,
         max(0.0, sum(float(row[1]) for row in constituents)),
     )
-    resolved_moles_per_g = sum(
+    profile_moles_per_g = sum(
         max(0.0, float(fraction)) / float(mw)
         for _name, fraction, mw, _vp, _odt, _gamma in constituents
         if float(mw) > 0
     )
+    resolved_moles_per_g = sum(
+        max(0.0, float(row[1])) * weight / float(row[2])
+        for row, weight in zip(constituents, row_weights, strict=True)
+        if float(row[2]) > 0
+    )
     resolved_constituent_moles = max(0.0, float(active_g)) * resolved_moles_per_g
     effective_profile_mw = (
-        characterized_fraction / resolved_moles_per_g
-        if characterized_fraction > 0 and resolved_moles_per_g > 0
+        characterized_fraction / profile_moles_per_g
+        if characterized_fraction > 0 and profile_moles_per_g > 0
         else None
     )
     residual_parent_moles = (
         max(0.0, float(active_g))
         * (1.0 - characterized_fraction)
+        * unresolved_weight
         / effective_profile_mw
         if effective_profile_mw is not None
         else 0.0
@@ -2550,6 +2680,7 @@ def composite_headspace(
     parent_moles: float | None = None,
     temperature_K: float = 298.15,  # noqa: N803
     dhvap_estimate_kj_mol: float | None = None,
+    remaining: Sequence[float] = (),
 ) -> NaturalCompositeHeadspace | None:
     """Compute constituent-resolved vapor and OAV for a natural mixture.
 
@@ -2571,6 +2702,10 @@ def composite_headspace(
         dhvap_estimate_kj_mol: optional caller-supplied shared
             Clausius-Clapeyron enthalpy. When omitted, each constituent uses
             the published ambient-temperature VP25 correlation.
+        remaining: for a partly evaporated natural, the fraction of each
+            constituent row's starting mass still present, then that of the
+            unresolved remainder; empty means nothing has evaporated. See
+            :func:`_composition_weights`.
 
     Returns:
         NaturalCompositeHeadspace, or None if material not known.
@@ -2592,8 +2727,11 @@ def composite_headspace(
     constituent_rows: list[tuple[str, float, float, float, float, float]] = []
     resolved_constituent_moles = 0.0
 
-    for name, fraction, mw, constituent_vp_pa, odt_ppb, gamma_value in constituents:
-        constituent_mass_g = active_g * fraction
+    row_weights, _unresolved_weight = _composition_weights(constituents, remaining)
+    for (name, fraction, mw, constituent_vp_pa, odt_ppb, gamma_value), weight in zip(
+        constituents, row_weights, strict=True
+    ):
+        constituent_mass_g = active_g * fraction * weight
         moles = constituent_mass_g / mw if constituent_mass_g > 0 else 0.0
         resolved_constituent_moles += moles
         constituent_rows.append(
@@ -2606,6 +2744,7 @@ def composite_headspace(
             material_name,
             active_g,
             parent_moles,
+            remaining=remaining,
         )
         if replacement_moles is not None:
             effective_total_moles += replacement_moles - max(

@@ -30,6 +30,8 @@ from engine.perception.oav import oav, perceived_intensity_stevens
 from engine.pipeline.natural_absolute_decomposition import (
     NaturalCompositeHeadspace,
     NaturalCompositeMetadata,
+    NaturalCompositeVolatility,
+    composite_constituent_volatility,
     composite_headspace,
     composite_replacement_moles,
     get_composite_metadata,
@@ -225,6 +227,10 @@ class MaterialState:
     canonical_vapor_ppm: float | None = None
     canonical_oav: float | None = None
     canonical_intensity: float | None = None
+    # A natural's composition after evaporation: the fraction of each
+    # constituent row's starting mass still present (profile order), then that
+    # of the unresolved remainder. Empty = nothing has evaporated.
+    natural_composite_remaining: tuple[float, ...] = ()
     formula_optimization_authority: bool = field(default=False, init=False)
 
     @property
@@ -493,6 +499,7 @@ class FormulaState:
         *,
         new_raw_ul: dict[str, float],
         new_matrix_moles: tuple[tuple[str, float], ...] | None = None,
+        new_natural_composite_remaining: Mapping[str, Sequence[float]] | None = None,
     ) -> FormulaState:
         """Create a new FormulaState with different raw_ul amounts, reusing constant fields.
 
@@ -506,6 +513,12 @@ class FormulaState:
         simulator passes the evaporated matrix, diagnosis M1a); omitted, the
         base matrix is kept. ``matrix_mass_g`` stays the declared
         finished-product matrix mass either way.
+
+        ``new_natural_composite_remaining`` gives, by material name, a natural's
+        composition after evaporation (see
+        ``MaterialState.natural_composite_remaining``); the temporal simulator
+        passes it so a natural's light constituents can leave before its heavy
+        ones. A material it omits keeps its base composition.
         """
         materials: list[MaterialState] = []
         total_raw = sum(new_raw_ul.values())
@@ -517,6 +530,15 @@ class FormulaState:
         mole_inputs: dict[str, float] = dict(matrix_components_moles)
         authoritative_masses: dict[str, tuple[float | None, str]] = {}
         composite_rows: list[tuple[str, str, float, float]] = []
+        natural_remaining: dict[str, tuple[float, ...]] = {
+            m.name: (
+                tuple(float(value) for value in new_natural_composite_remaining[m.name])
+                if new_natural_composite_remaining is not None
+                and m.name in new_natural_composite_remaining
+                else m.natural_composite_remaining
+            )
+            for m in base.materials
+        }
         for m in base.materials:
             raw_ul = new_raw_ul.get(m.name, 0.0)
             active_ul = raw_ul * m.dilution
@@ -546,7 +568,8 @@ class FormulaState:
 
         total_moles = sum(mole_inputs.values())
         composite_replacements = tuple(
-            _composite_replacement_moles_for_row(*row) for row in composite_rows
+            _composite_replacement_moles_for_row(*row, remaining=natural_remaining[row[1]])
+            for row in composite_rows
         )
         composite_total_moles = _composite_formula_total_moles_from_replacements(
             total_moles,
@@ -627,6 +650,7 @@ class FormulaState:
                     active_g,
                     composite_total_moles,
                     temperature_K=base.temperature_K,
+                    remaining=natural_remaining[m.name],
                 )
             )
             requires_composite = m.is_opaque_preblend or _is_natural_mixture(lookup_name)
@@ -741,6 +765,7 @@ class FormulaState:
                         and finished_mass_g > 0
                         else None
                     ),
+                    natural_composite_remaining=natural_remaining[m.name],
                     **projection,
                 )
             )
@@ -879,6 +904,7 @@ def _lookup_composite_headspace(
     total_moles: float,
     *,
     temperature_K: float,  # noqa: N803
+    remaining: Sequence[float] = (),
 ) -> tuple[
     NaturalCompositeHeadspace | None,
     NaturalCompositeMetadata | None,
@@ -902,10 +928,36 @@ def _lookup_composite_headspace(
             active_g,
             total_moles,
             temperature_K=temperature_K,
+            remaining=remaining,
         )
         if composite is not None or metadata is not None:
             return composite, metadata, candidate
     return None, None, ""
+
+
+def natural_composite_volatility(
+    material: MaterialState,
+    temperature_K: float,  # noqa: N803
+) -> NaturalCompositeVolatility | None:
+    """Return constituent evaporation inputs for a row with natural-profile headspace.
+
+    None unless the row's headspace came from a natural constituent profile.
+    The identities are tried in the order the headspace lookup uses.
+    """
+    if material.sources.get("oav_model") != "modeled:natural_constituent_composite":
+        return None
+    candidates = tuple(
+        dict.fromkeys(
+            value
+            for value in (material.canonical_name, material.name)
+            if str(value or "").strip()
+        )
+    )
+    for candidate in candidates:
+        volatility = composite_constituent_volatility(candidate, temperature_K=temperature_K)
+        if volatility is not None:
+            return volatility
+    return None
 
 
 def _composite_supports_canonical_projection(
@@ -960,6 +1012,8 @@ def _composite_replacement_moles_for_row(
     stock_label: str,
     active_g: float,
     parent_moles: float,
+    *,
+    remaining: Sequence[float] = (),
 ) -> float | None:
     """Return a real constituent mole replacement, never a family proxy."""
 
@@ -975,6 +1029,7 @@ def _composite_replacement_moles_for_row(
             candidate,
             active_g,
             parent_moles,
+            remaining=remaining,
         )
         if replacement is not None:
             return float(replacement)
