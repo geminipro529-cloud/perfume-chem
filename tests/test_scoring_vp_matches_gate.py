@@ -91,7 +91,7 @@ def test_hidden_fixative_recommendations_use_gate_vp():
     [
         # YAML-only corrections that never reached material_properties.json.
         ("Lemon FCF oil Sicilian", 210.0),
-        ("Benzyl Benzoate", 0.0299),
+        ("Benzyl Benzoate", 0.02986),
     ],
 )
 def test_known_yaml_corrections_reach_scoring(name, gate_vp):
