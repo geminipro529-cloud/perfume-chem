@@ -97,7 +97,6 @@ Every new material must exist in 4 locations:
 4. Full scoring with `python scripts/verify_formula_workflow.py --formula-file <path>`
 5. Always present the OAV ranking BEFORE discussing gate outcomes
 6. Osmanthus at 500-700 µL of 10% is a clear lead (not a soliflore)
-7. Bergamot at >100 µL creates a limonene pool that persists 4h+ — the nose adapts in 90s
 
 ### Perfumery Literature References
 - Calkin & Jellinek (1994): chypre ratios, fixative loading

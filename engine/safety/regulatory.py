@@ -19,7 +19,7 @@ import uuid
 from dataclasses import dataclass
 from typing import Any
 
-from engine.ifra_standards import load_ifra_table
+from engine.ifra_standards import load_ifra_table, load_natural_constituents
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Constants
@@ -221,6 +221,13 @@ def check_compliance(
             )
         elif status == "no_standard":
             detail = f"{dose_text}: '{name}' has no IFRA standard."
+        elif material.name in load_natural_constituents().stocks:  # natural_no_own_standard
+            detail = (
+                f"{dose_text}: '{name}' is a natural with no IFRA standard of its own; "
+                "this per-material check does not sum its restricted constituents, but "
+                "the release gate's IFRA check counts its IFRA Annex I constituents "
+                "toward their Category 4 totals."
+            )
         else:  # natural_no_own_standard
             detail = (
                 f"{dose_text}: '{name}' is a natural with no IFRA standard of its own; "

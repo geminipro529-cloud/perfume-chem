@@ -84,13 +84,29 @@ def _integer(value: object, label: str) -> int:
         raise Checkpoint4ContractError(f"{label} must be an integer") from exc
 
 
+def _pinned_bytes_match(path: Path, expected_sha256: str) -> bool:
+    """Exact bytes, or the same bytes after only CRLF->LF or LF->CRLF conversion.
+
+    Git stores some pinned text in LF while a Windows checkout materializes
+    CRLF, so a pin taken on one platform must verify on the other. Any other
+    byte difference (including bare carriage returns) is still drift.
+    """
+    payload = path.read_bytes()
+    candidates = [payload]
+    lf_form = payload.replace(b"\r\n", b"\n")
+    if b"\r" not in lf_form:
+        candidates.append(lf_form)
+        candidates.append(lf_form.replace(b"\n", b"\r\n"))
+    return any(hashlib.sha256(item).hexdigest() == expected_sha256 for item in candidates)
+
+
 def _resolve_pinned_file(reference: Mapping[str, Any], label: str) -> Path:
     relative = str(reference.get("path") or "")
     expected_sha256 = str(reference.get("sha256") or "")
     path = (REPOSITORY_ROOT / relative).resolve()
     if not path.is_relative_to(REPOSITORY_ROOT.resolve()):
         raise Checkpoint4ContractError(f"{label} escapes repository")
-    if not path.is_file() or _file_sha256(path) != expected_sha256:
+    if not path.is_file() or not _pinned_bytes_match(path, expected_sha256):
         raise Checkpoint4ContractError(f"{label} hash drift")
     return path
 

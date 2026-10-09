@@ -113,7 +113,7 @@ paths:
     get:
       operationId: getHealth
       summary: Health probe
-      description: Returns workspace, readonly flag, and current git HEAD. No authentication required.
+      description: Returns ok and the readonly flag without authentication; workspace and current git HEAD only with a valid bearer token.
       security: []
       responses:
         "200":
@@ -215,8 +215,8 @@ paths:
   /api/commit:
     post:
       operationId: commitChanges
-      summary: Commit all applied/placed changes
-      description: git add -A then git commit with the given message.
+      summary: Commit the changes applied through this server
+      description: Stages and commits only the paths touched by patches applied through /api/apply since the last commit, marked with an App-Server-Commit trailer.
       requestBody:
         required: true
         content:
@@ -246,7 +246,7 @@ paths:
     post:
       operationId: revertLastCommit
       summary: Soft-reset the last commit (bounded rescue)
-      description: git reset --soft HEAD~1. Use only to undo a mistaken commit.
+      description: git reset --soft HEAD~1, refused unless HEAD is a commit this server made. Use only to undo a mistaken commit.
       responses:
         "200":
           description: Reverted
