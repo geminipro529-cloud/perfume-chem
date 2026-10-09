@@ -1,13 +1,18 @@
 """Main FastAPI application"""
 
+import ipaddress
+import math
 import time
 from collections import deque
 from contextlib import asynccontextmanager
 from pathlib import Path
+from typing import Any
 
 from engine.inventory_completions import completion_log_path
 from engine.personal_inventory import addition_log_path
 from fastapi import FastAPI, Request
+from fastapi.encoders import jsonable_encoder
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -26,7 +31,8 @@ STATIC_DIR = Path(__file__).resolve().parent / "static"
 
 # ── Simple request rate limiter (per-client, sliding window) ──
 _REQUEST_WINDOW = 60  # seconds
-_MAX_REQUESTS = 120  # per window
+_MAX_REQUESTS = 120  # per window, for clients other than this PC
+_MAX_REQUESTS_LOOPBACK = 600  # per window, for the page on this PC
 _client_requests: dict[str, deque] = {}
 
 
@@ -138,10 +144,40 @@ app.add_middleware(
 )
 
 
+def _json_safe(value: Any) -> Any:
+    """Turn NaN/Infinity (which JSON cannot carry) into text so a 422 can be sent."""
+    if isinstance(value, float) and not math.isfinite(value):
+        return str(value)
+    if isinstance(value, dict):
+        return {key: _json_safe(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_json_safe(item) for item in value]
+    return value
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_error_handler(request: Request, exc: RequestValidationError):
+    """Same 422 body as FastAPI's default, but safe when the refused input was NaN/Infinity."""
+    return JSONResponse(
+        status_code=422, content={"detail": jsonable_encoder(_json_safe(exc.errors()))}
+    )
+
+
+def _is_loopback(host: str) -> bool:
+    try:
+        return ipaddress.ip_address(host).is_loopback
+    except ValueError:
+        return False
+
+
 @app.middleware("http")
 async def rate_limit_middleware(request: Request, call_next):
     """Gate 0 — Global request rate limiter (sliding window per client IP)."""
+    path = request.url.path
+    if path == "/app" or path == "/static" or path.startswith("/static/"):
+        return await call_next(request)  # the page's own files are never limited
     client_ip = request.client.host if request.client else "unknown"
+    limit = _MAX_REQUESTS_LOOPBACK if _is_loopback(client_ip) else _MAX_REQUESTS
     now = time.time()
 
     window = _client_requests.setdefault(client_ip, deque())
@@ -150,11 +186,11 @@ async def rate_limit_middleware(request: Request, call_next):
     while window and window[0] < cutoff:
         window.popleft()
 
-    if len(window) >= _MAX_REQUESTS:
+    if len(window) >= limit:
         return JSONResponse(
             status_code=429,
             content={
-                "detail": f"Rate limit exceeded. Max {_MAX_REQUESTS} requests per {_REQUEST_WINDOW}s."
+                "detail": f"Rate limit exceeded. Max {limit} requests per {_REQUEST_WINDOW}s."
             },
         )
 
