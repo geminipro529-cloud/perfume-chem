@@ -22,6 +22,7 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
 
+from engine.inventory_dilutions import PREPARED_DILUTION_AUTHORITY
 from engine.inventory_parser import (
     INVENTORY_PATH,
     CurrentInventoryMaterialization,
@@ -413,7 +414,11 @@ def materialize_personal_inventory(
         live_forms = live_by_identity.get(_normalized_identity(stock), [])
         if not _stock_label_fraction_consistent(stock):
             continue
-        if live_forms and not any(_same_stock_form(stock, live) for live in live_forms):
+        # A dilution prepared on the Stock page is not in inventory.txt by design.
+        prepared = stock.authority == PREPARED_DILUTION_AUTHORITY
+        if not prepared and live_forms and not any(
+            _same_stock_form(stock, live) for live in live_forms
+        ):
             continue
         bound.append(stock)
 

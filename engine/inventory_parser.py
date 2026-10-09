@@ -5674,6 +5674,9 @@ def _materialize_current_inventory_uncached(
         from engine.inventory_completions import apply_inventory_completion_events
 
         materialized = apply_inventory_completion_events(materialized)
+        from engine.inventory_dilutions import apply_prepared_dilution_events
+
+        materialized = apply_prepared_dilution_events(materialized)
     elif not materialized.effective_inventory_sha256:
         materialized = replace(
             materialized,
@@ -5735,8 +5738,9 @@ def _inventory_materialization_fingerprint(
         paths.extend((*_USER_OVERLAY_CHAIN_PATHS, INVENTORY_PATH, USER_COMPOUNDING_HOLDS_PATH))
     if apply_user_completions:
         from engine.inventory_completions import completion_log_path
+        from engine.inventory_dilutions import dilution_log_path
 
-        paths.append(completion_log_path())
+        paths.extend((completion_log_path(), dilution_log_path()))
     records: list[tuple[str, int, int]] = []
     for source in paths:
         resolved = source.resolve()
