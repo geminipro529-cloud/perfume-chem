@@ -146,6 +146,30 @@ class PersonalInventoryAdditionCreate(LifecycleRequest):
     user_note: str = Field(default="", max_length=1000)
 
 
+class PreparedDilutionCreate(LifecycleRequest):
+    """A dilution the user made from an owned bottle (DPG and w/w by default)."""
+
+    schema_version: Literal["prepared-dilution-request-v1"] = (
+        "prepared-dilution-request-v1"
+    )
+    parent_stock_id: NonBlank = Field(max_length=255)
+    expected_effective_inventory_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    idempotency_key: NonBlank = Field(max_length=255)
+    fraction_percent_decimal: str = Field(
+        pattern=r"^[0-9]+(?:\.[0-9]+)?$",
+        max_length=32,
+    )
+    fraction_basis: Literal["mass_fraction", "volume_fraction"] = "mass_fraction"
+    carrier: NonBlank = Field(default="DPG", max_length=120)
+    amount_made_g: str | None = Field(
+        default=None,
+        pattern=r"^[0-9]+(?:\.[0-9]+)?$",
+        max_length=32,
+    )
+    prepared_on: date | None = None
+    user_note: str = Field(default="", max_length=1000)
+
+
 class BottleActionProposalCreate(LifecycleRequest):
     schema_version: NonBlank
     reservation_id: NonBlank

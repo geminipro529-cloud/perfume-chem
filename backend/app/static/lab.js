@@ -120,7 +120,7 @@ function renderProjectInventory(filter = "") {
   });
   const counts = inventory.counts || {};
   $("#project-inventory-count").textContent = `${counts.stocks || 0} current stock entries`;
-  $("#project-inventory-ready").textContent = `${counts.design_ready || counts.execution_ready || 0} ready for design · ${counts.live_inventory_text || 0} recovered from the live list · ${counts.personal_additions || 0} personal additions`;
+  $("#project-inventory-ready").textContent = `${counts.design_ready || counts.execution_ready || 0} ready for design · ${counts.live_inventory_text || 0} recovered from the live list · ${counts.personal_additions || 0} personal additions · ${counts.prepared_dilutions || 0} prepared dilutions`;
   $("#project-inventory-source").textContent = `${inventory.display_source || "Current project inventory"}. Effective version ${String(inventory.effective_inventory_sha256 || inventory.snapshot_sha256 || "unknown").slice(0, 12)}…`;
   $("#project-inventory-list").innerHTML = rows.length
     ? rows.map((stock) => {
@@ -133,9 +133,14 @@ function renderProjectInventory(filter = "") {
       const completion = !stock.design_ready && stock.completion_available
         ? `<button class="inventory-complete-button quiet-button" type="button" data-complete-stock="${escapeHtml(stock.stock_id)}">Complete details</button>`
         : "";
-      const sourceLabel = stock.source_class === "LIVE_INVENTORY_TEXT"
-        ? "Recovered from inventory.txt"
-        : (stock.source_class === "PERSONAL_ADDITION" ? "Your direct addition" : "Governed stock record");
+      const dilution = stock.dilution_available
+        ? `<button class="inventory-complete-button quiet-button" type="button" data-dilute-stock="${escapeHtml(stock.stock_id)}">Add a dilution</button>`
+        : "";
+      const sourceLabel = {
+        LIVE_INVENTORY_TEXT: "Recovered from inventory.txt",
+        PERSONAL_ADDITION: "Your direct addition",
+        PREPARED_DILUTION: "Your prepared dilution",
+      }[stock.source_class] || "Governed stock record";
       return `<article class="inventory-item">
         <div><strong>${escapeHtml(stock.identity_name)}</strong><span>${escapeHtml(stock.category || "uncategorized")}</span></div>
         <p>${escapeHtml(stock.fraction_percent_decimal)}% ${escapeHtml(stock.fraction_basis)}${escapeHtml(carrier)}${escapeHtml(form)}</p>
@@ -143,6 +148,7 @@ function renderProjectInventory(filter = "") {
         <small class="inventory-source">${escapeHtml(sourceLabel)}</small>
         ${missing ? `<small class="inventory-missing">Needed: ${escapeHtml(missing)}</small>` : ""}
         ${completion}
+        ${dilution}
       </article>`;
     }).join("")
     : '<p class="empty">No current inventory entries match that search.</p>';
@@ -1097,6 +1103,19 @@ $("#project-inventory-list").addEventListener("click", (event) => {
     (item) => item.stock_id === button.dataset.completeStock,
   );
   if (stock) openInventoryCompletion(stock);
+});
+
+attachStockDilutions({
+  doc: document,
+  list: $("#project-inventory-list"),
+  getInventory: () => state.projectInventory || { stocks: [] },
+  request,
+  newKey: () => globalThis.crypto?.randomUUID?.() || `dilution-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+  onSaved: (result) => {
+    state.projectInventory = result.inventory;
+    renderProjectInventory($("#project-inventory-search").value);
+    notify("Dilution saved. It is now a stock you can design with and gate.");
+  },
 });
 
 $("#inventory-completion-close").addEventListener("click", closeInventoryCompletion);
