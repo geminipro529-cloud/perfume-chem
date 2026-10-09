@@ -153,3 +153,81 @@ def test_candidate_rows_take_the_highest_level_not_the_sum():
         }
         several += sum(1 for levels in by_standard.values() if len(levels) > 1)
     assert several > 0  # some stock has several candidate rows for one substance
+
+
+def test_no_mapped_natural_is_itself_a_member_of_a_counted_standard():
+    # A stock restricted under one of the counted standards would enter that total twice:
+    # once as a synthetic member and once through its Annex I level.
+    data = load_natural_constituents()
+    for stock in data.stocks:
+        material = TABLE.lookup(stock)
+        assert material is not None
+        assert material.standard not in data.standards, stock
+
+
+def test_compliance_check_says_where_mapped_constituents_are_counted():
+    from engine.safety.regulatory import check_compliance, make_snapshot
+
+    snapshot = make_snapshot(
+        jurisdiction="EU",
+        product_category="Cat4",
+        rule_set="IFRA_51st_2025",
+        effective_date="2025-01-01",
+    )
+    [tonka, pepper] = check_compliance(
+        [
+            {"name": "Tonka Bean Absolute", "active_ul": 300.0, "finished_product_volume_ml": 30.0},
+            {"name": "Black Pepper EO", "active_ul": 300.0, "finished_product_volume_ml": 30.0},
+        ],
+        jurisdiction="EU",
+        product_category="Cat4",
+        snapshot=snapshot,
+    )
+    assert "release gate's IFRA check counts its IFRA Annex I constituents" in tonka.detail
+    assert "its restricted constituents are not summed here." in pepper.detail
+
+
+def test_optimizer_repairs_a_natural_driven_constituent_total():
+    from engine.optimizer.gate_aware import optimize_until_release_ready
+
+    config = ReleaseGateConfig(
+        expected_concentrate_ul=6000.0,
+        batch_volume_ml=30.0,
+        brief="generic",
+        allow_preblends=True,
+        min_confidence_score=0.0,
+        audit_enabled=False,
+    )
+    # Tonka has no IFRA standard of its own; the coumarin it carries (Annex I, 46.7 %)
+    # takes the coumarin total over 1.5 %, so only the constituent total can fail.
+    raw_pct = {
+        "Hedione": 25.0,
+        "Iso E Super": 25.0,
+        "Zenolide": 12.0,
+        "Linalool": 8.0,
+        "Phenyl Ethyl Alcohol": 10.0,
+        "Tonka Bean Absolute": 20.0,
+    }
+    pool = {"Iso E Super": 2.0, "Hedione": 1.0}
+
+    def safety(result):
+        return {g.gate: g for g in result.gate_report.gates}["safety_ifra_allergen"]
+
+    start = optimize_until_release_ready(
+        "Tonka Constituent Test", raw_pct, config=config, repair_pool=pool, max_passes=0
+    )
+    assert safety(start).status == "FAIL"
+    assert [v["material"] for v in safety(start).data["headroom_violations"]] == [
+        "IFRA_STD_023_constituents"
+    ]
+
+    result = optimize_until_release_ready(
+        "Tonka Constituent Test", raw_pct, config=config, repair_pool=pool
+    )
+    caps = [a for a in result.repair_actions if a.action == "cap_ifra_finished_product_limit"]
+    assert safety(result).status != "FAIL"
+    assert {a.material for a in caps} == {"Tonka Bean Absolute"}
+    total = next(
+        t for t in safety(result).data["constituent_totals"] if t["standard"] == "IFRA_STD_023"
+    )
+    assert total["total_pct"] <= total["limit_pct"]
