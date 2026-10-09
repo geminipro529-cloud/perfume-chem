@@ -162,6 +162,11 @@ _FULL_SCOPE_DUPLICATE_CHECKS = frozenset(
     }
 )
 
+# Checks that run inside the backend's Poetry environment.  A checkout (or
+# worktree) whose environment is absent or not installed reports these as
+# SKIPPED with the missing precondition, instead of a conftest import crash.
+_BACKEND_POETRY_ENVIRONMENT = "backend-poetry"
+
 _QUICK_FAIL_FAST_CHECKS = frozenset(
     {"engine-compile", "engine-lint", "engine-typecheck"}
 )
@@ -467,6 +472,7 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                 "backend-lint",
                 poetry + ("run", "ruff", "check", "--color", "never", "app"),
                 cwd="backend",
+                environment=_BACKEND_POETRY_ENVIRONMENT,
             ),
             CheckSpec(
                 "backend-typecheck",
@@ -478,6 +484,7 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                     "--ignore-missing-imports",
                 ),
                 cwd="backend",
+                environment=_BACKEND_POETRY_ENVIRONMENT,
             ),
             CheckSpec(
                 "backend-tests",
@@ -489,6 +496,7 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                     "--junitxml=../verification_runs/backend.xml",
                 ),
                 cwd="backend",
+                environment=_BACKEND_POETRY_ENVIRONMENT,
                 # Full-schema isolated DB regressions now exceed 20 minutes
                 # on the local Windows runner. Keep a bounded suite budget;
                 # this does not change formula/job execution timeouts.
@@ -541,6 +549,7 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                     "-q",
                 ),
                 cwd="backend",
+                environment=_BACKEND_POETRY_ENVIRONMENT,
             ),
             CheckSpec(
                 "package-build",
@@ -689,6 +698,8 @@ def _default_runner(project_root: Path) -> Callable[[CheckSpec], CommandOutcome]
         if spec.cwd == "backend":
             env.setdefault("OPENAI_API_KEY", "test-key")
             env.setdefault("SECRET_KEY", "test-secret-key-for-ci")
+        if spec.environment == _BACKEND_POETRY_ENVIRONMENT:
+            env.pop("PYTHONPATH", None)
         try:
             completed = subprocess.run(
                 command,
@@ -814,6 +825,94 @@ def _select_checks(
     return tuple(checks)
 
 
+class EnvironmentUnavailableError(Exception):
+    """Raised by a runner when a check's environment precondition is absent."""
+
+
+def _backend_environment_gap(project_root: Path) -> str | None:
+    """Return why the backend Poetry environment cannot run checks, or ``None``.
+
+    Requires an existing Poetry environment for ``backend/`` with every
+    non-optional main and dev dependency from ``backend/pyproject.toml``
+    installed.  ``poetry env info --path`` does not create an environment.
+    """
+
+    import tomllib
+
+    install_hint = "run `cd backend && poetry install`"
+    backend = project_root / "backend"
+    poetry = _local_tool(project_root, "poetry")
+    try:
+        located = subprocess.run(
+            poetry + ("env", "info", "--path"),
+            cwd=backend,
+            capture_output=True,
+            text=True,
+            timeout=120,
+            check=False,
+            env=_without_pythonpath(),
+        )
+    except OSError:
+        return f"Poetry executable is unavailable; install Poetry, then {install_hint}."
+    env_path = located.stdout.strip()
+    if located.returncode != 0 or not env_path:
+        return f"Backend Poetry environment does not exist; {install_hint}."
+    config = tomllib.loads((backend / "pyproject.toml").read_text(encoding="utf-8"))
+    poetry_config = config["tool"]["poetry"]
+    declared = {
+        name: spec
+        for name, spec in poetry_config.get("dependencies", {}).items()
+        if name != "python" and not (isinstance(spec, dict) and spec.get("optional"))
+    }
+    declared.update(
+        poetry_config.get("group", {}).get("dev", {}).get("dependencies", {})
+    )
+    probe = (
+        "import sys\n"
+        "from importlib.metadata import PackageNotFoundError, distribution\n"
+        "missing = []\n"
+        "for name in sys.argv[1:]:\n"
+        "    try:\n"
+        "        distribution(name)\n"
+        "    except PackageNotFoundError:\n"
+        "        missing.append(name)\n"
+        "print(' '.join(missing))\n"
+    )
+    try:
+        checked = subprocess.run(
+            (str(_wheel_python(Path(env_path))), "-c", probe, *sorted(declared)),
+            capture_output=True,
+            text=True,
+            timeout=120,
+            check=False,
+            env=_without_pythonpath(),
+        )
+    except OSError:
+        return f"Backend Poetry environment at {env_path} has no Python; {install_hint}."
+    missing = checked.stdout.split()
+    if checked.returncode != 0 or missing:
+        listed = ", ".join(missing) or checked.stderr.strip()[-200:]
+        return (
+            f"Backend Poetry environment at {env_path} is missing declared "
+            f"dependencies ({listed}); {install_hint}."
+        )
+    return None
+
+
+def _without_pythonpath() -> dict[str, str]:
+    """Return this process's environment without PYTHONPATH.
+
+    The backend checks run in the backend's own Poetry environment. A
+    PYTHONPATH inherited from the interpreter running the verifier puts that
+    interpreter's packages ahead of the Poetry ones (seen as a FastAPI and
+    Starlette version clash), and lets the dependency probe find packages the
+    Poetry environment does not have.
+    """
+    env = dict(os.environ)
+    env.pop("PYTHONPATH", None)
+    return env
+
+
 def _skipped_check(spec: CheckSpec, reason: str) -> CheckResult:
     return CheckResult(
         name=spec.name,
@@ -849,6 +948,8 @@ def _run_runnable_check(
             stdout_tail=_tail(outcome.stdout),
             stderr_tail=_tail(outcome.stderr),
         )
+    except EnvironmentUnavailableError as exc:
+        return _skipped_check(spec, str(exc))
     except Exception as exc:  # pragma: no cover - concrete cases exercise this path
         return CheckResult(
             name=spec.name,
@@ -1047,6 +1148,19 @@ def _run_sequential_checks(
     return tuple(results)
 
 
+def _skip_environment(
+    execute: Callable[[CheckSpec], CommandOutcome],
+    environment: str,
+    reason: str,
+) -> Callable[[CheckSpec], CommandOutcome]:
+    def run(spec: CheckSpec) -> CommandOutcome:
+        if spec.environment == environment:
+            raise EnvironmentUnavailableError(reason)
+        return execute(spec)
+
+    return run
+
+
 def run_project_verification(
     *,
     project_root: Path = PROJECT_ROOT,
@@ -1080,6 +1194,14 @@ def run_project_verification(
     else:
         verification_scope = "full"
     execute = runner or _default_runner(project_root)
+    if runner is None and any(
+        spec.environment == _BACKEND_POETRY_ENVIRONMENT for spec in selected_checks
+    ):
+        backend_gap = _backend_environment_gap(project_root)
+        if backend_gap is not None:
+            execute = _skip_environment(
+                execute, _BACKEND_POETRY_ENVIRONMENT, backend_gap
+            )
     if canonical_full:
         results = list(
             _run_canonical_full_checks(
