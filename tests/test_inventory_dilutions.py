@@ -307,3 +307,32 @@ def test_same_dilution_from_two_owned_bottles_is_two_events_with_two_parents(
     assert len(events) == 2
     parents = {str(event["prepared"]["parent_stock_id"]) for event in events}
     assert parents == {neat.stock_id, quarter.stock_id}
+
+
+def test_parent_carrier_components_are_not_repeated(dilution_log) -> None:
+    quarter = _stock("Ambrox Super", 0.25)
+    assert quarter.carrier == "dpg + ipm + ethanol"
+    _, materialized = _prepare("ambrox-1-dpg", parent_stock_id=quarter.stock_id)
+    (stock,) = _prepared(materialized)
+    assert stock.carrier == "dpg + ipm + ethanol"
+    assert stock.raw_name == "Ambrox Super 1% w/w in DPG + IPM + ETHANOL (prepared)"
+
+
+@pytest.mark.parametrize(
+    ("name", "expected"),
+    [
+        ("Cabreuva EO 50% in DPG", "Cabreuva EO 1% in DPG"),
+        ("Apritone 10%", "Apritone 1%"),
+        ("Alpha Damascone", "Alpha Damascone"),
+        ("Base 10% in 50% DPG", "Base 10% in 50% DPG"),
+    ],
+)
+def test_prepared_name_states_its_own_strength(name, expected) -> None:
+    from decimal import Decimal
+    from types import SimpleNamespace
+
+    from engine.inventory_dilutions import _prepared_name
+
+    # The parent's current strength (here 25%) need not match the name.
+    parent = SimpleNamespace(name=name, dilution=0.25)
+    assert _prepared_name(parent, Decimal("0.01")) == expected

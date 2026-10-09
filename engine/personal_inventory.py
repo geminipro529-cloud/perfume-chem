@@ -412,13 +412,16 @@ def materialize_personal_inventory(
     bound: list[InventoryMaterial] = []
     for stock in governed.stocks:
         live_forms = live_by_identity.get(_normalized_identity(stock), [])
-        if not _stock_label_fraction_consistent(stock):
-            continue
         # A dilution prepared on the Stock page is not in inventory.txt by design,
         # and a Stock page entry that changed the strength, basis or carrier wins
         # over the old inventory.txt form, so its row and disagreement stay shown.
         prepared = stock.authority == PREPARED_DILUTION_AUTHORITY
         overridden = bool(stock.authority_facts_differ)
+        # Stock page facts are the user's own record and the gate counts them,
+        # so a name still stating the workbook strength must not hide the row.
+        user_recorded = prepared or bool(stock.completion_event_sha256)
+        if not user_recorded and not _stock_label_fraction_consistent(stock):
+            continue
         if not prepared and not overridden and live_forms and not any(
             _same_stock_form(stock, live) for live in live_forms
         ):
