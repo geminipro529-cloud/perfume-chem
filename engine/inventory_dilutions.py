@@ -29,7 +29,10 @@ from typing import Any
 from engine.user_records import DILUTION_LOG_NAME
 
 DILUTION_PATH_ENV = "PERFUME_INVENTORY_DILUTION_PATH"
-SCHEMA_VERSION = "perfume-chem-prepared-dilution-event-v1"
+SCHEMA_VERSION = "perfume-chem-prepared-dilution-event-v2"
+# v1 events (2026-10-09, before the parent's facts were stored) still load; at
+# apply time their parent cannot be checked, so they are held.
+_V1_SCHEMA_VERSION = "perfume-chem-prepared-dilution-event-v1"
 PREPARED_DILUTION_AUTHORITY = "LAB_STOCK_PAGE_PREPARED_DILUTION"
 STOCK_ID_PREFIX = "inventory:prepared-dilution:"
 ALLOWED_BASES = {"mass_fraction", "volume_fraction"}
@@ -43,6 +46,15 @@ FALSE_ACTION_AUTHORITY = {
 }
 _STOCK_FIELDS = ("parent_stock_id", "fraction_decimal", "fraction_basis", "carrier")
 _RECORD_FIELDS = ("amount_made_g", "prepared_on", "user_note")
+# The parent bottle's strength, basis and carrier when the dilution was made.
+_PARENT_FACT_FIELDS = ("parent_fraction_decimal", "parent_fraction_basis", "parent_carrier")
+# Execution holds on a prepared stock.  PARENT_CHANGED: the parent bottle's
+# strength, basis or carrier is no longer what it was when the dilution was
+# recorded, so the recorded strength may be wrong; recording it again from the
+# bottle as it now stands replaces it.  PARENT_HELD: the parent bottle is held
+# at the release gate, so a dilution of it is held too.
+PREPARED_DILUTION_PARENT_CHANGED = "PREPARED_DILUTION_PARENT_CHANGED"
+PREPARED_DILUTION_PARENT_HELD = "PREPARED_DILUTION_PARENT_HELD"
 _WRITE_LOCK = threading.Lock()
 
 
@@ -168,7 +180,10 @@ def _validate_event(raw: object, *, previous_hash: str) -> dict[str, Any]:
         "event_sha256",
         *FALSE_ACTION_AUTHORITY,
     }
-    if set(event) != required or event["schema_version"] != SCHEMA_VERSION:
+    if set(event) != required or event["schema_version"] not in {
+        SCHEMA_VERSION,
+        _V1_SCHEMA_VERSION,
+    }:
         raise PreparedDilutionError("prepared dilution event shape is invalid")
     for field in (
         "idempotency_key_sha256",
@@ -185,12 +200,16 @@ def _validate_event(raw: object, *, previous_hash: str) -> dict[str, Any]:
     if any(event[field] is not False for field in FALSE_ACTION_AUTHORITY):
         raise PreparedDilutionError("prepared dilution cannot grant action authority")
     prepared = event["prepared"]
+    parent_facts = _PARENT_FACT_FIELDS if event["schema_version"] == SCHEMA_VERSION else ()
     if not isinstance(prepared, Mapping) or set(prepared) != {
         *_STOCK_FIELDS,
         *_RECORD_FIELDS,
+        *parent_facts,
         "parent_identity",
     }:
         raise PreparedDilutionError("prepared dilution values are invalid")
+    if any(not isinstance(prepared[field], str) for field in parent_facts):
+        raise PreparedDilutionError("prepared dilution parent facts are invalid")
     normalized = _normalize_values(**{k: prepared[k] for k in (*_STOCK_FIELDS, *_RECORD_FIELDS)})
     if any(normalized[k] != prepared[k] for k in normalized):
         raise PreparedDilutionError("prepared dilution values are not normalized")
@@ -241,11 +260,26 @@ def _identity_key(stock: Any) -> str:
     return normalize_name(str(getattr(stock, "identity_name", "") or stock.name))
 
 
+def _parent_facts(parent: Any) -> dict[str, str]:
+    """The parent bottle's strength, basis and carrier as stored in an event."""
+
+    return {
+        "parent_fraction_decimal": format(Decimal(str(parent.dilution)).normalize(), "f"),
+        "parent_fraction_basis": str(parent.fraction_basis or ""),
+        "parent_carrier": _clean_text(parent.carrier, maximum=120).casefold(),
+    }
+
+
 def _dilution_key(parent: Any, values: Mapping[str, str]) -> str:
+    # The parent bottle and its facts are part of the key: the same strength
+    # made again from another bottle, or from this bottle after its facts were
+    # corrected, is a new dilution, not the earlier one.
     return _sha256_text(
         _canonical_json(
             {
                 "identity": _identity_key(parent),
+                "parent_stock_id": values["parent_stock_id"],
+                **_parent_facts(parent),
                 "fraction_decimal": values["fraction_decimal"],
                 "fraction_basis": values["fraction_basis"],
                 "carrier": values["carrier"],
@@ -254,64 +288,173 @@ def _dilution_key(parent: Any, values: Mapping[str, str]) -> str:
     )
 
 
-def _parent_refusal(parent: Any, fraction: Decimal) -> str:
+def dilution_parent_ready(stock: Any) -> bool:
+    """Whether a stock can be diluted into a new stock that counts at the gate.
+
+    The parent must count at the release gate itself: execution-ready, with no
+    unresolved V5 row words (an identity kept separate, say).  Design readiness
+    alone is not enough; a Stock page completion can make a stock design-ready
+    while it stays held at the gate.
+    """
+
+    from engine.inventory_completions import effective_design_ready
+
+    return (
+        str(getattr(stock, "status", "")).casefold() == "owned"
+        and bool(getattr(stock, "execution_ready", False))
+        and not str(getattr(stock, "row_unresolved_tokens", "") or "")
+        and effective_design_ready(stock)
+        and str(getattr(stock, "authority", "")) != PREPARED_DILUTION_AUTHORITY
+    )
+
+
+def _basis_text(basis: str) -> str:
+    return {"mass_fraction": "w/w", "volume_fraction": "v/v"}.get(basis, basis or "unstated")
+
+
+def _parent_refusal(parent: Any, values: Mapping[str, str]) -> str:
     if parent is None:
         return "the parent stock is not in the current inventory"
     if str(getattr(parent, "status", "")).casefold() != "owned":
         return "the parent stock is not an owned stock"
-    design_ready = getattr(parent, "design_ready", None)
-    if not (parent.execution_ready if design_ready is None else design_ready):
-        return "the parent stock's strength, basis or carrier is not confirmed; complete it first"
-    if Decimal(str(parent.dilution)) <= fraction:
+    if not dilution_parent_ready(parent):
+        return (
+            "the parent stock is held at the release gate, so a dilution of it would be "
+            "held too; resolve the parent stock first"
+        )
+    parent_fraction = Decimal(str(parent.dilution))
+    if parent_fraction <= Decimal(values["fraction_decimal"]):
         return "the new strength must be weaker than the parent stock"
+    if parent_fraction != 1 and values["fraction_basis"] != parent.fraction_basis:
+        return (
+            f"the parent stock's strength is {_basis_text(str(parent.fraction_basis))}; "
+            f"a {_basis_text(values['fraction_basis'])} strength from it needs densities, "
+            "so give the new strength on the same basis or dilute from a neat bottle"
+        )
     return ""
 
 
-def _label(identity: str, values: Mapping[str, str]) -> str:
-    basis = "w/w" if values["fraction_basis"] == "mass_fraction" else "v/v"
-    percent = format((Decimal(values["fraction_decimal"]) * 100).normalize(), "f")
-    return f"{identity} {percent}% {basis} in {values['carrier'].upper()} (prepared)"
+def _prepared_carrier(prepared: Mapping[str, str]) -> str:
+    """The carrier typed, plus the parent's own carrier if it was not neat."""
+
+    entered = str(prepared["carrier"])
+    parent_carrier = str(prepared.get("parent_carrier", ""))
+    neat_parent = Decimal(str(prepared.get("parent_fraction_decimal", "1"))) == 1
+    if neat_parent or not parent_carrier or parent_carrier == entered:
+        return entered
+    return f"{entered} + {parent_carrier}"
+
+
+def _label(identity: str, prepared: Mapping[str, str], carrier: str) -> str:
+    percent = format((Decimal(prepared["fraction_decimal"]) * 100).normalize(), "f")
+    basis = _basis_text(str(prepared["fraction_basis"]))
+    return f"{identity} {percent}% {basis} in {carrier.upper()} (prepared)"
+
+
+def _prepared_name(parent: Any, fraction: Decimal) -> str:
+    """The parent's name with its strength replaced by the prepared strength.
+
+    ``Apritone 10%`` becomes ``Apritone 1%``; a name that states no strength
+    (``Alpha Damascone``) is kept, so formula rows still match by identity.
+    """
+
+    parent_percent = Decimal(str(parent.dilution)) * 100
+    new_percent = format((fraction * 100).normalize(), "f")
+
+    def swap(match: re.Match[str]) -> str:
+        stated = Decimal(match.group(1).replace(",", "."))
+        return f"{new_percent}%" if stated == parent_percent else match.group(0)
+
+    return re.sub(r"(?<![\d.,])(\d+(?:[.,]\d+)?)\s*%", swap, str(parent.name))
+
+
+def _prepared_hold(parent: Any, prepared: Mapping[str, str]) -> str:
+    """Why a prepared stock is held at the release gate now, or ""."""
+
+    current = _parent_facts(parent)
+    if any(prepared.get(field) != current[field] for field in _PARENT_FACT_FIELDS):
+        return PREPARED_DILUTION_PARENT_CHANGED
+    if not dilution_parent_ready(parent):
+        return "|".join(
+            dict.fromkeys(
+                [
+                    PREPARED_DILUTION_PARENT_HELD,
+                    *filter(None, str(parent.execution_hold_reason).split("|")),
+                ]
+            )
+        )
+    return ""
 
 
 def apply_prepared_dilution_events(materialization: Any, path: Path | None = None) -> Any:
-    """Add one stock per distinct prepared dilution whose parent is still present."""
+    """Add one stock per distinct prepared dilution whose parent is still present.
+
+    A dilution counts at the release gate only while its parent is still
+    gate-ready with the strength, basis and carrier it had when the dilution
+    was recorded; otherwise the prepared stock is kept but held.
+    """
+
+    from engine.inventory_completions import effective_design_ready
 
     events = load_prepared_dilution_events(path)
     stocks = list(materialization.stocks)
     by_id = {stock.stock_id: stock for stock in stocks}
     seen: set[str] = set()
+    prepared_stocks: list[tuple[tuple[str, ...], Any]] = []
     for event in events:
         key = str(event["dilution_key_sha256"])
         prepared = event["prepared"]
         parent = by_id.get(str(prepared["parent_stock_id"]))
-        if key in seen or _parent_refusal(parent, Decimal(prepared["fraction_decimal"])):
+        if (
+            key in seen
+            or parent is None
+            or str(parent.status).casefold() != "owned"
+            or parent.authority == PREPARED_DILUTION_AUTHORITY
+        ):
             continue
         seen.add(key)
+        hold = _prepared_hold(parent, prepared)
+        fraction = Decimal(prepared["fraction_decimal"])
+        carrier = _prepared_carrier(prepared)
         identity = str(parent.identity_name or parent.name)
         source_ref = f"{dilution_log_path(path)}#{event['event_id']}"
-        stocks.append(
-            replace(
-                parent,
-                dilution=float(Decimal(prepared["fraction_decimal"])),
-                raw_name=_label(identity, prepared),
-                fraction_basis=str(prepared["fraction_basis"]),
-                carrier=str(prepared["carrier"]),
-                physical_form="liquid",
-                approximate=False,
-                stock_id=STOCK_ID_PREFIX + key[:20],
-                authority=PREPARED_DILUTION_AUTHORITY,
-                source_rows=(),
-                source_ref=source_ref,
-                execution_ready=True,
-                execution_hold_reason="",
-                requirement_state="",
-                design_ready=True,
-                design_hold_reason="",
-                completion_event_sha256=str(event["event_sha256"]),
-                completion_source_ref=source_ref,
-                homogeneity="HOMOGENEOUS",
-            )
+        design_ready = hold != PREPARED_DILUTION_PARENT_CHANGED and effective_design_ready(parent)
+        stock = replace(
+            parent,
+            name=_prepared_name(parent, fraction),
+            dilution=float(fraction),
+            raw_name=_label(identity, prepared, carrier),
+            fraction_basis=str(prepared["fraction_basis"]),
+            carrier=carrier,
+            physical_form="liquid",
+            approximate=False,
+            stock_id=STOCK_ID_PREFIX + key[:20],
+            authority=PREPARED_DILUTION_AUTHORITY,
+            source_rows=(),
+            source_ref=source_ref,
+            execution_ready=not hold,
+            execution_hold_reason=hold,
+            requirement_state="",
+            design_ready=design_ready,
+            design_hold_reason="" if design_ready else hold,
+            completion_event_sha256=str(event["event_sha256"]),
+            completion_source_ref=source_ref,
+            homogeneity="HOMOGENEOUS",
+            authority_facts_differ=(),
         )
+        target = tuple(
+            str(prepared[field])
+            for field in ("parent_stock_id", "fraction_decimal", "fraction_basis", "carrier")
+        )
+        prepared_stocks.append((target, stock))
+    # A held dilution made again from the same bottle as it now stands is
+    # replaced by the newer record rather than listed beside it.
+    ready_targets = {target for target, stock in prepared_stocks if stock.execution_ready}
+    stocks.extend(
+        stock
+        for target, stock in prepared_stocks
+        if stock.execution_ready or target not in ready_targets
+    )
     log_hash = dilution_log_sha256(path)
     if not log_hash:
         return materialization
@@ -339,8 +482,10 @@ def record_prepared_dilution(
 ) -> tuple[dict[str, Any], Any]:
     """Append one prepared dilution and return it with a fresh materialization.
 
-    Preparing the same dilution (same identity, strength, basis and carrier)
-    again returns the earlier event instead of adding a second stock.
+    Preparing the same dilution (same parent bottle and parent facts, strength,
+    basis and carrier) again returns the earlier event instead of adding a
+    second stock.  ``path`` is both the log written and the log the returned
+    inventory reads.
     """
 
     if not re.fullmatch(r"[0-9a-f]{64}", str(expected_effective_inventory_sha256)):
@@ -363,13 +508,13 @@ def record_prepared_dilution(
 
     with _WRITE_LOCK:
         events = load_prepared_dilution_events(source)
-        materialized = materialize_current_inventory()
+        materialized = materialize_current_inventory(dilution_path=source)
         parent = next(
             (s for s in materialized.stocks if s.stock_id == values["parent_stock_id"]), None
         )
         if parent is not None and parent.authority == PREPARED_DILUTION_AUTHORITY:
             parent = None  # dilute from a bottle in the inventory, not a prepared record
-        refusal = _parent_refusal(parent, Decimal(values["fraction_decimal"]))
+        refusal = _parent_refusal(parent, values)
         if refusal:
             raise PreparedDilutionError(refusal)
         dilution_key = _dilution_key(parent, values)
@@ -395,7 +540,11 @@ def record_prepared_dilution(
             "idempotency_key_sha256": key_hash,
             "dilution_key_sha256": dilution_key,
             "expected_effective_inventory_sha256": expected_effective_inventory_sha256,
-            "prepared": {**values, "parent_identity": _identity_key(parent)},
+            "prepared": {
+                **values,
+                **_parent_facts(parent),
+                "parent_identity": _identity_key(parent),
+            },
             "previous_event_sha256": previous_hash,
             **FALSE_ACTION_AUTHORITY,
         }
@@ -411,18 +560,21 @@ def record_prepared_dilution(
                 os.close(descriptor)
         except OSError as error:
             raise PreparedDilutionError(f"prepared dilution could not be saved: {error}") from error
-        return event, materialize_current_inventory()
+        return event, materialize_current_inventory(dilution_path=source)
 
 
 __all__ = [
     "DILUTION_PATH_ENV",
     "FALSE_ACTION_AUTHORITY",
     "PREPARED_DILUTION_AUTHORITY",
+    "PREPARED_DILUTION_PARENT_CHANGED",
+    "PREPARED_DILUTION_PARENT_HELD",
     "PreparedDilutionConflictError",
     "PreparedDilutionError",
     "apply_prepared_dilution_events",
     "dilution_log_path",
     "dilution_log_sha256",
+    "dilution_parent_ready",
     "load_prepared_dilution_events",
     "record_prepared_dilution",
 ]
