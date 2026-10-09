@@ -16,7 +16,11 @@ from engine.formulation_intelligence.material_capability_index import (
     supports_descriptor_requirement,
 )
 from engine.formulation_intelligence.semantic_brief_adapter import (
+    ACCENT_MAX_RAW_SHARE,
+    ACCENT_PROVENANCE,
     ACCORD_SUPPORT_PROVENANCE,
+    LAYER_MAX_RAW_SHARE,
+    LAYER_PROVENANCE,
     SemanticBrief,
     SemanticRole,
     accord_lead_role_id,
@@ -136,16 +140,19 @@ def _family_bucket(capability: MaterialCapability) -> str | None:
 # Roles the composer adds on its own, as opposed to notes the user asked for.
 # A material IFRA could limit at their dose never fills one by default.
 _SUPPORTING_PROVENANCE = frozenset({
-    "LAYERED_BASE_ARCHITECTURE",
+    *LAYER_PROVENANCE.values(),
+    ACCENT_PROVENANCE,
     ACCORD_SUPPORT_PROVENANCE,
     "FUNCTIONAL_COVERAGE",
     "MINIMUM_FUNCTIONAL_ARCHITECTURE",
     "PROMPT_REQUESTED_EXPANDED_ARCHITECTURE",
 })
 
-# Worst case for a supporting role: its 8% raw-share ceiling in a
-# concentrate that is up to 30% of the finished perfume (extrait strength).
-_LAYER_WORST_CASE_FINISHED_FRACTION = .08 * .30
+# Worst case for a supporting role: its raw-share ceiling (8% unless the role
+# sets a smaller one) in a concentrate that is up to 30% of the finished
+# perfume (extrait strength).
+_SUPPORTING_RAW_SHARE_CEILING = LAYER_MAX_RAW_SHARE
+_CONCENTRATE_FINISHED_FRACTION = .30
 
 
 @lru_cache(maxsize=None)
@@ -158,11 +165,11 @@ def _ifra_entry(identity_name: str) -> tuple[str, float | None] | None:
     return entry.status, entry.cat4_limit_pct
 
 
-def _ifra_binds_layer(capability: MaterialCapability) -> bool:
-    """True when IFRA could bind at a base layer's dose, so it is no layer stock.
+def _ifra_binds_layer(capability: MaterialCapability, role: SemanticRole) -> bool:
+    """True when IFRA could bind at a supporting role's dose ceiling.
 
     Such a material can still be used where the brief asks for it; it just
-    never fills a supporting layer by default.
+    never fills a supporting role by default.
     """
 
     entry = _ifra_entry(capability.identity_name)
@@ -173,8 +180,24 @@ def _ifra_binds_layer(capability: MaterialCapability) -> bool:
         return True
     if status != "restricted" or limit is None:
         return False
+    ceiling = min(role.max_raw_share or _SUPPORTING_RAW_SHARE_CEILING, _SUPPORTING_RAW_SHARE_CEILING)
     fraction = float(capability.candidate.stock.dilution)
-    return _LAYER_WORST_CASE_FINISHED_FRACTION * fraction * 100 > limit
+    return ceiling * _CONCENTRATE_FINISHED_FRACTION * fraction * 100 > limit
+
+
+def _accent_admits(capability: MaterialCapability, role: SemanticRole) -> bool:
+    """A potent stock may be an accent when its own dose stays a trace.
+
+    A trace material qualifies only from a dilution of 10% or less, and a
+    material with a hard dose cap only when that cap sits inside the accent's
+    own raw-share ceiling, so the cap can never hand it extra volume.
+    """
+
+    if "trace" in capability.function_terms and float(capability.candidate.stock.dilution) > .1:
+        return False
+    probe_total = 10_000
+    cap = _hard_cap_ul(capability.candidate, probe_total)
+    return cap is None or cap <= probe_total * (role.max_raw_share or ACCENT_MAX_RAW_SHARE)
 
 
 def _supports_accord(capability: MaterialCapability, role: SemanticRole) -> bool:
@@ -270,7 +293,7 @@ def _allowed(
     if (
         role.exact_material is None
         and role.provenance in _SUPPORTING_PROVENANCE
-        and _ifra_binds_layer(capability)
+        and _ifra_binds_layer(capability, role)
     ):
         return False
     if role.provenance == ACCORD_SUPPORT_PROVENANCE and not _supports_accord(capability, role):
@@ -279,6 +302,10 @@ def _allowed(
         # A solid needs an explicit mass-bearing request.  Selecting one from a
         # descriptor alone would force the solver to invent a mass operation.
         return False
+    if role.provenance == ACCENT_PROVENANCE and role.exact_material is None:
+        # Accents are the one supporting place for potent materials, kept to
+        # a trace by _accent_admits and the accent's small raw-share ceiling.
+        return _accent_admits(capability, role)
     if (
         role.exact_material is None
         and role.provenance != "PROMPT_DERIVED_FACET"

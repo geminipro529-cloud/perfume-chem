@@ -308,55 +308,141 @@ def _source_tokens(text: str) -> tuple[str, ...]:
     )
 
 
-# A perfumer's base is several materials in supporting roles, not one wood or
-# one amber carrying the whole drydown.  Each layer names a base family and the
-# own-odor descriptors a stock must carry to fill it (see
+# A perfumer builds every register from several materials in supporting
+# roles, not one stock per note.  Each layer names a family and the own-odor
+# descriptors a stock must carry to fill it (see
 # ``material_capability_index._DESCRIPTOR_REQUIREMENTS``).  Query terms stay to
 # one family word so the brief's qualities, not a stock's name, pick the
-# material.  The family markers decide whether a prompt-derived base role
-# already covers that layer.
-_BASE_LAYERS: tuple[tuple[str, str, str, float, tuple[str, ...], tuple[tuple[str, float], ...], tuple[str, ...]], ...] = (
+# material.  The family markers decide whether a prompt-derived role already
+# covers that layer.  Accents are small modifiers: they may use a diluted
+# trace material but never carry volume.
+#
+# Order is priority: under a tight material limit the earlier layers stay.
+_LayerSpec = tuple[
+    str, str, str, str, float,
+    tuple[str, ...], tuple[tuple[str, float], ...], tuple[str, ...], str, str | None,
+]
+_LAYER = "layer"
+_ACCENT = "accent"
+_NOTE_LAYERS: tuple[_LayerSpec, ...] = (
     (
-        "base_wood_layer", "Base wood layer", "base_wood", .07,
+        "base_wood_layer", "Base wood layer", "base", "base_wood", .07,
         ("wood",),
         (("woody", .8), ("creamy", .2)),
         ("wood", "cedar", "sandal", "vetiver", "patchouli", "timber", "guaiac"),
+        _LAYER, None,
     ),
     (
-        "base_amber_layer", "Base amber layer", "base_amber", .05,
-        ("amber",),
-        (("warmth", .45), ("woody", .35), ("radiance", .2)),
-        ("amber", "ambrox", "ambergris", "labdanum"),
+        "heart_floral_layer", "Heart floral layer", "heart", "heart_floral", .045,
+        ("floral",),
+        (("floral", .75), ("radiance", .25)),
+        ("floral", "flower", "rose", "jasmine", "muguet", "petal", "blossom", "neroli",
+         "tuberose", "gardenia", "geranium", "hedione", "lily"),
+        _LAYER, None,
     ),
     (
-        "base_musk_layer", "Base musk layer", "base_musk", .06,
+        "top_citrus_layer", "Top citrus layer", "top", "top_citrus", .035,
+        ("citrus",),
+        (("freshness", .65), ("radiance", .35)),
+        ("citrus", "bergamot", "lemon", "mandarin", "grapefruit", "orange", "lime", "yuzu",
+         "petitgrain"),
+        _LAYER, None,
+    ),
+    (
+        "base_musk_layer", "Base musk layer", "base", "base_musk", .06,
         ("musk",),
         (("creamy", .4), ("warmth", .3), ("transparency", .3)),
         ("musk", "ambrettolide", "habanolide", "exaltolide", "brassylate", "galaxolide"),
+        _LAYER, None,
     ),
     (
-        "base_resin_layer", "Base balsamic resin layer", "base_resin", .045,
+        "base_amber_layer", "Base amber layer", "base", "base_amber", .05,
+        ("amber",),
+        (("warmth", .45), ("woody", .35), ("radiance", .2)),
+        ("amber", "ambrox", "ambergris", "labdanum"),
+        _LAYER, None,
+    ),
+    (
+        "top_green_layer", "Top green aromatic layer", "top", "top_green", .025,
+        ("green",),
+        (("green", .6), ("freshness", .4)),
+        ("green", "leaf", "herb", "herbal", "aromatic", "basil", "mint", "galbanum",
+         "rosemary", "sage", "thyme", "lavender"),
+        _LAYER, None,
+    ),
+    (
+        "heart_powder_layer", "Heart powder texture", "heart", "heart_powder", .025,
+        ("powder",),
+        (("powdery", .7), ("creamy", .15), ("floral", .15)),
+        ("powder", "iris", "orris", "violet", "ionone", "irone", "heliotropin"),
+        _LAYER, "light",
+    ),
+    (
+        "base_resin_layer", "Base balsamic resin layer", "base", "base_resin", .045,
         ("balsam", "resin"),
         (("warmth", .55), ("sweetness", .35), ("smoky", .1)),
-        ("resin", "balsam", "benzoin", "labdanum", "opoponax", "olibanum", "incense", "myrrh", "vanilla", "tonka"),
+        ("resin", "balsam", "benzoin", "labdanum", "opoponax", "olibanum", "incense", "myrrh",
+         "vanilla", "tonka"),
+        _LAYER, "light",
+    ),
+    (
+        "heart_spice_accent", "Heart spice accent", "heart", "heart_spice", .012,
+        ("spice",),
+        (("spicy", .7), ("warmth", .3)),
+        ("spice", "spicy", "pepper", "cardamom", "nutmeg", "cinnamon", "clove", "saffron",
+         "ginger"),
+        _ACCENT, "light",
+    ),
+    (
+        "top_sparkle_accent", "Top sparkle accent", "top", "top_sparkle", .012,
+        ("sparkle",),
+        (("radiance", .6), ("freshness", .4)),
+        ("aldehyde", "aldehydic", "sparkling", "fruit", "fruity", "ester", "pear", "apple",
+         "berry", "cassis"),
+        _ACCENT, None,
+    ),
+    (
+        "base_shadow_accent", "Base shadow accent", "base", "base_shadow", .012,
+        ("smoke",),
+        (("smoky", .6), ("animalic", .2), ("woody", .2)),
+        ("smoke", "smoky", "leather", "suede", "animalic", "tar", "cade", "birch", "fur",
+         "castoreum", "civet", "guaiacol"),
+        _ACCENT, "not_warm",
     ),
 )
-_LIGHT_BRIEF = re.compile(r"\b(?:fresh|cologne|aquatic|citrus|light|transparent|clean|airy|sheer)\b")
-_WARM_BRIEF = re.compile(r"\b(?:warm|dark|deep|resin|resinous|amber|incense|balsam|balsamic|vanilla|oriental|evening|rich)\b")
+LAYER_PROVENANCE = {
+    "base": "LAYERED_BASE_ARCHITECTURE",
+    "top": "LAYERED_TOP_ARCHITECTURE",
+    "heart": "LAYERED_HEART_ARCHITECTURE",
+}
+ACCENT_PROVENANCE = "ACCENT_LAYER"
+# Supporting, never dominant: a layer may not take spare volume that capped
+# rows leave behind, and an accent stays a nuance.
+LAYER_MAX_RAW_SHARE = .08
+ACCENT_MAX_RAW_SHARE = .025
+# How strongly each layer leans toward the requested notes' character.
+_BRIEF_ECHO = .35
+# Layers together never outweigh the brief: past this share of the formula
+# they are scaled down together.
+_LAYER_SHARE_BUDGET = .30
+_LIGHT_BRIEF = re.compile(
+    r"\b(?:fresh|cologne|aquatic|citrus|light|transparent|clean|airy|sheer|spring|summer|dewy|delicate)\b"
+)
+_WARM_BRIEF = re.compile(r"\b(?:warm|dark|deep|resin|resinous|amber|incense|balsam|balsamic|vanilla|oriental|evening|rich|leather|smoky|tobacco)\b")
 
 
-def _base_layers(
+def _note_layers(
     *,
     complexity_text: str,
     roles: Sequence["SemanticRole"],
     avoid: Sequence[str],
     qualifier_weights: tuple[tuple[str, float], ...] = (),
 ) -> tuple["SemanticRole", ...]:
-    """Supporting base layers for families the prompt-derived roles leave open.
+    """Supporting top, heart and base layers the prompt-derived roles leave open.
 
     Layers are optional roles: a layer with no eligible owned stock is simply
     left out.  They never replace a requested facet and carry modest shares so
-    the requested character still leads the drydown.
+    the requested character still leads.  Returned in priority order.
     """
 
     avoided = {_key(item) for item in avoid}
@@ -368,19 +454,34 @@ def _base_layers(
             for marker in markers
         )
 
-    base_terms = [
-        " ".join((role.role_id, *role.query_terms, role.exact_material or "")).casefold()
-        for role in roles
-        if role.note == "base" or role.role_id.startswith("explicit_anchor")
-    ]
-    light = bool(_LIGHT_BRIEF.search(complexity_text)) and not _WARM_BRIEF.search(complexity_text)
+    def role_text(role: "SemanticRole") -> str:
+        return " ".join((role.role_id, *role.query_terms, role.exact_material or "")).casefold()
+
+    # A named stock can sit in any register, so it counts for every note.
+    anchor_terms = [role_text(role) for role in roles if role.exact_material is not None]
+    note_terms = {
+        note: [role_text(role) for role in roles if role.note == note] + anchor_terms
+        for note in ("top", "heart", "base")
+    }
+    warm = bool(_WARM_BRIEF.search(complexity_text))
+    light = bool(_LIGHT_BRIEF.search(complexity_text)) and not warm
+    # The requested notes' own character, so a rose brief's citrus layer
+    # leans floral and a smoky brief's leans dry: layers echo the brief.
+    brief_vector: dict[str, float] = {}
+    for role in roles:
+        if role.provenance != "PROMPT_DERIVED_FACET":
+            continue
+        for dimension, weight in role.character_weights:
+            if weight > 0:
+                brief_vector[dimension] = brief_vector.get(dimension, 0.0) + weight
+    strongest = max(brief_vector.values(), default=0.0)
     layers: list[SemanticRole] = []
-    for role_id, label, requirement, share, terms, weights, markers in _BASE_LAYERS:
+    for role_id, label, note, requirement, share, terms, weights, markers, kind, skip in _NOTE_LAYERS:
         if is_avoided(markers):
             continue
-        if requirement == "base_resin" and light:
+        if (skip == "light" and light) or (skip == "not_warm" and not warm):
             continue
-        covered = any(marker in text for text in base_terms for marker in markers)
+        covered = any(marker in text for text in note_terms[note] for marker in markers)
         if covered and requirement != "base_wood":
             continue
         if covered:
@@ -390,22 +491,23 @@ def _base_layers(
         merged = dict(weights)
         for dimension, weight in qualifier_weights:
             # The brief's qualities (dry, dark, creamy, clean) steer which
-            # stock fills each layer, so the base follows the brief.
+            # stock fills each layer, so every register follows the brief.
             merged[dimension] = merged.get(dimension, 0.0) + weight * .5
+        for dimension, weight in brief_vector.items():
+            merged[dimension] = merged.get(dimension, 0.0) + weight / strongest * _BRIEF_ECHO
+        accent = kind == _ACCENT
         layers.append(
             SemanticRole(
                 role_id=role_id,
                 label=label,
-                note="base",
-                function="structure",
+                note=note,
+                function="modifier" if accent else ("structure" if note == "base" else "texture"),
                 query_terms=terms,
                 character_weights=tuple(sorted(merged.items())),
                 share=share,
                 required=False,
-                # Supporting, never dominant: a layer may not take spare
-                # volume that capped rows leave behind.
-                max_raw_share=.08,
-                provenance="LAYERED_BASE_ARCHITECTURE",
+                max_raw_share=ACCENT_MAX_RAW_SHARE if accent else LAYER_MAX_RAW_SHARE,
+                provenance=ACCENT_PROVENANCE if accent else LAYER_PROVENANCE[note],
                 descriptor_requirement=requirement,
             )
         )
@@ -515,7 +617,7 @@ def _roles(
     # An exact material count is the user's architecture; layering only
     # applies when the count is left to the composer.
     layers = (
-        _base_layers(
+        _note_layers(
             complexity_text=complexity_text,
             roles=roles,
             avoid=avoid,
@@ -524,36 +626,50 @@ def _roles(
         if target_count is None
         else ()
     )
-    role_target = min(maximum, role_target + len(layers))
+    base_layered = any(layer.note == "base" for layer in layers)
+    deferred_drydown: SemanticRole | None = None
     for role_id, label, note, function, share, base_weights in structural:
         if len(roles) >= maximum:
             break
         if note in coverage and len(roles) >= 6:
             continue
-        if role_id == "drydown_structure" and layers:
-            # The layers below are the drydown structure.
-            continue
         merged: dict[str, float] = dict(base_weights)
         for dimension, weight in qualifier_weights:
             merged[dimension] = merged.get(dimension, 0.0) + weight * .45
-        roles.append(
-            SemanticRole(
-                role_id=role_id,
-                label=label,
-                note=note,
-                function=function,
-                query_terms=support_query(note, label, function),
-                character_weights=tuple(sorted(merged.items())),
-                share=share,
-                provenance="FUNCTIONAL_COVERAGE",
-            )
+        role = SemanticRole(
+            role_id=role_id,
+            label=label,
+            note=note,
+            function=function,
+            query_terms=support_query(note, label, function),
+            character_weights=tuple(sorted(merged.items())),
+            share=share,
+            provenance="FUNCTIONAL_COVERAGE",
         )
+        if role_id == "drydown_structure" and base_layered:
+            # The base layers below are the drydown structure.
+            deferred_drydown = role
+            continue
+        roles.append(role)
         coverage.add(note)
 
-    for layer in layers:
-        if len(roles) >= maximum:
-            break
-        roles.append(layer)
+    if layers:
+        # Each requested note keeps room for its first accord material, and
+        # Deep Compose keeps its two places, before a generic layer takes one.
+        reserve = _DEEP_COMPOSE_RESERVE + len(_accord_leads(roles))
+        placed = list(layers[:max(0, maximum - len(roles) - reserve)])
+        layer_share = sum(layer.share for layer in placed)
+        if layer_share > _LAYER_SHARE_BUDGET:
+            scale = _LAYER_SHARE_BUDGET / layer_share
+            placed = [replace(layer, share=layer.share * scale) for layer in placed]
+        roles.extend(placed)
+        if (
+            deferred_drydown is not None
+            and not any(layer.note == "base" for layer in placed)
+            and len(roles) < maximum
+        ):
+            roles.append(deferred_drydown)
+        role_target = min(maximum - reserve, role_target + len(placed))
 
     optional_structural = (
         ("top_to_heart_link", "Top-to-heart link", "heart", "bridge", .075, (("transparency", .35), ("radiance", .3))),
@@ -664,14 +780,19 @@ def accord_lead_role_id(role: SemanticRole) -> str | None:
     return role.role_id.split(ACCORD_SUPPORT_SEPARATOR, 1)[0]
 
 
-def _with_accords(roles: list[SemanticRole], maximum: int) -> list[SemanticRole]:
+# Places kept free so a Deep Compose comparison can still add its own role
+# without displacing the requested notes.
+_DEEP_COMPOSE_RESERVE = 2
+
+
+def _accord_leads(roles: Sequence[SemanticRole]) -> list[SemanticRole]:
     anchored_words = {
         word
         for role in roles
         if role.exact_material is not None
         for word in _key(role.exact_material).split()
     }
-    leads = [
+    return [
         role
         for role in roles
         if role.provenance == "PROMPT_DERIVED_FACET"
@@ -683,9 +804,11 @@ def _with_accords(roles: list[SemanticRole], maximum: int) -> list[SemanticRole]
             word for term in role.query_terms for word in _key(term).split()
         }
     ]
-    # Keep two places free so a Deep Compose comparison can still add its
-    # own role without displacing the requested notes.
-    budget = maximum - len(roles) - 2
+
+
+def _with_accords(roles: list[SemanticRole], maximum: int) -> list[SemanticRole]:
+    leads = _accord_leads(roles)
+    budget = maximum - len(roles) - _DEEP_COMPOSE_RESERVE
     supports: dict[str, int] = {}
     # One support per requested note first, then a second, so a tight
     # material limit spreads depth across notes instead of piling on one.
@@ -878,6 +1001,10 @@ def compile_semantic_brief(
 
 
 __all__ = [
+    "ACCENT_MAX_RAW_SHARE",
+    "ACCENT_PROVENANCE",
+    "LAYER_MAX_RAW_SHARE",
+    "LAYER_PROVENANCE",
     "FacetDefinition",
     "SemanticBrief",
     "SemanticRole",

@@ -74,7 +74,18 @@ _DESCRIPTOR_REQUIREMENTS: dict[str, tuple[frozenset[str], ...]] = {
     "citrus_leaf_floral": (
         frozenset({"leaf", "leafy"}), frozenset({"citrus"}), frozenset({"floral"}),
     ),
-    # Layered-base families (semantic_brief_adapter._BASE_LAYERS).
+    # Layer and accent families (semantic_brief_adapter._NOTE_LAYERS).
+    "top_citrus": (frozenset({
+        "citrus", "lemon", "bergamot", "orange", "mandarin", "grapefruit", "lime", "yuzu",
+    }),),
+    "top_green": (frozenset({"green", "leaf", "leafy", "herbal", "aromatic"}),),
+    "top_sparkle": (frozenset({"aldehydic", "aldehyde", "sparkling", "fruit", "fruity"}),),
+    "heart_floral": (frozenset({
+        "floral", "rose", "rosy", "jasmine", "muguet", "petal", "blossom",
+    }),),
+    "heart_powder": (frozenset({"powdery", "powder", "iris", "orris", "violet", "velvety"}),),
+    "heart_spice": (frozenset({"spicy", "spice"}),),
+    "base_shadow": (frozenset({"smoky", "smoke", "leather", "animalic"}),),
     "base_wood": (frozenset({"woody", "wood", "cedar", "sandalwood", "vetiver"}),),
     "base_amber": (frozenset({"amber", "ambery", "ambergris"}),),
     "base_musk": (frozenset({"musk", "musky"}),),
