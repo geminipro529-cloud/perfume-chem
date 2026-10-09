@@ -109,3 +109,58 @@ def test_composer_keeps_two_strength_bottles_inventory_txt_confirms() -> None:
         .startswith("cashmeran")
     }
     assert strengths and strengths <= {1.0, 0.2}
+
+
+def test_ethyl_maltol_is_one_identity_at_two_strengths() -> None:
+    from engine.research.composition_planner import _selection_identity
+
+    maltol = [s for s in _owned_stocks() if s.name.startswith("Ethyl Maltol")]
+    assert {(s.identity_name, s.dilution) for s in maltol} == {
+        ("Ethyl Maltol", 0.01),
+        ("Ethyl Maltol", 0.1),
+    }
+    personal = materialize_personal_inventory().stocks
+    assert not any("1% +" in f"{s.name}|{s.identity_name}" for s in personal)
+
+    candidates, _inventory, known = _load_candidates(())
+    composer = [c for c in candidates if "ethyl maltol" in c.stock.name.casefold()]
+    assert {c.stock.dilution for c in composer} == {0.01, 0.1}
+    # Two strengths of one material, not two materials.
+    assert {_selection_identity(c) for c in composer} == {"ethyl maltol"}
+    assert not any("1% +" in value for value in known)
+    assert not any("1% +" in c.profile.name for c in composer)
+
+
+def test_identical_owned_stocks_are_numbered_not_rejected() -> None:
+    from dataclasses import replace
+
+    from engine.inventory_parser import InventoryMaterial, assign_stock_display_names
+
+    bottle = InventoryMaterial(
+        name="Hedione 10%", dilution=0.1, category="floral", raw_name="Hedione 10%",
+        status="owned", fraction_basis="mass_fraction", carrier="dpg",
+        identity_name="Hedione", stock_id="inventory:test:b",
+    )
+    named = assign_stock_display_names(
+        (bottle, replace(bottle, stock_id="inventory:test:a"),
+         replace(bottle, stock_id="inventory:test:c"))
+    )
+    assert [s.name for s in named] == [
+        "Hedione 10% w/w in DPG (2)",
+        "Hedione 10% w/w in DPG",
+        "Hedione 10% w/w in DPG (3)",
+    ]
+
+    # The personal projection (Stock page, composer) takes the same path.
+    canonical = materialize_current_inventory()
+    maltol = next(s for s in canonical.stocks if s.name == "Ethyl Maltol 1%")
+    twin = replace(maltol, stock_id=maltol.stock_id + "-second-bottle")
+    projected = materialize_personal_inventory(
+        canonical=replace(canonical, stocks=(*canonical.stocks, twin))
+    )
+    names = Counter(s.name.casefold() for s in projected.stocks if s.status == "owned")
+    assert [name for name, count in names.items() if count > 1] == []
+    assert any(
+        s.name == "Ethyl Maltol 1% v/v in ETHANOL (2)"
+        for s in projected.stocks
+    )
