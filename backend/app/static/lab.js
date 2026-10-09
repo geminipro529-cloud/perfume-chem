@@ -1241,6 +1241,28 @@ function selectedFormulaVariant(result, variantIndex = state.formulaChat.variant
   };
 }
 
+function renderCompositionChecks(compositionChecks) {
+  const box = $("#formula-result-checks");
+  const summary = typeof compositionCheckLines === "function" ? compositionCheckLines(compositionChecks) : null;
+  box.replaceChildren();
+  box.hidden = !summary;
+  if (!summary) return;
+  box.className = summary.flagged ? "formula-result-checks inline-warning" : "formula-result-checks";
+  const list = document.createElement("ul");
+  summary.lines.forEach((line) => {
+    const item = document.createElement("li");
+    item.dataset.status = line.status;
+    item.textContent = line.text;
+    list.append(item);
+  });
+  box.append(list);
+  if (summary.basis) {
+    const basis = document.createElement("small");
+    basis.textContent = summary.basis;
+    box.append(basis);
+  }
+}
+
 function renderFormulaDesign(result, variantIndex = 0) {
   state.formulaChat.result = result;
   state.formulaChat.variantIndex = variantIndex;
@@ -1271,6 +1293,7 @@ function renderFormulaDesign(result, variantIndex = 0) {
     });
     picker.append(button);
   });
+  renderCompositionChecks(selected.variant ? selected.variant.composition_checks : result.composition_checks);
   const rows = selected.formula?.rows || [];
   $("#formula-result-rows").innerHTML = rows.length
     ? rows.map((row) => {

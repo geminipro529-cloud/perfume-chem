@@ -6,6 +6,7 @@ import hashlib
 import json
 import re
 from dataclasses import asdict
+from functools import wraps
 from decimal import Decimal, InvalidOperation
 from typing import Any, Literal, Sequence
 
@@ -13,6 +14,7 @@ from engine.formulation_intelligence.architecture_bridge import (
     derive_architecture_briefs,
     role_plan_signature,
 )
+from engine.formulation_intelligence.composition_checks import attach_composition_checks
 from engine.formulation_intelligence.formula_critic import critique_formula
 from engine.formulation_intelligence.formula_solver import FormulaSolveResult, solve_formula
 from engine.formulation_intelligence.literature_knowledge import retrieve_formulation_knowledge
@@ -596,6 +598,17 @@ def _dynamic_report(
     return {**report, "design_sha256": stable_payload_hash(report)}
 
 
+def _with_composition_checks(design: Any) -> Any:
+    """Attach the gate's advisory crowding/IFRA checks to every composed formula."""
+
+    @wraps(design)
+    def wrapper(*args: Any, **kwargs: Any) -> dict[str, Any]:
+        return attach_composition_checks(design(*args, **kwargs))
+
+    return wrapper
+
+
+@_with_composition_checks
 def design_formula(
     *,
     idea: str,
