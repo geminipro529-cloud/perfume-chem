@@ -27,7 +27,7 @@ from app.services.lab_service import LabService
 from app.services.restore_command import restore_from_backup
 from tests.a2_planning_fixtures import _approved_plan
 
-CURRENT_HEAD = "20261008_0026"
+CURRENT_HEAD = "20261009_0027"
 
 
 def _database(path, value: str, revision: str = "20260716_0001") -> None:

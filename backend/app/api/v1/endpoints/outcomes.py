@@ -1,12 +1,17 @@
 """Outcome API endpoints: record, query, and analyze formulation outcomes."""
 
-from typing import Optional
+import math
+from datetime import datetime
+from typing import Literal, Optional
 
-from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel, Field
+from fastapi import APIRouter, Depends, HTTPException, Query, Response
+from pydantic import BaseModel, Field, field_validator
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_db
+from app.models.liking import LikingPick, LikingRating
+from app.services import personal_liking
 from app.services.outcome_store import OutcomeStore
 
 router = APIRouter()
@@ -163,3 +168,154 @@ async def top_ingredients(
     """Find ingredients that appear most often in highly-rated formulations."""
     store = OutcomeStore(db)
     return await store.top_ingredients(min_outcomes=min_outcomes)
+
+
+# ── Kenny's liking ratings and two-bottle picks ──
+
+LikingWindow = Literal["opening", "1h", "4h"]
+
+
+def _checked_shares(shares: dict[str, float]) -> dict[str, float]:
+    if not shares:
+        raise ValueError("list at least one material share")
+    for name, share in shares.items():
+        if not name.strip():
+            raise ValueError("material names must not be blank")
+        if not math.isfinite(share) or share < 0:
+            raise ValueError(f"the share for {name} must be a number of 0 or more")
+    if not any(share > 0 for share in shares.values()):
+        raise ValueError("at least one material share must be above 0")
+    if sum(shares.values()) > 1.0001:
+        raise ValueError("material shares must add up to 1 or less")
+    return shares
+
+
+class LikingRatingCreate(BaseModel):
+    formula_name: str = Field(..., min_length=1, max_length=255)
+    formula_key: str = Field(..., min_length=1, max_length=255)
+    window: LikingWindow
+    liking: int = Field(..., ge=1, le=10)
+    complexity: Optional[int] = Field(None, ge=1, le=10)
+    too_loud: Optional[str] = None
+    note: Optional[str] = None
+    material_shares: dict[str, float]
+    crowd_guess: Optional[float] = Field(None, ge=-1, le=1)
+    source: str = Field("lab_card", min_length=1, max_length=64)
+
+    check_shares = field_validator("material_shares")(_checked_shares)
+
+
+class LikingRatingResponse(LikingRatingCreate):
+    id: int
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class LikingPickCreate(BaseModel):
+    window: LikingWindow
+    formula_a_name: str = Field(..., min_length=1, max_length=255)
+    formula_a_key: str = Field(..., min_length=1, max_length=255)
+    shares_a: dict[str, float]
+    crowd_a: Optional[float] = Field(None, ge=-1, le=1)
+    formula_b_name: str = Field(..., min_length=1, max_length=255)
+    formula_b_key: str = Field(..., min_length=1, max_length=255)
+    shares_b: dict[str, float]
+    crowd_b: Optional[float] = Field(None, ge=-1, le=1)
+    preferred: Literal["a", "b", "same"]
+    note: Optional[str] = None
+
+    check_shares = field_validator("shares_a", "shares_b")(_checked_shares)
+
+
+class LikingPickResponse(LikingPickCreate):
+    id: int
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+async def _save_and_refit(db: AsyncSession) -> None:
+    """Refit and rewrite data/user/personal_liking.json, then commit.
+
+    The file is written before the commit, so a failed write leaves the change
+    unsaved rather than saved beside a stale personal fit.
+    """
+
+    await db.flush()
+    await personal_liking.refit_and_write(db)
+    await db.commit()
+
+
+@router.post("/liking/ratings", response_model=LikingRatingResponse, status_code=201)
+async def record_liking_rating(body: LikingRatingCreate, db: AsyncSession = Depends(get_db)):
+    """Record Kenny's liking for a bottle at one time point."""
+    rating = LikingRating(**body.model_dump())
+    db.add(rating)
+    await _save_and_refit(db)
+    await db.refresh(rating)
+    return rating
+
+
+@router.get("/liking/ratings", response_model=list[LikingRatingResponse])
+async def list_liking_ratings(
+    limit: int = Query(100, ge=1, le=1000), db: AsyncSession = Depends(get_db)
+):
+    """List liking ratings, newest first."""
+    rows = await db.execute(
+        select(LikingRating)
+        .order_by(LikingRating.created_at.desc(), LikingRating.id.desc())
+        .limit(limit)
+    )
+    return rows.scalars().all()
+
+
+@router.delete("/liking/ratings/{rating_id}", status_code=204)
+async def delete_liking_rating(rating_id: int, db: AsyncSession = Depends(get_db)):
+    """Delete one liking rating and refit."""
+    rating = await db.get(LikingRating, rating_id)
+    if rating is None:
+        raise HTTPException(status_code=404, detail="Liking rating not found")
+    await db.delete(rating)
+    await _save_and_refit(db)
+    return Response(status_code=204)
+
+
+@router.post("/liking/picks", response_model=LikingPickResponse, status_code=201)
+async def record_liking_pick(body: LikingPickCreate, db: AsyncSession = Depends(get_db)):
+    """Record which of two bottles Kenny preferred at one time point."""
+    pick = LikingPick(**body.model_dump())
+    db.add(pick)
+    await _save_and_refit(db)
+    await db.refresh(pick)
+    return pick
+
+
+@router.get("/liking/picks", response_model=list[LikingPickResponse])
+async def list_liking_picks(
+    limit: int = Query(100, ge=1, le=1000), db: AsyncSession = Depends(get_db)
+):
+    """List two-bottle picks, newest first."""
+    rows = await db.execute(
+        select(LikingPick)
+        .order_by(LikingPick.created_at.desc(), LikingPick.id.desc())
+        .limit(limit)
+    )
+    return rows.scalars().all()
+
+
+@router.delete("/liking/picks/{pick_id}", status_code=204)
+async def delete_liking_pick(pick_id: int, db: AsyncSession = Depends(get_db)):
+    """Delete one two-bottle pick and refit."""
+    pick = await db.get(LikingPick, pick_id)
+    if pick is None:
+        raise HTTPException(status_code=404, detail="Liking pick not found")
+    await db.delete(pick)
+    await _save_and_refit(db)
+    return Response(status_code=204)
+
+
+@router.get("/liking/personal")
+async def personal_liking_fit(db: AsyncSession = Depends(get_db)):
+    """Kenny's personal liking per material and per odour family, fitted from his records."""
+    return await personal_liking.current_fit(db)
