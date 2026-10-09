@@ -11,10 +11,13 @@ import json
 import pytest
 
 from engine import user_records
+from engine.inventory_completions import record_inventory_completion
 from engine.inventory_dilutions import (
     FALSE_ACTION_AUTHORITY,
     PREPARED_DILUTION_AUTHORITY,
+    PREPARED_DILUTION_PARENT_CHANGED,
     PreparedDilutionError,
+    dilution_parent_ready,
     load_prepared_dilution_events,
     record_prepared_dilution,
 )
@@ -48,7 +51,9 @@ def _neat_parent(materialized=None):
 def _prepare(key: str, **overrides):
     baseline = materialize_current_inventory()
     command = {
-        "parent_stock_id": _neat_parent(baseline).stock_id,
+        "parent_stock_id": (
+            overrides.pop("parent_stock_id", None) or _neat_parent(baseline).stock_id
+        ),
         "expected_effective_inventory_sha256": baseline.effective_inventory_sha256,
         "idempotency_key": key,
         "fraction_decimal": "0.01",
@@ -145,9 +150,7 @@ def _held_diluted_parent_id(materialized) -> str:
     return next(
         s.stock_id
         for s in materialized.stocks
-        if s.status == "owned" and (s.execution_ready if s.design_ready is None else s.design_ready)
-        and 0 < s.dilution < 0.5
-        and s.authority != PREPARED_DILUTION_AUTHORITY
+        if dilution_parent_ready(s) and 0 < s.dilution < 0.5
     )
 
 
@@ -163,3 +166,144 @@ def test_tampered_log_is_refused(dilution_log) -> None:
 def test_dilution_log_is_a_user_record(dilution_log) -> None:
     files = user_records.record_files()
     assert files[user_records.DILUTION_LOG_NAME] == dilution_log.resolve()
+
+
+def _stock(identity: str, fraction: float, materialized=None):
+    materialized = materialized or materialize_current_inventory()
+    return next(
+        s
+        for s in materialized.stocks
+        if s.identity_name == identity
+        and s.dilution == fraction
+        and s.authority != PREPARED_DILUTION_AUTHORITY
+    )
+
+
+def _complete(stock, key: str, fraction: str, carrier: str):
+    record_inventory_completion(
+        stock_id=stock.stock_id,
+        expected_effective_inventory_sha256=(
+            materialize_current_inventory().effective_inventory_sha256
+        ),
+        idempotency_key=key,
+        fraction_decimal=fraction,
+        fraction_basis="mass_fraction",
+        carrier=carrier,
+        physical_form="liquid",
+        possession_confirmed=True,
+        homogeneity="HOMOGENEOUS",
+        final_fraction_known=True,
+        source_kind="PERSONAL_CONFIRMATION",
+    )
+
+
+def _prepared(materialized):
+    return [s for s in materialized.stocks if s.authority == PREPARED_DILUTION_AUTHORITY]
+
+
+def test_completed_but_gate_held_parent_cannot_be_diluted(dilution_log) -> None:
+    apritone = _stock("Apritone", 0.1)
+    assert "IDENTITY KEPT SEPARATE" in apritone.row_unresolved_tokens
+    _complete(apritone, "apritone-10", "0.1", "DPG")
+    completed = _stock("Apritone", 0.1)
+    assert completed.design_ready is True and completed.execution_ready is False
+
+    with pytest.raises(PreparedDilutionError, match="held at the release gate"):
+        _prepare("apritone-1", parent_stock_id=completed.stock_id)
+    assert not dilution_log.exists()
+
+
+def test_execution_held_parent_without_a_completion_cannot_be_diluted(dilution_log) -> None:
+    manzanate = _stock("Manzanate", 1.0)
+    assert manzanate.execution_ready is False
+    with pytest.raises(PreparedDilutionError, match="held at the release gate"):
+        _prepare("manzanate-1", parent_stock_id=manzanate.stock_id)
+    assert not dilution_log.exists()
+
+
+def test_dilution_is_held_when_its_parent_bottle_changes(dilution_log) -> None:
+    _prepare("first")
+    assert _issues(0.01) == []
+
+    _complete(_neat_parent(), "now-half", "0.5", "DPG")
+    (held,) = _prepared(materialize_current_inventory())
+    assert held.execution_ready is False
+    assert held.execution_hold_reason == PREPARED_DILUTION_PARENT_CHANGED
+    assert _issues(0.01) != []
+
+    # Recording it again from the bottle as it now stands appends a new event
+    # and replaces the held stock.
+    receipt, materialized = _prepare("again", parent_stock_id=_stock(MATERIAL, 0.5).stock_id)
+    assert len(load_prepared_dilution_events()) == 2
+    (ready,) = _prepared(materialized)
+    assert ready.execution_ready is True
+    assert ready.completion_event_sha256 == receipt["event_sha256"]
+    assert _issues(0.01) == []
+
+
+def test_basis_change_needs_a_neat_parent(dilution_log) -> None:
+    anisaldehyde = _stock("Anisaldehyde", 0.1)
+    assert anisaldehyde.fraction_basis == "volume_fraction"
+    with pytest.raises(PreparedDilutionError, match="needs densities"):
+        _prepare("ww-from-vv", parent_stock_id=anisaldehyde.stock_id)
+    assert not dilution_log.exists()
+
+
+def test_prepared_stock_shows_its_own_strength_and_both_carriers(dilution_log) -> None:
+    anisaldehyde = _stock("Anisaldehyde", 0.1)
+    assert anisaldehyde.name == "Anisaldehyde 10%" and anisaldehyde.carrier == "ethanol"
+    _, materialized = _prepare(
+        "anis-1", parent_stock_id=anisaldehyde.stock_id, fraction_basis="volume_fraction"
+    )
+    (stock,) = _prepared(materialized)
+    assert stock.name == "Anisaldehyde 1%"
+    assert stock.carrier == "dpg + ethanol"
+    assert stock.raw_name == "Anisaldehyde 1% v/v in DPG + ETHANOL (prepared)"
+
+
+def test_prepared_stock_does_not_copy_the_parents_authority_disagreement(dilution_log) -> None:
+    _complete(_neat_parent(), "now-half", "0.5", "DEP")
+    parent = _stock(MATERIAL, 0.5)
+    assert parent.authority_facts_differ != ()
+    _, materialized = _prepare("from-half", parent_stock_id=parent.stock_id)
+    (stock,) = _prepared(materialized)
+    assert stock.authority_facts_differ == ()
+    assert stock.carrier == "dpg + dep"
+
+
+def test_returned_inventory_reads_the_log_it_wrote(dilution_log, tmp_path) -> None:
+    other = tmp_path / "other-dilutions.jsonl"
+    receipt, materialized = _prepare("elsewhere", path=other)
+    assert other.exists() and not dilution_log.exists()
+    (stock,) = _prepared(materialized)
+    assert stock.completion_event_sha256 == receipt["event_sha256"]
+
+
+def test_unspecified_parent_basis_is_refused_before_the_basis_change_message(
+    dilution_log,
+) -> None:
+    adoxal = _stock("Adoxal", 0.1)
+    assert adoxal.fraction_basis == "unspecified" and adoxal.execution_ready is True
+    with pytest.raises(PreparedDilutionError, match="concentration basis isn't recorded"):
+        _prepare("adoxal-1", parent_stock_id=adoxal.stock_id)
+    assert not dilution_log.exists()
+
+
+def test_same_dilution_from_two_owned_bottles_is_two_events_with_two_parents(
+    dilution_log,
+) -> None:
+    neat = _stock("Ambrox Super", 1.0)
+    quarter = _stock("Ambrox Super", 0.25)
+    assert neat.execution_ready and quarter.execution_ready
+    for key, parent in (("ambrox-from-neat", neat), ("ambrox-from-quarter", quarter)):
+        baseline = materialize_current_inventory()
+        record_prepared_dilution(
+            parent_stock_id=parent.stock_id,
+            expected_effective_inventory_sha256=baseline.effective_inventory_sha256,
+            idempotency_key=key,
+            fraction_decimal="0.01",
+        )
+    events = load_prepared_dilution_events()
+    assert len(events) == 2
+    parents = {str(event["prepared"]["parent_stock_id"]) for event in events}
+    assert parents == {neat.stock_id, quarter.stock_id}

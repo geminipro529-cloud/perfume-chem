@@ -18,6 +18,7 @@ from engine.inventory_dilutions import (
     PREPARED_DILUTION_AUTHORITY,
     PreparedDilutionConflictError,
     PreparedDilutionError,
+    dilution_parent_ready,
     record_prepared_dilution,
 )
 from engine.personal_inventory import (
@@ -207,8 +208,7 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
                 "dilution_available": (
                     stock.status.casefold() == "owned"
                     and stock.stock_id in materialized.canonical_stock_ids
-                    and stock.authority != PREPARED_DILUTION_AUTHORITY
-                    and design_ready
+                    and dilution_parent_ready(stock)
                 ),
                 "completion_event_sha256": stock.completion_event_sha256 or None,
                 "completion_source_ref": stock.completion_source_ref or None,

@@ -43,6 +43,7 @@ from engine.ifra_standards import (
     load_ifra_table,
 )
 from engine.inventory_completions import COMPLETION_CLEARABLE_HOLDS, STOCK_PAGE_ENTRY_INCOMPLETE
+from engine.inventory_dilutions import PREPARED_DILUTION_PARENT_CHANGED
 from engine.knowledge.literature_rules import (
     _LITERATURE_DB_LOADED,
     _cite_fn,
@@ -470,6 +471,10 @@ _STOCK_DATA_HOLDS: dict[str, str] = {
     "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED": "confirm the concentration basis and homogeneity",
     "HOMOGENEITY_NOT_RECONFIRMED": "reconfirm homogeneity",
     STOCK_PAGE_ENTRY_INCOMPLETE: "finish the Lab app's Stock page entry",
+    PREPARED_DILUTION_PARENT_CHANGED: (
+        "the bottle this dilution was made from has changed; on the Lab app's Stock page, "
+        "record the dilution again from that bottle as it now stands"
+    ),
 }
 # When preflight reports that a complete Lab app Stock page entry would clear
 # the issue (``stock_page_entry_clears``), the holds in COMPLETION_CLEARABLE_HOLDS

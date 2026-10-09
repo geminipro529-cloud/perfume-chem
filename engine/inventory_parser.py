@@ -5662,6 +5662,7 @@ def _materialize_current_inventory_uncached(
     apply_user_overlay: bool = True,
     require_pinned_overlay: bool = True,
     apply_user_completions: bool = True,
+    dilution_path: Path | None = None,
 ) -> CurrentInventoryMaterialization:
     """Materialize immutable V5 stocks plus the pinned user successor overlay."""
 
@@ -5792,7 +5793,7 @@ def _materialize_current_inventory_uncached(
         materialized = apply_inventory_completion_events(materialized)
         from engine.inventory_dilutions import apply_prepared_dilution_events
 
-        materialized = apply_prepared_dilution_events(materialized)
+        materialized = apply_prepared_dilution_events(materialized, dilution_path)
     elif not materialized.effective_inventory_sha256:
         materialized = replace(
             materialized,
@@ -5849,6 +5850,7 @@ def _inventory_materialization_fingerprint(
     *,
     apply_user_overlay: bool,
     apply_user_completions: bool,
+    dilution_path: Path | None = None,
 ) -> tuple[tuple[str, int, int], ...]:
     paths = [snapshot_path]
     if apply_user_overlay:
@@ -5857,7 +5859,7 @@ def _inventory_materialization_fingerprint(
         from engine.inventory_completions import completion_log_path
         from engine.inventory_dilutions import dilution_log_path
 
-        paths.extend((completion_log_path(), dilution_log_path()))
+        paths.extend((completion_log_path(), dilution_log_path(dilution_path)))
     records: list[tuple[str, int, int]] = []
     for source in paths:
         resolved = source.resolve()
@@ -5880,6 +5882,7 @@ def _cached_current_inventory_materialization(
     apply_user_overlay: bool,
     require_pinned_overlay: bool,
     apply_user_completions: bool,
+    dilution_path_text: str = "",
 ) -> CurrentInventoryMaterialization:
     del source_fingerprint
     return _materialize_current_inventory_uncached(
@@ -5888,6 +5891,7 @@ def _cached_current_inventory_materialization(
         apply_user_overlay=apply_user_overlay,
         require_pinned_overlay=require_pinned_overlay,
         apply_user_completions=apply_user_completions,
+        dilution_path=Path(dilution_path_text) if dilution_path_text else None,
     )
 
 
@@ -5898,8 +5902,13 @@ def materialize_current_inventory(
     apply_user_overlay: bool = True,
     require_pinned_overlay: bool = True,
     apply_user_completions: bool = True,
+    dilution_path: Path | None = None,
 ) -> CurrentInventoryMaterialization:
-    """Materialize source-bound stock truth with drift-sensitive local reuse."""
+    """Materialize source-bound stock truth with drift-sensitive local reuse.
+
+    ``dilution_path`` reads prepared dilutions from that log instead of the
+    default one (``record_prepared_dilution(path=...)``).
+    """
 
     snapshot_path = (path or CURRENT_INVENTORY_SNAPSHOT_PATH).resolve()
     return _cached_current_inventory_materialization(
@@ -5908,11 +5917,13 @@ def materialize_current_inventory(
             snapshot_path,
             apply_user_overlay=apply_user_overlay,
             apply_user_completions=apply_user_completions,
+            dilution_path=dilution_path,
         ),
         require_pinned_snapshot,
         apply_user_overlay,
         require_pinned_overlay,
         apply_user_completions,
+        str(dilution_path.resolve()) if dilution_path is not None else "",
     )
 
 

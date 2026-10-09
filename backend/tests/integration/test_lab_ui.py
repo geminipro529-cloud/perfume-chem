@@ -1105,10 +1105,70 @@ def test_dilution_form_defaults_to_dpg_w_w_posts_and_shows_errors_as_text():
         "user_note": "",
     }
     assert result["labels"] == [
-        "New strength, %",
+        "Strength of the material in the new bottle, %",
         "How that percentage is defined",
         "Carrier",
         "Amount made, g (optional)",
         "Date made (optional)",
         "Optional note",
     ]
+
+
+def test_dilution_form_reports_a_null_prepared_stock_as_an_error_not_a_success():
+    result = _run_dilution_case(r"""
+    const stock = { stock_id: "s1", identity_name: "Apritone", fraction_percent_decimal: "10", fraction_basis: "mass_fraction" };
+    const form = D.buildDilutionForm(doc, stock);
+    form.dilutionParts.fields.fraction_percent_decimal.value = "1";
+    const { error } = form.dilutionParts;
+    (async () => {
+      const held = await D.submitDilutionForm(form, { stock, expectedSha: "a".repeat(64), idempotencyKey: "k", request: async () => ({ status: "PREPARED_DILUTION_RECORDED", prepared_stock_id: null }) });
+      const shown = { text: error.textContent, hidden: error.hidden, submitEnabled: !form.dilutionParts.submit.disabled };
+      const ok = await D.submitDilutionForm(form, { stock, expectedSha: "a".repeat(64), idempotencyKey: "k", request: async () => ({ prepared_stock_id: "p1" }) });
+      process.stdout.write(JSON.stringify({ held, shown, ok, cleared: error.hidden }));
+    })().catch((failure) => { console.error(failure); process.exit(1); });
+    """)
+
+    assert result["held"] is None
+    assert result["shown"] == {
+        "text": (
+            "Saved, but this dilution doesn't count as a stock yet: its parent bottle "
+            "changed or is held. Check the parent bottle on the Stock page."
+        ),
+        "hidden": False,
+        "submitEnabled": True,
+    }
+    assert result["ok"] == {"prepared_stock_id": "p1"}
+    assert result["cleared"] is True
+
+
+def test_dilution_form_shows_the_implied_mix_in_plain_words():
+    result = _run_dilution_case(r"""
+    const mixFor = (stock, value, basis) => {
+      const form = D.buildDilutionForm(doc, stock);
+      const { fields, mix, updateMix } = form.dilutionParts;
+      fields.fraction_percent_decimal.value = value;
+      fields.fraction_basis.value = basis;
+      updateMix();
+      return { text: mix.textContent, hidden: mix.hidden };
+    };
+    const neat = { stock_id: "n", identity_name: "Apritone", fraction_percent_decimal: "100", fraction_basis: "neat" };
+    const tenth = { stock_id: "t", identity_name: "Apritone", fraction_percent_decimal: "10", fraction_basis: "mass_fraction" };
+    process.stdout.write(JSON.stringify({
+      neatWeight: mixFor(neat, "10", "mass_fraction"),
+      neatVolume: mixFor(neat, "3", "volume_fraction"),
+      tenth: mixFor(tenth, "1", "mass_fraction"),
+      rounded: mixFor(tenth, "3", "mass_fraction"),
+      empty: mixFor(tenth, "", "mass_fraction"),
+      junk: mixFor(tenth, "abc", "mass_fraction"),
+      zero: mixFor(tenth, "0", "mass_fraction"),
+      tooStrong: mixFor(tenth, "10", "mass_fraction"),
+    }));
+    """)
+
+    assert result["neatWeight"]["text"] == "Mix 1 part Apritone + 9 parts DPG by weight"
+    assert result["neatVolume"]["text"] == "Mix 1 part Apritone + 32.33 parts DPG by volume"
+    assert result["tenth"]["text"] == "Mix 1 part Apritone 10% w/w + 9 parts DPG by weight"
+    assert result["tenth"]["hidden"] is False
+    assert result["rounded"]["text"] == "Mix 1 part Apritone 10% w/w + 2.33 parts DPG by weight"
+    for name in ("empty", "junk", "zero", "tooStrong"):
+        assert result[name] == {"text": "", "hidden": True}
