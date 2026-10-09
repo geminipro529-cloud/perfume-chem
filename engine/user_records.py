@@ -1,7 +1,7 @@
 """Where the user's personal stock records live, and their one-time carry-over.
 
 The append-only, hash-chained record logs (stock additions, completed stock
-details, basket choices) are kept in ``data/user/``.  Older versions wrote them
+details, prepared dilutions, basket choices) are kept in ``data/user/``.  Older versions wrote them
 to ``output/``, which the project treats as throwaway scratch.  The first time a
 default record path is resolved, a missing record is copied byte for byte from
 ``output/``; the old file is never deleted, moved or modified, and an existing
@@ -22,6 +22,7 @@ LEGACY_RECORDS_DIR = PROJECT_ROOT / "output"
 ADDITION_LOG_NAME = "user_inventory_addition_events.jsonl"
 COMPLETION_LOG_NAME = "user_inventory_completion_events.jsonl"
 BASKET_LOG_NAME = "user_basket_events.jsonl"
+DILUTION_LOG_NAME = "user_inventory_dilution_events.jsonl"
 
 _COPY_CHUNK_BYTES = 1024 * 1024
 _TEMP_SUFFIX = ".carry-over-tmp"
@@ -41,6 +42,7 @@ def record_files() -> dict[str, Path]:
     """
 
     from engine.inventory_completions import completion_log_path
+    from engine.inventory_dilutions import dilution_log_path
     from engine.personal_inventory import addition_log_path
 
     completion = completion_log_path()
@@ -48,6 +50,7 @@ def record_files() -> dict[str, Path]:
         ADDITION_LOG_NAME: addition_log_path(),
         COMPLETION_LOG_NAME: completion,
         BASKET_LOG_NAME: completion.with_name(BASKET_LOG_NAME),
+        DILUTION_LOG_NAME: dilution_log_path(),
     }
 
 
