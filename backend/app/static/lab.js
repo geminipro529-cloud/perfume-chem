@@ -37,34 +37,138 @@ const state = {
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
+const OFFLINE_TEXT = "Can't reach the app on this PC. Is it still running?";
+const MESSAGE_LIMIT = 200;
+let offlineFailures = 0;
+
 function notify(message, error = false) {
   const node = $("#status");
   node.textContent = message;
   node.classList.toggle("is-error", error);
+  // Tagged so the next successful request can clear a "can't reach the app" message.
+  if (String(message).includes(OFFLINE_TEXT)) node.dataset.offline = "true";
+  else delete node.dataset.offline;
 }
+
+// The server is reachable again: drop every message that said it was not.
+function clearOfflineMessages() {
+  const status = $("#status");
+  if (status.dataset.offline) {
+    status.textContent = "";
+    status.classList.remove("is-error");
+    delete status.dataset.offline;
+  }
+  $$(".form-error[data-offline]").forEach((box) => box.remove());
+  const errors = stockView.basketErrors || {};
+  const stale = Object.keys(errors).filter((id) => String(errors[id]).includes(OFFLINE_TEXT));
+  if (stale.length) {
+    stale.forEach((id) => { delete errors[id]; });
+    if (state.projectInventory) renderProjectInventory($("#project-inventory-search").value);
+  }
+}
+
+function capMessage(text) {
+  const value = String(text);
+  return value.length > MESSAGE_LIMIT ? `${value.slice(0, MESSAGE_LIMIT - 1)}…` : value;
+}
+
+// Server text in plain words: one pair of surrounding quotes off, and not longer than a line or two.
+function plainServerText(text) {
+  let value = String(text ?? "").trim();
+  if (value.length >= 2 && (value[0] === "'" || value[0] === '"') && value.endsWith(value[0])) value = value.slice(1, -1).trim();
+  return capMessage(value);
+}
+
+const PYDANTIC_WORDS = [
+  [/^Field required$/, () => "required"],
+  [/^String should have at least 1 character$/, () => "required"],
+  [/^String should have at most (\d+) characters?$/, (m) => `too long (at most ${m[1]} characters)`],
+  [/^Input should be greater than or equal to (\S+)$/, (m) => `must be ${m[1]} or more`],
+  [/^Input should be greater than (\S+)$/, (m) => `must be more than ${m[1]}`],
+  [/^Input should be less than or equal to (\S+)$/, (m) => `must be ${m[1]} or less`],
+  [/^Input should be less than (\S+)$/, (m) => `must be less than ${m[1]}`],
+  [/^Input should be a valid number/, () => "must be a number"],
+  [/^Input should be a finite number/, () => "must be a number"],
+];
+
+function plainValidationText(text) {
+  const value = String(text ?? "");
+  for (const [pattern, words] of PYDANTIC_WORDS) {
+    const match = value.match(pattern);
+    if (match) return words(match);
+  }
+  return capMessage(value);
+}
+
+// A routine success message must not erase an error the user has not dismissed yet.
+function notifyRoutine(message) {
+  if ($("#status").classList.contains("is-error")) return;
+  notify(message);
+}
+
+function fieldWords(name) {
+  const text = String(name || "").replaceAll("_", " ").trim();
+  return text ? text.charAt(0).toUpperCase() + text.slice(1) : "This field";
+}
+
+const REQUEST_TIMEOUT_MS = 120000;
 
 async function request(path, options = {}) {
   const { timeoutMs, ...fetchOptions } = options;
+  // timeoutMs: 0 means no limit (slow synchronous server work); undefined gets the default.
+  const limitMs = timeoutMs === undefined ? REQUEST_TIMEOUT_MS : timeoutMs;
+  const controller = new AbortController();
+  const timer = limitMs > 0 ? setTimeout(() => controller.abort(), limitMs) : null;
   let response;
+  let payload;
+  const failuresAtStart = offlineFailures;
   try {
     response = await fetch(`${API}${path}`, {
       headers: { "Content-Type": "application/json", ...(fetchOptions.headers || {}) },
       ...fetchOptions,
-      ...(timeoutMs ? { signal: AbortSignal.timeout(timeoutMs) } : {}),
+      signal: controller.signal,
     });
+    payload = await response.json().catch(() => ({}));
   } catch (error) {
-    if (error.name === "TimeoutError") throw new Error(`The server did not answer within ${Math.round(timeoutMs / 1000)} s.`);
-    throw error;
+    if (controller.signal.aborted) {
+      const wait = limitMs % 60000 === 0
+        ? `${limitMs / 60000} minute${limitMs === 60000 ? "" : "s"}`
+        : `${Math.round(limitMs / 1000)} seconds`;
+      const method = String(fetchOptions.method || "GET").toUpperCase();
+      throw new Error(`The app didn't answer within ${wait}.${method === "GET" ? "" : " It may still finish, so check before you try again."}`);
+    }
+    offlineFailures += 1;
+    throw new Error(OFFLINE_TEXT);
+  } finally {
+    if (timer) clearTimeout(timer);
   }
-  const payload = await response.json().catch(() => ({}));
   if (!response.ok) {
-    const detail = Array.isArray(payload.detail)
-      ? payload.detail.map((item) => item.msg || JSON.stringify(item)).join("; ")
-      : payload.detail;
-    const error = new Error(payload?.error?.message || detail || `Request failed (${response.status})`);
+    const rawText = typeof payload?.detail === "string" ? payload.detail : payload?.error?.message;
+    const serverText = rawText ? plainServerText(rawText) : rawText;
+    let items = [];
+    let message;
+    if (Array.isArray(payload?.detail)) {
+      items = payload.detail.map((item) => {
+        const loc = Array.isArray(item.loc) ? item.loc.filter((part) => typeof part === "string" && part !== "body") : [];
+        const field = loc.length ? loc[loc.length - 1] : "";
+        return { field, path: loc.join("."), msg: plainValidationText(item.msg || "is not valid") };
+      });
+      message = capMessage(items.map((item) => `${fieldWords(item.field)}: ${item.msg}`).join("; "));
+    } else if (response.status === 409) {
+      message = capMessage(serverText ? `That already exists. ${serverText}` : "That already exists.");
+    } else {
+      message = serverText || `The server returned ${response.status}.`;
+    }
+    const error = new Error(message);
     error.status = response.status;
+    error.code = payload?.error?.code || "";
+    error.serverText = serverText || "";
+    error.items = items;
+    error.fields = items.map((item) => item.field).filter(Boolean);
     throw error;
   }
+  // Not while another request failed to connect meanwhile: that failure's message is newer.
+  if (offlineFailures === failuresAtStart) clearOfflineMessages();
   return payload;
 }
 
@@ -108,65 +212,327 @@ function updateSelectors() {
   if (preferredBottle) $$('[data-bottle-select]').forEach((node) => { if ([...node.options].some((option) => option.value === preferredBottle)) node.value = preferredBottle; });
 }
 
-function renderProjectInventory(filter = "") {
+const STOCK_SOLVENT_UPPER = new Set(["dpg", "dep", "ipm", "tec", "bb", "pea"]);
+const STOCK_BASIS_WORDS = { mass_fraction: "w/w", volume_fraction: "v/v", mass_per_volume: "w/v" };
+const STOCK_NEED_SENTENCES = {
+  possession_confirmation: "Confirm you own it",
+  homogeneity_confirmation: "Confirm the solution is fully mixed",
+  fraction_basis: "Say whether the strength is w/w or v/v",
+  physical_form: "Say what form it is in",
+  carrier: "Say which solvent it is in",
+  final_usable_fraction_confirmation: "Confirm the strength you actually use",
+  bottle_lot_and_label_receipt_missing: "Add the bottle lot and label",
+  execution_stock_binding_required: "Link it to a physical bottle",
+};
+const STOCK_HOLD_NOTE = "Kept out of new formulas until you clear it";
+const STOCK_STATUS_LABEL = { ready: "Ready", needs: "Needs details", hold: "On hold" };
+const stockView = { filter: "all", solvent: "", basket: "", sort: "name", basketErrors: {}, basketBusy: new Set() };
+const BASKET_CHECK_STATUSES = new Set(["from_past_cards", "conflicting"]);
+
+function stockSolvents(stock) {
+  return String(stock.carrier || "").toLowerCase().replace(/\bw\/w\b|\bv\/v\b/g, "")
+    .split(/[+,]|\band\b/).map((part) => part.trim()).filter(Boolean);
+}
+
+function stockSolventName(solvent) {
+  return STOCK_SOLVENT_UPPER.has(solvent) ? solvent.toUpperCase() : solvent;
+}
+
+function stockPercent(stock) {
+  const value = Number(stock.fraction_percent_decimal);
+  return Number.isFinite(value) ? String(Math.round(value * 1000) / 1000) : String(stock.fraction_percent_decimal || "");
+}
+
+function stockStatus(stock) {
+  const fields = stock.missing_fields || [];
+  if (stock.design_hold_reason === "USER_COMPOUNDING_HOLD" || fields.includes("USER_COMPOUNDING_HOLD")) return "hold";
+  return stock.design_ready ? "ready" : "needs";
+}
+
+function stockIsNeat(stock) {
+  return stock.fraction_basis === "neat" || (!stockSolvents(stock).length && Number(stock.fraction_percent_decimal) === 100);
+}
+
+function stockStrengthLabel(stock) {
+  const basis = stock.fraction_basis;
+  const solvents = stockSolvents(stock).map(stockSolventName);
+  if (stockIsNeat(stock)) {
+    if (stock.physical_form === "crystals") return "Neat crystals, weighed in mg";
+    return /^solid/.test(stock.physical_form || "") ? "Neat solid" : "Neat";
+  }
+  const where = solvents.length > 1
+    ? ` in ${solvents.slice(0, -1).join(", ")} and ${solvents[solvents.length - 1]}`
+    : (solvents.length ? ` in ${solvents[0]}` : "");
+  const percent = `${stockPercent(stock)}%`;
+  if (STOCK_BASIS_WORDS[basis]) return `${percent} ${STOCK_BASIS_WORDS[basis]}${where}`;
+  if (basis === "mass_fraction_starting_charge") return `${percent} w/w${where}, by starting charge`;
+  return `${percent}${where}, w/w or v/v not stated`;
+}
+
+function stockNote(stock, status) {
+  if (status === "ready") return "";
+  // The hold marker is a hold, not a missing detail, so it is never listed here.
+  const sentences = (stock.missing_fields || []).filter((field) => field !== "USER_COMPOUNDING_HOLD").map((field) => (
+    STOCK_NEED_SENTENCES[String(field).toLowerCase()] || humanize(field)
+  ));
+  if (!sentences.length) return status === "hold" ? "" : "Some details are missing";
+  return sentences.length > 2 ? `${sentences.slice(0, 2).join(". ")}. And ${sentences.length - 2} more` : sentences.join(". ");
+}
+
+function stockEl(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+// Baskets: older inventory payloads have no "baskets" list, and then the page shows nothing about them.
+function stockBaskets() {
+  const baskets = state.projectInventory?.baskets;
+  return Array.isArray(baskets) ? baskets.filter((basket) => Number.isInteger(basket?.number)) : [];
+}
+
+function stockBasketNumber(stock) {
+  return Number.isInteger(stock.basket) ? stock.basket : null;
+}
+
+// Solution and crystals forms of one material share a basket key; older payloads fall back to the identity.
+function stockBasketKey(stock) {
+  return stock.basket_key || stock.normalized_identity;
+}
+
+function stockBasketStatus(stock) {
+  return ["confirmed", "from_past_cards", "conflicting"].includes(stock.basket_status) ? stock.basket_status : "none";
+}
+
+function basketName(number) {
+  const basket = stockBaskets().find((item) => item.number === number);
+  return basket && basket.name ? `${number} · ${basket.name}` : `Basket ${number}`;
+}
+
+function basketOptionText(number) {
+  const basket = stockBaskets().find((item) => item.number === number);
+  return basket && basket.name ? `${number} ${basket.name}` : `Basket ${number}`;
+}
+
+function basketWordList(numbers) {
+  return numbers.length > 1 ? `${numbers.slice(0, -1).join(", ")} or ${numbers[numbers.length - 1]}` : String(numbers[0]);
+}
+
+function stockBasketCell(stock) {
+  const cell = stockEl("td", "stock-basket");
+  const number = stockBasketNumber(stock);
+  const status = stockBasketStatus(stock);
+  const label = stockEl("span", "stock-basket-label");
+  if (status === "conflicting") {
+    const suggestions = (stock.basket_suggestions || []).filter(Number.isInteger);
+    label.textContent = suggestions.length ? `${basketWordList(suggestions)}?` : (number === null ? "Not sure?" : `${basketName(number)}?`);
+  } else {
+    label.textContent = number === null ? "—" : basketName(number);
+  }
+  cell.appendChild(label);
+  if (BASKET_CHECK_STATUSES.has(status)) cell.appendChild(stockEl("span", "stock-chip stock-chip-needs stock-basket-check", "check it"));
+  const controls = stockEl("div", "stock-basket-controls");
+  const busy = stockView.basketBusy.has(stockBasketKey(stock));
+  const select = stockEl("select", "stock-basket-select");
+  select.setAttribute("aria-label", `Basket for ${stock.identity_name}, ${stockStrengthLabel(stock)}`);
+  select.dataset.basketFor = stock.stock_id;
+  select.append(new Option("No basket", ""), ...stockBaskets().map((basket) => new Option(basketOptionText(basket.number), String(basket.number))));
+  select.value = number === null ? "" : String(number);
+  select.disabled = busy;
+  controls.appendChild(select);
+  if (status === "from_past_cards" && number !== null) {
+    const confirm = stockEl("button", "quiet-button stock-basket-confirm", `Confirm ${number}`);
+    confirm.type = "button";
+    confirm.dataset.confirmBasket = stock.stock_id;
+    confirm.setAttribute("aria-label", `Confirm ${number} ${basketName(number).replace(/^\d+ · /, "")} for ${stock.identity_name}`);
+    confirm.disabled = busy;
+    controls.appendChild(confirm);
+  }
+  cell.appendChild(controls);
+  const error = stockView.basketErrors[stock.stock_id];
+  if (error) cell.appendChild(stockEl("span", "stock-row-note stock-basket-error", error));
+  return cell;
+}
+
+function stockMatchesBasketFilter(stock) {
+  if (!stockView.basket) return true;
+  const number = stockBasketNumber(stock);
+  const status = stockBasketStatus(stock);
+  if (stockView.basket === "none") return number === null && status !== "conflicting";
+  if (stockView.basket === "check") return BASKET_CHECK_STATUSES.has(status);
+  return number !== null && String(number) === stockView.basket;
+}
+
+async function setStockBasket(stockId, basket) {
+  const stocks = state.projectInventory.stocks || [];
+  const stock = stocks.find((item) => item.stock_id === stockId);
+  if (!stock || stockView.basketBusy.has(stockBasketKey(stock))) return;
+  const identity = stock.normalized_identity;
+  const key = stockBasketKey(stock);
+  const name = stock.identity_name;
+  delete stockView.basketErrors[stockId];
+  stockView.basketBusy.add(key);
+  renderProjectInventory($("#project-inventory-search").value);
+  try {
+    const result = await request("/v2/workbench/current-inventory/basket", {
+      method: "POST",
+      body: JSON.stringify({ normalized_identity: identity, basket }),
+    });
+    const saved = Number.isInteger(result?.basket) ? result.basket : null;
+    // Every strength and form of one material sits in the same basket, so every row of it changes.
+    stocks.filter((item) => stockBasketKey(item) === key).forEach((item) => {
+      Object.assign(item, { basket: saved, basket_status: result?.basket_status || "confirmed", basket_suggestions: [] });
+      delete stockView.basketErrors[item.stock_id];
+    });
+    // A design already on screen regroups under the new basket without a refresh.
+    if (state.formulaChat.result) renderFormulaRows(selectedFormulaVariant(state.formulaChat.result).formula?.rows || []);
+    notify(saved === null ? `Basket cleared: ${name}` : `Basket set: ${name} → ${basketOptionText(saved)}`);
+  } catch (error) {
+    const reason = error.code === "BASKET_LOG_CORRUPT" && error.serverText ? error.serverText : error.message;
+    stockView.basketErrors[stockId] = `Basket not saved: ${reason}`;
+    notify(`Basket not saved for ${name}: ${reason}`, true);
+  } finally {
+    stockView.basketBusy.delete(key);
+    renderProjectInventory($("#project-inventory-search").value, stockId);
+  }
+}
+
+function syncStockToolbar(stocks) {
+  const select = $("#project-inventory-solvent");
+  const found = [...new Set(stocks.flatMap(stockSolvents))].sort();
+  const signature = `${found.join("|")}#${stocks.some((stock) => !stockIsNeat(stock) && !stockSolvents(stock).length)}`;
+  if (select.dataset.signature !== signature) {
+    select.dataset.signature = signature;
+    const unrecorded = stocks.some((stock) => !stockIsNeat(stock) && !stockSolvents(stock).length);
+    select.replaceChildren(new Option("Any solvent", ""), ...found.map((name) => new Option(stockSolventName(name), name)), new Option("Neat", "neat"), ...(unrecorded ? [new Option("Solvent not recorded", "unrecorded")] : []));
+    if (![...select.options].some((option) => option.value === stockView.solvent)) stockView.solvent = "";
+  }
+  select.value = stockView.solvent;
+  const baskets = stockBaskets();
+  const basketSelect = $("#project-inventory-basket");
+  const basketSignature = baskets.map((basket) => `${basket.number}:${basket.name}`).join("|");
+  if (basketSelect.dataset.signature !== basketSignature) {
+    basketSelect.dataset.signature = basketSignature;
+    basketSelect.replaceChildren(new Option("All baskets", ""), new Option("No basket yet", "none"), new Option("Check it", "check"),
+      ...baskets.map((basket) => new Option(basketOptionText(basket.number), String(basket.number))));
+  }
+  $("#project-inventory-basket-filter").hidden = !baskets.length;
+  $('#project-inventory-sort option[value="basket"]').hidden = !baskets.length;
+  if (!baskets.length) {
+    stockView.basket = "";
+    if (stockView.sort === "basket") stockView.sort = "name";
+  }
+  if (![...basketSelect.options].some((option) => option.value === stockView.basket)) stockView.basket = "";
+  basketSelect.value = stockView.basket;
+  $("#project-inventory-sort").value = stockView.sort;
+  $$("[data-stock-filter]").forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.dataset.stockFilter === stockView.filter));
+  });
+  $("#project-inventory-incomplete-only").checked = stockView.filter === "unfinished";
+}
+
+function renderProjectInventory(filter = "", focusStockId = "") {
   const inventory = state.projectInventory || { stocks: [], counts: {} };
   const query = String(filter || "").trim().toLowerCase();
-  const incompleteOnly = Boolean($("#project-inventory-incomplete-only")?.checked);
-  const rows = (inventory.stocks || []).filter((stock) => {
-    if (incompleteOnly && stock.design_ready) return false;
+  const stocks = inventory.stocks || [];
+  syncStockToolbar(stocks);
+  const entries = stocks.map((stock) => ({ stock, status: stockStatus(stock), label: stockStrengthLabel(stock) }));
+  const rows = entries.filter(({ stock, status, label }) => {
+    if (stockView.filter === "unfinished" ? status === "ready" : (stockView.filter !== "all" && status !== stockView.filter)) return false;
+    if (stockView.solvent) {
+      const solvents = stockSolvents(stock);
+      if (stockView.solvent === "neat") {
+        if (!stockIsNeat(stock)) return false;
+      } else if (stockView.solvent === "unrecorded") {
+        if (stockIsNeat(stock) || solvents.length) return false;
+      } else if (!solvents.includes(stockView.solvent)) return false;
+    }
+    if (!stockMatchesBasketFilter(stock)) return false;
     if (!query) return true;
-    return [stock.material, stock.identity_name, stock.normalized_identity, stock.stock_label, stock.category, stock.carrier]
+    return [stock.material, stock.identity_name, stock.normalized_identity, stock.stock_label, stock.category, stock.carrier, label]
       .some((value) => String(value || "").toLowerCase().includes(query));
   });
-  const counts = inventory.counts || {};
-  $("#project-inventory-count").textContent = `${counts.stocks || 0} current stock entries`;
-  $("#project-inventory-ready").textContent = `${counts.design_ready || counts.execution_ready || 0} ready for design · ${counts.live_inventory_text || 0} recovered from the live list · ${counts.personal_additions || 0} personal additions · ${counts.prepared_dilutions || 0} prepared dilutions`;
-  $("#project-inventory-source").textContent = `${inventory.display_source || "Current project inventory"}. Effective version ${String(inventory.effective_inventory_sha256 || inventory.snapshot_sha256 || "unknown").slice(0, 12)}…`;
-  $("#project-inventory-list").innerHTML = rows.length
-    ? rows.map((stock) => {
-      const carrier = stock.carrier ? ` in ${stock.carrier}` : "";
-      const form = stock.physical_form ? ` · ${stock.physical_form}` : "";
-      const stateLabel = stock.design_ready
-        ? (stock.execution_ready ? "Ready for design" : "Ready for personal design · physical records separate")
-        : "Owned · details incomplete";
-      const missing = (stock.missing_fields || []).map((field) => humanize(field)).join(", ");
-      const completion = !stock.design_ready && stock.completion_available
-        ? `<button class="inventory-complete-button quiet-button" type="button" data-complete-stock="${escapeHtml(stock.stock_id)}">Complete details</button>`
-        : "";
-      const dilution = stock.dilution_available
-        ? `<button class="inventory-complete-button quiet-button" type="button" data-dilute-stock="${escapeHtml(stock.stock_id)}">Add a dilution</button>`
-        : "";
-      const sourceLabel = {
-        LIVE_INVENTORY_TEXT: "Recovered from inventory.txt",
-        PERSONAL_ADDITION: "Your direct addition",
-        PREPARED_DILUTION: "Your prepared dilution",
-      }[stock.source_class] || "Governed stock record";
-      return `<article class="inventory-item">
-        <div><strong>${escapeHtml(stock.identity_name)}</strong><span>${escapeHtml(stock.category || "uncategorized")}</span></div>
-        <p>${escapeHtml(stock.fraction_percent_decimal)}% ${escapeHtml(stock.fraction_basis)}${escapeHtml(carrier)}${escapeHtml(form)}</p>
-        <small class="${stock.design_ready ? "inventory-ready" : "inventory-hold"}">${escapeHtml(stateLabel)}</small>
-        <small class="inventory-source">${escapeHtml(sourceLabel)}</small>
-        ${missing ? `<small class="inventory-missing">Needed: ${escapeHtml(missing)}</small>` : ""}
-        ${completion}
-        ${dilution}
-      </article>`;
-    }).join("")
-    : '<p class="empty">No current inventory entries match that search.</p>';
-  $$("#project-inventory-list .inventory-item").forEach((article, index) => {
-    const holdText = rows[index]?.gate_hold_text;
-    if (holdText) {
-      const hold = document.createElement("small");
-      hold.className = "inventory-gate-hold";
-      hold.textContent = holdText;
-      article.querySelector(".inventory-source").after(hold);
-    }
-    const disagreement = rows[index]?.authority_disagreement?.text;
-    if (!disagreement) return;
-    const note = document.createElement("small");
-    note.className = "inventory-authority-differs";
-    note.textContent = disagreement;
-    article.querySelector(".inventory-source").after(note);
+  const order = { needs: 0, hold: 1, ready: 2 };
+  const byName = (a, b) => String(a.stock.identity_name).localeCompare(String(b.stock.identity_name), undefined, { sensitivity: "base" });
+  rows.sort((a, b) => {
+    if (stockView.sort === "needs") return (order[a.status] - order[b.status]) || byName(a, b);
+    if (stockView.sort === "strength") return (Number(b.stock.fraction_percent_decimal) - Number(a.stock.fraction_percent_decimal)) || byName(a, b);
+    if (stockView.sort === "basket") return ((stockBasketNumber(a.stock) ?? 99) - (stockBasketNumber(b.stock) ?? 99)) || byName(a, b);
+    return byName(a, b);
   });
+  const counts = inventory.counts || {};
+  $("#project-inventory-count").textContent = `${counts.stocks || stocks.length} stock bottles`;
+  const madeDilutions = counts.prepared_dilutions ? ` · ${counts.prepared_dilutions} dilutions you made` : "";
+  $("#project-inventory-ready").textContent = `${counts.design_ready || counts.execution_ready || 0} ready to use${madeDilutions}`;
+  $("#project-inventory-source").textContent = `${inventory.display_source || "Current project inventory"}. Effective version ${String(inventory.effective_inventory_sha256 || inventory.snapshot_sha256 || "unknown").slice(0, 12)}…`;
+  $("#project-inventory-live").textContent = `Showing ${rows.length} of ${stocks.length}`;
+  const list = $("#project-inventory-list");
+  // A damaged basket log is said once, above the table, and never blocks the stock list.
+  const logWarning = [];
+  if (typeof inventory.basket_log_error === "string" && inventory.basket_log_error) {
+    const warning = stockEl("p", "stock-basket-warning", inventory.basket_log_error);
+    warning.setAttribute("role", "status");
+    logWarning.push(warning);
+  }
+  if (!rows.length) {
+    list.replaceChildren(...logWarning, stockEl("p", "empty", "No stock matches that search and filter."));
+    return;
+  }
+  const table = stockEl("table", "stock-table");
+  table.appendChild(stockEl("caption", "sr-only", "Stock list"));
+  const showBaskets = stockBaskets().length > 0;
+  const headRow = document.createElement("tr");
+  ["Material", "Stock", ...(showBaskets ? ["Basket"] : []), "Status", ""].forEach((title) => {
+    const th = stockEl("th", "", title);
+    th.scope = "col";
+    if (!title) th.appendChild(stockEl("span", "sr-only", "Action"));
+    headRow.appendChild(th);
+  });
+  table.appendChild(stockEl("thead")).appendChild(headRow);
+  const body = stockEl("tbody");
+  rows.forEach(({ stock, status, label }) => {
+    const tr = document.createElement("tr");
+    tr.dataset.stockStatus = status;
+    tr.dataset.stockId = stock.stock_id;
+    const name = stockEl("td", "stock-name");
+    name.appendChild(stockEl("strong", "", stock.identity_name));
+    if (stock.source_class === "PERSONAL_ADDITION") name.appendChild(stockEl("span", "stock-row-note", "Added by you"));
+    if (stock.source_class === "PREPARED_DILUTION") name.appendChild(stockEl("span", "stock-row-note", "Your dilution"));
+    const strength = stockEl("td", "stock-strength", label);
+    const statusCell = stockEl("td", "stock-status");
+    statusCell.appendChild(stockEl("span", `stock-chip stock-chip-${status}`, STOCK_STATUS_LABEL[status]));
+    const note = stockNote(stock, status);
+    if (status === "hold") statusCell.appendChild(stockEl("span", "stock-row-note", STOCK_HOLD_NOTE));
+    if (note) statusCell.appendChild(stockEl("span", "stock-row-note", note));
+    // Why the release gate still holds this bottle, and where a Stock page entry overrides the workbook.
+    if (stock.gate_hold_text) statusCell.appendChild(stockEl("span", "stock-row-note inventory-gate-hold", stock.gate_hold_text));
+    const disagreement = stock.authority_disagreement?.text;
+    if (disagreement) statusCell.appendChild(stockEl("span", "stock-row-note inventory-authority-differs", disagreement));
+    const action = stockEl("td", "stock-action");
+    if (status !== "ready" && stock.completion_available) {
+      const button = stockEl("button", "inventory-complete-button quiet-button", "Complete details");
+      button.type = "button";
+      button.dataset.completeStock = stock.stock_id;
+      action.appendChild(button);
+    }
+    if (stock.dilution_available) {
+      const button = stockEl("button", "inventory-complete-button quiet-button", "Add a dilution");
+      button.type = "button";
+      button.dataset.diluteStock = stock.stock_id;
+      action.appendChild(button);
+    }
+    tr.append(name, strength, ...(showBaskets ? [stockBasketCell(stock)] : []), statusCell, action);
+    body.appendChild(tr);
+  });
+  table.appendChild(body);
+  const wrap = stockEl("div", "stock-table-wrap");
+  wrap.tabIndex = 0;
+  wrap.setAttribute("aria-label", "Stock list");
+  wrap.appendChild(table);
+  list.replaceChildren(...logWarning, wrap);
+  // A basket change redraws the table; keep the keyboard where it was.
+  if (focusStockId) [...list.querySelectorAll("[data-basket-for]")].find((node) => node.dataset.basketFor === focusStockId)?.focus();
 }
 
 async function refresh() {
@@ -181,32 +547,170 @@ async function refresh() {
   recordList("#bottle-list", bottles, "label", (row) => row.status);
   recordList("#experiment-list", experiments, "name", (row) => row.status);
   renderProjectInventory($("#project-inventory-search").value);
+  // A design shown before the inventory arrived (a restored draft) picks up its basket order.
+  if (state.formulaChat.result) renderFormulaRows(selectedFormulaVariant(state.formulaChat.result).formula?.rows || []);
   updateSelectors();
   syncImproveSourceMode();
-  notify("Inventory and ledger refreshed.");
+  notifyRoutine("Inventory and ledger refreshed.");
 }
+
+// False until the start-up navigate() has run: the first Tab must still reach the skip link.
+let pageStarted = false;
 
 function navigate(view) {
   $$(".nav-item").forEach((item) => item.classList.toggle("is-active", item.dataset.view === view));
+  $$(".nav-item").forEach((item) => {
+    if (item.dataset.view === view) item.setAttribute("aria-current", "page");
+    else item.removeAttribute("aria-current");
+  });
   $$(".view").forEach((panel) => panel.classList.toggle("is-visible", panel.dataset.panel === view));
   history.replaceState(null, "", `#${view}`);
-  const heading = $(`[data-panel="${view}"] h1`);
-  if (heading) heading.focus?.({ preventScroll: true });
+  if (pageStarted) {
+    // Switching views makes no request, so a routine "refreshed" line would go stale; an error stays.
+    if (!$("#status").classList.contains("is-error")) notify("");
+    const heading = $(`[data-panel="${view}"] h1`);
+    // Only some headings carry tabindex in the HTML; without one, focus() silently does nothing.
+    if (heading && !heading.hasAttribute("tabindex")) heading.tabIndex = -1;
+    if (heading) heading.focus?.({ preventScroll: true });
+  }
   if (view === "science") {
     loadScienceAuthority().catch((error) => notify(error.message, true));
   }
 }
 
 function formData(form) { return Object.fromEntries(new FormData(form).entries()); }
+
+function fieldLabel(form, name) {
+  const input = [...form.elements].find((element) => element.name === name);
+  const label = input?.closest("label") || (input?.id ? form.querySelector(`label[for="${input.id}"]`) : null);
+  if (!label) return fieldWords(name);
+  const copy = label.cloneNode(true);
+  copy.querySelectorAll("span, small, select, input, textarea, button").forEach((node) => node.remove());
+  return copy.textContent.replace(/\s+/g, " ").trim() || fieldWords(name);
+}
+
+function clearFormError(form) {
+  form.querySelectorAll("[aria-invalid]").forEach((input) => {
+    input.removeAttribute("aria-invalid");
+    input.removeAttribute("aria-describedby");
+  });
+  document.getElementById(`${form.id}-error`)?.remove();
+}
+
+function showFormError(form, error) {
+  // Each listed item is its own sentence; the field that holds it is the nested path, else the last name.
+  const names = (error.items || []).map((item) => [item.path, item.field].find((name) => name
+    && [...form.elements].some((element) => element.name === name)) || "");
+  const lines = error.items?.length
+    ? [capMessage(error.items.map((item, index) => {
+      const name = names[index] || item.field;
+      return `${name ? fieldLabel(form, name) : "This form"}: ${item.msg}`;
+    }).join("; "))]
+    : capMessage(error.message).split("\n");
+  const id = `${form.id}-error`;
+  let box = document.getElementById(id);
+  if (!box) {
+    box = document.createElement("div");
+    box.className = "form-error";
+    box.setAttribute("role", "alert");
+    box.id = id;
+    const submit = form.querySelector('button[type="submit"], input[type="submit"], button:not([type])');
+    const anchor = submit?.closest(".button-row, .actions, .row") || submit;
+    if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(box, anchor.nextSibling);
+    else form.appendChild(box);
+  }
+  box.replaceChildren();
+  if (String(error.message).includes(OFFLINE_TEXT)) box.dataset.offline = "true";
+  else delete box.dataset.offline;
+  const strong = document.createElement("strong");
+  strong.textContent = "Not saved.";
+  box.append(strong, " ");
+  lines.forEach((line, index) => {
+    if (index) box.appendChild(document.createElement("br"));
+    box.appendChild(document.createTextNode(line));
+  });
+  (error.items?.length ? names : error.fields || []).filter(Boolean).forEach((name) => {
+    [...form.elements].filter((element) => element.name === name).forEach((input) => {
+      input.setAttribute("aria-invalid", "true");
+      input.setAttribute("aria-describedby", id);
+    });
+  });
+  return lines;
+}
+
 function bindForm(selector, handler) {
   $(selector).addEventListener("submit", async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
+    clearFormError(form);
     const buttons = form.querySelectorAll('button[type="submit"], input[type="submit"], button:not([type])');
     buttons.forEach((button) => { button.disabled = true; });
-    try { await handler(formData(form)); notify("Record committed."); await refresh(); }
-    catch (error) { notify(error.message, true); }
-    finally { buttons.forEach((button) => { button.disabled = false; }); }
+    try {
+      try { await handler(formData(form)); }
+      catch (error) { notify(showFormError(form, error).join("; "), true); return; }
+      notify("Record committed.");
+      // The record is saved; a failed refresh must not show "Not saved." and invite a duplicate.
+      await refresh().catch((error) => notify(`Saved, but the lists didn't refresh: ${error.message}`, true));
+    } finally { buttons.forEach((button) => { button.disabled = false; }); }
+  });
+}
+
+// Like bindForm for the forms that keep their own success behaviour: handler(data, form) does the
+// save and renders its own result. A failed save shows the inline "Not saved." box and marks a 422
+// field; the submit button stays disabled while the save is in flight so a second click can't save twice.
+const savingForms = new WeakSet();
+// A local server can answer before a double click's second click lands; after a good save the
+// button stays disabled this long (from the first click) so that click can't save again.
+const SAVE_COOLDOWN_MS = 800;
+
+function bindSavingForm(selector, handler) {
+  $(selector).addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (savingForms.has(form)) return;
+    savingForms.add(form);
+    clearFormError(form);
+    const buttons = form.querySelectorAll('button[type="submit"], input[type="submit"], button:not([type])');
+    buttons.forEach((button) => { button.disabled = true; });
+    // The handler calls saved() as soon as its save request has succeeded. A later failure
+    // (re-render, refresh) must not show "Not saved." or re-enable a retry that would save twice.
+    let didSave = false;
+    const startedAt = Date.now();
+    try {
+      await handler(formData(form), form, () => { didSave = true; });
+    } catch (error) {
+      if (didSave) notify(`Saved, but the lists didn't refresh: ${error.message}`, true);
+      else notify(showFormError(form, error).join("; "), true);
+    } finally {
+      const wait = didSave ? SAVE_COOLDOWN_MS - (Date.now() - startedAt) : 0;
+      if (wait > 0) await new Promise((resolve) => { setTimeout(resolve, wait); });
+      buttons.forEach((button) => { button.disabled = false; });
+      savingForms.delete(form);
+    }
+  });
+}
+
+// A bottle or stock starts with 0 to 10,000 g; 0 is an empty bottle.
+const MAX_INITIAL_MASS_G = 10000;
+function checkedInitialMassG(value) {
+  const text = String(value ?? "").trim();
+  const mass = text === "" ? NaN : Number(text);
+  if (!Number.isFinite(mass) || mass < 0 || mass > MAX_INITIAL_MASS_G) {
+    const error = new Error("Initial mass, g: must be a number from 0 to 10,000 g.");
+    error.items = [{ field: "initial_mass_g", msg: "must be a number from 0 to 10,000 g" }];
+    error.fields = ["initial_mass_g"];
+    throw error;
+  }
+  return mass;
+}
+// The browser stops a submit with an out-of-range number before our handler runs; show the same
+// inline box there instead of a hover bubble.
+function showMassLimitInline(selector) {
+  const form = $(selector);
+  form.elements.initial_mass_g.addEventListener("invalid", (event) => {
+    event.preventDefault();
+    clearFormError(form);
+    try { checkedInitialMassG(event.target.value); } catch (error) { showFormError(form, error); }
   });
 }
 
@@ -856,7 +1360,7 @@ function preparePhysicalDelta() {
       unit: target.unit,
       suggestedMassG: suggested.massG,
       suggestedVolumeUl: suggested.volumeUl,
-      commandId: crypto.randomUUID(),
+      commandId: newRequestId("command"),
       expectedSequence: null,
       requestBody: null,
       event: null,
@@ -902,7 +1406,7 @@ async function recordPreparedDelta() {
       $("#record-delta-status").textContent = `Recorded ${index + 1} of ${state.improve.preparedLines.length} additions.`;
     }
     state.improve.additionEvents = state.improve.preparedLines.map((line) => line.event);
-    state.improve.evaluationCommandId = crypto.randomUUID();
+    state.improve.evaluationCommandId = newRequestId("command");
     state.improve.evaluationRequestBody = null;
     $$("#delta-line-editor input").forEach((input) => { input.disabled = true; });
     $("#physical-addition-confirmed").disabled = true;
@@ -966,7 +1470,7 @@ $("#improve-form").addEventListener("submit", async (event) => {
         schema_version: "lab-engine-job-request-v2",
         job_type: "FORMULA_ANALYSIS",
         requester: "personal-workbench-ui",
-        idempotency_key: crypto.randomUUID(),
+        idempotency_key: newRequestId("job"),
         payload,
       }),
     });
@@ -1035,15 +1539,12 @@ $("#quick-reaction-form").addEventListener("submit", async (event) => {
   }
 });
 
-$("#backup-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
-  try {
-    const result = await request("/backups", { method: "POST", body: JSON.stringify(data) });
-    $("#backup-output").textContent = JSON.stringify(result, null, 2);
-    $("#stage-restore-form [name=snapshot_path]").value = result.snapshot_path;
-    notify("Verified backup created.");
-  } catch (error) { notify(error.message, true); }
+bindSavingForm("#backup-form", async (data, form, saved) => {
+  const result = await request("/backups", { method: "POST", body: JSON.stringify(data), timeoutMs: 0 });
+  saved();
+  $("#backup-output").textContent = JSON.stringify(result, null, 2);
+  $("#stage-restore-form [name=snapshot_path]").value = result.snapshot_path;
+  notify("Verified backup created.");
 });
 
 $("#stage-restore-form").addEventListener("submit", async (event) => {
@@ -1058,7 +1559,7 @@ $("#stage-restore-form").addEventListener("submit", async (event) => {
 
 $("#export-workspace").addEventListener("click", async () => {
   try {
-    const result = await request("/export");
+    const result = await request("/export", { timeoutMs: 0 });
     const blob = new Blob([JSON.stringify(result, null, 2)], { type: "application/json" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
@@ -1074,8 +1575,81 @@ $("#project-inventory-search").addEventListener("input", (event) => {
   renderProjectInventory(event.currentTarget.value);
 });
 
-$("#project-inventory-incomplete-only").addEventListener("change", () => {
+$("#project-inventory-incomplete-only").addEventListener("change", (event) => {
+  stockView.filter = event.currentTarget.checked ? "unfinished" : "all";
   renderProjectInventory($("#project-inventory-search").value);
+});
+
+$(".stock-filters").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-stock-filter]");
+  if (!button) return;
+  stockView.filter = button.dataset.stockFilter;
+  renderProjectInventory($("#project-inventory-search").value);
+});
+
+$("#project-inventory-solvent").addEventListener("change", (event) => {
+  stockView.solvent = event.currentTarget.value;
+  renderProjectInventory($("#project-inventory-search").value);
+});
+
+$("#project-inventory-sort").addEventListener("change", (event) => {
+  stockView.sort = event.currentTarget.value;
+  renderProjectInventory($("#project-inventory-search").value);
+});
+
+$("#project-inventory-basket").addEventListener("change", (event) => {
+  stockView.basket = event.currentTarget.value;
+  renderProjectInventory($("#project-inventory-search").value);
+});
+
+// Basket picker: keys only move the shown value; Enter or leaving the picker saves it, Escape puts the
+// saved one back. A change that no key caused (a mouse or touch choice) saves at once.
+function savedBasketValue(select) {
+  const stock = (state.projectInventory.stocks || []).find((item) => item.stock_id === select.dataset.basketFor);
+  return stock && Number.isInteger(stock.basket) ? String(stock.basket) : "";
+}
+
+function saveShownBasket(select) {
+  delete select.dataset.keyMoved;
+  if (select.value === savedBasketValue(select)) return;
+  setStockBasket(select.dataset.basketFor, select.value === "" ? null : Number(select.value));
+}
+
+$("#project-inventory-list").addEventListener("keydown", (event) => {
+  const select = event.target.closest("[data-basket-for]");
+  if (!select || event.ctrlKey || event.metaKey || event.altKey) return;
+  if (event.key === "Enter") {
+    event.preventDefault();
+    saveShownBasket(select);
+  } else if (event.key === "Escape") {
+    select.value = savedBasketValue(select);
+    delete select.dataset.keyMoved;
+  } else if (event.key !== "Tab" && event.key !== "Shift") {
+    select.dataset.keyMoved = "1";
+  }
+});
+
+$("#project-inventory-list").addEventListener("pointerdown", (event) => {
+  const select = event.target.closest("[data-basket-for]");
+  if (select) delete select.dataset.keyMoved;
+});
+
+$("#project-inventory-list").addEventListener("focusout", (event) => {
+  const select = event.target.closest?.("[data-basket-for]");
+  if (select && select.dataset.keyMoved) saveShownBasket(select);
+});
+
+$("#project-inventory-list").addEventListener("change", (event) => {
+  const select = event.target.closest("[data-basket-for]");
+  if (!select || select.dataset.keyMoved) return;
+  setStockBasket(select.dataset.basketFor, select.value === "" ? null : Number(select.value));
+});
+
+$("#project-inventory-list").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-confirm-basket]");
+  if (!button) return;
+  const stock = (state.projectInventory.stocks || []).find((item) => item.stock_id === button.dataset.confirmBasket);
+  if (stock && Number.isInteger(stock.basket)) setStockBasket(stock.stock_id, stock.basket);
 });
 
 function closeInventoryCompletion() {
@@ -1088,7 +1662,7 @@ function openInventoryCompletion(stock) {
   const form = $("#inventory-completion-form");
   form.reset();
   $("#inventory-completion-name").textContent = stock.identity_name || stock.material;
-  const missing = (stock.missing_fields || []).map((field) => humanize(field)).join(", ");
+  const missing = (stock.missing_fields || []).filter((field) => field !== "USER_COMPOUNDING_HOLD").map((field) => humanize(field)).join(", ");
   $("#inventory-completion-help").textContent = missing
     ? `Still needed for personal formulation: ${missing}. Confirm only what you actually know.`
     : "Review and confirm the details that describe your current bottle.";
@@ -1140,8 +1714,7 @@ $("#inventory-completion-form").addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
   const data = formData(form);
-  const idempotencyKey = globalThis.crypto?.randomUUID?.()
-    || `inventory-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  const idempotencyKey = newRequestId("inventory");
   const submit = form.querySelector('button[type="submit"]');
   submit.disabled = true;
   submit.textContent = "Saving…";
@@ -1170,10 +1743,11 @@ $("#inventory-completion-form").addEventListener("submit", async (event) => {
       closeInventoryCompletion();
       notify("Inventory details saved. This stock is now available for personal formula design.");
     } else {
-      const missing = (result.missing_fields || []).map((field) => humanize(field)).join(", ");
-      $("#inventory-completion-help").textContent = `Saved, but this still needs: ${missing}.`;
+      const missing = (result.missing_fields || []).filter((field) => field !== "USER_COMPOUNDING_HOLD").map((field) => humanize(field)).join(", ");
+      $("#inventory-completion-help").textContent = missing ? `Saved, but this still needs: ${missing}.` : "Saved. This stock stays on hold until you clear the hold.";
       $('[name="expected_effective_inventory_sha256"]', form).value = result.inventory.canonical_effective_inventory_sha256;
-      notify("Details saved, but the stock is still incomplete.", true);
+      if (missing) notify("Details saved, but the stock is still incomplete.", true);
+      else notify("Details saved. This stock stays on hold until you clear the hold.");
     }
   } catch (error) {
     notify(error.message, true);
@@ -1197,14 +1771,9 @@ $("#inventory-add-open").addEventListener("click", () => {
 $("#inventory-add-close").addEventListener("click", closeInventoryAddition);
 $("#inventory-add-cancel").addEventListener("click", closeInventoryAddition);
 
-$("#inventory-addition-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const form = event.currentTarget;
-  const data = formData(form);
-  const idempotencyKey = globalThis.crypto?.randomUUID?.()
-    || `inventory-add-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+bindSavingForm("#inventory-addition-form", async (data, form, saved) => {
+  const idempotencyKey = newRequestId("inventory-add");
   const submit = form.querySelector('button[type="submit"]');
-  submit.disabled = true;
   submit.textContent = "Adding…";
   try {
     const result = await request("/v2/workbench/current-inventory/add", {
@@ -1227,15 +1796,14 @@ $("#inventory-addition-form").addEventListener("submit", async (event) => {
         user_note: data.user_note || "",
       }),
     });
+    saved();
     state.projectInventory = result.inventory;
     $("#project-inventory-search").value = data.identity_name;
+    Object.assign(stockView, { filter: "all", solvent: "", basket: "" });
     renderProjectInventory(data.identity_name);
     closeInventoryAddition();
     notify(`${data.identity_name} is now available for personal formula design.`);
-  } catch (error) {
-    notify(error.message, true);
   } finally {
-    submit.disabled = false;
     submit.textContent = "Add to my inventory";
   }
 });
@@ -1297,6 +1865,39 @@ function renderCompositionChecks(compositionChecks) {
   }
 }
 
+// With basket data in the inventory payload the rows follow Kenny's basket
+// order (benchBasketOrder in bench-sheet.js) under one heading per basket;
+// without it they keep the design order. Doses are never changed.
+function renderFormulaRows(rows) {
+  let group = null;
+  $("#formula-result-rows").innerHTML = rows.length
+    ? benchBasketOrder(rows, benchBasketLookup(state.projectInventory)).map((entry) => {
+      const row = entry.row;
+      let heading = "";
+      if (entry.group && entry.group !== group) {
+        group = entry.group;
+        heading = `<tr class="formula-basket-row"><th colspan="4" scope="colgroup">${escapeHtml(entry.heading)}${entry.check ? ' <small class="formula-basket-check">check it: from past cards</small>' : ""}</th></tr>`;
+      }
+      const fraction = `${formatDecimal(Number(row.stock_fraction_decimal) * 100, 4)}%`;
+      const carrier = row.carrier ? ` in ${row.carrier}` : "";
+      const proxy = row.profile_source === "HEURISTIC_CATEGORY_PROXY" ? '<small class="proxy-label">category proxy</small>' : "";
+      const basketTag = entry.basket !== null ? `<small class="formula-basket-tag">Basket ${escapeHtml(entry.basket)}</small>`
+        : entry.group === "unassigned" ? '<small class="formula-basket-tag">No basket</small>' : "";
+      const basis = benchBasisText(row.fraction_basis);
+      const stockLabel = row.stock_label || `${fraction} ${basis}${carrier}`;
+      const mix = benchNeedsPreparedDilution(row) ? benchMixRecipe(row) : null;
+      const doseNote = mix ? `<small class="formula-dose-mix">${escapeHtml(benchMixShortText(mix, row.amount_unit))}</small>`
+        : benchNeedsPreparedDilution(row) ? '<small class="formula-dose-hold">prepare dilution first</small>' : "";
+      return `${heading}<tr>
+        <td><strong>${escapeHtml(row.material)}</strong>${basketTag}${proxy}<small class="formula-why">${escapeHtml(row.rationale)}</small></td>
+        <td class="formula-dose">${escapeHtml(row.amount_decimal)} ${escapeHtml(row.amount_unit)}${doseNote}</td>
+        <td>${escapeHtml(stockLabel)}<small>${escapeHtml(fraction)} ${escapeHtml(basis)}${escapeHtml(carrier)}</small></td>
+        <td>${escapeHtml(row.slot_label)}<small>${escapeHtml(row.note)} · ${escapeHtml(row.role)}</small></td>
+      </tr>`;
+    }).join("")
+    : '<tr><td colspan="4">Clarify the brief before a formula can be created.</td></tr>';
+}
+
 function renderFormulaDesign(result, variantIndex = 0) {
   state.formulaChat.result = result;
   state.formulaChat.variantIndex = variantIndex;
@@ -1329,21 +1930,7 @@ function renderFormulaDesign(result, variantIndex = 0) {
   });
   renderCompositionChecks(selected.variant ? selected.variant.composition_checks : result.composition_checks);
   const rows = selected.formula?.rows || [];
-  $("#formula-result-rows").innerHTML = rows.length
-    ? rows.map((row) => {
-      const fraction = `${formatDecimal(Number(row.stock_fraction_decimal) * 100, 4)}%`;
-      const carrier = row.carrier ? ` in ${row.carrier}` : "";
-      const proxy = row.profile_source === "HEURISTIC_CATEGORY_PROXY" ? '<small class="proxy-label">category proxy</small>' : "";
-      const basis = benchBasisText(row.fraction_basis);
-      const stockLabel = row.stock_label || `${fraction} ${basis}${carrier}`;
-      return `<tr>
-        <td><strong>${escapeHtml(row.material)}</strong>${proxy}<small class="formula-why">${escapeHtml(row.rationale)}</small></td>
-        <td class="formula-dose">${escapeHtml(row.amount_decimal)} ${escapeHtml(row.amount_unit)}${benchNeedsPreparedDilution(row) ? '<small class="formula-dose-hold">prepare dilution first</small>' : ""}</td>
-        <td>${escapeHtml(stockLabel)}<small>${escapeHtml(fraction)} ${escapeHtml(basis)}${escapeHtml(carrier)}</small></td>
-        <td>${escapeHtml(row.slot_label)}<small>${escapeHtml(row.note)} · ${escapeHtml(row.role)}</small></td>
-      </tr>`;
-    }).join("")
-    : '<tr><td colspan="4">Clarify the brief before a formula can be created.</td></tr>';
+  renderFormulaRows(rows);
 
   const totals = $("#formula-result-totals");
   totals.replaceChildren();
@@ -1583,7 +2170,7 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
           schema_version: "lab-engine-job-request-v2",
           job_type: "FORMULA_DESIGN",
           requester: "formula-studio-ui",
-          idempotency_key: crypto.randomUUID(),
+          idempotency_key: newRequestId("job"),
           payload,
         }),
       });
@@ -1608,6 +2195,7 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
           schema_version: "inventory-grounded-formula-chat-request-v2",
           ...payload,
         }),
+        timeoutMs: 0,
       });
     }
     appendFormulaChatBubble("assistant", result.assistant_message || "The brief needs clarification before I can create the formula.");
@@ -1835,6 +2423,7 @@ function buildBenchSheet(result, variantIndex) {
     totals: selected.formula?.separate_totals || {},
     rows,
     critic: selected.critic,
+    basketLookup: benchBasketLookup(state.projectInventory),
   });
   return rows.length;
 }
@@ -1852,7 +2441,7 @@ $("#formula-print-bench").addEventListener("click", () => {
 });
 
 bindForm("#material-form", (data) => request("/materials", { method: "POST", body: JSON.stringify(data) }));
-bindForm("#stock-form", (data) => request("/stocks", { method: "POST", body: JSON.stringify({ ...data, active_fraction: Number(data.active_fraction), initial_mass_g: Number(data.initial_mass_g), density_g_ml: data.density_g_ml ? Number(data.density_g_ml) : null }) }));
+bindForm("#stock-form", (data) => request("/stocks", { method: "POST", body: JSON.stringify({ ...data, active_fraction: Number(data.active_fraction), initial_mass_g: checkedInitialMassG(data.initial_mass_g), density_g_ml: data.density_g_ml ? Number(data.density_g_ml) : null }) }));
 bindForm("#formula-form", (data) => request("/formulas", { method: "POST", body: JSON.stringify(data) }));
 
 function componentRows() {
@@ -1920,8 +2509,10 @@ $("#version-form").addEventListener("submit", async (event) => {
     await refresh();
   } catch (error) { notify(error.message, true); }
 });
-bindForm("#bottle-form", (data) => request("/bottles", { method: "POST", body: JSON.stringify({ label: data.label, initial_mass_g: Number(data.initial_mass_g) }) }));
-bindForm("#addition-form", (data) => request(`/bottles/${data.bottle_id}/additions`, { method: "POST", body: JSON.stringify({ stock_solution_id: data.stock_solution_id, mass_g: Number(data.mass_g), expected_sequence: Number(data.expected_sequence), command_id: crypto.randomUUID() }) }));
+showMassLimitInline("#stock-form");
+showMassLimitInline("#bottle-form");
+bindForm("#bottle-form", (data) => request("/bottles", { method: "POST", body: JSON.stringify({ label: data.label, initial_mass_g: checkedInitialMassG(data.initial_mass_g) }) }));
+bindForm("#addition-form", (data) => request(`/bottles/${data.bottle_id}/additions`, { method: "POST", body: JSON.stringify({ stock_solution_id: data.stock_solution_id, mass_g: Number(data.mass_g), expected_sequence: Number(data.expected_sequence), command_id: newRequestId("command") }) }));
 bindForm("#experiment-form", (data) => request("/experiments", { method: "POST", body: JSON.stringify({ name: data.name, protocol: { observation_times_seconds: data.times.split(",").map((item) => Number(item.trim())) } }) }));
 
 const OMISSION_BASIS = { mass_fraction: "w/w", volume_fraction: "v/v", mass_per_volume: "w/v", "w/w": "w/w", "v/v": "v/v", "w/v": "w/v", neat: "neat" };
@@ -2138,22 +2729,16 @@ $("#omission-plan-form").addEventListener("submit", async (event) => {
   finally { button.disabled = false; }
 });
 
-$("#sample-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
-  try {
-    const row = await request(`/experiments/${data.experiment_id}/samples`, { method: "POST", body: JSON.stringify({ bottle_id: data.bottle_id, blind_code: data.blind_code }) });
-    $("#latest-sample").value = row.id; notify("Blind sample recorded.");
-  } catch (error) { notify(error.message, true); }
+bindSavingForm("#sample-form", async (data, form, saved) => {
+  const row = await request(`/experiments/${data.experiment_id}/samples`, { method: "POST", body: JSON.stringify({ bottle_id: data.bottle_id, blind_code: data.blind_code }) });
+  saved();
+  $("#latest-sample").value = row.id; notify("Blind sample recorded.");
 });
 
-$("#application-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
-  try {
-    const row = await request("/applications", { method: "POST", body: JSON.stringify({ sample_id: data.sample_id, applied_at: new Date().toISOString(), dose: { mass_mg: Number(data.mass_mg) }, context: { substrate: "blotter" } }) });
-    $("#latest-application").value = row.id; notify("Application recorded.");
-  } catch (error) { notify(error.message, true); }
+bindSavingForm("#application-form", async (data, form, saved) => {
+  const row = await request("/applications", { method: "POST", body: JSON.stringify({ sample_id: data.sample_id, applied_at: new Date().toISOString(), dose: { mass_mg: Number(data.mass_mg) }, context: { substrate: "blotter" } }) });
+  saved();
+  $("#latest-application").value = row.id; notify("Application recorded.");
 });
 
 bindForm("#observation-form", (data) => request(`/applications/${data.application_id}/observations`, { method: "POST", body: JSON.stringify({ elapsed_seconds: Number(data.elapsed_seconds), observations: { note: data.observation } }) }));
@@ -2163,16 +2748,14 @@ $("#analysis-form").addEventListener("submit", async (event) => {
   event.preventDefault();
   const data = formData(event.currentTarget);
   try {
-    const result = await request("/analysis", { method: "POST", body: JSON.stringify({ name: data.name, total_volume_ml: 10, concentration_percent: 20, ingredients: [{ name: data.material, percentage: 100, stock_active_fraction: 1, stock_fraction_basis: "volume_fraction" }] }) });
+    const result = await request("/analysis", { method: "POST", body: JSON.stringify({ name: data.name, total_volume_ml: 10, concentration_percent: 20, ingredients: [{ name: data.material, percentage: 100, stock_active_fraction: 1, stock_fraction_basis: "volume_fraction" }] }), timeoutMs: 0 });
     $("#analysis-output").textContent = JSON.stringify(result, null, 2); notify("Evidence analysis complete.");
   } catch (error) { notify(error.message, true); }
 });
 
-$("#hypothesis-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
+bindSavingForm("#hypothesis-form", async (data, form, saved) => {
   const splitValues = (value) => value.split(",").map((item) => item.trim()).filter(Boolean);
-  try {
+  {
     const result = await request("/intervention-hypotheses", {
       method: "POST",
       body: JSON.stringify({
@@ -2185,15 +2768,14 @@ $("#hypothesis-form").addEventListener("submit", async (event) => {
         limit: Number(data.limit),
       }),
     });
+    saved();
     $("#hypothesis-output").textContent = JSON.stringify(result, null, 2);
     notify(`${result.hypotheses.length} inventory-valid hypotheses generated.`);
-  } catch (error) { notify(error.message, true); }
+  }
 });
 
-$("#trial-plan-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
-  try {
+bindSavingForm("#trial-plan-form", async (data, form, saved) => {
+  {
     const result = await request("/intervention-trials/plan", {
       method: "POST",
       body: JSON.stringify({
@@ -2216,18 +2798,16 @@ $("#trial-plan-form").addEventListener("submit", async (event) => {
         evaluation_times_seconds: data.evaluation_times_seconds.split(",").map((item) => Number(item.trim())),
       }),
     });
+    saved();
     $("#trial-plan-output").textContent = JSON.stringify(result, null, 2);
     notify(`Trial planned at ${result.achieved_active_ppm_w_w.toFixed(3)} ppm w/w.`);
-  } catch (error) { notify(error.message, true); }
+  }
 });
 
-$("#assistant-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
-  try {
-    const packet = await request("/assistant", { method: "POST", body: JSON.stringify({ intent: data.intent, subject_id: data.subject_id || null, facts: {}, calculations: {}, evidence: {} }) });
-    $("#assistant-output").textContent = JSON.stringify(packet, null, 2); notify(`Packet ${packet.payload_sha256.slice(0, 10)} built.`);
-  } catch (error) { notify(error.message, true); }
+bindSavingForm("#assistant-form", async (data, form, saved) => {
+  const packet = await request("/assistant", { method: "POST", body: JSON.stringify({ intent: data.intent, subject_id: data.subject_id || null, facts: {}, calculations: {}, evidence: {} }) });
+  saved();
+  $("#assistant-output").textContent = JSON.stringify(packet, null, 2); notify(`Packet ${packet.payload_sha256.slice(0, 10)} built.`);
 });
 
 function scienceEvidenceClass(label) {
@@ -2343,7 +2923,7 @@ function renderScienceAuthority(report) {
 
 async function loadScienceAuthority() {
   const view = $("#science-view-mode").value;
-  const report = await request(`/science/authority?view=${view}`);
+  const report = await request(`/science/authority?view=${view}`, { timeoutMs: 0 });
   $("#science-json-download").href = `/api/v1/lab/science/authority?view=${view}`;
   $("#science-markdown-download").href = `/api/v1/lab/science/report.md?view=${view}`;
   renderScienceAuthority(report);
@@ -2362,6 +2942,44 @@ window.addEventListener("hashchange", () => {
   if ($(`[data-panel="${requested}"]`)) navigate(requested);
 });
 
-navigate(location.hash.slice(1) || "improve");
+// Move focus to the main area without putting "#main-content" in the URL.
+$(".skip-link").addEventListener("click", (event) => {
+  event.preventDefault();
+  $("#main-content").focus();
+});
+
+const THEME_KEY = "perfumechem.theme";
+const THEME_COLORS = { light: "#FFFDF8", dark: "#12171B" };
+function applyTheme(choice) {
+  const root = document.documentElement;
+  if (choice === "light" || choice === "dark") root.dataset.theme = choice;
+  else delete root.dataset.theme;
+  const resolved = choice === "light" || choice === "dark"
+    ? choice
+    : (window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  $('meta[name="theme-color"]')?.setAttribute("content", THEME_COLORS[resolved]);
+}
+(() => {
+  let choice = "system";
+  try { choice = localStorage.getItem(THEME_KEY) || "system"; } catch { choice = "system"; }
+  if (!["system", "light", "dark"].includes(choice)) choice = "system";
+  const picker = $("#theme-select");
+  if (picker) {
+    picker.value = choice;
+    picker.addEventListener("change", () => {
+      try { localStorage.setItem(THEME_KEY, picker.value); } catch { /* storage unavailable */ }
+      applyTheme(picker.value);
+    });
+  }
+  applyTheme(choice);
+  window.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", () => {
+    if (!document.documentElement.dataset.theme) applyTheme("system");
+  });
+})();
+
+const startView = location.hash.slice(1);
+// An unknown hash (an old "#main-content" bookmark, say) would hide every view.
+navigate($$(".view").some((panel) => panel.dataset.panel === startView) ? startView : "improve");
+pageStarted = true;
 restoreStoredDrafts();
 refresh().catch((error) => notify(error.message, true));

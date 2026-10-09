@@ -6,6 +6,16 @@ from collections.abc import Awaitable, Callable
 from decimal import Decimal
 from typing import Any, TypeAlias, cast
 
+from engine.inventory_baskets import (
+    BasketError,
+    BasketLogBusyError,
+    BasketLogCorruptError,
+    basket_list,
+    confirmed_baskets,
+    load_basket_seed,
+    record_basket_choice,
+    stock_basket_fields,
+)
 from engine.inventory_completions import (
     InventoryCompletionConflictError,
     InventoryCompletionError,
@@ -36,6 +46,7 @@ from engine.research.formula_design import design_inventory_formula
 from fastapi import APIRouter, Body, Depends, status
 from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
+from starlette.concurrency import run_in_threadpool
 
 from app.api.deps import get_db
 from app.schemas.lab_lifecycle import (
@@ -64,6 +75,7 @@ from app.schemas.lab_lifecycle import (
     RegulatoryAssessmentResponse,
     SensoryResultCreate,
     SensoryResultResponse,
+    StockBasketChoiceCreate,
 )
 from app.services.formula_import import FormulaAnalysisLibrary
 from app.services.lab_claims import (
@@ -204,15 +216,27 @@ def _gate_hold_text(stock: Any) -> str | None:
 
 def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
     stocks = []
+    basket_log_error: str | None = None
+    try:
+        confirmed = confirmed_baskets()
+    except BasketLogCorruptError as error:
+        # A damaged log must not break the Lab page: show seed values only.
+        confirmed = {}
+        basket_log_error = str(error)
+    seed = load_basket_seed()
     for stock in materialized.stocks:
         design_ready = effective_design_ready(stock)
         missing_fields = list(inventory_completion_requirements(stock))
+        normalized_identity = personal_inventory_identity_key(stock)
         stocks.append(
             {
                 "stock_id": stock.stock_id,
                 "material": stock.name,
                 "identity_name": stock.identity_name or stock.name,
-                "normalized_identity": personal_inventory_identity_key(stock),
+                "normalized_identity": normalized_identity,
+                **stock_basket_fields(
+                    normalized_identity, confirmed=confirmed, seed=seed
+                ),
                 "stock_label": stock.raw_name or stock.name,
                 "fraction_decimal": _inventory_decimal(stock.dilution),
                 "fraction_percent_decimal": _inventory_decimal(stock.dilution * 100),
@@ -248,7 +272,7 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
                 "source_ref": stock.source_ref,
             }
         )
-    return {
+    payload: dict[str, Any] = {
         "schema_version": "workbench-current-inventory-v3",
         "authority": "PERSONAL_DESIGN_INVENTORY_PROJECTION_READ_ONLY",
         "completion_authority": "DIRECT_USER_CONFIRMATION_FOR_PERSONAL_DESIGN_ONLY",
@@ -289,9 +313,13 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
             "requirements": len(materialized.requirements),
         },
         "stocks": stocks,
+        "baskets": basket_list(),
         "inventory_modified": False,
         "compounding_authority": False,
     }
+    if basket_log_error is not None:
+        payload["basket_log_error"] = basket_log_error
+    return payload
 
 
 @router.get("/workbench/current-inventory")
@@ -422,6 +450,60 @@ async def dilute_workbench_inventory(
             status_code=status.HTTP_400_BAD_REQUEST,
             content={"error": {"code": error.code, "message": str(error)}},
         )
+
+
+@router.post("/workbench/current-inventory/basket", response_model=None)
+async def set_workbench_inventory_basket(
+    request: StockBasketChoiceCreate,
+) -> ResponsePayload:
+    """Record which basket Kenny keeps a material in (Lab page display only)."""
+
+    stock = next(
+        (
+            item
+            for item in materialize_personal_inventory().stocks
+            if personal_inventory_identity_key(item) == request.normalized_identity
+        ),
+        None,
+    )
+    if stock is None:
+        return JSONResponse(
+            status_code=422,
+            content={
+                "error": {
+                    "code": "BASKET_IDENTITY_NOT_IN_INVENTORY",
+                    "message": "normalized_identity is not in the current inventory",
+                }
+            },
+        )
+    try:
+        # In a worker thread: waiting on a held basket-log lock must not stall other requests.
+        event = await run_in_threadpool(
+            record_basket_choice,
+            normalized_identity=request.normalized_identity,
+            identity_name=stock.identity_name or stock.name,
+            basket=request.basket,
+        )
+    except BasketLogBusyError as error:
+        return JSONResponse(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            content={"error": {"code": error.code, "message": str(error)}},
+        )
+    except BasketLogCorruptError as error:
+        return JSONResponse(
+            status_code=status.HTTP_409_CONFLICT,
+            content={"error": {"code": error.code, "message": str(error)}},
+        )
+    except BasketError as error:
+        return JSONResponse(
+            status_code=422,
+            content={"error": {"code": error.code, "message": str(error)}},
+        )
+    return {
+        "normalized_identity": request.normalized_identity,
+        "basket": event["basket"],
+        "basket_status": "confirmed",
+    }
 
 
 @router.post("/workbench/current-inventory/add", response_model=None)

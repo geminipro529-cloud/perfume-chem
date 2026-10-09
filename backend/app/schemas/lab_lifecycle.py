@@ -10,6 +10,7 @@ from pydantic import (
     BaseModel,
     ConfigDict,
     Field,
+    StrictInt,
     StringConstraints,
 )
 
@@ -102,6 +103,13 @@ class InventoryCompletionCreate(LifecycleRequest):
         "PERSONAL_CONFIRMATION",
     ]
     user_note: str = Field(default="", max_length=1000)
+
+
+class StockBasketChoiceCreate(LifecycleRequest):
+    """Kenny's basket for one material; null means it sits in no basket."""
+
+    normalized_identity: NonBlank = Field(max_length=255)
+    basket: Annotated[StrictInt, Field(ge=1, le=17)] | None
 
 
 class PersonalInventoryAdditionCreate(LifecycleRequest):

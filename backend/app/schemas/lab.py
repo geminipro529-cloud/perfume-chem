@@ -21,7 +21,7 @@ class StockCreate(LabRequest):
     material_id: str
     active_fraction: float = Field(gt=0, le=1)
     fraction_basis: Literal["mass_fraction", "volume_fraction", "amount_fraction"]
-    initial_mass_g: float = Field(ge=0)
+    initial_mass_g: float = Field(ge=0, le=10000, allow_inf_nan=False)
     density_g_ml: float | None = Field(default=None, gt=0)
     supplier: str | None = None
     lot_number: str | None = None
@@ -33,7 +33,7 @@ class AliasCreate(LabRequest):
 
 
 class StockUpdateRemaining(LabRequest):
-    remaining_mass_g: float = Field(ge=0)
+    remaining_mass_g: float = Field(ge=0, le=10000, allow_inf_nan=False)
 
 
 class FormulaResponse(BaseModel):
@@ -58,12 +58,12 @@ class FormulaVersionResponse(BaseModel):
 
 class BottleCreate(LabRequest):
     label: str = Field(min_length=1, max_length=255)
-    initial_mass_g: float = Field(default=0, ge=0)
+    initial_mass_g: float = Field(default=0, ge=0, le=10000, allow_inf_nan=False)
 
 
 class BottleAdditionCreate(LabRequest):
     stock_solution_id: str
-    mass_g: Decimal = Field(gt=0)
+    mass_g: Decimal = Field(gt=0, le=10000, allow_inf_nan=False)
     expected_sequence: int = Field(ge=0)
     command_id: str = Field(min_length=1)
     measured_volume_ul: Decimal | None = Field(default=None, gt=0)
@@ -122,7 +122,7 @@ class StockPreparationFinalizeCreate(LabRequest):
 class BottleTransferCreate(LabRequest):
     source_bottle_id: str
     destination_bottle_id: str
-    mass_g: float = Field(gt=0)
+    mass_g: float = Field(gt=0, le=10000, allow_inf_nan=False)
     source_expected_sequence: int = Field(ge=0)
     destination_expected_sequence: int = Field(ge=0)
     command_id: str = Field(min_length=1)
@@ -141,7 +141,7 @@ class LabFormulaCreate(LabRequest):
 
 class FormulaComponentCreate(LabRequest):
     stock_solution_id: str = Field(min_length=1)
-    requested_mass_g: float = Field(gt=0)
+    requested_mass_g: float = Field(gt=0, le=10000, allow_inf_nan=False)
     requested_volume_ul: float | None = Field(default=None, gt=0)
     role: str | None = Field(default=None, max_length=80)
     unit: Literal["g"] = "g"
@@ -251,7 +251,7 @@ class InterventionCandidateCreate(LabRequest):
 
 
 class InterventionCreate(LabRequest):
-    batch_mass_g: float = Field(gt=0)
+    batch_mass_g: float = Field(gt=0, le=10000, allow_inf_nan=False)
     brief: InterventionBriefCreate
     inventory: tuple[InterventionStockCreate, ...]
     candidates: tuple[InterventionCandidateCreate, ...]
@@ -278,8 +278,8 @@ class PipetteProfileCreate(LabRequest):
 class InterventionTrialPlanCreate(LabRequest):
     brief_name: str = Field(min_length=1, max_length=255)
     material: str = Field(min_length=1, max_length=255)
-    bottle_total_mass_g: float = Field(gt=0)
-    current_material_active_mass_g: float = Field(default=0, ge=0)
+    bottle_total_mass_g: float = Field(gt=0, le=10000, allow_inf_nan=False)
+    current_material_active_mass_g: float = Field(default=0, ge=0, le=10000, allow_inf_nan=False)
     stock_active_mass_fraction: float = Field(gt=0, le=1)
     stock_density_g_ml: float | None = Field(default=None, gt=0)
     target_active_ppm_w_w: float = Field(gt=0, le=1_000_000)
