@@ -320,3 +320,25 @@ def test_hold_text_for_an_unclearable_unnamed_hold_does_not_name_the_stock_page(
     (issue,) = check.data["issues"]
     assert issue["stock_page_entry_clears"] is False
     assert "Stock page" not in str(_stock_issue_data_request(issue))
+
+
+@pytest.mark.parametrize(
+    "holds",
+    [
+        ["PREPARED_DILUTION_PARENT_HELD"],
+        ["PREPARED_DILUTION_PARENT_HELD|STOCK_INTAKE_IDENTITY_ONLY"],
+    ],
+)
+def test_prepared_dilution_with_a_held_parent_gets_a_data_request(holds) -> None:
+    request = _stock_issue_data_request(
+        {
+            "reason": "inventory_stock_non_executable",
+            "execution_holds": holds,
+            "stock_page_entry_clears": False,
+            "fraction_matches_formula": True,
+        }
+    )
+    assert request is not None
+    assert "resolve that parent bottle first" in request
+    if "|" in holds[0]:
+        assert "record the strength, concentration basis and carrier" in request

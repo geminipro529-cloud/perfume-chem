@@ -153,6 +153,13 @@ function renderProjectInventory(filter = "") {
     }).join("")
     : '<p class="empty">No current inventory entries match that search.</p>';
   $$("#project-inventory-list .inventory-item").forEach((article, index) => {
+    const holdText = rows[index]?.gate_hold_text;
+    if (holdText) {
+      const hold = document.createElement("small");
+      hold.className = "inventory-gate-hold";
+      hold.textContent = holdText;
+      article.querySelector(".inventory-source").after(hold);
+    }
     const disagreement = rows[index]?.authority_disagreement?.text;
     if (!disagreement) return;
     const note = document.createElement("small");

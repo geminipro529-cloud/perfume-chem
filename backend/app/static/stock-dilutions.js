@@ -49,6 +49,8 @@ function dilutionMixText(stock, newPercent, basis, carrier) {
   const raw = String(newPercent ?? "").trim();
   const n = raw === "" ? NaN : Number(raw);
   if (!Number.isFinite(p) || !Number.isFinite(n) || !(n > 0) || !(p > n)) return "";
+  // The server refuses a basis that differs from a non-neat parent's, so no mix is shown.
+  if (p !== 100 && basis !== stock.fraction_basis) return "";
   const parts = Math.round((p / n - 1) * 100) / 100;
   const base = stock.identity_name || stock.material || "parent";
   const parentBasis = MIX_BASIS_WORDS[stock.fraction_basis];

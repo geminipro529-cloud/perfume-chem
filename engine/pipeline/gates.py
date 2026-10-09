@@ -43,7 +43,10 @@ from engine.ifra_standards import (
     load_ifra_table,
 )
 from engine.inventory_completions import COMPLETION_CLEARABLE_HOLDS, STOCK_PAGE_ENTRY_INCOMPLETE
-from engine.inventory_dilutions import PREPARED_DILUTION_PARENT_CHANGED
+from engine.inventory_dilutions import (
+    PREPARED_DILUTION_PARENT_CHANGED,
+    PREPARED_DILUTION_PARENT_HELD,
+)
 from engine.knowledge.literature_rules import (
     _LITERATURE_DB_LOADED,
     _cite_fn,
@@ -474,6 +477,10 @@ _STOCK_DATA_HOLDS: dict[str, str] = {
     PREPARED_DILUTION_PARENT_CHANGED: (
         "the bottle this dilution was made from has changed; on the Lab app's Stock page, "
         "record the dilution again from that bottle as it now stands"
+    ),
+    PREPARED_DILUTION_PARENT_HELD: (
+        "this dilution counts once the bottle it was made from counts at the gate; "
+        "resolve that parent bottle first"
     ),
 }
 # When preflight reports that a complete Lab app Stock page entry would clear
