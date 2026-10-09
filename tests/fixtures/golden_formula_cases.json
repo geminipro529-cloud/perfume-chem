@@ -22,9 +22,10 @@
       "batch_volume_ml": 10.0,
       "expected_ppm_status": "unavailable",
       "modeled_output_relative_tolerance": 1e-8,
+      "baseline_note": "Olibanum outputs re-pinned 2026-10-09: naturals use cited data-spine VPs (diagnosis V3).",
       "expected_composite_materials": ["Olibanum Resinoid (viscous, 3 g)", "Bergamot FCF"],
       "expected_material_outputs": {
-        "Olibanum Resinoid (viscous, 3 g)": {"vapor_ppm": 324.08901106475656, "oav": 17991.888553575467},
+        "Olibanum Resinoid (viscous, 3 g)": {"vapor_ppm": 324.1104630842594, "oav": 17991.915037550163},
         "Bergamot FCF": {"vapor_ppm": 2588.315031715184, "oav": 156393.61992962266}
       }
     },
