@@ -1,0 +1,245 @@
+{
+  "schema_version": "lavande-ambre-profond-r6-cp8-sensory-evidence-intake-v2",
+  "protocol_id": "lavande-ambre-profond-r6-cp8-sensory-evidence-intake-20261009",
+  "state": "FROZEN_NONEXECUTING_SENSORY_EVIDENCE_INTAKE_CONTRACT",
+  "supersedes": {
+    "path": "data/governance/lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20260926.json",
+    "sha256": "992ee5b8b1e499d81bd5f4d45f38cfe2bc0d5921005dc8f49553cae6ba3c81bb",
+    "reason": "Optimizer pleasantness switched from the legacy fixed-valence score to the crowd table (score_hedonic_crowd); user decision 2026-10-09 23:09 UTC. The superseded record is kept unchanged as history."
+  },
+  "inputs": {
+    "checkpoint7_protocol_path": "data/governance/lavande_ambre_profond_r6_cp7_research_applicability_intake_20260926.json",
+    "checkpoint7_protocol_sha256": "a6e1462593a67424ae0f02bbd23de7f06e9c9494228b04e0315633c9d93a6c44",
+    "checkpoint7_evaluator_path": "engine/experiments/checkpoint7_readiness.py",
+    "checkpoint7_evaluator_sha256": "48620d99ea8057d6a9b582140b17cd1950abd75787ae3461652a76095a0e87cf",
+    "checkpoint7_report_sha256": "9b8d6e7b2897f01c889c8bd5493b9f2134f34c20ea4d1532cc9d366692e22d57"
+  },
+  "checkpoint7_prerequisite": {
+    "required_state": "PASS_CP7_R6_RESEARCH_SAMPLE_CHARACTERIZED",
+    "observed_state": "HOLD_CP7_BUILD_MEASUREMENT_OR_APPLICABILITY_INCOMPLETE",
+    "satisfied": false,
+    "bypass_allowed": false
+  },
+  "scientific_surface": {
+    "hedonic_platform": {
+      "path": "engine/formulation_intelligence/hedonic_platform.py",
+      "sha256": "384ba412e9ebce41d59e60c129a50694f189da048067918b7d11afa33613e9a4"
+    },
+    "formulation_intelligence_contracts": {
+      "path": "engine/formulation_intelligence/contracts.py",
+      "sha256": "c05690630a0c733568845ea1a2b2ad4dcec1b0b379c5ab4b83a37bc0bbbaec53"
+    },
+    "panel_contract": {
+      "path": "engine/sensory/panel_contract.py",
+      "sha256": "418ecf7f42454ba335c8113487570458fb81210db016cfe778abce72955898cc"
+    },
+    "sensory_source_manifest": {
+      "path": "data/source_manifests/optimizer_sensory_research_20260909.json",
+      "sha256": "e120208e05342638fb5aaf689c7a9b08397d171c2bcbdaba39763a280ec1c770"
+    },
+    "ma_2021_benchmark": {
+      "path": "data/governance/ma_2021_binary_mixture_baseline_benchmark_20260812.json",
+      "sha256": "7cfac1d54cb22faded92a80f6ca6abe3f4485af057ffae7946cfcbfb105994d6"
+    },
+    "panel_contract_review": {
+      "path": "docs/research/PERFUME_CHEM_C0_SENSORY_PANEL_CONTRACT_2026-08-09.md",
+      "sha256": "fd3ca3c693e60d6315dc55c190592264e81e1fea8ee2d87c1de23f0486f79e1b"
+    },
+    "legacy_hedonic_implementation": {
+      "path": "engine/hedonic_model.py",
+      "sha256": "e213465333f728462f0fac10f7c57a8a6a9730e7a1f13175786452c84b83fefc"
+    },
+    "optimizer_scoring_implementation": {
+      "path": "engine/optimizer/scoring.py",
+      "sha256": "f3e58e1dda88570de69857897d8fb717c72a7cd646707e533e709e8570274937"
+    },
+    "crowd_pleasantness_implementation": {
+      "path": "engine/formulation_intelligence/pleasantness.py",
+      "sha256": "468c0c1d143ff780d0d300185503748da8012140122895239d2bd9f897f546d8"
+    },
+    "crowd_pleasantness_table_loader": {
+      "path": "engine/formulation_intelligence/pleasantness_table.py",
+      "sha256": "570890f22e033f4e4d387f7bff6dd6e18ee350e5e6e51bb17190092703d96a48"
+    },
+    "crowd_pleasantness_table": {
+      "path": "data/formulation_knowledge/pleasantness_crowd_v1.json",
+      "sha256": "2a91378e2077fbc9dbed1183ae5d97b4f9c8dd879688ccf5ba4c1dfcfb0d96ae"
+    }
+  },
+  "external_evidence_boundary": {
+    "bierling_2025": {
+      "source_id": "bierling_2025",
+      "article_doi": "10.1038/s41597-025-04644-2",
+      "dataset_doi": "10.5281/zenodo.14727277",
+      "license": "CC BY 4.0",
+      "included_participant_codes": 1227,
+      "included_odor_codes": 73,
+      "published_headline_odor_count": 74,
+      "included_nonempty_numeric_pleasantness_rows": 12005,
+      "pleasantness_scale": "1-100",
+      "scope": "MONOMOLECULAR_ODORS_POPULATION_DATA",
+      "mixture_level_liking_data": false,
+      "systematic_multi_dose_response_data": false,
+      "r6_formula_transfer_authorized": false,
+      "r6_personal_liking_established": false
+    },
+    "ma_2021": {
+      "dataset_article_doi": "10.1016/j.dib.2021.107143",
+      "same_source_intensity_doi": "10.1016/j.foodchem.2021.129483",
+      "same_source_pleasantness_doi": "10.1093/chemse/bjaa020",
+      "claim": "SOURCE_INTERNAL_CALIBRATION_ONLY",
+      "unique_mixture_groups": 198,
+      "source_trial_rows": 222,
+      "best_predefined_pleasantness_baseline": "pleasantness_squared_intensity_weighted",
+      "best_predefined_pleasantness_rmse": "0.394525286290",
+      "formula_prediction_authorized": false,
+      "cross_study_generalization_authorized": false,
+      "participant_level_inference_authorized": false,
+      "sensory_claim_authorized": false,
+      "r6_formula_transfer_authorized": false
+    }
+  },
+  "empty_hedonic_platform_contract": {
+    "schema_version": "hedonic_evidence_platform_v4",
+    "target_scope": "lavande-ambre-profond-r6",
+    "temporal_scope": "unresolved",
+    "matrix_scope": "unresolved",
+    "platform_sha256": "999ead7dab43cb7b5ec26b1610d4c23311eaf4fb885f00db9b706d9fd6b3c336",
+    "scope_sha256": "14fbf97e65a18e0058af06d6aa508554a57856181adb9ded1e609fca0e9577c1",
+    "assessment_sha256": "c67c1f8122eed1cce59a667b8cda639a435299ff7925f74db2c9379e00b48a5a",
+    "assessment_id": "hedonic-platform:a7442bbaa9e57360ced60d53",
+    "authority_ceiling": "withheld",
+    "view_count": 0,
+    "decision_count": 0,
+    "unknown_fact_count": 1,
+    "native_criterion_count": 12,
+    "all_native_criteria_unknown": true,
+    "ranked_winner_available": false
+  },
+  "panel_intake_contract": {
+    "lexicon_sha256": "5a0804a923cc312d9075ee8614cd1aa79941e65bba7bba35922f40148043c490",
+    "draft_protocol_sha256": "f795e561bf075a2a8ac4e7c7f131e87e37f9df3865b089068c403c2d40895441",
+    "empty_exit_report_sha256": "aaaf45a7b2a5c972593e20143ac1c6180f4ab4aa56c3b3df5d37fafef38a1bc3",
+    "exit_decision": "hold",
+    "protocol_locked": false,
+    "required_binding_ids": [
+      "sample_manifest",
+      "preparation_dose_ppm_manifest",
+      "formula_oav_manifest",
+      "randomization_manifest",
+      "anchor_reference_manifest",
+      "participant_plan",
+      "environment_timing_manifest",
+      "analysis_plan",
+      "ethics_privacy_safety_review"
+    ],
+    "required_binding_count": 9,
+    "bound_binding_count": 0,
+    "panel_gate_ids": [
+      "discrimination",
+      "agreement",
+      "repeatability"
+    ],
+    "locked_panel_gate_count": 0,
+    "timepoints_seconds": [],
+    "repeat_count": 0,
+    "study_authorized": false,
+    "release_authority": false,
+    "model_calibration_authority": false
+  },
+  "endpoint_contract": {
+    "construction_axes": [
+      "airiness",
+      "separability",
+      "density",
+      "coherence",
+      "target_fidelity",
+      "contrast",
+      "emergence",
+      "recognition"
+    ],
+    "pleasantness_endpoint": "pleasantness",
+    "pairwise_liking_endpoint": "exact_condition_preference_outcome",
+    "aversion_and_defect_endpoints_remain_separate": true,
+    "blotter_and_skin_domains_remain_separate": true,
+    "individual_and_population_liking_remain_separate": true,
+    "unlike_endpoints_may_not_be_summed": true,
+    "beauty_endpoint": "PROHIBITED_DERIVED_ENDPOINT",
+    "pleasantness_state": "NOT_ESTABLISHED",
+    "personal_liking_state": "NOT_TESTED",
+    "population_liking_state": "NOT_TESTED"
+  },
+  "legacy_heuristic_quarantine": {
+    "empty_input_score": 50,
+    "empty_input_class": "unknown",
+    "coverage_status": "NO_ACTIVE_MATERIALS",
+    "classification": "HEURISTIC_DIAGNOSTIC_INDEX",
+    "ranking_status": "WITHHELD",
+    "formula_optimization_authority": false,
+    "sensory_validation_status": "NOT_ESTABLISHED",
+    "full_formula_pleasantness_status": "NOT_ESTABLISHED",
+    "pleasantness_class_scope": "FIXED_VALENCE_TABLE_SUBSET_ONLY",
+    "may_populate_hedonic_platform_observations": false,
+    "may_select_or_rank_r6": false
+  },
+  "canonical_current_evidence": {
+    "physical_sample_receipts": [],
+    "locked_protocol_receipts": [],
+    "participant_qualification_receipts": [],
+    "exact_condition_observations": [],
+    "panel_performance_results": [],
+    "criterion_preference_views": [],
+    "population_preference_views": [],
+    "pareto_decision_states": []
+  },
+  "checkpoint8_blockers": [
+    "HOLD_CP8_CP7_RESEARCH_CHARACTERIZATION_INCOMPLETE",
+    "HOLD_CP8_PHYSICAL_SENSORY_SAMPLES_UNAVAILABLE",
+    "HOLD_CP8_SENSORY_PROTOCOL_BINDINGS_INCOMPLETE",
+    "HOLD_CP8_EXACT_CONDITION_HUMAN_OBSERVATIONS_UNAVAILABLE",
+    "PLEASANTNESS_NOT_ESTABLISHED",
+    "PHYSICAL_LIKING_NOT_TESTED"
+  ],
+  "checkpoint8_contract": {
+    "state": "SOFTWARE_COMPLETE_SENSORY_EVIDENCE_INTAKE_HOLD",
+    "hold_state": "HOLD_CP8_PHYSICAL_STUDY_OR_EXACT_SCOPE_EVIDENCE_INCOMPLETE",
+    "future_pass_state": "PASS_CP8_R6_EXACT_SCOPE_SENSORY_EVIDENCE_RECORDED",
+    "project_phase": "SOFTWARE_CHECKPOINT_SEQUENCE_COMPLETE_EXTERNAL_VALIDATION_PENDING",
+    "formula_action": "NO_CHANGE",
+    "ranked_candidates": [],
+    "best_observed_candidate": null,
+    "experimental_recommendation": null,
+    "shortlist_ordering": "UNORDERED_DIVERSE_SET",
+    "formula_modified": false,
+    "inventory_modified": false
+  },
+  "authority": {
+    "checkpoint8_intake_contract_record_authorized": true,
+    "evidence_admission_authorized": false,
+    "human_study_authorized": false,
+    "physical_experiment_authorized": false,
+    "sensory_evaluation_authorized": false,
+    "participant_recruitment_authorized": false,
+    "model_training_authorized": false,
+    "model_calibration_authorized": false,
+    "formula_optimization_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authorized": false,
+    "inventory_mutation_authorized": false,
+    "physical_formula_mutation_authorized": false,
+    "safety_authorized": false,
+    "release_authorized": false
+  },
+  "side_effects": {
+    "backend_record_created": false,
+    "physical_sample_created": false,
+    "participant_contacted": false,
+    "human_observation_created": false,
+    "sensory_evaluation_executed": false,
+    "model_trained": false,
+    "model_calibrated": false,
+    "formula_ranked": false,
+    "inventory_modified": false,
+    "physical_formula_modified": false
+  }
+}

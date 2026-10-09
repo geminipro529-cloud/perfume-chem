@@ -116,7 +116,11 @@ _R6_CP8_SENSORY_PROTOCOL = (
     _REPOSITORY_ROOT
     / "data"
     / "governance"
-    / "lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20260926.json"
+    / "lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20261009.json"
+)
+_R6_CP8_SUPERSEDED_SENSORY_PROTOCOL = (
+    "data/governance/"
+    "lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20260926.json"
 )
 _CP10_LEGACY_SURFACE_TRANSITIONS = (
     _REPOSITORY_ROOT
@@ -1213,8 +1217,12 @@ def _load_checkpoint8_intake_receipt(
                 "panel_contract_review",
                 "legacy_hedonic_implementation",
                 "optimizer_scoring_implementation",
+                "crowd_pleasantness_implementation",
+                "crowd_pleasantness_table_loader",
+                "crowd_pleasantness_table",
             )
         }
+        supersedes = dict(protocol["supersedes"])
         prerequisite = dict(protocol["checkpoint7_prerequisite"])
         external = {
             key: dict(protocol["external_evidence_boundary"][key])
@@ -1255,6 +1263,15 @@ def _load_checkpoint8_intake_receipt(
         ),
         "legacy_hedonic_implementation": "engine/hedonic_model.py",
         "optimizer_scoring_implementation": "engine/optimizer/scoring.py",
+        "crowd_pleasantness_implementation": (
+            "engine/formulation_intelligence/pleasantness.py"
+        ),
+        "crowd_pleasantness_table_loader": (
+            "engine/formulation_intelligence/pleasantness_table.py"
+        ),
+        "crowd_pleasantness_table": (
+            "data/formulation_knowledge/pleasantness_crowd_v1.json"
+        ),
     }
     surface_valid = True
     for key, relative_path in expected_surface_paths.items():
@@ -1267,6 +1284,12 @@ def _load_checkpoint8_intake_receipt(
         ):
             surface_valid = False
             break
+    superseded_path = _REPOSITORY_ROOT / _R6_CP8_SUPERSEDED_SENSORY_PROTOCOL
+    superseded_valid = (
+        supersedes.get("path") == _R6_CP8_SUPERSEDED_SENSORY_PROTOCOL
+        and superseded_path.is_file()
+        and supersedes.get("sha256") == stable_file_hash(superseded_path)
+    )
 
     expected_external = {
         "bierling_2025": {
@@ -1412,11 +1435,11 @@ def _load_checkpoint8_intake_receipt(
     )
     if (
         protocol.get("schema_version")
-        != "lavande-ambre-profond-r6-cp8-sensory-evidence-intake-v1"
+        != "lavande-ambre-profond-r6-cp8-sensory-evidence-intake-v2"
         or protocol.get("state")
         != "FROZEN_NONEXECUTING_SENSORY_EVIDENCE_INTAKE_CONTRACT"
         or protocol.get("protocol_id")
-        != "lavande-ambre-profond-r6-cp8-sensory-evidence-intake-20260926"
+        != "lavande-ambre-profond-r6-cp8-sensory-evidence-intake-20261009"
         or inputs.get("checkpoint7_protocol_path")
         != (
             "data/governance/"
@@ -1443,6 +1466,7 @@ def _load_checkpoint8_intake_receipt(
             "bypass_allowed": False,
         }
         or not surface_valid
+        or not superseded_valid
         or external != expected_external
         or platform != expected_platform
         or panel != expected_panel

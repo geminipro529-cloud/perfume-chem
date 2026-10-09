@@ -282,3 +282,120 @@ def test_checkpoint8_rejects_winner_or_formula_action_promotion(
     path.write_text(json.dumps(changed, ensure_ascii=False), encoding="utf-8")
     with pytest.raises(Checkpoint8ContractError, match="outcome contract"):
         evaluate_r6_checkpoint8_readiness(protocol_path=path)
+
+
+SUPERSEDED_PROTOCOL_PATH = (
+    DEFAULT_PROTOCOL_PATH.parent
+    / "lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20260926.json"
+)
+SUPERSEDED_PROTOCOL_SHA256 = (
+    "992ee5b8b1e499d81bd5f4d45f38cfe2bc0d5921005dc8f49553cae6ba3c81bb"
+)
+SUPERSEDED_SCORING_SHA256 = (
+    "288465277f14f0125e6dc0049203b9135167edca710c37240cdc9fb50f4893b5"
+)
+
+
+def test_checkpoint8_default_is_crowd_pleasantness_successor() -> None:
+    protocol = json.loads(DEFAULT_PROTOCOL_PATH.read_text(encoding="utf-8"))
+    assert DEFAULT_PROTOCOL_PATH.name == (
+        "lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20261009.json"
+    )
+    assert protocol["schema_version"] == (
+        "lavande-ambre-profond-r6-cp8-sensory-evidence-intake-v2"
+    )
+    assert protocol["protocol_id"] == (
+        "lavande-ambre-profond-r6-cp8-sensory-evidence-intake-20261009"
+    )
+    assert protocol["supersedes"]["path"] == (
+        "data/governance/"
+        "lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20260926.json"
+    )
+    assert protocol["supersedes"]["sha256"] == SUPERSEDED_PROTOCOL_SHA256
+
+
+def test_checkpoint8_superseded_record_is_kept_unchanged() -> None:
+    assert _sha256(SUPERSEDED_PROTOCOL_PATH) == SUPERSEDED_PROTOCOL_SHA256
+    superseded = json.loads(SUPERSEDED_PROTOCOL_PATH.read_text(encoding="utf-8"))
+    assert superseded["protocol_id"] == (
+        "lavande-ambre-profond-r6-cp8-sensory-evidence-intake-20260926"
+    )
+    assert superseded["scientific_surface"]["optimizer_scoring_implementation"][
+        "sha256"
+    ] == SUPERSEDED_SCORING_SHA256
+
+
+def test_checkpoint8_superseded_record_no_longer_evaluates() -> None:
+    with pytest.raises(Checkpoint8ContractError, match="schema drift"):
+        evaluate_r6_checkpoint8_readiness(protocol_path=SUPERSEDED_PROTOCOL_PATH)
+
+
+def test_checkpoint8_rejects_superseded_optimizer_scoring_bytes(
+    tmp_path: Path,
+) -> None:
+    changed = json.loads(DEFAULT_PROTOCOL_PATH.read_text(encoding="utf-8"))
+    changed["scientific_surface"]["optimizer_scoring_implementation"][
+        "sha256"
+    ] = SUPERSEDED_SCORING_SHA256
+    path = tmp_path / "superseded-scoring.json"
+    path.write_text(json.dumps(changed, ensure_ascii=False), encoding="utf-8")
+    with pytest.raises(
+        Checkpoint8ContractError,
+        match="optimizer_scoring_implementation hash drift",
+    ):
+        evaluate_r6_checkpoint8_readiness(protocol_path=path)
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("sha256", "0" * 64),
+        ("path", "data/governance/does_not_exist.json"),
+        ("path", "../outside-repository.json"),
+    ],
+)
+def test_checkpoint8_rejects_superseded_record_drift(
+    tmp_path: Path, field: str, value: str
+) -> None:
+    changed = json.loads(DEFAULT_PROTOCOL_PATH.read_text(encoding="utf-8"))
+    changed["supersedes"][field] = value
+    path = tmp_path / "superseded-drift.json"
+    path.write_text(json.dumps(changed, ensure_ascii=False), encoding="utf-8")
+    with pytest.raises(Checkpoint8ContractError, match="superseded record drift"):
+        evaluate_r6_checkpoint8_readiness(protocol_path=path)
+
+
+def test_checkpoint8_requires_supersedes(tmp_path: Path) -> None:
+    changed = json.loads(DEFAULT_PROTOCOL_PATH.read_text(encoding="utf-8"))
+    changed.pop("supersedes")
+    path = tmp_path / "missing-supersedes.json"
+    path.write_text(json.dumps(changed, ensure_ascii=False), encoding="utf-8")
+    with pytest.raises(Checkpoint8ContractError, match="superseded record drift"):
+        evaluate_r6_checkpoint8_readiness(protocol_path=path)
+
+
+def test_checkpoint8_fingerprints_crowd_pleasantness_surface(report) -> None:
+    surface = report["fingerprints"]["scientific_surface"]
+    expected = {
+        "optimizer_scoring_implementation": "engine/optimizer/scoring.py",
+        "crowd_pleasantness_implementation": (
+            "engine/formulation_intelligence/pleasantness.py"
+        ),
+        "crowd_pleasantness_table_loader": (
+            "engine/formulation_intelligence/pleasantness_table.py"
+        ),
+        "crowd_pleasantness_table": (
+            "data/formulation_knowledge/pleasantness_crowd_v1.json"
+        ),
+    }
+    root = DEFAULT_PROTOCOL_PATH.parents[2]
+    for key, relative_path in expected.items():
+        assert surface[key] == {
+            "path": relative_path,
+            "sha256": _sha256(root / relative_path),
+        }
+    assert list(surface)[-3:] == [
+        "crowd_pleasantness_implementation",
+        "crowd_pleasantness_table_loader",
+        "crowd_pleasantness_table",
+    ]
