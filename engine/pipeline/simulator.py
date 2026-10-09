@@ -13,12 +13,19 @@ t=0 equals the previous per-material constant ``2e-5 * gamma*P*/sqrt(MW)``.
 
 A declared ethanol/water matrix leaves by the same law, cap and step
 (diagnosis M1a), so it no longer stays in the pool for the whole run.
+
+A formula that declares no matrix is simulated as if its bottle were topped
+up with ethanol (``DEFAULT_ETHANOL_FILL``): ethanol volume = bottle volume
+minus concentrate volume, at ``DEFAULT_FILL_ETHANOL_DENSITY_G_ML``. The
+assumption applies to the temporal frames only; the state the other gates
+read, its dose arithmetic and finished-product figures are not changed. Each
+frame's ``matrix_assumption`` says whether the matrix was declared or assumed.
 """
 
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Mapping, Sequence
 
 from engine.pipeline.formula_state import FormulaState, build_formula_state
@@ -32,7 +39,8 @@ DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
     ("drydown", 14400.0),
 )
 
-TEMPORAL_MODEL = "dynamic_headspace_mass_balanced_loss_v4"
+# v5: an undeclared matrix is simulated as a default ethanol fill.
+TEMPORAL_MODEL = "dynamic_headspace_mass_balanced_loss_v5"
 TEMPORAL_AUTHORITY = "HEURISTIC_UNCALIBRATED"
 REMAINING_QUANTITY_BASIS = "heuristic_remaining_stock_volume_equivalent_ul"
 MAX_INTEGRATION_STEP_SECONDS = 300.0
@@ -51,6 +59,16 @@ MATRIX_COMPONENT_VP_MW: dict[str, tuple[float, float]] = {
 # FormulaState assigns no activity coefficient to matrix components, so the
 # matrix loss uses gamma = 1.0 (ideal solution) as an explicit assumption.
 MATRIX_COMPONENT_GAMMA = 1.0
+# Default fill for a formula with no declared matrix: the concentrate topped up
+# with ethanol to the bottle volume. Density of ethanol at 20 C, CRC Handbook
+# of Chemistry and Physics (physical constants of organic compounds).
+DEFAULT_FILL_COMPONENT = "Ethanol"
+DEFAULT_FILL_ETHANOL_DENSITY_G_ML = 0.789
+DEFAULT_FILL_MATRIX_SOURCE = "default_ethanol_fill"
+MATRIX_BASIS_DECLARED = "DECLARED"
+MATRIX_BASIS_DEFAULT_FILL = "DEFAULT_ETHANOL_FILL"
+MATRIX_BASIS_NO_FILL = "NONE:CONCENTRATE_FILLS_BOTTLE"
+MATRIX_BASIS_OMITTED = "OMITTED:DEFAULT_FILL_DISABLED"
 
 
 @dataclass(frozen=True, slots=True)
@@ -63,6 +81,7 @@ class SimulationFrame:
     temporal_model: str = TEMPORAL_MODEL
     temporal_authority: str = TEMPORAL_AUTHORITY
     remaining_quantity_basis: str = REMAINING_QUANTITY_BASIS
+    matrix_assumption: Mapping[str, object] | None = None
 
     def dominant_oav(self, limit: int = 8) -> list[dict]:
         rows = sorted(
@@ -109,6 +128,9 @@ class SimulationFrame:
             "temporal_model": self.temporal_model,
             "temporal_authority": self.temporal_authority,
             "remaining_quantity_basis": self.remaining_quantity_basis,
+            "matrix_assumption": (
+                None if self.matrix_assumption is None else dict(self.matrix_assumption)
+            ),
         }
 
 
@@ -217,6 +239,54 @@ def _remaining_matrix_moles(
     return tuple(remaining)
 
 
+def _with_default_ethanol_fill(
+    state: FormulaState,
+    *,
+    enabled: bool = True,
+) -> tuple[FormulaState, dict[str, object]]:
+    """Return the temporal start state and a record of its matrix basis.
+
+    A declared matrix is returned unchanged. Without one, the bottle
+    (``state.batch_volume_ml``) is assumed topped up with ethanol: volume =
+    bottle minus the summed raw stock volume, mass at
+    ``DEFAULT_FILL_ETHANOL_DENSITY_G_ML``. A concentrate at or above the bottle
+    volume gets no fill. ``matrix_mass_g`` is left as declared (0), so the fill
+    creates no finished-product ppm.
+    """
+    if state.matrix_components_moles:
+        return state, {"basis": MATRIX_BASIS_DECLARED, "matrix_source": state.matrix_source}
+    bottle_volume_ml = float(state.batch_volume_ml)
+    concentrate_ul = sum(m.raw_ul for m in state.materials)
+    record: dict[str, object] = {
+        "bottle_volume_ml": bottle_volume_ml,
+        "concentrate_ul": concentrate_ul,
+    }
+    if not enabled:
+        return state, {"basis": MATRIX_BASIS_OMITTED, **record}
+    ethanol_ul = bottle_volume_ml * 1000.0 - concentrate_ul
+    if ethanol_ul <= 0.0:
+        return state, {"basis": MATRIX_BASIS_NO_FILL, **record}
+    ethanol_mass_g = ethanol_ul / 1000.0 * DEFAULT_FILL_ETHANOL_DENSITY_G_ML
+    _vp_pa, ethanol_mw = MATRIX_COMPONENT_VP_MW["ETHANOL"]
+    ethanol_moles = ethanol_mass_g / ethanol_mw
+    filled = FormulaState.from_base(
+        state,
+        new_raw_ul={m.name: m.raw_ul for m in state.materials},
+        new_matrix_moles=((DEFAULT_FILL_COMPONENT, ethanol_moles),),
+    )
+    filled = replace(filled, matrix_source=DEFAULT_FILL_MATRIX_SOURCE)
+    return filled, {
+        "basis": MATRIX_BASIS_DEFAULT_FILL,
+        **record,
+        "component": DEFAULT_FILL_COMPONENT,
+        "ethanol_volume_ul": ethanol_ul,
+        "ethanol_density_g_ml": DEFAULT_FILL_ETHANOL_DENSITY_G_ML,
+        "ethanol_mass_g": ethanol_mass_g,
+        "ethanol_moles": ethanol_moles,
+        "authority": "ASSUMED:not_declared_by_formula",
+    }
+
+
 def _advance_state(
     state: FormulaState,
     delta_seconds: float,
@@ -271,12 +341,16 @@ def simulate_formula(
     context: str = "skin",
     windows: Sequence[tuple[str, float]] = DEFAULT_WINDOWS,
     initial_state: FormulaState | None = None,
+    default_ethanol_fill: bool = True,
 ) -> list[SimulationFrame]:
     """Return uncalibrated temporal-screening frames.
 
     Windows must be nonnegative and nondecreasing so each frame evolves from
     the preceding composition. FormulaState recomputes activity coefficients
     and natural-composite headspace after every bounded integration step.
+    Without a declared matrix the frames start from the default ethanol fill
+    (see module docstring); ``default_ethanol_fill=False`` keeps the
+    concentrate-only pool.
     """
     initial = initial_state or build_formula_state(
         ingredients_ul,
@@ -284,6 +358,9 @@ def simulate_formula(
         batch_volume_ml=batch_volume_ml,
         temperature_K=temperature_K,
         context=context,
+    )
+    initial, matrix_assumption = _with_default_ethanol_fill(
+        initial, enabled=default_ethanol_fill
     )
     frames: list[SimulationFrame] = []
     initial_pool_moles = _pool_total_moles(initial)
@@ -306,6 +383,7 @@ def simulate_formula(
                 label=label,
                 t_seconds=target_seconds,
                 state=current_state,
+                matrix_assumption=matrix_assumption,
             )
         )
     return frames

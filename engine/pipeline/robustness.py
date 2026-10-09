@@ -19,7 +19,8 @@ from engine.pipeline.simulator import (
     TEMPORAL_AUTHORITY,
     TEMPORAL_MODEL,
     SimulationFrame,
-    _remaining_raw_ul,
+    _advance_state,
+    _with_default_ethanol_fill,
     simulate_formula,
 )
 
@@ -352,15 +353,22 @@ def _bound_gate_baseline(
         for frame in frames
     ):
         return None
-    if frames[0].state is not gate_state:
+    # A declared matrix keeps the established fresh path, as before v5.
+    if gate_state.matrix_components_moles:
+        return None
+    # Undeclared: frames start from the default ethanol fill (v5) or, with a
+    # concentrate filling the bottle, from the gate state itself.
+    start_state, start_assumption = _with_default_ethanol_fill(gate_state)
+    if any(frame.matrix_assumption != start_assumption for frame in frames):
+        return None
+    if start_state is gate_state:
+        if frames[0].state is not gate_state:
+            return None
+    elif frames[0].state != start_state:
         return None
 
     top_frame = frames[1]
-    expected_top_raw_ul = _remaining_raw_ul(gate_state, top_frame.t_seconds)
-    expected_top_state = FormulaState.from_base(
-        gate_state,
-        new_raw_ul=expected_top_raw_ul,
-    )
+    expected_top_state = _advance_state(start_state, top_frame.t_seconds)
     if top_frame.state != expected_top_state:
         return None
     return gate_state, top_frame
