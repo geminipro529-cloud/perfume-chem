@@ -18,7 +18,7 @@ from engine.inventory_parser import (
     CURRENT_USER_INVENTORY_OVERLAY_SHA256,
     AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256,
     PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256,
-    E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_OVERLAY_SHA256,
+    VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_SHA256,
     TOBACCO_DBCA_USER_INVENTORY_AUTHORITY,
     load_current_user_inventory_overlay,
     materialize_current_inventory,
@@ -192,10 +192,10 @@ def test_user_inventory_overlay_is_parent_pinned_and_non_rebasing() -> None:
     assert payload["policy"]["general_substitution_authorized"] is False
     assert payload["policy"]["preserve_exact_ap_t1_cinnamon_substitution"] is True
     assert payload["policy"]["require_sub_10_ul_working_stock"] is True
-    # 2026-10-09: the Vertofix Coeur record (v23) succeeds the E2MB/Osmanthus/Mimosa one.
+    # 2026-10-09: the Vertofix Coeur neat record (v24) succeeds the Vertofix Coeur one.
     assert payload["predecessor"] == {
-        "path": "data/governance/inventory_user_authority_overlay_20261008_e2mb_osmanthus_mimosa.json",
-        "normalized_text_sha256": E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_OVERLAY_SHA256,
+        "path": "data/governance/inventory_user_authority_overlay_20261009_vertofix_coeur.json",
+        "normalized_text_sha256": VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_SHA256,
     }
 
 

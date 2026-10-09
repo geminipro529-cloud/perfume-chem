@@ -124,9 +124,13 @@ E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_OVERLAY_PATH = (
     PROJECT_ROOT
     / "data/governance/inventory_user_authority_overlay_20261008_e2mb_osmanthus_mimosa.json"
 )
-CURRENT_USER_INVENTORY_OVERLAY_PATH = (
+VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_PATH = (
     PROJECT_ROOT
     / "data/governance/inventory_user_authority_overlay_20261009_vertofix_coeur.json"
+)
+CURRENT_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT
+    / "data/governance/inventory_user_authority_overlay_20261009_vertofix_coeur_neat.json"
 )
 PW_RECEIVED_INVENTORY_RECEIPT_PATH = (
     PROJECT_ROOT
@@ -185,7 +189,8 @@ PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256 = "180e2823200162a4eaa2975aa4eef9403ad
 TOBACCO_DBCA_USER_INVENTORY_OVERLAY_SHA256 = "356a103c4908b85936831ee4593610f3c63210d05f25b0c65963ee74b8548e4c"
 AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_SHA256 = "0b6915b4c28536393bd13bf797b01d77a39bd371efa9d4346cede3b73a6d9a63"
 E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_OVERLAY_SHA256 = "88f10b4bab667ff96822f8365d735a2e28af20e1a0feae4cc254958635c52741"
-CURRENT_USER_INVENTORY_OVERLAY_SHA256 = "79cc7af6442dccf7c9123f40ff535228337669d955bbf9b01351972caedb05f6"
+VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_SHA256 = "79cc7af6442dccf7c9123f40ff535228337669d955bbf9b01351972caedb05f6"
+CURRENT_USER_INVENTORY_OVERLAY_SHA256 = "8329a4804909a720d6f7d95959c6c91be56c3fb0c7dd0642cd14a08297095882"
 PW_RECEIVED_INVENTORY_RECEIPT_SHA256 = "089c930e044b55e434c0e0438ee7b2c20f48d871f00a219a7237a932419fbc9a"
 ROMANDOLIDE_DEPLETION_CONFIRMATION_SHA256 = "5b94ac7cf95a0ee0bb4fc0754a97bda4b0be5aae910c13c7fc4557317f823ade"
 FLORHYDRAL_ADDITION_CONFIRMATION_SHA256 = "ff481e5e993f749ce6a5ee0dd8a9606b698c03a17caeac86d1c3adf85065389d"
@@ -223,6 +228,8 @@ AMBRETTOLIDE_NEAT_USER_INVENTORY_AUTHORITY = TOBACCO_DBCA_USER_INVENTORY_AUTHORI
 E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_AUTHORITY = TOBACCO_DBCA_USER_INVENTORY_AUTHORITY
 # The Vertofix Coeur successor (v23) records Kenny's 2026-10-09 answer.
 VERTOFIX_COEUR_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261009"
+# So does the Vertofix-Coeur-neat successor (v24).
+VERTOFIX_COEUR_NEAT_USER_INVENTORY_AUTHORITY = VERTOFIX_COEUR_USER_INVENTORY_AUTHORITY
 
 _HEADING_RE = re.compile(r"^---\s+(.+?)\s+---$")
 _BULLET_RE = re.compile(r"^[-•]\s+(.+?)\s*$")
@@ -4714,7 +4721,7 @@ def _load_20261009_vertofix_coeur_successor(
     """
 
     encoded = (json.dumps(dict(successor), ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-    if hashlib.sha256(encoded).hexdigest() != CURRENT_USER_INVENTORY_OVERLAY_SHA256:
+    if hashlib.sha256(encoded).hexdigest() != VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_SHA256:
         raise InventoryAuthorityError("Vertofix Coeur successor exact metadata drift")
     source = successor["source"]
     if require_live_inventory_binding and (
@@ -4757,6 +4764,88 @@ def _load_20261009_vertofix_coeur_successor(
             or stock["carrier"].casefold() != row["carrier"].casefold()
         ):
             raise InventoryAuthorityError("Vertofix Coeur stock disagrees with source receipt")
+    origins = {
+        key: dict(value)
+        for key, value in previous["record_origins"].items()
+        if key not in superseded
+    }
+    origin = {
+        "path": VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_PATH.relative_to(PROJECT_ROOT).as_posix(),
+        "sha256": VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    for record in records:
+        origins[record["record_id"]] = dict(origin)
+    return {
+        **dict(successor),
+        "parent": dict(previous["parent"]),
+        "base_policy": dict(previous["base_policy"]),
+        "policy": {**dict(previous["policy"]), **dict(successor["policy"])},
+        "delta_records": records,
+        "records": [
+            *(record for record in previous["records"] if record["record_id"] not in superseded),
+            *records,
+        ],
+        "record_origins": origins,
+        "retired_records": [
+            *previous.get("retired_records", []),
+            *(previous_by_id[record_id] for record_id in sorted(superseded)),
+        ],
+    }
+
+
+def _load_20261009_vertofix_coeur_neat_successor(
+    successor: Mapping[str, Any],
+    *,
+    require_live_inventory_binding: bool = True,
+) -> dict[str, Any]:
+    """Clear the Vertofix Coeur intake hold: Kenny confirmed the bottle is neat as supplied.
+
+    The v23 record held the PW receipt line 7 bottle for intake. Its successor
+    record keeps the same identity and receipt facts and is execution-ready for
+    raw-stock volume transfer. The plain V5 row 242 Vertofix is untouched.
+    """
+
+    encoded = (json.dumps(dict(successor), ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    if hashlib.sha256(encoded).hexdigest() != CURRENT_USER_INVENTORY_OVERLAY_SHA256:
+        raise InventoryAuthorityError("Vertofix Coeur neat successor exact metadata drift")
+    source = successor["source"]
+    if require_live_inventory_binding and (
+        len(_normalized_text_bytes(INVENTORY_PATH)) != source["inventory_text_size_bytes"]
+        or _normalized_text_sha256(INVENTORY_PATH) != source["inventory_text_sha256"]
+    ):
+        raise InventoryAuthorityError("Vertofix Coeur neat successor is not bound to live inventory text")
+    predecessor_path = VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_PATH
+    if _normalized_text_sha256(predecessor_path) != VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_SHA256:
+        raise InventoryAuthorityError("Vertofix Coeur neat successor predecessor drift")
+    previous = _load_20261009_vertofix_coeur_successor(
+        json.loads(predecessor_path.read_text(encoding="utf-8")),
+        require_live_inventory_binding=False,
+    )
+    superseded = set(successor["superseded_record_ids"])
+    previous_by_id = {record["record_id"]: record for record in previous["records"]}
+    if not superseded.issubset(previous_by_id):
+        raise InventoryAuthorityError("Vertofix Coeur neat successor superseded record missing")
+    receipt_path = PW_RECEIVED_INVENTORY_RECEIPT_PATH
+    if not receipt_path.is_file() or _file_sha256(receipt_path) != PW_RECEIVED_INVENTORY_RECEIPT_SHA256:
+        raise InventoryAuthorityError("PW received inventory receipt drift")
+    receipt_rows = {
+        row["line"]: row
+        for row in json.loads(receipt_path.read_text(encoding="utf-8"))["records"]
+    }
+    records = successor["records"]
+    for record in records:
+        row = receipt_rows.get(record.get("receipt_line"))
+        stock = record["stock"]
+        if (
+            row is None
+            or record["supplier_product"]["product_name"] != row["supplier_product_name"]
+            or record["supplier_product"]["sku"] != row["supplier_sku"]
+            or record["received_quantity_g"] != row["received_quantity_g"]
+            or stock["fraction"] != float(row["stock_fraction_decimal"])
+            or stock["fraction_basis"] != row["fraction_basis"]
+            or stock["carrier"].casefold() != row["carrier"].casefold()
+        ):
+            raise InventoryAuthorityError("Vertofix Coeur neat stock disagrees with source receipt")
     origins = {
         key: dict(value)
         for key, value in previous["record_origins"].items()
@@ -4876,6 +4965,7 @@ def load_current_user_inventory_overlay(
         E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_OVERLAY_PATH.resolve(): (
             E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_OVERLAY_SHA256
         ),
+        VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_PATH.resolve(): VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_SHA256,
         CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve(): CURRENT_USER_INVENTORY_OVERLAY_SHA256,
     }
     expected_overlay_sha = pinned_overlays.get(overlay_path.resolve(), CURRENT_USER_INVENTORY_OVERLAY_SHA256)
@@ -4894,6 +4984,11 @@ def load_current_user_inventory_overlay(
     bind_live_text = require_live_inventory_binding and (
         overlay_path.resolve() == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
     )
+    if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v24":
+        return _load_20261009_vertofix_coeur_neat_successor(
+            payload,
+            require_live_inventory_binding=bind_live_text,
+        )
     if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v23":
         return _load_20261009_vertofix_coeur_successor(
             payload,
@@ -5743,6 +5838,7 @@ _USER_OVERLAY_CHAIN_PATHS = (
     TOBACCO_DBCA_USER_INVENTORY_OVERLAY_PATH,
     AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_PATH,
     E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_OVERLAY_PATH,
+    VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_PATH,
     CURRENT_USER_INVENTORY_OVERLAY_PATH,
     PW_RECEIVED_INVENTORY_RECEIPT_PATH,
 )

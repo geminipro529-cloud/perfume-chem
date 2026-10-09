@@ -1,0 +1,87 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v24",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-10-09",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20261009_vertofix_coeur.json",
+    "normalized_text_sha256": "79cc7af6442dccf7c9123f40ff535228337669d955bbf9b01351972caedb05f6"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 35704,
+    "inventory_text_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "source_kind": "DIRECT_USER_MESSAGE",
+    "message_channel": "PROJECT_THREAD_DECISION_CARD_ANSWER",
+    "user": "Kenny",
+    "message_date": "2026-10-09",
+    "message_timestamp_utc": "2026-10-09T06:15:23Z",
+    "verbatim_user_statement": "Yes, neat",
+    "question": "Confirm your Vertofix Coeur bottle is neat, as it came from PerfumersWorld?"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "vertofix_coeur_intake_record_superseded": true,
+    "vertofix_coeur_stock_is_neat_per_user_confirmation": true,
+    "v5_row_242_plain_vertofix_stock_unchanged": true,
+    "plain_vertofix_and_vertofix_coeur_are_separate_stocks": true,
+    "pw_receipt_line_7_belongs_to_vertofix_coeur_stock": true,
+    "inventory_text_line_not_edited": true,
+    "historical_formula_records_unchanged": true,
+    "formula_rebase_authorized": false,
+    "compounding_authorized": false,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [
+    "INV-USER-20261009-VTXC-001"
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20261009-VTXC-NEAT-001",
+      "canonical_name": "Vertofix Coeur",
+      "aliases": [
+        "Vertofix Couer"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20261009-VTXC-001_INTAKE_HOLD_CLEARED_BY_USER_NEAT_CONFIRMATION"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Vertofix Couer",
+        "sku": "3WY00465"
+      },
+      "received_quantity_g": "5",
+      "receipt_line": 7,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-09",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "stock_intake_hold_cleared_by_user_message": true,
+        "quantity_is_received_not_remaining": true,
+        "separate_from_v5_row_242_vertofix": true,
+        "plain_vertofix_stock_changed": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny, asked on a decision card in the project thread 'Confirm your Vertofix Coeur bottle is neat, as it came from PerfumersWorld?', chose 'Yes, neat' (2026-10-09 06:15:23Z). The 2026-10-09 intake record INV-USER-20261009-VTXC-001 is superseded: the 5 g PerfumersWorld bottle (SKU 3WY00465, receipt line 7 of the 2026-10-07 order) is neat as supplied and ready for raw-stock volume transfer. The plain Vertofix on V5 row 242 is a separate stock and stays as it was."
+    }
+  ]
+}
