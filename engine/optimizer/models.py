@@ -1697,7 +1697,8 @@ def classify_note(material_name: str) -> str:
             return "base"
     from ..ingredient_intelligence import get_profile
     profile = get_profile(material_name)
-    if profile is not None:
+    # An identity-only intake profile says "unassigned"; only a tier answers here.
+    if profile is not None and profile.note in ("top", "heart", "base"):
         return profile.note
     # Known-note overrides for materials not found or with incomplete data
     key = material_name.lower().strip()
