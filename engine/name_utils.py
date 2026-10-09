@@ -229,6 +229,9 @@ _ALIASES: dict[str, str] = {
     # Owned-stock spellings whose data sits under another key (same material).
     # Word order only: Cedrus deodara wood oil, same stock identity.
     "cedarwood himalayan eo": "himalayan cedarwood eo",
+    # V5 label for the neat C11 stock; inventory.txt names it undecylenic
+    # (10-undecenal, CAS 112-45-8), not undecanal.
+    "aldehyde c11 neat": "aldehyde c11 undecylenic",
 }
 
 

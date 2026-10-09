@@ -31,3 +31,18 @@ def test_styralyl_acetate_labels_reach_one_record(label):
     assert material.odt_air_ppm == pytest.approx(0.04)
     assert material.vp_pure_pa is not None
     assert material.oav is not None
+
+
+def test_aldehyde_c11_neat_label_is_undecylenic_aldehyde():
+    # inventory.txt names Kenny's C11 stock "Aldehyde C11 undecylenic"
+    # (10-undecenal), not undecanal (CAS 112-44-7).
+    resolved = resolve_material("Aldehyde C11 neat")
+    assert resolved.registry_name == "Aldehyde C11 Undecylenic"
+    assert resolved.registry_material.cas == "112-45-8"
+
+    material = _state("Aldehyde C11 neat")
+    reference = _state("Aldehyde C11 Undecylenic")
+    assert material.odt_air_ppm is not None
+    assert material.odt_air_ppm == pytest.approx(reference.odt_air_ppm)
+    assert material.vp_pure_pa == pytest.approx(reference.vp_pure_pa)
+    assert material.oav is not None
