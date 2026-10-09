@@ -277,3 +277,33 @@ def test_returned_inventory_reads_the_log_it_wrote(dilution_log, tmp_path) -> No
     assert other.exists() and not dilution_log.exists()
     (stock,) = _prepared(materialized)
     assert stock.completion_event_sha256 == receipt["event_sha256"]
+
+
+def test_unspecified_parent_basis_is_refused_before_the_basis_change_message(
+    dilution_log,
+) -> None:
+    adoxal = _stock("Adoxal", 0.1)
+    assert adoxal.fraction_basis == "unspecified" and adoxal.execution_ready is True
+    with pytest.raises(PreparedDilutionError, match="concentration basis isn't recorded"):
+        _prepare("adoxal-1", parent_stock_id=adoxal.stock_id)
+    assert not dilution_log.exists()
+
+
+def test_same_dilution_from_two_owned_bottles_is_two_events_with_two_parents(
+    dilution_log,
+) -> None:
+    neat = _stock("Ambrox Super", 1.0)
+    quarter = _stock("Ambrox Super", 0.25)
+    assert neat.execution_ready and quarter.execution_ready
+    for key, parent in (("ambrox-from-neat", neat), ("ambrox-from-quarter", quarter)):
+        baseline = materialize_current_inventory()
+        record_prepared_dilution(
+            parent_stock_id=parent.stock_id,
+            expected_effective_inventory_sha256=baseline.effective_inventory_sha256,
+            idempotency_key=key,
+            fraction_decimal="0.01",
+        )
+    events = load_prepared_dilution_events()
+    assert len(events) == 2
+    parents = {str(event["prepared"]["parent_stock_id"]) for event in events}
+    assert parents == {neat.stock_id, quarter.stock_id}

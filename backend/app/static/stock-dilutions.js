@@ -4,7 +4,7 @@
 //
 // The page loads this before lab.js, which calls attachStockDilutions once.
 // Material names and server messages go in through textContent only, never
-// innerHTML. Node loads the same file in the tests through module.exports.
+// HTML strings. Node loads the same file in the tests through module.exports.
 
 const DILUTION_ENDPOINT = "/v2/workbench/current-inventory/dilute";
 
@@ -40,6 +40,24 @@ function dilutionInput(doc, fields, name, labelText, attributes, value = "") {
   return label;
 }
 
+const MIX_BASIS_WORDS = { mass_fraction: "w/w", volume_fraction: "v/v" };
+
+// The plain-words mix for a new strength n (percent) from a parent of strength
+// p (percent): 1 part parent + (p/n - 1) parts carrier. "" when not computable.
+function dilutionMixText(stock, newPercent, basis, carrier) {
+  const p = Number(String(stock.fraction_percent_decimal ?? "").trim());
+  const raw = String(newPercent ?? "").trim();
+  const n = raw === "" ? NaN : Number(raw);
+  if (!Number.isFinite(p) || !Number.isFinite(n) || !(n > 0) || !(p > n)) return "";
+  const parts = Math.round((p / n - 1) * 100) / 100;
+  const base = stock.identity_name || stock.material || "parent";
+  const parentBasis = MIX_BASIS_WORDS[stock.fraction_basis];
+  const name = p === 100 ? base : `${base} ${p}%${parentBasis ? ` ${parentBasis}` : ""}`;
+  const by = basis === "volume_fraction" ? "by volume" : "by weight";
+  const carrierName = String(carrier ?? "").trim() || "carrier";
+  return `Mix 1 part ${name} + ${parts} parts ${carrierName} ${by}`;
+}
+
 function buildDilutionForm(doc, stock) {
   const fields = {};
   const form = dilutionNode(doc, "form", { class: "form-panel inventory-completion-form stock-dilution-form" });
@@ -48,7 +66,7 @@ function buildDilutionForm(doc, stock) {
   form.appendChild(dilutionNode(doc, "p", { class: "field-help" }, parentText));
 
   const strength = dilutionNode(doc, "div", { class: "field-pair" });
-  strength.appendChild(dilutionInput(doc, fields, "fraction_percent_decimal", "New strength, %", {
+  strength.appendChild(dilutionInput(doc, fields, "fraction_percent_decimal", "Strength of the material in the new bottle, %", {
     inputmode: "decimal", pattern: "[0-9]+(\\.[0-9]+)?", required: "",
   }));
   const basisLabel = dilutionNode(doc, "label", {}, "How that percentage is defined");
@@ -60,6 +78,9 @@ function buildDilutionForm(doc, stock) {
   fields.fraction_basis = basis;
   strength.appendChild(basisLabel);
   form.appendChild(strength);
+  const mix = dilutionNode(doc, "p", { class: "field-help stock-dilution-mix" });
+  mix.hidden = true;
+  form.appendChild(mix);
 
   const made = dilutionNode(doc, "div", { class: "field-pair" });
   made.appendChild(dilutionInput(doc, fields, "carrier", "Carrier", { maxlength: "120", required: "" }, "DPG"));
@@ -79,7 +100,16 @@ function buildDilutionForm(doc, stock) {
   actions.appendChild(submit);
   actions.appendChild(cancel);
   form.appendChild(actions);
-  form.dilutionParts = { fields, error, submit, cancel };
+  const updateMix = () => {
+    const text = dilutionMixText(stock, fields.fraction_percent_decimal.value, fields.fraction_basis.value, fields.carrier.value);
+    mix.textContent = text;
+    mix.hidden = !text;
+  };
+  for (const name of ["fraction_percent_decimal", "fraction_basis", "carrier"]) {
+    fields[name].addEventListener("input", updateMix);
+    fields[name].addEventListener("change", updateMix);
+  }
+  form.dilutionParts = { fields, error, submit, cancel, mix, updateMix };
   return form;
 }
 
@@ -97,10 +127,15 @@ async function submitDilutionForm(form, { stock, expectedSha, idempotencyKey, re
   showDilutionError(form, "");
   submit.disabled = true;
   try {
-    return await request(DILUTION_ENDPOINT, {
+    const result = await request(DILUTION_ENDPOINT, {
       method: "POST",
       body: JSON.stringify(dilutionRequestBody(stock, values, expectedSha, idempotencyKey)),
     });
+    if (result && result.prepared_stock_id === null) {
+      showDilutionError(form, "Saved, but this dilution doesn't count as a stock yet: its parent bottle changed or is held. Check the parent bottle on the Stock page.");
+      return null;
+    }
+    return result;
   } catch (error) {
     showDilutionError(form, error.message || "The dilution was not saved.");
     return null;
@@ -155,5 +190,5 @@ function attachStockDilutions({ doc, list, getInventory, request, onSaved, newKe
 }
 
 if (typeof module === "object" && module.exports) {
-  module.exports = { DILUTION_ENDPOINT, dilutionRequestBody, buildDilutionForm, showDilutionError, submitDilutionForm, attachStockDilutions };
+  module.exports = { DILUTION_ENDPOINT, dilutionMixText, dilutionRequestBody, buildDilutionForm, showDilutionError, submitDilutionForm, attachStockDilutions };
 }

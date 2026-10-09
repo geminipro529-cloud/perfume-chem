@@ -325,6 +325,14 @@ def _parent_refusal(parent: Any, values: Mapping[str, str]) -> str:
     parent_fraction = Decimal(str(parent.dilution))
     if parent_fraction <= Decimal(values["fraction_decimal"]):
         return "the new strength must be weaker than the parent stock"
+    if parent_fraction != 1 and str(getattr(parent, "fraction_basis", "") or "") in (
+        "",
+        "unspecified",
+    ):
+        return (
+            "this bottle's concentration basis isn't recorded; record it on the Stock page "
+            "first (w/w or v/v), then record the dilution"
+        )
     if parent_fraction != 1 and values["fraction_basis"] != parent.fraction_basis:
         return (
             f"the parent stock's strength is {_basis_text(str(parent.fraction_basis))}; "
