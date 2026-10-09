@@ -111,9 +111,12 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # alias "Ambrox Super Crystals" -> Ambrox Super made it resolve (229 -> 230).
     # The ISO 8896 caraway profile (partial input coverage) took Caraway Seed
     # Oil out of naturals_missing_composite_evidence (230 -> 231).
-    assert audit["oav_available_count"] == 231
-    assert audit["oav_unknown_count"] == 59
-    assert audit["oav_coverage_pct"] == 79.655
+    # Labelled proxy profiles for Ambrette Seed Absolute, Lavandin Absolute,
+    # Orris Concrete Orris Butter and Cinnamon Bark EO (Telvada) made them
+    # OAV-available (231 -> 235).
+    assert audit["oav_available_count"] == 235
+    assert audit["oav_unknown_count"] == 55
+    assert audit["oav_coverage_pct"] == 81.034
     assert audit["status"] == "FAIL_CLOSED_GAPS"
     assert {"Fructone B", "Helvetolide", "Manzanate", "Ambrocenide"} <= set(
         categories["other_oav_unknowns"]
