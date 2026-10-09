@@ -47,6 +47,7 @@ _RECORD_NAMES = (
     user_records.ADDITION_LOG_NAME,
     user_records.COMPLETION_LOG_NAME,
     user_records.BASKET_LOG_NAME,
+    user_records.DILUTION_LOG_NAME,
 )
 _RECORD_TEMP_SUFFIX = ".import-tmp"
 
