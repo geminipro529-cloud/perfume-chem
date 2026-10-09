@@ -97,8 +97,9 @@ def test_formula_design_follow_up_keeps_a_bounded_inventory_seed() -> None:
     assert refined["constraint_audit"]["liquid_total_conserved"] is True
     refined_ids = {row["stock_id"] for row in refined["optimized_formula"]["rows"]}
     assert refined_ids & set(stock_ids)
-    # Six to eight concept roles plus up to four supporting base layers.
-    assert 6 <= len(refined_ids) <= 12
+    # Concept roles, up to four supporting base layers and two supporting
+    # accord materials per requested note.
+    assert 6 <= len(refined_ids) <= 20
     assert refined["physical_compounding_performed"] is False
 
 
@@ -226,6 +227,7 @@ def test_formula_design_honors_exact_seven_material_request() -> None:
     assert result["status"].startswith("INVENTORY_GROUNDED_DESIGN_READY")
     assert result["selected_material_count"] == 7
     assert result["effective_material_limit"] == 7
+    assert not any("__accord_" in row["slot"] for row in result["optimized_formula"]["rows"])
     assert (
         "REQUESTED_MATERIAL_COUNT_CONSTRAINTS_SATISFIED"
         in result["critic"]["passed_checks"]
@@ -975,7 +977,12 @@ def test_formula_design_base_layers_never_reach_an_ifra_limit() -> None:
 
     for idea in ("A warm woody amber for evening", "A rose perfume for spring"):
         result = design_inventory_formula(idea=idea, formula_name="Layer IFRA")
-        for row in _base_layer_rows(result).values():
+        supporting = [
+            *_base_layer_rows(result).values(),
+            *(row for row in result["optimized_formula"]["rows"] if "__accord_" in row["slot"]),
+        ]
+        assert supporting
+        for row in supporting:
             limit = get_ifra_limit(row["identity_name"])
             if limit is None:
                 continue
@@ -984,3 +991,22 @@ def test_formula_design_base_layers_never_reach_an_ifra_limit() -> None:
                 float(row["amount_decimal"]) * float(row["stock_fraction_decimal"]) / 30_000 * 100
             )
             assert finished_pct <= limit, (idea, row["identity_name"], finished_pct, limit)
+
+
+def test_formula_design_builds_each_requested_note_as_an_accord() -> None:
+    result = design_inventory_formula(
+        idea="A warm woody amber for evening",
+        formula_name="Evening Amber",
+    )
+
+    rows = {row["slot"]: row for row in result["optimized_formula"]["rows"]}
+    for lead_slot in ("facet_dry_wood", "facet_amber_mineral"):
+        lead = rows[lead_slot]
+        supports = [rows[slot] for slot in rows if slot.startswith(f"{lead_slot}__accord_")]
+        assert len(supports) == 2, lead_slot
+        identities = {lead["identity_name"], *(row["identity_name"] for row in supports)}
+        assert len(identities) == 3
+        for support in supports:
+            assert support["note"] == lead["note"]
+            # The lead keeps the named character; supports add nuance.
+            assert int(support["amount_decimal"]) < int(lead["amount_decimal"])

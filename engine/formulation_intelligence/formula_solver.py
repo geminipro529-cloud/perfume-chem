@@ -15,7 +15,12 @@ from engine.formulation_intelligence.material_capability_index import (
     capability_role_score,
     supports_descriptor_requirement,
 )
-from engine.formulation_intelligence.semantic_brief_adapter import SemanticBrief, SemanticRole
+from engine.formulation_intelligence.semantic_brief_adapter import (
+    ACCORD_SUPPORT_PROVENANCE,
+    SemanticBrief,
+    SemanticRole,
+    accord_lead_role_id,
+)
 from engine.research.composition_planner import (
     Choice,
     RoleSpec,
@@ -128,7 +133,17 @@ def _family_bucket(capability: MaterialCapability) -> str | None:
     return None
 
 
-# Worst case for a supporting base layer: its 8% raw-share ceiling in a
+# Roles the composer adds on its own, as opposed to notes the user asked for.
+# A material IFRA could limit at their dose never fills one by default.
+_SUPPORTING_PROVENANCE = frozenset({
+    "LAYERED_BASE_ARCHITECTURE",
+    ACCORD_SUPPORT_PROVENANCE,
+    "FUNCTIONAL_COVERAGE",
+    "MINIMUM_FUNCTIONAL_ARCHITECTURE",
+    "PROMPT_REQUESTED_EXPANDED_ARCHITECTURE",
+})
+
+# Worst case for a supporting role: its 8% raw-share ceiling in a
 # concentrate that is up to 30% of the finished perfume (extrait strength).
 _LAYER_WORST_CASE_FINISHED_FRACTION = .08 * .30
 
@@ -160,6 +175,50 @@ def _ifra_binds_layer(capability: MaterialCapability) -> bool:
         return False
     fraction = float(capability.candidate.stock.dilution)
     return _LAYER_WORST_CASE_FINISHED_FRACTION * fraction * 100 > limit
+
+
+def _supports_accord(capability: MaterialCapability, role: SemanticRole) -> bool:
+    """A supporting accord stock sits in the lead's note and carries its odor.
+
+    Its own annotated character must be clearly present (3 of 10 or more) on
+    the role's strongest requested dimension; a synergy listing alone never
+    qualifies a stock.  Family buckets elsewhere keep it from repeating the
+    lead's family.
+    """
+
+    if capability.note != role.note:
+        return False
+    positive = [(weight, dimension) for dimension, weight in role.character_weights if weight > 0]
+    if not positive:
+        return True
+    _weight, dimension = max(positive)
+    return capability.character_map.get(dimension, 0.0) >= 3.0
+
+
+def _accord_affinity(
+    capability: MaterialCapability,
+    role: SemanticRole,
+    state: "_BeamState",
+) -> float:
+    """Rank supports by declared pairing with their own lead stock."""
+
+    lead_id = accord_lead_role_id(role)
+    if lead_id is None:
+        return 0.0
+    lead = next(
+        (cap for prior, cap, _score in state.assignments if prior.role_id == lead_id),
+        None,
+    )
+    if lead is None:
+        return 0.0
+    affinity = 0.0
+    own = " ".join(capability.candidate.profile.synergies).casefold()
+    theirs = " ".join(lead.candidate.profile.synergies).casefold()
+    if lead.identity_name.casefold() in own:
+        affinity += .6
+    if capability.identity_name.casefold() in theirs:
+        affinity += .6
+    return affinity
 
 
 def _allowed(
@@ -208,7 +267,13 @@ def _allowed(
         }
         if None in previous_slots or role.knowledge_role_slot in previous_slots:
             return False
-    if role.provenance == "LAYERED_BASE_ARCHITECTURE" and _ifra_binds_layer(capability):
+    if (
+        role.exact_material is None
+        and role.provenance in _SUPPORTING_PROVENANCE
+        and _ifra_binds_layer(capability)
+    ):
+        return False
+    if role.provenance == ACCORD_SUPPORT_PROVENANCE and not _supports_accord(capability, role):
         return False
     if capability.candidate.solid and role.exact_material is None:
         # A solid needs an explicit mass-bearing request.  Selecting one from a
@@ -322,7 +387,12 @@ def _rank_for_state(
 ) -> list[tuple[float, MaterialCapability]]:
     selected = tuple(item[1] for item in state.assignments)
     ranked = [
-        (score + _pair_adjustment(capability, selected), capability)
+        (
+            score
+            + _pair_adjustment(capability, selected)
+            + _accord_affinity(capability, role, state),
+            capability,
+        )
         for score, capability in unary_ranked
         if _allowed(
             capability,

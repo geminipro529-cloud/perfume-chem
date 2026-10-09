@@ -641,7 +641,92 @@ def _roles(
                 provenance="MINIMUM_FUNCTIONAL_ARCHITECTURE",
             )
         )
-    return tuple(roles[:maximum])
+    roles = roles[:maximum]
+    if target_count is None:
+        roles = _with_accords(roles, maximum)
+    return tuple(roles)
+
+
+# Each requested note is built as a small accord: the lead stock keeps most of
+# the role's share and up to two supporting stocks of the same note, with
+# their own matching odor and a different family, carry the rest.
+ACCORD_SUPPORT_PROVENANCE = "ACCORD_SUPPORT"
+ACCORD_SUPPORT_SEPARATOR = "__accord_"
+_ACCORD_SPLIT = (.62, .23, .15)
+_ACCORD_FUNCTIONS = frozenset({"character", "structure", "texture"})
+
+
+def accord_lead_role_id(role: SemanticRole) -> str | None:
+    """The lead role a support role belongs to, or None for any other role."""
+
+    if role.provenance != ACCORD_SUPPORT_PROVENANCE:
+        return None
+    return role.role_id.split(ACCORD_SUPPORT_SEPARATOR, 1)[0]
+
+
+def _with_accords(roles: list[SemanticRole], maximum: int) -> list[SemanticRole]:
+    anchored_words = {
+        word
+        for role in roles
+        if role.exact_material is not None
+        for word in _key(role.exact_material).split()
+    }
+    leads = [
+        role
+        for role in roles
+        if role.provenance == "PROMPT_DERIVED_FACET"
+        and role.exact_material is None
+        and role.function in _ACCORD_FUNCTIONS
+        # A note the user already anchored with a named stock has its second
+        # material; adding more of it would crowd the other notes.
+        and not anchored_words & {
+            word for term in role.query_terms for word in _key(term).split()
+        }
+    ]
+    # Keep two places free so a Deep Compose comparison can still add its
+    # own role without displacing the requested notes.
+    budget = maximum - len(roles) - 2
+    supports: dict[str, int] = {}
+    # One support per requested note first, then a second, so a tight
+    # material limit spreads depth across notes instead of piling on one.
+    for depth in (1, 2):
+        for lead in leads:
+            if budget <= 0:
+                break
+            supports[lead.role_id] = depth
+            budget -= 1
+    expanded: list[SemanticRole] = []
+    for role in roles:
+        count = supports.get(role.role_id, 0)
+        if not count:
+            expanded.append(role)
+            continue
+        lead_share = role.share * _ACCORD_SPLIT[0]
+        expanded.append(replace(
+            role,
+            share=lead_share,
+            max_raw_share=(
+                role.max_raw_share * _ACCORD_SPLIT[0]
+                if role.max_raw_share is not None
+                else None
+            ),
+        ))
+        for index in range(1, count + 1):
+            fraction = _ACCORD_SPLIT[index]
+            expanded.append(SemanticRole(
+                role_id=f"{role.role_id}{ACCORD_SUPPORT_SEPARATOR}{index}",
+                label=f"{role.label}: supporting accord material {index}",
+                note=role.note,
+                function=role.function,
+                query_terms=role.query_terms,
+                character_weights=role.character_weights,
+                share=role.share * fraction,
+                required=False,
+                max_raw_share=(role.max_raw_share or .28) * fraction,
+                provenance=ACCORD_SUPPORT_PROVENANCE,
+                descriptor_requirement=role.descriptor_requirement,
+            ))
+    return expanded
 
 
 def compile_semantic_brief(
@@ -796,5 +881,6 @@ __all__ = [
     "FacetDefinition",
     "SemanticBrief",
     "SemanticRole",
+    "accord_lead_role_id",
     "compile_semantic_brief",
 ]
