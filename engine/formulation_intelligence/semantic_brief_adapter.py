@@ -315,7 +315,8 @@ def _source_tokens(text: str) -> tuple[str, ...]:
 # one family word so the brief's qualities, not a stock's name, pick the
 # material.  The family markers decide whether a prompt-derived role already
 # covers that layer.  Accents are small modifiers: they may use a diluted
-# trace material but never carry volume.
+# trace material but never carry volume, and their own odor alone picks the
+# stock (no query word that a stock's name could match).
 #
 # Order is priority: under a tight material limit the earlier layers stay.
 _LayerSpec = tuple[
@@ -386,8 +387,15 @@ _NOTE_LAYERS: tuple[_LayerSpec, ...] = (
         _LAYER, "light",
     ),
     (
+        "heart_creamy_texture", "Heart creamy texture", "heart", "heart_creamy", .02,
+        ("creamy",),
+        (("creamy", .7), ("sweetness", .15), ("warmth", .15)),
+        ("creamy", "milky", "lactone", "lactonic", "coconut", "fig milk"),
+        _LAYER, "light",
+    ),
+    (
         "heart_spice_accent", "Heart spice accent", "heart", "heart_spice", .012,
-        ("spice",),
+        (),
         (("spicy", .7), ("warmth", .3)),
         ("spice", "spicy", "pepper", "cardamom", "nutmeg", "cinnamon", "clove", "saffron",
          "ginger"),
@@ -395,7 +403,7 @@ _NOTE_LAYERS: tuple[_LayerSpec, ...] = (
     ),
     (
         "top_sparkle_accent", "Top sparkle accent", "top", "top_sparkle", .012,
-        ("sparkle",),
+        (),
         (("radiance", .6), ("freshness", .4)),
         ("aldehyde", "aldehydic", "sparkling", "fruit", "fruity", "ester", "pear", "apple",
          "berry", "cassis"),
@@ -403,11 +411,18 @@ _NOTE_LAYERS: tuple[_LayerSpec, ...] = (
     ),
     (
         "base_shadow_accent", "Base shadow accent", "base", "base_shadow", .012,
-        ("smoke",),
+        (),
         (("smoky", .6), ("animalic", .2), ("woody", .2)),
         ("smoke", "smoky", "leather", "suede", "animalic", "tar", "cade", "birch", "fur",
          "castoreum", "civet", "guaiacol"),
         _ACCENT, "not_warm",
+    ),
+    (
+        "heart_watery_accent", "Heart watery accent", "heart", "heart_watery", .012,
+        (),
+        (("freshness", .5), ("transparency", .5)),
+        ("aquatic", "marine", "water", "watery", "rain", "ozone", "ozonic", "calone", "sea"),
+        _ACCENT, "not_light",
     ),
 )
 LAYER_PROVENANCE = {
@@ -458,10 +473,16 @@ def _note_layers(
         return " ".join((role.role_id, *role.query_terms, role.exact_material or "")).casefold()
 
     # A named stock can sit in any register, so it counts for every note.
+    # Top and heart families are checked against every requested note (a
+    # requested rain note already gives the heart its water); base families
+    # only against base notes, since heart facets borrow base words such as
+    # "musk" for powder.
     anchor_terms = [role_text(role) for role in roles if role.exact_material is not None]
+    every_note = [role_text(role) for role in roles]
     note_terms = {
-        note: [role_text(role) for role in roles if role.note == note] + anchor_terms
-        for note in ("top", "heart", "base")
+        "top": every_note,
+        "heart": every_note,
+        "base": [role_text(role) for role in roles if role.note == "base"] + anchor_terms,
     }
     warm = bool(_WARM_BRIEF.search(complexity_text))
     light = bool(_LIGHT_BRIEF.search(complexity_text)) and not warm
@@ -479,7 +500,11 @@ def _note_layers(
     for role_id, label, note, requirement, share, terms, weights, markers, kind, skip in _NOTE_LAYERS:
         if is_avoided(markers):
             continue
-        if (skip == "light" and light) or (skip == "not_warm" and not warm):
+        if (
+            (skip == "light" and light)
+            or (skip == "not_warm" and not warm)
+            or (skip == "not_light" and not light)
+        ):
             continue
         covered = any(marker in text for text in note_terms[note] for marker in markers)
         if covered and requirement != "base_wood":
