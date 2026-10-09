@@ -878,6 +878,42 @@ def _solve_assignments(
     return tuple(assignments), tuple(dict.fromkeys(missing))
 
 
+_INCOMPLETE_RETRY_BEAM_FACTOR = 4
+
+
+def _missing_role_has_candidates(
+    missing: Sequence[str],
+    *,
+    brief: SemanticBrief,
+    index: MaterialCapabilityIndex,
+    avoid: Sequence[str],
+    previous_stock_ids: frozenset[str],
+    prior_variant_stock_ids: frozenset[str],
+    variant_index: int,
+) -> bool:
+    """True when some missing role has at least one admissible stock.
+
+    A role with no candidate in the whole index stays missing however wide the
+    beam is, so only a role that has candidates is worth a wider search.
+    """
+
+    labels = set(missing)
+    enforce_own_odor_avoid = bool(brief.architecture_plan.get("operation"))
+    return any(
+        _unary_rank_for_role(
+            index,
+            role,
+            avoid=avoid,
+            previous_stock_ids=previous_stock_ids,
+            prior_variant_stock_ids=prior_variant_stock_ids,
+            variant_index=variant_index,
+            enforce_own_odor_avoid=enforce_own_odor_avoid,
+        )
+        for role in brief.roles
+        if role.label in labels
+    )
+
+
 def solve_formula(
     *,
     brief: SemanticBrief,
@@ -895,15 +931,26 @@ def solve_formula(
         raise ValueError("liquid_total_ul must be positive")
     if not 0 <= variant_index <= 2:
         raise ValueError("variant_index must be from zero to two")
-    assignments, missing = _solve_assignments(
+    solve_kwargs = dict(
         brief=brief,
         index=index,
         avoid=avoid,
         previous_stock_ids=frozenset(previous_stock_ids),
         prior_variant_stock_ids=frozenset(prior_variant_stock_ids),
         variant_index=variant_index,
-        beam_width=beam_width,
     )
+    assignments, missing = _solve_assignments(**solve_kwargs, beam_width=beam_width)
+    if missing and _missing_role_has_candidates(missing, **solve_kwargs):
+        # The beam keeps only the best partial states, so it can prune away the
+        # one path that still fills every required role. Before withholding a
+        # variant, search once more with a wider beam; a result that already
+        # covers every role is never re-solved, so it cannot change, and a
+        # role no stock can fill at all is not retried.
+        wider, wider_missing = _solve_assignments(
+            **solve_kwargs, beam_width=beam_width * _INCOMPLETE_RETRY_BEAM_FACTOR
+        )
+        if len(wider_missing) < len(missing):
+            assignments, missing = wider, wider_missing
     choices = tuple(
         Choice(
             role=_role_spec(assignment.role),

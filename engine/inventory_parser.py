@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from collections import Counter
 from dataclasses import dataclass, replace
 from functools import lru_cache
 from pathlib import Path
@@ -290,6 +291,9 @@ class InventoryMaterial:
     # When a Stock page completion changed the strength, basis or carrier,
     # the overlay/V5 authority's (dilution, fraction_basis, carrier) values.
     authority_facts_differ: tuple[tuple[str, Any], ...] = ()
+    # The name as the source wrote it, set only when the display ``name`` was
+    # derived from the stored strength (see ``assign_stock_display_names``).
+    source_name: str = ""
 
 
 @dataclass(frozen=True)
@@ -897,6 +901,30 @@ def load_current_inventory_alias_crosswalk(
 
 def _v5_identity_name(canonical_name: str) -> str:
     """Strip a requested stock suffix without stripping chemical identity text."""
+
+    clean = re.sub(r"\s+", " ", str(canonical_name or "").strip())
+    clean = re.sub(
+        r"\s+~?\d+(?:[.,]\d+)?\s*%"
+        r"(?:\s*(?:w\s*/\s*w|w\s*/\s*v|v\s*/\s*v))?"
+        r"(?:\s+in\s+(?:dpg|dep|tec|ipm|ethanol))?\s*$",
+        "",
+        clean,
+        flags=re.IGNORECASE,
+    )
+    clean = re.sub(r"\s+", " ", clean).strip()
+    # A row naming two strengths ("Ethyl Maltol 1% + 10%") leaves a joined
+    # fragment ("1% +") once the last strength is stripped.  That fragment is
+    # stock text, not identity: both strengths are one material.
+    return re.sub(
+        r"(?:\s*(?:\+|&|\band\b)\s*|\s+)~?\d+(?:[.,]\d+)?\s*%(?:\s*(?:\+|&|\band\b))+$",
+        "",
+        clean,
+        flags=re.IGNORECASE,
+    ).strip()
+
+
+def _v5_stock_digest_identity(canonical_name: str) -> str:
+    """The identity text V5 stock ids were first hashed from, kept so ids stay stable."""
 
     clean = re.sub(r"\s+", " ", str(canonical_name or "").strip())
     clean = re.sub(
@@ -5680,6 +5708,7 @@ def _materialize_current_inventory_uncached(
         if not canonical or source_row <= 0:
             continue
         identity = _v5_identity_name(canonical)
+        digest_identity = _v5_stock_digest_identity(canonical)
         status = str(row.get("Status") or "").strip()
         actual = str(row.get("Actual stock(s)") or "").strip()
         can_prepare = str(row.get("Can prepare") or "").strip()
@@ -5740,7 +5769,7 @@ def _materialize_current_inventory_uncached(
                 continue
             stock_digest = hashlib.sha256(
                 (
-                    f"{CURRENT_INVENTORY_WORKBOOK_SHA256}|{identity.lower()}|"
+                    f"{CURRENT_INVENTORY_WORKBOOK_SHA256}|{digest_identity.lower()}|"
                     f"{spec.fraction:.12g}|{spec.fraction_basis}|{spec.carrier}|"
                     f"{distinct_stock_marker}"
                 ).encode("utf-8")
@@ -5812,7 +5841,132 @@ def _materialize_current_inventory_uncached(
                 f"{materialized.effective_inventory_sha256}|{hold_sha}".encode("utf-8")
             ).hexdigest(),
         )
-    return materialized
+    return replace(materialized, stocks=assign_stock_display_names(materialized.stocks))
+
+
+_NAME_PERCENT_RE = re.compile(r"(?<![\d.,])(\d+(?:[.,]\d+)?)\s*%")
+_TRAILING_STRENGTHS_RE = re.compile(
+    r"(?:\s*(?:\+|&|\band\b|~?\d+(?:[.,]\d+)?\s*%))+\s*$", re.IGNORECASE
+)
+
+
+def _strength_label(dilution: float) -> str:
+    # The same "(neat)" form as inventory.txt and the recommendation labels.
+    if dilution >= 1.0:
+        return "(neat)"
+    return f"{dilution * 100:.6g}%"
+
+
+_BASIS_LABELS = {"mass_fraction": "w/w", "volume_fraction": "v/v"}
+_DISPLAY_NAME_LEVELS = 3  # strength, then + basis, then + carrier
+
+
+def stock_name_states_stored_strength(stock: InventoryMaterial) -> bool:
+    """True when every percentage in ``stock.name`` equals the stored dilution."""
+
+    return all(
+        abs(float(value.replace(",", ".")) / 100.0 - float(stock.dilution)) <= 1e-9
+        for value in _NAME_PERCENT_RE.findall(stock.name)
+    )
+
+
+def _derived_display_name(stock: InventoryMaterial, level: int) -> str:
+    base = _TRAILING_STRENGTHS_RE.sub("", stock.identity_name or stock.name).strip()
+    label = f"{base} {_strength_label(float(stock.dilution))}"
+    basis = _BASIS_LABELS.get(stock.fraction_basis, "")
+    if level >= 1 and basis:
+        label += f" {basis}"
+    if level >= 2 and stock.carrier:
+        label += f" in {stock.carrier.upper()}"
+    return label
+
+
+def assign_stock_display_names(
+    stocks: tuple[InventoryMaterial, ...],
+) -> tuple[InventoryMaterial, ...]:
+    """Give each owned bottle its own display name, changing as few as possible.
+
+    * A Stock page entry (a completion, a personal addition or a prepared
+      dilution) keeps the name and strength it was recorded with.
+    * A prepared dilution never renames an existing stock, so it takes no part
+      in collisions.
+    * Any other stock keeps its name unless the name states a strength other
+      than the stored one, or another owned stock carries the same name.
+    * A renamed stock becomes ``<identity> <strength>``; while that still
+      collides, the basis (w/w, v/v) and then the carrier are added.  Names
+      that still collide after that (two records of the same bottle) are
+      numbered in stock_id order: the first keeps the name, later ones get
+      " (2)", " (3)".  A name kept unchanged always counts as first.
+
+    Only ``name`` changes; ``source_name`` keeps the name as first written.
+    """
+
+    from engine.inventory_dilutions import PREPARED_DILUTION_AUTHORITY
+
+    owned = [stock.status.casefold() == "owned" for stock in stocks]
+    prepared = {
+        index
+        for index, stock in enumerate(stocks)
+        if stock.authority == PREPARED_DILUTION_AUTHORITY
+    }
+    recorded = prepared | {
+        index for index, stock in enumerate(stocks) if stock.completion_event_sha256
+    }
+    counts = Counter(
+        stock.name.casefold()
+        for index, stock in enumerate(stocks)
+        if owned[index] and index not in prepared
+    )
+    rename = [
+        index
+        for index, stock in enumerate(stocks)
+        if index not in recorded
+        and (
+            not stock_name_states_stored_strength(stock)
+            or (owned[index] and counts[stock.name.casefold()] > 1)
+        )
+    ]
+    settled = {
+        stock.name.casefold()
+        for index, stock in enumerate(stocks)
+        if owned[index] and index not in prepared and index not in rename
+    }
+    level = dict.fromkeys(rename, 0)
+    while True:
+        names = {index: _derived_display_name(stocks[index], level[index]) for index in rename}
+        derived_counts = Counter(
+            names[index].casefold() for index in rename if owned[index]
+        )
+        clashes = [
+            index
+            for index in rename
+            if owned[index]
+            and (
+                names[index].casefold() in settled
+                or derived_counts[names[index].casefold()] > 1
+            )
+        ]
+        escalate = [index for index in clashes if level[index] < _DISPLAY_NAME_LEVELS - 1]
+        if not escalate:
+            break
+        for index in escalate:
+            level[index] += 1
+    taken = set(settled)
+    for index in sorted(
+        (index for index in rename if owned[index]), key=lambda i: stocks[i].stock_id
+    ):
+        base, number = names[index], 1
+        while names[index].casefold() in taken:
+            number += 1
+            names[index] = f"{base} ({number})"
+        taken.add(names[index].casefold())
+    renamed = list(stocks)
+    for index in rename:
+        stock = stocks[index]
+        renamed[index] = replace(
+            stock, name=names[index], source_name=stock.source_name or stock.name
+        )
+    return tuple(renamed)
 
 
 _USER_OVERLAY_CHAIN_PATHS = (

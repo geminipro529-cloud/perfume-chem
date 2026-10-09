@@ -183,6 +183,15 @@ def historical_checkpoint_inputs(request, tmp_path_factory):
     assert original_inventory.overlay_sha256 == (
         "0bccf890ee05487b20daca94d02c65103c2a22ed4c6435ba8cb311cd041575fb"
     )
+    # Display names that state the bottle's strength are current presentation;
+    # the frozen September reports were written with the names as first written.
+    original_inventory = replace(
+        original_inventory,
+        stocks=tuple(
+            replace(stock, name=stock.source_name) if stock.source_name else stock
+            for stock in original_inventory.stocks
+        ),
+    )
     modules = [importlib.import_module(f"engine.experiments.checkpoint{i}_readiness")
                for i in range(3, 9)]
     replacements = {}

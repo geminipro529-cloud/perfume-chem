@@ -15,7 +15,7 @@ import json
 import os
 import re
 import threading
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, replace
 from datetime import UTC, datetime
 from decimal import Decimal, InvalidOperation
@@ -29,6 +29,7 @@ from engine.inventory_parser import (
     InventoryMaterial,
     InventoryRequirement,
     apply_user_compounding_holds,
+    assign_stock_display_names,
     materialize_current_inventory,
     parse_inventory,
 )
@@ -203,12 +204,34 @@ def _same_stock_form(left: InventoryMaterial, right: InventoryMaterial) -> bool:
     return True
 
 
-def _stock_label_fraction_consistent(stock: InventoryMaterial) -> bool:
-    match = re.search(r"(?<!\d)(\d+(?:[.,]\d+)?)\s*%", stock.name)
-    if match is None:
+def _stock_label_fraction_consistent(
+    stock: InventoryMaterial, live_forms: Sequence[InventoryMaterial] = ()
+) -> bool:
+    """True when the stock's labels as written agree with its stored strength.
+
+    The labels are ``raw_name`` and the source's own name: the display
+    ``name`` may be derived from the stored strength, so it always agrees and
+    proves nothing.  A label whose stated strengths all differ from the stored
+    one is still consistent when inventory.txt lists this material at the
+    stored strength.
+    """
+
+    if any(
+        abs(float(live.dilution) - float(stock.dilution)) <= 1e-9 for live in live_forms
+    ):
         return True
-    named_fraction = float(match.group(1).replace(",", ".")) / 100.0
-    return abs(named_fraction - float(stock.dilution)) <= 1e-9
+    for label in (stock.raw_name, stock.source_name or stock.name):
+        label = re.sub(r"\s*#.*$", "", label)  # free-text comment
+        label = re.sub(r"\[[^\]]*\]", " ", label)  # the parser's "[0.1]" fraction tag
+        stated = [
+            float(value.replace(",", ".")) / 100.0
+            for value in re.findall(r"(?<![\d.,])(\d+(?:[.,]\d+)?)\s*%", label)
+        ]
+        # A label naming several strengths, one of them the stored one, is
+        # ambiguous rather than contradictory; the composer handles that case.
+        if stated and not any(abs(value - float(stock.dilution)) <= 1e-9 for value in stated):
+            return False
+    return True
 
 
 def _live_design_stock(stock: InventoryMaterial) -> InventoryMaterial:
@@ -420,7 +443,7 @@ def materialize_personal_inventory(
         # Stock page facts are the user's own record and the gate counts them,
         # so a name still stating the workbook strength must not hide the row.
         user_recorded = prepared or bool(stock.completion_event_sha256)
-        if not user_recorded and not _stock_label_fraction_consistent(stock):
+        if not user_recorded and not _stock_label_fraction_consistent(stock, live_forms):
             continue
         if not prepared and not overridden and live_forms and not any(
             _same_stock_form(stock, live) for live in live_forms
@@ -454,7 +477,9 @@ def materialize_personal_inventory(
         projected.append(addition)
 
     held_stocks, hold_sha = apply_user_compounding_holds(tuple(projected))
-    projected = list(held_stocks)
+    # inventory.txt lines and personal additions join the governed stocks here,
+    # so names are settled again: one owned name still means one bottle.
+    projected = list(assign_stock_display_names(held_stocks))
     projected.sort(
         key=lambda stock: (
             stock.category.casefold(),
