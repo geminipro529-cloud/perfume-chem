@@ -616,6 +616,9 @@ def _parse_formula_rows(
     ingredient_order: list[str] = []
     held_out: set[str] = set()
     unreadable_strength: dict[str, dict[str, object]] = {}
+    # Every readable row's own stock spec and amount, in table order, so two
+    # rows of one material at two strengths are never read at one strength.
+    row_specs: dict[str, list[dict[str, object]]] = {}
     total_ul_val: float | None = None
 
     def _split_row(line: str) -> list[str]:
@@ -1025,16 +1028,10 @@ def _parse_formula_rows(
             )
         if ingredient not in dilutions or dilution != 1.0:
             dilutions[ingredient] = dilution
-        previous = stock_specs.get(ingredient)
-        if previous is not None and any(
-            previous.get(key) != spec.get(key)
-            for key in ("fraction", "fraction_basis", "carrier", "declared")
-        ):
-            fresh = dict(spec)
-            spec = dict(spec)
-            spec["conflict"] = True
-            spec["variants"] = [previous, fresh]
         stock_specs[ingredient] = spec
+        row_specs.setdefault(ingredient, []).append(
+            {**spec, "row_amount": amount_ul, "row_amount_is_percentage": amount_is_percentage}
+        )
 
     # An unreadable strength is None in both outputs, never neat; an unreadable
     # strength or amount holds the whole material out of the ingredient rows.
@@ -1059,7 +1056,152 @@ def _parse_formula_rows(
             * (float(total_ul_val) / 100.0 if total_ul_val is not None else 0.0)
         )
 
+    for name, rows in row_specs.items():
+        if name in ingredients_ul:
+            merged = _merge_stock_rows(rows, total_ul_val, name)
+            if merged is not None:
+                stock_specs[name] = merged
+                dilutions[name] = float(merged["fraction"])  # type: ignore[arg-type]
+
     return ingredients_ul, dilutions, stock_specs
+
+
+_STOCK_IDENTITY_KEYS = ("fraction", "fraction_basis", "carrier", "declared")
+
+
+def _strength_unwritten(row: dict[str, object]) -> bool:
+    """True for a row whose strength cell gives no strength (read as 1.0)."""
+    return not row.get("declared") and row.get("fraction") == 1.0
+
+
+def _percent_text(fraction: float) -> str:
+    return f"{fraction * 100.0:g}%"
+
+
+def _merge_stock_rows(
+    rows: list[dict[str, object]], total_ul_val: float | None, name: str = ""
+) -> dict[str, object] | None:
+    """One stock spec for a material written on rows with different stocks.
+
+    Returns ``None`` when every row names the same stock. Otherwise the rows
+    are two stock lines (for example a neat bottle and a 10% dilution), and no
+    row's strength may stand for the others: the merged ``fraction`` is the
+    summed active volume over the summed raw volume, so raw x fraction equals
+    each row's own raw x strength added up, whatever the row order. The spec
+    keeps ``conflict`` (one material name can bind only one live stock) and
+    lists every row in ``variants`` with its own raw uL; a basis or carrier the
+    rows don't share is left unspecified rather than borrowed from one row.
+
+    A row with no strength written is not a neat stock line: it takes the
+    strength of the material's written rows (the highest, if they disagree).
+    When that strength is below neat the spec carries ``unwritten_strength``,
+    a plain reason the safety gate holds on; rows that are all neat are not
+    flagged.
+    """
+    written = [row for row in rows if not _strength_unwritten(row)]
+    unwritten_count = len(rows) - len(written)
+    adopted: dict[str, object] | None = None
+    if written and unwritten_count:
+        adopted = max(written, key=lambda row: float(row["fraction"]))  # type: ignore[arg-type]
+        rows = [
+            row
+            if not _strength_unwritten(row)
+            else {
+                **adopted,
+                "raw": row.get("raw", ""),
+                "strength_adopted": True,
+                "row_amount": row["row_amount"],
+                "row_amount_is_percentage": row["row_amount_is_percentage"],
+            }
+            for row in rows
+        ]
+    unwritten_reason: str | None = None
+    if adopted is not None and float(adopted["fraction"]) < 1.0:  # type: ignore[arg-type]
+        strengths = sorted(
+            {float(row["fraction"]) for row in written},  # type: ignore[arg-type]
+            reverse=True,
+        )
+        unwritten_reason = (
+            f"{name}: "
+            + ("one row gives" if unwritten_count == 1 else f"{unwritten_count} rows give")
+            + " no strength, "
+            + ("another gives " if len(written) == 1 else "others give ")
+            + ", ".join(_percent_text(value) for value in strengths)
+            + (
+                f" (read at the highest, {_percent_text(strengths[0])})"
+                if len(strengths) > 1
+                else ""
+            )
+            + "; confirm which bottle"
+        )
+    distinct: list[dict[str, object]] = []
+    for row in rows:
+        if not any(
+            all(row.get(key) == seen.get(key) for key in _STOCK_IDENTITY_KEYS)
+            for seen in distinct
+        ):
+            distinct.append(row)
+    if len(distinct) < 2:
+        if adopted is None:
+            return None
+        single = {
+            key: value
+            for key, value in adopted.items()
+            if key not in ("row_amount", "row_amount_is_percentage")
+        }
+        single["declared"] = False
+        if unwritten_reason is not None:
+            single["unwritten_strength"] = unwritten_reason
+        return single
+    variants: list[dict[str, object]] = []
+    raw_total = 0.0
+    active_total = 0.0
+    for row in rows:
+        amount = float(row["row_amount"])  # type: ignore[arg-type]
+        if row.get("row_amount_is_percentage"):
+            amount *= float(total_ul_val) / 100.0 if total_ul_val is not None else 0.0
+        variant = {
+            key: value
+            for key, value in row.items()
+            if key not in ("row_amount", "row_amount_is_percentage")
+        }
+        variant["row_raw_ul"] = amount
+        variants.append(variant)
+        raw_total += amount
+        active_total += amount * float(row["fraction"])  # type: ignore[arg-type]
+    fractions = {float(row["fraction"]) for row in rows}  # type: ignore[arg-type]
+    fraction = (
+        fractions.pop()
+        if len(fractions) == 1
+        else active_total / raw_total
+        if raw_total > 0
+        else max(fractions)
+    )
+    bases = {str(row.get("fraction_basis", "unspecified")) for row in rows}
+    carriers = {
+        str(row.get("carrier", ""))
+        for row in rows
+        if str(row.get("fraction_basis")) != "neat"
+    }
+    merged = dict(variants[-1])
+    merged.pop("row_raw_ul", None)
+    merged.update(
+        {
+            "fraction": fraction,
+            "fraction_basis": bases.pop() if len(bases) == 1 else "unspecified",
+            "carrier": carriers.pop() if len(carriers) == 1 else "",
+            "declared": not unwritten_count
+            and all(bool(row.get("declared")) for row in rows),
+            "approximate": any(bool(row.get("approximate")) for row in rows),
+            "raw": " + ".join(str(row.get("raw", "")) for row in rows),
+            "conflict": True,
+            "variants": variants,
+            "active_ul": active_total,
+        }
+    )
+    if unwritten_reason is not None:
+        merged["unwritten_strength"] = unwritten_reason
+    return merged
 
 
 PIPELINE_ANALYSIS_START = "<!-- PIPELINE_ANALYSIS_START -->"
