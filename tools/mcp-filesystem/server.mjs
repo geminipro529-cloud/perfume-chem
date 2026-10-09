@@ -1,12 +1,16 @@
 // Scoped filesystem MCP server for perfume-chem.
 // Lets browser ChatGPT Pro / Codex read+write repo files through the Secure MCP Tunnel
 // without GitHub. Security model mirrors the delegation daemon:
-//  - ALL paths are workspace-relative; absolute paths and escapes are rejected.
+//  - Streamable HTTP on 127.0.0.1 only; every request must carry the per-launch bearer
+//    token (FS_MCP_TOKEN, or a random one printed once at start), else 401.
+//  - ALL paths are workspace-relative; absolute paths and escapes are rejected, also
+//    after resolving symlinks. Secrets (.env*, *.pem, *.key, openai-api-key*, error.log)
+//    and everything under .git/ are denied for reads and writes.
+//  - Read-only by default; writes need FS_MCP_ALLOW_WRITES=1 or --allow-writes.
 //  - Writes are exact-byte with SHA-256 verification returned to the caller.
-//  - No shell execution. No symlink traversal out of the workspace.
-//  - Optional read-only mode via FS_MCP_READONLY=1.
+//  - No shell execution.
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
@@ -14,32 +18,27 @@ import {
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
+import http from "node:http";
 import { fileURLToPath } from "node:url";
+import {
+  isAuthorized,
+  isDeniedSegment,
+  resolveAllowedPath,
+  resolveToken,
+  writesEnabled,
+} from "./guard.mjs";
 
 const DEFAULT_WORKSPACE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const WORKSPACE = process.env.FS_MCP_ROOT
   ? path.resolve(process.env.FS_MCP_ROOT)
   : DEFAULT_WORKSPACE;
-const READONLY = process.env.FS_MCP_READONLY === "1";
+const READONLY = !writesEnabled();
+const PORT = Number(process.env.FS_MCP_PORT ?? 8765);
 const MAX_READ_BYTES = Number(process.env.FS_MCP_MAX_READ_BYTES ?? 2_000_000);
 const MAX_WRITE_BYTES = Number(process.env.FS_MCP_MAX_WRITE_BYTES ?? 1_000_000);
 
 function normalizeAllowedPath(rel) {
-  if (typeof rel !== "string" || rel.length === 0) {
-    throw new Error("path must be a non-empty string");
-  }
-  if (path.isAbsolute(rel)) {
-    throw new Error(`absolute paths are not allowed: ${rel}`);
-  }
-  const normalized = path.normalize(rel);
-  if (normalized.startsWith("..") || normalized.includes(`..${path.sep}`) || normalized === "..") {
-    throw new Error(`path escapes the workspace: ${rel}`);
-  }
-  const full = path.resolve(WORKSPACE, normalized);
-  if (full !== WORKSPACE && !full.startsWith(WORKSPACE + path.sep)) {
-    throw new Error(`path escapes the workspace: ${rel}`);
-  }
-  return { rel: normalized, full };
+  return resolveAllowedPath(WORKSPACE, rel);
 }
 
 function lstatNoFollow(full) {
@@ -71,6 +70,7 @@ async function listDirTree(full, depthLeft, results, prefix) {
     if (depthLeft <= 0) return;
     const entries = fs.readdirSync(full).sort();
     for (const entry of entries) {
+      if (isDeniedSegment(entry)) continue;
       const childFull = path.join(full, entry);
       const childPrefix = prefix ? `${prefix}/${entry}` : entry;
       await listDirTree(childFull, depthLeft - 1, results, childPrefix);
@@ -80,6 +80,7 @@ async function listDirTree(full, depthLeft, results, prefix) {
   }
 }
 
+function createServer() {
 const server = new Server(
   { name: "perfume-chem-fs-mcp", version: "1.0.0" },
   { capabilities: { tools: {} } },
@@ -208,7 +209,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const walk = (dir) => {
           const entries = fs.readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name));
           for (const entry of entries) {
-            if (entry.name === ".git" || entry.name === "node_modules" || entry.name === ".venv") continue;
+            if (isDeniedSegment(entry.name) || entry.name === "node_modules" || entry.name === ".venv") continue;
             const child = path.join(dir, entry.name);
             if (entry.isSymbolicLink()) continue;
             if (entry.isDirectory()) walk(child);
@@ -228,7 +229,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         return { content: [{ type: "text", text: JSON.stringify({ needle, matches }, null, 2) }] };
       }
       case "write_file": {
-        if (READONLY) throw new Error("server is read-only");
+        if (READONLY) throw new Error("server is read-only (start it with FS_MCP_ALLOW_WRITES=1 or --allow-writes to enable writes)");
         const { rel, full } = normalizeAllowedPath(args.path);
         const bytes = Buffer.from(String(args.content), "utf8");
         if (bytes.byteLength > MAX_WRITE_BYTES) throw new Error(`write exceeds ${MAX_WRITE_BYTES} byte limit`);
@@ -243,7 +244,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         };
       }
       case "edit_file": {
-        if (READONLY) throw new Error("server is read-only");
+        if (READONLY) throw new Error("server is read-only (start it with FS_MCP_ALLOW_WRITES=1 or --allow-writes to enable writes)");
         const { rel, full } = normalizeAllowedPath(args.path);
         assertRegularFile(full);
         const oldText = String(args.old_text);
@@ -285,5 +286,40 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   }
 });
 
-const transport = new StdioServerTransport();
-await server.connect(transport);
+return server;
+}
+
+const { token: TOKEN, generated } = resolveToken(process.env.FS_MCP_TOKEN);
+
+const httpServer = http.createServer(async (req, res) => {
+  if (!isAuthorized(req.headers.authorization, TOKEN)) {
+    res.writeHead(401).end();
+    return;
+  }
+  const { pathname } = new URL(req.url ?? "/", "http://127.0.0.1");
+  if (pathname !== "/mcp") {
+    res.writeHead(404).end();
+    return;
+  }
+  // Stateless: a fresh server + transport per request, no MCP session IDs.
+  const server = createServer();
+  const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
+  res.on("close", () => {
+    transport.close();
+    server.close();
+  });
+  try {
+    await server.connect(transport);
+    await transport.handleRequest(req, res);
+  } catch {
+    if (!res.headersSent) res.writeHead(500).end();
+  }
+});
+
+httpServer.listen(PORT, "127.0.0.1", () => {
+  const { port } = httpServer.address();
+  console.log(`perfume-chem-fs-mcp listening on http://127.0.0.1:${port}/mcp (${READONLY ? "read-only" : "WRITES ENABLED"})`);
+  if (generated) {
+    console.log(`Bearer token for this launch (send as "Authorization: Bearer <token>"): ${TOKEN}`);
+  }
+});
