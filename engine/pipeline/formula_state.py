@@ -825,8 +825,16 @@ def _odt_source_label(data: dict) -> str:
 def _lookup_odt(
     name: str, profile: MaterialProfile | None, registry_material=None
 ) -> tuple[float | None, str]:
-    verification = verify_odt(name)
-    data = lookup_odt_entry(name)
+    # The resolved registry identity decides the threshold, so two labels that
+    # resolve to one material (e.g. "Vertofix" and "Vertofix Coeur (neat)")
+    # cannot carry different ODTs. The raw label is the fallback only when that
+    # identity has no ODT entry.
+    odt_key = name
+    registry_name = getattr(registry_material, "canonical_name", None)
+    if registry_name and lookup_odt_entry(registry_name) is not None:
+        odt_key = registry_name
+    verification = verify_odt(odt_key)
+    data = lookup_odt_entry(odt_key)
     if data is not None:
         odt_air_ppb = data.get("odt_air")
         if odt_air_ppb is not None:
