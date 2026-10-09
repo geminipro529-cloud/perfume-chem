@@ -41,6 +41,7 @@ from engine.ifra_standards import (
     estimate_finished_product_pct_w_w,
     evaluate_ifra,
     load_ifra_table,
+    load_natural_constituents,
 )
 from engine.inventory_completions import COMPLETION_CLEARABLE_HOLDS, STOCK_PAGE_ENTRY_INCOMPLETE
 from engine.inventory_dilutions import (
@@ -1570,6 +1571,7 @@ def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     evaluation = evaluate_ifra(
         pct_w_w,
         table=table,
+        constituents=load_natural_constituents(),
         alt_names=alt_names,
         headroom=headroom,
     )
@@ -1593,6 +1595,12 @@ def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     ]
     edge_dosing = [w for w in warnings if w.get("ifra_status") == "restricted" or "group" in w]
     natural_warnings = [w for w in warnings if w.get("ifra_status") == "natural_no_own_standard"]
+    counted_naturals = {
+        c.material
+        for t in evaluation.constituent_totals
+        for c in t.contributors
+        if c.kind == "natural"
+    }
     overfilled = bool(estimate.overfilled) if estimate is not None else False
     assumptions = list(estimate.assumptions) if estimate is not None else []
     batch_default = config.batch_volume_source == "default"
@@ -1613,6 +1621,27 @@ def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
         "specification_notes": [_ifra_row_dict(c, headroom) for c in evaluation.notes],
         "rows": [_ifra_row_dict(c, headroom) for c in evaluation.checks],
         "groups": [_ifra_group_dict(g, headroom) for g in evaluation.group_checks],
+        "constituent_totals": [
+            {
+                "substance": t.substance,
+                "standard": t.standard,
+                "total_pct": t.total,
+                "limit_pct": t.limit_pct,
+                "contributors": [
+                    {
+                        "material": c.material,
+                        "kind": c.kind,
+                        "pct": c.pct,
+                        "constituent_pct": c.constituent_pct,
+                        "ncs_name": c.ncs_name,
+                        "contribution_pct": c.contribution_pct,
+                    }
+                    for c in t.contributors
+                ],
+            }
+            for t in evaluation.constituent_totals
+        ],
+        "constituent_coverage": load_natural_constituents().coverage_note(table),
         "headroom": config.ifra_headroom,
         "effective_headroom": headroom,
         "commercial_mode": config.commercial_mode,
@@ -1664,9 +1693,14 @@ def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
             + ", ".join(f"{w['material']} {w['usage_pct']}%" for w in edge_dosing)
         )
     if natural_warnings:
+        counted = sum(1 for w in natural_warnings if w.get("ifra_name") in counted_naturals)
         detail.append(
             f"{len(natural_warnings)} natural(s) without their own IFRA standard "
-            "(constituents not summed)"
+            + (
+                f"({counted} with IFRA Annex I constituents counted, the rest not summed)"
+                if counted
+                else "(constituents not summed)"
+            )
         )
     if batch_default:
         detail.append(
