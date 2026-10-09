@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import re
 from dataclasses import dataclass
+from functools import lru_cache
 from typing import Any, Sequence
 
 from engine.formulation_intelligence.material_capability_index import (
@@ -127,6 +128,40 @@ def _family_bucket(capability: MaterialCapability) -> str | None:
     return None
 
 
+# Worst case for a supporting base layer: its 8% raw-share ceiling in a
+# concentrate that is up to 30% of the finished perfume (extrait strength).
+_LAYER_WORST_CASE_FINISHED_FRACTION = .08 * .30
+
+
+@lru_cache(maxsize=None)
+def _ifra_entry(identity_name: str) -> tuple[str, float | None] | None:
+    from engine.ifra_safety import _IFRA_TABLE
+
+    entry = _IFRA_TABLE.lookup(identity_name)
+    if entry is None:
+        return None
+    return entry.status, entry.cat4_limit_pct
+
+
+def _ifra_binds_layer(capability: MaterialCapability) -> bool:
+    """True when IFRA could bind at a base layer's dose, so it is no layer stock.
+
+    Such a material can still be used where the brief asks for it; it just
+    never fills a supporting layer by default.
+    """
+
+    entry = _ifra_entry(capability.identity_name)
+    if entry is None:
+        return False
+    status, limit = entry
+    if status == "prohibited":
+        return True
+    if status != "restricted" or limit is None:
+        return False
+    fraction = float(capability.candidate.stock.dilution)
+    return _LAYER_WORST_CASE_FINISHED_FRACTION * fraction * 100 > limit
+
+
 def _allowed(
     capability: MaterialCapability,
     role: SemanticRole,
@@ -173,6 +208,8 @@ def _allowed(
         }
         if None in previous_slots or role.knowledge_role_slot in previous_slots:
             return False
+    if role.provenance == "LAYERED_BASE_ARCHITECTURE" and _ifra_binds_layer(capability):
+        return False
     if capability.candidate.solid and role.exact_material is None:
         # A solid needs an explicit mass-bearing request.  Selecting one from a
         # descriptor alone would force the solver to invent a mass operation.

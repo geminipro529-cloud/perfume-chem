@@ -97,7 +97,8 @@ def test_formula_design_follow_up_keeps_a_bounded_inventory_seed() -> None:
     assert refined["constraint_audit"]["liquid_total_conserved"] is True
     refined_ids = {row["stock_id"] for row in refined["optimized_formula"]["rows"]}
     assert refined_ids & set(stock_ids)
-    assert 6 <= len(refined_ids) <= 8
+    # Six to eight concept roles plus up to four supporting base layers.
+    assert 6 <= len(refined_ids) <= 12
     assert refined["physical_compounding_performed"] is False
 
 
@@ -923,3 +924,63 @@ def test_formula_design_does_not_add_third_tuberose_source_by_default() -> None:
         if "tuber" in (row["identity_name"] + row["stock_label"]).casefold()
     ]
     assert len(tuberose_rows) == 2
+
+
+def _base_layer_rows(result: dict) -> dict[str, dict]:
+    return {
+        row["slot"]: row
+        for row in result["optimized_formula"]["rows"]
+        if row["slot"].startswith("base_") and row["slot"].endswith(("_layer", "_contrast"))
+    }
+
+
+def test_formula_design_builds_a_layered_base_from_several_families() -> None:
+    result = design_inventory_formula(
+        idea="A warm woody amber for evening",
+        formula_name="Evening Amber",
+    )
+
+    layers = _base_layer_rows(result)
+    # Wood and amber are requested facets; the base adds a second wood, a musk
+    # and a balsamic resin around them instead of more of the same amber.
+    assert {"base_wood_contrast", "base_musk_layer", "base_resin_layer"} <= set(layers)
+    assert "drydown_structure" not in {row["slot"] for row in result["optimized_formula"]["rows"]}
+    base_identities = {
+        row["identity_name"]
+        for row in result["optimized_formula"]["rows"]
+        if row["note"] == "base"
+    }
+    assert len(base_identities) >= 5
+    total_ul = sum(int(row["amount_decimal"]) for row in result["optimized_formula"]["rows"])
+    for row in layers.values():
+        assert int(row["amount_decimal"]) <= total_ul * 0.08
+
+
+def test_formula_design_base_layers_respect_avoid_and_light_briefs() -> None:
+    result = design_inventory_formula(
+        idea="A fresh citrus cologne with a soft musky drydown",
+        formula_name="Clean Cologne",
+        must_avoid=("amber",),
+    )
+
+    layers = _base_layer_rows(result)
+    assert "skin_musk" in result["matched_descriptors"]
+    assert "base_amber_layer" not in layers
+    assert "base_resin_layer" not in layers
+    assert "base_musk_layer" not in layers  # the requested musk already covers it
+
+
+def test_formula_design_base_layers_never_reach_an_ifra_limit() -> None:
+    from engine.ifra_safety import get_ifra_limit
+
+    for idea in ("A warm woody amber for evening", "A rose perfume for spring"):
+        result = design_inventory_formula(idea=idea, formula_name="Layer IFRA")
+        for row in _base_layer_rows(result).values():
+            limit = get_ifra_limit(row["identity_name"])
+            if limit is None:
+                continue
+            # 6,000 uL of concentrate in a 30 mL bottle.
+            finished_pct = (
+                float(row["amount_decimal"]) * float(row["stock_fraction_decimal"]) / 30_000 * 100
+            )
+            assert finished_pct <= limit, (idea, row["identity_name"], finished_pct, limit)

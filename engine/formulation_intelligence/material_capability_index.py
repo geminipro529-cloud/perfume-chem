@@ -74,6 +74,13 @@ _DESCRIPTOR_REQUIREMENTS: dict[str, tuple[frozenset[str], ...]] = {
     "citrus_leaf_floral": (
         frozenset({"leaf", "leafy"}), frozenset({"citrus"}), frozenset({"floral"}),
     ),
+    # Layered-base families (semantic_brief_adapter._BASE_LAYERS).
+    "base_wood": (frozenset({"woody", "wood", "cedar", "sandalwood", "vetiver"}),),
+    "base_amber": (frozenset({"amber", "ambery", "ambergris"}),),
+    "base_musk": (frozenset({"musk", "musky"}),),
+    "base_resin": (frozenset({
+        "balsamic", "balsam", "resin", "resinous", "benzoin", "labdanum", "incense", "cocoon",
+    }),),
 }
 
 

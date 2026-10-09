@@ -126,7 +126,7 @@ _FACETS: tuple[FacetDefinition, ...] = (
     FacetDefinition("vetiver_root", ("vetiver", "rooty", "roots", "earthy root"), ("vetiver", "root", "earthy", "vetiveryl"), "base", "character", (("woody", .75), ("green", .35), ("smoky", .2)), .11, .20),
     FacetDefinition("patchouli_earth", ("patchouli", "earthy", "forest floor", "soil"), ("patchouli", "earth", "soil", "moss", "clearwood"), "base", "character", (("woody", .65), ("green", .25), ("smoky", .2)), .09, .16),
     FacetDefinition("amber_mineral", ("amber", "ambrox", "ambergris", "mineral amber", "dry amber"), ("ambrox", "ambergris", "amber", "mineral", "woody amber"), "base", "structure", (("woody", .65), ("warmth", .35), ("radiance", .25)), .12, .22),
-    FacetDefinition("skin_musk", ("musk", "skin scent", "human skin", "body warmth", "warm skin"), ("musk", "skin", "ambrettolide", "brassylate", "habanolide", "exaltolide"), "base", "texture", (("creamy", .45), ("warmth", .35), ("transparency", .35)), .09, .16),
+    FacetDefinition("skin_musk", ("musk", "musky", "skin scent", "human skin", "body warmth", "warm skin"), ("musk", "skin", "ambrettolide", "brassylate", "habanolide", "exaltolide"), "base", "texture", (("creamy", .45), ("warmth", .35), ("transparency", .35)), .09, .16),
     FacetDefinition("animalic_fur", ("animalic", "clean fur", "warm fur", "fur accord", "civet", "castoreum"), ("animalic", "fur", "civet", "castoreum", "costus", "indole"), "base", "modifier", (("animalic", 1.0), ("warmth", .3), ("smoky", .15)), .035, .07),
     FacetDefinition("incense_resin", ("incense", "frankincense", "olibanum", "myrrh", "opoponax", "church", "cathedral", "resin"), ("incense", "olibanum", "frankincense", "myrrh", "opoponax", "resin"), "base", "character", (("smoky", .75), ("woody", .5), ("warmth", .25)), .09, .16),
     FacetDefinition("smoke_char", ("smoke", "smoky", "charred", "ember", "burnt", "ash"), ("smoke", "cade", "birch tar", "guaiacol", "char", "tobacco"), "base", "modifier", (("smoky", 1.0), ("woody", .35)), .035, .07),
@@ -308,6 +308,110 @@ def _source_tokens(text: str) -> tuple[str, ...]:
     )
 
 
+# A perfumer's base is several materials in supporting roles, not one wood or
+# one amber carrying the whole drydown.  Each layer names a base family and the
+# own-odor descriptors a stock must carry to fill it (see
+# ``material_capability_index._DESCRIPTOR_REQUIREMENTS``).  Query terms stay to
+# one family word so the brief's qualities, not a stock's name, pick the
+# material.  The family markers decide whether a prompt-derived base role
+# already covers that layer.
+_BASE_LAYERS: tuple[tuple[str, str, str, float, tuple[str, ...], tuple[tuple[str, float], ...], tuple[str, ...]], ...] = (
+    (
+        "base_wood_layer", "Base wood layer", "base_wood", .07,
+        ("wood",),
+        (("woody", .8), ("creamy", .2)),
+        ("wood", "cedar", "sandal", "vetiver", "patchouli", "timber", "guaiac"),
+    ),
+    (
+        "base_amber_layer", "Base amber layer", "base_amber", .05,
+        ("amber",),
+        (("warmth", .45), ("woody", .35), ("radiance", .2)),
+        ("amber", "ambrox", "ambergris", "labdanum"),
+    ),
+    (
+        "base_musk_layer", "Base musk layer", "base_musk", .06,
+        ("musk",),
+        (("creamy", .4), ("warmth", .3), ("transparency", .3)),
+        ("musk", "ambrettolide", "habanolide", "exaltolide", "brassylate", "galaxolide"),
+    ),
+    (
+        "base_resin_layer", "Base balsamic resin layer", "base_resin", .045,
+        ("balsam", "resin"),
+        (("warmth", .55), ("sweetness", .35), ("smoky", .1)),
+        ("resin", "balsam", "benzoin", "labdanum", "opoponax", "olibanum", "incense", "myrrh", "vanilla", "tonka"),
+    ),
+)
+_LIGHT_BRIEF = re.compile(r"\b(?:fresh|cologne|aquatic|citrus|light|transparent|clean|airy|sheer)\b")
+_WARM_BRIEF = re.compile(r"\b(?:warm|dark|deep|resin|resinous|amber|incense|balsam|balsamic|vanilla|oriental|evening|rich)\b")
+
+
+def _base_layers(
+    *,
+    complexity_text: str,
+    roles: Sequence["SemanticRole"],
+    avoid: Sequence[str],
+    qualifier_weights: tuple[tuple[str, float], ...] = (),
+) -> tuple["SemanticRole", ...]:
+    """Supporting base layers for families the prompt-derived roles leave open.
+
+    Layers are optional roles: a layer with no eligible owned stock is simply
+    left out.  They never replace a requested facet and carry modest shares so
+    the requested character still leads the drydown.
+    """
+
+    avoided = {_key(item) for item in avoid}
+
+    def is_avoided(markers: Sequence[str]) -> bool:
+        return any(
+            marker in value
+            for value in avoided
+            for marker in markers
+        )
+
+    base_terms = [
+        " ".join((role.role_id, *role.query_terms, role.exact_material or "")).casefold()
+        for role in roles
+        if role.note == "base" or role.role_id.startswith("explicit_anchor")
+    ]
+    light = bool(_LIGHT_BRIEF.search(complexity_text)) and not _WARM_BRIEF.search(complexity_text)
+    layers: list[SemanticRole] = []
+    for role_id, label, requirement, share, terms, weights, markers in _BASE_LAYERS:
+        if is_avoided(markers):
+            continue
+        if requirement == "base_resin" and light:
+            continue
+        covered = any(marker in text for text in base_terms for marker in markers)
+        if covered and requirement != "base_wood":
+            continue
+        if covered:
+            # A wood-led brief gets a second, contrasting wood family; the
+            # solver's family buckets keep it from repeating the first one.
+            role_id, label = "base_wood_contrast", "Contrasting base wood"
+        merged = dict(weights)
+        for dimension, weight in qualifier_weights:
+            # The brief's qualities (dry, dark, creamy, clean) steer which
+            # stock fills each layer, so the base follows the brief.
+            merged[dimension] = merged.get(dimension, 0.0) + weight * .5
+        layers.append(
+            SemanticRole(
+                role_id=role_id,
+                label=label,
+                note="base",
+                function="structure",
+                query_terms=terms,
+                character_weights=tuple(sorted(merged.items())),
+                share=share,
+                required=False,
+                # Supporting, never dominant: a layer may not take spare
+                # volume that capped rows leave behind.
+                max_raw_share=.08,
+                provenance="LAYERED_BASE_ARCHITECTURE",
+                descriptor_requirement=requirement,
+            )
+        )
+    return tuple(layers)
+
+
 def _roles(
     *,
     formula_name: str,
@@ -317,6 +421,7 @@ def _roles(
     qualifier_weights: tuple[tuple[str, float], ...],
     maximum: int,
     target_count: int | None,
+    avoid: Sequence[str] = (),
 ) -> tuple[SemanticRole, ...]:
     complexity_text = _key(f"{formula_name} {request}")
     ordinary_target = max(6, len(facets) + 5)
@@ -387,8 +492,14 @@ def _roles(
             if facet.note == note and facet.function != "modifier"
         ]
         if not supporting_facets:
+            # Opening and heart bridges borrow only from facets that are not
+            # base notes; borrowing wood or amber terms here turned the whole
+            # formula into the same few woods and ambers.
             supporting_facets = [
-                facet for facet in facets if facet.function != "modifier"
+                facet
+                for facet in facets
+                if facet.function != "modifier"
+                and (note == "base" or facet.note != "base")
             ]
         return _dedupe(
             (
@@ -401,10 +512,26 @@ def _roles(
             )
         )[:16]
 
+    # An exact material count is the user's architecture; layering only
+    # applies when the count is left to the composer.
+    layers = (
+        _base_layers(
+            complexity_text=complexity_text,
+            roles=roles,
+            avoid=avoid,
+            qualifier_weights=qualifier_weights,
+        )
+        if target_count is None
+        else ()
+    )
+    role_target = min(maximum, role_target + len(layers))
     for role_id, label, note, function, share, base_weights in structural:
         if len(roles) >= maximum:
             break
         if note in coverage and len(roles) >= 6:
+            continue
+        if role_id == "drydown_structure" and layers:
+            # The layers below are the drydown structure.
             continue
         merged: dict[str, float] = dict(base_weights)
         for dimension, weight in qualifier_weights:
@@ -422,6 +549,11 @@ def _roles(
             )
         )
         coverage.add(note)
+
+    for layer in layers:
+        if len(roles) >= maximum:
+            break
+        roles.append(layer)
 
     optional_structural = (
         ("top_to_heart_link", "Top-to-heart link", "heart", "bridge", .075, (("transparency", .35), ("radiance", .3))),
@@ -563,6 +695,7 @@ def compile_semantic_brief(
             if target_material_count is not None
             else None
         ),
+        avoid=avoid,
     )
 
     request_digest = hashlib.sha256(raw.encode("utf-8")).hexdigest()
