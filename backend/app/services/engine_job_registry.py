@@ -201,7 +201,7 @@ class FormulaDesignPayloadV2(_StrictV2Payload):
     message: str = Field(min_length=1, max_length=4000)
     formula_name: str | None = Field(default=None, max_length=255)
     liquid_concentrate_ul_decimal: str = "6000"
-    max_materials: int = Field(default=30, ge=6, le=60)
+    max_materials: int = Field(default=15, ge=6, le=60)
     must_preserve: list[str] = Field(default_factory=list, max_length=24)
     must_avoid: list[str] = Field(default_factory=list, max_length=24)
     previous_stock_ids: list[str] = Field(default_factory=list, max_length=60)

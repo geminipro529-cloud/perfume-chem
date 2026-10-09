@@ -2931,11 +2931,11 @@
 - canonical_name: Ambrettolide
   aliases:
   - ambrettolide
-  cas: null
+  cas: '28645-51-4'
   smiles: null
   inchikey: null
   mw_g_mol: 252.4
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.956
   logp: 5.5
   functional_groups: []
   chirality: null
@@ -2982,6 +2982,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: 'Kenny, 2026-10-08: "My ambretteolide is neat" (data/governance/inventory_user_authority_overlay_20261008_ambrettolide_neat.json); inventory.txt line still reads 10% w/w in DPG and was left unedited because its hash binds the overlay chain and research receipts'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'PerfumersWorld product page https://www.perfumersworld.com/view.php?pro_id=4XU00034 (Kenny''s supplier): "CAS No.28645-51-4", "Oxacycloheptadec-10-en-2-one" (not the (Z)-7 isomer 123-69-3) (via material-data-firecrawl/followup-20261008/F1_densities_identity.md)'
+    density_25c_g_ml: 'ChemicalBook https://chemicalbook.com/CASEN_28645-51-4.htm: "0.956 g/mL at 25 °C(lit.)" (compilation, method not stated); PerfumersWorld lists SG 0.9490 (no temperature); TGSC gives 0.955-0.961 @25 C for the (Z)-7 isomer 123-69-3 (via material-data-firecrawl/followup-20261008/F1_densities_identity.md)'
 - canonical_name: Ambrettolide Macro
   aliases:
   - ambrettolide macro

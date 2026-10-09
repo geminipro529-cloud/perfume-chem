@@ -149,18 +149,16 @@
 - canonical_name: Ultralia
   aliases:
   - ultralia
-  cas:
+  cas: '1335-46-2'
   smiles:
   inchikey:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 192.3, corrected to 222.37)
-  mw_g_mol: 222.37
-  density_25c_g_ml:
+  mw_g_mol: 206.33
+  density_25c_g_ml: 0.9253
   logp: 2.5
   functional_groups: []
   chirality:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 0.5, corrected to 0.002)
-  vp_25c_pa: 0.002
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.817
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.002
@@ -185,8 +183,8 @@
   character:
   notes:
   provenance:
-    mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    mw_g_mol: 'C14H22O (methyl ionone, CAS 1335-46-2) from standard atomic weights = 206.33; TGSC rw1006171 gives 206.32854'
+    vp_25c_pa: 'ESTIMATE, not measured: RIFM safety assessment, Api et al., Food Chem Toxicol 134 (2019) 110716, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/1335-46-2.pdf: "0.00613 mm Hg @ 25 °C (EPI Suite)" = 0.817 Pa; same line gives 0.005 mm Hg at 20 °C (FMA Database); replaces an unsourced 0.002 Pa (via material-data-firecrawl/followup-20261008/F5_vp_irotyl_vetival_ultralia.md)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -195,6 +193,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'PerfumersWorld product page https://www.perfumersworld.com/view.php?pro_id=6II13551 (Kenny''s supplier): "CAS 1335-46-2", "1-(2,6,6- trimethyl-1-cyclohex-2-enyl)pent-1-en-3-one" (methyl ionone, mixture of isomers) (via material-data-firecrawl/followup-20261008/F1_densities_identity.md)'
+    density_25c_g_ml: 'TGSC https://thegoodscentscompany.com/data/rw1006171.html (CAS 1335-46-2): "0.92400 to 0.93200 @ 25.00 C."; midpoint 0.928 x 0.99705 g/mL (water at 25 C) = 0.9253; PerfumersWorld lists SG 0.9240 (no temperature)'
 - canonical_name: Undecavertol
   aliases:
   - undecavertol

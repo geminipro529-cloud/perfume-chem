@@ -954,11 +954,11 @@
   aliases:
   - carrot seed
   - carrot seed eo
-  cas: null
+  cas: '8015-88-1'
   smiles: null
   inchikey: null
   mw_g_mol: 220.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.9188
   logp: 3.5
   functional_groups: []
   chirality: null
@@ -992,6 +992,8 @@
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    cas: 'PerfumersWorld product page https://www.perfumersworld.com/view.php?pro_id=7IS00086 (Kenny''s supplier): "CAS 8015-88-1", "Daucus Carota - seeds"'
+    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/es1024731.html (carrot seed oil, "Steam distilled from the dried seeds of Daucus Carota"): "0.90000 to 0.94300 @ 25.00 C."; midpoint 0.9215 x 0.99705 g/mL (water at 25 C) = 0.9188; PerfumersWorld lists SG 0.9200 (no temperature); conflicts: Lebermuth 0.9418-0.9618 @25 C, Amrita 0.9450-0.9675 @20 C, Biolandes d20/20 1.000-1.040 (via material-data-firecrawl/followup-20261008/F1_densities_identity.md)'
 - canonical_name: Carrot Seed Essential Oil
   aliases: []
   cas: null
@@ -2904,6 +2906,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     user_stock_dilution: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
     user_in_inventory: inventory.txt
+    vp_25c_pa: 'UNSOURCED (kept): no measured, HSDB, ECHA or RIFM value found on 2026-10-08. Supplier figures conflict: Parchem "0.012000 mm/Hg @ 25.00 C" (1.6 Pa) vs Loba Chemie SDS "< 0.01 hPa at 25C" (< 1 Pa) and ChemicalBook "<0.01 mm Hg (25 C)" (via material-data-firecrawl/followup-20261008/F2_vapour_pressures.md)'
 - canonical_name: Cinnamyl Aldehyde
   aliases:
   - Cinnamyl aldehyde

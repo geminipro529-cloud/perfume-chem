@@ -45,7 +45,7 @@ class FormulaDesignChatCreate(LifecycleRequest):
         pattern=r"^[0-9]+(?:\.[0-9]+)?$",
         max_length=32,
     )
-    max_materials: int = Field(default=30, ge=6, le=60)
+    max_materials: int = Field(default=15, ge=6, le=60)
     design_mode: Literal["FAST_SKETCH", "DEEP_COMPOSE"] = "FAST_SKETCH"
     variant_count: int | None = Field(default=None, ge=1, le=3)
     must_preserve: tuple[NonBlank, ...] = Field(default=(), max_length=24)

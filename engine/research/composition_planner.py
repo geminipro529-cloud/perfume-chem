@@ -49,6 +49,7 @@ from engine.research.commercial_references import (
     resolve_documentary_references,
 )
 from engine.research.contracts import FALSE_ACTION_AUTHORITY, stable_payload_hash
+from engine.research.normal_use_ceilings import NormalUseCeiling, match_normal_use_ceiling
 from engine.research.request_interpretation import (
     RequestInterpretationInputV1,
     interpret_request,
@@ -1368,7 +1369,6 @@ def _hard_cap_ul(candidate: Candidate, liquid_total_ul: int) -> int | None:
     # Dose caps are identity-specific.  Profile character and synergy words
     # must never make (for example) Pink Pepper inherit Rose Oxide's cap.
     probe = _candidate_identity_probe(candidate)
-    fraction = max(Decimal("0.000001"), Decimal(str(candidate.stock.dilution)))
     active_cap_fraction: Decimal | None = None
     if "geosmin" in probe:
         active_cap_fraction = Decimal("0.0000005")  # 3 uL of a 0.1% stock in 6 mL
@@ -1406,16 +1406,42 @@ def _hard_cap_ul(candidate: Candidate, liquid_total_ul: int) -> int | None:
         active_cap_fraction = Decimal("0.01")
     if active_cap_fraction is None:
         return None
+    return _active_fraction_cap_ul(candidate, active_cap_fraction, liquid_total_ul)
+
+
+def _active_fraction_cap_ul(candidate: Candidate, active_cap_fraction: Decimal, liquid_total_ul: int) -> int:
+    fraction = max(Decimal("0.000001"), Decimal(str(candidate.stock.dilution)))
     raw_fraction = active_cap_fraction / fraction
     return max(1, int((Decimal(liquid_total_ul) * raw_fraction).to_integral_value(rounding=ROUND_FLOOR)))
 
 
+def _normal_use_ceiling(candidate: Candidate) -> NormalUseCeiling | None:
+    # Same identity-only probe as the hard caps: profile, character and
+    # synergy words never select a ceiling.
+    return match_normal_use_ceiling(_candidate_identity_probe(candidate))
+
+
+def _normal_use_ceiling_cap_ul(candidate: Candidate, liquid_total_ul: int) -> int | None:
+    ceiling = _normal_use_ceiling(candidate)
+    if ceiling is None:
+        return None
+    return _active_fraction_cap_ul(candidate, ceiling.max_active_fraction, liquid_total_ul)
+
+
 def _design_cap_ul(choice: Choice, liquid_total_ul: int) -> int | None:
-    """Return a conservative bench-design cap, never a safety limit."""
+    """Return a conservative bench-design cap, never a safety limit.
+
+    The cap is the lower of the identity hard cap (or, without one, the role
+    cap) and the material's normal-use ceiling.
+    """
 
     hard = _hard_cap_ul(choice.candidate, liquid_total_ul)
-    if hard is not None:
-        return hard
+    base = hard if hard is not None else _role_cap_ul(choice, liquid_total_ul)
+    ceiling = _normal_use_ceiling_cap_ul(choice.candidate, liquid_total_ul)
+    return base if ceiling is None else min(base, ceiling)
+
+
+def _role_cap_ul(choice: Choice, liquid_total_ul: int) -> int:
     if choice.role.max_raw_share is not None:
         return max(1, int(liquid_total_ul * choice.role.max_raw_share))
     candidate = choice.candidate
@@ -1469,6 +1495,60 @@ def _allocation_weight(choice: Choice) -> float:
     ):
         return weight * min(3.0, fraction ** -0.5)
     return weight
+
+
+def _allocate_with_bulk_fallback(
+    total: int,
+    free_rows: Sequence[tuple[int, float, int | None]],
+    choices: Sequence[Choice],
+    liquid_total_ul: int,
+    holds: list[str],
+) -> dict[int, int]:
+    """Allocate within every cap; if that cannot fill the total, release soft role caps.
+
+    Normal-use ceilings and trace caps can leave too little room.  The spare
+    space goes first to volume and structure rows, then to other rows whose
+    role has no explicit restraint share (such as a 3% contrast accent).  A
+    ceiling or trace cap is never exceeded; if no row can take the space this
+    still raises ValueError and the design is withheld.  Each row pushed past
+    its role cap is named in a ROLE_CAP_EXCEEDED_TO_FILL_TOTAL hold.
+    """
+
+    try:
+        return _allocate_capped(total, free_rows)
+    except ValueError:
+        pass
+    firm = {
+        index
+        for index, _weight, _cap in free_rows
+        if _hard_cap_ul(choices[index].candidate, liquid_total_ul) is not None
+        or _normal_use_ceiling_cap_ul(choices[index].candidate, liquid_total_ul) is not None
+    }
+
+    def releasable(index: int, stage: int) -> bool:
+        role = choices[index].role
+        if index in firm:
+            return False
+        if role.function in {"volume", "structure"}:
+            return True
+        return stage == 2 and role.max_raw_share is None
+
+    allocated: dict[int, int] = {}
+    for stage in (1, 2):
+        relaxed = [
+            (index, weight, None if releasable(index, stage) else cap)
+            for index, weight, cap in free_rows
+        ]
+        try:
+            allocated = _allocate_capped(total, relaxed)
+            break
+        except ValueError:
+            if stage == 2:
+                raise
+    for index, _weight, cap in free_rows:
+        if index not in firm and cap is not None and allocated.get(index, 0) > cap:
+            holds.append(f"ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:{choices[index].candidate.stock.stock_id}")
+    return allocated
 
 
 def _allocate_capped(total: int, weighted: Sequence[tuple[int, float, int | None]]) -> dict[int, int]:
@@ -1617,7 +1697,13 @@ def _formula_rows(
     ]
     if not free_rows and fixed_total != liquid_total_ul:
         raise ValueError("explicit liquid doses do not fill the requested liquid total")
-    allocated = _allocate_capped(liquid_total_ul - fixed_total, free_rows) if free_rows else {}
+    allocated = (
+        _allocate_with_bulk_fallback(
+            liquid_total_ul - fixed_total, free_rows, choices, liquid_total_ul, holds
+        )
+        if free_rows
+        else {}
+    )
 
     rows: list[dict[str, Any]] = []
     liquid_sum = 0
@@ -1705,6 +1791,9 @@ def _formula_rows(
                 "authority": "DESIGN_HYPOTHESIS_ONLY",
             }
         )
+        ceiling = _normal_use_ceiling(candidate)
+        if ceiling is not None:
+            rows[-1]["normal_use_ceiling_pct_of_concentrate"] = ceiling.max_active_pct_of_concentrate
     if liquid_sum != liquid_total_ul:
         raise AssertionError("liquid allocation failed exact conservation")
     return rows, {"liquid_total_ul": str(liquid_sum), "mass_total_mg": str(mass_sum)}, sorted(set(holds))

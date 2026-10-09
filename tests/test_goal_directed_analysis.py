@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 
+import engine.inventory_parser as inventory_parser
 from engine.research.goal_analysis import (
     GoalAnalysisRequestV1,
     GoalFormulaRowV1,
@@ -20,7 +23,15 @@ def _r6_rows() -> tuple[GoalFormulaRowV1, ...]:
 
 
 @pytest.mark.parametrize("strategy", ["NEW_FORMULA", "EVOLVING_BOTTLE"])
-def test_user_hold_prevents_orris_compounding_or_bottle_addition_hypotheses(strategy):
+def test_user_hold_prevents_orris_compounding_or_bottle_addition_hypotheses(
+    strategy, monkeypatch
+):
+    # The live Orris hold was lifted on 2026-10-08; test against the old record.
+    monkeypatch.setattr(
+        inventory_parser,
+        "USER_COMPOUNDING_HOLDS_PATH",
+        Path(__file__).parent / "fixtures" / "orris_liquid_hold_20261005.json",
+    )
     rows = (
         GoalFormulaRowV1("orris", "Orris Liquid", "100", "uL"),
         GoalFormulaRowV1("hedione", "Hedione", "500", "uL"),

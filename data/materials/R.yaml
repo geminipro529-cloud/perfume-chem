@@ -512,7 +512,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 270.36
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.0062
   logp: 4.56
   functional_groups: []
   chirality: null
@@ -555,6 +555,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'Relative density at 20 C, not 25 C: retailer-listed spec (MySkinRecipes, origin unstated) https://stage0.myskinrecipes.com/shop/en/musk-aroma-chemicals/3619-romandolide-musk-methyl-propionate.html: "Relative Density (20/20C) 1.005-1.011"; midpoint 1.008 x 0.99821 g/mL (water at 20 C) = 1.0062 g/mL at 20 C, used without a temperature correction (the 25 C value is about 0.4% lower); PerfumersWorld and dsm-firmenich pages give no density (via material-data-firecrawl/followup-20261008/F1_densities_identity.md)'
 - canonical_name: Root Fleuressence
   aliases: []
   cas: null
