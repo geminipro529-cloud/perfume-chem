@@ -1115,6 +1115,52 @@ _GUAIACWOOD_ENRIQUEZ_2019_CONSTITUENTS = [
     ("beta caryophyllene", 0.0058, 204.35, 1.0, 10.0, 1.2),
 ]
 
+# -- Proxy profiles, batch D (2026-10-09) --
+# Same conventions as the blocks above: labelled literature or supplier proxies,
+# reused runtime tuples, unresolved constituents kept, nothing renormalized.
+
+# Rosa x damascena Mill. oil, Bulgaria: ISO 9842 ranges as reprinted on two
+# Sanritsu certificates of analysis (N1507G25, N1507G26); the ISO edition is not
+# stated. Fractions are range midpoints, as in the caraway ISO 8896 profile.
+# beta-Phenylethanol (<3.5%) and ethanol (<2.0%) have only an upper bound, so no
+# value is invented and both stay unresolved. Citronellol reuses the 2.0 Pa row
+# (data-spine VP 2.26 Pa); geraniol and nerol reuse the module's rows. The
+# stearoptene alkanes are mass-only rows (VP 0, as the mimosa alkanes are);
+# heneicosane uses its formula mass (C21H44). Trace character odorants
+# (beta-damascenone, rose oxide, methyl eugenol) are not in the ranges and are
+# not modeled. The uncited "rose essential oil" profile is not reused.
+_ROSE_OTTO_BULGARIA_ISO_9842_MIDPOINT_CONSTITUENTS = [
+    ("citronellol", 0.27, 156.27, 2.0, 5.0, 2.0),
+    ("geraniol", 0.185, 154.25, 4.00, 2.00, 1.5),
+    ("nerol", 0.085, 154.25, 2.02, 5.00, 1.5),
+    ("nonadecane", 0.115, 268.5, 0.0, 1e6, 0.5),
+    ("heneicosane", 0.0425, 296.58, 0.0, 1e6, 0.5),
+    ("heptadecane", 0.0175, 240.5, 0.0, 1e6, 0.5),
+]
+
+# Vetiver (Chrysopogon zizanioides) oil, Haiti: Amrita certificate of analysis,
+# Organic Vetiver, lot 5101-LCAA, December 2024, GC on DB-5. Five constituents
+# are listed (50.04%). Khusimol and trans-isovalencenol reuse the existing
+# _VETIVER_EO_CONSTITUENTS rows; vetiselinenol, cyclocopacamphenol and
+# beta-vetivenene have no runtime input and stay unresolved. Vetivones and
+# khusimone are not listed, so the characteristic vetiver note is not modeled.
+_VETIVER_HAITI_AMRITA_5101_LCAA_COA_CONSTITUENTS = [
+    ("khusimol", 0.1980, 220.35, 0.001, 0.50, 0.4),
+    ("isovalencenol", 0.1488, 222.37, 0.01, 2.00, 0.5),
+]
+
+# Hay absolute. PerfumersWorld allergen declaration for SKU 8NY00523 (neat):
+# declared levels of regulated allergens only (1.7775% listed), basis not
+# stated; not a full composition. "Terpineol" (CAS 8000-41-7, an isomer
+# mixture) is mapped to the module's alpha-terpineol row. Vanillin reuses the
+# 0.005 Pa / 0.6 ppb row used by the benzoin and tonka profiles.
+_HAY_ABSOLUTE_PW_8NY00523_ALLERGEN_DECLARATION_CONSTITUENTS = [
+    ("vanillin", 0.010262, 152.15, 0.005, 0.6, 0.5),
+    ("linalyl acetate", 0.005326, 196.29, 17.5, 2.7, 2.0),
+    ("alpha terpineol", 0.001609, 154.25, 2.0, 10.0, 1.5),
+    ("coumarin", 0.000578, 146.14, 0.05, 2.0, 0.5),
+]
+
 # ── Master Registry ───────────────────────────────────────────────────
 
 _ABSOLUTE_CONSTITUENTS = {
@@ -1263,6 +1309,15 @@ _ABSOLUTE_CONSTITUENTS = {
     "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile": (
         _PERU_BALSAM_PW_2QV00363_ALLERGEN_DECLARATION_CONSTITUENTS
     ),
+    "rosa x damascena bulgarian oil iso 9842 midpoint profile": (
+        _ROSE_OTTO_BULGARIA_ISO_9842_MIDPOINT_CONSTITUENTS
+    ),
+    "chrysopogon zizanioides haiti oil amrita 5101-lcaa coa profile": (
+        _VETIVER_HAITI_AMRITA_5101_LCAA_COA_CONSTITUENTS
+    ),
+    "hay absolute perfumersworld 8ny00523 allergen declaration profile": (
+        _HAY_ABSOLUTE_PW_8NY00523_ALLERGEN_DECLARATION_CONSTITUENTS
+    ),
 }
 
 
@@ -1395,6 +1450,19 @@ _PROFILE_ALIASES = {
     "guaiacwood eo (exactly 1/3 w/w in ethanol + dep; components are 1/3 guaiacwood eo + 1/3 ethanol + 1/3 dep by mass)": (
         "bulnesia sarmientoi wood oil enriquez 2019 gc-ms profile"
     ),
+    # Owner stock "Rose Otto Bulgarian (10% in DPG)", PerfumersWorld 5RR12478;
+    # the profile is the neat oil (dilution is handled elsewhere).
+    "rose otto bulgarian": "rosa x damascena bulgarian oil iso 9842 midpoint profile",
+    "rose otto bulgarian (10% in dpg)": "rosa x damascena bulgarian oil iso 9842 midpoint profile",
+    # Owner stock "Haitian Vetiver EO (neat / as supplied)" (owner corrected the
+    # Indian-origin label 2026-09-10).
+    "haitian vetiver eo": "chrysopogon zizanioides haiti oil amrita 5101-lcaa coa profile",
+    "haitian vetiver eo (neat / as supplied)": "chrysopogon zizanioides haiti oil amrita 5101-lcaa coa profile",
+    # Owner stock "Hay Absolute (10% w/w in DPG; homogeneous)" and the V5 row
+    # "Hay Absolute 10%"; the profile is the neat absolute.
+    "hay absolute": "hay absolute perfumersworld 8ny00523 allergen declaration profile",
+    "hay absolute (10% w/w in dpg; homogeneous)": "hay absolute perfumersworld 8ny00523 allergen declaration profile",
+    "hay absolute 10%": "hay absolute perfumersworld 8ny00523 allergen declaration profile",
 }
 
 _LAVENDER_40_42_PROXY_LIMITATIONS = (
@@ -1450,6 +1518,15 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
     ),
     "guaiacwood eo": (
         "The owned Guaiacwood EO has no supplier SKU, origin or lot record; the reused composition is one published Argentine wood-oil GC-MS, not an analysis of that bottle.",
+    ),
+    "rose otto bulgarian": (
+        "The owned Rose Otto Bulgarian (PerfumersWorld 5RR12478) is modeled from ISO 9842 range midpoints reprinted on a supplier certificate, not from an analysis of that lot.",
+    ),
+    "haitian vetiver eo": (
+        "The owned Haitian Vetiver EO is modeled from one supplier lot certificate (Amrita 5101-LCAA), not from an analysis of the owned bottle.",
+    ),
+    "hay absolute": (
+        "The owned Hay Absolute is modeled from PerfumersWorld 8NY00523 declared allergen levels (about 1.8% of the absolute); the bought SKU is unverified.",
     ),
 }
 
@@ -1597,6 +1674,16 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "bulnesia sarmientoi wood oil enriquez 2019 gc-ms profile": (
         "https://www.redalyc.org/journal/428/42862466009/42862466009.pdf",
         "Enriquez M.B., Orrabalis C.J. (2019) Multequina 28:59-66, Table 1",
+    ),
+    "rosa x damascena bulgarian oil iso 9842 midpoint profile": (
+        "https://gigaplus.makeshop.jp/aromastore/images/download/N1507G25.pdf",
+        "https://gigaplus.makeshop.jp/aromastore/images/download/N1507G26.pdf",
+    ),
+    "chrysopogon zizanioides haiti oil amrita 5101-lcaa coa profile": (
+        "https://www.amrita.net/content/product_files/CoA%20-%20EO5101%20Vetiver%20%28Organic%29%20LCAA%201-2-25.pdf",
+    ),
+    "hay absolute perfumersworld 8ny00523 allergen declaration profile": (
+        "https://www.perfumersworld.com/document-list.php?pro_id=8NY00523&tab=allergen",
     ),
 }
 
@@ -2876,6 +2963,161 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "The composition is one published Argentine steam-distilled wood oil (Enriquez & Orrabalis 2019), not an analysis of the owned bottle, whose supplier, origin and lot are unknown.",
             "Table 1 lists only six main components (99.39% of relative area); GC-MS relative areas are nominal model inputs, not mass fractions.",
             "Only 1.25% of nominal composition is modeled (alpha-guaiene and beta-caryophyllene). Bulnesol, guaiol, elemol and alpha-gurjunene (98.14%) have no runtime headspace input; they remain uncomputed, not odorless, so the modeled headspace does not represent guaiacwood character.",
+        ),
+    },
+    "rosa x damascena bulgarian oil iso 9842 midpoint profile": {
+        "analytical_method": "STANDARD_CHROMATOGRAPHIC_PROFILE_RANGES",
+        "composition_basis": "SPECIFICATION_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://gigaplus.makeshop.jp/aromastore/images/download/N1507G25.pdf",
+                "document": "ISO 9842 (Rosa x damascena, Bulgaria) ranges as reprinted on Sanritsu certificates of analysis N1507G25 and N1507G26",
+                "iso_edition": None,
+                "published_botanical_name": "Rosa x damascena Mill.",
+                "published_type": "Rose oil, Bulgaria",
+                "standard_range_pct": {
+                    "citronellol": (20.0, 34.0),
+                    "nerol": (5.0, 12.0),
+                    "geraniol": (15.0, 22.0),
+                    "beta-phenylethanol": (None, 3.5),
+                    "heptadecane": (1.0, 2.5),
+                    "nonadecane": (8.0, 15.0),
+                    "heneicosane": (3.0, 5.5),
+                    "ethanol": (None, 2.0),
+                },
+                "fraction_rule": "MIDPOINT_OF_STANDARD_MIN_MAX_RANGE",
+                "upper_bound_only_rule": "NO_VALUE_INVENTED_KEPT_UNRESOLVED",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Rose Otto Bulgarian (10% in DPG)",
+                "owned_supplier_reference": "PerfumersWorld 5RR12478",
+                "owned_supplier_sku_recorded": True,
+                "profile_is_neat_oil": True,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("citronellol", "geraniol", "nerol", "nonadecane", "heptadecane")},
+            "heneicosane": {
+                "mw_status": "FORMULA_MASS_C21H44",
+                "vp_status": "MASS_ONLY_NONVOLATILE_ROW_CONVENTION",
+                "odt_status": "MASS_ONLY_NONVOLATILE_ROW_CONVENTION",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+        },
+        "unresolved_constituents": (
+            {
+                "name": "beta-phenylethanol",
+                "reported_fraction_range": (None, 0.035),
+                "missing_input": "UPPER_BOUND_ONLY_NO_NOMINAL_FRACTION",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "ethanol",
+                "reported_fraction_range": (None, 0.02),
+                "missing_input": "UPPER_BOUND_ONLY_NO_NOMINAL_FRACTION",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "beta-damascenone, rose oxide, methyl eugenol",
+                "missing_input": "NOT_IN_STANDARD_RANGES",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The ISO 9842 ranges are second-hand, reprinted on a supplier certificate of analysis whose ISO edition is unstated; midpoints describe a conforming commercial oil, not an analysis of the owned lot.",
+            "Only 71.5% of nominal composition is modeled, and 17.5% of that is non-volatile stearoptene alkanes (mass only, no headspace). beta-Phenylethanol and ethanol have upper bounds only and stay unresolved; the remainder is uncomputed, not odorless. Nothing is renormalized.",
+            "Trace character odorants (beta-damascenone, rose oxide, methyl eugenol) are not in the ranges and are not modeled, so the modeled headspace understates rose character.",
+            "This profile is separate from the uncited 'rose essential oil' profile and does not reuse it.",
+        ),
+    },
+    "chrysopogon zizanioides haiti oil amrita 5101-lcaa coa profile": {
+        "analytical_method": "SUPPLIER_CERTIFICATE_OF_ANALYSIS_GC",
+        "composition_basis": "GC_RELATIVE_AREA_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.amrita.net/content/product_files/CoA%20-%20EO5101%20Vetiver%20%28Organic%29%20LCAA%201-2-25.pdf",
+                "document": "Amrita certificate of analysis, Organic Vetiver, lot 5101-LCAA, Haiti, December 2024 (GC, DB-5)",
+                "published_type": "Vetiver root oil, Haiti",
+                "reported_pct": {
+                    "khusimol": 19.80,
+                    "trans-isovalencenol": 14.88,
+                    "vetiselinenol": 5.65,
+                    "cyclocopacamphenol": 5.41,
+                    "beta-vetivenene": 4.30,
+                },
+                "reported_sum_pct": 50.04,
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Haitian Vetiver EO (neat / as supplied)",
+                "owned_supplier_reference": None,
+                "existing_vetiver_eo_profile_verified": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("khusimol", "isovalencenol")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "vetiselinenol",
+                "reported_fraction": 0.0565,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "cyclocopacamphenol",
+                "reported_fraction": 0.0541,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "beta-vetivenene",
+                "reported_fraction": 0.0430,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The composition is a single supplier lot certificate (Amrita 5101-LCAA), not an analysis of the owned bottle, whose supplier and lot are not recorded.",
+            "Only 34.68% of nominal composition is modeled (khusimol, trans-isovalencenol); three listed constituents (15.36%) and the unlisted remainder are uncomputed, not odorless. Nothing is renormalized.",
+            "Vetivones and khusimone are not listed, so the characteristic vetiver note is not modeled.",
+            "Weyerstahl et al. (2000) Flavour Fragr. J. 15:395, 'Constituents of Haitian vetiver oil', is the existing 'vetiver eo' profile's cited paper, but its table could not be reached to verify that profile; that profile is unchanged and not reused.",
+        ),
+    },
+    "hay absolute perfumersworld 8ny00523 allergen declaration profile": {
+        "analytical_method": "SUPPLIER_ALLERGEN_DECLARATION",
+        "composition_basis": "SUPPLIER_DECLARED_CONCENTRATION_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.perfumersworld.com/document-list.php?pro_id=8NY00523&tab=allergen",
+                "document": "PerfumersWorld allergen declaration, Hay Absolute, SKU 8NY00523 (neat)",
+                "declared_pct": {
+                    "vanillin": 1.0262,
+                    "linalyl acetate": 0.5326,
+                    "terpineol (8000-41-7)": 0.1609,
+                    "coumarin": 0.0578,
+                },
+                "declared_sum_pct": 1.7775,
+                "declaration_basis_stated": False,
+                "terpineol_mapping": "ISOMER_MIXTURE_MAPPED_TO_ALPHA_TERPINEOL_ROW",
+                "fraction_rule": "DECLARED_CONCENTRATION_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Hay Absolute (10% w/w in DPG; homogeneous)",
+                "owned_bottle_sku_verified": False,
+                "candidate_skus": ("8NY00523 (neat)", "5NY12745 (sold as 10% in DPG)"),
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("vanillin", "linalyl acetate", "alpha terpineol", "coumarin")},
+        },
+        "unresolved_constituents": (),
+        "limitations": (
+            "Allergen values are supplier-declared levels of regulated allergens with no stated basis; they are not a full composition or a lot analysis.",
+            "Only 1.78% of the absolute is modeled; the undeclared 98.2% remainder is uncomputed, not odorless, so the modeled headspace does not represent hay character. Nothing is renormalized.",
+            "Terpineol is declared as the isomer mixture (CAS 8000-41-7) and is modeled with the alpha-terpineol row.",
+            "The bought SKU is ambiguous: 8NY00523 (neat absolute) or 5NY12745 (sold as 10% in DPG); the owned stock is 10% w/w in DPG.",
         ),
     },
 }
