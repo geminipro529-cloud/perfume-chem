@@ -13,7 +13,11 @@ from engine.pipeline.preflight import _dilution_consistency_check
 
 
 def _head() -> dict:
-    return json.loads(inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
+    # The v22 overlay was the current head until the 2026-10-09 Vertofix Coeur
+    # record (v23) succeeded it; these tests pin v22 itself.
+    return json.loads(
+        inventory.E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8")
+    )
 
 
 def _stocks(identity_name: str):
@@ -40,11 +44,13 @@ def _check(name: str, fraction: float, basis: str, carrier: str):
     )
 
 
-def test_v22_is_current_and_pinned_to_v21_and_live_inventory() -> None:
-    path = inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH
+def test_v22_is_pinned_to_v21_and_live_inventory() -> None:
+    path = inventory.E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_OVERLAY_PATH
     assert path.name == "inventory_user_authority_overlay_20261008_e2mb_osmanthus_mimosa.json"
     normalized = path.read_bytes().replace(b"\r\n", b"\n")
-    assert hashlib.sha256(normalized).hexdigest() == inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256
+    assert hashlib.sha256(normalized).hexdigest() == (
+        inventory.E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_OVERLAY_SHA256
+    )
     head = _head()
     assert head["schema_version"].endswith("_v22")
     assert head["predecessor"]["normalized_text_sha256"] == (
@@ -62,7 +68,9 @@ def test_v22_is_current_and_pinned_to_v21_and_live_inventory() -> None:
 
 
 def test_superseded_osmanthus_and_mimosa_records_are_retired() -> None:
-    overlay = inventory.load_current_user_inventory_overlay()
+    overlay = inventory.load_current_user_inventory_overlay(
+        inventory.E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_OVERLAY_PATH
+    )
     live = {r["record_id"] for r in overlay["records"]}
     retired = {r["record_id"] for r in overlay["retired_records"]}
     for record_id in ("INV-USER-20260828-006", "INV-USER-20260924-R5-011"):

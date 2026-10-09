@@ -56,11 +56,11 @@ def test_current_overlay_is_pinned_to_live_inventory_and_receipts() -> None:
     normalized = overlay_path.read_bytes().replace(b"\r\n", b"\n")
     assert hashlib.sha256(normalized).hexdigest() == inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256
     payload = inventory.load_current_user_inventory_overlay()
-    # 2026-10-08: the E2MB/Osmanthus/Mimosa record (v22, five records) is the head.
-    assert payload["schema_version"].endswith("_v22")
-    assert len(payload["delta_records"]) == 5
+    # 2026-10-09: the Vertofix Coeur record (v23, one record) is the head.
+    assert payload["schema_version"].endswith("_v23")
+    assert len(payload["delta_records"]) == 1
     assert payload["predecessor"]["normalized_text_sha256"] == (
-        inventory.AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_SHA256
+        inventory.E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_OVERLAY_SHA256
     )
 
 

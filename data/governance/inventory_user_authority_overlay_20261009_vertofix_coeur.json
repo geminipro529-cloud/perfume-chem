@@ -1,0 +1,80 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v23",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-10-09",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20261008_e2mb_osmanthus_mimosa.json",
+    "normalized_text_sha256": "88f10b4bab667ff96822f8365d735a2e28af20e1a0feae4cc254958635c52741"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 35704,
+    "inventory_text_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "source_kind": "DIRECT_USER_MESSAGE",
+    "user": "Kenny",
+    "message_date": "2026-10-09",
+    "verbatim_user_statement": "There's both",
+    "question": "Is your Vertofix bottle actually Vertofix Coeur? Its label reads \"Vertofix Couer\".",
+    "question_date": "2026-10-08"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "v5_row_242_plain_vertofix_stock_unchanged": true,
+    "plain_vertofix_and_vertofix_coeur_are_separate_stocks": true,
+    "pw_receipt_line_7_belongs_to_vertofix_coeur_stock": true,
+    "pw_receipt_line_7_is_not_a_plain_vertofix_restock": true,
+    "inventory_text_line_not_edited": true,
+    "historical_formula_records_unchanged": true,
+    "formula_rebase_authorized": false,
+    "compounding_authorized": false,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [],
+  "records": [
+    {
+      "record_id": "INV-USER-20261009-VTXC-001",
+      "canonical_name": "Vertofix Coeur",
+      "aliases": [
+        "Vertofix Couer"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": false,
+        "execution_hold_reason": "STOCK_INTAKE_IDENTITY_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Vertofix Couer",
+        "sku": "3WY00465"
+      },
+      "received_quantity_g": "5",
+      "receipt_line": 7,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-09",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "separate_from_v5_row_242_vertofix": true,
+        "plain_vertofix_stock_changed": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny, asked whether his Vertofix bottle is actually Vertofix Coeur (label 'Vertofix Couer', the supplier's misspelling): 'There's both'. The 5 g PerfumersWorld bottle (SKU 3WY00465, receipt line 7 of the 2026-10-07 order) is this Vertofix Coeur stock, not a restock of the plain Vertofix on V5 row 242, which stays as it was. Like the other new bottles on that receipt it is held for intake until its details are confirmed."
+    }
+  ]
+}
