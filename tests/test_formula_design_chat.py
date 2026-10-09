@@ -1009,9 +1009,11 @@ def test_formula_design_base_layers_never_reach_an_ifra_limit() -> None:
 
 
 def test_formula_design_builds_each_requested_note_as_an_accord() -> None:
+    # Two supports per note need room beyond the 15-material default.
     result = design_inventory_formula(
         idea="A warm woody amber for evening",
         formula_name="Evening Amber",
+        max_materials=30,
     )
 
     rows = {row["slot"]: row for row in result["optimized_formula"]["rows"]}

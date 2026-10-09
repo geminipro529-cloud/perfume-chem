@@ -15,7 +15,9 @@ def _design(
     idea: str,
     formula_name: str,
     must_avoid: tuple[str, ...] = (),
-    max_materials: int | None = None,
+    # Every register layered with accents needs room beyond the 15-material
+    # default; the tight-limit case passes 15 itself.
+    max_materials: int | None = 30,
 ) -> dict:
     kwargs: dict = {"idea": idea, "formula_name": formula_name}
     if must_avoid:

@@ -17,6 +17,12 @@ ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "tests" / "fixtures" / "normal_use_ceilings_fixture_v1.json"
 CHYPRE_IDEA = "a panoramic, exceptionally detailed modern chypre with rose, patchouli and oakmoss"
 CHYPRE_NAME = "Panoramic Chypre"
+# Composer-added roles skip IFRA-binding stock, so the damascone ceiling is
+# exercised through a brief that names the material.
+NAMED_DAMASCONE_IDEA = (
+    "a panoramic, exceptionally detailed modern chypre with rose, patchouli, "
+    "oakmoss and alpha damascone"
+)
 CEILING_KEY = "normal_use_ceiling_pct_of_concentrate"
 
 
@@ -220,7 +226,7 @@ def _rows(result: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def test_chypre_alpha_damascone_respects_fixture_ceiling(fixture_ceilings: None) -> None:
-    result = design_inventory_formula(idea=CHYPRE_IDEA, formula_name=CHYPRE_NAME)
+    result = design_inventory_formula(idea=NAMED_DAMASCONE_IDEA, formula_name=CHYPRE_NAME)
     formula = result["optimized_formula"]
     liquid_total = Decimal(formula["separate_totals"]["liquid_total_ul"])
     assert liquid_total == 6000
@@ -274,7 +280,7 @@ def test_shipped_ceilings_cap_iris_and_bulk_rows_take_the_spare_space() -> None:
 
 
 def test_shipped_ceilings_hold_chypre_rose_ketones_at_the_ifra_derived_level() -> None:
-    result = design_inventory_formula(idea=CHYPRE_IDEA, formula_name=CHYPRE_NAME)
+    result = design_inventory_formula(idea=NAMED_DAMASCONE_IDEA, formula_name=CHYPRE_NAME)
     rows = _rows(result)
     liquid_total = Decimal(result["optimized_formula"]["separate_totals"]["liquid_total_ul"])
     ketones = [row for row in rows if "damascone" in row["material"].casefold()]
