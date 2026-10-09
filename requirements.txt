@@ -17,6 +17,17 @@ pandas>=2.0.0
 requests>=2.31.0
 psutil>=5.9.0
 
+# Imported by engine/ and scripts/ (bounds = versions installed when this was added;
+# packages with no bound were not installed in that environment)
+scipy
+PyYAML>=6.0.1
+openpyxl>=3.1.5
+rdkit
+scikit-learn
+SQLAlchemy
+matplotlib
+mcp>=2.2.0
+
 # Optimizer & knowledge retrieval engine
 sentence-transformers>=2.2.0
 faiss-cpu>=1.7.0

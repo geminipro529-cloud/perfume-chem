@@ -133,6 +133,23 @@ def test_flip_material_turns_unpleasant_when_strong(table):
     assert weak.value == pytest.approx(entry["value"])
 
 
+def test_flip_material_without_a_base_value_is_unpleasant_only_when_strong(table):
+    entry = table["materials"]["Cade Oil Rectified"]
+    assert entry["value"] is None
+    assert entry["dose_points"] == {"weak": None, "strong": -0.4}
+    assert entry["dose_source"] == "heuristic_unmeasured"
+    strong = pt.crowd_pleasantness("Cade Oil Rectified (1% in DPG)", strength_share=0.3)
+    assert strong is not None
+    assert strong.value == -0.4
+    assert strong.source == "heuristic_unmeasured"
+    assert strong.confidence == "low"
+    assert strong.dose_dependent
+    assert pt.crowd_pleasantness("Cade Oil Rectified", strength_share=0.05) is None
+    assert pt.crowd_pleasantness("Cade Oil Rectified", strength_share=0.24) is None
+    assert pt.crowd_pleasantness("Cade Oil Rectified") is None
+    assert pt.crowd_pleasantness("Skatole", strength_share=0.25).value == -0.4
+
+
 def test_dose_rule_is_linear_between_thresholds(table):
     points = table["materials"]["Vanillin"]["dose_points"]
     mid = pt.crowd_pleasantness("Vanillin", strength_share=0.175).value

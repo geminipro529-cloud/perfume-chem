@@ -1,14 +1,29 @@
 """Tests for the knowledge-base query APIs.
 
 Covers both ``engine.knowledge_base`` (material queries) and
-``engine.kb_rules_api`` (rules queries) against the live SQLite
-database at ``data/perfumery_kb.db``.
+``engine.kb_rules_api`` (rules queries) against a SQLite knowledge
+base built from this checkout's sources (the ``perfumery_kb`` fixture in
+``tests/conftest.py``), never the gitignored ``data/perfumery_kb.db``.
 """
 
 from __future__ import annotations
 
+from pathlib import Path
+
+import pytest
+
 from engine import kb_rules_api as rules
 from engine import knowledge_base as kb
+
+pytestmark = pytest.mark.usefixtures("perfumery_kb")
+
+_REPOSITORY_DATABASE = Path(__file__).resolve().parents[1] / "data" / "perfumery_kb.db"
+
+
+def test_queries_read_the_session_built_database(perfumery_kb: Path) -> None:
+    for module in (kb, rules):
+        assert module._DB_PATH == perfumery_kb
+        assert module._DB_PATH.resolve() != _REPOSITORY_DATABASE.resolve()
 
 
 def test_query_connections_are_explicitly_read_only() -> None:
@@ -26,11 +41,11 @@ class TestGetMaterial:
     """Tests for ``knowledge_base.get_material``."""
 
     def test_get_material_hedione(self) -> None:
-        """Hedione must exist with correct VP."""
+        """Hedione must exist with the cited data-spine VP (EP 3141239 B1)."""
         mat = kb.get_material("Hedione")
         assert mat is not None
         assert mat["canonical_name"] == "Hedione"
-        assert mat["vp_25c_pa"] == 0.21
+        assert mat["vp_25c_pa"] == 0.09466
 
     def test_get_material_none(self) -> None:
         """Unknown material returns None."""
@@ -76,9 +91,9 @@ class TestGetMaterialVp:
     """Tests for ``knowledge_base.get_material_vp``."""
 
     def test_hedione_vp(self) -> None:
-        """Hedione VP must be 0.21."""
+        """Hedione VP is the cited data-spine value: 0.000710 Torr = 0.09466 Pa."""
         vp = kb.get_material_vp("Hedione")
-        assert vp == 0.21
+        assert vp == 0.09466
 
     def test_unknown_returns_none(self) -> None:
         """Unknown material returns None."""

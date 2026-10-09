@@ -19,11 +19,8 @@ class MaterialRule:
     material_names: tuple[str, ...]
     """Normalized names to match (OR logic — any match triggers)."""
 
-    dose_threshold_ul: float = 0
-    """Minimum dose (raw µL) to trigger. 0 means any dose."""
-
     active_threshold_ul: float = 0
-    """Minimum active µL to trigger. 0 means any dose."""
+    """Minimum active µL (raw µL x stock dilution) to trigger. 0 means any dose."""
 
     oav_threshold: float = 0
     """Minimum OAV to trigger. 0 means any OAV."""
@@ -40,6 +37,12 @@ class MaterialRule:
     reason: str = ""
     """Why this material is problematic in this context."""
 
+    stock_basis: str = ""
+    """Which stock the active threshold was converted from."""
+
+    campaign_id: str = ""
+    """When set, the rule fires only for a scan given this exact campaign id."""
+
 
 @dataclass(frozen=True, slots=True)
 class CombinationRule:
@@ -54,6 +57,9 @@ class CombinationRule:
     min_count: int = 0
     """Minimum number from the tuple that must be present. 0 = all."""
 
+    count_once: tuple[tuple[str, ...], ...] = ()
+    """Groups of variant names (e.g. two cedarwood oils) that count once toward min_count."""
+
     context: str = ""
     """When this combination is problematic (e.g. 'in non-chypre formula')."""
 
@@ -61,13 +67,16 @@ class CombinationRule:
     """What happens when this combination is present."""
 
     severity: str = "high"
-    """'catastrophic', 'high', 'moderate', 'low'."""
+    """'catastrophic', 'high', 'warn', 'moderate', 'low'."""
 
     recommendation: str = ""
     """What to do about it."""
 
     fuckup_reference: str = ""
     """ID of the fuckup entry that taught us this rule."""
+
+    campaign_id: str = ""
+    """When set, the rule fires only for a scan given this exact campaign id."""
 
 
 @dataclass(frozen=True, slots=True)
@@ -76,11 +85,8 @@ class DoseRule:
 
     material_name: str
 
-    max_dose_ul: float = 0
-    """Maximum safe dose in raw µL. 0 = no limit."""
-
     max_active_ul: float = 0
-    """Maximum safe dose in active µL. 0 = no limit."""
+    """Maximum dose in active µL (raw µL x stock dilution). 0 = no limit."""
 
     max_oav: float = 0
     """Maximum safe OAV. 0 = no limit."""
@@ -97,83 +103,122 @@ class DoseRule:
 
     fuckup_reference: str = ""
 
+    stock_basis: str = ""
+    """Which stock the active ceiling was converted from."""
+
+    campaign_id: str = ""
+    """When set, the rule fires only for a scan given this exact campaign id."""
+
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PATTERN REGISTRY — learned from historical fuckups
 # ═══════════════════════════════════════════════════════════════════════════════
 
+CASSIS_IRIS_SMOKE_CAMPAIGN_ID = "cassis_iris_smoke_2026-07-05"
+"""Every rule below was learned from this one formula (formulas/Cassis_Iris_Smoke_30mL_EdP.md).
+
+The rules fire only when a scan names this exact campaign. Outside it they stay
+silent: one bottle does not establish a genre ban for other briefs.
+"""
+
+_ONE_BOTTLE = "This lesson comes from one bottle (Cassis Iris Smoke) and is not a general ban."
+
+
+def compare_without(*names: str) -> str:
+    joined = " + ".join(names)
+    return (
+        f"Compare the formula with and without {joined} (an omission comparison "
+        f"against the unchanged control) before changing the dose. {_ONE_BOTTLE}"
+    )
+
+
+def _compare_at_ceiling(name: str, ceiling_active_ul: float) -> str:
+    return (
+        f"Compare the formula with and without {name}, and with {name} held at "
+        f"≤{ceiling_active_ul:g} µL active, before changing it. {_ONE_BOTTLE}"
+    )
+
+
 # -- Material rules: single-material out-of-context detectors --
+# Thresholds are active µL. The Cassis Iris Smoke formula dosed Juniper, Orivone,
+# Petitgrain and Nagarmotha neat and Geosmin as 0.1% in TEC.
 
 MATERIAL_RULES: tuple[MaterialRule, ...] = (
     MaterialRule(
         material_names=("juniper berry eo",),
-        dose_threshold_ul=30,
-        forbidden_in_contexts=("aventus", "fruity chypre", "modern chypre"),
+        active_threshold_ul=30,
+        stock_basis="30 µL of the neat oil (Cassis Iris Smoke used 50 µL neat).",
         reason=(
             "Juniper Berry EO is a powerful aromatic-coniferous material (VP=65 Pa). "
-            "At >30 µL it creates a gin-juniper opening that dominates the top note. "
-            "This is appropriate for aromatic fougères but can collide with Aventus-style "
-            "architecture where bergamot and blackcurrant must remain the opening articulation. "
-            "At 50 µL neat, it produced OAV 1,936 — the third-strongest material in the formula."
+            "In Cassis Iris Smoke, 50 µL neat gave a gin-juniper opening that dominated the top "
+            "(OAV 1,936, the third-strongest material in the formula) and competed with the "
+            "bergamot-blackcurrant opening that brief wanted."
         ),
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
     MaterialRule(
         material_names=("orivone",),
-        dose_threshold_ul=20,
+        active_threshold_ul=20,
         oav_threshold=300,
-        forbidden_in_contexts=("aventus", "fruity", "modern chypre", "non-iris"),
+        stock_basis="20 µL of neat Orivone (Cassis Iris Smoke used 30 µL neat).",
         reason=(
-            "Orivone at VP=8.6 Pa functions as a top-to-heart orris note. Above 20 µL, "
-            "it creates a warm, buttery, slightly fungal 'old perfume' character that reads "
-            "as classical pre-modern perfumery (1880-1920 era). This directly contradicts "
-            "modern fruity chypre character where orris should be absent or at trace only."
+            "Orivone at VP=8.6 Pa reaches the top and heart. In Cassis Iris Smoke, 30 µL neat "
+            "(OAV 833) read as warm, buttery, slightly fungal orris and pulled that formula "
+            "toward a classical register its brief did not want."
         ),
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
     MaterialRule(
         material_names=("petitgrain eo paraguay", "petitgrain eo"),
-        dose_threshold_ul=60,
-        forbidden_in_contexts=("aventus", "fruity chypre"),
+        active_threshold_ul=60,
+        stock_basis="60 µL of the neat oil (Cassis Iris Smoke used 80 µL neat).",
         reason=(
-            "Petitgrain at >60 µL adds bitter-green-neroli character. Combined with juniper "
-            "or other aromatic materials, it creates an aromatic-chypre opening (fougère-era style) "
-            "instead of the bergamot-blackcurrant opening expected in this Aventus architecture."
+            "In Cassis Iris Smoke, 80 µL neat Petitgrain added a bitter-green-neroli bite that, "
+            "with Juniper, gave an aromatic opening instead of the bergamot-blackcurrant "
+            "opening that brief wanted."
         ),
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
     MaterialRule(
         material_names=("nagarmotha oil", "nagarmortha oil", "cypriol eo"),
-        dose_threshold_ul=100,
+        active_threshold_ul=100,
         forbidden_when_present=("birch tar rectified", "cade oil rectified"),
+        stock_basis="100 µL of the neat oil (Cassis Iris Smoke used 200 µL neat).",
         reason=(
-            "Nagarmotha at >100 µL as a 'smoke' substitute creates earthy-musty character "
-            "(cypriol/oud-adjacent) rather than sharp smoky. It lacks the oily-leather bite "
-            "of birch tar or the dry-ashy character of cade. The earthy quality collides with "
-            "modern chypre expectations."
+            "In Cassis Iris Smoke, 200 µL neat Nagarmotha used as a smoke substitute read "
+            "earthy-musty (cypriol/oud-adjacent) rather than sharp smoky, alongside the "
+            "birch tar or cade smoke."
         ),
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
     MaterialRule(
         material_names=("alpha irone",),
         active_threshold_ul=30,
-        forbidden_in_contexts=("aventus", "non-iris"),
+        stock_basis="30 µL active (Cassis Iris Smoke used 200 µL of 30% = 60 µL active).",
         reason=(
-            "Alpha Irone at >30 µL active creates a soliflore-level iris statement. "
-            "Iris fundamentally re-routes any fragrance away from fruity chypre territory. "
-            "Aventus has zero iris — any detectable iris contradicts the reference."
+            "In Cassis Iris Smoke, 60 µL active Alpha Irone, with Orivone, Ultralia and Beta "
+            "Ionone, gave a soliflore-level iris heart that pulled that formula away from the "
+            "fruity Aventus-adjacent direction its brief named."
         ),
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
     MaterialRule(
         material_names=("geosmin",),
-        dose_threshold_ul=5,
-        forbidden_in_contexts=("aventus", "fruity", "modern"),
-        reason=(
-            "Geosmin at >5 µL (of 0.1%) creates petrichor/rain-on-earth character. "
-            "This damp-earth quality belongs in naturalistic earth accords, not modern "
-            "fruity chypre. It adds an 'old cellar' quality contradicted by Aventus DNA."
+        active_threshold_ul=0.005,
+        stock_basis=(
+            "0.005 µL active geosmin = 5 µL of the 0.1% in TEC stock the rule was written for "
+            "(= 0.5 µL of the 1% in TEC stock)."
         ),
+        reason=(
+            "In Cassis Iris Smoke, Geosmin (15 µL of 0.1% in TEC) gave a damp petrichor / "
+            "rain-on-earth quality that read as 'old cellar' against that formula's fruity brief."
+        ),
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
 )
 
 
-# -- Combination rules: material clusters that together create genre drift --
+# -- Combination rules: material clusters that pulled the Cassis Iris Smoke formula off its brief --
 
 COMBINATION_RULES: tuple[CombinationRule, ...] = (
     CombinationRule(
@@ -186,22 +231,18 @@ COMBINATION_RULES: tuple[CombinationRule, ...] = (
             "cedarwood oil virginia",
         ),
         min_count=3,
-        context="in non-chypre formula claiming Aventus/modern DNA",
+        count_once=(("cedarwood eo", "cedarwood oil virginia"),),
         effect=(
-            "Oakmoss + labdanum + vetiver + cedar = the classical chypre base skeleton. "
-            "This four-material foundation dates to Coty's Chypre (1917) and creates "
-            "an unmistakably classical mossy-leathery-woody drydown. When present in a "
-            "formula claiming Aventus DNA (which has a modern ambrox-musk base), the "
-            "chypre skeleton pulls the fragrance toward 1880-1920 territory."
+            "Oakmoss + labdanum + vetiver + cedar is the classical chypre base skeleton "
+            "(Coty's Chypre, 1917). Cedarwood variants count once, so at least three of "
+            "moss, labdanum, vetiver and cedar must be present. In Cassis Iris Smoke this "
+            "skeleton gave a classical mossy-leathery-woody drydown that pulled the formula "
+            "away from the newer Aventus-adjacent direction its brief named."
         ),
-        severity="catastrophic",
-        recommendation=(
-            "Replace the chypre skeleton with a modern base: "
-            "Ambrofix + Cashmeran + Clearwood + Romandolide. "
-            "If moss character is needed, use Evernyl at trace (5-10 µL neat) instead of Oakmoss Absolute. "
-            "If leather is needed, use Suederal (10%) at 20-30 µL instead of IBQ + Labdanum."
-        ),
-        fuckup_reference="cassis_iris_smoke_2026-07-05",
+        severity="warn",
+        recommendation=compare_without("the moss-labdanum-vetiver-cedar base block"),
+        fuckup_reference=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
     CombinationRule(
         name="aromatic_green_opening",
@@ -214,20 +255,16 @@ COMBINATION_RULES: tuple[CombinationRule, ...] = (
             "galbanum resinoid",
         ),
         min_count=2,
-        context="in fruity chypre / Aventus-adjacent formula",
+        count_once=(("petitgrain eo paraguay", "petitgrain eo"),),
         effect=(
-            "Two or more aromatic-green materials (juniper, petitgrain, cardamom, galbanum) "
-            "in the top create an aromatic-fougère opening. This combination is excellent for "
-            "aromatic fougères (Fougère Royale, 1882) but can obscure the bergamot-blackcurrant "
-            "opening and the dry-wood/smoky-base continuity required here."
+            "In Cassis Iris Smoke, two or more aromatic-green materials (juniper, petitgrain, "
+            "cardamom, galbanum) in the top gave an aromatic-fougère opening that obscured "
+            "the bergamot-blackcurrant opening that brief wanted."
         ),
-        severity="catastrophic",
-        recommendation=(
-            "For this Aventus target, make Bergamot and Blackcurrant the primary head. If pineapple "
-            "is used, keep it a secondary heart-reaching accent. Set raw doses only after stock-specific "
-            "ppm, ODT, composite-natural OAV, and OAV-per-time preflight."
-        ),
-        fuckup_reference="cassis_iris_smoke_2026-07-05",
+        severity="warn",
+        recommendation=compare_without("the aromatic-green top materials"),
+        fuckup_reference=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
     CombinationRule(
         name="iris_soliflore_collision",
@@ -241,22 +278,15 @@ COMBINATION_RULES: tuple[CombinationRule, ...] = (
             "irotyl",
         ),
         min_count=3,
-        context="in non-iris formula",
         effect=(
-            "Three or more iris materials create a soliflore-level iris heart. "
-            "Iris (cold, buttery, powdery, orris) is one of the most distinctive and "
-            "genre-defining registers in perfumery. It cannot coexist with fruity chypre "
-            "(Aventus DNA) — the registers collide and iris wins because ionones/irones "
-            "are more tenacious than fruit esters."
+            "In Cassis Iris Smoke, three or more iris materials gave a soliflore-level iris "
+            "heart (cold, buttery, powdery) that outlasted the fruit top and pulled that "
+            "formula away from the fruity direction its brief named."
         ),
-        severity="high",
-        recommendation=(
-            "If iris is wanted as a subtle accent, use only ONE iris material at ≤20 µL "
-            "(e.g. Beta Ionone 1% at 20 µL for violet-leaf rounding, or Ultralia at 10 µL "
-            "for ghost powder). Remove Alpha Irone, Orivone, and other iris materials entirely "
-            "unless the formula is explicitly an iris fragrance."
-        ),
-        fuckup_reference="cassis_iris_smoke_2026-07-05",
+        severity="warn",
+        recommendation=compare_without("the iris block"),
+        fuckup_reference=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
     CombinationRule(
         name="missing_aventus_dna",
@@ -268,107 +298,118 @@ COMBINATION_RULES: tuple[CombinationRule, ...] = (
             "clearwood",
         ),
         min_count=0,
-        context="when formula design brief mentions Aventus",
         effect=(
-            "The formula claims Aventus DNA but lacks a coherent architecture: a primary "
-            "bergamot-blackcurrant head, controlled pepper-jasmine and secondary pineapple bridge, "
-            "cross-layer dry-wood/musk continuity, and smoky-birch/patchouli/musk base."
+            "Cassis Iris Smoke named Aventus as its direction but lacked a coherent architecture: "
+            "a primary bergamot-blackcurrant head, controlled pepper-jasmine and secondary "
+            "pineapple bridge, cross-layer dry-wood/musk continuity, and smoky-birch/patchouli/"
+            "musk base."
         ),
-        severity="high",
+        severity="warn",
         recommendation=(
             "Preserve the role hierarchy rather than forcing fixed materials or doses. In the "
             "current inventory, Birch Tar is excluded because its live row is marked prohibited; "
-            "any Cade/Suederal smoke-leather mapping is explicitly non-equivalent. Use one precise "
-            "musk by default and require a distinct role plus an omission test for any second musk."
+            "any Cade/Suederal smoke-leather mapping is explicitly non-equivalent. "
+            + compare_without("each candidate role material")
         ),
-        fuckup_reference="cassis_iris_smoke_2026-07-05",
+        fuckup_reference=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
     CombinationRule(
         name="earth_smoke_mismatch",
         materials=("nagarmotha oil", "guaiacol"),
         min_count=2,
-        context="when formula intends smoky character without birch tar",
         effect=(
-            "Nagarmotha (earthy-musty) + Guaiacol (clean phenolic) creates a damp-earth "
-            "smoke character rather than the sharp, oily, leather-smoke of birch tar. "
-            "This combination pulls toward classical chypre or oud territory."
+            "In Cassis Iris Smoke, Nagarmotha (earthy-musty) + Guaiacol (clean phenolic) gave "
+            "a damp-earth smoke rather than the sharp, oily, leather-smoke of birch tar."
         ),
-        severity="moderate",
+        severity="warn",
         recommendation=(
-            "For the current-inventory projection, do not use Birch Tar because the live inventory "
-            "marks it prohibited. Treat Cade Oil Rectified 1% and Suederal as separate, non-equivalent "
-            "smoke and suede hypotheses; determine any dose only through the pre-mix/OAV/safety gates."
+            "Do not use Birch Tar because the live inventory marks it prohibited. "
+            + compare_without("Nagarmotha", "Guaiacol")
         ),
-        fuckup_reference="cassis_iris_smoke_2026-07-05",
+        fuckup_reference=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
 )
 
 
-# -- Dose rules: material-specific ceilings by context --
+# -- Dose rules: active-µL ceilings learned from the Cassis Iris Smoke formula --
+# Each ceiling is active µL (raw µL x the row's stock dilution). The stock basis
+# says which stock the original raw number was written for.
 
 DOSE_RULES: tuple[DoseRule, ...] = (
     DoseRule(
         material_name="juniper berry eo",
-        max_dose_ul=30,
-        context="in non-fougère, non-aromatic formula",
-        effect="Gin-coniferous opening dominates top note (OAV >1,000 at 50 µL).",
-        severity="high",
-        recommendation="Reduce to ≤20 µL or remove entirely in fruity/modern contexts.",
-        fuckup_reference="cassis_iris_smoke_2026-07-05",
+        max_active_ul=30,
+        stock_basis="Written as 30 µL of the neat oil; Cassis Iris Smoke used 50 µL neat.",
+        effect="Gin-coniferous opening dominated the top note (OAV >1,000 at 50 µL neat).",
+        severity="warn",
+        recommendation=_compare_at_ceiling("Juniper Berry EO", 30),
+        fuckup_reference=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
     DoseRule(
         material_name="orivone",
-        max_dose_ul=15,
-        context="in non-iris formula",
-        effect="Buttery orris character reads as 'old perfume' (1880-1920 era).",
-        severity="high",
-        recommendation="Reduce to ≤10 µL or replace with Ultralia at 5-10 µL for ghost iris.",
-        fuckup_reference="cassis_iris_smoke_2026-07-05",
+        max_active_ul=15,
+        stock_basis="Written as 15 µL of neat Orivone; Cassis Iris Smoke used 30 µL neat.",
+        effect="Buttery orris read as an older, classical register in that formula.",
+        severity="warn",
+        recommendation=_compare_at_ceiling("Orivone", 15),
+        fuckup_reference=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
     DoseRule(
         material_name="petitgrain eo paraguay",
-        max_dose_ul=40,
-        context="in fruity chypre / Aventus-adjacent formula",
-        effect="Bitter-green-neroli top contradicts fruity character.",
-        severity="moderate",
-        recommendation="Reduce to ≤20 µL. Use Bergamot FCF for citrus body instead.",
-        fuckup_reference="cassis_iris_smoke_2026-07-05",
+        max_active_ul=40,
+        stock_basis="Written as 40 µL of the neat oil; Cassis Iris Smoke used 80 µL neat.",
+        effect="Bitter-green-neroli top competed with the fruity opening that brief wanted.",
+        severity="warn",
+        recommendation=_compare_at_ceiling("Petitgrain EO Paraguay", 40),
+        fuckup_reference=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
     DoseRule(
         material_name="alpha irone",
         max_active_ul=20,
-        context="in non-iris formula",
-        effect="Soliflore-level iris creates genre collision with non-iris brief.",
-        severity="high",
-        recommendation="Reduce active dose to ≤10 µL or remove. Use Beta Ionone 1% at trace for rounding.",
-        fuckup_reference="cassis_iris_smoke_2026-07-05",
+        stock_basis="Written in active µL; Cassis Iris Smoke used 200 µL of 30% = 60 µL active.",
+        effect="Soliflore-level iris pulled that formula away from its fruity brief.",
+        severity="warn",
+        recommendation=_compare_at_ceiling("Alpha Irone", 20),
+        fuckup_reference=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
     DoseRule(
         material_name="nagarmotha oil",
-        max_dose_ul=80,
-        context="in non-oud, non-classical formula",
-        effect="Earthy-musty character contradicts modern/transparent contexts.",
-        severity="moderate",
-        recommendation="Reduce to ≤50 µL or replace with Cade Oil Rectified 1% for smoke.",
-        fuckup_reference="cassis_iris_smoke_2026-07-05",
+        max_active_ul=80,
+        stock_basis="Written as 80 µL of the neat oil; Cassis Iris Smoke used 200 µL neat.",
+        effect="Earthy-musty character in place of the intended smoke.",
+        severity="warn",
+        recommendation=_compare_at_ceiling("Nagarmotha Oil", 80),
+        fuckup_reference=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
     DoseRule(
         material_name="geosmin",
-        max_dose_ul=5,
-        context="universal",
-        effect="Petrichor adds 'damp cellar' quality to any composition.",
-        severity="low",
-        recommendation="Keep at 2-5 µL of 0.1%. At ODT 6 ppt, even trace doses are perceptible.",
-        fuckup_reference="cassis_iris_smoke_2026-07-05",
+        max_active_ul=0.005,
+        stock_basis=(
+            "Written as 5 µL of the 0.1% in TEC stock = 0.005 µL active "
+            "(= 0.5 µL of the 1% in TEC stock); Cassis Iris Smoke used 15 µL of 0.1%."
+        ),
+        effect="Petrichor added a 'damp cellar' quality. At ODT 6 ppt, even trace doses are perceptible.",
+        severity="warn",
+        recommendation=_compare_at_ceiling("Geosmin", 0.005),
+        fuckup_reference=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
     DoseRule(
         material_name="cassis base 345b",
-        max_dose_ul=30,
-        context="in non-cassis-forward formula",
-        effect="Sulfury blackcurrant dominates at OAV >2,000, persisting through drydown.",
-        severity="moderate",
-        recommendation="If cassis is not the star, reduce to ≤20 µL. Supplement with Paradisamide 10% for softer fruit.",
-        fuckup_reference="cassis_iris_smoke_2026-07-05",
+        max_active_ul=30,
+        stock_basis="Written as 30 µL of the neat base; Cassis Iris Smoke used 50 µL neat.",
+        effect="Sulfury blackcurrant dominated at OAV >2,000 and persisted through the drydown.",
+        severity="warn",
+        recommendation=_compare_at_ceiling("Cassis Base 345B", 30),
+        fuckup_reference=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
+        campaign_id=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
     ),
 )
 

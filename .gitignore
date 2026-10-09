@@ -120,6 +120,11 @@ tmp/
 *.tmp
 *.crdownload
 *.bak
+# Timestamped config backups (e.g. .codex/config.toml.bak-20260728-115815).
+*.bak-*
+# Tunnel logs name the public tunnel hosts.
+cloudflared*.log
+cloudflared*.log.*
 
 
 # Scratch backups (codex test-time isolation)

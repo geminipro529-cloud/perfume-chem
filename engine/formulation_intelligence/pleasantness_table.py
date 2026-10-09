@@ -328,6 +328,10 @@ def build_crowd_table(keller_stimuli_path: str) -> dict:
         if entry["value"] is not None and keller is None and any(t in name.casefold() for t in FLIP_TOKENS):
             entry["dose_points"] = {"weak": entry["value"], "strong": min(entry["value"], FLIP_STRONG_CEILING)}
             entry["dose_source"] = "heuristic_unmeasured"
+        elif entry["value"] is None and keller is None and any(t in name.casefold() for t in FLIP_TOKENS):
+            # No base value to flip from: stay unknown when weak, unpleasant when strong.
+            entry["dose_points"] = {"weak": None, "strong": FLIP_STRONG_CEILING}
+            entry["dose_source"] = "heuristic_unmeasured"
         materials[name] = entry
 
     counts: dict[str, int] = {}
@@ -393,10 +397,22 @@ def crowd_pleasantness(name: str, strength_share: float | None = None) -> CrowdV
     if key is None:
         return None
     entry = load_crowd_table()["materials"][key]
-    if entry["value"] is None:
-        return None
-    value = float(entry["value"])
     points = entry.get("dose_points")
+    if entry["value"] is None:
+        # A flip material with no base value is unknown unless it is strong.
+        if not points or points.get("weak") is not None:
+            return None
+        if strength_share is None or strength_share < STRONG_SHARE:
+            return None
+        return CrowdValue(
+            material=key,
+            value=float(points["strong"]),
+            source=entry["dose_source"],
+            confidence="low",
+            dose_dependent=True,
+            family=entry.get("family"),
+        )
+    value = float(entry["value"])
     if strength_share is not None and points:
         weak, strong = float(points["weak"]), float(points["strong"])
         if strength_share <= WEAK_SHARE:

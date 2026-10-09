@@ -8,7 +8,7 @@ import pytest
 
 from engine.formulation_intelligence import pleasantness as pl
 from engine.formulation_intelligence import pleasantness_table as pt
-from engine.hedonic_model import score_hedonic
+from engine.formulation_intelligence.pleasantness import score_hedonic_crowd
 
 FAKE_VALUES = {"Sweet": 0.8, "Sour": -0.4, "Even A": 0.5, "Even B": 0.5, "High": 0.9, "Low": 0.1}
 
@@ -21,7 +21,6 @@ def fake_table(monkeypatch):
         return pt.CrowdValue(name, FAKE_VALUES[name], "test", "hand", False, None)
 
     monkeypatch.setattr(pl, "crowd_pleasantness", fake)
-    monkeypatch.setattr(pt, "crowd_pleasantness", fake)  # score_hedonic reads it from the table module
     return fake
 
 
@@ -90,11 +89,29 @@ def test_a_strong_indole_share_lowers_the_window():
     trace = _score([_material("Hedione", 9.0), _material("Indole", 1.0)])["windows"][0]
     strong = _score([_material("Hedione", 6.0), _material("Indole", 4.0)])["windows"][0]
     assert strong["pleasantness"] < trace["pleasantness"]
-    assert "Indole" in strong["dose_adjusted"] and "Indole" not in trace["dose_adjusted"]
+    adjusted = {item["material"]: item for item in strong["dose_adjusted"]}
+    assert "Indole" in adjusted and "Indole" not in {i["material"] for i in trace["dose_adjusted"]}
+    assert set(adjusted["Indole"]) == {"material", "base", "used", "dose_source"}
+    assert adjusted["Indole"]["used"] <= -0.4
+    assert adjusted["Indole"]["dose_source"] == "heuristic_unmeasured"
     indole = next(c for c in strong["contributors"] if c["material"] == "Indole")
     assert indole["value"] <= -0.4
     base = pt.crowd_pleasantness("Indole").value
     assert strong["pleasantness"] < 0.6 * hedione.value + 0.4 * base  # below the share-blind mean
+
+
+def test_dose_adjusted_lists_only_material_changes_of_005_or_more():
+    keller = pt.load_crowd_table()["materials"]["Vanillin"]
+    assert keller["dose_source"] == "keller"
+    base = pt.crowd_pleasantness("Vanillin").value
+    near = pt.crowd_pleasantness("Vanillin", strength_share=0.17).value
+    assert abs(near - base) < 0.05  # premise: a Keller material at 0.17 is within tolerance
+    window = _score([_material("Vanillin", 83.0), _material("Indole", 30.0), _material("Hedione", 53.0)])
+    mix = pl._score_mix({"Vanillin": 0.17, "Indole": 0.3, "Hedione": 0.53})
+    listed = [item["material"] for item in mix["dose_adjusted"]]
+    assert "Vanillin" not in listed
+    assert "Indole" in listed
+    assert window["windows"][0]["dose_adjusted"] is not None
 
 
 def test_top_level_labels_overall_and_rating_windows(fake_table):
@@ -109,6 +126,9 @@ def test_top_level_labels_overall_and_rating_windows(fake_table):
     assert result["optimization_authority"] is False
     assert result["label"].startswith("Crowd guess:") and "Not a measurement" in result["label"]
     assert "Ma, Tang, Thomas-Danguin & Xu (2020)" in result["method"]
+    assert "a power law of each material's odour activity value (OAV)" in result["method"]
+    assert "a model, not measured intensity; materials below OAV 1 are left out" in result["method"]
+    assert "only as that detection floor" not in result["method"]
     assert result["table_schema"] == "pleasantness_crowd_v1"
     assert [w["window"] for w in result["windows"]] == ["opening", "top", "heart", "late_heart", "drydown"]
     assert result["windows"][4]["status"] == "NO_RATED_MATERIALS"
@@ -121,13 +141,13 @@ def test_top_level_labels_overall_and_rating_windows(fake_table):
     assert result["rating_windows"]["4h"]["crowd_guess"] is None
 
 
-def test_legacy_score_no_longer_penalises_contrast(fake_table):
-    even = score_hedonic({"Even A": 100.0, "Even B": 100.0})
-    spread = score_hedonic({"High": 100.0, "Low": 100.0})
+def test_crowd_score_does_not_penalise_contrast(fake_table):
+    even = score_hedonic_crowd({"Even A": 100.0, "Even B": 100.0})
+    spread = score_hedonic_crowd({"High": 100.0, "Low": 100.0})
     assert spread.hedonic_contrast > 0.3
     assert even.score == spread.score == 75.0
     assert not any("⚠" in line for line in spread.diagnostics)
-    with_unknown = score_hedonic({"Even A": 100.0, "Mystery": 100.0})
+    with_unknown = score_hedonic_crowd({"Even A": 100.0, "Mystery": 100.0})
     assert with_unknown.score == 75.0  # unknown excluded, not averaged in as neutral
     assert with_unknown.coverage_status == "PARTIAL_TABLE_COVERAGE"
     assert with_unknown.unrated_materials == ["Mystery"]

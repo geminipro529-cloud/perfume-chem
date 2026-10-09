@@ -35,8 +35,8 @@ def test_zero_table_coverage_keeps_legacy_value_but_exposes_missingness() -> Non
 def test_partial_coverage_cannot_masquerade_as_full_formula_pleasantness() -> None:
     report = score_hedonic({"Vanillin": 1.0, "Citral": 999.0})
 
-    # Rated-subset value: Vanillin's crowd value 0.702 -> (0.702 + 1) / 2 * 100, no coherence bonus.
-    assert report.score == 85.1
+    # Preserve the historical rated-subset value while exposing its exact scope.
+    assert report.score == 96.0
     assert report.pleasantness_class == "highly_pleasant"
     assert report.coverage_status == "PARTIAL_TABLE_COVERAGE"
     assert report.rated_active_fraction == pytest.approx(0.001)
