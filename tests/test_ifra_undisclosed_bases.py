@@ -84,7 +84,8 @@ def test_aurantiol_share_is_56_4_percent_hydroxycitronellal():
     schiff = load_natural_constituents().schiff_bases["Aurantiol"]
     assert schiff.standard == "IFRA_STD_043"
     assert schiff.share_pct == pytest.approx(172.27 / 305.41 * 100, abs=0.05)
-    assert "IFRA text not read" in schiff.source
+    assert "does not mention Schiff bases" in schiff.source
+    assert "conservative project choice" in schiff.source
 
 
 def test_aurantiol_and_hydroxycitronellal_fail_together_but_not_alone():
