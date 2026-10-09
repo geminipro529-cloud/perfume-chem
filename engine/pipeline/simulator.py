@@ -8,8 +8,10 @@ Loss law (mass-balanced, diagnosis M3): each material leaves at a gas-side
 limited flux ``dn_i/dt = -A * gamma_i * x_i * P_i* / sqrt(MW_i)`` with
 ``x_i = n_i / N(t)`` recomputed from the current pool after every step, so the
 amount removed tracks the partial pressure each frame reports. ``A`` is an
-unfitted relative scale, ``2e-5 * N_0``, chosen so every material's rate at
-t=0 equals the previous per-material constant ``2e-5 * gamma*P*/sqrt(MW)``.
+unfitted relative scale, ``2e-5 * N_0``, with ``N_0`` the t=0 concentrate
+moles without the declared matrix (audit PHYS-01), so a formula with no matrix
+starts at the previous per-material constant ``2e-5 * gamma*P*/sqrt(MW)`` and
+a declared matrix no longer inflates the scale.
 
 A declared ethanol/water matrix leaves by the same law, cap and step
 (diagnosis M1a), so it no longer stays in the pool for the whole run.
@@ -139,7 +141,8 @@ def _loss_rate_per_s(
     pool moles that the headspace mole fractions use. Multiplying by it turns
     the per-material constant into the mass-balanced flux
     ``A * gamma * x_i * P* / sqrt(MW)`` divided by ``n_i``, with
-    ``A = LOSS_RATE_SCALE * N_0`` (diagnosis M3). The scale constant and cap
+    ``A = LOSS_RATE_SCALE * N_0`` (diagnosis M3) and ``N_0`` the t=0
+    concentrate moles without the matrix (audit PHYS-01). The scale constant and cap
     are not fitted kinetic parameters and therefore cannot support an
     absolute evaporation or longevity claim.
     """
@@ -155,6 +158,17 @@ def _loss_rate_per_s(
 def _pool_total_moles(state: FormulaState) -> float:
     """Return the mole total that the state's headspace mole fractions use."""
     return sum(m.moles for m in state.materials) + state.matrix_moles
+
+
+def _loss_scale_moles(state: FormulaState) -> float:
+    """Return ``N_0`` for the loss scale: the t=0 concentrate moles only.
+
+    The declared ethanol/water matrix is left out (audit PHYS-01). With it in,
+    ``A`` grew with the matrix, so once the matrix had evaporated every
+    material lost at a rate inflated by about the matrix-to-concentrate mole
+    ratio (about 137x for a 30 mL EDP), and a declared solvent emptied the base.
+    """
+    return sum(m.moles for m in state.materials)
 
 
 def _pool_ratio(state: FormulaState, initial_pool_moles: float | None) -> float:
@@ -226,8 +240,9 @@ def _advance_state(
 ) -> FormulaState:
     """Integrate the heuristic loss model while recomputing headspace.
 
-    ``initial_pool_moles`` is the t=0 pool total ``N_0``; omitted, ``state``
-    is taken to be the t=0 state.
+    ``initial_pool_moles`` is ``N_0``, the t=0 concentrate moles without the
+    matrix (:func:`_loss_scale_moles`); omitted, ``state`` is taken to be the
+    t=0 state.
     """
     if delta_seconds < 0.0:
         raise ValueError("Temporal windows must be nondecreasing.")
@@ -235,7 +250,7 @@ def _advance_state(
         raise ValueError("max_step_seconds must be positive.")
 
     if initial_pool_moles is None:
-        initial_pool_moles = _pool_total_moles(state)
+        initial_pool_moles = _loss_scale_moles(state)
     current = state
     remaining_seconds = float(delta_seconds)
     while remaining_seconds > 0.0:
@@ -286,7 +301,7 @@ def simulate_formula(
         context=context,
     )
     frames: list[SimulationFrame] = []
-    initial_pool_moles = _pool_total_moles(initial)
+    initial_pool_moles = _loss_scale_moles(initial)
     current_state = initial
     current_seconds = 0.0
     for label, seconds in windows:
