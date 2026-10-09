@@ -269,7 +269,8 @@ def test_removed_moles_track_headspace_with_the_matrix_in_the_pool():
                 )
         matrix_after = dict(after.state.matrix_components_moles)
         for name, moles in before.state.matrix_components_moles:
-            vp, mw = simulator.MATRIX_COMPONENT_VP_MW[name.upper()]
+            _vp_25c, mw = simulator.MATRIX_COMPONENT_VP_MW[name.upper()]
+            vp = simulator._matrix_component_vp_pa(name.upper(), before.state.temperature_K)
             x_j = moles / n_now
             gas_term = simulator.MATRIX_COMPONENT_GAMMA * x_j * vp / math.sqrt(mw)
             k_applied = -math.log(matrix_after[name] / moles) / dt
