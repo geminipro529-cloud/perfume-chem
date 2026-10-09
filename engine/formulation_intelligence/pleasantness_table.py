@@ -6,6 +6,8 @@ values come from Keller & Vosshall (2016) single molecules in paraffin oil;
 hand values come from the legacy tables in ``engine.hedonic_model`` and
 ``engine.ingredient_intelligence``. A hand value of exactly zero means the
 legacy code had no opinion, so it is treated as unknown, never as neutral.
+Character-word heuristic values are also stored as unknown (their raw value is
+kept for audit) because they correlate negatively with the panel.
 
 ``build_crowd_table`` derives the committed JSON from a local copy of the
 Keller stimulus aggregates; ``crowd_pleasantness`` reads that JSON.
@@ -269,10 +271,11 @@ def build_crowd_table(keller_stimuli_path: str) -> dict:
         "pooled": pooled_fit,
         "thresholds": {"min_n": MIN_CALIBRATION_N, "min_r": MIN_CALIBRATION_R},
         "applied": applied,
-        "applied_to": ["hedonic_model_table", "profile_override", "profile_direct", "character_heuristic"] if applied else [],
+        "applied_to": list(HAND_SOURCES) if applied else [],
         "note": (
-            "pooled fit applied to every hand-derived value; character_heuristic is "
-            "excluded from the fit but mapped with it so all values share one scale"
+            "pooled fit applied to every hand-derived value; character_heuristic values "
+            "are excluded from the fit and stored as unknown (raw_value kept) because "
+            "they do not track the panel"
             if applied else
             f"not applied: pooled n={pooled_fit['n']} r={pooled_fit['r']} below thresholds; hand values stored unscaled"
         ),
@@ -302,7 +305,15 @@ def build_crowd_table(keller_stimuli_path: str) -> dict:
             )
         else:
             source = next((s for s in (*HAND_SOURCES, "character_heuristic") if s in draft["hand"]), None)
-            if source is not None:
+            if source == "character_heuristic":
+                fit = calibration["per_source"]["character_heuristic"]
+                r_text = "unavailable" if fit["r"] is None else f"{fit['r']:.2f}"
+                entry.update(
+                    raw_value=draft["hand"][source],
+                    raw_scale=RAW_SCALES[source][0],
+                    reason=f"character-word heuristic; r = {r_text} against the panel, n = {fit['n']}",
+                )
+            elif source is not None:
                 raw_value = draft["hand"][source]
                 scaled = unit(source, raw_value)
                 if applied:
@@ -310,7 +321,7 @@ def build_crowd_table(keller_stimuli_path: str) -> dict:
                 entry.update(
                     value=round(_clamp(scaled), 4),
                     source=source,
-                    confidence="low" if source == "character_heuristic" else "hand",
+                    confidence="hand",
                     raw_value=raw_value,
                     raw_scale=RAW_SCALES[source][0],
                 )

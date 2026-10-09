@@ -5,12 +5,11 @@
   "source_citation": "Keller A, Vosshall LB (2016) Olfactory perception of chemically diverse molecules. BMC Neuroscience. doi:10.1186/s12868-016-0287-2 (CC BY 4.0), via pyrfume-data keller_2016, retrieved 2026-10-09",
   "dose_rule": "strength_share <= 0.1 -> weak, >= 0.25 -> strong, linear between; heuristic_unmeasured flips set strong = min(value, -0.4)",
   "counts": {
-    "character_heuristic": 91,
     "hedonic_model_table": 96,
     "keller_vosshall_2016": 53,
     "profile_direct": 15,
     "profile_override": 22,
-    "unknown": 59
+    "unknown": 150
   },
   "calibration": {
     "model": "panel = a + b * hand, least squares; hand on -1..+1 after raw-scale division",
@@ -55,10 +54,9 @@
     "applied_to": [
       "hedonic_model_table",
       "profile_override",
-      "profile_direct",
-      "character_heuristic"
+      "profile_direct"
     ],
-    "note": "pooled fit applied to every hand-derived value; character_heuristic is excluded from the fit but mapped with it so all values share one scale"
+    "note": "pooled fit applied to every hand-derived value; character_heuristic values are excluded from the fit and stored as unknown (raw_value kept) because they do not track the panel"
   },
   "generated_by": {
     "function": "engine.formulation_intelligence.pleasantness_table.build_crowd_table",
@@ -67,9 +65,9 @@
   },
   "materials": {
     "2-Acetyl Pyrazine": {
-      "value": -0.1139,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "2-Acetyl Pyrazine (1% in DPG)",
         "2-acetyl pyrazine 1% in dpg"
@@ -78,18 +76,20 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.64,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "ACA": {
-      "value": -0.1314,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "floral",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.48,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Acetoin": {
       "value": null,
@@ -101,9 +101,9 @@
       "dose_source": null
     },
     "Adoxal": {
-      "value": -0.1489,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "Adoxal (10% in DPG)",
         "adoxal 10% in dpg"
@@ -112,7 +112,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.32,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Aldehyde C-12 Lauric Dodecanal": {
       "value": null,
@@ -319,9 +320,9 @@
       }
     },
     "Allyl Ionone": {
-      "value": -0.1227,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "Allyl Ionone (Cetone V)",
         "Allyl Ionone (Ketone V)",
@@ -338,7 +339,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.56,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Alpha Damascone": {
       "value": 0.0894,
@@ -381,15 +383,16 @@
       "raw_scale": "-1..+1"
     },
     "Alpha-Isomethyl Ionone": {
-      "value": -0.0877,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "floral",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.88,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Amber Core": {
       "value": null,
@@ -401,15 +404,16 @@
       "dose_source": null
     },
     "Amber Core Accord": {
-      "value": -0.1664,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "amber",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.16,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Amber Xtreme": {
       "value": null,
@@ -469,9 +473,9 @@
       "dose_source": null
     },
     "Ambrettolide": {
-      "value": -0.2167,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "ambrettolide"
       ],
@@ -479,7 +483,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.3,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Ambrocenide": {
       "value": null,
@@ -568,15 +573,16 @@
       }
     },
     "Ambrox Super 33% DEP/EtOH": {
-      "value": -0.197,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": null,
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.12,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Anisaldehyde": {
       "value": 0.2902,
@@ -630,15 +636,16 @@
       "dose_source": null
     },
     "Apritone": {
-      "value": -0.1752,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "fruity",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.08,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Aurantiol": {
       "value": 0.2097,
@@ -751,15 +758,16 @@
       "raw_scale": "-1..+1"
     },
     "Benzoin Sumatra Resinoid": {
-      "value": -0.2167,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "gourmand",
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.3,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Benzyl Acetate": {
       "value": 0.1515,
@@ -910,15 +918,16 @@
       }
     },
     "Bergamot EO": {
-      "value": -0.1577,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "citrus",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.24,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Bergamot FCF": {
       "value": 0.2424,
@@ -937,15 +946,16 @@
       "raw_scale": "-1..+1"
     },
     "Bergamot FCF oil Sicilian": {
-      "value": -0.1489,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "citrus",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.32,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Bergamot FCF Sicilian": {
       "value": 0.2534,
@@ -1050,9 +1060,9 @@
       "raw_scale": "-1..+1"
     },
     "Black Agarwood Artificial": {
-      "value": -0.2823,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "black agarwood artificial"
       ],
@@ -1060,7 +1070,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.9,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Black Pepper FTEC": {
       "value": null,
@@ -1090,9 +1101,9 @@
       "dose_source": null
     },
     "Blackcurrant Absolute": {
-      "value": -0.2058,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "Blackcurrent Absolute (10% in DPG)",
         "blackcurrant absolute 10% in dpg",
@@ -1102,18 +1113,20 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.2,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Blackcurrant FTEC": {
-      "value": -0.2167,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "green",
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.3,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Blood Orange oil Sicilian": {
       "value": null,
@@ -1139,9 +1152,9 @@
       "raw_scale": "-1..+1"
     },
     "Blue Chamomile EO": {
-      "value": -0.2167,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "blue chamomile eo",
         "blue chamomile essential oil",
@@ -1151,7 +1164,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.3,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Bourgeonal": {
       "value": 0.1878,
@@ -1257,9 +1271,9 @@
       "raw_scale": "-1..+1"
     },
     "Cade Oil Rectified": {
-      "value": -0.3042,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "cade",
         "cade oil",
@@ -1268,13 +1282,11 @@
         "juniper tar"
       ],
       "family": "smoky",
-      "dose_points": {
-        "weak": -0.3042,
-        "strong": -0.4
-      },
-      "dose_source": "heuristic_unmeasured",
+      "dose_points": null,
+      "dose_source": null,
       "raw_value": -1.1,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Calone": {
       "value": 0.0074,
@@ -1375,34 +1387,30 @@
       "dose_source": null
     },
     "Castoreum Base": {
-      "value": -0.3042,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "animalic",
-      "dose_points": {
-        "weak": -0.3042,
-        "strong": -0.4
-      },
-      "dose_source": "heuristic_unmeasured",
+      "dose_points": null,
+      "dose_source": null,
       "raw_value": -1.1,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Castoreum Synthetic": {
-      "value": -0.3042,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "castoreum synthetic"
       ],
       "family": "animalic",
-      "dose_points": {
-        "weak": -0.3042,
-        "strong": -0.4
-      },
-      "dose_source": "heuristic_unmeasured",
+      "dose_points": null,
+      "dose_source": null,
       "raw_value": -1.1,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Cedamber": {
       "value": null,
@@ -1506,9 +1514,9 @@
       "raw_scale": "-1..+1"
     },
     "Champignol": {
-      "value": -0.1948,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "Champignol (10% in DPG)",
         "champignol 10% in dpg"
@@ -1517,7 +1525,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.1,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Cinnamaldehyde": {
       "value": null,
@@ -1668,9 +1677,9 @@
       }
     },
     "Citral": {
-      "value": -0.1664,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "Citral Natural",
         "citral"
@@ -1679,12 +1688,13 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.16,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Citronellal": {
-      "value": -0.1577,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "CitronellAL",
         "citronellal"
@@ -1693,12 +1703,13 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.24,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Citronellol": {
-      "value": -0.1314,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "CitronellOL",
         "citronellol"
@@ -1707,21 +1718,20 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.48,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Civet Reconstitution Base": {
-      "value": -0.2714,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "animalic",
-      "dose_points": {
-        "weak": -0.2714,
-        "strong": -0.4
-      },
-      "dose_source": "heuristic_unmeasured",
+      "dose_points": null,
+      "dose_source": null,
       "raw_value": -0.8,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Clary Sage EO": {
       "value": 0.0894,
@@ -1748,9 +1758,9 @@
       "raw_scale": "-1..+1"
     },
     "Clove EO (India)": {
-      "value": -0.2058,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "clove eo",
         "clove eo (india)",
@@ -1760,12 +1770,13 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.2,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Cocoa Absolute": {
-      "value": -0.1139,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "cocoa absolute"
       ],
@@ -1773,12 +1784,13 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.64,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Cocoa CO2 Extract": {
-      "value": -0.2276,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "cocoa co2 abs",
         "cocoa co2 absolute",
@@ -1788,12 +1800,13 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.4,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Coffee Absolute Grasse": {
-      "value": -0.1467,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "Coffee absolute grasse"
       ],
@@ -1801,12 +1814,13 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.34,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Coriander Essential Oil": {
-      "value": -0.1664,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "coriander eo",
         "coriander seed eo",
@@ -1816,7 +1830,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.16,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Coumarin": {
       "value": 0.323,
@@ -1880,15 +1895,16 @@
       "raw_scale": "-1..+1"
     },
     "Cypriol EO": {
-      "value": -0.2386,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "woody",
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.5,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "D-Limonene": {
       "value": -0.1654,
@@ -1941,9 +1957,9 @@
       "raw_scale": "-1..+1"
     },
     "Damascol": {
-      "value": -0.1402,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "damascol"
       ],
@@ -1951,7 +1967,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.4,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Damascone Beta": {
       "value": 0.0347,
@@ -2040,15 +2057,16 @@
       }
     },
     "Dewberry FTEC": {
-      "value": -0.1577,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "fruity",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.24,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Diethyl Malonate": {
       "value": 0.3273,
@@ -2276,9 +2294,9 @@
       }
     },
     "Ethyl Linalool": {
-      "value": -0.1489,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "ethyl linalool"
       ],
@@ -2286,7 +2304,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.32,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Ethyl Linalyl Acetate": {
       "value": null,
@@ -2442,15 +2461,16 @@
       "raw_scale": "-1..+1"
     },
     "Evernyl (50% in DPG)": {
-      "value": -0.2386,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "moss",
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.5,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Exaltolide": {
       "value": 0.2759,
@@ -2518,9 +2538,9 @@
       "raw_scale": "-1..+1"
     },
     "Florhydral": {
-      "value": -0.1139,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "Florhydral(TM)",
         "florhydral"
@@ -2529,7 +2549,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.64,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Florol": {
       "value": 0.2097,
@@ -2554,9 +2575,9 @@
       "dose_source": null
     },
     "Frankincense EO": {
-      "value": -0.1664,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "frankincense eo"
       ],
@@ -2564,7 +2585,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.16,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Freesia HDI": {
       "value": 0.1987,
@@ -2681,15 +2703,16 @@
       "raw_scale": "-1..+1"
     },
     "Georgywood": {
-      "value": -0.1948,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "woody",
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.1,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Geosmin": {
       "value": -0.2386,
@@ -2742,9 +2765,9 @@
       }
     },
     "Geranium EO": {
-      "value": -0.1227,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "geranium eo",
         "pelargonium graveolens flower oil"
@@ -2753,12 +2776,13 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.56,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Ginger EO": {
-      "value": -0.1489,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "ginger eo",
         "ginger essential oil"
@@ -2767,7 +2791,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.32,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Glycolierral": {
       "value": null,
@@ -2968,9 +2993,9 @@
       }
     },
     "Heliotropin Fleuressence": {
-      "value": -0.1052,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "heliotropin fleuressence"
       ],
@@ -2978,7 +3003,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.72,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Helvetolide": {
       "value": null,
@@ -3041,9 +3067,9 @@
       "raw_scale": "-1..+1"
     },
     "Himalayan Cedarwood EO": {
-      "value": -0.1948,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "himalayan cedarwood",
         "himalayan cedarwood eo"
@@ -3052,7 +3078,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.1,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Hydroxycitronellal": {
       "value": 0.2097,
@@ -3068,9 +3095,9 @@
       "raw_scale": "-1..+1"
     },
     "Hydroxycitronellol": {
-      "value": -0.1139,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "3,7-Dimethyl-1,7-octanediol",
         "3,7-Dimethyloctane-1,7-diol",
@@ -3081,29 +3108,32 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.64,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "I-IRIS F-TEC": {
-      "value": -0.079,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "iris",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.96,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Immortelle Absolute": {
-      "value": -0.1489,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "floral",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.32,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Indole": {
       "value": -0.2932,
@@ -3122,9 +3152,9 @@
       "raw_scale": "-1..+1"
     },
     "Irotyl": {
-      "value": -0.1052,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "irotyl"
       ],
@@ -3132,7 +3162,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.72,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Iso E Super": {
       "value": 0.1167,
@@ -3148,15 +3179,16 @@
       "raw_scale": "-1..+1"
     },
     "Isobutavan": {
-      "value": -0.1489,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "gourmand",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.32,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Isobutyl Quinoline": {
       "value": -0.1566,
@@ -3247,15 +3279,16 @@
       }
     },
     "JASMIN ABS F-TEC": {
-      "value": -0.1445,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "floral",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.36,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Jasmine Absolute": {
       "value": 0.2534,
@@ -3273,20 +3306,21 @@
       "raw_scale": "-5..+5"
     },
     "Jasmine FO": {
-      "value": -0.1445,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "floral",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.36,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Jasmine Sambac Absolute": {
-      "value": -0.1227,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "Jasmine Sambac",
         "jasmine sambac"
@@ -3295,18 +3329,20 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.56,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Jasmine Sambac Blossoms": {
-      "value": -0.1227,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "floral",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.56,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Javanol": {
       "value": 0.2097,
@@ -3359,9 +3395,9 @@
       "raw_scale": "-1..+1"
     },
     "Labdanum": {
-      "value": -0.2167,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "Labdanum Resinoid",
         "labdanum"
@@ -3370,7 +3406,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.3,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Labdanum Absolute": {
       "value": 0.0894,
@@ -3386,15 +3423,16 @@
       "raw_scale": "-1..+1"
     },
     "Labdanum Resinoid": {
-      "value": -0.2386,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "amber",
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.5,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Lavandin Absolute": {
       "value": null,
@@ -3443,15 +3481,16 @@
       "raw_scale": "-1..+1"
     },
     "Leather FO": {
-      "value": -0.3042,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "animalic",
       "dose_points": null,
       "dose_source": null,
       "raw_value": -1.1,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Lemon Terpeneless Oil Sicilian": {
       "value": null,
@@ -3816,15 +3855,16 @@
       "dose_source": null
     },
     "Methyl Ionone": {
-      "value": -0.0877,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "iris",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.88,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Methyl Ionone Pure": {
       "value": 0.2097,
@@ -3910,15 +3950,16 @@
       }
     },
     "Mimosa Absolute": {
-      "value": -0.0702,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "floral",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 1.04,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Molecule Iris": {
       "value": 0.0894,
@@ -3969,9 +4010,9 @@
       }
     },
     "Myristic Acid": {
-      "value": -0.1664,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "1-tetradecanecarboxylic acid",
         "N-tetradecan-1-oic acid",
@@ -3983,12 +4024,13 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.16,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Myristic Acid Powder": {
-      "value": -0.1664,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "myristic acid powder",
         "tetradecanoic acid powder"
@@ -3997,7 +4039,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.16,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Myrrh EO": {
       "value": 0.0621,
@@ -4013,9 +4056,9 @@
       "raw_scale": "-1..+1"
     },
     "Nagarmortha Oil": {
-      "value": -0.2386,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "Cypriol Oil",
         "Nagar Motha Oil",
@@ -4025,7 +4068,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.5,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Nerol": {
       "value": 0.1022,
@@ -4130,15 +4174,16 @@
       "raw_scale": "-1..+1"
     },
     "Oakmoss Absolute": {
-      "value": -0.2058,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "moss",
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.2,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Olibanum Resinoid": {
       "value": 0.1167,
@@ -4157,15 +4202,16 @@
       "raw_scale": "-1..+1"
     },
     "Opoponax Resinoid": {
-      "value": -0.2167,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "balsamic",
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.3,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Orange Peel EO": {
       "value": null,
@@ -4237,15 +4283,16 @@
       "raw_scale": "-1..+1"
     },
     "Orris Butter Absolute": {
-      "value": -0.0702,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "iris",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 1.04,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Orris Concrete Orris Butter": {
       "value": null,
@@ -4257,20 +4304,21 @@
       "dose_source": null
     },
     "Orris F-TEC": {
-      "value": -0.079,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "iris",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.96,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Orris Liquid": {
-      "value": -0.044,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "Orris Liquid (30%)",
         "Orris Liquid (9% w/w in DEP)",
@@ -4280,23 +4328,25 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 1.28,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Osmanthus Absolute": {
-      "value": -0.1314,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "floral",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.48,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Osmanthus Absolute (volume grade)": {
-      "value": -0.1314,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "osmanthus abs volume",
         "osmanthus absolute (volume grade)",
@@ -4306,7 +4356,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.48,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Oud Fleuressence": {
       "value": -0.1292,
@@ -4320,9 +4371,9 @@
       "raw_scale": "-5..+5"
     },
     "Oud Oil": {
-      "value": -0.2714,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "oud oil"
       ],
@@ -4330,7 +4381,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.8,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "p-Cresyl Methyl Ether": {
       "value": 0.04,
@@ -4418,20 +4470,21 @@
       "raw_scale": "-1..+1"
     },
     "PEDMC": {
-      "value": -0.1139,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "floral",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.64,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Peonile": {
-      "value": -0.1227,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "peonile"
       ],
@@ -4439,7 +4492,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.56,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Peppermint Essential Oil": {
       "value": null,
@@ -4473,15 +4527,16 @@
       "raw_scale": "-1..+1"
     },
     "Petitgrain EO Paraguay": {
-      "value": -0.1139,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "citrus",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.64,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Phenethyl Alcohol": {
       "value": 0.1586,
@@ -4540,31 +4595,33 @@
       "dose_source": null
     },
     "Phenyl Ethyl Acetate": {
-      "value": -0.1227,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "floral",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.56,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Pink Pepper Base": {
-      "value": -0.1664,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "spice",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.16,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Pink Pepper EO": {
-      "value": -0.1314,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "Schinus molle EO (neat / as supplied)",
         "pink pepper eo",
@@ -4576,18 +4633,20 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.48,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Polysantol": {
-      "value": -0.1577,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "sandalwood",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.24,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Raspberry Ketone": {
       "value": 0.0024,
@@ -4684,20 +4743,21 @@
       "raw_scale": "-5..+5"
     },
     "Rose de Mai Absolute": {
-      "value": -0.1139,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "rose",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.64,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Rose Essential Oil": {
-      "value": -0.1139,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "Rose Essential Oil (Rosa Damascena, India)",
         "rosa damascena eo",
@@ -4708,7 +4768,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.64,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Rose Otto Bulgarian": {
       "value": null,
@@ -4749,15 +4810,16 @@
       "raw_scale": "-1..+1"
     },
     "Rum Absolute": {
-      "value": -0.1948,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "gourmand",
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.1,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Saffranal": {
       "value": null,
@@ -4769,9 +4831,9 @@
       "dose_source": null
     },
     "Safraleine": {
-      "value": -0.2167,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "safraleine neat"
       ],
@@ -4779,7 +4841,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.3,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Salicylate FTEC": {
       "value": 0.1167,
@@ -4852,31 +4915,30 @@
       "raw_scale": "-1..+1"
     },
     "Siam Benzoin": {
-      "value": -0.1948,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "gourmand",
       "dose_points": null,
       "dose_source": null,
       "raw_value": -0.1,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Skatole": {
-      "value": -0.2757,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "skatole"
       ],
       "family": "animalic",
-      "dose_points": {
-        "weak": -0.2757,
-        "strong": -0.4
-      },
-      "dose_source": "heuristic_unmeasured",
+      "dose_points": null,
+      "dose_source": null,
       "raw_value": -0.84,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "stralyl acetate": {
       "value": 0.1441,
@@ -5026,37 +5088,40 @@
       }
     },
     "Tonka Bean Absolute": {
-      "value": -0.1314,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "gourmand",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.48,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Tonka Bean FO": {
-      "value": -0.1489,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "gourmand",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.32,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Tonkarome": {
-      "value": -0.1227,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "gourmand",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.56,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Triethyl Citrate": {
       "value": -0.1275,
@@ -5094,15 +5159,16 @@
       }
     },
     "Tuberalia base": {
-      "value": -0.1139,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "floral",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.64,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "tuberlia base": {
       "value": 0.1987,
@@ -5116,20 +5182,21 @@
       "raw_scale": "-1..+1"
     },
     "Tuberose Absolute": {
-      "value": -0.138,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "floral",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.42,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Tuberose Absolute (India)": {
-      "value": -0.1445,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "tuberose absolute (india)",
         "tuberose absolute india",
@@ -5139,12 +5206,13 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.36,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Tuberose Absolute (volume grade)": {
-      "value": -0.1445,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "tuberose abs volume",
         "tuberose absolute (volume grade)",
@@ -5154,7 +5222,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.36,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "tuberose eo (volume level grade)": {
       "value": 0.1987,
@@ -5194,9 +5263,9 @@
       "raw_scale": "-1..+1"
     },
     "Undecavertol": {
-      "value": -0.1577,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "undecavertol"
       ],
@@ -5204,7 +5273,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.24,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Vanilla Absolute": {
       "value": null,
@@ -5262,9 +5332,9 @@
       "dose_source": null
     },
     "Verdox": {
-      "value": -0.1664,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [
         "verdox"
       ],
@@ -5272,7 +5342,8 @@
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.16,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "verdyl acetate": {
       "value": 0.0894,
@@ -5381,15 +5452,16 @@
       "raw_scale": "-5..+5"
     },
     "Violet Fleuressence": {
-      "value": -0.0877,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "iris",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.88,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Violet Leaf Absolute": {
       "value": null,
@@ -5415,15 +5487,16 @@
       "raw_scale": "-1..+1"
     },
     "Ylang Comoros Complete EO F3255": {
-      "value": -0.1139,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "floral",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.64,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Ylang Comoros III EO": {
       "value": 0.1878,
@@ -5437,15 +5510,16 @@
       "raw_scale": "-1..+1"
     },
     "Ylang Comoros III EO F3295": {
-      "value": -0.1227,
-      "source": "character_heuristic",
-      "confidence": "low",
+      "value": null,
+      "source": "unknown",
+      "confidence": null,
       "aliases": [],
       "family": "floral",
       "dose_points": null,
       "dose_source": null,
       "raw_value": 0.56,
-      "raw_scale": "-5..+5 field, clamped +-3"
+      "raw_scale": "-5..+5 field, clamped +-3",
+      "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
     },
     "Ylang III": {
       "value": 0.1714,
