@@ -20,6 +20,7 @@ from engine.user_records import (
     ADDITION_LOG_NAME,
     BASKET_LOG_NAME,
     COMPLETION_LOG_NAME,
+    DILUTION_LOG_NAME,
     record_files,
 )
 from sqlalchemy.engine import URL, make_url
@@ -28,7 +29,12 @@ from app import db_bootstrap
 
 BACKUP_DIRECTORY_NAME = "lab-backups"
 # The personal stock records copied into every backup, by standard file name.
-USER_RECORD_NAMES = (ADDITION_LOG_NAME, COMPLETION_LOG_NAME, BASKET_LOG_NAME)
+USER_RECORD_NAMES = (
+    ADDITION_LOG_NAME,
+    COMPLETION_LOG_NAME,
+    BASKET_LOG_NAME,
+    DILUTION_LOG_NAME,
+)
 # Why a live stock record was left as it was by a restore.
 RECORD_NOT_IN_BACKUP = "this backup has no copy of it"
 RECORDS_PREDATE_BACKUP = "this backup was made before stock records were included"

@@ -1027,7 +1027,11 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
         )
         if record.completion_event_sha256:
             matched[-1]["stock_facts_source"] = {
-                "kind": "LAB_STOCK_PAGE_COMPLETION",
+                "kind": (
+                    "LAB_STOCK_PAGE_PREPARED_DILUTION"
+                    if record.authority == "LAB_STOCK_PAGE_PREPARED_DILUTION"
+                    else "LAB_STOCK_PAGE_COMPLETION"
+                ),
                 "event_sha256": record.completion_event_sha256,
                 "source_ref": record.completion_source_ref,
             }
