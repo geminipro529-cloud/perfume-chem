@@ -42,6 +42,8 @@ from engine.ifra_standards import (
     evaluate_ifra,
     load_ifra_table,
     load_natural_constituents,
+    load_undisclosed_bases,
+    undisclosed_base,
 )
 from engine.inventory_completions import COMPLETION_CLEARABLE_HOLDS, STOCK_PAGE_ENTRY_INCOMPLETE
 from engine.inventory_dilutions import (
@@ -1601,11 +1603,37 @@ def _gate_safety(
     failures = [_ifra_entry_dict(e, headroom) for e in evaluation.failures]
     warnings = [_ifra_entry_dict(e, headroom) for e in evaluation.warnings]
     holds = [_ifra_row_dict(c, headroom) for c in evaluation.holds]
+    # A supplier base whose composition is not published cannot be reviewed, so (Kenny,
+    # 2026-10-09) it is flagged by name with a warning instead of holding as unrecognised.
+    undisclosed = []
+    for c in sorted(evaluation.unchecked, key=lambda c: c.material):
+        names = [c.material, *alt_names.get(c.material, ())]
+        base = undisclosed_base(load_undisclosed_bases(), names)
+        if base is not None:
+            undisclosed.append({
+                "material": c.material,
+                "base": base.name,
+                "actual_pct": c.pct,
+                "reason": base.reason,
+                "message": (
+                    f"{c.material} at {c.pct:.4g} % is {base.name}, a supplier base whose "
+                    "composition is not published; restricted substances inside it are not "
+                    "counted."
+                ),
+            })
+    undisclosed_rows = {u["material"] for u in undisclosed}
     # A row the table cannot recognise is never compared with a limit and drops out of the
     # group sums, so it holds the gate rather than passing with a warning.
     holds.extend(
         {**_ifra_row_dict(c, headroom), "message": _ifra_unrecognised_message(c)}
         for c in sorted(evaluation.unchecked, key=lambda c: c.material)
+        if c.material not in undisclosed_rows
+    )
+    undisclosed_note = (
+        f"{len(undisclosed)} supplier base(s) with composition not published, restricted "
+        "substances inside not counted: " + ", ".join(sorted(undisclosed_rows))
+        if undisclosed
+        else ""
     )
     unchecked = sorted(c.material for c in evaluation.unchecked)
     banned = [f["material"] for f in failures if f.get("ifra_status") == "prohibited"]
@@ -1641,6 +1669,7 @@ def _gate_safety(
         "missing_ifra_limit": unchecked,
         "unchecked": unchecked,
         "holds": holds,
+        "undisclosed_bases": undisclosed,
         "specification_notes": [_ifra_row_dict(c, headroom) for c in evaluation.notes],
         "rows": [_ifra_row_dict(c, headroom) for c in evaluation.checks],
         "groups": [_ifra_group_dict(g, headroom) for g in evaluation.group_checks],
@@ -1698,6 +1727,7 @@ def _gate_safety(
             "FAIL",
             "IFRA Category 4 failures: "
             + "; ".join(f["message"] for f in failures)
+            + (f"; {undisclosed_note}" if undisclosed_note else "")
             + f"; {basis_note}",
             data,
         )
@@ -1720,8 +1750,10 @@ def _gate_safety(
                 f"stocks ({estimate.concentrate_ml:.3g} mL) exceed the "
                 f"{config.batch_volume_ml:g} mL bottle; finished-product % w/w is not defined"
             )
+        if undisclosed_note:
+            parts.append(undisclosed_note)
         return _result("safety_ifra_allergen", "HOLD", "; ".join(parts) + f"; {basis_note}", data)
-    detail: list[str] = []
+    detail: list[str] = [undisclosed_note] if undisclosed_note else []
     if edge_dosing:
         detail.append(
             f"{len(edge_dosing)} near the IFRA limit: "
