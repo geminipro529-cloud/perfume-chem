@@ -2039,6 +2039,17 @@ def get_constituents(material_name: str) -> list[tuple] | None:
     return list(_rows_with_cited_vp(tuple(tuple(row) for row in rows)))
 
 
+def _input_authority_with_cited_vp(key: str, evidence: dict) -> dict[str, object]:
+    """Profile input authority, marking rows whose VP now comes from the data spine."""
+    authority = deepcopy(evidence.get("input_authority", {}))
+    for substitution in cited_vp_substitutions():
+        row_authority = authority.get(substitution.constituent)
+        if substitution.profile_key == key and isinstance(row_authority, dict):
+            row_authority["vp_status"] = "CITED_DATA_SPINE_VP"
+            row_authority["vp_source"] = substitution.source
+    return authority
+
+
 def get_composite_metadata(material_name: str) -> NaturalCompositeMetadata | None:
     """Return provenance and modeled-coverage limits for a natural profile."""
     key, resolution = _resolve_profile_key(material_name)
@@ -2079,7 +2090,7 @@ def get_composite_metadata(material_name: str) -> NaturalCompositeMetadata | Non
             )
         ),
         unresolved_constituents=deepcopy(evidence.get("unresolved_constituents", ())),
-        input_authority=deepcopy(evidence.get("input_authority", {})),
+        input_authority=_input_authority_with_cited_vp(key, evidence),
         composition_authority=(
             "LITERATURE_PARTIAL_PROXY"
             if resolution == "literature_proxy"

@@ -76,3 +76,17 @@ def test_substitutions_beyond_3x_are_the_reviewed_set():
     }
     assert large == _EXPECTED_LARGE_SUBSTITUTIONS
     assert all(s.source for s in cited_vp_substitutions())
+
+
+def test_metadata_marks_rows_whose_vp_now_comes_from_the_data_spine():
+    from engine.pipeline import natural_absolute_decomposition as nad
+
+    marked = 0
+    for substitution in nad.cited_vp_substitutions():
+        metadata = nad.get_composite_metadata(substitution.profile_key)
+        row = metadata.input_authority.get(substitution.constituent) if metadata else None
+        if isinstance(row, dict):
+            assert row["vp_status"] == "CITED_DATA_SPINE_VP"
+            assert row["vp_source"] == substitution.source
+            marked += 1
+    assert marked >= 1
