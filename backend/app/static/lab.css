@@ -344,6 +344,9 @@ button:disabled { cursor: not-allowed !important; opacity: .48; transform: none 
 .formula-ledger-tools { margin-top: 24px; }
 .formula-design-table .formula-dose small.formula-dose-hold { white-space: normal; color: #7d5b22; font: 700 9px/1.3 "Bahnschrift", sans-serif; letter-spacing: .04em; text-transform: uppercase; }
 .formula-result-variant { display: none; }
+.formula-result-checks { margin: 0 0 12px; }
+.formula-result-checks ul { margin: 0; padding-left: 18px; }
+.formula-result-checks small { display: block; margin-top: 6px; opacity: .8; }
 .bench-sheet { display: none; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
