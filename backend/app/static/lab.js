@@ -2418,7 +2418,9 @@ $("#formula-print-bench").addEventListener("click", () => {
 // ---- Bench sheet view: a printable sheet for any project or pasted formula ----
 // Read-only: it fetches and parses the formula, matches owned stocks and draws
 // the same sheet as Create (bench-sheet.js); nothing is saved.
-const benchSource = { html: "", autoSourceMl: "" };
+// `ticket` changes whenever the form changes, so a reply that arrives after
+// an edit is dropped instead of drawing a sheet for the old values.
+const benchSource = { html: "", autoSourceMl: "", ticket: 0 };
 
 function benchFieldError(message, field) {
   const error = new Error(message);
@@ -2433,6 +2435,7 @@ function syncBenchSourceFields() {
 }
 
 function clearBenchPreview() {
+  benchSource.ticket += 1;
   benchSource.html = "";
   $("#bench-source-print").disabled = true;
   $("#bench-preview-card").hidden = true;
@@ -2447,6 +2450,13 @@ function prefillBenchSourceMl(...texts) {
   const size = benchBottleMl(...texts) || "";
   input.value = size;
   benchSource.autoSourceMl = size;
+}
+
+// A size filled in from the old formula's name must not scale a different one.
+function dropAutoBenchSourceMl() {
+  const input = $('#bench-source-form [name="source_ml"]');
+  if (input.value.trim() === benchSource.autoSourceMl) input.value = "";
+  benchSource.autoSourceMl = "";
 }
 
 function benchSheetSizes(data) {
@@ -2510,7 +2520,10 @@ $('#bench-source-form [name="project_formula_path"]').addEventListener("change",
   const selected = state.formulaLibrary.find((item) => item.source_path === event.target.value.trim());
   if (selected) prefillBenchSourceMl(selected.source_path, selected.display_name);
 });
-$("#bench-source-form").addEventListener("input", clearBenchPreview);
+$("#bench-source-form").addEventListener("input", (event) => {
+  if (["source_kind", "project_formula_path", "pasted_text"].includes(event.target.name)) dropAutoBenchSourceMl();
+  clearBenchPreview();
+});
 $("#bench-source-form").addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
@@ -2518,12 +2531,14 @@ $("#bench-source-form").addEventListener("submit", async (event) => {
   const button = form.querySelector('button[type="submit"]');
   clearFormError(form);
   clearBenchPreview();
+  const ticket = benchSource.ticket;
   form.dataset.busy = "true";
   button.disabled = true;
   try {
     const data = formData(form);
     const sizes = benchSheetSizes(data);
     const source = await loadBenchSource(data);
+    if (ticket !== benchSource.ticket) return;
     if (sizes.to && !sizes.from) {
       sizes.from = benchBottleMl(source.formula_name, source.source_path) || "";
       if (!sizes.from) throw benchFieldError("Say what size the formula is for, so it can be scaled.", "source_ml");
@@ -2533,7 +2548,7 @@ $("#bench-source-form").addEventListener("submit", async (event) => {
     renderBenchPreview(source, sizes);
     $("#bench-preview").focus({ preventScroll: false });
   } catch (error) {
-    showFormError(form, error, "No sheet yet.");
+    if (ticket === benchSource.ticket) showFormError(form, error, "No sheet yet.");
   } finally {
     delete form.dataset.busy;
     button.disabled = false;

@@ -192,7 +192,7 @@ def test_owned_stocks_fill_name_solvent_and_basket_by_name_and_strength():
     assert rows[5]["execution_ready"] is False
 
     assert result["notes"] == [
-        "Scaled from the 30 mL formula to 5 mL; µL and mg rounded to one decimal.",
+        "Scaled from the 30 mL formula to 5 mL; µL and mg rounded to one decimal, mL and g to three, and a row that would round to zero keeps two more places.",
         "Not scaled, the amount is not a plain number: Calone.",
         "On hold in Stock: Orris Liquid 9% (user compounding hold).",
         "No owned stock with this name and strength, check the bottle: Rose Oxide, Romandolide, Ambrette.",
@@ -208,6 +208,26 @@ def test_owned_stocks_fill_name_solvent_and_basket_by_name_and_strength():
     rose = html.split("Basket 10 · Rose", 1)[1]
     assert "first mix 20 uL of this stock with 20 uL DPG, then add 12 uL of the mix" in rose
     assert "1 row under 10 µL goes in from a mix; the mix adds 6 µL DPG to the bottle." in html
+
+
+def test_a_hold_on_the_material_is_listed_even_when_the_row_strength_matches_no_stock():
+    # The owned Orris Liquid is 9% and held; a 10% row and a row with no
+    # strength match no bottle, but the hold must still show.
+    source = [_source_row("Orris Liquid", "50", "0.1", "W_W"), _source_row("Orris Liquid", "20", None, "UNKNOWN")]
+    result = _bench(
+        "(b) => { const m = b.benchMatchStocks(SOURCE.map(b.benchRowFromSource), INV);"
+        " return { m, hold: b.benchSheetHold(m.rows, {}), notes: b.benchSourceNotes({ held: m.held, unmatched: m.unmatched }) }; }"
+        .replace("SOURCE", json.dumps(source)).replace("INV", json.dumps(_INVENTORY))
+    )
+
+    assert result["m"]["unmatched"] == ["Orris Liquid", "Orris Liquid"]
+    assert [row["execution_ready"] for row in result["m"]["rows"]] == [False, False]
+    assert [row.get("stock_id") for row in result["m"]["rows"]] == [None, None]
+    assert result["hold"]["stateText"] == "Proposal · check hold"
+    assert result["notes"] == [
+        "On hold in Stock: Orris Liquid 9% (user compounding hold).",
+        "No owned stock with this name and strength, check the bottle: Orris Liquid.",
+    ]
 
 
 def test_name_lists_in_notes_are_short():

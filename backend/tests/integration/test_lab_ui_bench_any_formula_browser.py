@@ -81,7 +81,7 @@ def test_a_project_formula_scaled_to_5_ml_prints_in_basket_order_with_mixes(lab)
     assert preview.locator("tbody tr", has_text="Ambrox crystals").locator(".bench-amount").first.inner_text() == "20 mg"
     text = preview.inner_text()
     assert "Rose Test · 5 mL" in text
-    assert "Scaled from the 30 mL formula to 5 mL; µL and mg rounded to one decimal." in text
+    assert "Scaled from the 30 mL formula to 5 mL; µL and mg rounded to one decimal, mL and g to three" in text
     assert "No owned stock with this name and strength, check the bottle: Ambrox crystals, Velvet Musk." in text
     assert "115 µL liquid stock" in text
 
@@ -166,5 +166,65 @@ def test_scaling_a_pasted_formula_with_no_size_in_its_name_asks_for_one(lab):
 
     assert " ".join(error.inner_text().split()) == "No sheet yet. Say what size the formula is for, so it can be scaled."
     assert form.locator('[name="source_ml"]').get_attribute("aria-invalid") == "true"
+    assert lab.page_errors == []
+    assert lab.unexpected == []
+
+
+def test_a_reply_that_arrives_after_the_form_changed_draws_no_sheet(lab):
+    pending = []
+
+    def source(route, _request):
+        if not pending:
+            pending.append(route)  # held back until the test answers it
+            return
+        route.fulfill(status=200, content_type="application/json", body=json.dumps(SOURCE))
+
+    lab.on("GET", SOURCE_PATH, source)
+    _open(lab)
+    _pick_file(lab)
+    form = lab.page.locator("#bench-source-form")
+    form.locator('[name="target_ml"]').fill("5")
+    form.locator('button[type="submit"]').click()
+    while not pending:
+        lab.page.wait_for_timeout(20)
+    # Kenny changes the size while the formula is still loading.
+    form.locator('[name="target_ml"]').fill("10")
+    pending[0].fulfill(status=200, content_type="application/json", body=json.dumps(SOURCE))
+    lab.page.wait_for_function("!document.querySelector('#bench-source-form').dataset.busy")
+
+    assert lab.page.locator("#bench-preview-card").is_hidden()
+    assert lab.page.locator("#bench-source-print").is_disabled()
+    assert lab.page.locator("#bench-source-form-error").count() == 0 or lab.page.locator("#bench-source-form-error").is_hidden()
+
+    form.locator('button[type="submit"]').click()
+    lab.page.locator("#bench-preview .bench-sheet-table").wait_for()
+    assert "Rose Test · 10 mL" in lab.page.locator("#bench-preview").inner_text()
+    assert lab.page_errors == []
+    assert lab.unexpected == []
+
+
+def test_a_size_filled_from_a_file_name_does_not_scale_a_pasted_formula(lab):
+    lab.respond("POST", "/v2/workbench/formula-text", json=dict(SOURCE, source_path=None, formula_name="Tuberose 50mL"))
+    _open(lab)
+    _pick_file(lab)
+    form = lab.page.locator("#bench-source-form")
+    assert form.locator('[name="source_ml"]').input_value() == "30"
+
+    form.locator('[name="source_kind"]').select_option("PASTED")
+    assert form.locator('[name="source_ml"]').input_value() == ""
+    form.locator('[name="pasted_text"]').fill("# Tuberose 50mL\n\n| Material | uL |\n|---|---|\n| Hedione | 600 |")
+    form.locator('[name="target_ml"]').fill("5")
+    form.locator('button[type="submit"]').click()
+    lab.page.locator("#bench-preview .bench-sheet-table").wait_for()
+
+    assert form.locator('[name="source_ml"]').input_value() == "50"
+    assert "Scaled from the 50 mL formula to 5 mL" in lab.page.locator("#bench-preview").inner_text()
+    hedione = lab.page.locator("#bench-preview tbody tr", has_text="Hedione")
+    assert hedione.locator(".bench-amount").first.inner_text() == "60 uL"
+
+    # A size Kenny typed himself stays when the source changes.
+    form.locator('[name="source_ml"]').fill("40")
+    form.locator('[name="source_kind"]').select_option("PROJECT_FILE")
+    assert form.locator('[name="source_ml"]').input_value() == "40"
     assert lab.page_errors == []
     assert lab.unexpected == []

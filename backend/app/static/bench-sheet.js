@@ -470,25 +470,29 @@ function benchMatchStocks(rows, inventory) {
   const matched = (rows || []).map((row) => {
     const names = new Set([row.material, row.identity_name].map(benchNameKey).filter(Boolean));
     const fraction = String(row.stock_fraction_decimal ?? "").trim();
-    const candidates = BENCH_DECIMAL.test(fraction) ? owned.filter((stock) => (
-      (names.has(benchNameKey(stock.material)) || names.has(benchNameKey(stock.identity_name)))
-      && BENCH_DECIMAL.test(String(stock.fraction_decimal ?? ""))
+    const sameName = owned.filter((stock) => names.has(benchNameKey(stock.material)) || names.has(benchNameKey(stock.identity_name)));
+    // A hold on any owned stock of this material is listed, even when the
+    // row's strength is missing or matches none of them.
+    const heldStocks = sameName.filter((stock) => stock.design_ready === false);
+    heldStocks.forEach((stock) => {
+      held.push(`${stock.stock_label || stock.material} (${String(stock.design_hold_reason || "on hold").replaceAll("_", " ").toLowerCase()})`);
+    });
+    const executionReady = heldStocks.length ? false : row.execution_ready;
+    const candidates = BENCH_DECIMAL.test(fraction) ? sameName.filter((stock) => (
+      BENCH_DECIMAL.test(String(stock.fraction_decimal ?? ""))
       && compareDecimalText(String(stock.fraction_decimal), fraction) === 0
       && benchBasisFits(row.fraction_basis, stock.fraction_basis, fraction)
     )) : [];
     const readings = new Set(candidates.map((stock) => [stock.stock_label, stock.fraction_basis, stock.carrier ?? ""].join("|")));
     if (!candidates.length) {
       unmatched.push(row.material);
-      return { ...row };
+      return { ...row, execution_ready: executionReady };
     }
     if (readings.size > 1) {
       ambiguous.push(row.material);
-      return { ...row };
+      return { ...row, execution_ready: executionReady };
     }
     const stock = candidates[0];
-    if (candidates.some((item) => item.design_ready === false)) {
-      held.push(`${stock.stock_label || stock.material} (${String(stock.design_hold_reason || "on hold").replaceAll("_", " ").toLowerCase()})`);
-    }
     return {
       ...row,
       stock_id: stock.stock_id,
@@ -496,7 +500,7 @@ function benchMatchStocks(rows, inventory) {
       stock_label: stock.stock_label || stock.material,
       fraction_basis: stock.fraction_basis || row.fraction_basis,
       carrier: stock.carrier || null,
-      execution_ready: candidates.some((item) => item.design_ready === false) ? false : row.execution_ready,
+      execution_ready: executionReady,
     };
   });
   return { rows: matched, unmatched, ambiguous, held };
@@ -510,7 +514,7 @@ function benchNameList(names) {
 // Plain-language notes for the sheet header.
 function benchSourceNotes({ scaledFrom = null, scaledTo = null, unscaled = [], unmatched = [], ambiguous = [], held = [], warnings = [] }) {
   const notes = [];
-  if (scaledFrom && scaledTo) notes.push(`Scaled from the ${scaledFrom} mL formula to ${scaledTo} mL; µL and mg rounded to one decimal.`);
+  if (scaledFrom && scaledTo) notes.push(`Scaled from the ${scaledFrom} mL formula to ${scaledTo} mL; µL and mg rounded to one decimal, mL and g to three, and a row that would round to zero keeps two more places.`);
   if (unscaled.length) notes.push(`Not scaled, the amount is not a plain number: ${benchNameList(unscaled)}.`);
   if (held.length) notes.push(`On hold in Stock: ${benchNameList(held)}.`);
   if (unmatched.length) notes.push(`No owned stock with this name and strength, check the bottle: ${benchNameList(unmatched)}.`);
