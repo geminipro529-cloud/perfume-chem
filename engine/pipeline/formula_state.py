@@ -540,7 +540,9 @@ class FormulaState:
             moles = active_g / mw if active_g > 0 else 0.0
             canonical = m.canonical_name
             mole_inputs[canonical] = mole_inputs.get(canonical, 0.0) + moles
-            composite_rows.append((canonical, m.name, active_g, moles))
+            composite_rows.append(
+                (canonical, resolve_material(m.name).matched_name, active_g, moles)
+            )
 
         total_moles = sum(mole_inputs.values())
         composite_replacements = tuple(
@@ -617,16 +619,17 @@ class FormulaState:
             # For known natural absolutes, replace the monomolecular OAV
             # with modeled contributions from the available constituent profile.
             # Profile metadata retains incomplete coverage and input authority.
+            lookup_name = resolve_material(m.name).matched_name
             composite_result, composite_metadata, composite_lookup_name = (
                 _lookup_composite_headspace(
                     m.canonical_name,
-                    m.name,
+                    lookup_name,
                     active_g,
                     composite_total_moles,
                     temperature_K=base.temperature_K,
                 )
             )
-            requires_composite = m.is_opaque_preblend or _is_natural_mixture(m.name)
+            requires_composite = m.is_opaque_preblend or _is_natural_mixture(lookup_name)
             if composite_result is not None:
                 partial_pressure = composite_result.partial_pressure_pa
                 vapor_ppm = composite_result.vapor_ppm
@@ -1185,7 +1188,7 @@ def _build_formula_state_cached(
             hsp, hsp_source = _fallback_hsp(
                 identity.registry_name,
                 identity.profile_name,
-                name,
+                identity.matched_name,
             )
         if hsp is not None:
             hsp_table[canonical] = hsp
@@ -1194,7 +1197,7 @@ def _build_formula_state_cached(
             canonical,
             identity.registry_name,
             identity.profile_name,
-            name,
+            identity.matched_name,
         )
 
         raw_rows.append(
@@ -1239,7 +1242,7 @@ def _build_formula_state_cached(
     composite_rows = tuple(
         (
             row[13].canonical_name,
-            row[0],
+            row[13].matched_name,
             row[4],
             row[12],
         )
@@ -1366,26 +1369,27 @@ def _build_formula_state_cached(
 
         partial_pressure = (gamma_value * x_i * vp) if vp is not None else 0.0
         vapor_ppm = 1e6 * partial_pressure / P_ATM_PA
-        odt_air_ppm, odt_source = _lookup_odt(name, profile, reg_mat)
+        lookup_name = identity.matched_name
+        odt_air_ppm, odt_source = _lookup_odt(lookup_name, profile, reg_mat)
         oav_value = oav(vapor_ppm, odt_air_ppm) if vp is not None and odt_air_ppm else None
 
         # RULE 1b — Natural Absolute Decomposition
         composite_result, composite_metadata, composite_lookup_name = _lookup_composite_headspace(
             canonical,
-            name,
+            lookup_name,
             active_g,
             composite_total_moles,
             temperature_K=temperature_K,
         )
-        is_opaque_preblend = _is_opaque_preblend(name, profile)
-        requires_composite = is_opaque_preblend or _is_natural_mixture(name)
+        is_opaque_preblend = _is_opaque_preblend(lookup_name, profile)
+        requires_composite = is_opaque_preblend or _is_natural_mixture(lookup_name)
         if composite_result is not None:
             partial_pressure = composite_result.partial_pressure_pa
             vapor_ppm = composite_result.vapor_ppm
             oav_value = composite_result.oav
             composite_reference, _, _ = _lookup_composite_headspace(
                 canonical,
-                name,
+                lookup_name,
                 active_g,
                 composite_total_moles,
                 temperature_K=VP_REFERENCE_T_K,
