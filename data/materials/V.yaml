@@ -610,18 +610,16 @@
 - canonical_name: Vetival
   aliases:
   - vetival
-  cas:
+  cas: '4927-39-3'
   smiles:
   inchikey:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 206.3, corrected to 218.33)
-  mw_g_mol: 218.33
-  density_25c_g_ml:
+  mw_g_mol: 182.31
+  density_25c_g_ml: 0.9103
   logp: 3.0
   functional_groups: []
   chirality:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 0.2, corrected to 6.53)
   vp_25c_pa: 6.53
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: TGSC_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.0008
@@ -646,8 +644,8 @@
   character:
   notes:
   provenance:
-    mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    mw_g_mol: 'C12H22O (4-cyclohexyl-4-methylpentan-2-one, CAS 4927-39-3) from standard atomic weights = 182.31; Symrise datasheet MW 182.3'
+    vp_25c_pa: 'ESTIMATE, not measured: TGSC https://www.thegoodscentscompany.com/data/rw1019151.html (CAS 4927-39-3): "0.049000 mmHg @ 25.00 °C. (est)" = 6.53 Pa (value unchanged, now attributed); the EPI Suite page https://www.thegoodscentscompany.com/episys/ep1019151.html gives 0.107 mm Hg (14.3 Pa), also an estimate; no measured value found (via material-data-firecrawl/followup-20261008/F5_vp_irotyl_vetival_ultralia.md)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -656,6 +654,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'PerfumersWorld product page https://www.perfumersworld.com/view.php?pro_id=4WL15944 (Kenny''s supplier): "CAS 4927-39-3", synonym "cyclohexyl-4-methyl pentan-2-one"; Symrise datasheet gives the same CAS (via material-data-firecrawl/followup-20261008/F1_densities_identity.md)'
+    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1019151.html: "Specific Gravity: 0.91000 to 0.91600 @ 25.00 °C."; midpoint 0.913 x 0.99705 g/mL (water at 25 C) = 0.9103; PerfumersWorld lists SG 0.9100 (no temperature)'
 - canonical_name: Vetikon
   aliases:
   - vetikon
@@ -790,11 +790,11 @@
   aliases:
   - Haitian Vetiver EO
   - Vetiver EO Haiti
-  cas: null
+  cas: '8016-96-4'
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.9971
   logp: null
   functional_groups:
   - natural_mixture
@@ -824,6 +824,8 @@
     user_stock_dilution: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
     user_in_inventory: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
     origin: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
+    cas: 'PerfumersWorld product page https://www.perfumersworld.com/view.php?pro_id=7WY00466 (Kenny''s supplier, "Vetiveria zizaniodes Stapf. Oil Haiti"): "CAS 8016-96-4"'
+    density_25c_g_ml: 'PerfumersWorld product page https://www.perfumersworld.com/view.php?pro_id=7WY00466: "Specific Gravity 1.0000" (no temperature stated) x 0.99705 g/mL = 0.9971; for comparison ISO 4716:1987 gives relative density 0.986-0.998 at 20/20 C for Haiti oil and a supplier TDS gives 0.984-1.035 g/mL at 25 C (via material-data-firecrawl/followup-20261008/F1_densities_identity.md)'
 - canonical_name: Vetiver Essential Oil
   aliases: []
   cas:
