@@ -273,7 +273,7 @@ _PROFILES: dict[str, dict] = {
         "role": "trace",
         "texture": "halo",
         "mw": 184.32,
-        "vp": 0.01,
+        "vp": 1.5,  # registry data/materials/A.yaml (Merck 1.0 Pa at 20 C, adjusted)
         "clogp": 4.83,
         "synergies": ["Aldehyde C10", "Aldehyde C11", "Benzyl Salicylate", "Hedione"],
     },
