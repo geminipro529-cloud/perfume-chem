@@ -703,7 +703,7 @@ def test_bench_sheet_writes_the_basis_as_w_w_or_v_v():
     assert strengths == ["25% w/w in DPG", "10% v/v in ethanol", "100% neat"]
 
 
-def test_bench_sheet_logic_keeps_exact_per_unit_totals_and_flags_prepared_dilutions():
+def test_bench_sheet_logic_keeps_exact_per_unit_totals_and_pours_small_rows_from_a_mix():
     rows = [
         _row("Iso E Super", "20.0"),
         _row("Ambrox crystals", "0.1", "mg"),
@@ -723,17 +723,20 @@ def test_bench_sheet_logic_keeps_exact_per_unit_totals_and_flags_prepared_diluti
 
     assert result["sum"] == "0.3"
     lines = result["lines"]["lines"]
+    # The 4 uL row goes in as 12 uL of a 1 + 2 DPG mix, so the total moves by 12.
     assert [line["runningTotal"] for line in lines] == [
-        "20 \u00b5L", "0.1 mg", "50 \u00b5L", "0.3 mg", None, "check by hand", "check by hand",
+        "20 \u00b5L", "0.1 mg", "50 \u00b5L", "0.3 mg", "62 \u00b5L", "check by hand", "check by hand",
     ]
     assert [line["strength"] for line in lines][0] == "0.5% w/w in DPG"
     assert [line["amount"] for line in lines][:3] == ["20.0", "0.1", "30"]
 
     flagged = lines[4]
-    assert flagged["pipettable"] is False
-    assert flagged["mark"] == "Prepare a dilution first: 4 uL of this stock is under 10 uL, too small to pipette as written."
-    assert result["lines"]["leftOut"] == 1
-    assert [line["pipettable"] for line in lines] == [True, True, True, True, False, True, True]
+    assert flagged["pipettable"] is True
+    assert flagged["mark"] == (
+        "Under 10 uL: first mix 10 uL of this stock with 20 uL DPG, then add 12 uL of the mix (it carries the 4 uL)."
+    )
+    assert result["lines"]["leftOut"] == 0
+    assert [line["pipettable"] for line in lines] == [True] * 7
 
     assert result["hold"] == {
         "onHold": True,
@@ -745,10 +748,11 @@ def test_bench_sheet_logic_keeps_exact_per_unit_totals_and_flags_prepared_diluti
     html = result["html"]
     body_rows = html.split("<tbody>", 1)[1].split("</tr>")[:-1]
     assert len(body_rows) == len(rows)
-    assert "bench-tick" not in body_rows[4]
-    assert "not in total" in body_rows[4]
-    assert all("bench-tick" in row for index, row in enumerate(body_rows) if index != 4)
-    assert "Running totals leave out 1 row that needs a prepared dilution first." in html
+    assert all("bench-tick" in row for row in body_rows)
+    assert ">12 uL of the mix<small>4 uL stock</small>" in body_rows[4]
+    assert "not in total" not in html
+    assert "1 row under 10 \u00b5L goes in from a mix; the mix adds 8 \u00b5L DPG to the bottle." in html
+    assert "Running totals leave out" not in html
     assert "Proposal \u00b7 check hold" in html
     assert "Ethyl &lt;b&gt;Maltol&lt;/b&gt;" in html
     assert "<b>Maltol" not in html
@@ -836,14 +840,45 @@ def test_basket_order_never_changes_an_amount_and_keeps_a_postcharge_last():
     assert result["amounts"] == sorted(row["amount_decimal"] for row in rows)
 
 
-def test_pours_from_10_to_under_20_ul_are_flagged_for_a_one_to_one_dilution():
+def test_pours_under_10_ul_get_an_exact_mix_and_10_ul_or_more_pour_as_written():
     rows = [
-        _row("A", "9.99"), _row("B", "10"), _row("C", "19.999"), _row("D", "20"),
-        _row("E", "15", "mg"), _row("F", "15", "µL"), _row("G", "12", operation="PREPARED_DILUTION_REQUIRED"),
+        _row("A", "9.99"), _row("B", "10"), _row("C", "19.999"), _row("D", "4"), _row("E", "15", "mg"),
+        _row("F", "0.05"), _row("BHT", "2"), _row("H", "3.30", "\u03bcL"),
+        _row("I", "12", operation="PREPARED_DILUTION_REQUIRED", execution_ready=False),
     ]
-    flags = _run_bench_sheet("(b) => ROWS.map((row) => b.benchSmallPour(row))".replace("ROWS", json.dumps(rows)))
+    result = _run_bench_sheet(
+        "(b) => ({ recipes: ROWS.map((row) => b.benchMixRecipe(row)), sheet: b.benchSheetLines(ROWS),"
+        " text: b.benchMixText(b.benchMixRecipe(ROWS[0]), 'uL'), short: b.benchMixShortText(b.benchMixRecipe(ROWS[3]), 'uL'),"
+        " note: b.benchMixNote(b.benchSheetLines(ROWS).mixes) })".replace("ROWS", json.dumps(rows))
+    )
 
-    assert flags == [False, True, True, False, False, True, False]
+    recipes = result["recipes"]
+    assert [None if r is None else (r["parts"], r["stockUl"], r["carrierUl"], r["carrier"], r["pourUl"], r["stockAmount"])
+            for r in recipes] == [
+        (2, "20", "20", "DPG", "19.98", "9.99"),  # 1:1; a 10 uL stock part would leave too little mix spare
+        None, None,  # 10 uL and over pour as written
+        (3, "10", "20", "DPG", "12", "4"),
+        None,  # weighed
+        None,  # under 0.1 uL: more than 100 parts, no recipe
+        (5, "10", "40", "ethanol", "10", "2"),  # BHT stays in ethanol
+        (4, "10", "30", "DPG", "13.2", "3.3"),
+        None,  # the planner's mark on a 12 uL row has no small-pour recipe
+    ]
+    assert result["text"] == (
+        "Under 10 uL: first mix 20 uL of this stock with 20 uL DPG, then add 19.98 uL of the mix (it carries the 9.99 uL)."
+    )
+    assert result["short"] == "under 10 uL: mix 10 uL stock + 20 uL DPG, add 12 uL of the mix"
+
+    lines = result["sheet"]["lines"]
+    assert [line["mark"] is None for line in lines] == [False, True, True, False, True, False, False, False, False]
+    assert [line["pipettable"] for line in lines] == [True, True, True, True, True, False, True, True, False]
+    assert result["sheet"]["leftOut"] == 2
+    assert [line["runningTotal"] for line in lines] == [
+        "19.98 \u00b5L", "29.98 \u00b5L", "49.979 \u00b5L", "61.979 \u00b5L", "15 mg", None,
+        "71.979 \u00b5L", "85.179 \u00b5L", None,
+    ]
+    assert result["note"] == "4 rows under 10 \u00b5L go in from a mix; the mixes add 27.89 \u00b5L DPG and 8 \u00b5L ethanol to the bottle."
+    assert "20" not in "".join(line["mark"] or "" for line in lines[1:3])
 
 
 def test_bench_sheet_follows_basket_order_with_headings_and_running_totals():
@@ -870,7 +905,8 @@ def test_bench_sheet_follows_basket_order_with_headings_and_running_totals():
     assert ">580 µL<" in material_rows[1].replace("</td>", "<")
     assert ">830 µL<" in material_rows[2].replace("</td>", "<")
     calone = next(row for row in material_rows if "<strong>Calone</strong>" in row)
-    assert "Under 20 µL: dilute 1:1 in ethanol, pipette double" in calone
+    assert "bench-dilution-mark" not in calone
+    assert ">15 uL<" in calone.replace("</td>", "<")
     assert 'class="bench-basket-tag">Basket 1<' in material_rows[2]
 
     plain = result["plain"]

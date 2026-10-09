@@ -44,9 +44,9 @@ RESULT = {
 }
 
 
-def _create(lab, inventory):
+def _create(lab, inventory, result=RESULT):
     lab.respond("GET", "/v2/workbench/current-inventory", json=inventory)
-    lab.respond("POST", "/v2/workbench/formula-chat", json=RESULT)
+    lab.respond("POST", "/v2/workbench/formula-chat", json=result)
     lab.open("#formulas")
     lab.page.locator('#formula-chat-form textarea[name="message"]').fill("a rose and cedar test")
     lab.page.locator("#formula-chat-submit").click()
@@ -54,7 +54,7 @@ def _create(lab, inventory):
     return lab.page.locator("#formula-result-rows tr")
 
 
-def test_create_table_groups_rows_by_basket_and_flags_small_pours(lab):
+def test_create_table_groups_rows_by_basket_and_pours_15_ul_as_written(lab):
     rows = _create(lab, {"stocks": STOCKS, "counts": {}, "baskets": _baskets()})
 
     texts = [text.strip() for text in rows.all_inner_texts()]
@@ -64,8 +64,22 @@ def test_create_table_groups_rows_by_basket_and_flags_small_pours(lab):
     assert materials == ["Iso E Super", "Hedione", "Cedarwood Atlas", "Rose Oxide", "Calone"]
     assert lab.page.locator("#formula-result-rows tr.formula-basket-row th").first.get_attribute("colspan") == "4"
     calone_dose = lab.page.locator("#formula-result-rows tr", has_text="Calone").locator(".formula-dose").inner_text()
-    assert "Under 20 µL: dilute 1:1 in ethanol, pipette double" in calone_dose
+    assert calone_dose.strip() == "15 uL"
     assert "Basket 1" in lab.page.locator("#formula-result-rows tr", has_text="Iso E Super").locator("td").first.inner_text()
+    assert lab.page_errors == []
+    assert lab.unexpected == []
+
+
+def test_create_table_gives_the_dpg_mix_for_a_pour_under_10_ul(lab):
+    small = dict(_row("Rose Oxide", "4", "s-ros"), operation="PREPARED_DILUTION_REQUIRED", execution_ready=False)
+    result = dict(RESULT, optimized_formula={"rows": [small, _row("Hedione", "40", "s-hed")],
+                                              "separate_totals": {"liquid_total_ul": "44", "mass_total_mg": "0"}})
+    _create(lab, {"stocks": STOCKS, "counts": {}, "baskets": _baskets()}, result)
+
+    dose = lab.page.locator("#formula-result-rows tr", has_text="Rose Oxide").locator(".formula-dose")
+    assert dose.locator("small.formula-dose-mix").inner_text() == "under 10 uL: mix 10 uL stock + 20 uL DPG, add 12 uL of the mix"
+    assert "prepare dilution first" not in dose.inner_text().lower()
+    assert lab.page.locator("#formula-result-rows tr", has_text="Hedione").locator(".formula-dose").inner_text().strip() == "40 uL"
     assert lab.page_errors == []
     assert lab.unexpected == []
 

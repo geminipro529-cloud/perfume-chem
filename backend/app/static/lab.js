@@ -1838,9 +1838,12 @@ function renderFormulaRows(rows) {
         : entry.group === "unassigned" ? '<small class="formula-basket-tag">No basket</small>' : "";
       const basis = benchBasisText(row.fraction_basis);
       const stockLabel = row.stock_label || `${fraction} ${basis}${carrier}`;
+      const mix = benchNeedsPreparedDilution(row) ? benchMixRecipe(row) : null;
+      const doseNote = mix ? `<small class="formula-dose-mix">${escapeHtml(benchMixShortText(mix, row.amount_unit))}</small>`
+        : benchNeedsPreparedDilution(row) ? '<small class="formula-dose-hold">prepare dilution first</small>' : "";
       return `${heading}<tr>
         <td><strong>${escapeHtml(row.material)}</strong>${basketTag}${proxy}<small class="formula-why">${escapeHtml(row.rationale)}</small></td>
-        <td class="formula-dose">${escapeHtml(row.amount_decimal)} ${escapeHtml(row.amount_unit)}${benchNeedsPreparedDilution(row) ? '<small class="formula-dose-hold">prepare dilution first</small>' : ""}${benchSmallPour(row) ? `<small class="formula-dose-small">${escapeHtml(BENCH_SMALL_POUR_TEXT)}</small>` : ""}</td>
+        <td class="formula-dose">${escapeHtml(row.amount_decimal)} ${escapeHtml(row.amount_unit)}${doseNote}</td>
         <td>${escapeHtml(stockLabel)}<small>${escapeHtml(fraction)} ${escapeHtml(basis)}${escapeHtml(carrier)}</small></td>
         <td>${escapeHtml(row.slot_label)}<small>${escapeHtml(row.note)} · ${escapeHtml(row.role)}</small></td>
       </tr>`;
