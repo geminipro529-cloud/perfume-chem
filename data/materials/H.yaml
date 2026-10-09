@@ -1328,8 +1328,8 @@
   logp: 1.8
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.005
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.773
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.005
@@ -1355,7 +1355,7 @@
   notes: "User-corrected bottle identity 2026-09-07. Neat inherited from V5, not new assay. VP remains unverified and temperature-conflicted."
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'ESTIMATE, not measured: RIFM safety assessment, Api et al., Food Chem Toxicol 163 (2022) 112983, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/107-75-5.pdf: "0.0058 mm Hg at 25 °C (EPI Suite)" = 0.773 Pa; no measured 25 C value found; BASF SDS gives "0.005472 hPa (20 C) Extrapolated value (measured)" = 0.547 Pa at 20 C; replaces an unsourced 0.005 Pa, about 100x below every source (via material-data-firecrawl/followup-20261008/F2_vapour_pressures.md)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

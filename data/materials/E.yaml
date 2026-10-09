@@ -987,7 +987,7 @@
   chirality:
   # VERIFIED: Profile VP from ingredient_intelligence, 2026-05-30 (was 0.0002, corrected to 0.019)
   vp_25c_pa: 0.019
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: supplier  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.0002
@@ -1017,7 +1017,7 @@
   notes:
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'Supplier SDS value kept (engine/ingredient_intelligence._VERIFIED_VP, 2026-05-12 cross-check): Fisher Scientific SDS 0.00014 mmHg = 0.019 Pa (temperature not recorded); DirectPCW SDS 0.000220 mmHg at 25 C = 0.029 Pa. CONFLICT: PubChem CID 8467 HSDB (peer reviewed, citing Yaws, Handbook of Vapor Pressure Vol 3, 1994) "1.04X10-5 mm Hg at 25 °C" = 0.00139 Pa, 14x lower; TGSC estimate 0.00088 mmHg (0.117 Pa); Borregaard SDS 0.000013 Pa. Not replaced: the sources disagree by more than 10x and none of them is a primary measurement (via material-data-firecrawl/followup-20261008/F2_vapour_pressures.md)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -1030,11 +1030,11 @@
 - canonical_name: Ethylene Brassylate
   aliases:
   - ethylene brassylate
-  cas:
+  cas: '105-95-3'
   smiles:
   inchikey:
   mw_g_mol: 270.4
-  density_25c_g_ml:
+  density_25c_g_ml: 1.0404
   logp: 4.2
   functional_groups: []
   chirality:
@@ -1082,6 +1082,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'PerfumersWorld product page https://www.perfumersworld.com/view.php?pro_id=3XU00180 (Kenny''s supplier): CAS 105-95-3'
+    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1002472.html (CAS 105-95-3): "Specific Gravity: 1.04000 to 1.04700 @ 25.00 °C."; midpoint 1.0435 x 0.99705 g/mL (water at 25 C) = 1.0404; PerfumersWorld lists SG 1.0400 (no temperature) (via material-data-firecrawl/allgaps/D1_density_cas.csv)'
 - canonical_name: Eucalyptol
   aliases: []
   cas:
