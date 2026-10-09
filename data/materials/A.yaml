@@ -1414,8 +1414,12 @@
   logp: 3.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.01
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # Merck (Sigma-Aldrich 808469, 2-methylundecanal) states 0.01 hPa = 1.0 Pa at 20 C,
+  # checked 2026-10-09; x1.5 to 25 C with dHvap ~60 kJ/mol (the repo's working value).
+  # Other figures: the Yaws Handbook correlation (Chemeo; fitted 397-551 K) extrapolates
+  # to 1.1 Pa at 25 C; ChemicalBook lists 2.4 Pa at 20 C. The old 0.01 Pa had no source.
+  vp_25c_pa: 1.5
+  vp_source: supplier_physical_data_20c_adjusted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.005
