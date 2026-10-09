@@ -18,7 +18,10 @@ from engine.calibration.hashing import (
     stable_file_hash,
     stable_json_hash,
 )
-from engine.inventory_completions import completion_clears_execution_hold
+from engine.inventory_completions import (
+    completion_clears_execution_hold,
+    describe_authority_disagreement,
+)
 from engine.inventory_parser import (
     CURRENT_INVENTORY_ALIAS_CROSSWALK_SHA256,
     CURRENT_INVENTORY_AUTHORITY,
@@ -1535,6 +1538,41 @@ def _inventory_text_binding_check() -> PreflightCheck:
     )
 
 
+def _stock_authority_disagreement_check(stock_contract: PreflightCheck) -> PreflightCheck | None:
+    """RULE 0: a Stock page entry that overrides the workbook/overlay is reported.
+
+    The entry still wins and the stock still counts; this is a WARN beside the
+    stock contract, which stays PASS so the dose receipt can bind.
+    """
+
+    disagreements: list[dict[str, Any]] = []
+    for matched in list((stock_contract.data or {}).get("matched_stocks", []) or []):
+        described = describe_authority_disagreement(
+            matched.get("fraction"),
+            matched.get("fraction_basis"),
+            matched.get("carrier"),
+            dict(matched.get("authority_facts_differ", {}) or {}),
+        )
+        if described is not None:
+            disagreements.append(
+                {"material": matched.get("material"), "stock_id": matched.get("stock_id"), **described}
+            )
+    if not disagreements:
+        return None
+    lines = "; ".join(
+        f"{item['material']}: Stock page says {item['stock_page']}, "
+        f"workbook/overlay says {item['authority']}"
+        for item in disagreements
+    )
+    return PreflightCheck(
+        "stock_authority_disagreement",
+        "WARN",
+        f"Stock page entry differs from the workbook/overlay ({lines}); "
+        "the Stock page entry is used.",
+        {"disagreements": disagreements},
+    )
+
+
 def run_release_preflight(
     formula: Mapping[str, Any],
     state: FormulaState,
@@ -1547,7 +1585,11 @@ def run_release_preflight(
     checks: list[PreflightCheck] = []
     total_penalty = 0.0
     checks.append(_input_normalization_check(formula))
-    checks.append(stock_contract or resolve_inventory_stock_contract(formula))
+    stock_contract = stock_contract or resolve_inventory_stock_contract(formula)
+    checks.append(stock_contract)
+    disagreement_check = _stock_authority_disagreement_check(stock_contract)
+    if disagreement_check is not None:
+        checks.append(disagreement_check)
     checks.append(_inventory_text_binding_check())
     checks.append(_dose_receipt_binding_check(state, dose_receipt))
     checks.append(_schema_check())

@@ -411,6 +411,59 @@ def _authority_facts_differ(
     )
 
 
+_BASIS_ABBREVIATIONS = {
+    "mass_fraction": "w/w",
+    "volume_fraction": "v/v",
+    "mass_per_volume": "w/v",
+}
+
+
+def stock_facts_text(fraction: Any, basis: Any, carrier: Any) -> str:
+    """Plain words for a stock's strength, basis and carrier ("10% w/w in DEP")."""
+
+    value = float(fraction or 0)
+    basis_text = str(basis or "")
+    carrier_text = str(carrier or "").strip()
+    if basis_text == "neat" or (value == 1 and not carrier_text):
+        return "neat"
+    parts = [f"{value * 100:g}%" if value > 0 else "strength not stated"]
+    if basis_text in _BASIS_ABBREVIATIONS:
+        parts.append(_BASIS_ABBREVIATIONS[basis_text])
+    if carrier_text:
+        parts.append(f"in {carrier_text}")
+    return " ".join(parts)
+
+
+def describe_authority_disagreement(
+    fraction: Any, basis: Any, carrier: Any, authority_facts: Mapping[str, Any]
+) -> dict[str, Any] | None:
+    """RULE 0: what the Stock page says against what the workbook/overlay says."""
+
+    if not authority_facts:
+        return None
+    facts = dict(authority_facts)
+    authority = stock_facts_text(
+        facts.get("dilution"), facts.get("fraction_basis"), facts.get("carrier")
+    )
+    return {
+        "stock_page": stock_facts_text(fraction, basis, carrier),
+        "authority": authority,
+        "authority_facts": facts,
+        "text": f"Differs from the workbook: workbook says {authority}",
+    }
+
+
+def authority_disagreement(stock: Any) -> dict[str, Any] | None:
+    """The disagreement a Stock page entry has with the authority, or None."""
+
+    return describe_authority_disagreement(
+        getattr(stock, "dilution", 0),
+        getattr(stock, "fraction_basis", ""),
+        getattr(stock, "carrier", ""),
+        dict(getattr(stock, "authority_facts_differ", ()) or ()),
+    )
+
+
 def apply_inventory_completion_events(materialization: Any, path: Path | None = None) -> Any:
     events = load_inventory_completion_events(path)
     latest_by_stock: dict[str, dict[str, Any]] = {}
