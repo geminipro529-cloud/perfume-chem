@@ -117,11 +117,13 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # Name links put Aldehyde C-12 Lauric Dodecanal, Aldehyde C-18 and Phenyl
     # Acetaldehyde on thresholds held under another name (235 -> 238), and
     # labelled proxy profiles for Magnolia EO, Champaca Flower EO, Peru Balsam
-    # Resinoid, Basil EO, Tagetes EO, Helichrysum EO and Guaiacwood EO made
-    # them OAV-available (238 -> 245).
-    assert audit["oav_available_count"] == 245
-    assert audit["oav_unknown_count"] == 45
-    assert audit["oav_coverage_pct"] == 84.483
+    # Resinoid, Tagetes EO, Helichrysum EO and Guaiacwood EO made them
+    # OAV-available (238 -> 244). Rose Otto Bulgarian, Haitian Vetiver EO and
+    # Hay Absolute proxy profiles and the IFF vapour pressure for
+    # Cis-3-Hexenyl Salicylate followed (244 -> 248).
+    assert audit["oav_available_count"] == 248
+    assert audit["oav_unknown_count"] == 42
+    assert audit["oav_coverage_pct"] == 85.517
     assert audit["status"] == "FAIL_CLOSED_GAPS"
     assert {"Fructone B", "Helvetolide", "Manzanate", "Ambrocenide"} <= set(
         categories["other_oav_unknowns"]
