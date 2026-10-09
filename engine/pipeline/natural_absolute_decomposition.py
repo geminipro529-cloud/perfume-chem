@@ -929,6 +929,72 @@ _CARAWAY_ISO_8896_MIDPOINT_CONSTITUENTS = [
     ("myrcene", 0.0045, 136.24, 400.0, 10.0, 3.0),
 ]
 
+# -- Proxy profiles for owned naturals without a lot analysis (2026-10-09) --
+# Each profile is a labelled literature or supplier proxy, not an analysis of
+# the owned bottle. Inputs reuse this module's existing runtime tuples where the
+# constituent is modeled elsewhere. Constituents without a runtime headspace
+# input stay unresolved, not odorless. Nothing is renormalized.
+
+# Cinnamon bark (not leaf) oil. Supplier certificate of analysis, amrita.net
+# CoA EO3231-CBBL, "Cinnamon Bark Organic, Sri Lanka" (Cinnamomum zeylanicum),
+# GC-FID on DB-5, produced 2022-03-22; it lists only five constituents summing
+# to 96.37%. The owned Telvada lot has no published composition, species or
+# origin. Cinnamaldehyde reuses the ODT_DATA-consistent air ODT (62 ppb,
+# engine/odor_thresholds.py) that the storax row uses. (E)-Cinnamyl acetate
+# (4.02%) has no runtime headspace input and stays unresolved. Leaf-oil
+# profiles (eugenol-dominant) are non-equivalent and are not used.
+_CINNAMON_BARK_SRI_LANKA_COA_CONSTITUENTS = [
+    ("cinnamaldehyde", 0.7971, 132.16, 3.0, 62.0, 2.0),
+    ("eugenol", 0.0600, 164.20, 2.50, 0.50, 1.5),
+    ("linalool", 0.0486, 154.25, 21.3, 1.5, 2.0),
+    ("beta caryophyllene", 0.0178, 204.35, 1.0, 10.0, 1.2),
+]
+
+# Lavandin (Lavandula x intermedia) supercritical-CO2 extract, Pellerin,
+# Perfumer & Flavorist 16(4):37 (1991), as tabulated by The Good Scents Company
+# (thegoodscentscompany.com/gca/gc1045781.html) under "lavandin absolute".
+# 57.3% of the extract is listed; 42.7% is an unknown remainder. A CO2 extract
+# is not a solvent-extracted absolute. Herniarin (2.6%) has no runtime input,
+# and beta-caryophyllene + alpha-humulene (2.4%) is reported only as a sum with
+# no split; both stay unresolved.
+_LAVANDIN_CO2_PELLERIN_1991_CONSTITUENTS = [
+    ("linalyl acetate", 0.284, 196.29, 17.5, 2.7, 2.0),
+    ("linalool", 0.101, 154.25, 21.3, 1.5, 2.0),
+    ("coumarin", 0.077, 146.14, 0.05, 2.0, 0.5),
+    ("lavandulyl acetate", 0.018, 196.29, 3.0, 5.0, 1.5),
+    ("camphor", 0.017, 152.23, 25.0, 20.0, 2.0),
+    ("borneol", 0.015, 154.25, 3.00, 10.0, 1.5),
+    ("terpinen-4-ol", 0.011, 154.25, 10.0, 50.0, 1.5),
+]
+
+# Ambrette (Abelmoschus moschatus) seed OIL, GC-MS area %, NIST library IDs,
+# Arokiyaraj et al., Molecules 2015, 20:384 (PMC6272330), Table 1. This is a
+# seed oil, not the owned absolute. The reported "ambrettolide" peak is a NIST
+# library ID and may be (Z)-hexadec-7-en-16-olide or a related isomer; it uses
+# the data-spine MW 252.4 and VP 0.003 Pa (an uncited engine estimate) with
+# the ODT_DATA air ODT 0.136 ppb (Kraft 2005); gamma 0.5 is the macrocyclic
+# musk class input. Farnesyl acetate (51.45%), the alkyl acetates and the
+# alkenyl acetates have no runtime headspace input and stay unresolved.
+# Linoleic acid is a non-volatile mass row, as in the tuberose profile.
+_AMBRETTE_SEED_OIL_AROKIYARAJ_2015_CONSTITUENTS = [
+    ("ambrettolide", 0.1296, 252.4, 0.003, 0.136, 0.5),
+    ("farnesol", 0.0266, 222.37, 0.05, 3.00, 0.6),
+    ("alpha guaiene", 0.0116, 204.35, 1.00, 3.00, 1.2),
+    ("linoleic acid", 0.0203, 280.45, 0.0, 1e6, 0.5),
+]
+
+# Orris concrete / butter (Iris pallida or I. germanica rhizome). Supplier
+# grade labels "ORRIS CONCRETE 8% IRONE" and "15% IRONE" exist
+# (thegoodscentscompany.com/data/co1001091.html); the owned PerfumersWorld
+# grade's irone content is unknown, so the conservative low grade (8% total
+# irones) is modeled with the module's existing orris irone-pool input.
+# Myristic acid is the midpoint of the 60-85% range (Premiere Peau glossary)
+# and is a non-volatile mass row, as the palmitic acid rows are.
+_ORRIS_CONCRETE_8PCT_IRONE_CONSTITUENTS = [
+    ("irone pool (alpha-equivalent)", 0.08, 206.32, 0.559, 0.9, 1.3),
+    ("myristic acid", 0.725, 228.38, 0.0, 1e6, 0.5),
+]
+
 # ── Master Registry ───────────────────────────────────────────────────
 
 _ABSOLUTE_CONSTITUENTS = {
@@ -1040,6 +1106,18 @@ _ABSOLUTE_CONSTITUENTS = {
         _NUTMEG_INDONESIAN_ISO_3215_MIDPOINT_CONSTITUENTS
     ),
     "carum carvi fruit oil iso 8896 midpoint profile": _CARAWAY_ISO_8896_MIDPOINT_CONSTITUENTS,
+    "cinnamomum zeylanicum bark oil sri lanka supplier coa profile": (
+        _CINNAMON_BARK_SRI_LANKA_COA_CONSTITUENTS
+    ),
+    "lavandula x intermedia supercritical co2 extract pellerin 1991 profile": (
+        _LAVANDIN_CO2_PELLERIN_1991_CONSTITUENTS
+    ),
+    "abelmoschus moschatus seed oil arokiyaraj 2015 gc-ms profile": (
+        _AMBRETTE_SEED_OIL_AROKIYARAJ_2015_CONSTITUENTS
+    ),
+    "iris rhizome concrete 8 pct irone low grade scenario profile": (
+        _ORRIS_CONCRETE_8PCT_IRONE_CONSTITUENTS
+    ),
     "tonka bean solvent extract literature profile": _TONKA_SOLVENT_EXTRACT_PROXY_CONSTITUENTS,
     # Specialty bases
     "cassis base 345b": _CASSIS_BASE_345B_CONSTITUENTS,
@@ -1087,6 +1165,32 @@ _PROFILE_ALIASES = {
     # Owner stock "Caraway Seed Oil (10% w/w in DPG)": Carum carvi seed oil.
     "caraway seed eo": "carum carvi fruit oil iso 8896 midpoint profile",
     "caraway seed oil (10% w/w in dpg)": "carum carvi fruit oil iso 8896 midpoint profile",
+    # Owner stock "Cinnamon Bark EO - Telvada USDA Organic (neat)": bark oil,
+    # lot species and origin unknown. Leaf oil is not mapped.
+    "cinnamon bark eo": "cinnamomum zeylanicum bark oil sri lanka supplier coa profile",
+    "cinnamon bark eo - telvada usda organic": (
+        "cinnamomum zeylanicum bark oil sri lanka supplier coa profile"
+    ),
+    # Owner stock "Lavandin Absolute (neat / as supplied)", PerfumersWorld 8HY00554.
+    "lavandin absolute": "lavandula x intermedia supercritical co2 extract pellerin 1991 profile",
+    "lavandin absolute (neat / as supplied)": (
+        "lavandula x intermedia supercritical co2 extract pellerin 1991 profile"
+    ),
+    # Owner stock "Ambrette Seed Absolute (10% in DPG)", PerfumersWorld 5XU12235.
+    "ambrette seed absolute": "abelmoschus moschatus seed oil arokiyaraj 2015 gc-ms profile",
+    "ambrette seed absolute (10% in dpg)": (
+        "abelmoschus moschatus seed oil arokiyaraj 2015 gc-ms profile"
+    ),
+    # Owner stock "Orris Concrete Orris Butter (10% in DPG)", PerfumersWorld
+    # 5IA07847; distinct from Orris Liquid 8IQ24653.
+    "orris concrete orris butter": "iris rhizome concrete 8 pct irone low grade scenario profile",
+    "orris concrete orris butter (10% in dpg)": (
+        "iris rhizome concrete 8 pct irone low grade scenario profile"
+    ),
+    # Owner stock "Siam Benzoin (50% w/w in DPG)": same Styrax tonkinensis
+    # resinoid identity as the existing Siam benzoin profile.
+    "siam benzoin": "benzoin siam resinoid",
+    "siam benzoin (50% w/w in dpg)": "benzoin siam resinoid",
     # Aroma&More SKU Lav420811P: sold as French Lavandula angustifolia oil.
     # It reuses the generic L. angustifolia profile as a labelled proxy.
     "lavender 40/42, aroma&more": "lavender eo",
@@ -1269,6 +1373,22 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://www.iso.org/standard/66253.html",
         "https://cdn.standards.iteh.ai/samples/66253/ec9d0977d3e24e3a85813e08ef968e27/ISO-8896-2016.pdf",
     ),
+    "cinnamomum zeylanicum bark oil sri lanka supplier coa profile": (
+        "amrita.net certificate of analysis EO3231-CBBL, Cinnamon Bark Organic, Sri Lanka (2022-03-22)",
+    ),
+    "lavandula x intermedia supercritical co2 extract pellerin 1991 profile": (
+        "https://www.thegoodscentscompany.com/gca/gc1045781.html",
+        "Pellerin P. (1991) Perfumer & Flavorist 16(4):37",
+    ),
+    "abelmoschus moschatus seed oil arokiyaraj 2015 gc-ms profile": (
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6272330/",
+        "https://thegoodscentscompany.com/data/ab1029391.html",
+    ),
+    "iris rhizome concrete 8 pct irone low grade scenario profile": (
+        "https://thegoodscentscompany.com/data/co1001091.html",
+        "https://premierepeau.com/pages/glossary-terms/orris-concrete",
+        "https://www.perfumersworld.com/view.php?pro_id=8IA00344",
+    ),
     "citrus bergamia calabrian type iso 3520 midpoint profile": (
         "https://www.iso.org/standard/81602.html",
         "https://cdn.standards.iteh.ai/samples/81602/2b45583f486b4ae29289d765e8a46f9c/ISO-3520-2022.pdf",
@@ -1354,6 +1474,221 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "ISO 8896 describes a conforming commercial caraway oil; it is not an analysis of the owned bottle, whose supplier, origin and lot are not recorded.",
             "Range midpoints are nominal model inputs; a conforming oil can sit anywhere in each range (carvone 50-63%, limonene 33-45%). The range minima sum to 83.5% and the maxima to 111.2%.",
             "Only 39.45% of nominal composition is modeled (limonene and myrcene). Carvone, the caraway character constituent, has no runtime headspace input; it and the other unresolved constituents remain uncomputed, not odorless, so the modeled headspace does not represent caraway character.",
+        ),
+    },
+    "cinnamomum zeylanicum bark oil sri lanka supplier coa profile": {
+        "analytical_method": "SUPPLIER_COA_GC_FID",
+        "composition_basis": "SUPPLIER_COA_GC_AREA_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "amrita.net certificate of analysis EO3231-CBBL",
+                "document": "Cinnamon Bark Organic, Sri Lanka, CoA EO3231-CBBL (produced 2022-03-22)",
+                "published_botanical_name": "Cinnamomum zeylanicum (C. verum)",
+                "published_type": "Bark oil, organic, Sri Lanka",
+                "quantitation": "GC_FID_DB5_AREA_PCT",
+                "reported_pct": {
+                    "(E)-cinnamaldehyde": 79.71,
+                    "eugenol": 6.00,
+                    "linalool": 4.86,
+                    "(E)-cinnamyl acetate": 4.02,
+                    "beta-caryophyllene": 1.78,
+                },
+                "reported_sum_pct": 96.37,
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Cinnamon Bark EO - Telvada USDA Organic (neat)",
+                "owned_species_and_origin_recorded": False,
+                "leaf_oil_rows_used": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("cinnamaldehyde", "eugenol", "linalool", "beta caryophyllene")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "(E)-cinnamyl acetate",
+                "reported_fraction": 0.0402,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The composition is one supplier's certificate for a Sri Lanka organic bark oil, not an analysis of the owned Telvada bottle, whose species, origin and lot composition are unknown.",
+            "The certificate lists only five constituents (96.37% of area); GC-FID areas are nominal model inputs, not measured mass fractions.",
+            "Bark oil only: cinnamon leaf oil (eugenol-dominant) is non-equivalent and must not be mapped to this profile.",
+            "Cinnamaldehyde uses the ODT_DATA air ODT of 62 ppb; the cassia profile keeps an older 0.5 ppb input, so the two cinnamaldehyde-rich profiles are not on the same ODT basis.",
+            "(E)-Cinnamyl acetate (4.02%) has no runtime headspace input and remains uncomputed, not odorless.",
+        ),
+    },
+    "lavandula x intermedia supercritical co2 extract pellerin 1991 profile": {
+        "analytical_method": "LITERATURE_GC_SUPERCRITICAL_CO2_EXTRACT",
+        "composition_basis": "LITERATURE_PERCENT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.thegoodscentscompany.com/gca/gc1045781.html",
+                "document": "Pellerin P. (1991) Perfumer & Flavorist 16(4):37, as tabulated by The Good Scents Company",
+                "published_botanical_name": "Lavandula x intermedia (species not stated in the tabulation)",
+                "published_type": "Supercritical CO2 extract labelled lavandin absolute",
+                "reported_pct": {
+                    "linalyl acetate": 28.4,
+                    "linalool": 10.1,
+                    "coumarin": 7.7,
+                    "herniarin": 2.6,
+                    "beta-caryophyllene + alpha-humulene": 2.4,
+                    "lavandulyl acetate": 1.8,
+                    "camphor": 1.7,
+                    "borneol": 1.5,
+                    "terpinen-4-ol": 1.1,
+                },
+                "reported_sum_pct": 57.3,
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Lavandin Absolute (neat / as supplied)",
+                "owned_supplier_reference": "PerfumersWorld 8HY00554",
+                "owned_extraction_matches_source": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("linalyl acetate", "linalool", "coumarin", "lavandulyl acetate",
+                            "camphor", "borneol", "terpinen-4-ol")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "herniarin",
+                "reported_fraction": 0.026,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "beta-caryophyllene + alpha-humulene",
+                "reported_fraction": 0.024,
+                "missing_input": "CO_REPORTED_SUM_NOT_SPLIT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The source is a supercritical CO2 extract; the owned PerfumersWorld 8HY00554 material is sold as a solvent absolute. The two extractions are non-equivalent (coumarin, herniarin and non-volatile fractions can differ).",
+            "Only 57.3% of the extract is listed; the 42.7% unknown remainder is uncomputed, not odorless, and nothing is renormalized.",
+            "Herniarin (2.6%) has no runtime headspace input, and beta-caryophyllene + alpha-humulene (2.4%) is reported only as a sum; both remain uncomputed.",
+            "This is a 1991 literature profile, not an analysis of the owned product or lot.",
+        ),
+    },
+    "abelmoschus moschatus seed oil arokiyaraj 2015 gc-ms profile": {
+        "analytical_method": "LITERATURE_GC_MS_NIST_LIBRARY_ID",
+        "composition_basis": "GC_MS_AREA_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6272330/",
+                "document": "Arokiyaraj et al., Molecules 2015, 20:384, Table 1",
+                "published_botanical_name": "Abelmoschus moschatus Medik.",
+                "published_type": "Seed oil (not an absolute); extraction method not verified",
+                "quantitation": "GC_MS_AREA_PCT_NIST_LIBRARY_ID_NO_RI_NO_CALIBRATION",
+                "reported_pct": {
+                    "farnesol acetate": 51.45,
+                    "ambrettolide": 12.96,
+                    "lauryl acetate": 7.80,
+                    "decyl acetate": 6.53,
+                    "(Z)-5-tetradecen-1-ol acetate": 3.74,
+                    "(E)-farnesol": 2.66,
+                    "(Z)-5-dodecen-1-ol acetate": 2.09,
+                    "linoleic acid": 2.03,
+                    "alpha-guaiene": 1.16,
+                },
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Ambrette Seed Absolute (10% in DPG)",
+                "owned_supplier_reference": "PerfumersWorld 5XU12235",
+                "owned_extraction_matches_source": False,
+            },
+            "ambrettolide": {
+                "mw_status": "DATA_SPINE_MOLECULAR_MASS",
+                "odt_status": "ODT_DATA_PEER_SINGLE_KRAFT_2005",
+                "vp_status": "DATA_SPINE_UNCITED_ENGINE_ESTIMATE",
+                "gamma_status": "HEURISTIC_MACROCYCLIC_MUSK_CLASS",
+                "isomer_identity": "NIST_LIBRARY_ID_NOT_VERIFIED_AS_Z_HEXADEC_7_EN_16_OLIDE",
+                "owned_oil_activity_measured": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("farnesol", "alpha guaiene", "linoleic acid")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "farnesyl acetate",
+                "reported_fraction": 0.5145,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "lauryl acetate",
+                "reported_fraction": 0.078,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "decyl acetate",
+                "reported_fraction": 0.0653,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "(Z)-5-tetradecen-1-ol acetate",
+                "reported_fraction": 0.0374,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "(Z)-5-dodecen-1-ol acetate",
+                "reported_fraction": 0.0209,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The composition is a published seed OIL GC-MS, not an analysis of an ambrette absolute or of the owned PerfumersWorld 5XU12235 lot; no absolute-specific table was found.",
+            "Peaks are NIST library identifications without retention indices or calibration; GC-MS areas are nominal model inputs, not mass fractions.",
+            "The 'ambrettolide' peak may be (Z)-hexadec-7-en-16-olide or a related isomer; its VP is an uncited data-spine engine estimate.",
+            "Farnesyl acetate (51.45%), the alkyl and alkenyl acetates and about 24 minor peaks are not modeled; they remain uncomputed, not odorless. A 2,2-dimethylpropanoic acid peak (1.45%) looks like a library mis-ID and is not used.",
+        ),
+    },
+    "iris rhizome concrete 8 pct irone low grade scenario profile": {
+        "analytical_method": "SUPPLIER_GRADE_LABEL_AND_REFERENCE_RANGE",
+        "composition_basis": "LOW_GRADE_SCENARIO_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://thegoodscentscompany.com/data/co1001091.html",
+                "document": "Supplier grade labels ORRIS CONCRETE 8% IRONE and ORRIS CONCRETE 15% IRONE; Premiere Peau orris concrete glossary",
+                "published_botanical_name": "Iris pallida or Iris germanica rhizome",
+                "published_type": "Concrete / butter (not an absolute)",
+                "modeled_total_irone_pct": 8.0,
+                "known_supplier_irone_grades_pct": (8.0, 15.0),
+                "myristic_acid_range_pct": (60.0, 85.0),
+                "irone_rule": "LOWEST_KNOWN_SUPPLIER_GRADE_CONSERVATIVE_SCENARIO",
+                "myristic_acid_rule": "MIDPOINT_OF_REFERENCE_RANGE",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Orris Concrete Orris Butter (10% in DPG)",
+                "owned_supplier_reference": "PerfumersWorld 5IA07847",
+                "owned_grade_irone_pct_known": False,
+            },
+            "irone pool (alpha-equivalent)": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "myristic acid": {
+                "mw_status": "DATA_SPINE_MOLECULAR_MASS",
+                "vp_status": "MODELED_NON_VOLATILE_MASS_ROW",
+                "odt_status": "MODELED_NON_VOLATILE_MASS_ROW",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+        },
+        "limitations": (
+            "The owned PerfumersWorld 5IA07847 grade's irone content is unknown; this models the lowest known supplier grade (8% total irones) as the conservative scenario. A 15% irone grade would roughly double the irone headspace.",
+            "Irones use the module's alpha-irone-equivalent pool input; the cis/trans and alpha/gamma isomer split of the owned material is not modeled.",
+            "Myristic acid is the 60-85% reference-range midpoint and is treated as a non-volatile mass row; the remaining aromatic fraction beyond irones is uncomputed, not odorless.",
+            "Concrete/butter is non-equivalent to orris absolute and to the PerfumersWorld Orris Liquid 8IQ24653.",
         ),
     },
     "citrus bergamia calabrian type iso 3520 midpoint profile": {
