@@ -43,6 +43,7 @@ from engine.calibration.hashing import (
     stable_json_hash,
     stable_text_hash,
 )
+from engine.ifra_standards import ETHANOL_DENSITY_G_ML
 from engine.mixer.instructions import build_formula_compounding_protocol
 from engine.optimizer.models import ObjectiveWeights
 from engine.optimizer.scoring import FormulaScorer
@@ -61,6 +62,7 @@ from scripts.format_pipeline_analysis import cli_transport_text
 from scripts.verify_formula_workflow import (
     PIPELINE_ANALYSIS_END,
     PIPELINE_ANALYSIS_START,
+    amount_columns_seen,
     formula_row_parse_blocker_messages,
     parse_formula_markdown,
     parse_pipeline_analysis_manifest,
@@ -158,7 +160,64 @@ def _config_for_formula(
     volume, source, _ = resolve_batch_volume(
         cli_value, str(formula.get("name", "")), formula_path
     )
+    mass_batch = mass_card_batch_volume(formula)
+    if mass_batch is not None and source == "default":
+        volume, source = mass_batch
     return dataclasses.replace(config, batch_volume_ml=volume, batch_volume_source=source)
+
+
+def mass_card_batch_volume(formula: dict) -> tuple[float, str] | None:
+    """Bottle volume of a gram card, from its own masses; None if it can't say.
+
+    A card that states its batch ("Add for 10 g trial") is its converted stock
+    volume plus the rest of that mass as ethanol at the density the IFRA
+    estimate uses. A card that states none is read as the whole product (no
+    ethanol added), the high side for every finished-product percentage.
+    """
+    card = formula.get("mass_card") or {}
+    if not card or int(card.get("held_rows", 0) or 0):
+        return None
+    stock_ml = float(card.get("converted_concentrate_ul", 0.0) or 0.0) / 1000.0
+    if stock_ml <= 0.0:
+        return None
+    batch_g = card.get("stated_batch_mass_g")
+    if batch_g is None:
+        return stock_ml, "mass_card_concentrate_only"
+    ethanol_g = max(float(batch_g) - float(card.get("stock_mass_g", 0.0) or 0.0), 0.0)
+    return stock_ml + ethanol_g / ETHANOL_DENSITY_G_ML, "mass_card_stated_batch"
+
+
+def _formula_rows_fail_payload(
+    formula_path: Path, formulas: list[dict], messages: list[str]
+) -> dict:
+    """A FAIL result for a card whose rows can't all be read, naming the file."""
+    entries = formulas or [{"number": 1, "name": formula_path.stem}]
+    return {
+        "formula_file": str(formula_path),
+        "overall": "FAIL",
+        "formulas": [
+            {
+                "number": formula.get("number"),
+                "name": formula.get("name"),
+                "status": "FAIL",
+                "mass_card": formula.get("mass_card"),
+                "gates": [
+                    {
+                        "gate": "formula_rows",
+                        "status": "FAIL",
+                        "message": "; ".join(messages),
+                        "data": {
+                            "formula_file": str(formula_path),
+                            "row_parse_blockers": list(
+                                formula.get("row_parse_blockers", []) or []
+                            ),
+                        },
+                    }
+                ],
+            }
+            for formula in entries
+        ],
+    }
 
 
 def _build_config(args: argparse.Namespace) -> ReleaseGateConfig:
@@ -759,7 +818,16 @@ def main(
         formula_path = PROJECT_ROOT / formula_path
     formulas = parse_formula_markdown(formula_path)
     if not formulas:
-        raise ValueError(f"No parseable formulas found in {formula_path}")
+        columns = amount_columns_seen(formula_path.read_text(encoding="utf-8"))
+        message = (
+            f"No formula rows could be read in {formula_path}: no table has an amount "
+            "column in uL, mL, formula %, or weighed stock g/mg; amount columns seen: "
+            + (", ".join(repr(column) for column in columns) if columns else "none")
+        )
+        print(f"FORMULA ROWS FAIL — {message}", file=sys.stderr)
+        if args.json:
+            print(json.dumps(_formula_rows_fail_payload(formula_path, [], [message]), indent=2))
+        return 1
     row_blocks = [
         message
         for formula in formulas
@@ -771,6 +839,12 @@ def main(
         print("FORMULA ROW HARD BLOCK — gate aborted; OAV/IFRA withheld", file=sys.stderr)
         for message in row_blocks:
             print(f"  HARD_BLOCK: {message}", file=sys.stderr)
+        if args.json:
+            print(
+                json.dumps(
+                    _formula_rows_fail_payload(formula_path, formulas, row_blocks), indent=2
+                )
+            )
         return 1
 
     parent_formulas = None

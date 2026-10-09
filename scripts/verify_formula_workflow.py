@@ -40,7 +40,9 @@ from engine.formula_recommendations import (
     generate_recommendations,
     load_inventory,
 )
+from engine.ifra_standards import CARRIER_DENSITY_G_ML
 from engine.inventory_parser import parse_stock_specification
+from engine.material_resolver import resolve_material
 from engine.mixer.instructions import build_formula_compounding_protocol
 from engine.mixer.prebonding import PreBondingAnalyzer
 from engine.optimizer.models import FormulaVector
@@ -456,6 +458,84 @@ _STRENGTH_PROBLEM_MESSAGES = {
 }
 _VOLUME_UL_PER_UNIT = {"ul": 1.0, "ml": 1000.0}
 _MASS_UNITS = frozenset({"g", "mg", "kg"})
+_MASS_G_PER_UNIT = {"mg": 0.001, "g": 1.0, "kg": 1000.0}
+# The unit a column header gives its amounts in ("Weigh stock g", "mg").
+_MASS_HEADER_UNIT_RE = re.compile(r"(?<![a-z0-9])(mg|kg|g)(?![a-z])")
+# A gram column that weighs a carrier, not the stock ("DPG g").
+_NOT_STOCK_MASS_HEADER_RE = re.compile(
+    r"\b(?:dpg|dep|tec|ipm|ethanol|alcohol|carrier|solvent|diluent)\b"
+)
+# The batch a gram column is written for ("Add for 10 g trial, g").
+_MASS_BATCH_RE = re.compile(
+    r"(?<![\w.])(\d+(?:\.\d+)?)\s*g\s+(?:trial|batch|bottle)\b", re.IGNORECASE
+)
+# Rows of a gram card that sum or top up the stocks above them.
+_MASS_CARD_SUM_ROW_RE = re.compile(
+    r"\btotals?\b|\bblend\b|\balcohol\b|finished batch"
+)
+# A header cell that names an amount, in any unit (for the no-rows message).
+_AMOUNT_HEADER_RE = re.compile(
+    r"amount|weigh|drops?|(?<![a-z0-9])(?:ul|ml|mg|kg|g)(?![a-z])|%|\u00b5l|\u03bcl"
+)
+
+
+def _registry_density_g_ml(material: str) -> float | None:
+    """The material's density on record, the same one formula_state uses."""
+    registry = resolve_material(material).registry_material
+    density = getattr(registry, "density_25c_g_ml", None)
+    return float(density) if density else None
+
+
+def mass_row_ul(
+    material: str, mass_g: float, spec: dict[str, object]
+) -> tuple[float | None, str | None]:
+    """Volume in uL of ``mass_g`` grams of the stock ``spec`` describes.
+
+    A neat stock is its mass over the material's density on record. A diluted
+    stock adds its carrier's volume: w/w splits the mass into material and
+    carrier (ideal mixing, as the IFRA finished-product estimate does), v/v
+    weighs one mL of stock as both parts. No density is ever assumed: a
+    missing material or carrier density, an unwritten strength or a basis
+    other than w/w or v/v returns ``(None, reason)``.
+    """
+
+    if not spec.get("declared"):
+        return None, "no strength written; a weighed stock's volume depends on it"
+    density = _registry_density_g_ml(material)
+    if density is None:
+        return None, "no density on record for the material"
+    fraction = float(spec.get("fraction") or 0.0)  # type: ignore[arg-type]
+    basis = str(spec.get("fraction_basis", "unspecified"))
+    if fraction >= 1.0 or basis == "neat":
+        return mass_g / density * 1000.0, None
+    carrier = str(spec.get("carrier", "") or "").strip()
+    carrier_density = CARRIER_DENSITY_G_ML.get(carrier.casefold())
+    if carrier_density is None:
+        return None, f"carrier {carrier or 'not named'} has no density on record"
+    if basis == "mass_fraction":
+        return (
+            fraction * mass_g / density + (1.0 - fraction) * mass_g / carrier_density
+        ) * 1000.0, None
+    if basis == "volume_fraction":
+        return mass_g / (fraction * density + (1.0 - fraction) * carrier_density) * 1000.0, None
+    return None, "strength basis is not w/w or v/v"
+
+
+def amount_columns_seen(text: str) -> list[str]:
+    """Every table header cell in ``text`` that names an amount, in order."""
+
+    lines = text.splitlines()
+    seen: list[str] = []
+    for idx, line in enumerate(lines[:-1]):
+        if not line.strip().startswith("|"):
+            continue
+        if not re.fullmatch(r"\|[\s:\-|]+\|?", lines[idx + 1].strip()):
+            continue
+        for cell in line.strip().strip("|").split("|"):
+            clean = cell.strip().replace("**", "").replace("`", "")
+            if _AMOUNT_HEADER_RE.search(clean.lower()) and clean not in seen:
+                seen.append(clean)
+    return seen
 
 
 def read_strength_cell(
@@ -545,7 +625,7 @@ def read_strength_cell(
 
 
 def read_amount_cell(cell: str, column_unit: str) -> tuple[float | None, str | None]:
-    """Read one amount cell in ``column_unit`` (``ul``, ``ml`` or ``%``).
+    """Read one amount cell in ``column_unit`` (``ul``, ``ml``, ``%``, ``g``, ``mg``, ``kg``).
 
     Returns ``(value, refusal)``. Parenthesised text is a note and ignored.
     A volume unit written in the cell is converted to the column's unit; a
@@ -577,6 +657,10 @@ def read_amount_cell(cell: str, column_unit: str) -> tuple[float | None, str | N
         unit = units.pop()
         if unit.startswith("drop"):
             return None, "drops are not a volume"
+        if column_unit in _MASS_G_PER_UNIT:
+            if unit not in _MASS_UNITS:
+                return None, f"unit '{unit}' in a {column_unit} column"
+            return value * _MASS_G_PER_UNIT[unit] / _MASS_G_PER_UNIT[column_unit], None
         if unit in _MASS_UNITS:
             return None, f"mass unit '{unit}' in a {column_unit} column"
         if column_unit not in _VOLUME_UL_PER_UNIT:
@@ -585,9 +669,61 @@ def read_amount_cell(cell: str, column_unit: str) -> tuple[float | None, str | N
     return value, None
 
 
+def _weighed_stock_column(headers: list[str]) -> tuple[int | None, str]:
+    """The column giving each row's weighed stock mass, and its mass unit.
+
+    A header's unit is the last ``g``/``mg``/``kg`` word in it ("Add for 10 g
+    trial, g" is grams). Carrier columns ("DPG g") and undiluted-product
+    columns ("Product g", "Product mass g") are not the weighed stock. Of the
+    rest, "practical" beats "weigh", then "add", then "stock", then the first.
+    """
+
+    candidates: list[tuple[int, str]] = []
+    for idx, header in enumerate(headers):
+        units = _MASS_HEADER_UNIT_RE.findall(header)
+        if not units or _NOT_STOCK_MASS_HEADER_RE.search(header):
+            continue
+        if "product" in header and "stock" not in header and "weigh" not in header:
+            continue
+        candidates.append((idx, units[-1]))
+    for word in ("practical", "weigh", "add", "stock"):
+        for idx, unit in candidates:
+            if word in headers[idx]:
+                return idx, unit
+    return candidates[0] if candidates else (None, "")
+
+
 def _parse_formula_rows(
     body: str,
     blockers: list[dict[str, object]] | None = None,
+    mass_card: dict[str, object] | None = None,
+) -> tuple[dict[str, float], dict[str, float | None], dict[str, dict[str, object]]]:
+    """Parse formula rows; a card with no volume rows is read by its gram column.
+
+    Volume and percent tables parse exactly as before. Only when they give no
+    row and no hold are weighed-stock columns (``g``/``mg``/``kg``) read: each
+    mass row becomes uL through :func:`mass_row_ul`, and a row it can't convert
+    is held with its reason in ``blockers``. ``mass_card`` (when given) is
+    filled with the card's unit, stock mass, converted volume and stated batch.
+    """
+
+    volume_blockers: list[dict[str, object]] = []
+    parsed = _parse_formula_rows_by_column(body, volume_blockers)
+    if parsed[0] or volume_blockers:
+        if blockers is not None:
+            blockers.extend(volume_blockers)
+        return parsed
+    card: dict[str, object] = {}
+    parsed = _parse_formula_rows_by_column(body, blockers, card)
+    if card and mass_card is not None:
+        mass_card.update(card)
+    return parsed
+
+
+def _parse_formula_rows_by_column(
+    body: str,
+    blockers: list[dict[str, object]] | None = None,
+    mass_card: dict[str, object] | None = None,
 ) -> tuple[dict[str, float], dict[str, float | None], dict[str, dict[str, object]]]:
     """Parse formula rows from a markdown table. Accepts multiple formats.
 
@@ -604,6 +740,9 @@ def _parse_formula_rows(
     returned ingredients (so no physics models it); its strength is ``None``
     in ``dilutions`` and ``stock_specs``, and a blocking message naming the
     material and quoting the cell is appended to ``blockers`` when given.
+
+    With ``mass_card`` given, a table with no uL/mL/% column is read by its
+    weighed-stock gram column (never a carrier or undiluted-product column).
     """
     dilutions: dict[str, float | None] = {}
     stock_specs: dict[str, dict[str, object]] = {}
@@ -908,15 +1047,49 @@ def _parse_formula_rows(
             ):
                 percent_idx = i
                 break
+        amount_mass_idx: int | None = None
+        amount_mass_unit = ""
+        if (
+            mass_card is not None
+            and amount_ul_idx is None
+            and amount_ml_idx is None
+            and percent_idx is None
+        ):
+            amount_mass_idx, amount_mass_unit = _weighed_stock_column(current_headers)
+            if name_idx is None and amount_mass_idx is not None:
+                # Gram cards name the row's material "Named product" / "PW product".
+                name_idx = next(
+                    (
+                        i
+                        for i, header in enumerate(current_headers)
+                        if "product" in header
+                        and "%" not in header
+                        and not _MASS_HEADER_UNIT_RE.search(header)
+                    ),
+                    None,
+                )
+            if amount_mass_idx is not None:
+                mass_card.setdefault("amount_unit", amount_mass_unit)
+                mass_card.setdefault("amount_column", current_headers[amount_mass_idx])
+                # Only the amount column's own header says what batch it fills.
+                batch = _MASS_BATCH_RE.search(current_headers[amount_mass_idx])
+                mass_card.setdefault(
+                    "stated_batch_mass_g", float(batch.group(1)) if batch else None
+                )
 
         if name_idx is None:
             continue
-        if amount_ul_idx is None and amount_ml_idx is None and percent_idx is None:
+        if (
+            amount_ul_idx is None
+            and amount_ml_idx is None
+            and percent_idx is None
+            and amount_mass_idx is None
+        ):
             continue
         # An amount column ("Formula %", "Amount (uL stock)") is never the
         # strength column; a "dilution" header wins over other strength words.
         # ("conc" is not one: "% concentrate" / "% of conc" are share columns.)
-        amount_cols = {amount_ul_idx, amount_ml_idx, percent_idx}
+        amount_cols = {amount_ul_idx, amount_ml_idx, percent_idx, amount_mass_idx}
         strength_cols = [
             i
             for i, header in enumerate(current_headers)
@@ -942,6 +1115,9 @@ def _parse_formula_rows(
         ingredient = parts[name_idx].strip()
         if _skip_ingredient(ingredient):
             continue
+        if amount_mass_idx is not None and _MASS_CARD_SUM_ROW_RE.search(ingredient.lower()):
+            # A gram card's totals, blend and alcohol top-up rows are not stocks.
+            continue
 
         amount_ul: float | None = None
         amount_is_percentage = False
@@ -954,6 +1130,7 @@ def _parse_formula_rows(
             (amount_ul_idx, "ul"),
             (percent_idx, "%"),
             (amount_ml_idx, "ml"),
+            (amount_mass_idx, amount_mass_unit),
         ):
             if column_idx is None or column_idx >= len(parts):
                 continue
@@ -997,6 +1174,30 @@ def _parse_formula_rows(
 
         if ingredient not in ingredient_order:
             ingredient_order.append(ingredient)
+        if amount_mass_idx is not None and mass_card is not None and strength_problem is None:
+            # amount_ul holds the weighed amount in the column's unit until here.
+            mass_g = amount_ul * _MASS_G_PER_UNIT[amount_mass_unit]
+            mass_card["stock_mass_g"] = float(mass_card.get("stock_mass_g", 0.0)) + mass_g  # type: ignore[arg-type]
+            converted_ul, density_problem = mass_row_ul(ingredient, mass_g, spec)
+            if converted_ul is None:
+                held_out.add(ingredient)
+                if blockers is not None:
+                    cell_text = parts[amount_mass_idx].strip()
+                    blockers.append(
+                        {
+                            "material": ingredient,
+                            "field": "density",
+                            "cell": cell_text,
+                            "reason": density_problem,
+                            "message": (
+                                f"Weighed amount '{cell_text} {amount_mass_unit}' for "
+                                f"{ingredient} can't be turned into uL ({density_problem})"
+                            ),
+                        }
+                    )
+                continue
+            amount_ul = converted_ul
+            spec = {**spec, "row_mass_g": mass_g}
         if strength_problem is not None:
             held_out.add(ingredient)
             unreadable_strength[ingredient] = spec
@@ -1038,6 +1239,10 @@ def _parse_formula_rows(
     for ingredient, spec in unreadable_strength.items():
         dilutions[ingredient] = None
         stock_specs[ingredient] = spec
+
+    if mass_card is not None and ingredient_order:
+        mass_card["converted_concentrate_ul"] = sum(volume_amounts_ul.values())
+        mass_card["held_rows"] = len(held_out)
 
     if percentage_amounts and total_ul_val is None:
         raise ValueError(
@@ -1640,6 +1845,7 @@ def _build_formula_record(
     stock_specs: dict[str, dict[str, object]],
     embedded_analysis: str = "",
     row_parse_blockers: list[dict[str, object]] | None = None,
+    mass_card: dict[str, object] | None = None,
 ) -> dict:
     total_ul = sum(ingredients_ul.values()) or 1.0
     ingredients_pct = {
@@ -1659,6 +1865,8 @@ def _build_formula_record(
         # Rows held out of ingredients_ul because a strength or amount cell
         # could not be read. Any entry blocks release and physics output.
         "row_parse_blockers": list(row_parse_blockers or []),
+        # Set only for a card read by its weighed-stock gram column.
+        **({"mass_card": dict(mass_card)} if mass_card else {}),
         **compounding_contract,
         "concentrate_ml": concentrate_ml,
         "body": body,
@@ -1751,7 +1959,8 @@ def parse_formula_markdown(path: Path) -> list[dict]:
         name = sections[idx + 1].strip()
         body = sections[idx + 2]
         blockers: list[dict[str, object]] = []
-        ingredients_ul, dilutions, stock_specs = _parse_formula_rows(body, blockers)
+        card: dict[str, object] = {}
+        ingredients_ul, dilutions, stock_specs = _parse_formula_rows(body, blockers, card)
         if not ingredients_ul and not blockers:
             continue
         formulas.append(
@@ -1764,6 +1973,7 @@ def parse_formula_markdown(path: Path) -> list[dict]:
                 stock_specs,
                 embedded_analysis,
                 blockers,
+                card,
             )
         )
 
@@ -1771,7 +1981,8 @@ def parse_formula_markdown(path: Path) -> list[dict]:
         return formulas
 
     blockers = []
-    ingredients_ul, dilutions, stock_specs = _parse_formula_rows(text, blockers)
+    card = {}
+    ingredients_ul, dilutions, stock_specs = _parse_formula_rows(text, blockers, card)
     if not ingredients_ul and not blockers:
         return []
 
@@ -1787,6 +1998,7 @@ def parse_formula_markdown(path: Path) -> list[dict]:
             stock_specs,
             embedded_analysis,
             blockers,
+            card,
         )
     ]
 
