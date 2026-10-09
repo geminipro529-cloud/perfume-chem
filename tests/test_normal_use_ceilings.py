@@ -57,9 +57,16 @@ def fixture_ceilings(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(ceilings, "NORMAL_USE_CEILINGS_PATH", FIXTURE)
 
 
-def test_shipped_data_file_loads_with_no_materials() -> None:
+def test_shipped_data_file_loads_as_a_sourced_draft() -> None:
     assert ceilings.NORMAL_USE_CEILINGS_PATH.is_file()
-    assert ceilings.load_normal_use_ceilings(ceilings.NORMAL_USE_CEILINGS_PATH) == ()
+    payload = json.loads(ceilings.NORMAL_USE_CEILINGS_PATH.read_text(encoding="utf-8"))
+    assert payload["status"] == "DRAFT_FOR_KENNY_REVIEW"
+    loaded = {row.material: row.max_active_pct_of_concentrate for row in ceilings.load_normal_use_ceilings(ceilings.NORMAL_USE_CEILINGS_PATH)}
+    # IFRA 0.043% of the finished product / 0.20 concentrate share.
+    assert loaded["Alpha Damascone"] == 0.215
+    assert loaded["Hedione"] == 15
+    for entry in payload["materials"]:
+        assert all(source.get("url") or source.get("file") or source.get("quote") for source in entry["sources"]), entry["material"]
 
 
 def _mutate(path: list[Any], value: Any) -> dict[str, Any]:
@@ -228,9 +235,50 @@ def test_chypre_alpha_damascone_respects_fixture_ceiling(fixture_ceilings: None)
     assert all(CEILING_KEY not in row for row in rows if row not in damascone)
 
 
-def test_empty_shipped_file_leaves_chypre_rows_unchanged(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_an_empty_ceiling_file_leaves_chypre_rows_unchanged(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    path = tmp_path / "empty_ceilings.json"
+    path.write_text(json.dumps(_payload()), encoding="utf-8")
+    monkeypatch.setattr(ceilings, "NORMAL_USE_CEILINGS_PATH", path)
     with_feature = _rows(design_inventory_formula(idea=CHYPRE_IDEA, formula_name=CHYPRE_NAME))
     assert all(CEILING_KEY not in row for row in with_feature)
     monkeypatch.setattr(planner, "match_normal_use_ceiling", lambda *_args, **_kwargs: None)
     without_feature = _rows(design_inventory_formula(idea=CHYPRE_IDEA, formula_name=CHYPRE_NAME))
     assert with_feature == without_feature
+
+
+def _active_pct(row: dict[str, Any], liquid_total: Decimal) -> Decimal:
+    return Decimal(row["amount_decimal"]) * Decimal(row["stock_fraction_decimal"]) * 100 / liquid_total
+
+
+def test_shipped_ceilings_cap_iris_and_bulk_rows_take_the_spare_space() -> None:
+    # Iris Cathedral's six rows cannot fill 6000 uL once Hedione, Beta Ionone
+    # and Alpha Irone sit at their ceilings; the bulk row takes the rest
+    # instead of the design being withheld.
+    result = design_inventory_formula(
+        idea="iris and incense, cool and powdery, cathedral stone", formula_name="Iris Cathedral"
+    )
+    assert result["status"] == "INVENTORY_GROUNDED_DESIGN_READY_WITH_HOLDS"
+    rows = _rows(result)
+    liquid_total = Decimal(result["optimized_formula"]["separate_totals"]["liquid_total_ul"])
+    assert liquid_total == 6000
+    by_material = {row["material"].casefold(): row for row in rows}
+    assert _active_pct(by_material["hedione"], liquid_total) <= 15
+    assert _active_pct(by_material["beta ionone"], liquid_total) <= Decimal("6.7")
+    assert _active_pct(by_material["alpha irone"], liquid_total) <= 2
+    exceeded = [hold for hold in result["critic"]["issues"] if str(hold).startswith("ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:")]
+    assert exceeded
+    capped_ids = {row["stock_id"] for row in rows if CEILING_KEY in row}
+    assert not any(hold.split(":", 1)[1] in capped_ids for hold in exceeded)
+
+
+def test_shipped_ceilings_hold_chypre_rose_ketones_at_the_ifra_derived_level() -> None:
+    result = design_inventory_formula(idea=CHYPRE_IDEA, formula_name=CHYPRE_NAME)
+    rows = _rows(result)
+    liquid_total = Decimal(result["optimized_formula"]["separate_totals"]["liquid_total_ul"])
+    ketones = [row for row in rows if "damascone" in row["material"].casefold()]
+    assert ketones
+    for row in ketones:
+        assert _active_pct(row, liquid_total) <= Decimal("0.215")
+        assert row[CEILING_KEY] == 0.215

@@ -1643,7 +1643,26 @@ def _formula_rows(
     ]
     if not free_rows and fixed_total != liquid_total_ul:
         raise ValueError("explicit liquid doses do not fill the requested liquid total")
-    allocated = _allocate_capped(liquid_total_ul - fixed_total, free_rows) if free_rows else {}
+    try:
+        allocated = _allocate_capped(liquid_total_ul - fixed_total, free_rows) if free_rows else {}
+    except ValueError:
+        # Normal-use ceilings and trace caps can leave too little room.  The
+        # spare space goes to rows held only by their soft role cap (bulk
+        # materials); a ceiling or trace cap is never exceeded.  If every free
+        # row has a firm cap this still raises and the design is withheld.
+        firm = {
+            index
+            for index, _weight, _cap in free_rows
+            if _hard_cap_ul(choices[index].candidate, liquid_total_ul) is not None
+            or _normal_use_ceiling_cap_ul(choices[index].candidate, liquid_total_ul) is not None
+        }
+        allocated = _allocate_capped(
+            liquid_total_ul - fixed_total,
+            [(index, weight, cap if index in firm else None) for index, weight, cap in free_rows],
+        )
+        for index, _weight, cap in free_rows:
+            if index not in firm and cap is not None and allocated.get(index, 0) > cap:
+                holds.append(f"ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:{choices[index].candidate.stock.stock_id}")
 
     rows: list[dict[str, Any]] = []
     liquid_sum = 0

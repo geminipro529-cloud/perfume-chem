@@ -2,5 +2,741 @@
   "schema_version": "normal_use_ceilings_v1",
   "status": "DRAFT_FOR_KENNY_REVIEW",
   "basis": "active material as % of the fragrance concentrate",
-  "materials": []
+  "rule": "ceiling = the lowest of: the IFRA Category 4 limit divided by 0.20 (6000 uL of concentrate in a 30 mL bottle); the highest maximum a supplier states for perfume compounds; and a project rule (Hedione 15%). Supplier averages and figures whose basis is unclear are not maxima and are not used.",
+  "research": "/mnt/project-files/app-review/nicer-smell-2026-10-08/normal_use_sources_[A-D].csv",
+  "not_set": {
+    "Iso E Super": "IFRA limit gives 100% of concentrate; the only stated maximum is a tolerance remark (up to 50%).",
+    "Ambrox Super / Ambrofix": "only supplier averages (0.1%) and an unclear-basis range; usually weighed as crystals.",
+    "Vanillin, Ethyl Vanillin, Maltol, Methyl Salicylate, Phenyl Acetaldehyde, Manzanate": "only Fraterworks averages, no stated maximum.",
+    "Calone, Ethyl 2-Methylbutyrate": "the only figures have an unclear basis (fine fragrance may mean the finished product).",
+    "Damascol": "the Good Scents page found describes a different compound (pepper hexanone).",
+    "Patchouli EO": "Good Scents has several patchouli pages; the 10% figure could not be tied to one oil."
+  },
+  "materials": [
+    {
+      "material": "Alpha Damascone",
+      "match": [
+        "alpha damascone",
+        "damascone alpha"
+      ],
+      "max_active_pct_of_concentrate": 0.215,
+      "note": "Set by the IFRA limit (IFRA_STD_077, 0.043% of the finished product). IFRA also limits the group total; the composition checks flag a group overdose.",
+      "sources": [
+        {
+          "kind": "ifra_cat4",
+          "standard": "IFRA_STD_077",
+          "limit_pct_of_finished_product": 0.043,
+          "group_rule": "rose_ketones_total (IFRA_STD_077, sum<=0.043%)",
+          "derived_pct_of_concentrate": 0.215,
+          "derivation": "limit / 0.20 (6000 uL concentrate in a 30 mL bottle)",
+          "file": "data/regulatory/ifra_cat4_51.json"
+        }
+      ]
+    },
+    {
+      "material": "Beta Damascone",
+      "match": [
+        "beta damascone",
+        "damascone beta"
+      ],
+      "max_active_pct_of_concentrate": 0.215,
+      "note": "Set by the IFRA limit (IFRA_STD_077, 0.043% of the finished product). IFRA also limits the group total; the composition checks flag a group overdose.",
+      "sources": [
+        {
+          "kind": "ifra_cat4",
+          "standard": "IFRA_STD_077",
+          "limit_pct_of_finished_product": 0.043,
+          "group_rule": "rose_ketones_total (IFRA_STD_077, sum<=0.043%)",
+          "derived_pct_of_concentrate": 0.215,
+          "derivation": "limit / 0.20 (6000 uL concentrate in a 30 mL bottle)",
+          "file": "data/regulatory/ifra_cat4_51.json"
+        }
+      ]
+    },
+    {
+      "material": "Damascenone",
+      "match": [
+        "damascenone"
+      ],
+      "max_active_pct_of_concentrate": 0.215,
+      "note": "Set by the IFRA limit (IFRA_STD_077, 0.043% of the finished product). IFRA also limits the group total; the composition checks flag a group overdose.",
+      "sources": [
+        {
+          "kind": "ifra_cat4",
+          "standard": "IFRA_STD_077",
+          "limit_pct_of_finished_product": 0.043,
+          "group_rule": "rose_ketones_total (IFRA_STD_077, sum<=0.043%)",
+          "derived_pct_of_concentrate": 0.215,
+          "derivation": "limit / 0.20 (6000 uL concentrate in a 30 mL bottle)",
+          "file": "data/regulatory/ifra_cat4_51.json"
+        }
+      ]
+    },
+    {
+      "material": "Dynascone",
+      "match": [
+        "dynascone"
+      ],
+      "max_active_pct_of_concentrate": 5,
+      "note": "Set by the highest supplier maximum (PerfumersWorld).",
+      "sources": [
+        {
+          "kind": "ifra_cat4",
+          "standard": "IFRA_STD_031",
+          "limit_pct_of_finished_product": 1.1,
+          "group_rule": null,
+          "derived_pct_of_concentrate": 5.5,
+          "derivation": "limit / 0.20 (6000 uL concentrate in a 30 mL bottle)",
+          "file": "data/regulatory/ifra_cat4_51.json"
+        },
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 5.0,
+          "low_pct": 0.1,
+          "quote": "Typical usage in perfume compounds: From 0.100% / Average 0.500% / Maximum 5.000%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4FG07161"
+        }
+      ]
+    },
+    {
+      "material": "Beta Ionone",
+      "match": [
+        "beta ionone"
+      ],
+      "max_active_pct_of_concentrate": 6.7,
+      "note": "Set by the highest supplier maximum (PerfumersWorld).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 6.7,
+          "low_pct": 0.08,
+          "quote": "Typical usage in perfume compounds: From 0.080% / Average 0.800% / Maximum 6.700%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3IF00238"
+        }
+      ]
+    },
+    {
+      "material": "Alpha Ionone",
+      "match": [
+        "alpha ionone"
+      ],
+      "max_active_pct_of_concentrate": 8,
+      "note": "Set by the highest supplier maximum (PerfumersWorld).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 8.0,
+          "low_pct": 0.1,
+          "quote": "Typical usage in perfume compounds: From 0.100% / Average 1.000% / Maximum 8.000%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3IF00237"
+        }
+      ]
+    },
+    {
+      "material": "Allyl Ionone",
+      "match": [
+        "allyl ionone"
+      ],
+      "max_active_pct_of_concentrate": 5,
+      "note": "Set by the highest supplier maximum (PerfumersWorld).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 5.0,
+          "low_pct": 0.1,
+          "quote": "Typical usage in perfume compounds: From 0.100% / Average 1.000% / Maximum 5.000%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4IN10857"
+        }
+      ]
+    },
+    {
+      "material": "Alpha Isomethyl Ionone",
+      "match": [
+        "alpha isomethyl ionone",
+        "aimi",
+        "alpha methyl ionone"
+      ],
+      "max_active_pct_of_concentrate": 11.9,
+      "note": "Set by the highest supplier maximum (PerfumersWorld). IFRA also limits the group total; the composition checks flag a group overdose.",
+      "sources": [
+        {
+          "kind": "ifra_cat4",
+          "standard": "IFRA_STD_063",
+          "limit_pct_of_finished_product": 30.0,
+          "group_rule": "methyl_ionones_total (IFRA_STD_063, sum<=30.0%)",
+          "derived_pct_of_concentrate": 150.0,
+          "derivation": "limit / 0.20 (6000 uL concentrate in a 30 mL bottle)",
+          "file": "data/regulatory/ifra_cat4_51.json"
+        },
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 11.9,
+          "low_pct": 0.11,
+          "quote": "Typical usage in perfume compounds: From 0.110% / Average 1.100% / Maximum 11.900%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3IW00300"
+        }
+      ]
+    },
+    {
+      "material": "Dihydro Beta Ionone",
+      "match": [
+        "dihydro beta ionone"
+      ],
+      "max_active_pct_of_concentrate": 3.6,
+      "note": "Set by the highest supplier maximum (PerfumersWorld).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 3.6,
+          "low_pct": 0.05,
+          "quote": "Typical usage in perfume compounds: From 0.050% / Average 0.500% / Maximum 3.600%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=3IL00153"
+        }
+      ]
+    },
+    {
+      "material": "Alpha Irone",
+      "match": [
+        "alpha irone"
+      ],
+      "max_active_pct_of_concentrate": 2,
+      "note": "Set by the highest supplier maximum (The Good Scents Company).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 2.0,
+          "quote": "Recommendation for alpha-irone usage levels up to: 2.0000 % in the fragrance concentrate.",
+          "url": "https://www.thegoodscentscompany.com/data/rw1006691.html"
+        }
+      ]
+    },
+    {
+      "material": "Aldehyde C-8 (octanal)",
+      "match": [
+        "octanal",
+        "aldehyde c 8"
+      ],
+      "max_active_pct_of_concentrate": 0.8,
+      "note": "Set by the highest supplier maximum (PerfumersWorld).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 0.8,
+          "low_pct": 0.01,
+          "quote": "Typical usage in perfume compounds: From 0.010% / Average 0.100% / Maximum 0.800%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4AC00026"
+        }
+      ]
+    },
+    {
+      "material": "Aldehyde C-9 (nonanal)",
+      "match": [
+        "nonanal",
+        "aldehyde c 9"
+      ],
+      "max_active_pct_of_concentrate": 1.3,
+      "note": "Set by the highest supplier maximum (PerfumersWorld).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 1.3,
+          "low_pct": 0.02,
+          "quote": "Typical usage in perfume compounds: From 0.020% / Average 0.200% / Maximum 1.300%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4AC00027"
+        }
+      ]
+    },
+    {
+      "material": "Aldehyde C-10 (decanal)",
+      "match": [
+        "decanal",
+        "aldehyde c 10"
+      ],
+      "max_active_pct_of_concentrate": 3.6,
+      "note": "Set by the highest supplier maximum (PerfumersWorld).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 3.6,
+          "low_pct": 0.02,
+          "quote": "Typical usage in perfume compounds: From 0.020% / Average 0.200% / Maximum 3.600%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4AC00018"
+        },
+        {
+          "kind": "supplier_maximum",
+          "name": "Perfumers Apprentice",
+          "max_pct_of_concentrate": 1.0,
+          "low_pct": null,
+          "quote": "Can use up to 1% of total concentrate.",
+          "url": "https://shop.perfumersapprentice.com/p-5990-aldehyde-c-10-decanal.aspx"
+        }
+      ]
+    },
+    {
+      "material": "Aldehyde C-11 undecylenic",
+      "match": [
+        "aldehyde c 11 undecylenic",
+        "undecylenic aldehyde"
+      ],
+      "max_active_pct_of_concentrate": 1,
+      "note": "Set by the highest supplier maximum (The Good Scents Company).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 1.0,
+          "quote": "Recommendation for 10-undecen-1-al (aldehyde C-11 undecylenic) usage levels up to: 1.0000 % in the fragrance concentrate.",
+          "url": "https://thegoodscentscompany.com/data/rw1000331.html"
+        }
+      ]
+    },
+    {
+      "material": "Aldehyde C-12 lauric (dodecanal)",
+      "match": [
+        "dodecanal",
+        "aldehyde c 12 lauric",
+        "lauric aldehyde"
+      ],
+      "max_active_pct_of_concentrate": 2,
+      "note": "Set by the highest supplier maximum (PerfumersWorld, Perfumers Apprentice).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 2.0,
+          "low_pct": 0.01,
+          "quote": "Typical usage in perfume compounds: From 0.010% / Average 0.100% / Maximum 2.000%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4AA00021"
+        },
+        {
+          "kind": "supplier_maximum",
+          "name": "Perfumers Apprentice",
+          "max_pct_of_concentrate": 2.0,
+          "low_pct": null,
+          "quote": "Can use up to 2% of total concentrate.",
+          "url": "https://shop.perfumersapprentice.com/p-5992-aldehyde-c-12-lauric.aspx"
+        }
+      ]
+    },
+    {
+      "material": "Aldehyde C-12 MNA",
+      "match": [
+        "aldehyde c 12 mna",
+        "2 methylundecanal",
+        "methyl nonyl acetaldehyde"
+      ],
+      "max_active_pct_of_concentrate": 2.5,
+      "note": "Set by the highest supplier maximum (PerfumersWorld).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 2.5,
+          "low_pct": 0.01,
+          "quote": "Typical usage in perfume compounds: From 0.010% / Average 0.100% / Maximum 2.500%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4AG00022"
+        }
+      ]
+    },
+    {
+      "material": "Hexyl Acetate",
+      "match": [
+        "hexyl acetate"
+      ],
+      "max_active_pct_of_concentrate": 21,
+      "note": "Set by the highest supplier maximum (PerfumersWorld).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 21.0,
+          "low_pct": 0.42,
+          "quote": "Typical usage in perfume compounds: From 0.420% / Average 3.100% / Maximum 21.000%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4FG01284"
+        }
+      ]
+    },
+    {
+      "material": "Cis-3 Hexenyl Acetate",
+      "match": [
+        "cis 3 hexenyl acetate"
+      ],
+      "max_active_pct_of_concentrate": 1,
+      "note": "Set by the highest supplier maximum (PerfumersWorld).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 1.0,
+          "low_pct": 0.01,
+          "quote": "Typical usage in perfume compounds: From 0.010% / Average 0.100% / Maximum 1.000%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4GF00226"
+        }
+      ]
+    },
+    {
+      "material": "cis-3-Hexenol",
+      "match": [
+        "cis 3 hexenol"
+      ],
+      "max_active_pct_of_concentrate": 1.1,
+      "note": "Set by the highest supplier maximum (PerfumersWorld).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 1.1,
+          "low_pct": 0.01,
+          "quote": "Typical usage in perfume compounds: From 0.010% / Average 0.100% / Maximum 1.100%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4GL00225"
+        }
+      ]
+    },
+    {
+      "material": "Galbanum EO",
+      "match": [
+        "galbanum eo",
+        "galbanum oil",
+        "galbanum essential oil"
+      ],
+      "max_active_pct_of_concentrate": 2.3,
+      "note": "Set by the highest supplier maximum (PerfumersWorld).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 2.3,
+          "low_pct": 0.02,
+          "quote": "Typical usage in perfume compounds: From 0.020% / Average 0.200% / Maximum 2.300%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=7GQ00200"
+        },
+        {
+          "kind": "supplier_maximum",
+          "name": "Perfumers Apprentice",
+          "max_pct_of_concentrate": 1.0,
+          "low_pct": null,
+          "quote": "Up to 1% in the fragrance concentrate.",
+          "url": "https://shop.perfumersapprentice.com/p-6467-galbanum-oil-pn-av-turkey.aspx"
+        }
+      ]
+    },
+    {
+      "material": "Methyl Nonyl Ketone",
+      "match": [
+        "methyl nonyl ketone",
+        "2 undecanone"
+      ],
+      "max_active_pct_of_concentrate": 5,
+      "note": "Set by the highest supplier maximum (Perfumers Apprentice).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "PerfumersWorld",
+          "max_pct_of_concentrate": 2.7,
+          "low_pct": 0.03,
+          "quote": "Typical usage in perfume compounds: From 0.030% / Average 0.300% / Maximum 2.700%",
+          "url": "https://www.perfumersworld.com/view.php?pro_id=4LY00304"
+        },
+        {
+          "kind": "supplier_maximum",
+          "name": "Perfumers Apprentice",
+          "max_pct_of_concentrate": 5.0,
+          "low_pct": null,
+          "quote": "Use Level: 5% in the fragrance concentrate",
+          "url": "https://shop.perfumersapprentice.com/p-9662-methyl-nonyl-ketone-redistilled.aspx"
+        }
+      ]
+    },
+    {
+      "material": "Citral",
+      "match": [
+        "citral"
+      ],
+      "max_active_pct_of_concentrate": 3,
+      "note": "Set by the IFRA limit (IFRA_STD_021, 0.6% of the finished product).",
+      "sources": [
+        {
+          "kind": "ifra_cat4",
+          "standard": "IFRA_STD_021",
+          "limit_pct_of_finished_product": 0.6,
+          "group_rule": null,
+          "derived_pct_of_concentrate": 3.0,
+          "derivation": "limit / 0.20 (6000 uL concentrate in a 30 mL bottle)",
+          "file": "data/regulatory/ifra_cat4_51.json"
+        }
+      ]
+    },
+    {
+      "material": "Hedione",
+      "match": [
+        "hedione",
+        "methyl dihydrojasmonate"
+      ],
+      "max_active_pct_of_concentrate": 15,
+      "note": "Set by the project's Hedione rule (15%; the gate still applies 12% to chypres).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "Hekserij",
+          "max_pct_of_concentrate": 30.0,
+          "low_pct": 1.0,
+          "quote": "You usually use between 1% and 30% of this substance in the fragrance composition.",
+          "url": "https://eng.hekserij.nl/shop/fragrance-raw-material/search-by-type/aroma-chemicals/hedione-fir/"
+        },
+        {
+          "kind": "project_rule",
+          "name": "AGENTS.md failure registry F2 (Hedione crowding)",
+          "quote": "Max 12% for chypre. Max 15% for floral.",
+          "max_pct_of_concentrate": 15.0
+        }
+      ]
+    },
+    {
+      "material": "Cashmeran",
+      "match": [
+        "cashmeran"
+      ],
+      "max_active_pct_of_concentrate": 19,
+      "note": "Set by the IFRA limit (IFRA_STD_028, 3.8% of the finished product).",
+      "sources": [
+        {
+          "kind": "ifra_cat4",
+          "standard": "IFRA_STD_028",
+          "limit_pct_of_finished_product": 3.8,
+          "group_rule": "none",
+          "derived_pct_of_concentrate": 19.0,
+          "derivation": "limit / 0.20 (6000 uL concentrate in a 30 mL bottle)",
+          "file": "data/regulatory/ifra_cat4_51.json"
+        }
+      ]
+    },
+    {
+      "material": "Ebanol",
+      "match": [
+        "ebanol"
+      ],
+      "max_active_pct_of_concentrate": 5,
+      "note": "Set by the highest supplier maximum (The Good Scents Company).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 5.0,
+          "quote": "Recommendation for sandal pentenol usage levels up to: 5.0000 % in the fragrance concentrate.",
+          "url": "https://www.thegoodscentscompany.com/data/rw1061371.html"
+        }
+      ]
+    },
+    {
+      "material": "Javanol",
+      "match": [
+        "javanol"
+      ],
+      "max_active_pct_of_concentrate": 2,
+      "note": "Set by the highest supplier maximum (The Good Scents Company).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 2.0,
+          "quote": "Recommendation for sandal cyclopropane usage levels up to: 2.0000 % in the fragrance concentrate.",
+          "url": "https://www.thegoodscentscompany.com/data/rw1493091.html"
+        }
+      ]
+    },
+    {
+      "material": "Polysantol",
+      "match": [
+        "polysantol"
+      ],
+      "max_active_pct_of_concentrate": 5,
+      "note": "Set by the highest supplier maximum (Hekserij).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "Hekserij",
+          "max_pct_of_concentrate": 5.0,
+          "low_pct": 0.1,
+          "quote": "You usually use between 0,1% and 5% of this substance in the fragrance composition.",
+          "url": "https://eng.hekserij.nl/shop/fragrance-raw-material/search-by-type/aroma-chemicals/polysantol-fir/"
+        }
+      ]
+    },
+    {
+      "material": "Sandalore",
+      "match": [
+        "sandalore"
+      ],
+      "max_active_pct_of_concentrate": 6,
+      "note": "Set by the IFRA limit (IFRA_STD_212, 1.2% of the finished product).",
+      "sources": [
+        {
+          "kind": "ifra_cat4",
+          "standard": "IFRA_STD_212",
+          "limit_pct_of_finished_product": 1.2,
+          "group_rule": "none",
+          "derived_pct_of_concentrate": 6.0,
+          "derivation": "limit / 0.20 (6000 uL concentrate in a 30 mL bottle)",
+          "file": "data/regulatory/ifra_cat4_51.json"
+        }
+      ]
+    },
+    {
+      "material": "Methyl Anthranilate",
+      "match": [
+        "methyl anthranilate"
+      ],
+      "max_active_pct_of_concentrate": 5,
+      "note": "Set by the highest supplier maximum (Hekserij).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "Hekserij",
+          "max_pct_of_concentrate": 5.0,
+          "low_pct": 0.1,
+          "quote": "You usually use between 0,1% and 5% of this substance in the fragrance composition.",
+          "url": "https://eng.hekserij.nl/shop/perfume-fragrance/aroma-chemicals/methyl-anthranilate"
+        }
+      ]
+    },
+    {
+      "material": "Benzaldehyde",
+      "match": [
+        "benzaldehyde"
+      ],
+      "max_active_pct_of_concentrate": 1.25,
+      "note": "Set by the IFRA limit (IFRA_STD_007, 0.25% of the finished product).",
+      "sources": [
+        {
+          "kind": "ifra_cat4",
+          "standard": "IFRA_STD_007",
+          "limit_pct_of_finished_product": 0.25,
+          "group_rule": "none",
+          "derived_pct_of_concentrate": 1.25,
+          "derivation": "limit / 0.20 (6000 uL concentrate in a 30 mL bottle)",
+          "file": "data/regulatory/ifra_cat4_51.json"
+        }
+      ]
+    },
+    {
+      "material": "Cinnamaldehyde",
+      "match": [
+        "cinnamaldehyde"
+      ],
+      "max_active_pct_of_concentrate": 1.25,
+      "note": "Set by the IFRA limit (IFRA_STD_018, 0.25% of the finished product).",
+      "sources": [
+        {
+          "kind": "ifra_cat4",
+          "standard": "IFRA_STD_018",
+          "limit_pct_of_finished_product": 0.25,
+          "group_rule": "none",
+          "derived_pct_of_concentrate": 1.25,
+          "derivation": "limit / 0.20 (6000 uL concentrate in a 30 mL bottle)",
+          "file": "data/regulatory/ifra_cat4_51.json"
+        }
+      ]
+    },
+    {
+      "material": "Eugenol",
+      "match": [
+        "eugenol"
+      ],
+      "max_active_pct_of_concentrate": 12.5,
+      "note": "Set by the IFRA limit (IFRA_STD_035, 2.5% of the finished product).",
+      "sources": [
+        {
+          "kind": "ifra_cat4",
+          "standard": "IFRA_STD_035",
+          "limit_pct_of_finished_product": 2.5,
+          "group_rule": "none",
+          "derived_pct_of_concentrate": 12.5,
+          "derivation": "limit / 0.20 (6000 uL concentrate in a 30 mL bottle)",
+          "file": "data/regulatory/ifra_cat4_51.json"
+        }
+      ]
+    },
+    {
+      "material": "Isoeugenol",
+      "match": [
+        "isoeugenol"
+      ],
+      "max_active_pct_of_concentrate": 0.55,
+      "note": "Set by the IFRA limit (IFRA_STD_048, 0.11% of the finished product).",
+      "sources": [
+        {
+          "kind": "ifra_cat4",
+          "standard": "IFRA_STD_048",
+          "limit_pct_of_finished_product": 0.11,
+          "group_rule": "none",
+          "derived_pct_of_concentrate": 0.55,
+          "derivation": "limit / 0.20 (6000 uL concentrate in a 30 mL bottle)",
+          "file": "data/regulatory/ifra_cat4_51.json"
+        }
+      ]
+    },
+    {
+      "material": "Ethyl Maltol",
+      "match": [
+        "ethyl maltol"
+      ],
+      "max_active_pct_of_concentrate": 4,
+      "note": "Set by the highest supplier maximum (The Good Scents Company).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 4.0,
+          "quote": "Recommendation for ethyl maltol usage levels up to: 4.0000 % in the fragrance concentrate.",
+          "url": "https://www.thegoodscentscompany.com/data/rw1004171.html"
+        }
+      ]
+    },
+    {
+      "material": "Helional",
+      "match": [
+        "helional"
+      ],
+      "max_active_pct_of_concentrate": 13,
+      "note": "Set by the IFRA limit (IFRA_STD_059, 2.6% of the finished product).",
+      "sources": [
+        {
+          "kind": "ifra_cat4",
+          "standard": "IFRA_STD_059",
+          "limit_pct_of_finished_product": 2.6,
+          "group_rule": "none",
+          "derived_pct_of_concentrate": 13.0,
+          "derivation": "limit / 0.20 (6000 uL concentrate in a 30 mL bottle)",
+          "file": "data/regulatory/ifra_cat4_51.json"
+        }
+      ]
+    },
+    {
+      "material": "Methyl Pamplemousse",
+      "match": [
+        "methyl pamplemousse"
+      ],
+      "max_active_pct_of_concentrate": 10,
+      "note": "Set by the highest supplier maximum (The Good Scents Company).",
+      "sources": [
+        {
+          "kind": "supplier_maximum",
+          "name": "The Good Scents Company",
+          "max_pct_of_concentrate": 10.0,
+          "quote": "Recommendation for grapefruit acetal usage levels up to: 10.0000 % in the fragrance concentrate.",
+          "url": "https://www.thegoodscentscompany.com/data/rw1042632.html"
+        }
+      ]
+    }
+  ]
 }
