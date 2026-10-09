@@ -84,6 +84,28 @@ def resolved_vp_25c_pa(resolved: ResolvedMaterial) -> tuple[float | None, str]:
     return None, "missing"
 
 
+def resolved_mw_g_mol(resolved: ResolvedMaterial) -> tuple[float | None, str]:
+    """Return the molecular weight the release gate uses: data spine, then profile."""
+    reg_mw = getattr(resolved.registry_material, "mw_g_mol", None)
+    if reg_mw is not None:
+        return reg_mw, "registry:data_spine.mw"
+    profile_mw = getattr(resolved.profile, "mw", None)
+    if profile_mw is not None:
+        return profile_mw, "profile:ingredient_intelligence.mw"
+    return None, "missing"
+
+
+def resolved_logp(resolved: ResolvedMaterial) -> tuple[float | None, str]:
+    """Return the logP the release gate uses: data spine, then profile cLogP."""
+    reg_logp = getattr(resolved.registry_material, "logp", None)
+    if reg_logp is not None:
+        return reg_logp, "registry:data_spine.logp"
+    profile_logp = getattr(resolved.profile, "clogp", None)
+    if profile_logp is not None:
+        return profile_logp, "profile:ingredient_intelligence.clogp"
+    return None, "missing"
+
+
 def gate_vp_25c_pa(name: str) -> float | None:
     """Reference VP (Pa, 25 C) for a material label, as the release gate sees it."""
     return resolved_vp_25c_pa(resolve_material(str(name or "")))[0]

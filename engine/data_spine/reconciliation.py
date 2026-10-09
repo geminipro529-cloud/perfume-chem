@@ -17,8 +17,15 @@ from pathlib import Path
 from engine.data_spine.loader import load_materials, load_registry
 from engine.ingredient_intelligence import get_profile
 from engine.inventory_parser import materialize_current_inventory, parse_inventory
+from engine.material_resolver import (
+    resolve_material,
+    resolved_logp,
+    resolved_mw_g_mol,
+    resolved_vp_25c_pa,
+)
 from engine.name_utils import normalize_name
 from engine.odor_thresholds import lookup_odt_entry, verify_odt
+from engine.pipeline.formula_state import lookup_odt_air_ppb, odt_lookup_key
 
 ROOT = Path(__file__).resolve().parents[2]
 CONTRACT_PATH = ROOT / "data/governance/ingredient_reconciliation_20260907.json"
@@ -115,22 +122,38 @@ def reconcile(existing):
     for entry in output:
         name = entry["name"]
         key = identity_key(name)
-        profile = get_profile(name)
-        material = registry.get(name)
+        resolved = resolve_material(name)
+        profile = resolved.profile
         correction = identities.get(key)
+        # Physical fields come from the resolver the release gate reads (data
+        # spine first, then profile), so this cache cannot drift from the gate.
+        gate_physics = {
+            "mw": resolved_mw_g_mol(resolved),
+            "vp": resolved_vp_25c_pa(resolved),
+            "clp": resolved_logp(resolved),
+        }
+        gate_values = {k: v for k, (v, _) in gate_physics.items() if v is not None}
         if correction:
-            fields = correction["fields"]
+            # A contract value the gate does not read stays visible, not applied.
+            overridden = {
+                k: {"contract": v, "gate": gate_values[k]}
+                for k, v in correction["fields"].items()
+                if k in gate_values and v != gate_values[k]
+            }
+            fields = {k: v for k, v in correction["fields"].items() if k not in gate_values}
             if any(entry.get(k) != v for k, v in fields.items()):
                 _lineage(entry, fields, "SOURCE_BOUND_IDENTITY_REPAIR_20260907")
                 entry.update(deepcopy(fields))
             entry["identity_evidence"] = {k: v for k, v in correction.items() if k != "fields"}
+            if overridden:
+                entry["identity_evidence"]["contract_values_not_read_by_gate"] = overridden
         # Refresh model fields, including formerly stale non-inventory records.
         # Evidence labels travel with values; registry disagreements remain in report.
         if profile:
             values = {
-                "mw": profile.mw,
-                "vp": profile.vp,
-                "clp": profile.clogp,
+                "mw": gate_physics["mw"][0],
+                "vp": gate_physics["vp"][0],
+                "clp": gate_physics["clp"][0],
                 "note": profile.note,
                 "role": profile.role,
                 "texture": profile.texture,
@@ -139,7 +162,7 @@ def reconcile(existing):
                 "hedonic": profile.hedonic,
             }
             if correction:
-                values.update({k: v for k, v in correction["fields"].items() if k in values})
+                values.update({k: v for k, v in fields.items() if k in values})
             changed = [k for k, v in values.items() if entry.get(k) != v]
             if changed:
                 _lineage(entry, changed, "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907")
@@ -151,18 +174,29 @@ def reconcile(existing):
             if not entry.get("odor_profile"):
                 entry["odor_profile"] = profile.odor_description
         else:
+            # A registry-only identity still has gate physics; unknown labels keep
+            # their legacy values, explicitly unverified.
+            values = dict(gate_values)
+            changed = [k for k, v in values.items() if entry.get(k) != v]
+            if changed:
+                _lineage(entry, changed, "GATE_PHYSICS_SYNCHRONIZATION_20261009")
+            entry.update(values)
             entry["field_evidence"] = {
                 k: {"status": "UNVERIFIED_LEGACY_VALUE" if entry.get(k) is not None else "UNKNOWN"}
                 for k in ("mw", "vp", "clp", "activity_coef", "hedonic")
             }
-        odt = lookup_odt_entry(name)
+        entry["field_evidence"]["gate_value_sources"] = {
+            k: source for k, (value, source) in gate_physics.items() if value is not None
+        }
+        # The threshold is the one the gate reads, keyed by the same identity.
+        odt_key = odt_lookup_key(name, resolved.registry_material)
+        odt = lookup_odt_entry(odt_key)
+        entry["odt"] = lookup_odt_air_ppb(name, profile, resolved.registry_material)[0]
         if odt:
-            entry["odt"] = odt.get("odt_air")
             entry["odt_ethanol_ppm"] = odt.get("odt_eth")
         else:
-            entry["odt"] = profile.odt if profile else None
             entry["odt_ethanol_ppm"] = profile.odt_ppm if profile else None
-        entry["odt_evidence"] = verify_odt(name) or {
+        entry["odt_evidence"] = verify_odt(odt_key) or {
             "vfy": "UNVERIFIED",
             "reason": "No identity-bound metadata",
         }
