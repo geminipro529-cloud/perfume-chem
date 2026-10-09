@@ -970,3 +970,115 @@ def test_partial_report_path_cannot_overwrite_canonical_full_evidence(tmp_path, 
     assert partial_path.name == "project_verification_partial.json"
     assert full_path != partial_path
     assert json.loads(full_path.read_text(encoding="utf-8"))["verification_scope"] == "full"
+
+
+_BACKEND_CHECKS = (
+    "backend-lint",
+    "backend-typecheck",
+    "backend-tests",
+    "golden-api-regression",
+)
+
+
+def test_backend_checks_declare_the_backend_poetry_environment():
+    specs = {spec.name: spec for spec in build_check_specs(PROJECT_ROOT)}
+
+    for name in _BACKEND_CHECKS:
+        assert specs[name].environment == "backend-poetry"
+
+
+def _fake_backend_environment(tmp_path, monkeypatch, dependencies: str) -> Path:
+    env_dir = tmp_path / "backend-env"
+    (env_dir / "bin").mkdir(parents=True)
+    python = env_dir / "bin" / "python"
+    python.write_text(f'#!/bin/sh\nexec "{sys.executable}" "$@"\n', encoding="utf-8")
+    python.chmod(0o755)
+    (tmp_path / "backend").mkdir()
+    (tmp_path / "backend" / "pyproject.toml").write_text(
+        "[tool.poetry.dependencies]\n"
+        'python = "^3.11"\n'
+        'optional-extra-xyz = {version = "^1", optional = true}\n'
+        f"{dependencies}\n"
+        "[tool.poetry.group.dev.dependencies]\n"
+        'pytest = "*"\n',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        project_verification,
+        "_local_tool",
+        lambda root, tool: (sys.executable, "-c", f"print({str(env_dir)!r})"),
+    )
+    return env_dir
+
+
+@pytest.mark.skipif(os.name == "nt", reason="fake environment uses a POSIX shell bin/python")
+def test_backend_environment_gap_names_missing_declared_dependencies(tmp_path, monkeypatch):
+    env_dir = _fake_backend_environment(
+        tmp_path, monkeypatch, 'not-installed-dist-xyz = "^1"'
+    )
+
+    reason = project_verification._backend_environment_gap(tmp_path)
+
+    assert reason == (
+        f"Backend Poetry environment at {env_dir} is missing declared dependencies "
+        "(not-installed-dist-xyz); run `cd backend && poetry install`."
+    )
+
+
+@pytest.mark.skipif(os.name == "nt", reason="fake environment uses a POSIX shell bin/python")
+def test_backend_environment_gap_is_none_when_declared_dependencies_are_installed(
+    tmp_path, monkeypatch
+):
+    _fake_backend_environment(tmp_path, monkeypatch, "")
+
+    assert project_verification._backend_environment_gap(tmp_path) is None
+
+
+def test_backend_environment_gap_reports_absent_environment(tmp_path, monkeypatch):
+    (tmp_path / "backend").mkdir()
+    monkeypatch.setattr(
+        project_verification,
+        "_local_tool",
+        lambda root, tool: (sys.executable, "-c", "raise SystemExit(1)"),
+    )
+
+    assert project_verification._backend_environment_gap(tmp_path) == (
+        "Backend Poetry environment does not exist; run `cd backend && poetry install`."
+    )
+
+
+def test_unavailable_backend_environment_skips_only_backend_checks(tmp_path, monkeypatch):
+    canonical = (
+        CheckSpec("engine-compile", ("python", "compile")),
+        CheckSpec(
+            "backend-tests",
+            ("poetry", "run", "pytest"),
+            cwd="backend",
+            environment="backend-poetry",
+        ),
+    )
+    executed: list[str] = []
+
+    def fake_runner(spec: CheckSpec) -> CommandOutcome:
+        executed.append(spec.name)
+        return CommandOutcome(0, "ok", "", 0.01)
+
+    monkeypatch.setattr(project_verification, "build_check_specs", lambda root: canonical)
+    monkeypatch.setattr(project_verification, "_scientific_data_coverage", lambda: {})
+    monkeypatch.setattr(project_verification, "_default_runner", lambda root: fake_runner)
+    monkeypatch.setattr(
+        project_verification,
+        "_backend_environment_gap",
+        lambda root: "Backend Poetry environment does not exist; run `cd backend && poetry install`.",
+    )
+
+    report = run_project_verification(project_root=tmp_path, quick=False, selected=None)
+
+    statuses = {result.name: (result.status, result.reason) for result in report.checks}
+    assert executed == ["engine-compile"]
+    assert statuses["engine-compile"] == ("PASS", None)
+    assert statuses["backend-tests"] == (
+        "SKIPPED",
+        "Backend Poetry environment does not exist; run `cd backend && poetry install`.",
+    )
+    assert report.completion_gate == "PASS_WITH_SKIPS"
