@@ -1,10 +1,13 @@
 """Append-only personal inventory-detail completion receipts.
 
 The dated governance overlays remain immutable scientific/physical authority.
-This module adds a deliberately lighter personal-design layer so a user can
-confirm the stock facts that are actually needed to formulate from material
-they already own.  A completion may make a stock eligible for *design*; it
-never grants physical-compounding, safety, release, or regulatory authority.
+This module adds a deliberately lighter personal layer so a user can confirm
+the stock facts needed to formulate from material they already own (the Lab
+app's Stock page writes these events).  A completion that gives the strength,
+basis and carrier (or neat) makes the stock design-ready and, for the hold
+reasons ``COMPLETION_HOLD_DISPOSITIONS`` marks cleared, ready at the release
+gate too.  The gate still runs every check, and a completion never grants
+physical-compounding, safety, release, or regulatory authority.
 """
 
 from __future__ import annotations
@@ -63,6 +66,59 @@ FALSE_ACTION_AUTHORITY = {
     "compounding_authority": False,
     "evidence_admission_authorized": False,
 }
+
+# Every execution hold reason the current inventory carries (plus the earlier
+# ones the overlays have used), and whether a completion that makes the stock
+# design-ready also clears it at the release gate.  True: the hold only records
+# a strength/basis/carrier fact the Stock page form supplies.  False: the form
+# does not answer it.  A reason not listed here is kept.
+COMPLETION_HOLD_DISPOSITIONS: dict[str, tuple[bool, str]] = {
+    "": (True, "unnamed hold: cleared only if the stock lacked basis or carrier"),
+    "STOCK_INTAKE_IDENTITY_ONLY": (True, "intake named the product, not its strength/basis/carrier"),
+    "FRACTION_BASIS_UNSPECIFIED": (True, "basis is a form field"),
+    "CARRIER_UNSPECIFIED": (True, "carrier is a form field"),
+    "FRACTION_BASIS_AND_CARRIER_UNSPECIFIED": (True, "basis and carrier are form fields"),
+    "FRACTION_BASIS_OR_CARRIER_UNSPECIFIED": (True, "basis and carrier are form fields"),
+    "STOCK_FRACTION_UNSPECIFIED": (True, "strength is a form field"),
+    "RESTOCKED_BOTTLE_STRENGTH_AND_CARRIER_NOT_STATED": (True, "strength and carrier are form fields"),
+    "APPROXIMATE_STOCK_FRACTION": (True, "the form records an exact strength"),
+    "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED": (
+        True,
+        "design readiness requires a basis and a homogeneity confirmation",
+    ),
+    "HOMOGENEITY_NOT_RECONFIRMED": (True, "design readiness requires a homogeneity confirmation"),
+    "FINAL_DISSOLVED_FRACTION_UNMEASURED": (
+        True,
+        "design readiness requires a known final fraction from a measurement or label",
+    ),
+    "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN": (
+        False,
+        "the final-fraction safeguard covers only starting-charge stocks",
+    ),
+    "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED": (
+        False,
+        "extracted solids are not a form field",
+    ),
+    "VISIBLE_CRYSTALS_LIQUID_PHASE_STRENGTH_UNKNOWN": (False, "a phase problem, not a label fact"),
+    "BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING": (False, "lot and label receipt are not form fields"),
+    "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING": (
+        False,
+        "lot and preparation receipts are not form fields",
+    ),
+    "PREPARATION_QUANTITIES_DATE_AND_LOTS_MISSING": (
+        False,
+        "preparation quantities, date and lots are not form fields",
+    ),
+    "LOT_PURCHASE_SOURCE_AND_LABEL_RECEIPT_MISSING": (
+        False,
+        "lot, purchase source and label receipt are not form fields",
+    ),
+    "LEGACY_TEXT_CURRENT_STOCK_HOLD": (False, "a legacy-text conflict, not a missing fact"),
+    "USER_COMPOUNDING_HOLD": (False, "the user's exclusion; only an explicit clearance lifts it"),
+}
+COMPLETION_CLEARABLE_HOLDS = frozenset(
+    reason for reason, (cleared, _why) in COMPLETION_HOLD_DISPOSITIONS.items() if cleared and reason
+)
 
 _WRITE_LOCK = threading.Lock()
 
@@ -300,6 +356,19 @@ def inventory_completion_requirements(stock: Any) -> tuple[str, ...]:
     return tuple(dict.fromkeys(missing))
 
 
+def _completion_clears_execution_hold(stock: Any) -> bool:
+    reasons = [item for item in str(getattr(stock, "execution_hold_reason", "")).split("|") if item]
+    if reasons:
+        return all(reason in COMPLETION_CLEARABLE_HOLDS for reason in reasons)
+    # An unnamed hold on a stock whose strength, basis and carrier were already
+    # complete came from elsewhere in its row (an unresolved species or a
+    # product basis, say), which a completion does not answer.
+    basis = str(getattr(stock, "fraction_basis", "") or "")
+    if float(getattr(stock, "dilution", 0) or 0) == 1:
+        return basis != "neat"
+    return basis in {"", "unspecified"} or not str(getattr(stock, "carrier", "") or "").strip()
+
+
 def apply_inventory_completion_events(materialization: Any, path: Path | None = None) -> Any:
     events = load_inventory_completion_events(path)
     latest_by_stock: dict[str, dict[str, Any]] = {}
@@ -323,9 +392,16 @@ def apply_inventory_completion_events(materialization: Any, path: Path | None = 
             if fraction == 1
             else f"{fraction * 100:g}% {values['fraction_basis']} in {carrier or 'carrier unstated'}"
         )
+        execution_ready = bool(stock.execution_ready)
+        execution_hold_reason = str(stock.execution_hold_reason)
+        if design_ready and not execution_ready and _completion_clears_execution_hold(stock):
+            execution_ready = True
+            execution_hold_reason = ""
         completed_stocks.append(
             replace(
                 stock,
+                execution_ready=execution_ready,
+                execution_hold_reason=execution_hold_reason,
                 dilution=fraction,
                 fraction_basis=str(values["fraction_basis"]),
                 carrier=carrier,
@@ -506,6 +582,8 @@ def effective_design_ready(stock: Any) -> bool:
 
 
 __all__ = [
+    "COMPLETION_CLEARABLE_HOLDS",
+    "COMPLETION_HOLD_DISPOSITIONS",
     "COMPLETION_PATH_ENV",
     "InventoryCompletionConflictError",
     "InventoryCompletionError",

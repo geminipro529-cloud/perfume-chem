@@ -1013,6 +1013,12 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
                 ),
             }
         )
+        if record.completion_event_sha256:
+            matched[-1]["stock_facts_source"] = {
+                "kind": "LAB_STOCK_PAGE_COMPLETION",
+                "event_sha256": record.completion_event_sha256,
+                "source_ref": record.completion_source_ref,
+            }
 
     active_impact: dict[str, Any] = {
         "declared_active_ul": round(declared_active_ul, 6),

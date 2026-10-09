@@ -62,7 +62,7 @@ def _stock_gate(*issues: dict):
 def test_only_metadata_incomplete_stock_holds_and_names_the_data_to_supply():
     gate = _stock_gate(_metadata_incomplete("Kephalis"))
     assert gate.status == "HOLD"
-    assert "needs data: Kephalis (record the carrier and concentration basis" in gate.detail
+    assert "needs data: Kephalis (on the Lab app's Stock page, fill in the strength, basis and carrier" in gate.detail
     assert [issue["material"] for issue in gate.data["needs_data"]] == ["Kephalis"]
     assert gate.data["fail_issues"] == []
 
@@ -74,7 +74,7 @@ def test_execution_holds_that_only_miss_data_hold():
         _metadata_incomplete("Iso E Super", holds=["BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING"]),
     )
     assert gate.status == "HOLD"
-    assert "record the concentration basis (w/w, v/v or w/v) of the Bacdanol stock" in gate.detail
+    assert "on the Lab app's Stock page, fill in the strength, basis and carrier of the Bacdanol stock" in gate.detail
 
 
 def test_not_in_inventory_or_fraction_mismatch_still_fail_and_list_needs_data_after():
@@ -226,7 +226,7 @@ def test_approximate_stock_used_at_another_strength_fails_and_at_its_nominal_str
     assert _stock_gate(_held_at("Approx", hold, formula=0.01, stock=0.1, matches=False)).status == "FAIL"
     held = _stock_gate(_held_at("Approx", hold, formula=0.1, stock=0.1, matches=True))
     assert held.status == "HOLD"
-    assert "record the exact stock strength" in held.detail
+    assert "on the Lab app's Stock page, fill in the strength, basis and carrier" in held.detail
 
 
 def test_receipt_line_with_a_non_stock_blocker_fails_the_rollup():

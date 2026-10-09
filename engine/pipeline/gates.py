@@ -42,6 +42,7 @@ from engine.ifra_standards import (
     evaluate_ifra,
     load_ifra_table,
 )
+from engine.inventory_completions import COMPLETION_CLEARABLE_HOLDS
 from engine.knowledge.literature_rules import (
     _LITERATURE_DB_LOADED,
     _cite_fn,
@@ -469,6 +470,14 @@ _STOCK_DATA_HOLDS: dict[str, str] = {
     "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED": "confirm the concentration basis and homogeneity",
     "HOMOGENEITY_NOT_RECONFIRMED": "reconfirm homogeneity",
 }
+# A Lab app Stock page completion clears the holds in COMPLETION_CLEARABLE_HOLDS
+# (and an unnamed missing-basis/carrier hold), so those ask for it there; the
+# text above still describes each hold.  The detail appends " of the X stock".
+_STOCK_PAGE_REQUEST = "on the Lab app's Stock page, fill in the strength, basis and carrier"
+_STOCK_PAGE_MEASURED_REQUEST = (
+    "measure the final dissolved fraction, then on the Lab app's Stock page fill in "
+    "the strength, basis and carrier"
+)
 # Holds under which the stock has no recorded strength at all, so a formula
 # strength cannot yet be compared with it.  Every other data hold sits on a
 # stock with a recorded strength (an approximate "~10%", a supplier-label
@@ -558,9 +567,17 @@ def _stock_issue_data_request(issue: Mapping[str, object]) -> str | None:
         issue, holds
     ):
         return None
-    if not holds:
-        return "record the carrier and concentration basis"
-    return "; ".join(dict.fromkeys(_STOCK_DATA_HOLDS[hold] for hold in holds))
+    requests = []
+    if not holds or any(hold in COMPLETION_CLEARABLE_HOLDS for hold in holds):
+        requests.append(
+            _STOCK_PAGE_MEASURED_REQUEST
+            if any(hold in _STOCK_STRENGTH_CHARGE_BOUND_HOLDS for hold in holds)
+            else _STOCK_PAGE_REQUEST
+        )
+    requests.extend(
+        _STOCK_DATA_HOLDS[hold] for hold in holds if hold not in COMPLETION_CLEARABLE_HOLDS
+    )
+    return "; ".join(dict.fromkeys(requests))
 
 
 def _describe_stock_issue(issue: Mapping[str, object]) -> str:
