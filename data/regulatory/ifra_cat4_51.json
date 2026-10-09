@@ -1325,6 +1325,19 @@
       "source_url": "https://ifrafragrance.org/standards-library",
       "verified_on": "2026-10-09"
     },
+    "Aldehyde C-18": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "gamma-Nonalactone"
+      ],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1000531.html): Aldehyde C-18 is the trade name for gamma-nonalactone, a lactone, not a C18 aldehyde. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "104-61-0"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Aldehyde C-8 Octanal": {
       "status": "no_standard",
       "standard": null,
@@ -1481,6 +1494,30 @@
         "127-51-5"
       ]
     },
+    "Amber Xtreme": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1660971.html): IFF Amber Xtreme is a heptamethyl decahydro-indenofuran (musk indenofuran); the identity page lists both CAS numbers. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "476332-65-7",
+        "647828-16-8"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
+    "Ambermax": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1687381.html): Givaudan Ambermax is two tricycloundecenyl propanol isomers, supplied as 50% in Dowanol TPM or 10% in TEC. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "929625-08-1",
+        "1001252-30-7"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Amberwood F": {
       "status": "restricted",
       "standard": "IFRA_STD_252",
@@ -1500,6 +1537,17 @@
         "123-69-3",
         "28645-51-4"
       ]
+    },
+    "Ambrocenide": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1612511.html): Symrise Ambrocenide is a hexamethyl methanoazuleno-dioxole. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "211299-54-6"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Ambrofix Crystals": {
       "status": "no_standard",
@@ -1666,6 +1714,20 @@
       ],
       "note": "Furocoumarin-free grade. STD_087 says its 0.40 % limit applies when the furocoumarin level is unknown, so keep the supplier certificate. Total bergapten in the finished product must stay at or below 0.0015 % (STD_089)."
     },
+    "Berry Hexanoate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "BerryFlor",
+        "Ethyl 6-Acetoxyhexanoate"
+      ],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1061362.html): Givaudan BerryFlor is ethyl 6-acetoxyhexanoate. It is not allyl hexanoate, so the allyl esters standard (IFRA_STD_188) does not apply. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "104986-28-9"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Beta Damascone": {
       "status": "restricted",
       "standard": "IFRA_STD_077",
@@ -1734,6 +1796,17 @@
       "cas": [
         "18127-01-0"
       ]
+    },
+    "Buccoxime": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1004001.html): Symrise Buccoxime is 1,5-dimethylbicyclo[3.2.1]octan-8-one oxime. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "75147-23-8"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Butyl Butyrate": {
       "status": "no_standard",
@@ -2226,6 +2299,17 @@
         "10339-55-6"
       ]
     },
+    "Ethyl Linalyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1022781.html): Ethyl linalyl acetate is 3,7-dimethyl-1,6-nonadien-3-yl acetate, a different substance from linalool and linalyl acetate. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "61931-80-4"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Ethyl Maltol": {
       "status": "no_standard",
       "standard": null,
@@ -2434,6 +2518,18 @@
       "aliases": [],
       "note": null
     },
+    "Glycolierral": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1492991.html): Givaudan Glycolierral is the ivy dioxolane isomer mixture. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "68901-32-6",
+        "94087-23-7"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Grapefruit FCF Oil Sicilian": {
       "status": "specification",
       "standard": "IFRA_STD_089",
@@ -2523,6 +2619,17 @@
         "120-57-0"
       ]
     },
+    "Helvetolide": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1557401.html): Firmenich Helvetolide is a musk propanoate. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "141773-73-1"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Hexyl Acetate": {
       "status": "no_standard",
       "standard": null,
@@ -2589,6 +2696,19 @@
       "cas": [
         "120-72-9"
       ]
+    },
+    "Irotyl": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Ethyl 2-Ethylhexanoate"
+      ],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1023191.html): Irotyl is ethyl 2-ethylhexanoate (orris capronate). Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "2983-37-1"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Iso E Super": {
       "status": "restricted",
@@ -2667,6 +2787,17 @@
       "standard": null,
       "aliases": [],
       "note": null
+    },
+    "Kephalis": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1033131.html): Givaudan Kephalis is 4-(1-ethoxyethenyl)-3,3,5,5-tetramethylcyclohexanone. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "36306-87-3"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Koavone": {
       "status": "restricted",
@@ -2827,6 +2958,17 @@
       "source_url": "https://www.legislation.gov.uk/eur/2017/1410",
       "authority": "EU Cosmetics Regulation (EC) No 1223/2009, Annex II entry 1380 (Regulation (EU) 2017/1410)"
     },
+    "Magnolan": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1007991.html): Symrise Magnolan is a dimethyl tetrahydroindeno-dioxine (magnolia indene). Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "27606-09-3"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Magnolia EO": {
       "status": "natural_no_own_standard",
       "standard": null,
@@ -2840,6 +2982,19 @@
       "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
       "cas": [
         "118-71-8"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
+    "Manzanate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Ethyl 2-Methylpentanoate"
+      ],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1006801.html): Givaudan Manzanate is ethyl 2-methylpentanoate. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "39255-32-8"
       ],
       "source_url": "https://ifrafragrance.org/standards-library",
       "verified_on": "2026-10-09"
@@ -2879,6 +3034,17 @@
       "cas": [
         "134-20-3"
       ]
+    },
+    "Methyl Diantilis": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1009761.html): Givaudan Methyl Diantilis is 2-ethoxy-4-(methoxymethyl)phenol, a different substance from isoeugenol. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "5595-79-9"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Methyl Heptine Carbonate": {
       "status": "restricted",
@@ -2938,6 +3104,17 @@
       "cas": [
         "111-80-8"
       ]
+    },
+    "Methyl Pamplemousse": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1042632.html): Givaudan Methyl Pamplemousse is 6,6-dimethoxy-2,5,5-trimethylhex-2-ene (grapefruit acetal). Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "67674-46-8"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Methyl Salicylate": {
       "status": "no_standard",
@@ -3261,6 +3438,17 @@
       "aliases": [],
       "note": "STD_089 counts mandarin and tangerine furocoumarins toward its 0.0015 % bergapten total."
     },
+    "Rhubofix": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1028291.html): Firmenich Rhubofix is a spiro epoxide (rhubarb oxirane). Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "41816-03-9"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Romandolide": {
       "status": "no_standard",
       "standard": null,
@@ -3480,6 +3668,17 @@
         "121-33-5"
       ]
     },
+    "Veloutone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1000241.html): Firmenich Veloutone is 2,2,5-trimethyl-5-pentylcyclopentanone. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "65443-14-3"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Verdox": {
       "status": "no_standard",
       "standard": null,
@@ -3567,6 +3766,19 @@
         "Ylang Comoros III EO"
       ],
       "note": null
+    },
+    "Zenolide": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Ethylene Dodecanedioate"
+      ],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1001991.html): Zenolide is ethylene dodecanedioate. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "54982-83-1"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     }
   },
   "group_rules": [

@@ -113,49 +113,32 @@ def test_formula_with_every_row_recognised_keeps_its_verdict():
 
 
 # Owned stocks reviewed against the IFRA Standards Library on 2026-10-09 and left
-# unrecognised on purpose: compounded bases, naturals and absolutes, a Schiff base, and
+# unrecognised on purpose: compounded bases, naturals and absolutes, a Schiff base,
+# cedarwood-derived grades that may carry cedrene (IFRA_STD_197, Category 4 1.5 %), and
 # trade names whose identity was not confirmed from a source. Each must keep holding.
 STILL_HELD = {
-    "Aldehyde C-18",
     "Ambrette Seed Absolute",
-    "Amber Xtreme",
-    "Ambermax 50%",
-    "Ambrocenide",
     "Aurantiol 10% in DPG",
-    "Berry Hexanoate (BerryFlor)",
     "Black Agarwood Artificial",
     "Black Tea Base",
-    "Buccoxime",
     "Castoreum Synthetic",
     "Cedryl Acetate",
     "Clearwood",
     "Costus Olifac 10%",
-    "Ethyl Linalyl Acetate",
     "Frangipani Absolute",
     "Fructone B",
-    "Glycolierral",
-    "Helvetolide",
-    "Irotyl",
-    "Kephalis",
     "Lavandin Absolute",
     "Lemon Terpeneless Oil Sicilian",
     "Lilyreal ND",
-    "Magnolan",
-    "Manzanate",
     "Mate Absolute",
-    "Methyl Diantilis",
-    "Methyl Pamplemousse",
     "Orris Concrete Orris Butter",
-    "Rhubofix",
     "Rose Otto Bulgarian",
     "Saffranal",
     "Suederal 10%",
     "Tonkarome",
     "Vanilla Absolute",
-    "Veloutone",
     "Vertofix",
     "Vertofix Coeur",
-    "Zenolide",
 }
 
 
