@@ -1051,6 +1051,56 @@ _PERU_BALSAM_PW_2QV00363_ALLERGEN_DECLARATION_CONSTITUENTS = [
     ("coumarin", 0.000162, 146.14, 0.05, 2.0, 0.5),
 ]
 
+# -- Proxy profiles for further owned naturals (2026-10-09, batch A) --
+# Same conventions as the block above: labelled literature or supplier proxies,
+# existing runtime tuples reused, constituents without a runtime headspace input
+# kept unresolved (not odorless), nothing renormalized.
+
+# Basil (Ocimum basilicum L.) oil, India, methyl chavicol (estragole) type.
+# Botanic Universe "Basil Sweet Essential Oil India" supplier GC report
+# (2018-03-21): estragole 75.16%, linalool 18.13%; Gulati 1977 (via scent.vn)
+# reports an Indian oil at estragole 77.5% / linalool 19.1%. This origin-matched
+# GC is used instead of ISO 11043:1998 because Indian oil's linalool (18-19%)
+# lies far outside the standard's 0.5-3% range. Estragole, alpha-bisabolene,
+# alpha-trans-bergamotene and alpha-humulene have no runtime headspace input and
+# stay unresolved. trans-beta-Ocimene reuses the generic ocimene row.
+_BASIL_INDIA_ESTRAGOLE_SUPPLIER_GC_CONSTITUENTS = [
+    ("linalool", 0.1813, 154.25, 21.3, 1.5, 2.0),
+    ("geranial", 0.0064, 152.23, 3.0, 0.5, 1.5),
+    ("beta caryophyllene", 0.0040, 204.35, 1.0, 10.0, 1.2),
+    ("germacrene d", 0.0038, 204.35, 1.0, 5.0, 1.2),
+    ("neral", 0.0037, 152.23, 3.0, 0.5, 1.5),
+    ("ocimene", 0.0027, 136.24, 250.0, 20.0, 3.0),
+    ("menthol", 0.0026, 156.2652, 4.5, 1000.0 * 10.0 ** (-1.660), 2.0),
+]
+
+# Tagetes (Tagetes minuta L.) whole-plant oil, India, Bansal et al., J. Essent.
+# Oil Res. 11:747 (1999), via scent.vn; 82.6% of the oil is listed. The
+# character ketones (dihydrotagetone 48.7%, (Z)- and (E)-tagetone, (Z)-tagetenone,
+# ocimenone) have no runtime headspace input and stay unresolved, so the modeled
+# headspace does not represent tagetes character. (Z)-beta-Ocimene reuses the
+# generic ocimene row.
+_TAGETES_MINUTA_INDIA_BANSAL_1999_CONSTITUENTS = [
+    ("ocimene", 0.080, 136.24, 250.0, 20.0, 3.0),
+    ("limonene", 0.034, 136.24, 200.0, 20.0, 3.0),
+]
+
+# Helichrysum italicum subsp. italicum oil, industrial distilled Corsican oil,
+# Bianchini et al., Flavour Fragr. J. 16:30 (2001), via scent.vn; 91.5% is
+# listed. Corsican oil is used rather than the Croatian wild-population mean
+# (Blazevic 1995) because it is an industrially distilled commercial oil and is
+# the source the module's immortelle absolute profile already cites; the owned
+# oil's origin is unknown. gamma-Curcumene reuses the immortelle absolute row.
+# Neryl propionate, italicene, alpha-curcumene, eudesm-5-en-11-ol and the
+# beta-diketones have no runtime headspace input and stay unresolved.
+_HELICHRYSUM_CORSICA_BIANCHINI_2001_CONSTITUENTS = [
+    ("neryl acetate", 0.326, 196.29, 3.0, 10.0, 1.5),
+    ("gamma-curcumene", 0.117, 204.35, 0.5, 5.0, 1.2),
+    ("limonene", 0.075, 136.24, 200.0, 20.0, 3.0),
+    ("nerol", 0.047, 154.25, 2.02, 5.00, 1.5),
+    ("alpha pinene", 0.018, 136.24, 400.0, 20.0, 3.0),
+]
+
 # ── Master Registry ───────────────────────────────────────────────────
 
 _ABSOLUTE_CONSTITUENTS = {
@@ -1180,6 +1230,15 @@ _ABSOLUTE_CONSTITUENTS = {
     # New EOs 2026-06-15
     "rose essential oil": _ROSE_EO_CONSTITUENTS,
     "cassia essential oil": _CASSIA_EO_CONSTITUENTS,
+    "ocimum basilicum oil india estragole type supplier gc profile": (
+        _BASIL_INDIA_ESTRAGOLE_SUPPLIER_GC_CONSTITUENTS
+    ),
+    "tagetes minuta whole plant oil india bansal 1999 profile": (
+        _TAGETES_MINUTA_INDIA_BANSAL_1999_CONSTITUENTS
+    ),
+    "helichrysum italicum oil corsica bianchini 2001 profile": (
+        _HELICHRYSUM_CORSICA_BIANCHINI_2001_CONSTITUENTS
+    ),
     "michelia alba flower oil zhu 1993 literature profile": _MICHELIA_ALBA_FLOWER_ZHU_1993_CONSTITUENTS,
     "champaca flower oil perfumersworld 7nj07740 ifra declaration profile": (
         _CHAMPACA_PW_7NJ07740_IFRA_DECLARATION_CONSTITUENTS
@@ -1300,6 +1359,19 @@ _PROFILE_ALIASES = {
     "peru balsam resinoid (50% w/w in dep)": "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile",
     "peru balsam": "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile",
     "peru balsam 10%": "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile",
+    # Owner stock "Basil EO (India, Ocimum Basilicum)": Indian estragole-type oil;
+    # the V5 row names the same chemotype ("ct. Methyl Chavicol").
+    "basil eo": "ocimum basilicum oil india estragole type supplier gc profile",
+    "basil eo ct. methyl chavicol": (
+        "ocimum basilicum oil india estragole type supplier gc profile"
+    ),
+    # Owner stock "Tagetes EO (10% in DPG)": Tagetes minuta; origin unknown.
+    "tagetes eo": "tagetes minuta whole plant oil india bansal 1999 profile",
+    "tagetes eo (10% in dpg)": "tagetes minuta whole plant oil india bansal 1999 profile",
+    "tagetes eo 10%": "tagetes minuta whole plant oil india bansal 1999 profile",
+    # Owner stock "Helichrysum EO": H. italicum (immortelle) oil; origin unknown.
+    # Distinct from the immortelle absolute profile.
+    "helichrysum eo": "helichrysum italicum oil corsica bianchini 2001 profile",
 }
 
 _LAVENDER_40_42_PROXY_LIMITATIONS = (
@@ -1483,6 +1555,18 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile": (
         "https://www.perfumersworld.com/view.php?pro_id=2QV00363",
         "https://keele-repository.worktribe.com/OutputFile/459690",
+    ),
+    "ocimum basilicum oil india estragole type supplier gc profile": (
+        "https://cdn.shopify.com/s/files/1/1277/1723/files/Basil_Sweet_Essential_Oil_India_GC.pdf",
+        "https://scent.vn/en/pages/oil/basil-india-1295",
+        "https://cdn.standards.iteh.ai/samples/19023/cff9800fd51d45149a8e27345adaa0bf/ISO-11043-1998.pdf",
+    ),
+    "tagetes minuta whole plant oil india bansal 1999 profile": (
+        "https://scent.vn/en/pages/oil/tagetes-india-6a-whole-plant-3230",
+    ),
+    "helichrysum italicum oil corsica bianchini 2001 profile": (
+        "https://scent.vn/en/pages/oil/helichrysum-italicum-france-corsica-3417",
+        "https://scent.vn/en/pages/oil/helichrysum-italicum-croatia-1a-2722",
     ),
 }
 
@@ -2457,6 +2541,250 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "Allergen values are supplier-declared levels of regulated allergens, relayed by the owner and not re-verified against the supplier document; they are not a full composition or a lot analysis.",
             "Only 26.89% of the resinoid is modeled. Benzyl cinnamate (16.71%) and benzaldehyde have no runtime headspace input, and cinnamic acid, nerolidol and vanillin are known only as literature GC-MS peak areas; all remain uncomputed, not odorless. Nothing is renormalized.",
             "Peru balsam esters hydrolyse with age (literature historical sample); the owned lot's age and ester content are unknown.",
+        ),
+    },
+    "ocimum basilicum oil india estragole type supplier gc profile": {
+        "analytical_method": "SUPPLIER_GC_REPORT_METHOD_NOT_STATED",
+        "composition_basis": "SUPPLIER_GC_PERCENT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://cdn.shopify.com/s/files/1/1277/1723/files/Basil_Sweet_Essential_Oil_India_GC.pdf",
+                "document": "Botanic Universe, Basil Sweet Essential Oil India, GC report dated 2018-03-21",
+                "published_botanical_name": "Not stated on the report (sold as sweet basil, India)",
+                "published_type": "Basil oil, India, methyl chavicol (estragole) type",
+                "reported_pct": {
+                    "estragole": 75.16,
+                    "linalool": 18.13,
+                    "alpha-bisabolene": 1.78,
+                    "geranial": 0.64,
+                    "alpha-trans-bergamotene": 0.48,
+                    "beta-caryophyllene": 0.40,
+                    "germacrene D": 0.38,
+                    "neral": 0.37,
+                    "trans-beta-ocimene": 0.27,
+                    "menthol": 0.26,
+                    "alpha-humulene": 0.20,
+                },
+                "reported_total_pct": 99.99,
+                "corroborating_literature_pct": {"estragole": 77.5, "linalool": 19.1},
+                "corroborating_literature": "Gulati 1977, 7th Int. Essential Oil Congress, Kyoto, via https://scent.vn/en/pages/oil/basil-india-1295",
+                "iso_11043_1998_range_pct": {"methyl chavicol": (75.0, 87.0), "linalol": (0.5, 3.0)},
+                "iso_11043_used": False,
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Basil EO (India, Ocimum Basilicum)",
+                "owned_origin_matches_source": True,
+                "owned_chemotype_matches_source": True,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name, *_rest in _BASIL_INDIA_ESTRAGOLE_SUPPLIER_GC_CONSTITUENTS},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "estragole",
+                "reported_fraction": 0.7516,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-bisabolene",
+                "reported_fraction": 0.0178,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-trans-bergamotene",
+                "reported_fraction": 0.0048,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-humulene",
+                "reported_fraction": 0.002,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The composition is one supplier's GC report for an Indian sweet basil oil, not an analysis of the owned bottle or lot; the report states no botanical name, lot or GC method.",
+            "Estragole (methyl chavicol, 75.16%), the character constituent, has no runtime headspace input and remains uncomputed, not odorless, so the modeled headspace is linalool-led and does not represent basil character.",
+            "ISO 11043:1998 (methyl chavicol type) is not used: its linalol range of 0.5-3% conflicts with the 18-19% linalool both Indian analyses report; an ISO-conforming oil would carry far less linalool than modeled here.",
+            "trans-beta-Ocimene and menthol reuse the existing generic ocimene and peppermint menthol rows; ocimene isomers are not distinguished.",
+        ),
+    },
+    "tagetes minuta whole plant oil india bansal 1999 profile": {
+        "analytical_method": "LITERATURE_GC_MS",
+        "composition_basis": "LITERATURE_PERCENT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://scent.vn/en/pages/oil/tagetes-india-6a-whole-plant-3230",
+                "document": "Bansal et al., J. Essent. Oil Res. 11:747 (1999), as tabulated by scent.vn",
+                "published_botanical_name": "Tagetes minuta L.",
+                "published_type": "Whole-plant essential oil, India",
+                "reported_pct": {
+                    "dihydrotagetone": 48.7,
+                    "(Z)-tagetone": 15.0,
+                    "(Z)-beta-ocimene": 8.0,
+                    "(Z)-tagetenone": 3.9,
+                    "limonene": 3.4,
+                    "(E)-tagetone": 1.9,
+                    "ocimenone": 1.7,
+                },
+                "reported_total_pct": 82.6,
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Tagetes EO (10% in DPG)",
+                "owned_origin_recorded": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name, *_rest in _TAGETES_MINUTA_INDIA_BANSAL_1999_CONSTITUENTS},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "dihydrotagetone",
+                "reported_fraction": 0.487,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "(Z)-tagetone",
+                "reported_fraction": 0.15,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "(Z)-tagetenone",
+                "reported_fraction": 0.039,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "(E)-tagetone",
+                "reported_fraction": 0.019,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "ocimenone",
+                "reported_fraction": 0.017,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The composition is one published Indian whole-plant oil, not an analysis of the owned bottle, whose origin and plant part are unrecorded; tagetes composition varies strongly with origin and growth stage.",
+            "Only 11.4% of the oil is modeled ((Z)-beta-ocimene and limonene). Dihydrotagetone, the tagetones, (Z)-tagetenone and ocimenone, the tagetes character ketones, have no runtime headspace input; they remain uncomputed, not odorless, so the modeled headspace does not represent tagetes character.",
+            "(Z)-beta-Ocimene reuses the generic ocimene row; ocimene isomers are not distinguished.",
+            "Only 82.6% of the oil is listed in the source; the remainder is unknown and nothing is renormalized.",
+        ),
+    },
+    "helichrysum italicum oil corsica bianchini 2001 profile": {
+        "analytical_method": "LITERATURE_GC_MS",
+        "composition_basis": "LITERATURE_PERCENT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://scent.vn/en/pages/oil/helichrysum-italicum-france-corsica-3417",
+                "document": "Bianchini et al., Flavour Fragr. J. 16:30 (2001), as tabulated by scent.vn",
+                "published_botanical_name": "Helichrysum italicum (Roth) G.Don subsp. italicum",
+                "published_type": "Industrial distilled essential oil, Corsica",
+                "reported_pct": {
+                    "neryl acetate": 32.6,
+                    "gamma-curcumene": 11.7,
+                    "limonene": 7.5,
+                    "neryl propionate": 5.8,
+                    "nerol": 4.7,
+                    "italicene": 2.6,
+                    "alpha-curcumene": 2.5,
+                    "eudesm-5-en-11-ol": 2.4,
+                    "4,6,9-trimethyl-8-decene-3,5-dione": 2.2,
+                    "alpha-pinene": 1.8,
+                    "4,6-dimethyloctane-3,5-dione": 1.8,
+                    "5,7,10-trimethylundec-9-ene-4,6-dione": 0.8,
+                    "2,5,7,9-tetramethyl-2-decene-6,8-dione": 0.8,
+                },
+                "reported_total_pct": 91.5,
+                "conflicting_origin_profile": {
+                    "source": "https://scent.vn/en/pages/oil/helichrysum-italicum-croatia-1a-2722",
+                    "document": "Blazevic et al., Acta Pharm. 45:517 (1995), mean of 7 Croatian locations",
+                    "reported_pct": {
+                        "alpha-curcumene": 15.0,
+                        "alpha-pinene": 10.0,
+                        "alpha-cedrene": 10.0,
+                        "gamma-curcumene": 10.0,
+                        "neryl acetate": 8.0,
+                    },
+                    "used": False,
+                },
+                "origin_choice_rule": "INDUSTRIAL_DISTILLED_COMMERCIAL_OIL_OVER_WILD_POPULATION_MEAN",
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Helichrysum EO",
+                "owned_origin_recorded": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name, *_rest in _HELICHRYSUM_CORSICA_BIANCHINI_2001_CONSTITUENTS},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "neryl propionate",
+                "reported_fraction": 0.058,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "italicene",
+                "reported_fraction": 0.026,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-curcumene",
+                "reported_fraction": 0.025,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "eudesm-5-en-11-ol",
+                "reported_fraction": 0.024,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "4,6,9-trimethyl-8-decene-3,5-dione",
+                "reported_fraction": 0.022,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "4,6-dimethyloctane-3,5-dione",
+                "reported_fraction": 0.018,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "5,7,10-trimethylundec-9-ene-4,6-dione",
+                "reported_fraction": 0.008,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "2,5,7,9-tetramethyl-2-decene-6,8-dione",
+                "reported_fraction": 0.008,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The owned oil's origin is unknown. Corsican industrial oil (neryl acetate 32.6%) is modeled; a Croatian wild-population mean (Blazevic 1995: neryl acetate 8.0%, alpha-curcumene 15.0%, alpha-pinene 10.0%, alpha-cedrene 10.0%) differs greatly, so origin alone can move the ester-to-hydrocarbon balance severalfold.",
+            "The composition is a published analysis, not an analysis of the owned bottle or lot; 91.5% of the oil is listed and the remainder is unknown, with nothing renormalized.",
+            "Neryl propionate, italicene, alpha-curcumene, eudesm-5-en-11-ol and the beta-diketones (the italidione family) have no runtime headspace input and remain uncomputed, not odorless.",
+            "This is the essential oil; the immortelle absolute profile is a different extraction and is not equivalent.",
         ),
     },
 }
