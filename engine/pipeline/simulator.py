@@ -3,6 +3,13 @@
 The temporal path is an explicitly uncalibrated screening model. It integrates
 composition-dependent modeled headspace over bounded time steps, but it does
 not predict measured skin life, blotter life, or absolute evaporation.
+
+Loss law (mass-balanced, diagnosis M3): each material leaves at a gas-side
+limited flux ``dn_i/dt = -A * gamma_i * x_i * P_i* / sqrt(MW_i)`` with
+``x_i = n_i / N(t)`` recomputed from the current pool after every step, so the
+amount removed tracks the partial pressure each frame reports. ``A`` is an
+unfitted relative scale, ``2e-5 * N_0``, chosen so every material's rate at
+t=0 equals the previous per-material constant ``2e-5 * gamma*P*/sqrt(MW)``.
 """
 
 from __future__ import annotations
@@ -21,10 +28,13 @@ DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
     ("drydown", 14400.0),
 )
 
-TEMPORAL_MODEL = "dynamic_headspace_exponential_loss_v2"
+TEMPORAL_MODEL = "dynamic_headspace_mass_balanced_loss_v3"
 TEMPORAL_AUTHORITY = "HEURISTIC_UNCALIBRATED"
 REMAINING_QUANTITY_BASIS = "heuristic_remaining_stock_volume_equivalent_ul"
 MAX_INTEGRATION_STEP_SECONDS = 300.0
+# Unfitted relative scale and cap of the loss law; not kinetic parameters.
+LOSS_RATE_SCALE = 2.0e-5
+MAX_LOSS_RATE_PER_S = 2.5e-3
 
 
 @dataclass(frozen=True, slots=True)
@@ -105,25 +115,55 @@ def _effective_escaping_tendency_pa(material) -> float:
 def _loss_rate_per_s(
     escaping_tendency_pa: float,
     mw_g_mol: float | None,
+    pool_ratio: float = 1.0,
 ) -> float:
     """Return an uncalibrated relative-loss rate for temporal screening.
 
-    The scale constant and cap preserve the prior model's conservative
-    numerical behavior. They are not fitted kinetic parameters and therefore
-    cannot support an absolute evaporation or longevity claim.
+    ``pool_ratio`` is ``N_0 / N(t)``: the initial pool moles over the current
+    pool moles that the headspace mole fractions use. Multiplying by it turns
+    the per-material constant into the mass-balanced flux
+    ``A * gamma * x_i * P* / sqrt(MW)`` divided by ``n_i``, with
+    ``A = LOSS_RATE_SCALE * N_0`` (diagnosis M3). The scale constant and cap
+    are not fitted kinetic parameters and therefore cannot support an
+    absolute evaporation or longevity claim.
     """
     if escaping_tendency_pa <= 0.0:
         return 0.0
     mw = max(mw_g_mol or 200.0, 1.0)
-    return min(2.5e-3, (escaping_tendency_pa / math.sqrt(mw)) * 2.0e-5)
+    return min(
+        MAX_LOSS_RATE_PER_S,
+        (escaping_tendency_pa / math.sqrt(mw)) * LOSS_RATE_SCALE * pool_ratio,
+    )
 
 
-def _remaining_raw_ul(state: FormulaState, delta_seconds: float) -> dict[str, float]:
+def _pool_total_moles(state: FormulaState) -> float:
+    """Return the mole total that the state's headspace mole fractions use."""
+    return sum(m.moles for m in state.materials) + state.matrix_moles
+
+
+def _remaining_raw_ul(
+    state: FormulaState,
+    delta_seconds: float,
+    *,
+    initial_pool_moles: float | None = None,
+) -> dict[str, float]:
+    """Return raw stock remaining after one step of the loss law.
+
+    The rate of each material is frozen over the step at its start-of-step
+    value and applied as ``exp(-k * dt)``. ``initial_pool_moles`` is ``N_0``;
+    omitted, the state is treated as the initial pool (ratio 1).
+    """
+    pool_moles = _pool_total_moles(state)
+    if initial_pool_moles is None or pool_moles <= 0.0:
+        pool_ratio = 1.0
+    else:
+        pool_ratio = float(initial_pool_moles) / pool_moles
     remaining: dict[str, float] = {}
     for m in state.materials:
         k = _loss_rate_per_s(
             _effective_escaping_tendency_pa(m),
             m.mw_g_mol,
+            pool_ratio,
         )
         active_remaining = m.active_ul * math.exp(-k * delta_seconds)
         dilution = max(m.dilution, 1e-9)
@@ -136,18 +176,29 @@ def _advance_state(
     delta_seconds: float,
     *,
     max_step_seconds: float = MAX_INTEGRATION_STEP_SECONDS,
+    initial_pool_moles: float | None = None,
 ) -> FormulaState:
-    """Integrate the heuristic loss model while recomputing headspace."""
+    """Integrate the heuristic loss model while recomputing headspace.
+
+    ``initial_pool_moles`` is the t=0 pool total ``N_0``; omitted, ``state``
+    is taken to be the t=0 state.
+    """
     if delta_seconds < 0.0:
         raise ValueError("Temporal windows must be nondecreasing.")
     if max_step_seconds <= 0.0:
         raise ValueError("max_step_seconds must be positive.")
 
+    if initial_pool_moles is None:
+        initial_pool_moles = _pool_total_moles(state)
     current = state
     remaining_seconds = float(delta_seconds)
     while remaining_seconds > 0.0:
         step = min(max_step_seconds, remaining_seconds)
-        remaining = _remaining_raw_ul(current, step)
+        remaining = _remaining_raw_ul(
+            current,
+            step,
+            initial_pool_moles=initial_pool_moles,
+        )
         current = FormulaState.from_base(current, new_raw_ul=remaining)
         remaining_seconds -= step
     return current
@@ -177,6 +228,7 @@ def simulate_formula(
         context=context,
     )
     frames: list[SimulationFrame] = []
+    initial_pool_moles = _pool_total_moles(initial)
     current_state = initial
     current_seconds = 0.0
     for label, seconds in windows:
@@ -188,6 +240,7 @@ def simulate_formula(
         current_state = _advance_state(
             current_state,
             target_seconds - current_seconds,
+            initial_pool_moles=initial_pool_moles,
         )
         current_seconds = target_seconds
         frames.append(
