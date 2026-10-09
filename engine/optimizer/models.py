@@ -857,8 +857,34 @@ def _get_logp(name: str, mat: dict | None = None) -> float | None:
     return None
 
 
+def material_vp(name: str, mat: dict | None = None) -> float | None:
+    """Reference VP (Pa, 25 C) for scoring: the release gate's value first.
+
+    Scoring reads the gate's VP (YAML data spine, then profile) so the
+    optimizer and recommendations cannot disagree with the release gate. The
+    knowledge-graph record's ``vp`` is used only when the gate has none.
+    """
+    from ..material_resolver import gate_vp_25c_pa
+
+    vp = gate_vp_25c_pa(name)
+    if vp is not None:
+        return vp
+    return mat.get("vp") if mat else None
+
+
 @lru_cache(maxsize=4096)
 def _lookup_material(name: str) -> dict | None:
+    """Find a material in the knowledge graph, with the gate's VP applied."""
+    mat = _lookup_material_record(name)
+    if mat is None:
+        return None
+    vp = material_vp(name, mat)
+    if vp == mat.get("vp"):
+        return mat
+    return {**mat, "vp": vp}
+
+
+def _lookup_material_record(name: str) -> dict | None:
     """Find a material in the knowledge graph by name match."""
     mat = _lookup_material_exact(name)
     if mat is not None:
@@ -1750,9 +1776,11 @@ class FormulaVector:
         for name, pct in eff.items():
             mat = _lookup_material(name)
             value = None
-            if mat and mat.get(prop) is not None:
+            if prop == "vp":
+                value = material_vp(name, mat)
+            elif mat and mat.get(prop) is not None:
                 value = mat[prop]
-            elif prop in profile_prop_map:
+            if value is None and prop in profile_prop_map:
                 from ..ingredient_intelligence import get_profile
                 profile = get_profile(name)
                 if profile is not None:
@@ -1788,8 +1816,8 @@ class FormulaVector:
             mat = _lookup_material(name)
             vp = None
             mw = None
+            vp = material_vp(name, mat)
             if mat:
-                vp = mat.get("vp")
                 mw = mat.get("mw")
             # Fallback to ingredient_intelligence profiles
             if vp is None or mw is None:
