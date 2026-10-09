@@ -3,13 +3,14 @@
 Source rule: Ma, Tang, Thomas-Danguin & Xu (2020), Chemical Senses -- the
 pleasantness of an odour mixture follows the pleasantness of its components
 weighted by their intensity.  Here each window's weights are the drydown
-model's modelled strength (``intensity``, a Stevens power law of OAV) of the
-materials it can detect (OAV >= 1 and intensity > 0, the same filter the
-construction-complexity profile uses).  Component values come from the crowd
+model's strength estimate (``intensity``, a Stevens power law of each material's
+odour activity value) of the materials it can detect (OAV >= 1 and
+intensity > 0, the same filter the construction-complexity profile uses).  Component values come from the crowd
 table (``pleasantness_table.crowd_pleasantness``), with the material's share of
 the window's modelled strength as its dose.
 
-AGENTS.md Rule 1: OAV is used only as the detection floor.  The result is a
+AGENTS.md Rule 1: the weights are a model's strength estimate (a power law of
+OAV), not measured intensity, and OAV is not perceived contribution.  The result is a
 crowd guess, not measured pleasantness, intensity or liking; it never ranks or
 optimizes a formula (``optimization_authority`` is always false) and nothing
 here changes a formula row.  Unrated materials are left out of the mean, never
@@ -23,21 +24,27 @@ import math
 from typing import Any, Mapping, Sequence
 
 from engine.formulation_intelligence.pleasantness_table import SCHEMA as TABLE_SCHEMA
-from engine.formulation_intelligence.pleasantness_table import crowd_pleasantness
+from engine.formulation_intelligence.pleasantness_table import (
+    _resolve,
+    crowd_pleasantness,
+    load_crowd_table,
+)
+from engine.hedonic_model import HedonicReport
 from engine.perception.construction_complexity import _perceptible_distribution
 
 ESTIMATE_SCHEMA = "pleasantness_estimate_v1"
 MIN_COVERAGE = 0.5
+DOSE_ADJUST_MIN = 0.05  # smallest dose-driven change in a material's value worth listing
 LABEL = (
-    "Crowd guess: panel averages and hand estimates, weighted by how strongly each "
-    "material is modelled to smell in each window. Not a measurement; your own "
-    "ratings decide."
+    "Crowd guess: panel averages and hand estimates, weighted by the drydown model's "
+    "strength estimate for each material in each window (a power law of its odour "
+    "activity value, not measured intensity). Not a measurement; your own ratings decide."
 )
 METHOD = (
     "Ma, Tang, Thomas-Danguin & Xu (2020) Chemical Senses: mixture pleasantness follows "
-    "component pleasantness weighted by component intensity. Weights are modelled "
-    "strength (intensity) from the drydown model, detectable materials only "
-    "(OAV >= 1, intensity > 0); OAV is used only as that detection floor. "
+    "component pleasantness weighted by component intensity. Weights are the drydown "
+    "model's strength estimate, a power law of each material's odour activity value "
+    "(OAV). That is a model, not measured intensity; materials below OAV 1 are left out. "
     "P = sum(share * value) / rated share; unrated materials are excluded, not neutral; "
     "no contrast penalty."
 )
@@ -59,12 +66,17 @@ def _rounded_shares(shares: Mapping[str, float], digits: int = 3) -> dict[str, f
     return {name: floors[name] / scale for name in sorted(shares, key=lambda n: (-shares[n], n))}
 
 
+def _dose_source(name: str) -> str | None:
+    key = _resolve(name)
+    return load_crowd_table()["materials"][key].get("dose_source") if key else None
+
+
 def _score_mix(shares: Mapping[str, float]) -> dict[str, Any]:
     """Strength-weighted crowd pleasantness of one mix of detectable shares."""
 
     rated: dict[str, tuple[float, Any]] = {}
     unrated: list[str] = []
-    dose_adjusted: list[str] = []
+    dose_adjusted: list[dict[str, Any]] = []
     for name, share in shares.items():
         crowd = crowd_pleasantness(name, strength_share=share)
         if crowd is None:
@@ -72,8 +84,15 @@ def _score_mix(shares: Mapping[str, float]) -> dict[str, Any]:
             continue
         rated[name] = (share, crowd)
         base = crowd_pleasantness(name)
-        if base is not None and not math.isclose(crowd.value, base.value, abs_tol=1e-9):
-            dose_adjusted.append(name)
+        if base is not None and abs(crowd.value - base.value) >= DOSE_ADJUST_MIN:
+            dose_adjusted.append(
+                {
+                    "material": name,
+                    "base": round(base.value, 3),
+                    "used": round(crowd.value, 3),
+                    "dose_source": _dose_source(name),
+                }
+            )
     coverage = sum(share for share, _ in rated.values())
     value = (
         sum(share * crowd.value for share, crowd in rated.values()) / coverage
@@ -103,7 +122,7 @@ def _score_mix(shares: Mapping[str, float]) -> dict[str, Any]:
             for name, (share, crowd) in contributors
         ],
         "unrated": sorted(unrated),
-        "dose_adjusted": sorted(dose_adjusted),
+        "dose_adjusted": sorted(dose_adjusted, key=lambda item: item["material"]),
     }
 
 
@@ -269,3 +288,167 @@ def attach_pleasantness_estimate(
             {key: value for key, value in enhanced.items() if key != "design_sha256"}
         )
     return enhanced
+
+
+def score_hedonic_crowd(
+    ingredients: dict[str, float],
+    dilutions: dict[str, float] | None = None,
+) -> HedonicReport:
+    """Compute the crowd-value diagnostic (successor to the legacy ``score_hedonic``) for a formula.
+
+    Each material's value is its crowd-table value
+    (``crowd_pleasantness``, no dose adjustment); materials
+    without one are excluded, not counted as neutral.  The values are weighted
+    by liquid active uL, so this is not the strength-weighted crowd guess in
+    ``engine.formulation_intelligence.pleasantness``.
+
+    score = (active-weighted mean value + 1) / 2 * 100.  Contrast between
+    pleasant and unpleasant materials is a legitimate construction (chypre,
+    leather, animalic accords), so ``hedonic_contrast`` is reported for
+    information only and does not change the score.
+    """
+    dilutions = dilutions or {}
+    total_active = 0.0
+    rated_active = 0.0
+    weighted_sum = 0.0
+    valence_list: list[float] = []
+    weight_list: list[float] = []
+    pleasant_mass = 0.0
+    unpleasant_mats: list[dict] = []
+    material_scores: list[dict] = []
+    diagnostics: list[str] = []
+    rated_materials: list[str] = []
+    unrated_materials: list[str] = []
+
+    for name, amount in ingredients.items():
+        dil = dilutions.get(name, 1.0)
+        active = amount * dil
+        total_active += active
+
+        crowd = crowd_pleasantness(name)
+        valence = None if crowd is None else crowd.value
+        if valence is None:
+            if active > 0:
+                unrated_materials.append(name)
+            continue
+
+        if active > 0:
+            rated_materials.append(name)
+        rated_active += active
+        weighted_sum += valence * active
+        valence_list.append(valence)
+        weight_list.append(active)
+
+        material_scores.append({
+            "material": name,
+            "valence": valence,
+            "amount_uL": round(active, 1),
+            "hedonic_contribution": round(valence * active, 1),
+        })
+
+        if valence >= 0.3:
+            pleasant_mass += active
+        elif valence < 0.0:
+            unpleasant_mats.append({
+                "material": name,
+                "valence": valence,
+                "amount_uL": round(active, 1),
+            })
+
+    rated_active_fraction = rated_active / total_active if total_active > 0 else 0.0
+    unrated_active_fraction = (
+        (total_active - rated_active) / total_active if total_active > 0 else 0.0
+    )
+    if total_active <= 0:
+        coverage_status = "NO_ACTIVE_MATERIALS"
+    elif rated_active <= 0:
+        coverage_status = "ZERO_TABLE_COVERAGE"
+    elif math.isclose(rated_active, total_active, rel_tol=1e-12, abs_tol=1e-12):
+        coverage_status = "FULL_TABLE_COVERAGE"
+    else:
+        coverage_status = "PARTIAL_TABLE_COVERAGE"
+
+    if total_active <= 0 or rated_active <= 0:
+        missing = ", ".join(unrated_materials) if unrated_materials else "none"
+        return HedonicReport(
+            score=50, weighted_valence=0, pleasantness_class="unknown",
+            hedonic_contrast=0, pleasant_fraction=0,
+            unpleasant_materials=[], most_pleasant=[],
+            diagnostics=[
+                "No hedonic data",
+                f"Hedonic table coverage: {coverage_status}; unrated labels: {missing}",
+                "HEURISTIC_DIAGNOSTIC_INDEX only: the legacy score=50 fallback is not measured full-formula pleasantness or liking.",
+            ],
+            rated_active_fraction=rated_active_fraction,
+            unrated_active_fraction=unrated_active_fraction,
+            rated_materials=rated_materials,
+            unrated_materials=unrated_materials,
+            coverage_status=coverage_status,
+        )
+
+    # Weighted mean valence (over rated materials only — unrated are excluded,
+    # not penalised as valence=0)
+    mean_valence = weighted_sum / rated_active
+
+    # Hedonic contrast: weighted standard deviation
+    var_sum = sum(w * (v - mean_valence) ** 2
+                  for v, w in zip(valence_list, weight_list))
+    contrast = math.sqrt(var_sum / rated_active)
+
+    # Pleasant fraction (of rated mass)
+    pleas_frac = pleasant_mass / rated_active
+
+    # Classification
+    if mean_valence > 0.7:
+        pclass = "highly_pleasant"
+    elif mean_valence > 0.5:
+        pclass = "pleasant"
+    elif mean_valence > 0.3:
+        pclass = "moderately_pleasant"
+    elif mean_valence > 0.0:
+        pclass = "neutral"
+    elif mean_valence > -0.2:
+        pclass = "challenging"
+    else:
+        pclass = "discordant"
+
+    # Score: map mean_valence from [-1, 1] to [0, 100]; contrast is not penalised.
+    score = (mean_valence + 1.0) / 2.0 * 100
+    score = max(0, min(100, score))
+
+    # Sort for top 5
+    material_scores.sort(key=lambda x: x["hedonic_contribution"], reverse=True)
+
+    # Diagnostics
+    diagnostics.append(f"Hedonic class: {pclass} (mean valence {mean_valence:+.2f})")
+    diagnostics.append(
+        f"Hedonic contrast {contrast:.2f} (spread of rated values; informational, not scored)"
+    )
+    if unpleasant_mats:
+        names = [f"{m['material']} ({m['valence']:+.2f})" for m in unpleasant_mats]
+        diagnostics.append(f"Hedonically negative: {', '.join(names)}")
+    if pleas_frac > 0.8:
+        diagnostics.append("✓ >80% of rated active mass has positive table valence")
+    if coverage_status == "PARTIAL_TABLE_COVERAGE":
+        diagnostics.append(
+            "Hedonic table coverage is partial: score, class, and pleasant fraction apply only to rated labels; full-formula pleasantness is NOT_ESTABLISHED."
+        )
+    diagnostics.append(
+        "HEURISTIC_DIAGNOSTIC_INDEX only: crowd-table values (panel averages and hand estimates) are not measured full-formula pleasantness or liking."
+    )
+
+    return HedonicReport(
+        score=round(score, 1),
+        weighted_valence=round(mean_valence, 3),
+        pleasantness_class=pclass,
+        hedonic_contrast=round(contrast, 3),
+        pleasant_fraction=round(pleas_frac, 3),
+        unpleasant_materials=unpleasant_mats,
+        most_pleasant=material_scores[:5],
+        diagnostics=diagnostics,
+        rated_active_fraction=rated_active_fraction,
+        unrated_active_fraction=unrated_active_fraction,
+        rated_materials=rated_materials,
+        unrated_materials=unrated_materials,
+        coverage_status=coverage_status,
+    )

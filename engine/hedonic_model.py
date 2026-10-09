@@ -521,16 +521,16 @@ class HedonicReport:
     """Legacy fixed-valence diagnostic for a formula.
 
     ``score`` and ``pleasantness_class`` are retained for backwards
-    compatibility.  They describe only the materials with a value in the
-    crowd pleasantness table (``pleasantness_table.crowd_pleasantness``);
-    they are not measured full-formula pleasantness or liking endpoints.  The coverage and authority fields make
+    compatibility.  They describe only the exact-name materials represented
+    in :data:`HEDONIC_VALENCE`; they are not measured full-formula
+    pleasantness or liking endpoints.  The coverage and authority fields make
     that ceiling explicit for every caller, including zero- and partial-table
     coverage.
     """
     score: float                      # 0-100 hedonic score
     weighted_valence: float           # -1.0 to 1.0 weighted mean
     pleasantness_class: str           # "highly_pleasant", "pleasant", etc.
-    hedonic_contrast: float           # informational spread of rated values; never lowers the score
+    hedonic_contrast: float           # 0-1 how much contrast between materials
     pleasant_fraction: float          # 0-1 fraction of rated active mass that is pleasant
     unpleasant_materials: list[dict]  # materials with negative valence
     most_pleasant: list[dict]         # top 5 by hedonic contribution
@@ -552,21 +552,14 @@ def score_hedonic(
     ingredients: dict[str, float],
     dilutions: dict[str, float] | None = None,
 ) -> HedonicReport:
-    """Compute the legacy crowd-value diagnostic for a formula.
+    """Compute the legacy fixed-valence diagnostic for a formula.
 
-    Each material's value is its crowd-table value
-    (``pleasantness_table.crowd_pleasantness``, no dose adjustment); materials
-    without one are excluded, not counted as neutral.  The values are weighted
-    by liquid active uL, so this is not the strength-weighted crowd guess in
-    ``engine.formulation_intelligence.pleasantness``.
+    High score = rated table labels converge on pleasant valence.
+    Low score  = rated negative-valence labels OR high table contrast.
 
-    score = (active-weighted mean value + 1) / 2 * 100.  Contrast between
-    pleasant and unpleasant materials is a legitimate construction (chypre,
-    leather, animalic accords), so ``hedonic_contrast`` is reported for
-    information only and does not change the score.
+    Moderate hedonic contrast is artistically valid (chypre, leather,
+    animalic accords) but reduces the hedonic score.
     """
-    from engine.formulation_intelligence.pleasantness_table import crowd_pleasantness
-
     dilutions = dilutions or {}
     total_active = 0.0
     rated_active = 0.0
@@ -585,8 +578,7 @@ def score_hedonic(
         active = amount * dil
         total_active += active
 
-        crowd = crowd_pleasantness(name)
-        valence = None if crowd is None else crowd.value
+        valence = HEDONIC_VALENCE.get(name)
         if valence is None:
             if active > 0:
                 unrated_materials.append(name)
@@ -672,8 +664,11 @@ def score_hedonic(
     else:
         pclass = "discordant"
 
-    # Score: map mean_valence from [-1, 1] to [0, 100]; contrast is not penalised.
-    score = (mean_valence + 1.0) / 2.0 * 100
+    # Score: map mean_valence from [-1, 1] to [0, 100]
+    # With bonus for coherence and penalty for contrast
+    base = (mean_valence + 1.0) / 2.0 * 80  # 0-80 from valence
+    coherence_bonus = max(0, (1.0 - contrast) * 20)  # 0-20 from low contrast
+    score = base + coherence_bonus
     score = max(0, min(100, score))
 
     # Sort for top 5
@@ -681,9 +676,11 @@ def score_hedonic(
 
     # Diagnostics
     diagnostics.append(f"Hedonic class: {pclass} (mean valence {mean_valence:+.2f})")
-    diagnostics.append(
-        f"Hedonic contrast {contrast:.2f} (spread of rated values; informational, not scored)"
-    )
+    if contrast > 0.3:
+        diagnostics.append(
+            f"⚠ High hedonic contrast ({contrast:.2f}) — "
+            "pleasant/unpleasant elements in tension"
+        )
     if unpleasant_mats:
         names = [f"{m['material']} ({m['valence']:+.2f})" for m in unpleasant_mats]
         diagnostics.append(f"Hedonically negative: {', '.join(names)}")
@@ -694,7 +691,7 @@ def score_hedonic(
             "Hedonic table coverage is partial: score, class, and pleasant fraction apply only to rated labels; full-formula pleasantness is NOT_ESTABLISHED."
         )
     diagnostics.append(
-        "HEURISTIC_DIAGNOSTIC_INDEX only: crowd-table values (panel averages and hand estimates) are not measured full-formula pleasantness or liking."
+        "HEURISTIC_DIAGNOSTIC_INDEX only: fixed material valences are not measured full-formula pleasantness or liking."
     )
 
     return HedonicReport(

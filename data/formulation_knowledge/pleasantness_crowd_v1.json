@@ -1282,8 +1282,11 @@
         "juniper tar"
       ],
       "family": "smoky",
-      "dose_points": null,
-      "dose_source": null,
+      "dose_points": {
+        "weak": null,
+        "strong": -0.4
+      },
+      "dose_source": "heuristic_unmeasured",
       "raw_value": -1.1,
       "raw_scale": "-5..+5 field, clamped +-3",
       "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
@@ -1392,8 +1395,11 @@
       "confidence": null,
       "aliases": [],
       "family": "animalic",
-      "dose_points": null,
-      "dose_source": null,
+      "dose_points": {
+        "weak": null,
+        "strong": -0.4
+      },
+      "dose_source": "heuristic_unmeasured",
       "raw_value": -1.1,
       "raw_scale": "-5..+5 field, clamped +-3",
       "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
@@ -1406,8 +1412,11 @@
         "castoreum synthetic"
       ],
       "family": "animalic",
-      "dose_points": null,
-      "dose_source": null,
+      "dose_points": {
+        "weak": null,
+        "strong": -0.4
+      },
+      "dose_source": "heuristic_unmeasured",
       "raw_value": -1.1,
       "raw_scale": "-5..+5 field, clamped +-3",
       "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
@@ -1727,8 +1736,11 @@
       "confidence": null,
       "aliases": [],
       "family": "animalic",
-      "dose_points": null,
-      "dose_source": null,
+      "dose_points": {
+        "weak": null,
+        "strong": -0.4
+      },
+      "dose_source": "heuristic_unmeasured",
       "raw_value": -0.8,
       "raw_scale": "-5..+5 field, clamped +-3",
       "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
@@ -4934,8 +4946,11 @@
         "skatole"
       ],
       "family": "animalic",
-      "dose_points": null,
-      "dose_source": null,
+      "dose_points": {
+        "weak": null,
+        "strong": -0.4
+      },
+      "dose_source": "heuristic_unmeasured",
       "raw_value": -0.84,
       "raw_scale": "-5..+5 field, clamped +-3",
       "reason": "character-word heuristic; r = -0.22 against the panel, n = 18"
