@@ -272,6 +272,7 @@ def test_record_files_names_the_logs_in_use_and_carries_old_ones_over(tmp_path, 
         user_records.ADDITION_LOG_NAME: (new / user_records.ADDITION_LOG_NAME).resolve(),
         user_records.COMPLETION_LOG_NAME: (new / user_records.COMPLETION_LOG_NAME).resolve(),
         user_records.BASKET_LOG_NAME: (new / user_records.BASKET_LOG_NAME).resolve(),
+        user_records.DILUTION_LOG_NAME: (new / user_records.DILUTION_LOG_NAME).resolve(),
     }
     assert files[user_records.BASKET_LOG_NAME].read_bytes() == b'{"basket": 1}\n'
 

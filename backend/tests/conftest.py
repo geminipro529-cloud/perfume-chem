@@ -29,6 +29,10 @@ os.environ.setdefault(
     str(PYTEST_TEMP_ROOT / "perfume_chem_pytest_inventory_additions.jsonl"),
 )
 os.environ.setdefault(
+    "PERFUME_INVENTORY_DILUTION_PATH",
+    str(PYTEST_TEMP_ROOT / "perfume_chem_pytest_inventory_dilutions.jsonl"),
+)
+os.environ.setdefault(
     "PERFUME_BASKET_EVENT_PATH",
     str(PYTEST_TEMP_ROOT / "perfume_chem_pytest_basket_events.jsonl"),
 )
@@ -66,6 +70,7 @@ def managed_test_scratch(tmp_path_factory):
             "TMP",
             "PERFUME_INVENTORY_COMPLETION_PATH",
             "PERFUME_PERSONAL_INVENTORY_ADDITION_PATH",
+            "PERFUME_INVENTORY_DILUTION_PATH",
             "PERFUME_BASKET_EVENT_PATH",
         )
     }
@@ -76,6 +81,9 @@ def managed_test_scratch(tmp_path_factory):
     )
     os.environ["PERFUME_PERSONAL_INVENTORY_ADDITION_PATH"] = str(
         session_temp / "inventory_additions.jsonl"
+    )
+    os.environ["PERFUME_INVENTORY_DILUTION_PATH"] = str(
+        session_temp / "inventory_dilutions.jsonl"
     )
     os.environ["PERFUME_BASKET_EVENT_PATH"] = str(session_temp / "basket_events.jsonl")
     tempfile.tempdir = str(session_temp)

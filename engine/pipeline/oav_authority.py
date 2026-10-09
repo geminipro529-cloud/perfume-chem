@@ -33,7 +33,12 @@ from engine.pipeline.robustness import (
     RobustnessReport,
     audit_formula_robustness,
 )
-from engine.pipeline.simulator import DEFAULT_WINDOWS, SimulationFrame, simulate_formula
+from engine.pipeline.simulator import (
+    DEFAULT_WINDOWS,
+    SimulationFrame,
+    _with_default_ethanol_fill,
+    simulate_formula,
+)
 
 
 def _formula_record_from_request(request: "OAVAuthorityRequest") -> dict[str, Any]:
@@ -852,26 +857,32 @@ def _validate_gate_report_binding(
     if actual_scaling_targets != expected_scaling_targets:
         raise ValueError("Gate report scaling targets do not match OAV request")
 
+    # Frames start from the temporal start state: the declared matrix, or the
+    # default ethanol fill (temporal model v5) when the request declares none.
+    start_state, start_assumption = _with_default_ethanol_fill(state)
+    frame_expected_matrix = _matrix_mapping(start_state.matrix_components_moles)
     for frame in frames:
         frame_state = frame.state
+        if frame.matrix_assumption != start_assumption:
+            raise ValueError("Gate report frame matrix assumption does not match OAV request")
         _require_close(frame_state.batch_volume_ml, request.batch_volume_ml, "frame batch volume")
         _require_close(frame_state.temperature_K, request.temperature_K, "frame temperature")
         if str(frame_state.context) != str(request.context):
             raise ValueError("Gate report frame context does not match OAV request")
         frame_matrix = _matrix_mapping(frame_state.matrix_components_moles)
         if float(frame.t_seconds) <= 0.0:
-            matrix_matches = _numeric_mapping_matches(frame_matrix, expected_matrix)
+            matrix_matches = _numeric_mapping_matches(frame_matrix, frame_expected_matrix)
         else:
             # The simulated matrix evaporates (diagnosis M1a): later frames
             # carry the requested components at no more than their t=0 moles.
-            matrix_matches = set(frame_matrix) <= set(expected_matrix) and all(
-                value <= expected_matrix[name] * (1.0 + 1e-12) + 1e-12
+            matrix_matches = set(frame_matrix) <= set(frame_expected_matrix) and all(
+                value <= frame_expected_matrix[name] * (1.0 + 1e-12) + 1e-12
                 for name, value in frame_matrix.items()
             )
         if not matrix_matches:
             raise ValueError("Gate report frame matrix components do not match OAV request")
         _require_close(frame_state.matrix_mass_g, request.matrix_mass_g, "frame matrix mass")
-        if str(frame_state.matrix_source) != str(request.matrix_source):
+        if str(frame_state.matrix_source) != str(start_state.matrix_source):
             raise ValueError("Gate report frame matrix source does not match OAV request")
         frame_dilutions = {
             material.name: float(material.dilution)

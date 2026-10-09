@@ -19,9 +19,19 @@ from engine.inventory_baskets import (
 from engine.inventory_completions import (
     InventoryCompletionConflictError,
     InventoryCompletionError,
+    authority_disagreement,
     effective_design_ready,
     inventory_completion_requirements,
     record_inventory_completion,
+)
+from engine.inventory_dilutions import (
+    PREPARED_DILUTION_AUTHORITY,
+    PREPARED_DILUTION_PARENT_CHANGED,
+    PREPARED_DILUTION_PARENT_HELD,
+    PreparedDilutionConflictError,
+    PreparedDilutionError,
+    dilution_parent_ready,
+    record_prepared_dilution,
 )
 from engine.personal_inventory import (
     DESIGN_ONLY_AUTHORITY,
@@ -58,6 +68,7 @@ from app.schemas.lab_lifecycle import (
     FormulaDesignChatCreate,
     InventoryCompletionCreate,
     PersonalInventoryAdditionCreate,
+    PreparedDilutionCreate,
     QuickBottleEvaluationCreate,
     QuickBottleEvaluationResponse,
     RegulatoryAssessmentCreate,
@@ -170,6 +181,39 @@ def _inventory_decimal(value: float) -> str:
     return rendered or "0"
 
 
+def _inventory_source_class(authority: str) -> str:
+    if authority == DESIGN_ONLY_AUTHORITY:
+        return "PERSONAL_ADDITION"
+    if authority == LIVE_TEXT_AUTHORITY:
+        return "LIVE_INVENTORY_TEXT"
+    if authority == PREPARED_DILUTION_AUTHORITY:
+        return "PREPARED_DILUTION"
+    return "GOVERNED_STOCK"
+
+
+_PREPARED_HOLD_TEXT = {
+    PREPARED_DILUTION_PARENT_HELD: (
+        "Not counted at the gate: its parent bottle is held. Resolve the parent bottle first."
+    ),
+    PREPARED_DILUTION_PARENT_CHANGED: (
+        "Not counted at the gate: the parent bottle's details changed after this dilution "
+        "was recorded. Record the dilution again from the bottle as it is now."
+    ),
+}
+
+
+def _gate_hold_text(stock: Any) -> str | None:
+    """Plain words for why a prepared dilution is held at the gate, else None."""
+
+    if stock.authority != PREPARED_DILUTION_AUTHORITY or stock.execution_ready:
+        return None
+    holds = str(stock.execution_hold_reason).split("|")
+    for hold in (PREPARED_DILUTION_PARENT_CHANGED, PREPARED_DILUTION_PARENT_HELD):
+        if hold in holds:
+            return _PREPARED_HOLD_TEXT[hold]
+    return None
+
+
 def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
     stocks = []
     basket_log_error: str | None = None
@@ -208,21 +252,22 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
                 "completion_available": (
                     stock.status.casefold() == "owned"
                     and stock.stock_id in materialized.canonical_stock_ids
+                    and stock.authority != PREPARED_DILUTION_AUTHORITY
+                ),
+                "dilution_available": (
+                    stock.status.casefold() == "owned"
+                    and stock.stock_id in materialized.canonical_stock_ids
+                    and dilution_parent_ready(stock)
                 ),
                 "completion_event_sha256": stock.completion_event_sha256 or None,
                 "completion_source_ref": stock.completion_source_ref or None,
+                # RULE 0: the Stock page entry wins; say what the workbook said.
+                "authority_disagreement": authority_disagreement(stock),
                 "execution_ready": stock.execution_ready,
                 "execution_hold_reason": stock.execution_hold_reason or None,
+                "gate_hold_text": _gate_hold_text(stock),
                 "authority": stock.authority,
-                "source_class": (
-                    "PERSONAL_ADDITION"
-                    if stock.authority == DESIGN_ONLY_AUTHORITY
-                    else (
-                        "LIVE_INVENTORY_TEXT"
-                        if stock.authority == LIVE_TEXT_AUTHORITY
-                        else "GOVERNED_STOCK"
-                    )
-                ),
+                "source_class": _inventory_source_class(stock.authority),
                 "source_rows": list(stock.source_rows),
                 "source_ref": stock.source_ref,
             }
@@ -261,6 +306,9 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
             ),
             "personal_additions": sum(
                 stock["source_class"] == "PERSONAL_ADDITION" for stock in stocks
+            ),
+            "prepared_dilutions": sum(
+                stock["source_class"] == "PREPARED_DILUTION" for stock in stocks
             ),
             "requirements": len(materialized.requirements),
         },
@@ -339,6 +387,65 @@ async def complete_workbench_inventory(
             content={"error": {"code": error.code, "message": str(error)}},
         )
     except InventoryCompletionError as error:
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"error": {"code": error.code, "message": str(error)}},
+        )
+
+
+@router.post("/workbench/current-inventory/dilute", response_model=None)
+async def dilute_workbench_inventory(
+    request: PreparedDilutionCreate,
+) -> ResponsePayload:
+    """Record a dilution prepared from an owned bottle as a new gate stock."""
+
+    try:
+        event, materialized = record_prepared_dilution(
+            parent_stock_id=request.parent_stock_id,
+            expected_effective_inventory_sha256=(
+                request.expected_effective_inventory_sha256
+            ),
+            idempotency_key=request.idempotency_key,
+            fraction_decimal=format(
+                Decimal(request.fraction_percent_decimal) / Decimal("100"), "f"
+            ),
+            fraction_basis=request.fraction_basis,
+            carrier=request.carrier,
+            amount_made_g=request.amount_made_g or "",
+            prepared_on=(
+                request.prepared_on.isoformat() if request.prepared_on else ""
+            ),
+            user_note=request.user_note,
+        )
+        prepared = next(
+            (
+                stock
+                for stock in materialized.stocks
+                if stock.completion_event_sha256 == event["event_sha256"]
+            ),
+            None,
+        )
+        return {
+            "schema_version": "prepared-dilution-result-v1",
+            "status": "PREPARED_DILUTION_RECORDED",
+            "receipt": event,
+            "prepared_stock_id": prepared.stock_id if prepared else None,
+            "inventory": _workbench_inventory_payload(
+                materialize_personal_inventory(canonical=materialized)
+            ),
+            "inventory_details_modified": True,
+            "inventory_quantity_modified": False,
+            "release_authority": False,
+            "safety_authority": False,
+            "compounding_authority": False,
+            "evidence_admission_authorized": False,
+        }
+    except PreparedDilutionConflictError as error:
+        return JSONResponse(
+            status_code=status.HTTP_409_CONFLICT,
+            content={"error": {"code": error.code, "message": str(error)}},
+        )
+    except PreparedDilutionError as error:
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
             content={"error": {"code": error.code, "message": str(error)}},
