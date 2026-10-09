@@ -643,6 +643,20 @@
         "FRAGRANCE INGREDIENT PROHIBITION: Peru balsam crude should not be used as a fragrance ingredient for any finished product application."
       ]
     },
+    "IFRA_STD_073": {
+      "name": "Phenylacetaldehyde",
+      "cas": [
+        "122-78-1"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.25,
+      "cat4_quote": "Category 4 0.25 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_073.pdf",
+      "notes": [
+        "CONTRIBUTIONS FROM OTHER SOURCES: NONE TO CONSIDER BEYOND TRACES"
+      ]
+    },
     "IFRA_STD_077": {
       "name": "Rose ketones",
       "cas": [
@@ -840,6 +854,22 @@
         "\"If combinations of furocoumarin-containing phototoxic fragrance ingredients (extracts) are used,\" the use levels must be reduced accordingly."
       ]
     },
+    "IFRA_STD_094": {
+      "name": "Methyl N-methylanthranilate",
+      "cas": [
+        "85-91-6"
+      ],
+      "kind": "restriction_specification",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 0.1,
+      "cat4_quote": "Category 4 0.10 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_094.pdf",
+      "notes": [
+        "RECOMMENDATION: RESTRICTION / SPECIFICATION; the specification concerns nitrosamine formation.",
+        "Contributions from other sources: see the Annex on contributions from other sources (ifra_annex1_constituents.json).",
+        "Read 2026-10-09 from the standard's PDF by an automated reader, then re-read separately the same day; both reads gave the same Category 4 text."
+      ]
+    },
     "IFRA_STD_095": {
       "name": "Methyl beta-naphthyl ketone",
       "cas": [
@@ -870,6 +900,38 @@
       "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_097.pdf",
       "notes": [
         "The content of alpha-Terthienyl (Terthiophene, CAS number 1081-34-1) in Tagetes patula and Tagetes minuta oils and absolutes must not exceed 0.35 %."
+      ]
+    },
+    "IFRA_STD_099": {
+      "name": "Estragole",
+      "cas": [
+        "140-67-0",
+        "1407-27-8",
+        "77525-18-9"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 0.014,
+      "cat4_quote": "Category 4 0.014 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_099.pdf",
+      "notes": [
+        "Contributions from other sources: see the Annex on contributions from other sources (ifra_annex1_constituents.json).",
+        "Read 2026-10-09 from the standard's PDF by an automated reader, then re-read separately the same day; both reads gave the same Category 4 text."
+      ]
+    },
+    "IFRA_STD_100": {
+      "name": "Methyl eugenol",
+      "cas": [
+        "93-15-2"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 0.011,
+      "cat4_quote": "Category 4 0.011 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_100.pdf",
+      "notes": [
+        "Contributions from other sources: see the Annex on contributions from other sources (ifra_annex1_constituents.json).",
+        "Read 2026-10-09 from the standard's PDF by an automated reader, then re-read separately the same day; both reads gave the same Category 4 text."
       ]
     },
     "IFRA_STD_114": {
@@ -975,6 +1037,25 @@
       "cat4_quote": null,
       "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_171.pdf",
       "notes": []
+    },
+    "IFRA_STD_179": {
+      "name": "Safrole, Isosafrole, Dihydrosafrole",
+      "cas": [
+        "94-59-7",
+        "120-58-1",
+        "94-58-6"
+      ],
+      "kind": "restriction_prohibition",
+      "amendment": "1987 (Amendment 17)",
+      "cat4_limit_pct": 0.01,
+      "cat4_quote": "Category 4 See notebox: regarded acceptable as long as the total concentration of Safrole, Isosafrole and Dihydrosafrole in the finished consumer product does not exceed 0.01%",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_179.pdf",
+      "notes": [
+        "RECOMMENDATION: PROHIBITION / RESTRICTION: prohibited as fragrance ingredients; contributions from natural extracts are restricted to the notebox total.",
+        "Natural extracts \"should not be used as substitutes for these ingredients\".",
+        "The 0.01 % applies to the total of the three substances (group rule safrole_isosafrole_dihydrosafrole_total).",
+        "Read 2026-10-09 from the standard's PDF by an automated reader, then re-read separately the same day; both reads gave the same Category 4 text."
+      ]
     },
     "IFRA_STD_184": {
       "name": "Pinacea derivatives",
@@ -1275,6 +1356,19 @@
         "92-48-8"
       ]
     },
+    "Acetoin": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "3-Hydroxy-2-butanone"
+      ],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "513-86-0"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Adoxal": {
       "status": "no_standard",
       "standard": null,
@@ -1283,6 +1377,59 @@
       "cas": [
         "141-13-9"
       ]
+    },
+    "Aldehyde C-12 Lauric Dodecanal": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Dodecanal",
+        "Lauric Aldehyde"
+      ],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "112-54-9"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
+    "Aldehyde C-18": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "gamma-Nonalactone"
+      ],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1000531.html): Aldehyde C-18 is the trade name for gamma-nonalactone, a lactone, not a C18 aldehyde. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "104-61-0"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
+    "Aldehyde C-8 Octanal": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Octanal"
+      ],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "124-13-0"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
+    "Aldehyde C-9 Nonanal": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Nonanal"
+      ],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "124-19-6"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Aldehyde C10": {
       "status": "no_standard",
@@ -1414,6 +1561,30 @@
         "127-51-5"
       ]
     },
+    "Amber Xtreme": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1660971.html): IFF Amber Xtreme is a heptamethyl decahydro-indenofuran (musk indenofuran); the identity page lists both CAS numbers. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "476332-65-7",
+        "647828-16-8"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
+    "Ambermax": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1687381.html): Givaudan Ambermax is two tricycloundecenyl propanol isomers, supplied as 50% in Dowanol TPM or 10% in TEC. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "929625-08-1",
+        "1001252-30-7"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Amberwood F": {
       "status": "restricted",
       "standard": "IFRA_STD_252",
@@ -1433,6 +1604,17 @@
         "123-69-3",
         "28645-51-4"
       ]
+    },
+    "Ambrocenide": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1612511.html): Symrise Ambrocenide is a hexamethyl methanoazuleno-dioxole. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "211299-54-6"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Ambrofix Crystals": {
       "status": "no_standard",
@@ -1520,6 +1702,13 @@
         "28219-61-6"
       ]
     },
+    "Basil EO (India, Ocimum Basilicum)": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Contains estragole (STD_099) and methyl eugenol (STD_100).",
+      "identity_note": "The chemotype is not recorded (estragole or linalool type); the estragole type's higher levels are counted."
+    },
     "Benzaldehyde": {
       "status": "restricted",
       "standard": "IFRA_STD_007",
@@ -1599,6 +1788,20 @@
       ],
       "note": "Furocoumarin-free grade. STD_087 says its 0.40 % limit applies when the furocoumarin level is unknown, so keep the supplier certificate. Total bergapten in the finished product must stay at or below 0.0015 % (STD_089)."
     },
+    "Berry Hexanoate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "BerryFlor",
+        "Ethyl 6-Acetoxyhexanoate"
+      ],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1061362.html): Givaudan BerryFlor is ethyl 6-acetoxyhexanoate. It is not allyl hexanoate, so the allyl esters standard (IFRA_STD_188) does not apply. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "104986-28-9"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Beta Damascone": {
       "status": "restricted",
       "standard": "IFRA_STD_077",
@@ -1667,6 +1870,28 @@
       "cas": [
         "18127-01-0"
       ]
+    },
+    "Buccoxime": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1004001.html): Symrise Buccoxime is 1,5-dimethylbicyclo[3.2.1]octan-8-one oxime. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "75147-23-8"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
+    "Butyl Butyrate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "109-21-7"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Cabreuva EO": {
       "status": "natural_no_own_standard",
@@ -1818,6 +2043,32 @@
       "cas": [
         "104-54-1"
       ]
+    },
+    "Cis-3 Hexenyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "cis-3-Hexenyl Acetate"
+      ],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "3681-71-8"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
+    "Cis-3 Hexenyl Hexanoate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "cis-3-Hexenyl Hexanoate"
+      ],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "31501-11-8"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "cis-3-Hexenol": {
       "status": "no_standard",
@@ -2003,6 +2254,17 @@
         "705-86-2"
       ]
     },
+    "Diethyl Malonate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "105-53-3"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Diethyl Phthalate": {
       "status": "no_standard",
       "standard": null,
@@ -2030,6 +2292,15 @@
       "note": null,
       "cas": [
         "18479-58-8"
+      ]
+    },
+    "Dihydrosafrole": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_179",
+      "aliases": [],
+      "note": "Prohibited as an ingredient; counts toward the 0.01 % total of safrole, isosafrole and dihydrosafrole.",
+      "cas": [
+        "94-58-6"
       ]
     },
     "Dimethyl Benzyl Carbinyl Acetate": {
@@ -2082,6 +2353,17 @@
       "aliases": [],
       "note": null
     },
+    "Estragole": {
+      "status": "restricted",
+      "standard": "IFRA_STD_099",
+      "aliases": [
+        "Methyl Chavicol"
+      ],
+      "note": null,
+      "cas": [
+        "140-67-0"
+      ]
+    },
     "Ethanol": {
       "status": "no_standard",
       "standard": null,
@@ -2110,6 +2392,17 @@
       "cas": [
         "10339-55-6"
       ]
+    },
+    "Ethyl Linalyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1022781.html): Ethyl linalyl acetate is 3,7-dimethyl-1,6-nonadien-3-yl acetate, a different substance from linalool and linalyl acetate. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "61931-80-4"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Ethyl Maltol": {
       "status": "no_standard",
@@ -2258,6 +2551,19 @@
         "104-61-0"
       ]
     },
+    "Gamma Octalactone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "gamma-Octalactone"
+      ],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "104-50-7"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Gamma Undecalactone": {
       "status": "no_standard",
       "standard": null,
@@ -2305,6 +2611,18 @@
       "standard": null,
       "aliases": [],
       "note": null
+    },
+    "Glycolierral": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1492991.html): Givaudan Glycolierral is the ivy dioxolane isomer mixture. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "68901-32-6",
+        "94087-23-7"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Grapefruit FCF Oil Sicilian": {
       "status": "specification",
@@ -2395,6 +2713,17 @@
         "120-57-0"
       ]
     },
+    "Helvetolide": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1557401.html): Firmenich Helvetolide is a musk propanoate. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "141773-73-1"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Hexyl Acetate": {
       "status": "no_standard",
       "standard": null,
@@ -2462,6 +2791,19 @@
         "120-72-9"
       ]
     },
+    "Irotyl": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Ethyl 2-Ethylhexanoate"
+      ],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1023191.html): Irotyl is ethyl 2-ethylhexanoate (orris capronate). Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "2983-37-1"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Iso E Super": {
       "status": "restricted",
       "standard": "IFRA_STD_068",
@@ -2502,6 +2844,15 @@
         "110-27-0"
       ]
     },
+    "Isosafrole": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_179",
+      "aliases": [],
+      "note": "Prohibited as an ingredient; counts toward the 0.01 % total of safrole, isosafrole and dihydrosafrole.",
+      "cas": [
+        "120-58-1"
+      ]
+    },
     "Jasmine Absolute": {
       "status": "restricted",
       "standard": "IFRA_STD_049",
@@ -2539,6 +2890,17 @@
       "standard": null,
       "aliases": [],
       "note": null
+    },
+    "Kephalis": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1033131.html): Givaudan Kephalis is 4-(1-ethoxyethenyl)-3,3,5,5-tetramethylcyclohexanone. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "36306-87-3"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Koavone": {
       "status": "restricted",
@@ -2699,11 +3061,46 @@
       "source_url": "https://www.legislation.gov.uk/eur/2017/1410",
       "authority": "EU Cosmetics Regulation (EC) No 1223/2009, Annex II entry 1380 (Regulation (EU) 2017/1410)"
     },
+    "Magnolan": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1007991.html): Symrise Magnolan is a dimethyl tetrahydroindeno-dioxine (magnolia indene). Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "27606-09-3"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Magnolia EO": {
       "status": "natural_no_own_standard",
       "standard": null,
       "aliases": [],
       "note": null
+    },
+    "Maltol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "118-71-8"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
+    "Manzanate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Ethyl 2-Methylpentanoate"
+      ],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1006801.html): Givaudan Manzanate is ethyl 2-methylpentanoate. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "39255-32-8"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Maple Lactone": {
       "status": "no_standard",
@@ -2741,6 +3138,28 @@
         "134-20-3"
       ]
     },
+    "Methyl Diantilis": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1009761.html): Givaudan Methyl Diantilis is 2-ethoxy-4-(methoxymethyl)phenol, a different substance from isoeugenol. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "5595-79-9"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
+    "Methyl Eugenol": {
+      "status": "restricted",
+      "standard": "IFRA_STD_100",
+      "aliases": [
+        "Eugenyl Methyl Ether"
+      ],
+      "note": null,
+      "cas": [
+        "93-15-2"
+      ]
+    },
     "Methyl Heptine Carbonate": {
       "status": "restricted",
       "standard": "IFRA_STD_062",
@@ -2751,6 +3170,15 @@
       "note": null,
       "cas": [
         "111-12-6"
+      ]
+    },
+    "Methyl Ionone Gamma Coeur": {
+      "status": "restricted",
+      "standard": "IFRA_STD_063",
+      "aliases": [],
+      "note": "Trade grade of alpha-isomethyl ionone (CAS 127-51-5, in STD_063's CAS list). Kept as its own stock name, not an alias of Alpha Isomethyl Ionone; both count toward methyl_ionones_total.",
+      "cas": [
+        "127-51-5"
       ]
     },
     "Methyl Ionone Pure": {
@@ -2768,6 +3196,18 @@
       "note": null,
       "cas": [
         "94201-19-1"
+      ]
+    },
+    "Methyl N-Methylanthranilate": {
+      "status": "restricted",
+      "standard": "IFRA_STD_094",
+      "aliases": [
+        "Dimethyl Anthranilate",
+        "Methyl N-methyl anthranilate"
+      ],
+      "note": null,
+      "cas": [
+        "85-91-6"
       ]
     },
     "Methyl Nonyl Ketone": {
@@ -2790,6 +3230,17 @@
       "cas": [
         "111-80-8"
       ]
+    },
+    "Methyl Pamplemousse": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1042632.html): Givaudan Methyl Pamplemousse is 6,6-dimethoxy-2,5,5-trimethylhex-2-ene (grapefruit acetal). Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "67674-46-8"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     },
     "Methyl Salicylate": {
       "status": "no_standard",
@@ -2938,7 +3389,8 @@
       "aliases": [
         "Orange Peel Oil"
       ],
-      "note": "inventory.txt does not record the species. The bitter orange (expressed) limit is applied until it does; sweet orange has no IFRA standard of its own."
+      "note": "inventory.txt does not record the species: sweet orange (Citrus sinensis) or bitter orange (Citrus aurantium) peel oil. Both are candidates: the stricter direct limit, bitter orange peel oil expressed (IFRA_STD_088), applies; sweet orange has no IFRA standard of its own.",
+      "identity_note": "The species is not recorded (sweet or bitter orange peel oil); the stricter bitter orange limit applies."
     },
     "Oranger Crystals": {
       "status": "restricted",
@@ -3047,6 +3499,19 @@
         "60-12-8"
       ]
     },
+    "Phenyl Acetaldehyde": {
+      "status": "restricted",
+      "standard": "IFRA_STD_073",
+      "aliases": [
+        "Phenylacetaldehyde"
+      ],
+      "note": "Owned stock is 85 % in phenylethyl alcohol; the limit applies to the phenylacetaldehyde content.",
+      "cas": [
+        "122-78-1"
+      ],
+      "source_url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_073.pdf",
+      "verified_on": "2026-10-09"
+    },
     "Phenyl Ethyl Dimethyl Carbinol": {
       "status": "no_standard",
       "standard": null,
@@ -3100,6 +3565,17 @@
       "aliases": [],
       "note": "STD_089 counts mandarin and tangerine furocoumarins toward its 0.0015 % bergapten total."
     },
+    "Rhubofix": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1028291.html): Firmenich Rhubofix is a spiro epoxide (rhubarb oxirane). Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "41816-03-9"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Romandolide": {
       "status": "no_standard",
       "standard": null,
@@ -3145,6 +3621,15 @@
       "note": null,
       "cas": [
         "54440-17-4"
+      ]
+    },
+    "Safrole": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_179",
+      "aliases": [],
+      "note": "Prohibited as an ingredient; counts toward the 0.01 % total of safrole, isosafrole and dihydrosafrole.",
+      "cas": [
+        "94-59-7"
       ]
     },
     "Sandalore": {
@@ -3319,6 +3804,17 @@
         "121-33-5"
       ]
     },
+    "Veloutone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1000241.html): Firmenich Veloutone is 2,2,5-trimethyl-5-pentylcyclopentanone. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "65443-14-3"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
+    },
     "Verdox": {
       "status": "no_standard",
       "standard": null,
@@ -3406,6 +3902,19 @@
         "Ylang Comoros III EO"
       ],
       "note": null
+    },
+    "Zenolide": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Ethylene Dodecanedioate"
+      ],
+      "note": "Identity from The Good Scents Company (https://www.thegoodscentscompany.com/data/rw1001991.html): Zenolide is ethylene dodecanedioate. Checked against every standard in the IFRA Standards Library (all 11 pages, by name and CAS) on 2026-10-09; none covers this CAS.",
+      "cas": [
+        "54982-83-1"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-09"
     }
   },
   "group_rules": [
@@ -3438,6 +3947,7 @@
       "limit_pct": 30.0,
       "members": [
         "Alpha Isomethyl Ionone",
+        "Methyl Ionone Gamma Coeur",
         "Methyl Ionone Pure",
         "Ultralia"
       ],
@@ -3470,6 +3980,18 @@
         "Lime Oil Expressed"
       ],
       "quote": "The sum of the concentrations of all furocoumarin-containing phototoxic fragrance ingredients (extracts), expressed in % of their recommended upper concentration level in the finished consumer product, shall not exceed 100."
+    },
+    {
+      "id": "safrole_isosafrole_dihydrosafrole_total",
+      "standard": "IFRA_STD_179",
+      "rule": "sum_le_limit",
+      "limit_pct": 0.01,
+      "members": [
+        "Safrole",
+        "Isosafrole",
+        "Dihydrosafrole"
+      ],
+      "quote": "regarded acceptable as long as the total concentration of Safrole, Isosafrole and Dihydrosafrole in the finished consumer product does not exceed 0.01%"
     }
   ]
 }

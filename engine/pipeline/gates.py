@@ -41,6 +41,9 @@ from engine.ifra_standards import (
     estimate_finished_product_pct_w_w,
     evaluate_ifra,
     load_ifra_table,
+    load_natural_constituents,
+    load_undisclosed_bases,
+    undisclosed_base,
 )
 from engine.inventory_completions import COMPLETION_CLEARABLE_HOLDS, STOCK_PAGE_ENTRY_INCOMPLETE
 from engine.inventory_dilutions import (
@@ -1541,7 +1544,40 @@ def _ifra_entry_dict(entry: IFRACheck | IFRAGroupCheck, headroom: float) -> dict
     return _ifra_row_dict(entry, headroom)
 
 
-def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+def _stock_conflict_materials(formula: Mapping) -> list[str]:
+    """Materials whose rows name more than one stock (e.g. neat plus a dilution)."""
+    return sorted(
+        str(name)
+        for name, spec in dict(formula.get("stock_specs", {}) or {}).items()
+        if isinstance(spec, Mapping) and spec.get("conflict")
+    )
+
+
+def _unwritten_strength_reasons(formula: Mapping) -> list[str]:
+    """Reasons for materials with a row that gives no strength beside a diluted row."""
+    return [
+        str(spec["unwritten_strength"])
+        for _, spec in sorted(dict(formula.get("stock_specs", {}) or {}).items())
+        if isinstance(spec, Mapping) and spec.get("unwritten_strength")
+    ]
+
+
+def _ifra_unrecognised_message(check: IFRACheck) -> str:
+    return (
+        f"{check.material} at {check.pct:.4g} % is not recognised by the IFRA Category 4 "
+        "table, so no limit or group total was checked. To clear: match it to its IFRA "
+        "standard (alias), record it as having no IFRA standard with its CAS and source, "
+        "or, for a base or natural, review its composition (the supplier's IFRA "
+        "certificate or a constituent row)."
+    )
+
+
+def _gate_safety(
+    state: FormulaState,
+    config: ReleaseGateConfig,
+    stock_conflicts: Sequence[str] = (),
+    unwritten_strengths: Sequence[str] = (),
+) -> GateResult:
     ingredients = {m.name: m.raw_ul for m in state.materials}
     dilutions = {m.name: m.dilution for m in state.materials}
     headroom = config.effective_ifra_headroom()
@@ -1560,12 +1596,45 @@ def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     evaluation = evaluate_ifra(
         pct_w_w,
         table=table,
+        constituents=load_natural_constituents(),
         alt_names=alt_names,
         headroom=headroom,
     )
     failures = [_ifra_entry_dict(e, headroom) for e in evaluation.failures]
     warnings = [_ifra_entry_dict(e, headroom) for e in evaluation.warnings]
     holds = [_ifra_row_dict(c, headroom) for c in evaluation.holds]
+    # A supplier base whose composition is not published cannot be reviewed, so (Kenny,
+    # 2026-10-09) it is flagged by name with a warning instead of holding as unrecognised.
+    undisclosed = []
+    for c in sorted(evaluation.unchecked, key=lambda c: c.material):
+        names = [c.material, *alt_names.get(c.material, ())]
+        base = undisclosed_base(load_undisclosed_bases(), names)
+        if base is not None:
+            undisclosed.append({
+                "material": c.material,
+                "base": base.name,
+                "actual_pct": c.pct,
+                "reason": base.reason,
+                "message": (
+                    f"{c.material} at {c.pct:.4g} % is {base.name}, a supplier base whose "
+                    "composition is not published; restricted substances inside it are not "
+                    "counted."
+                ),
+            })
+    undisclosed_rows = {u["material"] for u in undisclosed}
+    # A row the table cannot recognise is never compared with a limit and drops out of the
+    # group sums, so it holds the gate rather than passing with a warning.
+    holds.extend(
+        {**_ifra_row_dict(c, headroom), "message": _ifra_unrecognised_message(c)}
+        for c in sorted(evaluation.unchecked, key=lambda c: c.material)
+        if c.material not in undisclosed_rows
+    )
+    undisclosed_note = (
+        f"{len(undisclosed)} supplier base(s) with composition not published, restricted "
+        "substances inside not counted: " + ", ".join(sorted(undisclosed_rows))
+        if undisclosed
+        else ""
+    )
     unchecked = sorted(c.material for c in evaluation.unchecked)
     banned = [f["material"] for f in failures if f.get("ifra_status") == "prohibited"]
     headroom_violations = [f for f in failures if f.get("ifra_status") != "prohibited"]
@@ -1577,6 +1646,12 @@ def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     ]
     edge_dosing = [w for w in warnings if w.get("ifra_status") == "restricted" or "group" in w]
     natural_warnings = [w for w in warnings if w.get("ifra_status") == "natural_no_own_standard"]
+    counted_naturals = {
+        c.material
+        for t in evaluation.constituent_totals
+        for c in t.contributors
+        if c.kind == "natural"
+    }
     overfilled = bool(estimate.overfilled) if estimate is not None else False
     assumptions = list(estimate.assumptions) if estimate is not None else []
     batch_default = config.batch_volume_source == "default"
@@ -1594,9 +1669,31 @@ def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
         "missing_ifra_limit": unchecked,
         "unchecked": unchecked,
         "holds": holds,
+        "undisclosed_bases": undisclosed,
         "specification_notes": [_ifra_row_dict(c, headroom) for c in evaluation.notes],
         "rows": [_ifra_row_dict(c, headroom) for c in evaluation.checks],
         "groups": [_ifra_group_dict(g, headroom) for g in evaluation.group_checks],
+        "constituent_totals": [
+            {
+                "substance": t.substance,
+                "standard": t.standard,
+                "total_pct": t.total,
+                "limit_pct": t.limit_pct,
+                "contributors": [
+                    {
+                        "material": c.material,
+                        "kind": c.kind,
+                        "pct": c.pct,
+                        "constituent_pct": c.constituent_pct,
+                        "ncs_name": c.ncs_name,
+                        "contribution_pct": c.contribution_pct,
+                    }
+                    for c in t.contributors
+                ],
+            }
+            for t in evaluation.constituent_totals
+        ],
+        "constituent_coverage": load_natural_constituents().coverage_note(table),
         "headroom": config.ifra_headroom,
         "effective_headroom": headroom,
         "commercial_mode": config.commercial_mode,
@@ -1630,30 +1727,48 @@ def _gate_safety(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
             "FAIL",
             "IFRA Category 4 failures: "
             + "; ".join(f["message"] for f in failures)
+            + (f"; {undisclosed_note}" if undisclosed_note else "")
             + f"; {basis_note}",
             data,
         )
-    if holds or overfilled:
+    if stock_conflicts:
+        data["stock_conflicts"] = list(stock_conflicts)
+    if unwritten_strengths:
+        data["unwritten_strengths"] = list(unwritten_strengths)
+    if holds or overfilled or stock_conflicts or unwritten_strengths:
         parts = [f"IFRA hold: {h['message']}" for h in holds]
+        parts.extend(unwritten_strengths)
+        if stock_conflicts:
+            parts.append(
+                "stock conflict: "
+                + ", ".join(stock_conflicts)
+                + " written at more than one strength; each row can't be bound to "
+                "a stock, so the IFRA check can't pass"
+            )
         if overfilled:
             parts.append(
                 f"stocks ({estimate.concentrate_ml:.3g} mL) exceed the "
                 f"{config.batch_volume_ml:g} mL bottle; finished-product % w/w is not defined"
             )
+        if undisclosed_note:
+            parts.append(undisclosed_note)
         return _result("safety_ifra_allergen", "HOLD", "; ".join(parts) + f"; {basis_note}", data)
-    detail: list[str] = []
+    detail: list[str] = [undisclosed_note] if undisclosed_note else []
     if edge_dosing:
         detail.append(
             f"{len(edge_dosing)} near the IFRA limit: "
             + ", ".join(f"{w['material']} {w['usage_pct']}%" for w in edge_dosing)
         )
     if natural_warnings:
+        counted = sum(1 for w in natural_warnings if w.get("ifra_name") in counted_naturals)
         detail.append(
             f"{len(natural_warnings)} natural(s) without their own IFRA standard "
-            "(constituents not summed)"
+            + (
+                f"({counted} with IFRA Annex I constituents counted, the rest not summed)"
+                if counted
+                else "(constituents not summed)"
+            )
         )
-    if unchecked:
-        detail.append(f"{len(unchecked)} material(s) not in the IFRA Category 4 table")
     if batch_default:
         detail.append(
             f"bottle size not found; default {config.batch_volume_ml:g} mL assumed"
@@ -4964,7 +5079,7 @@ def _gate_carles_material_count(state: FormulaState, config: ReleaseGateConfig) 
 
 
 _HEDIONE_NAMES = frozenset({"hedione", "hedione hc"})
-# AGENTS.md F2: "Max 12% for chypre. Max 15% for floral."
+# AGENTS.md F2: soft style warning from one bottle (about 12% chypre, 15% floral/default).
 _HEDIONE_CAP_CHYPRE_PCT = 12.0
 _HEDIONE_CAP_DEFAULT_PCT = 15.0
 
@@ -4998,7 +5113,7 @@ def _gate_hedione_share(
     elif "chypre" in _fold(name):
         cap, why = _HEDIONE_CAP_CHYPRE_PCT, "chypre named in the formula name"
     else:
-        cap, why = _HEDIONE_CAP_DEFAULT_PCT, "not a chypre, so the floral/default cap applies"
+        cap, why = _HEDIONE_CAP_DEFAULT_PCT, "not a chypre, so the floral/default level applies"
     basis = "% of fragrance-active uL"
     data = {
         "hedione_active_ul": round(hedione_ul, 4),
@@ -5007,21 +5122,21 @@ def _gate_hedione_share(
         "cap_pct": cap,
         "cap_reason": why,
         "basis": basis,
-        "source": "AGENTS.md F2 (Hedione crowding)",
+        "source": "project style warning from one bottle (AGENTS.md F2), not a safety limit",
     }
     if share > cap:
         return _result(
             "hedione_share",
             "WARN",
-            f"Hedione is {share:.1f}{basis}, above the {cap:.0f}% cap ({why}). "
-            "Above about 15% Hedione becomes the perfume and buries the named character; "
-            "check the dose before mixing.",
+            f"Hedione is {share:.1f}{basis}, above the {cap:.0f}% style warning level ({why}). "
+            "Above about 15% Hedione often dominates; compare against a lower-Hedione "
+            "control before mixing.",
             data,
         )
     return _result(
         "hedione_share",
         "PASS",
-        f"Hedione is {share:.1f}{basis}, within the {cap:.0f}% cap ({why}).",
+        f"Hedione is {share:.1f}{basis}, within the {cap:.0f}% style warning level ({why}).",
         data,
     )
 
@@ -6789,7 +6904,15 @@ def run_composition_gates(
     return [
         _safe_gate(lambda: _gate_hedione_share(formula, state, config), "hedione_share"),
         _safe_gate(lambda: _gate_musk_count(state, config), "musk_count"),
-        _safe_gate(lambda: _gate_safety(state, config), "safety"),
+        _safe_gate(
+            lambda: _gate_safety(
+                state,
+                config,
+                _stock_conflict_materials(formula),
+                _unwritten_strength_reasons(formula),
+            ),
+            "safety",
+        ),
     ]
 
 
@@ -7043,7 +7166,15 @@ def gate_formula(
         _safe_gate(lambda: _gate_small_diluted_traces(state), "small_diluted_traces"),
         _safe_gate(lambda: _gate_dilution_accuracy(state, config), "dilution_accuracy"),
         _safe_gate(lambda: _gate_oav_scaling(formula, config), "oav_scaling"),
-        _safe_gate(lambda: _gate_safety(state, config), "safety"),
+        _safe_gate(
+            lambda: _gate_safety(
+                state,
+                config,
+                _stock_conflict_materials(formula),
+                _unwritten_strength_reasons(formula),
+            ),
+            "safety",
+        ),
         _safe_gate(
             lambda: _gate_eu_allergen_declaration(state, config),
             "eu_allergen_declaration",

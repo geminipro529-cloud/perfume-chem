@@ -47,13 +47,31 @@ def test_every_deep_compose_variant_carries_its_own_checks() -> None:
         assert variant["composition_checks"]["checks"]
 
 
-def test_a_brief_within_limits_gets_pass_entries() -> None:
-    report = design_inventory_formula(idea="a lavender fougere")
+def test_a_formula_within_limits_gets_pass_entries() -> None:
+    # Fixed rows, not a composed brief: composed briefs change as the composer
+    # and the IFRA tables grow.  The composed lavender fougere stopped being
+    # within limits once naturals' IFRA Annex I constituents counted.
+    rows = [_row("Iso E Super", "3000", "1"), _row("Hedione", "300", "1"),
+            _row("Habanolide", "300", "1"), _row("Ambrox Super", "100", "1"),
+            _row("Dihydromyrcenol", "500", "1"), _row("Calone", "60", "0.1")]
+    checks = composition_checks({"rows": rows}, formula_name="Within limits")
 
-    checks = report["composition_checks"]
     assert _flagged(checks) == []
-    ifra = [c for c in checks["checks"] if c["check"] == "ifra"]
-    assert [c["status"] for c in ifra] == ["PASS"]
+    assert [(c["check"], c["status"]) for c in checks["checks"]] == [
+        ("hedione_share", "PASS"), ("musk_count", "PASS"), ("ifra", "PASS"),
+    ]
+
+
+def test_a_natural_counts_its_ifra_constituent_in_the_composition_checks() -> None:
+    # The composer's lavender fougere put 1,500 uL of Cedarwood Virginia in
+    # 6,000 uL; its cedrene (IFRA STD 197, 1.5 % in Category 4) now counts.
+    rows = [_row("Cedarwood Virginia", "1500", "1"), _row("Iso E Super", "4500", "1")]
+    checks = composition_checks({"rows": rows}, formula_name="Cedar test")
+
+    fails = [c["message"] for c in checks["checks"] if c["check"] == "ifra" and c["status"] == "FAIL"]
+    assert any(
+        m.startswith("Cedrene (IFRA_STD_197)") and "Cedarwood Virginia" in m for m in fails
+    ), checks["checks"]
 
 
 def test_a_gate_error_becomes_an_error_check_not_a_failed_design(monkeypatch) -> None:

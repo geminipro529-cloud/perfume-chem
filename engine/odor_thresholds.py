@@ -747,18 +747,20 @@ ODT_DATA: dict[str, dict] = {
     "azarbre": {"odt_air": 2.0, "odt_eth": 0.5, "char": "cedar-amber, warm-smooth"},
     "timberol": {"odt_air": 1.0, "odt_eth": 0.5, "char": "dry cedar, architectural"},
     "koavone": {"odt_air": 5.0, "odt_eth": 0.5, "char": "warm woody, cedar-support"},
-    # UNVERIFIED — no peer-reviewed air-phase ODT found
+    # Vertofix and Vertofix Coeur are the same molecule (acetyl cedrene, methyl
+    # cedryl ketone, CAS 32388-55-9) and resolve to one registry row, so both
+    # labels carry the one sourced value: van Gemert (2011); Devos et al. (1990)
+    # — ODT_air = 6.3 ppb for methyl cedryl ketone. The former 240 ppb on the
+    # Coeur label had no source.
     "vertofix coeur": {
-        "odt_air": 240.0,
+        "odt_air": 6.3,
         "odt_eth": 1.0,
-        "char": "cedryl methyl ether, woody-musky, dry-cedar",
+        "char": "methyl cedryl ketone (acetyl cedrene), woody-musky, dry-cedar",
     },
-    # Verified: van Gemert 2011 — ODT_air = 6.3 ppb for methyl cedryl ketone
-    # UNVERIFIED — no peer-reviewed air-phase ODT found
     "vertofix": {
         "odt_air": 6.3,
         "odt_eth": 1.0,
-        "char": "cedryl methyl ether, woody-musky, dry-cedar",
+        "char": "methyl cedryl ketone (acetyl cedrene), woody-musky, dry-cedar",
     },
     # Verified: van Gemert 2011, Devos et al. 1990 — methyl cedryl ketone ODT 6.3 ppb
     "norlimbanol dextro": {
@@ -1615,8 +1617,10 @@ ODT_VERIFICATION: dict[str, dict] = {
     },
     "vertofix coeur": {
         "vfy": "PEER_SINGLE",
-        "sources": ["Same as Vertofix — TGSC cedryl methyl ether; cedrol ODT 80-200 ppb lit."],
-        "note": "Tier B — TGSC supplier data (same molecule as Vertofix)",
+        "sources": ["van Gemert (2011); Devos et al. (1990) — methyl cedryl ketone ODT 6.3 ppb"],
+        "odt_air": 6.3,
+        "odt_eth": 1.0,
+        "note": "Tier B — van Gemert compilation; same molecule as Vertofix (methyl cedryl ketone)",
     },
     "evernyl": {
         "vfy": "PEER_EST",

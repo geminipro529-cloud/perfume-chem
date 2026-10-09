@@ -15,10 +15,12 @@ from engine.pipeline.preflight import resolve_inventory_stock_contract
 
 
 def _stocks(name: str):
+    # Display names now carry the bottle's strength ("2-Acetyl Pyrazine 1%"),
+    # so a material is found by its identity as well as by its display name.
     return [
         row
         for row in inventory.materialize_current_inventory().stocks
-        if row.name == name
+        if name in {row.name, row.identity_name}
     ]
 
 

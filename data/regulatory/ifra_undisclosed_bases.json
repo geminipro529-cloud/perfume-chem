@@ -1,0 +1,16 @@
+{
+  "schema_version": "ifra_undisclosed_bases/1",
+  "decided_on": "2026-10-09",
+  "decision": "Kenny: flag them. A formula using a supplier base whose composition is not published gets a named warning in the IFRA safety gate, never a block. Restricted substances inside these bases are not counted toward any IFRA total.",
+  "scope": "Owned supplier bases only, by their stock names in inventory.txt. A base leaves this list when its composition (an IFRA certificate or a published constituent list) is recorded.",
+  "bases": [
+    {"name": "Suederal", "reason": "Supplier suede/leather base; composition not published."},
+    {"name": "Castoreum Synthetic", "reason": "PerfumersWorld proprietary non-animal castoreum compound; composition not published."},
+    {"name": "Black Agarwood Artificial", "reason": "Artificial oud compound; composition not published."},
+    {"name": "Clearwood", "reason": "Captive woody material sold as supplied; composition not published."},
+    {"name": "Tonkarome", "reason": "Supplier tonka base; composition not published."},
+    {"name": "Black Tea Base", "reason": "PerfumersWorld supplied blend (SKU 6HE09224), not a pure chemical; composition not published."},
+    {"name": "Costus Olifac", "reason": "Supplier costus reconstitution base; composition not published."},
+    {"name": "Lilyreal ND", "reason": "Supplied product of opaque composition (inventory note); composition not published."}
+  ]
+}

@@ -395,3 +395,30 @@ def test_a_volume_row_with_an_explicit_share_still_takes_the_spare_space(fixture
     assert sum(allocated.values()) == 6000
     assert allocated[0] <= 12 and allocated[1] <= 180
     assert holds == ["ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:stock:Dihydrojasmone"]
+
+
+def test_audit_materials_have_sourced_ceilings_and_hedione_is_a_style_warning() -> None:
+    payload = json.loads(ceilings.NORMAL_USE_CEILINGS_PATH.read_text(encoding="utf-8"))
+    expected = {
+        "Safraleine": ("safraleine", 3),
+        "Florhydral": ("florhydral", 2),
+        "Paradisamide": ("paradisamide", 15),
+        "Damascol": ("damascol", 5),
+        "Carrot Seed EO": ("carrot seed eo", 4),
+    }
+    by_material = {row["material"]: row for row in payload["materials"]}
+    for material, (probe, pct) in expected.items():
+        assert material not in payload["not_set"]
+        row = by_material[material]
+        assert row["max_active_pct_of_concentrate"] == pct
+        assert row["sources"][0]["name"] == "The Good Scents Company"
+        assert "in the fragrance concentrate" in row["sources"][0]["quote"]
+        ceiling = planner.match_normal_use_ceiling(probe)
+        assert ceiling is not None and ceiling.material == material
+        assert ceiling.max_active_fraction == Decimal(pct) / 100
+    assert "profile" in by_material["Damascol"]["note"] and "4927-36-0" in by_material["Damascol"]["note"]
+    hedione = next(row for row in payload["materials"] if row["material"] == "Hedione")
+    assert hedione["kind"] == "style_warning"
+    assert "not a safety ceiling" in hedione["note"] and "IFRA sets no Hedione limit" in hedione["note"]
+    assert hedione["max_active_pct_of_concentrate"] == 15
+    assert hedione["match"] == ["hedione", "methyl dihydrojasmonate"]

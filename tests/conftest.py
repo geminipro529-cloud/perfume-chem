@@ -34,6 +34,31 @@ os.environ.setdefault(
 )
 
 
+@pytest.fixture(scope="session")
+def built_perfumery_kb(tmp_path_factory) -> Path:
+    """Build the knowledge base from this checkout's sources, once per session.
+
+    ``*.db`` is gitignored, so a clean checkout has no ``data/perfumery_kb.db``.
+    The build goes to session scratch; the repository KB and its tracked
+    ``-wal``/``-shm`` files are never read or written.
+    """
+    from engine.kb_migrate import migrate
+
+    target = tmp_path_factory.mktemp("perfumery_kb") / "perfumery_kb.db"
+    return Path(migrate(str(target)))
+
+
+@pytest.fixture
+def perfumery_kb(built_perfumery_kb, monkeypatch) -> Path:
+    """Point the read-only KB query modules at the session-built database."""
+    from engine import kb_rules_api, knowledge_base, property_estimator
+
+    monkeypatch.setattr(knowledge_base, "_DB_PATH", built_perfumery_kb)
+    monkeypatch.setattr(kb_rules_api, "_DB_PATH", built_perfumery_kb)
+    monkeypatch.setattr(property_estimator, "_KB_PATH", built_perfumery_kb)
+    return built_perfumery_kb
+
+
 @pytest.fixture(scope="session", autouse=True)
 def managed_test_scratch(tmp_path_factory):
     """Put raw tempfile output under pytest's success/failure retention policy."""
@@ -189,6 +214,15 @@ def historical_checkpoint_inputs(request, tmp_path_factory):
     )
     assert original_inventory.overlay_sha256 == (
         "0bccf890ee05487b20daca94d02c65103c2a22ed4c6435ba8cb311cd041575fb"
+    )
+    # Display names that state the bottle's strength are current presentation;
+    # the frozen September reports were written with the names as first written.
+    original_inventory = replace(
+        original_inventory,
+        stocks=tuple(
+            replace(stock, name=stock.source_name) if stock.source_name else stock
+            for stock in original_inventory.stocks
+        ),
     )
     modules = [importlib.import_module(f"engine.experiments.checkpoint{i}_readiness")
                for i in range(3, 9)]

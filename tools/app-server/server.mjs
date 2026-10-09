@@ -22,6 +22,20 @@ const TOKEN = process.env.APP_SERVER_TOKEN ?? "";
 const READONLY = process.env.APP_SERVER_READONLY === "1";
 const MAX_BODY = 2_000_000;
 const MAX_PATCH = 500_000;
+// Trailer line that marks commits made by this server; /api/revert refuses others.
+const COMMIT_TRAILER = "App-Server-Commit: perfume-chem-app-server";
+// Browser origins allowed to call the API (comma-separated). No wildcard: "*" is ignored.
+const CORS_ORIGINS = new Set(
+  [process.env.APP_SERVER_CORS_ORIGINS, process.env.APP_SERVER_CORS_ORIGIN]
+    .filter(Boolean)
+    .join(",")
+    .split(",")
+    .map((o) => o.trim())
+    .filter((o) => o && o !== "*"),
+);
+// Paths touched by patches applied since the last commit, and commits this server made.
+const pendingPaths = new Set();
+const serverCommits = new Set();
 
 if (!TOKEN) {
   console.error("[app-server] APP_SERVER_TOKEN is required");
@@ -105,20 +119,67 @@ async function git(args) {
   return { ok: r.code === 0, code: r.code, out: r.out.trim(), err: r.err.trim() };
 }
 
-// Fence-scan a unified diff: every touched file (a/ and b/ headers) must pass the
-// deny-list. A patch bypasses the path-parameter API, so it is scanned directly.
+function unquotePatchPath(p) {
+  const t = p.trim();
+  return t.startsWith('"') && t.endsWith('"') && t.length >= 2 ? t.slice(1, -1) : t;
+}
+
+// git apply strips the first path component (-p1) from ---/+++ and diff --git names.
+function stripPrefix(p) {
+  const i = p.indexOf("/");
+  return i === -1 ? p : p.slice(i + 1);
+}
+
+// Every path a patch names: both sides of `diff --git` (all ambiguous splits when
+// names contain spaces), ---/+++ headers with any prefix, and rename/copy lines.
+function patchHeaderPaths(patchText) {
+  const out = [];
+  for (const line of patchText.split(/\r?\n/)) {
+    let m;
+    if ((m = /^diff --git (.+)$/.exec(line))) {
+      const rest = m[1];
+      for (let i = rest.indexOf(" "); i !== -1; i = rest.indexOf(" ", i + 1)) {
+        out.push(stripPrefix(unquotePatchPath(rest.slice(0, i))));
+        out.push(stripPrefix(unquotePatchPath(rest.slice(i + 1))));
+      }
+    } else if ((m = /^(?:---|\+\+\+) (.+)$/.exec(line))) {
+      const name = unquotePatchPath(m[1].split("\t")[0]);
+      if (name !== "/dev/null") out.push(stripPrefix(name));
+    } else if ((m = /^(?:rename|copy) (?:from|to) (.+)$/.exec(line))) {
+      out.push(unquotePatchPath(m[1]));
+    }
+  }
+  return out;
+}
+
+// Fence-scan a unified diff: every path it names must pass the deny-list.
+// A patch bypasses the path-parameter API, so it is scanned directly.
 function assertPatchNotFenced(patchText) {
-  const lines = patchText.split(/\r?\n/);
-  for (const line of lines) {
-    const m = /^[+-]{3} (?:a|b)\/(.+)$/.exec(line) || /^diff --git a\/(.+) b\//.exec(line);
-    if (!m) continue;
-    const rel = m[1].replace(/\\/g, "/");
+  for (const raw of patchHeaderPaths(patchText)) {
+    const rel = raw.replace(/\\/g, "/");
     try {
       assertNotFenced(rel);
     } catch (error) {
       throw new Error(`patch touches fenced path: ${rel}`);
     }
   }
+}
+
+// Paths the patch changes, for /api/commit: git's own per-file list (new names,
+// deleted and modified files) plus the old name of every rename, whose deletion
+// must be committed too.
+async function patchTouchedPaths(patchFile, patchText) {
+  const stat = await run("git", ["apply", "--numstat", "-z", patchFile]);
+  if (stat.code !== 0) throw new Error(`git apply --numstat failed: ${stat.err.trim()}`);
+  const paths = stat.out
+    .split("\0")
+    .map((entry) => entry.split("\t").slice(2).join("\t"))
+    .filter(Boolean);
+  for (const line of patchText.split(/\r?\n/)) {
+    const m = /^rename from (.+)$/.exec(line);
+    if (m) paths.push(unquotePatchPath(m[1]));
+  }
+  return paths;
 }
 
 async function applyPatch(patchText) {
@@ -137,24 +198,37 @@ async function applyPatch(patchText) {
     fs.rmSync(patchFile, { force: true });
     throw new Error(`git apply --check failed: ${check.err || check.out}`);
   }
+  let touched;
+  try {
+    touched = await patchTouchedPaths(patchFile, patchText);
+  } catch (error) {
+    fs.rmSync(patchFile, { force: true });
+    throw error;
+  }
   const apply = await git(["apply", patchFile]);
   if (!apply.ok) {
     fs.rmSync(patchFile, { force: true });
     throw new Error(`git apply failed: ${apply.err || apply.out}`);
   }
+  for (const p of touched) pendingPaths.add(p);
   const status = await git(["status", "--short"]);
   return { applied: true, patchFile: path.relative(WORKSPACE, patchFile), status: status.out };
 }
 
 function send(res, code, body) {
   const payload = JSON.stringify(body);
-  res.writeHead(code, {
+  const headers = {
     "Content-Type": "application/json",
     "Content-Length": Buffer.byteLength(payload),
-    "Access-Control-Allow-Origin": process.env.APP_SERVER_CORS_ORIGIN ?? "*",
-    "Access-Control-Allow-Headers": "Authorization, Content-Type",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-  });
+    "Vary": "Origin",
+  };
+  const origin = res.req?.headers.origin;
+  if (origin && CORS_ORIGINS.has(origin)) {
+    headers["Access-Control-Allow-Origin"] = origin;
+    headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type";
+    headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS";
+  }
+  res.writeHead(code, headers);
   res.end(payload);
 }
 
@@ -175,10 +249,13 @@ function readBody(req) {
   });
 }
 
+function hasToken(req) {
+  const match = /^Bearer\s+(.+)$/i.exec(req.headers.authorization ?? "");
+  return Boolean(match && safeEqual(match[1], TOKEN));
+}
+
 function authorize(req, res) {
-  const header = req.headers.authorization ?? "";
-  const match = /^Bearer\s+(.+)$/i.exec(header);
-  if (!match || !safeEqual(match[1], TOKEN)) {
+  if (!hasToken(req)) {
     send(res, 401, { error: "unauthorized" });
     return false;
   }
@@ -193,8 +270,12 @@ const server = http.createServer(async (req, res) => {  const url = new URL(req.
     return;
   }
 
-  // Health: no auth (probe only)
+  // Health: no auth needed for the probe; workspace path and HEAD only with the token.
   if (method === "GET" && url.pathname === "/api/health") {
+    if (!hasToken(req)) {
+      send(res, 200, { ok: true, readonly: READONLY, time: new Date().toISOString() });
+      return;
+    }
     const gitHead = await git(["rev-parse", "HEAD"]);
     send(res, 200, {
       ok: true,
@@ -249,16 +330,23 @@ const server = http.createServer(async (req, res) => {  const url = new URL(req.
       return;
     }
 
-    // POST /api/commit — { message, files?: [...] }  (commits staged/working changes)
+    // POST /api/commit — { message }  (commits only the paths patches applied here touched)
     if (method === "POST" && url.pathname === "/api/commit") {
       if (READONLY) throw new Error("server is read-only");
       const body = await readBody(req);
       const message = String(body.message ?? "").trim();
       if (!message) throw new Error("commit message required");
       if (message.length > 500) throw new Error("commit message too long");
-      const add = await git(["add", "-A"]);
+      if (pendingPaths.size === 0) throw new Error("no paths applied through this server since the last commit");
+      const pathspecs = [...pendingPaths].map((p) => `:(literal)${p}`);
+      const add = await git(["add", "-A", "--", ...pathspecs]);
       if (!add.ok) throw new Error(`git add failed: ${add.err}`);
-      const commit = await git(["commit", "-m", message]);
+      const commit = await git(["commit", "--only", "-m", message, "-m", COMMIT_TRAILER, "--", ...pathspecs]);
+      if (commit.ok) {
+        const made = await git(["rev-parse", "HEAD"]);
+        if (made.ok) serverCommits.add(made.out);
+        pendingPaths.clear();
+      }
       send(res, commit.ok ? 200 : 400, {
         ok: commit.ok,
         head: (await git(["rev-parse", "HEAD"])).out,
@@ -267,10 +355,17 @@ const server = http.createServer(async (req, res) => {  const url = new URL(req.
       return;
     }
 
-    // POST /api/revert — revert the last local commit (bounded rescue)
+    // POST /api/revert — soft-reset HEAD, only when HEAD is a commit this server made
     if (method === "POST" && url.pathname === "/api/revert") {
       if (READONLY) throw new Error("server is read-only");
+      const head = await git(["rev-parse", "HEAD"]);
+      const headMessage = await git(["log", "-1", "--format=%B", "HEAD"]);
+      const marked = headMessage.ok && headMessage.out.split(/\r?\n/).includes(COMMIT_TRAILER);
+      if (!head.ok || !serverCommits.has(head.out) || !marked) {
+        throw new Error("HEAD is not a commit made by this server; refusing to revert");
+      }
       const revert = await git(["reset", "--soft", "HEAD~1"]);
+      if (revert.ok) serverCommits.delete(head.out);
       send(res, revert.ok ? 200 : 400, {
         ok: revert.ok,
         head: (await git(["rev-parse", "HEAD"])).out,
