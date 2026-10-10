@@ -233,7 +233,27 @@ function likingSaveControls() {
   return { save, status, undo };
 }
 
-function likingCrowdBlock(choices, current, fitPromise) {
+// One personal-fit request per render; refresh() replaces it with a fresh one after a
+// rating or pick is saved or undone and tells every subscriber.
+function likingFitStore() {
+  const store = { subscribers: [] };
+  const load = () => {
+    store.promise = request("/liking/personal", { base: LIKING_API });
+    store.promise.catch(() => {});
+  };
+  store.refresh = () => {
+    load();
+    store.subscribers.forEach((listener) => listener(store.promise));
+  };
+  store.subscribe = (listener) => {
+    store.subscribers.push(listener);
+    listener(store.promise);
+  };
+  load();
+  return store;
+}
+
+function likingCrowdBlock(choices, current, fitStore) {
   const block = likingEl("div", "liking-crowd");
   block.append(likingEl("h3", "", "Pleasantness, crowd guess"));
   const summary = pleasantnessLines(current.overlay) || { lines: ["No crowd guess for this formula."], label: "" };
@@ -243,13 +263,15 @@ function likingCrowdBlock(choices, current, fitPromise) {
   const used = (fit) => (Number(fit?.ratings_used) || 0) + (Number(fit?.material_ratings_used) || 0);
   const mine = likingEl("ul", "liking-yours");
   block.append(mine);
-  fitPromise.then((fit) => {
+  fitStore.subscribe((promise) => promise.then((fit) => {
+    if (promise !== fitStore.promise) return;
+    mine.replaceChildren();
     if (used(fit) < 1) return;
     LIKING_WINDOWS.forEach(([windowKey, windowLabel]) => {
       const guess = likingYourGuess(current.overlay?.rating_windows?.[windowKey]?.material_shares, fit);
       if (guess) mine.append(likingEl("li", "", likingYourGuessText(windowLabel, guess)));
     });
-  }).catch(() => {});
+  }).catch(() => {}));
   const variants = variantPleasantnessLines(choices);
   if (variants.length) {
     block.append(likingEl("p", "liking-subhead", "Alternatives"));
@@ -261,7 +283,7 @@ function likingCrowdBlock(choices, current, fitPromise) {
   return block;
 }
 
-function likingRatingRow(choice, windowKey, windowLabel) {
+function likingRatingRow(choice, windowKey, windowLabel, fitStore) {
   const row = likingEl("div", "liking-row");
   row.dataset.window = windowKey;
   row.append(likingEl("h4", "", windowLabel));
@@ -325,6 +347,7 @@ function likingRatingRow(choice, windowKey, windowLabel) {
       savedId = saved?.id ?? null;
       status.textContent = "Saved";
       undo.hidden = savedId === null;
+      fitStore.refresh();
     } catch (error) {
       status.textContent = `Not saved: ${error.message}`;
     } finally {
@@ -341,6 +364,7 @@ function likingRatingRow(choice, windowKey, windowLabel) {
       undo.hidden = true;
       updateSave();
       status.textContent = "Removed";
+      fitStore.refresh();
     } catch (error) {
       status.textContent = `Not removed: ${error.message}`;
     } finally {
@@ -366,7 +390,7 @@ function likingSelect(name, options, selectedIndex) {
   return select;
 }
 
-function likingPickBlock(choices) {
+function likingPickBlock(choices, fitStore) {
   const block = likingEl("div", "liking-pick");
   block.append(likingEl("h3", "", "Which did you prefer?"));
   block.append(likingEl("p", "liking-hint", "If you mixed two of these, smell them side by side and pick one."));
@@ -420,6 +444,7 @@ function likingPickBlock(choices) {
         savedId = saved?.id ?? null;
         status.textContent = "Saved";
         undo.hidden = savedId === null;
+        fitStore.refresh();
       } catch (error) {
         status.textContent = `Not saved: ${error.message}`;
       } finally {
@@ -437,6 +462,7 @@ function likingPickBlock(choices) {
       undo.hidden = true;
       buttons.forEach((other) => { other.disabled = false; });
       status.textContent = "Removed";
+      fitStore.refresh();
     } catch (error) {
       status.textContent = `Not removed: ${error.message}`;
     } finally {
@@ -455,16 +481,17 @@ function likingNameList(heading, names) {
   return paragraph;
 }
 
-function likingPersonalBlock(fitPromise) {
+function likingPersonalBlock(fitStore) {
   const details = likingEl("details", "liking-personal");
   details.append(likingEl("summary", "", "Your nose so far"));
   const body = likingEl("div", "liking-personal-body");
   details.append(body);
-  details.addEventListener("toggle", async () => {
+  const show = async (promise) => {
     if (!details.open) return;
     body.replaceChildren(likingEl("p", "", "Loading…"));
     try {
-      const fit = await fitPromise;
+      const fit = await promise;
+      if (promise !== fitStore.promise) return;
       const checkText = likingCrowdCheckText(fit);
       body.replaceChildren(
         likingEl("p", "", `${Number(fit?.ratings_used) || 0} ratings and ${Number(fit?.picks_used) || 0} A/B picks used so far.`),
@@ -475,9 +502,13 @@ function likingPersonalBlock(fitPromise) {
         likingEl("small", "", "Your own ratings start to matter after roughly 10 to 20 rated bottles; until then the crowd guess carries most of the weight."),
       );
     } catch (error) {
-      body.replaceChildren(likingEl("p", "inline-warning", `Couldn't load your ratings: ${error.message}`));
+      if (promise === fitStore.promise) {
+        body.replaceChildren(likingEl("p", "inline-warning", `Couldn't load your ratings: ${error.message}`));
+      }
     }
-  });
+  };
+  details.addEventListener("toggle", () => show(fitStore.promise));
+  fitStore.subscribers.push(show);
   return details;
 }
 
@@ -490,13 +521,12 @@ function renderFormulaLiking(result, variantIndex = 0, selected = null) {
   const current = selected?.formula ? choices.find((choice) => choice.variantIndex === wanted) : null;
   box.hidden = !current;
   if (!current) return;
-  const fitPromise = request("/liking/personal", { base: LIKING_API });
-  fitPromise.catch(() => {});
-  box.append(likingCrowdBlock(choices, current, fitPromise));
+  const fitStore = likingFitStore();
+  box.append(likingCrowdBlock(choices, current, fitStore));
   const rate = likingEl("div", "liking-rate");
   rate.append(likingEl("h3", "", "Rate this bottle"));
   rate.append(likingEl("p", "liking-hint", `Mixed ${current.label === "Main formula" ? "this formula" : current.label}? Rate it at each time. Your ratings teach the app your taste.`));
-  LIKING_WINDOWS.forEach(([windowKey, windowLabel]) => rate.append(likingRatingRow(current, windowKey, windowLabel)));
+  LIKING_WINDOWS.forEach(([windowKey, windowLabel]) => rate.append(likingRatingRow(current, windowKey, windowLabel, fitStore)));
   box.append(rate);
   const seen = new Set();
   const distinct = choices.filter((choice) => {
@@ -505,8 +535,8 @@ function renderFormulaLiking(result, variantIndex = 0, selected = null) {
     seen.add(canonical);
     return true;
   });
-  if (distinct.length >= 2) box.append(likingPickBlock(distinct));
-  box.append(likingPersonalBlock(fitPromise));
+  if (distinct.length >= 2) box.append(likingPickBlock(distinct, fitStore));
+  box.append(likingPersonalBlock(fitStore));
 }
 
 if (typeof module === "object" && module.exports) {

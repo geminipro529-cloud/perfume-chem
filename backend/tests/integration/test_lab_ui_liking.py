@@ -122,6 +122,9 @@ def test_liking_script_shows_your_guess_with_text_only():
     assert "Your guess" in source and "Crowd guess" in source
     assert "textContent" in source and "innerHTML" not in source
     assert source.count('request("/liking/personal"') == 1
+    # one fetch call site, refreshed after each rating or pick is saved or undone
+    assert source.count("fitStore.refresh()") == 4
+    assert "store.refresh = " in source
 
 
 @pytest.mark.asyncio
