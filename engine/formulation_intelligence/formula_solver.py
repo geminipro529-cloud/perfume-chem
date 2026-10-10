@@ -703,6 +703,12 @@ def _single_words(terms: Sequence[str]) -> frozenset[str]:
     return frozenset(term.casefold() for term in terms if re.fullmatch(r"[A-Za-z]+", term))
 
 
+# Words that name an odor family without carrying its descriptor words: an
+# oud is the shadow family (smoky, leathery, animalic), so a brief asking for
+# oud asks for that family and its links may carry it.
+_FAMILY_NAMED_BY = {"oud": "base_shadow", "agarwood": "base_shadow"}
+
+
 def _asked_families(brief: SemanticBrief) -> frozenset[str]:
     """Odor families the request words or the requested facets' own words name."""
 
@@ -710,7 +716,7 @@ def _asked_families(brief: SemanticBrief) -> frozenset[str]:
     for role in brief.roles:
         if role.provenance == "PROMPT_DERIVED_FACET":
             words |= _single_words(role.query_terms)
-    return _families(words)
+    return _families(words) | {family for word, family in _FAMILY_NAMED_BY.items() if word in words}
 
 
 def _off_brief_penalty(
@@ -739,6 +745,33 @@ def _off_brief_penalty(
         # layer fits, so it must not outrank annotated materials by default.
         return _OFF_BRIEF_FAMILY_PENALTY
     return _OFF_BRIEF_FAMILY_PENALTY * len(extra)
+
+
+_NOTE_TIERS = {"top": 0, "heart": 1, "base": 2}
+
+
+def _note_tier_penalty(capability: MaterialCapability, role: SemanticRole) -> float:
+    """Penalise a layer or coverage fill whose material sits in the wrong note tier.
+
+    A layer is the brief's texture at one point of the drydown, so a material
+    from a later tier cannot carry it: Hedione is a heart material, not a top
+    citrus layer.  A coverage link may borrow from the next tier (a heart
+    material bridging into the base) but not skip one (a base material as the
+    opening).  A ranking preference like the family penalty, so a role with no
+    in-tier candidate still fills; an unassigned note is never penalised.
+    """
+
+    if role.exact_material is not None:
+        return 0.0
+    role_tier = _NOTE_TIERS.get(role.note)
+    own_tier = _NOTE_TIERS.get(capability.note)
+    if role_tier is None or own_tier is None:
+        return 0.0
+    if role.provenance in LAYER_PROVENANCE.values():
+        return _OFF_BRIEF_FAMILY_PENALTY if own_tier > role_tier else 0.0
+    if role.provenance == "FUNCTIONAL_COVERAGE":
+        return _OFF_BRIEF_FAMILY_PENALTY if abs(own_tier - role_tier) > 1 else 0.0
+    return 0.0
 
 
 def _stable_tie(role_id: str, stock_id: str, variant_index: int) -> float:
@@ -813,6 +846,7 @@ def _unary_rank_for_role(
             continue
         if asked_families is not None:
             score -= _off_brief_penalty(capability, role, asked_families)
+            score -= _note_tier_penalty(capability, role)
         if capability.stock_id in prior_variant_stock_ids and role.exact_material is None:
             score -= 1.35 + .25 * variant_index
         score += _stable_tie(role.role_id, capability.stock_id, variant_index)
