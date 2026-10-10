@@ -1,26 +1,30 @@
 {
  "aromatic-fougere": {
   "ifra_pass": false,
+  "ifra_status": "FAIL",
   "material_count": 18,
-  "max_volume_share": 0.243,
-  "named_note_detectability": 0.0,
+  "max_active_share": 0.3505,
   "named_notes": [
    {
-    "detectability": 0.076,
     "name": "lavender",
+    "share": 0.076,
+    "status": "detectable",
     "window": "heart"
    },
    {
-    "detectability": 0.0,
     "name": "oakmoss",
+    "share": 0.0,
+    "status": "absent",
     "window": "drydown"
    },
    {
-    "detectability": 0.0,
     "name": "coumarin",
+    "share": 0.0,
+    "status": "absent",
     "window": "drydown"
    }
   ],
+  "named_notes_detectable": 1,
   "one_note": true,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -50,16 +54,18 @@
  },
  "citrus-cologne": {
   "ifra_pass": true,
+  "ifra_status": "PASS",
   "material_count": 13,
-  "max_volume_share": 0.2573,
-  "named_note_detectability": 0.7897,
+  "max_active_share": 0.3598,
   "named_notes": [
    {
-    "detectability": 0.7897,
     "name": "citrus",
+    "share": 0.7897,
+    "status": "detectable",
     "window": "opening"
    }
   ],
+  "named_notes_detectable": 1,
   "one_note": false,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -89,16 +95,18 @@
  },
  "citrus-no-lavender": {
   "ifra_pass": true,
+  "ifra_status": "PASS",
   "material_count": 12,
-  "max_volume_share": 0.271,
-  "named_note_detectability": 0.8628,
+  "max_active_share": 0.358,
   "named_notes": [
    {
-    "detectability": 0.8628,
     "name": "citrus",
+    "share": 0.8628,
+    "status": "detectable",
     "window": "opening"
    }
   ],
+  "named_notes_detectable": 1,
   "one_note": true,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -128,16 +136,18 @@
  },
  "clean-musky-skin": {
   "ifra_pass": false,
+  "ifra_status": "FAIL",
   "material_count": 6,
-  "max_volume_share": 0.5408,
-  "named_note_detectability": 0.0047,
+  "max_active_share": 0.6661,
   "named_notes": [
    {
-    "detectability": 0.0047,
     "name": "musk",
+    "share": 0.0047,
+    "status": "detectable",
     "window": "drydown"
    }
   ],
+  "named_notes_detectable": 1,
   "one_note": true,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -167,21 +177,24 @@
  },
  "dark-oud-rose-no-vanilla": {
   "ifra_pass": true,
+  "ifra_status": "WARN",
   "material_count": 21,
-  "max_volume_share": 0.131,
-  "named_note_detectability": 0.0,
+  "max_active_share": 0.1915,
   "named_notes": [
    {
-    "detectability": 0.0,
     "name": "oud",
+    "share": 0.0,
+    "status": "detectable",
     "window": "drydown"
    },
    {
-    "detectability": 0.5633,
     "name": "rose",
+    "share": 0.5633,
+    "status": "detectable",
     "window": "heart"
    }
   ],
+  "named_notes_detectable": 2,
   "one_note": false,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -211,16 +224,18 @@
  },
  "gourmand-vanilla": {
   "ifra_pass": true,
+  "ifra_status": "PASS",
   "material_count": 19,
-  "max_volume_share": 0.4452,
-  "named_note_detectability": 0.0031,
+  "max_active_share": 0.2268,
   "named_notes": [
    {
-    "detectability": 0.0031,
     "name": "vanilla",
+    "share": 0.0031,
+    "status": "detectable",
     "window": "drydown"
    }
   ],
+  "named_notes_detectable": 1,
   "one_note": false,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -250,21 +265,24 @@
  },
  "green-fig-milky-sandalwood": {
   "ifra_pass": true,
+  "ifra_status": "WARN",
   "material_count": 6,
-  "max_volume_share": 0.6347,
-  "named_note_detectability": 0.0365,
+  "max_active_share": 0.8453,
   "named_notes": [
    {
-    "detectability": 0.7852,
     "name": "green",
+    "share": 0.7852,
+    "status": "detectable",
     "window": "top"
    },
    {
-    "detectability": 0.0365,
     "name": "sandalwood",
+    "share": 0.0365,
+    "status": "detectable",
     "window": "drydown"
    }
   ],
+  "named_notes_detectable": 2,
   "one_note": true,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -294,21 +312,24 @@
  },
  "green-tea": {
   "ifra_pass": true,
+  "ifra_status": "WARN",
   "material_count": 20,
-  "max_volume_share": 0.2195,
-  "named_note_detectability": 0.0,
+  "max_active_share": 0.2389,
   "named_notes": [
    {
-    "detectability": 0.0,
     "name": "tea",
+    "share": 0.0,
+    "status": "absent",
     "window": "heart"
    },
    {
-    "detectability": 0.6611,
     "name": "green",
+    "share": 0.6611,
+    "status": "detectable",
     "window": "top"
    }
   ],
+  "named_notes_detectable": 1,
   "one_note": false,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -338,21 +359,24 @@
  },
  "incense-resin": {
   "ifra_pass": true,
+  "ifra_status": "PASS",
   "material_count": 19,
-  "max_volume_share": 0.2428,
-  "named_note_detectability": 0.0,
+  "max_active_share": 0.2553,
   "named_notes": [
    {
-    "detectability": 0.0924,
     "name": "incense",
+    "share": 0.0924,
+    "status": "detectable",
     "window": "heart"
    },
    {
-    "detectability": 0.0,
     "name": "resin",
+    "share": 0.0,
+    "status": "unknown_physics",
     "window": "drydown"
    }
   ],
+  "named_notes_detectable": 1,
   "one_note": false,
   "silent_character_rows": 1,
   "total_uL": 6000.0,
@@ -382,16 +406,18 @@
  },
  "iris-powder": {
   "ifra_pass": false,
+  "ifra_status": "FAIL",
   "material_count": 20,
-  "max_volume_share": 0.2,
-  "named_note_detectability": 0.0005,
+  "max_active_share": 0.1528,
   "named_notes": [
    {
-    "detectability": 0.0005,
     "name": "iris",
+    "share": 0.0005,
+    "status": "detectable",
     "window": "heart"
    }
   ],
+  "named_notes_detectable": 1,
   "one_note": true,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -421,21 +447,24 @@
  },
  "lavender-cologne": {
   "ifra_pass": false,
+  "ifra_status": "FAIL",
   "material_count": 12,
-  "max_volume_share": 0.485,
-  "named_note_detectability": 0.0003,
+  "max_active_share": 0.6099,
   "named_notes": [
    {
-    "detectability": 0.9437,
     "name": "lavender",
+    "share": 0.9437,
+    "status": "detectable",
     "window": "heart"
    },
    {
-    "detectability": 0.0003,
     "name": "citrus",
+    "share": 0.0003,
+    "status": "detectable",
     "window": "opening"
    }
   ],
+  "named_notes_detectable": 2,
   "one_note": true,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -465,16 +494,18 @@
  },
  "leather": {
   "ifra_pass": true,
+  "ifra_status": "WARN",
   "material_count": 18,
-  "max_volume_share": 0.196,
-  "named_note_detectability": 0.0091,
+  "max_active_share": 0.3728,
   "named_notes": [
    {
-    "detectability": 0.0091,
     "name": "leather",
+    "share": 0.0091,
+    "status": "detectable",
     "window": "heart"
    }
   ],
+  "named_notes_detectable": 1,
   "one_note": false,
   "silent_character_rows": 1,
   "total_uL": 6000.0,
@@ -504,16 +535,18 @@
  },
  "marine-ozonic": {
   "ifra_pass": true,
+  "ifra_status": "WARN",
   "material_count": 19,
-  "max_volume_share": 0.3042,
-  "named_note_detectability": 0.0183,
+  "max_active_share": 0.2784,
   "named_notes": [
    {
-    "detectability": 0.0183,
     "name": "marine",
+    "share": 0.0183,
+    "status": "detectable",
     "window": "heart"
    }
   ],
+  "named_notes_detectable": 1,
   "one_note": false,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -543,21 +576,24 @@
  },
  "pipe-tobacco": {
   "ifra_pass": true,
+  "ifra_status": "PASS",
   "material_count": 20,
-  "max_volume_share": 0.3848,
-  "named_note_detectability": 0.0046,
+  "max_active_share": 0.2247,
   "named_notes": [
    {
-    "detectability": 0.4997,
     "name": "tobacco",
+    "share": 0.4997,
+    "status": "detectable",
     "window": "heart"
    },
    {
-    "detectability": 0.0046,
     "name": "sweet",
+    "share": 0.0046,
+    "status": "detectable",
     "window": "drydown"
    }
   ],
+  "named_notes_detectable": 2,
   "one_note": false,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -587,21 +623,24 @@
  },
  "rose-amber-cap10": {
   "ifra_pass": true,
+  "ifra_status": "WARN",
   "material_count": 8,
-  "max_volume_share": 0.3435,
-  "named_note_detectability": 0.0155,
+  "max_active_share": 0.3858,
   "named_notes": [
    {
-    "detectability": 0.8706,
     "name": "rose",
+    "share": 0.8706,
+    "status": "detectable",
     "window": "heart"
    },
    {
-    "detectability": 0.0155,
     "name": "amber",
+    "share": 0.0155,
+    "status": "detectable",
     "window": "drydown"
    }
   ],
+  "named_notes_detectable": 2,
   "one_note": true,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -631,26 +670,30 @@
  },
  "rose-chypre-patchouli-oakmoss": {
   "ifra_pass": true,
+  "ifra_status": "WARN",
   "material_count": 18,
-  "max_volume_share": 0.12,
-  "named_note_detectability": 0.003,
+  "max_active_share": 0.1607,
   "named_notes": [
    {
-    "detectability": 0.4902,
     "name": "rose",
+    "share": 0.4902,
+    "status": "detectable",
     "window": "heart"
    },
    {
-    "detectability": 0.0043,
     "name": "patchouli",
+    "share": 0.0043,
+    "status": "detectable",
     "window": "drydown"
    },
    {
-    "detectability": 0.003,
     "name": "oakmoss",
+    "share": 0.003,
+    "status": "detectable",
     "window": "drydown"
    }
   ],
+  "named_notes_detectable": 3,
   "one_note": false,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -680,21 +723,24 @@
  },
  "soft-woody-amber": {
   "ifra_pass": false,
+  "ifra_status": "FAIL",
   "material_count": 22,
-  "max_volume_share": 0.1392,
-  "named_note_detectability": 0.0023,
+  "max_active_share": 0.1904,
   "named_notes": [
    {
-    "detectability": 0.673,
     "name": "wood",
+    "share": 0.673,
+    "status": "detectable",
     "window": "drydown"
    },
    {
-    "detectability": 0.0023,
     "name": "amber",
+    "share": 0.0023,
+    "status": "detectable",
     "window": "drydown"
    }
   ],
+  "named_notes_detectable": 2,
   "one_note": false,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -724,16 +770,18 @@
  },
  "vetiver-haitian": {
   "ifra_pass": true,
+  "ifra_status": "WARN",
   "material_count": 17,
-  "max_volume_share": 0.1193,
-  "named_note_detectability": 0.0105,
+  "max_active_share": 0.1917,
   "named_notes": [
    {
-    "detectability": 0.0105,
     "name": "vetiver",
+    "share": 0.0105,
+    "status": "detectable",
     "window": "drydown"
    }
   ],
+  "named_notes_detectable": 1,
   "one_note": false,
   "silent_character_rows": 1,
   "total_uL": 6000.0,
@@ -763,21 +811,24 @@
  },
  "white-musk-laundry": {
   "ifra_pass": true,
+  "ifra_status": "PASS",
   "material_count": 18,
-  "max_volume_share": 0.3648,
-  "named_note_detectability": 0.0,
+  "max_active_share": 0.2588,
   "named_notes": [
    {
-    "detectability": 0.0005,
     "name": "musk",
+    "share": 0.0005,
+    "status": "detectable",
     "window": "drydown"
    },
    {
-    "detectability": 0.0,
     "name": "clean-aldehyde",
+    "share": 0.0,
+    "status": "absent",
     "window": "opening"
    }
   ],
+  "named_notes_detectable": 1,
   "one_note": true,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
@@ -807,21 +858,24 @@
  },
  "woody-floral-no-musk": {
   "ifra_pass": true,
+  "ifra_status": "WARN",
   "material_count": 20,
-  "max_volume_share": 0.104,
-  "named_note_detectability": 0.0132,
+  "max_active_share": 0.1922,
   "named_notes": [
    {
-    "detectability": 0.0132,
     "name": "wood",
+    "share": 0.0132,
+    "status": "detectable",
     "window": "drydown"
    },
    {
-    "detectability": 0.0836,
     "name": "floral",
+    "share": 0.0836,
+    "status": "detectable",
     "window": "heart"
    }
   ],
+  "named_notes_detectable": 2,
   "one_note": false,
   "silent_character_rows": 0,
   "total_uL": 6000.0,
