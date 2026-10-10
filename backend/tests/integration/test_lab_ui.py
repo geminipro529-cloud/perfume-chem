@@ -1471,3 +1471,58 @@ def test_bench_row_basket_trusts_the_stock_id_over_the_name():
 
     assert result["byId"]["basket"] == 3
     assert result["byName"]["basket"] == 8  # without the stock_id the name still finds the crystals
+
+
+DETECTION_CHECK_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "detection-check.js"
+
+
+def _run_detection_check(payload):
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("node is not installed; the smell-check wording test needs it")
+    program = f"const m = require({json.dumps(str(DETECTION_CHECK_JS))});\nprocess.stdout.write(JSON.stringify(m.detectionCheckLines({json.dumps(payload)})));"
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=60, check=True)
+    return json.loads(completed.stdout)
+
+
+def test_detection_check_words_each_status_and_flag():
+    payload = {
+        "roles": [
+            {"material": "Hedione", "status": "detectable"},
+            {"material": "Linalool", "status": "raised", "dose_before_ul": "20", "dose_after_ul": "45", "intended_windows": ["heart", "late_heart"]},
+            {"material": "Iso E Super", "status": "silent_at_cap", "binding_limit": "IFRA Category 4", "highest_dose_tried_ul": "300", "intended_windows": ["drydown"]},
+            {"material": "Ambroxan", "status": "silent_at_cap", "binding_limit": "dose cap"},
+            {"material": "Rhubarb", "status": "no_threshold_data"},
+            {"material": "Coumarin", "status": "not_checked"},
+        ],
+        "flags": [{"flag": "may_dominate_smell_check", "material": "Citral", "lead_material": "Linalool", "windows": ["opening", "top"]}],
+        "note": "Odour activity is a detection screen, not loudness.",
+    }
+    summary = _run_detection_check(payload)
+    texts = [line["text"] for line in summary["lines"]]
+
+    assert texts == [
+        "Smell check: 2 of 6 notes detectable at their stage",
+        "Linalool: raised from 20 to 45 µL so it can be smelled in the heart and late heart",
+        "Iso E Super: below detection at its limit (IFRA Category 4), tried up to 300 µL",
+        "Ambroxan: below detection at its limit (dose cap)",
+        "Rhubarb: no smell-threshold data",
+        "Coumarin: weighed solid, not checked",
+        "Citral may dominate: smell-check (opening and top)",
+    ]
+    assert summary["flagged"] is True
+    assert summary["note"] == "Odour activity is a detection screen, not loudness."
+    assert _run_detection_check(None) is None
+
+
+@pytest.mark.asyncio
+async def test_formula_card_shows_the_smell_check(client):
+    page = await client.get("/app")
+    javascript = await client.get("/static/lab.js")
+    helper = await client.get("/static/detection-check.js")
+
+    assert helper.status_code == 200
+    assert page.text.index('src="/static/detection-check.js"') < page.text.index('src="/static/lab.js"')
+    assert 'id="formula-result-detection"' in page.text
+    assert "detectionCheckLines(detectionCheck)" in javascript.text
+    assert "renderDetectionCheck(" in javascript.text
