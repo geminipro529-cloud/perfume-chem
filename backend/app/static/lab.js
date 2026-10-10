@@ -1975,6 +1975,7 @@ function renderFormulaDesign(result, variantIndex = 0) {
   renderDetectionCheck((selected.variant ? selected.formula : (selected.formula || result.initial_formula))?.detection_check);
   renderFormulaVoices(selected.variant ? selected.variant.complexity_summary : result.complexity_summary);
   if (typeof renderFormulaLiking === "function") renderFormulaLiking(result, variantIndex, selected);
+  renderScentChart($("#formula-result-scent"), selected.formula?.rows);
   const rows = selected.formula?.rows || [];
   renderFormulaRows(rows);
 

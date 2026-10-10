@@ -29,6 +29,8 @@
   --fail-bg: #F6E1DE; --fail-fg: #6F2219;
   --info-bg: #E8EDF3; --info-fg: #1F4462;
   --focus-ring: rgba(43, 91, 130, .55);
+  --tier-top: #2A7F9E; --tier-heart: #A8477A; --tier-base: #7A5A2E;
+  --chart-grid: #D9D2C1; --chart-axis: #4E5A63;
   --font-display: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
   --font-ui: "Segoe UI", "Aptos", system-ui, -apple-system, sans-serif;
   --font-mono: "Cascadia Mono", Consolas, ui-monospace, monospace;
@@ -60,6 +62,8 @@
     --fail-bg: #3A2220; --fail-fg: #F2B0A8;
     --info-bg: #1E2E3C; --info-fg: #B5D3E8;
     --focus-ring: rgba(141, 184, 216, .6);
+    --tier-top: #7CC4DD; --tier-heart: #E08FBE; --tier-base: #C9A06A;
+    --chart-grid: #2F3A41; --chart-axis: #A9B3B9;
   }
 }
 
@@ -88,6 +92,8 @@
   --fail-bg: #3A2220; --fail-fg: #F2B0A8;
   --info-bg: #1E2E3C; --info-fg: #B5D3E8;
   --focus-ring: rgba(141, 184, 216, .6);
+  --tier-top: #7CC4DD; --tier-heart: #E08FBE; --tier-base: #C9A06A;
+  --chart-grid: #2F3A41; --chart-axis: #A9B3B9;
 }
 
 /* Ground and type --------------------------------------------------------- */
@@ -510,6 +516,8 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
     --hold-bg: #F5EAD6; --hold-fg: #6E480D;
     --fail-bg: #F6E1DE; --fail-fg: #6F2219;
     --info-bg: #E8EDF3; --info-fg: #1F4462;
+    --tier-top: #2A7F9E; --tier-heart: #A8477A; --tier-base: #7A5A2E;
+    --chart-grid: #D9D2C1; --chart-axis: #4E5A63;
   }
   body.printing-bench-sheet, body.printing-bench-sheet .bench-sheet { color: #000; background: #fff; }
   /* Basket headings and pour notes on the bench sheet (lab.css print rules stay as they are). */

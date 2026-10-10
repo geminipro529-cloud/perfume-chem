@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 LAB_DRAFTS_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "lab-drafts.js"
+SCENT_CHART_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "scent-chart.js"
 BENCH_SHEET_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "bench-sheet.js"
 STOCK_DILUTIONS_JS = (
     Path(__file__).resolve().parents[2] / "app" / "static" / "stock-dilutions.js"
@@ -1526,3 +1527,53 @@ async def test_formula_card_shows_the_smell_check(client):
     assert 'id="formula-result-detection"' in page.text
     assert "detectionCheckLines(detectionCheck)" in javascript.text
     assert "renderDetectionCheck(" in javascript.text
+
+
+@pytest.mark.asyncio
+async def test_scent_chart_script_is_served_wired_and_themed(client):
+    page = await client.get("/app")
+    script = await client.get("/static/scent-chart.js")
+    theme = await client.get("/static/theme.css")
+    lab = await client.get("/static/lab.js")
+
+    assert script.status_code == 200
+    assert page.text.index('src="/static/scent-chart.js"') < page.text.index('src="/static/lab.js"')
+    assert 'id="formula-result-scent"' in page.text
+    assert page.text.index('id="formula-result-scent"') < page.text.index('id="formula-result-rows"')
+    assert "renderScentChart(" in lab.text
+    assert "innerHTML" not in script.text
+    # Tokens in the light block, the prefers-color-scheme dark block and the data-theme="dark" block.
+    light, rest = theme.text.split("@media (prefers-color-scheme: dark)", 1)
+    auto_dark, explicit_dark = rest.split(':root[data-theme="dark"] {', 1)
+    for block in (light, auto_dark, explicit_dark.split("}", 1)[0]):
+        for token in ("--tier-top:", "--tier-heart:", "--tier-base:"):
+            assert token in block
+
+
+def test_scent_chart_rows_convert_ml_and_report_weighed_rows_as_not_drawn():
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("node is not installed; the scent chart row test needs it")
+    program = f"""
+const chart = require({json.dumps(str(SCENT_CHART_JS))});
+const rows = [
+  {{identity_name: "Linalool", amount_unit: "uL", amount_decimal: "100", stock_fraction_decimal: "1"}},
+  {{identity_name: "Hedione", amount_unit: "mL", amount_decimal: "0.5", stock_fraction_decimal: "0.1"}},
+  {{identity_name: "Ambrox Crystals", amount_unit: "mg", amount_decimal: "20", stock_fraction_decimal: "1"}},
+];
+const model = chart.scentChartModel({{windows: []}}, chart.scentSkippedNames(rows));
+process.stdout.write(JSON.stringify({{rows: chart.scentChartRows(rows), skipped: model.skipped}}));
+"""
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=60, check=True)
+    result = json.loads(completed.stdout)
+
+    assert [(r["identity_name"], r["amount_ul"]) for r in result["rows"]] == [("Linalool", 100), ("Hedione", 500)]
+    assert result["skipped"] == ["Ambrox Crystals"]
+
+
+@pytest.mark.asyncio
+async def test_scent_chart_script_groups_the_svg_and_guards_missing_series(client):
+    script = (await client.get("/static/scent-chart.js")).text
+
+    assert 'role: "group"' in script and 'role: "img"' not in script
+    assert "?.shares[i] ?? 0" in script
