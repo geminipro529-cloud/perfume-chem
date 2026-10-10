@@ -930,6 +930,237 @@ _CARAWAY_ISO_8896_MIDPOINT_CONSTITUENTS = [
     ("myrcene", 0.0045, 136.24, 400.0, 10.0, 3.0),
 ]
 
+# -- Proxy profiles for owned naturals without a lot analysis (2026-10-09) --
+# Each profile is a labelled literature or supplier proxy, not an analysis of
+# the owned bottle. Inputs reuse this module's existing runtime tuples where the
+# constituent is modeled elsewhere. Constituents without a runtime headspace
+# input stay unresolved, not odorless. Nothing is renormalized.
+
+# Cinnamon bark (not leaf) oil. Supplier certificate of analysis, amrita.net
+# CoA EO3231-CBBL, "Cinnamon Bark Organic, Sri Lanka" (Cinnamomum zeylanicum),
+# GC-FID on DB-5, produced 2022-03-22; it lists only five constituents summing
+# to 96.37%. The owned Telvada lot has no published composition, species or
+# origin. Cinnamaldehyde reuses the ODT_DATA-consistent air ODT (62 ppb,
+# engine/odor_thresholds.py) that the storax row uses. (E)-Cinnamyl acetate
+# (4.02%) has no runtime headspace input and stays unresolved. Leaf-oil
+# profiles (eugenol-dominant) are non-equivalent and are not used.
+_CINNAMON_BARK_SRI_LANKA_COA_CONSTITUENTS = [
+    ("cinnamaldehyde", 0.7971, 132.16, 3.0, 62.0, 2.0),
+    ("eugenol", 0.0600, 164.20, 2.50, 0.50, 1.5),
+    ("linalool", 0.0486, 154.25, 21.3, 1.5, 2.0),
+    ("beta caryophyllene", 0.0178, 204.35, 1.0, 10.0, 1.2),
+]
+
+# Lavandin (Lavandula x intermedia) supercritical-CO2 extract, Pellerin,
+# Perfumer & Flavorist 16(4):37 (1991), as tabulated by The Good Scents Company
+# (thegoodscentscompany.com/gca/gc1045781.html) under "lavandin absolute".
+# 57.3% of the extract is listed; 42.7% is an unknown remainder. A CO2 extract
+# is not a solvent-extracted absolute. Herniarin (2.6%) has no runtime input,
+# and beta-caryophyllene + alpha-humulene (2.4%) is reported only as a sum with
+# no split; both stay unresolved.
+_LAVANDIN_CO2_PELLERIN_1991_CONSTITUENTS = [
+    ("linalyl acetate", 0.284, 196.29, 17.5, 2.7, 2.0),
+    ("linalool", 0.101, 154.25, 21.3, 1.5, 2.0),
+    ("coumarin", 0.077, 146.14, 0.05, 2.0, 0.5),
+    ("lavandulyl acetate", 0.018, 196.29, 3.0, 5.0, 1.5),
+    ("camphor", 0.017, 152.23, 25.0, 20.0, 2.0),
+    ("borneol", 0.015, 154.25, 3.00, 10.0, 1.5),
+    ("terpinen-4-ol", 0.011, 154.25, 10.0, 50.0, 1.5),
+]
+
+# Ambrette (Abelmoschus moschatus) seed OIL, GC-MS area %, NIST library IDs,
+# Arokiyaraj et al., Molecules 2015, 20:384 (PMC6272330), Table 1. This is a
+# seed oil, not the owned absolute. The reported "ambrettolide" peak is a NIST
+# library ID and may be (Z)-hexadec-7-en-16-olide or a related isomer; it uses
+# the data-spine MW 252.4 and VP 0.003 Pa (an uncited engine estimate) with
+# the ODT_DATA air ODT 0.136 ppb (Kraft 2005); gamma 0.5 is the macrocyclic
+# musk class input. Farnesyl acetate (51.45%), the alkyl acetates and the
+# alkenyl acetates have no runtime headspace input and stay unresolved.
+# Linoleic acid is a non-volatile mass row, as in the tuberose profile.
+_AMBRETTE_SEED_OIL_AROKIYARAJ_2015_CONSTITUENTS = [
+    ("ambrettolide", 0.1296, 252.4, 0.003, 0.136, 0.5),
+    ("farnesol", 0.0266, 222.37, 0.05, 3.00, 0.6),
+    ("alpha guaiene", 0.0116, 204.35, 1.00, 3.00, 1.2),
+    ("linoleic acid", 0.0203, 280.45, 0.0, 1e6, 0.5),
+]
+
+# Orris concrete / butter (Iris pallida or I. germanica rhizome). Supplier
+# grade labels "ORRIS CONCRETE 8% IRONE" and "15% IRONE" exist
+# (thegoodscentscompany.com/data/co1001091.html); the owned PerfumersWorld
+# grade's irone content is unknown, so the conservative low grade (8% total
+# irones) is modeled with the module's existing orris irone-pool input.
+# Myristic acid is the midpoint of the 60-85% range (Premiere Peau glossary)
+# and is a non-volatile mass row, as the palmitic acid rows are.
+_ORRIS_CONCRETE_8PCT_IRONE_CONSTITUENTS = [
+    ("irone pool (alpha-equivalent)", 0.08, 206.32, 0.559, 0.9, 1.3),
+    ("myristic acid", 0.725, 228.38, 0.0, 1e6, 0.5),
+]
+
+# -- Proxy profiles, batch B (2026-10-09) --
+# Same conventions as the block above: labelled literature or supplier proxies,
+# reused runtime tuples, unresolved constituents kept, nothing renormalized.
+
+# Michelia alba DC. (Magnolia x alba) flower, Zhu et al. (1993) Aromatic Plants
+# and Essential Constituents p.14, as tabulated by scent.vn ("Michelia alba
+# flower absolute (China)"; listed sum 92.03%). The page calls the sample an
+# absolute, but a 76% linalool profile matches the published distilled-oil
+# pattern (linalool-dominant), so the sample type is doubtful. The owner's
+# Magnolia EO is Michelia alba flower oil (owner-confirmed; Shopee shop "True
+# Industry"); no supplier composition exists. Phenylethyl alcohol uses its cited
+# data-spine VP (11.57 Pa, PubChem HSDB / Daubert & Danner 1989, which the
+# runtime would substitute anyway) and the ODT_DATA literature air ODT (26 ppb,
+# engine/odor_thresholds.py). Citral (0.10%) uses the module's 3.0 Pa / 0.5 ppb
+# citral row. Eleven minor constituents (6.17%) have no runtime input and stay
+# unresolved.
+_MICHELIA_ALBA_FLOWER_ZHU_1993_CONSTITUENTS = [
+    ("linalool", 0.7629, 154.25, 21.3, 1.5, 2.0),
+    ("phenylethyl alcohol", 0.0638, 122.16, 11.57, 26.0, 0.7),
+    ("methyl eugenol", 0.0232, 178.23, 2.0, 0.5, 1.5),
+    ("benzyl acetate", 0.0033, 150.17, 20.0, 2.0, 2.0),
+    ("1,8-cineole", 0.0030, 154.25, 200.0, 50.0, 2.0),
+    ("neral", 0.0014, 152.23, 3.0, 0.5, 1.5),
+    ("citral", 0.0010, 152.23, 3.0, 0.5, 1.5),
+]
+
+# PerfumersWorld IFRA certificate for "Champaca Flower Essential Oil", SKU
+# 7NJ07740 (CAS 94333-99-0; PW synonym "Michaellia Alba FLOWER Oil"). These are
+# supplier-declared levels of IFRA-relevant items only (57.0% listed), not a
+# full composition or an analysis of the owned bottle. The certificate names
+# "Linalool synthetic", so the product may be reconstituted or extended. The
+# linalool-dominant pattern matches Michelia alba oil, not true Michelia champaca
+# absolute (Kaiser 1989, phenylethyl alcohol/ester/ionone profile), which is
+# non-equivalent and not used. L-Carvone and safrole have no runtime input.
+_CHAMPACA_PW_7NJ07740_IFRA_DECLARATION_CONSTITUENTS = [
+    ("linalool", 0.529063, 154.25, 21.3, 1.5, 2.0),
+    ("benzyl benzoate", 0.020679, 212.24, 0.02, 810.0, 0.5),
+    ("benzyl salicylate", 0.009121, 228.24, 0.01, 50.0, 0.5),
+    ("limonene", 0.006484, 136.23, 200.0, 20.0, 3.0),
+    ("methyl eugenol", 0.004126, 178.23, 2.0, 0.5, 1.5),
+]
+
+# Peru balsam (Myroxylon balsamum var. pereirae). PerfumersWorld SKU 2QV00363
+# ("Peru Balsam Resinoid") allergen values as relayed by the owner and not
+# re-verified against the supplier document. They are declared levels of
+# regulated allergens, not a full composition. Benzyl cinnamate (16.71%) and
+# benzaldehyde (0.02%) have no runtime headspace input and stay unresolved;
+# cinnamic acid, nerolidol and vanillin are reported in literature only as GC-MS
+# peak areas, which cannot be converted to percent, and are not modeled.
+_PERU_BALSAM_PW_2QV00363_ALLERGEN_DECLARATION_CONSTITUENTS = [
+    ("benzyl benzoate", 0.268389, 212.24, 0.02, 810.0, 0.5),
+    ("eugenol", 0.000300, 164.20, 2.50, 0.50, 1.5),
+    ("coumarin", 0.000162, 146.14, 0.05, 2.0, 0.5),
+]
+
+# -- Proxy profiles for further owned naturals (2026-10-09, batch A) --
+# Same conventions as the block above: labelled literature or supplier proxies,
+# existing runtime tuples reused, constituents without a runtime headspace input
+# kept unresolved (not odorless), nothing renormalized.
+
+# Basil (Ocimum basilicum L.) oil, India, methyl chavicol (estragole) type.
+# Botanic Universe "Basil Sweet Essential Oil India" supplier GC report
+# (2018-03-21): estragole 75.16%, linalool 18.13%; Gulati 1977 (via scent.vn)
+# reports an Indian oil at estragole 77.5% / linalool 19.1%. This origin-matched
+# GC is used instead of ISO 11043:1998 because Indian oil's linalool (18-19%)
+# lies far outside the standard's 0.5-3% range. Estragole, alpha-bisabolene,
+# alpha-trans-bergamotene and alpha-humulene have no runtime headspace input and
+# stay unresolved. trans-beta-Ocimene reuses the generic ocimene row.
+_BASIL_INDIA_ESTRAGOLE_SUPPLIER_GC_CONSTITUENTS = [
+    ("linalool", 0.1813, 154.25, 21.3, 1.5, 2.0),
+    ("geranial", 0.0064, 152.23, 3.0, 0.5, 1.5),
+    ("beta caryophyllene", 0.0040, 204.35, 1.0, 10.0, 1.2),
+    ("germacrene d", 0.0038, 204.35, 1.0, 5.0, 1.2),
+    ("neral", 0.0037, 152.23, 3.0, 0.5, 1.5),
+    ("ocimene", 0.0027, 136.24, 250.0, 20.0, 3.0),
+    ("menthol", 0.0026, 156.2652, 4.5, 1000.0 * 10.0 ** (-1.660), 2.0),
+]
+
+# Tagetes (Tagetes minuta L.) whole-plant oil, India, Bansal et al., J. Essent.
+# Oil Res. 11:747 (1999), via scent.vn; 82.6% of the oil is listed. The
+# character ketones (dihydrotagetone 48.7%, (Z)- and (E)-tagetone, (Z)-tagetenone,
+# ocimenone) have no runtime headspace input and stay unresolved, so the modeled
+# headspace does not represent tagetes character. (Z)-beta-Ocimene reuses the
+# generic ocimene row.
+_TAGETES_MINUTA_INDIA_BANSAL_1999_CONSTITUENTS = [
+    ("ocimene", 0.080, 136.24, 250.0, 20.0, 3.0),
+    ("limonene", 0.034, 136.24, 200.0, 20.0, 3.0),
+]
+
+# Helichrysum italicum subsp. italicum oil, industrial distilled Corsican oil,
+# Bianchini et al., Flavour Fragr. J. 16:30 (2001), via scent.vn; 91.5% is
+# listed. Corsican oil is used rather than the Croatian wild-population mean
+# (Blazevic 1995) because it is an industrially distilled commercial oil and is
+# the source the module's immortelle absolute profile already cites; the owned
+# oil's origin is unknown. gamma-Curcumene reuses the immortelle absolute row.
+# Neryl propionate, italicene, alpha-curcumene, eudesm-5-en-11-ol and the
+# beta-diketones have no runtime headspace input and stay unresolved.
+_HELICHRYSUM_CORSICA_BIANCHINI_2001_CONSTITUENTS = [
+    ("neryl acetate", 0.326, 196.29, 3.0, 10.0, 1.5),
+    ("gamma-curcumene", 0.117, 204.35, 0.5, 5.0, 1.2),
+    ("limonene", 0.075, 136.24, 200.0, 20.0, 3.0),
+    ("nerol", 0.047, 154.25, 2.02, 5.00, 1.5),
+    ("alpha pinene", 0.018, 136.24, 400.0, 20.0, 3.0),
+]
+
+# Guaiacwood (Bulnesia sarmientoi, "palo santo") wood oil, steam-distilled
+# trunk-wood shavings, Formosa, Argentina, GC-MS relative %, Enriquez &
+# Orrabalis, Multequina 28:59-66 (2019), Table 1 "componentes principales";
+# the six listed peaks sum to 99.39% and no total identified is stated. The
+# owned stock has no supplier SKU, origin or lot record. Bulnesol (58.18%),
+# guaiol (28.71%), elemol (10.17%) and alpha-gurjunene (1.08%) have no runtime
+# headspace input and stay unresolved, so the modeled rows below do not carry
+# guaiacwood character. alpha-Guaiene and beta-caryophyllene reuse this
+# module's existing tuples (patchouli and cinnamon bark rows).
+_GUAIACWOOD_ENRIQUEZ_2019_CONSTITUENTS = [
+    ("alpha guaiene", 0.0067, 204.35, 1.00, 3.00, 1.2),
+    ("beta caryophyllene", 0.0058, 204.35, 1.0, 10.0, 1.2),
+]
+
+# -- Proxy profiles, batch D (2026-10-09) --
+# Same conventions as the blocks above: labelled literature or supplier proxies,
+# reused runtime tuples, unresolved constituents kept, nothing renormalized.
+
+# Rosa x damascena Mill. oil, Bulgaria: ISO 9842 ranges as reprinted on two
+# Sanritsu certificates of analysis (N1507G25, N1507G26); the ISO edition is not
+# stated. Fractions are range midpoints, as in the caraway ISO 8896 profile.
+# beta-Phenylethanol (<3.5%) and ethanol (<2.0%) have only an upper bound, so no
+# value is invented and both stay unresolved. Citronellol reuses the 2.0 Pa row
+# (data-spine VP 2.26 Pa); geraniol and nerol reuse the module's rows. The
+# stearoptene alkanes are mass-only rows (VP 0, as the mimosa alkanes are);
+# heneicosane uses its formula mass (C21H44). Trace character odorants
+# (beta-damascenone, rose oxide, methyl eugenol) are not in the ranges and are
+# not modeled. The uncited "rose essential oil" profile is not reused.
+_ROSE_OTTO_BULGARIA_ISO_9842_MIDPOINT_CONSTITUENTS = [
+    ("citronellol", 0.27, 156.27, 2.0, 5.0, 2.0),
+    ("geraniol", 0.185, 154.25, 4.00, 2.00, 1.5),
+    ("nerol", 0.085, 154.25, 2.02, 5.00, 1.5),
+    ("nonadecane", 0.115, 268.5, 0.0, 1e6, 0.5),
+    ("heneicosane", 0.0425, 296.58, 0.0, 1e6, 0.5),
+    ("heptadecane", 0.0175, 240.5, 0.0, 1e6, 0.5),
+]
+
+# Vetiver (Chrysopogon zizanioides) oil, Haiti: Amrita certificate of analysis,
+# Organic Vetiver, lot 5101-LCAA, December 2024, GC on DB-5. Five constituents
+# are listed (50.04%). Khusimol and trans-isovalencenol reuse the existing
+# _VETIVER_EO_CONSTITUENTS rows; vetiselinenol, cyclocopacamphenol and
+# beta-vetivenene have no runtime input and stay unresolved. Vetivones and
+# khusimone are not listed, so the characteristic vetiver note is not modeled.
+_VETIVER_HAITI_AMRITA_5101_LCAA_COA_CONSTITUENTS = [
+    ("khusimol", 0.1980, 220.35, 0.001, 0.50, 0.4),
+    ("isovalencenol", 0.1488, 222.37, 0.01, 2.00, 0.5),
+]
+
+# Hay absolute. PerfumersWorld allergen declaration for SKU 8NY00523 (neat):
+# declared levels of regulated allergens only (1.7775% listed), basis not
+# stated; not a full composition. "Terpineol" (CAS 8000-41-7, an isomer
+# mixture) is mapped to the module's alpha-terpineol row. Vanillin reuses the
+# 0.005 Pa / 0.6 ppb row used by the benzoin and tonka profiles.
+_HAY_ABSOLUTE_PW_8NY00523_ALLERGEN_DECLARATION_CONSTITUENTS = [
+    ("vanillin", 0.010262, 152.15, 0.005, 0.6, 0.5),
+    ("linalyl acetate", 0.005326, 196.29, 17.5, 2.7, 2.0),
+    ("alpha terpineol", 0.001609, 154.25, 2.0, 10.0, 1.5),
+    ("coumarin", 0.000578, 146.14, 0.05, 2.0, 0.5),
+]
+
 # ── Master Registry ───────────────────────────────────────────────────
 
 _ABSOLUTE_CONSTITUENTS = {
@@ -1041,12 +1272,52 @@ _ABSOLUTE_CONSTITUENTS = {
         _NUTMEG_INDONESIAN_ISO_3215_MIDPOINT_CONSTITUENTS
     ),
     "carum carvi fruit oil iso 8896 midpoint profile": _CARAWAY_ISO_8896_MIDPOINT_CONSTITUENTS,
+    "cinnamomum zeylanicum bark oil sri lanka supplier coa profile": (
+        _CINNAMON_BARK_SRI_LANKA_COA_CONSTITUENTS
+    ),
+    "lavandula x intermedia supercritical co2 extract pellerin 1991 profile": (
+        _LAVANDIN_CO2_PELLERIN_1991_CONSTITUENTS
+    ),
+    "abelmoschus moschatus seed oil arokiyaraj 2015 gc-ms profile": (
+        _AMBRETTE_SEED_OIL_AROKIYARAJ_2015_CONSTITUENTS
+    ),
+    "iris rhizome concrete 8 pct irone low grade scenario profile": (
+        _ORRIS_CONCRETE_8PCT_IRONE_CONSTITUENTS
+    ),
     "tonka bean solvent extract literature profile": _TONKA_SOLVENT_EXTRACT_PROXY_CONSTITUENTS,
     # Specialty bases
     "cassis base 345b": _CASSIS_BASE_345B_CONSTITUENTS,
     # New EOs 2026-06-15
     "rose essential oil": _ROSE_EO_CONSTITUENTS,
     "cassia essential oil": _CASSIA_EO_CONSTITUENTS,
+    "bulnesia sarmientoi wood oil enriquez 2019 gc-ms profile": (
+        _GUAIACWOOD_ENRIQUEZ_2019_CONSTITUENTS
+    ),
+    "ocimum basilicum oil india estragole type supplier gc profile": (
+        _BASIL_INDIA_ESTRAGOLE_SUPPLIER_GC_CONSTITUENTS
+    ),
+    "tagetes minuta whole plant oil india bansal 1999 profile": (
+        _TAGETES_MINUTA_INDIA_BANSAL_1999_CONSTITUENTS
+    ),
+    "helichrysum italicum oil corsica bianchini 2001 profile": (
+        _HELICHRYSUM_CORSICA_BIANCHINI_2001_CONSTITUENTS
+    ),
+    "michelia alba flower oil zhu 1993 literature profile": _MICHELIA_ALBA_FLOWER_ZHU_1993_CONSTITUENTS,
+    "champaca flower oil perfumersworld 7nj07740 ifra declaration profile": (
+        _CHAMPACA_PW_7NJ07740_IFRA_DECLARATION_CONSTITUENTS
+    ),
+    "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile": (
+        _PERU_BALSAM_PW_2QV00363_ALLERGEN_DECLARATION_CONSTITUENTS
+    ),
+    "rosa x damascena bulgarian oil iso 9842 midpoint profile": (
+        _ROSE_OTTO_BULGARIA_ISO_9842_MIDPOINT_CONSTITUENTS
+    ),
+    "chrysopogon zizanioides haiti oil amrita 5101-lcaa coa profile": (
+        _VETIVER_HAITI_AMRITA_5101_LCAA_COA_CONSTITUENTS
+    ),
+    "hay absolute perfumersworld 8ny00523 allergen declaration profile": (
+        _HAY_ABSOLUTE_PW_8NY00523_ALLERGEN_DECLARATION_CONSTITUENTS
+    ),
 }
 
 
@@ -1088,6 +1359,32 @@ _PROFILE_ALIASES = {
     # Owner stock "Caraway Seed Oil (10% w/w in DPG)": Carum carvi seed oil.
     "caraway seed eo": "carum carvi fruit oil iso 8896 midpoint profile",
     "caraway seed oil (10% w/w in dpg)": "carum carvi fruit oil iso 8896 midpoint profile",
+    # Owner stock "Cinnamon Bark EO - Telvada USDA Organic (neat)": bark oil,
+    # lot species and origin unknown. Leaf oil is not mapped.
+    "cinnamon bark eo": "cinnamomum zeylanicum bark oil sri lanka supplier coa profile",
+    "cinnamon bark eo - telvada usda organic": (
+        "cinnamomum zeylanicum bark oil sri lanka supplier coa profile"
+    ),
+    # Owner stock "Lavandin Absolute (neat / as supplied)", PerfumersWorld 8HY00554.
+    "lavandin absolute": "lavandula x intermedia supercritical co2 extract pellerin 1991 profile",
+    "lavandin absolute (neat / as supplied)": (
+        "lavandula x intermedia supercritical co2 extract pellerin 1991 profile"
+    ),
+    # Owner stock "Ambrette Seed Absolute (10% in DPG)", PerfumersWorld 5XU12235.
+    "ambrette seed absolute": "abelmoschus moschatus seed oil arokiyaraj 2015 gc-ms profile",
+    "ambrette seed absolute (10% in dpg)": (
+        "abelmoschus moschatus seed oil arokiyaraj 2015 gc-ms profile"
+    ),
+    # Owner stock "Orris Concrete Orris Butter (10% in DPG)", PerfumersWorld
+    # 5IA07847; distinct from Orris Liquid 8IQ24653.
+    "orris concrete orris butter": "iris rhizome concrete 8 pct irone low grade scenario profile",
+    "orris concrete orris butter (10% in dpg)": (
+        "iris rhizome concrete 8 pct irone low grade scenario profile"
+    ),
+    # Owner stock "Siam Benzoin (50% w/w in DPG)": same Styrax tonkinensis
+    # resinoid identity as the existing Siam benzoin profile.
+    "siam benzoin": "benzoin siam resinoid",
+    "siam benzoin (50% w/w in dpg)": "benzoin siam resinoid",
     # Aroma&More SKU Lav420811P: sold as French Lavandula angustifolia oil.
     # It reuses the generic L. angustifolia profile as a labelled proxy.
     "lavender 40/42, aroma&more": "lavender eo",
@@ -1123,6 +1420,50 @@ _PROFILE_ALIASES = {
     "oman frankincense resin ethanol tincture": (
         "oman boswellia resin ethanol tincture generic profile"
     ),
+    # Owner stock "Magnolia EO (neat / as supplied)": Michelia alba flower oil
+    # (owner-confirmed species; Shopee shop "True Industry").
+    "magnolia eo": "michelia alba flower oil zhu 1993 literature profile",
+    # Owner stock "Champaca Flower EO"; PerfumersWorld 7NJ07740 is assumed.
+    "champaca flower eo": "champaca flower oil perfumersworld 7nj07740 ifra declaration profile",
+    # Owner stock "Peru Balsam Resinoid (50% w/w in DEP)" and the V5 requirement
+    # row "Peru Balsam 10%" (10% stock not prepared): same balsam identity.
+    "peru balsam resinoid": "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile",
+    "peru balsam resinoid (50% w/w in dep)": "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile",
+    "peru balsam": "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile",
+    "peru balsam 10%": "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile",
+    # Only the V5 row that names the chemotype ("ct. Methyl Chavicol") maps.
+    # Profile lookup drops parentheticals, so the owner stock "Basil EO (India,
+    # Ocimum Basilicum)" reads as a bare "Basil EO", whose chemotype is unknown
+    # and which stays unresolved.
+    "basil eo ct. methyl chavicol": (
+        "ocimum basilicum oil india estragole type supplier gc profile"
+    ),
+    # Owner stock "Tagetes EO (10% in DPG)": Tagetes minuta; origin unknown.
+    "tagetes eo": "tagetes minuta whole plant oil india bansal 1999 profile",
+    "tagetes eo (10% in dpg)": "tagetes minuta whole plant oil india bansal 1999 profile",
+    "tagetes eo 10%": "tagetes minuta whole plant oil india bansal 1999 profile",
+    # Owner stock "Helichrysum EO": H. italicum (immortelle) oil; origin unknown.
+    # Distinct from the immortelle absolute profile.
+    "helichrysum eo": "helichrysum italicum oil corsica bianchini 2001 profile",
+    # Owner stock "Guaiacwood EO (exactly 1/3 w/w in ethanol + DEP ...)":
+    # Bulnesia sarmientoi wood oil; no supplier SKU, origin or lot recorded.
+    "guaiacwood eo": "bulnesia sarmientoi wood oil enriquez 2019 gc-ms profile",
+    "guaiacwood eo (exactly 1/3 w/w in ethanol + dep; components are 1/3 guaiacwood eo + 1/3 ethanol + 1/3 dep by mass)": (
+        "bulnesia sarmientoi wood oil enriquez 2019 gc-ms profile"
+    ),
+    # Owner stock "Rose Otto Bulgarian (10% in DPG)", PerfumersWorld 5RR12478;
+    # the profile is the neat oil (dilution is handled elsewhere).
+    "rose otto bulgarian": "rosa x damascena bulgarian oil iso 9842 midpoint profile",
+    "rose otto bulgarian (10% in dpg)": "rosa x damascena bulgarian oil iso 9842 midpoint profile",
+    # Owner stock "Haitian Vetiver EO (neat / as supplied)" (owner corrected the
+    # Indian-origin label 2026-09-10).
+    "haitian vetiver eo": "chrysopogon zizanioides haiti oil amrita 5101-lcaa coa profile",
+    "haitian vetiver eo (neat / as supplied)": "chrysopogon zizanioides haiti oil amrita 5101-lcaa coa profile",
+    # Owner stock "Hay Absolute (10% w/w in DPG; homogeneous)" and the V5 row
+    # "Hay Absolute 10%"; the profile is the neat absolute.
+    "hay absolute": "hay absolute perfumersworld 8ny00523 allergen declaration profile",
+    "hay absolute (10% w/w in dpg; homogeneous)": "hay absolute perfumersworld 8ny00523 allergen declaration profile",
+    "hay absolute 10%": "hay absolute perfumersworld 8ny00523 allergen declaration profile",
 }
 
 _LAVENDER_40_42_PROXY_LIMITATIONS = (
@@ -1175,6 +1516,18 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
         "Composition is the midpoint of published Peruvian Schinus molle fruit-EO ranges, not an Aroma&More lot GC-MS or GC-O assay.",
         "No Schinus-specific GC-O/AEDA profile was located; phellandrene, p-cymene, and methyl-octanoate VP/ODT inputs are modeled by class.",
         "Plant part, origin, extraction, oxidation state, density, and current leave-on IFRA conformity for the user's bottle remain unverified.",
+    ),
+    "guaiacwood eo": (
+        "The owned Guaiacwood EO has no supplier SKU, origin or lot record; the reused composition is one published Argentine wood-oil GC-MS, not an analysis of that bottle.",
+    ),
+    "rose otto bulgarian": (
+        "The owned Rose Otto Bulgarian (PerfumersWorld 5RR12478) is modeled from ISO 9842 range midpoints reprinted on a supplier certificate, not from an analysis of that lot.",
+    ),
+    "haitian vetiver eo": (
+        "The owned Haitian Vetiver EO is modeled from one supplier lot certificate (Amrita 5101-LCAA), not from an analysis of the owned bottle.",
+    ),
+    "hay absolute": (
+        "The owned Hay Absolute is modeled from PerfumersWorld 8NY00523 declared allergen levels (about 1.8% of the absolute); the bought SKU is unverified.",
     ),
 }
 
@@ -1270,6 +1623,22 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://www.iso.org/standard/66253.html",
         "https://cdn.standards.iteh.ai/samples/66253/ec9d0977d3e24e3a85813e08ef968e27/ISO-8896-2016.pdf",
     ),
+    "cinnamomum zeylanicum bark oil sri lanka supplier coa profile": (
+        "amrita.net certificate of analysis EO3231-CBBL, Cinnamon Bark Organic, Sri Lanka (2022-03-22)",
+    ),
+    "lavandula x intermedia supercritical co2 extract pellerin 1991 profile": (
+        "https://www.thegoodscentscompany.com/gca/gc1045781.html",
+        "Pellerin P. (1991) Perfumer & Flavorist 16(4):37",
+    ),
+    "abelmoschus moschatus seed oil arokiyaraj 2015 gc-ms profile": (
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6272330/",
+        "https://thegoodscentscompany.com/data/ab1029391.html",
+    ),
+    "iris rhizome concrete 8 pct irone low grade scenario profile": (
+        "https://thegoodscentscompany.com/data/co1001091.html",
+        "https://premierepeau.com/pages/glossary-terms/orris-concrete",
+        "https://www.perfumersworld.com/view.php?pro_id=8IA00344",
+    ),
     "citrus bergamia calabrian type iso 3520 midpoint profile": (
         "https://www.iso.org/standard/81602.html",
         "https://cdn.standards.iteh.ai/samples/81602/2b45583f486b4ae29289d765e8a46f9c/ISO-3520-2022.pdf",
@@ -1277,6 +1646,45 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "citrus paradisi expressed oil iso 3053 midpoint profile": (
         "https://www.iso.org/standard/32040.html",
         "https://cdn.standards.iteh.ai/samples/32040/5decda805f4f4d28af4cdb41a472155b/ISO-3053-2004.pdf",
+    ),
+    "michelia alba flower oil zhu 1993 literature profile": (
+        "https://scent.vn/pages/oil/michelia-alba-flower-absolute-china-1874",
+        "https://thegoodscentscompany.com/data/es1068501.html",
+        "https://li01.tci-thaijo.org/index.php/anres/article/view/244814",
+    ),
+    "champaca flower oil perfumersworld 7nj07740 ifra declaration profile": (
+        "https://www.perfumersworld.com/ifra/IFRA/IFRA_7NJ07740.pdf",
+        "https://www.perfumersworld.com/view.php?pro_id=7NJ07740",
+    ),
+    "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile": (
+        "https://www.perfumersworld.com/view.php?pro_id=2QV00363",
+        "https://keele-repository.worktribe.com/OutputFile/459690",
+    ),
+    "ocimum basilicum oil india estragole type supplier gc profile": (
+        "https://cdn.shopify.com/s/files/1/1277/1723/files/Basil_Sweet_Essential_Oil_India_GC.pdf",
+        "https://scent.vn/en/pages/oil/basil-india-1295",
+        "https://cdn.standards.iteh.ai/samples/19023/cff9800fd51d45149a8e27345adaa0bf/ISO-11043-1998.pdf",
+    ),
+    "tagetes minuta whole plant oil india bansal 1999 profile": (
+        "https://scent.vn/en/pages/oil/tagetes-india-6a-whole-plant-3230",
+    ),
+    "helichrysum italicum oil corsica bianchini 2001 profile": (
+        "https://scent.vn/en/pages/oil/helichrysum-italicum-france-corsica-3417",
+        "https://scent.vn/en/pages/oil/helichrysum-italicum-croatia-1a-2722",
+    ),
+    "bulnesia sarmientoi wood oil enriquez 2019 gc-ms profile": (
+        "https://www.redalyc.org/journal/428/42862466009/42862466009.pdf",
+        "Enriquez M.B., Orrabalis C.J. (2019) Multequina 28:59-66, Table 1",
+    ),
+    "rosa x damascena bulgarian oil iso 9842 midpoint profile": (
+        "https://gigaplus.makeshop.jp/aromastore/images/download/N1507G25.pdf",
+        "https://gigaplus.makeshop.jp/aromastore/images/download/N1507G26.pdf",
+    ),
+    "chrysopogon zizanioides haiti oil amrita 5101-lcaa coa profile": (
+        "https://www.amrita.net/content/product_files/CoA%20-%20EO5101%20Vetiver%20%28Organic%29%20LCAA%201-2-25.pdf",
+    ),
+    "hay absolute perfumersworld 8ny00523 allergen declaration profile": (
+        "https://www.perfumersworld.com/document-list.php?pro_id=8NY00523&tab=allergen",
     ),
 }
 
@@ -1355,6 +1763,221 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "ISO 8896 describes a conforming commercial caraway oil; it is not an analysis of the owned bottle, whose supplier, origin and lot are not recorded.",
             "Range midpoints are nominal model inputs; a conforming oil can sit anywhere in each range (carvone 50-63%, limonene 33-45%). The range minima sum to 83.5% and the maxima to 111.2%.",
             "Only 39.45% of nominal composition is modeled (limonene and myrcene). Carvone, the caraway character constituent, has no runtime headspace input; it and the other unresolved constituents remain uncomputed, not odorless, so the modeled headspace does not represent caraway character.",
+        ),
+    },
+    "cinnamomum zeylanicum bark oil sri lanka supplier coa profile": {
+        "analytical_method": "SUPPLIER_COA_GC_FID",
+        "composition_basis": "SUPPLIER_COA_GC_AREA_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "amrita.net certificate of analysis EO3231-CBBL",
+                "document": "Cinnamon Bark Organic, Sri Lanka, CoA EO3231-CBBL (produced 2022-03-22)",
+                "published_botanical_name": "Cinnamomum zeylanicum (C. verum)",
+                "published_type": "Bark oil, organic, Sri Lanka",
+                "quantitation": "GC_FID_DB5_AREA_PCT",
+                "reported_pct": {
+                    "(E)-cinnamaldehyde": 79.71,
+                    "eugenol": 6.00,
+                    "linalool": 4.86,
+                    "(E)-cinnamyl acetate": 4.02,
+                    "beta-caryophyllene": 1.78,
+                },
+                "reported_sum_pct": 96.37,
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Cinnamon Bark EO - Telvada USDA Organic (neat)",
+                "owned_species_and_origin_recorded": False,
+                "leaf_oil_rows_used": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("cinnamaldehyde", "eugenol", "linalool", "beta caryophyllene")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "(E)-cinnamyl acetate",
+                "reported_fraction": 0.0402,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The composition is one supplier's certificate for a Sri Lanka organic bark oil, not an analysis of the owned Telvada bottle, whose species, origin and lot composition are unknown.",
+            "The certificate lists only five constituents (96.37% of area); GC-FID areas are nominal model inputs, not measured mass fractions.",
+            "Bark oil only: cinnamon leaf oil (eugenol-dominant) is non-equivalent and must not be mapped to this profile.",
+            "Cinnamaldehyde uses the ODT_DATA air ODT of 62 ppb; the cassia profile keeps an older 0.5 ppb input, so the two cinnamaldehyde-rich profiles are not on the same ODT basis.",
+            "(E)-Cinnamyl acetate (4.02%) has no runtime headspace input and remains uncomputed, not odorless.",
+        ),
+    },
+    "lavandula x intermedia supercritical co2 extract pellerin 1991 profile": {
+        "analytical_method": "LITERATURE_GC_SUPERCRITICAL_CO2_EXTRACT",
+        "composition_basis": "LITERATURE_PERCENT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.thegoodscentscompany.com/gca/gc1045781.html",
+                "document": "Pellerin P. (1991) Perfumer & Flavorist 16(4):37, as tabulated by The Good Scents Company",
+                "published_botanical_name": "Lavandula x intermedia (species not stated in the tabulation)",
+                "published_type": "Supercritical CO2 extract labelled lavandin absolute",
+                "reported_pct": {
+                    "linalyl acetate": 28.4,
+                    "linalool": 10.1,
+                    "coumarin": 7.7,
+                    "herniarin": 2.6,
+                    "beta-caryophyllene + alpha-humulene": 2.4,
+                    "lavandulyl acetate": 1.8,
+                    "camphor": 1.7,
+                    "borneol": 1.5,
+                    "terpinen-4-ol": 1.1,
+                },
+                "reported_sum_pct": 57.3,
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Lavandin Absolute (neat / as supplied)",
+                "owned_supplier_reference": "PerfumersWorld 8HY00554",
+                "owned_extraction_matches_source": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("linalyl acetate", "linalool", "coumarin", "lavandulyl acetate",
+                            "camphor", "borneol", "terpinen-4-ol")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "herniarin",
+                "reported_fraction": 0.026,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "beta-caryophyllene + alpha-humulene",
+                "reported_fraction": 0.024,
+                "missing_input": "CO_REPORTED_SUM_NOT_SPLIT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The source is a supercritical CO2 extract; the owned PerfumersWorld 8HY00554 material is sold as a solvent absolute. The two extractions are non-equivalent (coumarin, herniarin and non-volatile fractions can differ).",
+            "Only 57.3% of the extract is listed; the 42.7% unknown remainder is uncomputed, not odorless, and nothing is renormalized.",
+            "Herniarin (2.6%) has no runtime headspace input, and beta-caryophyllene + alpha-humulene (2.4%) is reported only as a sum; both remain uncomputed.",
+            "This is a 1991 literature profile, not an analysis of the owned product or lot.",
+        ),
+    },
+    "abelmoschus moschatus seed oil arokiyaraj 2015 gc-ms profile": {
+        "analytical_method": "LITERATURE_GC_MS_NIST_LIBRARY_ID",
+        "composition_basis": "GC_MS_AREA_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6272330/",
+                "document": "Arokiyaraj et al., Molecules 2015, 20:384, Table 1",
+                "published_botanical_name": "Abelmoschus moschatus Medik.",
+                "published_type": "Seed oil (not an absolute); extraction method not verified",
+                "quantitation": "GC_MS_AREA_PCT_NIST_LIBRARY_ID_NO_RI_NO_CALIBRATION",
+                "reported_pct": {
+                    "farnesol acetate": 51.45,
+                    "ambrettolide": 12.96,
+                    "lauryl acetate": 7.80,
+                    "decyl acetate": 6.53,
+                    "(Z)-5-tetradecen-1-ol acetate": 3.74,
+                    "(E)-farnesol": 2.66,
+                    "(Z)-5-dodecen-1-ol acetate": 2.09,
+                    "linoleic acid": 2.03,
+                    "alpha-guaiene": 1.16,
+                },
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Ambrette Seed Absolute (10% in DPG)",
+                "owned_supplier_reference": "PerfumersWorld 5XU12235",
+                "owned_extraction_matches_source": False,
+            },
+            "ambrettolide": {
+                "mw_status": "DATA_SPINE_MOLECULAR_MASS",
+                "odt_status": "ODT_DATA_PEER_SINGLE_KRAFT_2005",
+                "vp_status": "DATA_SPINE_UNCITED_ENGINE_ESTIMATE",
+                "gamma_status": "HEURISTIC_MACROCYCLIC_MUSK_CLASS",
+                "isomer_identity": "NIST_LIBRARY_ID_NOT_VERIFIED_AS_Z_HEXADEC_7_EN_16_OLIDE",
+                "owned_oil_activity_measured": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("farnesol", "alpha guaiene", "linoleic acid")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "farnesyl acetate",
+                "reported_fraction": 0.5145,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "lauryl acetate",
+                "reported_fraction": 0.078,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "decyl acetate",
+                "reported_fraction": 0.0653,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "(Z)-5-tetradecen-1-ol acetate",
+                "reported_fraction": 0.0374,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "(Z)-5-dodecen-1-ol acetate",
+                "reported_fraction": 0.0209,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The composition is a published seed OIL GC-MS, not an analysis of an ambrette absolute or of the owned PerfumersWorld 5XU12235 lot; no absolute-specific table was found.",
+            "Peaks are NIST library identifications without retention indices or calibration; GC-MS areas are nominal model inputs, not mass fractions.",
+            "The 'ambrettolide' peak may be (Z)-hexadec-7-en-16-olide or a related isomer; its VP is an uncited data-spine engine estimate.",
+            "Farnesyl acetate (51.45%), the alkyl and alkenyl acetates and about 24 minor peaks are not modeled; they remain uncomputed, not odorless. A 2,2-dimethylpropanoic acid peak (1.45%) looks like a library mis-ID and is not used.",
+        ),
+    },
+    "iris rhizome concrete 8 pct irone low grade scenario profile": {
+        "analytical_method": "SUPPLIER_GRADE_LABEL_AND_REFERENCE_RANGE",
+        "composition_basis": "LOW_GRADE_SCENARIO_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://thegoodscentscompany.com/data/co1001091.html",
+                "document": "Supplier grade labels ORRIS CONCRETE 8% IRONE and ORRIS CONCRETE 15% IRONE; Premiere Peau orris concrete glossary",
+                "published_botanical_name": "Iris pallida or Iris germanica rhizome",
+                "published_type": "Concrete / butter (not an absolute)",
+                "modeled_total_irone_pct": 8.0,
+                "known_supplier_irone_grades_pct": (8.0, 15.0),
+                "myristic_acid_range_pct": (60.0, 85.0),
+                "irone_rule": "LOWEST_KNOWN_SUPPLIER_GRADE_CONSERVATIVE_SCENARIO",
+                "myristic_acid_rule": "MIDPOINT_OF_REFERENCE_RANGE",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Orris Concrete Orris Butter (10% in DPG)",
+                "owned_supplier_reference": "PerfumersWorld 5IA07847",
+                "owned_grade_irone_pct_known": False,
+            },
+            "irone pool (alpha-equivalent)": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "myristic acid": {
+                "mw_status": "DATA_SPINE_MOLECULAR_MASS",
+                "vp_status": "MODELED_NON_VOLATILE_MASS_ROW",
+                "odt_status": "MODELED_NON_VOLATILE_MASS_ROW",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+        },
+        "limitations": (
+            "The owned PerfumersWorld 5IA07847 grade's irone content is unknown; this models the lowest known supplier grade (8% total irones) as the conservative scenario. A 15% irone grade would roughly double the irone headspace.",
+            "Irones use the module's alpha-irone-equivalent pool input; the cis/trans and alpha/gamma isomer split of the owned material is not modeled.",
+            "Myristic acid is the 60-85% reference-range midpoint and is treated as a non-volatile mass row; the remaining aromatic fraction beyond irones is uncomputed, not odorless.",
+            "Concrete/butter is non-equivalent to orris absolute and to the PerfumersWorld Orris Liquid 8IQ24653.",
         ),
     },
     "citrus bergamia calabrian type iso 3520 midpoint profile": {
@@ -1807,6 +2430,696 @@ _PARTIAL_PROFILE_EVIDENCE = {
                 for name, *_rest in _OMAN_FRANKINCENSE_TINCTURE_GENERIC_CONSTITUENTS
             },
         },
+    },
+    "michelia alba flower oil zhu 1993 literature profile": {
+        "analytical_method": "LITERATURE_GC_MS_SECONDARY_COMPILATION",
+        "composition_basis": "LITERATURE_PERCENT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://scent.vn/pages/oil/michelia-alba-flower-absolute-china-1874",
+                "document": "Zhu L. et al. (1993) Aromatic Plants and Essential Constituents, p.14, as tabulated by scent.vn",
+                "published_botanical_name": "Michelia alba DC. (Magnolia x alba)",
+                "published_type": "Flower 'absolute' (China) per the compilation; linalool-dominant profile is oil-like",
+                "sample_type_status": "DOUBTFUL_ABSOLUTE_LABEL_OIL_LIKE_PROFILE",
+                "reported_pct": {
+                    "linalool": 76.29,
+                    "phenylethyl alcohol": 6.38,
+                    "octadecadienal": 2.34,
+                    "methyl eugenol": 2.32,
+                    "methyl hexanoate": 1.03,
+                    "cis-linalool oxide": 0.78,
+                    "(3Z)-hex-3-enyl butyrate": 0.54,
+                    "phenethyl isovalerate": 0.37,
+                    "benzyl acetate": 0.33,
+                    "methyl 7-methyloctanoate": 0.33,
+                    "eucalyptol (1,8-cineole)": 0.30,
+                    "trans-linalool oxide": 0.23,
+                    "geranyl isobutyrate": 0.18,
+                    "myrcenol": 0.15,
+                    "neral": 0.14,
+                    "2-phenylethyl propionate": 0.12,
+                    "citral": 0.10,
+                    "isomethyleugenol": 0.10,
+                },
+                "reported_sum_pct": 92.03,
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Magnolia EO (neat / as supplied)",
+                "owned_species": "Michelia alba (owner-confirmed)",
+                "owned_supplier_reference": "Shopee shop True Industry",
+                "owned_plant_part_recorded": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("linalool", "methyl eugenol", "benzyl acetate", "1,8-cineole",
+                            "neral", "citral")},
+            "phenylethyl alcohol": {
+                "mw_status": "EXISTING_RUNTIME_MOLECULAR_MASS",
+                "vp_status": "CITED_DATA_SPINE_VP",
+                "vp_source": "PubChem CID 6054 HSDB, Daubert & Danner (1989): 8.68e-2 mm Hg at 25 C = 11.57 Pa",
+                "odt_status": "ODT_DATA_MULTI_SOURCE_LITERATURE",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+        },
+        "unresolved_constituents": (
+            {
+                "name": "octadecadienal",
+                "reported_fraction": 0.0234,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "methyl hexanoate",
+                "reported_fraction": 0.0103,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "cis-linalool oxide",
+                "reported_fraction": 0.0078,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "(3Z)-hex-3-enyl butyrate",
+                "reported_fraction": 0.0054,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "phenethyl isovalerate",
+                "reported_fraction": 0.0037,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "methyl 7-methyloctanoate",
+                "reported_fraction": 0.0033,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "trans-linalool oxide",
+                "reported_fraction": 0.0023,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "geranyl isobutyrate",
+                "reported_fraction": 0.0018,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "myrcenol",
+                "reported_fraction": 0.0015,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "2-phenylethyl propionate",
+                "reported_fraction": 0.0012,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "isomethyleugenol",
+                "reported_fraction": 0.001,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The composition is one 1993 literature sample from a secondary compilation, not an analysis of the owned Shopee True Industry bottle; plant part and process of the owned oil are not recorded (flower oil is assumed).",
+            "The compilation calls the sample an absolute, but its 76% linalool profile matches published Michelia alba distilled oils; the sample type is doubtful.",
+            "Only 85.86% of the listed composition is modeled; eleven minor constituents (6.17%) and the 7.97% unidentified remainder are uncomputed, not odorless. Nothing is renormalized.",
+            "Michelia alba flower oil is non-equivalent to Michelia champaca absolute and to Magnolia leaf oils.",
+        ),
+    },
+    "champaca flower oil perfumersworld 7nj07740 ifra declaration profile": {
+        "analytical_method": "SUPPLIER_IFRA_CERTIFICATE_DECLARATION",
+        "composition_basis": "SUPPLIER_DECLARED_CONCENTRATION_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.perfumersworld.com/ifra/IFRA/IFRA_7NJ07740.pdf",
+                "document": "PerfumersWorld IFRA certificate, Champaca Flower Essential Oil, SKU 7NJ07740",
+                "declared_pct": {
+                    "linalool synthetic (78-70-6)": 52.9063,
+                    "benzyl benzoate": 2.0679,
+                    "benzyl salicylate": 0.9121,
+                    "d-limonene": 0.6484,
+                    "methyl eugenol": 0.4126,
+                    "safrole": 0.0104,
+                    "l-carvone": 0.0067,
+                },
+                "declared_sum_pct": 57.0,
+                "supplier_cas": "94333-99-0",
+                "supplier_synonym": "Michaellia Alba FLOWER Oil",
+                "fraction_rule": "DECLARED_CONCENTRATION_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Champaca Flower EO",
+                "owned_bottle_sku_verified": False,
+                "true_champaca_absolute_rows_used": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("linalool", "benzyl benzoate", "benzyl salicylate", "limonene",
+                            "methyl eugenol")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "safrole",
+                "reported_fraction": 0.000104,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "L-carvone",
+                "reported_fraction": 6.7e-05,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "An IFRA certificate declares regulated items only; it is not a full composition, its analytical basis is not stated, and the values are declared levels, not a lot analysis.",
+            "Only 56.95% of the oil is modeled; the 43.0% undeclared remainder is uncomputed, not odorless. Nothing is renormalized.",
+            "The certificate lists 'Linalool synthetic', so the product may be reconstituted or extended; its linalool-dominant pattern and the supplier synonym point to Michelia alba oil, not true Michelia champaca absolute (non-equivalent).",
+            "The owned bottle's supplier SKU is assumed to be PerfumersWorld 7NJ07740 and has not been verified.",
+        ),
+    },
+    "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile": {
+        "analytical_method": "SUPPLIER_ALLERGEN_DECLARATION",
+        "composition_basis": "SUPPLIER_DECLARED_CONCENTRATION_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.perfumersworld.com/view.php?pro_id=2QV00363",
+                "document": "PerfumersWorld allergen values for Peru Balsam Resinoid, SKU 2QV00363, as relayed by the owner",
+                "document_reverified": False,
+                "declared_pct": {
+                    "benzyl benzoate": 26.8389,
+                    "benzyl cinnamate": 16.7053,
+                    "eugenol": 0.0300,
+                    "benzaldehyde": 0.0206,
+                    "coumarin": 0.0162,
+                },
+                "fraction_rule": "DECLARED_CONCENTRATION_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Peru Balsam Resinoid (50% w/w in DEP)",
+                "owned_bottle_sku_verified": False,
+                "literature_peak_areas_used": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("benzyl benzoate", "eugenol", "coumarin")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "benzyl cinnamate",
+                "reported_fraction": 0.167053,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "benzaldehyde",
+                "reported_fraction": 0.000206,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "cinnamic acid, nerolidol, vanillin",
+                "missing_input": "LITERATURE_PEAK_AREAS_ONLY_NOT_CONVERTIBLE_TO_PERCENT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "Allergen values are supplier-declared levels of regulated allergens, relayed by the owner and not re-verified against the supplier document; they are not a full composition or a lot analysis.",
+            "Only 26.89% of the resinoid is modeled. Benzyl cinnamate (16.71%) and benzaldehyde have no runtime headspace input, and cinnamic acid, nerolidol and vanillin are known only as literature GC-MS peak areas; all remain uncomputed, not odorless. Nothing is renormalized.",
+            "Peru balsam esters hydrolyse with age (literature historical sample); the owned lot's age and ester content are unknown.",
+        ),
+    },
+    "ocimum basilicum oil india estragole type supplier gc profile": {
+        "analytical_method": "SUPPLIER_GC_REPORT_METHOD_NOT_STATED",
+        "composition_basis": "SUPPLIER_GC_PERCENT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://cdn.shopify.com/s/files/1/1277/1723/files/Basil_Sweet_Essential_Oil_India_GC.pdf",
+                "document": "Botanic Universe, Basil Sweet Essential Oil India, GC report dated 2018-03-21",
+                "published_botanical_name": "Not stated on the report (sold as sweet basil, India)",
+                "published_type": "Basil oil, India, methyl chavicol (estragole) type",
+                "reported_pct": {
+                    "estragole": 75.16,
+                    "linalool": 18.13,
+                    "alpha-bisabolene": 1.78,
+                    "geranial": 0.64,
+                    "alpha-trans-bergamotene": 0.48,
+                    "beta-caryophyllene": 0.40,
+                    "germacrene D": 0.38,
+                    "neral": 0.37,
+                    "trans-beta-ocimene": 0.27,
+                    "menthol": 0.26,
+                    "alpha-humulene": 0.20,
+                },
+                "reported_total_pct": 99.99,
+                "corroborating_literature_pct": {"estragole": 77.5, "linalool": 19.1},
+                "corroborating_literature": "Gulati 1977, 7th Int. Essential Oil Congress, Kyoto, via https://scent.vn/en/pages/oil/basil-india-1295",
+                "iso_11043_1998_range_pct": {"methyl chavicol": (75.0, 87.0), "linalol": (0.5, 3.0)},
+                "iso_11043_used": False,
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Basil EO (India, Ocimum Basilicum)",
+                "owned_origin_matches_source": True,
+                "owned_chemotype_matches_source": True,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name, *_rest in _BASIL_INDIA_ESTRAGOLE_SUPPLIER_GC_CONSTITUENTS},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "estragole",
+                "reported_fraction": 0.7516,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-bisabolene",
+                "reported_fraction": 0.0178,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-trans-bergamotene",
+                "reported_fraction": 0.0048,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-humulene",
+                "reported_fraction": 0.002,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The composition is one supplier's GC report for an Indian sweet basil oil, not an analysis of the owned bottle or lot; the report states no botanical name, lot or GC method.",
+            "Estragole (methyl chavicol, 75.16%), the character constituent, has no runtime headspace input and remains uncomputed, not odorless, so the modeled headspace is linalool-led and does not represent basil character.",
+            "ISO 11043:1998 (methyl chavicol type) is not used: its linalol range of 0.5-3% conflicts with the 18-19% linalool both Indian analyses report; an ISO-conforming oil would carry far less linalool than modeled here.",
+            "trans-beta-Ocimene and menthol reuse the existing generic ocimene and peppermint menthol rows; ocimene isomers are not distinguished.",
+        ),
+    },
+    "tagetes minuta whole plant oil india bansal 1999 profile": {
+        "analytical_method": "LITERATURE_GC_MS",
+        "composition_basis": "LITERATURE_PERCENT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://scent.vn/en/pages/oil/tagetes-india-6a-whole-plant-3230",
+                "document": "Bansal et al., J. Essent. Oil Res. 11:747 (1999), as tabulated by scent.vn",
+                "published_botanical_name": "Tagetes minuta L.",
+                "published_type": "Whole-plant essential oil, India",
+                "reported_pct": {
+                    "dihydrotagetone": 48.7,
+                    "(Z)-tagetone": 15.0,
+                    "(Z)-beta-ocimene": 8.0,
+                    "(Z)-tagetenone": 3.9,
+                    "limonene": 3.4,
+                    "(E)-tagetone": 1.9,
+                    "ocimenone": 1.7,
+                },
+                "reported_total_pct": 82.6,
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Tagetes EO (10% in DPG)",
+                "owned_origin_recorded": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name, *_rest in _TAGETES_MINUTA_INDIA_BANSAL_1999_CONSTITUENTS},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "dihydrotagetone",
+                "reported_fraction": 0.487,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "(Z)-tagetone",
+                "reported_fraction": 0.15,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "(Z)-tagetenone",
+                "reported_fraction": 0.039,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "(E)-tagetone",
+                "reported_fraction": 0.019,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "ocimenone",
+                "reported_fraction": 0.017,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The composition is one published Indian whole-plant oil, not an analysis of the owned bottle, whose origin and plant part are unrecorded; tagetes composition varies strongly with origin and growth stage.",
+            "Only 11.4% of the oil is modeled ((Z)-beta-ocimene and limonene). Dihydrotagetone, the tagetones, (Z)-tagetenone and ocimenone, the tagetes character ketones, have no runtime headspace input; they remain uncomputed, not odorless, so the modeled headspace does not represent tagetes character.",
+            "(Z)-beta-Ocimene reuses the generic ocimene row; ocimene isomers are not distinguished.",
+            "Only 82.6% of the oil is listed in the source; the remainder is unknown and nothing is renormalized.",
+        ),
+    },
+    "helichrysum italicum oil corsica bianchini 2001 profile": {
+        "analytical_method": "LITERATURE_GC_MS",
+        "composition_basis": "LITERATURE_PERCENT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://scent.vn/en/pages/oil/helichrysum-italicum-france-corsica-3417",
+                "document": "Bianchini et al., Flavour Fragr. J. 16:30 (2001), as tabulated by scent.vn",
+                "published_botanical_name": "Helichrysum italicum (Roth) G.Don subsp. italicum",
+                "published_type": "Industrial distilled essential oil, Corsica",
+                "reported_pct": {
+                    "neryl acetate": 32.6,
+                    "gamma-curcumene": 11.7,
+                    "limonene": 7.5,
+                    "neryl propionate": 5.8,
+                    "nerol": 4.7,
+                    "italicene": 2.6,
+                    "alpha-curcumene": 2.5,
+                    "eudesm-5-en-11-ol": 2.4,
+                    "4,6,9-trimethyl-8-decene-3,5-dione": 2.2,
+                    "alpha-pinene": 1.8,
+                    "4,6-dimethyloctane-3,5-dione": 1.8,
+                    "5,7,10-trimethylundec-9-ene-4,6-dione": 0.8,
+                    "2,5,7,9-tetramethyl-2-decene-6,8-dione": 0.8,
+                },
+                "reported_total_pct": 91.5,
+                "conflicting_origin_profile": {
+                    "source": "https://scent.vn/en/pages/oil/helichrysum-italicum-croatia-1a-2722",
+                    "document": "Blazevic et al., Acta Pharm. 45:517 (1995), mean of 7 Croatian locations",
+                    "reported_pct": {
+                        "alpha-curcumene": 15.0,
+                        "alpha-pinene": 10.0,
+                        "alpha-cedrene": 10.0,
+                        "gamma-curcumene": 10.0,
+                        "neryl acetate": 8.0,
+                    },
+                    "used": False,
+                },
+                "origin_choice_rule": "INDUSTRIAL_DISTILLED_COMMERCIAL_OIL_OVER_WILD_POPULATION_MEAN",
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Helichrysum EO",
+                "owned_origin_recorded": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name, *_rest in _HELICHRYSUM_CORSICA_BIANCHINI_2001_CONSTITUENTS},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "neryl propionate",
+                "reported_fraction": 0.058,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "italicene",
+                "reported_fraction": 0.026,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-curcumene",
+                "reported_fraction": 0.025,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "eudesm-5-en-11-ol",
+                "reported_fraction": 0.024,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "4,6,9-trimethyl-8-decene-3,5-dione",
+                "reported_fraction": 0.022,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "4,6-dimethyloctane-3,5-dione",
+                "reported_fraction": 0.018,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "5,7,10-trimethylundec-9-ene-4,6-dione",
+                "reported_fraction": 0.008,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "2,5,7,9-tetramethyl-2-decene-6,8-dione",
+                "reported_fraction": 0.008,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The owned oil's origin is unknown. Corsican industrial oil (neryl acetate 32.6%) is modeled; a Croatian wild-population mean (Blazevic 1995: neryl acetate 8.0%, alpha-curcumene 15.0%, alpha-pinene 10.0%, alpha-cedrene 10.0%) differs greatly, so origin alone can move the ester-to-hydrocarbon balance severalfold.",
+            "The composition is a published analysis, not an analysis of the owned bottle or lot; 91.5% of the oil is listed and the remainder is unknown, with nothing renormalized.",
+            "Neryl propionate, italicene, alpha-curcumene, eudesm-5-en-11-ol and the beta-diketones (the italidione family) have no runtime headspace input and remain uncomputed, not odorless.",
+            "This is the essential oil; the immortelle absolute profile is a different extraction and is not equivalent.",
+        ),
+    },
+    "bulnesia sarmientoi wood oil enriquez 2019 gc-ms profile": {
+        "analytical_method": "LITERATURE_GC_MS",
+        "composition_basis": "GC_MS_RELATIVE_AREA_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.redalyc.org/journal/428/42862466009/42862466009.pdf",
+                "document": "Enriquez & Orrabalis, Multequina 28:59-66 (2019), Table 1",
+                "published_botanical_name": "Bulnesia sarmientoi Lorentz ex Griseb.",
+                "published_type": "Steam-distilled trunk-wood oil, Formosa, Argentina",
+                "quantitation": "GC_MS_RELATIVE_AREA_PCT",
+                "reported_pct": {
+                    "bulnesol": 58.18,
+                    "guaiol": 28.71,
+                    "elemol": 10.17,
+                    "alpha-gurjunene": 1.08,
+                    "alpha-guaiene": 0.67,
+                    "beta-caryophyllene": 0.58,
+                },
+                "reported_sum_pct": 99.39,
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Guaiacwood EO (exactly 1/3 w/w in ethanol + DEP)",
+                "owned_supplier_reference": None,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("alpha guaiene", "beta caryophyllene")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "bulnesol",
+                "reported_fraction": 0.5818,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "guaiol",
+                "reported_fraction": 0.2871,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "elemol",
+                "reported_fraction": 0.1017,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-gurjunene",
+                "reported_fraction": 0.0108,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The composition is one published Argentine steam-distilled wood oil (Enriquez & Orrabalis 2019), not an analysis of the owned bottle, whose supplier, origin and lot are unknown.",
+            "Table 1 lists only six main components (99.39% of relative area); GC-MS relative areas are nominal model inputs, not mass fractions.",
+            "Only 1.25% of nominal composition is modeled (alpha-guaiene and beta-caryophyllene). Bulnesol, guaiol, elemol and alpha-gurjunene (98.14%) have no runtime headspace input; they remain uncomputed, not odorless, so the modeled headspace does not represent guaiacwood character.",
+        ),
+    },
+    "rosa x damascena bulgarian oil iso 9842 midpoint profile": {
+        "analytical_method": "STANDARD_CHROMATOGRAPHIC_PROFILE_RANGES",
+        "composition_basis": "SPECIFICATION_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://gigaplus.makeshop.jp/aromastore/images/download/N1507G25.pdf",
+                "document": "ISO 9842 (Rosa x damascena, Bulgaria) ranges as reprinted on Sanritsu certificates of analysis N1507G25 and N1507G26",
+                "iso_edition": None,
+                "published_botanical_name": "Rosa x damascena Mill.",
+                "published_type": "Rose oil, Bulgaria",
+                "standard_range_pct": {
+                    "citronellol": (20.0, 34.0),
+                    "nerol": (5.0, 12.0),
+                    "geraniol": (15.0, 22.0),
+                    "beta-phenylethanol": (None, 3.5),
+                    "heptadecane": (1.0, 2.5),
+                    "nonadecane": (8.0, 15.0),
+                    "heneicosane": (3.0, 5.5),
+                    "ethanol": (None, 2.0),
+                },
+                "fraction_rule": "MIDPOINT_OF_STANDARD_MIN_MAX_RANGE",
+                "upper_bound_only_rule": "NO_VALUE_INVENTED_KEPT_UNRESOLVED",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Rose Otto Bulgarian (10% in DPG)",
+                "owned_supplier_reference": "PerfumersWorld 5RR12478",
+                "owned_supplier_sku_recorded": True,
+                "profile_is_neat_oil": True,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("citronellol", "geraniol", "nerol", "nonadecane", "heptadecane")},
+            "heneicosane": {
+                "mw_status": "FORMULA_MASS_C21H44",
+                "vp_status": "MASS_ONLY_NONVOLATILE_ROW_CONVENTION",
+                "odt_status": "MASS_ONLY_NONVOLATILE_ROW_CONVENTION",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+        },
+        "unresolved_constituents": (
+            {
+                "name": "beta-phenylethanol",
+                "reported_fraction_range": (None, 0.035),
+                "missing_input": "UPPER_BOUND_ONLY_NO_NOMINAL_FRACTION",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "ethanol",
+                "reported_fraction_range": (None, 0.02),
+                "missing_input": "UPPER_BOUND_ONLY_NO_NOMINAL_FRACTION",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "beta-damascenone, rose oxide, methyl eugenol",
+                "missing_input": "NOT_IN_STANDARD_RANGES",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The ISO 9842 ranges are second-hand, reprinted on a supplier certificate of analysis whose ISO edition is unstated; midpoints describe a conforming commercial oil, not an analysis of the owned lot.",
+            "Only 71.5% of nominal composition is modeled, and 17.5% of that is non-volatile stearoptene alkanes (mass only, no headspace). beta-Phenylethanol and ethanol have upper bounds only and stay unresolved; the remainder is uncomputed, not odorless. Nothing is renormalized.",
+            "Trace character odorants (beta-damascenone, rose oxide, methyl eugenol) are not in the ranges and are not modeled, so the modeled headspace understates rose character.",
+            "This profile is separate from the uncited 'rose essential oil' profile and does not reuse it.",
+        ),
+    },
+    "chrysopogon zizanioides haiti oil amrita 5101-lcaa coa profile": {
+        "analytical_method": "SUPPLIER_CERTIFICATE_OF_ANALYSIS_GC",
+        "composition_basis": "GC_RELATIVE_AREA_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.amrita.net/content/product_files/CoA%20-%20EO5101%20Vetiver%20%28Organic%29%20LCAA%201-2-25.pdf",
+                "document": "Amrita certificate of analysis, Organic Vetiver, lot 5101-LCAA, Haiti, December 2024 (GC, DB-5)",
+                "published_type": "Vetiver root oil, Haiti",
+                "reported_pct": {
+                    "khusimol": 19.80,
+                    "trans-isovalencenol": 14.88,
+                    "vetiselinenol": 5.65,
+                    "cyclocopacamphenol": 5.41,
+                    "beta-vetivenene": 4.30,
+                },
+                "reported_sum_pct": 50.04,
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Haitian Vetiver EO (neat / as supplied)",
+                "owned_supplier_reference": None,
+                "existing_vetiver_eo_profile_verified": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("khusimol", "isovalencenol")},
+        },
+        "unresolved_constituents": (
+            {
+                "name": "vetiselinenol",
+                "reported_fraction": 0.0565,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "cyclocopacamphenol",
+                "reported_fraction": 0.0541,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "beta-vetivenene",
+                "reported_fraction": 0.0430,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The composition is a single supplier lot certificate (Amrita 5101-LCAA), not an analysis of the owned bottle, whose supplier and lot are not recorded.",
+            "Only 34.68% of nominal composition is modeled (khusimol, trans-isovalencenol); three listed constituents (15.36%) and the unlisted remainder are uncomputed, not odorless. Nothing is renormalized.",
+            "Vetivones and khusimone are not listed, so the characteristic vetiver note is not modeled.",
+            "Weyerstahl et al. (2000) Flavour Fragr. J. 15:395, 'Constituents of Haitian vetiver oil', is the existing 'vetiver eo' profile's cited paper, but its table could not be reached to verify that profile; that profile is unchanged and not reused.",
+        ),
+    },
+    "hay absolute perfumersworld 8ny00523 allergen declaration profile": {
+        "analytical_method": "SUPPLIER_ALLERGEN_DECLARATION",
+        "composition_basis": "SUPPLIER_DECLARED_CONCENTRATION_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.perfumersworld.com/document-list.php?pro_id=8NY00523&tab=allergen",
+                "document": "PerfumersWorld allergen declaration, Hay Absolute, SKU 8NY00523 (neat)",
+                "declared_pct": {
+                    "vanillin": 1.0262,
+                    "linalyl acetate": 0.5326,
+                    "terpineol (8000-41-7)": 0.1609,
+                    "coumarin": 0.0578,
+                },
+                "declared_sum_pct": 1.7775,
+                "declaration_basis_stated": False,
+                "terpineol_mapping": "ISOMER_MIXTURE_MAPPED_TO_ALPHA_TERPINEOL_ROW",
+                "fraction_rule": "DECLARED_CONCENTRATION_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Hay Absolute (10% w/w in DPG; homogeneous)",
+                "owned_bottle_sku_verified": False,
+                "candidate_skus": ("8NY00523 (neat)", "5NY12745 (sold as 10% in DPG)"),
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("vanillin", "linalyl acetate", "alpha terpineol", "coumarin")},
+        },
+        "unresolved_constituents": (),
+        "limitations": (
+            "Allergen values are supplier-declared levels of regulated allergens with no stated basis; they are not a full composition or a lot analysis.",
+            "Only 1.78% of the absolute is modeled; the undeclared 98.2% remainder is uncomputed, not odorless, so the modeled headspace does not represent hay character. Nothing is renormalized.",
+            "Terpineol is declared as the isomer mixture (CAS 8000-41-7) and is modeled with the alpha-terpineol row.",
+            "The bought SKU is ambiguous: 8NY00523 (neat absolute) or 5NY12745 (sold as 10% in DPG); the owned stock is 10% w/w in DPG.",
+        ),
     },
 }
 

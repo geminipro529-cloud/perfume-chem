@@ -142,7 +142,9 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # reverting only that value gives 667ba337….
     # Vertofix Coeur odt_air 240 (unsourced) -> 6.3 ppb, Vertofix's van Gemert
     # value for the same molecule; reverting only that value gives 37f940a3….
-    assert digest == "9ec89ee9c35b8e1ef1bdaf96abe0da5c35e3ff4b42ba91f3fe8d0eaee11fed6a"
+    # 2026-10-09: key "stralyl acetate" renamed to the correct "styralyl acetate"
+    # (same values 40.0/1.0); with the old key the digest is 9ec89ee9….
+    assert digest == "aa5581d0d7d4e85a68a47c4e74e116da76586287f2eac51204e365e3b1a95761"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

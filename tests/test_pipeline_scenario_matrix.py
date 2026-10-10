@@ -236,18 +236,16 @@ def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() 
 
     # This is an evidence-gap contract, not a frozen census of live inventory.
     # New purchases can add unresolved naturals without making this test fail.
+    # Champaca Flower EO, Magnolia EO, Peru Balsam Resinoid and Tagetes EO got
+    # labelled partial proxy profiles on 2026-10-09 and left this list.
     unresolved = set(audit["categories"]["naturals_missing_composite_evidence"])
     assert {
         "Anise EO",
         "Basil EO",
         "Cade Oil Rectified",
-        "Champaca Flower EO",
         "Himalayan Cedarwood EO",
-        "Magnolia EO",
         "Opoponax Resinoid",
-        "Peru Balsam Resinoid",
         "Pine EO",
-        "Tagetes EO",
     }.issubset(unresolved)
     opaque = set(audit["categories"]["opaque_preblends_without_disclosed_composition"])
     assert "Leather FO" in opaque

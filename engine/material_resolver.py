@@ -7,6 +7,7 @@ the structured registry.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from functools import lru_cache
 from typing import Any, Iterable
@@ -30,6 +31,27 @@ class ResolvedMaterial:
     profile: MaterialProfile | None
     registry_material: Any | None
     is_known: bool
+    # The label every name-keyed physics lookup should use: the requested label,
+    # or that label minus a trailing stock-strength suffix when only the bare
+    # material name resolves.
+    matched_name: str
+
+
+# A trailing stock strength such as "10%", "7.7%", "1% v/v in ethanol" or
+# "10% w/w in DPG". Only this suffix is removable; identity text never is.
+_STOCK_STRENGTH_SUFFIX = re.compile(
+    r"\s+\d+(?:\.\d+)?\s*%"
+    r"(?:\s*(?:w/w|w/v|v/v))?"
+    r"(?:\s+in\s+(?:dpg|dep|tec|ipm|ethanol))?\s*$",
+    re.IGNORECASE,
+)
+
+
+def strip_stock_strength_suffix(name: str) -> str:
+    """Return ``name`` without a trailing stock-strength suffix, if it has one."""
+    text = str(name or "").strip()
+    stripped = _STOCK_STRENGTH_SUFFIX.sub("", text).strip()
+    return stripped or text
 
 
 @lru_cache(maxsize=1)
@@ -42,8 +64,41 @@ def _registry():
 
 @lru_cache(maxsize=4096)
 def resolve_material(name: str) -> ResolvedMaterial:
-    """Resolve one label without manufacturing fallback material identity."""
+    """Resolve one label without manufacturing fallback material identity.
+
+    A label carrying a trailing stock-strength suffix ("Eugenol 10%") resolves
+    as the bare material when the full label adds no identity of its own: it is
+    unknown, or it only hits the same registry record as the bare name. A label
+    with its own distinct record (a registered pre-diluted stock) keeps it.
+    """
     requested = str(name or "").strip()
+    resolved = _resolve_exact(requested)
+    bare = strip_stock_strength_suffix(requested)
+    if bare == requested:
+        return resolved
+    bare_resolved = _resolve_exact(bare)
+    if not bare_resolved.is_known:
+        return resolved
+    if resolved.profile is not None and resolved.profile_name != bare_resolved.profile_name:
+        return resolved
+    if (
+        resolved.registry_material is not None
+        and resolved.registry_name != bare_resolved.registry_name
+    ):
+        return resolved
+    return ResolvedMaterial(
+        requested_name=requested,
+        canonical_name=bare_resolved.canonical_name,
+        profile_name=bare_resolved.profile_name,
+        registry_name=bare_resolved.registry_name,
+        profile=bare_resolved.profile,
+        registry_material=bare_resolved.registry_material,
+        is_known=True,
+        matched_name=bare,
+    )
+
+
+def _resolve_exact(requested: str) -> ResolvedMaterial:
     profile = get_profile(requested)
     registry = _registry()
     reg_mat = registry.get(requested) if registry is not None else None
@@ -61,6 +116,7 @@ def resolve_material(name: str) -> ResolvedMaterial:
         profile=profile,
         registry_material=reg_mat,
         is_known=bool(profile or reg_mat),
+        matched_name=requested,
     )
 
 
