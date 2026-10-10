@@ -85,8 +85,11 @@ _DESCRIPTOR_REQUIREMENTS: dict[str, tuple[frozenset[str], ...]] = {
     }),),
     "top_green": (frozenset({"green", "leaf", "leafy", "herbal", "aromatic"}),),
     "top_sparkle": (frozenset({"aldehydic", "aldehyde", "sparkling", "fruit", "fruity"}),),
+    # White flowers are floral too: a tuberose base described only as
+    # "creamy" and "tuberose" otherwise filled creamy texture layers.
     "heart_floral": (frozenset({
-        "floral", "rose", "rosy", "jasmine", "muguet", "petal", "blossom",
+        "floral", "rose", "rosy", "jasmine", "muguet", "petal", "blossom", "tuberose",
+        "gardenia",
     }),),
     "heart_powder": (frozenset({"powdery", "powder", "iris", "orris", "violet", "velvety"}),),
     "heart_creamy": (frozenset({"creamy", "milky", "lactonic"}),),
