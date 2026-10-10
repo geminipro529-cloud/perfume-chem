@@ -102,6 +102,28 @@ def test_rating_link_needs_rating_windows_and_canonical_rows_match_python():
     assert _node(f"liking.likingCanonicalRows({json.dumps(list(reversed(ROWS)))})") == _canonical(ROWS)
 
 
+def test_crowd_check_and_your_guess_wording():
+    fit = {"ratings_used": 14, "material_ratings_used": 0, "crowd_weight": 0.35,
+           "crowd_check": {"n": 14, "r": 0.12, "slope": 0.1, "rmse": 0.5, "verdict": "none"}}
+    text = _node(f"liking.likingCrowdCheckText({json.dumps(fit)})")
+    assert text == ("Crowd guess vs your ratings: r = 0.12 over 14 ratings. The crowd guess predicts little "
+                    "of your liking, so it now carries 35% of the weight and your own ratings 65%.")
+    few = {"crowd_check": {"n": 4, "verdict": "too_few"}, "crowd_weight": 1}
+    assert _node(f"liking.likingCrowdCheckText({json.dumps(few)})") == "Crowd guess check: 4 of 10 ratings so far."
+    materials = {"Hedione": {"personal": 0.5, "evidence": 1.0, "crowd": 0.1},
+                 "iso e super": {"personal": 0.9, "evidence": 0.2, "crowd": -0.2}}
+    guess = _node(f"liking.likingYourGuess({json.dumps({'HEDIONE': 0.5, 'Iso E Super': 0.25, 'Other': 0.25})}, {json.dumps({'materials': materials})})")
+    assert guess["score"] == round(50 + 50 * ((0.5 * 0.5 + 0.25 * -0.2) / 0.75))
+    assert guess["coverage"] == pytest.approx(0.75)
+
+
+def test_liking_script_shows_your_guess_with_text_only():
+    source = FORMULA_LIKING_JS.read_text()
+    assert "Your guess" in source and "Crowd guess" in source
+    assert "textContent" in source and "innerHTML" not in source
+    assert source.count('request("/liking/personal"') == 1
+
+
 @pytest.mark.asyncio
 async def test_formula_card_wires_the_liking_block(client):
     page = await client.get("/app")

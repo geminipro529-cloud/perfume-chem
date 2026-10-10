@@ -61,6 +61,53 @@ function pleasantnessLines(overlay) {
   return { lines: windows.map(likingWindowText), label };
 }
 
+// Plain line on how well the crowd guess has predicted Kenny's own liking.
+function likingCrowdCheckText(fit) {
+  const check = fit?.crowd_check;
+  if (!check || typeof check !== "object") return null;
+  const n = Number(check.n) || 0;
+  if (check.verdict === "too_few") return `Crowd guess check: ${n} of 10 ratings so far.`;
+  const weight = Number(fit.crowd_weight);
+  const crowdPercent = Number.isFinite(weight) ? Math.round(100 * weight) : 100;
+  const r = Number(check.r);
+  const rText = check.r === null || check.r === undefined || !Number.isFinite(r) ? "not defined" : r.toFixed(2);
+  const head = `Crowd guess vs your ratings: r = ${rText} over ${n} ratings.`;
+  if (check.verdict === "predicts") {
+    return `${head} The crowd guess predicts your liking well, so it keeps ${crowdPercent}% of the weight.`;
+  }
+  const how = check.verdict === "weak" ? "predicts some of your liking" : "predicts little of your liking";
+  return `${head} The crowd guess ${how}, so it now carries ${crowdPercent}% of the weight and your own ratings ${100 - crowdPercent}%.`;
+}
+
+// "Your guess" for one window: share-weighted mean of the personal values (or the crowd
+// value where the fit has too little evidence), as a 0 to 100 score. Liking numbers only.
+function likingYourGuess(shares, fit) {
+  const materials = fit?.materials && typeof fit.materials === "object" ? fit.materials : {};
+  const byName = new Map(Object.keys(materials).map((name) => [name.toLowerCase(), materials[name]]));
+  let total = 0;
+  let used = 0;
+  let weighted = 0;
+  Object.entries(shares && typeof shares === "object" ? shares : {}).forEach(([name, share]) => {
+    const value = Number(share);
+    if (!Number.isFinite(value) || value <= 0) return;
+    total += value;
+    const entry = byName.get(String(name).toLowerCase());
+    if (!entry) return;
+    let guess = null;
+    if (Number(entry.evidence) >= 0.5 && Number.isFinite(Number(entry.personal))) guess = Number(entry.personal);
+    else if (typeof entry.crowd === "number" && Number.isFinite(entry.crowd)) guess = entry.crowd;
+    if (guess === null) return;
+    used += value;
+    weighted += value * guess;
+  });
+  if (!(used > 0) || !(total > 0)) return null;
+  return { score: Math.round(50 + 50 * (weighted / used)), coverage: used / total };
+}
+
+function likingYourGuessText(label, guess) {
+  return `${label}: Your guess: ${guess.score}/100 (covers ${Math.round(guess.coverage * 100)}% of the smell)`;
+}
+
 // The main formula and each Deep Compose variant that has rows.
 function likingFormulaChoices(result) {
   const choices = [];
@@ -186,13 +233,23 @@ function likingSaveControls() {
   return { save, status, undo };
 }
 
-function likingCrowdBlock(choices, current) {
+function likingCrowdBlock(choices, current, fitPromise) {
   const block = likingEl("div", "liking-crowd");
   block.append(likingEl("h3", "", "Pleasantness, crowd guess"));
   const summary = pleasantnessLines(current.overlay) || { lines: ["No crowd guess for this formula."], label: "" };
   const list = likingEl("ul", "liking-windows");
   summary.lines.forEach((text) => list.append(likingEl("li", "", text)));
   block.append(list);
+  const used = (fit) => (Number(fit?.ratings_used) || 0) + (Number(fit?.material_ratings_used) || 0);
+  const mine = likingEl("ul", "liking-yours");
+  block.append(mine);
+  fitPromise.then((fit) => {
+    if (used(fit) < 1) return;
+    LIKING_WINDOWS.forEach(([windowKey, windowLabel]) => {
+      const guess = likingYourGuess(current.overlay?.rating_windows?.[windowKey]?.material_shares, fit);
+      if (guess) mine.append(likingEl("li", "", likingYourGuessText(windowLabel, guess)));
+    });
+  }).catch(() => {});
   const variants = variantPleasantnessLines(choices);
   if (variants.length) {
     block.append(likingEl("p", "liking-subhead", "Alternatives"));
@@ -398,7 +455,7 @@ function likingNameList(heading, names) {
   return paragraph;
 }
 
-function likingPersonalBlock() {
+function likingPersonalBlock(fitPromise) {
   const details = likingEl("details", "liking-personal");
   details.append(likingEl("summary", "", "Your nose so far"));
   const body = likingEl("div", "liking-personal-body");
@@ -407,12 +464,14 @@ function likingPersonalBlock() {
     if (!details.open) return;
     body.replaceChildren(likingEl("p", "", "Loading…"));
     try {
-      const fit = await request("/liking/personal", { base: LIKING_API });
+      const fit = await fitPromise;
+      const checkText = likingCrowdCheckText(fit);
       body.replaceChildren(
         likingEl("p", "", `${Number(fit?.ratings_used) || 0} ratings and ${Number(fit?.picks_used) || 0} A/B picks used so far.`),
         likingEl("p", "", `${Number(fit?.material_ratings_used) || 0} material ratings`),
         likingNameList("You like these more than the crowd does:", fit?.liked),
         likingNameList("You like these less than the crowd does:", fit?.disliked),
+        ...(checkText ? [likingEl("p", "", checkText)] : []),
         likingEl("small", "", "Your own ratings start to matter after roughly 10 to 20 rated bottles; until then the crowd guess carries most of the weight."),
       );
     } catch (error) {
@@ -431,7 +490,9 @@ function renderFormulaLiking(result, variantIndex = 0, selected = null) {
   const current = selected?.formula ? choices.find((choice) => choice.variantIndex === wanted) : null;
   box.hidden = !current;
   if (!current) return;
-  box.append(likingCrowdBlock(choices, current));
+  const fitPromise = request("/liking/personal", { base: LIKING_API });
+  fitPromise.catch(() => {});
+  box.append(likingCrowdBlock(choices, current, fitPromise));
   const rate = likingEl("div", "liking-rate");
   rate.append(likingEl("h3", "", "Rate this bottle"));
   rate.append(likingEl("p", "liking-hint", `Mixed ${current.label === "Main formula" ? "this formula" : current.label}? Rate it at each time. Your ratings teach the app your taste.`));
@@ -445,13 +506,15 @@ function renderFormulaLiking(result, variantIndex = 0, selected = null) {
     return true;
   });
   if (distinct.length >= 2) box.append(likingPickBlock(distinct));
-  box.append(likingPersonalBlock());
+  box.append(likingPersonalBlock(fitPromise));
 }
 
 if (typeof module === "object" && module.exports) {
   module.exports = {
     likingTimeLabel,
     pleasantnessLines,
+    likingCrowdCheckText,
+    likingYourGuess,
     likingFormulaChoices,
     variantPleasantnessLines,
     likingCanonicalRows,
