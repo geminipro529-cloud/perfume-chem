@@ -29,6 +29,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Sequence
 
+from engine.ifra_standards import single_material_limit_pct
 from engine.ingredient_intelligence import MaterialProfile, get_profile
 from engine.inventory_completions import effective_design_ready
 from engine.inventory_parser import (
@@ -1490,6 +1491,46 @@ def _normal_use_ceiling_cap_ul(candidate: Candidate, liquid_total_ul: int) -> in
     return _active_fraction_cap_ul(candidate, ceiling.max_active_fraction, liquid_total_ul)
 
 
+# IFRA dose caps assume the worst case the composer's IFRA screen also uses:
+# the concentrate is up to 30% of the finished perfume.  The standard design
+# (6,000 uL in a 30 mL bottle) is 20%, which leaves room for the gate weighing
+# w/w where the composer doses by volume.
+IFRA_CAP_FINISHED_FRACTION = Decimal("0.30")
+
+
+def _ifra_cap_ul(candidate: Candidate, liquid_total_ul: int) -> int | None:
+    """The most stock volume that keeps this stock alone inside IFRA Category 4.
+
+    The limit comes from the gate's own evaluation
+    (``engine.ifra_standards.single_material_limit_pct``), so a natural's
+    Annex I constituents count: rose oil is held by its methyl eugenol.  This
+    is a safety cap.  No allocation, top-up or named-note reallocation passes
+    it.  Prohibited stocks are left to the composer's IFRA screen and the gate.
+    """
+
+    entry = single_material_limit_pct(candidate.stock.identity_name or candidate.stock.name)
+    if entry is None:
+        return None
+    status, limit = entry
+    dilution = Decimal(str(candidate.stock.dilution))
+    if status == "prohibited" or limit is None or dilution <= 0:
+        return None
+    raw_fraction = Decimal(str(limit)) / (IFRA_CAP_FINISHED_FRACTION * dilution * 100)
+    return max(
+        1,
+        int((Decimal(liquid_total_ul) * raw_fraction).to_integral_value(rounding=ROUND_FLOOR)),
+    )
+
+
+def _with_ifra_cap(cap: int | None, candidate: Candidate, liquid_total_ul: int) -> int | None:
+    """``cap`` lowered to the stock's IFRA cap; None (no cap) becomes the IFRA cap."""
+
+    ifra = _ifra_cap_ul(candidate, liquid_total_ul)
+    if ifra is None:
+        return cap
+    return ifra if cap is None else min(cap, ifra)
+
+
 def _screening_default(choice: Choice, liquid_total_ul: int) -> NormalUseCeiling | None:
     """The project screening default for a row nobody has researched.
 
@@ -1519,12 +1560,13 @@ def _screening_default_cap_ul(choice: Choice, liquid_total_ul: int) -> int | Non
 def _design_cap_ul(
     choice: Choice, liquid_total_ul: int, *, screening_default: bool = True
 ) -> int | None:
-    """Return a conservative bench-design cap, never a safety limit.
+    """Return a conservative bench-design cap.
 
     The cap is the lower of the identity hard cap (or, without one, the role
-    cap and any screening default) and the material's normal-use ceiling.
-    ``screening_default=False`` leaves the soft screening default out, for
-    callers that plan around the caps the planner never releases.
+    cap and any screening default) and the material's normal-use ceiling,
+    and never above the stock's IFRA cap (``_ifra_cap_ul``), the one safety
+    limit here.  ``screening_default=False`` leaves the soft screening default
+    out, for callers that plan around the caps the planner never releases.
     """
 
     hard = _hard_cap_ul(choice.candidate, liquid_total_ul)
@@ -1533,7 +1575,8 @@ def _design_cap_ul(
     if default is not None:
         base = min(base, default)
     ceiling = _normal_use_ceiling_cap_ul(choice.candidate, liquid_total_ul)
-    return base if ceiling is None else min(base, ceiling)
+    base = base if ceiling is None else min(base, ceiling)
+    return _with_ifra_cap(base, choice.candidate, liquid_total_ul)
 
 
 def _role_cap_ul(choice: Choice, liquid_total_ul: int) -> int:
@@ -1605,7 +1648,7 @@ def _allocate_with_bulk_fallback(
     little room.  The spare space goes first to the rows that carry a note the
     brief names (the name leads), then to volume and structure rows, then to
     other rows whose role has no explicit restraint share (such as a 3%
-    contrast accent).  A ceiling or trace cap is never exceeded; if no row can
+    contrast accent).  A ceiling, trace cap or IFRA cap is never exceeded; if no row can
     take the space this still raises ValueError and the design is withheld.
     Each row pushed past its role cap is named in a
     ROLE_CAP_EXCEEDED_TO_FILL_TOTAL hold.
@@ -1658,7 +1701,13 @@ def _allocate_with_bulk_fallback(
         # The cap the row would have had without its screening default.
         if index not in defaults:
             return cap
-        return _role_cap_ul(choices[index], liquid_total_ul)
+        return _with_ifra_cap(
+            _role_cap_ul(choices[index], liquid_total_ul), choices[index].candidate, liquid_total_ul
+        )
+
+    def released(index: int) -> int | None:
+        # A released row loses its soft caps but never its IFRA cap.
+        return _ifra_cap_ul(choices[index].candidate, liquid_total_ul)
 
     stages = ((0,) if named else ()) + (1, 2) + ((3,) if defaults else ())
     allocated: dict[int, int] = {}
@@ -1667,7 +1716,7 @@ def _allocate_with_bulk_fallback(
             (
                 index,
                 weight,
-                None
+                released(index)
                 if releasable(index, min(stage, 2))
                 else (without_default(index, cap) if stage == 3 else cap),
             )
@@ -1695,13 +1744,14 @@ NAMED_NOTE_FLOOR_SHARE = Decimal("0.40")
 
 
 def _firm_cap_ul(choice: Choice, liquid_total_ul: int) -> int | None:
-    """The cap no reallocation may pass: identity hard (trace) cap or normal-use ceiling."""
+    """The cap no reallocation may pass: identity hard (trace) cap, normal-use ceiling or IFRA cap."""
 
     caps = [
         cap
         for cap in (
             _hard_cap_ul(choice.candidate, liquid_total_ul),
             _normal_use_ceiling_cap_ul(choice.candidate, liquid_total_ul),
+            _ifra_cap_ul(choice.candidate, liquid_total_ul),
         )
         if cap is not None
     ]
@@ -1738,8 +1788,8 @@ def _lead_with_named_notes(
        active volume than the largest named row; its excess goes to the
        named rows.
 
-    The named rows never pass a firm cap (identity hard cap, trace cap or
-    normal-use ceiling); their role caps may be passed, and each row that is
+    The named rows never pass a firm cap (identity hard cap, trace cap,
+    normal-use ceiling or IFRA cap); their role caps may be passed, and each row that is
     is named in a ROLE_CAP_EXCEEDED_TO_FILL_TOTAL hold.  When firm caps stop
     the floor short, the design is kept with a NAMED_NOTE_FLOOR_SHORT hold
     giving the share reached; a generic slot the named rows cannot outgrow

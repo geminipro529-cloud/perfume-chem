@@ -27,6 +27,7 @@ from engine.formulation_intelligence.semantic_brief_adapter import (
     accord_lead_role_id,
     role_identity_requirement,
 )
+from engine.ifra_standards import single_material_limit_pct
 from engine.research.composition_planner import (
     Choice,
     RoleSpec,
@@ -126,16 +127,18 @@ def _ifra_admits_raw_share(capability: MaterialCapability, raw_share: float) -> 
     """False when a raw share could breach the stock's IFRA Cat 4 limit.
 
     Same worst case as `_ifra_binds_layer`: the concentrate is up to 30% of
-    the finished perfume.  A prohibited material never qualifies.
+    the finished perfume.  A prohibited material never qualifies.  The limit
+    is the gate's own, so a natural's Annex I constituents count (rose oil's
+    methyl eugenol), as they do in the planner's IFRA dose cap.
     """
 
-    entry = _ifra_entry(capability.identity_name)
+    entry = single_material_limit_pct(capability.identity_name)
     if entry is None:
         return True
     status, limit = entry
     if status == "prohibited":
         return False
-    if status != "restricted" or limit is None:
+    if limit is None:
         return True
     fraction = float(capability.candidate.stock.dilution)
     return raw_share * _CONCENTRATE_FINISHED_FRACTION * fraction * 100 <= limit
@@ -460,16 +463,17 @@ def _ifra_binds_layer(capability: MaterialCapability, role: SemanticRole) -> boo
     judged at its own raw-share cap in the standard 6,000 uL-in-30 mL
     concentrate, so it keeps its core materials (neat Geraniol for a rose) but
     never reaches for one IFRA limits below that dose (Peru Balsam for
-    vanilla).  A stock the user names is always their call.
+    vanilla).  The limit is the gate's own, so a natural's Annex I
+    constituents count.  A stock the user names is always their call.
     """
 
-    entry = _ifra_entry(capability.identity_name)
+    entry = single_material_limit_pct(capability.identity_name)
     if entry is None:
         return False
     status, limit = entry
     if status == "prohibited":
         return True
-    if status != "restricted" or limit is None:
+    if limit is None:
         return False
     if role.provenance == "PROMPT_DERIVED_FACET":
         ceiling = (role.max_raw_share or _REQUESTED_NOTE_RAW_SHARE_CEILING) * _STANDARD_FINISHED_FRACTION

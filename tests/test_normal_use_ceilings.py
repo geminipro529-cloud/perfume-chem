@@ -211,6 +211,9 @@ def test_design_cap_is_minimum_of_hard_ceiling_and_role_caps(
         encoding="utf-8",
     )
     monkeypatch.setattr(ceilings, "NORMAL_USE_CEILINGS_PATH", path)
+    # The IFRA cap (pinned in tests/test_composer_ifra_caps.py) is set aside here:
+    # this test isolates the hard, ceiling and role caps.
+    monkeypatch.setattr(planner, "_ifra_cap_ul", lambda *_args: None)
     # Ceiling below the 30% role cap.
     assert planner._design_cap_ul(_choice(_candidate("Alpha Damascone", 1.0)), 6000) == 12
     # Hard cap (rose oxide 0.1% active) below a loose ceiling: hard cap stands.
@@ -344,7 +347,12 @@ def _fallback(choices: list[Any], total: int = 6000) -> tuple[dict[int, int], li
     return planner._allocate_with_bulk_fallback(total, free_rows, choices, total, holds), holds
 
 
-def test_spare_space_goes_to_volume_rows_first_and_never_past_firm_caps(fixture_ceilings: None) -> None:
+def test_spare_space_goes_to_volume_rows_first_and_never_past_firm_caps(
+    fixture_ceilings: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Cedarwood Virginia's IFRA cap would stop the volume row; the IFRA cap is
+    # pinned in tests/test_composer_ifra_caps.py, so this test sets it aside.
+    monkeypatch.setattr(planner, "_ifra_cap_ul", lambda *_args: None)
     choices = [
         _choice(_stocked("Alpha Damascone")),  # ceiling: 12 uL
         _choice(_stocked("Cardamom EO"), function="modifier", max_raw_share=0.03),  # explicit 180 uL

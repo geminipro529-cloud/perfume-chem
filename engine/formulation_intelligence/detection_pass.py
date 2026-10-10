@@ -7,7 +7,8 @@ its intended windows. A role below 1 is raised stepwise, re-simulated and
 re-checked, staying inside every limit the composer already applies:
 
 * the composer's own design cap (``composition_planner._design_cap_ul``: the
-  role's raw-share cap, an identity hard cap, and the normal-use ceiling);
+  role's raw-share cap, an identity hard cap, the normal-use ceiling and the
+  IFRA cap);
 * the semantic layers' combined share budget (``_LAYER_SHARE_BUDGET``);
 * the gate's composition checks (IFRA Cat 4, Hedione share, musk count): a
   raise that creates a FAIL the formula did not already have is rejected.
@@ -161,6 +162,7 @@ def _row_cap(
     from engine.research.composition_planner import (
         Choice,
         _hard_cap_ul,
+        _ifra_cap_ul,
         _normal_use_ceiling_cap_ul,
         _role_cap_ul,
     )
@@ -179,6 +181,9 @@ def _row_cap(
         )
     if ceiling is not None and ceiling < cap:
         cap, limit = ceiling, "normal-use ceiling"
+    ifra = _ifra_cap_ul(choice.candidate, liquid_total_ul)
+    if ifra is not None and ifra < cap:
+        cap, limit = ifra, "IFRA Cat 4 cap (concentrate up to 30% of the perfume)"
     from engine.formulation_intelligence.formula_solver import (
         _BRIDGE_MAX_RAW_SHARE,
         _BRIDGE_PROVENANCE,
