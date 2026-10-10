@@ -201,7 +201,7 @@ def test_owned_stocks_fill_name_solvent_and_basket_by_name_and_strength():
     ]
 
     html = result["html"]
-    assert "Draft, one safety check to clear" in html
+    assert "Draft, 1 check to clear" in html
     assert '<p class="bench-sheet-note">A &lt;b&gt;note&lt;/b&gt;</p>' in html
     assert "Rose &lt;test&gt;" in html
     # The 6 uL Rose Oxide row goes in from a DPG mix, under its basket heading.
@@ -223,7 +223,7 @@ def test_a_hold_on_the_material_is_listed_even_when_the_row_strength_matches_no_
     assert result["m"]["unmatched"] == ["Orris Liquid", "Orris Liquid"]
     assert [row["execution_ready"] for row in result["m"]["rows"]] == [False, False]
     assert [row.get("stock_id") for row in result["m"]["rows"]] == [None, None]
-    assert result["hold"]["stateText"] == "Draft, one safety check to clear"
+    assert result["hold"]["stateText"] == "Draft, 2 checks to clear"
     assert result["notes"] == [
         "On hold in Stock: Orris Liquid 9% (user compounding hold).",
         "No owned stock with this name and strength, check the bottle: Orris Liquid.",

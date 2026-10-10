@@ -797,7 +797,7 @@ def test_bench_sheet_logic_keeps_exact_per_unit_totals_and_pours_small_rows_from
 
     assert result["hold"] == {
         "onHold": True,
-        "stateText": "Draft, one safety check to clear",
+        "stateText": "Draft, 1 check to clear",
         "issues": ["one or more rows require stock or dilution binding"],
     }
     assert result["clear"]["stateText"] == "Draft"
@@ -810,7 +810,7 @@ def test_bench_sheet_logic_keeps_exact_per_unit_totals_and_pours_small_rows_from
     assert "not in total" not in html
     assert "1 row under 10 \u00b5L goes in from a mix; the mix adds 8 \u00b5L DPG to the bottle." in html
     assert "Running totals leave out" not in html
-    assert "Draft, one safety check to clear" in html
+    assert "Draft, 1 check to clear" in html
     assert "Ethyl &lt;b&gt;Maltol&lt;/b&gt;" in html
     assert "<b>Maltol" not in html
     assert "Test &lt;Iris&gt; \u00b7 B" in html
@@ -1506,12 +1506,83 @@ def _node_json(module_path, script):
     return json.loads(completed.stdout)
 
 
-def test_state_labels_are_plain_words_and_count_the_safety_checks():
+def test_state_labels_are_plain_words_and_count_the_checks():
     result = _node_json(
         BENCH_SHEET_JS,
         "(b) => [0, 1, 3].map((n) => b.benchDraftState(n))",
     )
-    assert result == ["Draft", "Draft, one safety check to clear", "Draft, 3 safety checks to clear"]
+    assert result == ["Draft", "Draft, 1 check to clear", "Draft, 3 checks to clear"]
+
+
+_PLANNER_CODES_FOR_ONE_SUB_10_ROW = [
+    "SUB_10_UL_RAW_TRANSFER:s-ros", "STOCK_EXECUTION_BINDING_REQUIRED:s-ros",
+    "ONE_OR_MORE_ROWS_REQUIRE_STOCK_OR_DILUTION_BINDING",
+]
+
+
+def _hold_texts(rows, issues):
+    return _node_json(
+        BENCH_SHEET_JS,
+        "(b) => { const rows = %s; const critic = { issues: %s };"
+        " const sheet = b.benchSheetHtml({ formulaName: 'F', dateText: 'd', totals: {}, rows, critic });"
+        " return { create: b.benchSheetHold(rows, critic).stateText, sheet: (sheet.match(/<dt>State<\\/dt><dd>([^<]*)<\\/dd>/) || [])[1] }; }"
+        % (json.dumps(rows), json.dumps(issues)),
+    )
+
+
+def _plain_row(name, ready=True):
+    return {"material": name, "amount_decimal": "20", "amount_unit": "uL", "execution_ready": ready, "operation": "DIRECT_ADD"}
+
+
+def test_one_under_10_ul_row_is_one_check_not_three_planner_codes():
+    rows = [_plain_row("Hedione"), _plain_row("Rose Oxide", ready=False)]
+    texts = _hold_texts(rows, _PLANNER_CODES_FOR_ONE_SUB_10_ROW)
+    assert texts == {"create": "Draft, 1 check to clear", "sheet": "Draft, 1 check to clear"}
+
+
+def test_three_unready_rows_are_three_checks_and_other_codes_add_one_each():
+    rows = [_plain_row("A", ready=False), _plain_row("B", ready=False), _plain_row("C", ready=False), _plain_row("D")]
+    assert _hold_texts(rows, [])["create"] == "Draft, 3 checks to clear"
+    both = _hold_texts(rows, ["ROLE_CAP_EXCEEDED", "ROLE_CAP_EXCEEDED", "SUB_10_UL_RAW_TRANSFER:s-a"])
+    assert both == {"create": "Draft, 4 checks to clear", "sheet": "Draft, 4 checks to clear"}
+    assert _hold_texts([_plain_row("A")], [])["create"] == "Draft"
+
+
+def test_create_page_uses_the_shared_hold_so_both_pages_read_the_same():
+    lab_js = (BENCH_SHEET_JS.parent / "lab.js").read_text(encoding="utf-8")
+    assert "benchSheetHold(selected.formula?.rows || [], selected.critic).stateText" in lab_js
+    assert "benchDraftState(selected.critic" not in lab_js
+    assert "safety check" not in BENCH_SHEET_JS.read_text(encoding="utf-8")
+
+
+def test_scent_chart_is_optional_for_the_rows_table_and_the_overview_falls_back_to_the_stock_list():
+    lab_js = (BENCH_SHEET_JS.parent / "lab.js").read_text(encoding="utf-8")
+    assert 'typeof scentWhyText === "function"' in lab_js
+    assert 'typeof scentCurveCache !== "undefined"' in lab_js
+    assert 'typeof renderScentChart === "function"' in lab_js
+    assert "scentWhyText(row.rationale, row, curve) : String(row.rationale" in lab_js
+    tiles = _node_json(
+        BENCH_SHEET_JS,
+        "(b) => [b.overviewTiles({}, {}, 7)[0], b.overviewTiles({}, { stocks: 342 }, 7)[0], b.overviewTiles({}, null)[0]]",
+    )
+    assert tiles == [["stock bottles owned", 7], ["stock bottles owned", 342], ["stock bottles owned", 0]]
+
+
+def test_row_why_uses_the_share_when_the_slot_label_equals_the_planner_lead():
+    # The planner sets slot_label to the same text it puts before the colon.
+    tail = "selected as the nonredundant character for this concept after hard exclusions and stock form were applied."
+    curve = {"windows": [
+        {"label": "heart", "materials": [{"name": "Lavender EO", "known": True, "share": 0.2}]},
+        {"label": "drydown", "materials": [{"name": "Lavender EO", "known": True, "share": 0.05}]},
+    ]}
+    lead = "Explicit brief anchor: Lavender EO"
+    script = (
+        "(m) => { const r = { identity_name: 'Lavender EO', slot_label: %s }; const t = %s + ': ' + %s;"
+        " return [m.scentWhyText(t, r, %s), m.scentWhyText(t, r, null)]; }"
+    ) % (json.dumps(lead), json.dumps(lead), json.dumps(tail), json.dumps(curve))
+    assert _node_json(SCENT_CHART_JS, script) == [
+        "Modelled at 20% of what the model can detect at 30 minutes and 5% at 4 hours.", "",
+    ]
 
 
 def test_row_why_drops_the_template_and_uses_the_modelled_share():
