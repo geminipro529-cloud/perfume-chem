@@ -12,5 +12,5 @@ from app.models.knowledge_graph import (  # noqa: F401
     TheoryFramework,
 )
 from app.models.lab import *  # noqa: F403
-from app.models.liking import LikingPick, LikingRating  # noqa: F401
+from app.models.liking import LikingMaterialRating, LikingPick, LikingRating  # noqa: F401
 from app.models.perfume import Formula, Perfume  # noqa: F401

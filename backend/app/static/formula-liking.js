@@ -410,6 +410,7 @@ function likingPersonalBlock() {
       const fit = await request("/liking/personal", { base: LIKING_API });
       body.replaceChildren(
         likingEl("p", "", `${Number(fit?.ratings_used) || 0} ratings and ${Number(fit?.picks_used) || 0} A/B picks used so far.`),
+        likingEl("p", "", `${Number(fit?.material_ratings_used) || 0} material ratings`),
         likingNameList("You like these more than the crowd does:", fit?.liked),
         likingNameList("You like these less than the crowd does:", fit?.disliked),
         likingEl("small", "", "Your own ratings start to matter after roughly 10 to 20 rated bottles; until then the crowd guess carries most of the weight."),

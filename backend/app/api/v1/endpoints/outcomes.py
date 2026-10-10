@@ -6,11 +6,11 @@ from typing import Literal, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Response
 from pydantic import BaseModel, Field, field_validator
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_db
-from app.models.liking import LikingPick, LikingRating
+from app.models.liking import LikingMaterialRating, LikingPick, LikingRating
 from app.services import personal_liking
 from app.services.outcome_store import OutcomeStore
 
@@ -302,6 +302,72 @@ async def delete_liking_pick(pick_id: int, db: AsyncSession = Depends(get_db)):
     if pick is None:
         raise HTTPException(status_code=404, detail="Liking pick not found")
     await personal_liking.delete_record(db, pick)
+    return Response(status_code=204)
+
+
+class LikingMaterialRatingCreate(BaseModel):
+    material: str = Field(..., min_length=1, max_length=255)
+    stock_label: Optional[str] = Field(None, max_length=255)
+    strength: Optional[Literal["weak", "medium", "strong"]] = None
+    liking: int = Field(..., ge=1, le=10)
+    note: Optional[str] = None
+    source: str = Field("stock_card", min_length=1, max_length=64)
+
+    @field_validator("material")
+    @classmethod
+    def _material_not_blank(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("material must not be blank")
+        return value
+
+
+class LikingMaterialRatingResponse(LikingMaterialRatingCreate):
+    id: int
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class LikingMaterialRatingSaved(LikingMaterialRatingResponse):
+    personal_fit_written: bool
+
+
+@router.post("/liking/materials", response_model=LikingMaterialRatingSaved, status_code=201)
+async def record_liking_material(
+    body: LikingMaterialRatingCreate, db: AsyncSession = Depends(get_db)
+):
+    """Record Kenny's liking for one material smelled on a blotter."""
+    rating = LikingMaterialRating(**body.model_dump())
+    rating, written = await personal_liking.save_record(db, rating)
+    return {
+        **LikingMaterialRatingResponse.model_validate(rating).model_dump(),
+        "personal_fit_written": written,
+    }
+
+
+@router.get("/liking/materials", response_model=list[LikingMaterialRatingResponse])
+async def list_liking_materials(
+    material: Optional[str] = Query(None),
+    limit: int = Query(100, ge=1, le=1000),
+    db: AsyncSession = Depends(get_db),
+):
+    """List material ratings, newest first; `material` matches the name exactly, ignoring case."""
+    query = select(LikingMaterialRating)
+    if material is not None:
+        query = query.where(func.lower(LikingMaterialRating.material) == material.casefold())
+    rows = await db.execute(
+        query.order_by(LikingMaterialRating.created_at.desc(), LikingMaterialRating.id.desc()).limit(limit)
+    )
+    return rows.scalars().all()
+
+
+@router.delete("/liking/materials/{rating_id}", status_code=204)
+async def delete_liking_material(rating_id: int, db: AsyncSession = Depends(get_db)):
+    """Delete one material rating and refit."""
+    rating = await db.get(LikingMaterialRating, rating_id)
+    if rating is None:
+        raise HTTPException(status_code=404, detail="Material rating not found")
+    await personal_liking.delete_record(db, rating)
     return Response(status_code=204)
 
 
