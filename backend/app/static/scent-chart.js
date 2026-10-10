@@ -73,6 +73,30 @@ function scentChartModel(curve, skipped) {
   return { series, columns, unknown: all.filter((s) => !s.known).map((s) => s.name), skipped: skipped || [] };
 }
 
+// One specific sentence for a composition row. The engine's template tail is
+// dropped; a row-specific lead ("Explicit brief anchor: X") or a relationship
+// sentence stays. Otherwise the sentence comes from the cached curve: the
+// material's share of what the model can detect at 30 minutes and 4 hours.
+// Empty when nothing specific can be said.
+const SCENT_TEMPLATE_TAIL = /:?\s*selected as the nonredundant [^.]*? for this concept after hard exclusions and stock form were applied\.?\s*$/;
+
+function scentWhyText(rationale, row, curve) {
+  const text = String(rationale || "").trim();
+  const stripped = text.replace(SCENT_TEMPLATE_TAIL, "").trim();
+  if (stripped === text) return text;
+  const slot = String((row && row.slot_label) || "").trim().toLowerCase();
+  if (stripped && stripped.toLowerCase() !== slot) return stripped;
+  const share = (label) => {
+    const win = ((curve && curve.windows) || []).find((w) => w.label === label);
+    const m = win && (win.materials || []).find((x) => x.name === (row && row.identity_name));
+    return m && m.known && typeof m.share === "number" ? m.share : null;
+  };
+  const heart = share("heart");
+  const late = share("drydown");
+  if (heart === null || late === null || (heart === 0 && late === 0)) return "";
+  return `Modelled at ${scentPercent(heart)} of what the model can detect at 30 minutes and ${scentPercent(late)} at 4 hours.`;
+}
+
 function scentSvg(tag, attrs, text) {
   const node = document.createElementNS(SCENT_SVG_NS, tag);
   Object.entries(attrs || {}).forEach(([k, v]) => node.setAttribute(k, String(v)));
@@ -224,5 +248,5 @@ async function renderScentChart(container, designRows) {
 }
 
 if (typeof module === "object" && module.exports) {
-  module.exports = { scentChartModel, scentChartRows, scentSkippedNames };
+  module.exports = { scentChartModel, scentChartRows, scentSkippedNames, scentWhyText };
 }
