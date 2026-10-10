@@ -1929,6 +1929,7 @@ function renderFormulaDesign(result, variantIndex = 0) {
     picker.append(button);
   });
   renderCompositionChecks(selected.variant ? selected.variant.composition_checks : result.composition_checks);
+  renderScentChart($("#formula-result-scent"), selected.formula?.rows);
   const rows = selected.formula?.rows || [];
   renderFormulaRows(rows);
 

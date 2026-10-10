@@ -100,6 +100,7 @@ from app.services.lab_science import (
     ScienceAuthorityError,
 )
 from app.services.lab_service import LabService
+from app.services.scent_curve import ScentCurveRequest, compute_scent_curve
 
 router = APIRouter()
 ResponsePayload: TypeAlias = dict[str, Any] | JSONResponse
@@ -600,6 +601,13 @@ async def formulate_from_conversation(
         )
     except ValueError as error:
         return _error_response(error)
+
+
+@router.post("/workbench/scent-curve", response_model=None)
+async def scent_curve_for_rows(request: ScentCurveRequest) -> dict[str, Any]:
+    """Screening time curve (modelled detectable share) for a drafted formula."""
+
+    return cast(dict[str, Any], await run_in_threadpool(compute_scent_curve, request.rows))
 
 
 def _proposal_record(record: Any) -> dict[str, Any]:

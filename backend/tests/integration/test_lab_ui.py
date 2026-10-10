@@ -1471,3 +1471,24 @@ def test_bench_row_basket_trusts_the_stock_id_over_the_name():
 
     assert result["byId"]["basket"] == 3
     assert result["byName"]["basket"] == 8  # without the stock_id the name still finds the crystals
+
+
+@pytest.mark.asyncio
+async def test_scent_chart_script_is_served_wired_and_themed(client):
+    page = await client.get("/app")
+    script = await client.get("/static/scent-chart.js")
+    theme = await client.get("/static/theme.css")
+    lab = await client.get("/static/lab.js")
+
+    assert script.status_code == 200
+    assert page.text.index('src="/static/scent-chart.js"') < page.text.index('src="/static/lab.js"')
+    assert 'id="formula-result-scent"' in page.text
+    assert page.text.index('id="formula-result-scent"') < page.text.index('id="formula-result-rows"')
+    assert "renderScentChart(" in lab.text
+    assert "innerHTML" not in script.text
+    # Tokens in the light block, the prefers-color-scheme dark block and the data-theme="dark" block.
+    light, rest = theme.text.split("@media (prefers-color-scheme: dark)", 1)
+    auto_dark, explicit_dark = rest.split(':root[data-theme="dark"] {', 1)
+    for block in (light, auto_dark, explicit_dark.split("}", 1)[0]):
+        for token in ("--tier-top:", "--tier-heart:", "--tier-base:"):
+            assert token in block
