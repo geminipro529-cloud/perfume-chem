@@ -148,7 +148,6 @@ STILL_HELD = {
     "Lilyreal ND",
     "Mate Absolute",
     "Orris Concrete Orris Butter",
-    "Rose Otto Bulgarian",
     "Saffranal",
     "Suederal 10%",
     "Tonkarome",
