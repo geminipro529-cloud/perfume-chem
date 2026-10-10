@@ -156,6 +156,8 @@ async def test_fit_without_crowd_table(client, liking_paths):
     fit = (await client.get(f"{BASE}/personal")).json()
     assert fit == {**json.loads(output.read_text()), "updated_at": fit["updated_at"]}
     assert fit["schema"] == "personal_liking_v1"
+    assert fit["crowd_check"]["verdict"] == "too_few" and fit["crowd_check"]["n"] == 1
+    assert fit["crowd_weight"] == 1.0
     assert (fit["ratings_used"], fit["picks_used"]) == (2, 1)
     materials = fit["materials"]
     # Rating 1: y = 1, crowd guess 0.2.  Rating 2: y = -1/3, no guess.
