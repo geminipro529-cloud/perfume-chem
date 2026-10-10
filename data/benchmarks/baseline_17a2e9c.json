@@ -1,0 +1,906 @@
+{
+ "aromatic-fougere": {
+  "ifra_pass": true,
+  "ifra_status": "WARN",
+  "material_count": 18,
+  "max_active_share": 0.3501,
+  "named_notes": [
+   {
+    "name": "lavender",
+    "share": 0.0266,
+    "status": "detectable",
+    "window": "heart"
+   },
+   {
+    "name": "oakmoss",
+    "share": 0.0,
+    "status": "absent",
+    "window": "drydown"
+   },
+   {
+    "name": "coumarin",
+    "share": 0.0,
+    "status": "absent",
+    "window": "drydown"
+   }
+  ],
+  "named_notes_detectable": 1,
+  "one_note": true,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 1,
+  "windows": {
+   "drydown": {
+    "effective_voices": 2.287,
+    "top_oav_share": 0.796
+   },
+   "heart": {
+    "effective_voices": 3.466,
+    "top_oav_share": 0.6414
+   },
+   "late_heart": {
+    "effective_voices": 2.266,
+    "top_oav_share": 0.8067
+   },
+   "opening": {
+    "effective_voices": 3.857,
+    "top_oav_share": 0.4811
+   },
+   "top": {
+    "effective_voices": 3.852,
+    "top_oav_share": 0.4874
+   }
+  }
+ },
+ "citrus-cologne": {
+  "ifra_pass": true,
+  "ifra_status": "PASS",
+  "material_count": 13,
+  "max_active_share": 0.3598,
+  "named_notes": [
+   {
+    "name": "citrus",
+    "share": 0.7897,
+    "status": "detectable",
+    "window": "opening"
+   }
+  ],
+  "named_notes_detectable": 1,
+  "one_note": false,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 1,
+  "windows": {
+   "drydown": {
+    "effective_voices": 4.356,
+    "top_oav_share": 0.4019
+   },
+   "heart": {
+    "effective_voices": 5.022,
+    "top_oav_share": 0.4167
+   },
+   "late_heart": {
+    "effective_voices": 4.286,
+    "top_oav_share": 0.4034
+   },
+   "opening": {
+    "effective_voices": 3.583,
+    "top_oav_share": 0.5658
+   },
+   "top": {
+    "effective_voices": 3.616,
+    "top_oav_share": 0.563
+   }
+  }
+ },
+ "citrus-no-lavender": {
+  "ifra_pass": true,
+  "ifra_status": "PASS",
+  "material_count": 12,
+  "max_active_share": 0.358,
+  "named_notes": [
+   {
+    "name": "citrus",
+    "share": 0.8628,
+    "status": "detectable",
+    "window": "opening"
+   }
+  ],
+  "named_notes_detectable": 1,
+  "one_note": true,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 1,
+  "windows": {
+   "drydown": {
+    "effective_voices": 3.736,
+    "top_oav_share": 0.3571
+   },
+   "heart": {
+    "effective_voices": 4.103,
+    "top_oav_share": 0.4889
+   },
+   "late_heart": {
+    "effective_voices": 3.691,
+    "top_oav_share": 0.4734
+   },
+   "opening": {
+    "effective_voices": 2.935,
+    "top_oav_share": 0.6183
+   },
+   "top": {
+    "effective_voices": 2.963,
+    "top_oav_share": 0.6155
+   }
+  }
+ },
+ "clean-musky-skin": {
+  "ifra_pass": true,
+  "ifra_status": "WARN",
+  "material_count": 6,
+  "max_active_share": 0.6897,
+  "named_notes": [
+   {
+    "name": "musk",
+    "share": 0.0017,
+    "status": "detectable",
+    "window": "drydown"
+   }
+  ],
+  "named_notes_detectable": 1,
+  "one_note": true,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 0,
+  "windows": {
+   "drydown": {
+    "effective_voices": 1.253,
+    "top_oav_share": 0.9472
+   },
+   "heart": {
+    "effective_voices": 1.165,
+    "top_oav_share": 0.968
+   },
+   "late_heart": {
+    "effective_voices": 1.194,
+    "top_oav_share": 0.9613
+   },
+   "opening": {
+    "effective_voices": 1.14,
+    "top_oav_share": 0.971
+   },
+   "top": {
+    "effective_voices": 1.15,
+    "top_oav_share": 0.9699
+   }
+  }
+ },
+ "dark-oud-rose-no-vanilla": {
+  "ifra_pass": true,
+  "ifra_status": "WARN",
+  "material_count": 21,
+  "max_active_share": 0.1915,
+  "named_notes": [
+   {
+    "name": "oud",
+    "share": 0.0,
+    "status": "detectable",
+    "window": "drydown"
+   },
+   {
+    "name": "rose",
+    "share": 0.5631,
+    "status": "detectable",
+    "window": "heart"
+   }
+  ],
+  "named_notes_detectable": 2,
+  "one_note": false,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 1,
+  "windows": {
+   "drydown": {
+    "effective_voices": 4.291,
+    "top_oav_share": 0.4748
+   },
+   "heart": {
+    "effective_voices": 4.034,
+    "top_oav_share": 0.5059
+   },
+   "late_heart": {
+    "effective_voices": 4.108,
+    "top_oav_share": 0.4968
+   },
+   "opening": {
+    "effective_voices": 4.005,
+    "top_oav_share": 0.4939
+   },
+   "top": {
+    "effective_voices": 4.008,
+    "top_oav_share": 0.4957
+   }
+  }
+ },
+ "gourmand-vanilla": {
+  "ifra_pass": true,
+  "ifra_status": "PASS",
+  "material_count": 19,
+  "max_active_share": 0.2492,
+  "named_notes": [
+   {
+    "name": "vanilla",
+    "share": 0.0036,
+    "status": "detectable",
+    "window": "drydown"
+   }
+  ],
+  "named_notes_detectable": 1,
+  "one_note": false,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 1,
+  "windows": {
+   "drydown": {
+    "effective_voices": 4.528,
+    "top_oav_share": 0.422
+   },
+   "heart": {
+    "effective_voices": 4.898,
+    "top_oav_share": 0.3213
+   },
+   "late_heart": {
+    "effective_voices": 4.378,
+    "top_oav_share": 0.4352
+   },
+   "opening": {
+    "effective_voices": 4.77,
+    "top_oav_share": 0.323
+   },
+   "top": {
+    "effective_voices": 4.778,
+    "top_oav_share": 0.3227
+   }
+  }
+ },
+ "green-fig-milky-sandalwood": {
+  "ifra_pass": true,
+  "ifra_status": "WARN",
+  "material_count": 6,
+  "max_active_share": 0.8453,
+  "named_notes": [
+   {
+    "name": "green",
+    "share": 0.7852,
+    "status": "detectable",
+    "window": "top"
+   },
+   {
+    "name": "sandalwood",
+    "share": 0.0365,
+    "status": "detectable",
+    "window": "drydown"
+   }
+  ],
+  "named_notes_detectable": 2,
+  "one_note": true,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 0,
+  "windows": {
+   "drydown": {
+    "effective_voices": 2.196,
+    "top_oav_share": 0.7388
+   },
+   "heart": {
+    "effective_voices": 2.424,
+    "top_oav_share": 0.6783
+   },
+   "late_heart": {
+    "effective_voices": 2.94,
+    "top_oav_share": 0.6186
+   },
+   "opening": {
+    "effective_voices": 2.29,
+    "top_oav_share": 0.7228
+   },
+   "top": {
+    "effective_voices": 2.289,
+    "top_oav_share": 0.7223
+   }
+  }
+ },
+ "green-tea": {
+  "ifra_pass": true,
+  "ifra_status": "WARN",
+  "material_count": 20,
+  "max_active_share": 0.2389,
+  "named_notes": [
+   {
+    "name": "tea",
+    "share": 0.0,
+    "status": "absent",
+    "window": "heart"
+   },
+   {
+    "name": "green",
+    "share": 0.6611,
+    "status": "detectable",
+    "window": "top"
+   }
+  ],
+  "named_notes_detectable": 1,
+  "one_note": false,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 1,
+  "windows": {
+   "drydown": {
+    "effective_voices": 2.939,
+    "top_oav_share": 0.5762
+   },
+   "heart": {
+    "effective_voices": 4.253,
+    "top_oav_share": 0.4507
+   },
+   "late_heart": {
+    "effective_voices": 3.199,
+    "top_oav_share": 0.5015
+   },
+   "opening": {
+    "effective_voices": 4.457,
+    "top_oav_share": 0.4404
+   },
+   "top": {
+    "effective_voices": 4.447,
+    "top_oav_share": 0.4416
+   }
+  }
+ },
+ "incense-resin": {
+  "ifra_pass": true,
+  "ifra_status": "PASS",
+  "material_count": 19,
+  "max_active_share": 0.2553,
+  "named_notes": [
+   {
+    "name": "incense",
+    "share": 0.0924,
+    "status": "detectable",
+    "window": "heart"
+   },
+   {
+    "name": "resin",
+    "share": 0.0,
+    "status": "unknown_physics",
+    "window": "drydown"
+   }
+  ],
+  "named_notes_detectable": 1,
+  "one_note": false,
+  "silent_character_rows": 1,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 2,
+  "windows": {
+   "drydown": {
+    "effective_voices": 4.585,
+    "top_oav_share": 0.4155
+   },
+   "heart": {
+    "effective_voices": 5.539,
+    "top_oav_share": 0.3987
+   },
+   "late_heart": {
+    "effective_voices": 4.458,
+    "top_oav_share": 0.4302
+   },
+   "opening": {
+    "effective_voices": 5.936,
+    "top_oav_share": 0.3864
+   },
+   "top": {
+    "effective_voices": 5.932,
+    "top_oav_share": 0.3857
+   }
+  }
+ },
+ "iris-powder": {
+  "ifra_pass": true,
+  "ifra_status": "PASS",
+  "material_count": 20,
+  "max_active_share": 0.1536,
+  "named_notes": [
+   {
+    "name": "iris",
+    "share": 0.0005,
+    "status": "detectable",
+    "window": "heart"
+   }
+  ],
+  "named_notes_detectable": 1,
+  "one_note": true,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 1,
+  "windows": {
+   "drydown": {
+    "effective_voices": 1.327,
+    "top_oav_share": 0.9372
+   },
+   "heart": {
+    "effective_voices": 1.403,
+    "top_oav_share": 0.9198
+   },
+   "late_heart": {
+    "effective_voices": 1.359,
+    "top_oav_share": 0.9287
+   },
+   "opening": {
+    "effective_voices": 1.428,
+    "top_oav_share": 0.9141
+   },
+   "top": {
+    "effective_voices": 1.426,
+    "top_oav_share": 0.9147
+   }
+  }
+ },
+ "lavender-cologne": {
+  "ifra_pass": true,
+  "ifra_status": "WARN",
+  "material_count": 12,
+  "max_active_share": 0.696,
+  "named_notes": [
+   {
+    "name": "lavender",
+    "share": 0.8208,
+    "status": "detectable",
+    "window": "heart"
+   },
+   {
+    "name": "citrus",
+    "share": 0.0003,
+    "status": "detectable",
+    "window": "opening"
+   }
+  ],
+  "named_notes_detectable": 2,
+  "one_note": true,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 0,
+  "windows": {
+   "drydown": {
+    "effective_voices": 2.886,
+    "top_oav_share": 0.4659
+   },
+   "heart": {
+    "effective_voices": 1.913,
+    "top_oav_share": 0.8208
+   },
+   "late_heart": {
+    "effective_voices": 2.048,
+    "top_oav_share": 0.7523
+   },
+   "opening": {
+    "effective_voices": 2.229,
+    "top_oav_share": 0.7733
+   },
+   "top": {
+    "effective_voices": 2.215,
+    "top_oav_share": 0.7761
+   }
+  }
+ },
+ "leather": {
+  "ifra_pass": true,
+  "ifra_status": "WARN",
+  "material_count": 18,
+  "max_active_share": 0.3728,
+  "named_notes": [
+   {
+    "name": "leather",
+    "share": 0.0091,
+    "status": "detectable",
+    "window": "heart"
+   }
+  ],
+  "named_notes_detectable": 1,
+  "one_note": false,
+  "silent_character_rows": 1,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 0,
+  "windows": {
+   "drydown": {
+    "effective_voices": 4.535,
+    "top_oav_share": 0.4332
+   },
+   "heart": {
+    "effective_voices": 4.614,
+    "top_oav_share": 0.4449
+   },
+   "late_heart": {
+    "effective_voices": 4.444,
+    "top_oav_share": 0.4481
+   },
+   "opening": {
+    "effective_voices": 4.711,
+    "top_oav_share": 0.4535
+   },
+   "top": {
+    "effective_voices": 4.731,
+    "top_oav_share": 0.4512
+   }
+  }
+ },
+ "marine-ozonic": {
+  "ifra_pass": true,
+  "ifra_status": "WARN",
+  "material_count": 19,
+  "max_active_share": 0.2784,
+  "named_notes": [
+   {
+    "name": "marine",
+    "share": 0.0183,
+    "status": "detectable",
+    "window": "heart"
+   }
+  ],
+  "named_notes_detectable": 1,
+  "one_note": false,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 1,
+  "windows": {
+   "drydown": {
+    "effective_voices": 3.944,
+    "top_oav_share": 0.474
+   },
+   "heart": {
+    "effective_voices": 3.845,
+    "top_oav_share": 0.4303
+   },
+   "late_heart": {
+    "effective_voices": 3.922,
+    "top_oav_share": 0.4093
+   },
+   "opening": {
+    "effective_voices": 3.826,
+    "top_oav_share": 0.4411
+   },
+   "top": {
+    "effective_voices": 3.827,
+    "top_oav_share": 0.4403
+   }
+  }
+ },
+ "pipe-tobacco": {
+  "ifra_pass": true,
+  "ifra_status": "PASS",
+  "material_count": 20,
+  "max_active_share": 0.2356,
+  "named_notes": [
+   {
+    "name": "tobacco",
+    "share": 0.5014,
+    "status": "detectable",
+    "window": "heart"
+   },
+   {
+    "name": "sweet",
+    "share": 0.0047,
+    "status": "detectable",
+    "window": "drydown"
+   }
+  ],
+  "named_notes_detectable": 2,
+  "one_note": false,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 0,
+  "windows": {
+   "drydown": {
+    "effective_voices": 5.302,
+    "top_oav_share": 0.3516
+   },
+   "heart": {
+    "effective_voices": 4.581,
+    "top_oav_share": 0.5014
+   },
+   "late_heart": {
+    "effective_voices": 4.889,
+    "top_oav_share": 0.4097
+   },
+   "opening": {
+    "effective_voices": 4.579,
+    "top_oav_share": 0.4988
+   },
+   "top": {
+    "effective_voices": 4.593,
+    "top_oav_share": 0.499
+   }
+  }
+ },
+ "rose-amber-cap10": {
+  "ifra_pass": true,
+  "ifra_status": "WARN",
+  "material_count": 8,
+  "max_active_share": 0.3858,
+  "named_notes": [
+   {
+    "name": "rose",
+    "share": 0.8705,
+    "status": "detectable",
+    "window": "heart"
+   },
+   {
+    "name": "amber",
+    "share": 0.0155,
+    "status": "detectable",
+    "window": "drydown"
+   }
+  ],
+  "named_notes_detectable": 2,
+  "one_note": true,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 1,
+  "windows": {
+   "drydown": {
+    "effective_voices": 2.775,
+    "top_oav_share": 0.6701
+   },
+   "heart": {
+    "effective_voices": 2.461,
+    "top_oav_share": 0.7247
+   },
+   "late_heart": {
+    "effective_voices": 2.573,
+    "top_oav_share": 0.7051
+   },
+   "opening": {
+    "effective_voices": 2.445,
+    "top_oav_share": 0.7262
+   },
+   "top": {
+    "effective_voices": 2.452,
+    "top_oav_share": 0.7259
+   }
+  }
+ },
+ "rose-chypre-patchouli-oakmoss": {
+  "ifra_pass": true,
+  "ifra_status": "WARN",
+  "material_count": 18,
+  "max_active_share": 0.1607,
+  "named_notes": [
+   {
+    "name": "rose",
+    "share": 0.4902,
+    "status": "detectable",
+    "window": "heart"
+   },
+   {
+    "name": "patchouli",
+    "share": 0.0043,
+    "status": "detectable",
+    "window": "drydown"
+   },
+   {
+    "name": "oakmoss",
+    "share": 0.003,
+    "status": "detectable",
+    "window": "drydown"
+   }
+  ],
+  "named_notes_detectable": 3,
+  "one_note": false,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 0,
+  "windows": {
+   "drydown": {
+    "effective_voices": 4.754,
+    "top_oav_share": 0.4266
+   },
+   "heart": {
+    "effective_voices": 4.661,
+    "top_oav_share": 0.4393
+   },
+   "late_heart": {
+    "effective_voices": 4.563,
+    "top_oav_share": 0.4465
+   },
+   "opening": {
+    "effective_voices": 4.624,
+    "top_oav_share": 0.4255
+   },
+   "top": {
+    "effective_voices": 4.638,
+    "top_oav_share": 0.4272
+   }
+  }
+ },
+ "soft-woody-amber": {
+  "ifra_pass": true,
+  "ifra_status": "WARN",
+  "material_count": 22,
+  "max_active_share": 0.1904,
+  "named_notes": [
+   {
+    "name": "wood",
+    "share": 0.6656,
+    "status": "detectable",
+    "window": "drydown"
+   },
+   {
+    "name": "amber",
+    "share": 0.0022,
+    "status": "detectable",
+    "window": "drydown"
+   }
+  ],
+  "named_notes_detectable": 2,
+  "one_note": false,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 1,
+  "windows": {
+   "drydown": {
+    "effective_voices": 4.014,
+    "top_oav_share": 0.59
+   },
+   "heart": {
+    "effective_voices": 4.943,
+    "top_oav_share": 0.4838
+   },
+   "late_heart": {
+    "effective_voices": 4.364,
+    "top_oav_share": 0.5379
+   },
+   "opening": {
+    "effective_voices": 5.104,
+    "top_oav_share": 0.469
+   },
+   "top": {
+    "effective_voices": 5.096,
+    "top_oav_share": 0.4702
+   }
+  }
+ },
+ "vetiver-haitian": {
+  "ifra_pass": true,
+  "ifra_status": "WARN",
+  "material_count": 17,
+  "max_active_share": 0.1917,
+  "named_notes": [
+   {
+    "name": "vetiver",
+    "share": 0.0106,
+    "status": "detectable",
+    "window": "drydown"
+   }
+  ],
+  "named_notes_detectable": 1,
+  "one_note": false,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 2,
+  "windows": {
+   "drydown": {
+    "effective_voices": 4.573,
+    "top_oav_share": 0.4107
+   },
+   "heart": {
+    "effective_voices": 4.518,
+    "top_oav_share": 0.4212
+   },
+   "late_heart": {
+    "effective_voices": 4.424,
+    "top_oav_share": 0.4243
+   },
+   "opening": {
+    "effective_voices": 4.661,
+    "top_oav_share": 0.4278
+   },
+   "top": {
+    "effective_voices": 4.698,
+    "top_oav_share": 0.425
+   }
+  }
+ },
+ "white-musk-laundry": {
+  "ifra_pass": true,
+  "ifra_status": "PASS",
+  "material_count": 18,
+  "max_active_share": 0.2635,
+  "named_notes": [
+   {
+    "name": "musk",
+    "share": 0.0005,
+    "status": "detectable",
+    "window": "drydown"
+   },
+   {
+    "name": "clean-aldehyde",
+    "share": 0.0,
+    "status": "absent",
+    "window": "opening"
+   }
+  ],
+  "named_notes_detectable": 1,
+  "one_note": true,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 0,
+  "windows": {
+   "drydown": {
+    "effective_voices": 2.53,
+    "top_oav_share": 0.7448
+   },
+   "heart": {
+    "effective_voices": 2.991,
+    "top_oav_share": 0.6875
+   },
+   "late_heart": {
+    "effective_voices": 2.697,
+    "top_oav_share": 0.7196
+   },
+   "opening": {
+    "effective_voices": 3.074,
+    "top_oav_share": 0.6802
+   },
+   "top": {
+    "effective_voices": 3.069,
+    "top_oav_share": 0.6806
+   }
+  }
+ },
+ "woody-floral-no-musk": {
+  "ifra_pass": true,
+  "ifra_status": "WARN",
+  "material_count": 20,
+  "max_active_share": 0.1922,
+  "named_notes": [
+   {
+    "name": "wood",
+    "share": 0.0134,
+    "status": "detectable",
+    "window": "drydown"
+   },
+   {
+    "name": "floral",
+    "share": 0.0836,
+    "status": "detectable",
+    "window": "heart"
+   }
+  ],
+  "named_notes_detectable": 2,
+  "one_note": false,
+  "silent_character_rows": 0,
+  "total_uL": 6000.0,
+  "unknown_physics_rows": 1,
+  "windows": {
+   "drydown": {
+    "effective_voices": 4.296,
+    "top_oav_share": 0.5222
+   },
+   "heart": {
+    "effective_voices": 4.715,
+    "top_oav_share": 0.4518
+   },
+   "late_heart": {
+    "effective_voices": 4.255,
+    "top_oav_share": 0.4979
+   },
+   "opening": {
+    "effective_voices": 4.875,
+    "top_oav_share": 0.4536
+   },
+   "top": {
+    "effective_voices": 4.895,
+    "top_oav_share": 0.4514
+   }
+  }
+ }
+}
