@@ -1488,11 +1488,11 @@
   inchikey: null
   mw_g_mol: 190.3
   density_25c_g_ml: 0.929
-  logp: null
+  logp: 3.68
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.08
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 2.6
+  vp_source: Firmenich_SDS_OECD104
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1518,7 +1518,7 @@
         price_usd_per_g: 0.35
   families: []
   character: null
-  notes: null
+  notes: 'VP 2.6 Pa at 25 C measured (OECD 104), bp 254 C, mp 9 C, log Kow 3.68 (OECD 117), water 194 mg/L, from the Firmenich Damascone Beta SDS v13 (2024); ChemicalBook 3.2 Pa agrees. Replaces the unsourced 0.08 Pa: a heart material, not a base.'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -1526,6 +1526,8 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 23726-91-2 (https://www.thegoodscentscompany.com/data/rw1000881.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.92800 to 0.93600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1000881.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    vp_25c_pa: 'Firmenich SDS v13 (2024) https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Damascone_Beta_Firmenich_SDS.pdf: 2.6 Pa at 25 C, OECD 104; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    logp: 'same Firmenich SDS: log Kow 3.68 (OECD 117); via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
 - canonical_name: Beta Homocyclocitral
   aliases: []
   cas: null

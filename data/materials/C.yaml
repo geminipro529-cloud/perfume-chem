@@ -1079,11 +1079,11 @@
   inchikey: null
   mw_g_mol: 206.3
   density_25c_g_ml: 0.955
-  logp: 3.3
+  logp: 4.2
   functional_groups: []
   chirality: null
   vp_25c_pa: 1.242
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: IFF_compendium_23C_not_corrected
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.001
@@ -1115,15 +1115,15 @@
   families:
   - woods / amber / structure
   character: null
-  notes: null
+  notes: 'VP 1.242 Pa is the IFF compendium 0.009316 mmHg at 23 C used without temperature correction (method not stated); the IFF SDS 7.13 (2017) gives no VP but mp 27 C and bp 220 C (OECD 103), and a 220 C boiling point would imply 20-30 Pa, so the figure is uncertain by about 10x; ChemicalBook lists 1 Pa at 25 C (unmarked). log Pow 4.2 (OECD 117, IFF SDS).'
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: IFF official compendium, 0.009316 mmHg at 23 C
+    vp_25c_pa: 'IFF official compendium, 0.009316 mmHg at 23 C = 1.242 Pa, not temperature-corrected, method not stated; IFF SDS 7.13 (2017) https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Cashmeran_IFF_SDS.pdf has no VP (bp 220 C, OECD 103); via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'IFF SDS 7.13 (2017): log Pow 4.2 (OECD 117); replaces engine.skin_interaction 3.3; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -1726,11 +1726,11 @@
   # 2026-10-08: was 234.38; corrected from the molecular formula
   mw_g_mol: 236.40
   density_25c_g_ml: null
-  logp: null
+  logp: 6.1
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.35
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: supplier_SDS_bound_estimate
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1753,7 +1753,7 @@
   families:
   - woods / amber / structure
   character: null
-  notes: null
+  notes: 'IFF SDS (2020) gives only "< 0.01 hPa" (< 1 Pa) and bp 259 C; the 0.35 Pa kept here is an estimate inside that bound. log P 6.1 is an unmarked ChemicalBook value (estimate). The IFF SDS lists the isomer CAS 67874-81-1; methyl cedryl ether is also listed as 19870-74-7.'
   provenance:
     mw_g_mol: 'Molecular formula C16H28O for cedryl methyl ether (IFF Cedramber; TGSC rw1020571 lists cedryl methyl ether under CAS 67874-81-1); MW from IUPAC standard atomic weights = 236.40. The old 234.38 corresponds to C16H26O. CAS left empty because the TGSC name match was flagged for checking.'
     odt_air_ppb: engine.odor_thresholds
@@ -1761,6 +1761,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    vp_25c_pa: 'estimate kept at 0.35 Pa; bound only: IFF SDS 2020 https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Cedramber_IFF_SDS.pdf "< 0.01 hPa"; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    logp: 'ChemicalBook, unmarked (estimate): 6.1; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
 - canonical_name: Cedrat FCF Sicilian
   aliases:
   - cedrat fcf sicilian
