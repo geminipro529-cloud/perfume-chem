@@ -18,19 +18,30 @@ function scentPercent(share) {
   return value === 0 && share > 0 ? "<1%" : `${value}%`;
 }
 
+// Volumes only: uL as is, mL x1000. Weighed (mg) and other units are not drawn.
+const SCENT_UL_PER_UNIT = { uL: 1, mL: 1000 };
+
 function scentChartRows(rows) {
   return (rows || [])
-    .filter((row) => row && row.amount_unit === "uL" && row.identity_name)
+    .filter((row) => row && SCENT_UL_PER_UNIT[row.amount_unit] && row.identity_name)
     .map((row) => ({
       identity_name: String(row.identity_name),
-      amount_ul: Number(row.amount_decimal),
+      amount_ul: Number(row.amount_decimal) * SCENT_UL_PER_UNIT[row.amount_unit],
       stock_fraction: Number(row.stock_fraction_decimal) > 0 ? Number(row.stock_fraction_decimal) : 1,
     }))
     .filter((row) => Number.isFinite(row.amount_ul) && row.amount_ul > 0);
 }
 
+// Names of rows the chart cannot draw because they are not measured in volume.
+function scentSkippedNames(rows) {
+  const names = (rows || [])
+    .filter((row) => row && row.identity_name && !SCENT_UL_PER_UNIT[row.amount_unit])
+    .map((row) => String(row.identity_name));
+  return [...new Set(names)];
+}
+
 // Pure: endpoint payload -> what the chart draws.
-function scentChartModel(curve) {
+function scentChartModel(curve, skipped) {
   const windows = (curve && curve.windows) || [];
   const byName = new Map();
   windows.forEach((win, index) => {
@@ -59,7 +70,7 @@ function scentChartModel(curve) {
       tiers,
     };
   });
-  return { series, columns, unknown: all.filter((s) => !s.known).map((s) => s.name) };
+  return { series, columns, unknown: all.filter((s) => !s.known).map((s) => s.name), skipped: skipped || [] };
 }
 
 // One specific sentence for a composition row. The engine's template tail is
@@ -115,7 +126,7 @@ function drawScentChart(container, model) {
   const W = 600, H = 240, L = 40, R = 12, T = 10, B = 28;
   const x = (i) => L + (n === 1 ? 0 : (i * (W - L - R)) / (n - 1));
   const y = (v) => T + (1 - v) * (H - T - B);
-  const svg = scentSvg("svg", { viewBox: `0 0 ${W} ${H}`, class: "scent-chart-svg", role: "img", "aria-label": scentSummary(model) });
+  const svg = scentSvg("svg", { viewBox: `0 0 ${W} ${H}`, class: "scent-chart-svg", role: "group", "aria-label": scentSummary(model) });
   [0, 0.5, 1].forEach((v) => {
     svg.append(scentSvg("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), class: "scent-grid" }));
     svg.append(scentSvg("text", { x: L - 6, y: y(v) + 4, class: "scent-axis", "text-anchor": "end" }, `${v * 100}%`));
@@ -148,7 +159,7 @@ function drawScentChart(container, model) {
       x: x(i) - 12, y: T, width: 24, height: H - T - B, class: "scent-column", "data-window": c.key, tabindex: 0,
       "aria-label": `${c.name}: ${c.top.join(", ") || "nothing detectable"}`,
     });
-    const lines = [c.name, ...(c.top.length ? c.top.map((name) => `${name}: ${scentPercent(model.series.find((s) => s.name === name).shares[i])}`) : ["nothing detectable in the model"])];
+    const lines = [c.name, ...(c.top.length ? c.top.map((name) => `${name}: ${scentPercent(model.series.find((s) => s.name === name)?.shares[i] ?? 0)}`) : ["nothing detectable in the model"])];
     ["mouseenter", "focus"].forEach((ev) => bar.addEventListener(ev, () => showTip(lines)));
     ["mouseleave", "blur"].forEach((ev) => bar.addEventListener(ev, hideTip));
     svg.append(bar);
@@ -191,9 +202,10 @@ function drawScentChart(container, model) {
   });
   container.append(tierBars);
 
-  if (model.unknown.length) {
-    container.append(scentEl("p", "scent-unknown", `No data yet for: ${model.unknown.join(", ")}. These are not drawn.`));
-  }
+  const notDrawn = [];
+  if (model.unknown.length) notDrawn.push(`No data yet for: ${model.unknown.join(", ")}. These are not drawn.`);
+  if (model.skipped.length) notDrawn.push(`Not drawn: ${model.skipped.join(", ")} (weighed solid or not measured in volume).`);
+  if (notDrawn.length) container.append(scentEl("p", "scent-unknown", notDrawn.join(" ")));
 
   const table = scentEl("table", "sr-only");
   table.append(scentEl("caption", "", "Share of what the model can detect, by material and stage"));
@@ -228,7 +240,7 @@ async function renderScentChart(container, designRows) {
       scentCurveCache.set(key, curve);
     }
     if (seq !== container.scentSeq) return;
-    drawScentChart(container, scentChartModel(curve));
+    drawScentChart(container, scentChartModel(curve, scentSkippedNames(designRows)));
   } catch (error) {
     if (seq !== container.scentSeq) return;
     container.replaceChildren(scentEl("p", "scent-chart-note", "The smell-over-time picture is not available right now."));
@@ -236,5 +248,5 @@ async function renderScentChart(container, designRows) {
 }
 
 if (typeof module === "object" && module.exports) {
-  module.exports = { scentChartModel, scentChartRows, scentWhyText };
+  module.exports = { scentChartModel, scentChartRows, scentSkippedNames, scentWhyText };
 }

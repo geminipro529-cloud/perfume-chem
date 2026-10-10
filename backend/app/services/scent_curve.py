@@ -11,6 +11,8 @@ from typing import Annotated, Any
 
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints
 
+_TIERS = ("top", "heart", "base")
+
 
 class ScentCurveRow(BaseModel):
     model_config = ConfigDict(extra="ignore")
@@ -30,14 +32,16 @@ def compute_scent_curve(rows: list[ScentCurveRow]) -> dict[str, Any]:
     from engine.pipeline.simulator import simulate_formula
 
     ing: dict[str, float] = {}
-    dil: dict[str, float] = {}
+    active: dict[str, float] = {}
     for row in rows:
         ing[row.identity_name] = ing.get(row.identity_name, 0.0) + row.amount_ul
-        dil[row.identity_name] = row.stock_fraction
+        active[row.identity_name] = active.get(row.identity_name, 0.0) + row.amount_ul * row.stock_fraction
+    # Amount-weighted fraction keeps the summed active dose independent of row order.
+    dil = {name: active[name] / ing[name] for name in ing}
     windows: list[dict[str, Any]] = []
     for frame in simulate_formula(ing, dil):
         oavs = {m.name: m.screening_oav for m in frame.state.materials}
-        notes = {m.name: m.note for m in frame.state.materials}
+        notes = {m.name: m.note if m.note in _TIERS else "heart" for m in frame.state.materials}
         audible = {
             k: v for k, v in oavs.items() if v is not None and math.isfinite(v) and v >= 1
         }
@@ -53,7 +57,7 @@ def compute_scent_curve(rows: list[ScentCurveRow]) -> dict[str, Any]:
                     "known": known,
                     "oav": oav if known else None,
                     "share": share,
-                    "note": notes.get(name) or "heart",
+                    "note": notes.get(name, "heart"),
                 }
             )
         shares = [m["share"] for m in materials if m["share"]]
