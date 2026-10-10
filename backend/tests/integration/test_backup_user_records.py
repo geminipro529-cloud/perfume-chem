@@ -16,6 +16,7 @@ from engine.user_records import (
 
 from app.services import backup_service as backup_service_module
 from app.services.backup_service import BackupService, RestoreSafetyError
+from app.services.personal_liking import PERSONAL_LIKING_NAME
 from app.services.restore_command import restore_from_backup
 from tests.integration.test_backup_restore import (
     _app_database,
@@ -33,6 +34,7 @@ def _records(folder: Path) -> dict[str, Path]:
         COMPLETION_LOG_NAME: folder / "completions.jsonl",
         BASKET_LOG_NAME: folder / BASKET_LOG_NAME,
         DILUTION_LOG_NAME: folder / DILUTION_LOG_NAME,
+        PERSONAL_LIKING_NAME: folder / PERSONAL_LIKING_NAME,
     }
 
 
@@ -88,6 +90,7 @@ def test_backup_copies_records_byte_for_byte_and_lists_absent_ones_as_null(tmp_p
         COMPLETION_LOG_NAME: {"sha256": sha256(b"").hexdigest(), "bytes": 0},
         BASKET_LOG_NAME: None,
         DILUTION_LOG_NAME: {"sha256": sha256(dilution).hexdigest(), "bytes": len(dilution)},
+        PERSONAL_LIKING_NAME: None,
     }
     validation = service.validate_restore(artifact.snapshot_path)
     assert validation.valid is True
@@ -97,6 +100,7 @@ def test_backup_copies_records_byte_for_byte_and_lists_absent_ones_as_null(tmp_p
         COMPLETION_LOG_NAME: "verified",
         BASKET_LOG_NAME: "not in backup",
         DILUTION_LOG_NAME: "verified",
+        PERSONAL_LIKING_NAME: "not in backup",
     }
 
 
@@ -203,13 +207,14 @@ def test_backup_from_before_records_leaves_live_records_and_says_so(tmp_path):
 
 
 def test_backup_from_before_the_dilution_log_restores_and_leaves_the_log(tmp_path):
-    # Backups made before the prepared-dilution log joined the stock records
-    # list only the three older records in their manifest.
+    # Backups made before the prepared-dilution log (and the liking fit) joined
+    # the stock records list only the three older records in their manifest.
     service, records = _service(tmp_path)
     records[ADDITION_LOG_NAME].write_bytes(b'{"event_id":"old-addition"}\n')
     backup = service.create_backup()
     manifest = json.loads(backup.manifest_path.read_text(encoding="utf-8"))
     del manifest["user_records"][DILUTION_LOG_NAME]
+    del manifest["user_records"][PERSONAL_LIKING_NAME]
     assert set(manifest["user_records"]) == {
         ADDITION_LOG_NAME,
         COMPLETION_LOG_NAME,

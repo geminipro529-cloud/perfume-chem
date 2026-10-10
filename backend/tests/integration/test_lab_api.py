@@ -136,7 +136,7 @@ async def test_lab_api_runs_material_bottle_formula_and_experiment_workflow(clie
 
     exported = await client.get("/api/v1/lab/export")
     assert exported.status_code == 200
-    assert exported.json()["format_revision"] == "lab-export-v1"
+    assert exported.json()["format_revision"] == "lab-export-v6"
     imported = await client.post("/api/v1/lab/import", json=exported.json())
     assert imported.status_code == 200
     assert imported.json()["inserted"] == 0
