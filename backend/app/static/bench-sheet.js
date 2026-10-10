@@ -331,7 +331,7 @@ function benchSheetHtml({ formulaName, variantLabel, dateText, totals, rows, cri
       <td><strong>${benchEscape(line.material)}</strong>${entry.basket !== null ? `<small class="bench-basket-tag">Basket ${benchEscape(entry.basket)}</small>` : entry.group === "unassigned" ? '<small class="bench-basket-tag">No basket</small>' : ""}${entry.row.pour_fix === "top-up" ? '<small class="bench-basket-tag">Top-up</small>' : ""}${line.mark ? `<small class="bench-dilution-mark">${benchEscape(line.mark)}</small>` : ""}</td>
       <td>${benchEscape(line.stockLabel)}<small>${benchEscape(line.strength)}</small></td>
       <td class="bench-amount">${line.mix ? `${benchEscape(line.mix.pourUl)} ${benchEscape(line.unit)} of the mix<small>${benchEscape(line.mix.stockAmount)} ${benchEscape(line.unit)} stock</small>` : `${benchEscape(line.amount)} ${benchEscape(line.unit)}`}</td>
-      <td class="bench-amount">${line.pipettable ? benchEscape(line.runningTotal) : "not in total"}</td>
+      <td class="bench-amount">${line.pipettable ? `<span class="bench-running-label">Running total </span>${benchEscape(line.runningTotal)}` : "not in total"}</td>
     </tr>`;
   }).join("");
   return `

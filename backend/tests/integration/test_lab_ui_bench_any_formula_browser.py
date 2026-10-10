@@ -303,3 +303,35 @@ def test_pour_fix_rescales_the_rest_works_on_the_fixed_sheet_and_undoes(lab):
     assert lab.page.locator("#bench-pour-form-error").count() == 0
     assert lab.page_errors == []
     assert lab.unexpected == []
+
+
+def test_on_a_phone_each_row_shows_its_amount_without_swiping(lab):
+    lab.page.set_viewport_size({"width": 390, "height": 844})
+    lab.respond("GET", SOURCE_PATH, json=SOURCE)
+    _open(lab)
+    _pick_file(lab)
+    lab.page.locator('#bench-source-form button[type="submit"]').click()
+    preview = lab.page.locator("#bench-preview")
+    preview.locator(".bench-sheet-table").wait_for()
+
+    # Nothing on the sheet sits off to the right: no sideways swipe needed.
+    page_width, sheet_width, sheet_box = lab.page.evaluate(
+        "() => { const p = document.querySelector('#bench-preview');"
+        " return [document.documentElement.scrollWidth, p.scrollWidth, p.clientWidth]; }"
+    )
+    assert page_width <= 390
+    assert sheet_width <= sheet_box
+    hedione = preview.locator("tbody tr", has_text="Hedione")
+    amount, running = hedione.locator(".bench-amount").all()
+    box = amount.bounding_box()
+    assert box is not None and box["x"] + box["width"] <= 390
+    assert amount.inner_text() == "600 uL"
+    # The column headings are hidden on a phone, so the running total says what it is.
+    assert running.inner_text() == "Running total 600 µL"
+
+    # On a wide screen the sheet is the usual table, with the heading instead.
+    lab.page.set_viewport_size({"width": 1280, "height": 900})
+    assert running.inner_text() == "600 µL"
+    assert preview.locator("thead th").all_inner_texts()[-2:] == ["Amount", "Running total"]
+    assert lab.page_errors == []
+    assert lab.unexpected == []
