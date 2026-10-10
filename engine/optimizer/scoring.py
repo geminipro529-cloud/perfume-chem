@@ -29,7 +29,6 @@ from typing import TYPE_CHECKING
 
 from ..diffusion_model import score_diffusion
 from ..dose_response import score_dose_response
-from ..hedonic_model import score_hedonic
 
 # ── Science modules ──
 from ..ifra_safety import score_ifra_compliance
@@ -2735,13 +2734,18 @@ class FormulaScorer:
         return report.score
 
     def score_hedonic(self, fv: FormulaVector) -> float:
-        """Return the legacy fixed-valence diagnostic (0-100).
+        """Return the crowd-table pleasantness guess (0-100).
 
-        Coverage and authority remain available on ``_last_hedonic_report``;
-        the scalar is not measured full-formula pleasantness or liking.
+        Values come from the one-scale crowd table
+        (``data/formulation_knowledge/pleasantness_crowd_v1.json``); unrated
+        materials are excluded rather than counted as neutral. Coverage and
+        authority remain available on ``_last_hedonic_report``; the scalar is
+        not measured full-formula pleasantness or liking.
         """
+        from ..formulation_intelligence.pleasantness import score_hedonic_crowd
+
         ingredients, dilutions = self._science_ingredients(fv)
-        report = score_hedonic(ingredients, dilutions)
+        report = score_hedonic_crowd(ingredients, dilutions)
         self._last_hedonic_report = report
         return report.score
 

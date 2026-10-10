@@ -241,7 +241,7 @@ def test_shortlist_executor_binds_the_exact_r5_manifest(
         Path(__file__).resolve().parents[3]
         / "data"
         / "governance"
-        / "lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20260926.json"
+        / "lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20261009.json"
     )
     checkpoint8_hash = stable_file_hash(checkpoint8_path)
     base = {
@@ -462,7 +462,7 @@ def test_shortlist_executor_binds_the_exact_r5_manifest(
     checkpoint8 = result["checkpoint8_sensory_evidence_intake"]
     assert (
         "data/governance/"
-        "lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20260926.json"
+        "lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20261009.json"
         in engine_jobs_module._CAPABILITY_PATHS
     )
     assert "engine/experiments/checkpoint8_readiness.py" in (
@@ -474,6 +474,9 @@ def test_shortlist_executor_binds_the_exact_r5_manifest(
         "engine/sensory/panel_contract.py",
         "engine/hedonic_model.py",
         "engine/optimizer/scoring.py",
+        "engine/formulation_intelligence/pleasantness.py",
+        "engine/formulation_intelligence/pleasantness_table.py",
+        "data/formulation_knowledge/pleasantness_crowd_v1.json",
         "data/governance/ma_2021_binary_mixture_baseline_benchmark_20260812.json",
         "docs/research/PERFUME_CHEM_C0_SENSORY_PANEL_CONTRACT_2026-08-09.md",
     }.issubset(set(engine_jobs_module._CAPABILITY_PATHS))
@@ -1024,7 +1027,7 @@ def test_shortlist_executor_rejects_invalid_drifted_or_escalated_cp8_protocols(
         root
         / "data"
         / "governance"
-        / "lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20260926.json"
+        / "lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20261009.json"
     )
     payload = validate_engine_payload(
         "SHORTLIST_EVALUATION",
@@ -1082,6 +1085,22 @@ def test_shortlist_executor_rejects_invalid_drifted_or_escalated_cp8_protocols(
         engine_job_executor_module,
         "_R6_CP8_SENSORY_PROTOCOL",
         evidence_path,
+    )
+    terminal, result, validation, _diagnostics = execute_registered_engine_job(
+        "SHORTLIST_EVALUATION", payload
+    )
+    assert terminal == "WITHHELD"
+    assert validation == "HOLD_CP8_SENSORY_PROTOCOL_DRIFT"
+    assert result["formula_action"] == "NO_CHANGE"
+
+    superseded = json.loads(protocol_path.read_text(encoding="utf-8"))
+    superseded["supersedes"]["sha256"] = "0" * 64
+    superseded_path = tmp_path / "superseded-cp8.json"
+    superseded_path.write_text(json.dumps(superseded), encoding="utf-8")
+    monkeypatch.setattr(
+        engine_job_executor_module,
+        "_R6_CP8_SENSORY_PROTOCOL",
+        superseded_path,
     )
     terminal, result, validation, _diagnostics = execute_registered_engine_job(
         "SHORTLIST_EVALUATION", payload
