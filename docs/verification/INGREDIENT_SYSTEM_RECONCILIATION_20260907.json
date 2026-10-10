@@ -3,37 +3,37 @@
   "authority": "COMPUTATIONAL_DATA_RECONCILIATION_NOT_RELEASE",
   "input_sha256": {
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
-    "engine/ingredient_intelligence.py": "513477035d5ca6139b476325bad8838d5aaea38e62ea41889d75156415d4a8bb",
-    "engine/inventory_parser.py": "48a7e3e46d7a92544f4e727212d79ff140d0bf2992556ed6b50bdeddb4a28fa0",
-    "engine/odor_thresholds.py": "f06159f96e27df9230c99152c0f5cd26399ae0d6d01fbebb16cad507f5c83a2f",
-    "engine/name_utils.py": "6927d3aed9a6b9fdfd1297b9ba82a276e7d74acd049450ff906b5590a5a87078",
+    "engine/ingredient_intelligence.py": "1e17cadfefdab2ffaa8ff7ca8146d94bb4632ba1c1264e1a386687dd414f0739",
+    "engine/inventory_parser.py": "8674a32dde602582722821a2cac65265b1b66615fbae41436d59149105f80e19",
+    "engine/odor_thresholds.py": "c9c8c1a7b20d17d1b4f923caed109a237b1b31e92146a04511f588012723b639",
+    "engine/name_utils.py": "2e984915e2abe562f9a05fa53920fcb7d4dada0f8f0ccc0da91d706f1a37febb",
     "engine/material_identity.py": "3dbb20055f9794450b25a21123852dc9b355493af4b653fdd48fb341347d5e5d",
     "engine/data_spine/loader.py": "cd09b0877de31b1fb334811f875dd7305923e9d454efac6ba7cd065f1e6c016f",
     "engine/data_spine/material.py": "79e30aea000c3c326513282ed0304a0fa0a35d46bfc6be86e709061244c03df9",
     "data/governance/ingredient_reconciliation_20260907.json": "3038fbf22ab98df93e92a7c23db0e6696c140d9ef00e9cf20415f2dae99b7413",
     "engine/data_spine/reconciliation.py": "ad1403e02b4296ed9bebcc892df28b25d24b637dfbdad361b301fc37f9a21cdc",
-    "data/materials/A.yaml": "3158ea70a31e69751f1935aef15f80cd3b69baaaf1355b66c11a6fdd76ec9483",
-    "data/materials/B.yaml": "91e7e53c8ba2821d599c158b1813c9964c798921ddc4be23a7b335e830dee2e4",
-    "data/materials/C.yaml": "5fbdf436f806115d6842a2545d2949495784098af8e812eb2bb0e3099a2a1559",
+    "data/materials/A.yaml": "67d20d7d42fed814a7ee9ed81e310fb7f045ee68ddf937fce9435196a2ed4b18",
+    "data/materials/B.yaml": "6ba6f09f4fad17bc600ff2f009c38754e5bec04e70dff050f243cb43c12736d8",
+    "data/materials/C.yaml": "b11b21bee7d9126e90e907018367c913e24270181cf38b2921854b37aa0616b6",
     "data/materials/D.yaml": "1b04b9f5f804c390b0155fc766e90700f9d68f719e41f27f3faa26df57666ca7",
     "data/materials/E.yaml": "0495dc583f99bb73e275e3c915f9c1a2c84c50aa62470ce1eb2a314d138811d1",
     "data/materials/F.yaml": "2d43092759989fa12ddce4fec0acf247499f020331488b660a83d3bb2d8118ff",
     "data/materials/G.yaml": "15aa10cec494ab52d95b6f4b593ccfff9768e432e81513f50601b2e0d74b2fbd",
-    "data/materials/H.yaml": "79f90915f23d1e5fa6e6531fe0ec0898eb82c2f310cd4558d2dcb067b8e80dcb",
+    "data/materials/H.yaml": "f501f01bb46966517c69654ed9be56045cd9ffa2a52c200c0096b319bd1517e6",
     "data/materials/I.yaml": "a1df20d72a75bd1631a15b582b50f6cade3be6bbbdf693e2861d250c1d51ac85",
     "data/materials/J.yaml": "0eea9de332dcf224c8df20d13adaeaa50078ee1b52505ae231065a5bff26db4a",
-    "data/materials/K.yaml": "88147afe4421f0064555862520f783e284b01b9a6056470ec1fc05bfc25e1b35",
+    "data/materials/K.yaml": "7a9ef7721b1a632f49412277f0af0ed7120e28f4bd17a1e09f1e7756bd87cf17",
     "data/materials/L.yaml": "b365d55d55a7c05361b7f064ea12f92ebfef6afe11bb2b552a3d103e4fad8d4a",
     "data/materials/M.yaml": "838dbf45e586c5d3553b7bcb55a586a664ef3a161e97674b92df33b0013986a0",
-    "data/materials/N.yaml": "10193ece5432eb729b188a5da728ee616c6a644fcf464261f8c428d36a0f7230",
+    "data/materials/N.yaml": "fd203674177ef0ff34375f95ff679c740a71fe5dc007a7bed31ba2ee690ca8e6",
     "data/materials/O.yaml": "90cc2a45d7134c04bce0a026e2dfaebe2b387e8f01e2e84b79e09a73718a70f3",
     "data/materials/P.yaml": "f4211af775d838e5fe3c3460f39dea3d4cd998f02da7349539906d854a1c2856",
     "data/materials/Q.yaml": "9256e634f899593f1e3848cb0d5683c4ed1259c00fdd5df56888f89fa84aa6c6",
-    "data/materials/R.yaml": "463cfaaa0744ee40d2f21e57fb1572d568bdcbf8227a8940a2c80c06f970adde",
-    "data/materials/S.yaml": "a9aa1e813ed4bba9ebec24630509c0025299541bc7096576c757b4990e49afee",
-    "data/materials/T.yaml": "615941c122645b82185516e861b53959b44cea41ce8705b5e5da078624544f4b",
+    "data/materials/R.yaml": "289e791fd9e50e83dd7cab89f22c26312b00b11b31ea49c07c0c7a5330413bc3",
+    "data/materials/S.yaml": "3c52d8183f0ef700b1e3cf299c404a86e72f3ffdee15514d57a4178ce7bc5495",
+    "data/materials/T.yaml": "a1a37271a4bb6cbf4036e75f5defa4de3afe546ee87418e24341151202a9adb6",
     "data/materials/U.yaml": "d93dea4b9c83cd47e0bd357f205fbbfb8cf7dacd05215b361c05542082401046",
-    "data/materials/V.yaml": "9a1433fbffc1db017e9efd81fb1a9b1485e390857fa54044c6c627018969811f",
+    "data/materials/V.yaml": "760cf7e957af9227c175481bb7fb83dd18dc0aa7cc76aa1a70dc682f01713fc0",
     "data/materials/W.yaml": "0397c2158627765057238ad242e39e9a6ec801f65a7023bbbd93f8b6e71e1152",
     "data/materials/X.yaml": "7dd03fb6ab168e5a2cd90d1d938a00f79b641f63b676dab39a436e21ad795ea1",
     "data/materials/Y.yaml": "95ca0131908d6772148786fed0d24809989c4bc10ef002b095e07bdbbff34f74",
@@ -49,11 +49,11 @@
     "inventory_text_rows": 333,
     "historical_requirement_rows": 280,
     "current_physical_stocks": 289,
-    "registry_records": 1272,
-    "rows_with_profile": 295,
+    "registry_records": 1271,
+    "rows_with_profile": 294,
     "rows_with_registry": 323,
-    "rows_with_odt": 299,
-    "rows_with_unresolved_scalar_disagreements": 93
+    "rows_with_odt": 300,
+    "rows_with_unresolved_scalar_disagreements": 101
   },
   "rows": [
     {
@@ -1387,8 +1387,8 @@
       "raw_name": "Stralyl Acetate  # styralyl acetate (1-phenylethyl acetate); green-sweet gardenia-floral",
       "identity": "Stralyl Acetate",
       "text_status": "owned",
-      "registry_name": "Stralyl Acetate",
-      "profile_name": "stralyl acetate",
+      "registry_name": "Styralyl Acetate",
+      "profile_name": null,
       "current_stock_ids": [],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2269,7 +2269,12 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
-      "unresolved_scalar_disagreements": {}
+      "unresolved_scalar_disagreements": {
+        "clogp": {
+          "profile": 3.6,
+          "registry": 3.66
+        }
+      }
     },
     {
       "source_rows": [
@@ -2782,7 +2787,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
         "odt",
         "odt_ppm"
       ],
@@ -2802,7 +2806,12 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
-      "unresolved_scalar_disagreements": {}
+      "unresolved_scalar_disagreements": {
+        "clogp": {
+          "profile": 3.6,
+          "registry": 3.66
+        }
+      }
     },
     {
       "source_rows": [
@@ -3343,7 +3352,12 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
-      "unresolved_scalar_disagreements": {}
+      "unresolved_scalar_disagreements": {
+        "clogp": {
+          "profile": 3.3,
+          "registry": 4.2
+        }
+      }
     },
     {
       "source_rows": [
@@ -3360,7 +3374,12 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
-      "unresolved_scalar_disagreements": {}
+      "unresolved_scalar_disagreements": {
+        "clogp": {
+          "profile": 3.3,
+          "registry": 4.2
+        }
+      }
     },
     {
       "source_rows": [
@@ -3390,7 +3409,12 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
-      "unresolved_scalar_disagreements": {}
+      "unresolved_scalar_disagreements": {
+        "clogp": {
+          "profile": 5.0,
+          "registry": 6.1
+        }
+      }
     },
     {
       "source_rows": [
@@ -3510,9 +3534,13 @@
       "odt_present": true,
       "missing_numeric_fields": [],
       "unresolved_scalar_disagreements": {
+        "vp": {
+          "profile": 0.0112,
+          "registry": 0.076
+        },
         "clogp": {
           "profile": 5.0,
-          "registry": 4.0
+          "registry": 5.8
         }
       }
     },
@@ -3589,9 +3617,13 @@
       "odt_present": true,
       "missing_numeric_fields": [],
       "unresolved_scalar_disagreements": {
+        "vp": {
+          "profile": 0.001,
+          "registry": 0.3
+        },
         "clogp": {
           "profile": 4.5,
-          "registry": 3.8
+          "registry": 5.4
         }
       }
     },
@@ -3611,9 +3643,13 @@
       "odt_present": true,
       "missing_numeric_fields": [],
       "unresolved_scalar_disagreements": {
+        "vp": {
+          "profile": 0.05,
+          "registry": 0.08
+        },
         "clogp": {
           "profile": 4.92,
-          "registry": 4.5
+          "registry": 5.1
         }
       }
     },
@@ -3630,9 +3666,13 @@
       "odt_present": true,
       "missing_numeric_fields": [],
       "unresolved_scalar_disagreements": {
+        "vp": {
+          "profile": 0.05,
+          "registry": 0.08
+        },
         "clogp": {
           "profile": 4.92,
-          "registry": 4.5
+          "registry": 5.1
         }
       }
     },
@@ -3651,11 +3691,11 @@
       "unresolved_scalar_disagreements": {
         "vp": {
           "profile": 0.05,
-          "registry": 0.066
+          "registry": 0.08
         },
         "clogp": {
           "profile": 4.92,
-          "registry": 4.7
+          "registry": 5.1
         }
       }
     },
@@ -3690,9 +3730,13 @@
       "odt_present": true,
       "missing_numeric_fields": [],
       "unresolved_scalar_disagreements": {
+        "vp": {
+          "profile": 0.066661,
+          "registry": 0.194
+        },
         "clogp": {
           "profile": 4.1,
-          "registry": 3.8
+          "registry": 5.7
         }
       }
     },
@@ -3860,7 +3904,16 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
-      "unresolved_scalar_disagreements": {}
+      "unresolved_scalar_disagreements": {
+        "vp": {
+          "profile": 0.067,
+          "registry": 0.194
+        },
+        "clogp": {
+          "profile": 5.2,
+          "registry": 5.7
+        }
+      }
     },
     {
       "source_rows": [
@@ -3891,6 +3944,10 @@
       "odt_present": true,
       "missing_numeric_fields": [],
       "unresolved_scalar_disagreements": {
+        "vp": {
+          "profile": 0.46,
+          "registry": 0.8
+        },
         "clogp": {
           "profile": 3.1,
           "registry": 4.5
@@ -3927,7 +3984,16 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
-      "unresolved_scalar_disagreements": {}
+      "unresolved_scalar_disagreements": {
+        "vp": {
+          "profile": 0.001,
+          "registry": 0.8
+        },
+        "clogp": {
+          "profile": 4.5,
+          "registry": 7.1
+        }
+      }
     },
     {
       "source_rows": [
@@ -3985,7 +4051,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
         "odt",
         "odt_ppm"
       ],
@@ -4093,7 +4158,16 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
-      "unresolved_scalar_disagreements": {}
+      "unresolved_scalar_disagreements": {
+        "vp": {
+          "profile": 0.1,
+          "registry": 0.08
+        },
+        "clogp": {
+          "profile": 4.56,
+          "registry": 4.76
+        }
+      }
     },
     {
       "source_rows": [
@@ -4226,8 +4300,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
-        "clogp",
         "odt_ppm"
       ],
       "unresolved_scalar_disagreements": {}
@@ -4279,7 +4351,8 @@
       "registry_name": "Ethyl Maltol",
       "profile_name": "Ethyl Maltol",
       "current_stock_ids": [
-        "inventory:user-20260910:f84e2dca4eb21dba87bc"
+        "inventory:user-20260910:f84e2dca4eb21dba87bc",
+        "inventory:v5:31274070a79a113265a8"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -4431,7 +4504,8 @@
       "registry_name": "Ethyl Maltol",
       "profile_name": "Ethyl Maltol",
       "current_stock_ids": [
-        "inventory:user-20260910:f84e2dca4eb21dba87bc"
+        "inventory:user-20260910:f84e2dca4eb21dba87bc",
+        "inventory:v5:31274070a79a113265a8"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -4720,7 +4794,7 @@
       "current_stock_ids": [
         "inventory:user-20261007:d7cb2d40aab87ade3ec6"
       ],
-      "odt_present": false,
+      "odt_present": true,
       "missing_numeric_fields": [
         "odt",
         "odt_ppm"
@@ -6096,6 +6170,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "70d549f823e05af981cc47bc0b595ef96113f86d914ad800d84513c2154930c5",
-  "input_cache_sha256": "70d549f823e05af981cc47bc0b595ef96113f86d914ad800d84513c2154930c5"
+  "output_sha256": "9659ebd78aaf446ab533220738398ab18e43425e0e8025eac3a75cbd31cfc2a0",
+  "input_cache_sha256": "b466dc05442a73b7f30e81e358edcbcfc61fcdd08e48071285a89bf1c96596a3"
 }

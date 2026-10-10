@@ -513,11 +513,11 @@
   inchikey: null
   mw_g_mol: 270.36
   density_25c_g_ml: 1.0062
-  logp: 4.56
+  logp: 4.76
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.1
-  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.08
+  vp_source: RIFM_measured_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 5.0e-05
@@ -542,15 +542,15 @@
   families:
   - musks
   character: null
-  notes: 'Current restocked bottle user-confirmed neat/as supplied 2026-09-15; the previously depleted bottle remains historical. VP: 0.1 Pa at 25 C is an EPI Suite estimate, not a measurement. The measured value is 0.053 +/- 0.008 Pa at 20 C (gas saturation, RIFM 2000); it is at 20 C, so it is not placed in the 25 C field. The producer figure 0.00074 Pa is the EPI estimate (0.000741 mm Hg) printed as Pa.'
+  notes: 'Current restocked bottle user-confirmed neat/as supplied 2026-09-15; the previously depleted bottle remains historical. VP: 0.053 +/- 0.008 Pa measured at 20 C by gas saturation (RIFM 2000c) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.08 Pa at 25 C, replacing the EPI Suite estimate 0.1 Pa (0.000741 mm Hg) from the same RIFM assessment; bp 299 C; log Pow 4.74-4.79 (RIFM), midpoint 4.76. The producer figure 0.00074 Pa is the EPI estimate printed as Pa.'
   provenance:
     mw_g_mol: 'engine.diffusion_model; matches the sourced 270.36-270.37 (RIFM, TGSC) quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
-    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, CAS 236391-76-7, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/236391-76-7.pdf: EPI Suite estimate "0.000741 mm Hg" x 133.322 Pa/mm Hg = 0.0988 Pa, kept as 0.1 Pa. Same assessment, measured: "0.053 +/- 0.008" Pa at 20 C by gas saturation (RIFM 2000), recorded in notes only. As quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, CAS 236391-76-7, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/236391-76-7.pdf (FCT 141 (2020) 111342): measured "0.053 +/- 0.008" Pa at 20 C by gas saturation (RIFM 2000c) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.08 Pa; the EPI Suite estimate "0.000741 mm Hg" = 0.0988 Pa from the same assessment was the previous value; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'same RIFM assessment: log Pow 4.74-4.79, midpoint 4.76; replaces engine.skin_interaction 4.56; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json

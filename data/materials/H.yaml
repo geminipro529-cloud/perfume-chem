@@ -634,11 +634,11 @@
   inchikey: null
   mw_g_mol: 284.43
   density_25c_g_ml: null
-  logp: null
+  logp: 4.68
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.03
+  vp_source: supplier_sheet_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -662,13 +662,15 @@
     other: {}
   families: []
   character: null
-  notes: 'VP 25 C left null: the only supplier VP is 0.02 Pa at 20 C (Firmenich marketing sheet, measured or estimated not stated); RIFM 2023 gives EPI estimates 0.0436 Pa at 25 C and 0.0227 Pa at 20 C. log P left null: two measured values disagree, 4.68 (RIFM 1994a) and 5.46 (Firmenich). Density not filled from this source set: Vigon SDS 503096 gives SG 0.94 at 25 C. Air ODT 1.7 ng/L is for the commercial product; 1.1 ng/L applies to the (+)-enantiomer only and is not used.'
+  notes: 'VP 25 C 0.03 Pa = 0.02 Pa at 20 C (Firmenich marketing sheet, measured or estimated not stated) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol); RIFM 2023 EPI estimates 0.0436 Pa at 25 C and 0.0227 Pa at 20 C agree in magnitude. The Firmenich SDS v13 (2024) line "17.2 Pa at 20 C, method A.4" is 800x the other two and inconsistent with its own bp 282-303 C, so it is treated as a unit slip and not used. log P 4.68 (SDS, method A.8; RIFM 1994a); the marketing sheet says 5.46. Density not filled from this source set: Vigon SDS 503096 gives SG 0.94 at 25 C. Air ODT 1.7 ng/L is for the commercial product; 1.1 ng/L applies to the (+)-enantiomer only and is not used.'
   provenance:
     cas: 'PerfumersWorld 3XD17215 supplier SDS and RIFM assessment Food Chem. Toxicol. 182 (2023) 114253, doi:10.1016/j.fct.2023.114253: CAS 141773-73-1, as quoted in /mnt/project-files/material-data-firecrawl/BATCH1_FEMME_20261008.md (Helvetolide section, read 2026-10-08)'
     mw_g_mol: 'PerfumersWorld 3XD17215 supplier SDS: "MW 284.43, C17H32O3", as quoted in /mnt/project-files/material-data-firecrawl/BATCH1_FEMME_20261008.md (Helvetolide section, read 2026-10-08)'
     odt_air_ppb: 'Armanino, Charpentier, Flachsmann, Goeke, Liniger, Kraft, Angew. Chem. Int. Ed. 2020, doi:10.1002/anie.202005719: figure label "Helvetolide ... th 1.7 ng/L air" (read from a search excerpt; full page not readable), as quoted in /mnt/project-files/material-data-firecrawl/BATCH1_FEMME_20261008.md (Helvetolide section, read 2026-10-08); 1.7 ng/L x 24.465 / 284.43 = 0.146 ppb at 25 C'
-    vp_note: 'Firmenich marketing sheet, https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/HELVETOLIDE_947650.pdf: "0.02 Pa @20 C"; 20 C value, so recorded in notes and not in vp_25c_pa'
+    vp_note: 'Firmenich marketing sheet, https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/HELVETOLIDE_947650.pdf: "0.02 Pa @20 C"; converted to 25 C on 2026-10-10, see vp_25c_pa'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    vp_25c_pa: 'Firmenich marketing sheet https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/HELVETOLIDE_947650.pdf "0.02 Pa @20 C" x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.03 Pa; SDS conflict (17.2 Pa at 20 C, https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Helvetolide_Firmenich_SDS.pdf) rejected as a unit slip; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    logp: 'Firmenich SDS v13 (2024), method A.8: 4.68 (same as RIFM 1994a); marketing sheet 5.46 not used; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
 - canonical_name: Hercolyn D
   aliases: []
   cas: null

@@ -120,14 +120,15 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # Resinoid, Tagetes EO, Helichrysum EO and Guaiacwood EO made them
     # OAV-available (238 -> 244). Rose Otto Bulgarian, Haitian Vetiver EO and
     # Hay Absolute proxy profiles and the IFF vapour pressure for
-    # Cis-3-Hexenyl Salicylate followed (244 -> 248).
-    assert audit["oav_available_count"] == 248
-    assert audit["oav_unknown_count"] == 42
-    assert audit["oav_coverage_pct"] == 85.517
+    # Cis-3-Hexenyl Salicylate followed (244 -> 248). The 2026-10-10 vapour
+    # pressures (RIFM measured at 20 C, converted to 25 C; supplier sheet for
+    # Helvetolide) made Ambrocenide and Helvetolide OAV-available (248 -> 250).
+    assert audit["oav_available_count"] == 250
+    assert audit["oav_unknown_count"] == 40
+    assert audit["oav_coverage_pct"] == 86.207
     assert audit["status"] == "FAIL_CLOSED_GAPS"
-    assert {"Fructone B", "Helvetolide", "Manzanate", "Ambrocenide"} <= set(
-        categories["other_oav_unknowns"]
-    )
+    assert {"Fructone B", "Manzanate"} <= set(categories["other_oav_unknowns"])
+    assert not {"Helvetolide", "Ambrocenide"} & set(categories["other_oav_unknowns"])
     assert "Frangipani Absolute" in categories["naturals_missing_composite_evidence"]
     assert "Leather FO" in categories[
         "opaque_preblends_without_disclosed_composition"
