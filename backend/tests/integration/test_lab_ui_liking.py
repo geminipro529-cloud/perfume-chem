@@ -156,6 +156,11 @@ async def test_stock_view_wires_rate_a_material(client):
 # -- browser ------------------------------------------------------------------
 
 
+def _writes(feedback):
+    """The saves and deletes; the personal-fit refreshes that follow them are GETs."""
+    return [call for call in feedback if call[0] != "GET"]
+
+
 @pytest.fixture(scope="module")
 def lab_browser():
     """Chromium that treats the fake Lab origin as secure, so crypto.subtle exists there."""
@@ -215,7 +220,7 @@ def test_browser_shows_windows_saves_a_rating_with_undo_and_keeps_names_as_text(
     row.locator('input[name="too_loud"]').fill("the musk")
     row.locator(".liking-save").click()
     row.locator(".liking-status", has_text="Saved").wait_for()
-    method, path, body = feedback[-1]
+    method, path, body = _writes(feedback)[-1]
     assert (method, path) == ("POST", "/liking/ratings")
     assert body == {
         "formula_name": "Liking test", "formula_key": hashlib.sha256(_canonical(ROWS).encode()).hexdigest(),
@@ -224,7 +229,7 @@ def test_browser_shows_windows_saves_a_rating_with_undo_and_keeps_names_as_text(
     }
     row.locator(".liking-undo").click()
     row.locator(".liking-status", has_text="Removed").wait_for()
-    assert feedback[-1][:2] == ("DELETE", "/liking/ratings/7")
+    assert _writes(feedback)[-1][:2] == ("DELETE", "/liking/ratings/7")
 
     box.locator(".liking-personal summary").click()
     box.locator(".liking-personal-body", has_text="3 ratings and 1 A/B picks").wait_for()
@@ -254,7 +259,7 @@ def test_browser_two_formulas_show_the_ab_pick_and_post_it(lab):
     pick.locator('select[name="window"]').select_option("1h")
     pick.locator('[data-preferred="b"]').click()
     pick.locator(".liking-status", has_text="Saved").wait_for()
-    method, path, body = feedback[-1]
+    method, path, body = _writes(feedback)[-1]
     assert (method, path) == ("POST", "/liking/picks")
     assert body["window"] == "1h" and body["preferred"] == "b"
     assert body["formula_b_name"] == "Liking test · Variant two"
