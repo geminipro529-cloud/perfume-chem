@@ -114,7 +114,8 @@ function fieldWords(name) {
 const REQUEST_TIMEOUT_MS = 120000;
 
 async function request(path, options = {}) {
-  const { timeoutMs, ...fetchOptions } = options;
+  // base: another API root on this app (the liking card posts to /api/v1/feedback).
+  const { timeoutMs, base = API, ...fetchOptions } = options;
   // timeoutMs: 0 means no limit (slow synchronous server work); undefined gets the default.
   const limitMs = timeoutMs === undefined ? REQUEST_TIMEOUT_MS : timeoutMs;
   const controller = new AbortController();
@@ -123,7 +124,7 @@ async function request(path, options = {}) {
   let payload;
   const failuresAtStart = offlineFailures;
   try {
-    response = await fetch(`${API}${path}`, {
+    response = await fetch(`${base}${path}`, {
       headers: { "Content-Type": "application/json", ...(fetchOptions.headers || {}) },
       ...fetchOptions,
       signal: controller.signal,
@@ -1973,6 +1974,7 @@ function renderFormulaDesign(result, variantIndex = 0) {
   renderCompositionChecks(selected.variant ? selected.variant.composition_checks : result.composition_checks);
   renderDetectionCheck((selected.variant ? selected.formula : (selected.formula || result.initial_formula))?.detection_check);
   renderFormulaVoices(selected.variant ? selected.variant.complexity_summary : result.complexity_summary);
+  if (typeof renderFormulaLiking === "function") renderFormulaLiking(result, variantIndex, selected);
   const rows = selected.formula?.rows || [];
   renderFormulaRows(rows);
 
