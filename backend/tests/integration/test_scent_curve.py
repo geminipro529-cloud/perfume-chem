@@ -47,3 +47,33 @@ async def test_scent_curve_rejects_too_many_rows_and_non_finite_numbers(client):
         body = '{"rows": [{"identity_name": "Linalool", "amount_ul": ' + bad + "}]}"
         response = await client.post(URL, content=body, headers={"Content-Type": "application/json"})
         assert response.status_code == 422
+
+
+def _opening_shares(response):
+    return {m["name"]: m["share"] for m in response.json()["windows"][0]["materials"]}
+
+
+@pytest.mark.asyncio
+async def test_scent_curve_same_name_rows_keep_active_dose_whatever_the_order(client):
+    neat = {"identity_name": "Linalool", "amount_ul": 100, "stock_fraction": 1}
+    dilute = {"identity_name": "Linalool", "amount_ul": 100, "stock_fraction": 0.01}
+    hedione = {"identity_name": "Hedione", "amount_ul": 500, "stock_fraction": 1}
+
+    forward = await client.post(URL, json={"rows": [neat, dilute, hedione]})
+    backward = await client.post(URL, json={"rows": [dilute, neat, hedione]})
+    merged = await client.post(
+        URL, json={"rows": [{"identity_name": "Linalool", "amount_ul": 200, "stock_fraction": 0.505}, hedione]}
+    )
+
+    assert _opening_shares(forward) == pytest.approx(_opening_shares(backward))
+    assert _opening_shares(forward) == pytest.approx(_opening_shares(merged))
+
+
+@pytest.mark.asyncio
+async def test_scent_curve_maps_carrier_notes_to_heart(client):
+    rows = [*ROWS, {"identity_name": "Dipropylene Glycol", "amount_ul": 300, "stock_fraction": 1}]
+    response = await client.post(URL, json={"rows": rows})
+
+    for window in response.json()["windows"]:
+        assert all(m["note"] in {"top", "heart", "base"} for m in window["materials"])
+        assert next(m for m in window["materials"] if m["name"] == "Dipropylene Glycol")["note"] == "heart"
