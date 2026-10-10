@@ -789,21 +789,27 @@
       </section>
 
       <section class="view" data-panel="assistant" aria-labelledby="assistant-title">
-        <div class="view-heading"><div><p class="eyebrow">Deterministic routing</p><h1 id="assistant-title">Lab assistant</h1></div></div>
+        <div class="view-heading"><div><p class="eyebrow">Looks facts up, never guesses</p><h1 id="assistant-title">Lab assistant</h1></div></div>
         <div class="split-grid">
           <form id="assistant-form" class="panel form-panel">
-            <p class="panel-index">A1</p><h2>Build evidence packet</h2>
-            <label>Intent<select name="intent"><option>bottle_status</option><option>formula_analysis</option><option>safety_assessment</option><option>rank_interventions</option><option>preference_status</option><option>dashboard</option><option>backup_status</option></select></label>
-            <label>Subject ID<input name="subject_id" placeholder="Required for subject-specific intents"></label>
-            <button type="submit">Build canonical packet</button>
+            <p class="panel-index">A1</p><h2>Ask the assistant</h2>
+            <label>What do you want to know?<select name="intent"><option value="bottle_status">Where a bottle stands</option><option value="formula_analysis">Analyse a formula</option><option value="safety_assessment">Check safety inputs</option><option value="rank_interventions">Rank possible fixes</option><option value="preference_status">How well your taste is known</option><option value="dashboard">Lab overview</option><option value="backup_status">Backup status</option></select></label>
+            <label>Bottle or formula ID<input name="subject_id" placeholder="Needed for bottle, formula, safety, fixes and taste questions"></label>
+            <button type="submit">Look it up</button>
           </form>
           <article class="panel assistant-note">
-            <p class="panel-index">A2</p><h2>Claim boundary</h2>
-            <p>This assistant routes typed facts to deterministic tools. It does not improvise safety, longevity, or preference claims.</p>
-            <span class="evidence unknown">Unknown stays visible</span>
+            <p class="panel-index">A2</p><h2>What it will and will not do</h2>
+            <p>The assistant looks facts up from your records. It does not make up safety, longevity or preference claims.</p>
+            <span class="evidence unknown">Anything it cannot find is shown as not known yet</span>
           </article>
         </div>
-        <pre id="assistant-output" class="output-block" tabindex="0">No packet built yet.</pre>
+        <section class="panel" aria-live="polite">
+          <h2>Answer</h2>
+          <ul id="assistant-summary"><li>Nothing asked yet.</li></ul>
+          <details class="optional-details"><summary>Full technical packet</summary>
+            <pre id="assistant-output" class="output-block" tabindex="0">No packet built yet.</pre>
+          </details>
+        </section>
       </section>
 
       <section class="view" data-panel="science" aria-labelledby="science-title">

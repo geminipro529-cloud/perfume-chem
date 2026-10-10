@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_ai_service, get_db, get_model_selector_dep
 from app.core.exceptions import AIServiceError
 from app.schemas.perfume import AIAnalysisRequest, AIModificationRequest, AIPairingRequest
+from app.services.ai.answer_check import check_answer
 from app.services.ai.base import BaseAIService
 from app.services.engine_job_compatibility import (
     enqueue_formula_analysis_compatibility,
@@ -52,6 +53,8 @@ async def analyze_perfume(
             ingredients=[ing.dict() for ing in request.ingredients],
             concentration=request.concentration
         )
+        if isinstance(result, dict):
+            result["inventory_check"] = check_answer(result)
         return attach_validation(result, report)
     except AIServiceError as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -84,6 +87,8 @@ async def suggest_modifications(
             formula=request.formula,
             goal=request.goal
         )
+        if isinstance(result, dict):
+            result["inventory_check"] = check_answer(result)
         return attach_validation(result, report) if report else result
     except AIServiceError as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -103,6 +108,8 @@ async def suggest_pairings(
             ingredient=request.ingredient,
             cas_number=request.cas_number
         )
+        if isinstance(result, dict):
+            result["inventory_check"] = check_answer(result)
         return result
     except AIServiceError as e:
         raise HTTPException(status_code=500, detail=str(e))

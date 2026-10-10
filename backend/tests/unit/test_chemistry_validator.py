@@ -19,17 +19,17 @@ def sample_valid_formula():
     """A well-balanced valid formula respecting IFRA limits"""
     # Note: Must respect IFRA limits from compounds.json:
     # - Iso E Super IFRA: 22%, using 20%
-    # - Hedione IFRA: 25%, using 20%
+    # - Hedione IFRA: 25%, using 12% (project cap 15%)
     # - Linalool IFRA: 4%, using 3%
     # - Galaxolide IFRA: 15%, using 12%
     return [
         {"name": "Iso E Super", "percentage": 20.0},  # Under IFRA 22%
-        {"name": "Hedione", "percentage": 20.0},      # Under IFRA 25%
+        {"name": "Hedione", "percentage": 12.0},      # Under IFRA 25% and the 15% cap
         {"name": "Linalool", "percentage": 3.0},      # Under IFRA 4%
         {"name": "Galaxolide", "percentage": 12.0},   # Under IFRA 15%
         {"name": "Linalyl Acetate", "percentage": 10.0},
         {"name": "Ambroxan", "percentage": 5.0},
-        {"name": "Ethanol", "percentage": 30.0}       # Carrier to reach 100%
+        {"name": "Ethanol", "percentage": 38.0}       # Carrier to reach 100%
     ]
 
 
