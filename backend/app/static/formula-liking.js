@@ -233,6 +233,31 @@ function likingSaveControls() {
   return { save, status, undo };
 }
 
+// Unsaved rating-row and pick-block input, kept while the card is rebuilt (a variant
+// switch or re-render) so nothing typed is lost before Save. Keys are the formula's
+// sha-256 plus the window (rows) or the sha-256s of the pick's formulas (pick block).
+const likingDrafts = new Map();
+
+function likingStashDrafts(box) {
+  box.querySelectorAll("[data-draft-key]").forEach((node) => {
+    const draft = node.likingDraft?.read();
+    if (draft) likingDrafts.set(node.dataset.draftKey, draft);
+    else likingDrafts.delete(node.dataset.draftKey);
+  });
+}
+
+// Once the formula's key is known, tag the node with its draft key and restore a kept draft
+// (unless the user has already typed into it).
+function likingBindDraft(node, keyPromise, draftOf, onKey) {
+  keyPromise.then((key) => {
+    const draftKey = draftOf(key);
+    node.dataset.draftKey = draftKey;
+    onKey(draftKey);
+    const kept = likingDrafts.get(draftKey);
+    if (kept && !node.likingDraft.read()) node.likingDraft.apply(kept);
+  }).catch(() => {});
+}
+
 // One personal-fit request per render; refresh() replaces it with a fresh one after a
 // rating or pick is saved or undone and tells every subscriber.
 function likingFitStore() {
@@ -296,16 +321,17 @@ function likingRatingRow(choice, windowKey, windowLabel, fitStore) {
   scale.setAttribute("role", "group");
   scale.setAttribute("aria-label", `How much you like it at ${windowLabel.toLowerCase()}, 1 to 10`);
   const updateSave = () => { save.disabled = !link.ok || liking === null || saving || savedId !== null; };
+  const pressLiking = (value) => {
+    liking = value;
+    [...scale.children].forEach((other) => other.setAttribute("aria-pressed", String(other.dataset.liking === String(value))));
+    updateSave();
+  };
   for (let value = 1; value <= 10; value += 1) {
     const button = likingEl("button", "", String(value));
     button.type = "button";
     button.dataset.liking = String(value);
     button.setAttribute("aria-pressed", "false");
-    button.addEventListener("click", () => {
-      liking = value;
-      [...scale.children].forEach((other) => other.setAttribute("aria-pressed", String(other === button)));
-      updateSave();
-    });
+    button.addEventListener("click", () => pressLiking(value));
     scale.append(button);
   }
   const complexity = likingEl("select");
@@ -333,6 +359,18 @@ function likingRatingRow(choice, windowKey, windowLabel, fitStore) {
   );
   row.append(likingEl("p", "liking-hint", "How much do you like it? 1 = not at all, 10 = love it"), scale, fields);
   if (!link.ok) row.append(likingEl("p", "inline-warning", link.reason));
+  let draftKey = null;
+  row.likingDraft = {
+    read: () => (savedId !== null || (liking === null && !complexity.value && !tooLoud.value && !note.value)
+      ? null : { liking, complexity: complexity.value, tooLoud: tooLoud.value, note: note.value }),
+    apply: (draft) => {
+      if (draft.liking !== null) pressLiking(draft.liking);
+      complexity.value = draft.complexity;
+      tooLoud.value = draft.tooLoud;
+      note.value = draft.note;
+    },
+  };
+  likingBindDraft(row, likingFormulaKey(choice.rows), (key) => `${key}|${windowKey}`, (value) => { draftKey = value; });
   save.addEventListener("click", async () => {
     saving = true;
     updateSave();
@@ -345,6 +383,7 @@ function likingRatingRow(choice, windowKey, windowLabel, fitStore) {
       });
       const saved = await request("/liking/ratings", { method: "POST", base: LIKING_API, body: JSON.stringify(body) });
       savedId = saved?.id ?? null;
+      likingDrafts.delete(`${formulaKey}|${windowKey}`);
       status.textContent = "Saved";
       undo.hidden = savedId === null;
       fitStore.refresh();
@@ -361,6 +400,7 @@ function likingRatingRow(choice, windowKey, windowLabel, fitStore) {
     try {
       await request(`/liking/ratings/${encodeURIComponent(savedId)}`, { method: "DELETE", base: LIKING_API });
       savedId = null;
+      if (draftKey) likingDrafts.delete(draftKey);
       undo.hidden = true;
       updateSave();
       status.textContent = "Removed";
@@ -411,6 +451,22 @@ function likingPickBlock(choices, fitStore) {
   undo.type = "button";
   undo.hidden = true;
   let savedId = null;
+  let draftKey = null;
+  block.likingDraft = {
+    read: () => {
+      const draft = { a: pickA.value, b: pickB.value, window: windowPick.value, note: note.value };
+      const untouched = draft.a === "0" && draft.b === "1" && draft.window === LIKING_WINDOWS[0][0] && !draft.note;
+      return savedId !== null || untouched ? null : draft;
+    },
+    apply: (draft) => {
+      pickA.value = draft.a;
+      pickB.value = draft.b;
+      windowPick.value = draft.window;
+      note.value = draft.note;
+    },
+  };
+  likingBindDraft(block, Promise.all(choices.map((choice) => likingFormulaKey(choice.rows))),
+    (keys) => `pick|${keys.join(",")}`, (value) => { draftKey = value; });
   const actions = likingEl("div", "liking-actions");
   const buttons = [["a", "A"], ["b", "B"], ["same", "Same"]].map(([preferred, text]) => {
     const button = likingEl("button", "liking-pick-button", text);
@@ -442,6 +498,7 @@ function likingPickBlock(choices, fitStore) {
         });
         const saved = await request("/liking/picks", { method: "POST", base: LIKING_API, body: JSON.stringify(body) });
         savedId = saved?.id ?? null;
+        if (draftKey) likingDrafts.delete(draftKey);
         status.textContent = "Saved";
         undo.hidden = savedId === null;
         fitStore.refresh();
@@ -459,6 +516,7 @@ function likingPickBlock(choices, fitStore) {
     try {
       await request(`/liking/picks/${encodeURIComponent(savedId)}`, { method: "DELETE", base: LIKING_API });
       savedId = null;
+      if (draftKey) likingDrafts.delete(draftKey);
       undo.hidden = true;
       buttons.forEach((other) => { other.disabled = false; });
       status.textContent = "Removed";
@@ -515,6 +573,7 @@ function likingPersonalBlock(fitStore) {
 function renderFormulaLiking(result, variantIndex = 0, selected = null) {
   const box = document.getElementById("formula-result-liking");
   if (!box) return;
+  likingStashDrafts(box);
   box.replaceChildren();
   const choices = likingFormulaChoices(result);
   const wanted = selected?.variant ? variantIndex : null;

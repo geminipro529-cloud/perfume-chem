@@ -188,3 +188,72 @@ async def test_partial_exports_leave_the_records_out(db_session, tmp_path):
         await exporter.export_external_validation_workspace(),
     ):
         assert "records" not in packet
+
+
+@pytest.mark.asyncio
+async def test_export_carries_liking_rows_and_restores_them(client, db_session, tmp_path, monkeypatch):
+    from app.models.liking import LikingMaterialRating, LikingPick, LikingRating
+    from app.services import personal_liking
+
+    monkeypatch.setenv(personal_liking.PERSONAL_LIKING_PATH_ENV, str(tmp_path / "fit.json"))
+    monkeypatch.setenv(personal_liking.CROWD_TABLE_PATH_ENV, str(tmp_path / "crowd.json"))
+    base = "/api/v1/feedback/liking"
+    shares = {"Iso E Super": 0.5}
+    assert (
+        await client.post(
+            f"{base}/ratings",
+            json={
+                "formula_name": "Iris Cathedral",
+                "formula_key": "k1",
+                "window": "opening",
+                "liking": 8,
+                "note": "calm",
+                "material_shares": shares,
+            },
+        )
+    ).status_code == 201
+    assert (
+        await client.post(
+            f"{base}/picks",
+            json={
+                "window": "1h",
+                "formula_a_name": "A",
+                "formula_a_key": "ka",
+                "shares_a": shares,
+                "formula_b_name": "B",
+                "formula_b_key": "kb",
+                "shares_b": shares,
+                "preferred": "same",
+            },
+        )
+    ).status_code == 201
+    assert (
+        await client.post(f"{base}/materials", json={"material": "Hedione", "liking": 6})
+    ).status_code == 201
+
+    packet = (await client.get("/api/v1/lab/export")).json()
+    assert packet["format_revision"] == "lab-export-v6"
+    tables = packet["tables"]
+    assert [row["liking"] for row in tables["liking_ratings"]] == [8]
+    assert tables["liking_ratings"][0]["note"] == "calm"
+    assert [row["preferred"] for row in tables["liking_picks"]] == ["same"]
+    assert [row["material"] for row in tables["liking_material_ratings"]] == ["Hedione"]
+
+    async with _EmptyWorkspace(_paths(tmp_path / "restored")) as workspace:
+        await workspace.importer.import_workspace(json.loads(json.dumps(packet)))
+        for model, count in ((LikingRating, 1), (LikingPick, 1), (LikingMaterialRating, 1)):
+            assert await workspace.session.scalar(select(func.count()).select_from(model)) == count
+
+
+@pytest.mark.asyncio
+async def test_export_before_the_liking_tables_still_restores(db_session, tmp_path):
+    from app.services.lab_export import migrate_export_packet
+
+    exporter = LabExportService(db_session, record_paths=lambda: _source_records(tmp_path))
+    await LabService(db_session).create_material("Older iris")
+    packet = json.loads(json.dumps(await exporter.export_workspace(format_revision="lab-export-v5")))
+    assert "liking_ratings" not in packet["tables"]
+    assert "liking_ratings" in migrate_export_packet(packet)["tables"]
+    async with _EmptyWorkspace(_paths(tmp_path / "older")) as workspace:
+        await workspace.importer.import_workspace(packet)
+        assert await workspace.material_count() == 1
