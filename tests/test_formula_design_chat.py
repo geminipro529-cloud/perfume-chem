@@ -745,11 +745,16 @@ def test_formula_design_uses_a_low_odor_carrier_for_quiet_skin_structure() -> No
     rows = result["optimized_formula"]["rows"]
     carrier = next(row for row in rows if row["slot"] == "quiet_carrier")
     assert carrier["identity_name"] == "Benzyl Benzoate"
-    assert int(carrier["amount_decimal"]) >= 2500
+    # Benzyl Benzoate is IFRA-restricted (4.8% of the finished perfume).  The
+    # composer once gave it 3,106 uL, 13.7% of the bottle and a gate FAIL; it
+    # now stops at its IFRA cap and the soft close-diffusion row takes the rest.
+    assert 900 <= int(carrier["amount_decimal"]) <= 960
+    checks = result["composition_checks"]["checks"]
+    assert not [c for c in checks if c["check"] == "ifra" and c["status"] == "FAIL"]
     assert all(
         int(row["amount_decimal"]) <= 1000
         for row in rows
-        if row["slot"] != "quiet_carrier"
+        if row["slot"] not in {"quiet_carrier", "quiet_diffusion"}
     )
     slots = {row["slot"] for row in rows}
     assert "clean_paper" not in slots

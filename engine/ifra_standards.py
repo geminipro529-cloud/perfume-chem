@@ -737,6 +737,49 @@ def evaluate_ifra(
     )
 
 
+@lru_cache(maxsize=None)
+def single_material_limit_pct(name: str) -> tuple[str, float | None] | None:
+    """The highest finished-product % w/w at which ``name`` alone passes Category 4.
+
+    The material is run alone at 1 % through ``evaluate_ifra`` with the default
+    table and Annex I constituents. Its own limit, every group rule and every
+    natural-constituent total therefore count exactly as they do in the gate.
+    Each check is linear in the material's share, so the limit is
+    1 % / the largest ratio. A material whose own limit is loose can still be
+    held tight by a constituent, as rose oil is by methyl eugenol.
+
+    Returns None when the table does not know the material. Returns
+    ``("prohibited", 0.0)`` for a prohibited one, ``("restricted", limit)`` when
+    any check binds, and ``(status, None)`` when nothing limits it.
+    """
+    evaluation = evaluate_ifra({name: 1.0})
+    own = evaluation.checks[0] if evaluation.checks else None
+    if own is not None and own.status == "prohibited":
+        return "prohibited", 0.0
+    ratios = [
+        check.ratio
+        for check in evaluation.checks
+        if check.status == "restricted" and check.ratio is not None and check.ratio > 0
+    ]
+    for group in evaluation.group_checks:
+        if group.limit_pct is None:
+            # A sum-of-ratios group (phototoxic citrus) totals limit ratios, allowed up to 1.
+            ratio = group.total
+        elif group.limit_pct <= 0:
+            if group.total > 0:
+                return "prohibited", 0.0
+            continue
+        else:
+            ratio = group.total / group.limit_pct
+        if ratio > 0:
+            ratios.append(ratio)
+    if ratios:
+        return "restricted", 1.0 / max(ratios)
+    if own is None or own.verdict == "unchecked":
+        return None
+    return own.status or "listed", None
+
+
 def _constituent_totals(
     table: IFRATable,
     constituents: NaturalConstituents | None,

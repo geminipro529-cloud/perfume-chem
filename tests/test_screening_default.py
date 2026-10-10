@@ -16,6 +16,14 @@ FIXTURE = ROOT / "tests" / "fixtures" / "normal_use_ceilings_fixture_v1.json"
 TOTAL = 6000
 
 
+@pytest.fixture(autouse=True)
+def _no_ifra_cap(monkeypatch: pytest.MonkeyPatch) -> None:
+    # These tests isolate the screening defaults.  The IFRA cap that also bounds
+    # Bergamot EO, Alpha Damascone and Benzyl Benzoate is pinned in
+    # tests/test_composer_ifra_caps.py.
+    monkeypatch.setattr(planner, "_ifra_cap_ul", lambda *_args: None)
+
+
 def _stocked(name: str, dilution: float = 1.0) -> Any:
     stock = SimpleNamespace(
         name=name,

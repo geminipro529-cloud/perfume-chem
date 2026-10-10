@@ -7,12 +7,13 @@ CHYPRE = {
     "idea": "a panoramic, exceptionally detailed modern chypre with rose, patchouli and oakmoss",
     "formula_name": "Panoramic Chypre",
 }
-# The composer keeps IFRA-binding stock out of the roles it adds on its own,
-# so the damascone FAIL path needs a brief that names the material.
+# The composer keeps every dose it chooses inside IFRA, so the damascone FAIL
+# path needs a brief that gives the dose itself: a requested quantity is the
+# user's call and is never moved.
 NAMED_DAMASCONE_CHYPRE = {
     "idea": (
-        "a panoramic, exceptionally detailed modern chypre with rose, patchouli, "
-        "oakmoss and alpha damascone"
+        "a panoramic, exceptionally detailed modern chypre with rose, patchouli "
+        "and oakmoss. Include exactly 60 uL of neat Alpha Damascone."
     ),
     "formula_name": "Panoramic Chypre",
 }
