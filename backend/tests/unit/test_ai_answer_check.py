@@ -110,7 +110,8 @@ def test_assistant_view_uses_plain_wording() -> None:
         assert jargon not in html
     assert '<option value="bottle_status">' in html
     assert "Bottle or formula ID" in html and "Bottle or formula name" not in html
-    assert 'id="assistant-summary"' in html and "<details>" in html
+    assert 'id="assistant-summary"' in html
+    assert '<details class="optional-details"><summary>Full technical packet</summary>' in html
     assert "not known yet" in js
     summary = js[js.index("function renderAssistantSummary") :].split("\n}\n")[0]
     assert "innerHTML" not in summary
