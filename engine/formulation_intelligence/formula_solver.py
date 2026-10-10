@@ -10,6 +10,7 @@ from typing import Any, Callable, Mapping, Sequence
 
 from engine.formulation_intelligence.liking_tie_break import Liking, LikingLookup
 from engine.formulation_intelligence.material_capability_index import (
+    _DESCRIPTOR_REQUIREMENTS,
     MaterialCapability,
     MaterialCapabilityIndex,
     architecture_avoid_conflict,
@@ -501,22 +502,70 @@ def _accent_admits(capability: MaterialCapability, role: SemanticRole) -> bool:
     return cap is None or cap <= probe_total * (role.max_raw_share or ACCENT_MAX_RAW_SHARE)
 
 
-def _supports_accord(capability: MaterialCapability, role: SemanticRole) -> bool:
+def _words(terms: Sequence[str]) -> frozenset[str]:
+    return frozenset(
+        word for term in terms for word in re.split(r"[^a-z]+", term.casefold()) if word
+    )
+
+
+def _role_descriptor_groups(role: SemanticRole) -> tuple[frozenset[str], ...]:
+    """Own-descriptor groups the role's query words name, in a fixed order."""
+
+    words = _words(role.query_terms)
+    return tuple(dict.fromkeys(
+        group
+        for groups in _DESCRIPTOR_REQUIREMENTS.values()
+        for group in groups
+        if group & words
+    ))
+
+
+def _supports_accord(
+    capability: MaterialCapability,
+    role: SemanticRole,
+    lead: MaterialCapability | None = None,
+) -> bool:
     """A supporting accord stock sits in the lead's note and carries its odor.
 
     Its own annotated character must be clearly present (3 of 10 or more) on
     the role's strongest requested dimension; a synergy listing alone never
-    qualifies a stock.  Family buckets elsewhere keep it from repeating the
-    lead's family.
+    qualifies a stock.  When the role's query words name a descriptor group
+    (musk for a skin-musk accord), the stock's own descriptors must carry that
+    group, and so must the lead's when the lead carries one of them: a
+    sandalwood is not a musk accord's support.  Family buckets elsewhere keep
+    it from repeating the lead's family.
     """
 
     if capability.note != role.note:
         return False
+    groups = _role_descriptor_groups(role)
+    if groups:
+        if lead is not None:
+            groups = tuple(
+                group for group in groups if group & lead.descriptor_vocabulary
+            ) or groups
+        if not any(group & capability.descriptor_vocabulary for group in groups):
+            return False
     positive = [(weight, dimension) for dimension, weight in role.character_weights if weight > 0]
     if not positive:
         return True
     _weight, dimension = max(positive)
     return capability.character_map.get(dimension, 0.0) >= 3.0
+
+
+def _accord_lead(
+    role: SemanticRole,
+    state: "_BeamState",
+) -> tuple[MaterialCapability, float] | None:
+    """The stock and stored score already chosen for this support's lead."""
+
+    lead_id = accord_lead_role_id(role)
+    if lead_id is None:
+        return None
+    return next(
+        ((cap, score) for prior, cap, score in state.assignments if prior.role_id == lead_id),
+        None,
+    )
 
 
 def _accord_affinity(
@@ -602,8 +651,10 @@ def _allowed(
         and _ifra_binds_layer(capability, role)
     ):
         return False
-    if role.provenance == ACCORD_SUPPORT_PROVENANCE and not _supports_accord(capability, role):
-        return False
+    if role.provenance == ACCORD_SUPPORT_PROVENANCE:
+        lead = _accord_lead(role, state)
+        if not _supports_accord(capability, role, lead[0] if lead else None):
+            return False
     if capability.candidate.solid and role.exact_material is None:
         # A solid needs an explicit mass-bearing request.  Selecting one from a
         # descriptor alone would force the solver to invent a mass operation.
@@ -625,6 +676,69 @@ def _allowed(
         # carriers merely because one prompt word matches their profile.
         return False
     return True
+
+
+# Single-group layer and accent odor families an own descriptor can name.
+_ODOR_FAMILIES: dict[str, frozenset[str]] = {
+    key: groups[0]
+    for key, groups in _DESCRIPTOR_REQUIREMENTS.items()
+    if len(groups) == 1 and key.startswith(("top_", "heart_", "base_"))
+}
+# Per own-descriptor family a background fill brings that neither its role nor
+# the brief asked for.  A ranking preference, not a filter: required coverage
+# still fills when every candidate carries one.
+_OFF_BRIEF_FAMILY_PENALTY = 8.0
+# Coverage roles (opening articulation, links, diffusion) have generic query
+# words, so a full family penalty would hand them to whatever material names
+# no family at all.  There only the distinctive shadow and watery families
+# are steered off-brief.
+_COVERAGE_STEERED_FAMILIES = frozenset({"base_shadow", "heart_watery"})
+
+
+def _families(words: frozenset[str]) -> frozenset[str]:
+    return frozenset(key for key, group in _ODOR_FAMILIES.items() if group & words)
+
+
+def _single_words(terms: Sequence[str]) -> frozenset[str]:
+    return frozenset(term.casefold() for term in terms if re.fullmatch(r"[A-Za-z]+", term))
+
+
+def _asked_families(brief: SemanticBrief) -> frozenset[str]:
+    """Odor families the request words or the requested facets' own words name."""
+
+    words = _words((brief.normalized_request,))
+    for role in brief.roles:
+        if role.provenance == "PROMPT_DERIVED_FACET":
+            words |= _single_words(role.query_terms)
+    return _families(words)
+
+
+def _off_brief_penalty(
+    capability: MaterialCapability,
+    role: SemanticRole,
+    asked_families: frozenset[str],
+) -> float:
+    """Penalise a layer or coverage fill for odor families nobody asked for.
+
+    Accord supports are exempt: many musks carry an animalic descriptor.
+    """
+
+    if role.exact_material is not None or (
+        role.provenance not in LAYER_PROVENANCE.values()
+        and role.provenance != "FUNCTIONAL_COVERAGE"
+    ):
+        return 0.0
+    own = _families(_single_words(role.query_terms))
+    if role.descriptor_requirement:
+        own |= {role.descriptor_requirement}
+    extra = _families(capability.descriptor_vocabulary) - own - asked_families
+    if role.provenance == "FUNCTIONAL_COVERAGE":
+        return _OFF_BRIEF_FAMILY_PENALTY * len(extra & _COVERAGE_STEERED_FAMILIES)
+    if not capability.descriptor_vocabulary:
+        # No own-odor annotation (e.g. a category proxy): nothing shows the
+        # layer fits, so it must not outrank annotated materials by default.
+        return _OFF_BRIEF_FAMILY_PENALTY
+    return _OFF_BRIEF_FAMILY_PENALTY * len(extra)
 
 
 def _stable_tie(role_id: str, stock_id: str, variant_index: int) -> float:
@@ -668,6 +782,7 @@ def _unary_rank_for_role(
     prior_variant_stock_ids: frozenset[str],
     variant_index: int,
     enforce_own_odor_avoid: bool = False,
+    asked_families: frozenset[str] | None = None,
     liking: _LikingFn | None = None,
     request: str = "",
 ) -> list[tuple[float, MaterialCapability]]:
@@ -696,6 +811,8 @@ def _unary_rank_for_role(
         )
         if score is None:
             continue
+        if asked_families is not None:
+            score -= _off_brief_penalty(capability, role, asked_families)
         if capability.stock_id in prior_variant_stock_ids and role.exact_material is None:
             score -= 1.35 + .25 * variant_index
         score += _stable_tie(role.role_id, capability.stock_id, variant_index)
@@ -771,6 +888,11 @@ def _rank_for_state(
             enforce_own_odor_avoid=enforce_own_odor_avoid,
         )
     ]
+    lead = _accord_lead(role, state)
+    if lead is not None and role.exact_material is None:
+        # A support never outscores its lead: otherwise the summed objective
+        # prefers a weak lead with the strongest match demoted to support.
+        ranked = [row for row in ranked if row[0] <= lead[1]]
     ranked.sort(key=lambda row: _rank_key(row, role, variant_index, liking))
     return ranked if role.exact_material is not None else ranked[:10]
 
@@ -825,6 +947,7 @@ def _solve_assignments(
     # v5 applies explicit own-odor exclusions to the entire comparison, not
     # only the added/refined role. Historical controls keep their replay path.
     enforce_own_odor_avoid = bool(brief.architecture_plan.get("operation"))
+    asked_families = _asked_families(brief)
     unary_rankings = {
         role.role_id: _unary_rank_for_role(
             index,
@@ -834,6 +957,7 @@ def _solve_assignments(
             prior_variant_stock_ids=prior_variant_stock_ids,
             variant_index=variant_index,
             enforce_own_odor_avoid=enforce_own_odor_avoid,
+            asked_families=asked_families,
             liking=liking,
             request=brief.normalized_request,
         )
