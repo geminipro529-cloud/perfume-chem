@@ -115,6 +115,19 @@ async def test_formula_card_wires_the_liking_block(client):
     assert "innerHTML" not in helper.text
 
 
+@pytest.mark.asyncio
+async def test_stock_view_wires_rate_a_material(client):
+    page = await client.get("/app")
+    script = await client.get("/static/material-liking.js")
+    lab = await client.get("/static/lab.js")
+
+    assert script.status_code == 200
+    assert page.text.index('src="/static/stock-dilutions.js"') < page.text.index('src="/static/material-liking.js"')
+    assert "Rate" in lab.text and 'typeof attachMaterialLiking === "function"' in lab.text
+    assert "textContent" in script.text and "innerHTML" not in script.text
+    assert "attachMaterialLiking" in script.text
+
+
 # -- browser ------------------------------------------------------------------
 
 
@@ -238,3 +251,4 @@ def test_browser_save_stays_disabled_after_saving_until_undo(lab):
     row.locator(".liking-undo").click()
     row.locator(".liking-status", has_text="Removed").wait_for()
     assert save.is_enabled()
+

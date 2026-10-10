@@ -83,3 +83,27 @@ class LikingPick(Base):
     crowd_b: Mapped[float | None] = mapped_column(Float, nullable=True)
     preferred: Mapped[str] = mapped_column(String(8), nullable=False)
     note: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+
+class LikingMaterialRating(Base):
+    """One material smelled on a blotter and rated 1 to 10 (a direct observation)."""
+
+    __tablename__ = "liking_material_ratings"
+    __table_args__ = (
+        CheckConstraint("liking BETWEEN 1 AND 10", name="ck_liking_material_ratings_liking"),
+        CheckConstraint(
+            "strength IS NULL OR strength IN ('weak', 'medium', 'strong')",
+            name="ck_liking_material_ratings_strength",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    created_at: Mapped[datetime] = mapped_column(
+        UTCDateTime(), default=_utcnow, nullable=False, index=True
+    )
+    material: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    stock_label: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    strength: Mapped[str | None] = mapped_column(String(8), nullable=True)
+    liking: Mapped[int] = mapped_column(Integer, nullable=False)
+    note: Mapped[str | None] = mapped_column(Text, nullable=True)
+    source: Mapped[str] = mapped_column(String(64), nullable=False, default="stock_card")

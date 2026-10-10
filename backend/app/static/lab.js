@@ -523,6 +523,11 @@ function renderProjectInventory(filter = "", focusStockId = "") {
       button.dataset.diluteStock = stock.stock_id;
       action.appendChild(button);
     }
+    const rate = stockEl("button", "inventory-complete-button quiet-button", "Rate");
+    rate.type = "button";
+    rate.dataset.rateStock = stock.stock_id;
+    rate.dataset.stockLabel = label;
+    action.appendChild(rate);
     tr.append(name, strength, ...(showBaskets ? [stockBasketCell(stock)] : []), statusCell, action);
     body.appendChild(tr);
   });
@@ -1707,6 +1712,15 @@ attachStockDilutions({
     notify("Dilution saved. It is now a stock you can design with and gate.");
   },
 });
+
+if (typeof attachMaterialLiking === "function") {
+  attachMaterialLiking({
+    doc: document,
+    list: $("#project-inventory-list"),
+    getInventory: () => state.projectInventory || { stocks: [] },
+    request,
+  });
+}
 
 $("#inventory-completion-close").addEventListener("click", closeInventoryCompletion);
 $("#inventory-completion-cancel").addEventListener("click", closeInventoryCompletion);
