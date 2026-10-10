@@ -25,7 +25,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 BRIEFS = ROOT / "data" / "benchmarks" / "briefs_v1.json"
-DEFAULT_BASELINE = ROOT / "data" / "benchmarks" / "baseline_8e9cedd.json"
+DEFAULT_BASELINE = ROOT / "data" / "benchmarks" / "baseline_17a2e9c.json"
 INVENTORY = ROOT / "inventory.txt"
 ONE_NOTE_SHARE = 0.60
 RUNTIME_BUDGET_S = 180
