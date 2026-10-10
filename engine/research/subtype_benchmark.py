@@ -538,6 +538,7 @@ def _execution_verified(
                             solver._has_exact_material_count(interpretation),
                         ),
                         liquid_total_ul=int(total), quantities=inputs["explicit_quantities"],
+                        exact_material_count=solver._has_exact_material_count(interpretation),
                     )
                 except ValueError as exc:
                     status = "WITHHELD_DOSE_ALLOCATION_INFEASIBLE"

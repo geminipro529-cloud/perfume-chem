@@ -1028,6 +1028,7 @@ def solve_formula(
                 choices,
                 liquid_total_ul=liquid_total_ul,
                 quantities=explicit_quantities,
+                exact_material_count=exact_material_count,
             )
         except ValueError as exc:
             status = "WITHHELD_DOSE_ALLOCATION_INFEASIBLE"

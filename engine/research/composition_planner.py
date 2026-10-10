@@ -1908,6 +1908,91 @@ def _lead_with_named_notes(
     return {index: state[index] for index in allocated}
 
 
+# No single non-named row carries more than this share of the fragrance-active
+# volume (the release gate's crowding rule).  Named notes and anchors keep the
+# 40% floor and are exempt.
+CROWDING_CAP_SHARE = Decimal("0.35")
+_CROWDING_PASSES = 3
+
+
+def _cap_crowded_rows(
+    allocated: dict[int, int],
+    free_rows: Sequence[tuple[int, float, int | None]],
+    fixed_liquid: dict[int, int],
+    choices: Sequence[Choice],
+    holds: list[str],
+) -> dict[int, int]:
+    """Cap each non-named free row at CROWDING_CAP_SHARE of the active volume.
+
+    Active volume is the measure ``_lead_with_named_notes`` uses (``_active_ul``
+    over the liquid rows).  A row that serves a requested facet, or must use an
+    exact material, is exempt; so is any fixed-quantity row.  Freed volume is
+    re-placed on the other free rows with ``_allocate_capped``; when three
+    passes cannot meet the cap, or the cap would drop the named floor, the
+    uncapped rows are kept with a CROWDING_CAP_UNMET hold.
+    """
+
+    caps = {index: cap for index, _weight, cap in free_rows}
+
+    def active(state: dict[int, int], index: int) -> Decimal:
+        return _active_ul(choices[index], state[index])
+
+    def total(state: dict[int, int]) -> Decimal:
+        return sum(active(state, index) for index in state)
+
+    def named_share(state: dict[int, int]) -> Decimal:
+        whole = total(state)
+        named = sum(active(state, i) for i in state if choices[i].role.serves_requested_facet)
+        return named / whole if whole > 0 else Decimal(0)
+
+    def exempt(index: int) -> bool:
+        role = choices[index].role
+        return role.serves_requested_facet or role.exact_preference_required
+
+    def over(state: dict[int, int]) -> list[int]:
+        limit = total(state) * CROWDING_CAP_SHARE
+        return [i for i in allocated if not exempt(i) and active(state, i) > limit]
+
+    def ceiling(state: dict[int, int], index: int) -> int:
+        strength = Decimal(str(choices[index].candidate.stock.dilution))
+        return int(total(state) * CROWDING_CAP_SHARE / strength) if strength > 0 else state[index]
+
+    state = {**fixed_liquid, **allocated}
+    if not over(state):
+        return allocated
+    before_share = named_share(state)
+    work = dict(state)
+    for _ in range(_CROWDING_PASSES):
+        crowded = over(work)
+        if not crowded:
+            break
+        take = {i: work[i] - ceiling(work, i) for i in crowded}
+        room = []
+        for index in allocated:
+            if index in take or active(work, index) <= 0:
+                continue
+            cap = caps.get(index)
+            if not exempt(index):
+                limit = ceiling(work, index)
+                cap = limit if cap is None else min(cap, limit)
+            room.append((index, _allocation_weight(choices[index]), None if cap is None else max(0, cap - work[index])))
+        try:
+            placed = _allocate_capped(sum(take.values()), room)
+        except ValueError:
+            break
+        for index, amount in take.items():
+            work[index] -= amount
+        for index, amount in placed.items():
+            work[index] += amount
+    worst = max((active(work, i) / total(work), i) for i in allocated if not exempt(i))
+    floor_lost = before_share >= NAMED_NOTE_FLOOR_SHARE > named_share(work)
+    if over(work) or floor_lost:
+        percent = (worst[0] * 100).quantize(Decimal("0.1"))
+        holds.append(f"CROWDING_CAP_UNMET:{choices[worst[1]].candidate.stock.stock_id}:{percent}")
+        return allocated
+    return {index: work[index] for index in allocated}
+
+
 def _allocate_capped(total: int, weighted: Sequence[tuple[int, float, int | None]]) -> dict[int, int]:
     result = {index: 0 for index, _weight, _cap in weighted}
     remaining = total
@@ -2007,6 +2092,7 @@ def _formula_rows(
     *,
     liquid_total_ul: int,
     quantities: Sequence[dict[str, Any]],
+    exact_material_count: bool = False,
 ) -> tuple[list[dict[str, Any]], dict[str, str], list[str]]:
     fixed_liquid: dict[int, int] = {}
     solid_amounts: dict[int, int] = {}
@@ -2064,6 +2150,10 @@ def _formula_rows(
     allocated = _lead_with_named_notes(
         allocated, free_rows, fixed_liquid, choices, liquid_total_ul, holds
     )
+    # Exact-quantity and exact-count requests keep their allocation (as in
+    # formula_solver._allocation_choices).
+    if allocated and not quantities and not exact_material_count:
+        allocated = _cap_crowded_rows(allocated, free_rows, fixed_liquid, choices, holds)
 
     rows: list[dict[str, Any]] = []
     liquid_sum = 0
@@ -2827,6 +2917,10 @@ def compose_inventory_formula(
             choices,
             liquid_total_ul=int(liquid_total),
             quantities=interpretation["explicit_quantities"],
+            exact_material_count=any(
+                row.get("kind") == "EXACT"
+                for row in interpretation.get("material_count_constraints", ())
+            ),
         )
     except ValueError as exc:
         return _withheld(
