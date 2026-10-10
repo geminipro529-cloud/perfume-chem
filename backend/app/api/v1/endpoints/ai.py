@@ -53,7 +53,8 @@ async def analyze_perfume(
             ingredients=[ing.dict() for ing in request.ingredients],
             concentration=request.concentration
         )
-        result["inventory_check"] = check_answer(result)
+        if isinstance(result, dict):
+            result["inventory_check"] = check_answer(result)
         return attach_validation(result, report)
     except AIServiceError as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -86,7 +87,8 @@ async def suggest_modifications(
             formula=request.formula,
             goal=request.goal
         )
-        result["inventory_check"] = check_answer(result)
+        if isinstance(result, dict):
+            result["inventory_check"] = check_answer(result)
         return attach_validation(result, report) if report else result
     except AIServiceError as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -106,7 +108,8 @@ async def suggest_pairings(
             ingredient=request.ingredient,
             cas_number=request.cas_number
         )
-        result["inventory_check"] = check_answer(result)
+        if isinstance(result, dict):
+            result["inventory_check"] = check_answer(result)
         return result
     except AIServiceError as e:
         raise HTTPException(status_code=500, detail=str(e))
