@@ -40,6 +40,16 @@ def test_composed_chypre_carries_the_gate_ifra_fail_for_alpha_damascone() -> Non
     assert report["design_variants"][0]["composition_checks"] == checks
 
 
+def test_an_itemless_gate_fail_stays_fail_and_hold_stays_warn() -> None:
+    from engine.formulation_intelligence.composition_checks import _ifra_checks
+
+    failed = _ifra_checks({"status": "FAIL", "detail": "IFRA gate failed", "data": {}})
+    held = _ifra_checks({"status": "HOLD", "detail": "IFRA gate held", "data": {}})
+
+    assert [c["status"] for c in failed] == ["FAIL"]
+    assert [c["status"] for c in held] == ["WARN"]
+
+
 def test_every_deep_compose_variant_carries_its_own_checks() -> None:
     report = design_inventory_formula(**CHYPRE, design_mode="DEEP_COMPOSE", variant_count=3)
 
