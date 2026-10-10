@@ -801,6 +801,9 @@ def _annotate_liking(
         }
 
 
+FINALIST_COUNT = 8
+
+
 def _solve_assignments(
     *,
     brief: SemanticBrief,
@@ -811,6 +814,7 @@ def _solve_assignments(
     variant_index: int,
     beam_width: int,
     liking: _LikingFn | None = None,
+    finalists_out: list[tuple[SolvedAssignment, ...]] | None = None,
 ) -> tuple[tuple[SolvedAssignment, ...], tuple[str, ...]]:
     states: tuple[_BeamState, ...] = (
         _BeamState(
@@ -908,24 +912,37 @@ def _solve_assignments(
 
     if not states:
         return (), tuple(dict.fromkeys(missing))
-    winner = min(states, key=_state_sort_key)
-    assignments: list[SolvedAssignment] = []
-    for role, capability, score in winner.assignments:
-        alternatives = unary_rankings[role.role_id]
-        alternatives_names = tuple(
-            item.identity_name
-            for _alt_score, item in alternatives
-            if item.stock_id != capability.stock_id
-        )[:3]
-        assignments.append(
-            SolvedAssignment(
-                role=role,
-                capability=capability,
-                score=score,
-                alternatives=alternatives_names,
+    def solved(state: _BeamState) -> tuple[SolvedAssignment, ...]:
+        built: list[SolvedAssignment] = []
+        for role, capability, score in state.assignments:
+            alternatives = unary_rankings[role.role_id]
+            alternatives_names = tuple(
+                item.identity_name
+                for _alt_score, item in alternatives
+                if item.stock_id != capability.stock_id
+            )[:3]
+            built.append(
+                SolvedAssignment(
+                    role=role,
+                    capability=capability,
+                    score=score,
+                    alternatives=alternatives_names,
+                )
             )
-        )
-    return tuple(assignments), tuple(dict.fromkeys(missing))
+        return tuple(built)
+
+    winner = min(states, key=_state_sort_key)
+    if finalists_out is not None:
+        seen: set[tuple[tuple[str, str], ...]] = set()
+        for state in sorted(states, key=_state_sort_key):
+            signature = tuple((role.role_id, cap.stock_id) for role, cap, _score in state.assignments)
+            if signature in seen or len(state.assignments) != len(winner.assignments):
+                continue
+            seen.add(signature)
+            finalists_out.append(solved(state))
+            if len(finalists_out) == FINALIST_COUNT:
+                break
+    return solved(winner), tuple(dict.fromkeys(missing))
 
 
 _INCOMPLETE_RETRY_BEAM_FACTOR = 4
@@ -964,6 +981,123 @@ def _missing_role_has_candidates(
     )
 
 
+def _ifra_class(checks: Mapping[str, Any]) -> str:
+    statuses = [c.get("status") for c in checks.get("checks", ()) if c.get("check") == "ifra"]
+    for level in ("FAIL", "ERROR", "WARN", "PASS"):
+        if level in statuses:
+            return level
+    return "ERROR" if any(c.get("status") == "ERROR" for c in checks.get("checks", ())) else "MISSING"
+
+
+_IFRA_CLASS_RANK = {"PASS": 0, "WARN": 0, "MISSING": 1, "ERROR": 1, "FAIL": 2}
+
+
+def _named_note_detection(
+    rows: Sequence[Mapping[str, Any]], choices: Sequence[Choice]
+) -> tuple[list[str], list[dict[str, str]]]:
+    """Yes/no detection diagnostic for named roles: (misses, unknown).
+
+    A miss is a named role whose material stays below screening OAV 1 in every
+    intended window.  Missing physics and composite-natural floors are neither
+    a miss nor a hit.  This is not strength, intensity or liking.
+    """
+
+    from decimal import Decimal
+
+    from engine.formulation_intelligence.detection_pass import _simulate, intended_windows
+    from engine.pipeline.natural_absolute_decomposition import get_constituents
+
+    named = {choice.role.role_id for choice in choices if choice.role.serves_requested_facet}
+    amounts = {
+        i: Decimal(str(row["amount_decimal"]))
+        for i, row in enumerate(rows)
+        if row.get("amount_unit") == "uL"
+    }
+    oavs = _simulate(rows, amounts) if amounts else {}
+    misses: list[str] = []
+    unknown: list[dict[str, str]] = []
+    for i, row in enumerate(rows):
+        if row.get("slot") not in named or i not in amounts:
+            continue
+        name = str(row.get("identity_name") or row.get("material") or "")
+        if get_constituents(name) is not None:
+            unknown.append({"role": str(row["slot"]), "reason": "composite_natural_floor"})
+            continue
+        values = [oavs.get(name, {}).get(w) for w in intended_windows(row)]
+        known = [v for v in values if v is not None]
+        if not known:
+            unknown.append({"role": str(row["slot"]), "reason": "no_threshold_data"})
+        elif max(known) < 1.0:
+            misses.append(str(row["slot"]))
+    return misses, unknown
+
+
+def _rerank_finalists(
+    finalists: Sequence[tuple[SolvedAssignment, ...]],
+    *,
+    brief: SemanticBrief,
+    liquid_total_ul: int,
+    explicit_quantities: Sequence[dict[str, Any]],
+    exact_material_count: bool,
+) -> tuple[tuple[SolvedAssignment, ...], dict[str, Any]]:
+    """Pick among the beam finalists by IFRA class, then named-note misses.
+
+    Today's order (``_state_sort_key``) breaks every tie, and stays the pick
+    when no finalist allocates.  The detection-pass itself is not run here.
+    """
+
+    from engine.formulation_intelligence.composition_checks import composition_checks
+
+    records: list[dict[str, Any]] = []
+    for position, assignments in enumerate(finalists):
+        record: dict[str, Any] = {
+            "position": position,
+            "stock_ids": [a.capability.stock_id for a in assignments],
+            "allocated": False,
+        }
+        records.append(record)
+        choices = tuple(
+            Choice(_role_spec(a.role), a.capability.candidate, a.score, a.alternatives)
+            for a in assignments
+        )
+        choices = _allocation_choices(
+            assignments, choices, liquid_total_ul, explicit_quantities, exact_material_count,
+        )
+        try:
+            rows, _totals, holds = _formula_rows(
+                choices, liquid_total_ul=liquid_total_ul, quantities=explicit_quantities,
+                exact_material_count=exact_material_count,
+            )
+        except ValueError:
+            continue
+        checks = composition_checks({"rows": rows}, formula_name=brief.normalized_request[:60] or "candidate")
+        misses, unknown = _named_note_detection(rows, choices)
+        record.update(
+            allocated=True,
+            ifra_class=_ifra_class(checks),
+            named_note_detection_misses=misses,
+            named_note_detection_unknown=unknown,
+            crowding_cap_unmet=sum(h.startswith("CROWDING_CAP_UNMET") for h in holds),
+        )
+    ranked = sorted(
+        (r for r in records if r["allocated"]),
+        key=lambda r: (
+            _IFRA_CLASS_RANK[r["ifra_class"]],
+            len(r["named_note_detection_misses"]),
+            r["crowding_cap_unmet"],
+            r["position"],
+        ),
+    )
+    all_fail = bool(ranked) and all(r["ifra_class"] == "FAIL" for r in ranked)
+    # Every candidate failing IFRA gives the re-rank nothing to separate: keep today's pick.
+    chosen = 0 if all_fail or not ranked else ranked[0]["position"]
+    return finalists[chosen], {
+        "chosen_position": chosen,
+        "all_candidates_ifra_fail": all_fail,
+        "candidates": records,
+    }
+
+
 def solve_formula(
     *,
     brief: SemanticBrief,
@@ -990,7 +1124,10 @@ def solve_formula(
         prior_variant_stock_ids=frozenset(prior_variant_stock_ids),
         variant_index=variant_index,
     )
-    assignments, missing = _solve_assignments(**solve_kwargs, beam_width=beam_width, liking=liking)
+    finalists: list[tuple[SolvedAssignment, ...]] = []
+    assignments, missing = _solve_assignments(
+        **solve_kwargs, beam_width=beam_width, liking=liking, finalists_out=finalists,
+    )
     if missing and _missing_role_has_candidates(missing, **solve_kwargs):
         # The beam keeps only the best partial states, so it can prune away the
         # one path that still fills every required role. Before withholding a
@@ -1004,6 +1141,13 @@ def solve_formula(
         )
         if len(wider_missing) < len(missing):
             assignments, missing = wider, wider_missing
+            finalists = []
+    rerank: dict[str, Any] | None = None
+    if not missing and len(finalists) > 1:
+        assignments, rerank = _rerank_finalists(
+            finalists, brief=brief, liquid_total_ul=liquid_total_ul,
+            explicit_quantities=explicit_quantities, exact_material_count=exact_material_count,
+        )
     choices = tuple(
         Choice(
             role=_role_spec(assignment.role),
@@ -1058,7 +1202,11 @@ def solve_formula(
             "prefer design-ready exact stock bindings",
             "minimize same-note profile redundancy",
             "deterministic stock identity tie-break",
+            "among the top finalists: IFRA class first (PASS/WARN, then MISSING/ERROR, then FAIL)",
+            "then fewest named-note detection misses (yes/no OAV >= 1 diagnostic, not strength or liking)",
+            "then fewer CROWDING_CAP_UNMET holds, then the order above",
         ],
+        "finalist_rerank": rerank,
         "prohibited_objectives_used": [],
         "ingredient_count_is_objective": False,
         "pleasantness_claimed": False,
