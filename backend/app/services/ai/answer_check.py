@@ -58,7 +58,10 @@ def owned_keys() -> frozenset[str]:
 
 def check_answer(answer: dict[str, Any], owned: Iterable[str] | None = None) -> dict[str, Any]:
     """Return {"checked": True, "not_in_stock": [...]}; unknown names count as not in stock."""
-    stock = frozenset(owned) if owned is not None else owned_keys()
+    try:
+        stock = frozenset(owned) if owned is not None else owned_keys()
+    except Exception:  # an unreadable inventory must not break the AI answer itself
+        return {"checked": False, "not_in_stock": []}
     missing: list[str] = []
     seen: set[str] = set()
     for name in _names_from(answer):

@@ -68,3 +68,12 @@ def test_assistant_view_uses_plain_wording() -> None:
     assert "not known yet" in js
     summary = js[js.index("function renderAssistantSummary") :].split("\n}\n")[0]
     assert "innerHTML" not in summary
+
+
+def test_unreadable_inventory_does_not_break_the_answer(monkeypatch: pytest.MonkeyPatch) -> None:
+    def boom() -> frozenset[str]:
+        raise OSError("inventory.txt missing")
+
+    monkeypatch.setattr(answer_check, "owned_keys", boom)
+    result = answer_check.check_answer({"modifications": {"to_add": [{"name": "Hedione"}]}})
+    assert result == {"checked": False, "not_in_stock": []}
