@@ -521,11 +521,15 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "odt": null,
-    "odt_ethanol_ppm": null,
+    "odt": 0.5,
+    "odt_ethanol_ppm": 0.1,
     "odt_evidence": {
       "vfy": "UNVERIFIED",
-      "reason": "No identity-bound metadata"
+      "sources": [
+        "No peer-reviewed air-phase ODT found in indexed literature"
+      ],
+      "note": "Auto-tagged by audit 2026-05-11",
+      "declared_vfy": "UNVERIFIED"
     },
     "current_stocks": [
       {
@@ -25752,7 +25756,7 @@
     "oav_dose_pct": 3.0,
     "smell_strength": null,
     "anosmic_risk": null,
-    "odor_family": "unknown",
+    "odor_family": "fruity",
     "odor_profile": "Hexyl Acetate 1% — odor profile pending literature review.",
     "ifra_cat4_limit_pct": null,
     "ifra_banned": false,
@@ -25793,18 +25797,40 @@
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNKNOWN"
+      "clogp": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt_ppm": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "character": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNKNOWN"
+        "status": "HEURISTIC_OVERRIDE"
       },
       "hedonic": {
-        "status": "UNKNOWN"
+        "status": "CHARACTER_DERIVED_HEURISTIC"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "registry:data_spine.vp_25c"
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "profile:ingredient_intelligence.clogp"
       }
     },
     "odt": 2.0,
@@ -25845,11 +25871,42 @@
           "mw": null,
           "vp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": null,
+          "note": null,
+          "role": null,
+          "texture": null,
+          "or_family": null,
+          "activity_coef": null,
+          "hedonic": null
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
+        "fields": {
+          "odor_family": "unknown"
+        }
       }
     ],
     "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING",
     "mw": 144.21,
-    "vp": 194.0
+    "vp": 194.0,
+    "clp": 2.83,
+    "note": "top",
+    "role": "modifier",
+    "texture": "lift",
+    "or_family": "fruity",
+    "activity_coef": 1.5,
+    "hedonic": 0.0,
+    "material_kind": "UNRESOLVED",
+    "formulation_roles": [],
+    "synergies": [
+      "cis-3-Hexenol",
+      "Bergamot FCF"
+    ]
   },
   {
     "name": "Hexyl Salicylate",
@@ -58890,13 +58947,13 @@
     "alt_name": null,
     "field_evidence": {
       "mw": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "clp": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "activity_coef": {
         "status": "UNKNOWN"
@@ -58904,13 +58961,21 @@
       "hedonic": {
         "status": "UNKNOWN"
       },
-      "gate_value_sources": {}
+      "gate_value_sources": {
+        "mw": "registry:data_spine.mw",
+        "vp": "estimated:unsourced_placeholder.vp_25c",
+        "clp": "registry:data_spine.logp"
+      }
     },
-    "odt": null,
-    "odt_ethanol_ppm": null,
+    "odt": 0.8,
+    "odt_ethanol_ppm": 0.4,
     "odt_evidence": {
       "vfy": "UNVERIFIED",
-      "reason": "No identity-bound metadata"
+      "sources": [
+        "No peer-reviewed air-phase ODT found in indexed literature"
+      ],
+      "note": "Auto-tagged by audit 2026-05-11",
+      "declared_vfy": "UNVERIFIED"
     },
     "current_stocks": [
       {
@@ -58961,7 +59026,20 @@
     "stock_selection_status": "BOUND_CURRENT_STOCK",
     "smell_strength": null,
     "anosmic_risk": null,
-    "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING"
+    "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING",
+    "reconciliation_lineage": [
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "mw": null,
+          "vp": null,
+          "clp": null
+        }
+      }
+    ],
+    "mw": 168.3,
+    "vp": 0.1,
+    "clp": 3.3
   },
   {
     "name": "Aldehyde C12 MNA neat",
@@ -60226,13 +60304,13 @@
     "alt_name": null,
     "field_evidence": {
       "mw": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "clp": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "activity_coef": {
         "status": "UNKNOWN"
@@ -60240,10 +60318,14 @@
       "hedonic": {
         "status": "UNKNOWN"
       },
-      "gate_value_sources": {}
+      "gate_value_sources": {
+        "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
+      }
     },
-    "odt": null,
-    "odt_ethanol_ppm": null,
+    "odt": 15.0,
+    "odt_ethanol_ppm": 3.0,
     "odt_evidence": {
       "vfy": "UNVERIFIED",
       "reason": "No identity-bound metadata"
@@ -60297,7 +60379,20 @@
     "stock_selection_status": "BOUND_CURRENT_STOCK",
     "smell_strength": null,
     "anosmic_risk": null,
-    "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING"
+    "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING",
+    "reconciliation_lineage": [
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "mw": null,
+          "vp": null,
+          "clp": null
+        }
+      }
+    ],
+    "mw": 204.4,
+    "vp": 0.02,
+    "clp": 4.5
   },
   {
     "name": "Cinnamon Bark EO (Telvada)",
@@ -60383,7 +60478,7 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "clp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
@@ -60396,6 +60491,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -60495,10 +60591,17 @@
           "mw": null,
           "clp": null
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "vp": null
+        }
       }
     ],
     "mw": 220.27,
-    "clp": 4.4
+    "clp": 4.4,
+    "vp": 0.0448
   },
   {
     "name": "Citral Natural",
@@ -64043,27 +64146,59 @@
     "alt_name": null,
     "field_evidence": {
       "mw": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNKNOWN"
+      "clogp": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt_ppm": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "character": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNKNOWN"
+        "status": "DECLARED_UNVERIFIED"
       },
       "hedonic": {
-        "status": "UNKNOWN"
+        "status": "DECLARED_UNVERIFIED"
       },
-      "gate_value_sources": {}
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
+      },
+      "gate_value_sources": {
+        "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
+      }
     },
-    "odt": null,
-    "odt_ethanol_ppm": null,
+    "odt": 40.0,
+    "odt_ethanol_ppm": 1.0,
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
-      "reason": "No identity-bound metadata"
+      "vfy": "MULTI_SOURCE_LITERATURE",
+      "sources": [
+        "van Gemert (2011) — styralyl acetate air ODT",
+        "Devos et al. (1990) Standardized human olfactory thresholds",
+        "PubChem CID 62341 (1-phenylethyl acetate, MW 164.20)",
+        "TGSC — styralyl acetate"
+      ],
+      "note": "material intake batch 2026-08-07",
+      "declared_vfy": "MULTI_SOURCE_LITERATURE"
     },
     "current_stocks": [
       {
@@ -64114,7 +64249,43 @@
     "stock_selection_status": "BOUND_CURRENT_STOCK",
     "smell_strength": null,
     "anosmic_risk": null,
-    "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING"
+    "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING",
+    "reconciliation_lineage": [
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": null,
+          "vp": null,
+          "clp": null,
+          "note": null,
+          "role": null,
+          "texture": null,
+          "or_family": null,
+          "activity_coef": null,
+          "hedonic": null
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
+        "fields": {
+          "odor_family": null
+        }
+      }
+    ],
+    "mw": 164.2,
+    "vp": 7.0,
+    "clp": 2.0,
+    "note": "heart",
+    "role": "modifier",
+    "texture": "sweet, green",
+    "or_family": "floral",
+    "activity_coef": 1.8,
+    "hedonic": 0.6,
+    "material_kind": "UNRESOLVED",
+    "formulation_roles": [],
+    "synergies": [],
+    "odor_profile": "green-sweet gardenia-floral ester",
+    "odor_family": "floral"
   },
   {
     "name": "Triethyl Citrate (TEC)",
@@ -70804,15 +70975,15 @@
     },
     "synergies": [],
     "odor_profile": "Aldehyde C-12 Lauric Dodecanal is waxy fatty soapy clean rose laundry chanel-no.5 lux soap aldehydic heavy-white-florals violet mimosa reseda pine-needle wisteria butter rancid.",
-    "odt": null,
-    "odt_ethanol_ppm": null,
+    "odt": 0.5,
+    "odt_ethanol_ppm": 0.2,
     "odt_evidence": {
       "vfy": "UNVERIFIED",
       "sources": [
-        "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+        "No peer-reviewed air-phase ODT found in indexed literature"
       ],
-      "note": "Inventory receipt establishes product and stock ownership only; no compatible measured threshold is supplied.",
-      "declared_vfy": "UNAVAILABLE"
+      "note": "Auto-tagged by audit 2026-05-11",
+      "declared_vfy": "UNVERIFIED"
     },
     "current_stocks": [
       {
@@ -76401,15 +76572,15 @@
     },
     "synergies": [],
     "odor_profile": "Phenyl acetaldehyde 85% in PEA (15% of PEA added for stabilization) Odour=> This strongest concentration of Phenyl Acetaldehyde has a intense and powerful green",
-    "odt": null,
-    "odt_ethanol_ppm": null,
+    "odt": 4.0,
+    "odt_ethanol_ppm": 0.4,
     "odt_evidence": {
       "vfy": "UNVERIFIED",
       "sources": [
-        "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+        "No peer-reviewed air-phase ODT found in indexed literature"
       ],
-      "note": "Inventory receipt establishes product and stock ownership only; no compatible measured threshold is supplied.",
-      "declared_vfy": "UNAVAILABLE"
+      "note": "Auto-tagged by audit 2026-05-11",
+      "declared_vfy": "UNVERIFIED"
     },
     "current_stocks": [
       {

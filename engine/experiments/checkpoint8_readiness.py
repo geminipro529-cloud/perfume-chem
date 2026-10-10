@@ -42,10 +42,10 @@ DEFAULT_PROTOCOL_PATH = (
     REPOSITORY_ROOT
     / "data"
     / "governance"
-    / "lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20260926.json"
+    / "lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20261009.json"
 )
 
-_SCHEMA_VERSION = "lavande-ambre-profond-r6-cp8-sensory-evidence-intake-v1"
+_SCHEMA_VERSION = "lavande-ambre-profond-r6-cp8-sensory-evidence-intake-v2"
 _PROTOCOL_STATE = "FROZEN_NONEXECUTING_SENSORY_EVIDENCE_INTAKE_CONTRACT"
 _SCIENTIFIC_SURFACE_KEYS = (
     "hedonic_platform",
@@ -56,6 +56,9 @@ _SCIENTIFIC_SURFACE_KEYS = (
     "panel_contract_review",
     "legacy_hedonic_implementation",
     "optimizer_scoring_implementation",
+    "crowd_pleasantness_implementation",
+    "crowd_pleasantness_table_loader",
+    "crowd_pleasantness_table",
 )
 _CANONICAL_EVIDENCE_KEYS = {
     "physical_sample_receipts",
@@ -206,15 +209,28 @@ def _expected_checkpoint8_contract() -> dict[str, object]:
     }
 
 
+def _validate_superseded_record(supersedes: object) -> None:
+    if not isinstance(supersedes, Mapping):
+        raise Checkpoint8ContractError("superseded record drift")
+    path = (REPOSITORY_ROOT / str(supersedes.get("path") or "")).resolve()
+    if (
+        not path.is_relative_to(REPOSITORY_ROOT.resolve())
+        or not path.is_file()
+        or _file_sha256(path) != supersedes.get("sha256")
+    ):
+        raise Checkpoint8ContractError("superseded record drift")
+
+
 def _validate_protocol_contract(protocol: Mapping[str, Any]) -> None:
     if protocol.get("schema_version") != _SCHEMA_VERSION:
         raise Checkpoint8ContractError("Checkpoint 8 schema drift")
     if protocol.get("state") != _PROTOCOL_STATE:
         raise Checkpoint8ContractError("Checkpoint 8 protocol state drift")
     if protocol.get("protocol_id") != (
-        "lavande-ambre-profond-r6-cp8-sensory-evidence-intake-20260926"
+        "lavande-ambre-profond-r6-cp8-sensory-evidence-intake-20261009"
     ):
         raise Checkpoint8ContractError("Checkpoint 8 protocol identity drift")
+    _validate_superseded_record(protocol.get("supersedes"))
 
     prerequisite = _require_mapping(
         protocol.get("checkpoint7_prerequisite"), "Checkpoint 7 prerequisite"

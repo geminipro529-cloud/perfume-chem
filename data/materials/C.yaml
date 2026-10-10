@@ -3343,8 +3343,8 @@
   logp: 4.4
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.0448  # manufacturer value stated at 23 C, not 25 C; see vp_source
+  vp_source: "IFF (manufacturer): 0.000336 mm Hg @ 23 C, stated at 23 C not 25 C, not temperature-corrected, method not stated"
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -3361,8 +3361,9 @@
   supplier: null
   families: []
   character: null
-  notes: 'VP not set: TGSC MSDS 0.00025 mm Hg at 25 C = 0.0333 Pa (method not stated) vs IFF 0.000336 mm Hg at 23 C = 0.0448 Pa (method not stated); the lower-temperature value is higher, so they are inconsistent and neither is measured. Density range is wide (0.995-1.070). No air ODT found. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
+  notes: 'VP 0.0448 Pa is the IFF manufacturer value 0.000336 mm Hg at 23 C (x 133.322), stated at 23 C and recorded as given; the schema has only a 25 C field and no correction is applied. TGSC MSDS gives 0.00025 mm Hg at 25 C = 0.0333 Pa (aggregator, method not stated; not used). Neither value is stated as measured. Density range is wide (0.995-1.070). No air ODT found. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
   provenance:
+    vp_25c_pa: 'IFF Ingredients Compendium, Hexenyl Salicylate Cis-3, https://www.iff.com/scent/ingredients-compendium/hexenyl-salicylate-cis-3/: "Vapor Pressure 0.000336 mm Hg @ 23 C", CAS 65405-77-8, MW 220.3 (read 2026-10-09); x 133.322 = 0.0448 Pa at 23 C'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds

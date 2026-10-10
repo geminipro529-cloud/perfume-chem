@@ -3196,6 +3196,12 @@ _ODT_QUERY_ALIASES = {
     "jasmine sambac absolute": "jasmine absolute",
     "evernyl crystals": "evernyl",
     "olibanum": "olibanum resinoid",
+    # Receipt labels whose own ODT_DATA row is a null placeholder; the same
+    # molecule (same CAS in the data spine) has a threshold under another key.
+    "aldehyde c-18": "gamma nonalactone",  # CAS 104-61-0
+    "aldehyde c-18 gamma nonalactone": "gamma nonalactone",  # CAS 104-61-0
+    "aldehyde c-12 lauric dodecanal": "aldehyde c12 lauric",  # CAS 112-54-9
+    "phenyl acetaldehyde": "phenylacetaldehyde",  # CAS 122-78-1
 }
 
 
@@ -3834,10 +3840,10 @@ ODT_VERIFICATION.setdefault("nerolidol", {}).update(
         "note": "material intake batch 2026-08-07",
     }
 )
-ODT_DATA.setdefault("stralyl acetate", {}).update(
+ODT_DATA.setdefault("styralyl acetate", {}).update(
     {"odt_air": 40.0, "odt_eth": 1.0, "char": "green, sweet, floral"}
 )
-ODT_VERIFICATION.setdefault("stralyl acetate", {}).update(
+ODT_VERIFICATION.setdefault("styralyl acetate", {}).update(
     {
         "vfy": "MULTI_SOURCE_LITERATURE",
         "sources": [

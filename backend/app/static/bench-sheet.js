@@ -287,12 +287,40 @@ function benchSheetLines(rows) {
   return { lines, leftOut, mixes: lines.filter((line) => line.mix).map((line) => line.mix) };
 }
 
-// The page's own hold wording: "Proposal · check hold" when the critic has
-// issues or any row is not execution ready.
+// Plain state wording shared by the Create page and the bench sheet: "Draft",
+// or "Draft, N checks to clear" (never a safety claim).
+function benchDraftState(checks) {
+  if (!checks) return "Draft";
+  return checks === 1 ? "Draft, 1 check to clear" : `Draft, ${checks} checks to clear`;
+}
+
+// Planner codes that only restate an unready row; the row itself is counted.
+const BENCH_ROW_BINDING_CODES = ["SUB_10_UL_RAW_TRANSFER", "STOCK_EXECUTION_BINDING_REQUIRED", "ONE_OR_MORE_ROWS_REQUIRE_STOCK_OR_DILUTION_BINDING"];
+
+// The checks still open: each row that is not execution ready counts once, and
+// each distinct critic code that is not a row-binding code counts once. Both
+// pages call this so the same variant reads the same.
 function benchSheetHold(rows, critic) {
-  const issues = (critic?.issues || []).map((issue) => String(issue).replaceAll("_", " ").toLowerCase());
-  const onHold = issues.length > 0 || (rows || []).some((row) => row.execution_ready === false);
-  return { onHold, stateText: onHold ? "Proposal · check hold" : "Proposal only", issues };
+  const codes = (critic?.issues || []).map(String);
+  const issues = codes.map((issue) => issue.replaceAll("_", " ").toLowerCase());
+  const unready = (rows || []).filter((row) => row.execution_ready === false).length;
+  const other = new Set(codes.filter((code) => !BENCH_ROW_BINDING_CODES.includes(code.split(":")[0]))).size;
+  const checks = unready + other;
+  return { onHold: checks > 0 || codes.length > 0, stateText: benchDraftState(checks), issues };
+}
+
+// Overview tiles. Owned stock comes from the same inventory the Stock page
+// lists; the rest count records saved in the lab database.
+function overviewTiles(counts, inventoryCounts, stockFallback = 0) {
+  const owned = inventoryCounts || {};
+  const saved = counts || {};
+  return [
+    ["stock bottles owned", owned.stocks || stockFallback],
+    ["different materials owned", owned.unique_identities || 0],
+    ["saved formulas", saved.formulas || 0],
+    ["bottles logged", saved.bottles || 0],
+    ["experiments logged", saved.experiments || 0],
+  ];
 }
 
 function benchLeaveOutNote(leftOut) {
@@ -331,7 +359,7 @@ function benchSheetHtml({ formulaName, variantLabel, dateText, totals, rows, cri
       <td><strong>${benchEscape(line.material)}</strong>${entry.basket !== null ? `<small class="bench-basket-tag">Basket ${benchEscape(entry.basket)}</small>` : entry.group === "unassigned" ? '<small class="bench-basket-tag">No basket</small>' : ""}${entry.row.pour_fix === "top-up" ? '<small class="bench-basket-tag">Top-up</small>' : ""}${line.mark ? `<small class="bench-dilution-mark">${benchEscape(line.mark)}</small>` : ""}</td>
       <td>${benchEscape(line.stockLabel)}<small>${benchEscape(line.strength)}</small></td>
       <td class="bench-amount">${line.mix ? `${benchEscape(line.mix.pourUl)} ${benchEscape(line.unit)} of the mix<small>${benchEscape(line.mix.stockAmount)} ${benchEscape(line.unit)} stock</small>` : `${benchEscape(line.amount)} ${benchEscape(line.unit)}`}</td>
-      <td class="bench-amount">${line.pipettable ? benchEscape(line.runningTotal) : "not in total"}</td>
+      <td class="bench-amount">${line.pipettable ? `<span class="bench-running-label">Running total </span>${benchEscape(line.runningTotal)}` : "not in total"}</td>
     </tr>`;
   }).join("");
   return `
@@ -723,5 +751,5 @@ function benchPourFixText(fix, sheet = null, firstSizeMl = null) {
 }
 
 if (typeof module === "object" && module.exports) {
-  module.exports = { addDecimalText, benchUnitKey, benchPercentText, benchBasisText, benchNeedsPreparedDilution, benchSheetLines, benchSheetHold, benchLeaveOutNote, benchSheetHtml, benchEscape, compareDecimalText, benchBasketLookup, benchRowBasket, benchBasketOrder, multiplyDecimalText, benchMixRecipe, benchMixText, benchMixShortText, benchMixNote, benchBottleMl, scaleDecimalText, benchScaleRows, benchSeparateTotals, benchRowFromSource, benchMatchStocks, benchSourceNotes, subtractDecimalText, benchPlannedPour, benchPourStart, benchPourSheet, benchPourFix, benchPourFixText };
+  module.exports = { addDecimalText, benchUnitKey, benchPercentText, benchBasisText, benchNeedsPreparedDilution, benchSheetLines, benchDraftState, overviewTiles, benchSheetHold, benchLeaveOutNote, benchSheetHtml, benchEscape, compareDecimalText, benchBasketLookup, benchRowBasket, benchBasketOrder, multiplyDecimalText, benchMixRecipe, benchMixText, benchMixShortText, benchMixNote, benchBottleMl, scaleDecimalText, benchScaleRows, benchSeparateTotals, benchRowFromSource, benchMatchStocks, benchSourceNotes, subtractDecimalText, benchPlannedPour, benchPourStart, benchPourSheet, benchPourFix, benchPourFixText };
 }

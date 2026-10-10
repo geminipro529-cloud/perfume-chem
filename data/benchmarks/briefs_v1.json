@@ -1,0 +1,511 @@
+{
+ "version": 1,
+ "briefs": [
+  {
+   "id": "lavender-cologne",
+   "idea": "a fresh lavender cologne",
+   "named_notes": [
+    {
+     "name": "lavender",
+     "window": "heart",
+     "materials": [
+      "lavender",
+      "lavandin"
+     ]
+    },
+    {
+     "name": "citrus",
+     "window": "opening",
+     "materials": [
+      "bergamot",
+      "lemon",
+      "grapefruit",
+      "orange",
+      "mandarin",
+      "lime",
+      "pamzest",
+      "pamplemousse"
+     ]
+    }
+   ],
+   "notes": "Lavender incl. lavandin/spike (names contain 'lavender'/'lavandin'); citrus = named citrus oils and zest bases; Methyl Pamplemousse counted as grapefruit."
+  },
+  {
+   "id": "clean-musky-skin",
+   "idea": "a clean musky skin scent",
+   "named_notes": [
+    {
+     "name": "musk",
+     "window": "drydown",
+     "materials": [
+      "musk",
+      "ambrettolide",
+      "habanolide",
+      "galaxolide",
+      "brassylate",
+      "zenolide",
+      "romandolide",
+      "exaltolide",
+      "helvetolide"
+     ]
+    }
+   ],
+   "notes": "Musk = inventory macrocyclic/polycyclic musks and ambrettolide."
+  },
+  {
+   "id": "soft-woody-amber",
+   "idea": "a soft woody amber",
+   "named_notes": [
+    {
+     "name": "wood",
+     "window": "drydown",
+     "materials": [
+      "cedar",
+      "sandalwood",
+      "sandalore",
+      "ebanol",
+      "bacdanol",
+      "javanol",
+      "vetiver",
+      "guaiac",
+      "cashmeran",
+      "iso e",
+      "patchouli"
+     ]
+    },
+    {
+     "name": "amber",
+     "window": "drydown",
+     "materials": [
+      "amber",
+      "ambrox",
+      "labdanum",
+      "cedramber",
+      "azarbre"
+     ]
+    }
+   ],
+   "notes": "Woods include patchouli/vetiver as woody-earthy bases; amber = ambroxan-type, labdanum, amber bases."
+  },
+  {
+   "id": "rose-chypre-patchouli-oakmoss",
+   "idea": "rose chypre with patchouli and oakmoss depth",
+   "named_notes": [
+    {
+     "name": "rose",
+     "window": "heart",
+     "materials": [
+      "rose",
+      "rhodinol",
+      "geraniol",
+      "damascol"
+     ]
+    },
+    {
+     "name": "patchouli",
+     "window": "drydown",
+     "materials": [
+      "patchouli"
+     ]
+    },
+    {
+     "name": "oakmoss",
+     "window": "drydown",
+     "materials": [
+      "oakmoss",
+      "evernyl"
+     ]
+    }
+   ],
+   "notes": "Evernyl is oakmoss-specific. Phenethyl Alcohol not counted as rose (conservative)."
+  },
+  {
+   "id": "green-fig-milky-sandalwood",
+   "idea": "a green fig and milky sandalwood summer scent",
+   "named_notes": [
+    {
+     "name": "green",
+     "window": "top",
+     "materials": [
+      "hexenol",
+      "violet leaf",
+      "triplal"
+     ]
+    },
+    {
+     "name": "sandalwood",
+     "window": "drydown",
+     "materials": [
+      "sandalwood",
+      "sandalore",
+      "ebanol",
+      "bacdanol",
+      "javanol"
+     ]
+    }
+   ],
+   "notes": "No fig-named material exists in inventory, so fig is not scored; sandalwood = EO/base and sandalwood-type synthetics."
+  },
+  {
+   "id": "dark-oud-rose-no-vanilla",
+   "idea": "a dark oud rose for evening, no vanilla",
+   "named_notes": [
+    {
+     "name": "oud",
+     "window": "drydown",
+     "materials": [
+      "agarwood",
+      "oud"
+     ]
+    },
+    {
+     "name": "rose",
+     "window": "heart",
+     "materials": [
+      "rose",
+      "rhodinol",
+      "geraniol",
+      "damascol"
+     ]
+    }
+   ],
+   "notes": "Black Agarwood Artificial is the only oud-type material. Negative (no vanilla) is not scored by this metric."
+  },
+  {
+   "id": "citrus-cologne",
+   "idea": "a bright citrus cologne",
+   "named_notes": [
+    {
+     "name": "citrus",
+     "window": "opening",
+     "materials": [
+      "bergamot",
+      "lemon",
+      "grapefruit",
+      "orange",
+      "mandarin",
+      "lime",
+      "pamzest",
+      "pamplemousse"
+     ]
+    }
+   ],
+   "notes": "Citrus oils and zest bases only."
+  },
+  {
+   "id": "aromatic-fougere",
+   "idea": "an aromatic fougere",
+   "named_notes": [
+    {
+     "name": "lavender",
+     "window": "heart",
+     "materials": [
+      "lavender",
+      "lavandin"
+     ]
+    },
+    {
+     "name": "oakmoss",
+     "window": "drydown",
+     "materials": [
+      "oakmoss",
+      "evernyl"
+     ]
+    },
+    {
+     "name": "coumarin",
+     "window": "drydown",
+     "materials": [
+      "coumarin",
+      "hay absolute"
+     ]
+    }
+   ],
+   "notes": "Fougere triad: lavender, oakmoss, coumarin/hay."
+  },
+  {
+   "id": "gourmand-vanilla",
+   "idea": "a gourmand vanilla",
+   "named_notes": [
+    {
+     "name": "vanilla",
+     "window": "drydown",
+     "materials": [
+      "vanilla",
+      "vanillin",
+      "tonkarome"
+     ]
+    }
+   ],
+   "notes": "Vanilla absolute, vanillin, ethyl vanillin; Tonkarome as owned tonka/vanilla base. Isobutavan excluded."
+  },
+  {
+   "id": "iris-powder",
+   "idea": "an iris powder",
+   "named_notes": [
+    {
+     "name": "iris",
+     "window": "heart",
+     "materials": [
+      "iris",
+      "orris",
+      "irone",
+      "irotyl",
+      "ionone"
+     ]
+    }
+   ],
+   "notes": "Iris = orris/irone/ionone materials ('ionone' also catches methyl ionones). Violet Leaf excluded."
+  },
+  {
+   "id": "incense-resin",
+   "idea": "an incense and resin",
+   "named_notes": [
+    {
+     "name": "incense",
+     "window": "heart",
+     "materials": [
+      "frankincense",
+      "olibanum",
+      "elemi",
+      "myrrh"
+     ]
+    },
+    {
+     "name": "resin",
+     "window": "drydown",
+     "materials": [
+      "labdanum",
+      "benzoin",
+      "opoponax",
+      "storax",
+      "myrrh"
+     ]
+    }
+   ],
+   "notes": "Incense = frankincense/olibanum/elemi/myrrh; resin = base-tier resins."
+  },
+  {
+   "id": "white-musk-laundry",
+   "idea": "a white musk laundry",
+   "named_notes": [
+    {
+     "name": "musk",
+     "window": "drydown",
+     "materials": [
+      "musk",
+      "ambrettolide",
+      "habanolide",
+      "galaxolide",
+      "brassylate",
+      "zenolide",
+      "romandolide",
+      "exaltolide",
+      "helvetolide"
+     ]
+    },
+    {
+     "name": "clean-aldehyde",
+     "window": "opening",
+     "materials": [
+      "aldehyde",
+      "floralozone",
+      "adoxal",
+      "melonal"
+     ]
+    }
+   ],
+   "notes": "Clean = aldehydic/ozonic laundry materials."
+  },
+  {
+   "id": "green-tea",
+   "idea": "a green tea",
+   "named_notes": [
+    {
+     "name": "tea",
+     "window": "heart",
+     "materials": [
+      "tea"
+     ]
+    },
+    {
+     "name": "green",
+     "window": "top",
+     "materials": [
+      "hexenol",
+      "violet leaf",
+      "triplal",
+      "petitgrain"
+     ]
+    }
+   ],
+   "notes": "Only 'Black Tea Base' matches 'tea' (no green-tea material exists); green = leaf-green materials."
+  },
+  {
+   "id": "marine-ozonic",
+   "idea": "a marine ozonic",
+   "named_notes": [
+    {
+     "name": "marine",
+     "window": "heart",
+     "materials": [
+      "calone",
+      "floralozone",
+      "adoxal",
+      "helional",
+      "melonal"
+     ]
+    }
+   ],
+   "notes": "Marine/ozonic = Calone, Floralozone, Adoxal, Helional, Melonal."
+  },
+  {
+   "id": "leather",
+   "idea": "a leather",
+   "named_notes": [
+    {
+     "name": "leather",
+     "window": "heart",
+     "materials": [
+      "leather",
+      "isobutyl quinoline",
+      "birch",
+      "castoreum",
+      "safraleine",
+      "cade"
+     ]
+    }
+   ],
+   "notes": "Leather = Leather FO, IBQ, birch tar, castoreum, Safraleine, cade."
+  },
+  {
+   "id": "pipe-tobacco",
+   "idea": "a sweet pipe tobacco",
+   "named_notes": [
+    {
+     "name": "tobacco",
+     "window": "heart",
+     "materials": [
+      "tobacco",
+      "hay absolute",
+      "safraleine"
+     ]
+    },
+    {
+     "name": "sweet",
+     "window": "drydown",
+     "materials": [
+      "vanilla",
+      "tonka",
+      "coumarin",
+      "benzoin",
+      "labdanum",
+      "maltol"
+     ]
+    }
+   ],
+   "notes": "Tobacco absolute/hay/Safraleine; sweetness = vanilla, tonka, coumarin, benzoin, labdanum, maltol."
+  },
+  {
+   "id": "woody-floral-no-musk",
+   "idea": "a woody floral, no musk",
+   "named_notes": [
+    {
+     "name": "wood",
+     "window": "drydown",
+     "materials": [
+      "cedar",
+      "sandalwood",
+      "sandalore",
+      "ebanol",
+      "bacdanol",
+      "javanol",
+      "vetiver",
+      "guaiac",
+      "cashmeran",
+      "iso e",
+      "patchouli"
+     ]
+    },
+    {
+     "name": "floral",
+     "window": "heart",
+     "materials": [
+      "rose",
+      "jasmine",
+      "hedione",
+      "ylang",
+      "geranium",
+      "neroli",
+      "iris",
+      "orris"
+     ]
+    }
+   ],
+   "notes": "Negative (no musk) is not scored by this metric; only the affirmative notes are."
+  },
+  {
+   "id": "citrus-no-lavender",
+   "idea": "a fresh citrus, no lavender",
+   "named_notes": [
+    {
+     "name": "citrus",
+     "window": "opening",
+     "materials": [
+      "bergamot",
+      "lemon",
+      "grapefruit",
+      "orange",
+      "mandarin",
+      "lime",
+      "pamzest",
+      "pamplemousse"
+     ]
+    }
+   ],
+   "notes": "Negative (no lavender) is not scored by this metric."
+  },
+  {
+   "id": "vetiver-haitian",
+   "idea": "a vetiver centred scent built on Haitian Vetiver EO",
+   "named_notes": [
+    {
+     "name": "vetiver",
+     "window": "drydown",
+     "materials": [
+      "vetiver"
+     ]
+    }
+   ],
+   "notes": "Inventory holds 'Haitian Vetiver EO'; 'Vetiver EO India' is not in inventory. 'vetiver' also matches Vetiveryl Acetate."
+  },
+  {
+   "id": "rose-amber-cap10",
+   "idea": "a rose and amber perfume using at most 10 materials",
+   "named_notes": [
+    {
+     "name": "rose",
+     "window": "heart",
+     "materials": [
+      "rose",
+      "rhodinol",
+      "geraniol",
+      "damascol"
+     ]
+    },
+    {
+     "name": "amber",
+     "window": "drydown",
+     "materials": [
+      "amber",
+      "ambrox",
+      "labdanum",
+      "cedramber",
+      "azarbre"
+     ]
+    }
+   ],
+   "notes": "The 10-material cap is not part of the detectability metric; material_count is stored."
+  }
+ ]
+}

@@ -347,6 +347,22 @@ button:disabled { cursor: not-allowed !important; opacity: .48; transform: none 
 .formula-result-checks { margin: 0 0 12px; }
 .formula-result-checks ul { margin: 0; padding-left: 18px; }
 .formula-result-checks small { display: block; margin-top: 6px; opacity: .8; }
+.formula-result-voices { margin: 0 0 12px; }
+.formula-result-voices ul { margin: 0; padding-left: 18px; }
+.formula-result-voices small { display: block; margin-top: 6px; opacity: .8; font-size: .8em; }
+.formula-result-liking { display: grid; gap: 16px; margin: 16px 0; }
+.formula-result-liking h3 { margin: 0 0 6px; font-size: 1em; }
+.formula-result-liking h4 { margin: 0 0 4px; font-size: .95em; }
+.formula-result-liking ul { margin: 0; padding-left: 18px; }
+.formula-result-liking small { display: block; margin-top: 6px; opacity: .8; font-size: .8em; }
+.liking-subhead, .liking-hint { margin: 6px 0 4px; color: var(--muted); }
+.liking-row { padding: 10px 0; border-top: 1px solid rgba(0,0,0,.08); }
+.liking-scale, .liking-actions, .liking-fields { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 6px 0; }
+.liking-scale button { min-width: 36px; }
+.liking-scale button[aria-pressed="true"] { color: white; background: var(--blue); border-color: var(--blue); }
+.liking-field { display: grid; gap: 2px; font-size: .9em; }
+.liking-status { color: var(--muted); }
+.liking-personal summary { cursor: pointer; }
 .bench-sheet { display: none; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -443,3 +459,32 @@ button:disabled { cursor: not-allowed !important; opacity: .48; transform: none 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* Smell-over-time chart (scent-chart.js); colours come from theme tokens only. */
+.scent-chart { margin: 12px 0 16px; min-width: 0; }
+.scent-frame { position: relative; }
+.scent-chart-svg { display: block; width: 100%; height: auto; max-width: 100%; }
+.scent-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.scent-axis { fill: var(--chart-axis); font: 11px var(--font-ui, sans-serif); }
+.scent-band { stroke: var(--paper-high); stroke-width: 1; cursor: pointer; }
+.scent-band:focus, .scent-column:focus { outline: 2px solid var(--focus-ring); outline-offset: 1px; }
+.scent-column { fill: transparent; stroke: none; }
+.scent-column:hover, .scent-column:focus { fill: var(--chart-grid); fill-opacity: .35; }
+.scent-band.tier-top, .scent-swatch.tier-top, .scent-tier-bar .tier-top { fill: var(--tier-top); background: var(--tier-top); }
+.scent-band.tier-heart, .scent-swatch.tier-heart, .scent-tier-bar .tier-heart { fill: var(--tier-heart); background: var(--tier-heart); }
+.scent-band.tier-base, .scent-swatch.tier-base, .scent-tier-bar .tier-base { fill: var(--tier-base); background: var(--tier-base); }
+.scent-tip { position: absolute; top: 4px; right: 4px; max-width: 70%; padding: 6px 9px; display: grid; gap: 1px;
+  background: var(--paper-high); color: var(--ink); border: 1px solid var(--line); border-radius: 6px;
+  box-shadow: var(--shadow); font-size: 12px; pointer-events: none; }
+.scent-tip[hidden] { display: none; }
+.scent-caption, .scent-chart-note, .scent-unknown { margin: 4px 0 8px; color: var(--muted); font-size: 13px; }
+.scent-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0 0 10px; padding: 0; list-style: none; font-size: 12px; }
+.scent-legend li { display: inline-flex; align-items: center; gap: 5px; }
+.scent-swatch { display: inline-block; width: 12px; height: 12px; border-radius: 2px; }
+.scent-dominance { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 6px; margin: 0 0 10px; padding: 0; list-style: none; font-size: 13px; }
+.scent-dominance li { display: grid; gap: 1px; padding: 6px 8px; background: var(--surface-2); border: 1px solid var(--line-soft); border-radius: 6px; overflow-wrap: anywhere; }
+.scent-tiers { display: grid; gap: 6px; margin: 0 0 8px; font-size: 12px; }
+.scent-tier-row { display: grid; grid-template-columns: 80px minmax(80px, 1fr); gap: 2px 8px; align-items: center; }
+.scent-tier-bar { display: flex; height: 10px; border-radius: 5px; overflow: hidden; background: var(--line-soft); }
+.scent-tier-bar > span { flex-basis: 0; min-width: 0; }
+.scent-tier-text { grid-column: 2; color: var(--muted); }

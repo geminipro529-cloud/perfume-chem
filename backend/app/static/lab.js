@@ -114,7 +114,8 @@ function fieldWords(name) {
 const REQUEST_TIMEOUT_MS = 120000;
 
 async function request(path, options = {}) {
-  const { timeoutMs, ...fetchOptions } = options;
+  // base: another API root on this app (the liking card posts to /api/v1/feedback).
+  const { timeoutMs, base = API, ...fetchOptions } = options;
   // timeoutMs: 0 means no limit (slow synchronous server work); undefined gets the default.
   const limitMs = timeoutMs === undefined ? REQUEST_TIMEOUT_MS : timeoutMs;
   const controller = new AbortController();
@@ -123,7 +124,7 @@ async function request(path, options = {}) {
   let payload;
   const failuresAtStart = offlineFailures;
   try {
-    response = await fetch(`${API}${path}`, {
+    response = await fetch(`${base}${path}`, {
       headers: { "Content-Type": "application/json", ...(fetchOptions.headers || {}) },
       ...fetchOptions,
       signal: controller.signal,
@@ -540,7 +541,7 @@ async function refresh() {
     request("/dashboard"), request("/materials"), request("/stocks"), request("/formulas"), request("/bottles"), request("/experiments"), request("/v2/workbench/formula-library"), request("/v2/workbench/current-inventory"),
   ]);
   Object.assign(state, { materials, stocks, formulas, bottles, experiments, formulaLibrary: formulaLibrary.sources || [], projectInventory });
-  $("#dashboard-counts").innerHTML = Object.entries(dashboard.counts).map(([label, value]) => `<article class="metric"><strong>${value}</strong><span>${escapeHtml(label)}</span></article>`).join("");
+  $("#dashboard-counts").innerHTML = overviewTiles(dashboard.counts, projectInventory.counts, (projectInventory.stocks || []).length).map(([label, value]) => `<article class="metric"><strong>${value}</strong><span>${escapeHtml(label)}</span></article>`).join("");
   $("#dashboard-warnings").innerHTML = dashboard.warnings.map((warning) => `<li>${escapeHtml(warning)}</li>`).join("");
   recordList("#material-list", materials, "canonical_name", (row) => row.cas_number || "No CAS recorded");
   recordList("#formula-list", formulas, "name", () => "Immutable versions are appended separately");
@@ -1865,11 +1866,56 @@ function renderCompositionChecks(compositionChecks) {
   }
 }
 
+function renderDetectionCheck(detectionCheck) {
+  const box = $("#formula-result-detection");
+  const summary = typeof detectionCheckLines === "function" ? detectionCheckLines(detectionCheck) : null;
+  box.replaceChildren();
+  box.hidden = !summary;
+  if (!summary) return;
+  box.className = summary.flagged ? "formula-result-checks inline-warning" : "formula-result-checks";
+  const list = document.createElement("ul");
+  summary.lines.forEach((line) => {
+    const item = document.createElement("li");
+    item.dataset.status = line.status;
+    item.textContent = line.text;
+    list.append(item);
+  });
+  box.append(list);
+  if (summary.note) {
+    const note = document.createElement("small");
+    note.textContent = summary.note;
+    box.append(note);
+  }
+}
+
+function renderFormulaVoices(complexitySummary) {
+  const box = $("#formula-result-voices");
+  const summary = typeof formulaVoiceLines === "function" ? formulaVoiceLines(complexitySummary) : null;
+  box.replaceChildren();
+  box.hidden = !summary || (!summary.lines.length && !summary.note);
+  if (box.hidden) return;
+  const list = document.createElement("ul");
+  summary.lines.forEach((text) => {
+    const item = document.createElement("li");
+    item.textContent = text;
+    list.append(item);
+  });
+  box.append(list);
+  if (summary.note) {
+    const note = document.createElement("small");
+    note.textContent = summary.note;
+    box.append(note);
+  }
+}
+
 // With basket data in the inventory payload the rows follow Kenny's basket
 // order (benchBasketOrder in bench-sheet.js) under one heading per basket;
 // without it they keep the design order. Doses are never changed.
 function renderFormulaRows(rows) {
   let group = null;
+  // scent-chart.js is optional: without it the rationale shows unchanged.
+  const hasScent = typeof scentWhyText === "function" && typeof scentChartRows === "function" && typeof scentCurveCache !== "undefined";
+  const curve = hasScent ? scentCurveCache.get(JSON.stringify(scentChartRows(rows))) : null;
   $("#formula-result-rows").innerHTML = rows.length
     ? benchBasketOrder(rows, benchBasketLookup(state.projectInventory)).map((entry) => {
       const row = entry.row;
@@ -1885,11 +1931,12 @@ function renderFormulaRows(rows) {
         : entry.group === "unassigned" ? '<small class="formula-basket-tag">No basket</small>' : "";
       const basis = benchBasisText(row.fraction_basis);
       const stockLabel = row.stock_label || `${fraction} ${basis}${carrier}`;
+      const why = hasScent ? scentWhyText(row.rationale, row, curve) : String(row.rationale || "");
       const mix = benchNeedsPreparedDilution(row) ? benchMixRecipe(row) : null;
       const doseNote = mix ? `<small class="formula-dose-mix">${escapeHtml(benchMixShortText(mix, row.amount_unit))}</small>`
         : benchNeedsPreparedDilution(row) ? '<small class="formula-dose-hold">prepare dilution first</small>' : "";
       return `${heading}<tr>
-        <td><strong>${escapeHtml(row.material)}</strong>${basketTag}${proxy}<small class="formula-why">${escapeHtml(row.rationale)}</small></td>
+        <td><strong>${escapeHtml(row.material)}</strong>${basketTag}${proxy}${why ? `<small class="formula-why">${escapeHtml(why)}</small>` : ""}</td>
         <td class="formula-dose">${escapeHtml(row.amount_decimal)} ${escapeHtml(row.amount_unit)}${doseNote}</td>
         <td>${escapeHtml(stockLabel)}<small>${escapeHtml(fraction)} ${escapeHtml(basis)}${escapeHtml(carrier)}</small></td>
         <td>${escapeHtml(row.slot_label)}<small>${escapeHtml(row.note)} · ${escapeHtml(row.role)}</small></td>
@@ -1907,7 +1954,7 @@ function renderFormulaDesign(result, variantIndex = 0) {
   const selected = selectedFormulaVariant(result, variantIndex);
   const hasFormula = Boolean(selected.formula);
   $("#formula-result-state").textContent = hasFormula
-    ? (selected.critic?.issues?.length ? "Proposal · check hold" : "Proposal only")
+    ? benchSheetHold(selected.formula?.rows || [], selected.critic).stateText
     : "Needs clarification";
   $("#formula-result-summary").textContent = result.assistant_message || "No formula was generated.";
   const picker = $("#formula-variant-picker");
@@ -1929,7 +1976,14 @@ function renderFormulaDesign(result, variantIndex = 0) {
     picker.append(button);
   });
   renderCompositionChecks(selected.variant ? selected.variant.composition_checks : result.composition_checks);
+  renderDetectionCheck((selected.variant ? selected.formula : (selected.formula || result.initial_formula))?.detection_check);
+  renderFormulaVoices(selected.variant ? selected.variant.complexity_summary : result.complexity_summary);
+  if (typeof renderFormulaLiking === "function") renderFormulaLiking(result, variantIndex, selected);
   const rows = selected.formula?.rows || [];
+  // Once the curve is cached the rows pick up their modelled shares.
+  (typeof renderScentChart === "function" ? renderScentChart($("#formula-result-scent"), rows) : Promise.resolve()).then(() => {
+    if (state.formulaChat.result === result && state.formulaChat.variantIndex === variantIndex) renderFormulaRows(rows);
+  });
   renderFormulaRows(rows);
 
   const totals = $("#formula-result-totals");
@@ -3038,8 +3092,29 @@ bindSavingForm("#trial-plan-form", async (data, form, saved) => {
 bindSavingForm("#assistant-form", async (data, form, saved) => {
   const packet = await request("/assistant", { method: "POST", body: JSON.stringify({ intent: data.intent, subject_id: data.subject_id || null, facts: {}, calculations: {}, evidence: {} }) });
   saved();
-  $("#assistant-output").textContent = JSON.stringify(packet, null, 2); notify(`Packet ${packet.payload_sha256.slice(0, 10)} built.`);
+  $("#assistant-output").textContent = JSON.stringify(packet, null, 2);
+  renderAssistantSummary(packet);
+  notify("Answer ready.");
 });
+
+function renderAssistantSummary(packet) {
+  const list = $("#assistant-summary");
+  list.replaceChildren();
+  const add = (label, value) => {
+    const item = document.createElement("li");
+    const text = Array.isArray(value) ? value.join("; ") : value;
+    item.textContent = `${label}: ${text === null || text === undefined || text === "" ? "not known yet" : text}`;
+    list.append(item);
+  };
+  const count = (obj) => (obj && typeof obj === "object" ? Object.keys(obj).length : 0);
+  add("Question", String(packet.intent || "").replaceAll("_", " "));
+  add("Subject", packet.subject_id);
+  add("Result", packet.status === "needs_input" ? "needs more information" : packet.status);
+  add("Next step", packet.next_action);
+  add("Facts found", count(packet.facts) ? `${count(packet.facts)} item(s)` : null);
+  add("Calculations", count(packet.calculations) ? `${count(packet.calculations)} item(s)` : null);
+  add("Limits", packet.limitations && packet.limitations.length ? packet.limitations : null);
+}
 
 function scienceEvidenceClass(label) {
   return `evidence-${String(label || "UNKNOWN").toLowerCase().replaceAll("_", "-")}`;

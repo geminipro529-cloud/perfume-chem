@@ -38,11 +38,15 @@ def test_census_preserves_every_current_inventory_row_and_fails_closed_on_matche
     # spelling) folded into Vertofix Coeur with its SKU, so the received
     # "Vertofix (neat / as supplied)" row resolves to SKU 3WY00465, the SKU its
     # own inventory note cites: 208 -> 209, 107 -> 106.
+    # 2026-10-09: the misspelt "Stralyl Acetate" record merged into the owned
+    # "Styralyl Acetate" record, which carries PerfumersWorld SKU 4GN00417, so
+    # the inventory's "Stralyl Acetate" row now has a registry SKU:
+    # 209 -> 210, 106 -> 105.
     assert match_counts == {
-        "REGISTRY_SKU": 209,
+        "REGISTRY_SKU": 210,
         "EXACT_NAME_SKU": 6,
         "AMBIGUOUS_EXACT_NAME": 12,
-        "NO_EXACT_PW_MATCH": 106,
+        "NO_EXACT_PW_MATCH": 105,
     }
     vertofix = next(row for row in rows if row.inventory_raw_name.startswith("Vertofix (neat"))
     assert vertofix.perfumersworld_sku == "3WY00465"

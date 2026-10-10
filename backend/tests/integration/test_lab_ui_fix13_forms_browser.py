@@ -119,10 +119,10 @@ def test_a_good_save_clears_the_old_error_and_keeps_its_success_message(lab):
 
     lab.respond("POST", path, status=200, json={"payload_sha256": "0123456789abcdef"})
     form.locator('button[type="submit"]').click()
-    lab.wait_for_status("Packet 0123456789 built.")
+    lab.wait_for_status("Answer ready.")
 
     assert lab.page.locator("#assistant-form-error").count() == 0
-    assert "payload_sha256" in lab.page.locator("#assistant-output").inner_text()
+    assert "payload_sha256" in lab.page.locator("#assistant-output").text_content()
 
 
 def _slow(lab, path, body, delay=0.7):

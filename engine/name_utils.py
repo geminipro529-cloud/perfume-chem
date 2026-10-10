@@ -45,6 +45,8 @@ _ALIASES: dict[str, str] = {
     "a-ionone": "alpha ionone",
     "cis-3-hexenol": "cis 3 hexenol",
     "cis-3-hexenyl salicylate": "cis 3 hexenyl salicylate",
+    # inventory.txt misspelling of styralyl acetate (1-phenylethyl acetate, CAS 93-92-5)
+    "stralyl acetate": "styralyl acetate",
     "alpha-damascone": "alpha damascone",
     "beta-damascone": "beta damascone",
     "gamma-damascone": "gamma damascone",
@@ -224,6 +226,12 @@ _ALIASES: dict[str, str] = {
     "citral natural": "citral",
     # owner's Exaltolide bottle is Pentalide (same molecule, CAS 106-02-5)
     "pentalide": "exaltolide",
+    # Owned-stock spellings whose data sits under another key (same material).
+    # Word order only: Cedrus deodara wood oil, same stock identity.
+    "cedarwood himalayan eo": "himalayan cedarwood eo",
+    # V5 label for the neat C11 stock; inventory.txt names it undecylenic
+    # (10-undecenal, CAS 112-45-8), not undecanal.
+    "aldehyde c11 neat": "aldehyde c11 undecylenic",
 }
 
 

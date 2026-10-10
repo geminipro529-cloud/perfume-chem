@@ -6,8 +6,8 @@ import hashlib
 import json
 import re
 from dataclasses import asdict
-from functools import wraps
 from decimal import Decimal, InvalidOperation
+from functools import wraps
 from typing import Any, Literal, Sequence
 
 from engine.formulation_intelligence.architecture_bridge import (
@@ -15,6 +15,7 @@ from engine.formulation_intelligence.architecture_bridge import (
     role_plan_signature,
 )
 from engine.formulation_intelligence.composition_checks import attach_composition_checks
+from engine.formulation_intelligence.detection_pass import attach_detection_checks
 from engine.formulation_intelligence.formula_critic import critique_formula
 from engine.formulation_intelligence.formula_solver import (
     FormulaSolveResult,
@@ -25,10 +26,15 @@ from engine.formulation_intelligence.literature_knowledge import retrieve_formul
 from engine.formulation_intelligence.material_capability_index import (
     build_material_capability_index,
 )
+from engine.formulation_intelligence.pleasantness import (
+    attach_pleasantness_estimate,
+    simulate_report_formulas,
+)
 from engine.formulation_intelligence.semantic_brief_adapter import (
     SemanticBrief,
     compile_semantic_brief,
 )
+from engine.formulation_intelligence.voice_summary import attach_complexity_summary
 from engine.research.composition_planner import (
     _concept,
     _inventory_text_sha256,
@@ -612,11 +618,22 @@ def _dynamic_report(
 
 
 def _with_composition_checks(design: Any) -> Any:
-    """Attach the gate's advisory crowding/IFRA checks to every composed formula."""
+    """Run the detection pass, then attach the gate's crowding/IFRA checks, the
+    voice summary and the crowd-guess pleasantness estimate.
+
+    The composition checks, the voice summary and the pleasantness estimate run
+    on the formula after the detection pass, so they describe the doses that are
+    shown.  Each distinct formula is simulated once and shared by the last two.
+    """
 
     @wraps(design)
     def wrapper(*args: Any, **kwargs: Any) -> dict[str, Any]:
-        return attach_composition_checks(design(*args, **kwargs))
+        checked = attach_composition_checks(attach_detection_checks(design(*args, **kwargs)))
+        simulations = simulate_report_formulas(checked)
+        return attach_pleasantness_estimate(
+            attach_complexity_summary(checked, simulations=simulations),
+            simulations=simulations,
+        )
 
     return wrapper
 
