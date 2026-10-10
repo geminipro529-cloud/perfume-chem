@@ -11,7 +11,9 @@ CHEMISTRY_SYSTEM_CONTEXT = """You are an expert perfumer and fragrance chemist. 
 3. ALWAYS respect potency limits:
    - EXTREME potency (Alpha Irone, Beta Damascone): MAX 0.5%
    - HIGH potency (Aldehydes, Birch Tar): MAX 2%
-   - MEDIUM potency (Linalool, Hedione): MAX 15%
+   - MEDIUM potency (Linalool): MAX 15%
+   - Hedione: MAX 12% of fragrance-active volume in a chypre, MAX 15% in a floral or any
+     other style; above that it crowds the character notes
    - LOW potency (Iso E Super, Galaxolide): MAX 50%
 4. ALWAYS ensure formula totals 100%
 5. ALWAYS include balanced top/heart/base notes
