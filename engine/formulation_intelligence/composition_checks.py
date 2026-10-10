@@ -144,7 +144,7 @@ def _ifra_checks(gate: Mapping[str, Any]) -> list[dict[str, str]]:
     status = str(gate.get("status", ""))
     detail = str(gate.get("detail", ""))
     if status in {"FAIL", "HOLD"}:
-        return [{"check": "ifra", "status": "WARN", "message": detail}]
+        return [{"check": "ifra", "status": "FAIL" if status == "FAIL" else "WARN", "message": detail}]
     return [{
         "check": "ifra",
         "status": "WARN" if status == "WARN" and data.get("edge_dosing") else "PASS",
