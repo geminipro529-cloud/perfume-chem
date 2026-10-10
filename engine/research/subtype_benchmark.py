@@ -28,6 +28,7 @@ from engine.formulation_intelligence import formula_solver as solver
 from engine.formulation_intelligence.formula_critic import critique_formula
 from engine.formulation_intelligence.detection_pass import solver_formula
 from engine.formulation_intelligence.formula_design_runtime import design_formula
+from engine.formulation_intelligence.liking_tie_break import Liking
 from engine.formulation_intelligence.literature_knowledge import retrieve_formulation_knowledge
 from engine.formulation_intelligence.material_capability_index import (
     MaterialCapabilityIndex,
@@ -398,6 +399,38 @@ def _request_matches_case(result: dict[str, Any], case: dict[str, Any] | None, v
     ) if variant_count is not None else False
 
 
+_ABSENT = object()
+
+
+def _recorded_file_sha256(attempt: Any) -> Any:
+    try:
+        block = attempt["solver"]["liking_tie_break"]
+        return block.get("personal_file_sha256", _ABSENT)
+    except (KeyError, TypeError, AttributeError):
+        return _ABSENT
+
+
+def _liking_file_changed(result: dict[str, Any], live: Any) -> bool:
+    """True when any attempt was made with a different personal-liking file."""
+    return any(
+        _recorded_file_sha256(a) != live.personal_file_sha256
+        for a in result.get("architecture_attempts", ())
+    )
+
+
+def _liking_for_replay(attempt: dict[str, Any], live: Any, returned: dict[str, Any]) -> Any:
+    """The live lookup if the file is unchanged, else the values recorded on the rows."""
+    if _recorded_file_sha256(attempt) == live.personal_file_sha256:
+        return live
+    duplicate = attempt["state"] == "WITHHELD_DUPLICATE_PHYSICAL_COMPOSITION"
+    formula = attempt["suppressed_formula"] if duplicate else returned[attempt["variant_id"]]["formula"]
+    recorded: dict[str, Liking] = {}
+    for row in formula["rows"]:
+        entry = row["liking_tie_break"]
+        recorded.setdefault(str(row.get("identity_name") or ""), Liking(entry["value"], entry["source"]))
+    return recorded.__getitem__
+
+
 def _execution_verified(
     result: dict[str, Any], briefs: tuple[SemanticBrief, ...],
     index: MaterialCapabilityIndex | None, expected_liquid: str | None,
@@ -432,6 +465,7 @@ def _execution_verified(
             return False
         stocks = {c.stock_id: c for c in index.capabilities}
         returned = {v["variant_id"]: v for v in result["design_variants"]}
+        live_liking = solver._liking_lookup()
         prior: set[str] = set()
         for position, attempt in enumerate(result["architecture_attempts"]):
             brief = briefs[position] if len(briefs) > 1 else briefs[0]
@@ -508,6 +542,11 @@ def _execution_verified(
                 except ValueError as exc:
                     status = "WITHHELD_DOSE_ALLOCATION_INFEASIBLE"
                     holds = [f"DOSE_ALLOCATION_INFEASIBLE:{exc}"]
+                # Rows carry the solver's liking annotation; replay it from the
+                # live lookup rather than trusting the recorded values, unless
+                # the personal file changed since the design (then it cannot be
+                # reproduced, and the recorded values are replayed instead).
+                solver._annotate_liking(rows, assignments, _liking_for_replay(attempt, live_liking, returned))
             if attempt["holds"] != sorted(set(holds)):
                 return False
             duplicate = attempt["state"] == "WITHHELD_DUPLICATE_PHYSICAL_COMPOSITION"
@@ -845,6 +884,8 @@ def audit_architectures(
         "planning_verified": planning_verified,
         "attempts_verified": attempts_verified,
         "execution_verified": execution_verified,
+        **({"liking_replay": "RECORDED_VALUES_FILE_CHANGED"}
+           if _liking_file_changed(result, solver._liking_lookup()) else {}),
         "request_contract_verified": _request_matches_case(result, expected_case, variant_count),
         "planned_architecture_count": max(0, len(expected) - 1),
         **coverage,
