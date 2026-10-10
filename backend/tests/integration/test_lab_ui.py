@@ -797,10 +797,10 @@ def test_bench_sheet_logic_keeps_exact_per_unit_totals_and_pours_small_rows_from
 
     assert result["hold"] == {
         "onHold": True,
-        "stateText": "Proposal \u00b7 check hold",
+        "stateText": "Draft, one safety check to clear",
         "issues": ["one or more rows require stock or dilution binding"],
     }
-    assert result["clear"]["stateText"] == "Proposal only"
+    assert result["clear"]["stateText"] == "Draft"
 
     html = result["html"]
     body_rows = html.split("<tbody>", 1)[1].split("</tr>")[:-1]
@@ -810,7 +810,7 @@ def test_bench_sheet_logic_keeps_exact_per_unit_totals_and_pours_small_rows_from
     assert "not in total" not in html
     assert "1 row under 10 \u00b5L goes in from a mix; the mix adds 8 \u00b5L DPG to the bottle." in html
     assert "Running totals leave out" not in html
-    assert "Proposal \u00b7 check hold" in html
+    assert "Draft, one safety check to clear" in html
     assert "Ethyl &lt;b&gt;Maltol&lt;/b&gt;" in html
     assert "<b>Maltol" not in html
     assert "Test &lt;Iris&gt; \u00b7 B" in html
@@ -1492,3 +1492,59 @@ async def test_scent_chart_script_is_served_wired_and_themed(client):
     for block in (light, auto_dark, explicit_dark.split("}", 1)[0]):
         for token in ("--tier-top:", "--tier-heart:", "--tier-base:"):
             assert token in block
+
+
+SCENT_CHART_JS = BENCH_SHEET_JS.parent / "scent-chart.js"
+
+
+def _node_json(module_path, script):
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("node is not installed; the static-script logic test needs it")
+    program = f"const m = require({json.dumps(str(module_path))});\nprocess.stdout.write(JSON.stringify(({script})(m)));"
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=60, check=True)
+    return json.loads(completed.stdout)
+
+
+def test_state_labels_are_plain_words_and_count_the_safety_checks():
+    result = _node_json(
+        BENCH_SHEET_JS,
+        "(b) => [0, 1, 3].map((n) => b.benchDraftState(n))",
+    )
+    assert result == ["Draft", "Draft, one safety check to clear", "Draft, 3 safety checks to clear"]
+
+
+def test_row_why_drops_the_template_and_uses_the_modelled_share():
+    tail = "selected as the nonredundant character for this concept after hard exclusions and stock form were applied."
+    curve = {"windows": [
+        {"label": "heart", "materials": [{"name": "Linalool", "known": True, "share": 0.123}]},
+        {"label": "drydown", "materials": [{"name": "Linalool", "known": True, "share": 0.004}]},
+    ]}
+    script = (
+        "(m) => { const tail = %s; const c = %s; return ["
+        " m.scentWhyText('Explicit brief anchor: Lavender EO: ' + tail, {identity_name: 'Lavender EO', slot_label: 'Anchor'}, c),"
+        " m.scentWhyText('Lavender character: ' + tail, {identity_name: 'Linalool', slot_label: 'Lavender character'}, c),"
+        " m.scentWhyText('Lavender character: ' + tail, {identity_name: 'Linalool', slot_label: 'Lavender character'}, null),"
+        " m.scentWhyText('Fresh lift: adds dry first-contact definition.', {identity_name: 'Linalool'}, c)]; }"
+    ) % (json.dumps(tail), json.dumps(curve))
+    result = _node_json(SCENT_CHART_JS, script)
+    assert result == [
+        "Explicit brief anchor: Lavender EO",
+        "Modelled at 12% of what the model can detect at 30 minutes and <1% at 4 hours.",
+        "",
+        "Fresh lift: adds dry first-contact definition.",
+    ]
+
+
+def test_overview_tiles_count_the_owned_stock_the_stock_page_lists():
+    result = _node_json(
+        BENCH_SHEET_JS,
+        "(b) => b.overviewTiles({ materials: 0, stocks: 0, formulas: 2, bottles: 0, experiments: 1 }, { stocks: 342, unique_identities: 301 })",
+    )
+    assert result == [
+        ["stock bottles owned", 342],
+        ["different materials owned", 301],
+        ["saved formulas", 2],
+        ["bottles logged", 0],
+        ["experiments logged", 1],
+    ]
