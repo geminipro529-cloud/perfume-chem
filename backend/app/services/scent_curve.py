@@ -69,6 +69,6 @@ def compute_scent_curve(rows: list[ScentCurveRow]) -> dict[str, Any]:
         )
     return {
         "schema_version": "scent-curve-v1",
-        "basis": "Modelled share of the smell you can detect; a screening model, not a measurement.",
+        "basis": "Share of what the model can detect (odour-threshold ratio), not strength or pleasantness; a screening model, not a measurement.",
         "windows": windows,
     }

@@ -1,5 +1,5 @@
 // Smell-over-time chart for the Create result. Draws the endpoint's modelled
-// share of the smell you can detect at five stages as an inline SVG stacked-band
+// share of what the model can detect at five stages as an inline SVG stacked-band
 // chart. A screening model, not a measurement. Text reaches the page only
 // through textContent / setAttribute. The page loads this before lab.js; node
 // loads the pure model for tests.
@@ -10,7 +10,7 @@ const SCENT_WINDOW_NAMES = {
 };
 const SCENT_TIERS = ["top", "heart", "base"];
 const SCENT_SVG_NS = "http://www.w3.org/2000/svg";
-const SCENT_CAPTION = "Modelled share of the smell you can detect at each stage. A model, not a measurement.";
+const SCENT_CAPTION = "Share of what the model can detect at each stage (odour-threshold ratio). It says nothing about strength or pleasantness. A model, not a measurement.";
 const scentCurveCache = new Map();
 
 function scentPercent(share) {
@@ -78,7 +78,7 @@ function scentEl(tag, className, text) {
 
 function scentSummary(model) {
   const parts = model.columns.map((c) => `${c.name}: ${c.top[0] || "nothing detectable"}`);
-  return `Smell over time, modelled share of the smell you can detect. Dominant material by stage. ${parts.join("; ")}.`;
+  return `Smell over time, share of what the model can detect (not strength or pleasantness). Dominant material by stage. ${parts.join("; ")}.`;
 }
 
 function drawScentChart(container, model) {
@@ -172,7 +172,7 @@ function drawScentChart(container, model) {
   }
 
   const table = scentEl("table", "sr-only");
-  table.append(scentEl("caption", "", "Modelled share of the smell you can detect, by material and stage"));
+  table.append(scentEl("caption", "", "Share of what the model can detect, by material and stage"));
   const head = scentEl("tr");
   head.append(scentEl("th", "", "Material"), ...model.columns.map((c) => scentEl("th", "", c.name)));
   table.append(head);
