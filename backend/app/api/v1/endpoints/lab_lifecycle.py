@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import asyncio
 from collections.abc import Awaitable, Callable
+from concurrent.futures import ThreadPoolExecutor
 from decimal import Decimal
+from functools import partial
 from typing import Any, TypeAlias, cast
 
 from engine.inventory_baskets import (
@@ -157,9 +160,9 @@ async def _run(
 
 
 # The workbench handlers below are plain functions on purpose: they run engine
-# code that takes up to seconds (inventory, formula parsing, Fast sketch), and
-# FastAPI runs a plain handler in a worker thread, so other requests keep being
-# answered meanwhile. Their inventory writes take the engine's own write locks.
+# code that can take a while (inventory, formula parsing), and FastAPI runs a
+# plain handler in a worker thread, so other requests keep being answered
+# meanwhile. Their inventory writes take the engine's own write locks.
 @router.get("/workbench/formula-library")
 def list_workbench_formula_library() -> dict[str, Any]:
     """List project formula files without importing or mutating them."""
@@ -575,8 +578,14 @@ def add_workbench_inventory_material(
         )
 
 
+# A Fast sketch is about a second of pure-Python work. Sketches run one at a
+# time on their own thread: on the event loop they stalled every other request,
+# and several at once only slow each other down (one interpreter lock).
+_SKETCH_EXECUTOR = ThreadPoolExecutor(max_workers=1, thread_name_prefix="fast-sketch")
+
+
 @router.post("/workbench/formula-chat", response_model=None)
-def formulate_from_conversation(
+async def formulate_from_conversation(
     request: FormulaDesignChatCreate,
 ) -> ResponsePayload:
     """Create a read-only inventory-grounded draft from one conversational turn."""
@@ -584,21 +593,25 @@ def formulate_from_conversation(
     try:
         return cast(
             dict[str, Any],
-            design_inventory_formula(
-                idea=request.message,
-                formula_name=request.formula_name,
-                liquid_concentrate_ul_decimal=request.liquid_concentrate_ul_decimal,
-                max_materials=request.max_materials,
-                must_preserve=request.must_preserve,
-                must_avoid=request.must_avoid,
-                previous_stock_ids=request.previous_stock_ids,
-                conversation_context=request.conversation_context,
-                execution_strategy=request.execution_strategy,
-                appeal_mode=request.appeal_mode,
-                comparison_evidence=request.comparison_evidence,
-                active_bottle_id=request.active_bottle_id,
-                design_mode=request.design_mode,
-                variant_count=request.variant_count,
+            await asyncio.get_running_loop().run_in_executor(
+                _SKETCH_EXECUTOR,
+                partial(
+                    design_inventory_formula,
+                    idea=request.message,
+                    formula_name=request.formula_name,
+                    liquid_concentrate_ul_decimal=request.liquid_concentrate_ul_decimal,
+                    max_materials=request.max_materials,
+                    must_preserve=request.must_preserve,
+                    must_avoid=request.must_avoid,
+                    previous_stock_ids=request.previous_stock_ids,
+                    conversation_context=request.conversation_context,
+                    execution_strategy=request.execution_strategy,
+                    appeal_mode=request.appeal_mode,
+                    comparison_evidence=request.comparison_evidence,
+                    active_bottle_id=request.active_bottle_id,
+                    design_mode=request.design_mode,
+                    variant_count=request.variant_count,
+                ),
             ),
         )
     except ValueError as error:
