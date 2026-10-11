@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import threading
 from collections.abc import Awaitable, Callable
 from concurrent.futures import ThreadPoolExecutor
 from decimal import Decimal
@@ -162,7 +163,13 @@ async def _run(
 # The workbench handlers below are plain functions on purpose: they run engine
 # code that can take a while (inventory, formula parsing), and FastAPI runs a
 # plain handler in a worker thread, so other requests keep being answered
-# meanwhile. Their inventory writes take the engine's own write locks.
+# meanwhile.
+#
+# Stock completions, prepared dilutions and added materials each check the same
+# effective-inventory hash before appending to their own log. Each engine module
+# locks only its own log, so two different writes running in parallel threads
+# could both pass the check; this lock keeps them one at a time.
+_INVENTORY_WRITE_LOCK = threading.Lock()
 @router.get("/workbench/formula-library")
 def list_workbench_formula_library() -> dict[str, Any]:
     """List project formula files without importing or mutating them."""
@@ -360,22 +367,23 @@ def complete_workbench_inventory(
             if request.fraction_percent_decimal is not None
             else None
         )
-        receipt, materialized = record_inventory_completion(
-            stock_id=request.stock_id,
-            expected_effective_inventory_sha256=(
-                request.expected_effective_inventory_sha256
-            ),
-            idempotency_key=request.idempotency_key,
-            fraction_decimal=fraction_decimal,
-            fraction_basis=request.fraction_basis,
-            carrier=request.carrier,
-            physical_form=request.physical_form,
-            possession_confirmed=request.possession_confirmed,
-            homogeneity=request.homogeneity,
-            final_fraction_known=request.final_fraction_known,
-            source_kind=request.source_kind,
-            user_note=request.user_note,
-        )
+        with _INVENTORY_WRITE_LOCK:
+            receipt, materialized = record_inventory_completion(
+                stock_id=request.stock_id,
+                expected_effective_inventory_sha256=(
+                    request.expected_effective_inventory_sha256
+                ),
+                idempotency_key=request.idempotency_key,
+                fraction_decimal=fraction_decimal,
+                fraction_basis=request.fraction_basis,
+                carrier=request.carrier,
+                physical_form=request.physical_form,
+                possession_confirmed=request.possession_confirmed,
+                homogeneity=request.homogeneity,
+                final_fraction_known=request.final_fraction_known,
+                source_kind=request.source_kind,
+                user_note=request.user_note,
+            )
         updated = next(
             stock for stock in materialized.stocks if stock.stock_id == request.stock_id
         )
@@ -419,23 +427,24 @@ def dilute_workbench_inventory(
     """Record a dilution prepared from an owned bottle as a new gate stock."""
 
     try:
-        event, materialized = record_prepared_dilution(
-            parent_stock_id=request.parent_stock_id,
-            expected_effective_inventory_sha256=(
-                request.expected_effective_inventory_sha256
-            ),
-            idempotency_key=request.idempotency_key,
-            fraction_decimal=format(
-                Decimal(request.fraction_percent_decimal) / Decimal("100"), "f"
-            ),
-            fraction_basis=request.fraction_basis,
-            carrier=request.carrier,
-            amount_made_g=request.amount_made_g or "",
-            prepared_on=(
-                request.prepared_on.isoformat() if request.prepared_on else ""
-            ),
-            user_note=request.user_note,
-        )
+        with _INVENTORY_WRITE_LOCK:
+            event, materialized = record_prepared_dilution(
+                parent_stock_id=request.parent_stock_id,
+                expected_effective_inventory_sha256=(
+                    request.expected_effective_inventory_sha256
+                ),
+                idempotency_key=request.idempotency_key,
+                fraction_decimal=format(
+                    Decimal(request.fraction_percent_decimal) / Decimal("100"), "f"
+                ),
+                fraction_basis=request.fraction_basis,
+                carrier=request.carrier,
+                amount_made_g=request.amount_made_g or "",
+                prepared_on=(
+                    request.prepared_on.isoformat() if request.prepared_on else ""
+                ),
+                user_note=request.user_note,
+            )
         prepared = next(
             (
                 stock
@@ -530,24 +539,25 @@ def add_workbench_inventory_material(
     """Record a missing owned stock for personal design without action authority."""
 
     try:
-        receipt, projection = record_personal_inventory_addition(
-            expected_design_inventory_sha256=request.expected_design_inventory_sha256,
-            idempotency_key=request.idempotency_key,
-            identity_name=request.identity_name,
-            category=request.category,
-            fraction_decimal=format(
-                Decimal(request.fraction_percent_decimal) / Decimal("100"), "f"
-            ),
-            fraction_basis=request.fraction_basis,
-            carrier=request.carrier,
-            physical_form=request.physical_form,
-            possession_confirmed=request.possession_confirmed,
-            homogeneity=request.homogeneity,
-            source_kind=request.source_kind,
-            supplier_name=request.supplier_name,
-            supplier_sku=request.supplier_sku,
-            user_note=request.user_note,
-        )
+        with _INVENTORY_WRITE_LOCK:
+            receipt, projection = record_personal_inventory_addition(
+                expected_design_inventory_sha256=request.expected_design_inventory_sha256,
+                idempotency_key=request.idempotency_key,
+                identity_name=request.identity_name,
+                category=request.category,
+                fraction_decimal=format(
+                    Decimal(request.fraction_percent_decimal) / Decimal("100"), "f"
+                ),
+                fraction_basis=request.fraction_basis,
+                carrier=request.carrier,
+                physical_form=request.physical_form,
+                possession_confirmed=request.possession_confirmed,
+                homogeneity=request.homogeneity,
+                source_kind=request.source_kind,
+                supplier_name=request.supplier_name,
+                supplier_sku=request.supplier_sku,
+                user_note=request.user_note,
+            )
         added_stock = next(
             stock
             for stock in projection.stocks

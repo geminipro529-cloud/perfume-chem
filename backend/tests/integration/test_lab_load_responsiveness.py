@@ -79,3 +79,61 @@ async def test_a_slow_workbench_request_does_not_hold_up_other_requests(
     assert slow_response.json() == {"slow": True}
     # Answered while the slow request was still working, not after it.
     assert health_done_after < SLOW_SECONDS / 2
+
+
+async def test_different_inventory_writes_run_one_at_a_time(client, monkeypatch) -> None:
+    """A completion and a dilution check the same inventory hash, so they must not overlap."""
+
+    from engine.inventory_completions import InventoryCompletionError
+    from engine.inventory_dilutions import PreparedDilutionError
+
+    spans: list[tuple[float, float]] = []
+
+    def slow_write(error: type[Exception]):
+        def write(**_kwargs: Any) -> Any:
+            start = time.perf_counter()
+            time.sleep(0.3)  # stands in for the hash check and the log append
+            spans.append((start, time.perf_counter()))
+            raise error("stand-in write")
+
+        return write
+
+    monkeypatch.setattr(lab_lifecycle, "record_inventory_completion", slow_write(InventoryCompletionError))
+    monkeypatch.setattr(lab_lifecycle, "record_prepared_dilution", slow_write(PreparedDilutionError))
+    inventory_sha = "0" * 64
+    completion = client.post(
+        f"{PREFIX}/v2/workbench/current-inventory/complete",
+        json={
+            "schema_version": "personal-inventory-completion-request-v1",
+            "stock_id": "stock-x",
+            "expected_effective_inventory_sha256": inventory_sha,
+            "idempotency_key": "complete-x",
+            "fraction_percent_decimal": "5",
+            "fraction_basis": "mass_fraction",
+            "carrier": "DPG",
+            "physical_form": "as_supplied",
+            "possession_confirmed": True,
+            "homogeneity": "NOT_APPLICABLE",
+            "final_fraction_known": True,
+            "source_kind": "PERSONAL_CONFIRMATION",
+            "user_note": "",
+        },
+    )
+    dilution = client.post(
+        f"{PREFIX}/v2/workbench/current-inventory/dilute",
+        json={
+            "schema_version": "prepared-dilution-request-v1",
+            "parent_stock_id": "stock-x",
+            "expected_effective_inventory_sha256": inventory_sha,
+            "idempotency_key": "dilute-x",
+            "fraction_percent_decimal": "1",
+            "fraction_basis": "mass_fraction",
+            "carrier": "DPG",
+        },
+    )
+
+    responses = await asyncio.gather(completion, dilution)
+
+    assert [response.status_code for response in responses] == [400, 400], [r.text for r in responses]
+    (_, first_end), (second_start, _) = sorted(spans)
+    assert second_start >= first_end

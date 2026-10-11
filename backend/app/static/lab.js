@@ -1105,7 +1105,9 @@ async function waitForEngineJob(jobId, { area, intervalMs = 1000, signal, stillR
       const timeoutMs = snapshot.timeout_seconds ? snapshot.timeout_seconds * 1000 : ENGINE_JOB_DEFAULT_WAIT_MS;
       if (Date.now() - runningSince > timeoutMs + ENGINE_JOB_RUN_GRACE_MS) {
         area.replaceChildren();
-        throw new Error(stillRunningMessage || "The job is still running. Its durable job can be checked again without resubmitting the request.");
+        const stillRunning = new Error(stillRunningMessage || "The job is still running. Its durable job can be checked again without resubmitting the request.");
+        stillRunning.jobStillRunning = true;
+        throw stillRunning;
       }
     }
     const elapsed = Date.now() - (runningSince ?? waitStartedAt);
@@ -2259,7 +2261,8 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
     notify(result.optimized_formula ? "Inventory-grounded composition plan created." : "Clarification required before formulation.");
   } catch (error) {
     // A failed brief must not ride along as conversation_context on every later request.
-    if (state.formulaChat.messages[pushedAt] === message) state.formulaChat.messages.splice(pushedAt, 1);
+    // A Deep compose job that is only still running may yet finish, so its brief stays.
+    if (!error.jobStillRunning && state.formulaChat.messages[pushedAt] === message) state.formulaChat.messages.splice(pushedAt, 1);
     appendFormulaChatBubble("assistant", `I could not create that draft: ${error.message}`);
     submit.textContent = previous ? "Refine this formula" : "Create my formula";
     notify(error.message, true);
