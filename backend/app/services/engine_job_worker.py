@@ -188,6 +188,8 @@ def _wait_for_pipe_eof_windows(fd: int) -> None:
     leaves no read pending.
     """
 
+    if sys.platform != "win32":  # also tells type checkers the rest is Windows-only
+        raise NotImplementedError("the parent pipe is only peeked on Windows")
     import _winapi
     import msvcrt
 
