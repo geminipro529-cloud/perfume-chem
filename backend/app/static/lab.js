@@ -1548,14 +1548,11 @@ bindSavingForm("#backup-form", async (data, form, saved) => {
   notify("Verified backup created.");
 });
 
-$("#stage-restore-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
-  try {
-    const result = await request("/restores/stage", { method: "POST", body: JSON.stringify(data) });
-    $("#backup-output").textContent = JSON.stringify(result, null, 2);
-    notify("Restore validated and staged. Replacement still requires stopped-server maintenance.");
-  } catch (error) { notify(error.message, true); }
+bindSavingForm("#stage-restore-form", async (data, form, saved) => {
+  const result = await request("/restores/stage", { method: "POST", body: JSON.stringify(data) });
+  saved();
+  $("#backup-output").textContent = JSON.stringify(result, null, 2);
+  notify("Restore validated and staged. Replacement still requires stopped-server maintenance.");
 });
 
 $("#export-workspace").addEventListener("click", async () => {
@@ -2197,7 +2194,7 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
   const priorMessages = state.formulaChat.messages.slice(-8);
   const previousRows = selectedFormulaVariant(previous).formula?.rows || [];
   appendFormulaChatBubble("user", message);
-  state.formulaChat.messages.push(message);
+  const pushedAt = state.formulaChat.messages.push(message) - 1;
   const submit = $("#formula-chat-submit");
   submit.disabled = true;
   submit.textContent = previous ? "Refining…" : "Creating…";
@@ -2261,6 +2258,8 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
     submit.textContent = result.optimized_formula ? "Refine this formula" : "Try clarified brief";
     notify(result.optimized_formula ? "Inventory-grounded composition plan created." : "Clarification required before formulation.");
   } catch (error) {
+    // A failed brief must not ride along as conversation_context on every later request.
+    if (state.formulaChat.messages[pushedAt] === message) state.formulaChat.messages.splice(pushedAt, 1);
     appendFormulaChatBubble("assistant", `I could not create that draft: ${error.message}`);
     submit.textContent = previous ? "Refine this formula" : "Create my formula";
     notify(error.message, true);
@@ -3026,16 +3025,15 @@ bindSavingForm("#application-form", async (data, form, saved) => {
   $("#latest-application").value = row.id; notify("Application recorded.");
 });
 
-bindForm("#observation-form", (data) => request(`/applications/${data.application_id}/observations`, { method: "POST", body: JSON.stringify({ elapsed_seconds: Number(data.elapsed_seconds), observations: { note: data.observation } }) }));
+bindForm("#observation-form", (data) => request(`/applications/${encodeURIComponent(String(data.application_id).trim())}/observations`, { method: "POST", body: JSON.stringify({ elapsed_seconds: Number(data.elapsed_seconds), observations: { note: data.observation } }) }));
 bindForm("#outcome-form", (data) => request("/outcomes", { method: "POST", body: JSON.stringify({ experiment_id: data.experiment_id, prediction_id: null, outcome: { note: data.outcome } }) }));
 
-$("#analysis-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
-  try {
+bindSavingForm("#analysis-form", async (data, form, saved) => {
+  {
     const result = await request("/analysis", { method: "POST", body: JSON.stringify({ name: data.name, total_volume_ml: 10, concentration_percent: 20, ingredients: [{ name: data.material, percentage: 100, stock_active_fraction: 1, stock_fraction_basis: "volume_fraction" }] }), timeoutMs: 0 });
+    saved();
     $("#analysis-output").textContent = JSON.stringify(result, null, 2); notify("Evidence analysis complete.");
-  } catch (error) { notify(error.message, true); }
+  }
 });
 
 bindSavingForm("#hypothesis-form", async (data, form, saved) => {
