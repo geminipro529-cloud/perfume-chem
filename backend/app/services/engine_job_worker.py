@@ -176,13 +176,43 @@ def _exit_process(code: int) -> NoReturn:
     os._exit(code)
 
 
+_PARENT_PIPE_PEEK_SECONDS = 0.5
+
+
+def _wait_for_pipe_eof_windows(fd: int) -> None:
+    """Return once the pipe behind ``fd`` is closed, without a blocking read.
+
+    A synchronous ``ReadFile`` pending on an anonymous pipe blocks every other
+    query on that pipe, and each spawned job child inherits it as stdin, so a
+    child would hang at interpreter startup and its job never run.  Peeking
+    leaves no read pending.
+    """
+
+    if sys.platform != "win32":  # also tells type checkers the rest is Windows-only
+        raise NotImplementedError("the parent pipe is only peeked on Windows")
+    import _winapi
+    import msvcrt
+
+    handle = msvcrt.get_osfhandle(fd)
+    while True:
+        # Size 0 returns (bytes available, bytes left); typeshed's overloads
+        # cannot tell the two shapes apart, so index rather than unpack.
+        if _winapi.PeekNamedPipe(handle)[0]:
+            os.read(fd, 4096)  # data is waiting, so this returns at once
+        else:
+            time.sleep(_PARENT_PIPE_PEEK_SECONDS)
+
+
 def _watch_parent_pipe(fd: int, on_eof: Callable[[], object]) -> threading.Thread:
     """Call ``on_eof`` from a daemon thread once ``fd`` reaches end of file."""
 
     def read_until_eof() -> None:
         try:
-            while os.read(fd, 4096):
-                pass
+            if sys.platform == "win32":
+                _wait_for_pipe_eof_windows(fd)
+            else:
+                while os.read(fd, 4096):
+                    pass
         except OSError:
             pass
         on_eof()
