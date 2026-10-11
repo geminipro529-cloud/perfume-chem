@@ -104,6 +104,52 @@ def test_parent_pipe_eof_stops_only_a_worker_started_with_the_flag(
             process.wait(timeout=5)
 
 
+_SPAWN_WHILE_WATCHING = """
+import multiprocessing, sys, threading
+from app.services import engine_job_worker as worker_module
+
+def answer(connection):
+    connection.send("ok")
+
+if __name__ == "__main__":
+    worker_module._watch_parent_pipe(sys.stdin.fileno(), lambda: None)
+    threading.Event().wait(0.5)  # let the watcher reach its pipe wait
+    context = multiprocessing.get_context("spawn")
+    receiving, sending = context.Pipe(duplex=False)
+    child = context.Process(target=answer, args=(sending,), daemon=True)
+    child.start()
+    sending.close()
+    print("ANSWERED" if receiving.poll(20) and receiving.recv() == "ok" else "SILENT", flush=True)
+"""
+
+
+def test_a_job_child_starts_while_the_parent_pipe_is_watched(tmp_path) -> None:
+    # The API keeps the worker's stdin pipe open; the job child inherits it.
+    script = tmp_path / "spawn_while_watching.py"
+    script.write_text(_SPAWN_WHILE_WATCHING, encoding="utf-8")
+    environment = dict(os.environ)
+    environment["PYTHONPATH"] = os.pathsep.join([str(BACKEND_DIR), str(REPOSITORY_ROOT)])
+    process = subprocess.Popen(
+        [sys.executable, str(script)],
+        cwd=BACKEND_DIR,
+        env=environment,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+    )
+    output: list[bytes] = []
+    reader = threading.Thread(
+        target=lambda: output.append(process.stdout.readline()), daemon=True
+    )
+    reader.start()
+    try:
+        reader.join(timeout=60)
+        assert [line.strip() for line in output] == [b"ANSWERED"]
+    finally:
+        process.kill()
+        process.wait(timeout=10)
+
+
 # ---------------------------------------------------------- graceful stop
 
 
