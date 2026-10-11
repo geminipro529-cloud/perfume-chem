@@ -156,8 +156,12 @@ async def _run(
         return _error_response(error)
 
 
+# The workbench handlers below are plain functions on purpose: they run engine
+# code that takes up to seconds (inventory, formula parsing, Fast sketch), and
+# FastAPI runs a plain handler in a worker thread, so other requests keep being
+# answered meanwhile. Their inventory writes take the engine's own write locks.
 @router.get("/workbench/formula-library")
-async def list_workbench_formula_library() -> dict[str, Any]:
+def list_workbench_formula_library() -> dict[str, Any]:
     """List project formula files without importing or mutating them."""
 
     return {
@@ -169,7 +173,7 @@ async def list_workbench_formula_library() -> dict[str, Any]:
 
 
 @router.get("/workbench/formula-source", response_model=None)
-async def read_workbench_formula_source(source_path: str) -> ResponsePayload:
+def read_workbench_formula_source(source_path: str) -> ResponsePayload:
     """Parse one selected formula as a read-only design-analysis source."""
 
     try:
@@ -179,7 +183,7 @@ async def read_workbench_formula_source(source_path: str) -> ResponsePayload:
 
 
 @router.post("/workbench/formula-text", response_model=None)
-async def parse_workbench_formula_text(request: FormulaTextParseCreate) -> ResponsePayload:
+def parse_workbench_formula_text(request: FormulaTextParseCreate) -> ResponsePayload:
     """Parse a pasted formula table read-only, for the bench sheet."""
 
     try:
@@ -335,14 +339,14 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
 
 
 @router.get("/workbench/current-inventory")
-async def read_workbench_current_inventory() -> dict[str, Any]:
+def read_workbench_current_inventory() -> dict[str, Any]:
     """Expose the complete personal-design inventory without copying it to the DB."""
 
     return _workbench_inventory_payload(materialize_personal_inventory())
 
 
 @router.post("/workbench/current-inventory/complete", response_model=None)
-async def complete_workbench_inventory(
+def complete_workbench_inventory(
     request: InventoryCompletionCreate,
 ) -> ResponsePayload:
     """Persist explicit stock facts without granting physical action authority."""
@@ -406,7 +410,7 @@ async def complete_workbench_inventory(
 
 
 @router.post("/workbench/current-inventory/dilute", response_model=None)
-async def dilute_workbench_inventory(
+def dilute_workbench_inventory(
     request: PreparedDilutionCreate,
 ) -> ResponsePayload:
     """Record a dilution prepared from an owned bottle as a new gate stock."""
@@ -465,7 +469,7 @@ async def dilute_workbench_inventory(
 
 
 @router.post("/workbench/current-inventory/basket", response_model=None)
-async def set_workbench_inventory_basket(
+def set_workbench_inventory_basket(
     request: StockBasketChoiceCreate,
 ) -> ResponsePayload:
     """Record which basket Kenny keeps a material in (Lab page display only)."""
@@ -489,9 +493,7 @@ async def set_workbench_inventory_basket(
             },
         )
     try:
-        # In a worker thread: waiting on a held basket-log lock must not stall other requests.
-        event = await run_in_threadpool(
-            record_basket_choice,
+        event = record_basket_choice(
             normalized_identity=request.normalized_identity,
             identity_name=stock.identity_name or stock.name,
             basket=request.basket,
@@ -519,7 +521,7 @@ async def set_workbench_inventory_basket(
 
 
 @router.post("/workbench/current-inventory/add", response_model=None)
-async def add_workbench_inventory_material(
+def add_workbench_inventory_material(
     request: PersonalInventoryAdditionCreate,
 ) -> ResponsePayload:
     """Record a missing owned stock for personal design without action authority."""
@@ -574,7 +576,7 @@ async def add_workbench_inventory_material(
 
 
 @router.post("/workbench/formula-chat", response_model=None)
-async def formulate_from_conversation(
+def formulate_from_conversation(
     request: FormulaDesignChatCreate,
 ) -> ResponsePayload:
     """Create a read-only inventory-grounded draft from one conversational turn."""
