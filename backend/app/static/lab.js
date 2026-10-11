@@ -3029,11 +3029,9 @@ bindForm("#observation-form", (data) => request(`/applications/${encodeURICompon
 bindForm("#outcome-form", (data) => request("/outcomes", { method: "POST", body: JSON.stringify({ experiment_id: data.experiment_id, prediction_id: null, outcome: { note: data.outcome } }) }));
 
 bindSavingForm("#analysis-form", async (data, form, saved) => {
-  {
-    const result = await request("/analysis", { method: "POST", body: JSON.stringify({ name: data.name, total_volume_ml: 10, concentration_percent: 20, ingredients: [{ name: data.material, percentage: 100, stock_active_fraction: 1, stock_fraction_basis: "volume_fraction" }] }), timeoutMs: 0 });
-    saved();
-    $("#analysis-output").textContent = JSON.stringify(result, null, 2); notify("Evidence analysis complete.");
-  }
+  const result = await request("/analysis", { method: "POST", body: JSON.stringify({ name: data.name, total_volume_ml: 10, concentration_percent: 20, ingredients: [{ name: data.material, percentage: 100, stock_active_fraction: 1, stock_fraction_basis: "volume_fraction" }] }), timeoutMs: 0 });
+  saved();
+  $("#analysis-output").textContent = JSON.stringify(result, null, 2); notify("Evidence analysis complete.");
 });
 
 bindSavingForm("#hypothesis-form", async (data, form, saved) => {
