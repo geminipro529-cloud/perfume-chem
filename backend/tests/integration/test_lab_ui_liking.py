@@ -79,7 +79,7 @@ def _node(expression):
     if node is None:
         pytest.skip("node is not installed; the formula-liking wording test needs it")
     program = f"const liking = require({json.dumps(str(FORMULA_LIKING_JS))});\nprocess.stdout.write(JSON.stringify({expression}));"
-    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=60, check=True)
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, encoding="utf-8", timeout=60, check=True)
     return json.loads(completed.stdout)
 
 

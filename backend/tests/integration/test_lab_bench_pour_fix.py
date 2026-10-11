@@ -30,7 +30,7 @@ def _bench(script, rows=None):
         f"const ROWS = {json.dumps(rows or [])};\n"
         f"process.stdout.write(JSON.stringify(({script})(bench)));"
     )
-    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=60, check=True)
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, encoding="utf-8", timeout=60, check=True)
     return json.loads(completed.stdout)
 
 

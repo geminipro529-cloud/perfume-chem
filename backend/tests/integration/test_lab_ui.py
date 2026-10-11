@@ -503,7 +503,8 @@ async def test_create_and_improve_drafts_are_kept_in_browser_storage(client):
     assert "const DRAFT_MAX_CHARS = 1000000;" in drafts.text
     assert "`Restored your draft from ${formatDraftTime(iso)}. ${text}`" in javascript.text
     assert "made from your inventory at that time" in javascript.text
-    assert "restoreStoredDrafts();\nrefresh()" in javascript.text
+    # A Windows checkout may hold lab.js with CRLF line endings.
+    assert "restoreStoredDrafts();\nrefresh()" in javascript.text.replace("\r\n", "\n")
     assert 'window.addEventListener("pagehide"' in javascript.text
     # Every storage access is guarded so blocked or full storage cannot break the page.
     lines = drafts.text.splitlines()
@@ -552,6 +553,7 @@ def _run_draft_case(script):
         [node, "-e", _DRAFT_HARNESS + script, str(LAB_DRAFTS_JS)],
         capture_output=True,
         text=True,
+        encoding="utf-8",
         timeout=60,
     )
     assert completed.returncode == 0, completed.stderr
@@ -736,7 +738,7 @@ def _run_bench_sheet(script):
     if node is None:
         pytest.skip("node is not installed; the bench-sheet logic test needs it")
     program = f"const bench = require({json.dumps(str(BENCH_SHEET_JS))});\nprocess.stdout.write(JSON.stringify(({script})(bench)));"
-    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=60, check=True)
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, encoding="utf-8", timeout=60, check=True)
     return json.loads(completed.stdout)
 
 
@@ -1210,6 +1212,7 @@ def _run_dilution_case(script):
         [node, "-e", _DILUTION_DOM + script, str(STOCK_DILUTIONS_JS)],
         capture_output=True,
         text=True,
+        encoding="utf-8",
         timeout=60,
     )
     assert completed.returncode == 0, completed.stderr
@@ -1380,7 +1383,7 @@ def _run_composition_checks(script):
     if node is None:
         pytest.skip("node is not installed; the composition-checks wording test needs it")
     program = f"const checks = require({json.dumps(str(COMPOSITION_CHECKS_JS))});\nprocess.stdout.write(JSON.stringify(({script})(checks)));"
-    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=60, check=True)
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, encoding="utf-8", timeout=60, check=True)
     return json.loads(completed.stdout)
 
 
@@ -1482,7 +1485,7 @@ def _run_detection_check(payload):
     if node is None:
         pytest.skip("node is not installed; the smell-check wording test needs it")
     program = f"const m = require({json.dumps(str(DETECTION_CHECK_JS))});\nprocess.stdout.write(JSON.stringify(m.detectionCheckLines({json.dumps(payload)})));"
-    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=60, check=True)
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, encoding="utf-8", timeout=60, check=True)
     return json.loads(completed.stdout)
 
 
@@ -1555,7 +1558,7 @@ def _node_json(module_path, script):
     if node is None:
         pytest.skip("node is not installed; the static-script logic test needs it")
     program = f"const m = require({json.dumps(str(module_path))});\nprocess.stdout.write(JSON.stringify(({script})(m)));"
-    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=60, check=True)
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, encoding="utf-8", timeout=60, check=True)
     return json.loads(completed.stdout)
 
 
@@ -1688,7 +1691,7 @@ const rows = [
 const model = chart.scentChartModel({{windows: []}}, chart.scentSkippedNames(rows));
 process.stdout.write(JSON.stringify({{rows: chart.scentChartRows(rows), skipped: model.skipped}}));
 """
-    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=60, check=True)
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, encoding="utf-8", timeout=60, check=True)
     result = json.loads(completed.stdout)
 
     assert [(r["identity_name"], r["amount_ul"]) for r in result["rows"]] == [("Linalool", 100), ("Hedione", 500)]
