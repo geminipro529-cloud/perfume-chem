@@ -1,6 +1,8 @@
 """The smell log on a phone-sized Bottles page, against fixture API answers."""
 
 import json
+import os
+from pathlib import Path
 
 import pytest
 
@@ -21,11 +23,43 @@ LOG = {
     }],
 }
 
+COMPARISON = {
+    "basis": "Model's leaders (detection screen)", "available": True, "reason": None,
+    "not_modelled": [{"name": "Orris Butter", "reason": "no volume, and no stock density to convert its mass"}],
+    "windows": [
+        {
+            "window": "strip_10m", "label": "Strip 10 min", "surface": "strip", "seconds": 600, "n_entries": 1,
+            "liking_mean": 6, "you_leads": [{"name": "Hedione", "count": 1}], "you_weak": [],
+            "model_in_range": True, "model_time_label": "10 min", "model_note": None,
+            "model_top": ["Linalool", "Lavender EO", "<img src=x onerror=alert(1)>"],
+            "agreement": {
+                "leads_the_model_also_had_on_top": [],
+                "model_top_you_did_not_mark_leading": ["Linalool", "Lavender EO", "<img src=x onerror=alert(1)>"],
+                "you_marked_weak_but_model_had_on_top": [],
+                "leads_the_model_did_not_have_on_top": ["Hedione"],
+            },
+        },
+        {
+            "window": "skin_day1", "label": "Skin day 1", "surface": "skin", "seconds": 86400, "n_entries": 1,
+            "liking_mean": 8, "you_leads": [{"name": "Orris Butter", "count": 1}], "you_weak": [],
+            "model_in_range": False, "model_time_label": None, "model_top": [], "agreement": None,
+            "model_note": "Beyond the model's range: its time curve stops at 4 h, so it says nothing about skin day 1.",
+        },
+    ],
+}
+
 
 def test_phone_user_taps_a_window_rows_and_liking_then_saves(lab):
     lab.page.set_viewport_size({"width": 390, "height": 844})
     lab.respond("GET", "/bottles", json=[{"id": "b1", "label": "Iris trial", "status": "active"}])
     lab.respond("GET", "/bottles/b1/smell-log", json=LOG)
+    compared = []
+
+    def comparison(route, _request):
+        compared.append(1)
+        route.fulfill(status=200, content_type="application/json", body=json.dumps(COMPARISON))
+
+    lab.on("GET", "/bottles/b1/smell-log/comparison", comparison)
     posted = []
 
     def save(route, request):
@@ -64,3 +98,21 @@ def test_phone_user_taps_a_window_rows_and_liking_then_saves(lab):
     assert past.count() == 2
     assert past.first.inner_text().startswith("Strip 1 h · ")
     assert form.locator('[aria-pressed="true"]').count() == 0
+
+    compare = lab.page.locator(".smell-log-compare")
+    compare.locator("h3", has_text="Model said / you smelled").wait_for()
+    assert len(compared) == 2
+    blocks = compare.locator(".smell-log-compare-block")
+    assert blocks.count() == 2
+    first = blocks.first.inner_text()
+    assert "Model, 10 min: Linalool, Lavender EO, <img src=x onerror=alert(1)>" in first
+    assert "You: leads Hedione" in first
+    assert "You smelled Hedione leading; the model didn't have it on top." in first
+    assert "Beyond the model's range" in blocks.nth(1).inner_text()
+    assert "Not in the model: Orris Butter" in compare.inner_text()
+    assert lab.page.evaluate("document.documentElement.scrollWidth") <= 390
+    shot = os.environ.get("SMELL_LOG_COMPARE_SCREENSHOT")
+    if shot:
+        Path(shot).parent.mkdir(parents=True, exist_ok=True)
+        compare.scroll_into_view_if_needed()
+        lab.page.screenshot(path=shot)

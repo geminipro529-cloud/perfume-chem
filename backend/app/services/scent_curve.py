@@ -7,6 +7,7 @@ OAV is a detection diagnostic, not intensity, pleasantness or liking.
 from __future__ import annotations
 
 import math
+from collections.abc import Sequence
 from typing import Annotated, Any
 
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints
@@ -28,8 +29,12 @@ class ScentCurveRequest(BaseModel):
     rows: list[ScentCurveRow] = Field(min_length=1, max_length=60)
 
 
-def compute_scent_curve(rows: list[ScentCurveRow]) -> dict[str, Any]:
-    from engine.pipeline.simulator import simulate_formula
+def compute_scent_curve(
+    rows: list[ScentCurveRow],
+    windows: Sequence[tuple[str, float]] | None = None,
+) -> dict[str, Any]:
+    """Run the simulator over ``rows`` at its default frames or at ``windows`` (label, seconds)."""
+    from engine.pipeline.simulator import DEFAULT_WINDOWS, simulate_formula
 
     ing: dict[str, float] = {}
     active: dict[str, float] = {}
@@ -38,8 +43,8 @@ def compute_scent_curve(rows: list[ScentCurveRow]) -> dict[str, Any]:
         active[row.identity_name] = active.get(row.identity_name, 0.0) + row.amount_ul * row.stock_fraction
     # Amount-weighted fraction keeps the summed active dose independent of row order.
     dil = {name: active[name] / ing[name] for name in ing}
-    windows: list[dict[str, Any]] = []
-    for frame in simulate_formula(ing, dil):
+    frames: list[dict[str, Any]] = []
+    for frame in simulate_formula(ing, dil, windows=DEFAULT_WINDOWS if windows is None else windows):
         oavs = {m.name: m.screening_oav for m in frame.state.materials}
         notes = {m.name: m.note if m.note in _TIERS else "heart" for m in frame.state.materials}
         audible = {
@@ -63,7 +68,7 @@ def compute_scent_curve(rows: list[ScentCurveRow]) -> dict[str, Any]:
         shares = [m["share"] for m in materials if m["share"]]
         voices = math.exp(-sum(p * math.log(p) for p in shares)) if shares else 0.0
         top = sorted((m for m in materials if m["share"]), key=lambda m: -m["share"])[:3]
-        windows.append(
+        frames.append(
             {
                 "label": frame.label,
                 "effective_voices": round(voices, 2),
@@ -74,5 +79,5 @@ def compute_scent_curve(rows: list[ScentCurveRow]) -> dict[str, Any]:
     return {
         "schema_version": "scent-curve-v1",
         "basis": "Share of what the model can detect (odour-threshold ratio), not strength or pleasantness; a screening model, not a measurement.",
-        "windows": windows,
+        "windows": frames,
     }

@@ -40,6 +40,31 @@ function smellLogLine(entry, windows) {
   return parts.filter(Boolean).join(" · ");
 }
 
+// One comparison block's lines. Names and their order only: the model's share
+// is a detection screen, never how strong anything smells.
+function smellCompareLines(block) {
+  const title = [block.label, `${block.n_entries} ${block.n_entries === 1 ? "entry" : "entries"}`];
+  if (block.liking_mean !== null && block.liking_mean !== undefined) title.push(`liked ${block.liking_mean}/10`);
+  const named = (items) => items.map((item) => (item.count > 1 ? `${item.name} ×${item.count}` : item.name)).join(", ");
+  const you = [];
+  if (block.you_leads.length) you.push(`leads ${named(block.you_leads)}`);
+  if (block.you_weak.length) you.push(`weak ${named(block.you_weak)}`);
+  const lines = { title: title.join(" · "), model: "", you: `You: ${you.join(" · ") || "no names marked"}`, agreement: "" };
+  if (!block.model_in_range) {
+    lines.model = block.model_note || "Beyond the model's range.";
+    return lines;
+  }
+  lines.model = `Model, ${block.model_time_label}: ${block.model_top.join(", ") || "nothing it can detect"}`;
+  const agreement = block.agreement;
+  const said = [];
+  if (agreement.leads_the_model_also_had_on_top.length) said.push(`Model and you agree on ${agreement.leads_the_model_also_had_on_top.join(", ")}.`);
+  for (const name of agreement.leads_the_model_did_not_have_on_top) said.push(`You smelled ${name} leading; the model didn't have it on top.`);
+  for (const name of agreement.you_marked_weak_but_model_had_on_top) said.push(`You marked ${name} weak; the model had it on top.`);
+  if (!said.length) said.push("No leads marked here, so nothing to compare yet.");
+  lines.agreement = said.join(" ");
+  return lines;
+}
+
 function smellLogNode(doc, tag, attributes = {}, text = "") {
   const node = doc.createElement(tag);
   for (const [name, value] of Object.entries(attributes)) node.setAttribute(name, value);
@@ -81,7 +106,13 @@ function attachSmellLog({ doc, request, root }) {
   const pastTitle = node("h3", {}, "Earlier entries");
   const past = node("ul", { class: "smell-log-past" });
   pastTitle.hidden = true;
-  root.append(bottleLabel, bottleSelect, form, pastTitle, past);
+  const compare = node("section", { class: "smell-log-compare", "aria-labelledby": "smell-log-compare-title" });
+  compare.hidden = true;
+  const compareTitle = node("h3", { id: "smell-log-compare-title" }, "Model said / you smelled");
+  const compareBasis = node("p", { class: "field-help" }, "Model's leaders (detection screen): what the model can most easily detect at that time, in order. Not how strong it smells.");
+  const compareBody = node("div", { class: "smell-log-compare-blocks" });
+  compare.append(compareTitle, compareBasis, compareBody);
+  root.append(bottleLabel, bottleSelect, form, pastTitle, past, compare);
 
   let windows = [];
   let entries = [];
@@ -126,6 +157,33 @@ function attachSmellLog({ doc, request, root }) {
     past.replaceChildren(...entries.map((entry) => node("li", {}, smellLogLine(entry, windows))));
   }
 
+  function drawComparison(data) {
+    compare.hidden = !data || !entries.length;
+    if (compare.hidden) { compareBody.replaceChildren(); return; }
+    const blocks = [];
+    if (!data.available) blocks.push(node("p", { class: "smell-log-compare-note" }, data.reason || "No comparison for this bottle."));
+    for (const block of data.windows || []) {
+      const lines = smellCompareLines(block);
+      const item = node("div", { class: "smell-log-compare-block", "data-compare-window": block.window });
+      item.append(node("h4", {}, lines.title), node("p", {}, lines.model), node("p", {}, lines.you));
+      if (lines.agreement) item.appendChild(node("p", { class: "smell-log-compare-agreement" }, lines.agreement));
+      blocks.push(item);
+    }
+    if ((data.not_modelled || []).length) {
+      blocks.push(node("p", { class: "smell-log-compare-note" }, `Not in the model: ${data.not_modelled.map((row) => `${row.name} (${row.reason})`).join("; ")}.`));
+    }
+    compareBody.replaceChildren(...blocks);
+  }
+
+  async function loadComparison(bottleId, token) {
+    try {
+      const data = await request(`/bottles/${encodeURIComponent(bottleId)}/smell-log/comparison`);
+      if (token === loadToken) drawComparison(data);
+    } catch (error) {
+      if (token === loadToken) drawComparison({ available: false, reason: error.message || "Couldn't load the model comparison.", windows: [] });
+    }
+  }
+
   function clearForm() {
     chosenWindow = "";
     liking = "";
@@ -141,6 +199,7 @@ function attachSmellLog({ doc, request, root }) {
     form.hidden = true;
     entries = [];
     drawPast();
+    drawComparison(null);
     if (!bottleId) { status.textContent = ""; return; }
     try {
       const data = await request(`/bottles/${encodeURIComponent(bottleId)}/smell-log`);
@@ -153,6 +212,7 @@ function attachSmellLog({ doc, request, root }) {
       status.textContent = "";
       form.hidden = false;
       drawPast();
+      if (entries.length) await loadComparison(bottleId, token);
     } catch (error) {
       if (token !== loadToken) return;
       root.querySelector(".smell-log-load-error")?.remove();
@@ -194,6 +254,7 @@ function attachSmellLog({ doc, request, root }) {
       clearForm();
       drawPast();
       status.textContent = "Saved.";
+      await loadComparison(bottleSelect.value, loadToken);
     } catch (error) {
       status.textContent = error.message || "Not saved.";
     } finally {
@@ -214,5 +275,5 @@ function attachSmellLog({ doc, request, root }) {
 }
 
 if (typeof module === "object" && module.exports) {
-  module.exports = { nextSmellChipState, splitSmellNames, smellLogBody, smellLogLine, attachSmellLog };
+  module.exports = { nextSmellChipState, splitSmellNames, smellLogBody, smellLogLine, smellCompareLines, attachSmellLog };
 }

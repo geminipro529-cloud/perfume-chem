@@ -11,6 +11,7 @@ from datetime import UTC, datetime, timedelta
 from decimal import Decimal, InvalidOperation
 from hashlib import sha256
 from math import isfinite
+from typing import Any
 from uuid import uuid4
 
 from sqlalchemy import text
@@ -57,6 +58,12 @@ from app.services.lab_science import LabScienceServiceMixin
 from app.services.lab_sources import LabSourceServiceMixin
 from app.services.lab_thresholds import LabThresholdServiceMixin
 from app.services.physical_lineage import LabPhysicalLineageServiceMixin
+from app.services.scent_curve import compute_scent_curve
+from app.services.smell_log_compare import (
+    SMELL_LOG_COMPARISON_BASIS,
+    smell_log_comparison_windows,
+    smell_log_model_rows,
+)
 from app.services.stock_lineage import (
     StockLineageError,
     validate_formula_version_physical_lineage,
@@ -2251,6 +2258,69 @@ class LabService(
             if name not in names:
                 names.append(name)
         return names
+
+    async def smell_log_comparison(self, bottle_id: str) -> dict:
+        """Per logged window: the model's leaders (detection screen) beside what was smelled."""
+
+        entries = await self.list_smell_log(bottle_id)
+        bottle = await self.repository.get_bottle(bottle_id)
+        batch = (
+            await self.repository.get_batch(bottle.batch_id)
+            if bottle is not None and bottle.batch_id is not None
+            else None
+        )
+        result: dict[str, Any] = {
+            "basis": SMELL_LOG_COMPARISON_BASIS,
+            "available": False,
+            "reason": None,
+            "not_modelled": [],
+            "windows": [],
+        }
+        if batch is None:
+            result["reason"] = "This bottle isn't linked to a batch, so there is no formula to model."
+            return result
+        components = await self.repository.formula_component_stocks(batch.formula_version_id)
+        rows, not_modelled = smell_log_model_rows(
+            [
+                (
+                    name,
+                    component.requested_volume_ul,
+                    component.requested_mass_g,
+                    stock.density_g_ml,
+                    stock.active_fraction,
+                )
+                for name, component, stock in components
+            ]
+        )
+        result["not_modelled"] = not_modelled
+        if not rows:
+            result["reason"] = (
+                "None of the formula's rows has an amount the model can use."
+                if components
+                else "The bottle's formula has no rows."
+            )
+            return result
+        unknown: set[str] = set()
+
+        def run_model(windows: list[tuple[str, float]]) -> dict[str, list[str]]:
+            curve = compute_scent_curve(rows, windows)
+            for frame in curve["windows"]:
+                unknown.update(m["name"] for m in frame["materials"] if not m["known"])
+            return {frame["label"]: list(frame["top"]) for frame in curve["windows"]}
+
+        result["windows"] = await asyncio.to_thread(
+            smell_log_comparison_windows,
+            entries,
+            SMELL_LOG_WINDOWS,
+            run_model,
+            [name for name, _component, _stock in components],
+        )
+        result["not_modelled"] += [
+            {"name": name, "reason": "the model has no odour data for it"}
+            for name in sorted(unknown)
+        ]
+        result["available"] = True
+        return result
 
     async def _smell_log_sample(self, bottle_id: str) -> LabSample | None:
         for sample in await self.repository.bottle_samples(bottle_id, SMELL_LOG_BLIND_CODE):
