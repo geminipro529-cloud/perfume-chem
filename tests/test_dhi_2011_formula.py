@@ -180,13 +180,22 @@ def test_required_recognizers_clear_oav_one_while_support_hypotheses_are_flagged
     now_above_threshold = {"Irotyl", "Ultralia"}
     # Ambrettolide's sourced density (0.956 g/mL, was the 1.0 default) puts it just under OAV 1.
     near_threshold = {"Ambrettolide"}
+    # 2026-10-12: Romandolide's sourced vapour pressure (0.08 Pa, the RIFM measured value at
+    # 25 C; was 0.1 Pa) puts the 210 uL dose at about OAV 0.84. The recipe is unchanged; about
+    # 251 uL would restore OAV 1, which is Kenny's call.
+    below_threshold_after_vp = {"Romandolide"}
     required_recognizers = (
-        set(EXPECTED_INGREDIENTS) - structural_only - now_above_threshold - near_threshold
+        set(EXPECTED_INGREDIENTS)
+        - structural_only
+        - now_above_threshold
+        - near_threshold
+        - below_threshold_after_vp
     )
     assert all((rows[name].oav or 0.0) >= 1.0 for name in required_recognizers)
     assert all((rows[name].oav or 0.0) < 1.0 for name in structural_only)
     assert all((rows[name].oav or 0.0) > 1.0 for name in now_above_threshold)
     assert all(0.95 <= (rows[name].oav or 0.0) < 1.0 for name in near_threshold)
+    assert all(0.8 <= (rows[name].oav or 0.0) < 0.9 for name in below_threshold_after_vp)
     assert (rows["Ethyl 2-Methylbutyrate"].oav or 0.0) >= 1.0
     assert (rows["Verdox"].oav or 0.0) >= 1.0
 

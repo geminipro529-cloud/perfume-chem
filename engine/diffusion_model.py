@@ -171,7 +171,8 @@ DIFFUSION_DATA: dict[str, dict[str, float]] = {
     # ── Added 2026-04-25: previously-missing materials used in Mr_Sandman and similar ──
     "Anisaldehyde": {"MW": 136.2, "VP_25": 0.05, "Kaw_eff": 0.0002},
     "Ethyl Maltol": {"MW": 140.1, "VP_25": 0.02, "Kaw_eff": 0.0001},
-    "Romandolide": {"MW": 270.36, "VP_25": 0.1, "Kaw_eff": 0.00005},
+    # Romandolide: RIFM measured value converted to 25 C, synced with data/materials/R.yaml
+    "Romandolide": {"MW": 270.36, "VP_25": 0.08, "Kaw_eff": 0.00005},
     "Azarbre": {"MW": 234.4, "VP_25": 0.001, "Kaw_eff": 0.0002},
     # Cedarwood oil Virginia: alias "cedarwood oil virginia" → "cedarwood virginia" in name_utils
     "Cedarwood oil Virginia": {"MW": 204.4, "VP_25": 0.15, "Kaw_eff": 0.001},

@@ -1818,11 +1818,11 @@
   inchikey: null
   mw_g_mol: 192.3
   density_25c_g_ml: 0.937
-  logp: null
+  logp: 3.66
   functional_groups: []
   chirality: null
   vp_25c_pa: 1.10657
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: patent_reported_25C
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.003
@@ -1851,7 +1851,7 @@
   families:
   - floral materials
   character: null
-  notes: null
+  notes: 'log P 3.66 is an unmarked database value (ChemicalBook, EPI-type estimate). ChemicalBook also lists 3.2 Pa at 25 C (estimate) against the patent-reported 1.1 Pa kept here.'
   provenance:
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: EP 3141239 B1, 0.00830 Torr at 25 C
@@ -1864,6 +1864,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 24720-09-0 (https://www.thegoodscentscompany.com/data/rw1006041.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.93700 to 0.94300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1006041.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    logp: 'https://www.chemicalbook.com/CASEN_24720-09-0.htm: log P 3.66, unmarked database value (estimate); via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
 - canonical_name: Alpha Ionone
   aliases:
   - alpha ionone
@@ -2549,7 +2550,7 @@
   families:
   - woods / amber / structure
   character: null
-  notes: null
+  notes: 'No VP found for the active (CAS 929625-08-1); the Ventos SDS (2025) for the 50% product gives 0.0136 hPa at 20 C, mostly the Dowanol TPM (tripropylene glycol methyl ether) carrier, so the placeholder stays. Stock L219 is 50% in Dowanol TPM, not DPG or TEC. TGSC log P 6.3 (est) not adopted.'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -2559,6 +2560,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
+    vp_note: 'Ventos SDS 2025 https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Ambermax_50_Ventos_GHS_SDS.pdf (50% product): 0.0136 hPa at 20 C, carrier-dominated; active VP not found, placeholder kept; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
 - canonical_name: Ambermax 50% Dowanol TPM
   aliases: []
   cas: null
@@ -2715,11 +2717,11 @@
   inchikey: null
   mw_g_mol: 234.4
   density_25c_g_ml: null
-  logp: 3.8
+  logp: 5.4
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.001
-  vp_source: placeholder  # unsourced round value; gate reports it as estimated
+  vp_25c_pa: 0.3
+  vp_source: ChemicalBook_estimate
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0005
@@ -2737,15 +2739,15 @@
   families:
   - woods / amber / structure
   character: null
-  notes: null
+  notes: 'Taken as Boisambrene Forte (Kao, CAS 58567-11-6): VP 0.296 Pa at 25 C and log P 5.4 are unmarked ChemicalBook database values (EPI-type estimates); the Kao catalogue (B0017583) has no VP. Replaces the 0.001 Pa placeholder.'
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'https://chemicalbook.com/CASEN_58567-11-6.htm: 0.296 Pa at 25 C, unmarked (estimate); identity Amberwood F = Boisambrene Forte (Kao); replaces the 0.001 placeholder; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'same ChemicalBook page: log P 5.4 (estimate); replaces engine.skin_interaction 3.8; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
 - canonical_name: Ambreine Classic PW
@@ -3032,11 +3034,11 @@
   inchikey: null
   mw_g_mol: 278.4
   density_25c_g_ml: null
-  logp: 6.0
+  logp: 4.865
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.09
+  vp_source: RIFM_measured_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -3067,7 +3069,7 @@
         price_usd_per_g: 0.58
   families: []
   character: null
-  notes: 'VP and density not found on the Symrise datasheet (2026-10-08); bp 309.2 C (Symrise). The air ODT is not set: a figure read from the datasheet chart is unverified. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md.'
+  notes: 'VP 25 C 0.09 Pa for the crystals: 6.0e-2 Pa measured at 20 C (RIFM 1998j; Symrise SDS OECD 104 0.0006 hPa at 20 C) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol); a dissolved (subcooled-liquid) value would be about 0.2 Pa (mp 52.6-58.3 C, RIFM). bp 309.2 C (Symrise datasheet), over 280.5 C (RIFM); density 1.094; water solubility 4.28 mg/L. log Kow 4.865 measured (RIFM 1998h; SDS 4.84) replaces the datasheet integer 6. The air ODT is not set: a figure read from the datasheet chart is unverified. Sources: material-data-firecrawl/AMBROCENIDE_VP_20261010.md (2026-10-10), allgaps/S4_woody_musk_captives.md (2026-10-08).'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -3075,20 +3077,21 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Ambrocenide_Cryst.pdf (Symrise datasheet, producer); "Cas 211299-54-6" (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     mw_g_mol: 'https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Ambrocenide_Cryst.pdf (Symrise datasheet, producer); "mW 278.4 g/mol" (C18H30O2) (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
-    logp: 'https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Ambrocenide_Cryst.pdf (Symrise datasheet, producer); "log P (kow) 6", integer only, method not stated (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
+    logp: 'RIFM assessment for CAS 211299-54-6: log Kow 4.865 measured at pH 7, 22 C (RIFM 1998h; Symrise SDS 4.84); replaces the Symrise datasheet integer "log P (kow) 6"; via /mnt/project-files/material-data-firecrawl/AMBROCENIDE_VP_20261010.md (read 2026-10-10)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment for CAS 211299-54-6 (RIFM 1998j measured 6.0 +/- 0.5 x 10^-2 Pa at 20 C) and Symrise SDS (OECD 104, 0.0006 hPa at 20 C): 0.060 Pa x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.09 Pa, crystals; via /mnt/project-files/material-data-firecrawl/AMBROCENIDE_VP_20261010.md (read 2026-10-10)'
 - canonical_name: Ambrofix
   aliases:
   - ambrofix
-  cas: null
+  cas: '6790-58-5'
   smiles: null
   inchikey: null
   mw_g_mol: 236.4
   density_25c_g_ml: null
-  logp: 4.7
+  logp: 5.1
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.066
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.08
+  vp_source: RIFM_measured_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -3113,17 +3116,19 @@
   families:
   - woods / amber / structure
   character: null
-  notes: null
+  notes: 'Ambrofix (Givaudan) is ambroxide, CAS 6790-58-5, the same molecule as Ambrox Super. VP 0.054 Pa measured at 20 C (RIFM 1998d) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.08 Pa at 25 C; log Kow 5.09 (RIFM 2013d).'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     mw_g_mol: engine.skin_interaction
-    logp: engine.skin_interaction
+    logp: 'same RIFM assessment: log Kow 5.09 (RIFM 2013d); replaces engine.skin_interaction 4.7; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6790-58-5.pdf: 0.054 Pa at 20 C measured (RIFM 1998d) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.08 Pa; replaces the unsourced 0.066; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    cas: 'ambroxide CAS 6790-58-5 (Givaudan Ambrofix is this molecule; RIFM assessment above); via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
 - canonical_name: Ambrox Super
   aliases:
   - ambrox super
@@ -3133,11 +3138,11 @@
   inchikey: null
   mw_g_mol: 236.4
   density_25c_g_ml: null
-  logp: 4.5
+  logp: 5.1
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.05
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.08
+  vp_source: RIFM_measured_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0003
@@ -3169,15 +3174,15 @@
   families:
   - woods / amber / structure
   character: null
-  notes: null
+  notes: 'VP 0.054 Pa measured at 20 C (RIFM 1998d, in the RIFM 2021 assessment for CAS 6790-58-5) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.08 Pa at 25 C; log Kow 5.09 (RIFM 2013d); water 1.88 mg/L. Same molecule as Ambrofix (ambroxide).'
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6790-58-5.pdf: 0.054 Pa at 20 C measured (RIFM 1998d) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.08 Pa; replaces engine.diffusion_model 0.05; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'same RIFM assessment: log Kow 5.09 (RIFM 2013d); replaces engine.skin_interaction 4.5; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -4403,7 +4408,7 @@
   functional_groups: []
   chirality: null
   vp_25c_pa: 4.3
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: Vigon_SDS_order_of_magnitude
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0002
@@ -4426,10 +4431,10 @@
   families:
   - woods / amber / structure
   character: null
-  notes: null
+  notes: 'Vigon SDS gives 0.05 mmHg at 20 C = 6.7 Pa (method not stated), bp 257 C; the 4.3 Pa kept here is within that order of magnitude (4.3-10 Pa at 25 C).'
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'engine.diffusion_model value 4.3 Pa kept; Vigon SDS https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Azarbre34Diethyl25DimethylCyclohex2en1oneSDS_1.pdf: 0.05 mmHg at 20 C = 6.7 Pa, method not stated; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -4491,10 +4496,13 @@
   aliases: [amber xtreme]
   cas: 476332-65-7
   mw_g_mol: 264.4
-  vp_25c_pa: null
-  logp: null
+  vp_25c_pa: 0.8
+  vp_source: IFF_supplier_23C_converted
+  logp: 7.1
   user_stock_dilution: "1% (legacy declaration; current stock authority governs)"
   user_in_inventory: true
-  notes: C18H32O entity mass, manufacturer rounded MW264. Source VP at23C not promoted to25C.
+  notes: 'C18H32O entity mass, manufacturer rounded MW264. VP: IFF compendium 0.005516 mmHg at 23 C = 0.74 Pa, method not stated, x 1.18 (23 to 25 C, dHvap 60 kJ/mol) = 0.87, recorded as 0.8 Pa (one figure); IFF SDS v5.38 (2018) "< 0.01 hPa" agrees. log P 7.1 (IFF compendium, method not stated).'
   provenance:
     mw_g_mol: https://www.iff.com/scent/ingredients-compendium/amber-xtreme-2/
+    vp_25c_pa: 'https://iff-v2.prod-use1.investis.com/en/site-services/online-compendium-new/amber-xtreme (IFF compendium): "0.005516 mmHg at 23 C" = 0.74 Pa, x 1.18 to 25 C = 0.8 Pa, method not stated; IFF SDS v5.38 (2018) "< 0.01 hPa"; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    logp: 'IFF compendium, same page: log P 7.1, method not stated; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
