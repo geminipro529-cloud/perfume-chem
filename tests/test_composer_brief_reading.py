@@ -12,6 +12,7 @@ from dataclasses import replace
 
 import pytest
 
+from engine.formulation_intelligence.family_structure import names_family_words
 from engine.formulation_intelligence.formula_design_runtime import design_formula
 from engine.formulation_intelligence.formula_solver import _backs_natural_lead
 from engine.formulation_intelligence.material_capability_index import (
@@ -255,3 +256,91 @@ def test_only_a_natural_lead_is_backed(capabilities: dict) -> None:
     assert not _backs_natural_lead(capabilities["Javanol"], role, capabilities["Sandalore"])
     # A natural is never a backer.
     assert not _backs_natural_lead(capabilities["Patchouli EO"], role, capabilities["Sandalwood EO"])
+
+
+# Phase 3, step 4: the fragrance family's structure shapes the supporting layers.
+
+
+def _brief(**kwargs: object) -> dict:
+    return design_formula(**kwargs)["semantic_brief"]
+
+
+@pytest.mark.parametrize(
+    ("idea", "family"),
+    [
+        ("an aromatic fougere", "FOUGÈRE (AROMATIC FOUGÈRE)"),
+        ("a fresh lavender cologne", "CITRUS / COLOGNE"),
+        ("iris and violet", "IRIS / POWDERY / VIOLET"),
+        ("creamy sandalwood with real orris", "WOODS (TRANSPARENT / CLEAN WOODS)"),
+        # Amber leads and a flower is named: a floral amber, as on the wheel.
+        ("an ambery trail of ambergris and benzoin under frangipani", "FLORAL AMBER (FLORAL ORIENTAL)"),
+    ],
+)
+def test_brief_family_is_read_from_the_brief(idea: str, family: str) -> None:
+    assert _brief(idea=idea).get("fragrance_family") == family
+
+
+def test_a_brief_with_no_family_note_has_no_family() -> None:
+    assert "fragrance_family" not in _brief(idea="a clean musky skin scent")
+
+
+def test_a_fougere_gets_no_layer_its_structure_has_no_place_for() -> None:
+    roles = {role["role_id"]: role for role in _brief(idea="an aromatic fougere")["roles"]}
+
+    assert "heart_creamy_texture" not in roles and "heart_powder_layer" not in roles, sorted(roles)
+    # Layers it keeps look first for the family's own materials.
+    assert tuple(roles["top_citrus_layer"]["query_terms"][:2]) == ("bergamot", "lemon"), roles["top_citrus_layer"]
+
+
+def test_family_materials_get_roles_of_their_own() -> None:
+    result = design_formula(idea="a leather")
+    roles = {role["role_id"]: role for role in result["semantic_brief"]["roles"]}
+    rows = _rows_by_slot(result)
+
+    assert rows.get("family_suederal_layer") == "Suederal", rows
+    # Castoreum is a shadow nuance: an accent, not a layer.
+    assert roles["family_castoreum_accent"]["provenance"] == "ACCENT_LAYER", roles["family_castoreum_accent"]
+    # A family word no owned stock is named for places nothing.
+    assert "family_peach_layer" in roles and "family_peach_layer" not in rows, rows
+
+
+def test_a_register_the_brief_names_keeps_its_own_notes_first() -> None:
+    roles = {role["role_id"]: role for role in _brief(idea="a leather")["roles"]}
+
+    # The base holds the requested leather: its bridge looks for leather first.
+    assert roles["heart_to_base_link"]["query_terms"][0] == "leather", roles["heart_to_base_link"]
+    # The heart is left open: its bridge looks first for the family's heart.
+    assert roles["heart_continuity"]["query_terms"][0] == "rose", roles["heart_continuity"]
+
+
+def test_an_avoided_odor_keeps_the_family_words_for_it_out_of_every_role() -> None:
+    # A woody amber's heart is rose and its top cardamom; "no floral, no
+    # spice" keeps them out of the bridges too, not only out of the layers.
+    roles = _brief(idea="A warm woody amber for evening", must_avoid=("floral", "spice"))["roles"]
+
+    terms = {term for role in roles for term in role["query_terms"]}
+    assert not terms & {"rose", "cardamom"}, sorted(terms)
+
+
+def test_a_contrasting_wood_looks_past_the_woods_the_brief_already_has() -> None:
+    roles = {role["role_id"]: role for role in _brief(idea="A warm woody amber for evening")["roles"]}
+
+    # The requested wood asks for vetiver and patchouli; the contrasting wood
+    # looks for the woody amber's other woods, by the names stocks carry.
+    terms = tuple(roles["base_wood_contrast"]["query_terms"])
+    assert terms[:2] == ("sandalwood", "cedarwood"), terms
+    assert not {"vetiver", "patchouli"} & set(terms), terms
+
+
+@pytest.mark.parametrize(
+    ("words", "vocabulary", "named"),
+    [
+        (("cedar",), {"cedarwood", "virginia"}, True),
+        (("iso", "e", "super"), {"iso", "super", "neat"}, True),
+        (("birch", "tar"), {"birch", "tar", "rectified"}, True),
+        (("birch", "tar"), {"birch", "bud"}, False),
+        (("rose",), {"rosemary", "eo"}, False),
+    ],
+)
+def test_a_family_role_takes_a_stock_named_for_its_word(words: tuple, vocabulary: set, named: bool) -> None:
+    assert names_family_words(frozenset(vocabulary), words) is named

@@ -18,6 +18,13 @@ from functools import lru_cache
 from typing import Any, Iterable, Mapping, Sequence
 
 from engine.formulation_intelligence.contracts import EvidenceClass, ProvenanceRef
+from engine.formulation_intelligence.family_structure import (
+    FAMILY_ROLE_PREFIX,
+    FamilyStructure,
+    brief_family,
+    family_role_id,
+    family_words_for,
+)
 from engine.formulation_intelligence.literature_knowledge import retrieve_formulation_knowledge
 from engine.formulation_intelligence.note_phrases import translate_note_phrases
 from engine.formulation_intelligence.target_compiler import (
@@ -107,11 +114,16 @@ class SemanticBrief:
     # material placed. Omitted from as_dict() while empty so existing briefs
     # keep their payload and design hashes.
     unmapped_requested_notes: tuple[str, ...] = ()
+    # The fragrance family whose structure shaped the supporting layers
+    # (docs/fragrance_families_reference.md heading), when the brief has one.
+    fragrance_family: str | None = None
 
     def as_dict(self) -> dict[str, Any]:
         payload = asdict(self)
         if not self.unmapped_requested_notes:
             del payload["unmapped_requested_notes"]
+        if self.fragrance_family is None:
+            del payload["fragrance_family"]
         return payload
 
 
@@ -620,6 +632,10 @@ ACCENT_MAX_RAW_SHARE = .025
 # On a fresh or light brief the base layers only underline the opening: at
 # 8% each a cologne's wood and musk outweighed its citrus.
 LIGHT_BASE_LAYER_MAX_RAW_SHARE = .03
+# A family material's own role: smaller than a generic layer, since a family
+# usually places several in one register.
+_FAMILY_LAYER_SHARE = .03
+_FAMILY_ACCENT_SHARE = .012
 # How strongly each layer leans toward the requested notes' character.
 _BRIEF_ECHO = .35
 # Layers together never outweigh the brief: past this share of the formula
@@ -631,18 +647,49 @@ _LIGHT_BRIEF = re.compile(
 _WARM_BRIEF = re.compile(r"\b(?:warm|dark|deep|resin|resinous|amber|incense|balsam|balsamic|vanilla|oriental|evening|rich|leather|smoky|tobacco)\b")
 
 
+def _names_marker(text: str, markers: Sequence[str]) -> bool:
+    """True when a word of the text starts with one of the markers ("resinous")."""
+
+    words = _key(text).split()
+    return any(word.startswith(marker) for word in words for marker in markers if " " not in marker)
+
+
+def _family_word_layer(family: FamilyStructure, note: str, word: str) -> tuple[Any, ...] | None:
+    """The layer or accent whose odor a family word names ("cardamom": spice)."""
+
+    return next((spec for spec in _NOTE_LAYERS if word in family_words_for(family, note, spec[7])), None)
+
+
+def _family_word_avoided(family: FamilyStructure, note: str, word: str, avoid: Sequence[str]) -> bool:
+    """A family word is avoided by name or with its layer's odor ("spice" keeps cardamom out)."""
+
+    spec = _family_word_layer(family, note, word)
+    markers = (word, *(spec[7] if spec is not None else ()))
+    return any(marker in _key(item) for item in avoid for marker in markers)
+
+
 def _note_layers(
     *,
     complexity_text: str,
     roles: Sequence["SemanticRole"],
     avoid: Sequence[str],
     qualifier_weights: tuple[tuple[str, float], ...] = (),
+    family: FamilyStructure | None = None,
 ) -> tuple["SemanticRole", ...]:
     """Supporting top, heart and base layers the prompt-derived roles leave open.
 
     Layers are optional roles: a layer with no eligible owned stock is simply
     left out.  They never replace a requested facet and carry modest shares so
     the requested character still leads.  Returned in priority order.
+
+    With a fragrance family, a layer looks first for the family's own
+    materials (a fougere's citrus layer for bergamot and lemon), and a layer
+    the family's structure has no place for is left out unless the brief
+    names its odor: a fougere gets no creamy lactone or powder layer.  Each
+    family material no role or layer already looks for first gets a role of
+    its own, sized like the layer or accent its odor belongs to (an aldehyde
+    stays an accent), so the family's structure replaces the generic layers
+    rather than shrinking the formula.
     """
 
     avoided = {_key(item) for item in avoid}
@@ -681,23 +728,19 @@ def _note_layers(
             if weight > 0:
                 brief_vector[dimension] = brief_vector.get(dimension, 0.0) + weight
     strongest = max(brief_vector.values(), default=0.0)
-    layers: list[SemanticRole] = []
-    for role_id, label, note, requirement, share, terms, weights, markers, kind, skip in _NOTE_LAYERS:
-        if is_avoided(markers):
-            continue
-        if (
+
+    def skipped(skip: str | None) -> bool:
+        return (
             (skip == "light" and light)
             or (skip == "not_warm" and not warm)
             or (skip == "not_light" and not light)
-        ):
-            continue
-        covered = any(marker in text for text in note_terms[note] for marker in markers)
-        if covered and requirement != "base_wood":
-            continue
-        if covered:
-            # A wood-led brief gets a second, contrasting wood family; the
-            # solver's family buckets keep it from repeating the first one.
-            role_id, label = "base_wood_contrast", "Contrasting base wood"
+        )
+
+    def layer_role(
+        role_id: str, label: str, note: str, terms: tuple[str, ...],
+        weights: tuple[tuple[str, float], ...], share: float, kind: str,
+        requirement: str | None,
+    ) -> SemanticRole:
         merged = dict(weights)
         for dimension, weight in qualifier_weights:
             # The brief's qualities (dry, dark, creamy, clean) steer which
@@ -710,25 +753,80 @@ def _note_layers(
         if light_base:
             # A light brief's base leans sheer, not heavy.
             merged["transparency"] = merged.get("transparency", 0.0) + .4
-        layers.append(
-            SemanticRole(
-                role_id=role_id,
-                label=label,
-                note=note,
-                function="modifier" if accent else ("structure" if note == "base" else "texture"),
-                query_terms=terms,
-                character_weights=tuple(sorted(merged.items())),
-                share=share,
-                required=False,
-                max_raw_share=(
-                    ACCENT_MAX_RAW_SHARE if accent
-                    else LIGHT_BASE_LAYER_MAX_RAW_SHARE if light_base
-                    else LAYER_MAX_RAW_SHARE
-                ),
-                provenance=ACCENT_PROVENANCE if accent else LAYER_PROVENANCE[note],
-                descriptor_requirement=requirement,
-            )
+        return SemanticRole(
+            role_id=role_id,
+            label=label,
+            note=note,
+            function="modifier" if accent else ("structure" if note == "base" else "texture"),
+            query_terms=terms,
+            character_weights=tuple(sorted(merged.items())),
+            share=share,
+            required=False,
+            max_raw_share=(
+                ACCENT_MAX_RAW_SHARE if accent
+                else LIGHT_BASE_LAYER_MAX_RAW_SHARE if light_base
+                else LAYER_MAX_RAW_SHARE
+            ),
+            provenance=ACCENT_PROVENANCE if accent else LAYER_PROVENANCE[note],
+            descriptor_requirement=requirement,
         )
+
+    layers: list[SemanticRole] = []
+    for role_id, label, note, requirement, share, terms, weights, markers, kind, skip in _NOTE_LAYERS:
+        if is_avoided(markers) or skipped(skip):
+            continue
+        covered = any(marker in text for text in note_terms[note] for marker in markers)
+        if covered and requirement != "base_wood":
+            continue
+        family_terms = family_words_for(family, note, markers) if family is not None else ()
+        if family is not None and not family_terms and not _names_marker(complexity_text, markers):
+            continue
+        if family_terms and kind == _ACCENT:
+            # The family's own materials for this nuance get accent roles below.
+            continue
+        if covered:
+            # A contrasting wood looks for the family's other woods, not the
+            # ones the brief's own wood already asks for.
+            family_terms = tuple(
+                word for word in family_terms
+                if not any(_phrase_present(_key(text), word) for text in note_terms[note])
+            )
+        if family_terms:
+            terms = tuple(dict.fromkeys((*family_terms, *terms)))
+        if covered:
+            # A wood-led brief gets a second, contrasting wood family; the
+            # solver's family buckets keep it from repeating the first one.
+            role_id, label = "base_wood_contrast", "Contrasting base wood"
+        layers.append(layer_role(role_id, label, note, terms, weights, share, kind, requirement))
+    if family is None:
+        return tuple(layers)
+
+    # The family's materials no role asks for and no layer looks for first.
+    asked = " ".join(_key(text) for text in every_note)
+    first_terms = {layer.query_terms[0] for layer in layers if layer.query_terms}
+    placed: set[str] = set()
+    for note in ("top", "heart", "base"):
+        for word in family.tier(note):
+            if (
+                word in placed or word in first_terms or _phrase_present(asked, word)
+                or _family_word_avoided(family, note, word, avoid)
+            ):
+                continue
+            # Sized like the layer or accent whose odor the word names, and
+            # avoided or skipped with it; a word no layer names is a layer.
+            spec = _family_word_layer(family, note, word)
+            if spec is not None:
+                *_, weights, _markers, kind, skip = spec
+                if skipped(skip):
+                    continue
+            else:
+                weights, kind = (), _LAYER
+            placed.add(word)
+            accent = kind == _ACCENT
+            layers.append(layer_role(
+                family_role_id(word, accent=accent), f"{family.heading} {note}: {word}", note, (word,),
+                weights, _FAMILY_ACCENT_SHARE if accent else _FAMILY_LAYER_SHARE, kind, None,
+            ))
     return tuple(layers)
 
 
@@ -747,6 +845,7 @@ def _roles(
     maximum: int,
     target_count: int | None,
     avoid: Sequence[str] = (),
+    family: FamilyStructure | None = None,
 ) -> tuple[SemanticRole, ...]:
     complexity_text = _key(f"{formula_name} {request}")
     ordinary_target = max(6, len(facets) + 5)
@@ -856,6 +955,7 @@ def _roles(
             for facet in facets
             if facet.note == note and facet.function != "modifier"
         ]
+        own_register = bool(supporting_facets)
         if not supporting_facets:
             # Opening and heart bridges borrow only from facets that are not
             # base notes; borrowing wood or amber terms here turned the whole
@@ -866,13 +966,20 @@ def _roles(
                 if facet.function != "modifier"
                 and (note == "base" or facet.note != "base")
             ]
+        facet_terms = tuple(
+            term
+            for facet in supporting_facets[:3]
+            for term in facet.query_terms[:5]
+        )
+        family_terms = (
+            tuple(word for word in family.tier(note) if not _family_word_avoided(family, note, word, avoid))
+            if family is not None else ()
+        )
         return _dedupe(
             (
-                *(
-                    term
-                    for facet in supporting_facets[:3]
-                    for term in facet.query_terms[:5]
-                ),
+                # A register the brief names keeps its own notes first; one it
+                # leaves open looks first for the family's materials.
+                *((*facet_terms, *family_terms) if own_register else (*family_terms, *facet_terms)),
                 *_source_tokens(f"{label} {function} {note}"),
             )
         )[:16]
@@ -885,6 +992,7 @@ def _roles(
             roles=roles,
             avoid=avoid,
             qualifier_weights=qualifier_weights,
+            family=family,
         )
         if target_count is None
         else ()
@@ -919,6 +1027,7 @@ def _roles(
     # The count built without layers; layers and accords never shrink a
     # formula below it.
     base_target = role_target
+    family_placed: list[SemanticRole] = []
     if layers:
         # Each requested note keeps room for its first accord material, and
         # Deep Compose keeps its two places, before a generic layer takes one.
@@ -928,6 +1037,10 @@ def _roles(
         if layer_share > _LAYER_SHARE_BUDGET:
             scale = _LAYER_SHARE_BUDGET / layer_share
             placed = [replace(layer, share=layer.share * scale) for layer in placed]
+        # A family material's role comes last: it takes a stock named for it
+        # only after the brief's notes and the required roles have theirs.
+        family_placed = [layer for layer in placed if layer.role_id.startswith(FAMILY_ROLE_PREFIX)]
+        placed = [layer for layer in placed if not layer.role_id.startswith(FAMILY_ROLE_PREFIX)]
         roles.extend(placed)
         if (
             deferred_drydown is not None
@@ -1043,6 +1156,7 @@ def _roles(
         # Deep Compose places are only kept free from layers and accords.
         if len(roles) < base_target:
             roles = fill(roles, base_target)
+        roles.extend(family_placed[:max(0, maximum - _DEEP_COMPOSE_RESERVE - len(roles))])
     return tuple(roles)
 
 
@@ -1194,6 +1308,7 @@ def compile_semantic_brief(
     ) or ("request-defined perfume architecture",)
     protected = _dedupe((*preserve, *explicit, *requested_fruits, *expression_terms[:2]))
     forbidden = _dedupe((*avoid, "anonymous generic perfume drift"))
+    family = brief_family(positive_semantic_text, facets)
     roles = _roles(
         formula_name=reading_name,
         request=reading_raw,
@@ -1207,6 +1322,7 @@ def compile_semantic_brief(
             else None
         ),
         avoid=avoid,
+        family=family,
     )
 
     request_digest = hashlib.sha256(raw.encode("utf-8")).hexdigest()
@@ -1303,6 +1419,7 @@ def compile_semantic_brief(
         unmapped_requested_notes=_unmapped_requested_notes(
             positive_semantic_text, facets, requested_fruits, explicit
         ),
+        fragrance_family=family.heading if family is not None else None,
     )
 
 

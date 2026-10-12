@@ -141,18 +141,21 @@ def _one_note_expected(summary: dict) -> bool:
     return few_voices or one_lead
 
 
-def test_design_formula_one_note_flag_matches_its_windows_and_the_amber_is_not_one_note() -> None:
+def test_design_formula_one_note_flag_matches_its_windows() -> None:
     # The rose chypre stopped being one-note once master's material-data and
-    # composer fixes landed (7 effective voices at drydown), so the real-brief
-    # check is that the flag agrees with the numbers it is computed from; the
-    # synthetic Rhodinol case above pins that a one-note formula is flagged.
+    # composer fixes landed (7 effective voices at drydown).  The amber became
+    # one-note risk when briefs began following their fragrance family (Phase 3
+    # step 4): its Javanol already held 0.76 and 0.89 of the modeled odour
+    # activity in the late heart and drydown, and the green top layer that led
+    # its heart window has no place in a woody amber.  So the real-brief check
+    # is that the flag agrees with the numbers it is computed from; the
+    # synthetic cases above pin a one-note formula flagged and a balanced one not.
     chypre = design_formula(idea="rose chypre with patchouli and oakmoss depth")
     amber = design_formula(idea="warm amber with an iris heart and a smoky shadow")
 
     for report in (chypre, amber):
         summary = report["complexity_summary"]
         assert ("one_note" in _flags(summary)) == _one_note_expected(summary)
-    assert "one_note" not in _flags(amber["complexity_summary"])
     for report in (chypre, amber):
         assert report["design_variants"]
         for variant in report["design_variants"]:

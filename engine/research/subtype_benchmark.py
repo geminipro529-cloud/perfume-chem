@@ -290,9 +290,11 @@ def _replay_planning(result: dict[str, Any]) -> tuple[bool, tuple[SemanticBrief,
     try:
         raw = result["semantic_brief"]
         # SemanticBrief.as_dict() leaves out an empty unmapped_requested_notes
-        # so existing briefs keep their payload and design hashes.
+        # and an unread fragrance_family so existing briefs keep their payload
+        # and design hashes.
         expected = {f.name for f in fields(SemanticBrief)}
-        if not expected - {"unmapped_requested_notes"} <= set(raw) <= expected or raw["architecture_plan"]:
+        optional = {"unmapped_requested_notes", "fragrance_family"}
+        if not expected - optional <= set(raw) <= expected or raw["architecture_plan"]:
             raise ValueError("missing or non-control semantic brief")
         if _hash(raw["knowledge_context"]) != _hash(result["formulation_knowledge"]):
             raise ValueError("control and output evidence disagree")

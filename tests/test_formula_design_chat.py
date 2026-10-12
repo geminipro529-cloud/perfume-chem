@@ -984,9 +984,12 @@ def test_formula_design_builds_a_layered_base_from_several_families() -> None:
     )
 
     layers = _base_layer_rows(result)
-    # Wood and amber are requested facets; the base adds a second wood, a musk
-    # and a balsamic resin around them instead of more of the same amber.
-    assert {"base_wood_contrast", "base_musk_layer", "base_resin_layer"} <= set(layers)
+    # Wood and amber are requested facets; the base adds a second wood and a
+    # balsamic resin around them instead of more of the same amber.  A woody
+    # amber's structure has no musk (docs/fragrance_families_reference.md,
+    # WOODY AMBER), so since Phase 3 step 4 it takes no musk layer.
+    assert {"base_wood_contrast", "base_resin_layer"} <= set(layers)
+    assert "base_musk_layer" not in layers
     assert "drydown_structure" not in {row["slot"] for row in result["optimized_formula"]["rows"]}
     base_identities = {
         row["identity_name"]
