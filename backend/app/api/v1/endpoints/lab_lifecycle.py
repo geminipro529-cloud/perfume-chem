@@ -27,6 +27,7 @@ from engine.inventory_completions import (
     effective_design_ready,
     inventory_completion_requirements,
     record_inventory_completion,
+    suggest_inventory_completion,
 )
 from engine.inventory_dilutions import (
     PREPARED_DILUTION_AUTHORITY,
@@ -37,6 +38,7 @@ from engine.inventory_dilutions import (
     dilution_parent_ready,
     record_prepared_dilution,
 )
+from engine.inventory_parser import parse_inventory
 from engine.personal_inventory import (
     DESIGN_ONLY_AUTHORITY,
     LIVE_TEXT_AUTHORITY,
@@ -240,8 +242,21 @@ def _gate_hold_text(stock: Any) -> str | None:
     return None
 
 
+def _inventory_text_lines_by_identity() -> dict[str, list[tuple[int, str]]]:
+    """Owned inventory.txt lines, by the identity the Stock page matches on."""
+
+    lines: dict[str, list[tuple[int, str]]] = {}
+    for record in parse_inventory(unique=False, include_unavailable=False):
+        if record.status.casefold() == "owned" and record.source_rows:
+            lines.setdefault(personal_inventory_identity_key(record), []).append(
+                (record.source_rows[0], record.raw_name)
+            )
+    return lines
+
+
 def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
     stocks = []
+    inventory_lines = _inventory_text_lines_by_identity()
     basket_log_error: str | None = None
     try:
         confirmed = confirmed_baskets()
@@ -254,6 +269,11 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
         design_ready = effective_design_ready(stock)
         missing_fields = list(inventory_completion_requirements(stock))
         normalized_identity = personal_inventory_identity_key(stock)
+        completion_available = (
+            stock.status.casefold() == "owned"
+            and stock.stock_id in materialized.canonical_stock_ids
+            and stock.authority != PREPARED_DILUTION_AUTHORITY
+        )
         stocks.append(
             {
                 "stock_id": stock.stock_id,
@@ -275,10 +295,14 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
                 "design_ready": design_ready,
                 "design_hold_reason": stock.design_hold_reason or None,
                 "missing_fields": missing_fields,
-                "completion_available": (
-                    stock.status.casefold() == "owned"
-                    and stock.stock_id in materialized.canonical_stock_ids
-                    and stock.authority != PREPARED_DILUTION_AUTHORITY
+                "completion_available": completion_available,
+                # Form pre-fill only: never saved until Kenny confirms and saves.
+                "suggested_completion": (
+                    suggest_inventory_completion(
+                        stock, inventory_lines.get(normalized_identity, ())
+                    )
+                    if completion_available and not design_ready
+                    else None
                 ),
                 "dilution_available": (
                     stock.status.casefold() == "owned"
