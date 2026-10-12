@@ -124,8 +124,12 @@ The verifier preserves the named engine test groups and automatically includes
 new top-level `tests/test_*.py` files in an `additional` group. Backend tests
 remain in their separate environment and verification step.
 
-Hosted GitHub Actions are intentionally not used. Install the repository-owned
-pre-push gate once in each clone:
+GitHub Actions (`.github/workflows/checks.yml`) run the same quick verifier and
+the backend ruff, mypy and pytest checks on every pull request. Backend test
+failures are compared with `backend/tests/known_failures.txt`: a failure not on
+that list fails the check, and a listed test that passes again is reported so it
+can be removed in the same PR. Install the repository-owned pre-push gate once
+in each clone as well:
 
 ```powershell
 .venv\Scripts\Activate.ps1

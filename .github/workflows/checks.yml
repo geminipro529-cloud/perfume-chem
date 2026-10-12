@@ -1,0 +1,72 @@
+# Hosted checks on every pull request and on master (direction 4, 12 Oct 2026).
+# They mirror the local pre-push gate (.pre-commit-config.yaml) plus the backend
+# ruff -> mypy -> pytest order from AGENTS.md.  No secrets are used: the keys below
+# are the same dummy values the test suites expect.
+name: checks
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  OPENAI_API_KEY: test-key
+  SECRET_KEY: test-secret-key-for-ci
+  PYTHON_VERSION: "3.13"
+
+jobs:
+  quick-verify:
+    name: project-verify --quick
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - name: Install engine dependencies (without the local AI model libraries)
+        # The quick checks do not import torch, transformers, faiss or llama.cpp;
+        # leaving them out keeps the install to a few minutes.
+        run: |
+          grep -v -E '^(llama-cpp-python|torch|transformers|accelerate|sentencepiece|sentence-transformers|faiss-cpu)' requirements.txt > requirements-ci.txt
+          python -m pip install -r requirements-ci.txt -e ".[dev]" poetry
+      - name: Install backend (the golden API check runs in its Poetry env)
+        working-directory: backend
+        run: poetry install --no-interaction
+      - name: Quick verification (same command as the pre-push hook)
+        run: python scripts/pipeline_audit.py project-verify --quick --json
+
+  backend:
+    name: backend ruff, mypy, pytest
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install Poetry and the backend
+        run: |
+          python -m pip install poetry
+          poetry install --no-interaction
+      - name: ruff
+        run: poetry run ruff check app
+      - name: mypy
+        run: poetry run mypy app --ignore-missing-imports
+      - name: pytest
+        # Failures are judged against tests/known_failures.txt below, so this
+        # step only records them.
+        run: poetry run pytest -q -p no:cacheprovider --junitxml=pytest-report.xml || true
+      - name: Compare with the known failing tests
+        run: python ../.github/scripts/compare_failures.py pytest-report.xml tests/known_failures.txt .
