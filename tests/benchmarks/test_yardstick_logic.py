@@ -225,13 +225,23 @@ def test_stock_only_on_inventory_txt_is_a_hold_not_a_fail() -> None:
     assert "Damascol" in floor["detail"] and "Stock page" in floor["detail"]
 
 
+def test_a_dilution_of_an_owned_stronger_stock_holds() -> None:
+    # Nutmeg EO at 10% while only the neat oil is owned: one bench dilution away.
+    preparable = {"material": "Nutmeg EO", "reason": "stock_fraction_mismatch"}
+
+    floor = ys._f1_stock(_Contract([_unbound("Damascol"), preparable]), RECORD)
+
+    assert floor["status"] == "HOLD" and "dilution prepared" in floor["detail"]
+
+
 def test_any_other_stock_problem_still_fails() -> None:
-    mismatch = {"material": "Nutmeg EO", "reason": "stock_fraction_mismatch"}  # owned neat only
+    stronger_than_owned = {"material": "Damascol", "reason": "stock_fraction_mismatch"}
     unknown_id = {"material": "X", "reason": "stock_id_not_in_current_inventory",
                   "stock_id": "inventory:v5:missing"}
     defect = {"material": "Damascol", "reason": "conflicting_stock_rows"}
 
-    assert ys._f1_stock(_Contract([_unbound("Damascol"), mismatch]), RECORD)["status"] == "FAIL"
+    assert ys._f1_stock(_Contract([stronger_than_owned]), {"dilutions": {"Damascol": 0.5}})[
+        "status"] == "FAIL"  # only the 10% is owned; 50% can't be made from it
     assert ys._f1_stock(_Contract([unknown_id]), RECORD)["status"] == "FAIL"
     assert ys._f1_stock(_Contract([defect]), RECORD)["status"] == "FAIL"
 
@@ -250,8 +260,8 @@ def test_same_inventory_txt_material_holds_alike_from_engine_and_reference_rows(
     engine_f1, reference_f1 = _real_f1(engine_row), _real_f1(reference_row)
 
     assert engine_f1["status"] == reference_f1["status"] == "HOLD", (engine_f1, reference_f1)
-    # Same material at a strength inventory.txt does not own: hard on both sides.
-    assert _real_f1(_row("Leather FO", "50", "0.1"))["status"] == "FAIL"
+    # A strength above every owned stock can't be prepared: hard on both sides.
+    assert _real_f1(_row("Damascol", "50", "0.5"))["status"] == "FAIL"
 
 
 def test_unreadable_rows_hold_the_stock_floor_and_are_named() -> None:

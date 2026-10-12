@@ -363,7 +363,28 @@ def _issue_holdable(
     if any(USER_COMPOUNDING_HOLD in str(h) for h in issue.get("execution_holds", []) or []):
         return False
     material = str(issue.get("material", ""))
-    return _owned_on_inventory_txt(material, (record.get("dilutions") or {}).get(material))
+    fraction = (record.get("dilutions") or {}).get(material)
+    return _owned_on_inventory_txt(material, fraction) or _preparable_from_inventory_txt(
+        material, fraction
+    )
+
+
+def _preparable_from_inventory_txt(material: str, fraction: float | None) -> bool:
+    """Whether inventory.txt owns ``material`` stronger than ``fraction``, so the row's
+    stock is one dilution away (a bench step, e.g. a 10% from the neat bottle): a hold,
+    not a material the user lacks."""
+    from engine.inventory_parser import load_current_inventory_alias_crosswalk
+
+    if fraction is None or float(fraction) <= 0:
+        return False
+    keys = {normalize_name(material)}
+    alias = load_current_inventory_alias_crosswalk().resolve(material)
+    if alias:
+        keys.add(normalize_name(alias.destination))
+    index = _inventory_txt_owned()
+    return any(
+        float(s.dilution) > float(fraction) + 1e-9 for key in keys for s in index.get(key, ())
+    )
 
 
 def _f1_stock(stock_contract: Any, record: Mapping[str, Any]) -> dict[str, Any]:
@@ -384,7 +405,8 @@ def _f1_stock(stock_contract: Any, record: Mapping[str, Any]) -> dict[str, Any]:
         (holdable if _issue_holdable(check, issue, record) else hard).append(issue)
     held_detail = (
         f"{len(holdable)} material(s) owned on inventory.txt that the gate's stock list lacks "
-        "or disagrees with, or that need data (complete them on the Stock page): "
+        "or disagrees with, that need a dilution prepared from a stronger owned stock, or "
+        "that need data (complete them on the Stock page): "
         + ", ".join(str(i.get("material")) for i in holdable)
     ) if holdable else ""
     if hard:
