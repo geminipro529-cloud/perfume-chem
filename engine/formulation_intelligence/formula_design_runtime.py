@@ -14,6 +14,7 @@ from engine.formulation_intelligence.architecture_bridge import (
     derive_architecture_briefs,
     role_plan_signature,
 )
+from engine.formulation_intelligence.brief_self_check import best_of_solves
 from engine.formulation_intelligence.composition_checks import attach_composition_checks
 from engine.formulation_intelligence.detection_pass import attach_detection_checks
 from engine.formulation_intelligence.formula_critic import critique_formula
@@ -517,6 +518,7 @@ def _dynamic_report(
             "facets": list(brief.facets),
             "roles_requested": [role.role_id for role in brief.roles],
             "roles_filled": [assignment.role.role_id for assignment in successful[0][1].assignments],
+            "brief_self_check": successful[0][1].solver_receipt.get("self_check"),
             "stop_rule": "STOP_WHEN_ALL_JUSTIFIED_ROLES_ARE_FILLED",
             "ingredient_count_is_objective": False,
             "character_basis": "COMPONENT_PROFILE_HYPOTHESIS_NOT_SENSORY_MEASUREMENT",
@@ -819,7 +821,7 @@ def design_formula(
     solves: list[FormulaSolveResult] = []
     prior: set[str] = set()
     for variant_index, candidate_brief in enumerate(branch_briefs):
-        solve = solve_formula(
+        solve_args: dict[str, Any] = dict(
             brief=candidate_brief,
             index=index,
             liquid_total_ul=liquid_total_ul,
@@ -831,6 +833,19 @@ def design_formula(
             beam_width=48 if design_mode == "DEEP_COMPOSE" else 12,
             exact_material_count=_has_exact_material_count(interpretation),
         )
+        if variant_index == 0 and not candidate_brief.architecture_plan:
+            # The composer's own design checks itself against its brief and
+            # repairs a lead that misses its note (brief_self_check.py). Stock
+            # alternatives and architecture comparisons are solved as asked.
+            cache: dict[Any, Any] = {}
+            solve = best_of_solves(
+                brief=candidate_brief, index=index, avoid=avoid,
+                solve=lambda words, args=solve_args, cache=cache: solve_formula(
+                    **args, identity_words=words, unary_cache=cache,
+                ),
+            )
+        else:
+            solve = solve_formula(**solve_args)
         solves.append(solve)
         prior.update(assignment.capability.stock_id for assignment in solve.assignments)
     return _dynamic_report(
