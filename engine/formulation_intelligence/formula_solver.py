@@ -926,6 +926,7 @@ def _unary_rank_for_role(
     asked_families: frozenset[str] | None = None,
     liking: _LikingFn | None = None,
     request: str = "",
+    required_identity: tuple[str, ...] | None = None,
 ) -> list[tuple[float, MaterialCapability]]:
     ranked: list[tuple[float, MaterialCapability]] = []
     for capability in index.capabilities:
@@ -960,7 +961,12 @@ def _unary_rank_for_role(
         score += _stable_tie(role.role_id, capability.stock_id, variant_index)
         ranked.append((score, capability))
     family_words = family_role_words(role.role_id)
-    required_words = role_identity_requirement(role.role_id, request)
+    # The brief self-check's repair names the words a role's stock should
+    # carry (a pepper lead that is a pepper); otherwise the brief's own rule.
+    required_words = (
+        required_identity if required_identity is not None
+        else role_identity_requirement(role.role_id, request)
+    )
     if family_words and role.exact_material is None:
         # A family material's role takes only a stock named for it, or none.
         ranked = [
@@ -968,8 +974,9 @@ def _unary_rank_for_role(
             if row[1].design_ready and names_family_words(row[1].identity_vocabulary, family_words)
         ]
     elif required_words and role.exact_material is None:
-        # A requested identity (oud, iris) is answered by a stock whose own
-        # name carries it whenever one is selectable; descriptor overlap alone
+        # A requested identity (oud, iris, or a word the self-check repairs)
+        # is answered by a stock whose own name carries it whenever one is
+        # selectable; descriptor overlap alone
         # cannot separate orris from an ionone.  Held stocks are not design
         # ready, so they never satisfy this, and the fallback is unchanged.
         named = [
@@ -1088,6 +1095,8 @@ def _solve_assignments(
     variant_index: int,
     beam_width: int,
     liking: _LikingFn | None = None,
+    identity_words: Mapping[str, tuple[str, ...]] | None = None,
+    unary_cache: dict[tuple[str, tuple[str, ...] | None], list[tuple[float, MaterialCapability]]] | None = None,
 ) -> tuple[tuple[SolvedAssignment, ...], tuple[str, ...]]:
     states: tuple[_BeamState, ...] = (
         _BeamState(
@@ -1103,8 +1112,15 @@ def _solve_assignments(
     # only the added/refined role. Historical controls keep their replay path.
     enforce_own_odor_avoid = bool(brief.architecture_plan.get("operation"))
     asked_families = _asked_families(brief)
-    unary_rankings = {
-        role.role_id: _unary_rank_for_role(
+    identity_words = identity_words or {}
+
+    def unary(role: SemanticRole) -> list[tuple[float, MaterialCapability]]:
+        # A cache shared by solves of one brief with the same inputs: only a
+        # role whose identity words differ is ranked again.
+        key = (role.role_id, identity_words.get(role.role_id))
+        if unary_cache is not None and key in unary_cache:
+            return unary_cache[key]
+        ranked = _unary_rank_for_role(
             index,
             role,
             avoid=avoid,
@@ -1115,9 +1131,13 @@ def _solve_assignments(
             asked_families=asked_families,
             liking=liking,
             request=brief.normalized_request,
+            required_identity=identity_words.get(role.role_id),
         )
-        for role in brief.roles
-    }
+        if unary_cache is not None:
+            unary_cache[key] = ranked
+        return ranked
+
+    unary_rankings = {role.role_id: unary(role) for role in brief.roles}
     for position, role in enumerate(brief.roles):
         expanded: list[_BeamState] = []
         role_has_candidate = False
@@ -1255,7 +1275,15 @@ def solve_formula(
     variant_index: int = 0,
     beam_width: int = 48,
     exact_material_count: bool = False,
+    identity_words: Mapping[str, tuple[str, ...]] | None = None,
+    unary_cache: dict[tuple[str, tuple[str, ...] | None], list[tuple[float, MaterialCapability]]] | None = None,
 ) -> FormulaSolveResult:
+    """Assign one stock per role and allocate doses.
+
+    ``identity_words`` maps a role id to words its stock's own name should
+    carry when a design-ready stock does (the brief self-check's repair);
+    ``unary_cache`` lets solves of the same brief and inputs share rankings.
+    """
     if liquid_total_ul <= 0:
         raise ValueError("liquid_total_ul must be positive")
     if not 0 <= variant_index <= 2:
@@ -1269,7 +1297,8 @@ def solve_formula(
         prior_variant_stock_ids=frozenset(prior_variant_stock_ids),
         variant_index=variant_index,
     )
-    assignments, missing = _solve_assignments(**solve_kwargs, beam_width=beam_width, liking=liking)
+    search_kwargs = dict(liking=liking, identity_words=identity_words, unary_cache=unary_cache)
+    assignments, missing = _solve_assignments(**solve_kwargs, beam_width=beam_width, **search_kwargs)
     if missing and _missing_role_has_candidates(missing, **solve_kwargs):
         # The beam keeps only the best partial states, so it can prune away the
         # one path that still fills every required role. Before withholding a
@@ -1279,7 +1308,7 @@ def solve_formula(
         wider, wider_missing = _solve_assignments(
             **solve_kwargs,
             beam_width=beam_width * _INCOMPLETE_RETRY_BEAM_FACTOR,
-            liking=liking,
+            **search_kwargs,
         )
         if len(wider_missing) < len(missing):
             assignments, missing = wider, wider_missing
@@ -1346,6 +1375,10 @@ def solve_formula(
         "future_role_policy": "BOUNDED_REQUIRED_DESCRIPTOR_FORWARD_CHECK_V1",
         "named_fruit_recognition": {name: "NOT_SENSORY_VALIDATED" for name in brief.requested_fruits},
     }
+    if identity_words:
+        receipt["identity_requirements"] = {
+            role_id: list(words) for role_id, words in sorted(identity_words.items())
+        }
     signature = hashlib.sha256(
         "|".join(f"{row.role.role_id}:{row.capability.stock_id}" for row in assignments).encode()
     ).hexdigest()[:16]
