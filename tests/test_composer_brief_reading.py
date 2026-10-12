@@ -13,8 +13,16 @@ from dataclasses import replace
 import pytest
 
 from engine.formulation_intelligence.formula_design_runtime import design_formula
+from engine.formulation_intelligence.formula_solver import _backs_natural_lead
+from engine.formulation_intelligence.material_capability_index import (
+    build_material_capability_index,
+)
 from engine.formulation_intelligence.note_phrases import translate_note_phrases
-from engine.formulation_intelligence.semantic_brief_adapter import role_identity_requirement
+from engine.formulation_intelligence.semantic_brief_adapter import (
+    ACCORD_SUPPORT_PROVENANCE,
+    SemanticRole,
+    role_identity_requirement,
+)
 from engine.research.composition_planner import _avoid_candidate, _load_candidates
 from engine.research.request_interpretation import (
     _matched_names,
@@ -182,3 +190,68 @@ def test_lavender_named_in_a_fougere_is_the_anchor_not_a_second_lavender() -> No
     assert {"facet_fougere_coumarin", "facet_moss_chypre"} <= set(role_ids), role_ids
     rows = [row["identity_name"].casefold() for row in result["initial_formula"]["rows"]]
     assert sum("lavender" in name or "lavandin" in name for name in rows) == 1, rows
+
+
+# Phase 3, step 3: a natural lead keeps one of its own key aroma chemicals.
+
+_SANDALWOOD_MOLECULES = ("javanol", "ebanol", "sandalore", "bacdanol")
+
+
+def _rows_by_slot(result: dict) -> dict[str, str]:
+    return {row["slot"]: row["identity_name"] for row in result["initial_formula"]["rows"]}
+
+
+def test_anchored_lavender_is_backed_by_its_own_constituent() -> None:
+    # "lavender" anchors Lavender EO; its note keeps one support, and that
+    # support is a major constituent of the oil, not any heart material.
+    rows = _rows_by_slot(design_formula(idea="a fresh lavender cologne"))
+
+    assert rows["explicit_anchor_1"].startswith("Lavender EO"), rows
+    assert rows.get("explicit_anchor_1__accord_1") in {"Linalyl Acetate", "Linalool"}, rows
+
+
+def test_vetiver_oils_the_user_names_are_backed_by_a_vetiver_molecule() -> None:
+    # Two vetiver oils are named; the composer still adds one vetiver molecule.
+    rows = _rows_by_slot(design_formula(idea="a vetiver centred scent built on Haitian Vetiver EO"))
+
+    support = rows.get("explicit_anchor_1__accord_1", "").casefold()
+    assert "vetikon" in support or "vetiveryl" in support, rows
+
+
+def test_sandalwood_oil_lead_is_backed_by_a_sandalwood_molecule() -> None:
+    rows = _rows_by_slot(design_formula(idea="creamy sandalwood with real orris"))
+
+    assert rows["facet_creamy_wood"] == "Sandalwood EO", rows
+    supports = [rows.get(f"facet_creamy_wood__accord_{n}", "").casefold() for n in (1, 2)]
+    assert any(word in name for name in supports for word in _SANDALWOOD_MOLECULES), rows
+
+
+@pytest.fixture(scope="module")
+def capabilities() -> dict:
+    return {cap.identity_name: cap for cap in build_material_capability_index().capabilities}
+
+
+def _support(note: str, weights: tuple[tuple[str, float], ...]) -> SemanticRole:
+    return SemanticRole(
+        role_id="facet_x__accord_1", label="support", note=note, function="character",
+        query_terms=(), character_weights=weights, share=.04, required=False,
+        provenance=ACCORD_SUPPORT_PROVENANCE,
+    )
+
+
+def test_a_solvent_in_a_resinoid_never_backs_it(capabilities: dict) -> None:
+    # Benzyl benzoate is listed at 30% of Olibanum Resinoid (its solvent) but
+    # carries no incense: it must not back the resinoid.
+    role = _support("base", (("smoky", .75), ("woody", .5)))
+
+    assert not _backs_natural_lead(capabilities["Benzyl Benzoate"], role, capabilities["Olibanum Resinoid"])
+
+
+def test_only_a_natural_lead_is_backed(capabilities: dict) -> None:
+    role = _support("base", (("woody", .85), ("creamy", .65)))
+
+    assert _backs_natural_lead(capabilities["Javanol"], role, capabilities["Sandalwood EO"])
+    # A molecule lead already has its own detection basis.
+    assert not _backs_natural_lead(capabilities["Javanol"], role, capabilities["Sandalore"])
+    # A natural is never a backer.
+    assert not _backs_natural_lead(capabilities["Patchouli EO"], role, capabilities["Sandalwood EO"])

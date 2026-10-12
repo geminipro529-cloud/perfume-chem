@@ -783,6 +783,8 @@ def _roles(
         for material in explicit_materials
         if not _named_as_note_only(material, request_key)
     )
+    anchors = {f" {_key(role.exact_material or '')} ": role for role in roles}
+    supported_anchors: set[str] = set()
     for facet in facets:
         if len(roles) >= maximum:
             break
@@ -800,6 +802,21 @@ def _roles(
                     any(_phrase_present(name, t) for name in explicit_keys) for t in matched_triggers
                 )
             ):
+                # The anchor leads this note; like every requested note it
+                # keeps one supporting material of the note's own odor.
+                anchor = next((
+                    anchors[name] for name in explicit_keys
+                    if any(_phrase_present(name, t) for t in (*identity, *matched_triggers))
+                ), None)
+                if (
+                    anchor is not None
+                    and target_count is None
+                    and facet.function in _ACCORD_FUNCTIONS
+                    and anchor.role_id not in supported_anchors
+                    and len(roles) < maximum - _DEEP_COMPOSE_RESERVE
+                ):
+                    supported_anchors.add(anchor.role_id)
+                    roles.append(_anchor_support(anchor, facet))
                 continue
         # A rooty-and-transparent iris has one recognizer with two requested
         # qualities, not two mandatory copies of the same recognizer role.
@@ -1071,6 +1088,28 @@ def _accord_leads(roles: Sequence[SemanticRole]) -> list[SemanticRole]:
             word for term in role.query_terms for word in _key(term).split()
         }
     ]
+
+
+def _anchor_support(anchor: SemanticRole, facet: FacetDefinition) -> SemanticRole:
+    """One supporting accord material for a note a named stock leads.
+
+    It takes the note's facet query, odor and place, at the first support's
+    proportion of the anchor.
+    """
+
+    fraction = _ACCORD_SPLIT[1] / _ACCORD_SPLIT[0]
+    return SemanticRole(
+        role_id=f"{anchor.role_id}{ACCORD_SUPPORT_SEPARATOR}1",
+        label=f"{anchor.label}: supporting accord material 1",
+        note=facet.note,
+        function=facet.function,
+        query_terms=facet.query_terms,
+        character_weights=facet.character_weights,
+        share=anchor.share * fraction,
+        required=False,
+        max_raw_share=(facet.max_raw_share or .28) * fraction,
+        provenance=ACCORD_SUPPORT_PROVENANCE,
+    )
 
 
 def _with_accords(roles: list[SemanticRole], maximum: int) -> list[SemanticRole]:

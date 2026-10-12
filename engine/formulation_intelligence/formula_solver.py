@@ -553,6 +553,103 @@ def _supports_accord(
     return capability.character_map.get(dimension, 0.0) >= 3.0
 
 
+# A note led by a natural or a preblend (Lavender EO, Sandalwood EO, a vetiver
+# oil) has no single-molecule detection basis: its odor rides on a composition
+# the gate can only model (Rule 4).  Its supporting material may then be one of
+# its own key aroma chemicals, a molecule with its own odor threshold: a major
+# constituent of the lead (linalyl acetate in Lavender EO, coumarin in Tonka) or
+# a molecule of the lead's note family (Javanol beside Sandalwood EO).
+_BACKING_MIN_FRACTION = .05
+_BACKING_BONUS = 2.0
+_NOTE_TIERS = {"top": 0, "heart": 1, "base": 2}
+
+
+@lru_cache(maxsize=None)
+def _is_mixture(identity_name: str) -> bool:
+    from engine.pipeline.formula_state import NATURAL_MIXTURE_TOKENS, OPAQUE_PREBLEND_TOKENS
+    from engine.pipeline.natural_absolute_decomposition import get_composite_metadata
+
+    probe = f" {identity_name.casefold()} "
+    return (
+        any(token in probe for token in (*NATURAL_MIXTURE_TOKENS, *OPAQUE_PREBLEND_TOKENS))
+        or get_composite_metadata(identity_name) is not None
+    )
+
+
+def _molecule_key(name: str) -> str:
+    key = " ".join(word for word in re.split(r"[^a-z0-9]+", name.casefold()) if word)
+    return re.sub(r"^(?:dl|d|l) ", "", key)
+
+
+@lru_cache(maxsize=None)
+def _key_constituents(identity_name: str) -> frozenset[str]:
+    from engine.pipeline.natural_absolute_decomposition import get_constituents
+
+    return frozenset(
+        _molecule_key(str(row[0]))
+        for row in get_constituents(identity_name) or ()
+        if float(row[1]) >= _BACKING_MIN_FRACTION
+    )
+
+
+@lru_cache(maxsize=None)
+def _has_own_threshold(identity_name: str) -> bool:
+    from engine.odor_thresholds import lookup_odt_entry
+
+    return lookup_odt_entry(identity_name) is not None
+
+
+def _backs_natural_lead(
+    capability: MaterialCapability,
+    role: SemanticRole,
+    lead: MaterialCapability,
+) -> bool:
+    """A single aroma chemical that carries a natural lead's own note.
+
+    It sits within one note tier of the role and clearly carries the role's
+    strongest requested odor dimension (3 of 10 or more), so a solvent listed
+    in a resinoid's composition never qualifies.
+    """
+
+    if _is_mixture(capability.identity_name) or not _is_mixture(lead.identity_name):
+        return False
+    if not _has_own_threshold(capability.identity_name):
+        return False
+    tier, role_tier = _NOTE_TIERS.get(capability.note), _NOTE_TIERS.get(role.note)
+    if tier is None or role_tier is None or abs(tier - role_tier) > 1:
+        return False
+    family = _family_bucket(capability)
+    if not (
+        (family is not None and family == _family_bucket(lead))
+        or _molecule_key(capability.identity_name) in _key_constituents(lead.identity_name)
+    ):
+        return False
+    positive = [(weight, dimension) for dimension, weight in role.character_weights if weight > 0]
+    if not positive:
+        return True
+    _weight, dimension = max(positive)
+    return capability.character_map.get(dimension, 0.0) >= 3.0
+
+
+def _backing(
+    capability: MaterialCapability,
+    role: SemanticRole,
+    state: "_BeamState",
+) -> bool:
+    """True when this support would be its natural lead's one backing molecule."""
+
+    if role.provenance != ACCORD_SUPPORT_PROVENANCE or role.exact_material is not None:
+        return False
+    lead = _accord_lead(role, state)
+    if lead is None or not _backs_natural_lead(capability, role, lead[0]):
+        return False
+    lead_id = accord_lead_role_id(role)
+    return not any(
+        accord_lead_role_id(prior) == lead_id and _backs_natural_lead(prior_capability, prior, lead[0])
+        for prior, prior_capability, _score in state.assignments
+    )
+
+
 def _accord_lead(
     role: SemanticRole,
     state: "_BeamState",
@@ -622,12 +719,22 @@ def _allowed(
     if capability.group == "citrus" and groups.get("citrus", 0) >= 2:
         if role.exact_material is None and role.role_id != "persistent_identity":
             return False
+    backing = _backing(capability, role, state)
     family = _family_bucket(capability)
     if (
         family is not None
         and family not in {"citrus", "musk"}
         and groups.get(f"family:{family}", 0) >= 1
         and role.exact_material is None
+        # A backing molecule shares its natural lead's family.  Besides the
+        # lead and the stocks the user named, the composer adds no other
+        # stock of that family.
+        and not (backing and not any(
+            _family_bucket(prior_capability) == family
+            and prior.exact_material is None
+            and prior.role_id != accord_lead_role_id(role)
+            for prior, prior_capability, _score in state.assignments
+        ))
     ):
         # Permit layered iris only for separately reviewed recognizer/texture
         # slots. Generic coverage still cannot accumulate family duplicates.
@@ -651,7 +758,7 @@ def _allowed(
         and _ifra_binds_layer(capability, role)
     ):
         return False
-    if role.provenance == ACCORD_SUPPORT_PROVENANCE:
+    if role.provenance == ACCORD_SUPPORT_PROVENANCE and not backing:
         lead = _accord_lead(role, state)
         if not _supports_accord(capability, role, lead[0] if lead else None):
             return False
@@ -909,7 +1016,8 @@ def _rank_for_state(
         (
             score
             + _pair_adjustment(capability, selected)
-            + _accord_affinity(capability, role, state),
+            + _accord_affinity(capability, role, state)
+            + (_BACKING_BONUS if _backing(capability, role, state) else 0.0),
             capability,
         )
         for score, capability in unary_ranked
@@ -925,8 +1033,13 @@ def _rank_for_state(
     lead = _accord_lead(role, state)
     if lead is not None and role.exact_material is None:
         # A support never outscores its lead: otherwise the summed objective
-        # prefers a weak lead with the strongest match demoted to support.
-        ranked = [row for row in ranked if row[0] <= lead[1]]
+        # prefers a weak lead with the strongest match demoted to support.  A
+        # backing molecule is held at its lead's score instead of dropped.
+        ranked = [
+            (min(row[0], lead[1]), row[1])
+            for row in ranked
+            if row[0] <= lead[1] or _backing(row[1], role, state)
+        ]
     ranked.sort(key=lambda row: _rank_key(row, role, variant_index, liking))
     return ranked if role.exact_material is not None else ranked[:10]
 
