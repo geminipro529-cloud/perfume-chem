@@ -19,6 +19,7 @@ from typing import Any, Iterable, Mapping, Sequence
 
 from engine.formulation_intelligence.contracts import EvidenceClass, ProvenanceRef
 from engine.formulation_intelligence.literature_knowledge import retrieve_formulation_knowledge
+from engine.formulation_intelligence.note_phrases import translate_note_phrases
 from engine.formulation_intelligence.target_compiler import (
     AbstractionLevel,
     TargetAcceptance,
@@ -31,6 +32,7 @@ from engine.formulation_intelligence.target_compiler import (
     TemporalTransformation,
     compile_target_intent,
 )
+from engine.research.request_interpretation import plain_stock_name
 
 
 def _clean(value: object) -> str:
@@ -167,6 +169,17 @@ _LITERATURE_FACETS = {
     "violet_powder": FacetDefinition("violet_powder", ("violet",), ("violet petal recognizer", "beta ionone", "alpha ionone", "violet", "powder"), "heart", "character", (("powdery", .8), ("floral", .4)), .10, .18, "violet petal recognizer"),
     "violet_leaf": FacetDefinition("violet_leaf", ("violet leaf", "violet leaves"), ("violet leaf absolute", "parmavert", "violet leaf", "leaf"), "top", "character", (("green", .8), ("freshness", .3)), .04, .10),
 }
+
+
+def facet_trigger_phrases() -> frozenset[str]:
+    """Every phrase that calls up a brief facet of its own, lower-cased."""
+    return frozenset(
+        trigger.casefold()
+        for facet in (*_FACETS, *_LITERATURE_FACETS.values(), _IRIS_TEXTURE)
+        for trigger in facet.triggers
+    )
+
+
 # Requested identities that descriptor words cannot separate: AIMI and orris
 # both carry "iris", so these name words come from the stock's own identity.
 # "ionone" is a different word, so ionones stay distinct from irone/orris.
@@ -699,6 +712,11 @@ def _note_layers(
     return tuple(layers)
 
 
+def _named_as_note_only(material: str, request_key: str) -> bool:
+    plain = plain_stock_name(material)
+    return bool(plain) and _phrase_present(request_key, plain) and not _phrase_present(request_key, material)
+
+
 def _roles(
     *,
     formula_name: str,
@@ -738,7 +756,13 @@ def _roles(
 
     filled_knowledge_slots: set[str] = set()
     request_key = f" {_key(f'{formula_name} {request}')} "
-    explicit_keys = tuple(f" {_key(material)} " for material in explicit_materials)
+    # A stock the brief names only as its note ("pink pepper" for Pink Pepper
+    # EO) is the note's lead, not the whole note: its facet still adds support.
+    explicit_keys = tuple(
+        f" {_key(material)} "
+        for material in explicit_materials
+        if not _named_as_note_only(material, request_key)
+    )
     for facet in facets:
         if len(roles) >= maximum:
             break
@@ -1081,17 +1105,22 @@ def compile_semantic_brief(
     avoid = tuple(str(item) for item in interpretation.get("must_avoid", ()))
     preserve = tuple(str(item) for item in interpretation.get("must_preserve", ()))
     explicit = tuple(str(item) for item in interpretation.get("explicit_materials", ()))
-    positive_semantic_text = _mask_avoided_phrases(f"{name} {raw}", avoid)
+    # French note words in the name or brief are read as their English notes
+    # ("Baie Rose" is pink pepper, not rose); the user's text is kept as written.
+    reading_name, reading_raw = translate_note_phrases(name), translate_note_phrases(raw)
+    positive_semantic_text = _mask_avoided_phrases(f"{reading_name} {reading_raw}", avoid)
     requested_fruits = _requested_fruits(positive_semantic_text)
     # Separate fields are separate clauses. A negation in a diagnostic title
     # must not consume the user's entire following brief. Explicit avoid terms
     # still mask both fields in the shared retrieval function.
-    knowledge_context = retrieve_formulation_knowledge(f"{name}; {raw}", avoid=avoid)
+    knowledge_context = retrieve_formulation_knowledge(
+        f"{reading_name}; {reading_raw}", avoid=avoid
+    )
     facets = _matched_facets(positive_semantic_text, avoid, knowledge_context)
     qualifiers = _qualifier_weights(positive_semantic_text, avoid)
     expression_terms = _dedupe(
         [*requested_fruits, *(facet.facet_id.replace("_", " ") for facet in facets), *preserve]
-        or _source_tokens(f"{name} {raw}")[:6]
+        or _source_tokens(f"{reading_name} {reading_raw}")[:6]
     )
     family_neighborhoods = _dedupe(
         f"{facet.note} {facet.facet_id.replace('_', ' ')}"
@@ -1100,8 +1129,8 @@ def compile_semantic_brief(
     protected = _dedupe((*preserve, *explicit, *requested_fruits, *expression_terms[:2]))
     forbidden = _dedupe((*avoid, "anonymous generic perfume drift"))
     roles = _roles(
-        formula_name=name,
-        request=raw,
+        formula_name=reading_name,
+        request=reading_raw,
         facets=facets,
         explicit_materials=explicit,
         qualifier_weights=qualifiers,

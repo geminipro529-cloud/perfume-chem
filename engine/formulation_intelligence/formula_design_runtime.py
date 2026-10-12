@@ -26,6 +26,7 @@ from engine.formulation_intelligence.literature_knowledge import retrieve_formul
 from engine.formulation_intelligence.material_capability_index import (
     build_material_capability_index,
 )
+from engine.formulation_intelligence.note_phrases import translate_note_phrases
 from engine.formulation_intelligence.pleasantness import (
     attach_pleasantness_estimate,
     simulate_report_formulas,
@@ -716,7 +717,7 @@ def design_formula(
         )
         return _with_runtime_metadata(legacy, brief=None, design_mode=design_mode)
 
-    design_text = " ".join((name, *conversation_context, clean_idea))
+    design_text = translate_note_phrases(" ".join((name, *conversation_context, clean_idea)))
     brief = compile_semantic_brief(
         formula_name=name,
         request=" ".join((*conversation_context, clean_idea)),

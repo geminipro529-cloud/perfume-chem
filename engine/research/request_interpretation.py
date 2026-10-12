@@ -12,6 +12,7 @@ from __future__ import annotations
 import re
 from dataclasses import asdict, dataclass
 from decimal import Decimal, InvalidOperation
+from functools import lru_cache
 from typing import Any, Iterable, Literal, Sequence
 
 from .contracts import FALSE_ACTION_AUTHORITY, stable_payload_hash
@@ -211,22 +212,67 @@ def positive_reference_text(text: str) -> str:
     return _masked_text(text, spans)
 
 
+_FORM_SUFFIX_RE = re.compile(
+    r"(?:\s+(?:essential\s+oil|eo|oil|absolute|abs|co2(?:\s+extract)?|extract|"
+    r"resinoid|concrete|tincture|base))+$",
+    re.I,
+)
+
+
+def plain_stock_name(name: str) -> str:
+    """A stock name as people say it: "Pink Pepper EO (Schinus molle)" -> "pink pepper".
+
+    Parentheses, a written strength and trailing form words (EO, Absolute, CO2,
+    Resinoid, Base...) go. Only a plain name of two or more words is used, so a
+    lone note word ("rose", "orange") keeps going through the brief's facets.
+    """
+    plain = re.sub(r"\([^)]*\)?", " ", name)
+    plain = re.sub(r"\s+\d+(?:\.\d+)?\s*%.*$", "", plain)
+    plain = " ".join(plain.split())
+    plain = _FORM_SUFFIX_RE.sub("", plain).strip()
+    return plain.casefold() if len(plain.split()) >= 2 and plain.casefold() != name.casefold() else ""
+
+
+@lru_cache(maxsize=1)
+def _facet_phrases() -> frozenset[str]:
+    # Imported here: the brief compiler is a later stage that this parser must
+    # not load at import time.
+    from engine.formulation_intelligence.semantic_brief_adapter import facet_trigger_phrases
+
+    return facet_trigger_phrases()
+
+
 def _matched_names(text: str, names: Sequence[str]) -> tuple[str, ...]:
     # Longest-first span claiming prevents a short identity (for example
     # ``Ambrox Super``) from duplicating an exact product/form mention (for
     # example ``Ambrox Super Crystals``) at the same text position.
     claimed: list[tuple[int, int]] = []
     matched: list[str] = []
-    for name in sorted(names, key=lambda item: (-len(item), item.casefold())):
-        hits = tuple(re.finditer(rf"(?<!\w){re.escape(name)}(?!\w)", text, re.I))
+
+    def claim(pattern: str) -> bool:
         accepted = False
-        for hit in hits:
+        for hit in re.finditer(rf"(?<!\w){pattern}(?!\w)", text, re.I):
             span = hit.span()
             if any(span[0] < end and start < span[1] for start, end in claimed):
                 continue
             claimed.append(span)
             accepted = True
-        if accepted:
+        return accepted
+
+    for name in sorted(names, key=lambda item: (-len(item), item.casefold())):
+        if claim(re.escape(name)):
+            matched.append(name)
+    # A stock named the way people say it ("pink pepper" for Pink Pepper EO).
+    # A phrase that calls up a brief facet of its own ("violet leaf", "orange
+    # blossom") stays with that facet, which places the note with its support.
+    facet_phrases = _facet_phrases()
+    by_plain: dict[str, str] = {}
+    for name in sorted(names, key=lambda item: (item.islower(), len(item), item)):
+        plain = plain_stock_name(name)
+        if plain and plain not in facet_phrases:
+            by_plain.setdefault(plain, name)
+    for plain, name in sorted(by_plain.items(), key=lambda kv: (-len(kv[0]), kv[0])):
+        if claim(r"\s+".join(re.escape(word) for word in plain.split())):
             matched.append(name)
     known_by_key = {name.casefold(): name for name in names}
     for alias, canonical in _MATERIAL_ALIASES.items():
@@ -246,8 +292,9 @@ def _split_constraint_values(value: str) -> tuple[str, ...]:
         return ()
     if "," not in clean and not re.search(r"\s+(?:or|nor)\s+", clean, re.I):
         return (clean,)
+    # "No vanilla, no sweetness" lists two avoids; the second keeps no "no".
     return _dedupe(
-        re.sub(r"^(?:and|or|nor|any)\s+", "", part.strip(), flags=re.I)
+        re.sub(r"^(?:and|or|nor|any|no|not)\s+", "", part.strip(), flags=re.I)
         for part in re.split(r"\s*,\s*|\s+(?:or|nor)\s+", clean, flags=re.I)
     )
 
