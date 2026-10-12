@@ -129,12 +129,16 @@ def _card(name=50.0, craft=50.0, valence=0.2, dq=False, held=()) -> dict:
         (_card(name=50), _card(name=90, held=("F2_ifra",)), "REFERENCE_AHEAD_HELD", "3_name"),
         (_card(held=("F3_pre_mix_guard",)), _card(), "REFERENCE_WINS", "2_floor_holds"),
         (_card(name=50, held=("F1_owned_stock",)), _card(name=90), "REFERENCE_WINS", "3_name"),
+        # A held side never wins, even when the other side holds too or fails a floor.
         (_card(name=90, held=("F1_owned_stock",)), _card(name=50, held=("F2_ifra",)),
-         "ENGINE_WINS", "3_name"),
-        (_card(name=90, held=("F1_owned_stock",)), _card(dq=True), "ENGINE_WINS", "2_floors"),
+         "ENGINE_AHEAD_HELD", "3_name"),
+        (_card(name=90, held=("F1_owned_stock",)), _card(dq=True), "ENGINE_AHEAD_HELD",
+         "2_floors"),
+        (_card(dq=True), _card(held=("F1_owned_stock",)), "REFERENCE_AHEAD_HELD", "2_floors"),
+        (_card(held=("F1_owned_stock",)), _card(held=("F2_ifra",)), "TIE", "6_tie"),
     ],
 )
-def test_a_floor_hold_never_wins_against_a_clean_side(engine, reference, verdict, step):
+def test_a_side_holding_a_floor_never_wins(engine, reference, verdict, step):
     v = ys.duel_verdict(engine, reference)
     assert (v["verdict"], v["deciding_step"]) == (verdict, step)
 
@@ -262,6 +266,33 @@ def test_same_inventory_txt_material_holds_alike_from_engine_and_reference_rows(
     assert engine_f1["status"] == reference_f1["status"] == "HOLD", (engine_f1, reference_f1)
     # A strength above every owned stock can't be prepared: hard on both sides.
     assert _real_f1(_row("Damascol", "50", "0.5"))["status"] == "FAIL"
+
+
+# inventory.txt: Adoxal 10% DPG, Calone 1% DPG, Methyl Pamplemousse 10% w/w ethanol,
+# Ambrox Super 25% w/w and Ambrox Super Crystals (neat solid), Heliotropal neat (the gate's
+# list records Heliotropal 10% w/w DPG as preparation_required).
+@pytest.mark.parametrize(
+    ("row", "status"),
+    [
+        # Another carrier or basis than the owned stock's is a stock the user lacks.
+        (_row("Adoxal", "30", "0.1", carrier="ethanol"), "FAIL"),
+        (_row("Calone", "30", "0.01", carrier="ethanol"), "FAIL"),
+        (_row("Methyl Pamplemousse", "30", "0.1", fraction_basis="volume_fraction",
+              carrier="ethanol"), "FAIL"),
+        # Diluting the DPG stock with ethanol gives a mixed carrier, not the row's.
+        (_row("Adoxal", "30", "0.05", carrier="ethanol"), "FAIL"),
+        (_row("Adoxal", "30", "0.05", carrier="DPG"), "HOLD"),
+        (_row("Adoxal", "30", "0.05"), "HOLD"),
+        # Crystals dissolve only so far: nothing above the strongest owned dilution.
+        (_row("Ambrox Super", "30", "0.5", fraction_basis="mass_fraction"), "FAIL"),
+        (_row("Ambrox Super", "30", "0.1", fraction_basis="mass_fraction"), "HOLD"),
+        # The gate's own list says this stock is prepared at the bench.
+        (_row("Heliotropal", "30", "0.1", fraction_basis="mass_fraction", carrier="DPG"),
+         "HOLD"),
+    ],
+)
+def test_stock_holds_respect_carrier_basis_and_solids(row: dict, status: str) -> None:
+    assert _real_f1(row)["status"] == status
 
 
 def test_unreadable_rows_hold_the_stock_floor_and_are_named() -> None:

@@ -180,7 +180,9 @@ def _gate_record(formula: Mapping[str, Any]) -> dict[str, Any]:
         active[name] = active.get(name, 0.0) + amount * fraction
         spec = {
             "fraction": fraction,
-            "fraction_basis": str(row.get("fraction_basis") or ("neat" if fraction == 1.0 else "")),
+            "fraction_basis": str(
+                row.get("fraction_basis") or ("neat" if fraction == 1.0 else "unspecified")
+            ),
             "carrier": str(row.get("carrier") or ""),
             "approximate": False,
             "declared": True,
@@ -293,12 +295,19 @@ def _gate_call(fn: Callable[[], Any]) -> tuple[str, str, dict]:
 # Stock-contract reasons where the gate's stock list lacks the material or disagrees with
 # the row (preflight _dilution_consistency_check). Formula defects (no, invalid or
 # conflicting stock fraction) are not here: they are hard whatever inventory.txt says.
+# Nor are carrier and basis mismatches: the stock lists record carrier and basis, so a
+# row asking for another carrier or basis names a stock the user does not have.
 _GATE_DISAGREEMENT_REASONS = frozenset({
     "stock_id_not_in_current_inventory", "not_in_inventory", "inventory_gap",
     "inventory_stock_unavailable", "inventory_stock_metadata_incomplete",
-    "inventory_stock_non_executable", "preparation_required", "stock_fraction_mismatch",
-    "stock_fraction_basis_mismatch", "stock_carrier_mismatch", "ambiguous_live_stock",
+    "inventory_stock_non_executable", "stock_fraction_mismatch", "ambiguous_live_stock",
 })
+
+# The gate's own stock list says this stock is made at the bench from an owned stock.
+_GATE_PREPARABLE_REASONS = frozenset({"preparation_required"})
+
+# As engine/personal_inventory.py: a stock whose name or form says it is a solid.
+_SOLID_MARKERS = ("crystal", "powder", "solid", "flakes")
 
 
 @functools.lru_cache(maxsize=1)
@@ -328,21 +337,62 @@ def _inventory_txt_owned() -> dict[str, tuple[Any, ...]]:
     return {k: tuple(v) for k, v in index.items()}
 
 
-def _owned_on_inventory_txt(material: str, fraction: float | None) -> bool:
-    """Whether inventory.txt owns ``material`` at ``fraction`` (the gate's tolerance)."""
+def _inventory_txt_stocks(material: str) -> list[Any]:
+    """inventory.txt's owned stocks of ``material`` (alias crosswalk applied)."""
     from engine.inventory_parser import load_current_inventory_alias_crosswalk
-    from engine.pipeline.preflight import _same_stock_fraction
 
-    if fraction is None:
-        return False
     keys = {normalize_name(material)}
     alias = load_current_inventory_alias_crosswalk().resolve(material)
     if alias:
         keys.add(normalize_name(alias.destination))
     index = _inventory_txt_owned()
+    seen: dict[int, Any] = {}
+    for key in keys:
+        for s in index.get(key, ()):
+            seen.setdefault(id(s), s)
+    return list(seen.values())
+
+
+def _known(value: Any) -> str:
+    text = str(value or "").strip()
+    return "" if text.casefold() in {"", "unspecified"} else text
+
+
+def _basis_compatible(spec: Mapping[str, Any], stock: Any) -> bool:
+    """The gate's rule: two known fraction bases must be equal."""
+    row, owned = _known(spec.get("fraction_basis")), _known(stock.fraction_basis)
+    return not (row and owned and row != owned)
+
+
+def _carrier_compatible(spec: Mapping[str, Any], stock: Any) -> bool:
+    """The gate's rule: two known carriers must be equal."""
+    row, owned = normalize_name(_known(spec.get("carrier"))), normalize_name(_known(stock.carrier))
+    return not (row and owned and row != owned)
+
+
+def _is_solid(stock: Any) -> bool:
+    probe = " ".join(
+        str(getattr(stock, f, "") or "")
+        for f in ("physical_form", "raw_name", "name", "identity_name")
+    ).casefold()
+    return any(marker in probe for marker in _SOLID_MARKERS)
+
+
+def _owned_on_inventory_txt(
+    material: str, fraction: float | None, spec: Mapping[str, Any] | None = None
+) -> bool:
+    """Whether inventory.txt owns ``material`` at ``fraction`` (the gate's tolerance) in a
+    carrier and fraction basis compatible with the row's."""
+    from engine.pipeline.preflight import _same_stock_fraction
+
+    if fraction is None:
+        return False
+    spec = spec or {}
     return any(
         _same_stock_fraction(float(fraction), float(s.dilution))
-        for key in keys for s in index.get(key, ())
+        and _basis_compatible(spec, s)
+        and _carrier_compatible(spec, s)
+        for s in _inventory_txt_stocks(material)
     )
 
 
@@ -358,33 +408,53 @@ def _issue_holdable(
     alone = {**check, "data": {**dict(check.get("data") or {}), "issues": [dict(issue)]}}
     if _classify_preflight_check(alone)[0] == "HOLD":
         return True  # the gate's own classifier: missing data only
-    if issue.get("reason") not in _GATE_DISAGREEMENT_REASONS:
+    if issue.get("reason") not in _GATE_DISAGREEMENT_REASONS | _GATE_PREPARABLE_REASONS:
         return False
     if any(USER_COMPOUNDING_HOLD in str(h) for h in issue.get("execution_holds", []) or []):
         return False
+    if issue.get("reason") in _GATE_PREPARABLE_REASONS:
+        return True
     material = str(issue.get("material", ""))
     fraction = (record.get("dilutions") or {}).get(material)
-    return _owned_on_inventory_txt(material, fraction) or _preparable_from_inventory_txt(
-        material, fraction
+    spec = dict((record.get("stock_specs") or {}).get(material) or {})
+    return _owned_on_inventory_txt(material, fraction, spec) or _preparable_from_inventory_txt(
+        material, fraction, spec
     )
 
 
-def _preparable_from_inventory_txt(material: str, fraction: float | None) -> bool:
-    """Whether inventory.txt owns ``material`` stronger than ``fraction``, so the row's
-    stock is one dilution away (a bench step, e.g. a 10% from the neat bottle): a hold,
-    not a material the user lacks."""
-    from engine.inventory_parser import load_current_inventory_alias_crosswalk
+def _preparable_from_inventory_txt(
+    material: str, fraction: float | None, spec: Mapping[str, Any] | None = None
+) -> bool:
+    """Whether the row's stock is one bench dilution away from an owned stock: a hold, not
+    a material the user lacks.
 
+    The source must be stronger than ``fraction`` and either neat (diluted into the row's
+    carrier) or a dilution in the row's own carrier, in a compatible fraction basis
+    (diluting a DPG stock with ethanol gives a mixed carrier, not the row's). A solid
+    cannot be dissolved to any strength, so it counts only up to the strongest dilution of
+    the material the user already owns.
+    """
     if fraction is None or float(fraction) <= 0:
         return False
-    keys = {normalize_name(material)}
-    alias = load_current_inventory_alias_crosswalk().resolve(material)
-    if alias:
-        keys.add(normalize_name(alias.destination))
-    index = _inventory_txt_owned()
-    return any(
-        float(s.dilution) > float(fraction) + 1e-9 for key in keys for s in index.get(key, ())
+    spec = spec or {}
+    target = float(fraction)
+    stocks = _inventory_txt_stocks(material)
+    row_carrier = normalize_name(_known(spec.get("carrier")))
+    liquid_ceiling = max(
+        (float(s.dilution) for s in stocks if float(s.dilution) < 1.0), default=0.0
     )
+    for s in stocks:
+        strength = float(s.dilution)
+        if strength <= target + 1e-9 or not _basis_compatible(spec, s):
+            continue
+        if strength < 1.0:
+            owned_carrier = normalize_name(_known(s.carrier))
+            if row_carrier and owned_carrier != row_carrier:
+                continue
+        if _is_solid(s) and target > liquid_ceiling + 1e-9:
+            continue
+        return True
+    return False
 
 
 def _f1_stock(stock_contract: Any, record: Mapping[str, Any]) -> dict[str, Any]:
@@ -825,26 +895,26 @@ def duel_verdict(engine_card: Scorecard, reference_card: Scorecard | None) -> Ve
     if e_dq and r_dq:
         return out("BOTH_DISQUALIFIED", "2_floors", "both sides fail a floor")
     if e_dq or r_dq:
-        return out("REFERENCE_WINS" if e_dq else "ENGINE_WINS", "2_floors",
-                   ("engine" if e_dq else "reference") + " fails a floor")
-    verdict, step, detail = _compare_scores(engine_card, reference_card)
+        verdict, step, detail = (
+            "REFERENCE_WINS" if e_dq else "ENGINE_WINS", "2_floors",
+            ("engine" if e_dq else "reference") + " fails a floor",
+        )
+    else:
+        verdict, step, detail = _compare_scores(engine_card, reference_card)
+    # Rule 4: a HOLD is never a pass, so a side holding any floor never wins: it is only
+    # "ahead, held", whether it got ahead on scores or because the other side failed.
+    held_text = "; ".join(
+        f"{side} holds {', '.join(holds[side])}" for side in ("engine", "reference") if holds[side]
+    )
+    for side in ("ENGINE", "REFERENCE"):
+        if verdict == f"{side}_WINS" and holds[side.lower()]:
+            return out(f"{side}_AHEAD_HELD", step,
+                       f"{detail}; {held_text}, so {side.lower()} cannot win")
     e_held, r_held = bool(holds["engine"]), bool(holds["reference"])
-    if e_held != r_held:
-        # Rule 4: a HOLD is never a pass. The clean side wins when ahead or level; a held
-        # side that would win is only "ahead, held", never a win.
-        held, clean = ("ENGINE", "REFERENCE") if e_held else ("REFERENCE", "ENGINE")
-        held_floors = ", ".join(holds[held.lower()])
-        if verdict == f"{held}_WINS":
-            return out(f"{held}_AHEAD_HELD", step,
-                       f"{detail}; {held.lower()} holds {held_floors}, so it cannot win")
-        if verdict == "TIE":
-            return out(f"{clean}_WINS", "2_floor_holds",
-                       f"level on every step; {held.lower()} holds {held_floors}")
-        return out(verdict, step, f"{detail}; {held.lower()} also holds {held_floors}")
-    if e_held and r_held:
-        detail += (f"; both sides hold floors (engine: {', '.join(holds['engine'])}; "
-                   f"reference: {', '.join(holds['reference'])})")
-    return out(verdict, step, detail)
+    if verdict == "TIE" and e_held != r_held:
+        return out("REFERENCE_WINS" if e_held else "ENGINE_WINS", "2_floor_holds",
+                   f"level on every step; {held_text}")
+    return out(verdict, step, f"{detail}; {held_text}" if held_text else detail)
 
 
 def _floor_holds(card: Scorecard) -> list[str]:

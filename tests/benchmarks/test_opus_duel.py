@@ -10,11 +10,12 @@ opt-in (it composes 34 formulas):
   resolves from the repo root. A missing reference file scores the brief engine-only
   (verdict NO_REFERENCE).
 - ``OPUS_DUEL_REPORT=<path>`` writes the JSON (cards, verdicts, closeness, timings) to a
-  path outside the repo (the repo is public); the reference card's rows are left out.
+  path outside the repo (the repo is public); the reference card's rows, per-material
+  amounts and unreadable-row text are left out.
 - ``OPUS_DUEL_WRITE_BASELINE=1`` writes ``data/benchmarks/opus_duel_baseline_<mode>.json``
   (verdicts and scores only: no material names, amounts or closeness); otherwise the run is
   compared to that file when it exists. Writing refuses ``OPUS_DUEL_ONLY`` (a partial
-  baseline). A reference the baseline scored must still score when the references root is
+  baseline) and an absent references root (a baseline with no reference scored). A reference the baseline scored must still score when the references root is
   present; with the root absent, reference comparisons are skipped and a line says so.
 
 DEEP_COMPOSE returns up to three variants in ``result["design_variants"][i]["formula"]``;
@@ -321,6 +322,35 @@ def _git_commit() -> str:
         return "unknown"
 
 
+def _report_run(run: dict) -> dict:
+    """A run as written to the report. Reference formulas are private: their scores,
+    floors and holds stay; their rows, per-material amounts (diagnostics, closeness) and
+    unreadable-row text go."""
+    ref, near = run["reference"], run["closeness"]
+    if ref is not None:
+        floors = {}
+        for fid, floor in ref["floors"].items():
+            floor = dict(floor)
+            blocked = floor.pop("blocked_rows", None)
+            if blocked:
+                floor["detail"] = (f"{len(blocked)} row(s) could not be read "
+                                   "(text withheld: private formula)")
+            floors[fid] = floor
+        holds = [  # a floor's hold repeats its detail
+            {**h, "detail": floors[h["source"]]["detail"]} if h.get("source") in floors else h
+            for h in ref.get("holds", [])
+        ]
+        ref = {**{k: v for k, v in ref.items() if k not in {"rows", "diagnostics"}},
+               "floors": floors, "holds": holds}
+    if near is not None:
+        near = {**{k: v for k, v in near.items()
+                   if k not in {"basis", "reference_top5_by_active_amount"}},
+                "reference_top5_materials": [
+                    {k: v for k, v in item.items() if k != "active_amount"}
+                    for item in near["reference_top5_by_active_amount"]]}
+    return {**run, "reference": ref, "closeness": near}
+
+
 def _summary_line(bid: str, run: dict) -> str:
     v, eng, ref = run["verdict"], run["engine"], run["reference"]
     ref_part = (f"ref name={ref['name_score']:6.2f} craft={ref['craft_score']:6.2f}"
@@ -348,6 +378,9 @@ def test_opus_duel():
         pytest.fail(f"OPUS_DUEL_REPORT {report_path} is inside the repo (public): "
                     "write it outside the repo")
     references_present = root.is_dir()
+    if write_baseline and not references_present:
+        pytest.fail(f"OPUS_DUEL_WRITE_BASELINE=1 with the references root {root} absent would "
+                    "write a baseline with no reference scored: set OPUS_DUEL_REFERENCES")
     if not references_present:
         print(f"references root {root} is absent: reference comparisons skipped")
     runs: dict[str, dict] = {}
@@ -366,10 +399,7 @@ def test_opus_duel():
 
     commit = _git_commit()
     if report_path:
-        # Reference formulas are private: keep their scores, floors and holds, not rows.
-        briefs = {bid: {**run, "reference": None if run["reference"] is None else {
-            k: v for k, v in run["reference"].items() if k != "rows"}}
-            for bid, run in runs.items()}
+        briefs = {bid: _report_run(run) for bid, run in runs.items()}
         Path(report_path).write_text(json.dumps(
             {"mode": mode, "commit": commit, "references_root": str(root),
              "total_seconds": total_s, "briefs": briefs}, indent=1, sort_keys=True),
@@ -389,6 +419,29 @@ def test_opus_duel():
         baseline = {k: v for k, v in baseline.items() if k in only}
     problems = _compare(baseline, current, references_present)
     assert not problems, "\n".join(problems)
+
+
+def test_report_drops_reference_amounts_and_row_text():
+    from engine.formulation_intelligence.yardstick import closeness, score_formula
+
+    secret = "line 9: '| Orris Givco 204 | 37 uL |' unread"
+    ref = {"name": "private", "batch_volume_ml": 30.0, "row_parse_blockers": [secret], "rows": [
+        {"material": m, "amount": a, "unit": "uL", "active_fraction": "1"}
+        for m, a in (("Linalool", "123"), ("Hedione", "456"), ("Iso E Super", "789"))]}
+    brief = {"id": "t", "family": "floral", "named_notes": [], "excluded_notes": [],
+             "family_core_groups": []}
+    card = score_formula(ref, brief)
+    run = {"engine": card, "reference": card, "closeness": closeness(ref, ref),
+           "verdict": {}, "timing": {}}
+
+    report = _report_run(run)
+    raw, text = json.dumps([run["reference"], run["closeness"]]), json.dumps(
+        [report["reference"], report["closeness"]])
+
+    for leaked in (secret, "Orris Givco", "456", "active_amount", "active_ul"):
+        assert leaked in raw and leaked not in text, leaked
+    assert report["reference"]["floors"]["F1_owned_stock"]["status"] == "HOLD"
+    assert report["engine"] is card  # the engine's own formula is not private
 
 
 def test_compare_flags_regressions():
