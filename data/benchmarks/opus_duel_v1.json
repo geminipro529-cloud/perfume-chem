@@ -1,0 +1,1953 @@
+{
+ "version": 1,
+ "duel": [
+  {
+   "id": "violette-imperiale-r1",
+   "name": "Violette Imperiale R1",
+   "idea": "A hedonic iris-orris-violet musk perfume that unmistakably smells of violet and iris: luxurious, deep and layered, with good performance and projection.",
+   "idea_source": "studio/iris-violet/Iris_Violet_Musk_directions.md:3",
+   "family": "IRIS / POWDERY / VIOLET",
+   "family_source": "docs/fragrance_families_reference.md:609-612",
+   "family_note": "Galbanum is not owned stock, so that group is omitted",
+   "named_notes": [
+    {
+     "name": "violet",
+     "window": "heart",
+     "materials": [
+      "ionone"
+     ]
+    },
+    {
+     "name": "iris",
+     "window": "heart",
+     "materials": [
+      "irone",
+      "orris"
+     ]
+    },
+    {
+     "name": "musk",
+     "window": "drydown",
+     "materials": [
+      "habanolide",
+      "galaxolide",
+      "ambrettolide",
+      "brassylate",
+      "exaltolide",
+      "helvetolide",
+      "romandolide",
+      "zenolide"
+     ]
+    }
+   ],
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "alpha irone"
+    ],
+    [
+     "irotyl"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "ambrette"
+    ]
+   ],
+   "precious_caps": {
+    "givco": 100
+   },
+   "reference": {
+    "path": "studio/iris-violet/gate/Violette_Imperiale_R1_30mL_EDP.md",
+    "parent": null,
+    "parent_note": "first version: no parent"
+   },
+   "concentrate_ul": 5370
+  },
+  {
+   "id": "violette-imperiale-r2",
+   "name": "Violette Imperiale R2",
+   "idea": "A hedonic iris-orris-violet musk perfume, unmistakably violet-iris, luxurious, deep and layered, with strong projection; violet from the first spray, the name leading harder, more musk.",
+   "idea_source": "studio/iris-violet/Iris_Violet_Musk_directions.md:3 + studio/iris-violet/Violette_Imperiale_R2_30mL_bench_card.md:3",
+   "family": "IRIS / POWDERY / VIOLET",
+   "family_source": "docs/fragrance_families_reference.md:609-612",
+   "family_note": "Galbanum is not owned stock, so that group is omitted",
+   "named_notes": [
+    {
+     "name": "violet",
+     "window": "opening",
+     "materials": [
+      "violet leaf",
+      "ionone"
+     ]
+    },
+    {
+     "name": "iris",
+     "window": "heart",
+     "materials": [
+      "irone",
+      "orris"
+     ]
+    },
+    {
+     "name": "musk",
+     "window": "drydown",
+     "materials": [
+      "habanolide",
+      "galaxolide",
+      "ambrettolide",
+      "brassylate",
+      "exaltolide",
+      "helvetolide",
+      "romandolide",
+      "zenolide"
+     ]
+    }
+   ],
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "alpha irone"
+    ],
+    [
+     "irotyl"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "ambrette"
+    ]
+   ],
+   "precious_caps": {
+    "givco": 100
+   },
+   "reference": {
+    "path": "studio/iris-violet/gate/Violette_Imperiale_R2_30mL_EDP.md",
+    "parent": "studio/iris-violet/gate/Violette_Imperiale_R1_30mL_EDP.md",
+    "parent_note": "R2 supersedes R1"
+   },
+   "concentrate_ul": 5990
+  },
+  {
+   "id": "baie-rose-homme-r1",
+   "name": "Baie Rose Homme R1",
+   "idea": "A pink pepper signature perfume for a man: pink pepper the star, still there at hour six, over dry vetiver and cedar woods. No vanilla, no sweetness; dry, radiant, masculine.",
+   "idea_source": "studio/pink-pepper/Pink_Pepper_Signature_ideas.md:3 + studio/pink-pepper/Baie_Rose_Homme_R1_30mL_bench_card.md:3",
+   "family": "WOODS (TRANSPARENT / CLEAN WOODS)",
+   "family_source": "docs/fragrance_families_reference.md:249-252",
+   "named_notes": [
+    {
+     "name": "pink pepper",
+     "window": "opening",
+     "materials": [
+      "pink pepper"
+     ]
+    },
+    {
+     "name": "pepper-wood",
+     "window": "late_heart",
+     "materials": [
+      "black pepper",
+      "safraleine",
+      "cedramber"
+     ]
+    },
+    {
+     "name": "vetiver",
+     "window": "drydown",
+     "materials": [
+      "vetiver",
+      "vetival"
+     ]
+    }
+   ],
+   "excluded_notes": [
+    {
+     "name": "vanilla",
+     "materials": [
+      "vanill"
+     ]
+    }
+   ],
+   "family_core_groups": [
+    [
+     "bergamot",
+     "pepper"
+    ],
+    [
+     "guaiac"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "cedar"
+    ],
+    [
+     "ambrox",
+     "ambrofix"
+    ],
+    [
+     "iso e"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ]
+   ],
+   "precious_caps": {},
+   "reference": {
+    "path": "studio/pink-pepper/gate/Baie_Rose_Homme_R1_30mL_EDP.md",
+    "parent": null,
+    "parent_note": "first version: no parent"
+   },
+   "concentrate_ul": 5160
+  },
+  {
+   "id": "baie-rose-homme-r2",
+   "name": "Baie Rose Homme R2",
+   "idea": "Pink pepper signature for a man, the star from opening to hour six, refined: longer pepper echo, smoother vetiver-cedar woods. No vanilla, no sweetness; dry, radiant, masculine.",
+   "idea_source": "Refine it (user) + studio/pink-pepper/Baie_Rose_Homme_R2_30mL_bench_card.md:3",
+   "family": "WOODS (TRANSPARENT / CLEAN WOODS)",
+   "family_source": "docs/fragrance_families_reference.md:249-252",
+   "named_notes": [
+    {
+     "name": "pink pepper",
+     "window": "opening",
+     "materials": [
+      "pink pepper"
+     ]
+    },
+    {
+     "name": "pepper-wood",
+     "window": "late_heart",
+     "materials": [
+      "black pepper",
+      "safraleine",
+      "cedramber"
+     ]
+    },
+    {
+     "name": "vetiver",
+     "window": "drydown",
+     "materials": [
+      "vetiver",
+      "vetival"
+     ]
+    }
+   ],
+   "excluded_notes": [
+    {
+     "name": "vanilla",
+     "materials": [
+      "vanill"
+     ]
+    }
+   ],
+   "family_core_groups": [
+    [
+     "bergamot",
+     "pepper"
+    ],
+    [
+     "guaiac"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "cedar"
+    ],
+    [
+     "ambrox",
+     "ambrofix"
+    ],
+    [
+     "iso e"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ]
+   ],
+   "precious_caps": {},
+   "reference": {
+    "path": "studio/pink-pepper/gate/Baie_Rose_Homme_R2_30mL_EDP.md",
+    "parent": "studio/pink-pepper/gate/Baie_Rose_Homme_R1_30mL_EDP.md",
+    "parent_note": "R2 supersedes R1"
+   },
+   "concentrate_ul": 5380
+  },
+  {
+   "id": "baie-rose-homme-r3",
+   "name": "Baie Rose Homme R3",
+   "idea": "Pink pepper signature for a man, the star to hour six, refined with smoother woods and remade with Ambrocenide in the drydown. No vanilla, no sweetness; dry, radiant, masculine.",
+   "idea_source": "Remake it with ambrocenide (user) + studio/pink-pepper/Baie_Rose_Homme_R3_30mL_bench_card.md:3",
+   "family": "WOODS (TRANSPARENT / CLEAN WOODS)",
+   "family_source": "docs/fragrance_families_reference.md:249-252",
+   "named_notes": [
+    {
+     "name": "pink pepper",
+     "window": "opening",
+     "materials": [
+      "pink pepper"
+     ]
+    },
+    {
+     "name": "pepper-wood",
+     "window": "late_heart",
+     "materials": [
+      "black pepper",
+      "safraleine",
+      "cedramber"
+     ]
+    },
+    {
+     "name": "vetiver",
+     "window": "drydown",
+     "materials": [
+      "vetiver",
+      "vetival"
+     ]
+    },
+    {
+     "name": "dry amber-wood",
+     "window": "drydown",
+     "materials": [
+      "ambrocenide"
+     ]
+    }
+   ],
+   "excluded_notes": [
+    {
+     "name": "vanilla",
+     "materials": [
+      "vanill"
+     ]
+    }
+   ],
+   "family_core_groups": [
+    [
+     "bergamot",
+     "pepper"
+    ],
+    [
+     "guaiac"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "cedar"
+    ],
+    [
+     "ambrox",
+     "ambrofix"
+    ],
+    [
+     "iso e"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ]
+   ],
+   "precious_caps": {},
+   "reference": {
+    "path": "studio/pink-pepper/gate/Baie_Rose_Homme_R3_30mL_EDP.md",
+    "parent": "studio/pink-pepper/gate/Baie_Rose_Homme_R2_30mL_EDP.md",
+    "parent_note": "R3 supersedes R2"
+   },
+   "concentrate_ul": 5380
+  },
+  {
+   "id": "baie-rose-homme-r4",
+   "name": "Baie Rose Homme R4",
+   "idea": "Pink pepper the star of a dry, radiant masculine: deeper, more pink-pepper character from materials related to pink pepper, more hedonic; smooth woods, Ambrocenide. No vanilla.",
+   "idea_source": "studio/pink-pepper/Baie_Rose_Homme_R4_30mL_bench_card.md:3",
+   "family": "WOODS (TRANSPARENT / CLEAN WOODS)",
+   "family_source": "docs/fragrance_families_reference.md:249-252",
+   "named_notes": [
+    {
+     "name": "pink pepper",
+     "window": "opening",
+     "materials": [
+      "pink pepper"
+     ]
+    },
+    {
+     "name": "pepper-wood",
+     "window": "late_heart",
+     "materials": [
+      "black pepper",
+      "safraleine",
+      "cedramber"
+     ]
+    },
+    {
+     "name": "resinous depth",
+     "window": "late_heart",
+     "materials": [
+      "olibanum",
+      "elemi",
+      "frankincense"
+     ]
+    },
+    {
+     "name": "vetiver",
+     "window": "drydown",
+     "materials": [
+      "vetiver",
+      "vetival"
+     ]
+    }
+   ],
+   "excluded_notes": [
+    {
+     "name": "vanilla",
+     "materials": [
+      "vanill"
+     ]
+    }
+   ],
+   "family_core_groups": [
+    [
+     "bergamot",
+     "pepper"
+    ],
+    [
+     "guaiac"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "cedar"
+    ],
+    [
+     "ambrox",
+     "ambrofix"
+    ],
+    [
+     "iso e"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ]
+   ],
+   "precious_caps": {},
+   "reference": {
+    "path": "studio/pink-pepper/gate/Baie_Rose_Homme_R4_30mL_EDP.md",
+    "parent": "studio/pink-pepper/gate/Baie_Rose_Homme_R3_30mL_EDP.md",
+    "parent_note": "R4 supersedes R3"
+   },
+   "concentrate_ul": 6205
+  },
+  {
+   "id": "frangipani-ambre-r4",
+   "name": "Frangipani Ambre R4",
+   "idea": "Fresh frangipani on skin, creamy and a little apricot, then a modern ambery trail of ambergris, Iso E Super, benzoin and vanilla. Easy to wear.",
+   "idea_source": "studio/frangipani-ambre/Frangipani_Ambre_R4_30mL_bench_card.md:3",
+   "family": "FLORAL AMBER (FLORAL ORIENTAL)",
+   "family_source": "docs/fragrance_families_reference.md:142-145",
+   "named_notes": [
+    {
+     "name": "frangipani",
+     "window": "heart",
+     "materials": [
+      "frangipani",
+      "benzyl salicylate"
+     ]
+    },
+    {
+     "name": "creamy apricot",
+     "window": "late_heart",
+     "materials": [
+      "decalactone",
+      "undecalactone"
+     ]
+    },
+    {
+     "name": "amber",
+     "window": "drydown",
+     "materials": [
+      "ambrofix",
+      "ambrox",
+      "amber xtreme",
+      "benzoin",
+      "vanill"
+     ]
+    }
+   ],
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "rose",
+     "jasmin"
+    ],
+    [
+     "irone",
+     "orris",
+     "ionone"
+    ],
+    [
+     "labdanum"
+    ],
+    [
+     "vanill"
+    ],
+    [
+     "benzoin"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ]
+   ],
+   "precious_caps": {},
+   "reference": {
+    "path": "studio/frangipani-ambre/gate/Frangipani_Ambre_R4_30mL_EDP.md",
+    "parent": null,
+    "parent_note": "R3 parent is not on file under the references root; scored as a new formula"
+   },
+   "concentrate_ul": 5970
+  },
+  {
+   "id": "frangipani-soliflore-r1",
+   "name": "Frangipani Soliflore R1",
+   "idea": "One flower in full: fresh frangipani petals on skin, creamy, hint of apricot, deepened with orris butter, sandalwood and soft vanilla. Elegant, feminine, no citrus blast, no amber shout.",
+   "idea_source": "studio/frangipani-soliflore/Frangipani_Soliflore_R1_30mL_bench_card.md:3",
+   "family": "SINGLE FLORAL (SOLIFLORE)",
+   "family_source": "docs/fragrance_families_reference.md:66-71",
+   "family_note": "the doc gives core accords for rose, jasmine, iris and muguet only; no frangipani accord, so no family groups are scored",
+   "named_notes": [
+    {
+     "name": "frangipani",
+     "window": "opening",
+     "materials": [
+      "frangipani",
+      "benzyl salicylate"
+     ]
+    },
+    {
+     "name": "creamy apricot",
+     "window": "heart",
+     "materials": [
+      "decalactone",
+      "undecalactone"
+     ]
+    },
+    {
+     "name": "orris",
+     "window": "heart",
+     "materials": [
+      "orris",
+      "irone"
+     ]
+    },
+    {
+     "name": "sandalwood",
+     "window": "drydown",
+     "materials": [
+      "sandal",
+      "javanol"
+     ]
+    }
+   ],
+   "family_core_groups": [],
+   "precious_caps": {},
+   "reference": {
+    "path": "studio/frangipani-soliflore/gate/Frangipani_Soliflore_R1_30mL_EDP.md",
+    "parent": null,
+    "parent_note": "first version: no parent"
+   },
+   "concentrate_ul": 5130
+  },
+  {
+   "id": "pina-colada-profond-r1",
+   "name": "Pina Colada Profond R1",
+   "idea": "Ripe pineapple over coconut cream and dark vanilla, built deep on ambergris, benzoin, tonka and sandalwood; a projecting gourmand that fills a room, then settles into vanilla-amber.",
+   "idea_source": "studio/pina-colada/Pina_Colada_Profond_R1_30mL_bench_card.md:3",
+   "family": "GOURMAND",
+   "family_source": "docs/fragrance_families_reference.md:579-582",
+   "named_notes": [
+    {
+     "name": "pineapple",
+     "window": "opening",
+     "materials": [
+      "allyl cyclohexyl propionate",
+      "dynascone",
+      "ethyl 2-methylbutyrate"
+     ]
+    },
+    {
+     "name": "coconut",
+     "window": "heart",
+     "materials": [
+      "nonalactone",
+      "methyl laitone"
+     ]
+    },
+    {
+     "name": "vanilla",
+     "window": "drydown",
+     "materials": [
+      "vanill",
+      "isobutavan"
+     ]
+    },
+    {
+     "name": "amber",
+     "window": "drydown",
+     "materials": [
+      "ambrofix",
+      "benzoin",
+      "tonka"
+     ]
+    }
+   ],
+   "family_core_groups": [
+    [
+     "maltol"
+    ],
+    [
+     "bergamot",
+     "grapefruit"
+    ],
+    [
+     "heliotrop"
+    ],
+    [
+     "raspberry",
+     "gamma decalactone"
+    ],
+    [
+     "anisaldehyde"
+    ],
+    [
+     "patchouli"
+    ],
+    [
+     "vanill"
+    ],
+    [
+     "coumarin"
+    ],
+    [
+     "tonka"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ]
+   ],
+   "precious_caps": {},
+   "reference": {
+    "path": "studio/pina-colada/gate/Pina_Colada_Profond_R1_30mL_EDP.md",
+    "parent": null,
+    "parent_note": "first version: no parent"
+   },
+   "concentrate_ul": 5720
+  },
+  {
+   "id": "dhp-2025-r5",
+   "name": "Dior Homme Parfum 2025 R5",
+   "idea": "Dior Homme Parfum 2025, deep luxury, improved: iris leading, a patchouli-vetiver-coumarin-hay amber accord, lavender and bergamot top, cocoa praline, and a soft audible suede leather.",
+   "idea_source": "dior-homme-parfum/DIOR_IMPROVEMENT_REVIEW_20261010.md:3 + dior-homme-parfum/DHP_2025_R5_deep_luxury_30mL_bench_card.md:3",
+   "family": "IRIS / POWDERY / VIOLET",
+   "family_source": "docs/fragrance_families_reference.md:609-612",
+   "family_note": "Galbanum is not owned stock, so that group is omitted",
+   "named_notes": [
+    {
+     "name": "lavender",
+     "window": "opening",
+     "materials": [
+      "lavender",
+      "lavandin",
+      "linalyl acetate"
+     ]
+    },
+    {
+     "name": "iris",
+     "window": "heart",
+     "materials": [
+      "irone",
+      "orris",
+      "isomethyl ionone"
+     ]
+    },
+    {
+     "name": "cocoa",
+     "window": "drydown",
+     "materials": [
+      "cocoa"
+     ]
+    },
+    {
+     "name": "suede leather",
+     "window": "drydown",
+     "materials": [
+      "suederal",
+      "castoreum",
+      "safraleine"
+     ]
+    }
+   ],
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "alpha irone"
+    ],
+    [
+     "irotyl"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "ambrette"
+    ]
+   ],
+   "precious_caps": {
+    "givco": 100
+   },
+   "reference": {
+    "path": "dior-homme-parfum/gate/DHP2025_R5_gate_model.md",
+    "parent": "dior-homme-parfum/gate/DHP2025_R4_gate_model.md",
+    "parent_note": "R5 replaces R4"
+   },
+   "concentrate_ul": 10312
+  },
+  {
+   "id": "dhp-2014-r3",
+   "name": "Dior Homme Parfum 2014 R3",
+   "idea": "Dior Homme Parfum 2014 (iris, leather, sandalwood), deep luxury, improved: more real orris, darker suede leather with less smoke, creamier sandalwood, musk cushion, amber-vanilla tail.",
+   "idea_source": "dior-homme-parfum/DIOR_IMPROVEMENT_REVIEW_20261010.md:3 + dior-homme-parfum/DHP_2014_R3_deep_luxury_30mL_bench_card.md:3",
+   "family": "IRIS / POWDERY / VIOLET",
+   "family_source": "docs/fragrance_families_reference.md:609-612",
+   "family_note": "Galbanum is not owned stock, so that group is omitted",
+   "named_notes": [
+    {
+     "name": "iris",
+     "window": "heart",
+     "materials": [
+      "irone",
+      "orris",
+      "ionone"
+     ]
+    },
+    {
+     "name": "leather",
+     "window": "late_heart",
+     "materials": [
+      "suederal",
+      "ibq",
+      "birch tar",
+      "castoreum"
+     ]
+    },
+    {
+     "name": "sandalwood",
+     "window": "drydown",
+     "materials": [
+      "sandal",
+      "javanol"
+     ]
+    },
+    {
+     "name": "musk",
+     "window": "drydown",
+     "materials": [
+      "brassylate",
+      "exaltolide"
+     ]
+    }
+   ],
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "alpha irone"
+    ],
+    [
+     "irotyl"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "ambrette"
+    ]
+   ],
+   "precious_caps": {
+    "givco": 100
+   },
+   "reference": {
+    "path": "dior-homme-parfum/gate/DHP2014_R3_gate_model.md",
+    "parent": "dior-homme-parfum/gate/DHP2014_R2_gate_model.md",
+    "parent_note": "R3 replaces R2"
+   },
+   "concentrate_ul": 10192
+  },
+  {
+   "id": "dhi-2011-r2",
+   "name": "Dior Homme Intense 2011 R2",
+   "idea": "Dior Homme Intense 2011, deep luxury, improved: iris the subject, ambrette-pear and talc, lavender veil, vanilla-amber warmth, cedar and vetiver base with vetiver made audible.",
+   "idea_source": "dior-homme-parfum/DIOR_IMPROVEMENT_REVIEW_20261010.md:3 + dior-homme-intense/DHI_2011_R2_deep_luxury_30mL_bench_card.md:3",
+   "family": "IRIS / POWDERY / VIOLET",
+   "family_source": "docs/fragrance_families_reference.md:609-612",
+   "family_note": "Galbanum is not owned stock, so that group is omitted",
+   "named_notes": [
+    {
+     "name": "pear",
+     "window": "top",
+     "materials": [
+      "hexyl acetate",
+      "verdox",
+      "helvetolide"
+     ]
+    },
+    {
+     "name": "iris",
+     "window": "heart",
+     "materials": [
+      "irone",
+      "orris",
+      "isomethyl ionone"
+     ]
+    },
+    {
+     "name": "vanilla-amber",
+     "window": "drydown",
+     "materials": [
+      "vanill",
+      "benzoin",
+      "tonka"
+     ]
+    },
+    {
+     "name": "cedar-vetiver",
+     "window": "drydown",
+     "materials": [
+      "cedarwood",
+      "vetiver"
+     ]
+    }
+   ],
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "alpha irone"
+    ],
+    [
+     "irotyl"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "ambrette"
+    ]
+   ],
+   "precious_caps": {
+    "givco": 100
+   },
+   "reference": {
+    "path": "dior-homme-intense/gate/DHI2011_R2_gate_model.md",
+    "parent": "dior-homme-intense/gate/DHI2011_R1_gate_model.md",
+    "parent_note": "R2 replaces R1"
+   },
+   "concentrate_ul": 8380
+  },
+  {
+   "id": "chimie-femme-r8-1",
+   "name": "CHIMIE Femme R8.1",
+   "idea": "An exceptionally rich, sophisticated, immediately appealing mass-market pear and apple women's perfume, improved: pear ahead of apple, lychee and petals, soft cushion from fruit into musks, warm balsamic floor.",
+   "idea_source": "perfume-chem-parse/femme_r8/work/SOURCE_Codex_brief_CHIMIE_Femme_20261002.txt:7 + perfume-chem-parse/femme_r8/CHIMIE_Femme_R8.1_30mL_Mixing_Card_20261010.md:3",
+   "family": "FRUITY",
+   "family_source": "docs/fragrance_families_reference.md:516-519",
+   "named_notes": [
+    {
+     "name": "pear",
+     "window": "opening",
+     "materials": [
+      "hexyl acetate",
+      "pear"
+     ]
+    },
+    {
+     "name": "apple",
+     "window": "opening",
+     "materials": [
+      "ethyl 2-methylbutyrate",
+      "apple",
+      "manzanate"
+     ]
+    },
+    {
+     "name": "musk",
+     "window": "drydown",
+     "materials": [
+      "helvetolide",
+      "habanolide",
+      "ambrettolide"
+     ]
+    }
+   ],
+   "family_core_groups": [
+    [
+     "ethyl 2-methylbutyrate"
+    ],
+    [
+     "hexyl acetate"
+    ],
+    [
+     "gamma decalactone"
+    ],
+    [
+     "raspberry"
+    ],
+    [
+     "vanill"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ]
+   ],
+   "precious_caps": {},
+   "reference": {
+    "path": "perfume-chem-parse/femme_r8/gate/CHIMIE_Femme_R8.1_30mL_gate.md",
+    "parent": "perfume-chem-parse/femme_r8/gate/CHIMIE_Femme_R8_Rich_30mL_gate.md",
+    "parent_note": "R8.1 is R8 Rich with four changes"
+   },
+   "concentrate_ul": 4249
+  },
+  {
+   "id": "lavande-r7",
+   "name": "Lavande Ambre Profond R7",
+   "idea": "A deeper, Ambrox-forward lavender amber: lavender in the opening over a rich ambergris and resinous amber drydown.",
+   "idea_source": "formulas/Lavande_Ambre_Profond_R7_Ambrox_30mL_Parfum.md:4",
+   "family": "FOUGÈRE (AROMATIC FOUGÈRE)",
+   "family_source": "docs/fragrance_families_reference.md:399-402",
+   "named_notes": [
+    {
+     "name": "lavender",
+     "window": "opening",
+     "materials": [
+      "lavender",
+      "lavandin",
+      "linalyl acetate"
+     ]
+    },
+    {
+     "name": "amber",
+     "window": "drydown",
+     "materials": [
+      "ambrox",
+      "labdanum",
+      "amber xtreme"
+     ]
+    }
+   ],
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "lemon"
+    ],
+    [
+     "lavender",
+     "lavandin"
+    ],
+    [
+     "geranium"
+    ],
+    [
+     "oakmoss",
+     "evernyl"
+    ],
+    [
+     "geraniol"
+    ],
+    [
+     "hedione"
+    ],
+    [
+     "coumarin"
+    ],
+    [
+     "tonka"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "vetiver",
+     "cedar"
+    ]
+   ],
+   "precious_caps": {},
+   "reference": {
+    "path": "formulas/Lavande_Ambre_Profond_R7_Ambrox_30mL_Parfum.md",
+    "parent": "formulas/Lavande_Ambre_Profond_R6_AmbroxModelled_30mL_EDP.md",
+    "parent_note": "R7 is R6 made deeper and Ambrox-forward"
+   },
+   "concentrate_ul": 7415
+  }
+ ],
+ "benchmark_extras": {
+  "lavender-cologne": {
+   "family": "CITRUS / COLOGNE",
+   "family_source": "docs/fragrance_families_reference.md:437-441",
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "lemon"
+    ],
+    [
+     "lime"
+    ],
+    [
+     "grapefruit"
+    ],
+    [
+     "neroli"
+    ],
+    [
+     "petitgrain"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "cedar"
+    ],
+    [
+     "dihydromyrcenol"
+    ]
+   ]
+  },
+  "clean-musky-skin": {
+   "family": "WOODS (TRANSPARENT / CLEAN WOODS)",
+   "family_source": "docs/fragrance_families_reference.md:249-252",
+   "family_core_groups": [
+    [
+     "bergamot",
+     "pepper"
+    ],
+    [
+     "guaiac"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "cedar"
+    ],
+    [
+     "ambrox",
+     "ambrofix"
+    ],
+    [
+     "iso e"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ]
+   ]
+  },
+  "soft-woody-amber": {
+   "family": "WOODY AMBER (WOODY ORIENTAL)",
+   "family_source": "docs/fragrance_families_reference.md:222-225",
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "cardamom"
+    ],
+    [
+     "rose",
+     "olibanum",
+     "frankincense"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "cedar"
+    ],
+    [
+     "patchouli"
+    ],
+    [
+     "ambrox",
+     "ambrofix"
+    ],
+    [
+     "vetiver"
+    ]
+   ]
+  },
+  "rose-chypre-patchouli-oakmoss": {
+   "family": "MOSSY WOODS (CHYPRE FAMILY)",
+   "family_source": "docs/fragrance_families_reference.md:287-290",
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "petitgrain"
+    ],
+    [
+     "oakmoss",
+     "evernyl"
+    ],
+    [
+     "orris",
+     "irone"
+    ],
+    [
+     "rose"
+    ],
+    [
+     "jasmin"
+    ],
+    [
+     "labdanum"
+    ],
+    [
+     "patchouli"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "vetiver"
+    ]
+   ]
+  },
+  "green-fig-milky-sandalwood": {
+   "family": "GREEN",
+   "family_source": "docs/fragrance_families_reference.md:460-463",
+   "family_core_groups": [
+    [
+     "hexenol"
+    ],
+    [
+     "bergamot"
+    ],
+    [
+     "cyclamen"
+    ],
+    [
+     "violet leaf"
+    ],
+    [
+     "oakmoss",
+     "evernyl"
+    ],
+    [
+     "cedar"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "vetiver"
+    ]
+   ],
+   "family_note": "Galbanum is not owned stock, so that group is omitted"
+  },
+  "dark-oud-rose-no-vanilla": {
+   "family": "WOODY AMBER (WOODY ORIENTAL)",
+   "family_source": "docs/fragrance_families_reference.md:222-225",
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "cardamom"
+    ],
+    [
+     "rose",
+     "olibanum",
+     "frankincense"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "cedar"
+    ],
+    [
+     "patchouli"
+    ],
+    [
+     "ambrox",
+     "ambrofix"
+    ],
+    [
+     "vetiver"
+    ]
+   ],
+   "excluded_notes": [
+    {
+     "name": "vanilla",
+     "materials": [
+      "vanill"
+     ]
+    }
+   ]
+  },
+  "citrus-cologne": {
+   "family": "CITRUS / COLOGNE",
+   "family_source": "docs/fragrance_families_reference.md:437-441",
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "lemon"
+    ],
+    [
+     "lime"
+    ],
+    [
+     "grapefruit"
+    ],
+    [
+     "neroli"
+    ],
+    [
+     "petitgrain"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "cedar"
+    ],
+    [
+     "dihydromyrcenol"
+    ]
+   ]
+  },
+  "aromatic-fougere": {
+   "family": "FOUGÈRE (AROMATIC FOUGÈRE)",
+   "family_source": "docs/fragrance_families_reference.md:399-402",
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "lemon"
+    ],
+    [
+     "lavender",
+     "lavandin"
+    ],
+    [
+     "geranium"
+    ],
+    [
+     "oakmoss",
+     "evernyl"
+    ],
+    [
+     "geraniol"
+    ],
+    [
+     "hedione"
+    ],
+    [
+     "coumarin"
+    ],
+    [
+     "tonka"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "vetiver",
+     "cedar"
+    ]
+   ]
+  },
+  "gourmand-vanilla": {
+   "family": "GOURMAND",
+   "family_source": "docs/fragrance_families_reference.md:579-582",
+   "family_core_groups": [
+    [
+     "maltol"
+    ],
+    [
+     "bergamot",
+     "grapefruit"
+    ],
+    [
+     "heliotrop"
+    ],
+    [
+     "raspberry",
+     "gamma decalactone"
+    ],
+    [
+     "anisaldehyde"
+    ],
+    [
+     "patchouli"
+    ],
+    [
+     "vanill"
+    ],
+    [
+     "coumarin"
+    ],
+    [
+     "tonka"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ]
+   ]
+  },
+  "iris-powder": {
+   "family": "IRIS / POWDERY / VIOLET",
+   "family_source": "docs/fragrance_families_reference.md:609-612",
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "alpha irone"
+    ],
+    [
+     "irotyl"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "ambrette"
+    ]
+   ],
+   "family_note": "Galbanum is not owned stock, so that group is omitted"
+  },
+  "incense-resin": {
+   "family": "INCENSE / RESINOUS / SPIRITUAL",
+   "family_source": "docs/fragrance_families_reference.md:637-640",
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "pepper",
+     "cardamom"
+    ],
+    [
+     "olibanum",
+     "frankincense"
+    ],
+    [
+     "myrrh"
+    ],
+    [
+     "labdanum"
+    ],
+    [
+     "benzoin"
+    ],
+    [
+     "guaiacol"
+    ],
+    [
+     "cashmeran"
+    ],
+    [
+     "cedar"
+    ]
+   ]
+  },
+  "white-musk-laundry": {
+   "family": "SOFT FLORAL (ALDEHYDIC / POWDERY FLORAL)",
+   "family_source": "docs/fragrance_families_reference.md:116-119",
+   "family_core_groups": [
+    [
+     "aldehyde"
+    ],
+    [
+     "bergamot"
+    ],
+    [
+     "neroli"
+    ],
+    [
+     "rose"
+    ],
+    [
+     "ionone",
+     "irone",
+     "orris"
+    ],
+    [
+     "jasmin"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "vetiver"
+    ],
+    [
+     "amber"
+    ]
+   ]
+  },
+  "green-tea": {
+   "family": "GREEN",
+   "family_source": "docs/fragrance_families_reference.md:460-463",
+   "family_core_groups": [
+    [
+     "hexenol"
+    ],
+    [
+     "bergamot"
+    ],
+    [
+     "cyclamen"
+    ],
+    [
+     "violet leaf"
+    ],
+    [
+     "oakmoss",
+     "evernyl"
+    ],
+    [
+     "cedar"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "vetiver"
+    ]
+   ],
+   "family_note": "Galbanum is not owned stock, so that group is omitted"
+  },
+  "marine-ozonic": {
+   "family": "WATER / AQUATIC / OCEANIC / OZONIC",
+   "family_source": "docs/fragrance_families_reference.md:488-491",
+   "family_core_groups": [
+    [
+     "dihydromyrcenol"
+    ],
+    [
+     "calone"
+    ],
+    [
+     "bergamot"
+    ],
+    [
+     "cyclamen"
+    ],
+    [
+     "hedione"
+    ],
+    [
+     "helional"
+    ],
+    [
+     "ambrox",
+     "ambrofix"
+    ],
+    [
+     "cedar"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "floralozone"
+    ]
+   ]
+  },
+  "leather": {
+   "family": "LEATHER",
+   "family_source": "docs/fragrance_families_reference.md:354-357",
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "aldehyde"
+    ],
+    [
+     "rose"
+    ],
+    [
+     "orris",
+     "irone"
+    ],
+    [
+     "castoreum"
+    ],
+    [
+     "birch tar"
+    ],
+    [
+     "labdanum"
+    ],
+    [
+     "oakmoss"
+    ],
+    [
+     "ibq"
+    ]
+   ]
+  },
+  "pipe-tobacco": {
+   "family": "TOBACCO / HAY / COUMARINIC",
+   "family_source": "docs/fragrance_families_reference.md:659-662",
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "rose",
+     "geranium"
+    ],
+    [
+     "tobacco"
+    ],
+    [
+     "coumarin"
+    ],
+    [
+     "tonka"
+    ],
+    [
+     "safranate"
+    ],
+    [
+     "labdanum"
+    ],
+    [
+     "cedar"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ]
+   ],
+   "family_note": "Rum accord is not owned stock, so that group is omitted"
+  },
+  "woody-floral-no-musk": {
+   "family": "FLORAL BOUQUET (BRIGHT FLORAL / MULTI-FLORAL)",
+   "family_source": "docs/fragrance_families_reference.md:94-97",
+   "family_core_groups": [
+    [
+     "rose"
+    ],
+    [
+     "jasmin"
+    ],
+    [
+     "sandal",
+     "javanol",
+     "cedar"
+    ]
+   ],
+   "excluded_notes": [
+    {
+     "name": "musk",
+     "materials": [
+      "musk",
+      "habanolide",
+      "galaxolide",
+      "ambrettolide",
+      "brassylate",
+      "exaltolide",
+      "helvetolide",
+      "romandolide",
+      "zenolide"
+     ]
+    }
+   ],
+   "family_note": "the family's musk base group is dropped: the brief excludes musk"
+  },
+  "citrus-no-lavender": {
+   "family": "CITRUS / COLOGNE",
+   "family_source": "docs/fragrance_families_reference.md:437-441",
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "lemon"
+    ],
+    [
+     "lime"
+    ],
+    [
+     "grapefruit"
+    ],
+    [
+     "neroli"
+    ],
+    [
+     "petitgrain"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ],
+    [
+     "cedar"
+    ],
+    [
+     "dihydromyrcenol"
+    ]
+   ],
+   "excluded_notes": [
+    {
+     "name": "lavender",
+     "materials": [
+      "lavender",
+      "lavandin"
+     ]
+    }
+   ]
+  },
+  "vetiver-haitian": {
+   "family": "DRY WOODS (LEATHER / SMOKY)",
+   "family_source": "docs/fragrance_families_reference.md:325-328",
+   "family_core_groups": [
+    [
+     "bergamot",
+     "pepper"
+    ],
+    [
+     "cedar"
+    ],
+    [
+     "vetiver"
+    ],
+    [
+     "birch tar"
+    ],
+    [
+     "guaiacol"
+    ],
+    [
+     "patchouli"
+    ]
+   ],
+   "family_note": "Cypriol/Nagarmotha is not owned stock, so that group is omitted"
+  },
+  "rose-amber-cap10": {
+   "family": "FLORAL AMBER (FLORAL ORIENTAL)",
+   "family_source": "docs/fragrance_families_reference.md:142-145",
+   "family_core_groups": [
+    [
+     "bergamot"
+    ],
+    [
+     "rose",
+     "jasmin"
+    ],
+    [
+     "irone",
+     "orris",
+     "ionone"
+    ],
+    [
+     "labdanum"
+    ],
+    [
+     "vanill"
+    ],
+    [
+     "benzoin"
+    ],
+    [
+     "sandal",
+     "javanol"
+    ],
+    [
+     "musk",
+     "habanolide",
+     "galaxolide",
+     "ambrettolide",
+     "brassylate",
+     "exaltolide",
+     "helvetolide",
+     "romandolide",
+     "zenolide"
+    ]
+   ]
+  }
+ }
+}
