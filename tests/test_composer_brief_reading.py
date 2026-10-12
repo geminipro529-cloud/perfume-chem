@@ -297,7 +297,11 @@ def test_family_materials_get_roles_of_their_own() -> None:
     roles = {role["role_id"]: role for role in result["semantic_brief"]["roles"]}
     rows = _rows_by_slot(result)
 
-    assert rows.get("family_suederal_layer") == "Suederal", rows
+    # Castoreum, a family material no other role names, gets a role of its own.
+    assert rows.get("family_castoreum_accent") == "Castoreum Synthetic", rows
+    # Suederal carries its own suede and leather notes (step 6), so the leather
+    # accord takes it and its family layer has nothing left to place.
+    assert "Suederal" in rows.values() and "family_suederal_layer" not in rows, rows
     # Castoreum is a shadow nuance: an accent, not a layer.
     assert roles["family_castoreum_accent"]["provenance"] == "ACCENT_LAYER", roles["family_castoreum_accent"]
     # A family word no owned stock is named for places nothing.

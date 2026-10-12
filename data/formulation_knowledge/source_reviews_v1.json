@@ -2807,6 +2807,90 @@
       "empirical_data_rights": "NOT_ADMITTED",
       "numeric_calibration_allowed": false,
       "reason": "HOLD: conflicting process wording. Retain as a research issue only; not selectable construction evidence or stock truth."
+    },
+    {
+      "source_id": "symrise_hexyl_acetate_signature",
+      "source_record_sha256": "75beef1f8d8339094d5bcc1168cb39b7c2321d4248376fda9d0a91892ff1470d",
+      "reviewed_on": "2026-10-12",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_rights": "NOT_ADMITTED",
+      "numeric_calibration_allowed": false,
+      "reason": "Datasheet descriptor line read (pear, fruity, green, banana; printed under the identity/taste heading). CAS 142-92-7. No use level or physical data imported."
+    },
+    {
+      "source_id": "iff_hexyl_acetate_signature",
+      "source_record_sha256": "ed04369c84300f30dd5d93fa115f594f1383a1445b47cf41961fc6179e16fc6c",
+      "reviewed_on": "2026-10-12",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_rights": "NOT_ADMITTED",
+      "numeric_calibration_allowed": false,
+      "reason": "Manufacturer odour sentence as republished by SpecialChem (green fruity, apple and pear). Not IFF's own page; no other data imported."
+    },
+    {
+      "source_id": "fraterworks_suederal_signature",
+      "source_record_sha256": "667af2a66161b13a38122b4a4381067c98f241e29a71797c3f34f52b90b8409a",
+      "reviewed_on": "2026-10-12",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_rights": "NOT_ADMITTED",
+      "numeric_calibration_allowed": false,
+      "reason": "Distributor description of IFF's Suederal LT base (dry suede, tobacco, smoky phenolic undertones). Not IFF's own text; the product is a compounded base, not a single molecule."
+    },
+    {
+      "source_id": "hekserij_suederal_signature",
+      "source_record_sha256": "5f1ff43b48a841ec7fea6ba63a5b04c58594adbfff2d8521b59f75d2574901f0",
+      "reviewed_on": "2026-10-12",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_rights": "NOT_ADMITTED",
+      "numeric_calibration_allowed": false,
+      "reason": "Distributor product sheet (odour: animal, leather, amber; INCI parfum; CAS given as mixture). Not IFF's own text; no composition or physical data."
+    },
+    {
+      "source_id": "kao_gamma_undecalactone_signature",
+      "source_record_sha256": "cae4741e9d4d88168a4abc1d0a03ed8bb0ef57d2f0e61bf0a29b88ad07722f19",
+      "reviewed_on": "2026-10-12",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_rights": "NOT_ADMITTED",
+      "numeric_calibration_allowed": false,
+      "reason": "Manufacturer odour line read (fruity peach apricot). No CAS on the page; identity by chemical name 4-heptyl-4-butanolide."
+    },
+    {
+      "source_id": "bedoukian_apritone_signature",
+      "source_record_sha256": "fa697747301bfd9c71cdbdb0785173c5e0190333dc93dfcc86050987ad1a4fa5",
+      "reviewed_on": "2026-10-12",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_rights": "NOT_ADMITTED",
+      "numeric_calibration_allowed": false,
+      "reason": "Manufacturer entry read (warm apricot and peach flesh, jasmine and jam-like). CAS 68133-79-9. No use level imported."
+    },
+    {
+      "source_id": "perflavory_gamma_decalactone_signature",
+      "source_record_sha256": "651ac20ab6209ed22e8a8cf0ff1a5b50f40403749a7cc6d1b1519de973336fca",
+      "reviewed_on": "2026-10-12",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_rights": "NOT_ADMITTED",
+      "numeric_calibration_allowed": false,
+      "reason": "Reference listing read for the manufacturers' own odour lines (Bedoukian fruity, peachy; Symrise natural grade fatty, creamy, coconut, buttery, vanilla, sweet). CAS 706-14-9. Grade of the owned stock (natural or synthetic) not established."
     }
   ]
 }

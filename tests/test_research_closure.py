@@ -139,9 +139,11 @@ def test_new_sources_are_bounded_and_not_new_numeric_materials():
     new = [s for s in pack["sources"] if s["source_id"].endswith("_finish")]
     assert len(new) == 58
     # The closure wave is immutable; the active knowledge pack may grow.
-    assert len([s for s in pack["sources"] if not s["source_id"].endswith("_depth")]) == 212
-    assert len([c for c in pack["claims"] if not c["claim_id"].endswith("_depth")]) == 205
-    assert len(pack["materials"]) == 25 and len(pack["profiles"]) == 43
+    later = ("_depth", "_signature")  # later waves: botanical depth, step 6 signature notes
+    assert len([s for s in pack["sources"] if not s["source_id"].endswith(later)]) == 212
+    assert len([c for c in pack["claims"] if not c["claim_id"].endswith(later)]) == 205
+    # Step 6 (stock signature notes) added 6 materials to the 25.
+    assert len(pack["materials"]) == 31 and len(pack["profiles"]) == 43
     bundle = assess_review_bundle(pack["sources"], knowledge.SOURCE_REVIEWS_PATH.read_bytes())
     assert bundle["unavailable_source_ids"] == ["iff_lime_conflict_subtypes"]
     assert all(not s["empirical_data_admission"] for s in new)
