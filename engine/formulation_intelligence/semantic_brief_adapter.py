@@ -19,6 +19,7 @@ from typing import Any, Iterable, Mapping, Sequence
 
 from engine.formulation_intelligence.contracts import EvidenceClass, ProvenanceRef
 from engine.formulation_intelligence.literature_knowledge import retrieve_formulation_knowledge
+from engine.formulation_intelligence.note_phrases import translate_note_phrases
 from engine.formulation_intelligence.target_compiler import (
     AbstractionLevel,
     TargetAcceptance,
@@ -31,6 +32,7 @@ from engine.formulation_intelligence.target_compiler import (
     TemporalTransformation,
     compile_target_intent,
 )
+from engine.research.request_interpretation import plain_stock_name
 
 
 def _clean(value: object) -> str:
@@ -142,13 +144,16 @@ _FACETS: tuple[FacetDefinition, ...] = (
     # share and cap copy leather_suede so no new dose is introduced.
     FacetDefinition("oud_agarwood", ("oud", "oudh", "aoud", "agarwood"), ("agarwood", "oud"), "base", "character", (("woody", .6), ("smoky", .45), ("animalic", .3), ("warmth", .3)), .065, .12),
     FacetDefinition("leather_suede", ("leather", "suede", "saddle", "book leather"), ("leather", "suede", "isobutyl quinoline", "birch tar", "saffron"), "base", "character", (("woody", .55), ("smoky", .45), ("animalic", .25)), .065, .12),
-    FacetDefinition("moss_chypre", ("moss", "mossy", "chypre", "forest moss"), ("moss", "evernyl", "oakmoss", "patchouli", "labdanum"), "base", "structure", (("green", .5), ("woody", .5), ("smoky", .15)), .07, .13),
+    # A fougere is lavender over coumarin and oakmoss: the family word asks for
+    # the coumarin here and the moss through moss_chypre.
+    FacetDefinition("fougere_coumarin", ("fougere", "fougère"), ("coumarin", "tonka"), "base", "structure", (("warmth", .45), ("sweetness", .25), ("powdery", .2)), .08, .14),
+    FacetDefinition("moss_chypre", ("moss", "mossy", "chypre", "forest moss", "fougere", "fougère"), ("moss", "evernyl", "oakmoss", "patchouli", "labdanum"), "base", "structure", (("green", .5), ("woody", .5), ("smoky", .15)), .07, .13),
     FacetDefinition("vanilla_balsam", ("vanilla", "vanillic", "balsamic", "benzoin", "tonka"), ("vanilla", "vanillin", "benzoin", "tonka", "coumarin", "balsam"), "base", "character", (("sweetness", .9), ("warmth", .55), ("creamy", .35)), .075, .14),
     FacetDefinition("coffee_cocoa", ("coffee", "cocoa", "chocolate", "roasted"), ("coffee", "cocoa", "roast", "pyrazine", "chocolate"), "heart", "character", (("warmth", .5), ("smoky", .4), ("sweetness", .25)), .06, .11),
     FacetDefinition("tobacco_hay", ("tobacco", "hay", "straw", "dry grass"), ("tobacco", "hay", "coumarin", "immortelle", "tea"), "base", "character", (("warmth", .45), ("woody", .35), ("smoky", .3)), .065, .12),
     FacetDefinition("spice", ("spice", "spicy", "pepper", "cardamom", "nutmeg", "cinnamon", "clove", "saffron", "ginger"), ("pepper", "cardamom", "nutmeg", "cinnamon", "clove", "saffron", "ginger", "spice"), "heart", "modifier", (("spicy", 1.0), ("warmth", .35)), .045, .09),
     FacetDefinition("fruit", ("fruit", "fruity", "pear", "apple", "peach", "plum", "berry", "mango", "pineapple"), ("fruit", "pear", "apple", "peach", "plum", "berry", "mango", "pineapple", "ester"), "top", "character", (("freshness", .45), ("sweetness", .4), ("radiance", .25)), .065, .12),
-    FacetDefinition("aldehydic", ("aldehydic", "sparkling aldehyde", "champagne", "soapy aldehyde"), ("aldehyde", "sparkling", "wax", "linen"), "top", "modifier", (("radiance", .8), ("freshness", .4), ("transparency", .25)), .025, .06),
+    FacetDefinition("aldehydic", ("aldehydic", "sparkling aldehyde", "champagne", "soapy aldehyde", "laundry", "linen", "clean linen"), ("aldehyde", "sparkling", "wax", "linen"), "top", "modifier", (("radiance", .8), ("freshness", .4), ("transparency", .25)), .025, .06),
     FacetDefinition("powder", ("powder", "powdery", "cosmetic", "makeup"), ("powder", "iris", "ionone", "heliotropin", "musk"), "heart", "texture", (("powdery", 1.0), ("floral", .25)), .055, .11),
     FacetDefinition("almond_nut", ("almond", "marzipan", "biscuit", "nutty", "toasted nut"), ("almond", "benzaldehyde", "heliotropin", "tonka", "pyrazine", "biscuit"), "heart", "character", (("warmth", .55), ("sweetness", .35), ("powdery", .25)), .06, .11),
     FacetDefinition("floral_bouquet", ("floral", "flowers", "flower", "petal", "petals", "blossom", "bloom"), ("floral", "petal", "hedione", "phenethyl", "linalool", "blossom"), "heart", "character", (("floral", .9), ("radiance", .35)), .10, .18),
@@ -167,6 +172,17 @@ _LITERATURE_FACETS = {
     "violet_powder": FacetDefinition("violet_powder", ("violet",), ("violet petal recognizer", "beta ionone", "alpha ionone", "violet", "powder"), "heart", "character", (("powdery", .8), ("floral", .4)), .10, .18, "violet petal recognizer"),
     "violet_leaf": FacetDefinition("violet_leaf", ("violet leaf", "violet leaves"), ("violet leaf absolute", "parmavert", "violet leaf", "leaf"), "top", "character", (("green", .8), ("freshness", .3)), .04, .10),
 }
+
+
+def facet_trigger_phrases() -> frozenset[str]:
+    """Every phrase that calls up a brief facet of its own, lower-cased."""
+    return frozenset(
+        trigger.casefold()
+        for facet in (*_FACETS, *_LITERATURE_FACETS.values(), _IRIS_TEXTURE)
+        for trigger in facet.triggers
+    )
+
+
 # Requested identities that descriptor words cannot separate: AIMI and orris
 # both carry "iris", so these name words come from the stock's own identity.
 # "ionone" is a different word, so ionones stay distinct from irone/orris.
@@ -177,6 +193,7 @@ FACET_IDENTITY_REQUIREMENTS: dict[str, tuple[str, ...]] = {
     # The umbrella also answers violet-only briefs; see role_identity_requirement.
     "iris_violet": _IRIS_IDENTITY_WORDS,
 }
+_LAVENDER_IDENTITY_WORDS = ("lavender", "lavandin")
 _IRIS_UMBRELLA_QUERY_TERMS = ("alpha irone", "irone", "orris", "iris", "ionone", "violet", "carrot")
 _IRIS_TEXTURE = FacetDefinition("iris_root_texture", ("rooty iris",), ("root texture", "orivone", "earthy orris"), "heart", "texture", (("woody", .25),), .025, .06, "root texture")
 
@@ -256,6 +273,16 @@ def _matched_facets(
         if any(_phrase_present(text_key, trigger) for trigger in facet.triggers):
             if facet.facet_id == "iris_violet" and refined:
                 result.extend(item for item in refined if not _facet_is_avoided(item, avoid))
+                # A violet profile answers the violet; iris named beside it
+                # still needs its own recognizer role (the umbrella cannot
+                # layer a second iris-family stock beside the violet's).
+                iris_root = _LITERATURE_FACETS["iris_root"]
+                if (
+                    iris_context
+                    and not any(item.facet_id.startswith("iris_") for item in refined)
+                    and not _facet_is_avoided(iris_root, avoid)
+                ):
+                    result.append(iris_root)
                 wants_root_texture = any(
                     _phrase_present(text_key, term) for term in ("root", "rooty", "roots", "earthy")
                 )
@@ -343,10 +370,16 @@ def role_identity_requirement(role_id: str, request: str = "") -> tuple[str, ...
     if not role_id.startswith("facet_"):
         return ()
     facet_id = role_id[len("facet_") :]
+    request_key = f" {_key(request)} "
     if facet_id == "iris_violet" and not any(
-        _phrase_present(f" {_key(request)} ", term) for term in ("iris", "orris")
+        _phrase_present(request_key, term) for term in ("iris", "orris")
     ):
         return ()
+    # The lavender of a lavender or fougere brief is a stock that is lavender,
+    # not any herbal material; an "herbal" brief keeps the open search.
+    if facet_id == "aromatic_lavender":
+        named = any(_phrase_present(request_key, term) for term in ("lavender", "fougere", "fougère"))
+        return _LAVENDER_IDENTITY_WORDS if named else ()
     return FACET_IDENTITY_REQUIREMENTS.get(facet_id, ())
 
 
@@ -699,6 +732,11 @@ def _note_layers(
     return tuple(layers)
 
 
+def _named_as_note_only(material: str, request_key: str) -> bool:
+    plain = plain_stock_name(material)
+    return bool(plain) and _phrase_present(request_key, plain) and not _phrase_present(request_key, material)
+
+
 def _roles(
     *,
     formula_name: str,
@@ -738,7 +776,15 @@ def _roles(
 
     filled_knowledge_slots: set[str] = set()
     request_key = f" {_key(f'{formula_name} {request}')} "
-    explicit_keys = tuple(f" {_key(material)} " for material in explicit_materials)
+    # A stock the brief names only as its note ("pink pepper" for Pink Pepper
+    # EO) is the note's lead, not the whole note: its facet still adds support.
+    explicit_keys = tuple(
+        f" {_key(material)} "
+        for material in explicit_materials
+        if not _named_as_note_only(material, request_key)
+    )
+    anchors = {f" {_key(role.exact_material or '')} ": role for role in roles}
+    supported_anchors: set[str] = set()
     for facet in facets:
         if len(roles) >= maximum:
             break
@@ -746,9 +792,31 @@ def _roles(
         # the same note twice.  Recognizer slots and fruit keep their roles.
         if not facet.knowledge_role_slot and facet.facet_id != "fruit":
             matched_triggers = [t for t in facet.triggers if _phrase_present(request_key, t)]
-            if matched_triggers and all(
-                any(_phrase_present(name, t) for name in explicit_keys) for t in matched_triggers
+            # An anchor that already carries the identity the facet must name
+            # (Lavender EO for the lavender of a fougere) is that note: a second
+            # stock of the same identity could never be placed beside it.
+            identity = role_identity_requirement(f"facet_{facet.facet_id}", request_key)
+            if matched_triggers and (
+                any(_phrase_present(name, word) for name in explicit_keys for word in identity)
+                or all(
+                    any(_phrase_present(name, t) for name in explicit_keys) for t in matched_triggers
+                )
             ):
+                # The anchor leads this note; like every requested note it
+                # keeps one supporting material of the note's own odor.
+                anchor = next((
+                    anchors[name] for name in explicit_keys
+                    if any(_phrase_present(name, t) for t in (*identity, *matched_triggers))
+                ), None)
+                if (
+                    anchor is not None
+                    and target_count is None
+                    and facet.function in _ACCORD_FUNCTIONS
+                    and anchor.role_id not in supported_anchors
+                    and len(roles) < maximum - _DEEP_COMPOSE_RESERVE
+                ):
+                    supported_anchors.add(anchor.role_id)
+                    roles.append(_anchor_support(anchor, facet))
                 continue
         # A rooty-and-transparent iris has one recognizer with two requested
         # qualities, not two mandatory copies of the same recognizer role.
@@ -1022,6 +1090,28 @@ def _accord_leads(roles: Sequence[SemanticRole]) -> list[SemanticRole]:
     ]
 
 
+def _anchor_support(anchor: SemanticRole, facet: FacetDefinition) -> SemanticRole:
+    """One supporting accord material for a note a named stock leads.
+
+    It takes the note's facet query, odor and place, at the first support's
+    proportion of the anchor.
+    """
+
+    fraction = _ACCORD_SPLIT[1] / _ACCORD_SPLIT[0]
+    return SemanticRole(
+        role_id=f"{anchor.role_id}{ACCORD_SUPPORT_SEPARATOR}1",
+        label=f"{anchor.label}: supporting accord material 1",
+        note=facet.note,
+        function=facet.function,
+        query_terms=facet.query_terms,
+        character_weights=facet.character_weights,
+        share=anchor.share * fraction,
+        required=False,
+        max_raw_share=(facet.max_raw_share or .28) * fraction,
+        provenance=ACCORD_SUPPORT_PROVENANCE,
+    )
+
+
 def _with_accords(roles: list[SemanticRole], maximum: int) -> list[SemanticRole]:
     leads = _accord_leads(roles)
     budget = maximum - len(roles) - _DEEP_COMPOSE_RESERVE
@@ -1081,17 +1171,22 @@ def compile_semantic_brief(
     avoid = tuple(str(item) for item in interpretation.get("must_avoid", ()))
     preserve = tuple(str(item) for item in interpretation.get("must_preserve", ()))
     explicit = tuple(str(item) for item in interpretation.get("explicit_materials", ()))
-    positive_semantic_text = _mask_avoided_phrases(f"{name} {raw}", avoid)
+    # French note words in the name or brief are read as their English notes
+    # ("Baie Rose" is pink pepper, not rose); the user's text is kept as written.
+    reading_name, reading_raw = translate_note_phrases(name), translate_note_phrases(raw)
+    positive_semantic_text = _mask_avoided_phrases(f"{reading_name} {reading_raw}", avoid)
     requested_fruits = _requested_fruits(positive_semantic_text)
     # Separate fields are separate clauses. A negation in a diagnostic title
     # must not consume the user's entire following brief. Explicit avoid terms
     # still mask both fields in the shared retrieval function.
-    knowledge_context = retrieve_formulation_knowledge(f"{name}; {raw}", avoid=avoid)
+    knowledge_context = retrieve_formulation_knowledge(
+        f"{reading_name}; {reading_raw}", avoid=avoid
+    )
     facets = _matched_facets(positive_semantic_text, avoid, knowledge_context)
     qualifiers = _qualifier_weights(positive_semantic_text, avoid)
     expression_terms = _dedupe(
         [*requested_fruits, *(facet.facet_id.replace("_", " ") for facet in facets), *preserve]
-        or _source_tokens(f"{name} {raw}")[:6]
+        or _source_tokens(f"{reading_name} {reading_raw}")[:6]
     )
     family_neighborhoods = _dedupe(
         f"{facet.note} {facet.facet_id.replace('_', ' ')}"
@@ -1100,8 +1195,8 @@ def compile_semantic_brief(
     protected = _dedupe((*preserve, *explicit, *requested_fruits, *expression_terms[:2]))
     forbidden = _dedupe((*avoid, "anonymous generic perfume drift"))
     roles = _roles(
-        formula_name=name,
-        request=raw,
+        formula_name=reading_name,
+        request=reading_raw,
         facets=facets,
         explicit_materials=explicit,
         qualifier_weights=qualifiers,
