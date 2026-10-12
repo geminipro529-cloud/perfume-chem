@@ -838,6 +838,15 @@ def _load_candidates(explicit_materials: Sequence[str]) -> tuple[list[Candidate]
     )
 
 
+_SWEET_QUALITY_AVOIDS = frozenset({
+    "sweet", "sweetness", "sweet notes", "sugary", "sugar", "gourmand", "gourmand notes",
+})
+_SWEET_MARKERS = (
+    "vanill", "maltol", "tonka", "benzoin", "balsam", "maple", "gourmand", "cocoa",
+    "chocolate", "caramel", "honey", "praline", "isobutavan",
+)
+
+
 def _avoid_candidate(candidate: Candidate, avoid: Sequence[str]) -> bool:
     probe = _candidate_probe(candidate)
     identity_probe = _candidate_identity_probe(candidate)
@@ -899,6 +908,13 @@ def _avoid_candidate(candidate: Candidate, avoid: Sequence[str]) -> bool:
         ):
             if any(word in probe for word in ("vanill", "maltol", "lactone", "tonka", "benzoin", "balsam", "maple", "gourmand")):
                 return True
+        # A quality avoided outright ("no sweetness", "not sweet") keeps out the
+        # sweet-gourmand stocks: by name, or by a sweetness score of 8+ of 10.
+        if item in _SWEET_QUALITY_AVOIDS and (
+            any(word in probe for word in _SWEET_MARKERS)
+            or float((candidate.profile.character or {}).get("sweetness", 0) or 0) >= 8
+        ):
+            return True
         if "lactone" in item and "lactone" in probe:
             return True
         if "fruity ester" in item and any(word in probe for word in ("acetate", "propionate", "butyrate", "fruit")):

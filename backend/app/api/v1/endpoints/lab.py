@@ -74,7 +74,11 @@ from app.services.engine_job_compatibility import (
     enqueue_formula_analysis_compatibility,
 )
 from app.services.lab_assistant import AssistantRequest, build_assistant_packet
-from app.services.lab_export import ImportConflictError, LabExportService
+from app.services.lab_export import (
+    CURRENT_WRITE_REVISION,
+    ImportConflictError,
+    LabExportService,
+)
 from app.services.lab_service import (
     FormulaComponentInput,
     LabService,
@@ -544,7 +548,9 @@ async def assistant(request: AssistantPacketCreate) -> dict[str, Any]:
 
 @router.get("/export")
 async def export_workspace(session: AsyncSession = Depends(get_db)) -> dict[str, Any]:
-    return await LabExportService(session).export_workspace()
+    return await LabExportService(session).export_workspace(
+        format_revision=CURRENT_WRITE_REVISION
+    )
 
 
 @router.post("/import")

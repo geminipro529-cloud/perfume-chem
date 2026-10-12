@@ -156,6 +156,16 @@ def test_solver_formula_restores_and_rejects_tampering(patched):
         dp.solver_formula(result)
 
 
+def test_solver_formula_reads_a_respelled_amount_as_the_same_dose(patched):
+    result = _run()
+    adjusted = [a["row_index"] for a in result["detection_check"]["adjustments"]]
+    assert adjusted
+    for index in adjusted:
+        result["rows"][index]["amount_decimal"] += ".0000"
+    restored = dp.solver_formula(result)
+    assert [r["amount_decimal"] for r in restored["rows"]] == [r["amount_decimal"] for r in _formula()["rows"]]
+
+
 def test_intended_window_mapping():
     assert dp.intended_windows({"role": "texture", "note": "top"}) == ("opening", "top")
     assert dp.intended_windows({"role": "modifier", "note": "top"}) == ("opening", "top")

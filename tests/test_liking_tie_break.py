@@ -194,7 +194,12 @@ def test_five_briefs_change_only_a_few_picks(monkeypatch, tmp_path):
     )
     # Measured 2026-10-09: Clove EO (India) -> Eugenol in the third DEEP_COMPOSE
     # variant's heart_spice_accent of "amber iris smoke" and "white floral".
-    assert len(changed) <= 4, changed
+    # Measured 2026-10-10 with #69's role match: Clove EO (India) -> Eugenol in
+    # the third variant of "amber iris smoke", "green fougere" and "white
+    # floral", and one Zenolide/Romandolide tie in the "amber iris smoke"
+    # base_musk_layer that moves through all three variants (each variant
+    # avoids the musk the one before it used).
+    assert len(changed) <= 6, changed
 
 
 def test_tests_never_read_the_real_personal_liking_file(tmp_path_factory):

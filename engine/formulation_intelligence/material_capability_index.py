@@ -60,6 +60,11 @@ def _usable_odor_description(description: str) -> str:
 # Conjunction across groups, alternatives within a group. Whole own-descriptor
 # tokens only: neither a product name nor generic freshness proves a facet.
 # These are eligibility heuristics, not sensory-recognition calibrations.
+# "Base" in a product name (Cassis Base 345B, Tuberlia Base) names a compounded
+# form, not the base note, so a coverage role's label word "base" must not read
+# as asking for those products by name.
+_FORM_WORDS = frozenset({"base"})
+
 _DESCRIPTOR_REQUIREMENTS: dict[str, tuple[frozenset[str], ...]] = {
     "fruit": (frozenset({
         "fruit", "fruity", "pear", "apple", "peach", "plum", "berry", "mango",
@@ -80,8 +85,11 @@ _DESCRIPTOR_REQUIREMENTS: dict[str, tuple[frozenset[str], ...]] = {
     }),),
     "top_green": (frozenset({"green", "leaf", "leafy", "herbal", "aromatic"}),),
     "top_sparkle": (frozenset({"aldehydic", "aldehyde", "sparkling", "fruit", "fruity"}),),
+    # White flowers are floral too: a tuberose base described only as
+    # "creamy" and "tuberose" otherwise filled creamy texture layers.
     "heart_floral": (frozenset({
-        "floral", "rose", "rosy", "jasmine", "muguet", "petal", "blossom",
+        "floral", "rose", "rosy", "jasmine", "muguet", "petal", "blossom", "tuberose",
+        "gardenia",
     }),),
     "heart_powder": (frozenset({"powdery", "powder", "iris", "orris", "violet", "velvety"}),),
     "heart_creamy": (frozenset({"creamy", "milky", "lactonic"}),),
@@ -165,7 +173,7 @@ def _capability(candidate: Candidate) -> MaterialCapability:
             stock.name,
             re.sub(r"\s*#.*$", "", stock.raw_name),
         )
-    )
+    ) - _FORM_WORDS
     # Own-material annotations only. Names, stock categories/comments, carriers
     # and synergy partners are context, not evidence of an odor descriptor.
     # A category proxy cannot turn freshness + sweetness into a fruit label.

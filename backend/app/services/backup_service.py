@@ -26,6 +26,7 @@ from engine.user_records import (
 from sqlalchemy.engine import URL, make_url
 
 from app import db_bootstrap
+from app.services.personal_liking import PERSONAL_LIKING_NAME, personal_liking_path
 
 BACKUP_DIRECTORY_NAME = "lab-backups"
 # The personal stock records copied into every backup, by standard file name.
@@ -34,10 +35,17 @@ USER_RECORD_NAMES = (
     COMPLETION_LOG_NAME,
     BASKET_LOG_NAME,
     DILUTION_LOG_NAME,
+    PERSONAL_LIKING_NAME,
 )
 # Why a live stock record was left as it was by a restore.
 RECORD_NOT_IN_BACKUP = "this backup has no copy of it"
 RECORDS_PREDATE_BACKUP = "this backup was made before stock records were included"
+
+
+def _record_files_with_fit() -> dict[str, Path]:
+    """The stock records plus the personal liking fit."""
+
+    return {**record_files(), PERSONAL_LIKING_NAME: personal_liking_path()}
 
 
 class RestoreSafetyError(ValueError):
@@ -151,7 +159,7 @@ class BackupService:
         database_path: Path,
         backup_directory: Path,
         expected_schema_revision: str,
-        user_records: Callable[[], Mapping[str, Path]] = record_files,
+        user_records: Callable[[], Mapping[str, Path]] = _record_files_with_fit,
     ) -> None:
         self.database_path = database_path.expanduser().resolve()
         self.user_records = user_records
@@ -177,8 +185,9 @@ class BackupService:
         os.close(descriptor)
         snapshot_path = Path(raw_path).resolve()
 
-        source = sqlite3.connect(self.database_path)
-        destination = sqlite3.connect(snapshot_path)
+        # Wait for a held write lock like the app's own connections do (db_session.py).
+        source = sqlite3.connect(self.database_path, timeout=30)
+        destination = sqlite3.connect(snapshot_path, timeout=30)
         try:
             _require_integrity(source, "source database")
             source.backup(destination)

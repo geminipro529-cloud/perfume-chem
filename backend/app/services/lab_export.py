@@ -56,13 +56,15 @@ _PLANNING_FORMAT_REVISION = "lab-export-v2"
 _SCIENCE_FORMAT_REVISION = "lab-export-v3"
 _FORMAT_REVISION = "lab-export-v4"
 _EXTERNAL_VALIDATION_FORMAT_REVISION = "lab-export-v5"
-CURRENT_WRITE_REVISION = _EXTERNAL_VALIDATION_FORMAT_REVISION
+_LIKING_FORMAT_REVISION = "lab-export-v6"
+CURRENT_WRITE_REVISION = _LIKING_FORMAT_REVISION
 _SUPPORTED_REVISIONS = {
     "lab-export-v1",
     _PLANNING_FORMAT_REVISION,
     _SCIENCE_FORMAT_REVISION,
     _FORMAT_REVISION,
     _EXTERNAL_VALIDATION_FORMAT_REVISION,
+    _LIKING_FORMAT_REVISION,
 }
 _V1_TABLE_ORDER = (
     "lab_evidence_records",
@@ -145,18 +147,31 @@ _POST_V4_DURABILITY_TABLE_ORDER = (
     "lab_external_validation_records",
 )
 _V5_TABLE_ORDER = _V4_TABLE_ORDER + _POST_V4_DURABILITY_TABLE_ORDER
+_LIKING_TABLE_ORDER = (
+    "liking_ratings",
+    "liking_picks",
+    "liking_material_ratings",
+)
+_V6_TABLE_ORDER = _V5_TABLE_ORDER + _LIKING_TABLE_ORDER
+_V4_PLUS_REVISIONS = {
+    _FORMAT_REVISION,
+    _EXTERNAL_VALIDATION_FORMAT_REVISION,
+    _LIKING_FORMAT_REVISION,
+}
 _TABLES_BY_REVISION = {
     "lab-export-v1": _V1_TABLE_ORDER,
     _PLANNING_FORMAT_REVISION: _V2_TABLE_ORDER,
     _SCIENCE_FORMAT_REVISION: _V3_TABLE_ORDER,
     _FORMAT_REVISION: _V4_TABLE_ORDER,
     _EXTERNAL_VALIDATION_FORMAT_REVISION: _V5_TABLE_ORDER,
+    _LIKING_FORMAT_REVISION: _V6_TABLE_ORDER,
 }
 _NEXT_REVISION = {
     "lab-export-v1": _PLANNING_FORMAT_REVISION,
     _PLANNING_FORMAT_REVISION: _SCIENCE_FORMAT_REVISION,
     _SCIENCE_FORMAT_REVISION: _FORMAT_REVISION,
     _FORMAT_REVISION: _EXTERNAL_VALIDATION_FORMAT_REVISION,
+    _EXTERNAL_VALIDATION_FORMAT_REVISION: _LIKING_FORMAT_REVISION,
 }
 _ALLOWED_TOP_LEVEL_FIELDS = {
     "format_revision",
@@ -201,7 +216,7 @@ def migrate_export_packet(packet: Mapping[str, Any]) -> dict[str, Any]:
         migrated["format_revision"] = revision
     migrated["tables"] = {
         table_name: migrated["tables"].get(table_name, [])
-        for table_name in _V5_TABLE_ORDER
+        for table_name in _V6_TABLE_ORDER
     }
     return migrated
 
@@ -240,8 +255,10 @@ class LabExportService:
             table_order = _V3_TABLE_ORDER
         elif format_revision == _FORMAT_REVISION:
             table_order = _V4_TABLE_ORDER
-        else:
+        elif format_revision == _EXTERNAL_VALIDATION_FORMAT_REVISION:
             table_order = _V5_TABLE_ORDER
+        else:
+            table_order = _V6_TABLE_ORDER
         tables: dict[str, list[dict[str, Any]]] = {}
         for table_name in table_order:
             table = Base.metadata.tables[table_name]
@@ -249,8 +266,7 @@ class LabExportService:
             statement = select(table)
             if (
                 table_name == "lab_bottle_measurements"
-                and format_revision
-                not in {_FORMAT_REVISION, _EXTERNAL_VALIDATION_FORMAT_REVISION}
+                and format_revision not in _V4_PLUS_REVISIONS
             ):
                 statement = statement.where(table.c.proposal_id.is_(None))
             result = await self.session.execute(
@@ -259,8 +275,7 @@ class LabExportService:
             rows = [_serialize_row(dict(row._mapping)) for row in result]
             if (
                 table_name == "lab_bottle_measurements"
-                and format_revision
-                not in {_FORMAT_REVISION, _EXTERNAL_VALIDATION_FORMAT_REVISION}
+                and format_revision not in _V4_PLUS_REVISIONS
             ):
                 for row in rows:
                     for field in (
@@ -296,9 +311,7 @@ class LabExportService:
         if format_revision in {
             _PLANNING_FORMAT_REVISION,
             _SCIENCE_FORMAT_REVISION,
-            _FORMAT_REVISION,
-            _EXTERNAL_VALIDATION_FORMAT_REVISION,
-        }:
+        } | _V4_PLUS_REVISIONS:
             packet["ordering_contract"].update(
                 {
                     "target_versions": [
@@ -356,11 +369,7 @@ class LabExportService:
                     "content_hashes": "stable_json_hash",
                 }
             )
-        if format_revision in {
-            _SCIENCE_FORMAT_REVISION,
-            _FORMAT_REVISION,
-            _EXTERNAL_VALIDATION_FORMAT_REVISION,
-        }:
+        if format_revision in {_SCIENCE_FORMAT_REVISION} | _V4_PLUS_REVISIONS:
             packet["ordering_contract"].update(
                 {
                     "analytical_method_versions": [
@@ -437,10 +446,7 @@ class LabExportService:
                     "legacy_authority_vector": "not_canonical_not_exported",
                 }
             )
-        if format_revision in {
-            _FORMAT_REVISION,
-            _EXTERNAL_VALIDATION_FORMAT_REVISION,
-        }:
+        if format_revision in _V4_PLUS_REVISIONS:
             packet["ordering_contract"].update(
                 {
                     "bottle_action_proposals": [
@@ -468,7 +474,10 @@ class LabExportService:
                     "atomic_commit": "lab_bottle_action_commits",
                 }
             )
-        if format_revision == _EXTERNAL_VALIDATION_FORMAT_REVISION:
+        if format_revision in {
+            _EXTERNAL_VALIDATION_FORMAT_REVISION,
+            _LIKING_FORMAT_REVISION,
+        }:
             packet["ordering_contract"].update(
                 {
                     "physical_bindings": ["build_plan_version_id", "id"],
@@ -605,8 +614,10 @@ class LabExportService:
             allowed_tables = _V3_TABLE_ORDER
         elif format_revision == _FORMAT_REVISION:
             allowed_tables = _V4_TABLE_ORDER
-        else:
+        elif format_revision == _EXTERNAL_VALIDATION_FORMAT_REVISION:
             allowed_tables = _V5_TABLE_ORDER
+        else:
+            allowed_tables = _V6_TABLE_ORDER
         unknown = set(incoming_tables).difference(allowed_tables)
         if unknown:
             raise ValueError("laboratory export contains unknown tables")
@@ -889,7 +900,7 @@ def _publish_record(destination: Path, content: bytes) -> bool:
             target.write(content)
             target.flush()
             os.fsync(target.fileno())
-        return user_records._publish(temp, destination)
+        return bool(user_records._publish(temp, destination))
     finally:
         temp.unlink(missing_ok=True)
 

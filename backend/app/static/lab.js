@@ -523,6 +523,11 @@ function renderProjectInventory(filter = "", focusStockId = "") {
       button.dataset.diluteStock = stock.stock_id;
       action.appendChild(button);
     }
+    const rate = stockEl("button", "inventory-complete-button quiet-button", "Rate");
+    rate.type = "button";
+    rate.dataset.rateStock = stock.stock_id;
+    rate.dataset.stockLabel = label;
+    action.appendChild(rate);
     tr.append(name, strength, ...(showBaskets ? [stockBasketCell(stock)] : []), statusCell, action);
     body.appendChild(tr);
   });
@@ -1105,7 +1110,9 @@ async function waitForEngineJob(jobId, { area, intervalMs = 1000, signal, stillR
       const timeoutMs = snapshot.timeout_seconds ? snapshot.timeout_seconds * 1000 : ENGINE_JOB_DEFAULT_WAIT_MS;
       if (Date.now() - runningSince > timeoutMs + ENGINE_JOB_RUN_GRACE_MS) {
         area.replaceChildren();
-        throw new Error(stillRunningMessage || "The job is still running. Its durable job can be checked again without resubmitting the request.");
+        const stillRunning = new Error(stillRunningMessage || "The job is still running. Its durable job can be checked again without resubmitting the request.");
+        stillRunning.jobStillRunning = true;
+        throw stillRunning;
       }
     }
     const elapsed = Date.now() - (runningSince ?? waitStartedAt);
@@ -1548,14 +1555,11 @@ bindSavingForm("#backup-form", async (data, form, saved) => {
   notify("Verified backup created.");
 });
 
-$("#stage-restore-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
-  try {
-    const result = await request("/restores/stage", { method: "POST", body: JSON.stringify(data) });
-    $("#backup-output").textContent = JSON.stringify(result, null, 2);
-    notify("Restore validated and staged. Replacement still requires stopped-server maintenance.");
-  } catch (error) { notify(error.message, true); }
+bindSavingForm("#stage-restore-form", async (data, form, saved) => {
+  const result = await request("/restores/stage", { method: "POST", body: JSON.stringify(data) });
+  saved();
+  $("#backup-output").textContent = JSON.stringify(result, null, 2);
+  notify("Restore validated and staged. Replacement still requires stopped-server maintenance.");
 });
 
 $("#export-workspace").addEventListener("click", async () => {
@@ -1707,6 +1711,15 @@ attachStockDilutions({
     notify("Dilution saved. It is now a stock you can design with and gate.");
   },
 });
+
+if (typeof attachMaterialLiking === "function") {
+  attachMaterialLiking({
+    doc: document,
+    list: $("#project-inventory-list"),
+    getInventory: () => state.projectInventory || { stocks: [] },
+    request,
+  });
+}
 
 $("#inventory-completion-close").addEventListener("click", closeInventoryCompletion);
 $("#inventory-completion-cancel").addEventListener("click", closeInventoryCompletion);
@@ -2197,7 +2210,7 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
   const priorMessages = state.formulaChat.messages.slice(-8);
   const previousRows = selectedFormulaVariant(previous).formula?.rows || [];
   appendFormulaChatBubble("user", message);
-  state.formulaChat.messages.push(message);
+  const pushedAt = state.formulaChat.messages.push(message) - 1;
   const submit = $("#formula-chat-submit");
   submit.disabled = true;
   submit.textContent = previous ? "Refining…" : "Creating…";
@@ -2261,6 +2274,9 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
     submit.textContent = result.optimized_formula ? "Refine this formula" : "Try clarified brief";
     notify(result.optimized_formula ? "Inventory-grounded composition plan created." : "Clarification required before formulation.");
   } catch (error) {
+    // A failed brief must not ride along as conversation_context on every later request.
+    // A Deep compose job that is only still running may yet finish, so its brief stays.
+    if (!error.jobStillRunning && state.formulaChat.messages[pushedAt] === message) state.formulaChat.messages.splice(pushedAt, 1);
     appendFormulaChatBubble("assistant", `I could not create that draft: ${error.message}`);
     submit.textContent = previous ? "Refine this formula" : "Create my formula";
     notify(error.message, true);
@@ -3026,16 +3042,13 @@ bindSavingForm("#application-form", async (data, form, saved) => {
   $("#latest-application").value = row.id; notify("Application recorded.");
 });
 
-bindForm("#observation-form", (data) => request(`/applications/${data.application_id}/observations`, { method: "POST", body: JSON.stringify({ elapsed_seconds: Number(data.elapsed_seconds), observations: { note: data.observation } }) }));
+bindForm("#observation-form", (data) => request(`/applications/${encodeURIComponent(String(data.application_id).trim())}/observations`, { method: "POST", body: JSON.stringify({ elapsed_seconds: Number(data.elapsed_seconds), observations: { note: data.observation } }) }));
 bindForm("#outcome-form", (data) => request("/outcomes", { method: "POST", body: JSON.stringify({ experiment_id: data.experiment_id, prediction_id: null, outcome: { note: data.outcome } }) }));
 
-$("#analysis-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const data = formData(event.currentTarget);
-  try {
-    const result = await request("/analysis", { method: "POST", body: JSON.stringify({ name: data.name, total_volume_ml: 10, concentration_percent: 20, ingredients: [{ name: data.material, percentage: 100, stock_active_fraction: 1, stock_fraction_basis: "volume_fraction" }] }), timeoutMs: 0 });
-    $("#analysis-output").textContent = JSON.stringify(result, null, 2); notify("Evidence analysis complete.");
-  } catch (error) { notify(error.message, true); }
+bindSavingForm("#analysis-form", async (data, form, saved) => {
+  const result = await request("/analysis", { method: "POST", body: JSON.stringify({ name: data.name, total_volume_ml: 10, concentration_percent: 20, ingredients: [{ name: data.material, percentage: 100, stock_active_fraction: 1, stock_fraction_basis: "volume_fraction" }] }), timeoutMs: 0 });
+  saved();
+  $("#analysis-output").textContent = JSON.stringify(result, null, 2); notify("Evidence analysis complete.");
 });
 
 bindSavingForm("#hypothesis-form", async (data, form, saved) => {

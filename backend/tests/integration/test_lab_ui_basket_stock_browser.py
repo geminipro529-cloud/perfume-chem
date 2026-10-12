@@ -1,6 +1,7 @@
 """The Lab's Stock view shows and sets each material's basket, driven in a real browser."""
 
 import json
+import re
 
 import pytest
 
@@ -111,7 +112,8 @@ def test_basket_column_says_each_status_in_plain_words(stock):
     labdanum = _rows(stock, "Labdanum")
     assert _basket_text(labdanum) == "3 or 6?"
     assert labdanum.locator(".stock-basket-check").inner_text() == "check it"
-    assert labdanum.get_by_role("button").count() == 0
+    # Every row has a Rate button; an ambiguous basket gets no Confirm button.
+    assert labdanum.get_by_role("button", name=re.compile(r"^Confirm")).count() == 0
 
     assert _basket_text(_rows(stock, "Vetiver")) == "—"
     options = _rows(stock, "Vetiver").locator("select").locator("option").all_inner_texts()

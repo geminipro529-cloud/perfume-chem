@@ -8,10 +8,14 @@ re-checked, staying inside every limit the composer already applies:
 
 * the composer's own design cap (``composition_planner._design_cap_ul``: the
   role's raw-share cap, an identity hard cap, the normal-use ceiling and the
-  IFRA cap);
+  IFRA cap); a row serving a note the brief names may pass its role cap, as the
+  composer's named-note floor lets it, but never a firm cap;
 * the semantic layers' combined share budget (``_LAYER_SHARE_BUDGET``);
 * the gate's composition checks (IFRA Cat 4, Hedione share, musk count): a
-  raise that creates a FAIL the formula did not already have is rejected.
+  raise that creates a FAIL the formula did not already have is rejected;
+* the named notes' lead (``composition_planner.NAMED_NOTE_FLOOR_SHARE``): a
+  raise may not take the rows that serve the brief's named notes below the
+  active-volume share the composer gave them, capped at the floor share.
 
 The added microlitres come from the volume/diffusion row(s) first, then
 proportionally from other detectable non-character rows, so the liquid total
@@ -158,7 +162,7 @@ def _row_cap(
     )
     if capability is None:
         return None, "stock not in the capability index"
-    from engine.formulation_intelligence.formula_solver import _role_spec
+    from engine.formulation_intelligence.formula_solver import _is_named_note, _role_spec
     from engine.research.composition_planner import (
         Choice,
         _hard_cap_ul,
@@ -172,6 +176,10 @@ def _row_cap(
     ceiling = _normal_use_ceiling_cap_ul(choice.candidate, liquid_total_ul)
     if hard is not None:
         cap, limit = hard, "identity hard cap"
+    elif _is_named_note(role):
+        # A note the brief names may pass its role cap, as the composer's
+        # named-note floor lets it; only the firm caps below hold it.
+        cap, limit = liquid_total_ul, "liquid total"
     else:
         share = role.max_raw_share
         cap = _role_cap_ul(choice, liquid_total_ul)
@@ -289,6 +297,32 @@ def apply_detection_pass(
 
     baseline_fail = _blocking_checks(formula, formula_name) if original else set()
 
+    from engine.formulation_intelligence.formula_solver import _is_named_note
+    from engine.research.composition_planner import (
+        _DESIGN_FUNCTIONAL_CARRIERS,
+        NAMED_NOTE_FLOOR_SHARE,
+    )
+
+    named_rows = {
+        i for i in original
+        if (role := roles.get(str(rows[i].get("slot")))) is not None and _is_named_note(role)
+    }
+    strength = {
+        i: Decimal(0)
+        if _key(str(rows[i].get("identity_name") or rows[i].get("material") or ""))
+        in _DESIGN_FUNCTIONAL_CARRIERS
+        else Decimal(str(rows[i].get("stock_fraction_decimal") or 1))
+        for i in original
+    }
+
+    def named_share(current: Mapping[int, Decimal]) -> Decimal:
+        total = sum((current[i] * strength[i] for i in current), Decimal(0))
+        if total <= 0:
+            return Decimal(0)
+        return sum((current[i] * strength[i] for i in current if i in named_rows), Decimal(0)) / total
+
+    named_floor = min(NAMED_NOTE_FLOOR_SHARE, named_share(original)) if named_rows else None
+
     def run_raises(
         frozen: Mapping[int, str],
     ) -> tuple[dict[int, Decimal], dict[str, dict[str, float | None]], dict[int, str]]:
@@ -354,28 +388,49 @@ def apply_detection_pass(
                 needed = sum((wants[i] - amounts[i] for i in wants), Decimal(0))
             if not wants:
                 break
-            trial = dict(amounts)
-            trial.update(wants)
-            remaining = needed
-            for group in (volume, others):
-                pool = sum((max(Decimal(0), room[i]) for i in group), Decimal(0))
-                if remaining <= 0 or pool <= 0:
-                    continue
-                take = min(remaining, pool)
-                shares = {
-                    i: (take * max(Decimal(0), room[i]) / pool).to_integral_value(rounding=ROUND_FLOOR)
-                    for i in group
+
+            def donated(wants: Mapping[int, Decimal]) -> dict[int, Decimal]:
+                trial = dict(amounts)
+                trial.update(wants)
+                remaining = sum((wants[i] - amounts[i] for i in wants), Decimal(0))
+                for group in (volume, others):
+                    pool = sum((max(Decimal(0), room[i]) for i in group), Decimal(0))
+                    if remaining <= 0 or pool <= 0:
+                        continue
+                    take = min(remaining, pool)
+                    shares = {
+                        i: (take * max(Decimal(0), room[i]) / pool).to_integral_value(rounding=ROUND_FLOOR)
+                        for i in group
+                    }
+                    short = take - sum(shares.values(), Decimal(0))
+                    for i in sorted(group, key=lambda j: -room[j]):
+                        if short <= 0:
+                            break
+                        if shares[i] < room[i]:
+                            shares[i] += 1
+                            short -= 1
+                    for i, value in shares.items():
+                        trial[i] -= value
+                    remaining -= take
+                return trial
+
+            trial = donated(wants)
+            # The named notes keep their lead: moving volume from a diluted
+            # donor to a stronger row grows the active total, so the raise
+            # adding the most active volume is dropped until the named share
+            # holds what the composer gave it (at most the floor share).
+            while named_floor is not None and named_share(trial) < named_floor:
+                gains = {
+                    i: (wants[i] - amounts[i]) * strength[i] for i in wants if i not in named_rows
                 }
-                short = take - sum(shares.values(), Decimal(0))
-                for i in sorted(group, key=lambda j: -room[j]):
-                    if short <= 0:
-                        break
-                    if shares[i] < room[i]:
-                        shares[i] += 1
-                        short -= 1
-                for i, value in shares.items():
-                    trial[i] -= value
-                remaining -= take
+                if not gains:
+                    break
+                worst = max(sorted(gains), key=lambda i: gains[i])
+                limit_hit[worst] = "named notes' lead share"
+                del wants[worst]
+                trial = donated(wants)
+            if not wants:
+                continue
             new_fail = _blocking_checks(as_formula(trial), formula_name) - baseline_fail
             if new_fail:
                 blamed = [
@@ -527,8 +582,10 @@ def solver_formula(formula: Mapping[str, Any]) -> dict[str, Any]:
         return {**formula, "rows": rows}
     for adjustment in check.get("adjustments", []):
         i = adjustment["row_index"]
+        # Amounts compare as numbers: "750" and "750.0000" are the same dose.
         if (rows[i].get("row_id") != adjustment["row_id"]
-                or rows[i].get("amount_decimal") != adjustment["amount_after_decimal"]):
+                or Decimal(str(rows[i].get("amount_decimal")))
+                != Decimal(str(adjustment["amount_after_decimal"]))):
             raise ValueError("detection adjustment does not match its row")
         rows[i]["amount_decimal"] = adjustment["amount_before_decimal"]
     before = sum((v for row in rows if (v := _uL(row)) is not None), Decimal(0))
