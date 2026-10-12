@@ -11,7 +11,7 @@ from app.services.lab_export import (
 
 
 @pytest.mark.asyncio
-async def test_every_supported_export_migrates_explicitly_to_current_v5(
+async def test_every_supported_export_migrates_explicitly_to_current_v6(
     db_session,
 ):
     exporter = LabExportService(db_session)
@@ -21,6 +21,7 @@ async def test_every_supported_export_migrates_explicitly_to_current_v5(
         await exporter.export_workspace(format_revision="lab-export-v3"),
         await exporter.export_workspace(format_revision="lab-export-v4"),
         await exporter.export_workspace(format_revision="lab-export-v5"),
+        await exporter.export_workspace(format_revision="lab-export-v6"),
     )
     for packet in packets:
         packet["extensions"] = {
@@ -36,6 +37,7 @@ async def test_every_supported_export_migrates_explicitly_to_current_v5(
         assert "lab_build_plan_physical_bindings" in migrated["tables"]
         assert "lab_engine_jobs" in migrated["tables"]
         assert "lab_external_validation_records" in migrated["tables"]
+        assert "liking_ratings" in migrated["tables"]
 
 
 def test_export_migration_rejects_future_version_and_unscoped_fields():
