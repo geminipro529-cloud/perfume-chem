@@ -7,7 +7,10 @@ pre-mix guard) and never runs the gate itself, which writes files.
 Rule 1: no score uses an OAV magnitude or OAV share. Named-note detection is binary
 (a matching material with screening OAV >= 1 in the note's window, as the brief benchmark
 does); swamping uses active-mass share; OAV numbers appear only under ``diagnostics``.
-Rule 4: a HOLD is never counted as a pass; it is listed under ``holds``.
+Rule 4: a HOLD is never counted as a pass; it is listed under ``holds``, and a side holding a
+floor cannot win a duel against a clean side. A decomposed natural's screening OAV is a sum
+of constituent OAVs and the frame exposes no per-constituent values, so such a row gives no
+detection verdict (the note holds as ``unknown_physics``).
 
 Formula input (a plain dict)::
 
@@ -25,6 +28,7 @@ from __future__ import annotations
 
 import dataclasses
 import functools
+import math
 from collections.abc import Callable, Mapping, Sequence
 from decimal import Decimal
 from pathlib import Path
@@ -64,10 +68,6 @@ LIKING_MARGIN = 0.05
 # Exact-match rows under this amount are treated as absent.
 _EPS = 1e-9
 
-# Stock ids the composer gives inventory.txt stocks the gate's stock list doesn't hold
-# (engine/personal_inventory.py _live_design_stock).
-DESIGN_ONLY_STOCK_PREFIX = "inventory:text-design-only:"
-
 FLOOR_IDS = ("F1_owned_stock", "F2_ifra", "F3_pre_mix_guard", "F4_bottle", "F5_pours", "F6_musks")
 
 Scorecard = dict[str, Any]
@@ -81,15 +81,24 @@ def formula_from_markdown(
     path: str | Path,
     *,
     parent_path: str | Path | None = None,
-    batch_volume_ml: float = BOTTLE_ML,
+    batch_volume_ml: float | None = None,
 ) -> dict[str, Any]:
-    """Load a formula file with the release gate's own parser (first formula in the file)."""
+    """Load a formula file with the release gate's own parser (first formula in the file).
+
+    The batch is the file's own (the release gate's ``resolve_batch_volume``: title, then
+    file name, then 30 mL) unless ``batch_volume_ml`` is given. A ``parent_path`` that is
+    set but missing is recorded as ``parent_missing`` (F3 holds). Rows the parser could not
+    read are kept as ``row_parse_blockers`` (F1 holds: a blocked row could hide anything).
+    """
+    from scripts.formula_release_gate import resolve_batch_volume
     from scripts.verify_formula_workflow import parse_formula_markdown
 
     records = parse_formula_markdown(Path(path))
     if not records:
         raise ValueError(f"no formula rows could be read in {path}")
     record = records[0]
+    if batch_volume_ml is None:
+        batch_volume_ml, _, _ = resolve_batch_volume(None, str(record.get("name", "")), path)
     specs = record.get("stock_specs", {}) or {}
     rows = []
     for name, amount in record["ingredients_ul"].items():
@@ -103,14 +112,24 @@ def formula_from_markdown(
             "carrier": str(spec.get("carrier", "")),
         })
     parent = None
+    missing_parent = {}
     if parent_path is not None:
-        parent = formula_from_markdown(parent_path, batch_volume_ml=batch_volume_ml)
+        if Path(parent_path).is_file():
+            parent = formula_from_markdown(parent_path)
+        else:
+            missing_parent = {"parent_missing": str(parent_path)}
+    blockers = [
+        " ".join(str(b.get("message") or b).split())
+        for b in record.get("row_parse_blockers", []) or []
+    ]
     return {
         "name": record["name"],
-        "batch_volume_ml": batch_volume_ml,
+        "batch_volume_ml": float(batch_volume_ml),
         "rows": rows,
         "parent": parent,
         "gate_record": record,
+        **missing_parent,
+        **({"row_parse_blockers": blockers} if blockers else {}),
     }
 
 
@@ -193,18 +212,34 @@ def _matches(name: str, subs: Sequence[str]) -> bool:
     return any(str(s).lower() in low for s in subs)
 
 
+def _lacks_physics(m: Any) -> bool:
+    """No usable screening OAV for detection.
+
+    A decomposed natural's screening OAV is the sum of its constituents' OAVs (Rule 4: never
+    a whole-natural detection claim), and the frame exposes no per-constituent OAVs, so such
+    a row has no detection basis here.
+    """
+    return (
+        m.screening_oav is None
+        or m.odt_air_ppm is None
+        or "odt_air_ppm" in m.missing_fields
+        or bool(getattr(m, "has_constituent_resolved_oav", False))
+    )
+
+
 def _note_status(mats: Sequence[Any], formula_names: set[str], subs: Sequence[str]) -> str:
-    """Detection status as the brief benchmark's ``_note_eval`` computes it (binary OAV >= 1)."""
+    """Binary detection (screening OAV >= 1) as the brief benchmark's ``_note_eval``.
+
+    Detectable when any matching row with physics reaches 1; otherwise a note with any
+    matching row lacking physics is ``unknown_physics`` (a hold), not ``below_threshold``.
+    """
     rows = [m for m in mats if m.name in formula_names and _matches(m.name, subs)]
     if not rows:
         return "absent"
-    if all(
-        m.screening_oav is None or m.odt_air_ppm is None or "odt_air_ppm" in m.missing_fields
-        for m in rows
-    ):
-        return "unknown_physics"
-    if any(m.screening_oav is not None and m.screening_oav >= 1 for m in rows):
+    if any(not _lacks_physics(m) and m.screening_oav >= 1 for m in rows):
         return "detectable"
+    if any(_lacks_physics(m) for m in rows):
+        return "unknown_physics"
     return "below_threshold"
 
 
@@ -255,32 +290,109 @@ def _gate_call(fn: Callable[[], Any]) -> tuple[str, str, dict]:
 # ── Floors ──────────────────────────────────────────────────────────────────
 
 
-def _f1_stock(stock_contract: Any) -> dict[str, Any]:
+# Stock-contract reasons where the gate's stock list lacks the material or disagrees with
+# the row (preflight _dilution_consistency_check). Formula defects (no, invalid or
+# conflicting stock fraction) are not here: they are hard whatever inventory.txt says.
+_GATE_DISAGREEMENT_REASONS = frozenset({
+    "stock_id_not_in_current_inventory", "not_in_inventory", "inventory_gap",
+    "inventory_stock_unavailable", "inventory_stock_metadata_incomplete",
+    "inventory_stock_non_executable", "preparation_required", "stock_fraction_mismatch",
+    "stock_fraction_basis_mismatch", "stock_carrier_mismatch", "ambiguous_live_stock",
+})
+
+
+@functools.lru_cache(maxsize=1)
+def _inventory_txt_owned() -> dict[str, tuple[Any, ...]]:
+    """inventory.txt's owned stocks (every strength) by normalised name.
+
+    The list the composer designs from (engine/personal_inventory.py
+    ``materialize_personal_inventory`` reads the same ``parse_inventory`` owned rows),
+    minus the user's compounding holds: a held material is excluded, not merely unbound.
+    """
+    from engine.inventory_parser import (
+        apply_user_compounding_holds,
+        is_user_compounding_held,
+        parse_inventory,
+    )
+
+    live = tuple(
+        s for s in parse_inventory(unique=False, include_unavailable=False)
+        if s.status.casefold() == "owned" and s.dilution > 0
+    )
+    index: dict[str, list[Any]] = {}
+    for s in apply_user_compounding_holds(live)[0]:
+        if is_user_compounding_held(s):
+            continue
+        for key in {normalize_name(s.identity_name or s.name), normalize_name(s.name)}:
+            index.setdefault(key, []).append(s)
+    return {k: tuple(v) for k, v in index.items()}
+
+
+def _owned_on_inventory_txt(material: str, fraction: float | None) -> bool:
+    """Whether inventory.txt owns ``material`` at ``fraction`` (the gate's tolerance)."""
+    from engine.inventory_parser import load_current_inventory_alias_crosswalk
+    from engine.pipeline.preflight import _same_stock_fraction
+
+    if fraction is None:
+        return False
+    keys = {normalize_name(material)}
+    alias = load_current_inventory_alias_crosswalk().resolve(material)
+    if alias:
+        keys.add(normalize_name(alias.destination))
+    index = _inventory_txt_owned()
+    return any(
+        _same_stock_fraction(float(fraction), float(s.dilution))
+        for key in keys for s in index.get(key, ())
+    )
+
+
+def _issue_holdable(
+    check: Mapping[str, Any], issue: Mapping[str, Any], record: Mapping[str, Any]
+) -> bool:
+    """A stock issue holds when it only needs data, or when the gate's list lacks or
+    disagrees with a material inventory.txt owns at the row's active fraction. Decided
+    from the material, never from where the row came from (composer or reference file)."""
+    from engine.inventory_parser import USER_COMPOUNDING_HOLD
     from engine.pipeline.gates import _classify_preflight_check
 
-    status, detail, _ = _classify_preflight_check(stock_contract.as_dict())
+    alone = {**check, "data": {**dict(check.get("data") or {}), "issues": [dict(issue)]}}
+    if _classify_preflight_check(alone)[0] == "HOLD":
+        return True  # the gate's own classifier: missing data only
+    if issue.get("reason") not in _GATE_DISAGREEMENT_REASONS:
+        return False
+    if any(USER_COMPOUNDING_HOLD in str(h) for h in issue.get("execution_holds", []) or []):
+        return False
+    material = str(issue.get("material", ""))
+    return _owned_on_inventory_txt(material, (record.get("dilutions") or {}).get(material))
+
+
+def _f1_stock(stock_contract: Any, record: Mapping[str, Any]) -> dict[str, Any]:
+    """FAIL if any hard stock issue, else HOLD if any holdable one (Rule 0: a disagreement
+    between inventory.txt and the gate's stock list is reported, not guessed)."""
+    from engine.pipeline.gates import _classify_preflight_check
+
+    check = stock_contract.as_dict()
+    status, detail, _ = _classify_preflight_check(check)
     if status not in {"PASS", "FAIL", "HOLD"}:
         status = "PASS" if status == "WARN" else "HOLD"
     raw_issues = list(stock_contract.data.get("issues", []) or [])
     issues = [f"{i.get('material')}: {i.get('reason')}" for i in raw_issues]
-    unbound = [i for i in raw_issues if _is_unbound_design_stock(i)]
-    if status == "FAIL" and raw_issues and len(unbound) == len(raw_issues):
-        # Owned on the user's inventory.txt, but not yet in the gate's stock list
-        # (the composer marks these EXECUTION_STOCK_BINDING_REQUIRED). Rule 0 asks
-        # for the disagreement to be reported, not guessed: a hold, never a pass.
-        names = ", ".join(str(i.get("material")) for i in unbound)
-        detail = (
-            f"{len(unbound)} material(s) are owned on inventory.txt but not bound to the "
-            f"gate's stock list (complete them on the Stock page): {names}"
-        )
-        status = "HOLD"
-    return _floor(status, detail, issues=issues)
-
-
-def _is_unbound_design_stock(issue: Mapping[str, Any]) -> bool:
-    return issue.get("reason") == "stock_id_not_in_current_inventory" and str(
-        issue.get("stock_id", "")
-    ).startswith(DESIGN_ONLY_STOCK_PREFIX)
+    if status != "FAIL" or not raw_issues:
+        return _floor(status, detail, issues=issues)
+    hard, holdable = [], []
+    for issue in raw_issues:
+        (holdable if _issue_holdable(check, issue, record) else hard).append(issue)
+    held_detail = (
+        f"{len(holdable)} material(s) owned on inventory.txt that the gate's stock list lacks "
+        "or disagrees with, or that need data (complete them on the Stock page): "
+        + ", ".join(str(i.get("material")) for i in holdable)
+    ) if holdable else ""
+    if hard:
+        fails = ", ".join(f"{i.get('material')} ({i.get('reason')})" for i in hard)
+        detail = f"{len(hard)} material(s) cannot be built as written: {fails}" + (
+            f". {held_detail}" if held_detail else "")
+        return _floor("FAIL", detail, issues=issues)
+    return _floor("HOLD", held_detail, issues=issues)
 
 
 def _f2_ifra(safety: tuple[str, str, dict]) -> dict[str, Any]:
@@ -313,16 +425,29 @@ def _f2_ifra(safety: tuple[str, str, dict]) -> dict[str, Any]:
 def _f3_pre_mix(formula: Mapping[str, Any], record: Mapping[str, Any]) -> dict[str, Any]:
     from engine.fuckups.pre_mix_guard import PreMixGuardError, evaluate_pre_mix_guard
 
+    if formula.get("parent_missing"):
+        return _floor("HOLD", f"parent formula is set but missing: {formula['parent_missing']}")
     parent = formula.get("parent")
     if not parent:
         return _floor("NOT_APPLICABLE", "new formula: no parent to compare against")
     prec = _gate_record(parent)
+    # A revision's dose changes on the same stock are what the user asked for, so each is
+    # authorised. A material whose stock strength changed is not: Rule 5 keeps
+    # STOCK_REBASE_ACTIVE_EQUIVALENCE (and every other FAIL finding) a hard failure.
+    parent_dil = {normalize_name(n): float(d) for n, d in prec["dilutions"].items()}
+    same_stock = {
+        n: "dose change in the revision as written"
+        for n, d in record["dilutions"].items()
+        if normalize_name(n) in parent_dil
+        and math.isclose(parent_dil[normalize_name(n)], float(d), rel_tol=1e-9, abs_tol=1e-12)
+    }
     try:
         report = evaluate_pre_mix_guard(
             child_ingredients_ul=record["ingredients_ul"],
             child_dilutions=record["dilutions"],
             parent_ingredients_ul=prec["ingredients_ul"],
             parent_dilutions=prec["dilutions"],
+            authorized_active_dose_changes=same_stock,
         )
     except PreMixGuardError as exc:
         return _floor("HOLD", f"pre-mix guard could not compare: {exc}")
@@ -340,9 +465,9 @@ def _f3_pre_mix(formula: Mapping[str, Any], record: Mapping[str, Any]) -> dict[s
 
 def _f4_bottle(formula: Mapping[str, Any]) -> dict[str, Any]:
     batch = float(formula.get("batch_volume_ml") or 0.0)
-    liquid = sum(
-        float(Decimal(str(r["amount"]))) for r in formula["rows"] if r.get("unit", "uL") == "uL"
-    )
+    # mg rows count 1 mg ~ 1 uL, the assumption reference files make (they are exempt
+    # only from the pour floor, F5).
+    liquid = sum(float(Decimal(str(r["amount"]))) for r in formula["rows"])
     pct = liquid / (BOTTLE_ML * 1000.0) * 100.0
     problems = []
     if abs(batch - BOTTLE_ML) > _EPS:
@@ -415,8 +540,15 @@ def score_formula(formula: Mapping[str, Any], brief: Mapping[str, Any]) -> Score
     safety = _gate_call(lambda: g._gate_safety(
         state, config, g._stock_conflict_materials(record), g._unwritten_strength_reasons(record)
     ))
+    f1 = _f1_stock(stock_contract, record)
+    blocked = list(formula.get("row_parse_blockers") or [])
+    if blocked and f1["status"] != "FAIL":
+        # A row the parser could not read could hide Tonalide or a named-note material.
+        f1 = _floor("HOLD", f"{len(blocked)} row(s) could not be read: " + "; ".join(blocked)
+                    + (f". {f1['detail']}" if f1["status"] == "HOLD" else ""),
+                    issues=f1.get("issues", []), blocked_rows=blocked)
     floors = {
-        "F1_owned_stock": _f1_stock(stock_contract),
+        "F1_owned_stock": f1,
         "F2_ifra": _f2_ifra(safety),
         "F3_pre_mix_guard": _f3_pre_mix(formula, record),
         "F4_bottle": _f4_bottle(formula),
@@ -498,7 +630,7 @@ def score_formula(formula: Mapping[str, Any], brief: Mapping[str, Any]) -> Score
     cap_breaches = []
     for sub, cap in sorted(caps.items()):
         for row in formula["rows"]:
-            if row.get("unit", "uL") == "uL" and _matches(str(row["material"]), [sub]):
+            if _matches(str(row["material"]), [sub]):  # mg rows count 1 mg ~ 1 uL
                 ul_per_bottle = float(Decimal(str(row["amount"]))) * BOTTLE_ML / batch
                 if ul_per_bottle > float(cap) + _EPS:
                     cap_breaches.append(f"{row['material']} {ul_per_bottle:g} uL > {cap} uL")
@@ -656,10 +788,14 @@ def _side(card: Scorecard) -> dict[str, Any]:
 
 def duel_verdict(engine_card: Scorecard, reference_card: Scorecard | None) -> Verdict:
     """Engine vs reference on one brief; the first deciding step wins."""
+    holds = {"engine": _floor_holds(engine_card),
+             "reference": _floor_holds(reference_card) if reference_card else []}
+
     def out(verdict: str, step: str, detail: str) -> Verdict:
         return {"verdict": verdict, "deciding_step": step, "detail": detail,
                 "engine": _side(engine_card),
-                "reference": _side(reference_card) if reference_card else None}
+                "reference": _side(reference_card) if reference_card else None,
+                "floor_holds": holds}
 
     if reference_card is None:
         return out("NO_REFERENCE", "1_reference", "no reference formula for this brief")
@@ -669,18 +805,44 @@ def duel_verdict(engine_card: Scorecard, reference_card: Scorecard | None) -> Ve
     if e_dq or r_dq:
         return out("REFERENCE_WINS" if e_dq else "ENGINE_WINS", "2_floors",
                    ("engine" if e_dq else "reference") + " fails a floor")
+    verdict, step, detail = _compare_scores(engine_card, reference_card)
+    e_held, r_held = bool(holds["engine"]), bool(holds["reference"])
+    if e_held != r_held:
+        # Rule 4: a HOLD is never a pass. The clean side wins when ahead or level; a held
+        # side that would win is only "ahead, held", never a win.
+        held, clean = ("ENGINE", "REFERENCE") if e_held else ("REFERENCE", "ENGINE")
+        held_floors = ", ".join(holds[held.lower()])
+        if verdict == f"{held}_WINS":
+            return out(f"{held}_AHEAD_HELD", step,
+                       f"{detail}; {held.lower()} holds {held_floors}, so it cannot win")
+        if verdict == "TIE":
+            return out(f"{clean}_WINS", "2_floor_holds",
+                       f"level on every step; {held.lower()} holds {held_floors}")
+        return out(verdict, step, f"{detail}; {held.lower()} also holds {held_floors}")
+    if e_held and r_held:
+        detail += (f"; both sides hold floors (engine: {', '.join(holds['engine'])}; "
+                   f"reference: {', '.join(holds['reference'])})")
+    return out(verdict, step, detail)
+
+
+def _floor_holds(card: Scorecard) -> list[str]:
+    return sorted(fid for fid, f in (card.get("floors") or {}).items() if f["status"] == "HOLD")
+
+
+def _compare_scores(engine_card: Scorecard, reference_card: Scorecard) -> tuple[str, str, str]:
+    """Name, then craft, then crowd liking; the first step past its margin decides."""
     for step, key, margin in (("3_name", "name_score", SCORE_MARGIN),
                               ("4_craft", "craft_score", SCORE_MARGIN)):
         diff = float(engine_card[key]) - float(reference_card[key])
         if abs(diff) >= margin:
-            return out("ENGINE_WINS" if diff > 0 else "REFERENCE_WINS", step,
-                       f"{key} differs by {diff:+.2f} (margin {margin:g})")
+            return ("ENGINE_WINS" if diff > 0 else "REFERENCE_WINS", step,
+                    f"{key} differs by {diff:+.2f} (margin {margin:g})")
     ev, rv = engine_card["liking"].get("valence"), reference_card["liking"].get("valence")
     if ev is not None and rv is not None and abs(float(ev) - float(rv)) >= LIKING_MARGIN - _EPS:
         diff = float(ev) - float(rv)
-        return out("ENGINE_WINS" if diff > 0 else "REFERENCE_WINS", "5_liking",
-                   f"crowd valence differs by {diff:+.3f} (margin {LIKING_MARGIN:g})")
-    return out("TIE", "6_tie", "no step separated the two formulas")
+        return ("ENGINE_WINS" if diff > 0 else "REFERENCE_WINS", "5_liking",
+                f"crowd valence differs by {diff:+.3f} (margin {LIKING_MARGIN:g})")
+    return ("TIE", "6_tie", "no step separated the two formulas")
 
 
 __all__ = [

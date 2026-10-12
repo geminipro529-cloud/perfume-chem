@@ -113,9 +113,35 @@ def test_thresholds_match_release_gate_source():
     assert f"pct > {ys.SINGLE_MATERIAL_LIMIT_PCT}" in coty
 
 
-def _card(name=50.0, craft=50.0, valence=0.2, dq=False) -> dict:
+def _card(name=50.0, craft=50.0, valence=0.2, dq=False, held=()) -> dict:
+    floors = {fid: {"status": "HOLD" if fid in held else "PASS", "detail": "-"}
+              for fid in ys.FLOOR_IDS}
     return {"formula": "x", "disqualified": dq, "name_score": name, "craft_score": craft,
-            "liking": {"valence": valence}}
+            "liking": {"valence": valence}, "floors": floors}
+
+
+@pytest.mark.parametrize(
+    ("engine", "reference", "verdict", "step"),
+    [
+        # Reviewer's case: engine holds a floor, reference clean, engine ahead on name.
+        (_card(name=90, held=("F1_owned_stock",)), _card(name=50), "ENGINE_AHEAD_HELD",
+         "3_name"),
+        (_card(name=50), _card(name=90, held=("F2_ifra",)), "REFERENCE_AHEAD_HELD", "3_name"),
+        (_card(held=("F3_pre_mix_guard",)), _card(), "REFERENCE_WINS", "2_floor_holds"),
+        (_card(name=50, held=("F1_owned_stock",)), _card(name=90), "REFERENCE_WINS", "3_name"),
+        (_card(name=90, held=("F1_owned_stock",)), _card(name=50, held=("F2_ifra",)),
+         "ENGINE_WINS", "3_name"),
+        (_card(name=90, held=("F1_owned_stock",)), _card(dq=True), "ENGINE_WINS", "2_floors"),
+    ],
+)
+def test_a_floor_hold_never_wins_against_a_clean_side(engine, reference, verdict, step):
+    v = ys.duel_verdict(engine, reference)
+    assert (v["verdict"], v["deciding_step"]) == (verdict, step)
+
+
+def test_both_sides_holding_lists_both_holds():
+    v = ys.duel_verdict(_card(name=90, held=("F1_owned_stock",)), _card(held=("F2_ifra",)))
+    assert "F1_owned_stock" in v["detail"] and "F2_ifra" in v["detail"]
 
 
 @pytest.mark.parametrize(
@@ -180,25 +206,122 @@ class _Contract:
         return {"status": "FAIL", "detail": "stock contract failed", "data": self.data}
 
 
+DESIGN_ONLY = "inventory:text-design-only:"  # engine/personal_inventory.py _live_design_stock
+
+
 def _unbound(material: str) -> dict:
     return {"material": material, "reason": "stock_id_not_in_current_inventory",
-            "stock_id": f"{ys.DESIGN_ONLY_STOCK_PREFIX}abc123"}
+            "stock_id": f"{DESIGN_ONLY}abc123"}
+
+
+# inventory.txt: "Damascol (10%)", "Leather FO" (neat), "Nutmeg EO (neat / as supplied)".
+RECORD = {"dilutions": {"Damascol": 0.1, "Leather FO": 1.0, "Nutmeg EO": 0.1, "X": 1.0}}
 
 
 def test_stock_only_on_inventory_txt_is_a_hold_not_a_fail() -> None:
-    floor = ys._f1_stock(_Contract([_unbound("Damascol"), _unbound("Leather FO")]))
+    floor = ys._f1_stock(_Contract([_unbound("Damascol"), _unbound("Leather FO")]), RECORD)
 
     assert floor["status"] == "HOLD"
     assert "Damascol" in floor["detail"] and "Stock page" in floor["detail"]
 
 
 def test_any_other_stock_problem_still_fails() -> None:
-    mismatch = {"material": "Nutmeg EO", "reason": "stock_fraction_mismatch"}
+    mismatch = {"material": "Nutmeg EO", "reason": "stock_fraction_mismatch"}  # owned neat only
     unknown_id = {"material": "X", "reason": "stock_id_not_in_current_inventory",
                   "stock_id": "inventory:v5:missing"}
+    defect = {"material": "Damascol", "reason": "conflicting_stock_rows"}
 
-    assert ys._f1_stock(_Contract([_unbound("Damascol"), mismatch]))["status"] == "FAIL"
-    assert ys._f1_stock(_Contract([unknown_id]))["status"] == "FAIL"
+    assert ys._f1_stock(_Contract([_unbound("Damascol"), mismatch]), RECORD)["status"] == "FAIL"
+    assert ys._f1_stock(_Contract([unknown_id]), RECORD)["status"] == "FAIL"
+    assert ys._f1_stock(_Contract([defect]), RECORD)["status"] == "FAIL"
+
+
+def _real_f1(row: dict) -> dict:
+    from engine.pipeline.preflight import resolve_inventory_stock_contract
+
+    record = ys._gate_record({"name": "t", "rows": [row]})
+    return ys._f1_stock(resolve_inventory_stock_contract(record), record)
+
+
+def test_same_inventory_txt_material_holds_alike_from_engine_and_reference_rows() -> None:
+    engine_row = _row("Leather FO", "50", stock_id=f"{DESIGN_ONLY}0123456789abcdef0123")
+    reference_row = _row("Leather FO", "50")
+
+    engine_f1, reference_f1 = _real_f1(engine_row), _real_f1(reference_row)
+
+    assert engine_f1["status"] == reference_f1["status"] == "HOLD", (engine_f1, reference_f1)
+    # Same material at a strength inventory.txt does not own: hard on both sides.
+    assert _real_f1(_row("Leather FO", "50", "0.1"))["status"] == "FAIL"
+
+
+def test_unreadable_rows_hold_the_stock_floor_and_are_named() -> None:
+    formula = {**_formula(), "row_parse_blockers": ["line 12: '| Tonal?de | 2O uL |' unread"]}
+    f1 = ys.score_formula(formula, BRIEF)["floors"]["F1_owned_stock"]
+
+    assert f1["status"] == "HOLD" and "Tonal?de" in f1["detail"]
+    assert f1["blocked_rows"] == formula["row_parse_blockers"]
+    assert ys.score_formula(_formula(), BRIEF)["floors"]["F1_owned_stock"].get(
+        "blocked_rows") is None
+
+
+def test_revision_dose_change_is_authorised_but_stock_rebase_is_not() -> None:
+    parent = _formula(neroli_ul="10")
+    child = _formula(neroli_ul="40", parent=parent)  # same stock, 4x active dose
+    f3 = ys._f3_pre_mix(child, ys._gate_record(child))
+
+    assert f3["status"] == "PASS" and "AUTHORIZED_ACTIVE_DOSE_CHANGE" in f3["detail"]
+
+
+def test_missing_parent_file_holds_the_revision_floor(tmp_path) -> None:
+    ref = ys.formula_from_markdown(R7, parent_path=tmp_path / "gone.md")
+    card = ys.score_formula(ref, BRIEF)
+
+    assert card["floors"]["F3_pre_mix_guard"]["status"] == "HOLD"
+    assert "gone.md" in card["floors"]["F3_pre_mix_guard"]["detail"]
+
+
+def test_file_batch_is_read_and_a_non_30_ml_batch_fails_the_bottle_floor(tmp_path) -> None:
+    lines = R7.read_text(encoding="utf-8").splitlines()
+    lines[0] = lines[0].replace("30 mL", "50 mL")
+    fifty = tmp_path / "Lavande_50mL_Parfum.md"
+    fifty.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    assert ys.formula_from_markdown(R7)["batch_volume_ml"] == 30.0
+    formula = ys.formula_from_markdown(fifty)
+    assert formula["batch_volume_ml"] == 50.0
+    assert ys._f4_bottle(formula)["status"] == "FAIL"
+
+
+def test_mg_rows_count_toward_the_bottle_but_not_the_pour_floor() -> None:
+    formula = _formula(extra_rows=(_row("Ambrox Super", "5", unit="mg"),))
+    assert ys._f4_bottle(formula)["concentrate_ul"] == 1215.0
+    assert ys._f5_pours(formula)["status"] == "PASS"
+
+
+class _M:
+    """Stand-in for a simulator MaterialState row."""
+
+    def __init__(self, name: str, oav: float | None, composite: bool = False) -> None:
+        self.name, self.screening_oav = name, oav
+        self.odt_air_ppm = None if oav is None else 0.01
+        self.missing_fields: tuple = ()
+        self.has_constituent_resolved_oav = composite
+
+
+@pytest.mark.parametrize(
+    ("mats", "status"),
+    [
+        ([_M("Orris Butter", 50.0, composite=True)], "unknown_physics"),  # sum: no verdict
+        ([_M("Irone", 0.2), _M("Orris Butter", 50.0, composite=True)], "unknown_physics"),
+        ([_M("Irone", 0.2), _M("Orris Concrete", None)], "unknown_physics"),
+        ([_M("Irone", 2.0), _M("Orris Concrete", None)], "detectable"),
+        ([_M("Irone", 0.2)], "below_threshold"),
+        ([], "absent"),
+    ],
+)
+def test_note_detection_never_reads_a_summed_natural(mats, status) -> None:
+    names = {m.name for m in mats}
+    assert ys._note_status(mats, names, ["irone", "orris"]) == status
 
 
 def test_a_withheld_composer_result_is_disqualified_not_a_crash() -> None:

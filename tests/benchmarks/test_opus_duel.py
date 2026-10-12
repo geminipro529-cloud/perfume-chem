@@ -9,10 +9,13 @@ opt-in (it composes 34 formulas):
   gitignored). Reference formulas are private and never committed; a ``formulas/`` path
   resolves from the repo root. A missing reference file scores the brief engine-only
   (verdict NO_REFERENCE).
-- ``OPUS_DUEL_REPORT=<path>`` writes the full JSON (cards, verdicts, closeness, timings).
+- ``OPUS_DUEL_REPORT=<path>`` writes the JSON (cards, verdicts, closeness, timings) to a
+  path outside the repo (the repo is public); the reference card's rows are left out.
 - ``OPUS_DUEL_WRITE_BASELINE=1`` writes ``data/benchmarks/opus_duel_baseline_<mode>.json``
   (verdicts and scores only: no material names, amounts or closeness); otherwise the run is
-  compared to that file when it exists.
+  compared to that file when it exists. Writing refuses ``OPUS_DUEL_ONLY`` (a partial
+  baseline). A reference the baseline scored must still score when the references root is
+  present; with the root absent, reference comparisons are skipped and a line says so.
 
 DEEP_COMPOSE returns up to three variants in ``result["design_variants"][i]["formula"]``;
 each is scored and the best kept: not disqualified, then name score, then craft, then liking.
@@ -36,7 +39,8 @@ MODES = {"FAST_SKETCH", "DEEP_COMPOSE"}
 BENCH_CONCENTRATE_UL = 6000
 NAME_DROP_LIMIT = 5.0
 # Verdict rank from the engine's side: a move to a lower rank is a regression.
-VERDICT_RANK = {"REFERENCE_WINS": 0, "TIE": 1, "ENGINE_WINS": 2}
+VERDICT_RANK = {"REFERENCE_WINS": 0, "REFERENCE_AHEAD_HELD": 1, "TIE": 2, "BOTH_DISQUALIFIED": 2,
+                "ENGINE_AHEAD_HELD": 3, "ENGINE_WINS": 4}
 DUEL_KEYS = {"id", "name", "idea", "idea_source", "family", "family_source", "named_notes",
              "family_core_groups", "precious_caps", "reference", "concentrate_ul"}
 DUEL_OPTIONAL = {"excluded_notes", "family_note"}
@@ -229,8 +233,8 @@ def _run_duel_entry(entry: dict, mode: str, root: Path) -> dict:
     parent = _resolve(entry["reference"]["parent"], root)
     ref_card = near = None
     if ref_path is not None and ref_path.is_file():
-        ref = formula_from_markdown(ref_path,
-                                    parent_path=parent if parent and parent.is_file() else None)
+        # A set parent whose file is missing makes F3 HOLD (formula_from_markdown).
+        ref = formula_from_markdown(ref_path, parent_path=parent)
         ref_card = score_formula(ref, entry)
         near = closeness(engine["formula"], ref)
     return {"kind": "duel", "engine": engine["card"], "reference": ref_card,
@@ -268,14 +272,22 @@ def _baseline_record(run: dict) -> dict:
         "engine_failing_floors": _failing_floors(eng),
         "engine_name_score": eng["name_score"],
         "engine_craft_score": eng["craft_score"],
+        "engine_floor_holds": _held_floors(eng),
     }
     if ref is not None:
         rec["reference_name_score"] = ref["name_score"]
         rec["reference_craft_score"] = ref["craft_score"]
+        rec["reference_floor_holds"] = _held_floors(ref)
     return rec
 
 
-def _compare(baseline: dict, current: dict) -> list[str]:
+def _held_floors(card: dict) -> list[str]:
+    return sorted(fid for fid, f in card["floors"].items() if f["status"] == "HOLD")
+
+
+def _compare(baseline: dict, current: dict, references_present: bool = True) -> list[str]:
+    """Regressions against the baseline. With the references root absent, reference
+    comparisons are skipped; with it present, a reference the baseline scored must score."""
     problems = []
     for bid, base in baseline.items():
         cur = current.get(bid)
@@ -288,7 +300,12 @@ def _compare(baseline: dict, current: dict) -> list[str]:
         if drop >= NAME_DROP_LIMIT:
             problems.append(f"{bid}: engine name score {base['engine_name_score']} -> "
                             f"{cur['engine_name_score']}")
-        if base["reference_scored"] and cur["reference_scored"]:
+        if not references_present:
+            continue
+        if base["reference_scored"] and not cur["reference_scored"]:
+            problems.append(f"{bid}: the baseline scored a reference that is now missing")
+            continue
+        if base["reference_scored"]:
             b, c = VERDICT_RANK.get(base["verdict"]), VERDICT_RANK.get(cur["verdict"])
             if b is not None and c is not None and c < b:
                 problems.append(f"{bid}: verdict {base['verdict']} -> {cur['verdict']}")
@@ -322,6 +339,17 @@ def test_opus_duel():
     data = _data()
     known = {e["id"] for e in data["duel"]} | set(data["benchmark_extras"])
     assert only <= known, f"unknown ids in OPUS_DUEL_ONLY: {sorted(only - known)}"
+    write_baseline = os.environ.get("OPUS_DUEL_WRITE_BASELINE") == "1"
+    if write_baseline and only:
+        pytest.fail("OPUS_DUEL_WRITE_BASELINE=1 with OPUS_DUEL_ONLY would write a partial "
+                    "baseline: unset one of them")
+    report_path = os.environ.get("OPUS_DUEL_REPORT")
+    if report_path and Path(report_path).resolve().is_relative_to(ROOT.resolve()):
+        pytest.fail(f"OPUS_DUEL_REPORT {report_path} is inside the repo (public): "
+                    "write it outside the repo")
+    references_present = root.is_dir()
+    if not references_present:
+        print(f"references root {root} is absent: reference comparisons skipped")
     runs: dict[str, dict] = {}
     t0 = time.time()
     for entry in data["duel"]:
@@ -337,16 +365,19 @@ def test_opus_duel():
     print(f"opus duel {mode}: {len(runs)} briefs in {total_s}s")
 
     commit = _git_commit()
-    report_path = os.environ.get("OPUS_DUEL_REPORT")
     if report_path:
+        # Reference formulas are private: keep their scores, floors and holds, not rows.
+        briefs = {bid: {**run, "reference": None if run["reference"] is None else {
+            k: v for k, v in run["reference"].items() if k != "rows"}}
+            for bid, run in runs.items()}
         Path(report_path).write_text(json.dumps(
             {"mode": mode, "commit": commit, "references_root": str(root),
-             "total_seconds": total_s, "briefs": runs}, indent=1, sort_keys=True),
+             "total_seconds": total_s, "briefs": briefs}, indent=1, sort_keys=True),
             encoding="utf-8")
 
     current = {bid: _baseline_record(run) for bid, run in runs.items()}
     baseline_path = _baseline_path(mode)
-    if os.environ.get("OPUS_DUEL_WRITE_BASELINE") == "1":
+    if write_baseline:
         baseline_path.write_text(json.dumps(
             {"commit": commit, "mode": mode, "briefs": current}, indent=1, sort_keys=True) + "\n",
             encoding="utf-8")
@@ -356,7 +387,7 @@ def test_opus_duel():
     baseline = json.loads(baseline_path.read_text(encoding="utf-8"))["briefs"]
     if only:
         baseline = {k: v for k, v in baseline.items() if k in only}
-    problems = _compare(baseline, current)
+    problems = _compare(baseline, current, references_present)
     assert not problems, "\n".join(problems)
 
 
@@ -372,6 +403,14 @@ def test_compare_flags_regressions():
     dq = {**base, "engine_disqualified": True, "engine_failing_floors": ["F5_pours"]}
     assert len(_compare({"a": base}, {"a": dq})) == 1
     no_ref = {**base, "reference_scored": False, "verdict": "NO_REFERENCE"}
-    assert _compare({"a": base}, {"a": no_ref}) == []
+    assert _compare({"a": base}, {"a": no_ref}, references_present=False) == []
+    assert _compare({"a": base}, {"a": no_ref}) == [
+        "a: the baseline scored a reference that is now missing"]
+    held = {**base, "verdict": "ENGINE_AHEAD_HELD"}
+    assert len(_compare({"a": base}, {"a": held})) == 1
+    assert _compare({"a": held}, {"a": {**base, "verdict": "BOTH_DISQUALIFIED"}}) != []
+    level = {**base, "verdict": "TIE"}
+    assert _compare({"a": level}, {"a": {**base, "verdict": "BOTH_DISQUALIFIED"}}) == []
+    assert len(_compare({"a": level}, {"a": {**base, "verdict": "REFERENCE_AHEAD_HELD"}})) == 1
     tie = {**base, "verdict": "TIE"}
     assert len(_compare({"a": tie}, {"a": {**base, "verdict": "REFERENCE_WINS"}})) == 1
