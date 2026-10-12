@@ -534,12 +534,12 @@
   inchikey:
   mw_g_mol: 234.4
   density_25c_g_ml: 1.002
-  logp: 4.0
+  logp: 5.8
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 0.08, corrected to 0.0112)
-  vp_25c_pa: 0.0112
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.076
+  vp_source: EPI_via_RIFM2024
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.0005
@@ -563,15 +563,15 @@
   families:
   - woods / amber / structure
   character:
-  notes:
+  notes: 'VP 0.076 Pa = 0.000573 mmHg at 25 C, EPI Suite estimate quoted in RIFM FCT 183 (2024) 114294 for acetyl cedrene; 0.000305 mmHg at 20 C; IFF SDS "< 0.01 hPa". log Kow 5.6-5.9 measured (RIFM 1996b), midpoint 5.8. Replaces the unsourced 0.0112 Pa and engine.skin_interaction 4.0.'
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, acetyl cedrene CAS 32388-55-9, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/32388-55-9.pdf: EPI Suite 0.000573 mm Hg at 25 C x 133.322 = 0.076 Pa; replaces engine.diffusion_model 0.0112; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'same RIFM assessment: log Kow 5.6-5.9 measured (RIFM 1996b), midpoint 5.8; replaces engine.skin_interaction 4.0; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     cas: 'TGSC: CAS Number: 32388-55-9 (https://www.thegoodscentscompany.com/data/rw1026471.html)'

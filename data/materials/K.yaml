@@ -119,8 +119,8 @@
   logp: 4.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.46
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.8
+  vp_source: Ventos_SDS_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0003
@@ -144,10 +144,10 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'VP 0.0053 hPa at 20 C = 0.53 Pa (Ventos SDS 3.3, 2020, method not stated) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.8 Pa at 25 C; water 261 mg/L. Replaces the unsourced 0.46 Pa.'
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'Ventos SDS 3.3 (2020) https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Kephalis_Ventos_SDS.pdf: 0.0053 hPa at 20 C x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.8 Pa; replaces engine.diffusion_model 0.46; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
