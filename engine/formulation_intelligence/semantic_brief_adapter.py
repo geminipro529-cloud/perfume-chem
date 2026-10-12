@@ -165,6 +165,11 @@ _FACETS: tuple[FacetDefinition, ...] = (
     FacetDefinition("tobacco_hay", ("tobacco", "hay", "straw", "dry grass"), ("tobacco", "hay", "coumarin", "immortelle", "tea"), "base", "character", (("warmth", .45), ("woody", .35), ("smoky", .3)), .065, .12),
     FacetDefinition("spice", ("spice", "spicy", "pepper", "cardamom", "nutmeg", "cinnamon", "clove", "saffron", "ginger"), ("pepper", "cardamom", "nutmeg", "cinnamon", "clove", "saffron", "ginger", "spice"), "heart", "modifier", (("spicy", 1.0), ("warmth", .35)), .045, .09),
     FacetDefinition("fruit", ("fruit", "fruity", "pear", "apple", "peach", "plum", "berry", "mango", "pineapple"), ("fruit", "pear", "apple", "peach", "plum", "berry", "mango", "pineapple", "ester"), "top", "character", (("freshness", .45), ("sweetness", .4), ("radiance", .25)), .065, .12),
+    # Coconut and apricot are notes of their own, not any fruit: only a stock whose
+    # own description names the note may lead it (_FACET_DESCRIPTOR_REQUIREMENTS).
+    # Shares and caps copy the fruit facet, so no new dose is introduced.
+    FacetDefinition("coconut", ("coconut", "coconut milk", "coconut cream"), ("coconut", "lactone", "creamy", "milky"), "heart", "character", (("creamy", .7), ("sweetness", .4)), .065, .12),
+    FacetDefinition("apricot", ("apricot", "apricots"), ("apricot", "peach", "lactone"), "heart", "character", (("sweetness", .45), ("freshness", .35), ("creamy", .25)), .065, .12),
     FacetDefinition("aldehydic", ("aldehydic", "sparkling aldehyde", "champagne", "soapy aldehyde", "laundry", "linen", "clean linen"), ("aldehyde", "sparkling", "wax", "linen"), "top", "modifier", (("radiance", .8), ("freshness", .4), ("transparency", .25)), .025, .06),
     FacetDefinition("powder", ("powder", "powdery", "cosmetic", "makeup"), ("powder", "iris", "ionone", "heliotropin", "musk"), "heart", "texture", (("powdery", 1.0), ("floral", .25)), .055, .11),
     FacetDefinition("almond_nut", ("almond", "marzipan", "biscuit", "nutty", "toasted nut"), ("almond", "benzaldehyde", "heliotropin", "tonka", "pyrazine", "biscuit"), "heart", "character", (("warmth", .55), ("sweetness", .35), ("powdery", .25)), .06, .11),
@@ -184,6 +189,48 @@ _LITERATURE_FACETS = {
     "violet_powder": FacetDefinition("violet_powder", ("violet",), ("violet petal recognizer", "beta ionone", "alpha ionone", "violet", "powder"), "heart", "character", (("powdery", .8), ("floral", .4)), .10, .18, "violet petal recognizer"),
     "violet_leaf": FacetDefinition("violet_leaf", ("violet leaf", "violet leaves"), ("violet leaf absolute", "parmavert", "violet leaf", "leaf"), "top", "character", (("green", .8), ("freshness", .3)), .04, .10),
 }
+
+
+# Facets only a stock whose own descriptors name the note may fill
+# (material_capability_index._DESCRIPTOR_REQUIREMENTS).
+_FACET_DESCRIPTOR_REQUIREMENTS = {"fruit": "fruit", "coconut": "coconut", "apricot": "apricot"}
+
+# A note the brief asks for as a nuance ("a hint of apricot", "a little apricot",
+# "barely smoky") is a modifier: no accord of its own, at the share the smoke
+# and animalic modifiers use.  One describing word may sit between the two.
+_NUANCE_BEFORE = re.compile(
+    r"(?:^| )(?:hint of|touch of|a little|whisper of|trace of|dash of|barely|slightly|faintly)"
+    r"(?: [a-z]+)? $"
+)
+_NUANCE_SHARE, _NUANCE_MAX_RAW_SHARE = .035, .07
+
+
+def _asked_as_nuance(facet: FacetDefinition, text_key: str, words: Sequence[str]) -> bool:
+    """Whether every place the brief names this facet calls it a nuance."""
+    seen = False
+    for word in dict.fromkeys(_key(item) for item in words):
+        if not word:
+            continue
+        for match in re.finditer(rf"(?:^| ){re.escape(word)}(?= |$)", text_key):
+            seen = True
+            start = match.start() + (text_key[match.start()] == " ")
+            if not _NUANCE_BEFORE.search(text_key[:start]):
+                return False
+    return seen
+
+
+def _as_asked(facet: FacetDefinition, text_key: str) -> FacetDefinition:
+    if facet.function == "modifier":
+        return facet
+    words = (*facet.triggers, *(facet.query_terms if facet.facet_id == "fruit" else ()))
+    if not _asked_as_nuance(facet, text_key, words):
+        return facet
+    return replace(
+        facet,
+        function="modifier",
+        default_share=min(facet.default_share, _NUANCE_SHARE),
+        max_raw_share=min(facet.max_raw_share or _NUANCE_MAX_RAW_SHARE, _NUANCE_MAX_RAW_SHARE),
+    )
 
 
 def facet_trigger_phrases() -> frozenset[str]:
@@ -320,7 +367,7 @@ def _matched_facets(
             ):
                 continue
             result.append(facet)
-    return tuple(_focus_query_terms(facet, text_key, result) for facet in result)
+    return tuple(_as_asked(_focus_query_terms(facet, text_key, result), text_key) for facet in result)
 
 
 # Facets whose vocabulary names several distinct flowers.  Each group is one
@@ -934,7 +981,7 @@ def _roles(
                 share=facet.default_share,
                 max_raw_share=facet.max_raw_share,
                 knowledge_role_slot=facet.knowledge_role_slot,
-                descriptor_requirement="fruit" if facet.facet_id == "fruit" else None,
+                descriptor_requirement=_FACET_DESCRIPTOR_REQUIREMENTS.get(facet.facet_id),
             )
         )
 
