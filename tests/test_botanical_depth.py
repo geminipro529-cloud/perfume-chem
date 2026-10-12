@@ -109,8 +109,9 @@ def test_correction_is_a_required_runtime_dependency():
 
 def test_new_reviews_are_partial_and_never_numeric_admission():
     pack = knowledge.load_knowledge_pack()
-    assert (len(pack["sources"]), len(pack["claims"])) == (233, 226)
-    assert (len(pack["materials"]), len(pack["profiles"])) == (25, 43)
+    # Step 6 (stock signature notes) added 7 sources, 5 claims and 6 materials.
+    assert (len(pack["sources"]), len(pack["claims"])) == (240, 231)
+    assert (len(pack["materials"]), len(pack["profiles"])) == (31, 43)
     new = [s for s in pack["sources"] if s["source_id"].endswith("_depth")]
     assert len(new) == 21
     reviewed = assess_review_bundle(pack["sources"], knowledge.SOURCE_REVIEWS_PATH.read_bytes())

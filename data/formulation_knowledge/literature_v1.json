@@ -3046,6 +3046,97 @@
       "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
       "empirical_data_admission": false,
       "license_note": "Only metadata and original descriptions are admitted; product text and tables are not empirical model or safety admission."
+    },
+    {
+      "source_id": "symrise_hexyl_acetate_signature",
+      "title": "Symrise: Hexyl Acetate datasheet",
+      "url": "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_FC_Einzel-PDF/SYM_FC-Hexyl_Acetate.pdf",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-12",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; no full-text reproduction, extracted dataset or empirical/model license admitted."
+    },
+    {
+      "source_id": "iff_hexyl_acetate_signature",
+      "title": "IFF Hexyl Acetate as listed on SpecialChem",
+      "url": "https://www.specialchem.com/cosmetics/product/iff-iff-hexyl-acetate",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-12",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; no full-text reproduction, extracted dataset or empirical/model license admitted."
+    },
+    {
+      "source_id": "fraterworks_suederal_signature",
+      "title": "Fraterworks: Suederal (IFF), distributor description",
+      "url": "https://fraterworks.com/products/suederal",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-12",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; no full-text reproduction, extracted dataset or empirical/model license admitted."
+    },
+    {
+      "source_id": "hekserij_suederal_signature",
+      "title": "De Hekserij: Suederal LT (IFF) product sheet",
+      "url": "https://www.hekserij.nl/wp-content/uploads/2025/07/1Doc-23172-Suederal-LT-IFF-2025-07.pdf",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-12",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; no full-text reproduction, extracted dataset or empirical/model license admitted."
+    },
+    {
+      "source_id": "kao_gamma_undecalactone_signature",
+      "title": "Kao Chemicals: Gamma Undecalactone",
+      "url": "https://www.kaochemicals-eu.com/our-products/gamma-undecalactone-4-heptyl-4-butanolide",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-12",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; no full-text reproduction, extracted dataset or empirical/model license admitted."
+    },
+    {
+      "source_id": "bedoukian_apritone_signature",
+      "title": "Bedoukian Research: Featured FR Ingredients 2026 (Apritone 410)",
+      "url": "https://bedoukian.com/wp-content/uploads/Featured-FR-Ingredients-2026-1.pdf",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-12",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; no full-text reproduction, extracted dataset or empirical/model license admitted."
+    },
+    {
+      "source_id": "perflavory_gamma_decalactone_signature",
+      "title": "Perflavory: gamma-decalactone with Bedoukian and Symrise descriptions",
+      "url": "https://www.perflavory.com/docs/doc1012281.html",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-12",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; no full-text reproduction, extracted dataset or empirical/model license admitted."
     }
   ],
   "claims": [
@@ -6655,6 +6746,83 @@
       "kind": "MANUFACTURER_DESCRIPTION",
       "scope_limit": "Exact IFF chemical/product descriptor only; reseller identity must be independently reconciled. No automatic alias or dose transfer. Construction implications are hypotheses, not measured perfume performance.",
       "numeric_calibration": false
+    },
+    {
+      "claim_id": "hexyl_acetate_pear_signature",
+      "statement": "Symrise lists Hexyl Acetate as pear, fruity, green and banana, and IFF describes a green fruity note reminiscent of apple and pear.",
+      "source_ids": [
+        "symrise_hexyl_acetate_signature",
+        "iff_hexyl_acetate_signature"
+      ],
+      "tags": [
+        "pear",
+        "apple",
+        "hexyl acetate"
+      ],
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "scope_limit": "Names the material's own odour notes so the composer can read a brief's note words; no dose, intensity, liking, stock grade, lot or finished-perfume performance claim.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "suederal_suede_signature",
+      "statement": "Distributors of IFF's Suederal LT describe a dry suede character with tobacco and smoky phenolic undertones, and an animal, leather, amber odour. It is a compounded leather base, not a single molecule.",
+      "source_ids": [
+        "fraterworks_suederal_signature",
+        "hekserij_suederal_signature"
+      ],
+      "tags": [
+        "suede",
+        "leather",
+        "suederal"
+      ],
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "scope_limit": "Names the material's own odour notes so the composer can read a brief's note words; no dose, intensity, liking, stock grade, lot or finished-perfume performance claim.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "gamma_undecalactone_peach_signature",
+      "statement": "Kao describes gamma-undecalactone as a fruity peach apricot odour.",
+      "source_ids": [
+        "kao_gamma_undecalactone_signature"
+      ],
+      "tags": [
+        "peach",
+        "apricot",
+        "undecalactone"
+      ],
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "scope_limit": "Names the material's own odour notes so the composer can read a brief's note words; no dose, intensity, liking, stock grade, lot or finished-perfume performance claim.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "gamma_decalactone_peach_signature",
+      "statement": "Bedoukian describes gamma-decalactone as fruity and peachy; Symrise describes its natural grade as fatty, creamy, coconut, buttery, vanilla and sweet.",
+      "source_ids": [
+        "perflavory_gamma_decalactone_signature"
+      ],
+      "tags": [
+        "peach",
+        "coconut",
+        "decalactone"
+      ],
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "scope_limit": "Names the material's own odour notes so the composer can read a brief's note words; no dose, intensity, liking, stock grade, lot or finished-perfume performance claim.",
+      "numeric_calibration": false
+    },
+    {
+      "claim_id": "apritone_apricot_signature",
+      "statement": "Bedoukian describes Apritone as a warm apricot and peach-flesh fragrance with a jasmine and jam-like quality.",
+      "source_ids": [
+        "bedoukian_apritone_signature"
+      ],
+      "tags": [
+        "apricot",
+        "peach",
+        "apritone"
+      ],
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "scope_limit": "Names the material's own odour notes so the composer can read a brief's note words; no dose, intensity, liking, stock grade, lot or finished-perfume performance claim.",
+      "numeric_calibration": false
     }
   ],
   "profiles": [
@@ -8163,6 +8331,108 @@
         "ambrettolide_named_product_boundary"
       ],
       "scope_limit": "IFF product only; an unqualified Ambrettolide bottle is not automatically this manufacturer or grade."
+    },
+    {
+      "material_id": "hexyl_acetate_signature",
+      "exact_aliases": [
+        "Hexyl Acetate"
+      ],
+      "vocabulary": [
+        "pear",
+        "apple"
+      ],
+      "role_slots": [
+        "pear recognizer"
+      ],
+      "claim_ids": [
+        "hexyl_acetate_pear_signature"
+      ],
+      "scope_limit": "Molecule's own odour notes; the owned stock's dilution is separate."
+    },
+    {
+      "material_id": "methyl_laitone_signature",
+      "exact_aliases": [
+        "Methyl Laitone"
+      ],
+      "vocabulary": [
+        "coconut"
+      ],
+      "role_slots": [
+        "coconut recognizer"
+      ],
+      "claim_ids": [
+        "givaudan_methyl_laitone_completion_descriptor"
+      ],
+      "scope_limit": "Givaudan describes its 10% DPG product; the owned stock is another dilution of the same molecule."
+    },
+    {
+      "material_id": "suederal_signature",
+      "exact_aliases": [
+        "Suederal",
+        "Suederal LT"
+      ],
+      "vocabulary": [
+        "suede",
+        "leather"
+      ],
+      "role_slots": [
+        "suede recognizer"
+      ],
+      "claim_ids": [
+        "suederal_suede_signature"
+      ],
+      "scope_limit": "IFF base described by its distributors; not a single molecule."
+    },
+    {
+      "material_id": "gamma_undecalactone_signature",
+      "exact_aliases": [
+        "Gamma Undecalactone"
+      ],
+      "vocabulary": [
+        "peach",
+        "apricot"
+      ],
+      "role_slots": [
+        "peach recognizer"
+      ],
+      "claim_ids": [
+        "gamma_undecalactone_peach_signature"
+      ],
+      "scope_limit": "Molecule's own odour notes; the owned stock's dilution is separate."
+    },
+    {
+      "material_id": "gamma_decalactone_signature",
+      "exact_aliases": [
+        "Gamma Decalactone"
+      ],
+      "vocabulary": [
+        "peach",
+        "coconut"
+      ],
+      "role_slots": [
+        "peach recognizer"
+      ],
+      "claim_ids": [
+        "gamma_decalactone_peach_signature"
+      ],
+      "scope_limit": "Grade of the owned stock not established; the notes hold for both grades listed."
+    },
+    {
+      "material_id": "apritone_signature",
+      "exact_aliases": [
+        "Apritone"
+      ],
+      "vocabulary": [
+        "apricot",
+        "peach"
+      ],
+      "role_slots": [
+        "apricot recognizer"
+      ],
+      "claim_ids": [
+        "apritone_apricot_signature"
+      ],
+      "scope_limit": "Bedoukian's molecule; the owned stock's dilution is separate."
     }
   ],
   "quarantined_claims": [
