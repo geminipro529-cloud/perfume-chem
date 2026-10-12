@@ -177,8 +177,9 @@ class BackupService:
         os.close(descriptor)
         snapshot_path = Path(raw_path).resolve()
 
-        source = sqlite3.connect(self.database_path)
-        destination = sqlite3.connect(snapshot_path)
+        # Wait for a held write lock like the app's own connections do (db_session.py).
+        source = sqlite3.connect(self.database_path, timeout=30)
+        destination = sqlite3.connect(snapshot_path, timeout=30)
         try:
             _require_integrity(source, "source database")
             source.backup(destination)

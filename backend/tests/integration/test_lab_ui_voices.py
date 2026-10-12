@@ -21,7 +21,7 @@ def _run_voices(summary):
         f"const voices = require({json.dumps(str(FORMULA_VOICES_JS))});\n"
         f"process.stdout.write(JSON.stringify(voices.formulaVoiceLines({json.dumps(summary)})));"
     )
-    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=60, check=True)
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, encoding="utf-8", timeout=60, check=True)
     return json.loads(completed.stdout)
 
 

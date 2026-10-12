@@ -18,7 +18,7 @@ def _bench(script):
     if node is None:
         pytest.skip("node is not installed; the bench-sheet logic test needs it")
     program = f"const bench = require({json.dumps(str(BENCH_SHEET_JS))});\nprocess.stdout.write(JSON.stringify(({script})(bench)));"
-    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=60, check=True)
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, encoding="utf-8", timeout=60, check=True)
     return json.loads(completed.stdout)
 
 

@@ -2,8 +2,12 @@
 
 from __future__ import annotations
 
+import asyncio
+import threading
 from collections.abc import Awaitable, Callable
+from concurrent.futures import ThreadPoolExecutor
 from decimal import Decimal
+from functools import partial
 from typing import Any, TypeAlias, cast
 
 from engine.inventory_baskets import (
@@ -156,8 +160,18 @@ async def _run(
         return _error_response(error)
 
 
+# The workbench handlers below are plain functions on purpose: they run engine
+# code that can take a while (inventory, formula parsing), and FastAPI runs a
+# plain handler in a worker thread, so other requests keep being answered
+# meanwhile.
+#
+# Stock completions, prepared dilutions and added materials each check the same
+# effective-inventory hash before appending to their own log. Each engine module
+# locks only its own log, so two different writes running in parallel threads
+# could both pass the check; this lock keeps them one at a time.
+_INVENTORY_WRITE_LOCK = threading.Lock()
 @router.get("/workbench/formula-library")
-async def list_workbench_formula_library() -> dict[str, Any]:
+def list_workbench_formula_library() -> dict[str, Any]:
     """List project formula files without importing or mutating them."""
 
     return {
@@ -169,7 +183,7 @@ async def list_workbench_formula_library() -> dict[str, Any]:
 
 
 @router.get("/workbench/formula-source", response_model=None)
-async def read_workbench_formula_source(source_path: str) -> ResponsePayload:
+def read_workbench_formula_source(source_path: str) -> ResponsePayload:
     """Parse one selected formula as a read-only design-analysis source."""
 
     try:
@@ -179,7 +193,7 @@ async def read_workbench_formula_source(source_path: str) -> ResponsePayload:
 
 
 @router.post("/workbench/formula-text", response_model=None)
-async def parse_workbench_formula_text(request: FormulaTextParseCreate) -> ResponsePayload:
+def parse_workbench_formula_text(request: FormulaTextParseCreate) -> ResponsePayload:
     """Parse a pasted formula table read-only, for the bench sheet."""
 
     try:
@@ -335,14 +349,14 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
 
 
 @router.get("/workbench/current-inventory")
-async def read_workbench_current_inventory() -> dict[str, Any]:
+def read_workbench_current_inventory() -> dict[str, Any]:
     """Expose the complete personal-design inventory without copying it to the DB."""
 
     return _workbench_inventory_payload(materialize_personal_inventory())
 
 
 @router.post("/workbench/current-inventory/complete", response_model=None)
-async def complete_workbench_inventory(
+def complete_workbench_inventory(
     request: InventoryCompletionCreate,
 ) -> ResponsePayload:
     """Persist explicit stock facts without granting physical action authority."""
@@ -353,22 +367,23 @@ async def complete_workbench_inventory(
             if request.fraction_percent_decimal is not None
             else None
         )
-        receipt, materialized = record_inventory_completion(
-            stock_id=request.stock_id,
-            expected_effective_inventory_sha256=(
-                request.expected_effective_inventory_sha256
-            ),
-            idempotency_key=request.idempotency_key,
-            fraction_decimal=fraction_decimal,
-            fraction_basis=request.fraction_basis,
-            carrier=request.carrier,
-            physical_form=request.physical_form,
-            possession_confirmed=request.possession_confirmed,
-            homogeneity=request.homogeneity,
-            final_fraction_known=request.final_fraction_known,
-            source_kind=request.source_kind,
-            user_note=request.user_note,
-        )
+        with _INVENTORY_WRITE_LOCK:
+            receipt, materialized = record_inventory_completion(
+                stock_id=request.stock_id,
+                expected_effective_inventory_sha256=(
+                    request.expected_effective_inventory_sha256
+                ),
+                idempotency_key=request.idempotency_key,
+                fraction_decimal=fraction_decimal,
+                fraction_basis=request.fraction_basis,
+                carrier=request.carrier,
+                physical_form=request.physical_form,
+                possession_confirmed=request.possession_confirmed,
+                homogeneity=request.homogeneity,
+                final_fraction_known=request.final_fraction_known,
+                source_kind=request.source_kind,
+                user_note=request.user_note,
+            )
         updated = next(
             stock for stock in materialized.stocks if stock.stock_id == request.stock_id
         )
@@ -406,29 +421,30 @@ async def complete_workbench_inventory(
 
 
 @router.post("/workbench/current-inventory/dilute", response_model=None)
-async def dilute_workbench_inventory(
+def dilute_workbench_inventory(
     request: PreparedDilutionCreate,
 ) -> ResponsePayload:
     """Record a dilution prepared from an owned bottle as a new gate stock."""
 
     try:
-        event, materialized = record_prepared_dilution(
-            parent_stock_id=request.parent_stock_id,
-            expected_effective_inventory_sha256=(
-                request.expected_effective_inventory_sha256
-            ),
-            idempotency_key=request.idempotency_key,
-            fraction_decimal=format(
-                Decimal(request.fraction_percent_decimal) / Decimal("100"), "f"
-            ),
-            fraction_basis=request.fraction_basis,
-            carrier=request.carrier,
-            amount_made_g=request.amount_made_g or "",
-            prepared_on=(
-                request.prepared_on.isoformat() if request.prepared_on else ""
-            ),
-            user_note=request.user_note,
-        )
+        with _INVENTORY_WRITE_LOCK:
+            event, materialized = record_prepared_dilution(
+                parent_stock_id=request.parent_stock_id,
+                expected_effective_inventory_sha256=(
+                    request.expected_effective_inventory_sha256
+                ),
+                idempotency_key=request.idempotency_key,
+                fraction_decimal=format(
+                    Decimal(request.fraction_percent_decimal) / Decimal("100"), "f"
+                ),
+                fraction_basis=request.fraction_basis,
+                carrier=request.carrier,
+                amount_made_g=request.amount_made_g or "",
+                prepared_on=(
+                    request.prepared_on.isoformat() if request.prepared_on else ""
+                ),
+                user_note=request.user_note,
+            )
         prepared = next(
             (
                 stock
@@ -465,7 +481,7 @@ async def dilute_workbench_inventory(
 
 
 @router.post("/workbench/current-inventory/basket", response_model=None)
-async def set_workbench_inventory_basket(
+def set_workbench_inventory_basket(
     request: StockBasketChoiceCreate,
 ) -> ResponsePayload:
     """Record which basket Kenny keeps a material in (Lab page display only)."""
@@ -489,9 +505,7 @@ async def set_workbench_inventory_basket(
             },
         )
     try:
-        # In a worker thread: waiting on a held basket-log lock must not stall other requests.
-        event = await run_in_threadpool(
-            record_basket_choice,
+        event = record_basket_choice(
             normalized_identity=request.normalized_identity,
             identity_name=stock.identity_name or stock.name,
             basket=request.basket,
@@ -519,30 +533,31 @@ async def set_workbench_inventory_basket(
 
 
 @router.post("/workbench/current-inventory/add", response_model=None)
-async def add_workbench_inventory_material(
+def add_workbench_inventory_material(
     request: PersonalInventoryAdditionCreate,
 ) -> ResponsePayload:
     """Record a missing owned stock for personal design without action authority."""
 
     try:
-        receipt, projection = record_personal_inventory_addition(
-            expected_design_inventory_sha256=request.expected_design_inventory_sha256,
-            idempotency_key=request.idempotency_key,
-            identity_name=request.identity_name,
-            category=request.category,
-            fraction_decimal=format(
-                Decimal(request.fraction_percent_decimal) / Decimal("100"), "f"
-            ),
-            fraction_basis=request.fraction_basis,
-            carrier=request.carrier,
-            physical_form=request.physical_form,
-            possession_confirmed=request.possession_confirmed,
-            homogeneity=request.homogeneity,
-            source_kind=request.source_kind,
-            supplier_name=request.supplier_name,
-            supplier_sku=request.supplier_sku,
-            user_note=request.user_note,
-        )
+        with _INVENTORY_WRITE_LOCK:
+            receipt, projection = record_personal_inventory_addition(
+                expected_design_inventory_sha256=request.expected_design_inventory_sha256,
+                idempotency_key=request.idempotency_key,
+                identity_name=request.identity_name,
+                category=request.category,
+                fraction_decimal=format(
+                    Decimal(request.fraction_percent_decimal) / Decimal("100"), "f"
+                ),
+                fraction_basis=request.fraction_basis,
+                carrier=request.carrier,
+                physical_form=request.physical_form,
+                possession_confirmed=request.possession_confirmed,
+                homogeneity=request.homogeneity,
+                source_kind=request.source_kind,
+                supplier_name=request.supplier_name,
+                supplier_sku=request.supplier_sku,
+                user_note=request.user_note,
+            )
         added_stock = next(
             stock
             for stock in projection.stocks
@@ -573,6 +588,12 @@ async def add_workbench_inventory_material(
         )
 
 
+# A Fast sketch is about a second of pure-Python work. Sketches run one at a
+# time on their own thread: on the event loop they stalled every other request,
+# and several at once only slow each other down (one interpreter lock).
+_SKETCH_EXECUTOR = ThreadPoolExecutor(max_workers=1, thread_name_prefix="fast-sketch")
+
+
 @router.post("/workbench/formula-chat", response_model=None)
 async def formulate_from_conversation(
     request: FormulaDesignChatCreate,
@@ -582,21 +603,25 @@ async def formulate_from_conversation(
     try:
         return cast(
             dict[str, Any],
-            design_inventory_formula(
-                idea=request.message,
-                formula_name=request.formula_name,
-                liquid_concentrate_ul_decimal=request.liquid_concentrate_ul_decimal,
-                max_materials=request.max_materials,
-                must_preserve=request.must_preserve,
-                must_avoid=request.must_avoid,
-                previous_stock_ids=request.previous_stock_ids,
-                conversation_context=request.conversation_context,
-                execution_strategy=request.execution_strategy,
-                appeal_mode=request.appeal_mode,
-                comparison_evidence=request.comparison_evidence,
-                active_bottle_id=request.active_bottle_id,
-                design_mode=request.design_mode,
-                variant_count=request.variant_count,
+            await asyncio.get_running_loop().run_in_executor(
+                _SKETCH_EXECUTOR,
+                partial(
+                    design_inventory_formula,
+                    idea=request.message,
+                    formula_name=request.formula_name,
+                    liquid_concentrate_ul_decimal=request.liquid_concentrate_ul_decimal,
+                    max_materials=request.max_materials,
+                    must_preserve=request.must_preserve,
+                    must_avoid=request.must_avoid,
+                    previous_stock_ids=request.previous_stock_ids,
+                    conversation_context=request.conversation_context,
+                    execution_strategy=request.execution_strategy,
+                    appeal_mode=request.appeal_mode,
+                    comparison_evidence=request.comparison_evidence,
+                    active_bottle_id=request.active_bottle_id,
+                    design_mode=request.design_mode,
+                    variant_count=request.variant_count,
+                ),
             ),
         )
     except ValueError as error:

@@ -719,7 +719,7 @@
           </form>
           <form id="observation-form" class="panel form-panel">
             <p class="panel-index">E4</p><h2>Timed observation</h2>
-            <label>Application ID<input name="application_id" id="latest-application" required></label>
+            <label>Application ID<input name="application_id" id="latest-application" required pattern="[0-9A-Fa-f\-]{36}" title="Paste the application ID shown after Apply to blotter"></label>
             <label>Elapsed seconds<input name="elapsed_seconds" type="number" value="1800" min="0" required></label>
             <label>Observation<textarea name="observation" required>iris clear, incense moderate</textarea></label>
             <button type="submit">Record observation</button>

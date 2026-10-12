@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import os
 import subprocess
 import sys
 import time
@@ -115,16 +116,17 @@ def fake_popen(monkeypatch):
 @pytest.mark.asyncio
 async def test_lifespan_starts_one_worker_and_stops_it(monkeypatch, fake_popen) -> None:
     monkeypatch.setenv("PERFUME_ENGINE_WORKER_AUTOSTART", "1")
-    monkeypatch.setenv("PYTHONPATH", "/inherited")
+    inherited = os.path.join(os.sep, "inherited")
+    monkeypatch.setenv("PYTHONPATH", inherited)
     async with main_module.lifespan(FastAPI()):
         assert len(fake_popen.instances) == 1
         worker = fake_popen.instances[0]
         assert worker.args == [sys.executable, "-m", "app.services.engine_job_worker"]
         assert worker.kwargs["cwd"] == engine_worker_process.BACKEND_DIR
-        assert worker.kwargs["env"]["PYTHONPATH"].split(":") == [
+        assert worker.kwargs["env"]["PYTHONPATH"].split(os.pathsep) == [
             str(engine_worker_process.BACKEND_DIR),
             str(engine_worker_process.REPOSITORY_ROOT),
-            "/inherited",
+            inherited,
         ]
         assert worker.kwargs["env"]["PERFUME_ENGINE_WORKER_PARENT_PIPE"] == "1"
         assert worker.kwargs["stdin"] == subprocess.PIPE
