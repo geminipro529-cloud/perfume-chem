@@ -501,6 +501,33 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
   .inventory-search, .inventory-select, .stock-filters { flex: 0 0 auto; width: 100%; }
 }
 
+/* Create several: one card per idea, filled as each engine job finishes. */
+.several-panel { margin-top: 18px; }
+.several-form { display: grid; gap: 10px; }
+.several-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-top: 14px; }
+.several-card { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--paper-high); min-width: 0; }
+.several-card-head { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
+.several-card-head h3 { margin: 0; font-size: 15px; line-height: 1.35; overflow-wrap: anywhere; }
+.several-pick { flex: 0 0 auto; display: inline-flex; gap: 4px; align-items: center; font-size: 13px; color: var(--muted); }
+.several-name { margin: 8px 0 2px; font-weight: 600; color: var(--blue); }
+.several-lines { list-style: none; margin: 8px 0; padding: 0; display: grid; gap: 4px; }
+.several-line { padding: 4px 8px; border-radius: 6px; font-size: 13px; color: var(--info-fg); background: var(--info-bg); overflow-wrap: anywhere; }
+.several-line.status-pass { color: var(--pass-fg); background: var(--pass-bg); }
+.several-line.status-hold, .several-line.status-warn, .several-line.status-skip { color: var(--hold-fg); background: var(--hold-bg); }
+.several-line.status-fail, .several-line.status-error { color: var(--fail-fg); background: var(--fail-bg); }
+.several-compare { margin-top: 14px; overflow-x: auto; }
+.several-compare-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.several-compare-table th, .several-compare-table td { padding: 6px 8px; border-bottom: 1px solid var(--line-soft); text-align: left; }
+.several-compare-table td:not(:first-child), .several-compare-table th:not(:first-child) { text-align: right; }
+.several-compare-table td:not(:first-child) { white-space: nowrap; }
+.several-compare-table th { overflow-wrap: anywhere; vertical-align: bottom; }
+.several-compare-table tr.is-single td:first-child { color: var(--hold-fg); }
+@media (max-width: 640px) {
+  .several-cards { grid-template-columns: 1fr; }
+  .several-compare-table { font-size: 13px; }
+  .several-compare-table th, .several-compare-table td { padding: 5px 4px; }
+}
+
 /* Print: always the light palette, whatever the screen theme -------------
    Without this, printing in dark mode puts light text on white paper. */
 @media print {
