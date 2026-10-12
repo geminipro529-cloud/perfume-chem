@@ -199,3 +199,16 @@ def test_any_other_stock_problem_still_fails() -> None:
 
     assert ys._f1_stock(_Contract([_unbound("Damascol"), mismatch]))["status"] == "FAIL"
     assert ys._f1_stock(_Contract([unknown_id]))["status"] == "FAIL"
+
+
+def test_a_withheld_composer_result_is_disqualified_not_a_crash() -> None:
+    withheld = ys.formula_from_composer(
+        {"optimized_formula": None, "initial_formula": None,
+         "assistant_message": "The brief contains a hard contradiction."}
+    )
+    card = ys.score_formula(withheld, BRIEF)
+
+    assert card["disqualified"] is True
+    assert card["name_score"] == 0.0
+    assert "hard contradiction" in card["floors"]["F1_owned_stock"]["detail"]
+    json.dumps(card)

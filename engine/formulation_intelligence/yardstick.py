@@ -121,6 +121,9 @@ def formula_from_composer(result: Mapping[str, Any], *, batch_volume_ml: float =
     one 30 mL bottle (20 %), the same default as the release gate's DEFAULT_CONCENTRATE_UL.
     """
     formula = result.get("optimized_formula") or result.get("initial_formula") or {}
+    withheld = None if formula.get("rows") else str(
+        result.get("assistant_message") or "the composer returned no formula"
+    )
     rows = []
     for row in formula.get("rows", []) or []:
         rows.append({
@@ -139,6 +142,7 @@ def formula_from_composer(result: Mapping[str, Any], *, batch_volume_ml: float =
         "batch_volume_ml": batch_volume_ml,
         "rows": rows,
         "parent": None,
+        **({"withheld_reason": withheld} if withheld else {}),
     }
 
 
@@ -397,6 +401,8 @@ def score_formula(formula: Mapping[str, Any], brief: Mapping[str, Any]) -> Score
     from engine.pipeline import gates as g
     from engine.pipeline.simulator import simulate_formula
 
+    if not any(float(Decimal(str(r.get("amount") or "0"))) > 0 for r in formula.get("rows") or []):
+        return _no_formula_card(formula, brief)
     record = _gate_record(formula)
     batch = float(formula.get("batch_volume_ml") or BOTTLE_ML)
     config = g._resolve_gate_config(record, g.ReleaseGateConfig(batch_volume_ml=batch))
@@ -574,6 +580,25 @@ def score_formula(formula: Mapping[str, Any], brief: Mapping[str, Any]) -> Score
             "concentrate_pct": floors["F4_bottle"]["concentrate_pct"],
             "active_ul": {n: _r(v, 3) for n, v in active_ul.items()},
         },
+    }
+
+
+def _no_formula_card(formula: Mapping[str, Any], brief: Mapping[str, Any]) -> Scorecard:
+    """A formula with no positive dose (e.g. the composer withheld): disqualified, scores 0."""
+    detail = str(formula.get("withheld_reason") or "no formula rows with a positive amount")
+    return {
+        "formula": str(formula.get("name") or ""),
+        "brief": str(brief.get("id") or ""),
+        "floors": {fid: _floor("FAIL", detail) for fid in FLOOR_IDS},
+        "disqualified": True,
+        "holds": [],
+        "name_score": 0.0,
+        "name_parts": {},
+        "craft_score": 0.0,
+        "craft_parts": {},
+        "liking": None,
+        "rows": [],
+        "diagnostics": {"no_formula": detail},
     }
 
 
