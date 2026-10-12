@@ -3,7 +3,7 @@
   "authority": "COMPUTATIONAL_DATA_RECONCILIATION_NOT_RELEASE",
   "input_sha256": {
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
-    "engine/ingredient_intelligence.py": "1e17cadfefdab2ffaa8ff7ca8146d94bb4632ba1c1264e1a386687dd414f0739",
+    "engine/ingredient_intelligence.py": "7dc52fc8ff7a336ddc563507b43f063703b3f7c70fe566977aa3f62c8f0b4bc1",
     "engine/inventory_parser.py": "8674a32dde602582722821a2cac65265b1b66615fbae41436d59149105f80e19",
     "engine/odor_thresholds.py": "c9c8c1a7b20d17d1b4f923caed109a237b1b31e92146a04511f588012723b639",
     "engine/name_utils.py": "2e984915e2abe562f9a05fa53920fcb7d4dada0f8f0ccc0da91d706f1a37febb",
@@ -50,7 +50,7 @@
     "historical_requirement_rows": 280,
     "current_physical_stocks": 289,
     "registry_records": 1271,
-    "rows_with_profile": 294,
+    "rows_with_profile": 295,
     "rows_with_registry": 323,
     "rows_with_odt": 300,
     "rows_with_unresolved_scalar_disagreements": 101
@@ -3837,16 +3837,10 @@
       "identity": "Haitian Vetiver EO",
       "text_status": "owned",
       "registry_name": "Vetiver EO (Haiti)",
-      "profile_name": null,
+      "profile_name": "Vetiver EO",
       "current_stock_ids": [],
       "odt_present": false,
-      "missing_numeric_fields": [
-        "mw",
-        "vp",
-        "clogp",
-        "odt",
-        "odt_ppm"
-      ],
+      "missing_numeric_fields": [],
       "unresolved_scalar_disagreements": {}
     },
     {
@@ -6170,6 +6164,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "9659ebd78aaf446ab533220738398ab18e43425e0e8025eac3a75cbd31cfc2a0",
-  "input_cache_sha256": "b466dc05442a73b7f30e81e358edcbcfc61fcdd08e48071285a89bf1c96596a3"
+  "output_sha256": "74d1de5db8e76e6a3fdfee1a944d74740667b44d0fbf1bd1168a14ed00826bd2",
+  "input_cache_sha256": "9659ebd78aaf446ab533220738398ab18e43425e0e8025eac3a75cbd31cfc2a0"
 }

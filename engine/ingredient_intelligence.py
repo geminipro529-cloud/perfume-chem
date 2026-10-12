@@ -3588,6 +3588,7 @@ _ALIASES = {
     "EB": "Ethylene Brassylate",
     "Vetiver EO (Haitian or Bourbon)": "Vetiver EO",
     "Vetiver EO (Haiti)": "Vetiver EO",
+    "Haitian Vetiver EO": "Vetiver EO",
     # ── Aliases for materials with profiles under different names ──
     "Amyl Cinnamic Aldehyde": "ACA",
     "Amyl Cinnamic Aldehyde (ACA)": "ACA",
