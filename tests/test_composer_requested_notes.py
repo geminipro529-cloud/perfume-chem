@@ -16,8 +16,10 @@ from engine.formulation_intelligence.formula_design_runtime import design_formul
 from engine.formulation_intelligence.semantic_brief_adapter import SemanticRole
 
 _IRIS_NAME_WORDS = ("irone", "orris")
-# role_plan_signature of the "violet leaf" brief on origin/master 6f9b1a3a.
-_VIOLET_LEAF_SIGNATURE_ON_MASTER = "5c157beaecdfffb1a6b964e233f5d985336ed8af31666eec9b38eb6e85b8bb53"
+# role_plan_signature of the "violet leaf" brief.  It was 5c157bea... on
+# origin/master 6f9b1a3a; Phase 3 step 4 changed it on purpose, since violet
+# leaf now reads as a GREEN family brief and takes that family's layers.
+_VIOLET_LEAF_SIGNATURE_ON_MASTER = "071be9f6cdefab5471290fe2da6fb45b85eea0acc902a0ead50be2ea2afc3a84"
 
 
 def _clear_inventory_caches() -> None:

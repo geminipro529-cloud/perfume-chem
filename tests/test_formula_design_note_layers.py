@@ -8,6 +8,8 @@ from engine.formulation_intelligence.semantic_brief_adapter import compile_seman
 from engine.research.formula_design import design_inventory_formula
 
 WARM_AMBER = "A warm woody amber for evening"
+# Musk names no fragrance family, so this warm brief keeps the generic layers.
+WARM_MUSK = "A warm musk for evening"
 FRESH_COLOGNE = "A fresh citrus cologne with a soft musky drydown"
 SPRING_ROSE = "A rose perfume for spring"
 
@@ -41,8 +43,20 @@ def _supporting_rows(result: dict) -> list[dict]:
     return [row for row in _rows(result) if row["slot"].endswith(("_layer", "_accent"))]
 
 
+def _assert_supports_stay_small(result: dict) -> None:
+    total_ul = sum(int(row["amount_decimal"]) for row in _rows(result))
+    for row in _rows(result):
+        amount = int(row["amount_decimal"])
+        if row["slot"].endswith("_accent"):
+            assert 10 <= amount <= total_ul * 0.025, (row["slot"], amount, total_ul)
+        elif row["slot"].endswith("_layer"):
+            assert amount <= total_ul * 0.08, (row["slot"], amount, total_ul)
+
+
 def test_warm_brief_layers_every_register_and_adds_small_accents() -> None:
-    result = _design(WARM_AMBER, "Evening Amber")
+    # Until Phase 3 step 4 this was the woody amber, which now follows its
+    # family's structure (next test); a brief with no family keeps these.
+    result = _design(WARM_MUSK, "Evening Musk")
 
     slots = _slots(result)
     assert {
@@ -53,13 +67,23 @@ def test_warm_brief_layers_every_register_and_adds_small_accents() -> None:
         "heart_spice_accent",
         "base_shadow_accent",
     } <= slots, sorted(slots)
-    total_ul = sum(int(row["amount_decimal"]) for row in _rows(result))
-    for row in _rows(result):
-        amount = int(row["amount_decimal"])
-        if row["slot"].endswith("_accent"):
-            assert 10 <= amount <= total_ul * 0.025, (row["slot"], amount, total_ul)
-        elif row["slot"].endswith("_layer"):
-            assert amount <= total_ul * 0.08, (row["slot"], amount, total_ul)
+    _assert_supports_stay_small(result)
+
+
+def test_warm_woody_amber_layers_every_register_from_its_family() -> None:
+    # WOODY AMBER in docs/fragrance_families_reference.md: bergamot and
+    # cardamom on top, amber, rose and incense in the heart, woods and ambrox
+    # below. It has no place for a green, powder, musk or smoky layer.
+    result = _design(WARM_AMBER, "Evening Amber")
+    roles = {role["role_id"]: role for role in result["semantic_brief"]["roles"]}
+
+    slots = _slots(result)
+    assert {"top_citrus_layer", "heart_floral_layer", "base_resin_layer", "base_wood_contrast"} <= slots, sorted(slots)
+    absent = {"top_green_layer", "heart_powder_layer", "heart_spice_accent", "base_musk_layer", "base_shadow_accent"}
+    assert not absent & slots, sorted(slots)
+    assert roles["top_citrus_layer"]["query_terms"][0] == "bergamot", roles["top_citrus_layer"]
+    assert roles["heart_floral_layer"]["query_terms"][0] == "rose", roles["heart_floral_layer"]
+    _assert_supports_stay_small(result)
 
 
 def test_light_brief_drops_covered_and_warm_only_layers() -> None:
@@ -100,13 +124,18 @@ def test_floral_brief_skips_floral_layer_and_light_brief_skips_resin() -> None:
     assert "base_resin_layer" not in slots, sorted(slots)
 
 
-def test_must_avoid_removes_matching_layer_and_accent() -> None:
-    slots = _slots(_design(WARM_AMBER, "Evening Amber", must_avoid=("floral", "spice")))
+@pytest.mark.parametrize(("idea", "name", "remaining"), [
+    (WARM_MUSK, "Evening Musk", {"top_green_layer", "base_shadow_accent"}),
+    # A family brief: the woody amber's cardamom accent goes with the spice.
+    (WARM_AMBER, "Evening Amber", {"top_citrus_layer", "base_resin_layer", "base_wood_contrast"}),
+])
+def test_must_avoid_removes_matching_layer_and_accent(idea: str, name: str, remaining: set) -> None:
+    slots = _slots(_design(idea, name, must_avoid=("floral", "spice")))
 
     assert "heart_floral_layer" not in slots, sorted(slots)
-    assert "heart_spice_accent" not in slots, sorted(slots)
+    assert "heart_spice_accent" not in slots and "family_cardamom_accent" not in slots, sorted(slots)
     # Only the avoided families go: the other layers and accents remain.
-    assert {"top_green_layer", "base_shadow_accent"} <= slots, sorted(slots)
+    assert remaining <= slots, sorted(slots)
 
 
 def test_tight_material_limit_keeps_room_for_each_requested_accord() -> None:
@@ -163,9 +192,11 @@ def test_exact_material_count_compiles_no_layers_or_accents() -> None:
 def test_layers_and_accents_never_reach_an_ifra_limit() -> None:
     from engine.ifra_safety import get_ifra_limit
 
-    for idea, name in ((WARM_AMBER, "Evening Amber"), (SPRING_ROSE, "Spring Rose")):
+    for idea, name in ((WARM_AMBER, "Evening Amber"), (WARM_MUSK, "Evening Musk"), (SPRING_ROSE, "Spring Rose")):
         supporting = _supporting_rows(_design(idea, name))
-        assert any(row["slot"].endswith("_accent") for row in supporting), idea
+        # The woody amber's one accent word, cardamom, may fill its opening
+        # bridge instead (Phase 3 step 4); the other briefs keep accents.
+        assert idea == WARM_AMBER or any(row["slot"].endswith("_accent") for row in supporting), idea
         for row in supporting:
             limit = get_ifra_limit(row["identity_name"])
             if limit is None:

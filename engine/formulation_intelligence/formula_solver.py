@@ -8,6 +8,7 @@ from dataclasses import dataclass, replace
 from functools import lru_cache
 from typing import Any, Callable, Mapping, Sequence
 
+from engine.formulation_intelligence.family_structure import family_role_words, names_family_words
 from engine.formulation_intelligence.liking_tie_break import Liking, LikingLookup
 from engine.formulation_intelligence.material_capability_index import (
     _DESCRIPTOR_REQUIREMENTS,
@@ -958,8 +959,15 @@ def _unary_rank_for_role(
             score -= 1.35 + .25 * variant_index
         score += _stable_tie(role.role_id, capability.stock_id, variant_index)
         ranked.append((score, capability))
+    family_words = family_role_words(role.role_id)
     required_words = role_identity_requirement(role.role_id, request)
-    if required_words and role.exact_material is None:
+    if family_words and role.exact_material is None:
+        # A family material's role takes only a stock named for it, or none.
+        ranked = [
+            row for row in ranked
+            if row[1].design_ready and names_family_words(row[1].identity_vocabulary, family_words)
+        ]
+    elif required_words and role.exact_material is None:
         # A requested identity (oud, iris) is answered by a stock whose own
         # name carries it whenever one is selectable; descriptor overlap alone
         # cannot separate orris from an ionone.  Held stocks are not design
