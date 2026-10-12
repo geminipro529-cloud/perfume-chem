@@ -22,7 +22,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import PROJECT_ROOT
 from app.core.logging import get_logger
-from app.models.liking import LikingPick, LikingRating
+from app.models.liking import LikingMaterialRating, LikingPick, LikingRating
 
 logger = get_logger(__name__)
 
@@ -38,6 +38,7 @@ DEFAULT_CROWD_TABLE_PATH = (
 SCHEMA = "personal_liking_v1"
 PICK_STEP = 0.25
 PICK_WEIGHT = 0.5
+MATERIAL_WEIGHT = 1.0
 PRIOR_WEIGHT = 1.0
 LISTED_EVIDENCE = 0.5
 LISTED_COUNT = 5
@@ -46,7 +47,10 @@ METHOD = (
     "from the crowd scale (or, with no crowd guess, its distance from your average rating), "
     "and each two-bottle pick as a quarter-point nudge, is spread over the bottle's "
     "materials by share and shrunk by one rating's worth of evidence; the result is added "
-    "to the material's crowd value, or to the typical crowd value when it has none."
+    "to the material's crowd value, or to the typical crowd value when it has none. "
+    "A rating of one material on a blotter counts as a rating of a bottle that is that "
+    "material alone, measured from its crowd value (or the typical value). The strength "
+    "you note on a blotter (weak, medium, strong) is stored but not used by the fit."
 )
 
 
@@ -124,18 +128,26 @@ class CrowdTable:
 
 
 def _observations(
-    ratings: list[LikingRating], picks: Iterable[LikingPick]
+    ratings: list[LikingRating],
+    picks: Iterable[LikingPick],
+    material_ratings: list[LikingMaterialRating],
+    crowd: CrowdTable,
 ) -> tuple[list[tuple[Mapping[str, float], float, float]], float]:
     """((shares, residual, weight) for every rating and non-tied pick side, offset b).
 
     y = (liking - 5.5) / 4.5.  b is the mean of (y - crowd guess) over the ratings that
     have a crowd guess (Kenny's own offset from the crowd scale; 0 if none).  A rated
     bottle with a crowd guess has residual y - guess - b; one without has y - mean(y).
+    A material rating counts in b when the crowd table knows the material (gap y - crowd
+    value) and has residual y - prior - b, prior being the crowd value or the typical value.
     """
 
     ys = [(rating.liking - 5.5) / 4.5 for rating in ratings]
     ybar = sum(ys) / len(ys) if ys else 0.0
     gaps = [y - r.crowd_guess for y, r in zip(ys, ratings) if r.crowd_guess is not None]
+    material_ys = [(m.liking - 5.5) / 4.5 for m in material_ratings]
+    material_crowd = [crowd.value(m.material) for m in material_ratings]
+    gaps += [y - c for y, c in zip(material_ys, material_crowd) if c is not None]
     offset = sum(gaps) / len(gaps) if gaps else 0.0
 
     rows: list[tuple[Mapping[str, float], float, float]] = []
@@ -145,6 +157,12 @@ def _observations(
         else:
             residual = y - ybar
         rows.append((rating.material_shares, residual, 1.0))
+    typical = crowd.typical_value()
+    for material, y, known in zip(
+        (m.material for m in material_ratings), material_ys, material_crowd
+    ):
+        prior = known if known is not None else typical
+        rows.append(({material: 1.0}, y - prior - offset, MATERIAL_WEIGHT))
     for pick in picks:
         if pick.preferred == "same":
             continue
@@ -178,11 +196,16 @@ def fit_personal_liking(
     picks: Iterable[LikingPick],
     crowd: CrowdTable,
     *,
+    material_ratings: Iterable[LikingMaterialRating] = (),
     now: datetime | None = None,
 ) -> dict[str, Any]:
     ratings = list(ratings)
     picks = list(picks)
-    observations, offset = _observations(ratings, picks)
+    material_ratings = list(material_ratings)
+    observations, offset = _observations(ratings, picks, material_ratings, crowd)
+    direct: dict[str, int] = {}
+    for rating in material_ratings:
+        direct[rating.material] = direct.get(rating.material, 0) + 1
     typical = crowd.typical_value()
 
     materials: dict[str, dict[str, Any]] = {}
@@ -195,6 +218,7 @@ def fit_personal_liking(
             "crowd": crowd_value,
             "prior": prior,
             "prior_source": "crowd" if crowd_value is not None else "typical",
+            "direct_n": direct.get(name, 0),
             **fit,
         }
 
@@ -222,6 +246,7 @@ def fit_personal_liking(
         "updated_at": (now or datetime.now(timezone.utc)).isoformat(),
         "ratings_used": len(ratings),
         "picks_used": len(picks),
+        "material_ratings_used": len(material_ratings),
         "method": METHOD,
         "offset_b": offset,
         "typical_prior": typical,
@@ -235,7 +260,10 @@ def fit_personal_liking(
 async def current_fit(session: AsyncSession) -> dict[str, Any]:
     ratings = (await session.execute(select(LikingRating))).scalars().all()
     picks = (await session.execute(select(LikingPick))).scalars().all()
-    return fit_personal_liking(ratings, picks, CrowdTable.load())
+    material_ratings = (await session.execute(select(LikingMaterialRating))).scalars().all()
+    return fit_personal_liking(
+        ratings, picks, CrowdTable.load(), material_ratings=material_ratings
+    )
 
 
 def write_personal_liking(fit: Mapping[str, Any], path: Path | None = None) -> Path:
@@ -311,7 +339,11 @@ async def refit_at_startup() -> bool:
             tables = await connection.run_sync(
                 lambda sync: set(inspect(sync).get_table_names())
             )
-        if not {LikingRating.__tablename__, LikingPick.__tablename__} <= tables:
+        if not {
+            LikingRating.__tablename__,
+            LikingPick.__tablename__,
+            LikingMaterialRating.__tablename__,
+        } <= tables:
             return False
         async with get_session() as session:
             await refit_and_write(session)

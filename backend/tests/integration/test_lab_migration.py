@@ -9,7 +9,7 @@ from sqlalchemy.exc import OperationalError
 from app.db_bootstrap import upgrade_database
 
 BACKEND_ROOT = Path(__file__).resolve().parents[2]
-CURRENT_HEAD = "20261009_0027"
+CURRENT_HEAD = "20261010_0028"
 
 
 def _upgrade(database_path: Path, snapshot_directory: Path | None = None):
