@@ -64,6 +64,10 @@ LIKING_MARGIN = 0.05
 # Exact-match rows under this amount are treated as absent.
 _EPS = 1e-9
 
+# Stock ids the composer gives inventory.txt stocks the gate's stock list doesn't hold
+# (engine/personal_inventory.py _live_design_stock).
+DESIGN_ONLY_STOCK_PREFIX = "inventory:text-design-only:"
+
 FLOOR_IDS = ("F1_owned_stock", "F2_ifra", "F3_pre_mix_guard", "F4_bottle", "F5_pours", "F6_musks")
 
 Scorecard = dict[str, Any]
@@ -253,11 +257,26 @@ def _f1_stock(stock_contract: Any) -> dict[str, Any]:
     status, detail, _ = _classify_preflight_check(stock_contract.as_dict())
     if status not in {"PASS", "FAIL", "HOLD"}:
         status = "PASS" if status == "WARN" else "HOLD"
-    issues = [
-        f"{i.get('material')}: {i.get('reason')}"
-        for i in stock_contract.data.get("issues", []) or []
-    ]
+    raw_issues = list(stock_contract.data.get("issues", []) or [])
+    issues = [f"{i.get('material')}: {i.get('reason')}" for i in raw_issues]
+    unbound = [i for i in raw_issues if _is_unbound_design_stock(i)]
+    if status == "FAIL" and raw_issues and len(unbound) == len(raw_issues):
+        # Owned on the user's inventory.txt, but not yet in the gate's stock list
+        # (the composer marks these EXECUTION_STOCK_BINDING_REQUIRED). Rule 0 asks
+        # for the disagreement to be reported, not guessed: a hold, never a pass.
+        names = ", ".join(str(i.get("material")) for i in unbound)
+        detail = (
+            f"{len(unbound)} material(s) are owned on inventory.txt but not bound to the "
+            f"gate's stock list (complete them on the Stock page): {names}"
+        )
+        status = "HOLD"
     return _floor(status, detail, issues=issues)
+
+
+def _is_unbound_design_stock(issue: Mapping[str, Any]) -> bool:
+    return issue.get("reason") == "stock_id_not_in_current_inventory" and str(
+        issue.get("stock_id", "")
+    ).startswith(DESIGN_ONLY_STOCK_PREFIX)
 
 
 def _f2_ifra(safety: tuple[str, str, dict]) -> dict[str, Any]:

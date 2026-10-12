@@ -168,3 +168,34 @@ def test_smoke_lavande_r7():
     assert card["floors"]["F3_pre_mix_guard"]["status"] == "NOT_APPLICABLE"
     assert 0 <= card["name_score"] <= 100 and 0 <= card["craft_score"] <= 100
     assert "screening_oav" not in json.dumps({k: v for k, v in card.items() if k != "diagnostics"})
+
+
+class _Contract:
+    """Stand-in for the release gate's stock contract result (status, detail, issues)."""
+
+    def __init__(self, issues: list[dict]) -> None:
+        self.data = {"issues": issues}
+
+    def as_dict(self) -> dict:
+        return {"status": "FAIL", "detail": "stock contract failed", "data": self.data}
+
+
+def _unbound(material: str) -> dict:
+    return {"material": material, "reason": "stock_id_not_in_current_inventory",
+            "stock_id": f"{ys.DESIGN_ONLY_STOCK_PREFIX}abc123"}
+
+
+def test_stock_only_on_inventory_txt_is_a_hold_not_a_fail() -> None:
+    floor = ys._f1_stock(_Contract([_unbound("Damascol"), _unbound("Leather FO")]))
+
+    assert floor["status"] == "HOLD"
+    assert "Damascol" in floor["detail"] and "Stock page" in floor["detail"]
+
+
+def test_any_other_stock_problem_still_fails() -> None:
+    mismatch = {"material": "Nutmeg EO", "reason": "stock_fraction_mismatch"}
+    unknown_id = {"material": "X", "reason": "stock_id_not_in_current_inventory",
+                  "stock_id": "inventory:v5:missing"}
+
+    assert ys._f1_stock(_Contract([_unbound("Damascol"), mismatch]))["status"] == "FAIL"
+    assert ys._f1_stock(_Contract([unknown_id]))["status"] == "FAIL"
