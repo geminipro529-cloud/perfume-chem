@@ -113,6 +113,22 @@ def test_a_base_in_a_product_name_is_not_the_base_note():
     assert "base" not in cassis.identity_vocabulary
 
 
+def test_a_tuberose_base_is_a_floral_not_only_a_creamy_texture():
+    creamy = _role(role_id="heart_creamy_texture", note="heart",
+                   provenance="LAYERED_HEART_ARCHITECTURE", query_terms=("creamy",),
+                   descriptor_requirement="heart_creamy")
+    tuberose_base = _cap("creamy", "tuberose", "waxy", note="heart")
+    lactone = _cap("creamy", "milky", "coconut", note="heart")
+    leather = fs._asked_families(SimpleNamespace(normalized_request="a leather", roles=()))
+    assert "heart_floral" in fs._families(tuberose_base.descriptor_vocabulary)
+    # A leather's creamy texture should not bring in a white flower ...
+    assert fs._off_brief_penalty(tuberose_base, creamy, leather) == fs._OFF_BRIEF_FAMILY_PENALTY
+    assert fs._off_brief_penalty(lactone, creamy, leather) == 0.0
+    # ... but a brief that asks for tuberose still may.
+    tuberose = fs._asked_families(SimpleNamespace(normalized_request="a creamy tuberose", roles=()))
+    assert fs._off_brief_penalty(tuberose_base, creamy, tuberose) == 0.0
+
+
 def _rows(idea):
     result = design_formula(idea=idea)
     return (result["optimized_formula"] or result["initial_formula"])["rows"]
