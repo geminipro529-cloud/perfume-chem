@@ -61,6 +61,53 @@ function pleasantnessLines(overlay) {
   return { lines: windows.map(likingWindowText), label };
 }
 
+// Plain line on how well the crowd guess has predicted Kenny's own liking.
+function likingCrowdCheckText(fit) {
+  const check = fit?.crowd_check;
+  if (!check || typeof check !== "object") return null;
+  const n = Number(check.n) || 0;
+  if (check.verdict === "too_few") return `Crowd guess check: ${n} of 10 ratings so far.`;
+  const weight = Number(fit.crowd_weight);
+  const crowdPercent = Number.isFinite(weight) ? Math.round(100 * weight) : 100;
+  const r = Number(check.r);
+  const rText = check.r === null || check.r === undefined || !Number.isFinite(r) ? "not defined" : r.toFixed(2);
+  const head = `Crowd guess vs your ratings: r = ${rText} over ${n} ratings.`;
+  if (check.verdict === "predicts") {
+    return `${head} The crowd guess predicts your liking well, so it keeps ${crowdPercent}% of the weight.`;
+  }
+  const how = check.verdict === "weak" ? "predicts some of your liking" : "predicts little of your liking";
+  return `${head} The crowd guess ${how}, so it now carries ${crowdPercent}% of the weight and your own ratings ${100 - crowdPercent}%.`;
+}
+
+// "Your guess" for one window: share-weighted mean of the personal values (or the crowd
+// value where the fit has too little evidence), as a 0 to 100 score. Liking numbers only.
+function likingYourGuess(shares, fit) {
+  const materials = fit?.materials && typeof fit.materials === "object" ? fit.materials : {};
+  const byName = new Map(Object.keys(materials).map((name) => [name.toLowerCase(), materials[name]]));
+  let total = 0;
+  let used = 0;
+  let weighted = 0;
+  Object.entries(shares && typeof shares === "object" ? shares : {}).forEach(([name, share]) => {
+    const value = Number(share);
+    if (!Number.isFinite(value) || value <= 0) return;
+    total += value;
+    const entry = byName.get(String(name).toLowerCase());
+    if (!entry) return;
+    let guess = null;
+    if (Number(entry.evidence) >= 0.5 && Number.isFinite(Number(entry.personal))) guess = Number(entry.personal);
+    else if (typeof entry.crowd === "number" && Number.isFinite(entry.crowd)) guess = entry.crowd;
+    if (guess === null) return;
+    used += value;
+    weighted += value * guess;
+  });
+  if (!(used > 0) || !(total > 0)) return null;
+  return { score: Math.round(50 + 50 * (weighted / used)), coverage: used / total };
+}
+
+function likingYourGuessText(label, guess) {
+  return `${label}: Your guess: ${guess.score}/100 (covers ${Math.round(guess.coverage * 100)}% of the smell)`;
+}
+
 // The main formula and each Deep Compose variant that has rows.
 function likingFormulaChoices(result) {
   const choices = [];
@@ -186,13 +233,45 @@ function likingSaveControls() {
   return { save, status, undo };
 }
 
-function likingCrowdBlock(choices, current) {
+// One personal-fit request per render; refresh() replaces it with a fresh one after a
+// rating or pick is saved or undone and tells every subscriber.
+function likingFitStore() {
+  const store = { subscribers: [] };
+  const load = () => {
+    store.promise = request("/liking/personal", { base: LIKING_API });
+    store.promise.catch(() => {});
+  };
+  store.refresh = () => {
+    load();
+    store.subscribers.forEach((listener) => listener(store.promise));
+  };
+  store.subscribe = (listener) => {
+    store.subscribers.push(listener);
+    listener(store.promise);
+  };
+  load();
+  return store;
+}
+
+function likingCrowdBlock(choices, current, fitStore) {
   const block = likingEl("div", "liking-crowd");
   block.append(likingEl("h3", "", "Pleasantness, crowd guess"));
   const summary = pleasantnessLines(current.overlay) || { lines: ["No crowd guess for this formula."], label: "" };
   const list = likingEl("ul", "liking-windows");
   summary.lines.forEach((text) => list.append(likingEl("li", "", text)));
   block.append(list);
+  const used = (fit) => (Number(fit?.ratings_used) || 0) + (Number(fit?.material_ratings_used) || 0);
+  const mine = likingEl("ul", "liking-yours");
+  block.append(mine);
+  fitStore.subscribe((promise) => promise.then((fit) => {
+    if (promise !== fitStore.promise) return;
+    mine.replaceChildren();
+    if (used(fit) < 1) return;
+    LIKING_WINDOWS.forEach(([windowKey, windowLabel]) => {
+      const guess = likingYourGuess(current.overlay?.rating_windows?.[windowKey]?.material_shares, fit);
+      if (guess) mine.append(likingEl("li", "", likingYourGuessText(windowLabel, guess)));
+    });
+  }).catch(() => {}));
   const variants = variantPleasantnessLines(choices);
   if (variants.length) {
     block.append(likingEl("p", "liking-subhead", "Alternatives"));
@@ -204,7 +283,7 @@ function likingCrowdBlock(choices, current) {
   return block;
 }
 
-function likingRatingRow(choice, windowKey, windowLabel) {
+function likingRatingRow(choice, windowKey, windowLabel, fitStore) {
   const row = likingEl("div", "liking-row");
   row.dataset.window = windowKey;
   row.append(likingEl("h4", "", windowLabel));
@@ -268,6 +347,7 @@ function likingRatingRow(choice, windowKey, windowLabel) {
       savedId = saved?.id ?? null;
       status.textContent = "Saved";
       undo.hidden = savedId === null;
+      fitStore.refresh();
     } catch (error) {
       status.textContent = `Not saved: ${error.message}`;
     } finally {
@@ -284,6 +364,7 @@ function likingRatingRow(choice, windowKey, windowLabel) {
       undo.hidden = true;
       updateSave();
       status.textContent = "Removed";
+      fitStore.refresh();
     } catch (error) {
       status.textContent = `Not removed: ${error.message}`;
     } finally {
@@ -309,7 +390,7 @@ function likingSelect(name, options, selectedIndex) {
   return select;
 }
 
-function likingPickBlock(choices) {
+function likingPickBlock(choices, fitStore) {
   const block = likingEl("div", "liking-pick");
   block.append(likingEl("h3", "", "Which did you prefer?"));
   block.append(likingEl("p", "liking-hint", "If you mixed two of these, smell them side by side and pick one."));
@@ -363,6 +444,7 @@ function likingPickBlock(choices) {
         savedId = saved?.id ?? null;
         status.textContent = "Saved";
         undo.hidden = savedId === null;
+        fitStore.refresh();
       } catch (error) {
         status.textContent = `Not saved: ${error.message}`;
       } finally {
@@ -380,6 +462,7 @@ function likingPickBlock(choices) {
       undo.hidden = true;
       buttons.forEach((other) => { other.disabled = false; });
       status.textContent = "Removed";
+      fitStore.refresh();
     } catch (error) {
       status.textContent = `Not removed: ${error.message}`;
     } finally {
@@ -398,27 +481,34 @@ function likingNameList(heading, names) {
   return paragraph;
 }
 
-function likingPersonalBlock() {
+function likingPersonalBlock(fitStore) {
   const details = likingEl("details", "liking-personal");
   details.append(likingEl("summary", "", "Your nose so far"));
   const body = likingEl("div", "liking-personal-body");
   details.append(body);
-  details.addEventListener("toggle", async () => {
+  const show = async (promise) => {
     if (!details.open) return;
     body.replaceChildren(likingEl("p", "", "Loading…"));
     try {
-      const fit = await request("/liking/personal", { base: LIKING_API });
+      const fit = await promise;
+      if (promise !== fitStore.promise) return;
+      const checkText = likingCrowdCheckText(fit);
       body.replaceChildren(
         likingEl("p", "", `${Number(fit?.ratings_used) || 0} ratings and ${Number(fit?.picks_used) || 0} A/B picks used so far.`),
         likingEl("p", "", `${Number(fit?.material_ratings_used) || 0} material ratings`),
         likingNameList("You like these more than the crowd does:", fit?.liked),
         likingNameList("You like these less than the crowd does:", fit?.disliked),
+        ...(checkText ? [likingEl("p", "", checkText)] : []),
         likingEl("small", "", "Your own ratings start to matter after roughly 10 to 20 rated bottles; until then the crowd guess carries most of the weight."),
       );
     } catch (error) {
-      body.replaceChildren(likingEl("p", "inline-warning", `Couldn't load your ratings: ${error.message}`));
+      if (promise === fitStore.promise) {
+        body.replaceChildren(likingEl("p", "inline-warning", `Couldn't load your ratings: ${error.message}`));
+      }
     }
-  });
+  };
+  details.addEventListener("toggle", () => show(fitStore.promise));
+  fitStore.subscribers.push(show);
   return details;
 }
 
@@ -431,11 +521,12 @@ function renderFormulaLiking(result, variantIndex = 0, selected = null) {
   const current = selected?.formula ? choices.find((choice) => choice.variantIndex === wanted) : null;
   box.hidden = !current;
   if (!current) return;
-  box.append(likingCrowdBlock(choices, current));
+  const fitStore = likingFitStore();
+  box.append(likingCrowdBlock(choices, current, fitStore));
   const rate = likingEl("div", "liking-rate");
   rate.append(likingEl("h3", "", "Rate this bottle"));
   rate.append(likingEl("p", "liking-hint", `Mixed ${current.label === "Main formula" ? "this formula" : current.label}? Rate it at each time. Your ratings teach the app your taste.`));
-  LIKING_WINDOWS.forEach(([windowKey, windowLabel]) => rate.append(likingRatingRow(current, windowKey, windowLabel)));
+  LIKING_WINDOWS.forEach(([windowKey, windowLabel]) => rate.append(likingRatingRow(current, windowKey, windowLabel, fitStore)));
   box.append(rate);
   const seen = new Set();
   const distinct = choices.filter((choice) => {
@@ -444,14 +535,16 @@ function renderFormulaLiking(result, variantIndex = 0, selected = null) {
     seen.add(canonical);
     return true;
   });
-  if (distinct.length >= 2) box.append(likingPickBlock(distinct));
-  box.append(likingPersonalBlock());
+  if (distinct.length >= 2) box.append(likingPickBlock(distinct, fitStore));
+  box.append(likingPersonalBlock(fitStore));
 }
 
 if (typeof module === "object" && module.exports) {
   module.exports = {
     likingTimeLabel,
     pleasantnessLines,
+    likingCrowdCheckText,
+    likingYourGuess,
     likingFormulaChoices,
     variantPleasantnessLines,
     likingCanonicalRows,

@@ -3,11 +3,18 @@
 The fit spreads each rating, and each two-bottle pick, over the materials in the
 bottle by their share.  It reads the optional crowd pleasantness table from the
 repository; the ratings never leave this machine.
+
+It also checks how well the crowd guess has predicted Kenny's own ratings (the
+correlation and slope of his liking against the guess shown when he rated).  With
+ten or more such ratings, a crowd guess that predicts little is trusted less: the
+guess is scaled down by a weight between 0 and 1 before the personal deviations are
+added, so his own ratings take over.  Below ten ratings the weight stays at 1.
 """
 
 from __future__ import annotations
 
 import json
+import math
 import os
 import re
 import tempfile
@@ -42,6 +49,10 @@ MATERIAL_WEIGHT = 1.0
 PRIOR_WEIGHT = 1.0
 LISTED_EVIDENCE = 0.5
 LISTED_COUNT = 5
+CROWD_CHECK_MIN_RATINGS = 10
+CROWD_SHRINK_WEIGHT = 10
+CROWD_PREDICTS_R = 0.5
+CROWD_WEAK_R = 0.2
 METHOD = (
     "Each rating's distance from the crowd guess, after removing your own average offset "
     "from the crowd scale (or, with no crowd guess, its distance from your average rating), "
@@ -50,7 +61,11 @@ METHOD = (
     "to the material's crowd value, or to the typical crowd value when it has none. "
     "A rating of one material on a blotter counts as a rating of a bottle that is that "
     "material alone, measured from its crowd value (or the typical value). The strength "
-    "you note on a blotter (weak, medium, strong) is stored but not used by the fit."
+    "you note on a blotter (weak, medium, strong) is stored but not used by the fit. "
+    "Once ten or more bottle ratings carry a crowd guess, the fit checks how well that guess "
+    "tracked your liking; the crowd values are then scaled by a weight that falls toward 0 "
+    "when the guess has not predicted you (a slope of 1 or more keeps it at 1), so your own "
+    "ratings carry the rest."
 )
 
 
@@ -127,11 +142,50 @@ class CrowdTable:
         return family if isinstance(family, str) and family else None
 
 
+def crowd_check(ratings: list[LikingRating]) -> dict[str, Any]:
+    """How well the crowd guess predicted y = (liking - 5.5) / 4.5, plus the weight it earns."""
+
+    pairs = [
+        (float(r.crowd_guess), (r.liking - 5.5) / 4.5)
+        for r in ratings
+        if r.crowd_guess is not None
+    ]
+    n = len(pairs)
+    r_value = slope = rmse = None
+    if n:
+        rmse = math.sqrt(sum((y - g) ** 2 for g, y in pairs) / n)
+    if n >= 2:
+        mean_g = sum(g for g, _ in pairs) / n
+        mean_y = sum(y for _, y in pairs) / n
+        sgg = sum((g - mean_g) ** 2 for g, _ in pairs)
+        syy = sum((y - mean_y) ** 2 for _, y in pairs)
+        sgy = sum((g - mean_g) * (y - mean_y) for g, y in pairs)
+        if sgg > 0 and syy > 0:
+            r_value = sgy / math.sqrt(sgg * syy)
+            slope = sgy / sgg
+    if n < CROWD_CHECK_MIN_RATINGS:
+        verdict, weight = "too_few", 1.0
+    else:
+        if r_value is not None and r_value >= CROWD_PREDICTS_R:
+            verdict = "predicts"
+        elif r_value is not None and r_value >= CROWD_WEAK_R:
+            verdict = "weak"
+        else:
+            verdict = "none"
+        clipped = min(1.0, max(0.0, slope)) if slope is not None else 0.0
+        weight = (n * clipped + CROWD_SHRINK_WEIGHT * 1.0) / (n + CROWD_SHRINK_WEIGHT)
+    return {
+        "check": {"n": n, "r": r_value, "slope": slope, "rmse": rmse, "verdict": verdict},
+        "weight": weight,
+    }
+
+
 def _observations(
     ratings: list[LikingRating],
     picks: Iterable[LikingPick],
     material_ratings: list[LikingMaterialRating],
     crowd: CrowdTable,
+    weight: float = 1.0,
 ) -> tuple[list[tuple[Mapping[str, float], float, float]], float]:
     """((shares, residual, weight) for every rating and non-tied pick side, offset b).
 
@@ -140,20 +194,21 @@ def _observations(
     bottle with a crowd guess has residual y - guess - b; one without has y - mean(y).
     A material rating counts in b when the crowd table knows the material (gap y - crowd
     value) and has residual y - prior - b, prior being the crowd value or the typical value.
+    Every crowd value and guess is first scaled by `weight` (the crowd check's weight).
     """
 
     ys = [(rating.liking - 5.5) / 4.5 for rating in ratings]
     ybar = sum(ys) / len(ys) if ys else 0.0
-    gaps = [y - r.crowd_guess for y, r in zip(ys, ratings) if r.crowd_guess is not None]
+    gaps = [y - weight * r.crowd_guess for y, r in zip(ys, ratings) if r.crowd_guess is not None]
     material_ys = [(m.liking - 5.5) / 4.5 for m in material_ratings]
     material_crowd = [crowd.value(m.material) for m in material_ratings]
-    gaps += [y - c for y, c in zip(material_ys, material_crowd) if c is not None]
+    gaps += [y - weight * c for y, c in zip(material_ys, material_crowd) if c is not None]
     offset = sum(gaps) / len(gaps) if gaps else 0.0
 
     rows: list[tuple[Mapping[str, float], float, float]] = []
     for rating, y in zip(ratings, ys):
         if rating.crowd_guess is not None:
-            residual = y - rating.crowd_guess - offset
+            residual = y - weight * rating.crowd_guess - offset
         else:
             residual = y - ybar
         rows.append((rating.material_shares, residual, 1.0))
@@ -161,7 +216,7 @@ def _observations(
     for material, y, known in zip(
         (m.material for m in material_ratings), material_ys, material_crowd
     ):
-        prior = known if known is not None else typical
+        prior = weight * (known if known is not None else typical)
         rows.append(({material: 1.0}, y - prior - offset, MATERIAL_WEIGHT))
     for pick in picks:
         if pick.preferred == "same":
@@ -202,7 +257,9 @@ def fit_personal_liking(
     ratings = list(ratings)
     picks = list(picks)
     material_ratings = list(material_ratings)
-    observations, offset = _observations(ratings, picks, material_ratings, crowd)
+    checked = crowd_check(ratings)
+    crowd_weight = checked["weight"]
+    observations, offset = _observations(ratings, picks, material_ratings, crowd, crowd_weight)
     direct: dict[str, int] = {}
     for rating in material_ratings:
         direct[rating.material] = direct.get(rating.material, 0) + 1
@@ -211,7 +268,7 @@ def fit_personal_liking(
     materials: dict[str, dict[str, Any]] = {}
     for name, fit in sorted(_shrunk(observations).items()):
         crowd_value = crowd.value(name)
-        prior = crowd_value if crowd_value is not None else typical
+        prior = crowd_weight * (crowd_value if crowd_value is not None else typical)
         personal = max(-1.0, min(1.0, prior + fit["deviation"]))
         materials[name] = {
             "personal": personal,
@@ -249,6 +306,8 @@ def fit_personal_liking(
         "material_ratings_used": len(material_ratings),
         "method": METHOD,
         "offset_b": offset,
+        "crowd_check": checked["check"],
+        "crowd_weight": crowd_weight,
         "typical_prior": typical,
         "materials": materials,
         "families": families,
