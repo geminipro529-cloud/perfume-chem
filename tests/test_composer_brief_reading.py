@@ -14,6 +14,7 @@ import pytest
 
 from engine.formulation_intelligence.formula_design_runtime import design_formula
 from engine.formulation_intelligence.note_phrases import translate_note_phrases
+from engine.formulation_intelligence.semantic_brief_adapter import role_identity_requirement
 from engine.research.composition_planner import _avoid_candidate, _load_candidates
 from engine.research.request_interpretation import (
     _matched_names,
@@ -125,3 +126,59 @@ def test_no_sweetness_never_removes_a_stock_the_brief_names(candidates_by_name: 
     named = replace(candidates_by_name["Cocoa Absolute"], explicit=True)
 
     assert _avoid_candidate(named, ("sweetness",)) is False
+
+
+# Phase 3, step 2: notes the composer had words for but lost.
+
+
+def test_iris_named_beside_violet_keeps_an_irone_or_orris_row() -> None:
+    # A violet profile used to replace the iris umbrella, and the umbrella
+    # cannot layer a second iris-family stock beside the violet's ionone.
+    result = design_formula(idea="iris and violet")
+
+    assert result["status"].startswith("INVENTORY_GROUNDED_DESIGN_READY"), result["reason_codes"]
+    role_ids = [role["role_id"] for role in result["semantic_brief"]["roles"]]
+    assert "facet_violet_petals" in role_ids and "facet_iris_root" in role_ids, role_ids
+    rows = [row["identity_name"].casefold() for row in result["initial_formula"]["rows"]]
+    assert any("irone" in name or "orris" in name for name in rows), rows
+
+
+def test_laundry_reads_as_clean_aldehydes() -> None:
+    result = design_formula(idea="a white musk laundry")
+
+    assert "aldehydic" in result["semantic_brief"]["facets"]
+
+
+def test_fougere_is_lavender_over_coumarin_and_moss() -> None:
+    result = design_formula(idea="an aromatic fougere")
+
+    facets = result["semantic_brief"]["facets"]
+    assert {"aromatic_lavender", "fougere_coumarin", "moss_chypre"} <= set(facets), facets
+    rows = {row["slot"]: row["identity_name"].casefold() for row in result["initial_formula"]["rows"]}
+    assert "lavender" in rows["facet_aromatic_lavender"], rows
+    assert "coumarin" in rows["facet_fougere_coumarin"], rows
+
+
+@pytest.mark.parametrize(
+    ("request_text", "required"),
+    [
+        ("an aromatic fougere", ("lavender", "lavandin")),
+        ("lavender and amber", ("lavender", "lavandin")),
+        ("herbal and green", ()),
+    ],
+)
+def test_lavender_role_names_lavender_only_when_asked(request_text: str, required: tuple) -> None:
+    assert role_identity_requirement("facet_aromatic_lavender", request_text) == required
+
+
+def test_lavender_named_in_a_fougere_is_the_anchor_not_a_second_lavender() -> None:
+    # "lavender" anchors Lavender EO; the fougere's lavender role would need a
+    # second lavender stock, which the family rule never places beside it, so
+    # the anchor is the fougere's lavender.
+    result = design_formula(idea="a lavender fougere with moss")
+
+    role_ids = [role["role_id"] for role in result["semantic_brief"]["roles"]]
+    assert "facet_aromatic_lavender" not in role_ids, role_ids
+    assert {"facet_fougere_coumarin", "facet_moss_chypre"} <= set(role_ids), role_ids
+    rows = [row["identity_name"].casefold() for row in result["initial_formula"]["rows"]]
+    assert sum("lavender" in name or "lavandin" in name for name in rows) == 1, rows

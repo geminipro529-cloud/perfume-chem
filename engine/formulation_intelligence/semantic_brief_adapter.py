@@ -144,13 +144,16 @@ _FACETS: tuple[FacetDefinition, ...] = (
     # share and cap copy leather_suede so no new dose is introduced.
     FacetDefinition("oud_agarwood", ("oud", "oudh", "aoud", "agarwood"), ("agarwood", "oud"), "base", "character", (("woody", .6), ("smoky", .45), ("animalic", .3), ("warmth", .3)), .065, .12),
     FacetDefinition("leather_suede", ("leather", "suede", "saddle", "book leather"), ("leather", "suede", "isobutyl quinoline", "birch tar", "saffron"), "base", "character", (("woody", .55), ("smoky", .45), ("animalic", .25)), .065, .12),
-    FacetDefinition("moss_chypre", ("moss", "mossy", "chypre", "forest moss"), ("moss", "evernyl", "oakmoss", "patchouli", "labdanum"), "base", "structure", (("green", .5), ("woody", .5), ("smoky", .15)), .07, .13),
+    # A fougere is lavender over coumarin and oakmoss: the family word asks for
+    # the coumarin here and the moss through moss_chypre.
+    FacetDefinition("fougere_coumarin", ("fougere", "fougère"), ("coumarin", "tonka"), "base", "structure", (("warmth", .45), ("sweetness", .25), ("powdery", .2)), .08, .14),
+    FacetDefinition("moss_chypre", ("moss", "mossy", "chypre", "forest moss", "fougere", "fougère"), ("moss", "evernyl", "oakmoss", "patchouli", "labdanum"), "base", "structure", (("green", .5), ("woody", .5), ("smoky", .15)), .07, .13),
     FacetDefinition("vanilla_balsam", ("vanilla", "vanillic", "balsamic", "benzoin", "tonka"), ("vanilla", "vanillin", "benzoin", "tonka", "coumarin", "balsam"), "base", "character", (("sweetness", .9), ("warmth", .55), ("creamy", .35)), .075, .14),
     FacetDefinition("coffee_cocoa", ("coffee", "cocoa", "chocolate", "roasted"), ("coffee", "cocoa", "roast", "pyrazine", "chocolate"), "heart", "character", (("warmth", .5), ("smoky", .4), ("sweetness", .25)), .06, .11),
     FacetDefinition("tobacco_hay", ("tobacco", "hay", "straw", "dry grass"), ("tobacco", "hay", "coumarin", "immortelle", "tea"), "base", "character", (("warmth", .45), ("woody", .35), ("smoky", .3)), .065, .12),
     FacetDefinition("spice", ("spice", "spicy", "pepper", "cardamom", "nutmeg", "cinnamon", "clove", "saffron", "ginger"), ("pepper", "cardamom", "nutmeg", "cinnamon", "clove", "saffron", "ginger", "spice"), "heart", "modifier", (("spicy", 1.0), ("warmth", .35)), .045, .09),
     FacetDefinition("fruit", ("fruit", "fruity", "pear", "apple", "peach", "plum", "berry", "mango", "pineapple"), ("fruit", "pear", "apple", "peach", "plum", "berry", "mango", "pineapple", "ester"), "top", "character", (("freshness", .45), ("sweetness", .4), ("radiance", .25)), .065, .12),
-    FacetDefinition("aldehydic", ("aldehydic", "sparkling aldehyde", "champagne", "soapy aldehyde"), ("aldehyde", "sparkling", "wax", "linen"), "top", "modifier", (("radiance", .8), ("freshness", .4), ("transparency", .25)), .025, .06),
+    FacetDefinition("aldehydic", ("aldehydic", "sparkling aldehyde", "champagne", "soapy aldehyde", "laundry", "linen", "clean linen"), ("aldehyde", "sparkling", "wax", "linen"), "top", "modifier", (("radiance", .8), ("freshness", .4), ("transparency", .25)), .025, .06),
     FacetDefinition("powder", ("powder", "powdery", "cosmetic", "makeup"), ("powder", "iris", "ionone", "heliotropin", "musk"), "heart", "texture", (("powdery", 1.0), ("floral", .25)), .055, .11),
     FacetDefinition("almond_nut", ("almond", "marzipan", "biscuit", "nutty", "toasted nut"), ("almond", "benzaldehyde", "heliotropin", "tonka", "pyrazine", "biscuit"), "heart", "character", (("warmth", .55), ("sweetness", .35), ("powdery", .25)), .06, .11),
     FacetDefinition("floral_bouquet", ("floral", "flowers", "flower", "petal", "petals", "blossom", "bloom"), ("floral", "petal", "hedione", "phenethyl", "linalool", "blossom"), "heart", "character", (("floral", .9), ("radiance", .35)), .10, .18),
@@ -190,6 +193,7 @@ FACET_IDENTITY_REQUIREMENTS: dict[str, tuple[str, ...]] = {
     # The umbrella also answers violet-only briefs; see role_identity_requirement.
     "iris_violet": _IRIS_IDENTITY_WORDS,
 }
+_LAVENDER_IDENTITY_WORDS = ("lavender", "lavandin")
 _IRIS_UMBRELLA_QUERY_TERMS = ("alpha irone", "irone", "orris", "iris", "ionone", "violet", "carrot")
 _IRIS_TEXTURE = FacetDefinition("iris_root_texture", ("rooty iris",), ("root texture", "orivone", "earthy orris"), "heart", "texture", (("woody", .25),), .025, .06, "root texture")
 
@@ -269,6 +273,16 @@ def _matched_facets(
         if any(_phrase_present(text_key, trigger) for trigger in facet.triggers):
             if facet.facet_id == "iris_violet" and refined:
                 result.extend(item for item in refined if not _facet_is_avoided(item, avoid))
+                # A violet profile answers the violet; iris named beside it
+                # still needs its own recognizer role (the umbrella cannot
+                # layer a second iris-family stock beside the violet's).
+                iris_root = _LITERATURE_FACETS["iris_root"]
+                if (
+                    iris_context
+                    and not any(item.facet_id.startswith("iris_") for item in refined)
+                    and not _facet_is_avoided(iris_root, avoid)
+                ):
+                    result.append(iris_root)
                 wants_root_texture = any(
                     _phrase_present(text_key, term) for term in ("root", "rooty", "roots", "earthy")
                 )
@@ -356,10 +370,16 @@ def role_identity_requirement(role_id: str, request: str = "") -> tuple[str, ...
     if not role_id.startswith("facet_"):
         return ()
     facet_id = role_id[len("facet_") :]
+    request_key = f" {_key(request)} "
     if facet_id == "iris_violet" and not any(
-        _phrase_present(f" {_key(request)} ", term) for term in ("iris", "orris")
+        _phrase_present(request_key, term) for term in ("iris", "orris")
     ):
         return ()
+    # The lavender of a lavender or fougere brief is a stock that is lavender,
+    # not any herbal material; an "herbal" brief keeps the open search.
+    if facet_id == "aromatic_lavender":
+        named = any(_phrase_present(request_key, term) for term in ("lavender", "fougere", "fougère"))
+        return _LAVENDER_IDENTITY_WORDS if named else ()
     return FACET_IDENTITY_REQUIREMENTS.get(facet_id, ())
 
 
@@ -770,8 +790,15 @@ def _roles(
         # the same note twice.  Recognizer slots and fruit keep their roles.
         if not facet.knowledge_role_slot and facet.facet_id != "fruit":
             matched_triggers = [t for t in facet.triggers if _phrase_present(request_key, t)]
-            if matched_triggers and all(
-                any(_phrase_present(name, t) for name in explicit_keys) for t in matched_triggers
+            # An anchor that already carries the identity the facet must name
+            # (Lavender EO for the lavender of a fougere) is that note: a second
+            # stock of the same identity could never be placed beside it.
+            identity = role_identity_requirement(f"facet_{facet.facet_id}", request_key)
+            if matched_triggers and (
+                any(_phrase_present(name, word) for name in explicit_keys for word in identity)
+                or all(
+                    any(_phrase_present(name, t) for name in explicit_keys) for t in matched_triggers
+                )
             ):
                 continue
         # A rooty-and-transparent iris has one recognizer with two requested
