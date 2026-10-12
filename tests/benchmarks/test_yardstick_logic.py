@@ -283,6 +283,9 @@ def test_same_inventory_txt_material_holds_alike_from_engine_and_reference_rows(
         (_row("Adoxal", "30", "0.05", carrier="ethanol"), "FAIL"),
         (_row("Adoxal", "30", "0.05", carrier="DPG"), "HOLD"),
         (_row("Adoxal", "30", "0.05"), "HOLD"),
+        # A neat oil dilutes into any carrier on any basis (Lavande R7's pepper row).
+        (_row("Nutmeg EO", "30", "0.2", fraction_basis="volume_fraction", carrier="ethanol"),
+         "HOLD"),
         # Crystals dissolve only so far: nothing above the strongest owned dilution.
         (_row("Ambrox Super", "30", "0.5", fraction_basis="mass_fraction"), "FAIL"),
         (_row("Ambrox Super", "30", "0.1", fraction_basis="mass_fraction"), "HOLD"),

@@ -429,7 +429,7 @@ def _preparable_from_inventory_txt(
     a material the user lacks.
 
     The source must be stronger than ``fraction`` and either neat (diluted into the row's
-    carrier) or a dilution in the row's own carrier, in a compatible fraction basis
+    carrier, on the row's basis) or a dilution in the row's own carrier and basis
     (diluting a DPG stock with ethanol gives a mixed carrier, not the row's). A solid
     cannot be dissolved to any strength, so it counts only up to the strongest dilution of
     the material the user already owns.
@@ -445,11 +445,11 @@ def _preparable_from_inventory_txt(
     )
     for s in stocks:
         strength = float(s.dilution)
-        if strength <= target + 1e-9 or not _basis_compatible(spec, s):
+        if strength <= target + 1e-9:
             continue
-        if strength < 1.0:
+        if strength < 1.0:  # a neat stock dilutes into any carrier, on any basis
             owned_carrier = normalize_name(_known(s.carrier))
-            if row_carrier and owned_carrier != row_carrier:
+            if (row_carrier and owned_carrier != row_carrier) or not _basis_compatible(spec, s):
                 continue
         if _is_solid(s) and target > liquid_ceiling + 1e-9:
             continue
