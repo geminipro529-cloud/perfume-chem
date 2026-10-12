@@ -289,6 +289,12 @@ def test_same_inventory_txt_material_holds_alike_from_engine_and_reference_rows(
         # Crystals dissolve only so far: nothing above the strongest owned dilution.
         (_row("Ambrox Super", "30", "0.5", fraction_basis="mass_fraction"), "FAIL"),
         (_row("Ambrox Super", "30", "0.1", fraction_basis="mass_fraction"), "HOLD"),
+        # Spelling: "cis-3-Hexenyl" is inventory.txt's "Cis-3 Hexenyl"; a strength in the
+        # name is the row's own fraction (inventory.txt owns neat Cocoa Absolute).
+        (_row("cis-3-Hexenyl Acetate", "30"), "HOLD"),
+        (_row("Cocoa Absolute 10%", "30", "0.1", fraction_basis="mass_fraction",
+              carrier="DPG"), "HOLD"),
+        (_row("Orris Givco 204", "30"), "FAIL"),  # on neither stock list
         # The gate's own list says this stock is prepared at the bench.
         (_row("Heliotropal", "30", "0.1", fraction_basis="mass_fraction", carrier="DPG"),
          "HOLD"),

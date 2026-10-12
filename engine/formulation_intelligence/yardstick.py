@@ -29,6 +29,7 @@ from __future__ import annotations
 import dataclasses
 import functools
 import math
+import re
 from collections.abc import Callable, Mapping, Sequence
 from decimal import Decimal
 from pathlib import Path
@@ -332,19 +333,29 @@ def _inventory_txt_owned() -> dict[str, tuple[Any, ...]]:
     for s in apply_user_compounding_holds(live)[0]:
         if is_user_compounding_held(s):
             continue
-        for key in {normalize_name(s.identity_name or s.name), normalize_name(s.name)}:
+        for key in {_lookup_key(s.identity_name or s.name), _lookup_key(s.name)}:
             index.setdefault(key, []).append(s)
     return {k: tuple(v) for k, v in index.items()}
+
+
+_STRENGTH_SUFFIX = re.compile(r"\s+\d+(?:\.\d+)?\s*%.*$")
+
+
+def _lookup_key(name: str) -> str:
+    """A stock-list key that ignores hyphen-versus-space spelling ("cis-3-Hexenyl" and
+    "Cis-3 Hexenyl") and a strength written into the name ("Cocoa Absolute 10%": the
+    row's own fraction carries the strength)."""
+    return re.sub(r"[\s\-_]+", " ", normalize_name(_STRENGTH_SUFFIX.sub("", name))).strip()
 
 
 def _inventory_txt_stocks(material: str) -> list[Any]:
     """inventory.txt's owned stocks of ``material`` (alias crosswalk applied)."""
     from engine.inventory_parser import load_current_inventory_alias_crosswalk
 
-    keys = {normalize_name(material)}
+    keys = {_lookup_key(material)}
     alias = load_current_inventory_alias_crosswalk().resolve(material)
     if alias:
-        keys.add(normalize_name(alias.destination))
+        keys.add(_lookup_key(alias.destination))
     index = _inventory_txt_owned()
     seen: dict[int, Any] = {}
     for key in keys:
