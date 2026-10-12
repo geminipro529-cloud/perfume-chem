@@ -266,10 +266,23 @@ launcher is also available:
 .venv\Scripts\python.exe run_api_server.py
 ```
 
-The launcher listens on `127.0.0.1` (this PC only) by default. The app has no
-login, so `--lan` (or `--host 0.0.0.0`) lets anyone on the same network open,
-change and delete the lab data; the launcher prints a warning when started that
-way. The Docker Compose setup likewise publishes port 8000 on `127.0.0.1` only.
+The launcher listens on `127.0.0.1` (this PC only) by default, with no login.
+`--lan` (or `--host <address>`) lets other devices on the network open the app,
+and then every device other than this PC must sign in once with the lab
+password; the browser keeps the session for 30 days. The password comes from
+`LAB_PASSWORD` (environment or `backend/.env`), else from
+`data/user/lab_password.txt` (gitignored), which the first network start creates
+with a random password and prints. To choose your own:
+
+```powershell
+Set-Content -Path data\user\lab_password.txt -Value "your-own-password"
+.venv\Scripts\python.exe run_api_server.py --lan
+```
+
+Changing the password signs every device out. `--no-login` turns the password
+off again (the launcher then warns that anyone on the network can change and
+delete the lab data). The Docker Compose setup publishes port 8000 on
+`127.0.0.1` only and runs without a login.
 
 The laboratory interface is served at `http://localhost:8000/app`; API
 documentation is served at `http://localhost:8000/docs`. The bootstrap command
