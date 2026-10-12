@@ -31,6 +31,8 @@ STRUCTURAL_ONLY = {
     "Ultralia",
 }
 NEAR_THRESHOLD = {"Ambrettolide"}
+# Romandolide models under OAV 1 since its sourced vapour pressure; see the recognizer test.
+BELOW_THRESHOLD_AFTER_VP = {"Romandolide"}
 
 
 @pytest.fixture(scope="module")
@@ -84,7 +86,12 @@ def test_v31_recognizers_still_model_at_oav_one_or_more(formula):
         matrix_source=formula["matrix_source"],
     )
     rows = {material.name: material for material in state.materials}
-    recognizers = set(formula["ingredients_ul"]) - STRUCTURAL_ONLY - NEAR_THRESHOLD
+    recognizers = (
+        set(formula["ingredients_ul"])
+        - STRUCTURAL_ONLY
+        - NEAR_THRESHOLD
+        - BELOW_THRESHOLD_AFTER_VP
+    )
     low = {name: rows[name].oav for name in recognizers if (rows[name].oav or 0.0) < 1.0}
     assert low == {}
     # 2026-10-08: Ambrettolide got a sourced density (0.956 g/mL, was the 1.0 default), so the
@@ -92,6 +99,11 @@ def test_v31_recognizers_still_model_at_oav_one_or_more(formula):
     # 163 uL would restore OAV 1, which is Kenny's call.
     for name in NEAR_THRESHOLD:
         assert 0.95 <= (rows[name].oav or 0.0) < 1.0, (name, rows[name].oav)
+    # 2026-10-12: Romandolide's sourced vapour pressure (0.08 Pa, the RIFM measured value at
+    # 25 C; was 0.1 Pa) puts the 210 uL dose at about OAV 0.84. The recipe is unchanged; about
+    # 251 uL would restore OAV 1, which is Kenny's call.
+    for name in BELOW_THRESHOLD_AFTER_VP:
+        assert 0.8 <= (rows[name].oav or 0.0) < 0.9, (name, rows[name].oav)
 
 
 def test_v31_lacks_authoritative_mass_only_for_its_w_w_stocks(formula):
