@@ -551,6 +551,7 @@ async function refresh() {
   recordList("#material-list", materials, "canonical_name", (row) => row.cas_number || "No CAS recorded");
   recordList("#formula-list", formulas, "name", () => "Immutable versions are appended separately");
   recordList("#bottle-list", bottles, "label", (row) => row.status);
+  smellLog?.setBottles(bottles);
   recordList("#experiment-list", experiments, "name", (row) => row.status);
   renderProjectInventory($("#project-inventory-search").value);
   // A design shown before the inventory arrived (a restored draft) picks up its basket order.
@@ -2813,6 +2814,10 @@ $("#version-form").addEventListener("submit", async (event) => {
 showMassLimitInline("#stock-form");
 showMassLimitInline("#bottle-form");
 bindForm("#bottle-form", (data) => request("/bottles", { method: "POST", body: JSON.stringify({ label: data.label, initial_mass_g: checkedInitialMassG(data.initial_mass_g) }) }));
+// Bottles view: the smell log form (smell-log.js); refresh() hands it the bottle list.
+const smellLog = typeof attachSmellLog === "function"
+  ? attachSmellLog({ doc: document, request, root: $("#smell-log") })
+  : null;
 bindForm("#addition-form", (data) => request(`/bottles/${data.bottle_id}/additions`, { method: "POST", body: JSON.stringify({ stock_solution_id: data.stock_solution_id, mass_g: Number(data.mass_g), expected_sequence: Number(data.expected_sequence), command_id: newRequestId("command") }) }));
 bindForm("#experiment-form", (data) => request("/experiments", { method: "POST", body: JSON.stringify({ name: data.name, protocol: { observation_times_seconds: data.times.split(",").map((item) => Number(item.trim())) } }) }));
 

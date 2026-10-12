@@ -7,7 +7,7 @@ import json
 from collections.abc import Sequence
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import UTC, datetime, timedelta
 from decimal import Decimal, InvalidOperation
 from hashlib import sha256
 from math import isfinite
@@ -204,6 +204,50 @@ def _conflict_message(exc: IntegrityError) -> str:
     if "unique" in detail or "duplicate key" in detail:
         return _DUPLICATE_MESSAGE
     return _CONSTRAINT_MESSAGE
+
+
+# Smell log: a strip or skin test of a mixed bottle, logged at a fixed time
+# after application. Each entry is one application plus one observation in the
+# bottle's own "Smell log" experiment.
+SMELL_LOG_WINDOWS: dict[str, tuple[str, str, int]] = {
+    "strip_10m": ("Strip 10 min", "strip", 600),
+    "strip_1h": ("Strip 1 h", "strip", 3600),
+    "strip_3h": ("Strip 3 h", "strip", 10800),
+    "skin_day1": ("Skin day 1", "skin", 86400),
+    "skin_day7": ("Skin day 7", "skin", 604800),
+}
+SMELL_LOG_KIND = "smell_log"
+SMELL_LOG_BLIND_CODE = "smell-log"
+_SMELL_LOG_MAX_NAMES = 12
+_SMELL_LOG_MAX_WORDS = 280
+
+
+def _smell_log_names(values: Sequence[str], field_name: str) -> list[str]:
+    names: list[str] = []
+    for value in values:
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError(f"{field_name} names must be non-empty text")
+        name = value.strip()
+        if name.casefold() not in {existing.casefold() for existing in names}:
+            names.append(name)
+    if len(names) > _SMELL_LOG_MAX_NAMES:
+        raise ValueError(f"{field_name} may list at most {_SMELL_LOG_MAX_NAMES} names")
+    return names
+
+
+def _smell_log_entry(application: LabApplication, observation: LabObservation) -> dict:
+    body = dict(observation.observations_json or {})
+    logged_at = application.applied_at + timedelta(seconds=observation.elapsed_seconds)
+    return {
+        "id": observation.id,
+        "window": body.get("window"),
+        "surface": body.get("surface"),
+        "leads": list(body.get("leads") or []),
+        "weak": list(body.get("weak") or []),
+        "liking": body.get("liking"),
+        "words": body.get("words") or "",
+        "logged_at": logged_at.astimezone(UTC).isoformat(),
+    }
 
 
 class LabService(
@@ -2096,6 +2140,125 @@ class LabService(
                     observations_json=dict(observations),
                 )
             )
+
+    async def record_smell_log(
+        self,
+        bottle_id: str,
+        *,
+        window: str,
+        leads: Sequence[str],
+        weak: Sequence[str],
+        liking: int | None,
+        words: str,
+        logged_at: datetime | None = None,
+    ) -> dict:
+        if window not in SMELL_LOG_WINDOWS:
+            raise ValueError(f"Unknown smell log window: {window}")
+        _label, surface, seconds = SMELL_LOG_WINDOWS[window]
+        lead_names = _smell_log_names(leads, "leads")
+        weak_names = _smell_log_names(weak, "weak")
+        both = {name.casefold() for name in lead_names} & {
+            name.casefold() for name in weak_names
+        }
+        if both:
+            raise ValueError("a name cannot both lead and be weak in one entry")
+        if liking is not None and (
+            isinstance(liking, bool) or not isinstance(liking, int) or not 1 <= liking <= 10
+        ):
+            raise ValueError("liking must be a whole number from 1 to 10")
+        words = words.strip()
+        if len(words) > _SMELL_LOG_MAX_WORDS:
+            raise ValueError(f"words must be at most {_SMELL_LOG_MAX_WORDS} characters")
+        if not (lead_names or weak_names or liking is not None or words):
+            raise ValueError("a smell log entry needs leads, weak, a liking or words")
+        if logged_at is None:
+            logged_at = datetime.now(UTC)
+        elif logged_at.tzinfo is None or logged_at.utcoffset() is None:
+            raise ValueError("logged_at must be timezone-aware")
+        async with self._transaction():
+            bottle = await self.repository.get_bottle(bottle_id)
+            if bottle is None:
+                raise KeyError(f"Unknown bottle: {bottle_id}")
+            sample = await self._smell_log_sample(bottle_id)
+            if sample is None:
+                experiment = await self.repository.add(
+                    LabExperiment(
+                        name=f"Smell log: {bottle.label}"[:255],
+                        protocol_json={"kind": SMELL_LOG_KIND, "bottle_id": bottle_id},
+                        status="active",
+                    )
+                )
+                sample = await self.repository.add(
+                    LabSample(
+                        experiment_id=experiment.id,
+                        bottle_id=bottle_id,
+                        blind_code=SMELL_LOG_BLIND_CODE,
+                    )
+                )
+            application = await self.repository.add(
+                LabApplication(
+                    sample_id=sample.id,
+                    applied_at=logged_at.astimezone(UTC) - timedelta(seconds=seconds),
+                    dose_json={},
+                    context_json={"kind": SMELL_LOG_KIND, "surface": surface},
+                )
+            )
+            observation = await self.repository.add(
+                LabObservation(
+                    application_id=application.id,
+                    elapsed_seconds=float(seconds),
+                    observations_json={
+                        "kind": SMELL_LOG_KIND,
+                        "schema": "smell-log-v1",
+                        "window": window,
+                        "surface": surface,
+                        "leads": lead_names,
+                        "weak": weak_names,
+                        "liking": liking,
+                        "words": words,
+                    },
+                )
+            )
+            return _smell_log_entry(application, observation)
+
+    async def list_smell_log(self, bottle_id: str) -> list[dict]:
+        if await self.repository.get_bottle(bottle_id) is None:
+            raise KeyError(f"Unknown bottle: {bottle_id}")
+        sample = await self._smell_log_sample(bottle_id)
+        if sample is None:
+            return []
+        entries = [
+            (_smell_log_entry(application, observation), observation.created_at)
+            for application, observation in await self.repository.sample_observations(
+                sample.id
+            )
+            if (observation.observations_json or {}).get("kind") == SMELL_LOG_KIND
+        ]
+        entries.sort(key=lambda item: (item[0]["logged_at"], item[1]), reverse=True)
+        return [entry for entry, _created_at in entries]
+
+    async def smell_log_rows(self, bottle_id: str) -> list[str]:
+        bottle = await self.repository.get_bottle(bottle_id)
+        if bottle is None:
+            raise KeyError(f"Unknown bottle: {bottle_id}")
+        if bottle.batch_id is None:
+            return []
+        batch = await self.repository.get_batch(bottle.batch_id)
+        if batch is None:
+            return []
+        names: list[str] = []
+        for name in await self.repository.formula_material_names(batch.formula_version_id):
+            if name not in names:
+                names.append(name)
+        return names
+
+    async def _smell_log_sample(self, bottle_id: str) -> LabSample | None:
+        for sample in await self.repository.bottle_samples(bottle_id, SMELL_LOG_BLIND_CODE):
+            experiment = await self.repository.get_experiment(sample.experiment_id)
+            protocol = dict(experiment.protocol_json or {}) if experiment else {}
+            if protocol.get("kind") == SMELL_LOG_KIND and protocol.get("bottle_id") == bottle_id:
+                return sample
+        return None
 
     async def record_pairwise_comparison(
         self,

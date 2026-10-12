@@ -362,6 +362,20 @@ button:disabled { cursor: not-allowed !important; opacity: .48; transform: none 
 .liking-scale button[aria-pressed="true"] { color: white; background: var(--blue); border-color: var(--blue); }
 .liking-field { display: grid; gap: 2px; font-size: .9em; }
 .liking-status { color: var(--muted); }
+.smell-log-group { min-width: 0; margin: 0; padding: 0; border: 0; }
+.smell-log-group legend { margin-bottom: 8px; padding: 0; color: var(--blue); font-size: 12px; font-weight: 700; }
+.smell-log-choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.smell-log-choice {
+  min-height: 48px; padding: 0 14px; color: var(--blue); background: var(--paper-high);
+  border: 1px solid var(--line); border-radius: 999px; cursor: pointer; font: 600 15px/1.2 var(--font-ui);
+  overflow-wrap: anywhere;
+}
+.smell-log-windows .smell-log-choice { flex: 1 1 140px; }
+.smell-log-liking .smell-log-choice { flex: 1 0 48px; padding: 0; }
+.smell-log-choice[aria-pressed="true"] { color: var(--on-primary); background: var(--blue); border-color: var(--blue); }
+.smell-log-chip[data-mark="weak"] { border-style: dashed; color: var(--blue); background: var(--surface-2); }
+.smell-log-form button[type="submit"] { align-self: stretch; min-height: 52px; font-size: 14px; }
+.smell-log-past { margin: 0; padding-left: 18px; color: var(--muted); font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
 .liking-personal summary { cursor: pointer; }
 .bench-sheet { display: none; }
 
