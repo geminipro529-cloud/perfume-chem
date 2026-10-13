@@ -60748,7 +60748,7 @@
     "alt_name": null,
     "field_evidence": {
       "mw": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
@@ -60763,6 +60763,7 @@
         "status": "UNKNOWN"
       },
       "gate_value_sources": {
+        "mw": "registry:data_spine.mw",
         "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
@@ -60861,10 +60862,17 @@
           "vp": null,
           "clp": null
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "mw": null
+        }
       }
     ],
     "vp": 0.032,
-    "clp": 5.366
+    "clp": 5.366,
+    "mw": 262.4
   },
   {
     "name": "Cedarwood EO (China; species unspecified)",
@@ -63475,11 +63483,18 @@
           "vp": null,
           "clp": null
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "vp": 96.1,
+          "clp": 2.5
+        }
       }
     ],
     "mw": 158.2,
-    "vp": 96.1,
-    "clp": 2.5
+    "vp": 24.9,
+    "clp": 2.6
   },
   {
     "name": "Methyl Laitone",
@@ -71605,10 +71620,16 @@
         "fields": {
           "clp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": null
+        }
       }
     ],
     "mw": 88.11,
-    "vp": null,
+    "vp": 360.0,
     "clp": -0.36,
     "note": "unassigned",
     "role": "unassigned",
@@ -71668,6 +71689,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -73182,10 +73204,16 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": null
+        }
       }
     ],
     "mw": 167.25,
-    "vp": null,
+    "vp": 0.0813,
     "clp": null,
     "note": "unassigned",
     "role": "unassigned",
@@ -73245,7 +73273,8 @@
         "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
-        "mw": "registry:data_spine.mw"
+        "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c"
       }
     },
     "synergies": [],
@@ -73736,9 +73765,15 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": null
+        }
       }
     ],
-    "mw": null,
+    "mw": 264.41,
     "vp": null,
     "clp": 6.2,
     "note": "unassigned",
@@ -73798,6 +73833,7 @@
         "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
+        "mw": "registry:data_spine.mw",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -75283,10 +75319,16 @@
           "vp": null,
           "clp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.133
+        }
       }
     ],
     "mw": 236.35,
-    "vp": 0.133,
+    "vp": 0.242,
     "clp": 4.007,
     "note": "unassigned",
     "role": "unassigned",
@@ -78399,10 +78441,16 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": null
+        }
       }
     ],
     "mw": 196.33,
-    "vp": null,
+    "vp": 2.17,
     "clp": 4.34,
     "note": "unassigned",
     "role": "unassigned",
@@ -78462,6 +78510,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
