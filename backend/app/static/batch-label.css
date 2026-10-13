@@ -1,0 +1,70 @@
+/* Batch view: Thai retail label (A6-ish box) and IFRA statement (A4). System fonts
+   only, with Thai fallbacks; no web fonts are fetched. */
+.batch-print {
+  font-family: "Sarabun", "Noto Sans Thai", "Leelawadee UI", "Tahoma", sans-serif;
+  background: #fff;
+  color: #111;
+  box-sizing: border-box;
+  margin: 12px 0;
+}
+.batch-print p { margin: 0 0 1.5mm; }
+.batch-label-box {
+  width: 100mm;
+  min-height: 140mm;
+  padding: 5mm;
+  border: 0.3mm solid #111;
+  font-size: 8pt;
+  line-height: 1.35;
+}
+.batch-label-front {
+  text-align: center;
+  padding-bottom: 4mm;
+  margin-bottom: 4mm;
+  border-bottom: 0.2mm dashed #555;
+}
+.batch-label-name { font-size: 15pt; font-weight: 700; }
+.batch-label-english { margin-top: 3mm; padding-top: 2mm; border-top: 0.2mm solid #999; font-size: 7pt; }
+.batch-label-notes { font-size: 7pt; color: #444; padding-left: 4mm; }
+.batch-statement {
+  width: 190mm;
+  padding: 10mm;
+  border: 0.3mm solid #999;
+  font-size: 10pt;
+  line-height: 1.4;
+}
+.batch-statement h2 { font-size: 14pt; margin: 0 0 3mm; }
+.batch-statement h3 { font-size: 11pt; margin: 4mm 0 1mm; }
+.batch-statement table { width: 100%; border-collapse: collapse; margin: 3mm 0; font-size: 9pt; }
+.batch-statement th, .batch-statement td { border: 0.2mm solid #999; padding: 1mm 2mm; text-align: left; vertical-align: top; }
+.batch-statement td:nth-child(n + 2), .batch-statement th:nth-child(n + 2) { text-align: right; white-space: nowrap; }
+.batch-declaration { font-style: italic; }
+.batch-verdict { font-size: 11pt; }
+.batch-small { font-size: 8pt; color: #444; }
+.batch-signature p { margin-top: 8mm; border-bottom: 0.2mm solid #111; max-width: 110mm; }
+.batch-banner {
+  border: 0.6mm solid #b00020;
+  color: #b00020;
+  font-weight: 700;
+  text-align: center;
+  padding: 1.5mm;
+  margin-bottom: 3mm;
+}
+.batch-fill { background: #fff3a0; color: #b00020; outline: 0.2mm dashed #b00020; }
+.batch-footer { margin-top: 4mm; font-size: 6.5pt; color: #555; }
+.batch-label-controls { display: grid; grid-template-columns: max-content 1fr; gap: 4px 8px; max-width: 640px; }
+.batch-label-controls .batch-carrier-names,
+.batch-label-controls .batch-label-buttons,
+.batch-label-controls .batch-label-status { grid-column: 1 / -1; }
+
+@page batch-label { size: A6; margin: 4mm; }
+@page batch-statement { size: A4; margin: 12mm; }
+
+@media print {
+  body.batch-printing * { visibility: hidden; }
+  body.batch-printing .batch-print-active,
+  body.batch-printing .batch-print-active * { visibility: visible; }
+  body.batch-printing .batch-print-active { position: absolute; left: 0; top: 0; margin: 0; }
+  .batch-label-box { page: batch-label; }
+  .batch-statement { page: batch-statement; border: 0; }
+  .batch-fill { background: none; }
+}
