@@ -526,6 +526,25 @@
           </article>
         </section>
 
+        <section id="several" class="panel several-panel" aria-labelledby="several-title">
+          <div class="card-title-row"><div><p class="panel-index">Several at once</p><h2 id="several-title">Create several perfumes</h2></div><span class="state-chip personal">Design mode</span></div>
+          <form id="several-form" class="several-form">
+            <label class="goal-field">One idea per line <span>(up to 8)</span><textarea name="briefs" required maxlength="8000" rows="5" placeholder="A cold mineral lavender with a dry amber trail&#10;Ripe pineapple over coconut cream&#10;Dark leather with smoky birch and iris"></textarea></label>
+            <div class="field-pair compact-fields">
+              <label>Design pass<select name="several_mode"><option value="QUICK" selected>Quick — one formula each</option><option value="BEST_OF_3">Best of 3 — three diverse formulas each</option></select></label>
+              <label>Liquid concentrate<input name="liquid_concentrate_ul_decimal" value="6000" inputmode="decimal"></label>
+            </div>
+            <p class="field-help">Each idea runs as its own engine job, and the engine composes up to four at the same time. The cards fill in as each one finishes.</p>
+            <div class="request-actions">
+              <button id="several-submit" type="submit">Create all</button>
+              <button id="several-compare-button" class="quiet-button" type="button" disabled>Compare the two ticked</button>
+            </div>
+            <p id="several-status" class="field-help" role="status" aria-live="polite"></p>
+          </form>
+          <div id="several-cards" class="several-cards" aria-live="polite"></div>
+          <div id="several-compare" class="several-compare" hidden></div>
+        </section>
+
         <details class="panel optional-ledger-tools formula-ledger-tools">
           <summary>Optional immutable formula ledger</summary>
           <p class="friendly-boundary">The conversation above is the normal creative path. Open these tools only when you want to commit a separate formal ledger version.</p>
@@ -868,6 +887,7 @@
   <script src="/static/stock-dilutions.js" defer></script>
   <script src="/static/material-liking.js" defer></script>
   <script src="/static/composition-checks.js" defer></script>
+  <script src="/static/create-several.js" defer></script>
   <script src="/static/detection-check.js" defer></script>
   <script src="/static/formula-voices.js" defer></script>
   <script src="/static/formula-liking.js" defer></script>

@@ -2891,6 +2891,30 @@
       "empirical_data_rights": "NOT_ADMITTED",
       "numeric_calibration_allowed": false,
       "reason": "Reference listing read for the manufacturers' own odour lines (Bedoukian fruity, peachy; Symrise natural grade fatty, creamy, coconut, buttery, vanilla, sweet). CAS 706-14-9. Grade of the owned stock (natural or synthetic) not established."
+    },
+    {
+      "source_id": "symrise_aldehyde_c18_signature",
+      "source_record_sha256": "08e8a69f94fd7c40259205790b2537e2a934eab260b29708039ae64fcb4425b9",
+      "reviewed_on": "2026-10-12",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_rights": "NOT_ADMITTED",
+      "numeric_calibration_allowed": false,
+      "reason": "Manufacturer odour sentence as republished by SpecialChem (creamy, appetizing, resembling coconut and apricot, extremely tenacious). Not Symrise's own page; CAS shown only after login; no other data imported."
+    },
+    {
+      "source_id": "perflavory_gamma_nonalactone_signature",
+      "source_record_sha256": "b8338e520d0203112c7ab3bd54885c463ffcdb6706ce63255347c04ec027fc8e",
+      "reviewed_on": "2026-10-12",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_rights": "NOT_ADMITTED",
+      "numeric_calibration_allowed": false,
+      "reason": "Reference listing read for the manufacturers' own odour lines (Bedoukian creamy and coconut-like; IFF coconut-like, sweet, fatty, fruity; Symrise creamy, resembling coconut and apricot). CAS 104-61-0."
     }
   ]
 }
