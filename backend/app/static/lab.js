@@ -2364,8 +2364,22 @@ async function composeSeveralCard(card) {
   }
 }
 
-function openSeveralInStudio(card) {
+// target: a part of the studio's result to scroll to, such as its rating card;
+// the result itself when that part is missing or hidden.
+function scrollToStudioPart(target) {
+  const part = $(target);
+  (part && part.getClientRects().length ? part : $("#formula-chat-result")).scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function openSeveralInStudio(card, target = "#formula-chat-result") {
   const result = card.result;
+  if (state.formulaChat.result === result) {
+    // Already open: keep the conversation and any rating not yet saved, and show
+    // the card's own formula (the first alternative) if another one is selected.
+    if ((state.formulaChat.variantIndex || 0) !== 0) renderFormulaDesign(result, 0);
+    scrollToStudioPart(target);
+    return;
+  }
   resetFormulaChat(false);
   state.formulaChat.messages.push(card.brief);
   appendFormulaChatBubble("user", card.brief);
@@ -2376,8 +2390,28 @@ function openSeveralInStudio(card) {
   if (result.formula_name) $('[name="formula_name"]', form).value = result.formula_name;
   $("#formula-chat-submit").textContent = "Refine this formula";
   scheduleDraftSave("create");
-  $("#formula-chat-result").scrollIntoView({ behavior: "smooth", block: "start" });
+  scrollToStudioPart(target);
   notify(`${result.formula_name || "The formula"} is open in the studio.`);
+}
+
+// The studio keeps one formula; replacing a different one takes a second click.
+function severalStudioButton(card, label, target) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "quiet-button";
+  button.textContent = label;
+  button.addEventListener("click", () => {
+    const current = state.formulaChat.result;
+    if (current && current !== card.result && button.dataset.confirm !== "1") {
+      button.dataset.confirm = "1";
+      button.textContent = "Replace the studio's formula?";
+      return;
+    }
+    delete button.dataset.confirm;
+    button.textContent = label;
+    openSeveralInStudio(card, target);
+  });
+  return button;
 }
 
 function fillSeveralCard(card, result) {
@@ -2415,23 +2449,17 @@ function fillSeveralCard(card, result) {
   const actions = document.createElement("div");
   actions.className = "request-actions";
   if (summary.hasFormula) {
-    const open = document.createElement("button");
-    open.type = "button";
-    open.className = "quiet-button";
-    open.textContent = "Open in the studio";
-    open.addEventListener("click", () => {
-      // The studio keeps one formula; replacing a different one takes a second click.
-      const current = state.formulaChat.result;
-      if (current && current !== result && open.dataset.confirm !== "1") {
-        open.dataset.confirm = "1";
-        open.textContent = "Replace the studio's formula?";
-        return;
-      }
-      delete open.dataset.confirm;
-      open.textContent = "Open in the studio";
-      openSeveralInStudio(card);
-    });
-    actions.append(open);
+    const bench = document.createElement("button");
+    bench.type = "button";
+    bench.className = "quiet-button";
+    bench.textContent = "Bench sheet";
+    bench.addEventListener("click", () => printBenchSheet(result, 0));
+    actions.append(
+      severalStudioButton(card, "Open in the studio"),
+      bench,
+      // The studio's rating card links each rating to this formula's materials.
+      severalStudioButton(card, "Mixed it? Rate it", "#formula-result-liking .liking-rate"),
+    );
     card.checkbox.disabled = false;
   }
   card.body.replaceChildren(name, facts, ...(chips.childElementCount ? [chips] : []), lines, actions);
@@ -2750,16 +2778,20 @@ function buildBenchSheet(result, variantIndex) {
   return rows.length;
 }
 
-$("#formula-print-bench").addEventListener("click", () => {
-  const result = state.formulaChat.result;
-  if (!result) return;
-  if (!buildBenchSheet(result, state.formulaChat.variantIndex || 0)) {
+function printBenchSheet(result, variantIndex) {
+  if (!buildBenchSheet(result, variantIndex)) {
     notify("There is no formula to print yet. Clarify the brief first.", true);
     return;
   }
   document.body.classList.add("printing-bench-sheet");
   window.addEventListener("afterprint", () => document.body.classList.remove("printing-bench-sheet"), { once: true });
   window.print();
+}
+
+$("#formula-print-bench").addEventListener("click", () => {
+  const result = state.formulaChat.result;
+  if (!result) return;
+  printBenchSheet(result, state.formulaChat.variantIndex || 0);
 });
 
 // ---- Bench sheet view: a printable sheet for any project or pasted formula ----
