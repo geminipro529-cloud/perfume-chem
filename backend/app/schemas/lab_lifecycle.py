@@ -112,6 +112,19 @@ class StockBasketChoiceCreate(LifecycleRequest):
     basket: Annotated[StrictInt, Field(ge=1, le=17)] | None
 
 
+class StockPriceCreate(LifecycleRequest):
+    """A price Kenny paid: per unit, or "paid X for Y"; clear removes it."""
+
+    stock_id: NonBlank = Field(max_length=255)
+    per_unit: Literal["g", "mL", "bottle"]
+    price_decimal: str | None = Field(default=None, max_length=40)
+    pack_price: str | None = Field(default=None, max_length=40)
+    pack_size: str | None = Field(default=None, max_length=40)
+    currency: str = Field(default="THB", max_length=3)
+    note: str = Field(default="", max_length=500)
+    clear: bool = False
+
+
 class FormulaTextParseCreate(LifecycleRequest):
     """A pasted formula table, parsed read-only for the bench sheet."""
 
