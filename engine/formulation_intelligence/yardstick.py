@@ -10,7 +10,9 @@ does); swamping uses active-mass share; OAV numbers appear only under ``diagnost
 Rule 4: a HOLD is never counted as a pass; it is listed under ``holds``, and a side holding a
 floor cannot win a duel against a clean side. A decomposed natural's screening OAV is a sum
 of constituent OAVs and the frame exposes no per-constituent values, so such a row gives no
-detection verdict (the note holds as ``unknown_physics``).
+detection verdict (the note holds as ``unknown_physics``). A held note is left out of the
+named-note part, neither a hit nor a miss; when every named note holds, the name score itself is
+a HOLD (``None``, ``name_status`` "HOLD") and the duel cannot decide on the name.
 
 Formula input (a plain dict)::
 
@@ -671,12 +673,16 @@ def score_formula(formula: Mapping[str, Any], brief: Mapping[str, Any]) -> Score
     notes = []
     for note in brief.get("named_notes", []) or []:
         status = _note_status(mats_by_label.get(note["window"], []), name_set, note["materials"])
+        held = status == "unknown_physics"
         notes.append({
             "name": note["name"], "window": note["window"], "status": status,
-            "score": 1 if status == "detectable" else 0,
+            # Rule 4: a held note is neither a hit nor a miss.
+            "score": None if held else (1 if status == "detectable" else 0),
         })
-        if status == "unknown_physics":
+        if held:
             holds.append({"source": "named_note", "detail": f"{note['name']} ({note['window']})"})
+    judged = [n["score"] for n in notes if n["score"] is not None]
+    held_notes = [n["name"] for n in notes if n["score"] is None]
     exclusions = []
     for note in brief.get("excluded_notes", []) or []:
         hits = sorted(n for n in names if _matches(n, note["materials"]))
@@ -697,13 +703,18 @@ def score_formula(formula: Mapping[str, Any], brief: Mapping[str, Any]) -> Score
         if any(s["status"] == "FAIL" for s in skeletons):
             family_part *= SKELETON_FAIL_FACTOR
     name_parts = {
-        "named_notes": sum(n["score"] for n in notes) / len(notes) if notes else None,
+        "named_notes": sum(judged) / len(judged) if judged else None,
         "excluded_notes": (
             sum(e["score"] for e in exclusions) / len(exclusions) if exclusions else None
         ),
         "family_architecture": family_part,
     }
-    name_score = _weighted(name_parts, NAME_WEIGHTS)
+    name_score: float | None = None
+    if notes and not judged:
+        name_status = "HOLD"  # the brief's notes are its name: no number without them
+    else:
+        name_status = "PARTIAL_HOLD" if held_notes else "SCORED"
+        name_score = _weighted(name_parts, NAME_WEIGHTS)
 
     # Craft score.
     support = []
@@ -779,7 +790,10 @@ def score_formula(formula: Mapping[str, Any], brief: Mapping[str, Any]) -> Score
         "floors": floors,
         "disqualified": disqualified,
         "holds": holds,
-        "name_score": _r(name_score, 2),
+        "name_score": None if name_score is None else _r(name_score, 2),
+        "name_status": name_status,
+        "name_coverage": {"named_notes": len(notes), "judged": len(judged),
+                          "held": held_notes},
         "name_parts": {
             "parts": {k: (None if v is None else _r(v)) for k, v in name_parts.items()},
             "weights": NAME_WEIGHTS,
@@ -828,6 +842,8 @@ def _no_formula_card(formula: Mapping[str, Any], brief: Mapping[str, Any]) -> Sc
         "disqualified": True,
         "holds": [],
         "name_score": 0.0,
+        "name_status": "SCORED",
+        "name_coverage": None,
         "name_parts": {},
         "craft_score": 0.0,
         "craft_parts": {},
@@ -933,7 +949,17 @@ def _floor_holds(card: Scorecard) -> list[str]:
 
 
 def _compare_scores(engine_card: Scorecard, reference_card: Scorecard) -> tuple[str, str, str]:
-    """Name, then craft, then crowd liking; the first step past its margin decides."""
+    """Name, then craft, then crowd liking; the first step past its margin decides.
+
+    A held name (no named note can be judged) is not a low name: the duel stops there
+    rather than letting craft or liking decide what the name could not.
+    """
+    held = [side for side, card in (("engine", engine_card), ("reference", reference_card))
+            if card["name_score"] is None]
+    if held:
+        return ("NAME_HELD", "3_name",
+                f"name score held for {' and '.join(held)}: no named note can be judged "
+                "(its materials lack physics data)")
     for step, key, margin in (("3_name", "name_score", SCORE_MARGIN),
                               ("4_craft", "craft_score", SCORE_MARGIN)):
         diff = float(engine_card[key]) - float(reference_card[key])
