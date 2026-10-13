@@ -506,6 +506,9 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
 /* A card's "Open in the studio" and "Rate it" scroll here; on a phone the sticky tab rail would cover the heading. */
 #formula-chat-result, #formula-result-liking .liking-rate { scroll-margin-top: 60px; }
 .several-form { display: grid; gap: 10px; }
+.several-own { margin-top: 14px; }
+.several-own > summary { cursor: pointer; font-weight: 600; }
+.several-own label { display: grid; gap: 6px; margin-top: 10px; }
 .several-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-top: 14px; }
 .several-card { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--paper-high); min-width: 0; }
 .several-card-head { display: flex; justify-content: space-between; gap: 10px; align-items: start; }

@@ -2344,7 +2344,44 @@ function severalTickedCards() {
 }
 
 function updateSeveralCompareButton() {
-  $("#several-compare-button").disabled = severalTickedCards().length !== 2;
+  const ticked = severalTickedCards().length;
+  $("#several-compare-button").disabled = ticked !== 2;
+  $("#several-own-compare").disabled = ticked !== 1 || !$("#several-own-text").value.trim();
+}
+
+// A table with a header row and one row per material, all as text.
+function severalTable(headers, rows) {
+  const table = document.createElement("table");
+  table.className = "several-compare-table";
+  const head = document.createElement("tr");
+  for (const label of headers) {
+    const cell = document.createElement("th");
+    cell.scope = "col";
+    cell.textContent = label;
+    head.append(cell);
+  }
+  const thead = document.createElement("thead");
+  thead.append(head);
+  const tbody = document.createElement("tbody");
+  for (const row of rows) {
+    const line = document.createElement("tr");
+    line.className = row.shared ? "is-shared" : "is-single";
+    for (const value of row.cells) {
+      const cell = document.createElement("td");
+      cell.textContent = value;
+      line.append(cell);
+    }
+    tbody.append(line);
+  }
+  table.append(thead, tbody);
+  return table;
+}
+
+function showSeveralCompare(...children) {
+  const area = $("#several-compare");
+  area.hidden = false;
+  area.replaceChildren(...children);
+  area.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 function severalCardShell(brief, jobRequest) {
@@ -2571,39 +2608,56 @@ $("#several-compare-button").addEventListener("click", () => {
   const [first, second] = severalTickedCards();
   if (!first || !second) return;
   const nameOf = (card) => card.result.formula_name || card.brief;
-  const table = document.createElement("table");
-  table.className = "several-compare-table";
-  const head = document.createElement("tr");
-  for (const label of ["Material", nameOf(first), nameOf(second)]) {
-    const cell = document.createElement("th");
-    cell.scope = "col";
-    cell.textContent = label;
-    head.append(cell);
-  }
-  const thead = document.createElement("thead");
-  thead.append(head);
-  const tbody = document.createElement("tbody");
   const rows = severalCompareRows(first.result, second.result);
-  for (const row of rows) {
-    const line = document.createElement("tr");
-    line.className = row.shared ? "is-shared" : "is-single";
-    const amount = (value) => (value ? `${value.toLocaleString()} ${row.unit}` : "—");
-    for (const value of [row.material, amount(row.a), amount(row.b)]) {
-      const cell = document.createElement("td");
-      cell.textContent = value;
-      line.append(cell);
-    }
-    tbody.append(line);
-  }
-  table.append(thead, tbody);
+  const amount = (value, unit) => (value ? `${value.toLocaleString()} ${unit}` : "—");
+  const table = severalTable(
+    ["Material", nameOf(first), nameOf(second)],
+    rows.map((row) => ({ shared: row.shared, cells: [row.material, amount(row.a, row.unit), amount(row.b, row.unit)] })),
+  );
   const shared = rows.filter((row) => row.shared).length;
   const heading = document.createElement("p");
   heading.className = "field-help";
   heading.textContent = `${shared} material${shared === 1 ? "" : "s"} in both, ${rows.length - shared} in only one.`;
-  const area = $("#several-compare");
-  area.hidden = false;
-  area.replaceChildren(heading, table);
-  area.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  showSeveralCompare(heading, table);
+});
+
+// One of Kenny's own bench cards beside the ticked card, in active amounts. The pasted
+// text goes only to this app's read-only parser and is kept nowhere.
+$("#several-own-text").addEventListener("input", updateSeveralCompareButton);
+$("#several-own-compare").addEventListener("click", async () => {
+  const [card] = severalTickedCards();
+  const text = $("#several-own-text").value;
+  const status = $("#several-own-status");
+  if (!card || !text.trim()) return;
+  const button = $("#several-own-compare");
+  button.disabled = true;
+  status.textContent = "Reading your card…";
+  try {
+    const own = await request("/v2/workbench/formula-text", { method: "POST", body: JSON.stringify({ text }) });
+    const compared = severalOwnCompare(card.result, own);
+    const amount = (value, unit) => (value ? `${value.toLocaleString()} ${unit}` : "—");
+    const table = severalTable(
+      ["Material", card.result.formula_name || card.brief, own.formula_name || "Your card"],
+      compared.rows.map((row) => ({ shared: row.shared, cells: [row.material, amount(row.a, row.unit), amount(row.b, row.unit)] })),
+    );
+    const heading = document.createElement("p");
+    heading.className = "field-help";
+    heading.textContent = `${compared.inBoth} in both, ${compared.onlyHere} only in this card, ${compared.onlyYours} only in yours. `
+      + "Amounts are active material: each pour times its strength, without densities, so they are approximate.";
+    const children = [heading, table];
+    if (compared.unread.length) {
+      const unread = document.createElement("p");
+      unread.className = "several-line status-hold";
+      unread.textContent = `Strength not read, so left out: ${compared.unread.join(", ")}.`;
+      children.push(unread);
+    }
+    showSeveralCompare(...children);
+    status.textContent = "";
+  } catch (error) {
+    status.textContent = `Could not read your card: ${error.message}`;
+  } finally {
+    updateSeveralCompareButton();
+  }
 });
 
 $("#formula-download").addEventListener("click", () => {

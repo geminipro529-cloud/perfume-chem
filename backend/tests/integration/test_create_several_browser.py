@@ -115,3 +115,42 @@ def test_rate_it_opens_the_cards_formula_at_the_rating_card(lab):
     card_a.get_by_role("button", name="Mixed it? Rate it").click()
     assert "First" in lab.page.locator("#formula-result-variant").inner_text()
     assert lab.page.locator("#formula-variant-picker button.is-active").inner_text() == "First"
+
+
+def test_your_own_bench_card_is_compared_in_active_amounts_and_kept_nowhere(lab):
+    card_a, _card_b = _create_two(lab)
+    pasted = "| Material | Amount |\n|---|---:|\n| Lavender Oil (neat) | 30 µL |\n| Kenny Private Marker 10% w/w in DPG | 200 µL |\n"
+    parsed = []
+
+    def parse(route, request):
+        parsed.append(json.loads(request.post_data))
+        route.fulfill(status=200, content_type="application/json", body=json.dumps({
+            "formula_name": "My Lavande R2", "warnings": [], "rows": [
+                {"material": "Lavender Oil (neat)", "amount_decimal": "30", "amount_unit": "uL"},
+                {"material": "Kenny Private Marker 10% w/w in DPG", "amount_decimal": "200", "amount_unit": "uL"},
+            ]}))
+
+    lab.on("POST", "/v2/workbench/formula-text", parse)
+    lab.page.locator("#several-own summary").click()
+    button = lab.page.locator("#several-own-compare")
+    lab.page.fill("#several-own-text", pasted)
+    assert button.is_disabled()  # no card ticked yet
+    card_a.locator('input[type="checkbox"]').check()
+    assert button.is_enabled()
+
+    button.click()
+    table = lab.page.locator("#several-compare table")
+    table.wait_for()
+
+    assert parsed == [{"text": pasted}]
+    assert lab.page.locator("#several-compare th").all_inner_texts() == ["Material", "Lavande Minerale", "My Lavande R2"]
+    rows = [text.split("\t") for text in table.locator("tbody tr").all_inner_texts()]
+    # The composed rows are 10% stocks (40 and 120 µL); the card's marker is 10% too.
+    assert rows == [
+        ["Lavender Oil", "4 µL", "30 µL"],
+        ["Kenny Private Marker", "—", "20 µL"],
+        ["Hedione", "12 µL", "—"],
+    ]
+    assert "1 in both, 1 only in this card, 1 only in yours." in lab.page.locator("#several-compare").inner_text()
+    stored = lab.page.evaluate("() => JSON.stringify({...localStorage}) + JSON.stringify({...sessionStorage})")
+    assert "Private Marker" not in stored
