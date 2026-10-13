@@ -130,6 +130,18 @@ def test_a_brief_whose_every_note_is_held_has_no_name_number():
     assert json.loads(json.dumps(card))["name_score"] is None
 
 
+def test_one_judged_note_out_of_three_cannot_stand_for_the_name():
+    lavender_only = {"name": "lavender", "window": "opening", "materials": ["lavender"]}
+    vetiver = _formula(extra_rows=(_row("Vetiver EO (Haiti)", "200", tier="base"),))
+    brief = {"id": "v", "named_notes": [lavender_only, _VETIVER, BRIEF["named_notes"][1]]}
+    card = ys.score_formula(vetiver, brief)
+
+    assert [n["status"] for n in card["name_parts"]["named_notes"]][:2] == [
+        "unknown_physics", "unknown_physics"]
+    assert card["name_coverage"]["judged"] == 1
+    assert card["name_status"] == "HOLD" and card["name_score"] is None
+
+
 def test_thresholds_match_release_gate_source():
     from engine.pipeline import gates
 

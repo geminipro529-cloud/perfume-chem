@@ -11,8 +11,9 @@ Rule 4: a HOLD is never counted as a pass; it is listed under ``holds``, and a s
 floor cannot win a duel against a clean side. A decomposed natural's screening OAV is a sum
 of constituent OAVs and the frame exposes no per-constituent values, so such a row gives no
 detection verdict (the note holds as ``unknown_physics``). A held note is left out of the
-named-note part, neither a hit nor a miss; when every named note holds, the name score itself is
-a HOLD (``None``, ``name_status`` "HOLD") and the duel cannot decide on the name.
+named-note part, neither a hit nor a miss; when fewer than half the named notes can be judged,
+the name score itself is a HOLD (``None``, ``name_status`` "HOLD") and the duel cannot decide
+on the name.
 
 Formula input (a plain dict)::
 
@@ -46,6 +47,9 @@ MIN_POUR_UL = 10.0
 # Name-score weights: named notes detectable in their window, excluded notes absent,
 # family core groups present. A part with nothing to score is dropped and the rest renormalised.
 NAME_WEIGHTS = {"named_notes": 0.70, "excluded_notes": 0.15, "family_architecture": 0.15}
+# A name score needs at least this share of the brief's named notes judged; below it the
+# name holds (Rule 4), so a single judged note cannot stand in for the whole name.
+MIN_JUDGED_NOTE_SHARE = 0.5
 # Family architecture part is multiplied by this when the family's skeleton gate FAILs.
 SKELETON_FAIL_FACTOR = 0.5
 # Craft-score weights: note support (>= 2 matching materials), no swamping, material count,
@@ -710,7 +714,7 @@ def score_formula(formula: Mapping[str, Any], brief: Mapping[str, Any]) -> Score
         "family_architecture": family_part,
     }
     name_score: float | None = None
-    if notes and not judged:
+    if notes and len(judged) < MIN_JUDGED_NOTE_SHARE * len(notes):
         name_status = "HOLD"  # the brief's notes are its name: no number without them
     else:
         name_status = "PARTIAL_HOLD" if held_notes else "SCORED"
