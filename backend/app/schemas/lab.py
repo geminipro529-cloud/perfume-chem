@@ -179,6 +179,17 @@ class ObservationCreate(LabRequest):
     observations: dict[str, Any]
 
 
+class SmellLogCreate(LabRequest):
+    """One strip or skin test of a bottle; the service checks the values."""
+
+    window: str
+    leads: list[str] = Field(default_factory=list)
+    weak: list[str] = Field(default_factory=list)
+    liking: int | None = None
+    words: str = ""
+    logged_at: datetime | None = None
+
+
 class PairwiseComparisonCreate(LabRequest):
     experiment_id: str
     left_sample_id: str
