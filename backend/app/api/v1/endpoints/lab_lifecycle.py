@@ -49,6 +49,13 @@ from engine.personal_inventory import (
     record_personal_inventory_addition,
 )
 from engine.research.formula_design import design_inventory_formula
+from engine.stock_prices import (
+    COST_ITEM_UNITS,
+    StockPriceError,
+    StockPriceLogCorruptError,
+    latest_prices,
+    record_stock_price,
+)
 from fastapi import APIRouter, Body, Depends, status
 from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -83,6 +90,7 @@ from app.schemas.lab_lifecycle import (
     SensoryResultCreate,
     SensoryResultResponse,
     StockBasketChoiceCreate,
+    StockPriceCreate,
 )
 from app.services.formula_import import FormulaAnalysisLibrary
 from app.services.lab_claims import (
@@ -554,6 +562,72 @@ def set_workbench_inventory_basket(
         "basket": event["basket"],
         "basket_status": "confirmed",
     }
+
+
+def _stock_prices_payload(prices: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "schema_version": "workbench-stock-prices-v1",
+        "prices": prices,
+        "cost_item_units": dict(COST_ITEM_UNITS),
+        "price_source": "typed by you on the Stock page",
+        "inventory_modified": False,
+        "compounding_authority": False,
+    }
+
+
+@router.get("/workbench/stock-prices", response_model=None)
+def read_workbench_stock_prices() -> ResponsePayload:
+    """Kenny's own prices per stock, plus ethanol and packaging (cost only)."""
+
+    try:
+        return _stock_prices_payload(latest_prices())
+    except StockPriceLogCorruptError as error:
+        return JSONResponse(
+            status_code=status.HTTP_409_CONFLICT,
+            content={"error": {"code": error.code, "message": str(error)}},
+        )
+
+
+@router.post("/workbench/stock-prices", response_model=None)
+def record_workbench_stock_price(request: StockPriceCreate) -> ResponsePayload:
+    """Append one price entry; the last entry per stock wins."""
+
+    if request.stock_id not in COST_ITEM_UNITS and not any(
+        stock.stock_id == request.stock_id
+        for stock in materialize_personal_inventory().stocks
+    ):
+        return JSONResponse(
+            status_code=422,
+            content={
+                "error": {
+                    "code": "STOCK_PRICE_STOCK_NOT_IN_INVENTORY",
+                    "message": "stock_id is not in the current inventory",
+                }
+            },
+        )
+    try:
+        event = record_stock_price(
+            stock_id=request.stock_id,
+            per_unit=request.per_unit,
+            price_decimal=request.price_decimal,
+            pack_price=request.pack_price,
+            pack_size=request.pack_size,
+            currency=request.currency,
+            note=request.note,
+            clear=request.clear,
+        )
+        prices = latest_prices()
+    except StockPriceLogCorruptError as error:
+        return JSONResponse(
+            status_code=status.HTTP_409_CONFLICT,
+            content={"error": {"code": error.code, "message": str(error)}},
+        )
+    except StockPriceError as error:
+        return JSONResponse(
+            status_code=422,
+            content={"error": {"code": error.code, "message": str(error)}},
+        )
+    return {**_stock_prices_payload(prices), "receipt": event}
 
 
 @router.post("/workbench/current-inventory/add", response_model=None)
