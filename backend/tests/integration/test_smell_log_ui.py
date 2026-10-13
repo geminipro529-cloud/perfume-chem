@@ -25,6 +25,7 @@ async def test_bottles_page_loads_the_smell_log_and_lab_js_hooks_it(client):
     assert "smellLog?.setBottles(bottles);" in javascript.text
     assert "/smell-log`" in smell_log.text
     assert "/smell-log/comparison`" in smell_log.text
+    assert 'request("/smell-log/calibration")' in smell_log.text
     assert "Model said / you smelled" in smell_log.text
     assert "detection screen" in smell_log.text
     assert ".innerHTML" not in smell_log.text
@@ -93,6 +94,7 @@ console.log(JSON.stringify({ inRange, beyond }));
         "title": "Strip 10 min · 2 entries · liked 7.5/10",
         "model": "Model, 10 min: Linalool, Ambrox, Hedione",
         "you": "You: leads Linalool ×2, Musk · weak Ambrox",
+        "corrected": "",
         "agreement": (
             "Model and you agree on Linalool. You smelled Musk leading; the model didn't have it on top. "
             "You marked Ambrox weak; the model had it on top."
@@ -102,5 +104,36 @@ console.log(JSON.stringify({ inRange, beyond }));
         "title": "Skin day 7 · 1 entry",
         "model": "Beyond the model's range: its time curve stops at 4 h, so it says nothing about skin day 7.",
         "you": "You: no names marked",
+        "corrected": "",
         "agreement": "",
     }
+
+
+def test_calibration_line_and_corrected_line_follow_the_gates():
+    result = _node(
+        """
+const lines = [
+  { calibrated: false, n_bottles: 3, min_bottles: 10, reason: "3 of 10 bottles logged" },
+  { calibrated: false, n_bottles: 10, min_bottles: 10,
+    reason: "10 bottles logged; the correction does not beat the plain model yet, so it is not used." },
+  { calibrated: true, n_bottles: 12, min_bottles: 10, reason: null },
+].map(m.smellCalibrationLine);
+const block = {
+  window: "strip_1h", label: "Strip 1 h", n_entries: 1, liking_mean: null, you_leads: [], you_weak: [],
+  model_in_range: true, model_time_label: "1 h", model_top: ["Linalool", "Lavender EO", "Iso E Super"],
+  agreement: { leads_the_model_also_had_on_top: [], model_top_you_did_not_mark_leading: [],
+    you_marked_weak_but_model_had_on_top: [], leads_the_model_did_not_have_on_top: [] },
+};
+const corrected = m.smellCompareLines({ ...block, corrected_top: ["Linalool", "Lavender EO", "Hedione"] }).corrected;
+const plain = m.smellCompareLines({ ...block, corrected_top: null }).corrected;
+console.log(JSON.stringify({ lines, corrected, plain }));
+"""
+    )
+
+    assert result["lines"] == [
+        "Learning from your nose: 3 of 10 bottles logged",
+        "10 bottles logged; the correction does not beat the plain model yet, so it is not used.",
+        "Model corrected by your nose (12 bottles, beats the plain model on held-out bottles)",
+    ]
+    assert result["corrected"] == "Corrected: Linalool, Lavender EO, Hedione"
+    assert result["plain"] == ""

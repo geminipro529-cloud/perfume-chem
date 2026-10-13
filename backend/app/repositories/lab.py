@@ -224,6 +224,17 @@ class LabRepository(
         )
         return list(result.scalars())
 
+    async def smell_log_bottle_ids(self, blind_code: str) -> list[str]:
+        """Bottles with a sample under ``blind_code``, in the order they were first logged."""
+
+        result = await self.session.execute(
+            select(LabSample.bottle_id, func.min(LabSample.created_at))
+            .where(LabSample.blind_code == blind_code, LabSample.bottle_id.is_not(None))
+            .group_by(LabSample.bottle_id)
+            .order_by(func.min(LabSample.created_at), LabSample.bottle_id)
+        )
+        return [str(bottle_id) for bottle_id, _first in result.tuples()]
+
     async def sample_observations(
         self,
         sample_id: str,

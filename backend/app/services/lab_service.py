@@ -59,6 +59,14 @@ from app.services.lab_sources import LabSourceServiceMixin
 from app.services.lab_thresholds import LabThresholdServiceMixin
 from app.services.physical_lineage import LabPhysicalLineageServiceMixin
 from app.services.scent_curve import compute_scent_curve
+from app.services.smell_log_calibration import (
+    TOP_N,
+    CalibrationWindow,
+    calibrate,
+    calibration_window,
+    corrected_ranking,
+    fit_factors,
+)
 from app.services.smell_log_compare import (
     SMELL_LOG_COMPARISON_BASIS,
     smell_log_comparison_windows,
@@ -2260,7 +2268,60 @@ class LabService(
         return names
 
     async def smell_log_comparison(self, bottle_id: str) -> dict:
-        """Per logged window: the model's leaders (detection screen) beside what was smelled."""
+        """Per logged window: the model's leaders (detection screen) beside what was smelled.
+
+        Each in-range window carries ``corrected_top`` only when the smell-log
+        calibration passed its preregistered gates; otherwise it is null.
+        """
+
+        result, ranked = await self._smell_log_comparison(bottle_id)
+        calibration, windows = await self._smell_log_calibration({bottle_id: (result, ranked)})
+        factors = fit_factors(windows) if calibration["calibrated"] else None
+        for block in result["windows"]:
+            block["corrected_top"] = (
+                corrected_ranking(ranked.get(block["window"], []), factors)[:TOP_N]
+                if factors is not None and block["model_in_range"]
+                else None
+            )
+        return result
+
+    async def smell_log_calibration(self) -> dict:
+        """The preregistered nose calibration over every bottle with a smell log."""
+
+        calibration, _windows = await self._smell_log_calibration({})
+        return calibration
+
+    async def _smell_log_calibration(
+        self,
+        known: dict[str, tuple[dict, dict[str, list[tuple[str, float]]]]],
+    ) -> tuple[dict, list[CalibrationWindow]]:
+        windows: list[CalibrationWindow] = []
+        skipped = 0
+        for bottle_id in await self.repository.smell_log_bottle_ids(SMELL_LOG_BLIND_CODE):
+            if bottle_id not in known:
+                known[bottle_id] = await self._smell_log_comparison(bottle_id)
+            result, ranked = known[bottle_id]
+            if not result["available"]:
+                skipped += 1
+                continue
+            windows += [
+                calibration_window(
+                    bottle_id,
+                    block["window"],
+                    ranked.get(block["window"], []),
+                    [item["name"] for item in block["you_leads"]],
+                    [item["name"] for item in block["you_weak"]],
+                    block["n_entries"],
+                )
+                for block in result["windows"]
+                if block["model_in_range"]
+            ]
+        return calibrate(windows, n_bottles_skipped=skipped), windows
+
+    async def _smell_log_comparison(
+        self, bottle_id: str
+    ) -> tuple[dict, dict[str, list[tuple[str, float]]]]:
+        """The comparison, plus each in-range window's full model ranking (name, share)."""
 
         entries = await self.list_smell_log(bottle_id)
         bottle = await self.repository.get_bottle(bottle_id)
@@ -2276,9 +2337,10 @@ class LabService(
             "not_modelled": [],
             "windows": [],
         }
+        ranked: dict[str, list[tuple[str, float]]] = {}
         if batch is None:
             result["reason"] = "This bottle isn't linked to a batch, so there is no formula to model."
-            return result
+            return result, ranked
         components = await self.repository.formula_component_stocks(batch.formula_version_id)
         rows, not_modelled = smell_log_model_rows(
             [
@@ -2299,13 +2361,19 @@ class LabService(
                 if components
                 else "The bottle's formula has no rows."
             )
-            return result
+            return result, ranked
         unknown: set[str] = set()
 
         def run_model(windows: list[tuple[str, float]]) -> dict[str, list[str]]:
             curve = compute_scent_curve(rows, windows)
             for frame in curve["windows"]:
                 unknown.update(m["name"] for m in frame["materials"] if not m["known"])
+                ranked[frame["label"]] = [
+                    (m["name"], m["share"])
+                    for m in sorted(
+                        (m for m in frame["materials"] if m["share"]), key=lambda m: -m["share"]
+                    )
+                ]
             return {frame["label"]: list(frame["top"]) for frame in curve["windows"]}
 
         result["windows"] = await asyncio.to_thread(
@@ -2320,7 +2388,7 @@ class LabService(
             for name in sorted(unknown)
         ]
         result["available"] = True
-        return result
+        return result, ranked
 
     async def _smell_log_sample(self, bottle_id: str) -> LabSample | None:
         for sample in await self.repository.bottle_samples(bottle_id, SMELL_LOG_BLIND_CODE):
