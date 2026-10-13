@@ -52,6 +52,14 @@ DEFAULT_GETS: dict[str, Any] = {
     "/experiments": [],
     "/v2/workbench/formula-library": {"sources": []},
     "/v2/workbench/current-inventory": {"stocks": [], "counts": {}},
+    "/v2/workbench/stock-prices": {
+        "schema_version": "workbench-stock-prices-v1",
+        "prices": {},
+        "cost_item_units": {"ethanol": "mL", "packaging_per_bottle": "bottle"},
+        "price_source": "typed by you on the Stock page",
+        "inventory_modified": False,
+        "compounding_authority": False,
+    },
 }
 
 # Records every text the #status line shows, in order, so a test can see a

@@ -21,11 +21,13 @@ from engine.user_records import (
     BASKET_LOG_NAME,
     COMPLETION_LOG_NAME,
     DILUTION_LOG_NAME,
+    STOCK_PRICE_LOG_NAME,
     record_files,
 )
 from sqlalchemy.engine import URL, make_url
 
 from app import db_bootstrap
+from app.services.batch_production import BATCH_RECORD_LOG_NAME, batch_record_path
 from app.services.personal_liking import PERSONAL_LIKING_NAME, personal_liking_path
 
 BACKUP_DIRECTORY_NAME = "lab-backups"
@@ -35,7 +37,9 @@ USER_RECORD_NAMES = (
     COMPLETION_LOG_NAME,
     BASKET_LOG_NAME,
     DILUTION_LOG_NAME,
+    STOCK_PRICE_LOG_NAME,
     PERSONAL_LIKING_NAME,
+    BATCH_RECORD_LOG_NAME,
 )
 # Why a live stock record was left as it was by a restore.
 RECORD_NOT_IN_BACKUP = "this backup has no copy of it"
@@ -43,9 +47,13 @@ RECORDS_PREDATE_BACKUP = "this backup was made before stock records were include
 
 
 def _record_files_with_fit() -> dict[str, Path]:
-    """The stock records plus the personal liking fit."""
+    """The stock records plus the personal liking fit and the batch records."""
 
-    return {**record_files(), PERSONAL_LIKING_NAME: personal_liking_path()}
+    return {
+        **record_files(),
+        PERSONAL_LIKING_NAME: personal_liking_path(),
+        BATCH_RECORD_LOG_NAME: batch_record_path(),
+    }
 
 
 class RestoreSafetyError(ValueError):

@@ -40,7 +40,8 @@ from app.services.formula_import import (
 
 BATCH_RECORD_PATH_ENV = "PERFUME_BATCH_RECORD_PATH"
 BATCH_DIR_ENV = "PERFUME_BATCH_DIR"
-DEFAULT_BATCH_RECORD_PATH = PROJECT_ROOT / "data" / "user" / "user_batch_records.jsonl"
+BATCH_RECORD_LOG_NAME = "user_batch_records.jsonl"
+DEFAULT_BATCH_RECORD_PATH = PROJECT_ROOT / "data" / "user" / BATCH_RECORD_LOG_NAME
 DEFAULT_BATCH_DIR = PROJECT_ROOT / "data" / "user" / "batches"
 GATE_SCRIPT = PROJECT_ROOT / "scripts" / "formula_release_gate.py"
 GATE_TIMEOUT_SECONDS = 60 * 60

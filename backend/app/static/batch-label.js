@@ -222,16 +222,16 @@ function attachBatchLabel(container, fetchFn) {
   form.append(node("label", {}, "Type"), inputs.type);
   for (const [key, title, checked] of [["alcohol_denat", "Alcohol Denat.", false], ["declare_carriers", "List carriers", false], ["include_english", "English back", true]]) {
     inputs[key] = node("input", { name: key, type: "checkbox", checked });
-    const label = node("label", {}, ` ${title}`);
-    label.prepend(inputs[key]);
+    const label = node("label", { className: "check-line" });
+    label.append(inputs[key], node("span", {}, title));
     form.append(label);
   }
   const carrierBox = node("div", { className: "batch-carrier-names" });
   const buttons = node("div", { className: "batch-label-buttons" });
-  const makeLabel = node("button", { type: "button" }, "Make label");
-  const makeStatement = node("button", { type: "button" }, "Make IFRA statement");
-  const printLabel = node("button", { type: "button", disabled: true }, "Print label");
-  const printStatement = node("button", { type: "button", disabled: true }, "Print statement");
+  const makeLabel = node("button", { type: "button", className: "primary-button" }, "Make label");
+  const makeStatement = node("button", { type: "button", className: "primary-button" }, "Make IFRA statement");
+  const printLabel = node("button", { type: "button", className: "quiet-button", disabled: true }, "Print label");
+  const printStatement = node("button", { type: "button", className: "quiet-button", disabled: true }, "Print statement");
   buttons.append(makeLabel, makeStatement, printLabel, printStatement);
   const status = node("p", { className: "batch-label-status" });
   status.setAttribute("aria-live", "polite");

@@ -19,11 +19,13 @@ from engine.user_records import (
     BASKET_LOG_NAME,
     COMPLETION_LOG_NAME,
     DILUTION_LOG_NAME,
+    STOCK_PRICE_LOG_NAME,
 )
 from sqlalchemy.engine import URL
 
 from app.services import app_lock
 from app.services.backup_service import (
+    BATCH_RECORD_LOG_NAME,
     RECORDS_PREDATE_BACKUP,
     AppliedRestore,
     BackupArtifact,
@@ -41,6 +43,8 @@ RECORD_LABELS = {
     COMPLETION_LOG_NAME: "stock details you completed",
     BASKET_LOG_NAME: "basket choices",
     DILUTION_LOG_NAME: "dilutions you prepared",
+    STOCK_PRICE_LOG_NAME: "Stock prices",
+    BATCH_RECORD_LOG_NAME: "Batch records",
 }
 
 

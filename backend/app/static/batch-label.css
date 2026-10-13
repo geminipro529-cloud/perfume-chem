@@ -54,7 +54,9 @@
 .batch-label-controls { display: grid; grid-template-columns: max-content 1fr; gap: 4px 8px; max-width: 640px; }
 .batch-label-controls .batch-carrier-names,
 .batch-label-controls .batch-label-buttons,
-.batch-label-controls .batch-label-status { grid-column: 1 / -1; }
+.batch-label-controls .batch-label-status,
+.batch-label-controls .check-line { grid-column: 1 / -1; }
+.batch-label-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
 
 @page batch-label { size: A6; margin: 4mm; }
 @page batch-statement { size: A4; margin: 12mm; }
