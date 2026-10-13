@@ -12,25 +12,25 @@
     "engine/data_spine/material.py": "79e30aea000c3c326513282ed0304a0fa0a35d46bfc6be86e709061244c03df9",
     "data/governance/ingredient_reconciliation_20260907.json": "3038fbf22ab98df93e92a7c23db0e6696c140d9ef00e9cf20415f2dae99b7413",
     "engine/data_spine/reconciliation.py": "ad1403e02b4296ed9bebcc892df28b25d24b637dfbdad361b301fc37f9a21cdc",
-    "data/materials/A.yaml": "67d20d7d42fed814a7ee9ed81e310fb7f045ee68ddf937fce9435196a2ed4b18",
-    "data/materials/B.yaml": "6ba6f09f4fad17bc600ff2f009c38754e5bec04e70dff050f243cb43c12736d8",
-    "data/materials/C.yaml": "b11b21bee7d9126e90e907018367c913e24270181cf38b2921854b37aa0616b6",
+    "data/materials/A.yaml": "21538b585bd01dcc07caa06ca0f09962c4762b1ec27d7dd0acc0869ac765fa8b",
+    "data/materials/B.yaml": "f72d7e51d3ecf52cd47ff5bad5a3da5cf2dc2b8ac8d6e4d561edf67b50f3710b",
+    "data/materials/C.yaml": "a66e298e5d4ee05d601f3ca7e2038e1c68264769202ee19555daff170f5573e0",
     "data/materials/D.yaml": "1b04b9f5f804c390b0155fc766e90700f9d68f719e41f27f3faa26df57666ca7",
     "data/materials/E.yaml": "0495dc583f99bb73e275e3c915f9c1a2c84c50aa62470ce1eb2a314d138811d1",
     "data/materials/F.yaml": "2d43092759989fa12ddce4fec0acf247499f020331488b660a83d3bb2d8118ff",
-    "data/materials/G.yaml": "15aa10cec494ab52d95b6f4b593ccfff9768e432e81513f50601b2e0d74b2fbd",
+    "data/materials/G.yaml": "a2b61ee36e9d5a03fb5fd5c0d8e4e737e995731333a52917db3443e6adfec0c1",
     "data/materials/H.yaml": "f501f01bb46966517c69654ed9be56045cd9ffa2a52c200c0096b319bd1517e6",
     "data/materials/I.yaml": "a1df20d72a75bd1631a15b582b50f6cade3be6bbbdf693e2861d250c1d51ac85",
     "data/materials/J.yaml": "0eea9de332dcf224c8df20d13adaeaa50078ee1b52505ae231065a5bff26db4a",
     "data/materials/K.yaml": "7a9ef7721b1a632f49412277f0af0ed7120e28f4bd17a1e09f1e7756bd87cf17",
-    "data/materials/L.yaml": "b365d55d55a7c05361b7f064ea12f92ebfef6afe11bb2b552a3d103e4fad8d4a",
-    "data/materials/M.yaml": "838dbf45e586c5d3553b7bcb55a586a664ef3a161e97674b92df33b0013986a0",
+    "data/materials/L.yaml": "56b1b3f5399257dc6d94df3702b366652ca1138c6db749733d8191f8d60af1f5",
+    "data/materials/M.yaml": "b44d10be04aac4483a13975f7e80ba0dea82e74d33a80ff891095bcb1e243326",
     "data/materials/N.yaml": "fd203674177ef0ff34375f95ff679c740a71fe5dc007a7bed31ba2ee690ca8e6",
     "data/materials/O.yaml": "90cc2a45d7134c04bce0a026e2dfaebe2b387e8f01e2e84b79e09a73718a70f3",
     "data/materials/P.yaml": "f4211af775d838e5fe3c3460f39dea3d4cd998f02da7349539906d854a1c2856",
     "data/materials/Q.yaml": "9256e634f899593f1e3848cb0d5683c4ed1259c00fdd5df56888f89fa84aa6c6",
     "data/materials/R.yaml": "289e791fd9e50e83dd7cab89f22c26312b00b11b31ea49c07c0c7a5330413bc3",
-    "data/materials/S.yaml": "3c52d8183f0ef700b1e3cf299c404a86e72f3ffdee15514d57a4178ce7bc5495",
+    "data/materials/S.yaml": "b0a24ceff84b9ff2e4036187258c5bbaef6573185d23d195252190a6ea4c2520",
     "data/materials/T.yaml": "a1a37271a4bb6cbf4036e75f5defa4de3afe546ee87418e24341151202a9adb6",
     "data/materials/U.yaml": "d93dea4b9c83cd47e0bd357f205fbbfb8cf7dacd05215b361c05542082401046",
     "data/materials/V.yaml": "760cf7e957af9227c175481bb7fb83dd18dc0aa7cc76aa1a70dc682f01713fc0",
@@ -677,7 +677,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -716,7 +715,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "clogp",
         "odt_ppm"
       ],
       "unresolved_scalar_disagreements": {}
@@ -735,8 +733,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -1208,8 +1204,6 @@
       ],
       "odt_present": false,
       "missing_numeric_fields": [
-        "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -1252,7 +1246,6 @@
       "odt_present": true,
       "missing_numeric_fields": [
         "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -1272,7 +1265,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
         "clogp",
         "odt",
         "odt_ppm"
@@ -1293,8 +1285,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -2871,8 +2861,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -2931,7 +2919,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
         "odt",
         "odt_ppm"
       ],
@@ -4660,7 +4647,6 @@
       "odt_present": false,
       "missing_numeric_fields": [
         "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -4976,7 +4962,6 @@
       "odt_present": true,
       "missing_numeric_fields": [
         "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -5920,8 +5905,6 @@
       "odt_present": false,
       "missing_numeric_fields": [
         "mw",
-        "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -5963,8 +5946,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -6164,6 +6145,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "74d1de5db8e76e6a3fdfee1a944d74740667b44d0fbf1bd1168a14ed00826bd2",
-  "input_cache_sha256": "9659ebd78aaf446ab533220738398ab18e43425e0e8025eac3a75cbd31cfc2a0"
+  "output_sha256": "1672dbcb23c72630e4110f75b74c01776a5534d5c39f6f721e12978392fb13e9",
+  "input_cache_sha256": "74d1de5db8e76e6a3fdfee1a944d74740667b44d0fbf1bd1168a14ed00826bd2"
 }
