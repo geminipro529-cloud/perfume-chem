@@ -4,7 +4,7 @@
   "input_sha256": {
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
     "engine/ingredient_intelligence.py": "7dc52fc8ff7a336ddc563507b43f063703b3f7c70fe566977aa3f62c8f0b4bc1",
-    "engine/inventory_parser.py": "8674a32dde602582722821a2cac65265b1b66615fbae41436d59149105f80e19",
+    "engine/inventory_parser.py": "e394b4387e401fa90fa6a7fedc403c01968134acf885c96912d7eafad43d3e18",
     "engine/odor_thresholds.py": "c9c8c1a7b20d17d1b4f923caed109a237b1b31e92146a04511f588012723b639",
     "engine/name_utils.py": "2e984915e2abe562f9a05fa53920fcb7d4dada0f8f0ccc0da91d706f1a37febb",
     "engine/material_identity.py": "3dbb20055f9794450b25a21123852dc9b355493af4b653fdd48fb341347d5e5d",
@@ -39,16 +39,16 @@
     "data/materials/Y.yaml": "95ca0131908d6772148786fed0d24809989c4bc10ef002b095e07bdbbff34f74",
     "data/materials/Z.yaml": "2b1eebcca0bedad85ee36a3969d35f1f6da0c30aad7ea51c117a675decd19d39"
   },
-  "inventory_overlay_sha256": "8329a4804909a720d6f7d95959c6c91be56c3fb0c7dd0642cd14a08297095882",
+  "inventory_overlay_sha256": "9837017d07126d8328afd5ac24c32f5259eaea4cb05bc45bfa55db86b15d59e3",
   "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
   "inventory_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
   "counts": {
     "original_cache_records": 424,
-    "rebuilt_cache_records": 424,
+    "rebuilt_cache_records": 426,
     "all_original_names_preserved": true,
     "inventory_text_rows": 333,
     "historical_requirement_rows": 280,
-    "current_physical_stocks": 289,
+    "current_physical_stocks": 292,
     "registry_records": 1271,
     "rows_with_profile": 295,
     "rows_with_registry": 323,
@@ -4156,6 +4156,7 @@
       "registry_name": "Exaltolide",
       "profile_name": "Exaltolide",
       "current_stock_ids": [
+        "inventory:user-20261013:2c094c40e95367526c62",
         "inventory:v5:b061617eb60192cbeb5d",
         "inventory:v5:c17c932da02ecafc0c44"
       ],
@@ -6139,6 +6140,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "79de772bd0d46ae8bd4db7e8efcbbf168831ba9dafc954d44b40ea223c389d26",
-  "input_cache_sha256": "1672dbcb23c72630e4110f75b74c01776a5534d5c39f6f721e12978392fb13e9"
+  "output_sha256": "996796863a9924de1ab0f5b641b2f5b1a0266e30e5ed9ef6309bf817472b48b6",
+  "input_cache_sha256": "79de772bd0d46ae8bd4db7e8efcbbf168831ba9dafc954d44b40ea223c389d26"
 }
