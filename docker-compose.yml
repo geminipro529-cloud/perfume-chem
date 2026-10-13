@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     ports:
-      # Published on this PC only. The app has no login; do not widen this
+      # Published on this PC only, where the app asks for no login; do not widen this
       # to all interfaces. Inside the container uvicorn still listens on 0.0.0.0.
       - "127.0.0.1:8000:8000"
     environment:

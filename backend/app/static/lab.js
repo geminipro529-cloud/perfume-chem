@@ -144,6 +144,10 @@ async function request(path, options = {}) {
     if (timer) clearTimeout(timer);
   }
   if (!response.ok) {
+    // Network runs need the lab password: a signed-out device goes to the sign-in page.
+    if (response.status === 401 && response.headers.get("X-Lab-Login") === "required") {
+      window.location.href = "/login";
+    }
     const rawText = typeof payload?.detail === "string" ? payload.detail : payload?.error?.message;
     const serverText = rawText ? plainServerText(rawText) : rawText;
     let items = [];

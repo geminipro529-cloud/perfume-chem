@@ -1,0 +1,14 @@
+# Backend tests failing on master a1b433f, recorded 2026-10-12 on a fresh cloud
+# clone (5 failed, 1312 passed, 16 skipped). CI fails on any failure NOT listed
+# here. When you fix one, delete its line in the same PR.
+
+# The identity snapshot no longer matches the frozen sha256 in
+# tests/fixtures/b4_rule_corpus_baseline.json.
+tests/unit/test_b4_legacy_rule_adapter.py::test_frozen_corpus_baseline_prevents_invalid_exact_rule_increase
+
+# Need archive/source_quarantine/ma_2021_v2/data_in_brief_v2_original.xlsx,
+# which is gitignored, so no fresh clone has it.
+tests/unit/test_ma_2021_baselines.py::test_ma2021_baseline_report_matches_exact_source_recalculation
+tests/unit/test_ma_2021_baselines.py::test_ma2021_baseline_preserves_study_grain_and_repeat_groups
+tests/unit/test_ma_2021_baselines.py::test_ma2021_predefined_baselines_and_uncertainty_are_fail_closed
+tests/unit/test_ma_2021_baselines.py::test_ma2021_baseline_report_is_deterministic_and_all_authorities_false
