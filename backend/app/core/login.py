@@ -205,6 +205,7 @@ LOGIN_PAGE = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Perfume Lab sign in</title>
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMic+PHJlY3Qgd2lkdGg9JzMyJyBoZWlnaHQ9JzMyJyByeD0nOCcgZmlsbD0nIzFGNDQ2MicvPjx0ZXh0IHg9JzE2JyB5PScyMS41JyBmb250LWZhbWlseT0nR2VvcmdpYSxzZXJpZicgZm9udC1zaXplPScxNScgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nI0ZGRkRGOCc+UEM8L3RleHQ+PC9zdmc+">
 <style>
   body { font-family: system-ui, sans-serif; background: #f6f3ee; color: #222;
          display: flex; min-height: 100vh; align-items: center; justify-content: center;

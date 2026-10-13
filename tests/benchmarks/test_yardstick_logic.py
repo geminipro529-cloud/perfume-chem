@@ -103,6 +103,45 @@ def test_excluded_material_lowers_name_score(base_card):
     assert ys.score_formula(_formula(), clean)["name_score"] > card["name_score"]
 
 
+_VETIVER = {"name": "vetiver", "window": "drydown", "materials": ["vetiver"]}
+
+
+def test_a_note_only_a_natural_carries_is_held_not_missed(base_card):
+    """Natural oils lack per-constituent physics, so their note can't be judged (Rule 4)."""
+    vetiver = _formula(extra_rows=(_row("Vetiver EO (Haiti)", "200", tier="base"),))
+    card = ys.score_formula(vetiver, {**BRIEF, "named_notes": [*BRIEF["named_notes"], _VETIVER]})
+
+    assert card["name_parts"]["named_notes"][-1]["status"] == "unknown_physics"
+    assert card["name_parts"]["named_notes"][-1]["score"] is None
+    assert {"source": "named_note", "detail": "vetiver (drydown)"} in card["holds"]
+    assert card["name_status"] == "PARTIAL_HOLD"
+    assert card["name_coverage"] == {"named_notes": 3, "judged": 2, "held": ["vetiver"]}
+    assert card["name_score"] == base_card["name_score"]
+    assert base_card["name_status"] == "SCORED"
+
+
+def test_a_brief_whose_every_note_is_held_has_no_name_number():
+    vetiver = _formula(extra_rows=(_row("Vetiver EO (Haiti)", "200", tier="base"),))
+    card = ys.score_formula(vetiver, {"id": "vetiver", "named_notes": [_VETIVER]})
+
+    assert card["name_score"] is None
+    assert card["name_status"] == "HOLD"
+    assert card["name_coverage"] == {"named_notes": 1, "judged": 0, "held": ["vetiver"]}
+    assert json.loads(json.dumps(card))["name_score"] is None
+
+
+def test_one_judged_note_out_of_three_cannot_stand_for_the_name():
+    lavender_only = {"name": "lavender", "window": "opening", "materials": ["lavender"]}
+    vetiver = _formula(extra_rows=(_row("Vetiver EO (Haiti)", "200", tier="base"),))
+    brief = {"id": "v", "named_notes": [lavender_only, _VETIVER, BRIEF["named_notes"][1]]}
+    card = ys.score_formula(vetiver, brief)
+
+    assert [n["status"] for n in card["name_parts"]["named_notes"]][:2] == [
+        "unknown_physics", "unknown_physics"]
+    assert card["name_coverage"]["judged"] == 1
+    assert card["name_status"] == "HOLD" and card["name_score"] is None
+
+
 def test_thresholds_match_release_gate_source():
     from engine.pipeline import gates
 
@@ -161,6 +200,10 @@ def test_both_sides_holding_lists_both_holds():
         (_card(valence=0.30), _card(valence=0.25), "ENGINE_WINS", "5_liking"),
         (_card(valence=0.30), _card(valence=0.26), "TIE", "6_tie"),
         (_card(valence=None), _card(valence=0.9), "TIE", "6_tie"),
+        # A held name is not a low name: craft and liking never decide past it.
+        (_card(name=None, craft=90), _card(name=90, craft=40), "NAME_HELD", "3_name"),
+        (_card(name=90), _card(name=None), "NAME_HELD", "3_name"),
+        (_card(name=None, craft=90), _card(name=None, craft=40), "NAME_HELD", "3_name"),
     ],
 )
 def test_duel_verdict_steps(engine, reference, verdict, step):
