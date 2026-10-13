@@ -217,6 +217,8 @@ class FormulaDesignPayloadV2(_StrictV2Payload):
     active_bottle_id: str | None = Field(default=None, max_length=255)
     design_mode: Literal["FAST_SKETCH", "DEEP_COMPOSE"] = "DEEP_COMPOSE"
     variant_count: int = Field(default=3, ge=1, le=3)
+    # Attach the yardstick's floors to each alternative (Create several cards).
+    scorecard: bool = False
 
     @field_validator("liquid_concentrate_ul_decimal")
     @classmethod
@@ -832,6 +834,7 @@ ENGINE_JOB_REGISTRY: dict[str, EngineJobSpec] = {
             "engine/formulation_intelligence/literature_knowledge.py",
             "engine/formulation_intelligence/construction_library.py",
             "engine/formulation_intelligence/subtype_research.py",
+            "engine/formulation_intelligence/yardstick.py",
             "engine/inventory_parser.py",
             "engine/ingredient_intelligence.py",
         ),
