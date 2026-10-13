@@ -469,7 +469,11 @@ function renderProjectInventory(filter = "", focusStockId = "") {
   const counts = inventory.counts || {};
   $("#project-inventory-count").textContent = `${counts.stocks || stocks.length} stock bottles`;
   const madeDilutions = counts.prepared_dilutions ? ` · ${counts.prepared_dilutions} dilutions you made` : "";
-  $("#project-inventory-ready").textContent = `${counts.design_ready || counts.execution_ready || 0} ready to use${madeDilutions}`;
+  const readyCount = counts.design_ready || counts.execution_ready || 0;
+  const totalCount = counts.stocks || stocks.length;
+  const needCount = counts.details_incomplete ?? Math.max(totalCount - readyCount, 0);
+  const needDetails = needCount ? ` · ${needCount} need details` : "";
+  $("#project-inventory-ready").textContent = `${readyCount} of ${totalCount} ready to design${needDetails}${madeDilutions}`;
   $("#project-inventory-source").textContent = `${inventory.display_source || "Current project inventory"}. Effective version ${String(inventory.effective_inventory_sha256 || inventory.snapshot_sha256 || "unknown").slice(0, 12)}…`;
   $("#project-inventory-live").textContent = `Showing ${rows.length} of ${stocks.length}`;
   const list = $("#project-inventory-list");
@@ -1669,6 +1673,34 @@ function closeInventoryCompletion() {
   $("#inventory-completion-form").reset();
 }
 
+// A suggestion fills only fields that are still empty or "I do not know yet"; it is never saved
+// until Kenny ticks the boxes and presses Save, exactly like typing the values himself.
+function showInventoryCompletionSuggestion(form, suggestion) {
+  const note = $("#inventory-completion-suggestion");
+  const filled = [];
+  if (suggestion) {
+    const percent = $('[name="fraction_percent_decimal"]', form);
+    if (!percent.value && suggestion.fraction_percent_decimal) {
+      percent.value = suggestion.fraction_percent_decimal;
+      filled.push(`${suggestion.fraction_percent_decimal}%`);
+    }
+    const basis = $('[name="fraction_basis"]', form);
+    if (basis.value === "unspecified" && suggestion.fraction_basis) {
+      basis.value = suggestion.fraction_basis;
+      filled.push(STOCK_BASIS_WORDS[suggestion.fraction_basis] || humanize(suggestion.fraction_basis));
+    }
+    const carrier = $('[name="carrier"]', form);
+    if (!carrier.value.trim() && suggestion.carrier) {
+      carrier.value = suggestion.carrier;
+      filled.push(`in ${suggestion.carrier}`);
+    }
+  }
+  note.textContent = filled.length
+    ? `Suggested: ${filled.join(", ")}. Source: ${suggestion.source_text}. Check it against the bottle; nothing is saved until you confirm and save.`
+    : "";
+  note.hidden = !filled.length;
+}
+
 function openInventoryCompletion(stock) {
   const panel = $("#inventory-completion-panel");
   const form = $("#inventory-completion-form");
@@ -1692,6 +1724,7 @@ function openInventoryCompletion(stock) {
   $('[name="homogeneity"]', form).value = stock.homogeneity
     || (Number(stock.fraction_percent_decimal) === 100 ? "NOT_APPLICABLE" : "UNKNOWN");
   $('[name="final_fraction_known"]', form).checked = !String(stock.fraction_basis || "").includes("starting_charge");
+  showInventoryCompletionSuggestion(form, stock.suggested_completion);
   panel.hidden = false;
   panel.scrollIntoView({ behavior: "smooth", block: "start" });
   $('[name="fraction_percent_decimal"]', form).focus();

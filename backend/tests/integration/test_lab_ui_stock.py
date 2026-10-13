@@ -50,3 +50,21 @@ async def test_stock_view_is_a_filterable_label_table(client):
     body = script[script.index("function renderProjectInventory") :]
     body = body[: body.index("async function refresh")]
     assert "innerHTML" not in body
+
+
+@pytest.mark.asyncio
+async def test_completion_form_shows_the_suggestion_and_its_source(client):
+    page = (await client.get("/app")).text
+    script = (await client.get("/static/lab.js")).text
+
+    assert 'id="inventory-completion-suggestion"' in page
+    assert "ready to design" in script
+    assert "need details" in script
+    body = script[script.index("function showInventoryCompletionSuggestion") :]
+    body = body[: body.index("function openInventoryCompletion")]
+    assert "suggestion.source_text" in body
+    # Only empty or "I do not know yet" fields are filled; nothing is submitted here.
+    assert 'basis.value === "unspecified"' in body
+    assert "!carrier.value.trim()" in body
+    assert "request(" not in body
+    assert "innerHTML" not in body
