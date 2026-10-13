@@ -1,6 +1,7 @@
 """Refuse requests that another web site could make through Kenny's browser.
 
-The app has no login, so two checks stand in for one:
+On this PC the app has no login (network runs add one, see login.py), so two
+checks stand in for one:
 
 * Host check (DNS rebinding): the Host header must name this PC as the app is
   served -- 127.0.0.1, localhost or ::1, plus the bind address when the launcher

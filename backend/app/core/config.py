@@ -99,6 +99,13 @@ class Settings(BaseSettings):
     API_BIND_HOST: str = "127.0.0.1"
     TRUSTED_HOSTS: List[str] = []
 
+    # One-password login (see app/core/login.py).  None = on exactly when the app
+    # listens beyond this PC (API_BIND_HOST not loopback).  The password comes from
+    # LAB_PASSWORD, else LAB_PASSWORD_FILE (default data/user/lab_password.txt).
+    LAB_LOGIN: Optional[bool] = None
+    LAB_PASSWORD: str = ""
+    LAB_PASSWORD_FILE: str = ""
+
     # CORS
     CORS_ORIGINS: List[str] = ["http://localhost:5173", "http://localhost:3000"]
     CORS_ALLOW_CREDENTIALS: bool = True

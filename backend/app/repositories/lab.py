@@ -198,6 +198,24 @@ class LabRepository(
         )
         return list(result.scalars())
 
+    async def formula_component_stocks(
+        self,
+        version_id: str,
+    ) -> list[tuple[str, LabFormulaComponent, LabStockSolution]]:
+        """(material name, component, stock) for a formula version, in position order."""
+
+        result = await self.session.execute(
+            select(LabMaterial.canonical_name, LabFormulaComponent, LabStockSolution)
+            .join(LabStockSolution, LabStockSolution.material_id == LabMaterial.id)
+            .join(
+                LabFormulaComponent,
+                LabFormulaComponent.stock_solution_id == LabStockSolution.id,
+            )
+            .where(LabFormulaComponent.formula_version_id == version_id)
+            .order_by(LabFormulaComponent.position)
+        )
+        return [(name, component, stock) for name, component, stock in result.tuples()]
+
     async def bottle_samples(self, bottle_id: str, blind_code: str) -> list[LabSample]:
         result = await self.session.execute(
             select(LabSample)

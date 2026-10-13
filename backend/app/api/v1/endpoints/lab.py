@@ -256,6 +256,17 @@ async def smell_log(bottle_id: str, session: AsyncSession = Depends(get_db)) -> 
     }
 
 
+@router.get("/bottles/{bottle_id}/smell-log/comparison")
+async def smell_log_comparison(
+    bottle_id: str,
+    session: AsyncSession = Depends(get_db),
+) -> dict[str, Any]:
+    comparison: dict[str, Any] = await _service_call(
+        LabService(session).smell_log_comparison(bottle_id)
+    )
+    return comparison
+
+
 @router.post("/bottles/{bottle_id}/additions", status_code=status.HTTP_201_CREATED)
 async def add_to_bottle(
     bottle_id: str,

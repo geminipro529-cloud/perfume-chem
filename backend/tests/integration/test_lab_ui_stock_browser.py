@@ -172,7 +172,7 @@ def test_table_rows_show_dilutions_gate_holds_and_workbook_differences(lab):
     lab.page.locator("#project-inventory-list tbody tr").first.wait_for()
 
     assert lab.page.locator("#project-inventory-ready").inner_text() == (
-        "3 ready to use · 1 dilutions you made"
+        "3 of 3 ready to design · 1 dilutions you made"
     )
     made_row = _row(lab, "Iso E Super 10% w/w in DPG").inner_text()
     assert "Your dilution" in made_row
@@ -184,4 +184,55 @@ def test_table_rows_show_dilutions_gate_holds_and_workbook_differences(lab):
     panel = lab.page.locator("#stock-dilution-panel")
     panel.wait_for()
     assert "Iso E Super" in panel.inner_text()
+    _clean(lab)
+
+
+def test_header_counts_and_suggestion_fills_only_empty_fields_without_saving(lab):
+    suggested = dict(
+        _stock("Frangipani", percent="10", basis="unspecified", carrier=None, ready=False,
+               missing=["possession_confirmation", "fraction_basis", "carrier"], completion=True),
+        suggested_completion={
+            "fraction_percent_decimal": "10", "fraction_basis": "mass_fraction", "carrier": "DPG",
+            "sources": {"fraction_percent_decimal": "stock_record", "fraction_basis": "user_rule",
+                        "carrier": "inventory_txt"},
+            "source_text": "inventory.txt L183 says '10% in DPG'; w/w by your rule",
+        },
+    )
+    recorded = dict(
+        _stock("Skatole", percent="1", basis="unspecified", carrier="ethanol", ready=False,
+               missing=["fraction_basis"], completion=True),
+        suggested_completion={
+            "fraction_percent_decimal": "1", "fraction_basis": "mass_fraction",
+            "sources": {"fraction_percent_decimal": "stock_record", "fraction_basis": "user_rule"},
+            "source_text": "Your rule: dilutions in DPG, w/w unless recorded",
+        },
+    )
+    lab.respond("GET", INVENTORY_PATH, json={
+        "stocks": [_stock("Ambrox"), suggested, recorded],
+        "counts": {"stocks": 3, "design_ready": 1, "details_incomplete": 2},
+        "display_source": "Test inventory",
+    })
+    lab.open("#materials")
+    lab.page.locator("#project-inventory-list tbody tr").first.wait_for()
+    assert lab.page.locator("#project-inventory-ready").inner_text() == (
+        "1 of 3 ready to design · 2 need details"
+    )
+    assert "Confirm you own it" in _row(lab, "Frangipani").inner_text()
+
+    _row(lab, "Frangipani").get_by_role("button", name="Complete details").click()
+    form = lab.page.locator("#inventory-completion-form")
+    assert form.locator('[name="fraction_basis"]').input_value() == "mass_fraction"
+    assert form.locator('[name="carrier"]').input_value() == "DPG"
+    assert form.locator('[name="possession_confirmed"]').is_checked() is False
+    note = lab.page.locator("#inventory-completion-suggestion")
+    assert "inventory.txt L183 says '10% in DPG'; w/w by your rule" in note.inner_text()
+
+    _row(lab, "Skatole").get_by_role("button", name="Complete details").click()
+    # A recorded carrier is kept; only the unknown basis is filled.
+    assert form.locator('[name="carrier"]').input_value() == "ethanol"
+    assert form.locator('[name="fraction_basis"]').input_value() == "mass_fraction"
+    assert note.inner_text() == (
+        "Suggested: w/w. Source: Your rule: dilutions in DPG, w/w unless recorded. "
+        "Check it against the bottle; nothing is saved until you confirm and save."
+    )
     _clean(lab)
