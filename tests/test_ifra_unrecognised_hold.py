@@ -143,11 +143,15 @@ STILL_HELD = {
     "Costus Olifac 10%",
     "Frangipani Absolute",
     "Fructone B",
+    # New bottles of 2026-10-13: no IFRA standard names pomelo or ginger lily oil, and
+    # neither bottle's species, plant part or furocoumarin content is recorded.
+    "Ginger Lily Oil",
     "Lavandin Absolute",
     "Lemon Terpeneless Oil Sicilian",
     "Lilyreal ND",
     "Mate Absolute",
     "Orris Concrete Orris Butter",
+    "Pomelo EO",
     "Saffranal",
     "Suederal 10%",
     "Tonkarome",

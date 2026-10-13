@@ -279,8 +279,8 @@
   logp: -0.36
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 360.0
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -308,13 +308,14 @@
         price_usd_per_g: 0.13
   families: []
   character: null
-  notes: 'log Kow not set: EPI KOWWIN v1.67 estimate -0.36 vs ChemicalBook 0.1 at 25 C (method not stated). VP not set: EPI estimate 266 Pa at 25 C vs ChemicalBook 86 hPa at 20 C = 8600 Pa, about 30x apart; commercial acetoin is largely the solid dimer, so monomer/dimer state may explain the gap. No air ODT found. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md Update 2026-10-13: logP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement.'
+  notes: 'log Kow not set: EPI KOWWIN v1.67 estimate -0.36 vs ChemicalBook 0.1 at 25 C (method not stated). VP not set: EPI estimate 266 Pa at 25 C vs ChemicalBook 86 hPa at 20 C = 8600 Pa, about 30x apart; commercial acetoin is largely the solid dimer, so monomer/dimer state may explain the gap. No air ODT found. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md Update 2026-10-13: logP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): vp_25c_pa null -> 360.0.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1007331.html: "acetoin, 513-86-0" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
     mw_g_mol: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1007331 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "MOL WT : 88.11"'
     density_25c_g_ml: 'ChemicalBook property page CASEN_513-86-0 (supplier/Sigma compilation, method not stated; via material-data-firecrawl/allgaps/S1_aldehydes.md): "1.013 g/mL at 25 °C(lit.)"'
     logp: 'ESTIMATE: EPI KOWWIN v1.67 -0.36; ChemicalBook 0.1 at 25 C (method not stated) is within 0.5 log units (via material-data-firecrawl/allgaps/S1_aldehydes.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
+    vp_25c_pa: 'ESTIMATE, literature common ground: HSDB 974 (EPI Suite v3.11) 2.7 mm Hg @ 25 C = 360 Pa; Haz-Map 2.69 mmHg = 359 Pa; EPI MPBPVP 266 Pa; extrapolating Temprado and Chickos 2005 (Thermochim. Acta 435:49, correlation-GC at 90-120 C) gives 427-530 Pa; ChemicalBook 8600 Pa @ 20 C has no support (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
 - canonical_name: Acetophenone
   aliases: []
   cas: null

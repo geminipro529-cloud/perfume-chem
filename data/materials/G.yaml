@@ -1529,8 +1529,8 @@
   logp: 4.007
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.133
-  vp_source: TGSC_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.242
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1554,13 +1554,13 @@
     other: {}
   families: []
   character: null
-  notes: 'Second CAS for the isomer mixture: 94087-23-7. logP and VP left null (2026-10-08), no measured value: logP 4.007 (TGSC est) vs "Log Pow: 3.8" (scentspiracy, method not stated); VP "0.001000 mmHg @ 25.00 C. (est)" = 0.133 Pa (TGSC) vs "0.0024 hPa at 25C" = 0.24 Pa (scentspiracy, method not stated). Producer is Givaudan per TGSC. Density not found. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement.'
+  notes: 'Second CAS for the isomer mixture: 94087-23-7. logP and VP left null (2026-10-08), no measured value: logP 4.007 (TGSC est) vs "Log Pow: 3.8" (scentspiracy, method not stated); VP "0.001000 mmHg @ 25.00 C. (est)" = 0.133 Pa (TGSC) vs "0.0024 hPa at 25C" = 0.24 Pa (scentspiracy, method not stated). Producer is Givaudan per TGSC. Density not found. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): vp_25c_pa 0.133 -> 0.242.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://thegoodscentscompany.com/data/rw1492991.html; "CAS Number: 68901-32-6"; the isomer mixture also carries "94087-23-7 (isomeric mixture)" (https://www.scentspiracy.com/fragrance-ingredients/p/glycolierral) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1492991.html; "Molecular Weight: 236.35468000", calculated from C15H24O2 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     logp: 'ESTIMATE: TGSC 4.007 (est); scentspiracy "Log Pow: 3.8" (method not stated) agrees within 0.5 (via material-data-firecrawl/allgaps/S3_fruity_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
-    vp_25c_pa: 'ESTIMATE: TGSC "0.001000 mmHg @ 25.00 C. (est)" x 133.322 Pa/mmHg = 0.133 Pa; scentspiracy 0.24 Pa at 25 C (method not stated) is within 2x (via material-data-firecrawl/allgaps/S3_fruity_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
+    vp_25c_pa: 'ESTIMATE, literature common ground: EPI Suite MPBPWIN 0.00181 mm Hg @ 25 C = 0.242 Pa (https://www.thegoodscentscompany.com/episys/ep1492991.html); scentspiracy 0.24 Pa @ 25 C agrees; TGSC datasheet 0.133 Pa (est) is low (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
 - canonical_name: Gourmande F-TEC
   aliases:
   - GOURMANDE F-TEC
