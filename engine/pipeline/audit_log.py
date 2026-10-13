@@ -13,6 +13,10 @@ from uuid import uuid4
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_AUDIT_PATH = PROJECT_ROOT / "data" / "pipeline_audit" / "events.jsonl"
 AUDIT_PATH_ENV = "PERFUME_PIPELINE_AUDIT_PATH"
+# When the log reaches this size the next append first moves it aside to
+# events-<UTC time>.jsonl beside it (nothing is deleted) and starts a new one.
+MAX_BYTES_ENV = "PERFUME_PIPELINE_AUDIT_MAX_BYTES"
+DEFAULT_MAX_BYTES = 20 * 1024 * 1024
 
 
 def default_audit_path() -> Path:
@@ -31,6 +35,7 @@ def append_event(event: Mapping, path: str | Path | None = None) -> dict:
     out_path = Path(path) if path is not None else default_audit_path()
     out_path.parent.mkdir(parents=True, exist_ok=True)
     try:
+        rotate_if_large(out_path)
         with out_path.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(payload, ensure_ascii=False, sort_keys=True) + "\n")
     except OSError:
@@ -42,20 +47,54 @@ def append_event(event: Mapping, path: str | Path | None = None) -> dict:
     return payload
 
 
-def load_events(path: str | Path | None = None) -> list[dict]:
-    in_path = Path(path) if path is not None else default_audit_path()
-    if not in_path.exists():
+def max_audit_bytes() -> int:
+    text = os.environ.get(MAX_BYTES_ENV, "").strip()
+    if text.isdigit() and int(text) > 0:
+        return int(text)
+    return DEFAULT_MAX_BYTES
+
+
+def rotate_if_large(path: Path, max_bytes: int | None = None) -> Path | None:
+    """Move a full log aside to ``<stem>-<UTC time><suffix>``; return where it went."""
+    limit = max_bytes if max_bytes is not None else max_audit_bytes()
+    try:
+        if path.stat().st_size < limit:
+            return None
+    except FileNotFoundError:
+        return None
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    archive = path.with_name(f"{path.stem}-{stamp}{path.suffix}")
+    try:
+        os.replace(path, archive)
+    except FileNotFoundError:
+        return None  # another run moved it first
+    return archive
+
+
+def archived_audit_paths(path: str | Path | None = None) -> list[Path]:
+    """Earlier logs moved aside by rotation, oldest first."""
+    current = Path(path) if path is not None else default_audit_path()
+    if not current.parent.is_dir():
         return []
+    return sorted(current.parent.glob(f"{current.stem}-*{current.suffix}"))
+
+
+def load_events(path: str | Path | None = None) -> list[dict]:
+    """All events, oldest first: the rotated-aside logs, then the current one."""
+    in_path = Path(path) if path is not None else default_audit_path()
     events: list[dict] = []
-    with in_path.open("r", encoding="utf-8") as fh:
-        for line in fh:
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                events.append(json.loads(line))
-            except json.JSONDecodeError:
-                continue
+    for source in [*archived_audit_paths(in_path), in_path]:
+        if not source.exists():
+            continue
+        with source.open("r", encoding="utf-8") as fh:
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    events.append(json.loads(line))
+                except json.JSONDecodeError:
+                    continue
     return events
 
 

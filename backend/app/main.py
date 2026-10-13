@@ -21,6 +21,7 @@ from app import db_bootstrap
 from app.api.v1.router import api_router
 from app.core.config import get_settings
 from app.core.logging import get_logger, setup_logging
+from app.core.login import LoginGuard, login_wanted, resolve_password
 from app.core.request_guard import LocalRequestGuard
 from app.core.tracing import setup_tracing
 from app.services import app_lock as app_lock_module
@@ -201,6 +202,18 @@ async def rate_limit_middleware(request: Request, call_next):
     response = await call_next(request)
     return response
 
+
+# Network runs (--lan / --host) need the lab password from other devices; this PC
+# itself never does.  Runs after the request guard, before the rate limiter.
+_login_enabled = login_wanted(settings.API_BIND_HOST, settings.LAB_LOGIN)
+_lab_password = ""
+if _login_enabled:
+    _lab_password, _password_file, _password_created = resolve_password(
+        settings.LAB_PASSWORD, settings.LAB_PASSWORD_FILE
+    )
+    if _password_created:
+        logger.warning("A new lab password was written to %s", _password_file)
+app.add_middleware(LoginGuard, enabled=_login_enabled, password=_lab_password)
 
 # Added last so it runs first: a refused request never reaches the rate limiter
 # (so a hostile page cannot use up this PC's budget) or any route.
