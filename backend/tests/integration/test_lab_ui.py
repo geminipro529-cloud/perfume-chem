@@ -1751,6 +1751,7 @@ def test_create_several_sends_each_idea_as_its_own_formula_design_job():
     assert best["payload"]["liquid_concentrate_ul_decimal"] == "6000"
     assert (unknown["payload"]["design_mode"], unknown["payload"]["variant_count"]) == ("FAST_SKETCH", 1)
     assert quick["payload"]["conversation_context"] == [] and quick["payload"]["previous_stock_ids"] == []
+    assert quick["payload"]["scorecard"] is True and best["payload"]["scorecard"] is True
 
 
 def test_create_several_polls_stay_under_the_network_rate_limit():
@@ -1793,6 +1794,50 @@ def test_create_several_card_summarises_the_primary_formula_and_its_checks():
         {"status": "HOLD", "text": "Brief words a stock names: 67%. Not named by any stock: rum"},
         {"status": "FAIL", "text": "IFRA: Coumarin at 1.2 % is over the limit."},
     ]
+
+
+def test_create_several_card_shows_the_floors_of_the_first_alternative():
+    result = _several_result()
+    result["scorecards"] = [
+        {"variant_id": "v2", "floors": {"F5_pours": {"status": "PASS", "detail": "every uL row is at least 10 uL"}}},
+        {"variant_id": "v1", "floors": {
+            "F1_owned_stock": {"status": "HOLD", "detail": "2 material(s) need a dilution. Details follow."},
+            "F2_ifra": {"status": "FAIL", "detail": "IFRA fail: Coumarin at 1.2 % is over the limit. To clear: lower it."},
+            "F3_pre_mix_guard": {"status": "NOT_APPLICABLE", "detail": "new formula: no parent to compare against"},
+            "F4_bottle": {"status": "PASS", "detail": "liquid concentrate 6000 uL = 20.00% of the bottle"},
+            "F5_pours": {"status": "FAIL", "detail": "rows under 10 uL: Tonalide 5 uL (no owned weaker dilution)"},
+            "F6_musks": {"status": "PASS", "detail": "no Tonalide, Macrolide or Musk Ketone"},
+        }},
+    ]
+    summary, chips = _run_create_several(
+        f"(s) => [s.severalCardSummary({json.dumps(result)}), s.severalFloorChips({json.dumps(result)})]"
+    )
+
+    assert chips == [
+        {"label": "Stock", "status": "HOLD"},
+        {"label": "IFRA", "status": "FAIL"},
+        {"label": "30 mL bottle", "status": "PASS"},
+        {"label": "Pours", "status": "FAIL"},
+        {"label": "Musks", "status": "PASS"},
+    ]
+    assert summary["lines"] == [
+        {"status": "HOLD", "text": "Brief words a stock names: 67%. Not named by any stock: rum"},
+        {"status": "HOLD", "text": "Stock: 2 material(s) need a dilution."},
+        {"status": "FAIL", "text": "IFRA fail: Coumarin at 1.2 % is over the limit."},
+        {"status": "FAIL", "text": "Pours: rows under 10 uL: Tonalide 5 uL (no owned weaker dilution)"},
+    ]  # the composition check's own IFRA line is not repeated beside the floor's
+    passed = _several_result()
+    passed["design_variants"][0]["composition_checks"]["checks"] = [
+        {"check": "ifra", "status": "PASS", "message": "ok"},
+        {"check": "hedione_share", "status": "WARN", "message": "Hedione 40% of concentrate"},
+    ]
+    passed["scorecards"] = [{"variant_id": "v1", "floors": {"F2_ifra": {"status": "HOLD", "detail": "IFRA hold: X."}}}]
+    lines = _run_create_several(f"(s) => s.severalCardSummary({json.dumps(passed)}).lines")
+    assert lines[1:] == [
+        {"status": "HOLD", "text": "IFRA hold: X."},
+        {"status": "WARN", "text": "Hedione share: Hedione 40% of concentrate"},
+    ]  # a flagged check stays; a passed line would contradict the IFRA floor
+    assert _run_create_several(f"(s) => s.severalFloorChips({json.dumps(_several_result())})") == []
 
 
 def test_create_several_card_says_why_there_is_no_formula():

@@ -57,8 +57,34 @@ function severalJobRequest(brief, mode, requestId, options = {}) {
       conversation_context: [],
       design_mode: chosen.design_mode,
       variant_count: chosen.variant_count,
+      scorecard: true,
     },
   };
+}
+
+// The yardstick's floors (engine_job_executor._design_scorecards), in card order.
+const SEVERAL_FLOOR_LABELS = [
+  ["F1_owned_stock", "Stock"],
+  ["F2_ifra", "IFRA"],
+  ["F3_pre_mix_guard", "Pre-mix guard"],
+  ["F4_bottle", "30 mL bottle"],
+  ["F5_pours", "Pours"],
+  ["F6_musks", "Musks"],
+];
+
+function _primaryFloors(result) {
+  const variant = (result?.design_variants || [])[0];
+  const cards = Array.isArray(result?.scorecards) ? result.scorecards : [];
+  const card = cards.find((entry) => variant && entry.variant_id === String(variant.variant_id)) || cards[0];
+  return card && card.floors ? card.floors : null;
+}
+
+function severalFloorChips(result) {
+  const floors = _primaryFloors(result);
+  if (!floors) return [];
+  return SEVERAL_FLOOR_LABELS
+    .filter(([id]) => floors[id] && floors[id].status !== "NOT_APPLICABLE")
+    .map(([id, label]) => ({ label, status: String(floors[id].status) }));
 }
 
 function _primaryFormula(result) {
@@ -115,13 +141,28 @@ function severalCardSummary(result) {
         : `Brief words a stock names: ${covered}`,
     });
   }
+  const floors = _primaryFloors(result);
+  if (floors) {
+    for (const [id, label] of SEVERAL_FLOOR_LABELS) {
+      const floor = floors[id];
+      if (!floor || floor.status === "PASS" || floor.status === "NOT_APPLICABLE") continue;
+      const detail = _firstSentence(floor.detail);
+      const named = detail.toLowerCase().startsWith(label.toLowerCase());
+      lines.push({ status: String(floor.status), text: named ? detail : `${label}: ${detail}` });
+    }
+  }
   const variant = (result?.design_variants || [])[0];
   const checks = typeof compositionCheckLines === "function"
     ? compositionCheckLines(variant ? variant.composition_checks : result?.composition_checks)
     : null;
   if (checks) {
     // The card keeps each check's first sentence; the studio shows the whole advice.
-    for (const line of checks.lines) lines.push({ status: line.status, text: _firstSentence(line.text) });
+    // With the floors present, their chips and IFRA line already say what the
+    // checks' IFRA and passed lines would, so only the checks' own flags stay.
+    for (const line of checks.lines) {
+      if (floors && floors.F2_ifra && (line.text.startsWith("IFRA:") || line.status === "PASS")) continue;
+      lines.push({ status: line.status, text: _firstSentence(line.text) });
+    }
   }
   const variants = (result?.design_variants || []).filter((row) => row && !row.duplicate_of_variant_id);
   return {
@@ -163,6 +204,7 @@ if (typeof module === "object" && module.exports) {
     severalPollIntervalMs,
     severalJobRequest,
     severalCardSummary,
+    severalFloorChips,
     severalCompareRows,
   };
 }

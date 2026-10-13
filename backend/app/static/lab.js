@@ -2357,6 +2357,15 @@ function fillSeveralCard(card, result) {
   facts.textContent = summary.hasFormula
     ? `${summary.materials} materials · ${summary.totalUl.toLocaleString()} µL${more}`
     : "No formula yet";
+  const chips = document.createElement("ul");
+  chips.className = "several-floors";
+  chips.setAttribute("aria-label", "Floors");
+  for (const chip of severalFloorChips(result)) {
+    const item = document.createElement("li");
+    item.className = `several-floor status-${chip.status.toLowerCase()}`;
+    item.textContent = `${chip.label} ${chip.status === "PASS" ? "✓" : chip.status.toLowerCase()}`;
+    chips.append(item);
+  }
   const lines = document.createElement("ul");
   lines.className = "several-lines";
   for (const line of summary.lines) {
@@ -2387,7 +2396,7 @@ function fillSeveralCard(card, result) {
     actions.append(open);
     card.checkbox.disabled = false;
   }
-  card.body.replaceChildren(name, facts, lines, actions);
+  card.body.replaceChildren(name, facts, ...(chips.childElementCount ? [chips] : []), lines, actions);
 }
 
 function failSeveralCard(card, message) {
