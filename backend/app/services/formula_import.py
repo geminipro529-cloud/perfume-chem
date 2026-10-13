@@ -229,6 +229,9 @@ class ParsedAnalysisRow:
     # Header text of the column the amount was read from (provenance only;
     # not part of the engine payload).
     amount_header: str = ""
+    # The strength cell as written ("10% w/w in DPG"), so a scaled copy of the
+    # card keeps the carrier and basis (provenance only; not in the payload).
+    strength_text: str = ""
 
     def as_engine_dict(self) -> dict[str, Any]:
         return {
@@ -798,6 +801,7 @@ class FormulaAnalysisImportParser:
                         "MASS_ADD" if amount_unit in {"mg", "g"} else "DIRECT_ADD"
                     ),
                     amount_header=amount_header,
+                    strength_text=cls._plain(dilution_text or ""),
                 )
             )
 
