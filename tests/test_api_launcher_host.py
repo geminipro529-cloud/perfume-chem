@@ -9,7 +9,7 @@ from types import SimpleNamespace
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def _launch(monkeypatch, *argv):
+def _launch(monkeypatch, *argv, password_file=None):
     import subprocess
 
     calls = []
@@ -25,6 +25,7 @@ def _launch(monkeypatch, *argv):
                 kwargs,
                 os.environ.get("PERFUME_ENGINE_WORKER_AUTOSTART"),
                 os.environ.get("API_BIND_HOST"),
+                os.environ.get("LAB_LOGIN"),
             )
         )
 
@@ -38,6 +39,10 @@ def _launch(monkeypatch, *argv):
     monkeypatch.delenv("PERFUME_ENGINE_WORKER_AUTOSTART")
     monkeypatch.setenv("API_BIND_HOST", "unset")
     monkeypatch.delenv("API_BIND_HOST")
+    monkeypatch.setenv("LAB_LOGIN", "unset")
+    monkeypatch.delenv("LAB_LOGIN")
+    monkeypatch.setenv("LAB_PASSWORD", "")
+    monkeypatch.setenv("LAB_PASSWORD_FILE", str(password_file or ROOT / "output" / "unused"))
     runpy.run_path(str(ROOT / "run_api_server.py"), run_name="__main__")
     return calls
 
@@ -63,26 +68,57 @@ def test_default_launch_binds_loopback_without_warning(monkeypatch, capsys):
     assert "WARNING" not in capsys.readouterr().err
 
 
-def test_lan_flag_binds_all_interfaces_and_warns(monkeypatch, capsys):
-    calls = _launch(monkeypatch, "--lan")
+def test_lan_flag_binds_all_interfaces_and_turns_the_login_on(monkeypatch, capsys, tmp_path):
+    password_file = tmp_path / "lab_password.txt"
+    calls = _launch(monkeypatch, "--lan", password_file=password_file)
     assert calls[0][2]["host"] == "0.0.0.0"
+    assert calls[0][5] == "true"
+    password = password_file.read_text(encoding="utf-8").strip()
+    assert len(password) >= 12
+    err = capsys.readouterr().err
+    assert "WARNING" not in err
+    assert f"New lab password for other devices: {password}" in err
+
+
+def test_lan_start_reuses_the_saved_password(monkeypatch, capsys, tmp_path):
+    password_file = tmp_path / "lab_password.txt"
+    password_file.write_text("kenny-bench-7\n", encoding="utf-8")
+    calls = _launch(monkeypatch, "--host", "192.168.1.20", password_file=password_file)
+    assert calls[0][5] == "true"
+    assert password_file.read_text(encoding="utf-8") == "kenny-bench-7\n"
+    err = capsys.readouterr().err
+    assert "Lab password for other devices: kenny-bench-7" in err
+    assert "New lab password" not in err
+
+
+def test_no_login_turns_the_password_off_and_warns(monkeypatch, capsys, tmp_path):
+    password_file = tmp_path / "lab_password.txt"
+    calls = _launch(monkeypatch, "--lan", "--no-login", password_file=password_file)
+    assert calls[0][2]["host"] == "0.0.0.0"
+    assert calls[0][5] == "false"
+    assert not password_file.exists()
     err = capsys.readouterr().err
     assert "WARNING" in err
-    assert "no login" in err
+    assert "--no-login" in err
     assert "delete" in err
 
 
-def test_explicit_non_loopback_host_warns(monkeypatch, capsys):
-    calls = _launch(monkeypatch, "--host", "0.0.0.0")
-    assert calls[0][2]["host"] == "0.0.0.0"
-    assert "no login" in capsys.readouterr().err
+def test_loopback_launch_leaves_the_login_off(monkeypatch, tmp_path):
+    password_file = tmp_path / "lab_password.txt"
+    calls = _launch(monkeypatch, password_file=password_file)
+    assert calls[0][5] is None
+    assert not password_file.exists()
 
 
-def test_launcher_tells_the_app_its_bind_address(monkeypatch):
+def test_launcher_tells_the_app_its_bind_address(monkeypatch, tmp_path):
     # The app's Host check answers the bind address only when it is told it.
+    password_file = tmp_path / "lab_password.txt"
     assert _launch(monkeypatch)[0][4] == "127.0.0.1"
-    assert _launch(monkeypatch, "--lan")[0][4] == "0.0.0.0"
-    assert _launch(monkeypatch, "--host", "192.168.1.20")[0][4] == "192.168.1.20"
+    assert _launch(monkeypatch, "--lan", password_file=password_file)[0][4] == "0.0.0.0"
+    assert (
+        _launch(monkeypatch, "--host", "192.168.1.20", password_file=password_file)[0][4]
+        == "192.168.1.20"
+    )
 
 
 def test_explicit_host_wins_over_lan(monkeypatch, capsys):

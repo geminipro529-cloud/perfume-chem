@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.lab import (
     LabApplication,
+    LabBatch,
     LabBottle,
     LabBottleEvent,
     LabBottleEventEffect,
@@ -19,6 +20,7 @@ from app.models.lab import (
     LabFormulaVersion,
     LabInventoryMovement,
     LabMaterial,
+    LabObservation,
     LabPrediction,
     LabRestriction,
     LabSample,
@@ -177,6 +179,43 @@ class LabRepository(
 
     async def get_application(self, application_id: str) -> LabApplication | None:
         return await self.session.get(LabApplication, application_id)
+
+    async def get_batch(self, batch_id: str) -> LabBatch | None:
+        return await self.session.get(LabBatch, batch_id)
+
+    async def formula_material_names(self, version_id: str) -> list[str]:
+        """Material names of a formula version's components, in position order."""
+
+        result = await self.session.execute(
+            select(LabMaterial.canonical_name)
+            .join(LabStockSolution, LabStockSolution.material_id == LabMaterial.id)
+            .join(
+                LabFormulaComponent,
+                LabFormulaComponent.stock_solution_id == LabStockSolution.id,
+            )
+            .where(LabFormulaComponent.formula_version_id == version_id)
+            .order_by(LabFormulaComponent.position)
+        )
+        return list(result.scalars())
+
+    async def bottle_samples(self, bottle_id: str, blind_code: str) -> list[LabSample]:
+        result = await self.session.execute(
+            select(LabSample)
+            .where(LabSample.bottle_id == bottle_id, LabSample.blind_code == blind_code)
+            .order_by(LabSample.created_at, LabSample.id)
+        )
+        return list(result.scalars())
+
+    async def sample_observations(
+        self,
+        sample_id: str,
+    ) -> list[tuple[LabApplication, LabObservation]]:
+        result = await self.session.execute(
+            select(LabApplication, LabObservation)
+            .join(LabObservation, LabObservation.application_id == LabApplication.id)
+            .where(LabApplication.sample_id == sample_id)
+        )
+        return [(application, observation) for application, observation in result.tuples()]
 
     async def get_prediction(self, prediction_id: str) -> LabPrediction | None:
         return await self.session.get(LabPrediction, prediction_id)

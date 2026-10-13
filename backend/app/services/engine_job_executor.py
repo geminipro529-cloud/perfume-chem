@@ -503,6 +503,43 @@ def _formula_goal_analysis_v2(
     ), validation
 
 
+def _design_scorecards(report: dict[str, Any]) -> list[dict[str, Any]]:
+    """The yardstick's floors for each composed alternative (Opus duel, Phase 2).
+
+    Floors only: owned stock (Rule 0), IFRA, the pre-mix guard, the 30 mL
+    bottle, pours of at least 10 uL and the default-omitted musks. No OAV,
+    name or liking number is attached. A floor the yardstick cannot judge
+    stays out of the card rather than failing the design job.
+    """
+
+    from engine.formulation_intelligence.yardstick import (
+        formula_from_composer,
+        score_formula,
+    )
+
+    cards: list[dict[str, Any]] = []
+    for variant in report.get("design_variants", []) or []:
+        formula = variant.get("formula") or {}
+        if not formula.get("rows"):
+            continue
+        entry: dict[str, Any] = {"variant_id": str(variant.get("variant_id") or "")}
+        try:
+            card = score_formula(
+                formula_from_composer(
+                    {"optimized_formula": formula, "name": report.get("formula_name")}
+                ),
+                {"id": "lab-formula-design"},
+            )
+            entry["floors"] = {
+                floor_id: {"status": str(floor["status"]), "detail": str(floor["detail"])}
+                for floor_id, floor in card["floors"].items()
+            }
+        except Exception as error:  # an advisory card never fails the design
+            entry["error"] = type(error).__name__
+        cards.append(entry)
+    return cards
+
+
 def _formula_design_v2(
     payload: dict[str, Any],
 ) -> tuple[str, dict[str, Any], str]:
@@ -528,6 +565,8 @@ def _formula_design_v2(
         design_mode=cast(Any, str(payload.get("design_mode", "DEEP_COMPOSE"))),
         variant_count=int(payload.get("variant_count", 3)),
     )
+    if payload.get("scorecard"):
+        report = {**report, "scorecards": _design_scorecards(report)}
     has_formula = report.get("optimized_formula") is not None
     has_holds = bool(report.get("critic", {}).get("issues", []))
     if has_formula:

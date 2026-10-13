@@ -193,8 +193,9 @@ def test_new_sources_have_bounded_review_and_no_data_or_model_admission():
     assert all(r["review_scope"] in {"PRIMARY_ABSTRACT", "SELECTED_PRIMARY_SECTIONS"} for r in reviews)
     assert all(r["numeric_calibration_allowed"] is False for r in reviews)
     assert all(s["empirical_data_admission"] is False for s in new)
-    # Research descriptions do not create stock aliases; the 6 beyond 25 are step 6's signature notes.
-    assert len(pack["materials"]) == 31
+    # Research descriptions do not create stock aliases; the 7 beyond 25 are the
+    # signature notes of steps 6 and 7.
+    assert len(pack["materials"]) == 32
     assert knowledge.material_knowledge("Orris Liquid") is None
 
 

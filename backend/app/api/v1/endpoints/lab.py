@@ -60,6 +60,7 @@ from app.schemas.lab import (
     PredictionCreate,
     RestoreSnapshotCreate,
     SampleCreate,
+    SmellLogCreate,
     StockCreate,
     StockPreparationFinalizeCreate,
     StockUpdateRemaining,
@@ -80,6 +81,7 @@ from app.services.lab_export import (
     LabExportService,
 )
 from app.services.lab_service import (
+    SMELL_LOG_WINDOWS,
     FormulaComponentInput,
     LabService,
     LabTransactionError,
@@ -226,6 +228,32 @@ async def create_bottle(
 async def bottle_state(bottle_id: str, session: AsyncSession = Depends(get_db)) -> dict[str, Any]:
     state_row = await _service_call(LabService(session).reconstruct_bottle(bottle_id))
     return asdict(state_row)
+
+
+@router.post("/bottles/{bottle_id}/smell-log", status_code=status.HTTP_201_CREATED)
+async def record_smell_log(
+    bottle_id: str,
+    request: SmellLogCreate,
+    session: AsyncSession = Depends(get_db),
+) -> dict[str, Any]:
+    entry: dict[str, Any] = await _service_call(
+        LabService(session).record_smell_log(bottle_id, **request.model_dump())
+    )
+    return entry
+
+
+@router.get("/bottles/{bottle_id}/smell-log")
+async def smell_log(bottle_id: str, session: AsyncSession = Depends(get_db)) -> dict[str, Any]:
+    service = LabService(session)
+    entries = await _service_call(service.list_smell_log(bottle_id))
+    return {
+        "windows": [
+            {"key": key, "label": label, "surface": surface, "seconds": seconds}
+            for key, (label, surface, seconds) in SMELL_LOG_WINDOWS.items()
+        ],
+        "rows": await _service_call(service.smell_log_rows(bottle_id)),
+        "entries": entries,
+    }
 
 
 @router.post("/bottles/{bottle_id}/additions", status_code=status.HTTP_201_CREATED)

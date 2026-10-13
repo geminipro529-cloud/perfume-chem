@@ -3137,6 +3137,32 @@
       "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
       "empirical_data_admission": false,
       "license_note": "Link and original bounded summary only; no full-text reproduction, extracted dataset or empirical/model license admitted."
+    },
+    {
+      "source_id": "symrise_aldehyde_c18_signature",
+      "title": "Symrise Aldehyde C18 so-called as listed on SpecialChem",
+      "url": "https://www.specialchem.com/cosmetics/product/symrise-aldehyde-c18-so-called",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-12",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; no full-text reproduction, extracted dataset or empirical/model license admitted."
+    },
+    {
+      "source_id": "perflavory_gamma_nonalactone_signature",
+      "title": "Perflavory: gamma-nonalactone with Bedoukian, IFF and Symrise descriptions",
+      "url": "https://www.perflavory.com/docs/doc1000531.html",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-12",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; no full-text reproduction, extracted dataset or empirical/model license admitted."
     }
   ],
   "claims": [
@@ -6823,6 +6849,22 @@
       "kind": "MANUFACTURER_DESCRIPTION",
       "scope_limit": "Names the material's own odour notes so the composer can read a brief's note words; no dose, intensity, liking, stock grade, lot or finished-perfume performance claim.",
       "numeric_calibration": false
+    },
+    {
+      "claim_id": "gamma_nonalactone_coconut_signature",
+      "statement": "Bedoukian describes gamma-nonalactone (Aldehyde C-18) as creamy and coconut-like, IFF as coconut-like, sweet, fatty and fruity, and Symrise as creamy and appetizing, resembling coconut and apricot.",
+      "source_ids": [
+        "symrise_aldehyde_c18_signature",
+        "perflavory_gamma_nonalactone_signature"
+      ],
+      "tags": [
+        "coconut",
+        "nonalactone",
+        "aldehyde c-18"
+      ],
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "scope_limit": "Names the material's own odour notes so the composer can read a brief's note words; no dose, intensity, liking, stock grade, lot or finished-perfume performance claim.",
+      "numeric_calibration": false
     }
   ],
   "profiles": [
@@ -8433,6 +8475,23 @@
         "apritone_apricot_signature"
       ],
       "scope_limit": "Bedoukian's molecule; the owned stock's dilution is separate."
+    },
+    {
+      "material_id": "gamma_nonalactone_signature",
+      "exact_aliases": [
+        "Gamma Nonalactone",
+        "Aldehyde C-18"
+      ],
+      "vocabulary": [
+        "coconut"
+      ],
+      "role_slots": [
+        "coconut recognizer"
+      ],
+      "claim_ids": [
+        "gamma_nonalactone_coconut_signature"
+      ],
+      "scope_limit": "Molecule's own odour notes; the owned stocks' dilutions are separate."
     }
   ],
   "quarantined_claims": [

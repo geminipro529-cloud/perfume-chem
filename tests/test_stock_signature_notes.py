@@ -29,6 +29,9 @@ SIGNATURES = {
     "Gamma Undecalactone": ("peach", "apricot"),
     "Gamma Decalactone": ("peach", "coconut"),
     "Apritone": ("apricot", "peach"),
+    # Step 7: gamma-nonalactone's coconut, on both its owned stock names.
+    "Gamma Nonalactone": ("coconut",),
+    "Aldehyde C-18": ("coconut",),
 }
 REVIEWS_PATH = Path(PACK_PATH).with_name("source_reviews_v1.json")
 
