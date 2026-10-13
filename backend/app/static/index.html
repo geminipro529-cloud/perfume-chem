@@ -9,6 +9,8 @@
   <title>Perfume Chem Laboratory</title>
   <link rel="stylesheet" href="/static/lab.css">
   <link rel="stylesheet" href="/static/theme.css">
+  <link rel="stylesheet" href="/static/batch-label.css">
+  <link rel="stylesheet" href="/static/batch.css">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -38,6 +40,7 @@
       <button class="nav-item" data-view="benchsheet">Bench sheet</button>
       <button class="nav-item" data-view="materials">Stock</button>
       <button class="nav-item" data-view="bottles">Bottles</button>
+      <button class="nav-item" data-view="batch">Batch</button>
       <p class="nav-group">Records</p>
       <button class="nav-item" data-view="experiments">Experiments</button>
       <button class="nav-item" data-view="dashboard">Overview and backup</button>
@@ -588,6 +591,12 @@
         </details>
       </section>
 
+      <section class="view" data-panel="batch" aria-labelledby="batch-title">
+        <div class="view-heading"><div><p class="eyebrow">Bottles to sell</p><h1 id="batch-title">Batch</h1><p class="lede">Scale one formula to a number of bottles, rerun the release gate on the scaled card, keep a lot record, and print the batch sheet, the label and the IFRA statement. Scaling keeps every stock and strength; only amounts change.</p></div></div>
+        <div id="batch-root" class="batch-root"></div>
+        <div class="panel batch-label-panel"><p class="panel-index">Label and IFRA</p><h2>Label and IFRA statement</h2><div id="batch-label-area"></div></div>
+      </section>
+
       <section class="view" data-panel="benchsheet" aria-labelledby="benchsheet-title">
         <div class="view-heading"><div><p class="eyebrow">Any formula, ready to pour</p><h1 id="benchsheet-title">Bench sheet</h1><p class="lede">Pick a project formula or paste a formula table. The sheet runs in your basket order, names each stock you own, and gives a DPG mix for any pour under 10 µL. It reads the formula only; nothing is saved or changed.</p></div></div>
         <form id="bench-source-form" class="panel bench-source-form" novalidate>
@@ -884,6 +893,7 @@
     </main>
   </div>
   <section id="bench-sheet" class="bench-sheet" aria-label="Printable bench sheet"></section>
+  <section id="batch-sheet" class="batch-sheet" aria-label="Printable batch sheet"></section>
   <script src="/static/bench-sheet.js" defer></script>
   <script src="/static/lab-drafts.js" defer></script>
   <script src="/static/stock-dilutions.js" defer></script>
@@ -896,6 +906,8 @@
   <script src="/static/formula-liking.js" defer></script>
   <script src="/static/scent-chart.js" defer></script>
   <script src="/static/smell-log.js" defer></script>
+  <script src="/static/batch-label.js" defer></script>
+  <script src="/static/batch.js" defer></script>
   <script src="/static/lab.js" defer></script>
 </body>
 </html>

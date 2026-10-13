@@ -3137,6 +3137,7 @@ bindForm("#bottle-form", (data) => request("/bottles", { method: "POST", body: J
 const smellLog = typeof attachSmellLog === "function"
   ? attachSmellLog({ doc: document, request, root: $("#smell-log") })
   : null;
+if (typeof attachBatch === "function") attachBatch({ doc: document, request, root: $("#batch-root") });
 bindForm("#addition-form", (data) => request(`/bottles/${data.bottle_id}/additions`, { method: "POST", body: JSON.stringify({ stock_solution_id: data.stock_solution_id, mass_g: Number(data.mass_g), expected_sequence: Number(data.expected_sequence), command_id: newRequestId("command") }) }));
 bindForm("#experiment-form", (data) => request("/experiments", { method: "POST", body: JSON.stringify({ name: data.name, protocol: { observation_times_seconds: data.times.split(",").map((item) => Number(item.trim())) } }) }));
 
