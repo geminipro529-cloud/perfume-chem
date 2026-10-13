@@ -1904,6 +1904,53 @@ def test_create_several_compares_two_formulas_material_by_material():
     ]
 
 
+def test_create_several_reads_the_strength_a_bench_card_names():
+    names = [
+        "Cashmeran 20% w/w in DPG", "Hedione (neat)", "Ambrofix Crystals (neat), **weigh**",
+        "Frangipani Absolute 10% w/w in DPG (guess basket)", "Vanillin 10% v/v in ethanol",
+        "Ylang-Ylang EO Comoros Complete (neat, PerfumersWorld)", "Lemonile", "Ambrox 1,5% in DEP",
+    ]
+    read = _run_create_several(
+        f"(s) => {json.dumps(names)}.map((n) => [s.severalMaterialName(n), s.severalStrength(n)])"
+    )
+
+    assert read == [
+        ["Cashmeran", 0.2], ["Hedione", 1], ["Ambrofix Crystals", 1], ["Frangipani Absolute", 0.1],
+        ["Vanillin", 0.1], ["Ylang-Ylang EO Comoros Complete", 1], ["Lemonile", None], ["Ambrox", 0.015],
+    ]
+
+
+def test_create_several_compares_a_card_with_your_own_in_active_amounts():
+    def composed(name, amount, fraction, unit="uL"):
+        return {"identity_name": name, "amount_decimal": amount, "amount_unit": unit, "stock_fraction_decimal": fraction}
+
+    result = {"formula_name": "Composed", "design_variants": [{"variant_id": "v1", "formula": {"rows": [
+        composed("Cashmeran", "100", "0.2"), composed("Hedione", "500", "1"), composed("Ambrofix", "100", "1", "mg"),
+    ]}}]}
+    own = {"formula_name": "Your card", "rows": [
+        {"material": "Cashmeran (neat)", "amount_decimal": "30", "amount_unit": "uL"},
+        {"material": "Iso E Super (neat)", "amount_decimal": "650", "amount_unit": "uL"},
+        {"material": "Ambrofix Crystals (neat), weigh", "amount_decimal": "150", "amount_unit": "mg"},
+        {"material": "Lemonile", "amount_decimal": "20", "amount_unit": "uL"},
+        {"material": "Hedione", "amount_decimal": "400", "amount_unit": "uL", "concentration_fraction_decimal": "0.5"},
+        {"material": "Rose Oxide 1% w/w in DPG", "amount_decimal": "1", "amount_unit": "uL"},
+        {"material": "Ethyl Maltol 10% in DPG", "amount_decimal": "35", "amount_unit": "uL"},
+    ]}
+    compared = _run_create_several(f"(s) => s.severalOwnCompare({json.dumps(result)}, {json.dumps(own)})")
+
+    assert compared["rows"] == [
+        {"material": "Iso E Super", "unit": "µL", "a": 0, "b": 650, "shared": False},
+        {"material": "Hedione", "unit": "µL", "a": 500, "b": 200, "shared": True},
+        {"material": "Ambrofix Crystals", "unit": "mg", "a": 0, "b": 150, "shared": False},
+        {"material": "Ambrofix", "unit": "mg", "a": 100, "b": 0, "shared": False},
+        {"material": "Cashmeran", "unit": "µL", "a": 20, "b": 30, "shared": True},
+        {"material": "Ethyl Maltol", "unit": "µL", "a": 0, "b": 3.5, "shared": False},
+        {"material": "Rose Oxide", "unit": "µL", "a": 0, "b": 0.1, "shared": False},
+    ]
+    assert (compared["inBoth"], compared["onlyHere"], compared["onlyYours"]) == (2, 1, 4)
+    assert compared["unread"] == ["Lemonile"]
+
+
 def test_create_several_is_wired_into_the_formula_studio_without_innerhtml():
     page = INDEX_HTML.read_text(encoding="utf-8")
     javascript = LAB_JS.read_text(encoding="utf-8")
@@ -1925,3 +1972,9 @@ def test_create_several_is_wired_into_the_formula_studio_without_innerhtml():
     assert block.count("newRequestId(") == 1
     waiter = javascript[javascript.index("async function waitForEngineJob"):javascript.index("async function pollEngineJob")]
     assert "jobEnded = true" in waiter
+    # Your own bench card is only parsed and compared: it is outside the drafted form.
+    assert 'id="several-own-text"' in page
+    studio_form = page[page.index('<form id="formula-chat-form"'):]
+    studio_form = studio_form[:studio_form.index("</form>")]
+    assert "several-own-text" not in studio_form
+    assert 'request("/v2/workbench/formula-text"' in javascript[javascript.index("// One of Kenny's own bench cards"):]

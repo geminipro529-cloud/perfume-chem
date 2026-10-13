@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import hashlib
 import re
-from dataclasses import dataclass, replace
+from dataclasses import asdict, dataclass, replace
 from datetime import date
 from decimal import ROUND_FLOOR, Decimal, InvalidOperation
 from functools import lru_cache
@@ -155,6 +155,24 @@ class Choice:
     candidate: Candidate
     score: float
     alternatives: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class NoteAnchor:
+    """A note the brief names that a capsule's own roles leave out.
+
+    ``stocks`` are the owned, design-ready stocks that carry the note, best first
+    (empty when none does); ``held`` are owned stocks named for it that still need
+    their details on the Stock page. Shares and caps are the brief facet's own.
+    """
+
+    word: str
+    stocks: tuple[str, ...]
+    note: str
+    function: str
+    share: float
+    max_raw_share: float | None = None
+    held: tuple[str, ...] = ()
 
 
 def _r(
@@ -846,6 +864,69 @@ _SWEET_MARKERS = (
     "chocolate", "caramel", "honey", "praline", "isobutavan",
 )
 
+# The stocks named for a note or for its usual molecules, matched at the start of a
+# stock-name word. An excluded note keeps them all out ("no oud" an agarwood stock,
+# "without sandalwood" Sandalore, "no mossy" an oakmoss stock and Evernyl), and a
+# note a curated capsule leaves out is placed with one of them (brief_self_check).
+# Ionones stay out of "iris": they are violet-woody molecules, not orris.
+_OUD_STOCK_WORDS = ("oud", "oudh", "aoud", "agarwood")
+_SANDALWOOD_STOCK_WORDS = (
+    "sandal", "santal", "sandalore", "sandela", "javanol", "ebanol", "bacdanol",
+    "polysantol", "brahmanol", "firsantol", "radjanol", "mysore",
+)
+_MOSS_STOCK_WORDS = ("moss", "oakmoss", "treemoss", "evernyl", "veramoss")
+_INCENSE_STOCK_WORDS = ("incense", "olibanum", "frankincense", "myrrh")
+_IRIS_STOCK_WORDS = ("iris", "orris", "irone")
+_TONKA_STOCK_WORDS = ("tonka", "coumarin")
+NOTE_STOCK_WORDS: dict[str, tuple[str, ...]] = {
+    "oud": _OUD_STOCK_WORDS,
+    "oudh": _OUD_STOCK_WORDS,
+    "aoud": _OUD_STOCK_WORDS,
+    "agarwood": _OUD_STOCK_WORDS,
+    "sandalwood": _SANDALWOOD_STOCK_WORDS,
+    "sandal": _SANDALWOOD_STOCK_WORDS,
+    "santal": _SANDALWOOD_STOCK_WORDS,
+    "moss": _MOSS_STOCK_WORDS,
+    "mossy": _MOSS_STOCK_WORDS,
+    "oakmoss": _MOSS_STOCK_WORDS,
+    "oak moss": _MOSS_STOCK_WORDS,
+    "treemoss": _MOSS_STOCK_WORDS,
+    "tree moss": _MOSS_STOCK_WORDS,
+    "incense": _INCENSE_STOCK_WORDS,
+    "frankincense": ("olibanum", "frankincense"),
+    "olibanum": ("olibanum", "frankincense"),
+    "iris": _IRIS_STOCK_WORDS,
+    "orris": _IRIS_STOCK_WORDS,
+    "tonka": _TONKA_STOCK_WORDS,
+}
+_MUSK_NOTE_WORDS = frozenset({"musk", "musks", "musky"})
+_AVOID_WRAPPERS = ("any ", "all ", "the ")
+_AVOID_SUFFIXES = (" materials", " material", " notes", " note", " accord")
+
+
+def _avoided_note_word(item: str) -> str:
+    """The note word of an avoid phrase: "any oud material" and "oud notes" are "oud"."""
+    for prefix in _AVOID_WRAPPERS:
+        if item.startswith(prefix):
+            item = item[len(prefix):]
+    for suffix in _AVOID_SUFFIXES:
+        if item.endswith(suffix):
+            item = item[: -len(suffix)]
+    return item.strip()
+
+
+def names_note_stock(candidate: Candidate, note: str) -> bool:
+    """Whether the stock is named for the note or one of its usual molecules (any
+    musk stock for "musk" or "musky")."""
+    word = _avoided_note_word(_key(note))
+    if word in _MUSK_NOTE_WORDS:
+        return _candidate_group(candidate) == "musk"
+    probe = _candidate_identity_probe(candidate)
+    return any(
+        re.search(rf"(?:^| ){re.escape(stock_word)}", probe)
+        for stock_word in NOTE_STOCK_WORDS.get(word, ())
+    )
+
 
 def _avoid_candidate(candidate: Candidate, avoid: Sequence[str]) -> bool:
     probe = _candidate_probe(candidate)
@@ -898,6 +979,8 @@ def _avoid_candidate(candidate: Candidate, avoid: Sequence[str]) -> bool:
             item in {"musk", "musk material", "all musk", "all musk material"}
             and _candidate_group(candidate) == "musk"
         ):
+            return True
+        if names_note_stock(candidate, item):
             return True
         if (
             "material" in item
@@ -1360,6 +1443,61 @@ def _anchor_roles(
             generic_slot=False,
         ))
     return roles
+
+
+def _note_anchor_roles(anchors: Sequence[NoteAnchor]) -> list[RoleSpec]:
+    """One role per named note a capsule leaves out, filled only by a stock that
+    carries the note; a note no owned stock carries gets no role (and the reply
+    says so)."""
+    return [
+        replace(
+            _r(
+                f"named_note_{index + 1}",
+                f"Named note: {anchor.word}",
+                anchor.note,
+                anchor.function,
+                anchor.share,
+                *anchor.stocks,
+                cap=anchor.max_raw_share,
+            ),
+            serves_requested_facet=True,
+            generic_slot=False,
+        )
+        for index, anchor in enumerate(anchors)
+        if anchor.stocks
+    ]
+
+
+def _note_anchor_message(
+    anchors: Sequence[NoteAnchor],
+    rows: Sequence[dict[str, Any]],
+) -> tuple[str, list[str]]:
+    """The reply's sentence on the named notes a capsule had to add, and a hold
+    for each named note no row carries."""
+    placed = {str(row["slot"]): str(row["material"]) for row in rows}
+    added: list[str] = []
+    missing: list[str] = []
+    issues: list[str] = []
+    for index, anchor in enumerate(anchors):
+        material = placed.get(f"named_note_{index + 1}")
+        if material is not None:
+            added.append(f"{anchor.word} ({material})")
+            continue
+        issues.append(f"UNPLACED_REQUESTED_NOTE:{anchor.word}")
+        missing.append(
+            f"{anchor.word}: no usable stock carries it"
+            + (
+                f" ({', '.join(anchor.held)} would once its details are filled in on the Stock page)"
+                if anchor.held
+                else ""
+            )
+        )
+    parts = []
+    if added:
+        parts.append("I added the note(s) you named: " + ", ".join(added) + ".")
+    if missing:
+        parts.append("I could not place " + "; ".join(missing) + ".")
+    return " ".join(parts), issues
 
 
 def _select_choices(
@@ -2667,8 +2805,14 @@ def compose_inventory_formula(
     appeal_mode: str | None = None,
     comparison_evidence: str = "DOCUMENT_ONLY",
     active_bottle_id: str | None = None,
+    named_note_anchors: Sequence[NoteAnchor] = (),
 ) -> dict[str, Any]:
-    """Compile one fast, inventory-grounded perfume design hypothesis."""
+    """Compile one fast, inventory-grounded perfume design hypothesis.
+
+    ``named_note_anchors`` are notes the brief names that the matched concept's
+    own roles leave out (the formula design runtime finds them); each gets a role
+    of its own ahead of the concept's roles.
+    """
 
     clean_idea = _clean(idea)
     if not clean_idea:
@@ -2779,6 +2923,8 @@ def compose_inventory_formula(
         )
         target_count = min(int(max_materials), target_count + uncovered_anchors)
     target_count = max(target_count, len(anchor_roles))
+    note_roles = _note_anchor_roles(named_note_anchors)
+    target_count = min(int(max_materials), target_count + len(note_roles))
     base_roles, variant_roles, repair_actions = _request_specific_roles(
         design_text,
         concept,
@@ -2796,7 +2942,7 @@ def compose_inventory_formula(
         base_roles.extend(variant_roles)
     # Explicit anchors are placed first.  Concept roles already covered by an
     # exact anchor are omitted rather than selecting a redundant second row.
-    roles: list[RoleSpec] = list(anchor_roles)
+    roles: list[RoleSpec] = [*anchor_roles, *note_roles]
     covered_concept_role_ids = {
         role.role_id
         for role in _matched_anchor_roles(explicit_materials, concept)
@@ -2912,6 +3058,11 @@ def compose_inventory_formula(
         "appeal_mode": interpretation["appeal_mode"],
         "inventory_sha256": inventory.effective_inventory_sha256,
         "commercial_reference_registry_sha256": _reference_registry_sha256(),
+        **(
+            {"named_note_anchors": [asdict(anchor) for anchor in named_note_anchors]}
+            if named_note_anchors
+            else {}
+        ),
     }
     formula = {
         "rows": rows,
@@ -2926,6 +3077,8 @@ def compose_inventory_formula(
         ),
     }
     issues = list(holds)
+    note_message, note_issues = _note_anchor_message(named_note_anchors, rows)
+    issues.extend(note_issues)
     composition_limitations = _opaque_composition_limitations(rows, avoid)
     limitations = list(composition_limitations)
     if temporal_hypothesis is not None:
@@ -3076,7 +3229,8 @@ def compose_inventory_formula(
             f"I interpreted {name} as {concept.concept_id.replace('_', ' ') if concept else 'a request-specific perfume'} "
             f"and stopped at {selected_count} nonredundant materials (ceiling {max_materials}). "
             f"{construction_note} "
-            "The formula is an inventory-grounded bench hypothesis; smell it before accepting any claimed improvement."
+            + (f"{note_message} " if note_message else "")
+            + "The formula is an inventory-grounded bench hypothesis; smell it before accepting any claimed improvement."
         ),
         "formula_action": "PROPOSAL_ONLY",
         "next_step": "Review the concise holds, then make the smallest practical pilot if you choose to compound it.",
@@ -3093,4 +3247,4 @@ def compose_inventory_formula(
     return {**report, "design_sha256": stable_payload_hash(report)}
 
 
-__all__ = ["compose_inventory_formula"]
+__all__ = ["NOTE_STOCK_WORDS", "NoteAnchor", "compose_inventory_formula", "names_note_stock"]
