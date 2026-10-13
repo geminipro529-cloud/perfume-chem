@@ -1412,8 +1412,8 @@
   logp: 2.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 2.67
+  vp_source: TGSC_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1437,13 +1437,14 @@
     other: {}
   families: []
   character: null
-  notes: 'VP left null (2026-10-08): only a TGSC estimate exists, not RIFM-quoted: "Vapor Pressure: 0.020000 mmHg @ 25.00 C. (est)" = 2.67 Pa at 133.322 Pa/mmHg (https://www.thegoodscentscompany.com/data/rw1061362.html). Identity: ethyl 6-acetoxyhexanoate; producer is Givaudan per TGSC and Fraterworks. TGSC: "Odor threshold: not reported". Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
+  notes: 'VP left null (2026-10-08): only a TGSC estimate exists, not RIFM-quoted: "Vapor Pressure: 0.020000 mmHg @ 25.00 C. (est)" = 2.67 Pa at 133.322 Pa/mmHg (https://www.thegoodscentscompany.com/data/rw1061362.html). Identity: ethyl 6-acetoxyhexanoate; producer is Givaudan per TGSC and Fraterworks. TGSC: "Odor threshold: not reported". Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 2026-10-13: VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "CAS Number: 104986-28-9" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "Molecular Weight: 202.25026000", calculated from C10H18O4 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     logp: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "logP (o/w): 2.000", database value not marked (est), basis not stated (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     density_25c_g_ml: 'https://www.thegoodscentscompany.com/data/rw1061362.html; supplier range "Specific Gravity: 1.00500 to 1.00900 @ 25.00 C."; midpoint 1.007 x 0.99705 (water at 25 C) = 1.0040 g/mL (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    vp_25c_pa: 'ESTIMATE: TGSC "0.020000 mmHg @ 25.00 C. (est)" x 133.322 Pa/mmHg = 2.67 Pa; https://www.thegoodscentscompany.com/data/rw1061362.html (via material-data-firecrawl/allgaps/S3_fruity_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
 - canonical_name: Beta Caryophyllene
   aliases: []
   cas: null
