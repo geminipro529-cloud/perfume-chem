@@ -1762,6 +1762,44 @@ def test_create_several_polls_stay_under_the_network_rate_limit():
         assert count * 60_000 / interval <= 60  # job polls a minute; main.py allows 120 off this PC
 
 
+def test_create_several_checks_again_only_when_the_job_may_still_finish():
+    cases = _run_create_several(
+        "(s) => ["
+        "s.severalCanCheckAgain(new Error('The app is offline.')),"
+        "s.severalCanCheckAgain(Object.assign(new Error('busy'), {status: 429})),"
+        "s.severalCanCheckAgain(Object.assign(new Error('boom'), {status: 502})),"
+        "s.severalCanCheckAgain(Object.assign(new Error('late'), {jobStillRunning: true})),"
+        "s.severalCanCheckAgain(Object.assign(new Error('worker lost'), {jobEnded: true})),"
+        "s.severalCanCheckAgain(Object.assign(new Error('bad brief'), {status: 422})),"
+        "s.severalCanCheckAgain(Object.assign(new Error('gone'), {status: 404})),"
+        "s.severalCanCheckAgain(null)]"
+    )
+
+    assert cases == [True, True, True, True, False, False, False, False]
+
+
+def test_create_several_status_counts_what_is_composed_waiting_and_failed():
+    texts = _run_create_several(
+        "(s) => ["
+        "s.severalStatusText(['DONE', 'COMPOSING', 'WAITING', 'COMPOSING']),"
+        "s.severalStatusText(['DONE', 'DONE', 'DONE'], {elapsed: '12 s'}),"
+        "s.severalStatusText(['DONE'], {elapsed: '9 s'}),"
+        "s.severalStatusText(['DONE', 'WAITING', 'FAILED', 'DONE'], {elapsed: '40 s', skipped: '1 repeated'}),"
+        "s.severalStatusText(['WAITING', 'WAITING']),"
+        "s.severalStatusText(['FAILED', 'FAILED'])]"
+    )
+
+    assert texts == [
+        "Composed 1 of 4. 1 may still finish: press Check again on its card.",
+        "Composed 3 perfumes in 12 s.",
+        "Composed 1 perfume in 9 s.",
+        "Composed 2 of 4 perfumes in 40 s. 1 may still finish: press Check again on its card. "
+        "1 was not composed. Skipped 1 repeated.",
+        "Composed 0 of 2 perfumes. 2 may still finish: press Check again on their cards.",
+        "Composed 0 of 2 perfumes. 2 were not composed.",
+    ]
+
+
 def _several_result():
     rows = [
         {"identity_name": "Gamma Nonalactone", "amount_decimal": "120", "amount_unit": "uL"},
@@ -1879,3 +1917,11 @@ def test_create_several_is_wired_into_the_formula_studio_without_innerhtml():
     assert "innerHTML" not in block
     assert 'request("/v2/engine-jobs"' in block
     assert "severalJobRequest(" in block
+    # Check again polls the card's own job, or resends its request with the same
+    # idempotency key, so it never starts a second compose of the same idea.
+    assert "Check again" in block
+    assert "severalCanCheckAgain(" in block
+    assert "JSON.stringify(card.jobRequest)" in block
+    assert block.count("newRequestId(") == 1
+    waiter = javascript[javascript.index("async function waitForEngineJob"):javascript.index("async function pollEngineJob")]
+    assert "jobEnded = true" in waiter

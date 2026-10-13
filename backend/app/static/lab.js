@@ -1085,7 +1085,9 @@ async function waitForEngineJob(jobId, { area, intervalMs = 1000, signal, stillR
         const reason = engineJobFailureText(snapshot);
         progress.textContent = reason;
         area.replaceChildren(progress);
-        throw new Error(reason);
+        const failed = new Error(reason);
+        failed.jobEnded = true;
+        throw failed;
       }
       area.replaceChildren();
       return snapshot;
@@ -2291,7 +2293,14 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
 $("#formula-chat-reset").addEventListener("click", () => resetFormulaChat());
 
 // Create several: one engine job per idea (create-several.js holds the pure rules).
-const several = { cards: [] };
+const several = { cards: [], skipped: "" };
+
+function updateSeveralStatus(elapsed = "") {
+  $("#several-status").textContent = severalStatusText(
+    several.cards.map((card) => card.state),
+    { elapsed, skipped: several.skipped },
+  );
+}
 
 function severalTickedCards() {
   return several.cards.filter((card) => card.result && card.checkbox.checked);
@@ -2301,7 +2310,7 @@ function updateSeveralCompareButton() {
   $("#several-compare-button").disabled = severalTickedCards().length !== 2;
 }
 
-function severalCardShell(brief) {
+function severalCardShell(brief, jobRequest) {
   const element = document.createElement("article");
   element.className = "several-card";
   const head = document.createElement("div");
@@ -2322,9 +2331,37 @@ function severalCardShell(brief) {
   body.className = "several-card-body";
   element.append(head, progress, body);
   $("#several-cards").append(element);
-  const card = { brief, element, checkbox, progress, body, result: null };
+  // jobRequest keeps its idempotency key, so sending it again finds the same job.
+  const card = { brief, jobRequest, jobId: null, state: "COMPOSING", element, checkbox, progress, body, result: null };
   several.cards.push(card);
   return card;
+}
+
+// Submits the card's job unless the server already gave it an id, then polls it.
+async function composeSeveralCard(card) {
+  card.state = "COMPOSING";
+  try {
+    if (!card.jobId) {
+      const submitted = await request("/v2/engine-jobs", { method: "POST", body: JSON.stringify(card.jobRequest) });
+      card.jobId = submitted.id;
+    }
+    const completed = await waitForEngineJob(card.jobId, {
+      area: card.progress,
+      intervalMs: severalPollIntervalMs(several.cards.length),
+      stillRunningMessage: "still composing after the job's time limit",
+    });
+    const result = completed.result?.result?.result?.formula_design;
+    if (!result) {
+      const ended = new Error(completed.events?.at(-1)?.reason || `the job ended as ${completed.state}`);
+      ended.jobEnded = true;
+      throw ended;
+    }
+    fillSeveralCard(card, result);
+    card.state = "DONE";
+  } catch (error) {
+    card.state = severalCanCheckAgain(error) ? "WAITING" : "FAILED";
+    failSeveralCard(card, error.message);
+  }
 }
 
 function openSeveralInStudio(card) {
@@ -2403,9 +2440,29 @@ function fillSeveralCard(card, result) {
 function failSeveralCard(card, message) {
   card.progress.replaceChildren();
   const text = document.createElement("p");
-  text.className = "several-line status-fail";
-  text.textContent = `Not composed: ${message}`;
-  card.body.replaceChildren(text);
+  if (card.state !== "WAITING") {
+    text.className = "several-line status-fail";
+    text.textContent = `Not composed: ${message}`;
+    card.body.replaceChildren(text);
+    return;
+  }
+  text.className = "several-line status-hold";
+  text.textContent = `Not collected yet: ${message}`;
+  const actions = document.createElement("div");
+  actions.className = "request-actions";
+  const again = document.createElement("button");
+  again.type = "button";
+  again.className = "quiet-button";
+  again.textContent = "Check again";
+  again.addEventListener("click", async () => {
+    again.disabled = true;
+    card.body.replaceChildren();
+    await composeSeveralCard(card);
+    // A new batch replaces the cards; this one then no longer counts.
+    if (several.cards.includes(card)) updateSeveralStatus();
+  });
+  actions.append(again);
+  card.body.replaceChildren(text, actions);
 }
 
 $("#several-form").addEventListener("submit", async (event) => {
@@ -2426,40 +2483,21 @@ $("#several-form").addEventListener("submit", async (event) => {
   compare.hidden = true;
   compare.replaceChildren();
   updateSeveralCompareButton();
-  const skipped = [
+  several.skipped = [
     repeated ? `${repeated} repeated` : "",
     over ? `${over} over the limit of ${SEVERAL_MAX_BRIEFS}` : "",
   ].filter(Boolean).join(" and ");
   const startedAt = Date.now();
-  let finished = 0;
   const plural = briefs.length === 1 ? "" : "s";
-  status.textContent = `Composing ${briefs.length} perfume${plural}.${skipped ? ` Skipped ${skipped}.` : ""}`;
-  await Promise.all(briefs.map(async (brief) => {
-    const card = severalCardShell(brief);
-    try {
-      const submitted = await request("/v2/engine-jobs", {
-        method: "POST",
-        body: JSON.stringify(severalJobRequest(brief, data.several_mode, newRequestId("job"), {
-          liquid_concentrate_ul_decimal: data.liquid_concentrate_ul_decimal,
-        })),
-      });
-      const completed = await waitForEngineJob(submitted.id, {
-        area: card.progress,
-        intervalMs: severalPollIntervalMs(briefs.length),
-        stillRunningMessage: "still composing after the job's time limit; create this idea again later to collect it",
-      });
-      const result = completed.result?.result?.result?.formula_design;
-      if (!result) throw new Error(completed.events?.at(-1)?.reason || `the job ended as ${completed.state}`);
-      fillSeveralCard(card, result);
-    } catch (error) {
-      failSeveralCard(card, error.message);
-    } finally {
-      finished += 1;
-      status.textContent = finished < briefs.length
-        ? `Composed ${finished} of ${briefs.length}.`
-        : `Composed ${briefs.length} perfume${plural} in ${formatElapsed(Date.now() - startedAt)}.${skipped ? ` Skipped ${skipped}.` : ""}`;
-    }
+  status.textContent = `Composing ${briefs.length} perfume${plural}.${several.skipped ? ` Skipped ${several.skipped}.` : ""}`;
+  const cards = briefs.map((brief) => severalCardShell(brief, severalJobRequest(brief, data.several_mode, newRequestId("job"), {
+    liquid_concentrate_ul_decimal: data.liquid_concentrate_ul_decimal,
+  })));
+  await Promise.all(cards.map(async (card) => {
+    await composeSeveralCard(card);
+    if (several.cards.includes(card)) updateSeveralStatus();
   }));
+  if (cards.every((card) => several.cards.includes(card))) updateSeveralStatus(formatElapsed(Date.now() - startedAt));
   submit.disabled = false;
   notify(`Create several finished: ${briefs.length} idea${plural}.`);
 });

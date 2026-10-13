@@ -62,6 +62,45 @@ function severalJobRequest(brief, mode, requestId, options = {}) {
   };
 }
 
+// A card whose job may still finish offers "Check again", which asks the server for the
+// same job instead of composing anew: the poll lost the network or the app was busy
+// (no answer, 429, 5xx), or the job ran past its time limit. A job that ended (failed,
+// withheld or cancelled) or a request the server refused (4xx) gets nothing from a
+// second look: the server hands the same request the same job.
+function severalCanCheckAgain(error) {
+  if (!error || error.jobEnded) return false;
+  if (error.jobStillRunning) return true;
+  const status = Number(error.status) || 0;
+  return status === 0 || status === 429 || status >= 500;
+}
+
+// states: one per card, COMPOSING, DONE, WAITING (it offers Check again) or FAILED.
+// elapsed: the batch's time in words, once every card has settled the first time.
+function severalStatusText(states, { elapsed = "", skipped = "" } = {}) {
+  const count = (state) => states.filter((value) => value === state).length;
+  const total = states.length;
+  const done = count("DONE");
+  const waiting = count("WAITING");
+  const failed = count("FAILED");
+  const parts = [];
+  if (count("COMPOSING")) {
+    parts.push(`Composed ${done} of ${total}.`);
+  } else {
+    const took = elapsed ? ` in ${elapsed}` : "";
+    parts.push(done === total
+      ? `Composed ${total} perfume${total === 1 ? "" : "s"}${took}.`
+      : `Composed ${done} of ${total} perfumes${took}.`);
+  }
+  if (waiting) {
+    parts.push(waiting === 1
+      ? "1 may still finish: press Check again on its card."
+      : `${waiting} may still finish: press Check again on their cards.`);
+  }
+  if (failed) parts.push(`${failed} ${failed === 1 ? "was" : "were"} not composed.`);
+  if (skipped) parts.push(`Skipped ${skipped}.`);
+  return parts.join(" ");
+}
+
 // The yardstick's floors (engine_job_executor._design_scorecards), in card order.
 const SEVERAL_FLOOR_LABELS = [
   ["F1_owned_stock", "Stock"],
@@ -203,6 +242,8 @@ if (typeof module === "object" && module.exports) {
     parseSeveralBriefs,
     severalPollIntervalMs,
     severalJobRequest,
+    severalCanCheckAgain,
+    severalStatusText,
     severalCardSummary,
     severalFloorChips,
     severalCompareRows,
