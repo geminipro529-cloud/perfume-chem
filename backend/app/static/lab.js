@@ -2289,6 +2289,210 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
 
 $("#formula-chat-reset").addEventListener("click", () => resetFormulaChat());
 
+// Create several: one engine job per idea (create-several.js holds the pure rules).
+const several = { cards: [] };
+
+function severalTickedCards() {
+  return several.cards.filter((card) => card.result && card.checkbox.checked);
+}
+
+function updateSeveralCompareButton() {
+  $("#several-compare-button").disabled = severalTickedCards().length !== 2;
+}
+
+function severalCardShell(brief) {
+  const element = document.createElement("article");
+  element.className = "several-card";
+  const head = document.createElement("div");
+  head.className = "several-card-head";
+  const title = document.createElement("h3");
+  title.textContent = brief;
+  const pick = document.createElement("label");
+  pick.className = "several-pick";
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.disabled = true;
+  checkbox.addEventListener("change", updateSeveralCompareButton);
+  pick.append(checkbox, document.createTextNode(" Compare"));
+  head.append(title, pick);
+  const progress = document.createElement("div");
+  progress.className = "engine-job-status";
+  const body = document.createElement("div");
+  body.className = "several-card-body";
+  element.append(head, progress, body);
+  $("#several-cards").append(element);
+  const card = { brief, element, checkbox, progress, body, result: null };
+  several.cards.push(card);
+  return card;
+}
+
+function openSeveralInStudio(card) {
+  const result = card.result;
+  resetFormulaChat(false);
+  state.formulaChat.messages.push(card.brief);
+  appendFormulaChatBubble("user", card.brief);
+  appendFormulaChatBubble("assistant", result.assistant_message || "Here is the formula from Create several.");
+  renderFormulaDesign(result);
+  state.formulaChat.designedAt = new Date().toISOString();
+  const form = $("#formula-chat-form");
+  if (result.formula_name) $('[name="formula_name"]', form).value = result.formula_name;
+  $("#formula-chat-submit").textContent = "Refine this formula";
+  scheduleDraftSave("create");
+  $("#formula-chat-result").scrollIntoView({ behavior: "smooth", block: "start" });
+  notify(`${result.formula_name || "The formula"} is open in the studio.`);
+}
+
+function fillSeveralCard(card, result) {
+  card.result = result;
+  const summary = severalCardSummary(result);
+  card.progress.replaceChildren();
+  const name = document.createElement("p");
+  name.className = "several-name";
+  name.textContent = summary.name;
+  const facts = document.createElement("p");
+  facts.className = "field-help";
+  const more = summary.alternatives
+    ? ` · ${summary.alternatives} more alternative${summary.alternatives === 1 ? "" : "s"} in the studio`
+    : "";
+  facts.textContent = summary.hasFormula
+    ? `${summary.materials} materials · ${summary.totalUl.toLocaleString()} µL${more}`
+    : "No formula yet";
+  const lines = document.createElement("ul");
+  lines.className = "several-lines";
+  for (const line of summary.lines) {
+    const item = document.createElement("li");
+    item.className = `several-line status-${String(line.status || "info").toLowerCase()}`;
+    item.textContent = line.text;
+    lines.append(item);
+  }
+  const actions = document.createElement("div");
+  actions.className = "request-actions";
+  if (summary.hasFormula) {
+    const open = document.createElement("button");
+    open.type = "button";
+    open.className = "quiet-button";
+    open.textContent = "Open in the studio";
+    open.addEventListener("click", () => {
+      // The studio keeps one formula; replacing a different one takes a second click.
+      const current = state.formulaChat.result;
+      if (current && current !== result && open.dataset.confirm !== "1") {
+        open.dataset.confirm = "1";
+        open.textContent = "Replace the studio's formula?";
+        return;
+      }
+      delete open.dataset.confirm;
+      open.textContent = "Open in the studio";
+      openSeveralInStudio(card);
+    });
+    actions.append(open);
+    card.checkbox.disabled = false;
+  }
+  card.body.replaceChildren(name, facts, lines, actions);
+}
+
+function failSeveralCard(card, message) {
+  card.progress.replaceChildren();
+  const text = document.createElement("p");
+  text.className = "several-line status-fail";
+  text.textContent = `Not composed: ${message}`;
+  card.body.replaceChildren(text);
+}
+
+$("#several-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const data = formData(form);
+  const status = $("#several-status");
+  const { briefs, repeated, over } = parseSeveralBriefs(data.briefs);
+  if (!briefs.length) {
+    status.textContent = "Write at least one idea, one per line.";
+    return;
+  }
+  const submit = $("#several-submit");
+  submit.disabled = true;
+  several.cards = [];
+  $("#several-cards").replaceChildren();
+  const compare = $("#several-compare");
+  compare.hidden = true;
+  compare.replaceChildren();
+  updateSeveralCompareButton();
+  const skipped = [
+    repeated ? `${repeated} repeated` : "",
+    over ? `${over} over the limit of ${SEVERAL_MAX_BRIEFS}` : "",
+  ].filter(Boolean).join(" and ");
+  const startedAt = Date.now();
+  let finished = 0;
+  const plural = briefs.length === 1 ? "" : "s";
+  status.textContent = `Composing ${briefs.length} perfume${plural}.${skipped ? ` Skipped ${skipped}.` : ""}`;
+  await Promise.all(briefs.map(async (brief) => {
+    const card = severalCardShell(brief);
+    try {
+      const submitted = await request("/v2/engine-jobs", {
+        method: "POST",
+        body: JSON.stringify(severalJobRequest(brief, data.several_mode, newRequestId("job"), {
+          liquid_concentrate_ul_decimal: data.liquid_concentrate_ul_decimal,
+        })),
+      });
+      const completed = await waitForEngineJob(submitted.id, {
+        area: card.progress,
+        intervalMs: severalPollIntervalMs(briefs.length),
+        stillRunningMessage: "still composing after the job's time limit; create this idea again later to collect it",
+      });
+      const result = completed.result?.result?.result?.formula_design;
+      if (!result) throw new Error(completed.events?.at(-1)?.reason || `the job ended as ${completed.state}`);
+      fillSeveralCard(card, result);
+    } catch (error) {
+      failSeveralCard(card, error.message);
+    } finally {
+      finished += 1;
+      status.textContent = finished < briefs.length
+        ? `Composed ${finished} of ${briefs.length}.`
+        : `Composed ${briefs.length} perfume${plural} in ${formatElapsed(Date.now() - startedAt)}.${skipped ? ` Skipped ${skipped}.` : ""}`;
+    }
+  }));
+  submit.disabled = false;
+  notify(`Create several finished: ${briefs.length} idea${plural}.`);
+});
+
+$("#several-compare-button").addEventListener("click", () => {
+  const [first, second] = severalTickedCards();
+  if (!first || !second) return;
+  const nameOf = (card) => card.result.formula_name || card.brief;
+  const table = document.createElement("table");
+  table.className = "several-compare-table";
+  const head = document.createElement("tr");
+  for (const label of ["Material", nameOf(first), nameOf(second)]) {
+    const cell = document.createElement("th");
+    cell.scope = "col";
+    cell.textContent = label;
+    head.append(cell);
+  }
+  const thead = document.createElement("thead");
+  thead.append(head);
+  const tbody = document.createElement("tbody");
+  const rows = severalCompareRows(first.result, second.result);
+  for (const row of rows) {
+    const line = document.createElement("tr");
+    line.className = row.shared ? "is-shared" : "is-single";
+    const amount = (value) => (value ? `${value.toLocaleString()} ${row.unit}` : "—");
+    for (const value of [row.material, amount(row.a), amount(row.b)]) {
+      const cell = document.createElement("td");
+      cell.textContent = value;
+      line.append(cell);
+    }
+    tbody.append(line);
+  }
+  table.append(thead, tbody);
+  const shared = rows.filter((row) => row.shared).length;
+  const heading = document.createElement("p");
+  heading.className = "field-help";
+  heading.textContent = `${shared} material${shared === 1 ? "" : "s"} in both, ${rows.length - shared} in only one.`;
+  const area = $("#several-compare");
+  area.hidden = false;
+  area.replaceChildren(heading, table);
+  area.scrollIntoView({ behavior: "smooth", block: "nearest" });
+});
+
 $("#formula-download").addEventListener("click", () => {
   const result = state.formulaChat.result;
   if (!result) return;

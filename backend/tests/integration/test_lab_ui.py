@@ -12,6 +12,9 @@ STOCK_DILUTIONS_JS = (
     Path(__file__).resolve().parents[2] / "app" / "static" / "stock-dilutions.js"
 )
 COMPOSITION_CHECKS_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "composition-checks.js"
+CREATE_SEVERAL_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "create-several.js"
+LAB_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "lab.js"
+INDEX_HTML = Path(__file__).resolve().parents[2] / "app" / "static" / "index.html"
 
 
 @pytest.mark.asyncio
@@ -1704,3 +1707,130 @@ async def test_scent_chart_script_groups_the_svg_and_guards_missing_series(clien
 
     assert 'role: "group"' in script and 'role: "img"' not in script
     assert "?.shares[i] ?? 0" in script
+
+
+def _run_create_several(script):
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("node is not installed; the Create several rules test needs it")
+    program = (
+        f"global.compositionCheckLines = require({json.dumps(str(COMPOSITION_CHECKS_JS))}).compositionCheckLines;\n"
+        f"const several = require({json.dumps(str(CREATE_SEVERAL_JS))});\n"
+        f"process.stdout.write(JSON.stringify(({script})(several)));"
+    )
+    completed = subprocess.run([node, "-e", program], capture_output=True, text=True, encoding="utf-8", timeout=60, check=True)
+    return json.loads(completed.stdout)
+
+
+def test_create_several_reads_one_idea_per_line_without_repeats():
+    text = "Cold mineral lavender\r\n\n  Ripe pineapple   over coconut  \ncold MINERAL lavender\n" + "\n".join(f"idea {n}" for n in range(9))
+    parsed = _run_create_several(f"(s) => s.parseSeveralBriefs({json.dumps(text)})")
+
+    assert parsed["briefs"][:2] == ["Cold mineral lavender", "Ripe pineapple over coconut"]
+    assert len(parsed["briefs"]) == 8
+    assert parsed["repeated"] == 1
+    assert parsed["over"] == 3
+    assert _run_create_several("(s) => s.parseSeveralBriefs('  \\n ')") == {"briefs": [], "repeated": 0, "over": 0}
+
+
+def test_create_several_sends_each_idea_as_its_own_formula_design_job():
+    result = _run_create_several(
+        "(s) => ["
+        "s.severalJobRequest('Ripe pineapple', 'QUICK', 'job-1', {liquid_concentrate_ul_decimal: '4500'}),"
+        "s.severalJobRequest('Dark leather', 'BEST_OF_3', 'job-2'),"
+        "s.severalJobRequest('Dark leather', 'SOMETHING_ELSE', 'job-3')]"
+    )
+    quick, best, unknown = result
+
+    assert quick["job_type"] == "FORMULA_DESIGN"
+    assert quick["idempotency_key"] == "job-1"
+    assert quick["payload"]["message"] == "Ripe pineapple"
+    assert quick["payload"]["liquid_concentrate_ul_decimal"] == "4500"
+    assert (quick["payload"]["design_mode"], quick["payload"]["variant_count"]) == ("FAST_SKETCH", 1)
+    assert (best["payload"]["design_mode"], best["payload"]["variant_count"]) == ("DEEP_COMPOSE", 3)
+    assert best["payload"]["liquid_concentrate_ul_decimal"] == "6000"
+    assert (unknown["payload"]["design_mode"], unknown["payload"]["variant_count"]) == ("FAST_SKETCH", 1)
+    assert quick["payload"]["conversation_context"] == [] and quick["payload"]["previous_stock_ids"] == []
+
+
+def test_create_several_polls_stay_under_the_network_rate_limit():
+    intervals = _run_create_several("(s) => [1, 2, 4, 8].map((n) => s.severalPollIntervalMs(n))")
+
+    assert intervals == [1000, 2000, 4000, 8000]
+    for count, interval in zip([1, 2, 4, 8], intervals):
+        assert count * 60_000 / interval <= 60  # job polls a minute; main.py allows 120 off this PC
+
+
+def _several_result():
+    rows = [
+        {"identity_name": "Gamma Nonalactone", "amount_decimal": "120", "amount_unit": "uL"},
+        {"identity_name": "Ethyl Vanillin", "amount_decimal": "40", "amount_unit": "mg"},
+        {"identity_name": "Iso E Super", "amount_decimal": "900.4", "amount_unit": "uL"},
+    ]
+    return {
+        "formula_name": "Coconut Cream",
+        "assistant_message": "Made it.",
+        "design_variants": [
+            {"variant_id": "v1", "formula": {"rows": rows}, "composition_checks": {"basis": "", "checks": [
+                {"check": "ifra", "status": "FAIL", "message": "Coumarin at 1.2 % is over the limit. To clear: lower it."},
+            ], "unchecked_rows": []}},
+            {"variant_id": "v2", "formula": {"rows": rows[:1]}},
+            {"variant_id": "v3", "duplicate_of_variant_id": "v1", "formula": None},
+        ],
+        "composition_plan": {"brief_self_check": {"check": {"word_coverage": 0.6667, "uncovered_words": ["rum"]}}},
+    }
+
+
+def test_create_several_card_summarises_the_primary_formula_and_its_checks():
+    summary = _run_create_several(f"(s) => s.severalCardSummary({json.dumps(_several_result())})")
+
+    assert summary["hasFormula"] is True
+    assert summary["name"] == "Coconut Cream"
+    assert summary["materials"] == 3
+    assert summary["totalUl"] == 1020  # 120 + 900.4 uL; the weighed mg row is not a volume
+    assert summary["alternatives"] == 1  # the duplicate alternative is not counted
+    assert summary["lines"] == [
+        {"status": "HOLD", "text": "Brief words a stock names: 67%. Not named by any stock: rum"},
+        {"status": "FAIL", "text": "IFRA: Coumarin at 1.2 % is over the limit."},
+    ]
+
+
+def test_create_several_card_says_why_there_is_no_formula():
+    empty = {"formula_name": None, "assistant_message": "Which citrus do you mean?", "design_variants": []}
+    summary = _run_create_several(f"(s) => s.severalCardSummary({json.dumps(empty)})")
+
+    assert summary["hasFormula"] is False
+    assert summary["lines"] == [{"status": "HOLD", "text": "Which citrus do you mean?"}]
+    assert summary["materials"] == 0
+
+
+def test_create_several_compares_two_formulas_material_by_material():
+    other = {"design_variants": [{"formula": {"rows": [
+        {"identity_name": "Iso E Super", "amount_decimal": "300", "amount_unit": "uL"},
+        {"identity_name": "Hedione", "amount_decimal": "1500", "amount_unit": "uL"},
+    ]}}]}
+    rows = _run_create_several(
+        f"(s) => s.severalCompareRows({json.dumps(_several_result())}, {json.dumps(other)})"
+    )
+
+    assert rows == [
+        {"material": "Hedione", "unit": "µL", "a": 0, "b": 1500, "shared": False},
+        {"material": "Iso E Super", "unit": "µL", "a": 900, "b": 300, "shared": True},
+        {"material": "Gamma Nonalactone", "unit": "µL", "a": 120, "b": 0, "shared": False},
+        {"material": "Ethyl Vanillin", "unit": "mg", "a": 40, "b": 0, "shared": False},
+    ]
+
+
+def test_create_several_is_wired_into_the_formula_studio_without_innerhtml():
+    page = INDEX_HTML.read_text(encoding="utf-8")
+    javascript = LAB_JS.read_text(encoding="utf-8")
+
+    assert 'id="several-form"' in page
+    assert 'id="several-cards"' in page
+    assert page.index("/static/composition-checks.js") < page.index("/static/create-several.js") < page.index("/static/lab.js")
+    start = javascript.index("// Create several:")
+    end = javascript.index('$("#several-compare-button").addEventListener')
+    block = javascript[start:javascript.index("\n});", end)]
+    assert "innerHTML" not in block
+    assert 'request("/v2/engine-jobs"' in block
+    assert "severalJobRequest(" in block
