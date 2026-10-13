@@ -14,7 +14,7 @@ from engine.formulation_intelligence.architecture_bridge import (
     derive_architecture_briefs,
     role_plan_signature,
 )
-from engine.formulation_intelligence.brief_self_check import best_of_solves
+from engine.formulation_intelligence.brief_self_check import best_of_solves, capsule_note_gaps
 from engine.formulation_intelligence.composition_checks import attach_composition_checks
 from engine.formulation_intelligence.detection_pass import attach_detection_checks
 from engine.formulation_intelligence.formula_critic import critique_formula
@@ -766,15 +766,17 @@ def design_formula(
         profile.startswith(("iris_", "violet_"))
         for profile in brief.knowledge_context.get("profile_ids", ())
     )
-    if not specific_iris_violet and design_mode == "FAST_SKETCH" and curated_concept is not None and _curated_concept_is_applicable(
+    # A capsule has at least six roles, so a brief that asks for fewer materials
+    # goes to the solver, and every capsule keeps the brief's own ceiling.
+    if not specific_iris_violet and design_mode == "FAST_SKETCH" and curated_concept is not None and effective_maximum >= 6 and _curated_concept_is_applicable(
         curated_concept.concept_id,
         design_text,
     ):
-        curated = compose_inventory_formula(
+        curated_args: dict[str, Any] = dict(
             idea=clean_idea,
             formula_name=name,
             liquid_concentrate_ul_decimal=str(liquid_total_ul),
-            max_materials=maximum,
+            max_materials=effective_maximum,
             must_preserve=must_preserve,
             must_avoid=must_avoid,
             previous_stock_ids=previous_stock_ids,
@@ -784,6 +786,24 @@ def design_formula(
             comparison_evidence=comparison_evidence,
             active_bottle_id=active_bottle_id,
         )
+        curated = compose_inventory_formula(**curated_args)
+        # The capsule fills its own roles; a note the brief names that none of
+        # them carries ("an oud and incense skin scent") gets a role of its own.
+        by_stock = {capability.stock_id: capability for capability in initial_index.capabilities}
+        placed = [
+            by_stock[str(row.get("stock_id"))]
+            for row in (curated.get("optimized_formula") or {}).get("rows", ())
+            if str(row.get("stock_id")) in by_stock
+        ]
+        gaps = capsule_note_gaps(
+            brief,
+            placed,
+            initial_index,
+            tuple(dict.fromkeys((*must_avoid, *interpretation.get("must_avoid", ())))),
+            concept_words=curated_concept.triggers,
+        ) if placed else ()
+        if gaps:
+            curated = compose_inventory_formula(**curated_args, named_note_anchors=gaps)
         return _with_runtime_metadata(curated, brief=brief, design_mode=design_mode)
 
     explicit = tuple(interpretation.get("explicit_materials", ()))

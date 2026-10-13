@@ -543,6 +543,12 @@
             <p id="several-status" class="field-help" role="status" aria-live="polite"></p>
           </form>
           <div id="several-cards" class="several-cards" aria-live="polite"></div>
+          <details id="several-own" class="several-own">
+            <summary>Compare a card with one of your own bench cards</summary>
+            <label>Your bench card <span>paste the whole card or its table; it is read for this comparison only and is not saved</span><textarea id="several-own-text" rows="5" maxlength="200000"></textarea></label>
+            <div class="request-actions"><button id="several-own-compare" class="quiet-button" type="button" disabled>Compare with the ticked card</button></div>
+            <p id="several-own-status" class="field-help" role="status" aria-live="polite"></p>
+          </details>
           <div id="several-compare" class="several-compare" hidden></div>
         </section>
 
