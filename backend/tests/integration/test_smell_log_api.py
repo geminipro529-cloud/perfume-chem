@@ -191,3 +191,183 @@ async def test_rows_come_from_the_bottles_formula_version_in_position_order(clie
     assert with_formula.json()["rows"] == ["Hedione", "Orris Butter"]
     assert without_formula.json()["rows"] == []
     assert without_formula.json()["entries"] == []
+
+
+async def _stock(client, name, *, active_fraction=1.0, density_g_ml=None):
+    material = await client.post(f"{API}/materials", json={"canonical_name": name})
+    stock = await client.post(
+        f"{API}/stocks",
+        json={
+            "material_id": material.json()["id"],
+            "active_fraction": active_fraction,
+            "fraction_basis": "mass_fraction",
+            "initial_mass_g": 5.0,
+            "density_g_ml": density_g_ml,
+        },
+    )
+    assert stock.status_code == 201, stock.text
+    return stock.json()["id"]
+
+
+async def _formula_bottle(client, db_session, components):
+    formula = await client.post(f"{API}/formulas", json={"name": "Lavender study"})
+    version = await client.post(
+        f"{API}/formulas/{formula.json()['id']}/versions",
+        json={"brief": {}, "constraints": {}, "components": components},
+    )
+    assert version.status_code == 201, version.text
+    batch = LabBatch(formula_version_id=version.json()["id"], batch_code="smell-compare-batch")
+    db_session.add(batch)
+    await db_session.flush()
+    bottle = LabBottle(label="Lavender bottle", batch_id=batch.id)
+    db_session.add(bottle)
+    await db_session.commit()
+    return bottle.id
+
+
+async def _log(client, bottle_id, **body):
+    response = await client.post(f"{API}/bottles/{bottle_id}/smell-log", json=body)
+    assert response.status_code == 201, response.text
+
+
+@pytest.mark.asyncio
+async def test_comparison_puts_the_models_leaders_beside_what_was_smelled(client, db_session):
+    from app.services.scent_curve import ScentCurveRow, compute_scent_curve
+
+    linalool = await _stock(client, "Linalool")
+    hedione = await _stock(client, "Hedione", active_fraction=0.5)
+    lavender = await _stock(client, "Lavender EO")
+    iso = await _stock(client, "Iso E Super", density_g_ml=0.96)
+    no_amount = await _stock(client, "Orris Butter")
+    unknown = await _stock(client, "Zzz Unknown Material")
+    bottle_id = await _formula_bottle(
+        client,
+        db_session,
+        [
+            {"stock_solution_id": linalool, "requested_mass_g": 0.7, "requested_volume_ul": 800},
+            {"stock_solution_id": hedione, "requested_mass_g": 0.9, "requested_volume_ul": 900},
+            {"stock_solution_id": lavender, "requested_mass_g": 0.45, "requested_volume_ul": 500},
+            {"stock_solution_id": iso, "requested_mass_g": 0.576},
+            {"stock_solution_id": no_amount, "requested_mass_g": 0.1},
+            {"stock_solution_id": unknown, "requested_mass_g": 0.05, "requested_volume_ul": 50},
+        ],
+    )
+    await _log(client, bottle_id, window="strip_10m", leads=["Linalool", "Hedione"], weak=["Iso E Super"], liking=6)
+    await _log(client, bottle_id, window="strip_10m", leads=["linalool"], liking=9)
+    await _log(client, bottle_id, window="strip_3h", leads=["Orris Butter"], words="powdery")
+    await _log(client, bottle_id, window="skin_day1", leads=["Iso E Super"], liking=8)
+
+    response = await client.get(f"{API}/bottles/{bottle_id}/smell-log/comparison")
+
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["available"] is True
+    assert "detection screen" in body["basis"]
+    assert body["not_modelled"] == [
+        {"name": "Orris Butter", "reason": "no volume, and no stock density to convert its mass"},
+        {"name": "Zzz Unknown Material", "reason": "the model has no odour data for it"},
+    ]
+    assert [w["window"] for w in body["windows"]] == ["strip_10m", "strip_3h", "skin_day1"]
+    rows = [
+        ScentCurveRow(identity_name="Linalool", amount_ul=800, stock_fraction=1),
+        ScentCurveRow(identity_name="Hedione", amount_ul=900, stock_fraction=0.5),
+        ScentCurveRow(identity_name="Lavender EO", amount_ul=500, stock_fraction=1),
+        ScentCurveRow(identity_name="Iso E Super", amount_ul=600, stock_fraction=1),
+        ScentCurveRow(identity_name="Zzz Unknown Material", amount_ul=50, stock_fraction=1),
+    ]
+    expected = {
+        frame["label"]: frame["top"]
+        for frame in compute_scent_curve(rows, [("strip_10m", 600.0), ("strip_3h", 10800.0)])["windows"]
+    }
+
+    ten, three, day1 = body["windows"]
+    assert ten["model_in_range"] is True
+    assert ten["model_time_label"] == "10 min"
+    assert ten["model_top"] == expected["strip_10m"] and 1 <= len(ten["model_top"]) <= 3
+    assert ten["n_entries"] == 2
+    assert ten["liking_mean"] == 7.5
+    assert {item["name"]: item["count"] for item in ten["you_leads"]} == {"Linalool": 2, "Hedione": 1}
+    assert ten["you_leads"][0] == {"name": "Linalool", "count": 2}
+    assert ten["you_weak"] == [{"name": "Iso E Super", "count": 1}]
+    top = ten["model_top"]
+    assert ten["agreement"] == {
+        "leads_the_model_also_had_on_top": [n for n in top if n in {"Linalool", "Hedione"}],
+        "model_top_you_did_not_mark_leading": [n for n in top if n not in {"Linalool", "Hedione"}],
+        "you_marked_weak_but_model_had_on_top": [n for n in top if n == "Iso E Super"],
+        "leads_the_model_did_not_have_on_top": [n for n in ["Linalool", "Hedione"] if n not in top],
+    }
+    assert three["model_time_label"] == "3 h"
+    assert three["model_top"] == expected["strip_3h"]
+    assert three["liking_mean"] is None
+    assert three["agreement"]["leads_the_model_did_not_have_on_top"] == ["Orris Butter"]
+    assert day1["model_in_range"] is False
+    assert day1["model_time_label"] is None
+    assert day1["model_top"] == []
+    assert day1["agreement"] is None
+    assert day1["model_note"] == (
+        "Beyond the model's range: its time curve stops at 4 h, so it says nothing about skin day 1."
+    )
+    assert day1["you_leads"] == [{"name": "Iso E Super", "count": 1}]
+    assert day1["liking_mean"] == 8
+
+
+@pytest.mark.asyncio
+async def test_comparison_without_a_batch_is_unavailable_with_a_plain_reason(client):
+    bottle_id = await _bottle(client, "Loose bottle")
+    await _log(client, bottle_id, window="strip_1h", leads=["Iris"])
+
+    response = await client.get(f"{API}/bottles/{bottle_id}/smell-log/comparison")
+    missing = await client.get(f"{API}/bottles/nope/smell-log/comparison")
+
+    assert response.status_code == 200
+    assert response.json()["available"] is False
+    assert response.json()["reason"] == (
+        "This bottle isn't linked to a batch, so there is no formula to model."
+    )
+    assert response.json()["windows"] == []
+    assert missing.status_code == 404
+
+
+@pytest.mark.asyncio
+async def test_comparison_with_no_usable_amounts_says_so(client, db_session):
+    stock = await _stock(client, "Orris Butter")
+    bottle_id = await _formula_bottle(client, db_session, [{"stock_solution_id": stock, "requested_mass_g": 0.1}])
+
+    body = (await client.get(f"{API}/bottles/{bottle_id}/smell-log/comparison")).json()
+
+    assert body["available"] is False
+    assert body["reason"] == "None of the formula's rows has an amount the model can use."
+    assert body["not_modelled"][0]["name"] == "Orris Butter"
+
+
+def test_agreement_sets_and_one_model_run_for_in_range_windows_only():
+    from app.services.lab_service import SMELL_LOG_WINDOWS
+    from app.services.smell_log_compare import smell_log_comparison_windows
+
+    calls = []
+
+    def run_model(windows):
+        calls.append(windows)
+        return {"strip_1h": ["Iris", "Hedione", "Ambrox"], "strip_3h": ["Ambrox"]}
+
+    entries = [
+        {"window": "skin_day7", "leads": ["Ambrox"], "weak": [], "liking": None},
+        {"window": "strip_1h", "leads": ["iris", "Musk"], "weak": ["Ambrox"], "liking": 4},
+        {"window": "strip_1h", "leads": ["Iris"], "weak": [], "liking": 7},
+    ]
+
+    blocks = smell_log_comparison_windows(entries, SMELL_LOG_WINDOWS, run_model)
+
+    assert calls == [[("strip_1h", 3600.0)]]
+    one_hour, day7 = blocks
+    assert one_hour["you_leads"] == [{"name": "iris", "count": 2}, {"name": "Musk", "count": 1}]
+    assert one_hour["liking_mean"] == 5.5
+    assert one_hour["agreement"] == {
+        "leads_the_model_also_had_on_top": ["Iris"],
+        "model_top_you_did_not_mark_leading": ["Hedione", "Ambrox"],
+        "you_marked_weak_but_model_had_on_top": ["Ambrox"],
+        "leads_the_model_did_not_have_on_top": ["Musk"],
+    }
+    assert day7["window"] == "skin_day7"
+    assert day7["model_in_range"] is False
+    assert day7["agreement"] is None

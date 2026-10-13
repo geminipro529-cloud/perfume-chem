@@ -376,6 +376,13 @@ button:disabled { cursor: not-allowed !important; opacity: .48; transform: none 
 .smell-log-chip[data-mark="weak"] { border-style: dashed; color: var(--blue); background: var(--surface-2); }
 .smell-log-form button[type="submit"] { align-self: stretch; min-height: 52px; font-size: 14px; }
 .smell-log-past { margin: 0; padding-left: 18px; color: var(--muted); font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+.smell-log-compare { display: grid; gap: 8px; min-width: 0; }
+.smell-log-compare-blocks { display: grid; gap: 10px; }
+.smell-log-compare-block { min-width: 0; padding: 10px 12px; background: var(--paper-high); border: 1px solid var(--line); border-radius: 12px; overflow-wrap: anywhere; }
+.smell-log-compare-block h4 { margin: 0 0 4px; color: var(--blue); font-size: 14px; }
+.smell-log-compare-block p { margin: 2px 0; font-size: 14px; line-height: 1.45; }
+.smell-log-compare-agreement { color: var(--muted); }
+.smell-log-compare-note { margin: 0; color: var(--muted); font-size: 14px; overflow-wrap: anywhere; }
 .liking-personal summary { cursor: pointer; }
 .bench-sheet { display: none; }
 

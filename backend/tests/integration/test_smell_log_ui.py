@@ -24,6 +24,9 @@ async def test_bottles_page_loads_the_smell_log_and_lab_js_hooks_it(client):
     assert 'attachSmellLog({ doc: document, request, root: $("#smell-log") })' in javascript.text
     assert "smellLog?.setBottles(bottles);" in javascript.text
     assert "/smell-log`" in smell_log.text
+    assert "/smell-log/comparison`" in smell_log.text
+    assert "Model said / you smelled" in smell_log.text
+    assert "detection screen" in smell_log.text
     assert ".innerHTML" not in smell_log.text
 
 
@@ -63,3 +66,41 @@ console.log(JSON.stringify({ cycle: cycle.slice(1), body, typedOnly, line }));
     }
     assert result["line"].startswith("Strip 1 h · ")
     assert result["line"].endswith("liked 7/10 · leads: Iris · weak: Ambrox · “soft”")
+
+
+def test_comparison_block_reads_names_in_order_and_one_agreement_line():
+    result = _node(
+        """
+const inRange = m.smellCompareLines({
+  window: "strip_10m", label: "Strip 10 min", n_entries: 2, liking_mean: 7.5,
+  you_leads: [{ name: "Linalool", count: 2 }, { name: "Musk", count: 1 }], you_weak: [{ name: "Ambrox", count: 1 }],
+  model_in_range: true, model_time_label: "10 min", model_top: ["Linalool", "Ambrox", "Hedione"],
+  agreement: {
+    leads_the_model_also_had_on_top: ["Linalool"], model_top_you_did_not_mark_leading: ["Ambrox", "Hedione"],
+    you_marked_weak_but_model_had_on_top: ["Ambrox"], leads_the_model_did_not_have_on_top: ["Musk"],
+  },
+});
+const beyond = m.smellCompareLines({
+  window: "skin_day7", label: "Skin day 7", n_entries: 1, liking_mean: null, you_leads: [], you_weak: [],
+  model_in_range: false, model_time_label: null, model_top: [], agreement: null,
+  model_note: "Beyond the model's range: its time curve stops at 4 h, so it says nothing about skin day 7.",
+});
+console.log(JSON.stringify({ inRange, beyond }));
+"""
+    )
+
+    assert result["inRange"] == {
+        "title": "Strip 10 min · 2 entries · liked 7.5/10",
+        "model": "Model, 10 min: Linalool, Ambrox, Hedione",
+        "you": "You: leads Linalool ×2, Musk · weak Ambrox",
+        "agreement": (
+            "Model and you agree on Linalool. You smelled Musk leading; the model didn't have it on top. "
+            "You marked Ambrox weak; the model had it on top."
+        ),
+    }
+    assert result["beyond"] == {
+        "title": "Skin day 7 · 1 entry",
+        "model": "Beyond the model's range: its time curve stops at 4 h, so it says nothing about skin day 7.",
+        "you": "You: no names marked",
+        "agreement": "",
+    }
