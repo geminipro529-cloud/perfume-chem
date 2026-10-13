@@ -17,7 +17,7 @@ import json
 import os
 import re
 import threading
-from collections.abc import Mapping
+from collections.abc import Iterable, Mapping
 from dataclasses import replace
 from datetime import UTC, datetime
 from decimal import Decimal, InvalidOperation
@@ -686,6 +686,162 @@ def effective_design_ready(stock: Any) -> bool:
     return bool(stock.execution_ready if value is None else value)
 
 
+# Kenny's standing rule: new stocks and dilutions are made in DPG unless he
+# says otherwise, and a stock with no recorded basis is w/w.  A suggestion only
+# pre-fills the Stock page form; nothing is saved until he confirms and saves.
+SUGGESTION_RULE_CARRIER = "DPG"
+SUGGESTION_RULE_BASIS = "mass_fraction"
+SUGGESTION_RULE_TEXT = "your rule: dilutions in DPG, w/w unless recorded"
+_SUGGESTION_UPPER_SOLVENTS = frozenset({"dpg", "dep", "tec", "ipm", "bb", "pea"})
+_PERCENT_PHRASE_RE = re.compile(r"(?<![\d.,])(\d+(?:[.,]\d+)?)\s*%")
+_AFTER_PERCENT_RE = re.compile(
+    r"(?:\s*(?P<basis>w\s*/\s*w|v\s*/\s*v|w\s*/\s*v)\b)?"
+    r"(?:\s+nominal)?"
+    r"(?:\s+in\s+(?P<carrier>[^),;#\[\]]+))?",
+    re.IGNORECASE,
+)
+_LINE_BASES = {"w/w": "mass_fraction", "v/v": "volume_fraction", "w/v": "mass_per_volume"}
+_NOT_A_CARRIER_RE = re.compile(r"\b(?:carrier|unstated|unspecified|unknown)\b", re.IGNORECASE)
+
+
+def _suggested_carrier(value: str) -> str:
+    text = re.split(r"\s+[-–—]\s+", value.strip())[0].strip(" .")
+    text = re.sub(r"\s+", " ", text)
+    if not text or _NOT_A_CARRIER_RE.search(text):
+        return ""
+    return text.upper() if text.casefold() in _SUGGESTION_UPPER_SOLVENTS else text.casefold()
+
+
+def _stated_phrases(text: str, fraction: float) -> list[tuple[str, str, str]]:
+    """(quote, basis, carrier) for each "N% [w/w] [in X]" stating ``fraction``."""
+
+    phrases = []
+    for match in _PERCENT_PHRASE_RE.finditer(text):
+        if abs(float(match.group(1).replace(",", ".")) / 100.0 - fraction) > 1e-9:
+            continue
+        tail = _AFTER_PERCENT_RE.match(text, match.end())
+        if tail is None:  # cannot happen: every group is optional
+            continue
+        basis = _LINE_BASES.get(re.sub(r"\s+", "", tail.group("basis") or "").lower(), "")
+        carrier = _suggested_carrier(tail.group("carrier") or "")
+        quote = re.sub(r"\s+", " ", text[match.start() : tail.end()]).strip(" .")
+        if not carrier and tail.group("carrier"):
+            quote = re.sub(r"\s+in\s+.*$", "", quote, flags=re.IGNORECASE)
+        phrases.append((quote, basis, carrier))
+    return phrases
+
+
+def _line_statement(text: str, fraction: float) -> tuple[str, str, str] | None:
+    """What one inventory.txt line states about a stock of ``fraction``.
+
+    The line counts only when the strength it states for itself (outside the
+    ``#`` comment and ``[...]`` tags) is the stock's own strength.  Its comment
+    may then add the basis or carrier, again only in a phrase at that strength.
+    """
+
+    main, _, comment = str(text or "").partition("#")
+    main = re.sub(r"\[[^\]]*\]", " ", main)
+    stated = {
+        round(float(value.replace(",", ".")) / 100.0, 12)
+        for value in _PERCENT_PHRASE_RE.findall(main)
+    }
+    if not stated:
+        if fraction == 1 and re.search(r"\bneat\b", main, re.IGNORECASE):
+            return ("neat", "neat", "")
+        return None
+    if len(stated) != 1 or abs(next(iter(stated)) - fraction) > 1e-9 or fraction == 1:
+        return None
+    quote, basis, carrier = "", "", ""
+    for phrase_quote, phrase_basis, phrase_carrier in (
+        _stated_phrases(main, fraction) + _stated_phrases(comment, fraction)
+    ):
+        if (phrase_basis and not basis) or (phrase_carrier and not carrier):
+            quote = quote or phrase_quote
+        basis = basis or phrase_basis
+        carrier = carrier or phrase_carrier
+    if not (basis or carrier):
+        return None
+    return (quote, basis, carrier)
+
+
+def _percent_text(fraction: float) -> str:
+    value = (Decimal(str(fraction)) * 100).normalize()
+    return format(value, "f")
+
+
+def suggest_inventory_completion(
+    stock: Any, inventory_lines: Iterable[tuple[int, str]] = ()
+) -> dict[str, Any] | None:
+    """Suggest the strength, basis and carrier a not-ready stock is missing.
+
+    ``inventory_lines`` are the ``(line_number, text)`` inventory.txt lines for
+    this stock's material.  The strength is always the stock's own recorded
+    fraction; a line is used only when it states that same strength.  What the
+    line leaves unstated on a dilution falls back to Kenny's standing rule
+    (DPG, w/w).  Returns ``None`` when there is nothing to suggest.  This is
+    advice for the Stock page form only and is never saved by itself.
+    """
+
+    fraction = float(getattr(stock, "dilution", 0) or 0)
+    if fraction <= 0 or fraction > 1:
+        return None
+    recorded_basis = str(getattr(stock, "fraction_basis", "") or "")
+    need_basis = (
+        recorded_basis != "neat" if fraction == 1 else recorded_basis in {"", "unspecified"}
+    )
+    need_carrier = fraction < 1 and not str(getattr(stock, "carrier", "") or "").strip()
+    if not (need_basis or need_carrier):
+        return None
+
+    suggestion: dict[str, Any] = {"fraction_percent_decimal": _percent_text(fraction)}
+    sources: dict[str, str] = {"fraction_percent_decimal": "stock_record"}
+    line_number: int | None = None
+    line_quote: str | None = None
+    for number, text in inventory_lines:
+        statement = _line_statement(text, fraction)
+        if statement is None:
+            continue
+        quote, basis, carrier = statement
+        used = False
+        if need_basis and basis:
+            suggestion["fraction_basis"], sources["fraction_basis"] = basis, "inventory_txt"
+            used = True
+        if need_carrier and carrier:
+            suggestion["carrier"], sources["carrier"] = carrier, "inventory_txt"
+            used = True
+        if used:
+            line_number, line_quote = int(number), quote
+            break
+
+    rule_words = []
+    if fraction < 1:
+        if need_carrier and "carrier" not in suggestion:
+            suggestion["carrier"], sources["carrier"] = SUGGESTION_RULE_CARRIER, "user_rule"
+            rule_words.append(SUGGESTION_RULE_CARRIER)
+        if need_basis and "fraction_basis" not in suggestion:
+            suggestion["fraction_basis"] = SUGGESTION_RULE_BASIS
+            sources["fraction_basis"] = "user_rule"
+            rule_words.append("w/w")
+    if len(sources) == 1:
+        return None
+    if line_number is not None:
+        source_text = f"inventory.txt L{line_number} says '{line_quote}'"
+        if rule_words:
+            source_text += f"; {' and '.join(rule_words)} by your rule"
+    else:
+        source_text = SUGGESTION_RULE_TEXT[0].upper() + SUGGESTION_RULE_TEXT[1:]
+    suggestion.update(
+        {
+            "sources": sources,
+            "inventory_line": line_number,
+            "inventory_text": line_quote,
+            "source_text": source_text,
+            "saved": False,
+        }
+    )
+    return suggestion
+
+
 __all__ = [
     "COMPLETION_CLEARABLE_HOLDS",
     "COMPLETION_HOLD_DISPOSITIONS",
@@ -701,4 +857,5 @@ __all__ = [
     "inventory_completion_requirements",
     "load_inventory_completion_events",
     "record_inventory_completion",
+    "suggest_inventory_completion",
 ]
