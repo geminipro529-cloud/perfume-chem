@@ -482,8 +482,107 @@ function editorTsv(rows, unit, densities) {
   return `${lines.join("\n")}\n`;
 }
 
+// ---- The side panel's inputs ----
+
+const EDITOR_ETHANOL_NAMES = new Set(["ethanol", "perfumer's alcohol", "perfumers alcohol", "alcohol"]);
+const EDITOR_CHECK_BASIS = { mass_fraction: "w/w", w_w: "w/w", volume_fraction: "v/v", v_v: "v/v", neat: "neat", mass_per_volume: "w/v", w_v: "w/v" };
+const editorDecimal = (value) => editorBench.benchFractionText(value, 6);
+
+function editorIsEthanol(row) {
+  return EDITOR_ETHANOL_NAMES.has(String(row.material ?? "").trim().toLowerCase());
+}
+
+// Rows for POST /v2/workbench/formula-checks: each named row with an amount, a
+// liquid in µL of its stock or a solid in mg, with the stock's strength.
+function editorCheckRows(rows) {
+  return (rows || []).filter((row) => row.material && row.amount).map((row) => {
+    const fraction = editorNumber(row.fraction);
+    const strength = fraction && fraction.n > 0n && editorBench.benchCompare(fraction, editorWhole(1)) <= 0 ? editorDecimal(fraction) : "1";
+    const basis = EDITOR_CHECK_BASIS[String(row.basis ?? "").trim().toLowerCase()] || null;
+    return {
+      material: row.material,
+      ...(row.solid ? { amount_mg: editorDecimal(row.amount) } : { amount_ul: editorDecimal(row.amount) }),
+      stock_fraction: strength,
+      fraction_basis: basis,
+      carrier: row.carrier || null,
+    };
+  });
+}
+
+// Rows for benchCost (stock-prices.js). A liquid whose stock is priced per g
+// goes in grams when its density is known, so it is costed rather than skipped.
+function editorCostRows(rows, densities, prices) {
+  return (rows || []).filter((row) => row.material && row.amount).map((row) => {
+    const base = { material: row.material, identity_name: row.material, stock_id: row.stockId || null };
+    if (row.solid) return { ...base, amount_decimal: editorDecimal(row.amount), amount_unit: "mg" };
+    const entry = row.stockId ? (prices || {})[row.stockId] : null;
+    const density = entry && entry.per_unit === "g" ? editorDensity(row, densities) : null;
+    if (density) {
+      const grams = editorBench.benchOver(editorBench.benchTimes(row.amount, density), editorWhole(1000));
+      return { ...base, amount_decimal: editorDecimal(grams), amount_unit: "g" };
+    }
+    return { ...base, amount_decimal: editorDecimal(row.amount), amount_unit: "µL" };
+  });
+}
+
+// Rows for the smell-over-time chart (scent-chart.js): liquids only, ethanol left out.
+function editorChartRows(rows) {
+  return (rows || []).filter((row) => row.material && row.amount && !row.solid && !editorIsEthanol(row)).map((row) => ({
+    identity_name: row.material,
+    amount_decimal: editorDecimal(row.amount),
+    amount_unit: "uL",
+    stock_fraction_decimal: row.fraction || "1",
+  }));
+}
+
+// What each row's bottles in the Lab hold now and after `bottles` bottles of
+// this formula. A Lab stock matches a row by material name and strength;
+// several bottles of one stock are added together. `remaining` maps a Lab
+// stock id to its grams left (null while not known).
+function editorStockLeft(rows, labStocks, materials, remaining, densities, bottles) {
+  const nameOf = new Map((materials || []).map((material) => [material.id, material.canonical_name]));
+  const count = editorWhole(Math.max(1, Number.parseInt(bottles, 10) || 1));
+  const lines = [];
+  const unweighed = [];
+  const noDensity = [];
+  (rows || []).forEach((row) => {
+    if (!row.material || !row.amount || editorIsEthanol(row)) return;
+    const strength = editorNumber(row.fraction || "1");
+    const matches = (labStocks || []).filter((stock) => editorNameKey(nameOf.get(stock.material_id)) === editorNameKey(row.material)
+      && strength && editorBench.benchCompare(editorNumber(String(stock.active_fraction)) || EDITOR_ZERO, strength) === 0);
+    if (!matches.length) {
+      unweighed.push(row.material);
+      return;
+    }
+    let perBottle = null;
+    if (row.solid) perBottle = editorBench.benchOver(row.amount, editorWhole(1000));
+    else {
+      const labDensity = matches.map((stock) => editorNumber(String(stock.density_g_ml ?? ""))).find((value) => value && value.n > 0n);
+      const density = labDensity || editorDensity(row, densities);
+      if (density) perBottle = editorBench.benchOver(editorBench.benchTimes(row.amount, density), editorWhole(1000));
+    }
+    if (!perBottle) {
+      noDensity.push(row.material);
+      return;
+    }
+    const known = matches.map((stock) => (remaining || {})[stock.id]).filter((value) => value !== null && value !== undefined);
+    const nowG = known.length === matches.length ? known.reduce((sum, value) => sum + Number(value), 0) : null;
+    const useG = Number(editorBench.benchFractionText(editorBench.benchTimes(perBottle, count), 6));
+    lines.push({
+      material: row.material,
+      stockIds: matches.map((stock) => stock.id),
+      nowG,
+      useG,
+      afterG: nowG === null ? null : nowG - useG,
+      short: nowG !== null && nowG < useG,
+    });
+  });
+  return { lines, unweighed, noDensity };
+}
+
 if (typeof module === "object" && module.exports) {
   module.exports = {
+    editorCheckRows, editorCostRows, editorChartRows, editorStockLeft,
     EDITOR_NOTES, editorRow, editorNumber, editorFigure, editorRowsFromSource, editorParsePlain, editorRowsFromPlain,
     editorNameStrength, editorStockCandidates, editorBindRow, editorBindRows, editorStockOf, editorStockIsSolid,
     editorTotals, editorDensity, editorShown, editorInsert, editorRemove, editorReplace, editorSetAmount,

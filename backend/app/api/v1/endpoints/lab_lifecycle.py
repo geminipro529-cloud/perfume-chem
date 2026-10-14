@@ -94,6 +94,7 @@ from app.schemas.lab_lifecycle import (
     StockBasketChoiceCreate,
     StockPriceCreate,
 )
+from app.services.formula_checks import FormulaChecksRequest, compute_formula_checks
 from app.services.formula_import import FormulaAnalysisLibrary
 from app.services.lab_claims import (
     ClaimAuthorityConflictError,
@@ -770,6 +771,13 @@ async def scent_curve_for_rows(request: ScentCurveRequest) -> dict[str, Any]:
     """Screening time curve (modelled detectable share) for a drafted formula."""
 
     return cast(dict[str, Any], await run_in_threadpool(compute_scent_curve, request.rows))
+
+
+@router.post("/workbench/formula-checks", response_model=None)
+async def formula_checks_for_rows(request: FormulaChecksRequest) -> dict[str, Any]:
+    """IFRA Category 4 and EU allergens for the formula editor's rows, on the finished bottle."""
+
+    return cast(dict[str, Any], await run_in_threadpool(compute_formula_checks, request))
 
 
 def _proposal_record(record: Any) -> dict[str, Any]:

@@ -4,6 +4,8 @@ import json
 
 import pytest
 
+from app.services.formula_checks import FormulaChecksRequest, compute_formula_checks
+
 pytest.importorskip("playwright.sync_api")
 
 LIBRARY = {"sources": [{"source_path": "Rose_Test_30mL_EDP.md", "display_name": "Rose Test 30mL EDP", "design_only": True}]}
@@ -52,7 +54,32 @@ SOURCE = {
 DENSITIES = {"Hedione": "0.999", "Iso E Super": "0.9612", "Rose Oxide": None, "Ambrox": None, "Velvet Musk": None}
 
 
-def _open(lab):
+def _window(label, shares):
+    return {"label": label, "effective_voices": len(shares), "top": list(shares)[:3],
+            "materials": [{"name": name, "known": True, "oav": 10.0, "share": share, "note": "heart"} for name, share in shares.items()]}
+
+
+SCENT = {"schema_version": "scent-curve-v1", "windows": [
+    _window(label, {"Hedione": 0.6, "Iso E Super": 0.4}) for label in ("opening", "top", "heart", "late_heart", "drydown")
+]}
+
+
+def _open(lab, checks=None, charts=None):
+    def formula_checks(route, request):
+        # The real check, so the page's request must pass the server's validation.
+        body = json.loads(request.post_data)
+        if checks is not None:
+            checks.append(body)
+        answer = compute_formula_checks(FormulaChecksRequest.model_validate(body))
+        route.fulfill(status=200, content_type="application/json", body=json.dumps(answer))
+
+    def scent_curve(route, request):
+        if charts is not None:
+            charts.append(json.loads(request.post_data)["rows"])
+        route.fulfill(status=200, content_type="application/json", body=json.dumps(SCENT))
+
+    lab.on("POST", "/v2/workbench/formula-checks", formula_checks)
+    lab.on("POST", "/v2/workbench/scent-curve", scent_curve)
     lab.respond("GET", "/v2/workbench/formula-library", json=LIBRARY)
     lab.respond("GET", "/v2/workbench/current-inventory", json=INVENTORY)
     lab.respond("GET", SOURCE_PATH, json=SOURCE)
@@ -229,3 +256,90 @@ def test_open_on_the_bench_sheet_hands_over_the_rows_as_a_card_table(lab):
         "| Hedione | neat | 600 |\n| Rose Oxide | 10% w/w in DPG | 30 |\n| Iso E Super | neat | 370 |\n"
         "| Ambrox | neat | 120 mg |\n| Velvet Musk | 10% w/w | 60 |\n"
     ]
+
+
+PRICES = {
+    "schema_version": "workbench-stock-prices-v1",
+    "prices": {
+        "s-hed": {"stock_id": "s-hed", "per_unit": "mL", "price_decimal": "2", "currency": "THB"},
+        # Priced per g: the editor weighs the row by its density so it is costed.
+        "s-iso": {"stock_id": "s-iso", "per_unit": "g", "price_decimal": "1.5", "currency": "THB"},
+        "ethanol": {"stock_id": "ethanol", "per_unit": "mL", "price_decimal": "0.1", "currency": "THB"},
+        "packaging_per_bottle": {"stock_id": "packaging_per_bottle", "per_unit": "bottle", "price_decimal": "50", "currency": "THB"},
+    },
+    "cost_item_units": {"ethanol": "mL", "packaging_per_bottle": "bottle"},
+    "price_source": "typed by you on the Stock page",
+    "inventory_modified": False,
+    "compounding_authority": False,
+}
+
+
+def _text(lab, selector):
+    return lab.page.text_content(selector)
+
+
+def _list(lab, selector):
+    return lab.page.eval_on_selector_all(f"{selector} li", "(nodes) => nodes.map((node) => node.textContent)")
+
+
+def _wait_text(lab, selector, text):
+    lab.page.wait_for_function(
+        "([selector, text]) => document.querySelector(selector).textContent.includes(text)", arg=[selector, text]
+    )
+
+
+def test_the_side_panel_checks_ifra_allergens_cost_and_stock_as_the_formula_changes(lab):
+    lab.respond("GET", "/v2/workbench/stock-prices", json=PRICES)
+    lab.respond("GET", "/materials", json=[{"id": "m-hed", "canonical_name": "Hedione"}])
+    lab.respond("GET", "/stocks", json=[{"id": "lab-hed", "material_id": "m-hed", "active_fraction": 1, "fraction_basis": "neat",
+                                         "initial_mass_g": 50, "density_g_ml": 0.999}])
+    lab.respond("GET", "/stocks/lab-hed", json={"id": "lab-hed", "remaining_mass_g": 10.5})
+    checks, charts = [], []
+    _open(lab, checks, charts)
+    _load_card(lab)
+    page = lab.page
+
+    # IFRA: Velvet Musk is not in the table, so the check holds, as the release gate does.
+    _wait_text(lab, "#editor-ifra-verdict", "IFRA 51")
+    assert _text(lab, "#editor-ifra-verdict") == "Not fully checked · IFRA 51, Category 4 (fine fragrance)"
+    assert "is-hold" in page.get_attribute("#editor-ifra-verdict", "class")
+    assert "Not in the IFRA table, so not checked: Velvet Musk" in _list(lab, "#editor-ifra-list")
+    assert _text(lab, "#editor-side-oil") == "3.5% oil in a 30 mL bottle, topped up with 28.9 mL ethanol."
+    assert _text(lab, "#editor-allergen-summary").startswith("None over the label line (0.001% for leave-on).")
+    assert checks[-1]["rows"][3] == {"material": "Ambrox", "amount_mg": "120", "stock_fraction": "1", "fraction_basis": "neat", "carrier": None}
+
+    # Cost: Hedione 0.6 mL x 2, Iso E Super 0.355644 g x 1.5, ethanol 28.94 mL x 0.1, packaging 50.
+    _wait_text(lab, "#editor-cost-summary", "54.63 THB per bottle")
+    assert _text(lab, "#editor-cost-summary") == "54.63 THB per bottle, not counting what is listed below."
+    assert _list(lab, "#editor-cost-list") == [
+        "Rose Oxide: no price yet", "Ambrox: no price yet", "Velvet Musk: no price: not matched to a stock",
+    ]
+
+    # Stock left: the weighed Hedione bottle in the Lab, less 600 µL at 0.999 g/mL.
+    _wait_text(lab, "#editor-stock-list", "10.50 g now")
+    assert _list(lab, "#editor-stock-list") == [
+        "Hedione: 10.50 g now, 9.90 g after 1 bottle",
+        "No weighed bottle in the Lab: Rose Oxide, Iso E Super, Ambrox, Velvet Musk",
+    ]
+    page.fill("#editor-bottles", "20")
+    assert _text(lab, "#editor-stock-summary") == "Not enough for 20 bottles: Hedione."
+    assert _list(lab, "#editor-stock-list")[0] == "Hedione: needs 11.99 g, 10.50 g left"
+    assert _text(lab, "#editor-cost-summary") == "54.63 THB per bottle, 1092.55 THB for 20, not counting what is listed below."
+
+    # A row over its IFRA limit turns the check red: 0.1 g in 24.0 g of perfume is 0.416%.
+    redrawn = lambda request: "scent-curve" in request.url and "Cinnamic Aldehyde" in (request.post_data or "")  # noqa: E731
+    with page.expect_request(redrawn):
+        page.click("#editor-add-row")
+        page.keyboard.type("Cinnamic Aldehyde")
+        page.keyboard.press("Tab")
+        page.keyboard.type("100")
+        page.keyboard.press("Enter")
+    _wait_text(lab, "#editor-ifra-verdict", "Over an IFRA limit")
+    assert "is-fail" in page.get_attribute("#editor-ifra-verdict", "class")
+    assert "Cinnamic Aldehyde: 0.42% of the bottle, limit 0.25%" in _list(lab, "#editor-ifra-list")
+
+    # The smell chart is drawn from the liquid rows (Ambrox is weighed in mg).
+    page.wait_for_function("!document.getElementById('editor-scent').hidden && document.querySelector('#editor-scent svg')")
+    assert [row["identity_name"] for row in charts[-1]] == ["Hedione", "Rose Oxide", "Iso E Super", "Velvet Musk", "Cinnamic Aldehyde"]
+    # Typing pauses are what ask the server: one check per saved edit, not one per key.
+    assert len(checks) <= 4

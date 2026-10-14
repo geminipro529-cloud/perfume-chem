@@ -7,6 +7,7 @@
 .editor-table th { padding: 6px; border-bottom: 2px solid var(--blue); color: var(--muted); font-size: 12px; text-align: left; }
 .editor-table td { padding: 4px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
 .editor-table input, .editor-table select { padding: 7px 8px; }
+.editor-table [data-field="note"] { min-width: 5.5em; }
 .editor-number { width: 2.5em; color: var(--muted); font-variant-numeric: tabular-nums; }
 .editor-table [data-field="material"] { min-width: 16em; }
 .editor-amount { display: flex; align-items: center; gap: 6px; }
@@ -22,6 +23,27 @@
 .editor-notes:empty { display: none; }
 .editor-scale { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
 .editor-scale label { flex: 0 1 18em; }
+
+/* The side panel: beside the rows on a wide screen, below them otherwise. */
+.editor-layout { display: grid; gap: 16px; align-items: start; }
+@media (min-width: 1500px) {
+  .editor-layout { grid-template-columns: minmax(0, 1fr) minmax(300px, 360px); }
+  .editor-side { position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow-y: auto; }
+}
+.editor-side { display: grid; gap: 10px; min-width: 0; }
+.editor-side h2 { margin: 0; font-size: 18px; }
+.editor-side-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.editor-side-line { margin: 0; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.editor-check { display: grid; gap: 4px; padding-top: 8px; border-top: 1px solid var(--line); min-width: 0; }
+.editor-check h3 { margin: 0; font-size: 14px; }
+.editor-verdict { justify-self: start; margin: 0; padding: 3px 8px; border-radius: 4px; font-weight: 700; font-size: 13px; }
+.editor-verdict:empty { display: none; }
+.editor-verdict.is-pass { color: var(--pass-fg); background: var(--pass-bg); }
+.editor-verdict.is-warn, .editor-verdict.is-hold { color: var(--hold-fg); background: var(--hold-bg); }
+.editor-verdict.is-fail { color: var(--fail-fg); background: var(--fail-bg); }
+.editor-check-list { margin: 0; padding-left: 18px; font-size: 13px; font-variant-numeric: tabular-nums; }
+.editor-check-list:empty { display: none; }
+.editor-check-list .is-problem { color: var(--red); }
 
 @media (max-width: 760px) {
   .editor-head { grid-template-columns: 1fr; }

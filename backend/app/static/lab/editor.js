@@ -232,6 +232,7 @@ function renderEditor() {
       if (input.select) input.select();
     }
   }
+  renderEditorSide();
 }
 
 // Densities for every named row not asked about yet (the grams view needs them).
@@ -577,8 +578,232 @@ $("#editor-source-form").addEventListener("submit", async (event) => {
   }
 });
 
+// ---- Side panel: IFRA, allergens, cost, stock left, smell over time ----
+// Cost and stock left are worked out here on every render. The IFRA and
+// allergen check (the gate's own functions, on the server) is asked once
+// typing pauses, and the smell chart a little later; both only while the
+// editor is on screen.
+
+const EDITOR_CHECK_DELAY_MS = 250;
+const EDITOR_CHART_DELAY_MS = 800;
+const EDITOR_LIST_MAX = 8;
+const editorSide = {
+  checkTimer: 0,
+  chartTimer: 0,
+  checkSeq: 0,
+  checkKey: "",
+  answers: new Map(),
+  // Lab stock id -> grams left; a stock asked about and not answered yet is null.
+  remaining: {},
+};
+
+function editorSideVisible() {
+  return pageStarted && $('[data-panel="editor"]').classList.contains("is-visible");
+}
+
+function editorBottleMl() {
+  const value = editorNumber($("#editor-bottle-ml").value);
+  return value && value.n > 0n ? value : null;
+}
+
+function editorBottleCount() {
+  const text = $("#editor-bottles").value.trim();
+  return /^[1-9]\d{0,4}$/.test(text) ? text : "";
+}
+
+function editorSideList(selector, items) {
+  const shown = items.slice(0, EDITOR_LIST_MAX);
+  if (items.length > shown.length) shown.push({ text: `and ${items.length - shown.length} more` });
+  $(selector).replaceChildren(...shown.map((item) => {
+    const line = document.createElement("li");
+    line.textContent = item.text;
+    if (item.problem) line.className = "is-problem";
+    return line;
+  }));
+}
+
+// A share of the finished bottle, % w/w: two significant figures under 1%.
+function editorPctText(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number) || number <= 0) return "0%";
+  if (number < 0.0001) return "under 0.0001%";
+  return `${number >= 1 ? number.toFixed(2) : String(Number(number.toPrecision(2)))}%`;
+}
+
+const editorGramsText = (value) => `${Number(value).toFixed(2)} g`;
+
+function setEditorVerdict(text, kind) {
+  const verdict = $("#editor-ifra-verdict");
+  verdict.textContent = text;
+  verdict.className = `editor-verdict${kind ? ` is-${kind}` : ""}`;
+}
+
+function renderEditorCost(rows) {
+  const prices = stockPricesCurrent();
+  const bottle = editorBottleMl();
+  const volumeRows = editorCostRows(rows, editorPage.densities, {});
+  const ethanolMl = bottle ? benchCostEthanolEstimate(volumeRows, benchFractionText(bottle, 3)) : "";
+  const bottles = editorBottleCount();
+  const costRows = editorCostRows(rows, editorPage.densities, prices);
+  if (!costRows.length) {
+    $("#editor-cost-summary").textContent = "Add rows with amounts to cost them.";
+    editorSideList("#editor-cost-list", []);
+    return;
+  }
+  const cost = benchCost({ rows: costRows, prices, ethanolMl, bottles: bottles || "1" });
+  if (cost.problem) $("#editor-cost-summary").textContent = cost.problem;
+  else if (![...cost.lines, ...cost.extras].some((item) => item.cost)) {
+    $("#editor-cost-summary").textContent = "No prices yet. Type them on the Stock page to see the cost per bottle.";
+    editorSideList("#editor-cost-list", []);
+    return;
+  } else {
+    const perBottle = `${stockPriceMoneyText(cost.bottle, cost.currency)} per bottle`;
+    const batch = bottles && bottles !== "1" ? `, ${stockPriceMoneyText(cost.batch, cost.currency)} for ${bottles}` : "";
+    $("#editor-cost-summary").textContent = `${perBottle}${batch}${cost.partial ? ", not counting what is listed below" : ""}.`;
+  }
+  editorSideList("#editor-cost-list", [
+    ...cost.lines.filter((line) => !line.cost).map((line) => ({ text: `${line.material}: ${line.reason}` })),
+    ...cost.extras.filter((item) => !item.cost).map((item) => ({ text: `${item.label}: ${item.reason}` })),
+  ]);
+}
+
+function renderEditorStock(rows) {
+  const bottles = editorBottleCount() || "1";
+  if (!state.stocks.length) {
+    $("#editor-stock-summary").textContent = "No bottles are weighed into the Lab yet, so there is nothing to count down.";
+    editorSideList("#editor-stock-list", []);
+    return [];
+  }
+  const left = editorStockLeft(rows, state.stocks, state.materials, editorSide.remaining, editorPage.densities, bottles);
+  const after = `after ${bottles} ${bottles === "1" ? "bottle" : "bottles"}`;
+  const short = left.lines.filter((line) => line.short);
+  $("#editor-stock-summary").textContent = short.length
+    ? `Not enough for ${bottles === "1" ? "one bottle" : `${bottles} bottles`}: ${benchNameList(short.map((line) => line.material))}.`
+    : (left.lines.length ? `Grams in your weighed Lab bottles, now and ${after}.` : "None of these rows has a bottle weighed into the Lab.");
+  editorSideList("#editor-stock-list", [
+    ...left.lines.map((line) => {
+      if (line.nowG === null) return { text: `${line.material}: uses ${editorGramsText(line.useG)}, checking what is left…` };
+      if (line.short) return { text: `${line.material}: needs ${editorGramsText(line.useG)}, ${editorGramsText(line.nowG)} left`, problem: true };
+      return { text: `${line.material}: ${editorGramsText(line.nowG)} now, ${editorGramsText(line.afterG)} ${after}` };
+    }),
+    ...(left.noDensity.length ? [{ text: `Density not known, so the grams used can't be worked out: ${benchNameList(left.noDensity)}` }] : []),
+    ...(left.unweighed.length ? [{ text: `No weighed bottle in the Lab: ${benchNameList(left.unweighed)}` }] : []),
+  ]);
+  return left.lines.flatMap((line) => line.stockIds).filter((id) => !Object.hasOwn(editorSide.remaining, id));
+}
+
+function renderEditorChecks(answer) {
+  if (!answer) return;
+  if (answer.error) {
+    setEditorVerdict("", "");
+    $("#editor-side-oil").textContent = "";
+    $("#editor-allergen-summary").textContent = "";
+    editorSideList("#editor-allergen-list", []);
+    editorSideList("#editor-ifra-list", [{ text: `The IFRA and allergen check is not available right now: ${answer.error}`, problem: true }]);
+    return;
+  }
+  const ifra = answer.ifra;
+  const bottle = Number(answer.bottle_ml);
+  $("#editor-side-oil").textContent = answer.bottle_source === "rows"
+    ? `${Number(answer.oil_pct).toFixed(1)}% oil; the bottle is the rows with their ethanol, ${bottle.toFixed(1)} mL.`
+    : `${Number(answer.oil_pct).toFixed(1)}% oil in a ${bottle} mL bottle, topped up with ${Number(answer.ethanol_ml).toFixed(1)} mL ethanol.`;
+  const words = {
+    PASS: ["Within the limits", "pass"],
+    WARN: ["Within the limits, with notes", "warn"],
+    HOLD: ["Not fully checked", "hold"],
+    FAIL: ["Over an IFRA limit", "fail"],
+  }[ifra.verdict] || [ifra.verdict, ""];
+  setEditorVerdict(`${words[0]} · IFRA ${ifra.amendment}, Category ${ifra.category} (fine fragrance)`, words[1]);
+  const items = [];
+  if (answer.overfilled) items.push({ text: "The stocks fill more than the bottle, so no share of the bottle is defined.", problem: true });
+  ifra.rows.filter((row) => row.verdict === "fail").forEach((row) => items.push({
+    text: row.ifra_status === "prohibited"
+      ? `${row.material}: prohibited`
+      : `${row.material}: ${editorPctText(row.actual_pct)} of the bottle, limit ${editorPctText(row.limit_pct)}`,
+    problem: true,
+  }));
+  ifra.groups.filter((group) => group.verdict === "fail").forEach((group) => items.push({ text: group.message, problem: true }));
+  if (ifra.unrecognised.length) items.push({ text: `Not in the IFRA table, so not checked: ${benchNameList(ifra.unrecognised)}`, problem: true });
+  ifra.rows.filter((row) => row.verdict === "warn" && row.usage_pct !== null).forEach((row) => items.push({ text: `${row.material}: ${row.usage_pct}% of its limit` }));
+  ifra.groups.filter((group) => group.verdict === "warn").forEach((group) => items.push({ text: group.message }));
+  const naturals = ifra.rows.filter((row) => row.verdict === "warn" && row.usage_pct === null).map((row) => row.material);
+  if (naturals.length) items.push({ text: `Naturals with no IFRA standard of their own, counted by the constituents IFRA lists: ${benchNameList(naturals)}` });
+  if (ifra.undisclosed_bases.length) items.push({ text: `Supplier bases with no published composition, not counted inside: ${benchNameList(ifra.undisclosed_bases)}` });
+  items.push({ text: "Other product categories are not in the app's IFRA data yet." });
+  editorSideList("#editor-ifra-list", items);
+  const declare = answer.allergens.declare;
+  $("#editor-allergen-summary").textContent = declare.length
+    ? `Over the label line (0.001% for leave-on), declare: ${declare.length}. Named allergen materials only; those inside naturals and bases are not counted.`
+    : "None over the label line (0.001% for leave-on). Named allergen materials only; those inside naturals and bases are not counted.";
+  editorSideList("#editor-allergen-list", declare.map((row) => ({ text: `${row.allergen}: ${editorPctText(row.pct)}` })));
+}
+
+async function runEditorChecks() {
+  const rows = editorCheckRows(editorNow().rows);
+  const bottle = editorBottleMl();
+  if (!rows.length || !bottle) {
+    editorSide.checkKey = "";
+    setEditorVerdict("", "");
+    $("#editor-side-oil").textContent = bottle ? "Add rows with amounts to check them." : "Type the bottle size in mL, such as 30.";
+    $("#editor-allergen-summary").textContent = "";
+    editorSideList("#editor-ifra-list", []);
+    editorSideList("#editor-allergen-list", []);
+    return;
+  }
+  const body = JSON.stringify({ rows, bottle_ml: benchFractionText(bottle, 3) });
+  if (body === editorSide.checkKey) return;
+  editorSide.checkKey = body;
+  const seq = ++editorSide.checkSeq;
+  let answer = editorSide.answers.get(body);
+  if (!answer) {
+    try {
+      answer = await request("/v2/workbench/formula-checks", { method: "POST", body });
+      editorSide.answers.set(body, answer);
+      if (editorSide.answers.size > 20) editorSide.answers.delete(editorSide.answers.keys().next().value);
+    } catch (error) {
+      answer = { error: error.message };
+      editorSide.checkKey = "";
+    }
+  }
+  if (seq === editorSide.checkSeq) renderEditorChecks(answer);
+}
+
+async function askEditorRemaining(ids) {
+  ids.forEach((id) => { editorSide.remaining[id] = null; });
+  const answers = await Promise.all(ids.map((id) => request(`/stocks/${encodeURIComponent(id)}`).catch(() => null)));
+  answers.forEach((stock, index) => {
+    const grams = Number(stock?.remaining_mass_g);
+    if (Number.isFinite(grams)) editorSide.remaining[ids[index]] = grams;
+    else delete editorSide.remaining[ids[index]];
+  });
+  renderEditorStock(editorNow().rows);
+}
+
+function renderEditorSide() {
+  const rows = editorNow().rows;
+  renderEditorCost(rows);
+  const unknown = renderEditorStock(rows);
+  if (!editorSideVisible()) return;
+  if (unknown.length) askEditorRemaining(unknown).catch(() => {});
+  // Grams (cost per g, stock used) need densities; ask for any new names once.
+  editorEnsureDensities(rows).then((asked) => { if (asked) renderEditorSide(); }).catch(() => {});
+  clearTimeout(editorSide.checkTimer);
+  editorSide.checkTimer = setTimeout(() => runEditorChecks().catch(() => {}), EDITOR_CHECK_DELAY_MS);
+  clearTimeout(editorSide.chartTimer);
+  editorSide.chartTimer = setTimeout(() => renderScentChart($("#editor-scent"), editorChartRows(editorNow().rows)), EDITOR_CHART_DELAY_MS);
+}
+
+["#editor-bottle-ml", "#editor-bottles"].forEach((selector) => $(selector).addEventListener("input", renderEditorSide));
+
+// navigate() calls this when the editor comes on screen.
+function editorSideShown() {
+  renderEditorSide();
+}
+
 // refresh() calls this when the stock list arrives or changes.
 function editorInventoryChanged() {
+  // Lab bottles may have been weighed or poured since: ask again.
+  editorSide.remaining = {};
   renderEditor();
 }
 

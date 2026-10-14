@@ -263,6 +263,7 @@ function navigate(view) {
   if (view === "science") {
     loadScienceAuthority().catch((error) => notify(error.message, true));
   }
+  if (view === "editor" && typeof editorSideShown === "function") editorSideShown();
 }
 
 function formData(form) { return Object.fromEntries(new FormData(form).entries()); }

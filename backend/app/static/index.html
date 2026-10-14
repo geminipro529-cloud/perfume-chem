@@ -629,6 +629,7 @@
             <button type="submit">Load into the editor</button>
           </div>
         </form>
+        <div class="editor-layout">
         <article class="panel editor-panel" aria-labelledby="editor-rows-title">
           <div class="editor-head">
             <label>Formula name<input id="editor-name" autocomplete="off" maxlength="200"></label>
@@ -669,6 +670,40 @@
           </div>
           <p class="field-help" id="editor-keys">Keys: Enter saves a cell and moves down a row; ↑ and ↓ move between amounts; Ctrl+Z undoes and Ctrl+Y redoes; Ctrl+Enter adds a row below; Ctrl+Delete removes the row. Paste rows from a spreadsheet into any cell.</p>
         </article>
+        <aside class="panel editor-side" id="editor-side" aria-labelledby="editor-side-title">
+          <h2 id="editor-side-title">Checks as you edit</h2>
+          <div class="editor-side-inputs">
+            <label>Bottle <span>mL of finished perfume</span><input id="editor-bottle-ml" inputmode="decimal" autocomplete="off" value="30"></label>
+            <label>Bottles <span>for cost and stock</span><input id="editor-bottles" inputmode="numeric" autocomplete="off" value="1"></label>
+          </div>
+          <p id="editor-side-oil" class="editor-side-line"></p>
+          <section class="editor-check" aria-labelledby="editor-ifra-title">
+            <h3 id="editor-ifra-title">IFRA</h3>
+            <p id="editor-ifra-verdict" class="editor-verdict" aria-live="polite"></p>
+            <ul id="editor-ifra-list" class="editor-check-list"></ul>
+          </section>
+          <section class="editor-check" aria-labelledby="editor-allergen-title">
+            <h3 id="editor-allergen-title">EU allergens on the label</h3>
+            <p id="editor-allergen-summary" class="editor-side-line"></p>
+            <ul id="editor-allergen-list" class="editor-check-list"></ul>
+          </section>
+          <section class="editor-check" aria-labelledby="editor-cost-title">
+            <h3 id="editor-cost-title">Cost</h3>
+            <p id="editor-cost-summary" class="editor-side-line"></p>
+            <ul id="editor-cost-list" class="editor-check-list"></ul>
+          </section>
+          <section class="editor-check" aria-labelledby="editor-stock-title">
+            <h3 id="editor-stock-title">Stock left</h3>
+            <p id="editor-stock-summary" class="editor-side-line"></p>
+            <ul id="editor-stock-list" class="editor-check-list"></ul>
+          </section>
+          <section class="editor-check" aria-labelledby="editor-scent-title">
+            <h3 id="editor-scent-title">Smell over time</h3>
+            <div id="editor-scent" class="scent-chart" hidden></div>
+          </section>
+          <p class="field-help">A screen to edit by, not a release: the release gate on the saved card decides.</p>
+        </aside>
+        </div>
       </section>
 
       <section class="view" data-panel="benchsheet" aria-labelledby="benchsheet-title">

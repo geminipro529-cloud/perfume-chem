@@ -262,3 +262,74 @@ def test_the_bench_table_keeps_each_strength_and_names_the_rows_left_out():
         "| Linalool / natural | 10% v/v in ethanol | 12.5 |\n| Ambrox | neat | 120 mg |\n"
     )
     assert result["leftOut"] == ["Velvet Musk"]
+
+
+def test_the_check_and_chart_rows_carry_each_stock_and_leave_out_what_does_not_belong():
+    result = _editor("""() => {
+        const rows = [
+            row("Hedione", "600", { fraction: "1", basis: "neat" }),
+            row("Rose Oxide", "1000/3", { fraction: "0.1", basis: "W_W", carrier: "dpg" }),
+            row("Ambrox", "120", { fraction: "1", solid: true }),
+            row("Velvet Musk", "60", { fraction: "", basis: "unspecified" }),
+            row("Ethanol", "24000"),
+            row("", "5"), row("Linalool", null),
+        ];
+        rows[1] = { ...rows[1], amount: { n: 1000n, d: 3n } };
+        return { checks: editor.editorCheckRows(rows), chart: editor.editorChartRows(rows) };
+    }""")
+    assert result["checks"] == [
+        {"material": "Hedione", "amount_ul": "600", "stock_fraction": "1", "fraction_basis": "neat", "carrier": None},
+        # A third of a µL is sent to six places; the check is a screen.
+        {"material": "Rose Oxide", "amount_ul": "333.333333", "stock_fraction": "0.1", "fraction_basis": "w/w", "carrier": "dpg"},
+        {"material": "Ambrox", "amount_mg": "120", "stock_fraction": "1", "fraction_basis": None, "carrier": None},
+        {"material": "Velvet Musk", "amount_ul": "60", "stock_fraction": "1", "fraction_basis": None, "carrier": None},
+        # The server reads ethanol rows as the bottle's own ethanol.
+        {"material": "Ethanol", "amount_ul": "24000", "stock_fraction": "1", "fraction_basis": None, "carrier": None},
+    ]
+    assert [r["identity_name"] for r in result["chart"]] == ["Hedione", "Rose Oxide", "Velvet Musk"]
+    assert result["chart"][1] == {"identity_name": "Rose Oxide", "amount_decimal": "333.333333", "amount_unit": "uL", "stock_fraction_decimal": "0.1"}
+
+
+def test_cost_rows_weigh_a_liquid_priced_per_gram_when_its_density_is_known():
+    prices = {"s-hed": {"per_unit": "mL"}, "s-iso": {"per_unit": "g"}, "s-musk": {"per_unit": "g"}}
+    result = _editor("""() => editor.editorCostRows([
+        row("Hedione", "600", { fraction: "1", stockId: "s-hed" }),
+        row("Iso E Super", "370", { fraction: "1", stockId: "s-iso" }),
+        row("Velvet Musk", "60", { fraction: "0.1", basis: "W_W", stockId: "s-musk" }),
+        row("Ambrox", "120", { fraction: "1", solid: true, stockId: "s-amb" }),
+    ], DENSITIES, PRICES)""", DENSITIES=DENSITIES, PRICES=prices)
+    assert [(r["material"], r["stock_id"], r["amount_decimal"], r["amount_unit"]) for r in result] == [
+        ("Hedione", "s-hed", "600", "µL"),
+        ("Iso E Super", "s-iso", "0.355644", "g"),  # 370 µL x 0.9612 g/mL
+        ("Velvet Musk", "s-musk", "60", "µL"),  # no density: left in µL, so the cost says why
+        ("Ambrox", "s-amb", "120", "mg"),
+    ]
+
+
+def test_stock_left_counts_down_the_weighed_lab_bottles_of_each_row():
+    stocks = [
+        {"id": "lab-hed-1", "material_id": "m-hed", "active_fraction": 1, "density_g_ml": 0.999},
+        {"id": "lab-hed-2", "material_id": "m-hed", "active_fraction": 1, "density_g_ml": None},
+        {"id": "lab-ro", "material_id": "m-ro", "active_fraction": 0.01},
+        {"id": "lab-amb", "material_id": "m-amb", "active_fraction": 1},
+    ]
+    materials = [{"id": "m-hed", "canonical_name": "Hedione"}, {"id": "m-ro", "canonical_name": "Rose Oxide"},
+                 {"id": "m-amb", "canonical_name": "Ambrox"}]
+    result = _editor("""() => editor.editorStockLeft([
+        row("hedione", "600", { fraction: "1" }),
+        row("Rose Oxide", "30", { fraction: "0.1" }),
+        row("Ambrox", "120", { fraction: "1", solid: true }),
+        row("Iso E Super", "370", { fraction: "1" }),
+        row("Mystery", "10", { fraction: "1" }),
+        row("Ethanol", "24000"),
+    ], STOCKS, MATERIALS, { "lab-hed-1": 6, "lab-hed-2": 4.5, "lab-amb": null }, DENSITIES, "10")""",
+        STOCKS=stocks, MATERIALS=materials, DENSITIES=DENSITIES)
+    hedione, ambrox = result["lines"]
+    # Two Hedione bottles add up; ten bottles of 600 µL at 0.999 g/mL use 5.994 g.
+    assert hedione == {"material": "hedione", "stockIds": ["lab-hed-1", "lab-hed-2"], "nowG": 10.5, "useG": 5.994,
+                       "afterG": pytest.approx(4.506), "short": False}
+    # A bottle still being asked about has no level yet.
+    assert ambrox == {"material": "Ambrox", "stockIds": ["lab-amb"], "nowG": None, "useG": 1.2, "afterG": None, "short": False}
+    # Rose Oxide is weighed in only at 1%, not the 10% the row pours.
+    assert result["unweighed"] == ["Rose Oxide", "Iso E Super", "Mystery"]
+    assert result["noDensity"] == []
