@@ -2,7 +2,7 @@
 // the scaled card, keep a lot record, add what was really weighed, and print
 // the batch sheet. The label and IFRA statement come from batch-label.js.
 //
-// lab.js calls attachBatch once. The pure functions below build request bodies
+// lab/bottles.js calls attachBatch once. The pure functions below build request bodies
 // and plain-data views; the DOM is built with createElement + textContent only,
 // never HTML strings, so formula and material names cannot become markup.
 // Node loads the same file in the tests through module.exports.

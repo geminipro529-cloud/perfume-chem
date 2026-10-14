@@ -7,17 +7,19 @@ from pathlib import Path
 
 import pytest
 
+from tests.lab_page_scripts import get_lab_script
+
 SMELL_LOG_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "smell-log.js"
 
 
 @pytest.mark.asyncio
-async def test_bottles_page_loads_the_smell_log_and_lab_js_hooks_it(client):
+async def test_bottles_page_loads_the_smell_log_and_the_bottles_page_hooks_it(client):
     page = await client.get("/app")
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
     smell_log = await client.get("/static/smell-log.js")
 
     assert smell_log.status_code == 200
-    assert page.text.index('src="/static/smell-log.js"') < page.text.index('src="/static/lab.js"')
+    assert page.text.index('src="/static/smell-log.js"') < page.text.index('src="/static/lab/core.js"')
     bottles_panel = page.text[page.text.index('data-panel="bottles"'):]
     assert bottles_panel.index('id="smell-log"') < bottles_panel.index("</section>")
     assert 'typeof attachSmellLog === "function"' in javascript.text

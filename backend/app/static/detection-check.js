@@ -1,6 +1,6 @@
 // Pure wording for the composer's smell check (the detection_check block).
-// It touches no DOM, so the page loads it before lab.js (its functions become
-// page globals) and node runs it in the tests. lab.js writes the returned text
+// It touches no DOM, so the page loads it before the Lab page files in lab/ (its functions become
+// page globals) and node runs it in the tests. lab/create.js writes the returned text
 // with textContent.
 
 function detectionWindowText(windows) {

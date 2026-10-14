@@ -1,8 +1,8 @@
 // The Lab formula card's pleasantness and rating block: the crowd guess per
 // window, Kenny's "Rate this bottle" rows, the A/B pick and "Your nose so far".
 // The wording helpers touch no DOM, so node runs them in the tests. The page
-// loads this file before lab.js; renderFormulaLiking runs later, from
-// renderFormulaDesign, and uses lab.js's request(). Every name, label and typed
+// loads this file before the Lab page files in lab/; renderFormulaLiking runs later, from
+// renderFormulaDesign, and uses request() from lab/core.js. Every name, label and typed
 // text goes in with textContent, never as HTML.
 
 const LIKING_API = "/api/v1/feedback";
