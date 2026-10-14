@@ -513,6 +513,8 @@
             <div id="formula-variant-picker" class="formula-variant-picker" hidden aria-label="Design alternatives"></div>
             <p id="formula-result-variant" class="formula-result-variant"></p>
             <div id="formula-result-checks" class="formula-result-checks" role="status" hidden></div>
+            <div id="formula-holds-bar" class="hold-list-bar" hidden><button type="button" class="quiet-button" id="formula-holds-toggle">What's missing</button></div>
+            <div id="formula-holds" class="hold-list" hidden></div>
             <div id="formula-result-detection" class="formula-result-checks" role="status" hidden></div>
             <div id="formula-result-voices" class="formula-result-voices" role="status" hidden></div>
             <div id="formula-result-scent" class="scent-chart" hidden></div>
@@ -706,6 +708,8 @@
             <h3 id="editor-ifra-title">IFRA</h3>
             <p id="editor-ifra-verdict" class="editor-verdict" aria-live="polite"></p>
             <ul id="editor-ifra-list" class="editor-check-list"></ul>
+            <div id="editor-holds-bar" class="hold-list-bar" hidden><button type="button" class="quiet-button" id="editor-holds-toggle">What's missing</button></div>
+            <div id="editor-holds" class="hold-list" hidden></div>
           </section>
           <section class="editor-check" aria-labelledby="editor-allergen-title">
             <h3 id="editor-allergen-title">EU allergens on the label</h3>
@@ -1070,6 +1074,7 @@
   <script src="/static/smell-log.js" defer></script>
   <script src="/static/blind-test.js" defer></script>
   <script src="/static/brief-notes.js" defer></script>
+  <script src="/static/hold-list.js" defer></script>
   <script src="/static/batch-label.js" defer></script>
   <script src="/static/batch.js" defer></script>
   <script src="/static/formula-editor.js" defer></script>

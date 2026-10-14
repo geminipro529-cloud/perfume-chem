@@ -484,6 +484,28 @@ function openInventoryCompletion(stock) {
   $('[name="fraction_percent_decimal"]', form).focus();
 }
 
+// "What's missing" (hold-list.js) opens one stock here: the list shows that bottle
+// with every filter cleared, and its details form opens when the Stock page can
+// complete it. Nothing is saved until Kenny confirms and saves, as always.
+function openStockEntry(stockId) {
+  const stock = (state.projectInventory?.stocks || []).find((item) => item.stock_id === stockId);
+  navigate("materials");
+  if (!stock) {
+    notify("That stock is not on the Stock page's list. Reload the page and try again.", true);
+    return;
+  }
+  Object.assign(stockView, { filter: "all", solvent: "", basket: "" });
+  const search = $("#project-inventory-search");
+  search.value = stock.identity_name || stock.material || "";
+  renderProjectInventory(search.value);
+  if (stock.completion_available) {
+    openInventoryCompletion(stock);
+    return;
+  }
+  const row = [...$("#project-inventory-list").querySelectorAll("tr[data-stock-id]")].find((node) => node.dataset.stockId === stockId);
+  row?.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
 $("#project-inventory-list").addEventListener("click", (event) => {
   const button = event.target.closest("[data-complete-stock]");
   if (!button) return;

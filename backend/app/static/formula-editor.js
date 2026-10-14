@@ -509,6 +509,25 @@ function editorCheckRows(rows) {
   });
 }
 
+// Rows for POST /v2/workbench/formula-holds ("What's missing", hold-list.js): the
+// stock each row is bound to, its strength as written and its amount (mg for a
+// solid). Ethanol is the bottle's top-up, not a stock, so it is left out.
+function editorHoldRows(rows) {
+  return (rows || []).filter((row) => row.material && row.amount && !editorIsEthanol(row)).map((row) => {
+    const fraction = editorNumber(row.fraction);
+    const strength = fraction && fraction.n > 0n && editorBench.benchCompare(fraction, editorWhole(1)) <= 0 ? editorDecimal(fraction) : "1";
+    return {
+      material: row.material,
+      stock_id: row.stockId || null,
+      amount: editorDecimal(row.amount),
+      unit: row.solid ? "mg" : "uL",
+      fraction: strength,
+      basis: String(row.basis ?? "").trim(),
+      carrier: row.carrier || "",
+    };
+  });
+}
+
 // Rows for benchCost (stock-prices.js). A liquid whose stock is priced per g
 // goes in grams when its density is known, so it is costed rather than skipped.
 function editorCostRows(rows, densities, prices) {
@@ -805,7 +824,7 @@ function editorWhyDropLine(info) {
 
 if (typeof module === "object" && module.exports) {
   module.exports = {
-    editorCheckRows, editorCostRows, editorChartRows, editorStockLeft,
+    editorCheckRows, editorHoldRows, editorCostRows, editorChartRows, editorStockLeft,
     EDITOR_NOTES, editorRow, editorNumber, editorFigure, editorRowsFromSource, editorParsePlain, editorRowsFromPlain,
     editorNameStrength, editorStockCandidates, editorBindRow, editorBindRows, editorStockOf, editorStockIsSolid,
     editorTotals, editorDensity, editorShown, editorInsert, editorRemove, editorReplace, editorSetAmount,

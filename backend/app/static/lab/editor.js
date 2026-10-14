@@ -780,10 +780,26 @@ function renderEditorChecks(answer) {
   editorSideList("#editor-allergen-list", declare.map((row) => ({ text: `${row.allergen}: ${editorPctText(row.pct)}` })));
 }
 
+// "What's missing" under the IFRA verdict (hold-list.js): per row, what the stock or
+// IFRA check lacks and the Stock page entry that answers it. Opens on a tap only.
+const editorHolds = typeof attachHoldList === "function" ? attachHoldList({
+  toggle: $("#editor-holds-toggle"),
+  panel: $("#editor-holds"),
+  request,
+  rows: () => editorHoldRows(editorNow().rows),
+  bottleMl: () => {
+    const bottle = editorBottleMl();
+    return bottle ? Number(benchFractionText(bottle, 3)) : 30;
+  },
+  openStock: (stockId) => openStockEntry(stockId),
+}) : null;
+
 async function runEditorChecks() {
   const rows = editorCheckRows(editorNow().rows);
   const bottle = editorBottleMl();
+  $("#editor-holds-bar").hidden = !rows.length || !bottle || !editorHolds;
   if (!rows.length || !bottle) {
+    editorHolds?.reset();
     editorSide.checkKey = "";
     setEditorVerdict("", "");
     $("#editor-side-oil").textContent = bottle ? "Add rows with amounts to check them." : "Type the bottle size in mL, such as 30.";
@@ -795,6 +811,8 @@ async function runEditorChecks() {
   const body = JSON.stringify({ rows, bottle_ml: benchFractionText(bottle, 3) });
   if (body === editorSide.checkKey) return;
   editorSide.checkKey = body;
+  // The rows changed, so an open "What's missing" list described the old ones.
+  editorHolds?.reset();
   const seq = ++editorSide.checkSeq;
   let answer = editorSide.answers.get(body);
   if (!answer) {

@@ -607,3 +607,23 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
   .brief-chip { width: 100%; }
   .brief-chip .quiet-button, .brief-notes-bar .quiet-button, .brief-notes-add .quiet-button { min-height: 44px; }
 }
+
+/* "What's missing" under a HOLD (hold-list.js). */
+.hold-list-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+.hold-list-bar[hidden] { display: none; }
+.hold-list { display: grid; gap: 8px; margin: 0 0 12px; padding: 12px; border: 1px solid var(--line); border-left: 4px solid var(--hold); border-radius: 8px; background: var(--paper-high); }
+.hold-list[hidden] { display: none; }
+.hold-list-summary { margin: 0; color: var(--ink); }
+.hold-list-summary.is-problem { color: var(--fail-fg); background: var(--fail-bg); padding: 6px 8px; border-radius: 6px; }
+.hold-list-items { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.hold-item { display: grid; gap: 4px; padding: 8px; border: 1px solid var(--field-border); border-radius: 8px; background: var(--paper); overflow-wrap: anywhere; }
+.hold-item p { margin: 0; }
+.hold-item-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; color: var(--ink); }
+.hold-item-check { padding: 0 8px; border-radius: 999px; font-size: 12px; color: var(--hold-fg); background: var(--hold-bg); }
+.hold-item-reason { color: var(--ink); }
+.hold-item-action { color: var(--muted); font-size: 14px; }
+.hold-item-open { justify-self: start; }
+.hold-list-basis { color: var(--muted); font-size: 13px; }
+@media (max-width: 760px) {
+  .hold-list-bar .quiet-button, .hold-item-open { min-height: 44px; }
+}
