@@ -13,6 +13,8 @@ from app.api.v1.endpoints import (
     knowledge,
     lab,
     lab_batches,
+    lab_blind_tests,
+    lab_brief_notes,
     lab_lifecycle,
     lab_planning,
     lab_reporting,
@@ -78,6 +80,18 @@ api_router.include_router(
     lab_versions.router,
     prefix="/lab/v2",
     tags=["laboratory-formula-versions"],
+)
+
+api_router.include_router(
+    lab_blind_tests.router,
+    prefix="/lab/v2",
+    tags=["laboratory-blind-tests"],
+)
+
+api_router.include_router(
+    lab_brief_notes.router,
+    prefix="/lab/v2",
+    tags=["laboratory-brief-notes"],
 )
 
 api_router.include_router(

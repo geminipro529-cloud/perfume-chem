@@ -441,6 +441,17 @@ async def test_calibration_waits_for_ten_bottles_and_adds_no_corrected_top(clien
     one_hour, day1 = comparison["windows"]
     assert one_hour["corrected_top"] is None
     assert day1["corrected_top"] is None
+    # The chart: the model's order of each charted name, and the bottles behind
+    # each correction, with no factor while the calibration is not used.
+    assert one_hour["model_ranks"] == {name: index + 1 for index, name in enumerate(ranked)}
+    assert "model_ranks" not in day1
+    assert comparison["calibrated"] is False
+    corrections = {item["name"]: item for item in comparison["corrections"]}
+    assert set(corrections) == set(ranked)
+    assert all(item["n_bottles"] == 3 and item["label"] is None for item in corrections.values())
+    held = body["held_out"]
+    assert sorted(row["bottle_id"] for row in held) == sorted(bottles)
+    assert all(row["label"].startswith("Lavender") and row["windows"] == ["strip_1h"] for row in held)
 
 
 @pytest.mark.asyncio
@@ -463,3 +474,7 @@ async def test_ten_bottles_where_the_nose_beats_the_model_add_corrected_top(clie
     assert one_hour["model_top"] == ranked[:3]
     assert one_hour["corrected_top"] == [ranked[0], ranked[1], ranked[3]]
     assert day7["corrected_top"] is None
+    assert comparison["calibrated"] is True
+    corrections = {item["name"]: item for item in comparison["corrections"]}
+    assert corrections[ranked[3]]["label"] == "×2.0" and corrections[ranked[3]]["n_bottles"] == 10
+    assert corrections[ranked[0]]["label"] == "×0.5"

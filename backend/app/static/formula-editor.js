@@ -753,6 +753,56 @@ function editorCheckChanges(before, after) {
   return changes;
 }
 
+// ---- Why each row: the notes of the name a row's stock carries ----
+// From POST /v2/workbench/formula-roles (engine/formulation_intelligence/brief_notes.py):
+// a stock carries a note by its own name or only by its odor words. Not strength.
+
+function editorJoinWords(items) {
+  const list = (items || []).filter(Boolean);
+  if (list.length < 2) return list.join("");
+  return `${list.slice(0, -1).join(", ")} and ${list.at(-1)}`;
+}
+
+// The key a row is asked about under: its stock, then its name as typed.
+function editorWhyKey(row) {
+  return `${row.stockId || ""}|${row.material || ""}`;
+}
+
+// The line above the rows: the notes the name asks for.
+function editorWhyNotesLine(answer) {
+  const notes = (answer && answer.notes) || [];
+  if (!notes.length) return `The name “${answer.formula_name}” names no note the composer knows, so each row shows its own profile.`;
+  const labels = notes.map((note) => (note.star ? `${note.label} (the star)` : note.label));
+  return `The name asks for ${editorJoinWords(labels)}. Each row says which of these its stock carries: by its own name, or only by its odor words.`;
+}
+
+// One row's line.
+function editorWhyText(info, nameHasNotes = true) {
+  if (!info) return "";
+  if (!info.found) return "Not in your stock list, so what it carries is not known.";
+  const label = (item) => (item.star ? `${item.label} (the star)` : item.label);
+  const named = info.carries.filter((item) => item.kind === "material");
+  const byName = info.carries.filter((item) => item.kind === "note" && item.by === "name").map(label);
+  const byOdor = info.carries.filter((item) => item.kind === "note" && item.by !== "name").map(label);
+  const parts = [];
+  if (named.length) parts.push("The name names it");
+  if (byName.length) parts.push(`${parts.length ? "carries" : "Carries"} the ${editorJoinWords(byName)}`);
+  if (byOdor.length) parts.push(`${parts.length ? "" : "Carries "}the ${editorJoinWords(byOdor)} only by its odor words`);
+  if (parts.length) return `${parts.join("; ")}.`;
+  const profile = info.profile && info.profile.length ? `its own profile: ${info.profile.join(", ")}` : "";
+  if (!nameHasNotes) return profile ? `${profile[0].toUpperCase()}${profile.slice(1)}.` : "";
+  return profile ? `None of the name's notes; ${profile}.` : "None of the name's notes.";
+}
+
+// What the drop preview says the row does for the name.
+function editorWhyDropLine(info) {
+  if (!info || !info.found) return "";
+  const notes = info.carries.filter((item) => item.kind === "note").map((item) => item.label);
+  if (info.carries.some((item) => item.kind === "material")) return "The name names this material.";
+  if (notes.length) return `It carries the ${editorJoinWords(notes)} the name asks for.`;
+  return "It carries none of the notes the name asks for.";
+}
+
 if (typeof module === "object" && module.exports) {
   module.exports = {
     editorCheckRows, editorCostRows, editorChartRows, editorStockLeft,
@@ -763,5 +813,6 @@ if (typeof module === "object" && module.exports) {
     editorStrengthText, editorBenchTable, editorTsv,
     editorAmountText, editorAmountOf, editorSavedRows, editorRowsFromSaved, editorContentKey, editorPctText,
     editorCompare, editorIfraRowText, editorCheckChanges, editorCardMakesMl,
+    editorJoinWords, editorWhyKey, editorWhyNotesLine, editorWhyText, editorWhyDropLine,
   };
 }

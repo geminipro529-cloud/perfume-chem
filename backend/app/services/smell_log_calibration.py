@@ -140,23 +140,64 @@ def window_score(top: Sequence[str], window: CalibrationWindow) -> int:
     return sum(key in window.leads for key in keys) - sum(key in window.weak for key in keys)
 
 
+def window_best(window: CalibrationWindow) -> int:
+    """The best score a ranking could get here: the leads the model ranks at all, up to TOP_N."""
+
+    ranked = {name.casefold() for name, _share in window.ranked}
+    return min(TOP_N, len(window.leads & ranked))
+
+
+def held_out_by_bottle(windows: Sequence[CalibrationWindow]) -> list[dict[str, Any]]:
+    """Per bottle, fitted on the other bottles only: its windows, both scores and the best possible."""
+
+    rows: list[dict[str, Any]] = []
+    for bottle_id in dict.fromkeys(item.bottle_id for item in windows):
+        factors = fit_factors([item for item in windows if item.bottle_id != bottle_id])
+        own = [item for item in windows if item.bottle_id == bottle_id]
+        rows.append(
+            {
+                "bottle_id": bottle_id,
+                "windows": [item.window for item in own],
+                "baseline_score": sum(
+                    window_score([name for name, _share in item.ranked], item) for item in own
+                ),
+                "corrected_score": sum(
+                    window_score(corrected_ranking(item.ranked, factors), item) for item in own
+                ),
+                "best_score": sum(window_best(item) for item in own),
+            }
+        )
+    return rows
+
+
 def held_out_scores(windows: Sequence[CalibrationWindow]) -> tuple[int, int]:
     """(baseline, corrected) summed over every window, each bottle fitted without itself."""
 
-    baseline = corrected = 0
-    for bottle_id in dict.fromkeys(item.bottle_id for item in windows):
-        train = [item for item in windows if item.bottle_id != bottle_id]
-        factors = fit_factors(train)
-        for item in windows:
-            if item.bottle_id != bottle_id:
-                continue
-            baseline += window_score([name for name, _share in item.ranked], item)
-            corrected += window_score(corrected_ranking(item.ranked, factors), item)
-    return baseline, corrected
+    rows = held_out_by_bottle(windows)
+    return sum(row["baseline_score"] for row in rows), sum(row["corrected_score"] for row in rows)
 
 
 def _factor_label(factor: float) -> str:
     return f"×{factor:.1f}"
+
+
+def chart_correction(
+    name: str,
+    stats: Mapping[str, Any] | None,
+    calibrated: bool,
+) -> dict[str, Any]:
+    """One charted name: the bottles behind its correction, and the factor only when it is used."""
+
+    used = calibrated and stats is not None and stats["status"] == "fitted"
+    factor = float(stats["factor"]) if used and stats is not None else None
+    return {
+        "name": name,
+        "n_bottles": int(stats["n_bottles"]) if stats is not None else 0,
+        "min_bottles": MIN_BOTTLES_PER_MATERIAL,
+        "used": used,
+        "factor": round(factor, 3) if factor is not None else None,
+        "label": _factor_label(factor) if factor is not None else None,
+    }
 
 
 def calibrate(
@@ -167,7 +208,9 @@ def calibrate(
     """Run the preregistered evaluation and say plainly whether the correction is used."""
 
     n_bottles = len({item.bottle_id for item in windows})
-    baseline, corrected = held_out_scores(windows)
+    held_out = held_out_by_bottle(windows)
+    baseline = sum(row["baseline_score"] for row in held_out)
+    corrected = sum(row["corrected_score"] for row in held_out)
     factors = fit_factors(windows)
     if n_bottles < MIN_BOTTLES:
         reason = f"{n_bottles} of {MIN_BOTTLES} bottles logged"
@@ -193,6 +236,9 @@ def calibrate(
         "n_windows": len(windows),
         "baseline_score": baseline,
         "corrected_score": corrected,
+        "best_score": sum(row["best_score"] for row in held_out),
+        # Display only: each bottle scored by a correction fitted without it.
+        "held_out": held_out,
         "factors": [
             {
                 "name": stats["name"],

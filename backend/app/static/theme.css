@@ -565,3 +565,45 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
   }
   .bench-sheet-table .bench-amount small { margin-top: 2px; font-weight: 400; }
 }
+
+/* Smell log: the "model said, you smelled" chart (smell-log.js). */
+.smell-chart { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 13px; line-height: 1.35; }
+.smell-chart caption { padding-bottom: 6px; color: var(--muted); font-size: 13px; text-align: left; }
+.smell-chart th, .smell-chart td { padding: 6px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.smell-chart thead th { color: var(--blue); font-size: 12px; }
+.smell-chart tbody th { color: var(--ink); font-weight: 600; }
+.smell-chart td[data-state="agree"] { color: var(--pass-fg); background: var(--pass-bg); }
+.smell-chart td[data-state="missed"] { color: var(--hold-fg); background: var(--hold-bg); }
+.smell-chart td[data-state="clash"] { color: var(--fail-fg); background: var(--fail-bg); }
+.smell-chart-correction { color: var(--muted); }
+.smell-chart-key { margin: 0; }
+.blind-side { display: grid; gap: 8px; }
+.blind-vials { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.blind-vial h4, .blind-test h4 { margin: 8px 0 4px; color: var(--blue); font-size: 14px; }
+.blind-vial ul, .blind-picks, .blind-tally { margin: 4px 0; padding-left: 18px; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+.blind-test { display: grid; gap: 8px; padding: 12px 0; border-top: 1px solid var(--line); overflow-wrap: anywhere; }
+.blind-outcome p { margin: 2px 0; font-weight: 600; }
+.nose-status { margin: 0 0 4px; font-weight: 600; }
+
+/* Brief chips on Create a formula (brief-notes.js). */
+.brief-notes-bar { display: flex; flex-wrap: wrap; gap: 8px; }
+.brief-notes { display: grid; gap: 8px; padding: 12px; border: 1px solid var(--line); border-left: 4px solid var(--blue); border-radius: 8px; background: var(--paper-high); }
+.brief-notes[hidden] { display: none; }
+.brief-notes-status { margin: 0; color: var(--ink); }
+.brief-notes-status.is-problem { color: var(--fail-fg); background: var(--fail-bg); padding: 6px 8px; border-radius: 6px; }
+.brief-notes-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.brief-chip { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; padding: 6px 8px; border: 1px solid var(--field-border); border-radius: 8px; background: var(--paper); }
+.brief-chip[data-kind="material"] { border-style: dashed; }
+.brief-chip-words { display: grid; gap: 2px; }
+.brief-chip-label { font-weight: 700; color: var(--ink); }
+.brief-chip-meta { color: var(--muted); font-size: 13px; }
+.brief-chip .quiet-button { min-height: 32px; padding: 4px 10px; font-size: 13px; }
+.brief-chip-star[aria-pressed="true"] { color: var(--on-primary); background: var(--blue); border-color: var(--blue); }
+.brief-notes-extra { margin: 0; padding-left: 18px; color: var(--muted); font-size: 13px; }
+.brief-notes-extra:empty { display: none; }
+.brief-notes-add { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
+.brief-notes-add label { flex: 1 1 14em; }
+@media (max-width: 760px) {
+  .brief-chip { width: 100%; }
+  .brief-chip .quiet-button, .brief-notes-bar .quiet-button, .brief-notes-add .quiet-button { min-height: 44px; }
+}

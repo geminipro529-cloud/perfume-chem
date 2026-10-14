@@ -221,6 +221,63 @@ function drawScentChart(container, model) {
 }
 
 // Fetch and draw. A newer call on the same container wins (variant switch).
+// The endpoint's curve for these rows, asked for once per set of rows; null when
+// no row can be drawn.
+async function scentCurveFor(designRows) {
+  const rows = scentChartRows(designRows);
+  if (!rows.length) return null;
+  const key = JSON.stringify(rows);
+  let curve = scentCurveCache.get(key);
+  if (!curve) {
+    const response = await fetch(SCENT_CHART_ENDPOINT, {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ rows }),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    curve = await response.json();
+    scentCurveCache.set(key, curve);
+  }
+  return curve;
+}
+
+// Pure: the stages where the model's three leaders differ between two curves.
+function scentLeaderChanges(before, after) {
+  const leaders = (win) => ((win && win.top) || []).slice(0, 3);
+  const later = new Map(((after && after.windows) || []).map((win) => [win.label, win]));
+  return ((before && before.windows) || []).flatMap((win) => {
+    const a = leaders(win);
+    const b = leaders(later.get(win.label));
+    if (a.length === b.length && a.every((name, index) => name === b[index])) return [];
+    return [{ stage: SCENT_WINDOW_NAMES[win.label] || String(win.label), before: a, after: b }];
+  });
+}
+
+// Pure: one line per run of neighbouring stages whose leaders change the same way,
+// such as "Opening to 4 hours: Hedione, Iso E Super → Iso E Super, Ambrox".
+function scentLeaderLines(before, after) {
+  const stages = ((before && before.windows) || []).map((win) => SCENT_WINDOW_NAMES[win.label] || String(win.label));
+  const changes = scentLeaderChanges(before, after);
+  const words = (names) => names.join(", ") || "nothing detectable";
+  const runs = [];
+  changes.forEach((change) => {
+    const last = runs.at(-1);
+    const next = stages.indexOf(change.stage);
+    if (last && last.end + 1 === next && words(last.before) === words(change.before) && words(last.after) === words(change.after)) {
+      last.end = next;
+      last.to = change.stage;
+    } else {
+      runs.push({ ...change, from: change.stage, to: change.stage, end: next });
+    }
+  });
+  return runs.map((run) => `${run.from === run.to ? run.from : `${run.from} to ${run.to}`}: ${words(run.before)} → ${words(run.after)}`);
+}
+
+// Pure: a material's share of what the model can detect at one stage, or null.
+function scentShareAt(curve, name, label) {
+  const win = ((curve && curve.windows) || []).find((w) => w.label === label);
+  const m = win && (win.materials || []).find((x) => x.name === name);
+  return m && m.known && typeof m.share === "number" ? m.share : null;
+}
+
 async function renderScentChart(container, designRows) {
   if (!container) return;
   const seq = (container.scentSeq = (container.scentSeq || 0) + 1);
@@ -228,17 +285,8 @@ async function renderScentChart(container, designRows) {
   if (!rows.length) { container.replaceChildren(); container.hidden = true; return; }
   container.hidden = false;
   container.replaceChildren(scentEl("p", "scent-chart-note", "Working out the smell over time…"));
-  const key = JSON.stringify(rows);
   try {
-    let curve = scentCurveCache.get(key);
-    if (!curve) {
-      const response = await fetch(SCENT_CHART_ENDPOINT, {
-        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ rows }),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      curve = await response.json();
-      scentCurveCache.set(key, curve);
-    }
+    const curve = await scentCurveFor(designRows);
     if (seq !== container.scentSeq) return;
     drawScentChart(container, scentChartModel(curve, scentSkippedNames(designRows)));
   } catch (error) {
@@ -248,5 +296,5 @@ async function renderScentChart(container, designRows) {
 }
 
 if (typeof module === "object" && module.exports) {
-  module.exports = { scentChartModel, scentChartRows, scentSkippedNames, scentWhyText };
+  module.exports = { scentChartModel, scentChartRows, scentSkippedNames, scentWhyText, scentLeaderChanges, scentLeaderLines, scentShareAt, scentPercent, SCENT_WINDOW_NAMES };
 }

@@ -44,6 +44,10 @@ os.environ.setdefault(
     "PERFUME_FORMULA_VERSION_PATH",
     str(PYTEST_TEMP_ROOT / "perfume_chem_pytest_formula_versions.jsonl"),
 )
+os.environ.setdefault(
+    "PERFUME_BLIND_TEST_PATH",
+    str(PYTEST_TEMP_ROOT / "perfume_chem_pytest_blind_tests.jsonl"),
+)
 tempfile.tempdir = str(PYTEST_TEMP_ROOT)
 # The app lifespan starts an engine worker subprocess by default; tests never do.
 os.environ["PERFUME_ENGINE_WORKER_AUTOSTART"] = "0"
@@ -82,6 +86,7 @@ def managed_test_scratch(tmp_path_factory):
             "PERFUME_BASKET_EVENT_PATH",
             "PERFUME_STOCK_PRICE_PATH",
             "PERFUME_FORMULA_VERSION_PATH",
+            "PERFUME_BLIND_TEST_PATH",
         )
     }
     previous_tempdir = tempfile.tempdir
@@ -98,6 +103,7 @@ def managed_test_scratch(tmp_path_factory):
     os.environ["PERFUME_BASKET_EVENT_PATH"] = str(session_temp / "basket_events.jsonl")
     os.environ["PERFUME_STOCK_PRICE_PATH"] = str(session_temp / "stock_prices.jsonl")
     os.environ["PERFUME_FORMULA_VERSION_PATH"] = str(session_temp / "formula_versions.jsonl")
+    os.environ["PERFUME_BLIND_TEST_PATH"] = str(session_temp / "blind_tests.jsonl")
     tempfile.tempdir = str(session_temp)
     try:
         yield
