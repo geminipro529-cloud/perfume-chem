@@ -39,6 +39,7 @@ from engine.inventory_dilutions import (
     record_prepared_dilution,
 )
 from engine.inventory_parser import parse_inventory
+from engine.material_resolver import resolve_material
 from engine.personal_inventory import (
     DESIGN_ONLY_AUTHORITY,
     LIVE_TEXT_AUTHORITY,
@@ -81,6 +82,7 @@ from app.schemas.lab_lifecycle import (
     FormulaDesignChatCreate,
     FormulaTextParseCreate,
     InventoryCompletionCreate,
+    MaterialDensityLookupCreate,
     PersonalInventoryAdditionCreate,
     PreparedDilutionCreate,
     QuickBottleEvaluationCreate,
@@ -210,6 +212,43 @@ def parse_workbench_formula_text(request: FormulaTextParseCreate) -> ResponsePay
         return FormulaAnalysisLibrary().parse_pasted(request.text, request.name)
     except ValueError as error:
         return _error_response(error)
+
+
+# A registry density outside this range is a data error, not a perfume material.
+_DENSITY_RANGE_G_ML = (Decimal("0.5"), Decimal("3"))
+
+
+def _material_density_text(name: str) -> str | None:
+    material = resolve_material(name).registry_material
+    value = getattr(material, "density_25c_g_ml", None) if material is not None else None
+    if value is None:
+        return None
+    try:
+        density = Decimal(str(value))
+    except ArithmeticError:
+        return None
+    low, high = _DENSITY_RANGE_G_ML
+    if not density.is_finite() or not low <= density <= high:
+        return None
+    return format(density.normalize(), "f")
+
+
+@router.post("/workbench/material-densities")
+def read_workbench_material_densities(request: MaterialDensityLookupCreate) -> dict[str, Any]:
+    """Densities at 25 C from the material data, for a bench sheet in grams.
+
+    A name the material data does not know, or knows without a density, maps
+    to null; the sheet keeps that row in uL.
+    """
+
+    return {
+        "schema_version": "workbench-material-densities-v1",
+        "basis": "density_25c_g_ml",
+        "source": "material registry (data/materials)",
+        "densities": {name: _material_density_text(name) for name in dict.fromkeys(request.names)},
+        "inventory_modified": False,
+        "compounding_authority": False,
+    }
 
 
 def _inventory_decimal(value: float) -> str:

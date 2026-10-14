@@ -625,6 +625,12 @@
             <label>Formula is for <span>mL, filled in when the name says</span><input name="source_ml" inputmode="decimal" autocomplete="off" placeholder="30"></label>
             <label>Print for <span>mL, leave empty to keep the size</span><input name="target_ml" inputmode="decimal" autocomplete="off" placeholder="same size"></label>
           </div>
+          <label>Measure liquids by <span>grams use each material's density; rows under 0.1 g stay in µL</span>
+            <select name="measure_by">
+              <option value="UL">µL with a pipette</option>
+              <option value="G">Grams on a balance</option>
+            </select>
+          </label>
           <div class="request-actions">
             <button type="submit">Show bench sheet</button>
             <button id="bench-source-print" class="quiet-button" type="button" disabled>Print</button>

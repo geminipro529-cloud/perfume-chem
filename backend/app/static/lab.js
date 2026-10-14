@@ -2991,7 +2991,7 @@ function drawBenchSheet(sheet) {
     formulaName: sheet.formulaName,
     variantLabel: sheet.variantLabel,
     dateText: new Date().toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }),
-    totals: benchSeparateTotals(sheet.rows),
+    totals: sheet.grams ? benchWeighedTotals(sheet.rows) : benchSeparateTotals(sheet.rows),
     rows: sheet.rows,
     critic: {},
     basketLookup: sheet.lookup,
@@ -3013,28 +3013,43 @@ function drawBenchSheet(sheet) {
   $("#bench-pour-undo").hidden = benchSource.pours.length < 2;
 }
 
-function renderBenchPreview(source, sizes) {
+// Densities at 25 °C for the rows of a source, by material and identity name,
+// for a sheet in grams.
+async function benchDensities(source) {
+  const rows = benchMatchStocks((source.rows || []).map(benchRowFromSource), state.projectInventory).rows;
+  const names = [...new Set(rows.flatMap((row) => [row.identity_name, row.material]).map((name) => String(name ?? "").trim()).filter(Boolean))].slice(0, 300);
+  if (!names.length) return {};
+  const reply = await request("/v2/workbench/material-densities", { method: "POST", body: JSON.stringify({ names }) });
+  return reply.densities || {};
+}
+
+function renderBenchPreview(source, sizes, densities = null) {
   const rows = (source.rows || []).map(benchRowFromSource);
   if (!rows.length) throw new Error("The formula has no rows the sheet can read.");
   const scaling = sizes.to && compareDecimalText(sizes.to, sizes.from) !== 0;
   const scaled = scaling ? benchScaleRows(rows, sizes.from, sizes.to) : { rows, unscaled: [] };
   const matched = benchMatchStocks(scaled.rows, state.projectInventory);
-  const start = benchPourStart(matched.rows);
+  const grams = densities ? benchRowsInGrams(matched.rows, densities) : null;
+  const start = benchPourStart(grams ? grams.rows : matched.rows);
   benchSource.base = {
     formulaName: source.formula_name,
     variantLabel: scaling ? `${sizes.to} mL` : "",
     sizeMl: (scaling ? sizes.to : sizes.from) || null,
     rows: benchPourSheet(start).rows,
     lookup: benchBasketLookup(state.projectInventory),
-    notes: benchSourceNotes({
-      scaledFrom: scaling ? sizes.from : null,
-      scaledTo: scaling ? sizes.to : null,
-      unscaled: scaled.unscaled,
-      unmatched: matched.unmatched,
-      ambiguous: matched.ambiguous,
-      held: matched.held,
-      warnings: source.warnings,
-    }),
+    grams: Boolean(grams),
+    notes: [
+      ...benchSourceNotes({
+        scaledFrom: scaling ? sizes.from : null,
+        scaledTo: scaling ? sizes.to : null,
+        unscaled: scaled.unscaled,
+        unmatched: matched.unmatched,
+        ambiguous: matched.ambiguous,
+        held: matched.held,
+        warnings: source.warnings,
+      }),
+      ...(grams ? benchGramsNotes(grams) : []),
+    ],
   };
   // Each pour fix pushes the batch and the sheet it leads to; undo pops one.
   benchSource.pours = [{ state: start, sheet: benchSource.base }];
@@ -3130,7 +3145,9 @@ $("#bench-source-form").addEventListener("submit", async (event) => {
       form.elements.source_ml.value = sizes.from;
       benchSource.autoSourceMl = sizes.from;
     }
-    renderBenchPreview(source, sizes);
+    const densities = data.measure_by === "G" ? await benchDensities(source) : null;
+    if (ticket !== benchSource.ticket) return;
+    renderBenchPreview(source, sizes, densities);
     $("#bench-preview").focus({ preventScroll: false });
   } catch (error) {
     if (ticket === benchSource.ticket) showFormError(form, error, "No sheet yet.");
