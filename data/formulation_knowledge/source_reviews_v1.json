@@ -2915,6 +2915,30 @@
       "empirical_data_rights": "NOT_ADMITTED",
       "numeric_calibration_allowed": false,
       "reason": "Reference listing read for the manufacturers' own odour lines (Bedoukian creamy and coconut-like; IFF coconut-like, sweet, fatty, fruity; Symrise creamy, resembling coconut and apricot). CAS 104-61-0."
+    },
+    {
+      "source_id": "fraterworks_frangipani_absolute_signature",
+      "source_record_sha256": "25f20669b2932ae591e23435b6e0bcb4c9045e344156d34c66adcb0a96e36a37",
+      "reviewed_on": "2026-10-14",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_rights": "NOT_ADMITTED",
+      "numeric_calibration_allowed": false,
+      "reason": "Supplier product page read for odour and composition lines (exotic heady-floral, peachy-creamy; high benzyl salicylate and benzyl benzoate content). No strength, use level or physical data imported."
+    },
+    {
+      "source_id": "premierepeau_frangipani_signature",
+      "source_record_sha256": "868bca4189d370e53a7af1be456064f51cb062bc7d189a92011afa96cf27c7fc",
+      "reviewed_on": "2026-10-14",
+      "review_scope": "SELECTED_PRIMARY_SECTIONS",
+      "review_state": "REVIEWED_ADVISORY",
+      "correction_retraction_state": "NOT_APPLICABLE_MANUFACTURER_DESCRIPTION",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_rights": "NOT_ADMITTED",
+      "numeric_calibration_allowed": false,
+      "reason": "Fragrance house glossary read for its frangipani reconstruction palette and species notes (P. obtusa benzyl-salicylate-rich, P. rubra nerolidol/farnesene-rich). Species percentages are the page's, not admitted as data; no dose imported."
     }
   ]
 }

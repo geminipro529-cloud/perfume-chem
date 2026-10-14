@@ -176,7 +176,7 @@
    "verdict": "TIE"
   },
   "dhp-2014-r3": {
-   "deciding_step": "3_name",
+   "deciding_step": "4_craft",
    "engine_craft_score": 70.0,
    "engine_disqualified": false,
    "engine_failing_floors": [],
@@ -184,7 +184,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 70.59,
+   "engine_name_score": 91.18,
    "reference_craft_score": 75.0,
    "reference_floor_holds": [
     "F1_owned_stock",
@@ -221,7 +221,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 38.48,
+   "engine_name_score": 65.93,
    "reference_craft_score": 100.0,
    "reference_floor_holds": [
     "F2_ifra"
@@ -520,6 +520,6 @@
    "verdict": "NO_REFERENCE"
   }
  },
- "commit": "c220601ab3dea055a8d4b0ed75d74e63386d8980",
+ "commit": "de1222961c8b84ea9dc1b819249d4a06b7b092ca",
  "mode": "FAST_SKETCH"
 }

@@ -32,6 +32,9 @@ SIGNATURES = {
     # Step 7: gamma-nonalactone's coconut, on both its owned stock names.
     "Gamma Nonalactone": ("coconut",),
     "Aldehyde C-18": ("coconut",),
+    # Frangipani: benzyl salicylate and nerolidol, named in two frangipani descriptions.
+    "Benzyl Salicylate": ("frangipani", "plumeria"),
+    "Nerolidol": ("frangipani", "plumeria"),
 }
 REVIEWS_PATH = Path(PACK_PATH).with_name("source_reviews_v1.json")
 
@@ -81,3 +84,29 @@ def test_a_pear_brief_leads_its_fruit_with_a_stock_that_smells_of_pear() -> None
         if row["slot"].startswith("facet_")
     }
     assert facets["facet_fruit"] == "Hexyl Acetate"
+
+
+@pytest.mark.parametrize(
+    "idea",
+    [
+        "Fresh frangipani on skin, creamy, soft vanilla",
+        "A frangipani and amber perfume",
+        "Plumeria petals over warm amber",
+    ],
+)
+def test_a_frangipani_brief_leads_it_with_a_stock_that_names_frangipani(idea: str) -> None:
+    # No owned stock is called frangipani: the note's own role may only take a stock whose
+    # reviewed description names it, never any white floral.
+    named = {
+        capability.identity_name
+        for capability in build_material_capability_index().capabilities
+        if "frangipani" in capability.descriptor_vocabulary
+    }
+    result = design_formula(idea=idea)
+
+    facets = {
+        row["slot"]: row["identity_name"]
+        for row in result["optimized_formula"]["rows"]
+        if row["slot"].startswith("facet_")
+    }
+    assert facets["facet_frangipani"] in named
