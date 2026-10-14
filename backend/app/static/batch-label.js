@@ -195,7 +195,7 @@ function batchStatementBody(values, source) {
 }
 
 // container: element to fill. fetchFn(path, options) -> Promise of parsed JSON,
-// rejecting with an Error on failure (lab.js `request`, base /api/v1/lab).
+// rejecting with an Error on failure (lab/core.js `request`, base /api/v1/lab).
 // Returns { setRows(rows), setGate(source), setFields(values) }; source is
 // { gate_json } or { gate_path: "data/user/batches/<lot>/gate.json" }.
 function attachBatchLabel(container, fetchFn) {

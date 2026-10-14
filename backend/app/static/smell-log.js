@@ -2,7 +2,7 @@
 // after applying a bottle and notes what leads, what is weak, how much he likes
 // it and a few words. Each save is one application plus one observation.
 //
-// lab.js calls attachSmellLog once and passes it the bottle list after each
+// lab/bottles.js calls attachSmellLog once and passes it the bottle list after each
 // refresh. Names and anything typed go in through textContent / .value only,
 // never HTML strings. Node loads the same file in the tests through module.exports.
 

@@ -2,6 +2,7 @@
 
 import ipaddress
 import math
+import threading
 import time
 from collections import deque
 from contextlib import asynccontextmanager
@@ -71,6 +72,10 @@ async def lifespan(app: FastAPI):
 
         await personal_liking.refit_at_startup()
 
+        # The material list takes seconds to read; reading it now, in the
+        # background, keeps the first formula check after a start quick.
+        threading.Thread(target=_warm_material_registry, name="material-registry-warmup", daemon=True).start()
+
         # Engine jobs run only in a separate worker process.  Start one here so every
         # launch path (plain uvicorn included) gets one; deployments that run their
         # own worker set PERFUME_ENGINE_WORKER_AUTOSTART=0.
@@ -92,6 +97,16 @@ async def lifespan(app: FastAPI):
     finally:
         if app_lock is not None:
             app_lock.release()
+
+
+def _warm_material_registry() -> None:
+    try:
+        from engine.data_spine.loader import load_registry
+
+        load_registry()
+    except Exception:
+        # Not needed to start: the first request that needs the list reads it.
+        logger.exception("Reading the material list at start failed; it is read on first use instead.")
 
 
 def _carry_over_personal_records() -> None:
