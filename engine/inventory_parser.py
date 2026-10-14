@@ -133,9 +133,14 @@ VERTOFIX_COEUR_NEAT_USER_INVENTORY_OVERLAY_PATH = (
     PROJECT_ROOT
     / "data/governance/inventory_user_authority_overlay_20261009_vertofix_coeur_neat.json"
 )
-CURRENT_USER_INVENTORY_OVERLAY_PATH = (
+NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_PATH = (
     PROJECT_ROOT
     / "data/governance/inventory_user_authority_overlay_20261013_pomelo_ginger_lily_exaltolide.json"
+)
+CURRENT_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT
+    / "data/governance/"
+    "inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json"
 )
 PW_RECEIVED_INVENTORY_RECEIPT_PATH = (
     PROJECT_ROOT
@@ -196,7 +201,8 @@ AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_SHA256 = "0b6915b4c28536393bd13bf797b01
 E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_OVERLAY_SHA256 = "88f10b4bab667ff96822f8365d735a2e28af20e1a0feae4cc254958635c52741"
 VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_SHA256 = "79cc7af6442dccf7c9123f40ff535228337669d955bbf9b01351972caedb05f6"
 VERTOFIX_COEUR_NEAT_USER_INVENTORY_OVERLAY_SHA256 = "8329a4804909a720d6f7d95959c6c91be56c3fb0c7dd0642cd14a08297095882"
-CURRENT_USER_INVENTORY_OVERLAY_SHA256 = "9837017d07126d8328afd5ac24c32f5259eaea4cb05bc45bfa55db86b15d59e3"
+NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256 = "9837017d07126d8328afd5ac24c32f5259eaea4cb05bc45bfa55db86b15d59e3"
+CURRENT_USER_INVENTORY_OVERLAY_SHA256 = "bfa2d0ce4c7543c6937626def518f4118528e8c581337e4f74013193cdbea6cd"
 PW_RECEIVED_INVENTORY_RECEIPT_SHA256 = "089c930e044b55e434c0e0438ee7b2c20f48d871f00a219a7237a932419fbc9a"
 ROMANDOLIDE_DEPLETION_CONFIRMATION_SHA256 = "5b94ac7cf95a0ee0bb4fc0754a97bda4b0be5aae910c13c7fc4557317f823ade"
 FLORHYDRAL_ADDITION_CONFIRMATION_SHA256 = "ff481e5e993f749ce6a5ee0dd8a9606b698c03a17caeac86d1c3adf85065389d"
@@ -238,6 +244,9 @@ VERTOFIX_COEUR_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHO
 VERTOFIX_COEUR_NEAT_USER_INVENTORY_AUTHORITY = VERTOFIX_COEUR_USER_INVENTORY_AUTHORITY
 # The Pomelo EO / Ginger Lily Oil / neat Exaltolide successor (v25) records Kenny's 2026-10-13 messages.
 NEW_STOCK_20261013_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261013"
+# The Paradisamide / Caryophyllene Acetate / woods successor (v26) records Kenny's
+# 2026-10-14 messages.
+STOCK_CORRECTIONS_20261014_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014"
 
 # Stocks Kenny confirmed as ready, with their strength, basis and carrier, that
 # wait only on bottle lot and preparation receipts: Labdanum, Olibanum and
@@ -4954,7 +4963,7 @@ def _load_20261013_pomelo_ginger_lily_exaltolide_successor(
     """
 
     encoded = (json.dumps(dict(successor), ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-    if hashlib.sha256(encoded).hexdigest() != CURRENT_USER_INVENTORY_OVERLAY_SHA256:
+    if hashlib.sha256(encoded).hexdigest() != NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256:
         raise InventoryAuthorityError("2026-10-13 new-stock successor exact metadata drift")
     source = successor["source"]
     if require_live_inventory_binding and (
@@ -4980,6 +4989,101 @@ def _load_20261013_pomelo_ginger_lily_exaltolide_successor(
     for record in records:
         if record["record_id"] in previous_by_id:
             raise InventoryAuthorityError("2026-10-13 new-stock successor reuses a record id")
+    origins = {
+        key: dict(value)
+        for key, value in previous["record_origins"].items()
+        if key not in superseded
+    }
+    origin = {
+        "path": NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_PATH.relative_to(PROJECT_ROOT).as_posix(),
+        "sha256": NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    for record in records:
+        origins[record["record_id"]] = dict(origin)
+    return {
+        **dict(successor),
+        "parent": dict(previous["parent"]),
+        "base_policy": dict(previous["base_policy"]),
+        "policy": {**dict(previous["policy"]), **dict(successor["policy"])},
+        "delta_records": records,
+        "records": [
+            *(record for record in previous["records"] if record["record_id"] not in superseded),
+            *records,
+        ],
+        "record_origins": origins,
+        "retired_records": [
+            *previous.get("retired_records", []),
+            *(previous_by_id[record_id] for record_id in sorted(superseded)),
+        ],
+    }
+
+
+def _load_20261014_stock_corrections_successor(
+    successor: Mapping[str, Any],
+    *,
+    require_live_inventory_binding: bool = True,
+) -> dict[str, Any]:
+    """Record Kenny's 2026-10-14 stock corrections.
+
+    Paradisamide is 10% (the V5 row 261 neat stock is replaced; basis and
+    carrier are the project defaults, w/w in DPG). Sandalwood Base X3 (V5 row
+    220, owned but with no stock strength) is neat. Caryophyllene Acetate 20%
+    w/w gets Kenny's DEP carrier, the PerfumersWorld Kephalis bottle (receipt
+    line 23) leaves its intake hold, Cedroxyde and Hindinol are added neat,
+    and the Beta Damascone 10%, Damascenone 1%, Anise EO 1%, Immortelle,
+    Oakmoss and Violet Leaf Absolute 10% dilutions get his DPG carrier, and
+    Neroli 10% is Aroma & More's ready-made dilution in jojoba, not ethanol,
+    and Myrrh EO 50% and Guaiacwood EO 1/3 are in DPG. Each record's authority limits say which facts came from Kenny.
+    """
+
+    encoded = (json.dumps(dict(successor), ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    if hashlib.sha256(encoded).hexdigest() != CURRENT_USER_INVENTORY_OVERLAY_SHA256:
+        raise InventoryAuthorityError("2026-10-14 stock-corrections successor exact metadata drift")
+    source = successor["source"]
+    if require_live_inventory_binding and (
+        len(_normalized_text_bytes(INVENTORY_PATH)) != source["inventory_text_size_bytes"]
+        or _normalized_text_sha256(INVENTORY_PATH) != source["inventory_text_sha256"]
+    ):
+        raise InventoryAuthorityError(
+            "2026-10-14 stock-corrections successor is not bound to live inventory text"
+        )
+    predecessor_path = NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_PATH
+    if _normalized_text_sha256(predecessor_path) != NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256:
+        raise InventoryAuthorityError("2026-10-14 stock-corrections successor predecessor drift")
+    previous = _load_20261013_pomelo_ginger_lily_exaltolide_successor(
+        json.loads(predecessor_path.read_text(encoding="utf-8")),
+        require_live_inventory_binding=False,
+    )
+    superseded = set(successor["superseded_record_ids"])
+    previous_by_id = {record["record_id"]: record for record in previous["records"]}
+    if not superseded.issubset(previous_by_id):
+        raise InventoryAuthorityError("2026-10-14 stock-corrections successor superseded record missing")
+    records = successor["records"]
+    for record in records:
+        if record["record_id"] in previous_by_id:
+            raise InventoryAuthorityError("2026-10-14 stock-corrections successor reuses a record id")
+    receipt_path = PW_RECEIVED_INVENTORY_RECEIPT_PATH
+    if not receipt_path.is_file() or _file_sha256(receipt_path) != PW_RECEIVED_INVENTORY_RECEIPT_SHA256:
+        raise InventoryAuthorityError("PW received inventory receipt drift")
+    receipt_rows = {
+        row["line"]: row
+        for row in json.loads(receipt_path.read_text(encoding="utf-8"))["records"]
+    }
+    for record in records:
+        if "receipt_line" not in record:
+            continue
+        row = receipt_rows.get(record["receipt_line"])
+        stock = record["stock"]
+        if (
+            row is None
+            or record["supplier_product"]["product_name"] != row["supplier_product_name"]
+            or record["supplier_product"]["sku"] != row["supplier_sku"]
+            or record["received_quantity_g"] != row["received_quantity_g"]
+            or stock["fraction"] != float(row["stock_fraction_decimal"])
+            or stock["fraction_basis"] != row["fraction_basis"]
+            or stock["carrier"].casefold() != row["carrier"].casefold()
+        ):
+            raise InventoryAuthorityError("2026-10-14 stock disagrees with source receipt")
     origins = {
         key: dict(value)
         for key, value in previous["record_origins"].items()
@@ -5103,6 +5207,9 @@ def load_current_user_inventory_overlay(
         VERTOFIX_COEUR_NEAT_USER_INVENTORY_OVERLAY_PATH.resolve(): (
             VERTOFIX_COEUR_NEAT_USER_INVENTORY_OVERLAY_SHA256
         ),
+        NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_PATH.resolve(): (
+            NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256
+        ),
         CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve(): CURRENT_USER_INVENTORY_OVERLAY_SHA256,
     }
     expected_overlay_sha = pinned_overlays.get(overlay_path.resolve(), CURRENT_USER_INVENTORY_OVERLAY_SHA256)
@@ -5121,6 +5228,11 @@ def load_current_user_inventory_overlay(
     bind_live_text = require_live_inventory_binding and (
         overlay_path.resolve() == CURRENT_USER_INVENTORY_OVERLAY_PATH.resolve()
     )
+    if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v26":
+        return _load_20261014_stock_corrections_successor(
+            payload,
+            require_live_inventory_binding=bind_live_text,
+        )
     if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v25":
         return _load_20261013_pomelo_ginger_lily_exaltolide_successor(
             payload,
@@ -5744,7 +5856,9 @@ def _apply_current_user_inventory_overlay(
                 identity_name=_v5_identity_name(canonical_name),
                 stock_id=f"inventory:user-{authority_date}:{stock_digest}",
                 authority=(
-                    NEW_STOCK_20261013_USER_INVENTORY_AUTHORITY
+                    STOCK_CORRECTIONS_20261014_USER_INVENTORY_AUTHORITY
+                    if authority_date == "20261014"
+                    else NEW_STOCK_20261013_USER_INVENTORY_AUTHORITY
                     if authority_date == "20261013"
                     else VERTOFIX_COEUR_USER_INVENTORY_AUTHORITY
                     if authority_date == "20261009"
@@ -6112,6 +6226,7 @@ _USER_OVERLAY_CHAIN_PATHS = (
     E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_OVERLAY_PATH,
     VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_PATH,
     VERTOFIX_COEUR_NEAT_USER_INVENTORY_OVERLAY_PATH,
+    NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_PATH,
     CURRENT_USER_INVENTORY_OVERLAY_PATH,
     PW_RECEIVED_INVENTORY_RECEIPT_PATH,
 )

@@ -24,7 +24,7 @@ V5_EXALTOLIDE_10_STOCK_IDS = {
 
 
 def _head() -> dict:
-    return json.loads(inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
+    return json.loads(inventory.NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
 
 
 def _stocks(identity_name: str):
@@ -46,11 +46,11 @@ def _check(name: str):
     )
 
 
-def test_v25_is_current_and_pinned_to_v24_and_live_inventory() -> None:
-    path = inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH
+def test_v25_is_pinned_to_v24_and_live_inventory() -> None:
+    path = inventory.NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_PATH
     assert path.name == OVERLAY_NAME
     normalized = path.read_bytes().replace(b"\r\n", b"\n")
-    assert hashlib.sha256(normalized).hexdigest() == inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256
+    assert hashlib.sha256(normalized).hexdigest() == inventory.NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256
     head = _head()
     assert head["schema_version"].endswith("_v25")
     assert head["predecessor"] == {
@@ -66,7 +66,7 @@ def test_v25_is_current_and_pinned_to_v24_and_live_inventory() -> None:
         "1. it is an oil 2. pomelo EO is neat. 3. Neat exaltolide is liquid",
     ]
     assert head["superseded_record_ids"] == []
-    overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
+    overlay = inventory.load_current_user_inventory_overlay(path)
     assert [r["record_id"] for r in overlay["delta_records"]] == list(RECORDS)
     assert overlay["retired_records"] == inventory.load_current_user_inventory_overlay(
         inventory.VERTOFIX_COEUR_NEAT_USER_INVENTORY_OVERLAY_PATH

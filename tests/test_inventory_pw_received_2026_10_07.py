@@ -73,7 +73,8 @@ def test_received_kephalis_supersedes_absence_without_rewriting_history() -> Non
     assert old in current["retired_records"]
     assert any(record["canonical_name"] == "Kephalis" and record["state"] == "OWNED" for record in current["records"])
     admitted = [stock for stock in inventory.materialize_current_inventory().stocks if "user-20261007:" in stock.stock_id]
-    assert len(admitted) == 43
+    # 2026-10-14: Kephalis (receipt line 23) left its intake hold in the v26 record.
+    assert len(admitted) == 42
     assert all(stock.execution_ready is False for stock in admitted)
 
 

@@ -42,12 +42,19 @@ def test_census_preserves_every_current_inventory_row_and_fails_closed_on_matche
     # "Styralyl Acetate" record, which carries PerfumersWorld SKU 4GN00417, so
     # the inventory's "Stralyl Acetate" row now has a registry SKU:
     # 209 -> 210, 106 -> 105.
+    # 2026-10-14: Kenny's Bergamot FCF Sicilian is from Bontoux, not
+    # PerfumersWorld, so its name-only SKU 7CL24020 is dropped: 210 -> 209.
     assert match_counts == {
-        "REGISTRY_SKU": 210,
+        "REGISTRY_SKU": 209,
+        "USER_BOTTLE_FROM_OTHER_SUPPLIER": 1,
         "EXACT_NAME_SKU": 6,
         "AMBIGUOUS_EXACT_NAME": 12,
         "NO_EXACT_PW_MATCH": 105,
     }
+    bergamot = next(row for row in rows if row.canonical_name == "Bergamot FCF oil Sicilian")
+    assert bergamot.perfumersworld_match_state == "USER_BOTTLE_FROM_OTHER_SUPPLIER"
+    assert (bergamot.perfumersworld_sku, bergamot.perfumersworld_candidate_skus) == ("", ())
+    assert bergamot.perfumersworld_document_url == ""
     vertofix = next(row for row in rows if row.inventory_raw_name.startswith("Vertofix (neat"))
     assert vertofix.perfumersworld_sku == "3WY00465"
 
