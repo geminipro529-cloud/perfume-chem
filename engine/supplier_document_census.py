@@ -121,7 +121,17 @@ def build_supplier_document_census(
         }
         candidate_skus = tuple(sorted(candidate_by_sku))
 
-        if registry_sku:
+        other_supplier = str(
+            (getattr(supplier_refs, "other", None) or {}).get("user_bottle_supplier") or ""
+        ).strip()
+
+        if other_supplier:
+            # Kenny's bottle came from another supplier: a PerfumersWorld product
+            # of the same name says nothing about it.
+            match_state = "USER_BOTTLE_FROM_OTHER_SUPPLIER"
+            selected_sku = ""
+            candidate_skus = ()
+        elif registry_sku:
             match_state = "REGISTRY_SKU"
             selected_sku = registry_sku
         elif len(candidate_skus) == 1:

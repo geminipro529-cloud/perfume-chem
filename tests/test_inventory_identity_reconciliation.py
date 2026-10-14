@@ -18,7 +18,7 @@ from engine.inventory_parser import (
     CURRENT_USER_INVENTORY_OVERLAY_SHA256,
     AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256,
     PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256,
-    VERTOFIX_COEUR_NEAT_USER_INVENTORY_OVERLAY_SHA256,
+    NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256,
     TOBACCO_DBCA_USER_INVENTORY_AUTHORITY,
     load_current_user_inventory_overlay,
     materialize_current_inventory,
@@ -149,6 +149,7 @@ def test_v5_current_inventory_master_is_the_pinned_physical_authority() -> None:
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261008",
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261009",
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261013",
+        "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
     }
 
 
@@ -193,10 +194,10 @@ def test_user_inventory_overlay_is_parent_pinned_and_non_rebasing() -> None:
     assert payload["policy"]["general_substitution_authorized"] is False
     assert payload["policy"]["preserve_exact_ap_t1_cinnamon_substitution"] is True
     assert payload["policy"]["require_sub_10_ul_working_stock"] is True
-    # 2026-10-13: the new-stock record (v25) succeeds the Vertofix Coeur neat one.
+    # 2026-10-14: the stock-corrections record (v26) succeeds the 2026-10-13 new-stock one.
     assert payload["predecessor"] == {
-        "path": "data/governance/inventory_user_authority_overlay_20261009_vertofix_coeur_neat.json",
-        "normalized_text_sha256": VERTOFIX_COEUR_NEAT_USER_INVENTORY_OVERLAY_SHA256,
+        "path": "data/governance/inventory_user_authority_overlay_20261013_pomelo_ginger_lily_exaltolide.json",
+        "normalized_text_sha256": NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256,
     }
 
 
@@ -299,7 +300,8 @@ def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> 
         "amber xtreme": (0.10, "mass_fraction", "dep"),
         "alpha irone": (0.10, "mass_fraction", "dep"),
         "opoponax resinoid": (0.50, "mass_fraction", "dep"),
-        "myrrh eo": (0.50, "unspecified", "dep"),
+        # 2026-10-14: Kenny said Myrrh EO is in DPG (v26 overlay); w/w by default.
+        "myrrh eo": (0.50, "mass_fraction", "dpg"),
         # 2026-10-08: Kenny confirmed the Osmanthus dilution is w/w (v22 overlay).
         "osmanthus absolute": (0.10, "mass_fraction", "dpg"),
         "rose de mai absolute": (0.10, "unspecified", "dpg"),
@@ -320,6 +322,8 @@ def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> 
             if identity == "osmanthus absolute"
             else "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924"
             if identity == "opoponax resinoid"
+            else "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014"
+            if identity == "myrrh eo"
             else INHERITED_USER_AUTHORITY
         )
 
@@ -419,7 +423,10 @@ def test_bacdanol_clearwood_and_guaiacwood_current_authority_is_exact() -> None:
     payload = load_current_user_inventory_overlay()
     by_id = {record["record_id"]: record for record in payload["records"]}
     bacdanol_authority = by_id["INV-USER-20260901-001"]
-    guaiacwood_authority = by_id["INV-USER-20260901-002"]
+    # 2026-10-14: Kenny put the Guaiacwood EO stock in DPG (v26); the exact
+    # 2026-09-01 ethanol + DEP record stays readable as retired history.
+    retired = {record["record_id"]: record for record in payload["retired_records"]}
+    guaiacwood_authority = retired["INV-USER-20260901-002"]
 
     assert bacdanol_authority["aliases"] == ["Bacnadol"]
     assert bacdanol_authority["stock"]["fraction"] == pytest.approx(1.0)
@@ -503,7 +510,7 @@ def test_bacdanol_clearwood_and_guaiacwood_current_authority_is_exact() -> None:
     assert guaiacwood[0].dilution == pytest.approx(1.0 / 3.0)
     assert (guaiacwood[0].fraction_basis, guaiacwood[0].carrier) == (
         "mass_fraction",
-        "ethanol + dep",
+        "dpg",
     )
     assert guaiacwood[0].status == "owned"
     assert guaiacwood[0].execution_ready is True
@@ -550,7 +557,7 @@ def test_bacdanol_clearwood_and_guaiacwood_current_authority_is_exact() -> None:
     ("material", "fraction", "fraction_basis", "carrier"),
     [
         ("Bacnadol", 1.0, "neat", ""),
-        ("Guaiacwood EO", 1.0 / 3.0, "mass_fraction", "ethanol + dep"),
+        ("Guaiacwood EO", 1.0 / 3.0, "mass_fraction", "dpg"),
     ],
 )
 def test_corrected_wood_stock_authority_supports_quantitative_mass_basis(
@@ -575,8 +582,11 @@ def test_corrected_wood_stock_authority_supports_quantitative_mass_basis(
     check = _dilution_consistency_check(formula)
 
     assert check.status == "PASS"
+    # 2026-10-14: Kenny said Guaiacwood EO is in DPG (v26 overlay).
     assert check.data["resolved_stock_specs"][material]["inventory_authority"] == (
-        INHERITED_USER_AUTHORITY
+        "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014"
+        if material == "Guaiacwood EO"
+        else INHERITED_USER_AUTHORITY
     )
 
 

@@ -4,7 +4,7 @@
   "input_sha256": {
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
     "engine/ingredient_intelligence.py": "7dc52fc8ff7a336ddc563507b43f063703b3f7c70fe566977aa3f62c8f0b4bc1",
-    "engine/inventory_parser.py": "7cbe3a56c00f946336a485cbcda8b2acdc42ed3c54941e3b52ee9d04d8c8f659",
+    "engine/inventory_parser.py": "ebe5eaef031cc44d10470a3ab2460f0b59093d736acc58ea1a4c76108694ab83",
     "engine/odor_thresholds.py": "c9c8c1a7b20d17d1b4f923caed109a237b1b31e92146a04511f588012723b639",
     "engine/name_utils.py": "a5b3e5d33afac1dbe0e880f8bd71e0b3d822185b43ed3cbf3ee915842fdb48cb",
     "engine/material_identity.py": "3dbb20055f9794450b25a21123852dc9b355493af4b653fdd48fb341347d5e5d",
@@ -13,7 +13,7 @@
     "data/governance/ingredient_reconciliation_20260907.json": "3038fbf22ab98df93e92a7c23db0e6696c140d9ef00e9cf20415f2dae99b7413",
     "engine/data_spine/reconciliation.py": "ad1403e02b4296ed9bebcc892df28b25d24b637dfbdad361b301fc37f9a21cdc",
     "data/materials/A.yaml": "b237cc1e026de33f901a0c8c289572814274e36a907d6b89085017a3256aba52",
-    "data/materials/B.yaml": "50dfbef6c71f95b7aba2f589f459ee867e0b0311ea23f20b930038284c1932d0",
+    "data/materials/B.yaml": "7033d5bd1e3537121d40a0d059a64a0d7feb04a376ea41392b5000558ddbc7f8",
     "data/materials/C.yaml": "17c9948a0f2c382ac2158be0925fbe5ae739c751197fbf1f48a9d4ac125da0ea",
     "data/materials/D.yaml": "1b04b9f5f804c390b0155fc766e90700f9d68f719e41f27f3faa26df57666ca7",
     "data/materials/E.yaml": "0495dc583f99bb73e275e3c915f9c1a2c84c50aa62470ce1eb2a314d138811d1",
@@ -39,16 +39,16 @@
     "data/materials/Y.yaml": "95ca0131908d6772148786fed0d24809989c4bc10ef002b095e07bdbbff34f74",
     "data/materials/Z.yaml": "2b1eebcca0bedad85ee36a3969d35f1f6da0c30aad7ea51c117a675decd19d39"
   },
-  "inventory_overlay_sha256": "9837017d07126d8328afd5ac24c32f5259eaea4cb05bc45bfa55db86b15d59e3",
+  "inventory_overlay_sha256": "bfa2d0ce4c7543c6937626def518f4118528e8c581337e4f74013193cdbea6cd",
   "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
   "inventory_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
   "counts": {
     "original_cache_records": 429,
-    "rebuilt_cache_records": 429,
+    "rebuilt_cache_records": 432,
     "all_original_names_preserved": true,
     "inventory_text_rows": 333,
     "historical_requirement_rows": 280,
-    "current_physical_stocks": 292,
+    "current_physical_stocks": 295,
     "registry_records": 1270,
     "rows_with_profile": 295,
     "rows_with_registry": 323,
@@ -639,7 +639,7 @@
       "registry_name": "Neroli EO",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20260908:cdffbb4e058f3d2af434",
+        "inventory:user-20261014:bbadde4611799264babd",
         "inventory:user-20260906:209cd29942aa0e7abf37"
       ],
       "odt_present": true,
@@ -656,7 +656,7 @@
       "registry_name": "Neroli EO",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20260908:cdffbb4e058f3d2af434",
+        "inventory:user-20261014:bbadde4611799264babd",
         "inventory:user-20260906:209cd29942aa0e7abf37"
       ],
       "odt_present": true,
@@ -2178,7 +2178,7 @@
       "registry_name": "Paradisamide",
       "profile_name": "Paradisamide",
       "current_stock_ids": [
-        "inventory:v5:8a702d0134e5d3f69e8b"
+        "inventory:user-20261014:a54d8c4ebd37cc049cc0"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2280,7 +2280,7 @@
       "registry_name": "Damascenone",
       "profile_name": "Damascenone",
       "current_stock_ids": [
-        "inventory:v5:51405a4fd651848ea908"
+        "inventory:user-20261014:27d1a5791d92d8394a42"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2625,7 +2625,7 @@
       "registry_name": "immortelle absolute",
       "profile_name": "Immortelle Absolute",
       "current_stock_ids": [
-        "inventory:v5:be1950d7abe507a93774"
+        "inventory:user-20261014:ecbc0a96afb621e0d5bc"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2923,7 +2923,7 @@
       "registry_name": "Violet Leaf Absolute",
       "profile_name": "Violet Leaf Absolute",
       "current_stock_ids": [
-        "inventory:v5:762e1b61ad1c4e16efbe"
+        "inventory:user-20261014:7939634dd8d1d7570db6"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3765,7 +3765,7 @@
       "registry_name": "Guaiacwood EO",
       "profile_name": "Guaiacwood EO",
       "current_stock_ids": [
-        "inventory:user-20260901:f68cc41e59396c05afa5"
+        "inventory:user-20261014:f2e47aeb254663ed690f"
       ],
       "odt_present": false,
       "missing_numeric_fields": [
@@ -3909,7 +3909,7 @@
       "registry_name": "Kephalis",
       "profile_name": "Kephalis",
       "current_stock_ids": [
-        "inventory:user-20261007:492b3820aecc7dfa979e"
+        "inventory:user-20261014:b2b58a35a947bd4a933f"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -4907,7 +4907,7 @@
       "registry_name": "Myrrh EO",
       "profile_name": "Myrrh EO",
       "current_stock_ids": [
-        "inventory:user-20260828:5a60393c0cb24fef6c8f"
+        "inventory:user-20261014:9de1e26498ebc839222e"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5319,7 +5319,7 @@
       "registry_name": "oakmoss absolute",
       "profile_name": "Oakmoss Absolute",
       "current_stock_ids": [
-        "inventory:v5:0de3eac581466f1def6c"
+        "inventory:user-20261014:dcc6e6993a12d83eb5ca"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5884,7 +5884,7 @@
       "registry_name": "Caryophyllene Acetate",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20260830:948f80d8c4633117205f"
+        "inventory:user-20261014:5b63c5f8e504180b35f4"
       ],
       "odt_present": false,
       "missing_numeric_fields": [
@@ -6125,6 +6125,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "ef807bf2a358978ac6482d7bd4bcdda6122514c129c1f362beda39aebfe6855a",
+  "output_sha256": "59bd0f748408dc4754c9b3dc35bc5888dd7371211471d1f548750035ef5ee692",
   "input_cache_sha256": "ef807bf2a358978ac6482d7bd4bcdda6122514c129c1f362beda39aebfe6855a"
 }

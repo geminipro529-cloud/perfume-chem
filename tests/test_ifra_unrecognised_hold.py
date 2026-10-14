@@ -139,10 +139,13 @@ STILL_HELD = {
     "Black Tea Base",
     "Castoreum Synthetic",
     "Cedryl Acetate",
+    # Added to the stock list on 2026-10-14; no IFRA standard names these woods.
+    "Cedroxyde",
     "Clearwood",
     "Costus Olifac 10%",
     "Frangipani Absolute",
     "Fructone B",
+    "Hindinol",
     # New bottles of 2026-10-13: no IFRA standard names pomelo or ginger lily oil, and
     # neither bottle's species, plant part or furocoumarin content is recorded.
     "Ginger Lily Oil",
@@ -153,6 +156,8 @@ STILL_HELD = {
     "Orris Concrete Orris Butter",
     "Pomelo EO",
     "Saffranal",
+    # Owned before, but undosable until 2026-10-14 gave it a strength (neat).
+    "Sandalwood Base X3",
     "Suederal 10%",
     "Tonkarome",
     "Vanilla Absolute",

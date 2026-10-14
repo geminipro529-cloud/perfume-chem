@@ -15,12 +15,12 @@ from engine.personal_inventory import (
 )
 
 
-def _add_hindinol(path: Path):
+def _add_cedrol(path: Path):
     initial = materialize_personal_inventory(addition_path=path)
     return record_personal_inventory_addition(
         expected_design_inventory_sha256=initial.effective_inventory_sha256,
-        idempotency_key="test-add-owned-hindinol",
-        identity_name="Hindinol",
+        idempotency_key="test-add-owned-cedrol",
+        identity_name="Cedrol",
         category="woods / amber / structure",
         fraction_decimal="1",
         fraction_basis="neat",
@@ -30,7 +30,7 @@ def _add_hindinol(path: Path):
         homogeneity="NOT_APPLICABLE",
         source_kind="PERSONAL_CONFIRMATION",
         supplier_name="PerfumersWorld",
-        supplier_sku="4WX24656",
+        supplier_sku="1WW01281",
         user_note="Direct ownership confirmation; wishlist is not ownership authority.",
         path=path,
     )
@@ -41,15 +41,18 @@ def test_projection_recovers_live_owned_rows_and_aliases(tmp_path: Path) -> None
         addition_path=tmp_path / "additions.jsonl"
     )
 
-    sandalwood = [
+    # Sandalwood Base X3 was the example here until it entered the gate's stock
+    # list on 2026-10-14; Clove EO is still recovered only from inventory.txt.
+    clove = [
         stock
         for stock in projection.stocks
-        if names_match(stock.identity_name or stock.name, "Sandalwood Base X3")
+        if names_match(stock.identity_name or stock.name, "Clove EO")
     ]
-    assert len(sandalwood) == 1
-    assert sandalwood[0].authority == "LEGACY_INVENTORY_TEXT_DESIGN_ONLY"
-    assert sandalwood[0].design_ready is True
-    assert sandalwood[0].execution_ready is False
+    assert len(clove) == 1
+    assert clove[0].identity_name == "Clove EO (India)"
+    assert clove[0].authority == "LEGACY_INVENTORY_TEXT_DESIGN_ONLY"
+    assert clove[0].design_ready is True
+    assert clove[0].execution_ready is False
     assert sum(
         stock.authority == "LEGACY_INVENTORY_TEXT_DESIGN_ONLY"
         for stock in projection.stocks
@@ -68,7 +71,8 @@ def test_projection_does_not_bulk_import_supplier_wishlist(tmp_path: Path) -> No
         (stock.identity_name or stock.name).casefold() for stock in projection.stocks
     }
 
-    assert "hindinol" not in identities
+    # Hindinol joined the stock list on 2026-10-14; Cedrol is still only on the wishlist.
+    assert "cedrol" not in identities
     assert "aphermate" not in identities
 
 
@@ -76,23 +80,23 @@ def test_personal_addition_is_hash_chained_idempotent_and_design_only(
     tmp_path: Path,
 ) -> None:
     path = tmp_path / "additions.jsonl"
-    receipt, projection = _add_hindinol(path)
-    hindinol = next(
+    receipt, projection = _add_cedrol(path)
+    cedrol = next(
         stock
         for stock in projection.stocks
-        if (stock.identity_name or stock.name) == "Hindinol"
+        if (stock.identity_name or stock.name) == "Cedrol"
     )
 
-    assert hindinol.authority == "PERSONAL_INVENTORY_ADDITION_DESIGN_ONLY"
-    assert hindinol.design_ready is True
-    assert hindinol.execution_ready is False
-    assert hindinol.dilution == 1
+    assert cedrol.authority == "PERSONAL_INVENTORY_ADDITION_DESIGN_ONLY"
+    assert cedrol.design_ready is True
+    assert cedrol.execution_ready is False
+    assert cedrol.dilution == 1
     assert receipt["compounding_authority"] is False
 
     replay, replayed_projection = record_personal_inventory_addition(
         expected_design_inventory_sha256=projection.effective_inventory_sha256,
-        idempotency_key="test-add-owned-hindinol",
-        identity_name="Hindinol",
+        idempotency_key="test-add-owned-cedrol",
+        identity_name="Cedrol",
         category="woods / amber / structure",
         fraction_decimal="1",
         fraction_basis="neat",
@@ -102,13 +106,13 @@ def test_personal_addition_is_hash_chained_idempotent_and_design_only(
         homogeneity="NOT_APPLICABLE",
         source_kind="PERSONAL_CONFIRMATION",
         supplier_name="PerfumersWorld",
-        supplier_sku="4WX24656",
+        supplier_sku="1WW01281",
         user_note="Direct ownership confirmation; wishlist is not ownership authority.",
         path=path,
     )
     assert replay["event_sha256"] == receipt["event_sha256"]
     assert sum(
-        (stock.identity_name or stock.name) == "Hindinol"
+        (stock.identity_name or stock.name) == "Cedrol"
         for stock in replayed_projection.stocks
     ) == 1
 
@@ -140,18 +144,18 @@ def test_formula_capability_index_uses_personal_additions(
 ) -> None:
     path = tmp_path / "additions.jsonl"
     monkeypatch.setenv("PERFUME_PERSONAL_INVENTORY_ADDITION_PATH", str(path))
-    _add_hindinol(path)
+    _add_cedrol(path)
 
-    index = build_material_capability_index(("Hindinol", "Sandalwood Base X3"))
-    matches = index.exact_matches("Hindinol")
-    sandalwood_matches = index.exact_matches("Sandalwood Base X3")
+    index = build_material_capability_index(("Cedrol", "Sandalwood Base 3X"))
+    matches = index.exact_matches("Cedrol")
+    sandalwood_matches = index.exact_matches("Sandalwood Base 3X")
 
     assert len(matches) == 1
-    assert matches[0].identity_name == "Hindinol"
+    assert matches[0].identity_name == "Cedrol"
     assert matches[0].design_ready is True
     assert matches[0].execution_ready is False
     assert len(sandalwood_matches) == 1
-    assert sandalwood_matches[0].identity_name == "Sandalwood Base 3X"
+    assert sandalwood_matches[0].identity_name == "Sandalwood Base X3"
     assert index.effective_inventory_sha256 == materialize_personal_inventory(
         addition_path=path
     ).effective_inventory_sha256

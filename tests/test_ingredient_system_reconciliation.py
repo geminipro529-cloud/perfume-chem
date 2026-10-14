@@ -51,7 +51,8 @@ def test_successor_preserves_unaffected_stock_bytes_and_all_requirement_rows():
         ("Coumarin", 0.1, "mass_fraction", "dpg", True),
         ("Vetiveryl Acetate", 1, "neat", "", True),
         ("Methyl Laitone", 0.2, "volume_fraction", "ethanol", True),
-        ("Guaiacwood EO", 1 / 3, "mass_fraction", "ethanol + dep", True),
+        # 2026-10-14: Kenny put the Guaiacwood EO stock in DPG.
+        ("Guaiacwood EO", 1 / 3, "mass_fraction", "dpg", True),
         ("Bacdanol", 1, "neat", "", True),
     ],
 )
@@ -79,8 +80,9 @@ def test_retired_liquids_and_depleted_stocks_do_not_reappear():
     assert "Ambrofix Crystals" in names
     kephalis = next(s for s in inventory.materialize_current_inventory().stocks
                     if s.identity_name == "Kephalis")
-    assert kephalis.authority == "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261007"
-    assert kephalis.execution_ready is False
+    # Kenny released Kephalis from its intake hold on 2026-10-14 (neat).
+    assert kephalis.authority == "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014"
+    assert kephalis.execution_ready is True
     old = inventory.load_current_user_inventory_overlay()["retired_records"][0]
     assert old["mass_balance"]["ambrofix_g"] == 0.192
 
