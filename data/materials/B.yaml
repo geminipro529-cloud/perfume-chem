@@ -1342,11 +1342,15 @@
   user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
-    perfumersworld_sku: 7CL24020
-    perfumersworld_price_usd_per_g: 0.22
-    perfumersworld_form: neat
-    perfumersworld_snapshot_date: '2026-04-11'
-    other: {}
+    perfumersworld_sku: null
+    perfumersworld_price_usd_per_g: null
+    perfumersworld_form: null
+    perfumersworld_snapshot_date: null
+    other:
+      user_bottle_supplier: Bontoux
+      user_bottle_supplier_source: 'Kenny, 2026-10-14: "Bergamot FCF is from BONTOUX", and "No" when asked whether he bought it from PerfumersWorld'
+      furocoumarin_document: none on file (Bontoux publishes no bergapten figure); Kenny treats it as FCF for bench mixing ("it's FCF", "It passes", 2026-10-14)
+      perfumersworld_catalogue_sku_not_user_bottle: 7CL24020
   families:
   - citrus / top
   character: null
@@ -1363,7 +1367,7 @@
     trp.TRPV1: engine.trigeminal
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
-    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    supplier.user_bottle: Kenny 2026-10-14 (Studio 3 thread); PerfumersWorld 7CL24020 was a name-only match
 - canonical_name: Bergamot Fleuressence
   aliases: []
   cas: null

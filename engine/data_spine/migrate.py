@@ -340,7 +340,9 @@ def _ingest_perfumersworld(reg: dict[str, Material], stock_path: Path) -> None:
             (e for e in items if e.dilution_pct is None),
             min(items, key=lambda e: (e.dilution_pct or 0.0)),
         )
-        if not m.supplier.perfumersworld_sku:
+        # A bottle Kenny bought elsewhere keeps no PerfumersWorld SKU, even when
+        # the names match (Bergamot FCF Sicilian is from Bontoux, 2026-10-14).
+        if not m.supplier.perfumersworld_sku and not m.supplier.other.get("user_bottle_supplier"):
             m.supplier.perfumersworld_sku = neat.sku
             m.supplier.perfumersworld_price_usd_per_g = neat.price_usd
             m.supplier.perfumersworld_form = (

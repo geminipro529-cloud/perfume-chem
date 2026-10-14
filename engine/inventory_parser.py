@@ -202,7 +202,7 @@ E2MB_OSMANTHUS_MIMOSA_USER_INVENTORY_OVERLAY_SHA256 = "88f10b4bab667ff96822f8365
 VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_SHA256 = "79cc7af6442dccf7c9123f40ff535228337669d955bbf9b01351972caedb05f6"
 VERTOFIX_COEUR_NEAT_USER_INVENTORY_OVERLAY_SHA256 = "8329a4804909a720d6f7d95959c6c91be56c3fb0c7dd0642cd14a08297095882"
 NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256 = "9837017d07126d8328afd5ac24c32f5259eaea4cb05bc45bfa55db86b15d59e3"
-CURRENT_USER_INVENTORY_OVERLAY_SHA256 = "656ea0db102224cf74dced1069153bd11994efd8347a36c3ff58676a2969b2ba"
+CURRENT_USER_INVENTORY_OVERLAY_SHA256 = "ee90e0822919fd6a6ff839b0587f2e126dbf1a854380ef659407938fc0f52dad"
 PW_RECEIVED_INVENTORY_RECEIPT_SHA256 = "089c930e044b55e434c0e0438ee7b2c20f48d871f00a219a7237a932419fbc9a"
 ROMANDOLIDE_DEPLETION_CONFIRMATION_SHA256 = "5b94ac7cf95a0ee0bb4fc0754a97bda4b0be5aae910c13c7fc4557317f823ade"
 FLORHYDRAL_ADDITION_CONFIRMATION_SHA256 = "ff481e5e993f749ce6a5ee0dd8a9606b698c03a17caeac86d1c3adf85065389d"
@@ -5029,8 +5029,10 @@ def _load_20261014_stock_corrections_successor(
     carrier are the project defaults, w/w in DPG). Sandalwood Base X3 (V5 row
     220, owned but with no stock strength) is neat. Caryophyllene Acetate 20%
     w/w gets Kenny's DEP carrier, the PerfumersWorld Kephalis bottle (receipt
-    line 23) leaves its intake hold, and Cedroxyde and Hindinol are added
-    neat. Each record's authority limits say which facts came from Kenny.
+    line 23) leaves its intake hold, Cedroxyde and Hindinol are added neat,
+    and the Beta Damascone 10%, Damascenone 1%, Anise EO 1%, Immortelle,
+    Oakmoss and Violet Leaf Absolute 10% dilutions get his DPG carrier, and
+    Neroli 10% is Aroma & More's ready-made dilution in jojoba, not ethanol. Each record's authority limits say which facts came from Kenny.
     """
 
     encoded = (json.dumps(dict(successor), ensure_ascii=False, indent=2) + "\n").encode("utf-8")

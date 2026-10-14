@@ -55,6 +55,12 @@ def test_corrected_stocks_bind_exactly_without_density_or_release(name, fraction
         assert current.data["issues"][0]["reason"] == "inventory_stock_non_executable"
         assert "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING" in current.data["issues"][0]["execution_holds"]
         return
+    if name == "Neroli EO":
+        # 2026-10-14: Kenny's Neroli 10% is Aroma & More's ready-made dilution in
+        # jojoba, not ethanol; the v26 record supersedes this one.
+        assert check.status == "FAIL"
+        assert _check(name, fraction, "mass_fraction", "jojoba").status == "PASS"
+        return
     assert check.status == "PASS", check.data.get("issues")
     resolved = check.data["resolved_stock_specs"][name]
     assert (resolved["fraction"], resolved["fraction_basis"], resolved["carrier"]) == (
@@ -68,11 +74,15 @@ def test_corrected_stocks_bind_exactly_without_density_or_release(name, fraction
 
 
 def test_prepared_ethanol_stocks_do_not_revive_retired_dpg_or_replace_neat():
-    for name in ("Neroli EO", "Peppermint EO"):
+    # 2026-10-14: the Neroli 10% is a jojoba dilution (v26), not ethanol.
+    for name, diluted in (
+        ("Neroli EO", (0.1, "mass_fraction", "jojoba")),
+        ("Peppermint EO", (0.1, "volume_fraction", "ethanol")),
+    ):
         stocks = [s for s in inventory.materialize_current_inventory().stocks
                   if s.identity_name == name]
         assert {(s.dilution, s.fraction_basis, s.carrier) for s in stocks} == {
-            (1.0, "neat", ""), (0.1, "volume_fraction", "ethanol"),
+            (1.0, "neat", ""), diluted,
         }
         assert _check(name, 1.0, "neat", "").status == "PASS"
     assert _check("Neroli EO", 0.1, "volume_fraction", "dpg").status == "FAIL"

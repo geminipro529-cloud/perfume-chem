@@ -21,7 +21,21 @@ RECORDS = {
     "INV-USER-20261014-STK-004": ("Kephalis", 1.0, "neat", ""),
     "INV-USER-20261014-STK-005": ("Cedroxyde", 1.0, "neat", ""),
     "INV-USER-20261014-STK-006": ("Hindinol", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-007": ("Beta Damascone", 0.1, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-008": ("Damascenone", 0.01, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-009": ("Anise EO", 0.01, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-010": ("Immortelle Absolute", 0.1, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-011": ("Oakmoss Absolute", 0.1, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-012": ("Violet Leaf Absolute", 0.1, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-013": ("Neroli EO", 0.1, "mass_fraction", "jojoba"),
 }
+# EO dilutions recorded in another solvent stay as they were.
+OTHER_SOLVENT_EOS = {
+    "Peppermint EO": (0.1, "volume_fraction", "ethanol"),
+    "Myrrh EO": (0.5, "unspecified", "dep"),
+}
+# Beta Damascone also has a neat V5 stock, which this record leaves alone.
+V5_BETA_DAMASCONE_NEAT_STOCK_ID = "inventory:v5:5b2f689456cc631e984d"
 V5_PARADISAMIDE_NEAT_STOCK_ID = "inventory:v5:8a702d0134e5d3f69e8b"
 
 
@@ -65,14 +79,19 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "All are neat",
         "No that one is not neat",
         "Dep",
+        "All the Damascones, etc stock dilution bases are in DPG",
+        "As well as the EOs and absolutes",
+        "Neroli 10% is from aroma&more",
+        "It\u2019s not in ethanol check the web",
     ]
-    assert head["superseded_record_ids"] == ["INV-USER-20260830-010", "INV-USER-20261007-PW-023"]
+    superseded = ["INV-USER-20260830-010", "INV-USER-20261007-PW-023", "INV-USER-20260908-AHSEE-002"]
+    assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
     assert [r["record_id"] for r in overlay["delta_records"]] == list(RECORDS)
     retired = {r["record_id"] for r in overlay["retired_records"]}
-    assert {"INV-USER-20260830-010", "INV-USER-20261007-PW-023"} <= retired
+    assert set(superseded) <= retired
     live = {r["record_id"] for r in overlay["records"]}
-    assert not live & {"INV-USER-20260830-010", "INV-USER-20261007-PW-023"}
+    assert not live & set(superseded)
     assert overlay["policy"]["compounding_authorized"] is False
     assert overlay["policy"]["formula_rebase_authorized"] is False
     assert overlay["policy"]["safety_or_release_asserted"] is False
@@ -81,7 +100,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
 @pytest.mark.parametrize("record_id,expected", list(RECORDS.items()))
 def test_each_material_is_one_execution_ready_stock(record_id: str, expected: tuple) -> None:
     name, fraction, basis, carrier = expected
-    stocks = _stocks(name)
+    stocks = [stock for stock in _stocks(name) if stock.dilution == pytest.approx(fraction)]
     assert len(stocks) == 1
     stock = stocks[0]
     assert stock.status == "owned"
@@ -100,6 +119,32 @@ def test_paradisamide_v5_neat_stock_is_replaced() -> None:
     limits = _record("Paradisamide")["authority_limits"]
     assert limits["fraction_from_user_message"] is True
     assert limits["basis_and_carrier_are_project_defaults"] is True
+
+
+def test_damascone_dilutions_replace_their_v5_stocks_and_keep_the_neat_one() -> None:
+    beta = {(stock.dilution, stock.stock_id.split(":")[1]) for stock in _stocks("Beta Damascone")}
+    assert beta == {(1.0, "v5"), (0.1, "user-20261014")}
+    assert V5_BETA_DAMASCONE_NEAT_STOCK_ID in {stock.stock_id for stock in _stocks("Beta Damascone")}
+    assert [stock.dilution for stock in _stocks("Damascenone")] == [0.01]
+    for name in ("Beta Damascone", "Damascenone"):
+        limits = _record(name)["authority_limits"]
+        assert limits["carrier_from_user_message"] is True
+        assert limits["basis_is_project_default"] is True
+
+
+@pytest.mark.parametrize("name,expected", list(OTHER_SOLVENT_EOS.items()))
+def test_eo_dilutions_in_another_solvent_are_unchanged(name: str, expected: tuple) -> None:
+    fraction, basis, carrier = expected
+    (stock,) = [s for s in _stocks(name) if s.dilution == pytest.approx(fraction)]
+    assert (stock.fraction_basis, stock.carrier) == (basis, carrier)
+    assert not stock.stock_id.startswith("inventory:user-20261014:")
+
+
+def test_neroli_10pct_is_aroma_and_more_in_jojoba_not_ethanol() -> None:
+    record = _record("Neroli EO")
+    assert record["supplier_product"]["supplier"] == "Aroma & More"
+    assert record["authority_limits"]["user_said_not_ethanol"] is True
+    assert not [s for s in _stocks("Neroli EO") if s.carrier == "ethanol"]
 
 
 def test_caryophyllene_acetate_carrier_is_kennys_dep() -> None:
@@ -132,7 +177,7 @@ def test_sandalwood_base_requirement_row_is_owned() -> None:
 @pytest.mark.parametrize("record_id,expected", list(RECORDS.items()))
 def test_preflight_resolves_each_stock(record_id: str, expected: tuple) -> None:
     name, fraction, basis, carrier = expected
-    (stock,) = _stocks(name)
+    (stock,) = [s for s in _stocks(name) if s.dilution == pytest.approx(fraction)]
     check = _dilution_consistency_check(
         {
             "ingredients_ul": {name: 50.0},
