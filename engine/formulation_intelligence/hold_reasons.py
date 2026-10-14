@@ -66,13 +66,29 @@ LINK_ACTION = "Nothing for you to do: Claude links the two names."
 # Kenny, 14 Oct: IFRA certificates matter only before a printed IFRA statement on a sold
 # label; labelled grades count for bench mixing (AGENTS.md Rule 6).
 IFRA_LABEL_ACTION = (
-    "Nothing is needed to mix it at the bench. Before a printed IFRA statement, "
-    "ask the supplier for its IFRA certificate."
+    "Nothing is needed to mix it at the bench; its IFRA certificate matters only before a "
+    "printed IFRA statement on a label you sell."
 )
 IFRA_NAME_ACTION = (
     "Nothing to send: Claude adds it to the IFRA table. Until then this formula's IFRA "
     "result leaves it out."
 )
+# A restricted material whose Category 4 limit the Lab's IFRA table lacks: table data.
+IFRA_LIMIT_ACTION = "Nothing for you to do: Claude records its Category 4 limit from the IFRA standard."
+IFRA_OTHER_ACTION = "Nothing for you to do: Claude finds out why the IFRA check holds it."
+# The same bottle, by name and strength, but the two lists give another solvent or basis.
+# Kenny's own word settles which record is current (14 Oct: his EO, absolute and
+# damascone-type dilutions are in DPG); Claude asks him only where it isn't on record.
+FORM_ACTION = (
+    "Nothing for you to do unless Claude asks: Claude checks which record is right against "
+    "what you have already said and corrects the other."
+)
+SAME_BOTTLE_ACTION = 'Tell Claude whether it is the same bottle; the "Stock data into the engine" thread records it.'
+SAME_MATERIAL_ACTION = (
+    'Tell Claude whether it is the same material, and which strengths you have; the "Stock data '
+    'into the engine" thread records it.'
+)
+STRENGTH_ACTION = 'Tell Claude which you have, or both; the "Stock data into the engine" thread records it.'
 _GOVERNANCE = Path(__file__).resolve().parents[2] / "data" / "governance"
 _OVERLAY_GLOB = "inventory_user_authority_overlay_*.json"
 _STARTING_CHARGE = "mass_fraction_starting_charge"
@@ -151,14 +167,28 @@ def _open(stock: Any) -> dict[str, Any]:
     return {"kind": "stock_page", "stock_id": stock.stock_id}
 
 
-@lru_cache(maxsize=1)
 def _overlay_aliases() -> dict[str, str]:
-    """Each alias in Kenny's dated overlays, normalised, to its record's canonical name."""
+    """Each alias in Kenny's dated overlays, normalised, to its record's canonical name.
 
+    Read again whenever an overlay file is added or changed, as the gate's own stock list is.
+    """
+
+    stamps = []
+    for path in sorted(_GOVERNANCE.glob(_OVERLAY_GLOB)):
+        try:
+            stamps.append((str(path), path.stat().st_mtime_ns))
+        except OSError:
+            continue
+    return _overlay_aliases_from(tuple(stamps))
+
+
+@lru_cache(maxsize=4)
+def _overlay_aliases_from(stamps: tuple[tuple[str, int], ...]) -> dict[str, str]:
     from engine.name_utils import normalize_name
 
     aliases: dict[str, str] = {}
-    for path in sorted(_GOVERNANCE.glob(_OVERLAY_GLOB)):
+    for path_text, _stamp in stamps:
+        path = Path(path_text)
         try:
             records = json.loads(path.read_text(encoding="utf-8")).get("records") or []
         except (OSError, ValueError, AttributeError):
@@ -173,10 +203,13 @@ def _overlay_aliases() -> dict[str, str]:
 
 
 def _qualified(name: str) -> bool:
-    """A name carrying a note in brackets other than its strength ("Vetiver EO (Haiti)")."""
+    """A name carrying a note in brackets other than its strength or a CAS number ("Vetiver EO (Haiti)")."""
 
-    notes = re.findall(r"\(([^)]*)\)", name)
-    return any(not re.fullmatch(r"\s*(neat|[\d.]+\s*%.*)\s*", note, re.IGNORECASE) for note in notes)
+    notes = re.findall(r"\(([^)]*)\)|\[([^\]]*)\]", name)
+    return any(
+        not re.fullmatch(r"\s*(neat|[\d.]+\s*%.*|\d{2,7}-\d{2}-\d)\s*", round_note or square_note, re.IGNORECASE)
+        for round_note, square_note in notes
+    )
 
 
 def _base_key(name: str) -> str:
@@ -191,13 +224,20 @@ def _base_key(name: str) -> str:
 
 
 def _governed_twins(stock: Any, governed: Sequence[Any]) -> list[Any]:
-    """The checks' own owned stocks of the same material as a stock only inventory.txt lists.
+    """The checks' own owned stocks of the same material as a stock only inventory.txt lists."""
 
-    The same material is one identity reached by Kenny's overlay alias, by the same
-    normalised identity, or by the same name once notes in brackets and strengths are set
-    aside when at most one of the two names carries such a note (so "Lavender EO
-    (BONTAUX SAS)" never meets "Lavender EO (Bulgaria)"). Two or more identities make the
-    match ambiguous, so none is claimed.
+    return _twin_match(stock, governed)[0]
+
+
+def _twin_match(stock: Any, governed: Sequence[Any]) -> tuple[list[Any], str]:
+    """The checks' owned stocks of the same material, and how sure the match is.
+
+    The same material is one identity reached by Kenny's overlay alias ("alias"), by the
+    same normalised identity ("identity"), or by the same name once notes in brackets and
+    strengths are set aside ("name"). When only one of the two names carries such a note
+    ("Cedarwood EO" and "Cedarwood EO (China)") the match is a guess ("probable"); when
+    both do, they are never matched (so "Lavender EO (BONTAUX SAS)" never meets "Lavender
+    EO (Bulgaria)"). Two or more identities make the match ambiguous, so none is claimed.
     """
 
     from engine.name_utils import normalize_name
@@ -213,7 +253,8 @@ def _governed_twins(stock: Any, governed: Sequence[Any]) -> list[Any]:
         }
     ]
     if by_alias:
-        return by_alias
+        return by_alias, "alias"
+    kind = "identity"
     same = [g for g in owned if normalize_name(str(g.identity_name or g.name)) in own_keys]
     if not same:
         base = _base_key(own)
@@ -222,8 +263,10 @@ def _governed_twins(stock: Any, governed: Sequence[Any]) -> list[Any]:
             if base and _base_key(str(g.identity_name or g.name)) == base
             and not (_qualified(own) and _qualified(str(g.identity_name or g.name)))
         ]
+        noted = _qualified(own) or any(_qualified(str(g.identity_name or g.name)) for g in same)
+        kind = "probable" if noted else "name"
     identities = {normalize_name(str(g.identity_name or g.name)) for g in same}
-    return same if len(identities) == 1 else []
+    return (same, kind) if len(identities) == 1 else ([], "none")
 
 
 def _carrier_text(carrier: str) -> str:
@@ -233,6 +276,49 @@ def _carrier_text(carrier: str) -> str:
         word.upper() if word.isalpha() and len(word) <= 3 and word.casefold() not in {"in", "and", "or"} else word
         for word in str(carrier or "").split()
     )
+
+
+def _carrier_key(carrier: Any) -> str:
+    """A solvent for comparing two records: "DPG w/w" and "dpg" are the same solvent."""
+
+    text = re.sub(r"\b(w/w|v/v|w/v)\b", " ", str(carrier or "").casefold())
+    text = " ".join(text.split())
+    return "" if text in {"", "none", "neat", "-"} else text
+
+
+# A starting-charge tincture's strength is a mass fraction as built; inventory.txt writes it as a plain %.
+_BASIS_KEYS = {"mass_fraction": "mass", "mass_fraction_starting_charge": "mass", "volume_fraction": "volume"}
+_BASIS_WORDS = {"mass": "by weight", "volume": "by volume"}
+
+
+def _same_form(one: Any, other: Any) -> bool:
+    """Two records of one strength that can be one bottle: no solvent or basis that disagrees."""
+
+    if abs(float(one.dilution or 0) - 1.0) < 1e-9:
+        return True
+    carriers = {_carrier_key(one.carrier), _carrier_key(other.carrier)} - {""}
+    bases = {_BASIS_KEYS.get(str(one.fraction_basis or "")), _BASIS_KEYS.get(str(other.fraction_basis or ""))} - {None}
+    return len(carriers) <= 1 and len(bases) <= 1
+
+
+def _form_texts(one: Any, other: Any) -> tuple[str, str]:
+    """Each record's strength, with its basis when only the basis tells them apart."""
+
+    texts = [_strength_text(one), _strength_text(other)]
+    bases = [_BASIS_KEYS.get(str(s.fraction_basis or "")) for s in (one, other)]
+    if texts[0] == texts[1] and None not in bases and bases[0] != bases[1]:
+        texts = [f"{text} {_BASIS_WORDS[basis]}" for text, basis in zip(texts, bases)]
+    return texts[0], texts[1]
+
+
+def _named(stock: Any) -> str:
+    """A stock by its name on the checks' list, with its strength unless the name says it."""
+
+    strength = _strength_text(stock)
+    first = strength.split(" in ")[0]
+    if first.casefold() in str(stock.name).casefold():
+        return f'"{stock.name}"'
+    return f'"{stock.name}" ({strength})'
 
 
 def _strength_text(stock: Any) -> str:
@@ -248,35 +334,53 @@ def _strength_text(stock: Any) -> str:
 def _text_only_item(item: dict[str, Any], target: Any, governed: Sequence[Any]) -> dict[str, Any]:
     """A stock only inventory.txt lists: the same bottle elsewhere, a disagreement, or not yet added."""
 
-    twins = _governed_twins(target, governed)
+    twins, kind = _twin_match(target, governed)
     if not twins:
         item["reason"] = "It is on your inventory list, but the checks can't find a bottle of it on their stock list."
         item["action"] = TEXT_ONLY_ACTION
         item["owner"] = OWNER_CLAUDE
         return item
     fraction = float(target.dilution or 0)
-    same = [t for t in twins if abs(float(t.dilution or 0) - fraction) < 1e-9]
-    if same:
-        from engine.name_utils import normalize_name
-
-        twin = next((t for t in same if t.execution_ready), same[0])
-        item["owner"] = OWNER_CLAUDE
-        if normalize_name(str(twin.name)) != normalize_name(str(target.identity_name or target.name)):
-            item["reason"] = (
-                f'The checks\' stock list has this bottle as "{twin.name}", but the Lab hasn\'t linked '
-                "that name to the one on your inventory list."
-            )
-            item["action"] = LINK_ACTION
-            return item
+    if kind == "probable":
+        # One name carries an origin, grade or species the other lacks: only Kenny knows (Rule 0).
+        one_strength = any(abs(float(t.dilution or 0) - fraction) < 1e-9 for t in twins)
         item["reason"] = (
-            f"The checks' stock list has this bottle {_strength_text(twin)}, but your inventory list says "
-            f"{_strength_text(target)}, so the Lab keeps the two apart."
+            f"The checks' stock list has {_sentence_list(sorted(_named(t) for t in twins))}, which may be "
+            f"{'this bottle' if one_strength else 'the same material as this one'} ({_strength_text(target)}); "
+            "the Lab doesn't link them on a guess."
         )
-        item["action"] = "Nothing for you to do: Claude settles which record is current from your own word and links them."
+        item["action"] = SAME_BOTTLE_ACTION if one_strength else SAME_MATERIAL_ACTION
+        item["owner"] = OWNER_YOU
         return item
-    theirs = _sentence_list(sorted({_strength_text(t) for t in twins}))
+    same = [t for t in twins if abs(float(t.dilution or 0) - fraction) < 1e-9]
+    one_bottle = [t for t in same if _same_form(t, target)]
+    if one_bottle:
+        twin = next((t for t in one_bottle if t.execution_ready), one_bottle[0])
+        named = f'The checks\' stock list has this bottle as "{twin.name}"'
+        if not twin.execution_ready:
+            # The link alone would not let it be mixed: say what holds that record.
+            _canonical_hold(item, twin)
+            item["reason"] = f"{named}. {_capitalised(item['reason'])}"
+            return item
+        item["owner"] = OWNER_CLAUDE
+        item["reason"] = f"{named}, but the Lab hasn't linked that name to the one on your inventory list."
+        item["action"] = LINK_ACTION
+        return item
+    if same:
+        # One name and strength, another solvent or basis: one bottle whose records disagree.
+        twin = next((t for t in same if t.execution_ready), same[0])
+        theirs, yours = _form_texts(twin, target)
+        item["owner"] = OWNER_CLAUDE
+        item["reason"] = (
+            f'The checks\' stock list has "{twin.name}" at {theirs}, but your inventory list says '
+            f"{yours}, so the Lab keeps the two apart."
+        )
+        item["action"] = FORM_ACTION
+        return item
+    # Another strength may be another bottle (a dilution made from it): only Kenny knows.
+    theirs = _sentence_list(sorted(_named(t) for t in twins))
     item["reason"] = f"Your inventory list says {_strength_text(target)}; the checks' stock list has only {theirs}."
-    item["action"] = 'Tell Claude which you have, or both; the "Stock data into the engine" thread records it.'
+    item["action"] = STRENGTH_ACTION
     item["owner"] = OWNER_YOU
     return item
 
@@ -289,12 +393,6 @@ def _stock_item(
     holdable: bool,
     governed: Sequence[Any] = (),
 ) -> dict[str, Any]:
-    from engine.inventory_completions import (
-        COMPLETION_HOLD_DISPOSITIONS,
-        completion_clears_execution_hold,
-        inventory_completion_requirements,
-    )
-
     material = str(issue.get("material") or "")
     reason = str(issue.get("reason") or "")
     fraction = (record.get("dilutions") or {}).get(material)
@@ -333,6 +431,20 @@ def _stock_item(
     if not canonical or str(target.authority) == _TEXT_ONLY_AUTHORITY:
         return _text_only_item(item, target, governed)
 
+    return _canonical_hold(item, target)
+
+
+def _canonical_hold(item: dict[str, Any], target: Any) -> dict[str, Any]:
+    """What holds a stock on the checks' own list, and who answers it."""
+
+    from engine.inventory_completions import (
+        COMPLETION_HOLD_DISPOSITIONS,
+        completion_clears_execution_hold,
+        inventory_completion_requirements,
+    )
+
+    item["owner"] = OWNER_YOU
+    item["open"] = None
     hold = str(target.execution_hold_reason or "")
     holds = [h for h in hold.split("|") if h]
     missing = [f for f in inventory_completion_requirements(target) if f != USER_HOLD]
@@ -400,9 +512,17 @@ def _ifra_items(data: Mapping[str, Any]) -> list[dict[str, Any]]:
             reason = "IFRA's Category 4 table does not know it by this name, so no limit was checked."
             action = IFRA_NAME_ACTION
             code = "ifra_name_not_recognised"
+        elif hold.get("ifra_status") == "restricted_unverified":
+            standard = str(hold.get("standard") or "")
+            reason = (
+                f"IFRA restricts it{f' ({standard})' if standard else ''}, but the Lab's IFRA table has no "
+                "Category 4 limit for it yet, so its dose was not checked."
+            )
+            action = IFRA_LIMIT_ACTION
+            code = "ifra_limit_not_recorded"
         else:
             reason = str(hold.get("message") or "IFRA could not check it.")
-            action = IFRA_LABEL_ACTION
+            action = IFRA_OTHER_ACTION
             code = "ifra_hold"
         items.append({
             "material": material, "check": "ifra", "code": code, "reason": reason, "action": action,
@@ -443,6 +563,24 @@ def _ifra_items(data: Mapping[str, Any]) -> list[dict[str, Any]]:
             "open": None, "owner": OWNER_CLAUDE,
         })
     return items
+
+
+def _summary(items: Sequence[Mapping[str, Any]]) -> str:
+    """How many items need Kenny and how many are Claude's part."""
+
+    yours = sum(1 for item in items if item.get("owner") == OWNER_YOU)
+    claudes = len(items) - yours
+    if not items:
+        return "Nothing is missing: every row can be checked against your stock and IFRA."
+    if not yours:
+        return (
+            f"Nothing here needs you: {claudes} {'item is' if claudes == 1 else 'items are'} Claude's part. "
+            "Each says what happens next."
+        )
+    summary = f"{yours} {'item needs' if yours == 1 else 'items need'} you"
+    if claudes:
+        summary += f"; {claudes} {'is' if claudes == 1 else 'are'} Claude's part, with nothing for you to do"
+    return summary + ". Each says what to do."
 
 
 def explain_holds(rows: Sequence[Mapping[str, Any]], *, bottle_ml: float = 30.0) -> dict[str, Any]:
@@ -486,32 +624,15 @@ def explain_holds(rows: Sequence[Mapping[str, Any]], *, bottle_ml: float = 30.0)
             "action": "Send the formula to Claude to find out why.", "open": None, "owner": OWNER_YOU,
         })
     items.extend(_ifra_items(data or {}))
+    # The items that need Kenny first; the order is otherwise the checks' own.
+    items.sort(key=lambda item: item["owner"] != OWNER_YOU)
     for number, item in enumerate(items, 1):
         item["id"] = f"hold-{number}"
         item["reason"] = _capitalised(item["reason"])
-
-    yours = sum(1 for item in items if item["owner"] == OWNER_YOU)
-    claudes = len(items) - yours
-    # The items that need Kenny first; the order is otherwise the checks' own.
-    items.sort(key=lambda item: item["owner"] != OWNER_YOU)
-    if not items:
-        summary = "Nothing is missing: every row can be checked against your stock and IFRA."
-    elif not yours:
-        summary = (
-            f"Nothing here needs you: {claudes} {'item is' if claudes == 1 else 'items are'} Claude's part. "
-            "Each says what happens next."
-        )
-    else:
-        summary = f"{yours} {'item needs' if yours == 1 else 'items need'} you"
-        if claudes:
-            summary += (
-                f"; {claudes} {'is' if claudes == 1 else 'are'} Claude's part, with nothing for you to do"
-            )
-        summary += ". Each says what to do."
     return {
         "schema_version": SCHEMA_VERSION,
         "items": items,
-        "summary": summary,
+        "summary": _summary(items),
         "basis": BASIS,
         "inventory_modified": False,
         "formula_modified": False,

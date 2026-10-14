@@ -53,15 +53,17 @@ DESIGN = {
 }
 ANSWER = {
     "schema_version": "formula-holds-v1",
-    "summary": "1 stock to sort out on the Stock page or the bench and 1 material IFRA cannot fully check yet. Each says what to do.",
+    "summary": "1 item needs you; 1 is Claude's part, with nothing for you to do. Each says what to do.",
     "basis": "From the release gate's stock and IFRA checks on this formula as written. It says what data is missing, not how the formula smells.",
     "items": [
         {"id": "hold-1", "material": "Tonka Bean Absolute", "check": "stock", "code": "inventory_stock_non_executable",
          "reason": "Its details are not complete: confirm the solution is fully mixed.",
-         "action": "Open it on the Stock page and fill those in.", "open": {"kind": "stock_page", "stock_id": "stock-tonka"}},
+         "action": "Open it on the Stock page and fill those in.", "open": {"kind": "stock_page", "stock_id": "stock-tonka"},
+         "owner": "you"},
         {"id": "hold-2", "material": EVIL, "check": "ifra", "code": "ifra_natural_composition_unknown",
          "reason": "The Lab has no make-up for this natural, so IFRA-restricted substances inside it are not counted.",
-         "action": "Ask the supplier for its IFRA certificate and send it to Claude.", "open": None},
+         "action": "Nothing is needed to mix it at the bench; its IFRA certificate matters only before a printed IFRA "
+                   "statement on a label you sell.", "open": None, "owner": "claude"},
     ],
     "inventory_modified": False,
     "formula_modified": False,
@@ -111,8 +113,10 @@ def test_a_holding_card_lists_whats_missing_and_opens_the_stock_on_the_stock_pag
          "basis": "mass_fraction", "carrier": "DPG"},
         {"material": "Hedione", "stock_id": "stock-hedione", "amount": "1500", "unit": "uL", "fraction": "1", "basis": "neat", "carrier": ""},
     ], "bottle_ml": 30.0}]
-    assert card.locator(".hold-list-summary").inner_text().startswith("1 stock to sort out")
+    assert card.locator(".hold-list-summary").inner_text().startswith("1 item needs you")
     items = card.locator(".hold-item")
+    # Whose move each item is, as a chip beside the check.
+    assert items.locator(".hold-item-owner").all_inner_texts() == ["For you", "Claude's part"]
     assert items.nth(1).locator("strong").inner_text() == EVIL  # shown as text, never as markup
     assert card.locator(".hold-list img").count() == 0
     assert items.nth(0).get_by_role("button", name="Open on the Stock page").count() == 1

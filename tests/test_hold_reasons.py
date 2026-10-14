@@ -6,6 +6,7 @@ tests keep holding as Kenny confirms stocks and the stock list grows.
 
 from __future__ import annotations
 
+import os
 from types import SimpleNamespace
 
 import pytest
@@ -135,7 +136,10 @@ def test_a_bottle_the_checks_list_under_an_overlay_alias_is_named_not_asked_for(
     candidates = [
         s for s in _text_only(projection)
         if normalize_name(str(s.identity_name or s.name)) in aliases
-        and any(abs(float(t.dilution or 0) - float(s.dilution)) < 1e-9 for t in hr._governed_twins(s, governed))
+        and any(
+            abs(float(t.dilution or 0) - float(s.dilution)) < 1e-9 and hr._same_form(t, s) and t.execution_ready
+            for t in hr._governed_twins(s, governed)
+        )
     ]
     if not candidates:
         pytest.skip("no text-only stock is an overlay alias of a checked bottle")
@@ -151,15 +155,83 @@ def test_a_bottle_the_checks_list_under_an_overlay_alias_is_named_not_asked_for(
     assert item["owner"] == "claude"
 
 
-def test_a_strength_the_two_lists_disagree_on_is_asked_once():
-    target = SimpleNamespace(identity_name="Aurantiol", name="Aurantiol", dilution=1.0, carrier="",
-                             status="owned", stock_id="t-1")
-    twin = SimpleNamespace(identity_name="Aurantiol", name="Aurantiol 10% in DPG", dilution=0.1, carrier="dpg",
-                           status="owned", stock_id="g-1", execution_ready=True)
+def test_a_text_only_bottle_whose_checked_record_is_held_says_what_holds_that_record(projection, governed):
+    # The tinctures Kenny built from resin (benzoin 40%, frankincense 33%) are on his
+    # inventory list under longer names: linking the names would not let them be mixed,
+    # so the question about the strength they were made at must still reach him.
+    candidates = [
+        s for s in _text_only(projection)
+        if any(
+            abs(float(t.dilution or 0) - float(s.dilution)) < 1e-9 and hr._same_form(t, s)
+            and str(t.fraction_basis) == "mass_fraction_starting_charge" and not t.execution_ready
+            for t in hr._governed_twins(s, governed)
+        )
+    ]
+    if not candidates:
+        pytest.skip("no text-only tincture whose checked record is held")
+    for stock in candidates:
+        item = hr._text_only_item({"material": stock.name, "open": None}, stock, governed)
+
+        assert item["reason"].startswith("The checks' stock list has this bottle as \"")
+        assert "How much of it actually dissolved was never measured" in item["reason"]
+        assert f"the strength it was made at ({hr._percent_text(float(stock.dilution))})" in item["action"]
+        assert item["owner"] == "you" and item["action"] != hr.LINK_ACTION
+
+
+def _stock(name, dilution, carrier="", basis="", identity=None, ready=True, stock_id="g-1"):
+    return SimpleNamespace(identity_name=identity or name, name=name, dilution=dilution, carrier=carrier,
+                           fraction_basis=basis, status="owned", stock_id=stock_id, execution_ready=ready)
+
+
+def test_a_strength_the_two_lists_disagree_on_names_the_checked_entry_and_asks_once():
+    target = _stock("Aurantiol", 1.0, stock_id="t-1")
+    twin = _stock("Aurantiol 10% in DPG", 0.1, "dpg", identity="Aurantiol")
     item = hr._text_only_item({"material": "Aurantiol"}, target, [twin])
 
-    assert item["reason"] == "Your inventory list says neat; the checks' stock list has only 10% in DPG."
-    assert item["owner"] == "you" and "which you have" in item["action"]
+    assert item["reason"] == 'Your inventory list says neat; the checks\' stock list has only "Aurantiol 10% in DPG".'
+    assert item["owner"] == "you" and item["action"] == hr.STRENGTH_ACTION
+    # A name that doesn't carry its strength gets it in brackets.
+    item = hr._text_only_item({"material": "Anise EO"}, target, [_stock("Aurantiol", 0.01, "dpg")])
+    assert item["reason"].endswith('has only "Aurantiol" (1% in DPG).')
+
+
+def test_another_solvent_at_one_strength_is_never_called_the_same_bottle():
+    # inventory.txt: Neroli EO 10% in ethanol; the checks: Aroma & More's 10% in jojoba.
+    target = _stock("Neroli EO", 0.1, "ethanol", "volume_fraction", stock_id="t-1")
+    jojoba = _stock("Neroli EO 10%", 0.1, "jojoba", "mass_fraction", identity="Neroli EO")
+    item = hr._text_only_item({"material": "Neroli EO"}, target, [jojoba])
+
+    assert item["action"] == hr.FORM_ACTION and item["owner"] == "claude"
+    assert item["reason"] == (
+        'The checks\' stock list has "Neroli EO 10%" at 10% in jojoba, but your inventory list says '
+        "10% in ethanol, so the Lab keeps the two apart."
+    )
+    assert "this bottle" not in item["reason"]
+    # Only the basis differs: the words say which is by weight and which by volume.
+    by_volume = _stock("Neroli EO", 0.1, "jojoba", "volume_fraction", stock_id="t-2")
+    item = hr._text_only_item({"material": "Neroli EO"}, by_volume, [jojoba])
+    assert "at 10% in jojoba by weight, but your inventory list says 10% in jojoba by volume" in item["reason"]
+    # The same solvent written two ways, or an unknown one, is one bottle.
+    same = _stock("Neroli EO", 0.1, "Jojoba w/w", "", stock_id="t-3")
+    assert hr._text_only_item({"material": "Neroli EO"}, same, [jojoba])["action"] == hr.LINK_ACTION
+    assert hr._same_form(_stock("Benzoin", 0.4, "", "mass_fraction"),
+                         _stock("Benzoin Tincture", 0.4, "ethanol", "mass_fraction_starting_charge"))
+
+
+def test_a_name_match_on_a_guess_is_asked_not_claimed():
+    cedar = _stock("Cedarwood EO", 1.0, stock_id="t-1")
+    china = _stock("Cedarwood EO (China; species unspecified)", 1.0)
+    item = hr._text_only_item({"material": "Cedarwood EO"}, cedar, [china])
+
+    assert item["owner"] == "you" and item["action"] == hr.SAME_BOTTLE_ACTION
+    assert "may be this bottle (neat)" in item["reason"] and "this bottle as" not in item["reason"]
+    diluted = _stock("Cedarwood EO", 0.1, "dpg", stock_id="t-2")
+    item = hr._text_only_item({"material": "Cedarwood EO"}, diluted, [china])
+    assert item["action"] == hr.SAME_MATERIAL_ACTION and "the same material as this one" in item["reason"]
+    # Square brackets are notes too, and a CAS number in brackets is not an origin.
+    assert hr._qualified("Vetiver EO [Haiti]") and not hr._qualified("Vetikon (7403-42-1) (neat)")
+    assert hr._governed_twins(_stock("Vetiver EO [Haiti]", 1.0), [_stock("Vetiver EO [Java]", 1.0)]) == []
+    assert hr._twin_match(_stock("Vetikon (7403-42-1) (neat)", 1.0), [_stock("Vetikon", 1.0)])[1] == "name"
 
 
 def test_two_named_origins_are_never_taken_for_one_bottle():
@@ -197,6 +269,57 @@ def test_a_material_not_owned_says_buy_or_swap_and_ifra_says_why_it_cannot_check
     # Claude matches the name to the IFRA table; Kenny is not sent for a CAS number.
     assert ifra[0]["action"] == hr.IFRA_NAME_ACTION and ifra[0]["owner"] == "claude"
     assert all(i["reason"] and i["action"] for i in result["items"])
+    # Kenny's item comes first and the ids follow the order shown.
+    assert [i["owner"] for i in result["items"]][:2] == ["you", "claude"]
+    assert [i["id"] for i in result["items"]] == [f"hold-{n}" for n in range(1, len(result["items"]) + 1)]
+    yours = sum(1 for i in result["items"] if i["owner"] == "you")
+    assert result["summary"].startswith(f"{yours} item{'' if yours == 1 else 's'} need")
+    assert "Claude's part, with nothing for you to do" in result["summary"]
+
+
+def test_kenny_s_items_come_first_and_the_ids_follow_what_is_shown(projection, governed):
+    # The checks list the text-only stock (Claude's part) before the one not owned (his).
+    stock = next(s for s in _text_only(projection) if not hr._governed_twins(s, governed))
+    result = explain_holds([_row(stock), {"material": "Zzyzx Moonflower Absolute", "amount_ul": "200", "fraction": "1"}])
+
+    owners = [i["owner"] for i in result["items"]]
+    assert owners[0] == "you" and "claude" in owners
+    assert owners == sorted(owners, key=lambda owner: owner != "you")
+    assert [i["id"] for i in result["items"]] == [f"hold-{n}" for n in range(1, len(owners) + 1)]
+
+
+def test_the_summary_says_when_nothing_needs_kenny():
+    claude = {"owner": "claude"}
+    assert hr._summary([claude, claude]) == "Nothing here needs you: 2 items are Claude's part. Each says what happens next."
+    assert hr._summary([{"owner": "you"}, claude]) == (
+        "1 item needs you; 1 is Claude's part, with nothing for you to do. Each says what to do."
+    )
+    assert hr._summary([{"owner": "you"}] * 2) == "2 items need you. Each says what to do."
+    assert hr._summary([]).startswith("Nothing is missing")
+
+
+def test_a_restricted_material_with_no_recorded_limit_is_claudes_table_work():
+    (item,) = hr._ifra_items({"holds": [{
+        "material": "Some Restricted Material", "matched_name": "Some Restricted Material", "verdict": "hold",
+        "ifra_status": "restricted_unverified", "standard": "STD_123",
+        "message": "Some Restricted Material at 0.2 % is restricted by STD_123 but its Category 4 limit is not recorded.",
+    }]})
+
+    assert item["action"] == hr.IFRA_LIMIT_ACTION and item["owner"] == "claude"
+    assert item["reason"].startswith("IFRA restricts it (STD_123), but the Lab's IFRA table has no Category 4 limit")
+    assert "supplier" not in item["action"] and "certificate" not in item["action"]
+
+
+def test_an_overlay_written_while_the_app_runs_is_read_again(tmp_path, monkeypatch):
+    monkeypatch.setattr(hr, "_GOVERNANCE", tmp_path)
+    overlay = tmp_path / "inventory_user_authority_overlay_20991231.json"
+    overlay.write_text('{"records": [{"canonical_name": "Vetiver EO (Haiti)", "aliases": ["Haitian Vetiver EO"]}]}')
+    assert hr._overlay_aliases() == {normalize_name("Haitian Vetiver EO"): "Vetiver EO (Haiti)"}
+
+    overlay.write_text('{"records": [{"canonical_name": "Vetiver EO (Haiti)", "aliases": ["Vetiver Haiti"]}]}')
+    stamp = overlay.stat().st_mtime_ns + 1_000_000_000
+    os.utime(overlay, ns=(stamp, stamp))
+    assert hr._overlay_aliases() == {normalize_name("Vetiver Haiti"): "Vetiver EO (Haiti)"}
 
 
 def test_every_item_has_a_reason_an_action_and_a_unique_id(projection):
