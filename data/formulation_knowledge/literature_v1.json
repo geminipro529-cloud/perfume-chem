@@ -3163,6 +3163,32 @@
       "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
       "empirical_data_admission": false,
       "license_note": "Link and original bounded summary only; no full-text reproduction, extracted dataset or empirical/model license admitted."
+    },
+    {
+      "source_id": "fraterworks_frangipani_absolute_signature",
+      "title": "Fraterworks: Frangipani Absolute (Plumeria alba)",
+      "url": "https://fraterworks.com/products/frangipani-absolute",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-14",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; no full-text reproduction, extracted dataset or empirical/model license admitted."
+    },
+    {
+      "source_id": "premierepeau_frangipani_signature",
+      "title": "Premiere Peau glossary: Frangipani",
+      "url": "https://premierepeau.com/pages/glossary-terms/frangipani",
+      "doi": null,
+      "local_path": null,
+      "evidence_class": "MANUFACTURER_DESCRIPTION",
+      "review_state": "FRESH_PRIMARY_REVIEW",
+      "review_date": "2026-10-14",
+      "rights_scope": "METADATA_AND_ORIGINAL_SUMMARY_ONLY",
+      "empirical_data_admission": false,
+      "license_note": "Link and original bounded summary only; no full-text reproduction, extracted dataset or empirical/model license admitted."
     }
   ],
   "claims": [
@@ -6865,6 +6891,23 @@
       "kind": "MANUFACTURER_DESCRIPTION",
       "scope_limit": "Names the material's own odour notes so the composer can read a brief's note words; no dose, intensity, liking, stock grade, lot or finished-perfume performance claim.",
       "numeric_calibration": false
+    },
+    {
+      "claim_id": "frangipani_benzyl_salicylate_nerolidol_signature",
+      "statement": "Fraterworks describes its Plumeria alba frangipani absolute as heady-floral and peachy-creamy and credits its high benzyl salicylate and benzyl benzoate content for its fixative quality. Premiere Peau's frangipani glossary says commercial frangipani is almost always a reconstruction, names benzyl salicylate (balsamic warmth), benzyl benzoate, nerolidol (woody-floral depth) and geraniol in its usual palette, and reports benzyl salicylate as the main volatile of Plumeria obtusa and nerolidol as a main volatile of Plumeria rubra.",
+      "source_ids": [
+        "fraterworks_frangipani_absolute_signature",
+        "premierepeau_frangipani_signature"
+      ],
+      "tags": [
+        "frangipani",
+        "plumeria",
+        "benzyl salicylate",
+        "nerolidol"
+      ],
+      "kind": "MANUFACTURER_DESCRIPTION",
+      "scope_limit": "Names frangipani as a note these molecules carry so the composer can read a brief's frangipani. Species differ, neither molecule is a frangipani on its own, and no dose, intensity, liking, stock grade, lot or finished-perfume claim is made.",
+      "numeric_calibration": false
     }
   ],
   "profiles": [
@@ -8492,6 +8535,40 @@
         "gamma_nonalactone_coconut_signature"
       ],
       "scope_limit": "Molecule's own odour notes; the owned stocks' dilutions are separate."
+    },
+    {
+      "material_id": "benzyl_salicylate_frangipani_signature",
+      "exact_aliases": [
+        "Benzyl Salicylate"
+      ],
+      "vocabulary": [
+        "frangipani",
+        "plumeria"
+      ],
+      "role_slots": [
+        "frangipani recognizer"
+      ],
+      "claim_ids": [
+        "frangipani_benzyl_salicylate_nerolidol_signature"
+      ],
+      "scope_limit": "A frangipani constituent and reconstruction material with low odour impact; the owned stock is neat."
+    },
+    {
+      "material_id": "nerolidol_frangipani_signature",
+      "exact_aliases": [
+        "Nerolidol"
+      ],
+      "vocabulary": [
+        "frangipani",
+        "plumeria"
+      ],
+      "role_slots": [
+        "frangipani recognizer"
+      ],
+      "claim_ids": [
+        "frangipani_benzyl_salicylate_nerolidol_signature"
+      ],
+      "scope_limit": "A frangipani constituent and reconstruction material; the owned stock is neat."
     }
   ],
   "quarantined_claims": [

@@ -72,6 +72,7 @@ _DESCRIPTOR_REQUIREMENTS: dict[str, tuple[frozenset[str], ...]] = {
     }),),
     "coconut": (frozenset({"coconut"}),),
     "apricot": (frozenset({"apricot"}),),
+    "frangipani": (frozenset({"frangipani", "plumeria"}),),
     "rose": (frozenset({"rose", "rosy"}),),
     "jasmine": (frozenset({"jasmine", "jasmin", "jasminic"}),),
     "bitter_resin_green": (

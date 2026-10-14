@@ -170,6 +170,10 @@ _FACETS: tuple[FacetDefinition, ...] = (
     # Shares and caps copy the fruit facet, so no new dose is introduced.
     FacetDefinition("coconut", ("coconut", "coconut milk", "coconut cream"), ("coconut", "lactone", "creamy", "milky"), "heart", "character", (("creamy", .7), ("sweetness", .4)), .065, .12),
     FacetDefinition("apricot", ("apricot", "apricots"), ("apricot", "peach", "lactone"), "heart", "character", (("sweetness", .45), ("freshness", .35), ("creamy", .25)), .065, .12),
+    # Frangipani is a white flower with no owned stock design-ready under its own name:
+    # only a stock whose own description names it may lead it.  Shares and weights copy
+    # the white floral facet, so no new dose is introduced.
+    FacetDefinition("frangipani", ("frangipani", "plumeria"), ("frangipani", "plumeria", "salicylate"), "heart", "character", (("floral", 1.0), ("radiance", .45), ("creamy", .2)), .13, .22),
     FacetDefinition("aldehydic", ("aldehydic", "sparkling aldehyde", "champagne", "soapy aldehyde", "laundry", "linen", "clean linen"), ("aldehyde", "sparkling", "wax", "linen"), "top", "modifier", (("radiance", .8), ("freshness", .4), ("transparency", .25)), .025, .06),
     FacetDefinition("powder", ("powder", "powdery", "cosmetic", "makeup"), ("powder", "iris", "ionone", "heliotropin", "musk"), "heart", "texture", (("powdery", 1.0), ("floral", .25)), .055, .11),
     FacetDefinition("almond_nut", ("almond", "marzipan", "biscuit", "nutty", "toasted nut"), ("almond", "benzaldehyde", "heliotropin", "tonka", "pyrazine", "biscuit"), "heart", "character", (("warmth", .55), ("sweetness", .35), ("powdery", .25)), .06, .11),
@@ -193,7 +197,9 @@ _LITERATURE_FACETS = {
 
 # Facets only a stock whose own descriptors name the note may fill
 # (material_capability_index._DESCRIPTOR_REQUIREMENTS).
-_FACET_DESCRIPTOR_REQUIREMENTS = {"fruit": "fruit", "coconut": "coconut", "apricot": "apricot"}
+_FACET_DESCRIPTOR_REQUIREMENTS = {
+    "fruit": "fruit", "coconut": "coconut", "apricot": "apricot", "frangipani": "frangipani",
+}
 
 # A note the brief asks for as a nuance ("a hint of apricot", "a little apricot",
 # "barely smoky") is a modifier: no accord of its own, at the share the smoke

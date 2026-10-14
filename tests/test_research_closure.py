@@ -142,8 +142,9 @@ def test_new_sources_are_bounded_and_not_new_numeric_materials():
     later = ("_depth", "_signature")  # later waves: botanical depth, signature notes (steps 6-7)
     assert len([s for s in pack["sources"] if not s["source_id"].endswith(later)]) == 212
     assert len([c for c in pack["claims"] if not c["claim_id"].endswith(later)]) == 205
-    # Stock signature notes added 7 materials to the 25 (6 in step 6, 1 in step 7).
-    assert len(pack["materials"]) == 32 and len(pack["profiles"]) == 43
+    # Stock signature notes added 9 materials to the 25 (6 in step 6, 1 in step 7,
+    # 2 for frangipani).
+    assert len(pack["materials"]) == 34 and len(pack["profiles"]) == 43
     bundle = assess_review_bundle(pack["sources"], knowledge.SOURCE_REVIEWS_PATH.read_bytes())
     assert bundle["unavailable_source_ids"] == ["iff_lime_conflict_subtypes"]
     assert all(not s["empirical_data_admission"] for s in new)
