@@ -335,3 +335,37 @@ def test_on_a_phone_each_row_shows_its_amount_without_swiping(lab):
     assert preview.locator("thead th").all_inner_texts()[-2:] == ["Amount", "Running total"]
     assert lab.page_errors == []
     assert lab.unexpected == []
+
+
+def test_measuring_by_grams_weighs_heavy_rows_and_keeps_light_ones_in_ul(lab):
+    seen = []
+
+    def densities(route, request):
+        seen.append(json.loads(request.post_data))
+        body = {"schema_version": "workbench-material-densities-v1",
+                "densities": {"Hedione": "0.999", "Rose Oxide": None, "Ambrox crystals": None, "Velvet Musk": None}}
+        route.fulfill(status=200, content_type="application/json", body=json.dumps(body))
+
+    lab.respond("GET", SOURCE_PATH, json=SOURCE)
+    lab.on("POST", "/v2/workbench/material-densities", densities)
+    _open(lab)
+    _pick_file(lab)
+    form = lab.page.locator("#bench-source-form")
+    form.locator('[name="measure_by"]').select_option("G")
+    form.locator('button[type="submit"]').click()
+    preview = lab.page.locator("#bench-preview")
+    preview.locator(".bench-sheet-table").wait_for()
+
+    assert seen == [{"names": ["Rose Oxide", "Hedione", "Ambrox crystals", "Velvet Musk"]}]
+    # 600 uL of neat Hedione at 0.999 g/mL; the 30 uL Rose Oxide row is about 0.03 g, too light to weigh.
+    assert preview.locator("tbody tr", has_text="Hedione").locator(".bench-amount").first.inner_text() == "0.599 g"
+    assert preview.locator("tbody tr", has_text="Rose Oxide").locator(".bench-amount").first.inner_text() == "30 uL"
+    text = preview.inner_text()
+    assert "0.599 g liquid weighed on the balance · 90 µL pipetted · 120 mg solids" in text
+    assert "1 row in grams for the balance: tare it before each weighed row." in text
+    assert "Still in µL for the pipette, under 0.1 g or poured from a mix: Rose Oxide." in text
+    assert "Still in µL, density not known: Velvet Musk." in text
+    options = lab.page.locator('#bench-pour-form [name="pour_row"] option').all_inner_texts()
+    assert "1. Hedione · 0.599 g" in options
+    assert lab.page_errors == []
+    assert lab.unexpected == []

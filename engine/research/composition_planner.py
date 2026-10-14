@@ -127,6 +127,9 @@ class RoleSpec:
     # A generic bridge, volume, layer or accent slot the composer adds around
     # the named notes; it may never carry more active volume than the lead.
     generic_slot: bool = False
+    # The row serves the note the brief calls "the star"; no other free row
+    # may carry more active volume than the star's largest row.
+    star_note: bool = False
 
 
 @dataclass(frozen=True, slots=True)
@@ -1931,7 +1934,7 @@ def _lead_with_named_notes(
 ) -> dict[int, int]:
     """Make the notes a brief names lead the formula it composes.
 
-    Two rules, applied to the free rows only (a requested quantity is never
+    Three rules, applied to the free rows only (a requested quantity is never
     moved, and neither is a row that must use an exact preferred material):
 
     1. Floor: the rows that serve a requested facet together hold at least
@@ -1941,6 +1944,11 @@ def _lead_with_named_notes(
     2. Lead: no generic bridge, volume, layer or accent slot carries more
        active volume than the largest named row; its excess goes to the
        named rows.
+    3. Star: when the brief calls one note "the star", no other free row
+       (named or not) carries more active volume than the star's largest
+       row; the excess goes to the star's own rows.  A row that cannot be
+       brought down (an exact preferred material, or no room under the star
+       rows' firm caps) keeps its volume under a ROW_ABOVE_STAR_NOTE hold.
 
     The named rows never pass a firm cap (identity hard cap, trace cap,
     normal-use ceiling or IFRA cap); their role caps may be passed, and each row that is
@@ -1971,7 +1979,11 @@ def _lead_with_named_notes(
             return Decimal(0)
         return sum(active(state, index) for index in named_all) / total
 
-    def move(state: dict[int, int], take: dict[int, int]) -> dict[int, int] | None:
+    def move(
+        state: dict[int, int],
+        take: dict[int, int],
+        recipients: Sequence[int] | None = None,
+    ) -> dict[int, int] | None:
         freed = sum(take.values())
         if freed == 0:
             return state
@@ -1981,7 +1993,7 @@ def _lead_with_named_notes(
                 _allocation_weight(choices[index]),
                 None if firm[index] is None else max(0, firm[index] - state[index]),
             )
-            for index in named
+            for index in (named if recipients is None else recipients)
         ]
         try:
             placed = _allocate_capped(freed, room)
@@ -2051,6 +2063,29 @@ def _lead_with_named_notes(
             holds.append(f"GENERIC_SLOT_ABOVE_NAMED_LEAD:{choices[index].candidate.stock.stock_id}")
             continue
         state = moved
+
+    star_all = [index for index in amounts if getattr(choices[index].role, "star_note", False)]
+    star_free = [index for index in named if getattr(choices[index].role, "star_note", False)]
+    if star_free:
+        others = sorted(
+            (index for index in allocated if index not in star_all),
+            key=lambda index: -active(state, index),
+        )
+        for index in others:
+            star_lead = max(active(state, row) for row in star_all)
+            if active(state, index) <= star_lead:
+                continue
+            strength = Decimal(str(choices[index].candidate.stock.dilution))
+            keep = int(star_lead / strength) if strength > 0 else state[index]
+            moved = (
+                None
+                if choices[index].role.exact_preference_required
+                else move(state, {index: max(0, state[index] - keep)}, star_free)
+            )
+            if moved is None:
+                holds.append(f"ROW_ABOVE_STAR_NOTE:{choices[index].candidate.stock.stock_id}")
+                continue
+            state = moved
 
     caps = {index: cap for index, _weight, cap in free_rows}
     for index in named:
