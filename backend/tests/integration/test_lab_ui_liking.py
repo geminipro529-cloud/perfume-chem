@@ -104,6 +104,12 @@ def test_rating_link_needs_rating_windows_and_canonical_rows_match_python():
     assert _node(f"liking.likingCanonicalRows({json.dumps(list(reversed(ROWS)))})") == _canonical(ROWS)
 
 
+def test_formula_key_hash_matches_hashlib_for_pages_without_crypto_subtle():
+    texts = ["", "abc", "a" * 55, "a" * 56, "a" * 64, "a" * 65, "é" * 100, "ส้มโอ" * 30, _canonical(ROWS)]
+    hexes = _node(f"{json.dumps(texts)}.map((text) => liking.likingSha256Hex(new TextEncoder().encode(text)))")
+    assert hexes == [hashlib.sha256(text.encode()).hexdigest() for text in texts]
+
+
 def test_crowd_check_and_your_guess_wording():
     fit = {"ratings_used": 14, "material_ratings_used": 0, "crowd_weight": 0.35,
            "crowd_check": {"n": 14, "r": 0.12, "slope": 0.1, "rmse": 0.5, "verdict": "none"}}
