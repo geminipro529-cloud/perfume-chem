@@ -340,7 +340,8 @@ function benchSheetHtml({ formulaName, variantLabel, dateText, totals, rows, cri
   const { lines, leftOut, mixes } = benchSheetLines(ordered.map((entry) => entry.row));
   const hold = benchSheetHold(rows, critic);
   const totalParts = [];
-  if (totals?.liquid_total_ul !== undefined) totalParts.push(`${totals.liquid_total_ul} µL liquid stock`);
+  if (totals?.weighed_total_g !== undefined) totalParts.push(`${totals.weighed_total_g} g liquid weighed on the balance`);
+  if (totals?.liquid_total_ul !== undefined) totalParts.push(`${totals.liquid_total_ul} µL ${totals?.weighed_total_g !== undefined ? "pipetted" : "liquid stock"}`);
   if (Number(totals?.mass_total_mg) > 0) totalParts.push(`${totals.mass_total_mg} mg solids, weighed as separate mg lines`);
   const note = benchLeaveOutNote(leftOut);
   const mixNote = benchMixNote(mixes);
@@ -750,6 +751,126 @@ function benchPourFixText(fix, sheet = null, firstSizeMl = null) {
   return { message, notes, sizeMl: size };
 }
 
+// ---- Weighing in grams ----
+
+// Carrier densities at 20-25 °C, g/mL. Ethanol is the anhydrous value; a
+// perfumer's alcohol with some water reads a little higher.
+const BENCH_CARRIER_DENSITY = {
+  dpg: "1.023", "dipropylene glycol": "1.023", ethanol: "0.789", "perfumer's alcohol": "0.789",
+  ipm: "0.853", "isopropyl myristate": "0.853", dep: "1.12", "diethyl phthalate": "1.12",
+  tec: "1.137", "triethyl citrate": "1.137", "benzyl benzoate": "1.118", "dowanol tpm": "0.965", tpm: "0.965",
+};
+// A row lighter than this stays in µL for the pipette: a balance that reads
+// 0.001 g weighs it to worse than 1%.
+const BENCH_WEIGH_MIN_G = "0.1";
+// In a dilution this weak, a material of unknown density (aroma materials
+// run about 0.85 to 1.2 g/mL) moves the stock's density by about 2% or less,
+// so 1 g/mL is assumed for it.
+const BENCH_ASSUME_DENSITY_MAX_FRACTION = "0.1";
+
+function benchCarrierDensity(carrier) {
+  return BENCH_CARRIER_DENSITY[benchNameKey(carrier).replace(/\s+[wv]\/[wv]$/, "")] ?? null;
+}
+
+// Kenny's rule: a dilution with no recorded basis is w/w.
+function benchDensityBasis(basis) {
+  const text = String(basis ?? "").trim();
+  if (BENCH_BASIS_GROUP[text]) return BENCH_BASIS_GROUP[text];
+  if (text === "mass_per_volume" || text === "W_V") return "w/v";
+  if (["", "unspecified", "UNKNOWN", "mass_fraction_starting_charge"].includes(text)) return "w/w";
+  return null;
+}
+
+// The density of the stock a row pours, as an exact fraction of g/mL, from the
+// material's density (decimal text or null) and the carrier's. A dilution
+// assumes the volumes simply add, so its density is an estimate. Returns
+// { density, estimated, assumed } or null when it cannot be told.
+function benchStockDensity(row, materialDensity) {
+  const one = { n: 1n, d: 1n };
+  const known = BENCH_DECIMAL.test(String(materialDensity ?? "").trim()) && Number(materialDensity) > 0;
+  const fractionText = String(row.stock_fraction_decimal ?? "").trim();
+  const neat = fractionText === "1" || /^neat$/i.test(String(row.fraction_basis ?? ""));
+  if (neat) {
+    if (known) return { density: benchFractionOf(String(materialDensity).trim()), estimated: false, assumed: false };
+    const carrier = benchIsCarrierRow(row) ? benchCarrierDensity(row.material) : null;
+    return carrier ? { density: benchFractionOf(carrier), estimated: false, assumed: false } : null;
+  }
+  if (!BENCH_DECIMAL.test(fractionText) || compareDecimalText(fractionText, "1") >= 0) return null;
+  const carrierText = benchCarrierDensity(row.carrier);
+  if (!carrierText) return null;
+  const assumed = !known;
+  if (assumed && compareDecimalText(fractionText, BENCH_ASSUME_DENSITY_MAX_FRACTION) > 0) return null;
+  const material = known ? benchFractionOf(String(materialDensity).trim()) : one;
+  const f = benchFractionOf(fractionText);
+  const c = benchFractionOf(carrierText);
+  const rest = benchMinus(one, f);
+  const basis = benchDensityBasis(row.fraction_basis);
+  let density = null;
+  if (basis === "v/v") density = benchPlus(benchTimes(f, material), benchTimes(rest, c));
+  else if (basis === "w/w") density = benchOver(one, benchPlus(benchOver(f, material), benchOver(rest, c)));
+  else if (basis === "w/v") density = benchPlus(f, benchTimes(benchMinus(one, benchOver(f, material)), c));
+  return density ? { density, estimated: true, assumed } : null;
+}
+
+// The rows with every liquid row of at least 0.1 g (by its stock's density)
+// in grams for the balance. Lighter rows, mix rows and rows whose density is
+// unknown stay in µL and are named. `densities` maps a material or identity
+// name (any case) to its density at 25 °C as decimal text.
+function benchRowsInGrams(rows, densities) {
+  const lookup = {};
+  Object.entries(densities || {}).forEach(([name, value]) => { if (value) lookup[benchNameKey(name)] = String(value); });
+  const light = [];
+  const unknown = [];
+  const estimated = [];
+  const assumed = [];
+  const out = (rows || []).map((row) => {
+    const key = benchUnitKey(row.amount_unit);
+    const amount = String(row.amount_decimal ?? "").trim();
+    if ((key !== "µL" && key !== "mL") || !BENCH_DECIMAL.test(amount) || compareDecimalText(amount, "0") <= 0) return row;
+    const name = String(row.material ?? "");
+    if (benchNeedsPreparedDilution(row)) { light.push(name); return row; }
+    const material = lookup[benchNameKey(row.identity_name)] ?? lookup[benchNameKey(row.material)] ?? null;
+    const stock = benchStockDensity(row, material);
+    if (!stock) { unknown.push(name); return row; }
+    const ul = key === "mL" ? benchTimes(benchFractionOf(amount), { n: 1000n, d: 1n }) : benchFractionOf(amount);
+    const grams = benchOver(benchTimes(ul, stock.density), { n: 1000n, d: 1n });
+    if (benchCompare(grams, benchFractionOf(BENCH_WEIGH_MIN_G)) < 0) { light.push(name); return row; }
+    if (stock.assumed) assumed.push(name);
+    else if (stock.estimated) estimated.push(name);
+    return {
+      ...row,
+      amount_decimal: benchFractionText(grams, 3),
+      amount_unit: "g",
+      weighed_from_ul: benchFractionText(ul, 3),
+      stock_density_g_ml: benchFractionText(stock.density, 4),
+    };
+  });
+  return { rows: out, light, unknown, estimated, assumed };
+}
+
+// Totals for a sheet in grams: liquid rows weighed in g apart from the µL
+// rows still pipetted and the solids weighed in mg.
+function benchWeighedTotals(rows) {
+  const weighed = (rows || []).filter((row) => row.weighed_from_ul !== undefined && benchUnitKey(row.amount_unit) === "g");
+  const totals = benchSeparateTotals((rows || []).filter((row) => !weighed.includes(row)));
+  let grams = "0";
+  for (const row of weighed) {
+    grams = grams === null ? null : addDecimalText(grams, String(row.amount_decimal ?? "").trim());
+  }
+  return { ...totals, weighed_total_g: grams === null ? "check by hand" : grams };
+}
+
+// The notes a sheet in grams prints, from benchRowsInGrams.
+function benchGramsNotes(result) {
+  const weighed = (result.rows || []).filter((row) => row.weighed_from_ul !== undefined).length;
+  const notes = [`${weighed} row${weighed === 1 ? "" : "s"} in grams for the balance: tare it before each weighed row. Densities are at 25 °C from the material data.`];
+  if (result.estimated.length) notes.push(`Density worked out from the material and its carrier, assuming the volumes add (no recorded basis is read as w/w): ${benchNameList(result.estimated)}.`);
+  if (result.assumed.length) notes.push(`Material density not known, 1 g/mL assumed; in a dilution of 10% or less that moves the stock's density by about 2% or less: ${benchNameList(result.assumed)}.`);
+  if (result.light.length) notes.push(`Still in µL for the pipette, under ${BENCH_WEIGH_MIN_G} g or poured from a mix: ${benchNameList(result.light)}.`);
+  if (result.unknown.length) notes.push(`Still in µL, density not known: ${benchNameList(result.unknown)}.`);
+  return notes;
+}
+
 if (typeof module === "object" && module.exports) {
-  module.exports = { addDecimalText, benchUnitKey, benchPercentText, benchBasisText, benchNeedsPreparedDilution, benchSheetLines, benchDraftState, overviewTiles, benchSheetHold, benchLeaveOutNote, benchSheetHtml, benchEscape, compareDecimalText, benchBasketLookup, benchRowBasket, benchBasketOrder, multiplyDecimalText, benchMixRecipe, benchMixText, benchMixShortText, benchMixNote, benchBottleMl, scaleDecimalText, benchScaleRows, benchSeparateTotals, benchRowFromSource, benchMatchStocks, benchSourceNotes, subtractDecimalText, benchPlannedPour, benchPourStart, benchPourSheet, benchPourFix, benchPourFixText };
+  module.exports = { addDecimalText, benchUnitKey, benchPercentText, benchBasisText, benchNeedsPreparedDilution, benchSheetLines, benchDraftState, overviewTiles, benchSheetHold, benchLeaveOutNote, benchSheetHtml, benchEscape, compareDecimalText, benchBasketLookup, benchRowBasket, benchBasketOrder, multiplyDecimalText, benchMixRecipe, benchMixText, benchMixShortText, benchMixNote, benchBottleMl, scaleDecimalText, benchScaleRows, benchSeparateTotals, benchRowFromSource, benchMatchStocks, benchSourceNotes, subtractDecimalText, benchPlannedPour, benchPourStart, benchPourSheet, benchPourFix, benchPourFixText, benchStockDensity, benchRowsInGrams, benchGramsNotes, benchWeighedTotals };
 }

@@ -289,11 +289,11 @@ def _replay_planning(result: dict[str, Any]) -> tuple[bool, tuple[SemanticBrief,
         return _campaign_hold_verified(result), ()
     try:
         raw = result["semantic_brief"]
-        # SemanticBrief.as_dict() leaves out an empty unmapped_requested_notes
-        # and an unread fragrance_family so existing briefs keep their payload
-        # and design hashes.
+        # SemanticBrief.as_dict() leaves out an empty unmapped_requested_notes,
+        # an unread fragrance_family and an empty star_role_ids so existing
+        # briefs keep their payload and design hashes.
         expected = {f.name for f in fields(SemanticBrief)}
-        optional = {"unmapped_requested_notes", "fragrance_family"}
+        optional = {"unmapped_requested_notes", "fragrance_family", "star_role_ids"}
         if not expected - optional <= set(raw) <= expected or raw["architecture_plan"]:
             raise ValueError("missing or non-control semantic brief")
         if _hash(raw["knowledge_context"]) != _hash(result["formulation_knowledge"]):
@@ -304,7 +304,11 @@ def _replay_planning(result: dict[str, Any]) -> tuple[bool, tuple[SemanticBrief,
         )
         if _hash(raw["knowledge_context"]) != _hash(canonical_knowledge):
             raise ValueError("serialized evidence does not match canonical current retrieval")
-        control = SemanticBrief(**{**raw, "roles": _read_roles(raw["roles"])})
+        control = SemanticBrief(**{
+            **raw,
+            "roles": _read_roles(raw["roles"]),
+            "star_role_ids": tuple(raw.get("star_role_ids", ())),
+        })
         maximum = result["effective_material_limit"]
         if planning["max_materials"] != maximum:
             raise ValueError("material ceiling not bound")
@@ -535,7 +539,13 @@ def _execution_verified(
                     rows, totals, holds = _formula_rows(
                         solver._allocation_choices(
                             assignments,
-                            tuple(Choice(solver._role_spec(a.role), a.capability.candidate, 0.0, ()) for a in assignments),
+                            tuple(
+                                Choice(
+                                    solver._role_spec(a.role, star_note=a.role.role_id in brief.star_role_ids),
+                                    a.capability.candidate, 0.0, (),
+                                )
+                                for a in assignments
+                            ),
                             int(total), inputs["explicit_quantities"],
                             solver._has_exact_material_count(interpretation),
                         ),
