@@ -452,6 +452,7 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
     hideDraftRestoredLine("create");
     if (result.formula_name) $('[name="formula_name"]', form).value = result.formula_name;
     $('[name="message"]', form).value = "";
+    briefNotes?.changed();
     submit.textContent = result.optimized_formula ? "Refine this formula" : "Try clarified brief";
     notify(result.optimized_formula ? "Inventory-grounded composition plan created." : "Clarification required before formulation.");
   } catch (error) {
@@ -468,7 +469,22 @@ $("#formula-chat-form").addEventListener("submit", async (event) => {
   }
 });
 
-$("#formula-chat-reset").addEventListener("click", () => resetFormulaChat());
+$("#formula-chat-reset").addEventListener("click", () => {
+  resetFormulaChat();
+  briefNotes?.changed();
+});
+
+// What the composer understood from the name and brief, as chips (brief-notes.js).
+const briefNotes = typeof attachBriefNotes === "function"
+  ? attachBriefNotes({
+    doc: document,
+    request,
+    form: $("#formula-chat-form"),
+    toggle: $("#brief-notes-toggle"),
+    panel: $("#brief-notes"),
+    context: () => state.formulaChat.messages.slice(-8),
+  })
+  : null;
 
 // Create several: one engine job per idea (create-several.js holds the pure rules).
 const several = { cards: [], skipped: "" };

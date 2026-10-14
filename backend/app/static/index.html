@@ -486,6 +486,8 @@
               </div>
               <p id="formula-volume-help" class="field-help">Default: 6,000 µL liquid concentrate for a 30 mL EDP. Any selected crystal remains a separate mg line.</p>
               <label class="goal-field">Your idea or next change<textarea name="message" required maxlength="4000" placeholder="Create a bright grapefruit and lavender perfume with a mineral dry amber base. Keep it dry and avoid vanilla."></textarea></label>
+              <div class="brief-notes-bar"><button type="button" class="quiet-button" id="brief-notes-toggle" aria-expanded="false" aria-controls="brief-notes">What it understood</button></div>
+              <section id="brief-notes" class="brief-notes" aria-label="What the composer understood" hidden></section>
               <details class="optional-details">
                 <summary>Optional creative boundaries</summary>
                 <div class="optional-grid">
@@ -1067,6 +1069,7 @@
   <script src="/static/scent-chart.js" defer></script>
   <script src="/static/smell-log.js" defer></script>
   <script src="/static/blind-test.js" defer></script>
+  <script src="/static/brief-notes.js" defer></script>
   <script src="/static/batch-label.js" defer></script>
   <script src="/static/batch.js" defer></script>
   <script src="/static/formula-editor.js" defer></script>
