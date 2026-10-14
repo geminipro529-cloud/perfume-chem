@@ -482,6 +482,7 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
     box-sizing: border-box; min-height: 44px; padding-top: 11px; padding-bottom: 11px;
   }
   .component-row .quiet-button { min-height: 44px; }
+  .liking-scale button, .liking-actions button { min-height: 44px; }
   .check-line, .confirm-line { box-sizing: border-box; min-height: 44px; }
   .app-shell { min-height: 0; }
   .rail { align-items: center; padding: 0 8px; border-bottom: 1px solid var(--line); }
