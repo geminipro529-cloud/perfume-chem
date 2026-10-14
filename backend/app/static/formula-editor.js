@@ -10,7 +10,7 @@ const editorBench = (typeof module === "object" && module.exports)
   ? require("./bench-sheet.js")
   : {
     benchFraction, benchFractionOf, benchTimes, benchOver, benchPlus, benchMinus, benchCompare,
-    benchFractionText, benchNameKey, benchStockDensity, benchUnitKey, benchPercentText,
+    benchFractionText, benchNameKey, benchStockDensity, benchDensityBasis, benchUnitKey, benchPercentText,
   };
 
 const EDITOR_UNIT_LABELS = { uL: "µL", g: "g", pct: "%", parts: "‰" };
@@ -260,6 +260,45 @@ function editorBindRow(row, stock) {
     carrier: stock.carrier || null,
     solid,
   };
+}
+
+// Grams of material in one mL of a row's stock, as an exact fraction, or null
+// when its strength, basis or the densities it needs are not known.
+// `materialDensity` is the material's own density at 25 °C as decimal text, or null.
+function editorMaterialPerMl(row, materialDensity) {
+  const fractionText = String(row.fraction || "1").trim();
+  const fraction = editorNumber(fractionText);
+  if (!fraction || fraction.n <= 0n || editorBench.benchCompare(fraction, editorWhole(1)) > 0) return null;
+  const density = Number(materialDensity) > 0 ? editorBench.benchFractionOf(String(materialDensity).trim()) : null;
+  if (editorBench.benchCompare(fraction, editorWhole(1)) === 0 || /^neat$/i.test(String(row.basis ?? ""))) return density;
+  const basis = editorBench.benchDensityBasis(row.basis);
+  if (basis === "w/v") return fraction;
+  if (basis === "v/v") return density ? editorBench.benchTimes(fraction, density) : null;
+  if (basis !== "w/w") return null;
+  const stock = editorBench.benchStockDensity({
+    material: row.material, stock_fraction_decimal: fractionText, fraction_basis: row.basis, carrier: row.carrier,
+  }, density ? String(materialDensity).trim() : null);
+  return stock && !stock.assumed ? editorBench.benchTimes(stock.density, fraction) : null;
+}
+
+// The row poured from another owned stock instead, keeping how much material it
+// carries: by grams when both stocks' densities are known (`byGrams`), else by
+// the written strengths. A solid row keeps its mg of material. Returns
+// { row, byGrams }, or null when the stock is the other form (a solid for a
+// liquid row or the reverse) or the row has no amount.
+function editorSwapRow(row, stock, densities) {
+  if (!row.amount || Boolean(row.solid) !== editorStockIsSolid(stock)) return null;
+  const next = editorBindRow(row, stock);
+  const lookup = {};
+  Object.entries(densities || {}).forEach(([name, value]) => { if (value) lookup[editorNameKey(name)] = String(value); });
+  const was = row.solid ? null : editorMaterialPerMl(row, lookup[editorNameKey(row.material)] ?? null);
+  const now = row.solid ? null : editorMaterialPerMl(next, lookup[editorNameKey(next.material)] ?? null);
+  const exact = Boolean(was && now);
+  const before = exact ? was : editorNumber(row.fraction || "1");
+  const after = exact ? now : editorNumber(next.fraction || "1");
+  if (!before || !after || after.n <= 0n) return null;
+  const amount = editorBench.benchOver(editorBench.benchTimes(row.amount, before), after);
+  return { row: { ...next, amount }, byGrams: Boolean(row.solid) || exact };
 }
 
 function editorStockOf(row, stocks) {
@@ -827,6 +866,7 @@ if (typeof module === "object" && module.exports) {
     editorCheckRows, editorHoldRows, editorCostRows, editorChartRows, editorStockLeft,
     EDITOR_NOTES, editorRow, editorNumber, editorFigure, editorRowsFromSource, editorParsePlain, editorRowsFromPlain,
     editorNameStrength, editorStockCandidates, editorBindRow, editorBindRows, editorStockOf, editorStockIsSolid,
+    editorMaterialPerMl, editorSwapRow,
     editorTotals, editorDensity, editorShown, editorInsert, editorRemove, editorReplace, editorSetAmount,
     editorResolveGrams, editorScaleTo, editorSorted, editorHistory, editorCommit, editorUndo, editorRedo,
     editorStrengthText, editorBenchTable, editorTsv,

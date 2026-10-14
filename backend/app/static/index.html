@@ -446,6 +446,12 @@
             </div>
           </form>
         </article>
+        <article class="panel shelf-map-panel" aria-labelledby="shelf-map-title">
+          <div class="card-title-row"><div><p class="panel-index">Your shelf by character</p><h2 id="shelf-map-title">Shelf map</h2></div></div>
+          <p class="friendly-boundary">Your owned materials placed by the character written for each, so facets few of them lead with and materials written almost alike show. Similar, not the same: the map is not a smell test.</p>
+          <button id="shelf-map-toggle" class="quiet-button" type="button" aria-expanded="false" aria-controls="shelf-map">Show the shelf map</button>
+          <div id="shelf-map" class="shelf-map" hidden></div>
+        </article>
         <details class="panel optional-ledger-tools">
           <summary>Optional laboratory ledger tools</summary>
           <p class="friendly-boundary">Use these only when you deliberately want a separate transactional laboratory record. They are not required for formulation chat.</p>
@@ -1089,6 +1095,7 @@
   <script src="/static/blind-test.js" defer></script>
   <script src="/static/brief-notes.js" defer></script>
   <script src="/static/hold-list.js" defer></script>
+  <script src="/static/similar-stocks.js" defer></script>
   <script src="/static/make-now.js" defer></script>
   <script src="/static/batch-label.js" defer></script>
   <script src="/static/batch.js" defer></script>

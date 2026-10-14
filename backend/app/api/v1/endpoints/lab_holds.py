@@ -66,4 +66,5 @@ async def formula_holds(request: FormulaHoldsRequest) -> dict[str, Any]:
         }
         for row in request.rows
     ]
-    return await run_in_threadpool(lambda: explain_holds(rows, bottle_ml=request.bottle_ml))
+    answer: dict[str, Any] = await run_in_threadpool(lambda: explain_holds(rows, bottle_ml=request.bottle_ml))
+    return answer

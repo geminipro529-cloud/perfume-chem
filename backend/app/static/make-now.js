@@ -284,8 +284,14 @@ function makeLeftForm(doc, { stockId, material, unit, supplier }, onSave) {
   return form;
 }
 
-function attachMakeNow({ doc, root, request, getInventory, getPrices, notify = () => {} }) {
-  const view = { data: null, densities: {}, picked: new Set(), loading: null, open: new Set() };
+// `openSwap(formulaId, stockId, material)` opens the formula in Edit a formula with
+// the stocks similar to one that is short; without it, short stocks list none.
+function attachMakeNow({ doc, root, request, getInventory, getPrices, notify = () => {}, openSwap = null }) {
+  const view = {
+    data: null, densities: {}, picked: new Set(), loading: null, open: new Set(),
+    // Stocks like a short one, by stock id: the answer, or { error }; and which lists are open.
+    similar: new Map(), similarOpen: new Set(),
+  };
   const status = root.querySelector("#make-status");
   const list = root.querySelector("#make-formulas");
   const shopping = root.querySelector("#make-shopping");
@@ -310,6 +316,55 @@ function attachMakeNow({ doc, root, request, getInventory, getPrices, notify = (
 
   function leftForm(item) {
     return makeLeftForm(doc, { ...item, supplier: view.data.on_hand?.[item.stockId]?.supplier }, saveLeft);
+  }
+
+  async function loadSimilar(item, id) {
+    try {
+      const body = JSON.stringify({ stock_id: item.stockId, material: item.material, limit: 4 });
+      view.similar.set(item.stockId, await request("/v2/workbench/similar-stocks", { method: "POST", body }));
+    } catch (error) {
+      view.similar.set(item.stockId, { error: error?.message || String(error) });
+    }
+    const lost = !root.contains(doc.activeElement);
+    render();
+    if (lost) root.querySelector(`[aria-controls="${id}"]`)?.focus();
+  }
+
+  // A short stock's "Similar you own": owned stocks written alike, opened on a tap.
+  function similarBox(formula, item, id) {
+    const key = `${formula.formula_id}|${item.stockId}`;
+    const open = view.similarOpen.has(key);
+    const box = makeEl(doc, "div", "make-similar");
+    const toggle = makeEl(doc, "button", "quiet-button", "Similar you own");
+    toggle.type = "button";
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-controls", id);
+    toggle.setAttribute("aria-label", `Similar you own to ${item.material}`);
+    toggle.addEventListener("click", () => {
+      if (view.similarOpen.has(key)) view.similarOpen.delete(key);
+      else {
+        view.similarOpen.add(key);
+        if (!view.similar.has(item.stockId)) loadSimilar(item, id);
+      }
+      render();
+      root.querySelector(`[aria-controls="${id}"]`)?.focus();
+    });
+    const panel = makeEl(doc, "div", "make-similar-list");
+    panel.id = id;
+    panel.hidden = !open;
+    const answer = view.similar.get(item.stockId);
+    if (open && !answer) panel.append(makeEl(doc, "p", "field-help", "Looking through your stocks…"));
+    else if (open && answer.error) panel.append(makeEl(doc, "p", "field-help", `Not compared right now: ${answer.error}`));
+    else if (open) {
+      const list = makeEl(doc, "div", "similar-list");
+      renderSimilarList(list, answer);
+      const swap = makeEl(doc, "button", "quiet-button", "See a swap in Edit a formula");
+      swap.type = "button";
+      swap.addEventListener("click", () => openSwap(formula.formula_id, item.stockId, item.material));
+      panel.append(list, swap);
+    }
+    box.append(toggle, panel);
+    return box;
   }
 
   function renderFormulas(all) {
@@ -355,13 +410,16 @@ function attachMakeNow({ doc, root, request, getInventory, getPrices, notify = (
       const rows = makeEl(doc, "ul", "make-rows");
       rows.id = rowsId;
       rows.hidden = !open;
-      for (const item of items) {
+      items.forEach((item, at) => {
         const entry = makeEl(doc, "li", "make-row");
         entry.dataset.status = item.status;
         entry.append(makeEl(doc, "span", "", makeLineText(item)));
         if (item.status === "unknown" && item.stockId) entry.append(leftForm(item));
+        if (item.status === "short" && item.stockId && openSwap && typeof renderSimilarList === "function") {
+          entry.append(similarBox(formula, item, `${rowsId}-similar-${at + 1}`));
+        }
         rows.append(entry);
-      }
+      });
       card.append(head, facts, line, actions, rows);
       list.append(card);
     });

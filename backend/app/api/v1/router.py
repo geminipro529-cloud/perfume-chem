@@ -20,6 +20,7 @@ from app.api.v1.endpoints import (
     lab_make_now,
     lab_planning,
     lab_reporting,
+    lab_similar,
     lab_versions,
     mixer,
     optimizer,
@@ -106,6 +107,12 @@ api_router.include_router(
     lab_make_now.router,
     prefix="/lab/v2",
     tags=["laboratory-make-now"],
+)
+
+api_router.include_router(
+    lab_similar.router,
+    prefix="/lab/v2",
+    tags=["laboratory-similar-stocks"],
 )
 
 api_router.include_router(

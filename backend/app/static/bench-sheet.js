@@ -872,7 +872,7 @@ function benchGramsNotes(result) {
 }
 
 if (typeof module === "object" && module.exports) {
-  module.exports = { addDecimalText, benchUnitKey, benchPercentText, benchBasisText, benchNeedsPreparedDilution, benchSheetLines, benchDraftState, overviewTiles, benchSheetHold, benchLeaveOutNote, benchSheetHtml, benchEscape, compareDecimalText, benchBasketLookup, benchRowBasket, benchBasketOrder, multiplyDecimalText, benchMixRecipe, benchMixText, benchMixShortText, benchMixNote, benchBottleMl, scaleDecimalText, benchScaleRows, benchSeparateTotals, benchRowFromSource, benchMatchStocks, benchSourceNotes, subtractDecimalText, benchPlannedPour, benchPourStart, benchPourSheet, benchPourFix, benchPourFixText, benchStockDensity, benchRowsInGrams, benchGramsNotes, benchWeighedTotals,
+  module.exports = { addDecimalText, benchUnitKey, benchPercentText, benchBasisText, benchNeedsPreparedDilution, benchSheetLines, benchDraftState, overviewTiles, benchSheetHold, benchLeaveOutNote, benchSheetHtml, benchEscape, compareDecimalText, benchBasketLookup, benchRowBasket, benchBasketOrder, multiplyDecimalText, benchMixRecipe, benchMixText, benchMixShortText, benchMixNote, benchBottleMl, scaleDecimalText, benchScaleRows, benchSeparateTotals, benchRowFromSource, benchMatchStocks, benchSourceNotes, subtractDecimalText, benchPlannedPour, benchPourStart, benchPourSheet, benchPourFix, benchPourFixText, benchStockDensity, benchDensityBasis, benchRowsInGrams, benchGramsNotes, benchWeighedTotals,
     // Exact fractions and names, shared with the formula editor (formula-editor.js).
     benchFraction, benchFractionOf, benchTimes, benchOver, benchPlus, benchMinus, benchCompare, benchFractionText, benchNameKey };
 }

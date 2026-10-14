@@ -657,3 +657,35 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
 @media (max-width: 760px) {
   .make-card .quiet-button, .make-left-form .quiet-button, .make-toolbar .quiet-button { min-height: 44px; }
 }
+
+/* Similar you own and the shelf map (similar-stocks.js): owned stocks by written character. */
+.similar-list { display: grid; gap: 6px; }
+.similar-list h4 { margin: 6px 0 0; font-size: 14px; color: var(--ink); }
+.similar-list p { margin: 0; }
+.similar-items { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.similar-item { display: grid; gap: 4px; padding: 8px; border: 1px solid var(--line); border-radius: 6px; color: var(--ink); background: var(--paper); overflow-wrap: anywhere; }
+.similar-head { color: var(--ink); }
+.similar-closeness { color: var(--muted); font-size: 13px; }
+.similar-line, .similar-empty { color: var(--ink); }
+.similar-stocks { display: flex; flex-wrap: wrap; gap: 6px; }
+.similar-stock { color: var(--muted); font-size: 13px; }
+.make-similar { display: grid; gap: 6px; }
+.make-similar-list { display: grid; gap: 6px; padding: 8px; border-radius: 6px; color: var(--ink); background: var(--paper-high); }
+.make-similar-list[hidden] { display: none; }
+.shelf-map { display: grid; gap: 8px; margin-top: 8px; }
+.shelf-map[hidden] { display: none; }
+.shelf-map h4 { margin: 6px 0 0; font-size: 14px; color: var(--ink); }
+.shelf-map p { margin: 0; }
+.shelf-svg { width: 100%; max-width: 420px; height: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.shelf-dot { fill: var(--blue); fill-opacity: 0.75; }
+.shelf-dot.is-found { fill: var(--fail-fg); fill-opacity: 1; stroke: var(--ink); stroke-width: 2; }
+.shelf-axes, .shelf-found { color: var(--ink); }
+.shelf-found:empty { display: none; }
+.shelf-find { display: grid; gap: 4px; max-width: 420px; color: var(--ink); }
+.shelf-more summary { cursor: pointer; color: var(--ink); font-weight: 700; padding: 6px 0; }
+.shelf-more[open] summary { margin-bottom: 4px; }
+.shelf-list { display: grid; gap: 4px; margin: 0; padding-left: 18px; color: var(--ink); }
+.shelf-unplaced { color: var(--ink); overflow-wrap: anywhere; }
+@media (max-width: 760px) {
+  .similar-pick, .make-similar .quiet-button, #shelf-map-toggle, .shelf-more summary, .shelf-find input { min-height: 44px; }
+}

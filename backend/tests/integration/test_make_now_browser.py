@@ -111,5 +111,7 @@ def test_each_stock_line_opens_on_a_tap_and_a_bigger_bottle_rescales(lab):
 
     page.fill("#make-bottle-ml", "1000")
     page.locator("#make-bottle-ml").dispatch_event("change")
-    assert card.locator(".make-row").inner_text() == "Ambrox: needs 6.67 g; 5 g left, short by 1.67 g."
+    assert card.locator(".make-row > span").inner_text() == "Ambrox: needs 6.67 g; 5 g left, short by 1.67 g."
+    # A stock that runs short offers what you own like it (tests/integration/test_similar_stocks_browser.py).
+    assert card.locator(".make-row").get_by_role("button", name="Similar you own to Ambrox").is_visible()
     assert card.locator(".make-verdict").inner_text() == "Short of 1 stock for 1000 mL."

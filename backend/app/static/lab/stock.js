@@ -537,6 +537,10 @@ const makeNow = typeof attachMakeNow === "function"
     getInventory: () => state.projectInventory || { stocks: [] },
     getPrices: () => (typeof stockPricesCurrent === "function" ? stockPricesCurrent() : {}),
     notify,
+    // Edit a formula (lab/editor.js, loaded later) previews the swap.
+    openSwap: (formulaId, stockId, material) => {
+      editorOpenSavedSwap(formulaId, stockId, material).catch((error) => notify(error.message, true));
+    },
   })
   : null;
 
@@ -547,6 +551,36 @@ function makeNowShown() {
 function makeNowInventoryChanged() {
   makeNow?.changed();
 }
+
+// ---- Shelf map: owned materials by written character (similar-stocks.js) ----
+// Asked for on a tap only (GET /v2/workbench/shelf-map), and again on each opening,
+// since stocks change on this page.
+
+const shelfMapView = { seq: 0 };
+
+async function showShelfMap() {
+  const panel = $("#shelf-map");
+  const seq = ++shelfMapView.seq;
+  panel.replaceChildren(Object.assign(document.createElement("p"), { className: "field-help", textContent: "Placing your stocks…" }));
+  try {
+    const answer = await request("/v2/workbench/shelf-map");
+    if (seq !== shelfMapView.seq) return;
+    renderShelfMap(panel, answer);
+  } catch (error) {
+    if (seq !== shelfMapView.seq) return;
+    panel.replaceChildren(Object.assign(document.createElement("p"), { className: "field-help", textContent: `Could not place your stocks: ${error.message}` }));
+  }
+}
+
+$("#shelf-map-toggle").addEventListener("click", () => {
+  const toggle = $("#shelf-map-toggle");
+  const open = toggle.getAttribute("aria-expanded") !== "true";
+  toggle.setAttribute("aria-expanded", String(open));
+  toggle.textContent = open ? "Hide the shelf map" : "Show the shelf map";
+  $("#shelf-map").hidden = !open;
+  if (open) showShelfMap();
+  else shelfMapView.seq += 1;
+});
 
 // Prices Kenny types per stock, plus ethanol and packaging (stock-prices.js).
 // boot.js loads them: a price change redraws the bench sheet cost (bench.js), loaded after this file.

@@ -160,7 +160,12 @@ function editorRowNode(row) {
   without.className = "quiet-button editor-without";
   without.dataset.action = "without";
   without.textContent = "Without it";
-  why.append(whyText, " ", without);
+  const similar = document.createElement("button");
+  similar.type = "button";
+  similar.className = "quiet-button editor-without";
+  similar.dataset.action = "similar";
+  similar.textContent = "Similar you own";
+  why.append(whyText, " ", without, " ", similar);
   cells[1].append(material, why);
   cells[2].append(amountWrap);
   cells[3].append(note);
@@ -405,6 +410,12 @@ $("#editor-rows").addEventListener("click", (event) => {
     if (row) showEditorDrop(row.key).catch((error) => notify(error.message, true));
     return;
   }
+  const similar = event.target.closest('[data-action="similar"]');
+  if (similar) {
+    const row = editorNow().rows[editorRowIndex(similar)];
+    if (row) showEditorSimilar(row.key).catch((error) => notify(error.message, true));
+    return;
+  }
   const button = event.target.closest('[data-action="remove"]');
   if (!button) return;
   const index = editorRowIndex(button);
@@ -596,10 +607,9 @@ async function loadEditorSource(data) {
   return { name: source.formula_name || "", ...editorRowsFromSource(source.rows) };
 }
 
-$("#editor-source-form").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const form = event.currentTarget;
-  if (form.dataset.busy) return;
+// Loads what the source form names into the rows; true when it was loaded.
+async function editorLoadFromForm(form) {
+  if (form.dataset.busy) return false;
   const button = form.querySelector('button[type="submit"]');
   clearFormError(form);
   editorPage.ticket += 1;
@@ -620,13 +630,36 @@ $("#editor-source-form").addEventListener("submit", async (event) => {
     clearEditorError();
     editorFocusRow(0, "material");
     renderEditor();
+    return true;
   } catch (error) {
     if (ticket === editorPage.ticket) showFormError(form, error, "Not loaded.");
+    return false;
   } finally {
     delete form.dataset.busy;
     button.disabled = false;
   }
+}
+
+$("#editor-source-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  editorLoadFromForm(event.currentTarget);
 });
+
+// What can I make: a stock runs short, so open the saved formula's latest version
+// here with the stocks you own that are like it, to preview a swap.
+async function editorOpenSavedSwap(formulaId, stockId, material) {
+  navigate("editor");
+  const form = $("#editor-source-form");
+  form.querySelector('[name="source_kind"]').value = "SAVED";
+  syncEditorSourceFields();
+  if (!editorPage.formulas?.some((formula) => formula.formula_id === formulaId)) await editorLoadFormulas();
+  form.querySelector('[name="saved_formula"]').value = formulaId;
+  if (!(await editorLoadFromForm(form))) return;
+  const rows = editorNow().rows;
+  const row = rows.find((item) => stockId && item.stockId === stockId)
+    || rows.find((item) => editorNameKey(item.material) === editorNameKey(material));
+  if (row) await showEditorSimilar(row.key);
+}
 
 // ---- Side panel: IFRA, allergens, cost, stock left, smell over time ----
 // Cost and stock left are worked out here on every render. The IFRA and
@@ -915,6 +948,7 @@ function renderEditorWhy() {
     const button = box.querySelector('[data-action="without"]');
     button.hidden = !row.amount;
     button.setAttribute("aria-label", `What changes without ${row.material}`);
+    box.querySelector('[data-action="similar"]').setAttribute("aria-label", `Similar you own to ${row.material}`);
   });
 }
 
@@ -952,6 +986,8 @@ function setEditorWhy(on) {
 
 $("#editor-why").addEventListener("click", () => setEditorWhy(!editorPage.why.on));
 
+// The open preview under the rows ("Without it", or "Similar you own" and a swap)
+// returns focus to the row button that opened it.
 function closeEditorDrop(returnFocus) {
   const drop = editorPage.drop;
   editorPage.drop = null;
@@ -959,7 +995,7 @@ function closeEditorDrop(returnFocus) {
   section.hidden = true;
   section.replaceChildren();
   if (returnFocus && drop) {
-    $(`#editor-rows tr[data-key="${CSS.escape(drop.key)}"] [data-action="without"]`)?.focus();
+    $(`#editor-rows tr[data-key="${CSS.escape(drop.key)}"] [data-action="${drop.opener}"]`)?.focus();
   }
 }
 
@@ -970,30 +1006,44 @@ function editorDropButton(text, action, className) {
   return button;
 }
 
-async function showEditorDrop(key) {
-  const rows = editorNow().rows;
-  const row = rows.find((item) => item.key === key);
-  if (!row) return;
-  const without = rows.filter((item) => item.key !== key);
+function editorDropActions(...buttons) {
+  const actions = editorNode("div", "", "editor-drop-actions");
+  actions.append(...buttons);
+  return actions;
+}
+
+// Opens the preview section for the row and returns a function that says
+// whether this preview is still the open one.
+function editorOpenDrop(key, opener, titleText, waiting) {
   const seq = (editorPage.drop?.seq || 0) + 1;
-  editorPage.drop = { key, present: editorPage.history.present, seq };
+  editorPage.drop = { key, opener, present: editorPage.history.present, seq };
   const section = $("#editor-drop");
-  const title = editorNode("h3", `Without ${row.material}`);
+  const title = editorNode("h3", titleText);
   title.id = "editor-drop-title";
-  section.replaceChildren(title, editorNode("p", "Working out the checks and the smell without it…", "editor-side-line"));
+  section.replaceChildren(title, editorNode("p", waiting, "editor-side-line"));
   section.hidden = false;
   section.focus();
+  return { title, current: () => editorPage.drop?.key === key && editorPage.drop.seq === seq };
+}
+
+function editorShowDrop(nodes) {
+  const section = $("#editor-drop");
+  section.replaceChildren(...nodes);
+  section.focus();
+}
+
+// What changes from `rows` to `changed`: the checks, the cost of one bottle and
+// the smell over time, as nodes; null when the preview was closed meanwhile.
+// `shares(curves)` gives the lines on the row's own share of the smell.
+async function editorChangeNodes(rows, changed, current, shares) {
   const bottle = editorBottleMl();
   const bottleMl = bottle ? benchFractionText(bottle, 3) : "30";
   const [checks, curves] = await Promise.all([
-    Promise.all([rows, without].map((set) => editorVersionChecks({ bottle_ml: bottleMl }, set).catch((error) => ({ error: error.message })))),
-    Promise.all([rows, without].map((set) => scentCurveFor(editorChartRows(set)).catch(() => undefined))),
+    Promise.all([rows, changed].map((set) => editorVersionChecks({ bottle_ml: bottleMl }, set).catch((error) => ({ error: error.message })))),
+    Promise.all([rows, changed].map((set) => scentCurveFor(editorChartRows(set)).catch(() => undefined))),
   ]);
-  if (editorPage.drop?.key !== key || editorPage.drop.seq !== seq) return;
-  const nodes = [title];
-  const carried = editorWhyDropLine(editorWhyInfo(row));
-  if (carried) nodes.push(editorNode("p", carried, "editor-side-line"));
-  nodes.push(editorNode("h4", "Checks"));
+  if (!current()) return null;
+  const nodes = [editorNode("h4", "Checks")];
   const checkList = editorNode("ul", "", "editor-check-list");
   const failed = checks.find((answer) => answer.error);
   if (failed) {
@@ -1004,7 +1054,7 @@ async function showEditorDrop(key) {
     changes.forEach((change) => checkList.append(editorNode("li", change.text, change.problem ? "is-problem" : "")));
   }
   nodes.push(checkList);
-  const costs = [editorBottleCostText(rows, bottleMl), editorBottleCostText(without, bottleMl)];
+  const costs = [editorBottleCostText(rows, bottleMl), editorBottleCostText(changed, bottleMl)];
   if (costs.some(Boolean)) {
     nodes.push(editorNode("h4", "Cost per bottle"));
     nodes.push(editorNode("p", `${costs[0] || "not priced"} → ${costs[1] || "not priced"}`, "editor-side-line"));
@@ -1019,36 +1069,167 @@ async function showEditorDrop(key) {
     const lines = scentLeaderLines(curves[0], curves[1]);
     lines.forEach((line) => smell.append(editorNode("li", line)));
     if (!lines.length) smell.append(editorNode("li", "The three leaders stay the same at every stage."));
-    const heart = scentShareAt(curves[0], row.material, "heart");
-    const late = scentShareAt(curves[0], row.material, "drydown");
-    if (heart !== null && late !== null) smell.append(editorNode("li", `With it, ${row.material} is ${scentPercent(heart)} of what the model can detect at 30 minutes and ${scentPercent(late)} at 4 hours.`));
+    shares(curves).forEach((line) => smell.append(editorNode("li", line)));
   }
   nodes.push(smell);
   nodes.push(editorNode("p", "The leaders are by share of what the model can detect, not by strength or pleasantness.", "field-help"));
-  const actions = editorNode("div", "", "editor-drop-actions");
-  actions.append(editorDropButton("Remove the row", "remove", "quiet-button"), editorDropButton("Keep it", "keep", "quiet-button"));
-  nodes.push(actions);
-  section.replaceChildren(...nodes);
-  section.focus();
+  return nodes;
+}
+
+// One line on a material's share of what the model can detect at 30 minutes and 4 hours, or "".
+function editorShareLine(curve, name, lead) {
+  const heart = curve ? scentShareAt(curve, name, "heart") : null;
+  const late = curve ? scentShareAt(curve, name, "drydown") : null;
+  if (heart === null || late === null) return "";
+  return `${lead} ${scentPercent(heart)} of what the model can detect at 30 minutes and ${scentPercent(late)} at 4 hours.`;
+}
+
+async function showEditorDrop(key) {
+  const rows = editorNow().rows;
+  const row = rows.find((item) => item.key === key);
+  if (!row) return;
+  const without = rows.filter((item) => item.key !== key);
+  const { title, current } = editorOpenDrop(key, "without", `Without ${row.material}`, "Working out the checks and the smell without it…");
+  const changes = await editorChangeNodes(rows, without, current, (curves) => {
+    const line = editorShareLine(curves[0], row.material, `With it, ${row.material} is`);
+    return line ? [line] : [];
+  });
+  if (!changes) return;
+  const nodes = [title];
+  const carried = editorWhyDropLine(editorWhyInfo(row));
+  if (carried) nodes.push(editorNode("p", carried, "editor-side-line"));
+  nodes.push(...changes);
+  nodes.push(editorDropActions(editorDropButton("Remove the row", "remove", "quiet-button"), editorDropButton("Keep it", "keep", "quiet-button")));
+  editorShowDrop(nodes);
+}
+
+// ---- Similar you own: owned stocks written alike, and a swap preview ----
+// Asked on a tap (POST /v2/workbench/similar-stocks), compared by the profiles
+// written for each stock, never by smell, so every list says "similar, not the
+// same". A swap keeps how much material the row carries (formula-editor.js).
+
+const editorSimilarAnswers = new Map();
+
+async function editorSimilarAnswer(row) {
+  const body = JSON.stringify({ stock_id: row.stockId || null, material: row.material, limit: 6 });
+  if (!editorSimilarAnswers.has(body)) {
+    editorSimilarAnswers.set(body, await request("/v2/workbench/similar-stocks", { method: "POST", body }));
+    if (editorSimilarAnswers.size > 20) editorSimilarAnswers.delete(editorSimilarAnswers.keys().next().value);
+  }
+  return editorSimilarAnswers.get(body);
+}
+
+// How a stock of the list fits the row: a button to preview it, or why not.
+function editorSimilarChoice(row, line) {
+  if (line.stock_id === row.stockId) return null;
+  const stock = editorOwned(editorStocks()).find((item) => item.stock_id === line.stock_id);
+  if (!stock) return { label: String(line.stock_label || "").split("#")[0].trim(), why: "not on your Stock page list" };
+  const label = editorLabelOf(stock);
+  if (editorStockIsSolid(stock) !== Boolean(row.solid)) return { label, why: row.solid ? "a liquid; this row is weighed" : "a solid; this row is poured" };
+  if (!row.amount) return { label, why: "type the row's amount first" };
+  return { label, stockId: stock.stock_id };
+}
+
+async function showEditorSimilar(key) {
+  const row = editorNow().rows.find((item) => item.key === key);
+  if (!row) return;
+  const { title, current } = editorOpenDrop(key, "similar", `Like ${row.material}`, "Looking through your stocks…");
+  let answer;
+  try {
+    answer = await editorSimilarAnswer(row);
+  } catch (error) {
+    if (!current()) return;
+    editorShowDrop([title, editorNode("p", `Not compared right now: ${error.message}`, "editor-side-line"),
+      editorDropActions(editorDropButton("Close", "keep", "quiet-button"))]);
+    return;
+  }
+  if (!current()) return;
+  const list = editorNode("div", "", "similar-list");
+  renderSimilarList(list, answer, { choice: (line) => editorSimilarChoice(row, line), pick: "Preview" });
+  editorShowDrop([title, list, editorDropActions(editorDropButton("Close", "keep", "quiet-button"))]);
+}
+
+function editorAmountWords(row) {
+  const strength = editorStrengthText(row);
+  return `${editorFigure(row.amount, 1)} ${row.solid ? "mg" : "µL"} of ${row.material}${strength ? ` ${strength}` : ""}`;
+}
+
+async function showEditorSwap(key, stockId) {
+  const rows = editorNow().rows;
+  const index = rows.findIndex((item) => item.key === key);
+  const stock = editorOwned(editorStocks()).find((item) => item.stock_id === stockId);
+  if (index < 0 || !stock) return;
+  const row = rows[index];
+  const name = String(stock.identity_name || stock.material);
+  const { title, current } = editorOpenDrop(key, "similar", `${row.material} → ${name}`, "Working out the checks and the smell with the swap…");
+  if (!row.solid) await editorEnsureDensities([row, { material: name }]).catch(() => false);
+  if (!current()) return;
+  const swap = editorSwapRow(row, stock, editorPage.densities);
+  if (!swap) {
+    editorShowDrop([title, editorNode("p", "This stock cannot stand in for the row: its strength is not known.", "editor-side-line"),
+      editorDropActions(editorDropButton("Back to the list", "similar", "quiet-button"), editorDropButton("Close", "keep", "quiet-button"))]);
+    return;
+  }
+  const swapped = editorReplace(rows, index, swap.row);
+  const changes = await editorChangeNodes(rows, swapped, current, (curves) => [
+    editorShareLine(curves[0], row.material, `Now ${row.material} is`),
+    editorShareLine(curves[1], swap.row.material, `With the swap, ${swap.row.material} would be`),
+  ].filter(Boolean));
+  if (!changes) return;
+  editorPage.drop.swap = swap.row;
+  const how = swap.byGrams
+    ? "the same grams of material."
+    : "the same share by the stocks' written strengths, as their densities are not both known.";
+  editorShowDrop([
+    title,
+    editorNode("p", `${editorAmountWords(row)} becomes ${editorAmountWords(swap.row)}: ${how}`, "editor-side-line"),
+    editorNode("p", `Similar, not the same: ${swap.row.material} will not smell the same and may not be as strong, so smell a vial before you change a bottle.`, "field-help"),
+    ...changes,
+    editorDropActions(editorDropButton("Use it", "use", "quiet-button"), editorDropButton("Back to the list", "similar", "quiet-button"),
+      editorDropButton("Keep the row", "keep", "quiet-button")),
+  ]);
 }
 
 $("#editor-drop").addEventListener("click", (event) => {
-  const button = event.target.closest("[data-drop]");
   const drop = editorPage.drop;
-  if (!button || !drop) return;
-  if (button.dataset.drop === "keep") {
+  if (!drop) return;
+  const pick = event.target.closest("[data-similar-stock]");
+  if (pick) {
+    showEditorSwap(drop.key, pick.dataset.similarStock).catch((error) => notify(error.message, true));
+    return;
+  }
+  const button = event.target.closest("[data-drop]");
+  if (!button) return;
+  const action = button.dataset.drop;
+  if (action === "keep") {
     closeEditorDrop(true);
+    return;
+  }
+  if (action === "similar") {
+    showEditorSimilar(drop.key).catch((error) => notify(error.message, true));
     return;
   }
   const { rows } = editorNow();
   const index = rows.findIndex((row) => row.key === drop.key);
   if (index < 0) return;
+  if (action === "use" && drop.swap) {
+    const swap = drop.swap;
+    closeEditorDrop(false);
+    editorCommitRows(editorReplace(rows, index, swap));
+    editorFocusRow(index, "material");
+    renderEditor();
+    notify(`Swapped in ${swap.material}. Undo puts ${rows[index].material} back.`);
+    editorAfterChange().catch((error) => notify(error.message, true));
+    return;
+  }
+  if (action !== "remove") return;
   closeEditorDrop(false);
   editorCommitRows(editorRemove(rows, index));
   editorFocusRow(Math.min(index, rows.length - 2), "material");
   renderEditor();
   notify(`Removed ${rows[index].material}. Undo puts it back.`);
 });
+
 
 try { editorPage.why.on = localStorage.getItem(EDITOR_WHY_KEY) === "on"; } catch { editorPage.why.on = false; }
 
@@ -1114,8 +1295,12 @@ function syncEditorSavedOptions() {
   if (formulas.some((formula) => formula.formula_id === keep)) select.value = keep;
 }
 
+let editorFormulasAsked = null;
+
 async function editorLoadFormulas() {
-  const answer = await request(EDITOR_VERSIONS_URL);
+  // Asked once at a time: choosing "saved" and opening a formula from What can I make can overlap.
+  editorFormulasAsked ||= request(EDITOR_VERSIONS_URL).finally(() => { editorFormulasAsked = null; });
+  const answer = await editorFormulasAsked;
   editorPage.formulas = answer.formulas || [];
   syncEditorSavedOptions();
   renderEditorVersionState();
