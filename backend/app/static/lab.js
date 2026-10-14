@@ -531,6 +531,12 @@ function renderProjectInventory(filter = "", focusStockId = "") {
       button.dataset.diluteStock = stock.stock_id;
       action.appendChild(button);
     }
+    if (typeof stockPriceButtonText === "function") {
+      const price = stockEl("button", "inventory-complete-button quiet-button", stockPriceButtonText(stock.stock_id));
+      price.type = "button";
+      price.dataset.priceStock = stock.stock_id;
+      action.appendChild(price);
+    }
     const rate = stockEl("button", "inventory-complete-button quiet-button", "Rate");
     rate.type = "button";
     rate.dataset.rateStock = stock.stock_id;
@@ -1752,6 +1758,20 @@ attachStockDilutions({
   },
 });
 
+// Prices Kenny types per stock, plus ethanol and packaging (stock-prices.js).
+if (typeof attachStockPrices === "function") {
+  attachStockPrices({
+    doc: document,
+    list: $("#project-inventory-list"),
+    request,
+    getInventory: () => state.projectInventory || { stocks: [] },
+    onChange: () => {
+      if (state.projectInventory) renderProjectInventory($("#project-inventory-search").value);
+      if (benchSource.costRows) showBenchCostBlock();
+    },
+  }).load();
+}
+
 if (typeof attachMaterialLiking === "function") {
   attachMaterialLiking({
     doc: document,
@@ -2890,7 +2910,13 @@ $("#formula-print-bench").addEventListener("click", () => {
 // the same sheet as Create (bench-sheet.js); nothing is saved.
 // `ticket` changes whenever the form changes, so a reply that arrives after
 // an edit is dropped instead of drawing a sheet for the old values.
-const benchSource = { html: "", autoSourceMl: "", ticket: 0, base: null, orderedRows: [], pours: [] };
+const benchSource = { html: "", autoSourceMl: "", ticket: 0, base: null, orderedRows: [], pours: [], costRows: null };
+
+// Cost per row, per bottle and per batch for the whole formula (stock-prices.js).
+function showBenchCostBlock() {
+  if (typeof showBenchCost !== "function" || !benchSource.costRows) return;
+  showBenchCost({ doc: document, container: $("#bench-cost"), rows: benchSource.costRows, bottleMl: benchSource.base?.sizeMl || "" });
+}
 
 function benchFieldError(message, field) {
   const error = new Error(message);
@@ -2910,6 +2936,9 @@ function clearBenchPreview() {
   benchSource.base = null;
   benchSource.orderedRows = [];
   benchSource.pours = [];
+  benchSource.costRows = null;
+  $("#bench-cost").hidden = true;
+  $("#bench-cost").replaceChildren();
   resetBenchPourForm();
   $("#bench-source-print").disabled = true;
   $("#bench-preview-card").hidden = true;
@@ -3010,6 +3039,8 @@ function renderBenchPreview(source, sizes) {
   // Each pour fix pushes the batch and the sheet it leads to; undo pops one.
   benchSource.pours = [{ state: start, sheet: benchSource.base }];
   drawBenchSheet(benchSource.base);
+  benchSource.costRows = matched.rows;
+  showBenchCostBlock();
   $("#bench-preview-card").hidden = false;
   $("#bench-source-print").disabled = false;
 }
@@ -3192,6 +3223,7 @@ bindForm("#bottle-form", (data) => request("/bottles", { method: "POST", body: J
 const smellLog = typeof attachSmellLog === "function"
   ? attachSmellLog({ doc: document, request, root: $("#smell-log") })
   : null;
+if (typeof attachBatch === "function") attachBatch({ doc: document, request, root: $("#batch-root") });
 bindForm("#addition-form", (data) => request(`/bottles/${data.bottle_id}/additions`, { method: "POST", body: JSON.stringify({ stock_solution_id: data.stock_solution_id, mass_g: Number(data.mass_g), expected_sequence: Number(data.expected_sequence), command_id: newRequestId("command") }) }));
 bindForm("#experiment-form", (data) => request("/experiments", { method: "POST", body: JSON.stringify({ name: data.name, protocol: { observation_times_seconds: data.times.split(",").map((item) => Number(item.trim())) } }) }));
 

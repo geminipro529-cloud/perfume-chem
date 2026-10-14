@@ -12,10 +12,11 @@ from engine.user_records import (
     BASKET_LOG_NAME,
     COMPLETION_LOG_NAME,
     DILUTION_LOG_NAME,
+    STOCK_PRICE_LOG_NAME,
 )
 
 from app.services import backup_service as backup_service_module
-from app.services.backup_service import BackupService, RestoreSafetyError
+from app.services.backup_service import BATCH_RECORD_LOG_NAME, BackupService, RestoreSafetyError
 from app.services.personal_liking import PERSONAL_LIKING_NAME
 from app.services.restore_command import restore_from_backup
 from tests.integration.test_backup_restore import (
@@ -34,7 +35,9 @@ def _records(folder: Path) -> dict[str, Path]:
         COMPLETION_LOG_NAME: folder / "completions.jsonl",
         BASKET_LOG_NAME: folder / BASKET_LOG_NAME,
         DILUTION_LOG_NAME: folder / DILUTION_LOG_NAME,
+        STOCK_PRICE_LOG_NAME: folder / STOCK_PRICE_LOG_NAME,
         PERSONAL_LIKING_NAME: folder / PERSONAL_LIKING_NAME,
+        BATCH_RECORD_LOG_NAME: folder / BATCH_RECORD_LOG_NAME,
     }
 
 
@@ -90,7 +93,9 @@ def test_backup_copies_records_byte_for_byte_and_lists_absent_ones_as_null(tmp_p
         COMPLETION_LOG_NAME: {"sha256": sha256(b"").hexdigest(), "bytes": 0},
         BASKET_LOG_NAME: None,
         DILUTION_LOG_NAME: {"sha256": sha256(dilution).hexdigest(), "bytes": len(dilution)},
+        STOCK_PRICE_LOG_NAME: None,
         PERSONAL_LIKING_NAME: None,
+        BATCH_RECORD_LOG_NAME: None,
     }
     validation = service.validate_restore(artifact.snapshot_path)
     assert validation.valid is True
@@ -100,7 +105,9 @@ def test_backup_copies_records_byte_for_byte_and_lists_absent_ones_as_null(tmp_p
         COMPLETION_LOG_NAME: "verified",
         BASKET_LOG_NAME: "not in backup",
         DILUTION_LOG_NAME: "verified",
+        STOCK_PRICE_LOG_NAME: "not in backup",
         PERSONAL_LIKING_NAME: "not in backup",
+        BATCH_RECORD_LOG_NAME: "not in backup",
     }
 
 
@@ -215,6 +222,8 @@ def test_backup_from_before_the_dilution_log_restores_and_leaves_the_log(tmp_pat
     manifest = json.loads(backup.manifest_path.read_text(encoding="utf-8"))
     del manifest["user_records"][DILUTION_LOG_NAME]
     del manifest["user_records"][PERSONAL_LIKING_NAME]
+    del manifest["user_records"][STOCK_PRICE_LOG_NAME]
+    del manifest["user_records"][BATCH_RECORD_LOG_NAME]
     assert set(manifest["user_records"]) == {
         ADDITION_LOG_NAME,
         COMPLETION_LOG_NAME,

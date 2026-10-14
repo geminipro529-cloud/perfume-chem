@@ -216,13 +216,13 @@ textarea { padding-top: 10px; }
 
 /* Buttons ----------------------------------------------------------------- */
 button { font-family: var(--font-ui); }
-button[type="submit"], #prepare-delta, #record-delta, .hypothesis-card button, #formula-download {
+button[type="submit"], .primary-button, #prepare-delta, #record-delta, .hypothesis-card button, #formula-download {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 44px; padding: 0 18px; color: var(--on-primary); background: var(--blue);
   border: 0; border-radius: 8px; box-shadow: none; cursor: pointer;
   font: 600 14px/1.2 var(--font-ui); letter-spacing: 0; text-transform: none;
 }
-button[type="submit"]:hover, #prepare-delta:hover, #record-delta:hover,
+button[type="submit"]:hover, .primary-button:hover, #prepare-delta:hover, #record-delta:hover,
 .hypothesis-card button:hover, #formula-download:hover {
   color: var(--on-primary); background: var(--blue-bright); transform: none;
 }

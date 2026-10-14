@@ -23,6 +23,7 @@ ADDITION_LOG_NAME = "user_inventory_addition_events.jsonl"
 COMPLETION_LOG_NAME = "user_inventory_completion_events.jsonl"
 BASKET_LOG_NAME = "user_basket_events.jsonl"
 DILUTION_LOG_NAME = "user_inventory_dilution_events.jsonl"
+STOCK_PRICE_LOG_NAME = "user_stock_price_events.jsonl"  # engine.stock_prices.PRICE_LOG_NAME
 
 _COPY_CHUNK_BYTES = 1024 * 1024
 _TEMP_SUFFIX = ".carry-over-tmp"
@@ -44,6 +45,7 @@ def record_files() -> dict[str, Path]:
     from engine.inventory_completions import completion_log_path
     from engine.inventory_dilutions import dilution_log_path
     from engine.personal_inventory import addition_log_path
+    from engine.stock_prices import price_log_path
 
     completion = completion_log_path()
     return {
@@ -51,6 +53,7 @@ def record_files() -> dict[str, Path]:
         COMPLETION_LOG_NAME: completion,
         BASKET_LOG_NAME: completion.with_name(BASKET_LOG_NAME),
         DILUTION_LOG_NAME: dilution_log_path(),
+        STOCK_PRICE_LOG_NAME: price_log_path(),
     }
 
 

@@ -4,6 +4,7 @@ from fastapi import APIRouter
 
 from app.api.v1.endpoints import (
     ai,
+    commercial_pack,
     commercial_references,
     engine_jobs,
     enhancements,
@@ -11,6 +12,7 @@ from app.api.v1.endpoints import (
     formulas,
     knowledge,
     lab,
+    lab_batches,
     lab_lifecycle,
     lab_planning,
     lab_reporting,
@@ -63,6 +65,18 @@ api_router.include_router(
     lab_lifecycle.router,
     prefix="/lab/v2",
     tags=["laboratory-lifecycle"],
+)
+
+api_router.include_router(
+    lab_batches.router,
+    prefix="/lab/v2",
+    tags=["laboratory-batches"],
+)
+
+api_router.include_router(
+    commercial_pack.router,
+    prefix="/lab/commercial-pack",
+    tags=["laboratory-commercial-pack"],
 )
 
 api_router.include_router(
