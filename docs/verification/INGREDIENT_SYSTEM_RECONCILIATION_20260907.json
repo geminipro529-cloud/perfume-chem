@@ -4,7 +4,7 @@
   "input_sha256": {
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
     "engine/ingredient_intelligence.py": "7dc52fc8ff7a336ddc563507b43f063703b3f7c70fe566977aa3f62c8f0b4bc1",
-    "engine/inventory_parser.py": "e394b4387e401fa90fa6a7fedc403c01968134acf885c96912d7eafad43d3e18",
+    "engine/inventory_parser.py": "4df65fa07c421530676c823fceb04380c8457a6f9aea23d23ef6848dae5b739f",
     "engine/odor_thresholds.py": "c9c8c1a7b20d17d1b4f923caed109a237b1b31e92146a04511f588012723b639",
     "engine/name_utils.py": "2e984915e2abe562f9a05fa53920fcb7d4dada0f8f0ccc0da91d706f1a37febb",
     "engine/material_identity.py": "3dbb20055f9794450b25a21123852dc9b355493af4b653fdd48fb341347d5e5d",
@@ -39,16 +39,16 @@
     "data/materials/Y.yaml": "95ca0131908d6772148786fed0d24809989c4bc10ef002b095e07bdbbff34f74",
     "data/materials/Z.yaml": "2b1eebcca0bedad85ee36a3969d35f1f6da0c30aad7ea51c117a675decd19d39"
   },
-  "inventory_overlay_sha256": "9837017d07126d8328afd5ac24c32f5259eaea4cb05bc45bfa55db86b15d59e3",
+  "inventory_overlay_sha256": "656ea0db102224cf74dced1069153bd11994efd8347a36c3ff58676a2969b2ba",
   "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
   "inventory_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
   "counts": {
     "original_cache_records": 426,
-    "rebuilt_cache_records": 426,
+    "rebuilt_cache_records": 429,
     "all_original_names_preserved": true,
     "inventory_text_rows": 333,
     "historical_requirement_rows": 280,
-    "current_physical_stocks": 292,
+    "current_physical_stocks": 295,
     "registry_records": 1271,
     "rows_with_profile": 295,
     "rows_with_registry": 323,
@@ -2186,7 +2186,7 @@
       "registry_name": "Paradisamide",
       "profile_name": "Paradisamide",
       "current_stock_ids": [
-        "inventory:v5:8a702d0134e5d3f69e8b"
+        "inventory:user-20261014:fcfc4ac4d7dc8fbe7af2"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3917,7 +3917,7 @@
       "registry_name": "Kephalis",
       "profile_name": "Kephalis",
       "current_stock_ids": [
-        "inventory:user-20261007:492b3820aecc7dfa979e"
+        "inventory:user-20261014:78b89792a54e263e2236"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5896,7 +5896,7 @@
       "registry_name": "Caryophyllene Acetate",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20260830:948f80d8c4633117205f"
+        "inventory:user-20261014:7c72cd6499ea4ccd2002"
       ],
       "odt_present": false,
       "missing_numeric_fields": [
@@ -6140,6 +6140,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "996796863a9924de1ab0f5b641b2f5b1a0266e30e5ed9ef6309bf817472b48b6",
+  "output_sha256": "6dbe9a2645e9ccaef3a9b84d964c276b523aba7cb2553d8700db6d89c27aa9d3",
   "input_cache_sha256": "996796863a9924de1ab0f5b641b2f5b1a0266e30e5ed9ef6309bf817472b48b6"
 }

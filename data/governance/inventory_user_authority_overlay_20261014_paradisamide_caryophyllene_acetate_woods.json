@@ -1,0 +1,336 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v26",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-10-14",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20261013_pomelo_ginger_lily_exaltolide.json",
+    "normalized_text_sha256": "9837017d07126d8328afd5ac24c32f5259eaea4cb05bc45bfa55db86b15d59e3"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 35704,
+    "inventory_text_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "source_kind": "DIRECT_USER_MESSAGE",
+    "message_channel": "PROJECT_THREADS_RELAYED_TO_STOCK_DATA_THREAD",
+    "user": "Kenny",
+    "message_date": "2026-10-14",
+    "verbatim_user_statements": [
+      {
+        "message_timestamp_utc": "2026-10-14T11:56:34Z",
+        "text": "paradisaminde is 10%"
+      },
+      {
+        "message_timestamp_utc": "2026-10-14T12:17:14Z",
+        "text": "You record it"
+      },
+      {
+        "message_timestamp_utc": "2026-10-14T12:18:49Z",
+        "text": "What about sandalwood base x3? If they aren’t in, add them along with lephalis and carophylene acetate"
+      },
+      {
+        "message_timestamp_utc": "2026-10-14T12:20:14Z",
+        "text": "Kephalis"
+      },
+      {
+        "message_timestamp_utc": "2026-10-14T12:21:30Z",
+        "text": "Add the other two woods you said were missing as well"
+      },
+      {
+        "message_timestamp_utc": "2026-10-14T12:21:51Z",
+        "text": "All are neat"
+      },
+      {
+        "message_timestamp_utc": "2026-10-14T12:22:08Z",
+        "text": "No that one is not neat"
+      },
+      {
+        "message_timestamp_utc": "2026-10-14T12:22:24Z",
+        "text": "Dep"
+      }
+    ],
+    "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Only Paradisamide uses a default (w/w, DPG): Kenny gave the strength and carrier or 'neat' for every other bottle."
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "paradisamide_v5_neat_stock_replaced_by_10pct": true,
+    "sandalwood_base_x3_requirement_resolved_neat": true,
+    "caryophyllene_acetate_carrier_hold_cleared_dep": true,
+    "kephalis_intake_hold_cleared": true,
+    "cedroxyde_and_hindinol_added_neat": true,
+    "inventory_text_line_not_edited": true,
+    "historical_formula_records_unchanged": true,
+    "formula_rebase_authorized": false,
+    "compounding_authorized": false,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [
+    "INV-USER-20260830-010",
+    "INV-USER-20261007-PW-023"
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20261014-STK-001",
+      "canonical_name": "Paradisamide",
+      "aliases": [
+        "Paradisamide 10%"
+      ],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_STRENGTH_PROJECT_DEFAULT_BASIS_AND_CARRIER",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_STRENGTH_CORRECTION_20261014_V5_ROW_261_NEAT_STOCK_REPLACED"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 261
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 261,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% (USER-CONFIRMED 2026-10-14); REPLACES THE V5 NEAT / AS SUPPLIED STOCK",
+          "actual_stock_text": "Paradisamide 10% w/w in DPG",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_user_message": true,
+        "fraction_basis_from_user_message": false,
+        "carrier_from_user_message": false,
+        "basis_and_carrier_are_project_defaults": true,
+        "neat_stock_owned": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'paradisaminde is 10%', then 'You record it'. The V5 row 261 stock (neat / as supplied) is replaced: his bottle is 10%. He did not state the basis or the solvent, so the project defaults apply (w/w when no basis is recorded; new dilutions in DPG). inventory.txt already lists 'Paradisamide (10%)'."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-002",
+      "canonical_name": "Sandalwood Base X3",
+      "aliases": [
+        "Sandalwood Base 3X"
+      ],
+      "state": "OWNED",
+      "category": "woods",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_ADD_REQUEST_20261014_USER_STATED_NEAT"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 220,
+          "disposition": "OWNED",
+          "status": "HAVE - PRODUCT BASIS, NEAT (USER-CONFIRMED 2026-10-14)",
+          "actual_stock_text": "Sandalwood Base X3, neat (opaque base; composition not expanded)",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "composition_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'What about sandalwood base x3? If they aren’t in, add them along with lephalis and carophylene acetate', then 'All are neat'. V5 row 220 already listed the base ('HAVE — PRODUCT BASIS') but with no stock strength, so the gate could not dose it. It is one neat product; its composition is not disclosed. 'X3' is the supplier's impact claim (about three times Mysore sandalwood), not a dilution."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-003",
+      "canonical_name": "Caryophyllene Acetate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice_aromatic",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.2,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "USER_STOCK_RECORD_STRENGTH_AND_BASIS_EXPLICIT_USER_CARRIER",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20260830-010_CARRIER_HOLD_CLEARED_BY_USER_CARRIER_DEP_20261014"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": false,
+        "carrier_from_user_message": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "fraction_and_basis_from_prior_user_stock_record": true
+      },
+      "note": "Kenny asked to add Caryophyllene Acetate, said 'No that one is not neat' when the woods were confirmed neat, and named the solvent: 'Dep'. The 2026-08-30 record INV-USER-20260830-010 (20% w/w, carrier unspecified, dosing held) is superseded: its 20% w/w strength is kept and the carrier is DEP."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-004",
+      "canonical_name": "Kephalis",
+      "aliases": [
+        "Lephalis"
+      ],
+      "state": "OWNED",
+      "category": "woods / amber / structure",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20261007-PW-023_INTAKE_HOLD_CLEARED_BY_USER_ADD_REQUEST"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Kephalis",
+        "sku": "4WY07089"
+      },
+      "received_quantity_g": "5",
+      "receipt_line": 23,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 153
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 153,
+          "disposition": "OWNED",
+          "status": "HAVE - USER CONFIRMED RECEIVED 2026-10-07; READY FOR USE 2026-10-14",
+          "actual_stock_text": "Kephalis (neat / as supplied); PW 4WY07089",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_ADD_REQUEST",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "quantity_is_received_not_remaining": true,
+        "fraction_basis_from_user_message": true,
+        "fraction_from_supplier_label": true,
+        "stock_intake_hold_cleared_by_user_message": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny asked to add 'lephalis' and then corrected the name: 'Kephalis'. The 5 g PerfumersWorld bottle (SKU 4WY07089, receipt line 23 of the 2026-10-07 order) was owned but held at intake (INV-USER-20261007-PW-023, superseded). It is neat as PerfumersWorld supplies it and now ready for raw-stock volume transfer. Kenny's 'All are neat' covers it as well."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-005",
+      "canonical_name": "Cedroxyde",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_ADD_REQUEST_20261014_USER_STATED_NEAT"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_ADD_REQUEST",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "supplier_asserted": false,
+        "composition_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'Add the other two woods you said were missing as well' (Cedroxyde and Hindinol, which were in neither inventory.txt nor the gate's stock list), then 'All are neat'. PerfumersWorld sells a Cedroxyde (pro_id 3WI00098, dry woody-ambery); Kenny did not say where his bottle came from or how much he has."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-006",
+      "canonical_name": "Hindinol",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_ADD_REQUEST_20261014_USER_STATED_NEAT"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_ADD_REQUEST",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "supplier_asserted": false,
+        "composition_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'Add the other two woods you said were missing as well' (Cedroxyde and Hindinol), then 'All are neat'. PerfumersWorld sells a Hindinol (pro_id 4WX24656, creamy sandalwood, suggested at 5% maximum); Kenny did not say where his bottle came from or how much he has."
+    }
+  ]
+}

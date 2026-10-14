@@ -1,0 +1,185 @@
+"""Kenny's stock corrections of 2026-10-14: Paradisamide 10%, Caryophyllene Acetate in DEP,
+Sandalwood Base X3 and Kephalis neat, and Cedroxyde and Hindinol added neat."""
+
+from __future__ import annotations
+
+import copy
+import hashlib
+import json
+
+import pytest
+
+import engine.inventory_parser as inventory
+from engine.pipeline.preflight import _dilution_consistency_check
+
+OVERLAY_NAME = "inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json"
+# record id -> (identity name, fraction, fraction basis, carrier)
+RECORDS = {
+    "INV-USER-20261014-STK-001": ("Paradisamide", 0.1, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-002": ("Sandalwood Base X3", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-003": ("Caryophyllene Acetate", 0.2, "mass_fraction", "dep"),
+    "INV-USER-20261014-STK-004": ("Kephalis", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-005": ("Cedroxyde", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-006": ("Hindinol", 1.0, "neat", ""),
+}
+V5_PARADISAMIDE_NEAT_STOCK_ID = "inventory:v5:8a702d0134e5d3f69e8b"
+
+
+def _head() -> dict:
+    return json.loads(inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
+
+
+def _stocks(identity_name: str):
+    return [
+        stock for stock in inventory.parse_current_inventory(unique=False)
+        if stock.identity_name == identity_name
+    ]
+
+
+def _record(name: str) -> dict:
+    (record,) = [r for r in _head()["records"] if r["canonical_name"] == name]
+    return record
+
+
+def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
+    path = inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH
+    assert path.name == OVERLAY_NAME
+    normalized = path.read_bytes().replace(b"\r\n", b"\n")
+    assert hashlib.sha256(normalized).hexdigest() == inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256
+    head = _head()
+    assert head["schema_version"].endswith("_v26")
+    assert head["predecessor"] == {
+        "path": "data/governance/inventory_user_authority_overlay_20261013_pomelo_ginger_lily_exaltolide.json",
+        "normalized_text_sha256": inventory.NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    raw = inventory.INVENTORY_PATH.read_bytes().replace(b"\r\n", b"\n")
+    assert head["source"]["inventory_text_sha256"] == hashlib.sha256(raw).hexdigest()
+    assert head["source"]["inventory_text_size_bytes"] == len(raw)
+    assert [s["text"] for s in head["source"]["verbatim_user_statements"]] == [
+        "paradisaminde is 10%",
+        "You record it",
+        "What about sandalwood base x3? If they aren’t in, add them along with lephalis "
+        "and carophylene acetate",
+        "Kephalis",
+        "Add the other two woods you said were missing as well",
+        "All are neat",
+        "No that one is not neat",
+        "Dep",
+    ]
+    assert head["superseded_record_ids"] == ["INV-USER-20260830-010", "INV-USER-20261007-PW-023"]
+    overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
+    assert [r["record_id"] for r in overlay["delta_records"]] == list(RECORDS)
+    retired = {r["record_id"] for r in overlay["retired_records"]}
+    assert {"INV-USER-20260830-010", "INV-USER-20261007-PW-023"} <= retired
+    live = {r["record_id"] for r in overlay["records"]}
+    assert not live & {"INV-USER-20260830-010", "INV-USER-20261007-PW-023"}
+    assert overlay["policy"]["compounding_authorized"] is False
+    assert overlay["policy"]["formula_rebase_authorized"] is False
+    assert overlay["policy"]["safety_or_release_asserted"] is False
+
+
+@pytest.mark.parametrize("record_id,expected", list(RECORDS.items()))
+def test_each_material_is_one_execution_ready_stock(record_id: str, expected: tuple) -> None:
+    name, fraction, basis, carrier = expected
+    stocks = _stocks(name)
+    assert len(stocks) == 1
+    stock = stocks[0]
+    assert stock.status == "owned"
+    assert stock.dilution == pytest.approx(fraction)
+    assert (stock.fraction_basis, stock.carrier) == (basis, carrier)
+    assert stock.execution_ready is True
+    assert stock.execution_hold_reason == ""
+    assert stock.stock_id.startswith("inventory:user-20261014:")
+    assert stock.authority == inventory.STOCK_CORRECTIONS_20261014_USER_INVENTORY_AUTHORITY
+    assert stock.source_ref == f"data/governance/{OVERLAY_NAME}#{record_id}"
+
+
+def test_paradisamide_v5_neat_stock_is_replaced() -> None:
+    ids = {stock.stock_id for stock in _stocks("Paradisamide")}
+    assert V5_PARADISAMIDE_NEAT_STOCK_ID not in ids
+    limits = _record("Paradisamide")["authority_limits"]
+    assert limits["fraction_from_user_message"] is True
+    assert limits["basis_and_carrier_are_project_defaults"] is True
+
+
+def test_caryophyllene_acetate_carrier_is_kennys_dep() -> None:
+    limits = _record("Caryophyllene Acetate")["authority_limits"]
+    assert limits["carrier_from_user_message"] is True
+    assert limits["fraction_and_basis_from_prior_user_stock_record"] is True
+
+
+@pytest.mark.parametrize("name", ["Sandalwood Base X3", "Kephalis", "Cedroxyde", "Hindinol"])
+def test_woods_are_neat_by_kennys_word(name: str) -> None:
+    assert _record(name)["authority_limits"]["fraction_basis_from_user_message"] is True
+
+
+@pytest.mark.parametrize("name", ["Cedroxyde", "Hindinol"])
+def test_added_woods_assert_no_supplier_or_quantity(name: str) -> None:
+    limits = _record(name)["authority_limits"]
+    assert limits["supplier_asserted"] is False
+    assert limits["remaining_quantity_asserted"] is False
+
+
+def test_sandalwood_base_requirement_row_is_owned() -> None:
+    rows = [
+        row for row in inventory.materialize_current_inventory().requirements
+        if row.source_row == 220
+    ]
+    assert rows
+    assert {row.disposition for row in rows} == {"OWNED"}
+
+
+@pytest.mark.parametrize("record_id,expected", list(RECORDS.items()))
+def test_preflight_resolves_each_stock(record_id: str, expected: tuple) -> None:
+    name, fraction, basis, carrier = expected
+    (stock,) = _stocks(name)
+    check = _dilution_consistency_check(
+        {
+            "ingredients_ul": {name: 50.0},
+            "dilutions": {name: fraction},
+            "stock_specs": {
+                name: {"fraction": fraction, "fraction_basis": basis, "carrier": carrier, "declared": True}
+            },
+        }
+    )
+    assert check.status == "PASS"
+    assert check.data["issues"] == []
+    assert check.data["resolved_stock_specs"][name]["stock_id"] == stock.stock_id
+
+
+@pytest.mark.parametrize(
+    "mutate",
+    [
+        lambda c: c["records"][0]["stock"].__setitem__("fraction", 1.0),
+        lambda c: c["records"][2]["stock"].__setitem__("carrier", "dpg"),
+        lambda c: c["source"]["verbatim_user_statements"][7].__setitem__("text", "DPG"),
+        lambda c: c["predecessor"].__setitem__("normalized_text_sha256", "0" * 64),
+        lambda c: c["records"][4].__setitem__("record_id", "INV-USER-20261013-NEW-001"),
+        lambda c: c["superseded_record_ids"].append("INV-USER-NOT-A-RECORD"),
+    ],
+    ids=["fraction", "carrier", "statement", "predecessor_hash", "reused_id", "superseded_missing"],
+)
+def test_v26_loader_rejects_mutation(mutate) -> None:
+    candidate = copy.deepcopy(_head())
+    mutate(candidate)
+    with pytest.raises(inventory.InventoryAuthorityError):
+        inventory._load_20261014_stock_corrections_successor(
+            candidate, require_live_inventory_binding=False
+        )
+
+
+def test_v26_loader_rejects_kephalis_disagreeing_with_receipt() -> None:
+    """The exact-hash check is the first guard; the receipt check must also hold on its own."""
+    candidate = copy.deepcopy(_head())
+    candidate["records"][3]["received_quantity_g"] = "50"
+    encoded = (json.dumps(candidate, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    sha = hashlib.sha256(encoded).hexdigest()
+    original = inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256
+    try:
+        inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256 = sha
+        with pytest.raises(inventory.InventoryAuthorityError, match="source receipt"):
+            inventory._load_20261014_stock_corrections_successor(
+                candidate, require_live_inventory_binding=False
+            )
+    finally:
+        inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256 = original

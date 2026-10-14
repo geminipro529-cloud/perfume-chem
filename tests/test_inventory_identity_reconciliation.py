@@ -18,7 +18,7 @@ from engine.inventory_parser import (
     CURRENT_USER_INVENTORY_OVERLAY_SHA256,
     AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256,
     PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256,
-    VERTOFIX_COEUR_NEAT_USER_INVENTORY_OVERLAY_SHA256,
+    NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256,
     TOBACCO_DBCA_USER_INVENTORY_AUTHORITY,
     load_current_user_inventory_overlay,
     materialize_current_inventory,
@@ -149,6 +149,7 @@ def test_v5_current_inventory_master_is_the_pinned_physical_authority() -> None:
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261008",
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261009",
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261013",
+        "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
     }
 
 
@@ -193,10 +194,10 @@ def test_user_inventory_overlay_is_parent_pinned_and_non_rebasing() -> None:
     assert payload["policy"]["general_substitution_authorized"] is False
     assert payload["policy"]["preserve_exact_ap_t1_cinnamon_substitution"] is True
     assert payload["policy"]["require_sub_10_ul_working_stock"] is True
-    # 2026-10-13: the new-stock record (v25) succeeds the Vertofix Coeur neat one.
+    # 2026-10-14: the stock-corrections record (v26) succeeds the 2026-10-13 new-stock one.
     assert payload["predecessor"] == {
-        "path": "data/governance/inventory_user_authority_overlay_20261009_vertofix_coeur_neat.json",
-        "normalized_text_sha256": VERTOFIX_COEUR_NEAT_USER_INVENTORY_OVERLAY_SHA256,
+        "path": "data/governance/inventory_user_authority_overlay_20261013_pomelo_ginger_lily_exaltolide.json",
+        "normalized_text_sha256": NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256,
     }
 
 
