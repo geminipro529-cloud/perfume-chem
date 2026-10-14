@@ -1466,8 +1466,8 @@
   logp: 1.0
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 7.3
+  vp_source: supplier_sheet_23C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1498,6 +1498,7 @@
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1033271.html; "Molecular Weight:174.19638000", calculated from C8H14O4 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     logp: 'https://www.iff.com/?p=7704 (IFF, producer); "Log P: 1.0", method not stated. TGSC gives 0.982 (not marked est) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     density_25c_g_ml: 'https://thegoodscentscompany.com/data/rw1033271.html; supplier range "Specific Gravity:1.07910 to 1.08910 @ 25.00 C."; midpoint 1.0841 x 0.99705 (water at 25 C) = 1.0809 g/mL (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    vp_25c_pa: 'SUPPLIER, temperature-adjusted (2026-10-14): IFF "0.047713 mm Hg @ 23 C" = 6.36 Pa, x1.15 to 25 C at dHvap 50 kJ/mol = 7.3 Pa. TGSC 0.219 mmHg (est) = 29.2 Pa is 4x higher. IFF makes Fructone. No measured value found. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
 - canonical_name: Fruity Ionone F-TEC
   aliases:
   - FRUITY IONONE F-TEC

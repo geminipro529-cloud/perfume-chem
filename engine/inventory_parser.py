@@ -239,6 +239,25 @@ VERTOFIX_COEUR_NEAT_USER_INVENTORY_AUTHORITY = VERTOFIX_COEUR_USER_INVENTORY_AUT
 # The Pomelo EO / Ginger Lily Oil / neat Exaltolide successor (v25) records Kenny's 2026-10-13 messages.
 NEW_STOCK_20261013_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261013"
 
+# Stocks Kenny confirmed as ready, with their strength, basis and carrier, that
+# wait only on bottle lot and preparation receipts: Labdanum, Olibanum and
+# Opoponax Resinoid and Tonka Bean Absolute (24 Sep 2026). On 14 Oct 2026 he
+# chose to let the composer design with them ("Yes, follow-up" on "Let the
+# composer use the four resinoids you marked ready on 24 Sep?"). Design only:
+# execution_ready and its hold stay, so mixing still asks for the receipts.
+_USER_READY_DESIGN_SCOPE = "CALCULATION_READY_PHYSICAL_LINEAGE_INCOMPLETE"
+_USER_READY_DESIGN_HOLDS = frozenset({"BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING"})
+
+
+def _user_ready_design_stock(stock: Mapping[str, Any]) -> bool:
+    return (
+        stock.get("user_reported_ready") is True
+        and not stock.get("execution_ready")
+        and stock.get("execution_scope") == _USER_READY_DESIGN_SCOPE
+        and str(stock.get("execution_hold_reason") or "") in _USER_READY_DESIGN_HOLDS
+    )
+
+
 _HEADING_RE = re.compile(r"^---\s+(.+?)\s+---$")
 _BULLET_RE = re.compile(r"^[-•]\s+(.+?)\s*$")
 _PERCENT_RE = re.compile(r"\(\s*~?\s*(\d+(?:\.\d+)?)\s*%(?:[^)]*)\)")
@@ -625,12 +644,23 @@ def _identity_name(raw_name: str) -> str:
 
     clean = _strip_status(re.sub(r"\s*#.*$", "", raw_name).strip())
     clean = re.sub(r"\s*#.*$", "", clean).strip()
+    stock_tokens = ("%", "w/w", "w/v", "v/v", "neat", "dilut", " in dpg", " in dep", " in tec", " in ipm")
+    # A strength written inside brackets after identity words, as in
+    # "Jasmine Absolute (Jasminum grandiflorum, 10% in DPG)", is stock text too.
+    # Drop only the comma-separated parts that describe the stock, before the
+    # strength strip below can cut the bracket in half.
+    bracketed = re.search(r"\s*\(([^()]*)\)\s*$", clean)
+    if bracketed and "," in bracketed.group(1):
+        parts = [part.strip() for part in bracketed.group(1).split(",")]
+        kept = [part for part in parts if part and not any(token in part.lower() for token in stock_tokens)]
+        if len(kept) < len(parts):
+            base = clean[: bracketed.start()].strip()
+            return f"{base} ({', '.join(kept)})" if kept else base
     clean = re.sub(r"\s+\d+(?:\.\d+)?\s*%(?:\s*(?:w/w|v/v|w/v))?(?:\s+in\s+.*)?$", "", clean, flags=re.IGNORECASE).strip()
     parenthetical = re.search(r"\s*\(([^)]*)\)\s*$", clean)
     if not parenthetical:
         return clean
     content = parenthetical.group(1).lower()
-    stock_tokens = ("%", "w/w", "w/v", "v/v", "neat", "dilut", " in dpg", " in dep", " in tec", " in ipm")
     if any(token in content for token in stock_tokens):
         return clean[: parenthetical.start()].strip()
     return clean
@@ -5742,6 +5772,7 @@ def _apply_current_user_inventory_overlay(
                 source_ref=f"{origin_path}#{record_id}",
                 execution_ready=bool(stock["execution_ready"]),
                 execution_hold_reason=str(stock.get("execution_hold_reason") or ""),
+                design_ready=True if _user_ready_design_stock(stock) else None,
                 nominal_property_model_ready=bool(
                     stock.get("nominal_property_model_ready", False)
                 ),

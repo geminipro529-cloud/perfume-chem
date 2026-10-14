@@ -4,34 +4,34 @@
   "input_sha256": {
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
     "engine/ingredient_intelligence.py": "7dc52fc8ff7a336ddc563507b43f063703b3f7c70fe566977aa3f62c8f0b4bc1",
-    "engine/inventory_parser.py": "e394b4387e401fa90fa6a7fedc403c01968134acf885c96912d7eafad43d3e18",
+    "engine/inventory_parser.py": "7cbe3a56c00f946336a485cbcda8b2acdc42ed3c54941e3b52ee9d04d8c8f659",
     "engine/odor_thresholds.py": "c9c8c1a7b20d17d1b4f923caed109a237b1b31e92146a04511f588012723b639",
-    "engine/name_utils.py": "2e984915e2abe562f9a05fa53920fcb7d4dada0f8f0ccc0da91d706f1a37febb",
+    "engine/name_utils.py": "a5b3e5d33afac1dbe0e880f8bd71e0b3d822185b43ed3cbf3ee915842fdb48cb",
     "engine/material_identity.py": "3dbb20055f9794450b25a21123852dc9b355493af4b653fdd48fb341347d5e5d",
     "engine/data_spine/loader.py": "cd09b0877de31b1fb334811f875dd7305923e9d454efac6ba7cd065f1e6c016f",
     "engine/data_spine/material.py": "79e30aea000c3c326513282ed0304a0fa0a35d46bfc6be86e709061244c03df9",
     "data/governance/ingredient_reconciliation_20260907.json": "3038fbf22ab98df93e92a7c23db0e6696c140d9ef00e9cf20415f2dae99b7413",
     "engine/data_spine/reconciliation.py": "ad1403e02b4296ed9bebcc892df28b25d24b637dfbdad361b301fc37f9a21cdc",
-    "data/materials/A.yaml": "8d7f98a29bb3fdf5f643757a946a2170643646af01c8139673861ca911328a8d",
-    "data/materials/B.yaml": "d250b0677e03d091780792c94fabd5538d6a00d637d556d38401268d8bd51966",
-    "data/materials/C.yaml": "4a6886b810c8e84cac45d87253f643c2bdfcb85c5f8ecf3e9cfa692da9ad2dcb",
+    "data/materials/A.yaml": "b237cc1e026de33f901a0c8c289572814274e36a907d6b89085017a3256aba52",
+    "data/materials/B.yaml": "50dfbef6c71f95b7aba2f589f459ee867e0b0311ea23f20b930038284c1932d0",
+    "data/materials/C.yaml": "17c9948a0f2c382ac2158be0925fbe5ae739c751197fbf1f48a9d4ac125da0ea",
     "data/materials/D.yaml": "1b04b9f5f804c390b0155fc766e90700f9d68f719e41f27f3faa26df57666ca7",
     "data/materials/E.yaml": "0495dc583f99bb73e275e3c915f9c1a2c84c50aa62470ce1eb2a314d138811d1",
-    "data/materials/F.yaml": "2d43092759989fa12ddce4fec0acf247499f020331488b660a83d3bb2d8118ff",
+    "data/materials/F.yaml": "5fb16690239010e307c3a57f0aaff649b5e7896778d14cb35d57b192180f5033",
     "data/materials/G.yaml": "517bb7a5dc1a3b773f0902ec9d359b3c0e6e66b9e13212235ae0187aa2e62c2c",
     "data/materials/H.yaml": "f501f01bb46966517c69654ed9be56045cd9ffa2a52c200c0096b319bd1517e6",
     "data/materials/I.yaml": "a1df20d72a75bd1631a15b582b50f6cade3be6bbbdf693e2861d250c1d51ac85",
     "data/materials/J.yaml": "0eea9de332dcf224c8df20d13adaeaa50078ee1b52505ae231065a5bff26db4a",
     "data/materials/K.yaml": "7a9ef7721b1a632f49412277f0af0ed7120e28f4bd17a1e09f1e7756bd87cf17",
     "data/materials/L.yaml": "26f3562c5a3641f6444db17d08dddcc58fd500419060a352d134e8221ac2e727",
-    "data/materials/M.yaml": "b44d10be04aac4483a13975f7e80ba0dea82e74d33a80ff891095bcb1e243326",
+    "data/materials/M.yaml": "328d608f0c1dd2581b65247799aba9bb351fd3e30458dc25cb718d4fe586102c",
     "data/materials/N.yaml": "fd203674177ef0ff34375f95ff679c740a71fe5dc007a7bed31ba2ee690ca8e6",
     "data/materials/O.yaml": "90cc2a45d7134c04bce0a026e2dfaebe2b387e8f01e2e84b79e09a73718a70f3",
     "data/materials/P.yaml": "fe1a0639b8db228f9c6d2e88ec21f44ea1792a447be51fc4adba73c4f85a26dc",
     "data/materials/Q.yaml": "9256e634f899593f1e3848cb0d5683c4ed1259c00fdd5df56888f89fa84aa6c6",
-    "data/materials/R.yaml": "289e791fd9e50e83dd7cab89f22c26312b00b11b31ea49c07c0c7a5330413bc3",
-    "data/materials/S.yaml": "b0a24ceff84b9ff2e4036187258c5bbaef6573185d23d195252190a6ea4c2520",
-    "data/materials/T.yaml": "a1a37271a4bb6cbf4036e75f5defa4de3afe546ee87418e24341151202a9adb6",
+    "data/materials/R.yaml": "fdd6ff5cf3127cd00fb823fd88a09ce601490c9736b3660969ece31932904c49",
+    "data/materials/S.yaml": "570b58d16e8a91392036c8a375a9e6a9ea84b69fe7895682210580da16bb21ad",
+    "data/materials/T.yaml": "90d6e65f52280ea002958a33351f11ea727f976e180d9d274174505bc6cea04e",
     "data/materials/U.yaml": "d93dea4b9c83cd47e0bd357f205fbbfb8cf7dacd05215b361c05542082401046",
     "data/materials/V.yaml": "30f60a8cda6e33ec94180e85a0b87c530bed776692d3d7e67d8dbfeb6f41955d",
     "data/materials/W.yaml": "0397c2158627765057238ad242e39e9a6ec801f65a7023bbbd93f8b6e71e1152",
@@ -43,16 +43,16 @@
   "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
   "inventory_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
   "counts": {
-    "original_cache_records": 426,
-    "rebuilt_cache_records": 426,
+    "original_cache_records": 429,
+    "rebuilt_cache_records": 429,
     "all_original_names_preserved": true,
     "inventory_text_rows": 333,
     "historical_requirement_rows": 280,
     "current_physical_stocks": 292,
-    "registry_records": 1271,
+    "registry_records": 1270,
     "rows_with_profile": 295,
     "rows_with_registry": 323,
-    "rows_with_odt": 300,
+    "rows_with_odt": 302,
     "rows_with_unresolved_scalar_disagreements": 101
   },
   "rows": [
@@ -696,7 +696,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "clogp",
         "odt_ppm"
       ],
       "unresolved_scalar_disagreements": {}
@@ -1090,9 +1089,7 @@
         "inventory:v5:18c02052bf7dbda51e1a"
       ],
       "odt_present": true,
-      "missing_numeric_fields": [
-        "clogp"
-      ],
+      "missing_numeric_fields": [],
       "unresolved_scalar_disagreements": {}
     },
     {
@@ -1224,7 +1221,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -1244,7 +1240,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
         "odt",
         "odt_ppm"
       ],
@@ -1264,7 +1259,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -1303,7 +1297,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
         "odt",
         "odt_ppm"
       ],
@@ -1324,7 +1317,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -1459,7 +1451,7 @@
         107
       ],
       "raw_name": "Jasmine Absolute (Jasminum grandiflorum, 10% in DPG)",
-      "identity": "Jasmine Absolute (Jasminum grandiflorum,",
+      "identity": "Jasmine Absolute (Jasminum grandiflorum)",
       "text_status": "owned",
       "registry_name": "Jasmine Absolute",
       "profile_name": "Jasmine Absolute",
@@ -4008,7 +4000,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
         "odt",
         "odt_ppm"
       ],
@@ -4643,7 +4634,6 @@
       ],
       "odt_present": false,
       "missing_numeric_fields": [
-        "vp",
         "odt",
         "odt_ppm"
       ],
@@ -4747,12 +4737,12 @@
         292
       ],
       "raw_name": "Aldehyde C-18 (Gamma Nonalactone, 10% in ethanol)  # user-confirmed carrier 2026-09-15; percentage basis remains unstated; raw-volume use only",
-      "identity": "Aldehyde C-18 (Gamma Nonalactone,",
+      "identity": "Aldehyde C-18 (Gamma Nonalactone)",
       "text_status": "owned",
       "registry_name": "Aldehyde C-18 Gamma Nonalactone",
       "profile_name": null,
       "current_stock_ids": [],
-      "odt_present": false,
+      "odt_present": true,
       "missing_numeric_fields": [
         "odt",
         "odt_ppm"
@@ -4764,13 +4754,11 @@
         293
       ],
       "raw_name": "Aldehyde C-18 (Gamma Nonalactone, neat)  # PerfumersWorld SKU 4DD00324; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
-      "identity": "Aldehyde C-18",
+      "identity": "Aldehyde C-18 (Gamma Nonalactone)",
       "text_status": "owned",
       "registry_name": "Aldehyde C-18 Gamma Nonalactone",
       "profile_name": null,
-      "current_stock_ids": [
-        "inventory:user-20261007:d7cb2d40aab87ade3ec6"
-      ],
+      "current_stock_ids": [],
       "odt_present": true,
       "missing_numeric_fields": [
         "odt",
@@ -5035,7 +5023,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
         "odt",
         "odt_ppm"
       ],
@@ -5055,7 +5042,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
         "odt",
         "odt_ppm"
       ],
@@ -5190,6 +5176,8 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
+        "mw",
+        "vp",
         "clogp",
         "odt",
         "odt_ppm"
@@ -5877,12 +5865,12 @@
         358
       ],
       "raw_name": "Olibanum Resinoid (viscous, 50% w/w in DPG)  # user-reconfirmed correct stock form and ready 2026-09-24; viscous PW SKU 2QK21856 resinoid base (about 30% benzyl benzoate); lot receipt not yet recorded",
-      "identity": "Olibanum Resinoid (viscous,",
+      "identity": "Olibanum Resinoid (viscous)",
       "text_status": "owned",
       "registry_name": "Olibanum Resinoid",
       "profile_name": "Olibanum Resinoid",
       "current_stock_ids": [],
-      "odt_present": false,
+      "odt_present": true,
       "missing_numeric_fields": [],
       "unresolved_scalar_disagreements": {}
     },
@@ -5975,16 +5963,13 @@
       "raw_name": "Saffranal (10% in DPG)  # PerfumersWorld SKU 5ES07841; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1; percentage basis unspecified",
       "identity": "Saffranal",
       "text_status": "owned",
-      "registry_name": "Saffranal",
+      "registry_name": "Safranal",
       "profile_name": "Saffranal",
       "current_stock_ids": [
         "inventory:user-20261007:a79aee2c97a27560fd86"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "mw",
-        "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -6140,6 +6125,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "996796863a9924de1ab0f5b641b2f5b1a0266e30e5ed9ef6309bf817472b48b6",
-  "input_cache_sha256": "996796863a9924de1ab0f5b641b2f5b1a0266e30e5ed9ef6309bf817472b48b6"
+  "output_sha256": "ef807bf2a358978ac6482d7bd4bcdda6122514c129c1f362beda39aebfe6855a",
+  "input_cache_sha256": "ef807bf2a358978ac6482d7bd4bcdda6122514c129c1f362beda39aebfe6855a"
 }

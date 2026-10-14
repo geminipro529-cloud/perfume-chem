@@ -699,8 +699,8 @@
   logp: 0.09
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.068
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -741,6 +741,7 @@
     mw_g_mol: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1002341 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "MOL WT : 126.11"'
     logp: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1002341 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "Log Kow (Exper. database match) = 0.09" (Ref: Sangster 1993), measured'
     density_25c_g_ml: 'ChemicalBook property page CASEN_118-71-8 (supplier/Sigma compilation, method not stated; via material-data-firecrawl/allgaps/S1_aldehydes.md): "1.046 g/mL at 25 °C" (method not stated; maltol is a solid, so bulk vs true density is ambiguous)'
+    vp_25c_pa: 'ESTIMATE (2026-10-14): middle of three values within 3.4x: HSDB (EPI v4.1, from a reduced-pressure boiling point) 3.26e-4 mmHg = 0.0435 Pa; Haz-Map 0.000507 mmHg = 0.0676 Pa; ChemicalBook 0.15 Pa at 24 C. EPI MPBPVP 0.0057 Pa is the low outlier. Solid at 25 C (mp 161.5 C); no measured sublimation pressure found. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
 - canonical_name: Mandarin Essential Oil
   aliases: []
   cas:
@@ -2910,7 +2911,8 @@
   aliases: [methyl laitone]
   mw_g_mol: 168.23
   cas: '94201-19-1'
-  vp_25c_pa: null
+  vp_25c_pa: 2.4
+  vp_source: supplier
   logp: 1.882
   odt_air_ppb: null
   odt_eth_ppm: null
@@ -2925,3 +2927,4 @@
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
     cas: 'https://www.givaudan.com/print/1314651 (Givaudan, producer); "94201-19-1, 91069-37-3/25265-71-8" (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     logp: 'ESTIMATE: TGSC "1.882 (est)", the only value found (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
+    vp_25c_pa: 'SUPPLIER, temperature unstated (2026-10-14): Givaudan 10% in DPG sheet "0.0240 hPa" = 2.4 Pa (the sheet also prints 0.0060 hPa, unexplained); TGSC 0.024 mmHg @20C = 3.2 Pa. Range 0.6-3.2 Pa. No measured value found. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
