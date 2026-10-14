@@ -108,48 +108,6 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-- canonical_name: Saffranal
-  aliases: []
-  cas: null
-  smiles: null
-  inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
-  functional_groups: []
-  chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
-  antoine: null
-  dhvap_kj_mol: null
-  kaw_eff: null
-  hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
-  stevens_n: null
-  or_targets: []
-  trp_targets: null
-  hedonic_valence: null
-  ifra_max_pct_edp: null
-  user_stock_dilution: 0.1  # Product label fraction; exact basis/forms in receipt.
-  user_in_inventory: true
-  # Received-stock authority: data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json; line(s) 52.
-  # Existing working dilutions remain separate inventory rows; no purity assay inferred.
-  supplier:
-    perfumersworld_sku: 4ES00402
-    perfumersworld_price_usd_per_g: 3.74
-    perfumersworld_form: neat
-    perfumersworld_snapshot_date: '2026-04-11'
-    other:
-      pw_alternate_forms:
-      - form: 10.0% in DPG
-        sku: 5ES07841
-        price_usd_per_g: 0.42
-  families: []
-  character: null
-  notes: null
-  provenance:
-    supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Saffron F-TEC
   aliases:
   - SAFFRON F-TEC
@@ -312,6 +270,7 @@
 - canonical_name: Safranal
   aliases:
   - safranal
+  - Saffranal
   cas: '116-26-7'
   smiles: null
   inchikey: null
@@ -333,17 +292,25 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: 0.1  # Product label fraction; exact basis/forms in receipt.
+  user_in_inventory: true
+  # Received-stock authority: data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json; line(s) 52 (sold as "Saffranal 10% in DPG").
   supplier:
-    perfumersworld_sku: 5ES09556
-    perfumersworld_price_usd_per_g: 0.12
-    perfumersworld_form: 1.0% in DPG
+    perfumersworld_sku: 4ES00402
+    perfumersworld_price_usd_per_g: 3.74
+    perfumersworld_form: neat
     perfumersworld_snapshot_date: '2026-04-11'
-    other: {}
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5ES07841
+        price_usd_per_g: 0.42
+      - form: 1.0% in DPG
+        sku: 5ES09556
+        price_usd_per_g: 0.12
   families: []
   character: null
-  notes: 'log Kow not set: two estimates disagree (EPI KOWWIN v1.67 3.22, TGSC EPI page ep1016371; TGSC 2.825 est). VP not set: two estimates disagree, no measured or RIFM value (EPI 21.2 Pa mean Antoine & Grain; TGSC 0.134 mm Hg at 25 C est = 17.9 Pa). No air ODT found. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement.'
+  notes: 'log Kow not set: two estimates disagree (EPI KOWWIN v1.67 3.22, TGSC EPI page ep1016371; TGSC 2.825 est). VP not set: two estimates disagree, no measured or RIFM value (EPI 21.2 Pa mean Antoine & Grain; TGSC 0.134 mm Hg at 25 C est = 17.9 Pa). No air ODT found. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. 2026-10-14: PerfumersWorld sells Safranal as "Saffranal" (product page 4ES00402: CAS 116-26-7, synonyms Safranal and dehydro-beta-cyclocitral), so the owned "Saffranal 10% in DPG" stock is this entry.'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

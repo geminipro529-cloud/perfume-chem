@@ -172,6 +172,9 @@ _ALIASES: dict[str, str] = {
     "skatole 1%": "skatole",
     "gamma nonalactone 10%": "gamma nonalactone",
     "aldehyde c-18 10%": "gamma nonalactone",
+    # inventory.txt writes the neat and 10% stocks as "Aldehyde C-18 (Gamma
+    # Nonalactone, ...)"; the neat bottle is the stock list's "Aldehyde C-18".
+    "aldehyde c-18 (gamma nonalactone)": "aldehyde c-18",
     "cinnamon bark eo - telvada usda organic (neat)": "cinnamon bark eo - telvada usda organic",
     "cinnamon bark eo (telvada)": "cinnamon bark eo - telvada usda organic",
     # ── EO Aliases ──

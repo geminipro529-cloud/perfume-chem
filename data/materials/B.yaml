@@ -2707,7 +2707,7 @@
   inchikey: null
   mw_g_mol: 167.25
   density_25c_g_ml: null
-  logp: null
+  logp: 2.2
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.0813
@@ -2745,6 +2745,7 @@
     cas: 'https://thegoodscentscompany.com/data/rw1004001.html; "CAS Number: 75147-23-8" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1004001.html; "Molecular Weight:167.25169000", calculated from C10H17NO (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     vp_25c_pa: 'ESTIMATE, literature common ground: EPI Suite MPBPWIN 0.00061 mm Hg @ 25 C = 0.0813 Pa (solid; subcooled liquid 0.173 Pa, https://thegoodscentscompany.com/episys/ep1004001.html); ChemicalBook 0.095 Pa @ 20 C (method not stated) agrees; TGSC datasheet 0.80 Pa (est) is a 10x outlier (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
+    logp: 'ESTIMATE (2026-10-14): KOWWIN 2.20; TGSC 1.93 (est) and XLogP3 2.50 (est) are within 0.3. No measured log Kow found. Source: material-data-gaps-2026-10-14/W1_odt_fruity_green.md'
 - canonical_name: Butyl Butyrate
   aliases: []
   cas: '109-21-7'
