@@ -123,9 +123,16 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # Cis-3-Hexenyl Salicylate followed (244 -> 248). The 2026-10-10 vapour
     # pressures (RIFM measured at 20 C, converted to 25 C; supplier sheet for
     # Helvetolide) made Ambrocenide and Helvetolide OAV-available (248 -> 250).
-    assert audit["oav_available_count"] == 250
-    assert audit["oav_unknown_count"] == 40
-    assert audit["oav_coverage_pct"] == 86.207
+    # 2026-10-14 gap search: a labelled EPI vapour-pressure estimate made Maltol
+    # OAV-available, and the PerfumersWorld spelling "Saffranal" now resolves to
+    # Safranal. Both air thresholds are still tagged UNVERIFIED in
+    # ODT_VERIFICATION. Costus Olifac lost its placeholder MW and VP (an IFF base
+    # with no CAS) and became OAV-unknown (250 -> 251).
+    assert audit["oav_available_count"] == 251
+    assert audit["oav_unknown_count"] == 39
+    assert audit["oav_coverage_pct"] == 86.552
+    assert "Costus Olifac" in categories["other_oav_unknowns"]
+    assert not {"Maltol", "Saffranal"} & set(categories["other_oav_unknowns"])
     assert audit["status"] == "FAIL_CLOSED_GAPS"
     assert {"Fructone B", "Manzanate"} <= set(categories["other_oav_unknowns"])
     assert not {"Helvetolide", "Ambrocenide"} & set(categories["other_oav_unknowns"])

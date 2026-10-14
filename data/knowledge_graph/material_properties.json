@@ -565,39 +565,7 @@
         "source_name": ""
       }
     ],
-    "inventory_text_records": [
-      {
-        "name": "Aldehyde C-18",
-        "dilution": 1.0,
-        "category": "sweet / gourmand / balsamic",
-        "raw_name": "Aldehyde C-18 (Gamma Nonalactone, neat)  # PerfumersWorld SKU 4DD00324; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
-        "status": "owned",
-        "fraction_basis": "neat",
-        "carrier": "",
-        "physical_form": "",
-        "approximate": false,
-        "identity_name": "Aldehyde C-18",
-        "stock_id": "inventory:text:2351a5f34e6131dee900",
-        "authority": "LEGACY_INVENTORY_TEXT",
-        "source_rows": [
-          293
-        ],
-        "source_ref": "inventory.txt:293",
-        "execution_ready": true,
-        "execution_hold_reason": "",
-        "nominal_property_model_ready": false,
-        "nominal_property_model_limit": "",
-        "requirement_state": "",
-        "design_ready": null,
-        "design_hold_reason": "",
-        "completion_event_sha256": "",
-        "completion_source_ref": "",
-        "homogeneity": "",
-        "row_unresolved_tokens": "",
-        "authority_facts_differ": [],
-        "source_name": ""
-      }
-    ],
+    "inventory_text_records": [],
     "stock_authority": "9837017d07126d8328afd5ac24c32f5259eaea4cb05bc45bfa55db86b15d59e3",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
@@ -15324,10 +15292,7 @@
       "hedonic": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "gate_value_sources": {
-        "mw": "registry:data_spine.mw",
-        "vp": "registry:data_spine.vp_25c"
-      }
+      "gate_value_sources": {}
     },
     "odt_evidence": {
       "vfy": "UNVERIFIED",
@@ -46329,10 +46294,10 @@
     "alt_name": null,
     "cas": "68039-49-6",
     "formula_str": "C9H14O",
-    "mw": 152.23,
+    "mw": 138.21,
     "bp": null,
     "vp": 66.1,
-    "clp": 1.4,
+    "clp": 2.5,
     "odt": 0.5,
     "odt_ethanol_ppm": 0.001,
     "oav_typical": null,
@@ -46408,7 +46373,8 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "registry:data_spine.vp_25c"
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt_evidence": {
@@ -46513,6 +46479,13 @@
         "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
         "fields": {
           "mw": 138.21
+        }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "mw": 152.23,
+          "clp": 1.4
         }
       }
     ],
@@ -63558,6 +63531,12 @@
         "fields": {
           "clp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": null
+        }
       }
     ],
     "mw": 168.23,
@@ -63572,7 +63551,7 @@
       "source": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-laitone-10dpg",
       "scope": "Active identity; user stock20% carrier/basis unknown, not catalog10%DPG"
     },
-    "vp": null,
+    "vp": 2.4,
     "clp": 1.882,
     "note": "heart",
     "role": "modifier",
@@ -63633,6 +63612,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -68974,46 +68954,14 @@
       "reason": "No identity-bound metadata"
     },
     "current_stocks": [],
-    "inventory_text_records": [
-      {
-        "name": "Jasmine Absolute",
-        "dilution": 0.1,
-        "category": "floral materials",
-        "raw_name": "Jasmine Absolute (Jasminum grandiflorum, 10% in DPG)",
-        "status": "owned",
-        "fraction_basis": "unspecified",
-        "carrier": "dpg",
-        "physical_form": "",
-        "approximate": false,
-        "identity_name": "Jasmine Absolute (Jasminum grandiflorum,",
-        "stock_id": "inventory:text:fc5c5fde75d157aac4c3",
-        "authority": "LEGACY_INVENTORY_TEXT",
-        "source_rows": [
-          107
-        ],
-        "source_ref": "inventory.txt:107",
-        "execution_ready": false,
-        "execution_hold_reason": "FRACTION_BASIS_OR_CARRIER_UNSPECIFIED",
-        "nominal_property_model_ready": false,
-        "nominal_property_model_limit": "",
-        "requirement_state": "",
-        "design_ready": null,
-        "design_hold_reason": "",
-        "completion_event_sha256": "",
-        "completion_source_ref": "",
-        "homogeneity": "",
-        "row_unresolved_tokens": "",
-        "authority_facts_differ": [],
-        "source_name": ""
-      }
-    ],
+    "inventory_text_records": [],
     "in_inventory": false,
     "stock_authority": "9837017d07126d8328afd5ac24c32f5259eaea4cb05bc45bfa55db86b15d59e3",
-    "inventory_status": "TEXT_ONLY_UNBOUND",
+    "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
     "quantitative_stock_ready": false,
-    "stock_selection_status": "TEXT_ONLY_UNBOUND",
+    "stock_selection_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
     "oav_typical": null,
     "smell_strength": null,
@@ -69421,46 +69369,14 @@
       "reason": "No identity-bound metadata"
     },
     "current_stocks": [],
-    "inventory_text_records": [
-      {
-        "name": "Olibanum Resinoid",
-        "dilution": 0.5,
-        "category": "spice / aromatic",
-        "raw_name": "Olibanum Resinoid (viscous, 50% w/w in DPG)  # user-reconfirmed correct stock form and ready 2026-09-24; viscous PW SKU 2QK21856 resinoid base (about 30% benzyl benzoate); lot receipt not yet recorded",
-        "status": "owned",
-        "fraction_basis": "mass_fraction",
-        "carrier": "dpg",
-        "physical_form": "",
-        "approximate": false,
-        "identity_name": "Olibanum Resinoid (viscous,",
-        "stock_id": "inventory:text:c25a2409e087ea530b21",
-        "authority": "LEGACY_INVENTORY_TEXT",
-        "source_rows": [
-          358
-        ],
-        "source_ref": "inventory.txt:358",
-        "execution_ready": true,
-        "execution_hold_reason": "",
-        "nominal_property_model_ready": false,
-        "nominal_property_model_limit": "",
-        "requirement_state": "",
-        "design_ready": null,
-        "design_hold_reason": "",
-        "completion_event_sha256": "",
-        "completion_source_ref": "",
-        "homogeneity": "",
-        "row_unresolved_tokens": "",
-        "authority_facts_differ": [],
-        "source_name": ""
-      }
-    ],
+    "inventory_text_records": [],
     "in_inventory": false,
     "stock_authority": "9837017d07126d8328afd5ac24c32f5259eaea4cb05bc45bfa55db86b15d59e3",
-    "inventory_status": "TEXT_ONLY_UNBOUND",
+    "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
     "quantitative_stock_ready": false,
-    "stock_selection_status": "TEXT_ONLY_UNBOUND",
+    "stock_selection_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
     "oav_typical": null,
     "smell_strength": null,
@@ -71282,46 +71198,14 @@
       "reason": "No identity-bound metadata"
     },
     "current_stocks": [],
-    "inventory_text_records": [
-      {
-        "name": "Aldehyde C-18",
-        "dilution": 0.1,
-        "category": "sweet / gourmand / balsamic",
-        "raw_name": "Aldehyde C-18 (Gamma Nonalactone, 10% in ethanol)  # user-confirmed carrier 2026-09-15; percentage basis remains unstated; raw-volume use only",
-        "status": "owned",
-        "fraction_basis": "unspecified",
-        "carrier": "ethanol",
-        "physical_form": "",
-        "approximate": false,
-        "identity_name": "Aldehyde C-18 (Gamma Nonalactone,",
-        "stock_id": "inventory:text:4939b9dc7c70298bf24f",
-        "authority": "LEGACY_INVENTORY_TEXT",
-        "source_rows": [
-          292
-        ],
-        "source_ref": "inventory.txt:292",
-        "execution_ready": false,
-        "execution_hold_reason": "FRACTION_BASIS_OR_CARRIER_UNSPECIFIED",
-        "nominal_property_model_ready": false,
-        "nominal_property_model_limit": "",
-        "requirement_state": "",
-        "design_ready": null,
-        "design_hold_reason": "",
-        "completion_event_sha256": "",
-        "completion_source_ref": "",
-        "homogeneity": "",
-        "row_unresolved_tokens": "",
-        "authority_facts_differ": [],
-        "source_name": ""
-      }
-    ],
+    "inventory_text_records": [],
     "in_inventory": false,
     "stock_authority": "9837017d07126d8328afd5ac24c32f5259eaea4cb05bc45bfa55db86b15d59e3",
-    "inventory_status": "TEXT_ONLY_UNBOUND",
+    "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
     "quantitative_stock_ready": false,
-    "stock_selection_status": "TEXT_ONLY_UNBOUND",
+    "stock_selection_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
     "oav_typical": null,
     "smell_strength": null,
@@ -72011,11 +71895,17 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": null
+        }
       }
     ],
     "mw": 128.22,
     "vp": 157.3,
-    "clp": null,
+    "clp": 2.8,
     "note": "unassigned",
     "role": "unassigned",
     "texture": "",
@@ -72074,7 +71964,8 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "registry:data_spine.vp_25c"
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "synergies": [],
@@ -73237,11 +73128,17 @@
         "fields": {
           "vp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": null
+        }
       }
     ],
     "mw": 167.25,
     "vp": 0.0813,
-    "clp": null,
+    "clp": 2.2,
     "note": "unassigned",
     "role": "unassigned",
     "texture": "",
@@ -73301,7 +73198,8 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "registry:data_spine.vp_25c"
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "synergies": [],
@@ -73798,10 +73696,16 @@
         "fields": {
           "mw": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": null
+        }
       }
     ],
     "mw": 264.41,
-    "vp": null,
+    "vp": 0.08,
     "clp": 6.2,
     "note": "unassigned",
     "role": "unassigned",
@@ -73861,6 +73765,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -73978,10 +73883,16 @@
         "fields": {
           "clp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": null
+        }
       }
     ],
     "mw": 142.2,
-    "vp": null,
+    "vp": 183.0,
     "clp": 1.9,
     "note": "unassigned",
     "role": "unassigned",
@@ -74041,6 +73952,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -74158,11 +74070,17 @@
         "fields": {
           "vp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": null
+        }
       }
     ],
     "mw": 198.31,
     "vp": 2.13,
-    "clp": null,
+    "clp": 4.1,
     "note": "unassigned",
     "role": "unassigned",
     "texture": "",
@@ -74221,7 +74139,8 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "registry:data_spine.vp_25c"
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "synergies": [],
@@ -74857,10 +74776,16 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": null
+        }
       }
     ],
     "mw": 174.2,
-    "vp": null,
+    "vp": 7.3,
     "clp": 1.0,
     "note": "unassigned",
     "role": "unassigned",
@@ -74922,6 +74847,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -76646,10 +76572,16 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": null
+        }
       }
     ],
     "mw": 126.11,
-    "vp": null,
+    "vp": 0.068,
     "clp": 0.09,
     "note": "unassigned",
     "role": "unassigned",
@@ -76709,6 +76641,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -77783,10 +77716,16 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": null
+        }
       }
     ],
     "mw": 204.31,
-    "vp": null,
+    "vp": 0.98,
     "clp": 3.1,
     "note": "unassigned",
     "role": "unassigned",
@@ -77846,6 +77785,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -78126,11 +78066,19 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": null,
+          "vp": null,
+          "clp": null
+        }
       }
     ],
-    "mw": null,
-    "vp": null,
-    "clp": null,
+    "mw": 150.22,
+    "vp": 21.2,
+    "clp": 3.22,
     "note": "unassigned",
     "role": "unassigned",
     "texture": "",
@@ -78187,19 +78135,23 @@
       "dilution": {
         "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
-      "gate_value_sources": {}
+      "gate_value_sources": {
+        "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
+      }
     },
     "synergies": [],
     "odor_profile": "Supplier-labelled Saffranal; detailed odor profile not reviewed in this stock intake.",
-    "odt": null,
-    "odt_ethanol_ppm": null,
+    "odt": 0.5,
+    "odt_ethanol_ppm": 0.1,
     "odt_evidence": {
       "vfy": "UNVERIFIED",
       "sources": [
-        "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+        "No peer-reviewed air-phase ODT found in indexed literature"
       ],
-      "note": "Inventory receipt establishes product and stock ownership only; no compatible measured threshold is supplied.",
-      "declared_vfy": "UNAVAILABLE"
+      "note": "Auto-tagged by audit 2026-05-11",
+      "declared_vfy": "UNVERIFIED"
     },
     "current_stocks": [
       {
@@ -78780,6 +78732,436 @@
     "oav_typical": null,
     "smell_strength": null,
     "anosmic_risk": null,
+    "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING",
+    "oav_evidence": {
+      "status": "NOT_COMPUTED",
+      "equation": "concentrate_ppm_w_w / odt_ethanol_ppm",
+      "not_headspace_or_observed_intensity": true
+    },
+    "hedonic_evidence": "HEURISTIC_NOT_MEASURED_LIKING",
+    "release_authority": "NOT_TESTED_HOLD"
+  },
+  {
+    "name": "Aldehyde C-18 (Gamma Nonalactone)",
+    "alt_name": null,
+    "reconciliation_lineage": [
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "mw": null,
+          "vp": null,
+          "clp": null
+        }
+      }
+    ],
+    "mw": 156.22,
+    "vp": 1.57,
+    "clp": 2.5,
+    "field_evidence": {
+      "mw": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "vp": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "clp": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "activity_coef": {
+        "status": "UNKNOWN"
+      },
+      "hedonic": {
+        "status": "UNKNOWN"
+      },
+      "gate_value_sources": {
+        "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
+      }
+    },
+    "odt": 0.5,
+    "odt_ethanol_ppm": 0.1,
+    "odt_evidence": {
+      "vfy": "UNVERIFIED",
+      "sources": [
+        "No peer-reviewed air-phase ODT found in indexed literature"
+      ],
+      "note": "Auto-tagged by audit 2026-05-11",
+      "declared_vfy": "UNVERIFIED"
+    },
+    "current_stocks": [],
+    "inventory_text_records": [
+      {
+        "name": "Aldehyde C-18",
+        "dilution": 0.1,
+        "category": "sweet / gourmand / balsamic",
+        "raw_name": "Aldehyde C-18 (Gamma Nonalactone, 10% in ethanol)  # user-confirmed carrier 2026-09-15; percentage basis remains unstated; raw-volume use only",
+        "status": "owned",
+        "fraction_basis": "unspecified",
+        "carrier": "ethanol",
+        "physical_form": "",
+        "approximate": false,
+        "identity_name": "Aldehyde C-18 (Gamma Nonalactone)",
+        "stock_id": "inventory:text:4939b9dc7c70298bf24f",
+        "authority": "LEGACY_INVENTORY_TEXT",
+        "source_rows": [
+          292
+        ],
+        "source_ref": "inventory.txt:292",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_OR_CARRIER_UNSPECIFIED",
+        "nominal_property_model_ready": false,
+        "nominal_property_model_limit": "",
+        "requirement_state": "",
+        "design_ready": null,
+        "design_hold_reason": "",
+        "completion_event_sha256": "",
+        "completion_source_ref": "",
+        "homogeneity": "",
+        "row_unresolved_tokens": "",
+        "authority_facts_differ": [],
+        "source_name": ""
+      },
+      {
+        "name": "Aldehyde C-18",
+        "dilution": 1.0,
+        "category": "sweet / gourmand / balsamic",
+        "raw_name": "Aldehyde C-18 (Gamma Nonalactone, neat)  # PerfumersWorld SKU 4DD00324; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
+        "status": "owned",
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "",
+        "approximate": false,
+        "identity_name": "Aldehyde C-18 (Gamma Nonalactone)",
+        "stock_id": "inventory:text:2351a5f34e6131dee900",
+        "authority": "LEGACY_INVENTORY_TEXT",
+        "source_rows": [
+          293
+        ],
+        "source_ref": "inventory.txt:293",
+        "execution_ready": true,
+        "execution_hold_reason": "",
+        "nominal_property_model_ready": false,
+        "nominal_property_model_limit": "",
+        "requirement_state": "",
+        "design_ready": null,
+        "design_hold_reason": "",
+        "completion_event_sha256": "",
+        "completion_source_ref": "",
+        "homogeneity": "",
+        "row_unresolved_tokens": "",
+        "authority_facts_differ": [],
+        "source_name": ""
+      }
+    ],
+    "in_inventory": false,
+    "stock_authority": "9837017d07126d8328afd5ac24c32f5259eaea4cb05bc45bfa55db86b15d59e3",
+    "inventory_status": "TEXT_ONLY_UNBOUND",
+    "dilution_pct": null,
+    "stock_form": null,
+    "quantitative_stock_ready": false,
+    "stock_selection_status": "TEXT_ONLY_UNBOUND",
+    "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
+    "oav_typical": null,
+    "smell_strength": null,
+    "anosmic_risk": null,
+    "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING",
+    "oav_evidence": {
+      "status": "NOT_COMPUTED",
+      "equation": "concentrate_ppm_w_w / odt_ethanol_ppm",
+      "not_headspace_or_observed_intensity": true
+    },
+    "hedonic_evidence": "HEURISTIC_NOT_MEASURED_LIKING",
+    "release_authority": "NOT_TESTED_HOLD"
+  },
+  {
+    "name": "Jasmine Absolute (Jasminum grandiflorum)",
+    "alt_name": null,
+    "reconciliation_lineage": [
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": null,
+          "vp": null,
+          "clp": null,
+          "note": null,
+          "role": null,
+          "texture": null,
+          "or_family": null,
+          "activity_coef": null,
+          "hedonic": null
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
+        "fields": {
+          "odor_family": null
+        }
+      }
+    ],
+    "mw": 170.0,
+    "vp": 0.005,
+    "clp": 3.0,
+    "note": "heart",
+    "role": "character",
+    "texture": "diffusion",
+    "or_family": "floral",
+    "activity_coef": 1.8,
+    "hedonic": 4.0,
+    "material_kind": "UNRESOLVED",
+    "formulation_roles": [],
+    "field_evidence": {
+      "mw": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "vp": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "clogp": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt_ppm": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "character": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "activity_coef": {
+        "status": "HEURISTIC_OVERRIDE"
+      },
+      "hedonic": {
+        "status": "HEURISTIC_OVERRIDE"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
+      },
+      "gate_value_sources": {
+        "mw": "profile:ingredient_intelligence.mw",
+        "vp": "profile:ingredient_intelligence.vp",
+        "clp": "profile:ingredient_intelligence.clogp"
+      }
+    },
+    "synergies": [
+      "Hedione",
+      "Benzyl Acetate",
+      "Indole",
+      "Methyl Benzoate"
+    ],
+    "odor_profile": "",
+    "odt": 1.0,
+    "odt_ethanol_ppm": 1.5,
+    "odt_evidence": {
+      "vfy": "UNVERIFIED",
+      "reason": "No identity-bound metadata"
+    },
+    "current_stocks": [],
+    "inventory_text_records": [
+      {
+        "name": "Jasmine Absolute",
+        "dilution": 0.1,
+        "category": "floral materials",
+        "raw_name": "Jasmine Absolute (Jasminum grandiflorum, 10% in DPG)",
+        "status": "owned",
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "physical_form": "",
+        "approximate": false,
+        "identity_name": "Jasmine Absolute (Jasminum grandiflorum)",
+        "stock_id": "inventory:text:fc5c5fde75d157aac4c3",
+        "authority": "LEGACY_INVENTORY_TEXT",
+        "source_rows": [
+          107
+        ],
+        "source_ref": "inventory.txt:107",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_OR_CARRIER_UNSPECIFIED",
+        "nominal_property_model_ready": false,
+        "nominal_property_model_limit": "",
+        "requirement_state": "",
+        "design_ready": null,
+        "design_hold_reason": "",
+        "completion_event_sha256": "",
+        "completion_source_ref": "",
+        "homogeneity": "",
+        "row_unresolved_tokens": "",
+        "authority_facts_differ": [],
+        "source_name": ""
+      }
+    ],
+    "in_inventory": false,
+    "stock_authority": "9837017d07126d8328afd5ac24c32f5259eaea4cb05bc45bfa55db86b15d59e3",
+    "inventory_status": "TEXT_ONLY_UNBOUND",
+    "dilution_pct": null,
+    "stock_form": null,
+    "quantitative_stock_ready": false,
+    "stock_selection_status": "TEXT_ONLY_UNBOUND",
+    "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
+    "oav_typical": null,
+    "smell_strength": null,
+    "anosmic_risk": null,
+    "odor_family": "floral",
+    "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING",
+    "oav_evidence": {
+      "status": "NOT_COMPUTED",
+      "equation": "concentrate_ppm_w_w / odt_ethanol_ppm",
+      "not_headspace_or_observed_intensity": true
+    },
+    "hedonic_evidence": "HEURISTIC_NOT_MEASURED_LIKING",
+    "release_authority": "NOT_TESTED_HOLD"
+  },
+  {
+    "name": "Olibanum Resinoid (viscous)",
+    "alt_name": null,
+    "reconciliation_lineage": [
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": null,
+          "vp": null,
+          "clp": null,
+          "note": null,
+          "role": null,
+          "texture": null,
+          "or_family": null,
+          "activity_coef": null,
+          "hedonic": null
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
+        "fields": {
+          "odor_family": null
+        }
+      }
+    ],
+    "mw": 220.0,
+    "vp": 0.08,
+    "clp": 3.0,
+    "note": "base",
+    "role": "character",
+    "texture": "cocoon",
+    "or_family": "smoky",
+    "activity_coef": 2.0,
+    "hedonic": -0.5,
+    "material_kind": "UNRESOLVED",
+    "formulation_roles": [],
+    "field_evidence": {
+      "mw": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "vp": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "clogp": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt_ppm": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "character": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "activity_coef": {
+        "status": "HEURISTIC_OVERRIDE"
+      },
+      "hedonic": {
+        "status": "CHARACTER_DERIVED_HEURISTIC"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
+      },
+      "gate_value_sources": {
+        "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
+      }
+    },
+    "synergies": [
+      "Myrrh EO",
+      "Labdanum Absolute",
+      "Benzoin Resinoid"
+    ],
+    "odor_profile": "",
+    "odt": 10.0,
+    "odt_ethanol_ppm": 3.0,
+    "odt_evidence": {
+      "vfy": "DERIVED",
+      "sources": [
+        "Whole oil/natural — no single air-phase ODT exists in peer-reviewed literature"
+      ],
+      "note": "Auto-tagged by audit 2026-05-11",
+      "declared_vfy": "DERIVED"
+    },
+    "current_stocks": [],
+    "inventory_text_records": [
+      {
+        "name": "Olibanum Resinoid",
+        "dilution": 0.5,
+        "category": "spice / aromatic",
+        "raw_name": "Olibanum Resinoid (viscous, 50% w/w in DPG)  # user-reconfirmed correct stock form and ready 2026-09-24; viscous PW SKU 2QK21856 resinoid base (about 30% benzyl benzoate); lot receipt not yet recorded",
+        "status": "owned",
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "physical_form": "",
+        "approximate": false,
+        "identity_name": "Olibanum Resinoid (viscous)",
+        "stock_id": "inventory:text:c25a2409e087ea530b21",
+        "authority": "LEGACY_INVENTORY_TEXT",
+        "source_rows": [
+          358
+        ],
+        "source_ref": "inventory.txt:358",
+        "execution_ready": true,
+        "execution_hold_reason": "",
+        "nominal_property_model_ready": false,
+        "nominal_property_model_limit": "",
+        "requirement_state": "",
+        "design_ready": null,
+        "design_hold_reason": "",
+        "completion_event_sha256": "",
+        "completion_source_ref": "",
+        "homogeneity": "",
+        "row_unresolved_tokens": "",
+        "authority_facts_differ": [],
+        "source_name": ""
+      }
+    ],
+    "in_inventory": false,
+    "stock_authority": "9837017d07126d8328afd5ac24c32f5259eaea4cb05bc45bfa55db86b15d59e3",
+    "inventory_status": "TEXT_ONLY_UNBOUND",
+    "dilution_pct": null,
+    "stock_form": null,
+    "quantitative_stock_ready": false,
+    "stock_selection_status": "TEXT_ONLY_UNBOUND",
+    "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
+    "oav_typical": null,
+    "smell_strength": null,
+    "anosmic_risk": null,
+    "odor_family": "smoky",
     "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING",
     "oav_evidence": {
       "status": "NOT_COMPUTED",
