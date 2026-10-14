@@ -8,6 +8,8 @@ from pathlib import Path
 
 import pytest
 
+from tests.lab_page_scripts import get_lab_script
+
 FORMULA_LIKING_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "formula-liking.js"
 EVIL = "<img src=x onerror=alert(1)>"
 LABEL = "Crowd guess: panel averages and hand estimates. Not a measurement; your own ratings decide."
@@ -130,11 +132,11 @@ def test_liking_script_shows_your_guess_with_text_only():
 @pytest.mark.asyncio
 async def test_formula_card_wires_the_liking_block(client):
     page = await client.get("/app")
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
     helper = await client.get("/static/formula-liking.js")
 
     assert helper.status_code == 200
-    assert page.text.index('src="/static/formula-liking.js"') < page.text.index('src="/static/lab.js"')
+    assert page.text.index('src="/static/formula-liking.js"') < page.text.index('src="/static/lab/core.js"')
     assert page.text.index('id="formula-result-totals"') < page.text.index('id="formula-result-liking"')
     assert "renderFormulaLiking(result, variantIndex, selected)" in javascript.text
     assert "innerHTML" not in helper.text
@@ -144,7 +146,7 @@ async def test_formula_card_wires_the_liking_block(client):
 async def test_stock_view_wires_rate_a_material(client):
     page = await client.get("/app")
     script = await client.get("/static/material-liking.js")
-    lab = await client.get("/static/lab.js")
+    lab = await get_lab_script(client)
 
     assert script.status_code == 200
     assert page.text.index('src="/static/stock-dilutions.js"') < page.text.index('src="/static/material-liking.js"')

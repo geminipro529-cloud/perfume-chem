@@ -5,6 +5,8 @@ from pathlib import Path
 
 import pytest
 
+from tests.lab_page_scripts import get_lab_script, lab_script_paths, read_lab_script
+
 LAB_DRAFTS_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "lab-drafts.js"
 SCENT_CHART_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "scent-chart.js"
 BENCH_SHEET_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "bench-sheet.js"
@@ -13,15 +15,32 @@ STOCK_DILUTIONS_JS = (
 )
 COMPOSITION_CHECKS_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "composition-checks.js"
 CREATE_SEVERAL_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "create-several.js"
-LAB_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "lab.js"
 INDEX_HTML = Path(__file__).resolve().parents[2] / "app" / "static" / "index.html"
+
+
+def test_every_lab_page_file_loads_once_after_the_helpers_with_core_first_and_boot_last():
+    page = INDEX_HTML.read_text(encoding="utf-8")
+    loaded = lab_script_paths(page)
+    on_disk = sorted(f"lab/{path.name}" for path in (INDEX_HTML.parent / "lab").glob("*.js"))
+
+    assert sorted(loaded) == on_disk
+    assert len(set(loaded)) == len(loaded)
+    assert (loaded[0], loaded[-1]) == ("lab/core.js", "lab/boot.js")
+    # Helper scripts define globals the page files use, so every one loads first.
+    scripts = page[page.index('<script src="/static/'):]
+    helpers = [line for line in scripts.splitlines() if 'src="/static/' in line and 'src="/static/lab/' not in line]
+    assert helpers and scripts.index(helpers[-1]) < scripts.index('src="/static/lab/core.js"')
+    # Only boot.js starts work that waits on the server, so no answer arrives before a later file has loaded.
+    for path in loaded[:-1]:
+        text = (INDEX_HTML.parent / path).read_text(encoding="utf-8")
+        assert ".load();" not in text and "\nrefresh()" not in text, path
 
 
 @pytest.mark.asyncio
 async def test_offline_lab_app_and_assets_are_served_without_external_dependencies(client):
     page = await client.get("/app")
     css = await client.get("/static/lab.css")
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
 
     assert page.status_code == 200
     assert css.status_code == 200
@@ -61,7 +80,7 @@ async def test_offline_lab_app_and_assets_are_served_without_external_dependenci
 async def test_guided_improvement_ui_is_default_local_and_authority_safe(client):
     page = await client.get("/app")
     css = await client.get("/static/lab.css")
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
 
     assert page.status_code == 200
     assert 'class="nav-item is-active" data-view="improve"' in page.text
@@ -295,7 +314,7 @@ async def test_deeper_review_reaches_api_and_text_safe_optional_ui(client):
     peony = next(c for c in knowledge["subtype_context"]["cards"] if c["subtype_id"] == "PEONY_DEWY")
     assert peony["review_addenda"]
     assert "peony_methods_finish" in {s["source_id"] for s in knowledge["sources"]}
-    asset = await client.get("/static/lab.js")
+    asset = await get_lab_script(client)
     assert "card.review_addenda" in asset.text
     assert "update.textContent = `Deeper source review:" in asset.text
     assert "Research behind this design · optional details" in asset.text
@@ -330,7 +349,7 @@ async def test_source_bound_architecture_comparisons_reach_formula_ui_without_wr
     assert result["inventory_modified"] is False
     assert result["formula_modified"] is False
     assert result["physical_compounding_performed"] is False
-    asset = await client.get("/static/lab.js")
+    asset = await get_lab_script(client)
     assert "selected.variant?.architecture?.comparison_question" in asset.text
     assert "This is an untested role-plan hypothesis, not a measured improvement." in asset.text
     assert "paragraph.textContent = text;" in asset.text
@@ -451,7 +470,7 @@ async def test_stock_page_row_shows_where_an_entry_differs_from_the_workbook(cli
     assert disagreement["text"] == "Differs from the workbook: workbook says neat"
     assert disagreement["stock_page"].casefold() == "50% w/w in dpg"
 
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
     assert "const disagreement = stock.authority_disagreement?.text;" in javascript.text
     # stockEl sets textContent, so the note is never parsed as HTML.
     assert (
@@ -464,7 +483,7 @@ async def test_stock_page_row_shows_where_an_entry_differs_from_the_workbook(cli
 async def test_formula_studio_ui_exposes_inventory_and_conversation(client):
     page = await client.get("/app")
     css = await client.get("/static/lab.css")
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
 
     assert 'id="project-inventory-list"' in page.text
     assert 'id="project-inventory-search"' in page.text
@@ -495,18 +514,18 @@ async def test_formula_studio_ui_exposes_inventory_and_conversation(client):
 async def test_create_and_improve_drafts_are_kept_in_browser_storage(client):
     page = await client.get("/app")
     css = await client.get("/static/lab.css")
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
     drafts = await client.get("/static/lab-drafts.js")
 
     assert drafts.status_code == 200
-    assert page.text.index('src="/static/lab-drafts.js"') < page.text.index('src="/static/lab.js"')
+    assert page.text.index('src="/static/lab-drafts.js"') < page.text.index('src="/static/lab/core.js"')
     assert '"perfume-lab.draft.create.v1"' in drafts.text
     assert '"perfume-lab.draft.improve.v1"' in drafts.text
     assert "const DRAFT_VERSION = 1;" in drafts.text
     assert "const DRAFT_MAX_CHARS = 1000000;" in drafts.text
     assert "`Restored your draft from ${formatDraftTime(iso)}. ${text}`" in javascript.text
     assert "made from your inventory at that time" in javascript.text
-    # A Windows checkout may hold lab.js with CRLF line endings.
+    # A Windows checkout may hold the page files with CRLF line endings.
     assert "restoreStoredDrafts();\nrefresh()" in javascript.text.replace("\r\n", "\n")
     assert 'window.addEventListener("pagehide"' in javascript.text
     # Every storage access is guarded so blocked or full storage cannot break the page.
@@ -693,7 +712,7 @@ def test_restored_download_is_labelled_as_a_trimmed_browser_copy():
 async def test_formula_result_fits_prints_and_offers_a_bench_sheet(client):
     page = await client.get("/app")
     css = await client.get("/static/lab.css")
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
 
     header = page.text.split('class="formula-design-table"', 1)[1].split("</thead>", 1)[0]
     headings = [cell.split("</th>", 1)[0] for cell in header.split("<th>")[1:]]
@@ -721,7 +740,7 @@ async def test_formula_result_fits_prints_and_offers_a_bench_sheet(client):
     actions = page.text.split('id="formula-download"', 1)[1].split("</div>", 1)[0]
     assert '<button id="formula-print-bench" type="button">Print bench sheet</button>' in actions
     assert 'id="bench-sheet"' in page.text
-    assert page.text.index('src="/static/bench-sheet.js"') < page.text.index('src="/static/lab.js"')
+    assert page.text.index('src="/static/bench-sheet.js"') < page.text.index('src="/static/lab/core.js"')
     assert 'id="formula-result-variant"' in page.text
     assert "window.print()" in javascript.text
     assert "benchSheetHtml(" in javascript.text
@@ -1116,7 +1135,7 @@ async def test_bottle_addition_default_mass_is_valid_for_its_html_step(client):
 async def test_science_authority_view_preserves_labels_modes_and_unknowns(client):
     page = await client.get("/app")
     css = await client.get("/static/lab.css")
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
 
     assert page.status_code == 200
     assert 'data-view="science"' in page.text
@@ -1157,7 +1176,7 @@ async def test_science_authority_view_preserves_labels_modes_and_unknowns(client
 
 @pytest.mark.asyncio
 async def test_engine_job_wait_uses_current_server_states_and_failure_words(client):
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
 
     assert "FAILED_CLOSED_WORKER_STOPPED" in javascript.text
     assert "the server restarted or shut down, so it has no result" in javascript.text
@@ -1169,7 +1188,7 @@ async def test_engine_job_wait_uses_current_server_states_and_failure_words(clie
 
 @pytest.mark.asyncio
 async def test_omission_loader_translates_design_fraction_bases_and_shows_percentages(client):
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
 
     assert javascript.status_code == 200
     assert 'mass_fraction: "w/w"' in javascript.text
@@ -1184,7 +1203,7 @@ async def test_omission_loader_translates_design_fraction_bases_and_shows_percen
 @pytest.mark.asyncio
 async def test_comparison_planning_is_worded_as_a_suggestion_and_uses_safe_request_ids(client):
     page = await client.get("/app")
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
     assert "cannot remove anything from your existing bottle" in page.text
     assert "needs separate samples" not in page.text
     submit = javascript.text.split('$("#omission-plan-form").addEventListener("submit"', 1)[1]
@@ -1225,12 +1244,12 @@ def _run_dilution_case(script):
 @pytest.mark.asyncio
 async def test_stock_page_offers_a_dilution_form_wired_to_the_endpoint(client):
     page = await client.get("/app")
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
     dilutions = await client.get("/static/stock-dilutions.js")
 
     assert dilutions.status_code == 200
     assert page.text.index('src="/static/stock-dilutions.js"') < page.text.index(
-        'src="/static/lab.js"'
+        'src="/static/lab/core.js"'
     )
     assert 'const DILUTION_ENDPOINT = "/v2/workbench/current-inventory/dilute"' in dilutions.text
     assert ".innerHTML" not in dilutions.text
@@ -1296,7 +1315,7 @@ def test_dilution_form_defaults_to_dpg_w_w_posts_and_shows_errors_as_text():
 
 @pytest.mark.asyncio
 async def test_stock_rows_show_the_gate_hold_text_as_plain_text(client):
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
 
     # stockEl sets textContent, so the hold text is never parsed as HTML.
     assert (
@@ -1445,11 +1464,11 @@ def test_composition_checks_never_say_passed_when_a_row_was_not_checked():
 @pytest.mark.asyncio
 async def test_formula_card_shows_the_composition_checks(client):
     page = await client.get("/app")
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
     helper = await client.get("/static/composition-checks.js")
 
     assert helper.status_code == 200
-    assert page.text.index('src="/static/composition-checks.js"') < page.text.index('src="/static/lab.js"')
+    assert page.text.index('src="/static/composition-checks.js"') < page.text.index('src="/static/lab/core.js"')
     assert 'id="formula-result-checks"' in page.text
     assert page.text.index('id="formula-result-checks"') < page.text.index('id="formula-result-rows"')
     assert "compositionCheckLines(compositionChecks)" in javascript.text
@@ -1525,11 +1544,11 @@ def test_detection_check_words_each_status_and_flag():
 @pytest.mark.asyncio
 async def test_formula_card_shows_the_smell_check(client):
     page = await client.get("/app")
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
     helper = await client.get("/static/detection-check.js")
 
     assert helper.status_code == 200
-    assert page.text.index('src="/static/detection-check.js"') < page.text.index('src="/static/lab.js"')
+    assert page.text.index('src="/static/detection-check.js"') < page.text.index('src="/static/lab/core.js"')
     assert 'id="formula-result-detection"' in page.text
     assert "detectionCheckLines(detectionCheck)" in javascript.text
     assert "renderDetectionCheck(" in javascript.text
@@ -1540,10 +1559,10 @@ async def test_scent_chart_script_is_served_wired_and_themed(client):
     page = await client.get("/app")
     script = await client.get("/static/scent-chart.js")
     theme = await client.get("/static/theme.css")
-    lab = await client.get("/static/lab.js")
+    lab = await get_lab_script(client)
 
     assert script.status_code == 200
-    assert page.text.index('src="/static/scent-chart.js"') < page.text.index('src="/static/lab.js"')
+    assert page.text.index('src="/static/scent-chart.js"') < page.text.index('src="/static/lab/core.js"')
     assert 'id="formula-result-scent"' in page.text
     assert page.text.index('id="formula-result-scent"') < page.text.index('id="formula-result-rows"')
     assert "renderScentChart(" in lab.text
@@ -1608,14 +1627,14 @@ def test_three_unready_rows_are_three_checks_and_other_codes_add_one_each():
 
 
 def test_create_page_uses_the_shared_hold_so_both_pages_read_the_same():
-    lab_js = (BENCH_SHEET_JS.parent / "lab.js").read_text(encoding="utf-8")
+    lab_js = read_lab_script()
     assert "benchSheetHold(selected.formula?.rows || [], selected.critic).stateText" in lab_js
     assert "benchDraftState(selected.critic" not in lab_js
     assert "safety check" not in BENCH_SHEET_JS.read_text(encoding="utf-8")
 
 
 def test_scent_chart_is_optional_for_the_rows_table_and_the_overview_falls_back_to_the_stock_list():
-    lab_js = (BENCH_SHEET_JS.parent / "lab.js").read_text(encoding="utf-8")
+    lab_js = read_lab_script()
     assert 'typeof scentWhyText === "function"' in lab_js
     assert 'typeof scentCurveCache !== "undefined"' in lab_js
     assert 'typeof renderScentChart === "function"' in lab_js
@@ -1953,11 +1972,11 @@ def test_create_several_compares_a_card_with_your_own_in_active_amounts():
 
 def test_create_several_is_wired_into_the_formula_studio_without_innerhtml():
     page = INDEX_HTML.read_text(encoding="utf-8")
-    javascript = LAB_JS.read_text(encoding="utf-8")
+    javascript = read_lab_script()
 
     assert 'id="several-form"' in page
     assert 'id="several-cards"' in page
-    assert page.index("/static/composition-checks.js") < page.index("/static/create-several.js") < page.index("/static/lab.js")
+    assert page.index("/static/composition-checks.js") < page.index("/static/create-several.js") < page.index("/static/lab/core.js")
     start = javascript.index("// Create several:")
     end = javascript.index('$("#several-compare-button").addEventListener')
     block = javascript[start:javascript.index("\n});", end)]

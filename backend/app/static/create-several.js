@@ -1,8 +1,8 @@
 // Pure rules for "Create several" in the Formula studio: one brief per line,
 // each composed as its own engine job, so the engine worker runs up to four
 // at once in separate processes. It touches no DOM, so the page loads it
-// before lab.js (its functions become page globals) and node runs it in the
-// tests. lab.js writes the returned text with textContent.
+// before the Lab page files in lab/ (its functions become page globals) and node runs it in the
+// tests. lab/create.js writes the returned text with textContent.
 
 const SEVERAL_MAX_BRIEFS = 8;
 const SEVERAL_MODES = {

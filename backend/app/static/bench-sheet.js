@@ -1,5 +1,5 @@
 // Pure bench-sheet logic. It touches no DOM, so the page loads it before
-// lab.js (its functions become page globals) and node runs it in the tests.
+// the Lab page files in lab/ (its functions become page globals) and node runs it in the tests.
 
 const BENCH_MIN_PIPETTE_UL = 10;
 const BENCH_DECIMAL = /^\d+(\.\d+)?$/;

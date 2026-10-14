@@ -8,6 +8,7 @@ from pathlib import Path
 
 from app.schemas.lab_lifecycle import FormulaDesignChatCreate
 from app.services.engine_job_registry import FormulaDesignPayloadV2
+from tests.lab_page_scripts import read_lab_script
 
 STATIC = Path(__file__).resolve().parents[2] / "app" / "static"
 
@@ -25,6 +26,6 @@ def test_lab_form_preselects_sixty_and_keeps_smaller_ceilings() -> None:
     assert '<option value="60" selected>' in html
     assert '<option value="15">' in html
     assert '<option value="15" selected>' not in html
-    lab_js = (STATIC / "lab.js").read_text(encoding="utf-8")
+    lab_js = read_lab_script()
     assert '$(\'[name="max_materials"]\', form).value = "60";' in lab_js
     assert "Number(data.max_materials || 60)" in lab_js

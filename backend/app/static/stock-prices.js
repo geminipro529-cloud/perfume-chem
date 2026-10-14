@@ -9,7 +9,7 @@
 // density, so a per-g price never costs a µL row. Such rows are listed and the
 // totals say they are partial.
 //
-// The page loads this before lab.js. Material names and anything typed go in
+// The page loads this before lab/stock.js, which attaches it; lab/boot.js loads the prices. Material names and anything typed go in
 // through textContent / .value only. Node loads the same file in the tests.
 
 const STOCK_PRICE_ENDPOINT = "/v2/workbench/stock-prices";

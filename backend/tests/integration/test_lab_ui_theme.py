@@ -2,6 +2,8 @@ import re
 
 import pytest
 
+from tests.lab_page_scripts import get_lab_script
+
 
 @pytest.mark.asyncio
 async def test_theme_stylesheet_is_served_after_lab_css_with_dark_mode_and_focus(client):
@@ -53,7 +55,7 @@ async def test_navigation_is_grouped_with_skip_link_and_theme_picker(client):
 
 @pytest.mark.asyncio
 async def test_navigation_marks_current_page_and_theme_choice_persists(client):
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
     source = javascript.text
 
     navigate = source.split("function navigate(view) {", 1)[1].split("\n}\n", 1)[0]
