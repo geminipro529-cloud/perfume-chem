@@ -5625,29 +5625,98 @@ def _gate_evaporation_rate_balance(state: FormulaState, config: ReleaseGateConfi
     )
 
 
+# Tenacity screen cutoffs, on vapour pressure at 25 C so they line up with the
+# note tiers in docs/agents/science-reference.md (base < 0.1 Pa) and one decade
+# below. Until Oct 2026 the screen compared the run-temperature VP (305 K skin
+# by default) with 0.01 Pa, which left out every measured musk but
+# Ambrettolide: Galaxolide is 0.0727 Pa at 25 C (EU risk assessment) and about
+# 0.15 Pa at 305 K, so musk-led formulas read "weak longevity".
+TENACITY_LONG_LASTING_VP_25C_PA = 0.1
+TENACITY_DEEP_VP_25C_PA = 0.01
+TENACITY_LONG_LASTING_MIN_PCT = 10.0
+TENACITY_DEEP_MIN_PCT = 3.0
+
+
+def _vp_at_25c_pa(material) -> float | None:
+    """Return a row's pure-component VP at 25 C, or None when it has none.
+
+    ``vp_temperature_factor`` is VP(T) / VP(25 C) for the run temperature; a
+    natural without a bulk VP has no single value and returns None (RULE 4).
+    """
+    vp = material.vp_pure_pa
+    if vp is None or vp <= 0.0:
+        return None
+    factor = material.vp_temperature_factor
+    if factor is not None and factor > 0.0:
+        return vp / factor
+    return vp
+
+
 def _gate_tenacity_projection(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
-    """Check that low-VP materials are sufficient for longevity."""
+    """Screen whether enough of the oil is slow to evaporate for longevity.
+
+    A material counts as long-lasting below 0.1 Pa at 25 C and as deep below
+    0.01 Pa. Rows with no VP are reported, not counted. The long-lasting amount
+    per mL of finished perfume lets oil strength show: an 18% oil carries more
+    than a 15% one of the same make-up. This is a mass screen, not a measured
+    skin life, projection or intensity (RULE 1).
+    """
     total_active = state.total_active_ul or 1.0
-    sub_001 = sub_0001 = 0.0
+    long_ul = deep_ul = unknown_ul = 0.0
     for m in state.materials:
-        vp = m.vp_pure_pa or 999
-        if vp < 0.01:
-            sub_001 += m.active_ul
-        if vp < 0.001:
-            sub_0001 += m.active_ul
-    pct_001 = sub_001 / total_active * 100.0
-    pct_0001 = sub_0001 / total_active * 100.0
+        vp_25 = _vp_at_25c_pa(m)
+        if vp_25 is None:
+            unknown_ul += m.active_ul
+            continue
+        if vp_25 < TENACITY_LONG_LASTING_VP_25C_PA:
+            long_ul += m.active_ul
+        if vp_25 < TENACITY_DEEP_VP_25C_PA:
+            deep_ul += m.active_ul
+    long_pct = long_ul / total_active * 100.0
+    deep_pct = deep_ul / total_active * 100.0
+    unknown_pct = unknown_ul / total_active * 100.0
+    volume_ml = state.batch_volume_ml if state.batch_volume_ml > 0 else None
+    per_ml = long_ul / volume_ml if volume_ml else None
+    concentrate_pct = state.total_raw_ul / (volume_ml * 1000.0) * 100.0 if volume_ml else None
+
     issues = []
-    if pct_001 < 10.0:
-        issues.append(f"VP<0.01Pa = {pct_001:.0f}% (<10%, weak longevity)")
-    if pct_0001 < 3.0:
-        issues.append(f"VP<0.001Pa = {pct_0001:.0f}% (<3%, may lack depth)")
+    if long_pct < TENACITY_LONG_LASTING_MIN_PCT:
+        issues.append(
+            f"long-lasting (VP<0.1Pa at 25C) = {long_pct:.0f}% of the oil "
+            f"(<{TENACITY_LONG_LASTING_MIN_PCT:.0f}%, weak longevity)"
+        )
+    if deep_pct < TENACITY_DEEP_MIN_PCT:
+        issues.append(
+            f"deep (VP<0.01Pa at 25C) = {deep_pct:.0f}% (<{TENACITY_DEEP_MIN_PCT:.0f}%, may lack depth)"
+        )
+    notes = []
+    if per_ml is not None and concentrate_pct is not None:
+        notes.append(
+            f"{per_ml:.1f} uL long-lasting material per mL of perfume at {concentrate_pct:.1f}% oil"
+        )
+    if unknown_pct >= 0.5:
+        notes.append(f"no VP for {unknown_pct:.0f}% of the oil (not counted)")
+    data = {
+        "vp_basis": "pure_component_vp_at_25C",
+        "long_lasting_vp_25c_pa": TENACITY_LONG_LASTING_VP_25C_PA,
+        "deep_vp_25c_pa": TENACITY_DEEP_VP_25C_PA,
+        "long_lasting_pct": round(long_pct, 2),
+        "deep_pct": round(deep_pct, 2),
+        "unknown_vp_pct": round(unknown_pct, 2),
+        "long_lasting_ul_per_ml": round(per_ml, 3) if per_ml is not None else None,
+        "concentrate_pct": round(concentrate_pct, 2) if concentrate_pct is not None else None,
+        "authority": "SCREENING_ONLY_NOT_SKIN_LIFE",
+    }
     if issues:
-        return _result("tenacity_projection", "WARN", "; ".join(issues))
+        return _result("tenacity_projection", "WARN", "; ".join(issues + notes), data=data)
     return _result(
         "tenacity_projection",
         "PASS",
-        f"VP<0.01Pa = {pct_001:.0f}%, VP<0.001Pa = {pct_0001:.0f}%",
+        "; ".join(
+            [f"long-lasting (VP<0.1Pa at 25C) = {long_pct:.0f}%, deep (VP<0.01Pa) = {deep_pct:.0f}%"]
+            + notes
+        ),
+        data=data,
     )
 
 
