@@ -139,3 +139,50 @@ console.log(JSON.stringify({ lines, corrected, plain }));
     ]
     assert result["corrected"] == "Corrected: Linalool, Lavender EO, Hedione"
     assert result["plain"] == ""
+
+
+def test_chart_rows_order_by_the_models_place_and_mark_agreement_and_clashes():
+    result = _node(
+        """
+const ranks = { "Linalool": 1, "Hedione": 2, "Lavender EO": 3, "Ambrox": 7, "Iris": null };
+const block = (window, label, leads, weak, corrected_top) => ({
+  window, label, model_in_range: true, model_ranks: ranks, corrected_top,
+  you_leads: leads.map((name) => ({ name, count: name === "Ambrox" ? 2 : 1 })),
+  you_weak: weak.map((name) => ({ name, count: 1 })),
+});
+const data = {
+  calibrated: true,
+  windows: [
+    block("strip_10m", "Strip 10 min", ["Linalool", "Ambrox"], ["hedione"], ["Linalool", "Ambrox", "Lavender EO"]),
+    block("strip_1h", "Strip 1 h", ["Iris"], [], null),
+    { window: "skin_day1", label: "Skin day 1", model_in_range: false, you_leads: [], you_weak: [] },
+  ],
+  corrections: [
+    { name: "Ambrox", n_bottles: 10, min_bottles: 3, used: true, label: "×2.0" },
+    { name: "Hedione", n_bottles: 2, min_bottles: 3, used: false, label: null },
+    { name: "Iris", n_bottles: 0, min_bottles: 3, used: false, label: null },
+  ],
+};
+const chart = m.smellChartModel(data);
+const none = m.smellChartModel({ windows: [data.windows[2]] });
+const unused = m.smellCorrectionText({ name: "Ambrox", n_bottles: 4, min_bottles: 3, used: false }, false);
+console.log(JSON.stringify({ chart, none, unused }));
+"""
+    )
+
+    chart = result["chart"]
+    assert chart["columns"] == [{"key": "strip_10m", "label": "Strip 10 min"}, {"key": "strip_1h", "label": "Strip 1 h"}]
+    assert [row["name"] for row in chart["rows"]] == ["Linalool", "Hedione", "Lavender EO", "Ambrox", "Iris"]
+    cells = {row["name"]: row["cells"][0] for row in chart["rows"]}
+    assert cells["Linalool"] == {"text": "1st · you: leads", "state": "agree"}
+    assert cells["Hedione"] == {"text": "2nd · you: weak", "state": "clash"}
+    assert cells["Ambrox"] == {"text": "7th · corrected 2nd · you: leads ×2", "state": "missed"}
+    assert cells["Lavender EO"] == {"text": "3rd", "state": ""}
+    assert chart["rows"][4]["cells"][1] == {"text": "not ranked · you: leads", "state": "missed"}
+    corrections = {row["name"]: row["correction"] for row in chart["rows"]}
+    assert corrections == {
+        "Linalool": "not in the model", "Hedione": "none yet: 2 of 3 bottles", "Lavender EO": "not in the model",
+        "Ambrox": "×2.0 from 10 bottles", "Iris": "not in the model",
+    }
+    assert result["none"] is None
+    assert result["unused"] == "not used yet: 4 bottles"

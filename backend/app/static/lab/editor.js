@@ -26,6 +26,11 @@ const editorPage = {
   versions: new Map(),
   saving: false,
   compareSeq: 0,
+  // "Why each row": on or off (remembered in this browser), and the last answer
+  // from /v2/workbench/formula-roles with the row keys it was asked for.
+  why: { on: false, timer: 0, seq: 0, asked: "", answered: "", keys: [], answer: null, error: "" },
+  // The open "Without it" preview: { key, present, seq }, or null.
+  drop: null,
 };
 
 const editorNow = () => editorPage.history.present;
@@ -145,7 +150,18 @@ function editorRowNode(row) {
   mark.textContent = "×";
   remove.append(word, mark);
   const cells = [editorCellNode("editor-number"), editorCellNode(), editorCellNode(), editorCellNode(), editorCellNode("editor-stock"), editorCellNode()];
-  cells[1].append(material);
+  const why = document.createElement("p");
+  why.className = "editor-why";
+  why.hidden = true;
+  const whyText = document.createElement("span");
+  whyText.className = "editor-why-text";
+  const without = document.createElement("button");
+  without.type = "button";
+  without.className = "quiet-button editor-without";
+  without.dataset.action = "without";
+  without.textContent = "Without it";
+  why.append(whyText, " ", without);
+  cells[1].append(material, why);
   cells[2].append(amountWrap);
   cells[3].append(note);
   cells[5].append(remove);
@@ -242,6 +258,10 @@ function renderEditor() {
   }
   renderEditorSide();
   renderEditorVersionState();
+  // A preview made for other rows says nothing about these.
+  if (editorPage.drop && editorPage.drop.present !== editorPage.history.present) closeEditorDrop(false);
+  renderEditorWhy();
+  scheduleEditorWhy();
 }
 
 // Densities for every named row not asked about yet (the grams view needs them).
@@ -379,6 +399,12 @@ $("#editor-rows").addEventListener("change", (event) => {
 });
 
 $("#editor-rows").addEventListener("click", (event) => {
+  const without = event.target.closest('[data-action="without"]');
+  if (without) {
+    const row = editorNow().rows[editorRowIndex(without)];
+    if (row) showEditorDrop(row.key).catch((error) => notify(error.message, true));
+    return;
+  }
   const button = event.target.closest('[data-action="remove"]');
   if (!button) return;
   const index = editorRowIndex(button);
@@ -502,13 +528,10 @@ $("#editor-scale").addEventListener("click", () => {
   }
 });
 
-$("#editor-to-bench").addEventListener("click", () => {
-  const { name, rows } = editorNow();
+// Puts editor rows on the bench sheet as a pasted card named `name`; false when no row has an amount.
+function sendRowsToBench(name, rows) {
+  if (!rows.some((row) => row.material && row.amount)) return false;
   const table = editorBenchTable(name, rows);
-  if (!rows.some((row) => row.material && row.amount)) {
-    showEditorError("Add at least one row with a material and an amount first.");
-    return;
-  }
   const form = $("#bench-source-form");
   form.elements.source_kind.value = "PASTED";
   form.elements.source_kind.dispatchEvent(new Event("change"));
@@ -516,6 +539,12 @@ $("#editor-to-bench").addEventListener("click", () => {
   navigate("benchsheet");
   form.requestSubmit();
   if (table.leftOut.length) notify(`Left off the bench sheet, no amount yet: ${benchNameList(table.leftOut)}.`);
+  return true;
+}
+
+$("#editor-to-bench").addEventListener("click", () => {
+  const { name, rows } = editorNow();
+  if (!sendRowsToBench(name, rows)) showEditorError("Add at least one row with a material and an amount first.");
 });
 
 $("#editor-copy").addEventListener("click", async () => {
@@ -824,6 +853,186 @@ function editorInventoryChanged() {
   editorSide.remaining = {};
   renderEditor();
 }
+
+// ---- Why each row, and what changes without it ----
+// The notes of the formula name each row's stock carries, read by the engine from
+// the stocks' own names and odor words (POST /v2/workbench/formula-roles), and a
+// preview of the checks, the cost and the smell over time without one row. Read
+// only: the preview changes nothing until "Remove the row" is pressed.
+
+const EDITOR_WHY_KEY = "lab.editor.why";
+const EDITOR_WHY_DELAY_MS = 600;
+
+function editorWhyRows() {
+  return editorNow().rows.filter((row) => row.material);
+}
+
+function editorWhyInfo(row) {
+  const why = editorPage.why;
+  const index = why.answer ? why.keys.indexOf(editorWhyKey(row)) : -1;
+  return index >= 0 ? why.answer.rows[index] : null;
+}
+
+function renderEditorWhy() {
+  const why = editorPage.why;
+  $("#editor-why").setAttribute("aria-pressed", String(why.on));
+  const line = $("#editor-why-line");
+  line.hidden = !why.on;
+  const name = editorNow().name.trim();
+  if (why.on) {
+    if (!name) line.textContent = "Type the formula name above: each row is read against the notes it names.";
+    else if (why.error) line.textContent = `Not read right now: ${why.error}`;
+    else if (why.answer && why.answered === why.asked) line.textContent = editorWhyNotesLine(why.answer);
+    else line.textContent = "Reading the name…";
+  }
+  const hasNotes = Boolean(why.answer?.notes?.length);
+  const byKey = new Map(editorNow().rows.map((row) => [row.key, row]));
+  $$("#editor-rows tr[data-key]").forEach((tr) => {
+    const row = byKey.get(tr.dataset.key);
+    const box = tr.querySelector(".editor-why");
+    if (!box || !row) return;
+    const info = name ? editorWhyInfo(row) : null;
+    box.hidden = !why.on || !row.material || !name;
+    box.querySelector(".editor-why-text").textContent = info ? editorWhyText(info, hasNotes) : "Reading…";
+    const button = box.querySelector('[data-action="without"]');
+    button.hidden = !row.amount;
+    button.setAttribute("aria-label", `What changes without ${row.material}`);
+  });
+}
+
+function scheduleEditorWhy(delay = EDITOR_WHY_DELAY_MS) {
+  const why = editorPage.why;
+  if (!why.on) return;
+  const name = editorNow().name.trim();
+  const rows = editorWhyRows();
+  const body = JSON.stringify({ formula_name: name, rows: rows.map((row) => ({ material: row.material, stock_id: row.stockId || null })) });
+  if (!name || body === why.asked) return;
+  why.asked = body;
+  const keys = rows.map(editorWhyKey);
+  clearTimeout(why.timer);
+  why.timer = setTimeout(async () => {
+    const seq = ++why.seq;
+    try {
+      const answer = await request("/v2/workbench/formula-roles", { method: "POST", body });
+      if (seq !== why.seq) return;
+      Object.assign(why, { answer, answered: body, keys, error: "" });
+    } catch (error) {
+      if (seq !== why.seq) return;
+      why.error = error.message;
+      why.asked = "";
+    }
+    renderEditorWhy();
+  }, delay);
+}
+
+function setEditorWhy(on) {
+  editorPage.why.on = on;
+  try { localStorage.setItem(EDITOR_WHY_KEY, on ? "on" : "off"); } catch { /* storage unavailable */ }
+  renderEditorWhy();
+  scheduleEditorWhy(0);
+}
+
+$("#editor-why").addEventListener("click", () => setEditorWhy(!editorPage.why.on));
+
+function closeEditorDrop(returnFocus) {
+  const drop = editorPage.drop;
+  editorPage.drop = null;
+  const section = $("#editor-drop");
+  section.hidden = true;
+  section.replaceChildren();
+  if (returnFocus && drop) {
+    $(`#editor-rows tr[data-key="${CSS.escape(drop.key)}"] [data-action="without"]`)?.focus();
+  }
+}
+
+function editorDropButton(text, action, className) {
+  const button = editorNode("button", text, className);
+  button.type = "button";
+  button.dataset.drop = action;
+  return button;
+}
+
+async function showEditorDrop(key) {
+  const rows = editorNow().rows;
+  const row = rows.find((item) => item.key === key);
+  if (!row) return;
+  const without = rows.filter((item) => item.key !== key);
+  const seq = (editorPage.drop?.seq || 0) + 1;
+  editorPage.drop = { key, present: editorPage.history.present, seq };
+  const section = $("#editor-drop");
+  const title = editorNode("h3", `Without ${row.material}`);
+  title.id = "editor-drop-title";
+  section.replaceChildren(title, editorNode("p", "Working out the checks and the smell without it…", "editor-side-line"));
+  section.hidden = false;
+  section.focus();
+  const bottle = editorBottleMl();
+  const bottleMl = bottle ? benchFractionText(bottle, 3) : "30";
+  const [checks, curves] = await Promise.all([
+    Promise.all([rows, without].map((set) => editorVersionChecks({ bottle_ml: bottleMl }, set).catch((error) => ({ error: error.message })))),
+    Promise.all([rows, without].map((set) => scentCurveFor(editorChartRows(set)).catch(() => undefined))),
+  ]);
+  if (editorPage.drop?.key !== key || editorPage.drop.seq !== seq) return;
+  const nodes = [title];
+  const carried = editorWhyDropLine(editorWhyInfo(row));
+  if (carried) nodes.push(editorNode("p", carried, "editor-side-line"));
+  nodes.push(editorNode("h4", "Checks"));
+  const checkList = editorNode("ul", "", "editor-check-list");
+  const failed = checks.find((answer) => answer.error);
+  if (failed) {
+    checkList.append(editorNode("li", `The IFRA and allergen check is not available right now: ${failed.error}`, "is-problem"));
+  } else {
+    const changes = editorCheckChanges(checks[0], checks[1]);
+    if (!changes.length) changes.push({ text: `No check changes: IFRA is ${EDITOR_VERDICT_WORDS[checks[1].ifra.verdict] || checks[1].ifra.verdict} either way.` });
+    changes.forEach((change) => checkList.append(editorNode("li", change.text, change.problem ? "is-problem" : "")));
+  }
+  nodes.push(checkList);
+  const costs = [editorBottleCostText(rows, bottleMl), editorBottleCostText(without, bottleMl)];
+  if (costs.some(Boolean)) {
+    nodes.push(editorNode("h4", "Cost per bottle"));
+    nodes.push(editorNode("p", `${costs[0] || "not priced"} → ${costs[1] || "not priced"}`, "editor-side-line"));
+  }
+  nodes.push(editorNode("h4", "Smell over time"));
+  const smell = editorNode("ul", "", "editor-check-list");
+  if (curves.some((curve) => curve === undefined)) {
+    smell.append(editorNode("li", "The smell-over-time picture is not available right now."));
+  } else if (!curves[0]) {
+    smell.append(editorNode("li", "No liquid rows to model."));
+  } else {
+    const lines = scentLeaderLines(curves[0], curves[1]);
+    lines.forEach((line) => smell.append(editorNode("li", line)));
+    if (!lines.length) smell.append(editorNode("li", "The three leaders stay the same at every stage."));
+    const heart = scentShareAt(curves[0], row.material, "heart");
+    const late = scentShareAt(curves[0], row.material, "drydown");
+    if (heart !== null && late !== null) smell.append(editorNode("li", `With it, ${row.material} is ${scentPercent(heart)} of what the model can detect at 30 minutes and ${scentPercent(late)} at 4 hours.`));
+  }
+  nodes.push(smell);
+  nodes.push(editorNode("p", "The leaders are by share of what the model can detect, not by strength or pleasantness.", "field-help"));
+  const actions = editorNode("div", "", "editor-drop-actions");
+  actions.append(editorDropButton("Remove the row", "remove", "quiet-button"), editorDropButton("Keep it", "keep", "quiet-button"));
+  nodes.push(actions);
+  section.replaceChildren(...nodes);
+  section.focus();
+}
+
+$("#editor-drop").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-drop]");
+  const drop = editorPage.drop;
+  if (!button || !drop) return;
+  if (button.dataset.drop === "keep") {
+    closeEditorDrop(true);
+    return;
+  }
+  const { rows } = editorNow();
+  const index = rows.findIndex((row) => row.key === drop.key);
+  if (index < 0) return;
+  closeEditorDrop(false);
+  editorCommitRows(editorRemove(rows, index));
+  editorFocusRow(Math.min(index, rows.length - 2), "material");
+  renderEditor();
+  notify(`Removed ${rows[index].material}. Undo puts it back.`);
+});
+
+try { editorPage.why.on = localStorage.getItem(EDITOR_WHY_KEY) === "on"; } catch { editorPage.why.on = false; }
 
 // ---- Versions: save, open and compare ----
 // Every save is a version in the versions log in data/user

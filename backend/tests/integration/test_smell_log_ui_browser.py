@@ -37,6 +37,8 @@ COMPARISON = {
             "liking_mean": 6, "you_leads": [{"name": "Hedione", "count": 1}], "you_weak": [],
             "model_in_range": True, "model_time_label": "10 min", "model_note": None,
             "model_top": ["Linalool", "Lavender EO", "<img src=x onerror=alert(1)>"],
+            "corrected_top": None,
+            "model_ranks": {"Linalool": 1, "Lavender EO": 2, "<img src=x onerror=alert(1)>": 3, "Hedione": 5},
             "agreement": {
                 "leads_the_model_also_had_on_top": [],
                 "model_top_you_did_not_mark_leading": ["Linalool", "Lavender EO", "<img src=x onerror=alert(1)>"],
@@ -50,6 +52,11 @@ COMPARISON = {
             "model_in_range": False, "model_time_label": None, "model_top": [], "agreement": None,
             "model_note": "Beyond the model's range: its time curve stops at 4 h, so it says nothing about skin day 1.",
         },
+    ],
+    "calibrated": False,
+    "corrections": [
+        {"name": "Linalool", "n_bottles": 3, "min_bottles": 3, "used": False, "factor": None, "label": None},
+        {"name": "Hedione", "n_bottles": 2, "min_bottles": 3, "used": False, "factor": None, "label": None},
     ],
 }
 
@@ -125,6 +132,15 @@ def test_phone_user_taps_a_window_rows_and_liking_then_saves(lab):
     assert "You smelled Hedione leading; the model didn't have it on top." in first
     assert "Beyond the model's range" in blocks.nth(1).inner_text()
     assert "Not in the model: Orris Butter" in compare.inner_text()
+    chart = compare.locator("table.smell-chart")
+    assert chart.locator("thead th").all_inner_texts() == ["Material", "Strip 10 min", "Correction"]
+    assert chart.locator("tbody th").all_inner_texts() == [
+        "Linalool", "Lavender EO", "<img src=x onerror=alert(1)>", "Hedione"]
+    hedione = chart.locator("tbody tr").nth(3)
+    assert hedione.locator("td").all_inner_texts() == ["5th · you: leads", "none yet: 2 of 3 bottles"]
+    assert hedione.locator("td").first.get_attribute("data-state") == "missed"
+    assert chart.locator("tbody tr").first.locator("td").last.inner_text() == "not used yet: 3 bottles"
+    assert compare.locator("img").count() == 0
     assert lab.page.evaluate("document.documentElement.scrollWidth") <= 390
     shot = os.environ.get("SMELL_LOG_COMPARE_SCREENSHOT")
     if shot:

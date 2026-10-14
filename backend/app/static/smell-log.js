@@ -67,6 +67,92 @@ function smellCompareLines(block) {
   return lines;
 }
 
+function smellOrdinal(n) {
+  const suffix = ["th", "st", "nd", "rd"];
+  const tail = n % 100;
+  return `${n}${suffix[(tail - 20) % 10] || suffix[tail] || suffix[0]}`;
+}
+
+// One chart cell: the model's place for a name at one strip time beside what
+// was marked there. A place is the model's detection order, never how strong a
+// material smells (AGENTS.md Rule 1).
+function smellChartCell(block, name, marked) {
+  const rank = block.model_ranks?.[name] ?? null;
+  const key = name.toLowerCase();
+  const corrected = (block.corrected_top || []).findIndex((item) => item.toLowerCase() === key);
+  const parts = [rank === null ? "not ranked" : smellOrdinal(rank)];
+  if (corrected >= 0 && corrected + 1 !== rank) parts.push(`corrected ${smellOrdinal(corrected + 1)}`);
+  if (marked) parts.push(`you: ${marked.mark}${marked.count > 1 ? ` ×${marked.count}` : ""}`);
+  const top = rank !== null && rank <= 3;
+  let state = "";
+  if (marked?.mark === "leads") state = top ? "agree" : "missed";
+  else if (marked?.mark === "weak" && top) state = "clash";
+  return { text: parts.join(" · "), state };
+}
+
+// What the smell log has taught the model about one name, and from how many bottles.
+function smellCorrectionText(item, calibrated) {
+  if (!item || !item.n_bottles) return "not in the model";
+  const bottles = `${item.n_bottles} ${item.n_bottles === 1 ? "bottle" : "bottles"}`;
+  if (item.used) return `${item.label} from ${bottles}`;
+  if (item.n_bottles < item.min_bottles) return `none yet: ${item.n_bottles} of ${item.min_bottles} bottles`;
+  return calibrated ? `none: ${bottles}` : `not used yet: ${bottles}`;
+}
+
+// The "model said, you smelled" chart: a row per name, a column per strip time
+// the model covers, and the correction with the bottles behind it. Null when no
+// logged time is inside the model's range.
+function smellChartModel(data) {
+  const windows = (data?.windows || []).filter((block) => block.model_in_range && block.model_ranks);
+  if (!windows.length) return null;
+  const names = Object.keys(windows[0].model_ranks);
+  const best = (name) => Math.min(...windows.map((block) => block.model_ranks[name] ?? Infinity));
+  const ordered = names
+    .map((name, index) => ({ name, index, best: best(name) }))
+    .sort((a, b) => a.best - b.best || a.index - b.index)
+    .map((item) => item.name);
+  const marksOf = (block) => {
+    const marks = new Map();
+    for (const item of block.you_leads || []) marks.set(item.name.toLowerCase(), { mark: "leads", count: item.count });
+    for (const item of block.you_weak || []) marks.set(item.name.toLowerCase(), { mark: "weak", count: item.count });
+    return marks;
+  };
+  const marks = windows.map(marksOf);
+  const corrections = new Map((data.corrections || []).map((item) => [item.name.toLowerCase(), item]));
+  return {
+    columns: windows.map((block) => ({ key: block.window, label: block.label })),
+    rows: ordered.map((name) => ({
+      name,
+      cells: windows.map((block, column) => smellChartCell(block, name, marks[column].get(name.toLowerCase()))),
+      correction: smellCorrectionText(corrections.get(name.toLowerCase()), Boolean(data.calibrated)),
+    })),
+  };
+}
+
+function smellChartTable(doc, chart) {
+  const node = (tag, attributes, text) => smellLogNode(doc, tag, attributes, text);
+  const table = node("table", { class: "smell-chart" });
+  table.appendChild(node("caption", {}, "The model's place at each strip time, beside what you marked"));
+  const head = node("tr");
+  head.append(node("th", { scope: "col" }, "Material"), ...chart.columns.map((column) => node("th", { scope: "col" }, column.label)), node("th", { scope: "col" }, "Correction"));
+  const thead = node("thead");
+  thead.appendChild(head);
+  const body = node("tbody");
+  for (const row of chart.rows) {
+    const line = node("tr");
+    line.appendChild(node("th", { scope: "row" }, row.name));
+    row.cells.forEach((cell, index) => {
+      const td = node("td", { "data-window": chart.columns[index].key }, cell.text);
+      if (cell.state) td.dataset.state = cell.state;
+      line.appendChild(td);
+    });
+    line.appendChild(node("td", { class: "smell-chart-correction" }, row.correction));
+    body.appendChild(line);
+  }
+  table.append(thead, body);
+  return table;
+}
+
 // The one line saying whether the model has learned from the smell log yet.
 function smellCalibrationLine(calibration) {
   if (!calibration) return "";
@@ -77,6 +163,98 @@ function smellCalibrationLine(calibration) {
     return `Learning from your nose: ${calibration.n_bottles} of ${calibration.min_bottles} bottles logged`;
   }
   return calibration.reason || "";
+}
+
+const NOSE_WINDOW_WORDS = { strip_10m: "10 min", strip_1h: "1 h", strip_3h: "3 h" };
+
+// The Your nose page's first line: is the smell-log correction on, and why.
+function noseStatusLine(calibration) {
+  const scores = `on bottles it had not seen, the corrected model scored ${calibration.corrected_score} and the plain model ${calibration.baseline_score}`;
+  if (calibration.calibrated) return `On: ${scores}, so the Lab uses the correction.`;
+  if (calibration.n_bottles < calibration.min_bottles) {
+    return `Off: ${calibration.n_bottles} of ${calibration.min_bottles} bottles have strip logs. It turns on only if it beats the plain model on bottles it has not seen.`;
+  }
+  return `Off: ${scores}. It has to beat the plain model to be used.`;
+}
+
+// Per bottle: the strip times logged and both scores of a correction fitted without it.
+function noseHeldOutRows(calibration) {
+  return (calibration.held_out || []).map((row) => ({
+    label: row.label || row.bottle_id,
+    windows: row.windows.map((key) => NOSE_WINDOW_WORDS[key] || key).join(", "),
+    scores: `${row.baseline_score} → ${row.corrected_score}`,
+    best: row.best_score,
+  }));
+}
+
+// What it has learned per material; names it has not moved are counted, not listed.
+function noseFactorRows(calibration) {
+  const moved = [];
+  let unchanged = 0;
+  for (const item of calibration.factors || []) {
+    if (item.status !== "fitted") {
+      moved.push({ name: item.name, learned: `needs ${calibration.rule?.min_bottles_per_material ?? 3} bottles`, bottles: item.n_bottles });
+    } else if (item.label === "×1.0") {
+      unchanged += 1;
+    } else {
+      moved.push({ name: item.name, learned: calibration.calibrated ? item.label : `${item.label}, not used yet`, bottles: item.n_bottles });
+    }
+  }
+  return { rows: moved, unchanged };
+}
+
+function attachNoseLearning({ doc, request, root }) {
+  const node = (tag, attributes, text) => smellLogNode(doc, tag, attributes, text);
+  const status = node("p", { class: "nose-status", role: "status" });
+  const help = node("p", { class: "field-help" }, "Log strips at 10 min, 1 h and 3 h on the Bottles page. A score counts your leading names in the model's top 3, minus your weak names there; each bottle is scored by a correction learned from the other bottles only.");
+  const heldTitle = node("h3", {}, "Bottles it had not seen");
+  const held = node("table", { class: "smell-chart nose-held-out" });
+  const factorTitle = node("h3", {}, "What it has learned");
+  const factorBasis = node("p", { class: "field-help" });
+  const factors = node("table", { class: "smell-chart nose-factors" });
+  const unchanged = node("p", { class: "field-help" });
+  root.append(status, help, heldTitle, held, factorTitle, factorBasis, factors, unchanged);
+
+  function table(target, caption, columns, rows) {
+    const head = node("tr");
+    head.append(...columns.map(([, title]) => node("th", { scope: "col" }, title)));
+    const thead = node("thead");
+    thead.appendChild(head);
+    const body = node("tbody");
+    for (const row of rows) {
+      const line = node("tr");
+      columns.forEach(([key], index) => line.appendChild(index ? node("td", {}, String(row[key])) : node("th", { scope: "row" }, String(row[key]))));
+      body.appendChild(line);
+    }
+    target.replaceChildren(node("caption", {}, caption), thead, body);
+  }
+
+  function draw(calibration) {
+    status.textContent = noseStatusLine(calibration);
+    const heldRows = noseHeldOutRows(calibration);
+    heldTitle.hidden = held.hidden = !heldRows.length;
+    if (heldRows.length) {
+      table(held, `${heldRows.length} ${heldRows.length === 1 ? "bottle" : "bottles"}; best possible ${calibration.best_score}`, [["label", "Bottle"], ["windows", "Strips"], ["scores", "Plain → corrected"], ["best", "Best"]], heldRows);
+    }
+    const learned = noseFactorRows(calibration);
+    factorTitle.hidden = factors.hidden = !learned.rows.length;
+    factorBasis.hidden = !learned.rows.length;
+    factorBasis.textContent = calibration.basis || "";
+    if (learned.rows.length) table(factors, "Materials it would move up or down", [["name", "Material"], ["learned", "Correction"], ["bottles", "Bottles"]], learned.rows);
+    unchanged.hidden = !learned.unchanged;
+    unchanged.textContent = `${learned.unchanged} more ${learned.unchanged === 1 ? "material" : "materials"} with no change yet.`;
+  }
+
+  async function load() {
+    try {
+      draw(await request("/smell-log/calibration"));
+    } catch (error) {
+      status.textContent = error.message || "Couldn't load what the model has learned.";
+    }
+  }
+
+  // Called when the Your nose page is opened, so it shows the latest logs and saves.
+  return { show: load };
 }
 
 function smellLogNode(doc, tag, attributes = {}, text = "") {
@@ -179,6 +357,11 @@ function attachSmellLog({ doc, request, root }) {
     if (compare.hidden) { compareBody.replaceChildren(); return; }
     const blocks = [];
     if (!data.available) blocks.push(node("p", { class: "smell-log-compare-note" }, data.reason || "No comparison for this bottle."));
+    const chart = smellChartModel(data);
+    if (chart) {
+      blocks.push(smellChartTable(doc, chart));
+      blocks.push(node("p", { class: "field-help smell-chart-key" }, "1st is what the model can most easily detect at that time, not what smells strongest. Green: you and the model agree on a lead. Amber: you smelled it leading, the model didn't have it in its top 3. Red: you marked it weak, the model had it in its top 3. Correction: what your smell log has taught the model, and from how many bottles."));
+    }
     for (const block of data.windows || []) {
       const lines = smellCompareLines(block);
       const item = node("div", { class: "smell-log-compare-block", "data-compare-window": block.window });
@@ -307,5 +490,5 @@ function attachSmellLog({ doc, request, root }) {
 }
 
 if (typeof module === "object" && module.exports) {
-  module.exports = { nextSmellChipState, splitSmellNames, smellLogBody, smellLogLine, smellCompareLines, smellCalibrationLine, attachSmellLog };
+  module.exports = { nextSmellChipState, splitSmellNames, smellLogBody, smellLogLine, smellCompareLines, smellCalibrationLine, smellOrdinal, smellChartCell, smellCorrectionText, smellChartModel, noseStatusLine, noseHeldOutRows, noseFactorRows, attachSmellLog, attachNoseLearning };
 }

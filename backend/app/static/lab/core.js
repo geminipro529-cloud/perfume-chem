@@ -264,6 +264,7 @@ function navigate(view) {
     loadScienceAuthority().catch((error) => notify(error.message, true));
   }
   if (view === "editor" && typeof editorSideShown === "function") editorSideShown();
+  if (view === "nose" && typeof noseShown === "function") noseShown();
 }
 
 function formData(form) { return Object.fromEntries(new FormData(form).entries()); }
