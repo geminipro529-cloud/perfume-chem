@@ -7,13 +7,15 @@ from pathlib import Path
 
 import pytest
 
+from tests.lab_page_scripts import get_lab_script
+
 BATCH_JS = Path(__file__).resolve().parents[2] / "app" / "static" / "batch.js"
 
 
 @pytest.mark.asyncio
-async def test_batch_view_has_nav_section_scripts_styles_and_a_lab_js_hook(client):
+async def test_batch_view_has_nav_section_scripts_styles_and_a_bottles_page_hook(client):
     page = await client.get("/app")
-    javascript = await client.get("/static/lab.js")
+    javascript = await get_lab_script(client)
     batch = await client.get("/static/batch.js")
     for asset in ("/static/batch.css", "/static/batch-label.css", "/static/batch-label.js"):
         assert (await client.get(asset)).status_code == 200
@@ -24,7 +26,7 @@ async def test_batch_view_has_nav_section_scripts_styles_and_a_lab_js_hook(clien
     assert panel.index('id="batch-root"') < panel.index('id="batch-label-area"') < panel.index("</section>")
     assert 'id="batch-sheet"' in page.text
     for script in ("batch-label.js", "batch.js"):
-        assert page.text.index(f'src="/static/{script}"') < page.text.index('src="/static/lab.js"')
+        assert page.text.index(f'src="/static/{script}"') < page.text.index('src="/static/lab/core.js"')
     for sheet in ("batch-label.css", "batch.css"):
         assert page.text.index(f'href="/static/{sheet}"') < page.text.index("</head>")
     assert 'attachBatch({ doc: document, request, root: $("#batch-root") })' in javascript.text
@@ -35,7 +37,7 @@ async def test_batch_view_has_nav_section_scripts_styles_and_a_lab_js_hook(clien
 
 @pytest.mark.asyncio
 async def test_commercial_pack_routes_answer_where_batch_label_js_calls_them(client):
-    """batch-label.js posts /commercial-pack/... under lab.js's base /api/v1/lab."""
+    """batch-label.js posts /commercial-pack/... under lab/core.js's base /api/v1/lab."""
     label = await client.post(
         "/api/v1/lab/commercial-pack/label",
         json={"fields": {"name": "Demo Cedar", "net_ml": 30}, "rows": [{"material": "Cedar", "volume_ul": 100}]},

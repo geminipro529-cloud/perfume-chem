@@ -1,6 +1,6 @@
 // Pure wording for the composer's advisory gate checks. It touches no DOM, so
-// the page loads it before lab.js (its functions become page globals) and node
-// runs it in the tests. lab.js writes the returned text with textContent.
+// the page loads it before the Lab page files in lab/ (its functions become page globals) and node
+// runs it in the tests. lab/create.js writes the returned text with textContent.
 
 const COMPOSITION_CHECK_LABELS = {
   hedione_share: "Hedione share",

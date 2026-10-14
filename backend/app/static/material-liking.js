@@ -1,7 +1,7 @@
 // "Rate" on the Stock page: Kenny smells one material on a blotter and rates it
 // 1 to 10. Each rating is a direct observation in his personal liking fit.
 //
-// lab.js calls attachMaterialLiking once. Material names and anything typed go
+// lab/stock.js calls attachMaterialLiking once. Material names and anything typed go
 // in through textContent / .value only, never HTML strings. Node loads the same
 // file in the tests through module.exports.
 

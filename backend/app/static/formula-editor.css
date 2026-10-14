@@ -1,0 +1,124 @@
+/* Edit a formula page (lab/editor.js). */
+.editor-panel { display: grid; gap: 12px; }
+.editor-head { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 12px; }
+.editor-tools { display: flex; flex-wrap: wrap; gap: 8px; }
+.editor-table-wrap { overflow-x: auto; }
+.editor-table { width: 100%; border-collapse: collapse; }
+.editor-table th { padding: 6px; border-bottom: 2px solid var(--blue); color: var(--muted); font-size: 12px; text-align: left; }
+.editor-table td { padding: 4px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.editor-table input, .editor-table select { padding: 7px 8px; }
+.editor-table [data-field="note"] { min-width: 5.5em; }
+.editor-number { width: 2.5em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.editor-table [data-field="material"] { min-width: 16em; }
+.editor-amount { display: flex; align-items: center; gap: 6px; }
+.editor-amount input { width: 7.5em; text-align: right; font-variant-numeric: tabular-nums; }
+.editor-unit { min-width: 1.6em; color: var(--muted); }
+.editor-stock { min-width: 10em; color: var(--muted); font-size: 13px; }
+.editor-stock.is-problem { color: var(--red); }
+.editor-remove { padding: 6px 10px; }
+.editor-remove-mark { display: none; }
+.editor-empty { padding: 14px 6px; color: var(--muted); }
+.editor-totals { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+.editor-notes { margin: 0; padding-left: 18px; color: var(--muted); font-size: 13px; }
+.editor-notes:empty { display: none; }
+.editor-scale { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
+.editor-scale label { flex: 0 1 18em; }
+
+/* The side panel: beside the rows on a wide screen, below them otherwise. */
+.editor-layout { display: grid; gap: 16px; align-items: start; }
+@media (min-width: 1500px) {
+  .editor-layout { grid-template-columns: minmax(0, 1fr) minmax(300px, 360px); }
+  .editor-side { position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow-y: auto; }
+}
+.editor-side { display: grid; gap: 10px; min-width: 0; }
+.editor-side h2 { margin: 0; font-size: 18px; }
+.editor-side-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.editor-side-line { margin: 0; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.editor-check { display: grid; gap: 4px; padding-top: 8px; border-top: 1px solid var(--line); min-width: 0; }
+.editor-check h3 { margin: 0; font-size: 14px; }
+.editor-verdict { justify-self: start; margin: 0; padding: 3px 8px; border-radius: 4px; font-weight: 700; font-size: 13px; }
+.editor-verdict:empty { display: none; }
+.editor-verdict.is-pass { color: var(--pass-fg); background: var(--pass-bg); }
+.editor-verdict.is-warn, .editor-verdict.is-hold { color: var(--hold-fg); background: var(--hold-bg); }
+.editor-verdict.is-fail { color: var(--fail-fg); background: var(--fail-bg); }
+.editor-check-list { margin: 0; padding-left: 18px; font-size: 13px; font-variant-numeric: tabular-nums; }
+.editor-check-list:empty { display: none; }
+.editor-check-list .is-problem { color: var(--red); }
+
+/* Versions: save under the rows; the list and the comparison below the editor. */
+.editor-version { display: grid; gap: 6px; padding-top: 10px; border-top: 1px solid var(--line); }
+.editor-version h3 { margin: 0; font-size: 14px; }
+.editor-version-save { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
+.editor-version-save label { flex: 1 1 18em; }
+.editor-versions { display: grid; gap: 10px; margin-top: 16px; }
+.editor-versions h2 { margin: 0; font-size: 18px; }
+.editor-version-list { display: grid; gap: 6px; margin: 0; padding-left: 0; list-style: none; font-size: 14px; font-variant-numeric: tabular-nums; }
+.editor-version-list li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.editor-version-list li.is-current { font-weight: 700; }
+.editor-version-open-now { color: var(--muted); font-size: 13px; font-weight: 400; }
+.editor-version-bottles { display: grid; gap: 6px; padding-top: 8px; border-top: 1px solid var(--line); }
+.editor-version-bottles h3 { margin: 0; font-size: 14px; }
+.editor-version-bottle-list { display: grid; gap: 4px; margin: 0; padding-left: 0; list-style: none; font-size: 14px; }
+.editor-version-bottle-list li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; }
+.editor-version-tie { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
+.editor-version-tie label { flex: 0 1 18em; }
+.editor-compare-form { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
+.editor-compare-form label { flex: 0 1 10em; }
+.editor-compare { display: grid; gap: 8px; min-width: 0; overflow-x: auto; }
+.editor-compare h3, .editor-compare h4 { margin: 0; font-size: 14px; }
+.editor-compare-table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+.editor-compare-table th, .editor-compare-table td { padding: 5px 8px; border-bottom: 1px solid var(--line); text-align: left; }
+.editor-compare-table th { color: var(--muted); font-size: 12px; }
+.editor-compare-table td:nth-child(n+3) { text-align: right; white-space: nowrap; }
+
+@media (max-width: 760px) {
+  .editor-head { grid-template-columns: 1fr; }
+  /* On a phone each row wraps: the material on top, then amount and note, then
+     the stock and Remove, so the amount never scrolls out of sight. The table
+     keeps its roles in the markup, so screen readers still read rows and cells. */
+  .editor-table, .editor-table tbody { display: block; }
+  .editor-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .editor-table tr {
+    display: grid;
+    grid-template-columns: 2em minmax(0, 1fr) auto;
+    grid-template-areas: "number material remove" "number amount note" "number stock stock";
+    gap: 6px 8px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .editor-amount input { flex: 1 1 auto; width: 100%; min-width: 0; }
+  /* The stock line stays: a narrow screen cuts the strength off the material's label. */
+  .editor-table td { padding: 0; border: 0; }
+  .editor-table td:nth-child(1) { grid-area: number; padding-top: 8px; }
+  .editor-table td:nth-child(2) { grid-area: material; }
+  .editor-table td:nth-child(3) { grid-area: amount; }
+  .editor-table td:nth-child(4) { grid-area: note; }
+  .editor-table td:nth-child(5) { grid-area: stock; min-width: 0; }
+  .editor-table td:nth-child(6) { grid-area: remove; }
+  .editor-remove { min-width: 44px; min-height: 44px; padding: 4px; font-size: 20px; line-height: 1; }
+  .editor-remove-word { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .editor-remove-mark { display: inline; }
+  .editor-table [data-field="material"] { width: 100%; min-width: 0; }
+  .editor-table td.editor-empty { grid-column: 1 / -1; }
+  /* A compared row: the material and strength, the two amounts and the change, then the share. */
+  .editor-compare-table, .editor-compare-table tbody { display: block; }
+  .editor-compare-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .editor-compare-table tr {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-areas: "material material strength" "a b change" "share share share";
+    gap: 4px 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .editor-compare-table td { padding: 0; border: 0; text-align: left; white-space: normal; }
+  .editor-compare-table td:nth-child(n+3) { text-align: left; white-space: normal; }
+  .editor-compare-table td:nth-child(1) { grid-area: material; font-weight: 700; }
+  .editor-compare-table td:nth-child(2) { grid-area: strength; color: var(--muted); text-align: right; }
+  .editor-compare-table td:nth-child(3) { grid-area: a; }
+  .editor-compare-table td:nth-child(4) { grid-area: b; }
+  .editor-compare-table td:nth-child(5) { grid-area: change; }
+  .editor-compare-table td:nth-child(6) { grid-area: share; }
+  .editor-compare-table td:nth-child(n+3)::before { content: attr(data-label); display: block; color: var(--muted); font-size: 12px; }
+  .editor-compare-table td:nth-child(6):empty { display: none; }
+}

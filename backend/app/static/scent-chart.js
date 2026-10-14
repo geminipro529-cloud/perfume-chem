@@ -1,7 +1,7 @@
 // Smell-over-time chart for the Create result. Draws the endpoint's modelled
 // share of what the model can detect at five stages as an inline SVG stacked-band
 // chart. A screening model, not a measurement. Text reaches the page only
-// through textContent / setAttribute. The page loads this before lab.js; node
+// through textContent / setAttribute. The page loads this before the Lab page files in lab/; node
 // loads the pure model for tests.
 
 const SCENT_CHART_ENDPOINT = "/api/v1/lab/v2/workbench/scent-curve";
