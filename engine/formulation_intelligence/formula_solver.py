@@ -701,6 +701,7 @@ def _allowed(
     avoid: Sequence[str],
     allow_multiple_musks: bool,
     enforce_own_odor_avoid: bool = False,
+    named_identity: tuple[str, ...] = (),
 ) -> bool:
     identity = _chemical_identity(capability)
     if identity in state.used_identities:
@@ -758,6 +759,11 @@ def _allowed(
             or (role.provenance == "PROMPT_DERIVED_FACET" and not role.knowledge_role_slot)
         )
         and _ifra_binds_layer(capability, role)
+        # A stock named for the identity the brief asks for (opoponax, oud) is
+        # the brief's call, like a stock the user names: the planner's IFRA cap
+        # (composition_planner._ifra_cap_ul) holds its dose inside the limit.
+        and not (named_identity and capability.design_ready
+                 and capability.identity_vocabulary & set(named_identity))
     ):
         return False
     if role.provenance == ACCORD_SUPPORT_PROVENANCE and not backing:
@@ -1026,6 +1032,7 @@ def _rank_for_state(
     enforce_own_odor_avoid: bool = False,
     variant_index: int = 0,
     liking: _LikingFn | None = None,
+    named_identity: tuple[str, ...] = (),
 ) -> list[tuple[float, MaterialCapability]]:
     selected = tuple(item[1] for item in state.assignments)
     ranked = [
@@ -1044,6 +1051,7 @@ def _rank_for_state(
             avoid=avoid,
             allow_multiple_musks=allow_multiple_musks,
             enforce_own_odor_avoid=enforce_own_odor_avoid,
+            named_identity=named_identity,
         )
     ]
     lead = _accord_lead(role, state)
@@ -1139,6 +1147,15 @@ def _solve_assignments(
         return ranked
 
     unary_rankings = {role.role_id: unary(role) for role in brief.roles}
+    # The identity words each role's stock should carry, as the unary ranking
+    # reads them: the self-check's repair words, else the brief's own rule.
+    named_identities = {
+        role.role_id: (
+            identity_words[role.role_id] if role.role_id in identity_words
+            else role_identity_requirement(role.role_id, brief.normalized_request)
+        )
+        for role in brief.roles
+    }
     for position, role in enumerate(brief.roles):
         expanded: list[_BeamState] = []
         role_has_candidate = False
@@ -1152,6 +1169,7 @@ def _solve_assignments(
                 enforce_own_odor_avoid=enforce_own_odor_avoid,
                 variant_index=variant_index,
                 liking=liking,
+                named_identity=named_identities[role.role_id],
             )
             role_has_candidate = role_has_candidate or bool(ranked)
             for score, capability in ranked:
@@ -1198,6 +1216,7 @@ def _solve_assignments(
                 not any(_allowed(
                     cap, future, state, avoid=avoid, allow_multiple_musks=allow_multiple_musks,
                     enforce_own_odor_avoid=enforce_own_odor_avoid,
+                    named_identity=named_identities[future.role_id],
                 ) for _, cap in unary_rankings[future.role_id])
                 for future in future_constrained
             )
