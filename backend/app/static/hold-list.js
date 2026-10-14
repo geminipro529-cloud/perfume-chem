@@ -8,6 +8,9 @@
 // Node loads the same file in the tests through module.exports.
 
 const HOLD_CHECK_WORDS = { stock: "Stock", ifra: "IFRA" };
+// Whose move each item is: only Kenny can answer "you" items; "claude" items are data or
+// code work with nothing needed from him to mix at the bench.
+const HOLD_OWNER_WORDS = { you: "For you", claude: "Claude's part" };
 const HOLD_OPEN_STOCK_TEXT = "Open on the Stock page";
 
 function holdAmountText(value) {
@@ -57,6 +60,8 @@ function holdListView(answer) {
     basis: String(answer?.basis || ""),
     items: items.map((item) => ({
       id: String(item.id || ""),
+      owner: item.owner === "claude" ? "claude" : "you",
+      ownerText: HOLD_OWNER_WORDS[item.owner === "claude" ? "claude" : "you"],
       check: HOLD_CHECK_WORDS[item.check] || "Check",
       material: String(item.material || "The formula"),
       reason: String(item.reason || ""),
@@ -81,8 +86,13 @@ function renderHoldList(panel, answer, openStock) {
   for (const item of view.items) {
     const entry = holdEl(doc, "li", "hold-item");
     entry.dataset.check = item.check.toLowerCase();
+    entry.dataset.owner = item.owner;
     const head = holdEl(doc, "p", "hold-item-head");
-    head.append(holdEl(doc, "strong", "", item.material), holdEl(doc, "span", "hold-item-check", item.check));
+    head.append(
+      holdEl(doc, "strong", "", item.material),
+      holdEl(doc, "span", "hold-item-check", item.check),
+      holdEl(doc, "span", "hold-item-owner", item.ownerText),
+    );
     entry.append(head, holdEl(doc, "p", "hold-item-reason", item.reason), holdEl(doc, "p", "hold-item-action", item.action));
     if (item.stockId && typeof openStock === "function") {
       const button = holdEl(doc, "button", "quiet-button hold-item-open", HOLD_OPEN_STOCK_TEXT);

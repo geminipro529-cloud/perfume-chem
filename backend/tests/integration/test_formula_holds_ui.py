@@ -36,14 +36,20 @@ def test_each_item_keeps_its_words_and_only_a_stock_page_item_gets_the_button():
         items: [
             { id: "hold-1", check: "stock", material: "Hedione HC", reason: "Its details are not complete: confirm you own it.",
               action: "Open it on the Stock page and fill those in.", open: { kind: "stock_page", stock_id: "s-9" } },
-            { id: "hold-2", check: "ifra", material: "Clearwood", reason: "Not counted.", action: "Ask the supplier.", open: null },
-            { id: "hold-3", check: "ifra", material: "", reason: "The IFRA check could not run.", action: "Send it.", open: { kind: "elsewhere" } },
+            { id: "hold-2", check: "ifra", material: "Clearwood", reason: "Not counted.", action: "Ask the supplier.", open: null,
+              owner: "claude" },
+            { id: "hold-3", check: "ifra", material: "", reason: "The IFRA check could not run.", action: "Send it.", open: { kind: "elsewhere" },
+              owner: "someone else" },
         ],
     })""")
 
     assert result["summary"] == "1 stock to sort out."
     assert [(i["check"], i["material"], i["stockId"]) for i in result["items"]] == [
         ("Stock", "Hedione HC", "s-9"), ("IFRA", "Clearwood", ""), ("IFRA", "The formula", ""),
+    ]
+    # Whose move it is: only "claude" marks Claude's part; anything else, or nothing, is Kenny's.
+    assert [(i["owner"], i["ownerText"]) for i in result["items"]] == [
+        ("you", "For you"), ("claude", "Claude's part"), ("you", "For you"),
     ]
 
 
