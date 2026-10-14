@@ -64,7 +64,7 @@ SCENT = {"schema_version": "scent-curve-v1", "windows": [
 ]}
 
 
-def _open(lab, checks=None, charts=None):
+def _open(lab, checks=None, charts=None, *, inventory=INVENTORY, library=LIBRARY):
     def formula_checks(route, request):
         # The real check, so the page's request must pass the server's validation.
         body = json.loads(request.post_data)
@@ -80,8 +80,8 @@ def _open(lab, checks=None, charts=None):
 
     lab.on("POST", "/v2/workbench/formula-checks", formula_checks)
     lab.on("POST", "/v2/workbench/scent-curve", scent_curve)
-    lab.respond("GET", "/v2/workbench/formula-library", json=LIBRARY)
-    lab.respond("GET", "/v2/workbench/current-inventory", json=INVENTORY)
+    lab.respond("GET", "/v2/workbench/formula-library", json=library)
+    lab.respond("GET", "/v2/workbench/current-inventory", json=inventory)
     lab.respond("GET", SOURCE_PATH, json=SOURCE)
 
     def densities(route, request):
@@ -558,3 +558,58 @@ def test_bottles_are_tied_to_a_version_their_smell_logs_compare_and_a_batch_star
     page.wait_for_function("!document.querySelector('.batch-plan').hidden")
     sent = hashlib.sha256(plans[0]["text"].encode("utf-8")).hexdigest()
     assert sent == hashlib.sha256(saves[0]["card_text"].encode("utf-8")).hexdigest()
+
+
+# Milliseconds: redrawing 40 rows with their cost and stock left, and an edit
+# until the IFRA, allergen, cost and stock lines show the new amount.
+RENDER_BUDGET_MS = 50
+EDIT_BUDGET_MS = 1000
+
+
+def test_a_40_material_card_redraws_and_rechecks_inside_the_speed_budget(lab):
+    from tests.integration.test_formula_editor_speed import FORTY, forty_rows
+
+    stocks = [_stock(f"s-{index}", name, "1", "neat") for index, name in enumerate(FORTY)]
+    prices = {"schema_version": "workbench-stock-prices-v1",
+              "prices": {f"s-{index}": {"stock_id": f"s-{index}", "per_unit": "mL", "price_decimal": "3", "currency": "THB"}
+                         for index in range(len(FORTY))}}
+    lab.respond("GET", "/v2/workbench/stock-prices", json=prices)
+    lab.respond("GET", "/materials", json=[{"id": f"m-{index}", "canonical_name": name} for index, name in enumerate(FORTY)])
+    lab.respond("GET", "/stocks", json=[{"id": f"lab-{index}", "material_id": f"m-{index}", "active_fraction": 1, "fraction_basis": "neat",
+                                         "initial_mass_g": 50, "density_g_ml": 1.0} for index in range(len(FORTY))])
+    for index in range(len(FORTY)):
+        lab.respond("GET", f"/stocks/lab-{index}", json={"id": f"lab-{index}", "remaining_mass_g": 20})
+    # The app reads the material list at start; so does this test, before timing.
+    compute_formula_checks(FormulaChecksRequest.model_validate({"rows": forty_rows(), "bottle_ml": "30"}))
+    checks = []
+    _open(lab, checks, inventory={"counts": {}, "stocks": stocks})
+    page = lab.page
+    page.select_option('#editor-source-form [name="source_kind"]', "PASTED")
+    page.fill('#editor-source-form [name="pasted_text"]', "\n".join(f"{row['material']}\t{row['amount_ul']} µL" for row in forty_rows()))
+    page.click("#editor-source-form button[type=submit]")
+    page.wait_for_function("document.querySelectorAll('#editor-rows tr[data-key]').length === 40")
+    _wait_text(lab, "#editor-stock-list", "20.00 g now")
+    _wait_text(lab, "#editor-ifra-verdict", "IFRA 51")
+    assert len(_stock_cells(lab)) == 40 and not [cell for cell in _stock_cells(lab) if "Not in your stock" in cell]
+
+    render_ms = page.evaluate("""() => {
+        const start = performance.now();
+        for (let round = 0; round < 20; round += 1) renderEditor();
+        return (performance.now() - start) / 20;
+    }""")
+    assert render_ms < RENDER_BUDGET_MS, render_ms
+
+    before = {selector: _text(lab, selector) for selector in ("#editor-side-oil", "#editor-cost-summary")}
+    asked = len(checks)
+    cell = '#editor-rows tr:nth-child(1) [data-field="amount"]'
+    page.fill(cell, "900")
+    page.evaluate("() => { window.__editStart = performance.now(); }")
+    page.press(cell, "Enter")
+    page.wait_for_function(
+        "(old) => document.querySelector('#editor-side-oil').textContent !== old",
+        arg=before["#editor-side-oil"],
+    )
+    edit_ms = page.evaluate("() => performance.now() - window.__editStart")
+    assert len(checks) == asked + 1
+    assert _text(lab, "#editor-cost-summary") != before["#editor-cost-summary"]
+    assert edit_ms < EDIT_BUDGET_MS, edit_ms
