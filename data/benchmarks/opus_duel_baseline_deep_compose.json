@@ -9,7 +9,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 4.81,
+   "engine_name_score": 96.79,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
@@ -19,18 +19,17 @@
    "engine_disqualified": false,
    "engine_failing_floors": [],
    "engine_floor_holds": [
-    "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 21.43,
+   "engine_name_score": null,
    "reference_craft_score": 86.67,
    "reference_floor_holds": [
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "reference_name_score": 72.38,
+   "reference_name_score": 95.71,
    "reference_scored": true,
-   "verdict": "REFERENCE_AHEAD_HELD"
+   "verdict": "NAME_HELD"
   },
   "baie-rose-homme-r2": {
    "deciding_step": "3_name",
@@ -38,18 +37,17 @@
    "engine_disqualified": false,
    "engine_failing_floors": [],
    "engine_floor_holds": [
-    "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 21.43,
+   "engine_name_score": null,
    "reference_craft_score": 86.67,
    "reference_floor_holds": [
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "reference_name_score": 74.52,
+   "reference_name_score": 97.86,
    "reference_scored": true,
-   "verdict": "REFERENCE_AHEAD_HELD"
+   "verdict": "NAME_HELD"
   },
   "baie-rose-homme-r3": {
    "deciding_step": "3_name",
@@ -60,32 +58,32 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 21.43,
+   "engine_name_score": null,
    "reference_craft_score": 80.0,
    "reference_floor_holds": [
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "reference_name_score": 62.86,
+   "reference_name_score": 97.86,
    "reference_scored": true,
-   "verdict": "REFERENCE_AHEAD_HELD"
+   "verdict": "NAME_HELD"
   },
   "baie-rose-homme-r4": {
    "deciding_step": "3_name",
-   "engine_craft_score": 70.0,
+   "engine_craft_score": 60.0,
    "engine_disqualified": false,
    "engine_failing_floors": [],
    "engine_floor_holds": [
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 36.79,
+   "engine_name_score": 46.9,
    "reference_craft_score": 75.0,
    "reference_floor_holds": [
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "reference_name_score": 62.86,
+   "reference_name_score": 97.86,
    "reference_scored": true,
    "verdict": "REFERENCE_AHEAD_HELD"
   },
@@ -98,7 +96,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 5.04,
+   "engine_name_score": 94.96,
    "reference_craft_score": 76.67,
    "reference_floor_holds": [
     "F2_ifra"
@@ -116,7 +114,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 5.88,
+   "engine_name_score": 90.2,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
@@ -129,7 +127,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 20.0,
+   "engine_name_score": 91.67,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
@@ -155,20 +153,20 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 90.62,
+   "engine_name_score": 92.5,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
   "dhi-2011-r2": {
-   "deciding_step": "3_name",
-   "engine_craft_score": 80.0,
+   "deciding_step": "4_craft",
+   "engine_craft_score": 90.0,
    "engine_disqualified": false,
    "engine_failing_floors": [],
    "engine_floor_holds": [
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 50.0,
+   "engine_name_score": 91.18,
    "reference_craft_score": 80.0,
    "reference_floor_holds": [
     "F1_owned_stock",
@@ -176,18 +174,18 @@
    ],
    "reference_name_score": 91.18,
    "reference_scored": true,
-   "verdict": "REFERENCE_AHEAD_HELD"
+   "verdict": "ENGINE_AHEAD_HELD"
   },
   "dhp-2014-r3": {
-   "deciding_step": "3_name",
-   "engine_craft_score": 60.0,
+   "deciding_step": "4_craft",
+   "engine_craft_score": 70.0,
    "engine_disqualified": false,
    "engine_failing_floors": [],
    "engine_floor_holds": [
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 50.0,
+   "engine_name_score": 91.18,
    "reference_craft_score": 75.0,
    "reference_floor_holds": [
     "F1_owned_stock",
@@ -199,19 +197,19 @@
   },
   "dhp-2025-r5": {
    "deciding_step": "2_floors",
-   "engine_craft_score": 60.0,
+   "engine_craft_score": 70.0,
    "engine_disqualified": false,
    "engine_failing_floors": [],
    "engine_floor_holds": [
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 29.41,
+   "engine_name_score": 94.12,
    "reference_craft_score": 75.0,
    "reference_floor_holds": [
     "F2_ifra"
    ],
-   "reference_name_score": 70.59,
+   "reference_name_score": 91.18,
    "reference_scored": true,
    "verdict": "ENGINE_AHEAD_HELD"
   },
@@ -224,7 +222,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 38.48,
+   "engine_name_score": 63.73,
    "reference_craft_score": 100.0,
    "reference_floor_holds": [
     "F2_ifra"
@@ -235,19 +233,19 @@
   },
   "frangipani-soliflore-r1": {
    "deciding_step": "2_floors",
-   "engine_craft_score": 60.0,
+   "engine_craft_score": 70.0,
    "engine_disqualified": false,
    "engine_failing_floors": [],
    "engine_floor_holds": [
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 25.0,
+   "engine_name_score": 50.0,
    "reference_craft_score": 90.0,
    "reference_floor_holds": [
     "F2_ifra"
    ],
-   "reference_name_score": 25.0,
+   "reference_name_score": 50.0,
    "reference_scored": true,
    "verdict": "ENGINE_AHEAD_HELD"
   },
@@ -260,20 +258,20 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 89.41,
+   "engine_name_score": 94.71,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
   "green-fig-milky-sandalwood": {
    "deciding_step": "1_reference",
-   "engine_craft_score": 80.0,
+   "engine_craft_score": 100.0,
    "engine_disqualified": false,
    "engine_failing_floors": [],
    "engine_floor_holds": [
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 47.79,
+   "engine_name_score": 95.59,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
@@ -286,7 +284,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 47.79,
+   "engine_name_score": 52.21,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
@@ -299,13 +297,13 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 7.84,
+   "engine_name_score": null,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
   "iris-powder": {
    "deciding_step": "1_reference",
-   "engine_craft_score": 60.0,
+   "engine_craft_score": 100.0,
    "engine_disqualified": false,
    "engine_failing_floors": [],
    "engine_floor_holds": [
@@ -318,14 +316,14 @@
   },
   "lavande-r7": {
    "deciding_step": "3_name",
-   "engine_craft_score": 80.0,
+   "engine_craft_score": 100.0,
    "engine_disqualified": false,
    "engine_failing_floors": [],
    "engine_floor_holds": [
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 47.59,
+   "engine_name_score": 88.77,
    "reference_craft_score": 75.0,
    "reference_floor_holds": [
     "F1_owned_stock",
@@ -337,14 +335,14 @@
   },
   "lavender-cologne": {
    "deciding_step": "1_reference",
-   "engine_craft_score": 35.0,
+   "engine_craft_score": 80.0,
    "engine_disqualified": false,
    "engine_failing_floors": [],
    "engine_floor_holds": [
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 3.92,
+   "engine_name_score": null,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
@@ -357,7 +355,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 84.31,
+   "engine_name_score": 92.16,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
@@ -370,7 +368,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 89.41,
+   "engine_name_score": 92.94,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
@@ -383,7 +381,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 65.29,
+   "engine_name_score": 91.18,
    "reference_craft_score": 90.0,
    "reference_floor_holds": [
     "F1_owned_stock",
@@ -402,7 +400,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 5.88,
+   "engine_name_score": null,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
@@ -415,7 +413,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 84.56,
+   "engine_name_score": 86.76,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
@@ -428,7 +426,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 61.96,
+   "engine_name_score": 94.71,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
@@ -441,7 +439,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 88.97,
+   "engine_name_score": 93.38,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
@@ -454,12 +452,12 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 2.94,
+   "engine_name_score": null,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
   "violette-imperiale-r1": {
-   "deciding_step": "3_name",
+   "deciding_step": "4_craft",
    "engine_craft_score": 60.0,
    "engine_disqualified": false,
    "engine_failing_floors": [],
@@ -467,7 +465,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 60.78,
+   "engine_name_score": 91.18,
    "reference_craft_score": 100.0,
    "reference_floor_holds": [
     "F1_owned_stock",
@@ -478,7 +476,7 @@
    "verdict": "REFERENCE_AHEAD_HELD"
   },
   "violette-imperiale-r2": {
-   "deciding_step": "3_name",
+   "deciding_step": "4_craft",
    "engine_craft_score": 73.33,
    "engine_disqualified": false,
    "engine_failing_floors": [],
@@ -486,7 +484,7 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 60.78,
+   "engine_name_score": 91.18,
    "reference_craft_score": 100.0,
    "reference_floor_holds": [
     "F1_owned_stock",
@@ -498,14 +496,14 @@
   },
   "white-musk-laundry": {
    "deciding_step": "1_reference",
-   "engine_craft_score": 35.0,
+   "engine_craft_score": 60.0,
    "engine_disqualified": false,
    "engine_failing_floors": [],
    "engine_floor_holds": [
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 51.76,
+   "engine_name_score": 96.47,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   },
@@ -518,11 +516,11 @@
     "F1_owned_stock",
     "F2_ifra"
    ],
-   "engine_name_score": 90.0,
+   "engine_name_score": 95.0,
    "reference_scored": false,
    "verdict": "NO_REFERENCE"
   }
  },
- "commit": "5fd21a284bebc975957233ba325728616d087c0a",
+ "commit": "de1222961c8b84ea9dc1b819249d4a06b7b092ca",
  "mode": "DEEP_COMPOSE"
 }

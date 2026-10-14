@@ -1470,11 +1470,11 @@
   inchikey: null
   mw_g_mol: 158.2
   density_25c_g_ml: 0.966
-  logp: null
+  logp: 2.6
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 24.9
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1503,7 +1503,7 @@
       flash_point_c_supplier_value: 76.67
   families: [green, fruity, violet, muguet]
   character: Intense transparent green leafy-fruity material with iris, violet, pear, and muguet facets.
-  notes: 'PerfumersWorld SKU 4GI24147 identifies the active material. The user''s separate current stock is 10% w/w in DEP; exact active mass from a volume dose requires the stock-solution density. logP and VP left null (2026-10-08), conflict with no measured value: logP 2.5 (IFF, https://www.iff.com/scent/ingredients-compendium/liffarome/) vs 2.263 (TGSC, not marked est, https://thegoodscentscompany.com/data/rw1028731.html); VP "0.253168 mm Hg @ 23 C" = 33.75 Pa (IFF, 23 C) vs "0.721000 mmHg @ 25.00 C. (est)" = 96.1 Pa (TGSC). Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md.'
+  notes: 'PerfumersWorld SKU 4GI24147 identifies the active material. The user''s separate current stock is 10% w/w in DEP; exact active mass from a volume dose requires the stock-solution density. logP and VP left null (2026-10-08), conflict with no measured value: logP 2.5 (IFF, https://www.iff.com/scent/ingredients-compendium/liffarome/) vs 2.263 (TGSC, not marked est, https://thegoodscentscompany.com/data/rw1028731.html); VP "0.253168 mm Hg @ 23 C" = 33.75 Pa (IFF, 23 C) vs "0.721000 mmHg @ 25.00 C. (est)" = 96.1 Pa (TGSC). Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): vp_25c_pa 96.1 -> 24.9; logp 2.5 -> 2.6.'
   provenance:
     cas: https://www.perfumersworld.com/view.php?pro_id=4GI24147
     character: https://www.perfumersworld.com/view.php?pro_id=4GI24147
@@ -1511,6 +1511,8 @@
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
     mw_g_mol: 'https://www.iff.com/scent/ingredients-compendium/liffarome/ (IFF, producer); "158.2" (C8H14O3); TGSC 158.19718 (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     density_25c_g_ml: 'https://thegoodscentscompany.com/data/rw1028731.html; supplier range "Specific Gravity: 0.96600 to 0.97100 @ 25.00 C."; midpoint 0.9685 x 0.99705 (water at 25 C) = 0.9656 g/mL (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
+    logp: 'MEASURED: RIFM 2022 quotes "Log Pow = 2.6 (RIFM, 2013), 2.47 (EPI Suite)" (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/67633-96-9.pdf); IFF 2.5 agrees (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
+    vp_25c_pa: 'ESTIMATE, literature common ground: RIFM 2022 (Food Chem Toxicol 159:112648, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/67633-96-9.pdf) quotes EPI Suite 0.187 mm Hg @ 25 C = 24.9 Pa and FMA 0.3 mm Hg @ 20 C = 40 Pa; IFF 33.75 Pa @ 23 C agrees; TGSC 0.721 mmHg (est) = 96.1 Pa is the outlier (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
 - canonical_name: LIGHT AND AIRY F-TEC
   aliases: []
   cas: null

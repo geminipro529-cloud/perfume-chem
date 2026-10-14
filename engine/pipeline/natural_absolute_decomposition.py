@@ -217,6 +217,26 @@ _GRAPEFRUIT_ISO_3053_MIDPOINT_CONSTITUENTS = [
     ("neral", 0.0003, 152.23, 3.0, 0.5, 1.5),
 ]
 
+# Pomelo (Citrus maxima = C. grandis) peel oil, limonene-dominant literature
+# profile. Fractions are the midpoints of the min-max values across the three
+# published GC profiles that agree on a limonene-dominant oil (Mondello et al.
+# 1996; AJC 2020 doi:10.14233/AJCHEM.2020.22234; Dhaka Univ. J. Sci.), as
+# compiled in the 2026-10-13 new-stock research note. It is a literature proxy,
+# not an analysis of the owned bottle: species, extraction method and lot are
+# unrecorded. Two of the three sources are distilled oils. Inputs reuse this
+# module's existing runtime tuples (alpha-phellandrene reuses the Schinus class
+# row; ocimene reuses the generic ocimene row). Linalool, citral and nootkatone
+# are reported only for an oxygenated hydrodistilled pomelo oil and are not
+# added. Nothing is renormalized: about 1.5% stays unidentified.
+_POMELO_PEEL_OIL_LITERATURE_MIDPOINT_CONSTITUENTS = [
+    ("limonene", 0.946, 136.24, 200.0, 20.0, 3.0),
+    ("myrcene", 0.0203, 136.24, 400.0, 10.0, 3.0),
+    ("alpha phellandrene", 0.00793, 136.24, 330.0, 20.0, 3.0),
+    ("alpha pinene", 0.0063, 136.24, 400.0, 20.0, 3.0),
+    ("beta pinene", 0.00248, 136.24, 250.0, 30.0, 3.0),
+    ("ocimene", 0.0021, 136.24, 250.0, 20.0, 3.0),
+]
+
 _CEDRAT_FCF_CONSTITUENTS = [
     ("limonene", 0.50, 136.24, 200.0, 20.0, 3.0),
     ("gamma terpinene", 0.15, 136.24, 90.0, 50.0, 3.0),
@@ -1189,6 +1209,9 @@ _ABSOLUTE_CONSTITUENTS = {
     "citrus paradisi expressed oil iso 3053 midpoint profile": (
         _GRAPEFRUIT_ISO_3053_MIDPOINT_CONSTITUENTS
     ),
+    "citrus maxima peel oil limonene-dominant literature midpoint profile": (
+        _POMELO_PEEL_OIL_LITERATURE_MIDPOINT_CONSTITUENTS
+    ),
     "cedrat fcf sicilian": _CEDRAT_FCF_CONSTITUENTS,
     "cedrat fcf oil sicilian": _CEDRAT_FCF_CONSTITUENTS,
     "petitgrain eo paraguay": _PETITGRAIN_EO_CONSTITUENTS,
@@ -1331,6 +1354,11 @@ _PROFILE_ALIASES = {
     # Expressed-oil ISO profile used as a labelled proxy for FCF grapefruit oil.
     "grapefruit fcf": "citrus paradisi expressed oil iso 3053 midpoint profile",
     "grapefruit fcf oil sicilian": "citrus paradisi expressed oil iso 3053 midpoint profile",
+    # Limonene-dominant literature pomelo peel-oil profile used as a labelled
+    # proxy for the owned Pomelo EO (species and extraction unrecorded).
+    "pomelo eo": "citrus maxima peel oil limonene-dominant literature midpoint profile",
+    "pomelo essential oil": "citrus maxima peel oil limonene-dominant literature midpoint profile",
+    "pomelo oil": "citrus maxima peel oil limonene-dominant literature midpoint profile",
     # The canonical registry identity still uses a non-lot literature profile.
     # Preserve that authority label after name normalization resolves seed EO.
     "coriander essential oil": "coriander essential oil",
@@ -1476,6 +1504,17 @@ _LAVENDER_40_42_PROXY_LIMITATIONS = (
     "no supplier GC, certificate of analysis, or density was located.",
 )
 
+_POMELO_EO_PROXY_LIMITATIONS = (
+    "The owned Pomelo EO (neat; PerfumersWorld lists SKU 7CN23708) has no recorded species "
+    "(Citrus maxima / C. grandis), expression-or-distillation method, origin or furocoumarin content; "
+    "the reused composition is a limonene-dominant literature midpoint profile, not an analysis of "
+    "the owned product or lot.",
+    "CAS trap: INCI 'Citrus Grandis (Grapefruit) Peel Oil', CAS 8016-20-4, is grapefruit, not pomelo; "
+    "O&3 lists CAS 90045-43-5 for its pomelo oil, unmatched to a registry entry. Neither is used as "
+    "identity evidence.",
+    "This headspace proxy supplies no furocoumarin assay or skin-safety clearance.",
+)
+
 _BERGAMOT_FCF_PROXY_LIMITATIONS = (
     "The owned oil is Sicilian furocoumarin-free bergamot; ISO 3520:2022 describes Calabrian whole "
     "expressed oil, which must contain bergaptene 0.18-0.38%. FCF processing removes bergaptene "
@@ -1498,6 +1537,9 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
         "8016-20-4); it is not used as identity evidence.",
         "This headspace proxy supplies no furocoumarin assay or skin-safety clearance.",
     ),
+    "pomelo eo": _POMELO_EO_PROXY_LIMITATIONS,
+    "pomelo essential oil": _POMELO_EO_PROXY_LIMITATIONS,
+    "pomelo oil": _POMELO_EO_PROXY_LIMITATIONS,
     "coriander seed eo": (
         "PerfumersWorld SKU 7SL00125 identifies coriander seed oil; the reused published "
         "seed-oil fingerprint is not a supplier-product or lot assay and does not cover leaf oil.",
@@ -1646,6 +1688,15 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "citrus paradisi expressed oil iso 3053 midpoint profile": (
         "https://www.iso.org/standard/32040.html",
         "https://cdn.standards.iteh.ai/samples/32040/5decda805f4f4d28af4cdb41a472155b/ISO-3053-2004.pdf",
+    ),
+    "citrus maxima peel oil limonene-dominant literature midpoint profile": (
+        "https://iris.unime.it/handle/11570/1892862",
+        "https://www.doi.org/10.14233/AJCHEM.2020.22234",
+        "https://journal.library.du.ac.bd/index.php/dujs/article/view/441/421",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9720520",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7936692",
+        "https://www.cir-safety.org/sites/default/files/cpeelo092014FR.pdf",
+        "https://www.oand3.com/product/pomelo-essential-oil/",
     ),
     "michelia alba flower oil zhu 1993 literature profile": (
         "https://scent.vn/pages/oil/michelia-alba-flower-absolute-china-1874",
@@ -2083,6 +2134,64 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "ISO 3053 describes a conforming expressed commercial grapefruit oil; it is not an analysis of the owned bottle and does not describe the furocoumarin-free process.",
             "Range midpoints are nominal model inputs; a conforming oil can sit anywhere in each range (limonene 92-96%, nootkatone 0.01-0.8%). The range minima sum to 94.42% and the maxima to 102.74%.",
             "Only 98.16% of nominal composition is modeled; n-decanal, n-nonanal and unlisted constituents remain uncomputed, not odorless.",
+        ),
+    },
+    "citrus maxima peel oil limonene-dominant literature midpoint profile": {
+        "analytical_method": "PUBLISHED_GC_PROFILES_CROSS_SOURCE_RANGE",
+        "composition_basis": "LITERATURE_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "literature:cross-source midpoints of sources A-C as compiled in the 2026-10-13 new-stock research note (section 1.5)",
+                "documents": (
+                    "A: Mondello, Dugo, Cavazza, Dugo 1996, J. Essent. Oil Res. 8:311-314, C. grandis cv. Chandler oil (abstract; limonene 93.83%)",
+                    "B: Asian J. Chem. 2020, doi:10.14233/AJCHEM.2020.22234, C. grandis, Ben Tre, Vietnam, hydro/steam distilled (abstract)",
+                    "C: Dhaka Univ. J. Sci., C. maxima peel, Chittagong, hydrodistilled (Clevenger), DB-5ms (page)",
+                ),
+                "published_type": "Peel oil; sources B and C distilled, source A method not stated on the page read",
+                "reported_range_pct": {
+                    "limonene": (92.72, 96.49),
+                    "myrcene": (1.644, 2.42),
+                    "alpha pinene": (0.58, 0.686),
+                    "beta pinene": (0.248, 0.248),
+                    "alpha phellandrene": (0.793, 0.793),
+                    "ocimene": (0.138, 0.29),
+                },
+                "fraction_rule": "MIDPOINT_OF_CROSS_SOURCE_MIN_MAX_SINGLE_VALUE_WHERE_ONE_SOURCE",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_supplier_reference": "PerfumersWorld 7CN23708 (supplier page not found or read)",
+                "owned_species_recorded": False,
+                "owned_extraction_method_recorded": False,
+                "owned_furocoumarin_content_recorded": False,
+                "owned_bottle_sku_verified": False,
+                "cas_identity_note": (
+                    "CAS 8016-20-4 (INCI Citrus Grandis (Grapefruit) Peel Oil) is grapefruit, not pomelo; "
+                    "O&3 lists 90045-43-5 for pomelo oil. Neither is used as identity evidence."
+                ),
+                "excluded_hydrodistilled_oxygenates_pct": {
+                    "linalool": 6.5,
+                    "citral (neral + geranial)": 6.0,
+                    "nootkatone": 3.4,
+                },
+                "furocoumarin_evidence_text_only": (
+                    "Li et al. 2021, Drug Des. Devel. Ther. 15:937-947, doi:10.2147/DDDT.S299678 (C. grandis "
+                    "Liangping cultivar, HPLC): cold-pressed oil isoimperatorin about 350 mg/L, oxypeucedanin "
+                    "about 110 mg/L, epoxybergamottin about 85 mg/L; bergapten, psoralen and xanthotoxin not "
+                    "found. One cultivar; not converted to % w/w; no safety or IFRA-compliance claim is made."
+                ),
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("limonene", "myrcene", "alpha phellandrene", "alpha pinene",
+                            "beta pinene", "ocimene")},
+        },
+        "limitations": (
+            "Literature proxy from published pomelo peel-oil GC profiles; it is not an analysis of the owned bottle, and the owned oil's species, extraction method and lot are unrecorded.",
+            "Two of the three limonene-dominant sources are distilled oils; the one cold-pressed profile found (pomelo cv. Guan Xi, PMC6359654: limonene 55.92%, myrcene 31.17%) and an oxygenated hydrodistilled profile (Das et al. 2022, PMC9720520: limonene 67.58-73.82%) disagree strongly and are not modeled.",
+            "Linalool (about 6.5%), citral (about 6.0%) and nootkatone (about 3.4%) are reported only for hydrodistilled pomelo oil (Das et al. 2022) and are not added to this limonene-dominant profile; they remain an allergen/oxygenate sensitivity scenario, not part of the modeled headspace.",
+            "Only 98.511% of nominal composition is modeled; selinene, germacrene D and lilac alcohol (reported in one source) and the unidentified remainder have no runtime headspace input and remain uncomputed, not odorless.",
+            "alpha-Phellandrene reuses the Schinus class row and ocimene the generic ocimene row; ocimene isomers are not distinguished.",
+            "Cold-pressed pomelo oil contains furocoumarins (Li et al. 2021: isoimperatorin about 350, oxypeucedanin about 110, epoxybergamottin about 85 mg/L; bergapten not detected); this profile does not model them and makes no safety or IFRA-compliance claim.",
         ),
     },
     "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile": {

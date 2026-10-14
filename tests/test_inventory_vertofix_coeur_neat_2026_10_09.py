@@ -18,7 +18,11 @@ RECORD_ID = "INV-USER-20261009-VTXC-NEAT-001"
 
 
 def _head() -> dict:
-    return json.loads(inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
+    # v24 was the current head until Kenny's new bottles of 2026-10-13 (v25);
+    # these tests pin v24 itself.
+    return json.loads(
+        inventory.VERTOFIX_COEUR_NEAT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8")
+    )
 
 
 def _stocks(identity_name: str):
@@ -40,11 +44,13 @@ def _check(name: str):
     )
 
 
-def test_v24_is_current_and_pinned_to_v23_and_live_inventory() -> None:
-    path = inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH
+def test_v24_is_pinned_to_v23_and_live_inventory() -> None:
+    path = inventory.VERTOFIX_COEUR_NEAT_USER_INVENTORY_OVERLAY_PATH
     assert path.name == "inventory_user_authority_overlay_20261009_vertofix_coeur_neat.json"
     normalized = path.read_bytes().replace(b"\r\n", b"\n")
-    assert hashlib.sha256(normalized).hexdigest() == inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256
+    assert hashlib.sha256(normalized).hexdigest() == (
+        inventory.VERTOFIX_COEUR_NEAT_USER_INVENTORY_OVERLAY_SHA256
+    )
     head = _head()
     assert head["schema_version"].endswith("_v24")
     assert head["predecessor"] == {
@@ -60,7 +66,7 @@ def test_v24_is_current_and_pinned_to_v23_and_live_inventory() -> None:
     )
     assert head["source"]["message_timestamp_utc"] == "2026-10-09T06:15:23Z"
     assert head["superseded_record_ids"] == [V23_RECORD_ID]
-    overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
+    overlay = inventory.load_current_user_inventory_overlay(path)
     assert [r["record_id"] for r in overlay["delta_records"]] == [RECORD_ID]
     live = {r["record_id"] for r in overlay["records"]}
     retired = {r["record_id"] for r in overlay["retired_records"]}
@@ -166,5 +172,5 @@ def test_v24_loader_accepts_the_committed_overlay() -> None:
     )
     assert overlay["record_origins"][RECORD_ID] == {
         "path": "data/governance/inventory_user_authority_overlay_20261009_vertofix_coeur_neat.json",
-        "sha256": inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256,
+        "sha256": inventory.VERTOFIX_COEUR_NEAT_USER_INVENTORY_OVERLAY_SHA256,
     }

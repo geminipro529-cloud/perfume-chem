@@ -7,6 +7,7 @@
   <meta name="theme-color" content="#FFFDF8">
   <script>try{var t=localStorage.getItem("perfumechem.theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
   <title>Perfume Chem Laboratory</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMic+PHJlY3Qgd2lkdGg9JzMyJyBoZWlnaHQ9JzMyJyByeD0nOCcgZmlsbD0nIzFGNDQ2MicvPjx0ZXh0IHg9JzE2JyB5PScyMS41JyBmb250LWZhbWlseT0nR2VvcmdpYSxzZXJpZicgZm9udC1zaXplPScxNScgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nI0ZGRkRGOCc+UEM8L3RleHQ+PC9zdmc+">
   <link rel="stylesheet" href="/static/lab.css">
   <link rel="stylesheet" href="/static/theme.css">
   <link rel="stylesheet" href="/static/batch-label.css">
@@ -546,6 +547,12 @@
             <p id="several-status" class="field-help" role="status" aria-live="polite"></p>
           </form>
           <div id="several-cards" class="several-cards" aria-live="polite"></div>
+          <details id="several-own" class="several-own">
+            <summary>Compare a card with one of your own bench cards</summary>
+            <label>Your bench card <span>paste the whole card or its table; it is read for this comparison only and is not saved</span><textarea id="several-own-text" rows="5" maxlength="200000"></textarea></label>
+            <div class="request-actions"><button id="several-own-compare" class="quiet-button" type="button" disabled>Compare with the ticked card</button></div>
+            <p id="several-own-status" class="field-help" role="status" aria-live="polite"></p>
+          </details>
           <div id="several-compare" class="several-compare" hidden></div>
         </section>
 

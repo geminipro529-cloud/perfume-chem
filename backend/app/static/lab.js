@@ -2364,7 +2364,44 @@ function severalTickedCards() {
 }
 
 function updateSeveralCompareButton() {
-  $("#several-compare-button").disabled = severalTickedCards().length !== 2;
+  const ticked = severalTickedCards().length;
+  $("#several-compare-button").disabled = ticked !== 2;
+  $("#several-own-compare").disabled = ticked !== 1 || !$("#several-own-text").value.trim();
+}
+
+// A table with a header row and one row per material, all as text.
+function severalTable(headers, rows) {
+  const table = document.createElement("table");
+  table.className = "several-compare-table";
+  const head = document.createElement("tr");
+  for (const label of headers) {
+    const cell = document.createElement("th");
+    cell.scope = "col";
+    cell.textContent = label;
+    head.append(cell);
+  }
+  const thead = document.createElement("thead");
+  thead.append(head);
+  const tbody = document.createElement("tbody");
+  for (const row of rows) {
+    const line = document.createElement("tr");
+    line.className = row.shared ? "is-shared" : "is-single";
+    for (const value of row.cells) {
+      const cell = document.createElement("td");
+      cell.textContent = value;
+      line.append(cell);
+    }
+    tbody.append(line);
+  }
+  table.append(thead, tbody);
+  return table;
+}
+
+function showSeveralCompare(...children) {
+  const area = $("#several-compare");
+  area.hidden = false;
+  area.replaceChildren(...children);
+  area.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 function severalCardShell(brief, jobRequest) {
@@ -2421,8 +2458,22 @@ async function composeSeveralCard(card) {
   }
 }
 
-function openSeveralInStudio(card) {
+// target: a part of the studio's result to scroll to, such as its rating card;
+// the result itself when that part is missing or hidden.
+function scrollToStudioPart(target) {
+  const part = $(target);
+  (part && part.getClientRects().length ? part : $("#formula-chat-result")).scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function openSeveralInStudio(card, target = "#formula-chat-result") {
   const result = card.result;
+  if (state.formulaChat.result === result) {
+    // Already open: keep the conversation and any rating not yet saved, and show
+    // the card's own formula (the first alternative) if another one is selected.
+    if ((state.formulaChat.variantIndex || 0) !== 0) renderFormulaDesign(result, 0);
+    scrollToStudioPart(target);
+    return;
+  }
   resetFormulaChat(false);
   state.formulaChat.messages.push(card.brief);
   appendFormulaChatBubble("user", card.brief);
@@ -2433,8 +2484,28 @@ function openSeveralInStudio(card) {
   if (result.formula_name) $('[name="formula_name"]', form).value = result.formula_name;
   $("#formula-chat-submit").textContent = "Refine this formula";
   scheduleDraftSave("create");
-  $("#formula-chat-result").scrollIntoView({ behavior: "smooth", block: "start" });
+  scrollToStudioPart(target);
   notify(`${result.formula_name || "The formula"} is open in the studio.`);
+}
+
+// The studio keeps one formula; replacing a different one takes a second click.
+function severalStudioButton(card, label, target) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "quiet-button";
+  button.textContent = label;
+  button.addEventListener("click", () => {
+    const current = state.formulaChat.result;
+    if (current && current !== card.result && button.dataset.confirm !== "1") {
+      button.dataset.confirm = "1";
+      button.textContent = "Replace the studio's formula?";
+      return;
+    }
+    delete button.dataset.confirm;
+    button.textContent = label;
+    openSeveralInStudio(card, target);
+  });
+  return button;
 }
 
 function fillSeveralCard(card, result) {
@@ -2472,23 +2543,17 @@ function fillSeveralCard(card, result) {
   const actions = document.createElement("div");
   actions.className = "request-actions";
   if (summary.hasFormula) {
-    const open = document.createElement("button");
-    open.type = "button";
-    open.className = "quiet-button";
-    open.textContent = "Open in the studio";
-    open.addEventListener("click", () => {
-      // The studio keeps one formula; replacing a different one takes a second click.
-      const current = state.formulaChat.result;
-      if (current && current !== result && open.dataset.confirm !== "1") {
-        open.dataset.confirm = "1";
-        open.textContent = "Replace the studio's formula?";
-        return;
-      }
-      delete open.dataset.confirm;
-      open.textContent = "Open in the studio";
-      openSeveralInStudio(card);
-    });
-    actions.append(open);
+    const bench = document.createElement("button");
+    bench.type = "button";
+    bench.className = "quiet-button";
+    bench.textContent = "Bench sheet";
+    bench.addEventListener("click", () => printBenchSheet(result, 0));
+    actions.append(
+      severalStudioButton(card, "Open in the studio"),
+      bench,
+      // The studio's rating card links each rating to this formula's materials.
+      severalStudioButton(card, "Mixed it? Rate it", "#formula-result-liking .liking-rate"),
+    );
     card.checkbox.disabled = false;
   }
   card.body.replaceChildren(name, facts, ...(chips.childElementCount ? [chips] : []), lines, actions);
@@ -2563,39 +2628,56 @@ $("#several-compare-button").addEventListener("click", () => {
   const [first, second] = severalTickedCards();
   if (!first || !second) return;
   const nameOf = (card) => card.result.formula_name || card.brief;
-  const table = document.createElement("table");
-  table.className = "several-compare-table";
-  const head = document.createElement("tr");
-  for (const label of ["Material", nameOf(first), nameOf(second)]) {
-    const cell = document.createElement("th");
-    cell.scope = "col";
-    cell.textContent = label;
-    head.append(cell);
-  }
-  const thead = document.createElement("thead");
-  thead.append(head);
-  const tbody = document.createElement("tbody");
   const rows = severalCompareRows(first.result, second.result);
-  for (const row of rows) {
-    const line = document.createElement("tr");
-    line.className = row.shared ? "is-shared" : "is-single";
-    const amount = (value) => (value ? `${value.toLocaleString()} ${row.unit}` : "—");
-    for (const value of [row.material, amount(row.a), amount(row.b)]) {
-      const cell = document.createElement("td");
-      cell.textContent = value;
-      line.append(cell);
-    }
-    tbody.append(line);
-  }
-  table.append(thead, tbody);
+  const amount = (value, unit) => (value ? `${value.toLocaleString()} ${unit}` : "—");
+  const table = severalTable(
+    ["Material", nameOf(first), nameOf(second)],
+    rows.map((row) => ({ shared: row.shared, cells: [row.material, amount(row.a, row.unit), amount(row.b, row.unit)] })),
+  );
   const shared = rows.filter((row) => row.shared).length;
   const heading = document.createElement("p");
   heading.className = "field-help";
   heading.textContent = `${shared} material${shared === 1 ? "" : "s"} in both, ${rows.length - shared} in only one.`;
-  const area = $("#several-compare");
-  area.hidden = false;
-  area.replaceChildren(heading, table);
-  area.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  showSeveralCompare(heading, table);
+});
+
+// One of Kenny's own bench cards beside the ticked card, in active amounts. The pasted
+// text goes only to this app's read-only parser and is kept nowhere.
+$("#several-own-text").addEventListener("input", updateSeveralCompareButton);
+$("#several-own-compare").addEventListener("click", async () => {
+  const [card] = severalTickedCards();
+  const text = $("#several-own-text").value;
+  const status = $("#several-own-status");
+  if (!card || !text.trim()) return;
+  const button = $("#several-own-compare");
+  button.disabled = true;
+  status.textContent = "Reading your card…";
+  try {
+    const own = await request("/v2/workbench/formula-text", { method: "POST", body: JSON.stringify({ text }) });
+    const compared = severalOwnCompare(card.result, own);
+    const amount = (value, unit) => (value ? `${value.toLocaleString()} ${unit}` : "—");
+    const table = severalTable(
+      ["Material", card.result.formula_name || card.brief, own.formula_name || "Your card"],
+      compared.rows.map((row) => ({ shared: row.shared, cells: [row.material, amount(row.a, row.unit), amount(row.b, row.unit)] })),
+    );
+    const heading = document.createElement("p");
+    heading.className = "field-help";
+    heading.textContent = `${compared.inBoth} in both, ${compared.onlyHere} only in this card, ${compared.onlyYours} only in yours. `
+      + "Amounts are active material: each pour times its strength, without densities, so they are approximate.";
+    const children = [heading, table];
+    if (compared.unread.length) {
+      const unread = document.createElement("p");
+      unread.className = "several-line status-hold";
+      unread.textContent = `Strength not read, so left out: ${compared.unread.join(", ")}.`;
+      children.push(unread);
+    }
+    showSeveralCompare(...children);
+    status.textContent = "";
+  } catch (error) {
+    status.textContent = `Could not read your card: ${error.message}`;
+  } finally {
+    updateSeveralCompareButton();
+  }
 });
 
 $("#formula-download").addEventListener("click", () => {
@@ -2807,16 +2889,20 @@ function buildBenchSheet(result, variantIndex) {
   return rows.length;
 }
 
-$("#formula-print-bench").addEventListener("click", () => {
-  const result = state.formulaChat.result;
-  if (!result) return;
-  if (!buildBenchSheet(result, state.formulaChat.variantIndex || 0)) {
+function printBenchSheet(result, variantIndex) {
+  if (!buildBenchSheet(result, variantIndex)) {
     notify("There is no formula to print yet. Clarify the brief first.", true);
     return;
   }
   document.body.classList.add("printing-bench-sheet");
   window.addEventListener("afterprint", () => document.body.classList.remove("printing-bench-sheet"), { once: true });
   window.print();
+}
+
+$("#formula-print-bench").addEventListener("click", () => {
+  const result = state.formulaChat.result;
+  if (!result) return;
+  printBenchSheet(result, state.formulaChat.variantIndex || 0);
 });
 
 // ---- Bench sheet view: a printable sheet for any project or pasted formula ----

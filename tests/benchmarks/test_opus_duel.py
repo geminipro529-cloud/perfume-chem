@@ -8,7 +8,7 @@ opt-in (it composes 34 formulas):
 - ``OPUS_DUEL_REFERENCES`` is the references root (default ``data/user/opus_duel_references``,
   gitignored). Reference formulas are private and never committed; a ``formulas/`` path
   resolves from the repo root. A missing reference file scores the brief engine-only
-  (verdict NO_REFERENCE).
+  (verdict NO_REFERENCE). An empty references folder counts as absent.
 - ``OPUS_DUEL_REPORT=<path>`` writes the JSON (cards, verdicts, closeness, timings) to a
   path outside the repo (the repo is public); the reference card's rows, per-material
   amounts and unreadable-row text are left out.
@@ -41,7 +41,7 @@ BENCH_CONCENTRATE_UL = 6000
 NAME_DROP_LIMIT = 5.0
 # Verdict rank from the engine's side: a move to a lower rank is a regression.
 VERDICT_RANK = {"REFERENCE_WINS": 0, "REFERENCE_AHEAD_HELD": 1, "TIE": 2, "BOTH_DISQUALIFIED": 2,
-                "ENGINE_AHEAD_HELD": 3, "ENGINE_WINS": 4}
+                "NAME_HELD": 2, "ENGINE_AHEAD_HELD": 3, "ENGINE_WINS": 4}
 DUEL_KEYS = {"id", "name", "idea", "idea_source", "family", "family_source", "named_notes",
              "family_core_groups", "precious_caps", "reference", "concentrate_ul"}
 DUEL_OPTIONAL = {"excluded_notes", "family_note"}
@@ -70,6 +70,11 @@ def _family_headings() -> set[str]:
 
 def _references_root() -> Path:
     return Path(os.environ.get("OPUS_DUEL_REFERENCES") or DEFAULT_REFERENCES)
+
+
+def _references_present(root: Path) -> bool:
+    """An empty references folder is as good as none (a fresh checkout makes one)."""
+    return root.is_dir() and any(root.iterdir())
 
 
 def _resolve(rel: str | None, root: Path) -> Path | None:
@@ -175,8 +180,8 @@ def test_reference_paths_resolve():
     repo_paths = [p for p in paths if p.startswith("formulas/")]
     for p in repo_paths:  # public references live in the repo and must always resolve
         assert (ROOT / p).is_file(), p
-    if not root.is_dir():
-        pytest.skip(f"references root {root} is not present")
+    if not _references_present(root):
+        pytest.skip(f"references root {root} is absent or empty")
     missing = [p for p in paths if not _resolve(p, root).is_file()]
     assert not missing, f"missing under {root}: {missing}"
 
@@ -196,7 +201,8 @@ def _baseline_path(mode: str) -> Path:
 
 def _rank_key(card: dict) -> tuple:
     valence = card["liking"].get("valence")
-    return (not card["disqualified"], card["name_score"], card["craft_score"],
+    name = -1.0 if card["name_score"] is None else card["name_score"]  # held: no name number
+    return (not card["disqualified"], name, card["craft_score"],
             -2.0 if valence is None else float(valence))
 
 
@@ -297,10 +303,9 @@ def _compare(baseline: dict, current: dict, references_present: bool = True) -> 
             continue
         if cur["engine_disqualified"] and not base["engine_disqualified"]:
             problems.append(f"{bid}: engine now disqualified ({cur['engine_failing_floors']})")
-        drop = base["engine_name_score"] - cur["engine_name_score"]
-        if drop >= NAME_DROP_LIMIT:
-            problems.append(f"{bid}: engine name score {base['engine_name_score']} -> "
-                            f"{cur['engine_name_score']}")
+        was, now = base["engine_name_score"], cur["engine_name_score"]
+        if was is not None and (now is None or was - now >= NAME_DROP_LIMIT):
+            problems.append(f"{bid}: engine name score {was} -> {'HOLD' if now is None else now}")
         if not references_present:
             continue
         if base["reference_scored"] and not cur["reference_scored"]:
@@ -351,12 +356,16 @@ def _report_run(run: dict) -> dict:
     return {**run, "reference": ref, "closeness": near}
 
 
+def _score_text(score: float | None) -> str:
+    return "  HOLD" if score is None else f"{score:6.2f}"
+
+
 def _summary_line(bid: str, run: dict) -> str:
     v, eng, ref = run["verdict"], run["engine"], run["reference"]
-    ref_part = (f"ref name={ref['name_score']:6.2f} craft={ref['craft_score']:6.2f}"
+    ref_part = (f"ref name={_score_text(ref['name_score'])} craft={ref['craft_score']:6.2f}"
                 f"{' DQ' if ref['disqualified'] else ''}" if ref else "ref -")
     return (f"{bid:28s} {v['verdict']:17s} {v['deciding_step']:11s} "
-            f"eng name={eng['name_score']:6.2f} craft={eng['craft_score']:6.2f}"
+            f"eng name={_score_text(eng['name_score'])} craft={eng['craft_score']:6.2f}"
             f"{' DQ' + str(_failing_floors(eng)) if eng['disqualified'] else ''} | {ref_part} "
             f"{run['timing']['engine_seconds']}s")
 
@@ -377,12 +386,12 @@ def test_opus_duel():
     if report_path and Path(report_path).resolve().is_relative_to(ROOT.resolve()):
         pytest.fail(f"OPUS_DUEL_REPORT {report_path} is inside the repo (public): "
                     "write it outside the repo")
-    references_present = root.is_dir()
+    references_present = _references_present(root)
     if write_baseline and not references_present:
         pytest.fail(f"OPUS_DUEL_WRITE_BASELINE=1 with the references root {root} absent would "
                     "write a baseline with no reference scored: set OPUS_DUEL_REFERENCES")
     if not references_present:
-        print(f"references root {root} is absent: reference comparisons skipped")
+        print(f"references root {root} is absent or empty: reference comparisons skipped")
     runs: dict[str, dict] = {}
     t0 = time.time()
     for entry in data["duel"]:
@@ -442,6 +451,24 @@ def test_report_drops_reference_amounts_and_row_text():
         assert leaked in raw and leaked not in text, leaked
     assert report["reference"]["floors"]["F1_owned_stock"]["status"] == "HOLD"
     assert report["engine"] is card  # the engine's own formula is not private
+
+
+def test_an_empty_references_folder_counts_as_absent(tmp_path: Path) -> None:
+    assert _references_present(tmp_path / "missing") is False
+    assert _references_present(tmp_path) is False
+    (tmp_path / "studio").mkdir()
+    assert _references_present(tmp_path) is True
+
+
+def test_compare_treats_a_newly_held_name_as_a_regression() -> None:
+    base = {"verdict": "NO_REFERENCE", "deciding_step": "1_reference",
+            "reference_scored": False, "engine_disqualified": False,
+            "engine_failing_floors": [], "engine_name_score": 80.0, "engine_craft_score": 70.0}
+    held = {**base, "engine_name_score": None}
+
+    assert _compare({"a": base}, {"a": held}) == ["a: engine name score 80.0 -> HOLD"]
+    assert _compare({"a": held}, {"a": held}) == []
+    assert _compare({"a": held}, {"a": base}) == []
 
 
 def test_compare_flags_regressions():

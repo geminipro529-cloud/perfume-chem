@@ -4,7 +4,7 @@
   "input_sha256": {
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
     "engine/ingredient_intelligence.py": "7dc52fc8ff7a336ddc563507b43f063703b3f7c70fe566977aa3f62c8f0b4bc1",
-    "engine/inventory_parser.py": "8674a32dde602582722821a2cac65265b1b66615fbae41436d59149105f80e19",
+    "engine/inventory_parser.py": "e394b4387e401fa90fa6a7fedc403c01968134acf885c96912d7eafad43d3e18",
     "engine/odor_thresholds.py": "c9c8c1a7b20d17d1b4f923caed109a237b1b31e92146a04511f588012723b639",
     "engine/name_utils.py": "2e984915e2abe562f9a05fa53920fcb7d4dada0f8f0ccc0da91d706f1a37febb",
     "engine/material_identity.py": "3dbb20055f9794450b25a21123852dc9b355493af4b653fdd48fb341347d5e5d",
@@ -12,43 +12,43 @@
     "engine/data_spine/material.py": "79e30aea000c3c326513282ed0304a0fa0a35d46bfc6be86e709061244c03df9",
     "data/governance/ingredient_reconciliation_20260907.json": "3038fbf22ab98df93e92a7c23db0e6696c140d9ef00e9cf20415f2dae99b7413",
     "engine/data_spine/reconciliation.py": "ad1403e02b4296ed9bebcc892df28b25d24b637dfbdad361b301fc37f9a21cdc",
-    "data/materials/A.yaml": "67d20d7d42fed814a7ee9ed81e310fb7f045ee68ddf937fce9435196a2ed4b18",
-    "data/materials/B.yaml": "6ba6f09f4fad17bc600ff2f009c38754e5bec04e70dff050f243cb43c12736d8",
-    "data/materials/C.yaml": "b11b21bee7d9126e90e907018367c913e24270181cf38b2921854b37aa0616b6",
+    "data/materials/A.yaml": "8d7f98a29bb3fdf5f643757a946a2170643646af01c8139673861ca911328a8d",
+    "data/materials/B.yaml": "d250b0677e03d091780792c94fabd5538d6a00d637d556d38401268d8bd51966",
+    "data/materials/C.yaml": "4a6886b810c8e84cac45d87253f643c2bdfcb85c5f8ecf3e9cfa692da9ad2dcb",
     "data/materials/D.yaml": "1b04b9f5f804c390b0155fc766e90700f9d68f719e41f27f3faa26df57666ca7",
     "data/materials/E.yaml": "0495dc583f99bb73e275e3c915f9c1a2c84c50aa62470ce1eb2a314d138811d1",
     "data/materials/F.yaml": "2d43092759989fa12ddce4fec0acf247499f020331488b660a83d3bb2d8118ff",
-    "data/materials/G.yaml": "15aa10cec494ab52d95b6f4b593ccfff9768e432e81513f50601b2e0d74b2fbd",
+    "data/materials/G.yaml": "517bb7a5dc1a3b773f0902ec9d359b3c0e6e66b9e13212235ae0187aa2e62c2c",
     "data/materials/H.yaml": "f501f01bb46966517c69654ed9be56045cd9ffa2a52c200c0096b319bd1517e6",
     "data/materials/I.yaml": "a1df20d72a75bd1631a15b582b50f6cade3be6bbbdf693e2861d250c1d51ac85",
     "data/materials/J.yaml": "0eea9de332dcf224c8df20d13adaeaa50078ee1b52505ae231065a5bff26db4a",
     "data/materials/K.yaml": "7a9ef7721b1a632f49412277f0af0ed7120e28f4bd17a1e09f1e7756bd87cf17",
-    "data/materials/L.yaml": "b365d55d55a7c05361b7f064ea12f92ebfef6afe11bb2b552a3d103e4fad8d4a",
-    "data/materials/M.yaml": "838dbf45e586c5d3553b7bcb55a586a664ef3a161e97674b92df33b0013986a0",
+    "data/materials/L.yaml": "26f3562c5a3641f6444db17d08dddcc58fd500419060a352d134e8221ac2e727",
+    "data/materials/M.yaml": "b44d10be04aac4483a13975f7e80ba0dea82e74d33a80ff891095bcb1e243326",
     "data/materials/N.yaml": "fd203674177ef0ff34375f95ff679c740a71fe5dc007a7bed31ba2ee690ca8e6",
     "data/materials/O.yaml": "90cc2a45d7134c04bce0a026e2dfaebe2b387e8f01e2e84b79e09a73718a70f3",
-    "data/materials/P.yaml": "f4211af775d838e5fe3c3460f39dea3d4cd998f02da7349539906d854a1c2856",
+    "data/materials/P.yaml": "fe1a0639b8db228f9c6d2e88ec21f44ea1792a447be51fc4adba73c4f85a26dc",
     "data/materials/Q.yaml": "9256e634f899593f1e3848cb0d5683c4ed1259c00fdd5df56888f89fa84aa6c6",
     "data/materials/R.yaml": "289e791fd9e50e83dd7cab89f22c26312b00b11b31ea49c07c0c7a5330413bc3",
-    "data/materials/S.yaml": "3c52d8183f0ef700b1e3cf299c404a86e72f3ffdee15514d57a4178ce7bc5495",
+    "data/materials/S.yaml": "b0a24ceff84b9ff2e4036187258c5bbaef6573185d23d195252190a6ea4c2520",
     "data/materials/T.yaml": "a1a37271a4bb6cbf4036e75f5defa4de3afe546ee87418e24341151202a9adb6",
     "data/materials/U.yaml": "d93dea4b9c83cd47e0bd357f205fbbfb8cf7dacd05215b361c05542082401046",
-    "data/materials/V.yaml": "760cf7e957af9227c175481bb7fb83dd18dc0aa7cc76aa1a70dc682f01713fc0",
+    "data/materials/V.yaml": "30f60a8cda6e33ec94180e85a0b87c530bed776692d3d7e67d8dbfeb6f41955d",
     "data/materials/W.yaml": "0397c2158627765057238ad242e39e9a6ec801f65a7023bbbd93f8b6e71e1152",
     "data/materials/X.yaml": "7dd03fb6ab168e5a2cd90d1d938a00f79b641f63b676dab39a436e21ad795ea1",
     "data/materials/Y.yaml": "95ca0131908d6772148786fed0d24809989c4bc10ef002b095e07bdbbff34f74",
     "data/materials/Z.yaml": "2b1eebcca0bedad85ee36a3969d35f1f6da0c30aad7ea51c117a675decd19d39"
   },
-  "inventory_overlay_sha256": "8329a4804909a720d6f7d95959c6c91be56c3fb0c7dd0642cd14a08297095882",
+  "inventory_overlay_sha256": "9837017d07126d8328afd5ac24c32f5259eaea4cb05bc45bfa55db86b15d59e3",
   "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
   "inventory_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
   "counts": {
-    "original_cache_records": 424,
-    "rebuilt_cache_records": 424,
+    "original_cache_records": 426,
+    "rebuilt_cache_records": 426,
     "all_original_names_preserved": true,
     "inventory_text_rows": 333,
     "historical_requirement_rows": 280,
-    "current_physical_stocks": 289,
+    "current_physical_stocks": 292,
     "registry_records": 1271,
     "rows_with_profile": 295,
     "rows_with_registry": 323,
@@ -677,7 +677,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -716,7 +715,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "clogp",
         "odt_ppm"
       ],
       "unresolved_scalar_disagreements": {}
@@ -735,8 +733,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -1208,8 +1204,6 @@
       ],
       "odt_present": false,
       "missing_numeric_fields": [
-        "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -1230,7 +1224,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
         "clogp",
         "odt",
         "odt_ppm"
@@ -1252,7 +1245,6 @@
       "odt_present": true,
       "missing_numeric_fields": [
         "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -1272,7 +1264,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
         "clogp",
         "odt",
         "odt_ppm"
@@ -1293,8 +1284,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -1335,7 +1324,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
         "clogp",
         "odt",
         "odt_ppm"
@@ -2871,8 +2859,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -2892,7 +2878,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
         "odt",
         "odt_ppm"
       ],
@@ -2931,7 +2916,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
         "odt",
         "odt_ppm"
       ],
@@ -4024,7 +4008,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "mw",
         "vp",
         "odt",
         "odt_ppm"
@@ -4173,6 +4156,7 @@
       "registry_name": "Exaltolide",
       "profile_name": "Exaltolide",
       "current_stock_ids": [
+        "inventory:user-20261013:2c094c40e95367526c62",
         "inventory:v5:b061617eb60192cbeb5d",
         "inventory:v5:c17c932da02ecafc0c44"
       ],
@@ -4660,7 +4644,6 @@
       "odt_present": false,
       "missing_numeric_fields": [
         "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -4975,8 +4958,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -5919,9 +5900,6 @@
       ],
       "odt_present": false,
       "missing_numeric_fields": [
-        "mw",
-        "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -5963,8 +5941,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "vp",
-        "clogp",
         "odt",
         "odt_ppm"
       ],
@@ -6164,6 +6140,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "74d1de5db8e76e6a3fdfee1a944d74740667b44d0fbf1bd1168a14ed00826bd2",
-  "input_cache_sha256": "9659ebd78aaf446ab533220738398ab18e43425e0e8025eac3a75cbd31cfc2a0"
+  "output_sha256": "996796863a9924de1ab0f5b641b2f5b1a0266e30e5ed9ef6309bf817472b48b6",
+  "input_cache_sha256": "996796863a9924de1ab0f5b641b2f5b1a0266e30e5ed9ef6309bf817472b48b6"
 }

@@ -142,7 +142,7 @@ _FACETS: tuple[FacetDefinition, ...] = (
     FacetDefinition("tea", ("tea", "matcha", "oolong", "earl grey"), ("tea", "tannin", "mate", "osmanthus", "leaf"), "heart", "character", (("green", .55), ("woody", .3), ("freshness", .25)), .085, .15),
     FacetDefinition("fig", ("fig", "fig leaf", "fig milk", "sap"), ("fig", "leaf", "sap", "milky", "lactone"), "heart", "character", (("green", .65), ("creamy", .55)), .105, .18),
     FacetDefinition("mineral_salt", ("mineral", "salt", "salty", "stone", "concrete", "metallic", "flint"), ("mineral", "salt", "stone", "ozone", "ambergris", "ambrox", "metallic"), "heart", "texture", (("transparency", .7), ("freshness", .45), ("woody", .2)), .075, .14),
-    FacetDefinition("rain_water", ("rain", "wet pavement", "petrichor", "water", "aquatic", "marine", "ocean", "sea air"), ("rain", "wet", "petrichor", "marine", "aquatic", "ozone", "calone"), "top", "character", (("freshness", .9), ("transparency", .65), ("green", .25)), .07, .12),
+    FacetDefinition("rain_water", ("rain", "wet pavement", "petrichor", "water", "aquatic", "marine", "ocean", "sea air", "sea spray", "sea breeze", "seaside", "sea"), ("rain", "wet", "petrichor", "marine", "aquatic", "ozone", "calone"), "top", "character", (("freshness", .9), ("transparency", .65), ("green", .25)), .07, .12),
     FacetDefinition("dry_wood", ("wood", "woody", "cedar", "driftwood", "pencil", "timber", "oak"), ("wood", "cedar", "vetiver", "patchouli", "clearwood", "timber"), "base", "structure", (("woody", 1.0), ("transparency", .2)), .15, .28),
     FacetDefinition("creamy_wood", ("sandalwood", "creamy wood", "milky wood", "soft wood"), ("sandalwood", "sandalore", "javanol", "creamy", "wood"), "base", "structure", (("woody", .85), ("creamy", .65), ("warmth", .25)), .15, .27),
     FacetDefinition("vetiver_root", ("vetiver", "rooty", "roots", "earthy root"), ("vetiver", "root", "earthy", "vetiveryl"), "base", "character", (("woody", .75), ("green", .35), ("smoky", .2)), .11, .20),
@@ -159,7 +159,7 @@ _FACETS: tuple[FacetDefinition, ...] = (
     # A fougere is lavender over coumarin and oakmoss: the family word asks for
     # the coumarin here and the moss through moss_chypre.
     FacetDefinition("fougere_coumarin", ("fougere", "fougère"), ("coumarin", "tonka"), "base", "structure", (("warmth", .45), ("sweetness", .25), ("powdery", .2)), .08, .14),
-    FacetDefinition("moss_chypre", ("moss", "mossy", "chypre", "forest moss", "fougere", "fougère"), ("moss", "evernyl", "oakmoss", "patchouli", "labdanum"), "base", "structure", (("green", .5), ("woody", .5), ("smoky", .15)), .07, .13),
+    FacetDefinition("moss_chypre", ("moss", "mossy", "oakmoss", "oak moss", "treemoss", "tree moss", "chypre", "forest moss", "fougere", "fougère"), ("moss", "evernyl", "oakmoss", "patchouli", "labdanum"), "base", "structure", (("green", .5), ("woody", .5), ("smoky", .15)), .07, .13),
     FacetDefinition("vanilla_balsam", ("vanilla", "vanillic", "balsamic", "benzoin", "tonka"), ("vanilla", "vanillin", "benzoin", "tonka", "coumarin", "balsam"), "base", "character", (("sweetness", .9), ("warmth", .55), ("creamy", .35)), .075, .14),
     FacetDefinition("coffee_cocoa", ("coffee", "cocoa", "chocolate", "roasted"), ("coffee", "cocoa", "roast", "pyrazine", "chocolate"), "heart", "character", (("warmth", .5), ("smoky", .4), ("sweetness", .25)), .06, .11),
     FacetDefinition("tobacco_hay", ("tobacco", "hay", "straw", "dry grass"), ("tobacco", "hay", "coumarin", "immortelle", "tea"), "base", "character", (("warmth", .45), ("woody", .35), ("smoky", .3)), .065, .12),
@@ -170,6 +170,10 @@ _FACETS: tuple[FacetDefinition, ...] = (
     # Shares and caps copy the fruit facet, so no new dose is introduced.
     FacetDefinition("coconut", ("coconut", "coconut milk", "coconut cream"), ("coconut", "lactone", "creamy", "milky"), "heart", "character", (("creamy", .7), ("sweetness", .4)), .065, .12),
     FacetDefinition("apricot", ("apricot", "apricots"), ("apricot", "peach", "lactone"), "heart", "character", (("sweetness", .45), ("freshness", .35), ("creamy", .25)), .065, .12),
+    # Frangipani is a white flower with no owned stock design-ready under its own name:
+    # only a stock whose own description names it may lead it.  Shares and weights copy
+    # the white floral facet, so no new dose is introduced.
+    FacetDefinition("frangipani", ("frangipani", "plumeria"), ("frangipani", "plumeria", "salicylate"), "heart", "character", (("floral", 1.0), ("radiance", .45), ("creamy", .2)), .13, .22),
     FacetDefinition("aldehydic", ("aldehydic", "sparkling aldehyde", "champagne", "soapy aldehyde", "laundry", "linen", "clean linen"), ("aldehyde", "sparkling", "wax", "linen"), "top", "modifier", (("radiance", .8), ("freshness", .4), ("transparency", .25)), .025, .06),
     FacetDefinition("powder", ("powder", "powdery", "cosmetic", "makeup"), ("powder", "iris", "ionone", "heliotropin", "musk"), "heart", "texture", (("powdery", 1.0), ("floral", .25)), .055, .11),
     FacetDefinition("almond_nut", ("almond", "marzipan", "biscuit", "nutty", "toasted nut"), ("almond", "benzaldehyde", "heliotropin", "tonka", "pyrazine", "biscuit"), "heart", "character", (("warmth", .55), ("sweetness", .35), ("powdery", .25)), .06, .11),
@@ -193,7 +197,9 @@ _LITERATURE_FACETS = {
 
 # Facets only a stock whose own descriptors name the note may fill
 # (material_capability_index._DESCRIPTOR_REQUIREMENTS).
-_FACET_DESCRIPTOR_REQUIREMENTS = {"fruit": "fruit", "coconut": "coconut", "apricot": "apricot"}
+_FACET_DESCRIPTOR_REQUIREMENTS = {
+    "fruit": "fruit", "coconut": "coconut", "apricot": "apricot", "frangipani": "frangipani",
+}
 
 # A note the brief asks for as a nuance ("a hint of apricot", "a little apricot",
 # "barely smoky") is a modifier: no accord of its own, at the share the smoke

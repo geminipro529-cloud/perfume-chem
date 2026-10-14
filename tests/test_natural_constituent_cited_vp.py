@@ -62,6 +62,9 @@ _EXPECTED_LARGE_SUBSTITUTIONS = {
     ("jasmine sambac (10% in dpg)", "phenethyl alcohol", 0.12, 11.57),
     ("rose essential oil", "phenethyl alcohol", 2.0, 11.57),
     ("rose de mai absolute", "phenylethyl alcohol", 0.12, 11.57),
+    # 2026-10-13: Veloutone's registry VP is now the literature common-ground 2.17 Pa
+    # (US EPA estimate quoted by RIFM 2017; TGSC 3.47 Pa), replacing the table's 0.1.
+    ("cassis base 345b", "veloutone", 0.1, 2.17),
 }
 
 

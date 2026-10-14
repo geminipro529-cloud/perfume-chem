@@ -115,6 +115,14 @@ _INLINE_NO_RE = re.compile(
     r"\bno\s+(?P<value>[^.;]+?)(?=[.;]|$)",
     re.I,
 )
+# A material-count clause after an exclusion ("without musky using at most 10
+# materials") is the count, not part of the excluded note.
+_TRAILING_COUNT_CLAUSE_RE = re.compile(
+    rf"\s+(?:(?:using|with|in)\s+)?(?:(?:at\s+most|at\s+least|exactly|only|up\s+to|"
+    rf"no\s+more\s+than|maximum(?:\s+of)?|minimum(?:\s+of)?)\s+)?"
+    rf"(?:{_COUNT_TOKEN})[-\s]+materials?\b.*$",
+    re.I,
+)
 _MANDATORY_RE = re.compile(
     r"\b(?:mandatory|required|must\s+(?:use|contain|include)|using\s+(?:exactly|all)|"
     r"use\s+exactly)\b",
@@ -310,7 +318,9 @@ def _avoid_values_and_spans(text: str) -> tuple[tuple[str, ...], tuple[tuple[int
                 re.I,
             ):
                 continue
-            values.extend(_split_constraint_values(match.group("value")))
+            values.extend(_split_constraint_values(
+                _TRAILING_COUNT_CLAUSE_RE.sub("", match.group("value"))
+            ))
             spans.append(match.span())
     # Common prose negation that is not naturally introduced by "avoid".
     for match in re.finditer(

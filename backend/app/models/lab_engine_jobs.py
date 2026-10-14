@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
+import base64
+import json
+import lzma
 from datetime import datetime
+from typing import Any
 
 from sqlalchemy import (
     JSON,
@@ -16,6 +20,7 @@ from sqlalchemy import (
     text,
 )
 from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.types import TypeDecorator
 
 from app.models.base import Base
 from app.models.lab import LabRecord, UTCDateTime
@@ -50,6 +55,47 @@ ENGINE_JOB_STATES = (
     "CANCELLED",
 )
 ENGINE_TERMINAL_STATES = ("SUCCEEDED", "WITHHELD", "FAILED", "CANCELLED")
+
+
+COMPRESSED_JSON_KEY = "lab_compressed_json_v1"
+COMPRESSED_JSON_MIN_BYTES = 8192
+
+
+class CompressedJSON(TypeDecorator[dict[str, Any]]):
+    """Store a large JSON object lzma-compressed inside a one-key JSON wrapper.
+
+    A composed formula's job result is 250-370 KB of JSON, most of it repeated
+    sections, so storing it plain grew lab.db by about 222 KB per composed
+    perfume. Objects under COMPRESSED_JSON_MIN_BYTES stay plain. Reads return
+    the original object either way, so rows written before this stay readable,
+    and the column remains valid JSON for exports and SQLite.
+    """
+
+    impl = JSON
+    cache_ok = True
+
+    def process_bind_param(self, value: Any, dialect: Any) -> Any:
+        if value is None:
+            return None
+        raw = json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode(
+            "utf-8"
+        )
+        if len(raw) < COMPRESSED_JSON_MIN_BYTES:
+            return value
+        packed = base64.b64encode(lzma.compress(raw)).decode("ascii")
+        return {COMPRESSED_JSON_KEY: {"codec": "lzma+base64", "data": packed}}
+
+    def process_result_value(self, value: Any, dialect: Any) -> Any:
+        if (
+            isinstance(value, dict)
+            and len(value) == 1
+            and isinstance(value.get(COMPRESSED_JSON_KEY), dict)
+        ):
+            packed = value[COMPRESSED_JSON_KEY]
+            if packed.get("codec") != "lzma+base64":
+                raise ValueError("unknown compressed JSON codec")
+            return json.loads(lzma.decompress(base64.b64decode(packed["data"])))
+        return value
 
 
 def _quoted(values: tuple[str, ...]) -> str:
@@ -232,7 +278,7 @@ class LabEngineJobResult(LabRecord):
     )
     terminal_state: Mapped[str] = mapped_column(String(32), nullable=False)
     result_json: Mapped[dict] = mapped_column(
-        JSON, default=dict, server_default=text("'{}'"), nullable=False
+        CompressedJSON, default=dict, server_default=text("'{}'"), nullable=False
     )
     result_sha256: Mapped[str] = mapped_column(String(64), nullable=False)
     validation_state: Mapped[str] = mapped_column(String(80), nullable=False)

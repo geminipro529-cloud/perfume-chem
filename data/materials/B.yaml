@@ -1412,8 +1412,8 @@
   logp: 2.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 2.67
+  vp_source: TGSC_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1437,13 +1437,14 @@
     other: {}
   families: []
   character: null
-  notes: 'VP left null (2026-10-08): only a TGSC estimate exists, not RIFM-quoted: "Vapor Pressure: 0.020000 mmHg @ 25.00 C. (est)" = 2.67 Pa at 133.322 Pa/mmHg (https://www.thegoodscentscompany.com/data/rw1061362.html). Identity: ethyl 6-acetoxyhexanoate; producer is Givaudan per TGSC and Fraterworks. TGSC: "Odor threshold: not reported". Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
+  notes: 'VP left null (2026-10-08): only a TGSC estimate exists, not RIFM-quoted: "Vapor Pressure: 0.020000 mmHg @ 25.00 C. (est)" = 2.67 Pa at 133.322 Pa/mmHg (https://www.thegoodscentscompany.com/data/rw1061362.html). Identity: ethyl 6-acetoxyhexanoate; producer is Givaudan per TGSC and Fraterworks. TGSC: "Odor threshold: not reported". Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 2026-10-13: VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "CAS Number: 104986-28-9" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "Molecular Weight: 202.25026000", calculated from C10H18O4 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     logp: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "logP (o/w): 2.000", database value not marked (est), basis not stated (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     density_25c_g_ml: 'https://www.thegoodscentscompany.com/data/rw1061362.html; supplier range "Specific Gravity: 1.00500 to 1.00900 @ 25.00 C."; midpoint 1.007 x 0.99705 (water at 25 C) = 1.0040 g/mL (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    vp_25c_pa: 'ESTIMATE: TGSC "0.020000 mmHg @ 25.00 C. (est)" x 133.322 Pa/mmHg = 2.67 Pa; https://www.thegoodscentscompany.com/data/rw1061362.html (via material-data-firecrawl/allgaps/S3_fruity_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
 - canonical_name: Beta Caryophyllene
   aliases: []
   cas: null
@@ -2709,8 +2710,8 @@
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.0813
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2738,11 +2739,12 @@
         price_usd_per_g: 0.32
   families: []
   character: null
-  notes: 'logP, VP and density left null (2026-10-08). logP conflict, no measured value: 1.930 (TGSC est, https://thegoodscentscompany.com/data/rw1004001.html) vs "LogP 2.94 at 25C" (ChemicalBook, method not stated, https://chemicalbook.com/CASEN_75147-23-8.htm). VP conflict: TGSC "0.006000 mmHg @ 25.00 C. (est)" = 0.800 Pa vs ChemicalBook "vapor pressure 0.095 Pa at 20C" (method not stated), 8-fold. Density only "1.13+/-0.1 g/cm3 (Predicted)" (ChemicalBook), an estimate. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
+  notes: 'logP, VP and density left null (2026-10-08). logP conflict, no measured value: 1.930 (TGSC est, https://thegoodscentscompany.com/data/rw1004001.html) vs "LogP 2.94 at 25C" (ChemicalBook, method not stated, https://chemicalbook.com/CASEN_75147-23-8.htm). VP conflict: TGSC "0.006000 mmHg @ 25.00 C. (est)" = 0.800 Pa vs ChemicalBook "vapor pressure 0.095 Pa at 20C" (method not stated), 8-fold. Density only "1.13+/-0.1 g/cm3 (Predicted)" (ChemicalBook), an estimate. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): vp_25c_pa null -> 0.0813.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://thegoodscentscompany.com/data/rw1004001.html; "CAS Number: 75147-23-8" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1004001.html; "Molecular Weight:167.25169000", calculated from C10H17NO (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    vp_25c_pa: 'ESTIMATE, literature common ground: EPI Suite MPBPWIN 0.00061 mm Hg @ 25 C = 0.0813 Pa (solid; subcooled liquid 0.173 Pa, https://thegoodscentscompany.com/episys/ep1004001.html); ChemicalBook 0.095 Pa @ 20 C (method not stated) agrees; TGSC datasheet 0.80 Pa (est) is a 10x outlier (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
 - canonical_name: Butyl Butyrate
   aliases: []
   cas: '109-21-7'
