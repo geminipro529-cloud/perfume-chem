@@ -451,3 +451,110 @@ def test_every_save_is_a_version_you_can_reopen_compare_and_see_locked_by_a_batc
     items = page.eval_on_selector_all("#editor-version-list li", "(nodes) => nodes.map((node) => node.textContent)")
     assert "locked: batch KS-20261014-01" in items[1] and "locked" not in items[0]
     assert "“more Hedione”" in items[0]
+
+
+BOTTLES = [
+    {"id": "b1", "label": "Rose bottle 1", "status": "active", "batch_id": None},
+    {"id": "b2", "label": "Rose bottle 2", "status": "active", "batch_id": None},
+]
+
+
+def _ties(lab, formula_id, numbers):
+    """Answer each version's bottle-tie route with the real service."""
+    from app.services import formula_versions as versions
+
+    labels = {bottle["id"]: bottle["label"] for bottle in BOTTLES}
+
+    def handler_for(number):
+        def tie(route, request):
+            body = json.loads(request.post_data)
+            try:
+                answer = versions.tie_bottle(formula_id, number, body["bottle_id"], labels[body["bottle_id"]], body.get("tied", True))
+            except versions.FormulaVersionError as error:
+                route.fulfill(status=400, content_type="application/json",
+                              body=json.dumps({"error": {"code": "INVALID_FORMULA_VERSION", "message": str(error)}}))
+                return
+            route.fulfill(status=200, content_type="application/json", body=json.dumps(answer))
+        return tie
+
+    for number in numbers:
+        lab.on("POST", f"/v2/workbench/formula-versions/{formula_id}/{number}/bottles", handler_for(number))
+
+
+def test_bottles_are_tied_to_a_version_their_smell_logs_compare_and_a_batch_starts_from_its_card(lab, monkeypatch, tmp_path):
+    import hashlib
+
+    saves = []
+    lab.respond("GET", "/bottles", json=BOTTLES)
+    lab.respond("GET", "/bottles/b1/smell-log", json={"windows": [], "rows": [], "entries": [{}, {}, {}]})
+    lab.respond("GET", "/bottles/b2/smell-log", json={"windows": [], "rows": [], "entries": []})
+    _open(lab)
+    batches = _versions(lab, monkeypatch, tmp_path, saves)
+    _load_card(lab)
+    page = lab.page
+    page.click("#editor-save-version")
+    lab.wait_for_status("Saved as version 1.")
+    cell = '#editor-rows tr:nth-child(1) [data-field="amount"]'
+    page.fill(cell, "650")
+    page.press(cell, "Enter")
+    page.click("#editor-save-version")
+    lab.wait_for_status("Saved as version 2.")
+    formula_id = json.loads((tmp_path / "formula_versions.jsonl").read_text().splitlines()[0])["version"]["formula_id"]
+    _ties(lab, formula_id, (1, 2))
+
+    page.wait_for_function("document.querySelector('#editor-version-bottles-title').textContent === 'Bottles made from version 2'")
+    assert page.text_content("#editor-version-bottle-list").startswith("None yet.")
+    options = lambda: page.eval_on_selector_all("#editor-tie-bottle option", "(nodes) => nodes.map((node) => node.textContent)")  # noqa: E731
+    assert options() == ["Rose bottle 1", "Rose bottle 2"]
+    page.select_option("#editor-tie-bottle", "b1")
+    page.click("#editor-tie")
+    lab.wait_for_status("Rose bottle 1 is tied to version 2.")
+    page.wait_for_function("document.querySelector('#editor-version-bottle-list').textContent.includes('Rose bottle 1')")
+    assert options() == ["Rose bottle 2"]
+
+    # Version 1 gets the other bottle; a bottle can't belong to two versions.
+    page.click("#editor-version-list button[data-version='1']")
+    page.wait_for_function("document.querySelector('#editor-version-bottles-title').textContent === 'Bottles made from version 1'")
+    page.select_option("#editor-tie-bottle", "b1")
+    page.click("#editor-tie")
+    lab.wait_for_status("Not tied: That bottle is tied to Rose Test version 2; untie it there first.")
+    page.select_option("#editor-tie-bottle", "b2")
+    page.click("#editor-tie")
+    lab.wait_for_status("Rose bottle 2 is tied to version 1.")
+
+    # The comparison names each version's bottles and their smell logs.
+    page.wait_for_function("document.querySelectorAll('#editor-version-list li')[1]?.textContent.includes('1 bottle made from it')")
+    assert page.input_value("#editor-compare-a") == "1" and page.input_value("#editor-compare-b") == "2"
+    page.click("#editor-compare-form button[type=submit]")
+    page.wait_for_function("document.querySelector('#editor-compare').textContent.includes('Bottles and smell logs')")
+    compare = page.text_content("#editor-compare")
+    assert "Version 1: Rose bottle 2 (no smell logs yet)." in compare
+    assert "Version 2: Rose bottle 1 (3 smell logs)." in compare
+
+    page.click("#editor-version-bottle-list button[data-untie='b2']")
+    lab.wait_for_status("Rose bottle 2 is untied from version 1.")
+    page.wait_for_function("document.querySelector('#editor-version-bottle-list').textContent.startsWith('None yet.')")
+
+    # Make a batch: the Batch page gets version 1's own card, so its plan carries the version's card hash.
+    plans = []
+
+    def plan(route, request):
+        body = json.loads(request.post_data)
+        plans.append(body)
+        answer = batches.plan_batch(source_path=None, text=body["text"], name=body.get("name"), bottles=body["bottles"],
+                                    bottle_ml=body["bottle_ml"], card_total_ml=body.get("card_total_ml"), loss_percent=body.get("loss_percent", "3"))
+        route.fulfill(status=200, content_type="application/json", body=json.dumps(answer, default=str))
+
+    lab.on("POST", "/v2/batches/plan", plan)
+    page.click("#editor-make-batch")
+    lab.wait_for_status("Version 1 is on the Batch page. Type the number of bottles and plan the batch; recording it locks version 1.")
+    form = ".batch-plan-form"
+    assert page.input_value(f"{form} [name=source_kind]") == "PASTED"
+    assert page.input_value(f"{form} [name=pasted_text]") == saves[0]["card_text"]
+    assert (page.input_value(f"{form} [name=name]"), page.input_value(f"{form} [name=card_total_ml]")) == ("Rose Test version 1", "30")
+    assert page.evaluate("document.activeElement.name") == "bottles"
+    page.keyboard.type("4")
+    page.click(f"{form} button[type=submit]")
+    page.wait_for_function("!document.querySelector('.batch-plan').hidden")
+    sent = hashlib.sha256(plans[0]["text"].encode("utf-8")).hexdigest()
+    assert sent == hashlib.sha256(saves[0]["card_text"].encode("utf-8")).hexdigest()

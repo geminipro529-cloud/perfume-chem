@@ -814,6 +814,8 @@ function renderEditorSide() {
 // navigate() calls this when the editor comes on screen.
 function editorSideShown() {
   renderEditorSide();
+  // A batch recorded or a bottle poured since may have changed the open formula's versions.
+  if (editorPage.saved) editorLoadFormulas().catch(() => {});
 }
 
 // refresh() calls this when the stock list arrives or changes.
@@ -926,7 +928,9 @@ function renderEditorVersionState() {
 function syncEditorCompareOptions(formula) {
   const numbers = formula.versions.map((version) => version.version);
   const current = editorPage.saved.version;
-  const defaults = [current > numbers[0] ? current - 1 : numbers[0], current];
+  // The version before the open one and the open one; the first version is compared with the next.
+  const at = numbers.indexOf(current);
+  const defaults = at > 0 ? [numbers[at - 1], current] : [current, numbers[1] ?? current];
   ["#editor-compare-a", "#editor-compare-b"].forEach((selector, index) => {
     const select = $(selector);
     const keep = Number(select.value);
@@ -961,7 +965,44 @@ function renderEditorVersions() {
     }
     return item;
   }));
+  renderEditorVersionBottles(formula);
   syncEditorCompareOptions(formula);
+}
+
+// The Lab bottles tied to the version open in the editor, and the bottles that can be tied.
+function renderEditorVersionBottles(formula) {
+  const number = editorPage.saved.version;
+  const tied = formula.versions.find((version) => version.version === number)?.bottles || [];
+  $("#editor-version-bottles-title").textContent = `Bottles made from version ${number}`;
+  $("#editor-version-bottle-list").replaceChildren(...(tied.length ? tied.map((bottle) => {
+    const item = editorNode("li");
+    const untie = editorNode("button", "Untie", "quiet-button");
+    untie.type = "button";
+    untie.dataset.untie = bottle.bottle_id;
+    untie.setAttribute("aria-label", `Untie ${bottle.label || "this bottle"} from version ${number}`);
+    item.append(editorNode("span", bottle.label || bottle.bottle_id), untie);
+    return item;
+  }) : [editorNode("li", "None yet. Tie each Lab bottle you pour from this version, so its smell logs show with it.", "editor-side-line")]));
+  const here = new Set(tied.map((bottle) => bottle.bottle_id));
+  const free = state.bottles.filter((bottle) => !here.has(bottle.id));
+  const select = $("#editor-tie-bottle");
+  const signature = JSON.stringify(free.map((bottle) => [bottle.id, bottle.label]));
+  if (select.dataset.signature !== signature) {
+    const keep = select.value;
+    if (free.length) {
+      select.replaceChildren(...free.map((bottle) => new Option(bottle.label || bottle.id, bottle.id)));
+      if (free.some((bottle) => bottle.id === keep)) select.value = keep;
+    } else {
+      const none = new Option(state.bottles.length ? "Every Lab bottle is tied here" : "No bottles in the Lab yet", "");
+      none.disabled = true;
+      select.replaceChildren(none);
+    }
+    select.dataset.signature = signature;
+  }
+  select.disabled = !free.length;
+  $("#editor-tie").disabled = !free.length;
+  $("#editor-tie").textContent = `Tie to version ${number}`;
+  $("#editor-make-batch").textContent = `Make a batch from version ${number}`;
 }
 
 async function editorSaveVersion() {
@@ -1054,6 +1095,76 @@ $("#editor-version-list").addEventListener("click", (event) => {
   editorOpenVersion(Number(button.dataset.version)).catch((error) => showEditorError(`Not opened: ${error.message}`));
 });
 
+async function editorTieBottle(bottleId, tied) {
+  const saved = editorPage.saved;
+  if (!saved || !bottleId) return;
+  const label = state.bottles.find((bottle) => bottle.id === bottleId)?.label || "The bottle";
+  await request(`${EDITOR_VERSIONS_URL}/${encodeURIComponent(saved.formulaId)}/${saved.version}/bottles`, {
+    method: "POST",
+    body: JSON.stringify({ bottle_id: bottleId, tied }),
+  });
+  notify(tied ? `${label} is tied to version ${saved.version}.` : `${label} is untied from version ${saved.version}.`);
+  await editorLoadFormulas();
+}
+
+$("#editor-tie").addEventListener("click", () => {
+  editorTieBottle($("#editor-tie-bottle").value, true).catch((error) => notify(`Not tied: ${error.message}`, true));
+});
+
+$("#editor-version-bottle-list").addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-untie]");
+  if (!button) return;
+  editorTieBottle(button.dataset.untie, false).catch((error) => notify(`Not untied: ${error.message}`, true));
+});
+
+// The Batch page reads the version's own card text, so the batch record's card
+// hash is the version's and recording the batch locks the version.
+$("#editor-make-batch").addEventListener("click", async () => {
+  const saved = editorPage.saved;
+  const form = $(".batch-plan-form");
+  if (!saved || !form) return;
+  try {
+    const version = await editorFetchVersion(saved.formulaId, saved.version);
+    const field = (name) => form.elements.namedItem(name);
+    field("source_kind").value = "PASTED";
+    field("source_kind").dispatchEvent(new Event("change"));
+    field("pasted_text").value = version.card_text;
+    field("name").value = `${version.name} version ${version.version}`;
+    if (version.bottle_ml) field("bottle_ml").value = version.bottle_ml;
+    field("card_total_ml").value = editorCardMakesMl(editorRowsFromSaved(version.rows), version.bottle_ml);
+    // The Batch page drops a plan when its source changes.
+    field("pasted_text").dispatchEvent(new Event("input"));
+    navigate("batch");
+    field("bottles").focus();
+    field("bottles").select();
+    notify(`Version ${version.version} is on the Batch page. Type the number of bottles and plan the batch; recording it locks version ${version.version}.`);
+  } catch (error) {
+    notify(`Not opened on the Batch page: ${error.message}`, true);
+  }
+});
+
+// Each version's tied bottles with how many smell log entries each has.
+async function editorBottleLogs(entry) {
+  const bottles = entry?.bottles || [];
+  return Promise.all(bottles.map(async (bottle) => {
+    try {
+      const log = await request(`/bottles/${encodeURIComponent(bottle.bottle_id)}/smell-log`);
+      return { label: bottle.label || bottle.bottle_id, count: (log.entries || []).length };
+    } catch {
+      return { label: bottle.label || bottle.bottle_id, count: null };
+    }
+  }));
+}
+
+function editorBottleLogText(number, logs) {
+  if (!logs.length) return `Version ${number}: no bottle tied to it yet.`;
+  const one = ({ label, count }) => {
+    if (count === null) return `${label} (smell log not available)`;
+    return `${label} (${count ? `${count} smell ${count === 1 ? "log" : "logs"}` : "no smell logs yet"})`;
+  };
+  return `Version ${number}: ${logs.map(one).join(", ")}.`;
+}
+
 // The IFRA and allergen answer for a version's rows, from the same cache as the side panel.
 async function editorVersionChecks(version, rows) {
   const body = JSON.stringify({ rows: editorCheckRows(rows), bottle_ml: version.bottle_ml || "30" });
@@ -1127,6 +1238,9 @@ async function editorCompareVersions(a, b) {
     editorVersionChecks(version, rows).catch((error) => ({ error: error.message }))
   )));
   await editorEnsureDensities([...rowsA, ...rowsB]).catch(() => false);
+  const formula = editorSavedFormula();
+  const entries = [a, b].map((number) => formula?.versions.find((version) => version.version === number));
+  const logs = await Promise.all(entries.map((entry) => editorBottleLogs(entry)));
   if (seq !== editorPage.compareSeq) return;
   const nodes = [editorNode("h3", `Version ${a} → version ${b}`)];
   if (diff.lines.length) nodes.push(editorCompareTable(diff, a, b));
@@ -1148,6 +1262,10 @@ async function editorCompareVersions(a, b) {
     nodes.push(editorNode("h4", "Cost per bottle"));
     nodes.push(editorNode("p", `${costs[0] || "not priced"} → ${costs[1] || "not priced"}`, "editor-side-line"));
   }
+  nodes.push(editorNode("h4", "Bottles and smell logs"));
+  const bottleList = editorNode("ul", "", "editor-check-list");
+  [a, b].forEach((number, index) => bottleList.append(editorNode("li", editorBottleLogText(number, logs[index]))));
+  nodes.push(bottleList);
   out.replaceChildren(...nodes);
 }
 

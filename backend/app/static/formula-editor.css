@@ -56,6 +56,12 @@
 .editor-version-list li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; padding: 6px 0; border-bottom: 1px solid var(--line); }
 .editor-version-list li.is-current { font-weight: 700; }
 .editor-version-open-now { color: var(--muted); font-size: 13px; font-weight: 400; }
+.editor-version-bottles { display: grid; gap: 6px; padding-top: 8px; border-top: 1px solid var(--line); }
+.editor-version-bottles h3 { margin: 0; font-size: 14px; }
+.editor-version-bottle-list { display: grid; gap: 4px; margin: 0; padding-left: 0; list-style: none; font-size: 14px; }
+.editor-version-bottle-list li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; }
+.editor-version-tie { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
+.editor-version-tie label { flex: 0 1 18em; }
 .editor-compare-form { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
 .editor-compare-form label { flex: 0 1 10em; }
 .editor-compare { display: grid; gap: 8px; min-width: 0; overflow-x: auto; }

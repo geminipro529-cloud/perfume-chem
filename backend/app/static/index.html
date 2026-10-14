@@ -720,6 +720,17 @@
           <h2 id="editor-versions-title">Versions of this formula</h2>
           <p class="field-help">Every save is a version, kept in your data/user folder. A version can't be changed; a batch made from one locks it.</p>
           <ol id="editor-version-list" class="editor-version-list"></ol>
+          <section class="editor-version-bottles" aria-labelledby="editor-version-bottles-title">
+            <h3 id="editor-version-bottles-title">Bottles made from this version</h3>
+            <ul id="editor-version-bottle-list" class="editor-version-bottle-list"></ul>
+            <div class="editor-version-tie">
+              <label>Lab bottle<select id="editor-tie-bottle"></select></label>
+              <button type="button" class="quiet-button" id="editor-tie">Tie to this version</button>
+            </div>
+            <div class="request-actions">
+              <button type="button" class="quiet-button" id="editor-make-batch">Make a batch from this version</button>
+            </div>
+          </section>
           <form id="editor-compare-form" class="editor-compare-form" novalidate>
             <label>Compare version<select id="editor-compare-a"></select></label>
             <label>with version<select id="editor-compare-b"></select></label>

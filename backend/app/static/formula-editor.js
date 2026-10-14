@@ -644,6 +644,13 @@ function editorPctText(value) {
   return `${number >= 1 ? number.toFixed(2) : String(Number(number.toPrecision(2)))}%`;
 }
 
+// The mL a card makes, as the Batch page asks for it: the rows themselves when
+// they list their ethanol, otherwise one bottle of the size saved with it.
+function editorCardMakesMl(rows, bottleMl) {
+  if (!(rows || []).some((row) => row.amount && editorIsEthanol(row))) return String(bottleMl ?? "").trim();
+  return editorBench.benchFractionText(editorBench.benchOver(editorTotals(rows).liquidUl, editorWhole(1000)), 3);
+}
+
 // What changed between two versions' rows. Rows are matched by material,
 // strength and unit (one material at two strengths is two rows); a material
 // listed twice is summed. Amounts are exact; % is the share of each version's
@@ -755,6 +762,6 @@ if (typeof module === "object" && module.exports) {
     editorResolveGrams, editorScaleTo, editorSorted, editorHistory, editorCommit, editorUndo, editorRedo,
     editorStrengthText, editorBenchTable, editorTsv,
     editorAmountText, editorAmountOf, editorSavedRows, editorRowsFromSaved, editorContentKey, editorPctText,
-    editorCompare, editorIfraRowText, editorCheckChanges,
+    editorCompare, editorIfraRowText, editorCheckChanges, editorCardMakesMl,
   };
 }

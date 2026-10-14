@@ -411,3 +411,13 @@ def test_check_changes_name_the_verdict_the_rows_the_allergens_and_the_oil_that_
         {"text": "Oil: 20.0% → 21.5%"},
     ]
     assert result["none"] == []
+
+
+def test_a_card_makes_its_rows_when_they_list_ethanol_and_one_bottle_otherwise():
+    result = _editor("""() => ({
+        concentrate: editor.editorCardMakesMl([row("Hedione", "600"), row("Ambrox", "120", { solid: true })], "30"),
+        withEthanol: editor.editorCardMakesMl([row("Hedione", "6000"), row("Ethanol", "23500"), row("Ambrox", "120", { solid: true })], "50"),
+        noBottle: editor.editorCardMakesMl([row("Hedione", "600")], ""),
+    })""")
+    # Solids are weighed into the bottle and take no volume on the card.
+    assert result == {"concentrate": "30", "withEthanol": "29.5", "noBottle": ""}
