@@ -1,7 +1,7 @@
 "use strict";
 
 // Bottles page: bottles, additions and the smell log; also attaches the Batch page (batch.js).
-// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, bench, bottles, experiments, perfumery, assistant, science, boot.
+// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, boot.
 
 showMassLimitInline("#bottle-form");
 bindForm("#bottle-form", (data) => request("/bottles", { method: "POST", body: JSON.stringify({ label: data.label, initial_mass_g: checkedInitialMassG(data.initial_mass_g) }) }));

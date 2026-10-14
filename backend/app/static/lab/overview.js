@@ -1,7 +1,7 @@
 "use strict";
 
 // Overview page: backup, restore and workspace export.
-// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, bench, bottles, experiments, perfumery, assistant, science, boot.
+// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, boot.
 
 bindSavingForm("#backup-form", async (data, form, saved) => {
   const result = await request("/backups", { method: "POST", body: JSON.stringify(data), timeoutMs: 0 });

@@ -1,7 +1,7 @@
 "use strict";
 
 // Science page: evidence records and their authority.
-// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, bench, bottles, experiments, perfumery, assistant, science, boot.
+// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, boot.
 
 function scienceEvidenceClass(label) {
   return `evidence-${String(label || "UNKNOWN").toLowerCase().replaceAll("_", "-")}`;

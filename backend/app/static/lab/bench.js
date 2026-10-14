@@ -1,7 +1,7 @@
 "use strict";
 
 // Bench sheet page: a printable sheet for any project or pasted formula, with the pour fix.
-// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, bench, bottles, experiments, perfumery, assistant, science, boot.
+// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, boot.
 
 // ---- Bench sheet view: a printable sheet for any project or pasted formula ----
 // Read-only: it fetches and parses the formula, matches owned stocks and draws

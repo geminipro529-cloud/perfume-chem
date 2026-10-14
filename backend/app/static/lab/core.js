@@ -1,7 +1,7 @@
 "use strict";
 
 // Shared by every page: the API client, messages, form helpers, refresh and navigation.
-// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, bench, bottles, experiments, perfumery, assistant, science, boot.
+// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, boot.
 
 const API = "/api/v1/lab";
 const state = {
@@ -233,6 +233,7 @@ async function refresh() {
   smellLog?.setBottles(bottles);
   recordList("#experiment-list", experiments, "name", (row) => row.status);
   renderProjectInventory($("#project-inventory-search").value);
+  if (typeof editorInventoryChanged === "function") editorInventoryChanged();
   // A design shown before the inventory arrived (a restored draft) picks up its basket order.
   if (state.formulaChat.result) renderFormulaRows(selectedFormulaVariant(state.formulaChat.result).formula?.rows || []);
   updateSelectors();

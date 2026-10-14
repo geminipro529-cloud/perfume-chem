@@ -1,7 +1,7 @@
 "use strict";
 
 // Stock page (Materials): the owned stock list, its filters, details, additions, and the material and stock forms.
-// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, bench, bottles, experiments, perfumery, assistant, science, boot.
+// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, boot.
 
 const STOCK_SOLVENT_UPPER = new Set(["dpg", "dep", "ipm", "tec", "bb", "pea"]);
 const STOCK_BASIS_WORDS = { mass_fraction: "w/w", volume_fraction: "v/v", mass_per_volume: "w/v" };

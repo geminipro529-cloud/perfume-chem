@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/static/theme.css">
   <link rel="stylesheet" href="/static/batch-label.css">
   <link rel="stylesheet" href="/static/batch.css">
+  <link rel="stylesheet" href="/static/formula-editor.css">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -38,6 +39,7 @@
       <p class="nav-group">Bench</p>
       <button class="nav-item is-active" data-view="improve">Improve a scent</button>
       <button class="nav-item" data-view="formulas">Create a formula</button>
+      <button class="nav-item" data-view="editor">Edit a formula</button>
       <button class="nav-item" data-view="benchsheet">Bench sheet</button>
       <button class="nav-item" data-view="materials">Stock</button>
       <button class="nav-item" data-view="bottles">Bottles</button>
@@ -604,6 +606,71 @@
         <div class="panel batch-label-panel"><p class="panel-index">Label and IFRA</p><h2>Label and IFRA statement</h2><div id="batch-label-area"></div></div>
       </section>
 
+      <section class="view" data-panel="editor" aria-labelledby="editor-title">
+        <div class="view-heading"><div><p class="eyebrow">Your formula, row by row</p><h1 id="editor-title">Edit a formula</h1><p class="lede">Load a card, a pasted table or the draft from Create a formula, then edit it from the keyboard. Amounts are kept exactly; switching the unit only changes how they are shown. Nothing here changes a card or your stock.</p></div></div>
+        <form id="editor-source-form" class="panel editor-source-form" novalidate>
+          <div class="field-pair">
+            <label>Start from
+              <select name="source_kind">
+                <option value="EMPTY">An empty formula</option>
+                <option value="PROJECT_FILE">A project formula file</option>
+                <option value="PASTED">A pasted card or spreadsheet rows</option>
+                <option value="CREATE">The draft on Create a formula</option>
+              </select>
+            </label>
+            <label id="editor-project-field" hidden>Project formula
+              <input name="project_formula_path" list="project-formula-options" placeholder="Start typing a formula name" autocomplete="off">
+            </label>
+          </div>
+          <label id="editor-paste-field" hidden>Card or rows <span>a card table, or rows copied from a spreadsheet: the name, then the amount</span>
+            <textarea name="pasted_text" rows="6" maxlength="200000"></textarea>
+          </label>
+          <div class="request-actions">
+            <button type="submit">Load into the editor</button>
+          </div>
+        </form>
+        <article class="panel editor-panel" aria-labelledby="editor-rows-title">
+          <div class="editor-head">
+            <label>Formula name<input id="editor-name" autocomplete="off" maxlength="200"></label>
+            <label>Show amounts in
+              <select id="editor-unit">
+                <option value="uL">µL</option>
+                <option value="g">grams</option>
+                <option value="pct">% of the liquid</option>
+                <option value="parts">parts per 1000 of the liquid</option>
+              </select>
+            </label>
+          </div>
+          <div class="editor-tools" role="toolbar" aria-label="Formula tools">
+            <button type="button" class="quiet-button" id="editor-undo" disabled>Undo</button>
+            <button type="button" class="quiet-button" id="editor-redo" disabled>Redo</button>
+            <button type="button" class="quiet-button" id="editor-add-row">Add a row</button>
+            <button type="button" class="quiet-button" id="editor-sort-note">Sort by note</button>
+            <button type="button" class="quiet-button" id="editor-sort-amount">Sort by amount</button>
+          </div>
+          <h2 id="editor-rows-title" class="sr-only">Rows</h2>
+          <div class="editor-table-wrap">
+            <table class="editor-table" role="table">
+              <thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">#</th><th scope="col" role="columnheader">Material</th><th scope="col" role="columnheader">Amount</th><th scope="col" role="columnheader">Note</th><th scope="col" role="columnheader">Stock</th><th scope="col" role="columnheader"><span class="sr-only">Remove</span></th></tr></thead>
+              <tbody id="editor-rows" role="rowgroup"></tbody>
+            </table>
+          </div>
+          <datalist id="editor-stock-options"></datalist>
+          <p id="editor-totals" class="editor-totals" aria-live="polite"></p>
+          <ul id="editor-notes" class="editor-notes"></ul>
+          <p id="editor-error" class="form-error" role="alert" hidden></p>
+          <div class="editor-scale">
+            <label>Scale the liquid to <span>µL; every row keeps its share</span><input id="editor-scale-to" inputmode="decimal" autocomplete="off" placeholder="6000"></label>
+            <button type="button" class="quiet-button" id="editor-scale">Scale</button>
+          </div>
+          <div class="request-actions">
+            <button type="button" class="primary-button" id="editor-to-bench">Open on the bench sheet</button>
+            <button type="button" class="quiet-button" id="editor-copy">Copy as a table</button>
+          </div>
+          <p class="field-help" id="editor-keys">Keys: Enter saves a cell and moves down a row; ↑ and ↓ move between amounts; Ctrl+Z undoes and Ctrl+Y redoes; Ctrl+Enter adds a row below; Ctrl+Delete removes the row. Paste rows from a spreadsheet into any cell.</p>
+        </article>
+      </section>
+
       <section class="view" data-panel="benchsheet" aria-labelledby="benchsheet-title">
         <div class="view-heading"><div><p class="eyebrow">Any formula, ready to pour</p><h1 id="benchsheet-title">Bench sheet</h1><p class="lede">Pick a project formula or paste a formula table. The sheet runs in your basket order, names each stock you own, and gives a DPG mix for any pour under 10 µL. It reads the formula only; nothing is saved or changed.</p></div></div>
         <form id="bench-source-form" class="panel bench-source-form" novalidate>
@@ -921,12 +988,14 @@
   <script src="/static/smell-log.js" defer></script>
   <script src="/static/batch-label.js" defer></script>
   <script src="/static/batch.js" defer></script>
+  <script src="/static/formula-editor.js" defer></script>
   <!-- The Lab page itself, one file per page: core first, boot (start-up) last. -->
   <script src="/static/lab/core.js" defer></script>
   <script src="/static/lab/stock.js" defer></script>
   <script src="/static/lab/improve.js" defer></script>
   <script src="/static/lab/overview.js" defer></script>
   <script src="/static/lab/create.js" defer></script>
+  <script src="/static/lab/editor.js" defer></script>
   <script src="/static/lab/bench.js" defer></script>
   <script src="/static/lab/bottles.js" defer></script>
   <script src="/static/lab/experiments.js" defer></script>

@@ -1,7 +1,7 @@
 "use strict";
 
 // Improve page: goal analysis of a bottle or formula, engine jobs and the physical change record.
-// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, bench, bottles, experiments, perfumery, assistant, science, boot.
+// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, boot.
 
 function setWorkflowStep(current) {
   $$('[data-workflow-step]').forEach((node) => {

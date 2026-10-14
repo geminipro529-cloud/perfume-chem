@@ -1,0 +1,55 @@
+/* Edit a formula page (lab/editor.js). */
+.editor-panel { display: grid; gap: 12px; }
+.editor-head { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 12px; }
+.editor-tools { display: flex; flex-wrap: wrap; gap: 8px; }
+.editor-table-wrap { overflow-x: auto; }
+.editor-table { width: 100%; border-collapse: collapse; }
+.editor-table th { padding: 6px; border-bottom: 2px solid var(--blue); color: var(--muted); font-size: 12px; text-align: left; }
+.editor-table td { padding: 4px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.editor-table input, .editor-table select { padding: 7px 8px; }
+.editor-number { width: 2.5em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.editor-table [data-field="material"] { min-width: 16em; }
+.editor-amount { display: flex; align-items: center; gap: 6px; }
+.editor-amount input { width: 7.5em; text-align: right; font-variant-numeric: tabular-nums; }
+.editor-unit { min-width: 1.6em; color: var(--muted); }
+.editor-stock { min-width: 10em; color: var(--muted); font-size: 13px; }
+.editor-stock.is-problem { color: var(--red); }
+.editor-remove { padding: 6px 10px; }
+.editor-remove-mark { display: none; }
+.editor-empty { padding: 14px 6px; color: var(--muted); }
+.editor-totals { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+.editor-notes { margin: 0; padding-left: 18px; color: var(--muted); font-size: 13px; }
+.editor-notes:empty { display: none; }
+.editor-scale { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
+.editor-scale label { flex: 0 1 18em; }
+
+@media (max-width: 760px) {
+  .editor-head { grid-template-columns: 1fr; }
+  /* On a phone each row wraps: the material on top, then amount and note, then
+     the stock and Remove, so the amount never scrolls out of sight. The table
+     keeps its roles in the markup, so screen readers still read rows and cells. */
+  .editor-table, .editor-table tbody { display: block; }
+  .editor-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .editor-table tr {
+    display: grid;
+    grid-template-columns: 2em minmax(0, 1fr) auto;
+    grid-template-areas: "number material remove" "number amount note" "number stock stock";
+    gap: 6px 8px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .editor-amount input { flex: 1 1 auto; width: 100%; min-width: 0; }
+  /* The stock line stays: a narrow screen cuts the strength off the material's label. */
+  .editor-table td { padding: 0; border: 0; }
+  .editor-table td:nth-child(1) { grid-area: number; padding-top: 8px; }
+  .editor-table td:nth-child(2) { grid-area: material; }
+  .editor-table td:nth-child(3) { grid-area: amount; }
+  .editor-table td:nth-child(4) { grid-area: note; }
+  .editor-table td:nth-child(5) { grid-area: stock; min-width: 0; }
+  .editor-table td:nth-child(6) { grid-area: remove; }
+  .editor-remove { min-width: 44px; min-height: 44px; padding: 4px; font-size: 20px; line-height: 1; }
+  .editor-remove-word { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .editor-remove-mark { display: inline; }
+  .editor-table [data-field="material"] { width: 100%; min-width: 0; }
+  .editor-table td.editor-empty { grid-column: 1 / -1; }
+}

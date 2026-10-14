@@ -1,7 +1,7 @@
 "use strict";
 
 // Create page (Formulas): the formula chat, create several, saved drafts, formula records and versions.
-// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, bench, bottles, experiments, perfumery, assistant, science, boot.
+// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, boot.
 
 // Inventory-grounded formulation conversation ----------------------------
 function appendFormulaChatBubble(kind, text) {
