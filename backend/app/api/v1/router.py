@@ -17,6 +17,7 @@ from app.api.v1.endpoints import (
     lab_brief_notes,
     lab_holds,
     lab_lifecycle,
+    lab_make_now,
     lab_planning,
     lab_reporting,
     lab_versions,
@@ -99,6 +100,12 @@ api_router.include_router(
     lab_holds.router,
     prefix="/lab/v2",
     tags=["laboratory-formula-holds"],
+)
+
+api_router.include_router(
+    lab_make_now.router,
+    prefix="/lab/v2",
+    tags=["laboratory-make-now"],
 )
 
 api_router.include_router(

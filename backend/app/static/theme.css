@@ -627,3 +627,33 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
 @media (max-width: 760px) {
   .hold-list-bar .quiet-button, .hold-item-open { min-height: 44px; }
 }
+
+/* What can I make (make-now.js). */
+.make-toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 8px 16px; }
+.make-toolbar input { max-width: 8em; }
+.make-formulas, .make-shopping { display: grid; gap: 12px; margin-top: 12px; }
+.make-card, .make-group, .make-ask { display: grid; gap: 6px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-high); overflow-wrap: anywhere; }
+.make-card[data-status="ok"] { border-left: 4px solid var(--pass-fg); }
+.make-card[data-status="short"] { border-left: 4px solid var(--fail-fg); }
+.make-card[data-status="unknown"] { border-left: 4px solid var(--hold); }
+.make-card-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 8px; }
+.make-card-head h3 { margin: 0; color: var(--ink); }
+.make-card p, .make-group p, .make-ask p, .make-shopping > p { margin: 0; }
+.make-chip { padding: 0 8px; border-radius: 999px; font-size: 12px; }
+.make-chip-ok { color: var(--pass-fg); background: var(--pass-bg); }
+.make-chip-short { color: var(--fail-fg); background: var(--fail-bg); }
+.make-chip-unknown { color: var(--hold-fg); background: var(--hold-bg); }
+.make-verdict, .make-total, .make-shopping-for { color: var(--ink); }
+.make-subtotal { color: var(--ink); font-weight: 700; }
+.make-rows { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.make-rows[hidden] { display: none; }
+.make-row { display: grid; gap: 6px; padding: 6px 8px; border-radius: 6px; color: var(--ink); background: var(--paper); }
+.make-row[data-status="short"], .make-row[data-status="missing"] { color: var(--fail-fg); background: var(--fail-bg); }
+.make-row[data-status="unknown"] { color: var(--hold-fg); background: var(--hold-bg); }
+.make-left-form { display: flex; flex-wrap: wrap; align-items: end; gap: 6px 10px; }
+.make-left-form label { display: grid; gap: 2px; font-size: 13px; }
+.make-left-form input { min-width: 6em; max-width: 12em; }
+.make-left-message:empty { display: none; }
+@media (max-width: 760px) {
+  .make-card .quiet-button, .make-left-form .quiet-button, .make-toolbar .quiet-button { min-height: 44px; }
+}

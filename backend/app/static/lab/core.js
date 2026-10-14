@@ -234,6 +234,7 @@ async function refresh() {
   recordList("#experiment-list", experiments, "name", (row) => row.status);
   renderProjectInventory($("#project-inventory-search").value);
   if (typeof editorInventoryChanged === "function") editorInventoryChanged();
+  if (typeof makeNowInventoryChanged === "function") makeNowInventoryChanged();
   // A design shown before the inventory arrived (a restored draft) picks up its basket order.
   if (state.formulaChat.result) renderFormulaRows(selectedFormulaVariant(state.formulaChat.result).formula?.rows || []);
   updateSelectors();
@@ -265,6 +266,7 @@ function navigate(view) {
   }
   if (view === "editor" && typeof editorSideShown === "function") editorSideShown();
   if (view === "nose" && typeof noseShown === "function") noseShown();
+  if (view === "make" && typeof makeNowShown === "function") makeNowShown();
 }
 
 function formData(form) { return Object.fromEntries(new FormData(form).entries()); }

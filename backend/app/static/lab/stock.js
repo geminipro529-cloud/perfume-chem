@@ -528,6 +528,26 @@ attachStockDilutions({
   },
 });
 
+// What can I make (make-now.js): its own page, reading the inventory and prices loaded here.
+const makeNow = typeof attachMakeNow === "function"
+  ? attachMakeNow({
+    doc: document,
+    root: $('[data-panel="make"]'),
+    request,
+    getInventory: () => state.projectInventory || { stocks: [] },
+    getPrices: () => (typeof stockPricesCurrent === "function" ? stockPricesCurrent() : {}),
+    notify,
+  })
+  : null;
+
+function makeNowShown() {
+  makeNow?.shown();
+}
+
+function makeNowInventoryChanged() {
+  makeNow?.changed();
+}
+
 // Prices Kenny types per stock, plus ethanol and packaging (stock-prices.js).
 // boot.js loads them: a price change redraws the bench sheet cost (bench.js), loaded after this file.
 const stockPrices = typeof attachStockPrices === "function"
@@ -539,6 +559,7 @@ const stockPrices = typeof attachStockPrices === "function"
     onChange: () => {
       if (state.projectInventory) renderProjectInventory($("#project-inventory-search").value);
       if (benchSource.costRows) showBenchCostBlock();
+      makeNowInventoryChanged();
     },
   })
   : null;
