@@ -64,6 +64,7 @@ from app.services.smell_log_calibration import (
     CalibrationWindow,
     calibrate,
     calibration_window,
+    chart_correction,
     corrected_ranking,
     fit_factors,
 )
@@ -2271,24 +2272,50 @@ class LabService(
         """Per logged window: the model's leaders (detection screen) beside what was smelled.
 
         Each in-range window carries ``corrected_top`` only when the smell-log
-        calibration passed its preregistered gates; otherwise it is null.
+        calibration passed its preregistered gates; otherwise it is null. It also
+        carries ``model_ranks``: the model's detection order (1 = first, None when
+        the model doesn't rank it) of each name on the chart. ``corrections`` says,
+        per charted name, how many bottles taught the calibration about it, with
+        the factor only when the calibration is used.
         """
 
         result, ranked = await self._smell_log_comparison(bottle_id)
         calibration, windows = await self._smell_log_calibration({bottle_id: (result, ranked)})
-        factors = fit_factors(windows) if calibration["calibrated"] else None
+        used = bool(calibration["calibrated"])
+        fitted = fit_factors(windows)
+        charted: dict[str, str] = {}
+        in_range = [block for block in result["windows"] if block["model_in_range"]]
         for block in result["windows"]:
             block["corrected_top"] = (
-                corrected_ranking(ranked.get(block["window"], []), factors)[:TOP_N]
-                if factors is not None and block["model_in_range"]
+                corrected_ranking(ranked.get(block["window"], []), fitted)[:TOP_N]
+                if used and block["model_in_range"]
                 else None
             )
+        for block in in_range:
+            for name in [
+                *(name for name, _share in ranked.get(block["window"], [])[:TOP_N]),
+                *(block["corrected_top"] or []),
+                *(item["name"] for item in block["you_leads"]),
+                *(item["name"] for item in block["you_weak"]),
+            ]:
+                charted.setdefault(name.casefold(), name)
+        for block in in_range:
+            order = ranked.get(block["window"], [])
+            position = {name.casefold(): index + 1 for index, (name, _share) in enumerate(order)}
+            block["model_ranks"] = {name: position.get(key) for key, name in charted.items()}
+        result["calibrated"] = used
+        result["corrections"] = [
+            chart_correction(name, fitted.get(key), used) for key, name in charted.items()
+        ]
         return result
 
     async def smell_log_calibration(self) -> dict:
         """The preregistered nose calibration over every bottle with a smell log."""
 
         calibration, _windows = await self._smell_log_calibration({})
+        for row in calibration["held_out"]:
+            bottle = await self.repository.get_bottle(row["bottle_id"])
+            row["label"] = (bottle.label if bottle is not None else "") or row["bottle_id"]
         return calibration
 
     async def _smell_log_calibration(

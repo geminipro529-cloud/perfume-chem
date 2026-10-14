@@ -565,3 +565,15 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
   }
   .bench-sheet-table .bench-amount small { margin-top: 2px; font-weight: 400; }
 }
+
+/* Smell log: the "model said, you smelled" chart (smell-log.js). */
+.smell-chart { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 13px; line-height: 1.35; }
+.smell-chart caption { padding-bottom: 6px; color: var(--muted); font-size: 13px; text-align: left; }
+.smell-chart th, .smell-chart td { padding: 6px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.smell-chart thead th { color: var(--blue); font-size: 12px; }
+.smell-chart tbody th { color: var(--ink); font-weight: 600; }
+.smell-chart td[data-state="agree"] { color: var(--pass-fg); background: var(--pass-bg); }
+.smell-chart td[data-state="missed"] { color: var(--hold-fg); background: var(--hold-bg); }
+.smell-chart td[data-state="clash"] { color: var(--fail-fg); background: var(--fail-bg); }
+.smell-chart-correction { color: var(--muted); }
+.smell-chart-key { margin: 0; }

@@ -6,8 +6,10 @@ from app.services.smell_log_calibration import (
     SMELL_LOG_CALIBRATION_RULE,
     calibrate,
     calibration_window,
+    chart_correction,
     corrected_ranking,
     fit_factors,
+    held_out_by_bottle,
 )
 
 # The model ranks Ambrox 4th and Hedione 2nd; Kenny smells Ambrox leading and Hedione weak.
@@ -136,3 +138,36 @@ def test_leave_one_out_does_not_let_a_bottle_fit_its_own_correction():
     assert fit_factors(windows)["ambrox"]["factor"] == 2.0
     assert result["baseline_score"] == result["corrected_score"] == 7
     assert result["evidence_class"] == "UNKNOWN"
+
+
+def test_held_out_rows_score_each_bottle_without_itself_and_add_up_to_the_totals():
+    windows = _helpful(10) + [calibration_window("b0", "strip_3h", RANKED, ["Iris"], ["Linalool"])]
+
+    rows = held_out_by_bottle(windows)
+    result = calibrate(windows)
+
+    assert [row["bottle_id"] for row in rows] == [f"b{i}" for i in range(10)]
+    assert rows[0]["windows"] == ["strip_1h", "strip_3h"]
+    # strip_1h: Linalool and Ambrox lead, Hedione weak. Plain top 3 holds Linalool
+    # (+1) and Hedione (-1); corrected top 3 holds Linalool and Ambrox (+2).
+    # strip_3h: Iris is not ranked, so the best is 0; Linalool is weak in the top 3.
+    assert (rows[1]["baseline_score"], rows[1]["corrected_score"], rows[1]["best_score"]) == (0, 2, 2)
+    assert (rows[0]["baseline_score"], rows[0]["corrected_score"], rows[0]["best_score"]) == (-1, 1, 2)
+    assert result["held_out"] == rows
+    assert result["baseline_score"] == sum(row["baseline_score"] for row in rows)
+    assert result["corrected_score"] == sum(row["corrected_score"] for row in rows)
+    assert result["best_score"] == 20
+
+
+def test_chart_correction_gives_bottles_always_and_the_factor_only_when_used():
+    fitted = fit_factors(_helpful(10))
+
+    used = chart_correction("Ambrox", fitted["ambrox"], True)
+    unused = chart_correction("Ambrox", fitted["ambrox"], False)
+    unknown = chart_correction("Iris", None, True)
+
+    assert used == {"name": "Ambrox", "n_bottles": 10, "min_bottles": 3, "used": True, "factor": 2.0, "label": "×2.0"}
+    assert unused == {"name": "Ambrox", "n_bottles": 10, "min_bottles": 3, "used": False, "factor": None, "label": None}
+    assert unknown == {"name": "Iris", "n_bottles": 0, "min_bottles": 3, "used": False, "factor": None, "label": None}
+    few = fit_factors(_helpful(2))["ambrox"]
+    assert chart_correction("Ambrox", few, True)["used"] is False
