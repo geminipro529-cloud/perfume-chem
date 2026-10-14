@@ -62,6 +62,10 @@
       {
         "message_timestamp_utc": "2026-10-14T12:34:10Z",
         "text": "It’s not in ethanol check the web"
+      },
+      {
+        "message_timestamp_utc": "2026-10-14T13:30:23Z",
+        "text": "Myrrh EO and guaiacwood EO is, I can mix 10% Alpha Damascobe 10% in DPG"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Only Paradisamide uses a default (w/w, DPG): Kenny gave the strength and carrier or 'neat' for every other bottle."
@@ -81,12 +85,15 @@
     "safety_or_release_asserted": false,
     "damascone_dilutions_carrier_dpg": true,
     "eo_and_absolute_dilutions_carrier_dpg": true,
-    "neroli_10pct_supplier_dilution_in_jojoba": true
+    "neroli_10pct_supplier_dilution_in_jojoba": true,
+    "myrrh_and_guaiacwood_eo_carrier_dpg": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
     "INV-USER-20261007-PW-023",
-    "INV-USER-20260908-AHSEE-002"
+    "INV-USER-20260908-AHSEE-002",
+    "INV-USER-20260828-005",
+    "INV-USER-20260901-002"
   ],
   "records": [
     {
@@ -663,6 +670,94 @@
         "release_authorized": false
       },
       "note": "Kenny: 'Neroli 10% is from aroma&more', then 'It’s not in ethanol check the web'. Aroma & More sells it ready-made as ref NerTD10 (Tunisia), 10% in organic jojoba oil, basis not stated (found by the Formulation studio 3 thread). The 2026-09-08 record INV-USER-20260908-AHSEE-002 (10% v/v in ethanol, user-prepared) is superseded: the strength stays 10%, the carrier is jojoba, and the basis is the project default (w/w). Jojoba is an oil, not ethanol-miscible the way DPG is; this record makes no claim about how it behaves in a finished perfume."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-014",
+      "canonical_name": "Myrrh EO",
+      "aliases": [
+        "Myrrh EO 50%"
+      ],
+      "state": "OWNED",
+      "category": "resin / incense",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.5,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "PRIOR_USER_STOCK_STRENGTH_EXPLICIT_USER_CARRIER_PROJECT_DEFAULT_BASIS",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_CARRIER_CORRECTION_20261014_INV-USER-20260828-005_DEP_TO_DPG"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_prior_user_stock_record": true,
+        "fraction_basis_from_user_message": false,
+        "carrier_from_user_message": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "basis_is_project_default": true
+      },
+      "note": "Kenny, asked whether Peppermint EO (ethanol), Myrrh EO 50% (DEP) or Guaiacwood EO (ethanol + DEP) are really in DPG: 'Myrrh EO and guaiacwood EO is'. The 2026-08-28 record INV-USER-20260828-005 (50%, basis unspecified, DEP) is superseded: the strength stays 50%, the carrier is DPG, and the basis is the project default (w/w)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-015",
+      "canonical_name": "Guaiacwood EO",
+      "aliases": [
+        "Guaiacwood Essential Oil"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.3333333333333333,
+        "fraction_exact": "1/3",
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "PRIOR_USER_STOCK_STRENGTH_AND_BASIS_EXPLICIT_USER_CARRIER",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_CARRIER_CORRECTION_20261014_INV-USER-20260901-002_ETHANOL_DEP_TO_DPG"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 125,
+          "disposition": "OWNED",
+          "status": "HAVE - EXACTLY 1/3 GUAIACWOOD EO W/W IN DPG (USER-CONFIRMED 2026-10-14); REPLACES THE 2026-09-01 ETHANOL + DEP CARRIER",
+          "actual_stock_text": "Guaiacwood EO exactly 1/3 w/w in DPG",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_prior_user_stock_record": true,
+        "fraction_basis_from_user_message": false,
+        "carrier_from_user_message": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "fraction_basis_from_prior_user_stock_record": true,
+        "nominal_components_asserted": false
+      },
+      "note": "Kenny, asked whether Peppermint EO (ethanol), Myrrh EO 50% (DEP) or Guaiacwood EO (ethanol + DEP) are really in DPG: 'Myrrh EO and guaiacwood EO is'. The 2026-09-01 record INV-USER-20260901-002 (exactly 1/3 w/w, 1/3 ethanol + 1/3 DEP) is superseded: the 1/3 w/w strength stays and the carrier is DPG. The old ethanol/DEP component split is not carried over."
     }
   ]
 }

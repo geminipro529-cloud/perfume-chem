@@ -51,7 +51,8 @@ def test_successor_preserves_unaffected_stock_bytes_and_all_requirement_rows():
         ("Coumarin", 0.1, "mass_fraction", "dpg", True),
         ("Vetiveryl Acetate", 1, "neat", "", True),
         ("Methyl Laitone", 0.2, "volume_fraction", "ethanol", True),
-        ("Guaiacwood EO", 1 / 3, "mass_fraction", "ethanol + dep", True),
+        # 2026-10-14: Kenny put the Guaiacwood EO stock in DPG.
+        ("Guaiacwood EO", 1 / 3, "mass_fraction", "dpg", True),
         ("Bacdanol", 1, "neat", "", True),
     ],
 )

@@ -28,11 +28,12 @@ RECORDS = {
     "INV-USER-20261014-STK-011": ("Oakmoss Absolute", 0.1, "mass_fraction", "dpg"),
     "INV-USER-20261014-STK-012": ("Violet Leaf Absolute", 0.1, "mass_fraction", "dpg"),
     "INV-USER-20261014-STK-013": ("Neroli EO", 0.1, "mass_fraction", "jojoba"),
+    "INV-USER-20261014-STK-014": ("Myrrh EO", 0.5, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-015": ("Guaiacwood EO", 1 / 3, "mass_fraction", "dpg"),
 }
 # EO dilutions recorded in another solvent stay as they were.
 OTHER_SOLVENT_EOS = {
     "Peppermint EO": (0.1, "volume_fraction", "ethanol"),
-    "Myrrh EO": (0.5, "unspecified", "dep"),
 }
 # Beta Damascone also has a neat V5 stock, which this record leaves alone.
 V5_BETA_DAMASCONE_NEAT_STOCK_ID = "inventory:v5:5b2f689456cc631e984d"
@@ -83,8 +84,15 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "As well as the EOs and absolutes",
         "Neroli 10% is from aroma&more",
         "It\u2019s not in ethanol check the web",
+        "Myrrh EO and guaiacwood EO is, I can mix 10% Alpha Damascobe 10% in DPG",
     ]
-    superseded = ["INV-USER-20260830-010", "INV-USER-20261007-PW-023", "INV-USER-20260908-AHSEE-002"]
+    superseded = [
+        "INV-USER-20260830-010",
+        "INV-USER-20261007-PW-023",
+        "INV-USER-20260908-AHSEE-002",
+        "INV-USER-20260828-005",
+        "INV-USER-20260901-002",
+    ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
     assert [r["record_id"] for r in overlay["delta_records"]] == list(RECORDS)
@@ -145,6 +153,11 @@ def test_neroli_10pct_is_aroma_and_more_in_jojoba_not_ethanol() -> None:
     assert record["supplier_product"]["supplier"] == "Aroma & More"
     assert record["authority_limits"]["user_said_not_ethanol"] is True
     assert not [s for s in _stocks("Neroli EO") if s.carrier == "ethanol"]
+
+
+def test_alpha_damascone_10pct_is_not_recorded_as_owned() -> None:
+    # "I can mix 10% Alpha Damascone": he can make one, he does not hold one yet.
+    assert [s.dilution for s in _stocks("Alpha Damascone") if s.status == "owned"] == [1.0]
 
 
 def test_caryophyllene_acetate_carrier_is_kennys_dep() -> None:
