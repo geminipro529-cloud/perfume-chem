@@ -4,11 +4,13 @@ import re
 
 import pytest
 
+from tests.lab_page_scripts import get_lab_script
+
 
 @pytest.mark.asyncio
 async def test_stock_view_is_a_filterable_label_table(client):
     page = (await client.get("/app")).text
-    script = (await client.get("/static/lab.js")).text
+    script = (await get_lab_script(client)).text
 
     for needle in (
         'id="project-inventory-solvent"',
@@ -48,14 +50,14 @@ async def test_stock_view_is_a_filterable_label_table(client):
         assert needle in script, needle
     # The table is built from DOM nodes, never from HTML strings of data.
     body = script[script.index("function renderProjectInventory") :]
-    body = body[: body.index("async function refresh")]
+    body = body[: body.index('$("#project-inventory-search").addEventListener')]
     assert "innerHTML" not in body
 
 
 @pytest.mark.asyncio
 async def test_completion_form_shows_the_suggestion_and_its_source(client):
     page = (await client.get("/app")).text
-    script = (await client.get("/static/lab.js")).text
+    script = (await get_lab_script(client)).text
 
     assert 'id="inventory-completion-suggestion"' in page
     assert "ready to design" in script

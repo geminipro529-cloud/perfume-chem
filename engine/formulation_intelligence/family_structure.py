@@ -206,6 +206,7 @@ _FACET_FAMILIES: Mapping[str, str] = {
     "oud_agarwood": "woody_amber",
     "animalic_fur": "animalic",
     "incense_resin": "incense",
+    "opoponax_balsam": "amber",
     "smoke_char": "dry_woods",
     "leather_suede": "leather",
     "fougere_coumarin": "fougere",

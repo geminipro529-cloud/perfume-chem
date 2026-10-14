@@ -101,7 +101,9 @@ def candidates_by_name() -> dict:
         ("Evernyl 10%", "mossy"),
         ("Oakmoss Absolute", "oakmoss"),
         ("Ambrettolide", "musky"),
-        ("Olibanum Resinoid 50%", "incense"),
+        # One bottle since 2026-10-14; the bracketed stock text no longer splits
+        # it into "Olibanum Resinoid 50%" and "Olibanum Resinoid (viscous, 50%".
+        ("Olibanum Resinoid", "incense"),
         ("Myrrh EO", "incense"),
         ("Coumarin 10%", "tonka"),
     ],

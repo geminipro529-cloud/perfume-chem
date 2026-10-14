@@ -398,8 +398,8 @@
   logp: 3.1
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.98
+  vp_source: supplier_unit_corrected_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -429,6 +429,7 @@
     cas: 'https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880 (dsm-firmenich, producer); "CAS# 0041816-03-9" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://www.scentspiracy.com/fragrance-ingredients/p/rhubofix (secondary site); "204.31 g/mol" (C14H20O) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     logp: 'https://eng.hekserij.nl/shop/fragrance-raw-material/search-by-type/aroma-chemicals/rhubofix-fir (Hekserij, supplier); "Log P: 3.1", method not stated (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
+    vp_25c_pa: 'ESTIMATE, low confidence (2026-10-14): dsm-firmenich Studio "0.00735 Pa at 20C" and Hekserij "0,007 Pa" read as mmHg (Studio pages have printed EPI mmHg values labelled Pa) = 0.98 and 0.93 Pa; these then agree with TGSC 0.003 mmHg (est) = 0.40 Pa and a boiling-point estimate of about 1.3 Pa (range 0.4-1.3 Pa). Read literally, 0.007 Pa would be 57-190x below the others. The unit slip is not confirmed on the Rhubofix page. No measured value found. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
 - canonical_name: Rice Bran Oil - Fixed Oil
   aliases: []
   cas: null

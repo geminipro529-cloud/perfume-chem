@@ -5,12 +5,17 @@ import re
 from fastapi.testclient import TestClient
 
 from app.main import app
+from tests.lab_page_scripts import lab_script_paths
 
 
 def _js() -> str:
-    response = TestClient(app).get("/static/lab.js")
-    assert response.status_code == 200
-    return response.text
+    client = TestClient(app)
+    texts = []
+    for path in lab_script_paths(client.get("/app").text):
+        response = client.get(f"/static/{path}")
+        assert response.status_code == 200
+        texts.append(response.text)
+    return "\n".join(texts)
 
 
 def test_form_errors_are_placed_next_to_the_button_and_accessible():

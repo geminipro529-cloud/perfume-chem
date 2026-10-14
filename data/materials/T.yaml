@@ -3476,10 +3476,9 @@
   cas: '68039-49-6'
   smiles:
   inchikey:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 152.23)
-  mw_g_mol: 152.23
+  mw_g_mol: 138.21
   density_25c_g_ml: 0.933
-  logp:
+  logp: 2.5
   functional_groups: []
   chirality:
   # VERIFIED: Profile VP from ingredient_intelligence, 2026-05-30 (was 0.5, corrected to 66.1)
@@ -3520,6 +3519,8 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 68039-49-6 (https://www.thegoodscentscompany.com/data/rw1007631.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.93200 to 0.94000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1007631.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    mw_g_mol: 'CORRECTED (2026-10-14): Triplal is C9H14O, 138.21 g/mol (ChemicalBook CAS 68039-49-6 "[Molecular Formula] C9H14O", "[Molecular Weight] 138.21", https://chemicalbook.com/CASEN_68039-49-6.htm; Premiere Peau "MW 138.21 g/mol", https://premierepeau.com/pages/glossary-terms/triplal). The old 152.23 is the mass of a C10H16O molecule and had no source. Source: material-data-gaps-2026-10-14/SUMMARY.md'
+    logp: 'ESTIMATE (2026-10-14): midpoint of two unlabelled compilation values, ChemicalBook "[LogP] 2.67" and Premiere Peau "LogP 2.34" (method not stated for either). No measured log Kow found. Source: material-data-gaps-2026-10-14/SUMMARY.md'
 - canonical_name: TRUE LILY F-TEC
   aliases: []
   cas:

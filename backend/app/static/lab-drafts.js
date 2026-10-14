@@ -1,6 +1,6 @@
 // Browser-saved drafts: the parts that need no page. Every function takes the
 // storage object as a parameter, so blocked, full, old or corrupt storage can be
-// exercised without a browser. lab.js draws and restores the page around these.
+// exercised without a browser. lab/create.js draws and restores the page around these.
 // One versioned key per view. Only what the page shows is kept, plus the stock ids
 // a refine needs; server hashes and source paths are never stored.
 (function exposeLabDrafts() {

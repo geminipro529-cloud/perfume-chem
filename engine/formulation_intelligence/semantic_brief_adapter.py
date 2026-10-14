@@ -156,7 +156,12 @@ _FACETS: tuple[FacetDefinition, ...] = (
     FacetDefinition("amber_mineral", ("amber", "ambrox", "ambergris", "mineral amber", "dry amber"), ("ambrox", "ambergris", "amber", "mineral", "woody amber"), "base", "structure", (("woody", .65), ("warmth", .35), ("radiance", .25)), .12, .22),
     FacetDefinition("skin_musk", ("musk", "musky", "skin scent", "human skin", "body warmth", "warm skin"), ("musk", "skin", "ambrettolide", "brassylate", "habanolide", "exaltolide"), "base", "texture", (("creamy", .45), ("warmth", .35), ("transparency", .35)), .09, .16),
     FacetDefinition("animalic_fur", ("animalic", "clean fur", "warm fur", "fur accord", "civet", "castoreum"), ("animalic", "fur", "civet", "castoreum", "costus", "indole"), "base", "modifier", (("animalic", 1.0), ("warmth", .3), ("smoky", .15)), .035, .07),
-    FacetDefinition("incense_resin", ("incense", "frankincense", "olibanum", "myrrh", "opoponax", "church", "cathedral", "resin"), ("incense", "olibanum", "frankincense", "myrrh", "opoponax", "resin"), "base", "character", (("smoky", .75), ("woody", .5), ("warmth", .25)), .09, .16),
+    FacetDefinition("incense_resin", ("incense", "frankincense", "olibanum", "myrrh", "church", "cathedral", "resin"), ("incense", "olibanum", "frankincense", "myrrh", "opoponax", "resin"), "base", "character", (("smoky", .75), ("woody", .5), ("warmth", .25)), .09, .16),
+    # Opoponax is a sweet balsamic resin, not a smoky incense: the incense role asks
+    # for smoke, so an opoponax brief could never lead with the owned Opoponax
+    # Resinoid. Character weights mirror that stock's own descriptors; share and cap
+    # copy incense_resin so no new dose is introduced.
+    FacetDefinition("opoponax_balsam", ("opoponax",), ("opoponax", "balsam", "resin"), "base", "character", (("warmth", .55), ("balsamic", .45), ("sweetness", .45), ("animalic", .2)), .09, .16),
     FacetDefinition("smoke_char", ("smoke", "smoky", "charred", "ember", "burnt", "ash"), ("smoke", "cade", "birch tar", "guaiacol", "char", "tobacco"), "base", "modifier", (("smoky", 1.0), ("woody", .35)), .035, .07),
     # Character weights mirror the owned agarwood stock's own descriptors;
     # share and cap copy leather_suede so no new dose is introduced.
@@ -260,6 +265,7 @@ def facet_trigger_phrases() -> frozenset[str]:
 _IRIS_IDENTITY_WORDS = ("irone", "orris")
 FACET_IDENTITY_REQUIREMENTS: dict[str, tuple[str, ...]] = {
     "oud_agarwood": ("agarwood",),
+    "opoponax_balsam": ("opoponax",),
     **{facet_id: _IRIS_IDENTITY_WORDS for facet_id in _LITERATURE_FACETS if facet_id.startswith("iris_")},
     # The umbrella also answers violet-only briefs; see role_identity_requirement.
     "iris_violet": _IRIS_IDENTITY_WORDS,

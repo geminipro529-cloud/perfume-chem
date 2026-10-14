@@ -108,7 +108,7 @@ async def test_loopback_is_still_capped_at_600(fresh_limiter):
 @pytest.mark.asyncio
 async def test_static_files_and_the_page_are_not_limited(fresh_limiter):
     async with _from("203.0.113.9") as remote:
-        codes = [(await remote.get("/static/lab.js")).status_code for _ in range(150)]
+        codes = [(await remote.get("/static/lab/core.js")).status_code for _ in range(150)]
         assert 429 not in codes
         page = [(await remote.get("/app")).status_code for _ in range(150)]
         assert 429 not in page

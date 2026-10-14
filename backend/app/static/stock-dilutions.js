@@ -2,7 +2,7 @@
 // and saves here counts at the release gate with no code change, and every
 // freshly prepared stock is in DPG, so DPG and w/w are the defaults.
 //
-// The page loads this before lab.js, which calls attachStockDilutions once.
+// The page loads this before lab/stock.js, which calls attachStockDilutions once.
 // Material names and server messages go in through textContent only, never
 // HTML strings. Node loads the same file in the tests through module.exports.
 
