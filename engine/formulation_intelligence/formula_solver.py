@@ -86,7 +86,7 @@ def _chemical_identity(capability: MaterialCapability) -> str:
     ).strip()
 
 
-def _role_spec(role: SemanticRole) -> RoleSpec:
+def _role_spec(role: SemanticRole, *, star_note: bool = False) -> RoleSpec:
     return RoleSpec(
         role_id=role.role_id,
         label=role.label,
@@ -99,6 +99,7 @@ def _role_spec(role: SemanticRole) -> RoleSpec:
         max_raw_share=role.max_raw_share,
         serves_requested_facet=_is_named_note(role),
         generic_slot=not _is_named_note(role) and role.provenance in _GENERIC_SLOT_PROVENANCE,
+        star_note=star_note,
     )
 
 
@@ -1314,7 +1315,10 @@ def solve_formula(
             assignments, missing = wider, wider_missing
     choices = tuple(
         Choice(
-            role=_role_spec(assignment.role),
+            role=_role_spec(
+                assignment.role,
+                star_note=assignment.role.role_id in brief.star_role_ids,
+            ),
             candidate=assignment.capability.candidate,
             score=assignment.score,
             alternatives=assignment.alternatives,

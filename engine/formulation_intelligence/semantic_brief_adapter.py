@@ -117,6 +117,10 @@ class SemanticBrief:
     # The fragrance family whose structure shaped the supporting layers
     # (docs/fragrance_families_reference.md heading), when the brief has one.
     fragrance_family: str | None = None
+    # Roles of the note the brief calls "the star" (its lead stock, facet and
+    # accord supports). Omitted from as_dict() while empty, like the fields
+    # above, so briefs without a star keep their payload and design hashes.
+    star_role_ids: tuple[str, ...] = ()
 
     def as_dict(self) -> dict[str, Any]:
         payload = asdict(self)
@@ -124,6 +128,8 @@ class SemanticBrief:
             del payload["unmapped_requested_notes"]
         if self.fragrance_family is None:
             del payload["fragrance_family"]
+        if not self.star_role_ids:
+            del payload["star_role_ids"]
         return payload
 
 
@@ -143,7 +149,7 @@ _FACETS: tuple[FacetDefinition, ...] = (
     FacetDefinition("fig", ("fig", "fig leaf", "fig milk", "sap"), ("fig", "leaf", "sap", "milky", "lactone"), "heart", "character", (("green", .65), ("creamy", .55)), .105, .18),
     FacetDefinition("mineral_salt", ("mineral", "salt", "salty", "stone", "concrete", "metallic", "flint"), ("mineral", "salt", "stone", "ozone", "ambergris", "ambrox", "metallic"), "heart", "texture", (("transparency", .7), ("freshness", .45), ("woody", .2)), .075, .14),
     FacetDefinition("rain_water", ("rain", "wet pavement", "petrichor", "water", "aquatic", "marine", "ocean", "sea air", "sea spray", "sea breeze", "seaside", "sea"), ("rain", "wet", "petrichor", "marine", "aquatic", "ozone", "calone"), "top", "character", (("freshness", .9), ("transparency", .65), ("green", .25)), .07, .12),
-    FacetDefinition("dry_wood", ("wood", "woody", "cedar", "driftwood", "pencil", "timber", "oak"), ("wood", "cedar", "vetiver", "patchouli", "clearwood", "timber"), "base", "structure", (("woody", 1.0), ("transparency", .2)), .15, .28),
+    FacetDefinition("dry_wood", ("wood", "woods", "woody", "cedar", "driftwood", "pencil", "timber", "oak"), ("wood", "cedar", "vetiver", "patchouli", "clearwood", "timber"), "base", "structure", (("woody", 1.0), ("transparency", .2)), .15, .28),
     FacetDefinition("creamy_wood", ("sandalwood", "creamy wood", "milky wood", "soft wood"), ("sandalwood", "sandalore", "javanol", "creamy", "wood"), "base", "structure", (("woody", .85), ("creamy", .65), ("warmth", .25)), .15, .27),
     FacetDefinition("vetiver_root", ("vetiver", "rooty", "roots", "earthy root"), ("vetiver", "root", "earthy", "vetiveryl"), "base", "character", (("woody", .75), ("green", .35), ("smoky", .2)), .11, .20),
     FacetDefinition("patchouli_earth", ("patchouli", "earthy", "forest floor", "soil"), ("patchouli", "earth", "soil", "moss", "clearwood"), "base", "character", (("woody", .65), ("green", .25), ("smoky", .2)), .09, .16),
@@ -888,6 +894,58 @@ def _named_as_note_only(material: str, request_key: str) -> bool:
     return bool(plain) and _phrase_present(request_key, plain) and not _phrase_present(request_key, material)
 
 
+# "Pink pepper the star of ...", "Pink pepper signature for a man, the star
+# from opening ...": the note named last before the marker is the star.
+# "The star is oud" names it after the marker instead.
+_STAR_MARKER = re.compile(r" the star(?: is)? ")
+
+
+def _star_role_ids(
+    roles: Sequence[SemanticRole],
+    request: str,
+    facets: Sequence[FacetDefinition],
+) -> tuple[str, ...]:
+    """Role ids of the note a brief calls "the star", or () when it names none.
+
+    A note is a stock the brief names (by its own or its plain name) or the
+    trigger of a requested facet.  When nothing the brief requests sits next
+    to the marker, no note is the star: the composer never guesses one.
+    """
+
+    key = f" {_key(request)} "
+    marker = _STAR_MARKER.search(key)
+    if marker is None:
+        return ()
+    after = marker.group(0).endswith(" is ")
+    triggers = {f"facet_{facet.facet_id}": facet.triggers for facet in facets}
+    found: list[tuple[int, str]] = []
+    for role in roles:
+        if role.exact_material is not None:
+            phrases: tuple[str, ...] = (role.exact_material, plain_stock_name(role.exact_material))
+        elif role.provenance == "PROMPT_DERIVED_FACET":
+            phrases = triggers.get(role.role_id, ())
+        else:
+            continue
+        for phrase in phrases:
+            phrase_key = _key(phrase or "")
+            if not phrase_key:
+                continue
+            for match in re.finditer(rf"(?<= ){re.escape(phrase_key)}(?= )", key):
+                if after and match.start() >= marker.end() - 1:
+                    found.append((-match.start(), role.role_id))
+                elif not after and match.end() <= marker.start():
+                    found.append((match.end(), role.role_id))
+    if not found:
+        return ()
+    nearest = max(position for position, _ in found)
+    star = {role_id for position, role_id in found if position == nearest}
+    return tuple(
+        role.role_id
+        for role in roles
+        if role.role_id in star or accord_lead_role_id(role) in star
+    )
+
+
 def _roles(
     *,
     formula_name: str,
@@ -1473,6 +1531,7 @@ def compile_semantic_brief(
             positive_semantic_text, facets, requested_fruits, explicit
         ),
         fragrance_family=family.heading if family is not None else None,
+        star_role_ids=_star_role_ids(roles, reading_raw, facets),
     )
 
 

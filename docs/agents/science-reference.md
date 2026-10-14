@@ -27,7 +27,7 @@ OAV = p_i / P_atm × 1e6 / ODT_ppb
 |---|---|
 | Top | > 2 Pa (bergamot 40, petitgrain 6, linalool 20, limonene 200) |
 | Heart | 0.1–2 Pa (geraniol 4*, hedione 0.09*) |
-| Base | < 0.1 Pa (vetiver 0.04, iso e super 0.15*, musks ≤ 0.02) |
+| Base | < 0.1 Pa (vetiver 0.04, iso e super 0.15*, musks about 0.003-0.08: Ambrettolide 0.003, Galaxolide 0.073) |
 *Note: pipeline uses ingredient_intelligence profiles for tier, not these thresholds. These are reference ranges for formulation thinking.
 
 ### Psychophysics

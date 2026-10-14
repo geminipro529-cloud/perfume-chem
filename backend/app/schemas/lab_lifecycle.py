@@ -132,6 +132,15 @@ class FormulaTextParseCreate(LifecycleRequest):
     name: str | None = Field(default=None, max_length=200)
 
 
+class MaterialDensityLookupCreate(LifecycleRequest):
+    """Material names whose density the bench sheet needs to weigh rows in grams."""
+
+    names: tuple[
+        Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=255)],
+        ...,
+    ] = Field(min_length=1, max_length=300)
+
+
 class PersonalInventoryAdditionCreate(LifecycleRequest):
     """One user-confirmed owned stock missing from the current inventory view."""
 
