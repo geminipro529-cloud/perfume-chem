@@ -45,6 +45,8 @@ Think in **chemical effects**, not vibes:
 
 Never auto-pick: Hedione for radiance, Iso E Super for woods, Benzyl Salicylate for fixative, Habanolide for musk, Bergamot for citrus, Javanol for sandalwood, Ambrox for amber. Each of these has 3–8 alternatives in this inventory. The reflex pick is often wrong.
 
+Basket 1 "Always used" in `docs/basket_order_preference.md` is where Kenny keeps the bottles he reaches for most. It is not a list of materials every formula must contain: Vetiveryl Acetate, Vetiver EO Haiti, Iso E Super, Hedione, Ambrofix, Ambrox Super, the patchoulis and the salicylates each need their own reason in each formula.
+
 ### 4. Select Character Materials, Not Generic Fillers
 Every material in a formula must have a **specific functional reason**. Ask: "Why THIS material and not another?"
 

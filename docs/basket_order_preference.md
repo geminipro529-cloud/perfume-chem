@@ -26,6 +26,12 @@
 16. **Aldehydes**
 17. **Green smelling things**
 
+> **Basket 1 is a shelf label, not a recipe rule.** "Always used" means these are
+> the bottles Kenny reaches for most, so they sit in the first basket. It does not
+> mean every formula should contain them. Choose each of these materials only when
+> the formula's name and brief call for it, exactly like any other material
+> (see "No Defaults" in `.github/copilot-instructions.md`). Kenny, 2026-10-13.
+
 ## Basket-first compounding-volume order
 
 Sort every dose-bearing material first by the documented physical basket category
