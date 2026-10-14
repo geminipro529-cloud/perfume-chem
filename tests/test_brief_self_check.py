@@ -65,19 +65,20 @@ def test_a_brief_whose_leads_carry_their_notes_keeps_its_first_solve() -> None:
 
 
 def test_an_uncovered_note_names_the_owned_stocks_waiting_for_details() -> None:
-    # Opoponax: only the owned Opoponax Resinoid carries it, and it waits for details.
-    # (Frangipani was the example until Benzyl Salicylate's reviewed description named it.)
-    result = design_formula(idea="Opoponax on skin with a soft vanilla trail")
+    # Lavandin: only the owned Lavandin Absolute carries it, and it waits for details.
+    # (Frangipani was the example until Benzyl Salicylate's reviewed description named it;
+    # Opoponax until Kenny let the composer design with Opoponax Resinoid, 14 Oct 2026.)
+    result = design_formula(idea="Lavandin on skin with a soft vanilla trail")
 
     check = _self_check(result)
-    assert "opoponax" in check["check"]["uncovered_words"]
+    assert "lavandin" in check["check"]["uncovered_words"]
     index = build_material_capability_index()
     held = sorted({
         c.identity_name for c in index.capabilities
-        if not c.design_ready and "opoponax" in c.identity_vocabulary
+        if not c.design_ready and "lavandin" in c.identity_vocabulary
     })
     assert held
-    assert check["held_carriers"].get("opoponax", []) == held[:3]
+    assert check["held_carriers"].get("lavandin", []) == held[:3]
 
 
 def test_carries_reads_the_stock_name_before_its_descriptors() -> None:
