@@ -738,7 +738,7 @@ async def test_formula_result_fits_prints_and_offers_a_bench_sheet(client):
     assert "body.printing-bench-sheet .bench-sheet { display: block;" in print_css
 
     actions = page.text.split('id="formula-download"', 1)[1].split("</div>", 1)[0]
-    assert '<button id="formula-print-bench" type="button">Print bench sheet</button>' in actions
+    assert '<button id="formula-print-bench" class="quiet-button" type="button">Print bench sheet</button>' in actions
     assert 'id="bench-sheet"' in page.text
     assert page.text.index('src="/static/bench-sheet.js"') < page.text.index('src="/static/lab/core.js"')
     assert 'id="formula-result-variant"' in page.text
