@@ -110,9 +110,10 @@ def test_correction_is_a_required_runtime_dependency():
 def test_new_reviews_are_partial_and_never_numeric_admission():
     pack = knowledge.load_knowledge_pack()
     # Stock signature notes added 7 sources, 5 claims and 6 materials (step 6), then
-    # 2 sources, 1 claim and 1 material (step 7, Aldehyde C-18's coconut).
-    assert (len(pack["sources"]), len(pack["claims"])) == (242, 232)
-    assert (len(pack["materials"]), len(pack["profiles"])) == (32, 43)
+    # 2 sources, 1 claim and 1 material (step 7, Aldehyde C-18's coconut), then
+    # 2 sources, 1 claim and 2 materials (frangipani: Benzyl Salicylate, Nerolidol).
+    assert (len(pack["sources"]), len(pack["claims"])) == (244, 233)
+    assert (len(pack["materials"]), len(pack["profiles"])) == (34, 43)
     new = [s for s in pack["sources"] if s["source_id"].endswith("_depth")]
     assert len(new) == 21
     reviewed = assess_review_bundle(pack["sources"], knowledge.SOURCE_REVIEWS_PATH.read_bytes())

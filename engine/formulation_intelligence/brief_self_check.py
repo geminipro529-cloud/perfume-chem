@@ -14,6 +14,7 @@ and no benchmark note lists: the duel's yardstick stays an outside measure.
 
 from __future__ import annotations
 
+import re
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass, replace
 from typing import Any
@@ -36,7 +37,12 @@ from engine.formulation_intelligence.semantic_brief_adapter import (
     _phrase_present,
     role_identity_requirement,
 )
-from engine.research.composition_planner import _avoid_candidate
+from engine.research.composition_planner import (
+    NOTE_STOCK_WORDS,
+    NoteAnchor,
+    _avoid_candidate,
+    names_note_stock,
+)
 
 SCHEMA_VERSION = "brief-self-check-v1"
 
@@ -69,6 +75,8 @@ WORD_EQUIVALENTS: Mapping[str, tuple[str, ...]] = {
 WEIGHTS = {"lead_fidelity": .55, "word_coverage": .35, "family_coverage": .10}
 # Owned stocks named for an uncovered note that are not design ready, listed per word.
 _HELD_LISTED = 3
+# Owned stocks offered to a capsule role for a note it left out, best first.
+_NOTE_STOCKS_LISTED = 6
 
 
 def _specific(word: str) -> bool:
@@ -262,6 +270,105 @@ def held_carriers(index: MaterialCapabilityIndex, words: Sequence[str]) -> dict[
     return result
 
 
+def _note_words(role: SemanticRole, request_key: str) -> tuple[str, ...]:
+    """The request's words for a facet role's note; "mossy", "musky" and "resinous"
+    say the note with a suffix, so a query term may start a request word (both the
+    term and the word are kept: a stock may describe itself either way)."""
+    words = brief_words(role, request_key)
+    if words:
+        return words
+    found: list[str] = []
+    for term in role.query_terms:
+        key = _key(term)
+        match = re.search(rf"(?:^| )({re.escape(key)}[a-z]*)(?= |$)", request_key) if key else None
+        if match:
+            found.extend((key, match.group(1)))
+    return tuple(dict.fromkeys(found))
+
+
+def _carries_note(capability: MaterialCapability, role: SemanticRole, request: str,
+                  words: Sequence[str]) -> str | None:
+    """``identity`` or ``descriptor`` when the stock carries the note; a note with an
+    identity requirement (oud is agarwood, iris is orris or irone) only by name."""
+    required = role_identity_requirement(role.role_id, request)
+    if required:
+        return "identity" if set(required) & set(capability.identity_vocabulary) else None
+    if any(names_note_stock(capability.candidate, word) for word in words):
+        return "identity"
+    kinds = {carries(capability, word) for word in words}
+    return "identity" if "identity" in kinds else "descriptor" if "descriptor" in kinds else None
+
+
+def _note_stock_rank(capability: MaterialCapability, words: Sequence[str]) -> int:
+    """Position of the first of the note's stock words the stock is named for: an
+    incense is olibanum before myrrh (NOTE_STOCK_WORDS lists them in that order)."""
+    probe = f" {_key(capability.identity_name)}"
+    for word in words:
+        for rank, stock_word in enumerate(NOTE_STOCK_WORDS.get(_key(word), ())):
+            if f" {stock_word}" in probe:
+                return rank
+    return len(NOTE_STOCK_WORDS)
+
+
+def capsule_note_gaps(
+    brief: SemanticBrief,
+    placed: Sequence[MaterialCapability],
+    index: MaterialCapabilityIndex,
+    avoid: Sequence[str],
+    concept_words: Sequence[str] = (),
+) -> tuple[NoteAnchor, ...]:
+    """Notes the brief names that no placed stock leads, each with the owned stocks
+    that would lead it, best first.
+
+    A curated capsule (composition_planner) fills its own roles and never reads the
+    brief's note words, so "an oud and incense skin scent" lost its oud and incense.
+    ``concept_words`` are the capsule's own trigger words ("skin scent"): the capsule
+    is that note. A stock carries a note by its own name or descriptors; stocks
+    named for it come first.
+    """
+    request = brief.normalized_request
+    request_key = f" {_key(request)} "
+    concept_tokens = {token for word in concept_words for token in _key(word).split()}
+    placed_ids = {_chemical_identity(capability) for capability in placed}
+    gaps: list[NoteAnchor] = []
+    for role in brief.roles:
+        if role.provenance != "PROMPT_DERIVED_FACET" or role.exact_material is not None:
+            continue
+        words = tuple(
+            word for word in _note_words(role, request_key)
+            if not set(_key(word).split()) <= concept_tokens
+        )
+        if not words or any(_carries_note(c, role, request, words) for c in placed):
+            continue
+        leads = sorted(
+            (
+                c for c in index.capabilities
+                if c.design_ready
+                and _chemical_identity(c) not in placed_ids
+                and not _avoid_candidate(c.candidate, avoid)
+                and _carries_note(c, role, request, words)
+            ),
+            key=lambda c: (
+                _carries_note(c, role, request, words) != "identity",
+                _note_stock_rank(c, words),
+                -sum(carries(c, term) is not None for term in role.query_terms),
+                c.identity_name.casefold(),
+                c.stock_id,
+            ),
+        )
+        held = held_carriers(index, words)
+        gaps.append(NoteAnchor(
+            word=words[0],
+            stocks=tuple(dict.fromkeys(c.identity_name for c in leads))[:_NOTE_STOCKS_LISTED],
+            note=role.note,
+            function=role.function,
+            share=role.share,
+            max_raw_share=role.max_raw_share,
+            held=tuple(dict.fromkeys(name for names in held.values() for name in names)),
+        ))
+    return tuple(gaps)
+
+
 def best_of_solves(
     *,
     brief: SemanticBrief,
@@ -317,6 +424,7 @@ __all__ = [
     "WORD_EQUIVALENTS",
     "best_of_solves",
     "brief_words",
+    "capsule_note_gaps",
     "carries",
     "check_solve",
     "held_carriers",

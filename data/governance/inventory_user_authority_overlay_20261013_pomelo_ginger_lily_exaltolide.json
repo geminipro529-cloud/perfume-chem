@@ -1,0 +1,174 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v25",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-10-13",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20261009_vertofix_coeur_neat.json",
+    "normalized_text_sha256": "8329a4804909a720d6f7d95959c6c91be56c3fb0c7dd0642cd14a08297095882"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 35704,
+    "inventory_text_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "source_kind": "DIRECT_USER_MESSAGE",
+    "message_channel": "PROJECT_CHAT_THEN_PROJECT_THREAD_ANSWER",
+    "user": "Kenny",
+    "message_date": "2026-10-13",
+    "verbatim_user_statements": [
+      {
+        "message_timestamp_utc": "2026-10-13T08:39:46Z",
+        "text": "osmanthus absolute 10% in DPG is restocked, pomelo EO is added to inventory, ginger lily is added to inventory, and neat exaltolide pendecanolide is added to inventory"
+      },
+      {
+        "message_timestamp_utc": "2026-10-13T08:57:32Z",
+        "text": "1. it is an oil 2. pomelo EO is neat. 3. Neat exaltolide is liquid"
+      }
+    ],
+    "questions": [
+      "1. Ginger Lily: is it an absolute, a CO2 extract or an essential oil, and is it neat or diluted (and in what)?",
+      "2. Pomelo EO: neat, as it came?"
+    ]
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "new_stocks_only": true,
+    "osmanthus_absolute_10ww_dpg_restock_needs_no_record": true,
+    "existing_exaltolide_10pct_dpg_stocks_unchanged": true,
+    "inventory_text_line_not_edited": true,
+    "historical_formula_records_unchanged": true,
+    "formula_rebase_authorized": false,
+    "compounding_authorized": false,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [],
+  "records": [
+    {
+      "record_id": "INV-USER-20261013-NEW-001",
+      "canonical_name": "Pomelo EO",
+      "aliases": [
+        "Pomelo Essential Oil",
+        "Pomelo Oil"
+      ],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "physical_form": "liquid",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_NEW_STOCK_NEAT_PER_USER_ANSWER_20261013"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-13",
+      "source_kind": "DIRECT_USER_NEW_STOCK_STATEMENT",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "botanical_source_asserted": false,
+        "extraction_method_asserted": false,
+        "furocoumarin_free_asserted": false,
+        "user_lot_asserted": false,
+        "supplier_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "composition_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'pomelo EO is added to inventory' and, asked 'Pomelo EO: neat, as it came?', 'pomelo EO is neat'. A new neat bottle. Species (Citrus maxima / C. grandis), expression vs distillation and furocoumarin content were not stated."
+    },
+    {
+      "record_id": "INV-USER-20261013-NEW-002",
+      "canonical_name": "Ginger Lily Oil",
+      "aliases": [
+        "Ginger Lily",
+        "Ginger Lily EO",
+        "Ginger Lily Essential Oil"
+      ],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "liquid",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "USER_STATED_AS_SUPPLIED_STRENGTH_NOT_STATED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_NEW_STOCK_RECORDED_AS_SUPPLIED_STRENGTH_NOT_STATED_20261013"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-13",
+      "source_kind": "DIRECT_USER_NEW_STOCK_STATEMENT",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": false,
+        "product_type_from_user_message": true,
+        "fraction_assumed_as_supplied": true,
+        "plant_part_asserted": false,
+        "botanical_source_asserted": false,
+        "user_lot_asserted": false,
+        "supplier_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "composition_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'ginger lily is added to inventory' and, asked whether it is an absolute, a CO2 extract or an essential oil and whether it is neat or diluted, 'it is an oil'. Recorded as an oil at the strength it came (neat); Kenny did not state a dilution or carrier, so a later correction from him replaces this. Flower vs rhizome oil and species (Hedychium) were not stated."
+    },
+    {
+      "record_id": "INV-USER-20261013-NEW-003",
+      "canonical_name": "Exaltolide",
+      "aliases": [
+        "Exaltolide neat",
+        "Pentadecanolide",
+        "Cyclopentadecanolide"
+      ],
+      "state": "OWNED",
+      "category": "musk",
+      "stock": {
+        "physical_form": "liquid",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_NEW_STOCK_NEAT_PER_USER_MESSAGE_20261013"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-13",
+      "source_kind": "DIRECT_USER_NEW_STOCK_STATEMENT",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "physical_form_from_user_message": true,
+        "user_lot_asserted": false,
+        "supplier_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "composition_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'neat exaltolide pendecanolide is added to inventory' and 'Neat exaltolide is liquid'. A new neat bottle of pentadecanolide (CAS 106-02-5), the same molecule as the existing 10% in DPG stocks, which stay as they were. Pure pentadecanolide melts near 37 C, so a liquid bottle may be supercooled or warm; recorded as Kenny describes it."
+    }
+  ]
+}

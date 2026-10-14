@@ -235,6 +235,86 @@ function severalCompareRows(resultA, resultB) {
     .sort((x, y) => Math.max(y.a, y.b) - Math.max(x.a, x.b) || x.material.localeCompare(y.material));
 }
 
+// ---- One of Kenny's own bench cards beside a composed card ----
+// The card is pasted, parsed by /v2/workbench/formula-text and compared here; nothing
+// is saved. Bench cards write the strength into the material, as it is in the bottle:
+// "Cashmeran 20% w/w in DPG", "Hedione (neat)", "Ambrofix Crystals (neat), weigh".
+
+// The strength a bench-card material names: a fraction (1 for neat) or null when unread.
+function severalStrength(text) {
+  const value = String(text || "");
+  const percent = value.match(/(\d+(?:[.,]\d+)?)\s*%/);
+  if (percent) {
+    const fraction = Number(percent[1].replace(",", ".")) / 100;
+    return fraction > 0 && fraction <= 1 ? fraction : null;
+  }
+  return /\bneat\b/i.test(value) ? 1 : null;
+}
+
+// The material itself: no strength, solvent, parentheses or bench words.
+function severalMaterialName(text) {
+  return String(text || "")
+    .replace(/\([^)]*\)/g, " ")
+    .replace(/\d+(?:[.,]\d+)?\s*%(?:\s*(?:w\/w|v\/v|wt))?(?:\s+in\s+[A-Za-z][\w-]*)?/gi, " ")
+    .replace(/,?\s*\*{0,2}weigh\*{0,2}\b/gi, " ")
+    .replace(/\bneat\b/gi, " ")
+    .replace(/[*_]/g, "")
+    .replace(/\s+/g, " ")
+    .replace(/^[\s,;:-]+|[\s,;:-]+$/g, "");
+}
+
+function severalNameKey(text) {
+  return severalMaterialName(text).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+// Active amount of one row: the pour times its strength, in µL or mg as poured.
+// Strengths are w/w or v/v as labelled; densities are not applied, so it is approximate.
+function _activeAmount(amount, fraction) {
+  return fraction === null ? null : amount.value * fraction;
+}
+
+function severalOwnCompare(result, ownSource) {
+  const byKey = new Map();
+  const unread = [];
+  const add = (side, name, row, fraction) => {
+    const key = severalNameKey(name);
+    if (!key) return;
+    const amount = _amount(row);
+    const active = _activeAmount(amount, fraction);
+    if (active === null) {
+      unread.push(severalMaterialName(name));
+      return;
+    }
+    const mapKey = `${key}\u0000${amount.unit}`;
+    const entry = byKey.get(mapKey) || { material: severalMaterialName(name), unit: amount.unit, a: 0, b: 0 };
+    entry[side] += active;
+    byKey.set(mapKey, entry);
+  };
+  for (const row of _primaryFormula(result)?.rows || []) {
+    const raw = row.stock_fraction_decimal;
+    const fraction = raw === undefined || raw === null || raw === "" ? 1 : Number(raw);
+    add("a", row.identity_name || row.material, row, Number.isFinite(fraction) && fraction > 0 ? fraction : null);
+  }
+  for (const row of ownSource?.rows || []) {
+    const given = Number(row.concentration_fraction_decimal);
+    const fraction = row.concentration_fraction_decimal && Number.isFinite(given) && given > 0 ? given : severalStrength(row.material);
+    add("b", row.material, row, fraction);
+  }
+  // A trace (1 µL of a 1% dilution is 0.01 µL active) keeps one figure, never 0.
+  const shown = (value) => (value <= 0 ? 0 : value < 10 ? Math.max(0.1, Math.round(value * 10) / 10) : Math.round(value));
+  const rows = [...byKey.values()]
+    .map((entry) => ({ ...entry, a: shown(entry.a), b: shown(entry.b), shared: entry.a > 0 && entry.b > 0 }))
+    .sort((x, y) => Math.max(y.a, y.b) - Math.max(x.a, x.b) || x.material.localeCompare(y.material));
+  const count = (test) => rows.filter(test).length;
+  return {
+    rows,
+    inBoth: count((row) => row.shared),
+    onlyHere: count((row) => row.a > 0 && !row.b),
+    onlyYours: count((row) => row.b > 0 && !row.a),
+    unread: [...new Set(unread)],
+  };
+}
+
 if (typeof module === "object" && module.exports) {
   module.exports = {
     SEVERAL_MAX_BRIEFS,
@@ -247,5 +327,8 @@ if (typeof module === "object" && module.exports) {
     severalCardSummary,
     severalFloorChips,
     severalCompareRows,
+    severalStrength,
+    severalMaterialName,
+    severalOwnCompare,
   };
 }
