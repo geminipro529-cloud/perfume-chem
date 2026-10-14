@@ -21,6 +21,17 @@
 .editor-totals { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
 .editor-notes { margin: 0; padding-left: 18px; color: var(--muted); font-size: 13px; }
 .editor-notes:empty { display: none; }
+/* Why each row: the name's notes a row's stock carries, and a preview without it. */
+.editor-why { margin: 4px 0 0; color: var(--muted); font-size: 13px; line-height: 1.4; }
+.editor-why[hidden], .editor-without[hidden] { display: none; }
+.editor-without { min-height: 28px; margin-left: 2px; padding: 2px 8px; font-size: 13px; }
+.editor-why-line { margin: 0; }
+#editor-why[aria-pressed="true"] { color: var(--on-primary); background: var(--blue); border-color: var(--blue); }
+.editor-drop { display: grid; gap: 6px; padding: 12px; border: 1px solid var(--line); border-left: 4px solid var(--blue); border-radius: 8px; background: var(--paper-high); }
+.editor-drop[hidden] { display: none; }
+.editor-drop h3, .editor-drop h4, .editor-drop p, .editor-drop ul { margin: 0; }
+.editor-drop h4 { margin-top: 6px; font-size: 14px; }
+.editor-drop-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
 .editor-scale { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
 .editor-scale label { flex: 0 1 18em; }
 
@@ -98,6 +109,7 @@
   .editor-remove { min-width: 44px; min-height: 44px; padding: 4px; font-size: 20px; line-height: 1; }
   .editor-remove-word { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .editor-remove-mark { display: inline; }
+  .editor-without, .editor-drop-actions button { min-height: 44px; }
   .editor-table [data-field="material"] { width: 100%; min-width: 0; }
   .editor-table td.editor-empty { grid-column: 1 / -1; }
   /* A compared row: the material and strength, the two amounts and the change, then the share. */

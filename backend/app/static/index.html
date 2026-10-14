@@ -659,7 +659,10 @@
             <button type="button" class="quiet-button" id="editor-add-row">Add a row</button>
             <button type="button" class="quiet-button" id="editor-sort-note">Sort by note</button>
             <button type="button" class="quiet-button" id="editor-sort-amount">Sort by amount</button>
+            <button type="button" class="quiet-button" id="editor-why" aria-pressed="false" aria-describedby="editor-why-help">Why each row</button>
           </div>
+          <p id="editor-why-help" class="sr-only">Shows, under each row, which notes of the formula name its stock carries, and what the checks and the smell would say without it.</p>
+          <p id="editor-why-line" class="editor-side-line editor-why-line" aria-live="polite" hidden></p>
           <h2 id="editor-rows-title" class="sr-only">Rows</h2>
           <div class="editor-table-wrap">
             <table class="editor-table" role="table">
@@ -670,6 +673,7 @@
           <datalist id="editor-stock-options"></datalist>
           <p id="editor-totals" class="editor-totals" aria-live="polite"></p>
           <ul id="editor-notes" class="editor-notes"></ul>
+          <section id="editor-drop" class="editor-drop" tabindex="-1" aria-labelledby="editor-drop-title" hidden></section>
           <p id="editor-error" class="form-error" role="alert" hidden></p>
           <div class="editor-scale">
             <label>Scale the liquid to <span>µL; every row keeps its share</span><input id="editor-scale-to" inputmode="decimal" autocomplete="off" placeholder="6000"></label>
