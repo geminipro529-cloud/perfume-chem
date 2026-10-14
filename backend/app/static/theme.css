@@ -577,3 +577,10 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
 .smell-chart td[data-state="clash"] { color: var(--fail-fg); background: var(--fail-bg); }
 .smell-chart-correction { color: var(--muted); }
 .smell-chart-key { margin: 0; }
+.blind-side { display: grid; gap: 8px; }
+.blind-vials { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.blind-vial h4, .blind-test h4 { margin: 8px 0 4px; color: var(--blue); font-size: 14px; }
+.blind-vial ul, .blind-picks, .blind-tally { margin: 4px 0; padding-left: 18px; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+.blind-test { display: grid; gap: 8px; padding: 12px 0; border-top: 1px solid var(--line); overflow-wrap: anywhere; }
+.blind-outcome p { margin: 2px 0; font-weight: 600; }
+.nose-status { margin: 0 0 4px; font-weight: 600; }

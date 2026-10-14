@@ -502,13 +502,10 @@ $("#editor-scale").addEventListener("click", () => {
   }
 });
 
-$("#editor-to-bench").addEventListener("click", () => {
-  const { name, rows } = editorNow();
+// Puts editor rows on the bench sheet as a pasted card named `name`; false when no row has an amount.
+function sendRowsToBench(name, rows) {
+  if (!rows.some((row) => row.material && row.amount)) return false;
   const table = editorBenchTable(name, rows);
-  if (!rows.some((row) => row.material && row.amount)) {
-    showEditorError("Add at least one row with a material and an amount first.");
-    return;
-  }
   const form = $("#bench-source-form");
   form.elements.source_kind.value = "PASTED";
   form.elements.source_kind.dispatchEvent(new Event("change"));
@@ -516,6 +513,12 @@ $("#editor-to-bench").addEventListener("click", () => {
   navigate("benchsheet");
   form.requestSubmit();
   if (table.leftOut.length) notify(`Left off the bench sheet, no amount yet: ${benchNameList(table.leftOut)}.`);
+  return true;
+}
+
+$("#editor-to-bench").addEventListener("click", () => {
+  const { name, rows } = editorNow();
+  if (!sendRowsToBench(name, rows)) showEditorError("Add at least one row with a material and an amount first.");
 });
 
 $("#editor-copy").addEventListener("click", async () => {

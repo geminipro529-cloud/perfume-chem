@@ -44,6 +44,7 @@
       <button class="nav-item" data-view="materials">Stock</button>
       <button class="nav-item" data-view="bottles">Bottles</button>
       <button class="nav-item" data-view="batch">Batch</button>
+      <button class="nav-item" data-view="nose">Your nose</button>
       <p class="nav-group">Records</p>
       <button class="nav-item" data-view="experiments">Experiments</button>
       <button class="nav-item" data-view="dashboard">Overview and backup</button>
@@ -606,6 +607,12 @@
         <div class="panel batch-label-panel"><p class="panel-index">Label and IFRA</p><h2>Label and IFRA statement</h2><div id="batch-label-area"></div></div>
       </section>
 
+      <section class="view" data-panel="nose" aria-labelledby="nose-title">
+        <div class="view-heading"><div><p class="eyebrow">Calibrate on your nose</p><h1 id="nose-title">Your nose</h1><p class="lede">What the model has learned from your smell log, and blind tests where the page hides which vial is which until you pick. Nothing here changes a card, a bottle or your stock.</p></div></div>
+        <div class="panel nose-learning"><h2 id="nose-learning-title">What the model has learned from your smell log</h2><div id="nose-learning"></div></div>
+        <div class="panel blind-test-panel"><h2 id="blind-test-title">Blind test</h2><p class="field-help">Pick two saved versions. The page makes them vial A and vial B in an order it doesn't show. Mix both the same day and let them rest 48 hours. Dip one strip in each, write the letter on the back, and smell at 5 min, 1 h and 4 h: each time, pick the one you'd rather wear and score how much each smells like its name. Strips only, no skin.</p><div id="blind-test"></div></div>
+      </section>
+
       <section class="view" data-panel="editor" aria-labelledby="editor-title">
         <div class="view-heading"><div><p class="eyebrow">Your formula, row by row</p><h1 id="editor-title">Edit a formula</h1><p class="lede">Load a card, a pasted table or the draft from Create a formula, then edit it from the keyboard. Amounts are kept exactly; switching the unit only changes how they are shown. Nothing here changes a card or your stock.</p></div></div>
         <form id="editor-source-form" class="panel editor-source-form" novalidate>
@@ -1055,6 +1062,7 @@
   <script src="/static/formula-liking.js" defer></script>
   <script src="/static/scent-chart.js" defer></script>
   <script src="/static/smell-log.js" defer></script>
+  <script src="/static/blind-test.js" defer></script>
   <script src="/static/batch-label.js" defer></script>
   <script src="/static/batch.js" defer></script>
   <script src="/static/formula-editor.js" defer></script>

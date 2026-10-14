@@ -165,6 +165,98 @@ function smellCalibrationLine(calibration) {
   return calibration.reason || "";
 }
 
+const NOSE_WINDOW_WORDS = { strip_10m: "10 min", strip_1h: "1 h", strip_3h: "3 h" };
+
+// The Your nose page's first line: is the smell-log correction on, and why.
+function noseStatusLine(calibration) {
+  const scores = `on bottles it had not seen, the corrected model scored ${calibration.corrected_score} and the plain model ${calibration.baseline_score}`;
+  if (calibration.calibrated) return `On: ${scores}, so the Lab uses the correction.`;
+  if (calibration.n_bottles < calibration.min_bottles) {
+    return `Off: ${calibration.n_bottles} of ${calibration.min_bottles} bottles have strip logs. It turns on only if it beats the plain model on bottles it has not seen.`;
+  }
+  return `Off: ${scores}. It has to beat the plain model to be used.`;
+}
+
+// Per bottle: the strip times logged and both scores of a correction fitted without it.
+function noseHeldOutRows(calibration) {
+  return (calibration.held_out || []).map((row) => ({
+    label: row.label || row.bottle_id,
+    windows: row.windows.map((key) => NOSE_WINDOW_WORDS[key] || key).join(", "),
+    scores: `${row.baseline_score} → ${row.corrected_score}`,
+    best: row.best_score,
+  }));
+}
+
+// What it has learned per material; names it has not moved are counted, not listed.
+function noseFactorRows(calibration) {
+  const moved = [];
+  let unchanged = 0;
+  for (const item of calibration.factors || []) {
+    if (item.status !== "fitted") {
+      moved.push({ name: item.name, learned: `needs ${calibration.rule?.min_bottles_per_material ?? 3} bottles`, bottles: item.n_bottles });
+    } else if (item.label === "×1.0") {
+      unchanged += 1;
+    } else {
+      moved.push({ name: item.name, learned: calibration.calibrated ? item.label : `${item.label}, not used yet`, bottles: item.n_bottles });
+    }
+  }
+  return { rows: moved, unchanged };
+}
+
+function attachNoseLearning({ doc, request, root }) {
+  const node = (tag, attributes, text) => smellLogNode(doc, tag, attributes, text);
+  const status = node("p", { class: "nose-status", role: "status" });
+  const help = node("p", { class: "field-help" }, "Log strips at 10 min, 1 h and 3 h on the Bottles page. A score counts your leading names in the model's top 3, minus your weak names there; each bottle is scored by a correction learned from the other bottles only.");
+  const heldTitle = node("h3", {}, "Bottles it had not seen");
+  const held = node("table", { class: "smell-chart nose-held-out" });
+  const factorTitle = node("h3", {}, "What it has learned");
+  const factorBasis = node("p", { class: "field-help" });
+  const factors = node("table", { class: "smell-chart nose-factors" });
+  const unchanged = node("p", { class: "field-help" });
+  root.append(status, help, heldTitle, held, factorTitle, factorBasis, factors, unchanged);
+
+  function table(target, caption, columns, rows) {
+    const head = node("tr");
+    head.append(...columns.map(([, title]) => node("th", { scope: "col" }, title)));
+    const thead = node("thead");
+    thead.appendChild(head);
+    const body = node("tbody");
+    for (const row of rows) {
+      const line = node("tr");
+      columns.forEach(([key], index) => line.appendChild(index ? node("td", {}, String(row[key])) : node("th", { scope: "row" }, String(row[key]))));
+      body.appendChild(line);
+    }
+    target.replaceChildren(node("caption", {}, caption), thead, body);
+  }
+
+  function draw(calibration) {
+    status.textContent = noseStatusLine(calibration);
+    const heldRows = noseHeldOutRows(calibration);
+    heldTitle.hidden = held.hidden = !heldRows.length;
+    if (heldRows.length) {
+      table(held, `${heldRows.length} ${heldRows.length === 1 ? "bottle" : "bottles"}; best possible ${calibration.best_score}`, [["label", "Bottle"], ["windows", "Strips"], ["scores", "Plain → corrected"], ["best", "Best"]], heldRows);
+    }
+    const learned = noseFactorRows(calibration);
+    factorTitle.hidden = factors.hidden = !learned.rows.length;
+    factorBasis.hidden = !learned.rows.length;
+    factorBasis.textContent = calibration.basis || "";
+    if (learned.rows.length) table(factors, "Materials it would move up or down", [["name", "Material"], ["learned", "Correction"], ["bottles", "Bottles"]], learned.rows);
+    unchanged.hidden = !learned.unchanged;
+    unchanged.textContent = `${learned.unchanged} more ${learned.unchanged === 1 ? "material" : "materials"} with no change yet.`;
+  }
+
+  async function load() {
+    try {
+      draw(await request("/smell-log/calibration"));
+    } catch (error) {
+      status.textContent = error.message || "Couldn't load what the model has learned.";
+    }
+  }
+
+  // Called when the Your nose page is opened, so it shows the latest logs and saves.
+  return { show: load };
+}
+
 function smellLogNode(doc, tag, attributes = {}, text = "") {
   const node = doc.createElement(tag);
   for (const [name, value] of Object.entries(attributes)) node.setAttribute(name, value);
@@ -398,5 +490,5 @@ function attachSmellLog({ doc, request, root }) {
 }
 
 if (typeof module === "object" && module.exports) {
-  module.exports = { nextSmellChipState, splitSmellNames, smellLogBody, smellLogLine, smellCompareLines, smellCalibrationLine, smellOrdinal, smellChartCell, smellCorrectionText, smellChartModel, attachSmellLog };
+  module.exports = { nextSmellChipState, splitSmellNames, smellLogBody, smellLogLine, smellCompareLines, smellCalibrationLine, smellOrdinal, smellChartCell, smellCorrectionText, smellChartModel, noseStatusLine, noseHeldOutRows, noseFactorRows, attachSmellLog, attachNoseLearning };
 }
