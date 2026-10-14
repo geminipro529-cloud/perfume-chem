@@ -333,3 +333,81 @@ def test_stock_left_counts_down_the_weighed_lab_bottles_of_each_row():
     # Rose Oxide is weighed in only at 1%, not the 10% the row pours.
     assert result["unweighed"] == ["Rose Oxide", "Iso E Super", "Mystery"]
     assert result["noDensity"] == []
+
+
+def test_a_version_keeps_every_amount_exactly_and_reads_back_the_same_rows():
+    result = _editor("""() => {
+        const rows = [
+            row("Hedione", "600", { fraction: "1", basis: "neat", note: "heart", stockId: "s-hed" }),
+            { ...row("Rose Oxide", "1", { fraction: "0.01", basis: "W_W", carrier: "dpg" }), amount: { n: 2000n, d: 6n } },
+            row("Ambrox", "120", { fraction: "1", solid: true }),
+            row("Velvet Musk", null), row("", "5"),
+        ];
+        const saved = editor.editorSavedRows(rows);
+        const back = editor.editorRowsFromSaved(saved.rows);
+        return { saved, back: R(back), sameKey: editor.editorContentKey("Rose", rows, "30") === editor.editorContentKey("Rose", back, "30"),
+            renamed: editor.editorContentKey("Rose", rows, "30") === editor.editorContentKey("Rose 2", rows, "30"),
+            rebottled: editor.editorContentKey("Rose", rows, "30") === editor.editorContentKey("Rose", rows, "50"),
+            bad: ["0", "1.5", "-1", "1/0", "01", ""].map((text) => editor.editorAmountOf(text)) };
+    }""")
+    assert result["saved"]["rows"] == [
+        {"material": "Hedione", "stock_id": "s-hed", "fraction": "1", "basis": "neat", "carrier": None, "solid": False, "amount": "600", "note": "heart"},
+        {"material": "Rose Oxide", "stock_id": None, "fraction": "0.01", "basis": "W_W", "carrier": "dpg", "solid": False, "amount": "1000/3", "note": ""},
+        {"material": "Ambrox", "stock_id": None, "fraction": "1", "basis": "", "carrier": None, "solid": True, "amount": "120", "note": ""},
+    ]
+    assert result["saved"]["leftOut"] == ["Velvet Musk"]
+    assert [r["amount"] for r in result["back"]] == ["600/1", "1000/3", "120/1"]
+    assert result["sameKey"] is True
+    assert (result["renamed"], result["rebottled"]) == (False, False)
+    assert result["bad"] == [None] * 6
+
+
+def test_comparing_versions_lists_changed_added_and_removed_rows_by_material_and_strength():
+    result = _editor("""() => editor.editorCompare([
+        row("Hedione", "600", { fraction: "1" }),
+        row("Iso E Super", "300", { fraction: "1" }),
+        row("Rose Oxide", "30", { fraction: "0.1" }),
+        row("Ambrox", "100", { fraction: "1", solid: true }),
+        row("Ethanol", "100"),
+    ], [
+        row("Hedione", "650", { fraction: "1" }),
+        row("Iso E Super", "300", { fraction: "1" }),
+        row("Rose Oxide", "3", { fraction: "0.01" }),
+        row("Ambrox", "80", { fraction: "1", solid: true }),
+        row("Ethanol", "40"), row("Ethanol", "60"),
+        row("Cashmeran", "50", { fraction: "1" }),
+    ])""")
+    lines = {(line["material"], line["strength"]): line for line in result["lines"]}
+    assert result["same"] == 2  # Iso E Super, and Ethanol listed twice summing to the same 100 µL
+    # 600 of 1030 µL of liquid, then 650 of 1103 (the Ambrox crystals are not liquid).
+    assert lines[("Hedione", "neat")] == {"material": "Hedione", "strength": "neat", "unit": "µL", "kind": "changed",
+                                          "a": "600", "b": "650", "change": "+50", "aPct": "58.25%", "bPct": "58.93%"}
+    # One material at two strengths is two different rows.
+    assert lines[("Rose Oxide", "10%")]["kind"] == "removed" and lines[("Rose Oxide", "10%")]["b"] == ""
+    assert lines[("Rose Oxide", "1%")]["kind"] == "added" and lines[("Rose Oxide", "1%")]["a"] == ""
+    assert lines[("Ambrox", "neat")]["change"] == "−20" and lines[("Ambrox", "neat")]["unit"] == "mg"
+    assert lines[("Ambrox", "neat")]["aPct"] == ""
+    assert [line["material"] for line in result["lines"]][-1] == "Cashmeran"
+    assert result["liquid"] == ["1030", "1103"]
+
+
+def test_check_changes_name_the_verdict_the_rows_the_allergens_and_the_oil_that_changed():
+    def answer(verdict, rows, declare, oil):
+        return {"ifra": {"verdict": verdict, "rows": rows}, "allergens": {"declare": [{"allergen": name} for name in declare]}, "oil_pct": oil}
+
+    cinnamic_ok = {"material": "Cinnamic Aldehyde", "verdict": "pass", "ifra_status": "restricted", "actual_pct": 0.1, "limit_pct": 0.25, "usage_pct": 40.0}
+    cinnamic_over = dict(cinnamic_ok, verdict="fail", actual_pct=0.31, usage_pct=124.0)
+    iso = {"material": "Iso E Super", "verdict": "pass", "ifra_status": "restricted", "actual_pct": 2, "limit_pct": 20, "usage_pct": 10.0}
+    new_pass = {"material": "Hedione", "verdict": "pass", "ifra_status": "not_restricted", "actual_pct": 1, "limit_pct": None, "usage_pct": None}
+    before = answer("PASS", [cinnamic_ok, iso], ["Linalool", "Limonene"], 20.04)
+    after = answer("FAIL", [cinnamic_over, dict(iso, usage_pct=12.0), new_pass], ["Linalool", "Citral"], 21.5)
+    result = _editor("() => ({ changed: editor.editorCheckChanges(BEFORE, AFTER), none: editor.editorCheckChanges(BEFORE, BEFORE) })",
+                     BEFORE=before, AFTER=after)
+    assert result["changed"] == [
+        {"text": "IFRA: within the limits → over an IFRA limit", "problem": True},
+        {"text": "Cinnamic Aldehyde: 40% of its limit → 0.31% of the bottle, over its 0.25% limit", "problem": True},
+        {"text": "Now declared on the label: Citral"},
+        {"text": "No longer declared: Limonene"},
+        {"text": "Oil: 20.0% → 21.5%"},
+    ]
+    assert result["none"] == []

@@ -45,6 +45,26 @@
 .editor-check-list:empty { display: none; }
 .editor-check-list .is-problem { color: var(--red); }
 
+/* Versions: save under the rows; the list and the comparison below the editor. */
+.editor-version { display: grid; gap: 6px; padding-top: 10px; border-top: 1px solid var(--line); }
+.editor-version h3 { margin: 0; font-size: 14px; }
+.editor-version-save { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
+.editor-version-save label { flex: 1 1 18em; }
+.editor-versions { display: grid; gap: 10px; margin-top: 16px; }
+.editor-versions h2 { margin: 0; font-size: 18px; }
+.editor-version-list { display: grid; gap: 6px; margin: 0; padding-left: 0; list-style: none; font-size: 14px; font-variant-numeric: tabular-nums; }
+.editor-version-list li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.editor-version-list li.is-current { font-weight: 700; }
+.editor-version-open-now { color: var(--muted); font-size: 13px; font-weight: 400; }
+.editor-compare-form { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; }
+.editor-compare-form label { flex: 0 1 10em; }
+.editor-compare { display: grid; gap: 8px; min-width: 0; overflow-x: auto; }
+.editor-compare h3, .editor-compare h4 { margin: 0; font-size: 14px; }
+.editor-compare-table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+.editor-compare-table th, .editor-compare-table td { padding: 5px 8px; border-bottom: 1px solid var(--line); text-align: left; }
+.editor-compare-table th { color: var(--muted); font-size: 12px; }
+.editor-compare-table td:nth-child(n+3) { text-align: right; white-space: nowrap; }
+
 @media (max-width: 760px) {
   .editor-head { grid-template-columns: 1fr; }
   /* On a phone each row wraps: the material on top, then amount and note, then
@@ -74,4 +94,25 @@
   .editor-remove-mark { display: inline; }
   .editor-table [data-field="material"] { width: 100%; min-width: 0; }
   .editor-table td.editor-empty { grid-column: 1 / -1; }
+  /* A compared row: the material and strength, the two amounts and the change, then the share. */
+  .editor-compare-table, .editor-compare-table tbody { display: block; }
+  .editor-compare-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .editor-compare-table tr {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-areas: "material material strength" "a b change" "share share share";
+    gap: 4px 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .editor-compare-table td { padding: 0; border: 0; text-align: left; white-space: normal; }
+  .editor-compare-table td:nth-child(n+3) { text-align: left; white-space: normal; }
+  .editor-compare-table td:nth-child(1) { grid-area: material; font-weight: 700; }
+  .editor-compare-table td:nth-child(2) { grid-area: strength; color: var(--muted); text-align: right; }
+  .editor-compare-table td:nth-child(3) { grid-area: a; }
+  .editor-compare-table td:nth-child(4) { grid-area: b; }
+  .editor-compare-table td:nth-child(5) { grid-area: change; }
+  .editor-compare-table td:nth-child(6) { grid-area: share; }
+  .editor-compare-table td:nth-child(n+3)::before { content: attr(data-label); display: block; color: var(--muted); font-size: 12px; }
+  .editor-compare-table td:nth-child(6):empty { display: none; }
 }

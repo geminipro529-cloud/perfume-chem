@@ -16,6 +16,7 @@ from app.api.v1.endpoints import (
     lab_lifecycle,
     lab_planning,
     lab_reporting,
+    lab_versions,
     mixer,
     optimizer,
     outcomes,
@@ -71,6 +72,12 @@ api_router.include_router(
     lab_batches.router,
     prefix="/lab/v2",
     tags=["laboratory-batches"],
+)
+
+api_router.include_router(
+    lab_versions.router,
+    prefix="/lab/v2",
+    tags=["laboratory-formula-versions"],
 )
 
 api_router.include_router(

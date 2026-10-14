@@ -343,3 +343,111 @@ def test_the_side_panel_checks_ifra_allergens_cost_and_stock_as_the_formula_chan
     assert [row["identity_name"] for row in charts[-1]] == ["Hedione", "Rose Oxide", "Iso E Super", "Velvet Musk", "Cinnamic Aldehyde"]
     # Typing pauses are what ask the server: one check per saved edit, not one per key.
     assert len(checks) <= 4
+
+
+def _versions(lab, monkeypatch, tmp_path, saves):
+    """Answer the versions routes with the real service, on a log in tmp_path."""
+    from app.services import batch_production as batches
+    from app.services import formula_versions as versions
+
+    monkeypatch.setenv(versions.VERSION_LOG_PATH_ENV, str(tmp_path / "formula_versions.jsonl"))
+    monkeypatch.setenv(batches.BATCH_RECORD_PATH_ENV, str(tmp_path / "batch_records.jsonl"))
+    monkeypatch.setenv(batches.BATCH_DIR_ENV, str(tmp_path / "batches"))
+    base = "/v2/workbench/formula-versions"
+
+    def register(formula_id, number):
+        lab.respond("GET", f"{base}/{formula_id}/{number}", json=versions.get_version(formula_id, number))
+
+    def save(route, request):
+        body = json.loads(request.post_data)
+        saves.append(body)
+        record, created = versions.save_version(versions.FormulaVersionSave.model_validate(body))
+        register(record["formula_id"], record["version"])
+        route.fulfill(status=201 if created else 200, content_type="application/json", body=json.dumps({**record, "created": created}))
+
+    def listing(route, _request):
+        answer = versions.list_formulas()
+        for formula in answer["formulas"]:
+            for version in formula["versions"]:
+                register(formula["formula_id"], version["version"])
+        route.fulfill(status=200, content_type="application/json", body=json.dumps(answer))
+
+    lab.on("POST", base, save)
+    lab.on("GET", base, listing)
+    return batches
+
+
+def test_every_save_is_a_version_you_can_reopen_compare_and_see_locked_by_a_batch(lab, monkeypatch, tmp_path):
+    saves = []
+    _open(lab)
+    batches = _versions(lab, monkeypatch, tmp_path, saves)
+    _load_card(lab)
+    page = lab.page
+    state = "#editor-version-state"
+    assert page.text_content(state).startswith("Not saved yet.")
+    assert page.is_hidden("#editor-versions")
+
+    # Ctrl+S from any field saves the first version, rows exactly as on screen.
+    page.focus("#editor-name")
+    page.keyboard.press("Control+s")
+    lab.wait_for_status("Saved as version 1.")
+    first = saves[0]
+    assert "formula_id" not in first and first["name"] == "Rose Test" and first["bottle_ml"] == "30"
+    assert [(row["material"], row["amount"], row["stock_id"]) for row in first["rows"]] == [
+        ("Hedione", "600", "s-hed"), ("Rose Oxide", "30", "s-ro10"), ("Iso E Super", "370", "s-iso"),
+        ("Ambrox", "120", "s-amb"), ("Velvet Musk", "60", None),
+    ]
+    assert "| Rose Oxide | 10% w/w in DPG | 30 |" in first["card_text"]
+    page.wait_for_function("!document.querySelector('#editor-versions').hidden")
+    assert "No changes since." in page.text_content(state)
+    assert page.text_content("#editor-versions-title") == "Versions of Rose Test"
+
+    cell = '#editor-rows tr:nth-child(1) [data-field="amount"]'
+    page.fill(cell, "650")
+    page.press(cell, "Enter")
+    assert page.text_content(state) == "Changed since version 1 of Rose Test. Saving makes version 2."
+    page.fill("#editor-version-note", "more Hedione")
+    page.click("#editor-save-version")
+    lab.wait_for_status("Saved as version 2.")
+    formula_id = json.loads((tmp_path / "formula_versions.jsonl").read_text().splitlines()[0])["version"]["formula_id"]
+    assert (saves[1]["formula_id"], saves[1]["parent_version"], saves[1]["note"]) == (formula_id, 1, "more Hedione")
+    assert page.input_value("#editor-version-note") == ""
+
+    # Saving again with nothing changed sends nothing.
+    page.focus(cell)
+    page.keyboard.press("Control+s")
+    lab.wait_for_status("No changes since version 2, so nothing new was saved.")
+    assert len(saves) == 2
+
+    # The comparison opens on the version before and this one.
+    page.wait_for_function("document.querySelectorAll('#editor-version-list li').length === 2")
+    assert page.input_value("#editor-compare-a") == "1" and page.input_value("#editor-compare-b") == "2"
+    page.click("#editor-compare-form button[type=submit]")
+    page.wait_for_selector(".editor-compare-table")
+    cells = page.eval_on_selector_all(".editor-compare-table tbody td", "(nodes) => nodes.map((node) => node.textContent)")
+    # 600 of 1060 µL of liquid, then 650 of 1110: the Ambrox crystals are weighed, not liquid.
+    assert cells == ["Hedione", "neat", "600 µL", "650 µL", "+50 µL", "56.6% → 58.56%"]
+    compare = page.text_content("#editor-compare")
+    assert "4 rows unchanged. Liquid: 1060 µL → 1110 µL." in compare
+    assert "Oil: 3.5% → 3.7%" in compare
+
+    # Opening version 1 puts its rows back; Undo returns to what was there.
+    page.click("#editor-version-list button[data-version='1']")
+    page.wait_for_function("document.querySelector('#editor-rows [data-field=amount]').value === '600'")
+    assert page.text_content(state).startswith("Version 1 of Rose Test, saved ")
+    page.click("#editor-undo")
+    assert _cells(lab, "amount")[0] == "650"
+
+    # A batch made from version 1's card locks it; a reload finds the saved formula.
+    plan = batches.plan_batch(source_path=None, text=first["card_text"], name=None, bottles="2", bottle_ml="30", card_total_ml="30", loss_percent="3")
+    batches.record_batch(lot="KS-20261014-01", made_on="2026-10-14", made_by="", plan=plan, gate_run_id=None, notes="")
+    lab.reload()
+    page.select_option('#editor-source-form [name="source_kind"]', "SAVED")
+    page.wait_for_function("document.querySelector('#editor-source-form [name=saved_formula]').options[0]?.value.length === 32")
+    assert page.eval_on_selector('#editor-source-form [name="saved_formula"]', "(node) => node.options[0].textContent").startswith("Rose Test · 2 versions, last saved ")
+    page.click("#editor-source-form button[type=submit]")
+    page.wait_for_function("document.querySelector('#editor-rows [data-field=amount]')?.value === '650'")
+    assert page.text_content(state).startswith("Version 2 of Rose Test, saved ")
+    items = page.eval_on_selector_all("#editor-version-list li", "(nodes) => nodes.map((node) => node.textContent)")
+    assert "locked: batch KS-20261014-01" in items[1] and "locked" not in items[0]
+    assert "“more Hedione”" in items[0]

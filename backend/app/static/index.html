@@ -616,10 +616,14 @@
                 <option value="PROJECT_FILE">A project formula file</option>
                 <option value="PASTED">A pasted card or spreadsheet rows</option>
                 <option value="CREATE">The draft on Create a formula</option>
+                <option value="SAVED">A formula you saved here</option>
               </select>
             </label>
             <label id="editor-project-field" hidden>Project formula
               <input name="project_formula_path" list="project-formula-options" placeholder="Start typing a formula name" autocomplete="off">
+            </label>
+            <label id="editor-saved-field" hidden>Saved formula <span>opens its latest version</span>
+              <select name="saved_formula"></select>
             </label>
           </div>
           <label id="editor-paste-field" hidden>Card or rows <span>a card table, or rows copied from a spreadsheet: the name, then the amount</span>
@@ -668,7 +672,15 @@
             <button type="button" class="primary-button" id="editor-to-bench">Open on the bench sheet</button>
             <button type="button" class="quiet-button" id="editor-copy">Copy as a table</button>
           </div>
-          <p class="field-help" id="editor-keys">Keys: Enter saves a cell and moves down a row; ↑ and ↓ move between amounts; Ctrl+Z undoes and Ctrl+Y redoes; Ctrl+Enter adds a row below; Ctrl+Delete removes the row. Paste rows from a spreadsheet into any cell.</p>
+          <section class="editor-version" aria-labelledby="editor-version-title">
+            <h3 id="editor-version-title">Versions</h3>
+            <p id="editor-version-state" class="editor-side-line" aria-live="polite"></p>
+            <div class="editor-version-save">
+              <label>Note for this version <span>optional: what you changed, or why</span><input id="editor-version-note" maxlength="500" autocomplete="off"></label>
+              <button type="button" class="quiet-button" id="editor-save-version">Save a version</button>
+            </div>
+          </section>
+          <p class="field-help" id="editor-keys">Keys: Enter saves a cell and moves down a row; ↑ and ↓ move between amounts; Ctrl+Z undoes and Ctrl+Y redoes; Ctrl+Enter adds a row below; Ctrl+Delete removes the row; Ctrl+S saves a version. Paste rows from a spreadsheet into any cell.</p>
         </article>
         <aside class="panel editor-side" id="editor-side" aria-labelledby="editor-side-title">
           <h2 id="editor-side-title">Checks as you edit</h2>
@@ -704,6 +716,17 @@
           <p class="field-help">A screen to edit by, not a release: the release gate on the saved card decides.</p>
         </aside>
         </div>
+        <section class="panel editor-versions" id="editor-versions" aria-labelledby="editor-versions-title" hidden>
+          <h2 id="editor-versions-title">Versions of this formula</h2>
+          <p class="field-help">Every save is a version, kept in your data/user folder. A version can't be changed; a batch made from one locks it.</p>
+          <ol id="editor-version-list" class="editor-version-list"></ol>
+          <form id="editor-compare-form" class="editor-compare-form" novalidate>
+            <label>Compare version<select id="editor-compare-a"></select></label>
+            <label>with version<select id="editor-compare-b"></select></label>
+            <button type="submit" class="quiet-button">Compare</button>
+          </form>
+          <div id="editor-compare" class="editor-compare" aria-live="polite"></div>
+        </section>
       </section>
 
       <section class="view" data-panel="benchsheet" aria-labelledby="benchsheet-title">

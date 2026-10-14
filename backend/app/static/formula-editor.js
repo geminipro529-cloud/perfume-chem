@@ -580,6 +580,172 @@ function editorStockLeft(rows, labStocks, materials, remaining, densities, bottl
   return { lines, unweighed, noDensity };
 }
 
+// ---- Saved versions ----
+
+// An exact amount as the versions log keeps it: "600" or "1000/3".
+function editorAmountText(value) {
+  const exact = editorBench.benchFraction(value.n, value.d);
+  return exact.d === 1n ? exact.n.toString() : `${exact.n}/${exact.d}`;
+}
+
+function editorAmountOf(text) {
+  const match = /^([1-9]\d{0,29})(?:\/([1-9]\d{0,29}))?$/.exec(String(text ?? ""));
+  return match ? editorBench.benchFraction(BigInt(match[1]), BigInt(match[2] || "1")) : null;
+}
+
+// The rows a version keeps: every named row with an amount, exactly as typed.
+// Named rows still waiting for an amount are left out and named.
+function editorSavedRows(rows) {
+  const saved = [];
+  const leftOut = [];
+  (rows || []).forEach((row) => {
+    if (!row.material) return;
+    if (!row.amount || row.amount.n <= 0n) {
+      leftOut.push(row.material);
+      return;
+    }
+    saved.push({
+      material: row.material,
+      stock_id: row.stockId || null,
+      fraction: row.fraction || "",
+      basis: row.basis || "",
+      carrier: row.carrier || null,
+      solid: Boolean(row.solid),
+      amount: editorAmountText(row.amount),
+      note: row.note || "",
+    });
+  });
+  return { rows: saved, leftOut };
+}
+
+function editorRowsFromSaved(saved) {
+  return (saved || []).map((row) => editorRow({
+    material: row.material,
+    stockId: row.stock_id || null,
+    fraction: row.fraction,
+    basis: row.basis,
+    carrier: row.carrier,
+    solid: row.solid,
+    amount: editorAmountOf(row.amount),
+    note: row.note,
+  }));
+}
+
+// Equal keys mean nothing a version keeps has changed: the name, the rows and the bottle size.
+function editorContentKey(name, rows, bottleMl) {
+  return JSON.stringify([String(name ?? "").trim(), editorSavedRows(rows).rows, String(bottleMl ?? "").trim()]);
+}
+
+// A share of the finished bottle, % w/w: two significant figures under 1%.
+function editorPctText(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number) || number <= 0) return "0%";
+  if (number < 0.0001) return "under 0.0001%";
+  return `${number >= 1 ? number.toFixed(2) : String(Number(number.toPrecision(2)))}%`;
+}
+
+// What changed between two versions' rows. Rows are matched by material,
+// strength and unit (one material at two strengths is two rows); a material
+// listed twice is summed. Amounts are exact; % is the share of each version's
+// liquid. Unchanged amounts are counted, not listed.
+function editorCompare(rowsA, rowsB) {
+  const collect = (rows) => {
+    const byKey = new Map();
+    (rows || []).forEach((row) => {
+      if (!row.material || !row.amount || row.amount.n <= 0n) return;
+      const key = `${editorNameKey(row.material)}|${editorNumber(row.fraction) ? editorAmountText(editorNumber(row.fraction)) : ""}|${row.solid ? "mg" : "uL"}`;
+      const seen = byKey.get(key);
+      byKey.set(key, seen ? { row: seen.row, amount: editorBench.benchPlus(seen.amount, row.amount) } : { row, amount: row.amount });
+    });
+    return byKey;
+  };
+  const before = collect(rowsA);
+  const after = collect(rowsB);
+  const totalsA = editorTotals(rowsA);
+  const totalsB = editorTotals(rowsB);
+  const share = (entry, totals) => {
+    if (!entry || entry.row.solid || totals.liquidUl.n <= 0n) return "";
+    return `${editorFigure(editorBench.benchTimes(editorBench.benchOver(entry.amount, totals.liquidUl), editorWhole(100)), 2)}%`;
+  };
+  const lines = [];
+  let same = 0;
+  [...before.keys(), ...[...after.keys()].filter((key) => !before.has(key))].forEach((key) => {
+    const a = before.get(key);
+    const b = after.get(key);
+    if (a && b && editorBench.benchCompare(a.amount, b.amount) === 0) {
+      same += 1;
+      return;
+    }
+    const row = (a || b).row;
+    let change = "";
+    if (a && b) {
+      const up = editorBench.benchCompare(b.amount, a.amount) > 0;
+      const size = up ? editorBench.benchMinus(b.amount, a.amount) : editorBench.benchMinus(a.amount, b.amount);
+      change = `${up ? "+" : "−"}${editorFigure(size, 1)}`;
+    }
+    lines.push({
+      material: row.material,
+      strength: editorStrengthText(row),
+      unit: row.solid ? "mg" : "µL",
+      kind: a && b ? "changed" : (a ? "removed" : "added"),
+      a: a ? editorFigure(a.amount, 1) : "",
+      b: b ? editorFigure(b.amount, 1) : "",
+      change,
+      aPct: share(a, totalsA),
+      bPct: share(b, totalsB),
+    });
+  });
+  return {
+    lines,
+    same,
+    liquid: [totalsA.liquidUl, totalsB.liquidUl].map((value) => editorFigure(value, 1)),
+  };
+}
+
+const EDITOR_VERDICT_WORDS = { PASS: "within the limits", WARN: "within the limits, with notes", HOLD: "not fully checked", FAIL: "over an IFRA limit" };
+
+// How an IFRA row reads in a comparison.
+function editorIfraRowText(row) {
+  if (!row) return "not in this version";
+  if (row.verdict === "fail") {
+    return row.ifra_status === "prohibited" ? "prohibited" : `${editorPctText(row.actual_pct)} of the bottle, over its ${editorPctText(row.limit_pct)} limit`;
+  }
+  if (row.usage_pct !== null && row.usage_pct !== undefined) return `${row.usage_pct}% of its limit`;
+  return row.verdict === "warn" ? "counted by its constituents" : "within its limit";
+}
+
+// Which checks changed between two formula-checks answers: the IFRA verdict,
+// rows whose verdict changed, allergens to declare, and the oil share.
+function editorCheckChanges(before, after) {
+  const changes = [];
+  if (before.ifra.verdict !== after.ifra.verdict) {
+    const word = (verdict) => EDITOR_VERDICT_WORDS[verdict] || verdict;
+    changes.push({ text: `IFRA: ${word(before.ifra.verdict)} → ${word(after.ifra.verdict)}`, problem: after.ifra.verdict === "FAIL" });
+  }
+  const byName = (answer) => new Map(answer.ifra.rows.map((row) => [editorNameKey(row.material), row]));
+  const rowsA = byName(before);
+  const rowsB = byName(after);
+  [...rowsA.keys(), ...[...rowsB.keys()].filter((key) => !rowsA.has(key))].forEach((key) => {
+    const a = rowsA.get(key);
+    const b = rowsB.get(key);
+    if (a?.verdict === b?.verdict) return;
+    // A row added or removed while within its limit is in the rows table already.
+    if ((!a && b?.verdict === "pass") || (!b && a?.verdict === "pass")) return;
+    changes.push({ text: `${(a || b).material}: ${editorIfraRowText(a)} → ${editorIfraRowText(b)}`, problem: b?.verdict === "fail" });
+  });
+  const declared = (answer) => new Set(answer.allergens.declare.map((row) => row.allergen));
+  const declaredA = declared(before);
+  const declaredB = declared(after);
+  const added = [...declaredB].filter((name) => !declaredA.has(name));
+  const dropped = [...declaredA].filter((name) => !declaredB.has(name));
+  if (added.length) changes.push({ text: `Now declared on the label: ${added.join(", ")}` });
+  if (dropped.length) changes.push({ text: `No longer declared: ${dropped.join(", ")}` });
+  const oilA = Number(before.oil_pct).toFixed(1);
+  const oilB = Number(after.oil_pct).toFixed(1);
+  if (oilA !== oilB) changes.push({ text: `Oil: ${oilA}% → ${oilB}%` });
+  return changes;
+}
+
 if (typeof module === "object" && module.exports) {
   module.exports = {
     editorCheckRows, editorCostRows, editorChartRows, editorStockLeft,
@@ -588,5 +754,7 @@ if (typeof module === "object" && module.exports) {
     editorTotals, editorDensity, editorShown, editorInsert, editorRemove, editorReplace, editorSetAmount,
     editorResolveGrams, editorScaleTo, editorSorted, editorHistory, editorCommit, editorUndo, editorRedo,
     editorStrengthText, editorBenchTable, editorTsv,
+    editorAmountText, editorAmountOf, editorSavedRows, editorRowsFromSaved, editorContentKey, editorPctText,
+    editorCompare, editorIfraRowText, editorCheckChanges,
   };
 }

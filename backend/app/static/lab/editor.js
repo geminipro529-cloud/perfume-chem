@@ -18,6 +18,14 @@ const editorPage = {
   stocksSeen: null,
   focus: null,
   ticket: 0,
+  // The saved version the rows came from or were last saved as:
+  // { formulaId, version, name, savedAt, lockedBy, key }, or null.
+  saved: null,
+  // Saved formulas from the versions log, asked for when needed; versions by "id:n".
+  formulas: null,
+  versions: new Map(),
+  saving: false,
+  compareSeq: 0,
 };
 
 const editorNow = () => editorPage.history.present;
@@ -233,6 +241,7 @@ function renderEditor() {
     }
   }
   renderEditorSide();
+  renderEditorVersionState();
 }
 
 // Densities for every named row not asked about yet (the grams view needs them).
@@ -523,12 +532,21 @@ function syncEditorSourceFields() {
   const kind = $('#editor-source-form [name="source_kind"]').value;
   $("#editor-project-field").hidden = kind !== "PROJECT_FILE";
   $("#editor-paste-field").hidden = kind !== "PASTED";
+  $("#editor-saved-field").hidden = kind !== "SAVED";
+  if (kind === "SAVED" && pageStarted) editorLoadFormulas().catch((error) => notify(error.message, true));
 }
 
 $('#editor-source-form [name="source_kind"]').addEventListener("change", syncEditorSourceFields);
 
 async function loadEditorSource(data) {
   if (data.source_kind === "EMPTY") return { name: "", rows: [editorRow()], skipped: [] };
+  if (data.source_kind === "SAVED") {
+    if (!editorPage.formulas) await editorLoadFormulas();
+    const formula = editorPage.formulas.find((item) => item.formula_id === data.saved_formula);
+    if (!formula) throw benchFieldError("Choose a saved formula first. Save one with Save a version, under the rows.", "saved_formula");
+    const version = await editorFetchVersion(formula.formula_id, formula.latest);
+    return { name: version.name, rows: editorRowsFromSaved(version.rows), skipped: [], version };
+  }
   if (data.source_kind === "CREATE") {
     const result = state.formulaChat.result;
     const rows = result ? selectedFormulaVariant(result).formula?.rows || [] : [];
@@ -565,8 +583,11 @@ $("#editor-source-form").addEventListener("submit", async (event) => {
     const prepared = await editorPrepareRows(loaded.rows, loaded.skipped);
     if (ticket !== editorPage.ticket) return;
     editorPage.history = editorCommit(editorPage.history, { name: loaded.name, rows: prepared.rows });
+    if (loaded.version) editorOpenedVersion(loaded.version);
+    else editorPage.saved = null;
     const count = prepared.rows.filter((row) => row.material).length;
-    editorPage.notes = count ? [`Loaded ${count} ${count === 1 ? "row" : "rows"}. Undo goes back to what was here before.`, ...prepared.notes] : [];
+    const what = loaded.version ? `Opened version ${loaded.version.version}` : `Loaded ${count} ${count === 1 ? "row" : "rows"}`;
+    editorPage.notes = count ? [`${what}. Undo goes back to what was here before.`, ...prepared.notes] : [];
     clearEditorError();
     editorFocusRow(0, "material");
     renderEditor();
@@ -620,14 +641,6 @@ function editorSideList(selector, items) {
     if (item.problem) line.className = "is-problem";
     return line;
   }));
-}
-
-// A share of the finished bottle, % w/w: two significant figures under 1%.
-function editorPctText(value) {
-  const number = Number(value);
-  if (!Number.isFinite(number) || number <= 0) return "0%";
-  if (number < 0.0001) return "under 0.0001%";
-  return `${number >= 1 ? number.toFixed(2) : String(Number(number.toPrecision(2)))}%`;
 }
 
 const editorGramsText = (value) => `${Number(value).toFixed(2)} g`;
@@ -793,7 +806,10 @@ function renderEditorSide() {
   editorSide.chartTimer = setTimeout(() => renderScentChart($("#editor-scent"), editorChartRows(editorNow().rows)), EDITOR_CHART_DELAY_MS);
 }
 
-["#editor-bottle-ml", "#editor-bottles"].forEach((selector) => $(selector).addEventListener("input", renderEditorSide));
+["#editor-bottle-ml", "#editor-bottles"].forEach((selector) => $(selector).addEventListener("input", () => {
+  renderEditorSide();
+  renderEditorVersionState();
+}));
 
 // navigate() calls this when the editor comes on screen.
 function editorSideShown() {
@@ -806,6 +822,343 @@ function editorInventoryChanged() {
   editorSide.remaining = {};
   renderEditor();
 }
+
+// ---- Versions: save, open and compare ----
+// Every save is a version in the versions log in data/user
+// (app/services/formula_versions.py). The list is asked for only when it is
+// needed: choosing a saved formula, saving, or opening a version.
+
+const EDITOR_VERSIONS_URL = "/v2/workbench/formula-versions";
+
+function editorNode(tag, text = "", className = "") {
+  const node = document.createElement(tag);
+  if (text) node.textContent = text;
+  if (className) node.className = className;
+  return node;
+}
+
+function editorVersionDate(text) {
+  const date = new Date(text);
+  if (Number.isNaN(date.getTime())) return String(text || "");
+  return date.toLocaleString(undefined, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+}
+
+function editorBottleText() {
+  const bottle = editorBottleMl();
+  return bottle ? benchFractionText(bottle, 3) : "";
+}
+
+function editorCurrentKey() {
+  const { name, rows } = editorNow();
+  return editorContentKey(name, rows, editorBottleText());
+}
+
+function editorSavedFormula() {
+  const saved = editorPage.saved;
+  if (!saved || !editorPage.formulas) return null;
+  return editorPage.formulas.find((formula) => formula.formula_id === saved.formulaId) || null;
+}
+
+async function editorFetchVersion(formulaId, number) {
+  const key = `${formulaId}:${number}`;
+  if (!editorPage.versions.has(key)) {
+    // A version never changes, so its rows are asked for once.
+    editorPage.versions.set(key, await request(`${EDITOR_VERSIONS_URL}/${encodeURIComponent(formulaId)}/${number}`));
+  }
+  return editorPage.versions.get(key);
+}
+
+function syncEditorSavedOptions() {
+  const select = $('#editor-source-form [name="saved_formula"]');
+  const keep = select.value;
+  const formulas = editorPage.formulas || [];
+  if (!formulas.length) {
+    const none = new Option("Nothing saved yet", "");
+    none.disabled = true;
+    select.replaceChildren(none);
+    return;
+  }
+  select.replaceChildren(...formulas.map((formula) => new Option(
+    `${formula.name} · ${formula.latest === 1 ? "1 version" : `${formula.latest} versions`}, last saved ${editorVersionDate(formula.updated_at)}`,
+    formula.formula_id,
+  )));
+  if (formulas.some((formula) => formula.formula_id === keep)) select.value = keep;
+}
+
+async function editorLoadFormulas() {
+  const answer = await request(EDITOR_VERSIONS_URL);
+  editorPage.formulas = answer.formulas || [];
+  syncEditorSavedOptions();
+  renderEditorVersionState();
+}
+
+// The rows on screen came from (or were just saved as) this version.
+function editorOpenedVersion(version) {
+  $("#editor-bottle-ml").value = version.bottle_ml || "";
+  editorPage.saved = {
+    formulaId: version.formula_id,
+    version: version.version,
+    name: version.name,
+    savedAt: version.saved_at,
+    lockedBy: version.locked_by || [],
+    // From the rows as saved, so a stock bound since then shows as a change.
+    key: editorContentKey(version.name, editorRowsFromSaved(version.rows), version.bottle_ml || ""),
+  };
+}
+
+function renderEditorVersionState() {
+  const saved = editorPage.saved;
+  const line = $("#editor-version-state");
+  if (!saved) {
+    line.textContent = "Not saved yet. Save a version to keep this formula as it is now and compare later changes with it.";
+  } else {
+    const formula = editorSavedFormula();
+    const entry = formula?.versions.find((version) => version.version === saved.version);
+    const lots = entry ? entry.locked_by : saved.lockedBy;
+    const lock = lots.length ? ` Locked: batch ${lots.join(", ")} was made from it.` : "";
+    line.textContent = saved.key === editorCurrentKey()
+      ? `Version ${saved.version} of ${saved.name}, saved ${editorVersionDate(saved.savedAt)}. No changes since.${lock}`
+      : `Changed since version ${saved.version} of ${saved.name}. Saving makes version ${(formula ? formula.latest : saved.version) + 1}.${lock}`;
+  }
+  renderEditorVersions();
+}
+
+function syncEditorCompareOptions(formula) {
+  const numbers = formula.versions.map((version) => version.version);
+  const current = editorPage.saved.version;
+  const defaults = [current > numbers[0] ? current - 1 : numbers[0], current];
+  ["#editor-compare-a", "#editor-compare-b"].forEach((selector, index) => {
+    const select = $(selector);
+    const keep = Number(select.value);
+    const same = select.dataset.formula === formula.formula_id && select.options.length === numbers.length;
+    if (!same) select.replaceChildren(...numbers.map((number) => new Option(String(number), String(number))));
+    select.value = String(same && numbers.includes(keep) ? keep : defaults[index]);
+    select.dataset.formula = formula.formula_id;
+  });
+}
+
+function renderEditorVersions() {
+  const panel = $("#editor-versions");
+  const formula = editorSavedFormula();
+  panel.hidden = !formula;
+  if (!formula) return;
+  $("#editor-versions-title").textContent = `Versions of ${formula.name}`;
+  const current = editorPage.saved.version;
+  $("#editor-version-list").replaceChildren(...[...formula.versions].reverse().map((version) => {
+    const item = editorNode("li", "", version.version === current ? "is-current" : "");
+    const parts = [`Version ${version.version}`, `saved ${editorVersionDate(version.saved_at)}`, `${version.row_count} ${version.row_count === 1 ? "row" : "rows"}`];
+    if (version.note) parts.push(`“${version.note}”`);
+    if (version.locked) parts.push(`locked: batch ${version.locked_by.join(", ")}`);
+    if (version.bottles.length) parts.push(`${version.bottles.length} ${version.bottles.length === 1 ? "bottle" : "bottles"} made from it`);
+    item.append(editorNode("span", parts.join(" · ")));
+    if (version.version === current) {
+      item.append(editorNode("span", "open in the editor", "editor-version-open-now"));
+    } else {
+      const open = editorNode("button", `Open version ${version.version}`, "quiet-button");
+      open.type = "button";
+      open.dataset.version = String(version.version);
+      item.append(open);
+    }
+    return item;
+  }));
+  syncEditorCompareOptions(formula);
+}
+
+async function editorSaveVersion() {
+  if (editorPage.saving) return;
+  const active = document.activeElement;
+  if (active?.closest?.("#editor-rows") && !editorSaveCell(active)) return;
+  const nameInput = $("#editor-name");
+  if (nameInput.value.trim() !== editorNow().name) {
+    editorPage.history = editorCommit(editorPage.history, { ...editorNow(), name: nameInput.value.trim() });
+    renderEditor();
+  }
+  const { name, rows } = editorNow();
+  if (!name) {
+    showEditorError("Give the formula a name before saving it.", nameInput);
+    return;
+  }
+  const saved = editorSavedRows(rows);
+  if (!saved.rows.length) {
+    showEditorError("Add at least one row with a material and an amount first.");
+    return;
+  }
+  const key = editorCurrentKey();
+  if (editorPage.saved && editorPage.saved.key === key) {
+    notify(`No changes since version ${editorPage.saved.version}, so nothing new was saved.`);
+    return;
+  }
+  const body = {
+    name,
+    note: $("#editor-version-note").value.trim(),
+    bottle_ml: editorBottleText(),
+    rows: saved.rows,
+    card_text: editorBenchTable(name, rows).text,
+  };
+  if (editorPage.saved) Object.assign(body, { formula_id: editorPage.saved.formulaId, parent_version: editorPage.saved.version });
+  const button = $("#editor-save-version");
+  editorPage.saving = true;
+  button.disabled = true;
+  try {
+    const record = await request(EDITOR_VERSIONS_URL, { method: "POST", body: JSON.stringify(body) });
+    const { created, ...version } = record;
+    editorPage.versions.set(`${version.formula_id}:${version.version}`, version);
+    editorPage.saved = {
+      formulaId: version.formula_id,
+      version: version.version,
+      name: version.name,
+      savedAt: version.saved_at,
+      lockedBy: version.locked_by,
+      key,
+    };
+    clearEditorError();
+    if (created) $("#editor-version-note").value = "";
+    const left = saved.leftOut.length ? ` Left out, no amount yet: ${benchNameList(saved.leftOut)}.` : "";
+    notify(created ? `Saved as version ${version.version}.${left}` : `Nothing new: this is the same as version ${version.version}.`);
+    renderEditorVersionState();
+    await editorLoadFormulas();
+  } catch (error) {
+    showEditorError(`Not saved: ${error.message}`);
+  } finally {
+    editorPage.saving = false;
+    button.disabled = false;
+  }
+}
+
+async function editorOpenVersion(number) {
+  const saved = editorPage.saved;
+  if (!saved) return;
+  editorPage.ticket += 1;
+  const ticket = editorPage.ticket;
+  const version = await editorFetchVersion(saved.formulaId, number);
+  const prepared = await editorPrepareRows(editorRowsFromSaved(version.rows));
+  if (ticket !== editorPage.ticket) return;
+  editorPage.history = editorCommit(editorPage.history, { name: version.name, rows: prepared.rows });
+  editorOpenedVersion(version);
+  editorPage.notes = [`Opened version ${version.version}. Undo goes back to what was here before.`, ...prepared.notes];
+  clearEditorError();
+  renderEditor();
+}
+
+$("#editor-save-version").addEventListener("click", () => editorSaveVersion());
+
+$('[data-panel="editor"]').addEventListener("keydown", (event) => {
+  if (!(event.ctrlKey || event.metaKey) || event.altKey || String(event.key || "").toLowerCase() !== "s") return;
+  event.preventDefault();
+  editorSaveVersion();
+});
+
+$("#editor-version-list").addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-version]");
+  if (!button) return;
+  editorOpenVersion(Number(button.dataset.version)).catch((error) => showEditorError(`Not opened: ${error.message}`));
+});
+
+// The IFRA and allergen answer for a version's rows, from the same cache as the side panel.
+async function editorVersionChecks(version, rows) {
+  const body = JSON.stringify({ rows: editorCheckRows(rows), bottle_ml: version.bottle_ml || "30" });
+  if (!editorSide.answers.has(body)) {
+    editorSide.answers.set(body, await request("/v2/workbench/formula-checks", { method: "POST", body }));
+    if (editorSide.answers.size > 20) editorSide.answers.delete(editorSide.answers.keys().next().value);
+  }
+  return editorSide.answers.get(body);
+}
+
+// Cost of one bottle from the prices on the Stock page, or "" when nothing is priced.
+function editorBottleCostText(rows, bottleMl) {
+  const prices = stockPricesCurrent();
+  const costRows = editorCostRows(rows, editorPage.densities, prices);
+  if (!costRows.length) return "";
+  const ethanolMl = bottleMl ? benchCostEthanolEstimate(editorCostRows(rows, editorPage.densities, {}), bottleMl) : "";
+  const cost = benchCost({ rows: costRows, prices, ethanolMl, bottles: "1" });
+  if (cost.problem || ![...cost.lines, ...cost.extras].some((item) => item.cost)) return "";
+  return `${stockPriceMoneyText(cost.bottle, cost.currency)}${cost.partial ? " (not every row priced)" : ""}`;
+}
+
+// On a phone each row wraps (formula-editor.css), so the table keeps its roles
+// in the markup and each figure carries its column name for the wrapped view.
+function editorCompareTable(diff, a, b) {
+  const table = editorNode("table", "", "editor-compare-table");
+  table.setAttribute("role", "table");
+  const columns = ["Material", "Strength", `Version ${a}`, `Version ${b}`, "Change", "Share of the liquid"];
+  const head = editorNode("tr");
+  head.setAttribute("role", "row");
+  columns.forEach((text) => {
+    const cell = editorNode("th", text);
+    cell.scope = "col";
+    cell.setAttribute("role", "columnheader");
+    head.append(cell);
+  });
+  table.append(editorNode("thead"), editorNode("tbody"));
+  [table.tHead, table.tBodies[0]].forEach((group) => group.setAttribute("role", "rowgroup"));
+  table.tHead.append(head);
+  diff.lines.forEach((line) => {
+    const tr = editorNode("tr", "", `is-${line.kind}`);
+    tr.setAttribute("role", "row");
+    const amount = (text) => (text ? `${text} ${line.unit}` : "—");
+    const change = line.change ? `${line.change} ${line.unit}` : (line.kind === "added" ? "added" : "removed");
+    const share = line.aPct || line.bPct ? `${line.aPct || "—"} → ${line.bPct || "—"}` : "";
+    [line.material, line.strength, amount(line.a), amount(line.b), change, share].forEach((text, index) => {
+      const cell = editorNode("td", text);
+      cell.setAttribute("role", "cell");
+      cell.dataset.label = columns[index];
+      tr.append(cell);
+    });
+    table.tBodies[0].append(tr);
+  });
+  return table;
+}
+
+async function editorCompareVersions(a, b) {
+  const saved = editorPage.saved;
+  const out = $("#editor-compare");
+  if (!saved) return;
+  if (a === b) {
+    out.replaceChildren(editorNode("p", "Pick two different versions to compare.", "editor-side-line"));
+    return;
+  }
+  const seq = ++editorPage.compareSeq;
+  out.replaceChildren(editorNode("p", "Comparing…", "editor-side-line"));
+  const [versionA, versionB] = await Promise.all([editorFetchVersion(saved.formulaId, a), editorFetchVersion(saved.formulaId, b)]);
+  const rowsA = editorRowsFromSaved(versionA.rows);
+  const rowsB = editorRowsFromSaved(versionB.rows);
+  const diff = editorCompare(rowsA, rowsB);
+  const checks = await Promise.all([[versionA, rowsA], [versionB, rowsB]].map(([version, rows]) => (
+    editorVersionChecks(version, rows).catch((error) => ({ error: error.message }))
+  )));
+  await editorEnsureDensities([...rowsA, ...rowsB]).catch(() => false);
+  if (seq !== editorPage.compareSeq) return;
+  const nodes = [editorNode("h3", `Version ${a} → version ${b}`)];
+  if (diff.lines.length) nodes.push(editorCompareTable(diff, a, b));
+  const unchanged = diff.same ? `${diff.same} ${diff.same === 1 ? "row" : "rows"} unchanged. ` : "";
+  nodes.push(editorNode("p", `${diff.lines.length ? "" : "The rows are the same. "}${unchanged}Liquid: ${diff.liquid[0]} µL → ${diff.liquid[1]} µL.`, "editor-side-line"));
+  nodes.push(editorNode("h4", "Checks"));
+  const list = editorNode("ul", "", "editor-check-list");
+  const failed = checks.find((answer) => answer.error);
+  if (failed) {
+    list.append(editorNode("li", `The IFRA and allergen check is not available right now: ${failed.error}`, "is-problem"));
+  } else {
+    const changes = editorCheckChanges(checks[0], checks[1]);
+    if (!changes.length) changes.push({ text: `No check changed: IFRA is ${EDITOR_VERDICT_WORDS[checks[1].ifra.verdict] || checks[1].ifra.verdict} in both.` });
+    changes.forEach((change) => list.append(editorNode("li", change.text, change.problem ? "is-problem" : "")));
+  }
+  nodes.push(list);
+  const costs = [editorBottleCostText(rowsA, versionA.bottle_ml), editorBottleCostText(rowsB, versionB.bottle_ml)];
+  if (costs.some(Boolean)) {
+    nodes.push(editorNode("h4", "Cost per bottle"));
+    nodes.push(editorNode("p", `${costs[0] || "not priced"} → ${costs[1] || "not priced"}`, "editor-side-line"));
+  }
+  out.replaceChildren(...nodes);
+}
+
+$("#editor-compare-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const a = Number($("#editor-compare-a").value);
+  const b = Number($("#editor-compare-b").value);
+  editorCompareVersions(a, b).catch((error) => {
+    $("#editor-compare").replaceChildren(editorNode("p", `Not compared: ${error.message}`, "form-error"));
+  });
+});
 
 syncEditorSourceFields();
 renderEditor();
