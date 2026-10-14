@@ -30,6 +30,7 @@ RECORDS = {
     "INV-USER-20261014-STK-013": ("Neroli EO", 0.1, "mass_fraction", "jojoba"),
     "INV-USER-20261014-STK-014": ("Myrrh EO", 0.5, "mass_fraction", "dpg"),
     "INV-USER-20261014-STK-015": ("Guaiacwood EO", 1 / 3, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-016": ("Suederal", 0.1, "mass_fraction", "dpg"),
 }
 # EO dilutions recorded in another solvent stay as they were.
 OTHER_SOLVENT_EOS = {
@@ -85,6 +86,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Neroli 10% is from aroma&more",
         "It\u2019s not in ethanol check the web",
         "Myrrh EO and guaiacwood EO is, I can mix 10% Alpha Damascobe 10% in DPG",
+        "Suederal 10% yes",
     ]
     superseded = [
         "INV-USER-20260830-010",

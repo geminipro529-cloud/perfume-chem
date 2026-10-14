@@ -66,6 +66,10 @@
       {
         "message_timestamp_utc": "2026-10-14T13:30:23Z",
         "text": "Myrrh EO and guaiacwood EO is, I can mix 10% Alpha Damascobe 10% in DPG"
+      },
+      {
+        "message_timestamp_utc": "2026-10-14T22:07:36Z",
+        "text": "Suederal 10% yes"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Only Paradisamide uses a default (w/w, DPG): Kenny gave the strength and carrier or 'neat' for every other bottle."
@@ -86,7 +90,8 @@
     "damascone_dilutions_carrier_dpg": true,
     "eo_and_absolute_dilutions_carrier_dpg": true,
     "neroli_10pct_supplier_dilution_in_jojoba": true,
-    "myrrh_and_guaiacwood_eo_carrier_dpg": true
+    "myrrh_and_guaiacwood_eo_carrier_dpg": true,
+    "suederal_10pct_carrier_dpg": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -758,6 +763,50 @@
         "nominal_components_asserted": false
       },
       "note": "Kenny, asked whether Peppermint EO (ethanol), Myrrh EO 50% (DEP) or Guaiacwood EO (ethanol + DEP) are really in DPG: 'Myrrh EO and guaiacwood EO is'. The 2026-09-01 record INV-USER-20260901-002 (exactly 1/3 w/w, 1/3 ethanol + 1/3 DEP) is superseded: the 1/3 w/w strength stays and the carrier is DPG. The old ethanol/DEP component split is not carried over."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-016",
+      "canonical_name": "Suederal",
+      "aliases": [
+        "Suederal 10%"
+      ],
+      "state": "OWNED",
+      "category": "leather",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_EXPLICIT_USER_CARRIER_PRIOR_USER_BASIS",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_CARRIER_DPG_20261014_V5_ROW_225_DILUTION_RESOLVED"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 225,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "fraction_basis_from_user_message": false,
+        "fraction_basis_from_prior_user_confirmation": true,
+        "carrier_from_user_message": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny, asked whether Suederal 10% is in DPG: 'Suederal 10% yes'. The V5 row 225 10% working stock had no basis or carrier, so dosing was held. The strength is kept, the carrier is DPG, and the basis is w/w as he confirmed earlier. The neat Suederal row is unchanged."
     }
   ]
 }

@@ -128,7 +128,7 @@ FLAGGED_BASES = {
     "Clearwood",
     "Costus Olifac 10%",
     "Lilyreal ND",
-    "Suederal 10%",
+    "Suederal",  # stock name since the 2026-10-14 DPG record
     "Tonkarome",
 }
 SCHIFF_BASES = {"Aurantiol 10% in DPG"}
@@ -158,7 +158,7 @@ STILL_HELD = {
     "Saffranal",
     # Owned before, but undosable until 2026-10-14 gave it a strength (neat).
     "Sandalwood Base X3",
-    "Suederal 10%",
+    "Suederal",  # stock name since the 2026-10-14 DPG record
     "Tonkarome",
     "Vanilla Absolute",
     "Vertofix",
