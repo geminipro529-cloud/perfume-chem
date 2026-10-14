@@ -239,6 +239,25 @@ VERTOFIX_COEUR_NEAT_USER_INVENTORY_AUTHORITY = VERTOFIX_COEUR_USER_INVENTORY_AUT
 # The Pomelo EO / Ginger Lily Oil / neat Exaltolide successor (v25) records Kenny's 2026-10-13 messages.
 NEW_STOCK_20261013_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261013"
 
+# Stocks Kenny confirmed as ready, with their strength, basis and carrier, that
+# wait only on bottle lot and preparation receipts: Labdanum, Olibanum and
+# Opoponax Resinoid and Tonka Bean Absolute (24 Sep 2026). On 14 Oct 2026 he
+# chose to let the composer design with them ("Yes, follow-up" on "Let the
+# composer use the four resinoids you marked ready on 24 Sep?"). Design only:
+# execution_ready and its hold stay, so mixing still asks for the receipts.
+_USER_READY_DESIGN_SCOPE = "CALCULATION_READY_PHYSICAL_LINEAGE_INCOMPLETE"
+_USER_READY_DESIGN_HOLDS = frozenset({"BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING"})
+
+
+def _user_ready_design_stock(stock: Mapping[str, Any]) -> bool:
+    return (
+        stock.get("user_reported_ready") is True
+        and not stock.get("execution_ready")
+        and stock.get("execution_scope") == _USER_READY_DESIGN_SCOPE
+        and str(stock.get("execution_hold_reason") or "") in _USER_READY_DESIGN_HOLDS
+    )
+
+
 _HEADING_RE = re.compile(r"^---\s+(.+?)\s+---$")
 _BULLET_RE = re.compile(r"^[-•]\s+(.+?)\s*$")
 _PERCENT_RE = re.compile(r"\(\s*~?\s*(\d+(?:\.\d+)?)\s*%(?:[^)]*)\)")
@@ -5753,6 +5772,7 @@ def _apply_current_user_inventory_overlay(
                 source_ref=f"{origin_path}#{record_id}",
                 execution_ready=bool(stock["execution_ready"]),
                 execution_hold_reason=str(stock.get("execution_hold_reason") or ""),
+                design_ready=True if _user_ready_design_stock(stock) else None,
                 nominal_property_model_ready=bool(
                     stock.get("nominal_property_model_ready", False)
                 ),

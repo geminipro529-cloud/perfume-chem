@@ -361,12 +361,12 @@
   "ifra_pass": true,
   "ifra_status": "PASS",
   "material_count": 13,
-  "max_active_share": 0.346,
+  "max_active_share": 0.3456,
   "named_notes": [
    {
     "name": "incense",
-    "share": 0.0075,
-    "status": "unknown_physics",
+    "share": 0.0112,
+    "status": "detectable",
     "window": "heart"
    },
    {
@@ -376,31 +376,31 @@
     "window": "drydown"
    }
   ],
-  "named_notes_detectable": 1,
+  "named_notes_detectable": 2,
   "one_note": false,
   "silent_character_rows": 1,
   "total_uL": 6000.0,
-  "unknown_physics_rows": 1,
+  "unknown_physics_rows": 0,
   "windows": {
    "drydown": {
-    "effective_voices": 3.969,
-    "top_oav_share": 0.4677
+    "effective_voices": 4.026,
+    "top_oav_share": 0.4523
    },
    "heart": {
-    "effective_voices": 6.29,
-    "top_oav_share": 0.2919
+    "effective_voices": 6.348,
+    "top_oav_share": 0.2875
    },
    "late_heart": {
-    "effective_voices": 4.224,
-    "top_oav_share": 0.4246
+    "effective_voices": 4.268,
+    "top_oav_share": 0.4093
    },
    "opening": {
-    "effective_voices": 5.777,
-    "top_oav_share": 0.3248
+    "effective_voices": 5.81,
+    "top_oav_share": 0.3185
    },
    "top": {
-    "effective_voices": 5.8,
-    "top_oav_share": 0.3241
+    "effective_voices": 5.835,
+    "top_oav_share": 0.3178
    }
   }
  },
