@@ -12,6 +12,7 @@ from app.api.v1.endpoints import ai as ai_endpoint
 from app.schemas.perfume import AIAnalysisRequest
 from app.services.ai import answer_check
 from app.services.context_builder import ContextBuilder
+from tests.lab_page_scripts import read_lab_script
 
 STATIC = Path(__file__).resolve().parents[2] / "app" / "static"
 OWNED = frozenset({"hedione", "iso e super"})
@@ -105,7 +106,7 @@ def test_hedione_guidance_in_rendered_prompt_context() -> None:
 
 def test_assistant_view_uses_plain_wording() -> None:
     html = (STATIC / "index.html").read_text(encoding="utf-8")
-    js = (STATIC / "lab.js").read_text(encoding="utf-8")
+    js = read_lab_script()
     for jargon in ("Build canonical packet", "Claim boundary", "Unknown stays visible"):
         assert jargon not in html
     assert '<option value="bottle_status">' in html

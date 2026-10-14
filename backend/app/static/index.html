@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/static/theme.css">
   <link rel="stylesheet" href="/static/batch-label.css">
   <link rel="stylesheet" href="/static/batch.css">
+  <link rel="stylesheet" href="/static/formula-editor.css">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -38,6 +39,7 @@
       <p class="nav-group">Bench</p>
       <button class="nav-item is-active" data-view="improve">Improve a scent</button>
       <button class="nav-item" data-view="formulas">Create a formula</button>
+      <button class="nav-item" data-view="editor">Edit a formula</button>
       <button class="nav-item" data-view="benchsheet">Bench sheet</button>
       <button class="nav-item" data-view="materials">Stock</button>
       <button class="nav-item" data-view="bottles">Bottles</button>
@@ -525,7 +527,7 @@
             </details>
             <div class="request-actions">
               <button id="formula-download" type="button">Download draft</button>
-              <button id="formula-print-bench" type="button">Print bench sheet</button>
+              <button id="formula-print-bench" class="quiet-button" type="button">Print bench sheet</button>
               <p class="field-help">Downloading saves a design artifact only. It does not change inventory, save a lab version, or authorize compounding.</p>
             </div>
           </article>
@@ -602,6 +604,140 @@
         <div class="view-heading"><div><p class="eyebrow">Bottles to sell</p><h1 id="batch-title">Batch</h1><p class="lede">Scale one formula to a number of bottles, rerun the release gate on the scaled card, keep a lot record, and print the batch sheet, the label and the IFRA statement. Scaling keeps every stock and strength; only amounts change.</p></div></div>
         <div id="batch-root" class="batch-root"></div>
         <div class="panel batch-label-panel"><p class="panel-index">Label and IFRA</p><h2>Label and IFRA statement</h2><div id="batch-label-area"></div></div>
+      </section>
+
+      <section class="view" data-panel="editor" aria-labelledby="editor-title">
+        <div class="view-heading"><div><p class="eyebrow">Your formula, row by row</p><h1 id="editor-title">Edit a formula</h1><p class="lede">Load a card, a pasted table or the draft from Create a formula, then edit it from the keyboard. Amounts are kept exactly; switching the unit only changes how they are shown. Nothing here changes a card or your stock.</p></div></div>
+        <form id="editor-source-form" class="panel editor-source-form" novalidate>
+          <div class="field-pair">
+            <label>Start from
+              <select name="source_kind">
+                <option value="EMPTY">An empty formula</option>
+                <option value="PROJECT_FILE">A project formula file</option>
+                <option value="PASTED">A pasted card or spreadsheet rows</option>
+                <option value="CREATE">The draft on Create a formula</option>
+                <option value="SAVED">A formula you saved here</option>
+              </select>
+            </label>
+            <label id="editor-project-field" hidden>Project formula
+              <input name="project_formula_path" list="project-formula-options" placeholder="Start typing a formula name" autocomplete="off">
+            </label>
+            <label id="editor-saved-field" hidden>Saved formula <span>opens its latest version</span>
+              <select name="saved_formula"></select>
+            </label>
+          </div>
+          <label id="editor-paste-field" hidden>Card or rows <span>a card table, or rows copied from a spreadsheet: the name, then the amount</span>
+            <textarea name="pasted_text" rows="6" maxlength="200000"></textarea>
+          </label>
+          <div class="request-actions">
+            <button type="submit">Load into the editor</button>
+          </div>
+        </form>
+        <div class="editor-layout">
+        <article class="panel editor-panel" aria-labelledby="editor-rows-title">
+          <div class="editor-head">
+            <label>Formula name<input id="editor-name" autocomplete="off" maxlength="200"></label>
+            <label>Show amounts in
+              <select id="editor-unit">
+                <option value="uL">µL</option>
+                <option value="g">grams</option>
+                <option value="pct">% of the liquid</option>
+                <option value="parts">parts per 1000 of the liquid</option>
+              </select>
+            </label>
+          </div>
+          <div class="editor-tools" role="toolbar" aria-label="Formula tools">
+            <button type="button" class="quiet-button" id="editor-undo" disabled>Undo</button>
+            <button type="button" class="quiet-button" id="editor-redo" disabled>Redo</button>
+            <button type="button" class="quiet-button" id="editor-add-row">Add a row</button>
+            <button type="button" class="quiet-button" id="editor-sort-note">Sort by note</button>
+            <button type="button" class="quiet-button" id="editor-sort-amount">Sort by amount</button>
+          </div>
+          <h2 id="editor-rows-title" class="sr-only">Rows</h2>
+          <div class="editor-table-wrap">
+            <table class="editor-table" role="table">
+              <thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">#</th><th scope="col" role="columnheader">Material</th><th scope="col" role="columnheader">Amount</th><th scope="col" role="columnheader">Note</th><th scope="col" role="columnheader">Stock</th><th scope="col" role="columnheader"><span class="sr-only">Remove</span></th></tr></thead>
+              <tbody id="editor-rows" role="rowgroup"></tbody>
+            </table>
+          </div>
+          <datalist id="editor-stock-options"></datalist>
+          <p id="editor-totals" class="editor-totals" aria-live="polite"></p>
+          <ul id="editor-notes" class="editor-notes"></ul>
+          <p id="editor-error" class="form-error" role="alert" hidden></p>
+          <div class="editor-scale">
+            <label>Scale the liquid to <span>µL; every row keeps its share</span><input id="editor-scale-to" inputmode="decimal" autocomplete="off" placeholder="6000"></label>
+            <button type="button" class="quiet-button" id="editor-scale">Scale</button>
+          </div>
+          <div class="request-actions">
+            <button type="button" class="primary-button" id="editor-to-bench">Open on the bench sheet</button>
+            <button type="button" class="quiet-button" id="editor-copy">Copy as a table</button>
+          </div>
+          <section class="editor-version" aria-labelledby="editor-version-title">
+            <h3 id="editor-version-title">Versions</h3>
+            <p id="editor-version-state" class="editor-side-line" aria-live="polite"></p>
+            <div class="editor-version-save">
+              <label>Note for this version <span>optional: what you changed, or why</span><input id="editor-version-note" maxlength="500" autocomplete="off"></label>
+              <button type="button" class="quiet-button" id="editor-save-version">Save a version</button>
+            </div>
+          </section>
+          <p class="field-help" id="editor-keys">Keys: Enter saves a cell and moves down a row; ↑ and ↓ move between amounts; Ctrl+Z undoes and Ctrl+Y redoes; Ctrl+Enter adds a row below; Ctrl+Delete removes the row; Ctrl+S saves a version. Paste rows from a spreadsheet into any cell.</p>
+        </article>
+        <aside class="panel editor-side" id="editor-side" aria-labelledby="editor-side-title">
+          <h2 id="editor-side-title">Checks as you edit</h2>
+          <div class="editor-side-inputs">
+            <label>Bottle <span>mL of finished perfume</span><input id="editor-bottle-ml" inputmode="decimal" autocomplete="off" value="30"></label>
+            <label>Bottles <span>for cost and stock</span><input id="editor-bottles" inputmode="numeric" autocomplete="off" value="1"></label>
+          </div>
+          <p id="editor-side-oil" class="editor-side-line"></p>
+          <section class="editor-check" aria-labelledby="editor-ifra-title">
+            <h3 id="editor-ifra-title">IFRA</h3>
+            <p id="editor-ifra-verdict" class="editor-verdict" aria-live="polite"></p>
+            <ul id="editor-ifra-list" class="editor-check-list"></ul>
+          </section>
+          <section class="editor-check" aria-labelledby="editor-allergen-title">
+            <h3 id="editor-allergen-title">EU allergens on the label</h3>
+            <p id="editor-allergen-summary" class="editor-side-line"></p>
+            <ul id="editor-allergen-list" class="editor-check-list"></ul>
+          </section>
+          <section class="editor-check" aria-labelledby="editor-cost-title">
+            <h3 id="editor-cost-title">Cost</h3>
+            <p id="editor-cost-summary" class="editor-side-line"></p>
+            <ul id="editor-cost-list" class="editor-check-list"></ul>
+          </section>
+          <section class="editor-check" aria-labelledby="editor-stock-title">
+            <h3 id="editor-stock-title">Stock left</h3>
+            <p id="editor-stock-summary" class="editor-side-line"></p>
+            <ul id="editor-stock-list" class="editor-check-list"></ul>
+          </section>
+          <section class="editor-check" aria-labelledby="editor-scent-title">
+            <h3 id="editor-scent-title">Smell over time</h3>
+            <div id="editor-scent" class="scent-chart" hidden></div>
+          </section>
+          <p class="field-help">A screen to edit by, not a release: the release gate on the saved card decides.</p>
+        </aside>
+        </div>
+        <section class="panel editor-versions" id="editor-versions" aria-labelledby="editor-versions-title" hidden>
+          <h2 id="editor-versions-title">Versions of this formula</h2>
+          <p class="field-help">Every save is a version, kept in your data/user folder. A version can't be changed; a batch made from one locks it.</p>
+          <ol id="editor-version-list" class="editor-version-list"></ol>
+          <section class="editor-version-bottles" aria-labelledby="editor-version-bottles-title">
+            <h3 id="editor-version-bottles-title">Bottles made from this version</h3>
+            <ul id="editor-version-bottle-list" class="editor-version-bottle-list"></ul>
+            <div class="editor-version-tie">
+              <label>Lab bottle<select id="editor-tie-bottle"></select></label>
+              <button type="button" class="quiet-button" id="editor-tie">Tie to this version</button>
+            </div>
+            <div class="request-actions">
+              <button type="button" class="quiet-button" id="editor-make-batch">Make a batch from this version</button>
+            </div>
+          </section>
+          <form id="editor-compare-form" class="editor-compare-form" novalidate>
+            <label>Compare version<select id="editor-compare-a"></select></label>
+            <label>with version<select id="editor-compare-b"></select></label>
+            <button type="submit" class="quiet-button">Compare</button>
+          </form>
+          <div id="editor-compare" class="editor-compare" aria-live="polite"></div>
+        </section>
       </section>
 
       <section class="view" data-panel="benchsheet" aria-labelledby="benchsheet-title">
@@ -921,6 +1057,20 @@
   <script src="/static/smell-log.js" defer></script>
   <script src="/static/batch-label.js" defer></script>
   <script src="/static/batch.js" defer></script>
-  <script src="/static/lab.js" defer></script>
+  <script src="/static/formula-editor.js" defer></script>
+  <!-- The Lab page itself, one file per page: core first, boot (start-up) last. -->
+  <script src="/static/lab/core.js" defer></script>
+  <script src="/static/lab/stock.js" defer></script>
+  <script src="/static/lab/improve.js" defer></script>
+  <script src="/static/lab/overview.js" defer></script>
+  <script src="/static/lab/create.js" defer></script>
+  <script src="/static/lab/editor.js" defer></script>
+  <script src="/static/lab/bench.js" defer></script>
+  <script src="/static/lab/bottles.js" defer></script>
+  <script src="/static/lab/experiments.js" defer></script>
+  <script src="/static/lab/perfumery.js" defer></script>
+  <script src="/static/lab/assistant.js" defer></script>
+  <script src="/static/lab/science.js" defer></script>
+  <script src="/static/lab/boot.js" defer></script>
 </body>
 </html>

@@ -15,6 +15,7 @@ from tests.integration.test_formula_design_job_migration import (
     _revision,
     _triggers,
 )
+from tests.lab_page_scripts import get_lab_script
 from tests.unit.test_omission_comparison_jobs import payload
 
 
@@ -67,7 +68,7 @@ async def test_omission_plan_is_durable_idempotent_and_does_not_create_physical_
 
 async def test_omission_ui_is_optional_and_has_no_automatic_execution(client):
     page = (await client.get("/app")).text
-    js = (await client.get("/static/lab.js")).text
+    js = (await get_lab_script(client)).text
     assert 'id="omission-plan-form"' in page
     assert "Optional: compare a control" in page
     assert "cannot remove anything from your existing bottle" in page

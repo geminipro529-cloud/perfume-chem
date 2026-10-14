@@ -1,6 +1,6 @@
 // Pure wording for the composer's voice-count screening summary. It touches no
-// DOM, so the page loads it before lab.js (its function becomes a page global)
-// and node runs it in the tests. lab.js writes the returned text with textContent.
+// DOM, so the page loads it before the Lab page files in lab/ (its function becomes a page global)
+// and node runs it in the tests. lab/create.js writes the returned text with textContent.
 
 function formulaVoiceLines(summary) {
   if (!summary || typeof summary !== "object") return null;

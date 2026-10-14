@@ -42,7 +42,7 @@ CONTENT_TYPES = {
     ".json": "application/json",
 }
 
-# The GETs the page makes at start-up (refresh() in lab.js), with minimal bodies.
+# The GETs the page makes at start-up (refresh() in lab/core.js), with minimal bodies.
 DEFAULT_GETS: dict[str, Any] = {
     "/dashboard": {"counts": {}, "warnings": []},
     "/materials": [],

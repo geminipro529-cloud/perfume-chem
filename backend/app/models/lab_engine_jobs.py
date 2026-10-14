@@ -320,7 +320,7 @@ class LabEngineWorker(Base):
     )
 
 
-CP2_ENGINE_JOB_TABLE_NAMES = {
+CP2_ENGINE_JOB_TABLE_NAMES: set[str] = {
     "lab_engine_jobs",
     "lab_engine_job_events",
     "lab_engine_job_results",

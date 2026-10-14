@@ -390,6 +390,36 @@ def _allergen_threshold_pct(allergen_data: dict[str, Any], *, leave_on: bool) ->
     return float(allergen_data.get("rinse_off_threshold_pct", 0.01))
 
 
+def eu_allergen_rows(
+    pct_by_material: Mapping[str, float], *, leave_on: bool = True
+) -> list[dict[str, Any]]:
+    """The EU allergens to declare, each with its % w/w of the finished product.
+
+    A row is an allergen by its own name or its ``_ALLERGEN_NAME_MAP`` alias, as in
+    ``score_ifra_compliance``. Rows that are the same allergen are summed before the
+    label line is compared, so this declares everything that function declares, and
+    also an allergen split over two names. Allergens inside naturals and bases are not
+    counted. Ordered by first row, as written.
+    """
+    by_allergen: dict[str, float] = {}
+    for name, pct in pct_by_material.items():
+        mapped = str(_ALLERGEN_NAME_MAP.get(name, name)).lower()
+        for allergen_name in EU_FRAGRANCE_ALLERGENS:
+            if allergen_name.lower() in (mapped, name.lower()):
+                by_allergen[allergen_name] = by_allergen.get(allergen_name, 0.0) + float(pct)
+    rows = []
+    for allergen_name, pct in by_allergen.items():
+        line = _allergen_threshold_pct(EU_FRAGRANCE_ALLERGENS[allergen_name], leave_on=leave_on)
+        if pct > line:
+            rows.append({
+                "allergen": allergen_name,
+                "cas": EU_FRAGRANCE_ALLERGENS[allergen_name].get("cas"),
+                "pct": pct,
+                "line_pct": line,
+            })
+    return rows
+
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # Sensitization Risk — material-level potency data
 # EC3 values from LLNA (Local Lymph Node Assay) where available
