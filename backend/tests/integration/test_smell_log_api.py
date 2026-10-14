@@ -371,3 +371,95 @@ def test_agreement_sets_and_one_model_run_for_in_range_windows_only():
     assert day7["window"] == "skin_day7"
     assert day7["model_in_range"] is False
     assert day7["agreement"] is None
+
+
+async def _lavender_bottles(client, db_session, n):
+    stocks = [
+        await _stock(client, "Linalool"),
+        await _stock(client, "Hedione", active_fraction=0.5),
+        await _stock(client, "Lavender EO"),
+        await _stock(client, "Iso E Super"),
+    ]
+    amounts = [800, 900, 500, 600]
+    components = [
+        {"stock_solution_id": stock, "requested_mass_g": amount / 1000, "requested_volume_ul": amount}
+        for stock, amount in zip(stocks, amounts, strict=True)
+    ]
+    formula = await client.post(f"{API}/formulas", json={"name": "Lavender study"})
+    version = await client.post(
+        f"{API}/formulas/{formula.json()['id']}/versions",
+        json={"brief": {}, "constraints": {}, "components": components},
+    )
+    assert version.status_code == 201, version.text
+    bottles = []
+    for index in range(n):
+        batch = LabBatch(formula_version_id=version.json()["id"], batch_code=f"calibration-{index}")
+        db_session.add(batch)
+        await db_session.flush()
+        bottle = LabBottle(label=f"Lavender bottle {index}", batch_id=batch.id)
+        db_session.add(bottle)
+        await db_session.flush()
+        bottles.append(bottle.id)
+    await db_session.commit()
+    return bottles
+
+
+def _lavender_ranking_at_one_hour():
+    from app.services.scent_curve import ScentCurveRow, compute_scent_curve
+
+    rows = [
+        ScentCurveRow(identity_name="Linalool", amount_ul=800, stock_fraction=1),
+        ScentCurveRow(identity_name="Hedione", amount_ul=900, stock_fraction=0.5),
+        ScentCurveRow(identity_name="Lavender EO", amount_ul=500, stock_fraction=1),
+        ScentCurveRow(identity_name="Iso E Super", amount_ul=600, stock_fraction=1),
+    ]
+    frame = compute_scent_curve(rows, [("strip_1h", 3600.0)])["windows"][0]
+    return [m["name"] for m in sorted((m for m in frame["materials"] if m["share"]), key=lambda m: -m["share"])]
+
+
+@pytest.mark.asyncio
+async def test_calibration_waits_for_ten_bottles_and_adds_no_corrected_top(client, db_session):
+    ranked = _lavender_ranking_at_one_hour()
+    bottles = await _lavender_bottles(client, db_session, 3)
+    for bottle_id in bottles:
+        await _log(client, bottle_id, window="strip_1h", leads=[ranked[3]], weak=ranked[:3])
+    await _log(client, bottles[0], window="skin_day1", leads=["Iso E Super"])
+    loose = await _bottle(client, "Loose bottle")
+    await _log(client, loose, window="strip_1h", leads=["Iris"])
+
+    response = await client.get(f"{API}/smell-log/calibration")
+    comparison = (await client.get(f"{API}/bottles/{bottles[0]}/smell-log/comparison")).json()
+
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["schema"] == "smell-log-calibration-v1"
+    assert body["evidence_class"] == "UNKNOWN"
+    assert body["calibrated"] is False
+    assert body["reason"] == "3 of 10 bottles logged"
+    assert (body["n_bottles"], body["n_bottles_skipped"], body["n_entries"]) == (3, 1, 3)
+    assert "not how strong" in body["basis"]
+    one_hour, day1 = comparison["windows"]
+    assert one_hour["corrected_top"] is None
+    assert day1["corrected_top"] is None
+
+
+@pytest.mark.asyncio
+async def test_ten_bottles_where_the_nose_beats_the_model_add_corrected_top(client, db_session):
+    ranked = _lavender_ranking_at_one_hour()
+    assert len(ranked) == 4
+    bottles = await _lavender_bottles(client, db_session, 10)
+    for bottle_id in bottles:
+        await _log(client, bottle_id, window="strip_1h", leads=[ranked[3]], weak=ranked[:3])
+    await _log(client, bottles[0], window="skin_day7", leads=["Iso E Super"])
+
+    body = (await client.get(f"{API}/smell-log/calibration")).json()
+    comparison = (await client.get(f"{API}/bottles/{bottles[0]}/smell-log/comparison")).json()
+
+    assert body["evidence_class"] == "EMPIRICALLY_CALIBRATED"
+    assert body["reason"] is None
+    assert (body["baseline_score"], body["corrected_score"]) == (-30, -10)
+    assert {item["name"]: item["label"] for item in body["factors"]}[ranked[3]] == "×2.0"
+    one_hour, day7 = comparison["windows"]
+    assert one_hour["model_top"] == ranked[:3]
+    assert one_hour["corrected_top"] == [ranked[0], ranked[1], ranked[3]]
+    assert day7["corrected_top"] is None

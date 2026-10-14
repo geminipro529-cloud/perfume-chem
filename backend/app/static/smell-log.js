@@ -49,12 +49,14 @@ function smellCompareLines(block) {
   const you = [];
   if (block.you_leads.length) you.push(`leads ${named(block.you_leads)}`);
   if (block.you_weak.length) you.push(`weak ${named(block.you_weak)}`);
-  const lines = { title: title.join(" · "), model: "", you: `You: ${you.join(" · ") || "no names marked"}`, agreement: "" };
+  const lines = { title: title.join(" · "), model: "", you: `You: ${you.join(" · ") || "no names marked"}`, corrected: "", agreement: "" };
   if (!block.model_in_range) {
     lines.model = block.model_note || "Beyond the model's range.";
     return lines;
   }
   lines.model = `Model, ${block.model_time_label}: ${block.model_top.join(", ") || "nothing it can detect"}`;
+  // Present only once the nose calibration passed its held-out check.
+  if (block.corrected_top?.length) lines.corrected = `Corrected: ${block.corrected_top.join(", ")}`;
   const agreement = block.agreement;
   const said = [];
   if (agreement.leads_the_model_also_had_on_top.length) said.push(`Model and you agree on ${agreement.leads_the_model_also_had_on_top.join(", ")}.`);
@@ -63,6 +65,18 @@ function smellCompareLines(block) {
   if (!said.length) said.push("No leads marked here, so nothing to compare yet.");
   lines.agreement = said.join(" ");
   return lines;
+}
+
+// The one line saying whether the model has learned from the smell log yet.
+function smellCalibrationLine(calibration) {
+  if (!calibration) return "";
+  if (calibration.calibrated) {
+    return `Model corrected by your nose (${calibration.n_bottles} bottles, beats the plain model on held-out bottles)`;
+  }
+  if (calibration.n_bottles < calibration.min_bottles) {
+    return `Learning from your nose: ${calibration.n_bottles} of ${calibration.min_bottles} bottles logged`;
+  }
+  return calibration.reason || "";
 }
 
 function smellLogNode(doc, tag, attributes = {}, text = "") {
@@ -103,6 +117,9 @@ function attachSmellLog({ doc, request, root }) {
   const save = node("button", { type: "submit" }, "Save");
   const status = node("p", { class: "status-line", role: "status", "aria-live": "polite" });
   form.append(windowSet, rowSet, likingSet, wordsLabel, save, status);
+  const calibrationLine = node("p", { class: "field-help smell-log-calibration", role: "status" });
+  calibrationLine.hidden = true;
+  form.prepend(calibrationLine);
   const pastTitle = node("h3", {}, "Earlier entries");
   const past = node("ul", { class: "smell-log-past" });
   pastTitle.hidden = true;
@@ -166,6 +183,7 @@ function attachSmellLog({ doc, request, root }) {
       const lines = smellCompareLines(block);
       const item = node("div", { class: "smell-log-compare-block", "data-compare-window": block.window });
       item.append(node("h4", {}, lines.title), node("p", {}, lines.model), node("p", {}, lines.you));
+      if (lines.corrected) item.appendChild(node("p", { class: "smell-log-compare-corrected" }, lines.corrected));
       if (lines.agreement) item.appendChild(node("p", { class: "smell-log-compare-agreement" }, lines.agreement));
       blocks.push(item);
     }
@@ -182,6 +200,18 @@ function attachSmellLog({ doc, request, root }) {
     } catch (error) {
       if (token === loadToken) drawComparison({ available: false, reason: error.message || "Couldn't load the model comparison.", windows: [] });
     }
+  }
+
+  async function loadCalibration(token) {
+    try {
+      const data = await request("/smell-log/calibration");
+      if (token !== loadToken) return;
+      calibrationLine.textContent = smellCalibrationLine(data);
+    } catch (_error) {
+      if (token !== loadToken) return;
+      calibrationLine.textContent = "";
+    }
+    calibrationLine.hidden = !calibrationLine.textContent;
   }
 
   function clearForm() {
@@ -212,6 +242,7 @@ function attachSmellLog({ doc, request, root }) {
       status.textContent = "";
       form.hidden = false;
       drawPast();
+      await loadCalibration(token);
       if (entries.length) await loadComparison(bottleId, token);
     } catch (error) {
       if (token !== loadToken) return;
@@ -254,6 +285,7 @@ function attachSmellLog({ doc, request, root }) {
       clearForm();
       drawPast();
       status.textContent = "Saved.";
+      await loadCalibration(loadToken);
       await loadComparison(bottleSelect.value, loadToken);
     } catch (error) {
       status.textContent = error.message || "Not saved.";
@@ -275,5 +307,5 @@ function attachSmellLog({ doc, request, root }) {
 }
 
 if (typeof module === "object" && module.exports) {
-  module.exports = { nextSmellChipState, splitSmellNames, smellLogBody, smellLogLine, smellCompareLines, attachSmellLog };
+  module.exports = { nextSmellChipState, splitSmellNames, smellLogBody, smellLogLine, smellCompareLines, smellCalibrationLine, attachSmellLog };
 }

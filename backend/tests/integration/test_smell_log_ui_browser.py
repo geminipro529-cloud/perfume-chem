@@ -23,6 +23,11 @@ LOG = {
     }],
 }
 
+CALIBRATION = {
+    "schema": "smell-log-calibration-v1", "evidence_class": "UNKNOWN", "calibrated": False,
+    "reason": "3 of 10 bottles logged", "min_bottles": 10, "n_bottles": 3,
+}
+
 COMPARISON = {
     "basis": "Model's leaders (detection screen)", "available": True, "reason": None,
     "not_modelled": [{"name": "Orris Butter", "reason": "no volume, and no stock density to convert its mass"}],
@@ -53,6 +58,7 @@ def test_phone_user_taps_a_window_rows_and_liking_then_saves(lab):
     lab.page.set_viewport_size({"width": 390, "height": 844})
     lab.respond("GET", "/bottles", json=[{"id": "b1", "label": "Iris trial", "status": "active"}])
     lab.respond("GET", "/bottles/b1/smell-log", json=LOG)
+    lab.respond("GET", "/smell-log/calibration", json=CALIBRATION)
     compared = []
 
     def comparison(route, _request):
@@ -74,6 +80,15 @@ def test_phone_user_taps_a_window_rows_and_liking_then_saves(lab):
     lab.page.select_option("#smell-log-bottle", "b1")
     form = lab.page.locator(".smell-log-form")
     form.wait_for()
+    calibration = form.locator(".smell-log-calibration")
+    calibration.wait_for()
+    assert calibration.inner_text() == "Learning from your nose: 3 of 10 bottles logged"
+    shot = os.environ.get("SMELL_LOG_CALIBRATION_SCREENSHOT")
+    if shot:
+        Path(shot).parent.mkdir(parents=True, exist_ok=True)
+        lab.page.locator(".smell-log-compare h3").wait_for()
+        calibration.evaluate("node => node.scrollIntoView({ block: 'center', behavior: 'instant' })")
+        lab.page.screenshot(path=shot)
 
     form.locator('[data-window="strip_1h"]').click()
     form.locator('[data-row="Orris Butter"]').click()
