@@ -53,6 +53,7 @@ ADDED_20261015_PM = {
     "INV-USER-20261014-STK-031": ("Freesia HDI", 1.0, "neat", ""),
     "INV-USER-20261014-STK-032": ("Geranyl Acetate", 1.0, "neat", ""),
     "INV-USER-20261014-STK-033": ("Citronellyl Acetate", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-034": ("Neryl Acetate", 1.0, "neat", ""),
 }
 # Kenny has no neat Neroli (2026-10-15); this record holds no stock.
 NEAT_NEROLI_NOT_OWNED = "INV-USER-20261014-STK-017"
@@ -121,6 +122,8 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Ambretteolide is neat but you tell me if you need a solitin prepared. 7 do it",
         "I have geranyl acetate and citronellyl acetate as well",
         "Citronellal acetate is neat. Ambrettolide is neat but can be diluted if must.",
+        "I have neryl acetate",
+        "it is neat",
     ]
     superseded = [
         "INV-USER-20260830-010",

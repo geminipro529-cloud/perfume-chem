@@ -163,6 +163,8 @@ STILL_HELD = {
     "Lemon Terpeneless Oil Sicilian",
     "Lilyreal ND",
     "Mate Absolute",
+    # Added 2026-10-15 (neat); no IFRA table entry matches it.
+    "Neryl Acetate",
     "Orris Concrete Orris Butter",
     "Pomelo EO",
     # Added 2026-10-15: a saturated saffron infusion in DPG of unknown strength.
