@@ -152,6 +152,58 @@ async def test_wrongly_typed_or_extra_fields_are_422(client):
 
 
 @pytest.mark.asyncio
+async def test_a_note_sent_again_with_its_client_id_is_saved_once(client, db_session):
+    """The phone resends a strip note whose answer was lost; the PC keeps one copy."""
+    bottle_id = await _bottle(client)
+    note = {
+        "window": "strip_1h",
+        "leads": ["Iris"],
+        "liking": 8,
+        "words": "soft",
+        "logged_at": "2026-10-15T11:05:00+00:00",
+        "client_id": "strip.k9.1h-0001",
+    }
+
+    first = await client.post(f"{API}/bottles/{bottle_id}/smell-log", json=note)
+    again = await client.post(f"{API}/bottles/{bottle_id}/smell-log", json=note)
+    other = await client.post(
+        f"{API}/bottles/{bottle_id}/smell-log",
+        json={**note, "client_id": "strip.k9.3h-0002", "window": "strip_3h"},
+    )
+
+    assert first.status_code == 201, first.text
+    assert again.status_code == 201, again.text
+    assert again.json() == first.json()
+    assert first.json()["client_id"] == "strip.k9.1h-0001"
+    assert other.json()["id"] != first.json()["id"]
+    assert await _count(db_session, LabObservation) == 2
+    assert await _count(db_session, LabApplication) == 2
+    observation = await db_session.get(LabObservation, first.json()["id"])
+    assert observation.observations_json["client_id"] == "strip.k9.1h-0001"
+    listed = (await client.get(f"{API}/bottles/{bottle_id}/smell-log")).json()["entries"]
+    assert [entry["id"] for entry in listed] == [other.json()["id"], first.json()["id"]]
+
+
+@pytest.mark.asyncio
+async def test_a_client_id_reused_for_a_different_note_is_refused(client, db_session):
+    bottle_id = await _bottle(client)
+    note = {"window": "strip_10m", "liking": 6, "client_id": "strip.k9.10m-0001"}
+    assert (await client.post(f"{API}/bottles/{bottle_id}/smell-log", json=note)).status_code == 201
+
+    changed = await client.post(f"{API}/bottles/{bottle_id}/smell-log", json={**note, "liking": 7})
+    bad = await client.post(
+        f"{API}/bottles/{bottle_id}/smell-log", json={**note, "client_id": "no spaces allowed"}
+    )
+    short = await client.post(f"{API}/bottles/{bottle_id}/smell-log", json={**note, "client_id": "abc"})
+
+    assert changed.status_code == 400
+    assert "already used" in changed.json()["detail"]
+    assert bad.status_code == 422
+    assert short.status_code == 422
+    assert await _count(db_session, LabObservation) == 1
+
+
+@pytest.mark.asyncio
 async def test_unknown_bottle_is_404(client):
     posted = await client.post(f"{API}/bottles/nope/smell-log", json={"window": "strip_1h", "liking": 5})
     listed = await client.get(f"{API}/bottles/nope/smell-log")

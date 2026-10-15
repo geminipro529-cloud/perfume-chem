@@ -188,6 +188,11 @@ class SmellLogCreate(LabRequest):
     liking: int | None = None
     words: str = ""
     logged_at: datetime | None = None
+    # Set by the phone, which may send one note again after a lost answer: a
+    # second save with the same id returns the first entry instead of a copy.
+    client_id: str | None = Field(
+        default=None, min_length=8, max_length=64, pattern=r"^[A-Za-z0-9._-]+$"
+    )
 
 
 class PairwiseComparisonCreate(LabRequest):

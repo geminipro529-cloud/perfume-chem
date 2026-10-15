@@ -231,6 +231,7 @@ async function refresh() {
   recordList("#formula-list", formulas, "name", () => "Immutable versions are appended separately");
   recordList("#bottle-list", bottles, "label", (row) => row.status);
   smellLog?.setBottles(bottles);
+  phoneStripsPanel?.setBottles(bottles);
   recordList("#experiment-list", experiments, "name", (row) => row.status);
   renderProjectInventory($("#project-inventory-search").value);
   if (typeof editorInventoryChanged === "function") editorInventoryChanged();
