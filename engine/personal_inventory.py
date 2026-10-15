@@ -301,6 +301,29 @@ def _fullness(stock: InventoryMaterial) -> int:
     return bool(stock_matching.carrier_key(stock.carrier)) + bool(stock_matching.BASIS_KEYS.get(stock.fraction_basis))
 
 
+def _said_not_owned(
+    line: InventoryMaterial, governed: Sequence[InventoryMaterial], not_owned: frozenset[str]
+) -> bool:
+    """An inventory.txt line naming a bottle Kenny's latest overlay word says he does not own.
+
+    His dated word is newer than the hand-kept list (15 Oct: no neat Neroli), so the line
+    is left out of the design list unless the checks hold an owned record of that
+    material at its strength.  A bottle he buys again goes through the stock data thread,
+    whose overlay saying he owns it lifts this.
+    """
+
+    label = re.sub(r"\s*#.*$", "", line.raw_name).strip()
+    names = {normalize_name(label), normalize_name(line.identity_name or line.name), normalize_name(line.name)}
+    if not names & not_owned:
+        return False
+    return not any(
+        str(stock.status).casefold() == "owned"
+        and _normalized_identity(stock) == _normalized_identity(line)
+        and stock_matching.same_strength(stock, line)
+        for stock in governed
+    )
+
+
 def _line_forms(record: InventoryMaterial, lines: Sequence[InventoryMaterial]) -> tuple[str, str]:
     """The solvent and basis the record's merged lines agree on where the record leaves them blank."""
 
@@ -506,10 +529,11 @@ def materialize_personal_inventory(
     """Return the complete personal-design view with explicit authority tiers."""
 
     governed = canonical or materialize_current_inventory()
+    not_owned = stock_matching.not_owned_names()
     live_owned = tuple(
         stock
         for stock in parse_inventory(unique=False, include_unavailable=False)
-        if stock.status.casefold() == "owned"
+        if stock.status.casefold() == "owned" and not _said_not_owned(stock, governed.stocks, not_owned)
     )
     live_by_identity: dict[str, list[InventoryMaterial]] = {}
     for stock in live_owned:

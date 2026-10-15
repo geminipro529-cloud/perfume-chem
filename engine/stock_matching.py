@@ -66,6 +66,40 @@ def _overlay_aliases_from(stamps: tuple[tuple[str, int], ...]) -> dict[str, str]
     return aliases
 
 
+def not_owned_names(directory: Path | None = None) -> frozenset[str]:
+    """Names, normalised, whose latest record in Kenny's dated overlays says he does not own them.
+
+    A later overlay record of the same name saying he owns it again wins (the overlay
+    files are read in date order, as the gate applies them).
+    """
+
+    stamps = []
+    for path in sorted((directory or GOVERNANCE_DIR).glob(OVERLAY_GLOB)):
+        try:
+            stamps.append((str(path), path.stat().st_mtime_ns))
+        except OSError:
+            continue
+    return _not_owned_from(tuple(stamps))
+
+
+@lru_cache(maxsize=4)
+def _not_owned_from(stamps: tuple[tuple[str, int], ...]) -> frozenset[str]:
+    states: dict[str, str] = {}
+    for path_text, _stamp in stamps:
+        try:
+            records = json.loads(Path(path_text).read_text(encoding="utf-8")).get("records") or []
+        except (OSError, ValueError, AttributeError):
+            continue
+        for record in records if isinstance(records, list) else []:
+            if not isinstance(record, dict) or not record.get("canonical_name"):
+                continue
+            for name in [record["canonical_name"], *(record.get("aliases") or [])]:
+                key = normalize_name(str(name))
+                if key:
+                    states[key] = str(record.get("state") or "")
+    return frozenset(key for key, state in states.items() if state == "NOT_OWNED")
+
+
 def qualified(name: str) -> bool:
     """A name carrying a note in brackets other than its strength, form or CAS number ("Vetiver EO (Haiti)")."""
 

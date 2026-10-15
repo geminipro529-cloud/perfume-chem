@@ -7,12 +7,14 @@ the real stock list changes.
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pytest
 
 import engine.personal_inventory as personal_inventory
 from engine.inventory_parser import CurrentInventoryMaterialization, InventoryMaterial
+from engine.name_utils import normalize_name
 from engine.personal_inventory import LIVE_TEXT_AUTHORITY, materialize_personal_inventory
 
 V5 = "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT"
@@ -185,3 +187,56 @@ def test_a_record_of_a_strength_his_list_does_not_have_stays_hidden(join):
     rows = _rows(projection, "Beta Ionone")
     assert [(s.authority, s.dilution) for s in rows] == [(LIVE_TEXT_AUTHORITY, 0.1)]
     assert projection.merged_text_stock_ids == () and projection.inventory_text_notes == ()
+
+
+def test_a_line_naming_a_bottle_kenny_says_he_does_not_own_gets_no_row(join, monkeypatch):
+    # 15 Oct, his dated word: no neat Neroli, only the 10% in jojoba. His list still has a
+    # neat line, so the composer must not be offered neat Neroli.
+    from engine import stock_matching
+
+    monkeypatch.setattr(stock_matching, "not_owned_names", lambda directory=None: frozenset({
+        normalize_name("Neroli EO (neat)"), normalize_name("Neroli EO neat"),
+    }))
+    jojoba = _record("o:neroli-10", "Neroli EO 10%", 0.1, identity="Neroli EO", carrier="jojoba",
+                     authority=HIS_WORD, ready=True)
+    lines = [
+        _line("Neroli EO (neat)  # retained owned stock", "Neroli EO", 1.0),
+        _line("Neroli EO (10% v/v in ethanol)", "Neroli EO", 0.1, carrier="ethanol", basis="volume_fraction"),
+    ]
+
+    projection = join([jojoba], lines)
+
+    assert [s.stock_id for s in _rows(projection, "Neroli EO")] == ["o:neroli-10"]
+    assert dict(projection.inventory_text_notes)["o:neroli-10"] == "Your inventory list says 10% v/v in ethanol"
+
+
+def test_a_not_owned_name_does_not_hide_a_bottle_the_checks_hold_at_that_strength(join, monkeypatch):
+    from engine import stock_matching
+
+    monkeypatch.setattr(stock_matching, "not_owned_names", lambda directory=None: frozenset({"romandolide"}))
+    record = _record("v5:romandolide", "Romandolide", 1.0, identity="Romandolide", basis="neat", ready=True)
+
+    projection = join([record], [_line("Romandolide", "Romandolide", 1.0), _line("Romandolide (10%)", "Romandolide", 0.1)])
+
+    # The neat line is the checks' bottle and still maps to it; the 10% line has no owned
+    # record, so it is left out.
+    assert [s.stock_id for s in _rows(projection, "Romandolide")] == ["v5:romandolide"]
+    assert [record_id for _text_id, record_id in projection.merged_text_stock_ids] == ["v5:romandolide"]
+
+
+def test_his_latest_overlay_word_on_a_name_decides_whether_he_owns_it(tmp_path: Path):
+    from engine import stock_matching
+
+    def overlay(name, records):
+        (tmp_path / f"inventory_user_authority_overlay_{name}.json").write_text(
+            json.dumps({"records": records}), encoding="utf-8"
+        )
+
+    overlay("20260908_romandolide", [{"canonical_name": "Romandolide", "state": "NOT_OWNED"}])
+    overlay("20260910_romandolide_restocked", [{"canonical_name": "Romandolide", "state": "OWNED"}])
+    overlay("20261014_neroli", [{"canonical_name": "Neroli EO (neat)", "aliases": ["Neroli EO neat"],
+                                 "state": "NOT_OWNED"}])
+
+    assert stock_matching.not_owned_names(tmp_path) == {
+        normalize_name("Neroli EO (neat)"), normalize_name("Neroli EO neat"),
+    }
