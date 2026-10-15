@@ -3,7 +3,7 @@
   "amendment": 49,
   "amendment_year": 2020,
   "verification": "two_independent_reads",
-  "verification_note": "Each value was read twice from its PDF by two independent automated readers on 2026-10-09. The reads agreed on 272 of the 279 rows transcribed (all 279 rows here, including 17 estragole and methyl eugenol rows and 1 methyl N-methylanthranilate row). The 7 disagreements were settled from the PDF's own text lines, where each row reads '<value> <substance CAS> <NCS name>' (checked against Palmarosa oil, 82.4 % geraniol): 5 kept the first read, and Styrax extract (0.1) and Styrax oil, Honduras (0.05) took the second for benzaldehyde. No value has been checked by a person against the printed page. Correct a value by editing its row; every row carries its source PDF.",
+  "verification_note": "Each value was read twice from its PDF by two independent automated readers on 2026-10-09. The reads agreed on 272 of the 279 rows transcribed (all 279 rows here, including 17 estragole and methyl eugenol rows and 1 methyl N-methylanthranilate row). The 7 disagreements were settled from the PDF's own text lines, where each row reads '<value> <substance CAS> <NCS name>' (checked against Palmarosa oil, 82.4 % geraniol): 5 kept the first read, and Styrax extract (0.1) and Styrax oil, Honduras (0.05) took the second for benzaldehyde. No value has been checked by a person against the printed page. Correct a value by editing its row; every row carries its source PDF. The 7 Cassia oil rows (Cinnamomum aromaticum Nees, CAS 8007-80-5) were added on 2026-10-15 from the same PDFs, each read twice and agreeing.",
   "source": "IFRA Standards, Amendment 49 (2020), Annex I 'Contributions from other sources' tables, as copied by PerfumersWorld; one PDF per restricted substance (source_url on every row). Each value is the highest concentration of that substance reported in that natural.",
   "scope": "Only the 20 restricted substances with a Category 4 limit in ifra_cat4_51.json, and only rows for naturals Kenny owns and their close variants. Safrole (IFRA_STD_179) has no per-natural table, only its 0.01 % notebox total, so the safrole in nutmeg is not counted. Annexes of other restricted substances were not read.",
   "stock_rule": "A stock maps to the NCS rows that are that natural, not its part or species variants. Where the species, part or extraction is uncertain, every candidate is listed and the highest value per substance is used. Rows that print one substance under several CAS numbers (cedrene) also take the highest value, never the sum.",
@@ -128,6 +128,14 @@
       "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
     },
     {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Cassia oil",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf"
+    },
+    {
       "substance": "Isoeugenol",
       "standard": "IFRA_STD_048",
       "ncs_name": "Balsam oil, Peru",
@@ -189,6 +197,14 @@
       "ncs_name": "Tuberose concrete",
       "max_pct": 1.5,
       "max_pct_as_printed": "1.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Isoeugenol.pdf"
+    },
+    {
+      "substance": "Isoeugenol",
+      "standard": "IFRA_STD_048",
+      "ncs_name": "Cassia oil",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
       "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Isoeugenol.pdf"
     },
     {
@@ -1096,6 +1112,14 @@
       "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Coumarin.pdf"
     },
     {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Cassia oil",
+      "max_pct": 2.0,
+      "max_pct_as_printed": "2",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Coumarin.pdf"
+    },
+    {
       "substance": "Cinnamic aldehyde (cinnamal)",
       "standard": "IFRA_STD_018",
       "ncs_name": "Cinnamon bark extract",
@@ -1144,6 +1168,14 @@
       "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20aldehyde.pdf"
     },
     {
+      "substance": "Cinnamic aldehyde (cinnamal)",
+      "standard": "IFRA_STD_018",
+      "ncs_name": "Cassia oil",
+      "max_pct": 80.0,
+      "max_pct_as_printed": "80",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20aldehyde.pdf"
+    },
+    {
       "substance": "Cinnamic alcohol (cinnamyl alcohol)",
       "standard": "IFRA_STD_017",
       "ncs_name": "Cinnamon bark extract",
@@ -1189,6 +1221,14 @@
       "ncs_name": "Styrax oil, Honduras",
       "max_pct": 1.5,
       "max_pct_as_printed": "1.5",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20alcohol.pdf"
+    },
+    {
+      "substance": "Cinnamic alcohol (cinnamyl alcohol)",
+      "standard": "IFRA_STD_017",
+      "ncs_name": "Cassia oil",
+      "max_pct": 0.2,
+      "max_pct_as_printed": "0.2",
       "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Cinnamic%20alcohol.pdf"
     },
     {
@@ -1493,6 +1533,14 @@
       "ncs_name": "Tuberose concrete",
       "max_pct": 0.72,
       "max_pct_as_printed": "0.72",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20benzoate.pdf"
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Cassia oil",
+      "max_pct": 0.1,
+      "max_pct_as_printed": "0.1",
       "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzyl%20benzoate.pdf"
     },
     {
@@ -1917,6 +1965,14 @@
       "ncs_name": "Styrax oil, Honduras",
       "max_pct": 0.05,
       "max_pct_as_printed": "0.05",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Cassia oil",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1",
       "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Benzaldehyde.pdf"
     },
     {
@@ -2574,6 +2630,12 @@
         "Elemi oil"
       ],
       "note": "Canarium luzonicum essential oil: the oil row, not the gum or resinoid rows."
+    },
+    "Cassia EO": {
+      "ncs_names": [
+        "Cassia oil"
+      ],
+      "note": "Cassia bark oil (Cinnamomum cassia, syn. C. aromaticum), not Ceylon cinnamon bark oil. About 80 % cinnamal, so the Category 4 cinnamal limit (0.25 %) caps the oil near 0.31 % of the product."
     }
   },
   "schiff_bases": {

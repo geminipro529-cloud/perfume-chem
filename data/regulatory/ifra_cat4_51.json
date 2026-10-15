@@ -495,6 +495,21 @@
         "Such maximum acceptable concentrations correspond to the lowest level obtained per category."
       ]
     },
+    "IFRA_STD_056": {
+      "name": "Methoxy dicyclopentadiene carboxaldehyde",
+      "cas": [
+        "86803-90-9"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 1.1,
+      "cat4_quote": "Category 4 1.1 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_056.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
     "IFRA_STD_059": {
       "name": "alpha-Methyl-1,3-benzodioxole-5-propionaldehyde (MMDHCA)",
       "cas": [
@@ -562,6 +577,21 @@
         "heptine carbonate (MHC, CAS number 111-12-6) and Methyl octine carbonate (MOC, CAS number 111-80-8)",
         "contributions must not exceed the maximum permitted level for MHC.",
         "At the same time, the contribution from MOC should always respect the maximum levels permitted as listed in the table above."
+      ]
+    },
+    "IFRA_STD_066": {
+      "name": "2-Nonyn-1-al dimethyl acetal",
+      "cas": [
+        "13257-44-8"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 9.9,
+      "cat4_quote": "Category 4 9.9 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_066.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
       ]
     },
     "IFRA_STD_067": {
@@ -731,6 +761,21 @@
         "If the same fragrance mixture is intended to be used in more than one IFRA Category, then the most restrictive limitation (based on foreseen use concentrations and maximum permitted level) will apply.",
         "Treemoss extracts shall not contain more than 0.8% of Dehydroabietic acid (DHA) as a marker of 2% of total resin acids.",
         "levels of Atranol and Chloroatranol should each be below 100 ppm in Treemoss extracts."
+      ]
+    },
+    "IFRA_STD_082": {
+      "name": "2,6,6-Trimethylcyclohex-1,3-dienyl methanal",
+      "cas": [
+        "116-26-7"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.012,
+      "cat4_quote": "Category 4 0.012 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_082.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
       ]
     },
     "IFRA_STD_084": {
@@ -1069,6 +1114,21 @@
         "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above; any other CAS number(s) used to identify these fragrance ingredients should be considered in scope as well.",
         "should only be used when the level of peroxides is kept to the lowest practicable level, for instance by adding antioxidants at the time of production.",
         "Such products should have a peroxide value of less than 10 millimoles peroxide per liter,"
+      ]
+    },
+    "IFRA_STD_185": {
+      "name": "Nootkatone",
+      "cas": [
+        "4674-50-4"
+      ],
+      "kind": "specification",
+      "amendment": "Amendment 40 Nootkatone 2006 (Amendment 40)",
+      "cat4_limit_pct": null,
+      "cat4_quote": null,
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_185.pdf",
+      "notes": [
+        "Nootkatone used as a fragrance ingredient should be at least 98% pure, with a melting point of at least 32\u00b0C.",
+        "Lower purity grades may not be used as a fragrance ingredient."
       ]
     },
     "IFRA_STD_186": {
@@ -2014,6 +2074,16 @@
       "standard": null,
       "aliases": [],
       "note": null
+    },
+    "Cassia EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [
+        "Cassia Essential Oil",
+        "Cassia Oil",
+        "Cinnamon Cassia Blume EO"
+      ],
+      "note": "About 80 % cinnamal (STD_018, 0.25 %); also coumarin and benzaldehyde. Counted through the Annex I Cassia oil rows."
     },
     "Cinnamaldehyde": {
       "status": "restricted",
@@ -3323,6 +3393,15 @@
         "98-95-3"
       ]
     },
+    "Nootkatone": {
+      "status": "specification",
+      "standard": "IFRA_STD_185",
+      "aliases": [],
+      "note": "No Category 4 limit. Only grades at least 98 % pure with a melting point of at least 32 \u00b0C may be used; ask the supplier for the lot certificate.",
+      "cas": [
+        "4674-50-4"
+      ]
+    },
     "Norlimbanol Dextro": {
       "status": "restricted",
       "standard": "IFRA_STD_221",
@@ -3433,6 +3512,18 @@
       "note": null,
       "cas": [
         "406488-30-0"
+      ]
+    },
+    "Parmavert": {
+      "status": "restricted",
+      "standard": "IFRA_STD_066",
+      "aliases": [
+        "2-Nonyn-1-al Dimethyl Acetal",
+        "Nonynal Dimethyl Acetal"
+      ],
+      "note": null,
+      "cas": [
+        "13257-44-8"
       ]
     },
     "Patchouli EO": {
@@ -3629,6 +3720,19 @@
         "54440-17-4"
       ]
     },
+    "Safranal": {
+      "status": "restricted",
+      "standard": "IFRA_STD_082",
+      "aliases": [
+        "Saffranal",
+        "2,6,6-Trimethylcyclohex-1,3-dienyl Methanal"
+      ],
+      "note": null,
+      "cas": [
+        "116-26-7"
+      ],
+      "identity_note": "Saffranal is the PerfumersWorld listing (SKU 5ES07841) of safranal."
+    },
     "Safrole": {
       "status": "prohibited",
       "standard": "IFRA_STD_179",
@@ -3652,6 +3756,17 @@
       "standard": null,
       "aliases": [],
       "note": null
+    },
+    "Scentenal": {
+      "status": "restricted",
+      "standard": "IFRA_STD_056",
+      "aliases": [
+        "Methoxy Dicyclopentadiene Carboxaldehyde"
+      ],
+      "note": null,
+      "cas": [
+        "86803-90-9"
+      ]
     },
     "Siam Benzoin": {
       "status": "natural_no_own_standard",

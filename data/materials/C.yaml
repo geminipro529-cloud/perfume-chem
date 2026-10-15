@@ -6298,7 +6298,7 @@
     TRPA1: 0.3
     TRPV1: 0.2
   hedonic_valence: 0.55
-  ifra_max_pct_edp: 0.5
+  ifra_max_pct_edp: 0.31
   user_stock_dilution: 1.0
   user_in_inventory: true
   supplier:
@@ -6315,5 +6315,5 @@
     odt_air_ppb: manual:2026-06-15 estimated from cinnamaldehyde ODT
     odt_eth_ppm: manual:2026-06-15 estimated from cinnamaldehyde ODT
     hedonic_valence: manual:2026-06-15 polarizing character
-    ifra_max_pct_edp: manual:2026-06-15 cinnamaldehyde IFRA Cat4 limit
+    ifra_max_pct_edp: IFRA STD_018 cinnamal 0.25 % / Annex I Cassia oil 80 % cinnamal = 0.3125 % (2026-10-15)
     user_in_inventory: inventory.txt
