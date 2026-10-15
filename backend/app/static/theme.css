@@ -653,6 +653,8 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
 .make-row[data-status="short"], .make-row[data-status="missing"] { color: var(--fail-fg); background: var(--fail-bg); }
 .make-row[data-status="unknown"] { color: var(--hold-fg); background: var(--hold-bg); }
 .make-left-form { display: flex; flex-wrap: wrap; align-items: end; gap: 6px 10px; }
+/* The Buy page's current rate line and its hidden Change form swap places. */
+.buy-rate-current [hidden] { display: none; }
 .make-left-form label { display: grid; gap: 2px; font-size: 13px; }
 .make-left-form input { min-width: 6em; max-width: 12em; }
 .make-left-message:empty { display: none; }

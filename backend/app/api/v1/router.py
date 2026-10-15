@@ -15,6 +15,7 @@ from app.api.v1.endpoints import (
     lab_batches,
     lab_blind_tests,
     lab_brief_notes,
+    lab_buy,
     lab_holds,
     lab_lifecycle,
     lab_make_now,
@@ -101,6 +102,12 @@ api_router.include_router(
     lab_holds.router,
     prefix="/lab/v2",
     tags=["laboratory-formula-holds"],
+)
+
+api_router.include_router(
+    lab_buy.router,
+    prefix="/lab/v2",
+    tags=["laboratory-buy-list"],
 )
 
 api_router.include_router(
