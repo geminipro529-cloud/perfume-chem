@@ -500,6 +500,8 @@ function attachBatch({ doc, request, root }) {
     try {
       const record = await request(`/v2/batches/${encodeURIComponent(state.record.lot)}/actuals`, { method: "POST", body: JSON.stringify(body) });
       state.record = record;
+      // A blank box keeps the saved notes, which may be the other device's: show them.
+      if (!batchText(actualsNotes.value)) actualsNotes.value = record.actual_notes || "";
       actualsStatus.textContent = `Saved ${record.actuals.length} weighed ${record.actuals.length === 1 ? "amount" : "amounts"} for lot ${record.lot}.`;
     } catch (error) {
       if (error.status === 409 && error.code === "BATCH_CHANGED") await mergeNewerAmounts();

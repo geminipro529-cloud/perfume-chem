@@ -258,12 +258,18 @@ console.log(JSON.stringify({
   version: m.phoneBenchMergeBase(base, sent, server).version,
   nothingSent: [undefined, []].map((none) => m.phoneBenchMergeBase(base, none, server) === base),
   stuck: [{}, { error: "x" }, { problem: "otherBatch" }, { conflict: { lines: [] } }].map(m.phoneBenchStuck),
+  // A retry of the same amounts is the same send; another line or other notes are not.
+  sameSet: [
+    m.phoneBenchSameSet({ entries: { 1: g(1, "1.0") }, notes: "" }, { entries: { 1: g(1, "1.000") }, notes: " " }),
+    m.phoneBenchSameSet({ entries: { 1: g(1, "1.0") }, notes: "" }, { entries: { 1: g(1, "1.0"), 2: g(2, "1") }, notes: "" }),
+    m.phoneBenchSameSet({ entries: {}, notes: "a" }, { entries: {}, notes: "b" }),
+  ],
 }));
 """)
 
     assert result == {
         "lost": [None, "1.1", "0.2"], "after": [1], "version": 0, "nothingSent": [True, True],
-        "stuck": [False, True, True, True],
+        "stuck": [False, True, True, True], "sameSet": [True, False, False],
     }
 
 
