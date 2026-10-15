@@ -126,7 +126,7 @@ FLAGGED_BASES = {
     "Black Tea Base",
     "Castoreum Synthetic",
     "Clearwood",
-    "Costus Olifac 10%",
+    "Costus Olifac",  # stock name since the 2026-10-15 10% in DPG record
     "Lilyreal ND",
     "Suederal",  # stock name since the 2026-10-14 DPG record
     "Tonkarome",
@@ -148,8 +148,12 @@ STILL_HELD = {
     # Added to the stock list on 2026-10-14; no IFRA standard names these woods.
     "Cedroxyde",
     "Clearwood",
-    "Costus Olifac 10%",
+    # Added 2026-10-15: plant part unknown, so its eugenol content is unknown.
+    "Clove EO (India)",
+    "Costus Olifac",  # stock name since the 2026-10-15 10% in DPG record
     "Frangipani Absolute",
+    # Owned before, undosable until 2026-10-15 (PerfumersWorld Freesia HDL, as supplied).
+    "Freesia HDI",
     "Fructone B",
     "Hindinol",
     # New bottles of 2026-10-13: no IFRA standard names pomelo or ginger lily oil, and
