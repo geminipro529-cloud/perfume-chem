@@ -65,6 +65,28 @@ def test_a_record_leaving_blank_the_solvent_its_line_names_is_shown_as_that_bott
     ((text_id, record_id),) = projection.merged_text_stock_ids
     assert text_id.startswith("inventory:text-design-only:") and record_id == "v5:geraniol-10"
     assert projection.inventory_text_notes == (("v5:geraniol-10", "Your inventory list says 10% w/w in DPG"),)
+    # The record is shown as the checks have it; the line's solvent goes to design rows only.
+    (shown,) = _rows(projection, "Geraniol")
+    assert shown.carrier == "" and shown.fraction_basis == "unspecified"
+    assert projection.inventory_text_forms == (("v5:geraniol-10", "dpg", "mass_fraction"),)
+
+
+def test_lines_naming_two_solvents_for_one_bottle_fill_in_neither(join):
+    # inventory.txt lists the same 10% twice, in DPG and in TEC: which one is the bottle is
+    # not guessed for the design rows; the Stock page row says both.
+    record = _record("v5:geraniol-10", "Geraniol 10%", 0.1, identity="Geraniol")
+    lines = [
+        _line("Geraniol (10% DPG)", "Geraniol", 0.1, carrier="dpg"),
+        _line("Geraniol (10% in TEC)", "Geraniol", 0.1, carrier="tec"),
+    ]
+
+    projection = join([record], lines)
+
+    assert [s.stock_id for s in _rows(projection, "Geraniol")] == ["v5:geraniol-10"]
+    assert projection.inventory_text_forms == ()
+    assert dict(projection.inventory_text_notes)["v5:geraniol-10"] == (
+        "Your inventory list says 10% in DPG; Your inventory list says 10% in TEC"
+    )
 
 
 def test_a_record_of_kennys_own_word_is_never_hidden_by_his_inventory_list(join):
@@ -92,6 +114,8 @@ def test_a_record_of_kennys_own_word_is_never_hidden_by_his_inventory_list(join)
     assert [s.dilution for s in ambrettolide_rows if s.authority == LIVE_TEXT_AUTHORITY] == [0.1]
     assert "o:ambrettolide" not in dict(projection.inventory_text_notes)
     assert [s.stock_id for s in _rows(projection, "Benzoin tincture")] == ["o:benzoin"]
+    # His record names its own solvent: nothing from the list fills it in.
+    assert projection.inventory_text_forms == ()
 
 
 def test_a_bottle_the_workbook_lists_twice_shows_once_with_its_solvent(join):

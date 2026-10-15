@@ -779,7 +779,21 @@ def _load_candidates(explicit_materials: Sequence[str]) -> tuple[list[Candidate]
         if stock.status.casefold() == "owned"
     )
     candidates: list[Candidate] = []
+    text_forms = {
+        stock_id: (carrier, basis)
+        for stock_id, carrier, basis in getattr(inventory, "inventory_text_forms", ())
+    }
     for stock in inventory.stocks:
+        if stock.stock_id in text_forms:
+            # The record leaves blank the solvent or basis its inventory.txt line
+            # names: the design row says them, as the line's own row did.  The
+            # checks still hold the record until Kenny completes it.
+            carrier, basis = text_forms[stock.stock_id]
+            stock = replace(
+                stock,
+                carrier=stock.carrier or carrier,
+                fraction_basis=basis or stock.fraction_basis,
+            )
         if (
             stock.status.casefold() != "owned"
             or stock.dilution <= 0

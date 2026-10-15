@@ -115,6 +115,12 @@ class PersonalInventoryProjection:
     # What inventory.txt says about a shown record when it says something else:
     # (stock id, "Your inventory list says 10% v/v in ethanol").
     inventory_text_notes: tuple[tuple[str, str], ...] = ()
+    # The solvent and basis a merged inventory.txt line names where the record
+    # leaves them blank: (stock id, carrier, fraction basis), "" for neither.  For
+    # design rows only (the composer writes "in TEC" on the card as the line's row
+    # did); never the record's own facts, so the Stock page and the checks still
+    # show and hold the record as it is until Kenny completes it.
+    inventory_text_forms: tuple[tuple[str, str, str], ...] = ()
 
 
 def addition_log_path(path: Path | None = None) -> Path:
@@ -281,6 +287,22 @@ def _says_otherwise(line: InventoryMaterial, record: InventoryMaterial) -> bool:
         (carrier and carrier != stock_matching.carrier_key(record.carrier))
         or (basis and basis != stock_matching.BASIS_KEYS.get(record.fraction_basis))
     )
+
+
+def _line_forms(record: InventoryMaterial, lines: Sequence[InventoryMaterial]) -> tuple[str, str]:
+    """The solvent and basis the record's merged lines agree on where the record leaves them blank."""
+
+    carrier = basis = ""
+    if float(record.dilution) < 1:
+        carriers = {stock_matching.carrier_key(line.carrier) for line in lines} - {""}
+        if not stock_matching.carrier_key(record.carrier) and len(carriers) == 1:
+            carrier = next(line.carrier for line in lines if stock_matching.carrier_key(line.carrier))
+        bases = {
+            line.fraction_basis for line in lines if stock_matching.BASIS_KEYS.get(line.fraction_basis)
+        }
+        if not stock_matching.BASIS_KEYS.get(record.fraction_basis) and len(bases) == 1:
+            basis = next(iter(bases))
+    return carrier, basis
 
 
 def _live_design_stock(stock: InventoryMaterial) -> InventoryMaterial:
@@ -517,6 +539,7 @@ def materialize_personal_inventory(
     projected: list[InventoryMaterial] = list(bound)
     merged: list[tuple[str, str]] = []
     notes: dict[str, list[str]] = {}
+    lines_for: dict[str, list[InventoryMaterial]] = {}
     for stock in live_owned:
         if any(_same_stock_form(existing, stock) for existing in projected):
             continue
@@ -545,10 +568,18 @@ def materialize_personal_inventory(
             projected.append(text_stock)
             continue
         merged.append((text_stock.stock_id, record.stock_id))
+        lines_for.setdefault(record.stock_id, []).append(stock)
         if _says_otherwise(stock, record):
             note = f"Your inventory list says {_form_text(stock)}"
             if note not in notes.setdefault(record.stock_id, []):
                 notes[record.stock_id].append(note)
+
+    forms = []
+    for record in bound:
+        if record.stock_id in lines_for:
+            carrier, basis = _line_forms(record, lines_for[record.stock_id])
+            if carrier or basis:
+                forms.append((record.stock_id, carrier, basis))
 
     events = load_personal_inventory_addition_events(addition_path)
     for event in events:
@@ -616,6 +647,7 @@ def materialize_personal_inventory(
         inventory_text_notes=tuple(
             (stock_id, "; ".join(texts)) for stock_id, texts in sorted(notes.items())
         ),
+        inventory_text_forms=tuple(sorted(forms)),
     )
 
 
