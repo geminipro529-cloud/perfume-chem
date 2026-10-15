@@ -268,6 +268,87 @@ def test_a_bottle_opens_its_smell_log(lab):
     assert ("GET", "/bottles/b1/smell-log") in lab.requests
 
 
+def test_a_bottle_already_open_keeps_its_half_written_smell_log_entry(lab):
+    from tests.integration.test_smell_log_ui_browser import CALIBRATION, COMPARISON, LOG
+
+    lab.respond("GET", "/bottles/b1/smell-log", json=LOG)
+    lab.respond("GET", "/smell-log/calibration", json=CALIBRATION)
+    lab.respond("GET", "/bottles/b1/smell-log/comparison", json=COMPARISON)
+    _open(lab)
+    page = lab.page
+    _search(lab, "bottle 1")
+    page.keyboard.press("Enter")
+    words = page.locator('.smell-log-form [name="words"]')
+    words.wait_for()
+    words.fill("Powdery, a bit sharp")
+    # Ctrl+K works from inside a text box; finding the same bottle again changes nothing.
+    _search(lab, "bottle 1")
+    page.keyboard.press("Enter")
+    page.wait_for_function("document.activeElement.id === 'smell-log-bottle'")
+    page.wait_for_load_state("networkidle")
+    assert words.input_value() == "Powdery, a bit sharp"
+    assert lab.requests.count(("GET", "/bottles/b1/smell-log")) == 1
+
+
+def test_search_waits_while_the_phone_bench_weigh_sheet_has_the_page(lab):
+    from tests.integration.test_phone_bench_browser import _phone
+
+    _phone(lab)
+    lab.respond("GET", "/v2/workbench/formula-library", json=LIBRARY)
+    lab.respond("GET", "/v2/workbench/current-inventory", json=INVENTORY)
+    lab.respond("GET", "/bottles", json=BOTTLES)
+    lab.respond("GET", VERSIONS_PATH, json=SAVED)
+    lab.open("#batch")
+    page = lab.page
+    page.locator("#phone-bench-root").get_by_role("button", name="Weigh step by step").click()
+    sheet = page.locator(".phone-bench")
+    sheet.wait_for()
+    page.keyboard.press("Control+k")
+    close = sheet.get_by_role("button", name="Close", exact=True)
+    close.focus()
+    page.keyboard.press("/")
+    # The search box would open inert behind the sheet and block both.
+    assert not page.evaluate("document.querySelector('#lab-search').open")
+    entry = sheet.locator(".phone-bench-input")
+    entry.fill("10,31")
+    assert sheet.locator(".phone-bench-check").inner_text() == "0.4% over the plan"
+    close.click()
+    sheet.wait_for(state="hidden")
+    _search(lab, "framboise")
+    assert _names(lab)[0] == "studio › Rose Framboise R3"
+
+
+def test_focus_stays_on_a_result_when_the_list_is_drawn_again(lab):
+    lab.respond("GET", SOURCE_PATH, json=SOURCE)
+    held = []
+    lab.on("GET", VERSIONS_PATH, lambda route, request: held.append(route))
+    _open(lab, saved=None)
+    page = lab.page
+    _search(lab, "rose")
+    page.wait_for_function("document.querySelector('#lab-search-status').textContent.includes('Looking for the formulas')")
+    for _ in range(3):
+        page.keyboard.press("ArrowDown")
+    focused = "document.activeElement.closest('.lab-search-row')?.querySelector('.lab-search-name')?.textContent ?? null"
+    before = page.evaluate(focused)
+    assert before
+    # The saved formulas arrive while a result has the focus: the list grows, the focus stays.
+    assert len(held) == 1
+    held[0].fulfill(status=200, content_type="application/json", body=json.dumps(SAVED))
+    page.wait_for_function("!document.querySelector('#lab-search-status').textContent.includes('Looking for the formulas')")
+    assert "SAVED FORMULAS" in _headings(lab)
+    assert page.evaluate(focused) == before
+    page.keyboard.press("ArrowDown")
+    assert page.evaluate(focused) not in (None, before)
+
+    # A download keeps the focus on its button, so the keys still work after it.
+    label = "Download: studio › Rose Framboise R3"
+    page.locator(f'#lab-search button[aria-label="{label}"]').focus()
+    with page.expect_download():
+        page.keyboard.press("Enter")
+    page.wait_for_function("document.querySelector('#lab-search-status').textContent.includes('Downloaded')")
+    assert page.evaluate("document.activeElement.getAttribute('aria-label')") == label
+
+
 def test_a_card_downloads_from_its_result_as_a_spreadsheet_and_the_box_stays_open(lab):
     lab.respond("GET", SOURCE_PATH, json=SOURCE)
     _open(lab)

@@ -44,8 +44,11 @@ function showBottleLog(bottleId) {
     notify("That bottle is not on the smell log's list. Reload the page and try again.", true);
     return;
   }
-  select.value = bottleId;
-  select.dispatchEvent(new Event("change"));
+  // Only a different bottle reloads the log: the same one keeps a half-written entry.
+  if (select.value !== bottleId) {
+    select.value = bottleId;
+    select.dispatchEvent(new Event("change"));
+  }
   select.scrollIntoView({ block: "center" });
   select.focus({ preventScroll: true });
 }

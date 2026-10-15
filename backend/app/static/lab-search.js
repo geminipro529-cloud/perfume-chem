@@ -158,9 +158,17 @@ function attachLabSearch({ doc, dialog, opener, data, loadSaved, describeStock, 
   let note = null;
 
   const mainButtons = () => [...results.querySelectorAll(".lab-search-main")];
+  // Which result and action each button stands for, so focus survives a redraw.
+  let buttonKeys = new Map();
+  // Another box has the page: an open <dialog>, or the phone bench's weigh
+  // sheet, which makes everything else (this box too) inert until it closes.
+  const pageTaken = () => dialog.inert || Boolean(dialog.closest("[inert]"))
+    || [...doc.querySelectorAll("dialog[open], [aria-modal='true']")].some((node) => node !== dialog && !node.hidden);
 
   function render() {
     const query = input.value;
+    const focusedKey = buttonKeys.get(doc.activeElement);
+    const keys = new Map();
     const groups = labSearchGroups(labSearchItems(data(), describeStock), query);
     const lines = [labSearchSummary(groups, query)];
     if (savedState === "loading") lines.push("Looking for the formulas you saved here.");
@@ -176,6 +184,7 @@ function attachLabSearch({ doc, dialog, opener, data, loadSaved, describeStock, 
         const [first, ...others] = LAB_SEARCH_ACTIONS[item.kind];
         const row = make("li", { class: "lab-search-row" });
         const main = make("button", { type: "button", class: "lab-search-main" });
+        keys.set(main, `${item.kind}\u0000${item.id}\u0000${first.action}`);
         main.append(make("span", { class: "lab-search-name" }, item.title));
         main.append(make("span", { class: "lab-search-detail" }, [item.detail, first.label].filter(Boolean).join(" · ")));
         main.addEventListener("click", () => run(item, first));
@@ -184,6 +193,7 @@ function attachLabSearch({ doc, dialog, opener, data, loadSaved, describeStock, 
           const more = make("span", { class: "lab-search-actions" });
           others.forEach((choice) => {
             const button = make("button", { type: "button", class: "quiet-button", "aria-label": `${choice.label}: ${item.title}` }, choice.label);
+            keys.set(button, `${item.kind}\u0000${item.id}\u0000${choice.action}`);
             button.addEventListener("click", () => run(item, choice));
             more.append(button);
           });
@@ -198,6 +208,11 @@ function attachLabSearch({ doc, dialog, opener, data, loadSaved, describeStock, 
       return section;
     });
     results.replaceChildren(...sections);
+    buttonKeys = keys;
+    if (focusedKey !== undefined) {
+      const again = [...keys].find(([, key]) => key === focusedKey)?.[0];
+      (again || input).focus();
+    }
   }
 
   async function run(item, choice) {
@@ -231,6 +246,7 @@ function attachLabSearch({ doc, dialog, opener, data, loadSaved, describeStock, 
   }
 
   function open() {
+    if (pageTaken()) return;
     if (!dialog.open) {
       returnFocus = doc.activeElement;
       note = null;
@@ -275,9 +291,7 @@ function attachLabSearch({ doc, dialog, opener, data, loadSaved, describeStock, 
   });
   opener?.addEventListener("click", open);
   doc.addEventListener("keydown", (event) => {
-    if (event.defaultPrevented || event.isComposing) return;
-    const otherDialog = [...doc.querySelectorAll("dialog[open]")].some((node) => node !== dialog);
-    if (otherDialog) return;
+    if (event.defaultPrevented || event.isComposing || pageTaken()) return;
     // event.code too: with a Thai keyboard layout on, the K key types "า".
     const kKey = String(event.key || "").toLowerCase() === "k" || event.code === "KeyK";
     const shortcut = (event.ctrlKey || event.metaKey) && !event.altKey && !event.shiftKey && kKey;

@@ -7,7 +7,10 @@
 
 const exportEditor = (typeof module === "object" && module.exports)
   ? require("./formula-editor.js")
-  : { editorRowsFromSource, editorRowsFromSaved, editorTotals, editorShown, editorStrengthText, editorFigure };
+  : { editorRowsFromSource, editorRowsFromSaved, editorTotals, editorShown, editorStrengthText };
+const exportBench = (typeof module === "object" && module.exports)
+  ? require("./bench-sheet.js")
+  : { benchFractionText };
 
 const EXPORT_CARD_HEADER = ["Material", "Strength", "Amount", "Unit", "% of the liquid", "Note"];
 const EXPORT_UNIT_WORDS = { ul: "µL", "µl": "µL", "μl": "µL", ml: "mL", mg: "mg", g: "g" };
@@ -24,6 +27,10 @@ function exportCsv(lines) {
   return `${(lines || []).map((line) => line.map(exportCell).join(",")).join("\r\n")}\r\n`;
 }
 
+// An amount to six decimals, as the editor's own boxes take it: 1/4 µL is
+// 0.25, not the screen's rounded 0.3.
+const exportAmount = (value) => exportBench.benchFractionText(value, 6);
+
 // Rows from the editor (or a saved version) as a sheet: µL for a liquid and mg
 // for a solid, as the formula keeps them, and each liquid's share of the
 // liquid. A row typed in grams that still waits for its density keeps its grams.
@@ -33,8 +40,8 @@ function exportEditorSheet(rows) {
   (rows || []).forEach((row) => {
     if (!row.material) return;
     let amount = { text: "", unit: "" };
-    if (row.amount) amount = exportEditor.editorShown(row, totals, "uL", {});
-    else if (row.grams) amount = { text: exportEditor.editorFigure(row.grams, 3), unit: "g" };
+    if (row.amount) amount = { text: exportAmount(row.amount), unit: row.solid ? "mg" : "µL" };
+    else if (row.grams) amount = { text: exportAmount(row.grams), unit: "g" };
     const share = !row.solid && row.amount && totals.liquidUl.n > 0n
       ? exportEditor.editorShown(row, totals, "pct", {}).text
       : "";

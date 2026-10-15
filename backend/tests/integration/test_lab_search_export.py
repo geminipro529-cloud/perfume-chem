@@ -185,3 +185,29 @@ def test_an_editor_or_saved_sheet_keeps_ul_and_mg_and_a_row_waiting_for_its_dens
         ["Material", "Strength", "Amount", "Unit", "% of the liquid", "Note"],
         ["Iso E Super", "neat", "300", "µL", "100", "base"],
     ]
+
+
+def test_a_download_keeps_small_and_long_amounts_as_the_formula_keeps_them():
+    result = _node("""
+      const e = require(%s);
+      const saved = [
+        { material: "Civetone", fraction: "0.01", basis: "mass_fraction", carrier: "ethanol", solid: false, amount: "1/4" },
+        { material: "Hedione", fraction: "1", basis: "neat", solid: false, amount: "2489/200" },
+        { material: "Ambrox", fraction: "1", basis: "neat", solid: true, amount: "1/20" },
+        { material: "Iso E Super", fraction: "1", basis: "neat", solid: false, amount: "1/3" },
+      ];
+      const card = [
+        { material: "Aldehyde C12", amount_decimal: "3.325549", amount_unit: "uL", concentration_fraction_decimal: "1", concentration_basis: "NEAT" },
+        { material: "Hedione", amount_decimal: "29.059636", amount_unit: "uL", concentration_fraction_decimal: "1", concentration_basis: "NEAT" },
+      ];
+      const amounts = (lines) => lines.slice(1).map((line) => line.slice(2, 4));
+      console.log(JSON.stringify({
+        saved: amounts(x.exportSavedSheet(saved)),
+        editor: amounts(x.exportEditorSheet(e.editorRowsFromSource(card).rows)),
+        card: amounts(x.exportSourceSheet(card)),
+      }));
+    """ % json.dumps(str(STATIC / "formula-editor.js")))
+    # The screen rounds 0.25 to 0.3; the file is the record, so it keeps the formula's figures.
+    assert result["saved"] == [["0.25", "µL"], ["12.445", "µL"], ["0.05", "mg"], ["0.333333", "µL"]]
+    # A card downloaded from the editor and from its search result writes the same amounts.
+    assert result["editor"] == result["card"] == [["3.325549", "µL"], ["29.059636", "µL"]]
