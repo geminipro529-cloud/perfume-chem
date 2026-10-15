@@ -552,6 +552,15 @@ function makeNowInventoryChanged() {
   makeNow?.changed();
 }
 
+// Buy (buy-list.js): its own page, reading GET /v2/workbench/buy-list.
+const buyList = typeof attachBuyList === "function"
+  ? attachBuyList({ doc: document, root: $('[data-panel="buy"]'), request, notify })
+  : null;
+
+function buyListShown() {
+  buyList?.shown();
+}
+
 // ---- Shelf map: owned materials by written character (similar-stocks.js) ----
 // Asked for on a tap only (GET /v2/workbench/shelf-map), and again on each opening,
 // since stocks change on this page.
