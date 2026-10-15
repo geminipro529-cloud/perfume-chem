@@ -563,6 +563,10 @@ def _supports_accord(
 # a molecule of the lead's note family (Javanol beside Sandalwood EO).
 _BACKING_MIN_FRACTION = .05
 _BACKING_BONUS = 2.0
+# A stock the checks cannot score (no odor threshold of its own, e.g. an
+# unassayed ethanol tincture) loses a close call to one they can (Kenny's
+# pick, 15 Oct 2026: prefer Olibanum Resinoid over the frankincense tincture).
+_UNSCORABLE_PENALTY = 1.0
 _NOTE_TIERS = {"top": 0, "heart": 1, "base": 2}
 
 
@@ -965,6 +969,8 @@ def _unary_rank_for_role(
             score -= _note_tier_penalty(capability, role)
         if capability.stock_id in prior_variant_stock_ids and role.exact_material is None:
             score -= 1.35 + .25 * variant_index
+        if role.exact_material is None and not _has_own_threshold(capability.identity_name):
+            score -= _UNSCORABLE_PENALTY
         score += _stable_tie(role.role_id, capability.stock_id, variant_index)
         ranked.append((score, capability))
     family_words = family_role_words(role.role_id)
