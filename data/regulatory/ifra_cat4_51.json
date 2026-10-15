@@ -1071,6 +1071,21 @@
         "Such products should have a peroxide value of less than 10 millimoles peroxide per liter,"
       ]
     },
+    "IFRA_STD_185": {
+      "name": "Nootkatone",
+      "cas": [
+        "4674-50-4"
+      ],
+      "kind": "specification",
+      "amendment": "Amendment 40 Nootkatone 2006 (Amendment 40)",
+      "cat4_limit_pct": null,
+      "cat4_quote": null,
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_185.pdf",
+      "notes": [
+        "Nootkatone used as a fragrance ingredient should be at least 98% pure, with a melting point of at least 32\u00b0C.",
+        "Lower purity grades may not be used as a fragrance ingredient."
+      ]
+    },
     "IFRA_STD_186": {
       "name": "Limonene",
       "cas": [
@@ -3331,6 +3346,15 @@
       "note": null,
       "cas": [
         "98-95-3"
+      ]
+    },
+    "Nootkatone": {
+      "status": "specification",
+      "standard": "IFRA_STD_185",
+      "aliases": [],
+      "note": "No Category 4 limit. Only grades at least 98 % pure with a melting point of at least 32 \u00b0C may be used; ask the supplier for the lot certificate.",
+      "cas": [
+        "4674-50-4"
       ]
     },
     "Norlimbanol Dextro": {
