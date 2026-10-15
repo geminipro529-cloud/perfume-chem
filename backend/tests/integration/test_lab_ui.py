@@ -160,8 +160,10 @@ async def test_current_project_inventory_is_primary_and_not_reentered(client):
         stock["normalized_identity"] == "ambrox super crystals"
         for stock in payload["stocks"]
     )
+    # Sandalwood Base X3 was the example here until it entered the gate's stock
+    # list on 2026-10-14; Clove EO is still recovered only from inventory.txt.
     assert any(
-        stock["normalized_identity"] == "sandalwood base x3"
+        stock["identity_name"] == "Clove EO (India)"
         and stock["source_class"] == "LIVE_INVENTORY_TEXT"
         for stock in payload["stocks"]
     )
@@ -1011,8 +1013,8 @@ async def test_missing_owned_material_can_be_added_for_personal_design(client):
             "expected_design_inventory_sha256": inventory[
                 "effective_inventory_sha256"
             ],
-            "idempotency_key": "backend-add-hindinol",
-            "identity_name": "Hindinol",
+            "idempotency_key": "backend-add-cedrol",
+            "identity_name": "Cedrol",
             "category": "woods / amber / structure",
             "fraction_percent_decimal": "100",
             "fraction_basis": "neat",
@@ -1022,7 +1024,7 @@ async def test_missing_owned_material_can_be_added_for_personal_design(client):
             "homogeneity": "NOT_APPLICABLE",
             "source_kind": "PERSONAL_CONFIRMATION",
             "supplier_name": "PerfumersWorld",
-            "supplier_sku": "4WX24656",
+            "supplier_sku": "1WW01281",
             "user_note": "Direct user confirmation.",
         },
     )
@@ -1031,14 +1033,15 @@ async def test_missing_owned_material_can_be_added_for_personal_design(client):
     result = response.json()
     assert result["status"] == "PERSONAL_INVENTORY_MATERIAL_ADDED"
     assert result["compounding_authority"] is False
-    hindinol = next(
+    # Hindinol joined the stock list on 2026-10-14; Cedrol is still only on the wishlist.
+    cedrol = next(
         stock
         for stock in result["inventory"]["stocks"]
-        if stock["identity_name"] == "Hindinol"
+        if stock["identity_name"] == "Cedrol"
     )
-    assert hindinol["source_class"] == "PERSONAL_ADDITION"
-    assert hindinol["design_ready"] is True
-    assert hindinol["execution_ready"] is False
+    assert cedrol["source_class"] == "PERSONAL_ADDITION"
+    assert cedrol["design_ready"] is True
+    assert cedrol["execution_ready"] is False
 
     formula_response = await client.post(
         "/api/v1/lab/v2/workbench/formula-chat",
@@ -1062,7 +1065,9 @@ async def test_missing_owned_material_can_be_added_for_personal_design(client):
         row["identity_name"]
         for row in formula_response.json()["optimized_formula"]["rows"]
     }
-    assert {"Hindinol", "Sandalwood Base 3X"} <= selected
+    # Since 2026-10-14 the stock list records it as "Sandalwood Base X3", not
+    # the inventory.txt spelling "Sandalwood Base 3X".
+    assert {"Hindinol", "Sandalwood Base X3"} <= selected
 
 
 @pytest.mark.asyncio
