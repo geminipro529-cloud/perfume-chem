@@ -135,26 +135,105 @@ console.log(JSON.stringify({
     assert result["next"] == [1, 0, 5]
 
 
-def test_progress_is_kept_per_lot_and_pending_lots_are_found():
+def test_progress_is_kept_per_lot_with_its_batch_and_lots_to_send_are_found():
     result = _node("""
 const memory = new Map();
 const storage = { getItem: (k) => memory.has(k) ? memory.get(k) : null, setItem: (k, v) => memory.set(k, String(v)),
   get length() { return memory.size; }, key: (i) => [...memory.keys()][i] ?? null };
-m.phoneBenchKeep(storage, { lot: "B-2", steps: [], entries: {}, pending: true });
-m.phoneBenchKeep(storage, { lot: "A-1", steps: [], entries: {}, pending: true });
-m.phoneBenchKeep(storage, { lot: "C-3", steps: [], entries: {}, pending: false });
+const kept = (lot, more) => ({ lot, batch: "2026-10-15T09:00:00+00:00", steps: [], entries: {}, base: { entries: {}, notes: "", version: 0 }, ...more });
+m.phoneBenchKeep(storage, kept("B-2", { pending: true }));
+m.phoneBenchKeep(storage, kept("A-1", { pending: true }));
+m.phoneBenchKeep(storage, kept("C-3", { pending: false }));
+m.phoneBenchKeep(storage, kept("F-6", { pending: true, error: "refused" }));
+m.phoneBenchKeep(storage, kept("G-7", { pending: true, conflict: { lines: [], notes: "x" } }));
+m.phoneBenchSetAside(storage, kept("A-1", { pending: true, batch: "2026-10-01T09:00:00+00:00" }));
 storage.setItem(m.PHONE_BENCH_STORE + "D-4", "{not json");
 storage.setItem(m.PHONE_BENCH_STORE + "E-5", JSON.stringify({ lot: "other", steps: [], pending: true }));
+storage.setItem(m.PHONE_BENCH_STORE + "H-8", JSON.stringify({ lot: "H-8", steps: [], entries: {}, pending: true }));
 const full = { getItem: () => null, setItem: () => { throw new Error("quota"); } };
 console.log(JSON.stringify({
   pending: m.phoneBenchPendingLots(storage),
-  loaded: m.phoneBenchLoad(storage, "A-1").lot,
+  loaded: m.phoneBenchLoad(storage, "A-1").batch,
+  aside: JSON.parse(storage.getItem(m.PHONE_BENCH_ASIDE + "A-1.2026-10-01T09:00:00+00:00")).lot,
   broken: m.phoneBenchLoad(storage, "D-4"),
+  noBatch: m.phoneBenchLoad(storage, "H-8"),
   full: m.phoneBenchKeep(full, { lot: "X" }),
 }));
 """)
 
-    assert result == {"pending": ["A-1", "B-2"], "loaded": "A-1", "broken": None, "full": False}
+    # Lots with a refusal or a choice waiting on the person are not sent on their own;
+    # a copy that doesn't name its batch is not used.
+    assert result == {
+        "pending": ["A-1", "B-2"], "loaded": "2026-10-15T09:00:00+00:00", "aside": "A-1",
+        "broken": None, "noBatch": None, "full": False,
+    }
+
+
+def test_a_send_says_which_batch_and_saved_set_it_was_built_on():
+    result = _node(_steps_js() + """
+const saved = { recorded_at: "2026-10-15T09:00:00+00:00", actuals_version: 2, actual_notes: "from the PC",
+  actuals: [{ line: 4, unit: "uL", actual_amount: "9" }] };
+const server = m.phoneBenchServer(steps, saved);
+console.log(JSON.stringify({
+  server,
+  body: m.phoneBenchBody({ batch: saved.recorded_at, base: server, entries: server.entries, notes: "" }),
+}));
+""")
+
+    assert result["server"] == {
+        "entries": {"4": {"line": 4, "typed": "9", "unit": "µL", "planned": "8", "density": None}},
+        "notes": "from the PC",
+        "version": 2,
+    }
+    assert result["body"] == {
+        "actuals": [{"line": 4, "actual_amount": "9"}], "notes": "",
+        "based_on": 2, "batch_recorded_at": "2026-10-15T09:00:00+00:00",
+    }
+
+
+def test_the_phone_and_the_pc_merge_line_by_line_and_only_a_line_both_changed_waits():
+    result = _node("""
+const g = (line, typed, density = "0.998") => ({ line, typed, unit: "g", planned: "10.269", density });
+const ul = (line, typed) => ({ line, typed, unit: "µL", planned: "8", density: null });
+const base = { entries: { 1: g(1, "10.3") }, notes: "", version: 1 };
+console.log(JSON.stringify({
+  // The PC weighed line 4, the phone line 2: both kept, nothing to choose.
+  apart: m.phoneBenchMerge(base, { entries: { 1: g(1, "10.3"), 4: ul(4, "9") }, notes: "" }, { entries: { 1: g(1, "10.3"), 2: g(2, "0.1", null) }, notes: "" }),
+  // Only the PC changed line 1; only the phone changed it.
+  pcOnly: m.phoneBenchMerge(base, { entries: { 1: g(1, "10.25") }, notes: "" }, { entries: { 1: g(1, "10.3") }, notes: "" }).entries,
+  phoneOnly: m.phoneBenchMerge(base, { entries: { 1: g(1, "10.3") }, notes: "" }, { entries: { 1: g(1, "10.31") }, notes: "" }).entries,
+  // Both changed line 1 to the same amount, written differently.
+  sameAmount: m.phoneBenchMerge(base, { entries: { 1: g(1, "10.31") }, notes: "" }, { entries: { 1: g(1, "10.310") }, notes: "" }).conflict,
+  // Both changed line 1 to different amounts: the phone's stays until the person chooses.
+  both: m.phoneBenchMerge(base, { entries: { 1: ul(1, "10290") }, notes: "" }, { entries: { 1: g(1, "10.31") }, notes: "" }),
+  // Blank notes on the phone take the PC's; notes changed on both wait too.
+  notes: [
+    m.phoneBenchMerge(base, { entries: base.entries, notes: "pc" }, { entries: base.entries, notes: "" }),
+    m.phoneBenchMerge({ ...base, notes: "was" }, { entries: base.entries, notes: "was" }, { entries: base.entries, notes: "phone" }).notes,
+    m.phoneBenchMerge({ ...base, notes: "was" }, { entries: base.entries, notes: "pc" }, { entries: base.entries, notes: "phone" }).conflict,
+  ],
+  changed: [
+    m.phoneBenchChanged({ base, entries: { 1: g(1, "10.300") }, notes: "" }),
+    m.phoneBenchChanged({ base: { ...base, notes: "pc" }, entries: base.entries, notes: "  " }),
+    m.phoneBenchChanged({ base, entries: { 1: g(1, "10.3"), 2: ul(2, "1") }, notes: "" }),
+    m.phoneBenchChanged({ base, entries: base.entries, notes: "smells right" }),
+  ],
+}));
+""")
+
+    assert result["apart"]["conflict"] is None
+    assert sorted(result["apart"]["entries"]) == ["1", "2", "4"]
+    assert result["pcOnly"]["1"]["typed"] == "10.25"
+    assert result["phoneOnly"]["1"]["typed"] == "10.31"
+    assert result["sameAmount"] is None
+    assert result["both"]["conflict"] == {
+        "lines": [{"line": 1, "pc": {"line": 1, "typed": "10290", "unit": "µL", "planned": "8", "density": None}}], "notes": None,
+    }
+    assert result["both"]["entries"]["1"]["typed"] == "10.31"
+    assert result["notes"][0]["notes"] == "pc" and result["notes"][0]["conflict"] is None
+    assert result["notes"][1] == "phone"
+    assert result["notes"][2] == {"lines": [], "notes": "pc"}
+    assert result["changed"] == [False, False, True, True]
 
 
 def test_thai_has_every_english_phrase_and_fills_the_same_blanks():

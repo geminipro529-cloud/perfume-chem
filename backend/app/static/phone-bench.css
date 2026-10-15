@@ -51,6 +51,14 @@ body.phone-bench-open { overflow: hidden; }
   color: var(--ink); background: var(--paper-high); border: 1px solid var(--line); font-size: 17px; cursor: pointer;
 }
 .phone-bench-summary-name { font-weight: 700; overflow-wrap: anywhere; }
+/* A line the PC changed too since this phone last sent, waiting on a choice. */
+.phone-bench-summary-line.is-conflict { border: 2px solid var(--amber); }
+.phone-bench-summary-pc, .phone-bench-pc-notes { color: var(--hold-fg); font-weight: 700; }
+.phone-bench-pc-notes { margin: 0; overflow-wrap: anywhere; }
+.phone-bench-pc-notes[hidden], .phone-bench-choose[hidden] { display: none; }
+.phone-bench-choose button { min-height: 56px; margin: 0; font-size: 18px; }
+.phone-bench-notice { margin: 0; padding: 8px 10px; color: var(--hold-fg); background: var(--hold-bg); }
+.phone-bench-notice:empty { display: none; }
 .phone-bench-done textarea { width: 100%; font-size: 18px; }
 .phone-bench-send { min-height: 56px; }
 .phone-bench-sync { margin: auto 0 0; padding-top: 10px; border-top: 1px solid var(--line); font-size: 17px; }
