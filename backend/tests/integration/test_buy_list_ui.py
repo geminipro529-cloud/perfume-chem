@@ -294,3 +294,145 @@ def test_the_paste_tray_preview_counts_and_lists_a_dry_run():
         "ambrox, skip: you own Ambrofix",
     ]}
     assert result[1] == "0 picks and 1 skip"
+
+
+# ---- T6: On the way answers, the "It arrived" walk and the price paid ----
+
+GROUP = {
+    "shop": "PW", "order_id": "PW-20261001-a1b2c3", "ordered_on": "2026-10-01", "days": 12, "nudge": True,
+    "nudge_text": "PW parcel still on the way?",
+    "lines": [
+        {"material_key": "sandalwood oil s. album", "material": "Sandalwood oil S. album", "offer_key": "pw:7WX21054",
+         "pack": "5 g", "state": "ORDERED", "title": "Sandalwood Oil", "form": "neat", "strength": "1", "solvent": None,
+         "shown_price": {"amount": "37.40", "currency": "USD", "observed_on": "2026-04-11"}},
+        {"material_key": "orris concrete", "material": "Orris Concrete", "offer_key": "pw:2IR00002", "pack": "10 g",
+         "state": "STILL_COMING", "title": "Orris Concrete", "form": "10.0% in DPG", "strength": "0.1", "solvent": "DPG",
+         "shown_price": {"amount": "15", "currency": "USD", "observed_on": "2026-04-11"}},
+        {"material_key": "vetiver oil", "material": "Vetiver Oil", "offer_key": "pw:9XX99999", "pack": "5 g",
+         "state": "ORDERED", "title": None, "form": None, "strength": None, "solvent": None,
+         "shown_price": {"amount": "20", "currency": "USD", "observed_on": "2026-04-11"}},
+    ],
+}
+
+
+def _group_run(body):
+    return _run(f"const group = {json.dumps(GROUP)}; const data = {{ on_the_way: [group] }}; {body}")
+
+
+def test_the_stock_add_is_prefilled_from_the_order_line():
+    result = _group_run("return group.lines.map((line) => m.buyStockPrefill(group, line));")
+    common = {"category": "", "supplier_name": "PerfumersWorld", "user_note": "Arrived from PW order PW-20261001-a1b2c3"}
+
+    assert result[0] == {**common, "identity_name": "Sandalwood oil S. album", "supplier_sku": "7WX21054",
+                         "fraction_percent_decimal": "100", "fraction_basis": "neat", "carrier": "",
+                         "physical_form": "as_supplied", "homogeneity": "NOT_APPLICABLE"}
+    assert result[1] == {**common, "identity_name": "Orris Concrete", "supplier_sku": "2IR00002",
+                         "fraction_percent_decimal": "10", "fraction_basis": "mass_fraction", "carrier": "DPG",
+                         "physical_form": "solution", "homogeneity": ""}
+    # An offer the price index doesn't know: Kenny reads the strength off the label.
+    assert result[2] == {**common, "identity_name": "Vetiver Oil", "supplier_sku": "9XX99999",
+                         "fraction_percent_decimal": "", "fraction_basis": "", "carrier": "",
+                         "physical_form": "", "homogeneity": ""}
+
+
+def test_each_answer_posts_the_exact_order_event():
+    result = _group_run("""
+        const [santal, orris] = group.lines;
+        return {
+          still: m.buyGroupStateEvents(group, "STILL_COMING"),
+          gone: m.buyOrderStateEvent(group, orris, "DIDNT_COME"),
+          notThis: m.buyOrderStateEvent(group, santal, "NOT_THIS"),
+          arrived: m.buyOrderStateEvent(group, santal, "ARRIVED"),
+          have: m.buyOrderStateEvent(group, orris, "ALREADY_HAVE"),
+        };
+    """)
+
+    def event(key, offer, pack, state):
+        return {"kind": "order", "order_id": "PW-20261001-a1b2c3", "shop": "PW", "material_key": key,
+                "offer_key": offer, "pack": pack, "state": state}
+
+    santal = ("sandalwood oil s. album", "pw:7WX21054", "5 g")
+    orris = ("orris concrete", "pw:2IR00002", "10 g")
+    assert result["still"] == [event(*santal, "STILL_COMING"), event(*orris, "STILL_COMING"),
+                               event("vetiver oil", "pw:9XX99999", "5 g", "STILL_COMING")]
+    assert result["gone"] == event(*orris, "DIDNT_COME")
+    assert result["notThis"] == event(*santal, "NOT_THIS")
+    assert result["arrived"] == event(*santal, "ARRIVED")
+    assert result["have"] == event(*orris, "ALREADY_HAVE")
+
+
+def test_save_posts_the_pack_price_in_the_shops_currency():
+    result = _group_run("""
+        const [santal, orris] = group.lines;
+        return [m.buyPaidQuestion(santal), m.buyStockPriceBody("stock-9", group, santal, "37.40"),
+                m.buyStockPriceBody("stock-9", group, orris, " US$1,015.5 "),
+                m.buyStockPriceBody("stock-9", group, santal, "0"), m.buyStockPriceBody("stock-9", group, santal, "lots")];
+    """)
+
+    assert result[0] == "Paid US$37.40?"
+    assert result[1] == {"stock_id": "stock-9", "per_unit": "g", "pack_price": "37.40", "pack_size": "5",
+                         "currency": "USD", "note": "Paid for PW order PW-20261001-a1b2c3"}
+    assert result[2]["pack_price"] == "1015.5" and result[2]["pack_size"] == "10"
+    assert result[3] is None and result[4] is None
+
+
+def test_the_walk_moves_on_after_each_answer():
+    result = _group_run("""
+        const view = (walk, d = data) => m.buyWalkView(d, walk);
+        const rest = (count) => ({ on_the_way: [{ ...group, lines: group.lines.slice(group.lines.length - count) }] });
+        const start = m.buyWalkStart(group);
+        const differs = m.buyWalkNext(start, "differs");
+        const matches = m.buyWalkNext(differs, "matches", { line: group.lines[1] });
+        const closed = m.buyWalkNext(matches, "closed");
+        const again = m.buyWalkNext(closed, "matches", { line: group.lines[1] });
+        const added = m.buyWalkNext(again, "added", { stockId: "stock-9" });
+        const saved = m.buyWalkNext(added, "saved");
+        const skipped = m.buyWalkNext(m.buyWalkNext(m.buyWalkNext(saved, "matches", { line: group.lines[2] }), "added", { stockId: "s" }), "skipped");
+        return {
+          start: view(start), differs: view(differs, rest(2)), matches: view(matches, rest(2)), closed: view(closed, rest(2)),
+          added: view(added, rest(2)), addedWalk: added, saved: view(saved, rest(1)), done: view(skipped, rest(0)),
+          stop: m.buyWalkNext(added, "stop"), elsewhere: view(start, { on_the_way: [] }),
+        };
+    """)
+
+    assert result["start"]["text"] == ("1 of 3: Sandalwood oil S. album, PW 7WX21054, 5 g. "
+                                       "Check the label: form, strength and species.")
+    assert result["start"]["stage"] == "check" and result["start"]["note"] == ""
+    # Something differs: NOT_THIS takes the line off the way and the walk shows the next one.
+    assert result["differs"]["text"].startswith("2 of 3: Orris Concrete, PW 2IR00002, 10.0% in DPG, 10 g.")
+    assert result["matches"]["stage"] == "stock"
+    # The Stock add closed without saving: the walk pauses on the same line.
+    assert result["closed"]["stage"] == "check" and result["closed"]["text"].startswith("2 of 3: Orris Concrete")
+    assert result["closed"]["note"] == "Not added to your stock, and nothing saved for this one."
+    assert result["added"]["stage"] == "price"
+    assert result["added"]["question"] == "Paid US$15.00?"
+    assert result["added"]["amount"] == "15"
+    assert result["addedWalk"]["stockId"] == "stock-9"
+    assert result["saved"]["text"].startswith("3 of 3: Vetiver Oil, PW 9XX99999, 5 g.")
+    assert result["done"] is None
+    assert result["stop"] is None
+    assert result["elsewhere"] is None
+
+
+def _buttons(group, walk=None):
+    return _run(f"""
+        const group = {json.dumps(group)};
+        const walk = {json.dumps(walk)};
+        const box = m.buyGroupNode(doc, group, {{ walk: walk && m.buyWalkView({{ on_the_way: [group] }}, walk) }});
+        const all = (node) => [node, ...node.children.flatMap(all)];
+        return all(box).filter((node) => node.tag === "button").map((node) => node.text);
+    """)
+
+
+def test_nudge_buttons_only_from_day_10_and_the_walk_replaces_it_arrived():
+    quiet = {**GROUP, "nudge": False, "lines": GROUP["lines"][:1]}
+    nudged = {**GROUP, "lines": GROUP["lines"][:1]}
+
+    assert _buttons(quiet) == ["Didn't come", "Already have it", "It arrived"]
+    assert _buttons(nudged) == ["Still coming", "Didn't come", "Didn't come", "Already have it", "It arrived"]
+    walk = {"shop": "PW", "orderId": GROUP["order_id"], "done": 0, "stage": "check", "materialKey": None,
+            "offerKey": None, "stockId": None, "note": ""}
+    assert _buttons(quiet, walk) == ["Didn't come", "Already have it", "It matches", "Something differs", "Stop"]
+    price = {**walk, "stage": "price", "materialKey": "sandalwood oil s. album", "offerKey": "pw:7WX21054",
+             "stockId": "stock-9"}
+    assert _buttons(quiet, price) == ["Didn't come", "Already have it", "Save", "Skip"]

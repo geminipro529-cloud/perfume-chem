@@ -333,6 +333,144 @@ function buyPicksPreview(response, names = new Map()) {
   return { summary: `${buyCount(picks.length, "pick")} and ${buyCount(skips.length, "skip")}`, lines };
 }
 
+// ---- On the way: answers, "It arrived" and the price paid ----
+
+const BUY_SHOP_NAMES = { PW: "PerfumersWorld" };
+const BUY_LABEL_CHECK = "Check the label: form, strength and species.";
+
+// Kenny's answer for one line of an order: STILL_COMING, ARRIVED, DIDNT_COME, NOT_THIS
+// or ALREADY_HAVE. Only ORDERED carries the shown price.
+function buyOrderStateEvent(group, line, state) {
+  return {
+    kind: "order",
+    order_id: group.order_id,
+    shop: group.shop,
+    material_key: line.material_key,
+    offer_key: line.offer_key,
+    pack: line.pack,
+    state,
+  };
+}
+
+// The same answer for every line of the order (the day-10 nudge's buttons).
+function buyGroupStateEvents(group, state) {
+  return (group.lines || []).map((line) => buyOrderStateEvent(group, line, state));
+}
+
+function buySku(line) {
+  return String(line.offer_key || "").replace(/^[a-z]+:/, "");
+}
+
+// "5 g" -> "5"; null for a pack not in grams.
+function buyPackGrams(pack) {
+  const match = /^\s*(\d+(?:\.\d+)?)\s*g\s*$/.exec(String(pack ?? ""));
+  return match ? match[1] : null;
+}
+
+// "0.1" -> "10", "0.025" -> "2.5", "1" -> "100"; null when not a decimal.
+function buyPercentText(fraction) {
+  const times = buyDecimalTimes(fraction, "100");
+  if (times === null) return null;
+  return times.includes(".") ? times.replace(/0+$/, "").replace(/\.$/, "") : times;
+}
+
+// The Stock page's add form, filled from an order line (field name -> value). Neat is
+// 100%; a PW dilution ("10% in DPG") is w/w in its solvent. What the line can't tell
+// (category, and the strength of an unknown form) is left blank for Kenny to choose.
+function buyStockPrefill(group, line) {
+  const fields = {
+    identity_name: line.material,
+    category: "",
+    supplier_name: BUY_SHOP_NAMES[group.shop] || group.shop,
+    supplier_sku: buySku(line),
+    user_note: `Arrived from ${group.shop} order ${group.order_id}`,
+  };
+  const percent = buyPercentText(line.strength);
+  if (line.form === "neat") {
+    return { ...fields, fraction_percent_decimal: "100", fraction_basis: "neat", carrier: "",
+      physical_form: "as_supplied", homogeneity: "NOT_APPLICABLE" };
+  }
+  if (percent !== null && line.solvent) {
+    return { ...fields, fraction_percent_decimal: percent, fraction_basis: "mass_fraction", carrier: line.solvent,
+      physical_form: "solution", homogeneity: "" };
+  }
+  return { ...fields, fraction_percent_decimal: "", fraction_basis: "", carrier: "", physical_form: "", homogeneity: "" };
+}
+
+// "Paid US$37.40?" from the order's shown price.
+function buyPaidQuestion(line) {
+  const price = line.shown_price;
+  return price?.amount ? `Paid ${buyShownPriceText({ amount: price.amount, currency: price.currency })}?` : "What did you pay?";
+}
+
+// The stock price for [Save]: what Kenny paid for the pack, per g, in the shop's
+// currency. null when the amount is not a number above zero.
+function buyStockPriceBody(stockId, group, line, amountText) {
+  const amount = String(amountText ?? "").replace(/[\s,฿$]|US/g, "");
+  if (!/^\d+(\.\d+)?$/.test(amount) || !/[1-9]/.test(amount)) return null;
+  return {
+    stock_id: stockId,
+    per_unit: "g",
+    pack_price: amount,
+    pack_size: buyPackGrams(line.pack),
+    currency: line.shown_price?.currency || "USD",
+    note: `Paid for ${group.shop} order ${group.order_id}`,
+  };
+}
+
+// The "It arrived" walk is { shop, orderId, done, stage, materialKey, offerKey, stockId, note }.
+// stage: "check" (label check), "stock" (the Stock add is open), "price" (paid?).
+// The current line is the pinned one while adding it, else the first line still on the
+// way: after each answer the page data is read again and handled lines drop out.
+function buyWalkStart(group) {
+  return { shop: group.shop, orderId: group.order_id, done: 0, stage: "check", materialKey: null, offerKey: null,
+    stockId: null, note: "" };
+}
+
+function buyWalkLine(data, walk) {
+  if (!walk) return null;
+  const group = (data?.on_the_way || []).find((entry) => entry.shop === walk.shop && entry.order_id === walk.orderId);
+  const lines = group?.lines || [];
+  const pinned = walk.offerKey
+    ? lines.find((line) => line.material_key === walk.materialKey && line.offer_key === walk.offerKey) : null;
+  const line = pinned || lines[0];
+  if (!line) return null;
+  return { group, line, number: walk.done + 1, total: walk.done + lines.length, stage: pinned ? walk.stage : "check" };
+}
+
+// The walk after an answer: matches, differs, added ({ stockId }), closed, saved, skipped
+// or stop (null: the walk ends; lines not handled stay on the way).
+function buyWalkNext(walk, answer, detail = {}) {
+  if (!walk || answer === "stop") return null;
+  const next = { ...walk, stage: "check", materialKey: null, offerKey: null, stockId: null, note: "" };
+  if (answer === "differs" || answer === "saved" || answer === "skipped") return { ...next, done: walk.done + 1 };
+  if (answer === "matches") {
+    return { ...next, stage: "stock", materialKey: detail.line.material_key, offerKey: detail.line.offer_key };
+  }
+  if (answer === "added") return { ...walk, stage: "price", stockId: detail.stockId, note: "" };
+  if (answer === "closed") {
+    return { ...walk, stage: "check", stockId: null, note: "Not added to your stock, and nothing saved for this one." };
+  }
+  return walk;
+}
+
+// What the walk shows now, or null when the order has no line left.
+function buyWalkView(data, walk) {
+  const step = buyWalkLine(data, walk);
+  if (!step) return null;
+  const { group, line, number, total, stage } = step;
+  const form = line.form && line.form !== "neat" ? `, ${line.form}` : "";
+  return {
+    shop: group.shop,
+    orderId: group.order_id,
+    stage,
+    text: `${number} of ${total}: ${line.material}, ${group.shop} ${buySku(line)}${form}, ${line.pack}. ${BUY_LABEL_CHECK}`,
+    note: stage === "stock" ? "Add it on the Stock page, then come back here." : walk.note || "",
+    question: stage === "price" ? buyPaidQuestion(line) : "",
+    amount: line.shown_price?.amount || "",
+  };
+}
+
 // ---- The page ----
 
 function buyEl(doc, tag, className, text) {
@@ -536,8 +674,11 @@ function buyBudgetForm(doc, budget, onSave) {
 
 // Draw the whole page into `target` from the buy-list payload. `ticks` (material_key
 // -> offer_key) sets the tick boxes; onTick, onAnswer and saveBudget take Kenny's input.
+// On the way: onWay(action, group, line) answers an order line, `walk` is the "It
+// arrived" walk (buyWalkStart) and onWalk(answer, detail) takes its answers.
 function buyRender(doc, target, data, {
   saveRate = async () => {}, saveBudget = async () => {}, ticks = new Map(), onTick = () => {}, onAnswer = async () => {},
+  onWay = async () => {}, onWalk = async () => {}, walk = null,
 } = {}) {
   target.replaceChildren();
   target.append(buyEl(doc, "p", "make-shopping-for", data.price_header || ""));
@@ -593,17 +734,97 @@ function buyRender(doc, target, data, {
 
   if ((data.on_the_way || []).length) {
     const way = buySection(doc, "On the way");
+    const walkView = buyWalkView(data, walk);
     for (const group of data.on_the_way) {
-      const box = buyEl(doc, "div", "make-ask");
-      box.append(buyEl(doc, "h3", "", `${group.shop}, ordered ${buyDayLabel(group.ordered_on)}`));
-      if (group.nudge) box.append(buyEl(doc, "p", "make-verdict", group.nudge_text));
-      const lines = buyEl(doc, "ul", "make-rows");
-      for (const line of group.lines || []) lines.append(buyEl(doc, "li", "make-row", buyOrderLineText(line)));
-      box.append(lines);
-      way.append(box);
+      const walking = walkView && walkView.shop === group.shop && walkView.orderId === group.order_id ? walkView : null;
+      way.append(buyGroupNode(doc, group, { onWay, onWalk, walk: walking }));
     }
     target.append(way);
   }
+}
+
+// A 44 px tap target.
+function buyTapButton(doc, text, action) {
+  const button = buyButton(doc, text);
+  button.dataset.action = action;
+  button.setAttribute("style", "min-height: 44px;");
+  return button;
+}
+
+// One order on the way: the day-10 nudge with [Still coming] [Didn't come] for the
+// whole order, each line with [Didn't come] [Already have it], then [It arrived], or
+// the walk's current step when Kenny is walking this order.
+function buyGroupNode(doc, group, { onWay = async () => {}, onWalk = async () => {}, walk = null } = {}) {
+  const box = buyEl(doc, "div", "make-ask buy-way");
+  box.setAttribute("style", "max-width: 100%; box-sizing: border-box; overflow-wrap: anywhere;");
+  box.append(buyEl(doc, "h3", "", `${group.shop}, ordered ${buyDayLabel(group.ordered_on)}`));
+  const message = buyEl(doc, "p", "make-left-message");
+  message.setAttribute("role", "status");
+  const buttons = [];
+  const act = async (run) => {
+    for (const button of buttons) button.disabled = true;
+    message.textContent = "Saving…";
+    try {
+      await run();
+      message.textContent = "";
+    } catch (error) {
+      message.textContent = `Not saved: ${error?.message || error}`;
+    } finally {
+      for (const button of buttons) button.disabled = false;
+    }
+  };
+  const tap = (text, action, run) => {
+    const button = buyTapButton(doc, text, action);
+    button.addEventListener("click", () => act(run));
+    buttons.push(button);
+    return button;
+  };
+  if (group.nudge) {
+    box.append(buyEl(doc, "p", "make-verdict", group.nudge_text));
+    const nudge = buyEl(doc, "div", "make-left-form");
+    nudge.append(tap("Still coming", "still-coming", () => onWay("still-coming", group)),
+      tap("Didn't come", "didnt-come-all", () => onWay("didnt-come-all", group)));
+    box.append(nudge);
+  }
+  const lines = buyEl(doc, "ul", "make-rows");
+  for (const line of group.lines || []) {
+    const row = buyEl(doc, "li", "make-row");
+    const answers = buyEl(doc, "div", "make-left-form");
+    answers.append(tap("Didn't come", "didnt-come", () => onWay("didnt-come", group, line)),
+      tap("Already have it", "already-have", () => onWay("already-have", group, line)));
+    row.append(buyEl(doc, "span", "", buyOrderLineText(line)), answers);
+    lines.append(row);
+  }
+  box.append(lines);
+  if (!walk) {
+    const start = buyEl(doc, "div", "make-left-form");
+    start.append(tap("It arrived", "arrived", () => onWay("arrived", group)));
+    box.append(start);
+  } else {
+    const panel = buyEl(doc, "div", "panel buy-walk");
+    panel.append(buyEl(doc, "p", "make-verdict", walk.text));
+    if (walk.note) panel.append(buyEl(doc, "p", "field-help", walk.note));
+    const row = buyEl(doc, "div", "make-left-form");
+    if (walk.stage === "price") {
+      const label = buyEl(doc, "label", "", walk.question);
+      const input = buyEl(doc, "input");
+      Object.assign(input, { name: "paid", inputMode: "decimal", autocomplete: "off", value: walk.amount });
+      input.setAttribute("aria-label", walk.question);
+      input.setAttribute("style", "max-width: 9em; min-height: 44px; box-sizing: border-box;");
+      label.append(input);
+      panel.append(label);
+      row.append(tap("Save", "save", () => onWalk("save", { amount: input.value })),
+        tap("Skip", "skip", () => onWalk("skip")));
+    } else {
+      row.append(tap("It matches", "matches", () => onWalk("matches")),
+        tap("Something differs", "differs", () => onWalk("differs")),
+        tap("Stop", "stop", () => onWalk("stop")));
+    }
+    panel.append(row);
+    box.append(panel);
+  }
+  box.append(message);
+  return box;
 }
 
 // "Paste picks from a Claude thread": [Preview] checks the block without saving it,
@@ -697,9 +918,12 @@ function buyRandomHex() {
   return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
-function attachBuyList({ doc, root, request, notify = () => {} }) {
+// openStockAdd(prefill, { onAdded, onClosed }) opens the Stock page's add form
+// (lab/stock.js openInventoryAddition); showPage() brings the Buy page back.
+function attachBuyList({ doc, root, request, notify = () => {}, openStockAdd = null, showPage = () => {} }) {
   // Ticks live in page memory only and outlast a reload for offers still listed.
-  const view = { data: null, loading: null, ticks: new Map() };
+  // walk: the "It arrived" walk in progress (buyWalkStart), page memory only.
+  const view = { data: null, loading: null, ticks: new Map(), walk: null };
   const status = root.querySelector("#buy-status");
   const content = root.querySelector("#buy-content");
 
@@ -732,6 +956,87 @@ function attachBuyList({ doc, root, request, notify = () => {} }) {
     for (const entry of events) view.ticks = buyTick(view.ticks, entry.material_key, entry.offer_key, false);
     notify(`Saved: ${buyCount(events.length, "line")} ordered from ${shop}.`);
     await load();
+  }
+
+  async function postOrders(events, saved) {
+    await post({ events });
+    notify(saved);
+    await load();
+  }
+
+  // The Stock page's add form for one line; onAdded runs after Kenny's Add succeeds.
+  // Only Arrived and Already have it write stock, and only through the Stock routes.
+  function addToStock(group, line, { onAdded, onClosed = () => {} }) {
+    if (typeof openStockAdd !== "function") throw new Error("the Stock page's add form is not loaded");
+    openStockAdd(buyStockPrefill(group, line), {
+      onAdded: (added) => {
+        showPage();
+        Promise.resolve(onAdded(added)).catch((error) => notify(`Not saved: ${error?.message || error}`, true));
+      },
+      onClosed: () => {
+        onClosed();
+        showPage();
+      },
+    });
+  }
+
+  async function onWay(action, group, line) {
+    if (action === "still-coming") {
+      await postOrders(buyGroupStateEvents(group, "STILL_COMING"), `Saved: your ${group.shop} parcel is still coming.`);
+    } else if (action === "didnt-come-all") {
+      await postOrders(buyGroupStateEvents(group, "DIDNT_COME"), `Saved: your ${group.shop} parcel didn't come. Back on Buy first.`);
+    } else if (action === "didnt-come") {
+      await postOrders([buyOrderStateEvent(group, line, "DIDNT_COME")], `Saved: ${line.material} didn't come. Back on Buy first.`);
+    } else if (action === "already-have") {
+      addToStock(group, line, {
+        onAdded: () => postOrders([buyOrderStateEvent(group, line, "ALREADY_HAVE")], `Saved: you already have ${line.material}.`),
+      });
+    } else if (action === "arrived") {
+      view.walk = buyWalkStart(group);
+      render();
+    }
+  }
+
+  async function onWalk(answer, detail = {}) {
+    const step = buyWalkLine(view.data, view.walk);
+    if (!step || answer === "stop") {
+      view.walk = null;
+      render();
+      return;
+    }
+    const { group, line } = step;
+    if (answer === "differs") {
+      await post({ events: [buyOrderStateEvent(group, line, "NOT_THIS")] });
+      view.walk = buyWalkNext(view.walk, "differs");
+      notify(`Saved: not this ${line.material}. Back on Buy first.`);
+      await load();
+    } else if (answer === "matches") {
+      view.walk = buyWalkNext(view.walk, "matches", { line });
+      render();
+      const walk = view.walk;
+      addToStock(group, line, {
+        onAdded: ({ stock_id: stockId }) => {
+          if (view.walk !== walk) return;
+          view.walk = buyWalkNext(walk, "added", { stockId });
+          render();
+        },
+        onClosed: () => {
+          if (view.walk !== walk) return;
+          view.walk = buyWalkNext(walk, "closed");
+          render();
+        },
+      });
+    } else if (answer === "save" || answer === "skip") {
+      if (answer === "save") {
+        const body = buyStockPriceBody(view.walk.stockId, group, line, detail.amount);
+        if (!body) throw new Error("type what you paid, such as 37.40");
+        await request("/v2/workbench/stock-prices", { method: "POST", body: JSON.stringify(body) });
+      }
+      await post({ events: [buyOrderStateEvent(group, line, "ARRIVED")] });
+      view.walk = buyWalkNext(view.walk, answer === "save" ? "saved" : "skipped");
+      notify(`Saved: ${line.material} arrived.`);
+      await load();
+    }
   }
 
   // The bar sits after the panel, sticky at the foot of the screen: it stays in the
@@ -768,7 +1073,9 @@ function attachBuyList({ doc, root, request, notify = () => {} }) {
 
   function render() {
     if (!view.data) return;
-    buyRender(doc, content, view.data, { saveRate, saveBudget, ticks: view.ticks, onTick, onAnswer });
+    // The walk ends when its order has no line left on the way.
+    if (view.walk && !buyWalkLine(view.data, view.walk)) view.walk = null;
+    buyRender(doc, content, view.data, { saveRate, saveBudget, ticks: view.ticks, onTick, onAnswer, onWay, onWalk, walk: view.walk });
     showBar();
   }
 
@@ -802,5 +1109,7 @@ if (typeof module === "object" && module.exports) {
     buyDecimalSum, buyDecimalTimes, buyDecimalCompare, buyTick, buyTicked, buyKeepTicks, buyBarView,
     buyOrderId, buyOrderEvents, buyMatchEvent, buyBudgetEvent, buyMaterialNames, buyPicksPreview,
     BUY_CHECK_STOCK_TEXT, BUY_PW_SHIPPING_USD, BUY_PW_FREE_SHIPPING_FROM_USD,
+    buyOrderStateEvent, buyGroupStateEvents, buyPackGrams, buyPercentText, buyStockPrefill, buyPaidQuestion,
+    buyStockPriceBody, buyWalkStart, buyWalkLine, buyWalkNext, buyWalkView, buyGroupNode,
   };
 }

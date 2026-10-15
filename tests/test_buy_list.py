@@ -372,6 +372,28 @@ def test_ordered_material_leaves_buy_first_for_on_the_way(tmp_path):
     assert line["shown_price"]["amount"] == "50.9"
 
 
+def test_on_the_way_lines_carry_the_offer_label_from_the_price_index(tmp_path):
+    events = _events(
+        tmp_path,
+        (
+            "2026-10-10",
+            [
+                _order("ORDERED", key="orris concrete", offer_key="pw:2IR00002"),
+                _order("ORDERED", key="sandalwood oil", offer_key="pw:3SW00003"),
+                _order("ORDERED", key="vetiver oil", offer_key="pw:9XX99999"),
+            ],
+        ),
+    )
+    (group,) = _build(_santal_needs(), events)["on_the_way"]
+    lines = {line["offer_key"]: line for line in group["lines"]}
+    label = ("title", "form", "strength", "solvent")
+    assert [lines["pw:2IR00002"][key] for key in label] == [
+        "Orris Concrete", "10% in DPG", "0.1", "DPG"
+    ]
+    assert [lines["pw:3SW00003"][key] for key in label] == ["Sandalwood Oil", "neat", "1", None]
+    assert [lines["pw:9XX99999"][key] for key in label] == [None, None, None, None]
+
+
 def test_nudge_from_day_10(tmp_path):
     day_9 = _build(_santal_needs(), _events(tmp_path / "a", ("2026-10-06", [_order("ORDERED")])))
     day_10 = _build(_santal_needs(), _events(tmp_path / "b", ("2026-10-05", [_order("ORDERED")])))

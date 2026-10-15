@@ -295,14 +295,21 @@ def build_buy_list(
                 )
                 group["starts"].append(days)
                 group["ordered"].append(ordered_on or last_on.isoformat())
+                # The offer as the price index has it, for the label check on arrival.
+                offer_key = order["offer_key"]
+                price = prices.get(offer_key[3:]) if offer_key.startswith("pw:") else None
                 group["lines"].append(
                     {
                         "material_key": material_key,
                         "material": name_of(material_key),
-                        "offer_key": order["offer_key"],
+                        "offer_key": offer_key,
                         "pack": order["pack"],
                         "shown_price": order.get("shown_price"),
                         "state": order_state,
+                        "title": None if price is None else price.material_name,
+                        "form": None if price is None else price.form,
+                        "strength": None if price is None else _dec(price.strength),
+                        "solvent": None if price is None else price.solvent,
                     }
                 )
             else:
