@@ -126,7 +126,7 @@ FLAGGED_BASES = {
     "Black Tea Base",
     "Castoreum Synthetic",
     "Clearwood",
-    "Costus Olifac 10%",
+    "Costus Olifac",  # stock name since the 2026-10-15 10% in DPG record
     "Lilyreal ND",
     "Suederal",  # stock name since the 2026-10-14 DPG record
     "Tonkarome",
@@ -148,7 +148,9 @@ STILL_HELD = {
     # Added to the stock list on 2026-10-14; no IFRA standard names these woods.
     "Cedroxyde",
     "Clearwood",
-    "Costus Olifac 10%",
+    # Added 2026-10-15: plant part unknown, so its eugenol content is unknown.
+    "Clove EO (India)",
+    "Costus Olifac",  # stock name since the 2026-10-15 10% in DPG record
     "Frangipani Absolute",
     "Fructone B",
     "Hindinol",
@@ -159,6 +161,8 @@ STILL_HELD = {
     "Lemon Terpeneless Oil Sicilian",
     "Lilyreal ND",
     "Mate Absolute",
+    # Added 2026-10-15 (neat); no IFRA table entry matches it.
+    "Neryl Acetate",
     "Orris Concrete Orris Butter",
     "Pomelo EO",
     # Added 2026-10-15: a saturated saffron infusion in DPG of unknown strength.
@@ -191,3 +195,14 @@ def test_every_owned_stock_is_matched_or_holds_by_name():
     assert {u["material"] for u in gate.data["undisclosed_bases"]} == FLAGGED_BASES
     for name in set(unmatched) - SCHIFF_BASES:
         assert name in gate.detail
+
+
+def test_freesia_hdi_fails_for_the_lilial_it_contains():
+    # PerfumersWorld's IFRA certificate for Freesia HDL (Kenny's Freesia HDI) lists
+    # Lilial at 0.7921 %, and the table treats Lilial as prohibited.
+    material = TABLE.lookup("Freesia HDI")
+    assert material is not None and material.status == "prohibited"
+    assert TABLE.lookup("Freesia HDL") is material
+    gate = _gate({"Evernyl": 240.0, "Freesia HDI": 10.0})
+    assert gate.status == "FAIL"
+    assert "Freesia HDI" in gate.detail and "Lilial" in gate.detail

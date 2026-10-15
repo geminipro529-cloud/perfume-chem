@@ -157,9 +157,14 @@ def test_v5_javanol_and_user_overlay_alpha_irone_never_promote_wrong_stock() -> 
     javanol = _stocks_for("Javanol")
     alpha = _stocks_for("Alpha Irone")
 
-    assert len(javanol) == 1
-    assert javanol[0].dilution == pytest.approx(0.20)
-    assert (javanol[0].carrier, javanol[0].execution_ready) == ("dpg", True)
+    # Kenny, 15 Oct 2026: "Javanol has both neat and 20%". The neat bottle comes
+    # only from his overlay record (STK-028), never from the V5 "not confirmed" row.
+    assert sorted(stock.dilution for stock in javanol) == pytest.approx([0.20, 1.0])
+    twenty = next(stock for stock in javanol if stock.dilution == pytest.approx(0.20))
+    neat = next(stock for stock in javanol if stock.dilution == pytest.approx(1.0))
+    assert (twenty.carrier, twenty.execution_ready) == ("dpg", True)
+    assert (neat.fraction_basis, neat.execution_ready) == ("neat", True)
+    assert neat.authority == "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014"
     assert len(alpha) == 1
     assert alpha[0].dilution == pytest.approx(0.10)
     assert (alpha[0].fraction_basis, alpha[0].carrier) == (
@@ -167,7 +172,7 @@ def test_v5_javanol_and_user_overlay_alpha_irone_never_promote_wrong_stock() -> 
         "dep",
     )
     assert any(
-        row.requested_fraction == pytest.approx(1.0) and row.disposition == "GAP"
+        row.requested_fraction == pytest.approx(1.0) and row.disposition == "OWNED"
         for row in _requirements_for("Javanol")
     )
     alpha_requirements = _requirements_for("Alpha Irone")
@@ -777,7 +782,7 @@ def test_direct_user_galbanum_correction_removes_v5_owned_stock() -> None:
 @pytest.mark.parametrize(
     ("material", "fraction", "reason"),
     [
-        ("Javanol", 1.0, "inventory_gap"),
+        ("Cedarwood Atlas", 1.0, "inventory_gap"),
         ("Carrot Seed EO", 0.10, "preparation_required"),
         ("Citronellol", 0.10, "preparation_required"),
         ("Dihydro Beta Ionone", 0.10, "preparation_required"),

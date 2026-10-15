@@ -42,6 +42,19 @@ ADDED_20261015 = {
     "INV-USER-20261014-STK-023": ("Alpha Damascone", 0.1, "mass_fraction", "dpg"),
     "INV-USER-20261014-STK-024": ("Aurantiol", 0.1, "mass_fraction", "dpg"),
 }
+# Kenny's answers to the small-jobs stock questions, 15 Oct 15:33 and 15:40 UTC.
+ADDED_20261015_PM = {
+    "INV-USER-20261014-STK-025": ("Damascol", 0.1, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-026": ("Cade Oil Rectified", 0.01, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-027": ("Sandalwood EO", 0.1, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-028": ("Javanol", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-029": ("Costus Olifac", 0.1, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-030": ("Clove EO (India)", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-031": ("Freesia HDI", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-032": ("Geranyl Acetate", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-033": ("Citronellyl Acetate", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-034": ("Neryl Acetate", 1.0, "neat", ""),
+}
 # Kenny has no neat Neroli (2026-10-15); this record holds no stock.
 NEAT_NEROLI_NOT_OWNED = "INV-USER-20261014-STK-017"
 # EO dilutions recorded in another solvent stay as they were.
@@ -103,6 +116,14 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "1. Both 2. Yes 3. about that much or more",
         "Cedrat is in inventory, Red Saffron is maxed in DPG",
         "it is mixed",
+        "8. 10% 9. unknown'10. yes 11. not sure but very high ethyl benzoate smell not good\\",
+        "1. yes 2. no idea, its neat 3. DPG 3. Check Sandalwood EO 10% in DPG on PW 5. the incoming "
+        "one will be sweet orange, but sour version from china. 6. Yes. Javanol has both neat and 20%, . "
+        "Ambretteolide is neat but you tell me if you need a solitin prepared. 7 do it",
+        "I have geranyl acetate and citronellyl acetate as well",
+        "Citronellal acetate is neat. Ambrettolide is neat but can be diluted if must.",
+        "I have neryl acetate",
+        "it is neat",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -114,6 +135,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "INV-USER-20260915-STOCK-014",
         "INV-USER-20260915-STOCK-016",
         "INV-USER-20260924-R5-018",
+        "INV-USER-20260924-R5-013",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
@@ -121,6 +143,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         *RECORDS,
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
+        *ADDED_20261015_PM,
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired
@@ -131,7 +154,10 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
     assert overlay["policy"]["safety_or_release_asserted"] is False
 
 
-@pytest.mark.parametrize("record_id,expected", [*RECORDS.items(), *ADDED_20261015.items()])
+@pytest.mark.parametrize(
+    "record_id,expected",
+    [*RECORDS.items(), *ADDED_20261015.items(), *ADDED_20261015_PM.items()],
+)
 def test_each_material_is_one_execution_ready_stock(record_id: str, expected: tuple) -> None:
     name, fraction, basis, carrier = expected
     stocks = [
@@ -217,7 +243,10 @@ def test_sandalwood_base_requirement_row_is_owned() -> None:
     assert {row.disposition for row in rows} == {"OWNED"}
 
 
-@pytest.mark.parametrize("record_id,expected", [*RECORDS.items(), *ADDED_20261015.items()])
+@pytest.mark.parametrize(
+    "record_id,expected",
+    [*RECORDS.items(), *ADDED_20261015.items(), *ADDED_20261015_PM.items()],
+)
 def test_preflight_resolves_each_stock(record_id: str, expected: tuple) -> None:
     name, fraction, basis, carrier = expected
     (stock,) = [
@@ -302,3 +331,43 @@ def test_aurantiol_ten_percent_dpg_and_neat_bottle_both_carry_his_word() -> None
         (pytest.approx(0.1), "mass_fraction", "dpg", "user-20261014"),
         (1.0, "neat", "", "user-20261014"),
     ]
+
+
+def test_damascol_and_javanol_keep_their_other_bottle() -> None:
+    damascol = sorted((s.dilution, s.stock_id.split(":")[1]) for s in _stocks("Damascol") if s.status == "owned")
+    assert damascol == [(pytest.approx(0.1), "user-20261014"), (1.0, "v5")]
+    javanol = sorted((s.dilution, s.carrier) for s in _stocks("Javanol") if s.status == "owned")
+    assert javanol == [(pytest.approx(0.2), "dpg"), (1.0, "")]
+    (row,) = [r for r in inventory.materialize_current_inventory().requirements if r.source_row == 149]
+    assert row.disposition == "OWNED"
+
+
+def test_unknown_species_and_plant_part_are_not_asserted() -> None:
+    sandalwood = _record_by_id("INV-USER-20261014-STK-027")
+    assert sandalwood["authority_limits"]["botanical_species_asserted"] is False
+    assert sandalwood["authority_limits"]["sku_from_catalogue_match_not_user"] is True
+    assert "not stated" in sandalwood["supplier_product"]["botanical_species"]
+    clove = _record_by_id("INV-USER-20261014-STK-030")
+    assert clove["authority_limits"]["plant_part_asserted"] is False
+    assert clove["authority_limits"]["eugenol_content_asserted"] is False
+
+
+def test_freesia_hdi_is_owned_as_perfumersworld_freesia_hdl() -> None:
+    (stock,) = [s for s in _stocks("Freesia HDI") if s.status == "owned"]
+    record = _record_by_id("INV-USER-20261014-STK-031")
+    assert record["aliases"] == ["Freesia HDL"]
+    assert record["supplier_product"] == {"supplier": "PerfumersWorld", "product_name": "Freesia HDL"}
+    check = _dilution_consistency_check(
+        {
+            "ingredients_ul": {"Freesia HDI": 20.0},
+            "dilutions": {"Freesia HDI": 1.0},
+            "stock_specs": {"Freesia HDI": {"fraction": 1.0, "fraction_basis": "neat", "carrier": "", "declared": True}},
+        }
+    )
+    assert check.status == "PASS"
+    assert check.data["resolved_stock_specs"]["Freesia HDI"]["stock_id"] == stock.stock_id
+
+
+def _record_by_id(record_id: str) -> dict:
+    (record,) = [r for r in _head()["records"] if r["record_id"] == record_id]
+    return record
