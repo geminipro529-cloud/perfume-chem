@@ -29,6 +29,7 @@ from engine.advisory_stock_strength import (  # noqa: E402  # sys.path
 from engine.chemical_data_validator import is_blocked_chemical  # noqa: E402  # sys.path
 from engine.chemical_life_graph import build_chemical_life_graph  # noqa: E402  # sys.path
 from engine.confidence import ConfidenceScorer  # noqa: E402  # sys.path
+from engine.formula_metadata import is_ethanol_vehicle_name  # noqa: E402  # sys.path
 from engine.formula_rating import (  # noqa: E402  # sys.path
     StarRatings,
     compute_star_ratings,
@@ -117,7 +118,7 @@ def parse_formulas(path: Path | None = None) -> list[FormulaInfo]:
                 dilution_raw = m.group(3).strip()
                 amount_ul = float(m.group(4))
                 # Skip ethanol and total rows
-                if "ethanol" in ing_name.lower() or "total" in ing_name.lower():
+                if is_ethanol_vehicle_name(ing_name) or "total" in ing_name.lower():
                     continue
                 # Clean up name (remove bold markers)
                 ing_name = ing_name.replace("**", "").strip()
