@@ -157,12 +157,60 @@ class MaterialCapabilityIndex:
             ))) for c in self.capabilities
         ))
 
+    def honoring_stated_strengths(
+        self, text: str, materials: Sequence[str]
+    ) -> MaterialCapabilityIndex:
+        """Drop bottles of a named material whose strength differs from the brief's.
+
+        With two bottles of one material (neat and 10% in DPG) name matching
+        alone can bind the wrong one, a tenfold dosing error. A stated strength
+        that no owned bottle has changes nothing here.
+        """
+        capabilities = list(self.capabilities)
+        for material in materials:
+            strength = stated_strength(text, material)
+            if strength is None:
+                continue
+            named = [c for c in capabilities if _candidate_matches_text(c.candidate, material)]
+            exact = {
+                c.stock_id for c in named if abs(c.candidate.stock.dilution - strength) < 1e-6
+            }
+            dropped = {c.stock_id for c in named} - exact
+            if exact and dropped:
+                capabilities = [c for c in capabilities if c.stock_id not in dropped]
+        if len(capabilities) == len(self.capabilities):
+            return self
+        return replace(self, capabilities=tuple(capabilities))
+
     def exact_matches(self, material: str) -> tuple[MaterialCapability, ...]:
         return tuple(
             capability
             for capability in self.capabilities
             if _candidate_matches_text(capability.candidate, material)
         )
+
+
+def stated_strength(text: str, material: str) -> float | None:
+    """The bottle strength a brief states beside a named material, as a fraction.
+
+    "neat Alpha Damascone" or "Alpha Damascone (neat)" give 1.0; "10% Alpha
+    Damascone" or "Alpha Damascone 10%" give 0.1; None when no strength is named.
+    """
+    words = re.findall(r"[a-z0-9]+", material.casefold())
+    if not words:
+        return None
+    name = r"\b" + r"[\s-]+".join(map(re.escape, words)) + r"\b"
+    lowered = text.casefold()
+    if re.search(rf"\bneat\s+{name}|{name}\s*\(?\s*neat\b", lowered):
+        return 1.0
+    match = re.search(
+        rf"(?<![\d.,])(\d+(?:[.,]\d+)?)\s*%\s+(?:of\s+)?{name}"
+        rf"|{name}\s*\(?\s*(\d+(?:[.,]\d+)?)\s*%",
+        lowered,
+    )
+    if match:
+        return float((match.group(1) or match.group(2)).replace(",", ".")) / 100
+    return None
 
 
 def _capability(candidate: Candidate) -> MaterialCapability:

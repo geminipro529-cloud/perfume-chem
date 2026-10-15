@@ -40,6 +40,27 @@ def test_composed_chypre_carries_the_gate_ifra_fail_for_alpha_damascone() -> Non
     assert report["design_variants"][0]["composition_checks"] == checks
 
 
+def test_a_strength_named_in_the_brief_picks_that_bottle() -> None:
+    """Kenny owns neat Alpha Damascone and a 10% in DPG he mixed (15 Oct 2026)."""
+    from engine.formulation_intelligence.material_capability_index import stated_strength
+
+    assert stated_strength("Include 60 uL of neat Alpha Damascone.", "alpha damascone") == 1.0
+    assert stated_strength("add Alpha Damascone (neat)", "alpha damascone") == 1.0
+    assert stated_strength("add 10% Alpha Damascone", "alpha damascone") == 0.1
+    assert stated_strength("add alpha-damascone 10 %", "alpha damascone") == 0.1
+    assert stated_strength("add Alpha Damascone", "alpha damascone") is None
+
+    report = design_inventory_formula(
+        idea=NAMED_DAMASCONE_CHYPRE["idea"].replace("neat Alpha Damascone", "Alpha Damascone 10%"),
+        formula_name="Panoramic Chypre",
+    )
+    rows = [
+        row for row in report["optimized_formula"]["rows"]
+        if row["material"].casefold() == "alpha damascone"
+    ]
+    assert [(row["stock_fraction_decimal"], row["amount_decimal"]) for row in rows] == [("0.1", "60")]
+
+
 def test_an_itemless_gate_fail_stays_fail_and_hold_stays_warn() -> None:
     from engine.formulation_intelligence.composition_checks import _ifra_checks
 

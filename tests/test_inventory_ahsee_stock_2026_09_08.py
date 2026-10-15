@@ -75,16 +75,16 @@ def test_corrected_stocks_bind_exactly_without_density_or_release(name, fraction
 
 def test_prepared_ethanol_stocks_do_not_revive_retired_dpg_or_replace_neat():
     # 2026-10-14: the Neroli 10% is a jojoba dilution (v26), not ethanol.
-    for name, diluted in (
-        ("Neroli EO", (0.1, "mass_fraction", "jojoba")),
-        ("Peppermint EO", (0.1, "volume_fraction", "ethanol")),
+    # 2026-10-15: Kenny has no neat Neroli, so the jojoba stock is his only one.
+    for name, owned in (
+        ("Neroli EO", {(0.1, "mass_fraction", "jojoba")}),
+        ("Peppermint EO", {(1.0, "neat", ""), (0.1, "volume_fraction", "ethanol")}),
     ):
         stocks = [s for s in inventory.materialize_current_inventory().stocks
                   if s.identity_name == name]
-        assert {(s.dilution, s.fraction_basis, s.carrier) for s in stocks} == {
-            (1.0, "neat", ""), diluted,
-        }
-        assert _check(name, 1.0, "neat", "").status == "PASS"
+        assert {(s.dilution, s.fraction_basis, s.carrier) for s in stocks} == owned
+    assert _check("Peppermint EO", 1.0, "neat", "").status == "PASS"
+    assert _check("Neroli EO", 1.0, "neat", "").status == "FAIL"
     assert _check("Neroli EO", 0.1, "volume_fraction", "dpg").status == "FAIL"
     assert _check("Neroli EO", 0.1, "volume_fraction", "ethanol",
                   "inventory:v5:ea88f93dcf37406d817c").status == "FAIL"

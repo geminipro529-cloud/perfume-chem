@@ -829,15 +829,17 @@ def test_preflight_accepts_exact_user_overlay_alpha_irone_stock() -> None:
     assert spec["stock_id"].startswith("inventory:user-20260828:")
 
 
-def test_preflight_accepts_current_neat_neroli_and_v5_javanol_stocks() -> None:
+def test_preflight_accepts_current_jojoba_neroli_and_v5_javanol_stocks() -> None:
+    # Kenny confirmed 2026-10-15 that he has no neat Neroli; his only Neroli
+    # is the 10% in jojoba recorded in the 2026-10-14 overlay.
     formula = {
         "ingredients_ul": {"Neroli EO": 10.0, "Javanol": 5.0},
-        "dilutions": {"Neroli EO": 1.0, "Javanol": 0.20},
+        "dilutions": {"Neroli EO": 0.10, "Javanol": 0.20},
         "stock_specs": {
             "Neroli EO": {
-                "fraction": 1.0,
-                "fraction_basis": "neat",
-                "carrier": "",
+                "fraction": 0.10,
+                "fraction_basis": "mass_fraction",
+                "carrier": "jojoba",
                 "declared": True,
             },
             "Javanol": {
@@ -862,9 +864,33 @@ def test_preflight_accepts_current_neat_neroli_and_v5_javanol_stocks() -> None:
     for material, spec in check.data["resolved_stock_specs"].items():
         assert spec["authority"] == "formula_row+inventory_snapshot"
         assert spec["inventory_authority"] == (
-            INHERITED_USER_AUTHORITY if material == "Neroli EO"
+            "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014"
+            if material == "Neroli EO"
             else CURRENT_INVENTORY_AUTHORITY
         )
         assert spec["stock_id"].startswith(
-            "inventory:user-20260906:" if material == "Neroli EO" else "inventory:v5:"
+            "inventory:user-20261014:" if material == "Neroli EO" else "inventory:v5:"
         )
+
+
+def test_preflight_rejects_neat_neroli_no_longer_owned() -> None:
+    formula = {
+        "ingredients_ul": {"Neroli EO": 10.0},
+        "dilutions": {"Neroli EO": 1.0},
+        "stock_specs": {
+            "Neroli EO": {
+                "fraction": 1.0,
+                "fraction_basis": "neat",
+                "carrier": "",
+                "declared": True,
+            },
+        },
+    }
+
+    check = _dilution_consistency_check(formula)
+
+    assert check.status == "FAIL"
+    assert [
+        (issue["material"], issue["reason"], issue["inventory_dilutions"])
+        for issue in check.data["issues"]
+    ] == [("Neroli EO", "stock_fraction_mismatch", [0.1])]

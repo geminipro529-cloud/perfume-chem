@@ -34,6 +34,7 @@ from engine.chemical_data_validator import blocked_reason
 from engine.chemical_life_graph import build_chemical_life_graph
 from engine.confidence import ConfidenceScorer
 from engine.fingerprint import find_similar_materials, fingerprint_formula
+from engine.formula_metadata import is_ethanol_vehicle_name
 from engine.formula_rating import compute_star_ratings
 from engine.formula_recommendations import (
     generate_intervention_recommendations,
@@ -918,7 +919,7 @@ def _parse_formula_rows_by_column(
         if re.search(r"\b(?:sub[- ]?total|total)\b", low):
             return True
         if (
-            "ethanol" in low
+            is_ethanol_vehicle_name(low)
             or "matured concentrate" in low
             or "final bottle" in low
             or "finished bottle" in low

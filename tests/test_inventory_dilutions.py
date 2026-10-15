@@ -79,7 +79,11 @@ def test_prepared_dilution_resolves_in_preflight_and_the_composer(dilution_log) 
     assert receipt["prepared"]["fraction_basis"] == "mass_fraction"
     assert receipt["prepared"]["carrier"] == "dpg"
     (stock,) = [s for s in materialized.stocks if s.authority == PREPARED_DILUTION_AUTHORITY]
-    assert (stock.identity_name, stock.name) == (parent_before.identity_name, parent_before.name)
+    # The prepared stock keeps the parent's recorded name; the parent's display
+    # name can differ when another bottle of it (Alpha Damascone 10%) is owned.
+    assert (stock.identity_name, stock.name) == (
+        parent_before.identity_name, parent_before.source_name
+    )
     assert stock.dilution == 0.01
     assert stock.execution_ready is True and stock.design_ready is True
     assert receipt["event_id"] in stock.source_ref
