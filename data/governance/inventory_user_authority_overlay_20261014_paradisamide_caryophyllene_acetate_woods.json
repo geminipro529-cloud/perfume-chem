@@ -74,6 +74,10 @@
       {
         "message_timestamp_utc": "2026-10-15T01:37:04Z",
         "text": "Yes."
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T01:36:44Z",
+        "text": "1. Both 2. Yes 3. about that much or more"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Only Paradisamide uses a default (w/w, DPG): Kenny gave the strength and carrier or 'neat' for every other bottle."
@@ -96,7 +100,9 @@
     "neroli_10pct_supplier_dilution_in_jojoba": true,
     "myrrh_and_guaiacwood_eo_carrier_dpg": true,
     "suederal_10pct_carrier_dpg": true,
-    "neat_neroli_not_owned": true
+    "neat_neroli_not_owned": true,
+    "aurantiol_neat_added": true,
+    "benzoin_and_frankincense_tinctures_dosed_at_built_strength": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -104,7 +110,9 @@
     "INV-USER-20260908-AHSEE-002",
     "INV-USER-20260828-005",
     "INV-USER-20260901-002",
-    "INV-USER-20260906-001"
+    "INV-USER-20260906-001",
+    "INV-USER-20260915-STOCK-014",
+    "INV-USER-20260915-STOCK-016"
   ],
   "records": [
     {
@@ -848,6 +856,128 @@
         "release_authorized": false
       },
       "note": "Asked whether he has no neat Neroli (his 12 Oct message 'I do not hav nest neroli') and only the Aroma & More 10% in jojoba, Kenny answered 'Yes.' The 2026-09-06 record INV-USER-20260906-001 (neat Neroli owned) is retired; his only Neroli is STK-013. inventory.txt L57 is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-018",
+      "canonical_name": "Aurantiol",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_ANSWER_20261015_AURANTIOL_BOTH_NEAT_AND_10PCT_DPG"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "1. Both 2. Yes 3. about that much or more",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "supplier_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked 'Is your Aurantiol neat, 10% in DPG, or both?', Kenny answered 'Both' (item 1 of his 15 Oct reply). The gate had only the V5 row 254 10% in DPG stock, which stays as it is; inventory.txt L118 lists neat. This adds the neat bottle. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-019",
+      "canonical_name": "Vietnamese Benzoin Tincture",
+      "aliases": [
+        "Vietnamese Benzoin Styrax tonkinensis resin ethanol tincture"
+      ],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "fraction": 0.4,
+        "fraction_basis": "mass_fraction",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_DOSING_AUTHORIZATION_AT_STARTING_CHARGE",
+        "approximate": false,
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_ANSWER_20261015_DOSE_TINCTURE_AT_BUILT_STRENGTH",
+        "dosing_fraction_limit": "STARTING_CHARGE_FRACTION_IS_NOT_A_FINAL_FILTRATE_ASSAY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 222,
+          "fraction": 0.2
+        },
+        {
+          "source_row": 246
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 246,
+          "disposition": "OWNED",
+          "status": "HAVE - 40% W/W STARTING CHARGE; USER-AUTHORIZED TO DOSE AT BUILT STRENGTH (2026-10-15); FINAL FILTRATE UNASSAYED",
+          "actual_stock_text": "Styrax tonkinensis resin from Vietnam; complete ethanol extraction then funnel-drained; 40% starting charge used only as nominal property-model fraction",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_TINCTURE_DOSING_AUTHORIZATION",
+      "source_quote": "1. Both 2. Yes 3. about that much or more",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "dosing_at_starting_charge_user_authorized": true,
+        "final_filtrate_assayed": false,
+        "density_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked 'Can the benzoin and frankincense tinctures be dosed at the strengths they were made at, 40% and 33%?', Kenny answered 'Yes' (item 2 of his 15 Oct reply). The 40% w/w starting charge is now the dosing strength. The final filtrate was never assayed, so this is his dosing decision, not a measurement. Retires INV-USER-20260915-STOCK-014. Kenyan Myrrh and Turkish Storax tinctures were not asked and stay held."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-020",
+      "canonical_name": "Oman Frankincense Ethanol Tincture",
+      "aliases": [
+        "Oman Frankincense resin ethanol tincture"
+      ],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "fraction": 0.33,
+        "fraction_basis": "mass_fraction",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_DOSING_AUTHORIZATION_AT_STARTING_CHARGE",
+        "approximate": false,
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_ANSWER_20261015_DOSE_TINCTURE_AT_BUILT_STRENGTH",
+        "dosing_fraction_limit": "STARTING_CHARGE_FRACTION_IS_NOT_A_FINAL_FILTRATE_ASSAY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_TINCTURE_DOSING_AUTHORIZATION",
+      "source_quote": "1. Both 2. Yes 3. about that much or more",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "dosing_at_starting_charge_user_authorized": true,
+        "final_filtrate_assayed": false,
+        "density_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked 'Can the benzoin and frankincense tinctures be dosed at the strengths they were made at, 40% and 33%?', Kenny answered 'Yes' (item 2 of his 15 Oct reply). The 33% w/w starting charge is now the dosing strength. The final filtrate was never assayed, so this is his dosing decision, not a measurement. Retires INV-USER-20260915-STOCK-016. Kenyan Myrrh and Turkish Storax tinctures were not asked and stay held."
     }
   ]
 }

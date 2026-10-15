@@ -32,6 +32,12 @@ RECORDS = {
     "INV-USER-20261014-STK-015": ("Guaiacwood EO", 1 / 3, "mass_fraction", "dpg"),
     "INV-USER-20261014-STK-016": ("Suederal", 0.1, "mass_fraction", "dpg"),
 }
+# Kenny's 15 Oct answers, recorded after the neat-Neroli record.
+ADDED_20261015 = {
+    "INV-USER-20261014-STK-018": ("Aurantiol", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-019": ("Vietnamese Benzoin Tincture", 0.4, "mass_fraction", "ethanol"),
+    "INV-USER-20261014-STK-020": ("Oman Frankincense Ethanol Tincture", 0.33, "mass_fraction", "ethanol"),
+}
 # Kenny has no neat Neroli (2026-10-15); this record holds no stock.
 NEAT_NEROLI_NOT_OWNED = "INV-USER-20261014-STK-017"
 # EO dilutions recorded in another solvent stay as they were.
@@ -90,6 +96,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Myrrh EO and guaiacwood EO is, I can mix 10% Alpha Damascobe 10% in DPG",
         "Suederal 10% yes",
         "Yes.",
+        "1. Both 2. Yes 3. about that much or more",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -98,12 +105,15 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "INV-USER-20260828-005",
         "INV-USER-20260901-002",
         "INV-USER-20260906-001",
+        "INV-USER-20260915-STOCK-014",
+        "INV-USER-20260915-STOCK-016",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
     assert [r["record_id"] for r in overlay["delta_records"]] == [
         *RECORDS,
         NEAT_NEROLI_NOT_OWNED,
+        *ADDED_20261015,
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired
@@ -114,7 +124,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
     assert overlay["policy"]["safety_or_release_asserted"] is False
 
 
-@pytest.mark.parametrize("record_id,expected", list(RECORDS.items()))
+@pytest.mark.parametrize("record_id,expected", [*RECORDS.items(), *ADDED_20261015.items()])
 def test_each_material_is_one_execution_ready_stock(record_id: str, expected: tuple) -> None:
     name, fraction, basis, carrier = expected
     stocks = [
@@ -199,7 +209,7 @@ def test_sandalwood_base_requirement_row_is_owned() -> None:
     assert {row.disposition for row in rows} == {"OWNED"}
 
 
-@pytest.mark.parametrize("record_id,expected", list(RECORDS.items()))
+@pytest.mark.parametrize("record_id,expected", [*RECORDS.items(), *ADDED_20261015.items()])
 def test_preflight_resolves_each_stock(record_id: str, expected: tuple) -> None:
     name, fraction, basis, carrier = expected
     (stock,) = [
@@ -273,3 +283,14 @@ def test_neat_neroli_is_not_owned_and_only_the_jojoba_stock_remains() -> None:
     ]
     assert row.disposition == "GAP"
     assert "NO NEAT NEROLI" in row.status
+
+
+def test_aurantiol_keeps_the_v5_ten_percent_dpg_stock_beside_the_neat_bottle() -> None:
+    owned = sorted(
+        (s.dilution, s.fraction_basis, s.carrier, s.stock_id.split(":")[1])
+        for s in _stocks("Aurantiol") if s.status == "owned"
+    )
+    assert owned == [
+        (pytest.approx(0.1), "unspecified", "dpg", "v5"),
+        (1.0, "neat", "", "user-20261014"),
+    ]
