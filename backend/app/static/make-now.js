@@ -164,15 +164,59 @@ function makeCostRow(item, amount, prices, densities) {
   return row;
 }
 
+// The Buy page's word (GET /v2/workbench/buy-list) on a material no stock list owns,
+// needed by the formulas `formulaIds`: a line of an order on the way with that name;
+// else the Buy first row whose cards include one of those formulas under that same
+// row text, with its first tickable offer, else its first priced one; else null.
+// Names match trimmed, with case and inner spacing evened (makeNameKey). Never stock.
+function makeBuyMatch(material, formulaIds, buyList) {
+  const name = makeNameKey(material);
+  if (!name || !buyList) return null;
+  for (const group of buyList.on_the_way || []) {
+    if ((group.lines || []).some((line) => makeNameKey(line.material) === name)) {
+      return { kind: "on_the_way", shop: group.shop, orderedOn: group.ordered_on };
+    }
+  }
+  const ids = new Set(formulaIds || []);
+  const row = (buyList.buy_first || []).find((entry) => (entry.cards || [])
+    .some((card) => ids.has(card.formula_id) && makeNameKey(card.material) === name));
+  const offers = row?.offers || [];
+  const offer = offers.find((entry) => entry.tickable === true)
+    || offers.find((entry) => entry.match !== "unknown" && entry.usd_per_g);
+  return offer ? { kind: "offer", material: row.material, offer } : null;
+}
+
+// buy-list.js's text helpers, looked up when used: in the page it loads after this file.
+function makeBuyHelpers() {
+  if (typeof module === "object" && module.exports) return require("./buy-list.js");
+  return typeof buyOfferView === "function" && typeof buyDayLabel === "function" ? { buyOfferView, buyDayLabel } : null;
+}
+
+// One short line for a makeBuyMatch answer: "PW 7WX21054: US$7.30/g, 11 Apr, ฿29 a
+// bottle" (no baht without a US$ rate), or "On the way (PW, ordered 15 Oct)"; "" for none.
+function makeBuyLineText(match, helpers = makeBuyHelpers()) {
+  if (!match || !helpers) return "";
+  if (match.kind === "on_the_way") {
+    const day = helpers.buyDayLabel(match.orderedOn);
+    return `On the way (${match.shop}${day ? `, ordered ${day}` : ""})`;
+  }
+  const view = helpers.buyOfferView(match.offer, match.material);
+  if (!view.perG) return "";
+  return `${view.head}: ${view.perG}${view.bottle ? `, ${view.bottle}` : ""}`;
+}
+
 // The shopping list for the checked items of every formula on it: per stock, the
 // summed need less what is left; grouped by supplier (typed with how much is left),
-// with the stocks whose amount is still unknown listed first to ask for.
-function makeShopping(formulaItems, { onHand = {}, prices = {}, densities = {} } = {}) {
+// with the stocks whose amount is still unknown listed first to ask for. An item
+// tagged with its `formulaId` lets a "Not in your stock yet" line carry `buy`, its
+// makeBuyMatch answer from `buyList`.
+function makeShopping(formulaItems, { onHand = {}, prices = {}, densities = {}, buyList = null } = {}) {
   const totals = new Map();
   for (const items of formulaItems || []) {
     for (const item of items) {
-      const entry = totals.get(item.key) || { ...item, need: MAKE_ZERO };
+      const entry = totals.get(item.key) || { ...item, need: MAKE_ZERO, formulaIds: [] };
       entry.need = makeBench.benchPlus(entry.need, item.need);
+      if (item.formulaId !== undefined && !entry.formulaIds.includes(item.formulaId)) entry.formulaIds.push(item.formulaId);
       totals.set(item.key, entry);
     }
   }
@@ -194,6 +238,7 @@ function makeShopping(formulaItems, { onHand = {}, prices = {}, densities = {} }
       buyText: makeAmountText(item.short, item.unit),
       costText: cost && cost.cost ? makePrices.stockPriceMoneyText(cost.cost, cost.currency) : "",
       reason: item.madeByYou ? "your own dilution: make more" : (cost?.cost ? "" : cost?.reason || ""),
+      buy: supplier === MAKE_NOT_OWNED_GROUP ? makeBuyMatch(item.material, item.formulaIds, buyList) : null,
     };
     if (cost?.cost && (!currency || cost.currency === currency)) {
       currency = cost.currency;
@@ -291,6 +336,8 @@ function attachMakeNow({ doc, root, request, getInventory, getPrices, notify = (
     data: null, densities: {}, picked: new Set(), loading: null, open: new Set(),
     // Stocks like a short one, by stock id: the answer, or { error }; and which lists are open.
     similar: new Map(), similarOpen: new Set(),
+    // The Buy page's list (GET /v2/workbench/buy-list) once read, and which read is latest.
+    buyList: null, buyAsked: 0,
   };
   const status = root.querySelector("#make-status");
   const list = root.querySelector("#make-formulas");
@@ -433,8 +480,8 @@ function attachMakeNow({ doc, root, request, getInventory, getPrices, notify = (
       return;
     }
     const prices = getPrices() || {};
-    const items = picked.map(({ items: entries }) => entries);
-    const result = makeShopping(items, { onHand: view.data.on_hand, prices, densities: view.densities });
+    const items = picked.map(({ formula, items: entries }) => entries.map((item) => ({ ...item, formulaId: formula.formula_id })));
+    const result = makeShopping(items, { onHand: view.data.on_hand, prices, densities: view.densities, buyList: view.buyList });
     shopping.append(makeEl(doc, "p", "make-shopping-for",
       `For ${makeCount(picked.length, "formula")}, one ${bottleMl()} mL bottle each: ${picked.map(({ formula }) => formula.name).join(", ")}.`));
     if (result.ask.length) {
@@ -469,6 +516,8 @@ function attachMakeNow({ doc, root, request, getInventory, getPrices, notify = (
         entry.dataset.status = "short";
         const text = `${line.material}: ${line.buyText}${line.costText ? `, ${line.costText}` : ""}${line.reason ? ` (${line.reason})` : ""}`;
         entry.append(makeEl(doc, "span", "", text));
+        const buy = makeBuyLineText(line.buy);
+        if (buy) entry.append(makeEl(doc, "span", "make-buy-line", buy));
         lines.append(entry);
       }
       section.append(head, lines);
@@ -505,8 +554,23 @@ function attachMakeNow({ doc, root, request, getInventory, getPrices, notify = (
     loadDensities(all);
   }
 
+  // The Buy page's list, read beside the formulas and never waited for: until it
+  // comes, or when it fails, the page simply shows no shop prices.
+  async function loadBuyList() {
+    const asked = ++view.buyAsked;
+    try {
+      const answer = await request("/v2/workbench/buy-list");
+      if (asked !== view.buyAsked) return;
+      view.buyList = answer;
+      if (view.data) renderShopping(checks());
+    } catch {
+      // No prices this time; What can I make works as before.
+    }
+  }
+
   async function load() {
     status.textContent = "Reading your saved formulas…";
+    loadBuyList();
     try {
       view.data = await request("/v2/workbench/make-now");
       render();
@@ -531,6 +595,7 @@ function attachMakeNow({ doc, root, request, getInventory, getPrices, notify = (
 if (typeof module === "object" && module.exports) {
   module.exports = {
     makeAmount, makeStockFor, makeNeeds, makeCheck, makeVerdict, makeLineText, makeShopping, makeDensityNames, makeAmountText,
+    makeBuyMatch, makeBuyLineText,
     MAKE_NOT_OWNED_GROUP, MAKE_YOURSELF_GROUP, MAKE_NO_SUPPLIER,
   };
 }

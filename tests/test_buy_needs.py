@@ -69,11 +69,31 @@ def test_a_material_in_two_cards_is_one_need_naming_both_cards():
     ]
     ambroxan = result["needs"][0]
     assert ambroxan["cards"] == [
-        {"formula_id": "id-Amber", "version": 2, "name": "Amber", "neat_fraction": Decimal("0.25")},
-        {"formula_id": "id-Zest", "version": 2, "name": "Zest", "neat_fraction": Decimal("1")},
+        {"formula_id": "id-Amber", "version": 2, "name": "Amber", "material": "Ambrox", "neat_fraction": Decimal("0.25")},
+        {"formula_id": "id-Zest", "version": 2, "name": "Zest", "material": "Ambroxan", "neat_fraction": Decimal("1")},
     ]
     assert result["needs"][1]["cards"][0]["neat_fraction"] == Decimal("0.3")
     assert result["disagreements"] == [] and result["unreadable"] == []
+
+
+def test_each_card_keeps_its_own_spelling_of_a_material_two_cards_write_differently():
+    # A card's entry names the material with that card's first row of it; the need keeps the first card's.
+    cards = [
+        _card("Zest", [_row("Ambroxan", "100"), _row("AMBROX", "50")]),
+        _card("Amber", [_row("ambrox", "50"), _row("Cedarwood EO", "50")]),
+        _card("Wood", [_row("cedarwood  eo", "10")]),
+    ]
+    states = {"Ambroxan": [_NOT_OWNED], "AMBROX": [_NOT_OWNED], "ambrox": [_NOT_OWNED],
+              "Cedarwood EO": [_DISAGREE], "cedarwood  eo": [_DISAGREE]}
+    result = card_needs(cards, registry=_REGISTRY, holds=_holds(states))
+
+    (need,) = result["needs"]
+    assert need["material"] == "Ambroxan"
+    assert [(c["name"], c["material"]) for c in need["cards"]] == [("Amber", "ambrox"), ("Zest", "Ambroxan")]
+    (disagreement,) = result["disagreements"]
+    assert [(c["name"], c["material"]) for c in disagreement["cards"]] == [
+        ("Amber", "Cedarwood EO"), ("Wood", "cedarwood  eo"),
+    ]
 
 
 def test_neat_fraction_is_exact_active_over_the_concentrate():

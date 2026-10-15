@@ -312,6 +312,22 @@ def test_cost_per_bottle_range_across_two_cards(tmp_path):
     assert offer["neat_thb_per_g"] == "335.5"
 
 
+def test_each_card_keeps_its_own_row_text_for_the_material():
+    # Two cards spell one material differently; What can I make matches each card by its own text.
+    santal = {**_card("santal"), "material": "Sandalwood Oil"}
+    cedar = {**_card("cedar", "0.03"), "material": "  sandalwood OIL"}
+    disagreement = {**_need("Vetiver Oil", {**_card("v"), "material": "vetiver oil"}), "code": "X", "reason": "r"}
+    result = _build(_needs(_need("Sandalwood Oil", santal, cedar), disagreements=[disagreement]))
+
+    row = _row(result, "sandalwood oil")
+    assert row["material"] == "Sandalwood Oil"
+    assert [(card["name"], card["material"]) for card in row["cards"]] == [
+        ("Santal", "Sandalwood Oil"), ("Cedar", "  sandalwood OIL"),
+    ]
+    assert result["check_stock"][0]["cards"][0]["material"] == "vetiver oil"
+    json.dumps(result)
+
+
 def test_old_prices_never_drop_rows():
     needs = _needs(*(_need(name, _card("f")) for name in ("Sandalwood Oil", "Vetiver Oil")))
     result = _build(needs)

@@ -175,6 +175,7 @@ def card_needs(
                     "formula_id": card.get("formula_id"),
                     "version": card.get("version"),
                     "name": card.get("name"),
+                    "material": item["row_text"],
                     "neat_fraction": _exact(fractions[key]) if fractions.get(key) is not None else None,
                 })
     needs, disagreements = [], []

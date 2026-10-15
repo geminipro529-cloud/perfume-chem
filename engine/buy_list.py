@@ -198,6 +198,7 @@ def _card_json(card: Mapping[str, Any], cost: Decimal | None = None) -> dict[str
         "formula_id": card.get("formula_id"),
         "version": card.get("version"),
         "name": card.get("name"),
+        "material": card.get("material"),
         "neat_fraction": None if fraction is None else str(fraction),
         "cost_per_bottle_thb": _thb(cost),
     }
