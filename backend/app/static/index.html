@@ -42,6 +42,7 @@
       <button class="nav-item" data-view="editor">Edit a formula</button>
       <button class="nav-item" data-view="benchsheet">Bench sheet</button>
       <button class="nav-item" data-view="materials">Stock</button>
+      <button class="nav-item" data-view="make">What can I make</button>
       <button class="nav-item" data-view="bottles">Bottles</button>
       <button class="nav-item" data-view="batch">Batch</button>
       <button class="nav-item" data-view="nose">Your nose</button>
@@ -445,6 +446,12 @@
             </div>
           </form>
         </article>
+        <article class="panel shelf-map-panel" aria-labelledby="shelf-map-title">
+          <div class="card-title-row"><div><p class="panel-index">Your shelf by character</p><h2 id="shelf-map-title">Shelf map</h2></div></div>
+          <p class="friendly-boundary">Your owned materials placed by the character written for each, so facets few of them lead with and materials written almost alike show. Similar, not the same: the map is not a smell test.</p>
+          <button id="shelf-map-toggle" class="quiet-button" type="button" aria-expanded="false" aria-controls="shelf-map">Show the shelf map</button>
+          <div id="shelf-map" class="shelf-map" hidden></div>
+        </article>
         <details class="panel optional-ledger-tools">
           <summary>Optional laboratory ledger tools</summary>
           <p class="friendly-boundary">Use these only when you deliberately want a separate transactional laboratory record. They are not required for formulation chat.</p>
@@ -513,6 +520,8 @@
             <div id="formula-variant-picker" class="formula-variant-picker" hidden aria-label="Design alternatives"></div>
             <p id="formula-result-variant" class="formula-result-variant"></p>
             <div id="formula-result-checks" class="formula-result-checks" role="status" hidden></div>
+            <div id="formula-holds-bar" class="hold-list-bar" hidden><button type="button" class="quiet-button" id="formula-holds-toggle">What's missing</button></div>
+            <div id="formula-holds" class="hold-list" hidden></div>
             <div id="formula-result-detection" class="formula-result-checks" role="status" hidden></div>
             <div id="formula-result-voices" class="formula-result-voices" role="status" hidden></div>
             <div id="formula-result-scent" class="scent-chart" hidden></div>
@@ -601,6 +610,19 @@
         <div class="panel"><h2>Formula register</h2><div id="formula-list" class="record-list"></div></div>
         <pre id="analysis-output" class="output-block" tabindex="0">No analysis run yet.</pre>
         </details>
+      </section>
+
+      <section class="view" data-panel="make" aria-labelledby="make-title">
+        <div class="view-heading"><div><p class="eyebrow">From the stock on your shelf</p><h1 id="make-title">What can I make</h1><p class="lede">Your saved formulas against how much of each stock is left, for one bottle each, and a shopping list grouped by supplier with your prices. It asks how much is left only of the stocks a formula needs. Nothing here changes a formula or your stock list.</p></div></div>
+        <div class="panel make-panel">
+          <div class="make-toolbar">
+            <label class="inventory-select">Bottle <span>mL</span><input id="make-bottle-ml" inputmode="decimal" autocomplete="off" value="30"></label>
+            <button id="make-refresh" class="quiet-button" type="button">Read saved formulas again</button>
+          </div>
+          <p id="make-status" class="stock-count-line" role="status" aria-live="polite"></p>
+          <div id="make-formulas" class="make-formulas"></div>
+        </div>
+        <div class="panel make-panel"><h2 id="make-shopping-title">Shopping list</h2><div id="make-shopping" class="make-shopping"></div></div>
       </section>
 
       <section class="view" data-panel="batch" aria-labelledby="batch-title">
@@ -706,6 +728,8 @@
             <h3 id="editor-ifra-title">IFRA</h3>
             <p id="editor-ifra-verdict" class="editor-verdict" aria-live="polite"></p>
             <ul id="editor-ifra-list" class="editor-check-list"></ul>
+            <div id="editor-holds-bar" class="hold-list-bar" hidden><button type="button" class="quiet-button" id="editor-holds-toggle">What's missing</button></div>
+            <div id="editor-holds" class="hold-list" hidden></div>
           </section>
           <section class="editor-check" aria-labelledby="editor-allergen-title">
             <h3 id="editor-allergen-title">EU allergens on the label</h3>
@@ -1070,6 +1094,9 @@
   <script src="/static/smell-log.js" defer></script>
   <script src="/static/blind-test.js" defer></script>
   <script src="/static/brief-notes.js" defer></script>
+  <script src="/static/hold-list.js" defer></script>
+  <script src="/static/similar-stocks.js" defer></script>
+  <script src="/static/make-now.js" defer></script>
   <script src="/static/batch-label.js" defer></script>
   <script src="/static/batch.js" defer></script>
   <script src="/static/formula-editor.js" defer></script>

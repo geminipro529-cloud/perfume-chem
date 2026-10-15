@@ -607,3 +607,87 @@ button:disabled, .quiet-button:disabled, button[type="submit"]:disabled,
   .brief-chip { width: 100%; }
   .brief-chip .quiet-button, .brief-notes-bar .quiet-button, .brief-notes-add .quiet-button { min-height: 44px; }
 }
+
+/* "What's missing" under a HOLD (hold-list.js). */
+.hold-list-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+.hold-list-bar[hidden] { display: none; }
+.hold-list { display: grid; gap: 8px; margin: 0 0 12px; padding: 12px; border: 1px solid var(--line); border-left: 4px solid var(--hold); border-radius: 8px; background: var(--paper-high); }
+.hold-list[hidden] { display: none; }
+.hold-list-summary { margin: 0; color: var(--ink); }
+.hold-list-summary.is-problem { color: var(--fail-fg); background: var(--fail-bg); padding: 6px 8px; border-radius: 6px; }
+.hold-list-items { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.hold-item { display: grid; gap: 4px; padding: 8px; border: 1px solid var(--field-border); border-radius: 8px; background: var(--paper); overflow-wrap: anywhere; }
+.hold-item p { margin: 0; }
+.hold-item-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; color: var(--ink); }
+.hold-item-check { padding: 0 8px; border-radius: 999px; font-size: 12px; color: var(--hold-fg); background: var(--hold-bg); }
+.hold-item-owner { padding: 0 8px; border-radius: 999px; font-size: 12px; color: var(--ink); border: 1px solid var(--line); }
+.hold-item[data-owner="claude"] .hold-item-owner { color: var(--muted); }
+.hold-item-reason { color: var(--ink); }
+.hold-item-action { color: var(--muted); font-size: 14px; }
+.hold-item-open { justify-self: start; }
+.hold-list-basis { color: var(--muted); font-size: 13px; }
+@media (max-width: 760px) {
+  .hold-list-bar .quiet-button, .hold-item-open { min-height: 44px; }
+}
+
+/* What can I make (make-now.js). */
+.make-toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 8px 16px; }
+.make-toolbar input { max-width: 8em; }
+.make-formulas, .make-shopping { display: grid; gap: 12px; margin-top: 12px; }
+.make-card, .make-group, .make-ask { display: grid; gap: 6px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-high); overflow-wrap: anywhere; }
+.make-card[data-status="ok"] { border-left: 4px solid var(--pass-fg); }
+.make-card[data-status="short"] { border-left: 4px solid var(--fail-fg); }
+.make-card[data-status="unknown"] { border-left: 4px solid var(--hold); }
+.make-card-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 8px; }
+.make-card-head h3 { margin: 0; color: var(--ink); }
+.make-card p, .make-group p, .make-ask p, .make-shopping > p { margin: 0; }
+.make-chip { padding: 0 8px; border-radius: 999px; font-size: 12px; }
+.make-chip-ok { color: var(--pass-fg); background: var(--pass-bg); }
+.make-chip-short { color: var(--fail-fg); background: var(--fail-bg); }
+.make-chip-unknown { color: var(--hold-fg); background: var(--hold-bg); }
+.make-verdict, .make-total, .make-shopping-for { color: var(--ink); }
+.make-subtotal { color: var(--ink); font-weight: 700; }
+.make-rows { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.make-rows[hidden] { display: none; }
+.make-row { display: grid; gap: 6px; padding: 6px 8px; border-radius: 6px; color: var(--ink); background: var(--paper); }
+.make-row[data-status="short"], .make-row[data-status="missing"] { color: var(--fail-fg); background: var(--fail-bg); }
+.make-row[data-status="unknown"] { color: var(--hold-fg); background: var(--hold-bg); }
+.make-left-form { display: flex; flex-wrap: wrap; align-items: end; gap: 6px 10px; }
+.make-left-form label { display: grid; gap: 2px; font-size: 13px; }
+.make-left-form input { min-width: 6em; max-width: 12em; }
+.make-left-message:empty { display: none; }
+@media (max-width: 760px) {
+  .make-card .quiet-button, .make-left-form .quiet-button, .make-toolbar .quiet-button { min-height: 44px; }
+}
+
+/* Similar you own and the shelf map (similar-stocks.js): owned stocks by written character. */
+.similar-list { display: grid; gap: 6px; }
+.similar-list h4 { margin: 6px 0 0; font-size: 14px; color: var(--ink); }
+.similar-list p { margin: 0; }
+.similar-items { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.similar-item { display: grid; gap: 4px; padding: 8px; border: 1px solid var(--line); border-radius: 6px; color: var(--ink); background: var(--paper); overflow-wrap: anywhere; }
+.similar-head { color: var(--ink); }
+.similar-closeness { color: var(--muted); font-size: 13px; }
+.similar-line, .similar-empty { color: var(--ink); }
+.similar-stocks { display: flex; flex-wrap: wrap; gap: 6px; }
+.similar-stock { color: var(--muted); font-size: 13px; }
+.make-similar { display: grid; gap: 6px; }
+.make-similar-list { display: grid; gap: 6px; padding: 8px; border-radius: 6px; color: var(--ink); background: var(--paper-high); }
+.make-similar-list[hidden] { display: none; }
+.shelf-map { display: grid; gap: 8px; margin-top: 8px; }
+.shelf-map[hidden] { display: none; }
+.shelf-map h4 { margin: 6px 0 0; font-size: 14px; color: var(--ink); }
+.shelf-map p { margin: 0; }
+.shelf-svg { width: 100%; max-width: 420px; height: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.shelf-dot { fill: var(--blue); fill-opacity: 0.75; }
+.shelf-dot.is-found { fill: var(--fail-fg); fill-opacity: 1; stroke: var(--ink); stroke-width: 2; }
+.shelf-axes, .shelf-found { color: var(--ink); }
+.shelf-found:empty { display: none; }
+.shelf-find { display: grid; gap: 4px; max-width: 420px; color: var(--ink); }
+.shelf-more summary { cursor: pointer; color: var(--ink); font-weight: 700; padding: 6px 0; }
+.shelf-more[open] summary { margin-bottom: 4px; }
+.shelf-list { display: grid; gap: 4px; margin: 0; padding-left: 18px; color: var(--ink); }
+.shelf-unplaced { color: var(--ink); overflow-wrap: anywhere; }
+@media (max-width: 760px) {
+  .similar-pick, .make-similar .quiet-button, #shelf-map-toggle, .shelf-more summary, .shelf-find input { min-height: 44px; }
+}
