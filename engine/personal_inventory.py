@@ -570,9 +570,13 @@ def materialize_personal_inventory(
         bound.append(stock)
     # The workbook can list one bottle twice, with and without its solvent: the
     # fuller record goes first, whichever order the workbook lists them in.
+    # A dilution made on the Stock page is another bottle, so it never stands in for one.
     loose.sort(key=lambda stock: -_fullness(stock))
     for stock in loose:
-        if not any(_described_more_fully(other, stock) for other in bound):
+        if not any(
+            other.authority != PREPARED_DILUTION_AUTHORITY and _described_more_fully(other, stock)
+            for other in bound
+        ):
             bound.append(stock)
 
     projected: list[InventoryMaterial] = list(bound)
@@ -593,12 +597,14 @@ def materialize_personal_inventory(
         # leaves nothing the line names in disagreement, or that carries Kenny's
         # own word on that bottle (an overlay or a Stock page entry), is the
         # line's bottle.  When the line says something else, the record's row
-        # says what it says (RULE 0).
+        # says what it says (RULE 0).  A dilution made on the Stock page is never
+        # on inventory.txt, so no line is taken as one.
         record = next(
             (
                 existing
                 for existing in bound
-                if _normalized_identity(existing) == identity
+                if existing.authority != PREPARED_DILUTION_AUTHORITY
+                and _normalized_identity(existing) == identity
                 and (
                     _compatible_form(existing, stock)
                     or (

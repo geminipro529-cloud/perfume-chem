@@ -240,3 +240,42 @@ def test_his_latest_overlay_word_on_a_name_decides_whether_he_owns_it(tmp_path: 
     assert stock_matching.not_owned_names(tmp_path) == {
         normalize_name("Neroli EO (neat)"), normalize_name("Neroli EO neat"),
     }
+
+
+PREPARED = "LAB_STOCK_PAGE_PREPARED_DILUTION"
+
+
+def _prepared(stock_id, name, dilution, *, identity, carrier):
+    # A dilution Kenny made on the Stock page: a new bottle, never on inventory.txt.
+    return _record(stock_id, name, dilution, identity=identity, carrier=carrier, basis="mass_fraction",
+                   authority=PREPARED, ready=True, completion="a" * 64)
+
+
+def test_a_dilution_made_on_the_stock_page_never_takes_an_inventory_list_line(join):
+    # Kenny made a 10% in ethanol on the Stock page; inventory.txt lists his older 10% in
+    # DPG. Those are two bottles: the line keeps its own row and is not mapped to the new one.
+    prepared = _prepared("p:iso-10-eth", "Iso E Super 10%", 0.1, identity="Iso E Super", carrier="ethanol")
+    line = _line("Iso E Super (10% DPG)", "Iso E Super", 0.1, carrier="dpg", basis="mass_fraction")
+
+    projection = join([prepared], [line])
+
+    rows = _rows(projection, "Iso E Super")
+    assert {s.stock_id for s in rows if s.authority != LIVE_TEXT_AUTHORITY} == {"p:iso-10-eth"}
+    assert [s.raw_name for s in rows if s.authority == LIVE_TEXT_AUTHORITY] == [line.raw_name]
+    assert projection.merged_text_stock_ids == ()
+    assert projection.inventory_text_notes == ()
+
+
+def test_a_dilution_made_on_the_stock_page_does_not_hide_the_workbook_bottle(join):
+    # The workbook's 10% leaves its solvent blank; inventory.txt says it is in DPG. A 10% in
+    # ethanol Kenny made on the Stock page is another bottle, so the workbook bottle stays
+    # shown and the line is still its bottle.
+    record = _record("v5:iso-10", "Iso E Super 10%", 0.1, identity="Iso E Super")
+    prepared = _prepared("p:iso-10-eth", "Iso E Super 10%", 0.1, identity="Iso E Super", carrier="ethanol")
+    line = _line("Iso E Super (10% DPG)", "Iso E Super", 0.1, carrier="dpg", basis="mass_fraction")
+
+    projection = join([record, prepared], [line])
+
+    assert {s.stock_id for s in _rows(projection, "Iso E Super")} == {"v5:iso-10", "p:iso-10-eth"}
+    assert [record_id for _text_id, record_id in projection.merged_text_stock_ids] == ["v5:iso-10"]
+    assert projection.inventory_text_forms == (("v5:iso-10", "dpg", "mass_fraction"),)
