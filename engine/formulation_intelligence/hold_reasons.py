@@ -201,17 +201,7 @@ def _twin_match(stock: Any, governed: Sequence[Any]) -> tuple[list[Any], str]:
     return stock_matching.twin_match(stock, governed, _overlay_aliases())
 
 
-_SOLVENT_ABBREVIATIONS = frozenset({"dpg", "dep", "ipm", "tec", "mct", "ipa", "tpm", "bb", "peg", "dmso"})
-
-
-def _carrier_text(carrier: str) -> str:
-    """A solvent as written on a label: "ethanol + dep" -> "ethanol + DEP"."""
-
-    return " ".join(
-        word.upper() if word.casefold() in _SOLVENT_ABBREVIATIONS else word for word in str(carrier or "").split()
-    )
-
-
+_carrier_text = stock_matching.carrier_text
 _carrier_key = stock_matching.carrier_key
 _BASIS_KEYS = stock_matching.BASIS_KEYS
 _BASIS_WORDS = {"mass": "by weight", "volume": "by volume", "mass_per_volume": "weight per volume"}
@@ -416,7 +406,10 @@ def _stock_item(
     reason = str(issue.get("reason") or "")
     fraction = (record.get("dilutions") or {}).get(material)
     by_id, by_name = _stock_lookup(projection)
-    stock = by_id.get(str(issue.get("stock_id") or row_stock_ids.get(material) or ""))
+    wanted = str(issue.get("stock_id") or row_stock_ids.get(material) or "")
+    # A row saved against an inventory.txt line now shown as the checks' own record.
+    wanted = dict(getattr(projection, "merged_text_stock_ids", ()) or ()).get(wanted, wanted)
+    stock = by_id.get(wanted)
     candidates = [stock] if stock else list(by_name.get(material.casefold(), []))
     owned = [s for s in candidates if str(s.status).casefold() == "owned"]
     item: dict[str, Any] = {

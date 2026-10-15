@@ -100,7 +100,10 @@ def candidates_by_name() -> dict:
         ("Oakmoss Absolute", "mossy"),
         ("Evernyl 10%", "mossy"),
         ("Oakmoss Absolute", "oakmoss"),
-        ("Ambrettolide", "musky"),
+        # Kenny's neat Ambrettolide (his 2026-10-08 word) shows beside the 10%
+        # since the Stock page stopped hiding his own records; both are named.
+        ("Ambrettolide (neat)", "musky"),
+        ("Ambrettolide 10%", "musky"),
         # One bottle since 2026-10-14; the bracketed stock text no longer splits
         # it into "Olibanum Resinoid 50%" and "Olibanum Resinoid (viscous, 50%".
         ("Olibanum Resinoid", "incense"),

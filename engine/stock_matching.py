@@ -127,6 +127,17 @@ def twin_match(
     return (same, kind) if len(identities) == 1 else ([], "none")
 
 
+_SOLVENT_ABBREVIATIONS = frozenset({"dpg", "dep", "ipm", "tec", "mct", "ipa", "tpm", "bb", "peg", "dmso"})
+
+
+def carrier_text(carrier: str) -> str:
+    """A solvent as written on a label: "ethanol + dep" -> "ethanol + DEP"."""
+
+    return " ".join(
+        word.upper() if word.casefold() in _SOLVENT_ABBREVIATIONS else word for word in str(carrier or "").split()
+    )
+
+
 def carrier_key(carrier: Any) -> str:
     """A solvent for comparing two records: "DPG w/w" and "dpg" are the same solvent."""
 

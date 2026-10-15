@@ -22,6 +22,7 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
 
+from engine import stock_matching
 from engine.inventory_dilutions import PREPARED_DILUTION_AUTHORITY
 from engine.inventory_parser import (
     INVENTORY_PATH,
@@ -108,6 +109,12 @@ class PersonalInventoryProjection:
     addition_log_sha256: str
     effective_inventory_sha256: str
     canonical_stock_ids: frozenset[str]
+    # An inventory.txt line shown as the checks' own record of the same bottle:
+    # (the id its own row used to have, the record's stock id).
+    merged_text_stock_ids: tuple[tuple[str, str], ...] = ()
+    # What inventory.txt says about a shown record when it says something else:
+    # (stock id, "Your inventory list says 10% v/v in ethanol").
+    inventory_text_notes: tuple[tuple[str, str], ...] = ()
 
 
 def addition_log_path(path: Path | None = None) -> Path:
@@ -232,6 +239,48 @@ def _stock_label_fraction_consistent(
         if stated and not any(abs(value - float(stock.dilution)) <= 1e-9 for value in stated):
             return False
     return True
+
+
+def _compatible_form(record: InventoryMaterial, line: InventoryMaterial) -> bool:
+    """One strength, and no solvent or basis written on both sides that disagrees."""
+
+    return stock_matching.same_strength(record, line) and stock_matching.same_form(record, line)
+
+
+def _described_more_fully(full: InventoryMaterial, bare: InventoryMaterial) -> bool:
+    """``full`` is ``bare``'s bottle and also names the solvent or basis ``bare`` leaves blank."""
+
+    if _normalized_identity(full) != _normalized_identity(bare) or not _compatible_form(full, bare):
+        return False
+    more_carrier = bool(stock_matching.carrier_key(full.carrier)) and not stock_matching.carrier_key(bare.carrier)
+    more_basis = bool(stock_matching.BASIS_KEYS.get(full.fraction_basis)) and not stock_matching.BASIS_KEYS.get(
+        bare.fraction_basis
+    )
+    return more_carrier or more_basis
+
+
+def _form_text(stock: InventoryMaterial) -> str:
+    """A stock's strength as a label writes it: "10% v/v in ethanol", "neat"."""
+
+    fraction = float(stock.dilution)
+    if abs(fraction - 1.0) < 1e-9:
+        return "neat"
+    basis = {"mass_fraction": " w/w", "volume_fraction": " v/v", "mass_per_volume": " w/v"}.get(
+        stock.fraction_basis, ""
+    )
+    carrier = stock_matching.carrier_text(str(stock.carrier or "").strip())
+    return f"{fraction * 100:.6g}%{basis}{f' in {carrier}' if carrier else ''}"
+
+
+def _says_otherwise(line: InventoryMaterial, record: InventoryMaterial) -> bool:
+    """The inventory.txt line names a solvent or basis the record does not have."""
+
+    carrier = stock_matching.carrier_key(line.carrier)
+    basis = stock_matching.BASIS_KEYS.get(line.fraction_basis)
+    return bool(
+        (carrier and carrier != stock_matching.carrier_key(record.carrier))
+        or (basis and basis != stock_matching.BASIS_KEYS.get(record.fraction_basis))
+    )
 
 
 def _live_design_stock(stock: InventoryMaterial) -> InventoryMaterial:
@@ -433,6 +482,7 @@ def materialize_personal_inventory(
         live_by_identity.setdefault(_normalized_identity(stock), []).append(stock)
 
     bound: list[InventoryMaterial] = []
+    loose: list[InventoryMaterial] = []
     for stock in governed.stocks:
         live_forms = live_by_identity.get(_normalized_identity(stock), [])
         # A dilution prepared on the Stock page is not in inventory.txt by design,
@@ -440,22 +490,65 @@ def materialize_personal_inventory(
         # over the old inventory.txt form, so its row and disagreement stay shown.
         prepared = stock.authority == PREPARED_DILUTION_AUTHORITY
         overridden = bool(stock.authority_facts_differ)
+        # Kenny's dated overlays record his own word on a bottle, newer than the
+        # hand-kept list, so inventory.txt never hides one of those records.
+        his_word = stock_matching.is_user_word(stock)
         # Stock page facts are the user's own record and the gate counts them,
         # so a name still stating the workbook strength must not hide the row.
         user_recorded = prepared or bool(stock.completion_event_sha256)
-        if not user_recorded and not _stock_label_fraction_consistent(stock, live_forms):
+        if not user_recorded and not his_word and not _stock_label_fraction_consistent(stock, live_forms):
             continue
-        if not prepared and not overridden and live_forms and not any(
+        if not prepared and not overridden and not his_word and live_forms and not any(
             _same_stock_form(stock, live) for live in live_forms
         ):
+            # A record that leaves blank the solvent or basis an inventory.txt line
+            # at its strength names is that line's bottle: shown, so its Stock page
+            # form can record them.  A record of a strength inventory.txt does not
+            # list stays hidden; "What's missing" asks which strength Kenny has.
+            if any(_compatible_form(stock, live) for live in live_forms):
+                loose.append(stock)
             continue
         bound.append(stock)
+    for stock in loose:
+        # The workbook can list one bottle twice, with and without its solvent.
+        if not any(_described_more_fully(other, stock) for other in bound):
+            bound.append(stock)
 
     projected: list[InventoryMaterial] = list(bound)
+    merged: list[tuple[str, str]] = []
+    notes: dict[str, list[str]] = {}
     for stock in live_owned:
         if any(_same_stock_form(existing, stock) for existing in projected):
             continue
-        projected.append(_live_design_stock(stock))
+        text_stock = _live_design_stock(stock)
+        identity = _normalized_identity(stock)
+        # One bottle, one row: a record of the same material and strength that
+        # leaves nothing the line names in disagreement, or that carries Kenny's
+        # own word on that bottle, is the line's bottle.  When the line says
+        # something else, the record's row says what it says (RULE 0).
+        record = next(
+            (
+                existing
+                for existing in bound
+                if _normalized_identity(existing) == identity
+                and (
+                    _compatible_form(existing, stock)
+                    or (
+                        stock_matching.is_user_word(existing)
+                        and stock_matching.same_strength(existing, stock)
+                    )
+                )
+            ),
+            None,
+        )
+        if record is None:
+            projected.append(text_stock)
+            continue
+        merged.append((text_stock.stock_id, record.stock_id))
+        if _says_otherwise(stock, record):
+            note = f"Your inventory list says {_form_text(stock)}"
+            if note not in notes.setdefault(record.stock_id, []):
+                notes[record.stock_id].append(note)
 
     events = load_personal_inventory_addition_events(addition_path)
     for event in events:
@@ -519,6 +612,10 @@ def materialize_personal_inventory(
         addition_log_sha256=addition_sha,
         effective_inventory_sha256=_sha256_text(_canonical_json(projection_payload)),
         canonical_stock_ids=frozenset(stock.stock_id for stock in governed.stocks),
+        merged_text_stock_ids=tuple(merged),
+        inventory_text_notes=tuple(
+            (stock_id, "; ".join(texts)) for stock_id, texts in sorted(notes.items())
+        ),
     )
 
 
