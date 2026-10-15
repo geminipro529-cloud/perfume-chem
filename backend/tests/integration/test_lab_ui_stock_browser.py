@@ -163,21 +163,29 @@ def test_table_rows_show_dilutions_gate_holds_and_workbook_differences(lab):
         _stock("Hedione", percent="50", basis="mass_fraction", carrier="DPG"),
         authority_disagreement={"text": "Differs from the workbook: workbook says neat"},
     )
+    # What inventory.txt says about a bottle the checks' record now stands for, as plain text.
+    noted = dict(
+        _stock("Geraniol", percent="10", basis="unspecified", ready=False, missing=["carrier"], completion=True),
+        inventory_text_note="Your inventory list says 10% w/w in <b>DPG</b>",
+    )
     lab.respond("GET", INVENTORY_PATH, json={
-        "stocks": [parent, made, differs],
-        "counts": {"stocks": 3, "design_ready": 3, "prepared_dilutions": 1},
+        "stocks": [parent, made, differs, noted],
+        "counts": {"stocks": 4, "design_ready": 3, "prepared_dilutions": 1},
         "display_source": "Test inventory",
     })
     lab.open("#materials")
     lab.page.locator("#project-inventory-list tbody tr").first.wait_for()
 
     assert lab.page.locator("#project-inventory-ready").inner_text() == (
-        "3 of 3 ready to design · 1 dilutions you made"
+        "3 of 4 ready to design · 1 need details · 1 dilutions you made"
     )
     made_row = _row(lab, "Iso E Super 10% w/w in DPG").inner_text()
     assert "Your dilution" in made_row
     assert "Held at the gate: its parent bottle changed after this dilution" in made_row
     assert "Differs from the workbook: workbook says neat" in _row(lab, "Hedione").inner_text()
+    geraniol = _row(lab, "Geraniol")
+    assert "Your inventory list says 10% w/w in <b>DPG</b>" in geraniol.inner_text()
+    assert geraniol.locator("b").count() == 0
     assert lab.page.get_by_role("button", name="Add a dilution").count() == 1
 
     lab.page.get_by_role("button", name="Add a dilution").click()
