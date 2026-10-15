@@ -42,15 +42,28 @@ class BatchRecordRequest(BatchGateRunRequest):
 
 class BatchActual(BaseModel):
     line: int
-    actual_amount: str = Field(max_length=20)
+    actual_amount: str | None = Field(default=None, max_length=20)
+    # Bench mode on the phone: grams on the balance, and for a µL line the stock
+    # density used to turn them into µL (the server works the µL out).
+    weighed_g: str | None = Field(default=None, max_length=20)
+    density_g_ml: str | None = Field(default=None, max_length=20)
 
 
 class BatchActualsRequest(BaseModel):
     actuals: list[BatchActual] = Field(max_length=500)
     notes: str = Field(default="", max_length=4000)
+    # The record's actuals_version and recorded_at as the device loaded them; a
+    # save from a device that missed another device's save is refused (409).
+    based_on: int | None = Field(default=None, ge=0)
+    batch_recorded_at: str | None = Field(default=None, max_length=40)
 
 
 def _error(error: Exception) -> JSONResponse:
+    if isinstance(error, batches.BatchConflictError):
+        return JSONResponse(
+            status_code=status.HTTP_409_CONFLICT,
+            content={"error": {"code": error.code, "message": str(error.args[0])}},
+        )
     not_found = isinstance(error, LookupError)
     return JSONResponse(
         status_code=status.HTTP_404_NOT_FOUND if not_found else status.HTTP_400_BAD_REQUEST,
@@ -148,7 +161,11 @@ def get_batch(lot: str) -> dict[str, Any] | JSONResponse:
 def record_actuals(lot: str, request: BatchActualsRequest) -> dict[str, Any] | JSONResponse:
     try:
         return batches.record_actuals(
-            lot, [item.model_dump() for item in request.actuals], request.notes
+            lot,
+            [item.model_dump() for item in request.actuals],
+            request.notes,
+            based_on=request.based_on,
+            batch_recorded_at=request.batch_recorded_at,
         )
     except (ValueError, LookupError) as error:
         return _error(error)

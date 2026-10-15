@@ -55,13 +55,26 @@ _VOLUME_IN_NAME = re.compile(r"(?<![\w.])(\d+(?:\.\d+)?)\s*-?\s*ml\b", re.IGNORE
 
 # One release gate at a time in this checkout, across every request thread.
 _GATE_LOCK = threading.Lock()
-_LOG_LOCK = threading.Lock()
+# Reentrant: record_actuals holds it across its read, check and append.
+_LOG_LOCK = threading.RLock()
 _RUNS_LOCK = threading.Lock()
 _RUNS: dict[str, dict[str, Any]] = {}
 
 
 class BatchError(ValueError):
     """A batch request that can't be carried out; the message says why."""
+
+
+class BatchConflictError(BatchError):
+    """The batch changed since the device that sent this loaded it.
+
+    `code` is BATCH_CHANGED when another device saved weighed amounts in
+    between, or BATCH_REPLACED when the lot is now a different batch.
+    """
+
+    def __init__(self, message: str, code: str) -> None:
+        super().__init__(message)
+        self.code = code
 
 
 # ---------------------------------------------------------------------------
@@ -365,10 +378,12 @@ def _fold(events: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     for event in events:
         lot = event["lot"]
         if event["event"] == "BATCH_RECORDED":
-            records[lot] = {**event["record"], "actuals": [], "actuals_recorded_at": None}
+            records[lot] = {**event["record"], "actuals": [], "actuals_recorded_at": None, "actuals_version": 0}
         elif event["event"] == "ACTUALS_RECORDED" and lot in records:
             records[lot]["actuals"] = event["actuals"]
             records[lot]["actuals_recorded_at"] = event["recorded_at"]
+            # Counts the saves, so a device can say which set its changes started from.
+            records[lot]["actuals_version"] += 1
             if event.get("notes"):
                 records[lot]["actual_notes"] = event["notes"]
     return records
@@ -435,28 +450,116 @@ def record_batch(
     return get_record(lot)
 
 
-def record_actuals(lot: str, actuals: list[dict[str, Any]], notes: str) -> dict[str, Any]:
-    """Append what was actually weighed for each planned line (any subset)."""
+# A stock's density, from the material data and its carrier on the bench sheet
+# (bench-sheet.js benchStockDensity); outside this range it is a typing slip.
+_DENSITY_RANGE = (Decimal("0.5"), Decimal("2.5"))
 
-    record = get_record(lot)
-    lines = {row["line"]: row for row in record["planned_rows"]}
-    cleaned = []
-    for item in actuals:
-        line = item.get("line")
-        if line not in lines:
-            raise BatchError(f"Line {line} is not on this batch.")
+
+def _given(value: Any) -> bool:
+    return value is not None and str(value).strip() != ""
+
+
+def _actual_amount(line: Any, unit: str, item: dict[str, Any]) -> dict[str, str]:
+    """The amount in the line's own unit, typed or worked out from grams weighed.
+
+    The phone's bench mode weighs a µL line on the balance: the grams and the
+    stock density it used are kept, and the µL is worked out here, to 0.1 µL.
+    """
+
+    if not _given(item.get("weighed_g")):
         amount = _decimal(item.get("actual_amount"), f"Line {line} actual amount", allow_zero=True)
-        cleaned.append({"line": line, "material": lines[line]["material"], "unit": lines[line]["unit"], "actual_amount": _text(amount)})
-    _append_event(
-        {
-            "event": "ACTUALS_RECORDED",
-            "lot": record["lot"],
-            "actuals": sorted(cleaned, key=lambda row: row["line"]),
-            "notes": str(notes or "").strip()[:4000],
-            "recorded_at": datetime.now(UTC).isoformat(timespec="seconds"),
-        }
-    )
-    return get_record(record["lot"])
+        return {"actual_amount": _text(amount)}
+    if _given(item.get("actual_amount")):
+        raise BatchError(f"Line {line}: give the amount or the grams weighed, not both.")
+    grams = _decimal(item.get("weighed_g"), f"Line {line} grams weighed", allow_zero=True)
+    if unit == "mg":
+        return {"actual_amount": _text(grams * 1000), "weighed_g": _text(grams)}
+    density = _decimal(item.get("density_g_ml"), f"Line {line} density")
+    if not _DENSITY_RANGE[0] <= density <= _DENSITY_RANGE[1]:
+        raise BatchError(f"Line {line} density must be between 0.5 and 2.5 g/mL.")
+    microlitres = (grams * 1000 / density).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
+    return {"actual_amount": _text(microlitres), "weighed_g": _text(grams), "density_g_ml": _text(density)}
+
+
+def _kept_grams(item: dict[str, Any], saved: dict[str, Any] | None) -> dict[str, Any]:
+    """An amount sent unchanged keeps the grams it was worked out from.
+
+    The PC's table shows and sends a line's amount only; a line weighed in grams
+    on the phone and sent back unchanged keeps its grams and density.
+    """
+
+    if not saved or not saved.get("weighed_g") or _given(item.get("weighed_g")) or not _given(item.get("actual_amount")):
+        return item
+    try:
+        same = Decimal(str(item["actual_amount"]).strip()) == Decimal(str(saved["actual_amount"]))
+    except (InvalidOperation, ValueError):
+        return item
+    if not same:
+        return item
+    kept = {"line": item.get("line"), "weighed_g": saved["weighed_g"]}
+    if saved.get("density_g_ml"):
+        kept["density_g_ml"] = saved["density_g_ml"]
+    return kept
+
+
+def record_actuals(
+    lot: str,
+    actuals: list[dict[str, Any]],
+    notes: str,
+    *,
+    based_on: int | None = None,
+    batch_recorded_at: str | None = None,
+) -> dict[str, Any]:
+    """Save what was actually weighed for each planned line (any subset).
+
+    Each save replaces the batch's earlier weighed amounts. Two devices save the
+    same batch (the PC's table and the phone's bench mode), so a device says
+    which batch it loaded (`batch_recorded_at`, the record's `recorded_at`) and
+    which saved set its changes started from (`based_on`, the record's
+    `actuals_version`). If another device saved in between, the save is refused
+    with BatchConflictError and nothing is lost: the device reloads, merges and sends
+    again. Sending exactly what is already saved changes nothing, so a send whose
+    answer was lost can be sent again.
+    """
+
+    with _LOG_LOCK:
+        record = get_record(lot)
+        if batch_recorded_at is not None and batch_recorded_at != record["recorded_at"]:
+            raise BatchConflictError(
+                f"Lot {record['lot']} is now a different batch (recorded {record['recorded_at']}); "
+                "these amounts were weighed for an earlier one.",
+                "BATCH_REPLACED",
+            )
+        lines = {row["line"]: row for row in record["planned_rows"]}
+        saved = {row["line"]: row for row in record["actuals"]}
+        cleaned = []
+        for item in actuals:
+            line = item.get("line")
+            if line not in lines:
+                raise BatchError(f"Line {line} is not on this batch.")
+            unit = lines[line]["unit"]
+            amount = _actual_amount(line, unit, _kept_grams(item, saved.get(line)))
+            cleaned.append({"line": line, "material": lines[line]["material"], "unit": unit, **amount})
+        cleaned.sort(key=lambda row: row["line"])
+        clean_notes = str(notes or "").strip()[:4000]
+        # Blank notes leave the saved notes as they are (see _fold).
+        if cleaned == record["actuals"] and (not clean_notes or clean_notes == record.get("actual_notes", "")):
+            return record
+        if based_on is not None and based_on != record["actuals_version"]:
+            raise BatchConflictError(
+                f"The weighed amounts for lot {record['lot']} were saved from another device since these were loaded.",
+                "BATCH_CHANGED",
+            )
+        _append_event(
+            {
+                "event": "ACTUALS_RECORDED",
+                "lot": record["lot"],
+                "actuals": cleaned,
+                "notes": clean_notes,
+                "recorded_at": datetime.now(UTC).isoformat(timespec="seconds"),
+            }
+        )
+        return get_record(record["lot"])
 
 
 # ---------------------------------------------------------------------------

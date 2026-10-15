@@ -194,19 +194,26 @@ def _database_in_use(database: Path, port: int) -> str | None:
         pass
     if not database.exists():  # connecting would create an empty database
         return None
+    in_use = (
+        f"The database {database} is in use by another program. "
+        "Close it, then run this command again."
+    )
     connection = sqlite3.connect(database, timeout=0)
     try:
         connection.execute("BEGIN EXCLUSIVE")
         connection.rollback()
     except sqlite3.OperationalError:
-        return (
-            f"The database {database} is in use by another program. "
-            "Close it, then run this command again."
-        )
+        return in_use
     except sqlite3.DatabaseError:
         return None  # damaged, not in use: the restore keeps a raw copy of it
     finally:
         connection.close()
+    # In write-ahead-log mode (db_session.py) a reader never blocks the probe
+    # above, but the last connection to close folds the log into the database
+    # and deletes it, so a log still there belongs to a connection another
+    # program holds open.
+    if database.with_name(database.name + "-wal").exists():
+        return in_use
     return None
 
 

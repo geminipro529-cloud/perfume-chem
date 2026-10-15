@@ -200,6 +200,10 @@ class BackupService:
             _require_integrity(source, "source database")
             source.backup(destination)
             destination.commit()
+            # The live database runs in write-ahead-log mode (db_session.py) and
+            # the copy inherits it; rollback mode keeps the backup one file that
+            # opening it never adds -wal and -shm files beside.
+            destination.execute("PRAGMA journal_mode=DELETE")
             _require_integrity(destination, "backup snapshot")
             schema_fingerprint = _schema_fingerprint(destination)
             schema_revision = _schema_revision(destination)
@@ -456,6 +460,7 @@ class BackupService:
                         shutil.rmtree(records_copy, ignore_errors=True)
                     raise
             try:
+                self._clear_write_ahead_log(damaged_copy)
                 os.replace(staged_path, self.database_path)
                 restored = sqlite3.connect(self.database_path)
                 try:
@@ -524,6 +529,22 @@ class BackupService:
             os.fsync(target.fileno())
         return copy
 
+    def _clear_write_ahead_log(self, damaged_copy: Path | None) -> None:
+        """Remove the live database's -wal and -shm files before it is replaced.
+
+        SQLite replays a -wal file into whatever database file it sits beside,
+        so a log left by a crash would write the old database's pages into the
+        restored one.  A sound database's log is already in the pre-restore
+        backup; a damaged one's is kept beside its raw copy, where opening the
+        copy replays it.
+        """
+
+        write_ahead_log = _sidecar(self.database_path, "-wal")
+        if damaged_copy is not None and write_ahead_log.exists():
+            _copy_file(write_ahead_log, _sidecar(damaged_copy, "-wal"), exclusive=True)
+        write_ahead_log.unlink(missing_ok=True)
+        _sidecar(self.database_path, "-shm").unlink(missing_ok=True)
+
     def _managed_snapshot(self, snapshot_path: Path) -> Path:
         path = snapshot_path.expanduser().resolve()
         if not path.is_relative_to(self.backup_directory):
@@ -561,6 +582,10 @@ _RECORD_COPY_ATTEMPTS = 5
 _RECORD_RETAKE_PAUSE_SECONDS = 0.05
 _STAGE_SUFFIX_PATTERN = rf"[0-9a-f]{{{2 * _STAGE_SUFFIX_BYTES}}}\.sqlite"
 _O_BINARY = getattr(os, "O_BINARY", 0)  # Windows text-mode guard
+
+
+def _sidecar(database: Path, suffix: str) -> Path:
+    return database.with_name(database.name + suffix)
 
 
 def _fsync_path(path: Path) -> None:

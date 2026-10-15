@@ -52,6 +52,8 @@ DEFAULT_GETS: dict[str, Any] = {
     "/experiments": [],
     "/v2/workbench/formula-library": {"sources": []},
     "/v2/workbench/current-inventory": {"stocks": [], "counts": {}},
+    # The Batch view lists recorded batches for the phone's bench mode (phone-bench.js).
+    "/v2/batches": {"schema_version": "batch-records-v1", "records": []},
     "/v2/workbench/stock-prices": {
         "schema_version": "workbench-stock-prices-v1",
         "prices": {},

@@ -33,11 +33,25 @@ def _wait_for_sqlite_write_lock(dbapi_connection, _connection_record) -> None:
     cursor.execute(f"PRAGMA busy_timeout={SQLITE_BUSY_TIMEOUT_MS}")
     cursor.close()
 
+
+def _use_sqlite_write_ahead_log(dbapi_connection, _connection_record) -> None:
+    """Keep the database in write-ahead-log mode, so a phone at the bench can
+    read while the PC saves, and the reverse.  The mode is stored in the file,
+    so the backup service writes its snapshots back in rollback mode: a backup
+    stays one file, and a restore clears a crashed write-ahead log
+    (backup_service.py)."""
+
+    cursor = dbapi_connection.cursor()
+    cursor.execute("PRAGMA journal_mode=WAL")
+    cursor.close()
+
+
 # Create async engine (SQLite doesn't support pool_size/max_overflow)
 if settings.DATABASE_URL.startswith("sqlite"):
     engine = create_async_engine(settings.DATABASE_URL, echo=settings.DB_ECHO)
     event.listen(engine.sync_engine, "connect", _enable_sqlite_foreign_keys)
     event.listen(engine.sync_engine, "connect", _wait_for_sqlite_write_lock)
+    event.listen(engine.sync_engine, "connect", _use_sqlite_write_ahead_log)
 else:
     engine = create_async_engine(
         settings.DATABASE_URL,

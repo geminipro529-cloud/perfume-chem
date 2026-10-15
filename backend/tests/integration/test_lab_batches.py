@@ -4,6 +4,7 @@ The release gate itself is never run here: the subprocess call is replaced.
 """
 
 import json
+import threading
 import time
 from datetime import date
 from decimal import Decimal
@@ -167,6 +168,106 @@ def test_record_log_is_append_only_and_hash_chained(batch_files):
         batches.record_actuals("KS-20261013-01", [{"line": 99, "actual_amount": "1"}], "")
 
 
+def test_grams_weighed_at_the_bench_become_the_line_s_own_unit(batch_files):
+    card = "# Grams 30mL\n\n| Ingredient | Dilution | µL | mg |\n|---|---|---|---|\n| Hedione | neat | 1000 | |\n| Resin | 50% | | 200 |\n"
+    batches.record_batch(lot="G-1", made_on="2026-10-15", made_by="", plan=_plan(text=card, loss_percent="0", bottles="1"), gate_run_id=None, notes="")
+
+    record = batches.record_actuals(
+        "G-1", [{"line": 1, "weighed_g": "0.952", "density_g_ml": "0.998"}, {"line": 2, "weighed_g": "0.21"}], "phone"
+    )
+
+    # 0.952 g / 0.998 g/mL = 953.907... µL, kept to 0.1 µL; grams and density kept beside it.
+    assert record["actuals"] == [
+        {"line": 1, "material": "Hedione", "unit": "uL", "actual_amount": "953.9", "weighed_g": "0.952", "density_g_ml": "0.998"},
+        {"line": 2, "material": "Resin", "unit": "mg", "actual_amount": "210", "weighed_g": "0.21"},
+    ]
+    for actuals, message in (
+        ([{"line": 1, "actual_amount": "950", "weighed_g": "0.95", "density_g_ml": "1"}], "not both"),
+        ([{"line": 1, "weighed_g": "0.95"}], "density must be a number"),
+        ([{"line": 1, "weighed_g": "0.95", "density_g_ml": "9.98"}], "between 0.5 and 2.5"),
+    ):
+        with pytest.raises(batches.BatchError, match=message):
+            batches.record_actuals("G-1", actuals, "")
+
+
+def test_a_save_from_a_device_that_missed_another_save_is_refused(batch_files):
+    record = batches.record_batch(lot="C-1", made_on="2026-10-15", made_by="", plan=_plan(), gate_run_id=None, notes="")
+    batch = record["recorded_at"]
+    assert record["actuals_version"] == 0
+
+    # The phone saves line 1, starting from no saved amounts.
+    phone = batches.record_actuals("C-1", [{"line": 1, "actual_amount": "10290"}], "", based_on=0, batch_recorded_at=batch)
+    assert phone["actuals_version"] == 1
+
+    # The PC's table, loaded before that, saves line 2 only: refused, and line 1 stays.
+    with pytest.raises(batches.BatchConflictError) as refused:
+        batches.record_actuals("C-1", [{"line": 2, "actual_amount": "3428"}], "", based_on=0, batch_recorded_at=batch)
+    assert refused.value.code == "BATCH_CHANGED"
+    assert batches.get_record("C-1")["actuals"] == phone["actuals"]
+
+    # The phone sends the same amount again (its answer was lost): nothing changes.
+    again = batches.record_actuals("C-1", [{"line": 1, "actual_amount": "10290.0"}], "", based_on=0, batch_recorded_at=batch)
+    assert again["actuals_version"] == 1
+
+    # Started from the newest saved set, the PC's save goes through.
+    both = batches.record_actuals(
+        "C-1", [{"line": 1, "actual_amount": "10290"}, {"line": 2, "actual_amount": "3428"}], "", based_on=1, batch_recorded_at=batch
+    )
+    assert both["actuals_version"] == 2 and [row["line"] for row in both["actuals"]] == [1, 2]
+
+    # Amounts weighed for an earlier batch that had this lot number are refused.
+    with pytest.raises(batches.BatchConflictError) as replaced:
+        batches.record_actuals("C-1", [{"line": 1, "actual_amount": "1"}], "", based_on=2, batch_recorded_at="2026-10-01T09:00:00+00:00")
+    assert replaced.value.code == "BATCH_REPLACED"
+    assert len((batch_files / "batch_records.jsonl").read_bytes().splitlines()) == 3
+
+
+def test_two_devices_saving_at_once_cannot_both_build_on_the_same_set(batch_files, monkeypatch):
+    record = batches.record_batch(lot="T-1", made_on="2026-10-15", made_by="", plan=_plan(), gate_run_id=None, notes="")
+    # Both saves read the batch at the same moment, unless one waits for the other to finish.
+    meet = threading.Barrier(2)
+    read = batches.get_record
+
+    def read_together(lot):
+        try:
+            meet.wait(timeout=0.5)
+        except threading.BrokenBarrierError:
+            pass
+        return read(lot)
+
+    monkeypatch.setattr(batches, "get_record", read_together)
+    results = []
+
+    def save(line):
+        try:
+            batches.record_actuals("T-1", [{"line": line, "actual_amount": "1"}], "", based_on=0, batch_recorded_at=record["recorded_at"])
+            results.append("saved")
+        except batches.BatchConflictError:
+            results.append("refused")
+
+    devices = [threading.Thread(target=save, args=(line,)) for line in (1, 2)]
+    for device in devices:
+        device.start()
+    for device in devices:
+        device.join(timeout=10)
+    assert not any(device.is_alive() for device in devices)
+    assert sorted(results) == ["refused", "saved"]
+
+
+def test_an_amount_sent_back_unchanged_keeps_the_grams_it_came_from(batch_files):
+    card = "# Grams 30mL\n\n| Ingredient | Dilution | µL | mg |\n|---|---|---|---|\n| Hedione | neat | 1000 | |\n| Resin | 50% | | 200 |\n"
+    batches.record_batch(lot="G-2", made_on="2026-10-15", made_by="", plan=_plan(text=card, loss_percent="0", bottles="1"), gate_run_id=None, notes="")
+    batches.record_actuals("G-2", [{"line": 1, "weighed_g": "0.952", "density_g_ml": "0.998"}, {"line": 2, "weighed_g": "0.21"}], "")
+
+    # The PC's table sends the amounts it shows; line 1 is unchanged, line 2 was retyped.
+    record = batches.record_actuals("G-2", [{"line": 1, "actual_amount": "953.90"}, {"line": 2, "actual_amount": "205"}], "")
+
+    assert record["actuals"] == [
+        {"line": 1, "material": "Hedione", "unit": "uL", "actual_amount": "953.9", "weighed_g": "0.952", "density_g_ml": "0.998"},
+        {"line": 2, "material": "Resin", "unit": "mg", "actual_amount": "205"},
+    ]
+
+
 def test_an_edited_record_log_is_refused(batch_files):
     batches.record_batch(lot="A-1", made_on="2026-10-13", made_by="", plan=_plan(), gate_run_id=None, notes="")
     batches.record_batch(lot="A-2", made_on="2026-10-13", made_by="", plan=_plan(), gate_run_id=None, notes="")
@@ -281,6 +382,16 @@ async def test_gate_run_writes_gate_json_and_the_record_keeps_its_result(client,
     assert one.status_code == 200 and one.json()["made_by"] == "Kenny"
     actuals = await client.post(f"{BASE}/KS-20261013-01/actuals", json={"actuals": [{"line": 1, "actual_amount": "10290"}]})
     assert actuals.status_code == 200 and actuals.json()["actuals"][0]["actual_amount"] == "10290"
+    weighed = await client.post(
+        f"{BASE}/KS-20261013-01/actuals", json={"actuals": [{"line": 1, "weighed_g": "9.5", "density_g_ml": "0.95"}]}
+    )
+    assert weighed.status_code == 200, weighed.text
+    assert weighed.json()["actuals"][0]["actual_amount"] == "10000"
+    stale = await client.post(
+        f"{BASE}/KS-20261013-01/actuals",
+        json={"actuals": [{"line": 2, "actual_amount": "3430"}], "based_on": 0, "batch_recorded_at": record["recorded_at"]},
+    )
+    assert stale.status_code == 409 and stale.json()["error"]["code"] == "BATCH_CHANGED"
     assert (await client.get(f"{BASE}/NOPE-1")).status_code == 404
     lot = await client.get(f"{BASE}/suggest-lot", params={"initials": "ks", "day": "2026-10-13"})
     assert lot.json() == {"lot": "KS-20261013-02"}
