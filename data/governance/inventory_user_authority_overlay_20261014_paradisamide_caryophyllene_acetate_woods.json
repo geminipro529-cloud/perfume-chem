@@ -98,6 +98,10 @@
       {
         "message_timestamp_utc": "2026-10-15T16:25:27Z",
         "text": "I have geranyl acetate and citronellyl acetate as well"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T17:04:34Z",
+        "text": "Citronellal acetate is neat. Ambrettolide is neat but can be diluted if must."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Only Paradisamide uses a default (w/w, DPG): Kenny gave the strength and carrier or 'neat' for every other bottle."
@@ -133,7 +137,8 @@
     "costus_olifac_10pct_dpg": true,
     "clove_eo_india_added_neat_part_unknown": true,
     "freesia_hdi_is_pw_freesia_hdl": true,
-    "geranyl_acetate_receipt_hold_cleared": true
+    "geranyl_acetate_receipt_hold_cleared": true,
+    "citronellyl_acetate_added_neat": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -1508,6 +1513,42 @@
         "release_authorized": false
       },
       "note": "Kenny: 'I have geranyl acetate and citronellyl acetate as well' (15 Oct, ionone thread). Geranyl Acetate was already owned neat (INV-USER-20260924-R5-013, his 24 Sep form confirmation; inventory.txt L157); its only hold was BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING, which AGENTS.md Rule 6 says a formula does not need, as with Cedrat (STK-021). Retires R5-013. Citronellyl Acetate is not recorded here: its strength is not yet known."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-033",
+      "canonical_name": "Citronellyl Acetate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT",
+        "execution_basis": "USER_ANSWER_20261015_CITRONELLYL_ACETATE_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_ADD_REQUEST",
+      "source_quote": "Citronellal acetate is neat. Ambrettolide is neat but can be diluted if must.",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "supplier_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'I have geranyl acetate and citronellyl acetate as well' (15 Oct 16:25, ionone thread), then, asked whether it is neat, 'Citronellal acetate is neat' (17:04): 'citronellal acetate' is his spelling of Citronellyl Acetate, the ester he named first. It was in neither inventory.txt nor the gate's stock list. His 'Ambrettolide is neat' matches the existing neat record; nothing changes for it."
     }
   ]
 }
