@@ -2,7 +2,7 @@
 
 // Bottles page: bottles, additions and the smell log; also attaches the Batch page (batch.js)
 // and the Your nose page (smell-log.js and blind-test.js).
-// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, boot.
+// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, search, boot.
 
 showMassLimitInline("#bottle-form");
 bindForm("#bottle-form", (data) => request("/bottles", { method: "POST", body: JSON.stringify({ label: data.label, initial_mass_g: checkedInitialMassG(data.initial_mass_g) }) }));
@@ -34,4 +34,21 @@ const blindTest = typeof attachBlindTest === "function"
 function noseShown() {
   noseLearning?.show();
   blindTest?.show();
+}
+
+// Search (lab-search.js) opens one bottle's smell log.
+function showBottleLog(bottleId) {
+  navigate("bottles");
+  const select = $("#smell-log-bottle");
+  if (!select || ![...select.options].some((option) => option.value === bottleId)) {
+    notify("That bottle is not on the smell log's list. Reload the page and try again.", true);
+    return;
+  }
+  // Only a different bottle reloads the log: the same one keeps a half-written entry.
+  if (select.value !== bottleId) {
+    select.value = bottleId;
+    select.dispatchEvent(new Event("change"));
+  }
+  select.scrollIntoView({ block: "center" });
+  select.focus({ preventScroll: true });
 }

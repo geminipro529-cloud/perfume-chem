@@ -1,7 +1,7 @@
 "use strict";
 
 // Start-up, loaded last: hash navigation, skip link, theme, the first view and the first refresh.
-// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, boot.
+// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, search, boot.
 
 window.addEventListener("hashchange", () => {
   const requested = location.hash.slice(1) || "improve";
