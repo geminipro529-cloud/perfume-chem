@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/static/theme.css">
   <link rel="stylesheet" href="/static/batch-label.css">
   <link rel="stylesheet" href="/static/batch.css">
+  <link rel="stylesheet" href="/static/phone-bench.css">
   <link rel="stylesheet" href="/static/formula-editor.css">
 </head>
 <body>
@@ -627,6 +628,7 @@
 
       <section class="view" data-panel="batch" aria-labelledby="batch-title">
         <div class="view-heading"><div><p class="eyebrow">Bottles to sell</p><h1 id="batch-title">Batch</h1><p class="lede">Scale one formula to a number of bottles, rerun the release gate on the scaled card, keep a lot record, and print the batch sheet, the label and the IFRA statement. Scaling keeps every stock and strength; only amounts change.</p></div></div>
+        <div id="phone-bench-root" class="panel phone-bench-panel" role="region" aria-labelledby="phone-bench-panel-title"></div>
         <div id="batch-root" class="batch-root"></div>
         <div class="panel batch-label-panel"><p class="panel-index">Label and IFRA</p><h2>Label and IFRA statement</h2><div id="batch-label-area"></div></div>
       </section>
@@ -1099,6 +1101,7 @@
   <script src="/static/make-now.js" defer></script>
   <script src="/static/batch-label.js" defer></script>
   <script src="/static/batch.js" defer></script>
+  <script src="/static/phone-bench.js" defer></script>
   <script src="/static/formula-editor.js" defer></script>
   <!-- The Lab page itself, one file per page: core first, boot (start-up) last. -->
   <script src="/static/lab/core.js" defer></script>

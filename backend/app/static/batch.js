@@ -400,6 +400,11 @@ function attachBatch({ doc, request, root }) {
     });
     actualsTable.replaceChildren(table(["#", "Material", "Planned", "Weighed"], rows));
     actualsForm.hidden = false;
+    if (typeof openPhoneBench === "function") {
+      const stepByStep = node("button", { type: "button", className: "quiet-button" }, "Weigh it step by step");
+      stepByStep.addEventListener("click", () => openPhoneBench(record.lot));
+      actualsTable.append(stepByStep);
+    }
   }
 
   actualsForm.addEventListener("submit", async (event) => {

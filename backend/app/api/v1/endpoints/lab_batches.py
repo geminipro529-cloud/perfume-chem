@@ -42,7 +42,11 @@ class BatchRecordRequest(BatchGateRunRequest):
 
 class BatchActual(BaseModel):
     line: int
-    actual_amount: str = Field(max_length=20)
+    actual_amount: str | None = Field(default=None, max_length=20)
+    # Bench mode on the phone: grams on the balance, and for a µL line the stock
+    # density used to turn them into µL (the server works the µL out).
+    weighed_g: str | None = Field(default=None, max_length=20)
+    density_g_ml: str | None = Field(default=None, max_length=20)
 
 
 class BatchActualsRequest(BaseModel):

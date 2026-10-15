@@ -435,8 +435,43 @@ def record_batch(
     return get_record(lot)
 
 
+# A stock's density, from the material data and its carrier on the bench sheet
+# (bench-sheet.js benchStockDensity); outside this range it is a typing slip.
+_DENSITY_RANGE = (Decimal("0.5"), Decimal("2.5"))
+
+
+def _given(value: Any) -> bool:
+    return value is not None and str(value).strip() != ""
+
+
+def _actual_amount(line: Any, unit: str, item: dict[str, Any]) -> dict[str, str]:
+    """The amount in the line's own unit, typed or worked out from grams weighed.
+
+    The phone's bench mode weighs a µL line on the balance: the grams and the
+    stock density it used are kept, and the µL is worked out here, to 0.1 µL.
+    """
+
+    if not _given(item.get("weighed_g")):
+        amount = _decimal(item.get("actual_amount"), f"Line {line} actual amount", allow_zero=True)
+        return {"actual_amount": _text(amount)}
+    if _given(item.get("actual_amount")):
+        raise BatchError(f"Line {line}: give the amount or the grams weighed, not both.")
+    grams = _decimal(item.get("weighed_g"), f"Line {line} grams weighed", allow_zero=True)
+    if unit == "mg":
+        return {"actual_amount": _text(grams * 1000), "weighed_g": _text(grams)}
+    density = _decimal(item.get("density_g_ml"), f"Line {line} density")
+    if not _DENSITY_RANGE[0] <= density <= _DENSITY_RANGE[1]:
+        raise BatchError(f"Line {line} density must be between 0.5 and 2.5 g/mL.")
+    microlitres = (grams * 1000 / density).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
+    return {"actual_amount": _text(microlitres), "weighed_g": _text(grams), "density_g_ml": _text(density)}
+
+
 def record_actuals(lot: str, actuals: list[dict[str, Any]], notes: str) -> dict[str, Any]:
-    """Append what was actually weighed for each planned line (any subset)."""
+    """Append what was actually weighed for each planned line (any subset).
+
+    Each call replaces the batch's earlier weighed amounts, so a device sends
+    every line it has, and sending the same set again changes nothing.
+    """
 
     record = get_record(lot)
     lines = {row["line"]: row for row in record["planned_rows"]}
@@ -445,8 +480,8 @@ def record_actuals(lot: str, actuals: list[dict[str, Any]], notes: str) -> dict[
         line = item.get("line")
         if line not in lines:
             raise BatchError(f"Line {line} is not on this batch.")
-        amount = _decimal(item.get("actual_amount"), f"Line {line} actual amount", allow_zero=True)
-        cleaned.append({"line": line, "material": lines[line]["material"], "unit": lines[line]["unit"], "actual_amount": _text(amount)})
+        unit = lines[line]["unit"]
+        cleaned.append({"line": line, "material": lines[line]["material"], "unit": unit, **_actual_amount(line, unit, item)})
     _append_event(
         {
             "event": "ACTUALS_RECORDED",
