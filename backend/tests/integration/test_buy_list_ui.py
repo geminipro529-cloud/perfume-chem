@@ -147,3 +147,150 @@ def test_the_page_renders_shop_and_card_text_as_text():
     assert "needs fresh shop prices" in text and "not now" in text
     assert "PW, ordered 10 Oct" in text and "5 g, US$50.90, 11 Apr" in text
     assert "Nothing on your saved cards is missing from your stock." in html["empty"]
+
+
+# ---- T5b: ticks, the total bar, orders, the match answer and the paste tray ----
+
+def _offer(key, usd, thb, **extra):
+    return {**OFFER, "offer_key": f"pw:{key}", "sku": key, "title": f"Title {key}", "match": "confirmed",
+            "match_question": None, "upfront_usd": usd, "upfront_thb": thb, **extra}
+
+
+def _page(rate, offers_by_material, budget=None):
+    rows = [{"material_key": key, "material": key.title(), "need_count": 1, "cards": [], "similar": [],
+             "offers": offers} for key, offers in offers_by_material.items()]
+    return {"price_header": "h", "rate_banner": None, "fx": {"rate": rate, "set_at": "x", "stale": False} if rate else None,
+            "budget": {"amount_thb": budget} if budget else None, "buy_first": rows, "tiers": {}}
+
+
+def _bar(page, ticks):
+    return _run(f"const ticks = new Map({json.dumps(ticks)}); return m.buyBarView({json.dumps(page)}, ticks);")
+
+
+def test_ticking_keeps_one_offer_per_material_and_untickable_offers_get_no_box():
+    first, second = _offer("A1", "37.40", "1254.77"), _offer("A2", "20", "671")
+    probable = {**_offer("B1", "4.80", "161.04"), "match": "probable", "match_question": "Is PW B1 'Title B1' your Basil?"}
+    page = _page("33.55", {"amber": [first, second, UNKNOWN], "basil": [probable]})
+    result = _run(f"""
+        const page = {json.dumps(page)};
+        let ticks = m.buyTick(new Map(), "amber", "pw:A1", true);
+        ticks = m.buyTick(ticks, "amber", "pw:A2", true);
+        const swapped = Object.fromEntries(ticks);
+        const stale = m.buyTick(ticks, "amber", "pw:A1", false);
+        const unticked = m.buyTick(ticks, "amber", "pw:A2", false);
+        const reloaded = m.buyKeepTicks({{ ...page, buy_first: [{{ ...page.buy_first[0], offers: [page.buy_first[0].offers[0]] }}] }}, ticks);
+        const gone = m.buyKeepTicks(page, new Map([["amber", "pw:4JD02734"], ["basil", "pw:B1"]]));
+        const target = doc.createElement("div");
+        m.buyRender(doc, target, page, {{ ticks }});
+        const all = (node) => [node, ...node.children.flatMap(all)];
+        const boxes = all(target).filter((node) => node.type === "checkbox");
+        const asks = all(target).filter((node) => node.className === "make-ask buy-match");
+        return {{
+          swapped, stale: Object.fromEntries(stale), unticked: Object.fromEntries(unticked),
+          kept: Object.fromEntries(reloaded), gone: Object.fromEntries(gone),
+          boxes: boxes.map((box) => [box.dataset.materialKey, box.dataset.offerKey, box.checked]),
+          asks: asks.map((ask) => [ask.hidden, ask.children[0].text]),
+        }};
+    """)
+
+    assert result["swapped"] == {"amber": "pw:A2"}
+    # Unticking an offer that is no longer the ticked one changes nothing.
+    assert result["stale"] == {"amber": "pw:A2"}
+    assert result["unticked"] == {}
+    # A reload drops ticks whose offer is gone and keeps none on an untickable offer.
+    assert result["kept"] == {}
+    assert result["gone"] == {"basil": "pw:B1"}
+    assert result["boxes"] == [["amber", "pw:A1", False], ["amber", "pw:A2", True], ["basil", "pw:B1", False]]
+    assert result["asks"] == [[True, "Is PW B1 'Title B1' your Basil?"]]
+
+
+def test_the_bar_totals_in_baht_with_a_rate_and_in_dollars_without():
+    ticks = [["amber", "pw:A1"], ["basil", "pw:B1"], ["cedar", "pw:C1"]]
+    with_rate = _page("33.55", {"amber": [_offer("A1", "37.40", "1254.77")], "basil": [_offer("B1", "4.80", "161.04")],
+                                "cedar": [_offer("C1", None, None)]}, budget="1600")
+    no_rate = _page(None, {"amber": [_offer("A1", "37.40", None)], "basil": [_offer("B1", "4.80", None)],
+                           "cedar": [_offer("C1", None, None)]}, budget="1600")
+
+    bar = _bar(with_rate, ticks)
+    assert bar["totals"] == "3 ticked, ฿1,416, 1 shop, 1 not priced"
+    assert bar["shipping"] == "PW shipping US$30 (฿1,007)"
+    assert bar["shops"] == [{"shop": "PW", "count": 3}]
+
+    bare = _bar(no_rate, ticks)
+    assert bare["totals"] == "3 ticked, US$42.20, 1 shop, 1 not priced"
+    assert bare["shipping"] == "PW shipping US$30"
+    assert bare["budget"] == ""
+    assert "฿" not in json.dumps(bare, ensure_ascii=False)
+    assert _bar(with_rate, []) is None
+
+
+def test_pw_ships_free_from_150_dollars():
+    under = _page("33.55", {"amber": [_offer("A1", "100", "3355")], "basil": [_offer("B1", "49.99", "1677.16")]})
+    at = _page("33.55", {"amber": [_offer("A1", "100", "3355")], "basil": [_offer("B1", "50.00", "1677.5")]})
+    ticks = [["amber", "pw:A1"], ["basil", "pw:B1"]]
+
+    assert _bar(under, ticks)["shipping"] == "PW shipping US$30 (฿1,007)"
+    assert _bar(at, ticks)["shipping"] == "PW ships free"
+
+
+def test_the_budget_line_counts_shipping_and_says_how_far_over():
+    over = _page("33.55", {"amber": [_offer("A1", "37.40", "1254.77")], "basil": [_offer("B1", "4.80", "161.04")]},
+                 budget="1600")
+    under = _page("33.55", {"amber": [_offer("A1", "160", "5368")]}, budget="6000")
+    exact = _page("33.55", {"amber": [_offer("A1", "160", "5368")]}, budget="5368")
+
+    # ฿1,415.81 of goods + ฿1,006.50 PW shipping.
+    assert _bar(over, [["amber", "pw:A1"], ["basil", "pw:B1"]])["budget"] == "฿2,422 of your ฿1,600 budget: ฿822 over"
+    assert _bar(under, [["amber", "pw:A1"]])["budget"] == "฿5,368 of your ฿6,000 budget"
+    assert _bar(exact, [["amber", "pw:A1"]])["budget"] == "฿5,368 of your ฿5,368 budget"
+    assert _run("""return [m.buyBudgetEvent("1,600"), m.buyBudgetEvent(null), m.buyBudgetEvent("0"), m.buyBudgetEvent("lots"),
+                           m.buyDecimalSum(["0.1", "0.2"]), m.buyDecimalTimes("30", "33.55")];""") == [
+        {"kind": "budget", "amount_thb": "1600"}, {"kind": "budget", "clear": True}, None, None, "0.3", "1006.50"]
+
+
+def test_i_ordered_these_posts_one_order_event_per_ticked_offer_with_one_order_id():
+    page = _page("33.55", {"amber": [_offer("A1", "37.40", "1254.77", observed_on="2026-04-11")],
+                           "basil": [_offer("B1", "4.80", "161.04", observed_on="2026-04-12", default_pack_g="10")],
+                           "cedar": [_offer("C1", "9", "302")]})
+    result = _run(f"""
+        const id = m.buyOrderId("PW", "2026-10-15", "a1b2c3");
+        return {{ id, events: m.buyOrderEvents({json.dumps(page)}, new Map([["amber", "pw:A1"], ["basil", "pw:B1"]]), "PW", id) }};
+    """)
+
+    assert result["id"] == "PW-20261015-a1b2c3"
+    assert result["events"] == [
+        {"kind": "order", "order_id": "PW-20261015-a1b2c3", "shop": "PW", "material_key": "amber", "offer_key": "pw:A1",
+         "pack": "5 g", "state": "ORDERED", "shown_price": {"amount": "37.40", "currency": "USD", "observed_on": "2026-04-11"}},
+        {"kind": "order", "order_id": "PW-20261015-a1b2c3", "shop": "PW", "material_key": "basil", "offer_key": "pw:B1",
+         "pack": "10 g", "state": "ORDERED", "shown_price": {"amount": "4.80", "currency": "USD", "observed_on": "2026-04-12"}},
+    ]
+
+
+def test_same_posts_a_match_event_with_the_title_kenny_saw():
+    result = _run(f"return m.buyMatchEvent('sandalwood oil', {json.dumps(OFFER)}, 'SAME');")
+
+    assert result == {"kind": "match", "material_key": "sandalwood oil", "offer_key": "pw:3SW00003", "answer": "SAME",
+                      "title_at_confirm": "Sandalwood Oil"}
+
+
+def test_the_paste_tray_preview_counts_and_lists_a_dry_run():
+    response = {"dry_run": True, "count": 3, "entries": [
+        {"kind": "pick", "material_key": "nootkatone", "tier": 1, "dose": "2%", "reason": "lifts the grapefruit",
+         "decided_by": "Claude", "decided_at": "2026-10-15", "source": "thread"},
+        {"kind": "pick", "material_key": "iso e super", "tier": 2, "dose": "10%", "reason": "woody air",
+         "decided_by": "Claude", "decided_at": "2026-10-15", "source": "thread"},
+        {"kind": "skip", "material_key": "ambrox", "reason": "you own Ambrofix",
+         "decided_by": "Claude", "decided_at": "2026-10-15", "source": "thread"},
+    ]}
+    page = {"buy_first": [{"material_key": "nootkatone", "material": "Nootkatone", "offers": []}], "tiers": {}}
+    result = _run(f"""
+        return [m.buyPicksPreview({json.dumps(response)}, m.buyMaterialNames({json.dumps(page)})),
+                m.buyPicksPreview({{ entries: [{json.dumps(response["entries"][2])}] }}).summary];
+    """)
+
+    assert result[0] == {"summary": "2 picks and 1 skip", "lines": [
+        "Nootkatone, Tier 1, 2%: lifts the grapefruit",
+        "iso e super, Tier 2, 10%: woody air",
+        "ambrox, skip: you own Ambrofix",
+    ]}
+    assert result[1] == "0 picks and 1 skip"
