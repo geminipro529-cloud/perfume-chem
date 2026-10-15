@@ -233,6 +233,28 @@ def test_a_row_saved_against_a_merged_inventory_line_finds_the_checks_record():
     assert item["owner"] == "you" and "not in your stock" not in item["reason"]
 
 
+def test_a_row_saved_against_a_merged_line_of_a_ready_record_is_asked_to_pick_it_again():
+    # The record is ready to mix; only the row's old link holds it, so nothing is said
+    # about its details, and what the inventory list says differently is still reported.
+    record = _stock("Neroli EO 10%", 0.1, carrier="jojoba", stock_id="o-neroli",
+                    authority="USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261015")
+    projection = SimpleNamespace(
+        stocks=(record,), canonical_stock_ids=frozenset({record.stock_id}),
+        merged_text_stock_ids=(("inventory:text-design-only:2", record.stock_id),),
+        inventory_text_notes=((record.stock_id, "Your inventory list says 10% v/v in ethanol"),),
+    )
+    issue = {"material": "Neroli EO (10% in ethanol)", "stock_id": "inventory:text-design-only:2",
+             "reason": "not_ready"}
+
+    item = hr._stock_item(issue, {}, {}, projection, False, [record])
+    assert item["reason"] == (
+        "This row was saved against your inventory list's line for this bottle, which the Lab now lists as "
+        '"Neroli EO 10%". Your inventory list says 10% v/v in ethanol.'
+    )
+    assert item["action"] == 'Choose "Neroli EO 10%" for this row in the editor.'
+    assert item["owner"] == "you" and item["open"] is None
+
+
 def test_every_stock_page_button_opens_a_stock_the_page_lists(projection):
     listed = {s.stock_id for s in projection.stocks}
     result = explain_holds([_row(s, "150") for s in _text_only(projection)[:40]])

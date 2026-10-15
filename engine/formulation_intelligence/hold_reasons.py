@@ -406,9 +406,9 @@ def _stock_item(
     reason = str(issue.get("reason") or "")
     fraction = (record.get("dilutions") or {}).get(material)
     by_id, by_name = _stock_lookup(projection)
-    wanted = str(issue.get("stock_id") or row_stock_ids.get(material) or "")
+    saved = str(issue.get("stock_id") or row_stock_ids.get(material) or "")
     # A row saved against an inventory.txt line now shown as the checks' own record.
-    wanted = dict(getattr(projection, "merged_text_stock_ids", ()) or ()).get(wanted, wanted)
+    wanted = dict(getattr(projection, "merged_text_stock_ids", ()) or ()).get(saved, saved)
     stock = by_id.get(wanted)
     candidates = [stock] if stock else list(by_name.get(material.casefold(), []))
     owned = [s for s in candidates if str(s.status).casefold() == "owned"]
@@ -439,6 +439,17 @@ def _stock_item(
         return item
 
     target = next((s for s in owned if not s.execution_ready), owned[0])
+    if wanted != saved and target is stock and target.execution_ready:
+        # The record is ready: only the row's link to the old inventory list row holds it.
+        item["reason"] = (
+            "This row was saved against your inventory list's line for this bottle, which the Lab "
+            f'now lists as "{target.name}".'
+        )
+        note = dict(getattr(projection, "inventory_text_notes", ()) or ()).get(target.stock_id)
+        if note:
+            item["reason"] += f" {note}."
+        item["action"] = f'Choose "{target.name}" for this row in the editor.'
+        return item
     canonical = target.stock_id in projection.canonical_stock_ids
     if not canonical or str(target.authority) == _TEXT_ONLY_AUTHORITY:
         listed_ids = {s.stock_id for s in projection.stocks}

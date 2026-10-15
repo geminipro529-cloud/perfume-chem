@@ -20,11 +20,11 @@ HIS_WORD = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261015"
 
 
 def _record(stock_id, name, dilution, *, identity, carrier="", basis="unspecified", authority=V5, raw_name=None,
-            ready=False):
+            ready=False, completion=""):
     return InventoryMaterial(
         name=name, dilution=dilution, category="test", raw_name=raw_name or name, status="owned",
         fraction_basis=basis, carrier=carrier, identity_name=identity, stock_id=stock_id, authority=authority,
-        execution_ready=ready,
+        execution_ready=ready, completion_event_sha256=completion,
     )
 
 
@@ -127,7 +127,52 @@ def test_a_bottle_the_workbook_lists_twice_shows_once_with_its_solvent(join):
     projection = join([with_solvent, without], [line])
 
     assert [s.stock_id for s in _rows(projection, "Costus")] == ["v5:costus-a"]
-    assert projection.merged_text_stock_ids == () and projection.inventory_text_notes == ()
+    assert [record_id for _text_id, record_id in projection.merged_text_stock_ids] == ["v5:costus-a"]
+    assert projection.inventory_text_notes == ()
+
+
+@pytest.mark.parametrize("order", [1, -1])
+def test_the_fuller_record_of_a_bottle_listed_twice_wins_in_either_order(join, order):
+    # The line names a basis neither record has, so neither matches it exactly; the record
+    # that names the solvent is the bottle, whichever the workbook lists first.
+    with_solvent = _record("v5:jasmine-a", "Jasmine Sambac 10% in DPG", 0.1, identity="Jasmine Sambac",
+                           carrier="dpg")
+    without = _record("v5:jasmine-b", "Jasmine Sambac 10%", 0.1, identity="Jasmine Sambac")
+    line = _line("Jasmine Sambac (10% w/w in DPG)", "Jasmine Sambac", 0.1, carrier="dpg", basis="mass_fraction")
+
+    projection = join([without, with_solvent][::order], [line])
+
+    assert [s.stock_id for s in _rows(projection, "Jasmine Sambac")] == ["v5:jasmine-a"]
+    assert [record_id for _text_id, record_id in projection.merged_text_stock_ids] == ["v5:jasmine-a"]
+
+
+def test_a_record_kenny_completed_on_the_stock_page_stays_shown_when_his_list_says_otherwise(join):
+    # He opened the newly shown record and saved the solvent the bottle really has (TEC), not
+    # the DPG his list says: the record stays, the line gets no row, and the row says both.
+    completed = _record("v5:geraniol-10", "Geraniol 10%", 0.1, identity="Geraniol", carrier="tec",
+                        basis="mass_fraction", completion="sha-of-his-entry")
+    line = _line("Geraniol (10% DPG)", "Geraniol", 0.1, carrier="dpg")
+
+    projection = join([completed], [line])
+
+    assert [s.stock_id for s in _rows(projection, "Geraniol")] == ["v5:geraniol-10"]
+    assert [record_id for _text_id, record_id in projection.merged_text_stock_ids] == ["v5:geraniol-10"]
+    assert projection.inventory_text_notes == (("v5:geraniol-10", "Your inventory list says 10% in DPG"),)
+
+
+def test_a_line_that_had_its_own_row_keeps_finding_its_bottle_once_the_record_matches_it(join):
+    # Before Kenny completed it, the record had no solvent and the line was merged into it;
+    # once he saves DPG the two match exactly, and a row saved against the line still maps.
+    blank = _record("v5:geraniol-10", "Geraniol 10%", 0.1, identity="Geraniol")
+    completed = _record("v5:geraniol-10", "Geraniol 10%", 0.1, identity="Geraniol", carrier="dpg",
+                        completion="sha-of-his-entry")
+    line = _line("Geraniol (10% DPG)", "Geraniol", 0.1, carrier="dpg")
+
+    before = join([blank], [line])
+    after = join([completed], [line])
+
+    assert before.merged_text_stock_ids == after.merged_text_stock_ids
+    assert [record_id for _text_id, record_id in after.merged_text_stock_ids] == ["v5:geraniol-10"]
 
 
 def test_a_record_of_a_strength_his_list_does_not_have_stays_hidden(join):

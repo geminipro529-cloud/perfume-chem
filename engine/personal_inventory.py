@@ -289,6 +289,18 @@ def _says_otherwise(line: InventoryMaterial, record: InventoryMaterial) -> bool:
     )
 
 
+def _kennys_word(stock: InventoryMaterial) -> bool:
+    """A record of Kenny's own word on the bottle: a dated overlay, or a Stock page entry he saved."""
+
+    return stock_matching.is_user_word(stock) or bool(stock.completion_event_sha256)
+
+
+def _fullness(stock: InventoryMaterial) -> int:
+    """How many of solvent and basis a record names."""
+
+    return bool(stock_matching.carrier_key(stock.carrier)) + bool(stock_matching.BASIS_KEYS.get(stock.fraction_basis))
+
+
 def _line_forms(record: InventoryMaterial, lines: Sequence[InventoryMaterial]) -> tuple[str, str]:
     """The solvent and basis the record's merged lines agree on where the record leaves them blank."""
 
@@ -512,9 +524,10 @@ def materialize_personal_inventory(
         # over the old inventory.txt form, so its row and disagreement stay shown.
         prepared = stock.authority == PREPARED_DILUTION_AUTHORITY
         overridden = bool(stock.authority_facts_differ)
-        # Kenny's dated overlays record his own word on a bottle, newer than the
-        # hand-kept list, so inventory.txt never hides one of those records.
-        his_word = stock_matching.is_user_word(stock)
+        # Kenny's dated overlays and the Stock page entries he saves record his own
+        # word on a bottle, newer than the hand-kept list, so inventory.txt never
+        # hides one of those records (a solvent he corrects there stays shown).
+        his_word = _kennys_word(stock)
         # Stock page facts are the user's own record and the gate counts them,
         # so a name still stating the workbook strength must not hide the row.
         user_recorded = prepared or bool(stock.completion_event_sha256)
@@ -531,8 +544,10 @@ def materialize_personal_inventory(
                 loose.append(stock)
             continue
         bound.append(stock)
+    # The workbook can list one bottle twice, with and without its solvent: the
+    # fuller record goes first, whichever order the workbook lists them in.
+    loose.sort(key=lambda stock: -_fullness(stock))
     for stock in loose:
-        # The workbook can list one bottle twice, with and without its solvent.
         if not any(_described_more_fully(other, stock) for other in bound):
             bound.append(stock)
 
@@ -541,14 +556,20 @@ def materialize_personal_inventory(
     notes: dict[str, list[str]] = {}
     lines_for: dict[str, list[InventoryMaterial]] = {}
     for stock in live_owned:
-        if any(_same_stock_form(existing, stock) for existing in projected):
+        same = next((existing for existing in projected if _same_stock_form(existing, stock)), None)
+        if same is not None:
+            if same.authority != LIVE_TEXT_AUTHORITY:
+                # A formula row saved while this line had a row of its own (before
+                # Kenny completed the record, say) still finds its bottle.
+                merged.append((_live_design_stock(stock).stock_id, same.stock_id))
             continue
         text_stock = _live_design_stock(stock)
         identity = _normalized_identity(stock)
         # One bottle, one row: a record of the same material and strength that
         # leaves nothing the line names in disagreement, or that carries Kenny's
-        # own word on that bottle, is the line's bottle.  When the line says
-        # something else, the record's row says what it says (RULE 0).
+        # own word on that bottle (an overlay or a Stock page entry), is the
+        # line's bottle.  When the line says something else, the record's row
+        # says what it says (RULE 0).
         record = next(
             (
                 existing
@@ -557,7 +578,7 @@ def materialize_personal_inventory(
                 and (
                     _compatible_form(existing, stock)
                     or (
-                        stock_matching.is_user_word(existing)
+                        _kennys_word(existing)
                         and stock_matching.same_strength(existing, stock)
                     )
                 )
