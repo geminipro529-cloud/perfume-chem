@@ -170,6 +170,10 @@
       {
         "message_timestamp_utc": "2026-10-15T20:05:37Z",
         "text": "YEs it is"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T23:03:08Z",
+        "text": "Yes"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -210,7 +214,8 @@
     "neryl_acetate_added_neat": true,
     "user_ww_dpg_rule_20261015_loaded": true,
     "neat_bottles_confirmed_20261015": true,
-    "tonka_bean_absolute_10pct_is_perfumersworld_product": true
+    "tonka_bean_absolute_10pct_is_perfumersworld_product": true,
+    "tuberalia_base_is_perfumersworld_6nd09663": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -4724,6 +4729,58 @@
         "release_authorized": false
       },
       "note": "Kenny: 'Tonka Bean Absolute 10% in DPG comes directly from PW (also diluted by PW)' (15 Oct 18:41 UTC, 'Small open jobs sweep'). R5-019 (his 24 Sep w/w-in-DPG confirmation) held it only for BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING; it is a supplier product, so there is no preparation to receipt, and AGENTS.md Rule 6 says a formula needs no lot receipt. Retires R5-019. The SKU is the PerfumersWorld catalogue match, not his word. The IFRA coumarin content of the lot is handled in the IFRA tables, not here."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-104",
+      "canonical_name": "Tuberalia Base",
+      "aliases": [
+        "Tuberlia Base"
+      ],
+      "state": "OWNED",
+      "category": "white floral",
+      "stock": {
+        "physical_form": "supplier_base_as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "V5_ROW_AS_SUPPLIED_PRODUCT_USER_CONFIRMED_SUPPLIER",
+        "execution_basis": "USER_ANSWER_20261015_TUBERALIA_BASE_IS_PERFUMERSWORLD_6ND09663",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Tuberalia Base",
+        "sku": "6ND09663"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 233,
+          "disposition": "OWNED",
+          "status": "HAVE - AS SUPPLIED, PERFUMERSWORLD 6ND09663 (USER-CONFIRMED 2026-10-15)",
+          "actual_stock_text": "Tuberalia Base as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Yes",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_message": true,
+        "sku_from_user_message": true,
+        "fraction_from_v5_row_as_supplied": true,
+        "composition_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked 'on your Tuberlia Base label, does it say PerfumersWorld 'Tuberalia Base' (6ND09663)?', Kenny answered 'Yes' (15 Oct 23:03:08 UTC, 'Small open jobs sweep'). He had named it as owned at 19:28 UTC ('the other is tubrrlia base'). The bottle is inventory.txt L104; V5 row 233 listed it unresolved, 'Tuberalia Base as supplied'. It is one product, dosed as supplied; its composition is not expanded (AGENTS.md Rule 4)."
     }
   ]
 }

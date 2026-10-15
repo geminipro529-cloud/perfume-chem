@@ -1,4 +1,4 @@
-"""Kenny's 15 Oct evening stock answers and his w/w-in-DPG rule (v26 records STK-035 to STK-103).
+"""Kenny's 15 Oct evening stock answers and his w/w-in-DPG rule (v26 records STK-035 to STK-104).
 
 At 19:27 UTC he chose "Load the rule" on the card "Load your 'w/w in DPG' rule for the
 72 dilutions with nothing recorded?": a dilution with no recorded basis is w/w, in DPG
@@ -56,7 +56,7 @@ def test_rule_stocks_are_ww_ready_and_keep_their_names(name, fraction, carrier):
     assert stock.dilution == pytest.approx(fraction)
     assert (stock.fraction_basis, stock.carrier) == ("mass_fraction", carrier)
     assert stock.execution_ready is True
-    assert stock.source_ref.endswith(tuple(f"STK-{n:03d}" for n in range(35, 104)))
+    assert stock.source_ref.endswith(tuple(f"STK-{n:03d}" for n in range(35, 105)))
 
 
 def test_cis_3_hexenol_is_one_percent_in_ethanol_not_dpg():
@@ -112,3 +112,17 @@ def test_no_display_name_was_taken_twice():
     for stock in _owned():
         counts[stock.name.casefold()] = counts.get(stock.name.casefold(), 0) + 1
     assert [name for name, count in counts.items() if count > 1] == []
+
+
+def test_tuberalia_base_is_the_perfumersworld_base_as_supplied():
+    (stock,) = [s for s in _owned() if s.identity_name == "Tuberalia Base"]
+    assert (stock.dilution, stock.fraction_basis, stock.carrier) == (1.0, "neat", "")
+    assert stock.execution_ready is True
+    record = next(
+        r for r in inventory.load_current_user_inventory_overlay()["records"]
+        if r["canonical_name"] == "Tuberalia Base"
+    )
+    assert record["supplier_product"] == {
+        "supplier": "PerfumersWorld", "product_name": "Tuberalia Base", "sku": "6ND09663",
+    }
+    assert "Tuberlia Base" in record["aliases"]
