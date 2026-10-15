@@ -143,3 +143,12 @@ def test_nootkatone_is_a_specification_with_no_category_4_limit():
     assert check.verdict != "unchecked"
     assert check.status == "specification"
     assert single_material_limit_pct("Nootkatone") == ("specification", None)
+
+
+@pytest.mark.parametrize(
+    ("stock", "limit"),
+    [("Saffranal 10%", 0.012), ("Parmavert", 9.9), ("Scentenal 1%", 1.1)],
+)
+def test_safranal_parmavert_and_scentenal_carry_their_category_4_limits(stock, limit):
+    # IFRA Standards 082, 066 and 056 (Amendment 49), read on the official PDFs.
+    assert single_material_limit_pct(stock) == ("restricted", pytest.approx(limit))
