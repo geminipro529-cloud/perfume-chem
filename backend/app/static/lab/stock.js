@@ -484,6 +484,28 @@ function openInventoryCompletion(stock) {
   $('[name="fraction_percent_decimal"]', form).focus();
 }
 
+// "What's missing" (hold-list.js) opens one stock here: the list shows that bottle
+// with every filter cleared, and its details form opens when the Stock page can
+// complete it. Nothing is saved until Kenny confirms and saves, as always.
+function openStockEntry(stockId) {
+  const stock = (state.projectInventory?.stocks || []).find((item) => item.stock_id === stockId);
+  navigate("materials");
+  if (!stock) {
+    notify("That stock is not on the Stock page's list. Reload the page and try again.", true);
+    return;
+  }
+  Object.assign(stockView, { filter: "all", solvent: "", basket: "" });
+  const search = $("#project-inventory-search");
+  search.value = stock.identity_name || stock.material || "";
+  renderProjectInventory(search.value);
+  if (stock.completion_available) {
+    openInventoryCompletion(stock);
+    return;
+  }
+  const row = [...$("#project-inventory-list").querySelectorAll("tr[data-stock-id]")].find((node) => node.dataset.stockId === stockId);
+  row?.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
 $("#project-inventory-list").addEventListener("click", (event) => {
   const button = event.target.closest("[data-complete-stock]");
   if (!button) return;
@@ -506,6 +528,60 @@ attachStockDilutions({
   },
 });
 
+// What can I make (make-now.js): its own page, reading the inventory and prices loaded here.
+const makeNow = typeof attachMakeNow === "function"
+  ? attachMakeNow({
+    doc: document,
+    root: $('[data-panel="make"]'),
+    request,
+    getInventory: () => state.projectInventory || { stocks: [] },
+    getPrices: () => (typeof stockPricesCurrent === "function" ? stockPricesCurrent() : {}),
+    notify,
+    // Edit a formula (lab/editor.js, loaded later) previews the swap.
+    openSwap: (formulaId, stockId, material) => {
+      editorOpenSavedSwap(formulaId, stockId, material).catch((error) => notify(error.message, true));
+    },
+  })
+  : null;
+
+function makeNowShown() {
+  makeNow?.shown();
+}
+
+function makeNowInventoryChanged() {
+  makeNow?.changed();
+}
+
+// ---- Shelf map: owned materials by written character (similar-stocks.js) ----
+// Asked for on a tap only (GET /v2/workbench/shelf-map), and again on each opening,
+// since stocks change on this page.
+
+const shelfMapView = { seq: 0 };
+
+async function showShelfMap() {
+  const panel = $("#shelf-map");
+  const seq = ++shelfMapView.seq;
+  panel.replaceChildren(Object.assign(document.createElement("p"), { className: "field-help", textContent: "Placing your stocks…" }));
+  try {
+    const answer = await request("/v2/workbench/shelf-map");
+    if (seq !== shelfMapView.seq) return;
+    renderShelfMap(panel, answer);
+  } catch (error) {
+    if (seq !== shelfMapView.seq) return;
+    panel.replaceChildren(Object.assign(document.createElement("p"), { className: "field-help", textContent: `Could not place your stocks: ${error.message}` }));
+  }
+}
+
+$("#shelf-map-toggle").addEventListener("click", () => {
+  const toggle = $("#shelf-map-toggle");
+  const open = toggle.getAttribute("aria-expanded") !== "true";
+  toggle.setAttribute("aria-expanded", String(open));
+  toggle.textContent = open ? "Hide the shelf map" : "Show the shelf map";
+  $("#shelf-map").hidden = !open;
+  if (open) showShelfMap();
+  else shelfMapView.seq += 1;
+});
+
 // Prices Kenny types per stock, plus ethanol and packaging (stock-prices.js).
 // boot.js loads them: a price change redraws the bench sheet cost (bench.js), loaded after this file.
 const stockPrices = typeof attachStockPrices === "function"
@@ -517,6 +593,7 @@ const stockPrices = typeof attachStockPrices === "function"
     onChange: () => {
       if (state.projectInventory) renderProjectInventory($("#project-inventory-search").value);
       if (benchSource.costRows) showBenchCostBlock();
+      makeNowInventoryChanged();
     },
   })
   : null;
