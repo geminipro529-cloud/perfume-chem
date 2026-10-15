@@ -37,6 +37,8 @@ ADDED_20261015 = {
     "INV-USER-20261014-STK-018": ("Aurantiol", 1.0, "neat", ""),
     "INV-USER-20261014-STK-019": ("Vietnamese Benzoin Tincture", 0.4, "mass_fraction", "ethanol"),
     "INV-USER-20261014-STK-020": ("Oman Frankincense Ethanol Tincture", 0.33, "mass_fraction", "ethanol"),
+    "INV-USER-20261014-STK-021": ("Cedrat FCF Sicilian", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-022": ("Red Saffron Infusion", 1.0, "neat", ""),
 }
 # Kenny has no neat Neroli (2026-10-15); this record holds no stock.
 NEAT_NEROLI_NOT_OWNED = "INV-USER-20261014-STK-017"
@@ -97,6 +99,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Suederal 10% yes",
         "Yes.",
         "1. Both 2. Yes 3. about that much or more",
+        "Cedrat is in inventory, Red Saffron is maxed in DPG",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -107,6 +110,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "INV-USER-20260906-001",
         "INV-USER-20260915-STOCK-014",
         "INV-USER-20260915-STOCK-016",
+        "INV-USER-20260924-R5-018",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)

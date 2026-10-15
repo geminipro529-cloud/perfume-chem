@@ -78,6 +78,10 @@
       {
         "message_timestamp_utc": "2026-10-15T01:36:44Z",
         "text": "1. Both 2. Yes 3. about that much or more"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T05:06:17Z",
+        "text": "Cedrat is in inventory, Red Saffron is maxed in DPG"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Only Paradisamide uses a default (w/w, DPG): Kenny gave the strength and carrier or 'neat' for every other bottle."
@@ -102,7 +106,9 @@
     "suederal_10pct_carrier_dpg": true,
     "neat_neroli_not_owned": true,
     "aurantiol_neat_added": true,
-    "benzoin_and_frankincense_tinctures_dosed_at_built_strength": true
+    "benzoin_and_frankincense_tinctures_dosed_at_built_strength": true,
+    "cedrat_receipt_hold_cleared": true,
+    "red_saffron_infusion_added_as_supplied": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -112,7 +118,8 @@
     "INV-USER-20260901-002",
     "INV-USER-20260906-001",
     "INV-USER-20260915-STOCK-014",
-    "INV-USER-20260915-STOCK-016"
+    "INV-USER-20260915-STOCK-016",
+    "INV-USER-20260924-R5-018"
   ],
   "records": [
     {
@@ -978,6 +985,78 @@
         "release_authorized": false
       },
       "note": "Asked 'Can the benzoin and frankincense tinctures be dosed at the strengths they were made at, 40% and 33%?', Kenny answered 'Yes' (item 2 of his 15 Oct reply). The 33% w/w starting charge is now the dosing strength. The final filtrate was never assayed, so this is his dosing decision, not a measurement. Retires INV-USER-20260915-STOCK-016. Kenyan Myrrh and Turkish Storax tinctures were not asked and stay held."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-021",
+      "canonical_name": "Cedrat FCF Sicilian",
+      "aliases": [
+        "Cedrat FCF oil Sicilian"
+      ],
+      "state": "OWNED",
+      "category": "citrus_top",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CORRECT_FORM_AND_READINESS_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_ANSWER_20261015_CEDRAT_IN_INVENTORY_RULE_6_NO_RECEIPT_NEEDED"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Cedrat is in inventory, Red Saffron is maxed in DPG",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked whether to clear the lot-receipt hold on his neat Cedrat FCF, Kenny answered 'Cedrat is in inventory' (15 Oct). It was already owned neat (INV-USER-20260924-R5-018, his 24 Sep form confirmation; inventory.txt L47); the only hold was BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING, which AGENTS.md Rule 6 says a formula does not need. Retires R5-018."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-022",
+      "canonical_name": "Red Saffron Infusion",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice_aromatic",
+      "stock": {
+        "physical_form": "saturated_infusion_in_dpg_as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_WHOLE_PRODUCT_AS_SUPPLIED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_ANSWER_20261015_SATURATED_IN_DPG_DOSED_AS_WHOLE_PRODUCT"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_ADD_REQUEST",
+      "source_quote": "Cedrat is in inventory, Red Saffron is maxed in DPG",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "infusion_solids_fraction_asserted": false,
+        "composition_asserted": false,
+        "supplier_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'I have ... Red Saffron Infusion' (15 Oct, ionone thread), then 'Red Saffron is maxed in DPG': a saturated saffron infusion in DPG with no stated strength (PerfumersWorld 5ES18560 is sold in DPG without one). It is dosed as the whole product as supplied, like a base; the saffron share is unknown (AGENTS.md Rule 4), so no saffron dose is implied. Not in inventory.txt, which is not edited."
     }
   ]
 }

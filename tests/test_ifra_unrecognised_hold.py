@@ -159,6 +159,8 @@ STILL_HELD = {
     "Mate Absolute",
     "Orris Concrete Orris Butter",
     "Pomelo EO",
+    # Added 2026-10-15: a saturated saffron infusion in DPG of unknown strength.
+    "Red Saffron Infusion",
     "Saffranal",
     # Owned before, but undosable until 2026-10-14 gave it a strength (neat).
     "Sandalwood Base X3",
