@@ -70,7 +70,13 @@ const PHONE_STRIPS_WORDS = {
     checkMissed: "{name}: missed",
     nextIn: "Next: the {name} check in {clock}",
     smellNow: "Smell now: the {name} check",
+    smellNowOther: "Smell now: {label}, the {name} check",
+    goThere: "Go to that strip",
     openUntil: "Open until {time}",
+    closedTitle: "The {name} check closed at {time}",
+    lateHelp: "Your note is kept. Save files it as smelled at {time}, when you started it.",
+    closedKept: "The {name} check closed while you were writing. Your note is kept below.",
+    dropNote: "Drop this note",
     finished: "Done: every check is noted or missed.",
     whatSmell: "What do you smell?",
     leadsWord: "leads",
@@ -83,7 +89,11 @@ const PHONE_STRIPS_WORDS = {
     save: "Save",
     noted: "Noted.",
     needSomething: "Mark at least one name, a liking or a few words.",
+    bothMarked: "{names}: marked both leading and weak. Pick one for each.",
+    tooMany: "Mark at most {max} names as leading, and {max} as weak.",
+    notKept: "This phone could not keep the note (its storage is full or blocked), so it is not saved. Note it on the PC's smell log instead.",
     noRecipe: "This bottle has no recipe in the Lab, so its strips won't teach the model. Your notes are still kept.",
+    rowsLoading: "The recipe names come when the PC answers. You can type names meanwhile.",
     nose: "Your nose: {n} of {min} bottles logged. The Lab starts learning from your nose at {min}.",
     noseOn: "The Lab uses what your nose taught it ({n} bottles).",
     noseNotYet: "{n} bottles logged. What they teach doesn't beat the plain model yet, so the Lab doesn't use it.",
@@ -92,6 +102,7 @@ const PHONE_STRIPS_WORDS = {
     sendingNotes: "Sending to the PC…",
     offline: "No connection to the PC. {count} kept on this phone; they go when it answers.",
     refused: "The PC refused a note for {label}: {message}",
+    refusedWhat: "The note: {text}",
     tryAgain: "Try again",
     remove: "Remove it",
     close: "Close",
@@ -125,7 +136,13 @@ const PHONE_STRIPS_WORDS = {
     checkMissed: "{name}: พลาดไปแล้ว",
     nextIn: "ครั้งต่อไป: รอบ {name} อีก {clock}",
     smellNow: "ดมตอนนี้: รอบ {name}",
+    smellNowOther: "ดมตอนนี้: {label} รอบ {name}",
+    goThere: "ไปที่แถบนั้น",
     openUntil: "ดมได้ถึง {time}",
+    closedTitle: "รอบ {name} ปิดไปเมื่อ {time}",
+    lateHelp: "บันทึกของคุณยังอยู่ กดบันทึกเพื่อเก็บเป็นการดมเมื่อ {time} ตอนที่คุณเริ่มเขียน",
+    closedKept: "รอบ {name} ปิดไปขณะที่คุณกำลังเขียน บันทึกของคุณยังอยู่ด้านล่าง",
+    dropNote: "ทิ้งบันทึกนี้",
     finished: "เสร็จแล้ว: ทุกรอบบันทึกแล้วหรือพลาดไปแล้ว",
     whatSmell: "ได้กลิ่นอะไร?",
     leadsWord: "เด่น",
@@ -138,7 +155,11 @@ const PHONE_STRIPS_WORDS = {
     save: "บันทึก",
     noted: "บันทึกแล้ว",
     needSomething: "เลือกชื่ออย่างน้อยหนึ่งชื่อ ให้คะแนนความชอบ หรือเขียนสั้นๆ",
+    bothMarked: "{names}: เลือกไว้ทั้งเด่นและจาง เลือกได้อย่างเดียวต่อชื่อ",
+    tooMany: "เลือกกลิ่นเด่นได้ไม่เกิน {max} ชื่อ และกลิ่นจางไม่เกิน {max} ชื่อ",
+    notKept: "โทรศัพท์เก็บบันทึกนี้ไม่ได้ (พื้นที่เต็มหรือถูกปิดกั้น) จึงยังไม่ได้บันทึก กรุณาบันทึกในบันทึกกลิ่นบนคอมพิวเตอร์แทน",
     noRecipe: "ขวดนี้ไม่มีสูตรในแล็บ แถบของขวดนี้จึงไม่ช่วยสอนโมเดล แต่บันทึกของคุณยังเก็บไว้",
+    rowsLoading: "ชื่อในสูตรจะขึ้นเมื่อคอมพิวเตอร์ตอบรับ ระหว่างนี้พิมพ์ชื่อเองได้",
     nose: "จมูกของคุณ: บันทึกแล้ว {n} จาก {min} ขวด แล็บจะเริ่มเรียนรู้จากจมูกของคุณเมื่อครบ {min} ขวด",
     noseOn: "แล็บใช้สิ่งที่จมูกของคุณสอนแล้ว ({n} ขวด)",
     noseNotYet: "บันทึกแล้ว {n} ขวด สิ่งที่เรียนรู้ยังไม่ดีกว่าโมเดลเดิม แล็บจึงยังไม่ใช้",
@@ -147,6 +168,7 @@ const PHONE_STRIPS_WORDS = {
     sendingNotes: "กำลังส่งไปที่คอมพิวเตอร์…",
     offline: "เชื่อมต่อคอมพิวเตอร์ไม่ได้ เก็บไว้ในโทรศัพท์ {count} รายการ จะส่งเมื่อเชื่อมต่อได้",
     refused: "คอมพิวเตอร์ไม่รับบันทึกของ {label}: {message}",
+    refusedWhat: "บันทึก: {text}",
     tryAgain: "ลองอีกครั้ง",
     remove: "ลบออก",
     close: "ปิด",
@@ -203,6 +225,48 @@ function phoneStripClock(ms) {
   const minutes = Math.floor((total % 3600) / 60);
   const seconds = String(total % 60).padStart(2, "0");
   return hours ? `${hours}:${String(minutes).padStart(2, "0")}:${seconds}` : `${minutes}:${seconds}`;
+}
+
+// The check whose note was being written when it closed: it stays on screen to
+// be saved or dropped until the next check opens. `hasDraft(window)` says
+// whether a note for that check has anything in it.
+function phoneStripLateCheck(checks, hasDraft, now) {
+  for (let index = checks.length - 1; index >= 0; index -= 1) {
+    const check = checks[index];
+    if (check.status !== "missed" || !hasDraft(check.window)) continue;
+    const later = checks[index + 1];
+    return later && now >= later.dueAt ? null : check;
+  }
+  return null;
+}
+
+// What the PC would refuse in a note (lab_service.add_smell_log's rules): a
+// name both leading and weak, or more than 12 names in a list. Names count once
+// whatever their case, as on the PC.
+const PHONE_STRIPS_MAX_NAMES = 12;
+function phoneStripsProblem(lang, body) {
+  const fold = (name) => String(name).trim().toLowerCase();
+  const once = (names) => [...new Map((names || []).filter((name) => String(name).trim()).map((name) => [fold(name), String(name).trim()])).values()];
+  const leads = once(body.leads);
+  const weak = once(body.weak);
+  const weakKeys = new Set(weak.map(fold));
+  const both = leads.filter((name) => weakKeys.has(fold(name)));
+  if (both.length) return phoneStripsSay(lang, "bothMarked", { names: both.join(", ") });
+  if (leads.length > PHONE_STRIPS_MAX_NAMES || weak.length > PHONE_STRIPS_MAX_NAMES) {
+    return phoneStripsSay(lang, "tooMany", { max: PHONE_STRIPS_MAX_NAMES });
+  }
+  return "";
+}
+
+// A kept note in one line, so a refused one can be noted again by hand.
+function phoneStripsNoteText(lang, note) {
+  const check = PHONE_STRIP_CHECKS.find((item) => item.window === note?.window);
+  const parts = [check ? phoneStripsSay(lang, check.name) : note?.window];
+  if (note?.liking) parts.push(`${note.liking}/10`);
+  if (note?.leads?.length) parts.push(`${phoneStripsSay(lang, "leadsWord")}: ${note.leads.join(", ")}`);
+  if (note?.weak?.length) parts.push(`${phoneStripsSay(lang, "weakWord")}: ${note.weak.join(", ")}`);
+  if (note?.words) parts.push(`“${note.words}”`);
+  return parts.filter(Boolean).join(" · ");
 }
 
 // The smell log request body of a kept note.
@@ -279,34 +343,47 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
   let currentBottle = "";
   let pickedBottle = "";
   let ending = false;
-  let lastStatuses = "";
   let opener = null;
   const inerted = [];
-  // The form of the open check: chips, liking and what was typed, kept while
-  // the check stays open (the countdown redraws the screen every second).
+  // Each strip's check statuses at the last tick, to see a check open or close.
+  const tickStatuses = new Map();
+  // The statuses the screen was drawn with: a change redraws it.
+  let drawnStatuses = "";
+  // Recipe names asked for and not answered yet.
+  const rowsLoading = new Set();
+  // A note being written, per strip and check: chips, liking, what was typed and
+  // when it was started. Kept while Kenny looks at another strip or closes the
+  // view, and dropped once saved, dropped by him, or past its check.
+  const drafts = new Map();
+  const draftKey = (bottleId, window) => `${bottleId}\u0000${window}`;
+  // The note the form shows, and its key.
   let draft = null;
+  let shownKey = null;
 
   const clock = () => Date.now();
-  const timeText = (ms) => new Date(ms).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  const timeText = (ms) => new Date(ms).toLocaleTimeString(lang === "th" ? "th-TH" : [], { hour: "2-digit", minute: "2-digit" });
   const newId = (window) => `strip.${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}.${window}`;
 
   // ---- kept on the phone: every write re-reads, so two tabs' changes add up ----
   function activeStrips() { return phoneStripsRead(store, PHONE_STRIPS_ACTIVE); }
   function outbox() { return phoneStripsRead(store, PHONE_STRIPS_OUTBOX); }
+  // false when the phone could not keep it (storage full or blocked).
   function writeKey(key, value) {
-    try { store.setItem(key, JSON.stringify(value)); } catch { /* storage full or unavailable */ }
+    try { store.setItem(key, JSON.stringify(value)); return true; } catch { return false; }
   }
   function changeStrips(change) {
     const strips = activeStrips();
     change(strips);
-    writeKey(PHONE_STRIPS_ACTIVE, strips);
-    return strips;
+    return writeKey(PHONE_STRIPS_ACTIVE, strips);
   }
   function changeOutbox(change) {
     const notes = outbox();
     change(notes);
-    writeKey(PHONE_STRIPS_OUTBOX, notes);
-    return notes;
+    return writeKey(PHONE_STRIPS_OUTBOX, notes);
+  }
+  // Set a live region's text only when it changes, so it is not read out again.
+  function setText(element, text) {
+    if (element.textContent !== text) element.textContent = text;
   }
   function liveStrips() {
     const now = clock();
@@ -335,6 +412,8 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
   topActions.append(langButton, closeButton);
   top.append(topLine, topActions);
   const notice = node("p", { className: "phone-bench-notice", role: "status", "aria-live": "polite" });
+  // Another strip's check opened: one tap goes to it.
+  const noticeGo = node("button", { type: "button", className: "quiet-button phone-strips-go", hidden: true });
   const heading = node("h2", { className: "phone-bench-material phone-strips-heading", id: "phone-strips-heading", tabindex: "-1" });
 
   const home = node("div", { className: "phone-strips-home" });
@@ -374,8 +453,9 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
   const wordsInput = node("input", { name: "words", type: "text", maxlength: "280", autocomplete: "off", id: "phone-strips-words" });
   const wordsLabel = node("label", { for: "phone-strips-words" });
   const save = node("button", { type: "submit", className: "phone-bench-save phone-strips-save" });
+  const dropDraft = node("button", { type: "button", className: "quiet-button phone-strips-drop", hidden: true });
   const formStatus = node("p", { className: "phone-bench-check", role: "status", "aria-live": "polite" });
-  form.append(formTitle, openUntil, rowSet, likingSet, wordsLabel, wordsInput, save, formStatus);
+  form.append(formTitle, openUntil, rowSet, likingSet, wordsLabel, wordsInput, save, dropDraft, formStatus);
   const stripActions = node("div", { className: "phone-bench-actions phone-bench-move" });
   const allStrips = node("button", { type: "button", className: "quiet-button phone-strips-all" });
   const endStrip = node("button", { type: "button", className: "quiet-button phone-strips-end" });
@@ -385,12 +465,13 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
   const sync = node("div", { className: "phone-bench-sync phone-strips-sync" });
   const syncLine = node("p", { role: "status", "aria-live": "polite" });
   const refusedLine = node("p", { className: "phone-bench-check is-error", hidden: true });
+  const refusedWhat = node("p", { className: "phone-bench-how phone-strips-refused-note", hidden: true });
   const syncActions = node("div", { className: "phone-bench-actions phone-bench-move", hidden: true });
   const tryAgain = node("button", { type: "button", className: "quiet-button phone-strips-try" });
   const removeNote = node("button", { type: "button", className: "quiet-button phone-strips-remove" });
   syncActions.append(tryAgain, removeNote);
-  sync.append(syncLine, refusedLine, syncActions);
-  sheet.append(top, notice, heading, home, pick, strip, sync);
+  sync.append(syncLine, refusedLine, refusedWhat, syncActions);
+  sheet.append(top, notice, noticeGo, heading, home, pick, strip, sync);
   doc.body.append(sheet);
 
   // ---- sending ----
@@ -432,6 +513,7 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
       offline = false;
       changeOutbox((notes) => { delete notes[clientId]; });
       noseStale = true;
+      loadMissingRows();
     } else if (failure.status && failure.status < 500) {
       // A refusal is kept and shown; only a PC that didn't answer is tried again.
       offline = false;
@@ -452,6 +534,12 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
     for (const note of phoneStripsToSend(outbox())) send(note.clientId);
   }
 
+  // Back online: send what is kept, and fetch recipe names a strip still lacks.
+  function online() {
+    resume();
+    loadMissingRows();
+  }
+
   // Asked only while the view is open: the PC works it out over every logged bottle.
   async function loadNose() {
     noseStale = false;
@@ -465,21 +553,51 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
   }
 
   // The bottle's recipe names, for the chips; kept with the strip for offline use.
+  // A strip dipped while the PC didn't answer asks again (loadMissingRows).
   async function loadRows(bottleId) {
+    if (rowsLoading.has(bottleId)) return;
+    rowsLoading.add(bottleId);
     let data = null;
     try {
       data = await request(`/bottles/${encodeURIComponent(bottleId)}/smell-log`);
     } catch {
       return;
+    } finally {
+      rowsLoading.delete(bottleId);
     }
     const rows = Array.isArray(data?.rows) ? data.rows.filter((name) => typeof name === "string" && name) : [];
     changeStrips((strips) => {
       if (strips[bottleId]) Object.assign(strips[bottleId], { rows, hasRecipe: rows.length > 0 });
     });
-    if (!sheet.hidden && screen === "strip" && currentBottle === bottleId) {
-      if (draft && !draft.chips.size) for (const name of rows) draft.chips.set(name, "");
-      render();
+    // A note started before the names came keeps what was typed; an untouched one gets the chips.
+    for (const note of drafts.values()) {
+      if (note.bottleId === bottleId && !note.chips.size && !draftHasContent(note)) for (const name of rows) note.chips.set(name, "");
     }
+    if (!sheet.hidden && screen === "strip" && currentBottle === bottleId) render();
+  }
+
+  function loadMissingRows() {
+    for (const item of liveStrips()) {
+      if (item.hasRecipe === null || item.hasRecipe === undefined) loadRows(item.bottleId);
+    }
+  }
+
+  function draftHasContent(note) {
+    return Boolean(note && ([...note.chips.values()].some(Boolean) || note.liking
+      || note.leads.trim() || note.weak.trim() || note.words.trim()));
+  }
+
+  function draftFor(item, window) {
+    const key = draftKey(item.bottleId, window);
+    if (!drafts.has(key)) {
+      drafts.set(key, { key, bottleId: item.bottleId, window, chips: new Map((item.rows || []).map((name) => [name, ""])), liking: "", leads: "", weak: "", words: "", startedAt: 0 });
+    }
+    return drafts.get(key);
+  }
+
+  // Something was marked or typed: the note counts as started now, once.
+  function touched() {
+    if (draft && !draft.startedAt && draftHasContent(draft)) draft.startedAt = clock();
   }
 
   // ---- drawing ----
@@ -496,6 +614,7 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
   }
 
   function drawPanel() {
+    root.setAttribute("lang", lang);
     title.textContent = say("panelTitle");
     help.textContent = say("panelHelp");
     openButton.textContent = say("open");
@@ -508,15 +627,17 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
       row.append(text);
       return row;
     }));
-    panelSync.textContent = refusedNote() ? say("refused", { label: refusedNote().label || "", message: refusedNote().error || "" }) : syncText();
+    setText(panelSync, refusedNote() ? say("refused", { label: refusedNote().label || "", message: refusedNote().error || "" }) : syncText());
   }
 
   function drawSync() {
-    syncLine.textContent = syncText();
+    setText(syncLine, syncText());
     const refused = refusedNote();
     refusedLine.hidden = !refused;
+    refusedWhat.hidden = !refused;
     syncActions.hidden = !refused;
     refusedLine.textContent = refused ? say("refused", { label: refused.label || "", message: refused.error || "" }) : "";
+    refusedWhat.textContent = refused ? say("refusedWhat", { text: phoneStripsNoteText(lang, refused) }) : "";
     tryAgain.textContent = say("tryAgain");
     removeNote.textContent = say("remove");
     if (!sheet.hidden) drawPanel();
@@ -528,7 +649,8 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
       return;
     }
     for (const element of doc.body.children) {
-      if (element === sheet || element.inert) continue;
+      // Another full-screen view (phone bench) is never made inert by this one.
+      if (element === sheet || element.inert || element.getAttribute("aria-modal") === "true") continue;
       element.inert = true;
       inerted.push(element);
     }
@@ -536,18 +658,28 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
 
   function pressed(button, on) { button.setAttribute("aria-pressed", String(on)); }
 
-  function drawForm(item, check) {
+  // `late`: the check closed while its note was being written (phoneStripLateCheck).
+  function drawForm(item, check, late = false) {
     form.hidden = !check;
-    if (!check) { draft = null; return; }
-    if (!draft || draft.bottleId !== item.bottleId || draft.window !== check.window) {
-      draft = { bottleId: item.bottleId, window: check.window, chips: new Map((item.rows || []).map((name) => [name, ""])), liking: "", leads: "", weak: "", words: "" };
-      leadsInput.value = "";
-      weakInput.value = "";
-      wordsInput.value = "";
+    if (!check) { draft = null; shownKey = null; return; }
+    draft = draftFor(item, check.window);
+    if (shownKey !== draft.key) {
+      // Another note on screen: its own boxes, as it was left.
+      shownKey = draft.key;
+      leadsInput.value = draft.leads;
+      weakInput.value = draft.weak;
+      wordsInput.value = draft.words;
       formStatus.textContent = "";
     }
-    formTitle.textContent = say("smellNow", { name: say(check.name) });
-    openUntil.textContent = say("openUntil", { time: timeText(check.closesAt) });
+    if (late) {
+      formTitle.textContent = say("closedTitle", { name: say(check.name), time: timeText(check.closesAt) });
+      openUntil.textContent = say("lateHelp", { time: timeText(Math.min(draft.startedAt || check.closesAt, check.closesAt)) });
+    } else {
+      formTitle.textContent = say("smellNow", { name: say(check.name) });
+      openUntil.textContent = say("openUntil", { time: timeText(check.closesAt) });
+    }
+    dropDraft.hidden = !late;
+    dropDraft.textContent = say("dropNote");
     rowLegend.textContent = say("whatSmell");
     chipHelp.textContent = say("chipHelp");
     const typed = draft.chips.size === 0;
@@ -579,7 +711,8 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
   function drawStrip() {
     const item = activeStrips()[currentBottle];
     if (!item) { screen = "home"; return drawHome(); }
-    const checks = phoneStripChecks(item, clock());
+    const now = clock();
+    const checks = phoneStripChecks(item, now);
     heading.textContent = labelOf(item.bottleId, item.label);
     dippedLine.textContent = say("dippedAt", { time: timeText(Date.parse(item.dippedAt)) });
     checkList.replaceChildren(...checks.map((check) => {
@@ -592,12 +725,22 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
       ? say("nextIn", { name: say(coming.name), clock: phoneStripClock(coming.dueAt - clock()) })
       : (coming ? "" : say("finished"));
     next.hidden = !next.textContent;
-    recipeNote.textContent = item.hasRecipe === false ? say("noRecipe") : "";
+    const noRows = item.hasRecipe === null || item.hasRecipe === undefined;
+    recipeNote.textContent = item.hasRecipe === false ? say("noRecipe") : (noRows ? say("rowsLoading") : "");
     recipeNote.hidden = !recipeNote.textContent;
-    drawForm(item, coming && coming.status === "open" ? coming : null);
+    const late = coming && coming.status === "open"
+      ? null
+      : phoneStripLateCheck(checks, (window) => draftHasContent(drafts.get(draftKey(item.bottleId, window))), clock());
+    drawForm(item, coming && coming.status === "open" ? coming : late, Boolean(late));
     allStrips.textContent = say("allStrips");
     endStrip.textContent = ending ? say("endConfirm") : say("endStrip");
-    lastStatuses = checks.map((check) => check.status).join(",");
+    drawnStatuses = statusesOf(item, now);
+  }
+
+  // Every live strip's check statuses, to see when the home list needs a redraw.
+  function homeStatuses(items) {
+    const now = clock();
+    return items.map((item) => statusesOf(item, now)).join(";");
   }
 
   function drawHome() {
@@ -605,6 +748,7 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
     nose.textContent = phoneStripsNoseText(lang, calibration);
     nose.hidden = !nose.textContent;
     const items = liveStrips();
+    drawnStatuses = homeStatuses(items);
     stripList.replaceChildren(...(items.length ? items.map((item) => {
       const button = node("button", { type: "button", className: "phone-bench-summary-line phone-strips-line", "data-bottle": item.bottleId });
       button.append(node("span", { className: "phone-bench-summary-name" }, labelOf(item.bottleId, item.label)), node("span", {}, nextText(item)));
@@ -665,34 +809,101 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
       const again = [...sheet.querySelectorAll(`[data-${name}]`)].find((element) => element.dataset[name] === value);
       if (again && !again.closest("[hidden]")) { again.focus(); return; }
     }
-    const active = doc.activeElement;
-    if (!sheet.hidden && (!active || !sheet.contains(active) || active.closest("[hidden]"))) heading.focus?.();
+    // Only a control that vanished in the redraw hands the focus to the heading. A
+    // tap that left the focus on the page (Safari on iPhone) keeps it there, so
+    // the view does not jump back to the top.
+    const lost = focusWas && sheet.contains(focusWas) && (!focusWas.isConnected || Boolean(focusWas.closest("[hidden]")));
+    if (!sheet.hidden && lost) heading.focus?.({ preventScroll: true });
   }
 
-  // Every second while the view is open: countdowns, and a check that opens or closes.
+  // The statuses of one strip's checks, as drawStrip and the ticker compare them.
+  function statusesOf(item, now = clock()) {
+    return `${item.bottleId}:${phoneStripChecks(item, now).map((check) => check.status).join(",")}`;
+  }
+
+  // A notice at the top of the view; `goTo` adds the button to that strip, and
+  // `forKey` is the check it is about, so it goes once that check closes.
+  let noticeTarget = "";
+  let noticeFor = null;
+  function setNotice(text, goTo = "", forKey = null) {
+    setText(notice, text);
+    noticeTarget = goTo;
+    noticeFor = forKey;
+    noticeGo.hidden = !goTo;
+    noticeGo.textContent = say("goThere");
+  }
+
+  // The second ticker runs while a strip still has a check to come, whether the
+  // view is open or not, so the Bottles panel counts down too.
+  function ensureTicker() {
+    if (ticker) return;
+    const now = clock();
+    if (!liveStrips().some((item) => !phoneStripFinished(phoneStripChecks(item, now)))) return;
+    ticker = view.setInterval(tick, PHONE_STRIPS_TICK_MS);
+  }
+
+  function stopTicker() {
+    if (ticker) { view.clearInterval(ticker); ticker = null; }
+  }
+
+  // Every second: the countdowns, and a check opening or closing on any strip.
   function tick() {
-    if (sheet.hidden) return;
-    if (screen === "strip") {
-      const item = activeStrips()[currentBottle];
-      const checks = item ? phoneStripChecks(item, clock()) : [];
-      const statuses = checks.map((check) => check.status).join(",");
-      if (statuses !== lastStatuses) {
-        const opened = checks.find((check, index) => check.status === "open" && lastStatuses.split(",")[index] === "waiting");
-        render();
-        if (opened) {
-          notice.textContent = say("smellNow", { name: say(opened.name) });
-          try { view.navigator?.vibrate?.([300, 150, 300]); } catch { /* not allowed here */ }
+    const now = clock();
+    const items = liveStrips();
+    let opened = null;
+    let closed = null;
+    const seen = new Set();
+    for (const item of items) {
+      const checks = phoneStripChecks(item, now);
+      const before = tickStatuses.get(item.bottleId);
+      tickStatuses.set(item.bottleId, checks.map((check) => check.status));
+      seen.add(item.bottleId);
+      if (!before) continue;
+      checks.forEach((check, index) => {
+        if (before[index] === "waiting" && check.status === "open") opened = opened || { item, check };
+        if (before[index] === "open" && check.status !== "open") {
+          const kept = check.status === "missed" && draftHasContent(drafts.get(draftKey(item.bottleId, check.window)));
+          closed = closed || { item, check, kept };
         }
-        return;
-      }
-      const coming = phoneStripNext(checks);
-      if (coming && coming.status === "waiting") next.textContent = say("nextIn", { name: say(coming.name), clock: phoneStripClock(coming.dueAt - clock()) });
+      });
+    }
+    // A strip that was ended or has expired takes its statuses and notes with it.
+    for (const bottleId of [...tickStatuses.keys()]) if (!seen.has(bottleId)) tickStatuses.delete(bottleId);
+    for (const [key, note] of [...drafts]) if (!seen.has(note.bottleId)) drafts.delete(key);
+    if (!items.some((item) => !phoneStripFinished(phoneStripChecks(item, now)))) stopTicker();
+    if (opened) {
+      try { view.navigator?.vibrate?.([300, 150, 300]); } catch { /* not allowed here */ }
+    }
+    if (sheet.hidden) {
+      drawPanel();
+      return;
+    }
+    const here = screen === "strip" ? items.find((item) => item.bottleId === currentBottle) : null;
+    let want = drawnStatuses;
+    if (screen === "strip") want = here ? statusesOf(here, now) : "";
+    else if (screen === "home") want = homeStatuses(items);
+    if (want !== drawnStatuses) {
+      render();
+    } else if (here) {
+      const coming = phoneStripNext(phoneStripChecks(here, now));
+      if (coming && coming.status === "waiting") setText(next, say("nextIn", { name: say(coming.name), clock: phoneStripClock(coming.dueAt - now) }));
     } else if (screen === "home") {
       for (const button of stripList.querySelectorAll("[data-bottle]")) {
-        const item = activeStrips()[button.dataset.bottle];
+        const item = items.find((entry) => entry.bottleId === button.dataset.bottle);
         const line = button.lastElementChild;
-        if (item && line) line.textContent = nextText(item);
+        if (item && line) setText(line, nextText(item));
       }
+    }
+    if (opened) {
+      const key = draftKey(opened.item.bottleId, opened.check.window);
+      const onIt = screen === "strip" && currentBottle === opened.item.bottleId;
+      const name = say(opened.check.name);
+      if (onIt) setNotice(say("smellNow", { name }), "", key);
+      else setNotice(say("smellNowOther", { label: labelOf(opened.item.bottleId, opened.item.label), name }), opened.item.bottleId, key);
+    } else if (closed) {
+      const onIt = screen === "strip" && currentBottle === closed.item.bottleId;
+      if (closed.kept && onIt) setNotice(say("closedKept", { name: say(closed.check.name) }));
+      else if (noticeFor === draftKey(closed.item.bottleId, closed.check.window)) setNotice("");
     }
   }
 
@@ -701,36 +912,59 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
     currentBottle = where === "strip" ? bottleId : currentBottle;
     pickedBottle = "";
     ending = false;
-    notice.textContent = "";
+    setNotice("");
     render();
+    // A strip dipped while the PC didn't answer asks for its recipe names again.
+    const item = where === "strip" ? activeStrips()[bottleId] : null;
+    if (item && (item.hasRecipe === null || item.hasRecipe === undefined)) loadRows(bottleId);
+  }
+
+  // Another full-screen view (phone bench's weigh sheet) has the page.
+  function pageTaken() {
+    return [...doc.querySelectorAll("[aria-modal='true']")].some((element) => element !== sheet && !element.hidden);
   }
 
   function open() {
+    if (pageTaken()) return;
+    // The language may have been changed in phone bench mode meanwhile.
+    try { lang = store.getItem(PHONE_STRIPS_LANG) === "th" ? "th" : "en"; } catch { /* keep the one in use */ }
     opener = doc.activeElement;
     sheet.hidden = false;
     doc.body.classList.add("phone-bench-open");
     setPageInert(true);
     show("home");
     heading.focus?.();
-    if (!ticker) ticker = view.setInterval(tick, PHONE_STRIPS_TICK_MS);
+    ensureTicker();
     loadNose();
     resume();
+    loadMissingRows();
   }
 
+  // The notes being written stay, and so does the ticker while a check is to come.
   function close() {
     sheet.hidden = true;
     doc.body.classList.remove("phone-bench-open");
     setPageInert(false);
-    if (ticker) { view.clearInterval(ticker); ticker = null; }
-    draft = null;
+    setNotice("");
     drawPanel();
     opener?.focus?.();
   }
 
+  function dropDraftsOf(bottleId) {
+    for (const [key, note] of [...drafts]) if (note.bottleId === bottleId) drafts.delete(key);
+  }
+
   function saveNote() {
     const item = activeStrips()[currentBottle];
-    const check = item ? phoneStripNext(phoneStripChecks(item, clock())) : null;
-    if (!item || !check || check.status !== "open" || !draft || draft.window !== check.window) {
+    const now = clock();
+    const checks = item ? phoneStripChecks(item, now) : [];
+    const coming = phoneStripNext(checks);
+    const openCheck = coming && coming.status === "open" ? coming : null;
+    const late = item && !openCheck
+      ? phoneStripLateCheck(checks, (window) => draftHasContent(drafts.get(draftKey(item.bottleId, window))), now)
+      : null;
+    const check = openCheck || late;
+    if (!item || !check || !draft || draft.window !== check.window) {
       render();
       return;
     }
@@ -739,15 +973,29 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
       formStatus.textContent = say("needSomething");
       return;
     }
+    // What the PC would refuse is caught here, while the note is still on screen.
+    const problem = phoneStripsProblem(lang, body);
+    if (problem) {
+      formStatus.textContent = problem;
+      return;
+    }
+    // A note saved after its check closed is filed at the time it was started,
+    // and never later than the check's last second.
+    const smelledAt = late ? Math.min(draft.startedAt || check.closesAt, check.closesAt - 1000) : now;
     const clientId = newId(check.window);
-    const note = { clientId, bottleId: item.bottleId, label: labelOf(item.bottleId, item.label), window: check.window, leads: body.leads, weak: body.weak, liking: body.liking, words: body.words, loggedAt: new Date(clock()).toISOString() };
+    const note = { clientId, bottleId: item.bottleId, label: labelOf(item.bottleId, item.label), window: check.window, leads: body.leads, weak: body.weak, liking: body.liking, words: body.words, loggedAt: new Date(smelledAt).toISOString() };
     // The note is kept before the check is marked, so a closed page loses neither.
-    changeOutbox((notes) => { notes[clientId] = note; });
+    if (!changeOutbox((notes) => { notes[clientId] = note; })) {
+      formStatus.textContent = say("notKept");
+      return;
+    }
     changeStrips((strips) => {
       if (strips[item.bottleId]) strips[item.bottleId].logged = { ...(strips[item.bottleId].logged || {}), [check.window]: clientId };
     });
+    drafts.delete(draft.key);
     draft = null;
-    notice.textContent = say("noted");
+    shownKey = null;
+    setNotice(say("noted"));
     render();
     send(clientId);
   }
@@ -755,12 +1003,21 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
   // ---- events ----
   openButton.addEventListener("click", open);
   closeButton.addEventListener("click", close);
-  sheet.addEventListener("keydown", (event) => { if (event.key === "Escape") close(); });
+  // Escape closes the view wherever the focus is, as long as the view is open.
+  doc.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !sheet.hidden) close();
+  });
   langButton.addEventListener("click", () => {
     lang = lang === "th" ? "en" : "th";
     try { store.setItem(PHONE_STRIPS_LANG, lang); } catch { /* storage unavailable */ }
+    noticeGo.textContent = say("goThere");
     render();
     drawPanel();
+  });
+  noticeGo.addEventListener("click", () => {
+    if (!noticeTarget) return;
+    show("strip", noticeTarget);
+    heading.focus?.();
   });
   dipButton.addEventListener("click", () => { show("pick"); heading.focus?.(); });
   stripList.addEventListener("click", (event) => {
@@ -786,12 +1043,15 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
   dippedButton.addEventListener("click", () => {
     const bottleId = pickedBottle;
     if (!bottleId) return;
+    // A new strip of the same bottle starts with no notes.
+    dropDraftsOf(bottleId);
+    tickStatuses.delete(bottleId);
     changeStrips((strips) => {
       strips[bottleId] = { bottleId, label: labelOf(bottleId), dippedAt: new Date(clock()).toISOString(), logged: {}, rows: [], hasRecipe: null };
     });
     show("strip", bottleId);
     heading.focus?.();
-    loadRows(bottleId);
+    ensureTicker();
   });
   pickBack.addEventListener("click", () => {
     if (pickedBottle) { pickedBottle = ""; render(); return; }
@@ -808,6 +1068,7 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
       endStrip.focus();
       return;
     }
+    dropDraftsOf(currentBottle);
     changeStrips((strips) => { delete strips[currentBottle]; });
     show("home");
     heading.focus?.();
@@ -817,10 +1078,26 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
     if (!button || !draft) return;
     if (button.dataset.row !== undefined) draft.chips.set(button.dataset.row, phoneStripsSmell.nextSmellChipState(draft.chips.get(button.dataset.row)));
     else if (button.dataset.liking !== undefined) draft.liking = button.dataset.liking === draft.liking ? "" : button.dataset.liking;
-    else return;
+    else if (button === dropDraft) {
+      drafts.delete(draft.key);
+      draft = null;
+      shownKey = null;
+      setNotice("");
+      render();
+      return;
+    } else return;
+    touched();
     formStatus.textContent = "";
     render();
   });
+  // What is typed is kept with the note, so it survives a look at another strip.
+  for (const [input, field] of [[leadsInput, "leads"], [weakInput, "weak"], [wordsInput, "words"]]) {
+    input.addEventListener("input", () => {
+      if (!draft) return;
+      draft[field] = input.value;
+      touched();
+    });
+  }
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     saveNote();
@@ -838,15 +1115,22 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
     const refused = refusedNote();
     if (!refused) return;
     changeOutbox((notes) => { delete notes[refused.clientId]; });
-    drawSync();
+    // The check it was saved for is no longer noted: it can be noted again while open.
+    changeStrips((strips) => {
+      const live = strips[refused.bottleId];
+      if (live?.logged?.[refused.window] === refused.clientId) delete live.logged[refused.window];
+    });
+    ensureTicker();
+    if (!sheet.hidden) render();
     drawPanel();
     if (!syncActions.hidden) return;
     heading.focus?.();
   });
-  view.addEventListener("online", resume);
+  view.addEventListener("online", online);
   // Another tab kept a strip or a note: show it here too.
   view.addEventListener("storage", (event) => {
     if (event.key !== PHONE_STRIPS_ACTIVE && event.key !== PHONE_STRIPS_OUTBOX) return;
+    ensureTicker();
     if (!sheet.hidden) render();
     drawPanel();
   });
@@ -865,6 +1149,7 @@ function attachPhoneStrips({ doc, request, root, storage = null }) {
 
   drawPanel();
   resume();
+  ensureTicker();
   phoneStrips = { open, close, setBottles, resume, send };
   return phoneStrips;
 }
@@ -874,5 +1159,6 @@ if (typeof module === "object" && module.exports) {
     PHONE_STRIPS_ACTIVE, PHONE_STRIPS_OUTBOX, PHONE_STRIPS_LANG, PHONE_STRIPS_WORDS, PHONE_STRIP_CHECKS, PHONE_STRIPS_KEEP_MS,
     phoneStripsSay, phoneStripChecks, phoneStripNext, phoneStripFinished, phoneStripExpired, phoneStripClock,
     phoneStripNoteBody, phoneStripsToSend, phoneStripsRead, phoneStripsNoseText, attachPhoneStrips,
+    phoneStripLateCheck, phoneStripsProblem, phoneStripsNoteText, PHONE_STRIPS_MAX_NAMES,
   };
 }
