@@ -114,14 +114,15 @@ def test_completion_with_unspecified_basis_leaves_stock_held(completion_log) -> 
 
 def test_lot_receipt_hold_clears_with_a_complete_stock_page_entry(completion_log) -> None:
     # AGENTS.md RULE 6: a lot or label receipt is not needed to compute a formula.
-    assert _stock_issue_reasons("Cedrat FCF Sicilian", 1.0) == ["inventory_stock_non_executable"]
+    # Cedrat FCF was the example until Kenny cleared its hold on 2026-10-15.
+    assert _stock_issue_reasons("Ethyl Linalool", 1.0) == ["inventory_stock_non_executable"]
 
-    _receipt, stock = _complete("Cedrat FCF Sicilian", "cedrat-neat")
+    _receipt, stock = _complete("Ethyl Linalool", "ethyl-linalool-neat")
 
     assert stock.design_ready is True
     assert stock.execution_ready is True
     assert stock.execution_hold_reason == ""
-    assert _stock_issue_reasons("Cedrat FCF Sicilian", 1.0) == []
+    assert _stock_issue_reasons("Ethyl Linalool", 1.0) == []
 
 
 def test_unnamed_hold_clears_only_when_basis_or_carrier_was_missing(completion_log) -> None:

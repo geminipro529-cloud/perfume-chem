@@ -66,3 +66,25 @@ async def test_an_unready_stock_gets_a_suggestion_and_a_ready_one_does_not(clien
         stock for stock in stocks if not stock["design_ready"] and stock["completion_available"]
     ]
     assert any(stock["suggested_completion"] for stock in unready)
+
+
+@pytest.mark.asyncio
+async def test_a_stock_carries_what_the_inventory_list_says_when_it_says_otherwise(client, monkeypatch):
+    # RULE 0: a row the checks' record now stands for says what inventory.txt says about it.
+    from dataclasses import replace
+
+    from engine.personal_inventory import materialize_personal_inventory
+
+    from app.api.v1.endpoints import lab_lifecycle
+
+    real = materialize_personal_inventory()
+    noted = next(s for s in real.stocks if s.stock_id in real.canonical_stock_ids)
+    note = "Your inventory list says 10% w/w in DPG"
+    projection = replace(real, inventory_text_notes=((noted.stock_id, note),))
+    monkeypatch.setattr(lab_lifecycle, "materialize_personal_inventory", lambda **_kwargs: projection)
+
+    stocks = (await client.get(INVENTORY)).json()["stocks"]
+
+    by_id = {stock["stock_id"]: stock for stock in stocks}
+    assert by_id[noted.stock_id]["inventory_text_note"] == note
+    assert all(stock["inventory_text_note"] is None for stock in stocks if stock["stock_id"] != noted.stock_id)

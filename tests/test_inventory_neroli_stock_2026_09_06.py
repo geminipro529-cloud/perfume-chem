@@ -67,14 +67,16 @@ def test_neroli_text_keeps_prepared_ethanol_distinct_from_legacy_neat_yaml():
     assert [r["density_25c_g_ml"] for r in neroli] == [None, 0.87, None]
 
 
-def test_neat_stock_binding_passes_without_promoting_equivalence_or_safety():
+def test_retired_neat_record_kept_its_claim_limits_and_no_longer_binds():
+    # 2026-10-15: Kenny has no neat Neroli; the 2026-09-06 record is retired.
     check = _stock_check()
-    assert check.status == "PASS"
-    spec = check.data["resolved_stock_specs"]["Neroli EO"]
-    assert spec["fraction"] == 1.0
-    assert spec["fraction_basis"] == "neat"
+    assert check.status == "FAIL"
+    assert "Neroli EO" not in check.data.get("resolved_stock_specs", {})
     payload = inventory_parser.load_current_user_inventory_overlay()
-    record = next(r for r in payload["records"] if r["canonical_name"] == "Neroli EO")
+    assert "INV-USER-20260906-001" not in {r["record_id"] for r in payload["records"]}
+    record = next(
+        r for r in payload["retired_records"] if r["record_id"] == "INV-USER-20260906-001"
+    )
     assert record["source_quote"] == "I only have neroli EO neat"
     for key in (
         "stock_solution_density_asserted",
@@ -203,15 +205,22 @@ def test_ahs_child_changes_only_neroli_and_explicit_carrier_with_parent_guard():
     assert guard.temporal_comparison_available is False
 
 
-def test_ahs_neroli_and_separate_dpg_bind_to_exact_current_stocks():
+def test_ahs_neat_neroli_no_longer_binds_but_separate_dpg_still_does():
+    # The v2 card asks for neat Neroli, which Kenny confirmed 2026-10-15 he does not have.
     from scripts.verify_formula_workflow import parse_formula_markdown
 
     path = inventory_parser.PROJECT_ROOT / (
         "formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v2_Neat_Neroli.md"
     )
     child = parse_formula_markdown(path)[0]
-    selected = {
-        field: {name: child[field][name] for name in ("Neroli EO", "DPG")}
-        for field in ("ingredients_ul", "dilutions", "stock_specs")
-    }
-    assert _dilution_consistency_check(selected).status == "PASS"
+
+    def select(*names):
+        return {
+            field: {name: child[field][name] for name in names}
+            for field in ("ingredients_ul", "dilutions", "stock_specs")
+        }
+
+    assert _dilution_consistency_check(select("DPG")).status == "PASS"
+    check = _dilution_consistency_check(select("Neroli EO", "DPG"))
+    assert check.status == "FAIL"
+    assert [issue["material"] for issue in check.data["issues"]] == ["Neroli EO"]

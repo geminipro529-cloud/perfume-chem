@@ -19,6 +19,16 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
 
+# A row naming an ethanol-made material ("Oman Frankincense Ethanol Tincture")
+# is a material, not the ethanol vehicle.
+_ETHANOL_MADE_MATERIAL_RE = re.compile(r"\b(?:tinctures?|infusions?|resinoids?|extracts?)\b")
+
+
+def is_ethanol_vehicle_name(name: str) -> bool:
+    """True when a formula row name is the ethanol vehicle (``Ethanol 96%``), not a material."""
+    low = name.casefold()
+    return "ethanol" in low and not _ETHANOL_MADE_MATERIAL_RE.search(low)
+
 
 def _normalize_fallback(name: str) -> str:
     return name.lower().strip()
@@ -213,7 +223,7 @@ def _extract_material_names(formula_path: str) -> list[str]:
                 or part.startswith("---")
                 or re.fullmatch(r"[\d.,\s]+", part)
                 or "total" in low
-                or "ethanol" in low
+                or is_ethanol_vehicle_name(part)
                 or "finished bottle" in low
             ):
                 continue

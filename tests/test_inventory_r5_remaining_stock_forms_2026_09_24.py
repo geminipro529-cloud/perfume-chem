@@ -87,7 +87,7 @@ def test_mimosa_is_released_by_the_owner_use_as_is_decision() -> None:
         "Spike Lavender EO",
         "Linalool Oxide",
         "Hedione HC",
-        "Cedrat FCF Sicilian",
+        # Cedrat FCF Sicilian left this list on 2026-10-15: Kenny cleared its hold.
     ],
 )
 def test_exact_neat_products_are_materialized_but_lineage_held(

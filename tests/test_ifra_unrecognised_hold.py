@@ -128,13 +128,19 @@ FLAGGED_BASES = {
     "Clearwood",
     "Costus Olifac 10%",
     "Lilyreal ND",
-    "Suederal 10%",
+    "Suederal",  # stock name since the 2026-10-14 DPG record
     "Tonkarome",
 }
-SCHIFF_BASES = {"Aurantiol 10% in DPG"}
+# Both Aurantiol stocks carry Kenny's word since 2026-10-15, so their display
+# names say which bottle each is.
+SCHIFF_BASES = {
+    "Aurantiol (neat)",
+    "Aurantiol 10%",
+}
 STILL_HELD = {
     "Ambrette Seed Absolute",
-    "Aurantiol 10% in DPG",
+    "Aurantiol (neat)",
+    "Aurantiol 10%",
     "Black Agarwood Artificial",
     "Black Tea Base",
     "Castoreum Synthetic",
@@ -155,10 +161,12 @@ STILL_HELD = {
     "Mate Absolute",
     "Orris Concrete Orris Butter",
     "Pomelo EO",
+    # Added 2026-10-15: a saturated saffron infusion in DPG of unknown strength.
+    "Red Saffron Infusion",
     "Saffranal",
     # Owned before, but undosable until 2026-10-14 gave it a strength (neat).
     "Sandalwood Base X3",
-    "Suederal 10%",
+    "Suederal",  # stock name since the 2026-10-14 DPG record
     "Tonkarome",
     "Vanilla Absolute",
     "Vertofix",

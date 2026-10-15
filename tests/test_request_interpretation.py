@@ -349,3 +349,25 @@ def test_crowd_mode_never_silently_uses_an_unrelated_commercial_panel() -> None:
     assert "NO_APPLICABLE_CURRENT_COMMERCIAL_REFERENCE_PANEL" in (
         result["selection"]["reason_codes"]
     )
+
+
+@pytest.mark.parametrize(
+    ("brief", "asked", "forbidden"),
+    [
+        # The stand-in is forbidden; the material the brief keeps stays asked for.
+        ("A green cologne with jasmine air. Do not substitute Hedione for Hedione HC.", {"Hedione HC"}, {"Hedione"}),
+        ("A green cologne. Do not substitute Hedione instead of Hedione HC.", {"Hedione HC"}, {"Hedione"}),
+        # "X with Y": X is kept, Y is the forbidden replacement.
+        ("A rose chypre around Hedione HC. Do not substitute Hedione HC with Hedione.", {"Hedione HC"}, {"Hedione"}),
+        ("A rose chypre around Hedione HC. Do not substitute Hedione HC with anything.", {"Hedione HC"}, set()),
+        # A bare "do not substitute X" forbids X as the stand-in, as in the Ambrettolide brief.
+        ("A musk built on Hedione HC. Do not substitute Hedione or add another musk.", {"Hedione HC"}, {"Hedione"}),
+    ],
+)
+def test_do_not_substitute_forbids_only_the_stand_in(brief, asked, forbidden) -> None:
+    result = interpret_request(
+        RequestInterpretationInputV1(original_request=brief, known_materials=("Hedione", "Hedione HC"))
+    )
+
+    assert asked <= set(result["explicit_materials"]), result["explicit_materials"]
+    assert set(result["prohibited_materials"]) == forbidden

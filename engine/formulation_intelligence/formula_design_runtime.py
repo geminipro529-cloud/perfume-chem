@@ -807,7 +807,9 @@ def design_formula(
         return _with_runtime_metadata(curated, brief=brief, design_mode=design_mode)
 
     explicit = tuple(interpretation.get("explicit_materials", ()))
-    index = initial_index.with_explicit_materials(explicit)
+    index = initial_index.with_explicit_materials(explicit).honoring_stated_strengths(
+        clean_idea, explicit
+    )
     mandatory = tuple(interpretation.get("mandatory_materials", ()))
     missing = [item for item in mandatory if not index.exact_matches(str(item))]
     if missing:

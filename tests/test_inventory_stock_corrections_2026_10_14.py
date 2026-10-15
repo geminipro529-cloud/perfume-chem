@@ -30,7 +30,20 @@ RECORDS = {
     "INV-USER-20261014-STK-013": ("Neroli EO", 0.1, "mass_fraction", "jojoba"),
     "INV-USER-20261014-STK-014": ("Myrrh EO", 0.5, "mass_fraction", "dpg"),
     "INV-USER-20261014-STK-015": ("Guaiacwood EO", 1 / 3, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-016": ("Suederal", 0.1, "mass_fraction", "dpg"),
 }
+# Kenny's 15 Oct answers, recorded after the neat-Neroli record.
+ADDED_20261015 = {
+    "INV-USER-20261014-STK-018": ("Aurantiol", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-019": ("Vietnamese Benzoin Tincture", 0.4, "mass_fraction", "ethanol"),
+    "INV-USER-20261014-STK-020": ("Oman Frankincense Ethanol Tincture", 0.33, "mass_fraction", "ethanol"),
+    "INV-USER-20261014-STK-021": ("Cedrat FCF Sicilian", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-022": ("Red Saffron Infusion", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-023": ("Alpha Damascone", 0.1, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-024": ("Aurantiol", 0.1, "mass_fraction", "dpg"),
+}
+# Kenny has no neat Neroli (2026-10-15); this record holds no stock.
+NEAT_NEROLI_NOT_OWNED = "INV-USER-20261014-STK-017"
 # EO dilutions recorded in another solvent stay as they were.
 OTHER_SOLVENT_EOS = {
     "Peppermint EO": (0.1, "volume_fraction", "ethanol"),
@@ -85,6 +98,11 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Neroli 10% is from aroma&more",
         "It\u2019s not in ethanol check the web",
         "Myrrh EO and guaiacwood EO is, I can mix 10% Alpha Damascobe 10% in DPG",
+        "Suederal 10% yes",
+        "Yes.",
+        "1. Both 2. Yes 3. about that much or more",
+        "Cedrat is in inventory, Red Saffron is maxed in DPG",
+        "it is mixed",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -92,10 +110,18 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "INV-USER-20260908-AHSEE-002",
         "INV-USER-20260828-005",
         "INV-USER-20260901-002",
+        "INV-USER-20260906-001",
+        "INV-USER-20260915-STOCK-014",
+        "INV-USER-20260915-STOCK-016",
+        "INV-USER-20260924-R5-018",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
-    assert [r["record_id"] for r in overlay["delta_records"]] == list(RECORDS)
+    assert [r["record_id"] for r in overlay["delta_records"]] == [
+        *RECORDS,
+        NEAT_NEROLI_NOT_OWNED,
+        *ADDED_20261015,
+    ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired
     live = {r["record_id"] for r in overlay["records"]}
@@ -105,10 +131,13 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
     assert overlay["policy"]["safety_or_release_asserted"] is False
 
 
-@pytest.mark.parametrize("record_id,expected", list(RECORDS.items()))
+@pytest.mark.parametrize("record_id,expected", [*RECORDS.items(), *ADDED_20261015.items()])
 def test_each_material_is_one_execution_ready_stock(record_id: str, expected: tuple) -> None:
     name, fraction, basis, carrier = expected
-    stocks = [stock for stock in _stocks(name) if stock.dilution == pytest.approx(fraction)]
+    stocks = [
+        stock for stock in _stocks(name)
+        if stock.dilution == pytest.approx(fraction) and stock.status == "owned"
+    ]
     assert len(stocks) == 1
     stock = stocks[0]
     assert stock.status == "owned"
@@ -155,9 +184,10 @@ def test_neroli_10pct_is_aroma_and_more_in_jojoba_not_ethanol() -> None:
     assert not [s for s in _stocks("Neroli EO") if s.carrier == "ethanol"]
 
 
-def test_alpha_damascone_10pct_is_not_recorded_as_owned() -> None:
-    # "I can mix 10% Alpha Damascone": he can make one, he does not hold one yet.
-    assert [s.dilution for s in _stocks("Alpha Damascone") if s.status == "owned"] == [1.0]
+def test_alpha_damascone_10pct_is_owned_once_mixed() -> None:
+    # 14 Oct "I can mix 10% Alpha Damascone" was not ownership; 15 Oct "it is mixed" is.
+    owned = sorted(s.dilution for s in _stocks("Alpha Damascone") if s.status == "owned")
+    assert owned == [pytest.approx(0.1), 1.0]
 
 
 def test_caryophyllene_acetate_carrier_is_kennys_dep() -> None:
@@ -187,10 +217,13 @@ def test_sandalwood_base_requirement_row_is_owned() -> None:
     assert {row.disposition for row in rows} == {"OWNED"}
 
 
-@pytest.mark.parametrize("record_id,expected", list(RECORDS.items()))
+@pytest.mark.parametrize("record_id,expected", [*RECORDS.items(), *ADDED_20261015.items()])
 def test_preflight_resolves_each_stock(record_id: str, expected: tuple) -> None:
     name, fraction, basis, carrier = expected
-    (stock,) = [s for s in _stocks(name) if s.dilution == pytest.approx(fraction)]
+    (stock,) = [
+        s for s in _stocks(name)
+        if s.dilution == pytest.approx(fraction) and s.status == "owned"
+    ]
     check = _dilution_consistency_check(
         {
             "ingredients_ul": {name: 50.0},
@@ -241,3 +274,31 @@ def test_v26_loader_rejects_kephalis_disagreeing_with_receipt() -> None:
             )
     finally:
         inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256 = original
+
+
+def test_neat_neroli_is_not_owned_and_only_the_jojoba_stock_remains() -> None:
+    (record,) = [r for r in _head()["records"] if r["record_id"] == NEAT_NEROLI_NOT_OWNED]
+    assert record["state"] == "NOT_OWNED"
+    assert record["stock"] is None
+    assert record["source_quote"] == "Yes."
+    owned = [s for s in _stocks("Neroli EO") if s.status == "owned"]
+    assert [(s.dilution, s.fraction_basis, s.carrier) for s in owned] == [
+        (pytest.approx(0.1), "mass_fraction", "jojoba")
+    ]
+    (row,) = [
+        r for r in inventory.materialize_current_inventory().requirements
+        if r.source_row == 180
+    ]
+    assert row.disposition == "GAP"
+    assert "NO NEAT NEROLI" in row.status
+
+
+def test_aurantiol_ten_percent_dpg_and_neat_bottle_both_carry_his_word() -> None:
+    owned = sorted(
+        (s.dilution, s.fraction_basis, s.carrier, s.stock_id.split(":")[1])
+        for s in _stocks("Aurantiol") if s.status == "owned"
+    )
+    assert owned == [
+        (pytest.approx(0.1), "mass_fraction", "dpg", "user-20261014"),
+        (1.0, "neat", "", "user-20261014"),
+    ]

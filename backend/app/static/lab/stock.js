@@ -304,6 +304,8 @@ function renderProjectInventory(filter = "", focusStockId = "") {
     if (stock.gate_hold_text) statusCell.appendChild(stockEl("span", "stock-row-note inventory-gate-hold", stock.gate_hold_text));
     const disagreement = stock.authority_disagreement?.text;
     if (disagreement) statusCell.appendChild(stockEl("span", "stock-row-note inventory-authority-differs", disagreement));
+    // What Kenny's inventory list says about this bottle when it says something else.
+    if (stock.inventory_text_note) statusCell.appendChild(stockEl("span", "stock-row-note inventory-text-differs", stock.inventory_text_note));
     const action = stockEl("td", "stock-action");
     if (status !== "ready" && stock.completion_available) {
       const button = stockEl("button", "inventory-complete-button quiet-button", "Complete details");
