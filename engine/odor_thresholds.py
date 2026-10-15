@@ -157,16 +157,17 @@ ODT_DATA: dict[str, dict] = {
         "odt_eth": 0.1,
         "char": "floral, fresh, lavender",
     },
+    # Rhodinol is mostly l-citronellol, so it takes citronellol's 1.6 ppb (2026-10-15; was 0.3).
     "rhodinol": {
         "vfy": "PEER_EST",
-        "sources": ["Citronellol analogue — Van Gemert (2011)"],
-        "odt_air": 0.3,
+        "sources": ["Citronellol analogue — Elsharif & Buettner (2017) Food Chem. 232:704-711, doi:10.1016/j.foodchem.2017.04.053"],
+        "odt_air": 1.6,
         "odt_eth": 5.0,
     },
     "rhodinol ex citronella": {
         "vfy": "PEER_EST",
-        "sources": ["Rhodinol analogue — Van Gemert (2011)"],
-        "odt_air": 0.3,
+        "sources": ["Rhodinol analogue — Elsharif & Buettner (2017) Food Chem. 232:704-711, doi:10.1016/j.foodchem.2017.04.053"],
+        "odt_air": 1.6,
         "odt_eth": 5.0,
         "char": "rose-geranium, green-minty, natural",
     },
@@ -1348,10 +1349,12 @@ ODT_DATA: dict[str, dict] = {
         "odt_eth": 0.015,
     },
     # odt_eth backported from material_properties.json 2026-05-30
+    # Verified: Elsharif & Buettner (2017) Food Chem. 232:704-711, doi:10.1016/j.foodchem.2017.04.053 — beta-citronellol air odor threshold 10 ng/L = 1.56 ppb at 25 °C (MW 156.27).
+    # 2026-10-15: odt_air was 0.3 here and 40 in _VERIFIED_ODT (which won); both now 1.6. odt_eth 5.0 unchanged.
     "citronellol": {
         "vfy": "PEER_SINGLE",
-        "sources": ["Nagata (2003)"],
-        "odt_air": 0.3,
+        "sources": ["Elsharif & Buettner (2017) Food Chem. 232:704-711, doi:10.1016/j.foodchem.2017.04.053"],
+        "odt_air": 1.6,
         "odt_eth": 5.0,
     },
     # UNVERIFIED — no peer-reviewed air-phase ODT found; water-phase value estimated (duplicate entry)
@@ -2024,7 +2027,7 @@ ODT_VERIFICATION: dict[str, dict] = {
         "vfy": "PEER_SINGLE",
         "sources": ["Devos et al. (1990); Nagata (2003)"],
     },
-    "citronellol": {"vfy": "PEER_SINGLE", "sources": ["Nagata (2003)"]},
+    "citronellol": {"vfy": "PEER_SINGLE", "sources": ["Elsharif & Buettner (2017) Food Chem. 232:704-711, doi:10.1016/j.foodchem.2017.04.053"]},
     "civet reconstitution base": {
         "vfy": "DERIVED",
         "sources": [
@@ -3597,7 +3600,7 @@ _VERIFIED_ODT = {
     "dihydro beta ionone": 5.0,
     "sandalore": 10.0,
     "tonalide": 3.0,
-    "citronellol": 40.0,
+    "citronellol": 1.6,  # Elsharif & Buettner (2017): 10 ng/L air = 1.56 ppb
     "phenylacetaldehyde": 4.0,
     "peonile": 5.0,
     "jessemal": 5.0,
