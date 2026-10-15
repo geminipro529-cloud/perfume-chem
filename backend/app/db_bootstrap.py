@@ -110,6 +110,9 @@ def prepare_database_upgrade(
             raise ValueError("source database failed SQLite integrity_check")
         source.backup(destination)
         destination.commit()
+        # One file, like the backup service's snapshots: the copy inherits the
+        # live database's write-ahead-log mode (db_session.py).
+        destination.execute("PRAGMA journal_mode=DELETE")
         if destination.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
             raise ValueError("pre-upgrade snapshot failed SQLite integrity_check")
         fingerprint = _schema_fingerprint(destination)

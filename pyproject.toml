@@ -24,12 +24,13 @@ dev = [
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["engine*", "data.materials"]
+include = ["engine*", "data.materials", "data.regulatory"]
 exclude = ["archive*", "output*", "node_modules*", "venv*", "backend*", "build*", "data.external*"]
 namespaces = true
 
 [tool.setuptools.package-data]
 "data.materials" = ["*.yaml"]
+"data.regulatory" = ["*.json"]
 
 [tool.ruff]
 line-length = 100

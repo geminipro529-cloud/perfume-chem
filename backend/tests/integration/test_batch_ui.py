@@ -125,6 +125,43 @@ console.log(JSON.stringify({{
     }
 
 
+def test_a_table_filled_in_before_the_phone_saved_keeps_both_and_names_lines_changed_on_both():
+    result = _node(
+        """
+const base = [{ line: 1, actual_amount: "2060" }];
+const phone = [{ line: 1, actual_amount: "2060" }, { line: 2, actual_amount: "410" }, { line: 3, actual_amount: "3090" }];
+const merged = m.batchMergeTyped(base, phone, [[1, "2060.0"], [2, ""], [3, "3100"], [4, " 5 "]]);
+console.log(JSON.stringify({
+  merged,
+  words: m.batchMergeWords("KS-1", merged.conflicts),
+  same: [m.batchSameAmount("010.50", "10.5"), m.batchSameAmount("1", "1.01"), m.batchSameAmount("", " ")],
+  // Notes: a box left as it was, or blank, takes the phone's; changed on both keeps what was typed.
+  notes: [
+    m.batchMergeNotes("", "smells right", ""),
+    m.batchMergeNotes("was", "smells right", " was "),
+    m.batchMergeNotes("was", "was", "mine"),
+    m.batchMergeNotes("was", "smells right", "mine"),
+  ],
+  notesWords: m.batchMergeWords("KS-1", [], "smells right"),
+}));
+"""
+    )
+    # Boxes left as they were take the phone's amounts; boxes changed here keep what was typed.
+    assert result["merged"] == {
+        "values": [[1, "2060"], [2, "410"], [3, "3100"], [4, "5"]],
+        "conflicts": [{"line": 3, "theirs": "3090"}],
+    }
+    assert result["words"].endswith("Changed on both, with yours kept in the box: line 3 (the other device saved 3090).")
+    assert result["same"] == [True, False, True]
+    assert result["notes"] == [
+        {"value": "smells right", "conflict": None},
+        {"value": "smells right", "conflict": None},
+        {"value": "mine", "conflict": None},
+        {"value": "mine", "conflict": "smells right"},
+    ]
+    assert result["notesWords"].endswith('Changed on both, with yours kept in the box: the notes (the other device saved "smells right").')
+
+
 def test_gate_words_name_every_non_pass_gate_and_say_no_parent_is_compared():
     result = _node(
         """

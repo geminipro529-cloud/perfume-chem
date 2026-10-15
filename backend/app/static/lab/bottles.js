@@ -11,6 +11,7 @@ const smellLog = typeof attachSmellLog === "function"
   ? attachSmellLog({ doc: document, request, root: $("#smell-log") })
   : null;
 if (typeof attachBatch === "function") attachBatch({ doc: document, request, root: $("#batch-root") });
+if (typeof attachPhoneBench === "function") attachPhoneBench({ doc: document, request, root: $("#phone-bench-root") });
 bindForm("#addition-form", (data) => request(`/bottles/${data.bottle_id}/additions`, { method: "POST", body: JSON.stringify({ stock_solution_id: data.stock_solution_id, mass_g: Number(data.mass_g), expected_sequence: Number(data.expected_sequence), command_id: newRequestId("command") }) }));
 // Your nose page: what the model learned from the smell log, and blind tests.
 const noseLearning = typeof attachNoseLearning === "function"

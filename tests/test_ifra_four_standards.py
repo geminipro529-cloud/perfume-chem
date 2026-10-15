@@ -11,6 +11,7 @@ from engine.ifra_standards import (
     DEFAULT_CONSTITUENTS_PATH,
     evaluate_ifra,
     load_natural_constituents,
+    single_material_limit_pct,
 )
 
 
@@ -55,6 +56,21 @@ def test_rose_essential_oil_counts_methyl_eugenol_and_fails_naming_the_stock():
     assert group.total == pytest.approx(0.02)
     assert group.verdict == "fail"
     assert stock in group.message and "Rose oil" in group.message
+
+
+def test_cassia_is_recognised_and_its_cinnamal_fails_over_the_limit():
+    # Cassia oil is about 80 % cinnamal (Annex I); 1.29 % of the product is about
+    # 1.03 % cinnamal against the 0.25 % Category 4 limit.
+    evaluation = evaluate_ifra({"Cassia Essential Oil (Cinnamomum cassia, India)": 1.29})
+    assert not evaluation.unchecked
+    assert evaluation.checks[0].status == "natural_no_own_standard"
+    total = next(t for t in evaluation.constituent_totals if t.standard == "IFRA_STD_018")
+    assert total.total == pytest.approx(1.29 * 80.0 / 100)
+    group = next(g for g in evaluation.group_checks if g.standard == "IFRA_STD_018")
+    assert group.verdict == "fail"
+    status, limit = single_material_limit_pct("Cassia Essential Oil")
+    assert status == "restricted"
+    assert limit == pytest.approx(0.25 / 0.80)
 
 
 def test_rose_otto_bulgarian_is_recognised_and_counts_rose_oil_methyl_eugenol():
@@ -119,3 +135,20 @@ def test_red_mandarin_counts_the_mandarin_oil_methyl_n_methylanthranilate():
     total = next(t for t in evaluation.constituent_totals if t.standard == "IFRA_STD_094")
     assert total.total == pytest.approx(0.004)
     assert _group(evaluation, "IFRA_STD_094_constituents").verdict == "pass"
+
+
+def test_nootkatone_is_a_specification_with_no_category_4_limit():
+    # IFRA Standard 185 sets purity (>= 98 %) and melting point (>= 32 C), not a limit.
+    check = evaluate_ifra({"Nootkatone 10%": 0.1}).checks[0]
+    assert check.verdict != "unchecked"
+    assert check.status == "specification"
+    assert single_material_limit_pct("Nootkatone") == ("specification", None)
+
+
+@pytest.mark.parametrize(
+    ("stock", "limit"),
+    [("Saffranal 10%", 0.012), ("Parmavert", 9.9), ("Scentenal 1%", 1.1)],
+)
+def test_safranal_parmavert_and_scentenal_carry_their_category_4_limits(stock, limit):
+    # IFRA Standards 082, 066 and 056 (Amendment 49), read on the official PDFs.
+    assert single_material_limit_pct(stock) == ("restricted", pytest.approx(limit))
