@@ -651,3 +651,18 @@ def test_the_strips_view_does_not_open_over_the_weigh_sheet(lab):
     page.evaluate("phoneStrips.open()")
     assert page.locator(".phone-strips").is_hidden()
     assert page.evaluate("document.querySelector('.phone-bench:not(.phone-strips)').inert") is False
+
+
+def test_search_waits_while_the_strips_view_has_the_page(lab):
+    _phone(lab)
+    lab.respond("GET", "/v2/workbench/formula-versions", json={"formulas": []})
+    page = lab.page
+    lab.open("#bottles")
+    sheet = _open_strips(lab)
+    page.keyboard.press("Control+k")
+    page.keyboard.press("/")
+    assert not page.evaluate("document.querySelector('#lab-search').open")
+    assert _focused_in_sheet(page)
+    sheet.get_by_role("button", name="Close").click()
+    page.keyboard.press("Control+k")
+    page.wait_for_function("document.querySelector('#lab-search').open")
