@@ -189,32 +189,74 @@ def test_a_text_only_bottle_whose_checked_record_is_held_says_what_holds_that_re
 
 
 def _stock(name, dilution, carrier="", basis="", identity=None, ready=True, stock_id="g-1",
-           authority="CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT"):
+           authority="CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT", **extra):
     return SimpleNamespace(identity_name=identity or name, name=name, dilution=dilution, carrier=carrier,
                            fraction_basis=basis, status="owned", stock_id=stock_id, execution_ready=ready,
-                           authority=authority)
+                           authority=authority, **extra)
 
 
-def test_a_held_record_the_stock_page_does_not_list_is_not_sent_to_its_form(projection, governed):
+def _held_record(name, dilution, stock_id="g-held"):
+    """A checks' record of a bottle with its solvent, basis and form never filled in."""
+
+    return _stock(name, dilution, basis="unspecified", ready=False, stock_id=stock_id, design_ready=None,
+                  design_hold_reason="", execution_hold_reason="", physical_form="", row_unresolved_tokens="")
+
+
+def test_a_held_record_the_stock_page_does_not_list_is_not_sent_to_its_form():
     # The Stock page shows inventory.txt's line for the bottle, not the checks' record, so a
     # button to that record would open nothing; Claude completes it from the inventory line.
-    listed = {s.stock_id for s in projection.stocks}
-    candidates = [
-        (s, t) for s in _text_only(projection) for t in hr._governed_twins(s, governed)
-        if abs(float(t.dilution or 0) - float(s.dilution)) < 1e-9 and hr._same_form(t, s)
-        and not t.execution_ready and t.stock_id not in listed
-        and str(t.fraction_basis) != "mass_fraction_starting_charge"
-        and not str(getattr(t, "row_unresolved_tokens", "") or "")
-    ]
-    if not candidates:
-        pytest.skip("no text-only bottle whose held record is off the Stock page")
-    for stock, twin in candidates:
-        item = hr._text_only_item({"material": stock.name, "open": None}, stock, governed, listed)
+    record = _held_record("Geraniol 10%", 0.1)
+    line = _stock("Geraniol 10%", 0.1, carrier="dpg", ready=False, stock_id="inventory:text-design-only:1",
+                  authority=hr._TEXT_ONLY_AUTHORITY)
 
-        assert item["open"] is None, stock.name
-        assert item["owner"] == "claude" and item["action"] == hr.OFF_PAGE_ACTION
-        assert f'this bottle as "{twin.name}"' in item["reason"]
-    # Every Stock page button in a real formula's list opens a stock the page shows.
+    item = hr._text_only_item({"material": line.name, "open": None}, line, [record], {line.stock_id})
+    assert item["open"] is None
+    assert item["owner"] == "claude" and item["action"] == hr.OFF_PAGE_ACTION
+    assert item["reason"].startswith('The checks\' stock list has this bottle as "Geraniol 10%". That record')
+    # Listed on the page, the same record is Kenny's to complete there.
+    item = hr._text_only_item({"material": line.name, "open": None}, line, [record], {record.stock_id})
+    assert item["open"] == {"kind": "stock_page", "stock_id": record.stock_id} and item["owner"] == "you"
+
+
+def test_a_row_saved_against_a_merged_inventory_line_finds_the_checks_record():
+    # The Stock page now shows the checks' own record where inventory.txt's line used to
+    # have its own row; a formula row saved against that line's id opens the record.
+    record = _held_record("Geraniol 10%", 0.1)
+    projection = SimpleNamespace(
+        stocks=(record,), canonical_stock_ids=frozenset({record.stock_id}),
+        merged_text_stock_ids=(("inventory:text-design-only:1", record.stock_id),),
+    )
+    issue = {"material": "Geraniol (10% DPG)", "stock_id": "inventory:text-design-only:1", "reason": "not_ready"}
+
+    item = hr._stock_item(issue, {}, {}, projection, False, [record])
+    assert item["open"] == {"kind": "stock_page", "stock_id": record.stock_id}
+    assert item["owner"] == "you" and "not in your stock" not in item["reason"]
+
+
+def test_a_row_saved_against_a_merged_line_of_a_ready_record_is_asked_to_pick_it_again():
+    # The record is ready to mix; only the row's old link holds it, so nothing is said
+    # about its details, and what the inventory list says differently is still reported.
+    record = _stock("Neroli EO 10%", 0.1, carrier="jojoba", stock_id="o-neroli",
+                    authority="USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261015")
+    projection = SimpleNamespace(
+        stocks=(record,), canonical_stock_ids=frozenset({record.stock_id}),
+        merged_text_stock_ids=(("inventory:text-design-only:2", record.stock_id),),
+        inventory_text_notes=((record.stock_id, "Your inventory list says 10% v/v in ethanol"),),
+    )
+    issue = {"material": "Neroli EO (10% in ethanol)", "stock_id": "inventory:text-design-only:2",
+             "reason": "not_ready"}
+
+    item = hr._stock_item(issue, {}, {}, projection, False, [record])
+    assert item["reason"] == (
+        "This row was saved against your inventory list's line for this bottle, which the Lab now lists as "
+        '"Neroli EO 10%". Your inventory list says 10% v/v in ethanol.'
+    )
+    assert item["action"] == 'Choose "Neroli EO 10%" for this row in the editor.'
+    assert item["owner"] == "you" and item["open"] is None
+
+
+def test_every_stock_page_button_opens_a_stock_the_page_lists(projection):
+    listed = {s.stock_id for s in projection.stocks}
     result = explain_holds([_row(s, "150") for s in _text_only(projection)[:40]])
     for entry in result["items"]:
         assert entry["open"] is None or entry["open"]["stock_id"] in listed, entry["material"]

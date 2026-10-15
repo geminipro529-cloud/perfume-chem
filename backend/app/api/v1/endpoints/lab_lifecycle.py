@@ -313,6 +313,7 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
         confirmed = {}
         basket_log_error = str(error)
     seed = load_basket_seed()
+    text_notes = dict(getattr(materialized, "inventory_text_notes", ()) or ())
     for stock in materialized.stocks:
         design_ready = effective_design_ready(stock)
         missing_fields = list(inventory_completion_requirements(stock))
@@ -361,6 +362,8 @@ def _workbench_inventory_payload(materialized: Any) -> dict[str, Any]:
                 "completion_source_ref": stock.completion_source_ref or None,
                 # RULE 0: the Stock page entry wins; say what the workbook said.
                 "authority_disagreement": authority_disagreement(stock),
+                # RULE 0: what inventory.txt says about this bottle when it differs.
+                "inventory_text_note": text_notes.get(stock.stock_id),
                 "execution_ready": stock.execution_ready,
                 "execution_hold_reason": stock.execution_hold_reason or None,
                 "gate_hold_text": _gate_hold_text(stock),
