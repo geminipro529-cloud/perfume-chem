@@ -452,6 +452,32 @@ def test_every_item_has_a_reason_an_action_and_a_unique_id(projection):
         assert result["summary"].startswith(f"{you} item")
 
 
+def test_each_stock_item_says_whether_the_two_lists_own_it():
+    # The buy list reads stock_state: only "not_owned" is bought, "lists_disagree" picks neither.
+    nothing = SimpleNamespace(stocks=[], canonical_stock_ids=set())
+    issue = {"material": "Zzyzx Moonflower Absolute", "reason": "not_in_inventory"}
+    assert hr._stock_item(issue, {}, {}, nothing, False)["stock_state"] == hr.STOCK_NOT_OWNED
+    assert hr._stock_item(issue, {}, {}, nothing, True)["stock_state"] == hr.STOCK_LISTS_DISAGREE
+    wrong = {"material": "Aurantiol", "reason": "stock_fraction_mismatch", "held_stock_strengths": [0.1]}
+    assert hr._stock_item(wrong, {}, {}, nothing, False)["stock_state"] == hr.STOCK_OWNED
+    # Stocks only inventory.txt lists: no bottle, or a match on a guess, is a disagreement;
+    # another strength on the checks' list is owned on both lists.
+    target = _stock("Aurantiol", 1.0, stock_id="t-1")
+    assert hr._text_only_item({}, target, [])["stock_state"] == hr.STOCK_LISTS_DISAGREE
+    cedar = _stock("Cedarwood EO", 1.0, stock_id="t-2")
+    china = _stock("Cedarwood EO (China)", 1.0)
+    assert hr._text_only_item({}, cedar, [china])["stock_state"] == hr.STOCK_LISTS_DISAGREE
+    c11 = _stock("Aldehyde C11 undecylenic", 0.01, stock_id="t-3")
+    neat = _stock("Aldehyde C11 neat", 1.0)
+    one = _stock("Aldehyde C11 1%", 0.01, identity="Aldehyde C11", stock_id="g-2")
+    assert hr._text_only_item({}, c11, [neat, one])["stock_state"] == hr.STOCK_LISTS_DISAGREE
+    twin = _stock("Aurantiol 10% in DPG", 0.1, "dpg", identity="Aurantiol")
+    assert hr._text_only_item({"stock_state": hr.STOCK_OWNED}, target, [twin])["stock_state"] == hr.STOCK_OWNED
+    result = explain_holds([{"material": "Zzyzx Moonflower Absolute", "amount_ul": "200", "fraction": "1"}])
+    assert [i["stock_state"] for i in result["items"] if i["check"] == "stock"] == [hr.STOCK_NOT_OWNED]
+    assert all("stock_state" not in i for i in result["items"] if i["check"] == "ifra")
+
+
 def test_no_rows_and_a_clean_summary():
     assert explain_holds([])["summary"] == "Add rows with amounts to check them."
     assert explain_holds([{"material": "Hedione", "amount_ul": "0"}])["items"] == []

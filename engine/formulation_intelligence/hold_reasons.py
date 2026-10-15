@@ -54,6 +54,13 @@ _FIELD_SENTENCES = {
 }
 
 USER_HOLD = "USER_COMPOUNDING_HOLD"
+# Whether Kenny owns a stock item's material, by the stock authority alone (Rule 0): both
+# lists have it ("owned", whatever its strength, solvent or details), neither has it
+# ("not_owned"), or inventory.txt has it and the checks' list lacks it or matches it only
+# on a guess ("lists_disagree": neither owned nor not owned). The buy list reads this.
+STOCK_OWNED = "owned"
+STOCK_NOT_OWNED = "not_owned"
+STOCK_LISTS_DISAGREE = "lists_disagree"
 OWNER_YOU = "you"
 OWNER_CLAUDE = "claude"
 # A stock only inventory.txt lists joins the gate's stock list through a reviewed
@@ -422,6 +429,7 @@ def _text_only_item(
     if not twins:
         item["reason"] = "It is on your inventory list, but the checks can't find a bottle of it on their stock list."
         item["action"] = TEXT_ONLY_ACTION
+        item["stock_state"] = STOCK_LISTS_DISAGREE
         item["owner"] = OWNER_CLAUDE
         return item
     fraction = float(target.dilution or 0)
@@ -439,6 +447,7 @@ def _text_only_item(
         )
         item["action"] = SAME_BOTTLE_ACTION if one_strength else SAME_MATERIAL_ACTION
         item["owner"] = OWNER_YOU
+        item["stock_state"] = STOCK_LISTS_DISAGREE
         return item
     if not any(strength(t) for t in twins):
         siblings = _siblings(twins, governed)
@@ -452,6 +461,7 @@ def _text_only_item(
             )
             item["action"] = SAME_BOTTLE_ACTION
             item["owner"] = OWNER_YOU
+            item["stock_state"] = STOCK_LISTS_DISAGREE
             return item
         twins = [*twins, *siblings]
     same = [t for t in twins if strength(t)]
@@ -526,6 +536,7 @@ def _stock_item(
     owned = [s for s in candidates if str(s.status).casefold() == "owned"]
     item: dict[str, Any] = {
         "material": material, "check": "stock", "code": reason, "open": None, "owner": OWNER_YOU,
+        "stock_state": STOCK_OWNED,
     }
 
     at = f" at {_percent_text(fraction)}" if fraction is not None else ""
@@ -544,10 +555,12 @@ def _stock_item(
             item["reason"] = "It is on your inventory list, but the checks could not match it to a bottle."
             item["action"] = TEXT_ONLY_ACTION
             item["owner"] = OWNER_CLAUDE
+            item["stock_state"] = STOCK_LISTS_DISAGREE
             return item
         item["reason"] = "It is not in your stock."
         item["action"] = "Buy it, or swap the row for a similar stock you own."
         item["code"] = reason or "not_owned"
+        item["stock_state"] = STOCK_NOT_OWNED
         return item
 
     target = next((s for s in owned if not s.execution_ready), owned[0])
@@ -793,4 +806,6 @@ def explain_holds(rows: Sequence[Mapping[str, Any]], *, bottle_ml: float = 30.0)
     }
 
 
-__all__ = ["BASIS", "SCHEMA_VERSION", "explain_holds"]
+__all__ = [
+    "BASIS", "SCHEMA_VERSION", "STOCK_LISTS_DISAGREE", "STOCK_NOT_OWNED", "STOCK_OWNED", "explain_holds",
+]
