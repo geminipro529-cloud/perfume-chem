@@ -209,7 +209,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -449,7 +449,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -566,7 +566,7 @@
       }
     ],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -834,7 +834,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -1032,7 +1032,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -1329,7 +1329,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -1637,7 +1637,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -1848,7 +1848,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -2045,7 +2045,7 @@
       }
     ],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -2093,7 +2093,7 @@
     "hill_n": null,
     "hill_rmax": null,
     "character_shift": [],
-    "dilution_pct": 1.0,
+    "dilution_pct": null,
     "sar_class": null,
     "olfactophore": null,
     "arctander_character": "Rose, plum, metallic",
@@ -2107,7 +2107,7 @@
     "jellinek_effect": null,
     "typical_pct_range": "0.3–2% of concentrate",
     "max_safe_pct": null,
-    "stock_form": "Alpha Damascone neat/as supplied",
+    "stock_form": "10% in DPG | Alpha Damascone neat/as supplied",
     "best_with": [
       "Damascol",
       "Rose Oxide",
@@ -2180,7 +2180,34 @@
     },
     "current_stocks": [
       {
-        "name": "Alpha Damascone",
+        "name": "Alpha Damascone 10%",
+        "dilution": 0.1,
+        "category": "air floral",
+        "raw_name": "10% in DPG",
+        "status": "owned",
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "physical_form": "solution",
+        "approximate": false,
+        "identity_name": "Alpha Damascone",
+        "stock_id": "inventory:user-20261014:c8f21a42fb60ad9f44b6",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
+        "source_rows": [],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json#INV-USER-20261014-STK-023",
+        "execution_ready": true,
+        "execution_hold_reason": "",
+        "requirement_state": "",
+        "design_ready": null,
+        "design_hold_reason": "",
+        "completion_event_sha256": "",
+        "completion_source_ref": "",
+        "homogeneity": "",
+        "row_unresolved_tokens": "",
+        "authority_facts_differ": [],
+        "source_name": "Alpha Damascone"
+      },
+      {
+        "name": "Alpha Damascone (neat)",
         "dilution": 1.0,
         "category": "rose / fruity floral",
         "raw_name": "Alpha Damascone neat/as supplied",
@@ -2206,7 +2233,7 @@
         "homogeneity": "",
         "row_unresolved_tokens": "",
         "authority_facts_differ": [],
-        "source_name": ""
+        "source_name": "Alpha Damascone"
       }
     ],
     "inventory_text_records": [
@@ -2273,9 +2300,9 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
-    "quantitative_stock_ready": true,
+    "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
     "oav_evidence": {
       "status": "NOT_COMPUTED",
@@ -2284,7 +2311,7 @@
     },
     "hedonic_evidence": "HEURISTIC_NOT_MEASURED_LIKING",
     "release_authority": "NOT_TESTED_HOLD",
-    "stock_selection_status": "BOUND_CURRENT_STOCK",
+    "stock_selection_status": "AMBIGUOUS_SELECT_STOCK_ID",
     "reconciliation_lineage": [
       {
         "reason": "DERIVED_OAV_RECOMPUTATION_20260907",
@@ -2490,7 +2517,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -2760,7 +2787,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -2992,7 +3019,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -3166,7 +3193,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -3414,7 +3441,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -3648,7 +3675,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -3860,7 +3887,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -4125,7 +4152,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -4258,7 +4285,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -4496,7 +4523,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -4628,7 +4655,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -4791,7 +4818,7 @@
         "physical_form": "solution",
         "approximate": false,
         "identity_name": "Anise EO",
-        "stock_id": "inventory:user-20261014:1d61ef9eeff9096d3c5b",
+        "stock_id": "inventory:user-20261014:0203fb4231b4c6787582",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [
           33
@@ -4811,7 +4838,7 @@
       }
     ],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -5070,7 +5097,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -5107,7 +5134,7 @@
     "jellinek_effect": "Creates an impression of innocence, sunshine, and Mediterranean",
     "typical_pct_range": "2-8% of concentrate",
     "max_safe_pct": "12% (very safe)",
-    "stock_form": "neat / as supplied | Aurantiol 10% in DPG [0.1]",
+    "stock_form": "neat / as supplied | 10% in DPG",
     "best_with": [
       "Linalool",
       "hedione",
@@ -5272,7 +5299,7 @@
     },
     "current_stocks": [
       {
-        "name": "Aurantiol",
+        "name": "Aurantiol (neat)",
         "dilution": 1.0,
         "category": "floral",
         "raw_name": "neat / as supplied",
@@ -5282,7 +5309,7 @@
         "physical_form": "as_supplied",
         "approximate": false,
         "identity_name": "Aurantiol",
-        "stock_id": "inventory:user-20261014:4ba204e7a4559548f328",
+        "stock_id": "inventory:user-20261014:8857e00a25f3041b816a",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [],
         "source_ref": "data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json#INV-USER-20261014-STK-018",
@@ -5296,25 +5323,25 @@
         "homogeneity": "",
         "row_unresolved_tokens": "",
         "authority_facts_differ": [],
-        "source_name": ""
+        "source_name": "Aurantiol"
       },
       {
-        "name": "Aurantiol 10% in DPG",
+        "name": "Aurantiol 10%",
         "dilution": 0.1,
-        "category": "orange blossom / floral",
-        "raw_name": "Aurantiol 10% in DPG [0.1]",
+        "category": "floral",
+        "raw_name": "10% in DPG",
         "status": "owned",
-        "fraction_basis": "unspecified",
+        "fraction_basis": "mass_fraction",
         "carrier": "dpg",
-        "physical_form": "",
+        "physical_form": "solution",
         "approximate": false,
         "identity_name": "Aurantiol",
-        "stock_id": "inventory:v5:2722746121076dca8bc6",
-        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "stock_id": "inventory:user-20261014:ceb0fadfd3783b1bf692",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [
           254
         ],
-        "source_ref": "Current Inventory Master!A254:N254",
+        "source_ref": "data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json#INV-USER-20261014-STK-024",
         "execution_ready": true,
         "execution_hold_reason": "",
         "requirement_state": "",
@@ -5325,7 +5352,7 @@
         "homogeneity": "",
         "row_unresolved_tokens": "",
         "authority_facts_differ": [],
-        "source_name": ""
+        "source_name": "Aurantiol"
       }
     ],
     "inventory_text_records": [
@@ -5361,7 +5388,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -5566,7 +5593,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -5747,7 +5774,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -5851,7 +5878,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -6109,7 +6136,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -6304,7 +6331,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -6528,7 +6555,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -6693,7 +6720,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -6877,7 +6904,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -7148,7 +7175,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -7366,7 +7393,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -7655,7 +7682,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -7856,7 +7883,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -8103,7 +8130,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -8328,7 +8355,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -8516,7 +8543,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -8725,7 +8752,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -8960,7 +8987,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -9174,7 +9201,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -9424,7 +9451,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -9634,7 +9661,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -9796,7 +9823,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -10051,7 +10078,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -10179,7 +10206,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -10421,7 +10448,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -10648,7 +10675,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -10921,7 +10948,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -11105,7 +11132,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -11286,7 +11313,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -11480,7 +11507,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -11690,7 +11717,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -11879,7 +11906,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -12049,7 +12076,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -12240,7 +12267,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -12431,7 +12458,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -12596,7 +12623,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -12805,7 +12832,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -12960,7 +12987,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -13166,7 +13193,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -13377,7 +13404,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -13593,7 +13620,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -13789,7 +13816,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -14047,7 +14074,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -14277,7 +14304,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -14382,7 +14409,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -14557,7 +14584,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -14762,7 +14789,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -14971,7 +14998,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -15209,7 +15236,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -15393,7 +15420,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -15708,7 +15735,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -15983,7 +16010,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -16199,7 +16226,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -16367,7 +16394,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -16568,7 +16595,7 @@
         "physical_form": "solution",
         "approximate": false,
         "identity_name": "Damascenone",
-        "stock_id": "inventory:user-20261014:b77d470107ebdaa77e68",
+        "stock_id": "inventory:user-20261014:a598327f899016d5fa26",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [
           90
@@ -16620,7 +16647,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -16835,7 +16862,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -17030,7 +17057,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -17223,7 +17250,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -17483,7 +17510,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -17647,7 +17674,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -17934,7 +17961,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -18116,7 +18143,7 @@
       }
     ],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -18290,7 +18317,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -18526,7 +18553,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -18782,7 +18809,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -18995,7 +19022,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -19147,7 +19174,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -19452,7 +19479,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -19785,7 +19812,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -19895,7 +19922,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -20174,7 +20201,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -20408,7 +20435,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -20587,7 +20614,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -20828,7 +20855,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -21114,7 +21141,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -21400,7 +21427,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -21595,7 +21622,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -21877,7 +21904,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -22143,7 +22170,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -22284,7 +22311,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -22523,7 +22550,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -22729,7 +22756,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -22950,7 +22977,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -23143,7 +23170,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -23420,7 +23447,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -23740,7 +23767,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -23882,7 +23909,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -24087,7 +24114,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -24245,7 +24272,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -24497,7 +24524,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -24742,7 +24769,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -24994,7 +25021,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -25210,7 +25237,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -25501,7 +25528,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -25611,7 +25638,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -25881,7 +25908,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -26192,7 +26219,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -26302,7 +26329,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -26591,7 +26618,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -26751,7 +26778,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -26904,7 +26931,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "UNVERIFIED_SCREENING_MODEL",
@@ -27057,7 +27084,7 @@
         "physical_form": "solution",
         "approximate": false,
         "identity_name": "Immortelle Absolute",
-        "stock_id": "inventory:user-20261014:d11f44ef38d11779faf6",
+        "stock_id": "inventory:user-20261014:81c18d54023882744067",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [
           137
@@ -27109,7 +27136,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -27213,7 +27240,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -27448,7 +27475,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -27691,7 +27718,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -27914,7 +27941,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -28131,7 +28158,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -28329,7 +28356,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -28549,7 +28576,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -28722,7 +28749,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -28915,7 +28942,7 @@
       }
     ],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -29123,7 +29150,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -29283,7 +29310,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -29522,7 +29549,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -29656,7 +29683,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -29844,7 +29871,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -30051,7 +30078,7 @@
         "physical_form": "as_supplied",
         "approximate": false,
         "identity_name": "Kephalis",
-        "stock_id": "inventory:user-20261014:78f2b370c2f0a9c1a119",
+        "stock_id": "inventory:user-20261014:e911a23f790f31bf91ee",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [
           153
@@ -30103,7 +30130,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -30323,7 +30350,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -30540,7 +30567,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -30742,7 +30769,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -30855,7 +30882,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -31071,7 +31098,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -31284,7 +31311,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -31455,7 +31482,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -31704,7 +31731,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -31886,7 +31913,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -32106,7 +32133,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -32294,7 +32321,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -32517,7 +32544,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -32778,7 +32805,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -32986,7 +33013,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -33129,7 +33156,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -33365,7 +33392,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -33623,7 +33650,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -33837,7 +33864,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -34061,7 +34088,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -34247,7 +34274,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -34496,7 +34523,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -34726,7 +34753,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -34920,7 +34947,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -35125,7 +35152,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -35355,7 +35382,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -35550,7 +35577,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -35751,7 +35778,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -35953,7 +35980,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -36067,7 +36094,7 @@
         "physical_form": "solution",
         "approximate": false,
         "identity_name": "Neroli EO",
-        "stock_id": "inventory:user-20261014:79623b60617d7891b3b4",
+        "stock_id": "inventory:user-20261014:f652bb1ef8ccccd39e92",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [],
         "source_ref": "data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json#INV-USER-20261014-STK-013",
@@ -36148,7 +36175,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -36396,7 +36423,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -36562,7 +36589,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -36809,7 +36836,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -37006,7 +37033,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -37166,7 +37193,7 @@
         "physical_form": "solution",
         "approximate": false,
         "identity_name": "Oakmoss Absolute",
-        "stock_id": "inventory:user-20261014:0cfa037b3cb160768d57",
+        "stock_id": "inventory:user-20261014:ddb5ba176d1bb059ee65",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [
           186
@@ -37218,7 +37245,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -37397,7 +37424,7 @@
       }
     ],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -37608,7 +37635,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -37838,7 +37865,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -38035,7 +38062,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -38286,7 +38313,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -38486,7 +38513,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -38697,7 +38724,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -38866,7 +38893,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -39004,7 +39031,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -39180,7 +39207,7 @@
         "physical_form": "solution",
         "approximate": false,
         "identity_name": "Paradisamide",
-        "stock_id": "inventory:user-20261014:cb997836a7fe46ece5f1",
+        "stock_id": "inventory:user-20261014:31f0158c9fa78eebc248",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [
           261
@@ -39232,7 +39259,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -39411,7 +39438,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -39660,7 +39687,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -39898,7 +39925,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -40047,7 +40074,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -40258,7 +40285,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -40446,7 +40473,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -40639,7 +40666,7 @@
       }
     ],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -40832,7 +40859,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -41030,7 +41057,7 @@
       }
     ],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -41203,7 +41230,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -41421,7 +41448,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -41646,7 +41673,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -41748,7 +41775,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -41920,7 +41947,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -42065,7 +42092,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -42307,7 +42334,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -42476,7 +42503,7 @@
       }
     ],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -42753,7 +42780,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -42975,7 +43002,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -43107,7 +43134,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -43316,7 +43343,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -43548,7 +43575,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -43765,7 +43792,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -43960,7 +43987,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -44152,7 +44179,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -44340,7 +44367,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -44486,7 +44513,7 @@
         "physical_form": "solution",
         "approximate": false,
         "identity_name": "Suederal",
-        "stock_id": "inventory:user-20261014:e210f333f59035987cca",
+        "stock_id": "inventory:user-20261014:658ebe8689c0df4d5dae",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [
           225
@@ -44569,7 +44596,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -44807,7 +44834,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -45049,7 +45076,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -45288,7 +45315,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -45488,7 +45515,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -45698,7 +45725,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -45888,7 +45915,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -46093,7 +46120,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -46273,7 +46300,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -46447,7 +46474,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -46660,7 +46687,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -46850,7 +46877,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -46978,7 +47005,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -47098,7 +47125,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -47274,7 +47301,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -47501,7 +47528,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -47717,7 +47744,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -47982,7 +48009,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -48219,7 +48246,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -48435,7 +48462,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -48683,7 +48710,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -48848,7 +48875,7 @@
       }
     ],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -49102,7 +49129,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -49286,7 +49313,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -49484,7 +49511,7 @@
         "physical_form": "solution",
         "approximate": false,
         "identity_name": "Violet Leaf Absolute",
-        "stock_id": "inventory:user-20261014:146ee90d48c8eaec9e01",
+        "stock_id": "inventory:user-20261014:3eebe2b4f515d079478e",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [
           247
@@ -49536,7 +49563,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -49721,7 +49748,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -49904,7 +49931,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -50133,7 +50160,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -50296,7 +50323,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -50527,7 +50554,7 @@
       }
     ],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -50711,7 +50738,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -50877,7 +50904,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -51037,7 +51064,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -51259,7 +51286,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -51403,7 +51430,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -51621,7 +51648,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -51854,7 +51881,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -52019,7 +52046,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -52203,7 +52230,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -52316,7 +52343,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -52536,7 +52563,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -52826,7 +52853,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "UNVERIFIED_SCREENING_MODEL",
@@ -52992,7 +53019,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -53146,7 +53173,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -53367,7 +53394,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -53598,7 +53625,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -53789,7 +53816,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "quantitative_stock_ready": true,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -53961,7 +53988,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -54120,7 +54147,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -54248,7 +54275,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -54430,7 +54457,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -54564,7 +54591,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -54660,7 +54687,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -54803,7 +54830,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -54985,7 +55012,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -55120,7 +55147,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -55279,7 +55306,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -55454,7 +55481,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -55635,7 +55662,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -55794,7 +55821,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -55930,7 +55957,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -56079,7 +56106,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -56230,7 +56257,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -56376,7 +56403,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -56552,7 +56579,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "quantitative_stock_ready": false,
     "quantitative_model_status": "COMPOSITE_OR_PRODUCT_MODEL_REQUIRED",
@@ -56686,7 +56713,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -56930,7 +56957,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.1,
     "quantitative_stock_ready": true,
@@ -57155,7 +57182,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "quantitative_stock_ready": true,
@@ -57316,7 +57343,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "quantitative_stock_ready": false,
@@ -57469,7 +57496,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "quantitative_stock_ready": false,
@@ -57629,7 +57656,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "quantitative_stock_ready": false,
@@ -57842,7 +57869,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "quantitative_stock_ready": true,
@@ -57968,7 +57995,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "quantitative_stock_ready": false,
@@ -58121,7 +58148,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "quantitative_stock_ready": false,
@@ -58311,7 +58338,7 @@
         "physical_form": "solution",
         "approximate": false,
         "identity_name": "Myrrh EO",
-        "stock_id": "inventory:user-20261014:767b65036f49d0c28e84",
+        "stock_id": "inventory:user-20261014:ff69954da17128574194",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [],
         "source_ref": "data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json#INV-USER-20261014-STK-014",
@@ -58361,7 +58388,7 @@
         "source_name": ""
       }
     ],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.5,
     "quantitative_stock_ready": true,
@@ -58454,7 +58481,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "quantitative_stock_ready": false,
@@ -58619,7 +58646,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "quantitative_stock_ready": false,
@@ -58710,7 +58737,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "quantitative_stock_ready": false,
@@ -58876,7 +58903,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "quantitative_stock_ready": false,
@@ -58969,7 +58996,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "quantitative_stock_ready": false,
@@ -59187,7 +59214,7 @@
       }
     ],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "quantitative_stock_ready": true,
@@ -59351,7 +59378,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "quantitative_stock_ready": false,
@@ -59444,7 +59471,7 @@
     },
     "current_stocks": [],
     "inventory_text_records": [],
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "quantitative_stock_ready": false,
@@ -59564,7 +59591,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "Aldehyde C10 neat/as supplied",
@@ -59691,7 +59718,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "Aldehyde C11 neat/as supplied",
@@ -59813,7 +59840,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "Aldehyde C12 MNA neat/as supplied",
@@ -59933,7 +59960,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.1,
     "stock_form": "Aldehyde C16 EMPG 10% working stock [0.1]",
@@ -60081,7 +60108,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "Allyl Amyl Glycolate neat/as supplied",
@@ -60225,7 +60252,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -60338,7 +60365,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -60404,7 +60431,7 @@
     "current_stocks": [],
     "inventory_text_records": [],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -60592,7 +60619,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "Amyl Cinnamic Aldehyde neat/as supplied",
@@ -60709,7 +60736,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": null,
     "stock_form": "Birch Tar 1% and Birch Tar 10% [0.1] | Birch Tar 1% and Birch Tar 10% [0.01]",
@@ -60784,7 +60811,7 @@
         "physical_form": "solution",
         "approximate": false,
         "identity_name": "Caryophyllene Acetate",
-        "stock_id": "inventory:user-20261014:9934dc708f821a416306",
+        "stock_id": "inventory:user-20261014:736722b5a63d11b19a63",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [],
         "source_ref": "data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json#INV-USER-20261014-STK-003",
@@ -60835,7 +60862,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.2,
     "stock_form": "20% in DEP",
@@ -60996,7 +61023,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "Cedarwood EO, China origin, neat/as supplied",
@@ -61080,7 +61107,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat/as supplied",
@@ -61170,7 +61197,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -61287,7 +61314,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.2,
     "stock_form": "20% in carrier unstated",
@@ -61413,7 +61440,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "Citral Natural neat",
@@ -61555,7 +61582,7 @@
     "current_stocks": [],
     "inventory_text_records": [],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -61680,7 +61707,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -61827,7 +61854,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -61905,7 +61932,7 @@
     "current_stocks": [],
     "inventory_text_records": [],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -62087,7 +62114,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -62227,7 +62254,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat",
@@ -62306,7 +62333,7 @@
     "current_stocks": [],
     "inventory_text_records": [],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -62491,7 +62518,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -62598,7 +62625,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -62732,7 +62759,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.1,
     "stock_form": "10% in ETHANOL",
@@ -62864,7 +62891,7 @@
         "physical_form": "solution",
         "approximate": false,
         "identity_name": "Guaiacwood EO",
-        "stock_id": "inventory:user-20261014:193f4c92539155d04ded",
+        "stock_id": "inventory:user-20261014:295379affdee2251b50f",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [
           125
@@ -62917,7 +62944,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.3333333333333333,
     "stock_form": "33.3333% in DPG",
@@ -62967,7 +62994,7 @@
     "current_stocks": [],
     "inventory_text_records": [],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -63108,7 +63135,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -63255,7 +63282,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -63337,7 +63364,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -63450,7 +63477,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.1,
     "stock_form": "10% in DEP",
@@ -63685,7 +63712,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.2,
     "stock_form": "20% in ETHANOL",
@@ -63836,7 +63863,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -63952,7 +63979,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -64005,7 +64032,7 @@
     "current_stocks": [],
     "inventory_text_records": [],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -64191,7 +64218,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -64245,7 +64272,7 @@
     "current_stocks": [],
     "inventory_text_records": [],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -64349,7 +64376,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "Phenethyl Acetate neat/as supplied",
@@ -64501,7 +64528,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "Phenylacetaldehyde Dimethyl Acetal (PADMA) neat/as supplied",
@@ -64714,7 +64741,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -64871,7 +64898,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -64983,7 +65010,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "Styralyl Acetate neat/as supplied",
@@ -65160,7 +65187,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -65307,7 +65334,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -65455,7 +65482,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -65602,7 +65629,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -65791,7 +65818,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -65915,7 +65942,7 @@
     "current_stocks": [],
     "inventory_text_records": [],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -66062,7 +66089,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -66209,7 +66236,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -66315,7 +66342,7 @@
         "physical_form": "solution",
         "approximate": false,
         "identity_name": "Beta Damascone",
-        "stock_id": "inventory:user-20261014:e90d657531764b6a2fd9",
+        "stock_id": "inventory:user-20261014:c06881f87f070f4f4e58",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [
           43
@@ -66365,7 +66392,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": null,
     "stock_form": "10% in DPG | Beta Damascone neat/as supplied",
@@ -66513,7 +66540,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.1,
     "stock_form": "Caraway Seed EO 10% w/w in DPG [0.1]",
@@ -66661,7 +66688,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -66748,7 +66775,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -66951,7 +66978,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "Cedramber neat",
@@ -67033,7 +67060,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -67210,7 +67237,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.5,
     "stock_form": "50% in DPG",
@@ -67357,7 +67384,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "cis-Jasmone neat/as supplied",
@@ -67504,7 +67531,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -67651,7 +67678,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -67797,7 +67824,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -67945,7 +67972,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -68108,7 +68135,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -68261,7 +68288,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -68339,7 +68366,7 @@
     "current_stocks": [],
     "inventory_text_records": [],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -68526,7 +68553,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "Heliotropal neat",
@@ -68684,7 +68711,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -68839,7 +68866,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.1,
     "stock_form": "IBQ 10% working stock [0.1]",
@@ -68954,7 +68981,7 @@
     "current_stocks": [],
     "inventory_text_records": [],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -69132,7 +69159,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": null,
     "stock_form": "10% working stock [0.1] | 10% in DPG [0.1]",
@@ -69255,7 +69282,7 @@
     "current_stocks": [],
     "inventory_text_records": [],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -69369,7 +69396,7 @@
     "current_stocks": [],
     "inventory_text_records": [],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -69518,7 +69545,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -69661,7 +69688,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": null,
     "stock_form": "10% in ETHANOL | neat/as supplied",
@@ -69820,7 +69847,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -69975,7 +70002,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -70121,7 +70148,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -70299,7 +70326,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -70494,7 +70521,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -70574,7 +70601,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.2,
     "stock_form": "20% in ETHANOL",
@@ -70655,7 +70682,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -70713,7 +70740,7 @@
         "physical_form": "",
         "approximate": false,
         "identity_name": "Oman Frankincense Ethanol Tincture",
-        "stock_id": "inventory:user-20261014:fa5b39695cf6f40070ba",
+        "stock_id": "inventory:user-20261014:649b7b284fe3d9e2ffb6",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [],
         "source_ref": "data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json#INV-USER-20261014-STK-020",
@@ -70732,7 +70759,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.33,
     "stock_form": "33% in ETHANOL",
@@ -70813,7 +70840,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -70919,7 +70946,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.2,
     "stock_form": "20% in ETHANOL",
@@ -71004,7 +71031,7 @@
     "current_stocks": [],
     "inventory_text_records": [],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -71087,7 +71114,7 @@
         "physical_form": "",
         "approximate": false,
         "identity_name": "Vietnamese Benzoin Tincture",
-        "stock_id": "inventory:user-20261014:523ae217110c6ae73c6e",
+        "stock_id": "inventory:user-20261014:eee7441b1322379799c0",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [
           222,
@@ -71109,7 +71136,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.4,
     "stock_form": "40% in ETHANOL",
@@ -71194,7 +71221,7 @@
     "current_stocks": [],
     "inventory_text_records": [],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -71300,7 +71327,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -71485,7 +71512,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -71673,7 +71700,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -71855,7 +71882,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -72038,7 +72065,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -72221,7 +72248,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -72391,7 +72418,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.1,
     "stock_form": "10% in DPG",
@@ -72574,7 +72601,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.1,
     "stock_form": "10% in TEC",
@@ -72730,7 +72757,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -72913,7 +72940,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -73083,7 +73110,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -73329,7 +73356,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": null,
     "stock_form": "10% in DPG | neat / as supplied",
@@ -73505,7 +73532,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -73631,7 +73658,7 @@
         "physical_form": "as_supplied",
         "approximate": false,
         "identity_name": "Cedrat FCF Sicilian",
-        "stock_id": "inventory:user-20261014:ee0a6c1511f598bf2eac",
+        "stock_id": "inventory:user-20261014:48d5160bff7289bae57e",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [],
         "source_ref": "data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json#INV-USER-20261014-STK-021",
@@ -73650,7 +73677,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -73838,7 +73865,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -74025,7 +74052,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -74212,7 +74239,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -74389,7 +74416,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -74566,7 +74593,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -74736,7 +74763,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.1,
     "stock_form": "10% in DPG",
@@ -74920,7 +74947,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -75097,7 +75124,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -75226,7 +75253,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -75414,7 +75441,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -75593,7 +75620,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -75775,7 +75802,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -75945,7 +75972,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -76054,7 +76081,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -76224,7 +76251,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -76350,7 +76377,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -76532,7 +76559,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -76714,7 +76741,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -76896,7 +76923,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -77066,7 +77093,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.1,
     "stock_form": "10% in DPG",
@@ -77248,7 +77275,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -77329,7 +77356,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "NOT_CURRENTLY_OWNED_OR_CATALOG_ONLY",
     "dilution_pct": null,
     "stock_form": null,
@@ -77499,7 +77526,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.1,
     "stock_form": "10% in DPG",
@@ -77676,7 +77703,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.85,
     "stock_form": "85% in PEA",
@@ -77858,7 +77885,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -78028,7 +78055,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.1,
     "stock_form": "10% in DPG",
@@ -78210,7 +78237,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.1,
     "stock_form": "10% in DPG",
@@ -78380,7 +78407,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 0.1,
     "stock_form": "10% in DPG",
@@ -78562,7 +78589,7 @@
       }
     ],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -78639,7 +78666,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -78716,7 +78743,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -78849,7 +78876,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -78995,7 +79022,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -79145,7 +79172,7 @@
       }
     ],
     "in_inventory": false,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "TEXT_ONLY_UNBOUND",
     "dilution_pct": null,
     "stock_form": null,
@@ -79221,7 +79248,7 @@
         "physical_form": "as_supplied",
         "approximate": false,
         "identity_name": "Cedroxyde",
-        "stock_id": "inventory:user-20261014:79daf4997bcafa345bc0",
+        "stock_id": "inventory:user-20261014:e077b262c1d8331528d4",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [],
         "source_ref": "data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json#INV-USER-20261014-STK-005",
@@ -79240,7 +79267,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -79298,7 +79325,7 @@
         "physical_form": "as_supplied",
         "approximate": false,
         "identity_name": "Hindinol",
-        "stock_id": "inventory:user-20261014:2a8479267e6a4baf3af3",
+        "stock_id": "inventory:user-20261014:5636c6a316f8122d5622",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [],
         "source_ref": "data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json#INV-USER-20261014-STK-006",
@@ -79317,7 +79344,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -79442,7 +79469,7 @@
         "physical_form": "as_supplied",
         "approximate": false,
         "identity_name": "Sandalwood Base X3",
-        "stock_id": "inventory:user-20261014:02923358af6f0edcf6d1",
+        "stock_id": "inventory:user-20261014:a053c55242cf925f3168",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [
           220
@@ -79463,7 +79490,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",
@@ -79522,7 +79549,7 @@
         "physical_form": "saturated_infusion_in_dpg_as_supplied",
         "approximate": false,
         "identity_name": "Red Saffron Infusion",
-        "stock_id": "inventory:user-20261014:e315db40c4b23556a448",
+        "stock_id": "inventory:user-20261014:06d0e45feafb669a7fc3",
         "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014",
         "source_rows": [],
         "source_ref": "data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json#INV-USER-20261014-STK-022",
@@ -79541,7 +79568,7 @@
     ],
     "inventory_text_records": [],
     "in_inventory": true,
-    "stock_authority": "d6e96f4c1ade36aa9ba8ab8f29bffded9d1641e9a3e20c781c4bc8889d59aeaf",
+    "stock_authority": "52d5571389b4a1f74afedd44fff8acab839d71369a0ae98c72edccb8670bc0fb",
     "inventory_status": "BOUND_CURRENT_STOCK",
     "dilution_pct": 1.0,
     "stock_form": "neat / as supplied",

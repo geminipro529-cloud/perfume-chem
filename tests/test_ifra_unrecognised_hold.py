@@ -131,14 +131,16 @@ FLAGGED_BASES = {
     "Suederal",  # stock name since the 2026-10-14 DPG record
     "Tonkarome",
 }
+# Both Aurantiol stocks carry Kenny's word since 2026-10-15, so their display
+# names say which bottle each is.
 SCHIFF_BASES = {
-    "Aurantiol",  # the neat bottle, added 2026-10-15
-    "Aurantiol 10% in DPG",
+    "Aurantiol (neat)",
+    "Aurantiol 10%",
 }
 STILL_HELD = {
     "Ambrette Seed Absolute",
-    "Aurantiol",
-    "Aurantiol 10% in DPG",
+    "Aurantiol (neat)",
+    "Aurantiol 10%",
     "Black Agarwood Artificial",
     "Black Tea Base",
     "Castoreum Synthetic",

@@ -82,6 +82,10 @@
       {
         "message_timestamp_utc": "2026-10-15T05:06:17Z",
         "text": "Cedrat is in inventory, Red Saffron is maxed in DPG"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T05:17:51Z",
+        "text": "it is mixed"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Only Paradisamide uses a default (w/w, DPG): Kenny gave the strength and carrier or 'neat' for every other bottle."
@@ -108,7 +112,8 @@
     "aurantiol_neat_added": true,
     "benzoin_and_frankincense_tinctures_dosed_at_built_strength": true,
     "cedrat_receipt_hold_cleared": true,
-    "red_saffron_infusion_added_as_supplied": true
+    "red_saffron_infusion_added_as_supplied": true,
+    "alpha_damascone_10pct_dpg_mixed": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -1057,6 +1062,87 @@
         "release_authorized": false
       },
       "note": "Kenny: 'I have ... Red Saffron Infusion' (15 Oct, ionone thread), then 'Red Saffron is maxed in DPG': a saturated saffron infusion in DPG with no stated strength (PerfumersWorld 5ES18560 is sold in DPG without one). It is dosed as the whole product as supplied, like a base; the saffron share is unknown (AGENTS.md Rule 4), so no saffron dose is implied. Not in inventory.txt, which is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-023",
+      "canonical_name": "Alpha Damascone",
+      "aliases": [
+        "Alpha Damascone 10%"
+      ],
+      "state": "OWNED",
+      "category": "air floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_STRENGTH_AND_CARRIER_PROJECT_DEFAULT_BASIS",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_PREPARED_20261015_10PCT_IN_DPG"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "it is mixed",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_user_message": true,
+        "carrier_from_user_message": true,
+        "basis_is_project_default": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "On 14 Oct Kenny wrote 'I can mix 10% Alpha Damascobe 10% in DPG', so it was not recorded as owned. On 15 Oct, told it was recorded as one he can mix, not one he has, he answered 'it is mixed'. Strength and carrier are his; the basis is the project default (w/w). The neat V5 stock (row 278) is unchanged. inventory.txt L151 already lists the 10% in DPG."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-024",
+      "canonical_name": "Aurantiol",
+      "aliases": [
+        "Aurantiol 10%"
+      ],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_EXPLICIT_USER_CONFIRMATION_PROJECT_DEFAULT_BASIS",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_ANSWER_20261015_AURANTIOL_BOTH_V5_ROW_254"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 254,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "1. Both 2. Yes 3. about that much or more",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "carrier_from_v5_stock_row": true,
+        "basis_is_project_default": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked 'Is your Aurantiol neat, 10% in DPG, or both?', Kenny answered 'Both'. This puts his word on the V5 row 254 10% in DPG stock (strength and carrier as the workbook had them; basis the project default, w/w), beside the neat bottle STK-018. inventory.txt lists only neat and is not edited."
     }
   ]
 }

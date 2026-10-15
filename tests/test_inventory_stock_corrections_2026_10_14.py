@@ -39,6 +39,8 @@ ADDED_20261015 = {
     "INV-USER-20261014-STK-020": ("Oman Frankincense Ethanol Tincture", 0.33, "mass_fraction", "ethanol"),
     "INV-USER-20261014-STK-021": ("Cedrat FCF Sicilian", 1.0, "neat", ""),
     "INV-USER-20261014-STK-022": ("Red Saffron Infusion", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-023": ("Alpha Damascone", 0.1, "mass_fraction", "dpg"),
+    "INV-USER-20261014-STK-024": ("Aurantiol", 0.1, "mass_fraction", "dpg"),
 }
 # Kenny has no neat Neroli (2026-10-15); this record holds no stock.
 NEAT_NEROLI_NOT_OWNED = "INV-USER-20261014-STK-017"
@@ -100,6 +102,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Yes.",
         "1. Both 2. Yes 3. about that much or more",
         "Cedrat is in inventory, Red Saffron is maxed in DPG",
+        "it is mixed",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -181,9 +184,10 @@ def test_neroli_10pct_is_aroma_and_more_in_jojoba_not_ethanol() -> None:
     assert not [s for s in _stocks("Neroli EO") if s.carrier == "ethanol"]
 
 
-def test_alpha_damascone_10pct_is_not_recorded_as_owned() -> None:
-    # "I can mix 10% Alpha Damascone": he can make one, he does not hold one yet.
-    assert [s.dilution for s in _stocks("Alpha Damascone") if s.status == "owned"] == [1.0]
+def test_alpha_damascone_10pct_is_owned_once_mixed() -> None:
+    # 14 Oct "I can mix 10% Alpha Damascone" was not ownership; 15 Oct "it is mixed" is.
+    owned = sorted(s.dilution for s in _stocks("Alpha Damascone") if s.status == "owned")
+    assert owned == [pytest.approx(0.1), 1.0]
 
 
 def test_caryophyllene_acetate_carrier_is_kennys_dep() -> None:
@@ -289,12 +293,12 @@ def test_neat_neroli_is_not_owned_and_only_the_jojoba_stock_remains() -> None:
     assert "NO NEAT NEROLI" in row.status
 
 
-def test_aurantiol_keeps_the_v5_ten_percent_dpg_stock_beside_the_neat_bottle() -> None:
+def test_aurantiol_ten_percent_dpg_and_neat_bottle_both_carry_his_word() -> None:
     owned = sorted(
         (s.dilution, s.fraction_basis, s.carrier, s.stock_id.split(":")[1])
         for s in _stocks("Aurantiol") if s.status == "owned"
     )
     assert owned == [
-        (pytest.approx(0.1), "unspecified", "dpg", "v5"),
+        (pytest.approx(0.1), "mass_fraction", "dpg", "user-20261014"),
         (1.0, "neat", "", "user-20261014"),
     ]
