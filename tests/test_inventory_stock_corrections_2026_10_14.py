@@ -51,6 +51,7 @@ ADDED_20261015_PM = {
     "INV-USER-20261014-STK-029": ("Costus Olifac", 0.1, "mass_fraction", "dpg"),
     "INV-USER-20261014-STK-030": ("Clove EO (India)", 1.0, "neat", ""),
     "INV-USER-20261014-STK-031": ("Freesia HDI", 1.0, "neat", ""),
+    "INV-USER-20261014-STK-032": ("Geranyl Acetate", 1.0, "neat", ""),
 }
 # Kenny has no neat Neroli (2026-10-15); this record holds no stock.
 NEAT_NEROLI_NOT_OWNED = "INV-USER-20261014-STK-017"
@@ -117,6 +118,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "1. yes 2. no idea, its neat 3. DPG 3. Check Sandalwood EO 10% in DPG on PW 5. the incoming "
         "one will be sweet orange, but sour version from china. 6. Yes. Javanol has both neat and 20%, . "
         "Ambretteolide is neat but you tell me if you need a solitin prepared. 7 do it",
+        "I have geranyl acetate and citronellyl acetate as well",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -128,6 +130,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "INV-USER-20260915-STOCK-014",
         "INV-USER-20260915-STOCK-016",
         "INV-USER-20260924-R5-018",
+        "INV-USER-20260924-R5-013",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)

@@ -94,6 +94,10 @@
       {
         "message_timestamp_utc": "2026-10-15T15:40:49Z",
         "text": "1. yes 2. no idea, its neat 3. DPG 3. Check Sandalwood EO 10% in DPG on PW 5. the incoming one will be sweet orange, but sour version from china. 6. Yes. Javanol has both neat and 20%, . Ambretteolide is neat but you tell me if you need a solitin prepared. 7 do it"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T16:25:27Z",
+        "text": "I have geranyl acetate and citronellyl acetate as well"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Only Paradisamide uses a default (w/w, DPG): Kenny gave the strength and carrier or 'neat' for every other bottle."
@@ -128,7 +132,8 @@
     "javanol_neat_added": true,
     "costus_olifac_10pct_dpg": true,
     "clove_eo_india_added_neat_part_unknown": true,
-    "freesia_hdi_is_pw_freesia_hdl": true
+    "freesia_hdi_is_pw_freesia_hdl": true,
+    "geranyl_acetate_receipt_hold_cleared": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -139,7 +144,8 @@
     "INV-USER-20260906-001",
     "INV-USER-20260915-STOCK-014",
     "INV-USER-20260915-STOCK-016",
-    "INV-USER-20260924-R5-018"
+    "INV-USER-20260924-R5-018",
+    "INV-USER-20260924-R5-013"
   ],
   "records": [
     {
@@ -1467,6 +1473,41 @@
         "release_authorized": false
       },
       "note": "Asked 'Is your Freesia HDI PerfumersWorld's Freesia HDL? (yes / no)', Kenny answered 'yes' (item 10 of his 15 Oct 15:33 reply). V5 row 256 had it as an owned product ('Freesia HDI as supplied') whose label was unread, so the gate could not dose it. It keeps Kenny's label name, which inventory.txt L135 and his cards use; the PerfumersWorld name is an alias. It is one product, dosed as supplied; its composition is not expanded (AGENTS.md Rule 4)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-032",
+      "canonical_name": "Geranyl Acetate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "DIRECT_USER_CORRECT_FORM_AND_READINESS_CONFIRMATION",
+        "execution_basis": "USER_STATEMENT_20261015_GERANYL_ACETATE_OWNED_RULE_6_NO_RECEIPT_NEEDED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "user_reported_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "I have geranyl acetate and citronellyl acetate as well",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'I have geranyl acetate and citronellyl acetate as well' (15 Oct, ionone thread). Geranyl Acetate was already owned neat (INV-USER-20260924-R5-013, his 24 Sep form confirmation; inventory.txt L157); its only hold was BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING, which AGENTS.md Rule 6 says a formula does not need, as with Cedrat (STK-021). Retires R5-013. Citronellyl Acetate is not recorded here: its strength is not yet known."
     }
   ]
 }
