@@ -32,6 +32,8 @@ RECORDS = {
     "INV-USER-20261014-STK-015": ("Guaiacwood EO", 1 / 3, "mass_fraction", "dpg"),
     "INV-USER-20261014-STK-016": ("Suederal", 0.1, "mass_fraction", "dpg"),
 }
+# Kenny has no neat Neroli (2026-10-15); this record holds no stock.
+NEAT_NEROLI_NOT_OWNED = "INV-USER-20261014-STK-017"
 # EO dilutions recorded in another solvent stay as they were.
 OTHER_SOLVENT_EOS = {
     "Peppermint EO": (0.1, "volume_fraction", "ethanol"),
@@ -87,6 +89,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "It\u2019s not in ethanol check the web",
         "Myrrh EO and guaiacwood EO is, I can mix 10% Alpha Damascobe 10% in DPG",
         "Suederal 10% yes",
+        "Yes.",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -94,10 +97,14 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "INV-USER-20260908-AHSEE-002",
         "INV-USER-20260828-005",
         "INV-USER-20260901-002",
+        "INV-USER-20260906-001",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
-    assert [r["record_id"] for r in overlay["delta_records"]] == list(RECORDS)
+    assert [r["record_id"] for r in overlay["delta_records"]] == [
+        *RECORDS,
+        NEAT_NEROLI_NOT_OWNED,
+    ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired
     live = {r["record_id"] for r in overlay["records"]}
@@ -110,7 +117,10 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
 @pytest.mark.parametrize("record_id,expected", list(RECORDS.items()))
 def test_each_material_is_one_execution_ready_stock(record_id: str, expected: tuple) -> None:
     name, fraction, basis, carrier = expected
-    stocks = [stock for stock in _stocks(name) if stock.dilution == pytest.approx(fraction)]
+    stocks = [
+        stock for stock in _stocks(name)
+        if stock.dilution == pytest.approx(fraction) and stock.status == "owned"
+    ]
     assert len(stocks) == 1
     stock = stocks[0]
     assert stock.status == "owned"
@@ -192,7 +202,10 @@ def test_sandalwood_base_requirement_row_is_owned() -> None:
 @pytest.mark.parametrize("record_id,expected", list(RECORDS.items()))
 def test_preflight_resolves_each_stock(record_id: str, expected: tuple) -> None:
     name, fraction, basis, carrier = expected
-    (stock,) = [s for s in _stocks(name) if s.dilution == pytest.approx(fraction)]
+    (stock,) = [
+        s for s in _stocks(name)
+        if s.dilution == pytest.approx(fraction) and s.status == "owned"
+    ]
     check = _dilution_consistency_check(
         {
             "ingredients_ul": {name: 50.0},
@@ -243,3 +256,20 @@ def test_v26_loader_rejects_kephalis_disagreeing_with_receipt() -> None:
             )
     finally:
         inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256 = original
+
+
+def test_neat_neroli_is_not_owned_and_only_the_jojoba_stock_remains() -> None:
+    (record,) = [r for r in _head()["records"] if r["record_id"] == NEAT_NEROLI_NOT_OWNED]
+    assert record["state"] == "NOT_OWNED"
+    assert record["stock"] is None
+    assert record["source_quote"] == "Yes."
+    owned = [s for s in _stocks("Neroli EO") if s.status == "owned"]
+    assert [(s.dilution, s.fraction_basis, s.carrier) for s in owned] == [
+        (pytest.approx(0.1), "mass_fraction", "jojoba")
+    ]
+    (row,) = [
+        r for r in inventory.materialize_current_inventory().requirements
+        if r.source_row == 180
+    ]
+    assert row.disposition == "GAP"
+    assert "NO NEAT NEROLI" in row.status

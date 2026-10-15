@@ -70,6 +70,10 @@
       {
         "message_timestamp_utc": "2026-10-14T22:07:36Z",
         "text": "Suederal 10% yes"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T01:37:04Z",
+        "text": "Yes."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Only Paradisamide uses a default (w/w, DPG): Kenny gave the strength and carrier or 'neat' for every other bottle."
@@ -91,14 +95,16 @@
     "eo_and_absolute_dilutions_carrier_dpg": true,
     "neroli_10pct_supplier_dilution_in_jojoba": true,
     "myrrh_and_guaiacwood_eo_carrier_dpg": true,
-    "suederal_10pct_carrier_dpg": true
+    "suederal_10pct_carrier_dpg": true,
+    "neat_neroli_not_owned": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
     "INV-USER-20261007-PW-023",
     "INV-USER-20260908-AHSEE-002",
     "INV-USER-20260828-005",
-    "INV-USER-20260901-002"
+    "INV-USER-20260901-002",
+    "INV-USER-20260906-001"
   ],
   "records": [
     {
@@ -807,6 +813,41 @@
         "release_authorized": false
       },
       "note": "Kenny, asked whether Suederal 10% is in DPG: 'Suederal 10% yes'. The V5 row 225 10% working stock had no basis or carrier, so dosing was held. The strength is kept, the carrier is DPG, and the basis is w/w as he confirmed earlier. The neat Suederal row is unchanged."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-017",
+      "canonical_name": "Neroli EO (neat)",
+      "aliases": [
+        "Neroli EO neat"
+      ],
+      "state": "NOT_OWNED",
+      "category": "air_floral",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 180
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 180,
+          "disposition": "GAP",
+          "status": "NOT OWNED - NO NEAT NEROLI (USER-CONFIRMED 2026-10-15); ONLY NEROLI 10% IN JOJOBA",
+          "actual_stock_text": "No neat Neroli EO; the former 10% in DPG stock also stays retired",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Yes.",
+      "authority_limits": {
+        "availability_confirmed": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked whether he has no neat Neroli (his 12 Oct message 'I do not hav nest neroli') and only the Aroma & More 10% in jojoba, Kenny answered 'Yes.' The 2026-09-06 record INV-USER-20260906-001 (neat Neroli owned) is retired; his only Neroli is STK-013. inventory.txt L57 is not edited."
     }
   ]
 }
