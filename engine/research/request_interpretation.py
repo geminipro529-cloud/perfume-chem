@@ -102,7 +102,8 @@ _PRESERVE_RE = re.compile(
     re.I,
 )
 _AVOID_RE = re.compile(
-    r"\b(?:avoid|without|do\s+not\s+(?:add|use)|must\s+not\s+contain|"
+    # "Do not substitute neat X" forbids X as a stand-in; it never asks for X.
+    r"\b(?:avoid|without|do\s+not\s+(?:add|use|substitute)|must\s+not\s+contain|"
     r"must\s+contain\s+no|containing\s+no|use\s+no)\s+"
     r"(?P<value>[^.;]+?)(?=\s+(?:while|but|and\s+preserve|and\s+must)\b|[.;]|$)",
     re.I,
