@@ -102,10 +102,18 @@ _PRESERVE_RE = re.compile(
     re.I,
 )
 _AVOID_RE = re.compile(
-    # "Do not substitute neat X" forbids X as a stand-in; it never asks for X.
-    r"\b(?:avoid|without|do\s+not\s+(?:add|use|substitute)|must\s+not\s+contain|"
+    r"\b(?:avoid|without|do\s+not\s+(?:add|use)|must\s+not\s+contain|"
     r"must\s+contain\s+no|containing\s+no|use\s+no)\s+"
     r"(?P<value>[^.;]+?)(?=\s+(?:while|but|and\s+preserve|and\s+must)\b|[.;]|$)",
+    re.I,
+)
+# "Do not substitute neat X" (or "X for Y", "X instead of Y") forbids X as a stand-in
+# for what the brief keeps; "do not substitute X with Y" (or "by Y") keeps X and forbids
+# Y.  Only the forbidden part is an exclusion: the material the brief keeps stays asked for.
+_SUBSTITUTE_RE = re.compile(
+    r"\bdo\s+not\s+substitute\s+(?P<first>[^.;]+?)"
+    r"(?:\s+(?P<joint>for|instead\s+of|in\s+place\s+of|with|by)\s+(?P<second>[^.;]+?))?"
+    r"(?=\s+(?:while|but|and\s+preserve|and\s+must)\b|[.;]|$)",
     re.I,
 )
 _SHORT_NO_RE = re.compile(
@@ -323,6 +331,10 @@ def _avoid_values_and_spans(text: str) -> tuple[tuple[str, ...], tuple[tuple[int
                 _TRAILING_COUNT_CLAUSE_RE.sub("", match.group("value"))
             ))
             spans.append(match.span())
+    for match in _SUBSTITUTE_RE.finditer(text):
+        forbidden = "second" if (match.group("joint") or "").casefold() in {"with", "by"} else "first"
+        values.extend(_split_constraint_values(match.group(forbidden)))
+        spans.append(match.span(forbidden))
     # Common prose negation that is not naturally introduced by "avoid".
     for match in re.finditer(
         r"\bnot\s+(?P<value>sweet|sporty|edible|perfumey|detergent(?:-like)?|"
