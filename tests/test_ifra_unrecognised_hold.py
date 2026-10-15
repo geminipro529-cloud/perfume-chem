@@ -152,8 +152,6 @@ STILL_HELD = {
     "Clove EO (India)",
     "Costus Olifac",  # stock name since the 2026-10-15 10% in DPG record
     "Frangipani Absolute",
-    # Owned before, undosable until 2026-10-15 (PerfumersWorld Freesia HDL, as supplied).
-    "Freesia HDI",
     "Fructone B",
     "Hindinol",
     # New bottles of 2026-10-13: no IFRA standard names pomelo or ginger lily oil, and
@@ -197,3 +195,14 @@ def test_every_owned_stock_is_matched_or_holds_by_name():
     assert {u["material"] for u in gate.data["undisclosed_bases"]} == FLAGGED_BASES
     for name in set(unmatched) - SCHIFF_BASES:
         assert name in gate.detail
+
+
+def test_freesia_hdi_fails_for_the_lilial_it_contains():
+    # PerfumersWorld's IFRA certificate for Freesia HDL (Kenny's Freesia HDI) lists
+    # Lilial at 0.7921 %, and the table treats Lilial as prohibited.
+    material = TABLE.lookup("Freesia HDI")
+    assert material is not None and material.status == "prohibited"
+    assert TABLE.lookup("Freesia HDL") is material
+    gate = _gate({"Evernyl": 240.0, "Freesia HDI": 10.0})
+    assert gate.status == "FAIL"
+    assert "Freesia HDI" in gate.detail and "Lilial" in gate.detail
