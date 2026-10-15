@@ -139,6 +139,15 @@ function renderFormulaRows(rows) {
     : '<tr><td colspan="4">Clarify the brief before a formula can be created.</td></tr>';
 }
 
+// "What's missing" under the studio's formula (hold-list.js): opens on a tap only.
+const studioHolds = typeof attachHoldList === "function" ? attachHoldList({
+  toggle: $("#formula-holds-toggle"),
+  panel: $("#formula-holds"),
+  request,
+  rows: () => holdRowsFromDesign(selectedFormulaVariant(state.formulaChat.result).formula?.rows || []),
+  openStock: (stockId) => openStockEntry(stockId),
+}) : null;
+
 function renderFormulaDesign(result, variantIndex = 0) {
   state.formulaChat.result = result;
   state.formulaChat.variantIndex = variantIndex;
@@ -147,6 +156,8 @@ function renderFormulaDesign(result, variantIndex = 0) {
   $("#formula-result-name").textContent = result.formula_name || "Formula draft";
   const selected = selectedFormulaVariant(result, variantIndex);
   const hasFormula = Boolean(selected.formula);
+  studioHolds?.reset();
+  $("#formula-holds-bar").hidden = !hasFormula || !studioHolds;
   $("#formula-result-state").textContent = hasFormula
     ? benchSheetHold(selected.formula?.rows || [], selected.critic).stateText
     : "Needs clarification";
@@ -679,6 +690,7 @@ function fillSeveralCard(card, result) {
   }
   const actions = document.createElement("div");
   actions.className = "request-actions";
+  const holds = severalHoldList(card, result, summary);
   if (summary.hasFormula) {
     const bench = document.createElement("button");
     bench.type = "button";
@@ -691,9 +703,30 @@ function fillSeveralCard(card, result) {
       // The studio's rating card links each rating to this formula's materials.
       severalStudioButton(card, "Mixed it? Rate it", "#formula-result-liking .liking-rate"),
     );
+    if (holds) actions.append(holds.toggle);
     card.checkbox.disabled = false;
   }
-  card.body.replaceChildren(name, facts, ...(chips.childElementCount ? [chips] : []), lines, actions);
+  card.body.replaceChildren(name, facts, ...(chips.childElementCount ? [chips] : []), lines, actions, ...(holds ? [holds.panel] : []));
+}
+
+// A card whose stock or IFRA floor holds gets "What's missing" (hold-list.js), opened on a tap.
+function severalHoldList(card, result, summary) {
+  const floors = _primaryFloors(result);
+  const holding = ["F1_owned_stock", "F2_ifra"].some((id) => floors?.[id] && floors[id].status === "HOLD");
+  if (!summary.hasFormula || !holding || typeof attachHoldList !== "function") return null;
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "quiet-button";
+  toggle.textContent = "What's missing";
+  const panel = document.createElement("div");
+  panel.className = "hold-list";
+  panel.id = `several-holds-${several.cards.indexOf(card) + 1}`;
+  attachHoldList({
+    toggle, panel, request,
+    rows: () => holdRowsFromDesign(_primaryFormula(result)?.rows || []),
+    openStock: (stockId) => openStockEntry(stockId),
+  });
+  return { toggle, panel };
 }
 
 function failSeveralCard(card, message) {
