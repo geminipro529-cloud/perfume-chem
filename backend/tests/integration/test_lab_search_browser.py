@@ -301,7 +301,8 @@ def test_search_waits_while_the_phone_bench_weigh_sheet_has_the_page(lab):
     lab.open("#batch")
     page = lab.page
     page.locator("#phone-bench-root").get_by_role("button", name="Weigh step by step").click()
-    sheet = page.locator(".phone-bench")
+    # The weigh sheet, not the smell strips view, which shares its look.
+    sheet = page.locator(".phone-bench:not(.phone-strips)")
     sheet.wait_for()
     page.keyboard.press("Control+k")
     close = sheet.get_by_role("button", name="Close", exact=True)

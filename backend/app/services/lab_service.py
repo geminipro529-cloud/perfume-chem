@@ -263,6 +263,7 @@ def _smell_log_entry(application: LabApplication, observation: LabObservation) -
         "liking": body.get("liking"),
         "words": body.get("words") or "",
         "logged_at": logged_at.astimezone(UTC).isoformat(),
+        **({"client_id": body["client_id"]} if body.get("client_id") else {}),
     }
 
 
@@ -2167,6 +2168,7 @@ class LabService(
         liking: int | None,
         words: str,
         logged_at: datetime | None = None,
+        client_id: str | None = None,
     ) -> dict:
         if window not in SMELL_LOG_WINDOWS:
             raise ValueError(f"Unknown smell log window: {window}")
@@ -2196,6 +2198,23 @@ class LabService(
             if bottle is None:
                 raise KeyError(f"Unknown bottle: {bottle_id}")
             sample = await self._smell_log_sample(bottle_id)
+            if sample is not None and client_id:
+                for application, observation in await self.repository.sample_observations(
+                    sample.id
+                ):
+                    saved = dict(observation.observations_json or {})
+                    if saved.get("kind") != SMELL_LOG_KIND or saved.get("client_id") != client_id:
+                        continue
+                    if (
+                        saved.get("window") != window
+                        or saved.get("leads") != lead_names
+                        or saved.get("weak") != weak_names
+                        or saved.get("liking") != liking
+                        or saved.get("words") != words
+                    ):
+                        raise ValueError("client_id is already used by a different smell log entry")
+                    # The same note sent again (its first answer was lost): no copy.
+                    return _smell_log_entry(application, observation)
             if sample is None:
                 experiment = await self.repository.add(
                     LabExperiment(
@@ -2232,6 +2251,7 @@ class LabService(
                         "weak": weak_names,
                         "liking": liking,
                         "words": words,
+                        **({"client_id": client_id} if client_id else {}),
                     },
                 )
             )
