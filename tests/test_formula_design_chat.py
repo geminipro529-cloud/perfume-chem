@@ -597,7 +597,9 @@ def test_formula_design_honors_all_required_tuberose_product_forms() -> None:
     )
 
     rows = result["optimized_formula"]["rows"]
-    tuberose = [row for row in rows if "tuber" in row["stock_label"].casefold()]
+    # The label of an overlay-recorded stock is its strength ("10% in DPG"), so the
+    # tuberose rows are found by identity.
+    tuberose = [row for row in rows if "tuber" in row["identity_name"].casefold()]
     assert len(tuberose) == 3
     assert {row["identity_name"] for row in tuberose} == {
         "Tuberlia Base",

@@ -50,10 +50,8 @@ def test_corrected_stocks_bind_exactly_without_density_or_release(name, fraction
         # The September 24 w/w declaration supersedes the old nominal v/v
         # interpretation; both records remain readable, but are not equivalent.
         assert check.status == "FAIL"
-        current = _check(name, fraction, "mass_fraction", carrier)
-        assert current.status == "FAIL"
-        assert current.data["issues"][0]["reason"] == "inventory_stock_non_executable"
-        assert "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING" in current.data["issues"][0]["execution_holds"]
+        # 2026-10-15: it is PerfumersWorld's own 10% in DPG, so the receipt hold is gone.
+        assert _check(name, fraction, "mass_fraction", carrier).status == "PASS"
         return
     if name == "Neroli EO":
         # 2026-10-14: Kenny's Neroli 10% is Aroma & More's ready-made dilution in
@@ -227,8 +225,9 @@ def test_previous_overlays_remain_unchanged_and_historically_loadable():
 
 
 def test_calone_keeps_known_dpg_and_current_aimi_identity_supersedes_old_label():
-    assert _check("Calone", 0.01, "volume_fraction", "dpg").status == "PASS"
-    assert _check("Calone", 0.01, "volume_fraction", "ethanol").status == "FAIL"
+    # 2026-10-15: Kenny's w/w-in-DPG rule gives the 1% in DPG its basis.
+    assert _check("Calone", 0.01, "mass_fraction", "dpg").status == "PASS"
+    assert _check("Calone", 0.01, "mass_fraction", "ethanol").status == "FAIL"
     check = _check("Alpha Isomethyl Ionone", 1.0, "neat", "")
     assert check.status == "PASS"
     assert check.data["resolved_stock_specs"]["Alpha Isomethyl Ionone"][

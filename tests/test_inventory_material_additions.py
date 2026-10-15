@@ -112,7 +112,7 @@ def test_july_2026_additions_are_synced_to_legacy_material_properties() -> None:
 
     stock_expectations = {
         "Adoxal": (True, 0.10),
-        "Champignol": (False, None),
+        "Champignol": (True, 0.10),  # in the gate since 2026-10-15
         "Coriander Essential Oil": (True, 1.0),
         "2-Acetyl Pyrazine": (True, None),
         "Safraleine": (True, 0.10),
@@ -120,7 +120,7 @@ def test_july_2026_additions_are_synced_to_legacy_material_properties() -> None:
         "Violet Leaf Absolute": (True, 0.10),
         "Black Agarwood Artificial": (True, 0.10),
         "Castoreum Synthetic": (True, 0.10),
-        "Jasmine Absolute": (True, None),
+        "Jasmine Absolute": (True, 0.10),  # both V5 stocks are 10% w/w in DPG (2026-10-15)
         "Coffee Absolute Grasse": (True, 0.10),
     }
 
@@ -147,10 +147,11 @@ def test_july_2026_additions_are_synced_to_legacy_material_properties() -> None:
         ):
             assert material[field] is not None
 
-    assert by_name["champignol"]["inventory_status"] == "TEXT_ONLY_UNBOUND"
-    for ambiguous in ("2-acetyl pyrazine", "jasmine absolute"):
-        assert by_name[ambiguous]["stock_selection_status"] == "AMBIGUOUS_SELECT_STOCK_ID"
-        assert len(by_name[ambiguous]["current_stocks"]) > 1
+    assert by_name["champignol"]["inventory_status"] == "BOUND_CURRENT_STOCK"  # since 2026-10-15
+    assert by_name["2-acetyl pyrazine"]["stock_selection_status"] == "AMBIGUOUS_SELECT_STOCK_ID"
+    assert len(by_name["2-acetyl pyrazine"]["current_stocks"]) > 1
+    # 2026-10-15: both Jasmine Absolute V5 rows are one 10% w/w in DPG stock.
+    assert by_name["jasmine absolute"]["stock_selection_status"] == "BOUND_CURRENT_STOCK"
 
 
 def test_violet_leaf_profile_does_not_recommend_itself_as_a_synergy() -> None:
@@ -337,9 +338,10 @@ def test_legacy_material_properties_mirror_live_stock_and_thresholds() -> None:
 
     cocoa_absolute = by_name["cocoa absolute"]
     cocoa_co2 = by_name["cocoa co2 extract"]
-    assert cocoa_absolute["in_inventory"] is False
-    assert cocoa_absolute["inventory_status"] == "TEXT_ONLY_UNBOUND"
-    assert cocoa_absolute["dilution_pct"] is None
+    # 2026-10-15: Kenny confirmed the Cocoa Absolute is neat.
+    assert cocoa_absolute["in_inventory"] is True
+    assert cocoa_absolute["inventory_status"] == "BOUND_CURRENT_STOCK"
+    assert cocoa_absolute["dilution_pct"] == pytest.approx(1.0)
     assert cocoa_co2["in_inventory"] is True
     assert cocoa_co2["dilution_pct"] == pytest.approx(0.077)
 

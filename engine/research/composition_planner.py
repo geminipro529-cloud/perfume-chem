@@ -1562,6 +1562,10 @@ def _select_choices(
                 not row[1].stock.execution_ready,
                 row[1].legacy_text_only,
                 row[1].stock.identity_name.casefold(),
+                # Two equally scored stocks of one identity: the stronger bottle,
+                # as design_inventory_formula's own stock preference does. The
+                # stock id alone once put Beta Ionone 0.1% ahead of the neat bottle.
+                -float(row[1].stock.dilution),
                 row[1].stock.stock_id,
             )
         )

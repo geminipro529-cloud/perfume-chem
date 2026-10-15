@@ -170,7 +170,8 @@ def test_derived_material_cache_reflects_both_inventory_closures() -> None:
         row["dilution"]: row for row in pyrazine["current_stocks"]
     }
     assert pyrazine_by_fraction[1.0]["execution_ready"] is True
-    assert pyrazine_by_fraction[0.01]["execution_ready"] is False
+    # 2026-10-15: the 1% in DPG has its basis (Kenny's w/w rule), so it is ready.
+    assert pyrazine_by_fraction[0.01]["execution_ready"] is True
 
     for name in (
         "Blood Orange oil Sicilian",

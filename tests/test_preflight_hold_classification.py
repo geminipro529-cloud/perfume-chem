@@ -123,13 +123,16 @@ def test_unknown_strength_holds_even_when_the_recorded_strength_differs():
 
 
 def test_live_inventory_metadata_gap_holds_but_wrong_strength_fails():
-    # Geraniol is owned at 10% with no recorded carrier, and neat.
-    held = resolve_inventory_stock_contract({"ingredients_ul": {"Geraniol": 100.0}, "dilutions": {"Geraniol": 0.1}})
+    # Cyclamen Aldehyde is owned at 10% with no recorded basis or carrier. (Geraniol 10%
+    # was the example until Kenny's 2026-10-15 w/w-in-DPG rule completed it.)
+    held = resolve_inventory_stock_contract(
+        {"ingredients_ul": {"Cyclamen Aldehyde": 100.0}, "dilutions": {"Cyclamen Aldehyde": 0.1}}
+    )
     assert held.status == "FAIL"  # the preflight check itself is unchanged
     assert [issue["reason"] for issue in held.data["issues"]] == ["inventory_stock_metadata_incomplete"]
     gate = _gate_preflight_contract({"checks": [held.as_dict()]}, "inventory_stock_contract")
     assert gate.status == "HOLD"
-    assert "needs data: Geraniol" in gate.detail
+    assert "needs data: Cyclamen Aldehyde" in gate.detail
 
     wrong = resolve_inventory_stock_contract({"ingredients_ul": {"Evernyl": 100.0}, "dilutions": {"Evernyl": 1.0}})
     assert [issue["reason"] for issue in wrong.data["issues"]] == ["stock_fraction_mismatch"]

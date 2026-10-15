@@ -110,9 +110,69 @@
       {
         "message_timestamp_utc": "2026-10-15T17:12:39Z",
         "text": "it is neat"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T18:41:39Z",
+        "text": "Tonka Bean Absolute 10% in DPG comes directly from PW (also diluted by PW)"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T19:27:09Z",
+        "text": "Load the rule"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T19:28:27Z",
+        "text": "I only have the 10%, the other is volume grade and not so good, and the other is tubrrlia base"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T19:32:46Z",
+        "text": "Yes"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T19:33:52Z",
+        "text": "Yes"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T19:34:20Z",
+        "text": "I have both"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T19:34:39Z",
+        "text": "Yes"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T19:35:02Z",
+        "text": "Neat"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T19:38:57Z",
+        "text": "Yes neat"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T19:39:50Z",
+        "text": "Yes it is neat. I also have cis jasmone neat, should I dilute it to 10% in DPG? What should I dilute it to?"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T19:45:35Z",
+        "text": "Add cis-3-hexenol to inventory, does Chimie need this?"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T19:45:48Z",
+        "text": "It is diluted to 1% In EtOH"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T20:00:42Z",
+        "text": "Yes, ad ye"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T20:05:29Z",
+        "text": "yes, it is neat"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T20:05:37Z",
+        "text": "YEs it is"
       }
     ],
-    "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Only Paradisamide uses a default (w/w, DPG): Kenny gave the strength and carrier or 'neat' for every other bottle."
+    "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
   },
   "policy": {
     "predecessor_overlay_immutable": true,
@@ -147,7 +207,10 @@
     "freesia_hdi_is_pw_freesia_hdl": true,
     "geranyl_acetate_receipt_hold_cleared": true,
     "citronellyl_acetate_added_neat": true,
-    "neryl_acetate_added_neat": true
+    "neryl_acetate_added_neat": true,
+    "user_ww_dpg_rule_20261015_loaded": true,
+    "neat_bottles_confirmed_20261015": true,
+    "tonka_bean_absolute_10pct_is_perfumersworld_product": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -159,7 +222,24 @@
     "INV-USER-20260915-STOCK-014",
     "INV-USER-20260915-STOCK-016",
     "INV-USER-20260924-R5-018",
-    "INV-USER-20260924-R5-013"
+    "INV-USER-20260924-R5-013",
+    "INV-USER-20260915-STOCK-005",
+    "INV-USER-20260915-STOCK-006",
+    "INV-USER-20260915-STOCK-012",
+    "INV-USER-20260828-007",
+    "INV-USER-20261007-PW-001",
+    "INV-USER-20261007-PW-008",
+    "INV-USER-20261007-PW-021",
+    "INV-USER-20261007-PW-022",
+    "INV-USER-20261007-PW-025",
+    "INV-USER-20261007-PW-026",
+    "INV-USER-20261007-PW-027",
+    "INV-USER-20261007-PW-036",
+    "INV-USER-20261007-PW-049",
+    "INV-USER-20261007-PW-052",
+    "INV-USER-20261007-PW-053",
+    "INV-USER-20260830-009",
+    "INV-USER-20260924-R5-019"
   ],
   "records": [
     {
@@ -1594,6 +1674,3056 @@
         "release_authorized": false
       },
       "note": "Kenny: 'I have neryl acetate' (15 Oct 17:07, ionone thread), then 'it is neat' (17:12, stock thread, his next message after it). It was in neither inventory.txt nor the gate's stock list."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-035",
+      "canonical_name": "Adoxal 10% in DPG",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "aldehydic / marine",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_8",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 8,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 8 had 'Adoxal 10% in DPG' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-036",
+      "canonical_name": "Aldehyde C11 1%",
+      "aliases": [
+        "Aldehyde C11 undecylenic (1%)",
+        "Aldehyde C11 undecylenic 1%"
+      ],
+      "state": "OWNED",
+      "category": "citrus_top",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_11",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 11,
+          "fraction": 0.01
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "I have both",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 11 had 'Aldehyde C11 1%' at 1% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept. It is the inventory.txt L41 'Aldehyde C11 undecylenic (1%)' bottle: asked whether his Aldehyde C11 undecylenic is neat or a 1% dilution, Kenny answered 'I have both' (19:34:20 UTC); the neat bottle is V5 row 268."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-037",
+      "canonical_name": "Allyl Cyclohexyl Propionate 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green / fruit",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_16",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 16,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 16 had 'Allyl Cyclohexyl Propionate 10%' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-038",
+      "canonical_name": "Ambermax 50%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods / amber",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.5,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_25",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 25,
+          "fraction": 0.5
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 25 had 'Ambermax 50%' at 50% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-039",
+      "canonical_name": "Beta Ionone 0.1%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "iris / violet",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.001,
+        "fraction_basis": "mass_fraction",
+        "carrier": "tec",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_45",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 45,
+          "fraction": 0.001
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": true,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 45 had 'Beta Ionone 0.1%' at 0.1% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: TEC (his inventory.txt line names it). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-040",
+      "canonical_name": "Blackcurrant Absolute 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green / fruit",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_49",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 49,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 49 had 'Blackcurrant Absolute 10%' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-041",
+      "canonical_name": "Calone 1% in DPG",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "marine",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_53",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 53,
+          "fraction": 0.01
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 53 had 'Calone 1% in DPG' at 1% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-042",
+      "canonical_name": "Cashmeran 20%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods / amber",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.2,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_59",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 59,
+          "fraction": 0.2
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 59 had 'Cashmeran 20%' at 20% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-043",
+      "canonical_name": "Cinnamaldehyde 1%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_68",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 68,
+          "fraction": 0.01
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 68 had 'Cinnamaldehyde 1%' at 1% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-044",
+      "canonical_name": "cis-3-Hexenol 1%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green_fruit",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "ethanol",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_70",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 70,
+          "fraction": 0.01
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "It is diluted to 1% In EtOH",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": true,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 70 had 'cis-3-Hexenol 1%' at 1% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: ETHANOL (Kenny's own answer). The display name is kept. The carrier is Kenny's own: 'Add cis-3-hexenol to inventory, does Chimie need this?' then 'It is diluted to 1% In EtOH' (15 Oct 19:45 UTC, 'Isomethyl ionone grades compared'). Ethanol, not the DPG default; w/w because he gave no basis."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-045",
+      "canonical_name": "Cocoa CO2 Extract 7.7%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "gourmand",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.077,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_79",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 79,
+          "fraction": 0.077
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 79 had 'Cocoa CO2 Extract 7.7%' at 7.7% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-046",
+      "canonical_name": "Coffee Absolute Grasse 10% in DPG",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "coffee / gourmand",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_80",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 80,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 80 had 'Coffee Absolute Grasse 10% in DPG' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-047",
+      "canonical_name": "Ethyl Maltol 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / caramel",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_266",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 266,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 266 had 'Ethyl Maltol 10%' at 10% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-048",
+      "canonical_name": "Ethyl Safranate 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice / saffron",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_102",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 102,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 102 had 'Ethyl Safranate 10%' at 10% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-049",
+      "canonical_name": "Ethyl Vanillin 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / balsamic",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_103",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 103,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 103 had 'Ethyl Vanillin 10%' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-050",
+      "canonical_name": "Eugenol 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_104",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 104,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 104 had 'Eugenol 10%' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-051",
+      "canonical_name": "Exaltolide 10% in DPG",
+      "aliases": [
+        "Exaltolide 10%"
+      ],
+      "state": "OWNED",
+      "category": "musk",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_107",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 106,
+          "fraction": 0.1
+        },
+        {
+          "source_row": 107,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 107 had 'Exaltolide 10% in DPG' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). V5 row 106 ('Exaltolide 10%', a 10% working stock with no solvent) is the same bottle: inventory.txt lists one, L258 'Exaltolide (10%)  # 10% in DPG'. This record replaces both rows."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-052",
+      "canonical_name": "Floralozone 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "marine_green",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_111",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 111,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 111 had 'Floralozone 10%' at 10% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-053",
+      "canonical_name": "Galaxolide 50%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "musk",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.5,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_113",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 113,
+          "fraction": 0.5
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 113 had 'Galaxolide 50%' at 50% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DEP (the V5 workbook row names it). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-054",
+      "canonical_name": "Geosmin 0.1%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "marine / green",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.001,
+        "fraction_basis": "mass_fraction",
+        "carrier": "tec",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_117",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 117,
+          "fraction": 0.001
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": true,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 117 had 'Geosmin 0.1%' at 0.1% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: TEC (his inventory.txt line names it). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-055",
+      "canonical_name": "Geosmin 1%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "earth / moss",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "tec",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_118",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 118,
+          "fraction": 0.01
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 118 had 'Geosmin 1%' at 1% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: TEC (the V5 workbook row names it). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-056",
+      "canonical_name": "Geraniol 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_119",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 119,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 119 had 'Geraniol 10%' at 10% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-057",
+      "canonical_name": "Guaiacol 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "leather",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_124",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 124,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 124 had 'Guaiacol 10%' at 10% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-058",
+      "canonical_name": "Hexyl Acetate 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green_fruit",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_132",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 132,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 132 had 'Hexyl Acetate 10%' at 10% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-059",
+      "canonical_name": "IBQ 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "leather / green",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_136",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 136,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 136 had 'IBQ 10%' at 10% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-060",
+      "canonical_name": "Indole 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_138",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 138,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 138 had 'Indole 10%' at 10% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-061",
+      "canonical_name": "Jasmine Absolute 10% in DPG",
+      "aliases": [
+        "Jasmine Absolute 10%",
+        "Jasmine Absolute (Jasminum grandiflorum, 10% in DPG)"
+      ],
+      "state": "OWNED",
+      "category": "white floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_145",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 144,
+          "fraction": 0.1
+        },
+        {
+          "source_row": 145,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 145 had 'Jasmine Absolute 10% in DPG' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). V5 row 144 ('Jasmine Absolute 10%', a 10% working stock with no solvent) is the same bottle: inventory.txt lists one, L107 'Jasmine Absolute (Jasminum grandiflorum, 10% in DPG)'. This record replaces both rows."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-062",
+      "canonical_name": "Jasmine Sambac Absolute 10% in DPG",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "white floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_147",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 147,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 147 had 'Jasmine Sambac Absolute 10% in DPG' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-063",
+      "canonical_name": "Oranger Crystals 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "orange blossom / floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_192",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 192,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 192 had 'Oranger Crystals 10%' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-064",
+      "canonical_name": "Rose Oxide 1%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_215",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 215,
+          "fraction": 0.01
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 215 had 'Rose Oxide 1%' at 1% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept. Kenny said on 15 Oct 05:14 not to be asked about this bottle again; his 19:27 rule now covers it."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-065",
+      "canonical_name": "Tagetes EO 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green / fruity / herbal",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_226",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 226,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 226 had 'Tagetes EO 10%' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-066",
+      "canonical_name": "Tuberose Absolute 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "white floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_234",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 234,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "I only have the 10%, the other is volume grade and not so good, and the other is tubrrlia base",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 234 had 'Tuberose Absolute 10%' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept. Asked whether he has a neat Tuberose Absolute or only the 10%, Kenny answered 'I only have the 10%, the other is volume grade and not so good, and the other is tubrrlia base' (19:28:27 UTC). No neat Tuberose Absolute is added; the volume-grade tuberose and Tuberalia Base are unchanged."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-067",
+      "canonical_name": "Undecavertol 1%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green_fruit",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_238",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 238,
+          "fraction": 0.01
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_v5_stock_row": false,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "carrier_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "V5 row 238 had 'Undecavertol 1%' at 1% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-068",
+      "canonical_name": "2-Acetyl Pyrazine",
+      "aliases": [
+        "2-Acetyl Pyrazine 1% in DPG"
+      ],
+      "state": "OWNED",
+      "category": "roasted_nutty",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20260915-STOCK-005",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 6,
+          "fraction": 0.01
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 6,
+          "disposition": "OWNED",
+          "status": "HAVE - NEAT PLUS 1% IN DPG",
+          "actual_stock_text": "2-Acetyl Pyrazine neat/as supplied and 1% working stock in DPG",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_carrier_from_retired_record": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20260915-STOCK-005 (inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json), which recorded 1% in DPG with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in DPG, the solvent already recorded. Everything else (category, aliases, parent rows) is carried over."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-069",
+      "canonical_name": "Skatole",
+      "aliases": [
+        "Skatole 1%",
+        "Skatole 1% in DPG"
+      ],
+      "state": "OWNED",
+      "category": "animalic_indolic",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20260915-STOCK-006",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 263,
+          "fraction": 0.01
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 263,
+          "disposition": "OWNED",
+          "status": "HAVE - 1% IN DPG",
+          "actual_stock_text": "Skatole 1% in DPG",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_carrier_from_retired_record": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20260915-STOCK-006 (inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json), which recorded 1% in DPG with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in DPG, the solvent already recorded. Everything else (category, aliases, parent rows) is carried over."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-070",
+      "canonical_name": "Gamma Nonalactone",
+      "aliases": [
+        "Gamma Nonalactone 10%",
+        "Aldehyde C-18 10%",
+        "Aldehyde C-18 (Gamma Nonalactone, 10% in ethanol)",
+        "Aldehyde C-18 (Gamma Nonalactone) 10%"
+      ],
+      "state": "OWNED",
+      "category": "lactone_fruit",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "ethanol",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20260915-STOCK-012",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 282,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 282,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% IN ETHANOL",
+          "actual_stock_text": "Gamma Nonalactone 10% in ethanol",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_carrier_from_retired_record": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20260915-STOCK-012 (inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json), which recorded 10% in ETHANOL with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in ETHANOL, the solvent already recorded. Everything else (category, aliases, parent rows) is carried over. This is also the inventory.txt L292 'Aldehyde C-18 (Gamma Nonalactone, 10% in ethanol)' bottle."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-071",
+      "canonical_name": "Rose de Mai Absolute",
+      "aliases": [
+        "Rose de Mai",
+        "Rose Absolute 10%"
+      ],
+      "state": "OWNED",
+      "category": "rose floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20260828-007",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 212
+        },
+        {
+          "source_row": 213
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 212,
+          "disposition": "OWNED",
+          "status": "HAVE - ROSE DE MAI ABSOLUTE ONLY AS 10% IN DPG",
+          "actual_stock_text": "Rose de Mai Absolute 10% in DPG",
+          "can_prepare": ""
+        },
+        {
+          "source_row": 213,
+          "disposition": "OWNED",
+          "status": "HAVE - ROSE DE MAI ABSOLUTE ONLY AS 10% IN DPG",
+          "actual_stock_text": "Rose de Mai Absolute 10% in DPG",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_carrier_from_retired_record": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20260828-007 (inventory_user_authority_overlay_20260828.json), which recorded 10% in DPG with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in DPG, the solvent already recorded. Everything else (category, aliases, parent rows) is carried over."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-072",
+      "canonical_name": "Ambrette Seed Absolute",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "musks",
+      "stock": {
+        "physical_form": "supplier_prepared_solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20261007-PW-001",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Ambrette Seed Absolute 10% in DPG",
+        "sku": "5XU12235"
+      },
+      "received_quantity_g": "1",
+      "pw_receipt_line": 1,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_carrier_from_retired_record": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20261007-PW-001 (inventory_user_authority_overlay_20261007_pw_received.json), which recorded 10% in DPG with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in DPG, the solvent already recorded. Everything else (supplier product, category, aliases, parent rows) is carried over. PerfumersWorld receipt line 1 is kept as pw_receipt_line: that receipt gives no basis, so the stock no longer matches its basis field word for word."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-073",
+      "canonical_name": "Birch Tar Rectified",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "leather / smoky / phenolic",
+      "stock": {
+        "physical_form": "supplier_prepared_solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20261007-PW-008",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Birch Tar Oil Rectified 10% in DPG",
+        "sku": "5TP11094"
+      },
+      "received_quantity_g": "2",
+      "pw_receipt_line": 8,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_carrier_from_retired_record": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20261007-PW-008 (inventory_user_authority_overlay_20261007_pw_received.json), which recorded 10% in DPG with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in DPG, the solvent already recorded. Everything else (supplier product, category, aliases, parent rows) is carried over. PerfumersWorld receipt line 8 is kept as pw_receipt_line: that receipt gives no basis, so the stock no longer matches its basis field word for word."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-074",
+      "canonical_name": "Buccoxime",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green / fresh / marine",
+      "stock": {
+        "physical_form": "supplier_prepared_solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20261007-PW-021",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Buccoxime 10% in DPG",
+        "sku": "5FB07818"
+      },
+      "received_quantity_g": "1",
+      "pw_receipt_line": 21,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_carrier_from_retired_record": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20261007-PW-021 (inventory_user_authority_overlay_20261007_pw_received.json), which recorded 10% in DPG with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in DPG, the solvent already recorded. Everything else (supplier product, category, aliases, parent rows) is carried over. PerfumersWorld receipt line 21 is kept as pw_receipt_line: that receipt gives no basis, so the stock no longer matches its basis field word for word."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-075",
+      "canonical_name": "Frangipani Absolute",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {
+        "physical_form": "supplier_prepared_solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20261007-PW-022",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Frangipani Absolute 10% in DPG",
+        "sku": "5ON09236"
+      },
+      "received_quantity_g": "1",
+      "pw_receipt_line": 22,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_carrier_from_retired_record": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20261007-PW-022 (inventory_user_authority_overlay_20261007_pw_received.json), which recorded 10% in DPG with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in DPG, the solvent already recorded. Everything else (supplier product, category, aliases, parent rows) is carried over. PerfumersWorld receipt line 22 is kept as pw_receipt_line: that receipt gives no basis, so the stock no longer matches its basis field word for word."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-076",
+      "canonical_name": "Mate Absolute",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice / aromatic",
+      "stock": {
+        "physical_form": "supplier_prepared_solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20261007-PW-025",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Mate Absolute 10% in DPG",
+        "sku": "5HE13845"
+      },
+      "received_quantity_g": "2",
+      "pw_receipt_line": 25,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_carrier_from_retired_record": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20261007-PW-025 (inventory_user_authority_overlay_20261007_pw_received.json), which recorded 10% in DPG with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in DPG, the solvent already recorded. Everything else (supplier product, category, aliases, parent rows) is carried over. PerfumersWorld receipt line 25 is kept as pw_receipt_line: that receipt gives no basis, so the stock no longer matches its basis field word for word."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-077",
+      "canonical_name": "Orris Concrete Orris Butter",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "iris / violet",
+      "stock": {
+        "physical_form": "supplier_prepared_solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20261007-PW-026",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Orris Concrete Orris Butter 10% in DPG",
+        "sku": "5IA07847"
+      },
+      "received_quantity_g": "2",
+      "pw_receipt_line": 26,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_carrier_from_retired_record": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20261007-PW-026 (inventory_user_authority_overlay_20261007_pw_received.json), which recorded 10% in DPG with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in DPG, the solvent already recorded. Everything else (supplier product, category, aliases, parent rows) is carried over. PerfumersWorld receipt line 26 is kept as pw_receipt_line: that receipt gives no basis, so the stock no longer matches its basis field word for word."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-078",
+      "canonical_name": "Rose Otto Bulgarian",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {
+        "physical_form": "supplier_prepared_solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20261007-PW-027",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Rose Otto Bulgarian 10% in DPG",
+        "sku": "5RR12478"
+      },
+      "received_quantity_g": "1",
+      "pw_receipt_line": 27,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_carrier_from_retired_record": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20261007-PW-027 (inventory_user_authority_overlay_20261007_pw_received.json), which recorded 10% in DPG with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in DPG, the solvent already recorded. Everything else (supplier product, category, aliases, parent rows) is carried over. PerfumersWorld receipt line 27 is kept as pw_receipt_line: that receipt gives no basis, so the stock no longer matches its basis field word for word."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-079",
+      "canonical_name": "Phenyl Acetaldehyde",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {
+        "physical_form": "supplier_prepared_solution",
+        "fraction": 0.85,
+        "fraction_basis": "mass_fraction",
+        "carrier": "pea",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20261007-PW-036",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Phenyl Acetaldehyde 85% in PEA",
+        "sku": "5GP07497"
+      },
+      "received_quantity_g": "2",
+      "pw_receipt_line": 36,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_carrier_from_retired_record": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20261007-PW-036 (inventory_user_authority_overlay_20261007_pw_received.json), which recorded 85% in PEA with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in PEA, the solvent already recorded. Everything else (supplier product, category, aliases, parent rows) is carried over. PerfumersWorld receipt line 36 is kept as pw_receipt_line: that receipt gives no basis, so the stock no longer matches its basis field word for word."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-080",
+      "canonical_name": "Vanilla Absolute",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / gourmand / balsamic",
+      "stock": {
+        "physical_form": "supplier_prepared_solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20261007-PW-049",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Vanilla Absolute 10% in DPG",
+        "sku": "5VW09926"
+      },
+      "received_quantity_g": "1",
+      "pw_receipt_line": 49,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_carrier_from_retired_record": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20261007-PW-049 (inventory_user_authority_overlay_20261007_pw_received.json), which recorded 10% in DPG with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in DPG, the solvent already recorded. Everything else (supplier product, category, aliases, parent rows) is carried over. PerfumersWorld receipt line 49 is kept as pw_receipt_line: that receipt gives no basis, so the stock no longer matches its basis field word for word."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-081",
+      "canonical_name": "Saffranal",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice / aromatic",
+      "stock": {
+        "physical_form": "supplier_prepared_solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20261007-PW-052",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Saffranal 10% in DPG",
+        "sku": "5ES07841"
+      },
+      "received_quantity_g": "1",
+      "pw_receipt_line": 52,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_carrier_from_retired_record": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20261007-PW-052 (inventory_user_authority_overlay_20261007_pw_received.json), which recorded 10% in DPG with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in DPG, the solvent already recorded. Everything else (supplier product, category, aliases, parent rows) is carried over. PerfumersWorld receipt line 52 is kept as pw_receipt_line: that receipt gives no basis, so the stock no longer matches its basis field word for word."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-082",
+      "canonical_name": "Ambrocenide",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods / amber / structure",
+      "stock": {
+        "physical_form": "supplier_prepared_solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "tec",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20261007-PW-053",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Ambrocenide 10% in TEC",
+        "sku": "5WU22696"
+      },
+      "received_quantity_g": "3",
+      "pw_receipt_line": 53,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_carrier_from_retired_record": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20261007-PW-053 (inventory_user_authority_overlay_20261007_pw_received.json), which recorded 10% in TEC with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in TEC, the solvent already recorded. Everything else (supplier product, category, aliases, parent rows) is carried over. PerfumersWorld receipt line 53 is kept as pw_receipt_line: that receipt gives no basis, so the stock no longer matches its basis field word for word."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-083",
+      "canonical_name": "Cis-3-Hexenyl Salicylate",
+      "aliases": [
+        "Cis-3 Hexenyl Salicylate"
+      ],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.2,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "RECORDED_STRENGTH_AND_BASIS_USER_DPG_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20260830-009",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_and_basis_from_retired_record": true,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Re-issues INV-USER-20260830-009 (inventory_user_authority_overlay_20260828.json), 20% w/w with no solvent (hold CARRIER_UNSPECIFIED). Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So the solvent is DPG."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-084",
+      "canonical_name": "Allyl Amyl Glycolate 10%",
+      "aliases": [
+        "Allyl Amyl Glycolate (10%)"
+      ],
+      "state": "OWNED",
+      "category": "green_fruit",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "INVENTORY_TEXT_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_INVENTORY_TEXT_L294",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_inventory_text_line": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "inventory.txt L294 lists this bottle; the gate's stock list did not have it. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-085",
+      "canonical_name": "Benzaldehyde 1% in DPG",
+      "aliases": [
+        "Benzaldehyde (1% in DPG)"
+      ],
+      "state": "OWNED",
+      "category": "almond / gourmand",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "INVENTORY_TEXT_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_INVENTORY_TEXT_L131",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_inventory_text_line": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_inventory_text_line": true,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "inventory.txt L131 lists this bottle; the gate's stock list did not have it. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (his inventory.txt line names it)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-086",
+      "canonical_name": "Benzoin Sumatra Resinoid 10%",
+      "aliases": [
+        "Benzoin Sumatra Resinoid (10%)"
+      ],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "INVENTORY_TEXT_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_INVENTORY_TEXT_L287",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_inventory_text_line": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "inventory.txt L287 lists this bottle; the gate's stock list did not have it. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-087",
+      "canonical_name": "Benzyl Alcohol 50% in DPG",
+      "aliases": [
+        "Benzyl Alcohol (50% in DPG)"
+      ],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.5,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "INVENTORY_TEXT_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_INVENTORY_TEXT_L129",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_inventory_text_line": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_inventory_text_line": true,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "inventory.txt L129 lists this bottle; the gate's stock list did not have it. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (his inventory.txt line names it)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-088",
+      "canonical_name": "Champignol 10% in DPG",
+      "aliases": [
+        "Champignol (10% in DPG)"
+      ],
+      "state": "OWNED",
+      "category": "accord bases / other",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "INVENTORY_TEXT_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_INVENTORY_TEXT_L366",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_inventory_text_line": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_inventory_text_line": true,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "inventory.txt L366 lists this bottle; the gate's stock list did not have it. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (his inventory.txt line names it)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-089",
+      "canonical_name": "Lavender EO 1%",
+      "aliases": [
+        "Lavender EO (1%)"
+      ],
+      "state": "OWNED",
+      "category": "aromatic_top",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "INVENTORY_TEXT_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_INVENTORY_TEXT_L345",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_inventory_text_line": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "inventory.txt L345 lists this bottle; the gate's stock list did not have it. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The line does not say which of his lavender oils it was made from."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-090",
+      "canonical_name": "Lemonile 1% in DPG",
+      "aliases": [
+        "Lemonile (1% in DPG)"
+      ],
+      "state": "OWNED",
+      "category": "citrus / aldehydic",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "INVENTORY_TEXT_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_INVENTORY_TEXT_L52",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_inventory_text_line": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_inventory_text_line": true,
+        "carrier_from_user_ww_dpg_rule_20261015": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "inventory.txt L52 lists this bottle; the gate's stock list did not have it. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (his inventory.txt line names it)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-091",
+      "canonical_name": "p-Cresyl Methyl Ether 10%",
+      "aliases": [
+        "PCME 10%",
+        "p-Cresyl Methyl Ether (PCME) (10%)"
+      ],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "INVENTORY_TEXT_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_INVENTORY_TEXT_L146",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_inventory_text_line": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "inventory.txt L146 lists this bottle; the gate's stock list did not have it. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-092",
+      "canonical_name": "Rose Oxide 10%",
+      "aliases": [
+        "Rose Oxide (10%)"
+      ],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "INVENTORY_TEXT_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_INVENTORY_TEXT_L125",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_inventory_text_line": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "inventory.txt L125 lists this bottle; the gate's stock list did not have it. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-093",
+      "canonical_name": "Scentenal 1%",
+      "aliases": [
+        "Scentenal (1%)"
+      ],
+      "state": "OWNED",
+      "category": "aldehydic / marine",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "INVENTORY_TEXT_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_INVENTORY_TEXT_L76",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_inventory_text_line": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_inventory_text_line": false,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "inventory.txt L76 lists this bottle; the gate's stock list did not have it. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-094",
+      "canonical_name": "Nerolin Bromelia 10% in DPG",
+      "aliases": [
+        "Nerolin Bromelia (10% in DPG)",
+        "Nerolia Bromelia 10% in DPG"
+      ],
+      "state": "OWNED",
+      "category": "orange blossom / floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "INVENTORY_TEXT_STRENGTH_AND_CARRIER_USER_CONFIRMED_OWNED_USER_WW_RULE",
+        "execution_basis": "USER_ANSWER_20261015_NEROLIN_BROMELIA_10PCT_DPG_V5_ROW_182",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 182,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% W/W IN DPG (USER-CONFIRMED 2026-10-15)",
+          "actual_stock_text": "Nerolin Bromelia 10% w/w in DPG",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Yes, ad ye",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_inventory_text_line": true,
+        "carrier_from_inventory_text_line": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked 'Do you still have the Nerolin Bromelia 10% in DPG?', Kenny answered 'Yes, ad ye' (20:00:42 UTC, 'Update logs. Chimie Femme'), read as 'yes, and yes'. The bottle is inventory.txt L166 (2-ethoxynaphthalene, CAS 93-18-5); V5 row 182 listed it unresolved, 'as supplied'. w/w by his 19:27 rule."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-095",
+      "canonical_name": "Eugenol",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT",
+        "execution_basis": "USER_ANSWER_20261015_EUGENOL_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Yes",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "supplier_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked whether he has a neat Eugenol bottle as well as the 10%, Kenny answered 'Yes' (15 Oct 19:32:46 UTC, 'Update logs. Chimie Femme'). The bottle is inventory.txt L337; the gate's stock list did not have it. The 10% (V5 row 104) is unchanged."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-096",
+      "canonical_name": "Anisaldehyde",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT",
+        "execution_basis": "USER_ANSWER_20261015_ANISALDEHYDE_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Yes",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "supplier_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked whether he has a neat Anisaldehyde bottle as well as the 10%, Kenny answered 'Yes' (15 Oct 19:33:52 UTC, 'Update logs. Chimie Femme'). The bottle is inventory.txt L288; the gate's stock list did not have it. The 10% v/v in ethanol (INV-USER-20260910-CLARIFY-001) is unchanged."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-097",
+      "canonical_name": "Cassis Base 345B",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "blackcurrant / fruit",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT",
+        "execution_basis": "USER_ANSWER_20261015_CASSIS_BASE_345B_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 284,
+          "disposition": "OWNED",
+          "status": "HAVE - NEAT / AS SUPPLIED (USER-CONFIRMED 2026-10-15)",
+          "actual_stock_text": "Cassis Base 345B neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Yes",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "supplier_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked whether he still has Cassis Base 345B and whether it is neat (as supplied), Kenny answered 'Yes' (15 Oct 19:34:39 UTC, 'Update logs. Chimie Femme'). The bottle is inventory.txt L373; V5 row 284 listed it unresolved. It is one product, dosed as supplied; its composition is not expanded (AGENTS.md Rule 4). The supplier is not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-098",
+      "canonical_name": "Cocoa Absolute",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "gourmand",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT",
+        "execution_basis": "USER_ANSWER_20261015_COCOA_ABSOLUTE_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 77,
+          "disposition": "OWNED",
+          "status": "HAVE - NEAT / AS SUPPLIED (USER-CONFIRMED 2026-10-15)",
+          "actual_stock_text": "Cocoa Absolute neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Neat",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "supplier_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked whether his Cocoa Absolute is neat or a ready-made dilution, Kenny answered 'Neat' (15 Oct 19:35:02 UTC, 'Update logs. Chimie Femme'). The bottle is inventory.txt L297; V5 row 77 listed it unresolved. An exception to the default that absolutes are DPG dilutions. V5 row 78 (prepare a 10% when needed) is unchanged."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-099",
+      "canonical_name": "Dihydrojasmone",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "jasmine / floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT",
+        "execution_basis": "USER_ANSWER_20261015_DIHYDROJASMONE_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 94,
+          "disposition": "OWNED",
+          "status": "HAVE - NEAT / AS SUPPLIED (USER-CONFIRMED 2026-10-15)",
+          "actual_stock_text": "Dihydrojasmone neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Yes neat",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "supplier_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked whether he still has Dihydrojasmone and whether it is neat, Kenny answered 'Yes neat' (15 Oct 19:38:57 UTC, 'Update logs. Chimie Femme'). The bottle is inventory.txt L110; V5 row 94 listed it unresolved."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-100",
+      "canonical_name": "Jessemal",
+      "aliases": [
+        "Jessemal (Jasmonyl)"
+      ],
+      "state": "OWNED",
+      "category": "floral air",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT",
+        "execution_basis": "USER_ANSWER_20261015_JESSEMAL_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 151,
+          "disposition": "OWNED",
+          "status": "HAVE - NEAT / AS SUPPLIED (USER-CONFIRMED 2026-10-15)",
+          "actual_stock_text": "Jessemal neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Yes it is neat. I also have cis jasmone neat, should I dilute it to 10% in DPG? What should I dilute it to?",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "supplier_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked whether he still has Jessemal and whether it is neat, Kenny answered 'Yes it is neat. I also have cis jasmone neat, should I dilute it to 10% in DPG? What should I dilute it to?' (15 Oct 19:39:50 UTC, 'Update logs. Chimie Femme'). The bottle is inventory.txt L111; V5 row 151 listed it unresolved. The neat cis-Jasmone he names is already V5 row 71. A 10% cis-Jasmone was advised but he has not said it is made, so none is recorded. V5 row 148 'Jasmonyl' stays a separate material."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-101",
+      "canonical_name": "Pamzest",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus / grapefruit",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT",
+        "execution_basis": "USER_ANSWER_20261015_PAMZEST_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 260,
+          "disposition": "OWNED",
+          "status": "HAVE - NEAT / AS SUPPLIED (USER-CONFIRMED 2026-10-15)",
+          "actual_stock_text": "Pamzest neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "yes, it is neat",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "supplier_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked whether he still has Pamzest and whether it is neat, Kenny answered 'yes, it is neat' (15 Oct 20:05:29 UTC, 'Update logs. Chimie Femme'). The bottle is inventory.txt L54; V5 row 260 listed it unresolved. Synarome's grapefruit base, dosed as supplied; its composition is not expanded (AGENTS.md Rule 4)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-102",
+      "canonical_name": "Rhodinol ex Citronella",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "rose / floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT",
+        "execution_basis": "USER_ANSWER_20261015_RHODINOL_EX_CITRONELLA_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 279,
+          "disposition": "OWNED",
+          "status": "HAVE - NEAT / AS SUPPLIED (USER-CONFIRMED 2026-10-15)",
+          "actual_stock_text": "Rhodinol ex Citronella neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "YEs it is",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "supplier_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked whether he still has Rhodinol ex Citronella and whether it is neat, Kenny answered 'YEs it is' (15 Oct 20:05:37 UTC, 'Update logs. Chimie Femme'). The bottle is inventory.txt L122; V5 row 279 listed it unresolved. A natural fraction, dosed as supplied; its composition is not expanded (AGENTS.md Rule 4)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-103",
+      "canonical_name": "Tonka Bean Absolute",
+      "aliases": [
+        "Tonka Bean Absolute 10% in DPG"
+      ],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "physical_form": "supplier_prepared_solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "DIRECT_USER_CURRENT_STOCK_BASIS_AND_CARRIER_CORRECTION",
+        "execution_basis": "USER_STATEMENT_20261015_TONKA_10PCT_DPG_IS_PERFUMERSWORLD_PRODUCT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "user_reported_ready": true
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Tonka Bean Absolute 10% in DPG",
+        "sku": "5VN07564"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 232,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Tonka Bean Absolute 10% in DPG comes directly from PW (also diluted by PW)",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_message": true,
+        "sku_from_catalogue_match_not_user": true,
+        "coumarin_content_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'Tonka Bean Absolute 10% in DPG comes directly from PW (also diluted by PW)' (15 Oct 18:41 UTC, 'Small open jobs sweep'). R5-019 (his 24 Sep w/w-in-DPG confirmation) held it only for BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING; it is a supplier product, so there is no preparation to receipt, and AGENTS.md Rule 6 says a formula needs no lot receipt. Retires R5-019. The SKU is the PerfumersWorld catalogue match, not his word. The IFRA coumarin content of the lot is handled in the IFRA tables, not here."
     }
   ]
 }

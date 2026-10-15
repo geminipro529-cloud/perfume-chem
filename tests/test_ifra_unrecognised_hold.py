@@ -174,6 +174,18 @@ STILL_HELD = {
     "Vanilla Absolute",
     "Vertofix",
     "Vertofix Coeur",
+    # Recorded 2026-10-15 from Kenny's bottle answers and his w/w-in-DPG rule; no IFRA
+    # table entry matches them yet, so they hold by name.
+    "Benzoin Sumatra Resinoid 10%",
+    "Cassis Base 345B",
+    "Champignol 10% in DPG",
+    "Cocoa Absolute",
+    "Dihydrojasmone",
+    "Jessemal",
+    "Nerolin Bromelia 10% in DPG",
+    "Pamzest",
+    "Rhodinol ex Citronella",
+    "p-Cresyl Methyl Ether 10%",
 }
 
 

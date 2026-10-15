@@ -168,7 +168,9 @@ async def test_current_project_inventory_is_primary_and_not_reentered(client):
         and stock["source_class"] == "LIVE_INVENTORY_TEXT"
         for stock in payload["stocks"]
     )
-    assert payload["counts"]["live_inventory_text"] >= 60
+    # 2026-10-15: Kenny's w/w rule and neat-bottle answers moved 15 inventory.txt-only
+    # lines (Lemonile 1%, Eugenol, Rose Oxide 10%, ...) onto the gate's stock list.
+    assert payload["counts"]["live_inventory_text"] >= 40
 
     after_materials = await client.get("/api/v1/lab/materials")
     after_stocks = await client.get("/api/v1/lab/stocks")
