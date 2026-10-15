@@ -11,6 +11,7 @@ from engine.ifra_standards import (
     DEFAULT_CONSTITUENTS_PATH,
     evaluate_ifra,
     load_natural_constituents,
+    single_material_limit_pct,
 )
 
 
@@ -55,6 +56,21 @@ def test_rose_essential_oil_counts_methyl_eugenol_and_fails_naming_the_stock():
     assert group.total == pytest.approx(0.02)
     assert group.verdict == "fail"
     assert stock in group.message and "Rose oil" in group.message
+
+
+def test_cassia_is_recognised_and_its_cinnamal_fails_over_the_limit():
+    # Cassia oil is about 80 % cinnamal (Annex I); 1.29 % of the product is about
+    # 1.03 % cinnamal against the 0.25 % Category 4 limit.
+    evaluation = evaluate_ifra({"Cassia Essential Oil (Cinnamomum cassia, India)": 1.29})
+    assert not evaluation.unchecked
+    assert evaluation.checks[0].status == "natural_no_own_standard"
+    total = next(t for t in evaluation.constituent_totals if t.standard == "IFRA_STD_018")
+    assert total.total == pytest.approx(1.29 * 80.0 / 100)
+    group = next(g for g in evaluation.group_checks if g.standard == "IFRA_STD_018")
+    assert group.verdict == "fail"
+    status, limit = single_material_limit_pct("Cassia Essential Oil")
+    assert status == "restricted"
+    assert limit == pytest.approx(0.25 / 0.80)
 
 
 def test_rose_otto_bulgarian_is_recognised_and_counts_rose_oil_methyl_eugenol():
