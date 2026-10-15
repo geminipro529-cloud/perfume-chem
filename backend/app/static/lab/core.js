@@ -268,6 +268,7 @@ function navigate(view) {
   if (view === "nose" && typeof noseShown === "function") noseShown();
   if (view === "make" && typeof makeNowShown === "function") makeNowShown();
   if (view === "batch" && typeof phoneBenchShown === "function") phoneBenchShown();
+  if (view === "buy" && typeof buyListShown === "function") buyListShown();
 }
 
 function formData(form) { return Object.fromEntries(new FormData(form).entries()); }

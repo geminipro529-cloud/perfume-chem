@@ -554,6 +554,23 @@ function makeNowInventoryChanged() {
   makeNow?.changed();
 }
 
+// Buy (buy-list.js): its own page, reading GET /v2/workbench/buy-list.
+const buyList = typeof attachBuyList === "function"
+  ? attachBuyList({
+    doc: document,
+    root: $('[data-panel="buy"]'),
+    request,
+    notify,
+    // "It arrived" and "Already have it" add the bottle through the Stock page's own form.
+    openStockAdd: (prefill, hooks) => openInventoryAddition(prefill, hooks),
+    showPage: () => navigate("buy"),
+  })
+  : null;
+
+function buyListShown() {
+  buyList?.shown();
+}
+
 // ---- Shelf map: owned materials by written character (similar-stocks.js) ----
 // Asked for on a tap only (GET /v2/workbench/shelf-map), and again on each opening,
 // since stocks change on this page.
@@ -659,12 +676,41 @@ $("#inventory-completion-form").addEventListener("submit", async (event) => {
   }
 });
 
+// Set while the add panel was opened by openInventoryAddition (Buy's "It arrived"):
+// { onAdded, onClosed }. The Stock page's own Add button opens it without one.
+let inventoryAdditionHooks = null;
+
+// Closing or cancelling the panel tells the opener once (onClosed) and forgets it.
 function closeInventoryAddition() {
   $("#inventory-addition-panel").hidden = true;
   $("#inventory-addition-form").reset();
+  const hooks = inventoryAdditionHooks;
+  inventoryAdditionHooks = null;
+  hooks?.onClosed?.();
+}
+
+// Open the Stock page's add panel with `prefill` (form field name -> value) filled in.
+// Kenny reviews it, completes the required fields and presses Add himself; after that
+// save succeeds, onAdded({ stock_id, identity_name }) is called once.
+// Opening it again (here or with the Stock page's own Add button) forgets an earlier opener
+// without calling it: that opener's form is gone, not cancelled.
+function openInventoryAddition(prefill = {}, { onAdded, onClosed } = {}) {
+  navigate("materials");
+  closeInventoryCompletion();
+  const form = $("#inventory-addition-form");
+  form.reset();
+  for (const [name, value] of Object.entries(prefill || {})) {
+    const field = form.elements[name];
+    if (field && field.type !== "checkbox" && value !== undefined && value !== null) field.value = String(value);
+  }
+  inventoryAdditionHooks = { onAdded, onClosed };
+  $("#inventory-addition-panel").hidden = false;
+  $("#inventory-addition-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+  form.elements.identity_name.focus();
 }
 
 $("#inventory-add-open").addEventListener("click", () => {
+  inventoryAdditionHooks = null;
   closeInventoryCompletion();
   $("#inventory-addition-panel").hidden = false;
   $("#inventory-addition-panel").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -703,8 +749,11 @@ bindSavingForm("#inventory-addition-form", async (data, form, saved) => {
     $("#project-inventory-search").value = data.identity_name;
     Object.assign(stockView, { filter: "all", solvent: "", basket: "" });
     renderProjectInventory(data.identity_name);
+    const hooks = inventoryAdditionHooks;
+    inventoryAdditionHooks = null;
     closeInventoryAddition();
     notify(`${data.identity_name} is now available for personal formula design.`);
+    hooks?.onAdded?.({ stock_id: result.added_stock_id, identity_name: data.identity_name });
   } finally {
     submit.textContent = "Add to my inventory";
   }

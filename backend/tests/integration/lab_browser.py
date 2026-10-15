@@ -62,6 +62,8 @@ DEFAULT_GETS: dict[str, Any] = {
         "inventory_modified": False,
         "compounding_authority": False,
     },
+    # What can I make reads the Buy page's list beside its formulas, for shop prices.
+    "/v2/workbench/buy-list": {"buy_first": [], "check_stock": [], "on_the_way": []},
 }
 
 # Records every text the #status line shows, in order, so a test can see a
