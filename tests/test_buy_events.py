@@ -184,6 +184,16 @@ def test_newline_in_text_is_refused(log: Path, reason: str) -> None:
         _record(log, {**SKIP, "reason": reason})
 
 
+def test_unicode_line_separators_stay_inside_their_record(log: Path) -> None:
+    # str.splitlines() breaks on all of these, and the JSON writes U+2028, U+2029
+    # and U+0085 raw: one pasted reason must not lock the log.
+    reason = "one\u2028two\u2029three\x85four\x0bfive\x0csix\x1cseven"
+    (stored,) = _record(log, {**SKIP, "reason": reason})
+    assert stored["reason"] == reason
+    (rate,) = _record(log, ENTRIES["fx_rate"])
+    assert load_buy_events(log) == (stored, rate)
+
+
 def test_text_is_stripped_and_capped(log: Path) -> None:
     (stored,) = _record(log, {**SKIP, "reason": "  padded  "})
     assert stored["reason"] == "padded"

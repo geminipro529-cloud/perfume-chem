@@ -79,6 +79,7 @@ function buyCount(count, word) {
 function buyRateBannerText(banner) {
   if (!banner) return "";
   if (banner.reason === "stale" && banner.last_set_on) return `No US$ rate since ${buyDayLabel(banner.last_set_on)}.`;
+  if (banner.reason === "change") return "Type the new rate.";
   return "No US$ rate yet.";
 }
 
@@ -147,7 +148,8 @@ function buyCardNames(cards) {
 function buyPickText(pick) {
   const price = buyShownPriceText(pick.price);
   const reviewed = pick.reviewed_on ? ` Reviewed ${buyDayLabel(pick.reviewed_on)}${price ? `; ${price}` : ""}.` : (price ? ` ${price}.` : "");
-  return `${pick.material}, ${pick.dose}: ${String(pick.reason || "").replace(/\.$/, "")}.${reviewed}`;
+  const note = pick.offer_note ? ` ${pick.offer_note}` : "";
+  return `${pick.material}, ${pick.dose}: ${String(pick.reason || "").replace(/\.$/, "")}.${reviewed}${note}`;
 }
 
 function buyOrderLineText(line) {
@@ -225,9 +227,13 @@ function buyTicked(data, ticks) {
   return ticked;
 }
 
-// After the data is read again: keep the ticks whose offers are still there.
+// After the data is read again: keep the ticks whose offers are still there and
+// still confirmed. An offer whose question is open again (its PW title changed
+// since "Same") loses its tick, so ticking it again asks again.
 function buyKeepTicks(data, ticks) {
-  return new Map(buyTicked(data, ticks).map((entry) => [entry.materialKey, entry.offer.offer_key]));
+  return new Map(buyTicked(data, ticks)
+    .filter((entry) => !entry.offer.match_question)
+    .map((entry) => [entry.materialKey, entry.offer.offer_key]));
 }
 
 // The bar's text, or null when nothing is ticked. Without a US$ rate it shows no ฿
@@ -631,6 +637,25 @@ function buyRateForm(doc, banner, onSave) {
   return form;
 }
 
+// With a current rate: "1 US$ = 33.55 ฿, set 15 Oct. [Change]". Change shows the rate
+// field, so a mistyped rate can be put right before it goes stale.
+function buyRateChange(doc, fx, onSave) {
+  const box = buyEl(doc, "div", "buy-rate-current");
+  const line = buyEl(doc, "p", "field-help");
+  const set = fx.set_on ? `, set ${buyDayLabel(fx.set_on)}` : "";
+  const change = buyButton(doc, "Change");
+  line.append(buyEl(doc, "span", "", `1 US$ = ${fx.rate} ฿${set}. `), change);
+  const form = buyRateForm(doc, { reason: "change" }, onSave);
+  form.hidden = true;
+  change.addEventListener("click", () => {
+    line.hidden = true;
+    form.hidden = false;
+    form.querySelector("input")?.focus();
+  });
+  box.append(line, form);
+  return box;
+}
+
 // The budget: "Budget ฿ [____] [Save] [Clear]"; Clear only when one is set.
 function buyBudgetForm(doc, budget, onSave) {
   const form = buyEl(doc, "form", "make-left-form buy-budget");
@@ -683,6 +708,7 @@ function buyRender(doc, target, data, {
   target.replaceChildren();
   target.append(buyEl(doc, "p", "make-shopping-for", data.price_header || ""));
   if (data.rate_banner) target.append(buyRateForm(doc, data.rate_banner, saveRate));
+  else if (data.fx?.rate) target.append(buyRateChange(doc, data.fx, saveRate));
   target.append(buyBudgetForm(doc, data.budget, saveBudget));
 
   const first = buySection(doc, "Buy first", "from your cards and stock");
@@ -1110,6 +1136,6 @@ if (typeof module === "object" && module.exports) {
     buyOrderId, buyOrderEvents, buyMatchEvent, buyBudgetEvent, buyMaterialNames, buyPicksPreview,
     BUY_CHECK_STOCK_TEXT, BUY_PW_SHIPPING_USD, BUY_PW_FREE_SHIPPING_FROM_USD,
     buyOrderStateEvent, buyGroupStateEvents, buyPackGrams, buyPercentText, buyStockPrefill, buyPaidQuestion,
-    buyStockPriceBody, buyWalkStart, buyWalkLine, buyWalkNext, buyWalkView, buyGroupNode,
+    buyStockPriceBody, buyWalkStart, buyWalkLine, buyWalkNext, buyWalkView, buyGroupNode, buyRateChange,
   };
 }

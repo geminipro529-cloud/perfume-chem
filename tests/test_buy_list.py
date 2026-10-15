@@ -3,9 +3,12 @@
 from __future__ import annotations
 
 import json
+import time
 from datetime import UTC, date, datetime
 from decimal import Decimal
 from types import SimpleNamespace
+
+import pytest
 
 from engine.buy_events import load_buy_events, record_buy_events
 from engine.buy_list import BUY_LIST_SCHEMA, build_buy_list, day_month_label
@@ -285,7 +288,12 @@ def test_no_rate_leaves_thb_empty_and_asks_for_it():
 def test_rate_older_than_30_days_still_prices_and_brings_the_banner_back(tmp_path):
     events = _events(tmp_path, ("2026-09-14", [RATE]))
     result = _build(_needs(_need("Sandalwood Oil", _card("santal"))), events)
-    assert result["fx"] == {"rate": "33.55", "set_at": "2026-09-14T09:00:00Z", "stale": True}
+    assert result["fx"] == {
+        "rate": "33.55",
+        "set_at": "2026-09-14T09:00:00Z",
+        "set_on": "2026-09-14",
+        "stale": True,
+    }
     assert result["rate_banner"] == {"reason": "stale", "last_set_on": "2026-09-14"}
     assert _row(result, "sandalwood oil")["offers"][0]["upfront_thb"] == "1707.695"
 
@@ -451,6 +459,49 @@ def test_not_this_returns_the_row_and_dates_the_offer(tmp_path):
     assert offer["match"] == "probable"
 
 
+def test_a_parcel_asks_when_its_oldest_line_reaches_day_10(tmp_path):
+    # Only the sandalwood line was answered "still coming"; the vetiver line's clock
+    # still runs from the order and returns it on its own day 21.
+    vetiver = _order("ORDERED", key="vetiver oil", offer_key="pw:6VT00006")
+    events = _events(
+        tmp_path,
+        ("2026-10-01", [_order("ORDERED"), vetiver]),
+        ("2026-10-12", [_order("STILL_COMING")]),
+    )
+    (group,) = _build(_santal_needs(), events)["on_the_way"]
+    assert len(group["lines"]) == 2
+    assert group["days"] == 14
+    assert group["nudge"] is True
+
+
+@pytest.fixture
+def thai_clock(monkeypatch):
+    """The PC's clock on Thai time (UTC+7), as on Kenny's PC."""
+
+    tzset = getattr(time, "tzset", None)
+    if tzset is None:
+        pytest.skip("needs time.tzset, which Windows lacks")
+    monkeypatch.setenv("TZ", "ICT-7")
+    tzset()
+    yield
+    monkeypatch.undo()
+    tzset()
+
+
+def test_days_count_on_the_pcs_own_calendar(tmp_path, thai_clock):
+    # 23:30 UTC on 1 Oct is 06:30 on 2 Oct in Thailand: day 9 on 11 Oct, no nudge yet.
+    path = tmp_path / "buy.jsonl"
+    record_buy_events(
+        [_order("ORDERED"), RATE], path=path, now=datetime(2026, 10, 1, 23, 30, tzinfo=UTC)
+    )
+    result = _build(_santal_needs(), load_buy_events(path), today=date(2026, 10, 11))
+    (group,) = result["on_the_way"]
+    assert group["ordered_on"] == "2026-10-02"
+    assert group["days"] == 9
+    assert group["nudge"] is False
+    assert result["fx"]["set_on"] == "2026-10-02"
+
+
 def test_arrived_closes_the_order(tmp_path):
     events = _events(
         tmp_path, ("2026-10-01", [_order("ORDERED")]), ("2026-10-08", [_order("ARRIVED")])
@@ -525,6 +576,7 @@ def test_tiers_list_picks_with_review_prices(tmp_path):
         "reviewed_on": "2026-10-15",
         "source": "Lab review 2026-10-15",
         "price": review_price,
+        "offer_note": None,
         "need_count": 1,
     }
     (tier_2,) = result["tiers"]["2"]
@@ -534,6 +586,48 @@ def test_tiers_list_picks_with_review_prices(tmp_path):
     assert result["tiers"]["3"] == {"note": "needs fresh shop prices"}
     assert _row(result, "sandalwood oil")["pick_tier"] == 1
     assert _row(result, "vetiver oil")["pick_tier"] == 2
+
+
+def test_a_pick_leaves_its_tier_once_ordered_and_comes_back_if_it_didnt_come(tmp_path):
+    pick = _decision("pick", "sandalwood oil", tier=1, dose="2%")
+    ordered = ("2026-10-10", [pick, _order("ORDERED")])
+
+    def tier_1(*later):
+        key = "-".join(state for _day_text, entries in later for state in [entries[0]["state"]])
+        events = _events(tmp_path / (key or "ordered"), ordered, *later)
+        return [row["material_key"] for row in _build(_santal_needs(), events)["tiers"]["1"]]
+
+    assert tier_1() == []
+    assert tier_1(("2026-10-12", [_order("ARRIVED")])) == []
+    assert tier_1(("2026-10-12", [_order("ALREADY_HAVE")])) == []
+    assert tier_1(("2026-10-12", [_order("DIDNT_COME")])) == ["sandalwood oil"]
+
+
+def test_a_pick_whose_offer_is_not_the_material_shows_no_price(tmp_path):
+    review_price = {"amount": "450", "currency": "THB", "pack": "10 g", "observed_on": "2026-10-14"}
+    events = _events(
+        tmp_path,
+        (
+            "2026-10-15",
+            [
+                _decision("pick", "sandalwood oil", tier=1, dose="2%",
+                          offer_key="pw:3SW00003", price=review_price),
+                _decision("pick", "vetiver oil", tier=2, dose="0.5%",
+                          offer_key="pw:4JD02734", price=review_price),
+                _match("sandalwood oil", "pw:3SW00003", "DIFFERENT", "Sandalwood Oil"),
+            ],
+        ),
+    )
+    result = _build(_santal_needs(), events)
+    (tier_1,) = result["tiers"]["1"]
+    assert tier_1["offer_key"] == "pw:3SW00003"
+    assert tier_1["price"] is None
+    assert tier_1["offer_note"] == (
+        "You said PW 3SW00003 is a different material, so this pick has no price."
+    )
+    (tier_2,) = result["tiers"]["2"]
+    assert tier_2["price"] is None
+    assert tier_2["offer_note"] == "PW 4JD02734 may not be your Vetiver Oil, so this pick has no price."
 
 
 def test_disagreements_go_to_check_stock_only():

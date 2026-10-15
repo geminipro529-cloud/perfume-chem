@@ -19,7 +19,7 @@ answers win, then a static mislabel table, then whether the strength parsed.
 from __future__ import annotations
 
 from collections.abc import Callable, Iterable, Mapping
-from datetime import UTC, date, datetime
+from datetime import date, datetime
 from decimal import Decimal
 from typing import Any
 
@@ -49,6 +49,7 @@ _MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
 _MATCH_RANK = {"confirmed": 0, "probable": 1, "price_only": 2, "unknown": 3}
 _ON_THE_WAY_STATES = ("ORDERED", "STILL_COMING")
 _RETURNED_STATES = ("DIDNT_COME", "NOT_THIS")
+_OWNED_STATES = ("ARRIVED", "ALREADY_HAVE")
 
 
 def day_month_label(day: date) -> str:
@@ -67,7 +68,30 @@ def _thb(value: Decimal | None) -> str | None:
 
 
 def _day(timestamp: str) -> date:
-    return datetime.fromisoformat(timestamp.replace("Z", "+00:00")).date()
+    # Times are stored in UTC; days count on the PC's own calendar, the one
+    # date.today() uses for the Lab app's "today" (Kenny's PC runs on Thai time).
+    return datetime.fromisoformat(timestamp.replace("Z", "+00:00")).astimezone().date()
+
+
+def _offer_label(offer_key: str) -> str:
+    shop, _, code = offer_key.partition(":")
+    return f"{shop.upper()} {code}" if code else offer_key
+
+
+def _pick_offer_note(
+    material_key: str, material: str, offer_key: str | None, matches: Mapping[Any, Any]
+) -> str | None:
+    """Why a pick shows without its offer's price, or None when the offer stands."""
+
+    if not offer_key:
+        return None
+    answer = matches.get((material_key, offer_key))
+    if answer is not None and answer["answer"] == "DIFFERENT":
+        return f"You said {_offer_label(offer_key)} is a different material, so this pick has no price."
+    mislabel = MISLABELS.get(offer_key)
+    if mislabel is not None and mislabel != material_key.casefold():
+        return f"{_offer_label(offer_key)} may not be your {material}, so this pick has no price."
+    return None
 
 
 def _price_header(shown: Iterable[date], prices: Mapping[str, PwPrice]) -> str:
@@ -238,7 +262,7 @@ def build_buy_list(
     """Assemble the Buy page from card needs, PW list prices and Kenny's buy log."""
 
     if today is None:
-        today = datetime.now(UTC).date()
+        today = date.today()
     if prices is None:
         prices = pw_price_index()
     if registry is None:
@@ -266,7 +290,12 @@ def build_buy_list(
         set_at = state["fx_rate"]["recorded_at"]
         set_on = _day(set_at)
         stale = (today - set_on).days > FX_STALE_AFTER_DAYS
-        fx = {"rate": state["fx_rate"]["rate"], "set_at": set_at, "stale": stale}
+        fx = {
+            "rate": state["fx_rate"]["rate"],
+            "set_at": set_at,
+            "set_on": set_on.isoformat(),
+            "stale": stale,
+        }
         rate_banner = {"reason": "stale", "last_set_on": set_on.isoformat()} if stale else None
     budget = None
     if state["budget"] is not None:
@@ -274,6 +303,7 @@ def build_buy_list(
 
     # --- orders ---------------------------------------------------------------
     on_the_way_keys: set[str] = set()
+    bought_keys: set[str] = set()
     returned: dict[str, tuple[str, dict[str, Any]]] = {}
     not_this_on: dict[tuple[str, str], str] = {}
     groups: dict[tuple[str, str], dict[str, Any]] = {}
@@ -320,6 +350,8 @@ def build_buy_list(
                 key = (material_key, order["offer_key"])
                 day_text = last_on.isoformat()
                 not_this_on[key] = max(not_this_on.get(key, day_text), day_text)
+        elif order_state in _OWNED_STATES:
+            bought_keys.add(material_key)
         if returned_state is not None:
             previous = returned.get(material_key)
             if previous is None or order["recorded_at"] >= previous[0]:
@@ -335,7 +367,9 @@ def build_buy_list(
 
     on_the_way = []
     for group in groups.values():
-        days = min(group["starts"])
+        # The oldest line's clock: each line goes back to Buy first on its own
+        # day 21, so the parcel asks before the first of them does.
+        days = max(group["starts"])
         on_the_way.append(
             {
                 "shop": group["shop"],
@@ -372,6 +406,12 @@ def build_buy_list(
                 }
             )
             continue
+        if material_key in on_the_way_keys or material_key in bought_keys:
+            # Ordered: it is listed under On the way, and in Stock once it arrives.
+            continue
+        offer_note = _pick_offer_note(
+            material_key, common["material"], decision.get("offer_key"), state["matches"]
+        )
         pick_tiers[material_key] = decision["tier"]
         tiers[str(decision["tier"])].append(
             {
@@ -383,7 +423,8 @@ def build_buy_list(
                 "decided_by": decision["decided_by"],
                 "reviewed_on": decision["decided_at"],
                 "source": decision["source"],
-                "price": decision.get("price"),
+                "price": None if offer_note is not None else decision.get("price"),
+                "offer_note": offer_note,
                 "need_count": need_counts.get(material_key, 0),
             }
         )

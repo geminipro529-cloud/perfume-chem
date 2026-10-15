@@ -339,7 +339,9 @@ def load_buy_events(path: Path | None = None) -> tuple[dict[str, Any], ...]:
         raise BuyEventLogCorruptError("The buy log is larger than the 5 MB limit.")
     events: list[dict[str, Any]] = []
     previous_hash = ""
-    for line_number, line in enumerate(content.splitlines(), 1):
+    # Only "\n" ends a record: JSON escapes it inside strings, but writes U+2028,
+    # U+2029 and U+0085 raw, and str.splitlines() would break a record on those.
+    for line_number, line in enumerate(content.split("\n"), 1):
         if not line.strip():
             continue
         try:

@@ -197,9 +197,10 @@ def test_ticking_keeps_one_offer_per_material_and_untickable_offers_get_no_box()
     # Unticking an offer that is no longer the ticked one changes nothing.
     assert result["stale"] == {"amber": "pw:A2"}
     assert result["unticked"] == {}
-    # A reload drops ticks whose offer is gone and keeps none on an untickable offer.
+    # A reload drops ticks whose offer is gone, keeps none on an untickable offer, and
+    # keeps none whose identity question is open (B1 is probable, so it asks again).
     assert result["kept"] == {}
-    assert result["gone"] == {"basil": "pw:B1"}
+    assert result["gone"] == {}
     assert result["boxes"] == [["amber", "pw:A1", False], ["amber", "pw:A2", True], ["basil", "pw:B1", False]]
     assert result["asks"] == [[True, "Is PW B1 'Title B1' your Basil?"]]
 
@@ -436,3 +437,49 @@ def test_nudge_buttons_only_from_day_10_and_the_walk_replaces_it_arrived():
     price = {**walk, "stage": "price", "materialKey": "sandalwood oil s. album", "offerKey": "pw:7WX21054",
              "stockId": "stock-9"}
     assert _buttons(quiet, price) == ["Didn't come", "Already have it", "Save", "Skip"]
+
+
+# ---- review fixes: reopened questions, changing a current rate, pick notes ----
+
+def test_a_reload_keeps_a_confirmed_tick_and_drops_one_whose_question_reopened():
+    confirmed = _offer("A1", "37.40", "1254.77")
+    # Kenny said Same, then PW renamed the product: the engine asks again.
+    reopened = {**confirmed, "match": "probable", "previous_title": "Old title",
+                "match_question": "Is PW A1 'Title A1' your Amber?"}
+    ticks = json.dumps([["amber", "pw:A1"]])
+    kept, dropped = (
+        _run(f"return Object.fromEntries(m.buyKeepTicks({json.dumps(_page('33.55', {'amber': [offer]}))}, new Map({ticks})));")
+        for offer in (confirmed, reopened)
+    )
+    assert kept == {"amber": "pw:A1"}
+    assert dropped == {}
+
+
+def test_a_current_rate_shows_with_a_change_button_over_a_hidden_rate_field():
+    page = {**_page("33.55", {}), "fx": {"rate": "33.55", "set_at": "2026-10-15T02:00:00Z",
+                                       "set_on": "2026-10-15", "stale": False}}
+    result = _run(f"""
+        const target = doc.createElement("div");
+        m.buyRender(doc, target, {json.dumps(page)});
+        const all = (node) => [node, ...node.children.flatMap(all)];
+        const box = all(target).find((node) => node.className === "buy-rate-current");
+        const forms = all(target).filter((node) => node.tag === "form" && (node.className || "").includes("buy-rate"));
+        return {{
+          line: box.children[0].children.map((node) => node.text),
+          formHidden: box.children[1].hidden === true,
+          formCount: forms.length,
+          banner: m.buyRateBannerText({{ reason: "change" }}),
+        }};
+    """)
+    assert result["line"] == ["1 US$ = 33.55 ฿, set 15 Oct. ", "Change"]
+    assert result["formHidden"] is True
+    assert result["formCount"] == 1
+    assert result["banner"] == "Type the new rate."
+
+
+def test_a_pick_without_its_offer_says_why_and_shows_no_price():
+    pick = {"material": "Sandalwood Oil", "dose": "2%", "reason": "pick reason", "reviewed_on": "2026-10-15",
+            "price": None, "offer_note": "You said PW 3SW00003 is a different material, so this pick has no price."}
+    text = _run(f"return m.buyPickText({json.dumps(pick)});")
+    assert text == ("Sandalwood Oil, 2%: pick reason. Reviewed 15 Oct. "
+                    "You said PW 3SW00003 is a different material, so this pick has no price.")
