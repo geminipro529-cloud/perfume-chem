@@ -32,6 +32,8 @@ const PHONE_BENCH_RETRY_MS = 15000;
 const PHONE_BENCH_NOTES_MS = 1500;
 // 409s in a row before the phone stops and asks: the PC's amounts keep changing.
 const PHONE_BENCH_MERGES_IN_A_ROW = 3;
+// Sends kept while the PC hasn't answered them (see phoneBenchMergeBase).
+const PHONE_BENCH_UNANSWERED = 5;
 const PHONE_BENCH_GRAMS_FROM_MG = 100;
 const PHONE_BENCH_NUMBER = /^\d+(\.\d+)?$/;
 
@@ -81,6 +83,7 @@ const PHONE_BENCH_WORDS = {
     sending: "Sending to the PC…",
     savedAt: "On the PC, saved at {time}",
     waiting: "No connection to the PC. {count} kept on this phone; they go when it answers.",
+    notSent: "Not on the PC yet.",
     refused: "The PC refused these amounts: {message}",
     nothingYet: "Nothing weighed yet.",
     progressLabel: "Lines weighed",
@@ -136,6 +139,7 @@ const PHONE_BENCH_WORDS = {
     sending: "กำลังส่งไปที่คอมพิวเตอร์…",
     savedAt: "บันทึกลงคอมพิวเตอร์แล้ว เวลา {time}",
     waiting: "เชื่อมต่อคอมพิวเตอร์ไม่ได้ เก็บไว้ในโทรศัพท์ {count} รายการ จะส่งเมื่อเชื่อมต่อได้",
+    notSent: "ยังไม่ได้ส่งไปที่คอมพิวเตอร์",
     refused: "คอมพิวเตอร์ไม่รับค่านี้: {message}",
     nothingYet: "ยังไม่ได้ชั่งรายการใด",
     progressLabel: "รายการที่ชั่งแล้ว",
@@ -352,6 +356,36 @@ function phoneBenchMerge(base, server, local) {
   return { entries, notes, conflict: lines.length || notesConflict !== null ? { lines, notes: notesConflict } : null };
 }
 
+// The base to merge against: the set the PC last confirmed to the phone, with
+// each line (and the notes) the PC now holds exactly as one of this phone's
+// unanswered sends had it taken as confirmed too. The PC may have saved a send
+// whose answer never reached the phone, and those lines are then the phone's
+// own, not a change made on the PC.
+function phoneBenchMergeBase(base, unanswered, server) {
+  const sends = Array.isArray(unanswered) ? unanswered : [];
+  if (!sends.length) return base;
+  const entries = { ...(base?.entries || {}) };
+  const theirs = server?.entries || {};
+  for (const sent of sends) {
+    const mine = sent?.entries || {};
+    for (const line of new Set([...Object.keys(theirs), ...Object.keys(mine)])) {
+      if (!phoneBenchSame(theirs[line], mine[line])) continue;
+      if (theirs[line]) entries[line] = theirs[line];
+      else delete entries[line];
+    }
+  }
+  const pcNotes = phoneBenchNotesOf(server?.notes);
+  const notes = sends.some((sent) => phoneBenchNotesOf(sent?.notes) === pcNotes) ? String(server?.notes ?? "") : base?.notes;
+  return { ...base, entries, notes };
+}
+
+// Sending this lot waits on the person: a refusal, a problem (another batch,
+// amounts on the PC that keep changing) or a choice between the phone's and the
+// PC's amounts.
+function phoneBenchStuck(progress) {
+  return Boolean(progress?.error || progress?.problem || progress?.conflict);
+}
+
 // The next step with nothing weighed after `from`, else the first such step,
 // else steps.length (the summary).
 function phoneBenchNextIndex(steps, entries, from) {
@@ -375,6 +409,17 @@ function phoneBenchLoad(storage, lot) {
   }
 }
 
+// The kept copy as it was stored, whatever its shape: a copy an earlier version
+// of this page kept is set aside when its lot opens, not dropped.
+function phoneBenchRaw(storage, lot) {
+  try {
+    const progress = JSON.parse(storage.getItem(PHONE_BENCH_STORE + lot) || "null");
+    return progress && typeof progress === "object" && !Array.isArray(progress) ? progress : null;
+  } catch {
+    return null;
+  }
+}
+
 function phoneBenchKeep(storage, progress) {
   try {
     storage.setItem(PHONE_BENCH_STORE + progress.lot, JSON.stringify(progress));
@@ -393,8 +438,8 @@ function phoneBenchSetAside(storage, progress) {
   }
 }
 
-// Lots with amounts to send: kept and not on the PC yet, with no refusal or
-// open choice waiting on the person.
+// Lots with amounts to send: kept and not on the PC yet, with nothing waiting
+// on the person.
 function phoneBenchPendingLots(storage) {
   const lots = [];
   try {
@@ -402,7 +447,7 @@ function phoneBenchPendingLots(storage) {
       const key = storage.key(index);
       if (!key || !key.startsWith(PHONE_BENCH_STORE)) continue;
       const progress = phoneBenchLoad(storage, key.slice(PHONE_BENCH_STORE.length));
-      if (progress?.pending && !progress.error && !progress.conflict) lots.push(progress.lot);
+      if (progress?.pending && !phoneBenchStuck(progress)) lots.push(progress.lot);
     }
   } catch {
     return lots;
@@ -444,6 +489,8 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
   try { lang = store.getItem(PHONE_BENCH_LANG) === "th" ? "th" : "en"; } catch { lang = "en"; }
   const say = (key, values) => phoneBenchSay(lang, key, values);
   const sending = new Set();
+  const merging = new Set();
+  let sendCount = 0;
   const timers = new Map();
   const merges = new Map();
   const inerted = [];
@@ -503,7 +550,7 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
   step.append(material, strength, putIn, amount, how, inputLabel, inputRow, check, density, mainActions, moveActions);
 
   const done = node("div", { className: "phone-bench-done", hidden: true });
-  const doneTitle = node("h2", { className: "phone-bench-material", id: "phone-bench-done-title" });
+  const doneTitle = node("h2", { className: "phone-bench-material", id: "phone-bench-done-title", tabindex: "-1" });
   const doneList = node("ol", { className: "phone-bench-summary" });
   const keepPhone = node("button", { type: "button", className: "phone-bench-keep-phone" });
   const usePc = node("button", { type: "button", className: "quiet-button phone-bench-use-pc" });
@@ -543,10 +590,12 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
 
   function syncWords(progress) {
     if (!progress) return "";
-    if (sending.has(progress.lot)) return say("sending");
+    if (sending.has(progress.lot) || merging.has(progress.lot)) return say("sending");
     if (progress.conflict) return say("conflict", { what: conflictWhat(progress.conflict) });
+    if (progress.problem) return say(progress.problem, { lot: progress.lot });
     if (progress.error) return say("refused", { message: progress.error });
-    if (progress.pending) return say("waiting", { count: countOf(progress) });
+    // "No connection" only once the PC failed to answer; until then, not sent yet.
+    if (progress.pending) return progress.offline ? say("waiting", { count: countOf(progress) }) : say("notSent");
     if (progress.savedAt) return say("savedAt", { time: timeText(progress.savedAt) });
     return countOf(progress) ? "" : say("nothingYet");
   }
@@ -568,15 +617,21 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
   }
 
   async function send(lot) {
-    // A send on its way checks, when it lands, whether anything changed meanwhile.
-    if (sending.has(lot)) return;
+    // A send on its way checks, when it lands, whether anything changed
+    // meanwhile; a merge under way sends what it merged once it is done.
+    if (sending.has(lot) || merging.has(lot)) return;
     const progress = liveProgress(lot);
     if (!progress || progress.conflict) return;
+    const body = phoneBenchBody(progress);
     progress.pending = true;
+    // What the PC holds if this send is saved, kept until the PC answers: if the
+    // answer is lost, or the page closes first, a later merge knows the PC may
+    // hold it (phoneBenchMergeBase).
+    const attempt = { id: `${Date.now().toString(36)}.${(sendCount += 1)}`, entries: { ...progress.entries }, notes: body.notes || phoneBenchNotesOf(progress.base?.notes) };
+    progress.unanswered = [...(Array.isArray(progress.unanswered) ? progress.unanswered : []), attempt].slice(-PHONE_BENCH_UNANSWERED);
     phoneBenchKeep(store, progress);
     sending.add(lot);
     render();
-    const body = phoneBenchBody(progress);
     let record = null;
     let failure = null;
     try {
@@ -586,7 +641,19 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
     }
     sending.delete(lot);
     const live = liveProgress(lot) || progress;
+    // The lot was recorded again as another batch meanwhile, and its new copy
+    // is open: this answer was about the earlier batch.
+    if (live.batch !== progress.batch) {
+      render();
+      showList();
+      return;
+    }
     let next = null;
+    live.offline = false;
+    // A send the PC refused was not saved, and a saved one is the new base; one
+    // with no answer, or a server error, may have been saved.
+    if (record) live.unanswered = [];
+    else if (failure.status && failure.status < 500) live.unanswered = (live.unanswered || []).filter((item) => item?.id !== attempt.id);
     if (record) {
       merges.delete(lot);
       const server = phoneBenchServer(live.steps, record);
@@ -597,30 +664,35 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
       }
       live.base = server;
       live.error = "";
+      live.problem = "";
       live.pending = phoneBenchChanged(live);
       if (live.pending) next = "send";
       else live.savedAt = record.actuals_recorded_at || new Date().toISOString();
     } else if (failure.status === 409 && failure.code === "BATCH_CHANGED") {
       next = "merge";
     } else if (failure.status === 409 && failure.code === "BATCH_REPLACED") {
-      live.error = say("otherBatch", { lot });
+      live.problem = "otherBatch";
     } else if (failure.status && failure.status < 500) {
       // A refusal is kept and shown; only a PC that didn't answer is tried again.
       live.error = failure.message || String(failure.status);
     } else {
+      live.offline = true;
       schedule(lot);
     }
     phoneBenchKeep(store, live);
     render();
     showList();
-    if (next === "merge") await merge(lot);
+    if (next === "merge") await merge(lot, live.batch);
     else if (next === "send") send(lot);
   }
 
   // Another device saved this batch since the phone's last send: merge what the
   // PC holds now with what the phone holds, and send again, unless both changed
   // a line, which waits for the person's choice.
-  async function merge(lot) {
+  async function merge(lot, batch) {
+    if (merging.has(lot)) return;
+    merging.add(lot);
+    render();
     const tries = (merges.get(lot) || 0) + 1;
     merges.set(lot, tries);
     let record = null;
@@ -630,34 +702,49 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
     } catch (error) {
       failure = error || new Error("no answer");
     }
+    merging.delete(lot);
     const live = liveProgress(lot);
-    if (!live) return;
+    // Reopened meanwhile as another batch with this lot: the merge was for the earlier one.
+    if (!live || live.batch !== batch) {
+      render();
+      return;
+    }
+    let toSummary = false;
     if (!record) {
-      if (failure.status && failure.status < 500) live.error = failure.message || String(failure.status);
-      else schedule(lot);
+      if (failure.status && failure.status < 500) {
+        live.offline = false;
+        live.error = failure.message || String(failure.status);
+      } else {
+        live.offline = true;
+        schedule(lot);
+      }
     } else if (record.recorded_at !== live.batch) {
-      live.error = say("otherBatch", { lot });
+      live.problem = "otherBatch";
     } else {
       const server = phoneBenchServer(live.steps, record);
-      const merged = phoneBenchMerge(live.base, server, live);
+      const merged = phoneBenchMerge(phoneBenchMergeBase(live.base, live.unanswered, server), server, live);
       live.entries = merged.entries;
       live.notes = merged.notes;
       if (merged.conflict) {
         // The base stays as it was, so a later merge still sees the same lines as changed on both.
-        live.conflict = { ...merged.conflict, server };
+        live.conflict = { ...merged.conflict, server, savedAt: record.actuals_recorded_at || null };
         live.pending = true;
+        toSummary = live === current && live.at < live.steps.length;
         if (live === current) live.at = live.steps.length;
       } else {
         live.base = server;
+        live.unanswered = [];
         live.pending = phoneBenchChanged(live);
         if (!live.pending) live.savedAt = record.actuals_recorded_at || live.savedAt;
-        else if (tries > PHONE_BENCH_MERGES_IN_A_ROW) live.error = say("keepsChanging");
+        else if (tries > PHONE_BENCH_MERGES_IN_A_ROW) live.problem = "keepsChanging";
       }
     }
     phoneBenchKeep(store, live);
     render();
     showList();
-    if (live.pending && !live.conflict && !live.error) send(lot);
+    // The line on screen gave way to the choice: take the focus there with it.
+    if (toSummary) doneTitle.focus();
+    if (live.pending && !phoneBenchStuck(live)) send(lot);
   }
 
   function resume() {
@@ -757,7 +844,7 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
       pcNotes.hidden = !notesOnBoth;
       pcNotes.textContent = notesOnBoth ? say("pcHas", { amount: conflict.notes || say("pcNothing") }) : "";
       sendNow.textContent = say("sendNow");
-      sendNow.hidden = Boolean(conflict) || !current.pending || sending.has(current.lot);
+      sendNow.hidden = Boolean(conflict) || !current.pending || sending.has(current.lot) || merging.has(current.lot);
     }
   }
 
@@ -852,10 +939,12 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
     // Read the kept copy only now: a send that landed meanwhile has updated it.
     let local = phoneBenchLoad(store, lot);
     let aside = "";
-    if (record && local && local.batch !== record.recorded_at) {
-      // Kept for an earlier batch that had this lot number: set aside, never sent here.
-      if (local.pending || local.conflict) {
-        phoneBenchSetAside(store, local);
+    const raw = record ? phoneBenchRaw(store, lot) : null;
+    if (raw && (!local || local.batch !== record.recorded_at)) {
+      // Kept for an earlier batch that had this lot number, or by an earlier
+      // version of this page: set aside, never sent here and never dropped.
+      if (raw.pending || raw.conflict) {
+        phoneBenchSetAside(store, { ...raw, lot, batch: typeof raw.batch === "string" ? raw.batch : "earlier" });
         aside = say("setAside", { lot });
       }
       local = null;
@@ -885,20 +974,22 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
         conflict: null,
       };
       if (local && (local.pending || local.conflict)) {
-        const merged = phoneBenchMerge(local.base, server, local);
+        const merged = phoneBenchMerge(phoneBenchMergeBase(local.base, local.unanswered, server), server, local);
         progress.entries = merged.entries;
         progress.notes = merged.notes;
         progress.savedAt = local.savedAt || progress.savedAt;
         progress.error = local.error || "";
         if (merged.conflict) {
-          progress.conflict = { ...merged.conflict, server };
+          progress.conflict = { ...merged.conflict, server, savedAt: record.actuals_recorded_at || null };
           progress.base = local.base;
+          progress.unanswered = local.unanswered || [];
         }
         progress.pending = Boolean(merged.conflict) || phoneBenchChanged(progress);
       }
       progress.at = progress.conflict ? steps.length : phoneBenchNextIndex(steps, progress.entries, -1);
     }
     current = progress;
+    merges.delete(lot);
     keep();
     listStatus.textContent = "";
     notice.textContent = aside;
@@ -908,12 +999,12 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
     setPageInert(true);
     render();
     (current.at < current.steps.length ? input : doneTitle).focus?.();
-    if (record && current.pending && !current.conflict && !current.error) send(current.lot);
+    if (record && current.pending && !phoneBenchStuck(current)) send(current.lot);
   }
 
   function close() {
     view.clearTimeout(notesTimer);
-    if (current?.pending && !current.error && !current.conflict) send(current.lot);
+    if (current?.pending && !phoneBenchStuck(current)) send(current.lot);
     sheet.hidden = true;
     doc.body.classList.remove("phone-bench-open");
     setPageInert(false);
@@ -934,6 +1025,7 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
     current.entries[item.line] = result.entry;
     current.at = phoneBenchNextIndex(current.steps, current.entries, current.at);
     current.error = "";
+    current.problem = "";
     keep();
     render();
     send(current.lot);
@@ -988,7 +1080,7 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
     if (phoneBenchChanged(current)) current.pending = true;
     keep();
     sync.textContent = syncWords(current);
-    sendNow.hidden = Boolean(current.conflict) || !current.pending || sending.has(current.lot);
+    sendNow.hidden = Boolean(current.conflict) || !current.pending || sending.has(current.lot) || merging.has(current.lot);
     view.clearTimeout(notesTimer);
     const lot = current.lot;
     notesTimer = view.setTimeout(() => send(lot), PHONE_BENCH_NOTES_MS);
@@ -997,6 +1089,7 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
   sendNow.addEventListener("click", () => {
     if (!current) return;
     current.error = "";
+    current.problem = "";
     merges.delete(current.lot);
     send(current.lot);
   });
@@ -1004,29 +1097,43 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
   keepPhone.addEventListener("click", () => {
     if (!current?.conflict) return;
     current.base = current.conflict.server;
+    current.unanswered = [];
     current.conflict = null;
     current.pending = phoneBenchChanged(current);
     keep();
     render();
+    doneTitle.focus();
     if (current.pending) send(current.lot);
   });
   usePc.addEventListener("click", () => {
     if (!current?.conflict) return;
-    const { server, lines, notes: theirs } = current.conflict;
+    const { server, lines, notes: theirs, savedAt } = current.conflict;
     for (const { line } of lines) {
       if (server.entries[line]) current.entries[line] = server.entries[line];
       else delete current.entries[line];
     }
     if (theirs !== null && theirs !== undefined) current.notes = theirs;
     current.base = server;
+    current.unanswered = [];
     current.conflict = null;
     current.pending = phoneBenchChanged(current);
-    if (!current.pending) current.savedAt = new Date().toISOString();
+    // Nothing left to send: what is shown is what the PC saved, and when.
+    if (!current.pending) current.savedAt = savedAt || new Date().toISOString();
     keep();
     render();
+    doneTitle.focus();
     if (current.pending) send(current.lot);
   });
   view.addEventListener("online", resume);
+  // Another tab on this phone kept amounts for the lot open here: carry on from
+  // its copy, so neither tab writes over lines the other weighed.
+  view.addEventListener("storage", (event) => {
+    if (!current || event.key !== PHONE_BENCH_STORE + current.lot) return;
+    const kept = phoneBenchLoad(store, current.lot);
+    if (!kept || kept.batch !== current.batch) return;
+    current = { ...kept, at: current.at, by: current.by };
+    render();
+  });
   // A phone that locks or switches app may close the page: send what is kept now.
   doc.addEventListener("visibilitychange", () => { if (doc.visibilityState === "hidden") resume(); });
 
@@ -1040,7 +1147,7 @@ if (typeof module === "object" && module.exports) {
   module.exports = {
     PHONE_BENCH_STORE, PHONE_BENCH_ASIDE, PHONE_BENCH_LANG, PHONE_BENCH_WORDS, phoneBenchSay, phoneBenchFixed, phoneBenchSourceRows,
     phoneBenchSteps, phoneBenchShows, phoneBenchDeviation, phoneBenchEntry, phoneBenchActual, phoneBenchBody, phoneBenchSeed,
-    phoneBenchServer, phoneBenchSame, phoneBenchChanged, phoneBenchMerge, phoneBenchNextIndex, phoneBenchLoad, phoneBenchKeep,
-    phoneBenchSetAside, phoneBenchPendingLots, attachPhoneBench,
+    phoneBenchServer, phoneBenchSame, phoneBenchChanged, phoneBenchMerge, phoneBenchMergeBase, phoneBenchStuck, phoneBenchNextIndex,
+    phoneBenchLoad, phoneBenchRaw, phoneBenchKeep, phoneBenchSetAside, phoneBenchPendingLots, attachPhoneBench,
   };
 }

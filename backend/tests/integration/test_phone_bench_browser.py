@@ -5,12 +5,14 @@ routes with the app's own route functions over a throwaway record log, so the
 phone and the PC's table save the same batch the way they do at the bench."""
 
 import json
+import time
 
 import pytest
 from fastapi.responses import JSONResponse
 
 from app.api.v1.endpoints import lab_batches as routes
 from app.services import batch_production as batches
+from tests.integration.lab_browser import LabPage
 
 pytest.importorskip("playwright.sync_api")
 
@@ -213,6 +215,25 @@ def _saved(lot):
     return [(row["line"], row["actual_amount"]) for row in batches.get_record(lot)["actuals"]]
 
 
+def _kept(page, lot):
+    return page.evaluate(f"JSON.parse(localStorage.getItem('perfumechem.bench.v1.{lot}'))")
+
+
+def _until(page, check, timeout=10.0):
+    """Let the page run until ``check()`` holds (for requests a test is holding)."""
+    end = time.monotonic() + timeout
+    while not check():
+        assert time.monotonic() < end, "timed out"
+        page.wait_for_timeout(50)
+
+
+def _settle(page):
+    page.evaluate("new Promise((resolve) => setTimeout(resolve, 300))")
+
+
+FOCUS_IN_SHEET = "document.querySelector('.phone-bench').contains(document.activeElement)"
+
+
 def test_lines_the_pc_saved_after_the_phone_last_opened_the_batch_are_kept(lab, pc):
     record = pc.record("KS-A")
     lab.open("#batch")
@@ -287,6 +308,8 @@ def test_a_line_changed_on_both_waits_for_a_choice(lab, pc, choice, line_1):
     pc.serve("KS-C")
     lab.page.evaluate("window.dispatchEvent(new Event('online'))")
     _wait_for_sync(lab.page, "The PC also changed line 1 since this phone last sent.")
+    # The line on screen gave way to the choice; the focus went with it.
+    assert lab.page.evaluate(FOCUS_IN_SHEET)
     conflict = sheet.locator(".phone-bench-summary-line.is-conflict")
     assert conflict.count() == 1
     assert "PC: 990 µL" in conflict.inner_text() and "1.01 g" in conflict.inner_text()
@@ -296,6 +319,7 @@ def test_a_line_changed_on_both_waits_for_a_choice(lab, pc, choice, line_1):
     sends = len(pc.posts)
     sheet.get_by_role("button", name=choice).click()
     _wait_for_sync(lab.page, "On the PC, saved at")
+    assert lab.page.evaluate(FOCUS_IN_SHEET)
 
     assert _saved("KS-C") == [(1, line_1)]
     if choice == "Use the PC's":
@@ -315,8 +339,10 @@ def test_notes_typed_after_the_last_send_still_reach_the_pc(lab, pc):
     sheet.locator("#phone-bench-done-title").wait_for()
 
     sheet.locator("#phone-bench-notes").fill("smells right")
-    # Kept as not sent yet at once, so a page closed now still sends it next time.
+    # Kept as not sent yet at once, so a page closed now still sends it next time;
+    # nothing failed, so it says not sent yet rather than no connection.
     assert lab.page.evaluate("JSON.parse(localStorage.getItem('perfumechem.bench.v1.KS-D')).pending") is True
+    assert sheet.locator(".phone-bench-sync").inner_text() == "Not on the PC yet."
     lab.page.wait_for_function("JSON.parse(localStorage.getItem('perfumechem.bench.v1.KS-D')).pending === false")
 
     assert batches.get_record("KS-D")["actual_notes"] == "smells right"
@@ -334,7 +360,7 @@ def test_amounts_kept_for_an_earlier_batch_with_the_same_lot_are_not_sent(lab, p
     lab.open("#batch")
 
     # Sent when the page opens: the PC refuses it, and it is not tried again.
-    lab.page.wait_for_function("JSON.parse(localStorage.getItem('perfumechem.bench.v1.KS-E')).error !== ''")
+    lab.page.wait_for_function("JSON.parse(localStorage.getItem('perfumechem.bench.v1.KS-E')).problem === 'otherBatch'")
     lab.page.evaluate("window.dispatchEvent(new Event('online'))")
     assert [post["batch_recorded_at"] for post in pc.posts] == ["2026-10-01T09:00:00+00:00"]
     assert _saved("KS-E") == []
@@ -348,6 +374,137 @@ def test_amounts_kept_for_an_earlier_batch_with_the_same_lot_are_not_sent(lab, p
     aside = lab.page.evaluate("JSON.parse(localStorage.getItem('perfumechem.bench.aside.v1.KS-E.2026-10-01T09:00:00+00:00'))")
     assert aside["entries"]["1"]["typed"] == "480"
     assert len(pc.posts) == 1
+
+
+def test_amounts_kept_by_an_earlier_version_of_the_page_are_set_aside(lab, pc):
+    pc.record("KS-L")
+    # What an earlier version of this page kept: no batch, no saved set.
+    legacy = {
+        "lot": "KS-L", "formula": "Bench Test 30mL", "by": "g", "notes": "", "at": 1, "pending": True, "savedAt": None, "error": "",
+        "steps": [{"line": 1, "material": "Hedione", "strength": "neat", "unit": "µL", "planned": "1000", "grams": "0.998", "density": "0.998"}],
+        "entries": {"1": {"line": 1, "typed": "0.95", "unit": "g", "planned": "0.998", "density": "0.998"}},
+    }
+    lab.page.add_init_script(f"localStorage.setItem('perfumechem.bench.v1.KS-L', {json.dumps(json.dumps(legacy))})")
+    lab.open("#batch")
+
+    sheet = _open_on_the_phone(lab)
+    assert sheet.locator(".phone-bench-notice").inner_text() == (
+        "Amounts kept on this phone for an earlier batch with lot KS-L were set aside and not sent."
+    )
+    aside = lab.page.evaluate("JSON.parse(localStorage.getItem('perfumechem.bench.aside.v1.KS-L.earlier'))")
+    assert aside["entries"]["1"]["typed"] == "0.95"
+    assert pc.posts == [] and _saved("KS-L") == []
+
+
+def test_a_send_whose_answer_was_lost_is_not_taken_for_a_change_on_the_pc(lab, pc):
+    pc.record("KS-N")
+    lab.open("#batch")
+    sheet = _open_on_the_phone(lab)
+
+    # The PC saves line 1, but its answer never reaches the phone.
+    def lost(route, request):
+        body = json.loads(request.post_data)
+        pc.posts.append(body)
+        routes.record_actuals("KS-N", routes.BatchActualsRequest(**body))
+        route.abort("failed")
+
+    lab.on("POST", "/v2/batches/KS-N/actuals", lost)
+    sheet.get_by_role("button", name="As planned").click()
+    _wait_for_sync(lab.page, "No connection to the PC.")
+    assert _saved("KS-N") == [(1, "1000")]
+
+    # Line 1 weighed again, with the PC answering: the phone's own earlier send is no choice to make.
+    pc.serve("KS-N")
+    sheet.get_by_role("button", name="Back").click()
+    sheet.locator(".phone-bench-input").fill("1.1")
+    sheet.locator(".phone-bench-input").press("Enter")
+    _wait_for_sync(lab.page, "On the PC, saved at")
+
+    assert _saved("KS-N") == [(1, "1102.2")]
+    assert [post["based_on"] for post in pc.posts] == [0, 0, 1]
+    kept = _kept(lab.page, "KS-N")
+    assert kept["conflict"] is None and kept["unanswered"] == []
+
+
+def test_two_tabs_on_one_phone_keep_each_others_lines(lab, pc):
+    pc.record("KS-T")
+    other = LabPage(lab.page.context.new_page())
+    other.page.set_viewport_size(PHONE)
+    RealPc(other).serve("KS-T")
+    try:
+        lab.open("#batch")
+        other.open("#batch")
+        first = _open_on_the_phone(lab)
+        second = _open_on_the_phone(other)
+        for tab in (lab, other):
+            tab.fail("POST", "/v2/batches/KS-T/actuals")
+        weighed = "(count) => document.querySelector('.phone-bench-bar').value === count"
+
+        # Line 1 weighed in one tab, line 2 in the other, both with no connection.
+        first.get_by_role("button", name="As planned").click()
+        other.page.wait_for_function(weighed, arg=1)
+        second.get_by_role("button", name="Skip for now").click()
+        second.get_by_role("button", name="As planned").click()
+        lab.page.wait_for_function(weighed, arg=2)
+
+        pc.serve("KS-T")
+        lab.page.evaluate("window.dispatchEvent(new Event('online'))")
+        _wait_for_sync(lab.page, "On the PC, saved at")
+        assert _saved("KS-T") == [(1, "1000"), (2, "333")]
+        assert not other.page_errors and not other.unexpected
+    finally:
+        other.page.close()
+
+
+def test_an_answer_about_an_earlier_batch_leaves_the_lot_recorded_again_alone(lab, pc, tmp_path, monkeypatch):
+    pc.record("KS-H")
+    held = []
+    lab.on("POST", "/v2/batches/KS-H/actuals", lambda route, request: held.append((route, request)))
+    lab.open("#batch")
+    sheet = _open_on_the_phone(lab)
+    sheet.get_by_role("button", name="As planned").click()
+    _until(lab.page, lambda: held)
+    sheet.get_by_role("button", name="Close").click()
+
+    # While that send is on its way, lot KS-H is recorded again as a new batch, and reopened.
+    monkeypatch.setenv(batches.BATCH_RECORD_PATH_ENV, str(tmp_path / "again.jsonl"))
+    monkeypatch.setenv(batches.BATCH_DIR_ENV, str(tmp_path / "again"))
+    time.sleep(1.1)
+    again = pc.record("KS-H")
+    sheet = _open_on_the_phone(lab)
+    assert "set aside" in sheet.locator(".phone-bench-notice").inner_text()
+
+    # The PC refuses the earlier batch's send; the new batch's copy is not marked with it.
+    route, request = held[0]
+    pc.answer(route, routes.record_actuals("KS-H", routes.BatchActualsRequest(**json.loads(request.post_data))))
+    _settle(lab.page)
+    kept = _kept(lab.page, "KS-H")
+    assert kept["batch"] == again["recorded_at"] and not kept.get("problem")
+    assert sheet.locator(".phone-bench-sync").inner_text() == "Nothing weighed yet."
+
+
+def test_amounts_weighed_while_the_phone_merges_wait_for_the_merge(lab, pc):
+    record = pc.record("KS-M")
+    lab.open("#batch")
+    sheet = _open_on_the_phone(lab)
+    # The PC's table saves line 3 after the phone opened the batch.
+    batches.record_actuals("KS-M", [{"line": 3, "actual_amount": "201"}], "", based_on=0, batch_recorded_at=record["recorded_at"])
+
+    held = []
+    lab.on("GET", "/v2/batches/KS-M", lambda route, _request: held.append(route))
+    sheet.get_by_role("button", name="As planned").click()
+    _until(lab.page, lambda: held)
+    # Line 2 weighed while the phone is fetching the PC's amounts to merge with.
+    sheet.get_by_role("button", name="As planned").click()
+    _settle(lab.page)
+    assert len(held) == 1 and len(pc.posts) == 1
+    assert sheet.locator(".phone-bench-sync").inner_text() == "Sending to the PC…"
+
+    pc.serve("KS-M")
+    pc.answer(held[0], routes.get_batch("KS-M"))
+    _wait_for_sync(lab.page, "On the PC, saved at")
+    assert _saved("KS-M") == [(1, "1000"), (2, "333"), (3, "201")]
+    assert [post["based_on"] for post in pc.posts] == [0, 1]
 
 
 def test_a_send_that_lands_after_the_lot_was_reopened_keeps_what_was_weighed_since(lab, pc):
@@ -397,7 +554,8 @@ def test_the_lot_tapped_last_is_the_one_shown(lab, pc):
     assert sheet.locator(".phone-bench-lot").inner_text().startswith("KS-G2")
 
 
-def test_the_pc_table_keeps_lines_the_phone_saved_after_it_was_filled_in(lab, pc):
+def _pc_table(lab, pc, lot):
+    """The Batch page on the PC with lot ``lot`` recorded and its weighed-amounts table open."""
     from tests.integration.test_batch_ui_browser import LIBRARY, PLAN
 
     lab.page.set_viewport_size({"width": 1280, "height": 900})
@@ -415,15 +573,26 @@ def test_the_pc_table_keeps_lines_the_phone_saved_after_it_was_filled_in(lab, pc
     form = page.locator("#batch-root .batch-plan-form")
     form.locator('[name="source_path"]').fill("demo/Demo_Cedar_30mL.md")
     form.get_by_role("button", name="Plan the batch").click()
-    page.locator('#batch-root [name="lot"]').fill("KS-P")
+    page.locator('#batch-root [name="lot"]').fill(lot)
     page.get_by_role("button", name="Save batch record").click()
     actuals = page.locator("#batch-root .batch-actuals-form")
     actuals.wait_for()
-    recorded = batches.get_record("KS-P")
+    return actuals, batches.get_record(lot)
 
-    # The phone saves lines 1 and 2 while the PC's table is still open.
+
+def _merged_on_the_pc(page):
+    page.wait_for_function(
+        "() => document.querySelector('#batch-root .batch-actuals-form .batch-status').textContent.startsWith('Another device')"
+    )
+
+
+def test_the_pc_table_keeps_lines_the_phone_saved_after_it_was_filled_in(lab, pc):
+    actuals, recorded = _pc_table(lab, pc, "KS-P")
+    page = lab.page
+
+    # The phone saves lines 1 and 2, with a note, while the PC's table is still open.
     batches.record_actuals(
-        "KS-P", [{"line": 1, "actual_amount": "2055"}, {"line": 2, "actual_amount": "410"}], "",
+        "KS-P", [{"line": 1, "actual_amount": "2055"}, {"line": 2, "actual_amount": "410"}], "from the phone",
         based_on=0, batch_recorded_at=recorded["recorded_at"],
     )
 
@@ -432,13 +601,13 @@ def test_the_pc_table_keeps_lines_the_phone_saved_after_it_was_filled_in(lab, pc
     box(3).fill("3100")
     actuals.get_by_role("button", name="Save weighed amounts").click()
     status = actuals.locator(".batch-status")
-    page.wait_for_function(
-        "() => document.querySelector('#batch-root .batch-actuals-form .batch-status').textContent.startsWith('Another device')"
-    )
+    _merged_on_the_pc(page)
 
-    # Nothing was saved over the phone's lines; the table now shows them, with the boxes typed here kept.
+    # Nothing was saved over the phone's lines; the table now shows them, and its
+    # note, with the boxes typed here kept.
     assert _saved("KS-P") == [(1, "2055"), (2, "410")]
     assert [box(line).input_value() for line in (1, 2, 3)] == ["2055", "415", "3100"]
+    assert actuals.locator('[name="actual_notes"]').input_value() == "from the phone"
     assert "line 2 (the other device saved 410)" in status.inner_text()
 
     actuals.get_by_role("button", name="Save weighed amounts").click()
@@ -446,3 +615,24 @@ def test_the_pc_table_keeps_lines_the_phone_saved_after_it_was_filled_in(lab, pc
         "() => document.querySelector('#batch-root .batch-actuals-form .batch-status').textContent.startsWith('Saved 3')"
     )
     assert _saved("KS-P") == [(1, "2055"), (2, "415"), (3, "3100")]
+
+
+def test_a_box_typed_while_the_pc_table_saves_is_kept(lab, pc):
+    actuals, recorded = _pc_table(lab, pc, "KS-Q")
+    batches.record_actuals("KS-Q", [{"line": 1, "actual_amount": "2055"}], "", based_on=0, batch_recorded_at=recorded["recorded_at"])
+    box = lambda line: actuals.get_by_label(f"Weighed, line {line}")  # noqa: E731
+    box(2).fill("415")
+    held = []
+    lab.on("POST", "/v2/batches/KS-Q/actuals", lambda route, request: held.append((route, request)))
+    actuals.get_by_role("button", name="Save weighed amounts").click()
+    _until(lab.page, lambda: held)
+
+    # Line 1 typed while the save is on its way; the PC then refuses the save, which missed the phone's.
+    box(1).fill("2070")
+    route, request = held[0]
+    pc.answer(route, routes.record_actuals("KS-Q", routes.BatchActualsRequest(**json.loads(request.post_data))))
+    _merged_on_the_pc(lab.page)
+
+    assert [box(line).input_value() for line in (1, 2)] == ["2070", "415"]
+    assert "line 1 (the other device saved 2055)" in actuals.locator(".batch-status").inner_text()
+    assert _saved("KS-Q") == [(1, "2055")]

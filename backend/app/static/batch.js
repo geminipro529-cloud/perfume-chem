@@ -134,12 +134,22 @@ function batchMergeTyped(baseActuals, serverActuals, typed) {
   return { values, conflicts };
 }
 
-function batchMergeWords(lot, conflicts) {
+// The notes box the same way. A blank box takes the other device's notes too,
+// since saving blank notes keeps the saved ones. `conflict` is the other
+// device's notes when both changed them.
+function batchMergeNotes(baseNotes, serverNotes, typed) {
+  const was = batchText(baseNotes);
+  const theirs = batchText(serverNotes);
+  const mine = batchText(typed);
+  if (!mine || mine === was) return { value: theirs, conflict: null };
+  return { value: mine, conflict: theirs !== was && theirs !== mine ? theirs : null };
+}
+
+function batchMergeWords(lot, conflicts, notesConflict = null) {
   let words = `Another device (the phone, perhaps) saved amounts for lot ${lot} after this table was filled in, so nothing was saved. The table now shows its amounts, with the boxes you changed kept. Check it, then save again.`;
-  if (conflicts.length) {
-    const lines = conflicts.map((item) => `line ${item.line} (the other device saved ${item.theirs || "nothing"})`);
-    words += ` Changed on both, with your amount kept in the box: ${lines.join(", ")}.`;
-  }
+  const both = conflicts.map((item) => `line ${item.line} (the other device saved ${item.theirs || "nothing"})`);
+  if (notesConflict !== null) both.push(`the notes (the other device saved ${notesConflict ? `"${notesConflict}"` : "none"})`);
+  if (both.length) words += ` Changed on both, with yours kept in the box: ${both.join(", ")}.`;
   return words;
 }
 
@@ -443,6 +453,7 @@ function attachBatch({ doc, request, root }) {
       return [String(row.line), row.material, `${row.planned_amount} ${batchUnitLabel(row.unit)}`, input];
     });
     actualsTable.replaceChildren(table(["#", "Material", "Planned", "Weighed"], rows));
+    actualsNotes.value = record.actual_notes || "";
     actualsForm.hidden = false;
     if (typeof openPhoneBench === "function") {
       const stepByStep = node("button", { type: "button", className: "quiet-button" }, "Weigh it step by step");
@@ -453,7 +464,7 @@ function attachBatch({ doc, request, root }) {
 
   // Another device saved since this table was filled in: show its amounts with
   // the boxes changed here kept, and let the person check and save again.
-  async function mergeNewerAmounts(typed) {
+  async function mergeNewerAmounts() {
     const lot = state.record.lot;
     let fresh;
     try {
@@ -462,14 +473,18 @@ function attachBatch({ doc, request, root }) {
       actualsStatus.textContent = `Another device saved amounts for lot ${lot} after this table was filled in, so nothing was saved, and its amounts didn't load: ${error.message || "no answer"}`;
       return;
     }
+    // The boxes as they are now, with anything typed while the save was on its way.
+    const typed = [...actualInputs].map(([line, input]) => [line, input.value]);
     const merged = batchMergeTyped(state.record.actuals, fresh.actuals, typed);
+    const notes = batchMergeNotes(state.record.actual_notes, fresh.actual_notes, actualsNotes.value);
     state.record = fresh;
     showActuals(fresh);
     for (const [line, value] of merged.values) {
       const input = actualInputs.get(line);
       if (input) input.value = value;
     }
-    actualsStatus.textContent = batchMergeWords(lot, merged.conflicts);
+    actualsNotes.value = notes.value;
+    actualsStatus.textContent = batchMergeWords(lot, merged.conflicts, notes.conflict);
   }
 
   actualsForm.addEventListener("submit", async (event) => {
@@ -487,7 +502,7 @@ function attachBatch({ doc, request, root }) {
       state.record = record;
       actualsStatus.textContent = `Saved ${record.actuals.length} weighed ${record.actuals.length === 1 ? "amount" : "amounts"} for lot ${record.lot}.`;
     } catch (error) {
-      if (error.status === 409 && error.code === "BATCH_CHANGED") await mergeNewerAmounts(typed);
+      if (error.status === 409 && error.code === "BATCH_CHANGED") await mergeNewerAmounts();
       else actualsStatus.textContent = (error.status === 409 && error.serverText) || error.message || "The weighed amounts were not saved.";
     } finally {
       actualsButton.disabled = false;
@@ -515,5 +530,5 @@ function attachBatch({ doc, request, root }) {
 }
 
 if (typeof module === "object" && module.exports) {
-  module.exports = { BATCH_NO_PARENT, batchPlanBody, batchLabelRows, batchGatePath, batchMonthYear, batchPlanSummary, batchGateWords, batchActualsBody, batchSameAmount, batchMergeTyped, batchMergeWords, batchSheetView, attachBatch };
+  module.exports = { BATCH_NO_PARENT, batchPlanBody, batchLabelRows, batchGatePath, batchMonthYear, batchPlanSummary, batchGateWords, batchActualsBody, batchSameAmount, batchMergeTyped, batchMergeNotes, batchMergeWords, batchSheetView, attachBatch };
 }

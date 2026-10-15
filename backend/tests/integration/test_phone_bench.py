@@ -146,6 +146,7 @@ m.phoneBenchKeep(storage, kept("A-1", { pending: true }));
 m.phoneBenchKeep(storage, kept("C-3", { pending: false }));
 m.phoneBenchKeep(storage, kept("F-6", { pending: true, error: "refused" }));
 m.phoneBenchKeep(storage, kept("G-7", { pending: true, conflict: { lines: [], notes: "x" } }));
+m.phoneBenchKeep(storage, kept("J-9", { pending: true, problem: "keepsChanging" }));
 m.phoneBenchSetAside(storage, kept("A-1", { pending: true, batch: "2026-10-01T09:00:00+00:00" }));
 storage.setItem(m.PHONE_BENCH_STORE + "D-4", "{not json");
 storage.setItem(m.PHONE_BENCH_STORE + "E-5", JSON.stringify({ lot: "other", steps: [], pending: true }));
@@ -157,15 +158,17 @@ console.log(JSON.stringify({
   aside: JSON.parse(storage.getItem(m.PHONE_BENCH_ASIDE + "A-1.2026-10-01T09:00:00+00:00")).lot,
   broken: m.phoneBenchLoad(storage, "D-4"),
   noBatch: m.phoneBenchLoad(storage, "H-8"),
+  raw: [m.phoneBenchRaw(storage, "H-8").entries, m.phoneBenchRaw(storage, "D-4"), m.phoneBenchRaw(storage, "Z-0")],
   full: m.phoneBenchKeep(full, { lot: "X" }),
 }));
 """)
 
-    # Lots with a refusal or a choice waiting on the person are not sent on their own;
-    # a copy that doesn't name its batch is not used.
+    # Lots with a refusal, a problem or a choice waiting on the person are not sent on
+    # their own; a copy that doesn't name its batch is not used, but can still be read
+    # as it was stored, to be set aside.
     assert result == {
         "pending": ["A-1", "B-2"], "loaded": "2026-10-15T09:00:00+00:00", "aside": "A-1",
-        "broken": None, "noBatch": None, "full": False,
+        "broken": None, "noBatch": None, "raw": [{}, None, None], "full": False,
     }
 
 
@@ -234,6 +237,34 @@ console.log(JSON.stringify({
     assert result["notes"][1] == "phone"
     assert result["notes"][2] == {"lines": [], "notes": "pc"}
     assert result["changed"] == [False, False, True, True]
+
+
+def test_lines_the_pc_holds_as_the_phone_last_sent_them_count_as_confirmed():
+    result = _node("""
+const g = (line, typed) => ({ line, typed, unit: "g", planned: "10.269", density: "0.998" });
+const base = { entries: {}, notes: "", version: 0 };
+// The phone sent line 1; the answer was lost after the PC saved it. Since then the
+// phone changed line 1 (that send was refused) and the PC's table weighed line 2.
+const sent = [{ id: "a", entries: { 1: g(1, "1.0") }, notes: "" }];
+const server = { entries: { 1: g(1, "1.000"), 2: g(2, "0.2") }, notes: "", version: 2 };
+const local = { entries: { 1: g(1, "1.1") }, notes: "" };
+const lost = m.phoneBenchMerge(m.phoneBenchMergeBase(base, sent, server), server, local);
+// The PC changed line 1 after that send: still a choice.
+const changed = { entries: { 1: g(1, "0.9") }, notes: "pc" };
+const after = m.phoneBenchMerge(m.phoneBenchMergeBase(base, sent, changed), changed, local);
+console.log(JSON.stringify({
+  lost: [lost.conflict, lost.entries[1].typed, lost.entries[2].typed],
+  after: after.conflict.lines.map((item) => item.line),
+  version: m.phoneBenchMergeBase(base, sent, server).version,
+  nothingSent: [undefined, []].map((none) => m.phoneBenchMergeBase(base, none, server) === base),
+  stuck: [{}, { error: "x" }, { problem: "otherBatch" }, { conflict: { lines: [] } }].map(m.phoneBenchStuck),
+}));
+""")
+
+    assert result == {
+        "lost": [None, "1.1", "0.2"], "after": [1], "version": 0, "nothingSent": [True, True],
+        "stuck": [False, True, True, True],
+    }
 
 
 def test_thai_has_every_english_phrase_and_fills_the_same_blanks():
