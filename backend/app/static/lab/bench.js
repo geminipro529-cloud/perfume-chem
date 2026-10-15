@@ -1,7 +1,7 @@
 "use strict";
 
 // Bench sheet page: a printable sheet for any project or pasted formula, with the pour fix.
-// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, boot.
+// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, search, boot.
 
 // ---- Bench sheet view: a printable sheet for any project or pasted formula ----
 // Read-only: it fetches and parses the formula, matches owned stocks and draws
@@ -206,6 +206,19 @@ $("#bench-pour-undo").addEventListener("click", () => {
   drawBenchSheet(benchSource.pours.at(-1).sheet);
   $("#bench-pour-result").textContent = benchSource.pours.length === 1 ? "Undone: back to the sheet as first shown." : "Undone: back to the sheet before the last fix.";
 });
+
+// Search opens a project card here and shows its sheet at the size its name says.
+function benchOpenCard(sourcePath, displayName) {
+  navigate("benchsheet");
+  const form = $("#bench-source-form");
+  form.querySelector('[name="source_kind"]').value = "PROJECT_FILE";
+  syncBenchSourceFields();
+  clearBenchPreview();
+  dropAutoBenchSourceMl();
+  form.querySelector('[name="project_formula_path"]').value = sourcePath;
+  prefillBenchSourceMl(sourcePath, displayName);
+  form.requestSubmit();
+}
 
 $('#bench-source-form [name="source_kind"]').addEventListener("change", () => {
   syncBenchSourceFields();

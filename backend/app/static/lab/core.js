@@ -1,7 +1,7 @@
 "use strict";
 
 // Shared by every page: the API client, messages, form helpers, refresh and navigation.
-// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, boot.
+// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, search, boot.
 
 const API = "/api/v1/lab";
 const state = {

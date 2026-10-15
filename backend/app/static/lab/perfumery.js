@@ -1,7 +1,7 @@
 "use strict";
 
 // Perfumery page: hypotheses and trial plans.
-// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, boot.
+// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, search, boot.
 
 bindSavingForm("#hypothesis-form", async (data, form, saved) => {
   const splitValues = (value) => value.split(",").map((item) => item.trim()).filter(Boolean);
