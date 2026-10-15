@@ -812,7 +812,8 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
       return;
     }
     for (const element of doc.body.children) {
-      if (element === sheet || element.inert) continue;
+      // Another full-screen view (smell strips) is never made inert by this one.
+      if (element === sheet || element.inert || element.getAttribute("aria-modal") === "true") continue;
       element.inert = true;
       inerted.push(element);
     }
@@ -984,6 +985,8 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
 
   async function open(lot) {
     const ticket = ++openTicket;
+    // The language may have been changed in the smell strips view meanwhile.
+    try { lang = store.getItem(PHONE_BENCH_LANG) === "th" ? "th" : "en"; } catch { /* keep the one in use */ }
     listStatus.textContent = say("opening", { lot });
     let record = null;
     let failure = null;
@@ -995,6 +998,11 @@ function attachPhoneBench({ doc, request, root, storage = null }) {
     const steps = record ? await stepsWithGrams(record) : null;
     // A lot tapped later wins; this one was left behind.
     if (ticket !== openTicket) return;
+    // Another full-screen view (smell strips) took the page while the PC answered.
+    if ([...doc.querySelectorAll("[aria-modal='true']")].some((element) => element !== sheet && !element.hidden)) {
+      listStatus.textContent = "";
+      return;
+    }
     // Read the kept copy only now: a send that landed meanwhile has updated it.
     let local = phoneBenchLoad(store, lot);
     let aside = "";

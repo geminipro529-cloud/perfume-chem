@@ -62,3 +62,15 @@ body.phone-bench-open { overflow: hidden; }
 .phone-bench-done textarea { width: 100%; font-size: 18px; }
 .phone-bench-send { min-height: 56px; }
 .phone-bench-sync { margin: auto 0 0; padding-top: 10px; border-top: 1px solid var(--line); font-size: 17px; }
+
+/* Smell strips on the phone (phone-strips.js) reuse the full-screen view above. */
+.phone-strips-home, .phone-strips-pick, .phone-strips-strip, .phone-strips-form { display: flex; flex-direction: column; gap: 10px; }
+.phone-strips-home[hidden], .phone-strips-pick[hidden], .phone-strips-strip[hidden], .phone-strips-form[hidden] { display: none; }
+.phone-strips-dip, .phone-strips-dipped { min-height: 64px; font-size: 20px; }
+.phone-strips-checks { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: 18px; }
+.phone-strips-check { padding: 8px 10px; border: 1px solid var(--line); }
+.phone-strips-check.is-open { border: 2px solid var(--blue); font-weight: 700; }
+.phone-strips-check.is-logged, .phone-strips-check.is-missed { color: var(--muted); }
+.phone-strips-next { font-size: 22px; font-variant-numeric: tabular-nums; }
+.phone-strips .smell-log-choice { min-height: 48px; font-size: 18px; }
+.phone-strips-form input { min-height: 48px; font-size: 18px; }
