@@ -5,8 +5,10 @@ from two floors the yardstick shares with the release gate: owned stock (Rule 0)
 IFRA. Each says *that* something holds and names the materials; this module says, per
 material, *what* is missing and *where* to supply it:
 
-- a stock on inventory.txt that the gate's stock list lacks: the Stock page cannot
-  confirm it, so its strength, basis and solvent go to the stock data thread;
+- a stock only inventory.txt lists: the same bottle under another name on the gate's
+  stock list (Claude links them, or says what holds that record), a disagreement about
+  its strength or solvent (asked, unless Kenny's own word is on record), a name match
+  that would be a guess (asked), or a bottle not yet on the gate's list (Claude adds it);
 - a stock whose details are incomplete or whose hold a Stock page entry clears: open it
   there (AGENTS.md Rule 6: lots and receipts are never needed, a confirmed strength,
   basis and carrier are);
@@ -48,6 +50,7 @@ _FIELD_SENTENCES = {
     "carrier": "say which solvent it is in",
     "final_usable_fraction_confirmation": "confirm the strength you actually use",
     "fraction": "type its strength",
+    "fraction_percent": "write down its strength",
 }
 
 USER_HOLD = "USER_COMPOUNDING_HOLD"
@@ -76,12 +79,20 @@ IFRA_NAME_ACTION = (
 # A restricted material whose Category 4 limit the Lab's IFRA table lacks: table data.
 IFRA_LIMIT_ACTION = "Nothing for you to do: Claude records its Category 4 limit from the IFRA standard."
 IFRA_OTHER_ACTION = "Nothing for you to do: Claude finds out why the IFRA check holds it."
-# The same bottle, by name and strength, but the two lists give another solvent or basis.
-# Kenny's own word settles which record is current (14 Oct: his EO, absolute and
-# damascone-type dilutions are in DPG); Claude asks him only where it isn't on record.
-FORM_ACTION = (
-    "Nothing for you to do unless Claude asks: Claude checks which record is right against "
-    "what you have already said and corrects the other."
+# The same name and strength, but the two lists give another solvent or basis. A record
+# from one of Kenny's dated overlays quotes his own word (e.g. 14 Oct: his EO, absolute and
+# damascone-type dilutions are in DPG), so Claude corrects inventory.txt to it; any other
+# record (the stock workbook) is his to settle (Rule 0: report, don't guess).
+_USER_WORD_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY"
+FORM_ACTION = "Nothing for you to do unless you have both: Claude corrects your inventory list to match what you said."
+FORM_ASK_ACTION = (
+    'Tell Claude which is right, or whether you have both; the "Stock data into the engine" thread records it.'
+)
+# A record the Stock page doesn't list (inventory.txt's line for the same bottle shows there
+# instead): Claude completes it from that line in the stock data thread.
+OFF_PAGE_ACTION = (
+    "Nothing for you to do unless Claude asks: Claude completes that record from your inventory "
+    'list in the "Stock data into the engine" thread.'
 )
 SAME_BOTTLE_ACTION = 'Tell Claude whether it is the same bottle; the "Stock data into the engine" thread records it.'
 SAME_MATERIAL_ACTION = (
@@ -94,6 +105,10 @@ _OVERLAY_GLOB = "inventory_user_authority_overlay_*.json"
 _STARTING_CHARGE = "mass_fraction_starting_charge"
 _UNMEASURED = "FINAL_DISSOLVED_FRACTION_UNMEASURED"
 # Holds a Stock page entry cannot clear, in words (no internal codes on screen).
+_UNRESOLVED_SENTENCES = {
+    "IDENTITY KEPT SEPARATE": "its record is kept apart from a similar material until it is known which one it is",
+    "SPECIES UNRESOLVED": "its species is not known",
+}
 _HOLD_SENTENCES = {
     "FINAL_DISSOLVED_FRACTION_UNMEASURED": "how much of it actually dissolved was never measured",
     "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN": "how much the filtered tincture holds is unknown",
@@ -203,13 +218,11 @@ def _overlay_aliases_from(stamps: tuple[tuple[str, int], ...]) -> dict[str, str]
 
 
 def _qualified(name: str) -> bool:
-    """A name carrying a note in brackets other than its strength or a CAS number ("Vetiver EO (Haiti)")."""
+    """A name carrying a note in brackets other than its strength, form or CAS number ("Vetiver EO (Haiti)")."""
 
     notes = re.findall(r"\(([^)]*)\)|\[([^\]]*)\]", name)
-    return any(
-        not re.fullmatch(r"\s*(neat|[\d.]+\s*%.*|\d{2,7}-\d{2}-\d)\s*", round_note or square_note, re.IGNORECASE)
-        for round_note, square_note in notes
-    )
+    plain = r"\s*(neat|[\d.]+\s*%.*|\d{2,7}-\d{2}-\d|crystals?|powder|solid|liquid|as supplied)\s*"
+    return any(not re.fullmatch(plain, round_note or square_note, re.IGNORECASE) for round_note, square_note in notes)
 
 
 def _base_key(name: str) -> str:
@@ -256,6 +269,10 @@ def _twin_match(stock: Any, governed: Sequence[Any]) -> tuple[list[Any], str]:
         return by_alias, "alias"
     kind = "identity"
     same = [g for g in owned if normalize_name(str(g.identity_name or g.name)) in own_keys]
+    if same and _qualified(own) and not any(normalize_name(str(g.identity_name or g.name)) == normalize_name(own) for g in same):
+        # Matched only by a display name without the note ("Tuberose Absolute" for
+        # "Tuberose Absolute (volume grade)"): another grade may be another material.
+        kind = "probable"
     if not same:
         base = _base_key(own)
         same = [
@@ -269,12 +286,14 @@ def _twin_match(stock: Any, governed: Sequence[Any]) -> tuple[list[Any], str]:
     return (same, kind) if len(identities) == 1 else ([], "none")
 
 
+_SOLVENT_ABBREVIATIONS = frozenset({"dpg", "dep", "ipm", "tec", "mct", "ipa", "tpm", "bb", "peg", "dmso"})
+
+
 def _carrier_text(carrier: str) -> str:
     """A solvent as written on a label: "ethanol + dep" -> "ethanol + DEP"."""
 
     return " ".join(
-        word.upper() if word.isalpha() and len(word) <= 3 and word.casefold() not in {"in", "and", "or"} else word
-        for word in str(carrier or "").split()
+        word.upper() if word.casefold() in _SOLVENT_ABBREVIATIONS else word for word in str(carrier or "").split()
     )
 
 
@@ -287,13 +306,18 @@ def _carrier_key(carrier: Any) -> str:
 
 
 # A starting-charge tincture's strength is a mass fraction as built; inventory.txt writes it as a plain %.
-_BASIS_KEYS = {"mass_fraction": "mass", "mass_fraction_starting_charge": "mass", "volume_fraction": "volume"}
-_BASIS_WORDS = {"mass": "by weight", "volume": "by volume"}
+_BASIS_KEYS = {
+    "mass_fraction": "mass", "mass_fraction_starting_charge": "mass", "volume_fraction": "volume",
+    "mass_per_volume": "mass_per_volume",
+}
+_BASIS_WORDS = {"mass": "by weight", "volume": "by volume", "mass_per_volume": "weight per volume"}
 
 
 def _same_form(one: Any, other: Any) -> bool:
     """Two records of one strength that can be one bottle: no solvent or basis that disagrees."""
 
+    if float(one.dilution or 0) <= 0 or float(other.dilution or 0) <= 0:
+        return False  # no strength written down on one side: nothing says they are one bottle
     if abs(float(one.dilution or 0) - 1.0) < 1e-9:
         return True
     carriers = {_carrier_key(one.carrier), _carrier_key(other.carrier)} - {""}
@@ -324,15 +348,75 @@ def _named(stock: Any) -> str:
 def _strength_text(stock: Any) -> str:
     fraction = float(stock.dilution or 0)
     if fraction <= 0:
-        return "with no strength written down"
+        return "no strength"
     if abs(fraction - 1.0) < 1e-9:
         return "neat"
     carrier = _carrier_text(str(stock.carrier or "").strip())
     return f"{_percent_text(fraction)}{f' in {carrier}' if carrier else ''}"
 
 
-def _text_only_item(item: dict[str, Any], target: Any, governed: Sequence[Any]) -> dict[str, Any]:
-    """A stock only inventory.txt lists: the same bottle elsewhere, a disagreement, or not yet added."""
+def _inventory_text_strengths() -> dict[str, set[float]]:
+    """The strengths inventory.txt lists per material, every line kept."""
+
+    from engine.inventory_parser import parse_inventory
+
+    strengths: dict[str, set[float]] = {}
+    try:
+        lines = parse_inventory(unique=False)
+    except (OSError, ValueError):
+        return strengths
+    for line in lines:
+        if str(line.status).casefold() == "owned" and line.dilution:
+            for key in _material_keys(line):
+                strengths.setdefault(key, set()).add(float(line.dilution))
+    return strengths
+
+
+def _material_keys(stock: Any) -> set[str]:
+    """The keys one material is found by: its identity and name, and its plain name when no origin is noted."""
+
+    from engine.name_utils import normalize_name
+
+    identity = str(stock.identity_name or stock.name)
+    keys = {normalize_name(identity), normalize_name(str(stock.name))}
+    if not _qualified(identity):
+        keys.add(_base_key(identity))
+    keys.discard("")
+    return keys
+
+
+def _siblings(twins: Sequence[Any], governed: Sequence[Any]) -> list[Any]:
+    """The checks' other owned records of a matched material under a plainer name.
+
+    One material can carry two identities on the gate's list ("Aldehyde C11 neat" and
+    "Aldehyde C11 1%"); a record whose name, without strength notes, is the same as a
+    matched record's is the same material too, unless either name carries an origin.
+    """
+
+    keys = {_base_key(str(t.name)) for t in twins} | {_base_key(str(t.identity_name or t.name)) for t in twins}
+    keys.discard("")
+    ids = {t.stock_id for t in twins}
+    return [
+        g for g in governed
+        if str(g.status).casefold() == "owned" and g.stock_id not in ids
+        and not _qualified(str(g.identity_name or g.name)) and not _qualified(str(g.name))
+        and (_base_key(str(g.name)) in keys or _base_key(str(g.identity_name or g.name)) in keys)
+    ]
+
+
+def _text_only_item(
+    item: dict[str, Any],
+    target: Any,
+    governed: Sequence[Any],
+    listed_ids: set[str] | None = None,
+    text_strengths: Mapping[str, set[float]] | None = None,
+) -> dict[str, Any]:
+    """A stock only inventory.txt lists: the same bottle elsewhere, a disagreement, or not yet added.
+
+    ``listed_ids`` are the stocks the Stock page shows (None: all); ``text_strengths`` the
+    strengths inventory.txt lists per material (None: not checked).
+    """
+
 
     twins, kind = _twin_match(target, governed)
     if not twins:
@@ -341,9 +425,13 @@ def _text_only_item(item: dict[str, Any], target: Any, governed: Sequence[Any]) 
         item["owner"] = OWNER_CLAUDE
         return item
     fraction = float(target.dilution or 0)
+
+    def strength(stock: Any) -> bool:
+        return fraction > 0 and abs(float(stock.dilution or 0) - fraction) < 1e-9
+
     if kind == "probable":
         # One name carries an origin, grade or species the other lacks: only Kenny knows (Rule 0).
-        one_strength = any(abs(float(t.dilution or 0) - fraction) < 1e-9 for t in twins)
+        one_strength = any(strength(t) for t in twins)
         item["reason"] = (
             f"The checks' stock list has {_sentence_list(sorted(_named(t) for t in twins))}, which may be "
             f"{'this bottle' if one_strength else 'the same material as this one'} ({_strength_text(target)}); "
@@ -352,14 +440,28 @@ def _text_only_item(item: dict[str, Any], target: Any, governed: Sequence[Any]) 
         item["action"] = SAME_BOTTLE_ACTION if one_strength else SAME_MATERIAL_ACTION
         item["owner"] = OWNER_YOU
         return item
-    same = [t for t in twins if abs(float(t.dilution or 0) - fraction) < 1e-9]
+    if not any(strength(t) for t in twins):
+        siblings = _siblings(twins, governed)
+        close = [t for t in siblings if strength(t)]
+        if close:
+            # Found only under a plainer name ("Aldehyde C11 1%" for "Aldehyde C11
+            # undecylenic"): a plainer name may be another material, so ask.
+            item["reason"] = (
+                f"The checks' stock list has {_sentence_list(sorted(_named(t) for t in close))}, which may be "
+                f"this bottle ({_strength_text(target)}); the Lab doesn't link them on a guess."
+            )
+            item["action"] = SAME_BOTTLE_ACTION
+            item["owner"] = OWNER_YOU
+            return item
+        twins = [*twins, *siblings]
+    same = [t for t in twins if strength(t)]
     one_bottle = [t for t in same if _same_form(t, target)]
     if one_bottle:
         twin = next((t for t in one_bottle if t.execution_ready), one_bottle[0])
         named = f'The checks\' stock list has this bottle as "{twin.name}"'
         if not twin.execution_ready:
             # The link alone would not let it be mixed: say what holds that record.
-            _canonical_hold(item, twin)
+            _canonical_hold(item, twin, on_stock_page=listed_ids is None or twin.stock_id in listed_ids)
             item["reason"] = f"{named}. {_capitalised(item['reason'])}"
             return item
         item["owner"] = OWNER_CLAUDE
@@ -370,16 +472,37 @@ def _text_only_item(item: dict[str, Any], target: Any, governed: Sequence[Any]) 
         # One name and strength, another solvent or basis: one bottle whose records disagree.
         twin = next((t for t in same if t.execution_ready), same[0])
         theirs, yours = _form_texts(twin, target)
-        item["owner"] = OWNER_CLAUDE
+        if str(getattr(twin, "authority", "") or "").startswith(_USER_WORD_AUTHORITY):
+            item["owner"] = OWNER_CLAUDE
+            item["reason"] = (
+                f'The checks\' stock list has "{twin.name}" at {theirs}, from what you told Claude; '
+                f"your inventory list says {yours}."
+            )
+            item["action"] = FORM_ACTION
+            return item
+        item["owner"] = OWNER_YOU
         item["reason"] = (
             f'The checks\' stock list has "{twin.name}" at {theirs}, but your inventory list says '
             f"{yours}, so the Lab keeps the two apart."
         )
-        item["action"] = FORM_ACTION
+        item["action"] = FORM_ASK_ACTION
+        return item
+    listed = {s for key in _material_keys(target) for s in (text_strengths or {}).get(key, set())}
+    if fraction > 0 and any(abs(float(t.dilution or 0) - s) < 1e-9 for t in twins for s in listed):
+        # inventory.txt lists the checks' strength as well: this is another bottle of it,
+        # not a disagreement, and it just isn't on the checks' list yet.
+        item["reason"] = (
+            f"Your inventory list has it at {_strength_text(target)} as well as "
+            f"{_sentence_list(sorted(_named(t) for t in twins))}; the checks' stock list has only the other, "
+            "so this bottle isn't on it yet."
+        )
+        item["action"] = TEXT_ONLY_ACTION
+        item["owner"] = OWNER_CLAUDE
         return item
     # Another strength may be another bottle (a dilution made from it): only Kenny knows.
     theirs = _sentence_list(sorted(_named(t) for t in twins))
-    item["reason"] = f"Your inventory list says {_strength_text(target)}; the checks' stock list has only {theirs}."
+    yours = f"says {_strength_text(target)}" if fraction > 0 else "gives no strength"
+    item["reason"] = f"Your inventory list {yours}; the checks' stock list has {theirs}."
     item["action"] = STRENGTH_ACTION
     item["owner"] = OWNER_YOU
     return item
@@ -392,6 +515,7 @@ def _stock_item(
     projection: Any,
     holdable: bool,
     governed: Sequence[Any] = (),
+    text_strengths: Mapping[str, set[float]] | None = None,
 ) -> dict[str, Any]:
     material = str(issue.get("material") or "")
     reason = str(issue.get("reason") or "")
@@ -429,13 +553,18 @@ def _stock_item(
     target = next((s for s in owned if not s.execution_ready), owned[0])
     canonical = target.stock_id in projection.canonical_stock_ids
     if not canonical or str(target.authority) == _TEXT_ONLY_AUTHORITY:
-        return _text_only_item(item, target, governed)
+        listed_ids = {s.stock_id for s in projection.stocks}
+        return _text_only_item(item, target, governed, listed_ids, text_strengths)
 
     return _canonical_hold(item, target)
 
 
-def _canonical_hold(item: dict[str, Any], target: Any) -> dict[str, Any]:
-    """What holds a stock on the checks' own list, and who answers it."""
+def _canonical_hold(item: dict[str, Any], target: Any, *, on_stock_page: bool = True) -> dict[str, Any]:
+    """What holds a stock on the checks' own list, and who answers it.
+
+    ``on_stock_page`` is False for a record the Stock page doesn't list (inventory.txt's
+    line for the same bottle shows there instead), so nothing sends Kenny to its form.
+    """
 
     from engine.inventory_completions import (
         COMPLETION_HOLD_DISPOSITIONS,
@@ -444,28 +573,54 @@ def _canonical_hold(item: dict[str, Any], target: Any) -> dict[str, Any]:
     )
 
     item["owner"] = OWNER_YOU
-    item["open"] = None
+    item["open"] = _open(target) if on_stock_page else None
     hold = str(target.execution_hold_reason or "")
     holds = [h for h in hold.split("|") if h]
     missing = [f for f in inventory_completion_requirements(target) if f != USER_HOLD]
     if hold == USER_HOLD or USER_HOLD in inventory_completion_requirements(target):
         item["reason"] = "You put this stock on hold, so new formulas leave it out."
-        item["action"] = "Clear the hold on the Stock page to use it, or swap the row."
-        item["open"] = _open(target)
+        item["action"] = (
+            "Clear the hold on the Stock page to use it, or swap the row." if on_stock_page
+            else 'Tell Claude to clear the hold in the "Stock data into the engine" thread, or swap the row.'
+        )
         return item
     if str(target.fraction_basis or "") == _STARTING_CHARGE or _UNMEASURED in holds:
-        # A tincture made from a starting charge of resin: the Stock page takes its
-        # strength only from a measurement or a label (inventory_completions.py), so the
-        # form cannot settle it; whether the built strength may be used is Kenny's word.
+        # A tincture made from a starting charge of resin. The Stock page won't take the
+        # recipe as its final strength (inventory_completions.py), but it takes Kenny's own
+        # confirmation that the strength it was made at is the one to use.
         made = _percent_text(float(target.dilution)) if target.dilution else ""
+        at = f" ({made})" if made else ""
         item["reason"] = (
-            "How much of it actually dissolved was never measured, and the Stock page takes "
-            "a tincture's strength only from a measurement or a label."
+            "How much of the resin actually dissolved was never measured, so its real strength may be "
+            f"below the strength it was made at{at}."
         )
         item["action"] = (
-            f"Tell Claude whether it may be used at the strength it was made at{f' ({made})' if made else ''}; "
+            f"If you're happy to use it at the strength it was made at{at}, confirm that on the Stock page "
+            "as your own confirmation and tick that it is the final usable concentration; or swap the row."
+            if on_stock_page else
+            f"Tell Claude whether it may be used at the strength it was made at{at}; "
             'the "Stock data into the engine" thread records it.'
         )
+        return item
+    unresolved = str(getattr(target, "row_unresolved_tokens", "") or "")
+    if unresolved and not completion_clears_execution_hold(target):
+        # The stock workbook row itself is unresolved: no Stock page entry clears it.
+        why = _sentence_list([
+            _UNRESOLVED_SENTENCES.get(token.strip(), token.strip().casefold())
+            for token in unresolved.split("|") if token.strip()
+        ])
+        item["open"] = None
+        item["reason"] = f"The Stock page form cannot settle this one: {why}."
+        item["action"] = 'Tell Claude what is right in the "Stock data into the engine" thread, or swap the row.'
+        return item
+    if not on_stock_page:
+        needs = _sentence_list([_FIELD_SENTENCES.get(f, f.replace("_", " ")) for f in missing]) if missing else ""
+        item["owner"] = OWNER_CLAUDE
+        item["reason"] = (
+            f"That record's details are not complete: {needs}." if needs
+            else "That record's strength, basis and solvent are not confirmed for mixing yet."
+        )
+        item["action"] = OFF_PAGE_ACTION
         return item
     receipt_only = bool(holds) and all(
         "RULE 6" in COMPLETION_HOLD_DISPOSITIONS.get(h, (False, ""))[1] for h in holds
@@ -476,13 +631,11 @@ def _canonical_hold(item: dict[str, Any], target: Any) -> dict[str, Any]:
             "which mixing doesn't need (Rule 6)."
         )
         item["action"] = "Confirm it once on the Stock page to clear the hold."
-        item["open"] = _open(target)
         return item
     if missing:
         needs = _sentence_list([_FIELD_SENTENCES.get(f, f.replace("_", " ")) for f in missing])
         item["reason"] = f"Its details are not complete: {needs}."
         item["action"] = "Open it on the Stock page and fill those in."
-        item["open"] = _open(target)
         return item
     if completion_clears_execution_hold(target):
         why = COMPLETION_HOLD_DISPOSITIONS.get(hold, (True, ""))[1]
@@ -492,9 +645,9 @@ def _canonical_hold(item: dict[str, Any], target: Any) -> dict[str, Any]:
             if receipt else "Its strength, basis and solvent are not confirmed for mixing yet."
         )
         item["action"] = "Open it on the Stock page and confirm them."
-        item["open"] = _open(target)
         return item
     why = _HOLD_SENTENCES.get(hold, "its records disagree")
+    item["open"] = None
     item["reason"] = f"The Stock page form cannot settle this one: {why}."
     item["action"] = 'Tell Claude what is right in the "Stock data into the engine" thread, or swap the row.'
     return item
@@ -609,10 +762,11 @@ def explain_holds(rows: Sequence[Mapping[str, Any]], *, bottle_ml: float = 30.0)
     projection = materialize_personal_inventory(canonical=governed)
 
     check = stock_contract.as_dict()
+    text_strengths = _inventory_text_strengths()
     items: list[dict[str, Any]] = []
     for issue in stock_contract.data.get("issues", []) or []:
         holdable = ys._issue_holdable(check, issue, record)
-        items.append(_stock_item(issue, record, row_stock_ids, projection, holdable, governed.stocks))
+        items.append(_stock_item(issue, record, row_stock_ids, projection, holdable, governed.stocks, text_strengths))
 
     status, _detail, data = ys._gate_call(lambda: g._gate_safety(
         state, config, g._stock_conflict_materials(record), g._unwritten_strength_reasons(record)

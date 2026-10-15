@@ -110,9 +110,11 @@ def test_a_tincture_from_a_starting_charge_asks_about_its_built_strength_not_the
     result = explain_holds([_row(stock)])
 
     (item,) = [i for i in _items_for(result, stock.identity_name or stock.name) if i["check"] == "stock"]
-    assert item["reason"].startswith("How much of it actually dissolved was never measured")
+    assert item["reason"].startswith("How much of the resin actually dissolved was never measured")
     assert f"the strength it was made at ({hr._percent_text(float(stock.dilution))})" in item["action"]
-    assert item["open"] is None and item["owner"] == "you"
+    # The form refuses the recipe as a source but takes Kenny's own confirmation.
+    assert "as your own confirmation" in item["action"] and "recipe" not in item["action"]
+    assert item["open"] == {"kind": "stock_page", "stock_id": stock.stock_id} and item["owner"] == "you"
 
 
 def _text_only(projection):
@@ -133,12 +135,20 @@ def test_a_bottle_the_checks_list_under_an_overlay_alias_is_named_not_asked_for(
     # Kenny's overlays give a canonical name and its aliases ("Haitian Vetiver EO" is
     # "Vetiver EO (Haiti)"): the same bottle is named, and nothing is asked of him.
     aliases = hr._overlay_aliases()
+
+    def checked(stock):
+        canonical = normalize_name(aliases[normalize_name(str(stock.identity_name or stock.name))])
+        return [
+            g for g in governed
+            if str(g.status).casefold() == "owned" and normalize_name(str(g.identity_name or g.name)) == canonical
+        ]
+
     candidates = [
         s for s in _text_only(projection)
         if normalize_name(str(s.identity_name or s.name)) in aliases
         and any(
             abs(float(t.dilution or 0) - float(s.dilution)) < 1e-9 and hr._same_form(t, s) and t.execution_ready
-            for t in hr._governed_twins(s, governed)
+            for t in checked(s)
         )
     ]
     if not candidates:
@@ -173,14 +183,104 @@ def test_a_text_only_bottle_whose_checked_record_is_held_says_what_holds_that_re
         item = hr._text_only_item({"material": stock.name, "open": None}, stock, governed)
 
         assert item["reason"].startswith("The checks' stock list has this bottle as \"")
-        assert "How much of it actually dissolved was never measured" in item["reason"]
+        assert "How much of the resin actually dissolved was never measured" in item["reason"]
         assert f"the strength it was made at ({hr._percent_text(float(stock.dilution))})" in item["action"]
         assert item["owner"] == "you" and item["action"] != hr.LINK_ACTION
 
 
-def _stock(name, dilution, carrier="", basis="", identity=None, ready=True, stock_id="g-1"):
+def _stock(name, dilution, carrier="", basis="", identity=None, ready=True, stock_id="g-1",
+           authority="CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT"):
     return SimpleNamespace(identity_name=identity or name, name=name, dilution=dilution, carrier=carrier,
-                           fraction_basis=basis, status="owned", stock_id=stock_id, execution_ready=ready)
+                           fraction_basis=basis, status="owned", stock_id=stock_id, execution_ready=ready,
+                           authority=authority)
+
+
+def test_a_held_record_the_stock_page_does_not_list_is_not_sent_to_its_form(projection, governed):
+    # The Stock page shows inventory.txt's line for the bottle, not the checks' record, so a
+    # button to that record would open nothing; Claude completes it from the inventory line.
+    listed = {s.stock_id for s in projection.stocks}
+    candidates = [
+        (s, t) for s in _text_only(projection) for t in hr._governed_twins(s, governed)
+        if abs(float(t.dilution or 0) - float(s.dilution)) < 1e-9 and hr._same_form(t, s)
+        and not t.execution_ready and t.stock_id not in listed
+        and str(t.fraction_basis) != "mass_fraction_starting_charge"
+        and not str(getattr(t, "row_unresolved_tokens", "") or "")
+    ]
+    if not candidates:
+        pytest.skip("no text-only bottle whose held record is off the Stock page")
+    for stock, twin in candidates:
+        item = hr._text_only_item({"material": stock.name, "open": None}, stock, governed, listed)
+
+        assert item["open"] is None, stock.name
+        assert item["owner"] == "claude" and item["action"] == hr.OFF_PAGE_ACTION
+        assert f'this bottle as "{twin.name}"' in item["reason"]
+    # Every Stock page button in a real formula's list opens a stock the page shows.
+    result = explain_holds([_row(s, "150") for s in _text_only(projection)[:40]])
+    for entry in result["items"]:
+        assert entry["open"] is None or entry["open"]["stock_id"] in listed, entry["material"]
+
+
+def test_a_strength_inventory_txt_also_lists_is_another_bottle_not_a_disagreement():
+    target = _stock("Alpha Damascone 10%", 0.1, identity="Alpha Damascone", stock_id="t-1")
+    neat = _stock("Alpha Damascone", 1.0)
+    both = {normalize_name("Alpha Damascone"): {0.1, 1.0}}
+    item = hr._text_only_item({"material": "Alpha Damascone 10%"}, target, [neat], None, both)
+
+    assert item["owner"] == "claude" and item["action"] == TEXT_ONLY_ACTION
+    assert item["reason"] == (
+        'Your inventory list has it at 10% as well as "Alpha Damascone" (neat); the checks\' stock list has '
+        "only the other, so this bottle isn't on it yet."
+    )
+    # inventory.txt lists only the 10%: the two lists disagree, so Kenny is asked.
+    only = {normalize_name("Alpha Damascone"): {0.1}}
+    item = hr._text_only_item({"material": "Alpha Damascone 10%"}, target, [neat], None, only)
+    assert item["owner"] == "you" and item["action"] == hr.STRENGTH_ACTION
+
+
+def test_a_plainer_named_record_at_the_same_strength_is_asked_about_not_hidden():
+    # "Aldehyde C11 undecylenic 1%" matches "Aldehyde C11 neat"; the checks also list
+    # "Aldehyde C11 1%", which may be undecylenic or undecylic, so the Lab asks.
+    target = _stock("Aldehyde C11 undecylenic", 0.01, stock_id="t-1")
+    neat = _stock("Aldehyde C11 neat", 1.0, identity="Aldehyde C11 neat")
+    one = _stock("Aldehyde C11 1%", 0.01, identity="Aldehyde C11", stock_id="g-2")
+    assert hr._twin_match(target, [neat, one])[0] == [neat]
+    item = hr._text_only_item({"material": "Aldehyde C11 undecylenic"}, target, [neat, one])
+
+    assert item["owner"] == "you" and item["action"] == hr.SAME_BOTTLE_ACTION
+    assert item["reason"].startswith('The checks\' stock list has "Aldehyde C11 1%", which may be this bottle (1%)')
+
+
+def test_a_record_the_stock_page_cannot_settle_names_what_is_unresolved(governed):
+    unresolved = [
+        s for s in governed
+        if str(s.status).casefold() == "owned" and not s.execution_ready
+        and str(getattr(s, "row_unresolved_tokens", "") or "")
+        and str(s.fraction_basis) != "mass_fraction_starting_charge"
+    ]
+    if not unresolved:
+        pytest.skip("no stock with an unresolved workbook row")
+    for stock in unresolved:
+        item = hr._canonical_hold({"material": stock.name}, stock)
+
+        assert item["reason"].startswith("The Stock page form cannot settle this one: "), stock.name
+        assert "_" not in item["reason"] and item["open"] is None and item["owner"] == "you"
+    assert hr._canonical_hold({}, SimpleNamespace(
+        execution_hold_reason="", row_unresolved_tokens="SPECIES UNRESOLVED", execution_ready=False,
+        design_ready=None, design_hold_reason="", dilution=1.0, fraction_basis="neat", carrier="",
+        physical_form="liquid", status="owned", stock_id="g-9",
+    ))["reason"] == "The Stock page form cannot settle this one: its species is not known."
+
+
+def test_small_wording_rules():
+    assert not hr._qualified("Evernyl (crystals)") and hr._qualified("Jasmine Absolute (Jasminum grandiflorum)")
+    assert hr._carrier_text("jojoba oil") == "jojoba oil" and hr._carrier_text("ethanol + dep") == "ethanol + DEP"
+    assert not hr._same_form(_stock("A", 0), _stock("A", 0))
+    item = hr._text_only_item({"material": "A"}, _stock("A", 0, stock_id="t-1"), [_stock("A 10%", 0.1, identity="A")])
+    assert item["reason"] == 'Your inventory list gives no strength; the checks\' stock list has "A 10%".'
+    assert hr._FIELD_SENTENCES["fraction_percent"] == "write down its strength"
+    # A grade only one name carries makes a display-name match a guess.
+    tuberose = _stock("Tuberose Absolute", 1.0, identity="Tuberose Absolute (volume grade)", stock_id="t-2")
+    assert hr._twin_match(tuberose, [_stock("Tuberose Absolute 10%", 0.1, "dpg", identity="Tuberose Absolute")])[1] == "probable"
 
 
 def test_a_strength_the_two_lists_disagree_on_names_the_checked_entry_and_asks_once():
@@ -188,29 +288,36 @@ def test_a_strength_the_two_lists_disagree_on_names_the_checked_entry_and_asks_o
     twin = _stock("Aurantiol 10% in DPG", 0.1, "dpg", identity="Aurantiol")
     item = hr._text_only_item({"material": "Aurantiol"}, target, [twin])
 
-    assert item["reason"] == 'Your inventory list says neat; the checks\' stock list has only "Aurantiol 10% in DPG".'
+    assert item["reason"] == 'Your inventory list says neat; the checks\' stock list has "Aurantiol 10% in DPG".'
     assert item["owner"] == "you" and item["action"] == hr.STRENGTH_ACTION
     # A name that doesn't carry its strength gets it in brackets.
     item = hr._text_only_item({"material": "Anise EO"}, target, [_stock("Aurantiol", 0.01, "dpg")])
-    assert item["reason"].endswith('has only "Aurantiol" (1% in DPG).')
+    assert item["reason"].endswith('has "Aurantiol" (1% in DPG).')
 
 
 def test_another_solvent_at_one_strength_is_never_called_the_same_bottle():
     # inventory.txt: Neroli EO 10% in ethanol; the checks: Aroma & More's 10% in jojoba.
     target = _stock("Neroli EO", 0.1, "ethanol", "volume_fraction", stock_id="t-1")
-    jojoba = _stock("Neroli EO 10%", 0.1, "jojoba", "mass_fraction", identity="Neroli EO")
+    jojoba = _stock("Neroli EO 10%", 0.1, "jojoba", "mass_fraction", identity="Neroli EO",
+                    authority="USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014")
     item = hr._text_only_item({"material": "Neroli EO"}, target, [jojoba])
 
+    # The checked record quotes Kenny's own word (a dated overlay): Claude corrects inventory.txt.
     assert item["action"] == hr.FORM_ACTION and item["owner"] == "claude"
     assert item["reason"] == (
-        'The checks\' stock list has "Neroli EO 10%" at 10% in jojoba, but your inventory list says '
-        "10% in ethanol, so the Lab keeps the two apart."
+        'The checks\' stock list has "Neroli EO 10%" at 10% in jojoba, from what you told Claude; '
+        "your inventory list says 10% in ethanol."
     )
     assert "this bottle" not in item["reason"]
+    # A stock workbook record is not his word on record: he is asked (Rule 0).
+    workbook = _stock("Neroli EO 10%", 0.1, "jojoba", "mass_fraction", identity="Neroli EO")
+    item = hr._text_only_item({"material": "Neroli EO"}, target, [workbook])
+    assert item["action"] == hr.FORM_ASK_ACTION and item["owner"] == "you"
+    assert item["reason"].endswith("but your inventory list says 10% in ethanol, so the Lab keeps the two apart.")
     # Only the basis differs: the words say which is by weight and which by volume.
     by_volume = _stock("Neroli EO", 0.1, "jojoba", "volume_fraction", stock_id="t-2")
     item = hr._text_only_item({"material": "Neroli EO"}, by_volume, [jojoba])
-    assert "at 10% in jojoba by weight, but your inventory list says 10% in jojoba by volume" in item["reason"]
+    assert "at 10% in jojoba by weight, from what you told Claude; your inventory list says 10% in jojoba by volume" in item["reason"]
     # The same solvent written two ways, or an unknown one, is one bottle.
     same = _stock("Neroli EO", 0.1, "Jojoba w/w", "", stock_id="t-3")
     assert hr._text_only_item({"material": "Neroli EO"}, same, [jojoba])["action"] == hr.LINK_ACTION
