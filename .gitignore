@@ -71,6 +71,7 @@ Thumbs.db
 .claude/*
 !.claude/skills/
 .codex/runtime/
+.harnesskit/
 
 # Node / frontend build
 node_modules/
