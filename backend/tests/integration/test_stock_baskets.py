@@ -270,7 +270,8 @@ async def test_damaged_log_does_not_fail_completion_or_addition(
                 "effective_inventory_sha256"
             ],
             "idempotency_key": "basket-damaged-add",
-            "identity_name": "Hindinol",
+            # Hindinol joined the stock list on 2026-10-14; Cedrol is still unowned.
+            "identity_name": "Cedrol",
             "category": "woods / amber / structure",
             "fraction_percent_decimal": "100",
             "fraction_basis": "neat",
@@ -280,7 +281,7 @@ async def test_damaged_log_does_not_fail_completion_or_addition(
             "homogeneity": "NOT_APPLICABLE",
             "source_kind": "PERSONAL_CONFIRMATION",
             "supplier_name": "PerfumersWorld",
-            "supplier_sku": "4WX24656",
+            "supplier_sku": "1WW01281",
             "user_note": "Direct user confirmation.",
         },
     )
