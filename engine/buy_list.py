@@ -67,10 +67,14 @@ def _thb(value: Decimal | None) -> str | None:
     return None if value is None else format(value.normalize(), "f")
 
 
+def _moment(timestamp: str) -> datetime:
+    return datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
+
+
 def _day(timestamp: str) -> date:
     # Times are stored in UTC; days count on the PC's own calendar, the one
     # date.today() uses for the Lab app's "today" (Kenny's PC runs on Thai time).
-    return datetime.fromisoformat(timestamp.replace("Z", "+00:00")).astimezone().date()
+    return _moment(timestamp).astimezone().date()
 
 
 def _offer_label(offer_key: str) -> str:
@@ -303,7 +307,7 @@ def build_buy_list(
 
     # --- orders ---------------------------------------------------------------
     on_the_way_keys: set[str] = set()
-    bought_keys: set[str] = set()
+    bought_at: dict[str, datetime] = {}
     returned: dict[str, tuple[str, dict[str, Any]]] = {}
     not_this_on: dict[tuple[str, str], str] = {}
     groups: dict[tuple[str, str], dict[str, Any]] = {}
@@ -351,7 +355,9 @@ def build_buy_list(
                 day_text = last_on.isoformat()
                 not_this_on[key] = max(not_this_on.get(key, day_text), day_text)
         elif order_state in _OWNED_STATES:
-            bought_keys.add(material_key)
+            moment = _moment(order["recorded_at"])
+            if material_key not in bought_at or moment > bought_at[material_key]:
+                bought_at[material_key] = moment
         if returned_state is not None:
             previous = returned.get(material_key)
             if previous is None or order["recorded_at"] >= previous[0]:
@@ -406,8 +412,13 @@ def build_buy_list(
                 }
             )
             continue
-        if material_key in on_the_way_keys or material_key in bought_keys:
-            # Ordered: it is listed under On the way, and in Stock once it arrives.
+        # Ordered: it is listed under On the way, and in Stock once it arrives. A pick
+        # made after the bottle arrived (say, it was used up) is listed again.
+        bought = bought_at.get(material_key)
+        picked = decision.get("recorded_at")
+        if material_key in on_the_way_keys or (
+            bought is not None and (picked is None or bought >= _moment(picked))
+        ):
             continue
         offer_note = _pick_offer_note(
             material_key, common["material"], decision.get("offer_key"), state["matches"]

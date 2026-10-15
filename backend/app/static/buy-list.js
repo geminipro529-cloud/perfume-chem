@@ -383,6 +383,12 @@ function buyPercentText(fraction) {
 // The Stock page's add form, filled from an order line (field name -> value). Neat is
 // 100%; a PW dilution ("10% in DPG") is w/w in its solvent. What the line can't tell
 // (category, and the strength of an unknown form) is left blank for Kenny to choose.
+// Neat only when the price index says strength 1: PW lists some codes starting with 5
+// as neat although they are dilutions, and the index then gives no strength.
+function buyIsNeat(line) {
+  return line.form === "neat" && buyDecimal(line.strength) !== null && buyDecimalCompare(line.strength, "1") === 0;
+}
+
 function buyStockPrefill(group, line) {
   const fields = {
     identity_name: line.material,
@@ -392,7 +398,7 @@ function buyStockPrefill(group, line) {
     user_note: `Arrived from ${group.shop} order ${group.order_id}`,
   };
   const percent = buyPercentText(line.strength);
-  if (line.form === "neat") {
+  if (buyIsNeat(line)) {
     return { ...fields, fraction_percent_decimal: "100", fraction_basis: "neat", carrier: "",
       physical_form: "as_supplied", homogeneity: "NOT_APPLICABLE" };
   }
@@ -430,13 +436,20 @@ function buyStockPriceBody(stockId, group, line, amountText) {
 // way: after each answer the page data is read again and handled lines drop out.
 function buyWalkStart(group) {
   return { shop: group.shop, orderId: group.order_id, done: 0, stage: "check", materialKey: null, offerKey: null,
-    stockId: null, note: "" };
+    stockId: null, note: "", answered: [] };
+}
+
+function buyLineKey(materialKey, offerKey) {
+  return JSON.stringify([materialKey, offerKey]);
 }
 
 function buyWalkLine(data, walk) {
   if (!walk) return null;
   const group = (data?.on_the_way || []).find((entry) => entry.shop === walk.shop && entry.order_id === walk.orderId);
-  const lines = group?.lines || [];
+  // Lines this walk already answered stay answered, even when a failed reload leaves
+  // them on the page: no second Stock add, no NOT_THIS after ARRIVED.
+  const answered = new Set(walk.answered || []);
+  const lines = (group?.lines || []).filter((line) => !answered.has(buyLineKey(line.material_key, line.offer_key)));
   const pinned = walk.offerKey
     ? lines.find((line) => line.material_key === walk.materialKey && line.offer_key === walk.offerKey) : null;
   const line = pinned || lines[0];
@@ -445,11 +458,17 @@ function buyWalkLine(data, walk) {
 }
 
 // The walk after an answer: matches, differs, added ({ stockId }), closed, saved, skipped
-// or stop (null: the walk ends; lines not handled stay on the way).
+// or stop (null: the walk ends; lines not handled stay on the way). differs, saved and
+// skipped take { line }, the line answered (saved and skipped default to the pinned line).
 function buyWalkNext(walk, answer, detail = {}) {
   if (!walk || answer === "stop") return null;
   const next = { ...walk, stage: "check", materialKey: null, offerKey: null, stockId: null, note: "" };
-  if (answer === "differs" || answer === "saved" || answer === "skipped") return { ...next, done: walk.done + 1 };
+  if (answer === "differs" || answer === "saved" || answer === "skipped") {
+    const key = detail.line ? buyLineKey(detail.line.material_key, detail.line.offer_key)
+      : walk.materialKey ? buyLineKey(walk.materialKey, walk.offerKey) : null;
+    const answered = [...(walk.answered || []), ...(key ? [key] : [])];
+    return { ...next, done: walk.done + 1, answered };
+  }
   if (answer === "matches") {
     return { ...next, stage: "stock", materialKey: detail.line.material_key, offerKey: detail.line.offer_key };
   }
@@ -465,7 +484,9 @@ function buyWalkView(data, walk) {
   const step = buyWalkLine(data, walk);
   if (!step) return null;
   const { group, line, number, total, stage } = step;
-  const form = line.form && line.form !== "neat" ? `, ${line.form}` : "";
+  // What the label should say: "neat", "10% in DPG", or "strength unknown" for a code
+  // PW lists as neat with no strength in the price index.
+  const form = buyIsNeat(line) ? ", neat" : line.form === "neat" ? ", strength unknown" : line.form ? `, ${line.form}` : "";
   return {
     shop: group.shop,
     orderId: group.order_id,
@@ -1033,7 +1054,7 @@ function attachBuyList({ doc, root, request, notify = () => {}, openStockAdd = n
     const { group, line } = step;
     if (answer === "differs") {
       await post({ events: [buyOrderStateEvent(group, line, "NOT_THIS")] });
-      view.walk = buyWalkNext(view.walk, "differs");
+      view.walk = buyWalkNext(view.walk, "differs", { line });
       notify(`Saved: not this ${line.material}. Back on Buy first.`);
       await load();
     } else if (answer === "matches") {
@@ -1059,7 +1080,7 @@ function attachBuyList({ doc, root, request, notify = () => {}, openStockAdd = n
         await request("/v2/workbench/stock-prices", { method: "POST", body: JSON.stringify(body) });
       }
       await post({ events: [buyOrderStateEvent(group, line, "ARRIVED")] });
-      view.walk = buyWalkNext(view.walk, answer === "save" ? "saved" : "skipped");
+      view.walk = buyWalkNext(view.walk, answer === "save" ? "saved" : "skipped", { line });
       notify(`Saved: ${line.material} arrived.`);
       await load();
     }

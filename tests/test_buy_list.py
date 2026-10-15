@@ -603,6 +603,18 @@ def test_a_pick_leaves_its_tier_once_ordered_and_comes_back_if_it_didnt_come(tmp
     assert tier_1(("2026-10-12", [_order("DIDNT_COME")])) == ["sandalwood oil"]
 
 
+def test_a_pick_made_after_the_bottle_arrived_is_listed(tmp_path):
+    # The March bottle arrived and was used up; October's review picks it again.
+    events = _events(
+        tmp_path,
+        ("2026-03-01", [_order("ORDERED")]),
+        ("2026-03-05", [_order("ARRIVED")]),
+        ("2026-10-14", [_decision("pick", "sandalwood oil", tier=1, dose="2%")]),
+    )
+    tier_1 = _build(_santal_needs(), events)["tiers"]["1"]
+    assert [row["material_key"] for row in tier_1] == ["sandalwood oil"]
+
+
 def test_a_pick_whose_offer_is_not_the_material_shows_no_price(tmp_path):
     review_price = {"amount": "450", "currency": "THB", "pack": "10 g", "observed_on": "2026-10-14"}
     events = _events(

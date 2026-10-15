@@ -396,7 +396,7 @@ def test_the_walk_moves_on_after_each_answer():
         };
     """)
 
-    assert result["start"]["text"] == ("1 of 3: Sandalwood oil S. album, PW 7WX21054, 5 g. "
+    assert result["start"]["text"] == ("1 of 3: Sandalwood oil S. album, PW 7WX21054, neat, 5 g. "
                                        "Check the label: form, strength and species.")
     assert result["start"]["stage"] == "check" and result["start"]["note"] == ""
     # Something differs: NOT_THIS takes the line off the way and the walk shows the next one.
@@ -483,3 +483,37 @@ def test_a_pick_without_its_offer_says_why_and_shows_no_price():
     text = _run(f"return m.buyPickText({json.dumps(pick)});")
     assert text == ("Sandalwood Oil, 2%: pick reason. Reviewed 15 Oct. "
                     "You said PW 3SW00003 is a different material, so this pick has no price.")
+
+
+# ---- second review: a 5-code sold as neat, and a stale page during the walk ----
+
+def test_a_pw_code_starting_with_5_listed_as_neat_is_not_prefilled_as_neat():
+    # PW lists some dilutions (codes starting with 5) as neat; the price index then gives
+    # no strength, so Kenny reads it off the label.
+    line = {**GROUP["lines"][0], "material_key": "jasmin x", "material": "Jasmin X", "offer_key": "pw:5JN09617",
+            "title": "Jasmin X", "form": "neat", "strength": None}
+    result = _run(f"""
+        const group = {json.dumps(GROUP)};
+        const line = {json.dumps(line)};
+        const data = {{ on_the_way: [{{ ...group, lines: [line] }}] }};
+        return {{ prefill: m.buyStockPrefill(group, line), text: m.buyWalkView(data, m.buyWalkStart(group)).text }};
+    """)
+    prefill = result["prefill"]
+    assert [prefill[key] for key in ("fraction_percent_decimal", "fraction_basis", "carrier", "physical_form",
+                                     "homogeneity")] == ["", "", "", "", ""]
+    assert prefill["supplier_sku"] == "5JN09617"
+    assert result["text"].startswith("1 of 1: Jasmin X, PW 5JN09617, strength unknown, 5 g.")
+
+
+def test_a_line_the_walk_answered_stays_answered_on_a_stale_page():
+    # Saved (or Something differs) went through but reading the list again failed, so the
+    # page still shows the sandalwood line: the walk must not offer it a second time.
+    result = _group_run("""
+        const santal = group.lines[0];
+        const added = m.buyWalkNext(m.buyWalkNext(m.buyWalkStart(group), "matches", { line: santal }), "added", { stockId: "s1" });
+        const saved = m.buyWalkNext(added, "saved", { line: santal });
+        const skipped = m.buyWalkNext(added, "skipped");
+        const differs = m.buyWalkNext(m.buyWalkStart(group), "differs", { line: santal });
+        return [saved, skipped, differs].map((walk) => m.buyWalkView(data, walk).text);
+    """)
+    assert [text.split(".")[0] for text in result] == ["2 of 3: Orris Concrete, PW 2IR00002, 10"] * 3
