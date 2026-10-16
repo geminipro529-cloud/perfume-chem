@@ -77,3 +77,49 @@ def test_alpha_methyl_ionone_74_80_is_not_recorded_as_aimi():
 @pytest.mark.parametrize("name", ALREADY_OWNED)
 def test_restocked_materials_stay_one_stock(name):
     assert [s.name for s in _owned()].count(name) == 1
+
+
+# The COAs MySkinRecipes emailed for the order (Kenny chose "Add them", 16 Oct 2026 07:54 UTC).
+COA_LOTS = {
+    "Isoraldeine 95": ("I0DN81", "1335-46-2", "2025-09-12"),
+    "Isoraldeine 70": ("3F2IT8", "1335-46-2", "2026-05-01"),
+    "Rum Ether": ("QI71T6", "8030-89-5", "2026-02-05"),
+    "Geranium Bourbon Essential Oil": ("RS8T01", "0-91-6", "2026-06-03"),
+    "Para-Acetanisole": ("K0DQ69", "100-06-1", "2025-11-26"),
+    "Sweet Orange Essential Oil": ("1RBCN3", None, "2026-02-26"),
+    "Cedarwood Texas EO": ("4ZPU51", "91722-61-1", "2026-05-17"),
+    "Delta Damascone": ("4VSQ2Q", "57378-68-4", "2026-01-29"),
+    "Rhodinol": ("4XG0CM", "6812-78-8", "2026-01-22"),
+    "Methyl Ionone": ("39KMUR", "127-42-4", "2025-11-29"),
+}
+
+
+@pytest.mark.parametrize("name", NEW)
+def test_each_new_stock_carries_its_coa_lot_cas_and_dates(name):
+    product = _records()[name]["supplier_product"]
+    lot, cas, tested = COA_LOTS[name]
+    assert product["lot"] == lot
+    assert product["cas_on_coa"] == cas
+    coa = product["coa"]
+    assert coa["test_date"] == tested
+    assert coa["expiry_date"] == str(int(tested[:4]) + 2) + tested[4:]
+    assert coa["flash_point_given"] is False
+
+
+def test_coa_data_does_not_assert_purity_or_change_the_stock():
+    for name, record in _records().items():
+        assert record["authority_limits"]["purity_assay_asserted"] is False, name
+        assert record["authority_limits"]["lot_from_supplier_coa"] is True, name
+        assert record["stock"]["fraction"] == 1.0, name
+
+
+def test_coa_problems_are_flagged_on_the_record():
+    records = _records()
+    damascone = records["Delta Damascone"]["supplier_product"]["coa"]
+    assert damascone["results_as_printed"]["assay"] == "96.91"
+    assert any("below the COA's own 98-100 spec" in flag for flag in damascone["flags"])
+    geranium = records["Geranium Bourbon Essential Oil"]["supplier_product"]["coa"]
+    assert any("not a valid CAS" in flag for flag in geranium["flags"])
+    ionone = records["Methyl Ionone"]
+    assert ionone["aliases"] == []
+    assert any("no AIMI alias" in flag for flag in ionone["supplier_product"]["coa"]["flags"])
