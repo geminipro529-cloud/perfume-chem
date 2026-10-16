@@ -127,3 +127,24 @@ def test_coa_problems_are_flagged_on_the_record():
     ionone = records["Methyl Ionone"]
     assert ionone["aliases"] == []
     assert any("no AIMI alias" in flag for flag in ionone["supplier_product"]["coa"]["flags"])
+
+
+def test_para_acetanisole_is_a_solid_not_a_neat_liquid():
+    # Kenny, 16 Oct 2026 08:28:26 UTC (Studio 1): "para-acetaniole i olid" (= is solid).
+    record = _records()["Para-Acetanisole"]
+    assert record["stock"]["physical_form"] == "solid_as_supplied"
+    assert record["stock"]["execution_scope"] == "WEIGHED_SOLID_OR_PREPARED_SOLUTION_ONLY"
+    assert record["authority_limits"]["physical_form_from_user_message"] is True
+    rows = [s for s in inventory.materialize_current_inventory().stocks if s.name == "Para-Acetanisole"]
+    assert len(rows) == 1
+    assert rows[0].physical_form == "solid_as_supplied"
+    assert rows[0].dilution == 1.0
+
+
+def test_rose_otto_10pct_is_mass_fraction_in_dpg_as_kenny_confirmed():
+    # Kenny, 16 Oct 2026 08:27:54 UTC (Studio 1), asked w/w or v/v: "eight/eight" (= weight/weight).
+    rows = [s for s in inventory.materialize_current_inventory().stocks if s.name == "Rose Otto Bulgarian"]
+    assert len(rows) == 1
+    assert rows[0].dilution == pytest.approx(0.1)
+    assert rows[0].fraction_basis == "mass_fraction"
+    assert rows[0].carrier == "dpg"

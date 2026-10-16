@@ -1365,6 +1365,13 @@ _PROFILE_ALIASES = {
     "coriander seed eo": "coriander essential oil",
     "bergamot eo": "citrus bergamia calabrian type iso 3520 midpoint profile",
     "blood orange sicilian": "orange peel eo",
+    # MySkinRecipes order 2199302 stocks (Kenny chose "Link them", 16 Oct 2026): labelled
+    # proxies onto the existing whole-oil profiles, not lot data. Bourbon geranium uses the
+    # geranium EO profile, the sweet orange the orange peel EO profile, and Texas cedar
+    # (Juniperus mexicana, thujopsene/cedrene/cedrol like Virginia) the cedarwood EO profile.
+    "geranium bourbon essential oil": "geranium eo",
+    "sweet orange essential oil": "orange peel eo",
+    "cedarwood texas eo": "cedarwood eo",
     "ylang": "ylang ylang eo (extra grade)",
     "cedarwood virginia": "cedarwood eo",
     "benzoin sumatra resinoid": "benzoin resinoid",

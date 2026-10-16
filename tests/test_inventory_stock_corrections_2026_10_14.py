@@ -154,6 +154,8 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Add Alpha Irone 5% in IPM to inventory",
         "25",
         "not 5",
+        "eight/eight",
+        "para-acetaniole i olid",
     ]
     superseded = [
         "INV-USER-20260830-010",

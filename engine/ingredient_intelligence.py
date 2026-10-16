@@ -1160,6 +1160,60 @@ _PROFILES: dict[str, dict] = {
         "clogp": 4.1,
         "synergies": ["Alpha Irone", "Orivone", "Hedione"],
     },
+    # 2026-10-16, Kenny's "Link them" card: MySkinRecipes order 2199302 stocks.
+    # Own entries, not aliases of Alpha-Isomethyl Ionone: Isoraldeine 70 and 95
+    # are different grades (engine/identity/resolver.py keeps them apart).
+    # Values are copied from existing engine data unless a source is named.
+    "Isoraldeine 95": {
+        "character": {"floral": 6, "powdery": 5, "woody": 3, "sweetness": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 206.33,
+        "vp": 0.80,
+        "vp_source": "Givaudan Isoraldeine 95 product page: 0.0080 hPa (temperature not stated)",
+        "clogp": 4.1,
+        "evidence": {
+            "character": {
+                "status": "COPIED_FROM_ENGINE_PROFILE",
+                "scope": "Copied from the Alpha-Isomethyl Ionone profile; not a sensory measurement of this lot.",
+            },
+            "mw": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "C14H22O methyl ionone isomers, 206.33 g/mol."},
+            "vp": {
+                "status": "SUPPLIER_VALUE_TEMPERATURE_NOT_STATED",
+                "reference_value_hpa": 0.0080,
+                "scope": "Givaudan figure for Isoraldeine 95; used as the 25 C value.",
+            },
+            "clogp": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Alpha-Isomethyl Ionone profile cLogP."},
+        },
+        "synergies": ["Alpha Irone", "Orivone", "Hedione"],
+    },
+    "Isoraldeine 70": {
+        "character": {"floral": 6, "powdery": 5, "woody": 3, "sweetness": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 206.33,
+        "vp": 0.40,
+        "clogp": 4.1,
+        "evidence": {
+            "character": {
+                "status": "COPIED_FROM_ENGINE_PROFILE",
+                "scope": (
+                    "Copied from the Alpha-Isomethyl Ionone profile. The MySkinRecipes COA for lot "
+                    "3F2IT8 reads 'green', density 0.960-0.970 and RI 1.510-1.520, which fit no methyl "
+                    "ionone grade: smell the bottle before trusting this profile."
+                ),
+            },
+            "mw": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "C14H22O methyl ionone isomers, 206.33 g/mol."},
+            "vp": {
+                "status": "COPIED_FROM_ENGINE_PROFILE",
+                "scope": "Alpha-Isomethyl Ionone profile value; no published figure for Isoraldeine 70.",
+            },
+            "clogp": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Alpha-Isomethyl Ionone profile cLogP."},
+        },
+        "synergies": ["Alpha Irone", "Orivone", "Hedione"],
+    },
     "Orivone": {
         "character": {"woody": 6, "powdery": 5, "floral": 3, "warmth": 2, "green": 1},
         "note": "heart",
@@ -1550,6 +1604,25 @@ _PROFILES: dict[str, dict] = {
         "mw": 204.40,
         "vp": 0.25,
         "clogp": 3.9,
+        "synergies": ["Iso E Super", "Vertofix", "Vetiver EO"],
+    },
+    # 2026-10-16, Kenny's "Link them" card: MySkinRecipes Cedarwood Texas EO
+    # (lot 4ZPU51, Juniperus mexicana). Own entry with the Cedarwood EO values.
+    "Cedarwood Texas EO": {
+        "character": {"woody": 8, "warmth": 2, "sweetness": 1},
+        "note": "base",
+        "role": "character",
+        "texture": "cocoon",
+        "mw": 204.40,
+        "vp": 0.25,
+        "clogp": 3.9,
+        "material_kind": "NATURAL_MIXTURE",
+        "evidence": {
+            "character": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Copied from the Cedarwood EO profile."},
+            "mw": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Cedarwood EO profile; a whole-oil proxy, not a single molecule."},
+            "vp": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Cedarwood EO profile; a whole-oil proxy, not a single molecule."},
+            "clogp": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Cedarwood EO profile."},
+        },
         "synergies": ["Iso E Super", "Vertofix", "Vetiver EO"],
     },
     "Cedarwood oil Virginia": {

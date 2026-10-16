@@ -214,6 +214,15 @@
       {
         "message_timestamp_utc": "2026-10-16T07:59:52Z",
         "text": "not 5"
+      },
+      {
+        "message_timestamp_utc": "2026-10-16T08:27:54Z",
+        "text": "eight/eight",
+        "context": "Answer to Studio 1's question 'is your Rose Otto 10% made w/w or v/v?': weight/weight. Rose Otto Bulgarian STK-078 already records 0.1 mass_fraction in DPG; no record change."
+      },
+      {
+        "message_timestamp_utc": "2026-10-16T08:28:26Z",
+        "text": "para-acetaniole i olid"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -261,7 +270,9 @@
     "tuberose_base_removed_20261016": true,
     "myskinrecipes_order_2199302_arrived_20261016": true,
     "myskinrecipes_order_2199302_coas_recorded_20261016": true,
-    "alpha_irone_25pct_ipm_added_20261016": true
+    "alpha_irone_25pct_ipm_added_20261016": true,
+    "para_acetanisole_solid_as_supplied_20261016": true,
+    "rose_otto_10pct_ww_user_confirmed_20261016": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -5123,14 +5134,14 @@
       "state": "OWNED",
       "category": "sweet / balsamic",
       "stock": {
-        "physical_form": "as_supplied",
+        "physical_form": "solid_as_supplied",
         "fraction": 1.0,
         "fraction_basis": "neat",
         "carrier": "",
         "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_CONFIRMED_ARRIVAL",
         "execution_basis": "USER_ARRIVAL_20261016_MSR_2199302_PARA_ACETANISOLE",
         "execution_ready": true,
-        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+        "execution_scope": "WEIGHED_SOLID_OR_PREPARED_SOLUTION_ONLY"
       },
       "supplier_product": {
         "supplier": "MySkinRecipes",
@@ -5170,9 +5181,10 @@
         "compounding_authorized": false,
         "safety_asserted": false,
         "release_authorized": false,
-        "lot_from_supplier_coa": true
+        "lot_from_supplier_coa": true,
+        "physical_form_from_user_message": true
       },
-      "note": "MySkinRecipes order #2199302, placed 15 Oct 2026 (Kenny posted it 08:14 UTC, 'Isomethyl ionone grades compared'). Kenny: 'Tell all chats that myskinrecipes chemicals arrived' (16 Oct 03:55:55 UTC, 'Formulation studio 3'). Neat as supplied, as MySkinRecipes lists it; the label, MSDS and COA are not transcribed here. Listed as 'Para-acetanisole', 5 g."
+      "note": "MySkinRecipes order #2199302, placed 15 Oct 2026 (Kenny posted it 08:14 UTC, 'Isomethyl ionone grades compared'). Kenny: 'Tell all chats that myskinrecipes chemicals arrived' (16 Oct 03:55:55 UTC, 'Formulation studio 3'). Neat as supplied, as MySkinRecipes lists it; the label, MSDS and COA are not transcribed here. Listed as 'Para-acetanisole', 5 g. Kenny, 16 Oct 08:28:26 UTC ('Studio 1'): 'para-acetaniole i olid' (= is solid). Dose it by weight or as a dilution he has made, never as neat microlitres; no 10% dilution is recorded until he says it is made."
     },
     {
       "record_id": "INV-USER-20261014-STK-112",
