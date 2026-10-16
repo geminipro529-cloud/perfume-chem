@@ -55,8 +55,9 @@ def test_new_dilutions_and_iris_products_are_not_collapsed() -> None:
     buccoxime = [stock for stock in stocks if stock.identity_name == "Buccoxime"]
     assert {(stock.dilution, stock.carrier) for stock in buccoxime} == {(1.0, ""), (0.1, "dpg")}
     ambrocenide = next(stock for stock in stocks if stock.identity_name == "Ambrocenide")
-    assert (ambrocenide.dilution, ambrocenide.fraction_basis, ambrocenide.carrier) == (0.1, "unspecified", "tec")
-    assert ambrocenide.execution_ready is False
+    # 2026-10-15: Kenny's w/w rule gives PerfumersWorld's 10% in TEC its basis.
+    assert (ambrocenide.dilution, ambrocenide.fraction_basis, ambrocenide.carrier) == (0.1, "mass_fraction", "tec")
+    assert ambrocenide.execution_ready is True
     butter = next(stock for stock in stocks if stock.identity_name == "Orris Concrete Orris Butter")
     assert butter.dilution == 0.1 and butter.carrier == "dpg"
     liquid = [stock for stock in stocks if stock.identity_name == "Orris Liquid"]
@@ -74,7 +75,8 @@ def test_received_kephalis_supersedes_absence_without_rewriting_history() -> Non
     assert any(record["canonical_name"] == "Kephalis" and record["state"] == "OWNED" for record in current["records"])
     admitted = [stock for stock in inventory.materialize_current_inventory().stocks if "user-20261007:" in stock.stock_id]
     # 2026-10-14: Kephalis (receipt line 23) left its intake hold in the v26 record.
-    assert len(admitted) == 42
+    # 2026-10-15: eleven PerfumersWorld dilutions were re-recorded w/w in the v26 record.
+    assert len(admitted) == 31
     assert all(stock.execution_ready is False for stock in admitted)
 
 

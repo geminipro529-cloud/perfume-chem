@@ -93,24 +93,22 @@ def test_confirmed_complete_stock_forms_are_execution_ready(
         ("Gamma Nonalactone", 0.1, "ethanol", "FRACTION_BASIS_UNSPECIFIED"),
     ],
 )
-def test_carrier_only_clarifications_preserve_missing_basis_holds(
+def test_carrier_only_clarifications_take_kennys_ww_rule(
     name: str,
     fraction: float,
     carrier: str,
     hold: str,
 ) -> None:
+    # These carried only a carrier until 2026-10-15, when Kenny's w/w-in-DPG rule
+    # (re-issued in the v26 record) gave them a basis; the old hold is gone.
     stock = _stock(name, fraction)
-    assert stock.fraction_basis == "unspecified"
+    assert stock.fraction_basis == "mass_fraction"
     assert stock.carrier == carrier
-    assert stock.execution_ready is False
-    assert stock.execution_hold_reason == hold
+    assert stock.execution_ready is True
+    assert stock.execution_hold_reason != hold
 
-    check = _preflight(name, fraction, "unspecified", carrier)
-    assert check.status == "FAIL"
-    assert check.data["issues"][0]["reason"] in {
-        "inventory_stock_non_executable",
-        "inventory_stock_metadata_incomplete",
-    }
+    assert _preflight(name, fraction, "mass_fraction", carrier).status == "PASS"
+    assert _preflight(name, fraction, "volume_fraction", carrier).status == "FAIL"
 
 
 # 2026-10-15: Kenny said benzoin 40% and frankincense 33% may be dosed at the
@@ -171,6 +169,8 @@ def test_optimizer_uses_only_executable_or_explicit_nominal_model_stocks() -> No
         "Turkish Storax Tincture": pytest.approx(0.2),
         "Vietnamese Benzoin Tincture": pytest.approx(0.4),
         "Methyl Pamplemousse": pytest.approx(0.1),
+        # 2026-10-15: the 1% in DPG is w/w under Kenny's rule, so it is executable.
+        "Skatole": pytest.approx(0.01),
     }
 
 

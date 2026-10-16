@@ -19,7 +19,34 @@ def temporary_logs(tmp_path, monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_an_unready_stock_gets_a_suggestion_and_a_ready_one_does_not(client):
+async def test_an_unready_stock_gets_a_suggestion_and_a_ready_one_does_not(client, monkeypatch):
+    # Kenny's w/w-in-DPG rule (2026-10-15) made both examples below ready, so they are
+    # put back to their state before the rule: same records, no basis, not ready.
+    from dataclasses import replace
+
+    from engine.personal_inventory import materialize_personal_inventory
+
+    from app.api.v1.endpoints import lab_lifecycle
+
+    real = materialize_personal_inventory()
+    pre_rule_carrier = {"Frangipani Absolute": "dpg", "Exaltolide": ""}
+
+    def before_the_rule(stock):
+        if stock.identity_name not in pre_rule_carrier or abs(stock.dilution - 0.1) > 1e-9:
+            return stock
+        return replace(
+            stock,
+            fraction_basis="unspecified",
+            carrier=pre_rule_carrier[stock.identity_name],
+            design_ready=False,
+            execution_ready=False,
+            design_hold_reason="FRACTION_BASIS_UNSPECIFIED",
+            execution_hold_reason="FRACTION_BASIS_UNSPECIFIED",
+        )
+
+    projection = replace(real, stocks=tuple(before_the_rule(s) for s in real.stocks))
+    monkeypatch.setattr(lab_lifecycle, "materialize_personal_inventory", lambda **_kwargs: projection)
+
     inventory = (await client.get(INVENTORY)).json()
     stocks = inventory["stocks"]
 

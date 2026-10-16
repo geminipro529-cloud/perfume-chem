@@ -1,6 +1,6 @@
-"""The four stocks Kenny marked ready on 24 Sep 2026 are design-ready (14 Oct 2026).
+"""The stocks Kenny marked ready on 24 Sep 2026 are design-ready (14 Oct 2026).
 
-Labdanum, Olibanum and Opoponax Resinoid and Tonka Bean Absolute have a
+Labdanum, Olibanum and Opoponax Resinoid have a
 confirmed strength, basis and carrier and wait only on bottle lot and
 preparation receipts. Kenny chose to let the composer design with them. Mixing
 still waits on those receipts: the release gate keeps flagging each one.
@@ -17,11 +17,12 @@ USER_READY = {
     "Labdanum Resinoid": 0.1,
     "Olibanum Resinoid": 0.5,
     "Opoponax Resinoid": 0.5,
-    "Tonka Bean Absolute": 0.1,
+    # Tonka Bean Absolute left on 2026-10-15: it is PerfumersWorld's own 10% in DPG,
+    # so it has no preparation to receipt and is ready to mix.
 }
 
 
-def test_the_four_user_ready_stocks_are_design_ready():
+def test_the_user_ready_stocks_are_design_ready():
     stocks = materialize_personal_inventory().stocks
     held = {
         (stock.identity_name, stock.dilution): stock

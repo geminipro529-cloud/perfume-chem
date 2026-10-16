@@ -45,7 +45,8 @@ def test_v17_overlay_remains_pinned_to_its_historical_receipt_and_inventory() ->
     ("identity_name", "fraction", "carrier"),
     [
         ("Labdanum Resinoid", 0.1, "dpg"),
-        ("Tonka Bean Absolute", 0.1, "dpg"),
+        # Tonka Bean Absolute left this list on 2026-10-15: it is PerfumersWorld's own
+        # 10% in DPG, so it has no preparation to receipt.
         ("Olibanum Resinoid", 0.5, "dpg"),
         ("Opoponax Resinoid", 0.5, "dep"),
     ],

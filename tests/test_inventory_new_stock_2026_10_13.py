@@ -99,8 +99,12 @@ def test_ginger_lily_strength_is_recorded_as_supplied_not_as_stated() -> None:
 
 
 def test_existing_exaltolide_10pct_stocks_are_unchanged() -> None:
-    tens = {stock.stock_id for stock in _stocks("Exaltolide") if stock.dilution == 0.1}
-    assert tens == V5_EXALTOLIDE_10_STOCK_IDS
+    tens = [stock for stock in _stocks("Exaltolide") if stock.dilution == 0.1]
+    # 2026-10-15: the two V5 10% rows are one bottle (inventory.txt L258), re-recorded
+    # as one 10% w/w in DPG stock under Kenny's rule; the neat bottle replaced neither.
+    (ten,) = tens
+    assert ten.source_rows == (106, 107)
+    assert (ten.fraction_basis, ten.carrier) == ("mass_fraction", "dpg")
 
 
 @pytest.mark.parametrize("name", list(RECORDS.values()))

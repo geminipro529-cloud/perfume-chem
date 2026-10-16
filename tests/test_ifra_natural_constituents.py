@@ -199,15 +199,18 @@ def test_optimizer_repairs_a_natural_driven_constituent_total():
         min_confidence_score=0.0,
         audit_enabled=False,
     )
-    # Tonka has no IFRA standard of its own; the coumarin it carries (Annex I, 46.7 %)
-    # takes the coumarin total over 1.5 %, so only the constituent total can fail.
+    # Cinnamon bark oil has no IFRA standard of its own; the cinnamal it carries
+    # (Annex I, up to 95 %) takes the cinnamal total over its limit, so only the
+    # constituent total can fail. (Tonka Bean Absolute, the earlier example, is a 10%
+    # stock that is now ready to dose, so its coumarin is counted at 10% strength and
+    # can no longer reach 1.5 %.)
     raw_pct = {
         "Hedione": 25.0,
         "Iso E Super": 25.0,
         "Zenolide": 12.0,
         "Linalool": 8.0,
         "Phenyl Ethyl Alcohol": 10.0,
-        "Tonka Bean Absolute": 20.0,
+        "Cinnamon Bark EO (Telvada)": 2.0,
     }
     pool = {"Iso E Super": 2.0, "Hedione": 1.0}
 
@@ -215,20 +218,20 @@ def test_optimizer_repairs_a_natural_driven_constituent_total():
         return {g.gate: g for g in result.gate_report.gates}["safety_ifra_allergen"]
 
     start = optimize_until_release_ready(
-        "Tonka Constituent Test", raw_pct, config=config, repair_pool=pool, max_passes=0
+        "Cinnamon Constituent Test", raw_pct, config=config, repair_pool=pool, max_passes=0
     )
     assert safety(start).status == "FAIL"
     assert [v["material"] for v in safety(start).data["headroom_violations"]] == [
-        "IFRA_STD_023_constituents"
+        "IFRA_STD_018_constituents"
     ]
 
     result = optimize_until_release_ready(
-        "Tonka Constituent Test", raw_pct, config=config, repair_pool=pool
+        "Cinnamon Constituent Test", raw_pct, config=config, repair_pool=pool
     )
     caps = [a for a in result.repair_actions if a.action == "cap_ifra_finished_product_limit"]
     assert safety(result).status != "FAIL"
-    assert {a.material for a in caps} == {"Tonka Bean Absolute"}
+    assert {a.material for a in caps} == {"Cinnamon Bark EO (Telvada)"}
     total = next(
-        t for t in safety(result).data["constituent_totals"] if t["standard"] == "IFRA_STD_023"
+        t for t in safety(result).data["constituent_totals"] if t["standard"] == "IFRA_STD_018"
     )
     assert total["total_pct"] <= total["limit_pct"]

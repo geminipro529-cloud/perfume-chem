@@ -129,7 +129,8 @@ def test_crosswalk_semantic_drift_aborts(
     [
         ("Bergamot FCF EO", 1.0, "", "IDCL-005", 42, "inventory:v5:"),
         ("Blood Orange EO", 1.0, "", "IDCL-006", 50, "inventory:v5:"),
-        ("Coffee Absolute 10%", 0.10, "dpg", "IDCL-010", 80, "inventory:v5:"),
+        # 2026-10-15: re-recorded w/w in DPG under Kenny's rule.
+        ("Coffee Absolute 10%", 0.10, "dpg", "IDCL-010", 80, "inventory:user-20261014:"),
         ("Grapefruit FCF EO", 1.0, "", "IDCL-012", 123, "inventory:v5:"),
         ("Himalayan Cedarwood EO", 1.0, "", "IDCL-013", 63, "inventory:v5:"),
         ("Lemon FCF EO", 1.0, "", "IDCL-014", 158, "inventory:v5:"),
@@ -168,9 +169,9 @@ def test_old_opoponax_alias_does_not_infer_a_new_prepared_stock() -> None:
     assert "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING" in current.data["issues"][0]["execution_holds"]
 
 
-def test_neat_2_acetyl_pyrazine_binds_while_one_percent_remains_held() -> None:
+def test_neat_and_one_percent_2_acetyl_pyrazine_bind_separately() -> None:
     neat = _dilution_consistency_check(_formula("2-Acetyl Pyrazine", 1.0))
-    held = _dilution_consistency_check(_formula("2-Acetyl Pyrazine 1%", 0.01))
+    one = _dilution_consistency_check(_formula("2-Acetyl Pyrazine 1%", 0.01))
 
     assert neat.status == "PASS"
     assert neat.data["matched_stocks"][0]["source_rows"] == [6]
@@ -178,22 +179,21 @@ def test_neat_2_acetyl_pyrazine_binds_while_one_percent_remains_held() -> None:
     assert neat.data["matched_stocks"][0]["fraction_basis"] == "neat"
     assert neat.data["matched_stocks"][0]["carrier"] == ""
 
-    assert held.status == "FAIL"
-    issue = held.data["issues"][0]
-    assert issue["reason"] == "inventory_stock_non_executable"
-    assert issue["identity_crosswalk_contract_id"] == "IDCL-001"
-    assert 6 in issue["source_rows"]
+    # 2026-10-15: Kenny's w/w rule gives the 1% in DPG its basis, so it binds too.
+    assert one.status == "PASS", one.data.get("issues")
+    assert one.data["matched_stocks"][0]["identity_crosswalk_contract_id"] == "IDCL-001"
+    assert one.data["matched_stocks"][0]["fraction"] == pytest.approx(0.01)
+    assert one.data["matched_stocks"][0]["source_rows"] == [6]
 
 
 @pytest.mark.parametrize(
     ("material", "fraction", "reason", "contract_id", "source_row"),
     [
-        ("2-Acetyl Pyrazine 1%", 0.01, "inventory_stock_non_executable", "IDCL-001", 6),
         ("AAG 10%", 0.10, "preparation_required", "IDCL-002", 7),
-        ("Allyl Amyl Glycolate 10%", 0.10, "preparation_required", "IDCL-003", 7),
         ("Cedrat FCF EO", 1.0, "inventory_gap", "IDCL-007", 66),
-        ("Cocoa CO2 7.7%", 0.077, "inventory_stock_metadata_incomplete", "IDCL-009", 79),
-        ("Ethyl Maltol 10%", 0.10, "inventory_stock_metadata_incomplete", "IDCL-011", 266),
+        # 2026-10-15: Kenny's w/w rule gave these two stocks their basis.
+        ("Cocoa CO2 7.7%", 0.077, None, "IDCL-009", 79),
+        ("Ethyl Maltol 10%", 0.10, None, "IDCL-011", 266),
         ("Peru Balsam 50%", 0.50, None, "IDCL-016", 201),
         ("Ylang Complete EO", 1.0, "inventory_stock_unavailable", "IDCL-018", 251),
     ],

@@ -73,8 +73,9 @@ def test_ethyl_maltol_one_and_ten_percent_are_separate_stocks() -> None:
     assert (one.dilution, ten.dilution) == (0.01, 0.1)
     assert one.stock_id != ten.stock_id
     assert "Ethyl Maltol 1% + 10%" not in by_name
-    # The 10% bottle's basis and carrier are still unconfirmed.
-    assert ten.execution_ready is False
+    # 2026-10-15: Kenny's w/w-in-DPG rule gives the 10% bottle its basis and carrier.
+    assert (ten.fraction_basis, ten.carrier) == ("mass_fraction", "dpg")
+    assert ten.execution_ready is True
 
 
 def test_composer_refuses_a_stock_whose_label_names_two_strengths() -> None:

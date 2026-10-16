@@ -286,10 +286,11 @@ def test_returned_inventory_reads_the_log_it_wrote(dilution_log, tmp_path) -> No
 def test_unspecified_parent_basis_is_refused_before_the_basis_change_message(
     dilution_log,
 ) -> None:
-    adoxal = _stock("Adoxal", 0.1)
-    assert adoxal.fraction_basis == "unspecified" and adoxal.execution_ready is True
+    # Adoxal 10% was the example until Kenny's 2026-10-15 w/w rule gave it a basis.
+    javanol = _stock("Javanol", 0.2)
+    assert javanol.fraction_basis == "unspecified" and javanol.execution_ready is True
     with pytest.raises(PreparedDilutionError, match="concentration basis isn't recorded"):
-        _prepare("adoxal-1", parent_stock_id=adoxal.stock_id)
+        _prepare("javanol-1", parent_stock_id=javanol.stock_id)
     assert not dilution_log.exists()
 
 

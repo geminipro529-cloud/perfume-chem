@@ -30,13 +30,13 @@ from scripts.format_pipeline_analysis import (
 from scripts.formula_release_gate import parse_formula_markdown
 
 ROOT = Path(__file__).resolve().parents[1]
+# 2026-10-15: Aldehyde C11 1% left these sets once Kenny's w/w-in-DPG rule gave it a basis.
 PRADA_CASES = (
     (
         ROOT / "formulas" / "Prada_LHomme_Architecture_Control_30mL_EdT.md",
         {
             ("Bourgeonal", "stock_fraction_mismatch"),
             ("Neroli EO", "stock_carrier_mismatch"),
-            ("Aldehyde C11", "inventory_stock_metadata_incomplete"),
             ("Ambrofix", "inventory_gap"),
         },
     ),
@@ -47,7 +47,6 @@ PRADA_CASES = (
             ("Alpha Irone", "inventory_gap"),
             ("Bourgeonal", "stock_fraction_mismatch"),
             ("Neroli EO", "stock_carrier_mismatch"),
-            ("Aldehyde C11", "inventory_stock_metadata_incomplete"),
             ("Ambrofix", "inventory_gap"),
         },
     ),

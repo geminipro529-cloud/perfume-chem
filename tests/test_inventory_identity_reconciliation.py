@@ -309,7 +309,8 @@ def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> 
         "myrrh eo": (0.50, "mass_fraction", "dpg"),
         # 2026-10-08: Kenny confirmed the Osmanthus dilution is w/w (v22 overlay).
         "osmanthus absolute": (0.10, "mass_fraction", "dpg"),
-        "rose de mai absolute": (0.10, "unspecified", "dpg"),
+        # 2026-10-15: Kenny's w/w-in-DPG rule gives the 10% its basis.
+        "rose de mai absolute": (0.10, "mass_fraction", "dpg"),
         "clearwood": (1.0, "neat", ""),
         "alpha isomethyl ionone": (1.0, "neat", ""),
         "red mandarin eo": (1.0, "neat", ""),
@@ -328,7 +329,7 @@ def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> 
             else "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924"
             if identity == "opoponax resinoid"
             else "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014"
-            if identity == "myrrh eo"
+            if identity in {"myrrh eo", "rose de mai absolute"}
             else INHERITED_USER_AUTHORITY
         )
 
@@ -706,7 +707,8 @@ def test_v5_preserves_beta_ionone_multiple_stocks_and_preparation_state() -> Non
 
     assert {row.dilution for row in beta} == {1.0, 0.001}
     assert len({row.stock_id for row in beta}) == 2
-    assert next(row for row in beta if row.dilution == pytest.approx(0.001)).execution_ready is False
+    # 2026-10-15: the 0.1% in TEC has a basis (Kenny's w/w rule), so it is ready.
+    assert next(row for row in beta if row.dilution == pytest.approx(0.001)).execution_ready is True
     assert any(
         row.requested_fraction == pytest.approx(0.01)
         and row.disposition == "PREPARATION_REQUIRED"

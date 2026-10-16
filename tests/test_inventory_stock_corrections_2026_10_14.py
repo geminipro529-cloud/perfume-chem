@@ -124,6 +124,29 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Citronellal acetate is neat. Ambrettolide is neat but can be diluted if must.",
         "I have neryl acetate",
         "it is neat",
+        # 2026-10-15 evening: the Tonka source, the w/w-in-DPG rule card and the
+        # one-by-one bottle answers.
+        "Tonka Bean Absolute 10% in DPG comes directly from PW (also diluted by PW)",
+        "Load the rule",
+        "I only have the 10%, the other is volume grade and not so good, and the other is tubrrlia base",
+        "Yes",
+        "Yes",
+        "I have both",
+        "Yes",
+        "Neat",
+        "Yes neat",
+        "Yes it is neat. I also have cis jasmone neat, should I dilute it to 10% in DPG? "
+        "What should I dilute it to?",
+        "Add cis-3-hexenol to inventory, does Chimie need this?",
+        "It is diluted to 1% In EtOH",
+        "Yes, ad ye",
+        "yes, it is neat",
+        "YEs it is",
+        "Yes",
+        "Ssdiy",
+        "Just remove it",
+        "Leather",
+        "I dont have a tuberose base, only a cheap tuberose extract with methyl benzoate smell",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -136,6 +159,15 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "INV-USER-20260915-STOCK-016",
         "INV-USER-20260924-R5-018",
         "INV-USER-20260924-R5-013",
+        # 2026-10-15 evening: records whose basis was unrecorded, re-issued w/w under
+        # Kenny's rule, and the Tonka receipt hold.
+        "INV-USER-20260915-STOCK-005",
+        "INV-USER-20260915-STOCK-006",
+        "INV-USER-20260915-STOCK-012",
+        "INV-USER-20260828-007",
+        *(f"INV-USER-20261007-PW-{n:03d}" for n in (1, 8, 21, 22, 25, 26, 27, 36, 49, 52, 53)),
+        "INV-USER-20260830-009",
+        "INV-USER-20260924-R5-019",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
@@ -144,6 +176,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 107)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired
