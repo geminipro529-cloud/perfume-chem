@@ -160,10 +160,11 @@ async def test_current_project_inventory_is_primary_and_not_reentered(client):
         stock["normalized_identity"] == "ambrox super crystals"
         for stock in payload["stocks"]
     )
-    # Sandalwood Base X3 was the example here until it entered the gate's stock
-    # list on 2026-10-14; Clove EO is still recovered only from inventory.txt.
+    # Sandalwood Base X3 (2026-10-14) and Clove EO (2026-10-15) were the examples
+    # here until they entered the gate's stock list; Champaca Flower EO is still
+    # recovered only from inventory.txt.
     assert any(
-        stock["identity_name"] == "Clove EO (India)"
+        stock["identity_name"] == "Champaca Flower EO"
         and stock["source_class"] == "LIVE_INVENTORY_TEXT"
         for stock in payload["stocks"]
     )

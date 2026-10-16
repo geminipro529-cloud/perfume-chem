@@ -41,18 +41,19 @@ def test_projection_recovers_live_owned_rows_and_aliases(tmp_path: Path) -> None
         addition_path=tmp_path / "additions.jsonl"
     )
 
-    # Sandalwood Base X3 was the example here until it entered the gate's stock
-    # list on 2026-10-14; Clove EO is still recovered only from inventory.txt.
-    clove = [
+    # Sandalwood Base X3 (2026-10-14) and Clove EO (2026-10-15) were the examples
+    # here until they entered the gate's stock list; Champaca Flower EO is still
+    # recovered only from inventory.txt.
+    champaca = [
         stock
         for stock in projection.stocks
-        if names_match(stock.identity_name or stock.name, "Clove EO")
+        if names_match(stock.identity_name or stock.name, "Champaca Flower EO")
     ]
-    assert len(clove) == 1
-    assert clove[0].identity_name == "Clove EO (India)"
-    assert clove[0].authority == "LEGACY_INVENTORY_TEXT_DESIGN_ONLY"
-    assert clove[0].design_ready is True
-    assert clove[0].execution_ready is False
+    assert len(champaca) == 1
+    assert champaca[0].identity_name == "Champaca Flower EO"
+    assert champaca[0].authority == "LEGACY_INVENTORY_TEXT_DESIGN_ONLY"
+    assert champaca[0].design_ready is True
+    assert champaca[0].execution_ready is False
     assert sum(
         stock.authority == "LEGACY_INVENTORY_TEXT_DESIGN_ONLY"
         for stock in projection.stocks

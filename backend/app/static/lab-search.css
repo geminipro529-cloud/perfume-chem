@@ -1,0 +1,59 @@
+/* Search (lab-search.js) and the stock row it finds. */
+
+/* The Search button heads the list of views. */
+.rail .lab-search-open { box-sizing: border-box; justify-content: space-between; gap: 8px; width: 100%; margin: 0 0 8px; padding: 0 12px; }
+.lab-search-open kbd {
+  padding: 3px 5px; color: var(--muted); font-size: 12px; line-height: 1;
+  border: 1px solid var(--line); border-radius: 4px;
+}
+
+.lab-search {
+  box-sizing: border-box; width: min(640px, calc(100vw - 32px)); max-height: calc(100vh - 96px);
+  margin: 72px auto auto; padding: 16px; overflow: auto;
+  color: var(--ink); background: var(--paper-high);
+  border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 12px 40px rgba(0, 0, 0, .25);
+}
+.lab-search::backdrop { background: rgba(27, 38, 49, .45); }
+.lab-search-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.lab-search-head h2 { margin: 0; font: 600 18px/1.2 var(--font-ui); }
+.lab-search-close { min-height: 40px; padding: 0 12px; }
+#lab-search-input { box-sizing: border-box; width: 100%; min-height: 44px; font-size: 16px; }
+.lab-search-status { margin: 8px 0; color: var(--muted); font-size: 14px; }
+.lab-search-status.is-error { color: var(--red); }
+.lab-search-group h3 {
+  margin: 14px 0 4px; color: var(--muted);
+  font: 600 13px/1.2 var(--font-ui); letter-spacing: .04em; text-transform: uppercase;
+}
+.lab-search-list { margin: 0; padding: 0; list-style: none; }
+.lab-search-row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px;
+  padding: 4px 0; border-top: 1px solid var(--line-soft);
+}
+.lab-search-main {
+  display: flex; flex: 1 1 220px; flex-direction: column; align-items: flex-start; gap: 2px;
+  min-width: 0; min-height: 44px; padding: 6px 8px;
+  color: var(--ink); background: transparent; text-align: left;
+  border: 1px solid transparent; border-radius: 6px; cursor: pointer; font: inherit;
+}
+.lab-search-main:hover, .lab-search-main:focus-visible { background: var(--surface-2); border-color: var(--line); }
+.lab-search-main:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 1px; }
+.lab-search-name { font-weight: 600; overflow-wrap: anywhere; }
+.lab-search-detail { color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
+.lab-search-actions { display: flex; flex-wrap: wrap; gap: 4px; }
+.lab-search-actions .quiet-button { padding: 0 12px; }
+.lab-search-keys { margin-top: 12px; }
+
+/* The stock row a search opened. */
+.stock-table tr.is-found td { background: var(--info-bg); }
+.stock-table tr.is-found:focus { outline: 3px solid var(--focus-ring); outline-offset: -3px; }
+
+@media (max-width: 760px) {
+  /* On a phone the views scroll sideways; Search stays at the left edge. */
+  .rail .lab-search-open {
+    position: sticky; left: 0; z-index: 1; flex: 0 0 auto; width: auto; margin: 0 6px 0 0;
+    background: var(--paper-high);
+  }
+  .lab-search-open kbd, .lab-search-keys { display: none; }
+  .lab-search-close { min-height: 44px; }
+  .lab-search { margin-top: 16px; max-height: calc(100vh - 32px); }
+}

@@ -86,6 +86,30 @@
       {
         "message_timestamp_utc": "2026-10-15T05:17:51Z",
         "text": "it is mixed"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T15:33:28Z",
+        "text": "8. 10% 9. unknown'10. yes 11. not sure but very high ethyl benzoate smell not good\\"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T15:40:49Z",
+        "text": "1. yes 2. no idea, its neat 3. DPG 3. Check Sandalwood EO 10% in DPG on PW 5. the incoming one will be sweet orange, but sour version from china. 6. Yes. Javanol has both neat and 20%, . Ambretteolide is neat but you tell me if you need a solitin prepared. 7 do it"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T16:25:27Z",
+        "text": "I have geranyl acetate and citronellyl acetate as well"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T17:04:34Z",
+        "text": "Citronellal acetate is neat. Ambrettolide is neat but can be diluted if must."
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T17:07:37Z",
+        "text": "I have neryl acetate"
+      },
+      {
+        "message_timestamp_utc": "2026-10-15T17:12:39Z",
+        "text": "it is neat"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Only Paradisamide uses a default (w/w, DPG): Kenny gave the strength and carrier or 'neat' for every other bottle."
@@ -113,7 +137,17 @@
     "benzoin_and_frankincense_tinctures_dosed_at_built_strength": true,
     "cedrat_receipt_hold_cleared": true,
     "red_saffron_infusion_added_as_supplied": true,
-    "alpha_damascone_10pct_dpg_mixed": true
+    "alpha_damascone_10pct_dpg_mixed": true,
+    "damascol_10pct_dpg_owned": true,
+    "cade_oil_rectified_1pct_dpg_added": true,
+    "sandalwood_eo_is_pw_10pct_dpg_species_unconfirmed": true,
+    "javanol_neat_added": true,
+    "costus_olifac_10pct_dpg": true,
+    "clove_eo_india_added_neat_part_unknown": true,
+    "freesia_hdi_is_pw_freesia_hdl": true,
+    "geranyl_acetate_receipt_hold_cleared": true,
+    "citronellyl_acetate_added_neat": true,
+    "neryl_acetate_added_neat": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -124,7 +158,8 @@
     "INV-USER-20260906-001",
     "INV-USER-20260915-STOCK-014",
     "INV-USER-20260915-STOCK-016",
-    "INV-USER-20260924-R5-018"
+    "INV-USER-20260924-R5-018",
+    "INV-USER-20260924-R5-013"
   ],
   "records": [
     {
@@ -1143,6 +1178,422 @@
         "release_authorized": false
       },
       "note": "Asked 'Is your Aurantiol neat, 10% in DPG, or both?', Kenny answered 'Both'. This puts his word on the V5 row 254 10% in DPG stock (strength and carrier as the workbook had them; basis the project default, w/w), beside the neat bottle STK-018. inventory.txt lists only neat and is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-025",
+      "canonical_name": "Damascol",
+      "aliases": [
+        "Damascol 10%"
+      ],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "INVENTORY_TEXT_STRENGTH_USER_CONFIRMED_OWNED_USER_CARRIER_RULE_PROJECT_DEFAULT_BASIS",
+        "execution_basis": "USER_ANSWER_20261015_DAMASCOL_10PCT_OWNED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "1. yes 2. no idea, its neat 3. DPG 3. Check Sandalwood EO 10% in DPG on PW 5. the incoming one will be sweet orange, but sour version from china. 6. Yes. Javanol has both neat and 20%, . Ambretteolide is neat but you tell me if you need a solitin prepared. 7 do it",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_inventory_text_line": true,
+        "carrier_from_user_dpg_rule_20261014": true,
+        "basis_is_project_default": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked 'Damascol 10%: do you own it? (yes / no)', Kenny answered 'yes' (item 1 of his 15 Oct 15:40 reply). The 10% is inventory.txt L154 'Damascol (10%)'; the carrier is his 14 Oct rule 'All the Damascones, etc stock dilution bases are in DPG'; the basis is the project default (w/w). The neat V5 stock (row 277) is unchanged."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-026",
+      "canonical_name": "Cade Oil Rectified",
+      "aliases": [
+        "Cade Oil Rectified 1%",
+        "Cade Oil Rectified 1% in DPG"
+      ],
+      "state": "OWNED",
+      "category": "leather / smoky / phenolic",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "INVENTORY_TEXT_STRENGTH_EXPLICIT_USER_CARRIER_PROJECT_DEFAULT_BASIS",
+        "execution_basis": "USER_ANSWER_20261015_CADE_OIL_RECTIFIED_1PCT_IN_DPG",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "1. yes 2. no idea, its neat 3. DPG 3. Check Sandalwood EO 10% in DPG on PW 5. the incoming one will be sweet orange, but sour version from china. 6. Yes. Javanol has both neat and 20%, . Ambretteolide is neat but you tell me if you need a solitin prepared. 7 do it",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_inventory_text_line": true,
+        "carrier_from_user_message": true,
+        "basis_is_project_default": true,
+        "rectified_grade_from_inventory_text_line": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked 'Cade Oil Rectified 1%: what is it diluted in? (DPG / ethanol / other)', Kenny answered 'DPG' (his first item 3). The bottle is inventory.txt L319 'Cade Oil Rectified (1% in DPG)' (rectified Juniperus oxycedrus, the IFRA-permitted grade); the gate's stock list did not have it. The basis is the project default (w/w)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-027",
+      "canonical_name": "Sandalwood EO",
+      "aliases": [
+        "Sandalwood EO 10%",
+        "Sandalwood Essential Oil 10% in DPG"
+      ],
+      "state": "OWNED",
+      "category": "woods / amber",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_AND_CARRIER_USER_NAMED_SUPPLIER_PRODUCT_PROJECT_DEFAULT_BASIS",
+        "execution_basis": "USER_ANSWER_20261015_SANDALWOOD_EO_IS_PW_10PCT_IN_DPG_V5_ROW_221",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Sandalwood Essential Oil 10% in DPG",
+        "sku": "5WX12225",
+        "cas": "84787-70-2",
+        "botanical_species": "Santalum album likely; not stated by the supplier"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 221,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "1. yes 2. no idea, its neat 3. DPG 3. Check Sandalwood EO 10% in DPG on PW 5. the incoming one will be sweet orange, but sour version from china. 6. Yes. Javanol has both neat and 20%, . Ambretteolide is neat but you tell me if you need a solitin prepared. 7 do it",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_v5_stock_row": true,
+        "carrier_from_user_message": true,
+        "basis_is_project_default": true,
+        "supplier_from_user_message": true,
+        "sku_from_catalogue_match_not_user": true,
+        "botanical_species_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked for the species, Kenny answered 'Check Sandalwood EO 10% in DPG on PW' (his second item 3): the bottle is PerfumersWorld's 10% in DPG product. The catalogue match (SKU 5WX12225) gives CAS 84787-70-2, the CAS used for Santalum album, but PerfumersWorld's certificate names no species, so album is likely, not confirmed. This puts his word on the V5 row 221 stock (10% in DPG); the basis is the project default (w/w). The neat requirement on row 221 stays as it was."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-028",
+      "canonical_name": "Javanol",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods / amber / structure",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT_AND_20PCT_BOTH_OWNED",
+        "execution_basis": "USER_ANSWER_20261015_JAVANOL_NEAT_AND_20PCT_V5_ROW_149",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 149,
+          "disposition": "OWNED",
+          "status": "HAVE - NEAT / AS SUPPLIED (USER-CONFIRMED 2026-10-15); THE 20% IN DPG (ROW 150) IS ALSO OWNED",
+          "actual_stock_text": "Javanol neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "1. yes 2. no idea, its neat 3. DPG 3. Check Sandalwood EO 10% in DPG on PW 5. the incoming one will be sweet orange, but sour version from china. 6. Yes. Javanol has both neat and 20%, . Ambretteolide is neat but you tell me if you need a solitin prepared. 7 do it",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "supplier_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "The V5 workbook held neat Javanol (row 149, 'DO NOT USE - NEAT STOCK NOT CONFIRMED'). Kenny: 'Javanol has both neat and 20%' (item 6 of his 15 Oct 15:40 reply). This adds the neat bottle; the V5 row 150 Javanol 20% in DPG stock is unchanged."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-029",
+      "canonical_name": "Costus Olifac",
+      "aliases": [
+        "Costus Olifac 10%"
+      ],
+      "state": "OWNED",
+      "category": "leather / smoke",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_STRENGTH_INVENTORY_TEXT_CARRIER_PROJECT_DEFAULT_BASIS",
+        "execution_basis": "USER_ANSWER_20261015_COSTUS_OLIFAC_10PCT_V5_ROW_84",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 84,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "8. 10% 9. unknown'10. yes 11. not sure but very high ethyl benzoate smell not good\\",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_user_message": true,
+        "carrier_from_inventory_text_line": true,
+        "basis_is_project_default": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked 'Costus Olifac: neat or 1% in DPG? (PerfumersWorld sells it at 1%)', Kenny answered '10%' (item 8 of his 15 Oct 15:33 reply), as the V5 row 84 '10% working dilution' had it. The V5 row gave no basis or solvent, so the gate could not dose it. The carrier is inventory.txt L318 'Costus Olifac (10% in DPG)' and the project default; the basis is the project default (w/w)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-030",
+      "canonical_name": "Clove EO (India)",
+      "aliases": [
+        "Clove EO",
+        "Clove Essential Oil (India)"
+      ],
+      "state": "OWNED",
+      "category": "spice / aromatic",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "INVENTORY_TEXT_LINE_NEAT_USER_CONFIRMED_OWNED",
+        "execution_basis": "USER_ANSWER_20261015_CLOVE_EO_INDIA_PLANT_PART_UNKNOWN",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "8. 10% 9. unknown'10. yes 11. not sure but very high ethyl benzoate smell not good\\",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_inventory_text_line": true,
+        "plant_part_asserted": false,
+        "eugenol_content_asserted": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked 'Clove EO (India): bud, leaf or stem?', Kenny answered 'unknown' (item 9 of his 15 Oct 15:33 reply), which confirms he has it. The bottle is inventory.txt L340 'Clove EO (India)', listed with no dilution (neat); the gate's stock list did not have it. Bud, leaf and stem oils differ in eugenol and eugenyl acetate, so its IFRA limits must be read for the worst case until the part is known."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-031",
+      "canonical_name": "Freesia HDI",
+      "aliases": [
+        "Freesia HDL"
+      ],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "V5_PRODUCT_AS_SUPPLIED_USER_CONFIRMED_SUPPLIER_PRODUCT",
+        "execution_basis": "USER_ANSWER_20261015_FREESIA_HDI_IS_PW_FREESIA_HDL_V5_ROW_256",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Freesia HDL"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 256,
+          "disposition": "OWNED",
+          "status": "HAVE - PRODUCT BASIS, AS SUPPLIED (USER-CONFIRMED 2026-10-15 AS PERFUMERSWORLD FREESIA HDL)",
+          "actual_stock_text": "Freesia HDL (PerfumersWorld) as supplied; opaque product",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "8. 10% 9. unknown'10. yes 11. not sure but very high ethyl benzoate smell not good\\",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_product_from_user_message": true,
+        "composition_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked 'Is your Freesia HDI PerfumersWorld's Freesia HDL? (yes / no)', Kenny answered 'yes' (item 10 of his 15 Oct 15:33 reply). V5 row 256 had it as an owned product ('Freesia HDI as supplied') whose label was unread, so the gate could not dose it. It keeps Kenny's label name, which inventory.txt L135 and his cards use; the PerfumersWorld name is an alias. It is one product, dosed as supplied; its composition is not expanded (AGENTS.md Rule 4)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-032",
+      "canonical_name": "Geranyl Acetate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "DIRECT_USER_CORRECT_FORM_AND_READINESS_CONFIRMATION",
+        "execution_basis": "USER_STATEMENT_20261015_GERANYL_ACETATE_OWNED_RULE_6_NO_RECEIPT_NEEDED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "user_reported_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "I have geranyl acetate and citronellyl acetate as well",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'I have geranyl acetate and citronellyl acetate as well' (15 Oct, ionone thread). Geranyl Acetate was already owned neat (INV-USER-20260924-R5-013, his 24 Sep form confirmation; inventory.txt L157); its only hold was BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING, which AGENTS.md Rule 6 says a formula does not need, as with Cedrat (STK-021). Retires R5-013. Citronellyl Acetate is not recorded here: its strength is not yet known."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-033",
+      "canonical_name": "Citronellyl Acetate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT",
+        "execution_basis": "USER_ANSWER_20261015_CITRONELLYL_ACETATE_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_ADD_REQUEST",
+      "source_quote": "Citronellal acetate is neat. Ambrettolide is neat but can be diluted if must.",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "supplier_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'I have geranyl acetate and citronellyl acetate as well' (15 Oct 16:25, ionone thread), then, asked whether it is neat, 'Citronellal acetate is neat' (17:04): 'citronellal acetate' is his spelling of Citronellyl Acetate, the ester he named first. It was in neither inventory.txt nor the gate's stock list. His 'Ambrettolide is neat' matches the existing neat record; nothing changes for it."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-034",
+      "canonical_name": "Neryl Acetate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_NEAT",
+        "execution_basis": "USER_ANSWER_20261015_NERYL_ACETATE_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_ADD_REQUEST",
+      "source_quote": "it is neat",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_basis_from_user_message": true,
+        "supplier_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'I have neryl acetate' (15 Oct 17:07, ionone thread), then 'it is neat' (17:12, stock thread, his next message after it). It was in neither inventory.txt nor the gate's stock list."
     }
   ]
 }

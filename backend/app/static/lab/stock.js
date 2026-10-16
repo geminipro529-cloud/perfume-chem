@@ -1,7 +1,7 @@
 "use strict";
 
 // Stock page (Materials): the owned stock list, its filters, details, additions, and the material and stock forms.
-// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, boot.
+// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, search, boot.
 
 const STOCK_SOLVENT_UPPER = new Set(["dpg", "dep", "ipm", "tec", "bb", "pea"]);
 const STOCK_BASIS_WORDS = { mass_fraction: "w/w", volume_fraction: "v/v", mass_per_volume: "w/v" };
@@ -60,12 +60,17 @@ function stockStrengthLabel(stock) {
   return `${percent}${where}, w/w or v/v not stated`;
 }
 
-function stockNote(stock, status) {
-  if (status === "ready") return "";
-  // The hold marker is a hold, not a missing detail, so it is never listed here.
-  const sentences = (stock.missing_fields || []).filter((field) => field !== "USER_COMPOUNDING_HOLD").map((field) => (
+// What a stock still lacks, one sentence per detail. The hold marker is a
+// hold, not a missing detail, so it is never listed here.
+function stockNeedSentences(stock) {
+  return (stock.missing_fields || []).filter((field) => field !== "USER_COMPOUNDING_HOLD").map((field) => (
     STOCK_NEED_SENTENCES[String(field).toLowerCase()] || humanize(field)
   ));
+}
+
+function stockNote(stock, status) {
+  if (status === "ready") return "";
+  const sentences = stockNeedSentences(stock);
   if (!sentences.length) return status === "hold" ? "" : "Some details are missing";
   return sentences.length > 2 ? `${sentences.slice(0, 2).join(". ")}. And ${sentences.length - 2} more` : sentences.join(". ");
 }
@@ -490,23 +495,82 @@ function openInventoryCompletion(stock) {
 // with every filter cleared, and its details form opens when the Stock page can
 // complete it. Nothing is saved until Kenny confirms and saves, as always.
 function openStockEntry(stockId) {
+  const found = listOneStock(stockId);
+  if (!found) return;
+  if (found.stock.completion_available) {
+    openInventoryCompletion(found.stock);
+    return;
+  }
+  found.row?.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+// Shows one stock on the Stock page: every filter cleared and the list searched
+// for its name. Returns the stock and its row, or null when the list lacks it.
+function listOneStock(stockId) {
   const stock = (state.projectInventory?.stocks || []).find((item) => item.stock_id === stockId);
   navigate("materials");
   if (!stock) {
     notify("That stock is not on the Stock page's list. Reload the page and try again.", true);
-    return;
+    return null;
   }
   Object.assign(stockView, { filter: "all", solvent: "", basket: "" });
   const search = $("#project-inventory-search");
   search.value = stock.identity_name || stock.material || "";
   renderProjectInventory(search.value);
-  if (stock.completion_available) {
-    openInventoryCompletion(stock);
+  const row = [...$("#project-inventory-list").querySelectorAll("tr[data-stock-id]")].find((node) => node.dataset.stockId === stockId);
+  return { stock, row };
+}
+
+// Search (lab-search.js) shows one stock: its row is marked and takes the
+// keyboard, and nothing opens on its own.
+function showStockEntry(stockId) {
+  const row = listOneStock(stockId)?.row;
+  if (!row) return;
+  row.classList.add("is-found");
+  row.tabIndex = -1;
+  row.scrollIntoView({ block: "center" });
+  row.focus({ preventScroll: true });
+}
+
+const STOCK_EXPORT_HEADER = ["Material", "Stock", "Strength %", "Carrier", "Form", "Category", "Status", "What is missing", "Basket", "Price", "Note"];
+const STOCK_EXPORT_SOURCE_NOTE = { PERSONAL_ADDITION: "Added by you", PREPARED_DILUTION: "Your dilution" };
+
+// The whole stock list as sheet rows, whatever the filter shows, in the Stock
+// page's own words, with your price where you typed one.
+function stockExportLines(stocks, prices) {
+  const sorted = [...(stocks || [])].sort((a, b) => String(a.identity_name || a.material || "")
+    .localeCompare(String(b.identity_name || b.material || ""), undefined, { sensitivity: "base" }));
+  return [STOCK_EXPORT_HEADER, ...sorted.map((stock) => {
+    const status = stockStatus(stock);
+    const basket = stockBasketNumber(stock);
+    const price = (prices || {})[stock.stock_id];
+    return [
+      stock.identity_name || stock.material || "",
+      stockStrengthLabel(stock),
+      stock.fraction_percent_decimal ?? "",
+      stock.carrier || "",
+      stock.physical_form ? humanize(stock.physical_form) : "",
+      stock.category || "",
+      STOCK_STATUS_LABEL[status],
+      stockNeedSentences(stock).join(". "),
+      basket === null ? "" : basketName(basket),
+      price && typeof stockPriceLabel === "function" ? stockPriceLabel(price) : "",
+      STOCK_EXPORT_SOURCE_NOTE[stock.source_class] || "",
+    ];
+  })];
+}
+
+$("#inventory-download").addEventListener("click", () => {
+  const stocks = state.projectInventory?.stocks || [];
+  if (!stocks.length) {
+    notify("The stock list has not loaded yet. Reload the page and try again.", true);
     return;
   }
-  const row = [...$("#project-inventory-list").querySelectorAll("tr[data-stock-id]")].find((node) => node.dataset.stockId === stockId);
-  row?.scrollIntoView({ behavior: "smooth", block: "center" });
-}
+  const prices = typeof stockPricesCurrent === "function" ? stockPricesCurrent() : {};
+  const file = exportFileName("Stock list", "Stock list", exportToday());
+  exportDownload(document, file, stockExportLines(stocks, prices));
+  notify(`Downloaded ${file}: all ${stocks.length} stocks, whatever the filter shows.`);
+});
 
 $("#project-inventory-list").addEventListener("click", (event) => {
   const button = event.target.closest("[data-complete-stock]");

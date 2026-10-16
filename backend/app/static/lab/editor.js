@@ -2,7 +2,7 @@
 
 // Edit a formula page: a card, a paste or the Create draft in one editor you can
 // drive from the keyboard. The maths lives in formula-editor.js.
-// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, boot.
+// Loaded in index.html after the shared helper scripts, in this order: core, stock, improve, overview, create, editor, bench, bottles, experiments, perfumery, assistant, science, search, boot.
 
 const EDITOR_UNIT_NAMES = { uL: "µL", g: "grams", pct: "% of the liquid", parts: "parts per 1000 of the liquid" };
 const EDITOR_NOTE_WORDS = { "": "—", top: "Top", heart: "Heart", base: "Base" };
@@ -568,6 +568,20 @@ $("#editor-copy").addEventListener("click", async () => {
   }
 });
 
+// The rows as a CSV file: µL (mg for a solid) as the formula keeps them, and
+// each liquid's share. lab-export.js writes the file.
+$("#editor-download").addEventListener("click", () => {
+  const { name, rows } = editorNow();
+  const lines = exportEditorSheet(rows);
+  if (lines.length < 2) {
+    notify("There are no rows with a name to download yet.", true);
+    return;
+  }
+  const file = exportFileName(name, "Formula");
+  exportDownload(document, file, lines);
+  notify(`Downloaded ${file}. It opens in Excel or Google Sheets.`);
+});
+
 function syncEditorSourceFields() {
   const kind = $('#editor-source-form [name="source_kind"]').value;
   $("#editor-project-field").hidden = kind !== "PROJECT_FILE";
@@ -645,16 +659,32 @@ $("#editor-source-form").addEventListener("submit", (event) => {
   editorLoadFromForm(event.currentTarget);
 });
 
-// What can I make: a stock runs short, so open the saved formula's latest version
-// here with the stocks you own that are like it, to preview a swap.
-async function editorOpenSavedSwap(formulaId, stockId, material) {
+// Opens the latest version of a formula saved here (What can I make, Search);
+// true when it was loaded.
+async function editorOpenSaved(formulaId) {
   navigate("editor");
   const form = $("#editor-source-form");
   form.querySelector('[name="source_kind"]').value = "SAVED";
   syncEditorSourceFields();
   if (!editorPage.formulas?.some((formula) => formula.formula_id === formulaId)) await editorLoadFormulas();
   form.querySelector('[name="saved_formula"]').value = formulaId;
-  if (!(await editorLoadFromForm(form))) return;
+  return editorLoadFromForm(form);
+}
+
+// Search opens a project card file here; true when it was loaded.
+async function editorOpenCard(sourcePath) {
+  navigate("editor");
+  const form = $("#editor-source-form");
+  form.querySelector('[name="source_kind"]').value = "PROJECT_FILE";
+  syncEditorSourceFields();
+  form.querySelector('[name="project_formula_path"]').value = sourcePath;
+  return editorLoadFromForm(form);
+}
+
+// What can I make: a stock runs short, so open the saved formula's latest version
+// here with the stocks you own that are like it, to preview a swap.
+async function editorOpenSavedSwap(formulaId, stockId, material) {
+  if (!(await editorOpenSaved(formulaId))) return;
   const rows = editorNow().rows;
   const row = rows.find((item) => stockId && item.stockId === stockId)
     || rows.find((item) => editorNameKey(item.material) === editorNameKey(material));

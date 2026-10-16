@@ -12,7 +12,9 @@
   <link rel="stylesheet" href="/static/theme.css">
   <link rel="stylesheet" href="/static/batch-label.css">
   <link rel="stylesheet" href="/static/batch.css">
+  <link rel="stylesheet" href="/static/phone-bench.css">
   <link rel="stylesheet" href="/static/formula-editor.css">
+  <link rel="stylesheet" href="/static/lab-search.css">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -36,6 +38,7 @@
 
   <div class="app-shell">
     <nav class="rail" aria-label="Laboratory views">
+      <button id="lab-search-open" class="quiet-button lab-search-open" type="button" aria-keyshortcuts="Control+K Meta+K /">Search <kbd>Ctrl K</kbd></button>
       <p class="nav-group">Bench</p>
       <button class="nav-item is-active" data-view="improve">Improve a scent</button>
       <button class="nav-item" data-view="formulas">Create a formula</button>
@@ -296,6 +299,7 @@
             <div class="inventory-toolbar-actions">
               <label class="check-line"><input id="project-inventory-incomplete-only" type="checkbox"> Show only details to finish</label>
               <button id="inventory-add-open" class="quiet-button" type="button">Add a missing owned material</button>
+              <button id="inventory-download" class="quiet-button" type="button">Download the stock list</button>
             </div>
           </div>
           <p id="project-inventory-live" class="stock-count-line" role="status" aria-live="polite"></p>
@@ -637,6 +641,7 @@
 
       <section class="view" data-panel="batch" aria-labelledby="batch-title">
         <div class="view-heading"><div><p class="eyebrow">Bottles to sell</p><h1 id="batch-title">Batch</h1><p class="lede">Scale one formula to a number of bottles, rerun the release gate on the scaled card, keep a lot record, and print the batch sheet, the label and the IFRA statement. Scaling keeps every stock and strength; only amounts change.</p></div></div>
+        <div id="phone-bench-root" class="panel phone-bench-panel" role="region" aria-labelledby="phone-bench-panel-title"></div>
         <div id="batch-root" class="batch-root"></div>
         <div class="panel batch-label-panel"><p class="panel-index">Label and IFRA</p><h2>Label and IFRA statement</h2><div id="batch-label-area"></div></div>
       </section>
@@ -716,6 +721,7 @@
           <div class="request-actions">
             <button type="button" class="primary-button" id="editor-to-bench">Open on the bench sheet</button>
             <button type="button" class="quiet-button" id="editor-copy">Copy as a table</button>
+            <button type="button" class="quiet-button" id="editor-download">Download as a spreadsheet</button>
           </div>
           <section class="editor-version" aria-labelledby="editor-version-title">
             <h3 id="editor-version-title">Versions</h3>
@@ -858,6 +864,7 @@
             <button type="submit">Append event</button>
           </form>
         </div>
+        <div id="phone-strips-root" class="panel phone-bench-panel" role="region" aria-labelledby="phone-strips-panel-title"></div>
         <div class="panel smell-log"><p class="panel-index">B3</p><h2 id="smell-log-title">Smell log</h2><p class="field-help">Smell a strip or your skin and note what you notice. It takes under a minute.</p><div id="smell-log"></div></div>
         <div class="panel"><h2>Active bottles</h2><div id="bottle-list" class="record-list"></div></div>
       </section>
@@ -1090,6 +1097,7 @@
   </div>
   <section id="bench-sheet" class="bench-sheet" aria-label="Printable bench sheet"></section>
   <section id="batch-sheet" class="batch-sheet" aria-label="Printable batch sheet"></section>
+  <dialog id="lab-search" class="lab-search"></dialog>
   <script src="/static/bench-sheet.js" defer></script>
   <script src="/static/lab-drafts.js" defer></script>
   <script src="/static/stock-dilutions.js" defer></script>
@@ -1110,7 +1118,11 @@
   <script src="/static/buy-list.js" defer></script>
   <script src="/static/batch-label.js" defer></script>
   <script src="/static/batch.js" defer></script>
+  <script src="/static/phone-bench.js" defer></script>
+  <script src="/static/phone-strips.js" defer></script>
   <script src="/static/formula-editor.js" defer></script>
+  <script src="/static/lab-export.js" defer></script>
+  <script src="/static/lab-search.js" defer></script>
   <!-- The Lab page itself, one file per page: core first, boot (start-up) last. -->
   <script src="/static/lab/core.js" defer></script>
   <script src="/static/lab/stock.js" defer></script>
@@ -1124,6 +1136,7 @@
   <script src="/static/lab/perfumery.js" defer></script>
   <script src="/static/lab/assistant.js" defer></script>
   <script src="/static/lab/science.js" defer></script>
+  <script src="/static/lab/search.js" defer></script>
   <script src="/static/lab/boot.js" defer></script>
 </body>
 </html>
