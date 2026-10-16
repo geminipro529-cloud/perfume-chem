@@ -147,6 +147,15 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Just remove it",
         "Leather",
         "I dont have a tuberose base, only a cheap tuberose extract with methyl benzoate smell",
+        "Tell all chats that myskinrecipes chemicals arrived",
+        "Sweet orange peel oil China sour",
+        'Chose "Add them" on the decision card asking "Add the COA lots, CAS numbers and test dates to the '
+        'MySkinRecipes stock records?"',
+        "Add Alpha Irone 5% in IPM to inventory",
+        "25",
+        "not 5",
+        "eight/eight",
+        "para-acetaniole i olid",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -176,7 +185,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 107)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 118)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

@@ -320,7 +320,8 @@ def test_legacy_material_properties_mirror_live_stock_and_thresholds() -> None:
     by_name = {material["name"].casefold(): material for material in materials}
 
     expected = {
-        "alpha irone": ("79-69-6", True, 0.10, 0.9, 0.16),
+        # Two Alpha Irone stocks since 16 Oct 2026 (10% DEP, 25% IPM): no single dilution.
+        "alpha irone": ("79-69-6", True, None, 0.9, 0.16),
         "hydroxycitronellol": ("107-74-4", False, None, 100.0, 20.0),
         "olibanum resinoid": ("8016-36-2", True, 0.5, 10.0, 3.0),
         "orris liquid": ("8002-73-1", True, 0.09, 0.9, 0.16),

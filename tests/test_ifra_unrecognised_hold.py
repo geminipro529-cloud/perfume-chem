@@ -187,6 +187,12 @@ STILL_HELD = {
     "Rhodinol ex Citronella",
     "p-Cresyl Methyl Ether 10%",
     "Tuberlia Base",
+    # MySkinRecipes order #2199302, arrived 2026-10-16; no IFRA table entry matches
+    # these names yet, so they hold by name. (Cedarwood Texas, Geranium Bourbon,
+    # Sweet Orange and both Isoraldeines were linked on 2026-10-16.)
+    "Para-Acetanisole",
+    "Rhodinol",
+    "Rum Ether",
 }
 
 

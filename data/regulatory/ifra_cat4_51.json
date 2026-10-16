@@ -1398,6 +1398,43 @@
     }
   },
   "materials": {
+    "Isoraldeine 95": {
+      "status": "restricted",
+      "standard": "IFRA_STD_063",
+      "aliases": [],
+      "note": "Givaudan trade grade of methyl ionone gamma (main component alpha-isomethyl ionone, CAS 127-51-5; MySkinRecipes COA CAS 1335-46-2, both in STD_063's CAS list). Kept as its own stock name, not an alias of Alpha Isomethyl Ionone; the whole stock counts toward methyl_ionones_total. Kenny chose \"Link them\" on 16 Oct 2026 (08:17 UTC).",
+      "cas": [
+        "127-51-5",
+        "1335-46-2"
+      ]
+    },
+    "Isoraldeine 70": {
+      "status": "restricted",
+      "standard": "IFRA_STD_063",
+      "aliases": [],
+      "note": "Methyl ionone gamma 70 grade (about 63-70% alpha-isomethyl ionone, the rest other methyl ionone isomers; MySkinRecipes COA CAS 1335-46-2, in STD_063's CAS list). All isomers fall under STD_063, so the whole stock counts toward methyl_ionones_total. Kenny chose \"Link them\" on 16 Oct 2026 (08:17 UTC).",
+      "cas": [
+        "1335-46-2"
+      ]
+    },
+    "Cedarwood Texas EO": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Juniperus mexicana wood oil (MySkinRecipes COA CAS 91722-61-1). Contains cedrene, which STD_197 limits counting natural sources (Annex I row 'Cedarwood oil, Texas'). Kenny chose \"Link them\" on 16 Oct 2026 (08:17 UTC)."
+    },
+    "Geranium Bourbon Essential Oil": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Pelargonium Bourbon (Reunion type) oil. Contains citronellol (STD_022) and geraniol (STD_037), counted through the Annex I 'Geranium oil' row. Kenny chose \"Link them\" on 16 Oct 2026 (08:17 UTC)."
+    },
+    "Sweet Orange Essential Oil": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Sweet orange (Citrus sinensis) peel oil, furanocoumarin-free per the MySkinRecipes listing; COA limonene 95.28%, rotation 99 degrees. No IFRA standard of its own (not in STD_089). Kenny chose \"Link them\" on 16 Oct 2026 (08:17 UTC)."
+    },
     "2-Acetyl Pyrazine": {
       "status": "no_standard",
       "standard": null,
@@ -4080,6 +4117,8 @@
       "members": [
         "Alpha Isomethyl Ionone",
         "Methyl Ionone Gamma Coeur",
+        "Isoraldeine 70",
+        "Isoraldeine 95",
         "Methyl Ionone Pure",
         "Ultralia"
       ],

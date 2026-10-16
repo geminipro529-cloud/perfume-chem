@@ -190,6 +190,39 @@
       {
         "message_timestamp_utc": "2026-10-16T02:20:19Z",
         "text": "I dont have a tuberose base, only a cheap tuberose extract with methyl benzoate smell"
+      },
+      {
+        "message_timestamp_utc": "2026-10-16T03:55:55Z",
+        "text": "Tell all chats that myskinrecipes chemicals arrived"
+      },
+      {
+        "message_timestamp_utc": "2026-10-16T03:57:59Z",
+        "text": "Sweet orange peel oil China sour"
+      },
+      {
+        "message_timestamp_utc": "2026-10-16T07:54:22Z",
+        "text": "Chose \"Add them\" on the decision card asking \"Add the COA lots, CAS numbers and test dates to the MySkinRecipes stock records?\""
+      },
+      {
+        "message_timestamp_utc": "2026-10-16T07:59:11Z",
+        "text": "Add Alpha Irone 5% in IPM to inventory"
+      },
+      {
+        "message_timestamp_utc": "2026-10-16T07:59:50Z",
+        "text": "25"
+      },
+      {
+        "message_timestamp_utc": "2026-10-16T07:59:52Z",
+        "text": "not 5"
+      },
+      {
+        "message_timestamp_utc": "2026-10-16T08:27:54Z",
+        "text": "eight/eight",
+        "context": "Answer to Studio 1's question 'is your Rose Otto 10% made w/w or v/v?': weight/weight. Rose Otto Bulgarian STK-078 already records 0.1 mass_fraction in DPG; no record change."
+      },
+      {
+        "message_timestamp_utc": "2026-10-16T08:28:26Z",
+        "text": "para-acetaniole i olid"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -234,7 +267,12 @@
     "tuberalia_base_is_perfumersworld_6nd09663": true,
     "cassis_base_345b_is_simple_scents_diy": true,
     "leather_fo_removed_20261016": true,
-    "tuberose_base_removed_20261016": true
+    "tuberose_base_removed_20261016": true,
+    "myskinrecipes_order_2199302_arrived_20261016": true,
+    "myskinrecipes_order_2199302_coas_recorded_20261016": true,
+    "alpha_irone_25pct_ipm_added_20261016": true,
+    "para_acetanisole_solid_as_supplied_20261016": true,
+    "rose_otto_10pct_ww_user_confirmed_20261016": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -4846,6 +4884,651 @@
         "release_authorized": false
       },
       "note": "Asked 'where did your Tuberose Base come from?', Kenny answered 'I dont have a tuberose base, only a cheap tuberose extract with methyl benzoate smell' (16 Oct 02:20:19 UTC, 'Small open jobs sweep'). The gate never held a Tuberose Base stock; this record takes inventory.txt L169 out of the design list. Tuberlia Base (STK-104, PerfumersWorld Tuberalia Base 6ND09663) is a separate bottle and stays. Which inventory.txt line his cheap extract is (L105 'Tuberose EO (volume level grade)' or L178 'Tuberose Absolute (volume grade)') is not settled, so both are unchanged. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-107",
+      "canonical_name": "Isoraldeine 95",
+      "aliases": [
+        "Methyl Ionone Gamma 95"
+      ],
+      "state": "OWNED",
+      "category": "violet / iris",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_CONFIRMED_ARRIVAL",
+        "execution_basis": "USER_ARRIVAL_20261016_MSR_2199302_ISORALDEINE_95",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Methyl Ionone Gamma (95%), Isoraldeine 95",
+        "order": "2199302",
+        "pack": "5 g",
+        "lot": "I0DN81",
+        "cas_on_coa": "1335-46-2",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2199302 ('COA/MSDS/Vegan/Halal : 2199302 1/2'), read in Gmail preview on 16 Oct 2026; values copied as printed. The COA gives an expiry two years after the test date.",
+          "test_date": "2025-09-12",
+          "expiry_date": "2027-09-12",
+          "results_as_printed": {},
+          "flags": [
+            "The COA gives no measured values, only appearance and 'conforms'.",
+            "CAS 1335-46-2 is the mixed methyl ionone number, not a single isomer."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-16",
+      "source_kind": "DIRECT_USER_STOCK_ARRIVAL",
+      "source_quote": "Tell all chats that myskinrecipes chemicals arrived",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "lot_from_supplier_coa": true
+      },
+      "note": "MySkinRecipes order #2199302, placed 15 Oct 2026 (Kenny posted it 08:14 UTC, 'Isomethyl ionone grades compared'). Kenny: 'Tell all chats that myskinrecipes chemicals arrived' (16 Oct 03:55:55 UTC, 'Formulation studio 3'). Neat as supplied, as MySkinRecipes lists it; the label, MSDS and COA are not transcribed here. Listed as 'Methyl Ionone Gamma (95%), Isoraldeine 95', 5 g. 95% is the isomer purity, not a dilution. A separate stock from Isoraldeine 70 and from Alpha Isomethyl Ionone (PerfumersWorld 3IW00300); it takes the place of his used-up Methyl Ionone Gamma Coeur, which stays depleted."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-108",
+      "canonical_name": "Isoraldeine 70",
+      "aliases": [
+        "Methyl Ionone Gamma 70"
+      ],
+      "state": "OWNED",
+      "category": "violet / iris",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_CONFIRMED_ARRIVAL",
+        "execution_basis": "USER_ARRIVAL_20261016_MSR_2199302_ISORALDEINE_70",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Methyl Ionone Gamma (70%), Isoraldeine 70",
+        "order": "2199302",
+        "pack": "5 g",
+        "lot": "3F2IT8",
+        "cas_on_coa": "1335-46-2",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2199302 ('COA/MSDS/Vegan/Halal : 2199302 1/2'), read in Gmail preview on 16 Oct 2026; values copied as printed. The COA gives an expiry two years after the test date.",
+          "test_date": "2026-05-01",
+          "expiry_date": "2028-05-01",
+          "results_as_printed": {
+            "appearance": "green oily liquid",
+            "density_spec": "0.960-0.970 (conforms)",
+            "refractive_index_spec": "1.510-1.520 (conforms)"
+          },
+          "flags": [
+            "CAS 1335-46-2 is the mixed methyl ionone number, not a single isomer.",
+            "Green colour, density 0.960-0.970 and RI 1.510-1.520 are not typical of a methyl ionone gamma grade (about 0.93 and 1.50); smell it before relying on it."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-16",
+      "source_kind": "DIRECT_USER_STOCK_ARRIVAL",
+      "source_quote": "Tell all chats that myskinrecipes chemicals arrived",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "lot_from_supplier_coa": true
+      },
+      "note": "MySkinRecipes order #2199302, placed 15 Oct 2026 (Kenny posted it 08:14 UTC, 'Isomethyl ionone grades compared'). Kenny: 'Tell all chats that myskinrecipes chemicals arrived' (16 Oct 03:55:55 UTC, 'Formulation studio 3'). Neat as supplied, as MySkinRecipes lists it; the label, MSDS and COA are not transcribed here. Listed as 'Methyl Ionone Gamma (70%), Isoraldeine 70', 5 g. 70% is the isomer purity, not a dilution. A separate stock from Isoraldeine 95."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-109",
+      "canonical_name": "Rum Ether",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "gourmand / boozy",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_CONFIRMED_ARRIVAL",
+        "execution_basis": "USER_ARRIVAL_20261016_MSR_2199302_RUM_ETHER",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Rum Ether (pyroligneous acids ethyl esters)",
+        "order": "2199302",
+        "pack": "5 g",
+        "lot": "QI71T6",
+        "cas_on_coa": "8030-89-5",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2199302 ('COA/MSDS/Vegan/Halal : 2199302 1/2'), read in Gmail preview on 16 Oct 2026; values copied as printed. The COA gives an expiry two years after the test date.",
+          "test_date": "2026-02-05",
+          "expiry_date": "2028-02-05",
+          "results_as_printed": {
+            "main_content": "80% min",
+            "density_spec": "0.8644-0.8804",
+            "refractive_index_spec": "1.3618-1.3698"
+          },
+          "flags": [],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-16",
+      "source_kind": "DIRECT_USER_STOCK_ARRIVAL",
+      "source_quote": "Tell all chats that myskinrecipes chemicals arrived",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "lot_from_supplier_coa": true
+      },
+      "note": "MySkinRecipes order #2199302, placed 15 Oct 2026 (Kenny posted it 08:14 UTC, 'Isomethyl ionone grades compared'). Kenny: 'Tell all chats that myskinrecipes chemicals arrived' (16 Oct 03:55:55 UTC, 'Formulation studio 3'). Neat as supplied, as MySkinRecipes lists it; the label, MSDS and COA are not transcribed here. Listed as 'Rum Ether (pyroligneous acids ethyl esters)', 5 g. A natural-derived mixture, dosed as supplied; its composition is not expanded (AGENTS.md Rule 4)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-110",
+      "canonical_name": "Geranium Bourbon Essential Oil",
+      "aliases": [
+        "Geranium Bourbon EO"
+      ],
+      "state": "OWNED",
+      "category": "rose / floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_CONFIRMED_ARRIVAL",
+        "execution_basis": "USER_ARRIVAL_20261016_MSR_2199302_GERANIUM_BOURBON_ESSENTIAL_OIL",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Geranium (Pelargonium Bourbon) Oil",
+        "order": "2199302",
+        "pack": "2 x 5 g",
+        "lot": "RS8T01",
+        "cas_on_coa": "0-91-6",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2199302 ('COA/MSDS/Vegan/Halal : 2199302 1/2'), read in Gmail preview on 16 Oct 2026; values copied as printed. The COA gives an expiry two years after the test date.",
+          "test_date": "2026-06-03",
+          "expiry_date": "2028-06-03",
+          "results_as_printed": {},
+          "flags": [
+            "The COA gives no measured values, only appearance and 'conforms'.",
+            "The printed CAS '0-91-6' is not a valid CAS number; geranium oil is usually 8000-46-2 or 90082-51-2."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-16",
+      "source_kind": "DIRECT_USER_STOCK_ARRIVAL",
+      "source_quote": "Tell all chats that myskinrecipes chemicals arrived",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "lot_from_supplier_coa": true
+      },
+      "note": "MySkinRecipes order #2199302, placed 15 Oct 2026 (Kenny posted it 08:14 UTC, 'Isomethyl ionone grades compared'). Kenny: 'Tell all chats that myskinrecipes chemicals arrived' (16 Oct 03:55:55 UTC, 'Formulation studio 3'). Neat as supplied, as MySkinRecipes lists it; the label, MSDS and COA are not transcribed here. Listed as 'Geranium (Pelargonium Bourbon) Oil', 2 x 5 g. Two 5 g bottles of one product. A separate stock from Geranium EO (Bontoux) and Geranium Flower EO."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-111",
+      "canonical_name": "Para-Acetanisole",
+      "aliases": [
+        "p-Acetanisole",
+        "Acetanisole"
+      ],
+      "state": "OWNED",
+      "category": "sweet / balsamic",
+      "stock": {
+        "physical_form": "solid_as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_CONFIRMED_ARRIVAL",
+        "execution_basis": "USER_ARRIVAL_20261016_MSR_2199302_PARA_ACETANISOLE",
+        "execution_ready": true,
+        "execution_scope": "WEIGHED_SOLID_OR_PREPARED_SOLUTION_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Para-acetanisole",
+        "order": "2199302",
+        "pack": "5 g",
+        "lot": "K0DQ69",
+        "cas_on_coa": "100-06-1",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2199302 ('COA/MSDS/Vegan/Halal : 2199302 1/2'), read in Gmail preview on 16 Oct 2026; values copied as printed. The COA gives an expiry two years after the test date.",
+          "test_date": "2025-11-26",
+          "expiry_date": "2027-11-26",
+          "results_as_printed": {
+            "appearance": "solid"
+          },
+          "flags": [
+            "The COA gives no measured values, only appearance and 'conforms'."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-16",
+      "source_kind": "DIRECT_USER_STOCK_ARRIVAL",
+      "source_quote": "Tell all chats that myskinrecipes chemicals arrived",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "lot_from_supplier_coa": true,
+        "physical_form_from_user_message": true
+      },
+      "note": "MySkinRecipes order #2199302, placed 15 Oct 2026 (Kenny posted it 08:14 UTC, 'Isomethyl ionone grades compared'). Kenny: 'Tell all chats that myskinrecipes chemicals arrived' (16 Oct 03:55:55 UTC, 'Formulation studio 3'). Neat as supplied, as MySkinRecipes lists it; the label, MSDS and COA are not transcribed here. Listed as 'Para-acetanisole', 5 g. Kenny, 16 Oct 08:28:26 UTC ('Studio 1'): 'para-acetaniole i olid' (= is solid). Dose it by weight or as a dilution he has made, never as neat microlitres; no 10% dilution is recorded until he says it is made."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-112",
+      "canonical_name": "Sweet Orange Essential Oil",
+      "aliases": [
+        "Sweet Orange Peel Oil (China, Sour)"
+      ],
+      "state": "OWNED",
+      "category": "citrus",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_CONFIRMED_ARRIVAL",
+        "execution_basis": "USER_ARRIVAL_20261016_MSR_2199302_SWEET_ORANGE_ESSENTIAL_OIL",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Sweet Orange Peel Oil (China, Sour) (Furanocoumarins Free)",
+        "order": "2199302",
+        "pack": "5 g",
+        "lot": "1RBCN3",
+        "cas_on_coa": null,
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2199302 ('COA/MSDS/Vegan/Halal : 2199302 1/2'), read in Gmail preview on 16 Oct 2026; values copied as printed. The COA gives an expiry two years after the test date.",
+          "test_date": "2026-02-26",
+          "expiry_date": "2028-02-26",
+          "results_as_printed": {
+            "limonene": "95.28%",
+            "optical_rotation": "99°",
+            "density_spec": "0.840-0.850",
+            "refractive_index_spec": "1.470-1.476"
+          },
+          "flags": [
+            "No CAS is printed. Limonene 95.28% and rotation 99° fit sweet orange, as Kenny said."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-16",
+      "source_kind": "DIRECT_USER_STOCK_ARRIVAL",
+      "source_quote": "Sweet orange peel oil China sour",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "lot_from_supplier_coa": true
+      },
+      "note": "MySkinRecipes order #2199302, placed 15 Oct 2026 (Kenny posted it 08:14 UTC, 'Isomethyl ionone grades compared'). Kenny: 'Tell all chats that myskinrecipes chemicals arrived' (16 Oct 03:55:55 UTC, 'Formulation studio 3'). Neat as supplied, as MySkinRecipes lists it; the label, MSDS and COA are not transcribed here. Listed as 'Sweet Orange Peel Oil (China, Sour) (Furanocoumarins Free)', 5 g. Asked whether the label says sweet or bitter orange, Kenny answered 'Sweet orange peel oil China sour' (16 Oct 03:57:59 UTC, 'Formulation studio 3'), as he had said on 15 Oct. Furanocoumarin-free per the listing. A separate stock from Orange Peel EO (species unknown) and Blood Orange Oil Sicilian."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-113",
+      "canonical_name": "Cedarwood Texas EO",
+      "aliases": [
+        "Cedarwood Oil (Texas, USA)"
+      ],
+      "state": "OWNED",
+      "category": "woody",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_CONFIRMED_ARRIVAL",
+        "execution_basis": "USER_ARRIVAL_20261016_MSR_2199302_CEDARWOOD_TEXAS_EO",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Cedarwood Oil (Texas, USA)",
+        "order": "2199302",
+        "pack": "5 g",
+        "lot": "4ZPU51",
+        "cas_on_coa": "91722-61-1",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2199302 ('COA/MSDS/Vegan/Halal : 2199302 1/2'), read in Gmail preview on 16 Oct 2026; values copied as printed. The COA gives an expiry two years after the test date.",
+          "test_date": "2026-05-17",
+          "expiry_date": "2028-05-17",
+          "results_as_printed": {},
+          "flags": [
+            "The COA gives no measured values, only appearance and 'conforms'.",
+            "CAS 91722-61-1 is an extract-style number; Texas cedarwood oil is usually 68990-83-0."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-16",
+      "source_kind": "DIRECT_USER_STOCK_ARRIVAL",
+      "source_quote": "Tell all chats that myskinrecipes chemicals arrived",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "lot_from_supplier_coa": true
+      },
+      "note": "MySkinRecipes order #2199302, placed 15 Oct 2026 (Kenny posted it 08:14 UTC, 'Isomethyl ionone grades compared'). Kenny: 'Tell all chats that myskinrecipes chemicals arrived' (16 Oct 03:55:55 UTC, 'Formulation studio 3'). Neat as supplied, as MySkinRecipes lists it; the label, MSDS and COA are not transcribed here. Listed as 'Cedarwood Oil (Texas, USA)', 5 g. A separate stock from Cedarwood Virginia, Cedarwood Himalayan EO and the China cedarwood."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-114",
+      "canonical_name": "Delta Damascone",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "rose / fruity",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_CONFIRMED_ARRIVAL",
+        "execution_basis": "USER_ARRIVAL_20261016_MSR_2199302_DELTA_DAMASCONE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Delta-damascone (FEMA-3622)",
+        "order": "2199302",
+        "pack": "5 g",
+        "lot": "4VSQ2Q",
+        "cas_on_coa": "57378-68-4",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2199302 ('COA/MSDS/Vegan/Halal : 2199302 1/2'), read in Gmail preview on 16 Oct 2026; values copied as printed. The COA gives an expiry two years after the test date.",
+          "test_date": "2026-01-29",
+          "expiry_date": "2028-01-29",
+          "results_as_printed": {
+            "assay": "96.91",
+            "assay_spec": "98-100",
+            "density": "0.9303",
+            "refractive_index": "1.4922"
+          },
+          "flags": [
+            "The assay 96.91 is below the COA's own 98-100 spec, but the sheet does not mark it as failed."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-16",
+      "source_kind": "DIRECT_USER_STOCK_ARRIVAL",
+      "source_quote": "Tell all chats that myskinrecipes chemicals arrived",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "lot_from_supplier_coa": true
+      },
+      "note": "MySkinRecipes order #2199302, placed 15 Oct 2026 (Kenny posted it 08:14 UTC, 'Isomethyl ionone grades compared'). Kenny: 'Tell all chats that myskinrecipes chemicals arrived' (16 Oct 03:55:55 UTC, 'Formulation studio 3'). Neat as supplied, as MySkinRecipes lists it; the label, MSDS and COA are not transcribed here. Listed as 'Delta-damascone (FEMA-3622)', 5 g. Arrives neat; a dilution he makes goes in DPG."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-115",
+      "canonical_name": "Rhodinol",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "rose / floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_CONFIRMED_ARRIVAL",
+        "execution_basis": "USER_ARRIVAL_20261016_MSR_2199302_RHODINOL",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Rhodinol",
+        "order": "2199302",
+        "pack": "5 g",
+        "lot": "4XG0CM",
+        "cas_on_coa": "6812-78-8",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2199302 ('COA/MSDS/Vegan/Halal : 2199302 1/2'), read in Gmail preview on 16 Oct 2026; values copied as printed. The COA gives an expiry two years after the test date.",
+          "test_date": "2026-01-22",
+          "expiry_date": "2028-01-22",
+          "results_as_printed": {
+            "content": "96% min",
+            "density_spec": "0.850-0.860",
+            "refractive_index_spec": "1.452-1.462"
+          },
+          "flags": [],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-16",
+      "source_kind": "DIRECT_USER_STOCK_ARRIVAL",
+      "source_quote": "Tell all chats that myskinrecipes chemicals arrived",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "lot_from_supplier_coa": true
+      },
+      "note": "MySkinRecipes order #2199302, placed 15 Oct 2026 (Kenny posted it 08:14 UTC, 'Isomethyl ionone grades compared'). Kenny: 'Tell all chats that myskinrecipes chemicals arrived' (16 Oct 03:55:55 UTC, 'Formulation studio 3'). Neat as supplied, as MySkinRecipes lists it; the label, MSDS and COA are not transcribed here. Listed as 'Rhodinol', 5 g. A separate stock from Rhodinol ex Citronella; dosed as supplied, its composition is not expanded (AGENTS.md Rule 4)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-116",
+      "canonical_name": "Methyl Ionone",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "violet / iris",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_CONFIRMED_ARRIVAL",
+        "execution_basis": "USER_ARRIVAL_20261016_MSR_2199302_METHYL_IONONE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Alpha-methyl Ionone (74-80%)",
+        "order": "2199302",
+        "pack": "5 g",
+        "lot": "39KMUR",
+        "cas_on_coa": "127-42-4",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2199302 ('COA/MSDS/Vegan/Halal : 2199302 1/2'), read in Gmail preview on 16 Oct 2026; values copied as printed. The COA gives an expiry two years after the test date.",
+          "test_date": "2025-11-29",
+          "expiry_date": "2027-11-29",
+          "results_as_printed": {
+            "total_ketones_spec": "92-100%",
+            "alpha_methyl_ionone_spec": "5-16%",
+            "beta_methyl_ionone_spec": "8-18%",
+            "density_spec": "0.924-0.934",
+            "refractive_index_spec": "1.497-1.507"
+          },
+          "flags": [
+            "The COA prints no 74-80% figure and no row for the main isomer; it does not settle the identity, so the record keeps no AIMI alias.",
+            "No maker is named."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-16",
+      "source_kind": "DIRECT_USER_STOCK_ARRIVAL",
+      "source_quote": "Tell all chats that myskinrecipes chemicals arrived",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "lot_from_supplier_coa": true
+      },
+      "note": "MySkinRecipes order #2199302, placed 15 Oct 2026 (Kenny posted it 08:14 UTC, 'Isomethyl ionone grades compared'). Kenny: 'Tell all chats that myskinrecipes chemicals arrived' (16 Oct 03:55:55 UTC, 'Formulation studio 3'). Neat as supplied, as MySkinRecipes lists it; the label, MSDS and COA are not transcribed here. Listed as 'Alpha-methyl Ionone (74-80%)', 5 g. MySkinRecipes lists CAS 127-42-4 (alpha-n-methyl ionone, 74-80%): a methyl ionone mixture, not Alpha Isomethyl Ionone (AIMI), so the listing name is kept out of the aliases. 74-80% is the isomer content, not a dilution."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-117",
+      "canonical_name": "Alpha Irone 25% in IPM",
+      "aliases": [
+        "Alpha Irone 25%"
+      ],
+      "state": "OWNED",
+      "category": "violet / iris",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.25,
+        "fraction_basis": "mass_fraction",
+        "carrier": "ipm",
+        "fraction_authority": "EXPLICIT_USER_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_ADD_20261016_ALPHA_IRONE_25PCT_IN_IPM",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-16",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "Add Alpha Irone 5% in IPM to inventory / 25 / not 5",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_user_message": true,
+        "carrier_from_user_message": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "supplier_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'Add Alpha Irone 5% in IPM to inventory' (16 Oct 07:59:11 UTC, 'Formulation studio 3'), corrected seconds later: '25' (07:59:50), 'not 5' (07:59:52). The stock is 25%. The carrier is isopropyl myristate (IPM), not DPG or DEP. He gave no basis, so it is w/w under his 15 Oct rule. A separate stock from Alpha Irone 10% w/w in DEP (inventory.txt L198), which stays owned."
     }
   ]
 }

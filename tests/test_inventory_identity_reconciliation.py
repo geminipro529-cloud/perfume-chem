@@ -165,12 +165,13 @@ def test_v5_javanol_and_user_overlay_alpha_irone_never_promote_wrong_stock() -> 
     assert (twenty.carrier, twenty.execution_ready) == ("dpg", True)
     assert (neat.fraction_basis, neat.execution_ready) == ("neat", True)
     assert neat.authority == "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014"
-    assert len(alpha) == 1
-    assert alpha[0].dilution == pytest.approx(0.10)
-    assert (alpha[0].fraction_basis, alpha[0].carrier) == (
-        "mass_fraction",
-        "dep",
-    )
+    # Kenny, 16 Oct 2026: "Add Alpha Irone 5% in IPM to inventory", then "25", "not 5".
+    # The 25% IPM bottle (STK-117) sits beside the 10% DEP stock; neither replaces the other.
+    assert sorted(stock.dilution for stock in alpha) == pytest.approx([0.10, 0.25])
+    ten = next(stock for stock in alpha if stock.dilution == pytest.approx(0.10))
+    twenty_five = next(stock for stock in alpha if stock.dilution == pytest.approx(0.25))
+    assert (ten.fraction_basis, ten.carrier) == ("mass_fraction", "dep")
+    assert (twenty_five.fraction_basis, twenty_five.carrier) == ("mass_fraction", "ipm")
     assert any(
         row.requested_fraction == pytest.approx(1.0) and row.disposition == "OWNED"
         for row in _requirements_for("Javanol")
