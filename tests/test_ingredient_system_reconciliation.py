@@ -146,7 +146,10 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # value for the same molecule; reverting only that value gives 37f940a3….
     # 2026-10-09: key "stralyl acetate" renamed to the correct "styralyl acetate"
     # (same values 40.0/1.0); with the old key the digest is 9ec89ee9….
-    assert digest == "aa5581d0d7d4e85a68a47c4e74e116da76586287f2eac51204e365e3b1a95761"
+    # 2026-10-15: citronellol odt_air 40 -> 1.6 and rhodinol / rhodinol ex
+    # citronella 0.3 -> 1.6 (Elsharif & Buettner 2017, 10 ng/L air); reverting
+    # only those three gives aa5581d0….
+    assert digest == "1b161002ee87002edea0cd5f65bbe33ccd5c701cfe3fa25dd718cc5185028fcf"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

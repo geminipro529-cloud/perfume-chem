@@ -1114,6 +1114,16 @@
     {
       "substance": "Coumarin",
       "standard": "IFRA_STD_023",
+      "ncs_name": "Tonka Bean absolute, PerfumersWorld 8VQ00445 certificate",
+      "max_pct": 79.133,
+      "max_pct_as_printed": "79.1330",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8VQ00445",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its neat Tonka Bean Absolute 8VQ00445 (CoA batch TON00445/26288) lists coumarin 79.1330 % and a Category 4 maximum of 1.9000 %; its 10 % in DPG certificate 5VN07564 lists coumarin 7.9133 %, the same level per gram of absolute. Read from both documents in Kenny's Chrome on 2026-10-15. Kenny, 2026-10-15 18:41 UTC: his Tonka Bean Absolute 10 % in DPG 'comes directly from PW (also diluted by PW)'."
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
       "ncs_name": "Cassia oil",
       "max_pct": 2.0,
       "max_pct_as_printed": "2",
@@ -2523,8 +2533,10 @@
     },
     "Tonka Bean Absolute": {
       "ncs_names": [
-        "Tonka Bean absolute"
-      ]
+        "Tonka Bean absolute",
+        "Tonka Bean absolute, PerfumersWorld 8VQ00445 certificate"
+      ],
+      "note": "Kenny's stock is PerfumersWorld's own 10 % in DPG (5VN07564). Its supplier certificate gives more coumarin than Annex I (79.133 % against 46.7 %), and the higher level is used."
     },
     "Tuberose Absolute": {
       "ncs_names": [

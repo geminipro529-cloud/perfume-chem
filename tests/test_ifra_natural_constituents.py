@@ -41,16 +41,16 @@ def test_tonka_alone_fails_on_coumarin():
     [tonka] = total["contributors"]
     assert tonka["material"] == "Tonka Bean Absolute"
     assert tonka["kind"] == "natural"
-    assert tonka["constituent_pct"] == 46.7
+    assert tonka["constituent_pct"] == 79.133  # PerfumersWorld certificate, above Annex I 46.7
     assert 3.5 < tonka["pct"] < 4.5
-    assert tonka["contribution_pct"] == pytest.approx(tonka["pct"] * 0.467)
+    assert tonka["contribution_pct"] == pytest.approx(tonka["pct"] * 0.79133)
     assert total["total_pct"] > 1.5
     group = next(v for v in gate.data["violations"] if v["group"] == "IFRA_STD_023_constituents")
     assert group["members"] == {"Tonka Bean Absolute": tonka["contribution_pct"]}
     assert "Coumarin" in gate.detail and "Tonka Bean Absolute" in gate.detail
     row = next(r for r in gate.data["rows"] if r["material"] == "Tonka Bean Absolute")
     assert row["verdict"] == "warn"
-    assert "counted toward their Category 4 totals: Coumarin up to 46.7 %" in row["message"]
+    assert "counted toward their Category 4 totals: Coumarin up to 79.13 %" in row["message"]
 
 
 def test_natural_and_synthetic_eugenol_add_up():
@@ -138,7 +138,7 @@ def test_diluted_tonka_stock_name_is_counted():
     evaluation = evaluate_ifra({"Tonka Bean Absolute 10% in DPG": 2.0})
     [total] = evaluation.constituent_totals
     assert total.standard == "IFRA_STD_023"
-    assert total.total == pytest.approx(2.0 * 0.467)
+    assert total.total == pytest.approx(2.0 * 0.79133)
 
 
 def test_candidate_rows_take_the_highest_level_not_the_sum():

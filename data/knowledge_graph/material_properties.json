@@ -14089,7 +14089,7 @@
     "bp": null,
     "vp": 2.26,
     "clp": 3.91,
-    "odt": 40.0,
+    "odt": 1.6,
     "odt_ethanol_ppm": 5.0,
     "oav_typical": null,
     "oav_dose_pct": 3.0,
@@ -14229,7 +14229,7 @@
     "odt_evidence": {
       "vfy": "PEER_SINGLE",
       "sources": [
-        "Nagata (2003)"
+        "Elsharif & Buettner (2017) Food Chem. 232:704-711, doi:10.1016/j.foodchem.2017.04.053"
       ],
       "declared_vfy": "PEER_SINGLE"
     },
@@ -42302,7 +42302,7 @@
     "or_family": "rose",
     "activity_coef": 2.0,
     "hedonic": 4.0,
-    "odt": 0.3,
+    "odt": 1.6,
     "odt_ethanol_ppm": 5.0,
     "oav_typical": null,
     "oav_dose_pct": 5.0,
