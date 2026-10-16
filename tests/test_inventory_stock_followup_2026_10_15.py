@@ -1,4 +1,4 @@
-"""Kenny's 15 Oct evening stock answers and his w/w-in-DPG rule (v26 records STK-035 to STK-104).
+"""Kenny's 15 Oct evening stock answers and his w/w-in-DPG rule (v26 records STK-035 to STK-106).
 
 At 19:27 UTC he chose "Load the rule" on the card "Load your 'w/w in DPG' rule for the
 72 dilutions with nothing recorded?": a dilution with no recorded basis is w/w, in DPG
@@ -56,7 +56,7 @@ def test_rule_stocks_are_ww_ready_and_keep_their_names(name, fraction, carrier):
     assert stock.dilution == pytest.approx(fraction)
     assert (stock.fraction_basis, stock.carrier) == ("mass_fraction", carrier)
     assert stock.execution_ready is True
-    assert stock.source_ref.endswith(tuple(f"STK-{n:03d}" for n in range(35, 105)))
+    assert stock.source_ref.endswith(tuple(f"STK-{n:03d}" for n in range(35, 107)))
 
 
 def test_cis_3_hexenol_is_one_percent_in_ethanol_not_dpg():
@@ -114,15 +114,45 @@ def test_no_display_name_was_taken_twice():
     assert [name for name, count in counts.items() if count > 1] == []
 
 
-def test_tuberalia_base_is_the_perfumersworld_base_as_supplied():
-    (stock,) = [s for s in _owned() if s.identity_name == "Tuberalia Base"]
+def test_tuberlia_base_is_the_perfumersworld_tuberalia_base_as_supplied():
+    (stock,) = [s for s in _owned() if s.identity_name == "Tuberlia Base"]
     assert (stock.dilution, stock.fraction_basis, stock.carrier) == (1.0, "neat", "")
     assert stock.execution_ready is True
     record = next(
         r for r in inventory.load_current_user_inventory_overlay()["records"]
-        if r["canonical_name"] == "Tuberalia Base"
+        if r["canonical_name"] == "Tuberlia Base"
     )
     assert record["supplier_product"] == {
         "supplier": "PerfumersWorld", "product_name": "Tuberalia Base", "sku": "6ND09663",
     }
-    assert "Tuberlia Base" in record["aliases"]
+    assert record["aliases"] == ["Tuberalia Base"]
+
+
+def test_cassis_base_345b_is_from_simple_scents_diy():
+    record = next(
+        r for r in inventory.load_current_user_inventory_overlay()["records"]
+        if r["canonical_name"] == "Cassis Base 345B"
+    )
+    assert record["supplier_product"]["supplier"] == "Simple Scents DIY"
+    assert record["authority_limits"]["supplier_asserted"] is True
+
+
+@pytest.mark.parametrize("name", ["Leather FO", "Tuberose Base"])
+def test_lines_kenny_says_are_not_stock_leave_the_design_list(name):
+    from engine.personal_inventory import materialize_personal_inventory
+
+    record = next(
+        r for r in inventory.load_current_user_inventory_overlay()["records"]
+        if r["canonical_name"] == name
+    )
+    assert record["state"] == "NOT_OWNED" and record["stock"] is None
+    design = materialize_personal_inventory().stocks
+    assert not any(s.name.casefold() == name.casefold() for s in design)
+
+
+def test_tuberlia_line_and_the_record_are_one_design_entry():
+    from engine.personal_inventory import materialize_personal_inventory
+
+    names = [s.name for s in materialize_personal_inventory().stocks if "tuberlia" in s.name.casefold()
+             or "tuberalia" in s.name.casefold()]
+    assert names == ["Tuberlia Base"]

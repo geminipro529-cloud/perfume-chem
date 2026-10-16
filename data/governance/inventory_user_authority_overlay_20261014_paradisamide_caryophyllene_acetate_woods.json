@@ -174,6 +174,22 @@
       {
         "message_timestamp_utc": "2026-10-15T23:03:08Z",
         "text": "Yes"
+      },
+      {
+        "message_timestamp_utc": "2026-10-16T02:17:06Z",
+        "text": "Ssdiy"
+      },
+      {
+        "message_timestamp_utc": "2026-10-16T02:18:12Z",
+        "text": "Just remove it"
+      },
+      {
+        "message_timestamp_utc": "2026-10-16T02:18:26Z",
+        "text": "Leather"
+      },
+      {
+        "message_timestamp_utc": "2026-10-16T02:20:19Z",
+        "text": "I dont have a tuberose base, only a cheap tuberose extract with methyl benzoate smell"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -215,7 +231,10 @@
     "user_ww_dpg_rule_20261015_loaded": true,
     "neat_bottles_confirmed_20261015": true,
     "tonka_bean_absolute_10pct_is_perfumersworld_product": true,
-    "tuberalia_base_is_perfumersworld_6nd09663": true
+    "tuberalia_base_is_perfumersworld_6nd09663": true,
+    "cassis_base_345b_is_simple_scents_diy": true,
+    "leather_fo_removed_20261016": true,
+    "tuberose_base_removed_20261016": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -4431,6 +4450,10 @@
         "execution_ready": true,
         "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
       },
+      "supplier_product": {
+        "supplier": "Simple Scents DIY",
+        "product_name": "Cassis Base 345B"
+      },
       "supersedes_parent_stocks": [],
       "requirement_overrides": [
         {
@@ -4447,7 +4470,7 @@
       "authority_limits": {
         "availability_confirmed": true,
         "fraction_basis_from_user_message": true,
-        "supplier_asserted": false,
+        "supplier_asserted": true,
         "purity_assay_asserted": false,
         "user_lot_asserted": false,
         "density_asserted": false,
@@ -4457,7 +4480,7 @@
         "safety_asserted": false,
         "release_authorized": false
       },
-      "note": "Asked whether he still has Cassis Base 345B and whether it is neat (as supplied), Kenny answered 'Yes' (15 Oct 19:34:39 UTC, 'Update logs. Chimie Femme'). The bottle is inventory.txt L373; V5 row 284 listed it unresolved. It is one product, dosed as supplied; its composition is not expanded (AGENTS.md Rule 4). The supplier is not recorded."
+      "note": "Asked whether he still has Cassis Base 345B and whether it is neat (as supplied), Kenny answered 'Yes' (15 Oct 19:34:39 UTC, 'Update logs. Chimie Femme'). The bottle is inventory.txt L373; V5 row 284 listed it unresolved. It is one product, dosed as supplied; its composition is not expanded (AGENTS.md Rule 4). Asked where it came from, 'PerfumersWorld doesn't sell it', Kenny answered 'Ssdiy' (16 Oct 02:17:06 UTC, 'Small open jobs sweep'), his shorthand for Simple Scents DIY."
     },
     {
       "record_id": "INV-USER-20261014-STK-098",
@@ -4732,9 +4755,9 @@
     },
     {
       "record_id": "INV-USER-20261014-STK-104",
-      "canonical_name": "Tuberalia Base",
+      "canonical_name": "Tuberlia Base",
       "aliases": [
-        "Tuberlia Base"
+        "Tuberalia Base"
       ],
       "state": "OWNED",
       "category": "white floral",
@@ -4780,7 +4803,49 @@
         "safety_asserted": false,
         "release_authorized": false
       },
-      "note": "Asked 'on your Tuberlia Base label, does it say PerfumersWorld 'Tuberalia Base' (6ND09663)?', Kenny answered 'Yes' (15 Oct 23:03:08 UTC, 'Small open jobs sweep'). He had named it as owned at 19:28 UTC ('the other is tubrrlia base'). The bottle is inventory.txt L104; V5 row 233 listed it unresolved, 'Tuberalia Base as supplied'. It is one product, dosed as supplied; its composition is not expanded (AGENTS.md Rule 4)."
+      "note": "Asked 'on your Tuberlia Base label, does it say PerfumersWorld 'Tuberalia Base' (6ND09663)?', Kenny answered 'Yes' (15 Oct 23:03:08 UTC, 'Small open jobs sweep'). He had named it as owned at 19:28 UTC ('the other is tubrrlia base'). The bottle is inventory.txt L104; V5 row 233 listed it unresolved, 'Tuberalia Base as supplied'. The record keeps his inventory.txt spelling; PerfumersWorld's name is in supplier_product and the aliases. It is one product, dosed as supplied; its composition is not expanded (AGENTS.md Rule 4)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-105",
+      "canonical_name": "Leather FO",
+      "aliases": [],
+      "state": "NOT_OWNED",
+      "category": "leather",
+      "stock": null,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_REMOVAL",
+      "source_quote": "Just remove it",
+      "authority_limits": {
+        "availability_confirmed": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked 'where did your Leather FO come from?', Kenny answered 'Just remove it' (16 Oct 02:18:12 UTC, 'Small open jobs sweep'); asked whether he meant Cassis Base 345B or Leather FO, he answered 'Leather' (02:18:26 UTC). The gate never held a Leather FO stock; this record takes inventory.txt L368 out of the design list. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-106",
+      "canonical_name": "Tuberose Base",
+      "aliases": [],
+      "state": "NOT_OWNED",
+      "category": "white floral",
+      "stock": null,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-14",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_REMOVAL",
+      "source_quote": "I dont have a tuberose base, only a cheap tuberose extract with methyl benzoate smell",
+      "authority_limits": {
+        "availability_confirmed": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked 'where did your Tuberose Base come from?', Kenny answered 'I dont have a tuberose base, only a cheap tuberose extract with methyl benzoate smell' (16 Oct 02:20:19 UTC, 'Small open jobs sweep'). The gate never held a Tuberose Base stock; this record takes inventory.txt L169 out of the design list. Tuberlia Base (STK-104, PerfumersWorld Tuberalia Base 6ND09663) is a separate bottle and stays. Which inventory.txt line his cheap extract is (L105 'Tuberose EO (volume level grade)' or L178 'Tuberose Absolute (volume grade)') is not settled, so both are unchanged. inventory.txt is not edited."
     }
   ]
 }

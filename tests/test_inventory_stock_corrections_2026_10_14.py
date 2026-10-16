@@ -143,6 +143,10 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "yes, it is neat",
         "YEs it is",
         "Yes",
+        "Ssdiy",
+        "Just remove it",
+        "Leather",
+        "I dont have a tuberose base, only a cheap tuberose extract with methyl benzoate smell",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -172,7 +176,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 105)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 107)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

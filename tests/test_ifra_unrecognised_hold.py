@@ -186,7 +186,7 @@ STILL_HELD = {
     "Pamzest",
     "Rhodinol ex Citronella",
     "p-Cresyl Methyl Ether 10%",
-    "Tuberalia Base",
+    "Tuberlia Base",
 }
 
 
