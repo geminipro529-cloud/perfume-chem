@@ -5,7 +5,7 @@
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
     "engine/ingredient_intelligence.py": "7dc52fc8ff7a336ddc563507b43f063703b3f7c70fe566977aa3f62c8f0b4bc1",
     "engine/inventory_parser.py": "b5fea86dbbea57b295cec7e6265ad506ea59589240d56ee0a562d576a8d5ea3e",
-    "engine/odor_thresholds.py": "c9c8c1a7b20d17d1b4f923caed109a237b1b31e92146a04511f588012723b639",
+    "engine/odor_thresholds.py": "2c97a26f50daa2943ecd9579d7980e5384035af68de4a907e359a9492c98b978",
     "engine/name_utils.py": "a5b3e5d33afac1dbe0e880f8bd71e0b3d822185b43ed3cbf3ee915842fdb48cb",
     "engine/material_identity.py": "3dbb20055f9794450b25a21123852dc9b355493af4b653fdd48fb341347d5e5d",
     "engine/data_spine/loader.py": "cd09b0877de31b1fb334811f875dd7305923e9d454efac6ba7cd065f1e6c016f",
@@ -43,7 +43,7 @@
   "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
   "inventory_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
   "counts": {
-    "original_cache_records": 433,
+    "original_cache_records": 435,
     "rebuilt_cache_records": 435,
     "all_original_names_preserved": true,
     "inventory_text_rows": 333,
@@ -6134,6 +6134,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "8f4bcf9286fe060ec0d2241c7b982d93d21ce6e6ba6654bf961f6155d776018c",
-  "input_cache_sha256": "6cb3f022e3459319532049cf1b15f6153d8b3688321866ed3761592472209b56"
+  "output_sha256": "293ce37a4d26153016942453ab7dcd99b25af94547b946ce21f382fccee4fa49",
+  "input_cache_sha256": "293ce37a4d26153016942453ab7dcd99b25af94547b946ce21f382fccee4fa49"
 }

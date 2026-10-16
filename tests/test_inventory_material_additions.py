@@ -479,3 +479,9 @@ def test_extraction_mismatch_profiles_are_explicit_literature_proxies() -> None:
     assert tonka.characterized_fraction == pytest.approx(0.8397)
     assert all(source.startswith("http") for source in tonka.sources)
     assert any("supplier-batch" in item for item in tonka.limitations)
+
+
+@pytest.mark.parametrize("name", ["citronellol", "rhodinol", "rhodinol ex citronella"])
+def test_citronellol_air_threshold_follows_elsharif_buettner_2017(name: str) -> None:
+    # 10 ng/L air at 25 °C with MW 156.27 is 1.56 ppb v/v.
+    assert ODT_DATA[name]["odt_air"] == pytest.approx(10 * 24.45 / 156.27, abs=0.05)
