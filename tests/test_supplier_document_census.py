@@ -44,12 +44,14 @@ def test_census_preserves_every_current_inventory_row_and_fails_closed_on_matche
     # 209 -> 210, 106 -> 105.
     # 2026-10-14: Kenny's Bergamot FCF Sicilian is from Bontoux, not
     # PerfumersWorld, so its name-only SKU 7CL24020 is dropped: 210 -> 209.
+    # 2026-10-16: Kenny no longer has Tuberose Base or Leather FO, so their
+    # unmatched rows left inventory.txt: 105 -> 103.
     assert match_counts == {
         "REGISTRY_SKU": 209,
         "USER_BOTTLE_FROM_OTHER_SUPPLIER": 1,
         "EXACT_NAME_SKU": 6,
         "AMBIGUOUS_EXACT_NAME": 12,
-        "NO_EXACT_PW_MATCH": 105,
+        "NO_EXACT_PW_MATCH": 103,
     }
     bergamot = next(row for row in rows if row.canonical_name == "Bergamot FCF oil Sicilian")
     assert bergamot.perfumersworld_match_state == "USER_BOTTLE_FROM_OTHER_SUPPLIER"

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import copy
-import hashlib
 import json
 from decimal import Decimal
 from pathlib import Path
@@ -39,9 +38,12 @@ def test_received_order_totals_and_all_stock_forms_are_visible() -> None:
 
 def test_v19_binds_live_inventory_and_preserves_v18_stock_identity() -> None:
     head = _head()
-    raw = inventory.INVENTORY_PATH.read_bytes().replace(b"\r\n", b"\n")
-    assert head["source"]["inventory_text_sha256"] == hashlib.sha256(raw).hexdigest()
-    assert head["source"]["inventory_text_size_bytes"] == len(raw)
+    # Bound to inventory.txt as it was before the 2026-10-16 edit (Tuberose Base
+    # and Leather FO removed); the current overlay carries the live binding.
+    assert head["source"]["inventory_text_sha256"] == (
+        "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58"
+    )
+    assert head["source"]["inventory_text_size_bytes"] == 35704
     assert head["predecessor"]["normalized_text_sha256"] == inventory.AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256
     stocks = inventory.materialize_current_inventory().stocks
     aimi = [stock for stock in stocks if stock.identity_name == "Alpha Isomethyl Ionone"]
@@ -92,7 +94,9 @@ def test_changed_receipt_or_live_text_is_rejected(tmp_path: Path, monkeypatch: p
     with monkeypatch.context() as patch:
         patch.setattr(inventory, "PW_RECEIVED_INVENTORY_RECEIPT_PATH", receipt_path)
         with pytest.raises(inventory.InventoryAuthorityError, match="receipt drift"):
-            inventory._load_20261007_pw_received_successor(_head())
+            inventory._load_20261007_pw_received_successor(
+                _head(), require_live_inventory_binding=False
+            )
     text_path = tmp_path / "inventory.txt"
     text_path.write_text("changed", encoding="utf-8")
     with monkeypatch.context() as patch:

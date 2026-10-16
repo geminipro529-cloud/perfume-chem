@@ -57,9 +57,12 @@ def test_v24_is_pinned_to_v23_and_live_inventory() -> None:
         "path": "data/governance/inventory_user_authority_overlay_20261009_vertofix_coeur.json",
         "normalized_text_sha256": inventory.VERTOFIX_COEUR_USER_INVENTORY_OVERLAY_SHA256,
     }
-    raw = inventory.INVENTORY_PATH.read_bytes().replace(b"\r\n", b"\n")
-    assert head["source"]["inventory_text_sha256"] == hashlib.sha256(raw).hexdigest()
-    assert head["source"]["inventory_text_size_bytes"] == len(raw)
+    # Bound to inventory.txt as it was before the 2026-10-16 edit (Tuberose Base
+    # and Leather FO removed); the current overlay carries the live binding.
+    assert head["source"]["inventory_text_sha256"] == (
+        "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58"
+    )
+    assert head["source"]["inventory_text_size_bytes"] == 35704
     assert head["source"]["verbatim_user_statement"] == "Yes, neat"
     assert head["source"]["question"] == (
         "Confirm your Vertofix Coeur bottle is neat, as it came from PerfumersWorld?"

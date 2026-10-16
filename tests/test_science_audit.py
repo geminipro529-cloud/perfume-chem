@@ -102,10 +102,16 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
         "089c930e044b55e434c0e0438ee7b2c20f48d871f00a219a7237a932419fbc9a"
     )
     receipt = json.loads(receipt_bytes)
-    assert hashlib.sha256(INVENTORY_PATH.read_bytes()).hexdigest() == receipt[
-        "inventory_after_sha256"
-    ]
-    assert audit["material_count"] == 290
+    assert receipt["inventory_after_sha256"] == (
+        "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58"
+    )
+    # 2026-10-16: Tuberose Base and Leather FO left inventory.txt after the
+    # receipt, so the live text is pinned on its own (line endings normalized).
+    live_text = INVENTORY_PATH.read_bytes().replace(b"\r\n", b"\n")
+    assert hashlib.sha256(live_text).hexdigest() == (
+        "b81c735ae765caad857cb7eb2ce7aa3db575825951b0f3e35e915d3fd312d405"
+    )
+    assert audit["material_count"] == 288
     # 2026-10-08 data PR: cited air ODTs made Aldehyde C-8 Octanal, Aldehyde
     # C-9 Nonanal and Butyl Butyrate OAV-available (226 -> 229). The spelling
     # alias "Ambrox Super Crystals" -> Ambrox Super made it resolve (229 -> 230).
@@ -128,16 +134,18 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # Safranal. Both air thresholds are still tagged UNVERIFIED in
     # ODT_VERIFICATION. Costus Olifac lost its placeholder MW and VP (an IFF base
     # with no CAS) and became OAV-unknown (250 -> 251).
+    # 2026-10-16: Kenny no longer has Tuberose Base or Leather FO, both
+    # OAV-unknown, so the unknowns fall 39 -> 37 and the count 290 -> 288.
     assert audit["oav_available_count"] == 251
-    assert audit["oav_unknown_count"] == 39
-    assert audit["oav_coverage_pct"] == 86.552
+    assert audit["oav_unknown_count"] == 37
+    assert audit["oav_coverage_pct"] == 87.153
     assert "Costus Olifac" in categories["other_oav_unknowns"]
     assert not {"Maltol", "Saffranal"} & set(categories["other_oav_unknowns"])
     assert audit["status"] == "FAIL_CLOSED_GAPS"
     assert {"Fructone B", "Manzanate"} <= set(categories["other_oav_unknowns"])
     assert not {"Helvetolide", "Ambrocenide"} & set(categories["other_oav_unknowns"])
     assert "Frangipani Absolute" in categories["naturals_missing_composite_evidence"]
-    assert "Leather FO" in categories[
+    assert "Black Tea Base" in categories[
         "opaque_preblends_without_disclosed_composition"
     ]
     assert "Jasmine FO" not in categories[

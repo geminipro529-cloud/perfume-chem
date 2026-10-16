@@ -8,8 +8,8 @@
   },
   "source": {
     "inventory_text_path": "inventory.txt",
-    "inventory_text_size_bytes": 35704,
-    "inventory_text_sha256": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
+    "inventory_text_size_bytes": 35675,
+    "inventory_text_sha256": "b81c735ae765caad857cb7eb2ce7aa3db575825951b0f3e35e915d3fd312d405",
     "source_kind": "DIRECT_USER_MESSAGE",
     "message_channel": "PROJECT_THREADS_RELAYED_TO_STOCK_DATA_THREAD",
     "user": "Kenny",
@@ -110,6 +110,18 @@
       {
         "message_timestamp_utc": "2026-10-15T17:12:39Z",
         "text": "it is neat"
+      },
+      {
+        "message_timestamp_utc": "2026-10-16",
+        "text": "I dont have a tuberose base, only a cheap tuberose extract with methyl benzoate smell"
+      },
+      {
+        "message_timestamp_utc": "2026-10-16",
+        "text": "Just remove it"
+      },
+      {
+        "message_timestamp_utc": "2026-10-16",
+        "text": "Leather"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Only Paradisamide uses a default (w/w, DPG): Kenny gave the strength and carrier or 'neat' for every other bottle."
@@ -147,7 +159,10 @@
     "freesia_hdi_is_pw_freesia_hdl": true,
     "geranyl_acetate_receipt_hold_cleared": true,
     "citronellyl_acetate_added_neat": true,
-    "neryl_acetate_added_neat": true
+    "neryl_acetate_added_neat": true,
+    "tuberose_base_not_owned": true,
+    "leather_fo_not_owned": true,
+    "inventory_text_tuberose_base_and_leather_fo_lines_removed": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -1594,6 +1609,48 @@
         "release_authorized": false
       },
       "note": "Kenny: 'I have neryl acetate' (15 Oct 17:07, ionone thread), then 'it is neat' (17:12, stock thread, his next message after it). It was in neither inventory.txt nor the gate's stock list."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-035",
+      "canonical_name": "Tuberose Base",
+      "aliases": [],
+      "state": "NOT_OWNED",
+      "category": "floral",
+      "stock": null,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-16",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "I dont have a tuberose base, only a cheap tuberose extract with methyl benzoate smell",
+      "authority_limits": {
+        "availability_confirmed": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny, 16 Oct: 'I dont have a tuberose base, only a cheap tuberose extract with methyl benzoate smell'. The 'Tuberose Base' line (FLORAL MATERIALS) is removed from inventory.txt. It was never in the V5 snapshot or an overlay record, so no gate stock changes; this record keeps it from being re-added as owned. The extract he describes is not identified here and is not recorded as a stock. Tuberlia Base, Tuberose Absolute 10% and Tuberose EO are unchanged."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-036",
+      "canonical_name": "Leather FO",
+      "aliases": [],
+      "state": "NOT_OWNED",
+      "category": "accord bases / other",
+      "stock": null,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-16",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Just remove it",
+      "authority_limits": {
+        "availability_confirmed": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny, 16 Oct: 'Just remove it' and 'Leather'. The 'Leather FO' line (ACCORD BASES / OTHER) is removed from inventory.txt. It was never in the V5 snapshot or an overlay record, so no gate stock changes; this record keeps it from being re-added as owned."
     }
   ]
 }

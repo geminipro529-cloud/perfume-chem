@@ -261,12 +261,12 @@ def _unbound(material: str) -> dict:
             "stock_id": f"{DESIGN_ONLY}abc123"}
 
 
-# inventory.txt: "Damascol (10%)", "Leather FO" (neat), "Nutmeg EO (neat / as supplied)".
-RECORD = {"dilutions": {"Damascol": 0.1, "Leather FO": 1.0, "Nutmeg EO": 0.1, "X": 1.0}}
+# inventory.txt: "Damascol (10%)", "Parmavert" (neat), "Nutmeg EO (neat / as supplied)".
+RECORD = {"dilutions": {"Damascol": 0.1, "Parmavert": 1.0, "Nutmeg EO": 0.1, "X": 1.0}}
 
 
 def test_stock_only_on_inventory_txt_is_a_hold_not_a_fail() -> None:
-    floor = ys._f1_stock(_Contract([_unbound("Damascol"), _unbound("Leather FO")]), RECORD)
+    floor = ys._f1_stock(_Contract([_unbound("Damascol"), _unbound("Parmavert")]), RECORD)
 
     assert floor["status"] == "HOLD"
     assert "Damascol" in floor["detail"] and "Stock page" in floor["detail"]
@@ -301,8 +301,8 @@ def _real_f1(row: dict) -> dict:
 
 
 def test_same_inventory_txt_material_holds_alike_from_engine_and_reference_rows() -> None:
-    engine_row = _row("Leather FO", "50", stock_id=f"{DESIGN_ONLY}0123456789abcdef0123")
-    reference_row = _row("Leather FO", "50")
+    engine_row = _row("Parmavert", "50", stock_id=f"{DESIGN_ONLY}0123456789abcdef0123")
+    reference_row = _row("Parmavert", "50")
 
     engine_f1, reference_f1 = _real_f1(engine_row), _real_f1(reference_row)
 

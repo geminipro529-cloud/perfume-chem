@@ -47,7 +47,6 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     # Proprietary bases: a mixture with no CAS has no single MW, VP or log P.
     "Black Tea Base": (_ALL, "PerfumersWorld blend, not a pure chemical; no composition published"),
     "Costus Olifac": (("logp", "mw", "vp"), "IFF proprietary base with no CAS; the old MW and VP were placeholders"),
-    "Tuberose Base": (_ALL, "maker and composition of this base are not recorded"),
     # Naturals with no peer-reviewed GC-MS of the same product type (Rule 4).
     "Frangipani Absolute": (
         _ALL,

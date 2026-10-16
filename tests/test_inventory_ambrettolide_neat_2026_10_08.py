@@ -41,8 +41,11 @@ def test_v21_is_pinned_to_v20_and_live_inventory() -> None:
     assert hashlib.sha256(path.read_bytes()).hexdigest() == inventory.AMBRETTOLIDE_NEAT_USER_INVENTORY_OVERLAY_SHA256
     head = _head()
     assert head["predecessor"]["normalized_text_sha256"] == inventory.TOBACCO_DBCA_USER_INVENTORY_OVERLAY_SHA256
-    raw = inventory.INVENTORY_PATH.read_bytes().replace(b"\r\n", b"\n")
-    assert head["source"]["inventory_text_sha256"] == hashlib.sha256(raw).hexdigest()
+    # Bound to inventory.txt as it was before the 2026-10-16 edit (Tuberose Base
+    # and Leather FO removed); the current overlay carries the live binding.
+    assert head["source"]["inventory_text_sha256"] == (
+        "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58"
+    )
     assert head["source"]["verbatim_user_statement"] == "My ambretteolide is neat"
     assert head["superseded_record_ids"] == ["INV-USER-20260904-001"]
     previous = inventory.load_current_user_inventory_overlay(inventory.TOBACCO_DBCA_USER_INVENTORY_OVERLAY_PATH)

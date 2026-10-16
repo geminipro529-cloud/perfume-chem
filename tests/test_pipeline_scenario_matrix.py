@@ -248,7 +248,7 @@ def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() 
         "Pine EO",
     }.issubset(unresolved)
     opaque = set(audit["categories"]["opaque_preblends_without_disclosed_composition"])
-    assert "Leather FO" in opaque
+    assert "Black Tea Base" in opaque
     assert unresolved.isdisjoint(opaque)
     assert audit["status"] == "FAIL_CLOSED_GAPS"
     assert audit["release_authority"] is False

@@ -606,13 +606,15 @@ def test_formula_design_honors_all_required_tuberose_product_forms() -> None:
     }
 
 
-def test_formula_design_keeps_exact_tuberose_base_distinct_from_tuberlia() -> None:
+def test_formula_design_keeps_exact_tuberose_forms_distinct_from_tuberlia() -> None:
+    # Kenny no longer has a Tuberose Base (2026-10-16); the two owned
+    # tuberose forms must still be used as named, without Tuberlia Base.
     result = design_inventory_formula(
         idea=(
-            "Use all three exact owned forms: Tuberose Base, Tuberose Absolute "
-            "10% in DPG, and Tuberose EO volume grade. Give each a separate role."
+            "Use both exact owned forms: Tuberose Absolute 10% in DPG and "
+            "Tuberose EO volume grade. Give each a separate role."
         ),
-        formula_name="Exact Three Tuberoses",
+        formula_name="Exact Two Tuberoses",
         max_materials=12,
     )
 
@@ -621,11 +623,8 @@ def test_formula_design_keeps_exact_tuberose_base_distinct_from_tuberlia() -> No
         for row in result["optimized_formula"]["rows"]
         if "tuber" in (row["identity_name"] + row["stock_label"]).casefold()
     }
-    assert identities == {
-        "Tuberose Base",
-        "Tuberose Absolute",
-        "Tuberose EO (volume level grade)",
-    }
+    assert {"Tuberose Absolute", "Tuberose EO (volume level grade)"} <= identities
+    assert "Tuberose Base" not in identities
 
 
 def test_formula_design_expands_temporal_brief_and_marks_timing_unvalidated() -> None:

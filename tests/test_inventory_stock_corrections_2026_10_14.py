@@ -55,6 +55,11 @@ ADDED_20261015_PM = {
     "INV-USER-20261014-STK-033": ("Citronellyl Acetate", 1.0, "neat", ""),
     "INV-USER-20261014-STK-034": ("Neryl Acetate", 1.0, "neat", ""),
 }
+# Kenny no longer has these (2026-10-16); the records hold no stock.
+REMOVED_20261016 = {
+    "INV-USER-20261014-STK-035": "Tuberose Base",
+    "INV-USER-20261014-STK-036": "Leather FO",
+}
 # Kenny has no neat Neroli (2026-10-15); this record holds no stock.
 NEAT_NEROLI_NOT_OWNED = "INV-USER-20261014-STK-017"
 # EO dilutions recorded in another solvent stay as they were.
@@ -124,6 +129,9 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Citronellal acetate is neat. Ambrettolide is neat but can be diluted if must.",
         "I have neryl acetate",
         "it is neat",
+        "I dont have a tuberose base, only a cheap tuberose extract with methyl benzoate smell",
+        "Just remove it",
+        "Leather",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -144,6 +152,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
+        *REMOVED_20261016,
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

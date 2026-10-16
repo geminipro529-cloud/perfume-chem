@@ -2,57 +2,57 @@
   "schema_version": "ingredient_system_reconciliation_v1",
   "authority": "COMPUTATIONAL_DATA_RECONCILIATION_NOT_RELEASE",
   "input_sha256": {
-    "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
-    "engine/ingredient_intelligence.py": "7dc52fc8ff7a336ddc563507b43f063703b3f7c70fe566977aa3f62c8f0b4bc1",
-    "engine/inventory_parser.py": "b5fea86dbbea57b295cec7e6265ad506ea59589240d56ee0a562d576a8d5ea3e",
-    "engine/odor_thresholds.py": "c9c8c1a7b20d17d1b4f923caed109a237b1b31e92146a04511f588012723b639",
-    "engine/name_utils.py": "a5b3e5d33afac1dbe0e880f8bd71e0b3d822185b43ed3cbf3ee915842fdb48cb",
-    "engine/material_identity.py": "3dbb20055f9794450b25a21123852dc9b355493af4b653fdd48fb341347d5e5d",
-    "engine/data_spine/loader.py": "cd09b0877de31b1fb334811f875dd7305923e9d454efac6ba7cd065f1e6c016f",
-    "engine/data_spine/material.py": "79e30aea000c3c326513282ed0304a0fa0a35d46bfc6be86e709061244c03df9",
+    "inventory.txt": "8e2e792a2b53db81c9a3ed2e74d312330acae095eab734970cea1b9146a5b9cc",
+    "engine/ingredient_intelligence.py": "3ae0133483c73a6add49dd6e9b8eb5c73e4a7a50d3f80089a28134ee2f63a711",
+    "engine/inventory_parser.py": "3d6f234c2e0d8ff7402bc32de61ca6e3b89c4d847f1748021da9f7b74a95d134",
+    "engine/odor_thresholds.py": "5b92c9c4339d6ebb6416979474c8a737207a5cda4ccc49647fb0b097ee0baaa5",
+    "engine/name_utils.py": "b26e3b987f2d85b42fe64b8d6d4df6e35aa43c973a4586cbbc591fe5c019799b",
+    "engine/material_identity.py": "b81de5d3aa1a7bdf0a423f6cacd20a70dbd55e3a4c025b9b50fa8fdaf91fd159",
+    "engine/data_spine/loader.py": "b158fbdfc667d732e8f370079a67d07829b5ceac93150f826d6dc3bc3fd5d101",
+    "engine/data_spine/material.py": "17f6a999e88367e5e9d267bdd7fc11a82e1609a08c1f587164de9b8eaf81a0bd",
     "data/governance/ingredient_reconciliation_20260907.json": "3038fbf22ab98df93e92a7c23db0e6696c140d9ef00e9cf20415f2dae99b7413",
-    "engine/data_spine/reconciliation.py": "ad1403e02b4296ed9bebcc892df28b25d24b637dfbdad361b301fc37f9a21cdc",
-    "data/materials/A.yaml": "b237cc1e026de33f901a0c8c289572814274e36a907d6b89085017a3256aba52",
-    "data/materials/B.yaml": "7033d5bd1e3537121d40a0d059a64a0d7feb04a376ea41392b5000558ddbc7f8",
-    "data/materials/C.yaml": "4a08d5605c022fe06f607d80f75e46a7ae23e03d82103efb64d5c6ee07107c1f",
-    "data/materials/D.yaml": "1b04b9f5f804c390b0155fc766e90700f9d68f719e41f27f3faa26df57666ca7",
-    "data/materials/E.yaml": "0495dc583f99bb73e275e3c915f9c1a2c84c50aa62470ce1eb2a314d138811d1",
-    "data/materials/F.yaml": "5fb16690239010e307c3a57f0aaff649b5e7896778d14cb35d57b192180f5033",
-    "data/materials/G.yaml": "517bb7a5dc1a3b773f0902ec9d359b3c0e6e66b9e13212235ae0187aa2e62c2c",
-    "data/materials/H.yaml": "f501f01bb46966517c69654ed9be56045cd9ffa2a52c200c0096b319bd1517e6",
-    "data/materials/I.yaml": "a1df20d72a75bd1631a15b582b50f6cade3be6bbbdf693e2861d250c1d51ac85",
-    "data/materials/J.yaml": "0eea9de332dcf224c8df20d13adaeaa50078ee1b52505ae231065a5bff26db4a",
-    "data/materials/K.yaml": "7a9ef7721b1a632f49412277f0af0ed7120e28f4bd17a1e09f1e7756bd87cf17",
-    "data/materials/L.yaml": "26f3562c5a3641f6444db17d08dddcc58fd500419060a352d134e8221ac2e727",
-    "data/materials/M.yaml": "328d608f0c1dd2581b65247799aba9bb351fd3e30458dc25cb718d4fe586102c",
-    "data/materials/N.yaml": "fd203674177ef0ff34375f95ff679c740a71fe5dc007a7bed31ba2ee690ca8e6",
-    "data/materials/O.yaml": "90cc2a45d7134c04bce0a026e2dfaebe2b387e8f01e2e84b79e09a73718a70f3",
-    "data/materials/P.yaml": "fe1a0639b8db228f9c6d2e88ec21f44ea1792a447be51fc4adba73c4f85a26dc",
-    "data/materials/Q.yaml": "9256e634f899593f1e3848cb0d5683c4ed1259c00fdd5df56888f89fa84aa6c6",
-    "data/materials/R.yaml": "fdd6ff5cf3127cd00fb823fd88a09ce601490c9736b3660969ece31932904c49",
-    "data/materials/S.yaml": "570b58d16e8a91392036c8a375a9e6a9ea84b69fe7895682210580da16bb21ad",
-    "data/materials/T.yaml": "90d6e65f52280ea002958a33351f11ea727f976e180d9d274174505bc6cea04e",
-    "data/materials/U.yaml": "d93dea4b9c83cd47e0bd357f205fbbfb8cf7dacd05215b361c05542082401046",
-    "data/materials/V.yaml": "30f60a8cda6e33ec94180e85a0b87c530bed776692d3d7e67d8dbfeb6f41955d",
-    "data/materials/W.yaml": "0397c2158627765057238ad242e39e9a6ec801f65a7023bbbd93f8b6e71e1152",
-    "data/materials/X.yaml": "7dd03fb6ab168e5a2cd90d1d938a00f79b641f63b676dab39a436e21ad795ea1",
-    "data/materials/Y.yaml": "95ca0131908d6772148786fed0d24809989c4bc10ef002b095e07bdbbff34f74",
-    "data/materials/Z.yaml": "2b1eebcca0bedad85ee36a3969d35f1f6da0c30aad7ea51c117a675decd19d39"
+    "engine/data_spine/reconciliation.py": "e56858d0fffea06412ac69694f6d0c03afd44e8238a4d0833b56f09ddbd73730",
+    "data/materials/A.yaml": "ee9693baeea9c0519227f41d94ff6d4f8705343e0e776ba3f4e801c6f0b2b594",
+    "data/materials/B.yaml": "74a2037790ab113cfe04e8cc50b2098e58cd9a6ea40ab3d38e4103c5d953ab8f",
+    "data/materials/C.yaml": "c263ee0fda198c59fec35b048413864024de2b5ef0dd962ae0fc0496a63bd309",
+    "data/materials/D.yaml": "80d2a17c88040f4253cf70247663034d546e64768c615f98e7bc8dedd3f7dba2",
+    "data/materials/E.yaml": "f4232333782f429151a1ab3e2fb4ec530efa59606cdf38868572f6310a3b5c18",
+    "data/materials/F.yaml": "cf595ffcee657df6ea6166a27422cf9124f74ab7f64ccbab3c23a23d9879d422",
+    "data/materials/G.yaml": "c9d9264acd9798e465a57f694dcf3d9cd90f97cadf8c41451d92ea661d673181",
+    "data/materials/H.yaml": "b07ec1186c681564639b1a49f43b4b1e9fb068b623336cafda7ba96dd2197088",
+    "data/materials/I.yaml": "5687893558d5b2a955f36ee16d05c51f984ad39e52e076387c8a9114576d8471",
+    "data/materials/J.yaml": "878edd7469047bc8393232bf6ac4b4d7c39d3b89b6aaa7888f462aacf9ea29d9",
+    "data/materials/K.yaml": "f1853e5a612c9766302e8db7471dddcf6ec0e4102cd43a49eb277d5cbc774a4c",
+    "data/materials/L.yaml": "fdc4af7eacbb11fa3e6b7bd264a72680f6038f722234a91fd9c400e9c94fe65e",
+    "data/materials/M.yaml": "ac7940ff30aa933f3edd92e119a59dfcb5a0c321efbade8acd13254f170b661e",
+    "data/materials/N.yaml": "02810c2e1c2eae71422e41156b1a165298444accf44293e1afd837d68773fbf8",
+    "data/materials/O.yaml": "f3345d92bde0f9d15a795573fc316b3e1528abddb7bf756eea6965549a73e638",
+    "data/materials/P.yaml": "38c10d51c0f03455aa8f6311d22a5ff2a99388481dd2f6380f45e14457129d58",
+    "data/materials/Q.yaml": "7c0616b386c26aa6964f9d138167f1d92c41332f4a808bad4231d027635bf16a",
+    "data/materials/R.yaml": "0bc0f2555925def4dd97d09494d861ebbab708d0d61d4a87b90a18d73b743fb8",
+    "data/materials/S.yaml": "3f155ba7237f4fae1f093ed9cf5f6f4c5c9d81f84d11c6112affe779f421cc9c",
+    "data/materials/T.yaml": "dff0be33c037ac98be7fd7f1fcf509eeb8171132951d3466f0ff479f59574233",
+    "data/materials/U.yaml": "5480147fde65caf728a1cb0e84224160bc5bf5c3d0c44ffa856e6760caf510b5",
+    "data/materials/V.yaml": "4a1d462b73f04435dca564622757c8c58ae4145f844c3a4edb87cb9f066cf43b",
+    "data/materials/W.yaml": "d08727bb351c20f16512031197de308441fe3eabf56c084e040bb330fe462bac",
+    "data/materials/X.yaml": "dc1975700fb4fcec87e10754aaee6739ba7b5d54c545d4f64d1df9412ab89686",
+    "data/materials/Y.yaml": "4aaa899b9ba6d97c229292af2c35f9e52b0f263d6fdb6c60ec5e49af691058db",
+    "data/materials/Z.yaml": "cb96900173df4a6eb710bfac3b333a4f0b287bdd2aaec446da846746e7fb6eb7"
   },
-  "inventory_overlay_sha256": "0011caa526f618ada68b0f614be00510366e9ae1ca386d733f9f5e56e3fda369",
+  "inventory_overlay_sha256": "04fb04c5dd21d36ca4e9392fef5e6812a03bef7fb5a791b53323ed1979fa8776",
   "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
   "inventory_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
   "counts": {
-    "original_cache_records": 433,
+    "original_cache_records": 435,
     "rebuilt_cache_records": 435,
     "all_original_names_preserved": true,
-    "inventory_text_rows": 333,
+    "inventory_text_rows": 331,
     "historical_requirement_rows": 280,
     "current_physical_stocks": 304,
     "registry_records": 1270,
-    "rows_with_profile": 295,
-    "rows_with_registry": 323,
-    "rows_with_odt": 302,
+    "rows_with_profile": 294,
+    "rows_with_registry": 322,
+    "rows_with_odt": 301,
     "rows_with_unresolved_scalar_disagreements": 101
   },
   "rows": [
@@ -639,7 +639,7 @@
       "registry_name": "Neroli EO",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20261014:73563cfcfd7f6ca88c78"
+        "inventory:user-20261014:e5d61d7b636e6b9545ea"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -655,7 +655,7 @@
       "registry_name": "Neroli EO",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20261014:73563cfcfd7f6ca88c78"
+        "inventory:user-20261014:e5d61d7b636e6b9545ea"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -1643,8 +1643,8 @@
       "registry_name": "Aurantiol",
       "profile_name": "Aurantiol",
       "current_stock_ids": [
-        "inventory:user-20261014:f62a0d042dcdbb7174f2",
-        "inventory:user-20261014:3a5a345e56c113eea17e"
+        "inventory:user-20261014:a9bfd99e2a355108ef1e",
+        "inventory:user-20261014:05df85d1bc779be56070"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -1971,7 +1971,7 @@
       "registry_name": "Freesia HDI",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20261014:ec09ce49d29211e35108"
+        "inventory:user-20261014:1453568302b703238d63"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -2179,7 +2179,7 @@
       "registry_name": "Paradisamide",
       "profile_name": "Paradisamide",
       "current_stock_ids": [
-        "inventory:user-20261014:2fe093fad5f39861f76a"
+        "inventory:user-20261014:aef71d5f98f52c729348"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2246,7 +2246,7 @@
       "registry_name": "Alpha Damascone",
       "profile_name": "Alpha Damascone",
       "current_stock_ids": [
-        "inventory:user-20261014:fd5b1fe3c772ae87a789",
+        "inventory:user-20261014:935d8cee62af4b47d07b",
         "inventory:v5:9ba563c19007b9f0eca5"
       ],
       "odt_present": true,
@@ -2282,7 +2282,7 @@
       "registry_name": "Damascenone",
       "profile_name": "Damascenone",
       "current_stock_ids": [
-        "inventory:user-20261014:94eab8b7598830f06da5"
+        "inventory:user-20261014:8647da6e98a93d356284"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2307,7 +2307,7 @@
       "registry_name": "Damascol",
       "profile_name": "Damascol",
       "current_stock_ids": [
-        "inventory:user-20261014:5d956cd8269597340a29",
+        "inventory:user-20261014:d79866914ec57ab60b53",
         "inventory:v5:2750ea89816512c22dfa"
       ],
       "odt_present": true,
@@ -2371,7 +2371,7 @@
       "registry_name": "Geranyl Acetate",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20261014:666475bc45b97c142e0c"
+        "inventory:user-20261014:9d89a29c0d78ea260903"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -2572,26 +2572,6 @@
       "source_rows": [
         169
       ],
-      "raw_name": "Tuberose Base",
-      "identity": "Tuberose Base",
-      "text_status": "owned",
-      "registry_name": null,
-      "profile_name": null,
-      "current_stock_ids": [],
-      "odt_present": false,
-      "missing_numeric_fields": [
-        "mw",
-        "vp",
-        "clogp",
-        "odt",
-        "odt_ppm"
-      ],
-      "unresolved_scalar_disagreements": {}
-    },
-    {
-      "source_rows": [
-        170
-      ],
       "raw_name": "Tuberose Absolute (10% in DPG)",
       "identity": "Tuberose Absolute",
       "text_status": "owned",
@@ -2606,7 +2586,7 @@
     },
     {
       "source_rows": [
-        171
+        170
       ],
       "raw_name": "Phenyl Ethyl Acetate",
       "identity": "Phenyl Ethyl Acetate",
@@ -2620,7 +2600,7 @@
     },
     {
       "source_rows": [
-        172
+        171
       ],
       "raw_name": "Immortelle Absolute (10% in DPG)",
       "identity": "Immortelle Absolute",
@@ -2628,7 +2608,7 @@
       "registry_name": "immortelle absolute",
       "profile_name": "Immortelle Absolute",
       "current_stock_ids": [
-        "inventory:user-20261014:d3ef809a2ab25b863caa"
+        "inventory:user-20261014:b0f387b97f25df4a9400"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2636,7 +2616,7 @@
     },
     {
       "source_rows": [
-        173
+        172
       ],
       "raw_name": "Rose Essential Oil (Rosa Damascena, India)  # added 2026-06-15 — steam-distilled; 100% pure; INCI: Rosa Damascena P.Mill (Flower) Oil; rich honeyed rose character",
       "identity": "Rose Essential Oil (Rosa Damascena, India)",
@@ -2652,7 +2632,7 @@
     },
     {
       "source_rows": [
-        174
+        173
       ],
       "raw_name": "Jasmine Sambac Blossoms  # added 2026-06-22 — Jasminum sambac whole dried blossoms; for tincturing/infusion; delicate fresh jasmine-tea character",
       "identity": "Jasmine Sambac Blossoms",
@@ -2666,7 +2646,7 @@
     },
     {
       "source_rows": [
-        175
+        174
       ],
       "raw_name": "Blue Chamomile EO  # added 2026-06-22 — Matricaria chamomilla; deep blue azulene-rich; sweet-herbaceous-tobacco; powerful fixative at trace",
       "identity": "Blue Chamomile EO",
@@ -2682,7 +2662,7 @@
     },
     {
       "source_rows": [
-        176
+        175
       ],
       "raw_name": "Mimosa Absolute (10% w/w in DPG)  # added 2026-06-22; user-confirmed mass-fraction basis, correct stock form, and ready 2026-09-24; lot/preparation receipt remains incomplete",
       "identity": "Mimosa Absolute",
@@ -2698,7 +2678,7 @@
     },
     {
       "source_rows": [
-        177
+        176
       ],
       "raw_name": "Osmanthus Absolute (volume grade)  # added 2026-06-22 — lower-cost osmanthus for structural use; lower β-ionone content than premium",
       "identity": "Osmanthus Absolute (volume grade)",
@@ -2712,7 +2692,7 @@
     },
     {
       "source_rows": [
-        178
+        177
       ],
       "raw_name": "Tuberose Absolute (volume grade)  # added 2026-06-22 — lower-cost tuberose for structural volume; use where tuberose supports, not stars",
       "identity": "Tuberose Absolute (volume grade)",
@@ -2726,7 +2706,7 @@
     },
     {
       "source_rows": [
-        179
+        178
       ],
       "raw_name": "Isobutavan  # added 2026-06-22 — isobutyl vanillin; creamy-buttery-vanillic; less sweet than ethyl vanillin; pastry/cream character",
       "identity": "Isobutavan",
@@ -2742,7 +2722,7 @@
     },
     {
       "source_rows": [
-        180
+        179
       ],
       "raw_name": "Allyl Cyclohexyl Propionate (10% in DPG)  # added 2026-06-22 — fruity-pineapple-herbal; allyl ester; green apple-pineapple top-to-heart; tropical modifier",
       "identity": "Allyl Cyclohexyl Propionate",
@@ -2758,7 +2738,7 @@
     },
     {
       "source_rows": [
-        181
+        180
       ],
       "raw_name": "Cis-3-Hexenyl Salicylate (20% w/w) [OWNED — V7 USER STOCK 2026-08-30; CARRIER UNSPECIFIED; QUANTITATIVE DOSING HOLD]",
       "identity": "Cis-3-Hexenyl Salicylate",
@@ -2777,7 +2757,7 @@
     },
     {
       "source_rows": [
-        182
+        181
       ],
       "raw_name": "Alpha Damascone (neat / as supplied)  # PerfumersWorld SKU 9IF02656; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Alpha Damascone",
@@ -2785,7 +2765,7 @@
       "registry_name": "Alpha Damascone",
       "profile_name": "Alpha Damascone",
       "current_stock_ids": [
-        "inventory:user-20261014:fd5b1fe3c772ae87a789",
+        "inventory:user-20261014:935d8cee62af4b47d07b",
         "inventory:v5:9ba563c19007b9f0eca5"
       ],
       "odt_present": true,
@@ -2799,7 +2779,7 @@
     },
     {
       "source_rows": [
-        183
+        182
       ],
       "raw_name": "Frangipani Absolute (10% in DPG)  # PerfumersWorld SKU 5ON09236; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1; percentage basis unspecified",
       "identity": "Frangipani Absolute",
@@ -2821,7 +2801,7 @@
     },
     {
       "source_rows": [
-        184
+        183
       ],
       "raw_name": "Rose Otto Bulgarian (10% in DPG)  # PerfumersWorld SKU 5RR12478; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1; percentage basis unspecified",
       "identity": "Rose Otto Bulgarian",
@@ -2843,7 +2823,7 @@
     },
     {
       "source_rows": [
-        185
+        184
       ],
       "raw_name": "Magnolan (neat / as supplied)  # PerfumersWorld SKU 3MN13569; 2 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Magnolan",
@@ -2862,7 +2842,7 @@
     },
     {
       "source_rows": [
-        186
+        185
       ],
       "raw_name": "Veloutone (neat / as supplied)  # PerfumersWorld SKU 3LH00459; 2 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Veloutone",
@@ -2881,7 +2861,7 @@
     },
     {
       "source_rows": [
-        187
+        186
       ],
       "raw_name": "Phenyl Acetaldehyde (85% in PEA)  # PerfumersWorld SKU 5GP07497; 2 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1; percentage basis unspecified",
       "identity": "Phenyl Acetaldehyde",
@@ -2900,7 +2880,7 @@
     },
     {
       "source_rows": [
-        188
+        187
       ],
       "raw_name": "Berry Hexanoate (BerryFlor) (neat / as supplied)  # PerfumersWorld SKU 3FG19149; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Berry Hexanoate (BerryFlor)",
@@ -2919,7 +2899,7 @@
     },
     {
       "source_rows": [
-        191
+        190
       ],
       "raw_name": "Violet Leaf Absolute (10% in DPG)  # added 2026-07-29; natural violet-leaf/cucumber-green absolute stock",
       "identity": "Violet Leaf Absolute",
@@ -2927,7 +2907,7 @@
       "registry_name": "Violet Leaf Absolute",
       "profile_name": "Violet Leaf Absolute",
       "current_stock_ids": [
-        "inventory:user-20261014:f65f8fcb2203c24cc70c"
+        "inventory:user-20261014:e210b2debcd76658f015"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2935,7 +2915,7 @@
     },
     {
       "source_rows": [
-        192
+        191
       ],
       "raw_name": "Alpha Ionone",
       "identity": "Alpha Ionone",
@@ -2956,7 +2936,7 @@
     },
     {
       "source_rows": [
-        193
+        192
       ],
       "raw_name": "Beta Ionone",
       "identity": "Beta Ionone",
@@ -2978,7 +2958,7 @@
     },
     {
       "source_rows": [
-        194
+        193
       ],
       "raw_name": "Beta Ionone (0.1% in TEC)",
       "identity": "Beta Ionone",
@@ -3000,7 +2980,7 @@
     },
     {
       "source_rows": [
-        195
+        194
       ],
       "raw_name": "Allyl Ionone (Ketone V)",
       "identity": "Allyl Ionone (Ketone V)",
@@ -3014,7 +2994,7 @@
     },
     {
       "source_rows": [
-        196
+        195
       ],
       "raw_name": "Alpha Isomethyl Ionone (AIMI; PerfumersWorld SKU 3IW00300; neat / as supplied)  # user-confirmed owned 2026-09-30; also called Alpha Methyl Ionone; one physical bottle; historical \"Givaudan AIMI\" label superseded",
       "identity": "Alpha Isomethyl Ionone",
@@ -3035,7 +3015,7 @@
     },
     {
       "source_rows": [
-        197
+        196
       ],
       "raw_name": "Methyl Ionone Gamma Coeur [DEPLETED 2026-09-24]  # user-confirmed depleted; distinct from Alpha Isomethyl Ionone/AIMI and not substitutable by alias",
       "identity": "Methyl Ionone Gamma Coeur",
@@ -3055,7 +3035,7 @@
     },
     {
       "source_rows": [
-        198
+        197
       ],
       "raw_name": "Alpha Irone (10% w/w in DEP)  # user-authoritative 2026-08-28; only owned Alpha Irone stock",
       "identity": "Alpha Irone",
@@ -3076,7 +3056,7 @@
     },
     {
       "source_rows": [
-        199
+        198
       ],
       "raw_name": "Orris Liquid (9% w/w in DEP)  # user-confirmed 2026-09-05; PerfumersWorld 8IQ24653 product diluted by mass in DEP; replaces the prior 30% stock declaration; extraction and stock-solution density not asserted",
       "identity": "Orris Liquid",
@@ -3092,7 +3072,7 @@
     },
     {
       "source_rows": [
-        200
+        199
       ],
       "raw_name": "Irotyl",
       "identity": "Irotyl",
@@ -3108,7 +3088,7 @@
     },
     {
       "source_rows": [
-        201
+        200
       ],
       "raw_name": "Dihydro Beta Ionone",
       "identity": "Dihydro Beta Ionone",
@@ -3129,7 +3109,7 @@
     },
     {
       "source_rows": [
-        202
+        201
       ],
       "raw_name": "Orivone",
       "identity": "Orivone",
@@ -3150,7 +3130,7 @@
     },
     {
       "source_rows": [
-        203
+        202
       ],
       "raw_name": "Ultralia",
       "identity": "Ultralia",
@@ -3171,7 +3151,7 @@
     },
     {
       "source_rows": [
-        204
+        203
       ],
       "raw_name": "Carrot Seed EO",
       "identity": "Carrot Seed EO",
@@ -3187,7 +3167,7 @@
     },
     {
       "source_rows": [
-        205
+        204
       ],
       "raw_name": "Orris Concrete Orris Butter (10% in DPG)  # PerfumersWorld SKU 5IA07847; 2 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1; percentage basis unspecified; distinct from Orris Liquid SKU 8IQ24653",
       "identity": "Orris Concrete Orris Butter",
@@ -3209,7 +3189,7 @@
     },
     {
       "source_rows": [
-        208
+        207
       ],
       "raw_name": "Sandalwood Base 3X  # sandalwood base 3X; pre-blended sandalwood accord",
       "identity": "Sandalwood Base 3X",
@@ -3223,7 +3203,7 @@
     },
     {
       "source_rows": [
-        209
+        208
       ],
       "raw_name": "Sandalwood EO (10% in DPG)  # 10% in DPG stock",
       "identity": "Sandalwood EO",
@@ -3231,7 +3211,7 @@
       "registry_name": "Sandalwood EO",
       "profile_name": "Sandalwood EO",
       "current_stock_ids": [
-        "inventory:user-20261014:0e46fc33601f17a8f1ac"
+        "inventory:user-20261014:e2fd83c7390b261b083f"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3239,7 +3219,7 @@
     },
     {
       "source_rows": [
-        210
+        209
       ],
       "raw_name": "Cypress EO  # Aroma&More via Shopee; user-confirmed neat/as supplied and high quality 2026-08-30; dry conifer-woody-aromatic",
       "identity": "Cypress EO",
@@ -3255,7 +3235,7 @@
     },
     {
       "source_rows": [
-        211
+        210
       ],
       "raw_name": "Black Agarwood Artificial (10% w/w in DPG)  # 10% w/w in DPG stock of existing artificial oud",
       "identity": "Black Agarwood Artificial",
@@ -3271,7 +3251,7 @@
     },
     {
       "source_rows": [
-        212
+        211
       ],
       "raw_name": "Cabreuva EO (50% w/w in DPG)  # cabreuva (Myrocarpus fastigiatus) nerolidol-woody oil, 50% w/w in DPG",
       "identity": "Cabreuva EO",
@@ -3287,7 +3267,7 @@
     },
     {
       "source_rows": [
-        213
+        212
       ],
       "raw_name": "Black Agarwood Artificial [DON'T HAVE — neat stock is not owned; erroneous duplicate corrected 2026-08-30]",
       "identity": "Black Agarwood Artificial",
@@ -3303,7 +3283,7 @@
     },
     {
       "source_rows": [
-        214
+        213
       ],
       "raw_name": "Iso E Super",
       "identity": "Iso E Super",
@@ -3319,7 +3299,7 @@
     },
     {
       "source_rows": [
-        215
+        214
       ],
       "raw_name": "Cashmeran (neat)  # restocked 2026-05-23",
       "identity": "Cashmeran",
@@ -3341,7 +3321,7 @@
     },
     {
       "source_rows": [
-        216
+        215
       ],
       "raw_name": "Cashmeran (20%)",
       "identity": "Cashmeran",
@@ -3363,7 +3343,7 @@
     },
     {
       "source_rows": [
-        217
+        216
       ],
       "raw_name": "Polysantol  # DEPLETED 2026-08-29 — historical formulas are not silently rebased",
       "identity": "Polysantol",
@@ -3377,7 +3357,7 @@
     },
     {
       "source_rows": [
-        218
+        217
       ],
       "raw_name": "Cedramber",
       "identity": "Cedramber",
@@ -3398,7 +3378,7 @@
     },
     {
       "source_rows": [
-        219
+        218
       ],
       "raw_name": "Ambermax (50%)",
       "identity": "Ambermax",
@@ -3417,7 +3397,7 @@
     },
     {
       "source_rows": [
-        220
+        219
       ],
       "raw_name": "Ebanol",
       "identity": "Ebanol",
@@ -3438,7 +3418,7 @@
     },
     {
       "source_rows": [
-        221
+        220
       ],
       "raw_name": "Bacdanol  # user wrote \"Bacnadol\"; user-confirmed owned neat with ample stock 2026-09-01",
       "identity": "Bacdanol",
@@ -3459,7 +3439,7 @@
     },
     {
       "source_rows": [
-        222
+        221
       ],
       "raw_name": "Sandalore",
       "identity": "Sandalore",
@@ -3480,7 +3460,7 @@
     },
     {
       "source_rows": [
-        223
+        222
       ],
       "raw_name": "Vetival",
       "identity": "Vetival",
@@ -3501,7 +3481,7 @@
     },
     {
       "source_rows": [
-        224
+        223
       ],
       "raw_name": "Vertofix (neat / as supplied)  # PerfumersWorld SKU 3WY00465; 5 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1; supplier label Vertofix Couer",
       "identity": "Vertofix",
@@ -3526,7 +3506,7 @@
     },
     {
       "source_rows": [
-        225
+        224
       ],
       "raw_name": "Suederal (10%)",
       "identity": "Suederal",
@@ -3534,7 +3514,28 @@
       "registry_name": "Suederal",
       "profile_name": "Suederal",
       "current_stock_ids": [
-        "inventory:user-20261014:0665ba3d59b619ce1d53"
+        "inventory:user-20261014:aa4dd30aa8ef62ea5d5d"
+      ],
+      "odt_present": true,
+      "missing_numeric_fields": [],
+      "unresolved_scalar_disagreements": {
+        "clogp": {
+          "profile": 3.0,
+          "registry": 3.5
+        }
+      }
+    },
+    {
+      "source_rows": [
+        225
+      ],
+      "raw_name": "Suederal (neat)",
+      "identity": "Suederal",
+      "text_status": "owned",
+      "registry_name": "Suederal",
+      "profile_name": "Suederal",
+      "current_stock_ids": [
+        "inventory:user-20261014:aa4dd30aa8ef62ea5d5d"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3549,34 +3550,13 @@
       "source_rows": [
         226
       ],
-      "raw_name": "Suederal (neat)",
-      "identity": "Suederal",
-      "text_status": "owned",
-      "registry_name": "Suederal",
-      "profile_name": "Suederal",
-      "current_stock_ids": [
-        "inventory:user-20261014:0665ba3d59b619ce1d53"
-      ],
-      "odt_present": true,
-      "missing_numeric_fields": [],
-      "unresolved_scalar_disagreements": {
-        "clogp": {
-          "profile": 3.0,
-          "registry": 3.5
-        }
-      }
-    },
-    {
-      "source_rows": [
-        227
-      ],
       "raw_name": "Javanol",
       "identity": "Javanol",
       "text_status": "owned",
       "registry_name": "Javanol",
       "profile_name": "Javanol",
       "current_stock_ids": [
-        "inventory:user-20261014:6f3e412d865e08e76487",
+        "inventory:user-20261014:cac26caf1d3d762efe3a",
         "inventory:v5:0f9059da6115d3fddcc3"
       ],
       "odt_present": true,
@@ -3585,7 +3565,7 @@
     },
     {
       "source_rows": [
-        228
+        227
       ],
       "raw_name": "Amberwood F",
       "identity": "Amberwood F",
@@ -3610,7 +3590,7 @@
     },
     {
       "source_rows": [
-        229
+        228
       ],
       "raw_name": "Ambrox Super (25% w/w; 3.0 g Ambrox Super + 7.0 g DPG + 0.5 g IPM + 1.5 g ethanol; 12.0 g total; clear and homogeneous)  # user-confirmed current stock 2026-09-02; 3.0 g active is the arithmetic consequence of 25% w/w with 9.0 g stated carriers",
       "identity": "Ambrox Super",
@@ -3636,7 +3616,7 @@
     },
     {
       "source_rows": [
-        230
+        229
       ],
       "raw_name": "Ambrox Super Crystals (solid; neat / as supplied)  # user-confirmed current stock 2026-09-24; separate from the 25% solution; weighed-solid accounting only; bottle/lot receipt not yet recorded",
       "identity": "Ambrox Super Crystals",
@@ -3659,7 +3639,7 @@
     },
     {
       "source_rows": [
-        231
+        230
       ],
       "raw_name": "Ambrofix (7.27% w/w nominal whole-bottle including solid in DEP + ethanol) [DEPLETED — liquid stock gone; whole-bottle mass balance preserved as historical provenance only]",
       "identity": "Ambrofix",
@@ -3682,7 +3662,7 @@
     },
     {
       "source_rows": [
-        232
+        231
       ],
       "raw_name": "Ambrofix Crystals (solid; neat / as supplied)  # PerfumersWorld SKU 1UW16861; 10 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Ambrofix Crystals",
@@ -3698,7 +3678,7 @@
     },
     {
       "source_rows": [
-        233
+        232
       ],
       "raw_name": "Timberol",
       "identity": "Timberol",
@@ -3723,7 +3703,7 @@
     },
     {
       "source_rows": [
-        234
+        233
       ],
       "raw_name": "Koavone",
       "identity": "Koavone",
@@ -3748,7 +3728,7 @@
     },
     {
       "source_rows": [
-        235
+        234
       ],
       "raw_name": "Cedarwood EO",
       "identity": "Cedarwood EO",
@@ -3762,7 +3742,7 @@
     },
     {
       "source_rows": [
-        236
+        235
       ],
       "raw_name": "Guaiacwood EO (exactly 1/3 w/w in ethanol + DEP; components are 1/3 Guaiacwood EO + 1/3 ethanol + 1/3 DEP by mass)  # user-confirmed owned; exact one-third composition and mass basis corrected 2026-09-01",
       "identity": "Guaiacwood EO",
@@ -3770,7 +3750,7 @@
       "registry_name": "Guaiacwood EO",
       "profile_name": "Guaiacwood EO",
       "current_stock_ids": [
-        "inventory:user-20261014:bd6fa2ac8a61a8479a4a"
+        "inventory:user-20261014:efa966c141e45423cdbd"
       ],
       "odt_present": false,
       "missing_numeric_fields": [
@@ -3784,7 +3764,7 @@
     },
     {
       "source_rows": [
-        237
+        236
       ],
       "raw_name": "Cedarwood oil Virginia",
       "identity": "Cedarwood oil Virginia",
@@ -3798,7 +3778,7 @@
     },
     {
       "source_rows": [
-        238
+        237
       ],
       "raw_name": "Himalayan Cedarwood EO",
       "identity": "Himalayan Cedarwood EO",
@@ -3812,7 +3792,7 @@
     },
     {
       "source_rows": [
-        239
+        238
       ],
       "raw_name": "Haitian Vetiver EO (neat / as supplied)  # user correction 2026-09-10 supersedes the prior Indian-origin label; supplier/lot composition not asserted",
       "identity": "Haitian Vetiver EO",
@@ -3826,7 +3806,7 @@
     },
     {
       "source_rows": [
-        240
+        239
       ],
       "raw_name": "Nagarmortha Oil  # DEPLETED 2026-08-29 — user-confirmed no stock remains; historical formulas are not silently rebased",
       "identity": "Nagarmortha Oil",
@@ -3853,7 +3833,7 @@
     },
     {
       "source_rows": [
-        241
+        240
       ],
       "raw_name": "Vetikon (7403-42-1)",
       "identity": "Vetikon (7403-42-1)",
@@ -3867,7 +3847,7 @@
     },
     {
       "source_rows": [
-        242
+        241
       ],
       "raw_name": "Norlimbanol Dextro (10% w/w in DPG; homogeneous)  # user-confirmed basis, carrier, and homogeneity 2026-09-24; exact preparation quantities/date and bottle/lot lineage not yet recorded; physical-build hold",
       "identity": "Norlimbanol Dextro",
@@ -3892,7 +3872,7 @@
     },
     {
       "source_rows": [
-        243
+        242
       ],
       "raw_name": "Azarbre  # added 2026-04-17 — purchased; cedar-amber-smooth; warmer than Ambrox, softer than Timberol",
       "identity": "Azarbre",
@@ -3906,7 +3886,7 @@
     },
     {
       "source_rows": [
-        244
+        243
       ],
       "raw_name": "Kephalis (neat / as supplied)  # PerfumersWorld SKU 4WY07089; 5 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Kephalis",
@@ -3914,7 +3894,7 @@
       "registry_name": "Kephalis",
       "profile_name": "Kephalis",
       "current_stock_ids": [
-        "inventory:user-20261014:e0fa8a9ebc319ae373e6"
+        "inventory:user-20261014:e2d7e01980b0a8157add"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3931,7 +3911,7 @@
     },
     {
       "source_rows": [
-        245
+        244
       ],
       "raw_name": "Vetiveryl Acetate (neat / as supplied)  # user-confirmed current stock 2026-09-24; supersedes the earlier 10% w/w in DEP declaration; bottle/lot receipt not yet recorded",
       "identity": "Vetiveryl Acetate",
@@ -3947,7 +3927,7 @@
     },
     {
       "source_rows": [
-        246
+        245
       ],
       "raw_name": "Amber Xtreme (10% w/w in DEP)  # user-confirmed 2026-08-28",
       "identity": "Amber Xtreme",
@@ -3972,7 +3952,7 @@
     },
     {
       "source_rows": [
-        247
+        246
       ],
       "raw_name": "Clearwood  # user-reconfirmed owned, neat, and ready 2026-08-29",
       "identity": "Clearwood",
@@ -3993,7 +3973,7 @@
     },
     {
       "source_rows": [
-        248
+        247
       ],
       "raw_name": "Cedryl Acetate (neat / as supplied)  # PerfumersWorld SKU 2WW00099; 2 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Cedryl Acetate",
@@ -4012,7 +3992,7 @@
     },
     {
       "source_rows": [
-        249
+        248
       ],
       "raw_name": "Ambrocenide (10% in TEC)  # PerfumersWorld SKU 5WU22696; 3 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1; percentage basis unspecified",
       "identity": "Ambrocenide",
@@ -4031,7 +4011,7 @@
     },
     {
       "source_rows": [
-        252
+        251
       ],
       "raw_name": "Ethylene Brassylate  # user-confirmed owned 2026-08-28; supplied-stock fraction not separately stated",
       "identity": "Ethylene Brassylate",
@@ -4052,7 +4032,7 @@
     },
     {
       "source_rows": [
-        253
+        252
       ],
       "raw_name": "Galaxolide (50% in DEP)  # restocked 2026-07-21",
       "identity": "Galaxolide",
@@ -4068,7 +4048,7 @@
     },
     {
       "source_rows": [
-        254
+        253
       ],
       "raw_name": "Tonalide (10%)  # DEPLETED 2026-07-19 — user confirmed current musk stock is limited to Zenolide, Exaltolide, Ambrettolide, and Ethylene Brassylate",
       "identity": "Tonalide",
@@ -4082,7 +4062,7 @@
     },
     {
       "source_rows": [
-        255
+        254
       ],
       "raw_name": "Habanolide (neat / as supplied)  # PerfumersWorld SKU 3XA09821; 10 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Habanolide",
@@ -4098,7 +4078,7 @@
     },
     {
       "source_rows": [
-        256
+        255
       ],
       "raw_name": "Zenolide (neat / as supplied)  # PerfumersWorld SKU 3XA22378; 5 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Zenolide",
@@ -4119,7 +4099,7 @@
     },
     {
       "source_rows": [
-        257
+        256
       ],
       "raw_name": "Romandolide (neat / as supplied)  # PerfumersWorld SKU 3XU22379; 10 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Romandolide",
@@ -4144,7 +4124,7 @@
     },
     {
       "source_rows": [
-        258
+        257
       ],
       "raw_name": "Exaltolide (10%)  # 10% in DPG",
       "identity": "Exaltolide",
@@ -4167,7 +4147,7 @@
     },
     {
       "source_rows": [
-        259
+        258
       ],
       "raw_name": "Macrolide (10%)  # DEPLETED 2026-07-19 — user confirmed current musk stock is limited to Zenolide, Exaltolide, Ambrettolide, and Ethylene Brassylate",
       "identity": "Macrolide",
@@ -4186,7 +4166,7 @@
     },
     {
       "source_rows": [
-        260
+        259
       ],
       "raw_name": "Ambrettolide (10% w/w in DPG)  # user-confirmed 2026-09-04; owned, homogeneous, clear, pipetteable, and raw-volume executable; density, exact active mass/volume, safety, sensory outcome, and remaining quantity are not asserted",
       "identity": "Ambrettolide",
@@ -4202,7 +4182,7 @@
     },
     {
       "source_rows": [
-        261
+        260
       ],
       "raw_name": "Musk Ketone (pure powder)  # DEPLETED 2026-07-19 — user confirmed current musk stock is limited to Zenolide, Exaltolide, Ambrettolide, and Ethylene Brassylate",
       "identity": "Musk Ketone (pure powder)",
@@ -4221,7 +4201,7 @@
     },
     {
       "source_rows": [
-        262
+        261
       ],
       "raw_name": "Musk Ketone (10% in DPG)  # DEPLETED 2026-07-19 — user confirmed current musk stock is limited to Zenolide, Exaltolide, Ambrettolide, and Ethylene Brassylate",
       "identity": "Musk Ketone",
@@ -4240,7 +4220,7 @@
     },
     {
       "source_rows": [
-        263
+        262
       ],
       "raw_name": "Ambrette Seed Absolute (10% in DPG)  # PerfumersWorld SKU 5XU12235; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1; percentage basis unspecified",
       "identity": "Ambrette Seed Absolute",
@@ -4262,7 +4242,7 @@
     },
     {
       "source_rows": [
-        264
+        263
       ],
       "raw_name": "Helvetolide (neat / as supplied)  # PerfumersWorld SKU 3XD17215; 5 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Helvetolide",
@@ -4280,7 +4260,7 @@
     },
     {
       "source_rows": [
-        267
+        266
       ],
       "raw_name": "Hay Absolute (10% w/w in DPG; homogeneous)  # user-confirmed basis, carrier, and homogeneity 2026-09-24; exact preparation quantities/date and bottle/lot lineage not yet recorded; physical-build hold",
       "identity": "Hay Absolute",
@@ -4296,7 +4276,7 @@
     },
     {
       "source_rows": [
-        268
+        267
       ],
       "raw_name": "Anisaldehyde 10% v/v in ethanol  # user-confirmed carrier/basis 2026-09-10; neat Anisaldehyde already present",
       "identity": "Anisaldehyde",
@@ -4317,7 +4297,7 @@
     },
     {
       "source_rows": [
-        269
+        268
       ],
       "raw_name": "Ethyl Maltol 1% v/v in ethanol  # user-confirmed carrier/basis 2026-09-10; 10% Ethyl Maltol already present with its prior unresolved carrier/basis",
       "identity": "Ethyl Maltol",
@@ -4339,7 +4319,7 @@
     },
     {
       "source_rows": [
-        270
+        269
       ],
       "raw_name": "Raspberry Ketone (20% in DPG w/w)  # 20% in DPG w/w; neat Raspberry Ketone already present",
       "identity": "Raspberry Ketone",
@@ -4355,7 +4335,7 @@
     },
     {
       "source_rows": [
-        271
+        270
       ],
       "raw_name": "Vietnamese Benzoin Styrax Tonkinensis resin ethanol tincture (20%) [OUT OF STOCK 2026-08-28 — historical lost stock; distinct from the current 40% tincture]",
       "identity": "Vietnamese Benzoin Styrax Tonkinensis resin ethanol tincture",
@@ -4369,7 +4349,7 @@
     },
     {
       "source_rows": [
-        272
+        271
       ],
       "raw_name": "Vietnamese Benzoin Styrax tonkinensis resin ethanol tincture (40% starting resin charge w/w) [OWNED — USER-CONFIRMED; VIETNAM; COMPLETE EXTRACTION THEN FUNNEL-DRAINED; 40% AUTHORIZED AS NOMINAL PROPERTY-MODEL FRACTION; FINAL DISSOLVED-SOLIDS FRACTION UNASSAYED; QUANTITATIVE DOSING HOLD]",
       "identity": "Vietnamese Benzoin Styrax tonkinensis resin ethanol tincture",
@@ -4383,7 +4363,7 @@
     },
     {
       "source_rows": [
-        273
+        272
       ],
       "raw_name": "Turkish Storax Liquidambar orientalis resin ethanol tincture (20% starting resin charge w/w) [OWNED — USER-CONFIRMED; TURKEY; COMPLETE EXTRACTION THEN FUNNEL-DRAINED; 20% AUTHORIZED AS NOMINAL PROPERTY-MODEL FRACTION; FINAL DISSOLVED-SOLIDS FRACTION UNASSAYED; QUANTITATIVE DOSING HOLD]",
       "identity": "Turkish Storax Liquidambar orientalis resin ethanol tincture",
@@ -4397,7 +4377,7 @@
     },
     {
       "source_rows": [
-        274
+        273
       ],
       "raw_name": "Kenyan Myrrh resin ethanol tincture (20% starting resin charge w/w) [OWNED — USER-SUPPLIED LABEL \"COMMIPHORA MYRRH\" FROM KENYA; EXACT TAXONOMIC NORMALIZATION NOT ASSERTED; COMPLETE EXTRACTION THEN FUNNEL-DRAINED; 20% AUTHORIZED AS NOMINAL PROPERTY-MODEL FRACTION; FINAL DISSOLVED-SOLIDS FRACTION UNASSAYED; QUANTITATIVE DOSING HOLD]",
       "identity": "Kenyan Myrrh resin ethanol tincture",
@@ -4417,7 +4397,7 @@
     },
     {
       "source_rows": [
-        275
+        274
       ],
       "raw_name": "Oman Frankincense resin ethanol tincture (33% starting resin charge w/w) [OWNED — USER-CONFIRMED OMAN ORIGIN; BOSWELLIA SPECIES UNSTATED; COMPLETE EXTRACTION THEN FUNNEL-DRAINED; 33% AUTHORIZED AS NOMINAL PROPERTY-MODEL FRACTION; FINAL DISSOLVED-SOLIDS FRACTION UNASSAYED; QUANTITATIVE DOSING HOLD]",
       "identity": "Oman Frankincense resin ethanol tincture",
@@ -4437,7 +4417,7 @@
     },
     {
       "source_rows": [
-        276
+        275
       ],
       "raw_name": "Coffee Absolute Grasse (10% in DPG)  # added 2026-07-29; roasted coffee natural stock",
       "identity": "Coffee Absolute Grasse",
@@ -4453,7 +4433,7 @@
     },
     {
       "source_rows": [
-        277
+        276
       ],
       "raw_name": "2-Acetyl Pyrazine (1% in DPG)  # added 2026-07-29; popcorn/bread-crust/roasted gourmand stock",
       "identity": "2-Acetyl Pyrazine",
@@ -4470,7 +4450,7 @@
     },
     {
       "source_rows": [
-        278
+        277
       ],
       "raw_name": "Ethyl Maltol (10%)",
       "identity": "Ethyl Maltol",
@@ -4492,7 +4472,7 @@
     },
     {
       "source_rows": [
-        279
+        278
       ],
       "raw_name": "Coumarin (10% w/w in DPG)  # current working solution, user-confirmed 2026-09-07; supersedes older working-stock descriptions, not historical formulas",
       "identity": "Coumarin",
@@ -4514,7 +4494,7 @@
     },
     {
       "source_rows": [
-        280
+        279
       ],
       "raw_name": "Coumarin (neat powder)  # PerfumersWorld SKU 1VD00129; 10 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Coumarin",
@@ -4536,7 +4516,7 @@
     },
     {
       "source_rows": [
-        281
+        280
       ],
       "raw_name": "Vanillin (10% v/v nominal in ethanol)  # 2026-09-08 user volumetric convention; ethanol default applies only because carrier was unknown; stock density unknown",
       "identity": "Vanillin",
@@ -4552,7 +4532,7 @@
     },
     {
       "source_rows": [
-        282
+        281
       ],
       "raw_name": "Ethyl Vanillin (10%)",
       "identity": "Ethyl Vanillin",
@@ -4574,7 +4554,7 @@
     },
     {
       "source_rows": [
-        283
+        282
       ],
       "raw_name": "Maple Lactone (20%)  # OUT OF STOCK / NOT OWNED — user-confirmed 2026-09-15",
       "identity": "Maple Lactone",
@@ -4595,7 +4575,7 @@
     },
     {
       "source_rows": [
-        284
+        283
       ],
       "raw_name": "Raspberry Ketone",
       "identity": "Raspberry Ketone",
@@ -4611,7 +4591,7 @@
     },
     {
       "source_rows": [
-        285
+        284
       ],
       "raw_name": "Siam Benzoin (50% w/w in DPG)  # basis user-confirmed 2026-09-15; exact active mass from volume requires stock density",
       "identity": "Siam Benzoin",
@@ -4627,7 +4607,7 @@
     },
     {
       "source_rows": [
-        286
+        285
       ],
       "raw_name": "Methyl Laitone (20% v/v in ethanol) [OWNED — user-confirmed stock basis and carrier 2026-09-15]  # remains distinct from PW SKU 5VD10871, Methyl Laitone 10% DPG",
       "identity": "Methyl Laitone",
@@ -4646,7 +4626,7 @@
     },
     {
       "source_rows": [
-        287
+        286
       ],
       "raw_name": "Benzoin Sumatra Resinoid (10%)",
       "identity": "Benzoin Sumatra Resinoid",
@@ -4660,7 +4640,7 @@
     },
     {
       "source_rows": [
-        288
+        287
       ],
       "raw_name": "Anisaldehyde",
       "identity": "Anisaldehyde",
@@ -4681,7 +4661,7 @@
     },
     {
       "source_rows": [
-        289
+        288
       ],
       "raw_name": "Gamma Decalactone (neat / as supplied)  # PerfumersWorld SKU 4DD01639; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Gamma Decalactone",
@@ -4702,7 +4682,7 @@
     },
     {
       "source_rows": [
-        290
+        289
       ],
       "raw_name": "Gamma Undecalactone (neat / as supplied)  # PerfumersWorld SKU 4DD00454; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Gamma Undecalactone",
@@ -4723,7 +4703,7 @@
     },
     {
       "source_rows": [
-        291
+        290
       ],
       "raw_name": "Delta Decalactone (neat / as supplied)  # PerfumersWorld SKU 4DD03683; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Delta Decalactone",
@@ -4739,7 +4719,7 @@
     },
     {
       "source_rows": [
-        292
+        291
       ],
       "raw_name": "Aldehyde C-18 (Gamma Nonalactone, 10% in ethanol)  # user-confirmed carrier 2026-09-15; percentage basis remains unstated; raw-volume use only",
       "identity": "Aldehyde C-18 (Gamma Nonalactone)",
@@ -4756,7 +4736,7 @@
     },
     {
       "source_rows": [
-        293
+        292
       ],
       "raw_name": "Aldehyde C-18 (Gamma Nonalactone, neat)  # PerfumersWorld SKU 4DD00324; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Aldehyde C-18 (Gamma Nonalactone)",
@@ -4773,7 +4753,7 @@
     },
     {
       "source_rows": [
-        294
+        293
       ],
       "raw_name": "Allyl Amyl Glycolate (10%)",
       "identity": "Allyl Amyl Glycolate",
@@ -4794,7 +4774,7 @@
     },
     {
       "source_rows": [
-        295
+        294
       ],
       "raw_name": "Labdanum Resinoid (10% w/w in DPG)  # user-confirmed mass-fraction basis, correct stock form, and ready 2026-09-24; lot/preparation receipt remains incomplete",
       "identity": "Labdanum Resinoid",
@@ -4810,7 +4790,7 @@
     },
     {
       "source_rows": [
-        296
+        295
       ],
       "raw_name": "Tonkarome (20% w/w in TEC)  # user-prepared 2026-06-03 from 4 g Tonkarome + 16 g TEC; user-confirmed 2026-09-04 owned, homogeneous, clear, pipetteable, and raw-volume executable; density, exact active mass/volume from a raw-volume dose, safety, sensory outcome, and remaining quantity are not asserted",
       "identity": "Tonkarome",
@@ -4826,7 +4806,7 @@
     },
     {
       "source_rows": [
-        297
+        296
       ],
       "raw_name": "Cocoa Absolute  # neat stock; user-confirmed 2026-07-18",
       "identity": "Cocoa Absolute",
@@ -4840,7 +4820,7 @@
     },
     {
       "source_rows": [
-        298
+        297
       ],
       "raw_name": "Tonka Bean Absolute (10% w/w in DPG)  # added 2026-06-22; user-confirmed mass-fraction basis, correct stock form, and ready 2026-09-24; supersedes the 2026-09-08 nominal volumetric convention; lot/preparation receipt remains incomplete",
       "identity": "Tonka Bean Absolute",
@@ -4856,7 +4836,7 @@
     },
     {
       "source_rows": [
-        299
+        298
       ],
       "raw_name": "Cocoa CO2 Extract (7.7%)  # stock dilution 7.7%; distinct economical chocolate-body material; added 2026-06-22, identity confirmed 2026-07-18",
       "identity": "Cocoa CO2 Extract",
@@ -4872,7 +4852,7 @@
     },
     {
       "source_rows": [
-        300
+        299
       ],
       "raw_name": "Peru Balsam Resinoid (50% w/w in DEP)  # carrier user-confirmed 2026-09-15; replaces stale DPG text",
       "identity": "Peru Balsam Resinoid",
@@ -4888,7 +4868,7 @@
     },
     {
       "source_rows": [
-        301
+        300
       ],
       "raw_name": "Opoponax Resinoid (50% w/w in DEP)  # user-confirmed mass-fraction basis, correct stock form, and ready 2026-09-24; lot/preparation receipt remains incomplete",
       "identity": "Opoponax Resinoid",
@@ -4904,7 +4884,7 @@
     },
     {
       "source_rows": [
-        302
+        301
       ],
       "raw_name": "Myrrh EO (50% in DEP)  # user-authoritative 2026-08-28; 50% basis unspecified",
       "identity": "Myrrh EO",
@@ -4912,7 +4892,7 @@
       "registry_name": "Myrrh EO",
       "profile_name": "Myrrh EO",
       "current_stock_ids": [
-        "inventory:user-20261014:85f1a1bb16f700a7f8d0"
+        "inventory:user-20261014:993296c02b8248751be1"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -4920,7 +4900,7 @@
     },
     {
       "source_rows": [
-        303
+        302
       ],
       "raw_name": "Gamma Octalactone (neat / as supplied)  # PerfumersWorld SKU 4DD00331; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Gamma Octalactone",
@@ -4939,7 +4919,7 @@
     },
     {
       "source_rows": [
-        304
+        303
       ],
       "raw_name": "Acetoin (neat / as supplied)  # PerfumersWorld SKU 4DV02664; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Acetoin",
@@ -4958,7 +4938,7 @@
     },
     {
       "source_rows": [
-        305
+        304
       ],
       "raw_name": "Diethyl Malonate (neat / as supplied)  # PerfumersWorld SKU 3FG00145; 2 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Diethyl Malonate",
@@ -4977,7 +4957,7 @@
     },
     {
       "source_rows": [
-        306
+        305
       ],
       "raw_name": "Butyl Butyrate (neat / as supplied)  # PerfumersWorld SKU 3FD05860; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Butyl Butyrate",
@@ -4995,7 +4975,7 @@
     },
     {
       "source_rows": [
-        307
+        306
       ],
       "raw_name": "Allyl Amyl Glycolate (neat / as supplied)  # PerfumersWorld SKU 4FG00029; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Allyl Amyl Glycolate",
@@ -5016,7 +4996,7 @@
     },
     {
       "source_rows": [
-        308
+        307
       ],
       "raw_name": "Fructone B (neat / as supplied)  # PerfumersWorld SKU 3FG00196; 2 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Fructone B",
@@ -5035,7 +5015,7 @@
     },
     {
       "source_rows": [
-        309
+        308
       ],
       "raw_name": "Maltol (solid; neat / as supplied)  # PerfumersWorld SKU 1VE00283; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Maltol",
@@ -5054,7 +5034,7 @@
     },
     {
       "source_rows": [
-        310
+        309
       ],
       "raw_name": "Maple Lactone (neat / as supplied)  # PerfumersWorld SKU 1VE00286; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Maple Lactone",
@@ -5075,7 +5055,7 @@
     },
     {
       "source_rows": [
-        311
+        310
       ],
       "raw_name": "Vanilla Absolute (10% in DPG)  # PerfumersWorld SKU 5VW09926; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1; percentage basis unspecified",
       "identity": "Vanilla Absolute",
@@ -5097,7 +5077,7 @@
     },
     {
       "source_rows": [
-        314
+        313
       ],
       "raw_name": "Castoreum Synthetic (10% w/w in DEP)  # basis user-confirmed 2026-09-15; supplier product is a proprietary non-animal castoreum compound; exact active mass from volume requires stock density",
       "identity": "Castoreum Synthetic",
@@ -5113,7 +5093,7 @@
     },
     {
       "source_rows": [
-        315
+        314
       ],
       "raw_name": "Tobacco Absolute (10% in DPG)  # PerfumersWorld SKU 5TH13846; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1; percentage basis unspecified",
       "identity": "Tobacco Absolute",
@@ -5129,7 +5109,7 @@
     },
     {
       "source_rows": [
-        316
+        315
       ],
       "raw_name": "Isobutyl Quinoline (10%)",
       "identity": "Isobutyl Quinoline",
@@ -5148,7 +5128,7 @@
     },
     {
       "source_rows": [
-        317
+        316
       ],
       "raw_name": "Birch Tar Rectified (10% in DPG)  # PerfumersWorld SKU 5TP11094; 2 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1; percentage basis unspecified",
       "identity": "Birch Tar Rectified",
@@ -5169,7 +5149,7 @@
     },
     {
       "source_rows": [
-        318
+        317
       ],
       "raw_name": "Costus Olifac (10% in DPG)",
       "identity": "Costus Olifac",
@@ -5177,7 +5157,7 @@
       "registry_name": "Costus Olifac",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20261014:3c976651f09664be2546"
+        "inventory:user-20261014:6a6cdf7dfb119e0e7dc1"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -5191,7 +5171,7 @@
     },
     {
       "source_rows": [
-        319
+        318
       ],
       "raw_name": "Cade Oil Rectified (1% in DPG)  # added 2026-07-05 — Juniperus oxycedrus; rectified juniper wood tar; dry ashy campfire smoke; IFRA Standard 119 compliant (rectified grade only)",
       "identity": "Cade Oil Rectified",
@@ -5199,7 +5179,7 @@
       "registry_name": "Cade Oil Rectified",
       "profile_name": "Cade Oil Rectified",
       "current_stock_ids": [
-        "inventory:user-20261014:e1a1afa475f3e0f0b805"
+        "inventory:user-20261014:3e596bda86005488dfb0"
       ],
       "odt_present": false,
       "missing_numeric_fields": [],
@@ -5207,7 +5187,7 @@
     },
     {
       "source_rows": [
-        320
+        319
       ],
       "raw_name": "Guaiacol (10%)",
       "identity": "Guaiacol",
@@ -5229,7 +5209,7 @@
     },
     {
       "source_rows": [
-        321
+        320
       ],
       "raw_name": "Evernyl (crystals)  # physically owned/reconfirmed 2026-08-30; distinct solid stock; prefer mass dosing or a labeled working stock",
       "identity": "Evernyl (crystals)",
@@ -5252,7 +5232,7 @@
     },
     {
       "source_rows": [
-        322
+        321
       ],
       "raw_name": "Evernyl (10% w/w in DPG)  # user-confirmed fully dissolved 2026-09-15; homogeneous raw-volume stock; exact active mass from volume requires stock density",
       "identity": "Evernyl",
@@ -5277,7 +5257,7 @@
     },
     {
       "source_rows": [
-        323
+        322
       ],
       "raw_name": "Evernyl (10% w/w in DEP)  # PLANNED PREPARATION; NOT YET PREPARED; not executable until prepared, dissolved, labeled, and stock-bound",
       "identity": "Evernyl",
@@ -5302,7 +5282,7 @@
     },
     {
       "source_rows": [
-        324
+        323
       ],
       "raw_name": "Skatole (1% in DPG)  # user-confirmed carrier 2026-09-15; percentage basis remains unstated; raw-volume use only",
       "identity": "Skatole",
@@ -5318,7 +5298,7 @@
     },
     {
       "source_rows": [
-        325
+        324
       ],
       "raw_name": "Oakmoss Absolute (10% in DPG)",
       "identity": "Oakmoss Absolute",
@@ -5326,7 +5306,7 @@
       "registry_name": "oakmoss absolute",
       "profile_name": "Oakmoss Absolute",
       "current_stock_ids": [
-        "inventory:user-20261014:318e8db9d68d0fe7e191"
+        "inventory:user-20261014:8a4a0d2be9d245ce203d"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5334,7 +5314,7 @@
     },
     {
       "source_rows": [
-        328
+        327
       ],
       "raw_name": "Elemi EO  # Canarium luzonicum; citrusy-balsamic resin",
       "identity": "Elemi EO",
@@ -5350,7 +5330,7 @@
     },
     {
       "source_rows": [
-        329
+        328
       ],
       "raw_name": "Safraleine (10% w/w in DPG)  # 10% w/w in DPG; neat Safraleine already present",
       "identity": "Safraleine",
@@ -5366,7 +5346,7 @@
     },
     {
       "source_rows": [
-        330
+        329
       ],
       "raw_name": "Caraway Seed Oil (10% w/w in DPG)  # Carum carvi seed oil, 10% w/w in DPG",
       "identity": "Caraway Seed Oil",
@@ -5386,7 +5366,7 @@
     },
     {
       "source_rows": [
-        331
+        330
       ],
       "raw_name": "Safraleine  # added 2026-07-29; neat saffron/leather/tobacco indenone",
       "identity": "Safraleine",
@@ -5402,7 +5382,7 @@
     },
     {
       "source_rows": [
-        332
+        331
       ],
       "raw_name": "Coriander Essential Oil (PerfumersWorld SKU 7SL00125; neat / as supplied)  # user-confirmed exact PW product 2026-09-10; PW lists Coriander Seed Oil as a synonym, but the bottle/product name is Coriander Essential Oil",
       "identity": "Coriander Essential Oil",
@@ -5418,7 +5398,7 @@
     },
     {
       "source_rows": [
-        333
+        332
       ],
       "raw_name": "Pink Pepper EO (Schinus molle; neat / as supplied)  # user-confirmed physical stock 2026-09-03; Aroma&More Peru; EO is authoritative for this bottle and remains distinct from the older Pink Pepper EO / CO2 requirement row",
       "identity": "Pink Pepper EO",
@@ -5434,7 +5414,7 @@
     },
     {
       "source_rows": [
-        334
+        333
       ],
       "raw_name": "Black Pepper EO (neat / as supplied)  # user-confirmed current form and ready 2026-09-24; R5 still calls for a separately prepared 10% v/v ethanol working stock",
       "identity": "Black Pepper EO",
@@ -5453,7 +5433,7 @@
     },
     {
       "source_rows": [
-        335
+        334
       ],
       "raw_name": "Cardamom EO  # added 2026-05-08 — purchased; green cardamom essential oil; spicy-cineolic-aromatic; pairs with rose, bergamot",
       "identity": "Cardamom EO",
@@ -5469,7 +5449,7 @@
     },
     {
       "source_rows": [
-        336
+        335
       ],
       "raw_name": "Ethyl Safranate (10%)",
       "identity": "Ethyl Safranate",
@@ -5485,7 +5465,7 @@
     },
     {
       "source_rows": [
-        337
+        336
       ],
       "raw_name": "Eugenol (neat)",
       "identity": "Eugenol",
@@ -5506,7 +5486,7 @@
     },
     {
       "source_rows": [
-        338
+        337
       ],
       "raw_name": "Eugenol (10%)",
       "identity": "Eugenol",
@@ -5527,7 +5507,7 @@
     },
     {
       "source_rows": [
-        339
+        338
       ],
       "raw_name": "Isoeugenol (neat)",
       "identity": "Isoeugenol",
@@ -5543,7 +5523,7 @@
     },
     {
       "source_rows": [
-        340
+        339
       ],
       "raw_name": "Clove EO (India)",
       "identity": "Clove EO (India)",
@@ -5551,7 +5531,7 @@
       "registry_name": "Clove EO (India)",
       "profile_name": "Clove EO (India)",
       "current_stock_ids": [
-        "inventory:user-20261014:3ab6795952b7c52e7fb2"
+        "inventory:user-20261014:05f4038482b9edadc79e"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5559,7 +5539,7 @@
     },
     {
       "source_rows": [
-        341
+        340
       ],
       "raw_name": "Anise EO (China)",
       "identity": "Anise EO (China)",
@@ -5573,7 +5553,7 @@
     },
     {
       "source_rows": [
-        342
+        341
       ],
       "raw_name": "Cinnamaldehyde (1%)",
       "identity": "Cinnamaldehyde",
@@ -5589,7 +5569,7 @@
     },
     {
       "source_rows": [
-        343
+        342
       ],
       "raw_name": "Cinnamon Bark EO - Telvada USDA Organic (neat)  # Telvada via Shopee; user-confirmed neat/as supplied 2026-08-30; distinct from NYSUPPLY 10% stock and Cassia EO; no cross-stock substitution authority",
       "identity": "Cinnamon Bark EO - Telvada USDA Organic",
@@ -5609,7 +5589,7 @@
     },
     {
       "source_rows": [
-        344
+        343
       ],
       "raw_name": "Nutmeg EO (neat / as supplied)  # Aroma&More via Shopee; user-confirmed neat and ready 2026-09-24; supplier listing identifies 100% Indonesia oil; R5 still calls for a separately prepared 10% v/v ethanol working stock",
       "identity": "Nutmeg EO",
@@ -5631,7 +5611,7 @@
     },
     {
       "source_rows": [
-        345
+        344
       ],
       "raw_name": "Lavender EO (1%)",
       "identity": "Lavender EO",
@@ -5650,7 +5630,7 @@
     },
     {
       "source_rows": [
-        346
+        345
       ],
       "raw_name": "Lavender EO High Altitude (angustifolia, France) [NOT OWNED — removed from current available inventory by user 2026-09-08; historical identity retained]",
       "identity": "Lavender EO High Altitude (angustifolia, France)",
@@ -5666,7 +5646,7 @@
     },
     {
       "source_rows": [
-        347
+        346
       ],
       "raw_name": "Lavender EO (BONTAUX SAS)  # added 2026-05-08 — purchased; premium French lavender angustifolia; floral-herbaceous with soft honeyed sweetness; bare inventory row implies neat/as supplied under established convention, not a direct neat quote",
       "identity": "Lavender EO (BONTAUX SAS)",
@@ -5682,7 +5662,7 @@
     },
     {
       "source_rows": [
-        348
+        347
       ],
       "raw_name": "Lavender 40/42, Aroma&More (neat / as supplied; 10 mL)  # user-confirmed physically owned and homogeneous 2026-09-24; supplier catalog ref Lav420811P; lot, purchase source, and label receipt not yet recorded; physical-build hold",
       "identity": "Lavender 40/42, Aroma&More",
@@ -5704,7 +5684,7 @@
     },
     {
       "source_rows": [
-        349
+        348
       ],
       "raw_name": "Spike Lavender EO (neat / as supplied)  # added 2026-04-29; user-confirmed correct form and ready 2026-09-24; camphoraceous lavender, more aromatic/masculine and less soft-floral than Lavender EO",
       "identity": "Spike Lavender EO",
@@ -5720,7 +5700,7 @@
     },
     {
       "source_rows": [
-        350
+        349
       ],
       "raw_name": "Beta-Pinene  # added 2026-04-29 — purchased; pine-green terpene top note; useful for Thai aromatic fougere lift, oxidizes like other terpenes",
       "identity": "Beta-Pinene",
@@ -5747,7 +5727,7 @@
     },
     {
       "source_rows": [
-        351
+        350
       ],
       "raw_name": "Pine EO  # added 2026-04-30 — purchased; coniferous pine needle/forest top, terpene-rich and oxidation-sensitive",
       "identity": "Pine EO",
@@ -5763,7 +5743,7 @@
     },
     {
       "source_rows": [
-        352
+        351
       ],
       "raw_name": "Juniper Berry EO  # added 2026-05-05 — purchased; fresh-green-coniferous-spicy top; gin-like clarity, useful for aromatic-fougere lift",
       "identity": "Juniper Berry EO",
@@ -5779,7 +5759,7 @@
     },
     {
       "source_rows": [
-        353
+        352
       ],
       "raw_name": "Rosemary EO (French Rosmarinus Officinalis leaf oil)  # added 2026-05-05 — purchased; herbal-camphoraceous-aromatic; cineole-rich freshness for fougère/aromatic structures",
       "identity": "Rosemary EO (French Rosmarinus Officinalis leaf oil)",
@@ -5806,7 +5786,7 @@
     },
     {
       "source_rows": [
-        354
+        353
       ],
       "raw_name": "Clary Sage EO",
       "identity": "Clary Sage EO",
@@ -5822,7 +5802,7 @@
     },
     {
       "source_rows": [
-        355
+        354
       ],
       "raw_name": "Basil EO (India, Ocimum Basilicum)",
       "identity": "Basil EO (India, Ocimum Basilicum)",
@@ -5836,7 +5816,7 @@
     },
     {
       "source_rows": [
-        356
+        355
       ],
       "raw_name": "Patchouli EO  # Aroma&More via Shopee; user-confirmed neat/as supplied and high quality 2026-08-30; replaces stale \"volume grade\" current-stock label",
       "identity": "Patchouli EO",
@@ -5857,7 +5837,7 @@
     },
     {
       "source_rows": [
-        357
+        356
       ],
       "raw_name": "Cassia Essential Oil (Cinnamomum cassia, India)  # added 2026-06-15 — steam-distilled from bark/branches; INCI: Cinnamomum Cassia Oil; rich cinnamaldehyde sweetness; warming spicy; use at 0.05-0.5% due to skin sensitization risk",
       "identity": "Cassia Essential Oil (Cinnamomum cassia, India)",
@@ -5871,7 +5851,7 @@
     },
     {
       "source_rows": [
-        358
+        357
       ],
       "raw_name": "Olibanum Resinoid (viscous, 50% w/w in DPG)  # user-reconfirmed correct stock form and ready 2026-09-24; viscous PW SKU 2QK21856 resinoid base (about 30% benzyl benzoate); lot receipt not yet recorded",
       "identity": "Olibanum Resinoid (viscous)",
@@ -5885,7 +5865,7 @@
     },
     {
       "source_rows": [
-        359
+        358
       ],
       "raw_name": "Caryophyllene Acetate (20% w/w) [OWNED — V7 USER STOCK 2026-08-30; CARRIER UNSPECIFIED; QUANTITATIVE DOSING HOLD]",
       "identity": "Caryophyllene Acetate",
@@ -5893,7 +5873,7 @@
       "registry_name": "Caryophyllene Acetate",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20261014:40bb2b312e811c66a3f6"
+        "inventory:user-20261014:2b4e4d2f78ab27ee3913"
       ],
       "odt_present": false,
       "missing_numeric_fields": [
@@ -5904,7 +5884,7 @@
     },
     {
       "source_rows": [
-        360
+        359
       ],
       "raw_name": "Mate Absolute (10% in DPG)  # PerfumersWorld SKU 5HE13845; 2 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1; percentage basis unspecified",
       "identity": "Mate Absolute",
@@ -5926,7 +5906,7 @@
     },
     {
       "source_rows": [
-        361
+        360
       ],
       "raw_name": "Methyl Diantilis (neat / as supplied)  # PerfumersWorld SKU 4SP16859; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Methyl Diantilis",
@@ -5945,7 +5925,7 @@
     },
     {
       "source_rows": [
-        362
+        361
       ],
       "raw_name": "Lavandin Absolute (neat / as supplied)  # PerfumersWorld SKU 8HY00554; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1",
       "identity": "Lavandin Absolute",
@@ -5967,7 +5947,7 @@
     },
     {
       "source_rows": [
-        363
+        362
       ],
       "raw_name": "Saffranal (10% in DPG)  # PerfumersWorld SKU 5ES07841; 1 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1; percentage basis unspecified",
       "identity": "Saffranal",
@@ -5986,7 +5966,7 @@
     },
     {
       "source_rows": [
-        366
+        365
       ],
       "raw_name": "Champignol (10% in DPG)  # added 2026-07-29; fungal/mushroom material in DPG",
       "identity": "Champignol",
@@ -6000,7 +5980,7 @@
     },
     {
       "source_rows": [
-        367
+        366
       ],
       "raw_name": "Jasmine Sambac (10% in DPG)",
       "identity": "Jasmine Sambac",
@@ -6014,21 +5994,7 @@
     },
     {
       "source_rows": [
-        368
-      ],
-      "raw_name": "Leather FO",
-      "identity": "Leather FO",
-      "text_status": "owned",
-      "registry_name": "Leather FO",
-      "profile_name": "Leather FO",
-      "current_stock_ids": [],
-      "odt_present": true,
-      "missing_numeric_fields": [],
-      "unresolved_scalar_disagreements": {}
-    },
-    {
-      "source_rows": [
-        369
+        367
       ],
       "raw_name": "BHT  # Butylated Hydroxytoluene antioxidant stabilizer",
       "identity": "BHT",
@@ -6042,7 +6008,7 @@
     },
     {
       "source_rows": [
-        370
+        368
       ],
       "raw_name": "Melonal",
       "identity": "Melonal",
@@ -6058,7 +6024,7 @@
     },
     {
       "source_rows": [
-        371
+        369
       ],
       "raw_name": "Dimethyl Benzyl Carbinyl Acetate (DBCA)",
       "identity": "Dimethyl Benzyl Carbinyl Acetate (DBCA)",
@@ -6072,7 +6038,7 @@
     },
     {
       "source_rows": [
-        372
+        370
       ],
       "raw_name": "Methyl Nonyl Ketone",
       "identity": "Methyl Nonyl Ketone",
@@ -6094,7 +6060,7 @@
     },
     {
       "source_rows": [
-        373
+        371
       ],
       "raw_name": "Cassis Base 345B",
       "identity": "Cassis Base 345B",
@@ -6108,7 +6074,7 @@
     },
     {
       "source_rows": [
-        374
+        372
       ],
       "raw_name": "Black Tea Base (neat / as supplied)  # PerfumersWorld SKU 6HE09224; 2 g received, user-confirmed 2026-10-07; order 2026-10-04, 261004-055451ce1; supplied blend, not a pure chemical",
       "identity": "Black Tea Base",
@@ -6134,6 +6100,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "8f4bcf9286fe060ec0d2241c7b982d93d21ce6e6ba6654bf961f6155d776018c",
-  "input_cache_sha256": "6cb3f022e3459319532049cf1b15f6153d8b3688321866ed3761592472209b56"
+  "output_sha256": "14c999d0fd81a87dc8e6499fee98557542d25321a608cdfb6891c083ac41920d",
+  "input_cache_sha256": "43bcf3dc3e5f6176fed41dc49df62e961252dbfba838a451522f27438019f9a7"
 }
