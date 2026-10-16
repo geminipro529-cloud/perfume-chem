@@ -32,7 +32,11 @@ def _owned():
 
 def _records():
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
-    return {r["canonical_name"]: r for r in overlay["records"] if r["record_id"] >= "INV-USER-20261014-STK-107"}
+    return {
+        r["canonical_name"]: r
+        for r in overlay["records"]
+        if r.get("supplier_product", {}).get("order") == "2199302"
+    }
 
 
 @pytest.mark.parametrize("name", NEW)
