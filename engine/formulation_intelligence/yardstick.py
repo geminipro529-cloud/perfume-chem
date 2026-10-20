@@ -719,8 +719,8 @@ def score_formula(formula: Mapping[str, Any], brief: Mapping[str, Any]) -> Score
         markers = _note_marker_readings(window_mats, name_set, note["materials"])
         if markers:
             # Plan A4: the marker readings (OAV numbers) stay under diagnostics (Rule 1).
-            marker_diagnostics[note["name"]] = markers
-            if status == "detectable" and markers[0]["screening_oav"] >= 1 and not any(
+            marker_diagnostics[f"{note['name']} ({note['window']})"] = markers
+            if status == "detectable" and markers[0]["reaches_threshold"] and not any(
                 not _lacks_physics(m) and m.screening_oav >= 1
                 for m in _note_rows(window_mats, name_set, note["materials"])
             ):
