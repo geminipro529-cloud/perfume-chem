@@ -164,6 +164,8 @@ STILL_HELD = {
     # Added 2026-10-15 (neat); no IFRA table entry matches it.
     "Neryl Acetate",
     "Orris Concrete Orris Butter",
+    # Kenny's 50% w/w ethanol dilution of orris butter (2026-10-20); orris has no IFRA standard.
+    "Orris Butter 50% in EtOH",
     "Pomelo EO",
     # Added 2026-10-15: a saturated saffron infusion in DPG of unknown strength.
     "Red Saffron Infusion",

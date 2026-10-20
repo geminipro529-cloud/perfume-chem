@@ -227,6 +227,14 @@
       {
         "message_timestamp_utc": "2026-10-16T09:00:44Z",
         "text": "add patchouli light eential oil from perfumerorld to inventory"
+      },
+      {
+        "message_timestamp_utc": "2026-10-20T21:19:36Z",
+        "text": "open every document and then add to inventory, add orri butter 30% in EtOH eight/.eight too"
+      },
+      {
+        "message_timestamp_utc": "2026-10-20T21:19:57Z",
+        "text": "50%"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -277,7 +285,8 @@
     "alpha_irone_25pct_ipm_added_20261016": true,
     "para_acetanisole_solid_as_supplied_20261016": true,
     "rose_otto_10pct_ww_user_confirmed_20261016": true,
-    "patchouli_light_eo_pw_added_neat_20261016": true
+    "patchouli_light_eo_pw_added_neat_20261016": true,
+    "orris_butter_50pct_ww_etoh_added_20261020": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -5581,6 +5590,47 @@
         "release_authorized": false
       },
       "note": "Kenny: 'add patchouli light eential oil from perfumerorld to inventory' (16 Oct 2026 09:00:44 UTC, 'Formulation studio 3'). He gave no strength; PerfumersWorld lists 7WB13670 as a neat essential oil (Pogostemon cablin, decolorized, CAS 8014-09-3, SG 0.9500, RI 1.5070 on its page), so it is recorded neat as supplied. A separate stock from Patchouli EO (Aroma & More). No IFRA certificate, SDS or lot transcribed; PW only offers them on request."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-119",
+      "canonical_name": "Orris Butter 50% in EtOH",
+      "aliases": [
+        "Orris Butter 50%"
+      ],
+      "state": "OWNED",
+      "category": "iris / violet",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.5,
+        "fraction_basis": "mass_fraction",
+        "carrier": "ethanol",
+        "fraction_authority": "EXPLICIT_USER_STRENGTH_BASIS_AND_CARRIER",
+        "execution_basis": "USER_ADD_20261020_ORRIS_BUTTER_50PCT_WW_ETOH",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "open every document and then add to inventory, add orri butter 30% in EtOH eight/.eight too / 50%",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_user_message": true,
+        "basis_from_user_message": true,
+        "carrier_from_user_message": true,
+        "supplier_asserted": false,
+        "butter_source_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'open every document and then add to inventory, add orri butter 30% in EtOH eight/.eight too' (20 Oct 2026 21:19:36 UTC, 'Check new ingredients in code'), then '50%' (21:19:57). Read as Orris Butter 50% weight/weight in ethanol; the 30% was corrected to 50% twenty seconds later. He did not say which orris butter it is made from (PerfumersWorld 8IA00344 is the one on his list), so no supplier or irone content is asserted. A separate stock from Orris Concrete Orris Butter 10% in DPG (STK-077) and from Orris Liquid 9% in DEP."
     }
   ]
 }

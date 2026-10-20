@@ -1375,6 +1375,9 @@ _PROFILE_ALIASES = {
     # PerfumersWorld Patchouli Light (decolorized patchouli, 7WB13670): same molecules as patchouli oil.
     "patchouli light essential oil": "patchouli eo",
     "patchouli light eo": "patchouli eo",
+    # Kenny's Orris Butter 50% w/w in ethanol (2026-10-20): same orris butter scenario as his 10% stock.
+    "orris butter 50% in etoh": "iris rhizome concrete 8 pct irone low grade scenario profile",
+    "orris butter 50%": "iris rhizome concrete 8 pct irone low grade scenario profile",
     "ylang": "ylang ylang eo (extra grade)",
     "cedarwood virginia": "cedarwood eo",
     "benzoin sumatra resinoid": "benzoin resinoid",

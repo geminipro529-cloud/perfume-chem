@@ -3213,6 +3213,9 @@ _ODT_QUERY_ALIASES = {
     # PerfumersWorld Patchouli Light (decolorized patchouli oil): the patchouli eo row.
     "patchouli light essential oil": "patchouli eo",
     "patchouli light eo": "patchouli eo",
+    # Kenny's Orris Butter 50% w/w in ethanol (2026-10-20): the orris butter row.
+    "orris butter 50% in etoh": "orris concrete orris butter",
+    "orris butter 50%": "orris concrete orris butter",
 }
 
 
