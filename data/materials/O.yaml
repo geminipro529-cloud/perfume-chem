@@ -1234,6 +1234,40 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.91800 to 0.92600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1003401.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+- canonical_name: Orris Butter 50% in EtOH
+  aliases:
+  - orris butter 50%
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution: 50% w/w in ethanol
+  user_in_inventory: true
+  # User working dilution declared 2026-10-20 (overlay record INV-USER-20261014-STK-119); the butter's source,
+  # irone content and stock-solution density are not asserted. Separate row from Orris Concrete Orris Butter.
+  supplier:
+  families: []
+  character:
+  notes: Orris butter diluted by mass to 50% in ethanol by the user; no purity assay inferred.
+  provenance:
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Orris Concrete Orris Butter
   aliases: []
   cas:

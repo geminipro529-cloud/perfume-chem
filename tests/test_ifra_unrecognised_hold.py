@@ -164,6 +164,24 @@ STILL_HELD = {
     # Added 2026-10-15 (neat); no IFRA table entry matches it.
     "Neryl Acetate",
     "Orris Concrete Orris Butter",
+    # Kenny's 50% w/w ethanol dilution of orris butter (2026-10-20); orris has no IFRA standard.
+    "Orris Butter 50% in EtOH",
+    # 20 Oct 2026 email-sweep arrivals (Kenny's answers in "Check new ingredients in code"); no IFRA row yet.
+    "Cabbage Rose Extract",
+    "Canthoxal",
+    "Cyclogalbanate",
+    "Decatone",
+    "Decatone 10% in DPG",
+    "Dimethyl Benzyl Carbinol",
+    "Dupical 10% in DPG",
+    "Fir Essential Oil",
+    "Iris Florentina Root Extract",
+    "Magnolia Flower Extract",
+    "Para-Cresyl Phenyl Acetate",
+    "Peach Ketone",
+    "Pear Valerate",
+    "Phenoxy Ethyl Isobutyrate",
+    "Velvione",
     "Pomelo EO",
     # Added 2026-10-15: a saturated saffron infusion in DPG of unknown strength.
     "Red Saffron Infusion",
@@ -187,6 +205,12 @@ STILL_HELD = {
     "Rhodinol ex Citronella",
     "p-Cresyl Methyl Ether 10%",
     "Tuberlia Base",
+    # MySkinRecipes order #2199302, arrived 2026-10-16; no IFRA table entry matches
+    # these names yet, so they hold by name. (Cedarwood Texas, Geranium Bourbon,
+    # Sweet Orange and both Isoraldeines were linked on 2026-10-16.)
+    "Para-Acetanisole",
+    "Rhodinol",
+    "Rum Ether",
 }
 
 
