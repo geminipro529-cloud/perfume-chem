@@ -67,9 +67,12 @@ def test_orris_current_stock_is_unique_nine_percent_mass_fraction_in_dep():
         0.09, "mass_fraction", "dep"
     )
     assert stock.source_rows == (195,)
-    assert stock.stock_id.startswith("inventory:user-20260905:")
+    # 2026-10-20: re-issued in the v26 overlay with the PerfumersWorld documents
+    # (stock facts unchanged); the 20260905 record is retired under it.
+    assert stock.stock_id.startswith("inventory:user-20261014:")
     assert stock.source_ref.endswith(
-        "inventory_user_authority_overlay_20260905.json#INV-USER-20260905-001"
+        "inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json"
+        "#INV-USER-20261014-STK-120"
     )
     assert stock.execution_ready is False
     assert "USER_COMPOUNDING_HOLD" in stock.execution_hold_reason
@@ -211,7 +214,7 @@ def test_user_compounding_hold_preserves_ownership_and_stock_binding():
     assert stock.execution_ready is False
     assert stock.design_ready is False
     assert "USER_COMPOUNDING_HOLD" in stock.execution_hold_reason
-    assert stock.stock_id.startswith("inventory:user-20260905:")
+    assert stock.stock_id.startswith("inventory:user-20261014:")
     check = _stock_check()
     assert check.status == "FAIL"
     assert "Orris Liquid" not in check.data.get("resolved_stock_specs", {})

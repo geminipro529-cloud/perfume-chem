@@ -72,6 +72,39 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Cabbage Rose Extract
+  aliases:
+  - rosa centifolia extract
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution: 1% w/w in DPG
+  user_in_inventory: true
+  # Stock declared 2026-10-20 (overlay record INV-USER-20261014-STK-127); identity and composition of the supplied extract not asserted.
+  supplier:
+  families: []
+  character:
+  notes: MySkinRecipes order 2199505 extract (Rosa centifolia expected) diluted by mass to 1% in DPG by the user; extraction solvent and strength of the supplied extract not asserted.
+  provenance:
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Cabreuva Essential Oil
   aliases:
   - "Cabreuva EO"
@@ -509,6 +542,40 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Canthoxal
+  aliases:
+  - para-anisyl propanal
+  - anisyl propanal
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: true
+  # Stock declared 2026-10-20 (overlay record INV-USER-20261014-STK-135); neat as supplied.
+  supplier:
+  families: []
+  character:
+  notes: MySkinRecipes order 2199458 'Para-anisyl Propanal (Canthoxal)', neat as supplied; CAS and purity not asserted.
+  provenance:
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Caramel Furanone 0.003%
   aliases: []
   cas: null
@@ -6130,6 +6197,39 @@
   notes: null
   provenance:
     user_in_inventory: inventory.txt
+- canonical_name: Cyclogalbanate
+  aliases:
+  - cyclogalbaniff
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: true
+  # Stock declared 2026-10-20 (overlay record INV-USER-20261014-STK-133); neat as supplied.
+  supplier:
+  families: []
+  character:
+  notes: MySkinRecipes order 2199458 'Cyclogalbanate (Cyclogalbaniff)', neat as supplied; CAS and purity not asserted.
+  provenance:
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Cymene Para
   aliases: []
   cas: null

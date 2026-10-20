@@ -120,10 +120,11 @@ def test_aroma_more_catalog_identity_is_materialized_from_direct_ownership_only(
         "neat",
         "as_supplied",
     )
-    assert stock.execution_ready is False
-    assert stock.execution_hold_reason == (
-        "LOT_PURCHASE_SOURCE_AND_LABEL_RECEIPT_MISSING"
-    )
+    # 2026-10-20: Kenny, "Make it pass the gate, it is another lavender type":
+    # re-issued as STK-137 with the lot-receipt hold cleared (AGENTS.md Rule 6).
+    assert stock.execution_ready is True
+    assert stock.execution_hold_reason == ""
+    assert stock.stock_id.startswith("inventory:user-20261014:")
 
 
 def test_v16_loader_rejects_record_mutation():

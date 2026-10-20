@@ -612,6 +612,43 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Lavender 40/42, Aroma&More
+  aliases:
+  - lavender 40/42
+  - aroma & more lavender 40/42 essential oil, france
+  - lavender 40/42 essential oil, france
+  cas: '8000-28-0'
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml: 0.879
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution: neat / as supplied
+  user_in_inventory: true
+  # Stock declared 2026-10-20 (overlay record INV-USER-20261014-STK-137); its own lavender identity, not an alias of Lavender EO (BONTAUX SAS) or Spike Lavender EO.
+  supplier:
+  families: []
+  character:
+  notes: Aroma & More Lavender 40/42 Essential Oil, France (Lav420811P, 10 mL), neat as supplied; lot and composition not asserted.
+  provenance:
+    cas: 'TGSC: CAS Number: 8000-28-0 (https://www.thegoodscentscompany.com/data/es1007471.html); lavender oil (Lavandula angustifolia), as for Lavender EO'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.87500 to 0.88800 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/es1007471.html); midpoint x 0.99705 g/mL, the lavender oil range used for Lavender EO; not measured on this bottle'
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Lavender Aldehyde
   aliases: []
   cas: null

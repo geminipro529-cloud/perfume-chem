@@ -147,6 +147,28 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Just remove it",
         "Leather",
         "I dont have a tuberose base, only a cheap tuberose extract with methyl benzoate smell",
+        "Tell all chats that myskinrecipes chemicals arrived",
+        "Sweet orange peel oil China sour",
+        'Chose "Add them" on the decision card asking "Add the COA lots, CAS numbers and test dates to the '
+        'MySkinRecipes stock records?"',
+        "Add Alpha Irone 5% in IPM to inventory",
+        "25",
+        "not 5",
+        "eight/eight",
+        "para-acetaniole i olid",
+        "add patchouli light eential oil from perfumerorld to inventory",
+        "open every document and then add to inventory, add orri butter 30% in EtOH eight/.eight too",
+        "50%",
+        "no. the 50% one i made from mykinrecipe",
+        # 20 Oct 22:08-22:12 UTC, "Check new ingredients in code": the email-sweep answers.
+        "decatone neat and 10%, fir EO 10%, cahmeran i neat, ealtolide i both neat and 10%, hedione HC i neat,  "
+        "magnolia floer etract i 5% in DPG, cabbage roe etract i 1% in DPG",
+        "I have DMBC",
+        "neaat",
+        "both",
+        "ye",
+        "5% in DPG",
+        "Make it pass the gate, it is another lavender type",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -168,6 +190,11 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         *(f"INV-USER-20261007-PW-{n:03d}" for n in (1, 8, 21, 22, 25, 26, 27, 36, 49, 52, 53)),
         "INV-USER-20260830-009",
         "INV-USER-20260924-R5-019",
+        # 2026-10-20: Orris Liquid and Alpha Irone re-issued with the PerfumersWorld documents attached.
+        "INV-USER-20260905-001",
+        "INV-USER-20260828-003",
+        # 2026-10-20: Lavender 40/42 re-issued with its lot-receipt hold cleared (STK-137).
+        "INV-USER-20260924-R5-007",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
@@ -176,7 +203,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 107)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 138)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired
