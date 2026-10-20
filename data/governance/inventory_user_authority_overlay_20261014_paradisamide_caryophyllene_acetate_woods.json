@@ -239,6 +239,34 @@
       {
         "message_timestamp_utc": "2026-10-20T21:32:08Z",
         "text": "no. the 50% one i made from mykinrecipe"
+      },
+      {
+        "message_timestamp_utc": "2026-10-20T22:08:35Z",
+        "text": "decatone neat and 10%, fir EO 10%, cahmeran i neat, ealtolide i both neat and 10%, hedione HC i neat,  magnolia floer etract i 5% in DPG, cabbage roe etract i 1% in DPG"
+      },
+      {
+        "message_timestamp_utc": "2026-10-20T22:09:29Z",
+        "text": "I have DMBC"
+      },
+      {
+        "message_timestamp_utc": "2026-10-20T22:10:22Z",
+        "text": "neaat",
+        "context": "DMBC is neat"
+      },
+      {
+        "message_timestamp_utc": "2026-10-20T22:10:43Z",
+        "text": "both",
+        "context": "PW parcel 261015-033902088 and MSR 2199505 have both arrived"
+      },
+      {
+        "message_timestamp_utc": "2026-10-20T22:11:56Z",
+        "text": "ye",
+        "context": "record the nine other arrived lines as ordered, neat unless the order says a dilution"
+      },
+      {
+        "message_timestamp_utc": "2026-10-20T22:12:11Z",
+        "text": "5% in DPG",
+        "context": "Iris Florentina root extract"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -292,7 +320,9 @@
     "patchouli_light_eo_pw_added_neat_20261016": true,
     "orris_butter_50pct_ww_etoh_added_20261020": true,
     "orris_butter_50pct_source_myskinrecipes_20261020": true,
-    "pw_orris_liquid_and_alpha_irone_documents_attached_20261020": true
+    "pw_orris_liquid_and_alpha_irone_documents_attached_20261020": true,
+    "email_sweep_arrivals_fifteen_stocks_added_20261020": true,
+    "cashmeran_exaltolide_hedione_hc_strengths_reconfirmed_20261020": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -5827,6 +5857,729 @@
         "irone_assay_asserted": false,
         "ifra_certificate_figure_is_supplier_statement": true
       }
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-122",
+      "canonical_name": "Fir Essential Oil",
+      "aliases": [
+        "Fir EO",
+        "Fir EO 10%"
+      ],
+      "state": "OWNED",
+      "category": "woods / conifer / structure",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_STRENGTH_STANDING_BASIS_AND_CARRIER_RULE",
+        "execution_basis": "USER_ADD_20261020_FIR_EO_10PCT_WW_DPG",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "fir essential oil (species not stated)",
+        "sku": null,
+        "order_reference": "PW 260817-03422462b (20 Oct email sweep)"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "decatone neat and 10%, fir EO 10%, cahmeran i neat, ealtolide i both neat and 10%, hedione HC i neat,  magnolia floer etract i 5% in DPG, cabbage roe etract i 1% in DPG",
+      "source_message_timestamp_utc": "2026-10-20T22:08:35Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": true,
+        "basis_from_user_message": false,
+        "carrier_from_user_message": false,
+        "species_asserted": false
+      },
+      "note": "Kenny: 'fir EO 10%' (20 Oct 2026 22:08:35 UTC, 'Check new ingredients in code'), answering the paid-order list from his email sweep. No basis or solvent given, so his standing rule applies: 10% w/w in DPG. Species and SKU not stated; no IFRA row, composition profile or physics yet, so it holds by name."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-123",
+      "canonical_name": "Dimethyl Benzyl Carbinol",
+      "aliases": [
+        "DMBC"
+      ],
+      "state": "OWNED",
+      "category": "floral / rose / modifier",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "USER_CONFIRMED_NEAT",
+        "execution_basis": "USER_ADD_20261020_DMBC_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Dimethyl Benzyl Carbinol",
+        "sku": "3LL00156",
+        "pack": "1 g",
+        "cas_expected": "100-86-7",
+        "order_reference": "PW 260910-051700a45 (20 Oct email sweep)"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "I have DMBC",
+      "source_message_timestamp_utc": "2026-10-20T22:10:22Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": true,
+        "basis_from_user_message": true
+      },
+      "note": "Kenny: 'I have DMBC' (22:09:29 UTC) and 'neaat' (22:10:22 UTC, 'Check new ingredients in code'). Dimethyl benzyl carbinol itself (2-methyl-1-phenyl-2-propanol, CAS 100-86-7 expected), a separate stock from Dimethyl Benzyl Carbinyl Acetate (MySkinRecipes) and from Phenyl Ethyl Dimethyl Carbinol. No lot, CAS on label or density asserted."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-124",
+      "canonical_name": "Decatone",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods / amber / modifier",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "USER_CONFIRMED_NEAT",
+        "execution_basis": "USER_ADD_20261020_DECATONE_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Decatone",
+        "sku": null,
+        "order_reference": "PW 261015-033902088 (15 Oct 2026, EMS EQ291307672TH; arrived per Kenny 'both', 22:10:43 UTC)"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "decatone neat and 10%, fir EO 10%, cahmeran i neat, ealtolide i both neat and 10%, hedione HC i neat,  magnolia floer etract i 5% in DPG, cabbage roe etract i 1% in DPG",
+      "source_message_timestamp_utc": "2026-10-20T22:08:35Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": true,
+        "basis_from_user_message": true
+      },
+      "note": "Kenny: 'decatone neat and 10%' (22:08:35 UTC, 'Check new ingredients in code'); the parcel's arrival confirmed by 'both' (22:10:43 UTC). Neat bottle; see the separate 10% stock. No IFRA row or physics yet."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-125",
+      "canonical_name": "Decatone 10% in DPG",
+      "aliases": [
+        "Decatone 10%"
+      ],
+      "state": "OWNED",
+      "category": "woods / amber / modifier",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_STRENGTH_STANDING_BASIS_AND_CARRIER_RULE",
+        "execution_basis": "USER_ADD_20261020_DECATONE_10PCT_WW_DPG",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "user dilution of the PerfumersWorld neat stock",
+        "product_name": "Decatone",
+        "sku": null,
+        "order_reference": "PW 261015-033902088 (15 Oct 2026, EMS EQ291307672TH; arrived per Kenny 'both', 22:10:43 UTC)"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "decatone neat and 10%, fir EO 10%, cahmeran i neat, ealtolide i both neat and 10%, hedione HC i neat,  magnolia floer etract i 5% in DPG, cabbage roe etract i 1% in DPG",
+      "source_message_timestamp_utc": "2026-10-20T22:08:35Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": true,
+        "basis_from_user_message": false,
+        "carrier_from_user_message": false
+      },
+      "note": "Kenny: 'decatone neat and 10%' (22:08:35 UTC, 'Check new ingredients in code'). No basis or solvent given: standing rule, 10% w/w in DPG. Separate stock from the neat bottle, like Exaltolide 10% in DPG."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-126",
+      "canonical_name": "Magnolia Flower Extract",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral / modifier",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.05,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_STRENGTH_STANDING_BASIS_AND_CARRIER_RULE",
+        "execution_basis": "USER_ADD_20261020_MAGNOLIA_FLOWER_EXTRACT_5PCT_WW_DPG",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "magnolia flower extract (listing not matched)",
+        "sku": null,
+        "pack": null,
+        "order_reference": "MSR 2199505 (dispatched 19 Oct 2026; arrived per Kenny 'both', 22:10:43 UTC); no COA email seen"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "decatone neat and 10%, fir EO 10%, cahmeran i neat, ealtolide i both neat and 10%, hedione HC i neat,  magnolia floer etract i 5% in DPG, cabbage roe etract i 1% in DPG",
+      "source_message_timestamp_utc": "2026-10-20T22:08:35Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": true,
+        "basis_from_user_message": false,
+        "carrier_from_user_message": true,
+        "extract_identity_asserted": false
+      },
+      "note": "Kenny: 'magnolia flower extract is 5% in DPG' (22:08:35 UTC, 'Check new ingredients in code'): his dilution of the MySkinRecipes extract, w/w by his standing rule. Species, extraction solvent and strength of the supplied extract not asserted; a separate stock from Magnolia EO. No IFRA row or physics yet."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-127",
+      "canonical_name": "Cabbage Rose Extract",
+      "aliases": [
+        "Rosa Centifolia Extract"
+      ],
+      "state": "OWNED",
+      "category": "floral / rose / modifier",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_STRENGTH_STANDING_BASIS_AND_CARRIER_RULE",
+        "execution_basis": "USER_ADD_20261020_CABBAGE_ROSE_EXTRACT_1PCT_WW_DPG",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "cabbage rose extract (listing not matched)",
+        "sku": null,
+        "pack": null,
+        "order_reference": "MSR 2199505 (dispatched 19 Oct 2026; arrived per Kenny 'both', 22:10:43 UTC); no COA email seen"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "decatone neat and 10%, fir EO 10%, cahmeran i neat, ealtolide i both neat and 10%, hedione HC i neat,  magnolia floer etract i 5% in DPG, cabbage roe etract i 1% in DPG",
+      "source_message_timestamp_utc": "2026-10-20T22:08:35Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": true,
+        "basis_from_user_message": false,
+        "carrier_from_user_message": true,
+        "extract_identity_asserted": false
+      },
+      "note": "Kenny: 'cabbage rose extract is 1% in DPG' (22:08:35 UTC, 'Check new ingredients in code'): his dilution of the MySkinRecipes extract, w/w by his standing rule. Rosa centifolia expected; extraction solvent and strength of the supplied extract not asserted; not an alias of Rose de Mai Absolute. No IFRA row or physics yet."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-128",
+      "canonical_name": "Velvione",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "musk / modifier",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "ORDER_FORM_NEAT_USER_CONFIRMED_AS_ORDERED",
+        "execution_basis": "USER_ADD_20261020_VELVIONE_NEAT_AS_ORDERED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Velvione",
+        "sku": "4XU11429",
+        "pack": "1 g",
+        "order_reference": "PW 261015-033902088 (15 Oct 2026, EMS EQ291307672TH; arrived per Kenny 'both', 22:10:43 UTC)"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "ye",
+      "source_message_timestamp_utc": "2026-10-20T22:11:56Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": false,
+        "fraction_from_order_form": true,
+        "user_confirmed_as_ordered": true
+      },
+      "note": "PerfumersWorld 4XU11429, 1 g, ordered neat. Kenny 'ye' (22:11:56 UTC, 'Check new ingredients in code') to recording the arrived lines as ordered, neat unless the order says a dilution; arrival confirmed by 'both' (22:10:43 UTC). Order line read by the ingredients thread from his email; no lot, CAS on label, purity or density asserted. No IFRA row or physics yet, so it holds by name."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-129",
+      "canonical_name": "Para-Cresyl Phenyl Acetate",
+      "aliases": [
+        "p-Cresyl Phenyl Acetate"
+      ],
+      "state": "OWNED",
+      "category": "floral / narcotic / modifier",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "ORDER_FORM_NEAT_USER_CONFIRMED_AS_ORDERED",
+        "execution_basis": "USER_ADD_20261020_PARA_CRESYL_PHENYL_ACETATE_NEAT_AS_ORDERED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Para-Cresyl Phenyl Acetate",
+        "sku": "1PF01952",
+        "pack": "1 g",
+        "order_reference": "PW 261015-033902088 (15 Oct 2026, EMS EQ291307672TH; arrived per Kenny 'both', 22:10:43 UTC)"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "ye",
+      "source_message_timestamp_utc": "2026-10-20T22:11:56Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": false,
+        "fraction_from_order_form": true,
+        "user_confirmed_as_ordered": true
+      },
+      "note": "PerfumersWorld 1PF01952, 1 g, ordered neat. Kenny 'ye' (22:11:56 UTC, 'Check new ingredients in code') to recording the arrived lines as ordered, neat unless the order says a dilution; arrival confirmed by 'both' (22:10:43 UTC). Order line read by the ingredients thread from his email; no lot, CAS on label, purity or density asserted. No IFRA row or physics yet, so it holds by name."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-130",
+      "canonical_name": "Phenoxy Ethyl Isobutyrate",
+      "aliases": [
+        "PEIB"
+      ],
+      "state": "OWNED",
+      "category": "floral / fruity / modifier",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "ORDER_FORM_NEAT_USER_CONFIRMED_AS_ORDERED",
+        "execution_basis": "USER_ADD_20261020_PHENOXY_ETHYL_ISOBUTYRATE_NEAT_AS_ORDERED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Phenoxy Ethyl Isobutyrate",
+        "sku": "3RB00369",
+        "pack": "2 g",
+        "order_reference": "PW 261015-033902088 (15 Oct 2026, EMS EQ291307672TH; arrived per Kenny 'both', 22:10:43 UTC)"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "ye",
+      "source_message_timestamp_utc": "2026-10-20T22:11:56Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": false,
+        "fraction_from_order_form": true,
+        "user_confirmed_as_ordered": true
+      },
+      "note": "PerfumersWorld 3RB00369, 2 g, ordered neat. Kenny 'ye' (22:11:56 UTC, 'Check new ingredients in code') to recording the arrived lines as ordered, neat unless the order says a dilution; arrival confirmed by 'both' (22:10:43 UTC). Order line read by the ingredients thread from his email; no lot, CAS on label, purity or density asserted. No IFRA row or physics yet, so it holds by name."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-131",
+      "canonical_name": "Dupical 10% in DPG",
+      "aliases": [
+        "Dupical 10%"
+      ],
+      "state": "OWNED",
+      "category": "floral / aldehydic / modifier",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "SUPPLIER_DILUTION_AS_ORDERED_WW_BY_STANDING_RULE",
+        "execution_basis": "USER_ADD_20261020_DUPICAL_10PCT_DPG_AS_ORDERED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Dupical 10% in DPG",
+        "sku": "5MA08874",
+        "pack": "1 g",
+        "order_reference": "PW 261015-033902088 (15 Oct 2026, EMS EQ291307672TH; arrived per Kenny 'both', 22:10:43 UTC)"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "ye",
+      "source_message_timestamp_utc": "2026-10-20T22:11:56Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": false,
+        "fraction_from_order_form": true,
+        "user_confirmed_as_ordered": true,
+        "basis_from_user_message": false,
+        "carrier_from_order_form": true
+      },
+      "note": "PerfumersWorld 5MA08874, 1 g, ordered as '10% in DPG'; basis not stated by PW, w/w under Kenny's w/w-in-DPG rule. Kenny 'ye' (22:11:56 UTC, 'Check new ingredients in code') to recording the arrived lines as ordered, neat unless the order says a dilution; arrival confirmed by 'both' (22:10:43 UTC). Order line read by the ingredients thread from his email; no lot, CAS on label, purity or density asserted. No IFRA row or physics yet, so it holds by name."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-132",
+      "canonical_name": "Pear Valerate",
+      "aliases": [
+        "Peranat"
+      ],
+      "state": "OWNED",
+      "category": "fruity / pear / modifier",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "ORDER_FORM_NEAT_USER_CONFIRMED_AS_ORDERED",
+        "execution_basis": "USER_ADD_20261020_PEAR_VALERATE_NEAT_AS_ORDERED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Pear Valerate, Peranat",
+        "sku": null,
+        "pack": "5 g",
+        "coa_lot_from_filename": "3DI223",
+        "order_reference": "MSR 2199458 (16 Oct 2026; arrived per Kenny 'both', 22:10:43 UTC); lot from the COA file name, COA not transcribed"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "ye",
+      "source_message_timestamp_utc": "2026-10-20T22:11:56Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": false,
+        "fraction_from_order_form": true,
+        "user_confirmed_as_ordered": true
+      },
+      "note": "MySkinRecipes 'Pear Valerate, Peranat', 5 g, ordered neat (COA file lot 3DI223, not read). Kenny 'ye' (22:11:56 UTC, 'Check new ingredients in code') to recording the arrived lines as ordered, neat unless the order says a dilution; arrival confirmed by 'both' (22:10:43 UTC). Order line read by the ingredients thread from his email; no lot, CAS on label, purity or density asserted. No IFRA row or physics yet, so it holds by name."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-133",
+      "canonical_name": "Cyclogalbanate",
+      "aliases": [
+        "Cyclogalbaniff"
+      ],
+      "state": "OWNED",
+      "category": "green / galbanum / modifier",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "ORDER_FORM_NEAT_USER_CONFIRMED_AS_ORDERED",
+        "execution_basis": "USER_ADD_20261020_CYCLOGALBANATE_NEAT_AS_ORDERED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Cyclogalbanate (Cyclogalbaniff)",
+        "sku": null,
+        "pack": "5 g",
+        "coa_lot_from_filename": "70Z7N2",
+        "order_reference": "MSR 2199458 (16 Oct 2026; arrived per Kenny 'both', 22:10:43 UTC); lot from the COA file name, COA not transcribed"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "ye",
+      "source_message_timestamp_utc": "2026-10-20T22:11:56Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": false,
+        "fraction_from_order_form": true,
+        "user_confirmed_as_ordered": true
+      },
+      "note": "MySkinRecipes 'Cyclogalbanate (Cyclogalbaniff)', 5 g, ordered neat (COA file lot 70Z7N2, not read). Kenny 'ye' (22:11:56 UTC, 'Check new ingredients in code') to recording the arrived lines as ordered, neat unless the order says a dilution; arrival confirmed by 'both' (22:10:43 UTC). Order line read by the ingredients thread from his email; no lot, CAS on label, purity or density asserted. No IFRA row or physics yet, so it holds by name."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-134",
+      "canonical_name": "Peach Ketone",
+      "aliases": [
+        "Peach Cyclopentanone"
+      ],
+      "state": "OWNED",
+      "category": "fruity / peach / modifier",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "ORDER_FORM_NEAT_USER_CONFIRMED_AS_ORDERED",
+        "execution_basis": "USER_ADD_20261020_PEACH_KETONE_NEAT_AS_ORDERED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Peach Cyclopentanone, Peach Ketone",
+        "sku": null,
+        "pack": "5 g",
+        "coa_lot_from_filename": "DLNQZK",
+        "order_reference": "MSR 2199458 (16 Oct 2026; arrived per Kenny 'both', 22:10:43 UTC); lot from the COA file name, COA not transcribed"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "ye",
+      "source_message_timestamp_utc": "2026-10-20T22:11:56Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": false,
+        "fraction_from_order_form": true,
+        "user_confirmed_as_ordered": true
+      },
+      "note": "MySkinRecipes 'Peach Cyclopentanone, Peach Ketone', 5 g, ordered neat (COA file lot DLNQZK, not read). Kenny 'ye' (22:11:56 UTC, 'Check new ingredients in code') to recording the arrived lines as ordered, neat unless the order says a dilution; arrival confirmed by 'both' (22:10:43 UTC). Order line read by the ingredients thread from his email; no lot, CAS on label, purity or density asserted. No IFRA row or physics yet, so it holds by name."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-135",
+      "canonical_name": "Canthoxal",
+      "aliases": [
+        "Para-anisyl Propanal",
+        "Anisyl Propanal"
+      ],
+      "state": "OWNED",
+      "category": "floral / anisic / modifier",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "ORDER_FORM_NEAT_USER_CONFIRMED_AS_ORDERED",
+        "execution_basis": "USER_ADD_20261020_CANTHOXAL_NEAT_AS_ORDERED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Para-anisyl Propanal (Canthoxal)",
+        "sku": null,
+        "pack": "5 g",
+        "coa_lot_from_filename": "HZCF71",
+        "order_reference": "MSR 2199458 (16 Oct 2026; arrived per Kenny 'both', 22:10:43 UTC); lot from the COA file name, COA not transcribed"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "ye",
+      "source_message_timestamp_utc": "2026-10-20T22:11:56Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": false,
+        "fraction_from_order_form": true,
+        "user_confirmed_as_ordered": true
+      },
+      "note": "MySkinRecipes 'Para-anisyl Propanal (Canthoxal)', 5 g, ordered neat (COA file lot HZCF71, not read). Kenny 'ye' (22:11:56 UTC, 'Check new ingredients in code') to recording the arrived lines as ordered, neat unless the order says a dilution; arrival confirmed by 'both' (22:10:43 UTC). Order line read by the ingredients thread from his email; no lot, CAS on label, purity or density asserted. No IFRA row or physics yet, so it holds by name."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-136",
+      "canonical_name": "Iris Florentina Root Extract",
+      "aliases": [
+        "Iris Florentina (Orris) Root Extract"
+      ],
+      "state": "OWNED",
+      "category": "orris / iris / modifier",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.05,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_STRENGTH_STANDING_BASIS_AND_CARRIER_RULE",
+        "execution_basis": "USER_ADD_20261020_IRIS_FLORENTINA_ROOT_EXTRACT_5PCT_WW_DPG",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Iris Florentina (Orris) Root Extract",
+        "sku": null,
+        "pack": "5 g",
+        "order_reference": "MSR 2199505 (dispatched 19 Oct 2026; arrived per Kenny 'both', 22:10:43 UTC); no COA email seen"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "5% in DPG",
+      "source_message_timestamp_utc": "2026-10-20T22:12:11Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": true,
+        "basis_from_user_message": false,
+        "carrier_from_user_message": true,
+        "extract_identity_asserted": false,
+        "irone_content_asserted": false
+      },
+      "note": "Kenny: '5% in DPG' (22:12:11 UTC, 'Check new ingredients in code') for the MySkinRecipes 'Iris Florentina (Orris) Root Extract' (5 g); w/w by his standing rule. Extraction solvent, strength and irone content of the supplied extract not asserted; a separate stock from Orris Liquid, Orris Butter and Orris Givco, never their alias. No IFRA row or physics yet."
     }
   ]
 }

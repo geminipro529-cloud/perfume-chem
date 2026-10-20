@@ -464,6 +464,38 @@
     and amount are unrecorded.
   provenance:
     user_in_inventory: inventory.txt
+- canonical_name: Magnolia Flower Extract
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution: 5% w/w in DPG
+  user_in_inventory: true
+  # Stock declared 2026-10-20 (overlay record INV-USER-20261014-STK-126); identity and composition of the supplied extract not asserted.
+  supplier:
+  families: []
+  character:
+  notes: MySkinRecipes order 2199505 extract diluted by mass to 5% in DPG by the user; species, extraction solvent and strength of the supplied extract not asserted.
+  provenance:
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Male Concentratem
   aliases:
   - Male ConcentrateM

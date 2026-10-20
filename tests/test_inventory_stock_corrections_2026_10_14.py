@@ -160,6 +160,14 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "open every document and then add to inventory, add orri butter 30% in EtOH eight/.eight too",
         "50%",
         "no. the 50% one i made from mykinrecipe",
+        # 20 Oct 22:08-22:12 UTC, "Check new ingredients in code": the email-sweep answers.
+        "decatone neat and 10%, fir EO 10%, cahmeran i neat, ealtolide i both neat and 10%, hedione HC i neat,  "
+        "magnolia floer etract i 5% in DPG, cabbage roe etract i 1% in DPG",
+        "I have DMBC",
+        "neaat",
+        "both",
+        "ye",
+        "5% in DPG",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -192,7 +200,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 122)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 137)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired
