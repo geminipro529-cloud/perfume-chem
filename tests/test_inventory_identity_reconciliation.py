@@ -304,6 +304,7 @@ def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> 
     expected = {
         "ethylene brassylate": (1.0, "neat", ""),
         "amber xtreme": (0.10, "mass_fraction", "dep"),
+        # 2026-10-20: re-issued in the v26 overlay with the PerfumersWorld documents.
         "alpha irone": (0.10, "mass_fraction", "dep"),
         "opoponax resinoid": (0.50, "mass_fraction", "dep"),
         # 2026-10-14: Kenny said Myrrh EO is in DPG (v26 overlay); w/w by default.
@@ -330,7 +331,7 @@ def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> 
             else "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924"
             if identity == "opoponax resinoid"
             else "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014"
-            if identity in {"myrrh eo", "rose de mai absolute"}
+            if identity in {"myrrh eo", "rose de mai absolute", "alpha irone"}
             else INHERITED_USER_AUTHORITY
         )
 
@@ -833,8 +834,10 @@ def test_preflight_accepts_exact_user_overlay_alpha_irone_stock() -> None:
 
     assert check.status == "PASS"
     spec = check.data["resolved_stock_specs"]["Alpha Irone"]
-    assert spec["inventory_authority"] == INHERITED_USER_AUTHORITY
-    assert spec["stock_id"].startswith("inventory:user-20260828:")
+    # 2026-10-20: the 10% DEP stock was re-issued in the v26 overlay with its
+    # PerfumersWorld documents, so it now carries that overlay's authority.
+    assert spec["inventory_authority"] == "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014"
+    assert spec["stock_id"].startswith("inventory:user-20261014:")
 
 
 def test_preflight_accepts_current_jojoba_neroli_and_v5_javanol_stocks() -> None:

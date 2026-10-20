@@ -235,6 +235,10 @@
       {
         "message_timestamp_utc": "2026-10-20T21:19:57Z",
         "text": "50%"
+      },
+      {
+        "message_timestamp_utc": "2026-10-20T21:32:08Z",
+        "text": "no. the 50% one i made from mykinrecipe"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -286,7 +290,9 @@
     "para_acetanisole_solid_as_supplied_20261016": true,
     "rose_otto_10pct_ww_user_confirmed_20261016": true,
     "patchouli_light_eo_pw_added_neat_20261016": true,
-    "orris_butter_50pct_ww_etoh_added_20261020": true
+    "orris_butter_50pct_ww_etoh_added_20261020": true,
+    "orris_butter_50pct_source_myskinrecipes_20261020": true,
+    "pw_orris_liquid_and_alpha_irone_documents_attached_20261020": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -315,7 +321,9 @@
     "INV-USER-20261007-PW-052",
     "INV-USER-20261007-PW-053",
     "INV-USER-20260830-009",
-    "INV-USER-20260924-R5-019"
+    "INV-USER-20260924-R5-019",
+    "INV-USER-20260905-001",
+    "INV-USER-20260828-003"
   ],
   "records": [
     {
@@ -5619,8 +5627,8 @@
         "fraction_from_user_message": true,
         "basis_from_user_message": true,
         "carrier_from_user_message": true,
-        "supplier_asserted": false,
-        "butter_source_asserted": false,
+        "supplier_asserted": true,
+        "butter_source_asserted": true,
         "purity_assay_asserted": false,
         "user_lot_asserted": false,
         "density_asserted": false,
@@ -5628,9 +5636,197 @@
         "formula_rebase_authorized": false,
         "compounding_authorized": false,
         "safety_asserted": false,
-        "release_authorized": false
+        "release_authorized": false,
+        "supplier_sku_asserted": false
       },
-      "note": "Kenny: 'open every document and then add to inventory, add orri butter 30% in EtOH eight/.eight too' (20 Oct 2026 21:19:36 UTC, 'Check new ingredients in code'), then '50%' (21:19:57). Read as Orris Butter 50% weight/weight in ethanol; the 30% was corrected to 50% twenty seconds later. He did not say which orris butter it is made from (PerfumersWorld 8IA00344 is the one on his list), so no supplier or irone content is asserted. A separate stock from Orris Concrete Orris Butter 10% in DPG (STK-077) and from Orris Liquid 9% in DEP."
+      "note": "Kenny: 'open every document and then add to inventory, add orri butter 30% in EtOH eight/.eight too' (20 Oct 2026 21:19:36 UTC, 'Check new ingredients in code'), then '50%' (21:19:57). Read as Orris Butter 50% weight/weight in ethanol; the 30% was corrected to 50% twenty seconds later. He did not say which orris butter it is made from (PerfumersWorld 8IA00344 is the one on his list), so no supplier or irone content is asserted. A separate stock from Orris Concrete Orris Butter 10% in DPG (STK-077) and from Orris Liquid 9% in DEP. Kenny, 21:32:08 UTC: 'no. the 50% one i made from mykinrecipe': the butter is MySkinRecipes', not the PerfumersWorld 8IA00344/5IA07847, and the PW 10% DPG bottle stays a separate stock. The MSR order line and code were not checked, so no SKU is asserted (MSR's only orris butter listing is code 3261).",
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "orris butter (MySkinRecipes listing not matched to an order line)",
+        "sku": null,
+        "candidate_listing": "3261 Orris Root Concrete Butter (Iris pallida rhizome concrete), unverified"
+      }
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-120",
+      "canonical_name": "Orris Liquid",
+      "aliases": [
+        "Orris Liquid (9% w/w in DEP)",
+        "Orris Liquid — PerfumersWorld product basis"
+      ],
+      "state": "OWNED",
+      "category": "orris_violet",
+      "stock": {
+        "fraction": 0.09,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": true,
+        "execution_scope": "STOCK_IDENTITY_AND_FRACTION_BINDING_ONLY",
+        "execution_hold_reason": "",
+        "execution_basis": "USER_DOCUMENT_INTAKE_20261020_REISSUE_INV-USER-20260905-001"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 195,
+          "disposition": "OWNED",
+          "status": "HAVE - USER-CONFIRMED ORRIS LIQUID PRODUCT AT 9% W/W IN DEP",
+          "actual_stock_text": "Orris Liquid (PerfumersWorld product) 9% w/w in DEP; product mass fraction, not pure irone content",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_DOCUMENT_INTAKE_REISSUE",
+      "source_quote": "open every document and then add to inventory, add orri butter 30% in EtOH eight/.eight too",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": true,
+        "product_mass_from_weighed_stock_known": true,
+        "stock_solution_density_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "literal_active_volume_asserted": false,
+        "carrier_displacement_volume_authorized": false,
+        "pure_irone_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "formula_compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false,
+        "stock_facts_carried_over_unchanged": true,
+        "documents_from_supplier_email": true,
+        "lot_tied_to_user_bottle": false,
+        "irone_assay_asserted": false,
+        "ifra_certificate_figure_is_supplier_statement": true
+      },
+      "superseded_stock_declaration": {
+        "source_path": "inventory.txt",
+        "fraction": 0.3,
+        "fraction_basis": "mass_fraction",
+        "carrier": "unspecified",
+        "historical_only": true
+      },
+      "note": "Re-issues INV-USER-20260905-001 (inventory_user_authority_overlay_20260905.json) with the PerfumersWorld documents attached; the stock (fraction, basis, carrier, aliases, parent rows) is carried over unchanged. Kenny: 'open every document and then add to inventory' (20 Oct 2026 21:19:36 UTC, 'Check new ingredients in code'). Prior note: Direct user confirmation replaces the prior 30% working-stock declaration. The 9% refers to the supplied Orris Liquid product by mass; it does not assert 9% pure irones. 1.000 g stock contains 0.090 g product and 0.910 g DEP. Existing formulas and physical batches are not silently rebased.",
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "sku": "8IQ24653",
+        "product_name": "Orris Liquid"
+      },
+      "supplier_documents": {
+        "sku": "8IQ24653",
+        "product_name": "Orris Liquid",
+        "documents_read": [
+          "COA",
+          "specification",
+          "IFRA 51st Amendment certificate",
+          "allergen declaration",
+          "PW email 19 Oct 2026"
+        ],
+        "coa": {
+          "lot_field": "19102026",
+          "lot_field_reading": "the issue date (19 Oct 2026), expiry 19.10.2027; not tied to Kenny's bottle",
+          "irone_assay": null,
+          "wording": "Proprietary Perfume Compound ... does not contain alcohol"
+        },
+        "pw_email_19_oct_2026": {
+          "identity": "natural orris root extract",
+          "cas": "8002-73-1",
+          "carrier": "tricaprylin with residual ethanol",
+          "alpha_irone_typical": "1-5%, not measured for this lot",
+          "website_80_85_pct_irone": "a typo, per PerfumersWorld"
+        },
+        "ifra_51_certificate": {
+          "category_4_max_pct_of_supplied_product": 25.0,
+          "edt_max_pct": 10.0
+        },
+        "allergens": "all 'Not detected'",
+        "flags": [
+          "The COA/spec wording ('Proprietary Perfume Compound ... does not contain alcohol') contradicts the email (natural extract carried in tricaprylin and ethanol); neither gives an irone assay.",
+          "Kenny's stock is this product diluted to 9% w/w in DEP; the product is itself a carrier solution of unknown irone content, so no irone fraction is asserted."
+        ],
+        "read_by": "Documents emailed by PerfumersWorld (Don, 19 Oct 2026) and read on 20 Oct 2026 in the 'Check new ingredients in code' thread; relayed to the stock thread the same day. The documents themselves are not transcribed here."
+      }
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-121",
+      "canonical_name": "Alpha Irone",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "orris_violet",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true,
+        "execution_basis": "USER_DOCUMENT_INTAKE_20261020_REISSUE_INV-USER-20260828-003"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 20
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 19,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% W/W IN DEP ONLY",
+          "actual_stock_text": "Alpha Irone 10% w/w in DEP",
+          "can_prepare": ""
+        },
+        {
+          "source_row": 20,
+          "disposition": "GAP",
+          "status": "SUPERSEDED - 30% W/W IN IPM NOT OWNED",
+          "actual_stock_text": "",
+          "can_prepare": ""
+        }
+      ],
+      "note": "Re-issues INV-USER-20260828-003 (inventory_user_authority_overlay_20260828.json) with the PerfumersWorld documents attached; the stock (fraction, basis, carrier, aliases, parent rows) is carried over unchanged. Kenny: 'open every document and then add to inventory' (20 Oct 2026 21:19:36 UTC, 'Check new ingredients in code'). Prior note: This replaces the prior 30% w/w IPM stock; only 10% w/w DEP is owned.",
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "sku": "8II00243",
+        "product_name": "Alpha Irone"
+      },
+      "supplier_documents": {
+        "sku": "8II00243",
+        "product_name": "Alpha Irone",
+        "documents_read": [
+          "COA",
+          "IFRA 51st Amendment certificate",
+          "allergen declaration"
+        ],
+        "coa": {
+          "lot_field": "19102026",
+          "lot_field_reading": "the issue date (19 Oct 2026), expiry 19.10.2027; not tied to Kenny's bottle",
+          "irone_assay": null,
+          "wording": "same generic 'Proprietary Perfume Compound' wording as the Orris Liquid COA"
+        },
+        "ifra_51_certificate": {
+          "restricted_or_prohibited_materials_listed": "none",
+          "category_4_max_pct_of_supplied_product": 25.0,
+          "edt_max_pct": 10.0,
+          "note": "The 25% / 10% figures were relayed for the PW certificates together; check the Alpha Irone sheet if the figure matters."
+        },
+        "allergens": "all 'Not detected'",
+        "flags": [
+          "No assay of the irone content; Kenny's stock is 10% w/w in DEP of this product."
+        ],
+        "read_by": "Documents emailed by PerfumersWorld (Don, 19 Oct 2026) and read on 20 Oct 2026 in the 'Check new ingredients in code' thread; relayed to the stock thread the same day. The documents themselves are not transcribed here."
+      },
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_DOCUMENT_INTAKE_REISSUE",
+      "source_quote": "open every document and then add to inventory, add orri butter 30% in EtOH eight/.eight too",
+      "authority_limits": {
+        "stock_facts_carried_over_unchanged": true,
+        "documents_from_supplier_email": true,
+        "lot_tied_to_user_bottle": false,
+        "irone_assay_asserted": false,
+        "ifra_certificate_figure_is_supplier_statement": true
+      }
     }
   ]
 }

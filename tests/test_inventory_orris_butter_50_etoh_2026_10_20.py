@@ -24,7 +24,10 @@ def test_orris_butter_50_is_a_separate_mass_fraction_ethanol_stock():
     assert record["stock"]["fraction"] == 0.5
     assert record["stock"]["fraction_basis"] == "mass_fraction"
     assert record["stock"]["carrier"] == "ethanol"
-    assert record["authority_limits"]["butter_source_asserted"] is False
+    # Kenny, 20 Oct 21:32: "no. the 50% one i made from mykinrecipe".
+    assert record["authority_limits"]["butter_source_asserted"] is True
+    assert record["supplier_product"]["supplier"] == "MySkinRecipes"
+    assert record["supplier_product"]["sku"] is None
     stocks = inventory.materialize_current_inventory().stocks
     new = [s for s in stocks if s.name == NAME]
     old = [s for s in stocks if s.name == "Orris Concrete Orris Butter"]
@@ -41,3 +44,21 @@ def test_orris_butter_50_uses_the_orris_butter_scenario_under_its_own_name():
     assert _resolve_profile_key(NAME) == _resolve_profile_key("Orris Concrete Orris Butter")
     assert _resolve_profile_key(NAME)[1] == "literature_proxy"
     assert lookup_odt_raw_name(NAME) == lookup_odt_raw_name("Orris Concrete Orris Butter")
+
+
+def test_a_brief_saying_orris_butter_is_a_note_not_a_call_for_the_50_pct_bottle():
+    # "deepened with orris butter" names the iris-butter facet; before the
+    # phrase became a facet trigger the plain stock name claimed it as an
+    # explicit anchor, which left the facet unfilled and the design withheld.
+    from engine.research.request_interpretation import (
+        RequestInterpretationInputV1,
+        interpret_request,
+    )
+
+    result = interpret_request(
+        RequestInterpretationInputV1(
+            original_request="Fresh frangipani, creamy, deepened with orris butter and sandalwood.",
+            known_materials=(NAME, "Orris Concrete Orris Butter", "Sandalwood EO"),
+        )
+    )
+    assert result["explicit_materials"] == []

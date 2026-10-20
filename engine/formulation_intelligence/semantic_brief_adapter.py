@@ -196,7 +196,9 @@ _FACETS: tuple[FacetDefinition, ...] = (
 # only when the request actually calls for that profile.
 _LITERATURE_FACETS = {
     "iris_root": FacetDefinition("iris_root", ("iris", "orris"), ("alpha irone", "irone", "orris", "iris recognizer", "alpha isomethyl ionone", "iris"), "heart", "character", (("powdery", .35), ("woody", .35)), .10, .18, "iris recognizer"),
-    "iris_butter": FacetDefinition("iris_butter", ("iris", "orris"), ("alpha irone", "irone", "orris", "iris recognizer", "waxy"), "heart", "character", (("powdery", .6), ("creamy", .4)), .10, .18, "iris recognizer"),
+    # "orris butter" is a note phrase, not a call for one bottle: it stays with
+    # this facet instead of claiming the "Orris Butter 50% in EtOH" stock.
+    "iris_butter": FacetDefinition("iris_butter", ("iris", "orris", "orris butter"), ("alpha irone", "irone", "orris", "iris recognizer", "waxy"), "heart", "character", (("powdery", .6), ("creamy", .4)), .10, .18, "iris recognizer"),
     "iris_cosmetic": FacetDefinition("iris_cosmetic", ("iris", "orris", "lipstick"), ("alpha irone", "irone", "orris", "iris recognizer", "methyl ionone gamma coeur", "alpha isomethyl ionone", "iris", "cosmetic"), "heart", "character", (("powdery", .8), ("floral", .3)), .10, .18, "iris recognizer"),
     "iris_transparent": FacetDefinition("iris_transparent", ("iris", "orris"), ("alpha irone", "irone", "orris", "iris recognizer", "alpha isomethyl ionone", "iris"), "heart", "character", (("powdery", .3), ("transparency", .65)), .10, .18, "iris recognizer"),
     "iris_woody": FacetDefinition("iris_woody", ("iris", "orris"), ("alpha irone", "irone", "orris", "iris recognizer", "methyl ionone gamma coeur", "alpha isomethyl ionone", "iris", "woody"), "heart", "character", (("powdery", .4), ("woody", .6)), .10, .18, "iris recognizer"),
