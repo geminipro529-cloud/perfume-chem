@@ -1372,6 +1372,9 @@ _PROFILE_ALIASES = {
     "geranium bourbon essential oil": "geranium eo",
     "sweet orange essential oil": "orange peel eo",
     "cedarwood texas eo": "cedarwood eo",
+    # PerfumersWorld Patchouli Light (decolorized patchouli, 7WB13670): same molecules as patchouli oil.
+    "patchouli light essential oil": "patchouli eo",
+    "patchouli light eo": "patchouli eo",
     "ylang": "ylang ylang eo (extra grade)",
     "cedarwood virginia": "cedarwood eo",
     "benzoin sumatra resinoid": "benzoin resinoid",

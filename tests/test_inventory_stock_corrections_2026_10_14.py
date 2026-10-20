@@ -156,6 +156,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "not 5",
         "eight/eight",
         "para-acetaniole i olid",
+        "add patchouli light eential oil from perfumerorld to inventory",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -185,7 +186,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 118)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 119)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

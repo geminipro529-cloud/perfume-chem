@@ -1127,7 +1127,7 @@
       "cat4_quote": null,
       "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_185.pdf",
       "notes": [
-        "Nootkatone used as a fragrance ingredient should be at least 98% pure, with a melting point of at least 32\u00b0C.",
+        "Nootkatone used as a fragrance ingredient should be at least 98% pure, with a melting point of at least 32°C.",
         "Lower purity grades may not be used as a fragrance ingredient."
       ]
     },
@@ -1398,6 +1398,14 @@
     }
   },
   "materials": {
+    "Patchouli Light Essential Oil": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [
+        "Patchouli Light EO"
+      ],
+      "note": "PerfumersWorld 7WB13670, decolorized patchouli oil (Pogostemon cablin, CAS 8014-09-3). No IFRA standard of its own, like Patchouli EO. Added with Kenny's 16 Oct 2026 09:00 UTC stock addition."
+    },
     "Isoraldeine 95": {
       "status": "restricted",
       "standard": "IFRA_STD_063",
@@ -3445,7 +3453,7 @@
       "status": "specification",
       "standard": "IFRA_STD_185",
       "aliases": [],
-      "note": "No Category 4 limit. Only grades at least 98 % pure with a melting point of at least 32 \u00b0C may be used; ask the supplier for the lot certificate.",
+      "note": "No Category 4 limit. Only grades at least 98 % pure with a melting point of at least 32 °C may be used; ask the supplier for the lot certificate.",
       "cas": [
         "4674-50-4"
       ]

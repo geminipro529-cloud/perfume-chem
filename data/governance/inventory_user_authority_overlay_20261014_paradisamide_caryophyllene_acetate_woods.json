@@ -223,6 +223,10 @@
       {
         "message_timestamp_utc": "2026-10-16T08:28:26Z",
         "text": "para-acetaniole i olid"
+      },
+      {
+        "message_timestamp_utc": "2026-10-16T09:00:44Z",
+        "text": "add patchouli light eential oil from perfumerorld to inventory"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -272,7 +276,8 @@
     "myskinrecipes_order_2199302_coas_recorded_20261016": true,
     "alpha_irone_25pct_ipm_added_20261016": true,
     "para_acetanisole_solid_as_supplied_20261016": true,
-    "rose_otto_10pct_ww_user_confirmed_20261016": true
+    "rose_otto_10pct_ww_user_confirmed_20261016": true,
+    "patchouli_light_eo_pw_added_neat_20261016": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -5529,6 +5534,53 @@
         "release_authorized": false
       },
       "note": "Kenny: 'Add Alpha Irone 5% in IPM to inventory' (16 Oct 07:59:11 UTC, 'Formulation studio 3'), corrected seconds later: '25' (07:59:50), 'not 5' (07:59:52). The stock is 25%. The carrier is isopropyl myristate (IPM), not DPG or DEP. He gave no basis, so it is w/w under his 15 Oct rule. A separate stock from Alpha Irone 10% w/w in DEP (inventory.txt L198), which stays owned."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-118",
+      "canonical_name": "Patchouli Light Essential Oil",
+      "aliases": [
+        "Patchouli Light EO"
+      ],
+      "state": "OWNED",
+      "category": "woods / amber / structure",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_ADDITION",
+        "execution_basis": "USER_ADD_20261016_PW_PATCHOULI_LIGHT_EO",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Patchouli Light Essential Oil",
+        "sku": "7WB13670",
+        "cas_on_listing": "8014-09-3",
+        "listing_form": "neat (PW stock snapshot 2026-04-11)",
+        "listing_specific_gravity": "0.9500 (not asserted as a density)"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-16",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "add patchouli light eential oil from perfumerorld to inventory",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_message": true,
+        "fraction_from_supplier_listing": true,
+        "strength_from_user_message": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'add patchouli light eential oil from perfumerorld to inventory' (16 Oct 2026 09:00:44 UTC, 'Formulation studio 3'). He gave no strength; PerfumersWorld lists 7WB13670 as a neat essential oil (Pogostemon cablin, decolorized, CAS 8014-09-3, SG 0.9500, RI 1.5070 on its page), so it is recorded neat as supplied. A separate stock from Patchouli EO (Aroma & More). No IFRA certificate, SDS or lot transcribed; PW only offers them on request."
     }
   ]
 }

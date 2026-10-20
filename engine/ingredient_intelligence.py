@@ -2218,6 +2218,26 @@ _PROFILES: dict[str, dict] = {
         "clogp": 4.5,
         "synergies": ["Evernyl", "Vertofix Coeur", "Vetiver EO"],
     },
+    # 2026-10-16: PerfumersWorld Patchouli Light Essential Oil (7WB13670), Kenny's own
+    # stock addition. Own entry with the Patchouli EO values; "light" = decolorized.
+    "Patchouli Light Essential Oil": {
+        "character": {"woody": 7, "warmth": 3, "animalic": 2, "sweetness": 2, "green": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "cocoon",
+        "mw": 222.37,
+        "vp": 0.001,
+        "clogp": 4.5,
+        "cas": "8014-09-3",
+        "material_kind": "NATURAL_MIXTURE",
+        "evidence": {
+            "character": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Patchouli EO profile; PW calls the light grade more transparent, dry and crisp, so warmth and animalic are one point lower. Not a sensory measurement."},
+            "mw": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Patchouli EO profile; a whole-oil proxy (patchoulol 222.37), not a single molecule."},
+            "vp": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Patchouli EO profile; a whole-oil proxy, not a single molecule."},
+            "clogp": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Patchouli EO profile."},
+        },
+        "synergies": ["Evernyl", "Vertofix Coeur", "Vetiver EO"],
+    },
     "Myrrh EO": {
         "character": {
             "warmth": 6,

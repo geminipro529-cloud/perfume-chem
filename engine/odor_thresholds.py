@@ -3210,6 +3210,9 @@ _ODT_QUERY_ALIASES = {
     # without becoming Alpha Isomethyl Ionone stocks.
     "isoraldeine 95": "methyl ionone gamma",
     "isoraldeine 70": "methyl ionone gamma",
+    # PerfumersWorld Patchouli Light (decolorized patchouli oil): the patchouli eo row.
+    "patchouli light essential oil": "patchouli eo",
+    "patchouli light eo": "patchouli eo",
 }
 
 
