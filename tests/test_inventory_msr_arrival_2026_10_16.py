@@ -148,3 +148,16 @@ def test_rose_otto_10pct_is_mass_fraction_in_dpg_as_kenny_confirmed():
     assert rows[0].dilution == pytest.approx(0.1)
     assert rows[0].fraction_basis == "mass_fraction"
     assert rows[0].carrier == "dpg"
+
+
+def test_dmbca_is_a_powder_dosed_by_weight():
+    # Kenny, 20 Oct 2026 23:14:07 UTC (CHIMIE Femme thread): "my dmbca i poder".
+    payload = inventory.load_current_user_inventory_overlay()
+    record = next(r for r in payload["delta_records"] if r["canonical_name"] == "Dimethyl Benzyl Carbinyl Acetate")
+    assert record["record_id"] == "INV-USER-20261014-STK-138"
+    assert record["stock"]["physical_form"] == "solid_as_supplied"
+    assert record["stock"]["execution_scope"] == "WEIGHED_SOLID_OR_PREPARED_SOLUTION_ONLY"
+    assert record["supplier_product"]["sku"] == "3LF00157"
+    assert "INV-USER-20261008-TOBDBCA-002" in payload["superseded_record_ids"]
+    stocks = [s for s in inventory.materialize_current_inventory().stocks if s.identity_name == "Dimethyl Benzyl Carbinyl Acetate"]
+    assert len(stocks) == 1 and stocks[0].physical_form == "solid_as_supplied"

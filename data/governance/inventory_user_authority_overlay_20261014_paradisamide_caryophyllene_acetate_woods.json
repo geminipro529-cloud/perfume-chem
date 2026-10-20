@@ -272,6 +272,11 @@
         "message_timestamp_utc": "2026-10-20T22:20:52Z",
         "text": "Make it pass the gate, it is another lavender type",
         "context": "Formulation studio 3; 'it' = his neat Aroma&More Lavender 40/42 (inventory.txt L348), held on a lot-receipt hold"
+      },
+      {
+        "message_timestamp_utc": "2026-10-20T23:14:07Z",
+        "text": "my dmbca i poder",
+        "context": "CHIMIE Femme thread; = 'my DMBCA is powder' (Dimethyl Benzyl Carbinyl Acetate)"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -328,7 +333,8 @@
     "pw_orris_liquid_and_alpha_irone_documents_attached_20261020": true,
     "email_sweep_arrivals_fifteen_stocks_added_20261020": true,
     "cashmeran_exaltolide_hedione_hc_strengths_reconfirmed_20261020": true,
-    "lavender_40_42_lot_receipt_hold_cleared_20261020": true
+    "lavender_40_42_lot_receipt_hold_cleared_20261020": true,
+    "dmbca_powder_solid_as_supplied_20261020": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -360,7 +366,8 @@
     "INV-USER-20260924-R5-019",
     "INV-USER-20260905-001",
     "INV-USER-20260828-003",
-    "INV-USER-20260924-R5-007"
+    "INV-USER-20260924-R5-007",
+    "INV-USER-20261008-TOBDBCA-002"
   ],
   "records": [
     {
@@ -6639,6 +6646,76 @@
         "release_authorized": false
       },
       "note": "Kenny: 'Make it pass the gate, it is another lavender type' (20 Oct 2026 22:20:52 UTC, 'Formulation studio 3'). Already owned neat as supplied (INV-USER-20260924-R5-007, his 24 Sep confirmation; inventory.txt L348; Aroma & More Lav420811P, 10 mL); its only hold was LOT_PURCHASE_SOURCE_AND_LABEL_RECEIPT_MISSING, which AGENTS.md Rule 6 says a formula does not need, as with Cedrat (STK-021). Its own lavender identity: not an alias of Lavender EO (BONTAUX SAS), Lavender EO or Spike Lavender EO. Retires R5-007."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-138",
+      "canonical_name": "Dimethyl Benzyl Carbinyl Acetate",
+      "aliases": [
+        "DBCA",
+        "Dimethyl Benzyl Carbonyl Acetate",
+        "PerfumersWorld Dimethyl Benzyl Carbinyl Acetate"
+      ],
+      "state": "OWNED",
+      "category": "floral / green",
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Dimethyl Benzyl Carbinyl Acetate",
+        "sku": "3LF00157",
+        "cas": "151-05-3",
+        "ec": "205-781-3",
+        "mw_g_mol": 192.26,
+        "evidence_scope": "SUPPLIER_PRODUCT_IDENTITY_ONLY",
+        "source": "Kenny's local PerfumersWorld snapshot, 2026-10-07"
+      },
+      "resolves_authority_delta": {
+        "path": "data/governance/inventory_v5_authority_delta_20260811.json",
+        "record_id": "INV-V5-DELTA-DBCA-IDENTITY"
+      },
+      "stock": {
+        "physical_form": "solid_as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "V5_ROW_257_NEAT_STOCK_CARRIED_FORWARD_AFTER_SUPPLIER_IDENTITY_CORRECTION",
+        "execution_ready": true,
+        "execution_scope": "WEIGHED_SOLID_OR_PREPARED_SOLUTION_ONLY",
+        "execution_basis": "USER_ANSWER_20261020_DMBCA_IS_POWDER_REISSUE_INV-USER-20261008-TOBDBCA-002"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 257,
+          "fraction": 1.0
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 257,
+          "disposition": "OWNED",
+          "status": "HAVE — PERFUMERSWORLD DIMETHYL BENZYL CARBINYL ACETATE (DBCA), NEAT / AS SUPPLIED",
+          "actual_stock_text": "Dimethyl Benzyl Carbinyl Acetate (DBCA), PerfumersWorld SKU 3LF00157, CAS 151-05-3, neat/as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_product_identity_confirmed": true,
+        "stock_fraction_carried_forward": true,
+        "fraction_basis_carried_forward": true,
+        "user_lot_asserted": false,
+        "label_asserted": false,
+        "exact_user_lot_assay_asserted": false,
+        "density_asserted": false,
+        "receipt_or_lot_holds_cleared": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "physical_form_from_user_message": true
+      },
+      "note": "Re-issues INV-USER-20261008-TOBDBCA-002 with Kenny's 'my dmbca i poder' (= is powder; 20 Oct 2026 23:14:07 UTC, CHIMIE Femme thread): dose it by weight or as a dilution he has made, never as neat microlitres; no dilution is recorded until he says one is made. Same PerfumersWorld identity (3LF00157, CAS 151-05-3); the MySkinRecipes 2199302 bottle is another bottle of this stock. Separate from Dimethyl Benzyl Carbinol (STK-123). Prior note: Kenny: DBCA is whatever is found on PerfumersWorld. The V5 snapshot spelling 'Carbonyl' is corrected to PerfumersWorld 'Dimethyl Benzyl Carbinyl Acetate' (CAS 151-05-3). Supplier identity only; no lot, label or density is supplied.",
+      "source_quote": "my dmbca i poder"
     }
   ]
 }

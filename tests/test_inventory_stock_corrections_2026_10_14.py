@@ -169,6 +169,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "ye",
         "5% in DPG",
         "Make it pass the gate, it is another lavender type",
+        "my dmbca i poder",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -195,6 +196,8 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "INV-USER-20260828-003",
         # 2026-10-20: Lavender 40/42 re-issued with its lot-receipt hold cleared (STK-137).
         "INV-USER-20260924-R5-007",
+        # 2026-10-20: DMBCA re-issued as a powder (STK-138).
+        "INV-USER-20261008-TOBDBCA-002",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
@@ -203,7 +206,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 138)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 139)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired
