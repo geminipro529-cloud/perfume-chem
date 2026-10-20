@@ -9,8 +9,11 @@ Rule 1: no score uses an OAV magnitude or OAV share. Named-note detection is bin
 does); swamping uses active-mass share; OAV numbers appear only under ``diagnostics``.
 Rule 4: a HOLD is never counted as a pass; it is listed under ``holds``, and a side holding a
 floor cannot win a duel against a clean side. A decomposed natural's screening OAV is a sum
-of constituent OAVs and the frame exposes no per-constituent values, so such a row gives no
-detection verdict (the note holds as ``unknown_physics``). A held note is left out of the
+of constituent OAVs, so that sum gives no detection verdict. Such a row's note is judged only
+through one constituent that marks the natural, with a cited air threshold
+(``note_markers``, plan A4): that constituent alone at screening OAV >= 1 makes the note
+detectable, and the card shows which marker and how much of the natural its profile
+identifies. Otherwise the note holds as ``unknown_physics``. A held note is left out of the
 named-note part, neither a hit nor a miss; when fewer than half the named notes can be judged,
 the name score itself is a HOLD (``None``, ``name_status`` "HOLD") and the duel cannot decide
 on the name.
@@ -225,8 +228,8 @@ def _lacks_physics(m: Any) -> bool:
     """No usable screening OAV for detection.
 
     A decomposed natural's screening OAV is the sum of its constituents' OAVs (Rule 4: never
-    a whole-natural detection claim), and the frame exposes no per-constituent OAVs, so such
-    a row has no detection basis here.
+    a whole-natural detection claim), so that sum is no detection basis; only a cited note
+    marker can judge such a row (``_note_status``).
     """
     return (
         m.screening_oav is None
@@ -236,20 +239,48 @@ def _lacks_physics(m: Any) -> bool:
     )
 
 
+def _note_rows(mats: Sequence[Any], formula_names: set[str], subs: Sequence[str]) -> list[Any]:
+    return [m for m in mats if m.name in formula_names and _matches(m.name, subs)]
+
+
 def _note_status(mats: Sequence[Any], formula_names: set[str], subs: Sequence[str]) -> str:
     """Binary detection (screening OAV >= 1) as the brief benchmark's ``_note_eval``.
 
-    Detectable when any matching row with physics reaches 1; otherwise a note with any
-    matching row lacking physics is ``unknown_physics`` (a hold), not ``below_threshold``.
+    Detectable when any matching row with physics reaches 1, or when a matching decomposed
+    natural's cited note marker alone reaches 1 (``note_markers``, plan A4); otherwise a note
+    with any matching row lacking physics is ``unknown_physics`` (a hold), not
+    ``below_threshold``.
     """
-    rows = [m for m in mats if m.name in formula_names and _matches(m.name, subs)]
+    from engine.formulation_intelligence.note_markers import detects
+
+    rows = _note_rows(mats, formula_names, subs)
     if not rows:
         return "absent"
     if any(not _lacks_physics(m) and m.screening_oav >= 1 for m in rows):
         return "detectable"
+    if any(_lacks_physics(m) and detects(m) for m in rows):
+        return "detectable"
     if any(_lacks_physics(m) for m in rows):
         return "unknown_physics"
     return "below_threshold"
+
+
+def _note_marker_readings(
+    mats: Sequence[Any], formula_names: set[str], subs: Sequence[str],
+) -> list[dict[str, Any]]:
+    """Marker readings of a note's decomposed naturals, best first (shown, never scored)."""
+    from engine.formulation_intelligence.note_markers import marker_readings
+
+    readings = [
+        r for m in _note_rows(mats, formula_names, subs) if _lacks_physics(m)
+        for r in marker_readings(m)
+    ]
+    return [
+        {**r, "screening_oav": _r(r["screening_oav"], 3),
+         "identified_share": None if r["identified_share"] is None
+         else _r(float(r["identified_share"]), 4)}
+        for r in sorted(readings, key=lambda r: -r["screening_oav"])
+    ]
 
 
 def _weighted(parts: Mapping[str, float | None], weights: Mapping[str, float]) -> float:
@@ -675,14 +706,27 @@ def score_formula(formula: Mapping[str, Any], brief: Mapping[str, Any]) -> Score
 
     # Name score.
     notes = []
+    marker_diagnostics: dict[str, list[dict[str, Any]]] = {}
     for note in brief.get("named_notes", []) or []:
-        status = _note_status(mats_by_label.get(note["window"], []), name_set, note["materials"])
+        window_mats = mats_by_label.get(note["window"], [])
+        status = _note_status(window_mats, name_set, note["materials"])
         held = status == "unknown_physics"
-        notes.append({
+        entry = {
             "name": note["name"], "window": note["window"], "status": status,
             # Rule 4: a held note is neither a hit nor a miss.
             "score": None if held else (1 if status == "detectable" else 0),
-        })
+        }
+        markers = _note_marker_readings(window_mats, name_set, note["materials"])
+        if markers:
+            # Plan A4: the marker readings (OAV numbers) stay under diagnostics (Rule 1).
+            marker_diagnostics[note["name"]] = markers
+            if status == "detectable" and markers[0]["screening_oav"] >= 1 and not any(
+                not _lacks_physics(m) and m.screening_oav >= 1
+                for m in _note_rows(window_mats, name_set, note["materials"])
+            ):
+                entry["via_marker"] = {k: markers[0][k] for k in
+                                       ("material", "constituent", "identified_share")}
+        notes.append(entry)
         if held:
             holds.append({"source": "named_note", "detail": f"{note['name']} ({note['window']})"})
     judged = [n["score"] for n in notes if n["score"] is not None]
@@ -832,6 +876,7 @@ def score_formula(formula: Mapping[str, Any], brief: Mapping[str, Any]) -> Score
             "material_count": count,
             "concentrate_pct": floors["F4_bottle"]["concentrate_pct"],
             "active_ul": {n: _r(v, 3) for n, v in active_ul.items()},
+            "note_markers": marker_diagnostics,
         },
     }
 

@@ -3269,6 +3269,10 @@ class NaturalCompositeHeadspace:
     dhvap_model: str = (
         f"literature_correlation:{VP25_DHVAP_CORRELATION_SOURCE}"
     )
+    # Each contributing constituent's modeled vapour concentration (name, ppm v/v),
+    # profile order. A note is read from one named constituent (yardstick note
+    # markers), never from the summed ``oav`` (Rule 4).
+    constituent_vapor_ppm: tuple[tuple[str, float], ...] = ()
 
     def as_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -3843,13 +3847,15 @@ def composite_headspace(
         return None
 
     contributing_constituents = 0
-    for _name, moles, constituent_vp_pa, odt_ppb, _fraction, gamma_value in constituent_rows:
+    constituent_vapor: list[tuple[str, float]] = []
+    for name, moles, constituent_vp_pa, odt_ppb, _fraction, gamma_value in constituent_rows:
         if moles <= 0:
             continue
         contributing_constituents += 1
         x_i = moles / effective_total_moles
         partial_pressure = gamma_value * x_i * constituent_vp_pa
         vapor_ppm = 1e6 * partial_pressure / P_ATM
+        constituent_vapor.append((str(name), float(vapor_ppm)))
         odt_ppm = odt_ppb / 1000.0
         oav_contribution = vapor_ppm / odt_ppm if odt_ppm > 0 else 0.0
         total_partial_pressure_pa += partial_pressure
@@ -3881,6 +3887,7 @@ def composite_headspace(
         temperature_K=float(temperature_K),
         temperature_model=temperature_model,
         dhvap_model=dhvap_model,
+        constituent_vapor_ppm=tuple(constituent_vapor),
     )
 
 
