@@ -168,6 +168,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "both",
         "ye",
         "5% in DPG",
+        "Make it pass the gate, it is another lavender type",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -192,6 +193,8 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         # 2026-10-20: Orris Liquid and Alpha Irone re-issued with the PerfumersWorld documents attached.
         "INV-USER-20260905-001",
         "INV-USER-20260828-003",
+        # 2026-10-20: Lavender 40/42 re-issued with its lot-receipt hold cleared (STK-137).
+        "INV-USER-20260924-R5-007",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
@@ -200,7 +203,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 137)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 138)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

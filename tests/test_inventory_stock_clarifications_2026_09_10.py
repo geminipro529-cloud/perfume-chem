@@ -58,7 +58,7 @@ def test_current_overlay_is_pinned_to_live_inventory_and_receipts() -> None:
     payload = inventory.load_current_user_inventory_overlay()
     # 2026-10-14: the stock-corrections record (v26, fifteen records) is the head.
     assert payload["schema_version"].endswith("_v26")
-    assert len(payload["delta_records"]) == 136
+    assert len(payload["delta_records"]) == 137
     assert payload["predecessor"]["normalized_text_sha256"] == (
         inventory.NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256
     )

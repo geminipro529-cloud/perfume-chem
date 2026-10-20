@@ -3212,6 +3212,9 @@ _ODT_QUERY_ALIASES = {
     "isoraldeine 70": "methyl ionone gamma",
     # PerfumersWorld Patchouli Light (decolorized patchouli oil): the patchouli eo row.
     "patchouli light essential oil": "patchouli eo",
+    # Kenny's Aroma & More Lavender 40/42 (2026-10-20): the Lavender EO threshold row, under its own name.
+    "lavender 40/42, aroma&more": "lavender eo",
+    "lavender 40/42": "lavender eo",
     "patchouli light eo": "patchouli eo",
     # Kenny's Orris Butter 50% w/w in ethanol (2026-10-20): the orris butter row.
     "orris butter 50% in etoh": "orris concrete orris butter",

@@ -2192,6 +2192,26 @@ _PROFILES: dict[str, dict] = {
         "clogp": 2.5,
         "synergies": ["Linalyl Acetate", "Coumarin", "Geraniol", "Terpinyl Acetate"],
     },
+    # 2026-10-20: Kenny's Aroma & More Lavender 40/42 (Lav420811P), "another lavender type".
+    # Own entry with the Lavender EO values; not an alias of BONTAUX or Spike Lavender.
+    "Lavender 40/42, Aroma&More": {
+        "character": {"freshness": 6, "floral": 5, "green": 4, "woody": 2, "spicy": 1},
+        "note": "heart",
+        "role": "character",
+        "texture": "lift",
+        "mw": 170.0,
+        "vp": 3.5,
+        "clogp": 2.5,
+        "cas": "8000-28-0",
+        "material_kind": "NATURAL_MIXTURE",
+        "evidence": {
+            "character": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Lavender EO profile; 40/42 is a French angustifolia oil standardized toward ~40% linalool / ~42% linalyl acetate. Not a sensory measurement."},
+            "mw": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Lavender EO profile; a whole-oil proxy, not a single molecule."},
+            "vp": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Lavender EO profile; a whole-oil proxy, not a single molecule."},
+            "clogp": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Lavender EO profile."},
+        },
+        "synergies": ["Linalyl Acetate", "Coumarin", "Geraniol", "Terpinyl Acetate"],
+    },
     "Lavender EO (BONTAUX SAS)": {
         "character": {"freshness": 7, "floral": 5, "green": 3, "woody": 1, "spicy": 1},
         "note": "heart",
