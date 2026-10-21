@@ -175,7 +175,8 @@ def test_previous_ambrox_solution_is_preserved_as_a_separate_stock():
         for stock in materialize_current_inventory().stocks
         if stock.identity_name == "Ambrox Super"
     ]
-    assert len(ambrox_stocks) == 2
+    # Crystals, the 25% solution, and Kenny's 10% bottle (21 Oct 2026, STK-146).
+    assert len(ambrox_stocks) == 3
     solution = next(stock for stock in ambrox_stocks if stock.dilution == 0.25)
     assert solution.stock_id == "inventory:user-20260902:9e69f9db20c45cfe37e6"
     assert solution.fraction_basis == "mass_fraction"

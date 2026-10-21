@@ -45,7 +45,8 @@ def test_v16_overlay_is_pinned_to_user_receipt_product_evidence_and_inventory():
 
 def test_ambrox_crystals_are_separate_from_the_existing_solution():
     stocks = _stocks("Ambrox Super")
-    assert len(stocks) == 2
+    # Crystals, the 25% solution, and Kenny's 10% bottle (21 Oct 2026, STK-146).
+    assert len(stocks) == 3
     crystals = next(stock for stock in stocks if stock.physical_form == "crystals")
     solution = next(stock for stock in stocks if stock.dilution == 0.25)
     assert (
