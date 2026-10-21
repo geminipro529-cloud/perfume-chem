@@ -176,6 +176,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "It’s made",
         "Mine is from ssdiy",
         "I have dohydrojasmone 10% DPG, IBQ 1% DPG, cis Jasmone 10% DPG, delta damascone 10% DPG",
+        "Actually I have a Ambrox super 10% stock",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -212,7 +213,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 146)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 147)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

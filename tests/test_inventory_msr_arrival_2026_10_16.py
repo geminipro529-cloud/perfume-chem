@@ -217,6 +217,15 @@ def test_nagarmortha_oil_density_is_a_labelled_literature_approximation():
     assert record["supplier_product"]["sku"] == "8E3094000984"
 
 
+def test_ambrox_super_10pct_is_a_third_ambrox_stock():
+    # Kenny, 21 Oct 2026 05:50:58 UTC: "Actually I have a Ambrox super 10% stock" (3.0 g in 30.0 g,
+    # ethanol + DPG, from his Lab app entry). The 25% solution and the crystals stay.
+    stocks = [s for s in inventory.materialize_current_inventory().stocks if s.identity_name == "Ambrox Super"]
+    assert sorted(s.dilution for s in stocks) == [0.1, 0.25, 1.0]
+    ten = next(s for s in stocks if s.dilution == 0.1)
+    assert (ten.fraction_basis, ten.physical_form) == ("mass_fraction", "solution")
+
+
 def test_cyclogalbanate_10pct_is_a_separate_dpg_dilution():
     # Kenny, 21 Oct 2026 00:42:08 UTC (CHIMIE Femme thread): "It went in as a 10%".
     stocks = {s.name: s for s in inventory.materialize_current_inventory().stocks if s.identity_name.startswith("Cyclogalbanate")}
