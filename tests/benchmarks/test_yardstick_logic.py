@@ -312,7 +312,8 @@ def test_same_inventory_txt_material_holds_alike_from_engine_and_reference_rows(
 
 
 # inventory.txt: Adoxal 10% DPG, Calone 1% DPG, Methyl Pamplemousse 10% w/w ethanol,
-# Ambrox Super 25% w/w and Ambrox Super Crystals (neat solid), Heliotropal neat (the gate's
+# Ambrox Super 25% w/w, Ambrox Super Crystals (neat solid) and his Ambrox Super 10% (overlay
+# STK-146), Heliotropal neat (the gate's
 # list records Heliotropal 10% w/w DPG as preparation_required).
 @pytest.mark.parametrize(
     ("row", "status"),
@@ -331,7 +332,9 @@ def test_same_inventory_txt_material_holds_alike_from_engine_and_reference_rows(
          "HOLD"),
         # Crystals dissolve only so far: nothing above the strongest owned dilution.
         (_row("Ambrox Super", "30", "0.5", fraction_basis="mass_fraction"), "FAIL"),
-        (_row("Ambrox Super", "30", "0.1", fraction_basis="mass_fraction"), "HOLD"),
+        (_row("Ambrox Super", "30", "0.05", fraction_basis="mass_fraction"), "HOLD"),
+        # Kenny's own Ambrox Super 10% bottle (21 Oct 2026, STK-146) is owned stock.
+        (_row("Ambrox Super", "30", "0.1", fraction_basis="mass_fraction"), "PASS"),
         # Spelling: "cis-3-Hexenyl" is inventory.txt's "Cis-3 Hexenyl"; a strength in the
         # name is the row's own fraction (inventory.txt owns neat Cocoa Absolute).
         (_row("cis-3-Hexenyl Acetate", "30"), "HOLD"),
