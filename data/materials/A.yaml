@@ -2118,16 +2118,16 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Alpha Terpineol
   aliases: []
-  cas: null
+  cas: '98-55-5'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
+  mw_g_mol: 154.25
+  density_25c_g_ml: 0.93
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 5.64
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2151,6 +2151,9 @@
   character: null
   notes: null
   provenance:
+    cas: 'PubChem Alpha-Terpineol; Perflavory doc1011252'
+    density_25c_g_ml: 'TGSC specific gravity 0.930-0.936 @ 25 C, midpoint x 0.99705'
+    vp_25c_pa: 'experimental-database value at 24 C on the EPI Suite page via TGSC (ep1011252), not an estimate'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Alpha-Male Concentratea
   aliases:

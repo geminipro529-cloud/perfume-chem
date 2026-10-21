@@ -82,10 +82,14 @@ _OSMANTHUS_VOLUME_GRADE_CONSTITUENTS = [
     for name, fraction, mw, vp, odt, gamma in _OSMANTHUS_CONSTITUENTS
 ]
 
-# Supplier declares 80-85% irone but does not publish an isomer split. The
-# midpoint is modeled as an alpha-irone-equivalent pool; 17.5% remains unknown.
+# PerfumersWorld's 2026-10-19 email (STK-120): natural orris root extract
+# (CAS 8002-73-1) in tricaprylin with residual ethanol, typically 1-5%
+# alpha-irone, not measured on the lot. The "80-85% irone" on the product page
+# was a typo copied from a generic orris-absolute entry. The 1-5% midpoint is
+# modeled as an alpha-irone-equivalent pool; the remaining 97% (mostly the
+# tricaprylin carrier, VP ~0) stays unknown and inert rather than renormalized.
 _ORRIS_LIQUID_CONSTITUENTS = [
-    ("irone pool (alpha-equivalent)", 0.825, 206.32, 0.559, 0.9, 1.3),
+    ("irone pool (alpha-equivalent)", 0.03, 206.32, 0.559, 0.9, 1.3),
 ]
 
 _ROSE_DE_MAI_CONSTITUENTS = [

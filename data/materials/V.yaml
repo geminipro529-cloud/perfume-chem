@@ -264,16 +264,16 @@
     vp_25c_pa: 'ESTIMATE, literature common ground: RIFM 2017 quotes US EPA 0.0163 mm Hg @ 25 C = 2.17 Pa; TGSC rw1000241 0.026 mmHg @ 25 C (est) = 3.47 Pa agrees; the FMA 0.4 mm Hg @ 20 C (53 Pa) is a 15-25x outlier (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
 - canonical_name: Velvione
   aliases: []
-  cas:
+  cas: '37609-25-9'
   smiles:
   inchikey:
-  mw_g_mol:
-  density_25c_g_ml:
+  mw_g_mol: 236.4
+  density_25c_g_ml: 0.93
   logp:
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.02
+  vp_source: ECHA_measured_20C_not_corrected  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -297,6 +297,9 @@
   character:
   notes:
   provenance:
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1016851.html; PW 4XU11429 page'
+    density_25c_g_ml: 'ECHA 0.93 g/cm3 at 20 C (20 C value); TGSC SG 0.932-0.934. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
+    vp_25c_pa: 'MEASURED: ECHA key study 0.02 Pa at 20 C (not corrected to 25 C); EPI estimate was 0.0044 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Verbena Oil
   aliases: []
