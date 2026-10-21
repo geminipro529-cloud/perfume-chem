@@ -94,23 +94,43 @@ def test_the_statements_are_on_record(records):
 
 
 @pytest.mark.parametrize(
-    ("name", "cas", "mw", "has_density"),
+    ("name", "cas", "mw", "vp_source"),
     (
-        ("Peach Ketone", "95962-14-4", 220.36, False),
-        ("Pear Valerate", "90397-38-9", 200.32, True),
-        ("Decatone", "34131-98-1", 194.32, True),
-        ("Velvione", "37609-25-9", 236.40, True),
-        ("Canthoxal", "5462-06-6", 178.23, True),
-        ("Phenoxy Ethyl Isobutyrate", "103-60-6", 208.26, True),
-        ("Dimethyl Benzyl Carbinol", "100-86-7", 150.22, True),
+        ("Peach Ketone", "95962-14-4", 220.36, "ECHA_measured_20C_not_corrected"),
+        ("Pear Valerate", "90397-38-9", 200.32, "EPI"),
+        ("Decatone", "34131-98-1", 194.32, "EPI"),
+        ("Velvione", "37609-25-9", 236.40, "ECHA_measured_20C_not_corrected"),
+        ("Canthoxal", "5462-06-6", 178.23, "ECHA_measured_24C_not_corrected"),
+        ("Phenoxy Ethyl Isobutyrate", "103-60-6", 208.26, "ECHA_measured"),
+        ("Dimethyl Benzyl Carbinol", "100-86-7", 150.22, "EPI"),
     ),
 )
-def test_researched_identity_and_physics_are_loaded(name, cas, mw, has_density):
-    # Kenny chose "Load all" on 21 Oct 2026 for /mnt/project-files/missing-data-20261021.
+def test_researched_identity_and_physics_are_loaded(name, cas, mw, vp_source):
+    # Kenny chose "Load all" on 21 Oct 2026 for /mnt/project-files/missing-data-20261021;
+    # the PC lookups there (PC_LOOKUPS_RESULTS.md) replaced estimates with ECHA measured
+    # vapour pressures where they agree, and kept the estimate where ECHA is disputed.
     material = resolve_material(name).registry_material
     assert (material.cas, material.mw_g_mol) == (cas, mw)
-    assert (material.density_25c_g_ml is not None) is has_density
-    assert material.vp_source == "EPI"
+    assert material.density_25c_g_ml is not None
+    assert material.vp_source == vp_source
+
+
+@pytest.mark.parametrize(
+    ("name", "density", "vp"),
+    (
+        ("Velvione", 0.93, 0.02),
+        ("Canthoxal", 1.065, 0.3),
+        ("Peach Ketone", 0.963, 0.009),
+        ("Phenoxy Ethyl Isobutyrate", 1.05, 0.77),
+        ("Dupical", 1.008, 0.11),
+        ("Cyclogalbanate", 1.02, 0.4),
+        ("Dimethyl Benzyl Carbinol", 0.979, 3.94),
+        ("Pear Valerate", 0.8564, 13.9),
+    ),
+)
+def test_pc_lookup_echa_density_and_vapour_pressure(name, density, vp):
+    material = resolve_material(name).registry_material
+    assert (material.density_25c_g_ml, material.vp_25c_pa) == (density, vp)
 
 
 def test_myskinrecipes_peach_ketone_is_nectaryl():

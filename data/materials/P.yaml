@@ -951,12 +951,12 @@
   smiles:
   inchikey:
   mw_g_mol: 220.36
-  density_25c_g_ml:
+  density_25c_g_ml: 0.963
   logp:
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.049
-  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.009
+  vp_source: ECHA_measured_20C_not_corrected  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -977,7 +977,8 @@
   notes: MySkinRecipes order 2199458 'Peach Cyclopentanone, Peach Ketone', neat as supplied; CAS and purity not asserted.
   provenance:
     cas: 'MySkinRecipes 2571 ''Peach Cyclopentanone'' = Nectaryl (Givaudan), 2-[2-(4-methyl-3-cyclohexen-1-yl)propyl]cyclopentanone (https://www.thegoodscentscompany.com/data/rw1052381.html); not 2-heptylcyclopentanone (137-03-1)'
-    vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026); no density found'
+    density_25c_g_ml: 'ECHA 0.963 g/cm3 at 20 C (20 C value). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
+    vp_25c_pa: 'MEASURED: ECHA key study (Nectaryl, 95962-14-4) 0.009 Pa at 20 C; EPI estimate was 0.049 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Pear Valerate
   aliases:
@@ -986,7 +987,7 @@
   smiles:
   inchikey:
   mw_g_mol: 200.32
-  density_25c_g_ml: 0.855
+  density_25c_g_ml: 0.8564
   logp:
   functional_groups: []
   chirality:
@@ -1012,8 +1013,8 @@
   notes: MySkinRecipes order 2199458 'Pear Valerate, Peranat', neat as supplied; CAS and purity not asserted.
   provenance:
     cas: 'Kao PERANAT https://chemical.kao.com/en/products/B0010631_en/; 2-methylpentyl 2-methylpentanoate'
-    density_25c_g_ml: 'TGSC/Perflavory specific gravity 0.856-0.859 @ 25 C, midpoint x 0.99705'
-    vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026)'
+    density_25c_g_ml: 'ECHA 0.8564 g/cm3 at 20 C (20 C value). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
+    vp_25c_pa: 'ESTIMATE kept: EPI Suite 13.9 Pa via TGSC. ECHA value DISPUTED: "ca. 8.7 kPa at 20 C" (reliability 2) is not credible for a C12 ester; not loaded. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Peonile
   aliases:
@@ -1427,12 +1428,12 @@
   smiles: null
   inchikey: null
   mw_g_mol: 208.26
-  density_25c_g_ml: 1.043
+  density_25c_g_ml: 1.05
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.701
-  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.77
+  vp_source: ECHA_measured  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1457,8 +1458,8 @@
   notes: null
   provenance:
     cas: 'Perflavory https://www.perflavory.com/docs/doc1031511.html'
-    density_25c_g_ml: 'TGSC/Perflavory specific gravity 1.042-1.048 @ 20 C, midpoint x 0.99821 (20 C value)'
-    vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026)'
+    density_25c_g_ml: 'ECHA 1.05 g/cm3 at 20 C (20 C value); TGSC/Perflavory SG 1.042-1.048. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
+    vp_25c_pa: 'MEASURED: ECHA key study 0.77 Pa at 25 C (EPI estimate 0.701 Pa agrees). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Phenyl Acetaldehyde
   aliases:

@@ -272,8 +272,8 @@
   logp:
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.0044
-  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.02
+  vp_source: ECHA_measured_20C_not_corrected  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -298,8 +298,8 @@
   notes:
   provenance:
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1016851.html; PW 4XU11429 page'
-    density_25c_g_ml: 'TGSC specific gravity 0.932-0.934 @ 25 C, midpoint x 0.99705; PW prints 0.9320'
-    vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026)'
+    density_25c_g_ml: 'ECHA 0.93 g/cm3 at 20 C (20 C value); TGSC SG 0.932-0.934. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
+    vp_25c_pa: 'MEASURED: ECHA key study 0.02 Pa at 20 C (not corrected to 25 C); EPI estimate was 0.0044 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Verbena Oil
   aliases: []

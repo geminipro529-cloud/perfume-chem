@@ -1292,7 +1292,7 @@
   smiles:
   inchikey:
   mw_g_mol: 150.22
-  density_25c_g_ml: 0.972
+  density_25c_g_ml: 0.979
   logp:
   functional_groups: []
   chirality:
@@ -1322,8 +1322,8 @@
   notes:
   provenance:
     cas: 'Perflavory https://www.perflavory.com/docs/doc1004412.html'
-    density_25c_g_ml: 'TGSC/Perflavory specific gravity 0.973-0.976 @ 25 C, midpoint x 0.99705; mp 23-24 C'
-    vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026)'
+    density_25c_g_ml: 'ECHA about 0.979 g/cm3 at 20 C (20 C value); JECFA 0.972-0.977; mp 24 C. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
+    vp_25c_pa: 'ESTIMATE kept: EPI Suite 3.94 Pa via TGSC. ECHA value DISPUTED: 100 Pa at 25 C (extrapolated, reliability 2), 25x the estimate and too high for a C10 aromatic tertiary alcohol boiling near 220 C; not loaded. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Dimethyl Benzyl Carbinyl Acetate
   aliases: []
@@ -1634,12 +1634,12 @@
   smiles:
   inchikey:
   mw_g_mol: 204.31
-  density_25c_g_ml: 1.001
+  density_25c_g_ml: 1.008
   logp:
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.0588
-  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.11
+  vp_source: ECHA_measured_20C_not_corrected  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1668,8 +1668,8 @@
   notes:
   provenance:
     cas: 'TGSC (checked by hand in the research thread)'
-    density_25c_g_ml: 'TGSC specific gravity 1.003-1.005 @ 25 C, midpoint x 0.99705; neat material (Kenny''s stock is the PW 10% in DPG)'
-    vp_25c_pa: 'ESTIMATE: EPI Suite 0.000441 mmHg via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026)'
+    density_25c_g_ml: 'ECHA 1.008 g/cm3 at 20 C (20 C value), neat material (Kenny''s stock is the PW 10% in DPG). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
+    vp_25c_pa: 'MEASURED: ECHA key study 0.11 Pa at 20 C; EPI estimate was 0.0588 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Dynascone
   aliases:
