@@ -42,6 +42,12 @@ _PHRASES: tuple[tuple[str, str], ...] = (
     (r"p[eê]ches?", "peach"),
     (r"framboises?", "raspberry"),
     (r"cerises?", "cherry"),
+    # Family and citrus words: the reading drops accented letters, so
+    # "fougère" read as no family at all.
+    (r"foug[eè]res?", "fougere"),
+    (r"agrumes?", "citrus"),
+    (r"hesp[eé]rid[eé]e?s?", "citrus"),
+    (r"c[eé]drats?", "cedrat"),
     (r"bergamote", "bergamot"),
     (r"pamplemousse", "grapefruit"),
     (r"mandarine", "mandarin"),

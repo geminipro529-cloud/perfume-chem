@@ -712,15 +712,30 @@ _LIGHT_BRIEF = re.compile(
     r"\b(?:fresh|cologne|aquatic|citrus|light|transparent|clean|airy|sheer|spring|summer|dewy|delicate)\b"
 )
 # The citrus top layer opens a formula only where citrus belongs: the brief
-# names a citrus or a cologne, or its family's core accord is built on one.
-# Those families are the chypre (bergamot, Coty's Chypre of 1917), the fougere
-# (bergamot and lemon) and the citrus family, per
-# docs/fragrance_families_reference.md (Chypre, Fougere and Citrus sections).
-# Given to every brief, one citrus stock opened nearly every formula: Red
-# Mandarin EO was in 26 of the 34 duel and benchmark formulas.  Without the
-# layer, the family's other top words (pepper, petitgrain, galbanum) open it.
-_CITRUS_BRIEF_WORDS = ("neroli", "cologne")
-_CITRUS_LED_FAMILIES = frozenset({"chypre", "fougere", "citrus"})
+# names a citrus or a cologne, or its family is built on one.  Per
+# docs/fragrance_families_reference.md, those families are the chypre (bergamot
+# is the first of its three pillars), the citrus family, the green (its summary
+# table names bergamot as a core material; "a lighter, more modern
+# interpretation of the Chypre structure"), the fougere (its core accord opens
+# on bergamot and lemon) and the aromatic ("often accompanied by a citrus
+# top").  Given to every brief, one citrus stock opened nearly every formula:
+# Red Mandarin EO was in 26 of the 34 duel and benchmark formulas.  Without the
+# layer, the family's other top words (pepper, cardamom, galbanum) open it.
+_CITRUS_BRIEF_WORDS = (
+    "neroli", "cologne", "tangerine", "clementine", "kumquat", "citron", "cedrat",
+    "pomelo", "bigarade", "zest", "hesperidic", "lemonade", "lemongrass",
+)
+_CITRUS_LED_FAMILIES = frozenset({"chypre", "citrus", "green", "fougere", "aromatic"})
+_CITRUS_LAYER_MARKERS: tuple[str, ...] = next(
+    spec[7] for spec in _NOTE_LAYERS if spec[0] == "top_citrus_layer"
+)
+# A citrus the brief names: whole words, with a plural or adjective ending
+# ("limes", "zesty"), so "limestone" and "citronellol" name none.
+_CITRUS_WORD = re.compile(
+    r"(?<![a-z0-9])(?:"
+    + "|".join(re.escape(word) for word in (*_CITRUS_LAYER_MARKERS, *_CITRUS_BRIEF_WORDS))
+    + r")(?:s|es|y)?(?![a-z0-9])"
+)
 _WARM_BRIEF = re.compile(r"\b(?:warm|dark|deep|resin|resinous|amber|incense|balsam|balsamic|vanilla|oriental|evening|rich|leather|smoky|tobacco)\b")
 
 
@@ -729,6 +744,18 @@ def _names_marker(text: str, markers: Sequence[str]) -> bool:
 
     words = _key(text).split()
     return any(word.startswith(marker) for word in words for marker in markers if " " not in marker)
+
+
+def _citrus_belongs(text: str, avoid: Sequence[str], family: FamilyStructure | None) -> bool:
+    """True when a citrus opens this brief: its family is built on one, or it names one.
+
+    The brief is read with its rejected words masked, so "nothing like a
+    cologne" with cologne in must_avoid calls for no citrus.
+    """
+
+    if family is not None and family.family_id in _CITRUS_LED_FAMILIES:
+        return True
+    return _CITRUS_WORD.search(_mask_avoided_phrases(text, avoid)) is not None
 
 
 def _family_word_layer(family: FamilyStructure, note: str, word: str) -> tuple[Any, ...] | None:
@@ -848,10 +875,7 @@ def _note_layers(
             descriptor_requirement=requirement,
         )
 
-    citrus_markers = next(spec[7] for spec in _NOTE_LAYERS if spec[0] == "top_citrus_layer")
-    citrus_belongs = _names_marker(complexity_text, (*citrus_markers, *_CITRUS_BRIEF_WORDS)) or (
-        family is not None and family.family_id in _CITRUS_LED_FAMILIES
-    )
+    citrus_belongs = _citrus_belongs(complexity_text, avoid, family)
     # The lead words of layers left out for that reason: they get no family
     # role either, so the family's bergamot does not come back as a role of
     # its own and take the citrus layer's place.
@@ -1088,6 +1112,10 @@ def _roles(
         ("drydown_structure", "Drydown structure", "base", "structure", .18, (("woody", .45), ("warmth", .15))),
     )
     prompt_terms = _source_tokens(f"{formula_name} {request}")
+    # Where the citrus layer is left out, the opening bridge does not look
+    # first for the family's citrus either: it brought the family's bergamot
+    # back in the layer's place.
+    citrus_left_out = target_count is None and not _citrus_belongs(complexity_text, avoid, family)
 
     def support_query(note: str, label: str, function: str) -> tuple[str, ...]:
         supporting_facets = [
@@ -1112,7 +1140,11 @@ def _roles(
             for term in facet.query_terms[:5]
         )
         family_terms = (
-            tuple(word for word in family.tier(note) if not _family_word_avoided(family, note, word, avoid))
+            tuple(
+                word for word in family.tier(note)
+                if not _family_word_avoided(family, note, word, avoid)
+                and not (citrus_left_out and note == "top" and _names_marker(word, _CITRUS_LAYER_MARKERS))
+            )
             if family is not None else ()
         )
         return _dedupe(

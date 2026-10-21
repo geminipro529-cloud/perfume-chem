@@ -405,25 +405,19 @@ def _design(prompt):
 
 
 @pytest.mark.parametrize(
-    ("prompt", "shown"),
+    "prompt",
     [
-        ("A peppery freesia perfume", 3),
-        ("A juicy lychee fruit perfume", 3),
-        # Since 21 Oct 2026 this brief has no citrus top layer, so at 12
-        # materials the aromatic-resin transition replaces the top-to-heart
-        # link, which already holds the same stock.  Its formula is the
-        # control's, so it is withheld as a duplicate instead of shown.
-        ("Lavender incense without Ambroxan", 2),
+        "A peppery freesia perfume",
+        "A juicy lychee fruit perfume",
+        "Lavender incense without Ambroxan",
     ],
 )
-def test_live_design_changes_roles_and_physical_rows_not_only_labels(prompt, shown):
+def test_live_design_changes_roles_and_physical_rows_not_only_labels(prompt):
     result = _design(prompt)
     variants = result["design_variants"]
-    assert len(variants) == shown
-    withheld = [a for a in result["architecture_attempts"] if a["state"] != "SOLVED"]
-    assert [a["state"] for a in withheld] == ["WITHHELD_DUPLICATE_PHYSICAL_COMPOSITION"] * (3 - shown)
+    assert len(variants) == 3
     assert variants[0]["architecture"]["kind"] == "UNCHANGED_CONTROL"
-    assert len({v["role_plan_sha256"] for v in variants}) == shown
+    assert len({v["role_plan_sha256"] for v in variants}) == 3
     physical = {
         tuple(
             sorted(
@@ -432,7 +426,7 @@ def test_live_design_changes_roles_and_physical_rows_not_only_labels(prompt, sho
         )
         for v in variants
     }
-    assert len(physical) == shown
+    assert len(physical) == 3
     assert result["architecture_planning"]["state"] == "SOURCE_BOUND_COMPARISON_READY"
     assert result["optimization"]["architecture_preserved"] is False
     assert result["optimization"]["target_request_preserved"] is True

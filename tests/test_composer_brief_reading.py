@@ -42,6 +42,9 @@ _PINK_PEPPER = "Pink Pepper EO (Schinus molle; neat / as supplied)"
         ("Lavande Ambrée", "lavender amber"),
         ("Fleur d'Oranger", "orange blossom"),
         ("Bois de Santal", "sandalwood"),
+        # The reading drops accented letters: "fougère" read as no family.
+        ("Fougère Agrumes", "fougere citrus"),
+        ("Hespéridé, cédrat", "citrus, cedrat"),
         # Citron is also an English word (the cedrat fruit): left alone.
         ("Citron Vert", "Citron Vert"),
         # Whole words only: "Rosewood" and "ambrette" are not French notes.
@@ -303,7 +306,13 @@ def test_a_fougere_gets_no_layer_its_structure_has_no_place_for() -> None:
         # A chypre and a fougere are built on bergamot; a cologne is citrus.
         ("rose chypre with patchouli and oakmoss depth", True),
         ("an aromatic fougere", True),
+        ("an aromatic fougère", True),
+        # A green opens on bergamot too; an aromatic is "often accompanied by
+        # a citrus top" (docs/fragrance_families_reference.md).
+        ("a green tea", True),
+        ("a lavender and sage aromatic", True),
         ("a woody amber cologne for evening", True),
+        ("a tangerine dream woody amber", True),
     ],
 )
 def test_a_citrus_top_layer_only_where_citrus_belongs(idea: str, has_citrus: bool) -> None:
@@ -313,6 +322,31 @@ def test_a_citrus_top_layer_only_where_citrus_belongs(idea: str, has_citrus: boo
     if not has_citrus:
         # The layer's lead word does not come back as a family role instead.
         assert "family_bergamot_layer" not in roles, sorted(roles)
+
+
+@pytest.mark.parametrize(
+    "kwargs",
+    [
+        # A word the brief rejects calls for no citrus.
+        {"idea": "a warm woody amber for evening, nothing like a cologne", "must_avoid": ("cologne",)},
+        # Whole words only: a limestone is no lime.
+        {"idea": "a warm woody amber for evening", "formula_name": "Limestone"},
+    ],
+)
+def test_no_citrus_layer_from_a_rejected_or_partial_word(kwargs: dict) -> None:
+    roles = {role["role_id"] for role in _brief(**kwargs)["roles"]}
+
+    assert "top_citrus_layer" not in roles, sorted(roles)
+
+
+def test_the_opening_bridge_does_not_bring_the_left_out_citrus_back() -> None:
+    # The bridge looked first for the family's top words, so the bergamot the
+    # citrus layer left out came back in Deep Compose's white musk.
+    roles = {role["role_id"]: role for role in _brief(idea="a white musk laundry")["roles"]}
+
+    assert "top_citrus_layer" not in roles, sorted(roles)
+    bridge = roles["opening_articulation"]["query_terms"]
+    assert not {"bergamot", "lemon", "citrus"} & set(bridge), bridge
 
 
 def test_family_materials_get_roles_of_their_own() -> None:
