@@ -7,6 +7,9 @@ bottles of stocks he already had, so they add nothing to the stock list.
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import pytest
 
 import engine.inventory_parser as inventory
@@ -174,6 +177,44 @@ def test_nagarmortha_oil_is_back_in_stock_neat():
     stocks = [s for s in inventory.materialize_current_inventory().stocks if s.identity_name == "Nagarmortha Oil"]
     assert len(stocks) == 1
     assert (stocks[0].dilution, stocks[0].fraction_basis, stocks[0].physical_form) == (1.0, "neat", "as_supplied")
+
+
+def test_nagarmortha_oil_is_from_simple_scents_diy_not_perfumersworld():
+    # Kenny, 21 Oct 2026 03:32:45 UTC ('Missing ingredient data'): "Mine is from ssdiy"
+    # (confirmed 03:35:52 UTC). The PW 7WU09815 compound data describes a bottle he does not own.
+    payload = inventory.load_current_user_inventory_overlay()
+    record = next(r for r in payload["delta_records"] if r["canonical_name"] == "Nagarmortha Oil")
+    assert record["supplier_product"]["supplier"] == "Simple Scents DIY"
+    assert record["authority_limits"]["supplier_asserted"] is True
+    assert record["authority_limits"]["density_asserted"] is False
+    assert record["supplier_correction"]["source_quote"] == "Mine is from ssdiy"
+    table = json.loads(Path("data/regulatory/ifra_cat4_51.json").read_text(encoding="utf-8"))
+    note = table["materials"]["Nagarmortha Oil"]["note"]
+    assert note.startswith("Kenny's Nagarmotha Oil is from Simple Scents DIY")
+    assert "does not apply" in note
+
+
+@pytest.mark.parametrize(
+    ("identity", "fraction"),
+    (("Dihydrojasmone", 0.1), ("Isobutyl Quinoline", 0.01), ("cis-Jasmone", 0.1), ("Delta Damascone", 0.1)),
+)
+def test_kennys_four_dpg_dilutions_are_additional_stocks(identity, fraction):
+    # Kenny, 21 Oct 2026 03:40:21 UTC (L'Homme thread): "I have dohydrojasmone 10% DPG, IBQ 1% DPG,
+    # cis Jasmone 10% DPG, delta damascone 10% DPG". w/w by his standing rule; existing stocks stay.
+    stocks = [s for s in inventory.materialize_current_inventory().stocks if s.identity_name == identity]
+    dilutions = [s for s in stocks if s.dilution == fraction and s.fraction_basis == "mass_fraction"]
+    assert len(dilutions) == 1
+    assert dilutions[0].physical_form == "solution"
+
+
+def test_nagarmortha_oil_density_is_a_labelled_literature_approximation():
+    from engine.material_resolver import resolve_material
+
+    material = resolve_material("Nagarmortha Oil").registry_material
+    assert material.density_25c_g_ml == 1.006
+    payload = inventory.load_current_user_inventory_overlay()
+    record = next(r for r in payload["delta_records"] if r["canonical_name"] == "Nagarmortha Oil")
+    assert record["supplier_product"]["sku"] == "8E3094000984"
 
 
 def test_cyclogalbanate_10pct_is_a_separate_dpg_dilution():

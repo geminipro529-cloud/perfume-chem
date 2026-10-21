@@ -297,6 +297,16 @@
         "message_timestamp_utc": "2026-10-21T01:48:32Z",
         "text": "It’s made",
         "context": "Frontend redesign thread, answering the recipe 'weigh 0.10 g of neat Aldehyde C12 MNA into 0.90 g of DPG and mix ... 1 g of Aldehyde C12 MNA 10% w/w in DPG' (01:32:40 UTC)"
+      },
+      {
+        "message_timestamp_utc": "2026-10-21T03:32:45Z",
+        "text": "Mine is from ssdiy",
+        "context": "'Missing ingredient data' thread, after being asked to weigh his Nagarmotha Oil for its density (he had said 'Get the density from ssdiy' at 03:13:50 UTC); at 03:35:52 UTC he confirmed the Nagarmotha is from ssdiy (Simple Scents DIY), not PerfumersWorld"
+      },
+      {
+        "message_timestamp_utc": "2026-10-21T03:40:21Z",
+        "text": "I have dohydrojasmone 10% DPG, IBQ 1% DPG, cis Jasmone 10% DPG, delta damascone 10% DPG",
+        "context": "L'Homme thread; 'dohydrojasmone' = Dihydrojasmone. No basis stated: w/w by his standing rule for dilutions"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -358,7 +368,8 @@
     "nagarmortha_oil_back_in_stock_20261021": true,
     "cyclogalbanate_10pct_dpg_added_20261021": true,
     "pcpa_powder_solid_as_supplied_20261021": true,
-    "c12_mna_10pct_dpg_made_20261021": true
+    "c12_mna_10pct_dpg_made_20261021": true,
+    "four_dpg_dilutions_20261021": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -6768,11 +6779,11 @@
         "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
       },
       "supplier_product": {
-        "supplier": null,
-        "product_name": "Nagarmotha / nagarmortha oil (cypriol)",
-        "sku": null,
-        "pack": null,
-        "order_reference": "bought 15 Oct 2026 ('nagarmotha oil is coming as well'); shop not stated"
+        "supplier": "Simple Scents DIY",
+        "product_name": "Nagarmotha Oil (Cypriol Oil)",
+        "sku": "8E3094000984",
+        "pack": "5 mL",
+        "order_reference": "bought 15 Oct 2026 ('nagarmotha oil is coming as well'); shop Simple Scents DIY ('Mine is from ssdiy', 21 Oct 2026 03:32:45 UTC)"
       },
       "supersedes_parent_stocks": [],
       "requirement_overrides": [],
@@ -6785,7 +6796,7 @@
         "fraction_from_user_message": false,
         "basis_from_user_message": false,
         "species_asserted": false,
-        "supplier_asserted": false,
+        "supplier_asserted": true,
         "purity_assay_asserted": false,
         "user_lot_asserted": false,
         "density_asserted": false,
@@ -6795,7 +6806,13 @@
         "safety_asserted": false,
         "release_authorized": false
       },
-      "note": "Kenny: 'i have nagarmortha oil no' (= now; 21 Oct 2026 00:04:04 UTC, 'Check new ingredients in code' thread), the new bottle he said was coming on 15 Oct. The earlier bottle stays depleted (inventory.txt line 240, 29 Aug); this is a new physical stock under the same name, so its existing cypriol profile, odour threshold and composition links apply. He gave no strength: recorded neat as supplied, as an essential oil is sold; species (Cyperus scariosus expected), shop, lot and density not stated."
+      "note": "Kenny: 'i have nagarmortha oil no' (= now; 21 Oct 2026 00:04:04 UTC, 'Check new ingredients in code' thread), the new bottle he said was coming on 15 Oct. The earlier bottle stays depleted (inventory.txt line 240, 29 Aug); this is a new physical stock under the same name, so its existing cypriol profile, odour threshold and composition links apply. He gave no strength: recorded neat as supplied, as an essential oil is sold; species (Cyperus scariosus expected), shop, lot and density not stated. Supplier corrected 21 Oct 2026: Kenny's bottle is from Simple Scents DIY ('Mine is from ssdiy', 03:32:45 UTC), not PerfumersWorld 7WU09815; Simple Scents DIY 'Nagarmotha Oil (Cypriol Oil)' 5 mL, SKU 8E3094000984, sold as 100% natural essential oil; no TDS or SDS, so its composition and density are not on file.",
+      "supplier_correction": {
+        "source_quote": "Mine is from ssdiy",
+        "source_message_timestamp_utc": "2026-10-21T03:32:45Z",
+        "corrects": "the PerfumersWorld 7WU09815 compound data (composition, IFRA certificate, nootkatone) recorded on 21 Oct describe a bottle Kenny does not own",
+        "product_found": "Simple Scents DIY 'Nagarmotha Oil (Cypriol Oil)' 5 mL, SKU 8E3094000984, sold as 100% natural essential oil; no TDS or SDS published (read on Kenny's PC, 21 Oct 2026)"
+      }
     },
     {
       "record_id": "INV-USER-20261014-STK-140",
@@ -6891,6 +6908,173 @@
         "release_authorized": false
       },
       "note": "Kenny made it: 'It’s made' (21 Oct 2026 01:48:32 UTC, Frontend redesign thread), answering the recipe 0.10 g neat Aldehyde C12 MNA into 0.90 g DPG (about 1 g, 10% w/w in DPG). Replaces the V5 row 14 '10% working dilution' stock, which had no basis or carrier and was not execution-ready. The neat stock and the 1% v/v in ethanol stay as they are."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-142",
+      "canonical_name": "Dihydrojasmone 10% in DPG",
+      "aliases": [
+        "Dihydrojasmone 10%"
+      ],
+      "state": "OWNED",
+      "category": "jasmine / floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "USER_STATED_STRENGTH_AND_CARRIER_WW_BY_STANDING_RULE",
+        "execution_basis": "USER_STATED_20261021_DIHYDROJASMONE_10PCT_IN_DPG",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-21",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "I have dohydrojasmone 10% DPG, IBQ 1% DPG, cis Jasmone 10% DPG, delta damascone 10% DPG",
+      "source_message_timestamp_utc": "2026-10-21T03:40:21Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_user_message": true,
+        "carrier_from_user_message": true,
+        "basis_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'I have dohydrojasmone 10% DPG, IBQ 1% DPG, cis Jasmone 10% DPG, delta damascone 10% DPG' (21 Oct 2026 03:40:21 UTC, L'Homme thread). Recorded 10% in DPG, w/w by his standing rule (no basis stated); an additional stock, the neat Dihydrojasmone stays."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-143",
+      "canonical_name": "Isobutyl Quinoline 1% in DPG",
+      "aliases": [
+        "IBQ 1%",
+        "IBQ 1% in DPG",
+        "Isobutyl Quinoline 1%"
+      ],
+      "state": "OWNED",
+      "category": "leather / green",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.01,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "USER_STATED_STRENGTH_AND_CARRIER_WW_BY_STANDING_RULE",
+        "execution_basis": "USER_STATED_20261021_ISOBUTYL_QUINOLINE_1PCT_IN_DPG",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-21",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "I have dohydrojasmone 10% DPG, IBQ 1% DPG, cis Jasmone 10% DPG, delta damascone 10% DPG",
+      "source_message_timestamp_utc": "2026-10-21T03:40:21Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_user_message": true,
+        "carrier_from_user_message": true,
+        "basis_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'I have dohydrojasmone 10% DPG, IBQ 1% DPG, cis Jasmone 10% DPG, delta damascone 10% DPG' (21 Oct 2026 03:40:21 UTC, L'Homme thread). Recorded 1% in DPG, w/w by his standing rule (no basis stated); an additional stock, the IBQ 10% stock stays."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-144",
+      "canonical_name": "cis-Jasmone 10% in DPG",
+      "aliases": [
+        "Cis Jasmone 10%",
+        "cis-Jasmone 10%"
+      ],
+      "state": "OWNED",
+      "category": "jasmine / floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "USER_STATED_STRENGTH_AND_CARRIER_WW_BY_STANDING_RULE",
+        "execution_basis": "USER_STATED_20261021_CIS_JASMONE_10PCT_IN_DPG",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-21",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "I have dohydrojasmone 10% DPG, IBQ 1% DPG, cis Jasmone 10% DPG, delta damascone 10% DPG",
+      "source_message_timestamp_utc": "2026-10-21T03:40:21Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_user_message": true,
+        "carrier_from_user_message": true,
+        "basis_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'I have dohydrojasmone 10% DPG, IBQ 1% DPG, cis Jasmone 10% DPG, delta damascone 10% DPG' (21 Oct 2026 03:40:21 UTC, L'Homme thread). Recorded 10% in DPG, w/w by his standing rule (no basis stated); an additional stock, the neat cis-Jasmone stays."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-145",
+      "canonical_name": "Delta Damascone 10% in DPG",
+      "aliases": [
+        "Delta Damascone 10%"
+      ],
+      "state": "OWNED",
+      "category": "fruity / rose ketone",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "USER_STATED_STRENGTH_AND_CARRIER_WW_BY_STANDING_RULE",
+        "execution_basis": "USER_STATED_20261021_DELTA_DAMASCONE_10PCT_IN_DPG",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-21",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "I have dohydrojasmone 10% DPG, IBQ 1% DPG, cis Jasmone 10% DPG, delta damascone 10% DPG",
+      "source_message_timestamp_utc": "2026-10-21T03:40:21Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_user_message": true,
+        "carrier_from_user_message": true,
+        "basis_from_user_message": false,
+        "supplier_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'I have dohydrojasmone 10% DPG, IBQ 1% DPG, cis Jasmone 10% DPG, delta damascone 10% DPG' (21 Oct 2026 03:40:21 UTC, L'Homme thread). Recorded 10% in DPG, w/w by his standing rule (no basis stated); an additional stock, the neat MySkinRecipes Delta Damascone stays."
     }
   ]
 }

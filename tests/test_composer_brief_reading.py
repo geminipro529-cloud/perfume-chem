@@ -297,10 +297,11 @@ def test_family_materials_get_roles_of_their_own() -> None:
     roles = {role["role_id"]: role for role in result["semantic_brief"]["roles"]}
     rows = _rows_by_slot(result)
 
-    # Castoreum leads the leather accord now that Leather FO is out of Kenny's stock
-    # (16 Oct, "Just remove it"), so, like Suederal, its family role has nothing left.
-    assert rows.get("facet_leather_suede") == "Castoreum Synthetic", rows
-    assert "family_castoreum_accent" not in rows, rows
+    # Isobutyl Quinoline leads the leather accord since Kenny's IBQ 1% in DPG became a
+    # usable stock (21 Oct 2026, "IBQ 1% DPG"; Leather FO left on 16 Oct, "Just remove it"),
+    # so Castoreum keeps its own accent role instead of leading.
+    assert rows.get("facet_leather_suede") == "Isobutyl Quinoline", rows
+    assert rows.get("family_castoreum_accent") == "Castoreum Synthetic", rows
     assert "Leather FO" not in rows.values(), rows
     # Suederal carries its own suede and leather notes (step 6), so the leather
     # accord takes it and its family layer has nothing left to place.
