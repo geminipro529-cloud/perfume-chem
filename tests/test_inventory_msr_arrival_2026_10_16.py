@@ -161,3 +161,16 @@ def test_dmbca_is_a_powder_dosed_by_weight():
     assert "INV-USER-20261008-TOBDBCA-002" in payload["superseded_record_ids"]
     stocks = [s for s in inventory.materialize_current_inventory().stocks if s.identity_name == "Dimethyl Benzyl Carbinyl Acetate"]
     assert len(stocks) == 1 and stocks[0].physical_form == "solid_as_supplied"
+
+
+def test_nagarmortha_oil_is_back_in_stock_neat():
+    # Kenny, 21 Oct 2026 00:04:04 UTC ('Check new ingredients in code'): "i have nagarmortha oil no" (= now).
+    payload = inventory.load_current_user_inventory_overlay()
+    record = next(r for r in payload["delta_records"] if r["canonical_name"] == "Nagarmortha Oil")
+    assert record["record_id"] == "INV-USER-20261014-STK-139"
+    assert record["source_quote"] == "i have nagarmortha oil no"
+    assert record["authority_limits"]["fraction_from_user_message"] is False
+    assert record["authority_limits"]["species_asserted"] is False
+    stocks = [s for s in inventory.materialize_current_inventory().stocks if s.identity_name == "Nagarmortha Oil"]
+    assert len(stocks) == 1
+    assert (stocks[0].dilution, stocks[0].fraction_basis, stocks[0].physical_form) == (1.0, "neat", "as_supplied")

@@ -182,6 +182,8 @@ STILL_HELD = {
     "Pear Valerate",
     "Phenoxy Ethyl Isobutyrate",
     "Velvione",
+    # 2026-10-21: a new Nagarmortha Oil bottle (STK-139); the IFRA table has no cypriol row.
+    "Nagarmortha Oil",
     "Pomelo EO",
     # Added 2026-10-15: a saturated saffron infusion in DPG of unknown strength.
     "Red Saffron Infusion",
