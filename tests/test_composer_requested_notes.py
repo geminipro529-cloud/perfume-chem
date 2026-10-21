@@ -19,7 +19,10 @@ _IRIS_NAME_WORDS = ("irone", "orris")
 # role_plan_signature of the "violet leaf" brief.  It was 5c157bea... on
 # origin/master 6f9b1a3a; Phase 3 step 4 changed it on purpose, since violet
 # leaf now reads as a GREEN family brief and takes that family's layers.
-_VIOLET_LEAF_SIGNATURE_ON_MASTER = "071be9f6cdefab5471290fe2da6fb45b85eea0acc902a0ead50be2ea2afc3a84"
+# It was 071be9f6... until 21 Oct 2026, when the citrus top layer was limited
+# to briefs that name a citrus or a cologne and to the chypre, fougere and
+# citrus families: a green brief no longer gets it.
+_VIOLET_LEAF_SIGNATURE_ON_MASTER = "1ac5771d6304aec184565ef98975299500b05c112cab71931391239aad2892ac"
 
 
 def _clear_inventory_caches() -> None:

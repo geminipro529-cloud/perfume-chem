@@ -292,6 +292,29 @@ def test_a_fougere_gets_no_layer_its_structure_has_no_place_for() -> None:
     assert tuple(roles["top_citrus_layer"]["query_terms"][:2]) == ("bergamot", "lemon"), roles["top_citrus_layer"]
 
 
+@pytest.mark.parametrize(
+    ("idea", "has_citrus"),
+    [
+        # Given to every brief, the citrus layer put Red Mandarin EO in 26 of
+        # the 34 duel and benchmark formulas (21 Oct 2026).
+        ("a warm woody amber for evening", False),
+        ("a clean musky skin scent", False),
+        ("iris and violet", False),
+        # A chypre and a fougere are built on bergamot; a cologne is citrus.
+        ("rose chypre with patchouli and oakmoss depth", True),
+        ("an aromatic fougere", True),
+        ("a woody amber cologne for evening", True),
+    ],
+)
+def test_a_citrus_top_layer_only_where_citrus_belongs(idea: str, has_citrus: bool) -> None:
+    roles = {role["role_id"] for role in _brief(idea=idea)["roles"]}
+
+    assert ("top_citrus_layer" in roles) is has_citrus, sorted(roles)
+    if not has_citrus:
+        # The layer's lead word does not come back as a family role instead.
+        assert "family_bergamot_layer" not in roles, sorted(roles)
+
+
 def test_family_materials_get_roles_of_their_own() -> None:
     result = design_formula(idea="a leather")
     roles = {role["role_id"]: role for role in result["semantic_brief"]["roles"]}

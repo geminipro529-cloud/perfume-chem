@@ -178,10 +178,11 @@ def test_no_violet_leaf_background_fill(designs):
 
 def test_top_citrus_layers_hold_citrus_not_hedione(designs):
     # #69's family penalty once handed the rose briefs' top citrus layer to
-    # Hedione, a heart material that carries a citrus descriptor.
-    for idea in (CHYPRE, OUD_ROSE):
-        layer = next(row for row in designs[idea] if row["slot"] == "top_citrus_layer")
-        assert "hedione" not in layer["identity_name"].casefold(), (idea, layer["identity_name"])
+    # Hedione, a heart material that carries a citrus descriptor.  The oud
+    # rose (a woody amber, not built on a citrus) no longer gets the layer.
+    layer = next(row for row in designs[CHYPRE] if row["slot"] == "top_citrus_layer")
+    assert "hedione" not in layer["identity_name"].casefold(), layer["identity_name"]
+    assert not any(row["slot"] == "top_citrus_layer" for row in designs[OUD_ROSE])
 
 
 def test_oud_rose_links_are_not_picked_by_a_product_name(designs):

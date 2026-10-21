@@ -711,6 +711,16 @@ _LAYER_SHARE_BUDGET = .30
 _LIGHT_BRIEF = re.compile(
     r"\b(?:fresh|cologne|aquatic|citrus|light|transparent|clean|airy|sheer|spring|summer|dewy|delicate)\b"
 )
+# The citrus top layer opens a formula only where citrus belongs: the brief
+# names a citrus or a cologne, or its family's core accord is built on one.
+# Those families are the chypre (bergamot, Coty's Chypre of 1917), the fougere
+# (bergamot and lemon) and the citrus family, per
+# docs/fragrance_families_reference.md (Chypre, Fougere and Citrus sections).
+# Given to every brief, one citrus stock opened nearly every formula: Red
+# Mandarin EO was in 26 of the 34 duel and benchmark formulas.  Without the
+# layer, the family's other top words (pepper, petitgrain, galbanum) open it.
+_CITRUS_BRIEF_WORDS = ("neroli", "cologne")
+_CITRUS_LED_FAMILIES = frozenset({"chypre", "fougere", "citrus"})
 _WARM_BRIEF = re.compile(r"\b(?:warm|dark|deep|resin|resinous|amber|incense|balsam|balsamic|vanilla|oriental|evening|rich|leather|smoky|tobacco)\b")
 
 
@@ -838,6 +848,14 @@ def _note_layers(
             descriptor_requirement=requirement,
         )
 
+    citrus_markers = next(spec[7] for spec in _NOTE_LAYERS if spec[0] == "top_citrus_layer")
+    citrus_belongs = _names_marker(complexity_text, (*citrus_markers, *_CITRUS_BRIEF_WORDS)) or (
+        family is not None and family.family_id in _CITRUS_LED_FAMILIES
+    )
+    # The lead words of layers left out for that reason: they get no family
+    # role either, so the family's bergamot does not come back as a role of
+    # its own and take the citrus layer's place.
+    withheld: set[str] = set()
     layers: list[SemanticRole] = []
     for role_id, label, note, requirement, share, terms, weights, markers, kind, skip in _NOTE_LAYERS:
         if is_avoided(markers) or skipped(skip):
@@ -864,13 +882,16 @@ def _note_layers(
             # A wood-led brief gets a second, contrasting wood family; the
             # solver's family buckets keep it from repeating the first one.
             role_id, label = "base_wood_contrast", "Contrasting base wood"
+        if role_id == "top_citrus_layer" and not citrus_belongs:
+            withheld.add(terms[0])
+            continue
         layers.append(layer_role(role_id, label, note, terms, weights, share, kind, requirement))
     if family is None:
         return tuple(layers)
 
     # The family's materials no role asks for and no layer looks for first.
     asked = " ".join(_key(text) for text in every_note)
-    first_terms = {layer.query_terms[0] for layer in layers if layer.query_terms}
+    first_terms = {layer.query_terms[0] for layer in layers if layer.query_terms} | withheld
     placed: set[str] = set()
     for note in ("top", "heart", "base"):
         for word in family.tier(note):
