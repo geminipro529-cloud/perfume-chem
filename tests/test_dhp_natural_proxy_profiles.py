@@ -86,6 +86,15 @@ def test_ambrette_models_ambrettolide_and_leaves_farnesyl_acetate_unresolved():
     assert any("isomer" in text for text in meta.limitations)
 
 
+def test_orris_liquid_irone_is_the_supplier_1_to_5_pct_midpoint():
+    # PerfumersWorld 8IQ24653: 1-5% alpha-irone per their 2026-10-19 email;
+    # the old 80-85% (modeled 82.5%) was a product-page typo.
+    rows = get_constituents("orris liquid")
+    assert [row[0] for row in rows] == ["irone pool (alpha-equivalent)"]
+    assert rows[0][1] == pytest.approx(0.03)
+    assert 0.01 <= rows[0][1] <= 0.05
+
+
 def test_orris_butter_is_the_low_irone_scenario_on_the_existing_irone_input():
     rows = {row[0]: row for row in get_constituents("Orris Concrete Orris Butter")}
     liquid = {row[0]: row for row in get_constituents("orris liquid")}
