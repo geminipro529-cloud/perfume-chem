@@ -439,7 +439,8 @@ def role_reading_text_lines(reading: Mapping[str, Any]) -> list[str]:
     )
     lines.append(
         "    Lead = top 5 in some window; support = OAV >= 1, never top 5; shadow = peak "
-        "OAV 0.1 to below 1; silent = never OAV 0.1; "
+        "OAV 0.1 to below 1; silent = never OAV 0.1 (the SILENT_ROWS flag goes by peak OAV, "
+        "so it can also name a lead row); "
         f"{reading['bridge_count']} bridge rows = detectable both early (by 30 min) "
         "and late (2 h or later)"
     )

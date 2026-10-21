@@ -255,6 +255,9 @@ def test_silent_rows_reads_max_oav_even_for_a_top5_row_in_a_tiny_formula():
     assert _row(reading, "Tiny")["class"] == "lead"  # ranks in a three-row top 5
     assert _codes(reading) == ["SILENT_ROWS"]
     assert _flag(reading, "SILENT_ROWS")["rows"] == ["Tiny"]
+    text = "\n".join(role_reading_text_lines(reading))
+    assert "silent 0 (none)" in text
+    assert "the SILENT_ROWS flag goes by peak OAV, so it can also name a lead row" in text
 
 
 def test_missing_frame_rows_and_unmatched_index_rows_do_not_raise():
@@ -312,6 +315,24 @@ def test_unknown_oav_rows_are_listed_not_silent_and_not_flagged():
     assert _codes(reading) == ["SILENT_ROWS"]
     assert _flag(reading, "SILENT_ROWS")["rows"] == ["PartlyKnownQuiet"]
     assert reading["index_shadows"]["status"] == "NOT_SUPPLIED"
+
+
+def test_index_row_with_no_oav_in_any_window_is_named_as_no_oav():
+    rows = dict(LEADS)
+    rows["Stays"] = ("floral", "powdery", (0.1, 0.2, 0.5, 0.6, 0.4))
+    rows["NoOdt"] = ("woody", "dry", (None, None, None, None, None))
+    index_rows = [{"name": "Stays", "oav": 0.3}, {"name": "NoOdt", "oav": 0.4}]
+    reading = build_role_reading(_frames(rows), index_rows)
+
+    index = reading["index_shadows"]
+    assert index["no_oav"] == ["NoOdt"]
+    assert index["stay_shadows"] == ["Stays"]
+    assert index["by_class"]["unknown"] == 1
+    assert _codes(reading) == ["INDEX_SHADOWS_NOT_SHADOWS"]
+    assert _flag(reading, "INDEX_SHADOWS_NOT_SHADOWS")["message"] == (
+        "The luxury index counts 2 rows as sub-threshold shadows; over the gate's time "
+        "windows 1 stays a shadow (peak OAV from 0.1 to below 1). No OAV: NoOdt."
+    )
 
 
 def test_bridge_needs_oav_ge_1_by_30_min_and_at_2_h_or_later():
