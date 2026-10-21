@@ -45,6 +45,7 @@ _PINK_PEPPER = "Pink Pepper EO (Schinus molle; neat / as supplied)"
         # The reading drops accented letters: "fougère" read as no family.
         ("Fougère Agrumes", "fougere citrus"),
         ("Hespéridé, cédrat", "citrus, cedrat"),
+        ("Clémentine, pomélo, zeste", "clementine, pomelo, zest"),
         # Citron is also an English word (the cedrat fruit): left alone.
         ("Citron Vert", "Citron Vert"),
         # Whole words only: "Rosewood" and "ambrette" are not French notes.
@@ -313,6 +314,11 @@ def test_a_fougere_gets_no_layer_its_structure_has_no_place_for() -> None:
         ("a lavender and sage aromatic", True),
         ("a woody amber cologne for evening", True),
         ("a tangerine dream woody amber", True),
+        ("a zesty woody amber", True),
+        ("a warm woody amber with limes", True),
+        # A citrus the brief names opens it in a family with no citrus word.
+        ("a juicy pear fruit with clementine", True),
+        ("a rose and jasmine bouquet with tangerine", True),
     ],
 )
 def test_a_citrus_top_layer_only_where_citrus_belongs(idea: str, has_citrus: bool) -> None:
@@ -327,8 +333,13 @@ def test_a_citrus_top_layer_only_where_citrus_belongs(idea: str, has_citrus: boo
 @pytest.mark.parametrize(
     "kwargs",
     [
-        # A word the brief rejects calls for no citrus.
-        {"idea": "a warm woody amber for evening, nothing like a cologne", "must_avoid": ("cologne",)},
+        # A word the brief rejects calls for no citrus, whatever its ending,
+        # accent or wording.
+        {"idea": "a warm woody amber, the opposite of an eau de cologne", "must_avoid": ("eau de cologne",)},
+        {"idea": "a warm woody amber, the opposite of the colognes my dad wore", "must_avoid": ("cologne",)},
+        {"idea": "a warm woody amber, the opposite of a clémentine", "must_avoid": ("clémentine",)},
+        {"idea": "a white musk laundry, not citrusy"},
+        {"idea": "a warm woody amber for evening, nothing like a cologne"},
         # Whole words only: a limestone is no lime.
         {"idea": "a warm woody amber for evening", "formula_name": "Limestone"},
     ],
@@ -339,14 +350,13 @@ def test_no_citrus_layer_from_a_rejected_or_partial_word(kwargs: dict) -> None:
     assert "top_citrus_layer" not in roles, sorted(roles)
 
 
-def test_the_opening_bridge_does_not_bring_the_left_out_citrus_back() -> None:
-    # The bridge looked first for the family's top words, so the bergamot the
-    # citrus layer left out came back in Deep Compose's white musk.
-    roles = {role["role_id"]: role for role in _brief(idea="a white musk laundry")["roles"]}
+def test_a_brief_without_its_citrus_layer_still_builds() -> None:
+    # Filtering the family's bergamot out of the opening bridge as well left
+    # this brief with no diffusion role in Quick compose (21 Oct 2026).
+    result = design_formula(idea="a powdery orris root")
 
-    assert "top_citrus_layer" not in roles, sorted(roles)
-    bridge = roles["opening_articulation"]["query_terms"]
-    assert not {"bergamot", "lemon", "citrus"} & set(bridge), bridge
+    assert "top_citrus_layer" not in {role["role_id"] for role in result["semantic_brief"]["roles"]}
+    assert result["status"].startswith("INVENTORY_GROUNDED_DESIGN_READY"), result["reason_codes"]
 
 
 def test_family_materials_get_roles_of_their_own() -> None:

@@ -732,7 +732,7 @@ _CITRUS_LAYER_MARKERS: tuple[str, ...] = next(
 # A citrus the brief names: whole words, with a plural or adjective ending
 # ("limes", "zesty"), so "limestone" and "citronellol" name none.
 _CITRUS_WORD = re.compile(
-    r"(?<![a-z0-9])(?:"
+    r"(?<![a-z0-9])("
     + "|".join(re.escape(word) for word in (*_CITRUS_LAYER_MARKERS, *_CITRUS_BRIEF_WORDS))
     + r")(?:s|es|y)?(?![a-z0-9])"
 )
@@ -746,16 +746,45 @@ def _names_marker(text: str, markers: Sequence[str]) -> bool:
     return any(word.startswith(marker) for word in words for marker in markers if " " not in marker)
 
 
+# A citrus word the brief turns down in its own words ("not citrusy",
+# "nothing like a cologne") names no citrus.
+_NEGATED_BEFORE = re.compile(
+    r"(?:^| )(?:not|non|no|nor|never|without|unlike|nothing like|anything but)"
+    r"(?: (?:a|an|the|any|too|so|very|overly))* $"
+)
+
+
+def _avoided_citrus(avoid: Sequence[str]) -> set[str]:
+    """The citrus words must_avoid names, whatever their wrapper or ending ("any colognes")."""
+
+    words: set[str] = set()
+    for raw in avoid:
+        item = _key(translate_note_phrases(raw))
+        for prefix in ("any ", "all ", "the ", "no "):
+            item = item.removeprefix(prefix)
+        for suffix in (" materials", " material", " notes", " note", " accord"):
+            item = item.removesuffix(suffix)
+        if match := _CITRUS_WORD.fullmatch(item):
+            words.add(match.group(1))
+    return words
+
+
 def _citrus_belongs(text: str, avoid: Sequence[str], family: FamilyStructure | None) -> bool:
     """True when a citrus opens this brief: its family is built on one, or it names one.
 
-    The brief is read with its rejected words masked, so "nothing like a
-    cologne" with cologne in must_avoid calls for no citrus.
+    A citrus word counts only where the brief wants it: not one must_avoid
+    rejects ("cologne" also rejects "colognes"), and not one the brief turns
+    down itself ("not citrusy").
     """
 
     if family is not None and family.family_id in _CITRUS_LED_FAMILIES:
         return True
-    return _CITRUS_WORD.search(_mask_avoided_phrases(text, avoid)) is not None
+    rejected = _avoided_citrus(avoid)
+    text = _mask_avoided_phrases(text, avoid)
+    return any(
+        match.group(1) not in rejected and not _NEGATED_BEFORE.search(text[: match.start()])
+        for match in _CITRUS_WORD.finditer(text)
+    )
 
 
 def _family_word_layer(family: FamilyStructure, note: str, word: str) -> tuple[Any, ...] | None:
@@ -888,7 +917,11 @@ def _note_layers(
         if covered and requirement != "base_wood":
             continue
         family_terms = family_words_for(family, note, markers) if family is not None else ()
-        if family is not None and not family_terms and not _names_marker(complexity_text, markers):
+        if (
+            family is not None and not family_terms and not _names_marker(complexity_text, markers)
+            # A citrus the brief names opens it in any family ("a pear with clementine").
+            and not (role_id == "top_citrus_layer" and citrus_belongs)
+        ):
             continue
         if family_terms and kind == _ACCENT:
             # The family's own materials for this nuance get accent roles below.
@@ -1112,10 +1145,6 @@ def _roles(
         ("drydown_structure", "Drydown structure", "base", "structure", .18, (("woody", .45), ("warmth", .15))),
     )
     prompt_terms = _source_tokens(f"{formula_name} {request}")
-    # Where the citrus layer is left out, the opening bridge does not look
-    # first for the family's citrus either: it brought the family's bergamot
-    # back in the layer's place.
-    citrus_left_out = target_count is None and not _citrus_belongs(complexity_text, avoid, family)
 
     def support_query(note: str, label: str, function: str) -> tuple[str, ...]:
         supporting_facets = [
@@ -1140,11 +1169,7 @@ def _roles(
             for term in facet.query_terms[:5]
         )
         family_terms = (
-            tuple(
-                word for word in family.tier(note)
-                if not _family_word_avoided(family, note, word, avoid)
-                and not (citrus_left_out and note == "top" and _names_marker(word, _CITRUS_LAYER_MARKERS))
-            )
+            tuple(word for word in family.tier(note) if not _family_word_avoided(family, note, word, avoid))
             if family is not None else ()
         )
         return _dedupe(
