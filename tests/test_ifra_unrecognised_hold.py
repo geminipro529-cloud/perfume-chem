@@ -190,6 +190,7 @@ STILL_HELD = {
     "Champignol 10% in DPG",
     "Cocoa Absolute",
     "Dihydrojasmone",
+    "Dihydrojasmone 10% in DPG",
     "Jessemal",
     "Nerolin Bromelia 10% in DPG",
     "Pamzest",

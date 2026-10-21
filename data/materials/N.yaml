@@ -1482,7 +1482,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 204.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.006
   logp: 4.5
   functional_groups: []
   chirality: null
@@ -1499,6 +1499,8 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  provenance:
+    density_25c_g_ml: 'APPROXIMATION (literature, not his bottle): Cyperus scariosus oil producer spec SG 1.0052-1.0068 at 25 C (midpoint 1.006); Good Scents 1.0055 at 20 C; RI 1.5106-1.5110. Kenny''s bottle is Simple Scents DIY Nagarmotha Oil (Cypriol Oil) 5 mL, SKU 8E3094000984, sold as 100% natural essential oil with no TDS/SDS; a weighed value replaces this. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md sections 1 and 6 (21 Oct 2026)'
 
 - canonical_name: "Neroli EO"
   aliases: ["neroli eo", "neroli eo (10% in dpg)", "neroli essential oil", "neroli eo (neat)"]
