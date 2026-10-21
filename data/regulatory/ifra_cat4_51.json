@@ -1395,6 +1395,20 @@
       "cat4_quote": "Category 4 1.5 %",
       "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_252.pdf",
       "notes": []
+    },
+    "IFRA_STD_057": {
+      "name": "4-Methoxy-alpha-methylbenzenepropanal",
+      "cas": [
+        "5462-06-6"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 2.5,
+      "cat4_quote": "Category 4 2.5 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_057.pdf",
+      "notes": [
+        "Added 21 Oct 2026 from the ingredients research thread, which read the 51st Amendment PDF at this url through a page summariser (Cat 1 0.11, Cat 2 0.14, Cat 3 0.75, Cat 4 2.5, Cat 5A 0.64, Cat 9 2.7, Cat 12 no restriction); not re-read verbatim in this session because the url is blocked here. TGSC still shows an older Cat 4 0.82 %."
+      ]
     }
   },
   "materials": {
@@ -4092,6 +4106,139 @@
       ],
       "source_url": "https://ifrafragrance.org/standards-library",
       "verified_on": "2026-10-09"
+    },
+    "Canthoxal": {
+      "status": "restricted",
+      "standard": "IFRA_STD_057",
+      "aliases": [
+        "Para-anisyl Propanal",
+        "Anisyl Propanal"
+      ],
+      "note": "Kenny's MySkinRecipes 'Para-anisyl Propanal (Canthoxal)', CAS 5462-06-6 (TGSC; ECHA EC 226-749-5). Loaded on his \"Load all\" card answer, 21 Oct 2026.",
+      "cas": [
+        "5462-06-6"
+      ]
+    },
+    "Rhodinol": {
+      "status": "restricted",
+      "standard": "IFRA_STD_037",
+      "aliases": [],
+      "note": "MySkinRecipes Rhodinol (code 2760, lot 4XG0CM; CAS 141-25-3 on the page, 6812-78-8 on the COA). Its CAS sits in the citronellol standard IFRA_STD_022 (Cat 4 12 %), and its density and RI read as mostly citronellol, but rhodinol grades can carry 20-40 % geraniol and no GC is on file, so the whole stock is checked against the stricter geraniol standard IFRA_STD_037 (Cat 4 4.7 %). A separate stock from Rhodinol ex Citronella. Loaded on Kenny's \"Load all\" card answer, 21 Oct 2026."
+    },
+    "Decatone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Givaudan Decatone (6-isopropyl-decahydro-2-naphthalenone). The ingredients research thread found no standard for this CAS in the IFRA 51st Amendment index (https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/ifra-51st-amendment-index-of-ifra-standards.pdf), 21 Oct 2026; loaded on Kenny's \"Load all\" card answer.",
+      "cas": [
+        "34131-98-1"
+      ]
+    },
+    "Velvione": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "(5Z)-cyclohexadec-5-en-1-one. The ingredients research thread found no standard for this CAS in the IFRA 51st Amendment index (https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/ifra-51st-amendment-index-of-ifra-standards.pdf), 21 Oct 2026; loaded on Kenny's \"Load all\" card answer.",
+      "cas": [
+        "37609-25-9"
+      ]
+    },
+    "Peach Ketone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Nectaryl"
+      ],
+      "note": "MySkinRecipes 'Peach Cyclopentanone' = Nectaryl (Givaudan), not 2-heptylcyclopentanone. The ingredients research thread found no standard for this CAS in the IFRA 51st Amendment index (https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/ifra-51st-amendment-index-of-ifra-standards.pdf), 21 Oct 2026; loaded on Kenny's \"Load all\" card answer.",
+      "cas": [
+        "95962-14-4"
+      ]
+    },
+    "Para-Cresyl Phenyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "p-Cresyl Phenyl Acetate"
+      ],
+      "note": "p-tolyl phenylacetate. The ingredients research thread found no standard for this CAS in the IFRA 51st Amendment index (https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/ifra-51st-amendment-index-of-ifra-standards.pdf), 21 Oct 2026; loaded on Kenny's \"Load all\" card answer.",
+      "cas": [
+        "101-94-0"
+      ]
+    },
+    "Phenoxy Ethyl Isobutyrate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "2-phenoxyethyl isobutyrate (PEIB). The ingredients research thread found no standard for this CAS in the IFRA 51st Amendment index (https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/ifra-51st-amendment-index-of-ifra-standards.pdf), 21 Oct 2026; loaded on Kenny's \"Load all\" card answer.",
+      "cas": [
+        "103-60-6"
+      ]
+    },
+    "Pear Valerate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Peranat"
+      ],
+      "note": "Kao PERANAT, 2-methylpentyl 2-methylpentanoate. The ingredients research thread found no standard for this CAS in the IFRA 51st Amendment index (https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/ifra-51st-amendment-index-of-ifra-standards.pdf), 21 Oct 2026; loaded on Kenny's \"Load all\" card answer.",
+      "cas": [
+        "90397-38-9"
+      ]
+    },
+    "Dimethyl Benzyl Carbinol": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "2-methyl-1-phenylpropan-2-ol; not the acetate. The ingredients research thread found no standard for this CAS in the IFRA 51st Amendment index (https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/ifra-51st-amendment-index-of-ifra-standards.pdf), 21 Oct 2026; loaded on Kenny's \"Load all\" card answer.",
+      "cas": [
+        "100-86-7"
+      ]
+    },
+    "Para-Acetanisole": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "4'-methoxyacetophenone. The ingredients research thread found no standard for this CAS in the IFRA 51st Amendment index (https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/ifra-51st-amendment-index-of-ifra-standards.pdf), 21 Oct 2026; loaded on Kenny's \"Load all\" card answer.",
+      "cas": [
+        "100-06-1"
+      ]
+    },
+    "Rum Ether": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "A mixture of ethanol, acetic acid and ethyl esters. The ingredients research thread found no standard for this CAS in the IFRA 51st Amendment index (https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/ifra-51st-amendment-index-of-ifra-standards.pdf), 21 Oct 2026; loaded on Kenny's \"Load all\" card answer.",
+      "cas": [
+        "8030-89-5"
+      ]
+    },
+    "Cyclogalbanate": {
+      "status": "specification",
+      "standard": "IFRA_STD_188",
+      "aliases": [
+        "Cyclogalbaniff"
+      ],
+      "note": "Allyl (cyclohexyloxy)acetate, CAS 68901-15-5: an allyl ester, so free allyl alcohol in it must be below 0.1 % (STD_188); no Category 4 limit of its own. The ingredients research thread found no standard for this CAS in the IFRA 51st Amendment index (https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/ifra-51st-amendment-index-of-ifra-standards.pdf), 21 Oct 2026; loaded on Kenny's \"Load all\" card answer.",
+      "cas": [
+        "68901-15-5"
+      ]
+    },
+    "Fir Essential Oil": {
+      "status": "specification",
+      "standard": "IFRA_STD_184",
+      "aliases": [
+        "Fir EO"
+      ],
+      "note": "Pinaceae oil: peroxide value must stay below 10 mmol/L (STD_184), no Category 4 limit. PerfumersWorld 7KG07758 (species not stated; its IFRA certificate lists limonene 6.37 %). Loaded on Kenny's \"Load all\" card answer, 21 Oct 2026."
+    },
+    "Nagarmortha Oil": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [
+        "Nagarmotha Oil",
+        "Cypriol Oil"
+      ],
+      "note": "PerfumersWorld Nagarmotha Oil (7WU09815) is a \"Proprietary Perfume Compound\" by PW's CoA, not a pure Cyperus oil, though PW's page names Cyperus scariosus, CAS 68916-60-9. SDS section 3: beta-caryophyllene and caryophyllene acetate 1-10 % each, plus pinenes, cashmeran, cedroxyde and cedryl acetate. PW's IFRA certificate (51st Amendment, as reported) allows 25 % in Category 4; its only restricted constituent is nootkatone 0.5723 % (IFRA_STD_185 grade). No standard of its own; constituents are not summed, so the check warns. Source: /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026). Loaded on Kenny's \"Load all\" card answer, 21 Oct 2026."
     }
   },
   "group_rules": [
