@@ -168,20 +168,11 @@ STILL_HELD = {
     "Orris Butter 50% in EtOH",
     # 20 Oct 2026 email-sweep arrivals (Kenny's answers in "Check new ingredients in code"); no IFRA row yet.
     "Cabbage Rose Extract",
-    "Canthoxal",
-    "Cyclogalbanate",
-    "Decatone",
-    "Decatone 10% in DPG",
-    "Dimethyl Benzyl Carbinol",
+    # The other arrivals got IFRA rows on 2026-10-21 (Kenny chose "Load all"); these three extracts
+    # and Dupical 10% still hold by name.
     "Dupical 10% in DPG",
-    "Fir Essential Oil",
     "Iris Florentina Root Extract",
     "Magnolia Flower Extract",
-    "Para-Cresyl Phenyl Acetate",
-    "Peach Ketone",
-    "Pear Valerate",
-    "Phenoxy Ethyl Isobutyrate",
-    "Velvione",
     "Pomelo EO",
     # Added 2026-10-15: a saturated saffron infusion in DPG of unknown strength.
     "Red Saffron Infusion",
@@ -208,9 +199,8 @@ STILL_HELD = {
     # MySkinRecipes order #2199302, arrived 2026-10-16; no IFRA table entry matches
     # these names yet, so they hold by name. (Cedarwood Texas, Geranium Bourbon,
     # Sweet Orange and both Isoraldeines were linked on 2026-10-16.)
-    "Para-Acetanisole",
-    "Rhodinol",
-    "Rum Ether",
+    # 2026-10-21 ("Load all"): Rhodinol is checked against the geraniol standard; Para-Acetanisole,
+    # Rum Ether and most sweep arrivals are recorded as having no IFRA standard.
 }
 
 
@@ -243,3 +233,14 @@ def test_freesia_hdi_fails_for_the_lilial_it_contains():
     gate = _gate({"Evernyl": 240.0, "Freesia HDI": 10.0})
     assert gate.status == "FAIL"
     assert "Freesia HDI" in gate.detail and "Lilial" in gate.detail
+
+
+def test_canthoxal_and_rhodinol_carry_their_ifra_limits():
+    # Kenny chose "Load all" on 21 Oct 2026 for the ingredients research thread's findings.
+    canthoxal = TABLE.lookup("Canthoxal")
+    assert (canthoxal.standard, canthoxal.cat4_limit_pct) == ("IFRA_STD_057", 2.5)
+    assert TABLE.lookup("Para-anisyl Propanal").name == "Canthoxal"
+    # A citronellol/geraniol blend with up to 40 % geraniol: the stricter geraniol limit applies to the whole stock.
+    rhodinol = TABLE.lookup("Rhodinol")
+    assert (rhodinol.standard, rhodinol.cat4_limit_pct) == ("IFRA_STD_037", 4.7)
+    assert TABLE.lookup("Rhodinol ex Citronella") is None

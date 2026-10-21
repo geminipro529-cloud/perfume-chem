@@ -272,6 +272,31 @@
         "message_timestamp_utc": "2026-10-20T22:20:52Z",
         "text": "Make it pass the gate, it is another lavender type",
         "context": "Formulation studio 3; 'it' = his neat Aroma&More Lavender 40/42 (inventory.txt L348), held on a lot-receipt hold"
+      },
+      {
+        "message_timestamp_utc": "2026-10-20T23:14:07Z",
+        "text": "my dmbca i poder",
+        "context": "CHIMIE Femme thread; = 'my DMBCA is powder' (Dimethyl Benzyl Carbinyl Acetate)"
+      },
+      {
+        "message_timestamp_utc": "2026-10-21T00:04:04Z",
+        "text": "i have nagarmortha oil no",
+        "context": "'Check new ingredients in code' thread; = 'I have Nagarmortha oil now' (the bottle he said was coming on 15 Oct)"
+      },
+      {
+        "message_timestamp_utc": "2026-10-21T00:42:08Z",
+        "text": "It went in as a 10%",
+        "context": "CHIMIE Femme thread, answering 'Did the Cyclogalbanate go in as the 10% (50 uL), or neat?': he has made a Cyclogalbanate 10% and used it"
+      },
+      {
+        "message_timestamp_utc": "2026-10-21T01:20:42Z",
+        "text": "P cresyl phenyl acetate is powder",
+        "context": "'Stock data into the engine' thread, answering whether his PerfumersWorld p-Cresyl Phenyl Acetate is a powder or crystals"
+      },
+      {
+        "message_timestamp_utc": "2026-10-21T01:48:32Z",
+        "text": "It’s made",
+        "context": "Frontend redesign thread, answering the recipe 'weigh 0.10 g of neat Aldehyde C12 MNA into 0.90 g of DPG and mix ... 1 g of Aldehyde C12 MNA 10% w/w in DPG' (01:32:40 UTC)"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -328,7 +353,12 @@
     "pw_orris_liquid_and_alpha_irone_documents_attached_20261020": true,
     "email_sweep_arrivals_fifteen_stocks_added_20261020": true,
     "cashmeran_exaltolide_hedione_hc_strengths_reconfirmed_20261020": true,
-    "lavender_40_42_lot_receipt_hold_cleared_20261020": true
+    "lavender_40_42_lot_receipt_hold_cleared_20261020": true,
+    "dmbca_powder_solid_as_supplied_20261020": true,
+    "nagarmortha_oil_back_in_stock_20261021": true,
+    "cyclogalbanate_10pct_dpg_added_20261021": true,
+    "pcpa_powder_solid_as_supplied_20261021": true,
+    "c12_mna_10pct_dpg_made_20261021": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -360,7 +390,8 @@
     "INV-USER-20260924-R5-019",
     "INV-USER-20260905-001",
     "INV-USER-20260828-003",
-    "INV-USER-20260924-R5-007"
+    "INV-USER-20260924-R5-007",
+    "INV-USER-20261008-TOBDBCA-002"
   ],
   "records": [
     {
@@ -6204,14 +6235,14 @@
       "state": "OWNED",
       "category": "floral / narcotic / modifier",
       "stock": {
-        "physical_form": "as_supplied",
+        "physical_form": "solid_as_supplied",
         "fraction": 1.0,
         "fraction_basis": "neat",
         "carrier": "",
         "fraction_authority": "ORDER_FORM_NEAT_USER_CONFIRMED_AS_ORDERED",
-        "execution_basis": "USER_ADD_20261020_PARA_CRESYL_PHENYL_ACETATE_NEAT_AS_ORDERED",
+        "execution_basis": "USER_ADD_20261020_PARA_CRESYL_PHENYL_ACETATE_NEAT_AS_ORDERED_CORRECTED_20261021_PCPA_IS_POWDER",
         "execution_ready": true,
-        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+        "execution_scope": "WEIGHED_SOLID_OR_PREPARED_SOLUTION_ONLY"
       },
       "supplier_product": {
         "supplier": "PerfumersWorld",
@@ -6239,9 +6270,15 @@
         "supplier_from_email_sweep_not_user_message": true,
         "fraction_from_user_message": false,
         "fraction_from_order_form": true,
-        "user_confirmed_as_ordered": true
+        "user_confirmed_as_ordered": true,
+        "physical_form_from_user_message": true
       },
-      "note": "PerfumersWorld 1PF01952, 1 g, ordered neat. Kenny 'ye' (22:11:56 UTC, 'Check new ingredients in code') to recording the arrived lines as ordered, neat unless the order says a dilution; arrival confirmed by 'both' (22:10:43 UTC). Order line read by the ingredients thread from his email; no lot, CAS on label, purity or density asserted. No IFRA row or physics yet, so it holds by name."
+      "note": "PerfumersWorld 1PF01952, 1 g, ordered neat. Kenny 'ye' (22:11:56 UTC, 'Check new ingredients in code') to recording the arrived lines as ordered, neat unless the order says a dilution; arrival confirmed by 'both' (22:10:43 UTC). Order line read by the ingredients thread from his email; no lot, CAS on label, purity or density asserted. No IFRA row or physics yet, so it holds by name. Corrected 21 Oct 2026 with Kenny's 'P cresyl phenyl acetate is powder' (01:20:42 UTC, 'Stock data into the engine' thread; p-tolyl phenylacetate is white crystals, mp 74-76 C): dose it by weight or as a dilution he has made, never as neat microlitres; no dilution is recorded until he says one is made.",
+      "physical_form_correction": {
+        "effective_date": "2026-10-21",
+        "source_quote": "P cresyl phenyl acetate is powder",
+        "source_message_timestamp_utc": "2026-10-21T01:20:42Z"
+      }
     },
     {
       "record_id": "INV-USER-20261014-STK-130",
@@ -6639,6 +6676,221 @@
         "release_authorized": false
       },
       "note": "Kenny: 'Make it pass the gate, it is another lavender type' (20 Oct 2026 22:20:52 UTC, 'Formulation studio 3'). Already owned neat as supplied (INV-USER-20260924-R5-007, his 24 Sep confirmation; inventory.txt L348; Aroma & More Lav420811P, 10 mL); its only hold was LOT_PURCHASE_SOURCE_AND_LABEL_RECEIPT_MISSING, which AGENTS.md Rule 6 says a formula does not need, as with Cedrat (STK-021). Its own lavender identity: not an alias of Lavender EO (BONTAUX SAS), Lavender EO or Spike Lavender EO. Retires R5-007."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-138",
+      "canonical_name": "Dimethyl Benzyl Carbinyl Acetate",
+      "aliases": [
+        "DBCA",
+        "Dimethyl Benzyl Carbonyl Acetate",
+        "PerfumersWorld Dimethyl Benzyl Carbinyl Acetate"
+      ],
+      "state": "OWNED",
+      "category": "floral / green",
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Dimethyl Benzyl Carbinyl Acetate",
+        "sku": "3LF00157",
+        "cas": "151-05-3",
+        "ec": "205-781-3",
+        "mw_g_mol": 192.26,
+        "evidence_scope": "SUPPLIER_PRODUCT_IDENTITY_ONLY",
+        "source": "Kenny's local PerfumersWorld snapshot, 2026-10-07"
+      },
+      "resolves_authority_delta": {
+        "path": "data/governance/inventory_v5_authority_delta_20260811.json",
+        "record_id": "INV-V5-DELTA-DBCA-IDENTITY"
+      },
+      "stock": {
+        "physical_form": "solid_as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "V5_ROW_257_NEAT_STOCK_CARRIED_FORWARD_AFTER_SUPPLIER_IDENTITY_CORRECTION",
+        "execution_ready": true,
+        "execution_scope": "WEIGHED_SOLID_OR_PREPARED_SOLUTION_ONLY",
+        "execution_basis": "USER_ANSWER_20261020_DMBCA_IS_POWDER_REISSUE_INV-USER-20261008-TOBDBCA-002"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 257,
+          "fraction": 1.0
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 257,
+          "disposition": "OWNED",
+          "status": "HAVE — PERFUMERSWORLD DIMETHYL BENZYL CARBINYL ACETATE (DBCA), NEAT / AS SUPPLIED",
+          "actual_stock_text": "Dimethyl Benzyl Carbinyl Acetate (DBCA), PerfumersWorld SKU 3LF00157, CAS 151-05-3, neat/as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-20",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_product_identity_confirmed": true,
+        "stock_fraction_carried_forward": true,
+        "fraction_basis_carried_forward": true,
+        "user_lot_asserted": false,
+        "label_asserted": false,
+        "exact_user_lot_assay_asserted": false,
+        "density_asserted": false,
+        "receipt_or_lot_holds_cleared": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "physical_form_from_user_message": true
+      },
+      "note": "Re-issues INV-USER-20261008-TOBDBCA-002 with Kenny's 'my dmbca i poder' (= is powder; 20 Oct 2026 23:14:07 UTC, CHIMIE Femme thread): dose it by weight or as a dilution he has made, never as neat microlitres; no dilution is recorded until he says one is made. Same PerfumersWorld identity (3LF00157, CAS 151-05-3); the MySkinRecipes 2199302 bottle is another bottle of this stock. Separate from Dimethyl Benzyl Carbinol (STK-123). Prior note: Kenny: DBCA is whatever is found on PerfumersWorld. The V5 snapshot spelling 'Carbonyl' is corrected to PerfumersWorld 'Dimethyl Benzyl Carbinyl Acetate' (CAS 151-05-3). Supplier identity only; no lot, label or density is supplied.",
+      "source_quote": "my dmbca i poder"
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-139",
+      "canonical_name": "Nagarmortha Oil",
+      "aliases": [
+        "Nagarmotha Oil",
+        "Nagarmotha",
+        "Nagar Motha Oil"
+      ],
+      "state": "OWNED",
+      "category": "woods / amber / structure",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "ESSENTIAL_OIL_AS_SUPPLIED_NEAT_STRENGTH_NOT_STATED",
+        "execution_basis": "USER_ADD_20261021_NAGARMORTHA_OIL_BACK_IN_STOCK_NEAT_AS_SUPPLIED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": null,
+        "product_name": "Nagarmotha / nagarmortha oil (cypriol)",
+        "sku": null,
+        "pack": null,
+        "order_reference": "bought 15 Oct 2026 ('nagarmotha oil is coming as well'); shop not stated"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-21",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "i have nagarmortha oil no",
+      "source_message_timestamp_utc": "2026-10-21T00:04:04Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_user_message": false,
+        "basis_from_user_message": false,
+        "species_asserted": false,
+        "supplier_asserted": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'i have nagarmortha oil no' (= now; 21 Oct 2026 00:04:04 UTC, 'Check new ingredients in code' thread), the new bottle he said was coming on 15 Oct. The earlier bottle stays depleted (inventory.txt line 240, 29 Aug); this is a new physical stock under the same name, so its existing cypriol profile, odour threshold and composition links apply. He gave no strength: recorded neat as supplied, as an essential oil is sold; species (Cyperus scariosus expected), shop, lot and density not stated."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-140",
+      "canonical_name": "Cyclogalbanate 10% in DPG",
+      "aliases": [
+        "Cyclogalbanate 10%"
+      ],
+      "state": "OWNED",
+      "category": "green / galbanum / modifier",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_STRENGTH_STANDING_BASIS_AND_CARRIER_RULE",
+        "execution_basis": "USER_ANSWER_20261021_CYCLOGALBANATE_10PCT_WW_DPG",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "user dilution of the MySkinRecipes neat stock",
+        "product_name": "Cyclogalbanate (Cyclogalbaniff)",
+        "sku": null,
+        "pack": "5 g",
+        "coa_lot_from_filename": "70Z7N2",
+        "order_reference": "MSR 2199458 (16 Oct 2026; arrived per Kenny 'both', 22:10:43 UTC); lot from the COA file name, COA not transcribed"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-21",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "It went in as a 10%",
+      "source_message_timestamp_utc": "2026-10-21T00:42:08Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_email_sweep_not_user_message": true,
+        "fraction_from_user_message": true,
+        "fraction_from_order_form": false,
+        "user_confirmed_as_ordered": false,
+        "basis_from_user_message": false,
+        "carrier_from_user_message": false
+      },
+      "note": "Kenny: 'It went in as a 10%' (21 Oct 2026 00:42:08 UTC, CHIMIE Femme thread), answering whether the Cyclogalbanate in his bottle was the 10% or neat. His dilution of the neat MySkinRecipes stock (STK-133, COA file lot 70Z7N2); no basis or solvent given, so his standing rule applies: 10% w/w in DPG. A separate stock from the neat bottle. No IFRA row or physics yet, so it holds by name."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-141",
+      "canonical_name": "Aldehyde C12 MNA 10% in DPG",
+      "aliases": [
+        "Aldehyde C12 MNA 10%"
+      ],
+      "state": "OWNED",
+      "category": "citrus top",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "USER_PREPARED_TO_A_STATED_WEIGHED_RECIPE",
+        "execution_basis": "USER_MADE_20261021_C12_MNA_10PCT_WW_DPG_V5_ROW_14_REPLACED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 14
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-21",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "It’s made",
+      "source_message_timestamp_utc": "2026-10-21T01:48:32Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_user_message": false,
+        "fraction_from_recipe_he_confirmed": true,
+        "basis_and_carrier_from_recipe": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny made it: 'It’s made' (21 Oct 2026 01:48:32 UTC, Frontend redesign thread), answering the recipe 0.10 g neat Aldehyde C12 MNA into 0.90 g DPG (about 1 g, 10% w/w in DPG). Replaces the V5 row 14 '10% working dilution' stock, which had no basis or carrier and was not execution-ready. The neat stock and the 1% v/v in ethanol stay as they are."
     }
   ]
 }

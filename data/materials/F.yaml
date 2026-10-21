@@ -265,11 +265,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fir Essential Oil
   aliases: []
-  cas:
+  cas: '8021-28-1'
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 0.875
   logp:
   functional_groups: []
   chirality:
@@ -298,6 +298,8 @@
   character:
   notes:
   provenance:
+    cas: 'PW 7KG07758 product page; species not stated (PW COA calls it a proprietary compound)'
+    density_25c_g_ml: 'PW 7KG07758 page specific gravity 0.8750 (temperature not printed), as printed'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fixamber
   aliases: []

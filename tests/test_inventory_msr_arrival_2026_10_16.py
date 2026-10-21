@@ -148,3 +148,60 @@ def test_rose_otto_10pct_is_mass_fraction_in_dpg_as_kenny_confirmed():
     assert rows[0].dilution == pytest.approx(0.1)
     assert rows[0].fraction_basis == "mass_fraction"
     assert rows[0].carrier == "dpg"
+
+
+def test_dmbca_is_a_powder_dosed_by_weight():
+    # Kenny, 20 Oct 2026 23:14:07 UTC (CHIMIE Femme thread): "my dmbca i poder".
+    payload = inventory.load_current_user_inventory_overlay()
+    record = next(r for r in payload["delta_records"] if r["canonical_name"] == "Dimethyl Benzyl Carbinyl Acetate")
+    assert record["record_id"] == "INV-USER-20261014-STK-138"
+    assert record["stock"]["physical_form"] == "solid_as_supplied"
+    assert record["stock"]["execution_scope"] == "WEIGHED_SOLID_OR_PREPARED_SOLUTION_ONLY"
+    assert record["supplier_product"]["sku"] == "3LF00157"
+    assert "INV-USER-20261008-TOBDBCA-002" in payload["superseded_record_ids"]
+    stocks = [s for s in inventory.materialize_current_inventory().stocks if s.identity_name == "Dimethyl Benzyl Carbinyl Acetate"]
+    assert len(stocks) == 1 and stocks[0].physical_form == "solid_as_supplied"
+
+
+def test_nagarmortha_oil_is_back_in_stock_neat():
+    # Kenny, 21 Oct 2026 00:04:04 UTC ('Check new ingredients in code'): "i have nagarmortha oil no" (= now).
+    payload = inventory.load_current_user_inventory_overlay()
+    record = next(r for r in payload["delta_records"] if r["canonical_name"] == "Nagarmortha Oil")
+    assert record["record_id"] == "INV-USER-20261014-STK-139"
+    assert record["source_quote"] == "i have nagarmortha oil no"
+    assert record["authority_limits"]["fraction_from_user_message"] is False
+    assert record["authority_limits"]["species_asserted"] is False
+    stocks = [s for s in inventory.materialize_current_inventory().stocks if s.identity_name == "Nagarmortha Oil"]
+    assert len(stocks) == 1
+    assert (stocks[0].dilution, stocks[0].fraction_basis, stocks[0].physical_form) == (1.0, "neat", "as_supplied")
+
+
+def test_cyclogalbanate_10pct_is_a_separate_dpg_dilution():
+    # Kenny, 21 Oct 2026 00:42:08 UTC (CHIMIE Femme thread): "It went in as a 10%".
+    stocks = {s.name: s for s in inventory.materialize_current_inventory().stocks if s.identity_name.startswith("Cyclogalbanate")}
+    assert set(stocks) == {"Cyclogalbanate", "Cyclogalbanate 10% in DPG"}
+    diluted = stocks["Cyclogalbanate 10% in DPG"]
+    assert (diluted.dilution, diluted.fraction_basis, diluted.carrier) == (0.1, "mass_fraction", "dpg")
+    assert stocks["Cyclogalbanate"].dilution == 1.0
+
+
+def test_p_cresyl_phenyl_acetate_is_a_powder_dosed_by_weight():
+    # Kenny, 21 Oct 2026 01:20:42 UTC ('Stock data into the engine'): "P cresyl phenyl acetate is powder".
+    payload = inventory.load_current_user_inventory_overlay()
+    record = next(r for r in payload["delta_records"] if r["canonical_name"] == "Para-Cresyl Phenyl Acetate")
+    assert record["record_id"] == "INV-USER-20261014-STK-129"
+    assert record["stock"]["physical_form"] == "solid_as_supplied"
+    assert record["stock"]["execution_scope"] == "WEIGHED_SOLID_OR_PREPARED_SOLUTION_ONLY"
+    assert record["supplier_product"]["sku"] == "1PF01952"
+    stocks = [s for s in inventory.materialize_current_inventory().stocks if s.identity_name == "Para-Cresyl Phenyl Acetate"]
+    assert len(stocks) == 1 and stocks[0].physical_form == "solid_as_supplied"
+
+
+def test_c12_mna_10pct_dpg_made_by_kenny_replaces_the_v5_working_dilution():
+    # Kenny, 21 Oct 2026 01:48:32 UTC (Frontend redesign thread): "It’s made" (0.10 g neat into 0.90 g DPG).
+    stocks = {s.name: s for s in inventory.materialize_current_inventory().stocks if s.identity_name.startswith("Aldehyde C12 MNA")}
+    assert "Aldehyde C12 MNA 10%" not in stocks
+    made = stocks["Aldehyde C12 MNA 10% in DPG"]
+    assert (made.dilution, made.fraction_basis, made.carrier, made.execution_ready) == (0.1, "mass_fraction", "dpg", True)
+    assert stocks["Aldehyde C12 MNA neat"].dilution == 1.0
+    assert (stocks["Aldehyde C12 MNA"].dilution, stocks["Aldehyde C12 MNA"].carrier) == (0.01, "ethanol")

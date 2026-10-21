@@ -66,7 +66,9 @@ def test_dbca_identity_is_perfumersworld_carbinyl_without_lot_claims() -> None:
     assert len(dbca) == 1
     assert dbca[0].source_rows == (257,)
     assert (dbca[0].dilution, dbca[0].fraction_basis) == (1.0, "neat")
-    assert dbca[0].authority == inventory.TOBACCO_DBCA_USER_INVENTORY_AUTHORITY
+    # 2026-10-20: re-issued in the v26 overlay as a powder (Kenny, "my dmbca i poder").
+    assert dbca[0].authority == "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261014"
+    assert dbca[0].physical_form == "solid_as_supplied"
     record = next(r for r in _head()["records"] if r["canonical_name"] == "Dimethyl Benzyl Carbinyl Acetate")
     product = record["supplier_product"]
     assert (product["supplier"], product["sku"], product["cas"], product["ec"], product["mw_g_mol"]) == (
