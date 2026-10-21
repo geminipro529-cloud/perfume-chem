@@ -47,6 +47,7 @@ from engine.ifra_standards import ETHANOL_DENSITY_G_ML
 from engine.mixer.instructions import build_formula_compounding_protocol
 from engine.optimizer.models import ObjectiveWeights
 from engine.optimizer.scoring import FormulaScorer
+from engine.perception.depth_reading import build_depth_reading, depth_reading_text_lines
 from engine.pipeline.analysis import render_pipeline_analysis
 from engine.pipeline.audit_log import append_event, config_summary
 from engine.pipeline.gates import (
@@ -961,6 +962,15 @@ def main(
         )
         oav_result = analyze_oav_authority(oav_req, gate_report=gate_result)
         oav_table = _format_oav_table(oav_result.state)
+        # Informational structure reading of the same frames and concentrate
+        # rows (score_luxury reads ``oav`` unrounded); it sets no status.
+        depth_reading = build_depth_reading(
+            gate_result.simulation,
+            index_rows=[
+                {"name": material.name, "oav": material.oav}
+                for material in oav_result.state.materials
+            ],
+        )
         record_stage("oav_authority", stage_started_ns)
 
         g15_gate = next(
@@ -1109,6 +1119,7 @@ def main(
                 }
                 for w in oav_result.time_windows
             ],
+            "depth_reading": depth_reading,
             "prior_analysis_binding": _prior_analysis_binding(formula, run_hashes),
         }
 
@@ -1340,6 +1351,8 @@ def main(
             for gate in report["gates"]:
                 detail = f" - {gate['detail']}" if gate.get("detail") else ""
                 print(f"  {gate['status']}: {gate['gate']}{detail}")
+            for line in depth_reading_text_lines(report["depth_reading"]):
+                print(line)
 
     if args.print_analysis:
         print(cli_transport_text(analysis_text))
