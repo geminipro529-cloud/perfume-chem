@@ -433,16 +433,16 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Decatone
   aliases: []
-  cas:
+  cas: '34131-98-1'
   smiles:
   inchikey:
-  mw_g_mol:
-  density_25c_g_ml:
+  mw_g_mol: 194.32
+  density_25c_g_ml: 0.961
   logp:
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.67
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -466,20 +466,23 @@
   character:
   notes:
   provenance:
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1025111.html; PW 4CF19148 page'
+    density_25c_g_ml: 'TGSC specific gravity 0.961-0.967 @ 25 C (https://www.thegoodscentscompany.com/data/rw1025111.html), midpoint x 0.99705; PW prints 0.9610'
+    vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Delta Damascone
   aliases:
   - delta damascone
-  cas:
+  cas: '57378-68-4'
   smiles:
   inchikey:
-  mw_g_mol:
-  density_25c_g_ml:
+  mw_g_mol: 192.3
+  density_25c_g_ml: 0.93
   logp:
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 3.59
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -498,6 +501,9 @@
   character:
   notes:
   provenance:
+    cas: 'PubChem compound 57378-68-4 (https://pubchem.ncbi.nlm.nih.gov/compound/57378-68-4)'
+    density_25c_g_ml: 'PubChem Experimental Properties 0.920-0.940 (unit and temperature not stated); midpoint, not measured on Kenny''s bottle'
+    vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC (https://www.thegoodscentscompany.com/data/rw1006961.html); /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026)'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -1282,16 +1288,16 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Dimethyl Benzyl Carbinol
   aliases: []
-  cas:
+  cas: '100-86-7'
   smiles:
   inchikey:
-  mw_g_mol:
-  density_25c_g_ml:
+  mw_g_mol: 150.22
+  density_25c_g_ml: 0.972
   logp:
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 3.94
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1315,6 +1321,9 @@
   character:
   notes:
   provenance:
+    cas: 'Perflavory https://www.perflavory.com/docs/doc1004412.html'
+    density_25c_g_ml: 'TGSC/Perflavory specific gravity 0.973-0.976 @ 25 C, midpoint x 0.99705; mp 23-24 C'
+    vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Dimethyl Benzyl Carbinyl Acetate
   aliases: []
@@ -1621,16 +1630,16 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Dupical
   aliases: []
-  cas:
+  cas: '30168-23-1'
   smiles:
   inchikey:
-  mw_g_mol:
-  density_25c_g_ml:
+  mw_g_mol: 204.31
+  density_25c_g_ml: 1.001
   logp:
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.0588
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1658,6 +1667,9 @@
   character:
   notes:
   provenance:
+    cas: 'TGSC (checked by hand in the research thread)'
+    density_25c_g_ml: 'TGSC specific gravity 1.003-1.005 @ 25 C, midpoint x 0.99705; neat material (Kenny''s stock is the PW 10% in DPG)'
+    vp_25c_pa: 'ESTIMATE: EPI Suite 0.000441 mmHg via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Dynascone
   aliases:

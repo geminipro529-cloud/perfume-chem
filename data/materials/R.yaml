@@ -1587,3 +1587,68 @@
     odt_eth_ppm: manual:2026-06-15 estimated from GC-O literature
     hedonic_valence: manual:2026-06-15 universal appeal rating
     user_in_inventory: inventory.txt
+- canonical_name: Rhodinol
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml: 0.867
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution: neat / as supplied
+  user_in_inventory: true
+  supplier:
+  families: []
+  character:
+  notes: 'MySkinRecipes 2199302 Rhodinol (citronellol/geraniol blend), neat; separate from Rhodinol ex Citronella.'
+  provenance:
+    density_25c_g_ml: 'TGSC specific gravity 0.865-0.873 @ 20 C, midpoint x 0.99821 (20 C value)'
+    notes: 'Foreverest Rhodinol: citronellol 55-75%, geraniol 20-40%; CAS 141-25-3 / 6812-78-8 (TGSC); a blend, so no single MW or VP'
+- canonical_name: Rum Ether
+  aliases: []
+  cas: '8030-89-5'
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml: 0.819
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution: neat / as supplied
+  user_in_inventory: true
+  supplier:
+  families: []
+  character:
+  notes: 'MySkinRecipes 2199302 Rum Ether, neat.'
+  provenance:
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1034451.html (EC 232-449-5, FEMA 2996)'
+    density_25c_g_ml: 'TGSC specific gravity 0.807-0.836 @ 25 C (all grades), midpoint x 0.99705'
+    notes: 'mostly ethanol, acetic acid and ethyl acetate/formate/propionate; no producer composition; a mixture, so no single MW or VP'

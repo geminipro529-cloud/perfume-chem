@@ -546,16 +546,16 @@
   aliases:
   - para-anisyl propanal
   - anisyl propanal
-  cas:
+  cas: '5462-06-6'
   smiles:
   inchikey:
-  mw_g_mol:
-  density_25c_g_ml:
+  mw_g_mol: 178.23
+  density_25c_g_ml: 1.039
   logp:
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.33
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -575,6 +575,9 @@
   character:
   notes: MySkinRecipes order 2199458 'Para-anisyl Propanal (Canthoxal)', neat as supplied; CAS and purity not asserted.
   provenance:
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1023691.html; ECHA EC 226-749-5'
+    density_25c_g_ml: 'TGSC specific gravity 1.038-1.046 @ 25 C, midpoint x 0.99705'
+    vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026)'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Caramel Furanone 0.003%
   aliases: []
@@ -6200,16 +6203,16 @@
 - canonical_name: Cyclogalbanate
   aliases:
   - cyclogalbaniff
-  cas:
+  cas: '68901-15-5'
   smiles:
   inchikey:
-  mw_g_mol:
+  mw_g_mol: 198.26
   density_25c_g_ml:
   logp:
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.4
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -6229,6 +6232,8 @@
   character:
   notes: MySkinRecipes order 2199458 'Cyclogalbanate (Cyclogalbaniff)', neat as supplied; CAS and purity not asserted.
   provenance:
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1038701.html'
+    vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026); no density found'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Cymene Para
   aliases: []

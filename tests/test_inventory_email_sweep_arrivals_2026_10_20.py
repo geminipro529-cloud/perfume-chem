@@ -91,3 +91,27 @@ def test_the_statements_are_on_record(records):
     texts = {s["text"] for s in payload["source"]["verbatim_user_statements"]}
     assert {"I have DMBC", "neaat", "both", "ye", "5% in DPG"} <= texts
     assert any(t.startswith("decatone neat and 10%, fir EO 10%") for t in texts)
+
+
+@pytest.mark.parametrize(
+    ("name", "cas", "mw", "has_density"),
+    (
+        ("Peach Ketone", "95962-14-4", 220.36, False),
+        ("Pear Valerate", "90397-38-9", 200.32, True),
+        ("Decatone", "34131-98-1", 194.32, True),
+        ("Velvione", "37609-25-9", 236.40, True),
+        ("Canthoxal", "5462-06-6", 178.23, True),
+        ("Phenoxy Ethyl Isobutyrate", "103-60-6", 208.26, True),
+        ("Dimethyl Benzyl Carbinol", "100-86-7", 150.22, True),
+    ),
+)
+def test_researched_identity_and_physics_are_loaded(name, cas, mw, has_density):
+    # Kenny chose "Load all" on 21 Oct 2026 for /mnt/project-files/missing-data-20261021.
+    material = resolve_material(name).registry_material
+    assert (material.cas, material.mw_g_mol) == (cas, mw)
+    assert (material.density_25c_g_ml is not None) is has_density
+    assert material.vp_source == "EPI"
+
+
+def test_myskinrecipes_peach_ketone_is_nectaryl():
+    assert resolve_material("Nectaryl").registry_name == "Peach Ketone"

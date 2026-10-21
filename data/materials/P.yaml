@@ -355,16 +355,16 @@
 - canonical_name: Para-Cresyl Phenyl Acetate
   aliases:
   - para-Cresyl Phenyl Acetate
-  cas: null
+  cas: '101-94-0'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 226.27
   density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.0127
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -392,6 +392,8 @@
   character: null
   notes: null
   provenance:
+    cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1003972.html; PW 1PF01952 page'
+    vp_25c_pa: 'ESTIMATE: EPI Suite (solid basis) via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026); white crystals, mp 74-76 C; no density found'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Para-Methyl Acetophenone
   aliases:
@@ -943,17 +945,18 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Peach Ketone
   aliases:
+  - nectaryl
   - peach cyclopentanone
-  cas:
+  cas: '95962-14-4'
   smiles:
   inchikey:
-  mw_g_mol:
+  mw_g_mol: 220.36
   density_25c_g_ml:
   logp:
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.049
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -973,20 +976,22 @@
   character:
   notes: MySkinRecipes order 2199458 'Peach Cyclopentanone, Peach Ketone', neat as supplied; CAS and purity not asserted.
   provenance:
+    cas: 'MySkinRecipes 2571 ''Peach Cyclopentanone'' = Nectaryl (Givaudan), 2-[2-(4-methyl-3-cyclohexen-1-yl)propyl]cyclopentanone (https://www.thegoodscentscompany.com/data/rw1052381.html); not 2-heptylcyclopentanone (137-03-1)'
+    vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026); no density found'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Pear Valerate
   aliases:
   - peranat
-  cas:
+  cas: '90397-38-9'
   smiles:
   inchikey:
-  mw_g_mol:
-  density_25c_g_ml:
+  mw_g_mol: 200.32
+  density_25c_g_ml: 0.855
   logp:
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 13.9
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1006,6 +1011,9 @@
   character:
   notes: MySkinRecipes order 2199458 'Pear Valerate, Peranat', neat as supplied; CAS and purity not asserted.
   provenance:
+    cas: 'Kao PERANAT https://chemical.kao.com/en/products/B0010631_en/; 2-methylpentyl 2-methylpentanoate'
+    density_25c_g_ml: 'TGSC/Perflavory specific gravity 0.856-0.859 @ 25 C, midpoint x 0.99705'
+    vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026)'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Peonile
   aliases:
@@ -1415,16 +1423,16 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Phenoxy Ethyl Isobutyrate
   aliases: []
-  cas: null
+  cas: '103-60-6'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
+  mw_g_mol: 208.26
+  density_25c_g_ml: 1.043
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.701
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1448,6 +1456,9 @@
   character: null
   notes: null
   provenance:
+    cas: 'Perflavory https://www.perflavory.com/docs/doc1031511.html'
+    density_25c_g_ml: 'TGSC/Perflavory specific gravity 1.042-1.048 @ 20 C, midpoint x 0.99821 (20 C value)'
+    vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Phenyl Acetaldehyde
   aliases:
@@ -3592,3 +3603,37 @@
   notes: Current user stock is 50% w/w in DEP. The separate 10% requirement remains preparation-required; exact active mass from volume requires stock-solution density.
   provenance:
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
+- canonical_name: Para-Acetanisole
+  aliases:
+  - 4'-methoxyacetophenone
+  - p-acetanisole
+  cas: '100-06-1'
+  smiles:
+  inchikey:
+  mw_g_mol: 150.17
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa: 0.86
+  vp_source: PubChem_exp  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution: neat / as supplied
+  user_in_inventory: true
+  supplier:
+  families: []
+  character:
+  notes: 'MySkinRecipes 2199302 Para-Acetanisole, a solid: dosed by weight or as a dilution Kenny has made.'
+  provenance:
+    cas: 'PubChem CID 7476 (4''-methoxyacetophenone)'
+    vp_25c_pa: 'MEASURED: 6.44E-03 mmHg at 25 C (Jones, J Chem Eng Data 5:196, 1960) via PubChem CID 7476; solid, mp 38 C, so no 25 C liquid density (1.0818 g/cm3 at 41 C, CRC)'
