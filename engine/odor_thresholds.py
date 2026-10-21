@@ -814,7 +814,7 @@ ODT_DATA: dict[str, dict] = {
     "orris liquid": {
         "vfy": "DERIVED",
         "sources": [
-            "PerfumersWorld SKU 8IQ24653 (80-85% irone supplier declaration)",
+            "PerfumersWorld SKU 8IQ24653 (1-5% alpha-irone per supplier email 2026-10-19)",
             "Alpha-irone-equivalent fallback",
         ],
         "odt_air": 0.9,
