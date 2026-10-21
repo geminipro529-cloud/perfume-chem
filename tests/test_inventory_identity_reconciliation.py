@@ -384,7 +384,10 @@ def test_ambrofix_recovered_bottle_is_historical_not_current_stock() -> None:
     assert "Ambrofix" not in legacy_available
 
     ambrox_super = _stocks_for("Ambrox Super")
-    assert len(ambrox_super) == 2
+    # Crystals, the 25% solution, and Kenny's 10% bottle (21 Oct 2026, STK-146).
+    assert len(ambrox_super) == 3
+    ten_pct = next(row for row in ambrox_super if row.dilution == pytest.approx(0.10))
+    assert ten_pct.stock_id not in {row.stock_id for row in ambrox_super if row is not ten_pct}
     solution = next(row for row in ambrox_super if row.dilution == pytest.approx(0.25))
     crystals = next(row for row in ambrox_super if row.dilution == pytest.approx(1.0))
     assert (crystals.fraction_basis, crystals.carrier) == ("neat", "")
