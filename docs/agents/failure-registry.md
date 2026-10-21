@@ -1,4 +1,4 @@
-# Agent failure registry (F1-F11)
+# Agent failure registry (F1-F12)
 
 > Moved out of `AGENTS.md` unchanged on 2026-10-08 so every session loads less; `AGENTS.md` links here. These are working notes and historical diagnostics, not universal policy: where they disagree with the rules in `AGENTS.md` (Rules 0-7 and the reviewed knowledge boundary), those rules win.
 
@@ -71,3 +71,10 @@ Every systemic failure from this session. Read before formulating. Learn or repe
 - Fix: Cut 7 materials. v3 = 21 materials: kept only chemically compatible families (Ginger zingiberene + Bergamot limonene/linalool + Rose citronellol/geraniol + Clove eugenol + Iris irones + Violet Leaf + woody-amber synthetics).
 - Reviewed learning: separate solubility, chemical stability, sensory masking and target drift. Each needs its own evidence; chemical taxonomy alone decides none of them.
 - Design response: retain the control and compare a small omission/addition or block alternative. Natural complexity must earn a target-linked function rather than being included as an automatic luxury upgrade.
+
+### F12. A DIAGNOSTIC INDEX QUOTED AS "MOST LUXURIOUS" — LAVANDE SPORT LUXE R3 (2026-10-21)
+- Symptom: a sport lavender was presented to Kenny as his "most luxurious" formula because `score_luxury` ranked it top (82.3, against 64.3 for his Lavande R9). Kenny: "I would have imagined that the most luxurious formula would have been a deeper formula that smelled amazing, and was composed of multiple objects and textures, with depth and each ingredient having a role in playing its complexity of its own object, shadow, or any other effect."
+- Root cause: the luxury index is a heuristic (`HEURISTIC_DIAGNOSTIC_INDEX`; the gate withholds ranking on it). Twelve of R3's 19 points over its first draft came from the trace part, which counts rows at OAV 0.1-1 in the concentrate model and peaks at exactly ten such rows. R3 had ten, dosed into that band. In the gate's own time windows most of them were either far below threshold or became ordinary notes by the drydown. Effect-per-note was already saturated, and restraint deducts for repeated characters, so richer formulas lose points. Nothing in the index counts objects, textures, contrast or change over time.
+- What R3 was: one lavender object with a fresh crowd. 13 of its 38 rows had no job of their own, and the 42% of the oil in musks, ambers, woods, salicylates, orris and moss gave about 4% of the modelled odour at 30 min.
+- Fix: the release gate's `depth_reading` reports, per time window, the odour families and textures that reach detection, which rows stay shadows over time and which become notes, rows that never reach detection, and whether the drydown changes. Rule 3 in `AGENTS.md` now forbids superlatives from an index.
+- Learning: never call a formula "most luxurious", "deepest" or "best" from an engine index. A luxury or depth claim cites the depth reading, says the index is a diagnostic, and ends with Kenny's nose: blotter, then skin, blind against his reference bottle. Never dose rows to hit an index band. A shadow earns its place only when it shades a named object and stays below threshold over time.
