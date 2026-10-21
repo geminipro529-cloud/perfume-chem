@@ -183,3 +183,15 @@ def test_cyclogalbanate_10pct_is_a_separate_dpg_dilution():
     diluted = stocks["Cyclogalbanate 10% in DPG"]
     assert (diluted.dilution, diluted.fraction_basis, diluted.carrier) == (0.1, "mass_fraction", "dpg")
     assert stocks["Cyclogalbanate"].dilution == 1.0
+
+
+def test_p_cresyl_phenyl_acetate_is_a_powder_dosed_by_weight():
+    # Kenny, 21 Oct 2026 01:20:42 UTC ('Stock data into the engine'): "P cresyl phenyl acetate is powder".
+    payload = inventory.load_current_user_inventory_overlay()
+    record = next(r for r in payload["delta_records"] if r["canonical_name"] == "Para-Cresyl Phenyl Acetate")
+    assert record["record_id"] == "INV-USER-20261014-STK-129"
+    assert record["stock"]["physical_form"] == "solid_as_supplied"
+    assert record["stock"]["execution_scope"] == "WEIGHED_SOLID_OR_PREPARED_SOLUTION_ONLY"
+    assert record["supplier_product"]["sku"] == "1PF01952"
+    stocks = [s for s in inventory.materialize_current_inventory().stocks if s.identity_name == "Para-Cresyl Phenyl Acetate"]
+    assert len(stocks) == 1 and stocks[0].physical_form == "solid_as_supplied"

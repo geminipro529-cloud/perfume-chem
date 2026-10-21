@@ -287,6 +287,11 @@
         "message_timestamp_utc": "2026-10-21T00:42:08Z",
         "text": "It went in as a 10%",
         "context": "CHIMIE Femme thread, answering 'Did the Cyclogalbanate go in as the 10% (50 uL), or neat?': he has made a Cyclogalbanate 10% and used it"
+      },
+      {
+        "message_timestamp_utc": "2026-10-21T01:20:42Z",
+        "text": "P cresyl phenyl acetate is powder",
+        "context": "'Stock data into the engine' thread, answering whether his PerfumersWorld p-Cresyl Phenyl Acetate is a powder or crystals"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -346,7 +351,8 @@
     "lavender_40_42_lot_receipt_hold_cleared_20261020": true,
     "dmbca_powder_solid_as_supplied_20261020": true,
     "nagarmortha_oil_back_in_stock_20261021": true,
-    "cyclogalbanate_10pct_dpg_added_20261021": true
+    "cyclogalbanate_10pct_dpg_added_20261021": true,
+    "pcpa_powder_solid_as_supplied_20261021": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -6223,14 +6229,14 @@
       "state": "OWNED",
       "category": "floral / narcotic / modifier",
       "stock": {
-        "physical_form": "as_supplied",
+        "physical_form": "solid_as_supplied",
         "fraction": 1.0,
         "fraction_basis": "neat",
         "carrier": "",
         "fraction_authority": "ORDER_FORM_NEAT_USER_CONFIRMED_AS_ORDERED",
-        "execution_basis": "USER_ADD_20261020_PARA_CRESYL_PHENYL_ACETATE_NEAT_AS_ORDERED",
+        "execution_basis": "USER_ADD_20261020_PARA_CRESYL_PHENYL_ACETATE_NEAT_AS_ORDERED_CORRECTED_20261021_PCPA_IS_POWDER",
         "execution_ready": true,
-        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+        "execution_scope": "WEIGHED_SOLID_OR_PREPARED_SOLUTION_ONLY"
       },
       "supplier_product": {
         "supplier": "PerfumersWorld",
@@ -6258,9 +6264,15 @@
         "supplier_from_email_sweep_not_user_message": true,
         "fraction_from_user_message": false,
         "fraction_from_order_form": true,
-        "user_confirmed_as_ordered": true
+        "user_confirmed_as_ordered": true,
+        "physical_form_from_user_message": true
       },
-      "note": "PerfumersWorld 1PF01952, 1 g, ordered neat. Kenny 'ye' (22:11:56 UTC, 'Check new ingredients in code') to recording the arrived lines as ordered, neat unless the order says a dilution; arrival confirmed by 'both' (22:10:43 UTC). Order line read by the ingredients thread from his email; no lot, CAS on label, purity or density asserted. No IFRA row or physics yet, so it holds by name."
+      "note": "PerfumersWorld 1PF01952, 1 g, ordered neat. Kenny 'ye' (22:11:56 UTC, 'Check new ingredients in code') to recording the arrived lines as ordered, neat unless the order says a dilution; arrival confirmed by 'both' (22:10:43 UTC). Order line read by the ingredients thread from his email; no lot, CAS on label, purity or density asserted. No IFRA row or physics yet, so it holds by name. Corrected 21 Oct 2026 with Kenny's 'P cresyl phenyl acetate is powder' (01:20:42 UTC, 'Stock data into the engine' thread; p-tolyl phenylacetate is white crystals, mp 74-76 C): dose it by weight or as a dilution he has made, never as neat microlitres; no dilution is recorded until he says one is made.",
+      "physical_form_correction": {
+        "effective_date": "2026-10-21",
+        "source_quote": "P cresyl phenyl acetate is powder",
+        "source_message_timestamp_utc": "2026-10-21T01:20:42Z"
+      }
     },
     {
       "record_id": "INV-USER-20261014-STK-130",

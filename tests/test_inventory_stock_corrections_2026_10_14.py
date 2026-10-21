@@ -172,6 +172,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "my dmbca i poder",
         "i have nagarmortha oil no",
         "It went in as a 10%",
+        "P cresyl phenyl acetate is powder",
     ]
     superseded = [
         "INV-USER-20260830-010",
