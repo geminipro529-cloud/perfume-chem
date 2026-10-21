@@ -292,6 +292,11 @@
         "message_timestamp_utc": "2026-10-21T01:20:42Z",
         "text": "P cresyl phenyl acetate is powder",
         "context": "'Stock data into the engine' thread, answering whether his PerfumersWorld p-Cresyl Phenyl Acetate is a powder or crystals"
+      },
+      {
+        "message_timestamp_utc": "2026-10-21T01:48:32Z",
+        "text": "It’s made",
+        "context": "Frontend redesign thread, answering the recipe 'weigh 0.10 g of neat Aldehyde C12 MNA into 0.90 g of DPG and mix ... 1 g of Aldehyde C12 MNA 10% w/w in DPG' (01:32:40 UTC)"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -352,7 +357,8 @@
     "dmbca_powder_solid_as_supplied_20261020": true,
     "nagarmortha_oil_back_in_stock_20261021": true,
     "cyclogalbanate_10pct_dpg_added_20261021": true,
-    "pcpa_powder_solid_as_supplied_20261021": true
+    "pcpa_powder_solid_as_supplied_20261021": true,
+    "c12_mna_10pct_dpg_made_20261021": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -6841,6 +6847,50 @@
         "carrier_from_user_message": false
       },
       "note": "Kenny: 'It went in as a 10%' (21 Oct 2026 00:42:08 UTC, CHIMIE Femme thread), answering whether the Cyclogalbanate in his bottle was the 10% or neat. His dilution of the neat MySkinRecipes stock (STK-133, COA file lot 70Z7N2); no basis or solvent given, so his standing rule applies: 10% w/w in DPG. A separate stock from the neat bottle. No IFRA row or physics yet, so it holds by name."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-141",
+      "canonical_name": "Aldehyde C12 MNA 10% in DPG",
+      "aliases": [
+        "Aldehyde C12 MNA 10%"
+      ],
+      "state": "OWNED",
+      "category": "citrus top",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "USER_PREPARED_TO_A_STATED_WEIGHED_RECIPE",
+        "execution_basis": "USER_MADE_20261021_C12_MNA_10PCT_WW_DPG_V5_ROW_14_REPLACED",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 14
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-21",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "It’s made",
+      "source_message_timestamp_utc": "2026-10-21T01:48:32Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "fraction_from_user_message": false,
+        "fraction_from_recipe_he_confirmed": true,
+        "basis_and_carrier_from_recipe": true,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny made it: 'It’s made' (21 Oct 2026 01:48:32 UTC, Frontend redesign thread), answering the recipe 0.10 g neat Aldehyde C12 MNA into 0.90 g DPG (about 1 g, 10% w/w in DPG). Replaces the V5 row 14 '10% working dilution' stock, which had no basis or carrier and was not execution-ready. The neat stock and the 1% v/v in ethanol stay as they are."
     }
   ]
 }

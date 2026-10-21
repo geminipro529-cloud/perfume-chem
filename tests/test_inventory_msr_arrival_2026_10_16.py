@@ -195,3 +195,13 @@ def test_p_cresyl_phenyl_acetate_is_a_powder_dosed_by_weight():
     assert record["supplier_product"]["sku"] == "1PF01952"
     stocks = [s for s in inventory.materialize_current_inventory().stocks if s.identity_name == "Para-Cresyl Phenyl Acetate"]
     assert len(stocks) == 1 and stocks[0].physical_form == "solid_as_supplied"
+
+
+def test_c12_mna_10pct_dpg_made_by_kenny_replaces_the_v5_working_dilution():
+    # Kenny, 21 Oct 2026 01:48:32 UTC (Frontend redesign thread): "It’s made" (0.10 g neat into 0.90 g DPG).
+    stocks = {s.name: s for s in inventory.materialize_current_inventory().stocks if s.identity_name.startswith("Aldehyde C12 MNA")}
+    assert "Aldehyde C12 MNA 10%" not in stocks
+    made = stocks["Aldehyde C12 MNA 10% in DPG"]
+    assert (made.dilution, made.fraction_basis, made.carrier, made.execution_ready) == (0.1, "mass_fraction", "dpg", True)
+    assert stocks["Aldehyde C12 MNA neat"].dilution == 1.0
+    assert (stocks["Aldehyde C12 MNA"].dilution, stocks["Aldehyde C12 MNA"].carrier) == (0.01, "ethanol")

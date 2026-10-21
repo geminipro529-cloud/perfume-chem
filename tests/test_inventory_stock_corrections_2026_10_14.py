@@ -173,6 +173,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "i have nagarmortha oil no",
         "It went in as a 10%",
         "P cresyl phenyl acetate is powder",
+        "It’s made",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -209,7 +210,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 141)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 142)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

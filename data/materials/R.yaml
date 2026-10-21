@@ -1593,7 +1593,7 @@
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml: 0.867
+  density_25c_g_ml: 0.853
   logp:
   functional_groups: []
   chirality:
@@ -1615,10 +1615,10 @@
   supplier:
   families: []
   character:
-  notes: 'MySkinRecipes 2199302 Rhodinol (citronellol/geraniol blend), neat; separate from Rhodinol ex Citronella.'
+  notes: 'MySkinRecipes 2199302 Rhodinol (code 2760, lot 4XG0CM), neat; separate from Rhodinol ex Citronella.'
   provenance:
-    density_25c_g_ml: 'TGSC specific gravity 0.865-0.873 @ 20 C, midpoint x 0.99821 (20 C value)'
-    notes: 'Foreverest Rhodinol: citronellol 55-75%, geraniol 20-40%; CAS 141-25-3 / 6812-78-8 (TGSC); a blend, so no single MW or VP'
+    density_25c_g_ml: 'MySkinRecipes 2760 page and COA lot 4XG0CM: relative density 0.8500-0.8600 (25/25 C), midpoint x 0.99705; RI 1.4520-1.4620, content 96% min'
+    notes: 'MSR lists CAS 141-25-3 (page) and 6812-78-8 (COA, the (3S) form). Its density and RI match citronellol (Parchem 0.850-0.860 / 1.450-1.460) rather than a typical rhodinol blend (Foreverest citronellol 55-75%, geraniol 20-40%), so probably mostly citronellol; only a GC settles it. No single MW or VP asserted'
 - canonical_name: Rum Ether
   aliases: []
   cas: '8030-89-5'
