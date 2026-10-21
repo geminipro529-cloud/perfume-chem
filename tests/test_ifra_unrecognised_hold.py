@@ -170,6 +170,7 @@ STILL_HELD = {
     "Cabbage Rose Extract",
     "Canthoxal",
     "Cyclogalbanate",
+    "Cyclogalbanate 10% in DPG",
     "Decatone",
     "Decatone 10% in DPG",
     "Dimethyl Benzyl Carbinol",

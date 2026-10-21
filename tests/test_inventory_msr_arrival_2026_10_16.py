@@ -174,3 +174,12 @@ def test_nagarmortha_oil_is_back_in_stock_neat():
     stocks = [s for s in inventory.materialize_current_inventory().stocks if s.identity_name == "Nagarmortha Oil"]
     assert len(stocks) == 1
     assert (stocks[0].dilution, stocks[0].fraction_basis, stocks[0].physical_form) == (1.0, "neat", "as_supplied")
+
+
+def test_cyclogalbanate_10pct_is_a_separate_dpg_dilution():
+    # Kenny, 21 Oct 2026 00:42:08 UTC (CHIMIE Femme thread): "It went in as a 10%".
+    stocks = {s.name: s for s in inventory.materialize_current_inventory().stocks if s.identity_name.startswith("Cyclogalbanate")}
+    assert set(stocks) == {"Cyclogalbanate", "Cyclogalbanate 10% in DPG"}
+    diluted = stocks["Cyclogalbanate 10% in DPG"]
+    assert (diluted.dilution, diluted.fraction_basis, diluted.carrier) == (0.1, "mass_fraction", "dpg")
+    assert stocks["Cyclogalbanate"].dilution == 1.0
