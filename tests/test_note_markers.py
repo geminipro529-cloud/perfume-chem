@@ -79,6 +79,15 @@ def test_a_marker_below_threshold_keeps_the_note_held_not_missed(ppm, status) ->
     assert ys._note_status([row], {row.name}, ["tonka"]) == status
 
 
+def test_other_constituents_never_add_to_the_marker() -> None:
+    # Rule 4: half of coumarin's threshold stays half, however loud the rest of the absolute is.
+    row = _Natural("Tonka Bean Absolute", "tonka bean absolute",
+                   {"coumarin": 0.00035, "ethyl cinnamate": 10.0, "benzoic acid": 10.0})
+    (reading,) = nm.marker_readings(row)
+    assert math.isclose(reading["screening_oav"], 0.5) and not reading["reaches_threshold"]
+    assert ys._note_status([row], {row.name}, ["tonka"]) == "unknown_physics"
+
+
 def test_a_tonka_note_is_judged_through_coumarin_on_the_card() -> None:
     formula = {"name": "t", "batch_volume_ml": 30.0, "rows": [
         {"material": "Tonka Bean Absolute", "amount": "1500", "unit": "uL",
@@ -101,3 +110,25 @@ def test_a_tonka_note_is_judged_through_coumarin_on_the_card() -> None:
     import json
 
     assert "screening_oav" not in json.dumps({k: v for k, v in card.items() if k != "diagnostics"})
+
+
+def test_the_marker_is_read_in_the_notes_own_window() -> None:
+    # 150 uL of 10% tonka: coumarin is far below its threshold on the first spray and far
+    # above it in the drydown, so each note is judged from its own window's vapour.
+    formula = {"name": "t", "batch_volume_ml": 30.0, "rows": [
+        {"material": "Tonka Bean Absolute", "amount": "150", "unit": "uL",
+         "active_fraction": "0.1", "fraction_basis": "mass_fraction", "carrier": "DPG",
+         "tier": "base"},
+        {"material": "Iso E Super", "amount": "300", "unit": "uL", "active_fraction": "1",
+         "tier": "base"},
+    ]}
+    brief = {"id": "t", "named_notes": [
+        {"name": "sweet early", "window": "opening", "materials": ["tonka"]},
+        {"name": "sweet", "window": "drydown", "materials": ["tonka"]}]}
+    card = ys.score_formula(formula, brief)
+    early, late = card["name_parts"]["named_notes"]
+    assert early["status"] == "unknown_physics" and "via_marker" not in early
+    assert late["status"] == "detectable" and late["via_marker"]["constituent"] == "coumarin"
+    readings = card["diagnostics"]["note_markers"]
+    assert not readings["sweet early (opening)"][0]["reaches_threshold"]
+    assert readings["sweet (drydown)"][0]["reaches_threshold"]
