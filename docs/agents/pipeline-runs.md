@@ -37,6 +37,26 @@ The JSON output is ~6000 lines. Gates are only ~20%. Agents MUST extract these s
 | **IFRA details** | Gate `safety_ifra_allergen` → `data` | Violations, edge dosing, allergen declarations |
 | **Config** | `config_summary` | Confirm brief, archetype, temperature, concentration bracket |
 | **Dermal exposure** | Gate `safety_ifra_allergen` → `data.dermal_exposure[]` | Per-material skin penetration estimates |
+| **Row roles over time** | `formulas[0].role_reading` | Each row's role over the five windows and which rows the luxury index miscounts as shadows (below) |
+
+#### Row roles over time (`role_reading`)
+
+`formulas[*].role_reading`, printed as the text section "Row roles over time", reads the
+gate's own five windows (0 s, 5 min, 30 min, 2 h, 4 h). Screening OAV per window is a
+detection diagnostic (`AGENTS.md` Rule 1).
+
+- What it is: each row's role over the windows: lead (top 5 by OAV in some window),
+  support (OAV >= 1 in some window, never top 5), shadow (peak OAV 0.1 to below 1), silent
+  (OAV below 0.1 in every window that has one) or unknown (no OAV, with the engine's
+  reason); a bridge flag for rows detectable both early (by 30 min) and late (2 h or
+  later); per window, the rows at OAV >= 1 and the top 5. Two flags: `INDEX_SHADOWS_NOT_SHADOWS`
+  names the rows the luxury index counts as sub-threshold shadows that become notes, never
+  reach 0.1 or have no OAV; `SILENT_ROWS` names the rows that never reach OAV 0.1.
+- What it is not: a measure of depth, objects, textures, strength or beauty. A count of
+  detectable rows, families or textures is the size of the crowd, not a number of objects,
+  and supports no depth or luxury claim. Kenny's nose decides (F12 in `failure-registry.md`).
+- It sets no gate status, score, ranking or overall. `status` is `OK`, `UNAVAILABLE` (no
+  frames) or `ERROR` (the reader failed; the error is recorded and the gate carries on).
 
 ### Required: always present the OAV headspace table
 
