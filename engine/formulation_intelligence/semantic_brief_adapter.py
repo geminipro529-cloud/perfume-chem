@@ -40,7 +40,7 @@ from engine.formulation_intelligence.target_compiler import (
     TemporalTransformation,
     compile_target_intent,
 )
-from engine.research.composition_planner import AccordPart
+from engine.research.composition_planner import ACCORD_SUPPORT_SEPARATOR, AccordPart
 from engine.research.request_interpretation import plain_stock_name
 
 
@@ -1382,7 +1382,6 @@ def _roles(
 # two supporting stocks of the same note, with their own matching odor and a
 # different family, are added beside it in a 62/23/15 proportion.
 ACCORD_SUPPORT_PROVENANCE = "ACCORD_SUPPORT"
-ACCORD_SUPPORT_SEPARATOR = "__accord_"
 _ACCORD_SPLIT = (.62, .23, .15)
 _ACCORD_FUNCTIONS = frozenset({"character", "structure", "texture"})
 

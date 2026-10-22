@@ -29,7 +29,6 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Sequence
 
-from engine.formulation_intelligence.semantic_brief_adapter import ACCORD_SUPPORT_SEPARATOR
 from engine.ifra_standards import single_material_limit_pct
 from engine.ingredient_intelligence import MaterialProfile, get_profile
 from engine.inventory_completions import effective_design_ready
@@ -109,6 +108,11 @@ def _cached_legacy_inventory(
 def _cached_reference_registry(registry_sha256: str):
     del registry_sha256
     return load_commercial_reference_registry()
+
+
+# An accord support's role id is its lead's role id, this separator and a
+# number (semantic_brief_adapter builds them and re-exports the name).
+ACCORD_SUPPORT_SEPARATOR = "__accord_"
 
 
 @dataclass(frozen=True, slots=True)
