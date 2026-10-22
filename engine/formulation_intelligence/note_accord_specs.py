@@ -1,6 +1,7 @@
 """Cited note accords: a lead plus helpers, each helper with a job and a source.
 
-A plain data table plus validation. Nothing here is wired into the composer yet.
+A plain data table plus validation. The semantic brief adapter builds a named
+covered note's accord from it.
 
 Every node comes from ``construction_library_v1.json`` and quotes that node's own
 "function" text. A lead or helper is admitted only when at least one of its
@@ -13,6 +14,14 @@ Every stock is bound to the stock the formula solver itself sees: exactly one
 capability of ``material_capability_index.build_material_capability_index()``
 with that identity name and stock fraction, design-ready and execution-ready
 (a bottle Kenny can pipette). The index is built on first use, not at import.
+A helper takes only its cited stocks, so the formula solver spares it the
+support rules that read a stock off the prompt's words: the lead's odor match,
+the family bucket of its own lead, and the refusal of a potent trace material
+in a support place (the planner still holds its dose under the identity hard
+cap and the IFRA cap).
+At run time a spec that fails (a cited stock used up or no longer design-ready)
+is left out, so its notes keep today's supports, and ``skipped_specs()`` says
+why; the check over every spec at once is a test.
 
 Every node is an untested design hypothesis (the library marks each one
 SOURCE_DESCRIPTOR_TO_FUNCTION_HYPOTHESIS, with no numeric calibration). A job
@@ -55,12 +64,16 @@ JOBS = MappingProxyType({
 })
 
 SHARE_BASIS = (
-    "share_of_lead is the helper's active amount (stock volume x stock fraction) as a "
-    "fraction of the lead's active amount. The numbers are design defaults, not "
-    "citations: no source gives a dose. They copy today's _ACCORD_SPLIT ratios "
-    "(.23/.62 = .37 for the first helper, .15/.62 = .24 for the second), so wiring "
-    "changes what a helper is and why, not how big it is. Each helper stays below "
-    "half the lead and all helpers together stay below the lead."
+    "share_of_lead scales the lead role's design share into the helper role's share, "
+    "as today's _ACCORD_SPLIT does for a note's same-query supports; the planner then "
+    "turns shares into stock volumes as for every role, so a diluted stock gets more "
+    "volume. The numbers are design defaults, not citations: no source gives a dose. "
+    "They copy today's ratios (.23/.62 = .37 for the first helper, .15/.62 = .24 for "
+    "the second), so wiring changes what a helper is and why, not how big its role "
+    "is. Each helper's share stays below half the lead's and all helpers' together "
+    "stay below the lead's. The planner holds each helper's active amount (stock "
+    "volume x stock fraction) at or under its lead's (ACCORD_HELPER_ABOVE_LEAD), "
+    "except beside a trace-level lead."
 )
 FIRST_HELPER_SHARE, SECOND_HELPER_SHARE = .37, .24
 
@@ -450,15 +463,34 @@ def validate_specs(specs: Sequence[AccordSpec]) -> None:
 
 
 @lru_cache(maxsize=1)
-def _validated() -> Mapping[str, AccordSpec]:
-    validate_specs(SPECS)
-    return MappingProxyType({facet_id: spec for spec in SPECS for facet_id in spec.facet_ids})
+def _validated() -> tuple[Mapping[str, AccordSpec], Mapping[str, str]]:
+    """The specs that pass ``validate_specs``, by facet id, and each left-out
+    spec's note with the reason."""
+
+    usable: list[AccordSpec] = []
+    skipped: dict[str, str] = {}
+    for spec in SPECS:
+        try:
+            validate_specs((*usable, spec))
+        except ValueError as error:
+            skipped[spec.note] = str(error)
+        else:
+            usable.append(spec)
+    return (
+        MappingProxyType({facet_id: spec for spec in usable for facet_id in spec.facet_ids}),
+        MappingProxyType(skipped),
+    )
 
 
 def accord_spec_for(facet_id: str) -> AccordSpec | None:
-    """The cited accord for a facet, or None when the facet has none."""
-    return _validated().get(facet_id)
+    """The cited accord for a facet, or None when the facet has none or its spec is left out."""
+    return _validated()[0].get(facet_id)
 
 
 def covered_facets() -> frozenset[str]:
-    return frozenset(_validated())
+    return frozenset(_validated()[0])
+
+
+def skipped_specs() -> Mapping[str, str]:
+    """Each spec left out at run time, by note, with the reason."""
+    return _validated()[1]

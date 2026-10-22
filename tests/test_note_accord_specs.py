@@ -192,6 +192,29 @@ def test_helpers_stay_clearly_below_the_lead():
         specs.validate_specs((_with_helper("rose", share_of_lead=.8),))
 
 
+def test_a_spec_whose_stock_is_gone_is_left_out_and_every_brief_still_composes(monkeypatch):
+    """Hedione used up: the rose spec is left out with its reason, the other
+    specs still apply, and a brief naming no covered note still composes."""
+
+    from engine.formulation_intelligence.formula_design_runtime import design_formula
+
+    real = specs._unbound_reason
+    monkeypatch.setattr(
+        specs, "_unbound_reason",
+        lambda name, fraction: "used up" if name == "Hedione" else real(name, fraction),
+    )
+    specs._validated.cache_clear()
+    try:
+        assert specs.accord_spec_for("rose") is None
+        assert "Hedione" in specs.skipped_specs()["rose"]
+        assert specs.accord_spec_for("aromatic_lavender") is not None
+        result = design_formula(idea="A bright citrus cologne with neroli and petitgrain.",
+                                design_mode="FAST_SKETCH")
+        assert result["design_variants"][0]["formula"]["rows"]
+    finally:
+        specs._validated.cache_clear()
+
+
 def test_a_node_with_only_marketed_perfume_sources_is_rejected():
     spec = specs.accord_spec_for("aromatic_lavender")
     marketed = specs.Helper(
@@ -205,7 +228,20 @@ def test_a_node_with_only_marketed_perfume_sources_is_rejected():
 
 
 def _is_duel_path(path) -> bool:
-    return "opus" in os.fspath(path).casefold()  # data/benchmarks/opus_duel_v1.json and its cards
+    # data/benchmarks/opus_duel_v1.json, and the reference cards it cites,
+    # which all live under studio/ (Kenny's bench cards and gate files).
+    text = os.fspath(path).replace(os.sep, "/").casefold()
+    return "opus" in text or text.startswith("studio/") or "/studio/" in text
+
+
+def test_the_guard_sees_the_cards_the_duel_file_cites():
+    import json
+    import re
+
+    duel = (specs.ROOT / "data/benchmarks/opus_duel_v1.json").read_text(encoding="utf-8")
+    cards = set(re.findall(r"studio/[^\"\s:+]+", json.dumps(json.loads(duel))))
+    assert cards
+    assert all(_is_duel_path(specs.ROOT / card) for card in cards)
 
 
 def test_loader_never_opens_the_duel_file(monkeypatch):
