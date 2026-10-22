@@ -73,19 +73,81 @@ def test_a_support_that_cannot_come_down_keeps_its_volume_under_a_hold(monkeypat
     assert holds == ["ACCORD_HELPER_ABOVE_LEAD:ionone"]
 
 
-def test_a_move_that_would_break_the_named_floor_holds_instead(monkeypatch) -> None:
+def _leather_accord(*, cedar_exact=False):
     choices = [
         _choice("leather_base_5pct", "facet_leather", named=True, dilution=0.05),
         _choice("agarwood", "facet_leather__accord_1", named=True),
         _choice("cedar", "base_wood"),
     ]
+    choices[2].role.exact_preference_required = cedar_exact
+    return choices
+
+
+def _named_share(choices, result, fixed=None) -> Decimal:
+    amounts = {**(fixed or {}), **result}
+    total = sum(_active(choices[index], amount) for index, amount in amounts.items())
+    named = sum(_active(choices[index], amount) for index, amount in amounts.items()
+                if choices[index].role.serves_requested_facet)
+    return named / total
+
+
+def test_a_move_that_leaves_the_floor_short_takes_from_the_unnamed_rows(monkeypatch) -> None:
     # Named share is 40.6%; moving 1950 uL of neat support into a 5% lead
     # (the weakest lead still checked) would leave the named rows about 6%
-    # of the active volume.
+    # of the active volume, so the lead also takes from the unnamed cedar,
+    # as the floor rule does, until the floor holds again.
+    choices = _leather_accord()
+    result, holds = _lead(monkeypatch, choices, {0: 1000, 1: 2000, 2: 3000})
+
+    assert _active(choices[1], result[1]) <= _active(choices[0], result[0])
+    assert _named_share(choices, result) >= Decimal("0.40")
+    assert result[2] < 3000
+    assert holds == []
+
+
+def test_a_move_whose_floor_cannot_be_restored_holds_instead(monkeypatch) -> None:
+    # The cedar is a requested stock, so no unnamed row can give volume.
+    choices = _leather_accord(cedar_exact=True)
     result, holds = _lead(monkeypatch, choices, {0: 1000, 1: 2000, 2: 3000})
 
     assert result == {0: 1000, 1: 2000, 2: 3000}
     assert holds == ["ACCORD_HELPER_ABOVE_LEAD:agarwood"]
+
+
+def test_a_move_may_not_lower_a_floor_already_short(monkeypatch) -> None:
+    # A fixed 3000 uL cedar keeps the named share at 16% whatever the floor
+    # rule does; moving the support's excess into the 10% lead would lower
+    # it further and leave the recorded short share overstated.
+    import engine.research.composition_planner as planner
+
+    choices = _iris_accord()
+    choices[2] = _choice("violet_leaf_10pct", "facet_violet", named=True, dilution=0.1)
+    monkeypatch.setattr(planner, "_allocation_weight", lambda _choice: 1.0)
+    monkeypatch.setattr(planner, "_firm_cap_ul", lambda _choice, _total: None)
+    allocated = {0: 1000, 1: 300, 2: 1700}
+    holds: list[str] = []
+    result = planner._lead_with_named_notes(
+        allocated, [(index, 1.0, None) for index in allocated], {3: 3000}, choices, 6000, holds,
+    )
+
+    assert result == allocated
+    assert holds == ["NAMED_NOTE_FLOOR_SHORT:16.0", "ACCORD_HELPER_ABOVE_LEAD:ionone"]
+
+
+def test_a_support_beside_a_lead_under_one_transfer_of_active_is_not_checked(monkeypatch) -> None:
+    # Rose Oxide 10% under its hard cap: 60 uL is 6 uL active, so holding the
+    # neat support to it would leave a 6 uL row nobody can pipette.
+    choices = [
+        _choice("rose_oxide_10pct", "explicit_anchor_1", named=True, dilution=0.1),
+        _choice("phenethyl_alcohol", "explicit_anchor_1__accord_1", named=True),
+        _choice("violet_leaf", "facet_violet", named=True),
+        _choice("cedar", "base_wood"),
+    ]
+    allocated = {0: 60, 1: 1500, 2: 1500, 3: 2940}
+    assert _lead(monkeypatch, choices, allocated) == (allocated, [])
+    # At 100 uL (10 uL active) it is checked and brought down to 10 uL.
+    result, holds = _lead(monkeypatch, choices, {0: 100, 1: 1500, 2: 1500, 3: 2900})
+    assert result[1] == 10 and holds == []
 
 
 def test_a_support_of_a_trace_grade_lead_is_not_checked(monkeypatch) -> None:

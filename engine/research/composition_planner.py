@@ -131,15 +131,21 @@ def accord_lead_role_id(role_id: str) -> str | None:
 def accord_lead_checked(lead_ul: Any, lead_fraction: Any) -> bool:
     """Whether an accord's supports are held to its lead's active volume.
 
-    Only when the lead row exists (``lead_ul`` is not None), is non-empty and
-    is no trace-grade stock: the active volume of a potent trace material and
-    of a weak helper are not comparable, and odour activity may not decide
-    which of them leads (AGENTS.md Rule 1).
+    Only when the lead row exists (``lead_ul`` is not None), is no
+    trace-grade stock and carries at least one transfer's worth of active
+    material (10 uL): the active volume of a potent material kept at a trace
+    (a trace-grade stock, or Rose Oxide 10% under its hard cap) and of a weak
+    helper are not comparable, and odour activity may not decide which of
+    them leads (AGENTS.md Rule 1).
     """
 
     if lead_ul is None or lead_fraction is None:
         return False
-    return Decimal(str(lead_ul)) > 0 and Decimal(str(lead_fraction)) >= Decimal(str(TRACE_STOCK_FRACTION))
+    fraction = Decimal(str(lead_fraction))
+    return (
+        fraction >= Decimal(str(TRACE_STOCK_FRACTION))
+        and Decimal(str(lead_ul)) * fraction >= _MIN_RAW_TRANSFER_UL
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -2035,11 +2041,15 @@ def _lead_with_named_notes(
     4. Accord: no accord support (role id: its lead's role id,
        ACCORD_SUPPORT_SEPARATOR, a number) carries more active volume than
        its own lead row; the excess goes to the named rows that are no
-       support (the star's own when there is a star).  A support whose lead
-       row is absent, empty or a trace-grade stock (accord_lead_checked) is
-       left alone.  One that cannot be brought down
-       (a requested quantity, an exact preferred material, no room under the
-       recipients' firm caps, or a move that would break rule 1, 2 or 3)
+       support (the star's own when there is a star).  The lead may be weaker
+       than the support, so when the move leaves the named share under the
+       floor, those rows take volume from the unnamed rows as in rule 1
+       until it holds again.  A support whose lead row is absent, a
+       trace-grade stock or under 10 uL active (accord_lead_checked) is left
+       alone, so a support brought down keeps at least 10 uL.  One that
+       cannot be brought down (a requested quantity, an exact preferred
+       material, no room under the recipients' firm caps, or a move that
+       would break rule 1, 2 or 3 or lower a floor share already short)
        keeps its volume under an ACCORD_HELPER_ABOVE_LEAD hold.
 
     The named rows never pass a firm cap (identity hard cap, trace cap,
@@ -2098,42 +2108,52 @@ def _lead_with_named_notes(
             moved[index] += amount
         return moved
 
-    def floor_take(fraction: float) -> dict[int, int]:
-        return {
-            index: amounts[index]
-            - max(min(amounts[index], _MIN_RAW_TRANSFER_UL), int(amounts[index] * (1 - fraction)))
-            for index in donors
-        }
+    def reach_floor(
+        base: dict[int, int],
+        recipients: Sequence[int] | None = None,
+    ) -> tuple[dict[int, int], bool]:
+        """``base`` with the same fraction of every donor moved to the
+        recipients, the smallest fraction that brings the named share to the
+        floor, or the largest placeable one; and whether the floor holds."""
 
-    state = amounts
-    if named_share(state) < NAMED_NOTE_FLOOR_SHARE:
+        def take(fraction: float) -> dict[int, int]:
+            return {
+                index: base[index]
+                - max(min(base[index], _MIN_RAW_TRANSFER_UL), int(base[index] * (1 - fraction)))
+                for index in donors
+            }
+
         # Share and freed volume both grow with the fraction taken, so the
         # largest placeable fraction and the smallest sufficient one are
         # found by bisection.
         low, high = 0.0, 1.0
-        if move(amounts, floor_take(high)) is None:
+        if move(base, take(high), recipients) is None:
             for _ in range(40):
                 middle = (low + high) / 2
-                if move(amounts, floor_take(middle)) is None:
+                if move(base, take(middle), recipients) is None:
                     high = middle
                 else:
                     low = middle
             high = low
-        reachable = move(amounts, floor_take(high)) or amounts
+        reachable = move(base, take(high), recipients) or base
         if named_share(reachable) < NAMED_NOTE_FLOOR_SHARE:
-            state = reachable
+            return reachable, False
+        low = 0.0
+        for _ in range(40):
+            middle = (low + high) / 2
+            candidate = move(base, take(middle), recipients)
+            if candidate is not None and named_share(candidate) >= NAMED_NOTE_FLOOR_SHARE:
+                high = middle
+            else:
+                low = middle
+        return move(base, take(high), recipients) or base, True
+
+    state = amounts
+    if named_share(state) < NAMED_NOTE_FLOOR_SHARE:
+        state, reached = reach_floor(amounts)
+        if not reached:
             percent = (named_share(state) * 100).quantize(Decimal("0.1"))
             holds.append(f"NAMED_NOTE_FLOOR_SHORT:{percent}")
-        else:
-            low = 0.0
-            for _ in range(40):
-                middle = (low + high) / 2
-                candidate = move(amounts, floor_take(middle))
-                if candidate is not None and named_share(candidate) >= NAMED_NOTE_FLOOR_SHARE:
-                    high = middle
-                else:
-                    low = middle
-            state = move(amounts, floor_take(high)) or amounts
 
     lead = max(active(state, index) for index in named_all)
     over = sorted(
@@ -2227,7 +2247,19 @@ def _lead_with_named_notes(
             if index not in allocated or choices[index].role.exact_preference_required
             else move(state, {index: max(0, state[index] - keep)}, takers)
         )
-        if moved is None or broken(moved) - broken(state):
+        if (
+            moved is not None
+            and "floor" not in broken(state)
+            and named_share(moved) < NAMED_NOTE_FLOOR_SHARE
+        ):
+            topped, reached = reach_floor(moved, takers)
+            moved = topped if reached else None
+        if (
+            moved is None
+            or broken(moved) - broken(state)
+            # A floor already short may not fall further.
+            or named_share(moved) < min(named_share(state), NAMED_NOTE_FLOOR_SHARE)
+        ):
             holds.append(f"ACCORD_HELPER_ABOVE_LEAD:{choices[index].candidate.stock.stock_id}")
             continue
         state = moved
