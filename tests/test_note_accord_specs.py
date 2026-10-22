@@ -13,7 +13,7 @@ from dataclasses import replace
 import pytest
 
 from engine.formulation_intelligence import note_accord_specs as specs
-from engine.inventory_completions import effective_design_ready
+from engine.formulation_intelligence.material_capability_index import build_material_capability_index
 from engine.research import composition_planner as planner
 
 LIBRARY_PATH = specs.ROOT / "data/formulation_knowledge/construction_library_v1.json"
@@ -25,8 +25,12 @@ def _parts(spec):
         yield helper.node, helper.stocks
 
 
-def _owned():
-    return planner._cached_legacy_inventory(planner._inventory_text_sha256(), False)
+def _capabilities(stock):
+    """The solver's capabilities with this stock's identity name and stock fraction."""
+    return [
+        capability for capability in specs._capability_index().capabilities
+        if capability.identity_name == stock.name and abs(capability.candidate.stock.dilution - stock.fraction) < 1e-9
+    ]
 
 
 def _with_helper(facet_id, **changes):
@@ -38,18 +42,18 @@ def test_lavender_iris_and_rose_are_covered_and_the_gaps_are_named():
     covered = specs.covered_facets()
     assert {
         "aromatic_lavender", "rose", "iris_violet", "iris_root", "iris_butter",
-        "iris_cosmetic", "iris_transparent", "iris_woody", "vetiver_root", "apricot",
+        "iris_cosmetic", "iris_transparent", "iris_woody", "vetiver_root", "apricot", "creamy_wood",
     } == covered
-    assert set(specs.NOT_COVERED) == {"sandalwood", "pear"}
-    assert specs.accord_spec_for("creamy_wood") is None
+    assert set(specs.NOT_COVERED) == {"pear"}
+    assert specs.accord_spec_for("creamy_wood").named_by == ("sandalwood", "sandal")
     assert specs.accord_spec_for("fruit") is None
     assert specs.accord_spec_for("citrus_peel") is None
 
 
 def test_lavender_lead_prefers_the_neat_bontaux_oil_over_the_one_percent():
     lead = specs.accord_spec_for("aromatic_lavender").lead_stocks[0]
-    rows = [row for row in _owned() if row.name == lead.name and row.dilution == lead.fraction]
-    assert len(rows) == 1 and "BONTAUX" in rows[0].raw_name
+    rows = _capabilities(lead)
+    assert len(rows) == 1 and "BONTAUX" in rows[0].identity_name
     assert lead.fraction == 1.0 and not lead.grade_differs
     names = [(stock.name, stock.fraction) for stock in specs.accord_spec_for("aromatic_lavender").lead_stocks]
     assert ("Lavender EO", .01) not in names
@@ -123,19 +127,39 @@ def test_a_helper_the_package_never_pairs_with_the_lead_is_rejected():
 
 
 def test_every_stock_is_owned_and_design_ready():
-    owned = _owned()
     for spec in specs.SPECS:
         for _node, stocks in _parts(spec):
             for stock in stocks:
-                rows = [row for row in owned if row.name == stock.name and abs(row.dilution - stock.fraction) < 1e-9]
-                assert len(rows) == 1 and effective_design_ready(rows[0]), stock
+                rows = _capabilities(stock)
+                assert len(rows) == 1 and rows[0].design_ready, stock
                 assert not stock.grade_differs or stock.note.strip()
+
+
+def test_every_stock_binds_to_one_pipettable_capability_of_the_solver_index():
+    index = build_material_capability_index()
+    for spec in specs.SPECS:
+        for _node, stocks in _parts(spec):
+            for stock in stocks:
+                rows = [
+                    capability for capability in index.capabilities
+                    if capability.identity_name == stock.name
+                    and abs(capability.candidate.stock.dilution - stock.fraction) < 1e-9
+                ]
+                assert len(rows) == 1 and rows[0].design_ready and rows[0].execution_ready, stock
+    specs.validate_specs(specs.SPECS)  # the validator binds the same way
+    for stock in (
+        specs.StockRef("Haitian Vetiver EO", 1.0),  # design-ready text row, no bottle to pipette
+        specs.StockRef("Osmanthus Absolute (volume grade)", 1.0),  # the same
+        specs.StockRef("Ambrox Super Crystals", 1.0),  # inventory.txt name, not the solver's identity name
+    ):
+        with pytest.raises(ValueError, match="not one owned, design-ready stock"):
+            specs.validate_specs((_with_helper("rose", stocks=(stock,)),))
 
 
 @pytest.mark.parametrize("stock", [
     specs.StockRef("Methyl Ionone Gamma Coeur", 1.0),  # depleted
     specs.StockRef("Javanol Super", 1.0),  # not owned
-    specs.StockRef("Lavender EO", .01),  # owned, not design-ready
+    specs.StockRef("Hedione HC", 1.0),  # owned, not design-ready
     specs.StockRef("Hedione", .1),  # owned name, wrong strength
 ])
 def test_a_stock_that_is_not_one_owned_design_ready_bottle_is_rejected(stock):
@@ -151,7 +175,9 @@ def test_a_grade_difference_needs_a_note():
 
 def test_unowned_helpers_are_left_out_and_recorded():
     used = {stock.name for spec in specs.SPECS for _node, stocks in _parts(spec) for stock in stocks}
-    assert not used & {"Methyl Ionone Gamma Coeur", "Javanol", "Sandalwood Base 3X", "Alpha Isomethyl Ionone"}
+    assert not used & {
+        "Methyl Ionone Gamma Coeur", "Javanol", "Sandalwood Base 3X", "Sandalwood Base X3", "Alpha Isomethyl Ionone",
+    }
     materials = " ".join(row["material"] for row in specs.EXCLUDED)
     for material in ("Gamma Coeur", "Javanol Super", "Davana", "Houbigant", "Pera Granita"):
         assert material in materials
@@ -200,7 +226,7 @@ def test_loader_never_opens_the_duel_file(monkeypatch):
 
     monkeypatch.setattr(builtins, "open", guarded_open)
     monkeypatch.setattr(pathlib.Path, "open", guarded_path_open)
-    for cached in (specs._validated, specs.source_records, planner._cached_legacy_inventory):
+    for cached in (specs._validated, specs.source_records, specs._capability_index, planner._cached_legacy_inventory):
         cached.cache_clear()
     assert specs.accord_spec_for("aromatic_lavender") is not None
     assert specs.covered_facets()

@@ -9,6 +9,11 @@ from the source's record in ``literature_v1.json`` (evidence class, DOI, URL),
 never from the source id. Nodes whose only sources are marketed perfumes, and
 materials Kenny does not own, are left out and listed in ``EXCLUDED``.
 
+Every stock is bound to the stock the formula solver itself sees: exactly one
+capability of ``material_capability_index.build_material_capability_index()``
+with that identity name and stock fraction, design-ready and execution-ready
+(a bottle Kenny can pipette). The index is built on first use, not at import.
+
 Every node is an untested design hypothesis (the library marks each one
 SOURCE_DESCRIPTOR_TO_FUNCTION_HYPOTHESIS, with no numeric calibration). A job
 is a design label for Kenny's nose to check, not a measured effect, and nothing
@@ -72,9 +77,10 @@ _USABLE_REVIEW_STATES = frozenset({"LEGACY_ADVISORY", "REVIEWED_ADVISORY"})
 
 @dataclass(frozen=True)
 class StockRef:
-    """An owned stock, by its exact parsed inventory name and stock fraction.
+    """An owned stock, by its capability ``identity_name`` and stock fraction.
 
-    The fraction separates bottles that share a name (Lavender EO neat and 1%).
+    The name is exactly the identity name the solver's capability index gives,
+    and the fraction separates bottles that share it (Ambrox Super neat, 25% and 10%).
     ``grade_differs`` marks a different grade of the cited material; ``note``
     then says how, in one line.
     """
@@ -120,14 +126,17 @@ SPECS: tuple[AccordSpec, ...] = (
         named_by=("lavender", "fougere", "fougère"),
         lead=NodeRef("AR_LAVENDER", "recognizer", "lavender identity", ("bontoux_lavender_products",)),
         lead_stocks=(
-            StockRef("Lavender EO", 1.0),  # inventory.txt "Lavender EO (BONTAUX SAS)", the cited producer's oil
+            StockRef("Lavender EO (BONTAUX SAS)", 1.0, note="the cited producer's lavender oil, neat as supplied"),
             StockRef("Lavender 40/42, Aroma&More", 1.0, True,
                      "Aroma&More 40/42 standardised lavender, not a Bontoux product"),
         ),
         helpers=(
             Helper("texture", NodeRef("AR_LAVENDER", "alternative_texture", "mineral support alternative",
                                       ("dsm_ambrox_super_description",)),
-                   (StockRef("Ambrox Super Crystals", 1.0),), FIRST_HELPER_SHARE),
+                   (StockRef("Ambrox Super", 1.0, note="crystals, neat as supplied"),
+                    StockRef("Ambrox Super", .25, note="Kenny's 25% w/w solution in DPG + IPM + ethanol"),
+                    StockRef("Ambrox Super", .1, note="Kenny's 10% w/w solution in ethanol + DPG")),
+                   FIRST_HELPER_SHARE),
         ),
     ),
     AccordSpec(
@@ -138,8 +147,15 @@ SPECS: tuple[AccordSpec, ...] = (
         # FL_IRIS's negative space calls Orris Liquid held; Kenny cleared that hold on
         # 2026-10-08 (data/governance/inventory_compounding_holds.json has no records).
         lead_stocks=(
+            StockRef("Orris Concrete Orris Butter", .1, True,
+                     "PerfumersWorld orris concrete/butter 5IA07847 at 10% w/w in DPG, irone content not "
+                     "recorded; not the Biolandes assay-specified butter"),
+            StockRef("Orris Butter 50% in EtOH", .5, True,
+                     "Kenny's 50% w/w solution in ethanol of MySkinRecipes orris butter, irone content "
+                     "unknown; not the Biolandes assay-specified butter"),
             StockRef("Orris Liquid", .09, True,
-                     "PerfumersWorld Orris Liquid 8IQ24653 at 9% in DEP, not the Biolandes assay-specified butter"),
+                     "PerfumersWorld Orris Liquid 8IQ24653 at 9% in DEP, about 1-5% alpha-irone; a liquid "
+                     "orris product, not the Biolandes assay-specified butter"),
         ),
         helpers=(
             Helper("texture", NodeRef("FL_IRIS", "bridge", "powder/wood support", ("iff_orivone",)),
@@ -151,9 +167,18 @@ SPECS: tuple[AccordSpec, ...] = (
         facet_ids=("rose",),
         named_by=("rose", "rosy"),
         lead=NodeRef("FL_ROSE", "recognizer", "fresh-petal anchor", ("iff_rose_completion",)),
+        # The cited product is a processed (low methyl eugenol) Turkish Rosa damascena
+        # oil (claim iff_rose_completion_descriptor). Kenny owns no processed grade.
         lead_stocks=(
-            StockRef("Rose Essential Oil", 1.0, True,
-                     "steam-distilled Rosa damascena (India), not IFF Rose Essential Low ME For Life"),
+            StockRef("Rose Otto Bulgarian", .1, True,
+                     "PerfumersWorld 5RR12478 Bulgarian Rosa damascena otto at 10% w/w in DPG; steam-distilled, "
+                     "not IFF's processed low-methyl-eugenol Turkish product"),
+            StockRef("Rose Essential Oil (Rosa Damascena, India)", 1.0, True,
+                     "steam-distilled Rosa damascena oil from India, neat; not IFF's processed "
+                     "low-methyl-eugenol Turkish product"),
+            StockRef("Rose de Mai Absolute", .1, True,
+                     "Rosa centifolia absolute at 10% w/w in DPG: another species and a solvent extract, "
+                     "not a damascena oil"),
         ),
         helpers=(
             Helper("lift", NodeRef("FL_ROSE", "bridge", "transparent petal support", ("dsm_hedione_foundation",)),
@@ -166,7 +191,7 @@ SPECS: tuple[AccordSpec, ...] = (
         named_by=("vetiver",),
         lead=NodeRef("WO_VETIVER", "recognizer", "root anchor", ("iff_vetiver_completion",)),
         lead_stocks=(
-            StockRef("Haitian Vetiver EO", 1.0, True,
+            StockRef("Vetiver EO (Haiti)", 1.0, True,
                      "Haitian vetiver oil of unrecorded supplier, not IFF LMR Vetiver Oil Haiti"),
         ),
         helpers=(
@@ -175,7 +200,7 @@ SPECS: tuple[AccordSpec, ...] = (
                                       ("iff_iso_e_super_completion",)),
                    (StockRef("Iso E Super", 1.0),), FIRST_HELPER_SHARE),
             Helper("contrast", NodeRef("WO_VETIVER", "bridge", "citrus contrast", ("iff_bergamot_fcr_foundation",)),
-                   (StockRef("Bergamot FCF oil Sicilian", 1.0, True,
+                   (StockRef("Bergamot FCF Oil Sicilian", 1.0, True,
                              "FCF bergamot, not the cited FCR grade (claim bergamot_fcr_product_boundary)"),),
                    SECOND_HELPER_SHARE),
         ),
@@ -186,8 +211,8 @@ SPECS: tuple[AccordSpec, ...] = (
         named_by=("apricot", "apricots"),
         lead=NodeRef("FR_STONE", "recognizer", "apricot/tea/leather bridge", ("iff_osmanthus_completion",)),
         lead_stocks=(
-            StockRef("Osmanthus Absolute", 1.0, True,
-                     "volume-grade osmanthus absolute (lower beta-ionone), not IFF LMR Osmanthus Absolute"),
+            StockRef("Osmanthus Absolute", .1, True,
+                     "osmanthus absolute of unrecorded supplier at 10% w/w in DPG, not IFF LMR Osmanthus Absolute"),
         ),
         helpers=(
             Helper("texture", NodeRef("FR_STONE", "bridge", "creamy flesh socket",
@@ -197,16 +222,30 @@ SPECS: tuple[AccordSpec, ...] = (
                    FIRST_HELPER_SHARE),
         ),
     ),
+    AccordSpec(
+        note="sandalwood",
+        facet_ids=("creamy_wood",),
+        # creamy_wood also answers "creamy wood", "milky wood" and "soft wood"; the
+        # sandalwood accord applies only when the brief names sandalwood.
+        named_by=("sandalwood", "sandal"),
+        lead=NodeRef("WO_SANDAL", "recognizer", "natural product anchor", ("iff_sandal_nc_completion",)),
+        lead_stocks=(
+            StockRef("Sandalwood EO", .1, True,
+                     "PerfumersWorld sandalwood oil at 10% in DPG; CAS 84787-70-2 is the Santalum album CAS, but "
+                     "the certificate names no species; not IFF's New Caledonian S. austrocaledonicum oil"),
+        ),
+        helpers=(
+            # The producer describes warm sweet sandalwood (claim sandalwood_exact_register),
+            # and CONTROL_CORE calls it a restrained synthetic support to the natural core.
+            Helper("round", NodeRef("WO_SANDAL", "bridge", "synthetic sandal socket",
+                                    ("givaudan_sandalore_foundation",)),
+                   (StockRef("Sandalore", 1.0),), FIRST_HELPER_SHARE),
+        ),
+    ),
 )
 
 # Notes the brief asked for that have no spec, and why.
 NOT_COVERED = MappingProxyType({
-    "sandalwood": (
-        "WO_SANDAL is natural-oil-led ('natural product anchor'), and Kenny's only sandalwood oil, "
-        "Sandalwood EO 10% in DPG, is not design-ready in the parsed inventory; Sandalwood Base 3X is a "
-        "pre-blended accord, not the cited oil. Without the anchor the 'synthetic sandal socket' "
-        "(Sandalore) has nothing to support, and the 'grade contrast socket' (Javanol Super) is not owned."
-    ),
     "pear": (
         "No facet in semantic_brief_adapter.py is pear: pear is one word of the umbrella 'fruit' facet "
         "(with apple, peach, plum, berry, mango, pineapple), so a pear accord keyed by facet id would "
@@ -214,9 +253,8 @@ NOT_COVERED = MappingProxyType({
     ),
 })
 
-# Nodes and stocks left out, and why. Ownership and design-readiness are as
-# composition_planner._cached_legacy_inventory(sha, include_unavailable=False)
-# parses inventory.txt, with engine.inventory_completions.effective_design_ready.
+# Nodes and stocks left out, and why. Ownership and readiness are as the solver's
+# material_capability_index.build_material_capability_index() reports them.
 EXCLUDED: tuple[Mapping[str, str], ...] = tuple(MappingProxyType(row) for row in (
     {"note": "lavender", "node": "AR_LAVENDER/bridge", "material": "Houbigant Fougere Royale structure",
      "reason": "only source is a marketed perfume page (houbigant_fougere_royale_extrait)"},
@@ -224,31 +262,47 @@ EXCLUDED: tuple[Mapping[str, str], ...] = tuple(MappingProxyType(row) for row in
      "material": "Fougere Royale, Guerlain Mitsouko structures",
      "reason": "only sources are marketed perfume pages"},
     {"note": "lavender", "node": "AR_FOUGERE/bridge", "material": "IFF Tonka Bean Absolute",
-     "reason": "fougere structure, not the lavender note: AR_LAVENDER's negative space says not to equate "
-               "lavender with tonka sweetness, and a fougere brief already gets coumarin/tonka from the "
-               "fougere_coumarin facet"},
-    {"note": "lavender", "node": "AR_LAVENDER/recognizer", "material": "Lavender EO (1%)",
-     "reason": "owned but not design-ready; the neat Bontaux oil is preferred"},
-    {"note": "lavender", "node": "AR_LAVENDER/alternative_texture", "material": "Ambrox Super (25% w/w)",
-     "reason": "owned but not design-ready; Ambrox Super Crystals is used"},
+     "reason": "Tonka Bean Absolute 10% in DPG is owned and executable, but this is fougere structure, not the "
+               "lavender note: AR_LAVENDER's negative space says not to equate lavender with tonka sweetness, "
+               "and a fougere brief already gets coumarin/tonka from the fougere_coumarin facet"},
+    {"note": "lavender", "node": "AR_LAVENDER/recognizer", "material": "Lavender EO (1% in DPG)",
+     "reason": "a trace grade (stock fraction .01, below .05) and a stronger grade is owned: the neat BONTAUX oil "
+               "leads. The 1% record does not say which lavender oil it was made from"},
+    {"note": "lavender", "node": "AR_LAVENDER/recognizer", "material": "Lavandin Absolute, Spike Lavender EO",
+     "reason": "owned but not design-ready in the capability index"},
     {"note": "iris", "node": "FL_IRIS/bridge", "material": "Meth Ionone Gamma Coeur",
      "reason": "depleted 2026-09-24; inventory says AIMI is not a substitute"},
     {"note": "iris", "node": "FL_IRIS/alternative_texture", "material": "Dihydro Beta Ionone",
      "reason": "FL_IRIS pairs the petal alternative with the bridge, never with the root anchor "
                "(ALTERNATIVE_SOCKET = bridge + alternative_texture): it replaces the lead, it does not help it"},
-    {"note": "iris", "node": "FL_IRIS/recognizer", "material": "Orris Concrete Orris Butter (10% in DPG)",
-     "reason": "owned but not design-ready"},
+    {"note": "iris", "node": "FL_IRIS/recognizer", "material": "Iris Florentina Root Extract (5% in DPG)",
+     "reason": "a MySkinRecipes PG scent extract of unasserted strength and irone content; it never stands "
+               "for an orris absolute or butter"},
+    {"note": "iris", "node": "FL_IRIS/recognizer", "material": "Alpha Irone (10% in DEP, 25% in IPM)",
+     "reason": "an isolated irone, not a grade of orris butter: an irone dilution and an orris extract are "
+               "distinct products (claim iris_extract_identity)"},
     {"note": "rose", "node": "FL_ROSE/alternative_texture", "material": "Meth Ionone Gamma Coeur",
      "reason": "depleted 2026-09-24"},
-    {"note": "rose", "node": "FL_ROSE/recognizer", "material": "Rose de Mai Absolute 10%, Rose Otto Bulgarian 10%",
-     "reason": "owned but not design-ready"},
+    {"note": "rose", "node": "FL_ROSE/recognizer", "material": "Cabbage Rose Extract (1% in DPG)",
+     "reason": "a trace grade (stock fraction .01, below .05) of a MySkinRecipes Rosa centifolia extract of "
+               "unasserted strength, and stronger natural rose grades are owned"},
+    {"note": "rose", "node": "FL_ROSE/bridge", "material": "Hedione HC",
+     "reason": "another grade of the cited Hedione, and owned but not design-ready; Hedione is used"},
+    {"note": "vetiver", "node": "WO_VETIVER/recognizer", "material": "Haitian Vetiver EO (inventory.txt text row)",
+     "reason": "design-ready text row with no pipettable bottle record (not execution-ready); the bottle is "
+               "Vetiver EO (Haiti), which is used"},
     {"note": "sandalwood", "node": "WO_SANDAL/alternative_texture", "material": "Givaudan Javanol Super",
-     "reason": "not owned; Javanol is a different grade described as rosy/powdery rather than woody/lactonic "
-               "(claim givaudan_javanol_super_completion_descriptor), and the node is a grade contrast"},
+     "reason": "not owned. Kenny's neat Javanol is the other grade, which the producer describes as rosy/powdery "
+               "where Javanol Super is woodier and lactonic (claim givaudan_javanol_super_completion_descriptor). "
+               "The node is a grade contrast socket, so its job is that grade's own character, and WO_SANDAL's "
+               "stop rule rejects rosy drift: another grade cannot fill it"},
+    {"note": "sandalwood", "node": "WO_SANDAL/recognizer", "material": "Sandalwood Base X3",
+     "reason": "a pre-blended sandalwood base of undisclosed composition, not a grade of the cited natural oil"},
     {"note": "apricot", "node": "FR_STONE/alternative_texture", "material": "IFF Davana Oil",
      "reason": "not owned"},
-    {"note": "apricot", "node": "FR_STONE/recognizer", "material": "Osmanthus Absolute (10% in DPG)",
-     "reason": "owned but not design-ready; the volume-grade neat absolute is used"},
+    {"note": "apricot", "node": "FR_STONE/recognizer", "material": "Osmanthus Absolute (volume grade), neat",
+     "reason": "design-ready text row with no pipettable bottle record (not execution-ready); the 10% in DPG "
+               "absolute is used"},
     {"note": "pear", "node": "FR_ORCHARD/alternative_texture", "material": "Pera Granita, English Pear & Freesia",
      "reason": "only sources are marketed perfume pages"},
 ))
@@ -292,15 +346,27 @@ def source_records() -> tuple[Mapping[str, Mapping[str, Any]], Mapping[str, str]
     return MappingProxyType(sources), MappingProxyType(reviews)
 
 
-def _owned_design_ready(name: str, fraction: float) -> bool:
-    from engine.inventory_completions import effective_design_ready
-    from engine.research.composition_planner import _cached_legacy_inventory, _inventory_text_sha256
+@lru_cache(maxsize=1)
+def _capability_index():
+    """The formula solver's own capability index, built once on first use."""
+    from .material_capability_index import build_material_capability_index
 
-    rows = [
-        stock for stock in _cached_legacy_inventory(_inventory_text_sha256(), False)
-        if stock.name == name and abs(stock.dilution - fraction) < 1e-9
+    return build_material_capability_index()
+
+
+def _unbound_reason(name: str, fraction: float) -> str | None:
+    """Why (name, fraction) is not one capability Kenny can pipette, or None when it is."""
+    matches = [
+        capability for capability in _capability_index().capabilities
+        if capability.identity_name == name and abs(capability.candidate.stock.dilution - fraction) < 1e-9
     ]
-    return len(rows) == 1 and effective_design_ready(rows[0])
+    if len(matches) != 1:
+        return f"{len(matches)} capabilities have that identity name and fraction"
+    if not matches[0].design_ready:
+        return "not design-ready"
+    if not matches[0].execution_ready:
+        return "not execution-ready (no pipettable bottle record)"
+    return None
 
 
 def _known_facet_ids() -> frozenset[str]:
@@ -339,8 +405,12 @@ def _check_stocks(stocks: Sequence[StockRef], where: str) -> None:
     for stock in stocks:
         if stock.grade_differs and not stock.note.strip():
             raise ValueError(f"{where}: {stock.name} differs in grade but has no note")
-        if not _owned_design_ready(stock.name, stock.fraction):
-            raise ValueError(f"{where}: {stock.name} at {stock.fraction} is not one owned, design-ready stock")
+        reason = _unbound_reason(stock.name, stock.fraction)
+        if reason:
+            raise ValueError(
+                f"{where}: {stock.name} at {stock.fraction} is not one owned, design-ready stock "
+                f"Kenny can pipette: {reason}"
+            )
 
 
 def validate_specs(specs: Sequence[AccordSpec]) -> None:
