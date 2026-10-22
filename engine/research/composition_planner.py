@@ -111,6 +111,30 @@ def _cached_reference_registry(registry_sha256: str):
 
 
 @dataclass(frozen=True, slots=True)
+class AccordPart:
+    """A role's part in a cited note accord (note_accord_specs.py).
+
+    ``part`` is "lead" or "helper"; a helper has a ``job``, the lead has none.
+    ``function`` quotes the construction-library node's own text and
+    ``source_ids`` its cited sources. ``stocks`` are the (identity name, stock
+    fraction) pairs the spec cites for this part. An untested design idea.
+    """
+
+    note: str
+    part: str
+    job: str | None
+    function: str
+    source_ids: tuple[str, ...]
+    stocks: tuple[tuple[str, float], ...]
+
+    def cites(self, identity_name: str, fraction: float) -> bool:
+        return any(
+            name == identity_name and abs(float(fraction) - share) < 1e-9
+            for name, share in self.stocks
+        )
+
+
+@dataclass(frozen=True, slots=True)
 class RoleSpec:
     role_id: str
     label: str
@@ -130,6 +154,8 @@ class RoleSpec:
     # The row serves the note the brief calls "the star"; no other free row
     # may carry more active volume than the star's largest row.
     star_note: bool = False
+    # The role's part in a cited note accord, or None for every other role.
+    accord: AccordPart | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -2199,6 +2225,29 @@ _ROLE_RELATIONSHIP_RATIONALE = {
 }
 
 
+def _cited_accord(role: RoleSpec, stock: Any) -> AccordPart | None:
+    """The role's accord part when this row fills it with a cited stock.
+
+    A helper role only ever takes a cited stock. A lead may take another
+    stock of its note; that row keeps the ordinary rationale.
+    """
+
+    accord = role.accord
+    if accord is None or (accord.part == "lead" and not accord.cites(
+        stock.identity_name or stock.name, float(stock.dilution),
+    )):
+        return None
+    return accord
+
+
+def _accord_rationale(accord: AccordPart) -> str:
+    part = f"helper: {accord.job}" if accord.part == "helper" else "lead"
+    return (
+        f"{accord.note.capitalize()} accord, {part} ({accord.function}), "
+        f"source {', '.join(accord.source_ids)}, untested design idea."
+    )
+
+
 def _role_rationale(role: RoleSpec) -> str:
     relationship = _ROLE_RELATIONSHIP_RATIONALE.get(role.role_id)
     if relationship:
@@ -2302,6 +2351,7 @@ def _formula_rows(
             if candidate.legacy_text_only
             else (stock.identity_name or stock.name)
         )
+        accord = _cited_accord(choice.role, stock)
         rows.append(
             {
                 "row_id": f"design-v2-{index + 1:02d}-{stable_payload_hash({'stock': stock.stock_id, 'role': choice.role.role_id})[:10]}",
@@ -2335,7 +2385,9 @@ def _formula_rows(
                     if _allocation_weight(choice) != choice.role.share
                     else "CONCEPT_ROLE_SHARE_WITH_CAPS"
                 ),
-                "rationale": _role_rationale(choice.role),
+                "rationale": (
+                    _role_rationale(choice.role) if accord is None else _accord_rationale(accord)
+                ),
                 "alternatives_considered": [
                     {
                         "material": material,
@@ -2358,6 +2410,14 @@ def _formula_rows(
                 "authority": "DESIGN_HYPOTHESIS_ONLY",
             }
         )
+        if accord is not None:
+            rows[-1]["accord"] = {
+                "note": accord.note,
+                "part": accord.part,
+                "job": accord.job,
+                "function": accord.function,
+                "source_ids": list(accord.source_ids),
+            }
         ceiling = _normal_use_ceiling(candidate)
         if ceiling is None and not candidate.solid:
             ceiling = _screening_default(choice, liquid_total_ul)

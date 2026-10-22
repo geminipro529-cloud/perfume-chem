@@ -100,6 +100,7 @@ def _role_spec(role: SemanticRole, *, star_note: bool = False) -> RoleSpec:
         serves_requested_facet=_is_named_note(role),
         generic_slot=not _is_named_note(role) and role.provenance in _GENERIC_SLOT_PROVENANCE,
         star_note=star_note,
+        accord=role.accord,
     )
 
 
@@ -697,7 +698,14 @@ def _accord_affinity(
     return affinity
 
 
-def _allowed(
+def _is_cited_helper(role: SemanticRole) -> bool:
+    """A helper of a cited note accord: it may take only the spec's stocks."""
+
+    accord = getattr(role, "accord", None)  # stand-in roles in tests carry none
+    return accord is not None and accord.part == "helper"
+
+
+def _block_reason(
     capability: MaterialCapability,
     role: SemanticRole,
     state: _BeamState,
@@ -706,26 +714,28 @@ def _allowed(
     allow_multiple_musks: bool,
     enforce_own_odor_avoid: bool = False,
     named_identity: tuple[str, ...] = (),
-) -> bool:
+) -> str | None:
+    """Why ``capability`` may not fill ``role`` in ``state``, or None when it may."""
+
     identity = _chemical_identity(capability)
     if identity in state.used_identities:
-        return False
+        return "already used in this formula"
     if _avoid_candidate(capability.candidate, avoid):
-        return False
+        return "the brief's avoid list"
     if role.knowledge_role_slot and role.knowledge_role_slot not in capability.knowledge_role_slots:
-        return False
+        return "not a stock of the role's knowledge slot"
     if not supports_descriptor_requirement(capability, role.descriptor_requirement):
-        return False
+        return "lacks the role's own-descriptor requirement"
     if architecture_avoid_conflict(capability, role.descriptor_requirement, avoid,
                                   all_roles=enforce_own_odor_avoid):
-        return False
+        return "the brief's avoid list"
     groups = state.groups()
     if capability.group == "musk" and groups.get("musk", 0) >= 1:
         if not allow_multiple_musks and role.exact_material is None:
-            return False
+            return "one-musk rule"
     if capability.group == "citrus" and groups.get("citrus", 0) >= 2:
         if role.exact_material is None and role.role_id != "persistent_identity":
-            return False
+            return "citrus limit (two citrus stocks already)"
     backing = _backing(capability, role, state)
     family = _family_bucket(capability)
     if (
@@ -745,15 +755,16 @@ def _allowed(
     ):
         # Permit layered iris only for separately reviewed recognizer/texture
         # slots. Generic coverage still cannot accumulate family duplicates.
+        family_rule = f"family-bucket rule ({family} already in the formula)"
         if family != "iris" or not role.knowledge_role_slot or groups.get("family:iris", 0) >= 3:
-            return False
+            return family_rule
         previous_slots = {
             prior_role.knowledge_role_slot
             for prior_role, prior_capability, _ in state.assignments
             if _family_bucket(prior_capability) == "iris"
         }
         if None in previous_slots or role.knowledge_role_slot in previous_slots:
-            return False
+            return family_rule
     if (
         role.exact_material is None
         and (
@@ -769,22 +780,27 @@ def _allowed(
         and not (named_identity and capability.design_ready
                  and capability.identity_vocabulary & set(named_identity))
     ):
-        return False
-    if role.provenance == ACCORD_SUPPORT_PROVENANCE and not backing:
+        return "IFRA limit at the role's dose ceiling"
+    # A cited accord helper carries a cited job, not the lead's odor: the
+    # odor-match rule does not apply to it.
+    if role.provenance == ACCORD_SUPPORT_PROVENANCE and not backing and not _is_cited_helper(role):
         lead = _accord_lead(role, state)
         if not _supports_accord(capability, role, lead[0] if lead else None):
-            return False
+            return "does not carry the lead's note and odor"
     if capability.candidate.solid and role.exact_material is None:
         # A solid needs an explicit mass-bearing request.  Selecting one from a
         # descriptor alone would force the solver to invent a mass operation.
-        return False
+        return "a solid stock needs a mass request"
     if role.provenance == ACCENT_PROVENANCE and role.exact_material is None:
         # Accents are the one supporting place for potent materials, kept to
         # a trace by _accent_admits and the accent's small raw-share ceiling.
-        return _accent_admits(capability, role)
+        return None if _accent_admits(capability, role) else "too potent for an accent"
     if (
         role.exact_material is None
         and role.provenance != "PROMPT_DERIVED_FACET"
+        # A cited helper's stock is the source's choice, not a prompt-word
+        # match; the planner's hard cap still bounds its dose.
+        and not _is_cited_helper(role)
         and (
             "trace" in capability.function_terms
             or _hard_cap_ul(capability.candidate, 10_000) is not None
@@ -793,8 +809,24 @@ def _allowed(
         # Potent trace materials belong only to a directly requested facet or
         # exact material role.  They must not become bulk opening/bridge/base
         # carriers merely because one prompt word matches their profile.
-        return False
-    return True
+        return "potent trace material outside a requested note"
+    return None
+
+
+def _allowed(
+    capability: MaterialCapability,
+    role: SemanticRole,
+    state: _BeamState,
+    *,
+    avoid: Sequence[str],
+    allow_multiple_musks: bool,
+    enforce_own_odor_avoid: bool = False,
+    named_identity: tuple[str, ...] = (),
+) -> bool:
+    return _block_reason(
+        capability, role, state, avoid=avoid, allow_multiple_musks=allow_multiple_musks,
+        enforce_own_odor_avoid=enforce_own_odor_avoid, named_identity=named_identity,
+    ) is None
 
 
 # Single-group layer and accent odor families an own descriptor can name.
@@ -940,6 +972,12 @@ def _unary_rank_for_role(
     required_identity: tuple[str, ...] | None = None,
 ) -> list[tuple[float, MaterialCapability]]:
     ranked: list[tuple[float, MaterialCapability]] = []
+    query_terms = role.query_terms
+    accord = getattr(role, "accord", None)
+    if accord is not None and accord.part == "lead":
+        # A cited lead prefers the spec's recognizer stocks; any stock of
+        # the note may still lead it.
+        query_terms = tuple(dict.fromkeys((*(name for name, _ in accord.stocks), *query_terms)))
     for capability in index.capabilities:
         if _avoid_candidate(capability.candidate, avoid):
             continue
@@ -954,7 +992,7 @@ def _unary_rank_for_role(
             continue
         score = capability_role_score(
             capability,
-            query_terms=role.query_terms,
+            query_terms=query_terms,
             character_weights=role.character_weights,
             note=role.note,
             function=role.function,
@@ -973,6 +1011,12 @@ def _unary_rank_for_role(
             score -= _UNSCORABLE_PENALTY
         score += _stable_tie(role.role_id, capability.stock_id, variant_index)
         ranked.append((score, capability))
+    if _is_cited_helper(role) and role.exact_material is None:
+        # A cited accord helper takes one of its spec's own stocks, or none.
+        ranked = [
+            row for row in ranked
+            if role.accord.cites(row[1].identity_name, row[1].candidate.stock.dilution)
+        ]
     family_words = family_role_words(role.role_id)
     # The brief self-check's repair names the words a role's stock should
     # carry (a pepper lead that is a pepper); otherwise the brief's own rule.
@@ -1107,11 +1151,12 @@ def _rank_for_state(
     if lead is not None and role.exact_material is None:
         # A support never outscores its lead: otherwise the summed objective
         # prefers a weak lead with the strongest match demoted to support.  A
-        # backing molecule is held at its lead's score instead of dropped.
+        # backing molecule or a cited helper's stock is held at its lead's
+        # score instead of dropped.
         ranked = [
             (min(row[0], lead[1]), row[1])
             for row in ranked
-            if row[0] <= lead[1] or _backing(row[1], role, state)
+            if row[0] <= lead[1] or _backing(row[1], role, state) or _is_cited_helper(role)
         ]
     ranked.sort(key=lambda row: _rank_key(row, role, variant_index, liking))
     return ranked if role.exact_material is not None else ranked[:10]
@@ -1141,6 +1186,70 @@ def _annotate_liking(
             **liking(str(row.get("identity_name") or "")).as_dict(),
             "applied": row.get("slot") not in exact_roles,
         }
+
+
+def _count_groups(groups: dict[str, int], capability: MaterialCapability) -> None:
+    """Count a placed stock's group and family bucket, as the beam does."""
+
+    groups[capability.group] = groups.get(capability.group, 0) + 1
+    family = _family_bucket(capability)
+    if family is not None:
+        key = f"family:{family}"
+        groups[key] = groups.get(key, 0) + 1
+
+
+def _unplaced_cited_helpers(
+    brief: SemanticBrief,
+    assignments: Sequence[SolvedAssignment],
+    index: MaterialCapabilityIndex,
+    avoid: Sequence[str],
+) -> list[dict[str, Any]]:
+    """Each cited accord helper left empty, and why each of its stocks could not go in.
+
+    A stock is judged against the stocks placed before its role, by the same
+    rules the search applies.
+    """
+
+    placed = {assignment.role.role_id for assignment in assignments}
+    if not any(_is_cited_helper(role) and role.role_id not in placed for role in brief.roles):
+        return []
+    allow_multiple_musks = _allows_multiple_musks(brief.normalized_request, brief.roles)
+    enforce_own_odor_avoid = bool(brief.architecture_plan.get("operation"))
+    unplaced: list[dict[str, Any]] = []
+    for position, role in enumerate(brief.roles):
+        if not _is_cited_helper(role) or role.role_id in placed:
+            continue
+        earlier = {prior.role_id for prior in brief.roles[:position]}
+        prior = [
+            (a.role, a.capability, a.score) for a in assignments if a.role.role_id in earlier
+        ]
+        groups: dict[str, int] = {}
+        for _role, capability, _score in prior:
+            _count_groups(groups, capability)
+        state = _BeamState(
+            assignments=tuple(prior),
+            used_identities=frozenset(_chemical_identity(cap) for _role, cap, _score in prior),
+            group_counts=tuple(sorted(groups.items())),
+            objective=0.0,
+        )
+        reasons = []
+        for name, fraction in role.accord.stocks:
+            capability = next((
+                cap for cap in index.capabilities
+                if cap.identity_name == name and role.accord.cites(name, cap.candidate.stock.dilution)
+            ), None)
+            reason = "not in the capability index" if capability is None else _block_reason(
+                capability, role, state, avoid=avoid, allow_multiple_musks=allow_multiple_musks,
+                enforce_own_odor_avoid=enforce_own_odor_avoid,
+            )
+            reasons.append(f"{name} at {fraction:g}: {reason or 'not kept by the search'}")
+        unplaced.append({
+            "role_id": role.role_id,
+            "label": role.label,
+            "job": role.accord.job,
+            "reasons": reasons,
+        })
+    return unplaced
 
 
 def _solve_assignments(
@@ -1223,11 +1332,7 @@ def _solve_assignments(
             role_has_candidate = role_has_candidate or bool(ranked)
             for score, capability in ranked:
                 groups = state.groups()
-                groups[capability.group] = groups.get(capability.group, 0) + 1
-                family = _family_bucket(capability)
-                if family is not None:
-                    key = f"family:{family}"
-                    groups[key] = groups.get(key, 0) + 1
+                _count_groups(groups, capability)
                 liked = (
                     liking(capability.identity_name).value
                     if liking is not None and role.exact_material is None else 0.0
@@ -1447,6 +1552,11 @@ def solve_formula(
         "future_role_policy": "BOUNDED_REQUIRED_DESCRIPTOR_FORWARD_CHECK_V1",
         "named_fruit_recognition": {name: "NOT_SENSORY_VALIDATED" for name in brief.requested_fruits},
     }
+    unplaced_helpers = _unplaced_cited_helpers(brief, assignments, index, avoid)
+    if unplaced_helpers:
+        # Optional roles, so they never withhold the formula: recorded beside
+        # missing_roles with the reason each cited stock could not go in.
+        receipt["unplaced_accord_helpers"] = unplaced_helpers
     if identity_words:
         receipt["identity_requirements"] = {
             role_id: list(words) for role_id, words in sorted(identity_words.items())

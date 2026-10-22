@@ -236,10 +236,12 @@ def run_comparison() -> dict[str, Any]:
 def _read_roles(value: Any) -> tuple[SemanticRole, ...]:
     if not isinstance(value, (list, tuple)) or not value:
         raise ValueError("missing executable role data")
-    required = {f.name for f in fields(SemanticRole)}
+    expected = {f.name for f in fields(SemanticRole)}
+    # A role's accord is left out of its payload while it has none.
+    required = expected - {"accord"}
     roles = []
     for row in value:
-        if not isinstance(row, dict) or set(row) != required:
+        if not isinstance(row, dict) or not required <= set(row) <= expected:
             raise ValueError("incomplete or unknown executable role fields")
         roles.append(SemanticRole(**{
             **row, "query_terms": tuple(row["query_terms"]),

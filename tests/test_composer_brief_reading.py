@@ -224,11 +224,33 @@ def test_vetiver_oils_the_user_names_are_backed_by_a_vetiver_molecule() -> None:
 
 
 def test_sandalwood_oil_lead_is_backed_by_a_sandalwood_molecule() -> None:
-    rows = _rows_by_slot(design_formula(idea="creamy sandalwood with real orris"))
+    # A creamy wood that does not name sandalwood keeps today's supports.
+    rows = _rows_by_slot(design_formula(idea="a soft creamy wood"))
 
     assert rows["facet_creamy_wood"] == "Sandalwood EO", rows
     supports = [rows.get(f"facet_creamy_wood__accord_{n}", "").casefold() for n in (1, 2)]
     assert any(word in name for name in supports for word in _SANDALWOOD_MOLECULES), rows
+
+
+def test_a_named_sandalwood_takes_only_its_cited_helper() -> None:
+    # Naming sandalwood builds the cited sandalwood accord (note_accord_specs):
+    # its helper takes only the spec's stock, or stays empty with the reason
+    # recorded; no uncited molecule stands in for it.
+    from engine.formulation_intelligence.note_accord_specs import accord_spec_for
+
+    result = design_formula(idea="creamy sandalwood with real orris")
+    rows = _rows_by_slot(result)
+    assert rows["facet_creamy_wood"] == "Sandalwood EO", rows
+    (helper,) = accord_spec_for("creamy_wood").helpers
+    cited = {stock.name for stock in helper.stocks}
+    unplaced = {
+        entry["role_id"]
+        for variant in result["design_variants"]
+        for entry in variant["solver"].get("unplaced_accord_helpers", ())
+    }
+    slot = "facet_creamy_wood__accord_1"
+    assert rows.get(slot) in cited or (slot not in rows and slot in unplaced), rows
+    assert "facet_creamy_wood__accord_2" not in rows, rows
 
 
 @pytest.fixture(scope="module")

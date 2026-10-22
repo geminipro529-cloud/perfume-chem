@@ -17,6 +17,7 @@ from dataclasses import asdict, dataclass, field, replace
 from functools import lru_cache
 from typing import Any, Iterable, Mapping, Sequence
 
+from engine.formulation_intelligence import note_accord_specs
 from engine.formulation_intelligence.contracts import EvidenceClass, ProvenanceRef
 from engine.formulation_intelligence.family_structure import (
     FAMILY_ROLE_PREFIX,
@@ -39,6 +40,7 @@ from engine.formulation_intelligence.target_compiler import (
     TemporalTransformation,
     compile_target_intent,
 )
+from engine.research.composition_planner import AccordPart
 from engine.research.request_interpretation import plain_stock_name
 
 
@@ -91,6 +93,21 @@ class SemanticRole:
     provenance: str = "PROMPT_DERIVED_FACET"
     knowledge_role_slot: str | None = None
     descriptor_requirement: str | None = None
+    # The role's part in a cited note accord (note_accord_specs.py), or None.
+    # Left out of the brief payload while None, so other briefs keep their
+    # hashes. Not compared: a cited lead stays equal to the canonical facet
+    # role a v5 Deep Compose refinement must find unchanged.
+    accord: AccordPart | None = field(default=None, compare=False)
+
+    def __post_init__(self) -> None:
+        # A role read back from a JSON role plan carries its accord as a mapping.
+        if isinstance(self.accord, Mapping):
+            raw = self.accord
+            object.__setattr__(self, "accord", AccordPart(
+                note=raw["note"], part=raw["part"], job=raw.get("job"), function=raw["function"],
+                source_ids=tuple(raw["source_ids"]),
+                stocks=tuple((str(name), float(fraction)) for name, fraction in raw["stocks"]),
+            ))
 
 
 @dataclass(frozen=True, slots=True)
@@ -124,6 +141,9 @@ class SemanticBrief:
 
     def as_dict(self) -> dict[str, Any]:
         payload = asdict(self)
+        for role in payload["roles"]:
+            if role["accord"] is None:
+                del role["accord"]
         if not self.unmapped_requested_notes:
             del payload["unmapped_requested_notes"]
         if self.fragrance_family is None:
@@ -1347,7 +1367,7 @@ def _roles(
     roles = fill(roles, role_target)
     roles = roles[:maximum]
     if target_count is None:
-        roles = _with_accords(roles, maximum)
+        roles = _with_accords(roles, maximum, request_key)
         # Layers and accords add to the formula the composer built before
         # layering; at a tight ceiling they never leave it smaller.  The
         # Deep Compose places are only kept free from layers and accords.
@@ -1423,8 +1443,88 @@ def _anchor_support(anchor: SemanticRole, facet: FacetDefinition) -> SemanticRol
     )
 
 
-def _with_accords(roles: list[SemanticRole], maximum: int) -> list[SemanticRole]:
+def _cited_accords(
+    leads: Sequence[SemanticRole],
+    request_key: str,
+) -> dict[str, note_accord_specs.AccordSpec | None]:
+    """Each lead whose note has a cited accord spec the brief names.
+
+    A spec applies once per note: the iris facets share one spec, so only
+    the first iris lead builds it, and a later one maps to None (no supports).
+    """
+
+    cited: dict[str, note_accord_specs.AccordSpec | None] = {}
+    seen: set[str] = set()
+    for lead in leads:
+        if not lead.role_id.startswith("facet_"):
+            continue
+        spec = note_accord_specs.accord_spec_for(lead.role_id[len("facet_"):])
+        if spec is None or not any(_phrase_present(request_key, word) for word in spec.named_by):
+            continue
+        cited[lead.role_id] = None if spec.note in seen else spec
+        seen.add(spec.note)
+    return cited
+
+
+def _accord_part(
+    spec: note_accord_specs.AccordSpec,
+    node: note_accord_specs.NodeRef,
+    stocks: Sequence[note_accord_specs.StockRef],
+    job: str | None = None,
+) -> AccordPart:
+    return AccordPart(
+        note=spec.note,
+        part="lead" if job is None else "helper",
+        job=job,
+        function=node.function,
+        source_ids=node.source_ids,
+        stocks=tuple((stock.name, stock.fraction) for stock in stocks),
+    )
+
+
+def _cited_lead(lead: SemanticRole, spec: note_accord_specs.AccordSpec) -> SemanticRole:
+    """The lead, carrying the spec's lead part.
+
+    Its query words stay the facet's own, so the role still equals the
+    canonical facet role a v5 Deep Compose refinement looks for; the solver
+    puts the cited lead stocks first when it scores the role.
+    """
+
+    return replace(lead, accord=_accord_part(spec, spec.lead, spec.lead_stocks))
+
+
+def _cited_helper(
+    lead: SemanticRole,
+    spec: note_accord_specs.AccordSpec,
+    index: int,
+) -> SemanticRole:
+    """One helper of a cited accord: it may take only the spec's own stocks."""
+
+    helper = spec.helpers[index - 1]
+    return SemanticRole(
+        role_id=f"{lead.role_id}{ACCORD_SUPPORT_SEPARATOR}{index}",
+        label=f"{lead.label}: {spec.note} accord helper {index} ({helper.job})",
+        note=lead.note,
+        function=lead.function,
+        query_terms=_dedupe(stock.name for stock in helper.stocks),
+        character_weights=lead.character_weights,
+        share=lead.share * helper.share_of_lead,
+        required=False,
+        max_raw_share=(lead.max_raw_share or .28) * helper.share_of_lead,
+        provenance=ACCORD_SUPPORT_PROVENANCE,
+        accord=_accord_part(spec, helper.node, helper.stocks, helper.job),
+    )
+
+
+def _with_accords(
+    roles: list[SemanticRole],
+    maximum: int,
+    request_key: str = "",
+) -> list[SemanticRole]:
     leads = _accord_leads(roles)
+    # A note with a cited spec the brief names gets the spec's helpers in
+    # place of today's same-query supports.
+    cited = _cited_accords(leads, request_key)
     budget = maximum - len(roles) - _DEEP_COMPOSE_RESERVE
     supports: dict[str, int] = {}
     # One support per requested note first, then a second, so a tight
@@ -1433,11 +1533,20 @@ def _with_accords(roles: list[SemanticRole], maximum: int) -> list[SemanticRole]
         for lead in leads:
             if budget <= 0:
                 break
+            if lead.role_id in cited:
+                spec = cited[lead.role_id]
+                if spec is None or depth > len(spec.helpers):
+                    continue
             supports[lead.role_id] = depth
             budget -= 1
     expanded: list[SemanticRole] = []
     for role in roles:
         count = supports.get(role.role_id, 0)
+        spec = cited.get(role.role_id)
+        if spec is not None:
+            expanded.append(_cited_lead(role, spec))
+            expanded.extend(_cited_helper(role, spec, index) for index in range(1, count + 1))
+            continue
         if not count:
             expanded.append(role)
             continue
