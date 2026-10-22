@@ -15,7 +15,11 @@ re-checked, staying inside every limit the composer already applies:
   raise that creates a FAIL the formula did not already have is rejected;
 * the named notes' lead (``composition_planner.NAMED_NOTE_FLOOR_SHARE``): a
   raise may not take the rows that serve the brief's named notes below the
-  active-volume share the composer gave them, capped at the floor share.
+  active-volume share the composer gave them, capped at the floor share;
+* an accord's lead (``composition_planner.accord_lead_checked``): a raise may
+  not lift an accord support above its lead's active volume, a support
+  already above it is not raised, and the lead gives no volume that would
+  leave a support above it.
 
 The added microlitres come from the volume/diffusion row(s) first, then
 proportionally from other detectable non-character rows, so the liquid total
@@ -32,7 +36,7 @@ never as silent.
 from __future__ import annotations
 
 import re
-from decimal import ROUND_FLOOR, Decimal
+from decimal import ROUND_CEILING, ROUND_FLOOR, Decimal
 from typing import Any, Mapping, Sequence
 
 WINDOWS = ("opening", "top", "heart", "late_heart", "drydown")
@@ -301,6 +305,8 @@ def apply_detection_pass(
     from engine.research.composition_planner import (
         _DESIGN_FUNCTIONAL_CARRIERS,
         NAMED_NOTE_FLOOR_SHARE,
+        accord_lead_checked,
+        accord_lead_role_id,
     )
 
     named_rows = {
@@ -323,6 +329,46 @@ def apply_detection_pass(
 
     named_floor = min(NAMED_NOTE_FLOOR_SHARE, named_share(original)) if named_rows else None
 
+    # An accord support (slot: its lead's slot, the accord separator, a number)
+    # whose lead the composer checks keeps no more active volume than the lead.
+    slot_rows = {str(rows[i].get("slot")): i for i in original}
+    accord_lead = {
+        i: slot_rows.get(lead_slot)
+        for i in original
+        if (lead_slot := accord_lead_role_id(str(rows[i].get("slot") or ""))) is not None
+    }
+
+    def checked_lead(current: Mapping[int, Decimal], i: int) -> int | None:
+        """The lead row support ``i`` is held to, or None (no support, or not checked)."""
+
+        lead = accord_lead.get(i)
+        if lead is None or strength[i] <= 0 or strength[lead] <= 0 or not accord_lead_checked(
+            current[lead], rows[lead].get("stock_fraction_decimal") or 1,
+        ):
+            return None
+        return lead
+
+    def accord_ceiling(current: Mapping[int, Decimal], i: int) -> Decimal | None:
+        """Raw uL at which support ``i`` matches its lead's active volume now."""
+
+        lead = checked_lead(current, i)
+        if lead is None:
+            return None
+        return (current[lead] * strength[lead] / strength[i]).to_integral_value(rounding=ROUND_FLOOR)
+
+    def accord_lead_floors(current: Mapping[int, Decimal], wants: Mapping[int, Decimal]) -> dict[int, Decimal]:
+        """Raw uL under which a checked lead would carry less active volume than a support."""
+
+        floors: dict[int, Decimal] = {}
+        for i in accord_lead:
+            lead = checked_lead(current, i)
+            if lead is not None:
+                need = (wants.get(i, current[i]) * strength[i] / strength[lead]).to_integral_value(
+                    rounding=ROUND_CEILING,
+                )
+                floors[lead] = max(floors.get(lead, Decimal(0)), need)
+        return floors
+
     def run_raises(
         frozen: Mapping[int, str],
     ) -> tuple[dict[int, Decimal], dict[str, dict[str, float | None]], dict[int, str]]:
@@ -343,6 +389,11 @@ def apply_detection_pass(
                     limit_hit[i] = label
                     continue
                 target = min(cap, amounts[i] * STEP_FACTOR).to_integral_value(rounding=ROUND_FLOOR)
+                ceiling = accord_ceiling(amounts, i)
+                if ceiling is not None and ceiling < target:
+                    # A support is not raised past its lead's active volume,
+                    # nor at all when it already carries more (a held one).
+                    target, label = ceiling, "accord lead's active volume"
                 if target > amounts[i]:
                     wants[i] = target
                 else:
@@ -373,6 +424,11 @@ def apply_detection_pass(
             volume = [i for i in donors if str(rows[i].get("role")) == "volume"]
             others = [i for i in donors if i not in volume]
             room = {i: amounts[i] - (original[i] * DONOR_FLOOR).to_integral_value() for i in donors}
+            # A checked accord lead gives no volume that would leave one of its
+            # supports (as raised this round) above its active volume.
+            for lead, floor in accord_lead_floors(amounts, wants).items():
+                if lead in room:
+                    room[lead] = min(room[lead], amounts[lead] - floor)
             needed = sum((wants[i] - amounts[i] for i in wants), Decimal(0))
             available = sum((max(Decimal(0), room[i]) for i in donors), Decimal(0))
             if available < needed:

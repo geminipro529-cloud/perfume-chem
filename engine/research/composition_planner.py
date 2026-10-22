@@ -114,6 +114,33 @@ def _cached_reference_registry(registry_sha256: str):
 # number (semantic_brief_adapter builds them and re-exports the name).
 ACCORD_SUPPORT_SEPARATOR = "__accord_"
 
+# Below this stock strength a stock is trace grade: a potent material diluted
+# for handling.  _allocation_weight gives it no strength compensation, and an
+# accord led by one is not held to its lead's active volume.
+TRACE_STOCK_FRACTION = 0.05
+
+
+def accord_lead_role_id(role_id: str) -> str | None:
+    """The lead's role id of an accord support's role id; None for a non-support."""
+
+    if ACCORD_SUPPORT_SEPARATOR not in role_id:
+        return None
+    return role_id.split(ACCORD_SUPPORT_SEPARATOR, 1)[0]
+
+
+def accord_lead_checked(lead_ul: Any, lead_fraction: Any) -> bool:
+    """Whether an accord's supports are held to its lead's active volume.
+
+    Only when the lead row exists (``lead_ul`` is not None), is non-empty and
+    is no trace-grade stock: the active volume of a potent trace material and
+    of a weak helper are not comparable, and odour activity may not decide
+    which of them leads (AGENTS.md Rule 1).
+    """
+
+    if lead_ul is None or lead_fraction is None:
+        return False
+    return Decimal(str(lead_ul)) > 0 and Decimal(str(lead_fraction)) >= Decimal(str(TRACE_STOCK_FRACTION))
+
 
 @dataclass(frozen=True, slots=True)
 class AccordPart:
@@ -1833,7 +1860,7 @@ def _allocation_weight(choice: Choice) -> float:
     weight = max(choice.role.share, 0.000001)
     fraction = max(float(choice.candidate.stock.dilution), 0.000001)
     if (
-        0.05 <= fraction < 0.999
+        TRACE_STOCK_FRACTION <= fraction < 0.999
         and choice.role.function
         in {"character", "structure", "volume", "bridge", "fixative", "texture"}
     ):
@@ -2002,7 +2029,8 @@ def _lead_with_named_notes(
        ACCORD_SUPPORT_SEPARATOR, a number) carries more active volume than
        its own lead row; the excess goes to the named rows that are no
        support (the star's own when there is a star).  A support whose lead
-       row is absent or empty is left alone.  One that cannot be brought down
+       row is absent, empty or a trace-grade stock (accord_lead_checked) is
+       left alone.  One that cannot be brought down
        (a requested quantity, an exact preferred material, no room under the
        recipients' firm caps, or a move that would break rule 1, 2 or 3)
        keeps its volume under an ACCORD_HELPER_ABOVE_LEAD hold.
@@ -2153,7 +2181,7 @@ def _lead_with_named_notes(
     # (floor share, generic slot or star lead) counts as infeasible too.
     role_ids = {index: getattr(choices[index].role, "role_id", "") for index in state}
     by_role = {role_id: index for index, role_id in role_ids.items()}
-    supports = [index for index in state if ACCORD_SUPPORT_SEPARATOR in role_ids[index]]
+    supports = [index for index in state if accord_lead_role_id(role_ids[index]) is not None]
     takers = [index for index in (star_free or named) if index not in supports]
 
     def broken(current: dict[int, int]) -> set[object]:
@@ -2177,8 +2205,10 @@ def _lead_with_named_notes(
         return rules
 
     for index in supports:
-        lead_index = by_role.get(role_ids[index].split(ACCORD_SUPPORT_SEPARATOR, 1)[0])
-        if lead_index is None:
+        lead_index = by_role.get(accord_lead_role_id(role_ids[index]))
+        if lead_index is None or not accord_lead_checked(
+            state[lead_index], choices[lead_index].candidate.stock.dilution
+        ):
             continue
         lead = active(state, lead_index)
         if lead <= 0 or active(state, index) <= lead:

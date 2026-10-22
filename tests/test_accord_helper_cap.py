@@ -75,16 +75,31 @@ def test_a_support_that_cannot_come_down_keeps_its_volume_under_a_hold(monkeypat
 
 def test_a_move_that_would_break_the_named_floor_holds_instead(monkeypatch) -> None:
     choices = [
-        _choice("ibq_1pct", "facet_leather", named=True, dilution=0.01),
+        _choice("leather_base_5pct", "facet_leather", named=True, dilution=0.05),
         _choice("agarwood", "facet_leather__accord_1", named=True),
         _choice("cedar", "base_wood"),
     ]
-    # Named share is 40.1%; moving 1990 uL of neat support into a 1% lead
-    # would leave the named rows about 1% of the active volume.
+    # Named share is 40.6%; moving 1950 uL of neat support into a 5% lead
+    # (the weakest lead still checked) would leave the named rows about 6%
+    # of the active volume.
     result, holds = _lead(monkeypatch, choices, {0: 1000, 1: 2000, 2: 3000})
 
     assert result == {0: 1000, 1: 2000, 2: 3000}
     assert holds == ["ACCORD_HELPER_ABOVE_LEAD:agarwood"]
+
+
+def test_a_support_of_a_trace_grade_lead_is_not_checked(monkeypatch) -> None:
+    # A 1% lead is a potent material diluted for handling: its active volume
+    # and a weak helper's are not comparable, so the support is not moved
+    # down to the lead's 12 uL active and no hold is raised.
+    choices = [
+        _choice("calone_1pct", "facet_marine", named=True, dilution=0.01),
+        _choice("helper", "facet_marine__accord_1", named=True),
+        _choice("violet_leaf", "facet_violet", named=True),
+        _choice("cedar", "base_wood"),
+    ]
+    allocated = {0: 1200, 1: 1500, 2: 1500, 3: 1800}
+    assert _lead(monkeypatch, choices, allocated) == (allocated, [])
 
 
 def test_a_support_whose_lead_row_is_absent_or_empty_is_left_alone(monkeypatch) -> None:
