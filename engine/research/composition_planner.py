@@ -29,6 +29,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Sequence
 
+from engine.formulation_intelligence.semantic_brief_adapter import ACCORD_SUPPORT_SEPARATOR
 from engine.ifra_standards import single_material_limit_pct
 from engine.ingredient_intelligence import MaterialProfile, get_profile
 from engine.inventory_completions import effective_design_ready
@@ -1978,7 +1979,7 @@ def _lead_with_named_notes(
 ) -> dict[int, int]:
     """Make the notes a brief names lead the formula it composes.
 
-    Three rules, applied to the free rows only (a requested quantity is never
+    Four rules, applied to the free rows only (a requested quantity is never
     moved, and neither is a row that must use an exact preferred material):
 
     1. Floor: the rows that serve a requested facet together hold at least
@@ -1993,6 +1994,14 @@ def _lead_with_named_notes(
        row; the excess goes to the star's own rows.  A row that cannot be
        brought down (an exact preferred material, or no room under the star
        rows' firm caps) keeps its volume under a ROW_ABOVE_STAR_NOTE hold.
+    4. Accord: no accord support (role id: its lead's role id,
+       ACCORD_SUPPORT_SEPARATOR, a number) carries more active volume than
+       its own lead row; the excess goes to the named rows that are no
+       support (the star's own when there is a star).  A support whose lead
+       row is absent or empty is left alone.  One that cannot be brought down
+       (a requested quantity, an exact preferred material, no room under the
+       recipients' firm caps, or a move that would break rule 1, 2 or 3)
+       keeps its volume under an ACCORD_HELPER_ABOVE_LEAD hold.
 
     The named rows never pass a firm cap (identity hard cap, trace cap,
     normal-use ceiling or IFRA cap); their role caps may be passed, and each row that is
@@ -2130,6 +2139,57 @@ def _lead_with_named_notes(
                 holds.append(f"ROW_ABOVE_STAR_NOTE:{choices[index].candidate.stock.stock_id}")
                 continue
             state = moved
+
+    # Accord: no support row carries more active volume than its own lead.
+    # Last, because the floor, lead and star rules all give volume to named
+    # rows, supports included, and could lift a support back above its lead.
+    # The excess goes to the named rows that are no support (the star's own
+    # when the brief has one).  A weak lead takes the volume with less active
+    # than the support gave up, so a move that would break a rule above
+    # (floor share, generic slot or star lead) counts as infeasible too.
+    role_ids = {index: getattr(choices[index].role, "role_id", "") for index in state}
+    by_role = {role_id: index for index, role_id in role_ids.items()}
+    supports = [index for index in state if ACCORD_SUPPORT_SEPARATOR in role_ids[index]]
+    takers = [index for index in (star_free or named) if index not in supports]
+
+    def broken(current: dict[int, int]) -> set[object]:
+        named_lead = max(active(current, index) for index in named_all)
+        rules: set[object] = {
+            index
+            for index in allocated
+            if choices[index].role.generic_slot
+            and index not in named_all
+            and active(current, index) > named_lead
+        }
+        if named_share(current) < NAMED_NOTE_FLOOR_SHARE:
+            rules.add("floor")
+        if star_all:
+            star_lead = max(active(current, index) for index in star_all)
+            rules |= {
+                ("star", index)
+                for index in current
+                if index not in star_all and active(current, index) > star_lead
+            }
+        return rules
+
+    for index in supports:
+        lead_index = by_role.get(role_ids[index].split(ACCORD_SUPPORT_SEPARATOR, 1)[0])
+        if lead_index is None:
+            continue
+        lead = active(state, lead_index)
+        if lead <= 0 or active(state, index) <= lead:
+            continue
+        strength = Decimal(str(choices[index].candidate.stock.dilution))
+        keep = int(lead / strength) if strength > 0 else state[index]
+        moved = (
+            None
+            if index not in allocated or choices[index].role.exact_preference_required
+            else move(state, {index: max(0, state[index] - keep)}, takers)
+        )
+        if moved is None or broken(moved) - broken(state):
+            holds.append(f"ACCORD_HELPER_ABOVE_LEAD:{choices[index].candidate.stock.stock_id}")
+            continue
+        state = moved
 
     caps = {index: cap for index, _weight, cap in free_rows}
     for index in named:
