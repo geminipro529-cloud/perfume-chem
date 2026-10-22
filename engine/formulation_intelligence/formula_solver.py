@@ -1028,6 +1028,47 @@ def _pair_adjustment(
     return adjustment
 
 
+# Below this stock strength _allocation_weight (research/composition_planner.py)
+# gives a stock no strength compensation, so its raw volume stays trace-scaled.
+_TRACE_STOCK_FRACTION = .05
+
+
+def _is_note_lead(role: SemanticRole) -> bool:
+    """A named note's lead: its facet role, or the stock the brief names."""
+
+    return role.exact_material is not None or (
+        role.provenance == "PROMPT_DERIVED_FACET" and role.role_id.startswith("facet_")
+    )
+
+
+def _without_trace_grades(
+    ranked: Sequence[tuple[float, MaterialCapability]],
+) -> list[tuple[float, MaterialCapability]]:
+    """Leave out a trace-strength grade while a stronger grade of it can lead.
+
+    A trace stock keeps a trace-scaled raw volume, so as a lead it cannot
+    carry the lead's share. Role fit ignores stock strength, so grades of one
+    material score within hundredths of each other, and the beam then picks
+    one by synergy credit matched on name text: "Lavender EO" (the 1%
+    dilution's name) is in other stocks' synergy lists, "Lavender EO (BONTAUX
+    SAS)" is not. A stronger grade is a design-ready stock still selectable
+    here whose name carries every word of the trace stock's name. A trace
+    stock with no stronger owned grade stays eligible.
+    """
+
+    strong = [
+        frozenset(_chemical_identity(capability).split())
+        for _score, capability in ranked
+        if capability.design_ready
+        and float(capability.candidate.stock.dilution) >= _TRACE_STOCK_FRACTION
+    ]
+    return [
+        row for row in ranked
+        if float(row[1].candidate.stock.dilution) >= _TRACE_STOCK_FRACTION
+        or not any(frozenset(_chemical_identity(row[1]).split()) <= words for words in strong)
+    ]
+
+
 def _rank_for_state(
     unary_ranked: Sequence[tuple[float, MaterialCapability]],
     role: SemanticRole,
@@ -1060,6 +1101,8 @@ def _rank_for_state(
             named_identity=named_identity,
         )
     ]
+    if _is_note_lead(role):
+        ranked = _without_trace_grades(ranked)
     lead = _accord_lead(role, state)
     if lead is not None and role.exact_material is None:
         # A support never outscores its lead: otherwise the summed objective
