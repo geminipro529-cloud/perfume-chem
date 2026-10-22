@@ -8,7 +8,6 @@ from dataclasses import dataclass, replace
 from functools import lru_cache
 from typing import Any, Callable, Mapping, Sequence
 
-from engine.formulation_intelligence.composition_checks import DEFAULT_BOTTLE_ML
 from engine.formulation_intelligence.family_structure import family_role_words, names_family_words
 from engine.formulation_intelligence.liking_tie_break import Liking, LikingLookup
 from engine.formulation_intelligence.material_capability_index import (
@@ -35,7 +34,7 @@ from engine.ifra_standards import single_material_limit_pct
 from engine.research.composition_planner import (
     _MIN_RAW_TRANSFER_UL,
     ACCORD_SUPPORT_SEPARATOR,
-    IFRA_CAP_FINISHED_FRACTION,
+    TRACE_STOCK_FRACTION,
     Choice,
     RoleSpec,
     _allocate_capped,
@@ -712,12 +711,6 @@ def _is_cited_helper(role: SemanticRole) -> bool:
     return accord is not None and accord.part == "helper"
 
 
-# The planner's IFRA cap assumes the concentrate is at most
-# IFRA_CAP_FINISHED_FRACTION of the finished perfume; in the composer's default
-# bottle (composition_checks.DEFAULT_BOTTLE_ML) that holds up to this volume.
-_IFRA_CAP_HELD_UL = int(IFRA_CAP_FINISHED_FRACTION * DEFAULT_BOTTLE_ML * 1000)
-
-
 def _cited_helper_ifra_block(
     capability: MaterialCapability,
     role: SemanticRole,
@@ -727,10 +720,10 @@ def _cited_helper_ifra_block(
 
     The cited pairing is the source's call, so a limit below the helper's
     share does not refuse it: the planner's IFRA cap
-    (composition_planner._ifra_cap_ul) holds its dose inside the limit.  A
-    prohibited stock still refuses it, and so does a limit that cap cannot
-    hold: a concentrate above the cap's 30% assumption in the default
-    bottle, or a cap that leaves less than one pipettable transfer.
+    (composition_planner._ifra_cap_ul) holds its dose inside the limit, in
+    any concentrate (it is sized on at most the standard design's volume).
+    A prohibited stock still refuses it, and so does a cap that leaves less
+    than one pipettable transfer.
     """
 
     if not _ifra_binds_layer(capability, role):
@@ -738,8 +731,6 @@ def _cited_helper_ifra_block(
     status, _limit = single_material_limit_pct(capability.identity_name)
     if status == "prohibited":
         return "IFRA prohibited"
-    if liquid_total_ul > _IFRA_CAP_HELD_UL:
-        return f"IFRA limit, and the IFRA cap holds it only up to {_IFRA_CAP_HELD_UL} uL of concentrate"
     cap = _ifra_cap_ul(capability.candidate, liquid_total_ul)
     if cap is not None and cap < _MIN_RAW_TRANSFER_UL:
         return f"IFRA limit leaves under {_MIN_RAW_TRANSFER_UL} uL raw"
@@ -1134,7 +1125,7 @@ def _pair_adjustment(
 
 # Below this stock strength _allocation_weight (research/composition_planner.py)
 # gives a stock no strength compensation, so its raw volume stays trace-scaled.
-_TRACE_STOCK_FRACTION = .05
+_TRACE_STOCK_FRACTION = TRACE_STOCK_FRACTION
 
 
 def _is_note_lead(role: SemanticRole) -> bool:

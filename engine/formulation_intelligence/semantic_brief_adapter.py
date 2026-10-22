@@ -1523,8 +1523,9 @@ def _with_accords(
     request_key: str = "",
 ) -> list[SemanticRole]:
     leads = _accord_leads(roles)
-    # A note with a cited spec the brief names gets the spec's helpers in
-    # place of today's same-query supports.
+    # A note with a cited spec the brief names gets the spec's helpers in its
+    # first support places; a place beyond the spec's helpers keeps today's
+    # same-query support, so a one-helper spec does not cost the note depth.
     cited = _cited_accords(leads, request_key)
     budget = maximum - len(roles) - _DEEP_COMPOSE_RESERVE
     supports: dict[str, int] = {}
@@ -1534,8 +1535,6 @@ def _with_accords(
         for lead in leads:
             if budget <= 0:
                 break
-            if lead.role_id in cited and depth > len(cited[lead.role_id].helpers):
-                continue
             supports[lead.role_id] = depth
             budget -= 1
     expanded: list[SemanticRole] = []
@@ -1544,7 +1543,11 @@ def _with_accords(
         spec = cited.get(role.role_id)
         if spec is not None:
             expanded.append(_cited_lead(role, spec))
-            expanded.extend(_cited_helper(role, spec, index) for index in range(1, count + 1))
+            expanded.extend(
+                _cited_helper(role, spec, index) if index <= len(spec.helpers)
+                else accord_support_clone(role, index)
+                for index in range(1, count + 1)
+            )
             continue
         if not count:
             expanded.append(role)

@@ -1729,6 +1729,12 @@ def _normal_use_ceiling_cap_ul(candidate: Candidate, liquid_total_ul: int) -> in
 # (6,000 uL in a 30 mL bottle) is 20%, which leaves room for the gate weighing
 # w/w where the composer doses by volume.
 IFRA_CAP_FINISHED_FRACTION = Decimal("0.30")
+# A stronger concentrate in the same bottle gets no more of a limited stock
+# than the standard design does: the finished perfume does not grow with the
+# concentrate, so the cap is sized on at most this volume and keeps the
+# standard design's room for w/w weighing.  (A 10,200 uL concentrate sized
+# on its own volume put Orivone at 0.18% against its 0.15% limit.)
+IFRA_CAP_STANDARD_CONCENTRATE_UL = 6000
 
 
 def _ifra_cap_ul(candidate: Candidate, liquid_total_ul: int) -> int | None:
@@ -1749,9 +1755,10 @@ def _ifra_cap_ul(candidate: Candidate, liquid_total_ul: int) -> int | None:
     if status == "prohibited" or limit is None or dilution <= 0:
         return None
     raw_fraction = Decimal(str(limit)) / (IFRA_CAP_FINISHED_FRACTION * dilution * 100)
+    sized_on = min(Decimal(liquid_total_ul), Decimal(IFRA_CAP_STANDARD_CONCENTRATE_UL))
     return max(
         1,
-        int((Decimal(liquid_total_ul) * raw_fraction).to_integral_value(rounding=ROUND_FLOOR)),
+        int((sized_on * raw_fraction).to_integral_value(rounding=ROUND_FLOOR)),
     )
 
 

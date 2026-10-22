@@ -222,7 +222,8 @@ def test_a_cited_helper_need_not_carry_the_lead_odor():
 
 def test_one_spec_builds_its_helpers_once_per_note():
     """Two iris facet roles share one spec: only the first gets the cited
-    helpers; the second keeps today's same-query supports."""
+    helpers (and today's same-query support in any place beyond them); the
+    second keeps today's same-query supports."""
 
     def facet_role(facet_id: str) -> adapter.SemanticRole:
         return adapter.SemanticRole(
@@ -236,15 +237,18 @@ def test_one_spec_builds_its_helpers_once_per_note():
     built = adapter._with_accords(roles, 20, " iris root ")
     assert [role.role_id for role in built] == [
         "facet_iris_violet",
-        *(f"facet_iris_violet{adapter.ACCORD_SUPPORT_SEPARATOR}{i}" for i in range(1, len(spec.helpers) + 1)),
+        *(f"facet_iris_violet{adapter.ACCORD_SUPPORT_SEPARATOR}{i}" for i in (1, 2)),
         "facet_iris_root",
         *(f"facet_iris_root{adapter.ACCORD_SUPPORT_SEPARATOR}{i}" for i in (1, 2)),
     ]
+    assert len(spec.helpers) == 1
+    assert built[1].accord is not None and built[1].accord.part == "helper"
+    assert built[2] == adapter.accord_support_clone(roles[0], 2) and built[2].accord is None
     assert built[0].accord.part == "lead"
     assert built[0].accord.stocks == tuple((stock.name, stock.fraction) for stock in spec.lead_stocks)
     # The lead keeps its own query words (and equality), so a v5 refinement still finds it.
     assert built[0] == roles[0] and built[0].query_terms == roles[0].query_terms
-    second = len(spec.helpers) + 1
+    second = 3
     assert built[second] == roles[1] and built[second].accord is None
     for index, clone in enumerate(built[second + 1:], start=1):
         assert clone.accord is None and clone.provenance == adapter.ACCORD_SUPPORT_PROVENANCE
@@ -403,24 +407,30 @@ def test_a_cited_helper_ifra_leaves_under_one_transfer_is_refused():
     )
 
 
-def test_a_cited_helper_ifra_limits_is_refused_where_the_ifra_cap_cannot_hold_it():
-    """The planner's IFRA cap assumes the concentrate is at most 30% of the
-    finished perfume; above that in the default 30 mL bottle (9,000 uL) it
-    cannot hold the helper inside its limit, so the helper is refused."""
+def test_a_strong_concentrate_gets_no_more_of_an_ifra_limited_helper():
+    """The finished perfume does not grow with the concentrate, so the
+    planner's IFRA cap in a 10,200 uL concentrate (a parfum-strength 30 mL
+    bottle) is the standard 6,000 uL design's cap, and the cited helper is
+    admitted there too.  Sized on its own volume, Orivone reached 0.18%
+    against its 0.15% limit."""
 
-    from engine.research.composition_planner import IFRA_CAP_FINISHED_FRACTION
+    from engine.research.composition_planner import IFRA_CAP_STANDARD_CONCENTRATE_UL, _ifra_cap_ul
 
     lead, helper = _cited_roles(_IRIS, "iris_violet")
     (stock,) = _helper_slots("iris_violet")[helper.role_id].stocks
     capability = _capability(stock.name, stock.fraction)
     lead_stock = note_accord_specs.accord_spec_for("iris_violet").lead_stocks[0]
     state = _placed((lead, _capability(lead_stock.name, lead_stock.fraction)))
-    held = int(IFRA_CAP_FINISHED_FRACTION * 30 * 1000)
-    kwargs = dict(avoid=(), allow_multiple_musks=False)
-    assert fs._block_reason(capability, helper, state, **kwargs, liquid_total_ul=held) is None
-    assert fs._block_reason(capability, helper, state, **kwargs, liquid_total_ul=held + 1) == (
-        f"IFRA limit, and the IFRA cap holds it only up to {held} uL of concentrate"
-    )
+    standard = _ifra_cap_ul(capability.candidate, IFRA_CAP_STANDARD_CONCENTRATE_UL)
+    assert standard is not None
+    for total in (9000, 10200, 15000):
+        assert _ifra_cap_ul(capability.candidate, total) == standard
+        assert fs._block_reason(
+            capability, helper, state, avoid=(), allow_multiple_musks=False, liquid_total_ul=total,
+        ) is None
+    _status, limit = fs.single_material_limit_pct(capability.identity_name)
+    # In a 30 mL bottle the capped volume stays inside the limit by volume.
+    assert standard * float(stock.fraction) / 30000 * 100 <= float(limit)
 
 
 def test_a_cited_helper_never_takes_the_one_stock_a_later_required_role_needs():

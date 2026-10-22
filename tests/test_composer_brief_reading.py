@@ -235,7 +235,8 @@ def test_sandalwood_oil_lead_is_backed_by_a_sandalwood_molecule() -> None:
 def test_a_named_sandalwood_takes_only_its_cited_helper() -> None:
     # Naming sandalwood builds the cited sandalwood accord (note_accord_specs):
     # its helper takes only the spec's stock, or stays empty with the reason
-    # recorded; no uncited molecule stands in for it.
+    # recorded; no uncited molecule stands in for it.  A support place beyond
+    # the spec's one helper keeps today's same-query support, with no job.
     from engine.formulation_intelligence.note_accord_specs import accord_spec_for
 
     result = design_formula(idea="creamy sandalwood with real orris")
@@ -250,7 +251,13 @@ def test_a_named_sandalwood_takes_only_its_cited_helper() -> None:
     }
     slot = "facet_creamy_wood__accord_1"
     assert rows.get(slot) in cited or (slot not in rows and slot in unplaced), rows
-    assert "facet_creamy_wood__accord_2" not in rows, rows
+    assert rows.get("facet_creamy_wood__accord_2") not in cited, rows
+    jobs = {
+        row["slot"]: row.get("accord")
+        for row in result["initial_formula"]["rows"]
+        if str(row.get("slot", "")).startswith("facet_creamy_wood__accord_")
+    }
+    assert jobs.get("facet_creamy_wood__accord_2") is None, jobs
 
 
 @pytest.fixture(scope="module")
