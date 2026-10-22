@@ -92,11 +92,11 @@ def _digest(value: Any) -> str:
 
 
 def _role_digest(role: SemanticRole) -> str:
-    """A role's own constraints; its cited-accord part, like its equality,
-    leaves it out, so a refinement of a cited lead still matches its
-    canonical role."""
+    """A role's own constraints. Its cited-accord part is left out, as role
+    equality leaves it out, so a refinement of a cited lead still matches
+    its canonical role and every other role keeps its earlier hash."""
 
-    return _digest(asdict(replace(role, accord=None)))
+    return _digest({key: value for key, value in asdict(role).items() if key != "accord"})
 
 
 def role_plan_signature(roles: Sequence[SemanticRole]) -> str:

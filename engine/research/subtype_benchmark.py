@@ -25,8 +25,8 @@ from unittest.mock import patch
 
 from engine.formulation_intelligence import architecture_bridge, subtype_research
 from engine.formulation_intelligence import formula_solver as solver
-from engine.formulation_intelligence.formula_critic import critique_formula
 from engine.formulation_intelligence.detection_pass import solver_formula
+from engine.formulation_intelligence.formula_critic import critique_formula
 from engine.formulation_intelligence.formula_design_runtime import design_formula
 from engine.formulation_intelligence.liking_tie_break import Liking
 from engine.formulation_intelligence.literature_knowledge import retrieve_formulation_knowledge

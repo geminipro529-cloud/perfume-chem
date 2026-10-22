@@ -224,19 +224,32 @@ def test_vetiver_oils_the_user_names_are_backed_by_a_vetiver_molecule() -> None:
 
 
 def test_sandalwood_oil_lead_is_backed_by_a_sandalwood_molecule() -> None:
-    # A creamy wood that does not name sandalwood keeps today's supports.
-    rows = _rows_by_slot(design_formula(idea="a soft creamy wood"))
+    rows = _rows_by_slot(design_formula(idea="creamy sandalwood with real orris"))
 
     assert rows["facet_creamy_wood"] == "Sandalwood EO", rows
     supports = [rows.get(f"facet_creamy_wood__accord_{n}", "").casefold() for n in (1, 2)]
     assert any(word in name for name in supports for word in _SANDALWOOD_MOLECULES), rows
 
 
+def test_a_creamy_wood_that_does_not_name_sandalwood_keeps_todays_supports() -> None:
+    result = design_formula(idea="a soft creamy wood")
+    rows = _rows_by_slot(result)
+
+    assert rows["facet_creamy_wood"] == "Sandalwood EO", rows
+    supports = [rows.get(f"facet_creamy_wood__accord_{n}", "").casefold() for n in (1, 2)]
+    assert any(word in name for name in supports for word in _SANDALWOOD_MOLECULES), rows
+    assert not any(
+        row.get("accord") for row in result["initial_formula"]["rows"]
+        if str(row.get("slot", "")).startswith("facet_creamy_wood")
+    )
+
+
 def test_a_named_sandalwood_takes_only_its_cited_helper() -> None:
     # Naming sandalwood builds the cited sandalwood accord (note_accord_specs):
-    # its helper takes only the spec's stock, or stays empty with the reason
-    # recorded; no uncited molecule stands in for it.  The support place
-    # before the helper keeps today's same-query support, with no job.
+    # support place 1 keeps today's same-query support, with no job, and the
+    # helper in place 2 takes only the spec's stock; when that cannot go in,
+    # the receipt says why and the place holds today's second support, with
+    # no job, or stays empty.  No uncited molecule carries the helper's job.
     from engine.formulation_intelligence.note_accord_specs import accord_spec_for
 
     result = design_formula(idea="creamy sandalwood with real orris")
@@ -249,15 +262,18 @@ def test_a_named_sandalwood_takes_only_its_cited_helper() -> None:
         for variant in result["design_variants"]
         for entry in variant["solver"].get("unplaced_accord_helpers", ())
     }
-    slot = "facet_creamy_wood__accord_2"
-    assert rows.get(slot) in cited or (slot not in rows and slot in unplaced), rows
-    assert rows.get("facet_creamy_wood__accord_1") not in cited, rows
     jobs = {
         row["slot"]: row.get("accord")
         for row in result["initial_formula"]["rows"]
         if str(row.get("slot", "")).startswith("facet_creamy_wood__accord_")
     }
-    assert jobs.get("facet_creamy_wood__accord_1") is None, jobs
+    first, slot = "facet_creamy_wood__accord_1", "facet_creamy_wood__accord_2"
+    assert rows.get(first) not in cited and jobs.get(first) is None, (rows, jobs)
+    if slot in unplaced:
+        assert rows.get(slot) not in cited and jobs.get(slot) is None, (rows, jobs)
+    else:
+        assert rows[slot] in cited, rows
+        assert jobs[slot]["job"] == helper.job, jobs
 
 
 @pytest.fixture(scope="module")
