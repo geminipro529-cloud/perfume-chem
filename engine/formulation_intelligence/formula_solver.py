@@ -24,6 +24,7 @@ from engine.formulation_intelligence.semantic_brief_adapter import (
     ACCORD_SUPPORT_PROVENANCE,
     LAYER_MAX_RAW_SHARE,
     LAYER_PROVENANCE,
+    TODAY_SUPPORT_PLACES,
     SemanticBrief,
     SemanticRole,
     accord_lead_role_id,
@@ -1380,16 +1381,17 @@ def _solve_assignments(
     }
     # A cited helper none of whose stocks can go in keeps today's same-query
     # support for its slot (the brief's exclusions and every rule still
-    # apply to it); the receipt still lists the helper as unplaced.
+    # apply to it); the receipt still lists the helper as unplaced. A helper
+    # in a place beyond today's supports has none, so its slot stays empty;
+    # a stock the brief names has one support today, which stays in place.
     leads_by_id = {role.role_id: role for role in brief.roles}
     fallbacks = {
-        role.role_id: accord_support_clone(
-            leads_by_id[accord_lead_role_id(role)],
-            int(role.role_id.rsplit(ACCORD_SUPPORT_SEPARATOR, 1)[1]),
-        )
+        role.role_id: accord_support_clone(leads_by_id[accord_lead_role_id(role)], place)
         for role in brief.roles
         if _is_cited_helper(role) and role.exact_material is None
         and accord_lead_role_id(role) in leads_by_id
+        and leads_by_id[accord_lead_role_id(role)].exact_material is None
+        and (place := int(role.role_id.rsplit(ACCORD_SUPPORT_SEPARATOR, 1)[1])) <= TODAY_SUPPORT_PLACES
     }
     fallback_rankings = {
         role_id: unary(clone, f"{role_id} (today's support)") for role_id, clone in fallbacks.items()

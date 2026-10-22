@@ -1101,6 +1101,8 @@ def _roles(
     )
     anchors = {f" {_key(role.exact_material or '')} ": role for role in roles}
     supported_anchors: set[str] = set()
+    # The note each supported anchor leads, for its cited accord.
+    anchor_facets: dict[str, FacetDefinition] = {}
     for facet in facets:
         if len(roles) >= maximum:
             break
@@ -1132,6 +1134,7 @@ def _roles(
                     and len(roles) < maximum - _DEEP_COMPOSE_RESERVE
                 ):
                     supported_anchors.add(anchor.role_id)
+                    anchor_facets[anchor.role_id] = facet
                     roles.append(_anchor_support(anchor, facet))
                 continue
         # A rooty-and-transparent iris has one recognizer with two requested
@@ -1367,7 +1370,7 @@ def _roles(
     roles = fill(roles, role_target)
     roles = roles[:maximum]
     if target_count is None:
-        roles = _with_accords(roles, maximum, request_key)
+        roles = _with_accords(roles, maximum, request_key, anchor_facets)
         # Layers and accords add to the formula the composer built before
         # layering; at a tight ceiling they never leave it smaller.  The
         # Deep Compose places are only kept free from layers and accords.
@@ -1383,6 +1386,9 @@ def _roles(
 # different family, are added beside it in a 62/23/15 proportion.
 ACCORD_SUPPORT_PROVENANCE = "ACCORD_SUPPORT"
 _ACCORD_SPLIT = (.62, .23, .15)
+# The same-query supports a note gets today; a cited helper placed beyond
+# them has no same-query support to fall back to.
+TODAY_SUPPORT_PLACES = len(_ACCORD_SPLIT) - 1
 _ACCORD_FUNCTIONS = frozenset({"character", "structure", "texture"})
 
 
@@ -1443,22 +1449,21 @@ def _anchor_support(anchor: SemanticRole, facet: FacetDefinition) -> SemanticRol
 
 
 def _cited_accords(
-    leads: Sequence[SemanticRole],
+    leads: Sequence[tuple[SemanticRole, str]],
     request_key: str,
 ) -> dict[str, note_accord_specs.AccordSpec]:
-    """Each lead whose note has a cited accord spec the brief names.
+    """Each lead, with the facet id of the note it leads, whose note has a
+    cited accord spec the brief names.
 
-    A spec applies once per note: the iris facets share one spec, so only
-    the first iris lead builds it; a later one is left out and keeps
-    today's same-query supports.
+    A spec applies once per note, to its first lead in brief order: the
+    iris facets share one spec, so only the first iris lead builds it; a
+    later one is left out and keeps today's same-query supports.
     """
 
     cited: dict[str, note_accord_specs.AccordSpec] = {}
     seen: set[str] = set()
-    for lead in leads:
-        if not lead.role_id.startswith("facet_"):
-            continue
-        spec = note_accord_specs.accord_spec_for(lead.role_id[len("facet_"):])
+    for lead, facet_id in leads:
+        spec = note_accord_specs.accord_spec_for(facet_id)
         if spec is None or not any(_phrase_present(request_key, word) for word in spec.named_by):
             continue
         if spec.note not in seen:
@@ -1497,14 +1502,16 @@ def _cited_lead(lead: SemanticRole, spec: note_accord_specs.AccordSpec) -> Seman
 def _cited_helper(
     lead: SemanticRole,
     spec: note_accord_specs.AccordSpec,
-    index: int,
+    number: int,
+    place: int,
 ) -> SemanticRole:
-    """One helper of a cited accord: it may take only the spec's own stocks."""
+    """Helper ``number`` of a cited accord, in support place ``place``: it
+    may take only the spec's own stocks."""
 
-    helper = spec.helpers[index - 1]
+    helper = spec.helpers[number - 1]
     return SemanticRole(
-        role_id=f"{lead.role_id}{ACCORD_SUPPORT_SEPARATOR}{index}",
-        label=f"{lead.label}: {spec.note} accord helper {index} ({helper.job})",
+        role_id=f"{lead.role_id}{ACCORD_SUPPORT_SEPARATOR}{place}",
+        label=f"{lead.label}: {spec.note} accord helper {number} ({helper.job})",
         note=lead.note,
         function=lead.function,
         query_terms=_dedupe(stock.name for stock in helper.stocks),
@@ -1517,36 +1524,86 @@ def _cited_helper(
     )
 
 
+def _anchor_helper_lead(anchor: SemanticRole, facet: FacetDefinition) -> SemanticRole:
+    """The anchor as a cited helper's lead: its id, label and share, with
+    the note, function, odor and cap of the facet it leads, as its own
+    support takes them."""
+
+    return replace(
+        anchor, note=facet.note, function=facet.function,
+        character_weights=facet.character_weights, max_raw_share=facet.max_raw_share,
+    )
+
+
 def _with_accords(
     roles: list[SemanticRole],
     maximum: int,
     request_key: str = "",
+    anchor_facets: Mapping[str, FacetDefinition] | None = None,
 ) -> list[SemanticRole]:
+    anchor_facets = anchor_facets or {}
     leads = _accord_leads(roles)
-    # A note with a cited spec the brief names gets the spec's helpers in its
-    # first support places; a place beyond the spec's helpers keeps today's
-    # same-query support, so a one-helper spec does not cost the note depth.
-    cited = _cited_accords(leads, request_key)
+    lead_ids = {lead.role_id for lead in leads}
+    # A note with a cited spec the brief names keeps today's first same-query
+    # support in its first place (it often carries the note's key odorant,
+    # such as an irone beside a weak orris lead) and gets the spec's helpers
+    # in the places after it.  A stock the brief names that leads a covered
+    # note (Lavender EO for "lavender") builds the note's accord the same
+    # way: its own support stays in place 1.
+    cited = _cited_accords(
+        [
+            (role, anchor_facets[role.role_id].facet_id if role.role_id in anchor_facets
+             else role.role_id[len("facet_"):])
+            for role in roles
+            if role.role_id in anchor_facets
+            or (role.role_id in lead_ids and role.role_id.startswith("facet_"))
+        ],
+        request_key,
+    )
+    owners = [role for role in roles if role.role_id in lead_ids or role.role_id in cited]
+    places = {
+        owner.role_id: TODAY_SUPPORT_PLACES if owner.role_id not in cited
+        else 1 + len(cited[owner.role_id].helpers)
+        for owner in owners
+    }
     budget = maximum - len(roles) - _DEEP_COMPOSE_RESERVE
-    supports: dict[str, int] = {}
+    supports: dict[str, int] = {owner.role_id: 1 for owner in owners if owner.role_id in anchor_facets}
     # One support per requested note first, then a second, so a tight
     # material limit spreads depth across notes instead of piling on one.
-    for depth in (1, 2):
-        for lead in leads:
+    # An anchor's first support is already in the brief.
+    for depth in range(1, max(places.values(), default=0) + 1):
+        for owner in owners:
             if budget <= 0:
                 break
-            supports[lead.role_id] = depth
+            if depth > places[owner.role_id] or depth <= supports.get(owner.role_id, 0):
+                continue
+            supports[owner.role_id] = depth
             budget -= 1
     expanded: list[SemanticRole] = []
     for role in roles:
+        anchor_id = accord_lead_role_id(role)
+        if anchor_id in anchor_facets and anchor_id in cited and role.role_id.endswith(
+            f"{ACCORD_SUPPORT_SEPARATOR}1"
+        ):
+            anchor = next(item for item in roles if item.role_id == anchor_id)
+            expanded.append(role)
+            expanded.extend(
+                _cited_helper(_anchor_helper_lead(anchor, anchor_facets[anchor_id]), cited[anchor_id],
+                              place - 1, place)
+                for place in range(2, supports[anchor_id] + 1)
+            )
+            continue
+        if role.role_id in anchor_facets and role.role_id in cited:
+            expanded.append(_cited_lead(role, cited[role.role_id]))
+            continue
         count = supports.get(role.role_id, 0)
         spec = cited.get(role.role_id)
         if spec is not None:
             expanded.append(_cited_lead(role, spec))
             expanded.extend(
-                _cited_helper(role, spec, index) if index <= len(spec.helpers)
-                else accord_support_clone(role, index)
-                for index in range(1, count + 1)
+                accord_support_clone(role, 1) if place == 1
+                else _cited_helper(role, spec, place - 1, place)
+                for place in range(1, count + 1)
             )
             continue
         if not count:
@@ -1562,7 +1619,8 @@ def accord_support_clone(lead: SemanticRole, index: int) -> SemanticRole:
     odor and descriptor requirement, at the 62/23/15 proportion.
 
     The formula solver fills a cited helper's slot with this role when none
-    of the helper's own stocks can go in.
+    of the helper's own stocks can go in and ``index`` is one of today's
+    ``TODAY_SUPPORT_PLACES``.
     """
 
     # Relative to the lead, which keeps its full share.
@@ -1751,6 +1809,7 @@ __all__ = [
     "FacetDefinition",
     "SemanticBrief",
     "SemanticRole",
+    "TODAY_SUPPORT_PLACES",
     "accord_lead_role_id",
     "accord_support_clone",
     "compile_semantic_brief",

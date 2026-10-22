@@ -45,11 +45,13 @@ def _primary(result: dict) -> tuple[list[dict], dict]:
 
 
 def _helper_slots(facet_id: str) -> dict[str, note_accord_specs.Helper]:
+    # Support place 1 keeps today's first same-query support; helper n is in
+    # place n + 1.
     spec = note_accord_specs.accord_spec_for(facet_id)
     lead = f"facet_{facet_id}"
     return {
-        f"{lead}{adapter.ACCORD_SUPPORT_SEPARATOR}{index}": helper
-        for index, helper in enumerate(spec.helpers, start=1)
+        f"{lead}{adapter.ACCORD_SUPPORT_SEPARATOR}{number + 1}": helper
+        for number, helper in enumerate(spec.helpers, start=1)
     }
 
 
@@ -182,7 +184,8 @@ def test_the_brief_exclusions_win_over_a_cited_helper_and_its_slot_keeps_todays_
     stock, lead_stock = (
         next(cap for cap in index.capabilities if cap.stock_id == item["stock_id"]) for item in (row, lead_row)
     )
-    clone = adapter.accord_support_clone(_brief_role(result, "facet_aromatic_lavender"), 1)
+    place = int(slot.rsplit(adapter.ACCORD_SUPPORT_SEPARATOR, 1)[1])
+    clone = adapter.accord_support_clone(_brief_role(result, "facet_aromatic_lavender"), place)
     assert fs._supports_accord(stock, clone, lead_stock) or fs._backs_natural_lead(stock, clone, lead_stock)
     # Today's composer, with no cited specs, writes the same text in that slot.
     monkeypatch.setattr(note_accord_specs, "accord_spec_for", lambda _facet_id: None)
@@ -222,8 +225,8 @@ def test_a_cited_helper_need_not_carry_the_lead_odor():
 
 def test_one_spec_builds_its_helpers_once_per_note():
     """Two iris facet roles share one spec: only the first gets the cited
-    helpers (and today's same-query support in any place beyond them); the
-    second keeps today's same-query supports."""
+    helper, after today's first same-query support; the second keeps
+    today's same-query supports."""
 
     def facet_role(facet_id: str) -> adapter.SemanticRole:
         return adapter.SemanticRole(
@@ -242,8 +245,8 @@ def test_one_spec_builds_its_helpers_once_per_note():
         *(f"facet_iris_root{adapter.ACCORD_SUPPORT_SEPARATOR}{i}" for i in (1, 2)),
     ]
     assert len(spec.helpers) == 1
-    assert built[1].accord is not None and built[1].accord.part == "helper"
-    assert built[2] == adapter.accord_support_clone(roles[0], 2) and built[2].accord is None
+    assert built[1] == adapter.accord_support_clone(roles[0], 1) and built[1].accord is None
+    assert built[2].accord is not None and built[2].accord.part == "helper"
     assert built[0].accord.part == "lead"
     assert built[0].accord.stocks == tuple((stock.name, stock.fraction) for stock in spec.lead_stocks)
     # The lead keeps its own query words (and equality), so a v5 refinement still finds it.
@@ -254,9 +257,93 @@ def test_one_spec_builds_its_helpers_once_per_note():
         assert clone.accord is None and clone.provenance == adapter.ACCORD_SUPPORT_PROVENANCE
         assert clone.query_terms == roles[1].query_terms
         assert clone.label == f"{roles[1].label}: supporting accord material {index}"
-    helper = built[1]
+    helper = built[2]
+    assert helper.label == f"{roles[0].label}: iris accord helper 1 ({spec.helpers[0].job})"
     assert helper.share == pytest.approx(roles[0].share * spec.helpers[0].share_of_lead)
     assert helper.max_raw_share == pytest.approx(.28 * spec.helpers[0].share_of_lead)
+
+
+def test_a_two_helper_spec_places_both_helpers_after_todays_first_support():
+    """The vetiver spec cites two helpers: place 1 keeps today's first
+    same-query support and the helpers take places 2 and 3; a tight material
+    limit fills place 1 first."""
+
+    lead = adapter.SemanticRole(
+        role_id="facet_vetiver_root", label="vetiver", note="base", function="character",
+        query_terms=("vetiver",), character_weights=(("earthy", 1.0),), share=.1,
+    )
+    spec = note_accord_specs.accord_spec_for("vetiver_root")
+    assert len(spec.helpers) == 2
+    built = adapter._with_accords([lead], 20, " vetiver ")
+    separator = adapter.ACCORD_SUPPORT_SEPARATOR
+    assert [role.role_id for role in built] == [
+        "facet_vetiver_root", *(f"facet_vetiver_root{separator}{place}" for place in (1, 2, 3)),
+    ]
+    assert built[1] == adapter.accord_support_clone(lead, 1)
+    for number, (role, helper) in enumerate(zip(built[2:], spec.helpers, strict=True), start=1):
+        assert role.accord.part == "helper" and role.accord.job == helper.job
+        assert role.label == f"vetiver: vetiver accord helper {number} ({helper.job})"
+        assert role.share == pytest.approx(lead.share * helper.share_of_lead)
+    # One free place (after the Deep Compose reserve): today's support only.
+    tight = adapter._with_accords([lead], 1 + 1 + adapter._DEEP_COMPOSE_RESERVE, " vetiver ")
+    assert [role.role_id for role in tight] == ["facet_vetiver_root", f"facet_vetiver_root{separator}1"]
+    assert tight[1] == adapter.accord_support_clone(lead, 1)
+
+
+def test_a_named_stock_that_leads_a_covered_note_builds_its_cited_accord():
+    """"Vetiver" names the owned Vetiver EO, which leads the note as an
+    anchor: its own support stays in place 1 and the vetiver helpers take
+    places 2 and 3, with the lead and helper texts."""
+
+    spec = note_accord_specs.accord_spec_for("vetiver_root")
+    rows, _receipt = _primary(_design("A woody vetiver."))
+    by_slot = {row["slot"]: row for row in rows}
+    separator = adapter.ACCORD_SUPPORT_SEPARATOR
+    lead = by_slot["explicit_anchor_1"]
+    assert _cited(spec.lead_stocks, lead)
+    assert lead["accord"]["part"] == "lead"
+    assert "accord" not in by_slot[f"explicit_anchor_1{separator}1"]
+    for place, helper in enumerate(spec.helpers, start=2):
+        row = by_slot[f"explicit_anchor_1{separator}{place}"]
+        assert _cited(helper.stocks, row)
+        assert row["accord"]["job"] == helper.job
+        assert row["rationale"].startswith(f"Vetiver accord, helper: {helper.job} ")
+
+
+def test_a_facet_helper_beyond_todays_supports_that_cannot_go_in_leaves_its_slot_empty():
+    """Today a facet note has two same-query supports, so the vetiver
+    facet's helper in place 3 has no stand-in: the solver leaves its slot
+    empty and lists it, rather than asking for a third support."""
+
+    brief = adapter.compile_semantic_brief(formula_name="Accord Probe", request="A woody vetiver.",
+                                           interpretation={}, max_materials=30)
+    helper = note_accord_specs.accord_spec_for("vetiver_root").helpers[1]
+    slot = f"facet_vetiver_root{adapter.ACCORD_SUPPORT_SEPARATOR}3"
+    assert int(slot.rsplit(adapter.ACCORD_SUPPORT_SEPARATOR, 1)[1]) > adapter.TODAY_SUPPORT_PLACES
+    assert next(role for role in brief.roles if role.role_id == slot).accord.job == helper.job
+    result = fs.solve_formula(
+        brief=brief, index=build_material_capability_index(), liquid_total_ul=6000,
+        explicit_quantities=(), avoid=tuple(stock.name for stock in helper.stocks),
+    )
+    assert slot not in {row["slot"] for row in result.rows}
+    (entry,) = [e for e in result.solver_receipt["unplaced_accord_helpers"] if e["role_id"] == slot]
+    assert all(reason.endswith("the brief's avoid list") for reason in entry["reasons"])
+
+
+@pytest.mark.parametrize("number", [1, 2])
+def test_a_named_stocks_helper_that_cannot_go_in_leaves_its_slot_empty(number):
+    """A named stock has one support today, so a helper of its accord has no
+    stand-in: with the helper's stock on the avoid list its slot stays empty
+    and the receipt says why."""
+
+    helper = note_accord_specs.accord_spec_for("vetiver_root").helpers[number - 1]
+    slot = f"explicit_anchor_1{adapter.ACCORD_SUPPORT_SEPARATOR}{number + 1}"
+    avoid = tuple(dict.fromkeys(stock.name for stock in helper.stocks))
+    rows, receipt = _primary(_design("A woody vetiver.", avoid))
+    assert next(row for row in rows if row["slot"] == "explicit_anchor_1")["accord"]["part"] == "lead"
+    assert slot not in {row["slot"] for row in rows}
+    (entry,) = [e for e in receipt["unplaced_accord_helpers"] if e["role_id"] == slot]
+    assert all(reason.endswith("the brief's avoid list") for reason in entry["reasons"])
 
 
 @pytest.mark.parametrize("idea", [_LAVENDER, _IRIS, _ROSE])
@@ -339,7 +426,8 @@ def _cited_roles(idea: str, facet_id: str) -> tuple[adapter.SemanticRole, adapte
                                            interpretation={}, max_materials=30)
     by_id = {role.role_id: role for role in brief.roles}
     lead = by_id[f"facet_{facet_id}"]
-    return lead, by_id[f"{lead.role_id}{adapter.ACCORD_SUPPORT_SEPARATOR}1"]
+    (slot, _helper), *_rest = _helper_slots(facet_id).items()
+    return lead, by_id[slot]
 
 
 def _other_role(role_id: str, word: str) -> adapter.SemanticRole:
@@ -441,7 +529,7 @@ def test_a_cited_helper_never_takes_the_one_stock_a_later_required_role_needs():
     result = _design("Orris butter, iris root and violet leaf.")
     rows, receipt = _primary(result)
     assert receipt["missing_roles"] == []
-    helper_slot = f"facet_iris_root{adapter.ACCORD_SUPPORT_SEPARATOR}1"
+    (helper_slot, _helper), = _helper_slots("iris_root").items()
     (stock,) = _helper_slots("iris_root")[helper_slot].stocks
     by_slot = {row["slot"]: row for row in rows}
     assert by_slot["facet_iris_root_texture"]["identity_name"] == stock.name
