@@ -8,6 +8,7 @@ from dataclasses import dataclass, replace
 from functools import lru_cache
 from typing import Any, Callable, Mapping, Sequence
 
+from engine.formulation_intelligence.composition_checks import DEFAULT_BOTTLE_ML
 from engine.formulation_intelligence.family_structure import family_role_words, names_family_words
 from engine.formulation_intelligence.liking_tie_break import Liking, LikingLookup
 from engine.formulation_intelligence.material_capability_index import (
@@ -27,10 +28,14 @@ from engine.formulation_intelligence.semantic_brief_adapter import (
     SemanticBrief,
     SemanticRole,
     accord_lead_role_id,
+    accord_support_clone,
     role_identity_requirement,
 )
 from engine.ifra_standards import single_material_limit_pct
 from engine.research.composition_planner import (
+    _MIN_RAW_TRANSFER_UL,
+    ACCORD_SUPPORT_SEPARATOR,
+    IFRA_CAP_FINISHED_FRACTION,
     Choice,
     RoleSpec,
     _allocate_capped,
@@ -39,6 +44,7 @@ from engine.research.composition_planner import (
     _design_cap_ul,
     _formula_rows,
     _hard_cap_ul,
+    _ifra_cap_ul,
 )
 
 
@@ -447,6 +453,7 @@ _CONCENTRATE_FINISHED_FRACTION = .30
 # the standard concentrate (6,000 uL in a 30 mL bottle).
 _REQUESTED_NOTE_RAW_SHARE_CEILING = .28
 _STANDARD_FINISHED_FRACTION = .20
+_STANDARD_LIQUID_TOTAL_UL = 6000
 
 
 @lru_cache(maxsize=None)
@@ -705,6 +712,49 @@ def _is_cited_helper(role: SemanticRole) -> bool:
     return accord is not None and accord.part == "helper"
 
 
+# The planner's IFRA cap assumes the concentrate is at most
+# IFRA_CAP_FINISHED_FRACTION of the finished perfume; in the composer's default
+# bottle (composition_checks.DEFAULT_BOTTLE_ML) that holds up to this volume.
+_IFRA_CAP_HELD_UL = int(IFRA_CAP_FINISHED_FRACTION * DEFAULT_BOTTLE_ML * 1000)
+
+
+def _cited_helper_ifra_block(
+    capability: MaterialCapability,
+    role: SemanticRole,
+    liquid_total_ul: int,
+) -> str | None:
+    """Why IFRA keeps a cited helper's stock out, or None when it may go in.
+
+    The cited pairing is the source's call, so a limit below the helper's
+    share does not refuse it: the planner's IFRA cap
+    (composition_planner._ifra_cap_ul) holds its dose inside the limit.  A
+    prohibited stock still refuses it, and so does a limit that cap cannot
+    hold: a concentrate above the cap's 30% assumption in the default
+    bottle, or a cap that leaves less than one pipettable transfer.
+    """
+
+    if not _ifra_binds_layer(capability, role):
+        return None
+    status, _limit = single_material_limit_pct(capability.identity_name)
+    if status == "prohibited":
+        return "IFRA prohibited"
+    if liquid_total_ul > _IFRA_CAP_HELD_UL:
+        return f"IFRA limit, and the IFRA cap holds it only up to {_IFRA_CAP_HELD_UL} uL of concentrate"
+    cap = _ifra_cap_ul(capability.candidate, liquid_total_ul)
+    if cap is not None and cap < _MIN_RAW_TRANSFER_UL:
+        return f"IFRA limit leaves under {_MIN_RAW_TRANSFER_UL} uL raw"
+    return None
+
+
+def _cited_lead_family(role: SemanticRole, state: "_BeamState") -> str | None:
+    """The family bucket of a cited helper's own lead stock, when placed."""
+
+    if not _is_cited_helper(role):
+        return None
+    lead = _accord_lead(role, state)
+    return _family_bucket(lead[0]) if lead else None
+
+
 def _block_reason(
     capability: MaterialCapability,
     role: SemanticRole,
@@ -714,6 +764,7 @@ def _block_reason(
     allow_multiple_musks: bool,
     enforce_own_odor_avoid: bool = False,
     named_identity: tuple[str, ...] = (),
+    liquid_total_ul: int = _STANDARD_LIQUID_TOTAL_UL,
 ) -> str | None:
     """Why ``capability`` may not fill ``role`` in ``state``, or None when it may."""
 
@@ -743,6 +794,9 @@ def _block_reason(
         and family not in {"citrus", "musk"}
         and groups.get(f"family:{family}", 0) >= 1
         and role.exact_material is None
+        # The cited pairing puts a helper beside its own lead: the lead
+        # stock's bucket does not refuse it.  Every other bucket does.
+        and family != _cited_lead_family(role, state)
         # A backing molecule shares its natural lead's family.  Besides the
         # lead and the stocks the user named, the composer adds no other
         # stock of that family.
@@ -765,7 +819,11 @@ def _block_reason(
         }
         if None in previous_slots or role.knowledge_role_slot in previous_slots:
             return family_rule
-    if (
+    if role.exact_material is None and _is_cited_helper(role):
+        reason = _cited_helper_ifra_block(capability, role, liquid_total_ul)
+        if reason is not None:
+            return reason
+    elif (
         role.exact_material is None
         and (
             role.provenance in _SUPPORTING_PROVENANCE
@@ -822,10 +880,12 @@ def _allowed(
     allow_multiple_musks: bool,
     enforce_own_odor_avoid: bool = False,
     named_identity: tuple[str, ...] = (),
+    liquid_total_ul: int = _STANDARD_LIQUID_TOTAL_UL,
 ) -> bool:
     return _block_reason(
         capability, role, state, avoid=avoid, allow_multiple_musks=allow_multiple_musks,
         enforce_own_odor_avoid=enforce_own_odor_avoid, named_identity=named_identity,
+        liquid_total_ul=liquid_total_ul,
     ) is None
 
 
@@ -1124,6 +1184,7 @@ def _rank_for_state(
     variant_index: int = 0,
     liking: _LikingFn | None = None,
     named_identity: tuple[str, ...] = (),
+    liquid_total_ul: int = _STANDARD_LIQUID_TOTAL_UL,
 ) -> list[tuple[float, MaterialCapability]]:
     selected = tuple(item[1] for item in state.assignments)
     ranked = [
@@ -1143,6 +1204,7 @@ def _rank_for_state(
             allow_multiple_musks=allow_multiple_musks,
             enforce_own_odor_avoid=enforce_own_odor_avoid,
             named_identity=named_identity,
+            liquid_total_ul=liquid_total_ul,
         )
     ]
     if _is_note_lead(role):
@@ -1203,14 +1265,17 @@ def _unplaced_cited_helpers(
     assignments: Sequence[SolvedAssignment],
     index: MaterialCapabilityIndex,
     avoid: Sequence[str],
+    liquid_total_ul: int = _STANDARD_LIQUID_TOTAL_UL,
+    kept_for: Mapping[tuple[str, str], str] | None = None,
 ) -> list[dict[str, Any]]:
-    """Each cited accord helper left empty, and why each of its stocks could not go in.
+    """Each cited accord helper none of whose stocks went in, and why each could not.
 
-    A stock is judged against the stocks placed before its role, by the same
-    rules the search applies.
+    Its slot is then empty or holds today's same-query support.  A stock is
+    judged against the stocks placed before its role, by the same rules the
+    search applies.
     """
 
-    placed = {assignment.role.role_id for assignment in assignments}
+    placed = {assignment.role.role_id for assignment in assignments if _is_cited_helper(assignment.role)}
     if not any(_is_cited_helper(role) and role.role_id not in placed for role in brief.roles):
         return []
     allow_multiple_musks = _allows_multiple_musks(brief.normalized_request, brief.roles)
@@ -1240,8 +1305,10 @@ def _unplaced_cited_helpers(
             ), None)
             reason = "not in the capability index" if capability is None else _block_reason(
                 capability, role, state, avoid=avoid, allow_multiple_musks=allow_multiple_musks,
-                enforce_own_odor_avoid=enforce_own_odor_avoid,
+                enforce_own_odor_avoid=enforce_own_odor_avoid, liquid_total_ul=liquid_total_ul,
             )
+            if reason is None and capability is not None and (role.role_id, capability.stock_id) in (kept_for or {}):
+                reason = f"kept for the required role {kept_for[(role.role_id, capability.stock_id)]}"
             reasons.append(f"{name} at {fraction:g}: {reason or 'not kept by the search'}")
         unplaced.append({
             "role_id": role.role_id,
@@ -1264,7 +1331,13 @@ def _solve_assignments(
     liking: _LikingFn | None = None,
     identity_words: Mapping[str, tuple[str, ...]] | None = None,
     unary_cache: dict[tuple[str, tuple[str, ...] | None], list[tuple[float, MaterialCapability]]] | None = None,
+    liquid_total_ul: int = _STANDARD_LIQUID_TOTAL_UL,
+    kept_for: dict[tuple[str, str], str] | None = None,
 ) -> tuple[tuple[SolvedAssignment, ...], tuple[str, ...]]:
+    """The beam search.  ``kept_for`` collects, per (cited helper role id,
+    stock id), the label of a later required role that helper's stock was
+    kept for."""
+
     states: tuple[_BeamState, ...] = (
         _BeamState(
             assignments=(),
@@ -1281,10 +1354,10 @@ def _solve_assignments(
     asked_families = _asked_families(brief)
     identity_words = identity_words or {}
 
-    def unary(role: SemanticRole) -> list[tuple[float, MaterialCapability]]:
+    def unary(role: SemanticRole, cache_id: str | None = None) -> list[tuple[float, MaterialCapability]]:
         # A cache shared by solves of one brief with the same inputs: only a
         # role whose identity words differ is ranked again.
-        key = (role.role_id, identity_words.get(role.role_id))
+        key = (cache_id or role.role_id, identity_words.get(role.role_id))
         if unary_cache is not None and key in unary_cache:
             return unary_cache[key]
         ranked = _unary_rank_for_role(
@@ -1314,21 +1387,85 @@ def _solve_assignments(
         )
         for role in brief.roles
     }
+    # A cited helper none of whose stocks can go in keeps today's same-query
+    # support for its slot (the brief's exclusions and every rule still
+    # apply to it); the receipt still lists the helper as unplaced.
+    leads_by_id = {role.role_id: role for role in brief.roles}
+    fallbacks = {
+        role.role_id: accord_support_clone(
+            leads_by_id[accord_lead_role_id(role)],
+            int(role.role_id.rsplit(ACCORD_SUPPORT_SEPARATOR, 1)[1]),
+        )
+        for role in brief.roles
+        if _is_cited_helper(role) and role.exact_material is None
+        and accord_lead_role_id(role) in leads_by_id
+    }
+    fallback_rankings = {
+        role_id: unary(clone, f"{role_id} (today's support)") for role_id, clone in fallbacks.items()
+    }
+
+    def starved_role(
+        capability: MaterialCapability,
+        role: SemanticRole,
+        state: _BeamState,
+        later_required: Sequence[SemanticRole],
+    ) -> SemanticRole | None:
+        """A later required role this optional helper's stock would leave with no stock."""
+
+        groups = state.groups()
+        _count_groups(groups, capability)
+        taken = _BeamState(
+            assignments=(*state.assignments, (role, capability, 0.0)),
+            used_identities=state.used_identities | {_chemical_identity(capability)},
+            group_counts=tuple(sorted(groups.items())),
+            objective=state.objective,
+        )
+
+        def admits(future: SemanticRole, candidate_state: _BeamState) -> bool:
+            return any(_allowed(
+                cap, future, candidate_state, avoid=avoid, allow_multiple_musks=allow_multiple_musks,
+                enforce_own_odor_avoid=enforce_own_odor_avoid,
+                named_identity=named_identities[future.role_id], liquid_total_ul=liquid_total_ul,
+            ) for _, cap in unary_rankings[future.role_id])
+
+        return next((
+            future for future in later_required
+            if not admits(future, taken) and admits(future, state)
+        ), None)
+
     for position, role in enumerate(brief.roles):
         expanded: list[_BeamState] = []
         role_has_candidate = False
+        later_required = (
+            tuple(r for r in brief.roles[position + 1:] if r.required) if role.role_id in fallbacks else ()
+        )
         for state in states:
-            ranked = _rank_for_state(
-                unary_rankings[role.role_id],
-                role,
-                state,
+            rank_kwargs = dict(
                 avoid=avoid,
                 allow_multiple_musks=allow_multiple_musks,
                 enforce_own_odor_avoid=enforce_own_odor_avoid,
                 variant_index=variant_index,
                 liking=liking,
                 named_identity=named_identities[role.role_id],
+                liquid_total_ul=liquid_total_ul,
             )
+            placed_role = role
+            ranked = _rank_for_state(unary_rankings[role.role_id], role, state, **rank_kwargs)
+            if later_required:
+                # An optional helper never takes the one stock a later
+                # required role could still use (a reviewed iris root
+                # texture slot that only Orivone fills).
+                kept = []
+                for row in ranked:
+                    starved = starved_role(row[1], role, state, later_required)
+                    if starved is None:
+                        kept.append(row)
+                    elif kept_for is not None:
+                        kept_for[(role.role_id, row[1].stock_id)] = starved.label
+                ranked = kept
+            if not ranked and role.role_id in fallbacks:
+                placed_role = fallbacks[role.role_id]
+                ranked = _rank_for_state(fallback_rankings[role.role_id], placed_role, state, **rank_kwargs)
             role_has_candidate = role_has_candidate or bool(ranked)
             for score, capability in ranked:
                 groups = state.groups()
@@ -1339,7 +1476,7 @@ def _solve_assignments(
                 )
                 expanded.append(
                     _BeamState(
-                        assignments=(*state.assignments, (role, capability, score)),
+                        assignments=(*state.assignments, (placed_role, capability, score)),
                         used_identities=state.used_identities
                         | {_chemical_identity(capability)},
                         group_counts=tuple(sorted(groups.items())),
@@ -1371,6 +1508,7 @@ def _solve_assignments(
                     cap, future, state, avoid=avoid, allow_multiple_musks=allow_multiple_musks,
                     enforce_own_odor_avoid=enforce_own_odor_avoid,
                     named_identity=named_identities[future.role_id],
+                    liquid_total_ul=liquid_total_ul,
                 ) for _, cap in unary_rankings[future.role_id])
                 for future in future_constrained
             )
@@ -1384,7 +1522,10 @@ def _solve_assignments(
     winner = min(states, key=_state_sort_key)
     assignments: list[SolvedAssignment] = []
     for role, capability, score in winner.assignments:
-        alternatives = unary_rankings[role.role_id]
+        alternatives = (
+            fallback_rankings[role.role_id] if role is fallbacks.get(role.role_id)
+            else unary_rankings[role.role_id]
+        )
         alternatives_names = tuple(
             item.identity_name
             for _alt_score, item in alternatives
@@ -1471,7 +1612,9 @@ def solve_formula(
         prior_variant_stock_ids=frozenset(prior_variant_stock_ids),
         variant_index=variant_index,
     )
-    search_kwargs = dict(liking=liking, identity_words=identity_words, unary_cache=unary_cache)
+    kept_for: dict[tuple[str, str], str] = {}
+    search_kwargs = dict(liking=liking, identity_words=identity_words, unary_cache=unary_cache,
+                         liquid_total_ul=liquid_total_ul, kept_for=kept_for)
     assignments, missing = _solve_assignments(**solve_kwargs, beam_width=beam_width, **search_kwargs)
     if missing and _missing_role_has_candidates(missing, **solve_kwargs):
         # The beam keeps only the best partial states, so it can prune away the
@@ -1552,7 +1695,7 @@ def solve_formula(
         "future_role_policy": "BOUNDED_REQUIRED_DESCRIPTOR_FORWARD_CHECK_V1",
         "named_fruit_recognition": {name: "NOT_SENSORY_VALIDATED" for name in brief.requested_fruits},
     }
-    unplaced_helpers = _unplaced_cited_helpers(brief, assignments, index, avoid)
+    unplaced_helpers = _unplaced_cited_helpers(brief, assignments, index, avoid, liquid_total_ul, kept_for)
     if unplaced_helpers:
         # Optional roles, so they never withhold the formula: recorded beside
         # missing_roles with the reason each cited stock could not go in.

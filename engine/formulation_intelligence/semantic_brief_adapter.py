@@ -1445,14 +1445,15 @@ def _anchor_support(anchor: SemanticRole, facet: FacetDefinition) -> SemanticRol
 def _cited_accords(
     leads: Sequence[SemanticRole],
     request_key: str,
-) -> dict[str, note_accord_specs.AccordSpec | None]:
+) -> dict[str, note_accord_specs.AccordSpec]:
     """Each lead whose note has a cited accord spec the brief names.
 
     A spec applies once per note: the iris facets share one spec, so only
-    the first iris lead builds it, and a later one maps to None (no supports).
+    the first iris lead builds it; a later one is left out and keeps
+    today's same-query supports.
     """
 
-    cited: dict[str, note_accord_specs.AccordSpec | None] = {}
+    cited: dict[str, note_accord_specs.AccordSpec] = {}
     seen: set[str] = set()
     for lead in leads:
         if not lead.role_id.startswith("facet_"):
@@ -1460,7 +1461,8 @@ def _cited_accords(
         spec = note_accord_specs.accord_spec_for(lead.role_id[len("facet_"):])
         if spec is None or not any(_phrase_present(request_key, word) for word in spec.named_by):
             continue
-        cited[lead.role_id] = None if spec.note in seen else spec
+        if spec.note not in seen:
+            cited[lead.role_id] = spec
         seen.add(spec.note)
     return cited
 
@@ -1532,10 +1534,8 @@ def _with_accords(
         for lead in leads:
             if budget <= 0:
                 break
-            if lead.role_id in cited:
-                spec = cited[lead.role_id]
-                if spec is None or depth > len(spec.helpers):
-                    continue
+            if lead.role_id in cited and depth > len(cited[lead.role_id].helpers):
+                continue
             supports[lead.role_id] = depth
             budget -= 1
     expanded: list[SemanticRole] = []
@@ -1550,23 +1550,33 @@ def _with_accords(
             expanded.append(role)
             continue
         expanded.append(role)
-        for index in range(1, count + 1):
-            # Relative to the lead, which keeps its full share.
-            fraction = _ACCORD_SPLIT[index] / _ACCORD_SPLIT[0]
-            expanded.append(SemanticRole(
-                role_id=f"{role.role_id}{ACCORD_SUPPORT_SEPARATOR}{index}",
-                label=f"{role.label}: supporting accord material {index}",
-                note=role.note,
-                function=role.function,
-                query_terms=role.query_terms,
-                character_weights=role.character_weights,
-                share=role.share * fraction,
-                required=False,
-                max_raw_share=(role.max_raw_share or .28) * fraction,
-                provenance=ACCORD_SUPPORT_PROVENANCE,
-                descriptor_requirement=role.descriptor_requirement,
-            ))
+        expanded.extend(accord_support_clone(role, index) for index in range(1, count + 1))
     return expanded
+
+
+def accord_support_clone(lead: SemanticRole, index: int) -> SemanticRole:
+    """Today's same-query support ``index`` of ``lead``: the note's query,
+    odor and descriptor requirement, at the 62/23/15 proportion.
+
+    The formula solver fills a cited helper's slot with this role when none
+    of the helper's own stocks can go in.
+    """
+
+    # Relative to the lead, which keeps its full share.
+    fraction = _ACCORD_SPLIT[index] / _ACCORD_SPLIT[0]
+    return SemanticRole(
+        role_id=f"{lead.role_id}{ACCORD_SUPPORT_SEPARATOR}{index}",
+        label=f"{lead.label}: supporting accord material {index}",
+        note=lead.note,
+        function=lead.function,
+        query_terms=lead.query_terms,
+        character_weights=lead.character_weights,
+        share=lead.share * fraction,
+        required=False,
+        max_raw_share=(lead.max_raw_share or .28) * fraction,
+        provenance=ACCORD_SUPPORT_PROVENANCE,
+        descriptor_requirement=lead.descriptor_requirement,
+    )
 
 
 def compile_semantic_brief(
@@ -1739,6 +1749,7 @@ __all__ = [
     "SemanticBrief",
     "SemanticRole",
     "accord_lead_role_id",
+    "accord_support_clone",
     "compile_semantic_brief",
     "role_identity_requirement",
 ]
