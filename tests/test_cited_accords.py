@@ -539,3 +539,19 @@ def test_a_cited_helper_never_takes_the_one_stock_a_later_required_role_needs():
         f"{by_slot['facet_iris_root_texture']['slot_label']}"
     ]
     assert "accord" not in by_slot[helper_slot]
+
+
+def test_a_deep_compose_refinement_of_a_cited_lead_keeps_its_constraints():
+    """The woody-iris refinement targets the iris lead, which now carries a
+    cited accord part: the receipt still finds the canonical role and says
+    the protected constraints are preserved."""
+
+    result = design_formula(idea="Lavender with woody iris", design_mode="DEEP_COMPOSE",
+                            max_materials=12, variant_count=3)
+    plan = result["design_variants"][0]["role_plan"]
+    assert next(role for role in plan if role["role_id"] == "facet_iris_woody")["accord"]["part"] == "lead"
+    (refine,) = [
+        candidate for candidate in result["architecture_planning"]["candidates"]
+        if candidate.get("operation") == "REFINE_ROLE" and candidate.get("target_role_id") == "facet_iris_woody"
+    ]
+    assert refine["protected_constraints_preserved"] is True
