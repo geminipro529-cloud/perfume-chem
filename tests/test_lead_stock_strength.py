@@ -43,9 +43,9 @@ _DILUTION = _cap("Lavender EO", .01)
 _NEAT = _cap("Lavender EO (BONTAUX SAS)", 1.0)
 
 
-def _ranked(role, ranked, monkeypatch):
+def _ranked(role, ranked, monkeypatch, **kwargs):
     monkeypatch.setattr(fs, "_allowed", lambda *_args, **_kwargs: True)
-    out = fs._rank_for_state(ranked, role, _EMPTY, avoid=(), allow_multiple_musks=False)
+    out = fs._rank_for_state(ranked, role, _EMPTY, avoid=(), allow_multiple_musks=False, **kwargs)
     return [capability for _score, capability in out]
 
 
@@ -66,6 +66,28 @@ def test_an_explicit_anchor_skips_a_trace_grade_too(monkeypatch):
     role = _role("explicit_anchor_1", provenance="EXPLICIT_REQUEST_MATERIAL",
                  exact_material="lavender")
     assert _top(role, ranked, monkeypatch) == ["Lavender EO (BONTAUX SAS)"]
+
+
+def test_a_stronger_grade_another_named_stock_claims_does_not_count(monkeypatch):
+    # "lavender eo" beside "Lavender EO (BONTAUX SAS)": the neat grade is the
+    # other anchor's, so this anchor keeps the 1% grade.
+    ranked = [(15.2, _DILUTION), (15.1, _NEAT)]
+    role = _role("explicit_anchor_1", provenance="EXPLICIT_REQUEST_MATERIAL",
+                 exact_material="lavender eo")
+    out = _ranked(role, ranked, monkeypatch, reserved_identities=frozenset({"lavender eo bontaux sas"}))
+    assert [c.identity_name for c in out] == ["Lavender EO", "Lavender EO (BONTAUX SAS)"]
+
+
+def test_two_named_lavender_grades_each_keep_a_design_ready_stock():
+    """The brief names "lavender eo" and the solver reads it as both the 1%
+    stock and the neat BONTAUX oil: each anchor keeps a design-ready lavender,
+    and no unready Spike Lavender stands in for the first."""
+
+    result = design_formula(idea="A herbal cologne with lavender eo.", design_mode="FAST_SKETCH")
+    rows = {row["slot"]: row for row in result["design_variants"][0]["formula"]["rows"]}
+    anchors = [rows[slot] for slot in rows if slot.startswith("explicit_anchor_") and "__" not in slot]
+    assert len(anchors) == 2
+    assert all(row["design_ready"] and "spike" not in row["identity_name"].casefold() for row in anchors)
 
 
 def test_a_same_name_stronger_grade_also_counts(monkeypatch):

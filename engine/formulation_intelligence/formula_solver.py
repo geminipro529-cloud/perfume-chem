@@ -85,11 +85,11 @@ class _BeamState:
 def _chemical_identity(capability: MaterialCapability) -> str:
     """Aggregate alternate stock preparations of the same design identity."""
 
-    return re.sub(
-        r"[^a-z0-9]+",
-        " ",
-        capability.identity_name.casefold(),
-    ).strip()
+    return _identity_key(capability.identity_name)
+
+
+def _identity_key(name: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", name.casefold()).strip()
 
 
 def _role_spec(role: SemanticRole, *, star_note: bool = False) -> RoleSpec:
@@ -1139,6 +1139,7 @@ def _is_note_lead(role: SemanticRole) -> bool:
 
 def _without_trace_grades(
     ranked: Sequence[tuple[float, MaterialCapability]],
+    reserved: frozenset[str] = frozenset(),
 ) -> list[tuple[float, MaterialCapability]]:
     """Leave out a trace-strength grade while a stronger grade of it can lead.
 
@@ -1148,8 +1149,10 @@ def _without_trace_grades(
     one by synergy credit matched on name text: "Lavender EO" (the 1%
     dilution's name) is in other stocks' synergy lists, "Lavender EO (BONTAUX
     SAS)" is not. A stronger grade is a design-ready stock still selectable
-    here whose name carries every word of the trace stock's name. A trace
-    stock with no stronger owned grade stays eligible.
+    here whose name carries every word of the trace stock's name, and that
+    no other stock the brief names is (``reserved``: "lavender eo" beside
+    "Lavender EO (BONTAUX SAS)" keeps the 1% grade). A trace stock with no
+    stronger owned grade stays eligible.
     """
 
     strong = [
@@ -1157,6 +1160,7 @@ def _without_trace_grades(
         for _score, capability in ranked
         if capability.design_ready
         and float(capability.candidate.stock.dilution) >= _TRACE_STOCK_FRACTION
+        and _chemical_identity(capability) not in reserved
     ]
     return [
         row for row in ranked
@@ -1177,6 +1181,7 @@ def _rank_for_state(
     liking: _LikingFn | None = None,
     named_identity: tuple[str, ...] = (),
     liquid_total_ul: int = _STANDARD_LIQUID_TOTAL_UL,
+    reserved_identities: frozenset[str] = frozenset(),
 ) -> list[tuple[float, MaterialCapability]]:
     selected = tuple(item[1] for item in state.assignments)
     ranked = [
@@ -1200,7 +1205,7 @@ def _rank_for_state(
         )
     ]
     if _is_note_lead(role):
-        ranked = _without_trace_grades(ranked)
+        ranked = _without_trace_grades(ranked, reserved_identities)
     lead = _accord_lead(role, state)
     if lead is not None and role.exact_material is None:
         # A support never outscores its lead: otherwise the summed objective
@@ -1426,11 +1431,23 @@ def _solve_assignments(
             if not admits(future, taken) and admits(future, state)
         ), None)
 
+    # The stocks the brief names, each kept for its own role: a stronger grade
+    # one of them names cannot stand in for another role's trace grade.
+    named_stocks = {
+        role.role_id: _identity_key(role.exact_material)
+        for role in brief.roles
+        if role.exact_material is not None
+    }
+
     for position, role in enumerate(brief.roles):
         expanded: list[_BeamState] = []
         role_has_candidate = False
         later_required = (
             tuple(r for r in brief.roles[position + 1:] if r.required) if role.role_id in fallbacks else ()
+        )
+        reserved = frozenset(
+            key for role_id, key in named_stocks.items()
+            if role_id != role.role_id and key != named_stocks.get(role.role_id)
         )
         for state in states:
             rank_kwargs = dict(
@@ -1441,6 +1458,7 @@ def _solve_assignments(
                 liking=liking,
                 named_identity=named_identities[role.role_id],
                 liquid_total_ul=liquid_total_ul,
+                reserved_identities=reserved,
             )
             placed_role = role
             ranked = _rank_for_state(unary_rankings[role.role_id], role, state, **rank_kwargs)
