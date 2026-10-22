@@ -80177,13 +80177,13 @@
     "alt_name": null,
     "field_evidence": {
       "mw": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNKNOWN"
       },
       "clp": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "activity_coef": {
         "status": "UNKNOWN"
@@ -80191,7 +80191,10 @@
       "hedonic": {
         "status": "UNKNOWN"
       },
-      "gate_value_sources": {}
+      "gate_value_sources": {
+        "mw": "registry:data_spine.mw",
+        "clp": "registry:data_spine.logp"
+      }
     },
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -80247,7 +80250,18 @@
       "not_headspace_or_observed_intensity": true
     },
     "hedonic_evidence": "HEURISTIC_NOT_MEASURED_LIKING",
-    "release_authority": "NOT_TESTED_HOLD"
+    "release_authority": "NOT_TESTED_HOLD",
+    "reconciliation_lineage": [
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "mw": null,
+          "clp": null
+        }
+      }
+    ],
+    "mw": 194.3175,
+    "clp": 4.65
   },
   {
     "name": "Sandalwood Base X3",
@@ -80555,13 +80569,13 @@
     "alt_name": null,
     "field_evidence": {
       "mw": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNKNOWN"
       },
       "clp": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "activity_coef": {
         "status": "UNKNOWN"
@@ -80569,7 +80583,10 @@
       "hedonic": {
         "status": "UNKNOWN"
       },
-      "gate_value_sources": {}
+      "gate_value_sources": {
+        "mw": "registry:data_spine.mw",
+        "clp": "registry:data_spine.logp"
+      }
     },
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -80625,7 +80642,18 @@
       "not_headspace_or_observed_intensity": true
     },
     "hedonic_evidence": "HEURISTIC_NOT_MEASURED_LIKING",
-    "release_authority": "NOT_TESTED_HOLD"
+    "release_authority": "NOT_TESTED_HOLD",
+    "reconciliation_lineage": [
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "mw": null,
+          "clp": null
+        }
+      }
+    ],
+    "mw": 196.29,
+    "clp": 3.98
   },
   {
     "name": "p-Cresyl Methyl Ether",
@@ -80931,7 +80959,7 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "clp": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "activity_coef": {
         "status": "UNKNOWN"
@@ -80941,7 +80969,8 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "registry:data_spine.vp_25c"
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt": 0.02,
@@ -81037,10 +81066,17 @@
           "mw": null,
           "vp": null
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "clp": null
+        }
       }
     ],
     "mw": 192.3,
-    "vp": 3.59
+    "vp": 3.59,
+    "clp": 4.2
   },
   {
     "name": "Geranium Bourbon Essential Oil",
@@ -82059,7 +82095,7 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "clp": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "activity_coef": {
         "status": "UNKNOWN"
@@ -82069,7 +82105,8 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "registry:data_spine.vp_25c"
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt": null,
@@ -82140,10 +82177,17 @@
         "fields": {
           "vp": 1.33
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "clp": null
+        }
       }
     ],
     "mw": 178.23,
-    "vp": 0.3
+    "vp": 0.3,
+    "clp": 2.5
   },
   {
     "name": "Cyclogalbanate",
@@ -82811,7 +82855,7 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "clp": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "activity_coef": {
         "status": "UNKNOWN"
@@ -82821,7 +82865,8 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "registry:data_spine.vp_25c"
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt": null,
@@ -82886,10 +82931,17 @@
           "mw": null,
           "vp": null
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "clp": null
+        }
       }
     ],
     "mw": 226.27,
-    "vp": 0.0127
+    "vp": 0.0127,
+    "clp": 3.79
   },
   {
     "name": "Peach Ketone",

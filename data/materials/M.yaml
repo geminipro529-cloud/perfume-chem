@@ -433,11 +433,11 @@
 - canonical_name: Magnolia EO
   aliases:
   - magnolia eo
-  cas: null
+  cas: 8006-76-6
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.8852
   logp: null
   functional_groups: []
   chirality: null
@@ -464,6 +464,8 @@
     and amount are unrecorded.
   provenance:
     user_in_inventory: inventory.txt
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: measured; raw 0.88522; https://www.lgbotanicals.com/assets/images/Certificate%20of%20Analysis%20MAGNOLIA%20BLOSSOM%20MGL1118EO572.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8006-76-6; '
 - canonical_name: Magnolia Flower Extract
   aliases: []
   cas:
@@ -1040,7 +1042,7 @@
 - canonical_name: Maple Lactone
   aliases:
   - maple lactone
-  cas: null
+  cas: 80-71-7
   smiles:
   inchikey:
   mw_g_mol: 128.1
@@ -1092,11 +1094,11 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    cas: 'Removed 2026-10-08: the TGSC sweep matched ''Maple Lactone'' to maple furanone (698-10-2, C7H10O3, MW 142.15), but ''maple lactone'' is also the usual name for methyl cyclopentenolone (80-71-7, C6H8O2, MW 112.13), and the YAML MW 128.1 fits neither. Identity needs the supplier sheet.'
     density_25c_g_ml: 'TGSC: Specific Gravity: 1.13400 to 1.14400 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1008621.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 80-71-7; https://www.perflavory.com/docs/doc1064211.html'
 - canonical_name: Mate Absolute
   aliases: []
-  cas:
+  cas: 68916-96-1
   smiles:
   inchikey:
   mw_g_mol:
@@ -1136,14 +1138,15 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 68916-96-1; '
 - canonical_name: Mayol
   aliases:
   - mayol
-  cas:
+  cas: 5502-75-0
   smiles:
   inchikey:
   mw_g_mol: 156.26
-  density_25c_g_ml:
+  density_25c_g_ml: 0.916
   logp:
   functional_groups: []
   chirality:
@@ -1181,6 +1184,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 5502-75-0; https://www.perflavory.com/docs/doc1015951.html'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.916; https://www.perflavory.com/docs/doc1015951.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: MELON F-TEC
   aliases: []
   cas:
@@ -1859,11 +1864,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Methyl Nonyl Ketone
   aliases: []
-  cas:
+  cas: 112-12-9
   smiles:
   inchikey:
   mw_g_mol: 170.3
-  density_25c_g_ml:
+  density_25c_g_ml: 0.8235
   logp: 4.1
   functional_groups: []
   chirality:
@@ -1901,6 +1906,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 112-12-9; https://www.perfumersworld.com/view.php?pro_id=4LY00304'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.822 to 0.825; https://www.perfumersworld.com/view.php?pro_id=4LY00304; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Methyl Octine Carbonate
   aliases: []
   cas:
@@ -1980,11 +1987,11 @@
 - canonical_name: Methyl Pamplemousse
   aliases:
   - methyl pamplemousse
-  cas:
+  cas: 67674-46-8
   smiles:
   inchikey:
   mw_g_mol: 168.2
-  density_25c_g_ml:
+  density_25c_g_ml: 0.875
   logp:
   functional_groups: []
   chirality:
@@ -2034,6 +2041,8 @@
     user_stock_dilution: inventory.txt
     current_working_stock: data/governance/inventory_user_authority_overlay_20260915_methyl_pamplemousse_10w_w_ethanol.json
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 67674-46-8; https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-pamplemousse'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.865 to 0.885; https://www.thegoodscentscompany.com/data/rw1042632.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Methyl Salicylate
   aliases:
   - methyl salicylate
@@ -2839,11 +2848,11 @@
 - canonical_name: Myrrh EO
   aliases:
   - myrrh eo
-  cas:
+  cas: 8016-37-3
   smiles:
   inchikey:
   mw_g_mol: 222.4
-  density_25c_g_ml:
+  density_25c_g_ml: 0.988
   logp: 3.5
   functional_groups: []
   chirality:
@@ -2878,6 +2887,8 @@
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.9880; https://www.perfumersworld.com/view.php?pro_id=7QC00314; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8016-37-3; '
 - canonical_name: Myrrh Essential Oil
   aliases: []
   cas:
@@ -2922,7 +2933,7 @@
   - mimosa abs
   cas: 8031-03-6
   mw_g_mol: 240.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.1045
   logp: 3.8
   functional_groups: []
   chirality: null
@@ -2939,6 +2950,8 @@
   trp_targets: null
   user_stock_dilution: 10.0
   user_in_inventory: true
+  provenance:
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: reference value; raw 1.1045; https://www.thegoodscentscompany.com/data/ab1661001.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Methyl Laitone
   aliases: [methyl laitone]
   mw_g_mol: 168.23

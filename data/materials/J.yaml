@@ -195,7 +195,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 170.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.91
   logp: null
   functional_groups: []
   chirality: null
@@ -242,6 +242,7 @@
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     user_in_inventory: inventory.txt
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.9100; https://www.perfumersworld.com/view.php?pro_id=8JN00254; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Jasmine Absolute 10% In Palm Oil Fractionated
   aliases:
   - Jasmine Absolute 10% in Palm Oil Fractionated
@@ -431,7 +432,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 170.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.96
   logp: 3.0
   functional_groups:
   - floral
@@ -467,6 +468,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.951 to 0.969; https://pentachem.com/products/jasmine-sambac-india-absolute; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Jasmine Sambac Blossoms
   aliases: []
   cas: null
@@ -510,7 +512,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 222.37
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.9475
   logp: 4.1
   functional_groups: []
   chirality: null
@@ -550,6 +552,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.9475; https://scent.vn/en/products/javanol-aroma-chemical; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Jessemal Jasmonyl
   aliases:
   - Jessemal
@@ -752,7 +755,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 136.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.864
   logp: 4.3
   functional_groups: []
   chirality: null
@@ -769,6 +772,8 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  provenance:
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.8640; https://www.perfumersworld.com/view.php?pro_id=7KH00262; temperature as printed by source (often 20 C), not corrected to 25 C'
 
 - canonical_name: Jasmine Sambac Blossoms
   aliases:

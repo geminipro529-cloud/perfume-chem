@@ -294,7 +294,7 @@
   aliases:
   - labdanum
   - cistus resinoid
-  cas: null
+  cas: 8016-26-0
   smiles:
   inchikey:
   mw_g_mol: 300.0
@@ -338,7 +338,6 @@
   character: Dark, resinous, amber-leather, slightly animalic; Cistus ladanifer hexane extract; provides warm amber depth and tenacity.
   notes: 'Crude resinoid vs Labdanum Absolute — similar chemistry but less refined; retains more terpenic/higher-boiling fractions. Key odorants include labdanolic acid, ambrinol, sclareol derivatives.'
   provenance:
-    cas: 'Removed 2026-10-08: 8016-36-2 is olibanum''s CAS (the Olibanum Resinoid entry cites it from PerfumersWorld 2QK21856). Labdanum''s own CAS was not checked against a source page, so the field stays empty.'
     mw_g_mol: manual:2026-06-10 matched to Labdanum Absolute/Labdanum profiles
     density_25c_g_ml: manual:2026-06-10 resinoid typical density
     logp: manual:2026-06-10 matched to Labdanum profiles
@@ -351,6 +350,7 @@
     user_in_inventory: inventory.txt
     character: docs/dosing_reference.md
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8016-26-0; https://www.perfumersworld.com/view.php?pro_id=2UQ00264'
 - canonical_name: Lactone F-TEC
   aliases:
   - LACTONE F-TEC
@@ -468,11 +468,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Lavandin Absolute
   aliases: []
-  cas: null
+  cas: 8022-15-9
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.89
   logp: null
   functional_groups: []
   chirality: null
@@ -504,6 +504,8 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8022-15-9; '
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.89; https://parchem.com/api/get-pdf/lavandin-absolute-grosso-014114.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Lavandin Essential Oil
   aliases: []
   cas: null
@@ -1004,7 +1006,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 154.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.965
   logp: 2.0
   functional_groups: []
   chirality: null
@@ -1052,6 +1054,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.9650; https://www.perfumersworld.com/view.php?pro_id=4GI15439; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Leather F-TEC
   aliases:
   - LEATHER F-TEC
@@ -1313,11 +1316,11 @@
 - canonical_name: Lemon Terpeneless Oil Sicilian
   aliases:
   - Lemon Terpeneless oil Sicilian
-  cas: null
+  cas: 68648-39-5
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.891
   logp: null
   functional_groups: []
   chirality: null
@@ -1349,6 +1352,8 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 68648-39-5; '
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.891; https://thegoodscentscompany.com/data/tl1032421.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Lemon Verdello Oil Sicilian
   aliases:
   - Lemon Verdello oil Sicilian
@@ -1428,7 +1433,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 163.26
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.87
   logp: 3.7
   functional_groups: []
   chirality: null
@@ -1461,6 +1466,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 61792-11-8 (https://www.thegoodscentscompany.com/data/rw1042831.html)'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.87; https://www.scentree.co/en/Lemonile%C2%AE.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Lesser Galangal Essential Oil
   aliases: []
   cas: null
@@ -2373,7 +2379,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 170.25
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.936
   logp: 1.7
   functional_groups: []
   chirality: null
@@ -2407,6 +2413,7 @@
     mw_g_mol: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277'
     logp: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277; mean of log Kow 1.6 and 1.8 at 35 C (RIFM 2000b partition coefficient study)'
     vp_25c_pa: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277; 0.00969 mm Hg at 25 C, EPI Suite v4.11 estimate, converted at 133.322 Pa/mm Hg'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.936; https://www.thegoodscentscompany.com/data/rw1014331.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Linalool Synthetic
   aliases: []
   cas: null
@@ -2690,11 +2697,11 @@
 - canonical_name: lime distilled eo
   aliases:
   - Lime Distilled EO
-  cas: null
+  cas: 8008-26-2
   smiles: null
   inchikey: null
   mw_g_mol: 136.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.859
   logp: 3.5
   functional_groups: []
   chirality: null
@@ -2711,3 +2718,6 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  provenance:
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8008-26-2; https://www.thegoodscentscompany.com/data/es1618891.html'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.859; https://thegoodscentscompany.com/data/es1618891.html; temperature as printed by source (often 20 C), not corrected to 25 C'
