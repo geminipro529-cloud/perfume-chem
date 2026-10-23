@@ -88,23 +88,27 @@ def test_two_synthetic_rows_still_total_without_a_natural():
 
 # Gate result at 7dea1163 (before naturals' constituents were counted) for a formula
 # with no mapped natural: Black Pepper EO is a natural with no Annex I mapping.
+# 23 Oct 2026 (41f35106): Black Pepper EO got PerfumersWorld's supplier SG 0.880
+# (temperature unstated), so its 1.0 g/mL fallback and that density assumption go:
+# assumptions 3 -> 2, its 100 uL weighs 0.088 g (0.421 % -> 0.3706 %), and the
+# lighter bottle moves the other rows in the fourth figure. Verdicts are unchanged.
 BASE_NO_MAPPED_NATURAL = {
     "status": "WARN",
     "detail": (
         "1 natural(s) without their own IFRA standard (constituents not summed); 2 EU "
-        "allergen declarations; basis finished_product_w_w_estimate (3 density/carrier "
+        "allergen declarations; basis finished_product_w_w_estimate (2 density/carrier "
         "assumption(s))"
     ),
     "rows": [
         ("Black Pepper EO", "warn",
-         "Black Pepper EO at 0.421 % is a natural with no IFRA standard of its own; its "
+         "Black Pepper EO at 0.3706 % is a natural with no IFRA standard of its own; its "
          "restricted constituents are not summed here."),
         ("Coumarin", "pass",
-         "Coumarin at 0.0842 % is within the IFRA Category 4 limit of 1.5 % (IFRA_STD_023)."),
+         "Coumarin at 0.08424 % is within the IFRA Category 4 limit of 1.5 % (IFRA_STD_023)."),
         ("Eugenol", "pass",
          "Eugenol at 0.1344 % is within the IFRA Category 4 limit of 2.5 % (IFRA_STD_035)."),
         ("Evernyl", "pass",
-         "Evernyl (Evernyl Crystals) at 1.01 % has no IFRA standard of its own."),
+         "Evernyl (Evernyl Crystals) at 1.011 % has no IFRA standard of its own."),
     ],
     "groups": [],
 }
