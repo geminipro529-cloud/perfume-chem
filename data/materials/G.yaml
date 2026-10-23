@@ -115,7 +115,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 258.4
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.02
   logp: 5.9
   functional_groups: []
   chirality: null
@@ -158,6 +158,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
+    density_25c_g_ml: 'SG 1.0200, supplier-reported (PerfumersWorld 4XA13770 "Galaxolide 100 (Undiluted)"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
+    density_basis: 'supplier_sg_temperature_unstated'
 - canonical_name: Galaxolide 100 (undiluted)
   aliases:
   - Galaxolide 100 (Undiluted)
@@ -2567,3 +2569,4 @@
   provenance:
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20260828.json
     role: engine/formulation_intelligence/wood_registry.py
+    density_not_set: 'No liquid density: TGSC (https://www.thegoodscentscompany.com/data/es1005751.html, page "guaiacwood oil, 8016-23-7") gives mp 40.00 to 50.00 C (yellow brown solid paste), so the material is solid at 25 C; its listed SG 0.96000 to 0.97500 @ 25.00 °C. is not used'

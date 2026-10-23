@@ -1188,6 +1188,7 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_not_set: 'Only a 20 C value found, not presented as 25 C: PubChem CID 83763 (p-Menthan-7-ol) Density "0.912-0.920 (20 °C)", original source JECFA (https://pubchem.ncbi.nlm.nih.gov/compound/83763#section=Density)'
 - canonical_name: MELON F-TEC
   aliases: []
   cas:
@@ -1993,7 +1994,7 @@
   smiles:
   inchikey:
   mw_g_mol: 168.2
-  density_25c_g_ml:
+  density_25c_g_ml: 0.8724
   logp:
   functional_groups: []
   chirality:
@@ -2043,6 +2044,7 @@
     user_stock_dilution: inventory.txt
     current_working_stock: data/governance/inventory_user_authority_overlay_20260915_methyl_pamplemousse_10w_w_ethanol.json
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.86500 to 0.88500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1042632.html, page "grapefruit acetal, 67674-46-8"); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C): 0.875 x 0.99705 = 0.8724; CAS-matched: Methyl Pamplemousse is grapefruit acetal, CAS 67674-46-8'
 - canonical_name: Methyl Salicylate
   aliases:
   - methyl salicylate

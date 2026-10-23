@@ -4536,6 +4536,7 @@
   aliases: [amber xtreme]
   cas: 476332-65-7
   mw_g_mol: 264.4
+  density_25c_g_ml: 0.9592
   vp_25c_pa: 0.8
   vp_source: IFF_supplier_23C_converted
   logp: 7.1
@@ -4546,3 +4547,4 @@
     mw_g_mol: https://www.iff.com/scent/ingredients-compendium/amber-xtreme-2/
     vp_25c_pa: 'https://iff-v2.prod-use1.investis.com/en/site-services/online-compendium-new/amber-xtreme (IFF compendium): "0.005516 mmHg at 23 C" = 0.74 Pa, x 1.18 to 25 C = 0.8 Pa, method not stated; IFF SDS v5.38 (2018) "< 0.01 hPa"; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     logp: 'IFF compendium, same page: log P 7.1, method not stated; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.95700 to 0.96700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1660971.html, page "musk indenofuran"); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C): 0.962 x 0.99705 = 0.9592; CAS-matched: page CAS 476332-65-7 equals the entry CAS (TGSC titles it musk indenofuran)'

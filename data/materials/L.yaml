@@ -2380,7 +2380,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 170.25
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.9342
   logp: 1.7
   functional_groups: []
   chirality: null
@@ -2414,6 +2414,7 @@
     mw_g_mol: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277'
     logp: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277; mean of log Kow 1.6 and 1.8 at 35 C (RIFM 2000b partition coefficient study)'
     vp_25c_pa: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277; 0.00969 mm Hg at 25 C, EPI Suite v4.11 estimate, converted at 133.322 Pa/mm Hg'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.93200 to 0.94200 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1014332.html, page "linalool oxide, 1365-19-1"); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C): 0.937 x 0.99705 = 0.9342'
 - canonical_name: Linalool Synthetic
   aliases: []
   cas: null

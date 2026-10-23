@@ -3282,7 +3282,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 154.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.8899
   logp: 3.2
   functional_groups: []
   chirality: null
@@ -3300,6 +3300,8 @@
   user_stock_dilution: 100.0
   user_in_inventory: true
 # MATERIAL_INTAKE_BATCH_2026_08_07 additions
+  provenance:
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.88900 to 0.89600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/es1029951.html, page "spike lavender oil, 8016-78-2"); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C): 0.8925 x 0.99705 = 0.8899'
 - canonical_name: 'Sandalwood Base 3X'
   aliases: ['sandalwood base x3', 'sandalwood base']
   cas: None

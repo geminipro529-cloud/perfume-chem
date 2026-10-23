@@ -2744,7 +2744,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.017
   logp: null
   functional_groups: []
   chirality: null
@@ -2771,6 +2771,7 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
+    density_25c_g_ml: 'TGSC: Specific Gravity: 1.01000 to 1.03000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/es1655051.html, page "cinnamon bark oil, 8015-91-6"); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C): 1.02 x 0.99705 = 1.017; generic TGSC spec for cinnamon bark oil (CAS 8015-91-6, Ceylon); Kenny''s Telvada bottle is not tested and its species is not stated'
 - canonical_name: Cinnamon Bark Essential Oil
   aliases: []
   cas: null

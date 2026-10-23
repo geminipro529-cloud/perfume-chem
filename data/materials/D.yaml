@@ -1146,7 +1146,7 @@
   smiles:
   inchikey:
   mw_g_mol: 166.3
-  density_25c_g_ml:
+  density_25c_g_ml: 0.9113
   logp: 2.9
   functional_groups: []
   chirality:
@@ -1178,6 +1178,7 @@
     odt_eth_ppm: engine.odor_thresholds.ODT_DATA
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.91100 to 0.91700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1009071.html, page "dihydrojasmone, 1128-08-1"); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C): 0.914 x 0.99705 = 0.9113'
 - canonical_name: Dihydromyrcenol
   aliases:
   - dihydromyrcenol

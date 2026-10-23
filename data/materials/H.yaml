@@ -302,7 +302,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 226.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.9985
   logp: 2.7
   functional_groups: []
   chirality: null
@@ -335,6 +335,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.99700 to 1.00600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1015272.html, page "methyl dihydrojasmonate, 24851-98-7"); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C): 1.0015 x 0.99705 = 0.9985; page is methyl dihydrojasmonate (isomer mixture); Hedione HC is the high-cis grade of the same compound'
 - canonical_name: Hedione High Cis
   aliases: []
   cas: null
