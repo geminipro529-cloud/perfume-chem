@@ -4239,6 +4239,23 @@
         "Cypriol Oil"
       ],
       "note": "Kenny's Nagarmotha Oil is from Simple Scents DIY ('Mine is from ssdiy', 21 Oct 2026 03:32:45 UTC); Simple Scents DIY 'Nagarmotha Oil (Cypriol Oil)', SKU 8E3094000984, sold as 100% natural essential oil, with no IFRA certificate, TDS or SDS on file. Treated as cypriol (Cyperus scariosus) oil: no IFRA standard or Annex I row names cyperus oil, and its main constituents cyperene, longifolin, longiverbenone and caryophyllene oxide (Kumar 2016) carry no Category 4 standard; constituents are not summed, so the check warns. PerfumersWorld 7WU09815 data (a proprietary compound, PW IFRA certificate Cat 4 25 %, nootkatone 0.57 %) is for a bottle he does not own and does not apply."
+    },
+    "Para-Cresyl Methyl Ether": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "p-Cresyl Methyl Ether (PCME)",
+        "p-Cresyl Methyl Ether",
+        "PCME",
+        "p-Methylanisole",
+        "4-Methylanisole"
+      ],
+      "note": "RIFM's fragrance ingredient safety assessment for p-methylanisole (CAS 104-93-8) states \"8. IFRA standard: None.\" Loaded on Kenny's answer \"Load it\" (23 Oct 2026 21:28 UTC, Stock data thread card asking whether to load PCME as having no IFRA standard).",
+      "cas": [
+        "104-93-8"
+      ],
+      "source_url": "https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-93-8.pdf",
+      "verified_on": "2026-10-23"
     }
   },
   "group_rules": [

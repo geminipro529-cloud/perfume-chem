@@ -195,13 +195,14 @@ STILL_HELD = {
     "Nerolin Bromelia 10% in DPG",
     "Pamzest",
     "Rhodinol ex Citronella",
-    "p-Cresyl Methyl Ether 10%",
     "Tuberlia Base",
     # MySkinRecipes order #2199302, arrived 2026-10-16; no IFRA table entry matches
     # these names yet, so they hold by name. (Cedarwood Texas, Geranium Bourbon,
     # Sweet Orange and both Isoraldeines were linked on 2026-10-16.)
     # 2026-10-21 ("Load all"): Rhodinol is checked against the geraniol standard; Para-Acetanisole,
     # Rum Ether and most sweep arrivals are recorded as having no IFRA standard.
+    # 2026-10-23 ("Load it"): p-Cresyl Methyl Ether 10% is recorded as having no IFRA standard
+    # (RIFM's assessment for CAS 104-93-8: "IFRA standard: None").
 }
 
 
