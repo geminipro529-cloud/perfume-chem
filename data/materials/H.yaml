@@ -79,7 +79,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 238.4
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.961
   logp: 5.45
   functional_groups: []
   chirality: null
@@ -122,6 +122,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.9610, supplier-reported (PerfumersWorld 3XA09821 "Habanolide"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Hair Conditioner Base - Unscentedhaircond
   aliases:
   - Hair Conditioner Base - unscentedHAIRCOND
@@ -863,12 +864,13 @@
     cas: 'TGSC: CAS Number: 142-92-7 (https://www.thegoodscentscompany.com/data/rw1003201.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.86800 to 0.87600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1003201.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Hexyl Cinnamic Aldehyde (HCA)
-  aliases: []
+  aliases:
+  - Hexyl Cinnamic Aldehyde
   cas: '101-86-0'
   smiles: 'CCCCCCC(C=O)=Cc1ccccc1'
   inchikey: null
   mw_g_mol: 216.324
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.951
   logp: 4.24
   functional_groups: []
   chirality: null
@@ -903,6 +905,7 @@
     smiles: 'PubChem structure resolved from CAS 101-86-0 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     mw_g_mol: 'RDKit exact from SMILES CCCCCCC(C=O)=Cc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     cas: 'PubChem record for CAS 101-86-0 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    density_25c_g_ml: 'SG 0.9510, supplier-reported (PerfumersWorld 3JJ00217 "Hexyl Cinnamic Aldehyde (HCA)"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Hexyl Salicylate
   aliases:
   - hexyl salicylate
@@ -910,7 +913,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 222.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.033
   logp: 5.7
   functional_groups: []
   chirality: null
@@ -951,6 +954,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 6259-76-3 (https://www.thegoodscentscompany.com/data/rw1002751.html)'
+    density_25c_g_ml: 'SG 1.0330, supplier-reported (PerfumersWorld 3OG00230 "Hexyl Salicylate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Himalayan Cedarwood EO
   aliases:
   - himalayan cedarwood eo
@@ -998,7 +1002,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.92
   logp: null
   functional_groups: []
   chirality: null
@@ -1028,6 +1032,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.9200, supplier-reported (PerfumersWorld 4WX24656 "Hindinol"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Ho Essential Oil
   aliases: []
   cas: null

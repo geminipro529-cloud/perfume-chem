@@ -1127,7 +1127,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 128.22
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.818
   logp: 2.8
   functional_groups: []
   chirality: null
@@ -1168,6 +1168,7 @@
     vp_25c_pa: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000251 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "VP (exp database): 1.18E+00 mm Hg (1.57E+002 Pa) at 25 deg C" (literature value, original reference not shown); 1.18 mm Hg x 133.322 Pa/mm Hg = 157.3 Pa'
     odt_air_ppb: 'Cometto-Muniz & Abraham (2010) Chem. Senses 35(4):289-299, doi:10.1093/chemse/bjq018, https://pmc.ncbi.nlm.nih.gov/articles/PMC2912639, Table 2: "Octanal | 16 | 0.17", ppb by volume (human, 3-AFC vapour delivery, 16 subjects). Second measured source, conflicting: Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review, Japan Ministry of the Environment, pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 (ppm, v/v): "n-Octylaldehyde 0.000010" ppm v/v = 0.010 ppb'
     logp: 'ESTIMATE (2026-10-14): consensus of the Sangster-listed 2.53 (via PubChem, DOI 10.1016/j.fluid.2014.01.017), KOWWIN 2.78 (TGSC EPI page ep1000251) and measured nonanal 3.4 (ECHA, OECD 117) minus about 0.5 per CH2 = 2.9. The EPA HPV HPLC 3.5 is set aside because it exceeds measured nonanal. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
+    density_25c_g_ml: 'SG 0.8180, supplier-reported (PerfumersWorld 4AC00026 "Aldehyde C-8 Octanal"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Aldehyde C-9 Nonanal
   aliases: []
   cas: '124-19-6'
@@ -1619,6 +1620,7 @@
 - canonical_name: Allyl Amyl Glycolate
   aliases:
   - allyl amyl glycolate
+  - Allyl Amyl Glycolate (AAG)
   cas: '67634-00-8'
   smiles: null
   inchikey: null
@@ -2877,7 +2879,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.898
   logp: null
   functional_groups: []
   chirality: null
@@ -2913,6 +2915,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.8980, supplier-reported (PerfumersWorld 8XU00529 "Ambrette Seed Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Ambrette SEED F-TEC
   aliases:
   - AMBRETTE SEED F-TEC
@@ -3605,7 +3608,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 148.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.98
   logp: 3.3
   functional_groups: []
   chirality: null
@@ -3637,6 +3640,7 @@
     odt_eth_ppm: engine.odor_thresholds
     logp: pubchem_cid_637563
     user_in_inventory: inventory.txt
+    density_25c_g_ml: 'SG 0.9800, supplier-reported (PerfumersWorld 7SB00041 "Anise Essential Oil China"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
 - canonical_name: Anise Essential Oil China
   aliases: []
   cas: null
@@ -3679,7 +3683,7 @@
   smiles: 'COc1ccc(COC(C)=O)cc1'
   inchikey: null
   mw_g_mol: 180.203
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.104
   logp: 1.76
   functional_groups: []
   chirality: null
@@ -3714,6 +3718,7 @@
     smiles: 'PubChem structure resolved from CAS 104-21-2 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     mw_g_mol: 'RDKit exact from SMILES COc1ccc(COC(C)=O)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     cas: 'PubChem record for CAS 104-21-2 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    density_25c_g_ml: 'SG 1.1040, supplier-reported (PerfumersWorld 3LN00043 "Anisyl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Anisyl Alcohol
   aliases: []
   cas: null
@@ -4495,7 +4500,7 @@
   - acp
   cas: 2705-87-5
   mw_g_mol: 196.29
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.946
   logp: 3.3
   functional_groups: []
   chirality: null
@@ -4512,6 +4517,8 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  provenance:
+    density_25c_g_ml: 'SG 0.9460, supplier-reported (PerfumersWorld 4FC00030 "Allyl Cyclohexyl Propionate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Amber Xtreme
   aliases: [amber xtreme]
   cas: 476332-65-7

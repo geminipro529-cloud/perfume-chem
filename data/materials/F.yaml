@@ -499,7 +499,7 @@
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 190.3, corrected to 192.26)
   mw_g_mol: 190.28
-  density_25c_g_ml:
+  density_25c_g_ml: 0.951
   logp: 3.3
   functional_groups: []
   chirality:
@@ -547,6 +547,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.9510, supplier-reported (PerfumersWorld 4YM00191 "Floralozone"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Florhydral
   aliases:
   - florhydral
@@ -611,7 +612,7 @@
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 170.3, corrected to 154.25)
   mw_g_mol: 172.26
-  density_25c_g_ml:
+  density_25c_g_ml: 0.948
   logp: 2.5
   functional_groups: []
   chirality:
@@ -655,6 +656,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 63500-71-0 (https://www.thegoodscentscompany.com/data/rw1045182.html)'
+    density_25c_g_ml: 'SG 0.9480, supplier-reported (PerfumersWorld 3ML00192 "Florol"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Flower Bouquet F-TEC
   aliases:
   - FLOWER BOUQUET F-TEC

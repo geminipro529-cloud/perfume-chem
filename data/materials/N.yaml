@@ -634,7 +634,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.87
   logp: null
   functional_groups: []
   chirality: null
@@ -664,6 +664,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.8700, supplier-reported (PerfumersWorld 3LM00319 "Nerolidol"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Nerolin Bromelia
   aliases:
   - nerolin bromelia
@@ -759,7 +760,7 @@
   smiles: 'CC(=O)OC/C=C(/C)CCC=C(C)C'
   inchikey: null
   mw_g_mol: 196.29
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.905
   logp: 3.24
   functional_groups: []
   chirality: null
@@ -795,6 +796,7 @@
     mw_g_mol: 'RDKit exact from SMILES CC(=O)OC/C=C(/C)CCC=C(C)C (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     cas: 'PubChem record for CAS 141-12-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     vp_25c_pa: 'not set: chemprops returned the geranyl acetate thermo record for this CAS (2026-10-23), so the VP was withheld'
+    density_25c_g_ml: 'SG 0.9050, supplier-reported (PerfumersWorld 3RF05061 "Neryl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: NEW MOWN HAY F-TEC
   aliases: []
   cas: null
@@ -1167,7 +1169,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 224.38
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.89
   logp: 5.7
   functional_groups: []
   chirality: null
@@ -1211,6 +1213,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     vp_25c_pa: 'Firmenich SDS v13 (2024) https://cdn.shopify.com/s/files/1/0682/1448/9400/files/967412_NORLIMBANOL__SDS_NZ_EN.pdf: 0.194 Pa at 25 C, OECD 104; replaces the unsourced 0.067; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     cas: 'Firmenich Norlimbanol SDS v13 (2024): CAS 70788-30-6 (stereo-unspecified); via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    density_25c_g_ml: 'SG 0.8900, supplier-reported (PerfumersWorld 4WU22432 "Norlimbanol Dextro"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: NUT F-TEC
   aliases: []
   cas: null
@@ -1538,7 +1541,7 @@
   - neroli eo (neat)
   cas: 8016-38-4
   mw_g_mol: 170.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.86
   logp: 2.5
   functional_groups: []
   chirality: null
@@ -1555,3 +1558,5 @@
   trp_targets: null
   user_stock_dilution: neat  # user-confirmed 2026-09-06; 10% alias is historical identity only
   user_in_inventory: true
+  provenance:
+    density_25c_g_ml: 'SG 0.8600, supplier-reported (PerfumersWorld 7CN00318 "Neroli Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'

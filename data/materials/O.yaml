@@ -1274,7 +1274,7 @@
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 0.93
   logp:
   functional_groups: []
   chirality:
@@ -1310,6 +1310,7 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.9300, supplier-reported (PerfumersWorld 8IA00344 "Orris Concrete Orris Butter"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Orris F-TEC
   aliases: []
   cas:
@@ -1745,7 +1746,7 @@
   smiles:
   inchikey:
   mw_g_mol: 200.0
-  density_25c_g_ml:
+  density_25c_g_ml: 0.921
   logp: 3.2
   functional_groups: []
   chirality:
@@ -1781,6 +1782,7 @@
     odt_air_ppb: estimated
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
+    density_25c_g_ml: 'SG 0.9210, supplier-reported (PerfumersWorld 8ND00346 "Osmanthus Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: oakmoss absolute
   aliases: []
   cas:
@@ -1831,7 +1833,7 @@
   - osmanthus absolute volume grade
   cas: 92347-17-4
   mw_g_mol: 210.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.921
   logp: 3.0
   functional_groups: []
   chirality: null
@@ -1849,6 +1851,8 @@
   user_stock_dilution: 100.0
   user_in_inventory: true
 
+  provenance:
+    density_25c_g_ml: 'SG 0.9210, supplier-reported (PerfumersWorld 8ND00346 "Osmanthus Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Opoponax Resinoid
   aliases:
   - opoponax resinoid

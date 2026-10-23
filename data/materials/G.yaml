@@ -1014,7 +1014,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.888
   logp: null
   functional_groups: []
   chirality: null
@@ -1044,6 +1044,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.8880, supplier-reported (PerfumersWorld 7RB00930 "Geranium Bourbon Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Geranium Essential Oil
   aliases: []
   cas: null
@@ -1197,7 +1198,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 196.29
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.9
   logp: 4.3
   functional_groups: []
   chirality: null
@@ -1231,6 +1232,7 @@
     mw_g_mol: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS 105-87-3, Food Chem. Toxicol. 192 (2024) 114971, doi:10.1016/j.fct.2024.114971'
     logp: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS 105-87-3, Food Chem. Toxicol. 192 (2024) 114971, doi:10.1016/j.fct.2024.114971; log Kow 4.3 at 35 C (RIFM 1999b partition coefficient study)'
     vp_25c_pa: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS 105-87-3, Food Chem. Toxicol. 192 (2024) 114971, doi:10.1016/j.fct.2024.114971; 0.0463 mm Hg at 25 C, EPI Suite v4.11 estimate, converted at 133.322 Pa/mm Hg'
+    density_25c_g_ml: 'SG 0.9000, supplier-reported (PerfumersWorld 3RL00206 "Geranyl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Geranyl Butyrate
   aliases: []
   cas: null
@@ -1843,7 +1845,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.829
   logp: null
   functional_groups: []
   chirality: null
@@ -1873,6 +1875,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.8290, supplier-reported (PerfumersWorld 7CA24030 "Grapefruit FCF oil Sicilian"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Grapefruit Fleuressence
   aliases: []
   cas: null

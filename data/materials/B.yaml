@@ -464,7 +464,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.049
   logp: null
   functional_groups: []
   chirality: null
@@ -498,6 +498,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 1.0490, supplier-reported (PerfumersWorld 4FN00049 "Benzaldehyde"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Benzoin F-TEC
   aliases:
   - BENZOIN F-TEC
@@ -1317,7 +1318,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 170.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.862
   logp: 3.2
   functional_groups: []
   chirality: null
@@ -1368,6 +1369,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.user_bottle: Kenny 2026-10-14 (Studio 3 thread); PerfumersWorld 7CL24020 was a name-only match
+    density_25c_g_ml: 'SG 0.8620, supplier-reported (PerfumersWorld 7CL24020 "Bergamot FCF oil Sicilian"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Bergamot Fleuressence
   aliases: []
   cas: null
@@ -1925,7 +1927,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 204.35
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.88
   logp: 4.5
   functional_groups: []
   chirality: null
@@ -1952,6 +1954,7 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
+    density_25c_g_ml: 'SG 0.8800, supplier-reported (PerfumersWorld 7SQ00359 "Black Pepper Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
 - canonical_name: Black Pepper Essential Oil
   aliases: []
   cas: null
@@ -2142,7 +2145,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 180.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.08
   logp: 3.5
   functional_groups:
   - natural_mixture
@@ -2187,6 +2190,7 @@
     composition: natural_mixture_no_batch_gc_ms
     composite_oav: engine.pipeline.natural_absolute_decomposition
     user_in_inventory: inventory.txt
+    density_25c_g_ml: 'SG 1.0800, supplier-reported (PerfumersWorld 8FB00063 "Blackcurrant Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Blackcurrant F-TEC
   aliases:
   - BLACKCURRANT F-TEC
@@ -2943,7 +2947,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 136.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.867
   logp: 4.2
   functional_groups: []
   chirality: null
@@ -2961,6 +2965,8 @@
   user_stock_dilution: 100.0
   user_in_inventory: true
 
+  provenance:
+    density_25c_g_ml: 'SG 0.8670, supplier-reported (PerfumersWorld 3KC00386 "Beta Pinene"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
 - canonical_name: Blue Chamomile EO
   aliases:
   - blue chamomile eo
@@ -2968,7 +2974,7 @@
   - chamomile eo
   cas: 8002-66-2
   mw_g_mol: 200.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.913
   logp: 3.5
   functional_groups: []
   chirality: null
@@ -2986,6 +2992,8 @@
   user_stock_dilution: 100.0
   user_in_inventory: true
 # MATERIAL_INTAKE_BATCH_2026_08_07 additions
+  provenance:
+    density_25c_g_ml: 'SG 0.9130, supplier-reported (PerfumersWorld 7HF00102 "Blue Chamomile Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
 - canonical_name: 'Vietnamese Benzoin Styrax Tonkinensis Tincture 20%'
   aliases: ['benzoin styrax tonkinensis tincture', 'vietnamese benzoin tincture', 'Vietnamese Benzoin Tincture']
   cas: null  # legacy literal None was not a CAS identity

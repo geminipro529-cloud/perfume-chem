@@ -122,7 +122,7 @@
   smiles:
   inchikey:
   mw_g_mol: 136.2
-  density_25c_g_ml:
+  density_25c_g_ml: 0.84
   logp: 4.6
   functional_groups: []
   chirality:
@@ -170,6 +170,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.8400, supplier-reported (PerfumersWorld 3CQ00276 "D-Limonene"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Damascenone
   aliases:
   - damascenone
@@ -227,7 +228,7 @@
   smiles:
   inchikey:
   mw_g_mol: 194.3
-  density_25c_g_ml:
+  density_25c_g_ml: 0.958
   logp:
   functional_groups: []
   chirality:
@@ -266,6 +267,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.9580, supplier-reported (PerfumersWorld 3IL00139 "Damascol"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Damascone Beta
   aliases: []
   cas: "23726-91-2"
@@ -753,7 +755,7 @@
   smiles:
   inchikey:
   mw_g_mol: 160.17
-  density_25c_g_ml:
+  density_25c_g_ml: 1.053
   logp: 0.9
   functional_groups: []
   chirality:
@@ -789,6 +791,7 @@
     mw_g_mol: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/105-53-3.pdf: "Molecular Weight: 160.17" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
     logp: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/105-53-3.pdf: "Log KOW: 0.9 (EPI Suite)", EPI Suite estimate, no measured value found (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
     vp_25c_pa: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/105-53-3.pdf: "0.361 mm Hg @ 25 °C (EPI Suite)", EPI Suite estimate; 0.361 mm Hg x 133.322 Pa/mm Hg = 48.1 Pa (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    density_25c_g_ml: 'SG 1.0530, supplier-reported (PerfumersWorld 3FG00145 "Diethyl Malonate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Diethyl Phthalate
   aliases:
   - DEP
@@ -831,7 +834,7 @@
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 1.115
   logp:
   functional_groups: []
   chirality:
@@ -861,6 +864,7 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 1.1150, supplier-reported (PerfumersWorld 0ZX00143 "Diethyl Phthalate (DEP)"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Dihydro Beta Ionone
   aliases:
   - dihydro beta ionone
@@ -1332,12 +1336,13 @@
     logp_source: 'rdkit-crippen-estimate'
     smiles: 'PubChem structure resolved from CAS 100-86-7 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Dimethyl Benzyl Carbinyl Acetate
-  aliases: []
+  aliases:
+  - Dimethyl Benzyl Carbinyl Acetate (DBCA)
   cas:
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 0.995
   logp:
   functional_groups: []
   chirality:
@@ -1370,6 +1375,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.9950, supplier-reported (PerfumersWorld 3LF00157 "Dimethyl Benzyl Carbinyl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Dimethyl Benzyl Carbinyl Butyrate
   aliases: []
   cas:
@@ -1687,7 +1693,7 @@
   smiles:
   inchikey:
   mw_g_mol: 192.3
-  density_25c_g_ml:
+  density_25c_g_ml: 0.921
   logp: 2.5
   functional_groups: []
   chirality:
@@ -1737,3 +1743,4 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 56973-85-4 (https://www.thegoodscentscompany.com/data/rw1003151.html)'
+    density_25c_g_ml: 'SG 0.9210, supplier-reported (PerfumersWorld 4FG07161 "Dynascone"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'

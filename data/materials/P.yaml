@@ -312,6 +312,7 @@
   aliases:
   - "p-Cresyl Methyl Ether (PCME)"
   - para-Cresyl Methyl Ether
+  - p-Cresyl Methyl Ether
   cas: '104-93-8'
   smiles: null
   inchikey: null
@@ -524,7 +525,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 192.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.881
   logp: 2.5
   functional_groups: []
   chirality: null
@@ -576,6 +577,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.8810, supplier-reported (PerfumersWorld 4IG05175 "Parmavert"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Parsley Seed Essential Oil
   aliases: []
   cas: null
@@ -842,7 +844,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.95
   logp: null
   functional_groups: []
   chirality: null
@@ -872,6 +874,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.9500, supplier-reported (PerfumersWorld 7WB13670 "Patchouli Light Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: PEACH F-TEC
   aliases: []
   cas: null
@@ -1526,7 +1529,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.0
   logp: null
   functional_groups: []
   chirality: null
@@ -1560,6 +1563,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 1.0000, supplier-reported (PerfumersWorld 4GN00382 "Phenyl Acetaldehyde Dimethyl Acetal (PADMA)"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Phenyl Ethyl Acetate
   aliases: []
   cas: null
@@ -1603,7 +1607,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.958
   logp: null
   functional_groups: []
   chirality: null
@@ -1639,13 +1643,14 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.9580, supplier-reported (PerfumersWorld 3MR02826 "Phenyl Ethyl Dimethyl Carbinol"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Phenyl Ethyl Dimethyl Carbinyl Acetate
   aliases: []
   cas: '103-07-1'
   smiles: 'CC(=O)OC(C)(C)CCc1ccccc1'
   inchikey: null
   mw_g_mol: 206.285
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.979
   logp: 2.96
   functional_groups: []
   chirality: null
@@ -1680,6 +1685,7 @@
     smiles: 'PubChem structure resolved from CAS 103-07-1 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     mw_g_mol: 'RDKit exact from SMILES CC(=O)OC(C)(C)CCc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     cas: 'PubChem record for CAS 103-07-1 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    density_25c_g_ml: 'SG 0.9790, supplier-reported (PerfumersWorld 3LR00160 "Phenyl Ethyl Dimethyl Carbinyl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Phenyl Ethyl Formate
   aliases: []
   cas: null
@@ -2550,7 +2556,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.852
   logp: null
   functional_groups: []
   chirality: null
@@ -2580,6 +2586,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.8520, supplier-reported (PerfumersWorld 7CN23708 "Pomelo Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Powdery F-TEC
   aliases:
   - POWDERY F-TEC
@@ -3439,7 +3446,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 164.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.029
   logp: 2.3
   functional_groups: []
   chirality: null
@@ -3475,6 +3482,7 @@
     odt_air_ppb: estimated
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
+    density_25c_g_ml: 'SG 1.0290, supplier-reported (PerfumersWorld 3RP00371 "Phenyl Ethyl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: petitgrain eo paraguay
   aliases: []
   cas: null
@@ -3524,7 +3532,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 136.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.87
   logp: 4.2
   functional_groups: []
   chirality: null
@@ -3541,6 +3549,8 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  provenance:
+    density_25c_g_ml: 'SG 0.8700, supplier-reported (PerfumersWorld 7KQ07511 "Pine Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
 - canonical_name: Peppermint Essential Oil
   aliases:
   - Peppermint Essential Oil (Mentha piperita, India)

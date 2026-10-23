@@ -430,7 +430,7 @@
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 0.835
   logp:
   functional_groups: []
   chirality:
@@ -460,6 +460,7 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.8350, supplier-reported (PerfumersWorld 3LM00435 "Tetrahydro Muguol"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: The Aromatherapy And Natural Perfumery Training Kitaromakit
   aliases:
   - The Aromatherapy and Natural Perfumery Training KitAROMAKIT
@@ -4072,7 +4073,7 @@
   - marigold eo
   cas: 8016-84-0
   mw_g_mol: 155.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.85
   logp: 3.2
   functional_groups: []
   chirality: null
@@ -4090,6 +4091,8 @@
   user_stock_dilution: 10.0
   user_in_inventory: true
 
+  provenance:
+    density_25c_g_ml: 'SG 0.8500, supplier-reported (PerfumersWorld 7NH00426 "Tagetes Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
 - canonical_name: Tuberose Absolute (volume grade)
   aliases:
   - tuberose absolute (volume grade)

@@ -472,7 +472,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.889
   logp: null
   functional_groups: []
   chirality: null
@@ -504,6 +504,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.8890, supplier-reported (PerfumersWorld 8HY00554 "Lavandin Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Lavandin Essential Oil
   aliases: []
   cas: null
@@ -1004,7 +1005,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 154.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.965
   logp: 2.0
   functional_groups: []
   chirality: null
@@ -1052,6 +1053,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.9650, supplier-reported (PerfumersWorld 4GI15439 "Leafovert"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Leather F-TEC
   aliases:
   - LEATHER F-TEC
@@ -1317,7 +1319,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.885
   logp: null
   functional_groups: []
   chirality: null
@@ -1349,6 +1351,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.8850, supplier-reported (PerfumersWorld 7CC24027 "Lemon Terpeneless oil Sicilian"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Lemon Verdello Oil Sicilian
   aliases:
   - Lemon Verdello oil Sicilian
@@ -2694,7 +2697,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 136.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.872
   logp: 3.5
   functional_groups: []
   chirality: null
@@ -2711,3 +2714,5 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  provenance:
+    density_25c_g_ml: 'SG 0.8720, supplier-reported (PerfumersWorld 7CK00274 "Lime Distilled Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'

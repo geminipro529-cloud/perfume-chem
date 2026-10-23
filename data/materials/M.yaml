@@ -394,7 +394,7 @@
   smiles:
   inchikey:
   mw_g_mol: 204.27
-  density_25c_g_ml:
+  density_25c_g_ml: 1.085
   logp: 2.67
   functional_groups: []
   chirality:
@@ -430,6 +430,7 @@
     mw_g_mol: 'PerfumersWorld SDS 3MN13569 (local snapshot, batch MAG13569/26280); MW 204.27, C13H16O2 (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
     logp: 'ESTIMATE: EPI Suite 2.67 as quoted by RIFM, Food Chem. Toxicol. 130 Suppl 1 (2019) 110568, doi:10.1016/j.fct.2019.110568; measured isomers 2.43 and 2.90 (RIFM 2014d) bracket it (via material-data-firecrawl/BATCH1_FEMME_20261008.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
     vp_25c_pa: 'ESTIMATE: TGSC rw1007991 0.003 mmHg @ 25 C (est) x 133.322 Pa/mmHg = 0.40 Pa (via material-data-firecrawl/BATCH1_FEMME_20261008.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
+    density_25c_g_ml: 'SG 1.0850, supplier-reported (PerfumersWorld 3MN13569 "Magnolan"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Magnolia EO
   aliases:
   - magnolia eo
@@ -1001,7 +1002,7 @@
   smiles:
   inchikey:
   mw_g_mol: 144.21
-  density_25c_g_ml:
+  density_25c_g_ml: 0.861
   logp: 2.667
   functional_groups: []
   chirality:
@@ -1037,6 +1038,7 @@
     mw_g_mol: 'https://www.parchem.com/chemical-supplier-distributor/ethyl-2-methylpentanoate-manzanate-022982; "Molecular weight 144.21" (C8H16O2) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     logp: 'ESTIMATE: TGSC "logP (o/w): 2.667 (est)"; https://www.perflavory.com/docs/doc1006801.html (via material-data-firecrawl/allgaps/S3_fruity_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
     vp_25c_pa: 'ESTIMATE: TGSC "2.906000 mmHg @ 25.00 C. (est)" x 133.322 Pa/mmHg = 387 Pa; https://www.perflavory.com/docs/doc1006801.html (via material-data-firecrawl/allgaps/S3_fruity_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
+    density_25c_g_ml: 'SG 0.8610, supplier-reported (PerfumersWorld 4FG15438 "Manzanate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Maple Lactone
   aliases:
   - maple lactone
@@ -1863,7 +1865,7 @@
   smiles:
   inchikey:
   mw_g_mol: 170.3
-  density_25c_g_ml:
+  density_25c_g_ml: 0.822
   logp: 4.1
   functional_groups: []
   chirality:
@@ -1901,6 +1903,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.8220, supplier-reported (PerfumersWorld 4LY00304 "Methyl Nonyl Ketone"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Methyl Octine Carbonate
   aliases: []
   cas:
@@ -2843,7 +2846,7 @@
   smiles:
   inchikey:
   mw_g_mol: 222.4
-  density_25c_g_ml:
+  density_25c_g_ml: 0.988
   logp: 3.5
   functional_groups: []
   chirality:
@@ -2878,6 +2881,7 @@
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    density_25c_g_ml: 'SG 0.9880, supplier-reported (PerfumersWorld 7QC00314 "Myrrh Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
 - canonical_name: Myrrh Essential Oil
   aliases: []
   cas:
@@ -2922,7 +2926,7 @@
   - mimosa abs
   cas: 8031-03-6
   mw_g_mol: 240.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.989
   logp: 3.8
   functional_groups: []
   chirality: null
@@ -2939,6 +2943,8 @@
   trp_targets: null
   user_stock_dilution: 10.0
   user_in_inventory: true
+  provenance:
+    density_25c_g_ml: 'SG 0.9890, supplier-reported (PerfumersWorld 8NG00307 "Mimosa Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Methyl Laitone
   aliases: [methyl laitone]
   mw_g_mol: 168.23

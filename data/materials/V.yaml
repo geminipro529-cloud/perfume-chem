@@ -118,7 +118,7 @@
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 1.08
   logp:
   functional_groups: []
   chirality:
@@ -157,6 +157,7 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 1.0800, supplier-reported (PerfumersWorld 8VW08619 "Vanilla Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Vanillin
   aliases:
   - vanillin
@@ -164,7 +165,7 @@
   smiles:
   inchikey:
   mw_g_mol: 152.2
-  density_25c_g_ml:
+  density_25c_g_ml: 1.06
   logp: 1.2
   functional_groups: []
   chirality:
@@ -219,6 +220,7 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 121-33-5 (https://www.thegoodscentscompany.com/data/rw1011712.html)'
+    density_25c_g_ml: 'SG 1.0600, supplier-reported (PerfumersWorld 1VW00456 "Vanillin"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Veloutone
   aliases: []
   cas: '65443-14-3'
@@ -429,7 +431,7 @@
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 1.068
   logp:
   functional_groups: []
   chirality:
@@ -459,6 +461,7 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 1.0680, supplier-reported (PerfumersWorld 3LJ01926 "Verdyl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Verdyl Propionate
   aliases: []
   cas:
@@ -636,6 +639,7 @@
   aliases:
   - vetikon
   - methyl cedryl ketone
+  - Vetikon (7403-42-1)
   cas: 7403-42-1
   smiles: CC1(C)C2CCC1(C)C(C)(C)C2C(=O)C
   inchikey:
@@ -920,7 +924,7 @@
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 1.0
   logp:
   functional_groups: []
   chirality:
@@ -953,6 +957,7 @@
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 1.0000, supplier-reported (PerfumersWorld 3WY00468 "Vetiveryl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Violet F-TEC
   aliases:
   - VIOLET F-TEC
