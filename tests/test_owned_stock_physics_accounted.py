@@ -122,10 +122,10 @@ def _held_name(label: str) -> str:
     return bare.removesuffix(" (neat)").strip()
 
 
-def _gaps() -> dict[str, tuple[str, ...]]:
+def _gaps() -> dict[str, set[tuple[str, ...]]]:
     names = _owned_names()
     frame = simulator.simulate_formula({n: 10.0 for n in names}, {n: 1.0 for n in names})[0]
-    gaps: dict[str, tuple[str, ...]] = {}
+    gaps: dict[str, set[tuple[str, ...]]] = {}
     for material in frame.state.materials:
         if material.natural_composite_metadata and material.oav is not None:
             continue
@@ -137,18 +137,19 @@ def _gaps() -> dict[str, tuple[str, ...]]:
         }
         missing = tuple(sorted(field for field, value in values.items() if value is None))
         if missing:
-            gaps.setdefault(_held_name(material.name), missing)
+            # Every stock label of a held material is compared, not just the first.
+            gaps.setdefault(_held_name(material.name), set()).add(missing)
     return gaps
 
 
 def test_every_owned_stock_has_physics_or_a_written_hold():
     gaps = _gaps()
-    unexplained = {name: missing for name, missing in gaps.items() if name not in HOLDS}
+    unexplained = {name: sorted(missing) for name, missing in gaps.items() if name not in HOLDS}
     assert not unexplained, f"owned stocks without physics or a hold: {unexplained}"
     wrong = {
-        name: (missing, HOLDS[name][0])
-        for name, missing in gaps.items()
-        if name in HOLDS and missing != HOLDS[name][0]
+        name: (sorted(variants), HOLDS[name][0])
+        for name, variants in gaps.items()
+        if name in HOLDS and variants != {HOLDS[name][0]}
     }
     assert not wrong, f"holds whose missing fields changed (found, held): {wrong}"
     filled = sorted(set(HOLDS) - set(gaps))
