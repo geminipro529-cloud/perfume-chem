@@ -265,11 +265,11 @@
 - canonical_name: Velvione
   aliases: []
   cas: '37609-25-9'
-  smiles:
+  smiles: 'O=C1CCCC=CCCCCCCCCCC1'
   inchikey:
   mw_g_mol: 236.4
   density_25c_g_ml: 0.93
-  logp:
+  logp: 5.2
   functional_groups: []
   chirality:
   vp_25c_pa: 0.02
@@ -301,6 +301,9 @@
     density_25c_g_ml: 'ECHA 0.93 g/cm3 at 20 C (20 C value); TGSC SG 0.932-0.934. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study 0.02 Pa at 20 C (not corrected to 25 C); EPI estimate was 0.0044 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES O=C1CCCC=CCCCCCCCCCC1, D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. RDKit MW 236.399 matches the YAML MW within 0.1. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'Structure stated in the 2026-10-23 wiring spec (output/_wire_spec_20261023.md section A), RDKit-canonicalised by D:\agent-cache\tools\chemprops.py, run 2026-10-23; RDKit MW 236.399 matches the YAML MW within 0.1'
 - canonical_name: Verbena Oil
   aliases: []
   cas:

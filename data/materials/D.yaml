@@ -474,11 +474,11 @@
   aliases:
   - delta damascone
   cas: '57378-68-4'
-  smiles:
+  smiles: 'CC=CC(=O)C1C(C)C=CCC1(C)C'
   inchikey:
   mw_g_mol: 192.3
   density_25c_g_ml: 0.93
-  logp:
+  logp: 3.37
   functional_groups: []
   chirality:
   vp_25c_pa: 3.59
@@ -507,6 +507,9 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC=CC(=O)C1C(C)C=CCC1(C)C, D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. RDKit MW 192.302 matches the YAML MW within 0.1. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'Structure stated in the 2026-10-23 wiring spec (output/_wire_spec_20261023.md section A), RDKit-canonicalised by D:\agent-cache\tools\chemprops.py, run 2026-10-23; RDKit MW 192.302 matches the YAML MW within 0.1'
 - canonical_name: Delta Decalactone
   aliases:
   - delta decalactone

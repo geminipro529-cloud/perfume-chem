@@ -57,6 +57,7 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     "Canthoxal": (("odt",), _NO_AIR_ODT_1023),
     "Cedroxyde": (("odt",), _NO_AIR_ODT_1023),
     "Citronellyl Acetate": (("odt",), _NO_AIR_ODT_1023),
+    "Cyclogalbanate": (("odt",), _NO_AIR_ODT_1023),
     "Dimethyl Benzyl Carbinol": (("odt",), _NO_AIR_ODT_1023),
     "Dupical": (("odt",), _NO_AIR_ODT_1023),
     "Neryl Acetate": (
@@ -67,10 +68,7 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     "Para-Cresyl Phenyl Acetate": (("odt",), _NO_AIR_ODT_1023),
     "Peach Ketone": (("odt",), _NO_AIR_ODT_1023),
     "Phenoxy Ethyl Isobutyrate": (("odt",), _NO_AIR_ODT_1023),
-    # Crippen log P from the stated SMILES not yet run and MW-checked (2026-10-23).
-    "Cyclogalbanate": (("logp", "odt"), "log P pending a MW-checked Crippen run; " + _NO_AIR_ODT_1023),
-    "Delta Damascone": (("logp",), "log P pending a MW-checked Crippen run (2026-10-23)"),
-    "Velvione": (("logp", "odt"), "log P pending a MW-checked Crippen run; " + _NO_AIR_ODT_1023),
+    "Velvione": (("odt",), _NO_AIR_ODT_1023),
     # Structure not confirmed, so no calculated log P.
     "Decatone": (("logp", "odt"), "structure unconfirmed, so no Crippen log P; " + _NO_AIR_ODT_1023),
     "Pear Valerate": (("logp", "odt"), "structure unconfirmed, so no Crippen log P; " + _NO_AIR_ODT_1023),
