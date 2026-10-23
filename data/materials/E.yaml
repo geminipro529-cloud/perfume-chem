@@ -565,7 +565,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 0.04
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -593,6 +593,7 @@
     vp_25c_pa: '2011.0 Pa at 25 C from the Poling et al. Antoine fit (298-422.7 K, not extrapolated) via D:\agent-cache\tools\chemprops.py (run 2026-10-23). Second source: the NIST WebBook Antoine fit gives 2304 Pa'
     density_25c_g_ml: 'SG 0.8750, supplier-reported (PerfumersWorld 3FD00174 "Ethyl Butyrate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
     density_basis: supplier_sg_temperature_unstated
+    odt_air_ppb: 'Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review, Japan Ministry of the Environment, pp. 118-127, https://www.env.go.jp/content/900450144.pdf, Table 2 (ppm, v/v): "Ethyl n-butyrate 0.000040" ppm v/v = 0.040 ppb (x 1000; measured, triangle odor bag). No ethanol-solution threshold found'
 - canonical_name: Ethyl Isovalerate
   aliases: []
   cas:

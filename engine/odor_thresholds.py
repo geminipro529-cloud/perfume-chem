@@ -604,6 +604,14 @@ ODT_DATA: dict[str, dict] = {
         "odt_air": 4.8,
         "odt_eth": None,
     },
+    # Nagata (2003) triangle odor bag, ethyl n-butyrate 0.000040 ppm v/v = 0.04 ppb.
+    # No ethanol-solution threshold found.
+    "ethyl butyrate": {
+        "vfy": "PEER_SINGLE",
+        "sources": ["Nagata (2003) Odor Measurement Review pp. 118-127 — 0.000040 ppm v/v (0.04 ppb)"],
+        "odt_air": 0.04,
+        "odt_eth": None,
+    },
     "aldehyde c11 undecylenic": {
         "odt_air": 0.8,
         "odt_eth": 0.4,
@@ -1719,6 +1727,12 @@ ODT_VERIFICATION: dict[str, dict] = {
         "vfy": "PEER_SINGLE",
         "sources": [
             "Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 — n-butyl n-butyrate 0.0048 ppm v/v (4.8 ppb)"
+        ],
+    },
+    "ethyl butyrate": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review pp. 118-127, https://www.env.go.jp/content/900450144.pdf, Table 2 — ethyl n-butyrate 0.000040 ppm v/v (0.04 ppb)"
         ],
     },
     "allyl amyl glycolate": {
