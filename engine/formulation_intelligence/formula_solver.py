@@ -414,6 +414,76 @@ def _allows_multiple_musks(request: str, roles: Sequence[SemanticRole]) -> bool:
     )
 
 
+# The release gate's musk count limit (gates._MUSK_COUNT_LIMIT): a skin-musk
+# accord may hold a second musk, never a third.
+_MAX_FORMULA_MUSKS = 2
+_SINGLE_MUSK_PHRASE = re.compile(r"\b(?:only[\s-]+one|the[\s-]+only|one|single|only)[\s-]+musk\b")
+_MORE_MUSK_WORDS = frozenset({"another", "other", "second", "more", "extra"})
+
+
+def _single_musk_requested(request: str, avoid: Sequence[str]) -> bool:
+    """True when the brief asks for one musk ("the only musk") or its avoid
+    list refuses another one ("add another musk")."""
+
+    if _SINGLE_MUSK_PHRASE.search(request.casefold()):
+        return True
+    return any(
+        any(word.startswith("musk") for word in words) and words & _MORE_MUSK_WORDS
+        for words in (_words((item,)) for item in avoid)
+    )
+
+
+def _musk_role(capability: MaterialCapability) -> tuple[str, str] | None:
+    """A musk's own recorded (role, texture), or None when its role is
+    unassigned: with no data there is no proof of a distinct role."""
+
+    profile = capability.candidate.profile
+    role = str(getattr(profile, "role", "") or "").strip().casefold()
+    if not role or role == "unassigned":
+        return None
+    return role, str(getattr(profile, "texture", "") or "").strip().casefold()
+
+
+def _is_musk_accord_support(role: SemanticRole) -> bool:
+    """A supporting place of an accord whose query words ask for a musk."""
+
+    return (
+        role.provenance == ACCORD_SUPPORT_PROVENANCE
+        and _DESCRIPTOR_REQUIREMENTS["base_musk"][0] in _role_descriptor_groups(role)
+    )
+
+
+def _second_musk_block(
+    capability: MaterialCapability,
+    role: SemanticRole,
+    state: "_BeamState",
+    musk_count: int,
+    *,
+    single_musk: bool,
+) -> str | None:
+    """Why a musk may not join the musk(s) already placed, or None when it may.
+
+    One musk is valid on its own (AGENTS.md); a second one goes only into a
+    skin-musk accord's supporting place, and only in a role (profile role and
+    texture) distinct from every musk already placed.
+    """
+
+    if musk_count >= _MAX_FORMULA_MUSKS:
+        return "musk limit (two musks already)"
+    if not _is_musk_accord_support(role):
+        return "one-musk rule"
+    if single_musk:
+        return "one-musk rule (the brief asks for one musk)"
+    own = _musk_role(capability)
+    for _prior, placed, _score in state.assignments:
+        if placed.group != "musk":
+            continue
+        theirs = _musk_role(placed)
+        if own is None or theirs is None or own == theirs:
+            return f"one-musk rule (same musk role as {placed.identity_name})"
+    return None
+
+
 def _family_bucket(capability: MaterialCapability) -> str | None:
     probe = capability.identity_name.casefold()
     if "root texture" in capability.knowledge_role_slots:
@@ -794,6 +864,7 @@ def _block_reason(
     enforce_own_odor_avoid: bool = False,
     named_identity: tuple[str, ...] = (),
     liquid_total_ul: int = _STANDARD_LIQUID_TOTAL_UL,
+    single_musk: bool = False,
 ) -> str | None:
     """Why ``capability`` may not fill ``role`` in ``state``, or None when it may."""
 
@@ -812,7 +883,11 @@ def _block_reason(
     groups = state.groups()
     if capability.group == "musk" and groups.get("musk", 0) >= 1:
         if not allow_multiple_musks and role.exact_material is None:
-            return "one-musk rule"
+            reason = _second_musk_block(
+                capability, role, state, groups["musk"], single_musk=single_musk,
+            )
+            if reason is not None:
+                return reason
     if capability.group == "citrus" and groups.get("citrus", 0) >= 2:
         if role.exact_material is None and role.role_id != "persistent_identity":
             return "citrus limit (two citrus stocks already)"
@@ -912,11 +987,12 @@ def _allowed(
     enforce_own_odor_avoid: bool = False,
     named_identity: tuple[str, ...] = (),
     liquid_total_ul: int = _STANDARD_LIQUID_TOTAL_UL,
+    single_musk: bool = False,
 ) -> bool:
     return _block_reason(
         capability, role, state, avoid=avoid, allow_multiple_musks=allow_multiple_musks,
         enforce_own_odor_avoid=enforce_own_odor_avoid, named_identity=named_identity,
-        liquid_total_ul=liquid_total_ul,
+        liquid_total_ul=liquid_total_ul, single_musk=single_musk,
     ) is None
 
 
@@ -1332,6 +1408,7 @@ def _rank_for_state(
     named_identity: tuple[str, ...] = (),
     liquid_total_ul: int = _STANDARD_LIQUID_TOTAL_UL,
     reserved_identities: frozenset[str] = frozenset(),
+    single_musk: bool = False,
 ) -> list[tuple[float, MaterialCapability]]:
     selected = tuple(item[1] for item in state.assignments)
     ranked = [
@@ -1352,6 +1429,7 @@ def _rank_for_state(
             enforce_own_odor_avoid=enforce_own_odor_avoid,
             named_identity=named_identity,
             liquid_total_ul=liquid_total_ul,
+            single_musk=single_musk,
         )
     ]
     ranked = _owned_grades(ranked, role, reserved_identities)
@@ -1428,6 +1506,7 @@ def _unplaced_cited_helpers(
     if not any(_is_cited_helper(role) and role.role_id not in placed for role in brief.roles):
         return []
     allow_multiple_musks = _allows_multiple_musks(brief.normalized_request, brief.roles)
+    single_musk = _single_musk_requested(brief.normalized_request, avoid)
     enforce_own_odor_avoid = bool(brief.architecture_plan.get("operation"))
     unplaced: list[dict[str, Any]] = []
     for position, role in enumerate(brief.roles):
@@ -1466,6 +1545,7 @@ def _unplaced_cited_helpers(
             reason = "not in the capability index" if capability is None else _block_reason(
                 capability, role, state, avoid=avoid, allow_multiple_musks=allow_multiple_musks,
                 enforce_own_odor_avoid=enforce_own_odor_avoid, liquid_total_ul=liquid_total_ul,
+                single_musk=single_musk,
             )
             kept_by = (kept_for or {}).get((role.role_id, capability.stock_id)) if capability else None
             if reason is None and capability is not None and (
@@ -1519,6 +1599,7 @@ def _solve_assignments(
     )
     missing: list[str] = []
     allow_multiple_musks = _allows_multiple_musks(brief.normalized_request, brief.roles)
+    single_musk = _single_musk_requested(brief.normalized_request, avoid)
     # v5 applies explicit own-odor exclusions to the entire comparison, not
     # only the added/refined role. Historical controls keep their replay path.
     enforce_own_odor_avoid = bool(brief.architecture_plan.get("operation"))
@@ -1598,6 +1679,7 @@ def _solve_assignments(
                 cap, future, candidate_state, avoid=avoid, allow_multiple_musks=allow_multiple_musks,
                 enforce_own_odor_avoid=enforce_own_odor_avoid,
                 named_identity=named_identities[future.role_id], liquid_total_ul=liquid_total_ul,
+                single_musk=single_musk,
             ) for _, cap in unary_rankings[future.role_id])
 
         return next((
@@ -1636,6 +1718,7 @@ def _solve_assignments(
                 allow_multiple_musks=allow_multiple_musks, enforce_own_odor_avoid=enforce_own_odor_avoid,
                 variant_index=variant_index, liking=liking, named_identity=named_identities[future.role_id],
                 liquid_total_ul=liquid_total_ul, reserved_identities=reserved_for(future),
+                single_musk=single_musk,
             )
             if ranked:
                 firsts.setdefault(_chemical_identity(ranked[0][1]), future)
@@ -1668,6 +1751,7 @@ def _solve_assignments(
                 named_identity=named_identities[role.role_id],
                 liquid_total_ul=liquid_total_ul,
                 reserved_identities=reserved,
+                single_musk=single_musk,
             )
             placed_role = role
             ranked = _rank_for_state(unary_rankings[role.role_id], role, state, **rank_kwargs)
@@ -1744,6 +1828,7 @@ def _solve_assignments(
                     enforce_own_odor_avoid=enforce_own_odor_avoid,
                     named_identity=named_identities[future.role_id],
                     liquid_total_ul=liquid_total_ul,
+                    single_musk=single_musk,
                 ) for _, cap in unary_rankings[future.role_id])
                 for future in future_constrained
             )
