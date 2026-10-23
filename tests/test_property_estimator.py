@@ -286,3 +286,32 @@ class TestDatabaseValidation:
         assert isinstance(result, dict)
         assert "r_squared" in result
         assert isinstance(result.get("n", 0), int)
+
+    def test_vp_validation_excludes_estimated_or_extrapolated_vps(self) -> None:
+        """A YAML VP tagged as estimated or extrapolated is not validation ground truth."""
+        names = {m["name"] for m in validate_vp_estimates()["materials"]}
+        assert "Magnolan" not in names  # vp_source: TGSC_est
+        assert "Citronellyl Acetate" not in names  # vp_source: NIST_WebBook_Antoine_extrapolated
+        assert "Ethyl Butyrate" in names  # vp_source: Poling_Antoine, inside its fit range
+
+    @pytest.mark.parametrize(
+        ("vp_source", "non_reference"),
+        [
+            ("TGSC_est", True),
+            ("est/literature", True),
+            ("ChemicalBook_estimate", True),
+            ("PubChem_pred", True),
+            ("placeholder", True),
+            ("natural_mixture_proxy", True),
+            ("NIST_WebBook_Antoine_extrapolated", True),
+            ("HSDB", False),
+            ("ECHA_measured_20C_not_corrected", False),
+            ("Poling_Antoine", False),
+            ("EPI_exp_database", False),
+            (None, False),
+        ],
+    )
+    def test_non_reference_vp_source_classification(
+        self, vp_source: str | None, non_reference: bool
+    ) -> None:
+        assert property_estimator._is_non_reference_vp_source(vp_source) is non_reference

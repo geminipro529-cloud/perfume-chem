@@ -632,15 +632,41 @@ def _estimate_mw(smiles: str, add_implicit_h: bool = True) -> float:
 # ===================================================================
 
 
-def _load_db_materials() -> list[dict[str, Any]]:
-    """Load materials that have both SMILES and VP from the KB database."""
+# vp_source words that mark a VP as modelled rather than measured.
+_NON_REFERENCE_VP_SOURCE_TOKENS = frozenset(
+    {"est", "estimate", "estimated", "pred", "predicted", "placeholder", "proxy"}
+)
+
+
+def _is_non_reference_vp_source(vp_source: str | None) -> bool:
+    """Return True if *vp_source* marks the VP as estimated, predicted or extrapolated.
+
+    Such a VP is another model's output (or a fit used outside its range), so
+    it is not reference data for validating this estimator.
+    """
+    if not vp_source:
+        return False
+    tokens = re.split(r"[^a-z0-9]+", vp_source.lower())
+    return any(
+        token in _NON_REFERENCE_VP_SOURCE_TOKENS or token.startswith("extrapolat")
+        for token in tokens
+    )
+
+
+def _load_db_materials(reference_vp_only: bool = False) -> list[dict[str, Any]]:
+    """Load materials that have both SMILES and VP from the KB database.
+
+    With *reference_vp_only*, a VP whose ``vp_source`` marks it as estimated,
+    predicted or extrapolated is skipped: validating the VP estimator against
+    another estimate measures agreement between models, not accuracy.
+    """
     if not _KB_PATH.exists():
         return []
 
     conn = _get_kb_read_connection()
     try:
         cursor = conn.execute(
-            "SELECT canonical_name, vp_25c_pa, logp, smiles "
+            "SELECT canonical_name, vp_25c_pa, logp, smiles, vp_source "
             "FROM materials "
             "WHERE vp_25c_pa > 0 AND logp IS NOT NULL AND smiles IS NOT NULL"
         )
@@ -650,7 +676,9 @@ def _load_db_materials() -> list[dict[str, Any]]:
 
     results: list[dict[str, Any]] = []
     seen: set[str] = set()
-    for name, vp, logp_val, smi in rows:
+    for name, vp, logp_val, smi, vp_source in rows:
+        if reference_vp_only and _is_non_reference_vp_source(vp_source):
+            continue
         if smi in seen:
             continue
         seen.add(smi)
@@ -659,7 +687,7 @@ def _load_db_materials() -> list[dict[str, Any]]:
 
 
 def validate_vp_estimates() -> dict[str, Any]:
-    """Run VP estimates against DB materials and return R² statistics.
+    """Run VP estimates against DB materials with a reference VP; return R² statistics.
 
     Returns
     -------
@@ -667,7 +695,7 @@ def validate_vp_estimates() -> dict[str, Any]:
         Keys: ``r_squared`` (R² on log₁₀ scale), ``n`` (sample count),
         ``materials`` (list of per-material comparisons).
     """
-    materials = _load_db_materials()
+    materials = _load_db_materials(reference_vp_only=True)
     if not materials:
         return {"r_squared": float("nan"), "n": 0, "materials": []}
 
