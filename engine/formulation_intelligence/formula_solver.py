@@ -22,6 +22,7 @@ from engine.formulation_intelligence.semantic_brief_adapter import (
     ACCENT_MAX_RAW_SHARE,
     ACCENT_PROVENANCE,
     ACCORD_SUPPORT_PROVENANCE,
+    LASTING_SPICE_PROVENANCE,
     LAYER_MAX_RAW_SHARE,
     LAYER_PROVENANCE,
     TODAY_SUPPORT_PLACES,
@@ -79,6 +80,8 @@ class _BeamState:
     # Role fit without the hash tie, and summed liking of non-exact picks.
     fit: float = 0.0
     liking: float = 0.0
+    # The brief has a lasting spice role: it keeps one lasting spice.
+    lasting_spice_brief: bool = False
 
     def groups(self) -> dict[str, int]:
         return dict(self.group_counts)
@@ -901,6 +904,53 @@ def _cited_lead_family(role: SemanticRole, state: "_BeamState") -> str | None:
     return _family_bucket(lead[0]) if lead else None
 
 
+# A spice that lasts, for a brief's lasting spice role: an owned liquid its
+# own record files as a spice ("spice" as its odor family or formulation
+# role, not only the "spicy" any stock with some spiciness carries from its
+# character map), strongly spicy, and below the release gate's long-lasting
+# vapour pressure (gates.TENACITY_LONG_LASTING_VP_25C_PA; a test pins them
+# equal).  Owned today: Safraleine 10% in DPG (0.02 Pa) and Ethyl Safranate
+# 10% (0.05 Pa).  Immortelle Absolute and Peru Balsam Resinoid are as spicy
+# and as lasting, but filed floral and balsamic: they are not the spice.
+_SPICE_CHARACTER_MIN = 5
+_LASTING_VP_PA = 0.1
+
+
+def _is_lasting_spice(capability: MaterialCapability) -> bool:
+    return _lasting_spice_profile(
+        capability.candidate.solid, capability.descriptor_vocabulary, capability.character,
+        capability.candidate.profile.vp,
+    )
+
+
+@lru_cache(maxsize=None)
+def _lasting_spice_profile(
+    solid: bool, descriptors: frozenset[str], character: tuple[tuple[str, float], ...],
+    vp: float | None,
+) -> bool:
+    return (
+        not solid
+        and "spice" in descriptors
+        and dict(character).get("spicy", 0.0) >= _SPICE_CHARACTER_MIN
+        and vp is not None
+        and float(vp) < _LASTING_VP_PA
+    )
+
+
+def _own_descriptor_avoided(capability: MaterialCapability, avoid: Sequence[str]) -> bool:
+    """A word the brief avoids is one of the stock's own descriptors ("no leather")."""
+
+    for raw in avoid:
+        item = _identity_key(raw)
+        for prefix in ("any ", "all ", "the ", "no "):
+            item = item.removeprefix(prefix)
+        for suffix in (" materials", " material", " notes", " note", " accord"):
+            item = item.removesuffix(suffix)
+        if item in capability.descriptor_vocabulary:
+            return True
+    return False
+
+
 def _block_reason(
     capability: MaterialCapability,
     role: SemanticRole,
@@ -920,6 +970,23 @@ def _block_reason(
         return "already used in this formula"
     if _avoid_candidate(capability.candidate, avoid):
         return "the brief's avoid list"
+    if role.provenance == LASTING_SPICE_PROVENANCE:
+        # The brief's one lasting spice: a stock the owner holds, never a
+        # design-only grade (neat Safraleine), and none the brief turns down
+        # by its odor.
+        if not (_is_lasting_spice(capability) and capability.execution_ready):
+            return "not an owned spice below the long-lasting vapour pressure"
+        if _own_descriptor_avoided(capability, avoid):
+            return "the brief's avoid list (its own descriptor)"
+    elif (
+        role.exact_material is None
+        and _is_lasting_spice(capability)
+        and (state.lasting_spice_brief or any(
+            prior.provenance == LASTING_SPICE_PROVENANCE for prior, _cap, _score in state.assignments
+        ))
+        and any(_is_lasting_spice(prior_capability) for _prior, prior_capability, _score in state.assignments)
+    ):
+        return "one lasting spice already"
     if role.knowledge_role_slot and role.knowledge_role_slot not in capability.knowledge_role_slots:
         return "not a stock of the role's knowledge slot"
     if not supports_descriptor_requirement(capability, role.descriptor_requirement):
@@ -1573,6 +1640,7 @@ def _unplaced_cited_helpers(
             used_identities=frozenset(_chemical_identity(cap) for _role, cap, _score in prior),
             group_counts=tuple(sorted(groups.items())),
             objective=0.0,
+            lasting_spice_brief=any(r.provenance == LASTING_SPICE_PROVENANCE for r in brief.roles),
         )
         # The row that already holds one of the helper's cited materials
         # carries the helper's job: one material, one row.
@@ -1644,6 +1712,7 @@ def _solve_assignments(
             used_identities=frozenset(),
             group_counts=(),
             objective=0.0,
+            lasting_spice_brief=any(r.provenance == LASTING_SPICE_PROVENANCE for r in brief.roles),
         ),
     )
     missing: list[str] = []
@@ -1721,6 +1790,7 @@ def _solve_assignments(
             used_identities=state.used_identities | {_chemical_identity(capability)},
             group_counts=tuple(sorted(groups.items())),
             objective=state.objective,
+            lasting_spice_brief=state.lasting_spice_brief,
         )
 
         def admits(future: SemanticRole, candidate_state: _BeamState) -> bool:
@@ -1791,6 +1861,13 @@ def _solve_assignments(
         )
         reserved = reserved_for(role)
         for state in states:
+            if role.provenance == LASTING_SPICE_PROVENANCE and any(
+                _is_lasting_spice(capability) for _role, capability, _score in state.assignments
+            ):
+                # A stock the brief names, or a note's own stock, is already
+                # the lasting spice: the state goes on with no second one.
+                expanded.append(state)
+                continue
             rank_kwargs = dict(
                 avoid=avoid,
                 allow_multiple_musks=allow_multiple_musks,
@@ -1852,6 +1929,7 @@ def _solve_assignments(
                         fit=state.fit + score
                         - _stable_tie(role.role_id, capability.stock_id, variant_index),
                         liking=state.liking + liked,
+                        lasting_spice_brief=state.lasting_spice_brief,
                     )
                 )
         if not role_has_candidate:
@@ -2069,6 +2147,15 @@ def solve_formula(
         # Optional roles, so they never withhold the formula: recorded beside
         # missing_roles with the reason each cited stock could not go in.
         receipt["unplaced_accord_helpers"] = unplaced_helpers
+    lasting_role = next((r for r in brief.roles if r.provenance == LASTING_SPICE_PROVENANCE), None)
+    if lasting_role is not None and not any(_is_lasting_spice(a.capability) for a in assignments):
+        # An optional role, so the formula is not withheld: the receipt says
+        # the brief's spice will not last.
+        words = tuple(t for t in lasting_role.query_terms if t not in {"spice", "spicy"})
+        receipt["limitations"] = [
+            f"LASTING_SPICE_NOT_OWNED: no owned spice stock below {_LASTING_VP_PA:g} Pa "
+            f"({', '.join(words or lasting_role.query_terms[:1])})"
+        ]
     if identity_words:
         receipt["identity_requirements"] = {
             role_id: list(words) for role_id, words in sorted(identity_words.items())

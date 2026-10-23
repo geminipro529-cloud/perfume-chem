@@ -758,6 +758,61 @@ _CITRUS_WORD = re.compile(
 )
 _WARM_BRIEF = re.compile(r"\b(?:warm|dark|deep|resin|resinous|amber|incense|balsam|balsamic|vanilla|oriental|evening|rich|leather|smoky|tobacco)\b")
 
+# A brief that names a spice gets one spice that lasts.  The spice facet's
+# stock is a visible pepper or cardamom, gone by the drydown (Pink Pepper EO
+# 0.505 Pa, Black Pepper EO 0.375 Pa); this role takes only an owned spice
+# below the release gate's long-lasting vapour pressure, which the solver
+# checks (formula_solver._is_lasting_spice).  Whole words, with a plural or
+# adjective ending ("cloves", "gingery"), so "allspice" is its own word.
+LASTING_SPICE_PROVENANCE = "LASTING_SPICE"
+_LASTING_SPICE_WORDS = (
+    "spice", "spicy", "pepper", "peppery", "peppercorn", "pink pepper", "black pepper",
+    "saffron", "cardamom", "cinnamon", "clove", "nutmeg", "mace", "ginger", "cumin",
+    "coriander", "allspice", "pimento", "cassia", "caraway", "star anise",
+)
+_LASTING_SPICE_WORD = re.compile(
+    r"(?<![a-z0-9])("
+    + "|".join(re.escape(word) for word in sorted(_LASTING_SPICE_WORDS, key=len, reverse=True))
+    + r")(?:s|es|y)?(?![a-z0-9])"
+)
+# Kenny's four pepper references carry Safraleine 10% at 1.9-2.8% of raw.
+_LASTING_SPICE_SHARE, _LASTING_SPICE_MAX_RAW_SHARE = .025, .03
+
+
+def _lasting_spice_role(text: str, avoid: Sequence[str]) -> SemanticRole | None:
+    """The brief's one lasting spice role, or None when it names no spice it wants.
+
+    A brief whose must_avoid turns spice down ("no spice", "spicy notes")
+    gets none, and an avoided phrase ("pink pepper") names no spice.
+    """
+
+    for raw in avoid:
+        item = _key(raw)
+        for prefix in ("any ", "all ", "the ", "no "):
+            item = item.removeprefix(prefix)
+        for suffix in (" materials", " material", " notes", " note", " accord"):
+            item = item.removesuffix(suffix)
+        if item in {"spice", "spices", "spicy"}:
+            return None
+    words = tuple(dict.fromkeys(
+        match.group(1) for match in _LASTING_SPICE_WORD.finditer(_mask_avoided_phrases(text, avoid))
+    ))
+    if not words:
+        return None
+    return SemanticRole(
+        role_id="lasting_spice",
+        label="Lasting spice",
+        note="base",
+        function="modifier",
+        query_terms=_dedupe((*words, "spice", "spicy")),
+        character_weights=(("spicy", 1.0), ("warmth", .35)),
+        share=_LASTING_SPICE_SHARE,
+        required=False,
+        max_raw_share=_LASTING_SPICE_MAX_RAW_SHARE,
+        provenance=LASTING_SPICE_PROVENANCE,
+        descriptor_requirement="heart_spice",
+    )
+
 
 def _names_marker(text: str, markers: Sequence[str]) -> bool:
     """True when a word of the text starts with one of the markers ("resinous")."""
@@ -1157,6 +1212,8 @@ def _roles(
                 descriptor_requirement=_FACET_DESCRIPTOR_REQUIREMENTS.get(facet.facet_id),
             )
         )
+    lasting_spice = _lasting_spice_role(f"{formula_name} {request}", avoid)
+    lasting_spice_at = len(roles)
 
     # Functional coverage is a hard architecture requirement, not a beauty
     # score.  These roles inherit the prompt's character vector and therefore
@@ -1243,6 +1300,16 @@ def _roles(
             continue
         roles.append(role)
         coverage.add(note)
+
+    # The lasting spice follows the brief's own notes, so the search fills it
+    # before a bridge or layer can take its stock, yet it covers no register
+    # (a 3% spice is not the drydown structure) and leaves the layers as they
+    # were.  It adds a material to the formula; an exact material count keeps
+    # it only where the count has room.
+    if lasting_spice is not None and len(roles) < (maximum if target_count is None else role_target):
+        roles.insert(lasting_spice_at, lasting_spice)
+        if target_count is None:
+            role_target = min(maximum, role_target + 1)
 
     # The count built without layers; layers and accords never shrink a
     # formula below it.
@@ -1804,6 +1871,7 @@ __all__ = [
     "ACCENT_MAX_RAW_SHARE",
     "ACCENT_PROVENANCE",
     "FACET_IDENTITY_REQUIREMENTS",
+    "LASTING_SPICE_PROVENANCE",
     "LAYER_MAX_RAW_SHARE",
     "LAYER_PROVENANCE",
     "FacetDefinition",
