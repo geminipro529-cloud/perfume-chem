@@ -547,11 +547,11 @@
   - para-anisyl propanal
   - anisyl propanal
   cas: '5462-06-6'
-  smiles:
+  smiles: 'COc1ccc(CC(C)C=O)cc1'
   inchikey:
   mw_g_mol: 178.23
   density_25c_g_ml: 1.065
-  logp:
+  logp: 2.07
   functional_groups: []
   chirality:
   vp_25c_pa: 0.3
@@ -579,6 +579,9 @@
     density_25c_g_ml: 'ECHA 1.065 g/cm3 at 20 C (20 C value); TGSC range was 1.038-1.046. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study 0.3 Pa at 24 C; EPI estimate was 1.33 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES COc1ccc(CC(C)C=O)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'PubChem structure resolved from CAS 5462-06-6 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Caramel Furanone 0.003%
   aliases: []
   cas: null
@@ -3856,16 +3859,16 @@
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.85000 to 0.86000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1007032.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Citronellyl Acetate
   aliases: []
-  cas: null
-  smiles: null
+  cas: '150-84-5'
+  smiles: 'CC(=O)OCCC(C)CCC=C(C)C'
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 198.306
   density_25c_g_ml: null
-  logp: null
+  logp: 3.32
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 2.393
+  vp_source: NIST_WebBook_Antoine_extrapolated
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -3890,6 +3893,12 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(=O)OCCC(C)CCC=C(C)C (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'PubChem structure resolved from CAS 150-84-5 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    mw_g_mol: 'RDKit exact from SMILES CC(=O)OCCC(C)CCC=C(C)C (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    cas: 'PubChem record for CAS 150-84-5 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    vp_25c_pa: '2.393 Pa at 25 C from the NIST WebBook Antoine fit via D:\agent-cache\tools\chemprops.py (run 2026-10-23); EXTRAPOLATED: the fit covers 347.8-490 K, not 298 K'
 - canonical_name: Citronellyl Formate
   aliases: []
   cas: null

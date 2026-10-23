@@ -356,11 +356,11 @@
   aliases:
   - para-Cresyl Phenyl Acetate
   cas: '101-94-0'
-  smiles: null
+  smiles: 'Cc1ccc(OC(=O)Cc2ccccc2)cc1'
   inchikey: null
   mw_g_mol: 226.27
   density_25c_g_ml: null
-  logp: null
+  logp: 3.14
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.0127
@@ -395,6 +395,9 @@
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1003972.html; PW 1PF01952 page'
     vp_25c_pa: 'ESTIMATE: EPI Suite (solid basis) via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026); white crystals, mp 74-76 C; no density found'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES Cc1ccc(OC(=O)Cc2ccccc2)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'PubChem structure resolved from CAS 101-94-0 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Para-Methyl Acetophenone
   aliases:
   - para-Methyl Acetophenone
@@ -948,11 +951,11 @@
   - nectaryl
   - peach cyclopentanone
   cas: '95962-14-4'
-  smiles:
+  smiles: 'CC1=CCC(C(C)CC2CCCC2=O)CC1'
   inchikey:
   mw_g_mol: 220.36
   density_25c_g_ml: 0.963
-  logp:
+  logp: 4.13
   functional_groups: []
   chirality:
   vp_25c_pa: 0.009
@@ -980,6 +983,9 @@
     density_25c_g_ml: 'ECHA 0.963 g/cm3 at 20 C (20 C value). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study (Nectaryl, 95962-14-4) 0.009 Pa at 20 C; EPI estimate was 0.049 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC1=CCC(C(C)CC2CCCC2=O)CC1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'PubChem structure resolved from CAS 95962-14-4 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Pear Valerate
   aliases:
   - peranat
@@ -1425,11 +1431,11 @@
 - canonical_name: Phenoxy Ethyl Isobutyrate
   aliases: []
   cas: '103-60-6'
-  smiles: null
+  smiles: 'CC(C)C(=O)OCCOc1ccccc1'
   inchikey: null
   mw_g_mol: 208.26
   density_25c_g_ml: 1.05
-  logp: null
+  logp: 2.26
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.77
@@ -1461,6 +1467,9 @@
     density_25c_g_ml: 'ECHA 1.05 g/cm3 at 20 C (20 C value); TGSC/Perflavory SG 1.042-1.048. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study 0.77 Pa at 25 C (EPI estimate 0.701 Pa agrees). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(C)C(=O)OCCOc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'PubChem structure resolved from CAS 103-60-6 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Phenyl Acetaldehyde
   aliases:
   - Phenyl acetaldehyde
@@ -1632,12 +1641,12 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Phenyl Ethyl Dimethyl Carbinyl Acetate
   aliases: []
-  cas: null
-  smiles: null
+  cas: '103-07-1'
+  smiles: 'CC(=O)OC(C)(C)CCc1ccccc1'
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 206.285
   density_25c_g_ml: null
-  logp: null
+  logp: 2.96
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -1666,6 +1675,11 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(=O)OC(C)(C)CCc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'PubChem structure resolved from CAS 103-07-1 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    mw_g_mol: 'RDKit exact from SMILES CC(=O)OC(C)(C)CCc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    cas: 'PubChem record for CAS 103-07-1 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Phenyl Ethyl Formate
   aliases: []
   cas: null
@@ -3533,6 +3547,7 @@
   - peppermint essential oil
   - peppermint eo
   - mentha piperita eo
+  - peppermint eo (neat)
   cas: 8006-90-4
   smiles:
   inchikey:
@@ -3609,11 +3624,11 @@
   - 4'-methoxyacetophenone
   - p-acetanisole
   cas: '100-06-1'
-  smiles:
+  smiles: 'COc1ccc(C(C)=O)cc1'
   inchikey:
   mw_g_mol: 150.17
   density_25c_g_ml:
-  logp:
+  logp: 1.9
   functional_groups: []
   chirality:
   vp_25c_pa: 0.86
@@ -3638,3 +3653,6 @@
   provenance:
     cas: 'PubChem CID 7476 (4''-methoxyacetophenone)'
     vp_25c_pa: 'MEASURED: 6.44E-03 mmHg at 25 C (Jones, J Chem Eng Data 5:196, 1960) via PubChem CID 7476; solid, mp 38 C, so no 25 C liquid density (1.0818 g/cm3 at 41 C, CRC)'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES COc1ccc(C(C)=O)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'PubChem structure resolved from CAS 100-06-1 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'

@@ -1289,11 +1289,11 @@
 - canonical_name: Dimethyl Benzyl Carbinol
   aliases: []
   cas: '100-86-7'
-  smiles:
+  smiles: 'CC(C)(O)Cc1ccccc1'
   inchikey:
   mw_g_mol: 150.22
   density_25c_g_ml: 0.979
-  logp:
+  logp: 2.0
   functional_groups: []
   chirality:
   vp_25c_pa: 3.94
@@ -1325,6 +1325,9 @@
     density_25c_g_ml: 'ECHA about 0.979 g/cm3 at 20 C (20 C value); JECFA 0.972-0.977; mp 24 C. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'ESTIMATE kept: EPI Suite 3.94 Pa via TGSC. ECHA value DISPUTED: 100 Pa at 25 C (extrapolated, reliability 2), 25x the estimate and too high for a C10 aromatic tertiary alcohol boiling near 220 C; not loaded. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(C)(O)Cc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'PubChem structure resolved from CAS 100-86-7 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Dimethyl Benzyl Carbinyl Acetate
   aliases: []
   cas:
@@ -1631,11 +1634,11 @@
 - canonical_name: Dupical
   aliases: []
   cas: '30168-23-1'
-  smiles:
+  smiles: 'O=CCCC=C1CC2CC1C1CCCC21'
   inchikey:
   mw_g_mol: 204.31
   density_25c_g_ml: 1.008
-  logp:
+  logp: 3.35
   functional_groups: []
   chirality:
   vp_25c_pa: 0.11
@@ -1671,6 +1674,9 @@
     density_25c_g_ml: 'ECHA 1.008 g/cm3 at 20 C (20 C value), neat material (Kenny''s stock is the PW 10% in DPG). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study 0.11 Pa at 20 C; EPI estimate was 0.0588 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES O=CCCC=C1CC2CC1C1CCCC21 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'PubChem structure resolved from CAS 30168-23-1 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Dynascone
   aliases:
   - dynascone

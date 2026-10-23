@@ -755,12 +755,12 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Neryl Acetate
   aliases: []
-  cas: null
-  smiles: null
+  cas: '141-12-8'
+  smiles: 'CC(=O)OC/C=C(/C)CCC=C(C)C'
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 196.29
   density_25c_g_ml: null
-  logp: null
+  logp: 3.24
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -789,6 +789,12 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(=O)OC/C=C(/C)CCC=C(C)C (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'PubChem structure resolved from CAS 141-12-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    mw_g_mol: 'RDKit exact from SMILES CC(=O)OC/C=C(/C)CCC=C(C)C (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    cas: 'PubChem record for CAS 141-12-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    vp_25c_pa: 'not set: chemprops returned the geranyl acetate thermo record for this CAS (2026-10-23), so the VP was withheld'
 - canonical_name: NEW MOWN HAY F-TEC
   aliases: []
   cas: null

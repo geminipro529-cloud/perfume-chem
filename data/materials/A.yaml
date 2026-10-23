@@ -2119,11 +2119,11 @@
 - canonical_name: Alpha Terpineol
   aliases: []
   cas: '98-55-5'
-  smiles: null
+  smiles: 'CC1=CCC(C(C)(C)O)CC1'
   inchikey: null
   mw_g_mol: 154.25
   density_25c_g_ml: 0.93
-  logp: null
+  logp: 2.5
   functional_groups: []
   chirality: null
   vp_25c_pa: 5.64
@@ -2155,6 +2155,9 @@
     density_25c_g_ml: 'TGSC specific gravity 0.930-0.936 @ 25 C, midpoint x 0.99705'
     vp_25c_pa: 'experimental-database value at 24 C on the EPI Suite page via TGSC (ep1011252), not an estimate'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC1=CCC(C(C)(C)O)CC1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'PubChem structure resolved from CAS 98-55-5 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Alpha-Male Concentratea
   aliases:
   - Alpha-Male ConcentrateA
@@ -3672,12 +3675,12 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Anisyl Acetate
   aliases: []
-  cas: null
-  smiles: null
+  cas: '104-21-2'
+  smiles: 'COc1ccc(COC(C)=O)cc1'
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 180.203
   density_25c_g_ml: null
-  logp: null
+  logp: 1.76
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -3706,6 +3709,11 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES COc1ccc(COC(C)=O)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'PubChem structure resolved from CAS 104-21-2 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    mw_g_mol: 'RDKit exact from SMILES COc1ccc(COC(C)=O)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    cas: 'PubChem record for CAS 104-21-2 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Anisyl Alcohol
   aliases: []
   cas: null
@@ -4518,3 +4526,42 @@
     mw_g_mol: https://www.iff.com/scent/ingredients-compendium/amber-xtreme-2/
     vp_25c_pa: 'https://iff-v2.prod-use1.investis.com/en/site-services/online-compendium-new/amber-xtreme (IFF compendium): "0.005516 mmHg at 23 C" = 0.74 Pa, x 1.18 to 25 C = 0.8 Pa, method not stated; IFF SDS v5.38 (2018) "< 0.01 hPa"; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     logp: 'IFF compendium, same page: log P 7.1, method not stated; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+- canonical_name: Aldehyde C16 EMPG
+  aliases:
+  - aldehyde c16 empg 10%
+  - aldehyde c-16
+  - strawberry aldehyde
+  - ethyl methylphenylglycidate
+  cas: '77-83-8'
+  smiles: 'CCOC(=O)C1OC1(C)c1ccccc1'
+  inchikey:
+  mw_g_mol: 206.241
+  density_25c_g_ml:
+  logp: 1.86
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: true
+  supplier:
+  families: []
+  character:
+  notes: 'Entry created 2026-10-23 for the gate stock name Aldehyde C16 EMPG (ethyl methylphenylglycidate); no earlier YAML entry existed under this or the Aldehyde C-16 / strawberry aldehyde names. VP not set: chemprops found no measured-data fit (2026-10-23).'
+  provenance:
+    cas: 'PubChem record for CAS 77-83-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    smiles: 'PubChem structure resolved from CAS 77-83-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    mw_g_mol: 'RDKit exact from SMILES CCOC(=O)C1OC1(C)c1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CCOC(=O)C1OC1(C)c1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp_source: rdkit-crippen-estimate
