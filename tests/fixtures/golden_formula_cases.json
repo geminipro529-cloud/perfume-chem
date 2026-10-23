@@ -22,11 +22,11 @@
       "batch_volume_ml": 10.0,
       "expected_ppm_status": "unavailable",
       "modeled_output_relative_tolerance": 1e-8,
-      "baseline_note": "Olibanum outputs re-pinned 2026-10-09: naturals use cited data-spine VPs (diagnosis V3).",
+      "baseline_note": "Olibanum outputs re-pinned 2026-10-09: naturals use cited data-spine VPs (diagnosis V3). Re-pinned 2026-10-22: Olibanum Resinoid now has a sourced density (Biolandes SDS 1.0465), so its mass share and Bergamot's moved.",
       "expected_composite_materials": ["Olibanum Resinoid (viscous, 3 g)", "Bergamot FCF"],
       "expected_material_outputs": {
-        "Olibanum Resinoid (viscous, 3 g)": {"vapor_ppm": 324.1104630842594, "oav": 17991.915037550163},
-        "Bergamot FCF": {"vapor_ppm": 2588.315031715184, "oav": 156393.61992962266}
+        "Olibanum Resinoid (viscous, 3 g)": {"vapor_ppm": 331.02355548097245, "oav": 18375.672383316756},
+        "Bergamot FCF": {"vapor_ppm": 2526.0605099715794, "oav": 152632.01831112962}
       }
     },
     {

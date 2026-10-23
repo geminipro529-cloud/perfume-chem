@@ -494,7 +494,7 @@
 - canonical_name: Floralozone
   aliases:
   - floralozone
-  cas:
+  cas: 67634-15-5
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 190.3, corrected to 192.26)
@@ -547,6 +547,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 67634-15-5; https://www.perfumersworld.com/view.php?pro_id=4YM00191'
 - canonical_name: Florhydral
   aliases:
   - florhydral
@@ -555,7 +556,7 @@
   smiles:
   inchikey:
   mw_g_mol: 190.3
-  density_25c_g_ml:
+  density_25c_g_ml: 0.9495
   logp: 3.8
   functional_groups:
   - aldehyde
@@ -603,6 +604,7 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt; direct user confirmation 2026-09-10
     user_stock_dilution: direct user confirmation 2026-09-10
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.9495; https://scent.vn/en/products/florhydral-aroma-chemical; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Florol
   aliases:
   - florol
@@ -611,7 +613,7 @@
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 170.3, corrected to 154.25)
   mw_g_mol: 172.26
-  density_25c_g_ml:
+  density_25c_g_ml: 0.9515
   logp: 2.5
   functional_groups: []
   chirality:
@@ -655,6 +657,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 63500-71-0 (https://www.thegoodscentscompany.com/data/rw1045182.html)'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: reference value; raw 0.9515; https://www.thegoodscentscompany.com/data/rw1045182.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Flower Bouquet F-TEC
   aliases:
   - FLOWER BOUQUET F-TEC
@@ -956,11 +959,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Frangipani Absolute
   aliases: []
-  cas:
+  cas: 94350-02-4
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 0.965
   logp:
   functional_groups: []
   chirality:
@@ -996,6 +999,8 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.96 to 0.97; https://herbaroma-trade.com/supplier-post/frangipani-absolute/; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 94350-02-4; '
 - canonical_name: Frangipani F-TEC
   aliases:
   - FRANGIPANI F-TEC

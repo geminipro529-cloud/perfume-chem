@@ -111,11 +111,11 @@
 - canonical_name: Zenolide
   aliases:
   - zenolide
-  cas:
+  cas: 54982-83-1
   smiles:
   inchikey:
   mw_g_mol: 256.34
-  density_25c_g_ml:
+  density_25c_g_ml: 1.05
   logp: 3.6
   functional_groups: []
   chirality:
@@ -156,3 +156,5 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 54982-83-1; https://www.thegoodscentscompany.com/data/rw1001991.html'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 1.040 to 1.060; https://www.thegoodscentscompany.com/data/rw1001991.html; temperature as printed by source (often 20 C), not corrected to 25 C'
