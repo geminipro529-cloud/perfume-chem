@@ -1369,7 +1369,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.user_bottle: Kenny 2026-10-14 (Studio 3 thread); PerfumersWorld 7CL24020 was a name-only match
-    density_25c_g_ml: 'SG 0.8620, supplier-reported (PerfumersWorld 7CL24020 "Bergamot FCF oil Sicilian"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_25c_g_ml: 'SG 0.8620, supplier-reported (PerfumersWorld 7CL24020 "Bergamot FCF oil Sicilian"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
 - canonical_name: Bergamot Fleuressence
   aliases: []
   cas: null

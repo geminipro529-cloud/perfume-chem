@@ -165,7 +165,7 @@
   smiles:
   inchikey:
   mw_g_mol: 152.2
-  density_25c_g_ml: 1.06
+  density_25c_g_ml:
   logp: 1.2
   functional_groups: []
   chirality:
@@ -220,7 +220,6 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 121-33-5 (https://www.thegoodscentscompany.com/data/rw1011712.html)'
-    density_25c_g_ml: 'SG 1.0600, supplier-reported (PerfumersWorld 1VW00456 "Vanillin"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Veloutone
   aliases: []
   cas: '65443-14-3'

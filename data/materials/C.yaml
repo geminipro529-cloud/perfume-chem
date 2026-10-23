@@ -2960,7 +2960,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 134.18
-  density_25c_g_ml: 1.044
+  density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
@@ -2997,7 +2997,6 @@
     user_stock_dilution: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
     user_in_inventory: inventory.txt
     vp_25c_pa: 'UNSOURCED (kept): no measured, HSDB, ECHA or RIFM value found on 2026-10-08. Supplier figures conflict: Parchem "0.012000 mm/Hg @ 25.00 C" (1.6 Pa) vs Loba Chemie SDS "< 0.01 hPa at 25C" (< 1 Pa) and ChemicalBook "<0.01 mm Hg (25 C)" (via material-data-firecrawl/followup-20261008/F2_vapour_pressures.md)'
-    density_25c_g_ml: 'SG 1.0440, supplier-reported (PerfumersWorld 2SV00105 "Cinnamyl Alcohol"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
 - canonical_name: Cinnamyl Aldehyde
   aliases:
   - Cinnamyl aldehyde
