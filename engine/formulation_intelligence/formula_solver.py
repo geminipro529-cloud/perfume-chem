@@ -1263,13 +1263,14 @@ def _unplaced_cited_helpers(
     index: MaterialCapabilityIndex,
     avoid: Sequence[str],
     liquid_total_ul: int = _STANDARD_LIQUID_TOTAL_UL,
-    kept_for: Mapping[tuple[str, str], str] | None = None,
+    kept_for: Mapping[tuple[str, str], SemanticRole] | None = None,
 ) -> list[dict[str, Any]]:
     """Each cited accord helper none of whose stocks went in, and why each could not.
 
     Its slot is then empty or holds today's same-query support.  A stock is
     judged against the stocks placed before its role, by the same rules the
-    search applies.
+    search applies.  When another row holds one of its cited materials,
+    ``carried_by`` names that row's role, which carries the helper's job.
     """
 
     placed = {assignment.role.role_id for assignment in assignments if _is_cited_helper(assignment.role)}
@@ -1294,6 +1295,13 @@ def _unplaced_cited_helpers(
             group_counts=tuple(sorted(groups.items())),
             objective=0.0,
         )
+        # The row that already holds one of the helper's cited materials
+        # carries the helper's job: one material, one row.
+        cited = {_identity_key(name) for name, _fraction in role.accord.stocks}
+        carrier = next((
+            assignment.role for assignment in assignments
+            if _chemical_identity(assignment.capability) in cited
+        ), None)
         reasons = []
         for name, fraction in role.accord.stocks:
             capability = next((
@@ -1305,14 +1313,18 @@ def _unplaced_cited_helpers(
                 enforce_own_odor_avoid=enforce_own_odor_avoid, liquid_total_ul=liquid_total_ul,
             )
             if reason is None and capability is not None and (role.role_id, capability.stock_id) in (kept_for or {}):
-                reason = f"kept for the required role {kept_for[(role.role_id, capability.stock_id)]}"
+                kept = carrier or kept_for[(role.role_id, capability.stock_id)]
+                reason = f"kept for the {'required ' if kept.required else ''}role {kept.label}"
             reasons.append(f"{name} at {fraction:g}: {reason or 'not kept by the search'}")
-        unplaced.append({
+        entry = {
             "role_id": role.role_id,
             "label": role.label,
             "job": role.accord.job,
             "reasons": reasons,
-        })
+        }
+        if carrier is not None:
+            entry["carried_by"] = carrier.role_id
+        unplaced.append(entry)
     return unplaced
 
 
@@ -1329,11 +1341,12 @@ def _solve_assignments(
     identity_words: Mapping[str, tuple[str, ...]] | None = None,
     unary_cache: dict[tuple[str, tuple[str, ...] | None], list[tuple[float, MaterialCapability]]] | None = None,
     liquid_total_ul: int = _STANDARD_LIQUID_TOTAL_UL,
-    kept_for: dict[tuple[str, str], str] | None = None,
+    kept_for: dict[tuple[str, str], SemanticRole] | None = None,
 ) -> tuple[tuple[SolvedAssignment, ...], tuple[str, ...]]:
     """The beam search.  ``kept_for`` collects, per (cited helper role id,
-    stock id), the label of a later required role that helper's stock was
-    kept for."""
+    stock id), the later role that helper's stock was kept for: a required
+    role it would leave with no stock, or a role of the brief that would
+    place it first."""
 
     states: tuple[_BeamState, ...] = (
         _BeamState(
@@ -1439,16 +1452,51 @@ def _solve_assignments(
         if role.exact_material is not None
     }
 
+    def reserved_for(role: SemanticRole) -> frozenset[str]:
+        return frozenset(
+            key for role_id, key in named_stocks.items()
+            if role_id != role.role_id and key != named_stocks.get(role.role_id)
+        )
+
+    frontier_identities = {
+        role_id: frozenset(_chemical_identity(capability) for _score, capability in ranked)
+        for role_id, ranked in unary_rankings.items()
+    }
+
+    def first_choices(state: _BeamState, later_structure: Sequence[SemanticRole]) -> dict[str, SemanticRole]:
+        """The material each later structural role would place first in
+        ``state``, ranked as the search ranks it there; the earliest role
+        holds a material two of them would place."""
+
+        firsts: dict[str, SemanticRole] = {}
+        for future in later_structure:
+            ranked = _rank_for_state(
+                unary_rankings[future.role_id], future, state, avoid=avoid,
+                allow_multiple_musks=allow_multiple_musks, enforce_own_odor_avoid=enforce_own_odor_avoid,
+                variant_index=variant_index, liking=liking, named_identity=named_identities[future.role_id],
+                liquid_total_ul=liquid_total_ul, reserved_identities=reserved_for(future),
+            )
+            if ranked:
+                firsts.setdefault(_chemical_identity(ranked[0][1]), future)
+        return firsts
+
     for position, role in enumerate(brief.roles):
         expanded: list[_BeamState] = []
         role_has_candidate = False
         later_required = (
             tuple(r for r in brief.roles[position + 1:] if r.required) if role.role_id in fallbacks else ()
         )
-        reserved = frozenset(
-            key for role_id, key in named_stocks.items()
-            if role_id != role.role_id and key != named_stocks.get(role.role_id)
+        # The brief's own later roles (not accord supports) whose frontier
+        # holds one of this cited helper's stocks.
+        later_structure = (
+            tuple(
+                r for r in brief.roles[position + 1:]
+                if r.provenance != ACCORD_SUPPORT_PROVENANCE
+                and frontier_identities[r.role_id] & frontier_identities[role.role_id]
+            )
+            if _is_cited_helper(role) and role.exact_material is None else ()
         )
+        reserved = reserved_for(role)
         for state in states:
             rank_kwargs = dict(
                 avoid=avoid,
@@ -1472,7 +1520,22 @@ def _solve_assignments(
                     if starved is None:
                         kept.append(row)
                     elif kept_for is not None:
-                        kept_for[(role.role_id, row[1].stock_id)] = starved.label
+                        kept_for[(role.role_id, row[1].stock_id)] = starved
+                ranked = kept
+            if later_structure:
+                # Nor does a cited helper take the material a later role of
+                # the brief would place first (Ambrox Super for an amber
+                # facet): that row carries it at its own dose, never a second,
+                # smaller row capped under the helper's lead.  The helper's
+                # slot then falls back like any helper whose stocks cannot go in.
+                firsts = first_choices(state, later_structure)
+                kept = []
+                for row in ranked:
+                    owner = firsts.get(_chemical_identity(row[1]))
+                    if owner is None:
+                        kept.append(row)
+                    elif kept_for is not None:
+                        kept_for[(role.role_id, row[1].stock_id)] = owner
                 ranked = kept
             if not ranked and role.role_id in fallbacks:
                 placed_role = fallbacks[role.role_id]
@@ -1623,7 +1686,7 @@ def solve_formula(
         prior_variant_stock_ids=frozenset(prior_variant_stock_ids),
         variant_index=variant_index,
     )
-    kept_for: dict[tuple[str, str], str] = {}
+    kept_for: dict[tuple[str, str], SemanticRole] = {}
     search_kwargs = dict(liking=liking, identity_words=identity_words, unary_cache=unary_cache,
                          liquid_total_ul=liquid_total_ul, kept_for=kept_for)
     assignments, missing = _solve_assignments(**solve_kwargs, beam_width=beam_width, **search_kwargs)

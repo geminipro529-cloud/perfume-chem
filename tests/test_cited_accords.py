@@ -293,21 +293,28 @@ def test_a_two_helper_spec_places_both_helpers_after_todays_first_support():
 def test_a_named_stock_that_leads_a_covered_note_builds_its_cited_accord():
     """"Vetiver" names the owned Vetiver EO, which leads the note as an
     anchor: its own support stays in place 1 and the vetiver helpers take
-    places 2 and 3, with the lead and helper texts."""
+    places 2 and 3, with the lead and helper texts.  The first helper's
+    material is the woods family layer's own first choice, so that layer's
+    row carries it and the receipt says so."""
 
     spec = note_accord_specs.accord_spec_for("vetiver_root")
-    rows, _receipt = _primary(_design("A woody vetiver."))
+    rows, receipt = _primary(_design("A woody vetiver."))
     by_slot = {row["slot"]: row for row in rows}
     separator = adapter.ACCORD_SUPPORT_SEPARATOR
     lead = by_slot["explicit_anchor_1"]
     assert _cited(spec.lead_stocks, lead)
     assert lead["accord"]["part"] == "lead"
     assert "accord" not in by_slot[f"explicit_anchor_1{separator}1"]
-    for place, helper in enumerate(spec.helpers, start=2):
-        row = by_slot[f"explicit_anchor_1{separator}{place}"]
-        assert _cited(helper.stocks, row)
-        assert row["accord"]["job"] == helper.job
-        assert row["rationale"].startswith(f"Vetiver accord, helper: {helper.job} ")
+    carried = {e["role_id"]: e["carried_by"] for e in receipt.get("unplaced_accord_helpers", ()) if "carried_by" in e}
+    first, second = spec.helpers
+    slot = f"explicit_anchor_1{separator}2"
+    assert slot not in by_slot
+    carrier = by_slot[carried[slot]]
+    assert carrier["slot"].startswith("family_") and _cited(first.stocks, carrier) and "accord" not in carrier
+    row = by_slot[f"explicit_anchor_1{separator}3"]
+    assert _cited(second.stocks, row)
+    assert row["accord"]["job"] == second.job
+    assert row["rationale"].startswith(f"Vetiver accord, helper: {second.job} ")
 
 
 def test_a_facet_helper_beyond_todays_supports_that_cannot_go_in_leaves_its_slot_empty():
@@ -539,6 +546,31 @@ def test_a_cited_helper_never_takes_the_one_stock_a_later_required_role_needs():
         f"{by_slot['facet_iris_root_texture']['slot_label']}"
     ]
     assert "accord" not in by_slot[helper_slot]
+
+
+def test_a_cited_helper_never_takes_its_material_from_a_later_role_that_places_it():
+    """The lavender helper's cited material is also the amber facet's first
+    choice.  The amber row keeps it at its own dose, the helper places no
+    second, smaller row capped under the lavender lead, and the receipt says
+    which row carries the helper's job."""
+
+    spec = note_accord_specs.accord_spec_for("aromatic_lavender")
+    (helper,) = spec.helpers
+    cited = {stock.name for stock in helper.stocks}
+    rows, receipt = _primary(_design("Lavender over a mineral ambergris amber."))
+    (lead,) = [row for row in rows if row.get("accord", {}).get("part") == "lead"
+               and row["accord"]["note"] == spec.note]
+    # One material, one row: the brief's own amber role, not an accord support.
+    (carrier,) = [row for row in rows if row["identity_name"] in cited]
+    assert adapter.ACCORD_SUPPORT_SEPARATOR not in carrier["slot"] and "accord" not in carrier
+    helper_slot = f"{lead['slot']}{adapter.ACCORD_SUPPORT_SEPARATOR}2"
+    (entry,) = [e for e in receipt["unplaced_accord_helpers"] if e["role_id"] == helper_slot]
+    assert entry["job"] == helper.job
+    assert entry["carried_by"] == carrier["slot"]
+    assert entry["reasons"] == [
+        f"{stock.name} at {stock.fraction:g}: kept for the required role {carrier['slot_label']}"
+        for stock in helper.stocks
+    ]
 
 
 def test_a_deep_compose_refinement_of_a_cited_lead_keeps_its_constraints():
