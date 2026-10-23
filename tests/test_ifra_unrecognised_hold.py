@@ -124,12 +124,15 @@ def test_formula_with_every_row_recognised_keeps_its_verdict():
 FLAGGED_BASES = {
     "Black Agarwood Artificial",
     "Black Tea Base",
+    "Cassis Base 345B",
     "Castoreum Synthetic",
     "Clearwood",
     "Costus Olifac",  # stock name since the 2026-10-15 10% in DPG record
     "Lilyreal ND",
+    "Sandalwood Base X3",
     "Suederal",  # stock name since the 2026-10-14 DPG record
     "Tonkarome",
+    "Tuberlia Base",
 }
 # Both Aurantiol stocks carry Kenny's word since 2026-10-15, so their display
 # names say which bottle each is.
@@ -143,6 +146,7 @@ STILL_HELD = {
     "Aurantiol 10%",
     "Black Agarwood Artificial",
     "Black Tea Base",
+    "Cassis Base 345B",
     "Castoreum Synthetic",
     "Cedryl Acetate",
     # Added to the stock list on 2026-10-14; no IFRA standard names these woods.
@@ -153,13 +157,13 @@ STILL_HELD = {
     "Costus Olifac",  # stock name since the 2026-10-15 10% in DPG record
     "Frangipani Absolute",
     "Fructone B",
-    "Hindinol",
     # New bottles of 2026-10-13: no IFRA standard names pomelo or ginger lily oil, and
     # neither bottle's species, plant part or furocoumarin content is recorded.
     "Ginger Lily Oil",
     "Lavandin Absolute",
     "Lemon Terpeneless Oil Sicilian",
     "Lilyreal ND",
+    "Sandalwood Base X3",
     "Mate Absolute",
     # Added 2026-10-15 (neat); no IFRA table entry matches it.
     "Neryl Acetate",
@@ -170,33 +174,27 @@ STILL_HELD = {
     "Cabbage Rose Extract",
     # The other arrivals got IFRA rows on 2026-10-21 (Kenny chose "Load all"); these three extracts
     # and Dupical 10% still hold by name.
-    "Dupical 10% in DPG",
     "Iris Florentina Root Extract",
     "Magnolia Flower Extract",
     "Pomelo EO",
     # Added 2026-10-15: a saturated saffron infusion in DPG of unknown strength.
     "Red Saffron Infusion",
     # Owned before, but undosable until 2026-10-14 gave it a strength (neat).
-    "Sandalwood Base X3",
     "Suederal",  # stock name since the 2026-10-14 DPG record
     "Tonkarome",
+    "Tuberlia Base",
     "Vanilla Absolute",
     "Vertofix",
     "Vertofix Coeur",
     # Recorded 2026-10-15 from Kenny's bottle answers and his w/w-in-DPG rule; no IFRA
     # table entry matches them yet, so they hold by name.
     "Benzoin Sumatra Resinoid 10%",
-    "Cassis Base 345B",
-    "Champignol 10% in DPG",
     "Cocoa Absolute",
     "Dihydrojasmone",
     "Dihydrojasmone 10% in DPG",
     "Jessemal",
-    "Nerolin Bromelia 10% in DPG",
     "Pamzest",
     "Rhodinol ex Citronella",
-    "p-Cresyl Methyl Ether 10%",
-    "Tuberlia Base",
     # MySkinRecipes order #2199302, arrived 2026-10-16; no IFRA table entry matches
     # these names yet, so they hold by name. (Cedarwood Texas, Geranium Bourbon,
     # Sweet Orange and both Isoraldeines were linked on 2026-10-16.)
