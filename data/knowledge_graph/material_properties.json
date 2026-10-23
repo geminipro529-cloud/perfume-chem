@@ -890,8 +890,8 @@
     "formula_str": "C11H20O",
     "mw": 168.3,
     "bp": null,
-    "vp": 0.1,
-    "clp": 3.3,
+    "vp": 8.706,
+    "clp": 3.7,
     "odt": 0.8,
     "odt_ethanol_ppm": 0.4,
     "oav_typical": null,
@@ -986,7 +986,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "estimated:unsourced_placeholder.vp_25c",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -1063,6 +1063,13 @@
         "fields": {
           "mw": 168.28,
           "clp": 3.8
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.1,
+          "clp": 3.3
         }
       }
     ],
@@ -1682,8 +1689,8 @@
     "name": "Allyl Cyclohexyl Propionate",
     "alt_name": null,
     "mw": 196.29,
-    "vp": 5.0,
-    "clp": 3.3,
+    "vp": 3.8,
+    "clp": 4.3,
     "note": "top",
     "role": "character",
     "texture": "sparkle",
@@ -1758,6 +1765,13 @@
         "fields": {
           "smell_strength": "moderate-strong",
           "anosmic_risk": "standard"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 5.0,
+          "clp": 3.3
         }
       }
     ],
@@ -2370,7 +2384,7 @@
     "mw": 192.3,
     "bp": 228.0,
     "vp": 1.5,
-    "clp": 3.0,
+    "clp": 4.29,
     "odt": 0.4,
     "sar_class": "Ionones — cyclic terpenoid ketones",
     "olfactophore": "Cyclohexenone ring with gem-dimethyl. The ALPHA isomer has the",
@@ -2581,6 +2595,12 @@
         "fields": {
           "clp": 2.9
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 3.0
+        }
       }
     ],
     "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING"
@@ -2593,7 +2613,7 @@
     "mw": 206.32,
     "bp": 268.0,
     "vp": 0.559,
-    "clp": 3.2,
+    "clp": 3.9,
     "odt": 0.9,
     "sar_class": "Irones — methylated ionone homologues (the \"orris\" family)",
     "olfactophore": "Cyclohexenone ring with gem-dimethyl AND an additional methyl",
@@ -2693,6 +2713,12 @@
         "fields": {
           "mw": 206.33,
           "clp": 3.8
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 3.2
         }
       }
     ],
@@ -3092,10 +3118,10 @@
     "alt_name": null,
     "cas": "Proprietary",
     "formula_str": "~C₁₁H₂₀O (est.)",
-    "mw": 234.0,
+    "mw": 262.4,
     "bp": 265.0,
     "vp": 0.001,
-    "clp": 4.2,
+    "clp": 6.3,
     "odt": 0.5,
     "sar_class": "Amber/woody-amber — cyclohexanone derivatives",
     "olfactophore": "Substituted cyclohexanone with branched alkyl chain — provides",
@@ -3278,6 +3304,13 @@
         "fields": {
           "clp": 4.0
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "mw": 234.0,
+          "clp": 4.2
+        }
       }
     ],
     "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING"
@@ -3287,7 +3320,7 @@
     "alt_name": null,
     "cas": null,
     "formula_str": null,
-    "mw": 234.4,
+    "mw": 242.4,
     "bp": null,
     "vp": 0.3,
     "clp": 5.4,
@@ -3375,6 +3408,12 @@
         "fields": {
           "vp": 0.001,
           "clp": 3.8
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 234.4
         }
       }
     ],
@@ -7145,7 +7184,7 @@
     "formula_str": "C₁₄H₁₂O₃",
     "mw": 228.3,
     "bp": 320.0,
-    "vp": 0.01,
+    "vp": 0.0104,
     "clp": 3.2,
     "odt": 10.0,
     "sar_class": "Salicylate esters — balsamic fixatives with mild odor",
@@ -7246,6 +7285,12 @@
           "mw": 228.24,
           "clp": 4.31
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.01
+        }
       }
     ],
     "material_kind": "UNRESOLVED",
@@ -7289,7 +7334,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "estimated:unsourced_placeholder.vp_25c",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -9428,8 +9473,8 @@
     "formula_str": "C13H18O",
     "mw": 190.28,
     "bp": null,
-    "vp": 0.01,
-    "clp": 2.8,
+    "vp": 1.04,
+    "clp": 3.49,
     "odt": 0.03,
     "odt_ethanol_ppm": 0.05,
     "oav_typical": null,
@@ -9519,6 +9564,19 @@
         "fields": {
           "clp": 2.9
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.01,
+          "clp": 2.8
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 1.1999
+        }
       }
     ],
     "material_kind": "UNRESOLVED",
@@ -9566,7 +9624,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "estimated:unsourced_placeholder.vp_25c",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -10073,7 +10131,7 @@
     "mw": 178.18,
     "bp": 295.0,
     "vp": 0.0965,
-    "clp": 1.5,
+    "clp": 1.95,
     "odt": 0.05,
     "sar_class": "Marine/aquatic odorants — benzodioxepanone unique class",
     "olfactophore": "The seven-membered dioxepanone ring fused to the benzene ring is",
@@ -10177,6 +10235,12 @@
         "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
         "fields": {
           "clp": 1.4
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 1.5
         }
       }
     ],
@@ -13725,8 +13789,8 @@
     "formula_str": "C₁₀H₁₆O",
     "mw": 152.23,
     "bp": 229.0,
-    "vp": 3.5,
-    "clp": 2.76,
+    "vp": 12.172,
+    "clp": 3.05,
     "odt": 20.0,
     "sar_class": "Monoterpenoid aldehydes — citral/citronellal group",
     "olfactophore": "The α,β-unsaturated aldehyde (CH=CH-CHO) is the olfactophore.",
@@ -13808,6 +13872,13 @@
         "fields": {
           "odor_family": "citrus lemon"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 3.5,
+          "clp": 2.76
+        }
       }
     ],
     "material_kind": "UNRESOLVED",
@@ -13852,7 +13923,7 @@
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
         "vp": "registry:data_spine.vp_25c",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt_evidence": {
@@ -13919,7 +13990,7 @@
     "mw": 154.25,
     "bp": 207.0,
     "vp": 40.0,
-    "clp": 3.09,
+    "clp": 3.53,
     "odt": 40.0,
     "sar_class": "Monoterpenoid aldehydes — non-conjugated type",
     "olfactophore": "Terminal aldehyde on a branched monoterpenoid chain. Unlike",
@@ -14019,7 +14090,7 @@
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
         "vp": "registry:data_spine.vp_25c",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt_evidence": {
@@ -14121,6 +14192,12 @@
         "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
         "fields": {
           "odor_family": "citrus green"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 3.09
         }
       }
     ],
@@ -16064,7 +16141,7 @@
     "mw": 190.3,
     "bp": 262.0,
     "vp": 0.52,
-    "clp": 3.2,
+    "clp": 4.0,
     "odt": 0.76,
     "odt_ethanol_ppm": 0.0025,
     "sar_class": "Lily/muguet — arylpropanals (phenylpropanal family)",
@@ -16169,6 +16246,12 @@
         "fields": {
           "mw": 190.28,
           "clp": 3.1
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 3.2
         }
       }
     ],
@@ -16744,7 +16827,7 @@
     "formula_str": "C13H18O",
     "mw": 190.3,
     "bp": null,
-    "vp": 1.0,
+    "vp": 2.73,
     "clp": 3.2,
     "odt": 0.04,
     "odt_ethanol_ppm": 0.0004,
@@ -16836,6 +16919,18 @@
           "vp": 0.693,
           "clp": 3.9
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 1.0
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 1.4932
+        }
       }
     ],
     "material_kind": "UNRESOLVED",
@@ -16879,7 +16974,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "estimated:unsourced_placeholder.vp_25c",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -16973,7 +17068,7 @@
     "alt_name": null,
     "cas": null,
     "formula_str": null,
-    "mw": 194.3,
+    "mw": 190.28,
     "bp": null,
     "vp": 0.6,
     "clp": 3.5,
@@ -17049,6 +17144,12 @@
         "fields": {
           "smell_strength": "very-strong",
           "anosmic_risk": "standard"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 194.3
         }
       }
     ],
@@ -18730,7 +18831,7 @@
     "mw": 192.3,
     "bp": null,
     "vp": 1.33322,
-    "clp": 2.5,
+    "clp": 3.89,
     "odt": 0.05,
     "odt_ethanol_ppm": 0.05,
     "oav_typical": null,
@@ -18824,6 +18925,12 @@
         "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
         "fields": {
           "clp": 3.4
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 2.5
         }
       }
     ],
@@ -18965,8 +19072,8 @@
     "formula_str": "C₁₄H₂₄O",
     "mw": 208.34,
     "bp": 285.0,
-    "vp": 0.89,
-    "clp": 3.3,
+    "vp": 0.13,
+    "clp": 4.9,
     "odt": 0.21,
     "sar_class": "Sandalwood odorants — β-santalol family",
     "olfactophore": "A secondary alcohol on an extended allylic chain attached to a",
@@ -19077,6 +19184,13 @@
         "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
         "fields": {
           "clp": 4.5
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.89,
+          "clp": 3.3
         }
       }
     ],
@@ -21316,7 +21430,7 @@
     "formula_str": "C10H12O4",
     "mw": 196.2,
     "bp": null,
-    "vp": 0.1,
+    "vp": 0.0013,
     "clp": 2.8,
     "odt": 0.3,
     "odt_ethanol_ppm": 0.5,
@@ -21409,6 +21523,12 @@
           "vp": 0.129,
           "clp": 2.1
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.1
+        }
       }
     ],
     "material_kind": "UNRESOLVED",
@@ -21452,7 +21572,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "estimated:unsourced_placeholder.vp_25c",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -22315,8 +22435,8 @@
     "formula_str": "C10H20O2",
     "mw": 172.26,
     "bp": 195.0,
-    "vp": 0.007,
-    "clp": 2.5,
+    "vp": 1.5999,
+    "clp": 1.65,
     "odt": 10.0,
     "sar_class": "Cyclohexene aldehydes — muguet (lily of the valley) family",
     "olfactophore": "Cyclohexene ring with a CHO aldehyde group and two methyl",
@@ -22432,6 +22552,13 @@
         "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
         "fields": {
           "clp": 2.3
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.007,
+          "clp": 2.5
         }
       }
     ],
@@ -23197,7 +23324,7 @@
     "formula_str": "C10H18O2",
     "mw": 170.3,
     "bp": null,
-    "vp": 0.005,
+    "vp": 0.6826,
     "clp": 3.0,
     "odt": 1.5,
     "odt_ethanol_ppm": 0.3,
@@ -23280,6 +23407,12 @@
           "mw": 170.25,
           "clp": 2.9
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.005
+        }
       }
     ],
     "material_kind": "UNRESOLVED",
@@ -23323,7 +23456,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "estimated:unsourced_placeholder.vp_25c",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -23418,8 +23551,8 @@
     "formula_str": "C11H20O2",
     "mw": 184.3,
     "bp": null,
-    "vp": 0.002,
-    "clp": 3.3,
+    "vp": 0.5453,
+    "clp": 3.6,
     "odt": 1.0,
     "odt_ethanol_ppm": 0.2,
     "oav_typical": null,
@@ -23622,6 +23755,13 @@
           "mw": 184.28,
           "clp": 3.4
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.002,
+          "clp": 3.3
+        }
       }
     ],
     "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING"
@@ -23633,8 +23773,8 @@
     "formula_str": "C12H22O",
     "mw": 182.3,
     "bp": null,
-    "vp": 0.1,
-    "clp": 3.6,
+    "vp": 0.121,
+    "clp": 3.5,
     "odt": 0.006,
     "odt_ethanol_ppm": 0.001,
     "oav_typical": null,
@@ -23731,8 +23871,8 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "estimated:unsourced_placeholder.vp_25c",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt_evidence": {
@@ -23891,6 +24031,19 @@
         "fields": {
           "smell_strength": "very-strong",
           "anosmic_risk": "low threshold, dose carefully"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.1,
+          "clp": 3.6
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.1333
         }
       }
     ],
@@ -25211,7 +25364,7 @@
     "mw": 226.3,
     "bp": 285.0,
     "vp": 0.09466,
-    "clp": 2.7,
+    "clp": 3.1,
     "odt": 0.05,
     "sar_class": "Cyclopentanone esters — jasmonate family",
     "olfactophore": "The cyclopentanone ring with a pendant methyl ester (acetate)",
@@ -25319,6 +25472,12 @@
         "fields": {
           "mw": 226.31,
           "clp": 3.0
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 2.7
         }
       }
     ],
@@ -25678,8 +25837,8 @@
     "formula_str": "C11H12O3",
     "mw": 192.2,
     "bp": null,
-    "vp": 0.01,
-    "clp": 2.2,
+    "vp": 0.1073,
+    "clp": 2.4,
     "odt": 0.1,
     "odt_ethanol_ppm": 0.1,
     "oav_typical": null,
@@ -25769,6 +25928,13 @@
           "mw": 192.21,
           "clp": 1.7
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.01,
+          "clp": 2.2
+        }
       }
     ],
     "material_kind": "UNRESOLVED",
@@ -25812,7 +25978,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "estimated:unsourced_placeholder.vp_25c",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -26042,7 +26208,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "estimated:unsourced_placeholder.vp_25c",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -26102,12 +26268,19 @@
         "fields": {
           "odor_family": "unknown"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.01,
+          "clp": 2.2
+        }
       }
     ],
     "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING",
     "mw": 192.2,
-    "vp": 0.01,
-    "clp": 2.2,
+    "vp": 0.1073,
+    "clp": 2.4,
     "note": "heart",
     "role": "modifier",
     "texture": "lift",
@@ -26350,7 +26523,7 @@
     "mw": 144.21,
     "bp": 171.0,
     "vp": 194.0,
-    "clp": 2.83,
+    "clp": 3.3,
     "odt": 2.0,
     "sar_class": "Aliphatic esters — fruity series",
     "olfactophore": "The hexyl ester of acetic acid. In Kraft's ester SAR series:",
@@ -26431,6 +26604,12 @@
         "fields": {
           "odor_family": "fruity green"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 2.83
+        }
       }
     ],
     "material_kind": "UNRESOLVED",
@@ -26475,7 +26654,7 @@
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
         "vp": "registry:data_spine.vp_25c",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt_evidence": {
@@ -26734,7 +26913,7 @@
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
         "vp": "registry:data_spine.vp_25c",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt": 2.0,
@@ -26793,12 +26972,18 @@
         "fields": {
           "odor_family": "unknown"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 2.83
+        }
       }
     ],
     "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING",
     "mw": 144.21,
     "vp": 194.0,
-    "clp": 2.83,
+    "clp": 3.3,
     "note": "top",
     "role": "modifier",
     "texture": "lift",
@@ -26819,8 +27004,8 @@
     "formula_str": "C13H18O3",
     "mw": 222.3,
     "bp": null,
-    "vp": 0.077,
-    "clp": 5.7,
+    "vp": 0.0033,
+    "clp": 5.5,
     "odt": 35.0,
     "odt_ethanol_ppm": 30.0,
     "oav_typical": null,
@@ -26918,6 +27103,13 @@
         "fields": {
           "mw": 222.28,
           "clp": 4.87
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.077,
+          "clp": 5.7
         }
       }
     ],
@@ -29766,8 +29958,8 @@
     "formula_str": null,
     "mw": 222.37,
     "bp": null,
-    "vp": 0.1,
-    "clp": 4.1,
+    "vp": 0.03,
+    "clp": 4.8,
     "odt": 0.0016,
     "odt_ethanol_ppm": 0.0003,
     "oav_typical": null,
@@ -29851,6 +30043,13 @@
           "smell_strength": "ultra-strong",
           "anosmic_risk": "low threshold, dose carefully"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.1,
+          "clp": 4.1
+        }
       }
     ],
     "material_kind": "UNRESOLVED",
@@ -29894,7 +30093,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "estimated:unsourced_placeholder.vp_25c",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -30628,7 +30827,7 @@
     "alt_name": null,
     "cas": null,
     "formula_str": null,
-    "mw": 206.33,
+    "mw": 182.3,
     "bp": null,
     "vp": 0.3,
     "clp": 3.5,
@@ -30709,6 +30908,12 @@
         "fields": {
           "vp": 0.45,
           "clp": 4.0
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 206.33
         }
       }
     ],
@@ -31431,10 +31636,10 @@
     "alt_name": null,
     "cas": "proprietary",
     "formula_str": null,
-    "mw": 154.3,
+    "mw": 158.19,
     "bp": null,
-    "vp": 0.5,
-    "clp": 2.0,
+    "vp": 24.9312,
+    "clp": 2.6,
     "odt": 8.0,
     "odt_ethanol_ppm": 0.05,
     "oav_typical": null,
@@ -31636,6 +31841,14 @@
         "fields": {
           "mw": 154.25,
           "clp": 3.0
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 154.3,
+          "vp": 0.5,
+          "clp": 2.0
         }
       }
     ],
@@ -33718,9 +33931,9 @@
     "alt_name": "20%",
     "cas": "698-10-2 (Sotolon: 28664-35-9)",
     "formula_str": "C₇H₁₀O₃",
-    "mw": 128.1,
+    "mw": 112.13,
     "bp": 187.0,
-    "vp": 0.01,
+    "vp": 0.6666,
     "clp": 0.5,
     "odt": 1.0,
     "sar_class": "Hydroxyfuranones — caramellic/sugar family",
@@ -33821,7 +34034,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "estimated:unsourced_placeholder.vp_25c",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -33963,6 +34176,13 @@
         "fields": {
           "mw": 128.13,
           "clp": 0.1
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 128.1,
+          "vp": 0.01
         }
       }
     ],
@@ -35076,10 +35296,10 @@
     "alt_name": "10% TEC",
     "cas": "Varies — likely 41374-67-0 or similar",
     "formula_str": "C₁₀H₁₂O₃ (approximate)",
-    "mw": 168.2,
+    "mw": 186.29,
     "bp": 270.0,
-    "vp": 0.5,
-    "clp": 2.1,
+    "vp": 29.0,
+    "clp": 4.3,
     "odt": 3.0,
     "sar_class": "Sulfur-containing ester / thiol derivative — grapefruit family",
     "olfactophore": "Methyl Pamplemousse likely contains or mimics the p-menthane-",
@@ -35168,6 +35388,14 @@
         "fields": {
           "mw": 168.23
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 168.2,
+          "vp": 0.5,
+          "clp": 2.1
+        }
       }
     ],
     "material_kind": "UNRESOLVED",
@@ -35212,7 +35440,7 @@
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
         "vp": "registry:data_spine.vp_25c",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt_evidence": {
@@ -36359,7 +36587,7 @@
     "alt_name": null,
     "mw": 154.25,
     "vp": 2.0,
-    "clp": 2.9,
+    "clp": 2.7,
     "note": "top",
     "role": "modifier",
     "texture": "diffusion",
@@ -36566,6 +36794,12 @@
         "fields": {
           "smell_strength": "moderate-strong",
           "anosmic_risk": "standard"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 2.9
         }
       }
     ],
@@ -37215,7 +37449,7 @@
     "alt_name": "1%",
     "cas": "70788-30-6 (mixture)",
     "formula_str": "C₁₄H₂₄O",
-    "mw": 224.38,
+    "mw": 226.4,
     "bp": 275.0,
     "vp": 0.194,
     "clp": 5.7,
@@ -37308,6 +37542,12 @@
         "fields": {
           "vp": 0.067,
           "clp": 5.2
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 224.38
         }
       }
     ],
@@ -37449,8 +37689,8 @@
     "formula_str": "C14H20O",
     "mw": 204.3,
     "bp": null,
-    "vp": 0.01,
-    "clp": 3.0,
+    "vp": 0.1,
+    "clp": 3.7,
     "odt": 2.0,
     "odt_ethanol_ppm": 0.4,
     "oav_typical": null,
@@ -37549,7 +37789,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "estimated:unsourced_placeholder.vp_25c",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -37656,6 +37896,13 @@
         "fields": {
           "mw": 204.31,
           "clp": 3.8
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.01,
+          "clp": 3.0
         }
       }
     ],
@@ -38698,7 +38945,7 @@
     "mw": 168.28,
     "bp": null,
     "vp": 8.6,
-    "clp": 2.9,
+    "clp": 3.3,
     "odt": 0.3,
     "sar_class": "Alicyclic ketone with tert-pentyl side chain — woody-orris class",
     "olfactophore": "Cyclohexanone core plus branched hydrophobe = dry woody-orris diffusion",
@@ -38785,6 +39032,12 @@
         "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
         "fields": {
           "clp": 3.4
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 2.9
         }
       }
     ],
@@ -39689,8 +39942,8 @@
     "formula_str": "C14H21NO",
     "mw": 219.32,
     "bp": null,
-    "vp": 0.002,
-    "clp": 3.4,
+    "vp": 0.38,
+    "clp": 3.5,
     "odt": 8.0,
     "odt_ethanol_ppm": 0.1,
     "oav_typical": null,
@@ -39905,6 +40158,13 @@
         "fields": {
           "smell_strength": "moderate-strong",
           "anosmic_risk": "standard"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.002,
+          "clp": 3.4
         }
       }
     ],
@@ -40330,8 +40590,8 @@
     "formula_str": "C14H15N",
     "mw": 197.27,
     "bp": 260.0,
-    "vp": 0.0056,
-    "clp": 3.6,
+    "vp": 0.0148,
+    "clp": 4.0,
     "odt": 5.0,
     "sar_class": "Rose ketones (damascones/damascenones/ionones). Part of the",
     "olfactophore": "Cyclohexenyl ring + α,β-unsaturated ketone = the \"damascone",
@@ -40423,6 +40683,13 @@
         "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
         "fields": {
           "odor_family": "floral peony"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.0056,
+          "clp": 3.6
         }
       }
     ],
@@ -41340,7 +41607,7 @@
     "alt_name": null,
     "mw": 164.2,
     "vp": 3.0,
-    "clp": 2.3,
+    "clp": 2.4,
     "note": "heart",
     "role": "modifier",
     "texture": "honeyed-lift",
@@ -41503,6 +41770,12 @@
         "fields": {
           "smell_strength": "strong",
           "anosmic_risk": "standard"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 2.3
         }
       }
     ],
@@ -42091,7 +42364,7 @@
     "formula_str": "C₁₀H₁₂O₂",
     "mw": 164.2,
     "bp": 292.0,
-    "vp": 0.001,
+    "vp": 0.0955,
     "clp": 1.5,
     "odt": 0.4,
     "sar_class": "Hydroxyphenyl ketones — para-substituted phenol + methyl",
@@ -42188,7 +42461,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "estimated:unsourced_placeholder.vp_25c",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "profile:ingredient_intelligence.clogp"
       }
     },
@@ -42325,6 +42598,12 @@
         "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
         "fields": {
           "odor_family": "fruity berry"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.001
         }
       }
     ],
@@ -42780,8 +43059,8 @@
     "formula_str": "C₁₀H₁₈O",
     "mw": 154.3,
     "bp": 185.0,
-    "vp": 5.3,
-    "clp": 2.9,
+    "vp": 77.0,
+    "clp": 3.58,
     "odt": 0.5,
     "sar_class": "Oxygen heterocycles — tetrahydropyran with exocyclic",
     "olfactophore": "Ohloff (foundational work): The pyran oxygen + methyl groups",
@@ -43050,6 +43329,13 @@
         "fields": {
           "mw": 154.25,
           "clp": 3.2
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 5.3,
+          "clp": 2.9
         }
       }
     ],
@@ -43481,7 +43767,7 @@
     "mw": 210.4,
     "bp": null,
     "vp": 0.08,
-    "clp": 3.9,
+    "clp": 4.7,
     "odt": 10.0,
     "odt_ethanol_ppm": 2.0,
     "oav_typical": null,
@@ -43562,6 +43848,12 @@
         "fields": {
           "mw": 210.36,
           "clp": 4.2
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 3.9
         }
       }
     ],
@@ -44056,7 +44348,7 @@
     "alt_name": "1%",
     "cas": "NOT publicly listed (captive)",
     "formula_str": "Approximately C₁₀H₁₆O (estimated)",
-    "mw": 166.2,
+    "mw": 194.27,
     "bp": 220.0,
     "vp": 6.0,
     "clp": 2.0,
@@ -44164,6 +44456,12 @@
           "mw": 166.22,
           "vp": 6.5,
           "clp": 2.8
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 166.2
         }
       }
     ],
@@ -44619,7 +44917,7 @@
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
         "vp": "registry:data_spine.vp_25c",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt_evidence": {
@@ -48093,7 +48391,7 @@
     "mw": 206.33,
     "bp": null,
     "vp": 0.817,
-    "clp": 2.5,
+    "clp": 4.2,
     "odt": 0.3,
     "odt_ethanol_ppm": 0.05,
     "oav_typical": null,
@@ -48297,6 +48595,12 @@
           "mw": 222.37,
           "vp": 0.002,
           "clp": 4.0
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 2.5
         }
       }
     ],
@@ -49218,7 +49522,7 @@
     "alt_name": null,
     "cas": "32388-55-9",
     "formula_str": "C17H26O",
-    "mw": 234.4,
+    "mw": 246.4,
     "bp": null,
     "vp": 0.076,
     "clp": 5.8,
@@ -49325,6 +49629,12 @@
         "fields": {
           "vp": 0.0112,
           "clp": 4.0
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 234.4
         }
       }
     ],
@@ -50690,7 +51000,7 @@
     "mw": 256.34,
     "bp": 300.0,
     "vp": 0.028,
-    "clp": 3.6,
+    "clp": 3.65,
     "odt": 3.0,
     "sar_class": "Macrocyclic musks — dilactone (diester) subclass.",
     "olfactophore": "Kraft: Macrocyclic musks require a ring of 14-18 atoms",
@@ -50777,6 +51087,12 @@
           "mw": 254.41,
           "vp": 0.0001,
           "clp": 6.0
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 3.6
         }
       }
     ],
@@ -50916,10 +51232,10 @@
     "alt_name": "p-Cresyl Methyl Ether",
     "cas": "104-93-8",
     "formula_str": "C8H10O",
-    "mw": 122.16,
+    "mw": 122.17,
     "bp": null,
-    "vp": 270.0,
-    "clp": 2.7,
+    "vp": 159.9864,
+    "clp": 2.62,
     "odt": 0.5,
     "odt_ethanol_ppm": 0.1,
     "oav_typical": null,
@@ -51017,9 +51333,9 @@
         "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
-        "mw": "profile:ingredient_intelligence.mw",
-        "vp": "profile:ingredient_intelligence.vp",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt_evidence": {
@@ -51084,6 +51400,14 @@
         "fields": {
           "smell_strength": "moderate-strong",
           "anosmic_risk": "standard"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 122.16,
+          "vp": 270.0,
+          "clp": 2.7
         }
       }
     ],
@@ -59796,7 +60120,7 @@
     "alt_name": null,
     "cas": "19870-74-7 (cedramber) / 67874-81-1 (Vertofix Coeur grade)",
     "formula_str": "C₁₆H₂₈O",
-    "mw": 234.4,
+    "mw": 246.4,
     "bp": 295.0,
     "vp": 0.076,
     "clp": 5.8,
@@ -59890,6 +60214,12 @@
         "fields": {
           "vp": 0.0112,
           "clp": 4.0
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 234.4
         }
       }
     ],
@@ -60436,7 +60766,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "estimated:unsourced_placeholder.vp_25c",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -60509,11 +60839,18 @@
           "vp": null,
           "clp": null
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "vp": 0.1,
+          "clp": 3.3
+        }
       }
     ],
     "mw": 168.3,
-    "vp": 0.1,
-    "clp": 3.3
+    "vp": 8.706,
+    "clp": 3.7
   },
   {
     "name": "Aldehyde C12 MNA neat",
@@ -62204,7 +62541,7 @@
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
         "vp": "registry:data_spine.vp_25c",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt": 20.0,
@@ -62288,11 +62625,18 @@
         "fields": {
           "odor_family": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 3.5,
+          "clp": 2.76
+        }
       }
     ],
     "mw": 152.23,
-    "vp": 3.5,
-    "clp": 2.76,
+    "vp": 12.172,
+    "clp": 3.05,
     "note": "top",
     "role": "character",
     "texture": "lift",
@@ -63390,7 +63734,7 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "estimated:unsourced_placeholder.vp_25c",
+        "vp": "registry:data_spine.vp_25c",
         "clp": "registry:data_spine.logp"
       }
     },
@@ -63480,10 +63824,16 @@
           "vp": 0.129,
           "clp": 2.1
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.1
+        }
       }
     ],
     "mw": 196.2,
-    "vp": 0.1,
+    "vp": 0.0013,
     "clp": 2.8,
     "note": "base",
     "role": "character",
@@ -65224,11 +65574,17 @@
         "fields": {
           "odor_family": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 2.3
+        }
       }
     ],
     "mw": 164.2,
     "vp": 3.0,
-    "clp": 2.3,
+    "clp": 2.4,
     "note": "heart",
     "role": "modifier",
     "texture": "honeyed-lift",
@@ -67092,20 +67448,20 @@
           "vp": 0.08,
           "clp": null
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "mw": 190.3
+        }
       }
     ],
-    "mw": 190.3,
+    "mw": 192.3,
     "cas": "23726-91-2",
     "formula_str": "C13H20O",
     "pubchem_cid": null,
     "identity_evidence": {
-      "source": "https://www.iff.com/scent/ingredients-compendium/damascone-beta/",
-      "contract_values_not_read_by_gate": {
-        "mw": {
-          "contract": 192.3,
-          "gate": 190.3
-        }
-      }
+      "source": "https://www.iff.com/scent/ingredients-compendium/damascone-beta/"
     },
     "field_evidence": {
       "mw": {
@@ -80155,9 +80511,15 @@
           "vp": null,
           "clp": null
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "mw": 238.4
+        }
       }
     ],
-    "mw": 238.4,
+    "mw": 220.35,
     "vp": 0.08,
     "clp": 3.5,
     "field_evidence": {
@@ -80777,11 +81139,19 @@
         "fields": {
           "odor_family": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 122.16,
+          "vp": 270.0,
+          "clp": 2.7
+        }
       }
     ],
-    "mw": 122.16,
-    "vp": 270.0,
-    "clp": 2.7,
+    "mw": 122.17,
+    "vp": 159.9864,
+    "clp": 2.62,
     "note": "heart",
     "role": "trace",
     "texture": "diffusion",
@@ -80828,9 +81198,9 @@
         "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
-        "mw": "profile:ingredient_intelligence.mw",
-        "vp": "profile:ingredient_intelligence.vp",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "synergies": [
@@ -81646,11 +82016,17 @@
         "fields": {
           "clp": null
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "clp": 1.74
+        }
       }
     ],
     "mw": 150.17,
     "vp": 0.86,
-    "clp": 1.74
+    "clp": 1.79
   },
   {
     "name": "Rhodinol",
@@ -83400,7 +83776,7 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "clp": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "activity_coef": {
         "status": "UNKNOWN"
@@ -83410,7 +83786,8 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "registry:data_spine.vp_25c"
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt": null,
@@ -83481,9 +83858,16 @@
         "fields": {
           "vp": 0.0044
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "clp": null
+        }
       }
     ],
     "mw": 236.4,
-    "vp": 0.02
+    "vp": 0.02,
+    "clp": 6.0
   }
 ]

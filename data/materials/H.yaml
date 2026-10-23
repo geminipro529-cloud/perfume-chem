@@ -246,7 +246,7 @@
   inchikey: null
   mw_g_mol: 226.3
   density_25c_g_ml: 0.999
-  logp: 2.7
+  logp: 3.1
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.09466
@@ -286,7 +286,6 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -295,6 +294,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 24851-98-7 (https://www.thegoodscentscompany.com/data/rw1015272.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.99700 to 1.00600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1015272.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, methyl dihydrojasmonate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/24851-98-7.pdf: "Log KOW: 3.1 at 35 C [RIFM, 1997], 2.98 (EPI Suite)"; measured 3.1 used; replaces the unsourced 2.7'
 - canonical_name: Hedione HC
   aliases:
   - hedione hc
@@ -386,11 +386,11 @@
   inchikey: null
   mw_g_mol: 192.2
   density_25c_g_ml: 1.161
-  logp: 2.2
+  logp: 2.4
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.01
-  vp_source: placeholder  # unsourced round value; gate reports it as estimated
+  vp_25c_pa: 0.1073
+  vp_source: 'EPI'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -419,12 +419,14 @@
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     mw_g_mol: engine.skin_interaction
-    logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 1205-17-0 (https://www.thegoodscentscompany.com/data/rw1007731.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 1.16100 to 1.16700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1007731.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, alpha-methyl-1,3-benzodioxole-5-propionaldehyde, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/1205-17-0.pdf: "log Pow = 2.4 (at 25 C) (RIFM, 1996), 2.51 (EPI Suite)"; measured 2.4 used; replaces the unsourced 2.2'
+    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, Helional, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/1205-17-0.pdf: "0.000805 mm Hg @ 25 C (EPI Suite)" = 0.107 Pa (estimate; FMA 0.002 mm Hg at 20 C is higher); replaces the unsourced 0.01 Pa'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Heliotropal
   aliases:
   - heliotropin
@@ -831,7 +833,7 @@
   inchikey: null
   mw_g_mol: 144.21
   density_25c_g_ml: 0.869
-  logp: null
+  logp: 3.3
   functional_groups: []
   chirality: null
   vp_25c_pa: 194.0
@@ -868,6 +870,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 142-92-7 (https://www.thegoodscentscompany.com/data/rw1003201.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.86800 to 0.87600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1003201.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, hexyl acetate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/142-92-7.pdf: "Log KOW: 3.3 at 30 C (RIFM, 1996a), 2.83 (US EPA, 2012a)"; measured 3.3 used; replaces the unsourced 2.83 (the EPA estimate)'
 - canonical_name: Hexyl Cinnamic Aldehyde (HCA)
   aliases: []
   cas: null
@@ -912,11 +915,11 @@
   inchikey: null
   mw_g_mol: 222.3
   density_25c_g_ml: 1.037
-  logp: 5.7
+  logp: 5.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.077
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.0033
+  vp_source: 'EPI'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0003
@@ -942,17 +945,18 @@
   notes: null
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: ECHA registration dossier, 7.7e-5 kPa at 23 C
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 6259-76-3 (https://www.thegoodscentscompany.com/data/rw1002751.html)'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: reference value; raw 1.037; https://www.thegoodscentscompany.com/data/rw1002751.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, hexyl salicylate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6259-76-3.pdf: "Log KOW: 5.5 at 30 C (RIFM, 1996), 5.06 (EPI Suite v4.11)"; measured 5.5 used; replaces the unsourced 5.7'
+    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, hexyl salicylate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6259-76-3.pdf: "2.44e-005 mm Hg at 25 C (EPI Suite v4.11)" = 0.0033 Pa (estimate, the only 25 C value printed); replaces the unsourced 0.077 Pa'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Himalayan Cedarwood EO
   aliases:
   - himalayan cedarwood eo

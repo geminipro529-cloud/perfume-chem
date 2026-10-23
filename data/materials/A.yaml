@@ -1336,11 +1336,11 @@
   inchikey: null
   mw_g_mol: 168.3
   density_25c_g_ml: 0.842
-  logp: 3.3
+  logp: 3.7
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.1
-  vp_source: placeholder  # unsourced round value; gate reports it as estimated
+  vp_25c_pa: 8.706
+  vp_source: 'EPI'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1369,7 +1369,6 @@
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     mw_g_mol: engine.skin_interaction
-    logp: engine.skin_interaction
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -1377,6 +1376,9 @@
     user_in_inventory: inventory.txt
     cas: 'TGSC: CAS Number: 112-45-8 (https://www.thegoodscentscompany.com/data/rw1000332.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.84000 to 0.84800 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1000332.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, 10-undecenal, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/112-45-8.pdf: "Log KOW: 5.1 at 24 C (RIFM, 1994b), 4.12 (EPI Suite), 3.7 (RIFM, 2010a)"; the newer RIFM measurement is used; replaces the unsourced 3.3'
+    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, 10-undecenal, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/112-45-8.pdf: "0.0653 mm Hg at 25 C (EPI Suite)" = 8.71 Pa (estimate; FMA 0.03 mm Hg at 20 C agrees in size); replaces the unsourced 0.1 Pa'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Aldehyde C12 Lauric
   aliases:
   - aldehyde c12 lauric
@@ -1888,7 +1890,7 @@
   inchikey: null
   mw_g_mol: 192.3
   density_25c_g_ml: 0.927
-  logp: 3.0
+  logp: 4.29
   functional_groups: []
   chirality: null
   vp_25c_pa: 1.5
@@ -1923,12 +1925,12 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 127-41-3 (https://www.thegoodscentscompany.com/data/rw1011952.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.92700 to 0.93300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1011952.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, alpha-ionone, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/127-41-3.pdf: "Log KOW: 4.29 [EPI Suite]" (estimate, the only value printed); replaces the unsourced 3.0'
 - canonical_name: Alpha Irone
   aliases:
   - alpha irone
@@ -1938,7 +1940,7 @@
   inchikey: JZQOJFLIJNRDHK-CMDGGOBGSA-N
   mw_g_mol: 206.32
   density_25c_g_ml: 0.932
-  logp: 3.2
+  logp: 3.9
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.559
@@ -1982,11 +1984,11 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: pubchem:alpha-Irone
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt (confirmed 2026-07-16)
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, alpha-irone, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/79-69-6.pdf: "log Pow = 3.8 and 4.0 (RIFM, 2010)", mean of the two measurements; EPI 4.71; replaces the unsourced 3.2'
 - canonical_name: Alpha Irone 10% In Myristic Acid(solid)
   aliases:
   - Alpha Irone 10% in Myristic Acid(solid)
@@ -2544,9 +2546,9 @@
   cas: 929625-08-1
   smiles: null
   inchikey: null
-  mw_g_mol: 234.0
+  mw_g_mol: 262.4
   density_25c_g_ml: null
-  logp: 4.2
+  logp: 6.3
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.001
@@ -2573,13 +2575,13 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    mw_g_mol: engine.skin_interaction
-    logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     vp_note: 'Ventos SDS 2025 https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Ambermax_50_Ventos_GHS_SDS.pdf (50% product): 0.0136 hPa at 20 C, carrier-dominated; active VP not found, placeholder kept; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     cas: '22 Oct 2026 missing-data pass: stated; raw 929625-08-1; https://www.givaudan.com/print/1314066'
+    mw_g_mol: '23 Oct 2026 third data pass: Givaudan producer page, Ambermax 10%/TEC (Givaudan Code 1472033), https://www.givaudan.com/print/1314066: "MW 262,4", CAS 929625-08-1; replaces the unsourced 234.0'
+    logp: '23 Oct 2026 third data pass: Givaudan producer page, same URL: "Log Pow 6,3"; replaces the unsourced 4.2. VP left as is: the page prints two values ("0.0136 hPa / 0.0060 hPa") without saying which is the neat material'
 - canonical_name: Ambermax 50% Dowanol TPM
   aliases: []
   cas: null
@@ -2734,7 +2736,7 @@
   cas: 58567-11-6
   smiles: null
   inchikey: null
-  mw_g_mol: 234.4
+  mw_g_mol: 242.4
   density_25c_g_ml: 0.932
   logp: 5.4
   functional_groups: []
@@ -2760,7 +2762,6 @@
   character: null
   notes: 'Taken as Boisambrene Forte (Kao, CAS 58567-11-6): VP 0.296 Pa at 25 C and log P 5.4 are unmarked ChemicalBook database values (EPI-type estimates); the Kao catalogue (B0017583) has no VP. Replaces the 0.001 Pa placeholder.'
   provenance:
-    mw_g_mol: engine.diffusion_model
     vp_25c_pa: 'https://chemicalbook.com/CASEN_58567-11-6.htm: 0.296 Pa at 25 C, unmarked (estimate); identity Amberwood F = Boisambrene Forte (Kao); replaces the 0.001 placeholder; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
@@ -2771,6 +2772,7 @@
     user_in_inventory: inventory.txt
     cas: '22 Oct 2026 missing-data pass: stated; raw 58567-11-6; https://www.chemicalbook.com/ChemicalProductProperty_EN_CB0267696.htm'
     density_25c_g_ml: '23 Oct 2026 second missing-data pass: supplier spec range midpoint; raw 0.928 to 0.936; https://www.thegoodscentscompany.com/data/rw1016091.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    mw_g_mol: '23 Oct 2026 third data pass: PubChem for CAS 58567-11-6 (the row''s CAS, taken as Boisambrene Forte): formaldehyde cyclododecyl ethyl acetal C15H30O2, MolecularWeight 242.40; replaces the unsourced 234.4'
 - canonical_name: Ambreine Classic PW
   aliases: []
   cas: null
@@ -4501,6 +4503,7 @@
     vp_25c_pa: 'matched to the Ambrofix / Ambrox Super rows (23 Oct 2026): RIFM 0.054 Pa at 20 C measured (RIFM 1998d) x 1.51 (20 to 25 C) = 0.08 Pa; replaces the unsourced 0.066'
     odt_air_ppb: 'matched to engine.odor_thresholds ambrofix / ambrox super (0.3 ppb, 23 Oct 2026); replaces the unsourced 0.5'
     odt_eth_ppm: 'matches engine.odor_thresholds ambrofix / ambrox super (0.005)'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 6790-58-5; https://www.tcichemicals.com/DE/en/p/A2472'
 
 - name: Allyl Cyclohexyl Propionate
   aliases:
@@ -4509,12 +4512,12 @@
   - acp
   cas: 2705-87-5
   mw_g_mol: 196.29
-  density_25c_g_ml: null
-  logp: 3.3
+  density_25c_g_ml: 0.9495
+  logp: 4.3
   functional_groups: []
   chirality: null
-  vp_25c_pa: 5.0
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 3.8
+  vp_source: 'RIFM_measured'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -4527,10 +4530,14 @@
   user_stock_dilution: 100.0
   user_in_inventory: true
   provenance:
-    cas: '22 Oct 2026 missing-data pass: stated; raw 6790-58-5; https://www.tcichemicals.com/DE/en/p/A2472'
+    density_25c_g_ml: '23 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.945 to 0.954; https://www.thegoodscentscompany.com/data/rw1000322.html; temperature as printed by source (often 20 C), not corrected to 25 C. Moved 23 Oct to this effective row (it had landed on the shadowed duplicate row).'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, allyl cyclohexanepropionate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/2705-87-5.pdf: "Log Pow = 4.3 (RIFM, 2010b), 4.8 at 30 C (RIFM, 1996a), 4.47 (EPI Suite)"; measured 4.3 used; replaces the unsourced 3.3'
+    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, allyl cyclohexanepropionate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/2705-87-5.pdf: "3.8 Pa at 25 C (RIFM, 2012d)", measured; replaces the unsourced 5.0'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Amber Xtreme
   aliases: [amber xtreme]
   cas: 476332-65-7
+  density_25c_g_ml: 0.94
   mw_g_mol: 264.4
   vp_25c_pa: 0.8
   vp_source: IFF_supplier_23C_converted
@@ -4542,3 +4549,4 @@
     mw_g_mol: https://www.iff.com/scent/ingredients-compendium/amber-xtreme-2/
     vp_25c_pa: 'https://iff-v2.prod-use1.investis.com/en/site-services/online-compendium-new/amber-xtreme (IFF compendium): "0.005516 mmHg at 23 C" = 0.74 Pa, x 1.18 to 25 C = 0.8 Pa, method not stated; IFF SDS v5.38 (2018) "< 0.01 hPa"; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     logp: 'IFF compendium, same page: log P 7.1, method not stated; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    density_25c_g_ml: '23 Oct 2026 third data pass: ScenTree Amber Xtreme "Density: 0,94" (secondary database, temperature not printed), https://www.scentree.co/en/Amber_Xtreme%C2%AE.html; no IFF figure found'

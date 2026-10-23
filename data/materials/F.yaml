@@ -615,12 +615,12 @@
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 170.3, corrected to 154.25)
   mw_g_mol: 172.26
   density_25c_g_ml: 0.9515
-  logp: 2.5
+  logp: 1.65
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 3.0, corrected to 0.007)
-  vp_25c_pa: 0.007
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.5999
+  vp_source: 'EPI'
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.005
@@ -648,17 +648,18 @@
   notes:
   provenance:
     mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
-    vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 63500-71-0 (https://www.thegoodscentscompany.com/data/rw1045182.html)'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: reference value; raw 0.9515; https://www.thegoodscentscompany.com/data/rw1045182.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, 2-isobutyl-4-methyltetrahydro-2H-pyran-4-ol, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/63500-71-0.pdf: "Log KOW: 1.65 CV = 0.7% (RIFM, 1989a), 2.16 (EPI Suite)"; measured 1.65 used; replaces the unsourced 2.5'
+    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, Florol, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/63500-71-0.pdf: "0.00712 mm Hg @ 20 C (EPI Suite 4.0), 0.012 mm Hg @ 25 C (EPI Suite)" = 1.6 Pa (estimate); replaces the unsourced 0.007, which was the 20 C mm Hg number read as Pa'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Flower Bouquet F-TEC
   aliases:
   - FLOWER BOUQUET F-TEC

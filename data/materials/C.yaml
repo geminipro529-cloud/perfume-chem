@@ -265,7 +265,7 @@
   inchikey: null
   mw_g_mol: 178.18
   density_25c_g_ml: null
-  logp: 1.5
+  logp: 1.95
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.0965
@@ -312,7 +312,6 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -321,6 +320,7 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 28940-11-6 (https://www.thegoodscentscompany.com/data/rw1002352.html)'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, 7-methyl-2H-benzo-1,5-dioxepin-3(4H)-one, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/28940-11-6.pdf: "Log KOW: 2.43 (EPI Suite), 1.95 (RIFM, 2008b)"; measured 1.95 used; replaces the unsourced 1.5'
 - canonical_name: Camphene
   aliases: []
   cas: null
@@ -1116,7 +1116,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 262.4
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.99
   logp: 5.366
   functional_groups: []
   chirality: null
@@ -1150,6 +1150,7 @@
     logp: 'ESTIMATE: TGSC "logP (o/w): 5.366 (est)"; https://www.thegoodscentscompany.com/data/rw1023611.html (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
     vp_25c_pa: 'ESTIMATE: TGSC "0.000240 mmHg @ 25.00 C. (est)" x 133.322 Pa/mmHg = 0.0320 Pa; https://www.thegoodscentscompany.com/data/rw1023611.html (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
     mw_g_mol: 'TGSC and EPI Suite (https://www.thegoodscentscompany.com/episys/ep1023611.html) agree on C17H26O2 = 262.40 for CAS 32214-91-8; PerfumersWorld SDS 264.41 is the C17H28O2 weight (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
+    density_25c_g_ml: '23 Oct 2026 third data pass: PerfumersWorld 3WI03465 "Specific Gravity 0.9900", physical state "slightly viscous liquid", https://www.perfumersworld.com/view.php?pro_id=3WI03465; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle)'
 - canonical_name: Cashmeran
   aliases:
   - cashmeran
@@ -1804,12 +1805,12 @@
 - canonical_name: Cedramber
   aliases:
   - cedramber
-  cas: null
+  cas: 19870-74-7
   smiles: null
   inchikey: null
   # 2026-10-08: was 234.38; corrected from the molecular formula
   mw_g_mol: 236.40
-  density_25c_g_ml: 0.9765
+  density_25c_g_ml: 0.971
   logp: 6.1
   functional_groups: []
   chirality: null
@@ -1847,7 +1848,8 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     vp_25c_pa: 'estimate kept at 0.35 Pa; bound only: IFF SDS 2020 https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Cedramber_IFF_SDS.pdf "< 0.01 hPa"; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     logp: 'ChemicalBook, unmarked (estimate): 6.1; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
-    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.973-0.980; https://scent.vn/en/products/cedramber-aroma-chemical; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '23 Oct 2026 third data pass: PerfumersWorld 3WW00097 Cedramber (Kenny''s supplier for this bottle): "CAS No. 19870-74-7", https://www.perfumersworld.com/view.php?pro_id=3WW00097 (cedryl methyl ether)'
+    density_25c_g_ml: '23 Oct 2026 third data pass: PerfumersWorld 3WW00097 Cedramber "Specific gravity 0.9710", https://www.perfumersworld.com/view.php?pro_id=3WW00097; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle); replaces the scent.vn spec midpoint 0.9765 (supplier value preferred)'
 - canonical_name: Cedrat FCF Sicilian
   aliases:
   - cedrat fcf sicilian
@@ -1984,7 +1986,7 @@
   cas: 71735-79-0
   smiles: null
   inchikey: null
-  mw_g_mol: 238.4
+  mw_g_mol: 220.35
   density_25c_g_ml: 0.974
   logp: 3.5
   functional_groups: []
@@ -2014,7 +2016,6 @@
   character: null
   notes: null
   provenance:
-    mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     logp: engine.skin_interaction
@@ -2022,13 +2023,14 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: '22 Oct 2026 missing-data pass: stated; raw 71735-79-0; https://thegoodscentscompany.com/data/rw1021871.html'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.974; https://thegoodscentscompany.com/data/rw1021871.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    mw_g_mol: '23 Oct 2026 third data pass: PubChem for CAS 71735-79-0: trimethyl-13-oxabicyclo[10.1.0]trideca-4,8-diene C15H24O, MolecularWeight 220.35; replaces the unsourced 238.4'
 - canonical_name: Cedryl Acetate
   aliases: []
   cas: '77-54-3'
   smiles: null
   inchikey: null
   mw_g_mol: 264.41
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.977
   logp: 6.2
   functional_groups: []
   chirality: null
@@ -2057,13 +2059,14 @@
     other: {}
   families: []
   character: null
-  notes: 'MW, VP and density left null (2026-10-08). Formula C17H28O2 per IFF; no source states the MW. IFF VP "0.000489 mm Hg @ 23 C" = 0.0652 Pa at 23 C, not 25 C. Specific gravity 1.0014 at 20 C (measured lot), spec 0.986-1.016 (https://scent.vn/en/products/cedryl-acetate-aroma-chemical); 20 C, not used. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): mw_g_mol null -> 264.41.'
+  notes: 'MW, VP and density left null (2026-10-08). Formula C17H28O2 per IFF; no source states the MW. IFF VP "0.000489 mm Hg @ 23 C" = 0.0652 Pa at 23 C, not 25 C. Specific gravity 1.0014 at 20 C (measured lot), spec 0.986-1.016 (https://scent.vn/en/products/cedryl-acetate-aroma-chemical); 20 C, not used. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): mw_g_mol null -> 264.41. Update 23 Oct 2026: density now filled from a cited source; see provenance.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/ (IFF, producer); "77-54-3" (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     logp: 'https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/ (IFF, producer); log P "6.2", method not stated (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     mw_g_mol: 'formula weight of C17H28O2 per IFF (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
     vp_25c_pa: 'SUPPLIER, temperature-adjusted (2026-10-14): IFF compendium "0.000489 mm Hg @ 23 C" = 0.0652 Pa, x1.23 to 25 C at dHvap 75 kJ/mol = 0.080 Pa. TGSC 0.002 mmHg (est) = 0.27 Pa is 3.3x higher. No measured value found. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
+    density_25c_g_ml: '23 Oct 2026 third data pass: PerfumersWorld 2WW00099 "Specific Gravity 0.9770", https://www.perfumersworld.com/view.php?pro_id=2WW00099; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle)'
 - canonical_name: Celery Seed Essential Oil
   aliases: []
   cas: null
@@ -3594,11 +3597,11 @@
   inchikey: null
   mw_g_mol: 152.23
   density_25c_g_ml: 0.885
-  logp: null
+  logp: 3.05
   functional_groups: []
   chirality: null
-  vp_25c_pa: 3.5
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 12.172
+  vp_source: 'EPI'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -3634,6 +3637,9 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 5392-40-5 (https://www.thegoodscentscompany.com/data/rw1003432.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.88500 to 0.89100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1003432.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, citral, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5392-40-5.pdf: "Log KOW: 3.0 and 3.1 at 35 C (2 isomers) (RIFM, 2006), 3.45 (EPI Suite)"; mean of the two measured isomers; replaces the unsourced 2.76'
+    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, citral, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5392-40-5.pdf: "0.0913 mm Hg @ 25 C (EPI Suite)" = 12.17 Pa (estimate; FMA 0.07 mm Hg at 20 C agrees); replaces the unsourced 3.5 Pa'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Citralva
   aliases: []
   cas: null
@@ -3787,7 +3793,7 @@
   inchikey: null
   mw_g_mol: 154.25
   density_25c_g_ml: 0.851
-  logp: null
+  logp: 3.53
   functional_groups: []
   chirality: null
   vp_25c_pa: 40.0
@@ -3827,6 +3833,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 106-23-0 (https://www.thegoodscentscompany.com/data/rw1032651.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.85000 to 0.85800 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1032651.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, citronellal, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-23-0.pdf: "Log KOW: 3.53 (EPI Suite)" (estimate, the only value printed); fills an empty field'
 - canonical_name: Citronellol
   aliases:
   - citronellol
@@ -6080,7 +6087,7 @@
   inchikey: null
   mw_g_mol: 190.3
   density_25c_g_ml: 0.95
-  logp: 3.2
+  logp: 4.0
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.52
@@ -6120,7 +6127,6 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -6129,6 +6135,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: '22 Oct 2026 missing-data pass: reference value; raw 103-95-7; https://www.thegoodscentscompany.com/data/rw1004112.html'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: reference value; raw 0.95; https://www.thegoodscentscompany.com/data/rw1004112.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, 2-methyl-3-(p-isopropylphenyl)propionaldehyde, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-95-7.pdf: "Log KOW: 4.0 at 35 C (RIFM, 2006), 3.91 (EPI Suite)"; measured 4.0 used; replaces the unsourced 3.2'
 - canonical_name: Cyclamen F-TEC
   aliases:
   - CYCLAMEN F-TEC

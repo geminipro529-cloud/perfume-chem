@@ -1194,7 +1194,7 @@
   inchikey: null
   mw_g_mol: 210.4
   density_25c_g_ml: 0.896
-  logp: 3.9
+  logp: 4.7
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.08
@@ -1227,12 +1227,12 @@
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     mw_g_mol: engine.skin_interaction
-    logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 65113-99-7 (https://www.thegoodscentscompany.com/data/rw1026291.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.89500 to 0.90300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1026291.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    logp: '23 Oct 2026 third data pass: Givaudan producer page, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/sandaloretm: "Log Pow 4,7"; RIFM https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/65113-99-7.pdf "4.6 to 4.8 at 25 C (RIFM, 1996)" agrees; replaces the unsourced 3.9'
 - canonical_name: Sandalwood Base
   aliases: []
   cas: null
@@ -1747,7 +1747,7 @@
   cas: 86803-90-9
   smiles: null
   inchikey: null
-  mw_g_mol: 166.2
+  mw_g_mol: 194.27
   density_25c_g_ml: 1.075
   logp: 2.0
   functional_groups: []
@@ -1787,7 +1787,6 @@
   character: null
   notes: null
   provenance:
-    mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
@@ -1803,6 +1802,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: '22 Oct 2026 missing-data pass: stated; raw 86803-90-9; https://www.perfumersworld.com/view.php?pro_id=4YM22431'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 1.075; https://www.perfumersworld.com/view.php?pro_id=4YM22431; temperature as printed by source (often 20 C), not corrected to 25 C'
+    mw_g_mol: '23 Oct 2026 third data pass: PubChem for CAS 86803-90-9: Scentenal C12H18O2, MolecularWeight 194.27; replaces the unsourced 166.2'
 - canonical_name: Seaweed F-TEC
   aliases:
   - SEAWEED F-TEC
@@ -1921,7 +1921,7 @@
   inchikey: null
   mw_g_mol: 131.17
   density_25c_g_ml: null
-  logp: null
+  logp: 2.6
   functional_groups: []
   chirality: null
   # 2026-10-08: was 0.01 (unsourced; about 100x low per the chemprops cross-check); replaced with the cited value
@@ -1963,6 +1963,7 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 83-34-1 (https://www.thegoodscentscompany.com/data/rw1006331.html)'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, skatole, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/83-34-1.pdf: "Log KOW: 2.6 (EPI Suite)" (estimate, the only value printed); fills an empty field'
 - canonical_name: Soap Clear Translucent Glycerine - Unscentedsoapcler
   aliases:
   - Soap Clear Translucent Glycerine - unscentedSOAPCLER
@@ -3277,7 +3278,7 @@
 - canonical_name: spike lavender eo
   aliases:
   - Spike Lavender EO
-  cas: null
+  cas: 8016-78-2
   smiles: null
   inchikey: null
   mw_g_mol: 154.0
@@ -3301,6 +3302,7 @@
 # MATERIAL_INTAKE_BATCH_2026_08_07 additions
   provenance:
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.884 - 0.898 (spec); batch result 0.889; https://www.madarcorporation.com/spec-sheets/essential-oil/spike-lavender/Spike%20Lavender%20-%204512405%20All%20docs.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '23 Oct 2026 third data pass: TGSC spike lavender oil, "distilled from the flowering herbs of the lavender, lavandula latifolia (syn: lavandula spica)", page titled "spike lavender oil, 8016-78-2", https://www.thegoodscentscompany.com/data/es1029951.html'
 - canonical_name: 'Sandalwood Base 3X'
   aliases: ['sandalwood base x3', 'sandalwood base']
   cas: None

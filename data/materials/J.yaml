@@ -513,11 +513,11 @@
   inchikey: null
   mw_g_mol: 222.37
   density_25c_g_ml: 0.9475
-  logp: 4.1
+  logp: 4.8
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.1
-  vp_source: placeholder  # unsourced round value; gate reports it as estimated
+  vp_25c_pa: 0.03
+  vp_source: 'supplier'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0005
@@ -543,16 +543,17 @@
   notes: null
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.9475; https://scent.vn/en/products/javanol-aroma-chemical; temperature as printed by source (often 20 C), not corrected to 25 C'
+    vp_25c_pa: '23 Oct 2026 third data pass: Givaudan producer page, Javanol (Giv Code 8754013), https://www.givaudan.com/print/1314536: "Vapour pressure 0.0003 hPa" = 0.03 Pa (temperature not printed); replaces the placeholder 0.1 Pa'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
+    logp: '23 Oct 2026 third data pass: Givaudan producer page, same URL: "Log Pow 4,8"; replaces the unsourced 4.1'
 - canonical_name: Jessemal Jasmonyl
   aliases:
   - Jessemal
