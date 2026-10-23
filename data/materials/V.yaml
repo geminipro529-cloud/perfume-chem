@@ -224,7 +224,7 @@
 - canonical_name: Veloutone
   aliases: []
   cas: '65443-14-3'
-  smiles:
+  smiles: 'CCCCCC1(CCC(C1=O)(C)C)C'
   inchikey:
   mw_g_mol: 196.33
   density_25c_g_ml: 0.867
@@ -264,6 +264,7 @@
     logp: 'RIFM fragrance ingredient safety assessment, Veloutone, CAS 65443-14-3, Food Chem. Toxicol. 110 Suppl 1 (2017) S662-S669, doi:10.1016/j.fct.2017.10.009; "4.34 (US EPA, 2012a)", EPI Suite estimate, not measured (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
     density_25c_g_ml: 'Vigon SDS 502847; "SG 0.87 @25 C" single value; 0.87 x 0.99705 (water at 25 C) = 0.8674 g/mL (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
     vp_25c_pa: 'ESTIMATE, literature common ground: RIFM 2017 quotes US EPA 0.0163 mm Hg @ 25 C = 2.17 Pa; TGSC rw1000241 0.026 mmHg @ 25 C (est) = 3.47 Pa agrees; the FMA 0.4 mm Hg @ 20 C (53 Pa) is a 15-25x outlier (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
+    smiles: 'PubChem CID 103402 structure for CAS 65443-14-3 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
 - canonical_name: Velvione
   aliases: []
   cas: '37609-25-9'

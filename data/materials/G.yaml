@@ -1526,7 +1526,7 @@
 - canonical_name: Glycolierral
   aliases: []
   cas: '68901-32-6'
-  smiles: null
+  smiles: 'CC1=CC2CC(C1CC2C(C)C)C3OCCO3'
   inchikey: null
   mw_g_mol: 236.35
   density_25c_g_ml: null
@@ -1565,6 +1565,7 @@
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1492991.html; "Molecular Weight: 236.35468000", calculated from C15H24O2 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     logp: 'ESTIMATE: TGSC 4.007 (est); scentspiracy "Log Pow: 3.8" (method not stated) agrees within 0.5 (via material-data-firecrawl/allgaps/S3_fruity_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
     vp_25c_pa: 'ESTIMATE, literature common ground: EPI Suite MPBPWIN 0.00181 mm Hg @ 25 C = 0.242 Pa (https://www.thegoodscentscompany.com/episys/ep1492991.html); scentspiracy 0.24 Pa @ 25 C agrees; TGSC datasheet 0.133 Pa (est) is low (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
+    smiles: 'PubChem CID 111418 structure for CAS 68901-32-6 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
 - canonical_name: Gourmande F-TEC
   aliases:
   - GOURMANDE F-TEC

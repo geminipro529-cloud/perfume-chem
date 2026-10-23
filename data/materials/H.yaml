@@ -1001,12 +1001,12 @@
     user_in_inventory: inventory.txt
 - canonical_name: Hindinol
   aliases: []
-  cas: null
-  smiles: null
+  cas: '28219-60-5'
+  smiles: 'CC1=CCC(C1(C)C)CC=C(C)CO'
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 194.318
   density_25c_g_ml: 0.92
-  logp: null
+  logp: 3.31
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -1032,11 +1032,16 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'Identity 2026-10-23: CAS 28219-60-5, 2-methyl-4-(2,2,3-trimethylcyclopent-3-en-1-yl)but-2-en-1-ol (PubChem CID 119897; CID 6438195 is the (E) isomer), confirmed on PubChem by the 2026-10-23 chem check. Maker unverified (Takasago vs Kao).'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 0.9200, supplier-reported (PerfumersWorld 4WX24656 "Hindinol"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
     density_basis: supplier_sg_temperature_unstated
+    smiles: 'PubChem CID 119897 structure for CAS 28219-60-5 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
+    cas: 'PubChem CID 119897 for CAS 28219-60-5, confirmed by the 2026-10-23 chem check (PUG REST, fetched 2026-10-23)'
+    mw_g_mol: 'RDKit exact from SMILES CC1=CCC(C1(C)C)CC=C(C)CO (PubChem CID 119897 structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; PubChem MW 194.31'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC1=CCC(C1(C)C)CC=C(C)CO (PubChem CID 119897 structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured'
+    logp_source: rdkit-crippen-estimate
 - canonical_name: Ho Essential Oil
   aliases: []
   cas: null

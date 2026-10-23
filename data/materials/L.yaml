@@ -1509,7 +1509,7 @@
   - cis-3-Hexenyl methyl carbonate
   - (Z)-3-Hexenyl methyl carbonate
   cas: 67633-96-9
-  smiles: null
+  smiles: 'CC/C=C\CCOC(=O)OC'
   inchikey: null
   mw_g_mol: 158.2
   density_25c_g_ml: 0.966
@@ -1556,6 +1556,7 @@
     density_25c_g_ml: 'https://thegoodscentscompany.com/data/rw1028731.html; supplier range "Specific Gravity: 0.96600 to 0.97100 @ 25.00 C."; midpoint 0.9685 x 0.99705 (water at 25 C) = 0.9656 g/mL (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     logp: 'MEASURED: RIFM 2022 quotes "Log Pow = 2.6 (RIFM, 2013), 2.47 (EPI Suite)" (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/67633-96-9.pdf); IFF 2.5 agrees (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
     vp_25c_pa: 'ESTIMATE, literature common ground: RIFM 2022 (Food Chem Toxicol 159:112648, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/67633-96-9.pdf) quotes EPI Suite 0.187 mm Hg @ 25 C = 24.9 Pa and FMA 0.3 mm Hg @ 20 C = 40 Pa; IFF 33.75 Pa @ 23 C agrees; TGSC 0.721 mmHg (est) = 96.1 Pa is the outlier (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
+    smiles: 'PubChem CID 5365699 structure for CAS 67633-96-9 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
 - canonical_name: LIGHT AND AIRY F-TEC
   aliases: []
   cas: null

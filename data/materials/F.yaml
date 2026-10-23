@@ -1505,6 +1505,7 @@
     logp: 'https://www.iff.com/?p=7704 (IFF, producer); "Log P: 1.0", method not stated. TGSC gives 0.982 (not marked est) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     density_25c_g_ml: 'https://thegoodscentscompany.com/data/rw1033271.html; supplier range "Specific Gravity:1.07910 to 1.08910 @ 25.00 C."; midpoint 1.0841 x 0.99705 (water at 25 C) = 1.0809 g/mL (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     vp_25c_pa: 'SUPPLIER, temperature-adjusted (2026-10-14): IFF "0.047713 mm Hg @ 23 C" = 6.36 Pa, x1.15 to 25 C at dHvap 50 kJ/mol = 7.3 Pa. TGSC 0.219 mmHg (est) = 29.2 Pa is 4x higher. IFF makes Fructone. No measured value found. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
+    cas_identity_conflict: '2026-10-23 chem check: Fructone is CAS 6413-10-1 (PubChem CID 80865, C8H14O4, MW 174.19), but PerfumersWorld 3FG00196 lists 6290-17-1 (CID 95392, C9H16O4, MW 188.22, the 2,4-dimethyl homologue). Which one Kenny''s bottle is stays open pending its label; the cas field was already 6413-10-1 and was not changed here.'
 - canonical_name: Fruity Ionone F-TEC
   aliases:
   - FRUITY IONONE F-TEC

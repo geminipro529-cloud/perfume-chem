@@ -997,11 +997,11 @@
   - peranat
   - MySkinRecipes Pear Valerate Peranat
   cas: '90397-38-9'
-  smiles:
+  smiles: 'CCCC(C)COC(=O)C(C)CCC'
   inchikey:
   mw_g_mol: 200.32
   density_25c_g_ml: 0.8564
-  logp:
+  logp: 3.4
   functional_groups: []
   chirality:
   vp_25c_pa: 13.9
@@ -1023,12 +1023,15 @@
   supplier:
   families: []
   character:
-  notes: MySkinRecipes order 2199458 'Pear Valerate, Peranat', neat as supplied; CAS and purity not asserted.
+  notes: 'MySkinRecipes order 2199458 ''Pear Valerate, Peranat'', neat as supplied; CAS and purity not asserted. Identity 2026-10-23: CAS 90397-38-9 (2-methylpentyl 2-methylpentanoate, PubChem CID 163588) confirmed on PubChem; the link from the MySkinRecipes "Peranat" product to this CAS is unverified.'
   provenance:
     cas: 'Kao PERANAT https://chemical.kao.com/en/products/B0010631_en/; 2-methylpentyl 2-methylpentanoate'
     density_25c_g_ml: 'ECHA 0.8564 g/cm3 at 20 C (20 C value). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'ESTIMATE kept: EPI Suite 13.9 Pa via TGSC. ECHA value DISPUTED: "ca. 8.7 kPa at 20 C" (reliability 2) is not credible for a C12 ester; not loaded. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
+    smiles: 'PubChem CID 163588 structure for CAS 90397-38-9 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CCCC(C)COC(=O)C(C)CCC (PubChem CID 163588 structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured'
+    logp_source: rdkit-crippen-estimate
 - canonical_name: Peonile
   aliases:
   - peonile

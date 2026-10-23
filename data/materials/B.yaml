@@ -1413,7 +1413,7 @@
   aliases:
   - Berry Hexanoate (BerryFlor)
   cas: '104986-28-9'
-  smiles: null
+  smiles: 'CCOC(=O)CCCCCOC(=O)C'
   inchikey: null
   mw_g_mol: 202.25
   density_25c_g_ml: 1.004
@@ -1453,6 +1453,7 @@
     logp: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "logP (o/w): 2.000", database value not marked (est), basis not stated (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     density_25c_g_ml: 'https://www.thegoodscentscompany.com/data/rw1061362.html; supplier range "Specific Gravity: 1.00500 to 1.00900 @ 25.00 C."; midpoint 1.007 x 0.99705 (water at 25 C) = 1.0040 g/mL (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     vp_25c_pa: 'ESTIMATE: TGSC "0.020000 mmHg @ 25.00 C. (est)" x 133.322 Pa/mmHg = 2.67 Pa; https://www.thegoodscentscompany.com/data/rw1061362.html (via material-data-firecrawl/allgaps/S3_fruity_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
+    smiles: 'PubChem CID 113640 structure for CAS 104986-28-9 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
 - canonical_name: Beta Caryophyllene
   aliases: []
   cas: null

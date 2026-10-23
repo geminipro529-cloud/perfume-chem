@@ -70,14 +70,18 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     "Peach Ketone": (("odt",), _NO_AIR_ODT_1023),
     "Phenoxy Ethyl Isobutyrate": (("odt",), _NO_AIR_ODT_1023),
     "Velvione": (("odt",), _NO_AIR_ODT_1023),
-    # Structure not confirmed, so no calculated log P.
-    "Decatone": (("logp", "odt"), "structure unconfirmed, so no Crippen log P; " + _NO_AIR_ODT_1023),
-    "Pear Valerate": (("logp", "odt"), "structure unconfirmed, so no Crippen log P; " + _NO_AIR_ODT_1023),
+    # CAS confirmed on PubChem 2026-10-23; labelled Crippen log P added, still no air threshold.
+    "Decatone": (("odt",), _NO_AIR_ODT_1023),
+    "Pear Valerate": (("odt",), _NO_AIR_ODT_1023),
     # Proprietary bases: a mixture with no CAS has no single MW, VP or log P.
     "Black Tea Base": (_ALL, "PerfumersWorld blend, not a pure chemical; no composition published"),
     "Costus Olifac": (("logp", "mw", "vp"), "IFF proprietary base with no CAS; the old MW and VP were placeholders"),
     "Tuberose Base": (_ALL, "maker and composition of this base are not recorded"),
-    "Hindinol": (_ALL, "identity and CAS unknown; no PubChem match for the name (2026-10-23)"),
+    "Hindinol": (
+        ("odt", "vp"),
+        "CAS 28219-60-5 confirmed on PubChem 2026-10-23 (RDKit MW, Crippen log P); no VP source yet (not in chemprops/thermo); "
+        + _NO_AIR_ODT_1023,
+    ),
     "Rhodinol": (
         ("logp", "mw", "vp"),
         "MySkinRecipes 2760 citronellol + geraniol blend; COA CAS 6812-78-8 and page CAS "

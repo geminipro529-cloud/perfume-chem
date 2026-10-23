@@ -438,11 +438,11 @@
 - canonical_name: Decatone
   aliases: []
   cas: '34131-98-1'
-  smiles:
+  smiles: 'CC(C)C1CCC2CC(=O)CCC2C1'
   inchikey:
   mw_g_mol: 194.32
   density_25c_g_ml: 0.961
-  logp:
+  logp: 3.43
   functional_groups: []
   chirality:
   vp_25c_pa: 0.67
@@ -474,6 +474,9 @@
     density_25c_g_ml: 'TGSC specific gravity 0.961-0.967 @ 25 C (https://www.thegoodscentscompany.com/data/rw1025111.html), midpoint x 0.99705; PW prints 0.9610'
     vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    smiles: 'PubChem CID 118134 structure for CAS 34131-98-1 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(C)C1CCC2CC(=O)CCC2C1 (PubChem CID 118134 structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured'
+    logp_source: rdkit-crippen-estimate
 - canonical_name: Delta Damascone
   aliases:
   - delta damascone

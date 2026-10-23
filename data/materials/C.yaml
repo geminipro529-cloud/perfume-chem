@@ -2012,7 +2012,7 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'Identity 2026-10-23: PubChem CID 6436727 (CAS 13786-79-3, synonym "Cedroxyde") is C15H24O, MW 220.35, but this entry''s MW is 238.4 (engine.diffusion_model, unsourced), so the CAS was NOT set (spec: only when MW matches within 0.1). PerfumersWorld SKU 3WI00098 lists 71735-79-0, a different isomer (CID 6441804). Resolve the MW before setting the CAS.'
   provenance:
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
