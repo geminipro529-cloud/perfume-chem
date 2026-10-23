@@ -24,7 +24,7 @@ import hashlib
 import re
 from dataclasses import asdict, dataclass, replace
 from datetime import date
-from decimal import ROUND_FLOOR, Decimal, InvalidOperation
+from decimal import ROUND_FLOOR, ROUND_HALF_UP, Decimal, InvalidOperation
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Sequence
@@ -1658,6 +1658,80 @@ def _quantity_for_candidate(candidate: Candidate, quantities: Sequence[dict[str,
     return None
 
 
+# Weighed amber crystals: the neat solid of an amber material the composer
+# doses by rule, never by a fixed share of its own.  Only the owned Ambrox
+# Super crystals are one; Ambrofix Crystals have only a heuristic profile.
+AMBER_CRYSTAL_IDENTITIES = frozenset({"ambrox super"})
+# A rule-dosed crystal carries the ambroxide the owned 25% w/w solution would
+# have carried in its role, so the amber base moves together and Ambrox never
+# moves alone (formula_solver._weighed_amber_crystal admits the crystal).
+AMBROX_CRYSTAL_REFERENCE_DILUTION = Decimal("0.25")
+AMBROX_CRYSTAL_MASS_BASIS = "AMBROX_CRYSTAL_AS_25PCT_SOLUTION_ACTIVE"
+_AMBROX_CRYSTAL_MIN_MG = 10
+
+
+def is_weighed_amber_crystal(candidate: Candidate) -> bool:
+    """The neat solid stock of an amber-crystal identity (AMBER_CRYSTAL_IDENTITIES).
+
+    Keyed to the identity, never to ``candidate.solid`` alone: _is_solid also
+    flags Oranger Crystals 10% and resin tinctures.
+    """
+
+    stock = candidate.stock
+    return (
+        candidate.solid
+        and float(stock.dilution) >= 0.999
+        and _key(stock.identity_name or stock.name) in AMBER_CRYSTAL_IDENTITIES
+    )
+
+
+def _ambrox_crystal_mg(
+    choices: Sequence[Choice],
+    crystal_indices: Sequence[int],
+    fixed_liquid: dict[int, int],
+    liquid_total_ul: int,
+) -> dict[int, int]:
+    """Each rule-dosed crystal's mass: the active its 25% solution would carry.
+
+    The liquid rows are allocated once with each crystal standing in as a
+    liquid row of AMBROX_CRYSTAL_REFERENCE_DILUTION (the weight and caps a
+    25% grade of it gets), and the stand-in's raw uL times that strength is
+    the crystal's whole mg (at least 10 mg).  The caller then allocates the
+    liquids with the crystal outside them, so the solvent the solution would
+    have brought is shared by the whole formula pro rata.  This pass's holds
+    describe a formula nobody compounds, so they are dropped.
+    """
+
+    dilution = float(AMBROX_CRYSTAL_REFERENCE_DILUTION)
+    stand_in = list(choices)
+    for index in crystal_indices:
+        candidate = choices[index].candidate
+        stand_in[index] = replace(
+            choices[index],
+            candidate=replace(candidate, solid=False, stock=replace(candidate.stock, dilution=dilution)),
+        )
+    free_rows = [
+        (index, _allocation_weight(choice), _design_cap_ul(choice, liquid_total_ul))
+        for index, choice in enumerate(stand_in)
+        if not choice.candidate.solid and index not in fixed_liquid
+    ]
+    unused_holds: list[str] = []
+    allocated = _allocate_with_bulk_fallback(
+        liquid_total_ul - sum(fixed_liquid.values()), free_rows, stand_in, liquid_total_ul, unused_holds
+    )
+    allocated = _lead_with_named_notes(
+        allocated, free_rows, fixed_liquid, stand_in, liquid_total_ul, unused_holds
+    )
+    return {
+        index: max(
+            _AMBROX_CRYSTAL_MIN_MG,
+            int((Decimal(allocated.get(index, 0)) * AMBROX_CRYSTAL_REFERENCE_DILUTION)
+                .to_integral_value(rounding=ROUND_HALF_UP)),
+        )
+        for index in crystal_indices
+    }
+
+
 def _solid_default_mg(candidate: Candidate, liquid_total_ul: int) -> int | None:
     probe = _candidate_probe(candidate)
     if "ambrox" in probe:
@@ -2807,6 +2881,7 @@ def _formula_rows(
 ) -> tuple[list[dict[str, Any]], dict[str, str], list[str]]:
     fixed_liquid: dict[int, int] = {}
     solid_amounts: dict[int, int] = {}
+    rule_dosed_crystals: list[int] = []
     holds: list[str] = []
     amount: Decimal | int
     for index, choice in enumerate(choices):
@@ -2820,6 +2895,9 @@ def _formula_rows(
                     holds.append(f"SOLID_QUANTITY_UNIT_MISMATCH:{choice.candidate.stock.stock_id}")
                     continue
                 solid_amounts[index] = int(amount.to_integral_value())
+            elif is_weighed_amber_crystal(choice.candidate):
+                # Dosed below, once every requested liquid dose is known.
+                rule_dosed_crystals.append(index)
             else:
                 default = _solid_default_mg(choice.candidate, liquid_total_ul)
                 if default is None:
@@ -2844,6 +2922,10 @@ def _formula_rows(
     fixed_total = sum(fixed_liquid.values())
     if fixed_total > liquid_total_ul:
         raise ValueError("explicit liquid material doses exceed the requested liquid total")
+    if rule_dosed_crystals:
+        solid_amounts.update(
+            _ambrox_crystal_mg(choices, rule_dosed_crystals, fixed_liquid, liquid_total_ul)
+        )
     free_rows = [
         (index, _allocation_weight(choice), _design_cap_ul(choice, liquid_total_ul))
         for index, choice in enumerate(choices)
@@ -2978,6 +3060,8 @@ def _formula_rows(
                 "function": accord.function,
                 "source_ids": list(accord.source_ids),
             }
+        if index in rule_dosed_crystals:
+            rows[-1]["mass_basis"] = AMBROX_CRYSTAL_MASS_BASIS
         ceiling = _normal_use_ceiling(candidate)
         if ceiling is None and not candidate.solid:
             ceiling = _screening_default(choice, liquid_total_ul)

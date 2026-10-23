@@ -35,6 +35,7 @@ from engine.ifra_standards import single_material_limit_pct
 from engine.research.composition_planner import (
     _MIN_RAW_TRANSFER_UL,
     ACCORD_SUPPORT_SEPARATOR,
+    AMBER_CRYSTAL_IDENTITIES,
     TRACE_STOCK_FRACTION,
     Choice,
     RoleSpec,
@@ -713,6 +714,41 @@ def _is_cited_helper(role: SemanticRole) -> bool:
     return accord is not None and accord.part == "helper"
 
 
+_AMBER_CRYSTAL_IDENTITIES = AMBER_CRYSTAL_IDENTITIES
+_AMBER_CRYSTAL_QUERY_WORDS = frozenset({"ambrox", "ambergris"})
+_AMBER_CRYSTAL_FUNCTIONS = frozenset({"structure", "fixative"})
+
+
+def _weighed_amber_crystal(capability: MaterialCapability, role: SemanticRole) -> bool:
+    """The owned neat Ambrox Super crystals may fill this role without a mass request.
+
+    The role is the brief's amber base (a base structure or fixative role
+    asking for ambrox or ambergris), or a cited accord helper whose accord
+    cites the crystals (the lavender texture helper).  The planner then weighs
+    the ambroxide the owned 25% solution would have carried in that role, so
+    the amber base keeps its balance.  Keyed to the identity, never to
+    ``candidate.solid`` alone, which also flags tinctures and Oranger Crystals.
+    """
+
+    candidate = capability.candidate
+    if not (
+        getattr(candidate, "solid", False)
+        and role.exact_material is None
+        and float(candidate.stock.dilution) >= .999
+        and capability.design_ready
+        and capability.execution_ready
+        and _chemical_identity(capability) in _AMBER_CRYSTAL_IDENTITIES
+    ):
+        return False
+    if _is_cited_helper(role) and role.accord.cites(capability.identity_name, 1.0):
+        return True
+    return (
+        getattr(role, "note", None) == "base"
+        and getattr(role, "function", None) in _AMBER_CRYSTAL_FUNCTIONS
+        and bool(_words(role.query_terms) & _AMBER_CRYSTAL_QUERY_WORDS)
+    )
+
+
 def _cited_helper_ifra_block(
     capability: MaterialCapability,
     role: SemanticRole,
@@ -838,9 +874,11 @@ def _block_reason(
         lead = _accord_lead(role, state)
         if not _supports_accord(capability, role, lead[0] if lead else None):
             return "does not carry the lead's note and odor"
-    if capability.candidate.solid and role.exact_material is None:
+    if capability.candidate.solid and role.exact_material is None and not _weighed_amber_crystal(capability, role):
         # A solid needs an explicit mass-bearing request.  Selecting one from a
         # descriptor alone would force the solver to invent a mass operation.
+        # The owned Ambrox Super crystals are the one exception: the planner
+        # doses them by rule (composition_planner._ambrox_crystal_mg).
         return "a solid stock needs a mass request"
     if role.provenance == ACCENT_PROVENANCE and role.exact_material is None:
         # Accents are the one supporting place for potent materials, kept to
@@ -1034,7 +1072,7 @@ def _unary_rank_for_role(
     for capability in index.capabilities:
         if _avoid_candidate(capability.candidate, avoid):
             continue
-        if capability.candidate.solid and role.exact_material is None:
+        if capability.candidate.solid and role.exact_material is None and not _weighed_amber_crystal(capability, role):
             continue
         if role.knowledge_role_slot and role.knowledge_role_slot not in capability.knowledge_role_slots:
             continue
@@ -1095,6 +1133,15 @@ def _unary_rank_for_role(
         ]
         if named:
             ranked = named
+    if role.exact_material is None:
+        # An admitted crystal stands for its material: the liquid grades of
+        # the same identity give way to it here, so the look-ahead and the
+        # helpers' kept-for reasons see the same list the search does.
+        crystals = {_chemical_identity(row[1]) for row in ranked if row[1].candidate.solid}
+        ranked = [
+            row for row in ranked
+            if row[1].candidate.solid or _chemical_identity(row[1]) not in crystals
+        ]
     ranked.sort(key=lambda row: _rank_key(row, role, variant_index, liking))
     # Exact roles retain every matching stock form.  The ordinary unary
     # frontier is deliberately wider than the state frontier so global
@@ -1192,6 +1239,86 @@ def _is_fast_top(capability: MaterialCapability) -> bool:
     return vp is not None and get_note_tier_from_vp(float(vp)) is NoteTier.TOP
 
 
+# Amber-base materials move together, through the weighed-crystal rule only
+# (_weighed_amber_crystal); no grade rule swaps one of them alone.
+_AMBER_BASE_WORDS = ("ambrox", "ambrofix", "amber xtreme", "ambrocenide", "ambermax")
+_STRONGEST_GRADE_FUNCTIONS = frozenset({"fixative", "structure"})
+# An exact material named with its strength or form is the user's grade.
+_NAMES_A_GRADE = re.compile(r"\d\s*%|\b(?:neat|pure|crystals?|solution|dilution|diluted)\b")
+
+
+def _is_amber_base(capability: MaterialCapability) -> bool:
+    identity = _chemical_identity(capability)
+    return any(word in identity for word in _AMBER_BASE_WORDS)
+
+
+def _takes_strongest_grade(role: SemanticRole) -> bool:
+    """A role whose stock is its material's strongest owned grade.
+
+    A note's lead, and a base, fixative or structure role, carry the
+    formula's active and long-lasting material.  An accent keeps the weak
+    grade it is dosed by.  Stand-in roles without a note or function keep
+    only the note-lead test.
+    """
+
+    if role.provenance == ACCENT_PROVENANCE:
+        return False
+    return (
+        _is_note_lead(role)
+        or getattr(role, "note", None) == "base"
+        or getattr(role, "function", None) in _STRONGEST_GRADE_FUNCTIONS
+    )
+
+
+def _owned_grades(
+    ranked: Sequence[tuple[float, MaterialCapability]],
+    role: SemanticRole,
+    reserved: frozenset[str] = frozenset(),
+) -> list[tuple[float, MaterialCapability]]:
+    """Leave out a grade the owner's stock does better, among grades still selectable.
+
+    Role fit ignores stock strength, so a not-owned grade used to win
+    whenever it scored a hundredth higher; owning a grade (execution_ready)
+    was only a late tie-break.  Two rules, each against an owned
+    (design-ready and execution-ready) grade of the same chemical identity
+    in ``ranked`` that no other stock the brief names claims (``reserved``):
+
+    1. Every role leaves out a grade that is not owned: the owned neat
+       Ambrettolide replaces its 10% stock, the owned Safraleine 10% the
+       neat one.
+    2. A role that takes the strongest grade (``_takes_strongest_grade``)
+       leaves out every weaker grade, unless the stock is a fast top
+       (``_is_fast_top``), whose weak grade is the dose.
+
+    Amber-base materials are left alone (``_AMBER_BASE_WORDS``), and so is
+    an exact material named with its strength or form (``_NAMES_A_GRADE``).
+    """
+
+    if role.exact_material is not None and _NAMES_A_GRADE.search(role.exact_material.casefold()):
+        return list(ranked)
+    owned: dict[str, float] = {}
+    for _score, capability in ranked:
+        identity = _chemical_identity(capability)
+        if capability.design_ready and capability.execution_ready and identity not in reserved:
+            owned[identity] = max(owned.get(identity, 0.0), float(capability.candidate.stock.dilution))
+    strongest = _takes_strongest_grade(role)
+    kept = []
+    for row in ranked:
+        capability = row[1]
+        best = owned.get(_chemical_identity(capability))
+        if best is not None and not _is_amber_base(capability):
+            if not capability.execution_ready:
+                continue
+            if (
+                strongest
+                and float(capability.candidate.stock.dilution) < best
+                and not _is_fast_top(capability)
+            ):
+                continue
+        kept.append(row)
+    return kept
+
+
 def _rank_for_state(
     unary_ranked: Sequence[tuple[float, MaterialCapability]],
     role: SemanticRole,
@@ -1227,6 +1354,7 @@ def _rank_for_state(
             liquid_total_ul=liquid_total_ul,
         )
     ]
+    ranked = _owned_grades(ranked, role, reserved_identities)
     if _is_note_lead(role):
         ranked = _without_trace_grades(ranked, reserved_identities)
     lead = _accord_lead(role, state)
@@ -1325,6 +1453,10 @@ def _unplaced_cited_helpers(
             assignment.role for assignment in assignments
             if _chemical_identity(assignment.capability) in cited
         ), None)
+        carried = {
+            _chemical_identity(assignment.capability) for assignment in assignments
+            if assignment.role is carrier and assignment.capability.candidate.solid
+        }
         reasons = []
         for name, fraction in role.accord.stocks:
             capability = next((
@@ -1335,8 +1467,14 @@ def _unplaced_cited_helpers(
                 capability, role, state, avoid=avoid, allow_multiple_musks=allow_multiple_musks,
                 enforce_own_odor_avoid=enforce_own_odor_avoid, liquid_total_ul=liquid_total_ul,
             )
-            if reason is None and capability is not None and (role.role_id, capability.stock_id) in (kept_for or {}):
-                kept = carrier or kept_for[(role.role_id, capability.stock_id)]
+            kept_by = (kept_for or {}).get((role.role_id, capability.stock_id)) if capability else None
+            if reason is None and capability is not None and (
+                kept_by is not None
+                # A liquid grade that gave way to its admitted crystal is
+                # carried by the row that holds the crystal.
+                or (carrier is not None and _chemical_identity(capability) in carried)
+            ):
+                kept = carrier or kept_by
                 reason = f"kept for the {'required ' if kept.required else ''}role {kept.label}"
             reasons.append(f"{name} at {fraction:g}: {reason or 'not kept by the search'}")
         entry = {

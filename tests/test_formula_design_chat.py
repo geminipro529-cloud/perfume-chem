@@ -989,6 +989,12 @@ def test_formula_design_does_not_add_third_tuberose_source_by_default() -> None:
     assert len(tuberose_rows) == 2
 
 
+def _active_amount(row: dict) -> float:
+    """A row's active amount: uL times stock fraction, or mg of a neat solid."""
+
+    return float(row["amount_decimal"]) * float(row["stock_fraction_decimal"])
+
+
 def _base_layer_rows(result: dict) -> dict[str, dict]:
     return {
         row["slot"]: row
@@ -1074,5 +1080,7 @@ def test_formula_design_builds_each_requested_note_as_an_accord() -> None:
         assert len(identities) == 3
         for support in supports:
             assert support["note"] == lead["note"]
-            # The lead keeps the named character; supports add nuance.
-            assert int(support["amount_decimal"]) < int(lead["amount_decimal"])
+            # The lead keeps the named character; supports add nuance.  The
+            # amber lead is weighed Ambrox crystals (mg, neat), so rows are
+            # compared by active amount: amount times stock fraction.
+            assert _active_amount(support) < _active_amount(lead)
