@@ -1177,11 +1177,15 @@ def _is_fast_top(capability: MaterialCapability) -> bool:
 
     At 50 Pa or more at 25 C a material is a fast top note, owned at a weak
     grade because a little is enough: at a lead's share its 10% grade carries
-    ten times the active volume of its 1% grade, and a fruit facet led that
+    ten times or more the active volume of its 1% grade (the planner also
+    weights a stronger stock's raw volume up), and a fruit facet led that
     way overdoses the opening with ester. Owned trace grades this keeps:
     Hexyl Acetate (194 Pa) and Benzaldehyde (120 Pa). A heart oil such as
     Lavender EO (3.5 Pa) or Rose Oxide (5.3 Pa) still leads on its stronger
-    grade.
+    grade. This tier table is used rather than the profile's note field,
+    which would also exempt Lemonile and Aldehyde C12 MNA (1.2 and 1.5 Pa), or
+    the 2 Pa top cut-off in the science reference, which would exempt neat
+    Lavender EO BONTAUX (22 Pa), the lead this rule exists for.
     """
 
     vp = capability.candidate.profile.vp

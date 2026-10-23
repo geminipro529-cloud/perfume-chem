@@ -311,6 +311,8 @@ def test_a_named_stock_that_leads_a_covered_note_builds_its_cited_accord():
     assert slot not in by_slot
     carrier = by_slot[carried[slot]]
     assert carrier["slot"].startswith("family_") and _cited(first.stocks, carrier) and "accord" not in carrier
+    entry = next(e for e in receipt["unplaced_accord_helpers"] if e["role_id"] == slot)
+    assert entry["job"] == first.job
     row = by_slot[f"explicit_anchor_1{separator}3"]
     assert _cited(second.stocks, row)
     assert row["accord"]["job"] == second.job
