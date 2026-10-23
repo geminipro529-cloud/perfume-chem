@@ -144,6 +144,7 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 0.8800, supplier-reported (PerfumersWorld 7LW00863 "Cabreuva Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Cade Oil Rectified
   aliases: [cade oil, cade, cade rectified, juniper tar, huile de cade]
   cas: 8013-10-3
@@ -1152,6 +1153,7 @@
     vp_25c_pa: 'ESTIMATE: TGSC "0.000240 mmHg @ 25.00 C. (est)" x 133.322 Pa/mmHg = 0.0320 Pa; https://www.thegoodscentscompany.com/data/rw1023611.html (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
     mw_g_mol: 'TGSC and EPI Suite (https://www.thegoodscentscompany.com/episys/ep1023611.html) agree on C17H26O2 = 262.40 for CAS 32214-91-8; PerfumersWorld SDS 264.41 is the C17H28O2 weight (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
     density_25c_g_ml: 'SG 0.9900, supplier-reported (PerfumersWorld 3WI03465 "Caryophyllene Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Cashmeran
   aliases:
   - cashmeran
@@ -1845,6 +1847,7 @@
     vp_25c_pa: 'estimate kept at 0.35 Pa; bound only: IFF SDS 2020 https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Cedramber_IFF_SDS.pdf "< 0.01 hPa"; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     logp: 'ChemicalBook, unmarked (estimate): 6.1; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     density_25c_g_ml: 'SG 0.9710, supplier-reported (PerfumersWorld 3WW00097 "Cedramber"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Cedrat FCF Sicilian
   aliases:
   - cedrat fcf sicilian
@@ -2018,6 +2021,7 @@
     hedonic_valence: engine.hedonic_model
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 0.9690, supplier-reported (PerfumersWorld 3WI00098 "Cedroxyde"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Cedryl Acetate
   aliases: []
   cas: '77-54-3'
@@ -2061,6 +2065,7 @@
     mw_g_mol: 'formula weight of C17H28O2 per IFF (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
     vp_25c_pa: 'SUPPLIER, temperature-adjusted (2026-10-14): IFF compendium "0.000489 mm Hg @ 23 C" = 0.0652 Pa, x1.23 to 25 C at dHvap 75 kJ/mol = 0.080 Pa. TGSC 0.002 mmHg (est) = 0.27 Pa is 3.3x higher. No measured value found. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
     density_25c_g_ml: 'SG 0.9770, supplier-reported (PerfumersWorld 2WW00099 "Cedryl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Celery Seed Essential Oil
   aliases: []
   cas: null
@@ -2258,6 +2263,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     density_25c_g_ml: 'SG 0.9500, supplier-reported (PerfumersWorld 7NJ07740 "Champaca Flower Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Champaca Flower Essential Oil
   aliases: []
   cas: null
@@ -3427,6 +3433,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     density_25c_g_ml: 'SG 0.8460, supplier-reported (PerfumersWorld 4GL00225 "cis-3 Hexenol"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Cis-3-Hexenyl Salicylate
   aliases:
   - cis-3-hexenyl salicylate
@@ -3911,6 +3918,7 @@
     cas: 'PubChem record for CAS 150-84-5 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     vp_25c_pa: '2.393 Pa at 25 C from the NIST WebBook Antoine fit via D:\agent-cache\tools\chemprops.py (run 2026-10-23); EXTRAPOLATED: the fit covers 347.8-490 K, not 298 K'
     density_25c_g_ml: 'SG 0.8840, supplier-reported (PerfumersWorld 3RL00118 "Citronellyl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Citronellyl Formate
   aliases: []
   cas: null
@@ -4359,6 +4367,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     density_25c_g_ml: 'SG 0.8890, supplier-reported (PerfumersWorld 7HH00121 "Clary Sage Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Clary Sage Essential Oil
   aliases: []
   cas: null
@@ -5026,6 +5035,7 @@
     odt_eth_ppm: legacy estimated effective threshold
     user_in_inventory: user-confirmed 2026-07-18
     density_25c_g_ml: 'SG 0.9600, supplier-reported (PerfumersWorld 1VT23924 "Cocoa CO2 Extract"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Coconut F-TEC
   aliases:
   - COCONUT F-TEC
@@ -6116,6 +6126,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 0.9450, supplier-reported (PerfumersWorld 3MG00134 "Cyclamen Aldehyde"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Cyclamen F-TEC
   aliases:
   - CYCLAMEN F-TEC
@@ -6378,6 +6389,7 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 0.8800, supplier-reported (PerfumersWorld 7KB00833 "Cypress Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: coumarin (neat powder)
   aliases:
   - Coumarin powder

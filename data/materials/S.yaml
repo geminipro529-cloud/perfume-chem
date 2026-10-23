@@ -1306,6 +1306,7 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 0.9400, supplier-reported (PerfumersWorld 6WX24054 "Sandalwood Base X3"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Sandalwood EO
   aliases:
   - sandalwood eo
@@ -1341,6 +1342,7 @@
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     density_25c_g_ml: 'SG 0.9850, supplier-reported (PerfumersWorld 7WX00406 "Sandalwood Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Sandalwood Essential Oil
   aliases: []
   cas: null
@@ -1801,6 +1803,7 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 1.0750, supplier-reported (PerfumersWorld 4YM22431 "Scentenal"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Seaweed F-TEC
   aliases:
   - SEAWEED F-TEC
@@ -2789,6 +2792,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     density_25c_g_ml: 'SG 0.9400, supplier-reported (PerfumersWorld 3UP14351 "Suederal"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Sugandha Kokila Essential Oil
   aliases: []
   cas: null
@@ -3120,6 +3124,7 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 0.8420, supplier-reported (PerfumersWorld 7CA00339 "Sweet Orange Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: SWEET Vanilla F-TEC
   aliases:
   - SWEET VANILLA F-TEC

@@ -1782,6 +1782,7 @@
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
     density_25c_g_ml: 'SG 0.9210, supplier-reported (PerfumersWorld 8ND00346 "Osmanthus Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: oakmoss absolute
   aliases: []
   cas:

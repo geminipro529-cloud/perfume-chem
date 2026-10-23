@@ -1169,6 +1169,7 @@
     odt_air_ppb: 'Cometto-Muniz & Abraham (2010) Chem. Senses 35(4):289-299, doi:10.1093/chemse/bjq018, https://pmc.ncbi.nlm.nih.gov/articles/PMC2912639, Table 2: "Octanal | 16 | 0.17", ppb by volume (human, 3-AFC vapour delivery, 16 subjects). Second measured source, conflicting: Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review, Japan Ministry of the Environment, pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 (ppm, v/v): "n-Octylaldehyde 0.000010" ppm v/v = 0.010 ppb'
     logp: 'ESTIMATE (2026-10-14): consensus of the Sangster-listed 2.53 (via PubChem, DOI 10.1016/j.fluid.2014.01.017), KOWWIN 2.78 (TGSC EPI page ep1000251) and measured nonanal 3.4 (ECHA, OECD 117) minus about 0.5 per CH2 = 2.9. The EPA HPV HPLC 3.5 is set aside because it exceeds measured nonanal. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
     density_25c_g_ml: 'SG 0.8180, supplier-reported (PerfumersWorld 4AC00026 "Aldehyde C-8 Octanal"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Aldehyde C-9 Nonanal
   aliases: []
   cas: '124-19-6'
@@ -2916,6 +2917,7 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 0.8980, supplier-reported (PerfumersWorld 8XU00529 "Ambrette Seed Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Ambrette SEED F-TEC
   aliases:
   - AMBRETTE SEED F-TEC
@@ -3641,6 +3643,7 @@
     logp: pubchem_cid_637563
     user_in_inventory: inventory.txt
     density_25c_g_ml: 'SG 0.9800, supplier-reported (PerfumersWorld 7SB00041 "Anise Essential Oil China"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Anise Essential Oil China
   aliases: []
   cas: null
@@ -3719,6 +3722,7 @@
     mw_g_mol: 'RDKit exact from SMILES COc1ccc(COC(C)=O)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     cas: 'PubChem record for CAS 104-21-2 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     density_25c_g_ml: 'SG 1.1040, supplier-reported (PerfumersWorld 3LN00043 "Anisyl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Anisyl Alcohol
   aliases: []
   cas: null
@@ -4519,6 +4523,7 @@
   user_in_inventory: true
   provenance:
     density_25c_g_ml: 'SG 0.9460, supplier-reported (PerfumersWorld 4FC00030 "Allyl Cyclohexyl Propionate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Amber Xtreme
   aliases: [amber xtreme]
   cas: 476332-65-7

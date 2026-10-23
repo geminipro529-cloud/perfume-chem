@@ -158,6 +158,7 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 1.0800, supplier-reported (PerfumersWorld 8VW08619 "Vanilla Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Vanillin
   aliases:
   - vanillin
@@ -461,6 +462,7 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 1.0680, supplier-reported (PerfumersWorld 3LJ01926 "Verdyl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Verdyl Propionate
   aliases: []
   cas:
@@ -957,6 +959,7 @@
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 1.0000, supplier-reported (PerfumersWorld 3WY00468 "Vetiveryl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Violet F-TEC
   aliases:
   - VIOLET F-TEC
